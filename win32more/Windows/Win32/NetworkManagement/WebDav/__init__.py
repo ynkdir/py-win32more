@@ -1,12 +1,11 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.NetworkManagement.WebDav
 AUTHNEXTSTEP = Int32
-AUTHNEXTSTEP_DefaultBehavior: AUTHNEXTSTEP = 0
-AUTHNEXTSTEP_RetryRequest: AUTHNEXTSTEP = 1
-AUTHNEXTSTEP_CancelRequest: AUTHNEXTSTEP = 2
+AUTHNEXTSTEP_DefaultBehavior: win32more.Windows.Win32.NetworkManagement.WebDav.AUTHNEXTSTEP = 0
+AUTHNEXTSTEP_RetryRequest: win32more.Windows.Win32.NetworkManagement.WebDav.AUTHNEXTSTEP = 1
+AUTHNEXTSTEP_CancelRequest: win32more.Windows.Win32.NetworkManagement.WebDav.AUTHNEXTSTEP = 2
 DAV_AUTHN_SCHEME_BASIC: UInt32 = 1
 DAV_AUTHN_SCHEME_NTLM: UInt32 = 2
 DAV_AUTHN_SCHEME_PASSPORT: UInt32 = 4
@@ -54,4 +53,6 @@ class DAV_CALLBACK_CRED(EasyCastStructure):
 def PFNDAVAUTHCALLBACK(lpwzServerName: win32more.Windows.Win32.Foundation.PWSTR, lpwzRemoteName: win32more.Windows.Win32.Foundation.PWSTR, dwAuthScheme: UInt32, dwFlags: UInt32, pCallbackCred: POINTER(win32more.Windows.Win32.NetworkManagement.WebDav.DAV_CALLBACK_CRED), NextStep: POINTER(win32more.Windows.Win32.NetworkManagement.WebDav.AUTHNEXTSTEP), pFreeCred: POINTER(win32more.Windows.Win32.NetworkManagement.WebDav.PFNDAVAUTHCALLBACK_FREECRED)) -> UInt32: ...
 @winfunctype_pointer
 def PFNDAVAUTHCALLBACK_FREECRED(pbuffer: VoidPtr) -> UInt32: ...
+
+
 make_ready(__name__)

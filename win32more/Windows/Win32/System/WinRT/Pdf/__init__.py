@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Direct2D
 import win32more.Windows.Win32.Graphics.Direct2D.Common
@@ -24,4 +23,6 @@ class PDF_RENDER_PARAMS(EasyCastStructure):
     IgnoreHighContrast: win32more.Windows.Win32.Foundation.BOOLEAN
 @winfunctype_pointer
 def PFN_PDF_CREATE_RENDERER(param0: win32more.Windows.Win32.Graphics.Dxgi.IDXGIDevice, param1: POINTER(win32more.Windows.Win32.System.WinRT.Pdf.IPdfRendererNative)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+
+
 make_ready(__name__)

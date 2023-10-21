@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation.Metadata
 class AgileAttribute(EasyCastStructure):
     pass
@@ -9,11 +8,11 @@ class AlsoUsableForAttribute(EasyCastStructure):
 class AnsiAttribute(EasyCastStructure):
     pass
 Architecture = Int32
-Architecture_None: Architecture = 0
-Architecture_X86: Architecture = 1
-Architecture_X64: Architecture = 2
-Architecture_Arm64: Architecture = 4
-Architecture_All: Architecture = 7
+Architecture_None: win32more.Windows.Win32.Foundation.Metadata.Architecture = 0
+Architecture_X86: win32more.Windows.Win32.Foundation.Metadata.Architecture = 1
+Architecture_X64: win32more.Windows.Win32.Foundation.Metadata.Architecture = 2
+Architecture_Arm64: win32more.Windows.Win32.Foundation.Metadata.Architecture = 4
+Architecture_All: win32more.Windows.Win32.Foundation.Metadata.Architecture = 7
 class AssociatedConstantAttribute(EasyCastStructure):
     Name: String
 class AssociatedEnumAttribute(EasyCastStructure):
@@ -94,4 +93,6 @@ class SupportedOSPlatformAttribute(EasyCastStructure):
     platform: String
 class UnicodeAttribute(EasyCastStructure):
     pass
+
+
 make_ready(__name__)

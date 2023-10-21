@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.Storage.InstallableFileSystems
@@ -192,9 +191,9 @@ class FILTER_FULL_INFORMATION(EasyCastStructure):
     FilterNameLength: UInt16
     FilterNameBuffer: Char * 1
 FILTER_INFORMATION_CLASS = Int32
-FILTER_INFORMATION_CLASS_FilterFullInformation: FILTER_INFORMATION_CLASS = 0
-FILTER_INFORMATION_CLASS_FilterAggregateBasicInformation: FILTER_INFORMATION_CLASS = 1
-FILTER_INFORMATION_CLASS_FilterAggregateStandardInformation: FILTER_INFORMATION_CLASS = 2
+FILTER_INFORMATION_CLASS_FilterFullInformation: win32more.Windows.Win32.Storage.InstallableFileSystems.FILTER_INFORMATION_CLASS = 0
+FILTER_INFORMATION_CLASS_FilterAggregateBasicInformation: win32more.Windows.Win32.Storage.InstallableFileSystems.FILTER_INFORMATION_CLASS = 1
+FILTER_INFORMATION_CLASS_FilterAggregateStandardInformation: win32more.Windows.Win32.Storage.InstallableFileSystems.FILTER_INFORMATION_CLASS = 2
 class FILTER_MESSAGE_HEADER(EasyCastStructure):
     ReplyLength: UInt32
     MessageId: UInt64
@@ -205,8 +204,8 @@ class FILTER_VOLUME_BASIC_INFORMATION(EasyCastStructure):
     FilterVolumeNameLength: UInt16
     FilterVolumeName: Char * 1
 FILTER_VOLUME_INFORMATION_CLASS = Int32
-FILTER_VOLUME_INFORMATION_CLASS_FilterVolumeBasicInformation: FILTER_VOLUME_INFORMATION_CLASS = 0
-FILTER_VOLUME_INFORMATION_CLASS_FilterVolumeStandardInformation: FILTER_VOLUME_INFORMATION_CLASS = 1
+FILTER_VOLUME_INFORMATION_CLASS_FilterVolumeBasicInformation: win32more.Windows.Win32.Storage.InstallableFileSystems.FILTER_VOLUME_INFORMATION_CLASS = 0
+FILTER_VOLUME_INFORMATION_CLASS_FilterVolumeStandardInformation: win32more.Windows.Win32.Storage.InstallableFileSystems.FILTER_VOLUME_INFORMATION_CLASS = 1
 class FILTER_VOLUME_STANDARD_INFORMATION(EasyCastStructure):
     NextEntryOffset: UInt32
     Flags: UInt32
@@ -215,37 +214,37 @@ class FILTER_VOLUME_STANDARD_INFORMATION(EasyCastStructure):
     FilterVolumeNameLength: UInt16
     FilterVolumeName: Char * 1
 FLT_FILESYSTEM_TYPE = Int32
-FLT_FSTYPE_UNKNOWN: FLT_FILESYSTEM_TYPE = 0
-FLT_FSTYPE_RAW: FLT_FILESYSTEM_TYPE = 1
-FLT_FSTYPE_NTFS: FLT_FILESYSTEM_TYPE = 2
-FLT_FSTYPE_FAT: FLT_FILESYSTEM_TYPE = 3
-FLT_FSTYPE_CDFS: FLT_FILESYSTEM_TYPE = 4
-FLT_FSTYPE_UDFS: FLT_FILESYSTEM_TYPE = 5
-FLT_FSTYPE_LANMAN: FLT_FILESYSTEM_TYPE = 6
-FLT_FSTYPE_WEBDAV: FLT_FILESYSTEM_TYPE = 7
-FLT_FSTYPE_RDPDR: FLT_FILESYSTEM_TYPE = 8
-FLT_FSTYPE_NFS: FLT_FILESYSTEM_TYPE = 9
-FLT_FSTYPE_MS_NETWARE: FLT_FILESYSTEM_TYPE = 10
-FLT_FSTYPE_NETWARE: FLT_FILESYSTEM_TYPE = 11
-FLT_FSTYPE_BSUDF: FLT_FILESYSTEM_TYPE = 12
-FLT_FSTYPE_MUP: FLT_FILESYSTEM_TYPE = 13
-FLT_FSTYPE_RSFX: FLT_FILESYSTEM_TYPE = 14
-FLT_FSTYPE_ROXIO_UDF1: FLT_FILESYSTEM_TYPE = 15
-FLT_FSTYPE_ROXIO_UDF2: FLT_FILESYSTEM_TYPE = 16
-FLT_FSTYPE_ROXIO_UDF3: FLT_FILESYSTEM_TYPE = 17
-FLT_FSTYPE_TACIT: FLT_FILESYSTEM_TYPE = 18
-FLT_FSTYPE_FS_REC: FLT_FILESYSTEM_TYPE = 19
-FLT_FSTYPE_INCD: FLT_FILESYSTEM_TYPE = 20
-FLT_FSTYPE_INCD_FAT: FLT_FILESYSTEM_TYPE = 21
-FLT_FSTYPE_EXFAT: FLT_FILESYSTEM_TYPE = 22
-FLT_FSTYPE_PSFS: FLT_FILESYSTEM_TYPE = 23
-FLT_FSTYPE_GPFS: FLT_FILESYSTEM_TYPE = 24
-FLT_FSTYPE_NPFS: FLT_FILESYSTEM_TYPE = 25
-FLT_FSTYPE_MSFS: FLT_FILESYSTEM_TYPE = 26
-FLT_FSTYPE_CSVFS: FLT_FILESYSTEM_TYPE = 27
-FLT_FSTYPE_REFS: FLT_FILESYSTEM_TYPE = 28
-FLT_FSTYPE_OPENAFS: FLT_FILESYSTEM_TYPE = 29
-FLT_FSTYPE_CIMFS: FLT_FILESYSTEM_TYPE = 30
+FLT_FSTYPE_UNKNOWN: win32more.Windows.Win32.Storage.InstallableFileSystems.FLT_FILESYSTEM_TYPE = 0
+FLT_FSTYPE_RAW: win32more.Windows.Win32.Storage.InstallableFileSystems.FLT_FILESYSTEM_TYPE = 1
+FLT_FSTYPE_NTFS: win32more.Windows.Win32.Storage.InstallableFileSystems.FLT_FILESYSTEM_TYPE = 2
+FLT_FSTYPE_FAT: win32more.Windows.Win32.Storage.InstallableFileSystems.FLT_FILESYSTEM_TYPE = 3
+FLT_FSTYPE_CDFS: win32more.Windows.Win32.Storage.InstallableFileSystems.FLT_FILESYSTEM_TYPE = 4
+FLT_FSTYPE_UDFS: win32more.Windows.Win32.Storage.InstallableFileSystems.FLT_FILESYSTEM_TYPE = 5
+FLT_FSTYPE_LANMAN: win32more.Windows.Win32.Storage.InstallableFileSystems.FLT_FILESYSTEM_TYPE = 6
+FLT_FSTYPE_WEBDAV: win32more.Windows.Win32.Storage.InstallableFileSystems.FLT_FILESYSTEM_TYPE = 7
+FLT_FSTYPE_RDPDR: win32more.Windows.Win32.Storage.InstallableFileSystems.FLT_FILESYSTEM_TYPE = 8
+FLT_FSTYPE_NFS: win32more.Windows.Win32.Storage.InstallableFileSystems.FLT_FILESYSTEM_TYPE = 9
+FLT_FSTYPE_MS_NETWARE: win32more.Windows.Win32.Storage.InstallableFileSystems.FLT_FILESYSTEM_TYPE = 10
+FLT_FSTYPE_NETWARE: win32more.Windows.Win32.Storage.InstallableFileSystems.FLT_FILESYSTEM_TYPE = 11
+FLT_FSTYPE_BSUDF: win32more.Windows.Win32.Storage.InstallableFileSystems.FLT_FILESYSTEM_TYPE = 12
+FLT_FSTYPE_MUP: win32more.Windows.Win32.Storage.InstallableFileSystems.FLT_FILESYSTEM_TYPE = 13
+FLT_FSTYPE_RSFX: win32more.Windows.Win32.Storage.InstallableFileSystems.FLT_FILESYSTEM_TYPE = 14
+FLT_FSTYPE_ROXIO_UDF1: win32more.Windows.Win32.Storage.InstallableFileSystems.FLT_FILESYSTEM_TYPE = 15
+FLT_FSTYPE_ROXIO_UDF2: win32more.Windows.Win32.Storage.InstallableFileSystems.FLT_FILESYSTEM_TYPE = 16
+FLT_FSTYPE_ROXIO_UDF3: win32more.Windows.Win32.Storage.InstallableFileSystems.FLT_FILESYSTEM_TYPE = 17
+FLT_FSTYPE_TACIT: win32more.Windows.Win32.Storage.InstallableFileSystems.FLT_FILESYSTEM_TYPE = 18
+FLT_FSTYPE_FS_REC: win32more.Windows.Win32.Storage.InstallableFileSystems.FLT_FILESYSTEM_TYPE = 19
+FLT_FSTYPE_INCD: win32more.Windows.Win32.Storage.InstallableFileSystems.FLT_FILESYSTEM_TYPE = 20
+FLT_FSTYPE_INCD_FAT: win32more.Windows.Win32.Storage.InstallableFileSystems.FLT_FILESYSTEM_TYPE = 21
+FLT_FSTYPE_EXFAT: win32more.Windows.Win32.Storage.InstallableFileSystems.FLT_FILESYSTEM_TYPE = 22
+FLT_FSTYPE_PSFS: win32more.Windows.Win32.Storage.InstallableFileSystems.FLT_FILESYSTEM_TYPE = 23
+FLT_FSTYPE_GPFS: win32more.Windows.Win32.Storage.InstallableFileSystems.FLT_FILESYSTEM_TYPE = 24
+FLT_FSTYPE_NPFS: win32more.Windows.Win32.Storage.InstallableFileSystems.FLT_FILESYSTEM_TYPE = 25
+FLT_FSTYPE_MSFS: win32more.Windows.Win32.Storage.InstallableFileSystems.FLT_FILESYSTEM_TYPE = 26
+FLT_FSTYPE_CSVFS: win32more.Windows.Win32.Storage.InstallableFileSystems.FLT_FILESYSTEM_TYPE = 27
+FLT_FSTYPE_REFS: win32more.Windows.Win32.Storage.InstallableFileSystems.FLT_FILESYSTEM_TYPE = 28
+FLT_FSTYPE_OPENAFS: win32more.Windows.Win32.Storage.InstallableFileSystems.FLT_FILESYSTEM_TYPE = 29
+FLT_FSTYPE_CIMFS: win32more.Windows.Win32.Storage.InstallableFileSystems.FLT_FILESYSTEM_TYPE = 30
 HFILTER = IntPtr
 HFILTER_INSTANCE = IntPtr
 class INSTANCE_AGGREGATE_STANDARD_INFORMATION(EasyCastStructure):
@@ -292,14 +291,16 @@ class INSTANCE_FULL_INFORMATION(EasyCastStructure):
     FilterNameLength: UInt16
     FilterNameBufferOffset: UInt16
 INSTANCE_INFORMATION_CLASS = Int32
-INSTANCE_INFORMATION_CLASS_InstanceBasicInformation: INSTANCE_INFORMATION_CLASS = 0
-INSTANCE_INFORMATION_CLASS_InstancePartialInformation: INSTANCE_INFORMATION_CLASS = 1
-INSTANCE_INFORMATION_CLASS_InstanceFullInformation: INSTANCE_INFORMATION_CLASS = 2
-INSTANCE_INFORMATION_CLASS_InstanceAggregateStandardInformation: INSTANCE_INFORMATION_CLASS = 3
+INSTANCE_INFORMATION_CLASS_InstanceBasicInformation: win32more.Windows.Win32.Storage.InstallableFileSystems.INSTANCE_INFORMATION_CLASS = 0
+INSTANCE_INFORMATION_CLASS_InstancePartialInformation: win32more.Windows.Win32.Storage.InstallableFileSystems.INSTANCE_INFORMATION_CLASS = 1
+INSTANCE_INFORMATION_CLASS_InstanceFullInformation: win32more.Windows.Win32.Storage.InstallableFileSystems.INSTANCE_INFORMATION_CLASS = 2
+INSTANCE_INFORMATION_CLASS_InstanceAggregateStandardInformation: win32more.Windows.Win32.Storage.InstallableFileSystems.INSTANCE_INFORMATION_CLASS = 3
 class INSTANCE_PARTIAL_INFORMATION(EasyCastStructure):
     NextEntryOffset: UInt32
     InstanceNameLength: UInt16
     InstanceNameBufferOffset: UInt16
     AltitudeLength: UInt16
     AltitudeBufferOffset: UInt16
+
+
 make_ready(__name__)

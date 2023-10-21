@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Networking.WinHttp
 import win32more.Windows.Win32.Networking.WinSock
@@ -750,10 +749,10 @@ class URL_COMPONENTS(EasyCastStructure):
     lpszExtraInfo: win32more.Windows.Win32.Foundation.PWSTR
     dwExtraInfoLength: UInt32
 WINHTTP_ACCESS_TYPE = UInt32
-WINHTTP_ACCESS_TYPE_NO_PROXY: WINHTTP_ACCESS_TYPE = 1
-WINHTTP_ACCESS_TYPE_DEFAULT_PROXY: WINHTTP_ACCESS_TYPE = 0
-WINHTTP_ACCESS_TYPE_NAMED_PROXY: WINHTTP_ACCESS_TYPE = 3
-WINHTTP_ACCESS_TYPE_AUTOMATIC_PROXY: WINHTTP_ACCESS_TYPE = 4
+WINHTTP_ACCESS_TYPE_NO_PROXY: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_ACCESS_TYPE = 1
+WINHTTP_ACCESS_TYPE_DEFAULT_PROXY: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_ACCESS_TYPE = 0
+WINHTTP_ACCESS_TYPE_NAMED_PROXY: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_ACCESS_TYPE = 3
+WINHTTP_ACCESS_TYPE_AUTOMATIC_PROXY: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_ACCESS_TYPE = 4
 class WINHTTP_ASYNC_RESULT(EasyCastStructure):
     dwResult: UIntPtr
     dwError: UInt32
@@ -795,9 +794,9 @@ class WINHTTP_CREDS(EasyCastStructure):
     lpszHostName: win32more.Windows.Win32.Foundation.PSTR
     dwPort: UInt32
 WINHTTP_CREDS_AUTHSCHEME = UInt32
-WINHTTP_AUTH_SCHEME_BASIC: WINHTTP_CREDS_AUTHSCHEME = 1
-WINHTTP_AUTH_SCHEME_NTLM: WINHTTP_CREDS_AUTHSCHEME = 2
-WINHTTP_AUTH_SCHEME_NEGOTIATE: WINHTTP_CREDS_AUTHSCHEME = 16
+WINHTTP_AUTH_SCHEME_BASIC: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_CREDS_AUTHSCHEME = 1
+WINHTTP_AUTH_SCHEME_NTLM: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_CREDS_AUTHSCHEME = 2
+WINHTTP_AUTH_SCHEME_NEGOTIATE: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_CREDS_AUTHSCHEME = 16
 class WINHTTP_CREDS_EX(EasyCastStructure):
     lpszUserName: win32more.Windows.Win32.Foundation.PSTR
     lpszPassword: win32more.Windows.Win32.Foundation.PSTR
@@ -834,10 +833,10 @@ class WINHTTP_HTTP2_RECEIVE_WINDOW(EasyCastStructure):
     ulStreamWindow: UInt32
     ulStreamWindowUpdateDelta: UInt32
 WINHTTP_INTERNET_SCHEME = Int32
-WINHTTP_INTERNET_SCHEME_HTTP: WINHTTP_INTERNET_SCHEME = 1
-WINHTTP_INTERNET_SCHEME_HTTPS: WINHTTP_INTERNET_SCHEME = 2
-WINHTTP_INTERNET_SCHEME_FTP: WINHTTP_INTERNET_SCHEME = 3
-WINHTTP_INTERNET_SCHEME_SOCKS: WINHTTP_INTERNET_SCHEME = 4
+WINHTTP_INTERNET_SCHEME_HTTP: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_INTERNET_SCHEME = 1
+WINHTTP_INTERNET_SCHEME_HTTPS: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_INTERNET_SCHEME = 2
+WINHTTP_INTERNET_SCHEME_FTP: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_INTERNET_SCHEME = 3
+WINHTTP_INTERNET_SCHEME_SOCKS: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_INTERNET_SCHEME = 4
 if ARCH in 'X64,ARM64':
     class WINHTTP_MATCH_CONNECTION_GUID(EasyCastStructure):
         ConnectionGuid: Guid
@@ -848,13 +847,13 @@ if ARCH in 'X86':
         ullFlags: UInt64
         _pack_ = 4
 WINHTTP_OPEN_REQUEST_FLAGS = UInt32
-WINHTTP_FLAG_BYPASS_PROXY_CACHE: WINHTTP_OPEN_REQUEST_FLAGS = 256
-WINHTTP_FLAG_ESCAPE_DISABLE: WINHTTP_OPEN_REQUEST_FLAGS = 64
-WINHTTP_FLAG_ESCAPE_DISABLE_QUERY: WINHTTP_OPEN_REQUEST_FLAGS = 128
-WINHTTP_FLAG_ESCAPE_PERCENT: WINHTTP_OPEN_REQUEST_FLAGS = 4
-WINHTTP_FLAG_NULL_CODEPAGE: WINHTTP_OPEN_REQUEST_FLAGS = 8
-WINHTTP_FLAG_REFRESH: WINHTTP_OPEN_REQUEST_FLAGS = 256
-WINHTTP_FLAG_SECURE: WINHTTP_OPEN_REQUEST_FLAGS = 8388608
+WINHTTP_FLAG_BYPASS_PROXY_CACHE: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_OPEN_REQUEST_FLAGS = 256
+WINHTTP_FLAG_ESCAPE_DISABLE: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_OPEN_REQUEST_FLAGS = 64
+WINHTTP_FLAG_ESCAPE_DISABLE_QUERY: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_OPEN_REQUEST_FLAGS = 128
+WINHTTP_FLAG_ESCAPE_PERCENT: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_OPEN_REQUEST_FLAGS = 4
+WINHTTP_FLAG_NULL_CODEPAGE: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_OPEN_REQUEST_FLAGS = 8
+WINHTTP_FLAG_REFRESH: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_OPEN_REQUEST_FLAGS = 256
+WINHTTP_FLAG_SECURE: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_OPEN_REQUEST_FLAGS = 8388608
 @winfunctype_pointer
 def WINHTTP_PROXY_CHANGE_CALLBACK(ullFlags: UInt64, pvContext: VoidPtr) -> Void: ...
 class WINHTTP_PROXY_INFO(EasyCastStructure):
@@ -929,9 +928,9 @@ if ARCH in 'X86':
         pcwszProbeHost: win32more.Windows.Win32.Foundation.PWSTR
         _pack_ = 4
 WINHTTP_PROXY_SETTINGS_TYPE = Int32
-WINHTTP_PROXY_SETTINGS_TYPE_WinHttpProxySettingsTypeUnknown: WINHTTP_PROXY_SETTINGS_TYPE = 0
-WINHTTP_PROXY_SETTINGS_TYPE_WinHttpProxySettingsTypeWsl: WINHTTP_PROXY_SETTINGS_TYPE = 1
-WINHTTP_PROXY_SETTINGS_TYPE_WinHttpProxySettingsTypeWsa: WINHTTP_PROXY_SETTINGS_TYPE = 2
+WINHTTP_PROXY_SETTINGS_TYPE_WinHttpProxySettingsTypeUnknown: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_PROXY_SETTINGS_TYPE = 0
+WINHTTP_PROXY_SETTINGS_TYPE_WinHttpProxySettingsTypeWsl: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_PROXY_SETTINGS_TYPE = 1
+WINHTTP_PROXY_SETTINGS_TYPE_WinHttpProxySettingsTypeWsa: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_PROXY_SETTINGS_TYPE = 2
 class WINHTTP_QUERY_CONNECTION_GROUP_RESULT(EasyCastStructure):
     cHosts: UInt32
     pHostConnectionGroups: POINTER(win32more.Windows.Win32.Networking.WinHttp.WINHTTP_HOST_CONNECTION_GROUP)
@@ -949,24 +948,24 @@ if ARCH in 'X86':
         rgullStats: UInt64 * 32
         _pack_ = 4
 WINHTTP_REQUEST_STAT_ENTRY = Int32
-WINHTTP_REQUEST_STAT_ENTRY_WinHttpConnectFailureCount: WINHTTP_REQUEST_STAT_ENTRY = 0
-WINHTTP_REQUEST_STAT_ENTRY_WinHttpProxyFailureCount: WINHTTP_REQUEST_STAT_ENTRY = 1
-WINHTTP_REQUEST_STAT_ENTRY_WinHttpTlsHandshakeClientLeg1Size: WINHTTP_REQUEST_STAT_ENTRY = 2
-WINHTTP_REQUEST_STAT_ENTRY_WinHttpTlsHandshakeServerLeg1Size: WINHTTP_REQUEST_STAT_ENTRY = 3
-WINHTTP_REQUEST_STAT_ENTRY_WinHttpTlsHandshakeClientLeg2Size: WINHTTP_REQUEST_STAT_ENTRY = 4
-WINHTTP_REQUEST_STAT_ENTRY_WinHttpTlsHandshakeServerLeg2Size: WINHTTP_REQUEST_STAT_ENTRY = 5
-WINHTTP_REQUEST_STAT_ENTRY_WinHttpRequestHeadersSize: WINHTTP_REQUEST_STAT_ENTRY = 6
-WINHTTP_REQUEST_STAT_ENTRY_WinHttpRequestHeadersCompressedSize: WINHTTP_REQUEST_STAT_ENTRY = 7
-WINHTTP_REQUEST_STAT_ENTRY_WinHttpResponseHeadersSize: WINHTTP_REQUEST_STAT_ENTRY = 8
-WINHTTP_REQUEST_STAT_ENTRY_WinHttpResponseHeadersCompressedSize: WINHTTP_REQUEST_STAT_ENTRY = 9
-WINHTTP_REQUEST_STAT_ENTRY_WinHttpResponseBodySize: WINHTTP_REQUEST_STAT_ENTRY = 10
-WINHTTP_REQUEST_STAT_ENTRY_WinHttpResponseBodyCompressedSize: WINHTTP_REQUEST_STAT_ENTRY = 11
-WINHTTP_REQUEST_STAT_ENTRY_WinHttpProxyTlsHandshakeClientLeg1Size: WINHTTP_REQUEST_STAT_ENTRY = 12
-WINHTTP_REQUEST_STAT_ENTRY_WinHttpProxyTlsHandshakeServerLeg1Size: WINHTTP_REQUEST_STAT_ENTRY = 13
-WINHTTP_REQUEST_STAT_ENTRY_WinHttpProxyTlsHandshakeClientLeg2Size: WINHTTP_REQUEST_STAT_ENTRY = 14
-WINHTTP_REQUEST_STAT_ENTRY_WinHttpProxyTlsHandshakeServerLeg2Size: WINHTTP_REQUEST_STAT_ENTRY = 15
-WINHTTP_REQUEST_STAT_ENTRY_WinHttpRequestStatLast: WINHTTP_REQUEST_STAT_ENTRY = 16
-WINHTTP_REQUEST_STAT_ENTRY_WinHttpRequestStatMax: WINHTTP_REQUEST_STAT_ENTRY = 32
+WINHTTP_REQUEST_STAT_ENTRY_WinHttpConnectFailureCount: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_REQUEST_STAT_ENTRY = 0
+WINHTTP_REQUEST_STAT_ENTRY_WinHttpProxyFailureCount: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_REQUEST_STAT_ENTRY = 1
+WINHTTP_REQUEST_STAT_ENTRY_WinHttpTlsHandshakeClientLeg1Size: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_REQUEST_STAT_ENTRY = 2
+WINHTTP_REQUEST_STAT_ENTRY_WinHttpTlsHandshakeServerLeg1Size: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_REQUEST_STAT_ENTRY = 3
+WINHTTP_REQUEST_STAT_ENTRY_WinHttpTlsHandshakeClientLeg2Size: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_REQUEST_STAT_ENTRY = 4
+WINHTTP_REQUEST_STAT_ENTRY_WinHttpTlsHandshakeServerLeg2Size: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_REQUEST_STAT_ENTRY = 5
+WINHTTP_REQUEST_STAT_ENTRY_WinHttpRequestHeadersSize: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_REQUEST_STAT_ENTRY = 6
+WINHTTP_REQUEST_STAT_ENTRY_WinHttpRequestHeadersCompressedSize: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_REQUEST_STAT_ENTRY = 7
+WINHTTP_REQUEST_STAT_ENTRY_WinHttpResponseHeadersSize: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_REQUEST_STAT_ENTRY = 8
+WINHTTP_REQUEST_STAT_ENTRY_WinHttpResponseHeadersCompressedSize: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_REQUEST_STAT_ENTRY = 9
+WINHTTP_REQUEST_STAT_ENTRY_WinHttpResponseBodySize: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_REQUEST_STAT_ENTRY = 10
+WINHTTP_REQUEST_STAT_ENTRY_WinHttpResponseBodyCompressedSize: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_REQUEST_STAT_ENTRY = 11
+WINHTTP_REQUEST_STAT_ENTRY_WinHttpProxyTlsHandshakeClientLeg1Size: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_REQUEST_STAT_ENTRY = 12
+WINHTTP_REQUEST_STAT_ENTRY_WinHttpProxyTlsHandshakeServerLeg1Size: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_REQUEST_STAT_ENTRY = 13
+WINHTTP_REQUEST_STAT_ENTRY_WinHttpProxyTlsHandshakeClientLeg2Size: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_REQUEST_STAT_ENTRY = 14
+WINHTTP_REQUEST_STAT_ENTRY_WinHttpProxyTlsHandshakeServerLeg2Size: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_REQUEST_STAT_ENTRY = 15
+WINHTTP_REQUEST_STAT_ENTRY_WinHttpRequestStatLast: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_REQUEST_STAT_ENTRY = 16
+WINHTTP_REQUEST_STAT_ENTRY_WinHttpRequestStatMax: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_REQUEST_STAT_ENTRY = 32
 if ARCH in 'X64,ARM64':
     class WINHTTP_REQUEST_TIMES(EasyCastStructure):
         cTimes: UInt32
@@ -977,44 +976,44 @@ if ARCH in 'X86':
         rgullTimes: UInt64 * 64
         _pack_ = 4
 WINHTTP_REQUEST_TIME_ENTRY = Int32
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpProxyDetectionStart: WINHTTP_REQUEST_TIME_ENTRY = 0
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpProxyDetectionEnd: WINHTTP_REQUEST_TIME_ENTRY = 1
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpConnectionAcquireStart: WINHTTP_REQUEST_TIME_ENTRY = 2
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpConnectionAcquireWaitEnd: WINHTTP_REQUEST_TIME_ENTRY = 3
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpConnectionAcquireEnd: WINHTTP_REQUEST_TIME_ENTRY = 4
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpNameResolutionStart: WINHTTP_REQUEST_TIME_ENTRY = 5
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpNameResolutionEnd: WINHTTP_REQUEST_TIME_ENTRY = 6
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpConnectionEstablishmentStart: WINHTTP_REQUEST_TIME_ENTRY = 7
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpConnectionEstablishmentEnd: WINHTTP_REQUEST_TIME_ENTRY = 8
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpTlsHandshakeClientLeg1Start: WINHTTP_REQUEST_TIME_ENTRY = 9
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpTlsHandshakeClientLeg1End: WINHTTP_REQUEST_TIME_ENTRY = 10
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpTlsHandshakeClientLeg2Start: WINHTTP_REQUEST_TIME_ENTRY = 11
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpTlsHandshakeClientLeg2End: WINHTTP_REQUEST_TIME_ENTRY = 12
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpTlsHandshakeClientLeg3Start: WINHTTP_REQUEST_TIME_ENTRY = 13
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpTlsHandshakeClientLeg3End: WINHTTP_REQUEST_TIME_ENTRY = 14
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpStreamWaitStart: WINHTTP_REQUEST_TIME_ENTRY = 15
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpStreamWaitEnd: WINHTTP_REQUEST_TIME_ENTRY = 16
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpSendRequestStart: WINHTTP_REQUEST_TIME_ENTRY = 17
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpSendRequestHeadersCompressionStart: WINHTTP_REQUEST_TIME_ENTRY = 18
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpSendRequestHeadersCompressionEnd: WINHTTP_REQUEST_TIME_ENTRY = 19
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpSendRequestHeadersEnd: WINHTTP_REQUEST_TIME_ENTRY = 20
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpSendRequestEnd: WINHTTP_REQUEST_TIME_ENTRY = 21
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpReceiveResponseStart: WINHTTP_REQUEST_TIME_ENTRY = 22
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpReceiveResponseHeadersDecompressionStart: WINHTTP_REQUEST_TIME_ENTRY = 23
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpReceiveResponseHeadersDecompressionEnd: WINHTTP_REQUEST_TIME_ENTRY = 24
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpReceiveResponseHeadersEnd: WINHTTP_REQUEST_TIME_ENTRY = 25
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpReceiveResponseBodyDecompressionDelta: WINHTTP_REQUEST_TIME_ENTRY = 26
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpReceiveResponseEnd: WINHTTP_REQUEST_TIME_ENTRY = 27
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpProxyTunnelStart: WINHTTP_REQUEST_TIME_ENTRY = 28
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpProxyTunnelEnd: WINHTTP_REQUEST_TIME_ENTRY = 29
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpProxyTlsHandshakeClientLeg1Start: WINHTTP_REQUEST_TIME_ENTRY = 30
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpProxyTlsHandshakeClientLeg1End: WINHTTP_REQUEST_TIME_ENTRY = 31
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpProxyTlsHandshakeClientLeg2Start: WINHTTP_REQUEST_TIME_ENTRY = 32
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpProxyTlsHandshakeClientLeg2End: WINHTTP_REQUEST_TIME_ENTRY = 33
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpProxyTlsHandshakeClientLeg3Start: WINHTTP_REQUEST_TIME_ENTRY = 34
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpProxyTlsHandshakeClientLeg3End: WINHTTP_REQUEST_TIME_ENTRY = 35
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpRequestTimeLast: WINHTTP_REQUEST_TIME_ENTRY = 36
-WINHTTP_REQUEST_TIME_ENTRY_WinHttpRequestTimeMax: WINHTTP_REQUEST_TIME_ENTRY = 64
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpProxyDetectionStart: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_REQUEST_TIME_ENTRY = 0
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpProxyDetectionEnd: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_REQUEST_TIME_ENTRY = 1
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpConnectionAcquireStart: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_REQUEST_TIME_ENTRY = 2
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpConnectionAcquireWaitEnd: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_REQUEST_TIME_ENTRY = 3
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpConnectionAcquireEnd: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_REQUEST_TIME_ENTRY = 4
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpNameResolutionStart: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_REQUEST_TIME_ENTRY = 5
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpNameResolutionEnd: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_REQUEST_TIME_ENTRY = 6
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpConnectionEstablishmentStart: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_REQUEST_TIME_ENTRY = 7
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpConnectionEstablishmentEnd: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_REQUEST_TIME_ENTRY = 8
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpTlsHandshakeClientLeg1Start: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_REQUEST_TIME_ENTRY = 9
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpTlsHandshakeClientLeg1End: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_REQUEST_TIME_ENTRY = 10
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpTlsHandshakeClientLeg2Start: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_REQUEST_TIME_ENTRY = 11
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpTlsHandshakeClientLeg2End: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_REQUEST_TIME_ENTRY = 12
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpTlsHandshakeClientLeg3Start: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_REQUEST_TIME_ENTRY = 13
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpTlsHandshakeClientLeg3End: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_REQUEST_TIME_ENTRY = 14
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpStreamWaitStart: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_REQUEST_TIME_ENTRY = 15
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpStreamWaitEnd: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_REQUEST_TIME_ENTRY = 16
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpSendRequestStart: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_REQUEST_TIME_ENTRY = 17
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpSendRequestHeadersCompressionStart: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_REQUEST_TIME_ENTRY = 18
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpSendRequestHeadersCompressionEnd: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_REQUEST_TIME_ENTRY = 19
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpSendRequestHeadersEnd: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_REQUEST_TIME_ENTRY = 20
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpSendRequestEnd: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_REQUEST_TIME_ENTRY = 21
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpReceiveResponseStart: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_REQUEST_TIME_ENTRY = 22
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpReceiveResponseHeadersDecompressionStart: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_REQUEST_TIME_ENTRY = 23
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpReceiveResponseHeadersDecompressionEnd: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_REQUEST_TIME_ENTRY = 24
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpReceiveResponseHeadersEnd: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_REQUEST_TIME_ENTRY = 25
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpReceiveResponseBodyDecompressionDelta: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_REQUEST_TIME_ENTRY = 26
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpReceiveResponseEnd: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_REQUEST_TIME_ENTRY = 27
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpProxyTunnelStart: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_REQUEST_TIME_ENTRY = 28
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpProxyTunnelEnd: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_REQUEST_TIME_ENTRY = 29
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpProxyTlsHandshakeClientLeg1Start: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_REQUEST_TIME_ENTRY = 30
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpProxyTlsHandshakeClientLeg1End: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_REQUEST_TIME_ENTRY = 31
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpProxyTlsHandshakeClientLeg2Start: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_REQUEST_TIME_ENTRY = 32
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpProxyTlsHandshakeClientLeg2End: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_REQUEST_TIME_ENTRY = 33
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpProxyTlsHandshakeClientLeg3Start: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_REQUEST_TIME_ENTRY = 34
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpProxyTlsHandshakeClientLeg3End: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_REQUEST_TIME_ENTRY = 35
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpRequestTimeLast: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_REQUEST_TIME_ENTRY = 36
+WINHTTP_REQUEST_TIME_ENTRY_WinHttpRequestTimeMax: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_REQUEST_TIME_ENTRY = 64
 if ARCH in 'X64,ARM64':
     class WINHTTP_RESOLVER_CACHE_CONFIG(EasyCastStructure):
         ulMaxResolverCacheEntries: UInt32
@@ -1033,84 +1032,86 @@ if ARCH in 'X86':
         ullFlags: UInt64
         _pack_ = 4
 WINHTTP_SECURE_DNS_SETTING = Int32
-WINHTTP_SECURE_DNS_SETTING_WinHttpSecureDnsSettingDefault: WINHTTP_SECURE_DNS_SETTING = 0
-WINHTTP_SECURE_DNS_SETTING_WinHttpSecureDnsSettingForcePlaintext: WINHTTP_SECURE_DNS_SETTING = 1
-WINHTTP_SECURE_DNS_SETTING_WinHttpSecureDnsSettingRequireEncryption: WINHTTP_SECURE_DNS_SETTING = 2
-WINHTTP_SECURE_DNS_SETTING_WinHttpSecureDnsSettingTryEncryptionWithFallback: WINHTTP_SECURE_DNS_SETTING = 3
-WINHTTP_SECURE_DNS_SETTING_WinHttpSecureDnsSettingMax: WINHTTP_SECURE_DNS_SETTING = 4
+WINHTTP_SECURE_DNS_SETTING_WinHttpSecureDnsSettingDefault: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_SECURE_DNS_SETTING = 0
+WINHTTP_SECURE_DNS_SETTING_WinHttpSecureDnsSettingForcePlaintext: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_SECURE_DNS_SETTING = 1
+WINHTTP_SECURE_DNS_SETTING_WinHttpSecureDnsSettingRequireEncryption: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_SECURE_DNS_SETTING = 2
+WINHTTP_SECURE_DNS_SETTING_WinHttpSecureDnsSettingTryEncryptionWithFallback: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_SECURE_DNS_SETTING = 3
+WINHTTP_SECURE_DNS_SETTING_WinHttpSecureDnsSettingMax: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_SECURE_DNS_SETTING = 4
 @winfunctype_pointer
 def WINHTTP_STATUS_CALLBACK(hInternet: VoidPtr, dwContext: UIntPtr, dwInternetStatus: UInt32, lpvStatusInformation: VoidPtr, dwStatusInformationLength: UInt32) -> Void: ...
 class WINHTTP_WEB_SOCKET_ASYNC_RESULT(EasyCastStructure):
     AsyncResult: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_ASYNC_RESULT
     Operation: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_WEB_SOCKET_OPERATION
 WINHTTP_WEB_SOCKET_BUFFER_TYPE = Int32
-WINHTTP_WEB_SOCKET_BINARY_MESSAGE_BUFFER_TYPE: WINHTTP_WEB_SOCKET_BUFFER_TYPE = 0
-WINHTTP_WEB_SOCKET_BINARY_FRAGMENT_BUFFER_TYPE: WINHTTP_WEB_SOCKET_BUFFER_TYPE = 1
-WINHTTP_WEB_SOCKET_UTF8_MESSAGE_BUFFER_TYPE: WINHTTP_WEB_SOCKET_BUFFER_TYPE = 2
-WINHTTP_WEB_SOCKET_UTF8_FRAGMENT_BUFFER_TYPE: WINHTTP_WEB_SOCKET_BUFFER_TYPE = 3
-WINHTTP_WEB_SOCKET_CLOSE_BUFFER_TYPE: WINHTTP_WEB_SOCKET_BUFFER_TYPE = 4
+WINHTTP_WEB_SOCKET_BINARY_MESSAGE_BUFFER_TYPE: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_WEB_SOCKET_BUFFER_TYPE = 0
+WINHTTP_WEB_SOCKET_BINARY_FRAGMENT_BUFFER_TYPE: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_WEB_SOCKET_BUFFER_TYPE = 1
+WINHTTP_WEB_SOCKET_UTF8_MESSAGE_BUFFER_TYPE: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_WEB_SOCKET_BUFFER_TYPE = 2
+WINHTTP_WEB_SOCKET_UTF8_FRAGMENT_BUFFER_TYPE: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_WEB_SOCKET_BUFFER_TYPE = 3
+WINHTTP_WEB_SOCKET_CLOSE_BUFFER_TYPE: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_WEB_SOCKET_BUFFER_TYPE = 4
 WINHTTP_WEB_SOCKET_CLOSE_STATUS = Int32
-WINHTTP_WEB_SOCKET_SUCCESS_CLOSE_STATUS: WINHTTP_WEB_SOCKET_CLOSE_STATUS = 1000
-WINHTTP_WEB_SOCKET_ENDPOINT_TERMINATED_CLOSE_STATUS: WINHTTP_WEB_SOCKET_CLOSE_STATUS = 1001
-WINHTTP_WEB_SOCKET_PROTOCOL_ERROR_CLOSE_STATUS: WINHTTP_WEB_SOCKET_CLOSE_STATUS = 1002
-WINHTTP_WEB_SOCKET_INVALID_DATA_TYPE_CLOSE_STATUS: WINHTTP_WEB_SOCKET_CLOSE_STATUS = 1003
-WINHTTP_WEB_SOCKET_EMPTY_CLOSE_STATUS: WINHTTP_WEB_SOCKET_CLOSE_STATUS = 1005
-WINHTTP_WEB_SOCKET_ABORTED_CLOSE_STATUS: WINHTTP_WEB_SOCKET_CLOSE_STATUS = 1006
-WINHTTP_WEB_SOCKET_INVALID_PAYLOAD_CLOSE_STATUS: WINHTTP_WEB_SOCKET_CLOSE_STATUS = 1007
-WINHTTP_WEB_SOCKET_POLICY_VIOLATION_CLOSE_STATUS: WINHTTP_WEB_SOCKET_CLOSE_STATUS = 1008
-WINHTTP_WEB_SOCKET_MESSAGE_TOO_BIG_CLOSE_STATUS: WINHTTP_WEB_SOCKET_CLOSE_STATUS = 1009
-WINHTTP_WEB_SOCKET_UNSUPPORTED_EXTENSIONS_CLOSE_STATUS: WINHTTP_WEB_SOCKET_CLOSE_STATUS = 1010
-WINHTTP_WEB_SOCKET_SERVER_ERROR_CLOSE_STATUS: WINHTTP_WEB_SOCKET_CLOSE_STATUS = 1011
-WINHTTP_WEB_SOCKET_SECURE_HANDSHAKE_ERROR_CLOSE_STATUS: WINHTTP_WEB_SOCKET_CLOSE_STATUS = 1015
+WINHTTP_WEB_SOCKET_SUCCESS_CLOSE_STATUS: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_WEB_SOCKET_CLOSE_STATUS = 1000
+WINHTTP_WEB_SOCKET_ENDPOINT_TERMINATED_CLOSE_STATUS: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_WEB_SOCKET_CLOSE_STATUS = 1001
+WINHTTP_WEB_SOCKET_PROTOCOL_ERROR_CLOSE_STATUS: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_WEB_SOCKET_CLOSE_STATUS = 1002
+WINHTTP_WEB_SOCKET_INVALID_DATA_TYPE_CLOSE_STATUS: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_WEB_SOCKET_CLOSE_STATUS = 1003
+WINHTTP_WEB_SOCKET_EMPTY_CLOSE_STATUS: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_WEB_SOCKET_CLOSE_STATUS = 1005
+WINHTTP_WEB_SOCKET_ABORTED_CLOSE_STATUS: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_WEB_SOCKET_CLOSE_STATUS = 1006
+WINHTTP_WEB_SOCKET_INVALID_PAYLOAD_CLOSE_STATUS: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_WEB_SOCKET_CLOSE_STATUS = 1007
+WINHTTP_WEB_SOCKET_POLICY_VIOLATION_CLOSE_STATUS: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_WEB_SOCKET_CLOSE_STATUS = 1008
+WINHTTP_WEB_SOCKET_MESSAGE_TOO_BIG_CLOSE_STATUS: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_WEB_SOCKET_CLOSE_STATUS = 1009
+WINHTTP_WEB_SOCKET_UNSUPPORTED_EXTENSIONS_CLOSE_STATUS: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_WEB_SOCKET_CLOSE_STATUS = 1010
+WINHTTP_WEB_SOCKET_SERVER_ERROR_CLOSE_STATUS: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_WEB_SOCKET_CLOSE_STATUS = 1011
+WINHTTP_WEB_SOCKET_SECURE_HANDSHAKE_ERROR_CLOSE_STATUS: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_WEB_SOCKET_CLOSE_STATUS = 1015
 WINHTTP_WEB_SOCKET_OPERATION = Int32
-WINHTTP_WEB_SOCKET_SEND_OPERATION: WINHTTP_WEB_SOCKET_OPERATION = 0
-WINHTTP_WEB_SOCKET_RECEIVE_OPERATION: WINHTTP_WEB_SOCKET_OPERATION = 1
-WINHTTP_WEB_SOCKET_CLOSE_OPERATION: WINHTTP_WEB_SOCKET_OPERATION = 2
-WINHTTP_WEB_SOCKET_SHUTDOWN_OPERATION: WINHTTP_WEB_SOCKET_OPERATION = 3
+WINHTTP_WEB_SOCKET_SEND_OPERATION: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_WEB_SOCKET_OPERATION = 0
+WINHTTP_WEB_SOCKET_RECEIVE_OPERATION: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_WEB_SOCKET_OPERATION = 1
+WINHTTP_WEB_SOCKET_CLOSE_OPERATION: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_WEB_SOCKET_OPERATION = 2
+WINHTTP_WEB_SOCKET_SHUTDOWN_OPERATION: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_WEB_SOCKET_OPERATION = 3
 class WINHTTP_WEB_SOCKET_STATUS(EasyCastStructure):
     dwBytesTransferred: UInt32
     eBufferType: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_WEB_SOCKET_BUFFER_TYPE
 WIN_HTTP_CREATE_URL_FLAGS = UInt32
-ICU_ESCAPE: WIN_HTTP_CREATE_URL_FLAGS = 2147483648
-ICU_REJECT_USERPWD: WIN_HTTP_CREATE_URL_FLAGS = 16384
-ICU_DECODE: WIN_HTTP_CREATE_URL_FLAGS = 268435456
+ICU_ESCAPE: win32more.Windows.Win32.Networking.WinHttp.WIN_HTTP_CREATE_URL_FLAGS = 2147483648
+ICU_REJECT_USERPWD: win32more.Windows.Win32.Networking.WinHttp.WIN_HTTP_CREATE_URL_FLAGS = 16384
+ICU_DECODE: win32more.Windows.Win32.Networking.WinHttp.WIN_HTTP_CREATE_URL_FLAGS = 268435456
 WinHttpRequest = Guid('{2087c2f4-2cef-4953-a8ab-66779b670495}')
 WinHttpRequestAutoLogonPolicy = Int32
-AutoLogonPolicy_Always: WinHttpRequestAutoLogonPolicy = 0
-AutoLogonPolicy_OnlyIfBypassProxy: WinHttpRequestAutoLogonPolicy = 1
-AutoLogonPolicy_Never: WinHttpRequestAutoLogonPolicy = 2
+AutoLogonPolicy_Always: win32more.Windows.Win32.Networking.WinHttp.WinHttpRequestAutoLogonPolicy = 0
+AutoLogonPolicy_OnlyIfBypassProxy: win32more.Windows.Win32.Networking.WinHttp.WinHttpRequestAutoLogonPolicy = 1
+AutoLogonPolicy_Never: win32more.Windows.Win32.Networking.WinHttp.WinHttpRequestAutoLogonPolicy = 2
 WinHttpRequestOption = Int32
-WinHttpRequestOption_UserAgentString: WinHttpRequestOption = 0
-WinHttpRequestOption_URL: WinHttpRequestOption = 1
-WinHttpRequestOption_URLCodePage: WinHttpRequestOption = 2
-WinHttpRequestOption_EscapePercentInURL: WinHttpRequestOption = 3
-WinHttpRequestOption_SslErrorIgnoreFlags: WinHttpRequestOption = 4
-WinHttpRequestOption_SelectCertificate: WinHttpRequestOption = 5
-WinHttpRequestOption_EnableRedirects: WinHttpRequestOption = 6
-WinHttpRequestOption_UrlEscapeDisable: WinHttpRequestOption = 7
-WinHttpRequestOption_UrlEscapeDisableQuery: WinHttpRequestOption = 8
-WinHttpRequestOption_SecureProtocols: WinHttpRequestOption = 9
-WinHttpRequestOption_EnableTracing: WinHttpRequestOption = 10
-WinHttpRequestOption_RevertImpersonationOverSsl: WinHttpRequestOption = 11
-WinHttpRequestOption_EnableHttpsToHttpRedirects: WinHttpRequestOption = 12
-WinHttpRequestOption_EnablePassportAuthentication: WinHttpRequestOption = 13
-WinHttpRequestOption_MaxAutomaticRedirects: WinHttpRequestOption = 14
-WinHttpRequestOption_MaxResponseHeaderSize: WinHttpRequestOption = 15
-WinHttpRequestOption_MaxResponseDrainSize: WinHttpRequestOption = 16
-WinHttpRequestOption_EnableHttp1_1: WinHttpRequestOption = 17
-WinHttpRequestOption_EnableCertificateRevocationCheck: WinHttpRequestOption = 18
-WinHttpRequestOption_RejectUserpwd: WinHttpRequestOption = 19
+WinHttpRequestOption_UserAgentString: win32more.Windows.Win32.Networking.WinHttp.WinHttpRequestOption = 0
+WinHttpRequestOption_URL: win32more.Windows.Win32.Networking.WinHttp.WinHttpRequestOption = 1
+WinHttpRequestOption_URLCodePage: win32more.Windows.Win32.Networking.WinHttp.WinHttpRequestOption = 2
+WinHttpRequestOption_EscapePercentInURL: win32more.Windows.Win32.Networking.WinHttp.WinHttpRequestOption = 3
+WinHttpRequestOption_SslErrorIgnoreFlags: win32more.Windows.Win32.Networking.WinHttp.WinHttpRequestOption = 4
+WinHttpRequestOption_SelectCertificate: win32more.Windows.Win32.Networking.WinHttp.WinHttpRequestOption = 5
+WinHttpRequestOption_EnableRedirects: win32more.Windows.Win32.Networking.WinHttp.WinHttpRequestOption = 6
+WinHttpRequestOption_UrlEscapeDisable: win32more.Windows.Win32.Networking.WinHttp.WinHttpRequestOption = 7
+WinHttpRequestOption_UrlEscapeDisableQuery: win32more.Windows.Win32.Networking.WinHttp.WinHttpRequestOption = 8
+WinHttpRequestOption_SecureProtocols: win32more.Windows.Win32.Networking.WinHttp.WinHttpRequestOption = 9
+WinHttpRequestOption_EnableTracing: win32more.Windows.Win32.Networking.WinHttp.WinHttpRequestOption = 10
+WinHttpRequestOption_RevertImpersonationOverSsl: win32more.Windows.Win32.Networking.WinHttp.WinHttpRequestOption = 11
+WinHttpRequestOption_EnableHttpsToHttpRedirects: win32more.Windows.Win32.Networking.WinHttp.WinHttpRequestOption = 12
+WinHttpRequestOption_EnablePassportAuthentication: win32more.Windows.Win32.Networking.WinHttp.WinHttpRequestOption = 13
+WinHttpRequestOption_MaxAutomaticRedirects: win32more.Windows.Win32.Networking.WinHttp.WinHttpRequestOption = 14
+WinHttpRequestOption_MaxResponseHeaderSize: win32more.Windows.Win32.Networking.WinHttp.WinHttpRequestOption = 15
+WinHttpRequestOption_MaxResponseDrainSize: win32more.Windows.Win32.Networking.WinHttp.WinHttpRequestOption = 16
+WinHttpRequestOption_EnableHttp1_1: win32more.Windows.Win32.Networking.WinHttp.WinHttpRequestOption = 17
+WinHttpRequestOption_EnableCertificateRevocationCheck: win32more.Windows.Win32.Networking.WinHttp.WinHttpRequestOption = 18
+WinHttpRequestOption_RejectUserpwd: win32more.Windows.Win32.Networking.WinHttp.WinHttpRequestOption = 19
 WinHttpRequestSecureProtocols = Int32
-SecureProtocol_SSL2: WinHttpRequestSecureProtocols = 8
-SecureProtocol_SSL3: WinHttpRequestSecureProtocols = 32
-SecureProtocol_TLS1: WinHttpRequestSecureProtocols = 128
-SecureProtocol_TLS1_1: WinHttpRequestSecureProtocols = 512
-SecureProtocol_TLS1_2: WinHttpRequestSecureProtocols = 2048
-SecureProtocol_ALL: WinHttpRequestSecureProtocols = 168
+SecureProtocol_SSL2: win32more.Windows.Win32.Networking.WinHttp.WinHttpRequestSecureProtocols = 8
+SecureProtocol_SSL3: win32more.Windows.Win32.Networking.WinHttp.WinHttpRequestSecureProtocols = 32
+SecureProtocol_TLS1: win32more.Windows.Win32.Networking.WinHttp.WinHttpRequestSecureProtocols = 128
+SecureProtocol_TLS1_1: win32more.Windows.Win32.Networking.WinHttp.WinHttpRequestSecureProtocols = 512
+SecureProtocol_TLS1_2: win32more.Windows.Win32.Networking.WinHttp.WinHttpRequestSecureProtocols = 2048
+SecureProtocol_ALL: win32more.Windows.Win32.Networking.WinHttp.WinHttpRequestSecureProtocols = 168
 WinHttpRequestSslErrorFlags = Int32
-SslErrorFlag_UnknownCA: WinHttpRequestSslErrorFlags = 256
-SslErrorFlag_CertWrongUsage: WinHttpRequestSslErrorFlags = 512
-SslErrorFlag_CertCNInvalid: WinHttpRequestSslErrorFlags = 4096
-SslErrorFlag_CertDateInvalid: WinHttpRequestSslErrorFlags = 8192
-SslErrorFlag_Ignore_All: WinHttpRequestSslErrorFlags = 13056
+SslErrorFlag_UnknownCA: win32more.Windows.Win32.Networking.WinHttp.WinHttpRequestSslErrorFlags = 256
+SslErrorFlag_CertWrongUsage: win32more.Windows.Win32.Networking.WinHttp.WinHttpRequestSslErrorFlags = 512
+SslErrorFlag_CertCNInvalid: win32more.Windows.Win32.Networking.WinHttp.WinHttpRequestSslErrorFlags = 4096
+SslErrorFlag_CertDateInvalid: win32more.Windows.Win32.Networking.WinHttp.WinHttpRequestSslErrorFlags = 8192
+SslErrorFlag_Ignore_All: win32more.Windows.Win32.Networking.WinHttp.WinHttpRequestSslErrorFlags = 13056
+
+
 make_ready(__name__)

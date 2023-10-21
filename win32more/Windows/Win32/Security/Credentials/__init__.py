@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.Security.Credentials
@@ -494,12 +493,12 @@ class CREDENTIAL_TARGET_INFORMATIONW(EasyCastStructure):
     CredTypeCount: UInt32
     CredTypes: POINTER(UInt32)
 CREDSPP_SUBMIT_TYPE = Int32
-CREDSPP_SUBMIT_TYPE_CredsspPasswordCreds: CREDSPP_SUBMIT_TYPE = 2
-CREDSPP_SUBMIT_TYPE_CredsspSchannelCreds: CREDSPP_SUBMIT_TYPE = 4
-CREDSPP_SUBMIT_TYPE_CredsspCertificateCreds: CREDSPP_SUBMIT_TYPE = 13
-CREDSPP_SUBMIT_TYPE_CredsspSubmitBufferBoth: CREDSPP_SUBMIT_TYPE = 50
-CREDSPP_SUBMIT_TYPE_CredsspSubmitBufferBothOld: CREDSPP_SUBMIT_TYPE = 51
-CREDSPP_SUBMIT_TYPE_CredsspCredEx: CREDSPP_SUBMIT_TYPE = 100
+CREDSPP_SUBMIT_TYPE_CredsspPasswordCreds: win32more.Windows.Win32.Security.Credentials.CREDSPP_SUBMIT_TYPE = 2
+CREDSPP_SUBMIT_TYPE_CredsspSchannelCreds: win32more.Windows.Win32.Security.Credentials.CREDSPP_SUBMIT_TYPE = 4
+CREDSPP_SUBMIT_TYPE_CredsspCertificateCreds: win32more.Windows.Win32.Security.Credentials.CREDSPP_SUBMIT_TYPE = 13
+CREDSPP_SUBMIT_TYPE_CredsspSubmitBufferBoth: win32more.Windows.Win32.Security.Credentials.CREDSPP_SUBMIT_TYPE = 50
+CREDSPP_SUBMIT_TYPE_CredsspSubmitBufferBothOld: win32more.Windows.Win32.Security.Credentials.CREDSPP_SUBMIT_TYPE = 51
+CREDSPP_SUBMIT_TYPE_CredsspCredEx: win32more.Windows.Win32.Security.Credentials.CREDSPP_SUBMIT_TYPE = 100
 class CREDSSP_CRED(EasyCastStructure):
     Type: win32more.Windows.Win32.Security.Credentials.CREDSPP_SUBMIT_TYPE
     pSchannelCred: VoidPtr
@@ -511,33 +510,33 @@ class CREDSSP_CRED_EX(EasyCastStructure):
     Reserved: UInt32
     Cred: win32more.Windows.Win32.Security.Credentials.CREDSSP_CRED
 CREDUIWIN_FLAGS = UInt32
-CREDUIWIN_GENERIC: CREDUIWIN_FLAGS = 1
-CREDUIWIN_CHECKBOX: CREDUIWIN_FLAGS = 2
-CREDUIWIN_AUTHPACKAGE_ONLY: CREDUIWIN_FLAGS = 16
-CREDUIWIN_IN_CRED_ONLY: CREDUIWIN_FLAGS = 32
-CREDUIWIN_ENUMERATE_ADMINS: CREDUIWIN_FLAGS = 256
-CREDUIWIN_ENUMERATE_CURRENT_USER: CREDUIWIN_FLAGS = 512
-CREDUIWIN_SECURE_PROMPT: CREDUIWIN_FLAGS = 4096
-CREDUIWIN_PREPROMPTING: CREDUIWIN_FLAGS = 8192
-CREDUIWIN_PACK_32_WOW: CREDUIWIN_FLAGS = 268435456
+CREDUIWIN_GENERIC: win32more.Windows.Win32.Security.Credentials.CREDUIWIN_FLAGS = 1
+CREDUIWIN_CHECKBOX: win32more.Windows.Win32.Security.Credentials.CREDUIWIN_FLAGS = 2
+CREDUIWIN_AUTHPACKAGE_ONLY: win32more.Windows.Win32.Security.Credentials.CREDUIWIN_FLAGS = 16
+CREDUIWIN_IN_CRED_ONLY: win32more.Windows.Win32.Security.Credentials.CREDUIWIN_FLAGS = 32
+CREDUIWIN_ENUMERATE_ADMINS: win32more.Windows.Win32.Security.Credentials.CREDUIWIN_FLAGS = 256
+CREDUIWIN_ENUMERATE_CURRENT_USER: win32more.Windows.Win32.Security.Credentials.CREDUIWIN_FLAGS = 512
+CREDUIWIN_SECURE_PROMPT: win32more.Windows.Win32.Security.Credentials.CREDUIWIN_FLAGS = 4096
+CREDUIWIN_PREPROMPTING: win32more.Windows.Win32.Security.Credentials.CREDUIWIN_FLAGS = 8192
+CREDUIWIN_PACK_32_WOW: win32more.Windows.Win32.Security.Credentials.CREDUIWIN_FLAGS = 268435456
 CREDUI_FLAGS = UInt32
-CREDUI_FLAGS_ALWAYS_SHOW_UI: CREDUI_FLAGS = 128
-CREDUI_FLAGS_COMPLETE_USERNAME: CREDUI_FLAGS = 2048
-CREDUI_FLAGS_DO_NOT_PERSIST: CREDUI_FLAGS = 2
-CREDUI_FLAGS_EXCLUDE_CERTIFICATES: CREDUI_FLAGS = 8
-CREDUI_FLAGS_EXPECT_CONFIRMATION: CREDUI_FLAGS = 131072
-CREDUI_FLAGS_GENERIC_CREDENTIALS: CREDUI_FLAGS = 262144
-CREDUI_FLAGS_INCORRECT_PASSWORD: CREDUI_FLAGS = 1
-CREDUI_FLAGS_KEEP_USERNAME: CREDUI_FLAGS = 1048576
-CREDUI_FLAGS_PASSWORD_ONLY_OK: CREDUI_FLAGS = 512
-CREDUI_FLAGS_PERSIST: CREDUI_FLAGS = 4096
-CREDUI_FLAGS_REQUEST_ADMINISTRATOR: CREDUI_FLAGS = 4
-CREDUI_FLAGS_REQUIRE_CERTIFICATE: CREDUI_FLAGS = 16
-CREDUI_FLAGS_REQUIRE_SMARTCARD: CREDUI_FLAGS = 256
-CREDUI_FLAGS_SERVER_CREDENTIAL: CREDUI_FLAGS = 16384
-CREDUI_FLAGS_SHOW_SAVE_CHECK_BOX: CREDUI_FLAGS = 64
-CREDUI_FLAGS_USERNAME_TARGET_CREDENTIALS: CREDUI_FLAGS = 524288
-CREDUI_FLAGS_VALIDATE_USERNAME: CREDUI_FLAGS = 1024
+CREDUI_FLAGS_ALWAYS_SHOW_UI: win32more.Windows.Win32.Security.Credentials.CREDUI_FLAGS = 128
+CREDUI_FLAGS_COMPLETE_USERNAME: win32more.Windows.Win32.Security.Credentials.CREDUI_FLAGS = 2048
+CREDUI_FLAGS_DO_NOT_PERSIST: win32more.Windows.Win32.Security.Credentials.CREDUI_FLAGS = 2
+CREDUI_FLAGS_EXCLUDE_CERTIFICATES: win32more.Windows.Win32.Security.Credentials.CREDUI_FLAGS = 8
+CREDUI_FLAGS_EXPECT_CONFIRMATION: win32more.Windows.Win32.Security.Credentials.CREDUI_FLAGS = 131072
+CREDUI_FLAGS_GENERIC_CREDENTIALS: win32more.Windows.Win32.Security.Credentials.CREDUI_FLAGS = 262144
+CREDUI_FLAGS_INCORRECT_PASSWORD: win32more.Windows.Win32.Security.Credentials.CREDUI_FLAGS = 1
+CREDUI_FLAGS_KEEP_USERNAME: win32more.Windows.Win32.Security.Credentials.CREDUI_FLAGS = 1048576
+CREDUI_FLAGS_PASSWORD_ONLY_OK: win32more.Windows.Win32.Security.Credentials.CREDUI_FLAGS = 512
+CREDUI_FLAGS_PERSIST: win32more.Windows.Win32.Security.Credentials.CREDUI_FLAGS = 4096
+CREDUI_FLAGS_REQUEST_ADMINISTRATOR: win32more.Windows.Win32.Security.Credentials.CREDUI_FLAGS = 4
+CREDUI_FLAGS_REQUIRE_CERTIFICATE: win32more.Windows.Win32.Security.Credentials.CREDUI_FLAGS = 16
+CREDUI_FLAGS_REQUIRE_SMARTCARD: win32more.Windows.Win32.Security.Credentials.CREDUI_FLAGS = 256
+CREDUI_FLAGS_SERVER_CREDENTIAL: win32more.Windows.Win32.Security.Credentials.CREDUI_FLAGS = 16384
+CREDUI_FLAGS_SHOW_SAVE_CHECK_BOX: win32more.Windows.Win32.Security.Credentials.CREDUI_FLAGS = 64
+CREDUI_FLAGS_USERNAME_TARGET_CREDENTIALS: win32more.Windows.Win32.Security.Credentials.CREDUI_FLAGS = 524288
+CREDUI_FLAGS_VALIDATE_USERNAME: win32more.Windows.Win32.Security.Credentials.CREDUI_FLAGS = 1024
 class CREDUI_INFOA(EasyCastStructure):
     cbSize: UInt32
     hwndParent: win32more.Windows.Win32.Foundation.HWND
@@ -551,63 +550,63 @@ class CREDUI_INFOW(EasyCastStructure):
     pszCaptionText: win32more.Windows.Win32.Foundation.PWSTR
     hbmBanner: win32more.Windows.Win32.Graphics.Gdi.HBITMAP
 CRED_ENUMERATE_FLAGS = UInt32
-CRED_ENUMERATE_ALL_CREDENTIALS: CRED_ENUMERATE_FLAGS = 1
+CRED_ENUMERATE_ALL_CREDENTIALS: win32more.Windows.Win32.Security.Credentials.CRED_ENUMERATE_FLAGS = 1
 CRED_FLAGS = UInt32
-CRED_FLAGS_PASSWORD_FOR_CERT: CRED_FLAGS = 1
-CRED_FLAGS_PROMPT_NOW: CRED_FLAGS = 2
-CRED_FLAGS_USERNAME_TARGET: CRED_FLAGS = 4
-CRED_FLAGS_OWF_CRED_BLOB: CRED_FLAGS = 8
-CRED_FLAGS_REQUIRE_CONFIRMATION: CRED_FLAGS = 16
-CRED_FLAGS_WILDCARD_MATCH: CRED_FLAGS = 32
-CRED_FLAGS_VSM_PROTECTED: CRED_FLAGS = 64
-CRED_FLAGS_NGC_CERT: CRED_FLAGS = 128
-CRED_FLAGS_VALID_FLAGS: CRED_FLAGS = 61695
-CRED_FLAGS_VALID_INPUT_FLAGS: CRED_FLAGS = 61599
+CRED_FLAGS_PASSWORD_FOR_CERT: win32more.Windows.Win32.Security.Credentials.CRED_FLAGS = 1
+CRED_FLAGS_PROMPT_NOW: win32more.Windows.Win32.Security.Credentials.CRED_FLAGS = 2
+CRED_FLAGS_USERNAME_TARGET: win32more.Windows.Win32.Security.Credentials.CRED_FLAGS = 4
+CRED_FLAGS_OWF_CRED_BLOB: win32more.Windows.Win32.Security.Credentials.CRED_FLAGS = 8
+CRED_FLAGS_REQUIRE_CONFIRMATION: win32more.Windows.Win32.Security.Credentials.CRED_FLAGS = 16
+CRED_FLAGS_WILDCARD_MATCH: win32more.Windows.Win32.Security.Credentials.CRED_FLAGS = 32
+CRED_FLAGS_VSM_PROTECTED: win32more.Windows.Win32.Security.Credentials.CRED_FLAGS = 64
+CRED_FLAGS_NGC_CERT: win32more.Windows.Win32.Security.Credentials.CRED_FLAGS = 128
+CRED_FLAGS_VALID_FLAGS: win32more.Windows.Win32.Security.Credentials.CRED_FLAGS = 61695
+CRED_FLAGS_VALID_INPUT_FLAGS: win32more.Windows.Win32.Security.Credentials.CRED_FLAGS = 61599
 CRED_MARSHAL_TYPE = Int32
-CRED_MARSHAL_TYPE_CertCredential: CRED_MARSHAL_TYPE = 1
-CRED_MARSHAL_TYPE_UsernameTargetCredential: CRED_MARSHAL_TYPE = 2
-CRED_MARSHAL_TYPE_BinaryBlobCredential: CRED_MARSHAL_TYPE = 3
-CRED_MARSHAL_TYPE_UsernameForPackedCredentials: CRED_MARSHAL_TYPE = 4
-CRED_MARSHAL_TYPE_BinaryBlobForSystem: CRED_MARSHAL_TYPE = 5
+CRED_MARSHAL_TYPE_CertCredential: win32more.Windows.Win32.Security.Credentials.CRED_MARSHAL_TYPE = 1
+CRED_MARSHAL_TYPE_UsernameTargetCredential: win32more.Windows.Win32.Security.Credentials.CRED_MARSHAL_TYPE = 2
+CRED_MARSHAL_TYPE_BinaryBlobCredential: win32more.Windows.Win32.Security.Credentials.CRED_MARSHAL_TYPE = 3
+CRED_MARSHAL_TYPE_UsernameForPackedCredentials: win32more.Windows.Win32.Security.Credentials.CRED_MARSHAL_TYPE = 4
+CRED_MARSHAL_TYPE_BinaryBlobForSystem: win32more.Windows.Win32.Security.Credentials.CRED_MARSHAL_TYPE = 5
 CRED_PACK_FLAGS = UInt32
-CRED_PACK_PROTECTED_CREDENTIALS: CRED_PACK_FLAGS = 1
-CRED_PACK_WOW_BUFFER: CRED_PACK_FLAGS = 2
-CRED_PACK_GENERIC_CREDENTIALS: CRED_PACK_FLAGS = 4
-CRED_PACK_ID_PROVIDER_CREDENTIALS: CRED_PACK_FLAGS = 8
+CRED_PACK_PROTECTED_CREDENTIALS: win32more.Windows.Win32.Security.Credentials.CRED_PACK_FLAGS = 1
+CRED_PACK_WOW_BUFFER: win32more.Windows.Win32.Security.Credentials.CRED_PACK_FLAGS = 2
+CRED_PACK_GENERIC_CREDENTIALS: win32more.Windows.Win32.Security.Credentials.CRED_PACK_FLAGS = 4
+CRED_PACK_ID_PROVIDER_CREDENTIALS: win32more.Windows.Win32.Security.Credentials.CRED_PACK_FLAGS = 8
 CRED_PERSIST = UInt32
-CRED_PERSIST_NONE: CRED_PERSIST = 0
-CRED_PERSIST_SESSION: CRED_PERSIST = 1
-CRED_PERSIST_LOCAL_MACHINE: CRED_PERSIST = 2
-CRED_PERSIST_ENTERPRISE: CRED_PERSIST = 3
+CRED_PERSIST_NONE: win32more.Windows.Win32.Security.Credentials.CRED_PERSIST = 0
+CRED_PERSIST_SESSION: win32more.Windows.Win32.Security.Credentials.CRED_PERSIST = 1
+CRED_PERSIST_LOCAL_MACHINE: win32more.Windows.Win32.Security.Credentials.CRED_PERSIST = 2
+CRED_PERSIST_ENTERPRISE: win32more.Windows.Win32.Security.Credentials.CRED_PERSIST = 3
 CRED_PROTECTION_TYPE = Int32
-CRED_PROTECTION_TYPE_CredUnprotected: CRED_PROTECTION_TYPE = 0
-CRED_PROTECTION_TYPE_CredUserProtection: CRED_PROTECTION_TYPE = 1
-CRED_PROTECTION_TYPE_CredTrustedProtection: CRED_PROTECTION_TYPE = 2
-CRED_PROTECTION_TYPE_CredForSystemProtection: CRED_PROTECTION_TYPE = 3
+CRED_PROTECTION_TYPE_CredUnprotected: win32more.Windows.Win32.Security.Credentials.CRED_PROTECTION_TYPE = 0
+CRED_PROTECTION_TYPE_CredUserProtection: win32more.Windows.Win32.Security.Credentials.CRED_PROTECTION_TYPE = 1
+CRED_PROTECTION_TYPE_CredTrustedProtection: win32more.Windows.Win32.Security.Credentials.CRED_PROTECTION_TYPE = 2
+CRED_PROTECTION_TYPE_CredForSystemProtection: win32more.Windows.Win32.Security.Credentials.CRED_PROTECTION_TYPE = 3
 CRED_TYPE = UInt32
-CRED_TYPE_GENERIC: CRED_TYPE = 1
-CRED_TYPE_DOMAIN_PASSWORD: CRED_TYPE = 2
-CRED_TYPE_DOMAIN_CERTIFICATE: CRED_TYPE = 3
-CRED_TYPE_DOMAIN_VISIBLE_PASSWORD: CRED_TYPE = 4
-CRED_TYPE_GENERIC_CERTIFICATE: CRED_TYPE = 5
-CRED_TYPE_DOMAIN_EXTENDED: CRED_TYPE = 6
-CRED_TYPE_MAXIMUM: CRED_TYPE = 7
-CRED_TYPE_MAXIMUM_EX: CRED_TYPE = 1007
+CRED_TYPE_GENERIC: win32more.Windows.Win32.Security.Credentials.CRED_TYPE = 1
+CRED_TYPE_DOMAIN_PASSWORD: win32more.Windows.Win32.Security.Credentials.CRED_TYPE = 2
+CRED_TYPE_DOMAIN_CERTIFICATE: win32more.Windows.Win32.Security.Credentials.CRED_TYPE = 3
+CRED_TYPE_DOMAIN_VISIBLE_PASSWORD: win32more.Windows.Win32.Security.Credentials.CRED_TYPE = 4
+CRED_TYPE_GENERIC_CERTIFICATE: win32more.Windows.Win32.Security.Credentials.CRED_TYPE = 5
+CRED_TYPE_DOMAIN_EXTENDED: win32more.Windows.Win32.Security.Credentials.CRED_TYPE = 6
+CRED_TYPE_MAXIMUM: win32more.Windows.Win32.Security.Credentials.CRED_TYPE = 7
+CRED_TYPE_MAXIMUM_EX: win32more.Windows.Win32.Security.Credentials.CRED_TYPE = 1007
 class KeyCredentialManagerInfo(EasyCastStructure):
     containerId: Guid
 KeyCredentialManagerOperationErrorStates = Int32
-KeyCredentialManagerOperationErrorStates_KeyCredentialManagerOperationErrorStateNone: KeyCredentialManagerOperationErrorStates = 0
-KeyCredentialManagerOperationErrorStates_KeyCredentialManagerOperationErrorStateDeviceJoinFailure: KeyCredentialManagerOperationErrorStates = 1
-KeyCredentialManagerOperationErrorStates_KeyCredentialManagerOperationErrorStateTokenFailure: KeyCredentialManagerOperationErrorStates = 2
-KeyCredentialManagerOperationErrorStates_KeyCredentialManagerOperationErrorStateCertificateFailure: KeyCredentialManagerOperationErrorStates = 4
-KeyCredentialManagerOperationErrorStates_KeyCredentialManagerOperationErrorStateRemoteSessionFailure: KeyCredentialManagerOperationErrorStates = 8
-KeyCredentialManagerOperationErrorStates_KeyCredentialManagerOperationErrorStatePolicyFailure: KeyCredentialManagerOperationErrorStates = 16
-KeyCredentialManagerOperationErrorStates_KeyCredentialManagerOperationErrorStateHardwareFailure: KeyCredentialManagerOperationErrorStates = 32
-KeyCredentialManagerOperationErrorStates_KeyCredentialManagerOperationErrorStatePinExistsFailure: KeyCredentialManagerOperationErrorStates = 64
+KeyCredentialManagerOperationErrorStates_KeyCredentialManagerOperationErrorStateNone: win32more.Windows.Win32.Security.Credentials.KeyCredentialManagerOperationErrorStates = 0
+KeyCredentialManagerOperationErrorStates_KeyCredentialManagerOperationErrorStateDeviceJoinFailure: win32more.Windows.Win32.Security.Credentials.KeyCredentialManagerOperationErrorStates = 1
+KeyCredentialManagerOperationErrorStates_KeyCredentialManagerOperationErrorStateTokenFailure: win32more.Windows.Win32.Security.Credentials.KeyCredentialManagerOperationErrorStates = 2
+KeyCredentialManagerOperationErrorStates_KeyCredentialManagerOperationErrorStateCertificateFailure: win32more.Windows.Win32.Security.Credentials.KeyCredentialManagerOperationErrorStates = 4
+KeyCredentialManagerOperationErrorStates_KeyCredentialManagerOperationErrorStateRemoteSessionFailure: win32more.Windows.Win32.Security.Credentials.KeyCredentialManagerOperationErrorStates = 8
+KeyCredentialManagerOperationErrorStates_KeyCredentialManagerOperationErrorStatePolicyFailure: win32more.Windows.Win32.Security.Credentials.KeyCredentialManagerOperationErrorStates = 16
+KeyCredentialManagerOperationErrorStates_KeyCredentialManagerOperationErrorStateHardwareFailure: win32more.Windows.Win32.Security.Credentials.KeyCredentialManagerOperationErrorStates = 32
+KeyCredentialManagerOperationErrorStates_KeyCredentialManagerOperationErrorStatePinExistsFailure: win32more.Windows.Win32.Security.Credentials.KeyCredentialManagerOperationErrorStates = 64
 KeyCredentialManagerOperationType = Int32
-KeyCredentialManagerOperationType_KeyCredentialManagerProvisioning: KeyCredentialManagerOperationType = 0
-KeyCredentialManagerOperationType_KeyCredentialManagerPinChange: KeyCredentialManagerOperationType = 1
-KeyCredentialManagerOperationType_KeyCredentialManagerPinReset: KeyCredentialManagerOperationType = 2
+KeyCredentialManagerOperationType_KeyCredentialManagerProvisioning: win32more.Windows.Win32.Security.Credentials.KeyCredentialManagerOperationType = 0
+KeyCredentialManagerOperationType_KeyCredentialManagerPinChange: win32more.Windows.Win32.Security.Credentials.KeyCredentialManagerOperationType = 1
+KeyCredentialManagerOperationType_KeyCredentialManagerPinReset: win32more.Windows.Win32.Security.Credentials.KeyCredentialManagerOperationType = 2
 @winfunctype_pointer
 def LPOCNCHKPROC(param0: UIntPtr, param1: UIntPtr, param2: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
@@ -750,9 +749,9 @@ class READER_SEL_REQUEST(EasyCastStructure):
             cbSerialNumberLength: UInt32
             dwDesiredCardModuleVersion: UInt32
 READER_SEL_REQUEST_MATCH_TYPE = Int32
-RSR_MATCH_TYPE_READER_AND_CONTAINER: READER_SEL_REQUEST_MATCH_TYPE = 1
-RSR_MATCH_TYPE_SERIAL_NUMBER: READER_SEL_REQUEST_MATCH_TYPE = 2
-RSR_MATCH_TYPE_ALL_CARDS: READER_SEL_REQUEST_MATCH_TYPE = 3
+RSR_MATCH_TYPE_READER_AND_CONTAINER: win32more.Windows.Win32.Security.Credentials.READER_SEL_REQUEST_MATCH_TYPE = 1
+RSR_MATCH_TYPE_SERIAL_NUMBER: win32more.Windows.Win32.Security.Credentials.READER_SEL_REQUEST_MATCH_TYPE = 2
+RSR_MATCH_TYPE_ALL_CARDS: win32more.Windows.Win32.Security.Credentials.READER_SEL_REQUEST_MATCH_TYPE = 3
 class READER_SEL_RESPONSE(EasyCastStructure):
     cbReaderNameOffset: UInt32
     cchReaderNameLength: UInt32
@@ -780,20 +779,20 @@ class SCARD_READERSTATEW(EasyCastStructure):
     cbAtr: UInt32
     rgbAtr: Byte * 36
 SCARD_SCOPE = UInt32
-SCARD_SCOPE_USER: SCARD_SCOPE = 0
-SCARD_SCOPE_SYSTEM: SCARD_SCOPE = 2
+SCARD_SCOPE_USER: win32more.Windows.Win32.Security.Credentials.SCARD_SCOPE = 0
+SCARD_SCOPE_SYSTEM: win32more.Windows.Win32.Security.Credentials.SCARD_SCOPE = 2
 SCARD_STATE = UInt32
-SCARD_STATE_UNAWARE: SCARD_STATE = 0
-SCARD_STATE_IGNORE: SCARD_STATE = 1
-SCARD_STATE_UNAVAILABLE: SCARD_STATE = 8
-SCARD_STATE_EMPTY: SCARD_STATE = 16
-SCARD_STATE_PRESENT: SCARD_STATE = 32
-SCARD_STATE_ATRMATCH: SCARD_STATE = 64
-SCARD_STATE_EXCLUSIVE: SCARD_STATE = 128
-SCARD_STATE_INUSE: SCARD_STATE = 256
-SCARD_STATE_MUTE: SCARD_STATE = 512
-SCARD_STATE_CHANGED: SCARD_STATE = 2
-SCARD_STATE_UNKNOWN: SCARD_STATE = 4
+SCARD_STATE_UNAWARE: win32more.Windows.Win32.Security.Credentials.SCARD_STATE = 0
+SCARD_STATE_IGNORE: win32more.Windows.Win32.Security.Credentials.SCARD_STATE = 1
+SCARD_STATE_UNAVAILABLE: win32more.Windows.Win32.Security.Credentials.SCARD_STATE = 8
+SCARD_STATE_EMPTY: win32more.Windows.Win32.Security.Credentials.SCARD_STATE = 16
+SCARD_STATE_PRESENT: win32more.Windows.Win32.Security.Credentials.SCARD_STATE = 32
+SCARD_STATE_ATRMATCH: win32more.Windows.Win32.Security.Credentials.SCARD_STATE = 64
+SCARD_STATE_EXCLUSIVE: win32more.Windows.Win32.Security.Credentials.SCARD_STATE = 128
+SCARD_STATE_INUSE: win32more.Windows.Win32.Security.Credentials.SCARD_STATE = 256
+SCARD_STATE_MUTE: win32more.Windows.Win32.Security.Credentials.SCARD_STATE = 512
+SCARD_STATE_CHANGED: win32more.Windows.Win32.Security.Credentials.SCARD_STATE = 2
+SCARD_STATE_UNKNOWN: win32more.Windows.Win32.Security.Credentials.SCARD_STATE = 4
 class SCARD_T0_COMMAND(EasyCastStructure):
     bCla: Byte
     bIns: Byte
@@ -818,4 +817,6 @@ class SecPkgContext_ClientCreds(EasyCastStructure):
     AuthBuffer: POINTER(Byte)
 class USERNAME_TARGET_CREDENTIAL_INFO(EasyCastStructure):
     UserName: win32more.Windows.Win32.Foundation.PWSTR
+
+
 make_ready(__name__)

@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.RemoteAssistance
@@ -30,20 +29,22 @@ class IRendezvousSession(ComPtr):
     @commethod(7)
     def Terminate(self, hr: win32more.Windows.Win32.Foundation.HRESULT, bstrAppData: win32more.Windows.Win32.Foundation.BSTR) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 RENDEZVOUS_SESSION_FLAGS = Int32
-RSF_NONE: RENDEZVOUS_SESSION_FLAGS = 0
-RSF_INVITER: RENDEZVOUS_SESSION_FLAGS = 1
-RSF_INVITEE: RENDEZVOUS_SESSION_FLAGS = 2
-RSF_ORIGINAL_INVITER: RENDEZVOUS_SESSION_FLAGS = 4
-RSF_REMOTE_LEGACYSESSION: RENDEZVOUS_SESSION_FLAGS = 8
-RSF_REMOTE_WIN7SESSION: RENDEZVOUS_SESSION_FLAGS = 16
+RSF_NONE: win32more.Windows.Win32.System.RemoteAssistance.RENDEZVOUS_SESSION_FLAGS = 0
+RSF_INVITER: win32more.Windows.Win32.System.RemoteAssistance.RENDEZVOUS_SESSION_FLAGS = 1
+RSF_INVITEE: win32more.Windows.Win32.System.RemoteAssistance.RENDEZVOUS_SESSION_FLAGS = 2
+RSF_ORIGINAL_INVITER: win32more.Windows.Win32.System.RemoteAssistance.RENDEZVOUS_SESSION_FLAGS = 4
+RSF_REMOTE_LEGACYSESSION: win32more.Windows.Win32.System.RemoteAssistance.RENDEZVOUS_SESSION_FLAGS = 8
+RSF_REMOTE_WIN7SESSION: win32more.Windows.Win32.System.RemoteAssistance.RENDEZVOUS_SESSION_FLAGS = 16
 RENDEZVOUS_SESSION_STATE = Int32
-RSS_UNKNOWN: RENDEZVOUS_SESSION_STATE = 0
-RSS_READY: RENDEZVOUS_SESSION_STATE = 1
-RSS_INVITATION: RENDEZVOUS_SESSION_STATE = 2
-RSS_ACCEPTED: RENDEZVOUS_SESSION_STATE = 3
-RSS_CONNECTED: RENDEZVOUS_SESSION_STATE = 4
-RSS_CANCELLED: RENDEZVOUS_SESSION_STATE = 5
-RSS_DECLINED: RENDEZVOUS_SESSION_STATE = 6
-RSS_TERMINATED: RENDEZVOUS_SESSION_STATE = 7
+RSS_UNKNOWN: win32more.Windows.Win32.System.RemoteAssistance.RENDEZVOUS_SESSION_STATE = 0
+RSS_READY: win32more.Windows.Win32.System.RemoteAssistance.RENDEZVOUS_SESSION_STATE = 1
+RSS_INVITATION: win32more.Windows.Win32.System.RemoteAssistance.RENDEZVOUS_SESSION_STATE = 2
+RSS_ACCEPTED: win32more.Windows.Win32.System.RemoteAssistance.RENDEZVOUS_SESSION_STATE = 3
+RSS_CONNECTED: win32more.Windows.Win32.System.RemoteAssistance.RENDEZVOUS_SESSION_STATE = 4
+RSS_CANCELLED: win32more.Windows.Win32.System.RemoteAssistance.RENDEZVOUS_SESSION_STATE = 5
+RSS_DECLINED: win32more.Windows.Win32.System.RemoteAssistance.RENDEZVOUS_SESSION_STATE = 6
+RSS_TERMINATED: win32more.Windows.Win32.System.RemoteAssistance.RENDEZVOUS_SESSION_STATE = 7
 RendezvousApplication = Guid('{0b7e019a-b5de-47fa-8966-9082f82fb192}')
+
+
 make_ready(__name__)

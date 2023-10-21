@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.Security.Authorization
@@ -98,9 +97,9 @@ class ISecurityObjectTypeInfo(ComPtr):
     @commethod(3)
     def GetInheritSource(self, si: UInt32, pACL: POINTER(win32more.Windows.Win32.Security.ACL), ppInheritArray: POINTER(POINTER(win32more.Windows.Win32.Security.Authorization.INHERITED_FROMA))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 SECURITY_INFO_PAGE_FLAGS = UInt32
-SI_ADVANCED: SECURITY_INFO_PAGE_FLAGS = 16
-SI_EDIT_AUDITS: SECURITY_INFO_PAGE_FLAGS = 2
-SI_EDIT_PROPERTIES: SECURITY_INFO_PAGE_FLAGS = 128
+SI_ADVANCED: win32more.Windows.Win32.Security.Authorization.UI.SECURITY_INFO_PAGE_FLAGS = 16
+SI_EDIT_AUDITS: win32more.Windows.Win32.Security.Authorization.UI.SECURITY_INFO_PAGE_FLAGS = 2
+SI_EDIT_PROPERTIES: win32more.Windows.Win32.Security.Authorization.UI.SECURITY_INFO_PAGE_FLAGS = 128
 class SECURITY_OBJECT(EasyCastStructure):
     pwszName: win32more.Windows.Win32.Foundation.PWSTR
     pData: VoidPtr
@@ -134,34 +133,36 @@ class SI_OBJECT_INFO(EasyCastStructure):
     pszPageTitle: win32more.Windows.Win32.Foundation.PWSTR
     guidObjectType: Guid
 SI_OBJECT_INFO_FLAGS = UInt32
-SI_AUDITS_ELEVATION_REQUIRED: SI_OBJECT_INFO_FLAGS = 33554432
-SI_DISABLE_DENY_ACE: SI_OBJECT_INFO_FLAGS = 2147483648
-SI_EDIT_EFFECTIVE: SI_OBJECT_INFO_FLAGS = 131072
-SI_ENABLE_CENTRAL_POLICY: SI_OBJECT_INFO_FLAGS = 1073741824
-SI_ENABLE_EDIT_ATTRIBUTE_CONDITION: SI_OBJECT_INFO_FLAGS = 536870912
-SI_MAY_WRITE: SI_OBJECT_INFO_FLAGS = 268435456
-SI_NO_ADDITIONAL_PERMISSION: SI_OBJECT_INFO_FLAGS = 2097152
-SI_OWNER_ELEVATION_REQUIRED: SI_OBJECT_INFO_FLAGS = 67108864
-SI_PERMS_ELEVATION_REQUIRED: SI_OBJECT_INFO_FLAGS = 16777216
-SI_RESET_DACL: SI_OBJECT_INFO_FLAGS = 262144
-SI_RESET_OWNER: SI_OBJECT_INFO_FLAGS = 1048576
-SI_RESET_SACL: SI_OBJECT_INFO_FLAGS = 524288
-SI_SCOPE_ELEVATION_REQUIRED: SI_OBJECT_INFO_FLAGS = 134217728
-SI_VIEW_ONLY: SI_OBJECT_INFO_FLAGS = 4194304
+SI_AUDITS_ELEVATION_REQUIRED: win32more.Windows.Win32.Security.Authorization.UI.SI_OBJECT_INFO_FLAGS = 33554432
+SI_DISABLE_DENY_ACE: win32more.Windows.Win32.Security.Authorization.UI.SI_OBJECT_INFO_FLAGS = 2147483648
+SI_EDIT_EFFECTIVE: win32more.Windows.Win32.Security.Authorization.UI.SI_OBJECT_INFO_FLAGS = 131072
+SI_ENABLE_CENTRAL_POLICY: win32more.Windows.Win32.Security.Authorization.UI.SI_OBJECT_INFO_FLAGS = 1073741824
+SI_ENABLE_EDIT_ATTRIBUTE_CONDITION: win32more.Windows.Win32.Security.Authorization.UI.SI_OBJECT_INFO_FLAGS = 536870912
+SI_MAY_WRITE: win32more.Windows.Win32.Security.Authorization.UI.SI_OBJECT_INFO_FLAGS = 268435456
+SI_NO_ADDITIONAL_PERMISSION: win32more.Windows.Win32.Security.Authorization.UI.SI_OBJECT_INFO_FLAGS = 2097152
+SI_OWNER_ELEVATION_REQUIRED: win32more.Windows.Win32.Security.Authorization.UI.SI_OBJECT_INFO_FLAGS = 67108864
+SI_PERMS_ELEVATION_REQUIRED: win32more.Windows.Win32.Security.Authorization.UI.SI_OBJECT_INFO_FLAGS = 16777216
+SI_RESET_DACL: win32more.Windows.Win32.Security.Authorization.UI.SI_OBJECT_INFO_FLAGS = 262144
+SI_RESET_OWNER: win32more.Windows.Win32.Security.Authorization.UI.SI_OBJECT_INFO_FLAGS = 1048576
+SI_RESET_SACL: win32more.Windows.Win32.Security.Authorization.UI.SI_OBJECT_INFO_FLAGS = 524288
+SI_SCOPE_ELEVATION_REQUIRED: win32more.Windows.Win32.Security.Authorization.UI.SI_OBJECT_INFO_FLAGS = 134217728
+SI_VIEW_ONLY: win32more.Windows.Win32.Security.Authorization.UI.SI_OBJECT_INFO_FLAGS = 4194304
 SI_PAGE_ACTIVATED = Int32
-SI_SHOW_DEFAULT: SI_PAGE_ACTIVATED = 0
-SI_SHOW_PERM_ACTIVATED: SI_PAGE_ACTIVATED = 1
-SI_SHOW_AUDIT_ACTIVATED: SI_PAGE_ACTIVATED = 2
-SI_SHOW_OWNER_ACTIVATED: SI_PAGE_ACTIVATED = 3
-SI_SHOW_EFFECTIVE_ACTIVATED: SI_PAGE_ACTIVATED = 4
-SI_SHOW_SHARE_ACTIVATED: SI_PAGE_ACTIVATED = 5
-SI_SHOW_CENTRAL_POLICY_ACTIVATED: SI_PAGE_ACTIVATED = 6
+SI_SHOW_DEFAULT: win32more.Windows.Win32.Security.Authorization.UI.SI_PAGE_ACTIVATED = 0
+SI_SHOW_PERM_ACTIVATED: win32more.Windows.Win32.Security.Authorization.UI.SI_PAGE_ACTIVATED = 1
+SI_SHOW_AUDIT_ACTIVATED: win32more.Windows.Win32.Security.Authorization.UI.SI_PAGE_ACTIVATED = 2
+SI_SHOW_OWNER_ACTIVATED: win32more.Windows.Win32.Security.Authorization.UI.SI_PAGE_ACTIVATED = 3
+SI_SHOW_EFFECTIVE_ACTIVATED: win32more.Windows.Win32.Security.Authorization.UI.SI_PAGE_ACTIVATED = 4
+SI_SHOW_SHARE_ACTIVATED: win32more.Windows.Win32.Security.Authorization.UI.SI_PAGE_ACTIVATED = 5
+SI_SHOW_CENTRAL_POLICY_ACTIVATED: win32more.Windows.Win32.Security.Authorization.UI.SI_PAGE_ACTIVATED = 6
 SI_PAGE_TYPE = Int32
-SI_PAGE_PERM: SI_PAGE_TYPE = 0
-SI_PAGE_ADVPERM: SI_PAGE_TYPE = 1
-SI_PAGE_AUDIT: SI_PAGE_TYPE = 2
-SI_PAGE_OWNER: SI_PAGE_TYPE = 3
-SI_PAGE_EFFECTIVE: SI_PAGE_TYPE = 4
-SI_PAGE_TAKEOWNERSHIP: SI_PAGE_TYPE = 5
-SI_PAGE_SHARE: SI_PAGE_TYPE = 6
+SI_PAGE_PERM: win32more.Windows.Win32.Security.Authorization.UI.SI_PAGE_TYPE = 0
+SI_PAGE_ADVPERM: win32more.Windows.Win32.Security.Authorization.UI.SI_PAGE_TYPE = 1
+SI_PAGE_AUDIT: win32more.Windows.Win32.Security.Authorization.UI.SI_PAGE_TYPE = 2
+SI_PAGE_OWNER: win32more.Windows.Win32.Security.Authorization.UI.SI_PAGE_TYPE = 3
+SI_PAGE_EFFECTIVE: win32more.Windows.Win32.Security.Authorization.UI.SI_PAGE_TYPE = 4
+SI_PAGE_TAKEOWNERSHIP: win32more.Windows.Win32.Security.Authorization.UI.SI_PAGE_TYPE = 5
+SI_PAGE_SHARE: win32more.Windows.Win32.Security.Authorization.UI.SI_PAGE_TYPE = 6
+
+
 make_ready(__name__)

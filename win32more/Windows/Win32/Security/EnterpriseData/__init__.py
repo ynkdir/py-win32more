@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security.EnterpriseData
 import win32more.Windows.Win32.Storage.Packaging.Appx
@@ -33,10 +32,10 @@ def ProtectFileToEnterpriseIdentity(fileOrFolderPath: win32more.Windows.Win32.Fo
 @winfunctype('efswrt.dll')
 def UnprotectFile(fileOrFolderPath: win32more.Windows.Win32.Foundation.PWSTR, options: POINTER(win32more.Windows.Win32.Security.EnterpriseData.FILE_UNPROTECT_OPTIONS)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 ENTERPRISE_DATA_POLICIES = Int32
-ENTERPRISE_POLICY_NONE: ENTERPRISE_DATA_POLICIES = 0
-ENTERPRISE_POLICY_ALLOWED: ENTERPRISE_DATA_POLICIES = 1
-ENTERPRISE_POLICY_ENLIGHTENED: ENTERPRISE_DATA_POLICIES = 2
-ENTERPRISE_POLICY_EXEMPT: ENTERPRISE_DATA_POLICIES = 4
+ENTERPRISE_POLICY_NONE: win32more.Windows.Win32.Security.EnterpriseData.ENTERPRISE_DATA_POLICIES = 0
+ENTERPRISE_POLICY_ALLOWED: win32more.Windows.Win32.Security.EnterpriseData.ENTERPRISE_DATA_POLICIES = 1
+ENTERPRISE_POLICY_ENLIGHTENED: win32more.Windows.Win32.Security.EnterpriseData.ENTERPRISE_DATA_POLICIES = 2
+ENTERPRISE_POLICY_EXEMPT: win32more.Windows.Win32.Security.EnterpriseData.ENTERPRISE_DATA_POLICIES = 4
 class FILE_UNPROTECT_OPTIONS(EasyCastStructure):
     audit: Byte
 class HTHREAD_NETWORK_CONTEXT(EasyCastStructure):
@@ -78,9 +77,11 @@ class IProtectionPolicyManagerInterop3(ComPtr):
     @commethod(11)
     def RequestAccessToFilesForProcessWithMessageAndBehaviorForWindowAsync(self, appWindow: win32more.Windows.Win32.Foundation.HWND, sourceItemListUnk: win32more.Windows.Win32.System.Com.IUnknown, processId: UInt32, auditInfoUnk: win32more.Windows.Win32.System.Com.IUnknown, messageFromApp: win32more.Windows.Win32.System.WinRT.HSTRING, behavior: UInt32, riid: POINTER(Guid), asyncOperation: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 SRPHOSTING_TYPE = Int32
-SRPHOSTING_TYPE_NONE: SRPHOSTING_TYPE = 0
-SRPHOSTING_TYPE_WINHTTP: SRPHOSTING_TYPE = 1
-SRPHOSTING_TYPE_WININET: SRPHOSTING_TYPE = 2
+SRPHOSTING_TYPE_NONE: win32more.Windows.Win32.Security.EnterpriseData.SRPHOSTING_TYPE = 0
+SRPHOSTING_TYPE_WINHTTP: win32more.Windows.Win32.Security.EnterpriseData.SRPHOSTING_TYPE = 1
+SRPHOSTING_TYPE_WININET: win32more.Windows.Win32.Security.EnterpriseData.SRPHOSTING_TYPE = 2
 SRPHOSTING_VERSION = Int32
-SRPHOSTING_VERSION1: SRPHOSTING_VERSION = 1
+SRPHOSTING_VERSION1: win32more.Windows.Win32.Security.EnterpriseData.SRPHOSTING_VERSION = 1
+
+
 make_ready(__name__)

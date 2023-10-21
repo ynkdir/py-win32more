@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Direct3D12
 import win32more.Windows.Win32.System.WinRT
@@ -43,4 +42,6 @@ class IHolographicQuadLayerUpdateParametersInterop(ComPtr):
     _iid_ = Guid('{e5f549cd-c909-444f-8809-7cc18a9c8920}')
     @commethod(6)
     def CommitDirect3D12Resource(self, pColorResourceToCommit: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource, pColorResourceFence: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Fence, colorResourceFenceSignalValue: UInt64) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+
+
 make_ready(__name__)

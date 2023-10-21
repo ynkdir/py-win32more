@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Storage.IscsiDisc
 import win32more.Windows.Win32.System.Ioctl
@@ -513,7 +512,7 @@ class IKE_AUTHENTICATION_INFORMATION(EasyCastStructure):
     class _Anonymous_e__Union(EasyCastUnion):
         PsKey: win32more.Windows.Win32.Storage.IscsiDisc.IKE_AUTHENTICATION_PRESHARED_KEY
 IKE_AUTHENTICATION_METHOD = Int32
-IKE_AUTHENTICATION_PRESHARED_KEY_METHOD: IKE_AUTHENTICATION_METHOD = 1
+IKE_AUTHENTICATION_PRESHARED_KEY_METHOD: win32more.Windows.Win32.Storage.IscsiDisc.IKE_AUTHENTICATION_METHOD = 1
 class IKE_AUTHENTICATION_PRESHARED_KEY(EasyCastStructure):
     SecurityFlags: UInt64
     IdType: Byte
@@ -531,9 +530,9 @@ class IO_SCSI_CAPABILITIES(EasyCastStructure):
     AdapterScansDown: win32more.Windows.Win32.Foundation.BOOLEAN
     AdapterUsesPio: win32more.Windows.Win32.Foundation.BOOLEAN
 ISCSI_AUTH_TYPES = Int32
-ISCSI_NO_AUTH_TYPE: ISCSI_AUTH_TYPES = 0
-ISCSI_CHAP_AUTH_TYPE: ISCSI_AUTH_TYPES = 1
-ISCSI_MUTUAL_CHAP_AUTH_TYPE: ISCSI_AUTH_TYPES = 2
+ISCSI_NO_AUTH_TYPE: win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_AUTH_TYPES = 0
+ISCSI_CHAP_AUTH_TYPE: win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_AUTH_TYPES = 1
+ISCSI_MUTUAL_CHAP_AUTH_TYPE: win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_AUTH_TYPES = 2
 class ISCSI_CONNECTION_INFOA(EasyCastStructure):
     ConnectionId: win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_UNIQUE_SESSION_ID
     InitiatorAddress: win32more.Windows.Win32.Foundation.PSTR
@@ -577,8 +576,8 @@ class ISCSI_DEVICE_ON_SESSIONW(EasyCastStructure):
     StorageDeviceNumber: win32more.Windows.Win32.System.Ioctl.STORAGE_DEVICE_NUMBER
     DeviceInstance: UInt32
 ISCSI_DIGEST_TYPES = Int32
-ISCSI_DIGEST_TYPE_NONE: ISCSI_DIGEST_TYPES = 0
-ISCSI_DIGEST_TYPE_CRC32C: ISCSI_DIGEST_TYPES = 1
+ISCSI_DIGEST_TYPE_NONE: win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_DIGEST_TYPES = 0
+ISCSI_DIGEST_TYPE_CRC32C: win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_DIGEST_TYPES = 1
 class ISCSI_LOGIN_OPTIONS(EasyCastStructure):
     Version: UInt32
     InformationSpecified: UInt32
@@ -756,13 +755,13 @@ class MP_DEVICE_DATA_SET_RANGE(EasyCastStructure):
     StartingOffset: Int64
     LengthInBytes: UInt64
 MP_STORAGE_DIAGNOSTIC_LEVEL = Int32
-MP_STORAGE_DIAGNOSTIC_LEVEL_MpStorageDiagnosticLevelDefault: MP_STORAGE_DIAGNOSTIC_LEVEL = 0
-MP_STORAGE_DIAGNOSTIC_LEVEL_MpStorageDiagnosticLevelMax: MP_STORAGE_DIAGNOSTIC_LEVEL = 1
+MP_STORAGE_DIAGNOSTIC_LEVEL_MpStorageDiagnosticLevelDefault: win32more.Windows.Win32.Storage.IscsiDisc.MP_STORAGE_DIAGNOSTIC_LEVEL = 0
+MP_STORAGE_DIAGNOSTIC_LEVEL_MpStorageDiagnosticLevelMax: win32more.Windows.Win32.Storage.IscsiDisc.MP_STORAGE_DIAGNOSTIC_LEVEL = 1
 MP_STORAGE_DIAGNOSTIC_TARGET_TYPE = Int32
-MP_STORAGE_DIAGNOSTIC_TARGET_TYPE_MpStorageDiagnosticTargetTypeUndefined: MP_STORAGE_DIAGNOSTIC_TARGET_TYPE = 0
-MP_STORAGE_DIAGNOSTIC_TARGET_TYPE_MpStorageDiagnosticTargetTypeMiniport: MP_STORAGE_DIAGNOSTIC_TARGET_TYPE = 2
-MP_STORAGE_DIAGNOSTIC_TARGET_TYPE_MpStorageDiagnosticTargetTypeHbaFirmware: MP_STORAGE_DIAGNOSTIC_TARGET_TYPE = 3
-MP_STORAGE_DIAGNOSTIC_TARGET_TYPE_MpStorageDiagnosticTargetTypeMax: MP_STORAGE_DIAGNOSTIC_TARGET_TYPE = 4
+MP_STORAGE_DIAGNOSTIC_TARGET_TYPE_MpStorageDiagnosticTargetTypeUndefined: win32more.Windows.Win32.Storage.IscsiDisc.MP_STORAGE_DIAGNOSTIC_TARGET_TYPE = 0
+MP_STORAGE_DIAGNOSTIC_TARGET_TYPE_MpStorageDiagnosticTargetTypeMiniport: win32more.Windows.Win32.Storage.IscsiDisc.MP_STORAGE_DIAGNOSTIC_TARGET_TYPE = 2
+MP_STORAGE_DIAGNOSTIC_TARGET_TYPE_MpStorageDiagnosticTargetTypeHbaFirmware: win32more.Windows.Win32.Storage.IscsiDisc.MP_STORAGE_DIAGNOSTIC_TARGET_TYPE = 3
+MP_STORAGE_DIAGNOSTIC_TARGET_TYPE_MpStorageDiagnosticTargetTypeMax: win32more.Windows.Win32.Storage.IscsiDisc.MP_STORAGE_DIAGNOSTIC_TARGET_TYPE = 4
 class NTSCSI_UNICODE_STRING(EasyCastStructure):
     Length: UInt16
     MaximumLength: UInt16
@@ -800,15 +799,15 @@ class NVCACHE_REQUEST_BLOCK(EasyCastStructure):
     NVCacheStatus: UInt32
     NVCacheSubStatus: UInt32
 NVCACHE_STATUS = Int32
-NVCACHE_STATUS_NvCacheStatusUnknown: NVCACHE_STATUS = 0
-NVCACHE_STATUS_NvCacheStatusDisabling: NVCACHE_STATUS = 1
-NVCACHE_STATUS_NvCacheStatusDisabled: NVCACHE_STATUS = 2
-NVCACHE_STATUS_NvCacheStatusEnabled: NVCACHE_STATUS = 3
+NVCACHE_STATUS_NvCacheStatusUnknown: win32more.Windows.Win32.Storage.IscsiDisc.NVCACHE_STATUS = 0
+NVCACHE_STATUS_NvCacheStatusDisabling: win32more.Windows.Win32.Storage.IscsiDisc.NVCACHE_STATUS = 1
+NVCACHE_STATUS_NvCacheStatusDisabled: win32more.Windows.Win32.Storage.IscsiDisc.NVCACHE_STATUS = 2
+NVCACHE_STATUS_NvCacheStatusEnabled: win32more.Windows.Win32.Storage.IscsiDisc.NVCACHE_STATUS = 3
 NVCACHE_TYPE = Int32
-NVCACHE_TYPE_NvCacheTypeUnknown: NVCACHE_TYPE = 0
-NVCACHE_TYPE_NvCacheTypeNone: NVCACHE_TYPE = 1
-NVCACHE_TYPE_NvCacheTypeWriteBack: NVCACHE_TYPE = 2
-NVCACHE_TYPE_NvCacheTypeWriteThrough: NVCACHE_TYPE = 3
+NVCACHE_TYPE_NvCacheTypeUnknown: win32more.Windows.Win32.Storage.IscsiDisc.NVCACHE_TYPE = 0
+NVCACHE_TYPE_NvCacheTypeNone: win32more.Windows.Win32.Storage.IscsiDisc.NVCACHE_TYPE = 1
+NVCACHE_TYPE_NvCacheTypeWriteBack: win32more.Windows.Win32.Storage.IscsiDisc.NVCACHE_TYPE = 2
+NVCACHE_TYPE_NvCacheTypeWriteThrough: win32more.Windows.Win32.Storage.IscsiDisc.NVCACHE_TYPE = 3
 class NV_FEATURE_PARAMETER(EasyCastStructure):
     NVPowerModeEnabled: UInt16
     NVParameterReserv1: UInt16
@@ -833,10 +832,10 @@ class NV_SEP_CACHE_PARAMETER(EasyCastStructure):
         class _CacheFlags_e__Struct(EasyCastStructure):
             _bitfield: Byte
 NV_SEP_WRITE_CACHE_TYPE = Int32
-NV_SEP_WRITE_CACHE_TYPE_NVSEPWriteCacheTypeUnknown: NV_SEP_WRITE_CACHE_TYPE = 0
-NV_SEP_WRITE_CACHE_TYPE_NVSEPWriteCacheTypeNone: NV_SEP_WRITE_CACHE_TYPE = 1
-NV_SEP_WRITE_CACHE_TYPE_NVSEPWriteCacheTypeWriteBack: NV_SEP_WRITE_CACHE_TYPE = 2
-NV_SEP_WRITE_CACHE_TYPE_NVSEPWriteCacheTypeWriteThrough: NV_SEP_WRITE_CACHE_TYPE = 3
+NV_SEP_WRITE_CACHE_TYPE_NVSEPWriteCacheTypeUnknown: win32more.Windows.Win32.Storage.IscsiDisc.NV_SEP_WRITE_CACHE_TYPE = 0
+NV_SEP_WRITE_CACHE_TYPE_NVSEPWriteCacheTypeNone: win32more.Windows.Win32.Storage.IscsiDisc.NV_SEP_WRITE_CACHE_TYPE = 1
+NV_SEP_WRITE_CACHE_TYPE_NVSEPWriteCacheTypeWriteBack: win32more.Windows.Win32.Storage.IscsiDisc.NV_SEP_WRITE_CACHE_TYPE = 2
+NV_SEP_WRITE_CACHE_TYPE_NVSEPWriteCacheTypeWriteThrough: win32more.Windows.Win32.Storage.IscsiDisc.NV_SEP_WRITE_CACHE_TYPE = 3
 @winfunctype_pointer
 def PDUMP_DEVICE_POWERON_ROUTINE(Context: VoidPtr) -> Int32: ...
 class PERSISTENT_ISCSI_LOGIN_INFOA(EasyCastStructure):
@@ -1093,15 +1092,17 @@ class STORAGE_FIRMWARE_SLOT_INFO_V2(EasyCastStructure):
     Reserved: Byte * 6
     Revision: Byte * 16
 TARGETPROTOCOLTYPE = Int32
-ISCSI_TCP_PROTOCOL_TYPE: TARGETPROTOCOLTYPE = 0
+ISCSI_TCP_PROTOCOL_TYPE: win32more.Windows.Win32.Storage.IscsiDisc.TARGETPROTOCOLTYPE = 0
 TARGET_INFORMATION_CLASS = Int32
-TARGET_INFORMATION_CLASS_ProtocolType: TARGET_INFORMATION_CLASS = 0
-TARGET_INFORMATION_CLASS_TargetAlias: TARGET_INFORMATION_CLASS = 1
-TARGET_INFORMATION_CLASS_DiscoveryMechanisms: TARGET_INFORMATION_CLASS = 2
-TARGET_INFORMATION_CLASS_PortalGroups: TARGET_INFORMATION_CLASS = 3
-TARGET_INFORMATION_CLASS_PersistentTargetMappings: TARGET_INFORMATION_CLASS = 4
-TARGET_INFORMATION_CLASS_InitiatorName: TARGET_INFORMATION_CLASS = 5
-TARGET_INFORMATION_CLASS_TargetFlags: TARGET_INFORMATION_CLASS = 6
-TARGET_INFORMATION_CLASS_LoginOptions: TARGET_INFORMATION_CLASS = 7
+TARGET_INFORMATION_CLASS_ProtocolType: win32more.Windows.Win32.Storage.IscsiDisc.TARGET_INFORMATION_CLASS = 0
+TARGET_INFORMATION_CLASS_TargetAlias: win32more.Windows.Win32.Storage.IscsiDisc.TARGET_INFORMATION_CLASS = 1
+TARGET_INFORMATION_CLASS_DiscoveryMechanisms: win32more.Windows.Win32.Storage.IscsiDisc.TARGET_INFORMATION_CLASS = 2
+TARGET_INFORMATION_CLASS_PortalGroups: win32more.Windows.Win32.Storage.IscsiDisc.TARGET_INFORMATION_CLASS = 3
+TARGET_INFORMATION_CLASS_PersistentTargetMappings: win32more.Windows.Win32.Storage.IscsiDisc.TARGET_INFORMATION_CLASS = 4
+TARGET_INFORMATION_CLASS_InitiatorName: win32more.Windows.Win32.Storage.IscsiDisc.TARGET_INFORMATION_CLASS = 5
+TARGET_INFORMATION_CLASS_TargetFlags: win32more.Windows.Win32.Storage.IscsiDisc.TARGET_INFORMATION_CLASS = 6
+TARGET_INFORMATION_CLASS_LoginOptions: win32more.Windows.Win32.Storage.IscsiDisc.TARGET_INFORMATION_CLASS = 7
 _ADAPTER_OBJECT = IntPtr
+
+
 make_ready(__name__)

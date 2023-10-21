@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.System.ClrHosting
@@ -10,10 +9,10 @@ import win32more.Windows.Win32.System.IO
 import win32more.Windows.Win32.System.Threading
 import win32more.Windows.Win32.System.Variant
 APPDOMAIN_SECURITY_FLAGS = Int32
-APPDOMAIN_SECURITY_DEFAULT: APPDOMAIN_SECURITY_FLAGS = 0
-APPDOMAIN_SECURITY_SANDBOXED: APPDOMAIN_SECURITY_FLAGS = 1
-APPDOMAIN_SECURITY_FORBID_CROSSAD_REVERSE_PINVOKE: APPDOMAIN_SECURITY_FLAGS = 2
-APPDOMAIN_FORCE_TRIVIAL_WAIT_OPERATIONS: APPDOMAIN_SECURITY_FLAGS = 8
+APPDOMAIN_SECURITY_DEFAULT: win32more.Windows.Win32.System.ClrHosting.APPDOMAIN_SECURITY_FLAGS = 0
+APPDOMAIN_SECURITY_SANDBOXED: win32more.Windows.Win32.System.ClrHosting.APPDOMAIN_SECURITY_FLAGS = 1
+APPDOMAIN_SECURITY_FORBID_CROSSAD_REVERSE_PINVOKE: win32more.Windows.Win32.System.ClrHosting.APPDOMAIN_SECURITY_FLAGS = 2
+APPDOMAIN_FORCE_TRIVIAL_WAIT_OPERATIONS: win32more.Windows.Win32.System.ClrHosting.APPDOMAIN_SECURITY_FLAGS = 8
 DEPRECATED_CLR_API_MESG: String = 'This API has been deprecated. Refer to https://go.microsoft.com/fwlink/?LinkId=143720 for more details.'
 CLR_MAJOR_VERSION: UInt32 = 4
 CLR_MINOR_VERSION: UInt32 = 0
@@ -90,16 +89,16 @@ class AssemblyBindInfo(EasyCastStructure):
     lpPostPolicyIdentity: win32more.Windows.Win32.Foundation.PWSTR
     ePolicyLevel: UInt32
 BucketParameterIndex = Int32
-BucketParameterIndex_Parameter1: BucketParameterIndex = 0
-BucketParameterIndex_Parameter2: BucketParameterIndex = 1
-BucketParameterIndex_Parameter3: BucketParameterIndex = 2
-BucketParameterIndex_Parameter4: BucketParameterIndex = 3
-BucketParameterIndex_Parameter5: BucketParameterIndex = 4
-BucketParameterIndex_Parameter6: BucketParameterIndex = 5
-BucketParameterIndex_Parameter7: BucketParameterIndex = 6
-BucketParameterIndex_Parameter8: BucketParameterIndex = 7
-BucketParameterIndex_Parameter9: BucketParameterIndex = 8
-BucketParameterIndex_InvalidBucketParamIndex: BucketParameterIndex = 9
+BucketParameterIndex_Parameter1: win32more.Windows.Win32.System.ClrHosting.BucketParameterIndex = 0
+BucketParameterIndex_Parameter2: win32more.Windows.Win32.System.ClrHosting.BucketParameterIndex = 1
+BucketParameterIndex_Parameter3: win32more.Windows.Win32.System.ClrHosting.BucketParameterIndex = 2
+BucketParameterIndex_Parameter4: win32more.Windows.Win32.System.ClrHosting.BucketParameterIndex = 3
+BucketParameterIndex_Parameter5: win32more.Windows.Win32.System.ClrHosting.BucketParameterIndex = 4
+BucketParameterIndex_Parameter6: win32more.Windows.Win32.System.ClrHosting.BucketParameterIndex = 5
+BucketParameterIndex_Parameter7: win32more.Windows.Win32.System.ClrHosting.BucketParameterIndex = 6
+BucketParameterIndex_Parameter8: win32more.Windows.Win32.System.ClrHosting.BucketParameterIndex = 7
+BucketParameterIndex_Parameter9: win32more.Windows.Win32.System.ClrHosting.BucketParameterIndex = 8
+BucketParameterIndex_InvalidBucketParamIndex: win32more.Windows.Win32.System.ClrHosting.BucketParameterIndex = 9
 class BucketParameters(EasyCastStructure):
     fInited: win32more.Windows.Win32.Foundation.BOOL
     pszEventTypeName: Char * 255
@@ -108,8 +107,8 @@ class BucketParameters(EasyCastStructure):
 def CLRCreateInstanceFnPtr(clsid: POINTER(Guid), riid: POINTER(Guid), ppInterface: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 CLRRuntimeHost = Guid('{90f1a06e-7712-4762-86b5-7a5eba6bdb02}')
 CLR_DEBUGGING_PROCESS_FLAGS = Int32
-CLR_DEBUGGING_MANAGED_EVENT_PENDING: CLR_DEBUGGING_PROCESS_FLAGS = 1
-CLR_DEBUGGING_MANAGED_EVENT_DEBUGGER_LAUNCH: CLR_DEBUGGING_PROCESS_FLAGS = 2
+CLR_DEBUGGING_MANAGED_EVENT_PENDING: win32more.Windows.Win32.System.ClrHosting.CLR_DEBUGGING_PROCESS_FLAGS = 1
+CLR_DEBUGGING_MANAGED_EVENT_DEBUGGER_LAUNCH: win32more.Windows.Win32.System.ClrHosting.CLR_DEBUGGING_PROCESS_FLAGS = 2
 class CLR_DEBUGGING_VERSION(EasyCastStructure):
     wStructVersion: UInt16
     wMajor: UInt16
@@ -117,8 +116,8 @@ class CLR_DEBUGGING_VERSION(EasyCastStructure):
     wBuild: UInt16
     wRevision: UInt16
 CLSID_RESOLUTION_FLAGS = Int32
-CLSID_RESOLUTION_DEFAULT: CLSID_RESOLUTION_FLAGS = 0
-CLSID_RESOLUTION_REGISTERED: CLSID_RESOLUTION_FLAGS = 1
+CLSID_RESOLUTION_DEFAULT: win32more.Windows.Win32.System.ClrHosting.CLSID_RESOLUTION_FLAGS = 0
+CLSID_RESOLUTION_REGISTERED: win32more.Windows.Win32.System.ClrHosting.CLSID_RESOLUTION_FLAGS = 1
 class COR_GC_STATS(EasyCastStructure):
     Flags: UInt32
     ExplicitGCCount: UIntPtr
@@ -132,13 +131,13 @@ class COR_GC_STATS(EasyCastStructure):
     KBytesPromotedFromGen0: UIntPtr
     KBytesPromotedFromGen1: UIntPtr
 COR_GC_STAT_TYPES = Int32
-COR_GC_COUNTS: COR_GC_STAT_TYPES = 1
-COR_GC_MEMORYUSAGE: COR_GC_STAT_TYPES = 2
+COR_GC_COUNTS: win32more.Windows.Win32.System.ClrHosting.COR_GC_STAT_TYPES = 1
+COR_GC_MEMORYUSAGE: win32more.Windows.Win32.System.ClrHosting.COR_GC_STAT_TYPES = 2
 class COR_GC_THREAD_STATS(EasyCastStructure):
     PerThreadAllocation: UInt64
     Flags: UInt32
 COR_GC_THREAD_STATS_TYPES = Int32
-COR_GC_THREAD_HAS_PROMOTED_BYTES: COR_GC_THREAD_STATS_TYPES = 1
+COR_GC_THREAD_HAS_PROMOTED_BYTES: win32more.Windows.Win32.System.ClrHosting.COR_GC_THREAD_STATS_TYPES = 1
 @winfunctype_pointer
 def CallbackThreadSetFnPtr() -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
@@ -154,119 +153,119 @@ class CustomDumpItem(EasyCastStructure):
     class _Anonymous_e__Union(EasyCastUnion):
         pReserved: UIntPtr
 EApiCategories = Int32
-EApiCategories_eNoChecks: EApiCategories = 0
-EApiCategories_eSynchronization: EApiCategories = 1
-EApiCategories_eSharedState: EApiCategories = 2
-EApiCategories_eExternalProcessMgmt: EApiCategories = 4
-EApiCategories_eSelfAffectingProcessMgmt: EApiCategories = 8
-EApiCategories_eExternalThreading: EApiCategories = 16
-EApiCategories_eSelfAffectingThreading: EApiCategories = 32
-EApiCategories_eSecurityInfrastructure: EApiCategories = 64
-EApiCategories_eUI: EApiCategories = 128
-EApiCategories_eMayLeakOnAbort: EApiCategories = 256
-EApiCategories_eAll: EApiCategories = 511
+EApiCategories_eNoChecks: win32more.Windows.Win32.System.ClrHosting.EApiCategories = 0
+EApiCategories_eSynchronization: win32more.Windows.Win32.System.ClrHosting.EApiCategories = 1
+EApiCategories_eSharedState: win32more.Windows.Win32.System.ClrHosting.EApiCategories = 2
+EApiCategories_eExternalProcessMgmt: win32more.Windows.Win32.System.ClrHosting.EApiCategories = 4
+EApiCategories_eSelfAffectingProcessMgmt: win32more.Windows.Win32.System.ClrHosting.EApiCategories = 8
+EApiCategories_eExternalThreading: win32more.Windows.Win32.System.ClrHosting.EApiCategories = 16
+EApiCategories_eSelfAffectingThreading: win32more.Windows.Win32.System.ClrHosting.EApiCategories = 32
+EApiCategories_eSecurityInfrastructure: win32more.Windows.Win32.System.ClrHosting.EApiCategories = 64
+EApiCategories_eUI: win32more.Windows.Win32.System.ClrHosting.EApiCategories = 128
+EApiCategories_eMayLeakOnAbort: win32more.Windows.Win32.System.ClrHosting.EApiCategories = 256
+EApiCategories_eAll: win32more.Windows.Win32.System.ClrHosting.EApiCategories = 511
 EBindPolicyLevels = Int32
-EBindPolicyLevels_ePolicyLevelNone: EBindPolicyLevels = 0
-EBindPolicyLevels_ePolicyLevelRetargetable: EBindPolicyLevels = 1
-EBindPolicyLevels_ePolicyUnifiedToCLR: EBindPolicyLevels = 2
-EBindPolicyLevels_ePolicyLevelApp: EBindPolicyLevels = 4
-EBindPolicyLevels_ePolicyLevelPublisher: EBindPolicyLevels = 8
-EBindPolicyLevels_ePolicyLevelHost: EBindPolicyLevels = 16
-EBindPolicyLevels_ePolicyLevelAdmin: EBindPolicyLevels = 32
-EBindPolicyLevels_ePolicyPortability: EBindPolicyLevels = 64
+EBindPolicyLevels_ePolicyLevelNone: win32more.Windows.Win32.System.ClrHosting.EBindPolicyLevels = 0
+EBindPolicyLevels_ePolicyLevelRetargetable: win32more.Windows.Win32.System.ClrHosting.EBindPolicyLevels = 1
+EBindPolicyLevels_ePolicyUnifiedToCLR: win32more.Windows.Win32.System.ClrHosting.EBindPolicyLevels = 2
+EBindPolicyLevels_ePolicyLevelApp: win32more.Windows.Win32.System.ClrHosting.EBindPolicyLevels = 4
+EBindPolicyLevels_ePolicyLevelPublisher: win32more.Windows.Win32.System.ClrHosting.EBindPolicyLevels = 8
+EBindPolicyLevels_ePolicyLevelHost: win32more.Windows.Win32.System.ClrHosting.EBindPolicyLevels = 16
+EBindPolicyLevels_ePolicyLevelAdmin: win32more.Windows.Win32.System.ClrHosting.EBindPolicyLevels = 32
+EBindPolicyLevels_ePolicyPortability: win32more.Windows.Win32.System.ClrHosting.EBindPolicyLevels = 64
 ECLRAssemblyIdentityFlags = Int32
-CLR_ASSEMBLY_IDENTITY_FLAGS_DEFAULT: ECLRAssemblyIdentityFlags = 0
+CLR_ASSEMBLY_IDENTITY_FLAGS_DEFAULT: win32more.Windows.Win32.System.ClrHosting.ECLRAssemblyIdentityFlags = 0
 EClrEvent = Int32
-EClrEvent_Event_DomainUnload: EClrEvent = 0
-EClrEvent_Event_ClrDisabled: EClrEvent = 1
-EClrEvent_Event_MDAFired: EClrEvent = 2
-EClrEvent_Event_StackOverflow: EClrEvent = 3
-EClrEvent_MaxClrEvent: EClrEvent = 4
+EClrEvent_Event_DomainUnload: win32more.Windows.Win32.System.ClrHosting.EClrEvent = 0
+EClrEvent_Event_ClrDisabled: win32more.Windows.Win32.System.ClrHosting.EClrEvent = 1
+EClrEvent_Event_MDAFired: win32more.Windows.Win32.System.ClrHosting.EClrEvent = 2
+EClrEvent_Event_StackOverflow: win32more.Windows.Win32.System.ClrHosting.EClrEvent = 3
+EClrEvent_MaxClrEvent: win32more.Windows.Win32.System.ClrHosting.EClrEvent = 4
 EClrFailure = Int32
-EClrFailure_FAIL_NonCriticalResource: EClrFailure = 0
-EClrFailure_FAIL_CriticalResource: EClrFailure = 1
-EClrFailure_FAIL_FatalRuntime: EClrFailure = 2
-EClrFailure_FAIL_OrphanedLock: EClrFailure = 3
-EClrFailure_FAIL_StackOverflow: EClrFailure = 4
-EClrFailure_FAIL_AccessViolation: EClrFailure = 5
-EClrFailure_FAIL_CodeContract: EClrFailure = 6
-EClrFailure_MaxClrFailure: EClrFailure = 7
+EClrFailure_FAIL_NonCriticalResource: win32more.Windows.Win32.System.ClrHosting.EClrFailure = 0
+EClrFailure_FAIL_CriticalResource: win32more.Windows.Win32.System.ClrHosting.EClrFailure = 1
+EClrFailure_FAIL_FatalRuntime: win32more.Windows.Win32.System.ClrHosting.EClrFailure = 2
+EClrFailure_FAIL_OrphanedLock: win32more.Windows.Win32.System.ClrHosting.EClrFailure = 3
+EClrFailure_FAIL_StackOverflow: win32more.Windows.Win32.System.ClrHosting.EClrFailure = 4
+EClrFailure_FAIL_AccessViolation: win32more.Windows.Win32.System.ClrHosting.EClrFailure = 5
+EClrFailure_FAIL_CodeContract: win32more.Windows.Win32.System.ClrHosting.EClrFailure = 6
+EClrFailure_MaxClrFailure: win32more.Windows.Win32.System.ClrHosting.EClrFailure = 7
 EClrOperation = Int32
-EClrOperation_OPR_ThreadAbort: EClrOperation = 0
-EClrOperation_OPR_ThreadRudeAbortInNonCriticalRegion: EClrOperation = 1
-EClrOperation_OPR_ThreadRudeAbortInCriticalRegion: EClrOperation = 2
-EClrOperation_OPR_AppDomainUnload: EClrOperation = 3
-EClrOperation_OPR_AppDomainRudeUnload: EClrOperation = 4
-EClrOperation_OPR_ProcessExit: EClrOperation = 5
-EClrOperation_OPR_FinalizerRun: EClrOperation = 6
-EClrOperation_MaxClrOperation: EClrOperation = 7
+EClrOperation_OPR_ThreadAbort: win32more.Windows.Win32.System.ClrHosting.EClrOperation = 0
+EClrOperation_OPR_ThreadRudeAbortInNonCriticalRegion: win32more.Windows.Win32.System.ClrHosting.EClrOperation = 1
+EClrOperation_OPR_ThreadRudeAbortInCriticalRegion: win32more.Windows.Win32.System.ClrHosting.EClrOperation = 2
+EClrOperation_OPR_AppDomainUnload: win32more.Windows.Win32.System.ClrHosting.EClrOperation = 3
+EClrOperation_OPR_AppDomainRudeUnload: win32more.Windows.Win32.System.ClrHosting.EClrOperation = 4
+EClrOperation_OPR_ProcessExit: win32more.Windows.Win32.System.ClrHosting.EClrOperation = 5
+EClrOperation_OPR_FinalizerRun: win32more.Windows.Win32.System.ClrHosting.EClrOperation = 6
+EClrOperation_MaxClrOperation: win32more.Windows.Win32.System.ClrHosting.EClrOperation = 7
 EClrUnhandledException = Int32
-EClrUnhandledException_eRuntimeDeterminedPolicy: EClrUnhandledException = 0
-EClrUnhandledException_eHostDeterminedPolicy: EClrUnhandledException = 1
+EClrUnhandledException_eRuntimeDeterminedPolicy: win32more.Windows.Win32.System.ClrHosting.EClrUnhandledException = 0
+EClrUnhandledException_eHostDeterminedPolicy: win32more.Windows.Win32.System.ClrHosting.EClrUnhandledException = 1
 EContextType = Int32
-EContextType_eCurrentContext: EContextType = 0
-EContextType_eRestrictedContext: EContextType = 1
+EContextType_eCurrentContext: win32more.Windows.Win32.System.ClrHosting.EContextType = 0
+EContextType_eRestrictedContext: win32more.Windows.Win32.System.ClrHosting.EContextType = 1
 ECustomDumpFlavor = Int32
-DUMP_FLAVOR_Mini: ECustomDumpFlavor = 0
-DUMP_FLAVOR_CriticalCLRState: ECustomDumpFlavor = 1
-DUMP_FLAVOR_NonHeapCLRState: ECustomDumpFlavor = 2
-DUMP_FLAVOR_Default: ECustomDumpFlavor = 0
+DUMP_FLAVOR_Mini: win32more.Windows.Win32.System.ClrHosting.ECustomDumpFlavor = 0
+DUMP_FLAVOR_CriticalCLRState: win32more.Windows.Win32.System.ClrHosting.ECustomDumpFlavor = 1
+DUMP_FLAVOR_NonHeapCLRState: win32more.Windows.Win32.System.ClrHosting.ECustomDumpFlavor = 2
+DUMP_FLAVOR_Default: win32more.Windows.Win32.System.ClrHosting.ECustomDumpFlavor = 0
 ECustomDumpItemKind = Int32
-DUMP_ITEM_None: ECustomDumpItemKind = 0
+DUMP_ITEM_None: win32more.Windows.Win32.System.ClrHosting.ECustomDumpItemKind = 0
 EHostApplicationPolicy = Int32
-HOST_APPLICATION_BINDING_POLICY: EHostApplicationPolicy = 1
+HOST_APPLICATION_BINDING_POLICY: win32more.Windows.Win32.System.ClrHosting.EHostApplicationPolicy = 1
 EHostBindingPolicyModifyFlags = Int32
-HOST_BINDING_POLICY_MODIFY_DEFAULT: EHostBindingPolicyModifyFlags = 0
-HOST_BINDING_POLICY_MODIFY_CHAIN: EHostBindingPolicyModifyFlags = 1
-HOST_BINDING_POLICY_MODIFY_REMOVE: EHostBindingPolicyModifyFlags = 2
-HOST_BINDING_POLICY_MODIFY_MAX: EHostBindingPolicyModifyFlags = 3
+HOST_BINDING_POLICY_MODIFY_DEFAULT: win32more.Windows.Win32.System.ClrHosting.EHostBindingPolicyModifyFlags = 0
+HOST_BINDING_POLICY_MODIFY_CHAIN: win32more.Windows.Win32.System.ClrHosting.EHostBindingPolicyModifyFlags = 1
+HOST_BINDING_POLICY_MODIFY_REMOVE: win32more.Windows.Win32.System.ClrHosting.EHostBindingPolicyModifyFlags = 2
+HOST_BINDING_POLICY_MODIFY_MAX: win32more.Windows.Win32.System.ClrHosting.EHostBindingPolicyModifyFlags = 3
 EInitializeNewDomainFlags = Int32
-eInitializeNewDomainFlags_None: EInitializeNewDomainFlags = 0
-eInitializeNewDomainFlags_NoSecurityChanges: EInitializeNewDomainFlags = 2
+eInitializeNewDomainFlags_None: win32more.Windows.Win32.System.ClrHosting.EInitializeNewDomainFlags = 0
+eInitializeNewDomainFlags_NoSecurityChanges: win32more.Windows.Win32.System.ClrHosting.EInitializeNewDomainFlags = 2
 EMemoryAvailable = Int32
-EMemoryAvailable_eMemoryAvailableLow: EMemoryAvailable = 1
-EMemoryAvailable_eMemoryAvailableNeutral: EMemoryAvailable = 2
-EMemoryAvailable_eMemoryAvailableHigh: EMemoryAvailable = 3
+EMemoryAvailable_eMemoryAvailableLow: win32more.Windows.Win32.System.ClrHosting.EMemoryAvailable = 1
+EMemoryAvailable_eMemoryAvailableNeutral: win32more.Windows.Win32.System.ClrHosting.EMemoryAvailable = 2
+EMemoryAvailable_eMemoryAvailableHigh: win32more.Windows.Win32.System.ClrHosting.EMemoryAvailable = 3
 EMemoryCriticalLevel = Int32
-EMemoryCriticalLevel_eTaskCritical: EMemoryCriticalLevel = 0
-EMemoryCriticalLevel_eAppDomainCritical: EMemoryCriticalLevel = 1
-EMemoryCriticalLevel_eProcessCritical: EMemoryCriticalLevel = 2
+EMemoryCriticalLevel_eTaskCritical: win32more.Windows.Win32.System.ClrHosting.EMemoryCriticalLevel = 0
+EMemoryCriticalLevel_eAppDomainCritical: win32more.Windows.Win32.System.ClrHosting.EMemoryCriticalLevel = 1
+EMemoryCriticalLevel_eProcessCritical: win32more.Windows.Win32.System.ClrHosting.EMemoryCriticalLevel = 2
 EPolicyAction = Int32
-EPolicyAction_eNoAction: EPolicyAction = 0
-EPolicyAction_eThrowException: EPolicyAction = 1
-EPolicyAction_eAbortThread: EPolicyAction = 2
-EPolicyAction_eRudeAbortThread: EPolicyAction = 3
-EPolicyAction_eUnloadAppDomain: EPolicyAction = 4
-EPolicyAction_eRudeUnloadAppDomain: EPolicyAction = 5
-EPolicyAction_eExitProcess: EPolicyAction = 6
-EPolicyAction_eFastExitProcess: EPolicyAction = 7
-EPolicyAction_eRudeExitProcess: EPolicyAction = 8
-EPolicyAction_eDisableRuntime: EPolicyAction = 9
-EPolicyAction_MaxPolicyAction: EPolicyAction = 10
+EPolicyAction_eNoAction: win32more.Windows.Win32.System.ClrHosting.EPolicyAction = 0
+EPolicyAction_eThrowException: win32more.Windows.Win32.System.ClrHosting.EPolicyAction = 1
+EPolicyAction_eAbortThread: win32more.Windows.Win32.System.ClrHosting.EPolicyAction = 2
+EPolicyAction_eRudeAbortThread: win32more.Windows.Win32.System.ClrHosting.EPolicyAction = 3
+EPolicyAction_eUnloadAppDomain: win32more.Windows.Win32.System.ClrHosting.EPolicyAction = 4
+EPolicyAction_eRudeUnloadAppDomain: win32more.Windows.Win32.System.ClrHosting.EPolicyAction = 5
+EPolicyAction_eExitProcess: win32more.Windows.Win32.System.ClrHosting.EPolicyAction = 6
+EPolicyAction_eFastExitProcess: win32more.Windows.Win32.System.ClrHosting.EPolicyAction = 7
+EPolicyAction_eRudeExitProcess: win32more.Windows.Win32.System.ClrHosting.EPolicyAction = 8
+EPolicyAction_eDisableRuntime: win32more.Windows.Win32.System.ClrHosting.EPolicyAction = 9
+EPolicyAction_MaxPolicyAction: win32more.Windows.Win32.System.ClrHosting.EPolicyAction = 10
 ESymbolReadingPolicy = Int32
-ESymbolReadingPolicy_eSymbolReadingNever: ESymbolReadingPolicy = 0
-ESymbolReadingPolicy_eSymbolReadingAlways: ESymbolReadingPolicy = 1
-ESymbolReadingPolicy_eSymbolReadingFullTrustOnly: ESymbolReadingPolicy = 2
+ESymbolReadingPolicy_eSymbolReadingNever: win32more.Windows.Win32.System.ClrHosting.ESymbolReadingPolicy = 0
+ESymbolReadingPolicy_eSymbolReadingAlways: win32more.Windows.Win32.System.ClrHosting.ESymbolReadingPolicy = 1
+ESymbolReadingPolicy_eSymbolReadingFullTrustOnly: win32more.Windows.Win32.System.ClrHosting.ESymbolReadingPolicy = 2
 ETaskType = Int32
-TT_DEBUGGERHELPER: ETaskType = 1
-TT_GC: ETaskType = 2
-TT_FINALIZER: ETaskType = 4
-TT_THREADPOOL_TIMER: ETaskType = 8
-TT_THREADPOOL_GATE: ETaskType = 16
-TT_THREADPOOL_WORKER: ETaskType = 32
-TT_THREADPOOL_IOCOMPLETION: ETaskType = 64
-TT_ADUNLOAD: ETaskType = 128
-TT_USER: ETaskType = 256
-TT_THREADPOOL_WAIT: ETaskType = 512
-TT_UNKNOWN: ETaskType = -2147483648
+TT_DEBUGGERHELPER: win32more.Windows.Win32.System.ClrHosting.ETaskType = 1
+TT_GC: win32more.Windows.Win32.System.ClrHosting.ETaskType = 2
+TT_FINALIZER: win32more.Windows.Win32.System.ClrHosting.ETaskType = 4
+TT_THREADPOOL_TIMER: win32more.Windows.Win32.System.ClrHosting.ETaskType = 8
+TT_THREADPOOL_GATE: win32more.Windows.Win32.System.ClrHosting.ETaskType = 16
+TT_THREADPOOL_WORKER: win32more.Windows.Win32.System.ClrHosting.ETaskType = 32
+TT_THREADPOOL_IOCOMPLETION: win32more.Windows.Win32.System.ClrHosting.ETaskType = 64
+TT_ADUNLOAD: win32more.Windows.Win32.System.ClrHosting.ETaskType = 128
+TT_USER: win32more.Windows.Win32.System.ClrHosting.ETaskType = 256
+TT_THREADPOOL_WAIT: win32more.Windows.Win32.System.ClrHosting.ETaskType = 512
+TT_UNKNOWN: win32more.Windows.Win32.System.ClrHosting.ETaskType = -2147483648
 @winfunctype_pointer
 def FExecuteInAppDomainCallback(cookie: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def FLockClrVersionCallback() -> win32more.Windows.Win32.Foundation.HRESULT: ...
 HOST_TYPE = Int32
-HOST_TYPE_DEFAULT: HOST_TYPE = 0
-HOST_TYPE_APPLAUNCH: HOST_TYPE = 1
-HOST_TYPE_CORFLAG: HOST_TYPE = 2
+HOST_TYPE_DEFAULT: win32more.Windows.Win32.System.ClrHosting.HOST_TYPE = 0
+HOST_TYPE_APPLAUNCH: win32more.Windows.Win32.System.ClrHosting.HOST_TYPE = 1
+HOST_TYPE_CORFLAG: win32more.Windows.Win32.System.ClrHosting.HOST_TYPE = 2
 class IActionOnCLREvent(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{607be24b-d91b-4e28-a242-61871ce56e35}')
@@ -1071,25 +1070,25 @@ class ITypeNameFactory(ComPtr):
     @commethod(4)
     def GetTypeNameBuilder(self, ppTypeBuilder: POINTER(win32more.Windows.Win32.System.ClrHosting.ITypeNameBuilder)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 MALLOC_TYPE = Int32
-MALLOC_THREADSAFE: MALLOC_TYPE = 1
-MALLOC_EXECUTABLE: MALLOC_TYPE = 2
+MALLOC_THREADSAFE: win32more.Windows.Win32.System.ClrHosting.MALLOC_TYPE = 1
+MALLOC_EXECUTABLE: win32more.Windows.Win32.System.ClrHosting.MALLOC_TYPE = 2
 class MDAInfo(EasyCastStructure):
     lpMDACaption: win32more.Windows.Win32.Foundation.PWSTR
     lpMDAMessage: win32more.Windows.Win32.Foundation.PWSTR
     lpStackTrace: win32more.Windows.Win32.Foundation.PWSTR
 METAHOST_CONFIG_FLAGS = Int32
-METAHOST_CONFIG_FLAGS_LEGACY_V2_ACTIVATION_POLICY_UNSET: METAHOST_CONFIG_FLAGS = 0
-METAHOST_CONFIG_FLAGS_LEGACY_V2_ACTIVATION_POLICY_TRUE: METAHOST_CONFIG_FLAGS = 1
-METAHOST_CONFIG_FLAGS_LEGACY_V2_ACTIVATION_POLICY_FALSE: METAHOST_CONFIG_FLAGS = 2
-METAHOST_CONFIG_FLAGS_LEGACY_V2_ACTIVATION_POLICY_MASK: METAHOST_CONFIG_FLAGS = 3
+METAHOST_CONFIG_FLAGS_LEGACY_V2_ACTIVATION_POLICY_UNSET: win32more.Windows.Win32.System.ClrHosting.METAHOST_CONFIG_FLAGS = 0
+METAHOST_CONFIG_FLAGS_LEGACY_V2_ACTIVATION_POLICY_TRUE: win32more.Windows.Win32.System.ClrHosting.METAHOST_CONFIG_FLAGS = 1
+METAHOST_CONFIG_FLAGS_LEGACY_V2_ACTIVATION_POLICY_FALSE: win32more.Windows.Win32.System.ClrHosting.METAHOST_CONFIG_FLAGS = 2
+METAHOST_CONFIG_FLAGS_LEGACY_V2_ACTIVATION_POLICY_MASK: win32more.Windows.Win32.System.ClrHosting.METAHOST_CONFIG_FLAGS = 3
 METAHOST_POLICY_FLAGS = Int32
-METAHOST_POLICY_HIGHCOMPAT: METAHOST_POLICY_FLAGS = 0
-METAHOST_POLICY_APPLY_UPGRADE_POLICY: METAHOST_POLICY_FLAGS = 8
-METAHOST_POLICY_EMULATE_EXE_LAUNCH: METAHOST_POLICY_FLAGS = 16
-METAHOST_POLICY_SHOW_ERROR_DIALOG: METAHOST_POLICY_FLAGS = 32
-METAHOST_POLICY_USE_PROCESS_IMAGE_PATH: METAHOST_POLICY_FLAGS = 64
-METAHOST_POLICY_ENSURE_SKU_SUPPORTED: METAHOST_POLICY_FLAGS = 128
-METAHOST_POLICY_IGNORE_ERROR_MODE: METAHOST_POLICY_FLAGS = 4096
+METAHOST_POLICY_HIGHCOMPAT: win32more.Windows.Win32.System.ClrHosting.METAHOST_POLICY_FLAGS = 0
+METAHOST_POLICY_APPLY_UPGRADE_POLICY: win32more.Windows.Win32.System.ClrHosting.METAHOST_POLICY_FLAGS = 8
+METAHOST_POLICY_EMULATE_EXE_LAUNCH: win32more.Windows.Win32.System.ClrHosting.METAHOST_POLICY_FLAGS = 16
+METAHOST_POLICY_SHOW_ERROR_DIALOG: win32more.Windows.Win32.System.ClrHosting.METAHOST_POLICY_FLAGS = 32
+METAHOST_POLICY_USE_PROCESS_IMAGE_PATH: win32more.Windows.Win32.System.ClrHosting.METAHOST_POLICY_FLAGS = 64
+METAHOST_POLICY_ENSURE_SKU_SUPPORTED: win32more.Windows.Win32.System.ClrHosting.METAHOST_POLICY_FLAGS = 128
+METAHOST_POLICY_IGNORE_ERROR_MODE: win32more.Windows.Win32.System.ClrHosting.METAHOST_POLICY_FLAGS = 4096
 class ModuleBindInfo(EasyCastStructure):
     dwAppDomainId: UInt32
     lpAssemblyIdentity: win32more.Windows.Win32.Foundation.PWSTR
@@ -1097,44 +1096,46 @@ class ModuleBindInfo(EasyCastStructure):
 @winfunctype_pointer
 def PTLS_CALLBACK_FUNCTION(__MIDL____MIDL_itf_mscoree_0000_00040005: VoidPtr) -> Void: ...
 RUNTIME_INFO_FLAGS = Int32
-RUNTIME_INFO_UPGRADE_VERSION: RUNTIME_INFO_FLAGS = 1
-RUNTIME_INFO_REQUEST_IA64: RUNTIME_INFO_FLAGS = 2
-RUNTIME_INFO_REQUEST_AMD64: RUNTIME_INFO_FLAGS = 4
-RUNTIME_INFO_REQUEST_X86: RUNTIME_INFO_FLAGS = 8
-RUNTIME_INFO_DONT_RETURN_DIRECTORY: RUNTIME_INFO_FLAGS = 16
-RUNTIME_INFO_DONT_RETURN_VERSION: RUNTIME_INFO_FLAGS = 32
-RUNTIME_INFO_DONT_SHOW_ERROR_DIALOG: RUNTIME_INFO_FLAGS = 64
-RUNTIME_INFO_IGNORE_ERROR_MODE: RUNTIME_INFO_FLAGS = 4096
-RUNTIME_INFO_REQUEST_ARM64: RUNTIME_INFO_FLAGS = 8192
+RUNTIME_INFO_UPGRADE_VERSION: win32more.Windows.Win32.System.ClrHosting.RUNTIME_INFO_FLAGS = 1
+RUNTIME_INFO_REQUEST_IA64: win32more.Windows.Win32.System.ClrHosting.RUNTIME_INFO_FLAGS = 2
+RUNTIME_INFO_REQUEST_AMD64: win32more.Windows.Win32.System.ClrHosting.RUNTIME_INFO_FLAGS = 4
+RUNTIME_INFO_REQUEST_X86: win32more.Windows.Win32.System.ClrHosting.RUNTIME_INFO_FLAGS = 8
+RUNTIME_INFO_DONT_RETURN_DIRECTORY: win32more.Windows.Win32.System.ClrHosting.RUNTIME_INFO_FLAGS = 16
+RUNTIME_INFO_DONT_RETURN_VERSION: win32more.Windows.Win32.System.ClrHosting.RUNTIME_INFO_FLAGS = 32
+RUNTIME_INFO_DONT_SHOW_ERROR_DIALOG: win32more.Windows.Win32.System.ClrHosting.RUNTIME_INFO_FLAGS = 64
+RUNTIME_INFO_IGNORE_ERROR_MODE: win32more.Windows.Win32.System.ClrHosting.RUNTIME_INFO_FLAGS = 4096
+RUNTIME_INFO_REQUEST_ARM64: win32more.Windows.Win32.System.ClrHosting.RUNTIME_INFO_FLAGS = 8192
 @winfunctype_pointer
 def RuntimeLoadedCallbackFnPtr(pRuntimeInfo: win32more.Windows.Win32.System.ClrHosting.ICLRRuntimeInfo, pfnCallbackThreadSet: win32more.Windows.Win32.System.ClrHosting.CallbackThreadSetFnPtr, pfnCallbackThreadUnset: win32more.Windows.Win32.System.ClrHosting.CallbackThreadUnsetFnPtr) -> Void: ...
 STARTUP_FLAGS = Int32
-STARTUP_CONCURRENT_GC: STARTUP_FLAGS = 1
-STARTUP_LOADER_OPTIMIZATION_MASK: STARTUP_FLAGS = 6
-STARTUP_LOADER_OPTIMIZATION_SINGLE_DOMAIN: STARTUP_FLAGS = 2
-STARTUP_LOADER_OPTIMIZATION_MULTI_DOMAIN: STARTUP_FLAGS = 4
-STARTUP_LOADER_OPTIMIZATION_MULTI_DOMAIN_HOST: STARTUP_FLAGS = 6
-STARTUP_LOADER_SAFEMODE: STARTUP_FLAGS = 16
-STARTUP_LOADER_SETPREFERENCE: STARTUP_FLAGS = 256
-STARTUP_SERVER_GC: STARTUP_FLAGS = 4096
-STARTUP_HOARD_GC_VM: STARTUP_FLAGS = 8192
-STARTUP_SINGLE_VERSION_HOSTING_INTERFACE: STARTUP_FLAGS = 16384
-STARTUP_LEGACY_IMPERSONATION: STARTUP_FLAGS = 65536
-STARTUP_DISABLE_COMMITTHREADSTACK: STARTUP_FLAGS = 131072
-STARTUP_ALWAYSFLOW_IMPERSONATION: STARTUP_FLAGS = 262144
-STARTUP_TRIM_GC_COMMIT: STARTUP_FLAGS = 524288
-STARTUP_ETW: STARTUP_FLAGS = 1048576
-STARTUP_ARM: STARTUP_FLAGS = 4194304
+STARTUP_CONCURRENT_GC: win32more.Windows.Win32.System.ClrHosting.STARTUP_FLAGS = 1
+STARTUP_LOADER_OPTIMIZATION_MASK: win32more.Windows.Win32.System.ClrHosting.STARTUP_FLAGS = 6
+STARTUP_LOADER_OPTIMIZATION_SINGLE_DOMAIN: win32more.Windows.Win32.System.ClrHosting.STARTUP_FLAGS = 2
+STARTUP_LOADER_OPTIMIZATION_MULTI_DOMAIN: win32more.Windows.Win32.System.ClrHosting.STARTUP_FLAGS = 4
+STARTUP_LOADER_OPTIMIZATION_MULTI_DOMAIN_HOST: win32more.Windows.Win32.System.ClrHosting.STARTUP_FLAGS = 6
+STARTUP_LOADER_SAFEMODE: win32more.Windows.Win32.System.ClrHosting.STARTUP_FLAGS = 16
+STARTUP_LOADER_SETPREFERENCE: win32more.Windows.Win32.System.ClrHosting.STARTUP_FLAGS = 256
+STARTUP_SERVER_GC: win32more.Windows.Win32.System.ClrHosting.STARTUP_FLAGS = 4096
+STARTUP_HOARD_GC_VM: win32more.Windows.Win32.System.ClrHosting.STARTUP_FLAGS = 8192
+STARTUP_SINGLE_VERSION_HOSTING_INTERFACE: win32more.Windows.Win32.System.ClrHosting.STARTUP_FLAGS = 16384
+STARTUP_LEGACY_IMPERSONATION: win32more.Windows.Win32.System.ClrHosting.STARTUP_FLAGS = 65536
+STARTUP_DISABLE_COMMITTHREADSTACK: win32more.Windows.Win32.System.ClrHosting.STARTUP_FLAGS = 131072
+STARTUP_ALWAYSFLOW_IMPERSONATION: win32more.Windows.Win32.System.ClrHosting.STARTUP_FLAGS = 262144
+STARTUP_TRIM_GC_COMMIT: win32more.Windows.Win32.System.ClrHosting.STARTUP_FLAGS = 524288
+STARTUP_ETW: win32more.Windows.Win32.System.ClrHosting.STARTUP_FLAGS = 1048576
+STARTUP_ARM: win32more.Windows.Win32.System.ClrHosting.STARTUP_FLAGS = 4194304
 class StackOverflowInfo(EasyCastStructure):
     soType: win32more.Windows.Win32.System.ClrHosting.StackOverflowType
     pExceptionInfo: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.EXCEPTION_POINTERS)
 StackOverflowType = Int32
-SO_Managed: StackOverflowType = 0
-SO_ClrEngine: StackOverflowType = 1
-SO_Other: StackOverflowType = 2
+SO_Managed: win32more.Windows.Win32.System.ClrHosting.StackOverflowType = 0
+SO_ClrEngine: win32more.Windows.Win32.System.ClrHosting.StackOverflowType = 1
+SO_Other: win32more.Windows.Win32.System.ClrHosting.StackOverflowType = 2
 TypeNameFactory = Guid('{b81ff171-20f3-11d2-8dcc-00a0c9b00525}')
 WAIT_OPTION = Int32
-WAIT_MSGPUMP: WAIT_OPTION = 1
-WAIT_ALERTABLE: WAIT_OPTION = 2
-WAIT_NOTINDEADLOCK: WAIT_OPTION = 4
+WAIT_MSGPUMP: win32more.Windows.Win32.System.ClrHosting.WAIT_OPTION = 1
+WAIT_ALERTABLE: win32more.Windows.Win32.System.ClrHosting.WAIT_OPTION = 2
+WAIT_NOTINDEADLOCK: win32more.Windows.Win32.System.ClrHosting.WAIT_OPTION = 4
+
+
 make_ready(__name__)

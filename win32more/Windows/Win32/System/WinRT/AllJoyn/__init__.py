@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Win32.System.WinRT.AllJoyn
@@ -28,4 +27,6 @@ class IWindowsDevicesAllJoynBusObjectInterop(ComPtr):
     def AddPropertySetHandler(self, context: VoidPtr, interfaceName: win32more.Windows.Win32.System.WinRT.HSTRING, callback: IntPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_Win32Handle(self, value: POINTER(UInt64)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+
+
 make_ready(__name__)

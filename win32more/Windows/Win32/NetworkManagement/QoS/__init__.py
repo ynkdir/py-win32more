@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.NetworkManagement.Ndis
 import win32more.Windows.Win32.NetworkManagement.QoS
@@ -667,12 +666,12 @@ class FLOW_DESC(EasyCastStructure):
         stemp: POINTER(win32more.Windows.Win32.NetworkManagement.QoS.FILTER_SPEC)
         fspec: POINTER(win32more.Windows.Win32.NetworkManagement.QoS.FILTER_SPEC)
 FilterType = Int32
-FILTERSPECV4: FilterType = 1
-FILTERSPECV6: FilterType = 2
-FILTERSPECV6_FLOW: FilterType = 3
-FILTERSPECV4_GPI: FilterType = 4
-FILTERSPECV6_GPI: FilterType = 5
-FILTERSPEC_END: FilterType = 6
+FILTERSPECV4: win32more.Windows.Win32.NetworkManagement.QoS.FilterType = 1
+FILTERSPECV6: win32more.Windows.Win32.NetworkManagement.QoS.FilterType = 2
+FILTERSPECV6_FLOW: win32more.Windows.Win32.NetworkManagement.QoS.FilterType = 3
+FILTERSPECV4_GPI: win32more.Windows.Win32.NetworkManagement.QoS.FilterType = 4
+FILTERSPECV6_GPI: win32more.Windows.Win32.NetworkManagement.QoS.FilterType = 5
+FILTERSPEC_END: win32more.Windows.Win32.NetworkManagement.QoS.FilterType = 6
 class Filter_Spec_IPv4(EasyCastStructure):
     filt_ipaddr: win32more.Windows.Win32.Networking.WinSock.IN_ADDR
     filt_unused: UInt16
@@ -855,11 +854,11 @@ class QOS_FLOWRATE_OUTGOING(EasyCastStructure):
     ShapingBehavior: win32more.Windows.Win32.NetworkManagement.QoS.QOS_SHAPING
     Reason: win32more.Windows.Win32.NetworkManagement.QoS.QOS_FLOWRATE_REASON
 QOS_FLOWRATE_REASON = Int32
-QOS_FLOWRATE_REASON_QOSFlowRateNotApplicable: QOS_FLOWRATE_REASON = 0
-QOS_FLOWRATE_REASON_QOSFlowRateContentChange: QOS_FLOWRATE_REASON = 1
-QOS_FLOWRATE_REASON_QOSFlowRateCongestion: QOS_FLOWRATE_REASON = 2
-QOS_FLOWRATE_REASON_QOSFlowRateHigherContentEncoding: QOS_FLOWRATE_REASON = 3
-QOS_FLOWRATE_REASON_QOSFlowRateUserCaused: QOS_FLOWRATE_REASON = 4
+QOS_FLOWRATE_REASON_QOSFlowRateNotApplicable: win32more.Windows.Win32.NetworkManagement.QoS.QOS_FLOWRATE_REASON = 0
+QOS_FLOWRATE_REASON_QOSFlowRateContentChange: win32more.Windows.Win32.NetworkManagement.QoS.QOS_FLOWRATE_REASON = 1
+QOS_FLOWRATE_REASON_QOSFlowRateCongestion: win32more.Windows.Win32.NetworkManagement.QoS.QOS_FLOWRATE_REASON = 2
+QOS_FLOWRATE_REASON_QOSFlowRateHigherContentEncoding: win32more.Windows.Win32.NetworkManagement.QoS.QOS_FLOWRATE_REASON = 3
+QOS_FLOWRATE_REASON_QOSFlowRateUserCaused: win32more.Windows.Win32.NetworkManagement.QoS.QOS_FLOWRATE_REASON = 4
 class QOS_FLOW_FUNDAMENTALS(EasyCastStructure):
     BottleneckBandwidthSet: win32more.Windows.Win32.Foundation.BOOL
     BottleneckBandwidth: UInt64
@@ -871,9 +870,9 @@ class QOS_FRIENDLY_NAME(EasyCastStructure):
     ObjectHdr: win32more.Windows.Win32.NetworkManagement.QoS.QOS_OBJECT_HDR
     FriendlyName: Char * 256
 QOS_NOTIFY_FLOW = Int32
-QOS_NOTIFY_FLOW_QOSNotifyCongested: QOS_NOTIFY_FLOW = 0
-QOS_NOTIFY_FLOW_QOSNotifyUncongested: QOS_NOTIFY_FLOW = 1
-QOS_NOTIFY_FLOW_QOSNotifyAvailable: QOS_NOTIFY_FLOW = 2
+QOS_NOTIFY_FLOW_QOSNotifyCongested: win32more.Windows.Win32.NetworkManagement.QoS.QOS_NOTIFY_FLOW = 0
+QOS_NOTIFY_FLOW_QOSNotifyUncongested: win32more.Windows.Win32.NetworkManagement.QoS.QOS_NOTIFY_FLOW = 1
+QOS_NOTIFY_FLOW_QOSNotifyAvailable: win32more.Windows.Win32.NetworkManagement.QoS.QOS_NOTIFY_FLOW = 2
 class QOS_OBJECT_HDR(EasyCastStructure):
     ObjectType: UInt32
     ObjectLength: UInt32
@@ -883,20 +882,20 @@ class QOS_PACKET_PRIORITY(EasyCastStructure):
     ConformantL2Value: UInt32
     NonConformantL2Value: UInt32
 QOS_QUERY_FLOW = Int32
-QOS_QUERY_FLOW_QOSQueryFlowFundamentals: QOS_QUERY_FLOW = 0
-QOS_QUERY_FLOW_QOSQueryPacketPriority: QOS_QUERY_FLOW = 1
-QOS_QUERY_FLOW_QOSQueryOutgoingRate: QOS_QUERY_FLOW = 2
+QOS_QUERY_FLOW_QOSQueryFlowFundamentals: win32more.Windows.Win32.NetworkManagement.QoS.QOS_QUERY_FLOW = 0
+QOS_QUERY_FLOW_QOSQueryPacketPriority: win32more.Windows.Win32.NetworkManagement.QoS.QOS_QUERY_FLOW = 1
+QOS_QUERY_FLOW_QOSQueryOutgoingRate: win32more.Windows.Win32.NetworkManagement.QoS.QOS_QUERY_FLOW = 2
 class QOS_SD_MODE(EasyCastStructure):
     ObjectHdr: win32more.Windows.Win32.NetworkManagement.QoS.QOS_OBJECT_HDR
     ShapeDiscardMode: UInt32
 QOS_SET_FLOW = Int32
-QOS_SET_FLOW_QOSSetTrafficType: QOS_SET_FLOW = 0
-QOS_SET_FLOW_QOSSetOutgoingRate: QOS_SET_FLOW = 1
-QOS_SET_FLOW_QOSSetOutgoingDSCPValue: QOS_SET_FLOW = 2
+QOS_SET_FLOW_QOSSetTrafficType: win32more.Windows.Win32.NetworkManagement.QoS.QOS_SET_FLOW = 0
+QOS_SET_FLOW_QOSSetOutgoingRate: win32more.Windows.Win32.NetworkManagement.QoS.QOS_SET_FLOW = 1
+QOS_SET_FLOW_QOSSetOutgoingDSCPValue: win32more.Windows.Win32.NetworkManagement.QoS.QOS_SET_FLOW = 2
 QOS_SHAPING = Int32
-QOS_SHAPING_QOSShapeOnly: QOS_SHAPING = 0
-QOS_SHAPING_QOSShapeAndMark: QOS_SHAPING = 1
-QOS_SHAPING_QOSUseNonConformantMarkings: QOS_SHAPING = 2
+QOS_SHAPING_QOSShapeOnly: win32more.Windows.Win32.NetworkManagement.QoS.QOS_SHAPING = 0
+QOS_SHAPING_QOSShapeAndMark: win32more.Windows.Win32.NetworkManagement.QoS.QOS_SHAPING = 1
+QOS_SHAPING_QOSUseNonConformantMarkings: win32more.Windows.Win32.NetworkManagement.QoS.QOS_SHAPING = 2
 class QOS_SHAPING_RATE(EasyCastStructure):
     ObjectHdr: win32more.Windows.Win32.NetworkManagement.QoS.QOS_OBJECT_HDR
     ShapingRate: UInt32
@@ -906,12 +905,12 @@ class QOS_TRAFFIC_CLASS(EasyCastStructure):
     ObjectHdr: win32more.Windows.Win32.NetworkManagement.QoS.QOS_OBJECT_HDR
     TrafficClass: UInt32
 QOS_TRAFFIC_TYPE = Int32
-QOS_TRAFFIC_TYPE_QOSTrafficTypeBestEffort: QOS_TRAFFIC_TYPE = 0
-QOS_TRAFFIC_TYPE_QOSTrafficTypeBackground: QOS_TRAFFIC_TYPE = 1
-QOS_TRAFFIC_TYPE_QOSTrafficTypeExcellentEffort: QOS_TRAFFIC_TYPE = 2
-QOS_TRAFFIC_TYPE_QOSTrafficTypeAudioVideo: QOS_TRAFFIC_TYPE = 3
-QOS_TRAFFIC_TYPE_QOSTrafficTypeVoice: QOS_TRAFFIC_TYPE = 4
-QOS_TRAFFIC_TYPE_QOSTrafficTypeControl: QOS_TRAFFIC_TYPE = 5
+QOS_TRAFFIC_TYPE_QOSTrafficTypeBestEffort: win32more.Windows.Win32.NetworkManagement.QoS.QOS_TRAFFIC_TYPE = 0
+QOS_TRAFFIC_TYPE_QOSTrafficTypeBackground: win32more.Windows.Win32.NetworkManagement.QoS.QOS_TRAFFIC_TYPE = 1
+QOS_TRAFFIC_TYPE_QOSTrafficTypeExcellentEffort: win32more.Windows.Win32.NetworkManagement.QoS.QOS_TRAFFIC_TYPE = 2
+QOS_TRAFFIC_TYPE_QOSTrafficTypeAudioVideo: win32more.Windows.Win32.NetworkManagement.QoS.QOS_TRAFFIC_TYPE = 3
+QOS_TRAFFIC_TYPE_QOSTrafficTypeVoice: win32more.Windows.Win32.NetworkManagement.QoS.QOS_TRAFFIC_TYPE = 4
+QOS_TRAFFIC_TYPE_QOSTrafficTypeControl: win32more.Windows.Win32.NetworkManagement.QoS.QOS_TRAFFIC_TYPE = 5
 class QOS_VERSION(EasyCastStructure):
     MajorVersion: UInt16
     MinorVersion: UInt16
@@ -1129,10 +1128,12 @@ class WBCL_LogHdr(EasyCastStructure):
     length: UInt32
     _pack_ = 1
 int_serv_wkp = Int32
-IS_WKP_HOP_CNT: int_serv_wkp = 4
-IS_WKP_PATH_BW: int_serv_wkp = 6
-IS_WKP_MIN_LATENCY: int_serv_wkp = 8
-IS_WKP_COMPOSED_MTU: int_serv_wkp = 10
-IS_WKP_TB_TSPEC: int_serv_wkp = 127
-IS_WKP_Q_TSPEC: int_serv_wkp = 128
+IS_WKP_HOP_CNT: win32more.Windows.Win32.NetworkManagement.QoS.int_serv_wkp = 4
+IS_WKP_PATH_BW: win32more.Windows.Win32.NetworkManagement.QoS.int_serv_wkp = 6
+IS_WKP_MIN_LATENCY: win32more.Windows.Win32.NetworkManagement.QoS.int_serv_wkp = 8
+IS_WKP_COMPOSED_MTU: win32more.Windows.Win32.NetworkManagement.QoS.int_serv_wkp = 10
+IS_WKP_TB_TSPEC: win32more.Windows.Win32.NetworkManagement.QoS.int_serv_wkp = 127
+IS_WKP_Q_TSPEC: win32more.Windows.Win32.NetworkManagement.QoS.int_serv_wkp = 128
+
+
 make_ready(__name__)

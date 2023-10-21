@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Data.Xml.MsXml
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.NetworkManagement.NetManagement
@@ -126,10 +125,10 @@ class AE_UASMOD(EasyCastStructure):
     ae_um_action: UInt32
     ae_um_datalen: UInt32
 AF_OP = UInt32
-AF_OP_PRINT: AF_OP = 1
-AF_OP_COMM: AF_OP = 2
-AF_OP_SERVER: AF_OP = 4
-AF_OP_ACCOUNTS: AF_OP = 8
+AF_OP_PRINT: win32more.Windows.Win32.NetworkManagement.NetManagement.AF_OP = 1
+AF_OP_COMM: win32more.Windows.Win32.NetworkManagement.NetManagement.AF_OP = 2
+AF_OP_SERVER: win32more.Windows.Win32.NetworkManagement.NetManagement.AF_OP = 4
+AF_OP_ACCOUNTS: win32more.Windows.Win32.NetworkManagement.NetManagement.AF_OP = 8
 class AT_ENUM(EasyCastStructure):
     JobId: UInt32
     JobTime: UIntPtr
@@ -2581,38 +2580,38 @@ def MprSetupProtocolEnum(dwTransportId: UInt32, lplpBuffer: POINTER(POINTER(Byte
 @winfunctype('rtutils.dll')
 def MprSetupProtocolFree(lpBuffer: VoidPtr) -> UInt32: ...
 BIND_FLAGS1 = Int32
-NCN_ADD: BIND_FLAGS1 = 1
-NCN_REMOVE: BIND_FLAGS1 = 2
-NCN_UPDATE: BIND_FLAGS1 = 4
-NCN_ENABLE: BIND_FLAGS1 = 16
-NCN_DISABLE: BIND_FLAGS1 = 32
-NCN_BINDING_PATH: BIND_FLAGS1 = 256
-NCN_PROPERTYCHANGE: BIND_FLAGS1 = 512
-NCN_NET: BIND_FLAGS1 = 65536
-NCN_NETTRANS: BIND_FLAGS1 = 131072
-NCN_NETCLIENT: BIND_FLAGS1 = 262144
-NCN_NETSERVICE: BIND_FLAGS1 = 524288
+NCN_ADD: win32more.Windows.Win32.NetworkManagement.NetManagement.BIND_FLAGS1 = 1
+NCN_REMOVE: win32more.Windows.Win32.NetworkManagement.NetManagement.BIND_FLAGS1 = 2
+NCN_UPDATE: win32more.Windows.Win32.NetworkManagement.NetManagement.BIND_FLAGS1 = 4
+NCN_ENABLE: win32more.Windows.Win32.NetworkManagement.NetManagement.BIND_FLAGS1 = 16
+NCN_DISABLE: win32more.Windows.Win32.NetworkManagement.NetManagement.BIND_FLAGS1 = 32
+NCN_BINDING_PATH: win32more.Windows.Win32.NetworkManagement.NetManagement.BIND_FLAGS1 = 256
+NCN_PROPERTYCHANGE: win32more.Windows.Win32.NetworkManagement.NetManagement.BIND_FLAGS1 = 512
+NCN_NET: win32more.Windows.Win32.NetworkManagement.NetManagement.BIND_FLAGS1 = 65536
+NCN_NETTRANS: win32more.Windows.Win32.NetworkManagement.NetManagement.BIND_FLAGS1 = 131072
+NCN_NETCLIENT: win32more.Windows.Win32.NetworkManagement.NetManagement.BIND_FLAGS1 = 262144
+NCN_NETSERVICE: win32more.Windows.Win32.NetworkManagement.NetManagement.BIND_FLAGS1 = 524288
 COMPONENT_CHARACTERISTICS = Int32
-NCF_VIRTUAL: COMPONENT_CHARACTERISTICS = 1
-NCF_SOFTWARE_ENUMERATED: COMPONENT_CHARACTERISTICS = 2
-NCF_PHYSICAL: COMPONENT_CHARACTERISTICS = 4
-NCF_HIDDEN: COMPONENT_CHARACTERISTICS = 8
-NCF_NO_SERVICE: COMPONENT_CHARACTERISTICS = 16
-NCF_NOT_USER_REMOVABLE: COMPONENT_CHARACTERISTICS = 32
-NCF_MULTIPORT_INSTANCED_ADAPTER: COMPONENT_CHARACTERISTICS = 64
-NCF_HAS_UI: COMPONENT_CHARACTERISTICS = 128
-NCF_SINGLE_INSTANCE: COMPONENT_CHARACTERISTICS = 256
-NCF_FILTER: COMPONENT_CHARACTERISTICS = 1024
-NCF_DONTEXPOSELOWER: COMPONENT_CHARACTERISTICS = 4096
-NCF_HIDE_BINDING: COMPONENT_CHARACTERISTICS = 8192
-NCF_NDIS_PROTOCOL: COMPONENT_CHARACTERISTICS = 16384
-NCF_FIXED_BINDING: COMPONENT_CHARACTERISTICS = 131072
-NCF_LW_FILTER: COMPONENT_CHARACTERISTICS = 262144
+NCF_VIRTUAL: win32more.Windows.Win32.NetworkManagement.NetManagement.COMPONENT_CHARACTERISTICS = 1
+NCF_SOFTWARE_ENUMERATED: win32more.Windows.Win32.NetworkManagement.NetManagement.COMPONENT_CHARACTERISTICS = 2
+NCF_PHYSICAL: win32more.Windows.Win32.NetworkManagement.NetManagement.COMPONENT_CHARACTERISTICS = 4
+NCF_HIDDEN: win32more.Windows.Win32.NetworkManagement.NetManagement.COMPONENT_CHARACTERISTICS = 8
+NCF_NO_SERVICE: win32more.Windows.Win32.NetworkManagement.NetManagement.COMPONENT_CHARACTERISTICS = 16
+NCF_NOT_USER_REMOVABLE: win32more.Windows.Win32.NetworkManagement.NetManagement.COMPONENT_CHARACTERISTICS = 32
+NCF_MULTIPORT_INSTANCED_ADAPTER: win32more.Windows.Win32.NetworkManagement.NetManagement.COMPONENT_CHARACTERISTICS = 64
+NCF_HAS_UI: win32more.Windows.Win32.NetworkManagement.NetManagement.COMPONENT_CHARACTERISTICS = 128
+NCF_SINGLE_INSTANCE: win32more.Windows.Win32.NetworkManagement.NetManagement.COMPONENT_CHARACTERISTICS = 256
+NCF_FILTER: win32more.Windows.Win32.NetworkManagement.NetManagement.COMPONENT_CHARACTERISTICS = 1024
+NCF_DONTEXPOSELOWER: win32more.Windows.Win32.NetworkManagement.NetManagement.COMPONENT_CHARACTERISTICS = 4096
+NCF_HIDE_BINDING: win32more.Windows.Win32.NetworkManagement.NetManagement.COMPONENT_CHARACTERISTICS = 8192
+NCF_NDIS_PROTOCOL: win32more.Windows.Win32.NetworkManagement.NetManagement.COMPONENT_CHARACTERISTICS = 16384
+NCF_FIXED_BINDING: win32more.Windows.Win32.NetworkManagement.NetManagement.COMPONENT_CHARACTERISTICS = 131072
+NCF_LW_FILTER: win32more.Windows.Win32.NetworkManagement.NetManagement.COMPONENT_CHARACTERISTICS = 262144
 class CONFIG_INFO_0(EasyCastStructure):
     cfgi0_key: win32more.Windows.Win32.Foundation.PWSTR
     cfgi0_data: win32more.Windows.Win32.Foundation.PWSTR
 DEFAULT_PAGES = Int32
-DPP_ADVANCED: DEFAULT_PAGES = 1
+DPP_ADVANCED: win32more.Windows.Win32.NetworkManagement.NetManagement.DEFAULT_PAGES = 1
 class DSREG_JOIN_INFO(EasyCastStructure):
     joinType: win32more.Windows.Win32.NetworkManagement.NetManagement.DSREG_JOIN_TYPE
     pJoinCertificate: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT)
@@ -2627,16 +2626,16 @@ class DSREG_JOIN_INFO(EasyCastStructure):
     pszUserSettingSyncUrl: win32more.Windows.Win32.Foundation.PWSTR
     pUserInfo: POINTER(win32more.Windows.Win32.NetworkManagement.NetManagement.DSREG_USER_INFO)
 DSREG_JOIN_TYPE = Int32
-DSREG_UNKNOWN_JOIN: DSREG_JOIN_TYPE = 0
-DSREG_DEVICE_JOIN: DSREG_JOIN_TYPE = 1
-DSREG_WORKPLACE_JOIN: DSREG_JOIN_TYPE = 2
+DSREG_UNKNOWN_JOIN: win32more.Windows.Win32.NetworkManagement.NetManagement.DSREG_JOIN_TYPE = 0
+DSREG_DEVICE_JOIN: win32more.Windows.Win32.NetworkManagement.NetManagement.DSREG_JOIN_TYPE = 1
+DSREG_WORKPLACE_JOIN: win32more.Windows.Win32.NetworkManagement.NetManagement.DSREG_JOIN_TYPE = 2
 class DSREG_USER_INFO(EasyCastStructure):
     pszUserEmail: win32more.Windows.Win32.Foundation.PWSTR
     pszUserKeyId: win32more.Windows.Win32.Foundation.PWSTR
     pszUserKeyName: win32more.Windows.Win32.Foundation.PWSTR
 ENUM_BINDING_PATHS_FLAGS = Int32
-EBP_ABOVE: ENUM_BINDING_PATHS_FLAGS = 1
-EBP_BELOW: ENUM_BINDING_PATHS_FLAGS = 2
+EBP_ABOVE: win32more.Windows.Win32.NetworkManagement.NetManagement.ENUM_BINDING_PATHS_FLAGS = 1
+EBP_BELOW: win32more.Windows.Win32.NetworkManagement.NetManagement.ENUM_BINDING_PATHS_FLAGS = 2
 class ERRLOG_OTHER_INFO(EasyCastStructure):
     alrter_errcode: UInt32
     alrter_offset: UInt32
@@ -2655,9 +2654,9 @@ class FLAT_STRING(EasyCastStructure):
     Length: Int16
     Buffer: win32more.Windows.Win32.Foundation.CHAR * 1
 FORCE_LEVEL_FLAGS = UInt32
-USE_NOFORCE: FORCE_LEVEL_FLAGS = 0
-USE_FORCE: FORCE_LEVEL_FLAGS = 1
-USE_LOTS_OF_FORCE: FORCE_LEVEL_FLAGS = 2
+USE_NOFORCE: win32more.Windows.Win32.NetworkManagement.NetManagement.FORCE_LEVEL_FLAGS = 0
+USE_FORCE: win32more.Windows.Win32.NetworkManagement.NetManagement.FORCE_LEVEL_FLAGS = 1
+USE_LOTS_OF_FORCE: win32more.Windows.Win32.NetworkManagement.NetManagement.FORCE_LEVEL_FLAGS = 2
 class GROUP_INFO_0(EasyCastStructure):
     grpi0_name: win32more.Windows.Win32.Foundation.PWSTR
 class GROUP_INFO_1(EasyCastStructure):
@@ -2980,14 +2979,14 @@ class MPR_PROTOCOL_0(EasyCastStructure):
 class MSA_INFO_0(EasyCastStructure):
     State: win32more.Windows.Win32.NetworkManagement.NetManagement.MSA_INFO_STATE
 MSA_INFO_LEVEL = Int32
-MSA_INFO_LEVEL_MsaInfoLevel0: MSA_INFO_LEVEL = 0
-MSA_INFO_LEVEL_MsaInfoLevelMax: MSA_INFO_LEVEL = 1
+MSA_INFO_LEVEL_MsaInfoLevel0: win32more.Windows.Win32.NetworkManagement.NetManagement.MSA_INFO_LEVEL = 0
+MSA_INFO_LEVEL_MsaInfoLevelMax: win32more.Windows.Win32.NetworkManagement.NetManagement.MSA_INFO_LEVEL = 1
 MSA_INFO_STATE = Int32
-MSA_INFO_STATE_MsaInfoNotExist: MSA_INFO_STATE = 1
-MSA_INFO_STATE_MsaInfoNotService: MSA_INFO_STATE = 2
-MSA_INFO_STATE_MsaInfoCannotInstall: MSA_INFO_STATE = 3
-MSA_INFO_STATE_MsaInfoCanInstall: MSA_INFO_STATE = 4
-MSA_INFO_STATE_MsaInfoInstalled: MSA_INFO_STATE = 5
+MSA_INFO_STATE_MsaInfoNotExist: win32more.Windows.Win32.NetworkManagement.NetManagement.MSA_INFO_STATE = 1
+MSA_INFO_STATE_MsaInfoNotService: win32more.Windows.Win32.NetworkManagement.NetManagement.MSA_INFO_STATE = 2
+MSA_INFO_STATE_MsaInfoCannotInstall: win32more.Windows.Win32.NetworkManagement.NetManagement.MSA_INFO_STATE = 3
+MSA_INFO_STATE_MsaInfoCanInstall: win32more.Windows.Win32.NetworkManagement.NetManagement.MSA_INFO_STATE = 4
+MSA_INFO_STATE_MsaInfoInstalled: win32more.Windows.Win32.NetworkManagement.NetManagement.MSA_INFO_STATE = 5
 class MSG_INFO_0(EasyCastStructure):
     msgi0_name: win32more.Windows.Win32.Foundation.PWSTR
 class MSG_INFO_1(EasyCastStructure):
@@ -2995,11 +2994,11 @@ class MSG_INFO_1(EasyCastStructure):
     msgi1_forward_flag: UInt32
     msgi1_forward: win32more.Windows.Win32.Foundation.PWSTR
 NCPNP_RECONFIG_LAYER = Int32
-NCRL_NDIS: NCPNP_RECONFIG_LAYER = 1
-NCRL_TDI: NCPNP_RECONFIG_LAYER = 2
+NCRL_NDIS: win32more.Windows.Win32.NetworkManagement.NetManagement.NCPNP_RECONFIG_LAYER = 1
+NCRL_TDI: win32more.Windows.Win32.NetworkManagement.NetManagement.NCPNP_RECONFIG_LAYER = 2
 NCRP_FLAGS = Int32
-NCRP_QUERY_PROPERTY_UI: NCRP_FLAGS = 1
-NCRP_SHOW_PROPERTY_UI: NCRP_FLAGS = 2
+NCRP_QUERY_PROPERTY_UI: win32more.Windows.Win32.NetworkManagement.NetManagement.NCRP_FLAGS = 1
+NCRP_SHOW_PROPERTY_UI: win32more.Windows.Win32.NetworkManagement.NetManagement.NCRP_FLAGS = 2
 class NETLOGON_INFO_1(EasyCastStructure):
     netlog1_flags: UInt32
     netlog1_pdc_connection_status: UInt32
@@ -3020,23 +3019,23 @@ class NETLOGON_INFO_4(EasyCastStructure):
     netlog4_trusted_dc_name: win32more.Windows.Win32.Foundation.PWSTR
     netlog4_trusted_domain_name: win32more.Windows.Win32.Foundation.PWSTR
 NETSETUP_JOIN_STATUS = Int32
-NETSETUP_JOIN_STATUS_NetSetupUnknownStatus: NETSETUP_JOIN_STATUS = 0
-NETSETUP_JOIN_STATUS_NetSetupUnjoined: NETSETUP_JOIN_STATUS = 1
-NETSETUP_JOIN_STATUS_NetSetupWorkgroupName: NETSETUP_JOIN_STATUS = 2
-NETSETUP_JOIN_STATUS_NetSetupDomainName: NETSETUP_JOIN_STATUS = 3
+NETSETUP_JOIN_STATUS_NetSetupUnknownStatus: win32more.Windows.Win32.NetworkManagement.NetManagement.NETSETUP_JOIN_STATUS = 0
+NETSETUP_JOIN_STATUS_NetSetupUnjoined: win32more.Windows.Win32.NetworkManagement.NetManagement.NETSETUP_JOIN_STATUS = 1
+NETSETUP_JOIN_STATUS_NetSetupWorkgroupName: win32more.Windows.Win32.NetworkManagement.NetManagement.NETSETUP_JOIN_STATUS = 2
+NETSETUP_JOIN_STATUS_NetSetupDomainName: win32more.Windows.Win32.NetworkManagement.NetManagement.NETSETUP_JOIN_STATUS = 3
 NETSETUP_NAME_TYPE = Int32
-NETSETUP_NAME_TYPE_NetSetupUnknown: NETSETUP_NAME_TYPE = 0
-NETSETUP_NAME_TYPE_NetSetupMachine: NETSETUP_NAME_TYPE = 1
-NETSETUP_NAME_TYPE_NetSetupWorkgroup: NETSETUP_NAME_TYPE = 2
-NETSETUP_NAME_TYPE_NetSetupDomain: NETSETUP_NAME_TYPE = 3
-NETSETUP_NAME_TYPE_NetSetupNonExistentDomain: NETSETUP_NAME_TYPE = 4
-NETSETUP_NAME_TYPE_NetSetupDnsMachine: NETSETUP_NAME_TYPE = 5
+NETSETUP_NAME_TYPE_NetSetupUnknown: win32more.Windows.Win32.NetworkManagement.NetManagement.NETSETUP_NAME_TYPE = 0
+NETSETUP_NAME_TYPE_NetSetupMachine: win32more.Windows.Win32.NetworkManagement.NetManagement.NETSETUP_NAME_TYPE = 1
+NETSETUP_NAME_TYPE_NetSetupWorkgroup: win32more.Windows.Win32.NetworkManagement.NetManagement.NETSETUP_NAME_TYPE = 2
+NETSETUP_NAME_TYPE_NetSetupDomain: win32more.Windows.Win32.NetworkManagement.NetManagement.NETSETUP_NAME_TYPE = 3
+NETSETUP_NAME_TYPE_NetSetupNonExistentDomain: win32more.Windows.Win32.NetworkManagement.NetManagement.NETSETUP_NAME_TYPE = 4
+NETSETUP_NAME_TYPE_NetSetupDnsMachine: win32more.Windows.Win32.NetworkManagement.NetManagement.NETSETUP_NAME_TYPE = 5
 NETSETUP_PROVISION = UInt32
-NETSETUP_PROVISION_DOWNLEVEL_PRIV_SUPPORT: NETSETUP_PROVISION = 1
-NETSETUP_PROVISION_REUSE_ACCOUNT: NETSETUP_PROVISION = 2
-NETSETUP_PROVISION_USE_DEFAULT_PASSWORD: NETSETUP_PROVISION = 4
-NETSETUP_PROVISION_SKIP_ACCOUNT_SEARCH: NETSETUP_PROVISION = 8
-NETSETUP_PROVISION_ROOT_CA_CERTS: NETSETUP_PROVISION = 16
+NETSETUP_PROVISION_DOWNLEVEL_PRIV_SUPPORT: win32more.Windows.Win32.NetworkManagement.NetManagement.NETSETUP_PROVISION = 1
+NETSETUP_PROVISION_REUSE_ACCOUNT: win32more.Windows.Win32.NetworkManagement.NetManagement.NETSETUP_PROVISION = 2
+NETSETUP_PROVISION_USE_DEFAULT_PASSWORD: win32more.Windows.Win32.NetworkManagement.NetManagement.NETSETUP_PROVISION = 4
+NETSETUP_PROVISION_SKIP_ACCOUNT_SEARCH: win32more.Windows.Win32.NetworkManagement.NetManagement.NETSETUP_PROVISION = 8
+NETSETUP_PROVISION_ROOT_CA_CERTS: win32more.Windows.Win32.NetworkManagement.NetManagement.NETSETUP_PROVISION = 16
 class NETSETUP_PROVISIONING_PARAMS(EasyCastStructure):
     dwVersion: UInt32
     lpDomain: win32more.Windows.Win32.Foundation.PWSTR
@@ -3054,22 +3053,22 @@ class NETSETUP_PROVISIONING_PARAMS(EasyCastStructure):
     lpSiteName: win32more.Windows.Win32.Foundation.PWSTR
     lpPrimaryDNSDomain: win32more.Windows.Win32.Foundation.PWSTR
 NETWORK_INSTALL_TIME = Int32
-NSF_PRIMARYINSTALL: NETWORK_INSTALL_TIME = 1
-NSF_POSTSYSINSTALL: NETWORK_INSTALL_TIME = 2
+NSF_PRIMARYINSTALL: win32more.Windows.Win32.NetworkManagement.NetManagement.NETWORK_INSTALL_TIME = 1
+NSF_POSTSYSINSTALL: win32more.Windows.Win32.NetworkManagement.NetManagement.NETWORK_INSTALL_TIME = 2
 class NETWORK_NAME(EasyCastStructure):
     Name: win32more.Windows.Win32.NetworkManagement.NetManagement.FLAT_STRING
 NETWORK_UPGRADE_TYPE = Int32
-NSF_WIN16_UPGRADE: NETWORK_UPGRADE_TYPE = 16
-NSF_WIN95_UPGRADE: NETWORK_UPGRADE_TYPE = 32
-NSF_WINNT_WKS_UPGRADE: NETWORK_UPGRADE_TYPE = 64
-NSF_WINNT_SVR_UPGRADE: NETWORK_UPGRADE_TYPE = 128
-NSF_WINNT_SBS_UPGRADE: NETWORK_UPGRADE_TYPE = 256
-NSF_COMPONENT_UPDATE: NETWORK_UPGRADE_TYPE = 512
+NSF_WIN16_UPGRADE: win32more.Windows.Win32.NetworkManagement.NetManagement.NETWORK_UPGRADE_TYPE = 16
+NSF_WIN95_UPGRADE: win32more.Windows.Win32.NetworkManagement.NetManagement.NETWORK_UPGRADE_TYPE = 32
+NSF_WINNT_WKS_UPGRADE: win32more.Windows.Win32.NetworkManagement.NetManagement.NETWORK_UPGRADE_TYPE = 64
+NSF_WINNT_SVR_UPGRADE: win32more.Windows.Win32.NetworkManagement.NetManagement.NETWORK_UPGRADE_TYPE = 128
+NSF_WINNT_SBS_UPGRADE: win32more.Windows.Win32.NetworkManagement.NetManagement.NETWORK_UPGRADE_TYPE = 256
+NSF_COMPONENT_UPDATE: win32more.Windows.Win32.NetworkManagement.NetManagement.NETWORK_UPGRADE_TYPE = 512
 NET_COMPUTER_NAME_TYPE = Int32
-NET_COMPUTER_NAME_TYPE_NetPrimaryComputerName: NET_COMPUTER_NAME_TYPE = 0
-NET_COMPUTER_NAME_TYPE_NetAlternateComputerNames: NET_COMPUTER_NAME_TYPE = 1
-NET_COMPUTER_NAME_TYPE_NetAllComputerNames: NET_COMPUTER_NAME_TYPE = 2
-NET_COMPUTER_NAME_TYPE_NetComputerNameTypeMax: NET_COMPUTER_NAME_TYPE = 3
+NET_COMPUTER_NAME_TYPE_NetPrimaryComputerName: win32more.Windows.Win32.NetworkManagement.NetManagement.NET_COMPUTER_NAME_TYPE = 0
+NET_COMPUTER_NAME_TYPE_NetAlternateComputerNames: win32more.Windows.Win32.NetworkManagement.NetManagement.NET_COMPUTER_NAME_TYPE = 1
+NET_COMPUTER_NAME_TYPE_NetAllComputerNames: win32more.Windows.Win32.NetworkManagement.NetManagement.NET_COMPUTER_NAME_TYPE = 2
+NET_COMPUTER_NAME_TYPE_NetComputerNameTypeMax: win32more.Windows.Win32.NetworkManagement.NetManagement.NET_COMPUTER_NAME_TYPE = 3
 class NET_DISPLAY_GROUP(EasyCastStructure):
     grpi3_name: win32more.Windows.Win32.Foundation.PWSTR
     grpi3_comment: win32more.Windows.Win32.Foundation.PWSTR
@@ -3090,71 +3089,71 @@ class NET_DISPLAY_USER(EasyCastStructure):
     usri1_user_id: UInt32
     usri1_next_index: UInt32
 NET_JOIN_DOMAIN_JOIN_OPTIONS = UInt32
-NETSETUP_JOIN_DOMAIN: NET_JOIN_DOMAIN_JOIN_OPTIONS = 1
-NETSETUP_ACCT_CREATE: NET_JOIN_DOMAIN_JOIN_OPTIONS = 2
-NETSETUP_WIN9X_UPGRADE: NET_JOIN_DOMAIN_JOIN_OPTIONS = 16
-NETSETUP_DOMAIN_JOIN_IF_JOINED: NET_JOIN_DOMAIN_JOIN_OPTIONS = 32
-NETSETUP_JOIN_UNSECURE: NET_JOIN_DOMAIN_JOIN_OPTIONS = 64
-NETSETUP_MACHINE_PWD_PASSED: NET_JOIN_DOMAIN_JOIN_OPTIONS = 128
-NETSETUP_DEFER_SPN_SET: NET_JOIN_DOMAIN_JOIN_OPTIONS = 256
-NETSETUP_JOIN_DC_ACCOUNT: NET_JOIN_DOMAIN_JOIN_OPTIONS = 512
-NETSETUP_JOIN_WITH_NEW_NAME: NET_JOIN_DOMAIN_JOIN_OPTIONS = 1024
-NETSETUP_JOIN_READONLY: NET_JOIN_DOMAIN_JOIN_OPTIONS = 2048
-NETSETUP_AMBIGUOUS_DC: NET_JOIN_DOMAIN_JOIN_OPTIONS = 4096
-NETSETUP_NO_NETLOGON_CACHE: NET_JOIN_DOMAIN_JOIN_OPTIONS = 8192
-NETSETUP_DONT_CONTROL_SERVICES: NET_JOIN_DOMAIN_JOIN_OPTIONS = 16384
-NETSETUP_SET_MACHINE_NAME: NET_JOIN_DOMAIN_JOIN_OPTIONS = 32768
-NETSETUP_FORCE_SPN_SET: NET_JOIN_DOMAIN_JOIN_OPTIONS = 65536
-NETSETUP_NO_ACCT_REUSE: NET_JOIN_DOMAIN_JOIN_OPTIONS = 131072
-NETSETUP_IGNORE_UNSUPPORTED_FLAGS: NET_JOIN_DOMAIN_JOIN_OPTIONS = 268435456
+NETSETUP_JOIN_DOMAIN: win32more.Windows.Win32.NetworkManagement.NetManagement.NET_JOIN_DOMAIN_JOIN_OPTIONS = 1
+NETSETUP_ACCT_CREATE: win32more.Windows.Win32.NetworkManagement.NetManagement.NET_JOIN_DOMAIN_JOIN_OPTIONS = 2
+NETSETUP_WIN9X_UPGRADE: win32more.Windows.Win32.NetworkManagement.NetManagement.NET_JOIN_DOMAIN_JOIN_OPTIONS = 16
+NETSETUP_DOMAIN_JOIN_IF_JOINED: win32more.Windows.Win32.NetworkManagement.NetManagement.NET_JOIN_DOMAIN_JOIN_OPTIONS = 32
+NETSETUP_JOIN_UNSECURE: win32more.Windows.Win32.NetworkManagement.NetManagement.NET_JOIN_DOMAIN_JOIN_OPTIONS = 64
+NETSETUP_MACHINE_PWD_PASSED: win32more.Windows.Win32.NetworkManagement.NetManagement.NET_JOIN_DOMAIN_JOIN_OPTIONS = 128
+NETSETUP_DEFER_SPN_SET: win32more.Windows.Win32.NetworkManagement.NetManagement.NET_JOIN_DOMAIN_JOIN_OPTIONS = 256
+NETSETUP_JOIN_DC_ACCOUNT: win32more.Windows.Win32.NetworkManagement.NetManagement.NET_JOIN_DOMAIN_JOIN_OPTIONS = 512
+NETSETUP_JOIN_WITH_NEW_NAME: win32more.Windows.Win32.NetworkManagement.NetManagement.NET_JOIN_DOMAIN_JOIN_OPTIONS = 1024
+NETSETUP_JOIN_READONLY: win32more.Windows.Win32.NetworkManagement.NetManagement.NET_JOIN_DOMAIN_JOIN_OPTIONS = 2048
+NETSETUP_AMBIGUOUS_DC: win32more.Windows.Win32.NetworkManagement.NetManagement.NET_JOIN_DOMAIN_JOIN_OPTIONS = 4096
+NETSETUP_NO_NETLOGON_CACHE: win32more.Windows.Win32.NetworkManagement.NetManagement.NET_JOIN_DOMAIN_JOIN_OPTIONS = 8192
+NETSETUP_DONT_CONTROL_SERVICES: win32more.Windows.Win32.NetworkManagement.NetManagement.NET_JOIN_DOMAIN_JOIN_OPTIONS = 16384
+NETSETUP_SET_MACHINE_NAME: win32more.Windows.Win32.NetworkManagement.NetManagement.NET_JOIN_DOMAIN_JOIN_OPTIONS = 32768
+NETSETUP_FORCE_SPN_SET: win32more.Windows.Win32.NetworkManagement.NetManagement.NET_JOIN_DOMAIN_JOIN_OPTIONS = 65536
+NETSETUP_NO_ACCT_REUSE: win32more.Windows.Win32.NetworkManagement.NetManagement.NET_JOIN_DOMAIN_JOIN_OPTIONS = 131072
+NETSETUP_IGNORE_UNSUPPORTED_FLAGS: win32more.Windows.Win32.NetworkManagement.NetManagement.NET_JOIN_DOMAIN_JOIN_OPTIONS = 268435456
 NET_REMOTE_COMPUTER_SUPPORTS_OPTIONS = UInt32
-SUPPORTS_REMOTE_ADMIN_PROTOCOL: NET_REMOTE_COMPUTER_SUPPORTS_OPTIONS = 2
-SUPPORTS_RPC: NET_REMOTE_COMPUTER_SUPPORTS_OPTIONS = 4
-SUPPORTS_SAM_PROTOCOL: NET_REMOTE_COMPUTER_SUPPORTS_OPTIONS = 8
-SUPPORTS_UNICODE: NET_REMOTE_COMPUTER_SUPPORTS_OPTIONS = 16
-SUPPORTS_LOCAL: NET_REMOTE_COMPUTER_SUPPORTS_OPTIONS = 32
+SUPPORTS_REMOTE_ADMIN_PROTOCOL: win32more.Windows.Win32.NetworkManagement.NetManagement.NET_REMOTE_COMPUTER_SUPPORTS_OPTIONS = 2
+SUPPORTS_RPC: win32more.Windows.Win32.NetworkManagement.NetManagement.NET_REMOTE_COMPUTER_SUPPORTS_OPTIONS = 4
+SUPPORTS_SAM_PROTOCOL: win32more.Windows.Win32.NetworkManagement.NetManagement.NET_REMOTE_COMPUTER_SUPPORTS_OPTIONS = 8
+SUPPORTS_UNICODE: win32more.Windows.Win32.NetworkManagement.NetManagement.NET_REMOTE_COMPUTER_SUPPORTS_OPTIONS = 16
+SUPPORTS_LOCAL: win32more.Windows.Win32.NetworkManagement.NetManagement.NET_REMOTE_COMPUTER_SUPPORTS_OPTIONS = 32
 NET_REQUEST_PROVISION_OPTIONS = UInt32
-NETSETUP_PROVISION_ONLINE_CALLER: NET_REQUEST_PROVISION_OPTIONS = 1073741824
+NETSETUP_PROVISION_ONLINE_CALLER: win32more.Windows.Win32.NetworkManagement.NetManagement.NET_REQUEST_PROVISION_OPTIONS = 1073741824
 NET_SERVER_TYPE = UInt32
-SV_TYPE_WORKSTATION: NET_SERVER_TYPE = 1
-SV_TYPE_SERVER: NET_SERVER_TYPE = 2
-SV_TYPE_SQLSERVER: NET_SERVER_TYPE = 4
-SV_TYPE_DOMAIN_CTRL: NET_SERVER_TYPE = 8
-SV_TYPE_DOMAIN_BAKCTRL: NET_SERVER_TYPE = 16
-SV_TYPE_TIME_SOURCE: NET_SERVER_TYPE = 32
-SV_TYPE_AFP: NET_SERVER_TYPE = 64
-SV_TYPE_NOVELL: NET_SERVER_TYPE = 128
-SV_TYPE_DOMAIN_MEMBER: NET_SERVER_TYPE = 256
-SV_TYPE_PRINTQ_SERVER: NET_SERVER_TYPE = 512
-SV_TYPE_DIALIN_SERVER: NET_SERVER_TYPE = 1024
-SV_TYPE_XENIX_SERVER: NET_SERVER_TYPE = 2048
-SV_TYPE_SERVER_UNIX: NET_SERVER_TYPE = 2048
-SV_TYPE_NT: NET_SERVER_TYPE = 4096
-SV_TYPE_WFW: NET_SERVER_TYPE = 8192
-SV_TYPE_SERVER_MFPN: NET_SERVER_TYPE = 16384
-SV_TYPE_SERVER_NT: NET_SERVER_TYPE = 32768
-SV_TYPE_POTENTIAL_BROWSER: NET_SERVER_TYPE = 65536
-SV_TYPE_BACKUP_BROWSER: NET_SERVER_TYPE = 131072
-SV_TYPE_MASTER_BROWSER: NET_SERVER_TYPE = 262144
-SV_TYPE_DOMAIN_MASTER: NET_SERVER_TYPE = 524288
-SV_TYPE_SERVER_OSF: NET_SERVER_TYPE = 1048576
-SV_TYPE_SERVER_VMS: NET_SERVER_TYPE = 2097152
-SV_TYPE_WINDOWS: NET_SERVER_TYPE = 4194304
-SV_TYPE_DFS: NET_SERVER_TYPE = 8388608
-SV_TYPE_CLUSTER_NT: NET_SERVER_TYPE = 16777216
-SV_TYPE_TERMINALSERVER: NET_SERVER_TYPE = 33554432
-SV_TYPE_CLUSTER_VS_NT: NET_SERVER_TYPE = 67108864
-SV_TYPE_DCE: NET_SERVER_TYPE = 268435456
-SV_TYPE_ALTERNATE_XPORT: NET_SERVER_TYPE = 536870912
-SV_TYPE_LOCAL_LIST_ONLY: NET_SERVER_TYPE = 1073741824
-SV_TYPE_DOMAIN_ENUM: NET_SERVER_TYPE = 2147483648
-SV_TYPE_ALL: NET_SERVER_TYPE = 4294967295
+SV_TYPE_WORKSTATION: win32more.Windows.Win32.NetworkManagement.NetManagement.NET_SERVER_TYPE = 1
+SV_TYPE_SERVER: win32more.Windows.Win32.NetworkManagement.NetManagement.NET_SERVER_TYPE = 2
+SV_TYPE_SQLSERVER: win32more.Windows.Win32.NetworkManagement.NetManagement.NET_SERVER_TYPE = 4
+SV_TYPE_DOMAIN_CTRL: win32more.Windows.Win32.NetworkManagement.NetManagement.NET_SERVER_TYPE = 8
+SV_TYPE_DOMAIN_BAKCTRL: win32more.Windows.Win32.NetworkManagement.NetManagement.NET_SERVER_TYPE = 16
+SV_TYPE_TIME_SOURCE: win32more.Windows.Win32.NetworkManagement.NetManagement.NET_SERVER_TYPE = 32
+SV_TYPE_AFP: win32more.Windows.Win32.NetworkManagement.NetManagement.NET_SERVER_TYPE = 64
+SV_TYPE_NOVELL: win32more.Windows.Win32.NetworkManagement.NetManagement.NET_SERVER_TYPE = 128
+SV_TYPE_DOMAIN_MEMBER: win32more.Windows.Win32.NetworkManagement.NetManagement.NET_SERVER_TYPE = 256
+SV_TYPE_PRINTQ_SERVER: win32more.Windows.Win32.NetworkManagement.NetManagement.NET_SERVER_TYPE = 512
+SV_TYPE_DIALIN_SERVER: win32more.Windows.Win32.NetworkManagement.NetManagement.NET_SERVER_TYPE = 1024
+SV_TYPE_XENIX_SERVER: win32more.Windows.Win32.NetworkManagement.NetManagement.NET_SERVER_TYPE = 2048
+SV_TYPE_SERVER_UNIX: win32more.Windows.Win32.NetworkManagement.NetManagement.NET_SERVER_TYPE = 2048
+SV_TYPE_NT: win32more.Windows.Win32.NetworkManagement.NetManagement.NET_SERVER_TYPE = 4096
+SV_TYPE_WFW: win32more.Windows.Win32.NetworkManagement.NetManagement.NET_SERVER_TYPE = 8192
+SV_TYPE_SERVER_MFPN: win32more.Windows.Win32.NetworkManagement.NetManagement.NET_SERVER_TYPE = 16384
+SV_TYPE_SERVER_NT: win32more.Windows.Win32.NetworkManagement.NetManagement.NET_SERVER_TYPE = 32768
+SV_TYPE_POTENTIAL_BROWSER: win32more.Windows.Win32.NetworkManagement.NetManagement.NET_SERVER_TYPE = 65536
+SV_TYPE_BACKUP_BROWSER: win32more.Windows.Win32.NetworkManagement.NetManagement.NET_SERVER_TYPE = 131072
+SV_TYPE_MASTER_BROWSER: win32more.Windows.Win32.NetworkManagement.NetManagement.NET_SERVER_TYPE = 262144
+SV_TYPE_DOMAIN_MASTER: win32more.Windows.Win32.NetworkManagement.NetManagement.NET_SERVER_TYPE = 524288
+SV_TYPE_SERVER_OSF: win32more.Windows.Win32.NetworkManagement.NetManagement.NET_SERVER_TYPE = 1048576
+SV_TYPE_SERVER_VMS: win32more.Windows.Win32.NetworkManagement.NetManagement.NET_SERVER_TYPE = 2097152
+SV_TYPE_WINDOWS: win32more.Windows.Win32.NetworkManagement.NetManagement.NET_SERVER_TYPE = 4194304
+SV_TYPE_DFS: win32more.Windows.Win32.NetworkManagement.NetManagement.NET_SERVER_TYPE = 8388608
+SV_TYPE_CLUSTER_NT: win32more.Windows.Win32.NetworkManagement.NetManagement.NET_SERVER_TYPE = 16777216
+SV_TYPE_TERMINALSERVER: win32more.Windows.Win32.NetworkManagement.NetManagement.NET_SERVER_TYPE = 33554432
+SV_TYPE_CLUSTER_VS_NT: win32more.Windows.Win32.NetworkManagement.NetManagement.NET_SERVER_TYPE = 67108864
+SV_TYPE_DCE: win32more.Windows.Win32.NetworkManagement.NetManagement.NET_SERVER_TYPE = 268435456
+SV_TYPE_ALTERNATE_XPORT: win32more.Windows.Win32.NetworkManagement.NetManagement.NET_SERVER_TYPE = 536870912
+SV_TYPE_LOCAL_LIST_ONLY: win32more.Windows.Win32.NetworkManagement.NetManagement.NET_SERVER_TYPE = 1073741824
+SV_TYPE_DOMAIN_ENUM: win32more.Windows.Win32.NetworkManagement.NetManagement.NET_SERVER_TYPE = 2147483648
+SV_TYPE_ALL: win32more.Windows.Win32.NetworkManagement.NetManagement.NET_SERVER_TYPE = 4294967295
 NET_USER_ENUM_FILTER_FLAGS = UInt32
-FILTER_TEMP_DUPLICATE_ACCOUNT: NET_USER_ENUM_FILTER_FLAGS = 1
-FILTER_NORMAL_ACCOUNT: NET_USER_ENUM_FILTER_FLAGS = 2
-FILTER_INTERDOMAIN_TRUST_ACCOUNT: NET_USER_ENUM_FILTER_FLAGS = 8
-FILTER_WORKSTATION_TRUST_ACCOUNT: NET_USER_ENUM_FILTER_FLAGS = 16
-FILTER_SERVER_TRUST_ACCOUNT: NET_USER_ENUM_FILTER_FLAGS = 32
+FILTER_TEMP_DUPLICATE_ACCOUNT: win32more.Windows.Win32.NetworkManagement.NetManagement.NET_USER_ENUM_FILTER_FLAGS = 1
+FILTER_NORMAL_ACCOUNT: win32more.Windows.Win32.NetworkManagement.NetManagement.NET_USER_ENUM_FILTER_FLAGS = 2
+FILTER_INTERDOMAIN_TRUST_ACCOUNT: win32more.Windows.Win32.NetworkManagement.NetManagement.NET_USER_ENUM_FILTER_FLAGS = 8
+FILTER_WORKSTATION_TRUST_ACCOUNT: win32more.Windows.Win32.NetworkManagement.NetManagement.NET_USER_ENUM_FILTER_FLAGS = 16
+FILTER_SERVER_TRUST_ACCOUNT: win32more.Windows.Win32.NetworkManagement.NetManagement.NET_USER_ENUM_FILTER_FLAGS = 32
 class NET_VALIDATE_AUTHENTICATION_INPUT_ARG(EasyCastStructure):
     InputPersistedFields: win32more.Windows.Win32.NetworkManagement.NetManagement.NET_VALIDATE_PERSISTED_FIELDS
     PasswordMatched: win32more.Windows.Win32.Foundation.BOOLEAN
@@ -3178,9 +3177,9 @@ class NET_VALIDATE_PASSWORD_RESET_INPUT_ARG(EasyCastStructure):
     PasswordMustChangeAtNextLogon: win32more.Windows.Win32.Foundation.BOOLEAN
     ClearLockout: win32more.Windows.Win32.Foundation.BOOLEAN
 NET_VALIDATE_PASSWORD_TYPE = Int32
-NET_VALIDATE_PASSWORD_TYPE_NetValidateAuthentication: NET_VALIDATE_PASSWORD_TYPE = 1
-NET_VALIDATE_PASSWORD_TYPE_NetValidatePasswordChange: NET_VALIDATE_PASSWORD_TYPE = 2
-NET_VALIDATE_PASSWORD_TYPE_NetValidatePasswordReset: NET_VALIDATE_PASSWORD_TYPE = 3
+NET_VALIDATE_PASSWORD_TYPE_NetValidateAuthentication: win32more.Windows.Win32.NetworkManagement.NetManagement.NET_VALIDATE_PASSWORD_TYPE = 1
+NET_VALIDATE_PASSWORD_TYPE_NetValidatePasswordChange: win32more.Windows.Win32.NetworkManagement.NetManagement.NET_VALIDATE_PASSWORD_TYPE = 2
+NET_VALIDATE_PASSWORD_TYPE_NetValidatePasswordReset: win32more.Windows.Win32.NetworkManagement.NetManagement.NET_VALIDATE_PASSWORD_TYPE = 3
 class NET_VALIDATE_PERSISTED_FIELDS(EasyCastStructure):
     PresentFields: UInt32
     PasswordLastSet: win32more.Windows.Win32.Foundation.FILETIME
@@ -3198,9 +3197,9 @@ class OBO_TOKEN(EasyCastStructure):
     pszwDisplayName: win32more.Windows.Win32.Foundation.PWSTR
     fRegistered: win32more.Windows.Win32.Foundation.BOOL
 OBO_TOKEN_TYPE = Int32
-OBO_USER: OBO_TOKEN_TYPE = 1
-OBO_COMPONENT: OBO_TOKEN_TYPE = 2
-OBO_SOFTWARE: OBO_TOKEN_TYPE = 3
+OBO_USER: win32more.Windows.Win32.NetworkManagement.NetManagement.OBO_TOKEN_TYPE = 1
+OBO_COMPONENT: win32more.Windows.Win32.NetworkManagement.NetManagement.OBO_TOKEN_TYPE = 2
+OBO_SOFTWARE: win32more.Windows.Win32.NetworkManagement.NetManagement.OBO_TOKEN_TYPE = 3
 class PRINT_OTHER_INFO(EasyCastStructure):
     alrtpr_jobid: UInt32
     alrtpr_status: UInt32
@@ -3223,22 +3222,22 @@ class RASCON_IPUI(EasyCastStructure):
     dwIPv4InfMetric: UInt32
     dwIPv6InfMetric: UInt32
 RASCON_UIINFO_FLAGS = Int32
-RCUIF_VPN: RASCON_UIINFO_FLAGS = 1
-RCUIF_DEMAND_DIAL: RASCON_UIINFO_FLAGS = 2
-RCUIF_NOT_ADMIN: RASCON_UIINFO_FLAGS = 4
-RCUIF_USE_IPv4_STATICADDRESS: RASCON_UIINFO_FLAGS = 8
-RCUIF_USE_IPv4_NAME_SERVERS: RASCON_UIINFO_FLAGS = 16
-RCUIF_USE_IPv4_REMOTE_GATEWAY: RASCON_UIINFO_FLAGS = 32
-RCUIF_USE_IPv4_EXPLICIT_METRIC: RASCON_UIINFO_FLAGS = 64
-RCUIF_USE_HEADER_COMPRESSION: RASCON_UIINFO_FLAGS = 128
-RCUIF_USE_DISABLE_REGISTER_DNS: RASCON_UIINFO_FLAGS = 256
-RCUIF_USE_PRIVATE_DNS_SUFFIX: RASCON_UIINFO_FLAGS = 512
-RCUIF_ENABLE_NBT: RASCON_UIINFO_FLAGS = 1024
-RCUIF_USE_IPv6_STATICADDRESS: RASCON_UIINFO_FLAGS = 2048
-RCUIF_USE_IPv6_NAME_SERVERS: RASCON_UIINFO_FLAGS = 4096
-RCUIF_USE_IPv6_REMOTE_GATEWAY: RASCON_UIINFO_FLAGS = 8192
-RCUIF_USE_IPv6_EXPLICIT_METRIC: RASCON_UIINFO_FLAGS = 16384
-RCUIF_DISABLE_CLASS_BASED_ROUTE: RASCON_UIINFO_FLAGS = 32768
+RCUIF_VPN: win32more.Windows.Win32.NetworkManagement.NetManagement.RASCON_UIINFO_FLAGS = 1
+RCUIF_DEMAND_DIAL: win32more.Windows.Win32.NetworkManagement.NetManagement.RASCON_UIINFO_FLAGS = 2
+RCUIF_NOT_ADMIN: win32more.Windows.Win32.NetworkManagement.NetManagement.RASCON_UIINFO_FLAGS = 4
+RCUIF_USE_IPv4_STATICADDRESS: win32more.Windows.Win32.NetworkManagement.NetManagement.RASCON_UIINFO_FLAGS = 8
+RCUIF_USE_IPv4_NAME_SERVERS: win32more.Windows.Win32.NetworkManagement.NetManagement.RASCON_UIINFO_FLAGS = 16
+RCUIF_USE_IPv4_REMOTE_GATEWAY: win32more.Windows.Win32.NetworkManagement.NetManagement.RASCON_UIINFO_FLAGS = 32
+RCUIF_USE_IPv4_EXPLICIT_METRIC: win32more.Windows.Win32.NetworkManagement.NetManagement.RASCON_UIINFO_FLAGS = 64
+RCUIF_USE_HEADER_COMPRESSION: win32more.Windows.Win32.NetworkManagement.NetManagement.RASCON_UIINFO_FLAGS = 128
+RCUIF_USE_DISABLE_REGISTER_DNS: win32more.Windows.Win32.NetworkManagement.NetManagement.RASCON_UIINFO_FLAGS = 256
+RCUIF_USE_PRIVATE_DNS_SUFFIX: win32more.Windows.Win32.NetworkManagement.NetManagement.RASCON_UIINFO_FLAGS = 512
+RCUIF_ENABLE_NBT: win32more.Windows.Win32.NetworkManagement.NetManagement.RASCON_UIINFO_FLAGS = 1024
+RCUIF_USE_IPv6_STATICADDRESS: win32more.Windows.Win32.NetworkManagement.NetManagement.RASCON_UIINFO_FLAGS = 2048
+RCUIF_USE_IPv6_NAME_SERVERS: win32more.Windows.Win32.NetworkManagement.NetManagement.RASCON_UIINFO_FLAGS = 4096
+RCUIF_USE_IPv6_REMOTE_GATEWAY: win32more.Windows.Win32.NetworkManagement.NetManagement.RASCON_UIINFO_FLAGS = 8192
+RCUIF_USE_IPv6_EXPLICIT_METRIC: win32more.Windows.Win32.NetworkManagement.NetManagement.RASCON_UIINFO_FLAGS = 16384
+RCUIF_DISABLE_CLASS_BASED_ROUTE: win32more.Windows.Win32.NetworkManagement.NetManagement.RASCON_UIINFO_FLAGS = 32768
 class REPL_EDIR_INFO_0(EasyCastStructure):
     rped0_dirname: win32more.Windows.Win32.Foundation.PWSTR
 class REPL_EDIR_INFO_1(EasyCastStructure):
@@ -3751,11 +3750,11 @@ class SERVER_INFO_599(EasyCastStructure):
     sv599_scavqosinfoupdatetime: UInt32
     sv599_maxworkitemidletime: UInt32
 SERVER_INFO_HIDDEN = Int32
-SV_VISIBLE: SERVER_INFO_HIDDEN = 0
-SV_HIDDEN: SERVER_INFO_HIDDEN = 1
+SV_VISIBLE: win32more.Windows.Win32.NetworkManagement.NetManagement.SERVER_INFO_HIDDEN = 0
+SV_HIDDEN: win32more.Windows.Win32.NetworkManagement.NetManagement.SERVER_INFO_HIDDEN = 1
 SERVER_INFO_SECURITY = UInt32
-SV_SHARESECURITY: SERVER_INFO_SECURITY = 0
-SV_USERSECURITY: SERVER_INFO_SECURITY = 1
+SV_SHARESECURITY: win32more.Windows.Win32.NetworkManagement.NetManagement.SERVER_INFO_SECURITY = 0
+SV_USERSECURITY: win32more.Windows.Win32.NetworkManagement.NetManagement.SERVER_INFO_SECURITY = 1
 class SERVER_TRANSPORT_INFO_0(EasyCastStructure):
     svti0_numberofvcs: UInt32
     svti0_transportname: win32more.Windows.Win32.Foundation.PWSTR
@@ -3821,8 +3820,8 @@ class STD_ALERT(EasyCastStructure):
     alrt_eventname: Char * 17
     alrt_servicename: Char * 81
 SUPPORTS_BINDING_INTERFACE_FLAGS = Int32
-NCF_LOWER: SUPPORTS_BINDING_INTERFACE_FLAGS = 1
-NCF_UPPER: SUPPORTS_BINDING_INTERFACE_FLAGS = 2
+NCF_LOWER: win32more.Windows.Win32.NetworkManagement.NetManagement.SUPPORTS_BINDING_INTERFACE_FLAGS = 1
+NCF_UPPER: win32more.Windows.Win32.NetworkManagement.NetManagement.SUPPORTS_BINDING_INTERFACE_FLAGS = 2
 class TIME_OF_DAY_INFO(EasyCastStructure):
     tod_elapsedt: UInt32
     tod_msecs: UInt32
@@ -3840,25 +3839,25 @@ class TRANSPORT_INFO(EasyCastStructure):
     Type: win32more.Windows.Win32.NetworkManagement.NetManagement.TRANSPORT_TYPE
     SkipCertificateCheck: win32more.Windows.Win32.Foundation.BOOLEAN
 TRANSPORT_TYPE = Int32
-UseTransportType_None: TRANSPORT_TYPE = 0
-UseTransportType_Wsk: TRANSPORT_TYPE = 1
-UseTransportType_Quic: TRANSPORT_TYPE = 2
+UseTransportType_None: win32more.Windows.Win32.NetworkManagement.NetManagement.TRANSPORT_TYPE = 0
+UseTransportType_Wsk: win32more.Windows.Win32.NetworkManagement.NetManagement.TRANSPORT_TYPE = 1
+UseTransportType_Quic: win32more.Windows.Win32.NetworkManagement.NetManagement.TRANSPORT_TYPE = 2
 USER_ACCOUNT_FLAGS = UInt32
-UF_SCRIPT: USER_ACCOUNT_FLAGS = 1
-UF_ACCOUNTDISABLE: USER_ACCOUNT_FLAGS = 2
-UF_HOMEDIR_REQUIRED: USER_ACCOUNT_FLAGS = 8
-UF_PASSWD_NOTREQD: USER_ACCOUNT_FLAGS = 32
-UF_PASSWD_CANT_CHANGE: USER_ACCOUNT_FLAGS = 64
-UF_LOCKOUT: USER_ACCOUNT_FLAGS = 16
-UF_DONT_EXPIRE_PASSWD: USER_ACCOUNT_FLAGS = 65536
-UF_ENCRYPTED_TEXT_PASSWORD_ALLOWED: USER_ACCOUNT_FLAGS = 128
-UF_NOT_DELEGATED: USER_ACCOUNT_FLAGS = 1048576
-UF_SMARTCARD_REQUIRED: USER_ACCOUNT_FLAGS = 262144
-UF_USE_DES_KEY_ONLY: USER_ACCOUNT_FLAGS = 2097152
-UF_DONT_REQUIRE_PREAUTH: USER_ACCOUNT_FLAGS = 4194304
-UF_TRUSTED_FOR_DELEGATION: USER_ACCOUNT_FLAGS = 524288
-UF_PASSWORD_EXPIRED: USER_ACCOUNT_FLAGS = 8388608
-UF_TRUSTED_TO_AUTHENTICATE_FOR_DELEGATION: USER_ACCOUNT_FLAGS = 16777216
+UF_SCRIPT: win32more.Windows.Win32.NetworkManagement.NetManagement.USER_ACCOUNT_FLAGS = 1
+UF_ACCOUNTDISABLE: win32more.Windows.Win32.NetworkManagement.NetManagement.USER_ACCOUNT_FLAGS = 2
+UF_HOMEDIR_REQUIRED: win32more.Windows.Win32.NetworkManagement.NetManagement.USER_ACCOUNT_FLAGS = 8
+UF_PASSWD_NOTREQD: win32more.Windows.Win32.NetworkManagement.NetManagement.USER_ACCOUNT_FLAGS = 32
+UF_PASSWD_CANT_CHANGE: win32more.Windows.Win32.NetworkManagement.NetManagement.USER_ACCOUNT_FLAGS = 64
+UF_LOCKOUT: win32more.Windows.Win32.NetworkManagement.NetManagement.USER_ACCOUNT_FLAGS = 16
+UF_DONT_EXPIRE_PASSWD: win32more.Windows.Win32.NetworkManagement.NetManagement.USER_ACCOUNT_FLAGS = 65536
+UF_ENCRYPTED_TEXT_PASSWORD_ALLOWED: win32more.Windows.Win32.NetworkManagement.NetManagement.USER_ACCOUNT_FLAGS = 128
+UF_NOT_DELEGATED: win32more.Windows.Win32.NetworkManagement.NetManagement.USER_ACCOUNT_FLAGS = 1048576
+UF_SMARTCARD_REQUIRED: win32more.Windows.Win32.NetworkManagement.NetManagement.USER_ACCOUNT_FLAGS = 262144
+UF_USE_DES_KEY_ONLY: win32more.Windows.Win32.NetworkManagement.NetManagement.USER_ACCOUNT_FLAGS = 2097152
+UF_DONT_REQUIRE_PREAUTH: win32more.Windows.Win32.NetworkManagement.NetManagement.USER_ACCOUNT_FLAGS = 4194304
+UF_TRUSTED_FOR_DELEGATION: win32more.Windows.Win32.NetworkManagement.NetManagement.USER_ACCOUNT_FLAGS = 524288
+UF_PASSWORD_EXPIRED: win32more.Windows.Win32.NetworkManagement.NetManagement.USER_ACCOUNT_FLAGS = 8388608
+UF_TRUSTED_TO_AUTHENTICATE_FOR_DELEGATION: win32more.Windows.Win32.NetworkManagement.NetManagement.USER_ACCOUNT_FLAGS = 16777216
 class USER_INFO_0(EasyCastStructure):
     usri0_name: win32more.Windows.Win32.Foundation.PWSTR
 class USER_INFO_1(EasyCastStructure):
@@ -4098,17 +4097,17 @@ class USER_MODALS_INFO_3(EasyCastStructure):
     usrmod3_lockout_observation_window: UInt32
     usrmod3_lockout_threshold: UInt32
 USER_MODALS_ROLES = UInt32
-UAS_ROLE_STANDALONE: USER_MODALS_ROLES = 0
-UAS_ROLE_MEMBER: USER_MODALS_ROLES = 1
-UAS_ROLE_BACKUP: USER_MODALS_ROLES = 2
-UAS_ROLE_PRIMARY: USER_MODALS_ROLES = 3
+UAS_ROLE_STANDALONE: win32more.Windows.Win32.NetworkManagement.NetManagement.USER_MODALS_ROLES = 0
+UAS_ROLE_MEMBER: win32more.Windows.Win32.NetworkManagement.NetManagement.USER_MODALS_ROLES = 1
+UAS_ROLE_BACKUP: win32more.Windows.Win32.NetworkManagement.NetManagement.USER_MODALS_ROLES = 2
+UAS_ROLE_PRIMARY: win32more.Windows.Win32.NetworkManagement.NetManagement.USER_MODALS_ROLES = 3
 class USER_OTHER_INFO(EasyCastStructure):
     alrtus_errcode: UInt32
     alrtus_numstrings: UInt32
 USER_PRIV = UInt32
-USER_PRIV_GUEST: USER_PRIV = 0
-USER_PRIV_USER: USER_PRIV = 1
-USER_PRIV_ADMIN: USER_PRIV = 2
+USER_PRIV_GUEST: win32more.Windows.Win32.NetworkManagement.NetManagement.USER_PRIV = 0
+USER_PRIV_USER: win32more.Windows.Win32.NetworkManagement.NetManagement.USER_PRIV = 1
+USER_PRIV_ADMIN: win32more.Windows.Win32.NetworkManagement.NetManagement.USER_PRIV = 2
 class USE_INFO_0(EasyCastStructure):
     ui0_local: win32more.Windows.Win32.Foundation.PWSTR
     ui0_remote: win32more.Windows.Win32.Foundation.PWSTR
@@ -4146,10 +4145,10 @@ class USE_INFO_5(EasyCastStructure):
     ui5_use_options_length: UInt32
     ui5_use_options: POINTER(Byte)
 USE_INFO_ASG_TYPE = UInt32
-USE_WILDCARD: USE_INFO_ASG_TYPE = 4294967295
-USE_DISKDEV: USE_INFO_ASG_TYPE = 0
-USE_SPOOLDEV: USE_INFO_ASG_TYPE = 1
-USE_IPC: USE_INFO_ASG_TYPE = 3
+USE_WILDCARD: win32more.Windows.Win32.NetworkManagement.NetManagement.USE_INFO_ASG_TYPE = 4294967295
+USE_DISKDEV: win32more.Windows.Win32.NetworkManagement.NetManagement.USE_INFO_ASG_TYPE = 0
+USE_SPOOLDEV: win32more.Windows.Win32.NetworkManagement.NetManagement.USE_INFO_ASG_TYPE = 1
+USE_IPC: win32more.Windows.Win32.NetworkManagement.NetManagement.USE_INFO_ASG_TYPE = 3
 class USE_OPTION_DEFERRED_CONNECTION_PARAMETERS(EasyCastStructure):
     Tag: UInt32
     Length: UInt16
@@ -4347,4 +4346,6 @@ class WKSTA_USER_INFO_1101(EasyCastStructure):
     wkui1101_oth_domains: win32more.Windows.Win32.Foundation.PWSTR
 @winfunctype_pointer
 def WORKERFUNCTION(param0: VoidPtr) -> Void: ...
+
+
 make_ready(__name__)

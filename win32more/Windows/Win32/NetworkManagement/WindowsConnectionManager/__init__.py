@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.NetworkManagement.WindowsConnectionManager
 WCM_API_VERSION_1_0: UInt32 = 1
@@ -43,22 +42,22 @@ class WCM_BILLING_CYCLE_INFO(EasyCastStructure):
     Duration: win32more.Windows.Win32.NetworkManagement.WindowsConnectionManager.WCM_TIME_INTERVAL
     Reset: win32more.Windows.Win32.Foundation.BOOL
 WCM_CONNECTION_COST = Int32
-WCM_CONNECTION_COST_UNKNOWN: WCM_CONNECTION_COST = 0
-WCM_CONNECTION_COST_UNRESTRICTED: WCM_CONNECTION_COST = 1
-WCM_CONNECTION_COST_FIXED: WCM_CONNECTION_COST = 2
-WCM_CONNECTION_COST_VARIABLE: WCM_CONNECTION_COST = 4
-WCM_CONNECTION_COST_OVERDATALIMIT: WCM_CONNECTION_COST = 65536
-WCM_CONNECTION_COST_CONGESTED: WCM_CONNECTION_COST = 131072
-WCM_CONNECTION_COST_ROAMING: WCM_CONNECTION_COST = 262144
-WCM_CONNECTION_COST_APPROACHINGDATALIMIT: WCM_CONNECTION_COST = 524288
+WCM_CONNECTION_COST_UNKNOWN: win32more.Windows.Win32.NetworkManagement.WindowsConnectionManager.WCM_CONNECTION_COST = 0
+WCM_CONNECTION_COST_UNRESTRICTED: win32more.Windows.Win32.NetworkManagement.WindowsConnectionManager.WCM_CONNECTION_COST = 1
+WCM_CONNECTION_COST_FIXED: win32more.Windows.Win32.NetworkManagement.WindowsConnectionManager.WCM_CONNECTION_COST = 2
+WCM_CONNECTION_COST_VARIABLE: win32more.Windows.Win32.NetworkManagement.WindowsConnectionManager.WCM_CONNECTION_COST = 4
+WCM_CONNECTION_COST_OVERDATALIMIT: win32more.Windows.Win32.NetworkManagement.WindowsConnectionManager.WCM_CONNECTION_COST = 65536
+WCM_CONNECTION_COST_CONGESTED: win32more.Windows.Win32.NetworkManagement.WindowsConnectionManager.WCM_CONNECTION_COST = 131072
+WCM_CONNECTION_COST_ROAMING: win32more.Windows.Win32.NetworkManagement.WindowsConnectionManager.WCM_CONNECTION_COST = 262144
+WCM_CONNECTION_COST_APPROACHINGDATALIMIT: win32more.Windows.Win32.NetworkManagement.WindowsConnectionManager.WCM_CONNECTION_COST = 524288
 class WCM_CONNECTION_COST_DATA(EasyCastStructure):
     ConnectionCost: UInt32
     CostSource: win32more.Windows.Win32.NetworkManagement.WindowsConnectionManager.WCM_CONNECTION_COST_SOURCE
 WCM_CONNECTION_COST_SOURCE = Int32
-WCM_CONNECTION_COST_SOURCE_DEFAULT: WCM_CONNECTION_COST_SOURCE = 0
-WCM_CONNECTION_COST_SOURCE_GP: WCM_CONNECTION_COST_SOURCE = 1
-WCM_CONNECTION_COST_SOURCE_USER: WCM_CONNECTION_COST_SOURCE = 2
-WCM_CONNECTION_COST_SOURCE_OPERATOR: WCM_CONNECTION_COST_SOURCE = 3
+WCM_CONNECTION_COST_SOURCE_DEFAULT: win32more.Windows.Win32.NetworkManagement.WindowsConnectionManager.WCM_CONNECTION_COST_SOURCE = 0
+WCM_CONNECTION_COST_SOURCE_GP: win32more.Windows.Win32.NetworkManagement.WindowsConnectionManager.WCM_CONNECTION_COST_SOURCE = 1
+WCM_CONNECTION_COST_SOURCE_USER: win32more.Windows.Win32.NetworkManagement.WindowsConnectionManager.WCM_CONNECTION_COST_SOURCE = 2
+WCM_CONNECTION_COST_SOURCE_OPERATOR: win32more.Windows.Win32.NetworkManagement.WindowsConnectionManager.WCM_CONNECTION_COST_SOURCE = 3
 class WCM_DATAPLAN_STATUS(EasyCastStructure):
     UsageData: win32more.Windows.Win32.NetworkManagement.WindowsConnectionManager.WCM_USAGE_DATA
     DataLimitInMegabytes: UInt32
@@ -68,12 +67,12 @@ class WCM_DATAPLAN_STATUS(EasyCastStructure):
     MaxTransferSizeInMegabytes: UInt32
     Reserved: UInt32
 WCM_MEDIA_TYPE = Int32
-wcm_media_unknown: WCM_MEDIA_TYPE = 0
-wcm_media_ethernet: WCM_MEDIA_TYPE = 1
-wcm_media_wlan: WCM_MEDIA_TYPE = 2
-wcm_media_mbn: WCM_MEDIA_TYPE = 3
-wcm_media_invalid: WCM_MEDIA_TYPE = 4
-wcm_media_max: WCM_MEDIA_TYPE = 5
+wcm_media_unknown: win32more.Windows.Win32.NetworkManagement.WindowsConnectionManager.WCM_MEDIA_TYPE = 0
+wcm_media_ethernet: win32more.Windows.Win32.NetworkManagement.WindowsConnectionManager.WCM_MEDIA_TYPE = 1
+wcm_media_wlan: win32more.Windows.Win32.NetworkManagement.WindowsConnectionManager.WCM_MEDIA_TYPE = 2
+wcm_media_mbn: win32more.Windows.Win32.NetworkManagement.WindowsConnectionManager.WCM_MEDIA_TYPE = 3
+wcm_media_invalid: win32more.Windows.Win32.NetworkManagement.WindowsConnectionManager.WCM_MEDIA_TYPE = 4
+wcm_media_max: win32more.Windows.Win32.NetworkManagement.WindowsConnectionManager.WCM_MEDIA_TYPE = 5
 class WCM_POLICY_VALUE(EasyCastStructure):
     fValue: win32more.Windows.Win32.Foundation.BOOL
     fIsGroupPolicy: win32more.Windows.Win32.Foundation.BOOL
@@ -85,13 +84,13 @@ class WCM_PROFILE_INFO_LIST(EasyCastStructure):
     dwNumberOfItems: UInt32
     ProfileInfo: win32more.Windows.Win32.NetworkManagement.WindowsConnectionManager.WCM_PROFILE_INFO * 1
 WCM_PROPERTY = Int32
-wcm_global_property_domain_policy: WCM_PROPERTY = 0
-wcm_global_property_minimize_policy: WCM_PROPERTY = 1
-wcm_global_property_roaming_policy: WCM_PROPERTY = 2
-wcm_global_property_powermanagement_policy: WCM_PROPERTY = 3
-wcm_intf_property_connection_cost: WCM_PROPERTY = 4
-wcm_intf_property_dataplan_status: WCM_PROPERTY = 5
-wcm_intf_property_hotspot_profile: WCM_PROPERTY = 6
+wcm_global_property_domain_policy: win32more.Windows.Win32.NetworkManagement.WindowsConnectionManager.WCM_PROPERTY = 0
+wcm_global_property_minimize_policy: win32more.Windows.Win32.NetworkManagement.WindowsConnectionManager.WCM_PROPERTY = 1
+wcm_global_property_roaming_policy: win32more.Windows.Win32.NetworkManagement.WindowsConnectionManager.WCM_PROPERTY = 2
+wcm_global_property_powermanagement_policy: win32more.Windows.Win32.NetworkManagement.WindowsConnectionManager.WCM_PROPERTY = 3
+wcm_intf_property_connection_cost: win32more.Windows.Win32.NetworkManagement.WindowsConnectionManager.WCM_PROPERTY = 4
+wcm_intf_property_dataplan_status: win32more.Windows.Win32.NetworkManagement.WindowsConnectionManager.WCM_PROPERTY = 5
+wcm_intf_property_hotspot_profile: win32more.Windows.Win32.NetworkManagement.WindowsConnectionManager.WCM_PROPERTY = 6
 class WCM_TIME_INTERVAL(EasyCastStructure):
     wYear: UInt16
     wMonth: UInt16
@@ -103,4 +102,6 @@ class WCM_TIME_INTERVAL(EasyCastStructure):
 class WCM_USAGE_DATA(EasyCastStructure):
     UsageInMegabytes: UInt32
     LastSyncTime: win32more.Windows.Win32.Foundation.FILETIME
+
+
 make_ready(__name__)

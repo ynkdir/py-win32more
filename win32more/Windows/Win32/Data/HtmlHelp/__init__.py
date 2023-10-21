@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Data.HtmlHelp
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
@@ -308,11 +307,11 @@ class HH_GLOBAL_PROPERTY(EasyCastStructure):
     id: win32more.Windows.Win32.Data.HtmlHelp.HH_GPROPID
     var: win32more.Windows.Win32.System.Variant.VARIANT
 HH_GPROPID = Int32
-HH_GPROPID_SINGLETHREAD: HH_GPROPID = 1
-HH_GPROPID_TOOLBAR_MARGIN: HH_GPROPID = 2
-HH_GPROPID_UI_LANGUAGE: HH_GPROPID = 3
-HH_GPROPID_CURRENT_SUBSET: HH_GPROPID = 4
-HH_GPROPID_CONTENT_LANGUAGE: HH_GPROPID = 5
+HH_GPROPID_SINGLETHREAD: win32more.Windows.Win32.Data.HtmlHelp.HH_GPROPID = 1
+HH_GPROPID_TOOLBAR_MARGIN: win32more.Windows.Win32.Data.HtmlHelp.HH_GPROPID = 2
+HH_GPROPID_UI_LANGUAGE: win32more.Windows.Win32.Data.HtmlHelp.HH_GPROPID = 3
+HH_GPROPID_CURRENT_SUBSET: win32more.Windows.Win32.Data.HtmlHelp.HH_GPROPID = 4
+HH_GPROPID_CONTENT_LANGUAGE: win32more.Windows.Win32.Data.HtmlHelp.HH_GPROPID = 5
 class HH_POPUP(EasyCastStructure):
     cbStruct: Int32
     hinst: win32more.Windows.Win32.Foundation.HINSTANCE
@@ -365,42 +364,42 @@ class HH_WINTYPE(EasyCastStructure):
     cbInfoTypes: Int32
     pszCustomTabs: POINTER(SByte)
 HTML_HELP_COMMAND = Int32
-HH_DISPLAY_TOPIC: HTML_HELP_COMMAND = 0
-HH_HELP_FINDER: HTML_HELP_COMMAND = 0
-HH_DISPLAY_TOC: HTML_HELP_COMMAND = 1
-HH_DISPLAY_INDEX: HTML_HELP_COMMAND = 2
-HH_DISPLAY_SEARCH: HTML_HELP_COMMAND = 3
-HH_SET_WIN_TYPE: HTML_HELP_COMMAND = 4
-HH_GET_WIN_TYPE: HTML_HELP_COMMAND = 5
-HH_GET_WIN_HANDLE: HTML_HELP_COMMAND = 6
-HH_ENUM_INFO_TYPE: HTML_HELP_COMMAND = 7
-HH_SET_INFO_TYPE: HTML_HELP_COMMAND = 8
-HH_SYNC: HTML_HELP_COMMAND = 9
-HH_RESERVED1: HTML_HELP_COMMAND = 10
-HH_RESERVED2: HTML_HELP_COMMAND = 11
-HH_RESERVED3: HTML_HELP_COMMAND = 12
-HH_KEYWORD_LOOKUP: HTML_HELP_COMMAND = 13
-HH_DISPLAY_TEXT_POPUP: HTML_HELP_COMMAND = 14
-HH_HELP_CONTEXT: HTML_HELP_COMMAND = 15
-HH_TP_HELP_CONTEXTMENU: HTML_HELP_COMMAND = 16
-HH_TP_HELP_WM_HELP: HTML_HELP_COMMAND = 17
-HH_CLOSE_ALL: HTML_HELP_COMMAND = 18
-HH_ALINK_LOOKUP: HTML_HELP_COMMAND = 19
-HH_GET_LAST_ERROR: HTML_HELP_COMMAND = 20
-HH_ENUM_CATEGORY: HTML_HELP_COMMAND = 21
-HH_ENUM_CATEGORY_IT: HTML_HELP_COMMAND = 22
-HH_RESET_IT_FILTER: HTML_HELP_COMMAND = 23
-HH_SET_INCLUSIVE_FILTER: HTML_HELP_COMMAND = 24
-HH_SET_EXCLUSIVE_FILTER: HTML_HELP_COMMAND = 25
-HH_INITIALIZE: HTML_HELP_COMMAND = 28
-HH_UNINITIALIZE: HTML_HELP_COMMAND = 29
-HH_SET_QUERYSERVICE: HTML_HELP_COMMAND = 30
-HH_PRETRANSLATEMESSAGE: HTML_HELP_COMMAND = 253
-HH_SET_GLOBAL_PROPERTY: HTML_HELP_COMMAND = 252
-HH_SAFE_DISPLAY_TOPIC: HTML_HELP_COMMAND = 32
-HH_MAX_TABS: HTML_HELP_COMMAND = 19
-HH_MAX_TABS_CUSTOM: HTML_HELP_COMMAND = 9
-HH_FTS_DEFAULT_PROXIMITY: HTML_HELP_COMMAND = -1
+HH_DISPLAY_TOPIC: win32more.Windows.Win32.Data.HtmlHelp.HTML_HELP_COMMAND = 0
+HH_HELP_FINDER: win32more.Windows.Win32.Data.HtmlHelp.HTML_HELP_COMMAND = 0
+HH_DISPLAY_TOC: win32more.Windows.Win32.Data.HtmlHelp.HTML_HELP_COMMAND = 1
+HH_DISPLAY_INDEX: win32more.Windows.Win32.Data.HtmlHelp.HTML_HELP_COMMAND = 2
+HH_DISPLAY_SEARCH: win32more.Windows.Win32.Data.HtmlHelp.HTML_HELP_COMMAND = 3
+HH_SET_WIN_TYPE: win32more.Windows.Win32.Data.HtmlHelp.HTML_HELP_COMMAND = 4
+HH_GET_WIN_TYPE: win32more.Windows.Win32.Data.HtmlHelp.HTML_HELP_COMMAND = 5
+HH_GET_WIN_HANDLE: win32more.Windows.Win32.Data.HtmlHelp.HTML_HELP_COMMAND = 6
+HH_ENUM_INFO_TYPE: win32more.Windows.Win32.Data.HtmlHelp.HTML_HELP_COMMAND = 7
+HH_SET_INFO_TYPE: win32more.Windows.Win32.Data.HtmlHelp.HTML_HELP_COMMAND = 8
+HH_SYNC: win32more.Windows.Win32.Data.HtmlHelp.HTML_HELP_COMMAND = 9
+HH_RESERVED1: win32more.Windows.Win32.Data.HtmlHelp.HTML_HELP_COMMAND = 10
+HH_RESERVED2: win32more.Windows.Win32.Data.HtmlHelp.HTML_HELP_COMMAND = 11
+HH_RESERVED3: win32more.Windows.Win32.Data.HtmlHelp.HTML_HELP_COMMAND = 12
+HH_KEYWORD_LOOKUP: win32more.Windows.Win32.Data.HtmlHelp.HTML_HELP_COMMAND = 13
+HH_DISPLAY_TEXT_POPUP: win32more.Windows.Win32.Data.HtmlHelp.HTML_HELP_COMMAND = 14
+HH_HELP_CONTEXT: win32more.Windows.Win32.Data.HtmlHelp.HTML_HELP_COMMAND = 15
+HH_TP_HELP_CONTEXTMENU: win32more.Windows.Win32.Data.HtmlHelp.HTML_HELP_COMMAND = 16
+HH_TP_HELP_WM_HELP: win32more.Windows.Win32.Data.HtmlHelp.HTML_HELP_COMMAND = 17
+HH_CLOSE_ALL: win32more.Windows.Win32.Data.HtmlHelp.HTML_HELP_COMMAND = 18
+HH_ALINK_LOOKUP: win32more.Windows.Win32.Data.HtmlHelp.HTML_HELP_COMMAND = 19
+HH_GET_LAST_ERROR: win32more.Windows.Win32.Data.HtmlHelp.HTML_HELP_COMMAND = 20
+HH_ENUM_CATEGORY: win32more.Windows.Win32.Data.HtmlHelp.HTML_HELP_COMMAND = 21
+HH_ENUM_CATEGORY_IT: win32more.Windows.Win32.Data.HtmlHelp.HTML_HELP_COMMAND = 22
+HH_RESET_IT_FILTER: win32more.Windows.Win32.Data.HtmlHelp.HTML_HELP_COMMAND = 23
+HH_SET_INCLUSIVE_FILTER: win32more.Windows.Win32.Data.HtmlHelp.HTML_HELP_COMMAND = 24
+HH_SET_EXCLUSIVE_FILTER: win32more.Windows.Win32.Data.HtmlHelp.HTML_HELP_COMMAND = 25
+HH_INITIALIZE: win32more.Windows.Win32.Data.HtmlHelp.HTML_HELP_COMMAND = 28
+HH_UNINITIALIZE: win32more.Windows.Win32.Data.HtmlHelp.HTML_HELP_COMMAND = 29
+HH_SET_QUERYSERVICE: win32more.Windows.Win32.Data.HtmlHelp.HTML_HELP_COMMAND = 30
+HH_PRETRANSLATEMESSAGE: win32more.Windows.Win32.Data.HtmlHelp.HTML_HELP_COMMAND = 253
+HH_SET_GLOBAL_PROPERTY: win32more.Windows.Win32.Data.HtmlHelp.HTML_HELP_COMMAND = 252
+HH_SAFE_DISPLAY_TOPIC: win32more.Windows.Win32.Data.HtmlHelp.HTML_HELP_COMMAND = 32
+HH_MAX_TABS: win32more.Windows.Win32.Data.HtmlHelp.HTML_HELP_COMMAND = 19
+HH_MAX_TABS_CUSTOM: win32more.Windows.Win32.Data.HtmlHelp.HTML_HELP_COMMAND = 9
+HH_FTS_DEFAULT_PROXIMITY: win32more.Windows.Win32.Data.HtmlHelp.HTML_HELP_COMMAND = -1
 class IITDatabase(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{8fa0d5a2-dedf-11d0-9a61-00c04fb68bf7}')
@@ -560,12 +559,14 @@ class IWordBreakerConfig(ComPtr):
 @winfunctype_pointer
 def PFNCOLHEAPFREE(param0: VoidPtr) -> Int32: ...
 PRIORITY = Int32
-PRIORITY_LOW: PRIORITY = 0
-PRIORITY_NORMAL: PRIORITY = 1
-PRIORITY_HIGH: PRIORITY = 2
+PRIORITY_LOW: win32more.Windows.Win32.Data.HtmlHelp.PRIORITY = 0
+PRIORITY_NORMAL: win32more.Windows.Win32.Data.HtmlHelp.PRIORITY = 1
+PRIORITY_HIGH: win32more.Windows.Win32.Data.HtmlHelp.PRIORITY = 2
 class ROWSTATUS(EasyCastStructure):
     lRowFirst: Int32
     cRows: Int32
     cProperties: Int32
     cRowsTotal: Int32
+
+
 make_ready(__name__)

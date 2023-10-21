@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Devices.Geolocation
 import win32more.Windows.Win32.Devices.Sensors
 import win32more.Windows.Win32.Foundation
@@ -117,9 +116,9 @@ class GNSS_AGNSS_REQUEST_PARAM(EasyCastStructure):
     RequestType: win32more.Windows.Win32.Devices.Geolocation.GNSS_AGNSS_REQUEST_TYPE
     BlobFormat: UInt32
 GNSS_AGNSS_REQUEST_TYPE = Int32
-GNSS_AGNSS_TimeInjection: GNSS_AGNSS_REQUEST_TYPE = 1
-GNSS_AGNSS_PositionInjection: GNSS_AGNSS_REQUEST_TYPE = 2
-GNSS_AGNSS_BlobInjection: GNSS_AGNSS_REQUEST_TYPE = 3
+GNSS_AGNSS_TimeInjection: win32more.Windows.Win32.Devices.Geolocation.GNSS_AGNSS_REQUEST_TYPE = 1
+GNSS_AGNSS_PositionInjection: win32more.Windows.Win32.Devices.Geolocation.GNSS_AGNSS_REQUEST_TYPE = 2
+GNSS_AGNSS_BlobInjection: win32more.Windows.Win32.Devices.Geolocation.GNSS_AGNSS_REQUEST_TYPE = 3
 class GNSS_BREADCRUMBING_ALERT_DATA(EasyCastStructure):
     Size: UInt32
     Version: UInt32
@@ -214,21 +213,21 @@ class GNSS_DRIVERCOMMAND_PARAM(EasyCastStructure):
     Unused: Byte * 512
     CommandData: Byte * 1
 GNSS_DRIVERCOMMAND_TYPE = Int32
-GNSS_SetLocationServiceEnabled: GNSS_DRIVERCOMMAND_TYPE = 1
-GNSS_SetLocationNIRequestAllowed: GNSS_DRIVERCOMMAND_TYPE = 2
-GNSS_ForceSatelliteSystem: GNSS_DRIVERCOMMAND_TYPE = 3
-GNSS_ForceOperationMode: GNSS_DRIVERCOMMAND_TYPE = 4
-GNSS_ResetEngine: GNSS_DRIVERCOMMAND_TYPE = 9
-GNSS_ClearAgnssData: GNSS_DRIVERCOMMAND_TYPE = 10
-GNSS_SetSuplVersion: GNSS_DRIVERCOMMAND_TYPE = 12
-GNSS_SetNMEALogging: GNSS_DRIVERCOMMAND_TYPE = 13
-GNSS_SetUplServerAccessInterval: GNSS_DRIVERCOMMAND_TYPE = 14
-GNSS_SetNiTimeoutInterval: GNSS_DRIVERCOMMAND_TYPE = 15
-GNSS_ResetGeofencesTracking: GNSS_DRIVERCOMMAND_TYPE = 16
-GNSS_SetSuplVersion2: GNSS_DRIVERCOMMAND_TYPE = 17
-GNSS_CustomCommand: GNSS_DRIVERCOMMAND_TYPE = 256
+GNSS_SetLocationServiceEnabled: win32more.Windows.Win32.Devices.Geolocation.GNSS_DRIVERCOMMAND_TYPE = 1
+GNSS_SetLocationNIRequestAllowed: win32more.Windows.Win32.Devices.Geolocation.GNSS_DRIVERCOMMAND_TYPE = 2
+GNSS_ForceSatelliteSystem: win32more.Windows.Win32.Devices.Geolocation.GNSS_DRIVERCOMMAND_TYPE = 3
+GNSS_ForceOperationMode: win32more.Windows.Win32.Devices.Geolocation.GNSS_DRIVERCOMMAND_TYPE = 4
+GNSS_ResetEngine: win32more.Windows.Win32.Devices.Geolocation.GNSS_DRIVERCOMMAND_TYPE = 9
+GNSS_ClearAgnssData: win32more.Windows.Win32.Devices.Geolocation.GNSS_DRIVERCOMMAND_TYPE = 10
+GNSS_SetSuplVersion: win32more.Windows.Win32.Devices.Geolocation.GNSS_DRIVERCOMMAND_TYPE = 12
+GNSS_SetNMEALogging: win32more.Windows.Win32.Devices.Geolocation.GNSS_DRIVERCOMMAND_TYPE = 13
+GNSS_SetUplServerAccessInterval: win32more.Windows.Win32.Devices.Geolocation.GNSS_DRIVERCOMMAND_TYPE = 14
+GNSS_SetNiTimeoutInterval: win32more.Windows.Win32.Devices.Geolocation.GNSS_DRIVERCOMMAND_TYPE = 15
+GNSS_ResetGeofencesTracking: win32more.Windows.Win32.Devices.Geolocation.GNSS_DRIVERCOMMAND_TYPE = 16
+GNSS_SetSuplVersion2: win32more.Windows.Win32.Devices.Geolocation.GNSS_DRIVERCOMMAND_TYPE = 17
+GNSS_CustomCommand: win32more.Windows.Win32.Devices.Geolocation.GNSS_DRIVERCOMMAND_TYPE = 256
 GNSS_DRIVER_REQUEST = Int32
-SUPL_CONFIG_DATA: GNSS_DRIVER_REQUEST = 1
+SUPL_CONFIG_DATA: win32more.Windows.Win32.Devices.Geolocation.GNSS_DRIVER_REQUEST = 1
 class GNSS_DRIVER_REQUEST_DATA(EasyCastStructure):
     Size: UInt32
     Version: UInt32
@@ -279,17 +278,17 @@ class GNSS_EVENT_2(EasyCastStructure):
         DriverRequestData: win32more.Windows.Win32.Devices.Geolocation.GNSS_DRIVER_REQUEST_DATA
         CustomData: Byte * 1
 GNSS_EVENT_TYPE = Int32
-GNSS_Event_FixAvailable: GNSS_EVENT_TYPE = 1
-GNSS_Event_RequireAgnss: GNSS_EVENT_TYPE = 2
-GNSS_Event_Error: GNSS_EVENT_TYPE = 3
-GNSS_Event_NiRequest: GNSS_EVENT_TYPE = 12
-GNSS_Event_NmeaData: GNSS_EVENT_TYPE = 13
-GNSS_Event_GeofenceAlertData: GNSS_EVENT_TYPE = 14
-GNSS_Event_GeofencesTrackingStatus: GNSS_EVENT_TYPE = 15
-GNSS_Event_DriverRequest: GNSS_EVENT_TYPE = 16
-GNSS_Event_BreadcrumbAlertEvent: GNSS_EVENT_TYPE = 17
-GNSS_Event_FixAvailable_2: GNSS_EVENT_TYPE = 18
-GNSS_Event_Custom: GNSS_EVENT_TYPE = 32768
+GNSS_Event_FixAvailable: win32more.Windows.Win32.Devices.Geolocation.GNSS_EVENT_TYPE = 1
+GNSS_Event_RequireAgnss: win32more.Windows.Win32.Devices.Geolocation.GNSS_EVENT_TYPE = 2
+GNSS_Event_Error: win32more.Windows.Win32.Devices.Geolocation.GNSS_EVENT_TYPE = 3
+GNSS_Event_NiRequest: win32more.Windows.Win32.Devices.Geolocation.GNSS_EVENT_TYPE = 12
+GNSS_Event_NmeaData: win32more.Windows.Win32.Devices.Geolocation.GNSS_EVENT_TYPE = 13
+GNSS_Event_GeofenceAlertData: win32more.Windows.Win32.Devices.Geolocation.GNSS_EVENT_TYPE = 14
+GNSS_Event_GeofencesTrackingStatus: win32more.Windows.Win32.Devices.Geolocation.GNSS_EVENT_TYPE = 15
+GNSS_Event_DriverRequest: win32more.Windows.Win32.Devices.Geolocation.GNSS_EVENT_TYPE = 16
+GNSS_Event_BreadcrumbAlertEvent: win32more.Windows.Win32.Devices.Geolocation.GNSS_EVENT_TYPE = 17
+GNSS_Event_FixAvailable_2: win32more.Windows.Win32.Devices.Geolocation.GNSS_EVENT_TYPE = 18
+GNSS_Event_Custom: win32more.Windows.Win32.Devices.Geolocation.GNSS_EVENT_TYPE = 32768
 class GNSS_FIXDATA(EasyCastStructure):
     Size: UInt32
     Version: UInt32
@@ -371,10 +370,10 @@ class GNSS_FIXDATA_SATELLITE(EasyCastStructure):
     SatelliteCount: UInt32
     SatelliteArray: win32more.Windows.Win32.Devices.Geolocation.GNSS_SATELLITEINFO * 64
 GNSS_FIXSESSIONTYPE = Int32
-GNSS_FixSession_SingleShot: GNSS_FIXSESSIONTYPE = 1
-GNSS_FixSession_DistanceTracking: GNSS_FIXSESSIONTYPE = 2
-GNSS_FixSession_ContinuousTracking: GNSS_FIXSESSIONTYPE = 3
-GNSS_FixSession_LKG: GNSS_FIXSESSIONTYPE = 4
+GNSS_FixSession_SingleShot: win32more.Windows.Win32.Devices.Geolocation.GNSS_FIXSESSIONTYPE = 1
+GNSS_FixSession_DistanceTracking: win32more.Windows.Win32.Devices.Geolocation.GNSS_FIXSESSIONTYPE = 2
+GNSS_FixSession_ContinuousTracking: win32more.Windows.Win32.Devices.Geolocation.GNSS_FIXSESSIONTYPE = 3
+GNSS_FixSession_LKG: win32more.Windows.Win32.Devices.Geolocation.GNSS_FIXSESSIONTYPE = 4
 class GNSS_FIXSESSION_PARAM(EasyCastStructure):
     Size: UInt32
     Version: UInt32
@@ -425,9 +424,9 @@ class GNSS_GEOFENCE_DELETE_PARAM(EasyCastStructure):
     GeofenceID: UInt32
     Unused: Byte * 512
 GNSS_GEOFENCE_STATE = Int32
-GNSS_GeofenceState_Unknown: GNSS_GEOFENCE_STATE = 0
-GNSS_GeofenceState_Entered: GNSS_GEOFENCE_STATE = 1
-GNSS_GeofenceState_Exited: GNSS_GEOFENCE_STATE = 2
+GNSS_GeofenceState_Unknown: win32more.Windows.Win32.Devices.Geolocation.GNSS_GEOFENCE_STATE = 0
+GNSS_GeofenceState_Entered: win32more.Windows.Win32.Devices.Geolocation.GNSS_GEOFENCE_STATE = 1
+GNSS_GeofenceState_Exited: win32more.Windows.Win32.Devices.Geolocation.GNSS_GEOFENCE_STATE = 2
 class GNSS_GEOREGION(EasyCastStructure):
     Size: UInt32
     Version: UInt32
@@ -437,7 +436,7 @@ class GNSS_GEOREGION(EasyCastStructure):
         Circle: win32more.Windows.Win32.Devices.Geolocation.GNSS_GEOREGION_CIRCLE
         Unused: Byte * 512
 GNSS_GEOREGIONTYPE = Int32
-GNSS_GeoRegion_Circle: GNSS_GEOREGIONTYPE = 1
+GNSS_GeoRegion_Circle: win32more.Windows.Win32.Devices.Geolocation.GNSS_GEOREGIONTYPE = 1
 class GNSS_GEOREGION_CIRCLE(EasyCastStructure):
     Latitude: Double
     Longitude: Double
@@ -446,15 +445,15 @@ class GNSS_LKGFIX_PARAM(EasyCastStructure):
     Size: UInt32
     Version: UInt32
 GNSS_NI_NOTIFICATION_TYPE = Int32
-GNSS_NI_NoNotifyNoVerify: GNSS_NI_NOTIFICATION_TYPE = 1
-GNSS_NI_NotifyOnly: GNSS_NI_NOTIFICATION_TYPE = 2
-GNSS_NI_NotifyVerifyDefaultAllow: GNSS_NI_NOTIFICATION_TYPE = 3
-GNSS_NI_NotifyVerifyDefaultNotAllow: GNSS_NI_NOTIFICATION_TYPE = 4
-GNSS_NI_PrivacyOverride: GNSS_NI_NOTIFICATION_TYPE = 5
+GNSS_NI_NoNotifyNoVerify: win32more.Windows.Win32.Devices.Geolocation.GNSS_NI_NOTIFICATION_TYPE = 1
+GNSS_NI_NotifyOnly: win32more.Windows.Win32.Devices.Geolocation.GNSS_NI_NOTIFICATION_TYPE = 2
+GNSS_NI_NotifyVerifyDefaultAllow: win32more.Windows.Win32.Devices.Geolocation.GNSS_NI_NOTIFICATION_TYPE = 3
+GNSS_NI_NotifyVerifyDefaultNotAllow: win32more.Windows.Win32.Devices.Geolocation.GNSS_NI_NOTIFICATION_TYPE = 4
+GNSS_NI_PrivacyOverride: win32more.Windows.Win32.Devices.Geolocation.GNSS_NI_NOTIFICATION_TYPE = 5
 GNSS_NI_PLANE_TYPE = Int32
-GNSS_NI_SUPL: GNSS_NI_PLANE_TYPE = 1
-GNSS_NI_CP: GNSS_NI_PLANE_TYPE = 2
-GNSS_NI_V2UPL: GNSS_NI_PLANE_TYPE = 3
+GNSS_NI_SUPL: win32more.Windows.Win32.Devices.Geolocation.GNSS_NI_PLANE_TYPE = 1
+GNSS_NI_CP: win32more.Windows.Win32.Devices.Geolocation.GNSS_NI_PLANE_TYPE = 2
+GNSS_NI_V2UPL: win32more.Windows.Win32.Devices.Geolocation.GNSS_NI_PLANE_TYPE = 3
 class GNSS_NI_REQUEST_PARAM(EasyCastStructure):
     Size: UInt32
     Version: UInt32
@@ -470,17 +469,17 @@ class GNSS_NI_REQUEST_PARAM(EasyCastStructure):
         CpNiInfo: win32more.Windows.Win32.Devices.Geolocation.GNSS_CP_NI_INFO
         V2UplNiInfo: win32more.Windows.Win32.Devices.Geolocation.GNSS_V2UPL_NI_INFO
 GNSS_NI_REQUEST_TYPE = Int32
-GNSS_NI_Request_SingleShot: GNSS_NI_REQUEST_TYPE = 1
-GNSS_NI_Request_AreaTrigger: GNSS_NI_REQUEST_TYPE = 2
+GNSS_NI_Request_SingleShot: win32more.Windows.Win32.Devices.Geolocation.GNSS_NI_REQUEST_TYPE = 1
+GNSS_NI_Request_AreaTrigger: win32more.Windows.Win32.Devices.Geolocation.GNSS_NI_REQUEST_TYPE = 2
 class GNSS_NI_RESPONSE(EasyCastStructure):
     Size: UInt32
     Version: UInt32
     RequestId: UInt32
     UserResponse: win32more.Windows.Win32.Devices.Geolocation.GNSS_NI_USER_RESPONSE
 GNSS_NI_USER_RESPONSE = Int32
-GNSS_Ni_UserResponseAccept: GNSS_NI_USER_RESPONSE = 1
-GNSS_Ni_UserResponseDeny: GNSS_NI_USER_RESPONSE = 2
-GNSS_Ni_UserResponseTimeout: GNSS_NI_USER_RESPONSE = 3
+GNSS_Ni_UserResponseAccept: win32more.Windows.Win32.Devices.Geolocation.GNSS_NI_USER_RESPONSE = 1
+GNSS_Ni_UserResponseDeny: win32more.Windows.Win32.Devices.Geolocation.GNSS_NI_USER_RESPONSE = 2
+GNSS_Ni_UserResponseTimeout: win32more.Windows.Win32.Devices.Geolocation.GNSS_NI_USER_RESPONSE = 3
 class GNSS_NMEA_DATA(EasyCastStructure):
     Size: UInt32
     Version: UInt32
@@ -523,9 +522,9 @@ class GNSS_STOPFIXSESSION_PARAM(EasyCastStructure):
     FixSessionID: UInt32
     Unused: Byte * 512
 GNSS_SUPL_CERT_ACTION = Int32
-GNSS_Supl_Cert_Inject: GNSS_SUPL_CERT_ACTION = 1
-GNSS_Supl_Cert_Delete: GNSS_SUPL_CERT_ACTION = 2
-GNSS_Supl_Cert_Purge: GNSS_SUPL_CERT_ACTION = 3
+GNSS_Supl_Cert_Inject: win32more.Windows.Win32.Devices.Geolocation.GNSS_SUPL_CERT_ACTION = 1
+GNSS_Supl_Cert_Delete: win32more.Windows.Win32.Devices.Geolocation.GNSS_SUPL_CERT_ACTION = 2
+GNSS_Supl_Cert_Purge: win32more.Windows.Win32.Devices.Geolocation.GNSS_SUPL_CERT_ACTION = 3
 class GNSS_SUPL_CERT_CONFIG(EasyCastStructure):
     Size: UInt32
     Version: UInt32
@@ -710,11 +709,11 @@ class ILocationReportFactory(ComPtr):
     @commethod(14)
     def RequestPermissions(self, hWnd: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 LOCATION_REPORT_STATUS = Int32
-REPORT_NOT_SUPPORTED: LOCATION_REPORT_STATUS = 0
-REPORT_ERROR: LOCATION_REPORT_STATUS = 1
-REPORT_ACCESS_DENIED: LOCATION_REPORT_STATUS = 2
-REPORT_INITIALIZING: LOCATION_REPORT_STATUS = 3
-REPORT_RUNNING: LOCATION_REPORT_STATUS = 4
+REPORT_NOT_SUPPORTED: win32more.Windows.Win32.Devices.Geolocation.LOCATION_REPORT_STATUS = 0
+REPORT_ERROR: win32more.Windows.Win32.Devices.Geolocation.LOCATION_REPORT_STATUS = 1
+REPORT_ACCESS_DENIED: win32more.Windows.Win32.Devices.Geolocation.LOCATION_REPORT_STATUS = 2
+REPORT_INITIALIZING: win32more.Windows.Win32.Devices.Geolocation.LOCATION_REPORT_STATUS = 3
+REPORT_RUNNING: win32more.Windows.Win32.Devices.Geolocation.LOCATION_REPORT_STATUS = 4
 LatLongReport = Guid('{ed81c073-1f84-4ca8-a161-183c776bc651}')
 LatLongReportFactory = Guid('{9dcc3cc8-8609-4863-bad4-03601f4c65e8}')
 Location = Guid('{e5b8e079-ee6d-4e33-a438-c87f2e959254}')
@@ -724,4 +723,6 @@ class _ICivicAddressReportFactoryEvents(ComPtr):
 class _ILatLongReportFactoryEvents(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IDispatch
     _iid_ = Guid('{16ee6cb7-ab3c-424b-849f-269be551fcbc}')
+
+
 make_ready(__name__)

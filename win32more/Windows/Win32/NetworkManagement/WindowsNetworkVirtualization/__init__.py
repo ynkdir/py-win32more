@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.NetworkManagement.WindowsNetworkVirtualization
 import win32more.Windows.Win32.Networking.WinSock
@@ -12,10 +11,10 @@ def WnvOpen() -> win32more.Windows.Win32.Foundation.HANDLE: ...
 @winfunctype('wnvapi.dll')
 def WnvRequestNotification(WnvHandle: win32more.Windows.Win32.Foundation.HANDLE, NotificationParam: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsNetworkVirtualization.WNV_NOTIFICATION_PARAM), Overlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED), BytesTransferred: POINTER(UInt32)) -> UInt32: ...
 WNV_CA_NOTIFICATION_TYPE = Int32
-WNV_CA_NOTIFICATION_TYPE_WnvCustomerAddressAdded: WNV_CA_NOTIFICATION_TYPE = 0
-WNV_CA_NOTIFICATION_TYPE_WnvCustomerAddressDeleted: WNV_CA_NOTIFICATION_TYPE = 1
-WNV_CA_NOTIFICATION_TYPE_WnvCustomerAddressMoved: WNV_CA_NOTIFICATION_TYPE = 2
-WNV_CA_NOTIFICATION_TYPE_WnvCustomerAddressMax: WNV_CA_NOTIFICATION_TYPE = 3
+WNV_CA_NOTIFICATION_TYPE_WnvCustomerAddressAdded: win32more.Windows.Win32.NetworkManagement.WindowsNetworkVirtualization.WNV_CA_NOTIFICATION_TYPE = 0
+WNV_CA_NOTIFICATION_TYPE_WnvCustomerAddressDeleted: win32more.Windows.Win32.NetworkManagement.WindowsNetworkVirtualization.WNV_CA_NOTIFICATION_TYPE = 1
+WNV_CA_NOTIFICATION_TYPE_WnvCustomerAddressMoved: win32more.Windows.Win32.NetworkManagement.WindowsNetworkVirtualization.WNV_CA_NOTIFICATION_TYPE = 2
+WNV_CA_NOTIFICATION_TYPE_WnvCustomerAddressMax: win32more.Windows.Win32.NetworkManagement.WindowsNetworkVirtualization.WNV_CA_NOTIFICATION_TYPE = 3
 class WNV_CUSTOMER_ADDRESS_CHANGE_PARAM(EasyCastStructure):
     MACAddress: win32more.Windows.Win32.Networking.WinSock.DL_EUI48
     CAFamily: win32more.Windows.Win32.Networking.WinSock.ADDRESS_FAMILY
@@ -36,10 +35,10 @@ class WNV_NOTIFICATION_PARAM(EasyCastStructure):
     PendingNotifications: UInt32
     Buffer: POINTER(Byte)
 WNV_NOTIFICATION_TYPE = Int32
-WNV_NOTIFICATION_TYPE_WnvPolicyMismatchType: WNV_NOTIFICATION_TYPE = 0
-WNV_NOTIFICATION_TYPE_WnvRedirectType: WNV_NOTIFICATION_TYPE = 1
-WNV_NOTIFICATION_TYPE_WnvObjectChangeType: WNV_NOTIFICATION_TYPE = 2
-WNV_NOTIFICATION_TYPE_WnvNotificationTypeMax: WNV_NOTIFICATION_TYPE = 3
+WNV_NOTIFICATION_TYPE_WnvPolicyMismatchType: win32more.Windows.Win32.NetworkManagement.WindowsNetworkVirtualization.WNV_NOTIFICATION_TYPE = 0
+WNV_NOTIFICATION_TYPE_WnvRedirectType: win32more.Windows.Win32.NetworkManagement.WindowsNetworkVirtualization.WNV_NOTIFICATION_TYPE = 1
+WNV_NOTIFICATION_TYPE_WnvObjectChangeType: win32more.Windows.Win32.NetworkManagement.WindowsNetworkVirtualization.WNV_NOTIFICATION_TYPE = 2
+WNV_NOTIFICATION_TYPE_WnvNotificationTypeMax: win32more.Windows.Win32.NetworkManagement.WindowsNetworkVirtualization.WNV_NOTIFICATION_TYPE = 3
 class WNV_OBJECT_CHANGE_PARAM(EasyCastStructure):
     ObjectType: win32more.Windows.Win32.NetworkManagement.WindowsNetworkVirtualization.WNV_OBJECT_TYPE
     ObjectParam: _ObjectParam_e__Union
@@ -51,9 +50,9 @@ class WNV_OBJECT_HEADER(EasyCastStructure):
     MinorVersion: Byte
     Size: UInt32
 WNV_OBJECT_TYPE = Int32
-WNV_OBJECT_TYPE_WnvProviderAddressType: WNV_OBJECT_TYPE = 0
-WNV_OBJECT_TYPE_WnvCustomerAddressType: WNV_OBJECT_TYPE = 1
-WNV_OBJECT_TYPE_WnvObjectTypeMax: WNV_OBJECT_TYPE = 2
+WNV_OBJECT_TYPE_WnvProviderAddressType: win32more.Windows.Win32.NetworkManagement.WindowsNetworkVirtualization.WNV_OBJECT_TYPE = 0
+WNV_OBJECT_TYPE_WnvCustomerAddressType: win32more.Windows.Win32.NetworkManagement.WindowsNetworkVirtualization.WNV_OBJECT_TYPE = 1
+WNV_OBJECT_TYPE_WnvObjectTypeMax: win32more.Windows.Win32.NetworkManagement.WindowsNetworkVirtualization.WNV_OBJECT_TYPE = 2
 class WNV_POLICY_MISMATCH_PARAM(EasyCastStructure):
     CAFamily: win32more.Windows.Win32.Networking.WinSock.ADDRESS_FAMILY
     PAFamily: win32more.Windows.Win32.Networking.WinSock.ADDRESS_FAMILY
@@ -72,4 +71,6 @@ class WNV_REDIRECT_PARAM(EasyCastStructure):
     CA: win32more.Windows.Win32.NetworkManagement.WindowsNetworkVirtualization.WNV_IP_ADDRESS
     PA: win32more.Windows.Win32.NetworkManagement.WindowsNetworkVirtualization.WNV_IP_ADDRESS
     NewPA: win32more.Windows.Win32.NetworkManagement.WindowsNetworkVirtualization.WNV_IP_ADDRESS
+
+
 make_ready(__name__)

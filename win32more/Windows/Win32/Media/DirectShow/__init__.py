@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Direct3D9
 import win32more.Windows.Win32.Graphics.DirectDraw
@@ -19,12 +18,12 @@ import win32more.Windows.Win32.System.Registry
 import win32more.Windows.Win32.System.Variant
 import win32more.Windows.Win32.UI.WindowsAndMessaging
 ADVISE_TYPE = Int32
-ADVISE_NONE: ADVISE_TYPE = 0
-ADVISE_CLIPPING: ADVISE_TYPE = 1
-ADVISE_PALETTE: ADVISE_TYPE = 2
-ADVISE_COLORKEY: ADVISE_TYPE = 4
-ADVISE_POSITION: ADVISE_TYPE = 8
-ADVISE_DISPLAY_CHANGE: ADVISE_TYPE = 16
+ADVISE_NONE: win32more.Windows.Win32.Media.DirectShow.ADVISE_TYPE = 0
+ADVISE_CLIPPING: win32more.Windows.Win32.Media.DirectShow.ADVISE_TYPE = 1
+ADVISE_PALETTE: win32more.Windows.Win32.Media.DirectShow.ADVISE_TYPE = 2
+ADVISE_COLORKEY: win32more.Windows.Win32.Media.DirectShow.ADVISE_TYPE = 4
+ADVISE_POSITION: win32more.Windows.Win32.Media.DirectShow.ADVISE_TYPE = 8
+ADVISE_DISPLAY_CHANGE: win32more.Windows.Win32.Media.DirectShow.ADVISE_TYPE = 16
 class ALLOCATOR_PROPERTIES(EasyCastStructure):
     cBuffers: Int32
     cbBuffer: Int32
@@ -49,68 +48,68 @@ class AMCOPPStatusOutput(EasyCastStructure):
     cbSizeData: UInt32
     COPPStatus: Byte * 4076
 AMExtendedSeekingCapabilities = Int32
-AM_EXSEEK_CANSEEK: AMExtendedSeekingCapabilities = 1
-AM_EXSEEK_CANSCAN: AMExtendedSeekingCapabilities = 2
-AM_EXSEEK_MARKERSEEK: AMExtendedSeekingCapabilities = 4
-AM_EXSEEK_SCANWITHOUTCLOCK: AMExtendedSeekingCapabilities = 8
-AM_EXSEEK_NOSTANDARDREPAINT: AMExtendedSeekingCapabilities = 16
-AM_EXSEEK_BUFFERING: AMExtendedSeekingCapabilities = 32
-AM_EXSEEK_SENDS_VIDEOFRAMEREADY: AMExtendedSeekingCapabilities = 64
+AM_EXSEEK_CANSEEK: win32more.Windows.Win32.Media.DirectShow.AMExtendedSeekingCapabilities = 1
+AM_EXSEEK_CANSCAN: win32more.Windows.Win32.Media.DirectShow.AMExtendedSeekingCapabilities = 2
+AM_EXSEEK_MARKERSEEK: win32more.Windows.Win32.Media.DirectShow.AMExtendedSeekingCapabilities = 4
+AM_EXSEEK_SCANWITHOUTCLOCK: win32more.Windows.Win32.Media.DirectShow.AMExtendedSeekingCapabilities = 8
+AM_EXSEEK_NOSTANDARDREPAINT: win32more.Windows.Win32.Media.DirectShow.AMExtendedSeekingCapabilities = 16
+AM_EXSEEK_BUFFERING: win32more.Windows.Win32.Media.DirectShow.AMExtendedSeekingCapabilities = 32
+AM_EXSEEK_SENDS_VIDEOFRAMEREADY: win32more.Windows.Win32.Media.DirectShow.AMExtendedSeekingCapabilities = 64
 @winfunctype_pointer
 def AMGETERRORTEXTPROCA(param0: win32more.Windows.Win32.Foundation.HRESULT, param1: win32more.Windows.Win32.Foundation.PSTR, param2: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def AMGETERRORTEXTPROCW(param0: win32more.Windows.Win32.Foundation.HRESULT, param1: win32more.Windows.Win32.Foundation.PWSTR, param2: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 AMMSF_MMS_INIT_FLAGS = Int32
-AMMSF_NOGRAPHTHREAD: AMMSF_MMS_INIT_FLAGS = 1
+AMMSF_NOGRAPHTHREAD: win32more.Windows.Win32.Media.DirectShow.AMMSF_MMS_INIT_FLAGS = 1
 AMMSF_MS_FLAGS = Int32
-AMMSF_ADDDEFAULTRENDERER: AMMSF_MS_FLAGS = 1
-AMMSF_CREATEPEER: AMMSF_MS_FLAGS = 2
-AMMSF_STOPIFNOSAMPLES: AMMSF_MS_FLAGS = 4
-AMMSF_NOSTALL: AMMSF_MS_FLAGS = 8
+AMMSF_ADDDEFAULTRENDERER: win32more.Windows.Win32.Media.DirectShow.AMMSF_MS_FLAGS = 1
+AMMSF_CREATEPEER: win32more.Windows.Win32.Media.DirectShow.AMMSF_MS_FLAGS = 2
+AMMSF_STOPIFNOSAMPLES: win32more.Windows.Win32.Media.DirectShow.AMMSF_MS_FLAGS = 4
+AMMSF_NOSTALL: win32more.Windows.Win32.Media.DirectShow.AMMSF_MS_FLAGS = 8
 AMMSF_RENDER_FLAGS = Int32
-AMMSF_RENDERTYPEMASK: AMMSF_RENDER_FLAGS = 3
-AMMSF_RENDERTOEXISTING: AMMSF_RENDER_FLAGS = 0
-AMMSF_RENDERALLSTREAMS: AMMSF_RENDER_FLAGS = 1
-AMMSF_NORENDER: AMMSF_RENDER_FLAGS = 2
-AMMSF_NOCLOCK: AMMSF_RENDER_FLAGS = 4
-AMMSF_RUN: AMMSF_RENDER_FLAGS = 8
+AMMSF_RENDERTYPEMASK: win32more.Windows.Win32.Media.DirectShow.AMMSF_RENDER_FLAGS = 3
+AMMSF_RENDERTOEXISTING: win32more.Windows.Win32.Media.DirectShow.AMMSF_RENDER_FLAGS = 0
+AMMSF_RENDERALLSTREAMS: win32more.Windows.Win32.Media.DirectShow.AMMSF_RENDER_FLAGS = 1
+AMMSF_NORENDER: win32more.Windows.Win32.Media.DirectShow.AMMSF_RENDER_FLAGS = 2
+AMMSF_NOCLOCK: win32more.Windows.Win32.Media.DirectShow.AMMSF_RENDER_FLAGS = 4
+AMMSF_RUN: win32more.Windows.Win32.Media.DirectShow.AMMSF_RENDER_FLAGS = 8
 AMOVERLAYFX = Int32
-AMOVERFX_NOFX: AMOVERLAYFX = 0
-AMOVERFX_MIRRORLEFTRIGHT: AMOVERLAYFX = 2
-AMOVERFX_MIRRORUPDOWN: AMOVERLAYFX = 4
-AMOVERFX_DEINTERLACE: AMOVERLAYFX = 8
+AMOVERFX_NOFX: win32more.Windows.Win32.Media.DirectShow.AMOVERLAYFX = 0
+AMOVERFX_MIRRORLEFTRIGHT: win32more.Windows.Win32.Media.DirectShow.AMOVERLAYFX = 2
+AMOVERFX_MIRRORUPDOWN: win32more.Windows.Win32.Media.DirectShow.AMOVERLAYFX = 4
+AMOVERFX_DEINTERLACE: win32more.Windows.Win32.Media.DirectShow.AMOVERLAYFX = 8
 AMPROPERTY_PIN = Int32
-AMPROPERTY_PIN_CATEGORY: AMPROPERTY_PIN = 0
-AMPROPERTY_PIN_MEDIUM: AMPROPERTY_PIN = 1
+AMPROPERTY_PIN_CATEGORY: win32more.Windows.Win32.Media.DirectShow.AMPROPERTY_PIN = 0
+AMPROPERTY_PIN_MEDIUM: win32more.Windows.Win32.Media.DirectShow.AMPROPERTY_PIN = 1
 AMPlayListEventFlags = Int32
-AMPLAYLISTEVENT_RESUME: AMPlayListEventFlags = 0
-AMPLAYLISTEVENT_BREAK: AMPlayListEventFlags = 1
-AMPLAYLISTEVENT_NEXT: AMPlayListEventFlags = 2
-AMPLAYLISTEVENT_MASK: AMPlayListEventFlags = 15
-AMPLAYLISTEVENT_REFRESH: AMPlayListEventFlags = 16
+AMPLAYLISTEVENT_RESUME: win32more.Windows.Win32.Media.DirectShow.AMPlayListEventFlags = 0
+AMPLAYLISTEVENT_BREAK: win32more.Windows.Win32.Media.DirectShow.AMPlayListEventFlags = 1
+AMPLAYLISTEVENT_NEXT: win32more.Windows.Win32.Media.DirectShow.AMPlayListEventFlags = 2
+AMPLAYLISTEVENT_MASK: win32more.Windows.Win32.Media.DirectShow.AMPlayListEventFlags = 15
+AMPLAYLISTEVENT_REFRESH: win32more.Windows.Win32.Media.DirectShow.AMPlayListEventFlags = 16
 AMPlayListFlags = Int32
-AMPLAYLIST_STARTINSCANMODE: AMPlayListFlags = 1
-AMPLAYLIST_FORCEBANNER: AMPlayListFlags = 2
+AMPLAYLIST_STARTINSCANMODE: win32more.Windows.Win32.Media.DirectShow.AMPlayListFlags = 1
+AMPLAYLIST_FORCEBANNER: win32more.Windows.Win32.Media.DirectShow.AMPlayListFlags = 2
 AMPlayListItemFlags = Int32
-AMPLAYLISTITEM_CANSKIP: AMPlayListItemFlags = 1
-AMPLAYLISTITEM_CANBIND: AMPlayListItemFlags = 2
+AMPLAYLISTITEM_CANSKIP: win32more.Windows.Win32.Media.DirectShow.AMPlayListItemFlags = 1
+AMPLAYLISTITEM_CANBIND: win32more.Windows.Win32.Media.DirectShow.AMPlayListItemFlags = 2
 AMTVAudioEventType = Int32
-AMTVAUDIO_EVENT_CHANGED: AMTVAudioEventType = 1
+AMTVAUDIO_EVENT_CHANGED: win32more.Windows.Win32.Media.DirectShow.AMTVAudioEventType = 1
 AMTunerEventType = Int32
-AMTUNER_EVENT_CHANGED: AMTunerEventType = 1
+AMTUNER_EVENT_CHANGED: win32more.Windows.Win32.Media.DirectShow.AMTunerEventType = 1
 AMTunerModeType = Int32
-AMTUNER_MODE_DEFAULT: AMTunerModeType = 0
-AMTUNER_MODE_TV: AMTunerModeType = 1
-AMTUNER_MODE_FM_RADIO: AMTunerModeType = 2
-AMTUNER_MODE_AM_RADIO: AMTunerModeType = 4
-AMTUNER_MODE_DSS: AMTunerModeType = 8
+AMTUNER_MODE_DEFAULT: win32more.Windows.Win32.Media.DirectShow.AMTunerModeType = 0
+AMTUNER_MODE_TV: win32more.Windows.Win32.Media.DirectShow.AMTunerModeType = 1
+AMTUNER_MODE_FM_RADIO: win32more.Windows.Win32.Media.DirectShow.AMTunerModeType = 2
+AMTUNER_MODE_AM_RADIO: win32more.Windows.Win32.Media.DirectShow.AMTunerModeType = 4
+AMTUNER_MODE_DSS: win32more.Windows.Win32.Media.DirectShow.AMTunerModeType = 8
 AMTunerSignalStrength = Int32
-AMTUNER_HASNOSIGNALSTRENGTH: AMTunerSignalStrength = -1
-AMTUNER_NOSIGNAL: AMTunerSignalStrength = 0
-AMTUNER_SIGNALPRESENT: AMTunerSignalStrength = 1
+AMTUNER_HASNOSIGNALSTRENGTH: win32more.Windows.Win32.Media.DirectShow.AMTunerSignalStrength = -1
+AMTUNER_NOSIGNAL: win32more.Windows.Win32.Media.DirectShow.AMTunerSignalStrength = 0
+AMTUNER_SIGNALPRESENT: win32more.Windows.Win32.Media.DirectShow.AMTunerSignalStrength = 1
 AMTunerSubChannel = Int32
-AMTUNER_SUBCHAN_NO_TUNE: AMTunerSubChannel = -2
-AMTUNER_SUBCHAN_DEFAULT: AMTunerSubChannel = -1
+AMTUNER_SUBCHAN_NO_TUNE: win32more.Windows.Win32.Media.DirectShow.AMTunerSubChannel = -2
+AMTUNER_SUBCHAN_DEFAULT: win32more.Windows.Win32.Media.DirectShow.AMTunerSubChannel = -1
 class AMVABUFFERINFO(EasyCastStructure):
     dwTypeIndex: UInt32
     dwBufferIndex: UInt32
@@ -166,15 +165,15 @@ class AMVPSIZE(EasyCastStructure):
     dwWidth: UInt32
     dwHeight: UInt32
 AMVP_MODE = Int32
-AMVP_MODE_WEAVE: AMVP_MODE = 0
-AMVP_MODE_BOBINTERLEAVED: AMVP_MODE = 1
-AMVP_MODE_BOBNONINTERLEAVED: AMVP_MODE = 2
-AMVP_MODE_SKIPEVEN: AMVP_MODE = 3
-AMVP_MODE_SKIPODD: AMVP_MODE = 4
+AMVP_MODE_WEAVE: win32more.Windows.Win32.Media.DirectShow.AMVP_MODE = 0
+AMVP_MODE_BOBINTERLEAVED: win32more.Windows.Win32.Media.DirectShow.AMVP_MODE = 1
+AMVP_MODE_BOBNONINTERLEAVED: win32more.Windows.Win32.Media.DirectShow.AMVP_MODE = 2
+AMVP_MODE_SKIPEVEN: win32more.Windows.Win32.Media.DirectShow.AMVP_MODE = 3
+AMVP_MODE_SKIPODD: win32more.Windows.Win32.Media.DirectShow.AMVP_MODE = 4
 AMVP_SELECT_FORMAT_BY = Int32
-AMVP_DO_NOT_CARE: AMVP_SELECT_FORMAT_BY = 0
-AMVP_BEST_BANDWIDTH: AMVP_SELECT_FORMAT_BY = 1
-AMVP_INPUT_SAME_AS_OUTPUT: AMVP_SELECT_FORMAT_BY = 2
+AMVP_DO_NOT_CARE: win32more.Windows.Win32.Media.DirectShow.AMVP_SELECT_FORMAT_BY = 0
+AMVP_BEST_BANDWIDTH: win32more.Windows.Win32.Media.DirectShow.AMVP_SELECT_FORMAT_BY = 1
+AMVP_INPUT_SAME_AS_OUTPUT: win32more.Windows.Win32.Media.DirectShow.AMVP_SELECT_FORMAT_BY = 2
 class AM_AC3_ALTERNATE_AUDIO(EasyCastStructure):
     fStereo: win32more.Windows.Win32.Foundation.BOOL
     DualMode: UInt32
@@ -191,10 +190,10 @@ class AM_AC3_ERROR_CONCEALMENT(EasyCastStructure):
 class AM_AC3_ROOM_TYPE(EasyCastStructure):
     fLargeRoom: win32more.Windows.Win32.Foundation.BOOL
 AM_ASPECT_RATIO_MODE = Int32
-AM_ARMODE_STRETCHED: AM_ASPECT_RATIO_MODE = 0
-AM_ARMODE_LETTER_BOX: AM_ASPECT_RATIO_MODE = 1
-AM_ARMODE_CROP: AM_ASPECT_RATIO_MODE = 2
-AM_ARMODE_STRETCHED_AS_PRIMARY: AM_ASPECT_RATIO_MODE = 3
+AM_ARMODE_STRETCHED: win32more.Windows.Win32.Media.DirectShow.AM_ASPECT_RATIO_MODE = 0
+AM_ARMODE_LETTER_BOX: win32more.Windows.Win32.Media.DirectShow.AM_ASPECT_RATIO_MODE = 1
+AM_ARMODE_CROP: win32more.Windows.Win32.Media.DirectShow.AM_ASPECT_RATIO_MODE = 2
+AM_ARMODE_STRETCHED_AS_PRIMARY: win32more.Windows.Win32.Media.DirectShow.AM_ASPECT_RATIO_MODE = 3
 class AM_COLCON(EasyCastStructure):
     _bitfield1: Byte
     _bitfield2: Byte
@@ -203,20 +202,20 @@ class AM_COLCON(EasyCastStructure):
 class AM_COPY_MACROVISION(EasyCastStructure):
     MACROVISIONLevel: UInt32
 AM_COPY_MACROVISION_LEVEL = Int32
-AM_MACROVISION_DISABLED: AM_COPY_MACROVISION_LEVEL = 0
-AM_MACROVISION_LEVEL1: AM_COPY_MACROVISION_LEVEL = 1
-AM_MACROVISION_LEVEL2: AM_COPY_MACROVISION_LEVEL = 2
-AM_MACROVISION_LEVEL3: AM_COPY_MACROVISION_LEVEL = 3
+AM_MACROVISION_DISABLED: win32more.Windows.Win32.Media.DirectShow.AM_COPY_MACROVISION_LEVEL = 0
+AM_MACROVISION_LEVEL1: win32more.Windows.Win32.Media.DirectShow.AM_COPY_MACROVISION_LEVEL = 1
+AM_MACROVISION_LEVEL2: win32more.Windows.Win32.Media.DirectShow.AM_COPY_MACROVISION_LEVEL = 2
+AM_MACROVISION_LEVEL3: win32more.Windows.Win32.Media.DirectShow.AM_COPY_MACROVISION_LEVEL = 3
 AM_DIGITAL_CP = Int32
-AM_DIGITAL_CP_OFF: AM_DIGITAL_CP = 0
-AM_DIGITAL_CP_ON: AM_DIGITAL_CP = 1
-AM_DIGITAL_CP_DVD_COMPLIANT: AM_DIGITAL_CP = 2
+AM_DIGITAL_CP_OFF: win32more.Windows.Win32.Media.DirectShow.AM_DIGITAL_CP = 0
+AM_DIGITAL_CP_ON: win32more.Windows.Win32.Media.DirectShow.AM_DIGITAL_CP = 1
+AM_DIGITAL_CP_DVD_COMPLIANT: win32more.Windows.Win32.Media.DirectShow.AM_DIGITAL_CP = 2
 AM_DVDCOPYSTATE = Int32
-AM_DVDCOPYSTATE_INITIALIZE: AM_DVDCOPYSTATE = 0
-AM_DVDCOPYSTATE_INITIALIZE_TITLE: AM_DVDCOPYSTATE = 1
-AM_DVDCOPYSTATE_AUTHENTICATION_NOT_REQUIRED: AM_DVDCOPYSTATE = 2
-AM_DVDCOPYSTATE_AUTHENTICATION_REQUIRED: AM_DVDCOPYSTATE = 3
-AM_DVDCOPYSTATE_DONE: AM_DVDCOPYSTATE = 4
+AM_DVDCOPYSTATE_INITIALIZE: win32more.Windows.Win32.Media.DirectShow.AM_DVDCOPYSTATE = 0
+AM_DVDCOPYSTATE_INITIALIZE_TITLE: win32more.Windows.Win32.Media.DirectShow.AM_DVDCOPYSTATE = 1
+AM_DVDCOPYSTATE_AUTHENTICATION_NOT_REQUIRED: win32more.Windows.Win32.Media.DirectShow.AM_DVDCOPYSTATE = 2
+AM_DVDCOPYSTATE_AUTHENTICATION_REQUIRED: win32more.Windows.Win32.Media.DirectShow.AM_DVDCOPYSTATE = 3
+AM_DVDCOPYSTATE_DONE: win32more.Windows.Win32.Media.DirectShow.AM_DVDCOPYSTATE = 4
 class AM_DVDCOPY_BUSKEY(EasyCastStructure):
     BusKey: Byte * 5
     Reserved: Byte * 1
@@ -237,17 +236,17 @@ class AM_DVD_ChangeRate(EasyCastStructure):
     StartOutTime: Int64
     Rate: Int32
 AM_DVD_GRAPH_FLAGS = Int32
-AM_DVD_HWDEC_PREFER: AM_DVD_GRAPH_FLAGS = 1
-AM_DVD_HWDEC_ONLY: AM_DVD_GRAPH_FLAGS = 2
-AM_DVD_SWDEC_PREFER: AM_DVD_GRAPH_FLAGS = 4
-AM_DVD_SWDEC_ONLY: AM_DVD_GRAPH_FLAGS = 8
-AM_DVD_NOVPE: AM_DVD_GRAPH_FLAGS = 256
-AM_DVD_DO_NOT_CLEAR: AM_DVD_GRAPH_FLAGS = 512
-AM_DVD_VMR9_ONLY: AM_DVD_GRAPH_FLAGS = 2048
-AM_DVD_EVR_ONLY: AM_DVD_GRAPH_FLAGS = 4096
-AM_DVD_EVR_QOS: AM_DVD_GRAPH_FLAGS = 8192
-AM_DVD_ADAPT_GRAPH: AM_DVD_GRAPH_FLAGS = 16384
-AM_DVD_MASK: AM_DVD_GRAPH_FLAGS = 65535
+AM_DVD_HWDEC_PREFER: win32more.Windows.Win32.Media.DirectShow.AM_DVD_GRAPH_FLAGS = 1
+AM_DVD_HWDEC_ONLY: win32more.Windows.Win32.Media.DirectShow.AM_DVD_GRAPH_FLAGS = 2
+AM_DVD_SWDEC_PREFER: win32more.Windows.Win32.Media.DirectShow.AM_DVD_GRAPH_FLAGS = 4
+AM_DVD_SWDEC_ONLY: win32more.Windows.Win32.Media.DirectShow.AM_DVD_GRAPH_FLAGS = 8
+AM_DVD_NOVPE: win32more.Windows.Win32.Media.DirectShow.AM_DVD_GRAPH_FLAGS = 256
+AM_DVD_DO_NOT_CLEAR: win32more.Windows.Win32.Media.DirectShow.AM_DVD_GRAPH_FLAGS = 512
+AM_DVD_VMR9_ONLY: win32more.Windows.Win32.Media.DirectShow.AM_DVD_GRAPH_FLAGS = 2048
+AM_DVD_EVR_ONLY: win32more.Windows.Win32.Media.DirectShow.AM_DVD_GRAPH_FLAGS = 4096
+AM_DVD_EVR_QOS: win32more.Windows.Win32.Media.DirectShow.AM_DVD_GRAPH_FLAGS = 8192
+AM_DVD_ADAPT_GRAPH: win32more.Windows.Win32.Media.DirectShow.AM_DVD_GRAPH_FLAGS = 16384
+AM_DVD_MASK: win32more.Windows.Win32.Media.DirectShow.AM_DVD_GRAPH_FLAGS = 65535
 class AM_DVD_RENDERSTATUS(EasyCastStructure):
     hrVPEStatus: win32more.Windows.Win32.Foundation.HRESULT
     bDvdVolInvalid: win32more.Windows.Win32.Foundation.BOOL
@@ -258,9 +257,9 @@ class AM_DVD_RENDERSTATUS(EasyCastStructure):
     iNumStreamsFailed: Int32
     dwFailedStreamsFlag: UInt32
 AM_DVD_STREAM_FLAGS = Int32
-AM_DVD_STREAM_VIDEO: AM_DVD_STREAM_FLAGS = 1
-AM_DVD_STREAM_AUDIO: AM_DVD_STREAM_FLAGS = 2
-AM_DVD_STREAM_SUBPIC: AM_DVD_STREAM_FLAGS = 4
+AM_DVD_STREAM_VIDEO: win32more.Windows.Win32.Media.DirectShow.AM_DVD_STREAM_FLAGS = 1
+AM_DVD_STREAM_AUDIO: win32more.Windows.Win32.Media.DirectShow.AM_DVD_STREAM_FLAGS = 2
+AM_DVD_STREAM_SUBPIC: win32more.Windows.Win32.Media.DirectShow.AM_DVD_STREAM_FLAGS = 4
 class AM_DVD_YUV(EasyCastStructure):
     Reserved: Byte
     Y: Byte
@@ -273,50 +272,50 @@ class AM_ExactRateChange(EasyCastStructure):
     OutputZeroTime: Int64
     Rate: Int32
 AM_FILESINK_FLAGS = Int32
-AM_FILE_OVERWRITE: AM_FILESINK_FLAGS = 1
+AM_FILE_OVERWRITE: win32more.Windows.Win32.Media.DirectShow.AM_FILESINK_FLAGS = 1
 AM_FILTER_FLAGS = Int32
-AM_FILTER_FLAGS_REMOVABLE: AM_FILTER_FLAGS = 1
+AM_FILTER_FLAGS_REMOVABLE: win32more.Windows.Win32.Media.DirectShow.AM_FILTER_FLAGS = 1
 class AM_FRAMESTEP_STEP(EasyCastStructure):
     dwFramesToStep: UInt32
 AM_GRAPH_CONFIG_RECONNECT_FLAGS = Int32
-AM_GRAPH_CONFIG_RECONNECT_DIRECTCONNECT: AM_GRAPH_CONFIG_RECONNECT_FLAGS = 1
-AM_GRAPH_CONFIG_RECONNECT_CACHE_REMOVED_FILTERS: AM_GRAPH_CONFIG_RECONNECT_FLAGS = 2
-AM_GRAPH_CONFIG_RECONNECT_USE_ONLY_CACHED_FILTERS: AM_GRAPH_CONFIG_RECONNECT_FLAGS = 4
+AM_GRAPH_CONFIG_RECONNECT_DIRECTCONNECT: win32more.Windows.Win32.Media.DirectShow.AM_GRAPH_CONFIG_RECONNECT_FLAGS = 1
+AM_GRAPH_CONFIG_RECONNECT_CACHE_REMOVED_FILTERS: win32more.Windows.Win32.Media.DirectShow.AM_GRAPH_CONFIG_RECONNECT_FLAGS = 2
+AM_GRAPH_CONFIG_RECONNECT_USE_ONLY_CACHED_FILTERS: win32more.Windows.Win32.Media.DirectShow.AM_GRAPH_CONFIG_RECONNECT_FLAGS = 4
 AM_LINE21_CCLEVEL = Int32
-AM_L21_CCLEVEL_TC2: AM_LINE21_CCLEVEL = 0
+AM_L21_CCLEVEL_TC2: win32more.Windows.Win32.Media.DirectShow.AM_LINE21_CCLEVEL = 0
 AM_LINE21_CCSERVICE = Int32
-AM_L21_CCSERVICE_None: AM_LINE21_CCSERVICE = 0
-AM_L21_CCSERVICE_Caption1: AM_LINE21_CCSERVICE = 1
-AM_L21_CCSERVICE_Caption2: AM_LINE21_CCSERVICE = 2
-AM_L21_CCSERVICE_Text1: AM_LINE21_CCSERVICE = 3
-AM_L21_CCSERVICE_Text2: AM_LINE21_CCSERVICE = 4
-AM_L21_CCSERVICE_XDS: AM_LINE21_CCSERVICE = 5
-AM_L21_CCSERVICE_DefChannel: AM_LINE21_CCSERVICE = 10
-AM_L21_CCSERVICE_Invalid: AM_LINE21_CCSERVICE = 11
+AM_L21_CCSERVICE_None: win32more.Windows.Win32.Media.DirectShow.AM_LINE21_CCSERVICE = 0
+AM_L21_CCSERVICE_Caption1: win32more.Windows.Win32.Media.DirectShow.AM_LINE21_CCSERVICE = 1
+AM_L21_CCSERVICE_Caption2: win32more.Windows.Win32.Media.DirectShow.AM_LINE21_CCSERVICE = 2
+AM_L21_CCSERVICE_Text1: win32more.Windows.Win32.Media.DirectShow.AM_LINE21_CCSERVICE = 3
+AM_L21_CCSERVICE_Text2: win32more.Windows.Win32.Media.DirectShow.AM_LINE21_CCSERVICE = 4
+AM_L21_CCSERVICE_XDS: win32more.Windows.Win32.Media.DirectShow.AM_LINE21_CCSERVICE = 5
+AM_L21_CCSERVICE_DefChannel: win32more.Windows.Win32.Media.DirectShow.AM_LINE21_CCSERVICE = 10
+AM_L21_CCSERVICE_Invalid: win32more.Windows.Win32.Media.DirectShow.AM_LINE21_CCSERVICE = 11
 AM_LINE21_CCSTATE = Int32
-AM_L21_CCSTATE_Off: AM_LINE21_CCSTATE = 0
-AM_L21_CCSTATE_On: AM_LINE21_CCSTATE = 1
+AM_L21_CCSTATE_Off: win32more.Windows.Win32.Media.DirectShow.AM_LINE21_CCSTATE = 0
+AM_L21_CCSTATE_On: win32more.Windows.Win32.Media.DirectShow.AM_LINE21_CCSTATE = 1
 AM_LINE21_CCSTYLE = Int32
-AM_L21_CCSTYLE_None: AM_LINE21_CCSTYLE = 0
-AM_L21_CCSTYLE_PopOn: AM_LINE21_CCSTYLE = 1
-AM_L21_CCSTYLE_PaintOn: AM_LINE21_CCSTYLE = 2
-AM_L21_CCSTYLE_RollUp: AM_LINE21_CCSTYLE = 3
+AM_L21_CCSTYLE_None: win32more.Windows.Win32.Media.DirectShow.AM_LINE21_CCSTYLE = 0
+AM_L21_CCSTYLE_PopOn: win32more.Windows.Win32.Media.DirectShow.AM_LINE21_CCSTYLE = 1
+AM_L21_CCSTYLE_PaintOn: win32more.Windows.Win32.Media.DirectShow.AM_LINE21_CCSTYLE = 2
+AM_L21_CCSTYLE_RollUp: win32more.Windows.Win32.Media.DirectShow.AM_LINE21_CCSTYLE = 3
 AM_LINE21_DRAWBGMODE = Int32
-AM_L21_DRAWBGMODE_Opaque: AM_LINE21_DRAWBGMODE = 0
-AM_L21_DRAWBGMODE_Transparent: AM_LINE21_DRAWBGMODE = 1
+AM_L21_DRAWBGMODE_Opaque: win32more.Windows.Win32.Media.DirectShow.AM_LINE21_DRAWBGMODE = 0
+AM_L21_DRAWBGMODE_Transparent: win32more.Windows.Win32.Media.DirectShow.AM_LINE21_DRAWBGMODE = 1
 AM_MEDIAEVENT_FLAGS = Int32
-AM_MEDIAEVENT_NONOTIFY: AM_MEDIAEVENT_FLAGS = 1
+AM_MEDIAEVENT_NONOTIFY: win32more.Windows.Win32.Media.DirectShow.AM_MEDIAEVENT_FLAGS = 1
 AM_MPEG2Level = Int32
-AM_MPEG2Level_Low: AM_MPEG2Level = 1
-AM_MPEG2Level_Main: AM_MPEG2Level = 2
-AM_MPEG2Level_High1440: AM_MPEG2Level = 3
-AM_MPEG2Level_High: AM_MPEG2Level = 4
+AM_MPEG2Level_Low: win32more.Windows.Win32.Media.DirectShow.AM_MPEG2Level = 1
+AM_MPEG2Level_Main: win32more.Windows.Win32.Media.DirectShow.AM_MPEG2Level = 2
+AM_MPEG2Level_High1440: win32more.Windows.Win32.Media.DirectShow.AM_MPEG2Level = 3
+AM_MPEG2Level_High: win32more.Windows.Win32.Media.DirectShow.AM_MPEG2Level = 4
 AM_MPEG2Profile = Int32
-AM_MPEG2Profile_Simple: AM_MPEG2Profile = 1
-AM_MPEG2Profile_Main: AM_MPEG2Profile = 2
-AM_MPEG2Profile_SNRScalable: AM_MPEG2Profile = 3
-AM_MPEG2Profile_SpatiallyScalable: AM_MPEG2Profile = 4
-AM_MPEG2Profile_High: AM_MPEG2Profile = 5
+AM_MPEG2Profile_Simple: win32more.Windows.Win32.Media.DirectShow.AM_MPEG2Profile = 1
+AM_MPEG2Profile_Main: win32more.Windows.Win32.Media.DirectShow.AM_MPEG2Profile = 2
+AM_MPEG2Profile_SNRScalable: win32more.Windows.Win32.Media.DirectShow.AM_MPEG2Profile = 3
+AM_MPEG2Profile_SpatiallyScalable: win32more.Windows.Win32.Media.DirectShow.AM_MPEG2Profile = 4
+AM_MPEG2Profile_High: win32more.Windows.Win32.Media.DirectShow.AM_MPEG2Profile = 5
 class AM_MPEGSTREAMTYPE(EasyCastStructure):
     dwStreamId: UInt32
     dwReserved: UInt32
@@ -327,44 +326,44 @@ class AM_MPEGSYSTEMTYPE(EasyCastStructure):
     cStreams: UInt32
     Streams: win32more.Windows.Win32.Media.DirectShow.AM_MPEGSTREAMTYPE * 1
 AM_PROPERTY_AC3 = Int32
-AM_PROPERTY_AC3_ERROR_CONCEALMENT: AM_PROPERTY_AC3 = 1
-AM_PROPERTY_AC3_ALTERNATE_AUDIO: AM_PROPERTY_AC3 = 2
-AM_PROPERTY_AC3_DOWNMIX: AM_PROPERTY_AC3 = 3
-AM_PROPERTY_AC3_BIT_STREAM_MODE: AM_PROPERTY_AC3 = 4
-AM_PROPERTY_AC3_DIALOGUE_LEVEL: AM_PROPERTY_AC3 = 5
-AM_PROPERTY_AC3_LANGUAGE_CODE: AM_PROPERTY_AC3 = 6
-AM_PROPERTY_AC3_ROOM_TYPE: AM_PROPERTY_AC3 = 7
+AM_PROPERTY_AC3_ERROR_CONCEALMENT: win32more.Windows.Win32.Media.DirectShow.AM_PROPERTY_AC3 = 1
+AM_PROPERTY_AC3_ALTERNATE_AUDIO: win32more.Windows.Win32.Media.DirectShow.AM_PROPERTY_AC3 = 2
+AM_PROPERTY_AC3_DOWNMIX: win32more.Windows.Win32.Media.DirectShow.AM_PROPERTY_AC3 = 3
+AM_PROPERTY_AC3_BIT_STREAM_MODE: win32more.Windows.Win32.Media.DirectShow.AM_PROPERTY_AC3 = 4
+AM_PROPERTY_AC3_DIALOGUE_LEVEL: win32more.Windows.Win32.Media.DirectShow.AM_PROPERTY_AC3 = 5
+AM_PROPERTY_AC3_LANGUAGE_CODE: win32more.Windows.Win32.Media.DirectShow.AM_PROPERTY_AC3 = 6
+AM_PROPERTY_AC3_ROOM_TYPE: win32more.Windows.Win32.Media.DirectShow.AM_PROPERTY_AC3 = 7
 AM_PROPERTY_DVDCOPYPROT = Int32
-AM_PROPERTY_DVDCOPY_CHLG_KEY: AM_PROPERTY_DVDCOPYPROT = 1
-AM_PROPERTY_DVDCOPY_DVD_KEY1: AM_PROPERTY_DVDCOPYPROT = 2
-AM_PROPERTY_DVDCOPY_DEC_KEY2: AM_PROPERTY_DVDCOPYPROT = 3
-AM_PROPERTY_DVDCOPY_TITLE_KEY: AM_PROPERTY_DVDCOPYPROT = 4
-AM_PROPERTY_COPY_MACROVISION: AM_PROPERTY_DVDCOPYPROT = 5
-AM_PROPERTY_DVDCOPY_REGION: AM_PROPERTY_DVDCOPYPROT = 6
-AM_PROPERTY_DVDCOPY_SET_COPY_STATE: AM_PROPERTY_DVDCOPYPROT = 7
-AM_PROPERTY_COPY_ANALOG_COMPONENT: AM_PROPERTY_DVDCOPYPROT = 8
-AM_PROPERTY_COPY_DIGITAL_CP: AM_PROPERTY_DVDCOPYPROT = 9
-AM_PROPERTY_COPY_DVD_SRM: AM_PROPERTY_DVDCOPYPROT = 10
-AM_PROPERTY_DVDCOPY_SUPPORTS_NEW_KEYCOUNT: AM_PROPERTY_DVDCOPYPROT = 11
-AM_PROPERTY_DVDCOPY_DISC_KEY: AM_PROPERTY_DVDCOPYPROT = 128
+AM_PROPERTY_DVDCOPY_CHLG_KEY: win32more.Windows.Win32.Media.DirectShow.AM_PROPERTY_DVDCOPYPROT = 1
+AM_PROPERTY_DVDCOPY_DVD_KEY1: win32more.Windows.Win32.Media.DirectShow.AM_PROPERTY_DVDCOPYPROT = 2
+AM_PROPERTY_DVDCOPY_DEC_KEY2: win32more.Windows.Win32.Media.DirectShow.AM_PROPERTY_DVDCOPYPROT = 3
+AM_PROPERTY_DVDCOPY_TITLE_KEY: win32more.Windows.Win32.Media.DirectShow.AM_PROPERTY_DVDCOPYPROT = 4
+AM_PROPERTY_COPY_MACROVISION: win32more.Windows.Win32.Media.DirectShow.AM_PROPERTY_DVDCOPYPROT = 5
+AM_PROPERTY_DVDCOPY_REGION: win32more.Windows.Win32.Media.DirectShow.AM_PROPERTY_DVDCOPYPROT = 6
+AM_PROPERTY_DVDCOPY_SET_COPY_STATE: win32more.Windows.Win32.Media.DirectShow.AM_PROPERTY_DVDCOPYPROT = 7
+AM_PROPERTY_COPY_ANALOG_COMPONENT: win32more.Windows.Win32.Media.DirectShow.AM_PROPERTY_DVDCOPYPROT = 8
+AM_PROPERTY_COPY_DIGITAL_CP: win32more.Windows.Win32.Media.DirectShow.AM_PROPERTY_DVDCOPYPROT = 9
+AM_PROPERTY_COPY_DVD_SRM: win32more.Windows.Win32.Media.DirectShow.AM_PROPERTY_DVDCOPYPROT = 10
+AM_PROPERTY_DVDCOPY_SUPPORTS_NEW_KEYCOUNT: win32more.Windows.Win32.Media.DirectShow.AM_PROPERTY_DVDCOPYPROT = 11
+AM_PROPERTY_DVDCOPY_DISC_KEY: win32more.Windows.Win32.Media.DirectShow.AM_PROPERTY_DVDCOPYPROT = 128
 AM_PROPERTY_DVDKARAOKE = Int32
-AM_PROPERTY_DVDKARAOKE_ENABLE: AM_PROPERTY_DVDKARAOKE = 0
-AM_PROPERTY_DVDKARAOKE_DATA: AM_PROPERTY_DVDKARAOKE = 1
+AM_PROPERTY_DVDKARAOKE_ENABLE: win32more.Windows.Win32.Media.DirectShow.AM_PROPERTY_DVDKARAOKE = 0
+AM_PROPERTY_DVDKARAOKE_DATA: win32more.Windows.Win32.Media.DirectShow.AM_PROPERTY_DVDKARAOKE = 1
 AM_PROPERTY_DVDSUBPIC = Int32
-AM_PROPERTY_DVDSUBPIC_PALETTE: AM_PROPERTY_DVDSUBPIC = 0
-AM_PROPERTY_DVDSUBPIC_HLI: AM_PROPERTY_DVDSUBPIC = 1
-AM_PROPERTY_DVDSUBPIC_COMPOSIT_ON: AM_PROPERTY_DVDSUBPIC = 2
+AM_PROPERTY_DVDSUBPIC_PALETTE: win32more.Windows.Win32.Media.DirectShow.AM_PROPERTY_DVDSUBPIC = 0
+AM_PROPERTY_DVDSUBPIC_HLI: win32more.Windows.Win32.Media.DirectShow.AM_PROPERTY_DVDSUBPIC = 1
+AM_PROPERTY_DVDSUBPIC_COMPOSIT_ON: win32more.Windows.Win32.Media.DirectShow.AM_PROPERTY_DVDSUBPIC = 2
 AM_PROPERTY_DVD_RATE_CHANGE = Int32
-AM_RATE_ChangeRate: AM_PROPERTY_DVD_RATE_CHANGE = 1
-AM_RATE_FullDataRateMax: AM_PROPERTY_DVD_RATE_CHANGE = 2
-AM_RATE_ReverseDecode: AM_PROPERTY_DVD_RATE_CHANGE = 3
-AM_RATE_DecoderPosition: AM_PROPERTY_DVD_RATE_CHANGE = 4
-AM_RATE_DecoderVersion: AM_PROPERTY_DVD_RATE_CHANGE = 5
+AM_RATE_ChangeRate: win32more.Windows.Win32.Media.DirectShow.AM_PROPERTY_DVD_RATE_CHANGE = 1
+AM_RATE_FullDataRateMax: win32more.Windows.Win32.Media.DirectShow.AM_PROPERTY_DVD_RATE_CHANGE = 2
+AM_RATE_ReverseDecode: win32more.Windows.Win32.Media.DirectShow.AM_PROPERTY_DVD_RATE_CHANGE = 3
+AM_RATE_DecoderPosition: win32more.Windows.Win32.Media.DirectShow.AM_PROPERTY_DVD_RATE_CHANGE = 4
+AM_RATE_DecoderVersion: win32more.Windows.Win32.Media.DirectShow.AM_PROPERTY_DVD_RATE_CHANGE = 5
 AM_PROPERTY_FRAMESTEP = Int32
-AM_PROPERTY_FRAMESTEP_STEP: AM_PROPERTY_FRAMESTEP = 1
-AM_PROPERTY_FRAMESTEP_CANCEL: AM_PROPERTY_FRAMESTEP = 2
-AM_PROPERTY_FRAMESTEP_CANSTEP: AM_PROPERTY_FRAMESTEP = 3
-AM_PROPERTY_FRAMESTEP_CANSTEPMULTIPLE: AM_PROPERTY_FRAMESTEP = 4
+AM_PROPERTY_FRAMESTEP_STEP: win32more.Windows.Win32.Media.DirectShow.AM_PROPERTY_FRAMESTEP = 1
+AM_PROPERTY_FRAMESTEP_CANCEL: win32more.Windows.Win32.Media.DirectShow.AM_PROPERTY_FRAMESTEP = 2
+AM_PROPERTY_FRAMESTEP_CANSTEP: win32more.Windows.Win32.Media.DirectShow.AM_PROPERTY_FRAMESTEP = 3
+AM_PROPERTY_FRAMESTEP_CANSTEPMULTIPLE: win32more.Windows.Win32.Media.DirectShow.AM_PROPERTY_FRAMESTEP = 4
 class AM_PROPERTY_SPHLI(EasyCastStructure):
     HLISS: UInt16
     Reserved: UInt16
@@ -378,17 +377,17 @@ class AM_PROPERTY_SPHLI(EasyCastStructure):
 class AM_PROPERTY_SPPAL(EasyCastStructure):
     sppal: win32more.Windows.Win32.Media.DirectShow.AM_DVD_YUV * 16
 AM_PROPERTY_TS_RATE_CHANGE = Int32
-AM_RATE_SimpleRateChange: AM_PROPERTY_TS_RATE_CHANGE = 1
-AM_RATE_ExactRateChange: AM_PROPERTY_TS_RATE_CHANGE = 2
-AM_RATE_MaxFullDataRate: AM_PROPERTY_TS_RATE_CHANGE = 3
-AM_RATE_Step: AM_PROPERTY_TS_RATE_CHANGE = 4
-AM_RATE_UseRateVersion: AM_PROPERTY_TS_RATE_CHANGE = 5
-AM_RATE_QueryFullFrameRate: AM_PROPERTY_TS_RATE_CHANGE = 6
-AM_RATE_QueryLastRateSegPTS: AM_PROPERTY_TS_RATE_CHANGE = 7
-AM_RATE_CorrectTS: AM_PROPERTY_TS_RATE_CHANGE = 8
-AM_RATE_ReverseMaxFullDataRate: AM_PROPERTY_TS_RATE_CHANGE = 9
-AM_RATE_ResetOnTimeDisc: AM_PROPERTY_TS_RATE_CHANGE = 10
-AM_RATE_QueryMapping: AM_PROPERTY_TS_RATE_CHANGE = 11
+AM_RATE_SimpleRateChange: win32more.Windows.Win32.Media.DirectShow.AM_PROPERTY_TS_RATE_CHANGE = 1
+AM_RATE_ExactRateChange: win32more.Windows.Win32.Media.DirectShow.AM_PROPERTY_TS_RATE_CHANGE = 2
+AM_RATE_MaxFullDataRate: win32more.Windows.Win32.Media.DirectShow.AM_PROPERTY_TS_RATE_CHANGE = 3
+AM_RATE_Step: win32more.Windows.Win32.Media.DirectShow.AM_PROPERTY_TS_RATE_CHANGE = 4
+AM_RATE_UseRateVersion: win32more.Windows.Win32.Media.DirectShow.AM_PROPERTY_TS_RATE_CHANGE = 5
+AM_RATE_QueryFullFrameRate: win32more.Windows.Win32.Media.DirectShow.AM_PROPERTY_TS_RATE_CHANGE = 6
+AM_RATE_QueryLastRateSegPTS: win32more.Windows.Win32.Media.DirectShow.AM_PROPERTY_TS_RATE_CHANGE = 7
+AM_RATE_CorrectTS: win32more.Windows.Win32.Media.DirectShow.AM_PROPERTY_TS_RATE_CHANGE = 8
+AM_RATE_ReverseMaxFullDataRate: win32more.Windows.Win32.Media.DirectShow.AM_PROPERTY_TS_RATE_CHANGE = 9
+AM_RATE_ResetOnTimeDisc: win32more.Windows.Win32.Media.DirectShow.AM_PROPERTY_TS_RATE_CHANGE = 10
+AM_RATE_QueryMapping: win32more.Windows.Win32.Media.DirectShow.AM_PROPERTY_TS_RATE_CHANGE = 11
 class AM_QueryRate(EasyCastStructure):
     lMaxForwardFullFrame: Int32
     lMaxReverseFullFrame: Int32
@@ -404,37 +403,37 @@ class AM_SAMPLE2_PROPERTIES(EasyCastStructure):
     pbBuffer: POINTER(Byte)
     cbBuffer: Int32
 AM_SAMPLE_PROPERTY_FLAGS = Int32
-AM_SAMPLE_SPLICEPOINT: AM_SAMPLE_PROPERTY_FLAGS = 1
-AM_SAMPLE_PREROLL: AM_SAMPLE_PROPERTY_FLAGS = 2
-AM_SAMPLE_DATADISCONTINUITY: AM_SAMPLE_PROPERTY_FLAGS = 4
-AM_SAMPLE_TYPECHANGED: AM_SAMPLE_PROPERTY_FLAGS = 8
-AM_SAMPLE_TIMEVALID: AM_SAMPLE_PROPERTY_FLAGS = 16
-AM_SAMPLE_TIMEDISCONTINUITY: AM_SAMPLE_PROPERTY_FLAGS = 64
-AM_SAMPLE_FLUSH_ON_PAUSE: AM_SAMPLE_PROPERTY_FLAGS = 128
-AM_SAMPLE_STOPVALID: AM_SAMPLE_PROPERTY_FLAGS = 256
-AM_SAMPLE_ENDOFSTREAM: AM_SAMPLE_PROPERTY_FLAGS = 512
-AM_STREAM_MEDIA: AM_SAMPLE_PROPERTY_FLAGS = 0
-AM_STREAM_CONTROL: AM_SAMPLE_PROPERTY_FLAGS = 1
+AM_SAMPLE_SPLICEPOINT: win32more.Windows.Win32.Media.DirectShow.AM_SAMPLE_PROPERTY_FLAGS = 1
+AM_SAMPLE_PREROLL: win32more.Windows.Win32.Media.DirectShow.AM_SAMPLE_PROPERTY_FLAGS = 2
+AM_SAMPLE_DATADISCONTINUITY: win32more.Windows.Win32.Media.DirectShow.AM_SAMPLE_PROPERTY_FLAGS = 4
+AM_SAMPLE_TYPECHANGED: win32more.Windows.Win32.Media.DirectShow.AM_SAMPLE_PROPERTY_FLAGS = 8
+AM_SAMPLE_TIMEVALID: win32more.Windows.Win32.Media.DirectShow.AM_SAMPLE_PROPERTY_FLAGS = 16
+AM_SAMPLE_TIMEDISCONTINUITY: win32more.Windows.Win32.Media.DirectShow.AM_SAMPLE_PROPERTY_FLAGS = 64
+AM_SAMPLE_FLUSH_ON_PAUSE: win32more.Windows.Win32.Media.DirectShow.AM_SAMPLE_PROPERTY_FLAGS = 128
+AM_SAMPLE_STOPVALID: win32more.Windows.Win32.Media.DirectShow.AM_SAMPLE_PROPERTY_FLAGS = 256
+AM_SAMPLE_ENDOFSTREAM: win32more.Windows.Win32.Media.DirectShow.AM_SAMPLE_PROPERTY_FLAGS = 512
+AM_STREAM_MEDIA: win32more.Windows.Win32.Media.DirectShow.AM_SAMPLE_PROPERTY_FLAGS = 0
+AM_STREAM_CONTROL: win32more.Windows.Win32.Media.DirectShow.AM_SAMPLE_PROPERTY_FLAGS = 1
 AM_SEEKING_SEEKING_CAPABILITIES = Int32
-AM_SEEKING_CanSeekAbsolute: AM_SEEKING_SEEKING_CAPABILITIES = 1
-AM_SEEKING_CanSeekForwards: AM_SEEKING_SEEKING_CAPABILITIES = 2
-AM_SEEKING_CanSeekBackwards: AM_SEEKING_SEEKING_CAPABILITIES = 4
-AM_SEEKING_CanGetCurrentPos: AM_SEEKING_SEEKING_CAPABILITIES = 8
-AM_SEEKING_CanGetStopPos: AM_SEEKING_SEEKING_CAPABILITIES = 16
-AM_SEEKING_CanGetDuration: AM_SEEKING_SEEKING_CAPABILITIES = 32
-AM_SEEKING_CanPlayBackwards: AM_SEEKING_SEEKING_CAPABILITIES = 64
-AM_SEEKING_CanDoSegments: AM_SEEKING_SEEKING_CAPABILITIES = 128
-AM_SEEKING_Source: AM_SEEKING_SEEKING_CAPABILITIES = 256
+AM_SEEKING_CanSeekAbsolute: win32more.Windows.Win32.Media.DirectShow.AM_SEEKING_SEEKING_CAPABILITIES = 1
+AM_SEEKING_CanSeekForwards: win32more.Windows.Win32.Media.DirectShow.AM_SEEKING_SEEKING_CAPABILITIES = 2
+AM_SEEKING_CanSeekBackwards: win32more.Windows.Win32.Media.DirectShow.AM_SEEKING_SEEKING_CAPABILITIES = 4
+AM_SEEKING_CanGetCurrentPos: win32more.Windows.Win32.Media.DirectShow.AM_SEEKING_SEEKING_CAPABILITIES = 8
+AM_SEEKING_CanGetStopPos: win32more.Windows.Win32.Media.DirectShow.AM_SEEKING_SEEKING_CAPABILITIES = 16
+AM_SEEKING_CanGetDuration: win32more.Windows.Win32.Media.DirectShow.AM_SEEKING_SEEKING_CAPABILITIES = 32
+AM_SEEKING_CanPlayBackwards: win32more.Windows.Win32.Media.DirectShow.AM_SEEKING_SEEKING_CAPABILITIES = 64
+AM_SEEKING_CanDoSegments: win32more.Windows.Win32.Media.DirectShow.AM_SEEKING_SEEKING_CAPABILITIES = 128
+AM_SEEKING_Source: win32more.Windows.Win32.Media.DirectShow.AM_SEEKING_SEEKING_CAPABILITIES = 256
 AM_SEEKING_SEEKING_FLAGS = Int32
-AM_SEEKING_NoPositioning: AM_SEEKING_SEEKING_FLAGS = 0
-AM_SEEKING_AbsolutePositioning: AM_SEEKING_SEEKING_FLAGS = 1
-AM_SEEKING_RelativePositioning: AM_SEEKING_SEEKING_FLAGS = 2
-AM_SEEKING_IncrementalPositioning: AM_SEEKING_SEEKING_FLAGS = 3
-AM_SEEKING_PositioningBitsMask: AM_SEEKING_SEEKING_FLAGS = 3
-AM_SEEKING_SeekToKeyFrame: AM_SEEKING_SEEKING_FLAGS = 4
-AM_SEEKING_ReturnTime: AM_SEEKING_SEEKING_FLAGS = 8
-AM_SEEKING_Segment: AM_SEEKING_SEEKING_FLAGS = 16
-AM_SEEKING_NoFlush: AM_SEEKING_SEEKING_FLAGS = 32
+AM_SEEKING_NoPositioning: win32more.Windows.Win32.Media.DirectShow.AM_SEEKING_SEEKING_FLAGS = 0
+AM_SEEKING_AbsolutePositioning: win32more.Windows.Win32.Media.DirectShow.AM_SEEKING_SEEKING_FLAGS = 1
+AM_SEEKING_RelativePositioning: win32more.Windows.Win32.Media.DirectShow.AM_SEEKING_SEEKING_FLAGS = 2
+AM_SEEKING_IncrementalPositioning: win32more.Windows.Win32.Media.DirectShow.AM_SEEKING_SEEKING_FLAGS = 3
+AM_SEEKING_PositioningBitsMask: win32more.Windows.Win32.Media.DirectShow.AM_SEEKING_SEEKING_FLAGS = 3
+AM_SEEKING_SeekToKeyFrame: win32more.Windows.Win32.Media.DirectShow.AM_SEEKING_SEEKING_FLAGS = 4
+AM_SEEKING_ReturnTime: win32more.Windows.Win32.Media.DirectShow.AM_SEEKING_SEEKING_FLAGS = 8
+AM_SEEKING_Segment: win32more.Windows.Win32.Media.DirectShow.AM_SEEKING_SEEKING_FLAGS = 16
+AM_SEEKING_NoFlush: win32more.Windows.Win32.Media.DirectShow.AM_SEEKING_SEEKING_FLAGS = 32
 class AM_STREAM_INFO(EasyCastStructure):
     tStart: Int64
     tStop: Int64
@@ -442,33 +441,33 @@ class AM_STREAM_INFO(EasyCastStructure):
     dwStopCookie: UInt32
     dwFlags: UInt32
 AM_STREAM_INFO_FLAGS = Int32
-AM_STREAM_INFO_START_DEFINED: AM_STREAM_INFO_FLAGS = 1
-AM_STREAM_INFO_STOP_DEFINED: AM_STREAM_INFO_FLAGS = 2
-AM_STREAM_INFO_DISCARDING: AM_STREAM_INFO_FLAGS = 4
-AM_STREAM_INFO_STOP_SEND_EXTRA: AM_STREAM_INFO_FLAGS = 16
+AM_STREAM_INFO_START_DEFINED: win32more.Windows.Win32.Media.DirectShow.AM_STREAM_INFO_FLAGS = 1
+AM_STREAM_INFO_STOP_DEFINED: win32more.Windows.Win32.Media.DirectShow.AM_STREAM_INFO_FLAGS = 2
+AM_STREAM_INFO_DISCARDING: win32more.Windows.Win32.Media.DirectShow.AM_STREAM_INFO_FLAGS = 4
+AM_STREAM_INFO_STOP_SEND_EXTRA: win32more.Windows.Win32.Media.DirectShow.AM_STREAM_INFO_FLAGS = 16
 class AM_SimpleRateChange(EasyCastStructure):
     StartTime: Int64
     Rate: Int32
 AM_WST_DRAWBGMODE = Int32
-AM_WST_DRAWBGMODE_Opaque: AM_WST_DRAWBGMODE = 0
-AM_WST_DRAWBGMODE_Transparent: AM_WST_DRAWBGMODE = 1
+AM_WST_DRAWBGMODE_Opaque: win32more.Windows.Win32.Media.DirectShow.AM_WST_DRAWBGMODE = 0
+AM_WST_DRAWBGMODE_Transparent: win32more.Windows.Win32.Media.DirectShow.AM_WST_DRAWBGMODE = 1
 AM_WST_LEVEL = Int32
-AM_WST_LEVEL_1_5: AM_WST_LEVEL = 0
+AM_WST_LEVEL_1_5: win32more.Windows.Win32.Media.DirectShow.AM_WST_LEVEL = 0
 class AM_WST_PAGE(EasyCastStructure):
     dwPageNr: UInt32
     dwSubPageNr: UInt32
     pucPageData: POINTER(Byte)
 AM_WST_SERVICE = Int32
-AM_WST_SERVICE_None: AM_WST_SERVICE = 0
-AM_WST_SERVICE_Text: AM_WST_SERVICE = 1
-AM_WST_SERVICE_IDS: AM_WST_SERVICE = 2
-AM_WST_SERVICE_Invalid: AM_WST_SERVICE = 3
+AM_WST_SERVICE_None: win32more.Windows.Win32.Media.DirectShow.AM_WST_SERVICE = 0
+AM_WST_SERVICE_Text: win32more.Windows.Win32.Media.DirectShow.AM_WST_SERVICE = 1
+AM_WST_SERVICE_IDS: win32more.Windows.Win32.Media.DirectShow.AM_WST_SERVICE = 2
+AM_WST_SERVICE_Invalid: win32more.Windows.Win32.Media.DirectShow.AM_WST_SERVICE = 3
 AM_WST_STATE = Int32
-AM_WST_STATE_Off: AM_WST_STATE = 0
-AM_WST_STATE_On: AM_WST_STATE = 1
+AM_WST_STATE_Off: win32more.Windows.Win32.Media.DirectShow.AM_WST_STATE = 0
+AM_WST_STATE_On: win32more.Windows.Win32.Media.DirectShow.AM_WST_STATE = 1
 AM_WST_STYLE = Int32
-AM_WST_STYLE_None: AM_WST_STYLE = 0
-AM_WST_STYLE_Invers: AM_WST_STYLE = 1
+AM_WST_STYLE_None: win32more.Windows.Win32.Media.DirectShow.AM_WST_STYLE = 0
+AM_WST_STYLE_Invers: win32more.Windows.Win32.Media.DirectShow.AM_WST_STYLE = 1
 class ANALOGVIDEOINFO(EasyCastStructure):
     rcSource: win32more.Windows.Win32.Foundation.RECT
     rcTarget: win32more.Windows.Win32.Foundation.RECT
@@ -476,7 +475,7 @@ class ANALOGVIDEOINFO(EasyCastStructure):
     dwActiveHeight: UInt32
     AvgTimePerFrame: Int64
 ATSCComponentTypeFlags = Int32
-ATSCCT_AC3: ATSCComponentTypeFlags = 1
+ATSCCT_AC3: win32more.Windows.Win32.Media.DirectShow.ATSCComponentTypeFlags = 1
 class AUDIO_STREAM_CONFIG_CAPS(EasyCastStructure):
     guid: Guid
     MinimumChannels: UInt32
@@ -677,30 +676,30 @@ class AVITIMEDINDEX_ENTRY(EasyCastStructure):
     dwDuration: UInt32
     _pack_ = 2
 AnalogVideoStandard = Int32
-AnalogVideo_None: AnalogVideoStandard = 0
-AnalogVideo_NTSC_M: AnalogVideoStandard = 1
-AnalogVideo_NTSC_M_J: AnalogVideoStandard = 2
-AnalogVideo_NTSC_433: AnalogVideoStandard = 4
-AnalogVideo_PAL_B: AnalogVideoStandard = 16
-AnalogVideo_PAL_D: AnalogVideoStandard = 32
-AnalogVideo_PAL_G: AnalogVideoStandard = 64
-AnalogVideo_PAL_H: AnalogVideoStandard = 128
-AnalogVideo_PAL_I: AnalogVideoStandard = 256
-AnalogVideo_PAL_M: AnalogVideoStandard = 512
-AnalogVideo_PAL_N: AnalogVideoStandard = 1024
-AnalogVideo_PAL_60: AnalogVideoStandard = 2048
-AnalogVideo_SECAM_B: AnalogVideoStandard = 4096
-AnalogVideo_SECAM_D: AnalogVideoStandard = 8192
-AnalogVideo_SECAM_G: AnalogVideoStandard = 16384
-AnalogVideo_SECAM_H: AnalogVideoStandard = 32768
-AnalogVideo_SECAM_K: AnalogVideoStandard = 65536
-AnalogVideo_SECAM_K1: AnalogVideoStandard = 131072
-AnalogVideo_SECAM_L: AnalogVideoStandard = 262144
-AnalogVideo_SECAM_L1: AnalogVideoStandard = 524288
-AnalogVideo_PAL_N_COMBO: AnalogVideoStandard = 1048576
-AnalogVideoMask_MCE_NTSC: AnalogVideoStandard = 1052167
-AnalogVideoMask_MCE_PAL: AnalogVideoStandard = 496
-AnalogVideoMask_MCE_SECAM: AnalogVideoStandard = 1044480
+AnalogVideo_None: win32more.Windows.Win32.Media.DirectShow.AnalogVideoStandard = 0
+AnalogVideo_NTSC_M: win32more.Windows.Win32.Media.DirectShow.AnalogVideoStandard = 1
+AnalogVideo_NTSC_M_J: win32more.Windows.Win32.Media.DirectShow.AnalogVideoStandard = 2
+AnalogVideo_NTSC_433: win32more.Windows.Win32.Media.DirectShow.AnalogVideoStandard = 4
+AnalogVideo_PAL_B: win32more.Windows.Win32.Media.DirectShow.AnalogVideoStandard = 16
+AnalogVideo_PAL_D: win32more.Windows.Win32.Media.DirectShow.AnalogVideoStandard = 32
+AnalogVideo_PAL_G: win32more.Windows.Win32.Media.DirectShow.AnalogVideoStandard = 64
+AnalogVideo_PAL_H: win32more.Windows.Win32.Media.DirectShow.AnalogVideoStandard = 128
+AnalogVideo_PAL_I: win32more.Windows.Win32.Media.DirectShow.AnalogVideoStandard = 256
+AnalogVideo_PAL_M: win32more.Windows.Win32.Media.DirectShow.AnalogVideoStandard = 512
+AnalogVideo_PAL_N: win32more.Windows.Win32.Media.DirectShow.AnalogVideoStandard = 1024
+AnalogVideo_PAL_60: win32more.Windows.Win32.Media.DirectShow.AnalogVideoStandard = 2048
+AnalogVideo_SECAM_B: win32more.Windows.Win32.Media.DirectShow.AnalogVideoStandard = 4096
+AnalogVideo_SECAM_D: win32more.Windows.Win32.Media.DirectShow.AnalogVideoStandard = 8192
+AnalogVideo_SECAM_G: win32more.Windows.Win32.Media.DirectShow.AnalogVideoStandard = 16384
+AnalogVideo_SECAM_H: win32more.Windows.Win32.Media.DirectShow.AnalogVideoStandard = 32768
+AnalogVideo_SECAM_K: win32more.Windows.Win32.Media.DirectShow.AnalogVideoStandard = 65536
+AnalogVideo_SECAM_K1: win32more.Windows.Win32.Media.DirectShow.AnalogVideoStandard = 131072
+AnalogVideo_SECAM_L: win32more.Windows.Win32.Media.DirectShow.AnalogVideoStandard = 262144
+AnalogVideo_SECAM_L1: win32more.Windows.Win32.Media.DirectShow.AnalogVideoStandard = 524288
+AnalogVideo_PAL_N_COMBO: win32more.Windows.Win32.Media.DirectShow.AnalogVideoStandard = 1048576
+AnalogVideoMask_MCE_NTSC: win32more.Windows.Win32.Media.DirectShow.AnalogVideoStandard = 1052167
+AnalogVideoMask_MCE_PAL: win32more.Windows.Win32.Media.DirectShow.AnalogVideoStandard = 496
+AnalogVideoMask_MCE_SECAM: win32more.Windows.Win32.Media.DirectShow.AnalogVideoStandard = 1044480
 EC_SND_DEVICE_ERROR_BASE: UInt32 = 512
 EC_SNDDEV_IN_ERROR: UInt32 = 512
 EC_SNDDEV_OUT_ERROR: UInt32 = 513
@@ -1552,15 +1551,15 @@ def AMGetErrorTextA(hr: win32more.Windows.Win32.Foundation.HRESULT, pbuffer: win
 @winfunctype('QUARTZ.dll')
 def AMGetErrorTextW(hr: win32more.Windows.Win32.Foundation.HRESULT, pbuffer: win32more.Windows.Win32.Foundation.PWSTR, MaxLen: UInt32) -> UInt32: ...
 ApplicationTypeType = Int32
-SCTE28_ConditionalAccess: ApplicationTypeType = 0
-SCTE28_POD_Host_Binding_Information: ApplicationTypeType = 1
-SCTE28_IPService: ApplicationTypeType = 2
-SCTE28_NetworkInterface_SCTE55_2: ApplicationTypeType = 3
-SCTE28_NetworkInterface_SCTE55_1: ApplicationTypeType = 4
-SCTE28_CopyProtection: ApplicationTypeType = 5
-SCTE28_Diagnostic: ApplicationTypeType = 6
-SCTE28_Undesignated: ApplicationTypeType = 7
-SCTE28_Reserved: ApplicationTypeType = 8
+SCTE28_ConditionalAccess: win32more.Windows.Win32.Media.DirectShow.ApplicationTypeType = 0
+SCTE28_POD_Host_Binding_Information: win32more.Windows.Win32.Media.DirectShow.ApplicationTypeType = 1
+SCTE28_IPService: win32more.Windows.Win32.Media.DirectShow.ApplicationTypeType = 2
+SCTE28_NetworkInterface_SCTE55_2: win32more.Windows.Win32.Media.DirectShow.ApplicationTypeType = 3
+SCTE28_NetworkInterface_SCTE55_1: win32more.Windows.Win32.Media.DirectShow.ApplicationTypeType = 4
+SCTE28_CopyProtection: win32more.Windows.Win32.Media.DirectShow.ApplicationTypeType = 5
+SCTE28_Diagnostic: win32more.Windows.Win32.Media.DirectShow.ApplicationTypeType = 6
+SCTE28_Undesignated: win32more.Windows.Win32.Media.DirectShow.ApplicationTypeType = 7
+SCTE28_Reserved: win32more.Windows.Win32.Media.DirectShow.ApplicationTypeType = 8
 class BDANODE_DESCRIPTOR(EasyCastStructure):
     ulBdaNodeType: UInt32
     guidFunction: Guid
@@ -1593,39 +1592,39 @@ class BDA_CA_MODULE_UI(EasyCastStructure):
     ulbcDesc: UInt32
     ulDesc: UInt32 * 1
 BDA_CHANGE_STATE = Int32
-BDA_CHANGES_COMPLETE: BDA_CHANGE_STATE = 0
-BDA_CHANGES_PENDING: BDA_CHANGE_STATE = 1
+BDA_CHANGES_COMPLETE: win32more.Windows.Win32.Media.DirectShow.BDA_CHANGE_STATE = 0
+BDA_CHANGES_PENDING: win32more.Windows.Win32.Media.DirectShow.BDA_CHANGE_STATE = 1
 BDA_CONDITIONALACCESS_MMICLOSEREASON = Int32
-CONDITIONALACCESS_UNSPECIFIED: BDA_CONDITIONALACCESS_MMICLOSEREASON = 0
-CONDITIONALACCESS_CLOSED_ITSELF: BDA_CONDITIONALACCESS_MMICLOSEREASON = 1
-CONDITIONALACCESS_TUNER_REQUESTED_CLOSE: BDA_CONDITIONALACCESS_MMICLOSEREASON = 2
-CONDITIONALACCESS_DIALOG_TIMEOUT: BDA_CONDITIONALACCESS_MMICLOSEREASON = 3
-CONDITIONALACCESS_DIALOG_FOCUS_CHANGE: BDA_CONDITIONALACCESS_MMICLOSEREASON = 4
-CONDITIONALACCESS_DIALOG_USER_DISMISSED: BDA_CONDITIONALACCESS_MMICLOSEREASON = 5
-CONDITIONALACCESS_DIALOG_USER_NOT_AVAILABLE: BDA_CONDITIONALACCESS_MMICLOSEREASON = 6
+CONDITIONALACCESS_UNSPECIFIED: win32more.Windows.Win32.Media.DirectShow.BDA_CONDITIONALACCESS_MMICLOSEREASON = 0
+CONDITIONALACCESS_CLOSED_ITSELF: win32more.Windows.Win32.Media.DirectShow.BDA_CONDITIONALACCESS_MMICLOSEREASON = 1
+CONDITIONALACCESS_TUNER_REQUESTED_CLOSE: win32more.Windows.Win32.Media.DirectShow.BDA_CONDITIONALACCESS_MMICLOSEREASON = 2
+CONDITIONALACCESS_DIALOG_TIMEOUT: win32more.Windows.Win32.Media.DirectShow.BDA_CONDITIONALACCESS_MMICLOSEREASON = 3
+CONDITIONALACCESS_DIALOG_FOCUS_CHANGE: win32more.Windows.Win32.Media.DirectShow.BDA_CONDITIONALACCESS_MMICLOSEREASON = 4
+CONDITIONALACCESS_DIALOG_USER_DISMISSED: win32more.Windows.Win32.Media.DirectShow.BDA_CONDITIONALACCESS_MMICLOSEREASON = 5
+CONDITIONALACCESS_DIALOG_USER_NOT_AVAILABLE: win32more.Windows.Win32.Media.DirectShow.BDA_CONDITIONALACCESS_MMICLOSEREASON = 6
 BDA_CONDITIONALACCESS_REQUESTTYPE = Int32
-CONDITIONALACCESS_ACCESS_UNSPECIFIED: BDA_CONDITIONALACCESS_REQUESTTYPE = 0
-CONDITIONALACCESS_ACCESS_NOT_POSSIBLE: BDA_CONDITIONALACCESS_REQUESTTYPE = 1
-CONDITIONALACCESS_ACCESS_POSSIBLE: BDA_CONDITIONALACCESS_REQUESTTYPE = 2
-CONDITIONALACCESS_ACCESS_POSSIBLE_NO_STREAMING_DISRUPTION: BDA_CONDITIONALACCESS_REQUESTTYPE = 3
+CONDITIONALACCESS_ACCESS_UNSPECIFIED: win32more.Windows.Win32.Media.DirectShow.BDA_CONDITIONALACCESS_REQUESTTYPE = 0
+CONDITIONALACCESS_ACCESS_NOT_POSSIBLE: win32more.Windows.Win32.Media.DirectShow.BDA_CONDITIONALACCESS_REQUESTTYPE = 1
+CONDITIONALACCESS_ACCESS_POSSIBLE: win32more.Windows.Win32.Media.DirectShow.BDA_CONDITIONALACCESS_REQUESTTYPE = 2
+CONDITIONALACCESS_ACCESS_POSSIBLE_NO_STREAMING_DISRUPTION: win32more.Windows.Win32.Media.DirectShow.BDA_CONDITIONALACCESS_REQUESTTYPE = 3
 BDA_CONDITIONALACCESS_SESSION_RESULT = Int32
-CONDITIONALACCESS_SUCCESSFULL: BDA_CONDITIONALACCESS_SESSION_RESULT = 0
-CONDITIONALACCESS_ENDED_NOCHANGE: BDA_CONDITIONALACCESS_SESSION_RESULT = 1
-CONDITIONALACCESS_ABORTED: BDA_CONDITIONALACCESS_SESSION_RESULT = 2
+CONDITIONALACCESS_SUCCESSFULL: win32more.Windows.Win32.Media.DirectShow.BDA_CONDITIONALACCESS_SESSION_RESULT = 0
+CONDITIONALACCESS_ENDED_NOCHANGE: win32more.Windows.Win32.Media.DirectShow.BDA_CONDITIONALACCESS_SESSION_RESULT = 1
+CONDITIONALACCESS_ABORTED: win32more.Windows.Win32.Media.DirectShow.BDA_CONDITIONALACCESS_SESSION_RESULT = 2
 BDA_Channel = Int32
-BDA_UNDEFINED_CHANNEL: BDA_Channel = -1
+BDA_UNDEFINED_CHANNEL: win32more.Windows.Win32.Media.DirectShow.BDA_Channel = -1
 BDA_Channel_Bandwidth = Int32
-BDA_CHAN_BANDWITH_NOT_SET: BDA_Channel_Bandwidth = -1
-BDA_CHAN_BANDWITH_NOT_DEFINED: BDA_Channel_Bandwidth = 0
+BDA_CHAN_BANDWITH_NOT_SET: win32more.Windows.Win32.Media.DirectShow.BDA_Channel_Bandwidth = -1
+BDA_CHAN_BANDWITH_NOT_DEFINED: win32more.Windows.Win32.Media.DirectShow.BDA_Channel_Bandwidth = 0
 BDA_Comp_Flags = Int32
-BDACOMP_NOT_DEFINED: BDA_Comp_Flags = 0
-BDACOMP_EXCLUDE_TS_FROM_TR: BDA_Comp_Flags = 1
-BDACOMP_INCLUDE_LOCATOR_IN_TR: BDA_Comp_Flags = 2
-BDACOMP_INCLUDE_COMPONENTS_IN_TR: BDA_Comp_Flags = 4
+BDACOMP_NOT_DEFINED: win32more.Windows.Win32.Media.DirectShow.BDA_Comp_Flags = 0
+BDACOMP_EXCLUDE_TS_FROM_TR: win32more.Windows.Win32.Media.DirectShow.BDA_Comp_Flags = 1
+BDACOMP_INCLUDE_LOCATOR_IN_TR: win32more.Windows.Win32.Media.DirectShow.BDA_Comp_Flags = 2
+BDACOMP_INCLUDE_COMPONENTS_IN_TR: win32more.Windows.Win32.Media.DirectShow.BDA_Comp_Flags = 4
 BDA_DISCOVERY_STATE = Int32
-BDA_DISCOVERY_UNSPECIFIED: BDA_DISCOVERY_STATE = 0
-BDA_DISCOVERY_REQUIRED: BDA_DISCOVERY_STATE = 1
-BDA_DISCOVERY_COMPLETE: BDA_DISCOVERY_STATE = 2
+BDA_DISCOVERY_UNSPECIFIED: win32more.Windows.Win32.Media.DirectShow.BDA_DISCOVERY_STATE = 0
+BDA_DISCOVERY_REQUIRED: win32more.Windows.Win32.Media.DirectShow.BDA_DISCOVERY_STATE = 1
+BDA_DISCOVERY_COMPLETE: win32more.Windows.Win32.Media.DirectShow.BDA_DISCOVERY_STATE = 2
 class BDA_DISEQC_RESPONSE(EasyCastStructure):
     ulRequestId: UInt32
     ulPacketLength: UInt32
@@ -1655,48 +1654,48 @@ class BDA_DVBT2_L1_SIGNALLING_DATA(EasyCastStructure):
     L1Pre_CRC32: Byte * 4
     L1PostData: Byte * 1
 BDA_DrmPairingError = Int32
-BDA_DrmPairing_Succeeded: BDA_DrmPairingError = 0
-BDA_DrmPairing_HardwareFailure: BDA_DrmPairingError = 1
-BDA_DrmPairing_NeedRevocationData: BDA_DrmPairingError = 2
-BDA_DrmPairing_NeedIndiv: BDA_DrmPairingError = 3
-BDA_DrmPairing_Other: BDA_DrmPairingError = 4
-BDA_DrmPairing_DrmInitFailed: BDA_DrmPairingError = 5
-BDA_DrmPairing_DrmNotPaired: BDA_DrmPairingError = 6
-BDA_DrmPairing_DrmRePairSoon: BDA_DrmPairingError = 7
-BDA_DrmPairing_Aborted: BDA_DrmPairingError = 8
-BDA_DrmPairing_NeedSDKUpdate: BDA_DrmPairingError = 9
+BDA_DrmPairing_Succeeded: win32more.Windows.Win32.Media.DirectShow.BDA_DrmPairingError = 0
+BDA_DrmPairing_HardwareFailure: win32more.Windows.Win32.Media.DirectShow.BDA_DrmPairingError = 1
+BDA_DrmPairing_NeedRevocationData: win32more.Windows.Win32.Media.DirectShow.BDA_DrmPairingError = 2
+BDA_DrmPairing_NeedIndiv: win32more.Windows.Win32.Media.DirectShow.BDA_DrmPairingError = 3
+BDA_DrmPairing_Other: win32more.Windows.Win32.Media.DirectShow.BDA_DrmPairingError = 4
+BDA_DrmPairing_DrmInitFailed: win32more.Windows.Win32.Media.DirectShow.BDA_DrmPairingError = 5
+BDA_DrmPairing_DrmNotPaired: win32more.Windows.Win32.Media.DirectShow.BDA_DrmPairingError = 6
+BDA_DrmPairing_DrmRePairSoon: win32more.Windows.Win32.Media.DirectShow.BDA_DrmPairingError = 7
+BDA_DrmPairing_Aborted: win32more.Windows.Win32.Media.DirectShow.BDA_DrmPairingError = 8
+BDA_DrmPairing_NeedSDKUpdate: win32more.Windows.Win32.Media.DirectShow.BDA_DrmPairingError = 9
 class BDA_ETHERNET_ADDRESS(EasyCastStructure):
     rgbAddress: Byte * 6
 class BDA_ETHERNET_ADDRESS_LIST(EasyCastStructure):
     ulcAddresses: UInt32
     rgAddressl: win32more.Windows.Win32.Media.DirectShow.BDA_ETHERNET_ADDRESS * 1
 BDA_EVENT_ID = Int32
-BDA_EVENT_SIGNAL_LOSS: BDA_EVENT_ID = 0
-BDA_EVENT_SIGNAL_LOCK: BDA_EVENT_ID = 1
-BDA_EVENT_DATA_START: BDA_EVENT_ID = 2
-BDA_EVENT_DATA_STOP: BDA_EVENT_ID = 3
-BDA_EVENT_CHANNEL_ACQUIRED: BDA_EVENT_ID = 4
-BDA_EVENT_CHANNEL_LOST: BDA_EVENT_ID = 5
-BDA_EVENT_CHANNEL_SOURCE_CHANGED: BDA_EVENT_ID = 6
-BDA_EVENT_CHANNEL_ACTIVATED: BDA_EVENT_ID = 7
-BDA_EVENT_CHANNEL_DEACTIVATED: BDA_EVENT_ID = 8
-BDA_EVENT_SUBCHANNEL_ACQUIRED: BDA_EVENT_ID = 9
-BDA_EVENT_SUBCHANNEL_LOST: BDA_EVENT_ID = 10
-BDA_EVENT_SUBCHANNEL_SOURCE_CHANGED: BDA_EVENT_ID = 11
-BDA_EVENT_SUBCHANNEL_ACTIVATED: BDA_EVENT_ID = 12
-BDA_EVENT_SUBCHANNEL_DEACTIVATED: BDA_EVENT_ID = 13
-BDA_EVENT_ACCESS_GRANTED: BDA_EVENT_ID = 14
-BDA_EVENT_ACCESS_DENIED: BDA_EVENT_ID = 15
-BDA_EVENT_OFFER_EXTENDED: BDA_EVENT_ID = 16
-BDA_EVENT_PURCHASE_COMPLETED: BDA_EVENT_ID = 17
-BDA_EVENT_SMART_CARD_INSERTED: BDA_EVENT_ID = 18
-BDA_EVENT_SMART_CARD_REMOVED: BDA_EVENT_ID = 19
+BDA_EVENT_SIGNAL_LOSS: win32more.Windows.Win32.Media.DirectShow.BDA_EVENT_ID = 0
+BDA_EVENT_SIGNAL_LOCK: win32more.Windows.Win32.Media.DirectShow.BDA_EVENT_ID = 1
+BDA_EVENT_DATA_START: win32more.Windows.Win32.Media.DirectShow.BDA_EVENT_ID = 2
+BDA_EVENT_DATA_STOP: win32more.Windows.Win32.Media.DirectShow.BDA_EVENT_ID = 3
+BDA_EVENT_CHANNEL_ACQUIRED: win32more.Windows.Win32.Media.DirectShow.BDA_EVENT_ID = 4
+BDA_EVENT_CHANNEL_LOST: win32more.Windows.Win32.Media.DirectShow.BDA_EVENT_ID = 5
+BDA_EVENT_CHANNEL_SOURCE_CHANGED: win32more.Windows.Win32.Media.DirectShow.BDA_EVENT_ID = 6
+BDA_EVENT_CHANNEL_ACTIVATED: win32more.Windows.Win32.Media.DirectShow.BDA_EVENT_ID = 7
+BDA_EVENT_CHANNEL_DEACTIVATED: win32more.Windows.Win32.Media.DirectShow.BDA_EVENT_ID = 8
+BDA_EVENT_SUBCHANNEL_ACQUIRED: win32more.Windows.Win32.Media.DirectShow.BDA_EVENT_ID = 9
+BDA_EVENT_SUBCHANNEL_LOST: win32more.Windows.Win32.Media.DirectShow.BDA_EVENT_ID = 10
+BDA_EVENT_SUBCHANNEL_SOURCE_CHANGED: win32more.Windows.Win32.Media.DirectShow.BDA_EVENT_ID = 11
+BDA_EVENT_SUBCHANNEL_ACTIVATED: win32more.Windows.Win32.Media.DirectShow.BDA_EVENT_ID = 12
+BDA_EVENT_SUBCHANNEL_DEACTIVATED: win32more.Windows.Win32.Media.DirectShow.BDA_EVENT_ID = 13
+BDA_EVENT_ACCESS_GRANTED: win32more.Windows.Win32.Media.DirectShow.BDA_EVENT_ID = 14
+BDA_EVENT_ACCESS_DENIED: win32more.Windows.Win32.Media.DirectShow.BDA_EVENT_ID = 15
+BDA_EVENT_OFFER_EXTENDED: win32more.Windows.Win32.Media.DirectShow.BDA_EVENT_ID = 16
+BDA_EVENT_PURCHASE_COMPLETED: win32more.Windows.Win32.Media.DirectShow.BDA_EVENT_ID = 17
+BDA_EVENT_SMART_CARD_INSERTED: win32more.Windows.Win32.Media.DirectShow.BDA_EVENT_ID = 18
+BDA_EVENT_SMART_CARD_REMOVED: win32more.Windows.Win32.Media.DirectShow.BDA_EVENT_ID = 19
 BDA_Frequency = Int32
-BDA_FREQUENCY_NOT_SET: BDA_Frequency = -1
-BDA_FREQUENCY_NOT_DEFINED: BDA_Frequency = 0
+BDA_FREQUENCY_NOT_SET: win32more.Windows.Win32.Media.DirectShow.BDA_Frequency = -1
+BDA_FREQUENCY_NOT_DEFINED: win32more.Windows.Win32.Media.DirectShow.BDA_Frequency = 0
 BDA_Frequency_Multiplier = Int32
-BDA_FREQUENCY_MULTIPLIER_NOT_SET: BDA_Frequency_Multiplier = -1
-BDA_FREQUENCY_MULTIPLIER_NOT_DEFINED: BDA_Frequency_Multiplier = 0
+BDA_FREQUENCY_MULTIPLIER_NOT_SET: win32more.Windows.Win32.Media.DirectShow.BDA_Frequency_Multiplier = -1
+BDA_FREQUENCY_MULTIPLIER_NOT_DEFINED: win32more.Windows.Win32.Media.DirectShow.BDA_Frequency_Multiplier = 0
 class BDA_GDDS_DATA(EasyCastStructure):
     lResult: Int32
     ulDataLength: UInt32
@@ -1740,9 +1739,9 @@ class BDA_ISDBCAS_RESPONSEDATA(EasyCastStructure):
     argbIsdbCommandData: Byte * 1
     _pack_ = 1
 BDA_MULTICAST_MODE = Int32
-BDA_PROMISCUOUS_MULTICAST: BDA_MULTICAST_MODE = 0
-BDA_FILTERED_MULTICAST: BDA_MULTICAST_MODE = 1
-BDA_NO_MULTICAST: BDA_MULTICAST_MODE = 2
+BDA_PROMISCUOUS_MULTICAST: win32more.Windows.Win32.Media.DirectShow.BDA_MULTICAST_MODE = 0
+BDA_FILTERED_MULTICAST: win32more.Windows.Win32.Media.DirectShow.BDA_MULTICAST_MODE = 1
+BDA_NO_MULTICAST: win32more.Windows.Win32.Media.DirectShow.BDA_MULTICAST_MODE = 2
 class BDA_MUX_PIDLISTITEM(EasyCastStructure):
     usPIDNumber: UInt16
     usProgramNumber: UInt16
@@ -1763,8 +1762,8 @@ class BDA_RATING_PINRESET(EasyCastStructure):
     bPinLength: Byte
     argbNewPin: Byte * 1
 BDA_Range = Int32
-BDA_RANGE_NOT_SET: BDA_Range = -1
-BDA_RANGE_NOT_DEFINED: BDA_Range = 0
+BDA_RANGE_NOT_SET: win32more.Windows.Win32.Media.DirectShow.BDA_Range = -1
+BDA_RANGE_NOT_DEFINED: win32more.Windows.Win32.Media.DirectShow.BDA_Range = 0
 class BDA_SCAN_CAPABILTIES(EasyCastStructure):
     lResult: Int32
     ul64AnalogStandardsSupported: UInt64
@@ -1778,9 +1777,9 @@ class BDA_SCAN_STATE(EasyCastStructure):
     ulSecondsLeft: UInt32
     ulCurrentFrequency: UInt32
 BDA_SIGNAL_STATE = Int32
-BDA_SIGNAL_UNAVAILABLE: BDA_SIGNAL_STATE = 0
-BDA_SIGNAL_INACTIVE: BDA_SIGNAL_STATE = 1
-BDA_SIGNAL_ACTIVE: BDA_SIGNAL_STATE = 2
+BDA_SIGNAL_UNAVAILABLE: win32more.Windows.Win32.Media.DirectShow.BDA_SIGNAL_STATE = 0
+BDA_SIGNAL_INACTIVE: win32more.Windows.Win32.Media.DirectShow.BDA_SIGNAL_STATE = 1
+BDA_SIGNAL_ACTIVE: win32more.Windows.Win32.Media.DirectShow.BDA_SIGNAL_STATE = 2
 class BDA_SIGNAL_TIMEOUTS(EasyCastStructure):
     ulCarrierTimeoutMs: UInt32
     ulScanningTimeoutMs: UInt32
@@ -1852,189 +1851,189 @@ class BDA_WMDRM_STATUS(EasyCastStructure):
     ulRevInfoTTL: UInt32
     ulState: UInt32
 BinaryConvolutionCodeRate = Int32
-BDA_BCC_RATE_NOT_SET: BinaryConvolutionCodeRate = -1
-BDA_BCC_RATE_NOT_DEFINED: BinaryConvolutionCodeRate = 0
-BDA_BCC_RATE_1_2: BinaryConvolutionCodeRate = 1
-BDA_BCC_RATE_2_3: BinaryConvolutionCodeRate = 2
-BDA_BCC_RATE_3_4: BinaryConvolutionCodeRate = 3
-BDA_BCC_RATE_3_5: BinaryConvolutionCodeRate = 4
-BDA_BCC_RATE_4_5: BinaryConvolutionCodeRate = 5
-BDA_BCC_RATE_5_6: BinaryConvolutionCodeRate = 6
-BDA_BCC_RATE_5_11: BinaryConvolutionCodeRate = 7
-BDA_BCC_RATE_7_8: BinaryConvolutionCodeRate = 8
-BDA_BCC_RATE_1_4: BinaryConvolutionCodeRate = 9
-BDA_BCC_RATE_1_3: BinaryConvolutionCodeRate = 10
-BDA_BCC_RATE_2_5: BinaryConvolutionCodeRate = 11
-BDA_BCC_RATE_6_7: BinaryConvolutionCodeRate = 12
-BDA_BCC_RATE_8_9: BinaryConvolutionCodeRate = 13
-BDA_BCC_RATE_9_10: BinaryConvolutionCodeRate = 14
-BDA_BCC_RATE_MAX: BinaryConvolutionCodeRate = 15
+BDA_BCC_RATE_NOT_SET: win32more.Windows.Win32.Media.DirectShow.BinaryConvolutionCodeRate = -1
+BDA_BCC_RATE_NOT_DEFINED: win32more.Windows.Win32.Media.DirectShow.BinaryConvolutionCodeRate = 0
+BDA_BCC_RATE_1_2: win32more.Windows.Win32.Media.DirectShow.BinaryConvolutionCodeRate = 1
+BDA_BCC_RATE_2_3: win32more.Windows.Win32.Media.DirectShow.BinaryConvolutionCodeRate = 2
+BDA_BCC_RATE_3_4: win32more.Windows.Win32.Media.DirectShow.BinaryConvolutionCodeRate = 3
+BDA_BCC_RATE_3_5: win32more.Windows.Win32.Media.DirectShow.BinaryConvolutionCodeRate = 4
+BDA_BCC_RATE_4_5: win32more.Windows.Win32.Media.DirectShow.BinaryConvolutionCodeRate = 5
+BDA_BCC_RATE_5_6: win32more.Windows.Win32.Media.DirectShow.BinaryConvolutionCodeRate = 6
+BDA_BCC_RATE_5_11: win32more.Windows.Win32.Media.DirectShow.BinaryConvolutionCodeRate = 7
+BDA_BCC_RATE_7_8: win32more.Windows.Win32.Media.DirectShow.BinaryConvolutionCodeRate = 8
+BDA_BCC_RATE_1_4: win32more.Windows.Win32.Media.DirectShow.BinaryConvolutionCodeRate = 9
+BDA_BCC_RATE_1_3: win32more.Windows.Win32.Media.DirectShow.BinaryConvolutionCodeRate = 10
+BDA_BCC_RATE_2_5: win32more.Windows.Win32.Media.DirectShow.BinaryConvolutionCodeRate = 11
+BDA_BCC_RATE_6_7: win32more.Windows.Win32.Media.DirectShow.BinaryConvolutionCodeRate = 12
+BDA_BCC_RATE_8_9: win32more.Windows.Win32.Media.DirectShow.BinaryConvolutionCodeRate = 13
+BDA_BCC_RATE_9_10: win32more.Windows.Win32.Media.DirectShow.BinaryConvolutionCodeRate = 14
+BDA_BCC_RATE_MAX: win32more.Windows.Win32.Media.DirectShow.BinaryConvolutionCodeRate = 15
 class COLORKEY(EasyCastStructure):
     KeyType: UInt32
     PaletteIndex: UInt32
     LowColorValue: win32more.Windows.Win32.Foundation.COLORREF
     HighColorValue: win32more.Windows.Win32.Foundation.COLORREF
 COLORKEY_TYPE = Int32
-CK_NOCOLORKEY: COLORKEY_TYPE = 0
-CK_INDEX: COLORKEY_TYPE = 1
-CK_RGB: COLORKEY_TYPE = 2
+CK_NOCOLORKEY: win32more.Windows.Win32.Media.DirectShow.COLORKEY_TYPE = 0
+CK_INDEX: win32more.Windows.Win32.Media.DirectShow.COLORKEY_TYPE = 1
+CK_RGB: win32more.Windows.Win32.Media.DirectShow.COLORKEY_TYPE = 2
 COMPLETION_STATUS_FLAGS = Int32
-COMPSTAT_NOUPDATEOK: COMPLETION_STATUS_FLAGS = 1
-COMPSTAT_WAIT: COMPLETION_STATUS_FLAGS = 2
-COMPSTAT_ABORT: COMPLETION_STATUS_FLAGS = 4
+COMPSTAT_NOUPDATEOK: win32more.Windows.Win32.Media.DirectShow.COMPLETION_STATUS_FLAGS = 1
+COMPSTAT_WAIT: win32more.Windows.Win32.Media.DirectShow.COMPLETION_STATUS_FLAGS = 2
+COMPSTAT_ABORT: win32more.Windows.Win32.Media.DirectShow.COMPLETION_STATUS_FLAGS = 4
 COPP_ACP_Protection_Level = Int32
-COPP_ACP_Level0: COPP_ACP_Protection_Level = 0
-COPP_ACP_LevelMin: COPP_ACP_Protection_Level = 0
-COPP_ACP_Level1: COPP_ACP_Protection_Level = 1
-COPP_ACP_Level2: COPP_ACP_Protection_Level = 2
-COPP_ACP_Level3: COPP_ACP_Protection_Level = 3
-COPP_ACP_LevelMax: COPP_ACP_Protection_Level = 3
-COPP_ACP_ForceDWORD: COPP_ACP_Protection_Level = 2147483647
+COPP_ACP_Level0: win32more.Windows.Win32.Media.DirectShow.COPP_ACP_Protection_Level = 0
+COPP_ACP_LevelMin: win32more.Windows.Win32.Media.DirectShow.COPP_ACP_Protection_Level = 0
+COPP_ACP_Level1: win32more.Windows.Win32.Media.DirectShow.COPP_ACP_Protection_Level = 1
+COPP_ACP_Level2: win32more.Windows.Win32.Media.DirectShow.COPP_ACP_Protection_Level = 2
+COPP_ACP_Level3: win32more.Windows.Win32.Media.DirectShow.COPP_ACP_Protection_Level = 3
+COPP_ACP_LevelMax: win32more.Windows.Win32.Media.DirectShow.COPP_ACP_Protection_Level = 3
+COPP_ACP_ForceDWORD: win32more.Windows.Win32.Media.DirectShow.COPP_ACP_Protection_Level = 2147483647
 COPP_BusType = Int32
-COPP_BusType_Unknown: COPP_BusType = 0
-COPP_BusType_PCI: COPP_BusType = 1
-COPP_BusType_PCIX: COPP_BusType = 2
-COPP_BusType_PCIExpress: COPP_BusType = 3
-COPP_BusType_AGP: COPP_BusType = 4
-COPP_BusType_Integrated: COPP_BusType = -2147483648
-COPP_BusType_ForceDWORD: COPP_BusType = 2147483647
+COPP_BusType_Unknown: win32more.Windows.Win32.Media.DirectShow.COPP_BusType = 0
+COPP_BusType_PCI: win32more.Windows.Win32.Media.DirectShow.COPP_BusType = 1
+COPP_BusType_PCIX: win32more.Windows.Win32.Media.DirectShow.COPP_BusType = 2
+COPP_BusType_PCIExpress: win32more.Windows.Win32.Media.DirectShow.COPP_BusType = 3
+COPP_BusType_AGP: win32more.Windows.Win32.Media.DirectShow.COPP_BusType = 4
+COPP_BusType_Integrated: win32more.Windows.Win32.Media.DirectShow.COPP_BusType = -2147483648
+COPP_BusType_ForceDWORD: win32more.Windows.Win32.Media.DirectShow.COPP_BusType = 2147483647
 COPP_CGMSA_Protection_Level = Int32
-COPP_CGMSA_Disabled: COPP_CGMSA_Protection_Level = 0
-COPP_CGMSA_LevelMin: COPP_CGMSA_Protection_Level = 0
-COPP_CGMSA_CopyFreely: COPP_CGMSA_Protection_Level = 1
-COPP_CGMSA_CopyNoMore: COPP_CGMSA_Protection_Level = 2
-COPP_CGMSA_CopyOneGeneration: COPP_CGMSA_Protection_Level = 3
-COPP_CGMSA_CopyNever: COPP_CGMSA_Protection_Level = 4
-COPP_CGMSA_RedistributionControlRequired: COPP_CGMSA_Protection_Level = 8
-COPP_CGMSA_LevelMax: COPP_CGMSA_Protection_Level = 12
-COPP_CGMSA_ForceDWORD: COPP_CGMSA_Protection_Level = 2147483647
+COPP_CGMSA_Disabled: win32more.Windows.Win32.Media.DirectShow.COPP_CGMSA_Protection_Level = 0
+COPP_CGMSA_LevelMin: win32more.Windows.Win32.Media.DirectShow.COPP_CGMSA_Protection_Level = 0
+COPP_CGMSA_CopyFreely: win32more.Windows.Win32.Media.DirectShow.COPP_CGMSA_Protection_Level = 1
+COPP_CGMSA_CopyNoMore: win32more.Windows.Win32.Media.DirectShow.COPP_CGMSA_Protection_Level = 2
+COPP_CGMSA_CopyOneGeneration: win32more.Windows.Win32.Media.DirectShow.COPP_CGMSA_Protection_Level = 3
+COPP_CGMSA_CopyNever: win32more.Windows.Win32.Media.DirectShow.COPP_CGMSA_Protection_Level = 4
+COPP_CGMSA_RedistributionControlRequired: win32more.Windows.Win32.Media.DirectShow.COPP_CGMSA_Protection_Level = 8
+COPP_CGMSA_LevelMax: win32more.Windows.Win32.Media.DirectShow.COPP_CGMSA_Protection_Level = 12
+COPP_CGMSA_ForceDWORD: win32more.Windows.Win32.Media.DirectShow.COPP_CGMSA_Protection_Level = 2147483647
 COPP_ConnectorType = Int32
-COPP_ConnectorType_Unknown: COPP_ConnectorType = -1
-COPP_ConnectorType_VGA: COPP_ConnectorType = 0
-COPP_ConnectorType_SVideo: COPP_ConnectorType = 1
-COPP_ConnectorType_CompositeVideo: COPP_ConnectorType = 2
-COPP_ConnectorType_ComponentVideo: COPP_ConnectorType = 3
-COPP_ConnectorType_DVI: COPP_ConnectorType = 4
-COPP_ConnectorType_HDMI: COPP_ConnectorType = 5
-COPP_ConnectorType_LVDS: COPP_ConnectorType = 6
-COPP_ConnectorType_TMDS: COPP_ConnectorType = 7
-COPP_ConnectorType_D_JPN: COPP_ConnectorType = 8
-COPP_ConnectorType_Internal: COPP_ConnectorType = -2147483648
-COPP_ConnectorType_ForceDWORD: COPP_ConnectorType = 2147483647
+COPP_ConnectorType_Unknown: win32more.Windows.Win32.Media.DirectShow.COPP_ConnectorType = -1
+COPP_ConnectorType_VGA: win32more.Windows.Win32.Media.DirectShow.COPP_ConnectorType = 0
+COPP_ConnectorType_SVideo: win32more.Windows.Win32.Media.DirectShow.COPP_ConnectorType = 1
+COPP_ConnectorType_CompositeVideo: win32more.Windows.Win32.Media.DirectShow.COPP_ConnectorType = 2
+COPP_ConnectorType_ComponentVideo: win32more.Windows.Win32.Media.DirectShow.COPP_ConnectorType = 3
+COPP_ConnectorType_DVI: win32more.Windows.Win32.Media.DirectShow.COPP_ConnectorType = 4
+COPP_ConnectorType_HDMI: win32more.Windows.Win32.Media.DirectShow.COPP_ConnectorType = 5
+COPP_ConnectorType_LVDS: win32more.Windows.Win32.Media.DirectShow.COPP_ConnectorType = 6
+COPP_ConnectorType_TMDS: win32more.Windows.Win32.Media.DirectShow.COPP_ConnectorType = 7
+COPP_ConnectorType_D_JPN: win32more.Windows.Win32.Media.DirectShow.COPP_ConnectorType = 8
+COPP_ConnectorType_Internal: win32more.Windows.Win32.Media.DirectShow.COPP_ConnectorType = -2147483648
+COPP_ConnectorType_ForceDWORD: win32more.Windows.Win32.Media.DirectShow.COPP_ConnectorType = 2147483647
 COPP_HDCP_Protection_Level = Int32
-COPP_HDCP_Level0: COPP_HDCP_Protection_Level = 0
-COPP_HDCP_LevelMin: COPP_HDCP_Protection_Level = 0
-COPP_HDCP_Level1: COPP_HDCP_Protection_Level = 1
-COPP_HDCP_LevelMax: COPP_HDCP_Protection_Level = 1
-COPP_HDCP_ForceDWORD: COPP_HDCP_Protection_Level = 2147483647
+COPP_HDCP_Level0: win32more.Windows.Win32.Media.DirectShow.COPP_HDCP_Protection_Level = 0
+COPP_HDCP_LevelMin: win32more.Windows.Win32.Media.DirectShow.COPP_HDCP_Protection_Level = 0
+COPP_HDCP_Level1: win32more.Windows.Win32.Media.DirectShow.COPP_HDCP_Protection_Level = 1
+COPP_HDCP_LevelMax: win32more.Windows.Win32.Media.DirectShow.COPP_HDCP_Protection_Level = 1
+COPP_HDCP_ForceDWORD: win32more.Windows.Win32.Media.DirectShow.COPP_HDCP_Protection_Level = 2147483647
 COPP_ImageAspectRatio_EN300294 = Int32
-COPP_AspectRatio_EN300294_FullFormat4by3: COPP_ImageAspectRatio_EN300294 = 0
-COPP_AspectRatio_EN300294_Box14by9Center: COPP_ImageAspectRatio_EN300294 = 1
-COPP_AspectRatio_EN300294_Box14by9Top: COPP_ImageAspectRatio_EN300294 = 2
-COPP_AspectRatio_EN300294_Box16by9Center: COPP_ImageAspectRatio_EN300294 = 3
-COPP_AspectRatio_EN300294_Box16by9Top: COPP_ImageAspectRatio_EN300294 = 4
-COPP_AspectRatio_EN300294_BoxGT16by9Center: COPP_ImageAspectRatio_EN300294 = 5
-COPP_AspectRatio_EN300294_FullFormat4by3ProtectedCenter: COPP_ImageAspectRatio_EN300294 = 6
-COPP_AspectRatio_EN300294_FullFormat16by9Anamorphic: COPP_ImageAspectRatio_EN300294 = 7
-COPP_AspectRatio_ForceDWORD: COPP_ImageAspectRatio_EN300294 = 2147483647
+COPP_AspectRatio_EN300294_FullFormat4by3: win32more.Windows.Win32.Media.DirectShow.COPP_ImageAspectRatio_EN300294 = 0
+COPP_AspectRatio_EN300294_Box14by9Center: win32more.Windows.Win32.Media.DirectShow.COPP_ImageAspectRatio_EN300294 = 1
+COPP_AspectRatio_EN300294_Box14by9Top: win32more.Windows.Win32.Media.DirectShow.COPP_ImageAspectRatio_EN300294 = 2
+COPP_AspectRatio_EN300294_Box16by9Center: win32more.Windows.Win32.Media.DirectShow.COPP_ImageAspectRatio_EN300294 = 3
+COPP_AspectRatio_EN300294_Box16by9Top: win32more.Windows.Win32.Media.DirectShow.COPP_ImageAspectRatio_EN300294 = 4
+COPP_AspectRatio_EN300294_BoxGT16by9Center: win32more.Windows.Win32.Media.DirectShow.COPP_ImageAspectRatio_EN300294 = 5
+COPP_AspectRatio_EN300294_FullFormat4by3ProtectedCenter: win32more.Windows.Win32.Media.DirectShow.COPP_ImageAspectRatio_EN300294 = 6
+COPP_AspectRatio_EN300294_FullFormat16by9Anamorphic: win32more.Windows.Win32.Media.DirectShow.COPP_ImageAspectRatio_EN300294 = 7
+COPP_AspectRatio_ForceDWORD: win32more.Windows.Win32.Media.DirectShow.COPP_ImageAspectRatio_EN300294 = 2147483647
 COPP_StatusFlags = Int32
-COPP_StatusNormal: COPP_StatusFlags = 0
-COPP_LinkLost: COPP_StatusFlags = 1
-COPP_RenegotiationRequired: COPP_StatusFlags = 2
-COPP_StatusFlagsReserved: COPP_StatusFlags = -4
+COPP_StatusNormal: win32more.Windows.Win32.Media.DirectShow.COPP_StatusFlags = 0
+COPP_LinkLost: win32more.Windows.Win32.Media.DirectShow.COPP_StatusFlags = 1
+COPP_RenegotiationRequired: win32more.Windows.Win32.Media.DirectShow.COPP_StatusFlags = 2
+COPP_StatusFlagsReserved: win32more.Windows.Win32.Media.DirectShow.COPP_StatusFlags = -4
 COPP_StatusHDCPFlags = Int32
-COPP_HDCPRepeater: COPP_StatusHDCPFlags = 1
-COPP_HDCPFlagsReserved: COPP_StatusHDCPFlags = -2
+COPP_HDCPRepeater: win32more.Windows.Win32.Media.DirectShow.COPP_StatusHDCPFlags = 1
+COPP_HDCPFlagsReserved: win32more.Windows.Win32.Media.DirectShow.COPP_StatusHDCPFlags = -2
 COPP_TVProtectionStandard = Int32
-COPP_ProtectionStandard_Unknown: COPP_TVProtectionStandard = -2147483648
-COPP_ProtectionStandard_None: COPP_TVProtectionStandard = 0
-COPP_ProtectionStandard_IEC61880_525i: COPP_TVProtectionStandard = 1
-COPP_ProtectionStandard_IEC61880_2_525i: COPP_TVProtectionStandard = 2
-COPP_ProtectionStandard_IEC62375_625p: COPP_TVProtectionStandard = 4
-COPP_ProtectionStandard_EIA608B_525: COPP_TVProtectionStandard = 8
-COPP_ProtectionStandard_EN300294_625i: COPP_TVProtectionStandard = 16
-COPP_ProtectionStandard_CEA805A_TypeA_525p: COPP_TVProtectionStandard = 32
-COPP_ProtectionStandard_CEA805A_TypeA_750p: COPP_TVProtectionStandard = 64
-COPP_ProtectionStandard_CEA805A_TypeA_1125i: COPP_TVProtectionStandard = 128
-COPP_ProtectionStandard_CEA805A_TypeB_525p: COPP_TVProtectionStandard = 256
-COPP_ProtectionStandard_CEA805A_TypeB_750p: COPP_TVProtectionStandard = 512
-COPP_ProtectionStandard_CEA805A_TypeB_1125i: COPP_TVProtectionStandard = 1024
-COPP_ProtectionStandard_ARIBTRB15_525i: COPP_TVProtectionStandard = 2048
-COPP_ProtectionStandard_ARIBTRB15_525p: COPP_TVProtectionStandard = 4096
-COPP_ProtectionStandard_ARIBTRB15_750p: COPP_TVProtectionStandard = 8192
-COPP_ProtectionStandard_ARIBTRB15_1125i: COPP_TVProtectionStandard = 16384
-COPP_ProtectionStandard_Mask: COPP_TVProtectionStandard = -2147450881
-COPP_ProtectionStandard_Reserved: COPP_TVProtectionStandard = 2147450880
+COPP_ProtectionStandard_Unknown: win32more.Windows.Win32.Media.DirectShow.COPP_TVProtectionStandard = -2147483648
+COPP_ProtectionStandard_None: win32more.Windows.Win32.Media.DirectShow.COPP_TVProtectionStandard = 0
+COPP_ProtectionStandard_IEC61880_525i: win32more.Windows.Win32.Media.DirectShow.COPP_TVProtectionStandard = 1
+COPP_ProtectionStandard_IEC61880_2_525i: win32more.Windows.Win32.Media.DirectShow.COPP_TVProtectionStandard = 2
+COPP_ProtectionStandard_IEC62375_625p: win32more.Windows.Win32.Media.DirectShow.COPP_TVProtectionStandard = 4
+COPP_ProtectionStandard_EIA608B_525: win32more.Windows.Win32.Media.DirectShow.COPP_TVProtectionStandard = 8
+COPP_ProtectionStandard_EN300294_625i: win32more.Windows.Win32.Media.DirectShow.COPP_TVProtectionStandard = 16
+COPP_ProtectionStandard_CEA805A_TypeA_525p: win32more.Windows.Win32.Media.DirectShow.COPP_TVProtectionStandard = 32
+COPP_ProtectionStandard_CEA805A_TypeA_750p: win32more.Windows.Win32.Media.DirectShow.COPP_TVProtectionStandard = 64
+COPP_ProtectionStandard_CEA805A_TypeA_1125i: win32more.Windows.Win32.Media.DirectShow.COPP_TVProtectionStandard = 128
+COPP_ProtectionStandard_CEA805A_TypeB_525p: win32more.Windows.Win32.Media.DirectShow.COPP_TVProtectionStandard = 256
+COPP_ProtectionStandard_CEA805A_TypeB_750p: win32more.Windows.Win32.Media.DirectShow.COPP_TVProtectionStandard = 512
+COPP_ProtectionStandard_CEA805A_TypeB_1125i: win32more.Windows.Win32.Media.DirectShow.COPP_TVProtectionStandard = 1024
+COPP_ProtectionStandard_ARIBTRB15_525i: win32more.Windows.Win32.Media.DirectShow.COPP_TVProtectionStandard = 2048
+COPP_ProtectionStandard_ARIBTRB15_525p: win32more.Windows.Win32.Media.DirectShow.COPP_TVProtectionStandard = 4096
+COPP_ProtectionStandard_ARIBTRB15_750p: win32more.Windows.Win32.Media.DirectShow.COPP_TVProtectionStandard = 8192
+COPP_ProtectionStandard_ARIBTRB15_1125i: win32more.Windows.Win32.Media.DirectShow.COPP_TVProtectionStandard = 16384
+COPP_ProtectionStandard_Mask: win32more.Windows.Win32.Media.DirectShow.COPP_TVProtectionStandard = -2147450881
+COPP_ProtectionStandard_Reserved: win32more.Windows.Win32.Media.DirectShow.COPP_TVProtectionStandard = 2147450880
 CameraControlFlags = Int32
-CameraControl_Flags_Auto: CameraControlFlags = 1
-CameraControl_Flags_Manual: CameraControlFlags = 2
+CameraControl_Flags_Auto: win32more.Windows.Win32.Media.DirectShow.CameraControlFlags = 1
+CameraControl_Flags_Manual: win32more.Windows.Win32.Media.DirectShow.CameraControlFlags = 2
 CameraControlProperty = Int32
-CameraControl_Pan: CameraControlProperty = 0
-CameraControl_Tilt: CameraControlProperty = 1
-CameraControl_Roll: CameraControlProperty = 2
-CameraControl_Zoom: CameraControlProperty = 3
-CameraControl_Exposure: CameraControlProperty = 4
-CameraControl_Iris: CameraControlProperty = 5
-CameraControl_Focus: CameraControlProperty = 6
+CameraControl_Pan: win32more.Windows.Win32.Media.DirectShow.CameraControlProperty = 0
+CameraControl_Tilt: win32more.Windows.Win32.Media.DirectShow.CameraControlProperty = 1
+CameraControl_Roll: win32more.Windows.Win32.Media.DirectShow.CameraControlProperty = 2
+CameraControl_Zoom: win32more.Windows.Win32.Media.DirectShow.CameraControlProperty = 3
+CameraControl_Exposure: win32more.Windows.Win32.Media.DirectShow.CameraControlProperty = 4
+CameraControl_Iris: win32more.Windows.Win32.Media.DirectShow.CameraControlProperty = 5
+CameraControl_Focus: win32more.Windows.Win32.Media.DirectShow.CameraControlProperty = 6
 ComponentCategory = Int32
-ComponentCategory_CategoryNotSet: ComponentCategory = -1
-ComponentCategory_CategoryOther: ComponentCategory = 0
-ComponentCategory_CategoryVideo: ComponentCategory = 1
-ComponentCategory_CategoryAudio: ComponentCategory = 2
-ComponentCategory_CategoryText: ComponentCategory = 3
-ComponentCategory_CategorySubtitles: ComponentCategory = 4
-ComponentCategory_CategoryCaptions: ComponentCategory = 5
-ComponentCategory_CategorySuperimpose: ComponentCategory = 6
-ComponentCategory_CategoryData: ComponentCategory = 7
-ComponentCategory_CATEGORY_COUNT: ComponentCategory = 8
+ComponentCategory_CategoryNotSet: win32more.Windows.Win32.Media.DirectShow.ComponentCategory = -1
+ComponentCategory_CategoryOther: win32more.Windows.Win32.Media.DirectShow.ComponentCategory = 0
+ComponentCategory_CategoryVideo: win32more.Windows.Win32.Media.DirectShow.ComponentCategory = 1
+ComponentCategory_CategoryAudio: win32more.Windows.Win32.Media.DirectShow.ComponentCategory = 2
+ComponentCategory_CategoryText: win32more.Windows.Win32.Media.DirectShow.ComponentCategory = 3
+ComponentCategory_CategorySubtitles: win32more.Windows.Win32.Media.DirectShow.ComponentCategory = 4
+ComponentCategory_CategoryCaptions: win32more.Windows.Win32.Media.DirectShow.ComponentCategory = 5
+ComponentCategory_CategorySuperimpose: win32more.Windows.Win32.Media.DirectShow.ComponentCategory = 6
+ComponentCategory_CategoryData: win32more.Windows.Win32.Media.DirectShow.ComponentCategory = 7
+ComponentCategory_CATEGORY_COUNT: win32more.Windows.Win32.Media.DirectShow.ComponentCategory = 8
 ComponentStatus = Int32
-ComponentStatus_StatusActive: ComponentStatus = 0
-ComponentStatus_StatusInactive: ComponentStatus = 1
-ComponentStatus_StatusUnavailable: ComponentStatus = 2
+ComponentStatus_StatusActive: win32more.Windows.Win32.Media.DirectShow.ComponentStatus = 0
+ComponentStatus_StatusInactive: win32more.Windows.Win32.Media.DirectShow.ComponentStatus = 1
+ComponentStatus_StatusUnavailable: win32more.Windows.Win32.Media.DirectShow.ComponentStatus = 2
 CompressionCaps = Int32
-CompressionCaps_CanQuality: CompressionCaps = 1
-CompressionCaps_CanCrunch: CompressionCaps = 2
-CompressionCaps_CanKeyFrame: CompressionCaps = 4
-CompressionCaps_CanBFrame: CompressionCaps = 8
-CompressionCaps_CanWindow: CompressionCaps = 16
+CompressionCaps_CanQuality: win32more.Windows.Win32.Media.DirectShow.CompressionCaps = 1
+CompressionCaps_CanCrunch: win32more.Windows.Win32.Media.DirectShow.CompressionCaps = 2
+CompressionCaps_CanKeyFrame: win32more.Windows.Win32.Media.DirectShow.CompressionCaps = 4
+CompressionCaps_CanBFrame: win32more.Windows.Win32.Media.DirectShow.CompressionCaps = 8
+CompressionCaps_CanWindow: win32more.Windows.Win32.Media.DirectShow.CompressionCaps = 16
 DDSFF_FLAGS = Int32
-DDSFF_PROGRESSIVERENDER: DDSFF_FLAGS = 1
+DDSFF_PROGRESSIVERENDER: win32more.Windows.Win32.Media.DirectShow.DDSFF_FLAGS = 1
 DECIMATION_USAGE = Int32
-DECIMATION_LEGACY: DECIMATION_USAGE = 0
-DECIMATION_USE_DECODER_ONLY: DECIMATION_USAGE = 1
-DECIMATION_USE_VIDEOPORT_ONLY: DECIMATION_USAGE = 2
-DECIMATION_USE_OVERLAY_ONLY: DECIMATION_USAGE = 3
-DECIMATION_DEFAULT: DECIMATION_USAGE = 4
+DECIMATION_LEGACY: win32more.Windows.Win32.Media.DirectShow.DECIMATION_USAGE = 0
+DECIMATION_USE_DECODER_ONLY: win32more.Windows.Win32.Media.DirectShow.DECIMATION_USAGE = 1
+DECIMATION_USE_VIDEOPORT_ONLY: win32more.Windows.Win32.Media.DirectShow.DECIMATION_USAGE = 2
+DECIMATION_USE_OVERLAY_ONLY: win32more.Windows.Win32.Media.DirectShow.DECIMATION_USAGE = 3
+DECIMATION_DEFAULT: win32more.Windows.Win32.Media.DirectShow.DECIMATION_USAGE = 4
 DVBSystemType = Int32
-DVB_Cable: DVBSystemType = 0
-DVB_Terrestrial: DVBSystemType = 1
-DVB_Satellite: DVBSystemType = 2
-ISDB_Terrestrial: DVBSystemType = 3
-ISDB_Satellite: DVBSystemType = 4
+DVB_Cable: win32more.Windows.Win32.Media.DirectShow.DVBSystemType = 0
+DVB_Terrestrial: win32more.Windows.Win32.Media.DirectShow.DVBSystemType = 1
+DVB_Satellite: win32more.Windows.Win32.Media.DirectShow.DVBSystemType = 2
+ISDB_Terrestrial: win32more.Windows.Win32.Media.DirectShow.DVBSystemType = 3
+ISDB_Satellite: win32more.Windows.Win32.Media.DirectShow.DVBSystemType = 4
 class DVD_ATR(EasyCastStructure):
     ulCAT: UInt32
     pbATRI: Byte * 768
 DVD_AUDIO_APPMODE = Int32
-DVD_AudioMode_None: DVD_AUDIO_APPMODE = 0
-DVD_AudioMode_Karaoke: DVD_AUDIO_APPMODE = 1
-DVD_AudioMode_Surround: DVD_AUDIO_APPMODE = 2
-DVD_AudioMode_Other: DVD_AUDIO_APPMODE = 3
+DVD_AudioMode_None: win32more.Windows.Win32.Media.DirectShow.DVD_AUDIO_APPMODE = 0
+DVD_AudioMode_Karaoke: win32more.Windows.Win32.Media.DirectShow.DVD_AUDIO_APPMODE = 1
+DVD_AudioMode_Surround: win32more.Windows.Win32.Media.DirectShow.DVD_AUDIO_APPMODE = 2
+DVD_AudioMode_Other: win32more.Windows.Win32.Media.DirectShow.DVD_AUDIO_APPMODE = 3
 DVD_AUDIO_FORMAT = Int32
-DVD_AudioFormat_AC3: DVD_AUDIO_FORMAT = 0
-DVD_AudioFormat_MPEG1: DVD_AUDIO_FORMAT = 1
-DVD_AudioFormat_MPEG1_DRC: DVD_AUDIO_FORMAT = 2
-DVD_AudioFormat_MPEG2: DVD_AUDIO_FORMAT = 3
-DVD_AudioFormat_MPEG2_DRC: DVD_AUDIO_FORMAT = 4
-DVD_AudioFormat_LPCM: DVD_AUDIO_FORMAT = 5
-DVD_AudioFormat_DTS: DVD_AUDIO_FORMAT = 6
-DVD_AudioFormat_SDDS: DVD_AUDIO_FORMAT = 7
-DVD_AudioFormat_Other: DVD_AUDIO_FORMAT = 8
+DVD_AudioFormat_AC3: win32more.Windows.Win32.Media.DirectShow.DVD_AUDIO_FORMAT = 0
+DVD_AudioFormat_MPEG1: win32more.Windows.Win32.Media.DirectShow.DVD_AUDIO_FORMAT = 1
+DVD_AudioFormat_MPEG1_DRC: win32more.Windows.Win32.Media.DirectShow.DVD_AUDIO_FORMAT = 2
+DVD_AudioFormat_MPEG2: win32more.Windows.Win32.Media.DirectShow.DVD_AUDIO_FORMAT = 3
+DVD_AudioFormat_MPEG2_DRC: win32more.Windows.Win32.Media.DirectShow.DVD_AUDIO_FORMAT = 4
+DVD_AudioFormat_LPCM: win32more.Windows.Win32.Media.DirectShow.DVD_AUDIO_FORMAT = 5
+DVD_AudioFormat_DTS: win32more.Windows.Win32.Media.DirectShow.DVD_AUDIO_FORMAT = 6
+DVD_AudioFormat_SDDS: win32more.Windows.Win32.Media.DirectShow.DVD_AUDIO_FORMAT = 7
+DVD_AudioFormat_Other: win32more.Windows.Win32.Media.DirectShow.DVD_AUDIO_FORMAT = 8
 DVD_AUDIO_LANG_EXT = Int32
-DVD_AUD_EXT_NotSpecified: DVD_AUDIO_LANG_EXT = 0
-DVD_AUD_EXT_Captions: DVD_AUDIO_LANG_EXT = 1
-DVD_AUD_EXT_VisuallyImpaired: DVD_AUDIO_LANG_EXT = 2
-DVD_AUD_EXT_DirectorComments1: DVD_AUDIO_LANG_EXT = 3
-DVD_AUD_EXT_DirectorComments2: DVD_AUDIO_LANG_EXT = 4
+DVD_AUD_EXT_NotSpecified: win32more.Windows.Win32.Media.DirectShow.DVD_AUDIO_LANG_EXT = 0
+DVD_AUD_EXT_Captions: win32more.Windows.Win32.Media.DirectShow.DVD_AUDIO_LANG_EXT = 1
+DVD_AUD_EXT_VisuallyImpaired: win32more.Windows.Win32.Media.DirectShow.DVD_AUDIO_LANG_EXT = 2
+DVD_AUD_EXT_DirectorComments1: win32more.Windows.Win32.Media.DirectShow.DVD_AUDIO_LANG_EXT = 3
+DVD_AUD_EXT_DirectorComments2: win32more.Windows.Win32.Media.DirectShow.DVD_AUDIO_LANG_EXT = 4
 class DVD_AudioAttributes(EasyCastStructure):
     AppMode: win32more.Windows.Win32.Media.DirectShow.DVD_AUDIO_APPMODE
     AppModeData: Byte
@@ -2047,12 +2046,12 @@ class DVD_AudioAttributes(EasyCastStructure):
     bNumberOfChannels: Byte
     dwReserved: UInt32 * 2
 DVD_CMD_FLAGS = Int32
-DVD_CMD_FLAG_None: DVD_CMD_FLAGS = 0
-DVD_CMD_FLAG_Flush: DVD_CMD_FLAGS = 1
-DVD_CMD_FLAG_SendEvents: DVD_CMD_FLAGS = 2
-DVD_CMD_FLAG_Block: DVD_CMD_FLAGS = 4
-DVD_CMD_FLAG_StartWhenRendered: DVD_CMD_FLAGS = 8
-DVD_CMD_FLAG_EndAfterRendered: DVD_CMD_FLAGS = 16
+DVD_CMD_FLAG_None: win32more.Windows.Win32.Media.DirectShow.DVD_CMD_FLAGS = 0
+DVD_CMD_FLAG_Flush: win32more.Windows.Win32.Media.DirectShow.DVD_CMD_FLAGS = 1
+DVD_CMD_FLAG_SendEvents: win32more.Windows.Win32.Media.DirectShow.DVD_CMD_FLAGS = 2
+DVD_CMD_FLAG_Block: win32more.Windows.Win32.Media.DirectShow.DVD_CMD_FLAGS = 4
+DVD_CMD_FLAG_StartWhenRendered: win32more.Windows.Win32.Media.DirectShow.DVD_CMD_FLAGS = 8
+DVD_CMD_FLAG_EndAfterRendered: win32more.Windows.Win32.Media.DirectShow.DVD_CMD_FLAGS = 16
 class DVD_DECODER_CAPS(EasyCastStructure):
     dwSize: UInt32
     dwAudioCaps: UInt32
@@ -2067,66 +2066,66 @@ class DVD_DECODER_CAPS(EasyCastStructure):
     dwRes3: UInt32
     dwRes4: UInt32
 DVD_DISC_SIDE = Int32
-DVD_SIDE_A: DVD_DISC_SIDE = 1
-DVD_SIDE_B: DVD_DISC_SIDE = 2
+DVD_SIDE_A: win32more.Windows.Win32.Media.DirectShow.DVD_DISC_SIDE = 1
+DVD_SIDE_B: win32more.Windows.Win32.Media.DirectShow.DVD_DISC_SIDE = 2
 DVD_DOMAIN = Int32
-DVD_DOMAIN_FirstPlay: DVD_DOMAIN = 1
-DVD_DOMAIN_VideoManagerMenu: DVD_DOMAIN = 2
-DVD_DOMAIN_VideoTitleSetMenu: DVD_DOMAIN = 3
-DVD_DOMAIN_Title: DVD_DOMAIN = 4
-DVD_DOMAIN_Stop: DVD_DOMAIN = 5
+DVD_DOMAIN_FirstPlay: win32more.Windows.Win32.Media.DirectShow.DVD_DOMAIN = 1
+DVD_DOMAIN_VideoManagerMenu: win32more.Windows.Win32.Media.DirectShow.DVD_DOMAIN = 2
+DVD_DOMAIN_VideoTitleSetMenu: win32more.Windows.Win32.Media.DirectShow.DVD_DOMAIN = 3
+DVD_DOMAIN_Title: win32more.Windows.Win32.Media.DirectShow.DVD_DOMAIN = 4
+DVD_DOMAIN_Stop: win32more.Windows.Win32.Media.DirectShow.DVD_DOMAIN = 5
 DVD_ERROR = Int32
-DVD_ERROR_Unexpected: DVD_ERROR = 1
-DVD_ERROR_CopyProtectFail: DVD_ERROR = 2
-DVD_ERROR_InvalidDVD1_0Disc: DVD_ERROR = 3
-DVD_ERROR_InvalidDiscRegion: DVD_ERROR = 4
-DVD_ERROR_LowParentalLevel: DVD_ERROR = 5
-DVD_ERROR_MacrovisionFail: DVD_ERROR = 6
-DVD_ERROR_IncompatibleSystemAndDecoderRegions: DVD_ERROR = 7
-DVD_ERROR_IncompatibleDiscAndDecoderRegions: DVD_ERROR = 8
-DVD_ERROR_CopyProtectOutputFail: DVD_ERROR = 9
-DVD_ERROR_CopyProtectOutputNotSupported: DVD_ERROR = 10
+DVD_ERROR_Unexpected: win32more.Windows.Win32.Media.DirectShow.DVD_ERROR = 1
+DVD_ERROR_CopyProtectFail: win32more.Windows.Win32.Media.DirectShow.DVD_ERROR = 2
+DVD_ERROR_InvalidDVD1_0Disc: win32more.Windows.Win32.Media.DirectShow.DVD_ERROR = 3
+DVD_ERROR_InvalidDiscRegion: win32more.Windows.Win32.Media.DirectShow.DVD_ERROR = 4
+DVD_ERROR_LowParentalLevel: win32more.Windows.Win32.Media.DirectShow.DVD_ERROR = 5
+DVD_ERROR_MacrovisionFail: win32more.Windows.Win32.Media.DirectShow.DVD_ERROR = 6
+DVD_ERROR_IncompatibleSystemAndDecoderRegions: win32more.Windows.Win32.Media.DirectShow.DVD_ERROR = 7
+DVD_ERROR_IncompatibleDiscAndDecoderRegions: win32more.Windows.Win32.Media.DirectShow.DVD_ERROR = 8
+DVD_ERROR_CopyProtectOutputFail: win32more.Windows.Win32.Media.DirectShow.DVD_ERROR = 9
+DVD_ERROR_CopyProtectOutputNotSupported: win32more.Windows.Win32.Media.DirectShow.DVD_ERROR = 10
 DVD_FRAMERATE = Int32
-DVD_FPS_25: DVD_FRAMERATE = 1
-DVD_FPS_30NonDrop: DVD_FRAMERATE = 3
+DVD_FPS_25: win32more.Windows.Win32.Media.DirectShow.DVD_FRAMERATE = 1
+DVD_FPS_30NonDrop: win32more.Windows.Win32.Media.DirectShow.DVD_FRAMERATE = 3
 class DVD_HMSF_TIMECODE(EasyCastStructure):
     bHours: Byte
     bMinutes: Byte
     bSeconds: Byte
     bFrames: Byte
 DVD_KARAOKE_ASSIGNMENT = Int32
-DVD_Assignment_reserved0: DVD_KARAOKE_ASSIGNMENT = 0
-DVD_Assignment_reserved1: DVD_KARAOKE_ASSIGNMENT = 1
-DVD_Assignment_LR: DVD_KARAOKE_ASSIGNMENT = 2
-DVD_Assignment_LRM: DVD_KARAOKE_ASSIGNMENT = 3
-DVD_Assignment_LR1: DVD_KARAOKE_ASSIGNMENT = 4
-DVD_Assignment_LRM1: DVD_KARAOKE_ASSIGNMENT = 5
-DVD_Assignment_LR12: DVD_KARAOKE_ASSIGNMENT = 6
-DVD_Assignment_LRM12: DVD_KARAOKE_ASSIGNMENT = 7
+DVD_Assignment_reserved0: win32more.Windows.Win32.Media.DirectShow.DVD_KARAOKE_ASSIGNMENT = 0
+DVD_Assignment_reserved1: win32more.Windows.Win32.Media.DirectShow.DVD_KARAOKE_ASSIGNMENT = 1
+DVD_Assignment_LR: win32more.Windows.Win32.Media.DirectShow.DVD_KARAOKE_ASSIGNMENT = 2
+DVD_Assignment_LRM: win32more.Windows.Win32.Media.DirectShow.DVD_KARAOKE_ASSIGNMENT = 3
+DVD_Assignment_LR1: win32more.Windows.Win32.Media.DirectShow.DVD_KARAOKE_ASSIGNMENT = 4
+DVD_Assignment_LRM1: win32more.Windows.Win32.Media.DirectShow.DVD_KARAOKE_ASSIGNMENT = 5
+DVD_Assignment_LR12: win32more.Windows.Win32.Media.DirectShow.DVD_KARAOKE_ASSIGNMENT = 6
+DVD_Assignment_LRM12: win32more.Windows.Win32.Media.DirectShow.DVD_KARAOKE_ASSIGNMENT = 7
 DVD_KARAOKE_CONTENTS = Int32
-DVD_Karaoke_GuideVocal1: DVD_KARAOKE_CONTENTS = 1
-DVD_Karaoke_GuideVocal2: DVD_KARAOKE_CONTENTS = 2
-DVD_Karaoke_GuideMelody1: DVD_KARAOKE_CONTENTS = 4
-DVD_Karaoke_GuideMelody2: DVD_KARAOKE_CONTENTS = 8
-DVD_Karaoke_GuideMelodyA: DVD_KARAOKE_CONTENTS = 16
-DVD_Karaoke_GuideMelodyB: DVD_KARAOKE_CONTENTS = 32
-DVD_Karaoke_SoundEffectA: DVD_KARAOKE_CONTENTS = 64
-DVD_Karaoke_SoundEffectB: DVD_KARAOKE_CONTENTS = 128
+DVD_Karaoke_GuideVocal1: win32more.Windows.Win32.Media.DirectShow.DVD_KARAOKE_CONTENTS = 1
+DVD_Karaoke_GuideVocal2: win32more.Windows.Win32.Media.DirectShow.DVD_KARAOKE_CONTENTS = 2
+DVD_Karaoke_GuideMelody1: win32more.Windows.Win32.Media.DirectShow.DVD_KARAOKE_CONTENTS = 4
+DVD_Karaoke_GuideMelody2: win32more.Windows.Win32.Media.DirectShow.DVD_KARAOKE_CONTENTS = 8
+DVD_Karaoke_GuideMelodyA: win32more.Windows.Win32.Media.DirectShow.DVD_KARAOKE_CONTENTS = 16
+DVD_Karaoke_GuideMelodyB: win32more.Windows.Win32.Media.DirectShow.DVD_KARAOKE_CONTENTS = 32
+DVD_Karaoke_SoundEffectA: win32more.Windows.Win32.Media.DirectShow.DVD_KARAOKE_CONTENTS = 64
+DVD_Karaoke_SoundEffectB: win32more.Windows.Win32.Media.DirectShow.DVD_KARAOKE_CONTENTS = 128
 DVD_KARAOKE_DOWNMIX = Int32
-DVD_Mix_0to0: DVD_KARAOKE_DOWNMIX = 1
-DVD_Mix_1to0: DVD_KARAOKE_DOWNMIX = 2
-DVD_Mix_2to0: DVD_KARAOKE_DOWNMIX = 4
-DVD_Mix_3to0: DVD_KARAOKE_DOWNMIX = 8
-DVD_Mix_4to0: DVD_KARAOKE_DOWNMIX = 16
-DVD_Mix_Lto0: DVD_KARAOKE_DOWNMIX = 32
-DVD_Mix_Rto0: DVD_KARAOKE_DOWNMIX = 64
-DVD_Mix_0to1: DVD_KARAOKE_DOWNMIX = 256
-DVD_Mix_1to1: DVD_KARAOKE_DOWNMIX = 512
-DVD_Mix_2to1: DVD_KARAOKE_DOWNMIX = 1024
-DVD_Mix_3to1: DVD_KARAOKE_DOWNMIX = 2048
-DVD_Mix_4to1: DVD_KARAOKE_DOWNMIX = 4096
-DVD_Mix_Lto1: DVD_KARAOKE_DOWNMIX = 8192
-DVD_Mix_Rto1: DVD_KARAOKE_DOWNMIX = 16384
+DVD_Mix_0to0: win32more.Windows.Win32.Media.DirectShow.DVD_KARAOKE_DOWNMIX = 1
+DVD_Mix_1to0: win32more.Windows.Win32.Media.DirectShow.DVD_KARAOKE_DOWNMIX = 2
+DVD_Mix_2to0: win32more.Windows.Win32.Media.DirectShow.DVD_KARAOKE_DOWNMIX = 4
+DVD_Mix_3to0: win32more.Windows.Win32.Media.DirectShow.DVD_KARAOKE_DOWNMIX = 8
+DVD_Mix_4to0: win32more.Windows.Win32.Media.DirectShow.DVD_KARAOKE_DOWNMIX = 16
+DVD_Mix_Lto0: win32more.Windows.Win32.Media.DirectShow.DVD_KARAOKE_DOWNMIX = 32
+DVD_Mix_Rto0: win32more.Windows.Win32.Media.DirectShow.DVD_KARAOKE_DOWNMIX = 64
+DVD_Mix_0to1: win32more.Windows.Win32.Media.DirectShow.DVD_KARAOKE_DOWNMIX = 256
+DVD_Mix_1to1: win32more.Windows.Win32.Media.DirectShow.DVD_KARAOKE_DOWNMIX = 512
+DVD_Mix_2to1: win32more.Windows.Win32.Media.DirectShow.DVD_KARAOKE_DOWNMIX = 1024
+DVD_Mix_3to1: win32more.Windows.Win32.Media.DirectShow.DVD_KARAOKE_DOWNMIX = 2048
+DVD_Mix_4to1: win32more.Windows.Win32.Media.DirectShow.DVD_KARAOKE_DOWNMIX = 4096
+DVD_Mix_Lto1: win32more.Windows.Win32.Media.DirectShow.DVD_KARAOKE_DOWNMIX = 8192
+DVD_Mix_Rto1: win32more.Windows.Win32.Media.DirectShow.DVD_KARAOKE_DOWNMIX = 16384
 class DVD_KaraokeAttributes(EasyCastStructure):
     bVersion: Byte
     fMasterOfCeremoniesInGuideVocal1: win32more.Windows.Win32.Foundation.BOOL
@@ -2134,12 +2133,12 @@ class DVD_KaraokeAttributes(EasyCastStructure):
     ChannelAssignment: win32more.Windows.Win32.Media.DirectShow.DVD_KARAOKE_ASSIGNMENT
     wChannelContents: UInt16 * 8
 DVD_MENU_ID = Int32
-DVD_MENU_Title: DVD_MENU_ID = 2
-DVD_MENU_Root: DVD_MENU_ID = 3
-DVD_MENU_Subpicture: DVD_MENU_ID = 4
-DVD_MENU_Audio: DVD_MENU_ID = 5
-DVD_MENU_Angle: DVD_MENU_ID = 6
-DVD_MENU_Chapter: DVD_MENU_ID = 7
+DVD_MENU_Title: win32more.Windows.Win32.Media.DirectShow.DVD_MENU_ID = 2
+DVD_MENU_Root: win32more.Windows.Win32.Media.DirectShow.DVD_MENU_ID = 3
+DVD_MENU_Subpicture: win32more.Windows.Win32.Media.DirectShow.DVD_MENU_ID = 4
+DVD_MENU_Audio: win32more.Windows.Win32.Media.DirectShow.DVD_MENU_ID = 5
+DVD_MENU_Angle: win32more.Windows.Win32.Media.DirectShow.DVD_MENU_ID = 6
+DVD_MENU_Chapter: win32more.Windows.Win32.Media.DirectShow.DVD_MENU_ID = 7
 class DVD_MUA_Coeff(EasyCastStructure):
     log2_alpha: Double
     log2_beta: Double
@@ -2160,56 +2159,56 @@ class DVD_MultichannelAudioAttributes(EasyCastStructure):
     Info: win32more.Windows.Win32.Media.DirectShow.DVD_MUA_MixingInfo * 8
     Coeff: win32more.Windows.Win32.Media.DirectShow.DVD_MUA_Coeff * 8
 DVD_NavCmdType = Int32
-DVD_NavCmdType_Pre: DVD_NavCmdType = 1
-DVD_NavCmdType_Post: DVD_NavCmdType = 2
-DVD_NavCmdType_Cell: DVD_NavCmdType = 3
-DVD_NavCmdType_Button: DVD_NavCmdType = 4
+DVD_NavCmdType_Pre: win32more.Windows.Win32.Media.DirectShow.DVD_NavCmdType = 1
+DVD_NavCmdType_Post: win32more.Windows.Win32.Media.DirectShow.DVD_NavCmdType = 2
+DVD_NavCmdType_Cell: win32more.Windows.Win32.Media.DirectShow.DVD_NavCmdType = 3
+DVD_NavCmdType_Button: win32more.Windows.Win32.Media.DirectShow.DVD_NavCmdType = 4
 DVD_OPTION_FLAG = Int32
-DVD_ResetOnStop: DVD_OPTION_FLAG = 1
-DVD_NotifyParentalLevelChange: DVD_OPTION_FLAG = 2
-DVD_HMSF_TimeCodeEvents: DVD_OPTION_FLAG = 3
-DVD_AudioDuringFFwdRew: DVD_OPTION_FLAG = 4
-DVD_EnableNonblockingAPIs: DVD_OPTION_FLAG = 5
-DVD_CacheSizeInMB: DVD_OPTION_FLAG = 6
-DVD_EnablePortableBookmarks: DVD_OPTION_FLAG = 7
-DVD_EnableExtendedCopyProtectErrors: DVD_OPTION_FLAG = 8
-DVD_NotifyPositionChange: DVD_OPTION_FLAG = 9
-DVD_IncreaseOutputControl: DVD_OPTION_FLAG = 10
-DVD_EnableStreaming: DVD_OPTION_FLAG = 11
-DVD_EnableESOutput: DVD_OPTION_FLAG = 12
-DVD_EnableTitleLength: DVD_OPTION_FLAG = 13
-DVD_DisableStillThrottle: DVD_OPTION_FLAG = 14
-DVD_EnableLoggingEvents: DVD_OPTION_FLAG = 15
-DVD_MaxReadBurstInKB: DVD_OPTION_FLAG = 16
-DVD_ReadBurstPeriodInMS: DVD_OPTION_FLAG = 17
-DVD_RestartDisc: DVD_OPTION_FLAG = 18
-DVD_EnableCC: DVD_OPTION_FLAG = 19
+DVD_ResetOnStop: win32more.Windows.Win32.Media.DirectShow.DVD_OPTION_FLAG = 1
+DVD_NotifyParentalLevelChange: win32more.Windows.Win32.Media.DirectShow.DVD_OPTION_FLAG = 2
+DVD_HMSF_TimeCodeEvents: win32more.Windows.Win32.Media.DirectShow.DVD_OPTION_FLAG = 3
+DVD_AudioDuringFFwdRew: win32more.Windows.Win32.Media.DirectShow.DVD_OPTION_FLAG = 4
+DVD_EnableNonblockingAPIs: win32more.Windows.Win32.Media.DirectShow.DVD_OPTION_FLAG = 5
+DVD_CacheSizeInMB: win32more.Windows.Win32.Media.DirectShow.DVD_OPTION_FLAG = 6
+DVD_EnablePortableBookmarks: win32more.Windows.Win32.Media.DirectShow.DVD_OPTION_FLAG = 7
+DVD_EnableExtendedCopyProtectErrors: win32more.Windows.Win32.Media.DirectShow.DVD_OPTION_FLAG = 8
+DVD_NotifyPositionChange: win32more.Windows.Win32.Media.DirectShow.DVD_OPTION_FLAG = 9
+DVD_IncreaseOutputControl: win32more.Windows.Win32.Media.DirectShow.DVD_OPTION_FLAG = 10
+DVD_EnableStreaming: win32more.Windows.Win32.Media.DirectShow.DVD_OPTION_FLAG = 11
+DVD_EnableESOutput: win32more.Windows.Win32.Media.DirectShow.DVD_OPTION_FLAG = 12
+DVD_EnableTitleLength: win32more.Windows.Win32.Media.DirectShow.DVD_OPTION_FLAG = 13
+DVD_DisableStillThrottle: win32more.Windows.Win32.Media.DirectShow.DVD_OPTION_FLAG = 14
+DVD_EnableLoggingEvents: win32more.Windows.Win32.Media.DirectShow.DVD_OPTION_FLAG = 15
+DVD_MaxReadBurstInKB: win32more.Windows.Win32.Media.DirectShow.DVD_OPTION_FLAG = 16
+DVD_ReadBurstPeriodInMS: win32more.Windows.Win32.Media.DirectShow.DVD_OPTION_FLAG = 17
+DVD_RestartDisc: win32more.Windows.Win32.Media.DirectShow.DVD_OPTION_FLAG = 18
+DVD_EnableCC: win32more.Windows.Win32.Media.DirectShow.DVD_OPTION_FLAG = 19
 DVD_PARENTAL_LEVEL = Int32
-DVD_PARENTAL_LEVEL_8: DVD_PARENTAL_LEVEL = 32768
-DVD_PARENTAL_LEVEL_7: DVD_PARENTAL_LEVEL = 16384
-DVD_PARENTAL_LEVEL_6: DVD_PARENTAL_LEVEL = 8192
-DVD_PARENTAL_LEVEL_5: DVD_PARENTAL_LEVEL = 4096
-DVD_PARENTAL_LEVEL_4: DVD_PARENTAL_LEVEL = 2048
-DVD_PARENTAL_LEVEL_3: DVD_PARENTAL_LEVEL = 1024
-DVD_PARENTAL_LEVEL_2: DVD_PARENTAL_LEVEL = 512
-DVD_PARENTAL_LEVEL_1: DVD_PARENTAL_LEVEL = 256
+DVD_PARENTAL_LEVEL_8: win32more.Windows.Win32.Media.DirectShow.DVD_PARENTAL_LEVEL = 32768
+DVD_PARENTAL_LEVEL_7: win32more.Windows.Win32.Media.DirectShow.DVD_PARENTAL_LEVEL = 16384
+DVD_PARENTAL_LEVEL_6: win32more.Windows.Win32.Media.DirectShow.DVD_PARENTAL_LEVEL = 8192
+DVD_PARENTAL_LEVEL_5: win32more.Windows.Win32.Media.DirectShow.DVD_PARENTAL_LEVEL = 4096
+DVD_PARENTAL_LEVEL_4: win32more.Windows.Win32.Media.DirectShow.DVD_PARENTAL_LEVEL = 2048
+DVD_PARENTAL_LEVEL_3: win32more.Windows.Win32.Media.DirectShow.DVD_PARENTAL_LEVEL = 1024
+DVD_PARENTAL_LEVEL_2: win32more.Windows.Win32.Media.DirectShow.DVD_PARENTAL_LEVEL = 512
+DVD_PARENTAL_LEVEL_1: win32more.Windows.Win32.Media.DirectShow.DVD_PARENTAL_LEVEL = 256
 DVD_PB_STOPPED = Int32
-DVD_PB_STOPPED_Other: DVD_PB_STOPPED = 0
-DVD_PB_STOPPED_NoBranch: DVD_PB_STOPPED = 1
-DVD_PB_STOPPED_NoFirstPlayDomain: DVD_PB_STOPPED = 2
-DVD_PB_STOPPED_StopCommand: DVD_PB_STOPPED = 3
-DVD_PB_STOPPED_Reset: DVD_PB_STOPPED = 4
-DVD_PB_STOPPED_DiscEjected: DVD_PB_STOPPED = 5
-DVD_PB_STOPPED_IllegalNavCommand: DVD_PB_STOPPED = 6
-DVD_PB_STOPPED_PlayPeriodAutoStop: DVD_PB_STOPPED = 7
-DVD_PB_STOPPED_PlayChapterAutoStop: DVD_PB_STOPPED = 8
-DVD_PB_STOPPED_ParentalFailure: DVD_PB_STOPPED = 9
-DVD_PB_STOPPED_RegionFailure: DVD_PB_STOPPED = 10
-DVD_PB_STOPPED_MacrovisionFailure: DVD_PB_STOPPED = 11
-DVD_PB_STOPPED_DiscReadError: DVD_PB_STOPPED = 12
-DVD_PB_STOPPED_CopyProtectFailure: DVD_PB_STOPPED = 13
-DVD_PB_STOPPED_CopyProtectOutputFailure: DVD_PB_STOPPED = 14
-DVD_PB_STOPPED_CopyProtectOutputNotSupported: DVD_PB_STOPPED = 15
+DVD_PB_STOPPED_Other: win32more.Windows.Win32.Media.DirectShow.DVD_PB_STOPPED = 0
+DVD_PB_STOPPED_NoBranch: win32more.Windows.Win32.Media.DirectShow.DVD_PB_STOPPED = 1
+DVD_PB_STOPPED_NoFirstPlayDomain: win32more.Windows.Win32.Media.DirectShow.DVD_PB_STOPPED = 2
+DVD_PB_STOPPED_StopCommand: win32more.Windows.Win32.Media.DirectShow.DVD_PB_STOPPED = 3
+DVD_PB_STOPPED_Reset: win32more.Windows.Win32.Media.DirectShow.DVD_PB_STOPPED = 4
+DVD_PB_STOPPED_DiscEjected: win32more.Windows.Win32.Media.DirectShow.DVD_PB_STOPPED = 5
+DVD_PB_STOPPED_IllegalNavCommand: win32more.Windows.Win32.Media.DirectShow.DVD_PB_STOPPED = 6
+DVD_PB_STOPPED_PlayPeriodAutoStop: win32more.Windows.Win32.Media.DirectShow.DVD_PB_STOPPED = 7
+DVD_PB_STOPPED_PlayChapterAutoStop: win32more.Windows.Win32.Media.DirectShow.DVD_PB_STOPPED = 8
+DVD_PB_STOPPED_ParentalFailure: win32more.Windows.Win32.Media.DirectShow.DVD_PB_STOPPED = 9
+DVD_PB_STOPPED_RegionFailure: win32more.Windows.Win32.Media.DirectShow.DVD_PB_STOPPED = 10
+DVD_PB_STOPPED_MacrovisionFailure: win32more.Windows.Win32.Media.DirectShow.DVD_PB_STOPPED = 11
+DVD_PB_STOPPED_DiscReadError: win32more.Windows.Win32.Media.DirectShow.DVD_PB_STOPPED = 12
+DVD_PB_STOPPED_CopyProtectFailure: win32more.Windows.Win32.Media.DirectShow.DVD_PB_STOPPED = 13
+DVD_PB_STOPPED_CopyProtectOutputFailure: win32more.Windows.Win32.Media.DirectShow.DVD_PB_STOPPED = 14
+DVD_PB_STOPPED_CopyProtectOutputNotSupported: win32more.Windows.Win32.Media.DirectShow.DVD_PB_STOPPED = 15
 class DVD_PLAYBACK_LOCATION(EasyCastStructure):
     TitleNum: UInt32
     ChapterNum: UInt32
@@ -2220,43 +2219,43 @@ class DVD_PLAYBACK_LOCATION2(EasyCastStructure):
     TimeCode: win32more.Windows.Win32.Media.DirectShow.DVD_HMSF_TIMECODE
     TimeCodeFlags: UInt32
 DVD_PLAY_DIRECTION = Int32
-DVD_DIR_FORWARD: DVD_PLAY_DIRECTION = 0
-DVD_DIR_BACKWARD: DVD_PLAY_DIRECTION = 1
+DVD_DIR_FORWARD: win32more.Windows.Win32.Media.DirectShow.DVD_PLAY_DIRECTION = 0
+DVD_DIR_BACKWARD: win32more.Windows.Win32.Media.DirectShow.DVD_PLAY_DIRECTION = 1
 DVD_PREFERRED_DISPLAY_MODE = Int32
-DISPLAY_CONTENT_DEFAULT: DVD_PREFERRED_DISPLAY_MODE = 0
-DISPLAY_16x9: DVD_PREFERRED_DISPLAY_MODE = 1
-DISPLAY_4x3_PANSCAN_PREFERRED: DVD_PREFERRED_DISPLAY_MODE = 2
-DISPLAY_4x3_LETTERBOX_PREFERRED: DVD_PREFERRED_DISPLAY_MODE = 3
+DISPLAY_CONTENT_DEFAULT: win32more.Windows.Win32.Media.DirectShow.DVD_PREFERRED_DISPLAY_MODE = 0
+DISPLAY_16x9: win32more.Windows.Win32.Media.DirectShow.DVD_PREFERRED_DISPLAY_MODE = 1
+DISPLAY_4x3_PANSCAN_PREFERRED: win32more.Windows.Win32.Media.DirectShow.DVD_PREFERRED_DISPLAY_MODE = 2
+DISPLAY_4x3_LETTERBOX_PREFERRED: win32more.Windows.Win32.Media.DirectShow.DVD_PREFERRED_DISPLAY_MODE = 3
 class DVD_REGION(EasyCastStructure):
     CopySystem: Byte
     RegionData: Byte
     SystemRegion: Byte
     ResetCount: Byte
 DVD_RELATIVE_BUTTON = Int32
-DVD_Relative_Upper: DVD_RELATIVE_BUTTON = 1
-DVD_Relative_Lower: DVD_RELATIVE_BUTTON = 2
-DVD_Relative_Left: DVD_RELATIVE_BUTTON = 3
-DVD_Relative_Right: DVD_RELATIVE_BUTTON = 4
+DVD_Relative_Upper: win32more.Windows.Win32.Media.DirectShow.DVD_RELATIVE_BUTTON = 1
+DVD_Relative_Lower: win32more.Windows.Win32.Media.DirectShow.DVD_RELATIVE_BUTTON = 2
+DVD_Relative_Left: win32more.Windows.Win32.Media.DirectShow.DVD_RELATIVE_BUTTON = 3
+DVD_Relative_Right: win32more.Windows.Win32.Media.DirectShow.DVD_RELATIVE_BUTTON = 4
 DVD_SUBPICTURE_CODING = Int32
-DVD_SPCoding_RunLength: DVD_SUBPICTURE_CODING = 0
-DVD_SPCoding_Extended: DVD_SUBPICTURE_CODING = 1
-DVD_SPCoding_Other: DVD_SUBPICTURE_CODING = 2
+DVD_SPCoding_RunLength: win32more.Windows.Win32.Media.DirectShow.DVD_SUBPICTURE_CODING = 0
+DVD_SPCoding_Extended: win32more.Windows.Win32.Media.DirectShow.DVD_SUBPICTURE_CODING = 1
+DVD_SPCoding_Other: win32more.Windows.Win32.Media.DirectShow.DVD_SUBPICTURE_CODING = 2
 DVD_SUBPICTURE_LANG_EXT = Int32
-DVD_SP_EXT_NotSpecified: DVD_SUBPICTURE_LANG_EXT = 0
-DVD_SP_EXT_Caption_Normal: DVD_SUBPICTURE_LANG_EXT = 1
-DVD_SP_EXT_Caption_Big: DVD_SUBPICTURE_LANG_EXT = 2
-DVD_SP_EXT_Caption_Children: DVD_SUBPICTURE_LANG_EXT = 3
-DVD_SP_EXT_CC_Normal: DVD_SUBPICTURE_LANG_EXT = 5
-DVD_SP_EXT_CC_Big: DVD_SUBPICTURE_LANG_EXT = 6
-DVD_SP_EXT_CC_Children: DVD_SUBPICTURE_LANG_EXT = 7
-DVD_SP_EXT_Forced: DVD_SUBPICTURE_LANG_EXT = 9
-DVD_SP_EXT_DirectorComments_Normal: DVD_SUBPICTURE_LANG_EXT = 13
-DVD_SP_EXT_DirectorComments_Big: DVD_SUBPICTURE_LANG_EXT = 14
-DVD_SP_EXT_DirectorComments_Children: DVD_SUBPICTURE_LANG_EXT = 15
+DVD_SP_EXT_NotSpecified: win32more.Windows.Win32.Media.DirectShow.DVD_SUBPICTURE_LANG_EXT = 0
+DVD_SP_EXT_Caption_Normal: win32more.Windows.Win32.Media.DirectShow.DVD_SUBPICTURE_LANG_EXT = 1
+DVD_SP_EXT_Caption_Big: win32more.Windows.Win32.Media.DirectShow.DVD_SUBPICTURE_LANG_EXT = 2
+DVD_SP_EXT_Caption_Children: win32more.Windows.Win32.Media.DirectShow.DVD_SUBPICTURE_LANG_EXT = 3
+DVD_SP_EXT_CC_Normal: win32more.Windows.Win32.Media.DirectShow.DVD_SUBPICTURE_LANG_EXT = 5
+DVD_SP_EXT_CC_Big: win32more.Windows.Win32.Media.DirectShow.DVD_SUBPICTURE_LANG_EXT = 6
+DVD_SP_EXT_CC_Children: win32more.Windows.Win32.Media.DirectShow.DVD_SUBPICTURE_LANG_EXT = 7
+DVD_SP_EXT_Forced: win32more.Windows.Win32.Media.DirectShow.DVD_SUBPICTURE_LANG_EXT = 9
+DVD_SP_EXT_DirectorComments_Normal: win32more.Windows.Win32.Media.DirectShow.DVD_SUBPICTURE_LANG_EXT = 13
+DVD_SP_EXT_DirectorComments_Big: win32more.Windows.Win32.Media.DirectShow.DVD_SUBPICTURE_LANG_EXT = 14
+DVD_SP_EXT_DirectorComments_Children: win32more.Windows.Win32.Media.DirectShow.DVD_SUBPICTURE_LANG_EXT = 15
 DVD_SUBPICTURE_TYPE = Int32
-DVD_SPType_NotSpecified: DVD_SUBPICTURE_TYPE = 0
-DVD_SPType_Language: DVD_SUBPICTURE_TYPE = 1
-DVD_SPType_Other: DVD_SUBPICTURE_TYPE = 2
+DVD_SPType_NotSpecified: win32more.Windows.Win32.Media.DirectShow.DVD_SUBPICTURE_TYPE = 0
+DVD_SPType_Language: win32more.Windows.Win32.Media.DirectShow.DVD_SUBPICTURE_TYPE = 1
+DVD_SPType_Other: win32more.Windows.Win32.Media.DirectShow.DVD_SUBPICTURE_TYPE = 2
 class DVD_SubpictureAttributes(EasyCastStructure):
     Type: win32more.Windows.Win32.Media.DirectShow.DVD_SUBPICTURE_TYPE
     CodingMode: win32more.Windows.Win32.Media.DirectShow.DVD_SUBPICTURE_CODING
@@ -2265,53 +2264,53 @@ class DVD_SubpictureAttributes(EasyCastStructure):
 class DVD_TIMECODE(EasyCastStructure):
     _bitfield: UInt32
 DVD_TIMECODE_FLAGS = Int32
-DVD_TC_FLAG_25fps: DVD_TIMECODE_FLAGS = 1
-DVD_TC_FLAG_30fps: DVD_TIMECODE_FLAGS = 2
-DVD_TC_FLAG_DropFrame: DVD_TIMECODE_FLAGS = 4
-DVD_TC_FLAG_Interpolated: DVD_TIMECODE_FLAGS = 8
+DVD_TC_FLAG_25fps: win32more.Windows.Win32.Media.DirectShow.DVD_TIMECODE_FLAGS = 1
+DVD_TC_FLAG_30fps: win32more.Windows.Win32.Media.DirectShow.DVD_TIMECODE_FLAGS = 2
+DVD_TC_FLAG_DropFrame: win32more.Windows.Win32.Media.DirectShow.DVD_TIMECODE_FLAGS = 4
+DVD_TC_FLAG_Interpolated: win32more.Windows.Win32.Media.DirectShow.DVD_TIMECODE_FLAGS = 8
 DVD_TITLE_APPMODE = Int32
-DVD_AppMode_Not_Specified: DVD_TITLE_APPMODE = 0
-DVD_AppMode_Karaoke: DVD_TITLE_APPMODE = 1
-DVD_AppMode_Other: DVD_TITLE_APPMODE = 3
+DVD_AppMode_Not_Specified: win32more.Windows.Win32.Media.DirectShow.DVD_TITLE_APPMODE = 0
+DVD_AppMode_Karaoke: win32more.Windows.Win32.Media.DirectShow.DVD_TITLE_APPMODE = 1
+DVD_AppMode_Other: win32more.Windows.Win32.Media.DirectShow.DVD_TITLE_APPMODE = 3
 DVD_TextCharSet = Int32
-DVD_CharSet_Unicode: DVD_TextCharSet = 0
-DVD_CharSet_ISO646: DVD_TextCharSet = 1
-DVD_CharSet_JIS_Roman_Kanji: DVD_TextCharSet = 2
-DVD_CharSet_ISO8859_1: DVD_TextCharSet = 3
-DVD_CharSet_ShiftJIS_Kanji_Roman_Katakana: DVD_TextCharSet = 4
+DVD_CharSet_Unicode: win32more.Windows.Win32.Media.DirectShow.DVD_TextCharSet = 0
+DVD_CharSet_ISO646: win32more.Windows.Win32.Media.DirectShow.DVD_TextCharSet = 1
+DVD_CharSet_JIS_Roman_Kanji: win32more.Windows.Win32.Media.DirectShow.DVD_TextCharSet = 2
+DVD_CharSet_ISO8859_1: win32more.Windows.Win32.Media.DirectShow.DVD_TextCharSet = 3
+DVD_CharSet_ShiftJIS_Kanji_Roman_Katakana: win32more.Windows.Win32.Media.DirectShow.DVD_TextCharSet = 4
 DVD_TextStringType = Int32
-DVD_Struct_Volume: DVD_TextStringType = 1
-DVD_Struct_Title: DVD_TextStringType = 2
-DVD_Struct_ParentalID: DVD_TextStringType = 3
-DVD_Struct_PartOfTitle: DVD_TextStringType = 4
-DVD_Struct_Cell: DVD_TextStringType = 5
-DVD_Stream_Audio: DVD_TextStringType = 16
-DVD_Stream_Subpicture: DVD_TextStringType = 17
-DVD_Stream_Angle: DVD_TextStringType = 18
-DVD_Channel_Audio: DVD_TextStringType = 32
-DVD_General_Name: DVD_TextStringType = 48
-DVD_General_Comments: DVD_TextStringType = 49
-DVD_Title_Series: DVD_TextStringType = 56
-DVD_Title_Movie: DVD_TextStringType = 57
-DVD_Title_Video: DVD_TextStringType = 58
-DVD_Title_Album: DVD_TextStringType = 59
-DVD_Title_Song: DVD_TextStringType = 60
-DVD_Title_Other: DVD_TextStringType = 63
-DVD_Title_Sub_Series: DVD_TextStringType = 64
-DVD_Title_Sub_Movie: DVD_TextStringType = 65
-DVD_Title_Sub_Video: DVD_TextStringType = 66
-DVD_Title_Sub_Album: DVD_TextStringType = 67
-DVD_Title_Sub_Song: DVD_TextStringType = 68
-DVD_Title_Sub_Other: DVD_TextStringType = 71
-DVD_Title_Orig_Series: DVD_TextStringType = 72
-DVD_Title_Orig_Movie: DVD_TextStringType = 73
-DVD_Title_Orig_Video: DVD_TextStringType = 74
-DVD_Title_Orig_Album: DVD_TextStringType = 75
-DVD_Title_Orig_Song: DVD_TextStringType = 76
-DVD_Title_Orig_Other: DVD_TextStringType = 79
-DVD_Other_Scene: DVD_TextStringType = 80
-DVD_Other_Cut: DVD_TextStringType = 81
-DVD_Other_Take: DVD_TextStringType = 82
+DVD_Struct_Volume: win32more.Windows.Win32.Media.DirectShow.DVD_TextStringType = 1
+DVD_Struct_Title: win32more.Windows.Win32.Media.DirectShow.DVD_TextStringType = 2
+DVD_Struct_ParentalID: win32more.Windows.Win32.Media.DirectShow.DVD_TextStringType = 3
+DVD_Struct_PartOfTitle: win32more.Windows.Win32.Media.DirectShow.DVD_TextStringType = 4
+DVD_Struct_Cell: win32more.Windows.Win32.Media.DirectShow.DVD_TextStringType = 5
+DVD_Stream_Audio: win32more.Windows.Win32.Media.DirectShow.DVD_TextStringType = 16
+DVD_Stream_Subpicture: win32more.Windows.Win32.Media.DirectShow.DVD_TextStringType = 17
+DVD_Stream_Angle: win32more.Windows.Win32.Media.DirectShow.DVD_TextStringType = 18
+DVD_Channel_Audio: win32more.Windows.Win32.Media.DirectShow.DVD_TextStringType = 32
+DVD_General_Name: win32more.Windows.Win32.Media.DirectShow.DVD_TextStringType = 48
+DVD_General_Comments: win32more.Windows.Win32.Media.DirectShow.DVD_TextStringType = 49
+DVD_Title_Series: win32more.Windows.Win32.Media.DirectShow.DVD_TextStringType = 56
+DVD_Title_Movie: win32more.Windows.Win32.Media.DirectShow.DVD_TextStringType = 57
+DVD_Title_Video: win32more.Windows.Win32.Media.DirectShow.DVD_TextStringType = 58
+DVD_Title_Album: win32more.Windows.Win32.Media.DirectShow.DVD_TextStringType = 59
+DVD_Title_Song: win32more.Windows.Win32.Media.DirectShow.DVD_TextStringType = 60
+DVD_Title_Other: win32more.Windows.Win32.Media.DirectShow.DVD_TextStringType = 63
+DVD_Title_Sub_Series: win32more.Windows.Win32.Media.DirectShow.DVD_TextStringType = 64
+DVD_Title_Sub_Movie: win32more.Windows.Win32.Media.DirectShow.DVD_TextStringType = 65
+DVD_Title_Sub_Video: win32more.Windows.Win32.Media.DirectShow.DVD_TextStringType = 66
+DVD_Title_Sub_Album: win32more.Windows.Win32.Media.DirectShow.DVD_TextStringType = 67
+DVD_Title_Sub_Song: win32more.Windows.Win32.Media.DirectShow.DVD_TextStringType = 68
+DVD_Title_Sub_Other: win32more.Windows.Win32.Media.DirectShow.DVD_TextStringType = 71
+DVD_Title_Orig_Series: win32more.Windows.Win32.Media.DirectShow.DVD_TextStringType = 72
+DVD_Title_Orig_Movie: win32more.Windows.Win32.Media.DirectShow.DVD_TextStringType = 73
+DVD_Title_Orig_Video: win32more.Windows.Win32.Media.DirectShow.DVD_TextStringType = 74
+DVD_Title_Orig_Album: win32more.Windows.Win32.Media.DirectShow.DVD_TextStringType = 75
+DVD_Title_Orig_Song: win32more.Windows.Win32.Media.DirectShow.DVD_TextStringType = 76
+DVD_Title_Orig_Other: win32more.Windows.Win32.Media.DirectShow.DVD_TextStringType = 79
+DVD_Other_Scene: win32more.Windows.Win32.Media.DirectShow.DVD_TextStringType = 80
+DVD_Other_Cut: win32more.Windows.Win32.Media.DirectShow.DVD_TextStringType = 81
+DVD_Other_Take: win32more.Windows.Win32.Media.DirectShow.DVD_TextStringType = 82
 class DVD_TitleAttributes(EasyCastStructure):
     Anonymous: _Anonymous_e__Union
     VideoAttributes: win32more.Windows.Win32.Media.DirectShow.DVD_VideoAttributes
@@ -2324,9 +2323,9 @@ class DVD_TitleAttributes(EasyCastStructure):
         AppMode: win32more.Windows.Win32.Media.DirectShow.DVD_TITLE_APPMODE
         TitleLength: win32more.Windows.Win32.Media.DirectShow.DVD_HMSF_TIMECODE
 DVD_VIDEO_COMPRESSION = Int32
-DVD_VideoCompression_Other: DVD_VIDEO_COMPRESSION = 0
-DVD_VideoCompression_MPEG1: DVD_VIDEO_COMPRESSION = 1
-DVD_VideoCompression_MPEG2: DVD_VIDEO_COMPRESSION = 2
+DVD_VideoCompression_Other: win32more.Windows.Win32.Media.DirectShow.DVD_VIDEO_COMPRESSION = 0
+DVD_VideoCompression_MPEG1: win32more.Windows.Win32.Media.DirectShow.DVD_VIDEO_COMPRESSION = 1
+DVD_VideoCompression_MPEG2: win32more.Windows.Win32.Media.DirectShow.DVD_VIDEO_COMPRESSION = 2
 class DVD_VideoAttributes(EasyCastStructure):
     fPanscanPermitted: win32more.Windows.Win32.Foundation.BOOL
     fLetterboxPermitted: win32more.Windows.Win32.Foundation.BOOL
@@ -2342,12 +2341,12 @@ class DVD_VideoAttributes(EasyCastStructure):
     fIsSourceLetterboxed: win32more.Windows.Win32.Foundation.BOOL
     fIsFilmMode: win32more.Windows.Win32.Foundation.BOOL
 DVD_WARNING = Int32
-DVD_WARNING_InvalidDVD1_0Disc: DVD_WARNING = 1
-DVD_WARNING_FormatNotSupported: DVD_WARNING = 2
-DVD_WARNING_IllegalNavCommand: DVD_WARNING = 3
-DVD_WARNING_Open: DVD_WARNING = 4
-DVD_WARNING_Seek: DVD_WARNING = 5
-DVD_WARNING_Read: DVD_WARNING = 6
+DVD_WARNING_InvalidDVD1_0Disc: win32more.Windows.Win32.Media.DirectShow.DVD_WARNING = 1
+DVD_WARNING_FormatNotSupported: win32more.Windows.Win32.Media.DirectShow.DVD_WARNING = 2
+DVD_WARNING_IllegalNavCommand: win32more.Windows.Win32.Media.DirectShow.DVD_WARNING = 3
+DVD_WARNING_Open: win32more.Windows.Win32.Media.DirectShow.DVD_WARNING = 4
+DVD_WARNING_Seek: win32more.Windows.Win32.Media.DirectShow.DVD_WARNING = 5
+DVD_WARNING_Read: win32more.Windows.Win32.Media.DirectShow.DVD_WARNING = 6
 class DVINFO(EasyCastStructure):
     dwDVAAuxSrc: UInt32
     dwDVAAuxCtl: UInt32
@@ -2414,24 +2413,24 @@ class DXVA2Trace_VideoProcessDeviceData(EasyCastStructure):
     pObject: UInt64
     Enter: win32more.Windows.Win32.Foundation.BOOL
 DXVA2_DestinationFlags = Int32
-DXVA2_DestinationFlag_Background_Changed: DXVA2_DestinationFlags = 1
-DXVA2_DestinationFlag_TargetRect_Changed: DXVA2_DestinationFlags = 2
-DXVA2_DestinationFlag_ColorData_Changed: DXVA2_DestinationFlags = 4
-DXVA2_DestinationFlag_Alpha_Changed: DXVA2_DestinationFlags = 8
-DXVA2_DestinationFlag_RFF: DXVA2_DestinationFlags = 65536
-DXVA2_DestinationFlag_TFF: DXVA2_DestinationFlags = 131072
-DXVA2_DestinationFlag_RFF_TFF_Present: DXVA2_DestinationFlags = 262144
-DXVA2_DestinationFlagMask: DXVA2_DestinationFlags = -65521
+DXVA2_DestinationFlag_Background_Changed: win32more.Windows.Win32.Media.DirectShow.DXVA2_DestinationFlags = 1
+DXVA2_DestinationFlag_TargetRect_Changed: win32more.Windows.Win32.Media.DirectShow.DXVA2_DestinationFlags = 2
+DXVA2_DestinationFlag_ColorData_Changed: win32more.Windows.Win32.Media.DirectShow.DXVA2_DestinationFlags = 4
+DXVA2_DestinationFlag_Alpha_Changed: win32more.Windows.Win32.Media.DirectShow.DXVA2_DestinationFlags = 8
+DXVA2_DestinationFlag_RFF: win32more.Windows.Win32.Media.DirectShow.DXVA2_DestinationFlags = 65536
+DXVA2_DestinationFlag_TFF: win32more.Windows.Win32.Media.DirectShow.DXVA2_DestinationFlags = 131072
+DXVA2_DestinationFlag_RFF_TFF_Present: win32more.Windows.Win32.Media.DirectShow.DXVA2_DestinationFlags = 262144
+DXVA2_DestinationFlagMask: win32more.Windows.Win32.Media.DirectShow.DXVA2_DestinationFlags = -65521
 DXVA2_SampleFlags = Int32
-DXVA2_SampleFlag_Palette_Changed: DXVA2_SampleFlags = 1
-DXVA2_SampleFlag_SrcRect_Changed: DXVA2_SampleFlags = 2
-DXVA2_SampleFlag_DstRect_Changed: DXVA2_SampleFlags = 4
-DXVA2_SampleFlag_ColorData_Changed: DXVA2_SampleFlags = 8
-DXVA2_SampleFlag_PlanarAlpha_Changed: DXVA2_SampleFlags = 16
-DXVA2_SampleFlag_RFF: DXVA2_SampleFlags = 65536
-DXVA2_SampleFlag_TFF: DXVA2_SampleFlags = 131072
-DXVA2_SampleFlag_RFF_TFF_Present: DXVA2_SampleFlags = 262144
-DXVA2_SampleFlagsMask: DXVA2_SampleFlags = -65505
+DXVA2_SampleFlag_Palette_Changed: win32more.Windows.Win32.Media.DirectShow.DXVA2_SampleFlags = 1
+DXVA2_SampleFlag_SrcRect_Changed: win32more.Windows.Win32.Media.DirectShow.DXVA2_SampleFlags = 2
+DXVA2_SampleFlag_DstRect_Changed: win32more.Windows.Win32.Media.DirectShow.DXVA2_SampleFlags = 4
+DXVA2_SampleFlag_ColorData_Changed: win32more.Windows.Win32.Media.DirectShow.DXVA2_SampleFlags = 8
+DXVA2_SampleFlag_PlanarAlpha_Changed: win32more.Windows.Win32.Media.DirectShow.DXVA2_SampleFlags = 16
+DXVA2_SampleFlag_RFF: win32more.Windows.Win32.Media.DirectShow.DXVA2_SampleFlags = 65536
+DXVA2_SampleFlag_TFF: win32more.Windows.Win32.Media.DirectShow.DXVA2_SampleFlags = 131072
+DXVA2_SampleFlag_RFF_TFF_Present: win32more.Windows.Win32.Media.DirectShow.DXVA2_SampleFlags = 262144
+DXVA2_SampleFlagsMask: win32more.Windows.Win32.Media.DirectShow.DXVA2_SampleFlags = -65505
 class DXVA2_VIDEOPROCESSBLT(EasyCastStructure):
     TargetFrame: Int64
     TargetRect: win32more.Windows.Win32.Foundation.RECT
@@ -2516,37 +2515,37 @@ class EALocationCodeType(EasyCastStructure):
     county_subdivision: Byte
     county_code: UInt16
 EntitlementType = Int32
-EntitlementType_Entitled: EntitlementType = 0
-EntitlementType_NotEntitled: EntitlementType = 1
-EntitlementType_TechnicalFailure: EntitlementType = 2
+EntitlementType_Entitled: win32more.Windows.Win32.Media.DirectShow.EntitlementType = 0
+EntitlementType_NotEntitled: win32more.Windows.Win32.Media.DirectShow.EntitlementType = 1
+EntitlementType_TechnicalFailure: win32more.Windows.Win32.Media.DirectShow.EntitlementType = 2
 FECMethod = Int32
-BDA_FEC_METHOD_NOT_SET: FECMethod = -1
-BDA_FEC_METHOD_NOT_DEFINED: FECMethod = 0
-BDA_FEC_VITERBI: FECMethod = 1
-BDA_FEC_RS_204_188: FECMethod = 2
-BDA_FEC_LDPC: FECMethod = 3
-BDA_FEC_BCH: FECMethod = 4
-BDA_FEC_RS_147_130: FECMethod = 5
-BDA_FEC_MAX: FECMethod = 6
+BDA_FEC_METHOD_NOT_SET: win32more.Windows.Win32.Media.DirectShow.FECMethod = -1
+BDA_FEC_METHOD_NOT_DEFINED: win32more.Windows.Win32.Media.DirectShow.FECMethod = 0
+BDA_FEC_VITERBI: win32more.Windows.Win32.Media.DirectShow.FECMethod = 1
+BDA_FEC_RS_204_188: win32more.Windows.Win32.Media.DirectShow.FECMethod = 2
+BDA_FEC_LDPC: win32more.Windows.Win32.Media.DirectShow.FECMethod = 3
+BDA_FEC_BCH: win32more.Windows.Win32.Media.DirectShow.FECMethod = 4
+BDA_FEC_RS_147_130: win32more.Windows.Win32.Media.DirectShow.FECMethod = 5
+BDA_FEC_MAX: win32more.Windows.Win32.Media.DirectShow.FECMethod = 6
 class FILTER_INFO(EasyCastStructure):
     achName: Char * 128
     pGraph: win32more.Windows.Win32.Media.DirectShow.IFilterGraph
 FILTER_STATE = Int32
-State_Stopped: FILTER_STATE = 0
-State_Paused: FILTER_STATE = 1
-State_Running: FILTER_STATE = 2
+State_Stopped: win32more.Windows.Win32.Media.DirectShow.FILTER_STATE = 0
+State_Paused: win32more.Windows.Win32.Media.DirectShow.FILTER_STATE = 1
+State_Running: win32more.Windows.Win32.Media.DirectShow.FILTER_STATE = 2
 FilgraphManager = Guid('{e436ebb3-524f-11ce-9f53-0020af0ba770}')
 GuardInterval = Int32
-BDA_GUARD_NOT_SET: GuardInterval = -1
-BDA_GUARD_NOT_DEFINED: GuardInterval = 0
-BDA_GUARD_1_32: GuardInterval = 1
-BDA_GUARD_1_16: GuardInterval = 2
-BDA_GUARD_1_8: GuardInterval = 3
-BDA_GUARD_1_4: GuardInterval = 4
-BDA_GUARD_1_128: GuardInterval = 5
-BDA_GUARD_19_128: GuardInterval = 6
-BDA_GUARD_19_256: GuardInterval = 7
-BDA_GUARD_MAX: GuardInterval = 8
+BDA_GUARD_NOT_SET: win32more.Windows.Win32.Media.DirectShow.GuardInterval = -1
+BDA_GUARD_NOT_DEFINED: win32more.Windows.Win32.Media.DirectShow.GuardInterval = 0
+BDA_GUARD_1_32: win32more.Windows.Win32.Media.DirectShow.GuardInterval = 1
+BDA_GUARD_1_16: win32more.Windows.Win32.Media.DirectShow.GuardInterval = 2
+BDA_GUARD_1_8: win32more.Windows.Win32.Media.DirectShow.GuardInterval = 3
+BDA_GUARD_1_4: win32more.Windows.Win32.Media.DirectShow.GuardInterval = 4
+BDA_GUARD_1_128: win32more.Windows.Win32.Media.DirectShow.GuardInterval = 5
+BDA_GUARD_19_128: win32more.Windows.Win32.Media.DirectShow.GuardInterval = 6
+BDA_GUARD_19_256: win32more.Windows.Win32.Media.DirectShow.GuardInterval = 7
+BDA_GUARD_MAX: win32more.Windows.Win32.Media.DirectShow.GuardInterval = 8
 class HEAACWAVEFORMAT(EasyCastStructure):
     wfInfo: win32more.Windows.Win32.Media.DirectShow.HEAACWAVEINFO
     pbAudioSpecificConfig: Byte * 1
@@ -2559,12 +2558,12 @@ class HEAACWAVEINFO(EasyCastStructure):
     dwReserved2: UInt32
     _pack_ = 1
 HierarchyAlpha = Int32
-BDA_HALPHA_NOT_SET: HierarchyAlpha = -1
-BDA_HALPHA_NOT_DEFINED: HierarchyAlpha = 0
-BDA_HALPHA_1: HierarchyAlpha = 1
-BDA_HALPHA_2: HierarchyAlpha = 2
-BDA_HALPHA_4: HierarchyAlpha = 3
-BDA_HALPHA_MAX: HierarchyAlpha = 4
+BDA_HALPHA_NOT_SET: win32more.Windows.Win32.Media.DirectShow.HierarchyAlpha = -1
+BDA_HALPHA_NOT_DEFINED: win32more.Windows.Win32.Media.DirectShow.HierarchyAlpha = 0
+BDA_HALPHA_1: win32more.Windows.Win32.Media.DirectShow.HierarchyAlpha = 1
+BDA_HALPHA_2: win32more.Windows.Win32.Media.DirectShow.HierarchyAlpha = 2
+BDA_HALPHA_4: win32more.Windows.Win32.Media.DirectShow.HierarchyAlpha = 3
+BDA_HALPHA_MAX: win32more.Windows.Win32.Media.DirectShow.HierarchyAlpha = 4
 class IAMAnalogVideoDecoder(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{c6e13350-30ac-11d0-a18c-00a0c9118956}')
@@ -5096,12 +5095,12 @@ class IEnumStreamIdMap(ComPtr):
     @commethod(6)
     def Clone(self, ppIEnumStreamIdMap: POINTER(win32more.Windows.Win32.Media.DirectShow.IEnumStreamIdMap)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 IFILTERMAPPER_MERIT = Int32
-MERIT_PREFERRED: IFILTERMAPPER_MERIT = 8388608
-MERIT_NORMAL: IFILTERMAPPER_MERIT = 6291456
-MERIT_UNLIKELY: IFILTERMAPPER_MERIT = 4194304
-MERIT_DO_NOT_USE: IFILTERMAPPER_MERIT = 2097152
-MERIT_SW_COMPRESSOR: IFILTERMAPPER_MERIT = 1048576
-MERIT_HW_COMPRESSOR: IFILTERMAPPER_MERIT = 1048656
+MERIT_PREFERRED: win32more.Windows.Win32.Media.DirectShow.IFILTERMAPPER_MERIT = 8388608
+MERIT_NORMAL: win32more.Windows.Win32.Media.DirectShow.IFILTERMAPPER_MERIT = 6291456
+MERIT_UNLIKELY: win32more.Windows.Win32.Media.DirectShow.IFILTERMAPPER_MERIT = 4194304
+MERIT_DO_NOT_USE: win32more.Windows.Win32.Media.DirectShow.IFILTERMAPPER_MERIT = 2097152
+MERIT_SW_COMPRESSOR: win32more.Windows.Win32.Media.DirectShow.IFILTERMAPPER_MERIT = 1048576
+MERIT_HW_COMPRESSOR: win32more.Windows.Win32.Media.DirectShow.IFILTERMAPPER_MERIT = 1048656
 class IFileSinkFilter(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{a2104830-7c70-11cf-8bce-00aa00a3f1a6}')
@@ -5980,8 +5979,8 @@ class IResourceManager(ComPtr):
     @commethod(10)
     def ReleaseFocus(self, pFocusObject: win32more.Windows.Win32.System.Com.IUnknown) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 ISDBCAS_REQUEST_ID = Int32
-ISDBCAS_REQUEST_ID_EMG: ISDBCAS_REQUEST_ID = 56
-ISDBCAS_REQUEST_ID_EMD: ISDBCAS_REQUEST_ID = 58
+ISDBCAS_REQUEST_ID_EMG: win32more.Windows.Win32.Media.DirectShow.ISDBCAS_REQUEST_ID = 56
+ISDBCAS_REQUEST_ID_EMD: win32more.Windows.Win32.Media.DirectShow.ISDBCAS_REQUEST_ID = 58
 class ISeekingPassThru(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{36b73883-c2c8-11cf-8b46-00805f6cef60}')
@@ -6674,14 +6673,14 @@ class IWMCodecVideoAccelerator(ComPtr):
     @commethod(4)
     def SetPlayerNotify(self, pHook: win32more.Windows.Win32.Media.WindowsMediaFormat.IWMPlayerTimestampHook) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 InterleavingMode = Int32
-INTERLEAVE_NONE: InterleavingMode = 0
-INTERLEAVE_CAPTURE: InterleavingMode = 1
-INTERLEAVE_FULL: InterleavingMode = 2
-INTERLEAVE_NONE_BUFFERED: InterleavingMode = 3
+INTERLEAVE_NONE: win32more.Windows.Win32.Media.DirectShow.InterleavingMode = 0
+INTERLEAVE_CAPTURE: win32more.Windows.Win32.Media.DirectShow.InterleavingMode = 1
+INTERLEAVE_FULL: win32more.Windows.Win32.Media.DirectShow.InterleavingMode = 2
+INTERLEAVE_NONE_BUFFERED: win32more.Windows.Win32.Media.DirectShow.InterleavingMode = 3
 KSPROPERTY_IPSINK = Int32
-KSPROPERTY_IPSINK_MULTICASTLIST: KSPROPERTY_IPSINK = 0
-KSPROPERTY_IPSINK_ADAPTER_DESCRIPTION: KSPROPERTY_IPSINK = 1
-KSPROPERTY_IPSINK_ADAPTER_ADDRESS: KSPROPERTY_IPSINK = 2
+KSPROPERTY_IPSINK_MULTICASTLIST: win32more.Windows.Win32.Media.DirectShow.KSPROPERTY_IPSINK = 0
+KSPROPERTY_IPSINK_ADAPTER_DESCRIPTION: win32more.Windows.Win32.Media.DirectShow.KSPROPERTY_IPSINK = 1
+KSPROPERTY_IPSINK_ADAPTER_ADDRESS: win32more.Windows.Win32.Media.DirectShow.KSPROPERTY_IPSINK = 2
 class KS_BDA_FRAME_INFO(EasyCastStructure):
     ExtendedHeaderSize: UInt32
     dwFrameFlags: UInt32
@@ -6690,24 +6689,24 @@ class KS_BDA_FRAME_INFO(EasyCastStructure):
     ulSubchannelNumber: UInt32
     ulReason: UInt32
 LNB_Source = Int32
-BDA_LNB_SOURCE_NOT_SET: LNB_Source = -1
-BDA_LNB_SOURCE_NOT_DEFINED: LNB_Source = 0
-BDA_LNB_SOURCE_A: LNB_Source = 1
-BDA_LNB_SOURCE_B: LNB_Source = 2
-BDA_LNB_SOURCE_C: LNB_Source = 3
-BDA_LNB_SOURCE_D: LNB_Source = 4
-BDA_LNB_SOURCE_MAX: LNB_Source = 5
+BDA_LNB_SOURCE_NOT_SET: win32more.Windows.Win32.Media.DirectShow.LNB_Source = -1
+BDA_LNB_SOURCE_NOT_DEFINED: win32more.Windows.Win32.Media.DirectShow.LNB_Source = 0
+BDA_LNB_SOURCE_A: win32more.Windows.Win32.Media.DirectShow.LNB_Source = 1
+BDA_LNB_SOURCE_B: win32more.Windows.Win32.Media.DirectShow.LNB_Source = 2
+BDA_LNB_SOURCE_C: win32more.Windows.Win32.Media.DirectShow.LNB_Source = 3
+BDA_LNB_SOURCE_D: win32more.Windows.Win32.Media.DirectShow.LNB_Source = 4
+BDA_LNB_SOURCE_MAX: win32more.Windows.Win32.Media.DirectShow.LNB_Source = 5
 LocationCodeSchemeType = Int32
-SCTE_18: LocationCodeSchemeType = 0
+SCTE_18: win32more.Windows.Win32.Media.DirectShow.LocationCodeSchemeType = 0
 MEDIA_SAMPLE_CONTENT = Int32
-MEDIA_TRANSPORT_PACKET: MEDIA_SAMPLE_CONTENT = 0
-MEDIA_ELEMENTARY_STREAM: MEDIA_SAMPLE_CONTENT = 1
-MEDIA_MPEG2_PSI: MEDIA_SAMPLE_CONTENT = 2
-MEDIA_TRANSPORT_PAYLOAD: MEDIA_SAMPLE_CONTENT = 3
+MEDIA_TRANSPORT_PACKET: win32more.Windows.Win32.Media.DirectShow.MEDIA_SAMPLE_CONTENT = 0
+MEDIA_ELEMENTARY_STREAM: win32more.Windows.Win32.Media.DirectShow.MEDIA_SAMPLE_CONTENT = 1
+MEDIA_MPEG2_PSI: win32more.Windows.Win32.Media.DirectShow.MEDIA_SAMPLE_CONTENT = 2
+MEDIA_TRANSPORT_PAYLOAD: win32more.Windows.Win32.Media.DirectShow.MEDIA_SAMPLE_CONTENT = 3
 MMSSF_GET_INFORMATION_FLAGS = Int32
-MMSSF_HASCLOCK: MMSSF_GET_INFORMATION_FLAGS = 1
-MMSSF_SUPPORTSEEK: MMSSF_GET_INFORMATION_FLAGS = 2
-MMSSF_ASYNCHRONOUS: MMSSF_GET_INFORMATION_FLAGS = 4
+MMSSF_HASCLOCK: win32more.Windows.Win32.Media.DirectShow.MMSSF_GET_INFORMATION_FLAGS = 1
+MMSSF_SUPPORTSEEK: win32more.Windows.Win32.Media.DirectShow.MMSSF_GET_INFORMATION_FLAGS = 2
+MMSSF_ASYNCHRONOUS: win32more.Windows.Win32.Media.DirectShow.MMSSF_GET_INFORMATION_FLAGS = 4
 class MPEG1WAVEFORMAT(EasyCastStructure):
     wfx: win32more.Windows.Win32.Media.Audio.WAVEFORMATEX
     fwHeadLayer: UInt16
@@ -6720,42 +6719,42 @@ class MPEG1WAVEFORMAT(EasyCastStructure):
     dwPTSHigh: UInt32
     _pack_ = 1
 MPEG2StreamType = Int32
-MPEG2StreamType_BDA_UNITIALIZED_MPEG2STREAMTYPE: MPEG2StreamType = -1
-MPEG2StreamType_Reserved1: MPEG2StreamType = 0
-MPEG2StreamType_ISO_IEC_11172_2_VIDEO: MPEG2StreamType = 1
-MPEG2StreamType_ISO_IEC_13818_2_VIDEO: MPEG2StreamType = 2
-MPEG2StreamType_ISO_IEC_11172_3_AUDIO: MPEG2StreamType = 3
-MPEG2StreamType_ISO_IEC_13818_3_AUDIO: MPEG2StreamType = 4
-MPEG2StreamType_ISO_IEC_13818_1_PRIVATE_SECTION: MPEG2StreamType = 5
-MPEG2StreamType_ISO_IEC_13818_1_PES: MPEG2StreamType = 6
-MPEG2StreamType_ISO_IEC_13522_MHEG: MPEG2StreamType = 7
-MPEG2StreamType_ANNEX_A_DSM_CC: MPEG2StreamType = 8
-MPEG2StreamType_ITU_T_REC_H_222_1: MPEG2StreamType = 9
-MPEG2StreamType_ISO_IEC_13818_6_TYPE_A: MPEG2StreamType = 10
-MPEG2StreamType_ISO_IEC_13818_6_TYPE_B: MPEG2StreamType = 11
-MPEG2StreamType_ISO_IEC_13818_6_TYPE_C: MPEG2StreamType = 12
-MPEG2StreamType_ISO_IEC_13818_6_TYPE_D: MPEG2StreamType = 13
-MPEG2StreamType_ISO_IEC_13818_1_AUXILIARY: MPEG2StreamType = 14
-MPEG2StreamType_ISO_IEC_13818_7_AUDIO: MPEG2StreamType = 15
-MPEG2StreamType_ISO_IEC_14496_2_VISUAL: MPEG2StreamType = 16
-MPEG2StreamType_ISO_IEC_14496_3_AUDIO: MPEG2StreamType = 17
-MPEG2StreamType_ISO_IEC_14496_1_IN_PES: MPEG2StreamType = 18
-MPEG2StreamType_ISO_IEC_14496_1_IN_SECTION: MPEG2StreamType = 19
-MPEG2StreamType_ISO_IEC_13818_6_DOWNLOAD: MPEG2StreamType = 20
-MPEG2StreamType_METADATA_IN_PES: MPEG2StreamType = 21
-MPEG2StreamType_METADATA_IN_SECTION: MPEG2StreamType = 22
-MPEG2StreamType_METADATA_IN_DATA_CAROUSEL: MPEG2StreamType = 23
-MPEG2StreamType_METADATA_IN_OBJECT_CAROUSEL: MPEG2StreamType = 24
-MPEG2StreamType_METADATA_IN_DOWNLOAD_PROTOCOL: MPEG2StreamType = 25
-MPEG2StreamType_IRPM_STREAMM: MPEG2StreamType = 26
-MPEG2StreamType_ITU_T_H264: MPEG2StreamType = 27
-MPEG2StreamType_ISO_IEC_13818_1_RESERVED: MPEG2StreamType = 28
-MPEG2StreamType_USER_PRIVATE: MPEG2StreamType = 16
-MPEG2StreamType_HEVC_VIDEO_OR_TEMPORAL_VIDEO: MPEG2StreamType = 36
-MPEG2StreamType_HEVC_TEMPORAL_VIDEO_SUBSET: MPEG2StreamType = 37
-MPEG2StreamType_ISO_IEC_USER_PRIVATE: MPEG2StreamType = 128
-MPEG2StreamType_DOLBY_AC3_AUDIO: MPEG2StreamType = 129
-MPEG2StreamType_DOLBY_DIGITAL_PLUS_AUDIO_ATSC: MPEG2StreamType = 135
+MPEG2StreamType_BDA_UNITIALIZED_MPEG2STREAMTYPE: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = -1
+MPEG2StreamType_Reserved1: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 0
+MPEG2StreamType_ISO_IEC_11172_2_VIDEO: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 1
+MPEG2StreamType_ISO_IEC_13818_2_VIDEO: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 2
+MPEG2StreamType_ISO_IEC_11172_3_AUDIO: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 3
+MPEG2StreamType_ISO_IEC_13818_3_AUDIO: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 4
+MPEG2StreamType_ISO_IEC_13818_1_PRIVATE_SECTION: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 5
+MPEG2StreamType_ISO_IEC_13818_1_PES: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 6
+MPEG2StreamType_ISO_IEC_13522_MHEG: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 7
+MPEG2StreamType_ANNEX_A_DSM_CC: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 8
+MPEG2StreamType_ITU_T_REC_H_222_1: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 9
+MPEG2StreamType_ISO_IEC_13818_6_TYPE_A: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 10
+MPEG2StreamType_ISO_IEC_13818_6_TYPE_B: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 11
+MPEG2StreamType_ISO_IEC_13818_6_TYPE_C: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 12
+MPEG2StreamType_ISO_IEC_13818_6_TYPE_D: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 13
+MPEG2StreamType_ISO_IEC_13818_1_AUXILIARY: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 14
+MPEG2StreamType_ISO_IEC_13818_7_AUDIO: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 15
+MPEG2StreamType_ISO_IEC_14496_2_VISUAL: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 16
+MPEG2StreamType_ISO_IEC_14496_3_AUDIO: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 17
+MPEG2StreamType_ISO_IEC_14496_1_IN_PES: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 18
+MPEG2StreamType_ISO_IEC_14496_1_IN_SECTION: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 19
+MPEG2StreamType_ISO_IEC_13818_6_DOWNLOAD: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 20
+MPEG2StreamType_METADATA_IN_PES: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 21
+MPEG2StreamType_METADATA_IN_SECTION: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 22
+MPEG2StreamType_METADATA_IN_DATA_CAROUSEL: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 23
+MPEG2StreamType_METADATA_IN_OBJECT_CAROUSEL: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 24
+MPEG2StreamType_METADATA_IN_DOWNLOAD_PROTOCOL: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 25
+MPEG2StreamType_IRPM_STREAMM: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 26
+MPEG2StreamType_ITU_T_H264: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 27
+MPEG2StreamType_ISO_IEC_13818_1_RESERVED: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 28
+MPEG2StreamType_USER_PRIVATE: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 16
+MPEG2StreamType_HEVC_VIDEO_OR_TEMPORAL_VIDEO: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 36
+MPEG2StreamType_HEVC_TEMPORAL_VIDEO_SUBSET: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 37
+MPEG2StreamType_ISO_IEC_USER_PRIVATE: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 128
+MPEG2StreamType_DOLBY_AC3_AUDIO: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 129
+MPEG2StreamType_DOLBY_DIGITAL_PLUS_AUDIO_ATSC: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 135
 class MPEG2_TRANSPORT_STRIDE(EasyCastStructure):
     dwOffset: UInt32
     dwPacketLength: UInt32
@@ -6769,15 +6768,15 @@ class MPEGLAYER3WAVEFORMAT(EasyCastStructure):
     nCodecDelay: UInt16
     _pack_ = 1
 MPEGLAYER3WAVEFORMAT_FLAGS = UInt32
-MPEGLAYER3_FLAG_PADDING_ISO: MPEGLAYER3WAVEFORMAT_FLAGS = 0
-MPEGLAYER3_FLAG_PADDING_ON: MPEGLAYER3WAVEFORMAT_FLAGS = 1
-MPEGLAYER3_FLAG_PADDING_OFF: MPEGLAYER3WAVEFORMAT_FLAGS = 2
+MPEGLAYER3_FLAG_PADDING_ISO: win32more.Windows.Win32.Media.DirectShow.MPEGLAYER3WAVEFORMAT_FLAGS = 0
+MPEGLAYER3_FLAG_PADDING_ON: win32more.Windows.Win32.Media.DirectShow.MPEGLAYER3WAVEFORMAT_FLAGS = 1
+MPEGLAYER3_FLAG_PADDING_OFF: win32more.Windows.Win32.Media.DirectShow.MPEGLAYER3WAVEFORMAT_FLAGS = 2
 MP_CURVE_TYPE = Int32
-MP_CURVE_JUMP: MP_CURVE_TYPE = 1
-MP_CURVE_LINEAR: MP_CURVE_TYPE = 2
-MP_CURVE_SQUARE: MP_CURVE_TYPE = 4
-MP_CURVE_INVSQUARE: MP_CURVE_TYPE = 8
-MP_CURVE_SINE: MP_CURVE_TYPE = 16
+MP_CURVE_JUMP: win32more.Windows.Win32.Media.DirectShow.MP_CURVE_TYPE = 1
+MP_CURVE_LINEAR: win32more.Windows.Win32.Media.DirectShow.MP_CURVE_TYPE = 2
+MP_CURVE_SQUARE: win32more.Windows.Win32.Media.DirectShow.MP_CURVE_TYPE = 4
+MP_CURVE_INVSQUARE: win32more.Windows.Win32.Media.DirectShow.MP_CURVE_TYPE = 8
+MP_CURVE_SINE: win32more.Windows.Win32.Media.DirectShow.MP_CURVE_TYPE = 16
 class MP_ENVELOPE_SEGMENT(EasyCastStructure):
     rtStart: Int64
     rtEnd: Int64
@@ -6794,15 +6793,15 @@ class MP_PARAMINFO(EasyCastStructure):
     szUnitText: Char * 32
     szLabel: Char * 32
 MP_TYPE = Int32
-MPT_INT: MP_TYPE = 0
-MPT_FLOAT: MP_TYPE = 1
-MPT_BOOL: MP_TYPE = 2
-MPT_ENUM: MP_TYPE = 3
-MPT_MAX: MP_TYPE = 4
+MPT_INT: win32more.Windows.Win32.Media.DirectShow.MP_TYPE = 0
+MPT_FLOAT: win32more.Windows.Win32.Media.DirectShow.MP_TYPE = 1
+MPT_BOOL: win32more.Windows.Win32.Media.DirectShow.MP_TYPE = 2
+MPT_ENUM: win32more.Windows.Win32.Media.DirectShow.MP_TYPE = 3
+MPT_MAX: win32more.Windows.Win32.Media.DirectShow.MP_TYPE = 4
 MUX_PID_TYPE = Int32
-PID_OTHER: MUX_PID_TYPE = -1
-PID_ELEMENTARY_STREAM: MUX_PID_TYPE = 0
-PID_MPEG2_SECTION_PSI_SI: MUX_PID_TYPE = 1
+PID_OTHER: win32more.Windows.Win32.Media.DirectShow.MUX_PID_TYPE = -1
+PID_ELEMENTARY_STREAM: win32more.Windows.Win32.Media.DirectShow.MUX_PID_TYPE = 0
+PID_MPEG2_SECTION_PSI_SI: win32more.Windows.Win32.Media.DirectShow.MUX_PID_TYPE = 1
 class MainAVIHeader(EasyCastStructure):
     dwMicroSecPerFrame: UInt32
     dwMaxBytesPerSec: UInt32
@@ -6816,56 +6815,56 @@ class MainAVIHeader(EasyCastStructure):
     dwHeight: UInt32
     dwReserved: UInt32 * 4
 ModulationType = Int32
-BDA_MOD_NOT_SET: ModulationType = -1
-BDA_MOD_NOT_DEFINED: ModulationType = 0
-BDA_MOD_16QAM: ModulationType = 1
-BDA_MOD_32QAM: ModulationType = 2
-BDA_MOD_64QAM: ModulationType = 3
-BDA_MOD_80QAM: ModulationType = 4
-BDA_MOD_96QAM: ModulationType = 5
-BDA_MOD_112QAM: ModulationType = 6
-BDA_MOD_128QAM: ModulationType = 7
-BDA_MOD_160QAM: ModulationType = 8
-BDA_MOD_192QAM: ModulationType = 9
-BDA_MOD_224QAM: ModulationType = 10
-BDA_MOD_256QAM: ModulationType = 11
-BDA_MOD_320QAM: ModulationType = 12
-BDA_MOD_384QAM: ModulationType = 13
-BDA_MOD_448QAM: ModulationType = 14
-BDA_MOD_512QAM: ModulationType = 15
-BDA_MOD_640QAM: ModulationType = 16
-BDA_MOD_768QAM: ModulationType = 17
-BDA_MOD_896QAM: ModulationType = 18
-BDA_MOD_1024QAM: ModulationType = 19
-BDA_MOD_QPSK: ModulationType = 20
-BDA_MOD_BPSK: ModulationType = 21
-BDA_MOD_OQPSK: ModulationType = 22
-BDA_MOD_8VSB: ModulationType = 23
-BDA_MOD_16VSB: ModulationType = 24
-BDA_MOD_ANALOG_AMPLITUDE: ModulationType = 25
-BDA_MOD_ANALOG_FREQUENCY: ModulationType = 26
-BDA_MOD_8PSK: ModulationType = 27
-BDA_MOD_RF: ModulationType = 28
-BDA_MOD_16APSK: ModulationType = 29
-BDA_MOD_32APSK: ModulationType = 30
-BDA_MOD_NBC_QPSK: ModulationType = 31
-BDA_MOD_NBC_8PSK: ModulationType = 32
-BDA_MOD_DIRECTV: ModulationType = 33
-BDA_MOD_ISDB_T_TMCC: ModulationType = 34
-BDA_MOD_ISDB_S_TMCC: ModulationType = 35
-BDA_MOD_MAX: ModulationType = 36
+BDA_MOD_NOT_SET: win32more.Windows.Win32.Media.DirectShow.ModulationType = -1
+BDA_MOD_NOT_DEFINED: win32more.Windows.Win32.Media.DirectShow.ModulationType = 0
+BDA_MOD_16QAM: win32more.Windows.Win32.Media.DirectShow.ModulationType = 1
+BDA_MOD_32QAM: win32more.Windows.Win32.Media.DirectShow.ModulationType = 2
+BDA_MOD_64QAM: win32more.Windows.Win32.Media.DirectShow.ModulationType = 3
+BDA_MOD_80QAM: win32more.Windows.Win32.Media.DirectShow.ModulationType = 4
+BDA_MOD_96QAM: win32more.Windows.Win32.Media.DirectShow.ModulationType = 5
+BDA_MOD_112QAM: win32more.Windows.Win32.Media.DirectShow.ModulationType = 6
+BDA_MOD_128QAM: win32more.Windows.Win32.Media.DirectShow.ModulationType = 7
+BDA_MOD_160QAM: win32more.Windows.Win32.Media.DirectShow.ModulationType = 8
+BDA_MOD_192QAM: win32more.Windows.Win32.Media.DirectShow.ModulationType = 9
+BDA_MOD_224QAM: win32more.Windows.Win32.Media.DirectShow.ModulationType = 10
+BDA_MOD_256QAM: win32more.Windows.Win32.Media.DirectShow.ModulationType = 11
+BDA_MOD_320QAM: win32more.Windows.Win32.Media.DirectShow.ModulationType = 12
+BDA_MOD_384QAM: win32more.Windows.Win32.Media.DirectShow.ModulationType = 13
+BDA_MOD_448QAM: win32more.Windows.Win32.Media.DirectShow.ModulationType = 14
+BDA_MOD_512QAM: win32more.Windows.Win32.Media.DirectShow.ModulationType = 15
+BDA_MOD_640QAM: win32more.Windows.Win32.Media.DirectShow.ModulationType = 16
+BDA_MOD_768QAM: win32more.Windows.Win32.Media.DirectShow.ModulationType = 17
+BDA_MOD_896QAM: win32more.Windows.Win32.Media.DirectShow.ModulationType = 18
+BDA_MOD_1024QAM: win32more.Windows.Win32.Media.DirectShow.ModulationType = 19
+BDA_MOD_QPSK: win32more.Windows.Win32.Media.DirectShow.ModulationType = 20
+BDA_MOD_BPSK: win32more.Windows.Win32.Media.DirectShow.ModulationType = 21
+BDA_MOD_OQPSK: win32more.Windows.Win32.Media.DirectShow.ModulationType = 22
+BDA_MOD_8VSB: win32more.Windows.Win32.Media.DirectShow.ModulationType = 23
+BDA_MOD_16VSB: win32more.Windows.Win32.Media.DirectShow.ModulationType = 24
+BDA_MOD_ANALOG_AMPLITUDE: win32more.Windows.Win32.Media.DirectShow.ModulationType = 25
+BDA_MOD_ANALOG_FREQUENCY: win32more.Windows.Win32.Media.DirectShow.ModulationType = 26
+BDA_MOD_8PSK: win32more.Windows.Win32.Media.DirectShow.ModulationType = 27
+BDA_MOD_RF: win32more.Windows.Win32.Media.DirectShow.ModulationType = 28
+BDA_MOD_16APSK: win32more.Windows.Win32.Media.DirectShow.ModulationType = 29
+BDA_MOD_32APSK: win32more.Windows.Win32.Media.DirectShow.ModulationType = 30
+BDA_MOD_NBC_QPSK: win32more.Windows.Win32.Media.DirectShow.ModulationType = 31
+BDA_MOD_NBC_8PSK: win32more.Windows.Win32.Media.DirectShow.ModulationType = 32
+BDA_MOD_DIRECTV: win32more.Windows.Win32.Media.DirectShow.ModulationType = 33
+BDA_MOD_ISDB_T_TMCC: win32more.Windows.Win32.Media.DirectShow.ModulationType = 34
+BDA_MOD_ISDB_S_TMCC: win32more.Windows.Win32.Media.DirectShow.ModulationType = 35
+BDA_MOD_MAX: win32more.Windows.Win32.Media.DirectShow.ModulationType = 36
 class NORMALIZEDRECT(EasyCastStructure):
     left: Single
     top: Single
     right: Single
     bottom: Single
 OA_BOOL = Int32
-OATRUE: OA_BOOL = -1
-OAFALSE: OA_BOOL = 0
+OATRUE: win32more.Windows.Win32.Media.DirectShow.OA_BOOL = -1
+OAFALSE: win32more.Windows.Win32.Media.DirectShow.OA_BOOL = 0
 OUTPUT_STATE = Int32
-OUTPUT_STATE_Disabled: OUTPUT_STATE = 0
-OUTPUT_STATE_ReadData: OUTPUT_STATE = 1
-OUTPUT_STATE_RenderData: OUTPUT_STATE = 2
+OUTPUT_STATE_Disabled: win32more.Windows.Win32.Media.DirectShow.OUTPUT_STATE = 0
+OUTPUT_STATE_ReadData: win32more.Windows.Win32.Media.DirectShow.OUTPUT_STATE = 1
+OUTPUT_STATE_RenderData: win32more.Windows.Win32.Media.DirectShow.OUTPUT_STATE = 2
 @winfunctype_pointer
 def PDXVA2SW_CREATEVIDEOPROCESSDEVICE(pD3DD9: win32more.Windows.Win32.Graphics.Direct3D9.IDirect3DDevice9, pVideoDesc: POINTER(win32more.Windows.Win32.Media.MediaFoundation.DXVA2_VideoDesc), RenderTargetFormat: win32more.Windows.Win32.Graphics.Direct3D9.D3DFORMAT, MaxSubStreams: UInt32, phDevice: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
@@ -6896,60 +6895,60 @@ class PID_MAP(EasyCastStructure):
     ulPID: UInt32
     MediaSampleContent: win32more.Windows.Win32.Media.DirectShow.MEDIA_SAMPLE_CONTENT
 PIN_DIRECTION = Int32
-PINDIR_INPUT: PIN_DIRECTION = 0
-PINDIR_OUTPUT: PIN_DIRECTION = 1
+PINDIR_INPUT: win32more.Windows.Win32.Media.DirectShow.PIN_DIRECTION = 0
+PINDIR_OUTPUT: win32more.Windows.Win32.Media.DirectShow.PIN_DIRECTION = 1
 class PIN_INFO(EasyCastStructure):
     pFilter: win32more.Windows.Win32.Media.DirectShow.IBaseFilter
     dir: win32more.Windows.Win32.Media.DirectShow.PIN_DIRECTION
     achName: Char * 128
 PhysicalConnectorType = Int32
-PhysConn_Video_Tuner: PhysicalConnectorType = 1
-PhysConn_Video_Composite: PhysicalConnectorType = 2
-PhysConn_Video_SVideo: PhysicalConnectorType = 3
-PhysConn_Video_RGB: PhysicalConnectorType = 4
-PhysConn_Video_YRYBY: PhysicalConnectorType = 5
-PhysConn_Video_SerialDigital: PhysicalConnectorType = 6
-PhysConn_Video_ParallelDigital: PhysicalConnectorType = 7
-PhysConn_Video_SCSI: PhysicalConnectorType = 8
-PhysConn_Video_AUX: PhysicalConnectorType = 9
-PhysConn_Video_1394: PhysicalConnectorType = 10
-PhysConn_Video_USB: PhysicalConnectorType = 11
-PhysConn_Video_VideoDecoder: PhysicalConnectorType = 12
-PhysConn_Video_VideoEncoder: PhysicalConnectorType = 13
-PhysConn_Video_SCART: PhysicalConnectorType = 14
-PhysConn_Video_Black: PhysicalConnectorType = 15
-PhysConn_Audio_Tuner: PhysicalConnectorType = 4096
-PhysConn_Audio_Line: PhysicalConnectorType = 4097
-PhysConn_Audio_Mic: PhysicalConnectorType = 4098
-PhysConn_Audio_AESDigital: PhysicalConnectorType = 4099
-PhysConn_Audio_SPDIFDigital: PhysicalConnectorType = 4100
-PhysConn_Audio_SCSI: PhysicalConnectorType = 4101
-PhysConn_Audio_AUX: PhysicalConnectorType = 4102
-PhysConn_Audio_1394: PhysicalConnectorType = 4103
-PhysConn_Audio_USB: PhysicalConnectorType = 4104
-PhysConn_Audio_AudioDecoder: PhysicalConnectorType = 4105
+PhysConn_Video_Tuner: win32more.Windows.Win32.Media.DirectShow.PhysicalConnectorType = 1
+PhysConn_Video_Composite: win32more.Windows.Win32.Media.DirectShow.PhysicalConnectorType = 2
+PhysConn_Video_SVideo: win32more.Windows.Win32.Media.DirectShow.PhysicalConnectorType = 3
+PhysConn_Video_RGB: win32more.Windows.Win32.Media.DirectShow.PhysicalConnectorType = 4
+PhysConn_Video_YRYBY: win32more.Windows.Win32.Media.DirectShow.PhysicalConnectorType = 5
+PhysConn_Video_SerialDigital: win32more.Windows.Win32.Media.DirectShow.PhysicalConnectorType = 6
+PhysConn_Video_ParallelDigital: win32more.Windows.Win32.Media.DirectShow.PhysicalConnectorType = 7
+PhysConn_Video_SCSI: win32more.Windows.Win32.Media.DirectShow.PhysicalConnectorType = 8
+PhysConn_Video_AUX: win32more.Windows.Win32.Media.DirectShow.PhysicalConnectorType = 9
+PhysConn_Video_1394: win32more.Windows.Win32.Media.DirectShow.PhysicalConnectorType = 10
+PhysConn_Video_USB: win32more.Windows.Win32.Media.DirectShow.PhysicalConnectorType = 11
+PhysConn_Video_VideoDecoder: win32more.Windows.Win32.Media.DirectShow.PhysicalConnectorType = 12
+PhysConn_Video_VideoEncoder: win32more.Windows.Win32.Media.DirectShow.PhysicalConnectorType = 13
+PhysConn_Video_SCART: win32more.Windows.Win32.Media.DirectShow.PhysicalConnectorType = 14
+PhysConn_Video_Black: win32more.Windows.Win32.Media.DirectShow.PhysicalConnectorType = 15
+PhysConn_Audio_Tuner: win32more.Windows.Win32.Media.DirectShow.PhysicalConnectorType = 4096
+PhysConn_Audio_Line: win32more.Windows.Win32.Media.DirectShow.PhysicalConnectorType = 4097
+PhysConn_Audio_Mic: win32more.Windows.Win32.Media.DirectShow.PhysicalConnectorType = 4098
+PhysConn_Audio_AESDigital: win32more.Windows.Win32.Media.DirectShow.PhysicalConnectorType = 4099
+PhysConn_Audio_SPDIFDigital: win32more.Windows.Win32.Media.DirectShow.PhysicalConnectorType = 4100
+PhysConn_Audio_SCSI: win32more.Windows.Win32.Media.DirectShow.PhysicalConnectorType = 4101
+PhysConn_Audio_AUX: win32more.Windows.Win32.Media.DirectShow.PhysicalConnectorType = 4102
+PhysConn_Audio_1394: win32more.Windows.Win32.Media.DirectShow.PhysicalConnectorType = 4103
+PhysConn_Audio_USB: win32more.Windows.Win32.Media.DirectShow.PhysicalConnectorType = 4104
+PhysConn_Audio_AudioDecoder: win32more.Windows.Win32.Media.DirectShow.PhysicalConnectorType = 4105
 Pilot = Int32
-BDA_PILOT_NOT_SET: Pilot = -1
-BDA_PILOT_NOT_DEFINED: Pilot = 0
-BDA_PILOT_OFF: Pilot = 1
-BDA_PILOT_ON: Pilot = 2
-BDA_PILOT_MAX: Pilot = 3
+BDA_PILOT_NOT_SET: win32more.Windows.Win32.Media.DirectShow.Pilot = -1
+BDA_PILOT_NOT_DEFINED: win32more.Windows.Win32.Media.DirectShow.Pilot = 0
+BDA_PILOT_OFF: win32more.Windows.Win32.Media.DirectShow.Pilot = 1
+BDA_PILOT_ON: win32more.Windows.Win32.Media.DirectShow.Pilot = 2
+BDA_PILOT_MAX: win32more.Windows.Win32.Media.DirectShow.Pilot = 3
 Polarisation = Int32
-BDA_POLARISATION_NOT_SET: Polarisation = -1
-BDA_POLARISATION_NOT_DEFINED: Polarisation = 0
-BDA_POLARISATION_LINEAR_H: Polarisation = 1
-BDA_POLARISATION_LINEAR_V: Polarisation = 2
-BDA_POLARISATION_CIRCULAR_L: Polarisation = 3
-BDA_POLARISATION_CIRCULAR_R: Polarisation = 4
-BDA_POLARISATION_MAX: Polarisation = 5
+BDA_POLARISATION_NOT_SET: win32more.Windows.Win32.Media.DirectShow.Polarisation = -1
+BDA_POLARISATION_NOT_DEFINED: win32more.Windows.Win32.Media.DirectShow.Polarisation = 0
+BDA_POLARISATION_LINEAR_H: win32more.Windows.Win32.Media.DirectShow.Polarisation = 1
+BDA_POLARISATION_LINEAR_V: win32more.Windows.Win32.Media.DirectShow.Polarisation = 2
+BDA_POLARISATION_CIRCULAR_L: win32more.Windows.Win32.Media.DirectShow.Polarisation = 3
+BDA_POLARISATION_CIRCULAR_R: win32more.Windows.Win32.Media.DirectShow.Polarisation = 4
+BDA_POLARISATION_MAX: win32more.Windows.Win32.Media.DirectShow.Polarisation = 5
 class Quality(EasyCastStructure):
     Type: win32more.Windows.Win32.Media.DirectShow.QualityMessageType
     Proportion: Int32
     Late: Int64
     TimeStamp: Int64
 QualityMessageType = Int32
-QualityMessageType_Famine: QualityMessageType = 0
-QualityMessageType_Flood: QualityMessageType = 1
+QualityMessageType_Famine: win32more.Windows.Win32.Media.DirectShow.QualityMessageType = 0
+QualityMessageType_Flood: win32more.Windows.Win32.Media.DirectShow.QualityMessageType = 1
 class REGFILTER(EasyCastStructure):
     Clsid: Guid
     Name: win32more.Windows.Win32.Foundation.PWSTR
@@ -6992,10 +6991,10 @@ class REGPINTYPES(EasyCastStructure):
     clsMajorType: POINTER(Guid)
     clsMinorType: POINTER(Guid)
 REG_PINFLAG = Int32
-REG_PINFLAG_B_ZERO: REG_PINFLAG = 1
-REG_PINFLAG_B_RENDERER: REG_PINFLAG = 2
-REG_PINFLAG_B_MANY: REG_PINFLAG = 4
-REG_PINFLAG_B_OUTPUT: REG_PINFLAG = 8
+REG_PINFLAG_B_ZERO: win32more.Windows.Win32.Media.DirectShow.REG_PINFLAG = 1
+REG_PINFLAG_B_RENDERER: win32more.Windows.Win32.Media.DirectShow.REG_PINFLAG = 2
+REG_PINFLAG_B_MANY: win32more.Windows.Win32.Media.DirectShow.REG_PINFLAG = 4
+REG_PINFLAG_B_OUTPUT: win32more.Windows.Win32.Media.DirectShow.REG_PINFLAG = 8
 class RIFFCHUNK(EasyCastStructure):
     fcc: UInt32
     cb: UInt32
@@ -7006,102 +7005,102 @@ class RIFFLIST(EasyCastStructure):
     fccListType: UInt32
     _pack_ = 2
 RollOff = Int32
-BDA_ROLL_OFF_NOT_SET: RollOff = -1
-BDA_ROLL_OFF_NOT_DEFINED: RollOff = 0
-BDA_ROLL_OFF_20: RollOff = 1
-BDA_ROLL_OFF_25: RollOff = 2
-BDA_ROLL_OFF_35: RollOff = 3
-BDA_ROLL_OFF_MAX: RollOff = 4
+BDA_ROLL_OFF_NOT_SET: win32more.Windows.Win32.Media.DirectShow.RollOff = -1
+BDA_ROLL_OFF_NOT_DEFINED: win32more.Windows.Win32.Media.DirectShow.RollOff = 0
+BDA_ROLL_OFF_20: win32more.Windows.Win32.Media.DirectShow.RollOff = 1
+BDA_ROLL_OFF_25: win32more.Windows.Win32.Media.DirectShow.RollOff = 2
+BDA_ROLL_OFF_35: win32more.Windows.Win32.Media.DirectShow.RollOff = 3
+BDA_ROLL_OFF_MAX: win32more.Windows.Win32.Media.DirectShow.RollOff = 4
 SNDDEV_ERR = Int32
-SNDDEV_ERROR_Open: SNDDEV_ERR = 1
-SNDDEV_ERROR_Close: SNDDEV_ERR = 2
-SNDDEV_ERROR_GetCaps: SNDDEV_ERR = 3
-SNDDEV_ERROR_PrepareHeader: SNDDEV_ERR = 4
-SNDDEV_ERROR_UnprepareHeader: SNDDEV_ERR = 5
-SNDDEV_ERROR_Reset: SNDDEV_ERR = 6
-SNDDEV_ERROR_Restart: SNDDEV_ERR = 7
-SNDDEV_ERROR_GetPosition: SNDDEV_ERR = 8
-SNDDEV_ERROR_Write: SNDDEV_ERR = 9
-SNDDEV_ERROR_Pause: SNDDEV_ERR = 10
-SNDDEV_ERROR_Stop: SNDDEV_ERR = 11
-SNDDEV_ERROR_Start: SNDDEV_ERR = 12
-SNDDEV_ERROR_AddBuffer: SNDDEV_ERR = 13
-SNDDEV_ERROR_Query: SNDDEV_ERR = 14
+SNDDEV_ERROR_Open: win32more.Windows.Win32.Media.DirectShow.SNDDEV_ERR = 1
+SNDDEV_ERROR_Close: win32more.Windows.Win32.Media.DirectShow.SNDDEV_ERR = 2
+SNDDEV_ERROR_GetCaps: win32more.Windows.Win32.Media.DirectShow.SNDDEV_ERR = 3
+SNDDEV_ERROR_PrepareHeader: win32more.Windows.Win32.Media.DirectShow.SNDDEV_ERR = 4
+SNDDEV_ERROR_UnprepareHeader: win32more.Windows.Win32.Media.DirectShow.SNDDEV_ERR = 5
+SNDDEV_ERROR_Reset: win32more.Windows.Win32.Media.DirectShow.SNDDEV_ERR = 6
+SNDDEV_ERROR_Restart: win32more.Windows.Win32.Media.DirectShow.SNDDEV_ERR = 7
+SNDDEV_ERROR_GetPosition: win32more.Windows.Win32.Media.DirectShow.SNDDEV_ERR = 8
+SNDDEV_ERROR_Write: win32more.Windows.Win32.Media.DirectShow.SNDDEV_ERR = 9
+SNDDEV_ERROR_Pause: win32more.Windows.Win32.Media.DirectShow.SNDDEV_ERR = 10
+SNDDEV_ERROR_Stop: win32more.Windows.Win32.Media.DirectShow.SNDDEV_ERR = 11
+SNDDEV_ERROR_Start: win32more.Windows.Win32.Media.DirectShow.SNDDEV_ERR = 12
+SNDDEV_ERROR_AddBuffer: win32more.Windows.Win32.Media.DirectShow.SNDDEV_ERR = 13
+SNDDEV_ERROR_Query: win32more.Windows.Win32.Media.DirectShow.SNDDEV_ERR = 14
 SSUPDATE_TYPE = Int32
-SSUPDATE_ASYNC: SSUPDATE_TYPE = 1
-SSUPDATE_CONTINUOUS: SSUPDATE_TYPE = 2
+SSUPDATE_ASYNC: win32more.Windows.Win32.Media.DirectShow.SSUPDATE_TYPE = 1
+SSUPDATE_CONTINUOUS: win32more.Windows.Win32.Media.DirectShow.SSUPDATE_TYPE = 2
 STREAMIF_CONSTANTS = Int32
-MAX_NUMBER_OF_STREAMS: STREAMIF_CONSTANTS = 16
+MAX_NUMBER_OF_STREAMS: win32more.Windows.Win32.Media.DirectShow.STREAMIF_CONSTANTS = 16
 class STREAM_ID_MAP(EasyCastStructure):
     stream_id: UInt32
     dwMediaSampleContent: UInt32
     ulSubstreamFilterValue: UInt32
     iDataOffset: Int32
 STREAM_STATE = Int32
-STREAMSTATE_STOP: STREAM_STATE = 0
-STREAMSTATE_RUN: STREAM_STATE = 1
+STREAMSTATE_STOP: win32more.Windows.Win32.Media.DirectShow.STREAM_STATE = 0
+STREAMSTATE_RUN: win32more.Windows.Win32.Media.DirectShow.STREAM_STATE = 1
 STREAM_TYPE = Int32
-STREAMTYPE_READ: STREAM_TYPE = 0
-STREAMTYPE_WRITE: STREAM_TYPE = 1
-STREAMTYPE_TRANSFORM: STREAM_TYPE = 2
+STREAMTYPE_READ: win32more.Windows.Win32.Media.DirectShow.STREAM_TYPE = 0
+STREAMTYPE_WRITE: win32more.Windows.Win32.Media.DirectShow.STREAM_TYPE = 1
+STREAMTYPE_TRANSFORM: win32more.Windows.Win32.Media.DirectShow.STREAM_TYPE = 2
 ScanModulationTypes = Int32
-BDA_SCAN_MOD_16QAM: ScanModulationTypes = 1
-BDA_SCAN_MOD_32QAM: ScanModulationTypes = 2
-BDA_SCAN_MOD_64QAM: ScanModulationTypes = 4
-BDA_SCAN_MOD_80QAM: ScanModulationTypes = 8
-BDA_SCAN_MOD_96QAM: ScanModulationTypes = 16
-BDA_SCAN_MOD_112QAM: ScanModulationTypes = 32
-BDA_SCAN_MOD_128QAM: ScanModulationTypes = 64
-BDA_SCAN_MOD_160QAM: ScanModulationTypes = 128
-BDA_SCAN_MOD_192QAM: ScanModulationTypes = 256
-BDA_SCAN_MOD_224QAM: ScanModulationTypes = 512
-BDA_SCAN_MOD_256QAM: ScanModulationTypes = 1024
-BDA_SCAN_MOD_320QAM: ScanModulationTypes = 2048
-BDA_SCAN_MOD_384QAM: ScanModulationTypes = 4096
-BDA_SCAN_MOD_448QAM: ScanModulationTypes = 8192
-BDA_SCAN_MOD_512QAM: ScanModulationTypes = 16384
-BDA_SCAN_MOD_640QAM: ScanModulationTypes = 32768
-BDA_SCAN_MOD_768QAM: ScanModulationTypes = 65536
-BDA_SCAN_MOD_896QAM: ScanModulationTypes = 131072
-BDA_SCAN_MOD_1024QAM: ScanModulationTypes = 262144
-BDA_SCAN_MOD_QPSK: ScanModulationTypes = 524288
-BDA_SCAN_MOD_BPSK: ScanModulationTypes = 1048576
-BDA_SCAN_MOD_OQPSK: ScanModulationTypes = 2097152
-BDA_SCAN_MOD_8VSB: ScanModulationTypes = 4194304
-BDA_SCAN_MOD_16VSB: ScanModulationTypes = 8388608
-BDA_SCAN_MOD_AM_RADIO: ScanModulationTypes = 16777216
-BDA_SCAN_MOD_FM_RADIO: ScanModulationTypes = 33554432
-BDA_SCAN_MOD_8PSK: ScanModulationTypes = 67108864
-BDA_SCAN_MOD_RF: ScanModulationTypes = 134217728
-ScanModulationTypesMask_MCE_DigitalCable: ScanModulationTypes = 11
-ScanModulationTypesMask_MCE_TerrestrialATSC: ScanModulationTypes = 23
-ScanModulationTypesMask_MCE_AnalogTv: ScanModulationTypes = 28
-ScanModulationTypesMask_MCE_All_TV: ScanModulationTypes = -1
-ScanModulationTypesMask_DVBC: ScanModulationTypes = 75
-BDA_SCAN_MOD_16APSK: ScanModulationTypes = 268435456
-BDA_SCAN_MOD_32APSK: ScanModulationTypes = 536870912
+BDA_SCAN_MOD_16QAM: win32more.Windows.Win32.Media.DirectShow.ScanModulationTypes = 1
+BDA_SCAN_MOD_32QAM: win32more.Windows.Win32.Media.DirectShow.ScanModulationTypes = 2
+BDA_SCAN_MOD_64QAM: win32more.Windows.Win32.Media.DirectShow.ScanModulationTypes = 4
+BDA_SCAN_MOD_80QAM: win32more.Windows.Win32.Media.DirectShow.ScanModulationTypes = 8
+BDA_SCAN_MOD_96QAM: win32more.Windows.Win32.Media.DirectShow.ScanModulationTypes = 16
+BDA_SCAN_MOD_112QAM: win32more.Windows.Win32.Media.DirectShow.ScanModulationTypes = 32
+BDA_SCAN_MOD_128QAM: win32more.Windows.Win32.Media.DirectShow.ScanModulationTypes = 64
+BDA_SCAN_MOD_160QAM: win32more.Windows.Win32.Media.DirectShow.ScanModulationTypes = 128
+BDA_SCAN_MOD_192QAM: win32more.Windows.Win32.Media.DirectShow.ScanModulationTypes = 256
+BDA_SCAN_MOD_224QAM: win32more.Windows.Win32.Media.DirectShow.ScanModulationTypes = 512
+BDA_SCAN_MOD_256QAM: win32more.Windows.Win32.Media.DirectShow.ScanModulationTypes = 1024
+BDA_SCAN_MOD_320QAM: win32more.Windows.Win32.Media.DirectShow.ScanModulationTypes = 2048
+BDA_SCAN_MOD_384QAM: win32more.Windows.Win32.Media.DirectShow.ScanModulationTypes = 4096
+BDA_SCAN_MOD_448QAM: win32more.Windows.Win32.Media.DirectShow.ScanModulationTypes = 8192
+BDA_SCAN_MOD_512QAM: win32more.Windows.Win32.Media.DirectShow.ScanModulationTypes = 16384
+BDA_SCAN_MOD_640QAM: win32more.Windows.Win32.Media.DirectShow.ScanModulationTypes = 32768
+BDA_SCAN_MOD_768QAM: win32more.Windows.Win32.Media.DirectShow.ScanModulationTypes = 65536
+BDA_SCAN_MOD_896QAM: win32more.Windows.Win32.Media.DirectShow.ScanModulationTypes = 131072
+BDA_SCAN_MOD_1024QAM: win32more.Windows.Win32.Media.DirectShow.ScanModulationTypes = 262144
+BDA_SCAN_MOD_QPSK: win32more.Windows.Win32.Media.DirectShow.ScanModulationTypes = 524288
+BDA_SCAN_MOD_BPSK: win32more.Windows.Win32.Media.DirectShow.ScanModulationTypes = 1048576
+BDA_SCAN_MOD_OQPSK: win32more.Windows.Win32.Media.DirectShow.ScanModulationTypes = 2097152
+BDA_SCAN_MOD_8VSB: win32more.Windows.Win32.Media.DirectShow.ScanModulationTypes = 4194304
+BDA_SCAN_MOD_16VSB: win32more.Windows.Win32.Media.DirectShow.ScanModulationTypes = 8388608
+BDA_SCAN_MOD_AM_RADIO: win32more.Windows.Win32.Media.DirectShow.ScanModulationTypes = 16777216
+BDA_SCAN_MOD_FM_RADIO: win32more.Windows.Win32.Media.DirectShow.ScanModulationTypes = 33554432
+BDA_SCAN_MOD_8PSK: win32more.Windows.Win32.Media.DirectShow.ScanModulationTypes = 67108864
+BDA_SCAN_MOD_RF: win32more.Windows.Win32.Media.DirectShow.ScanModulationTypes = 134217728
+ScanModulationTypesMask_MCE_DigitalCable: win32more.Windows.Win32.Media.DirectShow.ScanModulationTypes = 11
+ScanModulationTypesMask_MCE_TerrestrialATSC: win32more.Windows.Win32.Media.DirectShow.ScanModulationTypes = 23
+ScanModulationTypesMask_MCE_AnalogTv: win32more.Windows.Win32.Media.DirectShow.ScanModulationTypes = 28
+ScanModulationTypesMask_MCE_All_TV: win32more.Windows.Win32.Media.DirectShow.ScanModulationTypes = -1
+ScanModulationTypesMask_DVBC: win32more.Windows.Win32.Media.DirectShow.ScanModulationTypes = 75
+BDA_SCAN_MOD_16APSK: win32more.Windows.Win32.Media.DirectShow.ScanModulationTypes = 268435456
+BDA_SCAN_MOD_32APSK: win32more.Windows.Win32.Media.DirectShow.ScanModulationTypes = 536870912
 class SmartCardApplication(EasyCastStructure):
     ApplicationType: win32more.Windows.Win32.Media.DirectShow.ApplicationTypeType
     ApplicationVersion: UInt16
     pbstrApplicationName: win32more.Windows.Win32.Foundation.BSTR
     pbstrApplicationURL: win32more.Windows.Win32.Foundation.BSTR
 SmartCardAssociationType = Int32
-SmartCardAssociationType_NotAssociated: SmartCardAssociationType = 0
-SmartCardAssociationType_Associated: SmartCardAssociationType = 1
-SmartCardAssociationType_AssociationUnknown: SmartCardAssociationType = 2
+SmartCardAssociationType_NotAssociated: win32more.Windows.Win32.Media.DirectShow.SmartCardAssociationType = 0
+SmartCardAssociationType_Associated: win32more.Windows.Win32.Media.DirectShow.SmartCardAssociationType = 1
+SmartCardAssociationType_AssociationUnknown: win32more.Windows.Win32.Media.DirectShow.SmartCardAssociationType = 2
 SmartCardStatusType = Int32
-SmartCardStatusType_CardInserted: SmartCardStatusType = 0
-SmartCardStatusType_CardRemoved: SmartCardStatusType = 1
-SmartCardStatusType_CardError: SmartCardStatusType = 2
-SmartCardStatusType_CardDataChanged: SmartCardStatusType = 3
-SmartCardStatusType_CardFirmwareUpgrade: SmartCardStatusType = 4
+SmartCardStatusType_CardInserted: win32more.Windows.Win32.Media.DirectShow.SmartCardStatusType = 0
+SmartCardStatusType_CardRemoved: win32more.Windows.Win32.Media.DirectShow.SmartCardStatusType = 1
+SmartCardStatusType_CardError: win32more.Windows.Win32.Media.DirectShow.SmartCardStatusType = 2
+SmartCardStatusType_CardDataChanged: win32more.Windows.Win32.Media.DirectShow.SmartCardStatusType = 3
+SmartCardStatusType_CardFirmwareUpgrade: win32more.Windows.Win32.Media.DirectShow.SmartCardStatusType = 4
 SpectralInversion = Int32
-BDA_SPECTRAL_INVERSION_NOT_SET: SpectralInversion = -1
-BDA_SPECTRAL_INVERSION_NOT_DEFINED: SpectralInversion = 0
-BDA_SPECTRAL_INVERSION_AUTOMATIC: SpectralInversion = 1
-BDA_SPECTRAL_INVERSION_NORMAL: SpectralInversion = 2
-BDA_SPECTRAL_INVERSION_INVERTED: SpectralInversion = 3
-BDA_SPECTRAL_INVERSION_MAX: SpectralInversion = 4
+BDA_SPECTRAL_INVERSION_NOT_SET: win32more.Windows.Win32.Media.DirectShow.SpectralInversion = -1
+BDA_SPECTRAL_INVERSION_NOT_DEFINED: win32more.Windows.Win32.Media.DirectShow.SpectralInversion = 0
+BDA_SPECTRAL_INVERSION_AUTOMATIC: win32more.Windows.Win32.Media.DirectShow.SpectralInversion = 1
+BDA_SPECTRAL_INVERSION_NORMAL: win32more.Windows.Win32.Media.DirectShow.SpectralInversion = 2
+BDA_SPECTRAL_INVERSION_INVERTED: win32more.Windows.Win32.Media.DirectShow.SpectralInversion = 3
+BDA_SPECTRAL_INVERSION_MAX: win32more.Windows.Win32.Media.DirectShow.SpectralInversion = 4
 class TIMECODEDATA(EasyCastStructure):
     time: win32more.Windows.Win32.Media.TIMECODE
     dwSMPTEflags: UInt32
@@ -7111,69 +7110,69 @@ class TRUECOLORINFO(EasyCastStructure):
     dwBitMasks: UInt32 * 3
     bmiColors: win32more.Windows.Win32.Graphics.Gdi.RGBQUAD * 256
 TVAudioMode = Int32
-AMTVAUDIO_MODE_MONO: TVAudioMode = 1
-AMTVAUDIO_MODE_STEREO: TVAudioMode = 2
-AMTVAUDIO_MODE_LANG_A: TVAudioMode = 16
-AMTVAUDIO_MODE_LANG_B: TVAudioMode = 32
-AMTVAUDIO_MODE_LANG_C: TVAudioMode = 64
-AMTVAUDIO_PRESET_STEREO: TVAudioMode = 512
-AMTVAUDIO_PRESET_LANG_A: TVAudioMode = 4096
-AMTVAUDIO_PRESET_LANG_B: TVAudioMode = 8192
-AMTVAUDIO_PRESET_LANG_C: TVAudioMode = 16384
+AMTVAUDIO_MODE_MONO: win32more.Windows.Win32.Media.DirectShow.TVAudioMode = 1
+AMTVAUDIO_MODE_STEREO: win32more.Windows.Win32.Media.DirectShow.TVAudioMode = 2
+AMTVAUDIO_MODE_LANG_A: win32more.Windows.Win32.Media.DirectShow.TVAudioMode = 16
+AMTVAUDIO_MODE_LANG_B: win32more.Windows.Win32.Media.DirectShow.TVAudioMode = 32
+AMTVAUDIO_MODE_LANG_C: win32more.Windows.Win32.Media.DirectShow.TVAudioMode = 64
+AMTVAUDIO_PRESET_STEREO: win32more.Windows.Win32.Media.DirectShow.TVAudioMode = 512
+AMTVAUDIO_PRESET_LANG_A: win32more.Windows.Win32.Media.DirectShow.TVAudioMode = 4096
+AMTVAUDIO_PRESET_LANG_B: win32more.Windows.Win32.Media.DirectShow.TVAudioMode = 8192
+AMTVAUDIO_PRESET_LANG_C: win32more.Windows.Win32.Media.DirectShow.TVAudioMode = 16384
 TransmissionMode = Int32
-BDA_XMIT_MODE_NOT_SET: TransmissionMode = -1
-BDA_XMIT_MODE_NOT_DEFINED: TransmissionMode = 0
-BDA_XMIT_MODE_2K: TransmissionMode = 1
-BDA_XMIT_MODE_8K: TransmissionMode = 2
-BDA_XMIT_MODE_4K: TransmissionMode = 3
-BDA_XMIT_MODE_2K_INTERLEAVED: TransmissionMode = 4
-BDA_XMIT_MODE_4K_INTERLEAVED: TransmissionMode = 5
-BDA_XMIT_MODE_1K: TransmissionMode = 6
-BDA_XMIT_MODE_16K: TransmissionMode = 7
-BDA_XMIT_MODE_32K: TransmissionMode = 8
-BDA_XMIT_MODE_MAX: TransmissionMode = 9
+BDA_XMIT_MODE_NOT_SET: win32more.Windows.Win32.Media.DirectShow.TransmissionMode = -1
+BDA_XMIT_MODE_NOT_DEFINED: win32more.Windows.Win32.Media.DirectShow.TransmissionMode = 0
+BDA_XMIT_MODE_2K: win32more.Windows.Win32.Media.DirectShow.TransmissionMode = 1
+BDA_XMIT_MODE_8K: win32more.Windows.Win32.Media.DirectShow.TransmissionMode = 2
+BDA_XMIT_MODE_4K: win32more.Windows.Win32.Media.DirectShow.TransmissionMode = 3
+BDA_XMIT_MODE_2K_INTERLEAVED: win32more.Windows.Win32.Media.DirectShow.TransmissionMode = 4
+BDA_XMIT_MODE_4K_INTERLEAVED: win32more.Windows.Win32.Media.DirectShow.TransmissionMode = 5
+BDA_XMIT_MODE_1K: win32more.Windows.Win32.Media.DirectShow.TransmissionMode = 6
+BDA_XMIT_MODE_16K: win32more.Windows.Win32.Media.DirectShow.TransmissionMode = 7
+BDA_XMIT_MODE_32K: win32more.Windows.Win32.Media.DirectShow.TransmissionMode = 8
+BDA_XMIT_MODE_MAX: win32more.Windows.Win32.Media.DirectShow.TransmissionMode = 9
 TunerInputType = Int32
-TunerInputType_TunerInputCable: TunerInputType = 0
-TunerInputType_TunerInputAntenna: TunerInputType = 1
+TunerInputType_TunerInputCable: win32more.Windows.Win32.Media.DirectShow.TunerInputType = 0
+TunerInputType_TunerInputAntenna: win32more.Windows.Win32.Media.DirectShow.TunerInputType = 1
 UICloseReasonType = Int32
-UICloseReasonType_NotReady: UICloseReasonType = 0
-UICloseReasonType_UserClosed: UICloseReasonType = 1
-UICloseReasonType_SystemClosed: UICloseReasonType = 2
-UICloseReasonType_DeviceClosed: UICloseReasonType = 3
-UICloseReasonType_ErrorClosed: UICloseReasonType = 4
+UICloseReasonType_NotReady: win32more.Windows.Win32.Media.DirectShow.UICloseReasonType = 0
+UICloseReasonType_UserClosed: win32more.Windows.Win32.Media.DirectShow.UICloseReasonType = 1
+UICloseReasonType_SystemClosed: win32more.Windows.Win32.Media.DirectShow.UICloseReasonType = 2
+UICloseReasonType_DeviceClosed: win32more.Windows.Win32.Media.DirectShow.UICloseReasonType = 3
+UICloseReasonType_ErrorClosed: win32more.Windows.Win32.Media.DirectShow.UICloseReasonType = 4
 VALID_UOP_FLAG = Int32
-UOP_FLAG_Play_Title_Or_AtTime: VALID_UOP_FLAG = 1
-UOP_FLAG_Play_Chapter: VALID_UOP_FLAG = 2
-UOP_FLAG_Play_Title: VALID_UOP_FLAG = 4
-UOP_FLAG_Stop: VALID_UOP_FLAG = 8
-UOP_FLAG_ReturnFromSubMenu: VALID_UOP_FLAG = 16
-UOP_FLAG_Play_Chapter_Or_AtTime: VALID_UOP_FLAG = 32
-UOP_FLAG_PlayPrev_Or_Replay_Chapter: VALID_UOP_FLAG = 64
-UOP_FLAG_PlayNext_Chapter: VALID_UOP_FLAG = 128
-UOP_FLAG_Play_Forwards: VALID_UOP_FLAG = 256
-UOP_FLAG_Play_Backwards: VALID_UOP_FLAG = 512
-UOP_FLAG_ShowMenu_Title: VALID_UOP_FLAG = 1024
-UOP_FLAG_ShowMenu_Root: VALID_UOP_FLAG = 2048
-UOP_FLAG_ShowMenu_SubPic: VALID_UOP_FLAG = 4096
-UOP_FLAG_ShowMenu_Audio: VALID_UOP_FLAG = 8192
-UOP_FLAG_ShowMenu_Angle: VALID_UOP_FLAG = 16384
-UOP_FLAG_ShowMenu_Chapter: VALID_UOP_FLAG = 32768
-UOP_FLAG_Resume: VALID_UOP_FLAG = 65536
-UOP_FLAG_Select_Or_Activate_Button: VALID_UOP_FLAG = 131072
-UOP_FLAG_Still_Off: VALID_UOP_FLAG = 262144
-UOP_FLAG_Pause_On: VALID_UOP_FLAG = 524288
-UOP_FLAG_Select_Audio_Stream: VALID_UOP_FLAG = 1048576
-UOP_FLAG_Select_SubPic_Stream: VALID_UOP_FLAG = 2097152
-UOP_FLAG_Select_Angle: VALID_UOP_FLAG = 4194304
-UOP_FLAG_Select_Karaoke_Audio_Presentation_Mode: VALID_UOP_FLAG = 8388608
-UOP_FLAG_Select_Video_Mode_Preference: VALID_UOP_FLAG = 16777216
+UOP_FLAG_Play_Title_Or_AtTime: win32more.Windows.Win32.Media.DirectShow.VALID_UOP_FLAG = 1
+UOP_FLAG_Play_Chapter: win32more.Windows.Win32.Media.DirectShow.VALID_UOP_FLAG = 2
+UOP_FLAG_Play_Title: win32more.Windows.Win32.Media.DirectShow.VALID_UOP_FLAG = 4
+UOP_FLAG_Stop: win32more.Windows.Win32.Media.DirectShow.VALID_UOP_FLAG = 8
+UOP_FLAG_ReturnFromSubMenu: win32more.Windows.Win32.Media.DirectShow.VALID_UOP_FLAG = 16
+UOP_FLAG_Play_Chapter_Or_AtTime: win32more.Windows.Win32.Media.DirectShow.VALID_UOP_FLAG = 32
+UOP_FLAG_PlayPrev_Or_Replay_Chapter: win32more.Windows.Win32.Media.DirectShow.VALID_UOP_FLAG = 64
+UOP_FLAG_PlayNext_Chapter: win32more.Windows.Win32.Media.DirectShow.VALID_UOP_FLAG = 128
+UOP_FLAG_Play_Forwards: win32more.Windows.Win32.Media.DirectShow.VALID_UOP_FLAG = 256
+UOP_FLAG_Play_Backwards: win32more.Windows.Win32.Media.DirectShow.VALID_UOP_FLAG = 512
+UOP_FLAG_ShowMenu_Title: win32more.Windows.Win32.Media.DirectShow.VALID_UOP_FLAG = 1024
+UOP_FLAG_ShowMenu_Root: win32more.Windows.Win32.Media.DirectShow.VALID_UOP_FLAG = 2048
+UOP_FLAG_ShowMenu_SubPic: win32more.Windows.Win32.Media.DirectShow.VALID_UOP_FLAG = 4096
+UOP_FLAG_ShowMenu_Audio: win32more.Windows.Win32.Media.DirectShow.VALID_UOP_FLAG = 8192
+UOP_FLAG_ShowMenu_Angle: win32more.Windows.Win32.Media.DirectShow.VALID_UOP_FLAG = 16384
+UOP_FLAG_ShowMenu_Chapter: win32more.Windows.Win32.Media.DirectShow.VALID_UOP_FLAG = 32768
+UOP_FLAG_Resume: win32more.Windows.Win32.Media.DirectShow.VALID_UOP_FLAG = 65536
+UOP_FLAG_Select_Or_Activate_Button: win32more.Windows.Win32.Media.DirectShow.VALID_UOP_FLAG = 131072
+UOP_FLAG_Still_Off: win32more.Windows.Win32.Media.DirectShow.VALID_UOP_FLAG = 262144
+UOP_FLAG_Pause_On: win32more.Windows.Win32.Media.DirectShow.VALID_UOP_FLAG = 524288
+UOP_FLAG_Select_Audio_Stream: win32more.Windows.Win32.Media.DirectShow.VALID_UOP_FLAG = 1048576
+UOP_FLAG_Select_SubPic_Stream: win32more.Windows.Win32.Media.DirectShow.VALID_UOP_FLAG = 2097152
+UOP_FLAG_Select_Angle: win32more.Windows.Win32.Media.DirectShow.VALID_UOP_FLAG = 4194304
+UOP_FLAG_Select_Karaoke_Audio_Presentation_Mode: win32more.Windows.Win32.Media.DirectShow.VALID_UOP_FLAG = 8388608
+UOP_FLAG_Select_Video_Mode_Preference: win32more.Windows.Win32.Media.DirectShow.VALID_UOP_FLAG = 16777216
 class VFW_FILTERLIST(EasyCastStructure):
     cFilters: UInt32
     aClsId: Guid * 1
 VIDEOENCODER_BITRATE_MODE = Int32
-VIDEOENCODER_BITRATE_MODE_ConstantBitRate: VIDEOENCODER_BITRATE_MODE = 0
-VIDEOENCODER_BITRATE_MODE_VariableBitRateAverage: VIDEOENCODER_BITRATE_MODE = 1
-VIDEOENCODER_BITRATE_MODE_VariableBitRatePeak: VIDEOENCODER_BITRATE_MODE = 2
+VIDEOENCODER_BITRATE_MODE_ConstantBitRate: win32more.Windows.Win32.Media.DirectShow.VIDEOENCODER_BITRATE_MODE = 0
+VIDEOENCODER_BITRATE_MODE_VariableBitRateAverage: win32more.Windows.Win32.Media.DirectShow.VIDEOENCODER_BITRATE_MODE = 1
+VIDEOENCODER_BITRATE_MODE_VariableBitRatePeak: win32more.Windows.Win32.Media.DirectShow.VIDEOENCODER_BITRATE_MODE = 2
 class VIDEOINFO(EasyCastStructure):
     rcSource: win32more.Windows.Win32.Foundation.RECT
     rcTarget: win32more.Windows.Win32.Foundation.RECT
@@ -7227,15 +7226,15 @@ class VMR9AlphaBitmap(EasyCastStructure):
     clrSrcKey: win32more.Windows.Win32.Foundation.COLORREF
     dwFilterMode: UInt32
 VMR9AlphaBitmapFlags = Int32
-VMR9AlphaBitmap_Disable: VMR9AlphaBitmapFlags = 1
-VMR9AlphaBitmap_hDC: VMR9AlphaBitmapFlags = 2
-VMR9AlphaBitmap_EntireDDS: VMR9AlphaBitmapFlags = 4
-VMR9AlphaBitmap_SrcColorKey: VMR9AlphaBitmapFlags = 8
-VMR9AlphaBitmap_SrcRect: VMR9AlphaBitmapFlags = 16
-VMR9AlphaBitmap_FilterMode: VMR9AlphaBitmapFlags = 32
+VMR9AlphaBitmap_Disable: win32more.Windows.Win32.Media.DirectShow.VMR9AlphaBitmapFlags = 1
+VMR9AlphaBitmap_hDC: win32more.Windows.Win32.Media.DirectShow.VMR9AlphaBitmapFlags = 2
+VMR9AlphaBitmap_EntireDDS: win32more.Windows.Win32.Media.DirectShow.VMR9AlphaBitmapFlags = 4
+VMR9AlphaBitmap_SrcColorKey: win32more.Windows.Win32.Media.DirectShow.VMR9AlphaBitmapFlags = 8
+VMR9AlphaBitmap_SrcRect: win32more.Windows.Win32.Media.DirectShow.VMR9AlphaBitmapFlags = 16
+VMR9AlphaBitmap_FilterMode: win32more.Windows.Win32.Media.DirectShow.VMR9AlphaBitmapFlags = 32
 VMR9AspectRatioMode = Int32
-VMR9ARMode_None: VMR9AspectRatioMode = 0
-VMR9ARMode_LetterBox: VMR9AspectRatioMode = 1
+VMR9ARMode_None: win32more.Windows.Win32.Media.DirectShow.VMR9AspectRatioMode = 0
+VMR9ARMode_LetterBox: win32more.Windows.Win32.Media.DirectShow.VMR9AspectRatioMode = 1
 class VMR9DeinterlaceCaps(EasyCastStructure):
     dwSize: UInt32
     dwNumPreviousOutputFrames: UInt32
@@ -7243,48 +7242,48 @@ class VMR9DeinterlaceCaps(EasyCastStructure):
     dwNumBackwardRefSamples: UInt32
     DeinterlaceTechnology: win32more.Windows.Win32.Media.DirectShow.VMR9DeinterlaceTech
 VMR9DeinterlacePrefs = Int32
-DeinterlacePref9_NextBest: VMR9DeinterlacePrefs = 1
-DeinterlacePref9_BOB: VMR9DeinterlacePrefs = 2
-DeinterlacePref9_Weave: VMR9DeinterlacePrefs = 4
-DeinterlacePref9_Mask: VMR9DeinterlacePrefs = 7
+DeinterlacePref9_NextBest: win32more.Windows.Win32.Media.DirectShow.VMR9DeinterlacePrefs = 1
+DeinterlacePref9_BOB: win32more.Windows.Win32.Media.DirectShow.VMR9DeinterlacePrefs = 2
+DeinterlacePref9_Weave: win32more.Windows.Win32.Media.DirectShow.VMR9DeinterlacePrefs = 4
+DeinterlacePref9_Mask: win32more.Windows.Win32.Media.DirectShow.VMR9DeinterlacePrefs = 7
 VMR9DeinterlaceTech = Int32
-DeinterlaceTech9_Unknown: VMR9DeinterlaceTech = 0
-DeinterlaceTech9_BOBLineReplicate: VMR9DeinterlaceTech = 1
-DeinterlaceTech9_BOBVerticalStretch: VMR9DeinterlaceTech = 2
-DeinterlaceTech9_MedianFiltering: VMR9DeinterlaceTech = 4
-DeinterlaceTech9_EdgeFiltering: VMR9DeinterlaceTech = 16
-DeinterlaceTech9_FieldAdaptive: VMR9DeinterlaceTech = 32
-DeinterlaceTech9_PixelAdaptive: VMR9DeinterlaceTech = 64
-DeinterlaceTech9_MotionVectorSteered: VMR9DeinterlaceTech = 128
+DeinterlaceTech9_Unknown: win32more.Windows.Win32.Media.DirectShow.VMR9DeinterlaceTech = 0
+DeinterlaceTech9_BOBLineReplicate: win32more.Windows.Win32.Media.DirectShow.VMR9DeinterlaceTech = 1
+DeinterlaceTech9_BOBVerticalStretch: win32more.Windows.Win32.Media.DirectShow.VMR9DeinterlaceTech = 2
+DeinterlaceTech9_MedianFiltering: win32more.Windows.Win32.Media.DirectShow.VMR9DeinterlaceTech = 4
+DeinterlaceTech9_EdgeFiltering: win32more.Windows.Win32.Media.DirectShow.VMR9DeinterlaceTech = 16
+DeinterlaceTech9_FieldAdaptive: win32more.Windows.Win32.Media.DirectShow.VMR9DeinterlaceTech = 32
+DeinterlaceTech9_PixelAdaptive: win32more.Windows.Win32.Media.DirectShow.VMR9DeinterlaceTech = 64
+DeinterlaceTech9_MotionVectorSteered: win32more.Windows.Win32.Media.DirectShow.VMR9DeinterlaceTech = 128
 class VMR9Frequency(EasyCastStructure):
     dwNumerator: UInt32
     dwDenominator: UInt32
 VMR9MixerPrefs = Int32
-MixerPref9_NoDecimation: VMR9MixerPrefs = 1
-MixerPref9_DecimateOutput: VMR9MixerPrefs = 2
-MixerPref9_ARAdjustXorY: VMR9MixerPrefs = 4
-MixerPref9_NonSquareMixing: VMR9MixerPrefs = 8
-MixerPref9_DecimateMask: VMR9MixerPrefs = 15
-MixerPref9_BiLinearFiltering: VMR9MixerPrefs = 16
-MixerPref9_PointFiltering: VMR9MixerPrefs = 32
-MixerPref9_AnisotropicFiltering: VMR9MixerPrefs = 64
-MixerPref9_PyramidalQuadFiltering: VMR9MixerPrefs = 128
-MixerPref9_GaussianQuadFiltering: VMR9MixerPrefs = 256
-MixerPref9_FilteringReserved: VMR9MixerPrefs = 3584
-MixerPref9_FilteringMask: VMR9MixerPrefs = 4080
-MixerPref9_RenderTargetRGB: VMR9MixerPrefs = 4096
-MixerPref9_RenderTargetYUV: VMR9MixerPrefs = 8192
-MixerPref9_RenderTargetReserved: VMR9MixerPrefs = 1032192
-MixerPref9_RenderTargetMask: VMR9MixerPrefs = 1044480
-MixerPref9_DynamicSwitchToBOB: VMR9MixerPrefs = 1048576
-MixerPref9_DynamicDecimateBy2: VMR9MixerPrefs = 2097152
-MixerPref9_DynamicReserved: VMR9MixerPrefs = 12582912
-MixerPref9_DynamicMask: VMR9MixerPrefs = 15728640
+MixerPref9_NoDecimation: win32more.Windows.Win32.Media.DirectShow.VMR9MixerPrefs = 1
+MixerPref9_DecimateOutput: win32more.Windows.Win32.Media.DirectShow.VMR9MixerPrefs = 2
+MixerPref9_ARAdjustXorY: win32more.Windows.Win32.Media.DirectShow.VMR9MixerPrefs = 4
+MixerPref9_NonSquareMixing: win32more.Windows.Win32.Media.DirectShow.VMR9MixerPrefs = 8
+MixerPref9_DecimateMask: win32more.Windows.Win32.Media.DirectShow.VMR9MixerPrefs = 15
+MixerPref9_BiLinearFiltering: win32more.Windows.Win32.Media.DirectShow.VMR9MixerPrefs = 16
+MixerPref9_PointFiltering: win32more.Windows.Win32.Media.DirectShow.VMR9MixerPrefs = 32
+MixerPref9_AnisotropicFiltering: win32more.Windows.Win32.Media.DirectShow.VMR9MixerPrefs = 64
+MixerPref9_PyramidalQuadFiltering: win32more.Windows.Win32.Media.DirectShow.VMR9MixerPrefs = 128
+MixerPref9_GaussianQuadFiltering: win32more.Windows.Win32.Media.DirectShow.VMR9MixerPrefs = 256
+MixerPref9_FilteringReserved: win32more.Windows.Win32.Media.DirectShow.VMR9MixerPrefs = 3584
+MixerPref9_FilteringMask: win32more.Windows.Win32.Media.DirectShow.VMR9MixerPrefs = 4080
+MixerPref9_RenderTargetRGB: win32more.Windows.Win32.Media.DirectShow.VMR9MixerPrefs = 4096
+MixerPref9_RenderTargetYUV: win32more.Windows.Win32.Media.DirectShow.VMR9MixerPrefs = 8192
+MixerPref9_RenderTargetReserved: win32more.Windows.Win32.Media.DirectShow.VMR9MixerPrefs = 1032192
+MixerPref9_RenderTargetMask: win32more.Windows.Win32.Media.DirectShow.VMR9MixerPrefs = 1044480
+MixerPref9_DynamicSwitchToBOB: win32more.Windows.Win32.Media.DirectShow.VMR9MixerPrefs = 1048576
+MixerPref9_DynamicDecimateBy2: win32more.Windows.Win32.Media.DirectShow.VMR9MixerPrefs = 2097152
+MixerPref9_DynamicReserved: win32more.Windows.Win32.Media.DirectShow.VMR9MixerPrefs = 12582912
+MixerPref9_DynamicMask: win32more.Windows.Win32.Media.DirectShow.VMR9MixerPrefs = 15728640
 VMR9Mode = Int32
-VMR9Mode_Windowed: VMR9Mode = 1
-VMR9Mode_Windowless: VMR9Mode = 2
-VMR9Mode_Renderless: VMR9Mode = 4
-VMR9Mode_Mask: VMR9Mode = 7
+VMR9Mode_Windowed: win32more.Windows.Win32.Media.DirectShow.VMR9Mode = 1
+VMR9Mode_Windowless: win32more.Windows.Win32.Media.DirectShow.VMR9Mode = 2
+VMR9Mode_Renderless: win32more.Windows.Win32.Media.DirectShow.VMR9Mode = 4
+VMR9Mode_Mask: win32more.Windows.Win32.Media.DirectShow.VMR9Mode = 7
 class VMR9MonitorInfo(EasyCastStructure):
     uDevID: UInt32
     rcMonitor: win32more.Windows.Win32.Foundation.RECT
@@ -7303,11 +7302,11 @@ class VMR9NormalizedRect(EasyCastStructure):
     right: Single
     bottom: Single
 VMR9PresentationFlags = Int32
-VMR9Sample_SyncPoint: VMR9PresentationFlags = 1
-VMR9Sample_Preroll: VMR9PresentationFlags = 2
-VMR9Sample_Discontinuity: VMR9PresentationFlags = 4
-VMR9Sample_TimeValid: VMR9PresentationFlags = 8
-VMR9Sample_SrcDstRectsValid: VMR9PresentationFlags = 16
+VMR9Sample_SyncPoint: win32more.Windows.Win32.Media.DirectShow.VMR9PresentationFlags = 1
+VMR9Sample_Preroll: win32more.Windows.Win32.Media.DirectShow.VMR9PresentationFlags = 2
+VMR9Sample_Discontinuity: win32more.Windows.Win32.Media.DirectShow.VMR9PresentationFlags = 4
+VMR9Sample_TimeValid: win32more.Windows.Win32.Media.DirectShow.VMR9PresentationFlags = 8
+VMR9Sample_SrcDstRectsValid: win32more.Windows.Win32.Media.DirectShow.VMR9PresentationFlags = 16
 class VMR9PresentationInfo(EasyCastStructure):
     dwFlags: UInt32
     lpSurf: win32more.Windows.Win32.Graphics.Direct3D9.IDirect3DSurface9
@@ -7326,11 +7325,11 @@ class VMR9ProcAmpControl(EasyCastStructure):
     Hue: Single
     Saturation: Single
 VMR9ProcAmpControlFlags = Int32
-ProcAmpControl9_Brightness: VMR9ProcAmpControlFlags = 1
-ProcAmpControl9_Contrast: VMR9ProcAmpControlFlags = 2
-ProcAmpControl9_Hue: VMR9ProcAmpControlFlags = 4
-ProcAmpControl9_Saturation: VMR9ProcAmpControlFlags = 8
-ProcAmpControl9_Mask: VMR9ProcAmpControlFlags = 15
+ProcAmpControl9_Brightness: win32more.Windows.Win32.Media.DirectShow.VMR9ProcAmpControlFlags = 1
+ProcAmpControl9_Contrast: win32more.Windows.Win32.Media.DirectShow.VMR9ProcAmpControlFlags = 2
+ProcAmpControl9_Hue: win32more.Windows.Win32.Media.DirectShow.VMR9ProcAmpControlFlags = 4
+ProcAmpControl9_Saturation: win32more.Windows.Win32.Media.DirectShow.VMR9ProcAmpControlFlags = 8
+ProcAmpControl9_Mask: win32more.Windows.Win32.Media.DirectShow.VMR9ProcAmpControlFlags = 15
 class VMR9ProcAmpControlRange(EasyCastStructure):
     dwSize: UInt32
     dwProperty: win32more.Windows.Win32.Media.DirectShow.VMR9ProcAmpControlFlags
@@ -7339,16 +7338,16 @@ class VMR9ProcAmpControlRange(EasyCastStructure):
     DefaultValue: Single
     StepSize: Single
 VMR9RenderPrefs = Int32
-RenderPrefs9_DoNotRenderBorder: VMR9RenderPrefs = 1
-RenderPrefs9_Mask: VMR9RenderPrefs = 1
+RenderPrefs9_DoNotRenderBorder: win32more.Windows.Win32.Media.DirectShow.VMR9RenderPrefs = 1
+RenderPrefs9_Mask: win32more.Windows.Win32.Media.DirectShow.VMR9RenderPrefs = 1
 VMR9SurfaceAllocationFlags = Int32
-VMR9AllocFlag_3DRenderTarget: VMR9SurfaceAllocationFlags = 1
-VMR9AllocFlag_DXVATarget: VMR9SurfaceAllocationFlags = 2
-VMR9AllocFlag_TextureSurface: VMR9SurfaceAllocationFlags = 4
-VMR9AllocFlag_OffscreenSurface: VMR9SurfaceAllocationFlags = 8
-VMR9AllocFlag_RGBDynamicSwitch: VMR9SurfaceAllocationFlags = 16
-VMR9AllocFlag_UsageReserved: VMR9SurfaceAllocationFlags = 224
-VMR9AllocFlag_UsageMask: VMR9SurfaceAllocationFlags = 255
+VMR9AllocFlag_3DRenderTarget: win32more.Windows.Win32.Media.DirectShow.VMR9SurfaceAllocationFlags = 1
+VMR9AllocFlag_DXVATarget: win32more.Windows.Win32.Media.DirectShow.VMR9SurfaceAllocationFlags = 2
+VMR9AllocFlag_TextureSurface: win32more.Windows.Win32.Media.DirectShow.VMR9SurfaceAllocationFlags = 4
+VMR9AllocFlag_OffscreenSurface: win32more.Windows.Win32.Media.DirectShow.VMR9SurfaceAllocationFlags = 8
+VMR9AllocFlag_RGBDynamicSwitch: win32more.Windows.Win32.Media.DirectShow.VMR9SurfaceAllocationFlags = 16
+VMR9AllocFlag_UsageReserved: win32more.Windows.Win32.Media.DirectShow.VMR9SurfaceAllocationFlags = 224
+VMR9AllocFlag_UsageMask: win32more.Windows.Win32.Media.DirectShow.VMR9SurfaceAllocationFlags = 255
 class VMR9VideoDesc(EasyCastStructure):
     dwSize: UInt32
     dwSampleWidth: UInt32
@@ -7368,12 +7367,12 @@ class VMR9VideoStreamInfo(EasyCastStructure):
     rtEnd: Int64
     SampleFormat: win32more.Windows.Win32.Media.DirectShow.VMR9_SampleFormat
 VMR9_SampleFormat = Int32
-VMR9_SampleReserved: VMR9_SampleFormat = 1
-VMR9_SampleProgressiveFrame: VMR9_SampleFormat = 2
-VMR9_SampleFieldInterleavedEvenFirst: VMR9_SampleFormat = 3
-VMR9_SampleFieldInterleavedOddFirst: VMR9_SampleFormat = 4
-VMR9_SampleFieldSingleEven: VMR9_SampleFormat = 5
-VMR9_SampleFieldSingleOdd: VMR9_SampleFormat = 6
+VMR9_SampleReserved: win32more.Windows.Win32.Media.DirectShow.VMR9_SampleFormat = 1
+VMR9_SampleProgressiveFrame: win32more.Windows.Win32.Media.DirectShow.VMR9_SampleFormat = 2
+VMR9_SampleFieldInterleavedEvenFirst: win32more.Windows.Win32.Media.DirectShow.VMR9_SampleFormat = 3
+VMR9_SampleFieldInterleavedOddFirst: win32more.Windows.Win32.Media.DirectShow.VMR9_SampleFormat = 4
+VMR9_SampleFieldSingleEven: win32more.Windows.Win32.Media.DirectShow.VMR9_SampleFormat = 5
+VMR9_SampleFieldSingleOdd: win32more.Windows.Win32.Media.DirectShow.VMR9_SampleFormat = 6
 class VMRALLOCATIONINFO(EasyCastStructure):
     dwFlags: UInt32
     lpHdr: POINTER(win32more.Windows.Win32.Graphics.Gdi.BITMAPINFOHEADER)
@@ -7398,19 +7397,19 @@ class VMRDeinterlaceCaps(EasyCastStructure):
     dwNumBackwardRefSamples: UInt32
     DeinterlaceTechnology: win32more.Windows.Win32.Media.DirectShow.VMRDeinterlaceTech
 VMRDeinterlacePrefs = Int32
-DeinterlacePref_NextBest: VMRDeinterlacePrefs = 1
-DeinterlacePref_BOB: VMRDeinterlacePrefs = 2
-DeinterlacePref_Weave: VMRDeinterlacePrefs = 4
-DeinterlacePref_Mask: VMRDeinterlacePrefs = 7
+DeinterlacePref_NextBest: win32more.Windows.Win32.Media.DirectShow.VMRDeinterlacePrefs = 1
+DeinterlacePref_BOB: win32more.Windows.Win32.Media.DirectShow.VMRDeinterlacePrefs = 2
+DeinterlacePref_Weave: win32more.Windows.Win32.Media.DirectShow.VMRDeinterlacePrefs = 4
+DeinterlacePref_Mask: win32more.Windows.Win32.Media.DirectShow.VMRDeinterlacePrefs = 7
 VMRDeinterlaceTech = Int32
-DeinterlaceTech_Unknown: VMRDeinterlaceTech = 0
-DeinterlaceTech_BOBLineReplicate: VMRDeinterlaceTech = 1
-DeinterlaceTech_BOBVerticalStretch: VMRDeinterlaceTech = 2
-DeinterlaceTech_MedianFiltering: VMRDeinterlaceTech = 4
-DeinterlaceTech_EdgeFiltering: VMRDeinterlaceTech = 16
-DeinterlaceTech_FieldAdaptive: VMRDeinterlaceTech = 32
-DeinterlaceTech_PixelAdaptive: VMRDeinterlaceTech = 64
-DeinterlaceTech_MotionVectorSteered: VMRDeinterlaceTech = 128
+DeinterlaceTech_Unknown: win32more.Windows.Win32.Media.DirectShow.VMRDeinterlaceTech = 0
+DeinterlaceTech_BOBLineReplicate: win32more.Windows.Win32.Media.DirectShow.VMRDeinterlaceTech = 1
+DeinterlaceTech_BOBVerticalStretch: win32more.Windows.Win32.Media.DirectShow.VMRDeinterlaceTech = 2
+DeinterlaceTech_MedianFiltering: win32more.Windows.Win32.Media.DirectShow.VMRDeinterlaceTech = 4
+DeinterlaceTech_EdgeFiltering: win32more.Windows.Win32.Media.DirectShow.VMRDeinterlaceTech = 16
+DeinterlaceTech_FieldAdaptive: win32more.Windows.Win32.Media.DirectShow.VMRDeinterlaceTech = 32
+DeinterlaceTech_PixelAdaptive: win32more.Windows.Win32.Media.DirectShow.VMRDeinterlaceTech = 64
+DeinterlaceTech_MotionVectorSteered: win32more.Windows.Win32.Media.DirectShow.VMRDeinterlaceTech = 128
 class VMRFrequency(EasyCastStructure):
     dwNumerator: UInt32
     dwDenominator: UInt32
@@ -7430,30 +7429,30 @@ class VMRMONITORINFO(EasyCastStructure):
     dwSubSysId: UInt32
     dwRevision: UInt32
 VMRMixerPrefs = Int32
-MixerPref_NoDecimation: VMRMixerPrefs = 1
-MixerPref_DecimateOutput: VMRMixerPrefs = 2
-MixerPref_ARAdjustXorY: VMRMixerPrefs = 4
-MixerPref_DecimationReserved: VMRMixerPrefs = 8
-MixerPref_DecimateMask: VMRMixerPrefs = 15
-MixerPref_BiLinearFiltering: VMRMixerPrefs = 16
-MixerPref_PointFiltering: VMRMixerPrefs = 32
-MixerPref_FilteringMask: VMRMixerPrefs = 240
-MixerPref_RenderTargetRGB: VMRMixerPrefs = 256
-MixerPref_RenderTargetYUV: VMRMixerPrefs = 4096
-MixerPref_RenderTargetYUV420: VMRMixerPrefs = 512
-MixerPref_RenderTargetYUV422: VMRMixerPrefs = 1024
-MixerPref_RenderTargetYUV444: VMRMixerPrefs = 2048
-MixerPref_RenderTargetReserved: VMRMixerPrefs = 57344
-MixerPref_RenderTargetMask: VMRMixerPrefs = 65280
-MixerPref_DynamicSwitchToBOB: VMRMixerPrefs = 65536
-MixerPref_DynamicDecimateBy2: VMRMixerPrefs = 131072
-MixerPref_DynamicReserved: VMRMixerPrefs = 786432
-MixerPref_DynamicMask: VMRMixerPrefs = 983040
+MixerPref_NoDecimation: win32more.Windows.Win32.Media.DirectShow.VMRMixerPrefs = 1
+MixerPref_DecimateOutput: win32more.Windows.Win32.Media.DirectShow.VMRMixerPrefs = 2
+MixerPref_ARAdjustXorY: win32more.Windows.Win32.Media.DirectShow.VMRMixerPrefs = 4
+MixerPref_DecimationReserved: win32more.Windows.Win32.Media.DirectShow.VMRMixerPrefs = 8
+MixerPref_DecimateMask: win32more.Windows.Win32.Media.DirectShow.VMRMixerPrefs = 15
+MixerPref_BiLinearFiltering: win32more.Windows.Win32.Media.DirectShow.VMRMixerPrefs = 16
+MixerPref_PointFiltering: win32more.Windows.Win32.Media.DirectShow.VMRMixerPrefs = 32
+MixerPref_FilteringMask: win32more.Windows.Win32.Media.DirectShow.VMRMixerPrefs = 240
+MixerPref_RenderTargetRGB: win32more.Windows.Win32.Media.DirectShow.VMRMixerPrefs = 256
+MixerPref_RenderTargetYUV: win32more.Windows.Win32.Media.DirectShow.VMRMixerPrefs = 4096
+MixerPref_RenderTargetYUV420: win32more.Windows.Win32.Media.DirectShow.VMRMixerPrefs = 512
+MixerPref_RenderTargetYUV422: win32more.Windows.Win32.Media.DirectShow.VMRMixerPrefs = 1024
+MixerPref_RenderTargetYUV444: win32more.Windows.Win32.Media.DirectShow.VMRMixerPrefs = 2048
+MixerPref_RenderTargetReserved: win32more.Windows.Win32.Media.DirectShow.VMRMixerPrefs = 57344
+MixerPref_RenderTargetMask: win32more.Windows.Win32.Media.DirectShow.VMRMixerPrefs = 65280
+MixerPref_DynamicSwitchToBOB: win32more.Windows.Win32.Media.DirectShow.VMRMixerPrefs = 65536
+MixerPref_DynamicDecimateBy2: win32more.Windows.Win32.Media.DirectShow.VMRMixerPrefs = 131072
+MixerPref_DynamicReserved: win32more.Windows.Win32.Media.DirectShow.VMRMixerPrefs = 786432
+MixerPref_DynamicMask: win32more.Windows.Win32.Media.DirectShow.VMRMixerPrefs = 983040
 VMRMode = Int32
-VMRMode_Windowed: VMRMode = 1
-VMRMode_Windowless: VMRMode = 2
-VMRMode_Renderless: VMRMode = 4
-VMRMode_Mask: VMRMode = 7
+VMRMode_Windowed: win32more.Windows.Win32.Media.DirectShow.VMRMode = 1
+VMRMode_Windowless: win32more.Windows.Win32.Media.DirectShow.VMRMode = 2
+VMRMode_Renderless: win32more.Windows.Win32.Media.DirectShow.VMRMode = 4
+VMRMode_Mask: win32more.Windows.Win32.Media.DirectShow.VMRMode = 7
 class VMRPRESENTATIONINFO(EasyCastStructure):
     dwFlags: UInt32
     lpSurf: win32more.Windows.Win32.Graphics.DirectDraw.IDirectDrawSurface7
@@ -7465,28 +7464,28 @@ class VMRPRESENTATIONINFO(EasyCastStructure):
     dwTypeSpecificFlags: UInt32
     dwInterlaceFlags: UInt32
 VMRPresentationFlags = Int32
-VMRSample_SyncPoint: VMRPresentationFlags = 1
-VMRSample_Preroll: VMRPresentationFlags = 2
-VMRSample_Discontinuity: VMRPresentationFlags = 4
-VMRSample_TimeValid: VMRPresentationFlags = 8
-VMRSample_SrcDstRectsValid: VMRPresentationFlags = 16
+VMRSample_SyncPoint: win32more.Windows.Win32.Media.DirectShow.VMRPresentationFlags = 1
+VMRSample_Preroll: win32more.Windows.Win32.Media.DirectShow.VMRPresentationFlags = 2
+VMRSample_Discontinuity: win32more.Windows.Win32.Media.DirectShow.VMRPresentationFlags = 4
+VMRSample_TimeValid: win32more.Windows.Win32.Media.DirectShow.VMRPresentationFlags = 8
+VMRSample_SrcDstRectsValid: win32more.Windows.Win32.Media.DirectShow.VMRPresentationFlags = 16
 VMRRenderPrefs = Int32
-RenderPrefs_RestrictToInitialMonitor: VMRRenderPrefs = 0
-RenderPrefs_ForceOffscreen: VMRRenderPrefs = 1
-RenderPrefs_ForceOverlays: VMRRenderPrefs = 2
-RenderPrefs_AllowOverlays: VMRRenderPrefs = 0
-RenderPrefs_AllowOffscreen: VMRRenderPrefs = 0
-RenderPrefs_DoNotRenderColorKeyAndBorder: VMRRenderPrefs = 8
-RenderPrefs_Reserved: VMRRenderPrefs = 16
-RenderPrefs_PreferAGPMemWhenMixing: VMRRenderPrefs = 32
-RenderPrefs_Mask: VMRRenderPrefs = 63
+RenderPrefs_RestrictToInitialMonitor: win32more.Windows.Win32.Media.DirectShow.VMRRenderPrefs = 0
+RenderPrefs_ForceOffscreen: win32more.Windows.Win32.Media.DirectShow.VMRRenderPrefs = 1
+RenderPrefs_ForceOverlays: win32more.Windows.Win32.Media.DirectShow.VMRRenderPrefs = 2
+RenderPrefs_AllowOverlays: win32more.Windows.Win32.Media.DirectShow.VMRRenderPrefs = 0
+RenderPrefs_AllowOffscreen: win32more.Windows.Win32.Media.DirectShow.VMRRenderPrefs = 0
+RenderPrefs_DoNotRenderColorKeyAndBorder: win32more.Windows.Win32.Media.DirectShow.VMRRenderPrefs = 8
+RenderPrefs_Reserved: win32more.Windows.Win32.Media.DirectShow.VMRRenderPrefs = 16
+RenderPrefs_PreferAGPMemWhenMixing: win32more.Windows.Win32.Media.DirectShow.VMRRenderPrefs = 32
+RenderPrefs_Mask: win32more.Windows.Win32.Media.DirectShow.VMRRenderPrefs = 63
 VMRSurfaceAllocationFlags = Int32
-AMAP_PIXELFORMAT_VALID: VMRSurfaceAllocationFlags = 1
-AMAP_3D_TARGET: VMRSurfaceAllocationFlags = 2
-AMAP_ALLOW_SYSMEM: VMRSurfaceAllocationFlags = 4
-AMAP_FORCE_SYSMEM: VMRSurfaceAllocationFlags = 8
-AMAP_DIRECTED_FLIP: VMRSurfaceAllocationFlags = 16
-AMAP_DXVA_TARGET: VMRSurfaceAllocationFlags = 32
+AMAP_PIXELFORMAT_VALID: win32more.Windows.Win32.Media.DirectShow.VMRSurfaceAllocationFlags = 1
+AMAP_3D_TARGET: win32more.Windows.Win32.Media.DirectShow.VMRSurfaceAllocationFlags = 2
+AMAP_ALLOW_SYSMEM: win32more.Windows.Win32.Media.DirectShow.VMRSurfaceAllocationFlags = 4
+AMAP_FORCE_SYSMEM: win32more.Windows.Win32.Media.DirectShow.VMRSurfaceAllocationFlags = 8
+AMAP_DIRECTED_FLIP: win32more.Windows.Win32.Media.DirectShow.VMRSurfaceAllocationFlags = 16
+AMAP_DXVA_TARGET: win32more.Windows.Win32.Media.DirectShow.VMRSurfaceAllocationFlags = 32
 class VMRVIDEOSTREAMINFO(EasyCastStructure):
     pddsVideoSurface: win32more.Windows.Win32.Graphics.DirectDraw.IDirectDrawSurface7
     dwWidth: UInt32
@@ -7504,104 +7503,106 @@ class VMRVideoDesc(EasyCastStructure):
     InputSampleFreq: win32more.Windows.Win32.Media.DirectShow.VMRFrequency
     OutputFrameFreq: win32more.Windows.Win32.Media.DirectShow.VMRFrequency
 VMR_ASPECT_RATIO_MODE = Int32
-VMR_ARMODE_NONE: VMR_ASPECT_RATIO_MODE = 0
-VMR_ARMODE_LETTER_BOX: VMR_ASPECT_RATIO_MODE = 1
+VMR_ARMODE_NONE: win32more.Windows.Win32.Media.DirectShow.VMR_ASPECT_RATIO_MODE = 0
+VMR_ARMODE_LETTER_BOX: win32more.Windows.Win32.Media.DirectShow.VMR_ASPECT_RATIO_MODE = 1
 VfwCaptureDialogs = Int32
-VfwCaptureDialog_Source: VfwCaptureDialogs = 1
-VfwCaptureDialog_Format: VfwCaptureDialogs = 2
-VfwCaptureDialog_Display: VfwCaptureDialogs = 4
+VfwCaptureDialog_Source: win32more.Windows.Win32.Media.DirectShow.VfwCaptureDialogs = 1
+VfwCaptureDialog_Format: win32more.Windows.Win32.Media.DirectShow.VfwCaptureDialogs = 2
+VfwCaptureDialog_Display: win32more.Windows.Win32.Media.DirectShow.VfwCaptureDialogs = 4
 VfwCompressDialogs = Int32
-VfwCompressDialog_Config: VfwCompressDialogs = 1
-VfwCompressDialog_About: VfwCompressDialogs = 2
-VfwCompressDialog_QueryConfig: VfwCompressDialogs = 4
-VfwCompressDialog_QueryAbout: VfwCompressDialogs = 8
+VfwCompressDialog_Config: win32more.Windows.Win32.Media.DirectShow.VfwCompressDialogs = 1
+VfwCompressDialog_About: win32more.Windows.Win32.Media.DirectShow.VfwCompressDialogs = 2
+VfwCompressDialog_QueryConfig: win32more.Windows.Win32.Media.DirectShow.VfwCompressDialogs = 4
+VfwCompressDialog_QueryAbout: win32more.Windows.Win32.Media.DirectShow.VfwCompressDialogs = 8
 VideoControlFlags = Int32
-VideoControlFlag_FlipHorizontal: VideoControlFlags = 1
-VideoControlFlag_FlipVertical: VideoControlFlags = 2
-VideoControlFlag_ExternalTriggerEnable: VideoControlFlags = 4
-VideoControlFlag_Trigger: VideoControlFlags = 8
+VideoControlFlag_FlipHorizontal: win32more.Windows.Win32.Media.DirectShow.VideoControlFlags = 1
+VideoControlFlag_FlipVertical: win32more.Windows.Win32.Media.DirectShow.VideoControlFlags = 2
+VideoControlFlag_ExternalTriggerEnable: win32more.Windows.Win32.Media.DirectShow.VideoControlFlags = 4
+VideoControlFlag_Trigger: win32more.Windows.Win32.Media.DirectShow.VideoControlFlags = 8
 VideoCopyProtectionType = Int32
-VideoCopyProtectionType_VideoCopyProtectionMacrovisionBasic: VideoCopyProtectionType = 0
-VideoCopyProtectionType_VideoCopyProtectionMacrovisionCBI: VideoCopyProtectionType = 1
+VideoCopyProtectionType_VideoCopyProtectionMacrovisionBasic: win32more.Windows.Win32.Media.DirectShow.VideoCopyProtectionType = 0
+VideoCopyProtectionType_VideoCopyProtectionMacrovisionCBI: win32more.Windows.Win32.Media.DirectShow.VideoCopyProtectionType = 1
 VideoProcAmpFlags = Int32
-VideoProcAmp_Flags_Auto: VideoProcAmpFlags = 1
-VideoProcAmp_Flags_Manual: VideoProcAmpFlags = 2
+VideoProcAmp_Flags_Auto: win32more.Windows.Win32.Media.DirectShow.VideoProcAmpFlags = 1
+VideoProcAmp_Flags_Manual: win32more.Windows.Win32.Media.DirectShow.VideoProcAmpFlags = 2
 VideoProcAmpProperty = Int32
-VideoProcAmp_Brightness: VideoProcAmpProperty = 0
-VideoProcAmp_Contrast: VideoProcAmpProperty = 1
-VideoProcAmp_Hue: VideoProcAmpProperty = 2
-VideoProcAmp_Saturation: VideoProcAmpProperty = 3
-VideoProcAmp_Sharpness: VideoProcAmpProperty = 4
-VideoProcAmp_Gamma: VideoProcAmpProperty = 5
-VideoProcAmp_ColorEnable: VideoProcAmpProperty = 6
-VideoProcAmp_WhiteBalance: VideoProcAmpProperty = 7
-VideoProcAmp_BacklightCompensation: VideoProcAmpProperty = 8
-VideoProcAmp_Gain: VideoProcAmpProperty = 9
+VideoProcAmp_Brightness: win32more.Windows.Win32.Media.DirectShow.VideoProcAmpProperty = 0
+VideoProcAmp_Contrast: win32more.Windows.Win32.Media.DirectShow.VideoProcAmpProperty = 1
+VideoProcAmp_Hue: win32more.Windows.Win32.Media.DirectShow.VideoProcAmpProperty = 2
+VideoProcAmp_Saturation: win32more.Windows.Win32.Media.DirectShow.VideoProcAmpProperty = 3
+VideoProcAmp_Sharpness: win32more.Windows.Win32.Media.DirectShow.VideoProcAmpProperty = 4
+VideoProcAmp_Gamma: win32more.Windows.Win32.Media.DirectShow.VideoProcAmpProperty = 5
+VideoProcAmp_ColorEnable: win32more.Windows.Win32.Media.DirectShow.VideoProcAmpProperty = 6
+VideoProcAmp_WhiteBalance: win32more.Windows.Win32.Media.DirectShow.VideoProcAmpProperty = 7
+VideoProcAmp_BacklightCompensation: win32more.Windows.Win32.Media.DirectShow.VideoProcAmpProperty = 8
+VideoProcAmp_Gain: win32more.Windows.Win32.Media.DirectShow.VideoProcAmpProperty = 9
 _AMRESCTL_RESERVEFLAGS = Int32
-AMRESCTL_RESERVEFLAGS_RESERVE: _AMRESCTL_RESERVEFLAGS = 0
-AMRESCTL_RESERVEFLAGS_UNRESERVE: _AMRESCTL_RESERVEFLAGS = 1
+AMRESCTL_RESERVEFLAGS_RESERVE: win32more.Windows.Win32.Media.DirectShow._AMRESCTL_RESERVEFLAGS = 0
+AMRESCTL_RESERVEFLAGS_UNRESERVE: win32more.Windows.Win32.Media.DirectShow._AMRESCTL_RESERVEFLAGS = 1
 _AMSTREAMSELECTENABLEFLAGS = Int32
-AMSTREAMSELECTENABLE_ENABLE: _AMSTREAMSELECTENABLEFLAGS = 1
-AMSTREAMSELECTENABLE_ENABLEALL: _AMSTREAMSELECTENABLEFLAGS = 2
+AMSTREAMSELECTENABLE_ENABLE: win32more.Windows.Win32.Media.DirectShow._AMSTREAMSELECTENABLEFLAGS = 1
+AMSTREAMSELECTENABLE_ENABLEALL: win32more.Windows.Win32.Media.DirectShow._AMSTREAMSELECTENABLEFLAGS = 2
 _AMSTREAMSELECTINFOFLAGS = Int32
-AMSTREAMSELECTINFO_ENABLED: _AMSTREAMSELECTINFOFLAGS = 1
-AMSTREAMSELECTINFO_EXCLUSIVE: _AMSTREAMSELECTINFOFLAGS = 2
+AMSTREAMSELECTINFO_ENABLED: win32more.Windows.Win32.Media.DirectShow._AMSTREAMSELECTINFOFLAGS = 1
+AMSTREAMSELECTINFO_EXCLUSIVE: win32more.Windows.Win32.Media.DirectShow._AMSTREAMSELECTINFOFLAGS = 2
 _AM_AUDIO_RENDERER_STAT_PARAM = Int32
-AM_AUDREND_STAT_PARAM_BREAK_COUNT: _AM_AUDIO_RENDERER_STAT_PARAM = 1
-AM_AUDREND_STAT_PARAM_SLAVE_MODE: _AM_AUDIO_RENDERER_STAT_PARAM = 2
-AM_AUDREND_STAT_PARAM_SILENCE_DUR: _AM_AUDIO_RENDERER_STAT_PARAM = 3
-AM_AUDREND_STAT_PARAM_LAST_BUFFER_DUR: _AM_AUDIO_RENDERER_STAT_PARAM = 4
-AM_AUDREND_STAT_PARAM_DISCONTINUITIES: _AM_AUDIO_RENDERER_STAT_PARAM = 5
-AM_AUDREND_STAT_PARAM_SLAVE_RATE: _AM_AUDIO_RENDERER_STAT_PARAM = 6
-AM_AUDREND_STAT_PARAM_SLAVE_DROPWRITE_DUR: _AM_AUDIO_RENDERER_STAT_PARAM = 7
-AM_AUDREND_STAT_PARAM_SLAVE_HIGHLOWERROR: _AM_AUDIO_RENDERER_STAT_PARAM = 8
-AM_AUDREND_STAT_PARAM_SLAVE_LASTHIGHLOWERROR: _AM_AUDIO_RENDERER_STAT_PARAM = 9
-AM_AUDREND_STAT_PARAM_SLAVE_ACCUMERROR: _AM_AUDIO_RENDERER_STAT_PARAM = 10
-AM_AUDREND_STAT_PARAM_BUFFERFULLNESS: _AM_AUDIO_RENDERER_STAT_PARAM = 11
-AM_AUDREND_STAT_PARAM_JITTER: _AM_AUDIO_RENDERER_STAT_PARAM = 12
+AM_AUDREND_STAT_PARAM_BREAK_COUNT: win32more.Windows.Win32.Media.DirectShow._AM_AUDIO_RENDERER_STAT_PARAM = 1
+AM_AUDREND_STAT_PARAM_SLAVE_MODE: win32more.Windows.Win32.Media.DirectShow._AM_AUDIO_RENDERER_STAT_PARAM = 2
+AM_AUDREND_STAT_PARAM_SILENCE_DUR: win32more.Windows.Win32.Media.DirectShow._AM_AUDIO_RENDERER_STAT_PARAM = 3
+AM_AUDREND_STAT_PARAM_LAST_BUFFER_DUR: win32more.Windows.Win32.Media.DirectShow._AM_AUDIO_RENDERER_STAT_PARAM = 4
+AM_AUDREND_STAT_PARAM_DISCONTINUITIES: win32more.Windows.Win32.Media.DirectShow._AM_AUDIO_RENDERER_STAT_PARAM = 5
+AM_AUDREND_STAT_PARAM_SLAVE_RATE: win32more.Windows.Win32.Media.DirectShow._AM_AUDIO_RENDERER_STAT_PARAM = 6
+AM_AUDREND_STAT_PARAM_SLAVE_DROPWRITE_DUR: win32more.Windows.Win32.Media.DirectShow._AM_AUDIO_RENDERER_STAT_PARAM = 7
+AM_AUDREND_STAT_PARAM_SLAVE_HIGHLOWERROR: win32more.Windows.Win32.Media.DirectShow._AM_AUDIO_RENDERER_STAT_PARAM = 8
+AM_AUDREND_STAT_PARAM_SLAVE_LASTHIGHLOWERROR: win32more.Windows.Win32.Media.DirectShow._AM_AUDIO_RENDERER_STAT_PARAM = 9
+AM_AUDREND_STAT_PARAM_SLAVE_ACCUMERROR: win32more.Windows.Win32.Media.DirectShow._AM_AUDIO_RENDERER_STAT_PARAM = 10
+AM_AUDREND_STAT_PARAM_BUFFERFULLNESS: win32more.Windows.Win32.Media.DirectShow._AM_AUDIO_RENDERER_STAT_PARAM = 11
+AM_AUDREND_STAT_PARAM_JITTER: win32more.Windows.Win32.Media.DirectShow._AM_AUDIO_RENDERER_STAT_PARAM = 12
 _AM_FILTER_MISC_FLAGS = Int32
-AM_FILTER_MISC_FLAGS_IS_RENDERER: _AM_FILTER_MISC_FLAGS = 1
-AM_FILTER_MISC_FLAGS_IS_SOURCE: _AM_FILTER_MISC_FLAGS = 2
+AM_FILTER_MISC_FLAGS_IS_RENDERER: win32more.Windows.Win32.Media.DirectShow._AM_FILTER_MISC_FLAGS = 1
+AM_FILTER_MISC_FLAGS_IS_SOURCE: win32more.Windows.Win32.Media.DirectShow._AM_FILTER_MISC_FLAGS = 2
 _AM_INTF_SEARCH_FLAGS = Int32
-AM_INTF_SEARCH_INPUT_PIN: _AM_INTF_SEARCH_FLAGS = 1
-AM_INTF_SEARCH_OUTPUT_PIN: _AM_INTF_SEARCH_FLAGS = 2
-AM_INTF_SEARCH_FILTER: _AM_INTF_SEARCH_FLAGS = 4
+AM_INTF_SEARCH_INPUT_PIN: win32more.Windows.Win32.Media.DirectShow._AM_INTF_SEARCH_FLAGS = 1
+AM_INTF_SEARCH_OUTPUT_PIN: win32more.Windows.Win32.Media.DirectShow._AM_INTF_SEARCH_FLAGS = 2
+AM_INTF_SEARCH_FILTER: win32more.Windows.Win32.Media.DirectShow._AM_INTF_SEARCH_FLAGS = 4
 _AM_OVERLAY_NOTIFY_FLAGS = Int32
-AM_OVERLAY_NOTIFY_VISIBLE_CHANGE: _AM_OVERLAY_NOTIFY_FLAGS = 1
-AM_OVERLAY_NOTIFY_SOURCE_CHANGE: _AM_OVERLAY_NOTIFY_FLAGS = 2
-AM_OVERLAY_NOTIFY_DEST_CHANGE: _AM_OVERLAY_NOTIFY_FLAGS = 4
+AM_OVERLAY_NOTIFY_VISIBLE_CHANGE: win32more.Windows.Win32.Media.DirectShow._AM_OVERLAY_NOTIFY_FLAGS = 1
+AM_OVERLAY_NOTIFY_SOURCE_CHANGE: win32more.Windows.Win32.Media.DirectShow._AM_OVERLAY_NOTIFY_FLAGS = 2
+AM_OVERLAY_NOTIFY_DEST_CHANGE: win32more.Windows.Win32.Media.DirectShow._AM_OVERLAY_NOTIFY_FLAGS = 4
 _AM_PIN_FLOW_CONTROL_BLOCK_FLAGS = Int32
-AM_PIN_FLOW_CONTROL_BLOCK: _AM_PIN_FLOW_CONTROL_BLOCK_FLAGS = 1
+AM_PIN_FLOW_CONTROL_BLOCK: win32more.Windows.Win32.Media.DirectShow._AM_PIN_FLOW_CONTROL_BLOCK_FLAGS = 1
 _AM_PUSHSOURCE_FLAGS = Int32
-AM_PUSHSOURCECAPS_INTERNAL_RM: _AM_PUSHSOURCE_FLAGS = 1
-AM_PUSHSOURCECAPS_NOT_LIVE: _AM_PUSHSOURCE_FLAGS = 2
-AM_PUSHSOURCECAPS_PRIVATE_CLOCK: _AM_PUSHSOURCE_FLAGS = 4
-AM_PUSHSOURCEREQS_USE_STREAM_CLOCK: _AM_PUSHSOURCE_FLAGS = 65536
-AM_PUSHSOURCEREQS_USE_CLOCK_CHAIN: _AM_PUSHSOURCE_FLAGS = 131072
+AM_PUSHSOURCECAPS_INTERNAL_RM: win32more.Windows.Win32.Media.DirectShow._AM_PUSHSOURCE_FLAGS = 1
+AM_PUSHSOURCECAPS_NOT_LIVE: win32more.Windows.Win32.Media.DirectShow._AM_PUSHSOURCE_FLAGS = 2
+AM_PUSHSOURCECAPS_PRIVATE_CLOCK: win32more.Windows.Win32.Media.DirectShow._AM_PUSHSOURCE_FLAGS = 4
+AM_PUSHSOURCEREQS_USE_STREAM_CLOCK: win32more.Windows.Win32.Media.DirectShow._AM_PUSHSOURCE_FLAGS = 65536
+AM_PUSHSOURCEREQS_USE_CLOCK_CHAIN: win32more.Windows.Win32.Media.DirectShow._AM_PUSHSOURCE_FLAGS = 131072
 _AM_RENSDEREXFLAGS = Int32
-AM_RENDEREX_RENDERTOEXISTINGRENDERERS: _AM_RENSDEREXFLAGS = 1
+AM_RENDEREX_RENDERTOEXISTINGRENDERERS: win32more.Windows.Win32.Media.DirectShow._AM_RENSDEREXFLAGS = 1
 _DVDECODERRESOLUTION = Int32
-DVDECODERRESOLUTION_720x480: _DVDECODERRESOLUTION = 1000
-DVDECODERRESOLUTION_360x240: _DVDECODERRESOLUTION = 1001
-DVDECODERRESOLUTION_180x120: _DVDECODERRESOLUTION = 1002
-DVDECODERRESOLUTION_88x60: _DVDECODERRESOLUTION = 1003
+DVDECODERRESOLUTION_720x480: win32more.Windows.Win32.Media.DirectShow._DVDECODERRESOLUTION = 1000
+DVDECODERRESOLUTION_360x240: win32more.Windows.Win32.Media.DirectShow._DVDECODERRESOLUTION = 1001
+DVDECODERRESOLUTION_180x120: win32more.Windows.Win32.Media.DirectShow._DVDECODERRESOLUTION = 1002
+DVDECODERRESOLUTION_88x60: win32more.Windows.Win32.Media.DirectShow._DVDECODERRESOLUTION = 1003
 _DVENCODERFORMAT = Int32
-DVENCODERFORMAT_DVSD: _DVENCODERFORMAT = 2007
-DVENCODERFORMAT_DVHD: _DVENCODERFORMAT = 2008
-DVENCODERFORMAT_DVSL: _DVENCODERFORMAT = 2009
+DVENCODERFORMAT_DVSD: win32more.Windows.Win32.Media.DirectShow._DVENCODERFORMAT = 2007
+DVENCODERFORMAT_DVHD: win32more.Windows.Win32.Media.DirectShow._DVENCODERFORMAT = 2008
+DVENCODERFORMAT_DVSL: win32more.Windows.Win32.Media.DirectShow._DVENCODERFORMAT = 2009
 _DVENCODERRESOLUTION = Int32
-DVENCODERRESOLUTION_720x480: _DVENCODERRESOLUTION = 2012
-DVENCODERRESOLUTION_360x240: _DVENCODERRESOLUTION = 2013
-DVENCODERRESOLUTION_180x120: _DVENCODERRESOLUTION = 2014
-DVENCODERRESOLUTION_88x60: _DVENCODERRESOLUTION = 2015
+DVENCODERRESOLUTION_720x480: win32more.Windows.Win32.Media.DirectShow._DVENCODERRESOLUTION = 2012
+DVENCODERRESOLUTION_360x240: win32more.Windows.Win32.Media.DirectShow._DVENCODERRESOLUTION = 2013
+DVENCODERRESOLUTION_180x120: win32more.Windows.Win32.Media.DirectShow._DVENCODERRESOLUTION = 2014
+DVENCODERRESOLUTION_88x60: win32more.Windows.Win32.Media.DirectShow._DVENCODERRESOLUTION = 2015
 _DVENCODERVIDEOFORMAT = Int32
-DVENCODERVIDEOFORMAT_NTSC: _DVENCODERVIDEOFORMAT = 2000
-DVENCODERVIDEOFORMAT_PAL: _DVENCODERVIDEOFORMAT = 2001
+DVENCODERVIDEOFORMAT_NTSC: win32more.Windows.Win32.Media.DirectShow._DVENCODERVIDEOFORMAT = 2000
+DVENCODERVIDEOFORMAT_PAL: win32more.Windows.Win32.Media.DirectShow._DVENCODERVIDEOFORMAT = 2001
 _DVRESOLUTION = Int32
-DVRESOLUTION_FULL: _DVRESOLUTION = 1000
-DVRESOLUTION_HALF: _DVRESOLUTION = 1001
-DVRESOLUTION_QUARTER: _DVRESOLUTION = 1002
-DVRESOLUTION_DC: _DVRESOLUTION = 1003
+DVRESOLUTION_FULL: win32more.Windows.Win32.Media.DirectShow._DVRESOLUTION = 1000
+DVRESOLUTION_HALF: win32more.Windows.Win32.Media.DirectShow._DVRESOLUTION = 1001
+DVRESOLUTION_QUARTER: win32more.Windows.Win32.Media.DirectShow._DVRESOLUTION = 1002
+DVRESOLUTION_DC: win32more.Windows.Win32.Media.DirectShow._DVRESOLUTION = 1003
 _REM_FILTER_FLAGS = Int32
-REMFILTERF_LEAVECONNECTED: _REM_FILTER_FLAGS = 1
+REMFILTERF_LEAVECONNECTED: win32more.Windows.Win32.Media.DirectShow._REM_FILTER_FLAGS = 1
+
+
 make_ready(__name__)

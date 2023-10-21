@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.Contacts
@@ -113,12 +112,12 @@ class CONTACT_AGGREGATION_BLOB(EasyCastStructure):
     dwCount: UInt32
     lpb: POINTER(Byte)
 CONTACT_AGGREGATION_COLLECTION_OPTIONS = Int32
-CACO_DEFAULT: CONTACT_AGGREGATION_COLLECTION_OPTIONS = 0
-CACO_INCLUDE_EXTERNAL: CONTACT_AGGREGATION_COLLECTION_OPTIONS = 1
-CACO_EXTERNAL_ONLY: CONTACT_AGGREGATION_COLLECTION_OPTIONS = 2
+CACO_DEFAULT: win32more.Windows.Win32.System.Contacts.CONTACT_AGGREGATION_COLLECTION_OPTIONS = 0
+CACO_INCLUDE_EXTERNAL: win32more.Windows.Win32.System.Contacts.CONTACT_AGGREGATION_COLLECTION_OPTIONS = 1
+CACO_EXTERNAL_ONLY: win32more.Windows.Win32.System.Contacts.CONTACT_AGGREGATION_COLLECTION_OPTIONS = 2
 CONTACT_AGGREGATION_CREATE_OR_OPEN_OPTIONS = Int32
-CA_CREATE_LOCAL: CONTACT_AGGREGATION_CREATE_OR_OPEN_OPTIONS = 0
-CA_CREATE_EXTERNAL: CONTACT_AGGREGATION_CREATE_OR_OPEN_OPTIONS = 1
+CA_CREATE_LOCAL: win32more.Windows.Win32.System.Contacts.CONTACT_AGGREGATION_CREATE_OR_OPEN_OPTIONS = 0
+CA_CREATE_EXTERNAL: win32more.Windows.Win32.System.Contacts.CONTACT_AGGREGATION_CREATE_OR_OPEN_OPTIONS = 1
 Contact = Guid('{61b68808-8eee-4fd1-acb8-3d804c8db056}')
 ContactManager = Guid('{7165c8ab-af88-42bd-86fd-5310b4285a02}')
 class IContact(ComPtr):
@@ -463,4 +462,6 @@ class IContactPropertyCollection(ComPtr):
     def GetPropertyModificationDate(self, pftModificationDate: POINTER(win32more.Windows.Win32.Foundation.FILETIME)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def GetPropertyArrayElementID(self, pszArrayElementID: win32more.Windows.Win32.Foundation.PWSTR, cchArrayElementID: UInt32, pdwcchArrayElementIDRequired: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+
+
 make_ready(__name__)

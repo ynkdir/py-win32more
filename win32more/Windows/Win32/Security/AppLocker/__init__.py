@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.Security.AppLocker
@@ -98,10 +97,10 @@ class SAFER_CODE_PROPERTIES_V2(EasyCastStructure):
     PackageVersion: UInt64
     PackageIsFramework: win32more.Windows.Win32.Foundation.BOOL
 SAFER_COMPUTE_TOKEN_FROM_LEVEL_FLAGS = UInt32
-SAFER_TOKEN_NULL_IF_EQUAL: SAFER_COMPUTE_TOKEN_FROM_LEVEL_FLAGS = 1
-SAFER_TOKEN_COMPARE_ONLY: SAFER_COMPUTE_TOKEN_FROM_LEVEL_FLAGS = 2
-SAFER_TOKEN_MAKE_INERT: SAFER_COMPUTE_TOKEN_FROM_LEVEL_FLAGS = 4
-SAFER_TOKEN_WANT_FLAGS: SAFER_COMPUTE_TOKEN_FROM_LEVEL_FLAGS = 8
+SAFER_TOKEN_NULL_IF_EQUAL: win32more.Windows.Win32.Security.AppLocker.SAFER_COMPUTE_TOKEN_FROM_LEVEL_FLAGS = 1
+SAFER_TOKEN_COMPARE_ONLY: win32more.Windows.Win32.Security.AppLocker.SAFER_COMPUTE_TOKEN_FROM_LEVEL_FLAGS = 2
+SAFER_TOKEN_MAKE_INERT: win32more.Windows.Win32.Security.AppLocker.SAFER_COMPUTE_TOKEN_FROM_LEVEL_FLAGS = 4
+SAFER_TOKEN_WANT_FLAGS: win32more.Windows.Win32.Security.AppLocker.SAFER_COMPUTE_TOKEN_FROM_LEVEL_FLAGS = 8
 class SAFER_HASH_IDENTIFICATION(EasyCastStructure):
     header: win32more.Windows.Win32.Security.AppLocker.SAFER_IDENTIFICATION_HEADER
     Description: Char * 256
@@ -122,43 +121,45 @@ class SAFER_IDENTIFICATION_HEADER(EasyCastStructure):
     IdentificationGuid: Guid
     lastModified: win32more.Windows.Win32.Foundation.FILETIME
 SAFER_IDENTIFICATION_TYPES = Int32
-SAFER_IDENTIFICATION_TYPES_SaferIdentityDefault: SAFER_IDENTIFICATION_TYPES = 0
-SAFER_IDENTIFICATION_TYPES_SaferIdentityTypeImageName: SAFER_IDENTIFICATION_TYPES = 1
-SAFER_IDENTIFICATION_TYPES_SaferIdentityTypeImageHash: SAFER_IDENTIFICATION_TYPES = 2
-SAFER_IDENTIFICATION_TYPES_SaferIdentityTypeUrlZone: SAFER_IDENTIFICATION_TYPES = 3
-SAFER_IDENTIFICATION_TYPES_SaferIdentityTypeCertificate: SAFER_IDENTIFICATION_TYPES = 4
+SAFER_IDENTIFICATION_TYPES_SaferIdentityDefault: win32more.Windows.Win32.Security.AppLocker.SAFER_IDENTIFICATION_TYPES = 0
+SAFER_IDENTIFICATION_TYPES_SaferIdentityTypeImageName: win32more.Windows.Win32.Security.AppLocker.SAFER_IDENTIFICATION_TYPES = 1
+SAFER_IDENTIFICATION_TYPES_SaferIdentityTypeImageHash: win32more.Windows.Win32.Security.AppLocker.SAFER_IDENTIFICATION_TYPES = 2
+SAFER_IDENTIFICATION_TYPES_SaferIdentityTypeUrlZone: win32more.Windows.Win32.Security.AppLocker.SAFER_IDENTIFICATION_TYPES = 3
+SAFER_IDENTIFICATION_TYPES_SaferIdentityTypeCertificate: win32more.Windows.Win32.Security.AppLocker.SAFER_IDENTIFICATION_TYPES = 4
 SAFER_OBJECT_INFO_CLASS = Int32
-SAFER_OBJECT_INFO_CLASS_SaferObjectLevelId: SAFER_OBJECT_INFO_CLASS = 1
-SAFER_OBJECT_INFO_CLASS_SaferObjectScopeId: SAFER_OBJECT_INFO_CLASS = 2
-SAFER_OBJECT_INFO_CLASS_SaferObjectFriendlyName: SAFER_OBJECT_INFO_CLASS = 3
-SAFER_OBJECT_INFO_CLASS_SaferObjectDescription: SAFER_OBJECT_INFO_CLASS = 4
-SAFER_OBJECT_INFO_CLASS_SaferObjectBuiltin: SAFER_OBJECT_INFO_CLASS = 5
-SAFER_OBJECT_INFO_CLASS_SaferObjectDisallowed: SAFER_OBJECT_INFO_CLASS = 6
-SAFER_OBJECT_INFO_CLASS_SaferObjectDisableMaxPrivilege: SAFER_OBJECT_INFO_CLASS = 7
-SAFER_OBJECT_INFO_CLASS_SaferObjectInvertDeletedPrivileges: SAFER_OBJECT_INFO_CLASS = 8
-SAFER_OBJECT_INFO_CLASS_SaferObjectDeletedPrivileges: SAFER_OBJECT_INFO_CLASS = 9
-SAFER_OBJECT_INFO_CLASS_SaferObjectDefaultOwner: SAFER_OBJECT_INFO_CLASS = 10
-SAFER_OBJECT_INFO_CLASS_SaferObjectSidsToDisable: SAFER_OBJECT_INFO_CLASS = 11
-SAFER_OBJECT_INFO_CLASS_SaferObjectRestrictedSidsInverted: SAFER_OBJECT_INFO_CLASS = 12
-SAFER_OBJECT_INFO_CLASS_SaferObjectRestrictedSidsAdded: SAFER_OBJECT_INFO_CLASS = 13
-SAFER_OBJECT_INFO_CLASS_SaferObjectAllIdentificationGuids: SAFER_OBJECT_INFO_CLASS = 14
-SAFER_OBJECT_INFO_CLASS_SaferObjectSingleIdentification: SAFER_OBJECT_INFO_CLASS = 15
-SAFER_OBJECT_INFO_CLASS_SaferObjectExtendedError: SAFER_OBJECT_INFO_CLASS = 16
+SAFER_OBJECT_INFO_CLASS_SaferObjectLevelId: win32more.Windows.Win32.Security.AppLocker.SAFER_OBJECT_INFO_CLASS = 1
+SAFER_OBJECT_INFO_CLASS_SaferObjectScopeId: win32more.Windows.Win32.Security.AppLocker.SAFER_OBJECT_INFO_CLASS = 2
+SAFER_OBJECT_INFO_CLASS_SaferObjectFriendlyName: win32more.Windows.Win32.Security.AppLocker.SAFER_OBJECT_INFO_CLASS = 3
+SAFER_OBJECT_INFO_CLASS_SaferObjectDescription: win32more.Windows.Win32.Security.AppLocker.SAFER_OBJECT_INFO_CLASS = 4
+SAFER_OBJECT_INFO_CLASS_SaferObjectBuiltin: win32more.Windows.Win32.Security.AppLocker.SAFER_OBJECT_INFO_CLASS = 5
+SAFER_OBJECT_INFO_CLASS_SaferObjectDisallowed: win32more.Windows.Win32.Security.AppLocker.SAFER_OBJECT_INFO_CLASS = 6
+SAFER_OBJECT_INFO_CLASS_SaferObjectDisableMaxPrivilege: win32more.Windows.Win32.Security.AppLocker.SAFER_OBJECT_INFO_CLASS = 7
+SAFER_OBJECT_INFO_CLASS_SaferObjectInvertDeletedPrivileges: win32more.Windows.Win32.Security.AppLocker.SAFER_OBJECT_INFO_CLASS = 8
+SAFER_OBJECT_INFO_CLASS_SaferObjectDeletedPrivileges: win32more.Windows.Win32.Security.AppLocker.SAFER_OBJECT_INFO_CLASS = 9
+SAFER_OBJECT_INFO_CLASS_SaferObjectDefaultOwner: win32more.Windows.Win32.Security.AppLocker.SAFER_OBJECT_INFO_CLASS = 10
+SAFER_OBJECT_INFO_CLASS_SaferObjectSidsToDisable: win32more.Windows.Win32.Security.AppLocker.SAFER_OBJECT_INFO_CLASS = 11
+SAFER_OBJECT_INFO_CLASS_SaferObjectRestrictedSidsInverted: win32more.Windows.Win32.Security.AppLocker.SAFER_OBJECT_INFO_CLASS = 12
+SAFER_OBJECT_INFO_CLASS_SaferObjectRestrictedSidsAdded: win32more.Windows.Win32.Security.AppLocker.SAFER_OBJECT_INFO_CLASS = 13
+SAFER_OBJECT_INFO_CLASS_SaferObjectAllIdentificationGuids: win32more.Windows.Win32.Security.AppLocker.SAFER_OBJECT_INFO_CLASS = 14
+SAFER_OBJECT_INFO_CLASS_SaferObjectSingleIdentification: win32more.Windows.Win32.Security.AppLocker.SAFER_OBJECT_INFO_CLASS = 15
+SAFER_OBJECT_INFO_CLASS_SaferObjectExtendedError: win32more.Windows.Win32.Security.AppLocker.SAFER_OBJECT_INFO_CLASS = 16
 class SAFER_PATHNAME_IDENTIFICATION(EasyCastStructure):
     header: win32more.Windows.Win32.Security.AppLocker.SAFER_IDENTIFICATION_HEADER
     Description: Char * 256
     ImageName: win32more.Windows.Win32.Foundation.PWSTR
     dwSaferFlags: UInt32
 SAFER_POLICY_INFO_CLASS = Int32
-SAFER_POLICY_INFO_CLASS_SaferPolicyLevelList: SAFER_POLICY_INFO_CLASS = 1
-SAFER_POLICY_INFO_CLASS_SaferPolicyEnableTransparentEnforcement: SAFER_POLICY_INFO_CLASS = 2
-SAFER_POLICY_INFO_CLASS_SaferPolicyDefaultLevel: SAFER_POLICY_INFO_CLASS = 3
-SAFER_POLICY_INFO_CLASS_SaferPolicyEvaluateUserScope: SAFER_POLICY_INFO_CLASS = 4
-SAFER_POLICY_INFO_CLASS_SaferPolicyScopeFlags: SAFER_POLICY_INFO_CLASS = 5
-SAFER_POLICY_INFO_CLASS_SaferPolicyDefaultLevelFlags: SAFER_POLICY_INFO_CLASS = 6
-SAFER_POLICY_INFO_CLASS_SaferPolicyAuthenticodeEnabled: SAFER_POLICY_INFO_CLASS = 7
+SAFER_POLICY_INFO_CLASS_SaferPolicyLevelList: win32more.Windows.Win32.Security.AppLocker.SAFER_POLICY_INFO_CLASS = 1
+SAFER_POLICY_INFO_CLASS_SaferPolicyEnableTransparentEnforcement: win32more.Windows.Win32.Security.AppLocker.SAFER_POLICY_INFO_CLASS = 2
+SAFER_POLICY_INFO_CLASS_SaferPolicyDefaultLevel: win32more.Windows.Win32.Security.AppLocker.SAFER_POLICY_INFO_CLASS = 3
+SAFER_POLICY_INFO_CLASS_SaferPolicyEvaluateUserScope: win32more.Windows.Win32.Security.AppLocker.SAFER_POLICY_INFO_CLASS = 4
+SAFER_POLICY_INFO_CLASS_SaferPolicyScopeFlags: win32more.Windows.Win32.Security.AppLocker.SAFER_POLICY_INFO_CLASS = 5
+SAFER_POLICY_INFO_CLASS_SaferPolicyDefaultLevelFlags: win32more.Windows.Win32.Security.AppLocker.SAFER_POLICY_INFO_CLASS = 6
+SAFER_POLICY_INFO_CLASS_SaferPolicyAuthenticodeEnabled: win32more.Windows.Win32.Security.AppLocker.SAFER_POLICY_INFO_CLASS = 7
 class SAFER_URLZONE_IDENTIFICATION(EasyCastStructure):
     header: win32more.Windows.Win32.Security.AppLocker.SAFER_IDENTIFICATION_HEADER
     UrlZoneId: UInt32
     dwSaferFlags: UInt32
+
+
 make_ready(__name__)

@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.DXCore
 import win32more.Windows.Win32.System.Com
@@ -19,28 +18,28 @@ class DXCoreAdapterMemoryBudgetNodeSegmentGroup(EasyCastStructure):
     nodeIndex: UInt32
     segmentGroup: win32more.Windows.Win32.Graphics.DXCore.DXCoreSegmentGroup
 DXCoreAdapterPreference = UInt32
-DXCoreAdapterPreference_Hardware: DXCoreAdapterPreference = 0
-DXCoreAdapterPreference_MinimumPower: DXCoreAdapterPreference = 1
-DXCoreAdapterPreference_HighPerformance: DXCoreAdapterPreference = 2
+DXCoreAdapterPreference_Hardware: win32more.Windows.Win32.Graphics.DXCore.DXCoreAdapterPreference = 0
+DXCoreAdapterPreference_MinimumPower: win32more.Windows.Win32.Graphics.DXCore.DXCoreAdapterPreference = 1
+DXCoreAdapterPreference_HighPerformance: win32more.Windows.Win32.Graphics.DXCore.DXCoreAdapterPreference = 2
 DXCoreAdapterProperty = UInt32
-DXCoreAdapterProperty_InstanceLuid: DXCoreAdapterProperty = 0
-DXCoreAdapterProperty_DriverVersion: DXCoreAdapterProperty = 1
-DXCoreAdapterProperty_DriverDescription: DXCoreAdapterProperty = 2
-DXCoreAdapterProperty_HardwareID: DXCoreAdapterProperty = 3
-DXCoreAdapterProperty_KmdModelVersion: DXCoreAdapterProperty = 4
-DXCoreAdapterProperty_ComputePreemptionGranularity: DXCoreAdapterProperty = 5
-DXCoreAdapterProperty_GraphicsPreemptionGranularity: DXCoreAdapterProperty = 6
-DXCoreAdapterProperty_DedicatedAdapterMemory: DXCoreAdapterProperty = 7
-DXCoreAdapterProperty_DedicatedSystemMemory: DXCoreAdapterProperty = 8
-DXCoreAdapterProperty_SharedSystemMemory: DXCoreAdapterProperty = 9
-DXCoreAdapterProperty_AcgCompatible: DXCoreAdapterProperty = 10
-DXCoreAdapterProperty_IsHardware: DXCoreAdapterProperty = 11
-DXCoreAdapterProperty_IsIntegrated: DXCoreAdapterProperty = 12
-DXCoreAdapterProperty_IsDetachable: DXCoreAdapterProperty = 13
-DXCoreAdapterProperty_HardwareIDParts: DXCoreAdapterProperty = 14
+DXCoreAdapterProperty_InstanceLuid: win32more.Windows.Win32.Graphics.DXCore.DXCoreAdapterProperty = 0
+DXCoreAdapterProperty_DriverVersion: win32more.Windows.Win32.Graphics.DXCore.DXCoreAdapterProperty = 1
+DXCoreAdapterProperty_DriverDescription: win32more.Windows.Win32.Graphics.DXCore.DXCoreAdapterProperty = 2
+DXCoreAdapterProperty_HardwareID: win32more.Windows.Win32.Graphics.DXCore.DXCoreAdapterProperty = 3
+DXCoreAdapterProperty_KmdModelVersion: win32more.Windows.Win32.Graphics.DXCore.DXCoreAdapterProperty = 4
+DXCoreAdapterProperty_ComputePreemptionGranularity: win32more.Windows.Win32.Graphics.DXCore.DXCoreAdapterProperty = 5
+DXCoreAdapterProperty_GraphicsPreemptionGranularity: win32more.Windows.Win32.Graphics.DXCore.DXCoreAdapterProperty = 6
+DXCoreAdapterProperty_DedicatedAdapterMemory: win32more.Windows.Win32.Graphics.DXCore.DXCoreAdapterProperty = 7
+DXCoreAdapterProperty_DedicatedSystemMemory: win32more.Windows.Win32.Graphics.DXCore.DXCoreAdapterProperty = 8
+DXCoreAdapterProperty_SharedSystemMemory: win32more.Windows.Win32.Graphics.DXCore.DXCoreAdapterProperty = 9
+DXCoreAdapterProperty_AcgCompatible: win32more.Windows.Win32.Graphics.DXCore.DXCoreAdapterProperty = 10
+DXCoreAdapterProperty_IsHardware: win32more.Windows.Win32.Graphics.DXCore.DXCoreAdapterProperty = 11
+DXCoreAdapterProperty_IsIntegrated: win32more.Windows.Win32.Graphics.DXCore.DXCoreAdapterProperty = 12
+DXCoreAdapterProperty_IsDetachable: win32more.Windows.Win32.Graphics.DXCore.DXCoreAdapterProperty = 13
+DXCoreAdapterProperty_HardwareIDParts: win32more.Windows.Win32.Graphics.DXCore.DXCoreAdapterProperty = 14
 DXCoreAdapterState = UInt32
-DXCoreAdapterState_IsDriverUpdateInProgress: DXCoreAdapterState = 0
-DXCoreAdapterState_AdapterMemoryBudget: DXCoreAdapterState = 1
+DXCoreAdapterState_IsDriverUpdateInProgress: win32more.Windows.Win32.Graphics.DXCore.DXCoreAdapterState = 0
+DXCoreAdapterState_AdapterMemoryBudget: win32more.Windows.Win32.Graphics.DXCore.DXCoreAdapterState = 1
 class DXCoreHardwareID(EasyCastStructure):
     vendorID: UInt32
     deviceID: UInt32
@@ -53,13 +52,13 @@ class DXCoreHardwareIDParts(EasyCastStructure):
     subVendorID: UInt32
     revisionID: UInt32
 DXCoreNotificationType = UInt32
-DXCoreNotificationType_AdapterListStale: DXCoreNotificationType = 0
-DXCoreNotificationType_AdapterNoLongerValid: DXCoreNotificationType = 1
-DXCoreNotificationType_AdapterBudgetChange: DXCoreNotificationType = 2
-DXCoreNotificationType_AdapterHardwareContentProtectionTeardown: DXCoreNotificationType = 3
+DXCoreNotificationType_AdapterListStale: win32more.Windows.Win32.Graphics.DXCore.DXCoreNotificationType = 0
+DXCoreNotificationType_AdapterNoLongerValid: win32more.Windows.Win32.Graphics.DXCore.DXCoreNotificationType = 1
+DXCoreNotificationType_AdapterBudgetChange: win32more.Windows.Win32.Graphics.DXCore.DXCoreNotificationType = 2
+DXCoreNotificationType_AdapterHardwareContentProtectionTeardown: win32more.Windows.Win32.Graphics.DXCore.DXCoreNotificationType = 3
 DXCoreSegmentGroup = UInt32
-DXCoreSegmentGroup_Local: DXCoreSegmentGroup = 0
-DXCoreSegmentGroup_NonLocal: DXCoreSegmentGroup = 1
+DXCoreSegmentGroup_Local: win32more.Windows.Win32.Graphics.DXCore.DXCoreSegmentGroup = 0
+DXCoreSegmentGroup_NonLocal: win32more.Windows.Win32.Graphics.DXCore.DXCoreSegmentGroup = 1
 class IDXCoreAdapter(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{f0db4c7f-fe5a-42a2-bd62-f2a6cf6fc83e}')
@@ -113,4 +112,6 @@ class IDXCoreAdapterList(ComPtr):
     def IsAdapterPreferenceSupported(self, preference: win32more.Windows.Win32.Graphics.DXCore.DXCoreAdapterPreference) -> Boolean: ...
 @winfunctype_pointer
 def PFN_DXCORE_NOTIFICATION_CALLBACK(notificationType: win32more.Windows.Win32.Graphics.DXCore.DXCoreNotificationType, object: win32more.Windows.Win32.System.Com.IUnknown, context: VoidPtr) -> Void: ...
+
+
 make_ready(__name__)

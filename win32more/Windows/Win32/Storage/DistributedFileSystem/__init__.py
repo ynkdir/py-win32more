@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.Storage.DistributedFileSystem
@@ -218,9 +217,9 @@ class DFS_INFO_9(EasyCastStructure):
     NumberOfStorages: UInt32
     Storage: POINTER(win32more.Windows.Win32.Storage.DistributedFileSystem.DFS_STORAGE_INFO_1)
 DFS_NAMESPACE_VERSION_ORIGIN = Int32
-DFS_NAMESPACE_VERSION_ORIGIN_COMBINED: DFS_NAMESPACE_VERSION_ORIGIN = 0
-DFS_NAMESPACE_VERSION_ORIGIN_SERVER: DFS_NAMESPACE_VERSION_ORIGIN = 1
-DFS_NAMESPACE_VERSION_ORIGIN_DOMAIN: DFS_NAMESPACE_VERSION_ORIGIN = 2
+DFS_NAMESPACE_VERSION_ORIGIN_COMBINED: win32more.Windows.Win32.Storage.DistributedFileSystem.DFS_NAMESPACE_VERSION_ORIGIN = 0
+DFS_NAMESPACE_VERSION_ORIGIN_SERVER: win32more.Windows.Win32.Storage.DistributedFileSystem.DFS_NAMESPACE_VERSION_ORIGIN = 1
+DFS_NAMESPACE_VERSION_ORIGIN_DOMAIN: win32more.Windows.Win32.Storage.DistributedFileSystem.DFS_NAMESPACE_VERSION_ORIGIN = 2
 class DFS_SITELIST_INFO(EasyCastStructure):
     cSites: UInt32
     Site: win32more.Windows.Win32.Storage.DistributedFileSystem.DFS_SITENAME_INFO * 1
@@ -253,10 +252,12 @@ class DFS_TARGET_PRIORITY(EasyCastStructure):
     TargetPriorityRank: UInt16
     Reserved: UInt16
 DFS_TARGET_PRIORITY_CLASS = Int32
-DFS_TARGET_PRIORITY_CLASS_DfsInvalidPriorityClass: DFS_TARGET_PRIORITY_CLASS = -1
-DFS_TARGET_PRIORITY_CLASS_DfsSiteCostNormalPriorityClass: DFS_TARGET_PRIORITY_CLASS = 0
-DFS_TARGET_PRIORITY_CLASS_DfsGlobalHighPriorityClass: DFS_TARGET_PRIORITY_CLASS = 1
-DFS_TARGET_PRIORITY_CLASS_DfsSiteCostHighPriorityClass: DFS_TARGET_PRIORITY_CLASS = 2
-DFS_TARGET_PRIORITY_CLASS_DfsSiteCostLowPriorityClass: DFS_TARGET_PRIORITY_CLASS = 3
-DFS_TARGET_PRIORITY_CLASS_DfsGlobalLowPriorityClass: DFS_TARGET_PRIORITY_CLASS = 4
+DFS_TARGET_PRIORITY_CLASS_DfsInvalidPriorityClass: win32more.Windows.Win32.Storage.DistributedFileSystem.DFS_TARGET_PRIORITY_CLASS = -1
+DFS_TARGET_PRIORITY_CLASS_DfsSiteCostNormalPriorityClass: win32more.Windows.Win32.Storage.DistributedFileSystem.DFS_TARGET_PRIORITY_CLASS = 0
+DFS_TARGET_PRIORITY_CLASS_DfsGlobalHighPriorityClass: win32more.Windows.Win32.Storage.DistributedFileSystem.DFS_TARGET_PRIORITY_CLASS = 1
+DFS_TARGET_PRIORITY_CLASS_DfsSiteCostHighPriorityClass: win32more.Windows.Win32.Storage.DistributedFileSystem.DFS_TARGET_PRIORITY_CLASS = 2
+DFS_TARGET_PRIORITY_CLASS_DfsSiteCostLowPriorityClass: win32more.Windows.Win32.Storage.DistributedFileSystem.DFS_TARGET_PRIORITY_CLASS = 3
+DFS_TARGET_PRIORITY_CLASS_DfsGlobalLowPriorityClass: win32more.Windows.Win32.Storage.DistributedFileSystem.DFS_TARGET_PRIORITY_CLASS = 4
+
+
 make_ready(__name__)

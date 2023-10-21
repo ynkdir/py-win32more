@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Dxgi
 import win32more.Windows.Win32.System.Com
@@ -156,6 +155,8 @@ class IVirtualSurfaceUpdatesCallbackNative(ComPtr):
     def UpdatesNeeded(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 TrackerHandle = IntPtr
 XAML_REFERENCETRACKER_DISCONNECT = Int32
-XAML_REFERENCETRACKER_DISCONNECT_DEFAULT: XAML_REFERENCETRACKER_DISCONNECT = 0
-XAML_REFERENCETRACKER_DISCONNECT_SUSPEND: XAML_REFERENCETRACKER_DISCONNECT = 1
+XAML_REFERENCETRACKER_DISCONNECT_DEFAULT: win32more.Windows.Win32.System.WinRT.Xaml.XAML_REFERENCETRACKER_DISCONNECT = 0
+XAML_REFERENCETRACKER_DISCONNECT_SUSPEND: win32more.Windows.Win32.System.WinRT.Xaml.XAML_REFERENCETRACKER_DISCONNECT = 1
+
+
 make_ready(__name__)

@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.DirectDraw
 import win32more.Windows.Win32.Graphics.Dxgi.Common
@@ -17,10 +16,10 @@ import win32more.Windows.Win32.UI.WindowsAndMessaging
 import win32more.Windows.Win32.Web.InternetExplorer
 import win32more.Windows.Win32.Web.MsHtml
 ADDURL_FLAG = Int32
-ADDURL_FIRST: ADDURL_FLAG = 0
-ADDURL_ADDTOHISTORYANDCACHE: ADDURL_FLAG = 0
-ADDURL_ADDTOCACHE: ADDURL_FLAG = 1
-ADDURL_Max: ADDURL_FLAG = 2147483647
+ADDURL_FIRST: win32more.Windows.Win32.Web.InternetExplorer.ADDURL_FLAG = 0
+ADDURL_ADDTOHISTORYANDCACHE: win32more.Windows.Win32.Web.InternetExplorer.ADDURL_FLAG = 0
+ADDURL_ADDTOCACHE: win32more.Windows.Win32.Web.InternetExplorer.ADDURL_FLAG = 1
+ADDURL_Max: win32more.Windows.Win32.Web.InternetExplorer.ADDURL_FLAG = 2147483647
 AnchorClick = Guid('{13d5413c-33b9-11d2-95a7-00c04f8ecb02}')
 DISPID_AMBIENT_OFFLINEIFNOTCONNECTED: Int32 = -5501
 DISPID_AMBIENT_SILENT: Int32 = -5502
@@ -598,25 +597,25 @@ CoDitherToRGB8 = Guid('{a860ce50-3910-11d0-86fc-00a0c913f750}')
 CoMapMIMEToCLSID = Guid('{30c3b080-30fb-11d0-b724-00aa006c1a01}')
 CoSniffStream = Guid('{6a01fda0-30df-11d0-b724-00aa006c1a01}')
 ExtensionValidationContexts = Int32
-ExtensionValidationContexts_ExtensionValidationContextNone: ExtensionValidationContexts = 0
-ExtensionValidationContexts_ExtensionValidationContextDynamic: ExtensionValidationContexts = 1
-ExtensionValidationContexts_ExtensionValidationContextParsed: ExtensionValidationContexts = 2
+ExtensionValidationContexts_ExtensionValidationContextNone: win32more.Windows.Win32.Web.InternetExplorer.ExtensionValidationContexts = 0
+ExtensionValidationContexts_ExtensionValidationContextDynamic: win32more.Windows.Win32.Web.InternetExplorer.ExtensionValidationContexts = 1
+ExtensionValidationContexts_ExtensionValidationContextParsed: win32more.Windows.Win32.Web.InternetExplorer.ExtensionValidationContexts = 2
 ExtensionValidationResults = Int32
-ExtensionValidationResults_ExtensionValidationResultNone: ExtensionValidationResults = 0
-ExtensionValidationResults_ExtensionValidationResultDoNotInstantiate: ExtensionValidationResults = 1
-ExtensionValidationResults_ExtensionValidationResultArrestPageLoad: ExtensionValidationResults = 2
+ExtensionValidationResults_ExtensionValidationResultNone: win32more.Windows.Win32.Web.InternetExplorer.ExtensionValidationResults = 0
+ExtensionValidationResults_ExtensionValidationResultDoNotInstantiate: win32more.Windows.Win32.Web.InternetExplorer.ExtensionValidationResults = 1
+ExtensionValidationResults_ExtensionValidationResultArrestPageLoad: win32more.Windows.Win32.Web.InternetExplorer.ExtensionValidationResults = 2
 FINDFRAME_FLAGS = Int32
-FINDFRAME_NONE: FINDFRAME_FLAGS = 0
-FINDFRAME_JUSTTESTEXISTENCE: FINDFRAME_FLAGS = 1
-FINDFRAME_INTERNAL: FINDFRAME_FLAGS = -2147483648
+FINDFRAME_NONE: win32more.Windows.Win32.Web.InternetExplorer.FINDFRAME_FLAGS = 0
+FINDFRAME_JUSTTESTEXISTENCE: win32more.Windows.Win32.Web.InternetExplorer.FINDFRAME_FLAGS = 1
+FINDFRAME_INTERNAL: win32more.Windows.Win32.Web.InternetExplorer.FINDFRAME_FLAGS = -2147483648
 FRAMEOPTIONS_FLAGS = Int32
-FRAMEOPTIONS_SCROLL_YES: FRAMEOPTIONS_FLAGS = 1
-FRAMEOPTIONS_SCROLL_NO: FRAMEOPTIONS_FLAGS = 2
-FRAMEOPTIONS_SCROLL_AUTO: FRAMEOPTIONS_FLAGS = 4
-FRAMEOPTIONS_NORESIZE: FRAMEOPTIONS_FLAGS = 8
-FRAMEOPTIONS_NO3DBORDER: FRAMEOPTIONS_FLAGS = 16
-FRAMEOPTIONS_DESKTOP: FRAMEOPTIONS_FLAGS = 32
-FRAMEOPTIONS_BROWSERBAND: FRAMEOPTIONS_FLAGS = 64
+FRAMEOPTIONS_SCROLL_YES: win32more.Windows.Win32.Web.InternetExplorer.FRAMEOPTIONS_FLAGS = 1
+FRAMEOPTIONS_SCROLL_NO: win32more.Windows.Win32.Web.InternetExplorer.FRAMEOPTIONS_FLAGS = 2
+FRAMEOPTIONS_SCROLL_AUTO: win32more.Windows.Win32.Web.InternetExplorer.FRAMEOPTIONS_FLAGS = 4
+FRAMEOPTIONS_NORESIZE: win32more.Windows.Win32.Web.InternetExplorer.FRAMEOPTIONS_FLAGS = 8
+FRAMEOPTIONS_NO3DBORDER: win32more.Windows.Win32.Web.InternetExplorer.FRAMEOPTIONS_FLAGS = 16
+FRAMEOPTIONS_DESKTOP: win32more.Windows.Win32.Web.InternetExplorer.FRAMEOPTIONS_FLAGS = 32
+FRAMEOPTIONS_BROWSERBAND: win32more.Windows.Win32.Web.InternetExplorer.FRAMEOPTIONS_FLAGS = 64
 HomePage = Guid('{766bf2ae-d650-11d1-9811-00c04fc31d2e}')
 HomePageSetting = Guid('{374cede0-873a-4c4f-bc86-bcc8cf5116a3}')
 class IActiveXUIHandlerSite(ComPtr):
@@ -701,10 +700,10 @@ class IDownloadManager(ComPtr):
     @commethod(3)
     def Download(self, pmk: win32more.Windows.Win32.System.Com.IMoniker, pbc: win32more.Windows.Win32.System.Com.IBindCtx, dwBindVerb: UInt32, grfBINDF: Int32, pBindInfo: POINTER(win32more.Windows.Win32.System.Com.BINDINFO), pszHeaders: win32more.Windows.Win32.Foundation.PWSTR, pszRedir: win32more.Windows.Win32.Foundation.PWSTR, uiCP: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 IELAUNCHOPTION_FLAGS = Int32
-IELAUNCHOPTION_SCRIPTDEBUG: IELAUNCHOPTION_FLAGS = 1
-IELAUNCHOPTION_FORCE_COMPAT: IELAUNCHOPTION_FLAGS = 2
-IELAUNCHOPTION_FORCE_EDGE: IELAUNCHOPTION_FLAGS = 4
-IELAUNCHOPTION_LOCK_ENGINE: IELAUNCHOPTION_FLAGS = 8
+IELAUNCHOPTION_SCRIPTDEBUG: win32more.Windows.Win32.Web.InternetExplorer.IELAUNCHOPTION_FLAGS = 1
+IELAUNCHOPTION_FORCE_COMPAT: win32more.Windows.Win32.Web.InternetExplorer.IELAUNCHOPTION_FLAGS = 2
+IELAUNCHOPTION_FORCE_EDGE: win32more.Windows.Win32.Web.InternetExplorer.IELAUNCHOPTION_FLAGS = 4
+IELAUNCHOPTION_LOCK_ENGINE: win32more.Windows.Win32.Web.InternetExplorer.IELAUNCHOPTION_FLAGS = 8
 class IELAUNCHURLINFO(EasyCastStructure):
     cbSize: UInt32
     dwCreationFlags: UInt32
@@ -978,9 +977,9 @@ class IMediaActivityNotifySite(ComPtr):
     @commethod(4)
     def OnMediaActivityStopped(self, mediaActivityType: win32more.Windows.Win32.Web.InternetExplorer.MEDIA_ACTIVITY_NOTIFY_TYPE) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 INTERNETEXPLORERCONFIGURATION = Int32
-INTERNETEXPLORERCONFIGURATION_HOST: INTERNETEXPLORERCONFIGURATION = 1
-INTERNETEXPLORERCONFIGURATION_WEB_DRIVER: INTERNETEXPLORERCONFIGURATION = 2
-INTERNETEXPLORERCONFIGURATION_WEB_DRIVER_EDGE: INTERNETEXPLORERCONFIGURATION = 4
+INTERNETEXPLORERCONFIGURATION_HOST: win32more.Windows.Win32.Web.InternetExplorer.INTERNETEXPLORERCONFIGURATION = 1
+INTERNETEXPLORERCONFIGURATION_WEB_DRIVER: win32more.Windows.Win32.Web.InternetExplorer.INTERNETEXPLORERCONFIGURATION = 2
+INTERNETEXPLORERCONFIGURATION_WEB_DRIVER_EDGE: win32more.Windows.Win32.Web.InternetExplorer.INTERNETEXPLORERCONFIGURATION = 4
 class IOpenService(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{c2952ed1-6a89-4606-925f-1ed8b4be0630}')
@@ -1377,9 +1376,9 @@ class Iwfolders(ComPtr):
     @commethod(9)
     def navigateNoSite(self, bstrUrl: win32more.Windows.Win32.Foundation.BSTR, bstrTargetFrame: win32more.Windows.Win32.Foundation.BSTR, dwhwnd: UInt32, pwb: win32more.Windows.Win32.System.Com.IUnknown) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 MEDIA_ACTIVITY_NOTIFY_TYPE = Int32
-MEDIA_ACTIVITY_NOTIFY_TYPE_MediaPlayback: MEDIA_ACTIVITY_NOTIFY_TYPE = 0
-MEDIA_ACTIVITY_NOTIFY_TYPE_MediaRecording: MEDIA_ACTIVITY_NOTIFY_TYPE = 1
-MEDIA_ACTIVITY_NOTIFY_TYPE_MediaCasting: MEDIA_ACTIVITY_NOTIFY_TYPE = 2
+MEDIA_ACTIVITY_NOTIFY_TYPE_MediaPlayback: win32more.Windows.Win32.Web.InternetExplorer.MEDIA_ACTIVITY_NOTIFY_TYPE = 0
+MEDIA_ACTIVITY_NOTIFY_TYPE_MediaRecording: win32more.Windows.Win32.Web.InternetExplorer.MEDIA_ACTIVITY_NOTIFY_TYPE = 1
+MEDIA_ACTIVITY_NOTIFY_TYPE_MediaCasting: win32more.Windows.Win32.Web.InternetExplorer.MEDIA_ACTIVITY_NOTIFY_TYPE = 2
 class NAVIGATEDATA(EasyCastStructure):
     ulTarget: UInt32
     ulURL: UInt32
@@ -1387,33 +1386,33 @@ class NAVIGATEDATA(EasyCastStructure):
     ulPostData: UInt32
     dwFlags: UInt32
 NAVIGATEFRAME_FLAGS = Int32
-NAVIGATEFRAME_FL_RECORD: NAVIGATEFRAME_FLAGS = 1
-NAVIGATEFRAME_FL_POST: NAVIGATEFRAME_FLAGS = 2
-NAVIGATEFRAME_FL_NO_DOC_CACHE: NAVIGATEFRAME_FLAGS = 4
-NAVIGATEFRAME_FL_NO_IMAGE_CACHE: NAVIGATEFRAME_FLAGS = 8
-NAVIGATEFRAME_FL_AUTH_FAIL_CACHE_OK: NAVIGATEFRAME_FLAGS = 16
-NAVIGATEFRAME_FL_SENDING_FROM_FORM: NAVIGATEFRAME_FLAGS = 32
-NAVIGATEFRAME_FL_REALLY_SENDING_FROM_FORM: NAVIGATEFRAME_FLAGS = 64
+NAVIGATEFRAME_FL_RECORD: win32more.Windows.Win32.Web.InternetExplorer.NAVIGATEFRAME_FLAGS = 1
+NAVIGATEFRAME_FL_POST: win32more.Windows.Win32.Web.InternetExplorer.NAVIGATEFRAME_FLAGS = 2
+NAVIGATEFRAME_FL_NO_DOC_CACHE: win32more.Windows.Win32.Web.InternetExplorer.NAVIGATEFRAME_FLAGS = 4
+NAVIGATEFRAME_FL_NO_IMAGE_CACHE: win32more.Windows.Win32.Web.InternetExplorer.NAVIGATEFRAME_FLAGS = 8
+NAVIGATEFRAME_FL_AUTH_FAIL_CACHE_OK: win32more.Windows.Win32.Web.InternetExplorer.NAVIGATEFRAME_FLAGS = 16
+NAVIGATEFRAME_FL_SENDING_FROM_FORM: win32more.Windows.Win32.Web.InternetExplorer.NAVIGATEFRAME_FLAGS = 32
+NAVIGATEFRAME_FL_REALLY_SENDING_FROM_FORM: win32more.Windows.Win32.Web.InternetExplorer.NAVIGATEFRAME_FLAGS = 64
 OpenServiceActivityContentType = Int32
-OpenServiceActivityContentType_ActivityContentNone: OpenServiceActivityContentType = -1
-OpenServiceActivityContentType_ActivityContentDocument: OpenServiceActivityContentType = 0
-OpenServiceActivityContentType_ActivityContentSelection: OpenServiceActivityContentType = 1
-OpenServiceActivityContentType_ActivityContentLink: OpenServiceActivityContentType = 2
-OpenServiceActivityContentType_ActivityContentCount: OpenServiceActivityContentType = 3
+OpenServiceActivityContentType_ActivityContentNone: win32more.Windows.Win32.Web.InternetExplorer.OpenServiceActivityContentType = -1
+OpenServiceActivityContentType_ActivityContentDocument: win32more.Windows.Win32.Web.InternetExplorer.OpenServiceActivityContentType = 0
+OpenServiceActivityContentType_ActivityContentSelection: win32more.Windows.Win32.Web.InternetExplorer.OpenServiceActivityContentType = 1
+OpenServiceActivityContentType_ActivityContentLink: win32more.Windows.Win32.Web.InternetExplorer.OpenServiceActivityContentType = 2
+OpenServiceActivityContentType_ActivityContentCount: win32more.Windows.Win32.Web.InternetExplorer.OpenServiceActivityContentType = 3
 OpenServiceActivityManager = Guid('{c5efd803-50f8-43cd-9ab8-aafc1394c9e0}')
 OpenServiceErrors = Int32
-OS_E_NOTFOUND: OpenServiceErrors = -2147287038
-OS_E_NOTSUPPORTED: OpenServiceErrors = -2147467231
-OS_E_CANCELLED: OpenServiceErrors = -2147471631
-OS_E_GPDISABLED: OpenServiceErrors = -1072886820
+OS_E_NOTFOUND: win32more.Windows.Win32.Web.InternetExplorer.OpenServiceErrors = -2147287038
+OS_E_NOTSUPPORTED: win32more.Windows.Win32.Web.InternetExplorer.OpenServiceErrors = -2147467231
+OS_E_CANCELLED: win32more.Windows.Win32.Web.InternetExplorer.OpenServiceErrors = -2147471631
+OS_E_GPDISABLED: win32more.Windows.Win32.Web.InternetExplorer.OpenServiceErrors = -1072886820
 OpenServiceManager = Guid('{098870b6-39ea-480b-b8b5-dd0167c4db59}')
 PeerFactory = Guid('{3050f4cf-98b5-11cf-bb82-00aa00bdce0b}')
 SCROLLABLECONTEXTMENU_PLACEMENT = Int32
-SCMP_TOP: SCROLLABLECONTEXTMENU_PLACEMENT = 0
-SCMP_BOTTOM: SCROLLABLECONTEXTMENU_PLACEMENT = 1
-SCMP_LEFT: SCROLLABLECONTEXTMENU_PLACEMENT = 2
-SCMP_RIGHT: SCROLLABLECONTEXTMENU_PLACEMENT = 3
-SCMP_FULL: SCROLLABLECONTEXTMENU_PLACEMENT = 4
+SCMP_TOP: win32more.Windows.Win32.Web.InternetExplorer.SCROLLABLECONTEXTMENU_PLACEMENT = 0
+SCMP_BOTTOM: win32more.Windows.Win32.Web.InternetExplorer.SCROLLABLECONTEXTMENU_PLACEMENT = 1
+SCMP_LEFT: win32more.Windows.Win32.Web.InternetExplorer.SCROLLABLECONTEXTMENU_PLACEMENT = 2
+SCMP_RIGHT: win32more.Windows.Win32.Web.InternetExplorer.SCROLLABLECONTEXTMENU_PLACEMENT = 3
+SCMP_FULL: win32more.Windows.Win32.Web.InternetExplorer.SCROLLABLECONTEXTMENU_PLACEMENT = 4
 class STATURL(EasyCastStructure):
     cbSize: UInt32
     pwcsUrl: win32more.Windows.Win32.Foundation.PWSTR
@@ -1423,4 +1422,6 @@ class STATURL(EasyCastStructure):
     ftExpires: win32more.Windows.Win32.Foundation.FILETIME
     dwFlags: UInt32
 wfolders = Guid('{bae31f9a-1b81-11d2-a97a-00c04f8ecb02}')
+
+
 make_ready(__name__)

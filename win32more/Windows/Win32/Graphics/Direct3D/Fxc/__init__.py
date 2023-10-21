@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Direct3D
 import win32more.Windows.Win32.Graphics.Direct3D.Fxc
@@ -103,29 +102,29 @@ def D3DDecompressShaders(pSrcData: VoidPtr, SrcDataSize: UIntPtr, uNumShaders: U
 @winfunctype('D3DCOMPILER_47.dll')
 def D3DDisassemble10Effect(pEffect: win32more.Windows.Win32.Graphics.Direct3D10.ID3D10Effect, Flags: UInt32, ppDisassembly: POINTER(win32more.Windows.Win32.Graphics.Direct3D.ID3DBlob)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 D3DCOMPILER_STRIP_FLAGS = Int32
-D3DCOMPILER_STRIP_REFLECTION_DATA: D3DCOMPILER_STRIP_FLAGS = 1
-D3DCOMPILER_STRIP_DEBUG_INFO: D3DCOMPILER_STRIP_FLAGS = 2
-D3DCOMPILER_STRIP_TEST_BLOBS: D3DCOMPILER_STRIP_FLAGS = 4
-D3DCOMPILER_STRIP_PRIVATE_DATA: D3DCOMPILER_STRIP_FLAGS = 8
-D3DCOMPILER_STRIP_ROOT_SIGNATURE: D3DCOMPILER_STRIP_FLAGS = 16
+D3DCOMPILER_STRIP_REFLECTION_DATA: win32more.Windows.Win32.Graphics.Direct3D.Fxc.D3DCOMPILER_STRIP_FLAGS = 1
+D3DCOMPILER_STRIP_DEBUG_INFO: win32more.Windows.Win32.Graphics.Direct3D.Fxc.D3DCOMPILER_STRIP_FLAGS = 2
+D3DCOMPILER_STRIP_TEST_BLOBS: win32more.Windows.Win32.Graphics.Direct3D.Fxc.D3DCOMPILER_STRIP_FLAGS = 4
+D3DCOMPILER_STRIP_PRIVATE_DATA: win32more.Windows.Win32.Graphics.Direct3D.Fxc.D3DCOMPILER_STRIP_FLAGS = 8
+D3DCOMPILER_STRIP_ROOT_SIGNATURE: win32more.Windows.Win32.Graphics.Direct3D.Fxc.D3DCOMPILER_STRIP_FLAGS = 16
 D3D_BLOB_PART = Int32
-D3D_BLOB_INPUT_SIGNATURE_BLOB: D3D_BLOB_PART = 0
-D3D_BLOB_OUTPUT_SIGNATURE_BLOB: D3D_BLOB_PART = 1
-D3D_BLOB_INPUT_AND_OUTPUT_SIGNATURE_BLOB: D3D_BLOB_PART = 2
-D3D_BLOB_PATCH_CONSTANT_SIGNATURE_BLOB: D3D_BLOB_PART = 3
-D3D_BLOB_ALL_SIGNATURE_BLOB: D3D_BLOB_PART = 4
-D3D_BLOB_DEBUG_INFO: D3D_BLOB_PART = 5
-D3D_BLOB_LEGACY_SHADER: D3D_BLOB_PART = 6
-D3D_BLOB_XNA_PREPASS_SHADER: D3D_BLOB_PART = 7
-D3D_BLOB_XNA_SHADER: D3D_BLOB_PART = 8
-D3D_BLOB_PDB: D3D_BLOB_PART = 9
-D3D_BLOB_PRIVATE_DATA: D3D_BLOB_PART = 10
-D3D_BLOB_ROOT_SIGNATURE: D3D_BLOB_PART = 11
-D3D_BLOB_DEBUG_NAME: D3D_BLOB_PART = 12
-D3D_BLOB_TEST_ALTERNATE_SHADER: D3D_BLOB_PART = 32768
-D3D_BLOB_TEST_COMPILE_DETAILS: D3D_BLOB_PART = 32769
-D3D_BLOB_TEST_COMPILE_PERF: D3D_BLOB_PART = 32770
-D3D_BLOB_TEST_COMPILE_REPORT: D3D_BLOB_PART = 32771
+D3D_BLOB_INPUT_SIGNATURE_BLOB: win32more.Windows.Win32.Graphics.Direct3D.Fxc.D3D_BLOB_PART = 0
+D3D_BLOB_OUTPUT_SIGNATURE_BLOB: win32more.Windows.Win32.Graphics.Direct3D.Fxc.D3D_BLOB_PART = 1
+D3D_BLOB_INPUT_AND_OUTPUT_SIGNATURE_BLOB: win32more.Windows.Win32.Graphics.Direct3D.Fxc.D3D_BLOB_PART = 2
+D3D_BLOB_PATCH_CONSTANT_SIGNATURE_BLOB: win32more.Windows.Win32.Graphics.Direct3D.Fxc.D3D_BLOB_PART = 3
+D3D_BLOB_ALL_SIGNATURE_BLOB: win32more.Windows.Win32.Graphics.Direct3D.Fxc.D3D_BLOB_PART = 4
+D3D_BLOB_DEBUG_INFO: win32more.Windows.Win32.Graphics.Direct3D.Fxc.D3D_BLOB_PART = 5
+D3D_BLOB_LEGACY_SHADER: win32more.Windows.Win32.Graphics.Direct3D.Fxc.D3D_BLOB_PART = 6
+D3D_BLOB_XNA_PREPASS_SHADER: win32more.Windows.Win32.Graphics.Direct3D.Fxc.D3D_BLOB_PART = 7
+D3D_BLOB_XNA_SHADER: win32more.Windows.Win32.Graphics.Direct3D.Fxc.D3D_BLOB_PART = 8
+D3D_BLOB_PDB: win32more.Windows.Win32.Graphics.Direct3D.Fxc.D3D_BLOB_PART = 9
+D3D_BLOB_PRIVATE_DATA: win32more.Windows.Win32.Graphics.Direct3D.Fxc.D3D_BLOB_PART = 10
+D3D_BLOB_ROOT_SIGNATURE: win32more.Windows.Win32.Graphics.Direct3D.Fxc.D3D_BLOB_PART = 11
+D3D_BLOB_DEBUG_NAME: win32more.Windows.Win32.Graphics.Direct3D.Fxc.D3D_BLOB_PART = 12
+D3D_BLOB_TEST_ALTERNATE_SHADER: win32more.Windows.Win32.Graphics.Direct3D.Fxc.D3D_BLOB_PART = 32768
+D3D_BLOB_TEST_COMPILE_DETAILS: win32more.Windows.Win32.Graphics.Direct3D.Fxc.D3D_BLOB_PART = 32769
+D3D_BLOB_TEST_COMPILE_PERF: win32more.Windows.Win32.Graphics.Direct3D.Fxc.D3D_BLOB_PART = 32770
+D3D_BLOB_TEST_COMPILE_REPORT: win32more.Windows.Win32.Graphics.Direct3D.Fxc.D3D_BLOB_PART = 32771
 class D3D_SHADER_DATA(EasyCastStructure):
     pBytecode: VoidPtr
     BytecodeLength: UIntPtr
@@ -135,4 +134,6 @@ def pD3DCompile(pSrcData: VoidPtr, SrcDataSize: UIntPtr, pFileName: win32more.Wi
 def pD3DDisassemble(pSrcData: VoidPtr, SrcDataSize: UIntPtr, Flags: UInt32, szComments: win32more.Windows.Win32.Foundation.PSTR, ppDisassembly: POINTER(win32more.Windows.Win32.Graphics.Direct3D.ID3DBlob)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def pD3DPreprocess(pSrcData: VoidPtr, SrcDataSize: UIntPtr, pFileName: win32more.Windows.Win32.Foundation.PSTR, pDefines: POINTER(win32more.Windows.Win32.Graphics.Direct3D.D3D_SHADER_MACRO), pInclude: win32more.Windows.Win32.Graphics.Direct3D.ID3DInclude, ppCodeText: POINTER(win32more.Windows.Win32.Graphics.Direct3D.ID3DBlob), ppErrorMsgs: POINTER(win32more.Windows.Win32.Graphics.Direct3D.ID3DBlob)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+
+
 make_ready(__name__)

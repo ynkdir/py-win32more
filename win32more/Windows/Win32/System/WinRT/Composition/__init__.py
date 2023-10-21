@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.WinRT
@@ -64,4 +63,6 @@ class IVisualInteractionSourceInterop(ComPtr):
     _iid_ = Guid('{11f62cd1-2f9d-42d3-b05f-d6790d9e9f8e}')
     @commethod(3)
     def TryRedirectForManipulation(self, pointerInfo: POINTER(win32more.Windows.Win32.UI.Input.Pointer.POINTER_INFO)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+
+
 make_ready(__name__)

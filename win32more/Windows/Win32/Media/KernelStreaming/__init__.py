@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Devices.Properties
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Media
@@ -33,16 +32,16 @@ class ALLOCATOR_PROPERTIES_EX(EasyCastStructure):
 APO_CLASS_UUID = Guid('{5989fce8-9cd0-467d-8a6a-5419e31529d4}')
 AUDIOENDPOINT_CLASS_UUID = Guid('{c166523c-fe0c-4a94-a586-f1a80cfbbf3e}')
 AUDIOPOSTURE_ORIENTATION = Int32
-AUDIOPOSTURE_ORIENTATION_NOTROTATED: AUDIOPOSTURE_ORIENTATION = 0
-AUDIOPOSTURE_ORIENTATION_ROTATED90DEGREESCOUNTERCLOCKWISE: AUDIOPOSTURE_ORIENTATION = 1
-AUDIOPOSTURE_ORIENTATION_ROTATED180DEGREESCOUNTERCLOCKWISE: AUDIOPOSTURE_ORIENTATION = 2
-AUDIOPOSTURE_ORIENTATION_ROTATED270DEGREESCOUNTERCLOCKWISE: AUDIOPOSTURE_ORIENTATION = 3
+AUDIOPOSTURE_ORIENTATION_NOTROTATED: win32more.Windows.Win32.Media.KernelStreaming.AUDIOPOSTURE_ORIENTATION = 0
+AUDIOPOSTURE_ORIENTATION_ROTATED90DEGREESCOUNTERCLOCKWISE: win32more.Windows.Win32.Media.KernelStreaming.AUDIOPOSTURE_ORIENTATION = 1
+AUDIOPOSTURE_ORIENTATION_ROTATED180DEGREESCOUNTERCLOCKWISE: win32more.Windows.Win32.Media.KernelStreaming.AUDIOPOSTURE_ORIENTATION = 2
+AUDIOPOSTURE_ORIENTATION_ROTATED270DEGREESCOUNTERCLOCKWISE: win32more.Windows.Win32.Media.KernelStreaming.AUDIOPOSTURE_ORIENTATION = 3
 class AUDIORESOURCEMANAGEMENT_RESOURCEGROUP(EasyCastStructure):
     ResourceGroupAcquired: win32more.Windows.Win32.Foundation.BOOL
     ResourceGroupName: Char * 256
 AUDIO_CURVE_TYPE = Int32
-AUDIO_CURVE_TYPE_NONE: AUDIO_CURVE_TYPE = 0
-AUDIO_CURVE_TYPE_WINDOWS_FADE: AUDIO_CURVE_TYPE = 1
+AUDIO_CURVE_TYPE_NONE: win32more.Windows.Win32.Media.KernelStreaming.AUDIO_CURVE_TYPE = 0
+AUDIO_CURVE_TYPE_WINDOWS_FADE: win32more.Windows.Win32.Media.KernelStreaming.AUDIO_CURVE_TYPE = 1
 AUDIO_EFFECT_TYPE_ACOUSTIC_ECHO_CANCELLATION = Guid('{6f64adbe-8211-11e2-8c70-2c27d7f001fa}')
 AUDIO_EFFECT_TYPE_AUTOMATIC_GAIN_CONTROL = Guid('{6f64adc0-8211-11e2-8c70-2c27d7f001fa}')
 AUDIO_EFFECT_TYPE_BASS_BOOST = Guid('{6f64adc5-8211-11e2-8c70-2c27d7f001fa}')
@@ -746,12 +745,12 @@ def KsGetMediaType(Position: Int32, AmMediaType: POINTER(win32more.Windows.Win32
 BLUETOOTHLE_MIDI_SERVICE_UUID = Guid('{03b80e5a-ede8-4b33-a751-6ce34ec4c700}')
 BLUETOOTH_MIDI_DATAIO_CHARACTERISTIC = Guid('{7772e5db-3868-4112-a1a9-f2669d106bf3}')
 CAPTURE_MEMORY_ALLOCATION_FLAGS = Int32
-KS_CAPTURE_ALLOC_INVALID: CAPTURE_MEMORY_ALLOCATION_FLAGS = 0
-KS_CAPTURE_ALLOC_SYSTEM: CAPTURE_MEMORY_ALLOCATION_FLAGS = 1
-KS_CAPTURE_ALLOC_VRAM: CAPTURE_MEMORY_ALLOCATION_FLAGS = 2
-KS_CAPTURE_ALLOC_SYSTEM_AGP: CAPTURE_MEMORY_ALLOCATION_FLAGS = 4
-KS_CAPTURE_ALLOC_VRAM_MAPPED: CAPTURE_MEMORY_ALLOCATION_FLAGS = 8
-KS_CAPTURE_ALLOC_SECURE_BUFFER: CAPTURE_MEMORY_ALLOCATION_FLAGS = 16
+KS_CAPTURE_ALLOC_INVALID: win32more.Windows.Win32.Media.KernelStreaming.CAPTURE_MEMORY_ALLOCATION_FLAGS = 0
+KS_CAPTURE_ALLOC_SYSTEM: win32more.Windows.Win32.Media.KernelStreaming.CAPTURE_MEMORY_ALLOCATION_FLAGS = 1
+KS_CAPTURE_ALLOC_VRAM: win32more.Windows.Win32.Media.KernelStreaming.CAPTURE_MEMORY_ALLOCATION_FLAGS = 2
+KS_CAPTURE_ALLOC_SYSTEM_AGP: win32more.Windows.Win32.Media.KernelStreaming.CAPTURE_MEMORY_ALLOCATION_FLAGS = 4
+KS_CAPTURE_ALLOC_VRAM_MAPPED: win32more.Windows.Win32.Media.KernelStreaming.CAPTURE_MEMORY_ALLOCATION_FLAGS = 8
+KS_CAPTURE_ALLOC_SECURE_BUFFER: win32more.Windows.Win32.Media.KernelStreaming.CAPTURE_MEMORY_ALLOCATION_FLAGS = 16
 class CC_BYTE_PAIR(EasyCastStructure):
     Decoded: Byte * 2
     Reserved: UInt16
@@ -763,8 +762,8 @@ class CC_HW_FIELD(EasyCastStructure):
 CLSID_KsIBasicAudioInterfaceHandler = Guid('{b9f8ac3e-0f71-11d2-b72c-00c04fb6bd3d}')
 CLSID_Proxy = Guid('{17cca71b-ecd7-11d0-b908-00a0c9223196}')
 CONSTRICTOR_OPTION = Int32
-CONSTRICTOR_OPTION_DISABLE: CONSTRICTOR_OPTION = 0
-CONSTRICTOR_OPTION_MUTE: CONSTRICTOR_OPTION = 1
+CONSTRICTOR_OPTION_DISABLE: win32more.Windows.Win32.Media.KernelStreaming.CONSTRICTOR_OPTION = 0
+CONSTRICTOR_OPTION_MUTE: win32more.Windows.Win32.Media.KernelStreaming.CONSTRICTOR_OPTION = 1
 class DEVCAPS(EasyCastStructure):
     CanRecord: Int32
     CanRecordStrobe: Int32
@@ -803,64 +802,64 @@ class DS3DVECTOR(EasyCastStructure):
         z: Single
         dvZ: Single
 EDeviceControlUseType = Int32
-EDeviceControlUseType_eDeviceControlUseMissing: EDeviceControlUseType = 0
-EDeviceControlUseType_eDeviceControlUsePrimary: EDeviceControlUseType = 1
-EDeviceControlUseType_eDeviceControlUseSecondary: EDeviceControlUseType = 2
+EDeviceControlUseType_eDeviceControlUseMissing: win32more.Windows.Win32.Media.KernelStreaming.EDeviceControlUseType = 0
+EDeviceControlUseType_eDeviceControlUsePrimary: win32more.Windows.Win32.Media.KernelStreaming.EDeviceControlUseType = 1
+EDeviceControlUseType_eDeviceControlUseSecondary: win32more.Windows.Win32.Media.KernelStreaming.EDeviceControlUseType = 2
 EPcxConnectionType = Int32
-EPcxConnectionType_eConnTypeUnknown: EPcxConnectionType = 0
-EPcxConnectionType_eConnType3Point5mm: EPcxConnectionType = 1
-EPcxConnectionType_eConnTypeQuarter: EPcxConnectionType = 2
-EPcxConnectionType_eConnTypeAtapiInternal: EPcxConnectionType = 3
-EPcxConnectionType_eConnTypeRCA: EPcxConnectionType = 4
-EPcxConnectionType_eConnTypeOptical: EPcxConnectionType = 5
-EPcxConnectionType_eConnTypeOtherDigital: EPcxConnectionType = 6
-EPcxConnectionType_eConnTypeOtherAnalog: EPcxConnectionType = 7
-EPcxConnectionType_eConnTypeMultichannelAnalogDIN: EPcxConnectionType = 8
-EPcxConnectionType_eConnTypeXlrProfessional: EPcxConnectionType = 9
-EPcxConnectionType_eConnTypeRJ11Modem: EPcxConnectionType = 10
-EPcxConnectionType_eConnTypeCombination: EPcxConnectionType = 11
+EPcxConnectionType_eConnTypeUnknown: win32more.Windows.Win32.Media.KernelStreaming.EPcxConnectionType = 0
+EPcxConnectionType_eConnType3Point5mm: win32more.Windows.Win32.Media.KernelStreaming.EPcxConnectionType = 1
+EPcxConnectionType_eConnTypeQuarter: win32more.Windows.Win32.Media.KernelStreaming.EPcxConnectionType = 2
+EPcxConnectionType_eConnTypeAtapiInternal: win32more.Windows.Win32.Media.KernelStreaming.EPcxConnectionType = 3
+EPcxConnectionType_eConnTypeRCA: win32more.Windows.Win32.Media.KernelStreaming.EPcxConnectionType = 4
+EPcxConnectionType_eConnTypeOptical: win32more.Windows.Win32.Media.KernelStreaming.EPcxConnectionType = 5
+EPcxConnectionType_eConnTypeOtherDigital: win32more.Windows.Win32.Media.KernelStreaming.EPcxConnectionType = 6
+EPcxConnectionType_eConnTypeOtherAnalog: win32more.Windows.Win32.Media.KernelStreaming.EPcxConnectionType = 7
+EPcxConnectionType_eConnTypeMultichannelAnalogDIN: win32more.Windows.Win32.Media.KernelStreaming.EPcxConnectionType = 8
+EPcxConnectionType_eConnTypeXlrProfessional: win32more.Windows.Win32.Media.KernelStreaming.EPcxConnectionType = 9
+EPcxConnectionType_eConnTypeRJ11Modem: win32more.Windows.Win32.Media.KernelStreaming.EPcxConnectionType = 10
+EPcxConnectionType_eConnTypeCombination: win32more.Windows.Win32.Media.KernelStreaming.EPcxConnectionType = 11
 EPcxGenLocation = Int32
-EPcxGenLocation_eGenLocPrimaryBox: EPcxGenLocation = 0
-EPcxGenLocation_eGenLocInternal: EPcxGenLocation = 1
-EPcxGenLocation_eGenLocSeparate: EPcxGenLocation = 2
-EPcxGenLocation_eGenLocOther: EPcxGenLocation = 3
-EPcxGenLocation_EPcxGenLocation_enum_count: EPcxGenLocation = 4
+EPcxGenLocation_eGenLocPrimaryBox: win32more.Windows.Win32.Media.KernelStreaming.EPcxGenLocation = 0
+EPcxGenLocation_eGenLocInternal: win32more.Windows.Win32.Media.KernelStreaming.EPcxGenLocation = 1
+EPcxGenLocation_eGenLocSeparate: win32more.Windows.Win32.Media.KernelStreaming.EPcxGenLocation = 2
+EPcxGenLocation_eGenLocOther: win32more.Windows.Win32.Media.KernelStreaming.EPcxGenLocation = 3
+EPcxGenLocation_EPcxGenLocation_enum_count: win32more.Windows.Win32.Media.KernelStreaming.EPcxGenLocation = 4
 EPcxGeoLocation = Int32
-EPcxGeoLocation_eGeoLocRear: EPcxGeoLocation = 1
-EPcxGeoLocation_eGeoLocFront: EPcxGeoLocation = 2
-EPcxGeoLocation_eGeoLocLeft: EPcxGeoLocation = 3
-EPcxGeoLocation_eGeoLocRight: EPcxGeoLocation = 4
-EPcxGeoLocation_eGeoLocTop: EPcxGeoLocation = 5
-EPcxGeoLocation_eGeoLocBottom: EPcxGeoLocation = 6
-EPcxGeoLocation_eGeoLocRearPanel: EPcxGeoLocation = 7
-EPcxGeoLocation_eGeoLocRiser: EPcxGeoLocation = 8
-EPcxGeoLocation_eGeoLocInsideMobileLid: EPcxGeoLocation = 9
-EPcxGeoLocation_eGeoLocDrivebay: EPcxGeoLocation = 10
-EPcxGeoLocation_eGeoLocHDMI: EPcxGeoLocation = 11
-EPcxGeoLocation_eGeoLocOutsideMobileLid: EPcxGeoLocation = 12
-EPcxGeoLocation_eGeoLocATAPI: EPcxGeoLocation = 13
-EPcxGeoLocation_eGeoLocNotApplicable: EPcxGeoLocation = 14
-EPcxGeoLocation_eGeoLocReserved6: EPcxGeoLocation = 15
-EPcxGeoLocation_EPcxGeoLocation_enum_count: EPcxGeoLocation = 16
+EPcxGeoLocation_eGeoLocRear: win32more.Windows.Win32.Media.KernelStreaming.EPcxGeoLocation = 1
+EPcxGeoLocation_eGeoLocFront: win32more.Windows.Win32.Media.KernelStreaming.EPcxGeoLocation = 2
+EPcxGeoLocation_eGeoLocLeft: win32more.Windows.Win32.Media.KernelStreaming.EPcxGeoLocation = 3
+EPcxGeoLocation_eGeoLocRight: win32more.Windows.Win32.Media.KernelStreaming.EPcxGeoLocation = 4
+EPcxGeoLocation_eGeoLocTop: win32more.Windows.Win32.Media.KernelStreaming.EPcxGeoLocation = 5
+EPcxGeoLocation_eGeoLocBottom: win32more.Windows.Win32.Media.KernelStreaming.EPcxGeoLocation = 6
+EPcxGeoLocation_eGeoLocRearPanel: win32more.Windows.Win32.Media.KernelStreaming.EPcxGeoLocation = 7
+EPcxGeoLocation_eGeoLocRiser: win32more.Windows.Win32.Media.KernelStreaming.EPcxGeoLocation = 8
+EPcxGeoLocation_eGeoLocInsideMobileLid: win32more.Windows.Win32.Media.KernelStreaming.EPcxGeoLocation = 9
+EPcxGeoLocation_eGeoLocDrivebay: win32more.Windows.Win32.Media.KernelStreaming.EPcxGeoLocation = 10
+EPcxGeoLocation_eGeoLocHDMI: win32more.Windows.Win32.Media.KernelStreaming.EPcxGeoLocation = 11
+EPcxGeoLocation_eGeoLocOutsideMobileLid: win32more.Windows.Win32.Media.KernelStreaming.EPcxGeoLocation = 12
+EPcxGeoLocation_eGeoLocATAPI: win32more.Windows.Win32.Media.KernelStreaming.EPcxGeoLocation = 13
+EPcxGeoLocation_eGeoLocNotApplicable: win32more.Windows.Win32.Media.KernelStreaming.EPcxGeoLocation = 14
+EPcxGeoLocation_eGeoLocReserved6: win32more.Windows.Win32.Media.KernelStreaming.EPcxGeoLocation = 15
+EPcxGeoLocation_EPcxGeoLocation_enum_count: win32more.Windows.Win32.Media.KernelStreaming.EPcxGeoLocation = 16
 EPxcPortConnection = Int32
-EPxcPortConnection_ePortConnJack: EPxcPortConnection = 0
-EPxcPortConnection_ePortConnIntegratedDevice: EPxcPortConnection = 1
-EPxcPortConnection_ePortConnBothIntegratedAndJack: EPxcPortConnection = 2
-EPxcPortConnection_ePortConnUnknown: EPxcPortConnection = 3
+EPxcPortConnection_ePortConnJack: win32more.Windows.Win32.Media.KernelStreaming.EPxcPortConnection = 0
+EPxcPortConnection_ePortConnIntegratedDevice: win32more.Windows.Win32.Media.KernelStreaming.EPxcPortConnection = 1
+EPxcPortConnection_ePortConnBothIntegratedAndJack: win32more.Windows.Win32.Media.KernelStreaming.EPxcPortConnection = 2
+EPxcPortConnection_ePortConnUnknown: win32more.Windows.Win32.Media.KernelStreaming.EPxcPortConnection = 3
 EVENTSETID_CROSSBAR = Guid('{6a2e0641-28e4-11d0-a18c-00a0c9118956}')
 EVENTSETID_TUNER = Guid('{6a2e0606-28e4-11d0-a18c-00a0c9118956}')
 EVENTSETID_VIDCAP_CAMERACONTROL_REGION_OF_INTEREST = Guid('{2fdffc5d-c732-4ba6-b5df-6b4d7fc88b8b}')
 EVENTSETID_VIDEODECODER = Guid('{6a2e0621-28e4-11d0-a18c-00a0c9118956}')
 FRAMING_CACHE_OPS = Int32
-Framing_Cache_Update: FRAMING_CACHE_OPS = 0
-Framing_Cache_ReadLast: FRAMING_CACHE_OPS = 1
-Framing_Cache_ReadOrig: FRAMING_CACHE_OPS = 2
-Framing_Cache_Write: FRAMING_CACHE_OPS = 3
+Framing_Cache_Update: win32more.Windows.Win32.Media.KernelStreaming.FRAMING_CACHE_OPS = 0
+Framing_Cache_ReadLast: win32more.Windows.Win32.Media.KernelStreaming.FRAMING_CACHE_OPS = 1
+Framing_Cache_ReadOrig: win32more.Windows.Win32.Media.KernelStreaming.FRAMING_CACHE_OPS = 2
+Framing_Cache_Write: win32more.Windows.Win32.Media.KernelStreaming.FRAMING_CACHE_OPS = 3
 FRAMING_PROP = Int32
-FramingProp_Uninitialized: FRAMING_PROP = 0
-FramingProp_None: FRAMING_PROP = 1
-FramingProp_Old: FRAMING_PROP = 2
-FramingProp_Ex: FRAMING_PROP = 3
+FramingProp_Uninitialized: win32more.Windows.Win32.Media.KernelStreaming.FRAMING_PROP = 0
+FramingProp_None: win32more.Windows.Win32.Media.KernelStreaming.FRAMING_PROP = 1
+FramingProp_Old: win32more.Windows.Win32.Media.KernelStreaming.FRAMING_PROP = 2
+FramingProp_Ex: win32more.Windows.Win32.Media.KernelStreaming.FRAMING_PROP = 3
 GUID_NULL = Guid('{00000000-0000-0000-0000-000000000000}')
 class IKsAggregateControl(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
@@ -1135,8 +1134,8 @@ KSALGORITHMINSTANCE_SYSTEM_AGC = Guid('{950e55b9-877c-4c67-be08-e47b5611130a}')
 KSALGORITHMINSTANCE_SYSTEM_MICROPHONE_ARRAY_PROCESSOR = Guid('{b6f5a0a0-9e61-4f8c-91e3-76cf0f3c471f}')
 KSALGORITHMINSTANCE_SYSTEM_NOISE_SUPPRESS = Guid('{5ab0882e-7274-4516-877d-4eee99ba4fd0}')
 KSALLOCATORMODE = Int32
-KsAllocatorMode_User: KSALLOCATORMODE = 0
-KsAllocatorMode_Kernel: KSALLOCATORMODE = 1
+KsAllocatorMode_User: win32more.Windows.Win32.Media.KernelStreaming.KSALLOCATORMODE = 0
+KsAllocatorMode_Kernel: win32more.Windows.Win32.Media.KernelStreaming.KSALLOCATORMODE = 1
 class KSALLOCATOR_FRAMING(EasyCastStructure):
     Anonymous1: _Anonymous1_e__Union
     PoolType: UInt32
@@ -1375,11 +1374,11 @@ class KSCAMERA_EXTENDEDPROP_FIELDOFVIEW(EasyCastStructure):
     Flag: UInt32
     Reserved: UInt32
 KSCAMERA_EXTENDEDPROP_FOCUSSTATE = Int32
-KSCAMERA_EXTENDEDPROP_FOCUSSTATE_UNINITIALIZED: KSCAMERA_EXTENDEDPROP_FOCUSSTATE = 0
-KSCAMERA_EXTENDEDPROP_FOCUSSTATE_LOST: KSCAMERA_EXTENDEDPROP_FOCUSSTATE = 1
-KSCAMERA_EXTENDEDPROP_FOCUSSTATE_SEARCHING: KSCAMERA_EXTENDEDPROP_FOCUSSTATE = 2
-KSCAMERA_EXTENDEDPROP_FOCUSSTATE_FOCUSED: KSCAMERA_EXTENDEDPROP_FOCUSSTATE = 3
-KSCAMERA_EXTENDEDPROP_FOCUSSTATE_FAILED: KSCAMERA_EXTENDEDPROP_FOCUSSTATE = 4
+KSCAMERA_EXTENDEDPROP_FOCUSSTATE_UNINITIALIZED: win32more.Windows.Win32.Media.KernelStreaming.KSCAMERA_EXTENDEDPROP_FOCUSSTATE = 0
+KSCAMERA_EXTENDEDPROP_FOCUSSTATE_LOST: win32more.Windows.Win32.Media.KernelStreaming.KSCAMERA_EXTENDEDPROP_FOCUSSTATE = 1
+KSCAMERA_EXTENDEDPROP_FOCUSSTATE_SEARCHING: win32more.Windows.Win32.Media.KernelStreaming.KSCAMERA_EXTENDEDPROP_FOCUSSTATE = 2
+KSCAMERA_EXTENDEDPROP_FOCUSSTATE_FOCUSED: win32more.Windows.Win32.Media.KernelStreaming.KSCAMERA_EXTENDEDPROP_FOCUSSTATE = 3
+KSCAMERA_EXTENDEDPROP_FOCUSSTATE_FAILED: win32more.Windows.Win32.Media.KernelStreaming.KSCAMERA_EXTENDEDPROP_FOCUSSTATE = 4
 class KSCAMERA_EXTENDEDPROP_HEADER(EasyCastStructure):
     Version: UInt32
     PinId: UInt32
@@ -1391,16 +1390,16 @@ class KSCAMERA_EXTENDEDPROP_METADATAINFO(EasyCastStructure):
     BufferAlignment: Int32
     MaxMetadataBufferSize: UInt32
 KSCAMERA_EXTENDEDPROP_MetadataAlignment = Int32
-KSCAMERA_EXTENDEDPROP_MetadataAlignment_16: KSCAMERA_EXTENDEDPROP_MetadataAlignment = 4
-KSCAMERA_EXTENDEDPROP_MetadataAlignment_32: KSCAMERA_EXTENDEDPROP_MetadataAlignment = 5
-KSCAMERA_EXTENDEDPROP_MetadataAlignment_64: KSCAMERA_EXTENDEDPROP_MetadataAlignment = 6
-KSCAMERA_EXTENDEDPROP_MetadataAlignment_128: KSCAMERA_EXTENDEDPROP_MetadataAlignment = 7
-KSCAMERA_EXTENDEDPROP_MetadataAlignment_256: KSCAMERA_EXTENDEDPROP_MetadataAlignment = 8
-KSCAMERA_EXTENDEDPROP_MetadataAlignment_512: KSCAMERA_EXTENDEDPROP_MetadataAlignment = 9
-KSCAMERA_EXTENDEDPROP_MetadataAlignment_1024: KSCAMERA_EXTENDEDPROP_MetadataAlignment = 10
-KSCAMERA_EXTENDEDPROP_MetadataAlignment_2048: KSCAMERA_EXTENDEDPROP_MetadataAlignment = 11
-KSCAMERA_EXTENDEDPROP_MetadataAlignment_4096: KSCAMERA_EXTENDEDPROP_MetadataAlignment = 12
-KSCAMERA_EXTENDEDPROP_MetadataAlignment_8192: KSCAMERA_EXTENDEDPROP_MetadataAlignment = 13
+KSCAMERA_EXTENDEDPROP_MetadataAlignment_16: win32more.Windows.Win32.Media.KernelStreaming.KSCAMERA_EXTENDEDPROP_MetadataAlignment = 4
+KSCAMERA_EXTENDEDPROP_MetadataAlignment_32: win32more.Windows.Win32.Media.KernelStreaming.KSCAMERA_EXTENDEDPROP_MetadataAlignment = 5
+KSCAMERA_EXTENDEDPROP_MetadataAlignment_64: win32more.Windows.Win32.Media.KernelStreaming.KSCAMERA_EXTENDEDPROP_MetadataAlignment = 6
+KSCAMERA_EXTENDEDPROP_MetadataAlignment_128: win32more.Windows.Win32.Media.KernelStreaming.KSCAMERA_EXTENDEDPROP_MetadataAlignment = 7
+KSCAMERA_EXTENDEDPROP_MetadataAlignment_256: win32more.Windows.Win32.Media.KernelStreaming.KSCAMERA_EXTENDEDPROP_MetadataAlignment = 8
+KSCAMERA_EXTENDEDPROP_MetadataAlignment_512: win32more.Windows.Win32.Media.KernelStreaming.KSCAMERA_EXTENDEDPROP_MetadataAlignment = 9
+KSCAMERA_EXTENDEDPROP_MetadataAlignment_1024: win32more.Windows.Win32.Media.KernelStreaming.KSCAMERA_EXTENDEDPROP_MetadataAlignment = 10
+KSCAMERA_EXTENDEDPROP_MetadataAlignment_2048: win32more.Windows.Win32.Media.KernelStreaming.KSCAMERA_EXTENDEDPROP_MetadataAlignment = 11
+KSCAMERA_EXTENDEDPROP_MetadataAlignment_4096: win32more.Windows.Win32.Media.KernelStreaming.KSCAMERA_EXTENDEDPROP_MetadataAlignment = 12
+KSCAMERA_EXTENDEDPROP_MetadataAlignment_8192: win32more.Windows.Win32.Media.KernelStreaming.KSCAMERA_EXTENDEDPROP_MetadataAlignment = 13
 class KSCAMERA_EXTENDEDPROP_PHOTOMODE(EasyCastStructure):
     RequestedHistoryFrames: UInt32
     MaxHistoryFrames: UInt32
@@ -1411,8 +1410,8 @@ class KSCAMERA_EXTENDEDPROP_PROFILE(EasyCastStructure):
     Index: UInt32
     Reserved: UInt32
 KSCAMERA_EXTENDEDPROP_ROITYPE = Int32
-KSCAMERA_EXTENDEDPROP_ROITYPE_UNKNOWN: KSCAMERA_EXTENDEDPROP_ROITYPE = 0
-KSCAMERA_EXTENDEDPROP_ROITYPE_FACE: KSCAMERA_EXTENDEDPROP_ROITYPE = 1
+KSCAMERA_EXTENDEDPROP_ROITYPE_UNKNOWN: win32more.Windows.Win32.Media.KernelStreaming.KSCAMERA_EXTENDEDPROP_ROITYPE = 0
+KSCAMERA_EXTENDEDPROP_ROITYPE_FACE: win32more.Windows.Win32.Media.KernelStreaming.KSCAMERA_EXTENDEDPROP_ROITYPE = 1
 class KSCAMERA_EXTENDEDPROP_ROI_CONFIGCAPS(EasyCastStructure):
     ControlId: UInt32
     MaxNumberOfROIs: UInt32
@@ -1461,15 +1460,15 @@ class KSCAMERA_EXTENDEDPROP_VIDEOPROCSETTING(EasyCastStructure):
     VideoProc: win32more.Windows.Win32.Media.KernelStreaming.KSCAMERA_EXTENDEDPROP_VALUE
     Reserved: UInt64
 KSCAMERA_EXTENDEDPROP_WBPRESET = Int32
-KSCAMERA_EXTENDEDPROP_WBPRESET_CLOUDY: KSCAMERA_EXTENDEDPROP_WBPRESET = 1
-KSCAMERA_EXTENDEDPROP_WBPRESET_DAYLIGHT: KSCAMERA_EXTENDEDPROP_WBPRESET = 2
-KSCAMERA_EXTENDEDPROP_WBPRESET_FLASH: KSCAMERA_EXTENDEDPROP_WBPRESET = 3
-KSCAMERA_EXTENDEDPROP_WBPRESET_FLUORESCENT: KSCAMERA_EXTENDEDPROP_WBPRESET = 4
-KSCAMERA_EXTENDEDPROP_WBPRESET_TUNGSTEN: KSCAMERA_EXTENDEDPROP_WBPRESET = 5
-KSCAMERA_EXTENDEDPROP_WBPRESET_CANDLELIGHT: KSCAMERA_EXTENDEDPROP_WBPRESET = 6
+KSCAMERA_EXTENDEDPROP_WBPRESET_CLOUDY: win32more.Windows.Win32.Media.KernelStreaming.KSCAMERA_EXTENDEDPROP_WBPRESET = 1
+KSCAMERA_EXTENDEDPROP_WBPRESET_DAYLIGHT: win32more.Windows.Win32.Media.KernelStreaming.KSCAMERA_EXTENDEDPROP_WBPRESET = 2
+KSCAMERA_EXTENDEDPROP_WBPRESET_FLASH: win32more.Windows.Win32.Media.KernelStreaming.KSCAMERA_EXTENDEDPROP_WBPRESET = 3
+KSCAMERA_EXTENDEDPROP_WBPRESET_FLUORESCENT: win32more.Windows.Win32.Media.KernelStreaming.KSCAMERA_EXTENDEDPROP_WBPRESET = 4
+KSCAMERA_EXTENDEDPROP_WBPRESET_TUNGSTEN: win32more.Windows.Win32.Media.KernelStreaming.KSCAMERA_EXTENDEDPROP_WBPRESET = 5
+KSCAMERA_EXTENDEDPROP_WBPRESET_CANDLELIGHT: win32more.Windows.Win32.Media.KernelStreaming.KSCAMERA_EXTENDEDPROP_WBPRESET = 6
 KSCAMERA_EXTENDEDPROP_WHITEBALANCE_MODE = Int32
-KSCAMERA_EXTENDEDPROP_WHITEBALANCE_TEMPERATURE: KSCAMERA_EXTENDEDPROP_WHITEBALANCE_MODE = 1
-KSCAMERA_EXTENDEDPROP_WHITEBALANCE_PRESET: KSCAMERA_EXTENDEDPROP_WHITEBALANCE_MODE = 2
+KSCAMERA_EXTENDEDPROP_WHITEBALANCE_TEMPERATURE: win32more.Windows.Win32.Media.KernelStreaming.KSCAMERA_EXTENDEDPROP_WHITEBALANCE_MODE = 1
+KSCAMERA_EXTENDEDPROP_WHITEBALANCE_PRESET: win32more.Windows.Win32.Media.KernelStreaming.KSCAMERA_EXTENDEDPROP_WHITEBALANCE_MODE = 2
 class KSCAMERA_MAXVIDEOFPS_FORPHOTORES(EasyCastStructure):
     PhotoResWidth: UInt32
     PhotoResHeight: UInt32
@@ -1514,17 +1513,17 @@ class KSCAMERA_METADATA_PHOTOCONFIRMATION(EasyCastStructure):
     PhotoConfirmationIndex: UInt32
     Reserved: UInt32
 KSCAMERA_MetadataId = Int32
-MetadataId_Standard_Start: KSCAMERA_MetadataId = 1
-MetadataId_PhotoConfirmation: KSCAMERA_MetadataId = 1
-MetadataId_UsbVideoHeader: KSCAMERA_MetadataId = 2
-MetadataId_CaptureStats: KSCAMERA_MetadataId = 3
-MetadataId_CameraExtrinsics: KSCAMERA_MetadataId = 4
-MetadataId_CameraIntrinsics: KSCAMERA_MetadataId = 5
-MetadataId_FrameIllumination: KSCAMERA_MetadataId = 6
-MetadataId_DigitalWindow: KSCAMERA_MetadataId = 7
-MetadataId_BackgroundSegmentationMask: KSCAMERA_MetadataId = 8
-MetadataId_Standard_End: KSCAMERA_MetadataId = 8
-MetadataId_Custom_Start: KSCAMERA_MetadataId = -2147483648
+MetadataId_Standard_Start: win32more.Windows.Win32.Media.KernelStreaming.KSCAMERA_MetadataId = 1
+MetadataId_PhotoConfirmation: win32more.Windows.Win32.Media.KernelStreaming.KSCAMERA_MetadataId = 1
+MetadataId_UsbVideoHeader: win32more.Windows.Win32.Media.KernelStreaming.KSCAMERA_MetadataId = 2
+MetadataId_CaptureStats: win32more.Windows.Win32.Media.KernelStreaming.KSCAMERA_MetadataId = 3
+MetadataId_CameraExtrinsics: win32more.Windows.Win32.Media.KernelStreaming.KSCAMERA_MetadataId = 4
+MetadataId_CameraIntrinsics: win32more.Windows.Win32.Media.KernelStreaming.KSCAMERA_MetadataId = 5
+MetadataId_FrameIllumination: win32more.Windows.Win32.Media.KernelStreaming.KSCAMERA_MetadataId = 6
+MetadataId_DigitalWindow: win32more.Windows.Win32.Media.KernelStreaming.KSCAMERA_MetadataId = 7
+MetadataId_BackgroundSegmentationMask: win32more.Windows.Win32.Media.KernelStreaming.KSCAMERA_MetadataId = 8
+MetadataId_Standard_End: win32more.Windows.Win32.Media.KernelStreaming.KSCAMERA_MetadataId = 8
+MetadataId_Custom_Start: win32more.Windows.Win32.Media.KernelStreaming.KSCAMERA_MetadataId = -2147483648
 class KSCAMERA_PERFRAMESETTING_CAP_HEADER(EasyCastStructure):
     Size: UInt32
     ItemCount: UInt32
@@ -1554,13 +1553,13 @@ class KSCAMERA_PERFRAMESETTING_ITEM_HEADER(EasyCastStructure):
     Type: UInt32
     Flags: UInt64
 KSCAMERA_PERFRAMESETTING_ITEM_TYPE = Int32
-KSCAMERA_PERFRAMESETTING_ITEM_EXPOSURE_TIME: KSCAMERA_PERFRAMESETTING_ITEM_TYPE = 1
-KSCAMERA_PERFRAMESETTING_ITEM_FLASH: KSCAMERA_PERFRAMESETTING_ITEM_TYPE = 2
-KSCAMERA_PERFRAMESETTING_ITEM_EXPOSURE_COMPENSATION: KSCAMERA_PERFRAMESETTING_ITEM_TYPE = 3
-KSCAMERA_PERFRAMESETTING_ITEM_ISO: KSCAMERA_PERFRAMESETTING_ITEM_TYPE = 4
-KSCAMERA_PERFRAMESETTING_ITEM_FOCUS: KSCAMERA_PERFRAMESETTING_ITEM_TYPE = 5
-KSCAMERA_PERFRAMESETTING_ITEM_PHOTOCONFIRMATION: KSCAMERA_PERFRAMESETTING_ITEM_TYPE = 6
-KSCAMERA_PERFRAMESETTING_ITEM_CUSTOM: KSCAMERA_PERFRAMESETTING_ITEM_TYPE = 7
+KSCAMERA_PERFRAMESETTING_ITEM_EXPOSURE_TIME: win32more.Windows.Win32.Media.KernelStreaming.KSCAMERA_PERFRAMESETTING_ITEM_TYPE = 1
+KSCAMERA_PERFRAMESETTING_ITEM_FLASH: win32more.Windows.Win32.Media.KernelStreaming.KSCAMERA_PERFRAMESETTING_ITEM_TYPE = 2
+KSCAMERA_PERFRAMESETTING_ITEM_EXPOSURE_COMPENSATION: win32more.Windows.Win32.Media.KernelStreaming.KSCAMERA_PERFRAMESETTING_ITEM_TYPE = 3
+KSCAMERA_PERFRAMESETTING_ITEM_ISO: win32more.Windows.Win32.Media.KernelStreaming.KSCAMERA_PERFRAMESETTING_ITEM_TYPE = 4
+KSCAMERA_PERFRAMESETTING_ITEM_FOCUS: win32more.Windows.Win32.Media.KernelStreaming.KSCAMERA_PERFRAMESETTING_ITEM_TYPE = 5
+KSCAMERA_PERFRAMESETTING_ITEM_PHOTOCONFIRMATION: win32more.Windows.Win32.Media.KernelStreaming.KSCAMERA_PERFRAMESETTING_ITEM_TYPE = 6
+KSCAMERA_PERFRAMESETTING_ITEM_CUSTOM: win32more.Windows.Win32.Media.KernelStreaming.KSCAMERA_PERFRAMESETTING_ITEM_TYPE = 7
 class KSCAMERA_PROFILE_CONCURRENCYINFO(EasyCastStructure):
     ReferenceGuid: Guid
     Reserved: UInt32
@@ -1785,10 +1784,10 @@ class KSDATARANGE_MUSIC(EasyCastStructure):
     ChannelMask: UInt32
 KSDEGRADESETID_Standard = Guid('{9f564180-704c-11d0-a5d6-28db04c10000}')
 KSDEGRADE_STANDARD = Int32
-KSDEGRADE_STANDARD_SAMPLE: KSDEGRADE_STANDARD = 0
-KSDEGRADE_STANDARD_QUALITY: KSDEGRADE_STANDARD = 1
-KSDEGRADE_STANDARD_COMPUTATION: KSDEGRADE_STANDARD = 2
-KSDEGRADE_STANDARD_SKIP: KSDEGRADE_STANDARD = 3
+KSDEGRADE_STANDARD_SAMPLE: win32more.Windows.Win32.Media.KernelStreaming.KSDEGRADE_STANDARD = 0
+KSDEGRADE_STANDARD_QUALITY: win32more.Windows.Win32.Media.KernelStreaming.KSDEGRADE_STANDARD = 1
+KSDEGRADE_STANDARD_COMPUTATION: win32more.Windows.Win32.Media.KernelStreaming.KSDEGRADE_STANDARD = 2
+KSDEGRADE_STANDARD_SKIP: win32more.Windows.Win32.Media.KernelStreaming.KSDEGRADE_STANDARD = 3
 class KSDEVICE_PROFILE_INFO(EasyCastStructure):
     Type: UInt32
     Size: UInt32
@@ -1801,8 +1800,8 @@ class KSDEVICE_PROFILE_INFO(EasyCastStructure):
             ConcurrencyCount: UInt32
             Concurrency: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSCAMERA_PROFILE_CONCURRENCYINFO)
 KSDEVICE_THERMAL_STATE = Int32
-KSDEVICE_THERMAL_STATE_LOW: KSDEVICE_THERMAL_STATE = 0
-KSDEVICE_THERMAL_STATE_HIGH: KSDEVICE_THERMAL_STATE = 1
+KSDEVICE_THERMAL_STATE_LOW: win32more.Windows.Win32.Media.KernelStreaming.KSDEVICE_THERMAL_STATE = 0
+KSDEVICE_THERMAL_STATE_HIGH: win32more.Windows.Win32.Media.KernelStreaming.KSDEVICE_THERMAL_STATE = 1
 class KSDISPLAYCHANGE(EasyCastStructure):
     PelsWidth: UInt32
     PelsHeight: UInt32
@@ -1822,24 +1821,24 @@ class KSDS3D_BUFFER_CONE_ANGLES(EasyCastStructure):
     InsideConeAngle: UInt32
     OutsideConeAngle: UInt32
 KSDS3D_HRTF_COEFF_FORMAT = Int32
-FLOAT_COEFF: KSDS3D_HRTF_COEFF_FORMAT = 0
-SHORT_COEFF: KSDS3D_HRTF_COEFF_FORMAT = 1
-KSDS3D_COEFF_COUNT: KSDS3D_HRTF_COEFF_FORMAT = 2
+FLOAT_COEFF: win32more.Windows.Win32.Media.KernelStreaming.KSDS3D_HRTF_COEFF_FORMAT = 0
+SHORT_COEFF: win32more.Windows.Win32.Media.KernelStreaming.KSDS3D_HRTF_COEFF_FORMAT = 1
+KSDS3D_COEFF_COUNT: win32more.Windows.Win32.Media.KernelStreaming.KSDS3D_HRTF_COEFF_FORMAT = 2
 class KSDS3D_HRTF_FILTER_FORMAT_MSG(EasyCastStructure):
     FilterMethod: win32more.Windows.Win32.Media.KernelStreaming.KSDS3D_HRTF_FILTER_METHOD
     CoeffFormat: win32more.Windows.Win32.Media.KernelStreaming.KSDS3D_HRTF_COEFF_FORMAT
     Version: win32more.Windows.Win32.Media.KernelStreaming.KSDS3D_HRTF_FILTER_VERSION
     Reserved: UInt32
 KSDS3D_HRTF_FILTER_METHOD = Int32
-DIRECT_FORM: KSDS3D_HRTF_FILTER_METHOD = 0
-CASCADE_FORM: KSDS3D_HRTF_FILTER_METHOD = 1
-KSDS3D_FILTER_METHOD_COUNT: KSDS3D_HRTF_FILTER_METHOD = 2
+DIRECT_FORM: win32more.Windows.Win32.Media.KernelStreaming.KSDS3D_HRTF_FILTER_METHOD = 0
+CASCADE_FORM: win32more.Windows.Win32.Media.KernelStreaming.KSDS3D_HRTF_FILTER_METHOD = 1
+KSDS3D_FILTER_METHOD_COUNT: win32more.Windows.Win32.Media.KernelStreaming.KSDS3D_HRTF_FILTER_METHOD = 2
 KSDS3D_HRTF_FILTER_QUALITY = Int32
-FULL_FILTER: KSDS3D_HRTF_FILTER_QUALITY = 0
-LIGHT_FILTER: KSDS3D_HRTF_FILTER_QUALITY = 1
-KSDS3D_FILTER_QUALITY_COUNT: KSDS3D_HRTF_FILTER_QUALITY = 2
+FULL_FILTER: win32more.Windows.Win32.Media.KernelStreaming.KSDS3D_HRTF_FILTER_QUALITY = 0
+LIGHT_FILTER: win32more.Windows.Win32.Media.KernelStreaming.KSDS3D_HRTF_FILTER_QUALITY = 1
+KSDS3D_FILTER_QUALITY_COUNT: win32more.Windows.Win32.Media.KernelStreaming.KSDS3D_HRTF_FILTER_QUALITY = 2
 KSDS3D_HRTF_FILTER_VERSION = Int32
-DS3D_HRTF_VERSION_1: KSDS3D_HRTF_FILTER_VERSION = 0
+DS3D_HRTF_VERSION_1: win32more.Windows.Win32.Media.KernelStreaming.KSDS3D_HRTF_FILTER_VERSION = 0
 class KSDS3D_HRTF_INIT_MSG(EasyCastStructure):
     Size: UInt32
     Quality: win32more.Windows.Win32.Media.KernelStreaming.KSDS3D_HRTF_FILTER_QUALITY
@@ -1919,51 +1918,51 @@ KSEVENTSETID_VPNotify = Guid('{20c5598e-d3c8-11d0-8dfc-00c04fd7c08b}')
 KSEVENTSETID_VPVBINotify = Guid('{ec529b01-1a1f-11d1-bad9-00609744111a}')
 KSEVENTSETID_VolumeLimit = Guid('{da168465-3a7c-4858-9d4a-3e8e24701aef}')
 KSEVENT_AUDIO_CONTROL_CHANGE = Int32
-KSEVENT_CONTROL_CHANGE: KSEVENT_AUDIO_CONTROL_CHANGE = 0
+KSEVENT_CONTROL_CHANGE: win32more.Windows.Win32.Media.KernelStreaming.KSEVENT_AUDIO_CONTROL_CHANGE = 0
 KSEVENT_CAMERACONTROL = Int32
-KSEVENT_CAMERACONTROL_FOCUS: KSEVENT_CAMERACONTROL = 0
-KSEVENT_CAMERACONTROL_ZOOM: KSEVENT_CAMERACONTROL = 1
+KSEVENT_CAMERACONTROL_FOCUS: win32more.Windows.Win32.Media.KernelStreaming.KSEVENT_CAMERACONTROL = 0
+KSEVENT_CAMERACONTROL_ZOOM: win32more.Windows.Win32.Media.KernelStreaming.KSEVENT_CAMERACONTROL = 1
 KSEVENT_CAMERAEVENT = Int32
-KSEVENT_PHOTO_SAMPLE_SCANNED: KSEVENT_CAMERAEVENT = 0
+KSEVENT_PHOTO_SAMPLE_SCANNED: win32more.Windows.Win32.Media.KernelStreaming.KSEVENT_CAMERAEVENT = 0
 KSEVENT_CLOCK_POSITION = Int32
-KSEVENT_CLOCK_INTERVAL_MARK: KSEVENT_CLOCK_POSITION = 0
-KSEVENT_CLOCK_POSITION_MARK: KSEVENT_CLOCK_POSITION = 1
+KSEVENT_CLOCK_INTERVAL_MARK: win32more.Windows.Win32.Media.KernelStreaming.KSEVENT_CLOCK_POSITION = 0
+KSEVENT_CLOCK_POSITION_MARK: win32more.Windows.Win32.Media.KernelStreaming.KSEVENT_CLOCK_POSITION = 1
 KSEVENT_CONNECTION = Int32
-KSEVENT_CONNECTION_POSITIONUPDATE: KSEVENT_CONNECTION = 0
-KSEVENT_CONNECTION_DATADISCONTINUITY: KSEVENT_CONNECTION = 1
-KSEVENT_CONNECTION_TIMEDISCONTINUITY: KSEVENT_CONNECTION = 2
-KSEVENT_CONNECTION_PRIORITY: KSEVENT_CONNECTION = 3
-KSEVENT_CONNECTION_ENDOFSTREAM: KSEVENT_CONNECTION = 4
+KSEVENT_CONNECTION_POSITIONUPDATE: win32more.Windows.Win32.Media.KernelStreaming.KSEVENT_CONNECTION = 0
+KSEVENT_CONNECTION_DATADISCONTINUITY: win32more.Windows.Win32.Media.KernelStreaming.KSEVENT_CONNECTION = 1
+KSEVENT_CONNECTION_TIMEDISCONTINUITY: win32more.Windows.Win32.Media.KernelStreaming.KSEVENT_CONNECTION = 2
+KSEVENT_CONNECTION_PRIORITY: win32more.Windows.Win32.Media.KernelStreaming.KSEVENT_CONNECTION = 3
+KSEVENT_CONNECTION_ENDOFSTREAM: win32more.Windows.Win32.Media.KernelStreaming.KSEVENT_CONNECTION = 4
 KSEVENT_CROSSBAR = Int32
-KSEVENT_CROSSBAR_CHANGED: KSEVENT_CROSSBAR = 0
+KSEVENT_CROSSBAR_CHANGED: win32more.Windows.Win32.Media.KernelStreaming.KSEVENT_CROSSBAR = 0
 KSEVENT_DEVCMD = Int32
-KSEVENT_EXTDEV_COMMAND_NOTIFY_INTERIM_READY: KSEVENT_DEVCMD = 0
-KSEVENT_EXTDEV_COMMAND_CONTROL_INTERIM_READY: KSEVENT_DEVCMD = 1
-KSEVENT_EXTDEV_COMMAND_BUSRESET: KSEVENT_DEVCMD = 2
-KSEVENT_EXTDEV_TIMECODE_UPDATE: KSEVENT_DEVCMD = 3
-KSEVENT_EXTDEV_OPERATION_MODE_UPDATE: KSEVENT_DEVCMD = 4
-KSEVENT_EXTDEV_TRANSPORT_STATE_UPDATE: KSEVENT_DEVCMD = 5
-KSEVENT_EXTDEV_NOTIFY_REMOVAL: KSEVENT_DEVCMD = 6
-KSEVENT_EXTDEV_NOTIFY_MEDIUM_CHANGE: KSEVENT_DEVCMD = 7
+KSEVENT_EXTDEV_COMMAND_NOTIFY_INTERIM_READY: win32more.Windows.Win32.Media.KernelStreaming.KSEVENT_DEVCMD = 0
+KSEVENT_EXTDEV_COMMAND_CONTROL_INTERIM_READY: win32more.Windows.Win32.Media.KernelStreaming.KSEVENT_DEVCMD = 1
+KSEVENT_EXTDEV_COMMAND_BUSRESET: win32more.Windows.Win32.Media.KernelStreaming.KSEVENT_DEVCMD = 2
+KSEVENT_EXTDEV_TIMECODE_UPDATE: win32more.Windows.Win32.Media.KernelStreaming.KSEVENT_DEVCMD = 3
+KSEVENT_EXTDEV_OPERATION_MODE_UPDATE: win32more.Windows.Win32.Media.KernelStreaming.KSEVENT_DEVCMD = 4
+KSEVENT_EXTDEV_TRANSPORT_STATE_UPDATE: win32more.Windows.Win32.Media.KernelStreaming.KSEVENT_DEVCMD = 5
+KSEVENT_EXTDEV_NOTIFY_REMOVAL: win32more.Windows.Win32.Media.KernelStreaming.KSEVENT_DEVCMD = 6
+KSEVENT_EXTDEV_NOTIFY_MEDIUM_CHANGE: win32more.Windows.Win32.Media.KernelStreaming.KSEVENT_DEVCMD = 7
 KSEVENT_DEVICE = Int32
-KSEVENT_DEVICE_LOST: KSEVENT_DEVICE = 0
-KSEVENT_DEVICE_PREEMPTED: KSEVENT_DEVICE = 1
-KSEVENT_DEVICE_THERMAL_HIGH: KSEVENT_DEVICE = 2
-KSEVENT_DEVICE_THERMAL_LOW: KSEVENT_DEVICE = 3
+KSEVENT_DEVICE_LOST: win32more.Windows.Win32.Media.KernelStreaming.KSEVENT_DEVICE = 0
+KSEVENT_DEVICE_PREEMPTED: win32more.Windows.Win32.Media.KernelStreaming.KSEVENT_DEVICE = 1
+KSEVENT_DEVICE_THERMAL_HIGH: win32more.Windows.Win32.Media.KernelStreaming.KSEVENT_DEVICE = 2
+KSEVENT_DEVICE_THERMAL_LOW: win32more.Windows.Win32.Media.KernelStreaming.KSEVENT_DEVICE = 3
 KSEVENT_DYNAMICFORMATCHANGE = Int32
-KSEVENT_DYNAMIC_FORMAT_CHANGE: KSEVENT_DYNAMICFORMATCHANGE = 0
+KSEVENT_DYNAMIC_FORMAT_CHANGE: win32more.Windows.Win32.Media.KernelStreaming.KSEVENT_DYNAMICFORMATCHANGE = 0
 KSEVENT_LOOPEDSTREAMING = Int32
-KSEVENT_LOOPEDSTREAMING_POSITION: KSEVENT_LOOPEDSTREAMING = 0
+KSEVENT_LOOPEDSTREAMING_POSITION: win32more.Windows.Win32.Media.KernelStreaming.KSEVENT_LOOPEDSTREAMING = 0
 KSEVENT_PINCAPS_CHANGENOTIFICATIONS = Int32
-KSEVENT_PINCAPS_FORMATCHANGE: KSEVENT_PINCAPS_CHANGENOTIFICATIONS = 0
-KSEVENT_PINCAPS_JACKINFOCHANGE: KSEVENT_PINCAPS_CHANGENOTIFICATIONS = 1
+KSEVENT_PINCAPS_FORMATCHANGE: win32more.Windows.Win32.Media.KernelStreaming.KSEVENT_PINCAPS_CHANGENOTIFICATIONS = 0
+KSEVENT_PINCAPS_JACKINFOCHANGE: win32more.Windows.Win32.Media.KernelStreaming.KSEVENT_PINCAPS_CHANGENOTIFICATIONS = 1
 KSEVENT_SOUNDDETECTOR = Int32
-KSEVENT_SOUNDDETECTOR_MATCHDETECTED: KSEVENT_SOUNDDETECTOR = 1
+KSEVENT_SOUNDDETECTOR_MATCHDETECTED: win32more.Windows.Win32.Media.KernelStreaming.KSEVENT_SOUNDDETECTOR = 1
 KSEVENT_STREAMALLOCATOR = Int32
-KSEVENT_STREAMALLOCATOR_INTERNAL_FREEFRAME: KSEVENT_STREAMALLOCATOR = 0
-KSEVENT_STREAMALLOCATOR_FREEFRAME: KSEVENT_STREAMALLOCATOR = 1
+KSEVENT_STREAMALLOCATOR_INTERNAL_FREEFRAME: win32more.Windows.Win32.Media.KernelStreaming.KSEVENT_STREAMALLOCATOR = 0
+KSEVENT_STREAMALLOCATOR_FREEFRAME: win32more.Windows.Win32.Media.KernelStreaming.KSEVENT_STREAMALLOCATOR = 1
 KSEVENT_TELEPHONY = Int32
-KSEVENT_TELEPHONY_ENDPOINTPAIRS_CHANGED: KSEVENT_TELEPHONY = 0
+KSEVENT_TELEPHONY_ENDPOINTPAIRS_CHANGED: win32more.Windows.Win32.Media.KernelStreaming.KSEVENT_TELEPHONY = 0
 class KSEVENT_TIME_INTERVAL(EasyCastStructure):
     EventData: win32more.Windows.Win32.Media.KernelStreaming.KSEVENTDATA
     TimeBase: Int64
@@ -1972,26 +1971,26 @@ class KSEVENT_TIME_MARK(EasyCastStructure):
     EventData: win32more.Windows.Win32.Media.KernelStreaming.KSEVENTDATA
     MarkTime: Int64
 KSEVENT_TUNER = Int32
-KSEVENT_TUNER_CHANGED: KSEVENT_TUNER = 0
-KSEVENT_TUNER_INITIATE_SCAN: KSEVENT_TUNER = 1
+KSEVENT_TUNER_CHANGED: win32more.Windows.Win32.Media.KernelStreaming.KSEVENT_TUNER = 0
+KSEVENT_TUNER_INITIATE_SCAN: win32more.Windows.Win32.Media.KernelStreaming.KSEVENT_TUNER = 1
 class KSEVENT_TUNER_INITIATE_SCAN_S(EasyCastStructure):
     EventData: win32more.Windows.Win32.Media.KernelStreaming.KSEVENTDATA
     StartFrequency: UInt32
     EndFrequency: UInt32
 KSEVENT_TVAUDIO = Int32
-KSEVENT_TVAUDIO_CHANGED: KSEVENT_TVAUDIO = 0
+KSEVENT_TVAUDIO_CHANGED: win32more.Windows.Win32.Media.KernelStreaming.KSEVENT_TVAUDIO = 0
 KSEVENT_VIDCAPTOSTI = Int32
-KSEVENT_VIDCAPTOSTI_EXT_TRIGGER: KSEVENT_VIDCAPTOSTI = 0
-KSEVENT_VIDCAP_AUTO_UPDATE: KSEVENT_VIDCAPTOSTI = 1
-KSEVENT_VIDCAP_SEARCH: KSEVENT_VIDCAPTOSTI = 2
+KSEVENT_VIDCAPTOSTI_EXT_TRIGGER: win32more.Windows.Win32.Media.KernelStreaming.KSEVENT_VIDCAPTOSTI = 0
+KSEVENT_VIDCAP_AUTO_UPDATE: win32more.Windows.Win32.Media.KernelStreaming.KSEVENT_VIDCAPTOSTI = 1
+KSEVENT_VIDCAP_SEARCH: win32more.Windows.Win32.Media.KernelStreaming.KSEVENT_VIDCAPTOSTI = 2
 KSEVENT_VIDEODECODER = Int32
-KSEVENT_VIDEODECODER_CHANGED: KSEVENT_VIDEODECODER = 0
+KSEVENT_VIDEODECODER_CHANGED: win32more.Windows.Win32.Media.KernelStreaming.KSEVENT_VIDEODECODER = 0
 KSEVENT_VOLUMELIMIT = Int32
-KSEVENT_VOLUMELIMIT_CHANGED: KSEVENT_VOLUMELIMIT = 0
+KSEVENT_VOLUMELIMIT_CHANGED: win32more.Windows.Win32.Media.KernelStreaming.KSEVENT_VOLUMELIMIT = 0
 KSEVENT_VPNOTIFY = Int32
-KSEVENT_VPNOTIFY_FORMATCHANGE: KSEVENT_VPNOTIFY = 0
+KSEVENT_VPNOTIFY_FORMATCHANGE: win32more.Windows.Win32.Media.KernelStreaming.KSEVENT_VPNOTIFY = 0
 KSEVENT_VPVBINOTIFY = Int32
-KSEVENT_VPVBINOTIFY_FORMATCHANGE: KSEVENT_VPVBINOTIFY = 0
+KSEVENT_VPVBINOTIFY_FORMATCHANGE: win32more.Windows.Win32.Media.KernelStreaming.KSEVENT_VPVBINOTIFY = 0
 class KSE_NODE(EasyCastStructure):
     Event: win32more.Windows.Win32.Media.KernelStreaming.KSIDENTIFIER
     NodeId: UInt32
@@ -2022,21 +2021,21 @@ KSINTERFACESETID_FileIo = Guid('{8c6f932c-e771-11d0-b8ff-00a0c9223196}')
 KSINTERFACESETID_Media = Guid('{3a13eb40-30a7-11d0-a5d6-28db04c10000}')
 KSINTERFACESETID_Standard = Guid('{1a8766a0-62ce-11cf-a5d6-28db04c10000}')
 KSINTERFACE_FILEIO = Int32
-KSINTERFACE_FILEIO_STREAMING: KSINTERFACE_FILEIO = 0
+KSINTERFACE_FILEIO_STREAMING: win32more.Windows.Win32.Media.KernelStreaming.KSINTERFACE_FILEIO = 0
 KSINTERFACE_MEDIA = Int32
-KSINTERFACE_MEDIA_MUSIC: KSINTERFACE_MEDIA = 0
-KSINTERFACE_MEDIA_WAVE_BUFFERED: KSINTERFACE_MEDIA = 1
-KSINTERFACE_MEDIA_WAVE_QUEUED: KSINTERFACE_MEDIA = 2
+KSINTERFACE_MEDIA_MUSIC: win32more.Windows.Win32.Media.KernelStreaming.KSINTERFACE_MEDIA = 0
+KSINTERFACE_MEDIA_WAVE_BUFFERED: win32more.Windows.Win32.Media.KernelStreaming.KSINTERFACE_MEDIA = 1
+KSINTERFACE_MEDIA_WAVE_QUEUED: win32more.Windows.Win32.Media.KernelStreaming.KSINTERFACE_MEDIA = 2
 KSINTERFACE_STANDARD = Int32
-KSINTERFACE_STANDARD_STREAMING: KSINTERFACE_STANDARD = 0
-KSINTERFACE_STANDARD_LOOPED_STREAMING: KSINTERFACE_STANDARD = 1
-KSINTERFACE_STANDARD_CONTROL: KSINTERFACE_STANDARD = 2
+KSINTERFACE_STANDARD_STREAMING: win32more.Windows.Win32.Media.KernelStreaming.KSINTERFACE_STANDARD = 0
+KSINTERFACE_STANDARD_LOOPED_STREAMING: win32more.Windows.Win32.Media.KernelStreaming.KSINTERFACE_STANDARD = 1
+KSINTERFACE_STANDARD_CONTROL: win32more.Windows.Win32.Media.KernelStreaming.KSINTERFACE_STANDARD = 2
 class KSINTERVAL(EasyCastStructure):
     TimeBase: Int64
     Interval: Int64
 KSIOOPERATION = Int32
-KsIoOperation_Write: KSIOOPERATION = 0
-KsIoOperation_Read: KSIOOPERATION = 1
+KsIoOperation_Write: win32more.Windows.Win32.Media.KernelStreaming.KSIOOPERATION = 0
+KsIoOperation_Read: win32more.Windows.Win32.Media.KernelStreaming.KSIOOPERATION = 1
 class KSJACK_DESCRIPTION(EasyCastStructure):
     ChannelMapping: UInt32
     Color: UInt32
@@ -2051,8 +2050,8 @@ class KSJACK_DESCRIPTION2(EasyCastStructure):
 class KSJACK_DESCRIPTION3(EasyCastStructure):
     ConfigId: UInt32
 KSJACK_SINK_CONNECTIONTYPE = Int32
-KSJACK_SINK_CONNECTIONTYPE_HDMI: KSJACK_SINK_CONNECTIONTYPE = 0
-KSJACK_SINK_CONNECTIONTYPE_DISPLAYPORT: KSJACK_SINK_CONNECTIONTYPE = 1
+KSJACK_SINK_CONNECTIONTYPE_HDMI: win32more.Windows.Win32.Media.KernelStreaming.KSJACK_SINK_CONNECTIONTYPE = 0
+KSJACK_SINK_CONNECTIONTYPE_DISPLAYPORT: win32more.Windows.Win32.Media.KernelStreaming.KSJACK_SINK_CONNECTIONTYPE = 1
 class KSJACK_SINK_INFORMATION(EasyCastStructure):
     ConnType: win32more.Windows.Win32.Media.KernelStreaming.KSJACK_SINK_CONNECTIONTYPE
     ManufacturerId: UInt16
@@ -2075,16 +2074,16 @@ KSMETHODSETID_StreamAllocator = Guid('{cf6e4341-ec87-11cf-a130-0020afd156e4}')
 KSMETHODSETID_StreamIo = Guid('{65d003ca-1523-11d2-b27a-00a0c9223196}')
 KSMETHODSETID_Wavetable = Guid('{dcef31eb-d907-11d0-9583-00c04fb925d3}')
 KSMETHOD_STREAMALLOCATOR = Int32
-KSMETHOD_STREAMALLOCATOR_ALLOC: KSMETHOD_STREAMALLOCATOR = 0
-KSMETHOD_STREAMALLOCATOR_FREE: KSMETHOD_STREAMALLOCATOR = 1
+KSMETHOD_STREAMALLOCATOR_ALLOC: win32more.Windows.Win32.Media.KernelStreaming.KSMETHOD_STREAMALLOCATOR = 0
+KSMETHOD_STREAMALLOCATOR_FREE: win32more.Windows.Win32.Media.KernelStreaming.KSMETHOD_STREAMALLOCATOR = 1
 KSMETHOD_STREAMIO = Int32
-KSMETHOD_STREAMIO_READ: KSMETHOD_STREAMIO = 0
-KSMETHOD_STREAMIO_WRITE: KSMETHOD_STREAMIO = 1
+KSMETHOD_STREAMIO_READ: win32more.Windows.Win32.Media.KernelStreaming.KSMETHOD_STREAMIO = 0
+KSMETHOD_STREAMIO_WRITE: win32more.Windows.Win32.Media.KernelStreaming.KSMETHOD_STREAMIO = 1
 KSMETHOD_WAVETABLE = Int32
-KSMETHOD_WAVETABLE_WAVE_ALLOC: KSMETHOD_WAVETABLE = 0
-KSMETHOD_WAVETABLE_WAVE_FREE: KSMETHOD_WAVETABLE = 1
-KSMETHOD_WAVETABLE_WAVE_FIND: KSMETHOD_WAVETABLE = 2
-KSMETHOD_WAVETABLE_WAVE_WRITE: KSMETHOD_WAVETABLE = 3
+KSMETHOD_WAVETABLE_WAVE_ALLOC: win32more.Windows.Win32.Media.KernelStreaming.KSMETHOD_WAVETABLE = 0
+KSMETHOD_WAVETABLE_WAVE_FREE: win32more.Windows.Win32.Media.KernelStreaming.KSMETHOD_WAVETABLE = 1
+KSMETHOD_WAVETABLE_WAVE_FIND: win32more.Windows.Win32.Media.KernelStreaming.KSMETHOD_WAVETABLE = 2
+KSMETHOD_WAVETABLE_WAVE_WRITE: win32more.Windows.Win32.Media.KernelStreaming.KSMETHOD_WAVETABLE = 3
 KSMFT_CATEGORY_AUDIO_DECODER = Guid('{9ea73fb4-ef7a-4559-8d5d-719d8f0426c7}')
 KSMFT_CATEGORY_AUDIO_EFFECT = Guid('{11064c48-3648-4ed0-932e-05ce8ac811b7}')
 KSMFT_CATEGORY_AUDIO_ENCODER = Guid('{91c64bd0-f91e-4d8c-9276-db248279d975}')
@@ -2096,17 +2095,17 @@ KSMFT_CATEGORY_VIDEO_EFFECT = Guid('{12e17c21-532c-4a6e-8a1c-40825a736397}')
 KSMFT_CATEGORY_VIDEO_ENCODER = Guid('{f79eac7d-e545-4387-bdee-d647d7bde42a}')
 KSMFT_CATEGORY_VIDEO_PROCESSOR = Guid('{302ea3fc-aa5f-47f9-9f7a-c2188bb16302}')
 KSMICARRAY_MICARRAYTYPE = Int32
-KSMICARRAY_MICARRAYTYPE_LINEAR: KSMICARRAY_MICARRAYTYPE = 0
-KSMICARRAY_MICARRAYTYPE_PLANAR: KSMICARRAY_MICARRAYTYPE = 1
-KSMICARRAY_MICARRAYTYPE_3D: KSMICARRAY_MICARRAYTYPE = 2
+KSMICARRAY_MICARRAYTYPE_LINEAR: win32more.Windows.Win32.Media.KernelStreaming.KSMICARRAY_MICARRAYTYPE = 0
+KSMICARRAY_MICARRAYTYPE_PLANAR: win32more.Windows.Win32.Media.KernelStreaming.KSMICARRAY_MICARRAYTYPE = 1
+KSMICARRAY_MICARRAYTYPE_3D: win32more.Windows.Win32.Media.KernelStreaming.KSMICARRAY_MICARRAYTYPE = 2
 KSMICARRAY_MICTYPE = Int32
-KSMICARRAY_MICTYPE_OMNIDIRECTIONAL: KSMICARRAY_MICTYPE = 0
-KSMICARRAY_MICTYPE_SUBCARDIOID: KSMICARRAY_MICTYPE = 1
-KSMICARRAY_MICTYPE_CARDIOID: KSMICARRAY_MICTYPE = 2
-KSMICARRAY_MICTYPE_SUPERCARDIOID: KSMICARRAY_MICTYPE = 3
-KSMICARRAY_MICTYPE_HYPERCARDIOID: KSMICARRAY_MICTYPE = 4
-KSMICARRAY_MICTYPE_8SHAPED: KSMICARRAY_MICTYPE = 5
-KSMICARRAY_MICTYPE_VENDORDEFINED: KSMICARRAY_MICTYPE = 15
+KSMICARRAY_MICTYPE_OMNIDIRECTIONAL: win32more.Windows.Win32.Media.KernelStreaming.KSMICARRAY_MICTYPE = 0
+KSMICARRAY_MICTYPE_SUBCARDIOID: win32more.Windows.Win32.Media.KernelStreaming.KSMICARRAY_MICTYPE = 1
+KSMICARRAY_MICTYPE_CARDIOID: win32more.Windows.Win32.Media.KernelStreaming.KSMICARRAY_MICTYPE = 2
+KSMICARRAY_MICTYPE_SUPERCARDIOID: win32more.Windows.Win32.Media.KernelStreaming.KSMICARRAY_MICTYPE = 3
+KSMICARRAY_MICTYPE_HYPERCARDIOID: win32more.Windows.Win32.Media.KernelStreaming.KSMICARRAY_MICTYPE = 4
+KSMICARRAY_MICTYPE_8SHAPED: win32more.Windows.Win32.Media.KernelStreaming.KSMICARRAY_MICTYPE = 5
+KSMICARRAY_MICTYPE_VENDORDEFINED: win32more.Windows.Win32.Media.KernelStreaming.KSMICARRAY_MICTYPE = 15
 class KSMPEGVID_RECT(EasyCastStructure):
     StartX: UInt32
     StartY: UInt32
@@ -2273,17 +2272,17 @@ class KSNODE_CREATE(EasyCastStructure):
 KSNOTIFICATIONID_AudioModule = Guid('{9c2220f0-d9a6-4d5c-a036-573857fd50d2}')
 KSNOTIFICATIONID_SoundDetector = Guid('{6389d844-bb32-4c4c-a802-f4b4b77afead}')
 KSPEEKOPERATION = Int32
-KsPeekOperation_PeekOnly: KSPEEKOPERATION = 0
-KsPeekOperation_AddRef: KSPEEKOPERATION = 1
+KsPeekOperation_PeekOnly: win32more.Windows.Win32.Media.KernelStreaming.KSPEEKOPERATION = 0
+KsPeekOperation_AddRef: win32more.Windows.Win32.Media.KernelStreaming.KSPEEKOPERATION = 1
 class KSPIN_CINSTANCES(EasyCastStructure):
     PossibleCount: UInt32
     CurrentCount: UInt32
 KSPIN_COMMUNICATION = Int32
-KSPIN_COMMUNICATION_NONE: KSPIN_COMMUNICATION = 0
-KSPIN_COMMUNICATION_SINK: KSPIN_COMMUNICATION = 1
-KSPIN_COMMUNICATION_SOURCE: KSPIN_COMMUNICATION = 2
-KSPIN_COMMUNICATION_BOTH: KSPIN_COMMUNICATION = 3
-KSPIN_COMMUNICATION_BRIDGE: KSPIN_COMMUNICATION = 4
+KSPIN_COMMUNICATION_NONE: win32more.Windows.Win32.Media.KernelStreaming.KSPIN_COMMUNICATION = 0
+KSPIN_COMMUNICATION_SINK: win32more.Windows.Win32.Media.KernelStreaming.KSPIN_COMMUNICATION = 1
+KSPIN_COMMUNICATION_SOURCE: win32more.Windows.Win32.Media.KernelStreaming.KSPIN_COMMUNICATION = 2
+KSPIN_COMMUNICATION_BOTH: win32more.Windows.Win32.Media.KernelStreaming.KSPIN_COMMUNICATION = 3
+KSPIN_COMMUNICATION_BRIDGE: win32more.Windows.Win32.Media.KernelStreaming.KSPIN_COMMUNICATION = 4
 class KSPIN_CONNECT(EasyCastStructure):
     Interface: win32more.Windows.Win32.Media.KernelStreaming.KSIDENTIFIER
     Medium: win32more.Windows.Win32.Media.KernelStreaming.KSIDENTIFIER
@@ -2291,13 +2290,13 @@ class KSPIN_CONNECT(EasyCastStructure):
     PinToHandle: win32more.Windows.Win32.Foundation.HANDLE
     Priority: win32more.Windows.Win32.Media.KernelStreaming.KSPRIORITY
 KSPIN_DATAFLOW = Int32
-KSPIN_DATAFLOW_IN: KSPIN_DATAFLOW = 1
-KSPIN_DATAFLOW_OUT: KSPIN_DATAFLOW = 2
+KSPIN_DATAFLOW_IN: win32more.Windows.Win32.Media.KernelStreaming.KSPIN_DATAFLOW = 1
+KSPIN_DATAFLOW_OUT: win32more.Windows.Win32.Media.KernelStreaming.KSPIN_DATAFLOW = 2
 KSPIN_MDL_CACHING_EVENT = Int32
-KSPIN_MDL_CACHING_NOTIFY_CLEANUP: KSPIN_MDL_CACHING_EVENT = 0
-KSPIN_MDL_CACHING_NOTIFY_CLEANALL_WAIT: KSPIN_MDL_CACHING_EVENT = 1
-KSPIN_MDL_CACHING_NOTIFY_CLEANALL_NOWAIT: KSPIN_MDL_CACHING_EVENT = 2
-KSPIN_MDL_CACHING_NOTIFY_ADDSAMPLE: KSPIN_MDL_CACHING_EVENT = 3
+KSPIN_MDL_CACHING_NOTIFY_CLEANUP: win32more.Windows.Win32.Media.KernelStreaming.KSPIN_MDL_CACHING_EVENT = 0
+KSPIN_MDL_CACHING_NOTIFY_CLEANALL_WAIT: win32more.Windows.Win32.Media.KernelStreaming.KSPIN_MDL_CACHING_EVENT = 1
+KSPIN_MDL_CACHING_NOTIFY_CLEANALL_NOWAIT: win32more.Windows.Win32.Media.KernelStreaming.KSPIN_MDL_CACHING_EVENT = 2
+KSPIN_MDL_CACHING_NOTIFY_ADDSAMPLE: win32more.Windows.Win32.Media.KernelStreaming.KSPIN_MDL_CACHING_EVENT = 3
 class KSPIN_MDL_CACHING_NOTIFICATION(EasyCastStructure):
     Event: win32more.Windows.Win32.Media.KernelStreaming.KSPIN_MDL_CACHING_EVENT
     Buffer: VoidPtr
@@ -2309,7 +2308,7 @@ class KSPIN_PHYSICALCONNECTION(EasyCastStructure):
     Pin: UInt32
     SymbolicLinkName: Char * 1
 KSPPROPERTY_ALLOCATOR_MDLCACHING = Int32
-KSPROPERTY_ALLOCATOR_CLEANUP_CACHEDMDLPAGES: KSPPROPERTY_ALLOCATOR_MDLCACHING = 1
+KSPROPERTY_ALLOCATOR_CLEANUP_CACHEDMDLPAGES: win32more.Windows.Win32.Media.KernelStreaming.KSPPROPERTY_ALLOCATOR_MDLCACHING = 1
 class KSPRIORITY(EasyCastStructure):
     PriorityClass: UInt32
     PrioritySubClass: UInt32
@@ -2317,18 +2316,18 @@ KSPROPERTYSETID_ExtendedCameraControl = Guid('{1cb79112-c0d2-4213-9ca6-cd4fdb927
 KSPROPERTYSETID_NetworkCameraControl = Guid('{0e780f09-5745-4e3a-bc9f-f226ea43a6ec}')
 KSPROPERTYSETID_PerFrameSettingControl = Guid('{f1f3e261-dee6-4537-bff5-ee206db54aac}')
 KSPROPERTY_AC3 = Int32
-KSPROPERTY_AC3_ERROR_CONCEALMENT: KSPROPERTY_AC3 = 1
-KSPROPERTY_AC3_ALTERNATE_AUDIO: KSPROPERTY_AC3 = 2
-KSPROPERTY_AC3_DOWNMIX: KSPROPERTY_AC3 = 3
-KSPROPERTY_AC3_BIT_STREAM_MODE: KSPROPERTY_AC3 = 4
-KSPROPERTY_AC3_DIALOGUE_LEVEL: KSPROPERTY_AC3 = 5
-KSPROPERTY_AC3_LANGUAGE_CODE: KSPROPERTY_AC3 = 6
-KSPROPERTY_AC3_ROOM_TYPE: KSPROPERTY_AC3 = 7
+KSPROPERTY_AC3_ERROR_CONCEALMENT: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AC3 = 1
+KSPROPERTY_AC3_ALTERNATE_AUDIO: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AC3 = 2
+KSPROPERTY_AC3_DOWNMIX: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AC3 = 3
+KSPROPERTY_AC3_BIT_STREAM_MODE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AC3 = 4
+KSPROPERTY_AC3_DIALOGUE_LEVEL: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AC3 = 5
+KSPROPERTY_AC3_LANGUAGE_CODE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AC3 = 6
+KSPROPERTY_AC3_ROOM_TYPE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AC3 = 7
 KSPROPERTY_ALLOCATOR_CONTROL = Int32
-KSPROPERTY_ALLOCATOR_CONTROL_HONOR_COUNT: KSPROPERTY_ALLOCATOR_CONTROL = 0
-KSPROPERTY_ALLOCATOR_CONTROL_SURFACE_SIZE: KSPROPERTY_ALLOCATOR_CONTROL = 1
-KSPROPERTY_ALLOCATOR_CONTROL_CAPTURE_CAPS: KSPROPERTY_ALLOCATOR_CONTROL = 2
-KSPROPERTY_ALLOCATOR_CONTROL_CAPTURE_INTERLEAVE: KSPROPERTY_ALLOCATOR_CONTROL = 3
+KSPROPERTY_ALLOCATOR_CONTROL_HONOR_COUNT: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_ALLOCATOR_CONTROL = 0
+KSPROPERTY_ALLOCATOR_CONTROL_SURFACE_SIZE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_ALLOCATOR_CONTROL = 1
+KSPROPERTY_ALLOCATOR_CONTROL_CAPTURE_CAPS: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_ALLOCATOR_CONTROL = 2
+KSPROPERTY_ALLOCATOR_CONTROL_CAPTURE_INTERLEAVE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_ALLOCATOR_CONTROL = 3
 class KSPROPERTY_ALLOCATOR_CONTROL_CAPTURE_CAPS_S(EasyCastStructure):
     InterleavedCapSupported: UInt32
 class KSPROPERTY_ALLOCATOR_CONTROL_CAPTURE_INTERLEAVE_S(EasyCastStructure):
@@ -2337,127 +2336,127 @@ class KSPROPERTY_ALLOCATOR_CONTROL_SURFACE_SIZE_S(EasyCastStructure):
     CX: UInt32
     CY: UInt32
 KSPROPERTY_AUDDECOUT = Int32
-KSPROPERTY_AUDDECOUT_MODES: KSPROPERTY_AUDDECOUT = 0
-KSPROPERTY_AUDDECOUT_CUR_MODE: KSPROPERTY_AUDDECOUT = 1
+KSPROPERTY_AUDDECOUT_MODES: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDDECOUT = 0
+KSPROPERTY_AUDDECOUT_CUR_MODE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDDECOUT = 1
 KSPROPERTY_AUDIO = Int32
-KSPROPERTY_AUDIO_LATENCY: KSPROPERTY_AUDIO = 1
-KSPROPERTY_AUDIO_COPY_PROTECTION: KSPROPERTY_AUDIO = 2
-KSPROPERTY_AUDIO_CHANNEL_CONFIG: KSPROPERTY_AUDIO = 3
-KSPROPERTY_AUDIO_VOLUMELEVEL: KSPROPERTY_AUDIO = 4
-KSPROPERTY_AUDIO_POSITION: KSPROPERTY_AUDIO = 5
-KSPROPERTY_AUDIO_DYNAMIC_RANGE: KSPROPERTY_AUDIO = 6
-KSPROPERTY_AUDIO_QUALITY: KSPROPERTY_AUDIO = 7
-KSPROPERTY_AUDIO_SAMPLING_RATE: KSPROPERTY_AUDIO = 8
-KSPROPERTY_AUDIO_DYNAMIC_SAMPLING_RATE: KSPROPERTY_AUDIO = 9
-KSPROPERTY_AUDIO_MIX_LEVEL_TABLE: KSPROPERTY_AUDIO = 10
-KSPROPERTY_AUDIO_MIX_LEVEL_CAPS: KSPROPERTY_AUDIO = 11
-KSPROPERTY_AUDIO_MUX_SOURCE: KSPROPERTY_AUDIO = 12
-KSPROPERTY_AUDIO_MUTE: KSPROPERTY_AUDIO = 13
-KSPROPERTY_AUDIO_BASS: KSPROPERTY_AUDIO = 14
-KSPROPERTY_AUDIO_MID: KSPROPERTY_AUDIO = 15
-KSPROPERTY_AUDIO_TREBLE: KSPROPERTY_AUDIO = 16
-KSPROPERTY_AUDIO_BASS_BOOST: KSPROPERTY_AUDIO = 17
-KSPROPERTY_AUDIO_EQ_LEVEL: KSPROPERTY_AUDIO = 18
-KSPROPERTY_AUDIO_NUM_EQ_BANDS: KSPROPERTY_AUDIO = 19
-KSPROPERTY_AUDIO_EQ_BANDS: KSPROPERTY_AUDIO = 20
-KSPROPERTY_AUDIO_AGC: KSPROPERTY_AUDIO = 21
-KSPROPERTY_AUDIO_DELAY: KSPROPERTY_AUDIO = 22
-KSPROPERTY_AUDIO_LOUDNESS: KSPROPERTY_AUDIO = 23
-KSPROPERTY_AUDIO_WIDE_MODE: KSPROPERTY_AUDIO = 24
-KSPROPERTY_AUDIO_WIDENESS: KSPROPERTY_AUDIO = 25
-KSPROPERTY_AUDIO_REVERB_LEVEL: KSPROPERTY_AUDIO = 26
-KSPROPERTY_AUDIO_CHORUS_LEVEL: KSPROPERTY_AUDIO = 27
-KSPROPERTY_AUDIO_DEV_SPECIFIC: KSPROPERTY_AUDIO = 28
-KSPROPERTY_AUDIO_DEMUX_DEST: KSPROPERTY_AUDIO = 29
-KSPROPERTY_AUDIO_STEREO_ENHANCE: KSPROPERTY_AUDIO = 30
-KSPROPERTY_AUDIO_MANUFACTURE_GUID: KSPROPERTY_AUDIO = 31
-KSPROPERTY_AUDIO_PRODUCT_GUID: KSPROPERTY_AUDIO = 32
-KSPROPERTY_AUDIO_CPU_RESOURCES: KSPROPERTY_AUDIO = 33
-KSPROPERTY_AUDIO_STEREO_SPEAKER_GEOMETRY: KSPROPERTY_AUDIO = 34
-KSPROPERTY_AUDIO_SURROUND_ENCODE: KSPROPERTY_AUDIO = 35
-KSPROPERTY_AUDIO_3D_INTERFACE: KSPROPERTY_AUDIO = 36
-KSPROPERTY_AUDIO_PEAKMETER: KSPROPERTY_AUDIO = 37
-KSPROPERTY_AUDIO_ALGORITHM_INSTANCE: KSPROPERTY_AUDIO = 38
-KSPROPERTY_AUDIO_FILTER_STATE: KSPROPERTY_AUDIO = 39
-KSPROPERTY_AUDIO_PREFERRED_STATUS: KSPROPERTY_AUDIO = 40
-KSPROPERTY_AUDIO_PEQ_MAX_BANDS: KSPROPERTY_AUDIO = 41
-KSPROPERTY_AUDIO_PEQ_NUM_BANDS: KSPROPERTY_AUDIO = 42
-KSPROPERTY_AUDIO_PEQ_BAND_CENTER_FREQ: KSPROPERTY_AUDIO = 43
-KSPROPERTY_AUDIO_PEQ_BAND_Q_FACTOR: KSPROPERTY_AUDIO = 44
-KSPROPERTY_AUDIO_PEQ_BAND_LEVEL: KSPROPERTY_AUDIO = 45
-KSPROPERTY_AUDIO_CHORUS_MODULATION_RATE: KSPROPERTY_AUDIO = 46
-KSPROPERTY_AUDIO_CHORUS_MODULATION_DEPTH: KSPROPERTY_AUDIO = 47
-KSPROPERTY_AUDIO_REVERB_TIME: KSPROPERTY_AUDIO = 48
-KSPROPERTY_AUDIO_REVERB_DELAY_FEEDBACK: KSPROPERTY_AUDIO = 49
-KSPROPERTY_AUDIO_POSITIONEX: KSPROPERTY_AUDIO = 50
-KSPROPERTY_AUDIO_MIC_ARRAY_GEOMETRY: KSPROPERTY_AUDIO = 51
-KSPROPERTY_AUDIO_PRESENTATION_POSITION: KSPROPERTY_AUDIO = 52
-KSPROPERTY_AUDIO_WAVERT_CURRENT_WRITE_POSITION: KSPROPERTY_AUDIO = 53
-KSPROPERTY_AUDIO_LINEAR_BUFFER_POSITION: KSPROPERTY_AUDIO = 54
-KSPROPERTY_AUDIO_PEAKMETER2: KSPROPERTY_AUDIO = 55
-KSPROPERTY_AUDIO_WAVERT_CURRENT_WRITE_LASTBUFFER_POSITION: KSPROPERTY_AUDIO = 56
-KSPROPERTY_AUDIO_VOLUMELIMIT_ENGAGED: KSPROPERTY_AUDIO = 57
-KSPROPERTY_AUDIO_MIC_SENSITIVITY: KSPROPERTY_AUDIO = 58
-KSPROPERTY_AUDIO_MIC_SNR: KSPROPERTY_AUDIO = 59
-KSPROPERTY_AUDIO_MIC_SENSITIVITY2: KSPROPERTY_AUDIO = 60
+KSPROPERTY_AUDIO_LATENCY: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIO = 1
+KSPROPERTY_AUDIO_COPY_PROTECTION: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIO = 2
+KSPROPERTY_AUDIO_CHANNEL_CONFIG: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIO = 3
+KSPROPERTY_AUDIO_VOLUMELEVEL: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIO = 4
+KSPROPERTY_AUDIO_POSITION: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIO = 5
+KSPROPERTY_AUDIO_DYNAMIC_RANGE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIO = 6
+KSPROPERTY_AUDIO_QUALITY: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIO = 7
+KSPROPERTY_AUDIO_SAMPLING_RATE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIO = 8
+KSPROPERTY_AUDIO_DYNAMIC_SAMPLING_RATE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIO = 9
+KSPROPERTY_AUDIO_MIX_LEVEL_TABLE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIO = 10
+KSPROPERTY_AUDIO_MIX_LEVEL_CAPS: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIO = 11
+KSPROPERTY_AUDIO_MUX_SOURCE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIO = 12
+KSPROPERTY_AUDIO_MUTE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIO = 13
+KSPROPERTY_AUDIO_BASS: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIO = 14
+KSPROPERTY_AUDIO_MID: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIO = 15
+KSPROPERTY_AUDIO_TREBLE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIO = 16
+KSPROPERTY_AUDIO_BASS_BOOST: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIO = 17
+KSPROPERTY_AUDIO_EQ_LEVEL: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIO = 18
+KSPROPERTY_AUDIO_NUM_EQ_BANDS: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIO = 19
+KSPROPERTY_AUDIO_EQ_BANDS: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIO = 20
+KSPROPERTY_AUDIO_AGC: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIO = 21
+KSPROPERTY_AUDIO_DELAY: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIO = 22
+KSPROPERTY_AUDIO_LOUDNESS: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIO = 23
+KSPROPERTY_AUDIO_WIDE_MODE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIO = 24
+KSPROPERTY_AUDIO_WIDENESS: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIO = 25
+KSPROPERTY_AUDIO_REVERB_LEVEL: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIO = 26
+KSPROPERTY_AUDIO_CHORUS_LEVEL: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIO = 27
+KSPROPERTY_AUDIO_DEV_SPECIFIC: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIO = 28
+KSPROPERTY_AUDIO_DEMUX_DEST: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIO = 29
+KSPROPERTY_AUDIO_STEREO_ENHANCE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIO = 30
+KSPROPERTY_AUDIO_MANUFACTURE_GUID: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIO = 31
+KSPROPERTY_AUDIO_PRODUCT_GUID: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIO = 32
+KSPROPERTY_AUDIO_CPU_RESOURCES: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIO = 33
+KSPROPERTY_AUDIO_STEREO_SPEAKER_GEOMETRY: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIO = 34
+KSPROPERTY_AUDIO_SURROUND_ENCODE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIO = 35
+KSPROPERTY_AUDIO_3D_INTERFACE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIO = 36
+KSPROPERTY_AUDIO_PEAKMETER: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIO = 37
+KSPROPERTY_AUDIO_ALGORITHM_INSTANCE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIO = 38
+KSPROPERTY_AUDIO_FILTER_STATE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIO = 39
+KSPROPERTY_AUDIO_PREFERRED_STATUS: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIO = 40
+KSPROPERTY_AUDIO_PEQ_MAX_BANDS: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIO = 41
+KSPROPERTY_AUDIO_PEQ_NUM_BANDS: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIO = 42
+KSPROPERTY_AUDIO_PEQ_BAND_CENTER_FREQ: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIO = 43
+KSPROPERTY_AUDIO_PEQ_BAND_Q_FACTOR: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIO = 44
+KSPROPERTY_AUDIO_PEQ_BAND_LEVEL: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIO = 45
+KSPROPERTY_AUDIO_CHORUS_MODULATION_RATE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIO = 46
+KSPROPERTY_AUDIO_CHORUS_MODULATION_DEPTH: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIO = 47
+KSPROPERTY_AUDIO_REVERB_TIME: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIO = 48
+KSPROPERTY_AUDIO_REVERB_DELAY_FEEDBACK: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIO = 49
+KSPROPERTY_AUDIO_POSITIONEX: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIO = 50
+KSPROPERTY_AUDIO_MIC_ARRAY_GEOMETRY: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIO = 51
+KSPROPERTY_AUDIO_PRESENTATION_POSITION: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIO = 52
+KSPROPERTY_AUDIO_WAVERT_CURRENT_WRITE_POSITION: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIO = 53
+KSPROPERTY_AUDIO_LINEAR_BUFFER_POSITION: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIO = 54
+KSPROPERTY_AUDIO_PEAKMETER2: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIO = 55
+KSPROPERTY_AUDIO_WAVERT_CURRENT_WRITE_LASTBUFFER_POSITION: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIO = 56
+KSPROPERTY_AUDIO_VOLUMELIMIT_ENGAGED: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIO = 57
+KSPROPERTY_AUDIO_MIC_SENSITIVITY: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIO = 58
+KSPROPERTY_AUDIO_MIC_SNR: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIO = 59
+KSPROPERTY_AUDIO_MIC_SENSITIVITY2: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIO = 60
 KSPROPERTY_AUDIOENGINE = Int32
-KSPROPERTY_AUDIOENGINE_LFXENABLE: KSPROPERTY_AUDIOENGINE = 0
-KSPROPERTY_AUDIOENGINE_GFXENABLE: KSPROPERTY_AUDIOENGINE = 1
-KSPROPERTY_AUDIOENGINE_MIXFORMAT: KSPROPERTY_AUDIOENGINE = 2
-KSPROPERTY_AUDIOENGINE_DEVICEFORMAT: KSPROPERTY_AUDIOENGINE = 4
-KSPROPERTY_AUDIOENGINE_SUPPORTEDDEVICEFORMATS: KSPROPERTY_AUDIOENGINE = 5
-KSPROPERTY_AUDIOENGINE_DESCRIPTOR: KSPROPERTY_AUDIOENGINE = 6
-KSPROPERTY_AUDIOENGINE_BUFFER_SIZE_RANGE: KSPROPERTY_AUDIOENGINE = 7
-KSPROPERTY_AUDIOENGINE_LOOPBACK_PROTECTION: KSPROPERTY_AUDIOENGINE = 8
-KSPROPERTY_AUDIOENGINE_VOLUMELEVEL: KSPROPERTY_AUDIOENGINE = 9
-KSPROPERTY_AUDIOENGINE_DEVICECONTROLS: KSPROPERTY_AUDIOENGINE = 10
+KSPROPERTY_AUDIOENGINE_LFXENABLE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIOENGINE = 0
+KSPROPERTY_AUDIOENGINE_GFXENABLE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIOENGINE = 1
+KSPROPERTY_AUDIOENGINE_MIXFORMAT: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIOENGINE = 2
+KSPROPERTY_AUDIOENGINE_DEVICEFORMAT: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIOENGINE = 4
+KSPROPERTY_AUDIOENGINE_SUPPORTEDDEVICEFORMATS: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIOENGINE = 5
+KSPROPERTY_AUDIOENGINE_DESCRIPTOR: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIOENGINE = 6
+KSPROPERTY_AUDIOENGINE_BUFFER_SIZE_RANGE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIOENGINE = 7
+KSPROPERTY_AUDIOENGINE_LOOPBACK_PROTECTION: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIOENGINE = 8
+KSPROPERTY_AUDIOENGINE_VOLUMELEVEL: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIOENGINE = 9
+KSPROPERTY_AUDIOENGINE_DEVICECONTROLS: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIOENGINE = 10
 KSPROPERTY_AUDIOMODULE = Int32
-KSPROPERTY_AUDIOMODULE_DESCRIPTORS: KSPROPERTY_AUDIOMODULE = 1
-KSPROPERTY_AUDIOMODULE_COMMAND: KSPROPERTY_AUDIOMODULE = 2
-KSPROPERTY_AUDIOMODULE_NOTIFICATION_DEVICE_ID: KSPROPERTY_AUDIOMODULE = 3
+KSPROPERTY_AUDIOMODULE_DESCRIPTORS: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIOMODULE = 1
+KSPROPERTY_AUDIOMODULE_COMMAND: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIOMODULE = 2
+KSPROPERTY_AUDIOMODULE_NOTIFICATION_DEVICE_ID: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIOMODULE = 3
 KSPROPERTY_AUDIOPOSTURE = Int32
-KSPROPERTY_AUDIOPOSTURE_ORIENTATION: KSPROPERTY_AUDIOPOSTURE = 1
+KSPROPERTY_AUDIOPOSTURE_ORIENTATION: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIOPOSTURE = 1
 KSPROPERTY_AUDIORESOURCEMANAGEMENT = Int32
-KSPROPERTY_AUDIORESOURCEMANAGEMENT_RESOURCEGROUP: KSPROPERTY_AUDIORESOURCEMANAGEMENT = 0
+KSPROPERTY_AUDIORESOURCEMANAGEMENT_RESOURCEGROUP: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIORESOURCEMANAGEMENT = 0
 KSPROPERTY_AUDIOSIGNALPROCESSING = Int32
-KSPROPERTY_AUDIOSIGNALPROCESSING_MODES: KSPROPERTY_AUDIOSIGNALPROCESSING = 0
+KSPROPERTY_AUDIOSIGNALPROCESSING_MODES: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_AUDIOSIGNALPROCESSING = 0
 KSPROPERTY_BIBLIOGRAPHIC = Int32
-KSPROPERTY_BIBLIOGRAPHIC_LEADER: KSPROPERTY_BIBLIOGRAPHIC = 1380207648
-KSPROPERTY_BIBLIOGRAPHIC_LCCN: KSPROPERTY_BIBLIOGRAPHIC = 808529952
-KSPROPERTY_BIBLIOGRAPHIC_ISBN: KSPROPERTY_BIBLIOGRAPHIC = 808595488
-KSPROPERTY_BIBLIOGRAPHIC_ISSN: KSPROPERTY_BIBLIOGRAPHIC = 842149920
-KSPROPERTY_BIBLIOGRAPHIC_CATALOGINGSOURCE: KSPROPERTY_BIBLIOGRAPHIC = 808726560
-KSPROPERTY_BIBLIOGRAPHIC_MAINPERSONALNAME: KSPROPERTY_BIBLIOGRAPHIC = 808464672
-KSPROPERTY_BIBLIOGRAPHIC_MAINCORPORATEBODY: KSPROPERTY_BIBLIOGRAPHIC = 808530208
-KSPROPERTY_BIBLIOGRAPHIC_MAINMEETINGNAME: KSPROPERTY_BIBLIOGRAPHIC = 825307424
-KSPROPERTY_BIBLIOGRAPHIC_MAINUNIFORMTITLE: KSPROPERTY_BIBLIOGRAPHIC = 808661280
-KSPROPERTY_BIBLIOGRAPHIC_UNIFORMTITLE: KSPROPERTY_BIBLIOGRAPHIC = 808727072
-KSPROPERTY_BIBLIOGRAPHIC_TITLESTATEMENT: KSPROPERTY_BIBLIOGRAPHIC = 892613152
-KSPROPERTY_BIBLIOGRAPHIC_VARYINGFORMTITLE: KSPROPERTY_BIBLIOGRAPHIC = 909390368
-KSPROPERTY_BIBLIOGRAPHIC_PUBLICATION: KSPROPERTY_BIBLIOGRAPHIC = 808858144
-KSPROPERTY_BIBLIOGRAPHIC_PHYSICALDESCRIPTION: KSPROPERTY_BIBLIOGRAPHIC = 808465184
-KSPROPERTY_BIBLIOGRAPHIC_ADDEDENTRYTITLE: KSPROPERTY_BIBLIOGRAPHIC = 808727584
-KSPROPERTY_BIBLIOGRAPHIC_SERIESSTATEMENT: KSPROPERTY_BIBLIOGRAPHIC = 809055264
-KSPROPERTY_BIBLIOGRAPHIC_GENERALNOTE: KSPROPERTY_BIBLIOGRAPHIC = 808465696
-KSPROPERTY_BIBLIOGRAPHIC_BIBLIOGRAPHYNOTE: KSPROPERTY_BIBLIOGRAPHIC = 875574560
-KSPROPERTY_BIBLIOGRAPHIC_CONTENTSNOTE: KSPROPERTY_BIBLIOGRAPHIC = 892351776
-KSPROPERTY_BIBLIOGRAPHIC_CREATIONCREDIT: KSPROPERTY_BIBLIOGRAPHIC = 942683424
-KSPROPERTY_BIBLIOGRAPHIC_CITATION: KSPROPERTY_BIBLIOGRAPHIC = 808531232
-KSPROPERTY_BIBLIOGRAPHIC_PARTICIPANT: KSPROPERTY_BIBLIOGRAPHIC = 825308448
-KSPROPERTY_BIBLIOGRAPHIC_SUMMARY: KSPROPERTY_BIBLIOGRAPHIC = 808596768
-KSPROPERTY_BIBLIOGRAPHIC_TARGETAUDIENCE: KSPROPERTY_BIBLIOGRAPHIC = 825373984
-KSPROPERTY_BIBLIOGRAPHIC_ADDEDFORMAVAILABLE: KSPROPERTY_BIBLIOGRAPHIC = 808662304
-KSPROPERTY_BIBLIOGRAPHIC_SYSTEMDETAILS: KSPROPERTY_BIBLIOGRAPHIC = 942880032
-KSPROPERTY_BIBLIOGRAPHIC_AWARDS: KSPROPERTY_BIBLIOGRAPHIC = 909653280
-KSPROPERTY_BIBLIOGRAPHIC_ADDEDENTRYPERSONALNAME: KSPROPERTY_BIBLIOGRAPHIC = 808465952
-KSPROPERTY_BIBLIOGRAPHIC_ADDEDENTRYTOPICALTERM: KSPROPERTY_BIBLIOGRAPHIC = 808793632
-KSPROPERTY_BIBLIOGRAPHIC_ADDEDENTRYGEOGRAPHIC: KSPROPERTY_BIBLIOGRAPHIC = 825570848
-KSPROPERTY_BIBLIOGRAPHIC_INDEXTERMGENRE: KSPROPERTY_BIBLIOGRAPHIC = 892679712
-KSPROPERTY_BIBLIOGRAPHIC_INDEXTERMCURRICULUM: KSPROPERTY_BIBLIOGRAPHIC = 943011360
-KSPROPERTY_BIBLIOGRAPHIC_ADDEDENTRYUNIFORMTITLE: KSPROPERTY_BIBLIOGRAPHIC = 808662816
-KSPROPERTY_BIBLIOGRAPHIC_ADDEDENTRYRELATED: KSPROPERTY_BIBLIOGRAPHIC = 808728352
-KSPROPERTY_BIBLIOGRAPHIC_SERIESSTATEMENTPERSONALNAME: KSPROPERTY_BIBLIOGRAPHIC = 808466464
-KSPROPERTY_BIBLIOGRAPHIC_SERIESSTATEMENTUNIFORMTITLE: KSPROPERTY_BIBLIOGRAPHIC = 808663072
+KSPROPERTY_BIBLIOGRAPHIC_LEADER: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_BIBLIOGRAPHIC = 1380207648
+KSPROPERTY_BIBLIOGRAPHIC_LCCN: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_BIBLIOGRAPHIC = 808529952
+KSPROPERTY_BIBLIOGRAPHIC_ISBN: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_BIBLIOGRAPHIC = 808595488
+KSPROPERTY_BIBLIOGRAPHIC_ISSN: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_BIBLIOGRAPHIC = 842149920
+KSPROPERTY_BIBLIOGRAPHIC_CATALOGINGSOURCE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_BIBLIOGRAPHIC = 808726560
+KSPROPERTY_BIBLIOGRAPHIC_MAINPERSONALNAME: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_BIBLIOGRAPHIC = 808464672
+KSPROPERTY_BIBLIOGRAPHIC_MAINCORPORATEBODY: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_BIBLIOGRAPHIC = 808530208
+KSPROPERTY_BIBLIOGRAPHIC_MAINMEETINGNAME: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_BIBLIOGRAPHIC = 825307424
+KSPROPERTY_BIBLIOGRAPHIC_MAINUNIFORMTITLE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_BIBLIOGRAPHIC = 808661280
+KSPROPERTY_BIBLIOGRAPHIC_UNIFORMTITLE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_BIBLIOGRAPHIC = 808727072
+KSPROPERTY_BIBLIOGRAPHIC_TITLESTATEMENT: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_BIBLIOGRAPHIC = 892613152
+KSPROPERTY_BIBLIOGRAPHIC_VARYINGFORMTITLE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_BIBLIOGRAPHIC = 909390368
+KSPROPERTY_BIBLIOGRAPHIC_PUBLICATION: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_BIBLIOGRAPHIC = 808858144
+KSPROPERTY_BIBLIOGRAPHIC_PHYSICALDESCRIPTION: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_BIBLIOGRAPHIC = 808465184
+KSPROPERTY_BIBLIOGRAPHIC_ADDEDENTRYTITLE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_BIBLIOGRAPHIC = 808727584
+KSPROPERTY_BIBLIOGRAPHIC_SERIESSTATEMENT: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_BIBLIOGRAPHIC = 809055264
+KSPROPERTY_BIBLIOGRAPHIC_GENERALNOTE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_BIBLIOGRAPHIC = 808465696
+KSPROPERTY_BIBLIOGRAPHIC_BIBLIOGRAPHYNOTE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_BIBLIOGRAPHIC = 875574560
+KSPROPERTY_BIBLIOGRAPHIC_CONTENTSNOTE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_BIBLIOGRAPHIC = 892351776
+KSPROPERTY_BIBLIOGRAPHIC_CREATIONCREDIT: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_BIBLIOGRAPHIC = 942683424
+KSPROPERTY_BIBLIOGRAPHIC_CITATION: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_BIBLIOGRAPHIC = 808531232
+KSPROPERTY_BIBLIOGRAPHIC_PARTICIPANT: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_BIBLIOGRAPHIC = 825308448
+KSPROPERTY_BIBLIOGRAPHIC_SUMMARY: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_BIBLIOGRAPHIC = 808596768
+KSPROPERTY_BIBLIOGRAPHIC_TARGETAUDIENCE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_BIBLIOGRAPHIC = 825373984
+KSPROPERTY_BIBLIOGRAPHIC_ADDEDFORMAVAILABLE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_BIBLIOGRAPHIC = 808662304
+KSPROPERTY_BIBLIOGRAPHIC_SYSTEMDETAILS: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_BIBLIOGRAPHIC = 942880032
+KSPROPERTY_BIBLIOGRAPHIC_AWARDS: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_BIBLIOGRAPHIC = 909653280
+KSPROPERTY_BIBLIOGRAPHIC_ADDEDENTRYPERSONALNAME: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_BIBLIOGRAPHIC = 808465952
+KSPROPERTY_BIBLIOGRAPHIC_ADDEDENTRYTOPICALTERM: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_BIBLIOGRAPHIC = 808793632
+KSPROPERTY_BIBLIOGRAPHIC_ADDEDENTRYGEOGRAPHIC: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_BIBLIOGRAPHIC = 825570848
+KSPROPERTY_BIBLIOGRAPHIC_INDEXTERMGENRE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_BIBLIOGRAPHIC = 892679712
+KSPROPERTY_BIBLIOGRAPHIC_INDEXTERMCURRICULUM: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_BIBLIOGRAPHIC = 943011360
+KSPROPERTY_BIBLIOGRAPHIC_ADDEDENTRYUNIFORMTITLE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_BIBLIOGRAPHIC = 808662816
+KSPROPERTY_BIBLIOGRAPHIC_ADDEDENTRYRELATED: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_BIBLIOGRAPHIC = 808728352
+KSPROPERTY_BIBLIOGRAPHIC_SERIESSTATEMENTPERSONALNAME: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_BIBLIOGRAPHIC = 808466464
+KSPROPERTY_BIBLIOGRAPHIC_SERIESSTATEMENTUNIFORMTITLE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_BIBLIOGRAPHIC = 808663072
 class KSPROPERTY_BOUNDS_LONG(EasyCastUnion):
     Anonymous1: _Anonymous1_e__Struct
     Anonymous2: _Anonymous2_e__Struct
@@ -2477,57 +2476,57 @@ class KSPROPERTY_BOUNDS_LONGLONG(EasyCastUnion):
         UnsignedMinimum: UInt64
         UnsignedMaximum: UInt64
 KSPROPERTY_BTAUDIO = Int32
-KSPROPERTY_ONESHOT_RECONNECT: KSPROPERTY_BTAUDIO = 0
-KSPROPERTY_ONESHOT_DISCONNECT: KSPROPERTY_BTAUDIO = 1
+KSPROPERTY_ONESHOT_RECONNECT: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_BTAUDIO = 0
+KSPROPERTY_ONESHOT_DISCONNECT: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_BTAUDIO = 1
 KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = Int32
-KSPROPERTY_CAMERACONTROL_EXTENDED_PHOTOMODE: KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 0
-KSPROPERTY_CAMERACONTROL_EXTENDED_PHOTOFRAMERATE: KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 1
-KSPROPERTY_CAMERACONTROL_EXTENDED_PHOTOMAXFRAMERATE: KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 2
-KSPROPERTY_CAMERACONTROL_EXTENDED_PHOTOTRIGGERTIME: KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 3
-KSPROPERTY_CAMERACONTROL_EXTENDED_WARMSTART: KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 4
-KSPROPERTY_CAMERACONTROL_EXTENDED_MAXVIDFPS_PHOTORES: KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 5
-KSPROPERTY_CAMERACONTROL_EXTENDED_PHOTOTHUMBNAIL: KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 6
-KSPROPERTY_CAMERACONTROL_EXTENDED_SCENEMODE: KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 7
-KSPROPERTY_CAMERACONTROL_EXTENDED_TORCHMODE: KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 8
-KSPROPERTY_CAMERACONTROL_EXTENDED_FLASHMODE: KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 9
-KSPROPERTY_CAMERACONTROL_EXTENDED_OPTIMIZATIONHINT: KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 10
-KSPROPERTY_CAMERACONTROL_EXTENDED_WHITEBALANCEMODE: KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 11
-KSPROPERTY_CAMERACONTROL_EXTENDED_EXPOSUREMODE: KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 12
-KSPROPERTY_CAMERACONTROL_EXTENDED_FOCUSMODE: KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 13
-KSPROPERTY_CAMERACONTROL_EXTENDED_ISO: KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 14
-KSPROPERTY_CAMERACONTROL_EXTENDED_FIELDOFVIEW: KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 15
-KSPROPERTY_CAMERACONTROL_EXTENDED_EVCOMPENSATION: KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 16
-KSPROPERTY_CAMERACONTROL_EXTENDED_CAMERAANGLEOFFSET: KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 17
-KSPROPERTY_CAMERACONTROL_EXTENDED_METADATA: KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 18
-KSPROPERTY_CAMERACONTROL_EXTENDED_FOCUSPRIORITY: KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 19
-KSPROPERTY_CAMERACONTROL_EXTENDED_FOCUSSTATE: KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 20
-KSPROPERTY_CAMERACONTROL_EXTENDED_ROI_CONFIGCAPS: KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 21
-KSPROPERTY_CAMERACONTROL_EXTENDED_ROI_ISPCONTROL: KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 22
-KSPROPERTY_CAMERACONTROL_EXTENDED_PHOTOCONFIRMATION: KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 23
-KSPROPERTY_CAMERACONTROL_EXTENDED_ZOOM: KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 24
-KSPROPERTY_CAMERACONTROL_EXTENDED_MCC: KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 25
-KSPROPERTY_CAMERACONTROL_EXTENDED_ISO_ADVANCED: KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 26
-KSPROPERTY_CAMERACONTROL_EXTENDED_VIDEOSTABILIZATION: KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 27
-KSPROPERTY_CAMERACONTROL_EXTENDED_VFR: KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 28
-KSPROPERTY_CAMERACONTROL_EXTENDED_FACEDETECTION: KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 29
-KSPROPERTY_CAMERACONTROL_EXTENDED_VIDEOHDR: KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 30
-KSPROPERTY_CAMERACONTROL_EXTENDED_HISTOGRAM: KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 31
-KSPROPERTY_CAMERACONTROL_EXTENDED_OIS: KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 32
-KSPROPERTY_CAMERACONTROL_EXTENDED_ADVANCEDPHOTO: KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 33
-KSPROPERTY_CAMERACONTROL_EXTENDED_PROFILE: KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 34
-KSPROPERTY_CAMERACONTROL_EXTENDED_FACEAUTH_MODE: KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 35
-KSPROPERTY_CAMERACONTROL_EXTENDED_SECURE_MODE: KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 36
-KSPROPERTY_CAMERACONTROL_EXTENDED_VIDEOTEMPORALDENOISING: KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 37
-KSPROPERTY_CAMERACONTROL_EXTENDED_IRTORCHMODE: KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 38
-KSPROPERTY_CAMERACONTROL_EXTENDED_RELATIVEPANELOPTIMIZATION: KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 39
-KSPROPERTY_CAMERACONTROL_EXTENDED_EYEGAZECORRECTION: KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 40
-KSPROPERTY_CAMERACONTROL_EXTENDED_BACKGROUNDSEGMENTATION: KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 41
-KSPROPERTY_CAMERACONTROL_EXTENDED_DIGITALWINDOW_CONFIGCAPS: KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 42
-KSPROPERTY_CAMERACONTROL_EXTENDED_DIGITALWINDOW: KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 43
-KSPROPERTY_CAMERACONTROL_EXTENDED_END: KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 44
-KSPROPERTY_CAMERACONTROL_EXTENDED_END2: KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 44
+KSPROPERTY_CAMERACONTROL_EXTENDED_PHOTOMODE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 0
+KSPROPERTY_CAMERACONTROL_EXTENDED_PHOTOFRAMERATE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 1
+KSPROPERTY_CAMERACONTROL_EXTENDED_PHOTOMAXFRAMERATE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 2
+KSPROPERTY_CAMERACONTROL_EXTENDED_PHOTOTRIGGERTIME: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 3
+KSPROPERTY_CAMERACONTROL_EXTENDED_WARMSTART: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 4
+KSPROPERTY_CAMERACONTROL_EXTENDED_MAXVIDFPS_PHOTORES: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 5
+KSPROPERTY_CAMERACONTROL_EXTENDED_PHOTOTHUMBNAIL: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 6
+KSPROPERTY_CAMERACONTROL_EXTENDED_SCENEMODE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 7
+KSPROPERTY_CAMERACONTROL_EXTENDED_TORCHMODE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 8
+KSPROPERTY_CAMERACONTROL_EXTENDED_FLASHMODE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 9
+KSPROPERTY_CAMERACONTROL_EXTENDED_OPTIMIZATIONHINT: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 10
+KSPROPERTY_CAMERACONTROL_EXTENDED_WHITEBALANCEMODE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 11
+KSPROPERTY_CAMERACONTROL_EXTENDED_EXPOSUREMODE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 12
+KSPROPERTY_CAMERACONTROL_EXTENDED_FOCUSMODE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 13
+KSPROPERTY_CAMERACONTROL_EXTENDED_ISO: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 14
+KSPROPERTY_CAMERACONTROL_EXTENDED_FIELDOFVIEW: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 15
+KSPROPERTY_CAMERACONTROL_EXTENDED_EVCOMPENSATION: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 16
+KSPROPERTY_CAMERACONTROL_EXTENDED_CAMERAANGLEOFFSET: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 17
+KSPROPERTY_CAMERACONTROL_EXTENDED_METADATA: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 18
+KSPROPERTY_CAMERACONTROL_EXTENDED_FOCUSPRIORITY: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 19
+KSPROPERTY_CAMERACONTROL_EXTENDED_FOCUSSTATE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 20
+KSPROPERTY_CAMERACONTROL_EXTENDED_ROI_CONFIGCAPS: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 21
+KSPROPERTY_CAMERACONTROL_EXTENDED_ROI_ISPCONTROL: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 22
+KSPROPERTY_CAMERACONTROL_EXTENDED_PHOTOCONFIRMATION: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 23
+KSPROPERTY_CAMERACONTROL_EXTENDED_ZOOM: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 24
+KSPROPERTY_CAMERACONTROL_EXTENDED_MCC: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 25
+KSPROPERTY_CAMERACONTROL_EXTENDED_ISO_ADVANCED: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 26
+KSPROPERTY_CAMERACONTROL_EXTENDED_VIDEOSTABILIZATION: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 27
+KSPROPERTY_CAMERACONTROL_EXTENDED_VFR: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 28
+KSPROPERTY_CAMERACONTROL_EXTENDED_FACEDETECTION: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 29
+KSPROPERTY_CAMERACONTROL_EXTENDED_VIDEOHDR: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 30
+KSPROPERTY_CAMERACONTROL_EXTENDED_HISTOGRAM: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 31
+KSPROPERTY_CAMERACONTROL_EXTENDED_OIS: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 32
+KSPROPERTY_CAMERACONTROL_EXTENDED_ADVANCEDPHOTO: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 33
+KSPROPERTY_CAMERACONTROL_EXTENDED_PROFILE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 34
+KSPROPERTY_CAMERACONTROL_EXTENDED_FACEAUTH_MODE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 35
+KSPROPERTY_CAMERACONTROL_EXTENDED_SECURE_MODE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 36
+KSPROPERTY_CAMERACONTROL_EXTENDED_VIDEOTEMPORALDENOISING: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 37
+KSPROPERTY_CAMERACONTROL_EXTENDED_IRTORCHMODE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 38
+KSPROPERTY_CAMERACONTROL_EXTENDED_RELATIVEPANELOPTIMIZATION: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 39
+KSPROPERTY_CAMERACONTROL_EXTENDED_EYEGAZECORRECTION: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 40
+KSPROPERTY_CAMERACONTROL_EXTENDED_BACKGROUNDSEGMENTATION: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 41
+KSPROPERTY_CAMERACONTROL_EXTENDED_DIGITALWINDOW_CONFIGCAPS: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 42
+KSPROPERTY_CAMERACONTROL_EXTENDED_DIGITALWINDOW: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 43
+KSPROPERTY_CAMERACONTROL_EXTENDED_END: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 44
+KSPROPERTY_CAMERACONTROL_EXTENDED_END2: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 44
 KSPROPERTY_CAMERACONTROL_FLASH = Int32
-KSPROPERTY_CAMERACONTROL_FLASH_PROPERTY_ID: KSPROPERTY_CAMERACONTROL_FLASH = 0
+KSPROPERTY_CAMERACONTROL_FLASH_PROPERTY_ID: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_CAMERACONTROL_FLASH = 0
 class KSPROPERTY_CAMERACONTROL_FLASH_S(EasyCastStructure):
     Flash: UInt32
     Capabilities: UInt32
@@ -2537,7 +2536,7 @@ class KSPROPERTY_CAMERACONTROL_FOCAL_LENGTH_S(EasyCastStructure):
     lObjectiveFocalLengthMin: Int32
     lObjectiveFocalLengthMax: Int32
 KSPROPERTY_CAMERACONTROL_IMAGE_PIN_CAPABILITY = Int32
-KSPROPERTY_CAMERACONTROL_IMAGE_PIN_CAPABILITY_PROPERTY_ID: KSPROPERTY_CAMERACONTROL_IMAGE_PIN_CAPABILITY = 0
+KSPROPERTY_CAMERACONTROL_IMAGE_PIN_CAPABILITY_PROPERTY_ID: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_CAMERACONTROL_IMAGE_PIN_CAPABILITY = 0
 class KSPROPERTY_CAMERACONTROL_IMAGE_PIN_CAPABILITY_S(EasyCastStructure):
     Capabilities: UInt32
     Reserved0: UInt32
@@ -2558,11 +2557,11 @@ class KSPROPERTY_CAMERACONTROL_NODE_S2(EasyCastStructure):
     Capabilities: UInt32
     Value2: Int32
 KSPROPERTY_CAMERACONTROL_PERFRAMESETTING_PROPERTY = Int32
-KSPROPERTY_CAMERACONTROL_PERFRAMESETTING_CAPABILITY: KSPROPERTY_CAMERACONTROL_PERFRAMESETTING_PROPERTY = 0
-KSPROPERTY_CAMERACONTROL_PERFRAMESETTING_SET: KSPROPERTY_CAMERACONTROL_PERFRAMESETTING_PROPERTY = 1
-KSPROPERTY_CAMERACONTROL_PERFRAMESETTING_CLEAR: KSPROPERTY_CAMERACONTROL_PERFRAMESETTING_PROPERTY = 2
+KSPROPERTY_CAMERACONTROL_PERFRAMESETTING_CAPABILITY: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_CAMERACONTROL_PERFRAMESETTING_PROPERTY = 0
+KSPROPERTY_CAMERACONTROL_PERFRAMESETTING_SET: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_CAMERACONTROL_PERFRAMESETTING_PROPERTY = 1
+KSPROPERTY_CAMERACONTROL_PERFRAMESETTING_CLEAR: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_CAMERACONTROL_PERFRAMESETTING_PROPERTY = 2
 KSPROPERTY_CAMERACONTROL_REGION_OF_INTEREST = Int32
-KSPROPERTY_CAMERACONTROL_REGION_OF_INTEREST_PROPERTY_ID: KSPROPERTY_CAMERACONTROL_REGION_OF_INTEREST = 0
+KSPROPERTY_CAMERACONTROL_REGION_OF_INTEREST_PROPERTY_ID: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_CAMERACONTROL_REGION_OF_INTEREST = 0
 class KSPROPERTY_CAMERACONTROL_REGION_OF_INTEREST_S(EasyCastStructure):
     FocusRect: win32more.Windows.Win32.Foundation.RECT
     AutoFocusLock: win32more.Windows.Win32.Foundation.BOOL
@@ -2593,35 +2592,35 @@ class KSPROPERTY_CAMERACONTROL_VIDEOSTABILIZATION_MODE_S(EasyCastStructure):
     VideoStabilizationMode: UInt32
     Capabilities: UInt32
 KSPROPERTY_CAMERACONTROL_VIDEO_STABILIZATION_MODE = Int32
-KSPROPERTY_CAMERACONTROL_VIDEO_STABILIZATION_MODE_PROPERTY_ID: KSPROPERTY_CAMERACONTROL_VIDEO_STABILIZATION_MODE = 0
+KSPROPERTY_CAMERACONTROL_VIDEO_STABILIZATION_MODE_PROPERTY_ID: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_CAMERACONTROL_VIDEO_STABILIZATION_MODE = 0
 KSPROPERTY_CAMERA_PHOTOTRIGGERTIME_FLAGS = Int32
-KSPROPERTY_CAMERA_PHOTOTRIGGERTIME_CLEAR: KSPROPERTY_CAMERA_PHOTOTRIGGERTIME_FLAGS = 0
-KSPROPERTY_CAMERA_PHOTOTRIGGERTIME_SET: KSPROPERTY_CAMERA_PHOTOTRIGGERTIME_FLAGS = 1
+KSPROPERTY_CAMERA_PHOTOTRIGGERTIME_CLEAR: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_CAMERA_PHOTOTRIGGERTIME_FLAGS = 0
+KSPROPERTY_CAMERA_PHOTOTRIGGERTIME_SET: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_CAMERA_PHOTOTRIGGERTIME_FLAGS = 1
 KSPROPERTY_CLOCK = Int32
-KSPROPERTY_CLOCK_TIME: KSPROPERTY_CLOCK = 0
-KSPROPERTY_CLOCK_PHYSICALTIME: KSPROPERTY_CLOCK = 1
-KSPROPERTY_CLOCK_CORRELATEDTIME: KSPROPERTY_CLOCK = 2
-KSPROPERTY_CLOCK_CORRELATEDPHYSICALTIME: KSPROPERTY_CLOCK = 3
-KSPROPERTY_CLOCK_RESOLUTION: KSPROPERTY_CLOCK = 4
-KSPROPERTY_CLOCK_STATE: KSPROPERTY_CLOCK = 5
+KSPROPERTY_CLOCK_TIME: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_CLOCK = 0
+KSPROPERTY_CLOCK_PHYSICALTIME: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_CLOCK = 1
+KSPROPERTY_CLOCK_CORRELATEDTIME: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_CLOCK = 2
+KSPROPERTY_CLOCK_CORRELATEDPHYSICALTIME: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_CLOCK = 3
+KSPROPERTY_CLOCK_RESOLUTION: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_CLOCK = 4
+KSPROPERTY_CLOCK_STATE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_CLOCK = 5
 KSPROPERTY_CONNECTION = Int32
-KSPROPERTY_CONNECTION_STATE: KSPROPERTY_CONNECTION = 0
-KSPROPERTY_CONNECTION_PRIORITY: KSPROPERTY_CONNECTION = 1
-KSPROPERTY_CONNECTION_DATAFORMAT: KSPROPERTY_CONNECTION = 2
-KSPROPERTY_CONNECTION_ALLOCATORFRAMING: KSPROPERTY_CONNECTION = 3
-KSPROPERTY_CONNECTION_PROPOSEDATAFORMAT: KSPROPERTY_CONNECTION = 4
-KSPROPERTY_CONNECTION_ACQUIREORDERING: KSPROPERTY_CONNECTION = 5
-KSPROPERTY_CONNECTION_ALLOCATORFRAMING_EX: KSPROPERTY_CONNECTION = 6
-KSPROPERTY_CONNECTION_STARTAT: KSPROPERTY_CONNECTION = 7
+KSPROPERTY_CONNECTION_STATE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_CONNECTION = 0
+KSPROPERTY_CONNECTION_PRIORITY: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_CONNECTION = 1
+KSPROPERTY_CONNECTION_DATAFORMAT: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_CONNECTION = 2
+KSPROPERTY_CONNECTION_ALLOCATORFRAMING: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_CONNECTION = 3
+KSPROPERTY_CONNECTION_PROPOSEDATAFORMAT: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_CONNECTION = 4
+KSPROPERTY_CONNECTION_ACQUIREORDERING: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_CONNECTION = 5
+KSPROPERTY_CONNECTION_ALLOCATORFRAMING_EX: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_CONNECTION = 6
+KSPROPERTY_CONNECTION_STARTAT: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_CONNECTION = 7
 KSPROPERTY_COPYPROT = Int32
-KSPROPERTY_DVDCOPY_CHLG_KEY: KSPROPERTY_COPYPROT = 1
-KSPROPERTY_DVDCOPY_DVD_KEY1: KSPROPERTY_COPYPROT = 2
-KSPROPERTY_DVDCOPY_DEC_KEY2: KSPROPERTY_COPYPROT = 3
-KSPROPERTY_DVDCOPY_TITLE_KEY: KSPROPERTY_COPYPROT = 4
-KSPROPERTY_COPY_MACROVISION: KSPROPERTY_COPYPROT = 5
-KSPROPERTY_DVDCOPY_REGION: KSPROPERTY_COPYPROT = 6
-KSPROPERTY_DVDCOPY_SET_COPY_STATE: KSPROPERTY_COPYPROT = 7
-KSPROPERTY_DVDCOPY_DISC_KEY: KSPROPERTY_COPYPROT = 128
+KSPROPERTY_DVDCOPY_CHLG_KEY: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_COPYPROT = 1
+KSPROPERTY_DVDCOPY_DVD_KEY1: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_COPYPROT = 2
+KSPROPERTY_DVDCOPY_DEC_KEY2: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_COPYPROT = 3
+KSPROPERTY_DVDCOPY_TITLE_KEY: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_COPYPROT = 4
+KSPROPERTY_COPY_MACROVISION: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_COPYPROT = 5
+KSPROPERTY_DVDCOPY_REGION: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_COPYPROT = 6
+KSPROPERTY_DVDCOPY_SET_COPY_STATE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_COPYPROT = 7
+KSPROPERTY_DVDCOPY_DISC_KEY: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_COPYPROT = 128
 class KSPROPERTY_CROSSBAR_ACTIVE_S(EasyCastStructure):
     Property: win32more.Windows.Win32.Media.KernelStreaming.KSIDENTIFIER
     IndexInputPin: UInt32
@@ -2643,7 +2642,7 @@ class KSPROPERTY_CROSSBAR_ROUTE_S(EasyCastStructure):
     IndexOutputPin: UInt32
     CanRoute: UInt32
 KSPROPERTY_CYCLIC = Int32
-KSPROPERTY_CYCLIC_POSITION: KSPROPERTY_CYCLIC = 0
+KSPROPERTY_CYCLIC_POSITION: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_CYCLIC = 0
 class KSPROPERTY_DESCRIPTION(EasyCastStructure):
     AccessFlags: UInt32
     DescriptionSize: UInt32
@@ -2651,42 +2650,42 @@ class KSPROPERTY_DESCRIPTION(EasyCastStructure):
     MembersListCount: UInt32
     Reserved: UInt32
 KSPROPERTY_DIRECTSOUND3DBUFFER = Int32
-KSPROPERTY_DIRECTSOUND3DBUFFER_ALL: KSPROPERTY_DIRECTSOUND3DBUFFER = 0
-KSPROPERTY_DIRECTSOUND3DBUFFER_POSITION: KSPROPERTY_DIRECTSOUND3DBUFFER = 1
-KSPROPERTY_DIRECTSOUND3DBUFFER_VELOCITY: KSPROPERTY_DIRECTSOUND3DBUFFER = 2
-KSPROPERTY_DIRECTSOUND3DBUFFER_CONEANGLES: KSPROPERTY_DIRECTSOUND3DBUFFER = 3
-KSPROPERTY_DIRECTSOUND3DBUFFER_CONEORIENTATION: KSPROPERTY_DIRECTSOUND3DBUFFER = 4
-KSPROPERTY_DIRECTSOUND3DBUFFER_CONEOUTSIDEVOLUME: KSPROPERTY_DIRECTSOUND3DBUFFER = 5
-KSPROPERTY_DIRECTSOUND3DBUFFER_MINDISTANCE: KSPROPERTY_DIRECTSOUND3DBUFFER = 6
-KSPROPERTY_DIRECTSOUND3DBUFFER_MAXDISTANCE: KSPROPERTY_DIRECTSOUND3DBUFFER = 7
-KSPROPERTY_DIRECTSOUND3DBUFFER_MODE: KSPROPERTY_DIRECTSOUND3DBUFFER = 8
+KSPROPERTY_DIRECTSOUND3DBUFFER_ALL: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_DIRECTSOUND3DBUFFER = 0
+KSPROPERTY_DIRECTSOUND3DBUFFER_POSITION: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_DIRECTSOUND3DBUFFER = 1
+KSPROPERTY_DIRECTSOUND3DBUFFER_VELOCITY: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_DIRECTSOUND3DBUFFER = 2
+KSPROPERTY_DIRECTSOUND3DBUFFER_CONEANGLES: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_DIRECTSOUND3DBUFFER = 3
+KSPROPERTY_DIRECTSOUND3DBUFFER_CONEORIENTATION: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_DIRECTSOUND3DBUFFER = 4
+KSPROPERTY_DIRECTSOUND3DBUFFER_CONEOUTSIDEVOLUME: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_DIRECTSOUND3DBUFFER = 5
+KSPROPERTY_DIRECTSOUND3DBUFFER_MINDISTANCE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_DIRECTSOUND3DBUFFER = 6
+KSPROPERTY_DIRECTSOUND3DBUFFER_MAXDISTANCE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_DIRECTSOUND3DBUFFER = 7
+KSPROPERTY_DIRECTSOUND3DBUFFER_MODE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_DIRECTSOUND3DBUFFER = 8
 KSPROPERTY_DIRECTSOUND3DLISTENER = Int32
-KSPROPERTY_DIRECTSOUND3DLISTENER_ALL: KSPROPERTY_DIRECTSOUND3DLISTENER = 0
-KSPROPERTY_DIRECTSOUND3DLISTENER_POSITION: KSPROPERTY_DIRECTSOUND3DLISTENER = 1
-KSPROPERTY_DIRECTSOUND3DLISTENER_VELOCITY: KSPROPERTY_DIRECTSOUND3DLISTENER = 2
-KSPROPERTY_DIRECTSOUND3DLISTENER_ORIENTATION: KSPROPERTY_DIRECTSOUND3DLISTENER = 3
-KSPROPERTY_DIRECTSOUND3DLISTENER_DISTANCEFACTOR: KSPROPERTY_DIRECTSOUND3DLISTENER = 4
-KSPROPERTY_DIRECTSOUND3DLISTENER_ROLLOFFFACTOR: KSPROPERTY_DIRECTSOUND3DLISTENER = 5
-KSPROPERTY_DIRECTSOUND3DLISTENER_DOPPLERFACTOR: KSPROPERTY_DIRECTSOUND3DLISTENER = 6
-KSPROPERTY_DIRECTSOUND3DLISTENER_BATCH: KSPROPERTY_DIRECTSOUND3DLISTENER = 7
-KSPROPERTY_DIRECTSOUND3DLISTENER_ALLOCATION: KSPROPERTY_DIRECTSOUND3DLISTENER = 8
+KSPROPERTY_DIRECTSOUND3DLISTENER_ALL: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_DIRECTSOUND3DLISTENER = 0
+KSPROPERTY_DIRECTSOUND3DLISTENER_POSITION: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_DIRECTSOUND3DLISTENER = 1
+KSPROPERTY_DIRECTSOUND3DLISTENER_VELOCITY: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_DIRECTSOUND3DLISTENER = 2
+KSPROPERTY_DIRECTSOUND3DLISTENER_ORIENTATION: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_DIRECTSOUND3DLISTENER = 3
+KSPROPERTY_DIRECTSOUND3DLISTENER_DISTANCEFACTOR: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_DIRECTSOUND3DLISTENER = 4
+KSPROPERTY_DIRECTSOUND3DLISTENER_ROLLOFFFACTOR: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_DIRECTSOUND3DLISTENER = 5
+KSPROPERTY_DIRECTSOUND3DLISTENER_DOPPLERFACTOR: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_DIRECTSOUND3DLISTENER = 6
+KSPROPERTY_DIRECTSOUND3DLISTENER_BATCH: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_DIRECTSOUND3DLISTENER = 7
+KSPROPERTY_DIRECTSOUND3DLISTENER_ALLOCATION: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_DIRECTSOUND3DLISTENER = 8
 KSPROPERTY_DRMAUDIOSTREAM = Int32
-KSPROPERTY_DRMAUDIOSTREAM_CONTENTID: KSPROPERTY_DRMAUDIOSTREAM = 0
+KSPROPERTY_DRMAUDIOSTREAM_CONTENTID: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_DRMAUDIOSTREAM = 0
 class KSPROPERTY_DROPPEDFRAMES_CURRENT_S(EasyCastStructure):
     Property: win32more.Windows.Win32.Media.KernelStreaming.KSIDENTIFIER
     PictureNumber: Int64
     DropCount: Int64
     AverageFrameSize: UInt32
 KSPROPERTY_DVDSUBPIC = Int32
-KSPROPERTY_DVDSUBPIC_PALETTE: KSPROPERTY_DVDSUBPIC = 0
-KSPROPERTY_DVDSUBPIC_HLI: KSPROPERTY_DVDSUBPIC = 1
-KSPROPERTY_DVDSUBPIC_COMPOSIT_ON: KSPROPERTY_DVDSUBPIC = 2
+KSPROPERTY_DVDSUBPIC_PALETTE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_DVDSUBPIC = 0
+KSPROPERTY_DVDSUBPIC_HLI: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_DVDSUBPIC = 1
+KSPROPERTY_DVDSUBPIC_COMPOSIT_ON: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_DVDSUBPIC = 2
 KSPROPERTY_EXTDEVICE = Int32
-KSPROPERTY_EXTDEVICE_ID: KSPROPERTY_EXTDEVICE = 0
-KSPROPERTY_EXTDEVICE_VERSION: KSPROPERTY_EXTDEVICE = 1
-KSPROPERTY_EXTDEVICE_POWER_STATE: KSPROPERTY_EXTDEVICE = 2
-KSPROPERTY_EXTDEVICE_PORT: KSPROPERTY_EXTDEVICE = 3
-KSPROPERTY_EXTDEVICE_CAPABILITIES: KSPROPERTY_EXTDEVICE = 4
+KSPROPERTY_EXTDEVICE_ID: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_EXTDEVICE = 0
+KSPROPERTY_EXTDEVICE_VERSION: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_EXTDEVICE = 1
+KSPROPERTY_EXTDEVICE_POWER_STATE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_EXTDEVICE = 2
+KSPROPERTY_EXTDEVICE_PORT: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_EXTDEVICE = 3
+KSPROPERTY_EXTDEVICE_CAPABILITIES: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_EXTDEVICE = 4
 class KSPROPERTY_EXTDEVICE_S(EasyCastStructure):
     Property: win32more.Windows.Win32.Media.KernelStreaming.KSIDENTIFIER
     u: _u_e__Union
@@ -2697,21 +2696,21 @@ class KSPROPERTY_EXTDEVICE_S(EasyCastStructure):
         pawchString: Char * 260
         NodeUniqueID: UInt32 * 2
 KSPROPERTY_EXTENSION_UNIT = Int32
-KSPROPERTY_EXTENSION_UNIT_INFO: KSPROPERTY_EXTENSION_UNIT = 0
-KSPROPERTY_EXTENSION_UNIT_CONTROL: KSPROPERTY_EXTENSION_UNIT = 1
-KSPROPERTY_EXTENSION_UNIT_PASS_THROUGH: KSPROPERTY_EXTENSION_UNIT = 65535
+KSPROPERTY_EXTENSION_UNIT_INFO: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_EXTENSION_UNIT = 0
+KSPROPERTY_EXTENSION_UNIT_CONTROL: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_EXTENSION_UNIT = 1
+KSPROPERTY_EXTENSION_UNIT_PASS_THROUGH: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_EXTENSION_UNIT = 65535
 KSPROPERTY_EXTXPORT = Int32
-KSPROPERTY_EXTXPORT_CAPABILITIES: KSPROPERTY_EXTXPORT = 0
-KSPROPERTY_EXTXPORT_INPUT_SIGNAL_MODE: KSPROPERTY_EXTXPORT = 1
-KSPROPERTY_EXTXPORT_OUTPUT_SIGNAL_MODE: KSPROPERTY_EXTXPORT = 2
-KSPROPERTY_EXTXPORT_LOAD_MEDIUM: KSPROPERTY_EXTXPORT = 3
-KSPROPERTY_EXTXPORT_MEDIUM_INFO: KSPROPERTY_EXTXPORT = 4
-KSPROPERTY_EXTXPORT_STATE: KSPROPERTY_EXTXPORT = 5
-KSPROPERTY_EXTXPORT_STATE_NOTIFY: KSPROPERTY_EXTXPORT = 6
-KSPROPERTY_EXTXPORT_TIMECODE_SEARCH: KSPROPERTY_EXTXPORT = 7
-KSPROPERTY_EXTXPORT_ATN_SEARCH: KSPROPERTY_EXTXPORT = 8
-KSPROPERTY_EXTXPORT_RTC_SEARCH: KSPROPERTY_EXTXPORT = 9
-KSPROPERTY_RAW_AVC_CMD: KSPROPERTY_EXTXPORT = 10
+KSPROPERTY_EXTXPORT_CAPABILITIES: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_EXTXPORT = 0
+KSPROPERTY_EXTXPORT_INPUT_SIGNAL_MODE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_EXTXPORT = 1
+KSPROPERTY_EXTXPORT_OUTPUT_SIGNAL_MODE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_EXTXPORT = 2
+KSPROPERTY_EXTXPORT_LOAD_MEDIUM: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_EXTXPORT = 3
+KSPROPERTY_EXTXPORT_MEDIUM_INFO: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_EXTXPORT = 4
+KSPROPERTY_EXTXPORT_STATE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_EXTXPORT = 5
+KSPROPERTY_EXTXPORT_STATE_NOTIFY: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_EXTXPORT = 6
+KSPROPERTY_EXTXPORT_TIMECODE_SEARCH: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_EXTXPORT = 7
+KSPROPERTY_EXTXPORT_ATN_SEARCH: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_EXTXPORT = 8
+KSPROPERTY_EXTXPORT_RTC_SEARCH: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_EXTXPORT = 9
+KSPROPERTY_RAW_AVC_CMD: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_EXTXPORT = 10
 class KSPROPERTY_EXTXPORT_NODE_S(EasyCastStructure):
     NodeProperty: win32more.Windows.Win32.Media.KernelStreaming.KSP_NODE
     u: _u_e__Union
@@ -2755,54 +2754,54 @@ class KSPROPERTY_EXTXPORT_S(EasyCastStructure):
             PayloadSize: UInt32
             Payload: Byte * 512
 KSPROPERTY_FMRX_CONTROL = Int32
-KSPROPERTY_FMRX_STATE: KSPROPERTY_FMRX_CONTROL = 0
+KSPROPERTY_FMRX_STATE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_FMRX_CONTROL = 0
 KSPROPERTY_FMRX_TOPOLOGY = Int32
-KSPROPERTY_FMRX_ENDPOINTID: KSPROPERTY_FMRX_TOPOLOGY = 0
-KSPROPERTY_FMRX_VOLUME: KSPROPERTY_FMRX_TOPOLOGY = 1
-KSPROPERTY_FMRX_ANTENNAENDPOINTID: KSPROPERTY_FMRX_TOPOLOGY = 2
+KSPROPERTY_FMRX_ENDPOINTID: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_FMRX_TOPOLOGY = 0
+KSPROPERTY_FMRX_VOLUME: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_FMRX_TOPOLOGY = 1
+KSPROPERTY_FMRX_ANTENNAENDPOINTID: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_FMRX_TOPOLOGY = 2
 KSPROPERTY_GENERAL = Int32
-KSPROPERTY_GENERAL_COMPONENTID: KSPROPERTY_GENERAL = 0
+KSPROPERTY_GENERAL_COMPONENTID: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_GENERAL = 0
 KSPROPERTY_HRTF3D = Int32
-KSPROPERTY_HRTF3D_PARAMS: KSPROPERTY_HRTF3D = 0
-KSPROPERTY_HRTF3D_INITIALIZE: KSPROPERTY_HRTF3D = 1
-KSPROPERTY_HRTF3D_FILTER_FORMAT: KSPROPERTY_HRTF3D = 2
+KSPROPERTY_HRTF3D_PARAMS: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_HRTF3D = 0
+KSPROPERTY_HRTF3D_INITIALIZE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_HRTF3D = 1
+KSPROPERTY_HRTF3D_FILTER_FORMAT: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_HRTF3D = 2
 KSPROPERTY_INTERLEAVEDAUDIO = Int32
-KSPROPERTY_INTERLEAVEDAUDIO_FORMATINFORMATION: KSPROPERTY_INTERLEAVEDAUDIO = 1
+KSPROPERTY_INTERLEAVEDAUDIO_FORMATINFORMATION: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_INTERLEAVEDAUDIO = 1
 KSPROPERTY_ITD3D = Int32
-KSPROPERTY_ITD3D_PARAMS: KSPROPERTY_ITD3D = 0
+KSPROPERTY_ITD3D_PARAMS: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_ITD3D = 0
 KSPROPERTY_JACK = Int32
-KSPROPERTY_JACK_DESCRIPTION: KSPROPERTY_JACK = 1
-KSPROPERTY_JACK_DESCRIPTION2: KSPROPERTY_JACK = 2
-KSPROPERTY_JACK_SINK_INFO: KSPROPERTY_JACK = 3
-KSPROPERTY_JACK_CONTAINERID: KSPROPERTY_JACK = 4
-KSPROPERTY_JACK_DESCRIPTION3: KSPROPERTY_JACK = 5
+KSPROPERTY_JACK_DESCRIPTION: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_JACK = 1
+KSPROPERTY_JACK_DESCRIPTION2: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_JACK = 2
+KSPROPERTY_JACK_SINK_INFO: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_JACK = 3
+KSPROPERTY_JACK_CONTAINERID: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_JACK = 4
+KSPROPERTY_JACK_DESCRIPTION3: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_JACK = 5
 class KSPROPERTY_MEDIAAVAILABLE(EasyCastStructure):
     Earliest: Int64
     Latest: Int64
 KSPROPERTY_MEDIASEEKING = Int32
-KSPROPERTY_MEDIASEEKING_CAPABILITIES: KSPROPERTY_MEDIASEEKING = 0
-KSPROPERTY_MEDIASEEKING_FORMATS: KSPROPERTY_MEDIASEEKING = 1
-KSPROPERTY_MEDIASEEKING_TIMEFORMAT: KSPROPERTY_MEDIASEEKING = 2
-KSPROPERTY_MEDIASEEKING_POSITION: KSPROPERTY_MEDIASEEKING = 3
-KSPROPERTY_MEDIASEEKING_STOPPOSITION: KSPROPERTY_MEDIASEEKING = 4
-KSPROPERTY_MEDIASEEKING_POSITIONS: KSPROPERTY_MEDIASEEKING = 5
-KSPROPERTY_MEDIASEEKING_DURATION: KSPROPERTY_MEDIASEEKING = 6
-KSPROPERTY_MEDIASEEKING_AVAILABLE: KSPROPERTY_MEDIASEEKING = 7
-KSPROPERTY_MEDIASEEKING_PREROLL: KSPROPERTY_MEDIASEEKING = 8
-KSPROPERTY_MEDIASEEKING_CONVERTTIMEFORMAT: KSPROPERTY_MEDIASEEKING = 9
+KSPROPERTY_MEDIASEEKING_CAPABILITIES: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_MEDIASEEKING = 0
+KSPROPERTY_MEDIASEEKING_FORMATS: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_MEDIASEEKING = 1
+KSPROPERTY_MEDIASEEKING_TIMEFORMAT: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_MEDIASEEKING = 2
+KSPROPERTY_MEDIASEEKING_POSITION: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_MEDIASEEKING = 3
+KSPROPERTY_MEDIASEEKING_STOPPOSITION: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_MEDIASEEKING = 4
+KSPROPERTY_MEDIASEEKING_POSITIONS: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_MEDIASEEKING = 5
+KSPROPERTY_MEDIASEEKING_DURATION: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_MEDIASEEKING = 6
+KSPROPERTY_MEDIASEEKING_AVAILABLE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_MEDIASEEKING = 7
+KSPROPERTY_MEDIASEEKING_PREROLL: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_MEDIASEEKING = 8
+KSPROPERTY_MEDIASEEKING_CONVERTTIMEFORMAT: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_MEDIASEEKING = 9
 class KSPROPERTY_MEMBERSHEADER(EasyCastStructure):
     MembersFlags: UInt32
     MembersSize: UInt32
     MembersCount: UInt32
     Flags: UInt32
 KSPROPERTY_MPEG2VID = Int32
-KSPROPERTY_MPEG2VID_MODES: KSPROPERTY_MPEG2VID = 0
-KSPROPERTY_MPEG2VID_CUR_MODE: KSPROPERTY_MPEG2VID = 1
-KSPROPERTY_MPEG2VID_4_3_RECT: KSPROPERTY_MPEG2VID = 2
-KSPROPERTY_MPEG2VID_16_9_RECT: KSPROPERTY_MPEG2VID = 3
-KSPROPERTY_MPEG2VID_16_9_PANSCAN: KSPROPERTY_MPEG2VID = 4
+KSPROPERTY_MPEG2VID_MODES: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_MPEG2VID = 0
+KSPROPERTY_MPEG2VID_CUR_MODE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_MPEG2VID = 1
+KSPROPERTY_MPEG2VID_4_3_RECT: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_MPEG2VID = 2
+KSPROPERTY_MPEG2VID_16_9_RECT: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_MPEG2VID = 3
+KSPROPERTY_MPEG2VID_16_9_PANSCAN: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_MPEG2VID = 4
 KSPROPERTY_MPEG4_MEDIATYPE_ATTRIBUTES = Int32
-KSPROPERTY_MPEG4_MEDIATYPE_SD_BOX: KSPROPERTY_MPEG4_MEDIATYPE_ATTRIBUTES = 1
+KSPROPERTY_MPEG4_MEDIATYPE_SD_BOX: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_MPEG4_MEDIATYPE_ATTRIBUTES = 1
 class KSPROPERTY_NETWORKCAMERACONTROL_EVENT_INFO(EasyCastStructure):
     Header: win32more.Windows.Win32.Media.KernelStreaming.KSCAMERA_METADATA_ITEMHEADER
     EventFilter: Char * 1
@@ -2814,68 +2813,68 @@ class KSPROPERTY_NETWORKCAMERACONTROL_METADATA_INFO(EasyCastStructure):
     Analytics: win32more.Windows.Win32.Foundation.BOOL
     Reserved: win32more.Windows.Win32.Foundation.BOOL
 KSPROPERTY_NETWORKCAMERACONTROL_METADATA_TYPE = Int32
-KSPROPERTY_NETWORKCAMERACONTROL_METADATA_TYPE_EVENTSINFO: KSPROPERTY_NETWORKCAMERACONTROL_METADATA_TYPE = 0
+KSPROPERTY_NETWORKCAMERACONTROL_METADATA_TYPE_EVENTSINFO: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_NETWORKCAMERACONTROL_METADATA_TYPE = 0
 class KSPROPERTY_NETWORKCAMERACONTROL_NTPINFO_HEADER(EasyCastStructure):
     Size: UInt32
     Type: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_NETWORKCAMERACONTROL_NTPINFO_TYPE
 KSPROPERTY_NETWORKCAMERACONTROL_NTPINFO_TYPE = Int32
-KSPROPERTY_NETWORKCAMERACONTROL_NTPINFO_TYPE_DISABLE: KSPROPERTY_NETWORKCAMERACONTROL_NTPINFO_TYPE = 0
-KSPROPERTY_NETWORKCAMERACONTROL_NTPINFO_TYPE_HOSTNTP: KSPROPERTY_NETWORKCAMERACONTROL_NTPINFO_TYPE = 1
-KSPROPERTY_NETWORKCAMERACONTROL_NTPINFO_TYPE_CUSTOM: KSPROPERTY_NETWORKCAMERACONTROL_NTPINFO_TYPE = 2
+KSPROPERTY_NETWORKCAMERACONTROL_NTPINFO_TYPE_DISABLE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_NETWORKCAMERACONTROL_NTPINFO_TYPE = 0
+KSPROPERTY_NETWORKCAMERACONTROL_NTPINFO_TYPE_HOSTNTP: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_NETWORKCAMERACONTROL_NTPINFO_TYPE = 1
+KSPROPERTY_NETWORKCAMERACONTROL_NTPINFO_TYPE_CUSTOM: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_NETWORKCAMERACONTROL_NTPINFO_TYPE = 2
 KSPROPERTY_NETWORKCAMERACONTROL_PROPERTY = Int32
-KSPROPERTY_NETWORKCAMERACONTROL_NTP: KSPROPERTY_NETWORKCAMERACONTROL_PROPERTY = 0
-KSPROPERTY_NETWORKCAMERACONTROL_URI: KSPROPERTY_NETWORKCAMERACONTROL_PROPERTY = 1
-KSPROPERTY_NETWORKCAMERACONTROL_METADATA: KSPROPERTY_NETWORKCAMERACONTROL_PROPERTY = 2
-KSPROPERTY_NETWORKCAMERACONTROL_EVENTTOPICS_XML: KSPROPERTY_NETWORKCAMERACONTROL_PROPERTY = 3
+KSPROPERTY_NETWORKCAMERACONTROL_NTP: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_NETWORKCAMERACONTROL_PROPERTY = 0
+KSPROPERTY_NETWORKCAMERACONTROL_URI: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_NETWORKCAMERACONTROL_PROPERTY = 1
+KSPROPERTY_NETWORKCAMERACONTROL_METADATA: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_NETWORKCAMERACONTROL_PROPERTY = 2
+KSPROPERTY_NETWORKCAMERACONTROL_EVENTTOPICS_XML: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_NETWORKCAMERACONTROL_PROPERTY = 3
 KSPROPERTY_OVERLAYUPDATE = Int32
-KSPROPERTY_OVERLAYUPDATE_INTERESTS: KSPROPERTY_OVERLAYUPDATE = 0
-KSPROPERTY_OVERLAYUPDATE_CLIPLIST: KSPROPERTY_OVERLAYUPDATE = 1
-KSPROPERTY_OVERLAYUPDATE_PALETTE: KSPROPERTY_OVERLAYUPDATE = 2
-KSPROPERTY_OVERLAYUPDATE_COLORKEY: KSPROPERTY_OVERLAYUPDATE = 4
-KSPROPERTY_OVERLAYUPDATE_VIDEOPOSITION: KSPROPERTY_OVERLAYUPDATE = 8
-KSPROPERTY_OVERLAYUPDATE_DISPLAYCHANGE: KSPROPERTY_OVERLAYUPDATE = 16
-KSPROPERTY_OVERLAYUPDATE_COLORREF: KSPROPERTY_OVERLAYUPDATE = 268435456
+KSPROPERTY_OVERLAYUPDATE_INTERESTS: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_OVERLAYUPDATE = 0
+KSPROPERTY_OVERLAYUPDATE_CLIPLIST: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_OVERLAYUPDATE = 1
+KSPROPERTY_OVERLAYUPDATE_PALETTE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_OVERLAYUPDATE = 2
+KSPROPERTY_OVERLAYUPDATE_COLORKEY: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_OVERLAYUPDATE = 4
+KSPROPERTY_OVERLAYUPDATE_VIDEOPOSITION: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_OVERLAYUPDATE = 8
+KSPROPERTY_OVERLAYUPDATE_DISPLAYCHANGE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_OVERLAYUPDATE = 16
+KSPROPERTY_OVERLAYUPDATE_COLORREF: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_OVERLAYUPDATE = 268435456
 KSPROPERTY_PIN = Int32
-KSPROPERTY_PIN_CINSTANCES: KSPROPERTY_PIN = 0
-KSPROPERTY_PIN_CTYPES: KSPROPERTY_PIN = 1
-KSPROPERTY_PIN_DATAFLOW: KSPROPERTY_PIN = 2
-KSPROPERTY_PIN_DATARANGES: KSPROPERTY_PIN = 3
-KSPROPERTY_PIN_DATAINTERSECTION: KSPROPERTY_PIN = 4
-KSPROPERTY_PIN_INTERFACES: KSPROPERTY_PIN = 5
-KSPROPERTY_PIN_MEDIUMS: KSPROPERTY_PIN = 6
-KSPROPERTY_PIN_COMMUNICATION: KSPROPERTY_PIN = 7
-KSPROPERTY_PIN_GLOBALCINSTANCES: KSPROPERTY_PIN = 8
-KSPROPERTY_PIN_NECESSARYINSTANCES: KSPROPERTY_PIN = 9
-KSPROPERTY_PIN_PHYSICALCONNECTION: KSPROPERTY_PIN = 10
-KSPROPERTY_PIN_CATEGORY: KSPROPERTY_PIN = 11
-KSPROPERTY_PIN_NAME: KSPROPERTY_PIN = 12
-KSPROPERTY_PIN_CONSTRAINEDDATARANGES: KSPROPERTY_PIN = 13
-KSPROPERTY_PIN_PROPOSEDATAFORMAT: KSPROPERTY_PIN = 14
-KSPROPERTY_PIN_PROPOSEDATAFORMAT2: KSPROPERTY_PIN = 15
-KSPROPERTY_PIN_MODEDATAFORMATS: KSPROPERTY_PIN = 16
+KSPROPERTY_PIN_CINSTANCES: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_PIN = 0
+KSPROPERTY_PIN_CTYPES: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_PIN = 1
+KSPROPERTY_PIN_DATAFLOW: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_PIN = 2
+KSPROPERTY_PIN_DATARANGES: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_PIN = 3
+KSPROPERTY_PIN_DATAINTERSECTION: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_PIN = 4
+KSPROPERTY_PIN_INTERFACES: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_PIN = 5
+KSPROPERTY_PIN_MEDIUMS: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_PIN = 6
+KSPROPERTY_PIN_COMMUNICATION: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_PIN = 7
+KSPROPERTY_PIN_GLOBALCINSTANCES: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_PIN = 8
+KSPROPERTY_PIN_NECESSARYINSTANCES: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_PIN = 9
+KSPROPERTY_PIN_PHYSICALCONNECTION: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_PIN = 10
+KSPROPERTY_PIN_CATEGORY: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_PIN = 11
+KSPROPERTY_PIN_NAME: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_PIN = 12
+KSPROPERTY_PIN_CONSTRAINEDDATARANGES: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_PIN = 13
+KSPROPERTY_PIN_PROPOSEDATAFORMAT: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_PIN = 14
+KSPROPERTY_PIN_PROPOSEDATAFORMAT2: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_PIN = 15
+KSPROPERTY_PIN_MODEDATAFORMATS: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_PIN = 16
 class KSPROPERTY_POSITIONS(EasyCastStructure):
     Current: Int64
     Stop: Int64
     CurrentFlags: win32more.Windows.Win32.Media.KernelStreaming.KS_SEEKING_FLAGS
     StopFlags: win32more.Windows.Win32.Media.KernelStreaming.KS_SEEKING_FLAGS
 KSPROPERTY_QUALITY = Int32
-KSPROPERTY_QUALITY_REPORT: KSPROPERTY_QUALITY = 0
-KSPROPERTY_QUALITY_ERROR: KSPROPERTY_QUALITY = 1
+KSPROPERTY_QUALITY_REPORT: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_QUALITY = 0
+KSPROPERTY_QUALITY_ERROR: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_QUALITY = 1
 KSPROPERTY_RTAUDIO = Int32
-KSPROPERTY_RTAUDIO_GETPOSITIONFUNCTION: KSPROPERTY_RTAUDIO = 0
-KSPROPERTY_RTAUDIO_BUFFER: KSPROPERTY_RTAUDIO = 1
-KSPROPERTY_RTAUDIO_HWLATENCY: KSPROPERTY_RTAUDIO = 2
-KSPROPERTY_RTAUDIO_POSITIONREGISTER: KSPROPERTY_RTAUDIO = 3
-KSPROPERTY_RTAUDIO_CLOCKREGISTER: KSPROPERTY_RTAUDIO = 4
-KSPROPERTY_RTAUDIO_BUFFER_WITH_NOTIFICATION: KSPROPERTY_RTAUDIO = 5
-KSPROPERTY_RTAUDIO_REGISTER_NOTIFICATION_EVENT: KSPROPERTY_RTAUDIO = 6
-KSPROPERTY_RTAUDIO_UNREGISTER_NOTIFICATION_EVENT: KSPROPERTY_RTAUDIO = 7
-KSPROPERTY_RTAUDIO_QUERY_NOTIFICATION_SUPPORT: KSPROPERTY_RTAUDIO = 8
-KSPROPERTY_RTAUDIO_PACKETCOUNT: KSPROPERTY_RTAUDIO = 9
-KSPROPERTY_RTAUDIO_PRESENTATION_POSITION: KSPROPERTY_RTAUDIO = 10
-KSPROPERTY_RTAUDIO_GETREADPACKET: KSPROPERTY_RTAUDIO = 11
-KSPROPERTY_RTAUDIO_SETWRITEPACKET: KSPROPERTY_RTAUDIO = 12
-KSPROPERTY_RTAUDIO_PACKETVREGISTER: KSPROPERTY_RTAUDIO = 13
+KSPROPERTY_RTAUDIO_GETPOSITIONFUNCTION: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_RTAUDIO = 0
+KSPROPERTY_RTAUDIO_BUFFER: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_RTAUDIO = 1
+KSPROPERTY_RTAUDIO_HWLATENCY: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_RTAUDIO = 2
+KSPROPERTY_RTAUDIO_POSITIONREGISTER: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_RTAUDIO = 3
+KSPROPERTY_RTAUDIO_CLOCKREGISTER: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_RTAUDIO = 4
+KSPROPERTY_RTAUDIO_BUFFER_WITH_NOTIFICATION: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_RTAUDIO = 5
+KSPROPERTY_RTAUDIO_REGISTER_NOTIFICATION_EVENT: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_RTAUDIO = 6
+KSPROPERTY_RTAUDIO_UNREGISTER_NOTIFICATION_EVENT: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_RTAUDIO = 7
+KSPROPERTY_RTAUDIO_QUERY_NOTIFICATION_SUPPORT: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_RTAUDIO = 8
+KSPROPERTY_RTAUDIO_PACKETCOUNT: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_RTAUDIO = 9
+KSPROPERTY_RTAUDIO_PRESENTATION_POSITION: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_RTAUDIO = 10
+KSPROPERTY_RTAUDIO_GETREADPACKET: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_RTAUDIO = 11
+KSPROPERTY_RTAUDIO_SETWRITEPACKET: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_RTAUDIO = 12
+KSPROPERTY_RTAUDIO_PACKETVREGISTER: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_RTAUDIO = 13
 class KSPROPERTY_SELECTOR_NODE_S(EasyCastStructure):
     NodeProperty: win32more.Windows.Win32.Media.KernelStreaming.KSP_NODE
     Value: Int32
@@ -2895,12 +2894,12 @@ class KSPROPERTY_SERIALHDR(EasyCastStructure):
     Count: UInt32
     _pack_ = 1
 KSPROPERTY_SOUNDDETECTOR = Int32
-KSPROPERTY_SOUNDDETECTOR_SUPPORTEDPATTERNS: KSPROPERTY_SOUNDDETECTOR = 1
-KSPROPERTY_SOUNDDETECTOR_PATTERNS: KSPROPERTY_SOUNDDETECTOR = 2
-KSPROPERTY_SOUNDDETECTOR_ARMED: KSPROPERTY_SOUNDDETECTOR = 3
-KSPROPERTY_SOUNDDETECTOR_MATCHRESULT: KSPROPERTY_SOUNDDETECTOR = 4
-KSPROPERTY_SOUNDDETECTOR_RESET: KSPROPERTY_SOUNDDETECTOR = 5
-KSPROPERTY_SOUNDDETECTOR_STREAMINGSUPPORT: KSPROPERTY_SOUNDDETECTOR = 6
+KSPROPERTY_SOUNDDETECTOR_SUPPORTEDPATTERNS: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_SOUNDDETECTOR = 1
+KSPROPERTY_SOUNDDETECTOR_PATTERNS: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_SOUNDDETECTOR = 2
+KSPROPERTY_SOUNDDETECTOR_ARMED: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_SOUNDDETECTOR = 3
+KSPROPERTY_SOUNDDETECTOR_MATCHRESULT: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_SOUNDDETECTOR = 4
+KSPROPERTY_SOUNDDETECTOR_RESET: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_SOUNDDETECTOR = 5
+KSPROPERTY_SOUNDDETECTOR_STREAMINGSUPPORT: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_SOUNDDETECTOR = 6
 class KSPROPERTY_SPHLI(EasyCastStructure):
     HLISS: UInt16
     Reserved: UInt16
@@ -2921,33 +2920,33 @@ class KSPROPERTY_STEPPING_LONGLONG(EasyCastStructure):
     SteppingDelta: UInt64
     Bounds: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_BOUNDS_LONGLONG
 KSPROPERTY_STREAM = Int32
-KSPROPERTY_STREAM_ALLOCATOR: KSPROPERTY_STREAM = 0
-KSPROPERTY_STREAM_QUALITY: KSPROPERTY_STREAM = 1
-KSPROPERTY_STREAM_DEGRADATION: KSPROPERTY_STREAM = 2
-KSPROPERTY_STREAM_MASTERCLOCK: KSPROPERTY_STREAM = 3
-KSPROPERTY_STREAM_TIMEFORMAT: KSPROPERTY_STREAM = 4
-KSPROPERTY_STREAM_PRESENTATIONTIME: KSPROPERTY_STREAM = 5
-KSPROPERTY_STREAM_PRESENTATIONEXTENT: KSPROPERTY_STREAM = 6
-KSPROPERTY_STREAM_FRAMETIME: KSPROPERTY_STREAM = 7
-KSPROPERTY_STREAM_RATECAPABILITY: KSPROPERTY_STREAM = 8
-KSPROPERTY_STREAM_RATE: KSPROPERTY_STREAM = 9
-KSPROPERTY_STREAM_PIPE_ID: KSPROPERTY_STREAM = 10
+KSPROPERTY_STREAM_ALLOCATOR: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_STREAM = 0
+KSPROPERTY_STREAM_QUALITY: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_STREAM = 1
+KSPROPERTY_STREAM_DEGRADATION: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_STREAM = 2
+KSPROPERTY_STREAM_MASTERCLOCK: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_STREAM = 3
+KSPROPERTY_STREAM_TIMEFORMAT: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_STREAM = 4
+KSPROPERTY_STREAM_PRESENTATIONTIME: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_STREAM = 5
+KSPROPERTY_STREAM_PRESENTATIONEXTENT: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_STREAM = 6
+KSPROPERTY_STREAM_FRAMETIME: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_STREAM = 7
+KSPROPERTY_STREAM_RATECAPABILITY: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_STREAM = 8
+KSPROPERTY_STREAM_RATE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_STREAM = 9
+KSPROPERTY_STREAM_PIPE_ID: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_STREAM = 10
 KSPROPERTY_STREAMINTERFACE = Int32
-KSPROPERTY_STREAMINTERFACE_HEADERSIZE: KSPROPERTY_STREAMINTERFACE = 0
+KSPROPERTY_STREAMINTERFACE_HEADERSIZE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_STREAMINTERFACE = 0
 KSPROPERTY_TELEPHONY_CONTROL = Int32
-KSPROPERTY_TELEPHONY_PROVIDERID: KSPROPERTY_TELEPHONY_CONTROL = 0
-KSPROPERTY_TELEPHONY_CALLINFO: KSPROPERTY_TELEPHONY_CONTROL = 1
-KSPROPERTY_TELEPHONY_CALLCONTROL: KSPROPERTY_TELEPHONY_CONTROL = 2
-KSPROPERTY_TELEPHONY_PROVIDERCHANGE: KSPROPERTY_TELEPHONY_CONTROL = 3
-KSPROPERTY_TELEPHONY_CALLHOLD: KSPROPERTY_TELEPHONY_CONTROL = 4
-KSPROPERTY_TELEPHONY_MUTE_TX: KSPROPERTY_TELEPHONY_CONTROL = 5
+KSPROPERTY_TELEPHONY_PROVIDERID: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_TELEPHONY_CONTROL = 0
+KSPROPERTY_TELEPHONY_CALLINFO: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_TELEPHONY_CONTROL = 1
+KSPROPERTY_TELEPHONY_CALLCONTROL: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_TELEPHONY_CONTROL = 2
+KSPROPERTY_TELEPHONY_PROVIDERCHANGE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_TELEPHONY_CONTROL = 3
+KSPROPERTY_TELEPHONY_CALLHOLD: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_TELEPHONY_CONTROL = 4
+KSPROPERTY_TELEPHONY_MUTE_TX: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_TELEPHONY_CONTROL = 5
 KSPROPERTY_TELEPHONY_TOPOLOGY = Int32
-KSPROPERTY_TELEPHONY_ENDPOINTIDPAIR: KSPROPERTY_TELEPHONY_TOPOLOGY = 0
-KSPROPERTY_TELEPHONY_VOLUME: KSPROPERTY_TELEPHONY_TOPOLOGY = 1
+KSPROPERTY_TELEPHONY_ENDPOINTIDPAIR: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_TELEPHONY_TOPOLOGY = 0
+KSPROPERTY_TELEPHONY_VOLUME: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_TELEPHONY_TOPOLOGY = 1
 KSPROPERTY_TIMECODE = Int32
-KSPROPERTY_TIMECODE_READER: KSPROPERTY_TIMECODE = 0
-KSPROPERTY_ATN_READER: KSPROPERTY_TIMECODE = 1
-KSPROPERTY_RTC_READER: KSPROPERTY_TIMECODE = 2
+KSPROPERTY_TIMECODE_READER: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_TIMECODE = 0
+KSPROPERTY_ATN_READER: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_TIMECODE = 1
+KSPROPERTY_RTC_READER: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_TIMECODE = 2
 class KSPROPERTY_TIMECODE_NODE_S(EasyCastStructure):
     NodeProperty: win32more.Windows.Win32.Media.KernelStreaming.KSP_NODE
     TimecodeSamp: win32more.Windows.Win32.Media.TIMECODE_SAMPLE
@@ -2955,26 +2954,26 @@ class KSPROPERTY_TIMECODE_S(EasyCastStructure):
     Property: win32more.Windows.Win32.Media.KernelStreaming.KSIDENTIFIER
     TimecodeSamp: win32more.Windows.Win32.Media.TIMECODE_SAMPLE
 KSPROPERTY_TOPOLOGY = Int32
-KSPROPERTY_TOPOLOGY_CATEGORIES: KSPROPERTY_TOPOLOGY = 0
-KSPROPERTY_TOPOLOGY_NODES: KSPROPERTY_TOPOLOGY = 1
-KSPROPERTY_TOPOLOGY_CONNECTIONS: KSPROPERTY_TOPOLOGY = 2
-KSPROPERTY_TOPOLOGY_NAME: KSPROPERTY_TOPOLOGY = 3
+KSPROPERTY_TOPOLOGY_CATEGORIES: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_TOPOLOGY = 0
+KSPROPERTY_TOPOLOGY_NODES: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_TOPOLOGY = 1
+KSPROPERTY_TOPOLOGY_CONNECTIONS: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_TOPOLOGY = 2
+KSPROPERTY_TOPOLOGY_NAME: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_TOPOLOGY = 3
 KSPROPERTY_TOPOLOGYNODE = Int32
-KSPROPERTY_TOPOLOGYNODE_ENABLE: KSPROPERTY_TOPOLOGYNODE = 1
-KSPROPERTY_TOPOLOGYNODE_RESET: KSPROPERTY_TOPOLOGYNODE = 2
+KSPROPERTY_TOPOLOGYNODE_ENABLE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_TOPOLOGYNODE = 1
+KSPROPERTY_TOPOLOGYNODE_RESET: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_TOPOLOGYNODE = 2
 KSPROPERTY_TUNER = Int32
-KSPROPERTY_TUNER_CAPS: KSPROPERTY_TUNER = 0
-KSPROPERTY_TUNER_MODE_CAPS: KSPROPERTY_TUNER = 1
-KSPROPERTY_TUNER_MODE: KSPROPERTY_TUNER = 2
-KSPROPERTY_TUNER_STANDARD: KSPROPERTY_TUNER = 3
-KSPROPERTY_TUNER_FREQUENCY: KSPROPERTY_TUNER = 4
-KSPROPERTY_TUNER_INPUT: KSPROPERTY_TUNER = 5
-KSPROPERTY_TUNER_STATUS: KSPROPERTY_TUNER = 6
-KSPROPERTY_TUNER_IF_MEDIUM: KSPROPERTY_TUNER = 7
-KSPROPERTY_TUNER_SCAN_CAPS: KSPROPERTY_TUNER = 8
-KSPROPERTY_TUNER_SCAN_STATUS: KSPROPERTY_TUNER = 9
-KSPROPERTY_TUNER_STANDARD_MODE: KSPROPERTY_TUNER = 10
-KSPROPERTY_TUNER_NETWORKTYPE_SCAN_CAPS: KSPROPERTY_TUNER = 11
+KSPROPERTY_TUNER_CAPS: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_TUNER = 0
+KSPROPERTY_TUNER_MODE_CAPS: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_TUNER = 1
+KSPROPERTY_TUNER_MODE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_TUNER = 2
+KSPROPERTY_TUNER_STANDARD: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_TUNER = 3
+KSPROPERTY_TUNER_FREQUENCY: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_TUNER = 4
+KSPROPERTY_TUNER_INPUT: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_TUNER = 5
+KSPROPERTY_TUNER_STATUS: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_TUNER = 6
+KSPROPERTY_TUNER_IF_MEDIUM: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_TUNER = 7
+KSPROPERTY_TUNER_SCAN_CAPS: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_TUNER = 8
+KSPROPERTY_TUNER_SCAN_STATUS: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_TUNER = 9
+KSPROPERTY_TUNER_STANDARD_MODE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_TUNER = 10
+KSPROPERTY_TUNER_NETWORKTYPE_SCAN_CAPS: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_TUNER = 11
 class KSPROPERTY_TUNER_CAPS_S(EasyCastStructure):
     Property: win32more.Windows.Win32.Media.KernelStreaming.KSIDENTIFIER
     ModesSupported: UInt32
@@ -2997,11 +2996,11 @@ class KSPROPERTY_TUNER_INPUT_S(EasyCastStructure):
     Property: win32more.Windows.Win32.Media.KernelStreaming.KSIDENTIFIER
     InputIndex: UInt32
 KSPROPERTY_TUNER_MODES = Int32
-KSPROPERTY_TUNER_MODE_TV: KSPROPERTY_TUNER_MODES = 1
-KSPROPERTY_TUNER_MODE_FM_RADIO: KSPROPERTY_TUNER_MODES = 2
-KSPROPERTY_TUNER_MODE_AM_RADIO: KSPROPERTY_TUNER_MODES = 4
-KSPROPERTY_TUNER_MODE_DSS: KSPROPERTY_TUNER_MODES = 8
-KSPROPERTY_TUNER_MODE_ATSC: KSPROPERTY_TUNER_MODES = 16
+KSPROPERTY_TUNER_MODE_TV: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_TUNER_MODES = 1
+KSPROPERTY_TUNER_MODE_FM_RADIO: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_TUNER_MODES = 2
+KSPROPERTY_TUNER_MODE_AM_RADIO: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_TUNER_MODES = 4
+KSPROPERTY_TUNER_MODE_DSS: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_TUNER_MODES = 8
+KSPROPERTY_TUNER_MODE_ATSC: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_TUNER_MODES = 16
 class KSPROPERTY_TUNER_MODE_CAPS_S(EasyCastStructure):
     Property: win32more.Windows.Win32.Media.KernelStreaming.KSIDENTIFIER
     Mode: UInt32
@@ -3051,13 +3050,13 @@ class KSPROPERTY_TVAUDIO_S(EasyCastStructure):
     Property: win32more.Windows.Win32.Media.KernelStreaming.KSIDENTIFIER
     Mode: UInt32
 KSPROPERTY_VBICAP = Int32
-KSPROPERTY_VBICAP_PROPERTIES_PROTECTION: KSPROPERTY_VBICAP = 1
+KSPROPERTY_VBICAP_PROPERTIES_PROTECTION: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VBICAP = 1
 KSPROPERTY_VBICODECFILTERING = Int32
-KSPROPERTY_VBICODECFILTERING_SCANLINES_REQUESTED_BIT_ARRAY: KSPROPERTY_VBICODECFILTERING = 1
-KSPROPERTY_VBICODECFILTERING_SCANLINES_DISCOVERED_BIT_ARRAY: KSPROPERTY_VBICODECFILTERING = 2
-KSPROPERTY_VBICODECFILTERING_SUBSTREAMS_REQUESTED_BIT_ARRAY: KSPROPERTY_VBICODECFILTERING = 3
-KSPROPERTY_VBICODECFILTERING_SUBSTREAMS_DISCOVERED_BIT_ARRAY: KSPROPERTY_VBICODECFILTERING = 4
-KSPROPERTY_VBICODECFILTERING_STATISTICS: KSPROPERTY_VBICODECFILTERING = 5
+KSPROPERTY_VBICODECFILTERING_SCANLINES_REQUESTED_BIT_ARRAY: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VBICODECFILTERING = 1
+KSPROPERTY_VBICODECFILTERING_SCANLINES_DISCOVERED_BIT_ARRAY: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VBICODECFILTERING = 2
+KSPROPERTY_VBICODECFILTERING_SUBSTREAMS_REQUESTED_BIT_ARRAY: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VBICODECFILTERING = 3
+KSPROPERTY_VBICODECFILTERING_SUBSTREAMS_DISCOVERED_BIT_ARRAY: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VBICODECFILTERING = 4
+KSPROPERTY_VBICODECFILTERING_STATISTICS: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VBICODECFILTERING = 5
 class KSPROPERTY_VBICODECFILTERING_CC_SUBSTREAMS_S(EasyCastStructure):
     Property: win32more.Windows.Win32.Media.KernelStreaming.KSIDENTIFIER
     Substreams: win32more.Windows.Win32.Media.KernelStreaming.VBICODECFILTERING_CC_SUBSTREAMS
@@ -3086,81 +3085,81 @@ class KSPROPERTY_VBICODECFILTERING_STATISTICS_NABTS_S(EasyCastStructure):
     Property: win32more.Windows.Win32.Media.KernelStreaming.KSIDENTIFIER
     Statistics: win32more.Windows.Win32.Media.KernelStreaming.VBICODECFILTERING_STATISTICS_NABTS
 KSPROPERTY_VIDCAP_CAMERACONTROL = Int32
-KSPROPERTY_CAMERACONTROL_PAN: KSPROPERTY_VIDCAP_CAMERACONTROL = 0
-KSPROPERTY_CAMERACONTROL_TILT: KSPROPERTY_VIDCAP_CAMERACONTROL = 1
-KSPROPERTY_CAMERACONTROL_ROLL: KSPROPERTY_VIDCAP_CAMERACONTROL = 2
-KSPROPERTY_CAMERACONTROL_ZOOM: KSPROPERTY_VIDCAP_CAMERACONTROL = 3
-KSPROPERTY_CAMERACONTROL_EXPOSURE: KSPROPERTY_VIDCAP_CAMERACONTROL = 4
-KSPROPERTY_CAMERACONTROL_IRIS: KSPROPERTY_VIDCAP_CAMERACONTROL = 5
-KSPROPERTY_CAMERACONTROL_FOCUS: KSPROPERTY_VIDCAP_CAMERACONTROL = 6
-KSPROPERTY_CAMERACONTROL_SCANMODE: KSPROPERTY_VIDCAP_CAMERACONTROL = 7
-KSPROPERTY_CAMERACONTROL_PRIVACY: KSPROPERTY_VIDCAP_CAMERACONTROL = 8
-KSPROPERTY_CAMERACONTROL_PANTILT: KSPROPERTY_VIDCAP_CAMERACONTROL = 9
-KSPROPERTY_CAMERACONTROL_PAN_RELATIVE: KSPROPERTY_VIDCAP_CAMERACONTROL = 10
-KSPROPERTY_CAMERACONTROL_TILT_RELATIVE: KSPROPERTY_VIDCAP_CAMERACONTROL = 11
-KSPROPERTY_CAMERACONTROL_ROLL_RELATIVE: KSPROPERTY_VIDCAP_CAMERACONTROL = 12
-KSPROPERTY_CAMERACONTROL_ZOOM_RELATIVE: KSPROPERTY_VIDCAP_CAMERACONTROL = 13
-KSPROPERTY_CAMERACONTROL_EXPOSURE_RELATIVE: KSPROPERTY_VIDCAP_CAMERACONTROL = 14
-KSPROPERTY_CAMERACONTROL_IRIS_RELATIVE: KSPROPERTY_VIDCAP_CAMERACONTROL = 15
-KSPROPERTY_CAMERACONTROL_FOCUS_RELATIVE: KSPROPERTY_VIDCAP_CAMERACONTROL = 16
-KSPROPERTY_CAMERACONTROL_PANTILT_RELATIVE: KSPROPERTY_VIDCAP_CAMERACONTROL = 17
-KSPROPERTY_CAMERACONTROL_FOCAL_LENGTH: KSPROPERTY_VIDCAP_CAMERACONTROL = 18
-KSPROPERTY_CAMERACONTROL_AUTO_EXPOSURE_PRIORITY: KSPROPERTY_VIDCAP_CAMERACONTROL = 19
+KSPROPERTY_CAMERACONTROL_PAN: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VIDCAP_CAMERACONTROL = 0
+KSPROPERTY_CAMERACONTROL_TILT: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VIDCAP_CAMERACONTROL = 1
+KSPROPERTY_CAMERACONTROL_ROLL: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VIDCAP_CAMERACONTROL = 2
+KSPROPERTY_CAMERACONTROL_ZOOM: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VIDCAP_CAMERACONTROL = 3
+KSPROPERTY_CAMERACONTROL_EXPOSURE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VIDCAP_CAMERACONTROL = 4
+KSPROPERTY_CAMERACONTROL_IRIS: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VIDCAP_CAMERACONTROL = 5
+KSPROPERTY_CAMERACONTROL_FOCUS: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VIDCAP_CAMERACONTROL = 6
+KSPROPERTY_CAMERACONTROL_SCANMODE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VIDCAP_CAMERACONTROL = 7
+KSPROPERTY_CAMERACONTROL_PRIVACY: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VIDCAP_CAMERACONTROL = 8
+KSPROPERTY_CAMERACONTROL_PANTILT: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VIDCAP_CAMERACONTROL = 9
+KSPROPERTY_CAMERACONTROL_PAN_RELATIVE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VIDCAP_CAMERACONTROL = 10
+KSPROPERTY_CAMERACONTROL_TILT_RELATIVE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VIDCAP_CAMERACONTROL = 11
+KSPROPERTY_CAMERACONTROL_ROLL_RELATIVE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VIDCAP_CAMERACONTROL = 12
+KSPROPERTY_CAMERACONTROL_ZOOM_RELATIVE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VIDCAP_CAMERACONTROL = 13
+KSPROPERTY_CAMERACONTROL_EXPOSURE_RELATIVE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VIDCAP_CAMERACONTROL = 14
+KSPROPERTY_CAMERACONTROL_IRIS_RELATIVE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VIDCAP_CAMERACONTROL = 15
+KSPROPERTY_CAMERACONTROL_FOCUS_RELATIVE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VIDCAP_CAMERACONTROL = 16
+KSPROPERTY_CAMERACONTROL_PANTILT_RELATIVE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VIDCAP_CAMERACONTROL = 17
+KSPROPERTY_CAMERACONTROL_FOCAL_LENGTH: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VIDCAP_CAMERACONTROL = 18
+KSPROPERTY_CAMERACONTROL_AUTO_EXPOSURE_PRIORITY: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VIDCAP_CAMERACONTROL = 19
 KSPROPERTY_VIDCAP_CROSSBAR = Int32
-KSPROPERTY_CROSSBAR_CAPS: KSPROPERTY_VIDCAP_CROSSBAR = 0
-KSPROPERTY_CROSSBAR_PININFO: KSPROPERTY_VIDCAP_CROSSBAR = 1
-KSPROPERTY_CROSSBAR_CAN_ROUTE: KSPROPERTY_VIDCAP_CROSSBAR = 2
-KSPROPERTY_CROSSBAR_ROUTE: KSPROPERTY_VIDCAP_CROSSBAR = 3
-KSPROPERTY_CROSSBAR_INPUT_ACTIVE: KSPROPERTY_VIDCAP_CROSSBAR = 4
+KSPROPERTY_CROSSBAR_CAPS: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VIDCAP_CROSSBAR = 0
+KSPROPERTY_CROSSBAR_PININFO: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VIDCAP_CROSSBAR = 1
+KSPROPERTY_CROSSBAR_CAN_ROUTE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VIDCAP_CROSSBAR = 2
+KSPROPERTY_CROSSBAR_ROUTE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VIDCAP_CROSSBAR = 3
+KSPROPERTY_CROSSBAR_INPUT_ACTIVE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VIDCAP_CROSSBAR = 4
 KSPROPERTY_VIDCAP_DROPPEDFRAMES = Int32
-KSPROPERTY_DROPPEDFRAMES_CURRENT: KSPROPERTY_VIDCAP_DROPPEDFRAMES = 0
+KSPROPERTY_DROPPEDFRAMES_CURRENT: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VIDCAP_DROPPEDFRAMES = 0
 KSPROPERTY_VIDCAP_SELECTOR = Int32
-KSPROPERTY_SELECTOR_SOURCE_NODE_ID: KSPROPERTY_VIDCAP_SELECTOR = 0
-KSPROPERTY_SELECTOR_NUM_SOURCES: KSPROPERTY_VIDCAP_SELECTOR = 1
+KSPROPERTY_SELECTOR_SOURCE_NODE_ID: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VIDCAP_SELECTOR = 0
+KSPROPERTY_SELECTOR_NUM_SOURCES: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VIDCAP_SELECTOR = 1
 KSPROPERTY_VIDCAP_TVAUDIO = Int32
-KSPROPERTY_TVAUDIO_CAPS: KSPROPERTY_VIDCAP_TVAUDIO = 0
-KSPROPERTY_TVAUDIO_MODE: KSPROPERTY_VIDCAP_TVAUDIO = 1
-KSPROPERTY_TVAUDIO_CURRENTLY_AVAILABLE_MODES: KSPROPERTY_VIDCAP_TVAUDIO = 2
+KSPROPERTY_TVAUDIO_CAPS: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VIDCAP_TVAUDIO = 0
+KSPROPERTY_TVAUDIO_MODE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VIDCAP_TVAUDIO = 1
+KSPROPERTY_TVAUDIO_CURRENTLY_AVAILABLE_MODES: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VIDCAP_TVAUDIO = 2
 KSPROPERTY_VIDCAP_VIDEOCOMPRESSION = Int32
-KSPROPERTY_VIDEOCOMPRESSION_GETINFO: KSPROPERTY_VIDCAP_VIDEOCOMPRESSION = 0
-KSPROPERTY_VIDEOCOMPRESSION_KEYFRAME_RATE: KSPROPERTY_VIDCAP_VIDEOCOMPRESSION = 1
-KSPROPERTY_VIDEOCOMPRESSION_PFRAMES_PER_KEYFRAME: KSPROPERTY_VIDCAP_VIDEOCOMPRESSION = 2
-KSPROPERTY_VIDEOCOMPRESSION_QUALITY: KSPROPERTY_VIDCAP_VIDEOCOMPRESSION = 3
-KSPROPERTY_VIDEOCOMPRESSION_OVERRIDE_KEYFRAME: KSPROPERTY_VIDCAP_VIDEOCOMPRESSION = 4
-KSPROPERTY_VIDEOCOMPRESSION_OVERRIDE_FRAME_SIZE: KSPROPERTY_VIDCAP_VIDEOCOMPRESSION = 5
-KSPROPERTY_VIDEOCOMPRESSION_WINDOWSIZE: KSPROPERTY_VIDCAP_VIDEOCOMPRESSION = 6
+KSPROPERTY_VIDEOCOMPRESSION_GETINFO: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VIDCAP_VIDEOCOMPRESSION = 0
+KSPROPERTY_VIDEOCOMPRESSION_KEYFRAME_RATE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VIDCAP_VIDEOCOMPRESSION = 1
+KSPROPERTY_VIDEOCOMPRESSION_PFRAMES_PER_KEYFRAME: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VIDCAP_VIDEOCOMPRESSION = 2
+KSPROPERTY_VIDEOCOMPRESSION_QUALITY: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VIDCAP_VIDEOCOMPRESSION = 3
+KSPROPERTY_VIDEOCOMPRESSION_OVERRIDE_KEYFRAME: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VIDCAP_VIDEOCOMPRESSION = 4
+KSPROPERTY_VIDEOCOMPRESSION_OVERRIDE_FRAME_SIZE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VIDCAP_VIDEOCOMPRESSION = 5
+KSPROPERTY_VIDEOCOMPRESSION_WINDOWSIZE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VIDCAP_VIDEOCOMPRESSION = 6
 KSPROPERTY_VIDCAP_VIDEOCONTROL = Int32
-KSPROPERTY_VIDEOCONTROL_CAPS: KSPROPERTY_VIDCAP_VIDEOCONTROL = 0
-KSPROPERTY_VIDEOCONTROL_ACTUAL_FRAME_RATE: KSPROPERTY_VIDCAP_VIDEOCONTROL = 1
-KSPROPERTY_VIDEOCONTROL_FRAME_RATES: KSPROPERTY_VIDCAP_VIDEOCONTROL = 2
-KSPROPERTY_VIDEOCONTROL_MODE: KSPROPERTY_VIDCAP_VIDEOCONTROL = 3
+KSPROPERTY_VIDEOCONTROL_CAPS: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VIDCAP_VIDEOCONTROL = 0
+KSPROPERTY_VIDEOCONTROL_ACTUAL_FRAME_RATE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VIDCAP_VIDEOCONTROL = 1
+KSPROPERTY_VIDEOCONTROL_FRAME_RATES: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VIDCAP_VIDEOCONTROL = 2
+KSPROPERTY_VIDEOCONTROL_MODE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VIDCAP_VIDEOCONTROL = 3
 KSPROPERTY_VIDCAP_VIDEODECODER = Int32
-KSPROPERTY_VIDEODECODER_CAPS: KSPROPERTY_VIDCAP_VIDEODECODER = 0
-KSPROPERTY_VIDEODECODER_STANDARD: KSPROPERTY_VIDCAP_VIDEODECODER = 1
-KSPROPERTY_VIDEODECODER_STATUS: KSPROPERTY_VIDCAP_VIDEODECODER = 2
-KSPROPERTY_VIDEODECODER_OUTPUT_ENABLE: KSPROPERTY_VIDCAP_VIDEODECODER = 3
-KSPROPERTY_VIDEODECODER_VCR_TIMING: KSPROPERTY_VIDCAP_VIDEODECODER = 4
-KSPROPERTY_VIDEODECODER_STATUS2: KSPROPERTY_VIDCAP_VIDEODECODER = 5
+KSPROPERTY_VIDEODECODER_CAPS: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VIDCAP_VIDEODECODER = 0
+KSPROPERTY_VIDEODECODER_STANDARD: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VIDCAP_VIDEODECODER = 1
+KSPROPERTY_VIDEODECODER_STATUS: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VIDCAP_VIDEODECODER = 2
+KSPROPERTY_VIDEODECODER_OUTPUT_ENABLE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VIDCAP_VIDEODECODER = 3
+KSPROPERTY_VIDEODECODER_VCR_TIMING: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VIDCAP_VIDEODECODER = 4
+KSPROPERTY_VIDEODECODER_STATUS2: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VIDCAP_VIDEODECODER = 5
 KSPROPERTY_VIDCAP_VIDEOENCODER = Int32
-KSPROPERTY_VIDEOENCODER_CAPS: KSPROPERTY_VIDCAP_VIDEOENCODER = 0
-KSPROPERTY_VIDEOENCODER_STANDARD: KSPROPERTY_VIDCAP_VIDEOENCODER = 1
-KSPROPERTY_VIDEOENCODER_COPYPROTECTION: KSPROPERTY_VIDCAP_VIDEOENCODER = 2
-KSPROPERTY_VIDEOENCODER_CC_ENABLE: KSPROPERTY_VIDCAP_VIDEOENCODER = 3
+KSPROPERTY_VIDEOENCODER_CAPS: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VIDCAP_VIDEOENCODER = 0
+KSPROPERTY_VIDEOENCODER_STANDARD: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VIDCAP_VIDEOENCODER = 1
+KSPROPERTY_VIDEOENCODER_COPYPROTECTION: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VIDCAP_VIDEOENCODER = 2
+KSPROPERTY_VIDEOENCODER_CC_ENABLE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VIDCAP_VIDEOENCODER = 3
 KSPROPERTY_VIDCAP_VIDEOPROCAMP = Int32
-KSPROPERTY_VIDEOPROCAMP_BRIGHTNESS: KSPROPERTY_VIDCAP_VIDEOPROCAMP = 0
-KSPROPERTY_VIDEOPROCAMP_CONTRAST: KSPROPERTY_VIDCAP_VIDEOPROCAMP = 1
-KSPROPERTY_VIDEOPROCAMP_HUE: KSPROPERTY_VIDCAP_VIDEOPROCAMP = 2
-KSPROPERTY_VIDEOPROCAMP_SATURATION: KSPROPERTY_VIDCAP_VIDEOPROCAMP = 3
-KSPROPERTY_VIDEOPROCAMP_SHARPNESS: KSPROPERTY_VIDCAP_VIDEOPROCAMP = 4
-KSPROPERTY_VIDEOPROCAMP_GAMMA: KSPROPERTY_VIDCAP_VIDEOPROCAMP = 5
-KSPROPERTY_VIDEOPROCAMP_COLORENABLE: KSPROPERTY_VIDCAP_VIDEOPROCAMP = 6
-KSPROPERTY_VIDEOPROCAMP_WHITEBALANCE: KSPROPERTY_VIDCAP_VIDEOPROCAMP = 7
-KSPROPERTY_VIDEOPROCAMP_BACKLIGHT_COMPENSATION: KSPROPERTY_VIDCAP_VIDEOPROCAMP = 8
-KSPROPERTY_VIDEOPROCAMP_GAIN: KSPROPERTY_VIDCAP_VIDEOPROCAMP = 9
-KSPROPERTY_VIDEOPROCAMP_DIGITAL_MULTIPLIER: KSPROPERTY_VIDCAP_VIDEOPROCAMP = 10
-KSPROPERTY_VIDEOPROCAMP_DIGITAL_MULTIPLIER_LIMIT: KSPROPERTY_VIDCAP_VIDEOPROCAMP = 11
-KSPROPERTY_VIDEOPROCAMP_WHITEBALANCE_COMPONENT: KSPROPERTY_VIDCAP_VIDEOPROCAMP = 12
-KSPROPERTY_VIDEOPROCAMP_POWERLINE_FREQUENCY: KSPROPERTY_VIDCAP_VIDEOPROCAMP = 13
+KSPROPERTY_VIDEOPROCAMP_BRIGHTNESS: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VIDCAP_VIDEOPROCAMP = 0
+KSPROPERTY_VIDEOPROCAMP_CONTRAST: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VIDCAP_VIDEOPROCAMP = 1
+KSPROPERTY_VIDEOPROCAMP_HUE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VIDCAP_VIDEOPROCAMP = 2
+KSPROPERTY_VIDEOPROCAMP_SATURATION: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VIDCAP_VIDEOPROCAMP = 3
+KSPROPERTY_VIDEOPROCAMP_SHARPNESS: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VIDCAP_VIDEOPROCAMP = 4
+KSPROPERTY_VIDEOPROCAMP_GAMMA: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VIDCAP_VIDEOPROCAMP = 5
+KSPROPERTY_VIDEOPROCAMP_COLORENABLE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VIDCAP_VIDEOPROCAMP = 6
+KSPROPERTY_VIDEOPROCAMP_WHITEBALANCE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VIDCAP_VIDEOPROCAMP = 7
+KSPROPERTY_VIDEOPROCAMP_BACKLIGHT_COMPENSATION: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VIDCAP_VIDEOPROCAMP = 8
+KSPROPERTY_VIDEOPROCAMP_GAIN: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VIDCAP_VIDEOPROCAMP = 9
+KSPROPERTY_VIDEOPROCAMP_DIGITAL_MULTIPLIER: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VIDCAP_VIDEOPROCAMP = 10
+KSPROPERTY_VIDEOPROCAMP_DIGITAL_MULTIPLIER_LIMIT: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VIDCAP_VIDEOPROCAMP = 11
+KSPROPERTY_VIDEOPROCAMP_WHITEBALANCE_COMPONENT: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VIDCAP_VIDEOPROCAMP = 12
+KSPROPERTY_VIDEOPROCAMP_POWERLINE_FREQUENCY: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VIDCAP_VIDEOPROCAMP = 13
 class KSPROPERTY_VIDEOCOMPRESSION_GETINFO_S(EasyCastStructure):
     Property: win32more.Windows.Win32.Media.KernelStreaming.KSIDENTIFIER
     StreamIndex: UInt32
@@ -3244,35 +3243,35 @@ class KSPROPERTY_VIDEOPROCAMP_S2(EasyCastStructure):
     Capabilities: UInt32
     Value2: Int32
 KSPROPERTY_VIDMEM_TRANSPORT = Int32
-KSPROPERTY_DISPLAY_ADAPTER_GUID: KSPROPERTY_VIDMEM_TRANSPORT = 1
-KSPROPERTY_PREFERRED_CAPTURE_SURFACE: KSPROPERTY_VIDMEM_TRANSPORT = 2
-KSPROPERTY_CURRENT_CAPTURE_SURFACE: KSPROPERTY_VIDMEM_TRANSPORT = 3
-KSPROPERTY_MAP_CAPTURE_HANDLE_TO_VRAM_ADDRESS: KSPROPERTY_VIDMEM_TRANSPORT = 4
+KSPROPERTY_DISPLAY_ADAPTER_GUID: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VIDMEM_TRANSPORT = 1
+KSPROPERTY_PREFERRED_CAPTURE_SURFACE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VIDMEM_TRANSPORT = 2
+KSPROPERTY_CURRENT_CAPTURE_SURFACE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VIDMEM_TRANSPORT = 3
+KSPROPERTY_MAP_CAPTURE_HANDLE_TO_VRAM_ADDRESS: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VIDMEM_TRANSPORT = 4
 KSPROPERTY_VPCONFIG = Int32
-KSPROPERTY_VPCONFIG_NUMCONNECTINFO: KSPROPERTY_VPCONFIG = 0
-KSPROPERTY_VPCONFIG_GETCONNECTINFO: KSPROPERTY_VPCONFIG = 1
-KSPROPERTY_VPCONFIG_SETCONNECTINFO: KSPROPERTY_VPCONFIG = 2
-KSPROPERTY_VPCONFIG_VPDATAINFO: KSPROPERTY_VPCONFIG = 3
-KSPROPERTY_VPCONFIG_MAXPIXELRATE: KSPROPERTY_VPCONFIG = 4
-KSPROPERTY_VPCONFIG_INFORMVPINPUT: KSPROPERTY_VPCONFIG = 5
-KSPROPERTY_VPCONFIG_NUMVIDEOFORMAT: KSPROPERTY_VPCONFIG = 6
-KSPROPERTY_VPCONFIG_GETVIDEOFORMAT: KSPROPERTY_VPCONFIG = 7
-KSPROPERTY_VPCONFIG_SETVIDEOFORMAT: KSPROPERTY_VPCONFIG = 8
-KSPROPERTY_VPCONFIG_INVERTPOLARITY: KSPROPERTY_VPCONFIG = 9
-KSPROPERTY_VPCONFIG_DECIMATIONCAPABILITY: KSPROPERTY_VPCONFIG = 10
-KSPROPERTY_VPCONFIG_SCALEFACTOR: KSPROPERTY_VPCONFIG = 11
-KSPROPERTY_VPCONFIG_DDRAWHANDLE: KSPROPERTY_VPCONFIG = 12
-KSPROPERTY_VPCONFIG_VIDEOPORTID: KSPROPERTY_VPCONFIG = 13
-KSPROPERTY_VPCONFIG_DDRAWSURFACEHANDLE: KSPROPERTY_VPCONFIG = 14
-KSPROPERTY_VPCONFIG_SURFACEPARAMS: KSPROPERTY_VPCONFIG = 15
+KSPROPERTY_VPCONFIG_NUMCONNECTINFO: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VPCONFIG = 0
+KSPROPERTY_VPCONFIG_GETCONNECTINFO: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VPCONFIG = 1
+KSPROPERTY_VPCONFIG_SETCONNECTINFO: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VPCONFIG = 2
+KSPROPERTY_VPCONFIG_VPDATAINFO: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VPCONFIG = 3
+KSPROPERTY_VPCONFIG_MAXPIXELRATE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VPCONFIG = 4
+KSPROPERTY_VPCONFIG_INFORMVPINPUT: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VPCONFIG = 5
+KSPROPERTY_VPCONFIG_NUMVIDEOFORMAT: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VPCONFIG = 6
+KSPROPERTY_VPCONFIG_GETVIDEOFORMAT: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VPCONFIG = 7
+KSPROPERTY_VPCONFIG_SETVIDEOFORMAT: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VPCONFIG = 8
+KSPROPERTY_VPCONFIG_INVERTPOLARITY: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VPCONFIG = 9
+KSPROPERTY_VPCONFIG_DECIMATIONCAPABILITY: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VPCONFIG = 10
+KSPROPERTY_VPCONFIG_SCALEFACTOR: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VPCONFIG = 11
+KSPROPERTY_VPCONFIG_DDRAWHANDLE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VPCONFIG = 12
+KSPROPERTY_VPCONFIG_VIDEOPORTID: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VPCONFIG = 13
+KSPROPERTY_VPCONFIG_DDRAWSURFACEHANDLE: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VPCONFIG = 14
+KSPROPERTY_VPCONFIG_SURFACEPARAMS: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_VPCONFIG = 15
 KSPROPERTY_WAVE = Int32
-KSPROPERTY_WAVE_COMPATIBLE_CAPABILITIES: KSPROPERTY_WAVE = 0
-KSPROPERTY_WAVE_INPUT_CAPABILITIES: KSPROPERTY_WAVE = 1
-KSPROPERTY_WAVE_OUTPUT_CAPABILITIES: KSPROPERTY_WAVE = 2
-KSPROPERTY_WAVE_BUFFER: KSPROPERTY_WAVE = 3
-KSPROPERTY_WAVE_FREQUENCY: KSPROPERTY_WAVE = 4
-KSPROPERTY_WAVE_VOLUME: KSPROPERTY_WAVE = 5
-KSPROPERTY_WAVE_PAN: KSPROPERTY_WAVE = 6
+KSPROPERTY_WAVE_COMPATIBLE_CAPABILITIES: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_WAVE = 0
+KSPROPERTY_WAVE_INPUT_CAPABILITIES: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_WAVE = 1
+KSPROPERTY_WAVE_OUTPUT_CAPABILITIES: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_WAVE = 2
+KSPROPERTY_WAVE_BUFFER: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_WAVE = 3
+KSPROPERTY_WAVE_FREQUENCY: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_WAVE = 4
+KSPROPERTY_WAVE_VOLUME: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_WAVE = 5
+KSPROPERTY_WAVE_PAN: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_WAVE = 6
 KSPROPSETID_AC3 = Guid('{bfabe720-6e1f-11d0-bcf2-444553540000}')
 KSPROPSETID_Audio = Guid('{45ffaaa0-6e1b-11d0-bcf2-444553540000}')
 KSPROPSETID_AudioBufferDuration = Guid('{4e73c07f-23cc-4955-a7ea-3da502496290}')
@@ -3372,8 +3371,8 @@ class KSRELATIVEEVENT(EasyCastStructure):
         ObjectHandle: win32more.Windows.Win32.Foundation.HANDLE
         ObjectPointer: VoidPtr
 KSRESET = Int32
-KSRESET_BEGIN: KSRESET = 0
-KSRESET_END: KSRESET = 1
+KSRESET_BEGIN: win32more.Windows.Win32.Media.KernelStreaming.KSRESET = 0
+KSRESET_END: win32more.Windows.Win32.Media.KernelStreaming.KSRESET = 1
 class KSRESOLUTION(EasyCastStructure):
     Granularity: Int64
     Error: Int64
@@ -3451,10 +3450,10 @@ class KSSOUNDDETECTORPROPERTY(EasyCastStructure):
     Property: win32more.Windows.Win32.Media.KernelStreaming.KSIDENTIFIER
     EventId: Guid
 KSSTATE = Int32
-KSSTATE_STOP: KSSTATE = 0
-KSSTATE_ACQUIRE: KSSTATE = 1
-KSSTATE_PAUSE: KSSTATE = 2
-KSSTATE_RUN: KSSTATE = 3
+KSSTATE_STOP: win32more.Windows.Win32.Media.KernelStreaming.KSSTATE = 0
+KSSTATE_ACQUIRE: win32more.Windows.Win32.Media.KernelStreaming.KSSTATE = 1
+KSSTATE_PAUSE: win32more.Windows.Win32.Media.KernelStreaming.KSSTATE = 2
+KSSTATE_RUN: win32more.Windows.Win32.Media.KernelStreaming.KSSTATE = 3
 class KSSTREAMALLOCATOR_STATUS(EasyCastStructure):
     Framing: win32more.Windows.Win32.Media.KernelStreaming.KSALLOCATOR_FRAMING
     AllocatedFrames: UInt32
@@ -3605,10 +3604,10 @@ class KSWAVE_VOLUME(EasyCastStructure):
     LeftAttenuation: Int32
     RightAttenuation: Int32
 KS_AMPixAspectRatio = Int32
-KS_PixAspectRatio_NTSC4x3: KS_AMPixAspectRatio = 0
-KS_PixAspectRatio_NTSC16x9: KS_AMPixAspectRatio = 1
-KS_PixAspectRatio_PAL4x3: KS_AMPixAspectRatio = 2
-KS_PixAspectRatio_PAL16x9: KS_AMPixAspectRatio = 3
+KS_PixAspectRatio_NTSC4x3: win32more.Windows.Win32.Media.KernelStreaming.KS_AMPixAspectRatio = 0
+KS_PixAspectRatio_NTSC16x9: win32more.Windows.Win32.Media.KernelStreaming.KS_AMPixAspectRatio = 1
+KS_PixAspectRatio_PAL4x3: win32more.Windows.Win32.Media.KernelStreaming.KS_AMPixAspectRatio = 2
+KS_PixAspectRatio_PAL16x9: win32more.Windows.Win32.Media.KernelStreaming.KS_AMPixAspectRatio = 3
 class KS_AMVPDATAINFO(EasyCastStructure):
     dwSize: UInt32
     dwMicrosecondsPerField: UInt32
@@ -3633,23 +3632,23 @@ class KS_AMVPSIZE(EasyCastStructure):
     dwWidth: UInt32
     dwHeight: UInt32
 KS_AMVP_MODE = Int32
-KS_AMVP_MODE_WEAVE: KS_AMVP_MODE = 0
-KS_AMVP_MODE_BOBINTERLEAVED: KS_AMVP_MODE = 1
-KS_AMVP_MODE_BOBNONINTERLEAVED: KS_AMVP_MODE = 2
-KS_AMVP_MODE_SKIPEVEN: KS_AMVP_MODE = 3
-KS_AMVP_MODE_SKIPODD: KS_AMVP_MODE = 4
+KS_AMVP_MODE_WEAVE: win32more.Windows.Win32.Media.KernelStreaming.KS_AMVP_MODE = 0
+KS_AMVP_MODE_BOBINTERLEAVED: win32more.Windows.Win32.Media.KernelStreaming.KS_AMVP_MODE = 1
+KS_AMVP_MODE_BOBNONINTERLEAVED: win32more.Windows.Win32.Media.KernelStreaming.KS_AMVP_MODE = 2
+KS_AMVP_MODE_SKIPEVEN: win32more.Windows.Win32.Media.KernelStreaming.KS_AMVP_MODE = 3
+KS_AMVP_MODE_SKIPODD: win32more.Windows.Win32.Media.KernelStreaming.KS_AMVP_MODE = 4
 KS_AMVP_SELECTFORMATBY = Int32
-KS_AMVP_DO_NOT_CARE: KS_AMVP_SELECTFORMATBY = 0
-KS_AMVP_BEST_BANDWIDTH: KS_AMVP_SELECTFORMATBY = 1
-KS_AMVP_INPUT_SAME_AS_OUTPUT: KS_AMVP_SELECTFORMATBY = 2
+KS_AMVP_DO_NOT_CARE: win32more.Windows.Win32.Media.KernelStreaming.KS_AMVP_SELECTFORMATBY = 0
+KS_AMVP_BEST_BANDWIDTH: win32more.Windows.Win32.Media.KernelStreaming.KS_AMVP_SELECTFORMATBY = 1
+KS_AMVP_INPUT_SAME_AS_OUTPUT: win32more.Windows.Win32.Media.KernelStreaming.KS_AMVP_SELECTFORMATBY = 2
 class KS_AM_ExactRateChange(EasyCastStructure):
     OutputZeroTime: Int64
     Rate: Int32
 KS_AM_PROPERTY_TS_RATE_CHANGE = Int32
-KS_AM_RATE_SimpleRateChange: KS_AM_PROPERTY_TS_RATE_CHANGE = 1
-KS_AM_RATE_ExactRateChange: KS_AM_PROPERTY_TS_RATE_CHANGE = 2
-KS_AM_RATE_MaxFullDataRate: KS_AM_PROPERTY_TS_RATE_CHANGE = 3
-KS_AM_RATE_Step: KS_AM_PROPERTY_TS_RATE_CHANGE = 4
+KS_AM_RATE_SimpleRateChange: win32more.Windows.Win32.Media.KernelStreaming.KS_AM_PROPERTY_TS_RATE_CHANGE = 1
+KS_AM_RATE_ExactRateChange: win32more.Windows.Win32.Media.KernelStreaming.KS_AM_PROPERTY_TS_RATE_CHANGE = 2
+KS_AM_RATE_MaxFullDataRate: win32more.Windows.Win32.Media.KernelStreaming.KS_AM_PROPERTY_TS_RATE_CHANGE = 3
+KS_AM_RATE_Step: win32more.Windows.Win32.Media.KernelStreaming.KS_AM_PROPERTY_TS_RATE_CHANGE = 4
 class KS_AM_SimpleRateChange(EasyCastStructure):
     StartTime: Int64
     Rate: Int32
@@ -3660,27 +3659,27 @@ class KS_ANALOGVIDEOINFO(EasyCastStructure):
     dwActiveHeight: UInt32
     AvgTimePerFrame: Int64
 KS_AnalogVideoStandard = Int32
-KS_AnalogVideo_None: KS_AnalogVideoStandard = 0
-KS_AnalogVideo_NTSC_M: KS_AnalogVideoStandard = 1
-KS_AnalogVideo_NTSC_M_J: KS_AnalogVideoStandard = 2
-KS_AnalogVideo_NTSC_433: KS_AnalogVideoStandard = 4
-KS_AnalogVideo_PAL_B: KS_AnalogVideoStandard = 16
-KS_AnalogVideo_PAL_D: KS_AnalogVideoStandard = 32
-KS_AnalogVideo_PAL_G: KS_AnalogVideoStandard = 64
-KS_AnalogVideo_PAL_H: KS_AnalogVideoStandard = 128
-KS_AnalogVideo_PAL_I: KS_AnalogVideoStandard = 256
-KS_AnalogVideo_PAL_M: KS_AnalogVideoStandard = 512
-KS_AnalogVideo_PAL_N: KS_AnalogVideoStandard = 1024
-KS_AnalogVideo_PAL_60: KS_AnalogVideoStandard = 2048
-KS_AnalogVideo_SECAM_B: KS_AnalogVideoStandard = 4096
-KS_AnalogVideo_SECAM_D: KS_AnalogVideoStandard = 8192
-KS_AnalogVideo_SECAM_G: KS_AnalogVideoStandard = 16384
-KS_AnalogVideo_SECAM_H: KS_AnalogVideoStandard = 32768
-KS_AnalogVideo_SECAM_K: KS_AnalogVideoStandard = 65536
-KS_AnalogVideo_SECAM_K1: KS_AnalogVideoStandard = 131072
-KS_AnalogVideo_SECAM_L: KS_AnalogVideoStandard = 262144
-KS_AnalogVideo_SECAM_L1: KS_AnalogVideoStandard = 524288
-KS_AnalogVideo_PAL_N_COMBO: KS_AnalogVideoStandard = 1048576
+KS_AnalogVideo_None: win32more.Windows.Win32.Media.KernelStreaming.KS_AnalogVideoStandard = 0
+KS_AnalogVideo_NTSC_M: win32more.Windows.Win32.Media.KernelStreaming.KS_AnalogVideoStandard = 1
+KS_AnalogVideo_NTSC_M_J: win32more.Windows.Win32.Media.KernelStreaming.KS_AnalogVideoStandard = 2
+KS_AnalogVideo_NTSC_433: win32more.Windows.Win32.Media.KernelStreaming.KS_AnalogVideoStandard = 4
+KS_AnalogVideo_PAL_B: win32more.Windows.Win32.Media.KernelStreaming.KS_AnalogVideoStandard = 16
+KS_AnalogVideo_PAL_D: win32more.Windows.Win32.Media.KernelStreaming.KS_AnalogVideoStandard = 32
+KS_AnalogVideo_PAL_G: win32more.Windows.Win32.Media.KernelStreaming.KS_AnalogVideoStandard = 64
+KS_AnalogVideo_PAL_H: win32more.Windows.Win32.Media.KernelStreaming.KS_AnalogVideoStandard = 128
+KS_AnalogVideo_PAL_I: win32more.Windows.Win32.Media.KernelStreaming.KS_AnalogVideoStandard = 256
+KS_AnalogVideo_PAL_M: win32more.Windows.Win32.Media.KernelStreaming.KS_AnalogVideoStandard = 512
+KS_AnalogVideo_PAL_N: win32more.Windows.Win32.Media.KernelStreaming.KS_AnalogVideoStandard = 1024
+KS_AnalogVideo_PAL_60: win32more.Windows.Win32.Media.KernelStreaming.KS_AnalogVideoStandard = 2048
+KS_AnalogVideo_SECAM_B: win32more.Windows.Win32.Media.KernelStreaming.KS_AnalogVideoStandard = 4096
+KS_AnalogVideo_SECAM_D: win32more.Windows.Win32.Media.KernelStreaming.KS_AnalogVideoStandard = 8192
+KS_AnalogVideo_SECAM_G: win32more.Windows.Win32.Media.KernelStreaming.KS_AnalogVideoStandard = 16384
+KS_AnalogVideo_SECAM_H: win32more.Windows.Win32.Media.KernelStreaming.KS_AnalogVideoStandard = 32768
+KS_AnalogVideo_SECAM_K: win32more.Windows.Win32.Media.KernelStreaming.KS_AnalogVideoStandard = 65536
+KS_AnalogVideo_SECAM_K1: win32more.Windows.Win32.Media.KernelStreaming.KS_AnalogVideoStandard = 131072
+KS_AnalogVideo_SECAM_L: win32more.Windows.Win32.Media.KernelStreaming.KS_AnalogVideoStandard = 262144
+KS_AnalogVideo_SECAM_L1: win32more.Windows.Win32.Media.KernelStreaming.KS_AnalogVideoStandard = 524288
+KS_AnalogVideo_PAL_N_COMBO: win32more.Windows.Win32.Media.KernelStreaming.KS_AnalogVideoStandard = 1048576
 class KS_BITMAPINFOHEADER(EasyCastStructure):
     biSize: UInt32
     biWidth: Int32
@@ -3705,20 +3704,20 @@ class KS_COMPRESSION(EasyCastStructure):
 class KS_COPY_MACROVISION(EasyCastStructure):
     MACROVISIONLevel: UInt32
 KS_COPY_MACROVISION_LEVEL = Int32
-KS_MACROVISION_DISABLED: KS_COPY_MACROVISION_LEVEL = 0
-KS_MACROVISION_LEVEL1: KS_COPY_MACROVISION_LEVEL = 1
-KS_MACROVISION_LEVEL2: KS_COPY_MACROVISION_LEVEL = 2
-KS_MACROVISION_LEVEL3: KS_COPY_MACROVISION_LEVEL = 3
+KS_MACROVISION_DISABLED: win32more.Windows.Win32.Media.KernelStreaming.KS_COPY_MACROVISION_LEVEL = 0
+KS_MACROVISION_LEVEL1: win32more.Windows.Win32.Media.KernelStreaming.KS_COPY_MACROVISION_LEVEL = 1
+KS_MACROVISION_LEVEL2: win32more.Windows.Win32.Media.KernelStreaming.KS_COPY_MACROVISION_LEVEL = 2
+KS_MACROVISION_LEVEL3: win32more.Windows.Win32.Media.KernelStreaming.KS_COPY_MACROVISION_LEVEL = 3
 KS_CameraControlAsyncOperation = Int32
-KS_CAMERACONTROL_ASYNC_START: KS_CameraControlAsyncOperation = 1
-KS_CAMERACONTROL_ASYNC_STOP: KS_CameraControlAsyncOperation = 2
-KS_CAMERACONTROL_ASYNC_RESET: KS_CameraControlAsyncOperation = 3
+KS_CAMERACONTROL_ASYNC_START: win32more.Windows.Win32.Media.KernelStreaming.KS_CameraControlAsyncOperation = 1
+KS_CAMERACONTROL_ASYNC_STOP: win32more.Windows.Win32.Media.KernelStreaming.KS_CameraControlAsyncOperation = 2
+KS_CAMERACONTROL_ASYNC_RESET: win32more.Windows.Win32.Media.KernelStreaming.KS_CameraControlAsyncOperation = 3
 KS_CompressionCaps = Int32
-KS_CompressionCaps_CanQuality: KS_CompressionCaps = 1
-KS_CompressionCaps_CanCrunch: KS_CompressionCaps = 2
-KS_CompressionCaps_CanKeyFrame: KS_CompressionCaps = 4
-KS_CompressionCaps_CanBFrame: KS_CompressionCaps = 8
-KS_CompressionCaps_CanWindow: KS_CompressionCaps = 16
+KS_CompressionCaps_CanQuality: win32more.Windows.Win32.Media.KernelStreaming.KS_CompressionCaps = 1
+KS_CompressionCaps_CanCrunch: win32more.Windows.Win32.Media.KernelStreaming.KS_CompressionCaps = 2
+KS_CompressionCaps_CanKeyFrame: win32more.Windows.Win32.Media.KernelStreaming.KS_CompressionCaps = 4
+KS_CompressionCaps_CanBFrame: win32more.Windows.Win32.Media.KernelStreaming.KS_CompressionCaps = 8
+KS_CompressionCaps_CanWindow: win32more.Windows.Win32.Media.KernelStreaming.KS_CompressionCaps = 16
 class KS_DATAFORMAT_H264VIDEOINFO(EasyCastStructure):
     DataFormat: win32more.Windows.Win32.Media.KernelStreaming.KSDATAFORMAT
     H264VideoInfoHeader: win32more.Windows.Win32.Media.KernelStreaming.KS_H264VIDEOINFO
@@ -3804,11 +3803,11 @@ class KS_DATARANGE_VIDEO_VBI(EasyCastStructure):
     ConfigCaps: win32more.Windows.Win32.Media.KernelStreaming.KS_VIDEO_STREAM_CONFIG_CAPS
     VBIInfoHeader: win32more.Windows.Win32.Media.KernelStreaming.KS_VBIINFOHEADER
 KS_DVDCOPYSTATE = Int32
-KS_DVDCOPYSTATE_INITIALIZE: KS_DVDCOPYSTATE = 0
-KS_DVDCOPYSTATE_INITIALIZE_TITLE: KS_DVDCOPYSTATE = 1
-KS_DVDCOPYSTATE_AUTHENTICATION_NOT_REQUIRED: KS_DVDCOPYSTATE = 2
-KS_DVDCOPYSTATE_AUTHENTICATION_REQUIRED: KS_DVDCOPYSTATE = 3
-KS_DVDCOPYSTATE_DONE: KS_DVDCOPYSTATE = 4
+KS_DVDCOPYSTATE_INITIALIZE: win32more.Windows.Win32.Media.KernelStreaming.KS_DVDCOPYSTATE = 0
+KS_DVDCOPYSTATE_INITIALIZE_TITLE: win32more.Windows.Win32.Media.KernelStreaming.KS_DVDCOPYSTATE = 1
+KS_DVDCOPYSTATE_AUTHENTICATION_NOT_REQUIRED: win32more.Windows.Win32.Media.KernelStreaming.KS_DVDCOPYSTATE = 2
+KS_DVDCOPYSTATE_AUTHENTICATION_REQUIRED: win32more.Windows.Win32.Media.KernelStreaming.KS_DVDCOPYSTATE = 3
+KS_DVDCOPYSTATE_DONE: win32more.Windows.Win32.Media.KernelStreaming.KS_DVDCOPYSTATE = 4
 class KS_DVDCOPY_BUSKEY(EasyCastStructure):
     BusKey: Byte * 5
     Reserved: Byte * 1
@@ -3920,29 +3919,29 @@ class KS_H264VIDEOINFO(EasyCastStructure):
     wMaxMBperSecThreeResolutionsFullScalability: UInt16
     wMaxMBperSecFourResolutionsFullScalability: UInt16
 KS_LogicalMemoryType = Int32
-KS_MemoryTypeDontCare: KS_LogicalMemoryType = 0
-KS_MemoryTypeKernelPaged: KS_LogicalMemoryType = 1
-KS_MemoryTypeKernelNonPaged: KS_LogicalMemoryType = 2
-KS_MemoryTypeDeviceHostMapped: KS_LogicalMemoryType = 3
-KS_MemoryTypeDeviceSpecific: KS_LogicalMemoryType = 4
-KS_MemoryTypeUser: KS_LogicalMemoryType = 5
-KS_MemoryTypeAnyHost: KS_LogicalMemoryType = 6
+KS_MemoryTypeDontCare: win32more.Windows.Win32.Media.KernelStreaming.KS_LogicalMemoryType = 0
+KS_MemoryTypeKernelPaged: win32more.Windows.Win32.Media.KernelStreaming.KS_LogicalMemoryType = 1
+KS_MemoryTypeKernelNonPaged: win32more.Windows.Win32.Media.KernelStreaming.KS_LogicalMemoryType = 2
+KS_MemoryTypeDeviceHostMapped: win32more.Windows.Win32.Media.KernelStreaming.KS_LogicalMemoryType = 3
+KS_MemoryTypeDeviceSpecific: win32more.Windows.Win32.Media.KernelStreaming.KS_LogicalMemoryType = 4
+KS_MemoryTypeUser: win32more.Windows.Win32.Media.KernelStreaming.KS_LogicalMemoryType = 5
+KS_MemoryTypeAnyHost: win32more.Windows.Win32.Media.KernelStreaming.KS_LogicalMemoryType = 6
 class KS_MPEG1VIDEOINFO(EasyCastStructure):
     hdr: win32more.Windows.Win32.Media.KernelStreaming.KS_VIDEOINFOHEADER
     dwStartTimeCode: UInt32
     cbSequenceHeader: UInt32
     bSequenceHeader: Byte * 1
 KS_MPEG2Level = Int32
-KS_MPEG2Level_Low: KS_MPEG2Level = 0
-KS_MPEG2Level_Main: KS_MPEG2Level = 1
-KS_MPEG2Level_High1440: KS_MPEG2Level = 2
-KS_MPEG2Level_High: KS_MPEG2Level = 3
+KS_MPEG2Level_Low: win32more.Windows.Win32.Media.KernelStreaming.KS_MPEG2Level = 0
+KS_MPEG2Level_Main: win32more.Windows.Win32.Media.KernelStreaming.KS_MPEG2Level = 1
+KS_MPEG2Level_High1440: win32more.Windows.Win32.Media.KernelStreaming.KS_MPEG2Level = 2
+KS_MPEG2Level_High: win32more.Windows.Win32.Media.KernelStreaming.KS_MPEG2Level = 3
 KS_MPEG2Profile = Int32
-KS_MPEG2Profile_Simple: KS_MPEG2Profile = 0
-KS_MPEG2Profile_Main: KS_MPEG2Profile = 1
-KS_MPEG2Profile_SNRScalable: KS_MPEG2Profile = 2
-KS_MPEG2Profile_SpatiallyScalable: KS_MPEG2Profile = 3
-KS_MPEG2Profile_High: KS_MPEG2Profile = 4
+KS_MPEG2Profile_Simple: win32more.Windows.Win32.Media.KernelStreaming.KS_MPEG2Profile = 0
+KS_MPEG2Profile_Main: win32more.Windows.Win32.Media.KernelStreaming.KS_MPEG2Profile = 1
+KS_MPEG2Profile_SNRScalable: win32more.Windows.Win32.Media.KernelStreaming.KS_MPEG2Profile = 2
+KS_MPEG2Profile_SpatiallyScalable: win32more.Windows.Win32.Media.KernelStreaming.KS_MPEG2Profile = 3
+KS_MPEG2Profile_High: win32more.Windows.Win32.Media.KernelStreaming.KS_MPEG2Profile = 4
 class KS_MPEGAUDIOINFO(EasyCastStructure):
     dwFlags: UInt32
     dwReserved1: UInt32
@@ -3957,30 +3956,30 @@ class KS_MPEGVIDEOINFO2(EasyCastStructure):
     dwFlags: UInt32
     bSequenceHeader: UInt32 * 1
 KS_PhysicalConnectorType = Int32
-KS_PhysConn_Video_Tuner: KS_PhysicalConnectorType = 1
-KS_PhysConn_Video_Composite: KS_PhysicalConnectorType = 2
-KS_PhysConn_Video_SVideo: KS_PhysicalConnectorType = 3
-KS_PhysConn_Video_RGB: KS_PhysicalConnectorType = 4
-KS_PhysConn_Video_YRYBY: KS_PhysicalConnectorType = 5
-KS_PhysConn_Video_SerialDigital: KS_PhysicalConnectorType = 6
-KS_PhysConn_Video_ParallelDigital: KS_PhysicalConnectorType = 7
-KS_PhysConn_Video_SCSI: KS_PhysicalConnectorType = 8
-KS_PhysConn_Video_AUX: KS_PhysicalConnectorType = 9
-KS_PhysConn_Video_1394: KS_PhysicalConnectorType = 10
-KS_PhysConn_Video_USB: KS_PhysicalConnectorType = 11
-KS_PhysConn_Video_VideoDecoder: KS_PhysicalConnectorType = 12
-KS_PhysConn_Video_VideoEncoder: KS_PhysicalConnectorType = 13
-KS_PhysConn_Video_SCART: KS_PhysicalConnectorType = 14
-KS_PhysConn_Audio_Tuner: KS_PhysicalConnectorType = 4096
-KS_PhysConn_Audio_Line: KS_PhysicalConnectorType = 4097
-KS_PhysConn_Audio_Mic: KS_PhysicalConnectorType = 4098
-KS_PhysConn_Audio_AESDigital: KS_PhysicalConnectorType = 4099
-KS_PhysConn_Audio_SPDIFDigital: KS_PhysicalConnectorType = 4100
-KS_PhysConn_Audio_SCSI: KS_PhysicalConnectorType = 4101
-KS_PhysConn_Audio_AUX: KS_PhysicalConnectorType = 4102
-KS_PhysConn_Audio_1394: KS_PhysicalConnectorType = 4103
-KS_PhysConn_Audio_USB: KS_PhysicalConnectorType = 4104
-KS_PhysConn_Audio_AudioDecoder: KS_PhysicalConnectorType = 4105
+KS_PhysConn_Video_Tuner: win32more.Windows.Win32.Media.KernelStreaming.KS_PhysicalConnectorType = 1
+KS_PhysConn_Video_Composite: win32more.Windows.Win32.Media.KernelStreaming.KS_PhysicalConnectorType = 2
+KS_PhysConn_Video_SVideo: win32more.Windows.Win32.Media.KernelStreaming.KS_PhysicalConnectorType = 3
+KS_PhysConn_Video_RGB: win32more.Windows.Win32.Media.KernelStreaming.KS_PhysicalConnectorType = 4
+KS_PhysConn_Video_YRYBY: win32more.Windows.Win32.Media.KernelStreaming.KS_PhysicalConnectorType = 5
+KS_PhysConn_Video_SerialDigital: win32more.Windows.Win32.Media.KernelStreaming.KS_PhysicalConnectorType = 6
+KS_PhysConn_Video_ParallelDigital: win32more.Windows.Win32.Media.KernelStreaming.KS_PhysicalConnectorType = 7
+KS_PhysConn_Video_SCSI: win32more.Windows.Win32.Media.KernelStreaming.KS_PhysicalConnectorType = 8
+KS_PhysConn_Video_AUX: win32more.Windows.Win32.Media.KernelStreaming.KS_PhysicalConnectorType = 9
+KS_PhysConn_Video_1394: win32more.Windows.Win32.Media.KernelStreaming.KS_PhysicalConnectorType = 10
+KS_PhysConn_Video_USB: win32more.Windows.Win32.Media.KernelStreaming.KS_PhysicalConnectorType = 11
+KS_PhysConn_Video_VideoDecoder: win32more.Windows.Win32.Media.KernelStreaming.KS_PhysicalConnectorType = 12
+KS_PhysConn_Video_VideoEncoder: win32more.Windows.Win32.Media.KernelStreaming.KS_PhysicalConnectorType = 13
+KS_PhysConn_Video_SCART: win32more.Windows.Win32.Media.KernelStreaming.KS_PhysicalConnectorType = 14
+KS_PhysConn_Audio_Tuner: win32more.Windows.Win32.Media.KernelStreaming.KS_PhysicalConnectorType = 4096
+KS_PhysConn_Audio_Line: win32more.Windows.Win32.Media.KernelStreaming.KS_PhysicalConnectorType = 4097
+KS_PhysConn_Audio_Mic: win32more.Windows.Win32.Media.KernelStreaming.KS_PhysicalConnectorType = 4098
+KS_PhysConn_Audio_AESDigital: win32more.Windows.Win32.Media.KernelStreaming.KS_PhysicalConnectorType = 4099
+KS_PhysConn_Audio_SPDIFDigital: win32more.Windows.Win32.Media.KernelStreaming.KS_PhysicalConnectorType = 4100
+KS_PhysConn_Audio_SCSI: win32more.Windows.Win32.Media.KernelStreaming.KS_PhysicalConnectorType = 4101
+KS_PhysConn_Audio_AUX: win32more.Windows.Win32.Media.KernelStreaming.KS_PhysicalConnectorType = 4102
+KS_PhysConn_Audio_1394: win32more.Windows.Win32.Media.KernelStreaming.KS_PhysicalConnectorType = 4103
+KS_PhysConn_Audio_USB: win32more.Windows.Win32.Media.KernelStreaming.KS_PhysicalConnectorType = 4104
+KS_PhysConn_Audio_AudioDecoder: win32more.Windows.Win32.Media.KernelStreaming.KS_PhysicalConnectorType = 4105
 class KS_RGBQUAD(EasyCastStructure):
     rgbBlue: Byte
     rgbGreen: Byte
@@ -3988,32 +3987,32 @@ class KS_RGBQUAD(EasyCastStructure):
     rgbReserved: Byte
 KS_SECURE_CAMERA_SCENARIO_ID = Guid('{ae53fc6e-8d89-4488-9d2e-4d008731c5fd}')
 KS_SEEKING_CAPABILITIES = Int32
-KS_SEEKING_CanSeekAbsolute: KS_SEEKING_CAPABILITIES = 1
-KS_SEEKING_CanSeekForwards: KS_SEEKING_CAPABILITIES = 2
-KS_SEEKING_CanSeekBackwards: KS_SEEKING_CAPABILITIES = 4
-KS_SEEKING_CanGetCurrentPos: KS_SEEKING_CAPABILITIES = 8
-KS_SEEKING_CanGetStopPos: KS_SEEKING_CAPABILITIES = 16
-KS_SEEKING_CanGetDuration: KS_SEEKING_CAPABILITIES = 32
-KS_SEEKING_CanPlayBackwards: KS_SEEKING_CAPABILITIES = 64
+KS_SEEKING_CanSeekAbsolute: win32more.Windows.Win32.Media.KernelStreaming.KS_SEEKING_CAPABILITIES = 1
+KS_SEEKING_CanSeekForwards: win32more.Windows.Win32.Media.KernelStreaming.KS_SEEKING_CAPABILITIES = 2
+KS_SEEKING_CanSeekBackwards: win32more.Windows.Win32.Media.KernelStreaming.KS_SEEKING_CAPABILITIES = 4
+KS_SEEKING_CanGetCurrentPos: win32more.Windows.Win32.Media.KernelStreaming.KS_SEEKING_CAPABILITIES = 8
+KS_SEEKING_CanGetStopPos: win32more.Windows.Win32.Media.KernelStreaming.KS_SEEKING_CAPABILITIES = 16
+KS_SEEKING_CanGetDuration: win32more.Windows.Win32.Media.KernelStreaming.KS_SEEKING_CAPABILITIES = 32
+KS_SEEKING_CanPlayBackwards: win32more.Windows.Win32.Media.KernelStreaming.KS_SEEKING_CAPABILITIES = 64
 KS_SEEKING_FLAGS = Int32
-KS_SEEKING_NoPositioning: KS_SEEKING_FLAGS = 0
-KS_SEEKING_AbsolutePositioning: KS_SEEKING_FLAGS = 1
-KS_SEEKING_RelativePositioning: KS_SEEKING_FLAGS = 2
-KS_SEEKING_IncrementalPositioning: KS_SEEKING_FLAGS = 3
-KS_SEEKING_PositioningBitsMask: KS_SEEKING_FLAGS = 3
-KS_SEEKING_SeekToKeyFrame: KS_SEEKING_FLAGS = 4
-KS_SEEKING_ReturnTime: KS_SEEKING_FLAGS = 8
+KS_SEEKING_NoPositioning: win32more.Windows.Win32.Media.KernelStreaming.KS_SEEKING_FLAGS = 0
+KS_SEEKING_AbsolutePositioning: win32more.Windows.Win32.Media.KernelStreaming.KS_SEEKING_FLAGS = 1
+KS_SEEKING_RelativePositioning: win32more.Windows.Win32.Media.KernelStreaming.KS_SEEKING_FLAGS = 2
+KS_SEEKING_IncrementalPositioning: win32more.Windows.Win32.Media.KernelStreaming.KS_SEEKING_FLAGS = 3
+KS_SEEKING_PositioningBitsMask: win32more.Windows.Win32.Media.KernelStreaming.KS_SEEKING_FLAGS = 3
+KS_SEEKING_SeekToKeyFrame: win32more.Windows.Win32.Media.KernelStreaming.KS_SEEKING_FLAGS = 4
+KS_SEEKING_ReturnTime: win32more.Windows.Win32.Media.KernelStreaming.KS_SEEKING_FLAGS = 8
 class KS_TRUECOLORINFO(EasyCastStructure):
     dwBitMasks: UInt32 * 3
     bmiColors: win32more.Windows.Win32.Media.KernelStreaming.KS_RGBQUAD * 256
 KS_TUNER_STRATEGY = Int32
-KS_TUNER_STRATEGY_PLL: KS_TUNER_STRATEGY = 1
-KS_TUNER_STRATEGY_SIGNAL_STRENGTH: KS_TUNER_STRATEGY = 2
-KS_TUNER_STRATEGY_DRIVER_TUNES: KS_TUNER_STRATEGY = 4
+KS_TUNER_STRATEGY_PLL: win32more.Windows.Win32.Media.KernelStreaming.KS_TUNER_STRATEGY = 1
+KS_TUNER_STRATEGY_SIGNAL_STRENGTH: win32more.Windows.Win32.Media.KernelStreaming.KS_TUNER_STRATEGY = 2
+KS_TUNER_STRATEGY_DRIVER_TUNES: win32more.Windows.Win32.Media.KernelStreaming.KS_TUNER_STRATEGY = 4
 KS_TUNER_TUNING_FLAGS = Int32
-KS_TUNER_TUNING_EXACT: KS_TUNER_TUNING_FLAGS = 1
-KS_TUNER_TUNING_FINE: KS_TUNER_TUNING_FLAGS = 2
-KS_TUNER_TUNING_COARSE: KS_TUNER_TUNING_FLAGS = 3
+KS_TUNER_TUNING_EXACT: win32more.Windows.Win32.Media.KernelStreaming.KS_TUNER_TUNING_FLAGS = 1
+KS_TUNER_TUNING_FINE: win32more.Windows.Win32.Media.KernelStreaming.KS_TUNER_TUNING_FLAGS = 2
+KS_TUNER_TUNING_COARSE: win32more.Windows.Win32.Media.KernelStreaming.KS_TUNER_TUNING_FLAGS = 3
 class KS_TVTUNER_CHANGE_INFO(EasyCastStructure):
     dwFlags: UInt32
     dwCountryCode: UInt32
@@ -4040,9 +4039,9 @@ class KS_VBI_FRAME_INFO(EasyCastStructure):
     TvTunerChangeInfo: win32more.Windows.Win32.Media.KernelStreaming.KS_TVTUNER_CHANGE_INFO
     VBIInfoHeader: win32more.Windows.Win32.Media.KernelStreaming.KS_VBIINFOHEADER
 KS_VIDEODECODER_FLAGS = Int32
-KS_VIDEODECODER_FLAGS_CAN_DISABLE_OUTPUT: KS_VIDEODECODER_FLAGS = 1
-KS_VIDEODECODER_FLAGS_CAN_USE_VCR_LOCKING: KS_VIDEODECODER_FLAGS = 2
-KS_VIDEODECODER_FLAGS_CAN_INDICATE_LOCKED: KS_VIDEODECODER_FLAGS = 4
+KS_VIDEODECODER_FLAGS_CAN_DISABLE_OUTPUT: win32more.Windows.Win32.Media.KernelStreaming.KS_VIDEODECODER_FLAGS = 1
+KS_VIDEODECODER_FLAGS_CAN_USE_VCR_LOCKING: win32more.Windows.Win32.Media.KernelStreaming.KS_VIDEODECODER_FLAGS = 2
+KS_VIDEODECODER_FLAGS_CAN_INDICATE_LOCKED: win32more.Windows.Win32.Media.KernelStreaming.KS_VIDEODECODER_FLAGS = 4
 class KS_VIDEOINFO(EasyCastStructure):
     rcSource: win32more.Windows.Win32.Foundation.RECT
     rcTarget: win32more.Windows.Win32.Foundation.RECT
@@ -4101,22 +4100,22 @@ class KS_VIDEO_STREAM_CONFIG_CAPS(EasyCastStructure):
     MinBitsPerSecond: Int32
     MaxBitsPerSecond: Int32
 KS_VideoControlFlags = Int32
-KS_VideoControlFlag_FlipHorizontal: KS_VideoControlFlags = 1
-KS_VideoControlFlag_FlipVertical: KS_VideoControlFlags = 2
-KS_Obsolete_VideoControlFlag_ExternalTriggerEnable: KS_VideoControlFlags = 16
-KS_Obsolete_VideoControlFlag_Trigger: KS_VideoControlFlags = 32
-KS_VideoControlFlag_ExternalTriggerEnable: KS_VideoControlFlags = 4
-KS_VideoControlFlag_Trigger: KS_VideoControlFlags = 8
-KS_VideoControlFlag_IndependentImagePin: KS_VideoControlFlags = 64
-KS_VideoControlFlag_StillCapturePreviewFrame: KS_VideoControlFlags = 128
-KS_VideoControlFlag_StartPhotoSequenceCapture: KS_VideoControlFlags = 256
-KS_VideoControlFlag_StopPhotoSequenceCapture: KS_VideoControlFlags = 512
+KS_VideoControlFlag_FlipHorizontal: win32more.Windows.Win32.Media.KernelStreaming.KS_VideoControlFlags = 1
+KS_VideoControlFlag_FlipVertical: win32more.Windows.Win32.Media.KernelStreaming.KS_VideoControlFlags = 2
+KS_Obsolete_VideoControlFlag_ExternalTriggerEnable: win32more.Windows.Win32.Media.KernelStreaming.KS_VideoControlFlags = 16
+KS_Obsolete_VideoControlFlag_Trigger: win32more.Windows.Win32.Media.KernelStreaming.KS_VideoControlFlags = 32
+KS_VideoControlFlag_ExternalTriggerEnable: win32more.Windows.Win32.Media.KernelStreaming.KS_VideoControlFlags = 4
+KS_VideoControlFlag_Trigger: win32more.Windows.Win32.Media.KernelStreaming.KS_VideoControlFlags = 8
+KS_VideoControlFlag_IndependentImagePin: win32more.Windows.Win32.Media.KernelStreaming.KS_VideoControlFlags = 64
+KS_VideoControlFlag_StillCapturePreviewFrame: win32more.Windows.Win32.Media.KernelStreaming.KS_VideoControlFlags = 128
+KS_VideoControlFlag_StartPhotoSequenceCapture: win32more.Windows.Win32.Media.KernelStreaming.KS_VideoControlFlags = 256
+KS_VideoControlFlag_StopPhotoSequenceCapture: win32more.Windows.Win32.Media.KernelStreaming.KS_VideoControlFlags = 512
 KS_VideoStreamingHints = Int32
-KS_StreamingHint_FrameInterval: KS_VideoStreamingHints = 256
-KS_StreamingHint_KeyFrameRate: KS_VideoStreamingHints = 512
-KS_StreamingHint_PFrameRate: KS_VideoStreamingHints = 1024
-KS_StreamingHint_CompQuality: KS_VideoStreamingHints = 2048
-KS_StreamingHint_CompWindowSize: KS_VideoStreamingHints = 4096
+KS_StreamingHint_FrameInterval: win32more.Windows.Win32.Media.KernelStreaming.KS_VideoStreamingHints = 256
+KS_StreamingHint_KeyFrameRate: win32more.Windows.Win32.Media.KernelStreaming.KS_VideoStreamingHints = 512
+KS_StreamingHint_PFrameRate: win32more.Windows.Win32.Media.KernelStreaming.KS_VideoStreamingHints = 1024
+KS_StreamingHint_CompQuality: win32more.Windows.Win32.Media.KernelStreaming.KS_VideoStreamingHints = 2048
+KS_StreamingHint_CompWindowSize: win32more.Windows.Win32.Media.KernelStreaming.KS_VideoStreamingHints = 4096
 class LOOPEDSTREAMING_POSITION_EVENT_DATA(EasyCastStructure):
     KsEventData: win32more.Windows.Win32.Media.KernelStreaming.KSEVENTDATA
     Position: UInt64
@@ -4168,20 +4167,20 @@ PINNAME_VIDEO_VBI = Guid('{fb6c4284-0353-11d1-905f-0000c0cc16ba}')
 PINNAME_VIDEO_VIDEOPORT = Guid('{fb6c4285-0353-11d1-905f-0000c0cc16ba}')
 PINNAME_VIDEO_VIDEOPORT_VBI = Guid('{fb6c428c-0353-11d1-905f-0000c0cc16ba}')
 PIPE_ALLOCATOR_PLACE = Int32
-Pipe_Allocator_None: PIPE_ALLOCATOR_PLACE = 0
-Pipe_Allocator_FirstPin: PIPE_ALLOCATOR_PLACE = 1
-Pipe_Allocator_LastPin: PIPE_ALLOCATOR_PLACE = 2
-Pipe_Allocator_MiddlePin: PIPE_ALLOCATOR_PLACE = 3
+Pipe_Allocator_None: win32more.Windows.Win32.Media.KernelStreaming.PIPE_ALLOCATOR_PLACE = 0
+Pipe_Allocator_FirstPin: win32more.Windows.Win32.Media.KernelStreaming.PIPE_ALLOCATOR_PLACE = 1
+Pipe_Allocator_LastPin: win32more.Windows.Win32.Media.KernelStreaming.PIPE_ALLOCATOR_PLACE = 2
+Pipe_Allocator_MiddlePin: win32more.Windows.Win32.Media.KernelStreaming.PIPE_ALLOCATOR_PLACE = 3
 class PIPE_DIMENSIONS(EasyCastStructure):
     AllocatorPin: win32more.Windows.Win32.Media.KernelStreaming.KS_COMPRESSION
     MaxExpansionPin: win32more.Windows.Win32.Media.KernelStreaming.KS_COMPRESSION
     EndPin: win32more.Windows.Win32.Media.KernelStreaming.KS_COMPRESSION
 PIPE_STATE = Int32
-PipeState_DontCare: PIPE_STATE = 0
-PipeState_RangeNotFixed: PIPE_STATE = 1
-PipeState_RangeFixed: PIPE_STATE = 2
-PipeState_CompressionUnknown: PIPE_STATE = 3
-PipeState_Finalized: PIPE_STATE = 4
+PipeState_DontCare: win32more.Windows.Win32.Media.KernelStreaming.PIPE_STATE = 0
+PipeState_RangeNotFixed: win32more.Windows.Win32.Media.KernelStreaming.PIPE_STATE = 1
+PipeState_RangeFixed: win32more.Windows.Win32.Media.KernelStreaming.PIPE_STATE = 2
+PipeState_CompressionUnknown: win32more.Windows.Win32.Media.KernelStreaming.PIPE_STATE = 3
+PipeState_Finalized: win32more.Windows.Win32.Media.KernelStreaming.PIPE_STATE = 4
 class PIPE_TERMINATION(EasyCastStructure):
     Flags: UInt32
     OutsideFactors: UInt32
@@ -4217,21 +4216,21 @@ class SOUNDDETECTOR_PATTERNHEADER(EasyCastStructure):
     Size: UInt32
     PatternType: Guid
 TELEPHONY_CALLCONTROLOP = Int32
-TELEPHONY_CALLCONTROLOP_DISABLE: TELEPHONY_CALLCONTROLOP = 0
-TELEPHONY_CALLCONTROLOP_ENABLE: TELEPHONY_CALLCONTROLOP = 1
+TELEPHONY_CALLCONTROLOP_DISABLE: win32more.Windows.Win32.Media.KernelStreaming.TELEPHONY_CALLCONTROLOP = 0
+TELEPHONY_CALLCONTROLOP_ENABLE: win32more.Windows.Win32.Media.KernelStreaming.TELEPHONY_CALLCONTROLOP = 1
 TELEPHONY_CALLSTATE = Int32
-TELEPHONY_CALLSTATE_DISABLED: TELEPHONY_CALLSTATE = 0
-TELEPHONY_CALLSTATE_ENABLED: TELEPHONY_CALLSTATE = 1
-TELEPHONY_CALLSTATE_HOLD: TELEPHONY_CALLSTATE = 2
-TELEPHONY_CALLSTATE_PROVIDERTRANSITION: TELEPHONY_CALLSTATE = 3
+TELEPHONY_CALLSTATE_DISABLED: win32more.Windows.Win32.Media.KernelStreaming.TELEPHONY_CALLSTATE = 0
+TELEPHONY_CALLSTATE_ENABLED: win32more.Windows.Win32.Media.KernelStreaming.TELEPHONY_CALLSTATE = 1
+TELEPHONY_CALLSTATE_HOLD: win32more.Windows.Win32.Media.KernelStreaming.TELEPHONY_CALLSTATE = 2
+TELEPHONY_CALLSTATE_PROVIDERTRANSITION: win32more.Windows.Win32.Media.KernelStreaming.TELEPHONY_CALLSTATE = 3
 TELEPHONY_CALLTYPE = Int32
-TELEPHONY_CALLTYPE_CIRCUITSWITCHED: TELEPHONY_CALLTYPE = 0
-TELEPHONY_CALLTYPE_PACKETSWITCHED_LTE: TELEPHONY_CALLTYPE = 1
-TELEPHONY_CALLTYPE_PACKETSWITCHED_WLAN: TELEPHONY_CALLTYPE = 2
+TELEPHONY_CALLTYPE_CIRCUITSWITCHED: win32more.Windows.Win32.Media.KernelStreaming.TELEPHONY_CALLTYPE = 0
+TELEPHONY_CALLTYPE_PACKETSWITCHED_LTE: win32more.Windows.Win32.Media.KernelStreaming.TELEPHONY_CALLTYPE = 1
+TELEPHONY_CALLTYPE_PACKETSWITCHED_WLAN: win32more.Windows.Win32.Media.KernelStreaming.TELEPHONY_CALLTYPE = 2
 TELEPHONY_PROVIDERCHANGEOP = Int32
-TELEPHONY_PROVIDERCHANGEOP_END: TELEPHONY_PROVIDERCHANGEOP = 0
-TELEPHONY_PROVIDERCHANGEOP_BEGIN: TELEPHONY_PROVIDERCHANGEOP = 1
-TELEPHONY_PROVIDERCHANGEOP_CANCEL: TELEPHONY_PROVIDERCHANGEOP = 2
+TELEPHONY_PROVIDERCHANGEOP_END: win32more.Windows.Win32.Media.KernelStreaming.TELEPHONY_PROVIDERCHANGEOP = 0
+TELEPHONY_PROVIDERCHANGEOP_BEGIN: win32more.Windows.Win32.Media.KernelStreaming.TELEPHONY_PROVIDERCHANGEOP = 1
+TELEPHONY_PROVIDERCHANGEOP_CANCEL: win32more.Windows.Win32.Media.KernelStreaming.TELEPHONY_PROVIDERCHANGEOP = 2
 class TRANSPORTAUDIOPARMS(EasyCastStructure):
     EnableOutput: Int32
     EnableRecord: Int32
@@ -4299,9 +4298,9 @@ class TUNER_ANALOG_CAPS_S(EasyCastStructure):
     ScanSensingRange: UInt32
     FineTuneSensingRange: UInt32
 TunerLockType = Int32
-Tuner_LockType_None: TunerLockType = 0
-Tuner_LockType_Within_Scan_Sensing_Range: TunerLockType = 1
-Tuner_LockType_Locked: TunerLockType = 2
+Tuner_LockType_None: win32more.Windows.Win32.Media.KernelStreaming.TunerLockType = 0
+Tuner_LockType_Within_Scan_Sensing_Range: win32more.Windows.Win32.Media.KernelStreaming.TunerLockType = 1
+Tuner_LockType_Locked: win32more.Windows.Win32.Media.KernelStreaming.TunerLockType = 2
 class VBICAP_PROPERTIES_PROTECTION_S(EasyCastStructure):
     Property: win32more.Windows.Win32.Media.KernelStreaming.KSIDENTIFIER
     StreamIndex: UInt32
@@ -4378,4 +4377,6 @@ class WST_BUFFER(EasyCastStructure):
 class WST_BUFFER_LINE(EasyCastStructure):
     Confidence: Byte
     Bytes: Byte * 42
+
+
 make_ready(__name__)

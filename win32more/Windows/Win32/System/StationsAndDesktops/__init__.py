@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.Security
@@ -69,21 +68,21 @@ def BroadcastSystemMessageA(flags: UInt32, lpInfo: POINTER(UInt32), Msg: UInt32,
 @winfunctype('USER32.dll')
 def BroadcastSystemMessageW(flags: win32more.Windows.Win32.System.StationsAndDesktops.BROADCAST_SYSTEM_MESSAGE_FLAGS, lpInfo: POINTER(win32more.Windows.Win32.System.StationsAndDesktops.BROADCAST_SYSTEM_MESSAGE_INFO), Msg: UInt32, wParam: win32more.Windows.Win32.Foundation.WPARAM, lParam: win32more.Windows.Win32.Foundation.LPARAM) -> Int32: ...
 BROADCAST_SYSTEM_MESSAGE_FLAGS = UInt32
-BSF_ALLOWSFW: BROADCAST_SYSTEM_MESSAGE_FLAGS = 128
-BSF_FLUSHDISK: BROADCAST_SYSTEM_MESSAGE_FLAGS = 4
-BSF_FORCEIFHUNG: BROADCAST_SYSTEM_MESSAGE_FLAGS = 32
-BSF_IGNORECURRENTTASK: BROADCAST_SYSTEM_MESSAGE_FLAGS = 2
-BSF_NOHANG: BROADCAST_SYSTEM_MESSAGE_FLAGS = 8
-BSF_NOTIMEOUTIFNOTHUNG: BROADCAST_SYSTEM_MESSAGE_FLAGS = 64
-BSF_POSTMESSAGE: BROADCAST_SYSTEM_MESSAGE_FLAGS = 16
-BSF_QUERY: BROADCAST_SYSTEM_MESSAGE_FLAGS = 1
-BSF_SENDNOTIFYMESSAGE: BROADCAST_SYSTEM_MESSAGE_FLAGS = 256
-BSF_LUID: BROADCAST_SYSTEM_MESSAGE_FLAGS = 1024
-BSF_RETURNHDESK: BROADCAST_SYSTEM_MESSAGE_FLAGS = 512
+BSF_ALLOWSFW: win32more.Windows.Win32.System.StationsAndDesktops.BROADCAST_SYSTEM_MESSAGE_FLAGS = 128
+BSF_FLUSHDISK: win32more.Windows.Win32.System.StationsAndDesktops.BROADCAST_SYSTEM_MESSAGE_FLAGS = 4
+BSF_FORCEIFHUNG: win32more.Windows.Win32.System.StationsAndDesktops.BROADCAST_SYSTEM_MESSAGE_FLAGS = 32
+BSF_IGNORECURRENTTASK: win32more.Windows.Win32.System.StationsAndDesktops.BROADCAST_SYSTEM_MESSAGE_FLAGS = 2
+BSF_NOHANG: win32more.Windows.Win32.System.StationsAndDesktops.BROADCAST_SYSTEM_MESSAGE_FLAGS = 8
+BSF_NOTIMEOUTIFNOTHUNG: win32more.Windows.Win32.System.StationsAndDesktops.BROADCAST_SYSTEM_MESSAGE_FLAGS = 64
+BSF_POSTMESSAGE: win32more.Windows.Win32.System.StationsAndDesktops.BROADCAST_SYSTEM_MESSAGE_FLAGS = 16
+BSF_QUERY: win32more.Windows.Win32.System.StationsAndDesktops.BROADCAST_SYSTEM_MESSAGE_FLAGS = 1
+BSF_SENDNOTIFYMESSAGE: win32more.Windows.Win32.System.StationsAndDesktops.BROADCAST_SYSTEM_MESSAGE_FLAGS = 256
+BSF_LUID: win32more.Windows.Win32.System.StationsAndDesktops.BROADCAST_SYSTEM_MESSAGE_FLAGS = 1024
+BSF_RETURNHDESK: win32more.Windows.Win32.System.StationsAndDesktops.BROADCAST_SYSTEM_MESSAGE_FLAGS = 512
 BROADCAST_SYSTEM_MESSAGE_INFO = UInt32
-BSM_ALLCOMPONENTS: BROADCAST_SYSTEM_MESSAGE_INFO = 0
-BSM_ALLDESKTOPS: BROADCAST_SYSTEM_MESSAGE_INFO = 16
-BSM_APPLICATIONS: BROADCAST_SYSTEM_MESSAGE_INFO = 8
+BSM_ALLCOMPONENTS: win32more.Windows.Win32.System.StationsAndDesktops.BROADCAST_SYSTEM_MESSAGE_INFO = 0
+BSM_ALLDESKTOPS: win32more.Windows.Win32.System.StationsAndDesktops.BROADCAST_SYSTEM_MESSAGE_INFO = 16
+BSM_APPLICATIONS: win32more.Windows.Win32.System.StationsAndDesktops.BROADCAST_SYSTEM_MESSAGE_INFO = 8
 class BSMINFO(EasyCastStructure):
     cbSize: UInt32
     hdesk: win32more.Windows.Win32.System.StationsAndDesktops.HDESK
@@ -94,22 +93,22 @@ def DESKTOPENUMPROCA(param0: win32more.Windows.Win32.Foundation.PSTR, param1: wi
 @winfunctype_pointer
 def DESKTOPENUMPROCW(param0: win32more.Windows.Win32.Foundation.PWSTR, param1: win32more.Windows.Win32.Foundation.LPARAM) -> win32more.Windows.Win32.Foundation.BOOL: ...
 DESKTOP_ACCESS_FLAGS = UInt32
-DESKTOP_DELETE: DESKTOP_ACCESS_FLAGS = 65536
-DESKTOP_READ_CONTROL: DESKTOP_ACCESS_FLAGS = 131072
-DESKTOP_WRITE_DAC: DESKTOP_ACCESS_FLAGS = 262144
-DESKTOP_WRITE_OWNER: DESKTOP_ACCESS_FLAGS = 524288
-DESKTOP_SYNCHRONIZE: DESKTOP_ACCESS_FLAGS = 1048576
-DESKTOP_READOBJECTS: DESKTOP_ACCESS_FLAGS = 1
-DESKTOP_CREATEWINDOW: DESKTOP_ACCESS_FLAGS = 2
-DESKTOP_CREATEMENU: DESKTOP_ACCESS_FLAGS = 4
-DESKTOP_HOOKCONTROL: DESKTOP_ACCESS_FLAGS = 8
-DESKTOP_JOURNALRECORD: DESKTOP_ACCESS_FLAGS = 16
-DESKTOP_JOURNALPLAYBACK: DESKTOP_ACCESS_FLAGS = 32
-DESKTOP_ENUMERATE: DESKTOP_ACCESS_FLAGS = 64
-DESKTOP_WRITEOBJECTS: DESKTOP_ACCESS_FLAGS = 128
-DESKTOP_SWITCHDESKTOP: DESKTOP_ACCESS_FLAGS = 256
+DESKTOP_DELETE: win32more.Windows.Win32.System.StationsAndDesktops.DESKTOP_ACCESS_FLAGS = 65536
+DESKTOP_READ_CONTROL: win32more.Windows.Win32.System.StationsAndDesktops.DESKTOP_ACCESS_FLAGS = 131072
+DESKTOP_WRITE_DAC: win32more.Windows.Win32.System.StationsAndDesktops.DESKTOP_ACCESS_FLAGS = 262144
+DESKTOP_WRITE_OWNER: win32more.Windows.Win32.System.StationsAndDesktops.DESKTOP_ACCESS_FLAGS = 524288
+DESKTOP_SYNCHRONIZE: win32more.Windows.Win32.System.StationsAndDesktops.DESKTOP_ACCESS_FLAGS = 1048576
+DESKTOP_READOBJECTS: win32more.Windows.Win32.System.StationsAndDesktops.DESKTOP_ACCESS_FLAGS = 1
+DESKTOP_CREATEWINDOW: win32more.Windows.Win32.System.StationsAndDesktops.DESKTOP_ACCESS_FLAGS = 2
+DESKTOP_CREATEMENU: win32more.Windows.Win32.System.StationsAndDesktops.DESKTOP_ACCESS_FLAGS = 4
+DESKTOP_HOOKCONTROL: win32more.Windows.Win32.System.StationsAndDesktops.DESKTOP_ACCESS_FLAGS = 8
+DESKTOP_JOURNALRECORD: win32more.Windows.Win32.System.StationsAndDesktops.DESKTOP_ACCESS_FLAGS = 16
+DESKTOP_JOURNALPLAYBACK: win32more.Windows.Win32.System.StationsAndDesktops.DESKTOP_ACCESS_FLAGS = 32
+DESKTOP_ENUMERATE: win32more.Windows.Win32.System.StationsAndDesktops.DESKTOP_ACCESS_FLAGS = 64
+DESKTOP_WRITEOBJECTS: win32more.Windows.Win32.System.StationsAndDesktops.DESKTOP_ACCESS_FLAGS = 128
+DESKTOP_SWITCHDESKTOP: win32more.Windows.Win32.System.StationsAndDesktops.DESKTOP_ACCESS_FLAGS = 256
 DESKTOP_CONTROL_FLAGS = UInt32
-DF_ALLOWOTHERACCOUNTHOOK: DESKTOP_CONTROL_FLAGS = 1
+DF_ALLOWOTHERACCOUNTHOOK: win32more.Windows.Win32.System.StationsAndDesktops.DESKTOP_CONTROL_FLAGS = 1
 HDESK = IntPtr
 HWINSTA = IntPtr
 class USEROBJECTFLAGS(EasyCastStructure):
@@ -117,14 +116,16 @@ class USEROBJECTFLAGS(EasyCastStructure):
     fReserved: win32more.Windows.Win32.Foundation.BOOL
     dwFlags: UInt32
 USER_OBJECT_INFORMATION_INDEX = Int32
-UOI_FLAGS: USER_OBJECT_INFORMATION_INDEX = 1
-UOI_HEAPSIZE: USER_OBJECT_INFORMATION_INDEX = 5
-UOI_IO: USER_OBJECT_INFORMATION_INDEX = 6
-UOI_NAME: USER_OBJECT_INFORMATION_INDEX = 2
-UOI_TYPE: USER_OBJECT_INFORMATION_INDEX = 3
-UOI_USER_SID: USER_OBJECT_INFORMATION_INDEX = 4
+UOI_FLAGS: win32more.Windows.Win32.System.StationsAndDesktops.USER_OBJECT_INFORMATION_INDEX = 1
+UOI_HEAPSIZE: win32more.Windows.Win32.System.StationsAndDesktops.USER_OBJECT_INFORMATION_INDEX = 5
+UOI_IO: win32more.Windows.Win32.System.StationsAndDesktops.USER_OBJECT_INFORMATION_INDEX = 6
+UOI_NAME: win32more.Windows.Win32.System.StationsAndDesktops.USER_OBJECT_INFORMATION_INDEX = 2
+UOI_TYPE: win32more.Windows.Win32.System.StationsAndDesktops.USER_OBJECT_INFORMATION_INDEX = 3
+UOI_USER_SID: win32more.Windows.Win32.System.StationsAndDesktops.USER_OBJECT_INFORMATION_INDEX = 4
 @winfunctype_pointer
 def WINSTAENUMPROCA(param0: win32more.Windows.Win32.Foundation.PSTR, param1: win32more.Windows.Win32.Foundation.LPARAM) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def WINSTAENUMPROCW(param0: win32more.Windows.Win32.Foundation.PWSTR, param1: win32more.Windows.Win32.Foundation.LPARAM) -> win32more.Windows.Win32.Foundation.BOOL: ...
+
+
 make_ready(__name__)

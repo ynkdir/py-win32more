@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.AI.MachineLearning.WinML
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Direct3D12
@@ -38,4 +37,6 @@ class ITensorStaticsNative(ComPtr):
     _iid_ = Guid('{39d055a4-66f6-4ebc-95d9-7a29ebe7690a}')
     @commethod(3)
     def CreateFromD3D12Resource(self, value: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource, shape: POINTER(Int64), shapeCount: Int32, result: POINTER(win32more.Windows.Win32.System.Com.IUnknown)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+
+
 make_ready(__name__)

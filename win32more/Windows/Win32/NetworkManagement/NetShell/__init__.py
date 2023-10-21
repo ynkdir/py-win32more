@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.NetworkManagement.NetShell
 NETSH_ERROR_BASE: UInt32 = 15000
@@ -67,13 +66,13 @@ class CMD_GROUP_ENTRY(EasyCastStructure):
     pCmdGroup: POINTER(win32more.Windows.Win32.NetworkManagement.NetShell.CMD_ENTRY)
     pOsVersionCheck: win32more.Windows.Win32.NetworkManagement.NetShell.PNS_OSVERSIONCHECK
 NS_CMD_FLAGS = Int32
-CMD_FLAG_PRIVATE: NS_CMD_FLAGS = 1
-CMD_FLAG_INTERACTIVE: NS_CMD_FLAGS = 2
-CMD_FLAG_LOCAL: NS_CMD_FLAGS = 8
-CMD_FLAG_ONLINE: NS_CMD_FLAGS = 16
-CMD_FLAG_HIDDEN: NS_CMD_FLAGS = 32
-CMD_FLAG_LIMIT_MASK: NS_CMD_FLAGS = 65535
-CMD_FLAG_PRIORITY: NS_CMD_FLAGS = -2147483648
+CMD_FLAG_PRIVATE: win32more.Windows.Win32.NetworkManagement.NetShell.NS_CMD_FLAGS = 1
+CMD_FLAG_INTERACTIVE: win32more.Windows.Win32.NetworkManagement.NetShell.NS_CMD_FLAGS = 2
+CMD_FLAG_LOCAL: win32more.Windows.Win32.NetworkManagement.NetShell.NS_CMD_FLAGS = 8
+CMD_FLAG_ONLINE: win32more.Windows.Win32.NetworkManagement.NetShell.NS_CMD_FLAGS = 16
+CMD_FLAG_HIDDEN: win32more.Windows.Win32.NetworkManagement.NetShell.NS_CMD_FLAGS = 32
+CMD_FLAG_LIMIT_MASK: win32more.Windows.Win32.NetworkManagement.NetShell.NS_CMD_FLAGS = 65535
+CMD_FLAG_PRIORITY: win32more.Windows.Win32.NetworkManagement.NetShell.NS_CMD_FLAGS = -2147483648
 class NS_CONTEXT_ATTRIBUTES(EasyCastStructure):
     Anonymous: _Anonymous_e__Union
     pwszContext: win32more.Windows.Win32.Foundation.PWSTR
@@ -96,11 +95,11 @@ class NS_CONTEXT_ATTRIBUTES(EasyCastStructure):
             dwVersion: UInt32
             dwReserved: UInt32
 NS_EVENTS = Int32
-NS_EVENT_LOOP: NS_EVENTS = 65536
-NS_EVENT_LAST_N: NS_EVENTS = 1
-NS_EVENT_LAST_SECS: NS_EVENTS = 2
-NS_EVENT_FROM_N: NS_EVENTS = 4
-NS_EVENT_FROM_START: NS_EVENTS = 8
+NS_EVENT_LOOP: win32more.Windows.Win32.NetworkManagement.NetShell.NS_EVENTS = 65536
+NS_EVENT_LAST_N: win32more.Windows.Win32.NetworkManagement.NetShell.NS_EVENTS = 1
+NS_EVENT_LAST_SECS: win32more.Windows.Win32.NetworkManagement.NetShell.NS_EVENTS = 2
+NS_EVENT_FROM_N: win32more.Windows.Win32.NetworkManagement.NetShell.NS_EVENTS = 4
+NS_EVENT_FROM_START: win32more.Windows.Win32.NetworkManagement.NetShell.NS_EVENTS = 8
 class NS_HELPER_ATTRIBUTES(EasyCastStructure):
     Anonymous: _Anonymous_e__Union
     guidHelper: Guid
@@ -113,16 +112,16 @@ class NS_HELPER_ATTRIBUTES(EasyCastStructure):
             dwVersion: UInt32
             dwReserved: UInt32
 NS_MODE_CHANGE = Int32
-NETSH_COMMIT: NS_MODE_CHANGE = 0
-NETSH_UNCOMMIT: NS_MODE_CHANGE = 1
-NETSH_FLUSH: NS_MODE_CHANGE = 2
-NETSH_COMMIT_STATE: NS_MODE_CHANGE = 3
-NETSH_SAVE: NS_MODE_CHANGE = 4
+NETSH_COMMIT: win32more.Windows.Win32.NetworkManagement.NetShell.NS_MODE_CHANGE = 0
+NETSH_UNCOMMIT: win32more.Windows.Win32.NetworkManagement.NetShell.NS_MODE_CHANGE = 1
+NETSH_FLUSH: win32more.Windows.Win32.NetworkManagement.NetShell.NS_MODE_CHANGE = 2
+NETSH_COMMIT_STATE: win32more.Windows.Win32.NetworkManagement.NetShell.NS_MODE_CHANGE = 3
+NETSH_SAVE: win32more.Windows.Win32.NetworkManagement.NetShell.NS_MODE_CHANGE = 4
 NS_REQS = Int32
-NS_REQ_ZERO: NS_REQS = 0
-NS_REQ_PRESENT: NS_REQS = 1
-NS_REQ_ALLOW_MULTIPLE: NS_REQS = 2
-NS_REQ_ONE_OR_MORE: NS_REQS = 3
+NS_REQ_ZERO: win32more.Windows.Win32.NetworkManagement.NetShell.NS_REQS = 0
+NS_REQ_PRESENT: win32more.Windows.Win32.NetworkManagement.NetShell.NS_REQS = 1
+NS_REQ_ALLOW_MULTIPLE: win32more.Windows.Win32.NetworkManagement.NetShell.NS_REQS = 2
+NS_REQ_ONE_OR_MORE: win32more.Windows.Win32.NetworkManagement.NetShell.NS_REQS = 3
 @winfunctype_pointer
 def PFN_CUSTOM_HELP(hModule: win32more.Windows.Win32.Foundation.HANDLE, pwszCmdToken: win32more.Windows.Win32.Foundation.PWSTR) -> Void: ...
 @winfunctype_pointer
@@ -152,4 +151,6 @@ class TAG_TYPE(EasyCastStructure):
 class TOKEN_VALUE(EasyCastStructure):
     pwszToken: win32more.Windows.Win32.Foundation.PWSTR
     dwValue: UInt32
+
+
 make_ready(__name__)

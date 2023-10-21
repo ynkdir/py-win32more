@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Storage.DataDeduplication
 import win32more.Windows.Win32.System.Com
@@ -10,8 +9,8 @@ class DDP_FILE_EXTENT(EasyCastStructure):
     Length: Int64
     Offset: Int64
 DEDUP_BACKUP_SUPPORT_PARAM_TYPE = Int32
-DEDUP_RECONSTRUCT_UNOPTIMIZED: DEDUP_BACKUP_SUPPORT_PARAM_TYPE = 1
-DEDUP_RECONSTRUCT_OPTIMIZED: DEDUP_BACKUP_SUPPORT_PARAM_TYPE = 2
+DEDUP_RECONSTRUCT_UNOPTIMIZED: win32more.Windows.Win32.Storage.DataDeduplication.DEDUP_BACKUP_SUPPORT_PARAM_TYPE = 1
+DEDUP_RECONSTRUCT_OPTIMIZED: win32more.Windows.Win32.Storage.DataDeduplication.DEDUP_BACKUP_SUPPORT_PARAM_TYPE = 2
 class DEDUP_CHUNK_INFO_HASH32(EasyCastStructure):
     ChunkFlags: UInt32
     ChunkOffsetInStream: UInt64
@@ -22,11 +21,11 @@ class DEDUP_CONTAINER_EXTENT(EasyCastStructure):
     StartOffset: Int64
     Length: Int64
 DEDUP_SET_PARAM_TYPE = Int32
-DEDUP_PT_MinChunkSizeBytes: DEDUP_SET_PARAM_TYPE = 1
-DEDUP_PT_MaxChunkSizeBytes: DEDUP_SET_PARAM_TYPE = 2
-DEDUP_PT_AvgChunkSizeBytes: DEDUP_SET_PARAM_TYPE = 3
-DEDUP_PT_InvariantChunking: DEDUP_SET_PARAM_TYPE = 4
-DEDUP_PT_DisableStrongHashComputation: DEDUP_SET_PARAM_TYPE = 5
+DEDUP_PT_MinChunkSizeBytes: win32more.Windows.Win32.Storage.DataDeduplication.DEDUP_SET_PARAM_TYPE = 1
+DEDUP_PT_MaxChunkSizeBytes: win32more.Windows.Win32.Storage.DataDeduplication.DEDUP_SET_PARAM_TYPE = 2
+DEDUP_PT_AvgChunkSizeBytes: win32more.Windows.Win32.Storage.DataDeduplication.DEDUP_SET_PARAM_TYPE = 3
+DEDUP_PT_InvariantChunking: win32more.Windows.Win32.Storage.DataDeduplication.DEDUP_SET_PARAM_TYPE = 4
+DEDUP_PT_DisableStrongHashComputation: win32more.Windows.Win32.Storage.DataDeduplication.DEDUP_SET_PARAM_TYPE = 5
 DedupBackupSupport = Guid('{73d6b2ad-2984-4715-b2e3-924c149744dd}')
 class DedupChunk(EasyCastStructure):
     Hash: win32more.Windows.Win32.Storage.DataDeduplication.DedupHash
@@ -34,39 +33,39 @@ class DedupChunk(EasyCastStructure):
     LogicalSize: UInt32
     DataSize: UInt32
 DedupChunkFlags = Int32
-DedupChunkFlags_None: DedupChunkFlags = 0
-DedupChunkFlags_Compressed: DedupChunkFlags = 1
+DedupChunkFlags_None: win32more.Windows.Win32.Storage.DataDeduplication.DedupChunkFlags = 0
+DedupChunkFlags_Compressed: win32more.Windows.Win32.Storage.DataDeduplication.DedupChunkFlags = 1
 DedupChunkingAlgorithm = Int32
-DedupChunkingAlgorithm_Unknonwn: DedupChunkingAlgorithm = 0
-DedupChunkingAlgorithm_V1: DedupChunkingAlgorithm = 1
+DedupChunkingAlgorithm_Unknonwn: win32more.Windows.Win32.Storage.DataDeduplication.DedupChunkingAlgorithm = 0
+DedupChunkingAlgorithm_V1: win32more.Windows.Win32.Storage.DataDeduplication.DedupChunkingAlgorithm = 1
 DedupCompressionAlgorithm = Int32
-DedupCompressionAlgorithm_Unknonwn: DedupCompressionAlgorithm = 0
-DedupCompressionAlgorithm_Xpress: DedupCompressionAlgorithm = 1
+DedupCompressionAlgorithm_Unknonwn: win32more.Windows.Win32.Storage.DataDeduplication.DedupCompressionAlgorithm = 0
+DedupCompressionAlgorithm_Xpress: win32more.Windows.Win32.Storage.DataDeduplication.DedupCompressionAlgorithm = 1
 DedupDataPort = Guid('{8f107207-1829-48b2-a64b-e61f8e0d9acb}')
 DedupDataPortManagerOption = Int32
-DedupDataPortManagerOption_None: DedupDataPortManagerOption = 0
-DedupDataPortManagerOption_AutoStart: DedupDataPortManagerOption = 1
-DedupDataPortManagerOption_SkipReconciliation: DedupDataPortManagerOption = 2
+DedupDataPortManagerOption_None: win32more.Windows.Win32.Storage.DataDeduplication.DedupDataPortManagerOption = 0
+DedupDataPortManagerOption_AutoStart: win32more.Windows.Win32.Storage.DataDeduplication.DedupDataPortManagerOption = 1
+DedupDataPortManagerOption_SkipReconciliation: win32more.Windows.Win32.Storage.DataDeduplication.DedupDataPortManagerOption = 2
 DedupDataPortRequestStatus = Int32
-DedupDataPortRequestStatus_Unknown: DedupDataPortRequestStatus = 0
-DedupDataPortRequestStatus_Queued: DedupDataPortRequestStatus = 1
-DedupDataPortRequestStatus_Processing: DedupDataPortRequestStatus = 2
-DedupDataPortRequestStatus_Partial: DedupDataPortRequestStatus = 3
-DedupDataPortRequestStatus_Complete: DedupDataPortRequestStatus = 4
-DedupDataPortRequestStatus_Failed: DedupDataPortRequestStatus = 5
+DedupDataPortRequestStatus_Unknown: win32more.Windows.Win32.Storage.DataDeduplication.DedupDataPortRequestStatus = 0
+DedupDataPortRequestStatus_Queued: win32more.Windows.Win32.Storage.DataDeduplication.DedupDataPortRequestStatus = 1
+DedupDataPortRequestStatus_Processing: win32more.Windows.Win32.Storage.DataDeduplication.DedupDataPortRequestStatus = 2
+DedupDataPortRequestStatus_Partial: win32more.Windows.Win32.Storage.DataDeduplication.DedupDataPortRequestStatus = 3
+DedupDataPortRequestStatus_Complete: win32more.Windows.Win32.Storage.DataDeduplication.DedupDataPortRequestStatus = 4
+DedupDataPortRequestStatus_Failed: win32more.Windows.Win32.Storage.DataDeduplication.DedupDataPortRequestStatus = 5
 DedupDataPortVolumeStatus = Int32
-DedupDataPortVolumeStatus_Unknown: DedupDataPortVolumeStatus = 0
-DedupDataPortVolumeStatus_NotEnabled: DedupDataPortVolumeStatus = 1
-DedupDataPortVolumeStatus_NotAvailable: DedupDataPortVolumeStatus = 2
-DedupDataPortVolumeStatus_Initializing: DedupDataPortVolumeStatus = 3
-DedupDataPortVolumeStatus_Ready: DedupDataPortVolumeStatus = 4
-DedupDataPortVolumeStatus_Maintenance: DedupDataPortVolumeStatus = 5
-DedupDataPortVolumeStatus_Shutdown: DedupDataPortVolumeStatus = 6
+DedupDataPortVolumeStatus_Unknown: win32more.Windows.Win32.Storage.DataDeduplication.DedupDataPortVolumeStatus = 0
+DedupDataPortVolumeStatus_NotEnabled: win32more.Windows.Win32.Storage.DataDeduplication.DedupDataPortVolumeStatus = 1
+DedupDataPortVolumeStatus_NotAvailable: win32more.Windows.Win32.Storage.DataDeduplication.DedupDataPortVolumeStatus = 2
+DedupDataPortVolumeStatus_Initializing: win32more.Windows.Win32.Storage.DataDeduplication.DedupDataPortVolumeStatus = 3
+DedupDataPortVolumeStatus_Ready: win32more.Windows.Win32.Storage.DataDeduplication.DedupDataPortVolumeStatus = 4
+DedupDataPortVolumeStatus_Maintenance: win32more.Windows.Win32.Storage.DataDeduplication.DedupDataPortVolumeStatus = 5
+DedupDataPortVolumeStatus_Shutdown: win32more.Windows.Win32.Storage.DataDeduplication.DedupDataPortVolumeStatus = 6
 class DedupHash(EasyCastStructure):
     Hash: Byte * 32
 DedupHashingAlgorithm = Int32
-DedupHashingAlgorithm_Unknonwn: DedupHashingAlgorithm = 0
-DedupHashingAlgorithm_V1: DedupHashingAlgorithm = 1
+DedupHashingAlgorithm_Unknonwn: win32more.Windows.Win32.Storage.DataDeduplication.DedupHashingAlgorithm = 0
+DedupHashingAlgorithm_V1: win32more.Windows.Win32.Storage.DataDeduplication.DedupHashingAlgorithm = 1
 class DedupStream(EasyCastStructure):
     Path: win32more.Windows.Win32.Foundation.BSTR
     Offset: UInt64
@@ -148,4 +147,6 @@ class IDedupReadFileCallback(ComPtr):
     def OrderContainersRestore(self, NumberOfContainers: UInt32, ContainerPaths: POINTER(win32more.Windows.Win32.Foundation.BSTR), ReadPlanEntries: POINTER(UInt32), ReadPlan: POINTER(POINTER(win32more.Windows.Win32.Storage.DataDeduplication.DEDUP_CONTAINER_EXTENT))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def PreviewContainerRead(self, FileFullPath: win32more.Windows.Win32.Foundation.BSTR, NumberOfReads: UInt32, ReadOffsets: POINTER(win32more.Windows.Win32.Storage.DataDeduplication.DDP_FILE_EXTENT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+
+
 make_ready(__name__)

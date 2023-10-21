@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.Ole
@@ -178,68 +177,68 @@ def ClearVariantArray(pvars: POINTER(win32more.Windows.Win32.System.Variant.VARI
 @winfunctype('PROPSYS.dll')
 def VariantCompare(var1: POINTER(win32more.Windows.Win32.System.Variant.VARIANT), var2: POINTER(win32more.Windows.Win32.System.Variant.VARIANT)) -> Int32: ...
 DRAWPROGRESSFLAGS = Int32
-DPF_NONE: DRAWPROGRESSFLAGS = 0
-DPF_MARQUEE: DRAWPROGRESSFLAGS = 1
-DPF_MARQUEE_COMPLETE: DRAWPROGRESSFLAGS = 2
-DPF_ERROR: DRAWPROGRESSFLAGS = 4
-DPF_WARNING: DRAWPROGRESSFLAGS = 8
-DPF_STOPPED: DRAWPROGRESSFLAGS = 16
+DPF_NONE: win32more.Windows.Win32.System.Variant.DRAWPROGRESSFLAGS = 0
+DPF_MARQUEE: win32more.Windows.Win32.System.Variant.DRAWPROGRESSFLAGS = 1
+DPF_MARQUEE_COMPLETE: win32more.Windows.Win32.System.Variant.DRAWPROGRESSFLAGS = 2
+DPF_ERROR: win32more.Windows.Win32.System.Variant.DRAWPROGRESSFLAGS = 4
+DPF_WARNING: win32more.Windows.Win32.System.Variant.DRAWPROGRESSFLAGS = 8
+DPF_STOPPED: win32more.Windows.Win32.System.Variant.DRAWPROGRESSFLAGS = 16
 PSTIME_FLAGS = Int32
-PSTF_UTC: PSTIME_FLAGS = 0
-PSTF_LOCAL: PSTIME_FLAGS = 1
+PSTF_UTC: win32more.Windows.Win32.System.Variant.PSTIME_FLAGS = 0
+PSTF_LOCAL: win32more.Windows.Win32.System.Variant.PSTIME_FLAGS = 1
 VARENUM = UInt16
-VT_EMPTY: VARENUM = 0
-VT_NULL: VARENUM = 1
-VT_I2: VARENUM = 2
-VT_I4: VARENUM = 3
-VT_R4: VARENUM = 4
-VT_R8: VARENUM = 5
-VT_CY: VARENUM = 6
-VT_DATE: VARENUM = 7
-VT_BSTR: VARENUM = 8
-VT_DISPATCH: VARENUM = 9
-VT_ERROR: VARENUM = 10
-VT_BOOL: VARENUM = 11
-VT_VARIANT: VARENUM = 12
-VT_UNKNOWN: VARENUM = 13
-VT_DECIMAL: VARENUM = 14
-VT_I1: VARENUM = 16
-VT_UI1: VARENUM = 17
-VT_UI2: VARENUM = 18
-VT_UI4: VARENUM = 19
-VT_I8: VARENUM = 20
-VT_UI8: VARENUM = 21
-VT_INT: VARENUM = 22
-VT_UINT: VARENUM = 23
-VT_VOID: VARENUM = 24
-VT_HRESULT: VARENUM = 25
-VT_PTR: VARENUM = 26
-VT_SAFEARRAY: VARENUM = 27
-VT_CARRAY: VARENUM = 28
-VT_USERDEFINED: VARENUM = 29
-VT_LPSTR: VARENUM = 30
-VT_LPWSTR: VARENUM = 31
-VT_RECORD: VARENUM = 36
-VT_INT_PTR: VARENUM = 37
-VT_UINT_PTR: VARENUM = 38
-VT_FILETIME: VARENUM = 64
-VT_BLOB: VARENUM = 65
-VT_STREAM: VARENUM = 66
-VT_STORAGE: VARENUM = 67
-VT_STREAMED_OBJECT: VARENUM = 68
-VT_STORED_OBJECT: VARENUM = 69
-VT_BLOB_OBJECT: VARENUM = 70
-VT_CF: VARENUM = 71
-VT_CLSID: VARENUM = 72
-VT_VERSIONED_STREAM: VARENUM = 73
-VT_BSTR_BLOB: VARENUM = 4095
-VT_VECTOR: VARENUM = 4096
-VT_ARRAY: VARENUM = 8192
-VT_BYREF: VARENUM = 16384
-VT_RESERVED: VARENUM = 32768
-VT_ILLEGAL: VARENUM = 65535
-VT_ILLEGALMASKED: VARENUM = 4095
-VT_TYPEMASK: VARENUM = 4095
+VT_EMPTY: win32more.Windows.Win32.System.Variant.VARENUM = 0
+VT_NULL: win32more.Windows.Win32.System.Variant.VARENUM = 1
+VT_I2: win32more.Windows.Win32.System.Variant.VARENUM = 2
+VT_I4: win32more.Windows.Win32.System.Variant.VARENUM = 3
+VT_R4: win32more.Windows.Win32.System.Variant.VARENUM = 4
+VT_R8: win32more.Windows.Win32.System.Variant.VARENUM = 5
+VT_CY: win32more.Windows.Win32.System.Variant.VARENUM = 6
+VT_DATE: win32more.Windows.Win32.System.Variant.VARENUM = 7
+VT_BSTR: win32more.Windows.Win32.System.Variant.VARENUM = 8
+VT_DISPATCH: win32more.Windows.Win32.System.Variant.VARENUM = 9
+VT_ERROR: win32more.Windows.Win32.System.Variant.VARENUM = 10
+VT_BOOL: win32more.Windows.Win32.System.Variant.VARENUM = 11
+VT_VARIANT: win32more.Windows.Win32.System.Variant.VARENUM = 12
+VT_UNKNOWN: win32more.Windows.Win32.System.Variant.VARENUM = 13
+VT_DECIMAL: win32more.Windows.Win32.System.Variant.VARENUM = 14
+VT_I1: win32more.Windows.Win32.System.Variant.VARENUM = 16
+VT_UI1: win32more.Windows.Win32.System.Variant.VARENUM = 17
+VT_UI2: win32more.Windows.Win32.System.Variant.VARENUM = 18
+VT_UI4: win32more.Windows.Win32.System.Variant.VARENUM = 19
+VT_I8: win32more.Windows.Win32.System.Variant.VARENUM = 20
+VT_UI8: win32more.Windows.Win32.System.Variant.VARENUM = 21
+VT_INT: win32more.Windows.Win32.System.Variant.VARENUM = 22
+VT_UINT: win32more.Windows.Win32.System.Variant.VARENUM = 23
+VT_VOID: win32more.Windows.Win32.System.Variant.VARENUM = 24
+VT_HRESULT: win32more.Windows.Win32.System.Variant.VARENUM = 25
+VT_PTR: win32more.Windows.Win32.System.Variant.VARENUM = 26
+VT_SAFEARRAY: win32more.Windows.Win32.System.Variant.VARENUM = 27
+VT_CARRAY: win32more.Windows.Win32.System.Variant.VARENUM = 28
+VT_USERDEFINED: win32more.Windows.Win32.System.Variant.VARENUM = 29
+VT_LPSTR: win32more.Windows.Win32.System.Variant.VARENUM = 30
+VT_LPWSTR: win32more.Windows.Win32.System.Variant.VARENUM = 31
+VT_RECORD: win32more.Windows.Win32.System.Variant.VARENUM = 36
+VT_INT_PTR: win32more.Windows.Win32.System.Variant.VARENUM = 37
+VT_UINT_PTR: win32more.Windows.Win32.System.Variant.VARENUM = 38
+VT_FILETIME: win32more.Windows.Win32.System.Variant.VARENUM = 64
+VT_BLOB: win32more.Windows.Win32.System.Variant.VARENUM = 65
+VT_STREAM: win32more.Windows.Win32.System.Variant.VARENUM = 66
+VT_STORAGE: win32more.Windows.Win32.System.Variant.VARENUM = 67
+VT_STREAMED_OBJECT: win32more.Windows.Win32.System.Variant.VARENUM = 68
+VT_STORED_OBJECT: win32more.Windows.Win32.System.Variant.VARENUM = 69
+VT_BLOB_OBJECT: win32more.Windows.Win32.System.Variant.VARENUM = 70
+VT_CF: win32more.Windows.Win32.System.Variant.VARENUM = 71
+VT_CLSID: win32more.Windows.Win32.System.Variant.VARENUM = 72
+VT_VERSIONED_STREAM: win32more.Windows.Win32.System.Variant.VARENUM = 73
+VT_BSTR_BLOB: win32more.Windows.Win32.System.Variant.VARENUM = 4095
+VT_VECTOR: win32more.Windows.Win32.System.Variant.VARENUM = 4096
+VT_ARRAY: win32more.Windows.Win32.System.Variant.VARENUM = 8192
+VT_BYREF: win32more.Windows.Win32.System.Variant.VARENUM = 16384
+VT_RESERVED: win32more.Windows.Win32.System.Variant.VARENUM = 32768
+VT_ILLEGAL: win32more.Windows.Win32.System.Variant.VARENUM = 65535
+VT_ILLEGALMASKED: win32more.Windows.Win32.System.Variant.VARENUM = 4095
+VT_TYPEMASK: win32more.Windows.Win32.System.Variant.VARENUM = 4095
 class VARIANT(EasyCastStructure):
     Anonymous: _Anonymous_e__Union
     class _Anonymous_e__Union(EasyCastUnion):
@@ -302,12 +301,14 @@ class VARIANT(EasyCastStructure):
                     pvRecord: VoidPtr
                     pRecInfo: win32more.Windows.Win32.System.Ole.IRecordInfo
 VAR_CHANGE_FLAGS = UInt16
-VARIANT_NOVALUEPROP: VAR_CHANGE_FLAGS = 1
-VARIANT_ALPHABOOL: VAR_CHANGE_FLAGS = 2
-VARIANT_NOUSEROVERRIDE: VAR_CHANGE_FLAGS = 4
-VARIANT_CALENDAR_HIJRI: VAR_CHANGE_FLAGS = 8
-VARIANT_LOCALBOOL: VAR_CHANGE_FLAGS = 16
-VARIANT_CALENDAR_THAI: VAR_CHANGE_FLAGS = 32
-VARIANT_CALENDAR_GREGORIAN: VAR_CHANGE_FLAGS = 64
-VARIANT_USE_NLS: VAR_CHANGE_FLAGS = 128
+VARIANT_NOVALUEPROP: win32more.Windows.Win32.System.Variant.VAR_CHANGE_FLAGS = 1
+VARIANT_ALPHABOOL: win32more.Windows.Win32.System.Variant.VAR_CHANGE_FLAGS = 2
+VARIANT_NOUSEROVERRIDE: win32more.Windows.Win32.System.Variant.VAR_CHANGE_FLAGS = 4
+VARIANT_CALENDAR_HIJRI: win32more.Windows.Win32.System.Variant.VAR_CHANGE_FLAGS = 8
+VARIANT_LOCALBOOL: win32more.Windows.Win32.System.Variant.VAR_CHANGE_FLAGS = 16
+VARIANT_CALENDAR_THAI: win32more.Windows.Win32.System.Variant.VAR_CHANGE_FLAGS = 32
+VARIANT_CALENDAR_GREGORIAN: win32more.Windows.Win32.System.Variant.VAR_CHANGE_FLAGS = 64
+VARIANT_USE_NLS: win32more.Windows.Win32.System.Variant.VAR_CHANGE_FLAGS = 128
+
+
 make_ready(__name__)

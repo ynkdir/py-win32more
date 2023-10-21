@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Media.Audio
 import win32more.Windows.Win32.Media.Audio.Apo
@@ -23,11 +22,11 @@ def DEVPKEY_AudioEndpointPlugin2_FactoryCLSID():
     return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{12d83bd7-cf12-46be-8540-812710d3021c}'), pid=4)
 DEVINTERFACE_AUDIOENDPOINTPLUGIN = Guid('{9f2f7b66-65ac-4fa6-8ae4-123c78b89313}')
 EndpointConnectorType = Int32
-EndpointConnectorType_eHostProcessConnector: EndpointConnectorType = 0
-EndpointConnectorType_eOffloadConnector: EndpointConnectorType = 1
-EndpointConnectorType_eLoopbackConnector: EndpointConnectorType = 2
-EndpointConnectorType_eKeywordDetectorConnector: EndpointConnectorType = 3
-EndpointConnectorType_eConnectorCount: EndpointConnectorType = 4
+EndpointConnectorType_eHostProcessConnector: win32more.Windows.Win32.Media.Audio.Endpoints.EndpointConnectorType = 0
+EndpointConnectorType_eOffloadConnector: win32more.Windows.Win32.Media.Audio.Endpoints.EndpointConnectorType = 1
+EndpointConnectorType_eLoopbackConnector: win32more.Windows.Win32.Media.Audio.Endpoints.EndpointConnectorType = 2
+EndpointConnectorType_eKeywordDetectorConnector: win32more.Windows.Win32.Media.Audio.Endpoints.EndpointConnectorType = 3
+EndpointConnectorType_eConnectorCount: win32more.Windows.Win32.Media.Audio.Endpoints.EndpointConnectorType = 4
 class IAudioEndpointFormatControl(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{784cfd40-9f89-456e-a1a6-873b006a664e}')
@@ -143,4 +142,6 @@ class IHardwareAudioEngineBase(ComPtr):
     def SetGfxState(self, pDevice: win32more.Windows.Win32.Media.Audio.IMMDevice, _bEnable: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def GetGfxState(self, pDevice: win32more.Windows.Win32.Media.Audio.IMMDevice, _pbEnable: POINTER(win32more.Windows.Win32.Foundation.BOOL)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+
+
 make_ready(__name__)

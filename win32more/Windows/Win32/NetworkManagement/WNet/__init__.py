@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.NetworkManagement.WNet
 WNGETCON_CONNECTED: UInt32 = 0
@@ -229,12 +228,12 @@ class CONNECTDLGSTRUCTW(EasyCastStructure):
     dwFlags: win32more.Windows.Win32.NetworkManagement.WNet.CONNECTDLGSTRUCT_FLAGS
     dwDevNum: UInt32
 CONNECTDLGSTRUCT_FLAGS = UInt32
-CONNDLG_RO_PATH: CONNECTDLGSTRUCT_FLAGS = 1
-CONNDLG_CONN_POINT: CONNECTDLGSTRUCT_FLAGS = 2
-CONNDLG_USE_MRU: CONNECTDLGSTRUCT_FLAGS = 4
-CONNDLG_HIDE_BOX: CONNECTDLGSTRUCT_FLAGS = 8
-CONNDLG_PERSIST: CONNECTDLGSTRUCT_FLAGS = 16
-CONNDLG_NOT_PERSIST: CONNECTDLGSTRUCT_FLAGS = 32
+CONNDLG_RO_PATH: win32more.Windows.Win32.NetworkManagement.WNet.CONNECTDLGSTRUCT_FLAGS = 1
+CONNDLG_CONN_POINT: win32more.Windows.Win32.NetworkManagement.WNet.CONNECTDLGSTRUCT_FLAGS = 2
+CONNDLG_USE_MRU: win32more.Windows.Win32.NetworkManagement.WNet.CONNECTDLGSTRUCT_FLAGS = 4
+CONNDLG_HIDE_BOX: win32more.Windows.Win32.NetworkManagement.WNet.CONNECTDLGSTRUCT_FLAGS = 8
+CONNDLG_PERSIST: win32more.Windows.Win32.NetworkManagement.WNet.CONNECTDLGSTRUCT_FLAGS = 16
+CONNDLG_NOT_PERSIST: win32more.Windows.Win32.NetworkManagement.WNet.CONNECTDLGSTRUCT_FLAGS = 32
 class DISCDLGSTRUCTA(EasyCastStructure):
     cbStructure: UInt32
     hwndOwner: win32more.Windows.Win32.Foundation.HWND
@@ -248,8 +247,8 @@ class DISCDLGSTRUCTW(EasyCastStructure):
     lpRemoteName: win32more.Windows.Win32.Foundation.PWSTR
     dwFlags: win32more.Windows.Win32.NetworkManagement.WNet.DISCDLGSTRUCT_FLAGS
 DISCDLGSTRUCT_FLAGS = UInt32
-DISC_UPDATE_PROFILE: DISCDLGSTRUCT_FLAGS = 1
-DISC_NO_FORCE: DISCDLGSTRUCT_FLAGS = 64
+DISC_UPDATE_PROFILE: win32more.Windows.Win32.NetworkManagement.WNet.DISCDLGSTRUCT_FLAGS = 1
+DISC_NO_FORCE: win32more.Windows.Win32.NetworkManagement.WNet.DISCDLGSTRUCT_FLAGS = 64
 class NETCONNECTINFOSTRUCT(EasyCastStructure):
     cbStructure: UInt32
     dwFlags: UInt32
@@ -266,9 +265,9 @@ class NETINFOSTRUCT(EasyCastStructure):
     dwPrinters: UInt32
     dwDrives: UInt32
 NETINFOSTRUCT_CHARACTERISTICS = UInt32
-NETINFO_DLL16: NETINFOSTRUCT_CHARACTERISTICS = 1
-NETINFO_DISKRED: NETINFOSTRUCT_CHARACTERISTICS = 4
-NETINFO_PRINTERRED: NETINFOSTRUCT_CHARACTERISTICS = 8
+NETINFO_DLL16: win32more.Windows.Win32.NetworkManagement.WNet.NETINFOSTRUCT_CHARACTERISTICS = 1
+NETINFO_DISKRED: win32more.Windows.Win32.NetworkManagement.WNet.NETINFOSTRUCT_CHARACTERISTICS = 4
+NETINFO_PRINTERRED: win32more.Windows.Win32.NetworkManagement.WNet.NETINFOSTRUCT_CHARACTERISTICS = 8
 class NETRESOURCEA(EasyCastStructure):
     dwScope: win32more.Windows.Win32.NetworkManagement.WNet.NET_RESOURCE_SCOPE
     dwType: win32more.Windows.Win32.NetworkManagement.WNet.NET_RESOURCE_TYPE
@@ -288,27 +287,27 @@ class NETRESOURCEW(EasyCastStructure):
     lpComment: win32more.Windows.Win32.Foundation.PWSTR
     lpProvider: win32more.Windows.Win32.Foundation.PWSTR
 NETWORK_NAME_FORMAT_FLAGS = UInt32
-WNFMT_MULTILINE: NETWORK_NAME_FORMAT_FLAGS = 1
-WNFMT_ABBREVIATED: NETWORK_NAME_FORMAT_FLAGS = 2
+WNFMT_MULTILINE: win32more.Windows.Win32.NetworkManagement.WNet.NETWORK_NAME_FORMAT_FLAGS = 1
+WNFMT_ABBREVIATED: win32more.Windows.Win32.NetworkManagement.WNet.NETWORK_NAME_FORMAT_FLAGS = 2
 NET_RESOURCE_SCOPE = UInt32
-RESOURCE_CONNECTED: NET_RESOURCE_SCOPE = 1
-RESOURCE_CONTEXT: NET_RESOURCE_SCOPE = 5
-RESOURCE_GLOBALNET: NET_RESOURCE_SCOPE = 2
-RESOURCE_REMEMBERED: NET_RESOURCE_SCOPE = 3
+RESOURCE_CONNECTED: win32more.Windows.Win32.NetworkManagement.WNet.NET_RESOURCE_SCOPE = 1
+RESOURCE_CONTEXT: win32more.Windows.Win32.NetworkManagement.WNet.NET_RESOURCE_SCOPE = 5
+RESOURCE_GLOBALNET: win32more.Windows.Win32.NetworkManagement.WNet.NET_RESOURCE_SCOPE = 2
+RESOURCE_REMEMBERED: win32more.Windows.Win32.NetworkManagement.WNet.NET_RESOURCE_SCOPE = 3
 NET_RESOURCE_TYPE = UInt32
-RESOURCETYPE_ANY: NET_RESOURCE_TYPE = 0
-RESOURCETYPE_DISK: NET_RESOURCE_TYPE = 1
-RESOURCETYPE_PRINT: NET_RESOURCE_TYPE = 2
+RESOURCETYPE_ANY: win32more.Windows.Win32.NetworkManagement.WNet.NET_RESOURCE_TYPE = 0
+RESOURCETYPE_DISK: win32more.Windows.Win32.NetworkManagement.WNet.NET_RESOURCE_TYPE = 1
+RESOURCETYPE_PRINT: win32more.Windows.Win32.NetworkManagement.WNet.NET_RESOURCE_TYPE = 2
 NET_USE_CONNECT_FLAGS = UInt32
-CONNECT_INTERACTIVE: NET_USE_CONNECT_FLAGS = 8
-CONNECT_PROMPT: NET_USE_CONNECT_FLAGS = 16
-CONNECT_REDIRECT: NET_USE_CONNECT_FLAGS = 128
-CONNECT_UPDATE_PROFILE: NET_USE_CONNECT_FLAGS = 1
-CONNECT_COMMANDLINE: NET_USE_CONNECT_FLAGS = 2048
-CONNECT_CMD_SAVECRED: NET_USE_CONNECT_FLAGS = 4096
-CONNECT_TEMPORARY: NET_USE_CONNECT_FLAGS = 4
-CONNECT_DEFERRED: NET_USE_CONNECT_FLAGS = 1024
-CONNECT_UPDATE_RECENT: NET_USE_CONNECT_FLAGS = 2
+CONNECT_INTERACTIVE: win32more.Windows.Win32.NetworkManagement.WNet.NET_USE_CONNECT_FLAGS = 8
+CONNECT_PROMPT: win32more.Windows.Win32.NetworkManagement.WNet.NET_USE_CONNECT_FLAGS = 16
+CONNECT_REDIRECT: win32more.Windows.Win32.NetworkManagement.WNet.NET_USE_CONNECT_FLAGS = 128
+CONNECT_UPDATE_PROFILE: win32more.Windows.Win32.NetworkManagement.WNet.NET_USE_CONNECT_FLAGS = 1
+CONNECT_COMMANDLINE: win32more.Windows.Win32.NetworkManagement.WNet.NET_USE_CONNECT_FLAGS = 2048
+CONNECT_CMD_SAVECRED: win32more.Windows.Win32.NetworkManagement.WNet.NET_USE_CONNECT_FLAGS = 4096
+CONNECT_TEMPORARY: win32more.Windows.Win32.NetworkManagement.WNet.NET_USE_CONNECT_FLAGS = 4
+CONNECT_DEFERRED: win32more.Windows.Win32.NetworkManagement.WNet.NET_USE_CONNECT_FLAGS = 1024
+CONNECT_UPDATE_RECENT: win32more.Windows.Win32.NetworkManagement.WNet.NET_USE_CONNECT_FLAGS = 2
 class NOTIFYADD(EasyCastStructure):
     hwndOwner: win32more.Windows.Win32.Foundation.HWND
     NetResource: win32more.Windows.Win32.NetworkManagement.WNet.NETRESOURCEA
@@ -323,13 +322,13 @@ class NOTIFYINFO(EasyCastStructure):
     dwOperationStatus: UInt32
     lpContext: VoidPtr
 NPDIRECTORY_NOTIFY_OPERATION = UInt32
-WNDN_MKDIR: NPDIRECTORY_NOTIFY_OPERATION = 1
-WNDN_RMDIR: NPDIRECTORY_NOTIFY_OPERATION = 2
-WNDN_MVDIR: NPDIRECTORY_NOTIFY_OPERATION = 3
+WNDN_MKDIR: win32more.Windows.Win32.NetworkManagement.WNet.NPDIRECTORY_NOTIFY_OPERATION = 1
+WNDN_RMDIR: win32more.Windows.Win32.NetworkManagement.WNet.NPDIRECTORY_NOTIFY_OPERATION = 2
+WNDN_MVDIR: win32more.Windows.Win32.NetworkManagement.WNet.NPDIRECTORY_NOTIFY_OPERATION = 3
 NP_PROPERTY_DIALOG_SELECTION = UInt32
-WNPS_FILE: NP_PROPERTY_DIALOG_SELECTION = 0
-WNPS_DIR: NP_PROPERTY_DIALOG_SELECTION = 1
-WNPS_MULT: NP_PROPERTY_DIALOG_SELECTION = 2
+WNPS_FILE: win32more.Windows.Win32.NetworkManagement.WNet.NP_PROPERTY_DIALOG_SELECTION = 0
+WNPS_DIR: win32more.Windows.Win32.NetworkManagement.WNet.NP_PROPERTY_DIALOG_SELECTION = 1
+WNPS_MULT: win32more.Windows.Win32.NetworkManagement.WNet.NP_PROPERTY_DIALOG_SELECTION = 2
 @winfunctype_pointer
 def PF_AddConnectNotify(lpNotifyInfo: POINTER(win32more.Windows.Win32.NetworkManagement.WNet.NOTIFYINFO), lpAddInfo: POINTER(win32more.Windows.Win32.NetworkManagement.WNet.NOTIFYADD)) -> UInt32: ...
 @winfunctype_pointer
@@ -401,20 +400,22 @@ class REMOTE_NAME_INFOW(EasyCastStructure):
     lpConnectionName: win32more.Windows.Win32.Foundation.PWSTR
     lpRemainingPath: win32more.Windows.Win32.Foundation.PWSTR
 UNC_INFO_LEVEL = UInt32
-UNIVERSAL_NAME_INFO_LEVEL: UNC_INFO_LEVEL = 1
-REMOTE_NAME_INFO_LEVEL: UNC_INFO_LEVEL = 2
+UNIVERSAL_NAME_INFO_LEVEL: win32more.Windows.Win32.NetworkManagement.WNet.UNC_INFO_LEVEL = 1
+REMOTE_NAME_INFO_LEVEL: win32more.Windows.Win32.NetworkManagement.WNet.UNC_INFO_LEVEL = 2
 class UNIVERSAL_NAME_INFOA(EasyCastStructure):
     lpUniversalName: win32more.Windows.Win32.Foundation.PSTR
 class UNIVERSAL_NAME_INFOW(EasyCastStructure):
     lpUniversalName: win32more.Windows.Win32.Foundation.PWSTR
 WNET_OPEN_ENUM_USAGE = UInt32
-RESOURCEUSAGE_NONE: WNET_OPEN_ENUM_USAGE = 0
-RESOURCEUSAGE_CONNECTABLE: WNET_OPEN_ENUM_USAGE = 1
-RESOURCEUSAGE_CONTAINER: WNET_OPEN_ENUM_USAGE = 2
-RESOURCEUSAGE_ATTACHED: WNET_OPEN_ENUM_USAGE = 16
-RESOURCEUSAGE_ALL: WNET_OPEN_ENUM_USAGE = 19
+RESOURCEUSAGE_NONE: win32more.Windows.Win32.NetworkManagement.WNet.WNET_OPEN_ENUM_USAGE = 0
+RESOURCEUSAGE_CONNECTABLE: win32more.Windows.Win32.NetworkManagement.WNet.WNET_OPEN_ENUM_USAGE = 1
+RESOURCEUSAGE_CONTAINER: win32more.Windows.Win32.NetworkManagement.WNet.WNET_OPEN_ENUM_USAGE = 2
+RESOURCEUSAGE_ATTACHED: win32more.Windows.Win32.NetworkManagement.WNet.WNET_OPEN_ENUM_USAGE = 16
+RESOURCEUSAGE_ALL: win32more.Windows.Win32.NetworkManagement.WNet.WNET_OPEN_ENUM_USAGE = 19
 WNPERM_DLG = UInt32
-WNPERM_DLG_PERM: WNPERM_DLG = 0
-WNPERM_DLG_AUDIT: WNPERM_DLG = 1
-WNPERM_DLG_OWNER: WNPERM_DLG = 2
+WNPERM_DLG_PERM: win32more.Windows.Win32.NetworkManagement.WNet.WNPERM_DLG = 0
+WNPERM_DLG_AUDIT: win32more.Windows.Win32.NetworkManagement.WNet.WNPERM_DLG = 1
+WNPERM_DLG_OWNER: win32more.Windows.Win32.NetworkManagement.WNet.WNPERM_DLG = 2
+
+
 make_ready(__name__)

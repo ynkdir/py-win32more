@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Devices.Communication
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.IO
@@ -157,11 +156,11 @@ def SetDefaultCommConfigA(lpszName: win32more.Windows.Win32.Foundation.PSTR, lpC
 @winfunctype('KERNEL32.dll')
 def SetDefaultCommConfigW(lpszName: win32more.Windows.Win32.Foundation.PWSTR, lpCC: POINTER(win32more.Windows.Win32.Devices.Communication.COMMCONFIG), dwSize: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 CLEAR_COMM_ERROR_FLAGS = UInt32
-CE_BREAK: CLEAR_COMM_ERROR_FLAGS = 16
-CE_FRAME: CLEAR_COMM_ERROR_FLAGS = 8
-CE_OVERRUN: CLEAR_COMM_ERROR_FLAGS = 2
-CE_RXOVER: CLEAR_COMM_ERROR_FLAGS = 1
-CE_RXPARITY: CLEAR_COMM_ERROR_FLAGS = 4
+CE_BREAK: win32more.Windows.Win32.Devices.Communication.CLEAR_COMM_ERROR_FLAGS = 16
+CE_FRAME: win32more.Windows.Win32.Devices.Communication.CLEAR_COMM_ERROR_FLAGS = 8
+CE_OVERRUN: win32more.Windows.Win32.Devices.Communication.CLEAR_COMM_ERROR_FLAGS = 2
+CE_RXOVER: win32more.Windows.Win32.Devices.Communication.CLEAR_COMM_ERROR_FLAGS = 1
+CE_RXPARITY: win32more.Windows.Win32.Devices.Communication.CLEAR_COMM_ERROR_FLAGS = 4
 class COMMCONFIG(EasyCastStructure):
     dwSize: UInt32
     wVersion: UInt16
@@ -191,14 +190,14 @@ class COMMPROP(EasyCastStructure):
     dwProvSpec2: UInt32
     wcProvChar: Char * 1
 COMMPROP_STOP_PARITY = UInt16
-STOPBITS_10: COMMPROP_STOP_PARITY = 1
-STOPBITS_15: COMMPROP_STOP_PARITY = 2
-STOPBITS_20: COMMPROP_STOP_PARITY = 4
-PARITY_NONE: COMMPROP_STOP_PARITY = 256
-PARITY_ODD: COMMPROP_STOP_PARITY = 512
-PARITY_EVEN: COMMPROP_STOP_PARITY = 1024
-PARITY_MARK: COMMPROP_STOP_PARITY = 2048
-PARITY_SPACE: COMMPROP_STOP_PARITY = 4096
+STOPBITS_10: win32more.Windows.Win32.Devices.Communication.COMMPROP_STOP_PARITY = 1
+STOPBITS_15: win32more.Windows.Win32.Devices.Communication.COMMPROP_STOP_PARITY = 2
+STOPBITS_20: win32more.Windows.Win32.Devices.Communication.COMMPROP_STOP_PARITY = 4
+PARITY_NONE: win32more.Windows.Win32.Devices.Communication.COMMPROP_STOP_PARITY = 256
+PARITY_ODD: win32more.Windows.Win32.Devices.Communication.COMMPROP_STOP_PARITY = 512
+PARITY_EVEN: win32more.Windows.Win32.Devices.Communication.COMMPROP_STOP_PARITY = 1024
+PARITY_MARK: win32more.Windows.Win32.Devices.Communication.COMMPROP_STOP_PARITY = 2048
+PARITY_SPACE: win32more.Windows.Win32.Devices.Communication.COMMPROP_STOP_PARITY = 4096
 class COMMTIMEOUTS(EasyCastStructure):
     ReadIntervalTimeout: UInt32
     ReadTotalTimeoutMultiplier: UInt32
@@ -206,19 +205,19 @@ class COMMTIMEOUTS(EasyCastStructure):
     WriteTotalTimeoutMultiplier: UInt32
     WriteTotalTimeoutConstant: UInt32
 COMM_EVENT_MASK = UInt32
-EV_BREAK: COMM_EVENT_MASK = 64
-EV_CTS: COMM_EVENT_MASK = 8
-EV_DSR: COMM_EVENT_MASK = 16
-EV_ERR: COMM_EVENT_MASK = 128
-EV_EVENT1: COMM_EVENT_MASK = 2048
-EV_EVENT2: COMM_EVENT_MASK = 4096
-EV_PERR: COMM_EVENT_MASK = 512
-EV_RING: COMM_EVENT_MASK = 256
-EV_RLSD: COMM_EVENT_MASK = 32
-EV_RX80FULL: COMM_EVENT_MASK = 1024
-EV_RXCHAR: COMM_EVENT_MASK = 1
-EV_RXFLAG: COMM_EVENT_MASK = 2
-EV_TXEMPTY: COMM_EVENT_MASK = 4
+EV_BREAK: win32more.Windows.Win32.Devices.Communication.COMM_EVENT_MASK = 64
+EV_CTS: win32more.Windows.Win32.Devices.Communication.COMM_EVENT_MASK = 8
+EV_DSR: win32more.Windows.Win32.Devices.Communication.COMM_EVENT_MASK = 16
+EV_ERR: win32more.Windows.Win32.Devices.Communication.COMM_EVENT_MASK = 128
+EV_EVENT1: win32more.Windows.Win32.Devices.Communication.COMM_EVENT_MASK = 2048
+EV_EVENT2: win32more.Windows.Win32.Devices.Communication.COMM_EVENT_MASK = 4096
+EV_PERR: win32more.Windows.Win32.Devices.Communication.COMM_EVENT_MASK = 512
+EV_RING: win32more.Windows.Win32.Devices.Communication.COMM_EVENT_MASK = 256
+EV_RLSD: win32more.Windows.Win32.Devices.Communication.COMM_EVENT_MASK = 32
+EV_RX80FULL: win32more.Windows.Win32.Devices.Communication.COMM_EVENT_MASK = 1024
+EV_RXCHAR: win32more.Windows.Win32.Devices.Communication.COMM_EVENT_MASK = 1
+EV_RXFLAG: win32more.Windows.Win32.Devices.Communication.COMM_EVENT_MASK = 2
+EV_TXEMPTY: win32more.Windows.Win32.Devices.Communication.COMM_EVENT_MASK = 4
 class COMSTAT(EasyCastStructure):
     _bitfield: UInt32
     cbInQue: UInt32
@@ -240,24 +239,24 @@ class DCB(EasyCastStructure):
     EvtChar: win32more.Windows.Win32.Foundation.CHAR
     wReserved1: UInt16
 DCB_PARITY = Byte
-EVENPARITY: DCB_PARITY = 2
-MARKPARITY: DCB_PARITY = 3
-NOPARITY: DCB_PARITY = 0
-ODDPARITY: DCB_PARITY = 1
-SPACEPARITY: DCB_PARITY = 4
+EVENPARITY: win32more.Windows.Win32.Devices.Communication.DCB_PARITY = 2
+MARKPARITY: win32more.Windows.Win32.Devices.Communication.DCB_PARITY = 3
+NOPARITY: win32more.Windows.Win32.Devices.Communication.DCB_PARITY = 0
+ODDPARITY: win32more.Windows.Win32.Devices.Communication.DCB_PARITY = 1
+SPACEPARITY: win32more.Windows.Win32.Devices.Communication.DCB_PARITY = 4
 DCB_STOP_BITS = Byte
-ONESTOPBIT: DCB_STOP_BITS = 0
-ONE5STOPBITS: DCB_STOP_BITS = 1
-TWOSTOPBITS: DCB_STOP_BITS = 2
+ONESTOPBIT: win32more.Windows.Win32.Devices.Communication.DCB_STOP_BITS = 0
+ONE5STOPBITS: win32more.Windows.Win32.Devices.Communication.DCB_STOP_BITS = 1
+TWOSTOPBITS: win32more.Windows.Win32.Devices.Communication.DCB_STOP_BITS = 2
 ESCAPE_COMM_FUNCTION = UInt32
-CLRBREAK: ESCAPE_COMM_FUNCTION = 9
-CLRDTR: ESCAPE_COMM_FUNCTION = 6
-CLRRTS: ESCAPE_COMM_FUNCTION = 4
-SETBREAK: ESCAPE_COMM_FUNCTION = 8
-SETDTR: ESCAPE_COMM_FUNCTION = 5
-SETRTS: ESCAPE_COMM_FUNCTION = 3
-SETXOFF: ESCAPE_COMM_FUNCTION = 1
-SETXON: ESCAPE_COMM_FUNCTION = 2
+CLRBREAK: win32more.Windows.Win32.Devices.Communication.ESCAPE_COMM_FUNCTION = 9
+CLRDTR: win32more.Windows.Win32.Devices.Communication.ESCAPE_COMM_FUNCTION = 6
+CLRRTS: win32more.Windows.Win32.Devices.Communication.ESCAPE_COMM_FUNCTION = 4
+SETBREAK: win32more.Windows.Win32.Devices.Communication.ESCAPE_COMM_FUNCTION = 8
+SETDTR: win32more.Windows.Win32.Devices.Communication.ESCAPE_COMM_FUNCTION = 5
+SETRTS: win32more.Windows.Win32.Devices.Communication.ESCAPE_COMM_FUNCTION = 3
+SETXOFF: win32more.Windows.Win32.Devices.Communication.ESCAPE_COMM_FUNCTION = 1
+SETXON: win32more.Windows.Win32.Devices.Communication.ESCAPE_COMM_FUNCTION = 2
 class MODEMDEVCAPS(EasyCastStructure):
     dwActualSize: UInt32
     dwRequiredSize: UInt32
@@ -280,18 +279,18 @@ class MODEMDEVCAPS(EasyCastStructure):
     dwMaxDCERate: UInt32
     abVariablePortion: Byte * 1
 MODEMDEVCAPS_DIAL_OPTIONS = UInt32
-DIALOPTION_BILLING: MODEMDEVCAPS_DIAL_OPTIONS = 64
-DIALOPTION_DIALTONE: MODEMDEVCAPS_DIAL_OPTIONS = 256
-DIALOPTION_QUIET: MODEMDEVCAPS_DIAL_OPTIONS = 128
+DIALOPTION_BILLING: win32more.Windows.Win32.Devices.Communication.MODEMDEVCAPS_DIAL_OPTIONS = 64
+DIALOPTION_DIALTONE: win32more.Windows.Win32.Devices.Communication.MODEMDEVCAPS_DIAL_OPTIONS = 256
+DIALOPTION_QUIET: win32more.Windows.Win32.Devices.Communication.MODEMDEVCAPS_DIAL_OPTIONS = 128
 MODEMDEVCAPS_SPEAKER_MODE = UInt32
-MDMSPKRFLAG_CALLSETUP: MODEMDEVCAPS_SPEAKER_MODE = 8
-MDMSPKRFLAG_DIAL: MODEMDEVCAPS_SPEAKER_MODE = 2
-MDMSPKRFLAG_OFF: MODEMDEVCAPS_SPEAKER_MODE = 1
-MDMSPKRFLAG_ON: MODEMDEVCAPS_SPEAKER_MODE = 4
+MDMSPKRFLAG_CALLSETUP: win32more.Windows.Win32.Devices.Communication.MODEMDEVCAPS_SPEAKER_MODE = 8
+MDMSPKRFLAG_DIAL: win32more.Windows.Win32.Devices.Communication.MODEMDEVCAPS_SPEAKER_MODE = 2
+MDMSPKRFLAG_OFF: win32more.Windows.Win32.Devices.Communication.MODEMDEVCAPS_SPEAKER_MODE = 1
+MDMSPKRFLAG_ON: win32more.Windows.Win32.Devices.Communication.MODEMDEVCAPS_SPEAKER_MODE = 4
 MODEMDEVCAPS_SPEAKER_VOLUME = UInt32
-MDMVOLFLAG_HIGH: MODEMDEVCAPS_SPEAKER_VOLUME = 4
-MDMVOLFLAG_LOW: MODEMDEVCAPS_SPEAKER_VOLUME = 1
-MDMVOLFLAG_MEDIUM: MODEMDEVCAPS_SPEAKER_VOLUME = 2
+MDMVOLFLAG_HIGH: win32more.Windows.Win32.Devices.Communication.MODEMDEVCAPS_SPEAKER_VOLUME = 4
+MDMVOLFLAG_LOW: win32more.Windows.Win32.Devices.Communication.MODEMDEVCAPS_SPEAKER_VOLUME = 1
+MDMVOLFLAG_MEDIUM: win32more.Windows.Win32.Devices.Communication.MODEMDEVCAPS_SPEAKER_VOLUME = 2
 class MODEMSETTINGS(EasyCastStructure):
     dwActualSize: UInt32
     dwRequiredSize: UInt32
@@ -306,22 +305,24 @@ class MODEMSETTINGS(EasyCastStructure):
     dwNegotiatedDCERate: UInt32
     abVariablePortion: Byte * 1
 MODEMSETTINGS_SPEAKER_MODE = UInt32
-MDMSPKR_CALLSETUP: MODEMSETTINGS_SPEAKER_MODE = 8
-MDMSPKR_DIAL: MODEMSETTINGS_SPEAKER_MODE = 2
-MDMSPKR_OFF: MODEMSETTINGS_SPEAKER_MODE = 1
-MDMSPKR_ON: MODEMSETTINGS_SPEAKER_MODE = 4
+MDMSPKR_CALLSETUP: win32more.Windows.Win32.Devices.Communication.MODEMSETTINGS_SPEAKER_MODE = 8
+MDMSPKR_DIAL: win32more.Windows.Win32.Devices.Communication.MODEMSETTINGS_SPEAKER_MODE = 2
+MDMSPKR_OFF: win32more.Windows.Win32.Devices.Communication.MODEMSETTINGS_SPEAKER_MODE = 1
+MDMSPKR_ON: win32more.Windows.Win32.Devices.Communication.MODEMSETTINGS_SPEAKER_MODE = 4
 MODEM_SPEAKER_VOLUME = UInt32
-MDMVOL_HIGH: MODEM_SPEAKER_VOLUME = 2
-MDMVOL_LOW: MODEM_SPEAKER_VOLUME = 0
-MDMVOL_MEDIUM: MODEM_SPEAKER_VOLUME = 1
+MDMVOL_HIGH: win32more.Windows.Win32.Devices.Communication.MODEM_SPEAKER_VOLUME = 2
+MDMVOL_LOW: win32more.Windows.Win32.Devices.Communication.MODEM_SPEAKER_VOLUME = 0
+MDMVOL_MEDIUM: win32more.Windows.Win32.Devices.Communication.MODEM_SPEAKER_VOLUME = 1
 MODEM_STATUS_FLAGS = UInt32
-MS_CTS_ON: MODEM_STATUS_FLAGS = 16
-MS_DSR_ON: MODEM_STATUS_FLAGS = 32
-MS_RING_ON: MODEM_STATUS_FLAGS = 64
-MS_RLSD_ON: MODEM_STATUS_FLAGS = 128
+MS_CTS_ON: win32more.Windows.Win32.Devices.Communication.MODEM_STATUS_FLAGS = 16
+MS_DSR_ON: win32more.Windows.Win32.Devices.Communication.MODEM_STATUS_FLAGS = 32
+MS_RING_ON: win32more.Windows.Win32.Devices.Communication.MODEM_STATUS_FLAGS = 64
+MS_RLSD_ON: win32more.Windows.Win32.Devices.Communication.MODEM_STATUS_FLAGS = 128
 PURGE_COMM_FLAGS = UInt32
-PURGE_RXABORT: PURGE_COMM_FLAGS = 2
-PURGE_RXCLEAR: PURGE_COMM_FLAGS = 8
-PURGE_TXABORT: PURGE_COMM_FLAGS = 1
-PURGE_TXCLEAR: PURGE_COMM_FLAGS = 4
+PURGE_RXABORT: win32more.Windows.Win32.Devices.Communication.PURGE_COMM_FLAGS = 2
+PURGE_RXCLEAR: win32more.Windows.Win32.Devices.Communication.PURGE_COMM_FLAGS = 8
+PURGE_TXABORT: win32more.Windows.Win32.Devices.Communication.PURGE_COMM_FLAGS = 1
+PURGE_TXCLEAR: win32more.Windows.Win32.Devices.Communication.PURGE_COMM_FLAGS = 4
+
+
 make_ready(__name__)

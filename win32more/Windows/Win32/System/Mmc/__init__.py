@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.System.Com
@@ -102,34 +101,34 @@ class AppEvents(ComPtr):
 AppEventsDHTMLConnector = Guid('{ade6444b-c91f-4e37-92a4-5bb430a33340}')
 Application = Guid('{49b2791a-b1ae-4c90-9b8e-e860ba07f889}')
 CCM_COMMANDID_MASK_CONSTANTS = UInt32
-CCM_COMMANDID_MASK_RESERVED: CCM_COMMANDID_MASK_CONSTANTS = 4294901760
+CCM_COMMANDID_MASK_RESERVED: win32more.Windows.Win32.System.Mmc.CCM_COMMANDID_MASK_CONSTANTS = 4294901760
 CCM_INSERTIONALLOWED = Int32
-CCM_INSERTIONALLOWED_TOP: CCM_INSERTIONALLOWED = 1
-CCM_INSERTIONALLOWED_NEW: CCM_INSERTIONALLOWED = 2
-CCM_INSERTIONALLOWED_TASK: CCM_INSERTIONALLOWED = 4
-CCM_INSERTIONALLOWED_VIEW: CCM_INSERTIONALLOWED = 8
+CCM_INSERTIONALLOWED_TOP: win32more.Windows.Win32.System.Mmc.CCM_INSERTIONALLOWED = 1
+CCM_INSERTIONALLOWED_NEW: win32more.Windows.Win32.System.Mmc.CCM_INSERTIONALLOWED = 2
+CCM_INSERTIONALLOWED_TASK: win32more.Windows.Win32.System.Mmc.CCM_INSERTIONALLOWED = 4
+CCM_INSERTIONALLOWED_VIEW: win32more.Windows.Win32.System.Mmc.CCM_INSERTIONALLOWED = 8
 CCM_INSERTIONPOINTID = Int32
-CCM_INSERTIONPOINTID_MASK_SPECIAL: CCM_INSERTIONPOINTID = -65536
-CCM_INSERTIONPOINTID_MASK_SHARED: CCM_INSERTIONPOINTID = -2147483648
-CCM_INSERTIONPOINTID_MASK_CREATE_PRIMARY: CCM_INSERTIONPOINTID = 1073741824
-CCM_INSERTIONPOINTID_MASK_ADD_PRIMARY: CCM_INSERTIONPOINTID = 536870912
-CCM_INSERTIONPOINTID_MASK_ADD_3RDPARTY: CCM_INSERTIONPOINTID = 268435456
-CCM_INSERTIONPOINTID_MASK_RESERVED: CCM_INSERTIONPOINTID = 268369920
-CCM_INSERTIONPOINTID_MASK_FLAGINDEX: CCM_INSERTIONPOINTID = 31
-CCM_INSERTIONPOINTID_PRIMARY_TOP: CCM_INSERTIONPOINTID = -1610612736
-CCM_INSERTIONPOINTID_PRIMARY_NEW: CCM_INSERTIONPOINTID = -1610612735
-CCM_INSERTIONPOINTID_PRIMARY_TASK: CCM_INSERTIONPOINTID = -1610612734
-CCM_INSERTIONPOINTID_PRIMARY_VIEW: CCM_INSERTIONPOINTID = -1610612733
-CCM_INSERTIONPOINTID_PRIMARY_HELP: CCM_INSERTIONPOINTID = -1610612732
-CCM_INSERTIONPOINTID_3RDPARTY_NEW: CCM_INSERTIONPOINTID = -1879048191
-CCM_INSERTIONPOINTID_3RDPARTY_TASK: CCM_INSERTIONPOINTID = -1879048190
-CCM_INSERTIONPOINTID_ROOT_MENU: CCM_INSERTIONPOINTID = -2147483648
+CCM_INSERTIONPOINTID_MASK_SPECIAL: win32more.Windows.Win32.System.Mmc.CCM_INSERTIONPOINTID = -65536
+CCM_INSERTIONPOINTID_MASK_SHARED: win32more.Windows.Win32.System.Mmc.CCM_INSERTIONPOINTID = -2147483648
+CCM_INSERTIONPOINTID_MASK_CREATE_PRIMARY: win32more.Windows.Win32.System.Mmc.CCM_INSERTIONPOINTID = 1073741824
+CCM_INSERTIONPOINTID_MASK_ADD_PRIMARY: win32more.Windows.Win32.System.Mmc.CCM_INSERTIONPOINTID = 536870912
+CCM_INSERTIONPOINTID_MASK_ADD_3RDPARTY: win32more.Windows.Win32.System.Mmc.CCM_INSERTIONPOINTID = 268435456
+CCM_INSERTIONPOINTID_MASK_RESERVED: win32more.Windows.Win32.System.Mmc.CCM_INSERTIONPOINTID = 268369920
+CCM_INSERTIONPOINTID_MASK_FLAGINDEX: win32more.Windows.Win32.System.Mmc.CCM_INSERTIONPOINTID = 31
+CCM_INSERTIONPOINTID_PRIMARY_TOP: win32more.Windows.Win32.System.Mmc.CCM_INSERTIONPOINTID = -1610612736
+CCM_INSERTIONPOINTID_PRIMARY_NEW: win32more.Windows.Win32.System.Mmc.CCM_INSERTIONPOINTID = -1610612735
+CCM_INSERTIONPOINTID_PRIMARY_TASK: win32more.Windows.Win32.System.Mmc.CCM_INSERTIONPOINTID = -1610612734
+CCM_INSERTIONPOINTID_PRIMARY_VIEW: win32more.Windows.Win32.System.Mmc.CCM_INSERTIONPOINTID = -1610612733
+CCM_INSERTIONPOINTID_PRIMARY_HELP: win32more.Windows.Win32.System.Mmc.CCM_INSERTIONPOINTID = -1610612732
+CCM_INSERTIONPOINTID_3RDPARTY_NEW: win32more.Windows.Win32.System.Mmc.CCM_INSERTIONPOINTID = -1879048191
+CCM_INSERTIONPOINTID_3RDPARTY_TASK: win32more.Windows.Win32.System.Mmc.CCM_INSERTIONPOINTID = -1879048190
+CCM_INSERTIONPOINTID_ROOT_MENU: win32more.Windows.Win32.System.Mmc.CCM_INSERTIONPOINTID = -2147483648
 CCM_SPECIAL = Int32
-CCM_SPECIAL_SEPARATOR: CCM_SPECIAL = 1
-CCM_SPECIAL_SUBMENU: CCM_SPECIAL = 2
-CCM_SPECIAL_DEFAULT_ITEM: CCM_SPECIAL = 4
-CCM_SPECIAL_INSERTION_POINT: CCM_SPECIAL = 8
-CCM_SPECIAL_TESTONLY: CCM_SPECIAL = 16
+CCM_SPECIAL_SEPARATOR: win32more.Windows.Win32.System.Mmc.CCM_SPECIAL = 1
+CCM_SPECIAL_SUBMENU: win32more.Windows.Win32.System.Mmc.CCM_SPECIAL = 2
+CCM_SPECIAL_DEFAULT_ITEM: win32more.Windows.Win32.System.Mmc.CCM_SPECIAL = 4
+CCM_SPECIAL_INSERTION_POINT: win32more.Windows.Win32.System.Mmc.CCM_SPECIAL = 8
+CCM_SPECIAL_TESTONLY: win32more.Windows.Win32.System.Mmc.CCM_SPECIAL = 16
 class CONTEXTMENUITEM(EasyCastStructure):
     strName: win32more.Windows.Win32.Foundation.PWSTR
     strStatusBarText: win32more.Windows.Win32.Foundation.PWSTR
@@ -186,10 +185,10 @@ class ContextMenu(ComPtr):
     @commethod(9)
     def get_Count(self, Count: POINTER(Int32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 DATA_OBJECT_TYPES = Int32
-CCT_SCOPE: DATA_OBJECT_TYPES = 32768
-CCT_RESULT: DATA_OBJECT_TYPES = 32769
-CCT_SNAPIN_MANAGER: DATA_OBJECT_TYPES = 32770
-CCT_UNINITIALIZED: DATA_OBJECT_TYPES = 65535
+CCT_SCOPE: win32more.Windows.Win32.System.Mmc.DATA_OBJECT_TYPES = 32768
+CCT_RESULT: win32more.Windows.Win32.System.Mmc.DATA_OBJECT_TYPES = 32769
+CCT_SNAPIN_MANAGER: win32more.Windows.Win32.System.Mmc.DATA_OBJECT_TYPES = 32770
+CCT_UNINITIALIZED: win32more.Windows.Win32.System.Mmc.DATA_OBJECT_TYPES = 65535
 class Document(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IDispatch
     _iid_ = Guid('{225120d6-1e0f-40a3-93fe-1079e6a8017b}')
@@ -735,13 +734,13 @@ class IViewExtensionCallback(ComPtr):
     @commethod(3)
     def AddView(self, pExtViewData: POINTER(win32more.Windows.Win32.System.Mmc.MMC_EXT_VIEW_DATA)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 IconIdentifier = Int32
-Icon_None: IconIdentifier = 0
-Icon_Error: IconIdentifier = 32513
-Icon_Question: IconIdentifier = 32514
-Icon_Warning: IconIdentifier = 32515
-Icon_Information: IconIdentifier = 32516
-Icon_First: IconIdentifier = 32513
-Icon_Last: IconIdentifier = 32516
+Icon_None: win32more.Windows.Win32.System.Mmc.IconIdentifier = 0
+Icon_Error: win32more.Windows.Win32.System.Mmc.IconIdentifier = 32513
+Icon_Question: win32more.Windows.Win32.System.Mmc.IconIdentifier = 32514
+Icon_Warning: win32more.Windows.Win32.System.Mmc.IconIdentifier = 32515
+Icon_Information: win32more.Windows.Win32.System.Mmc.IconIdentifier = 32516
+Icon_First: win32more.Windows.Win32.System.Mmc.IconIdentifier = 32513
+Icon_Last: win32more.Windows.Win32.System.Mmc.IconIdentifier = 32516
 class MENUBUTTONDATA(EasyCastStructure):
     idCommand: Int32
     x: Int32
@@ -755,16 +754,16 @@ class MMCBUTTON(EasyCastStructure):
     lpTooltipText: win32more.Windows.Win32.Foundation.PWSTR
 MMCVersionInfo = Guid('{d6fedb1d-cf21-4bd9-af3b-c5468e9c6684}')
 MMC_ACTION_TYPE = Int32
-MMC_ACTION_UNINITIALIZED: MMC_ACTION_TYPE = -1
-MMC_ACTION_ID: MMC_ACTION_TYPE = 0
-MMC_ACTION_LINK: MMC_ACTION_TYPE = 1
-MMC_ACTION_SCRIPT: MMC_ACTION_TYPE = 2
+MMC_ACTION_UNINITIALIZED: win32more.Windows.Win32.System.Mmc.MMC_ACTION_TYPE = -1
+MMC_ACTION_ID: win32more.Windows.Win32.System.Mmc.MMC_ACTION_TYPE = 0
+MMC_ACTION_LINK: win32more.Windows.Win32.System.Mmc.MMC_ACTION_TYPE = 1
+MMC_ACTION_SCRIPT: win32more.Windows.Win32.System.Mmc.MMC_ACTION_TYPE = 2
 MMC_BUTTON_STATE = Int32
-ENABLED: MMC_BUTTON_STATE = 1
-CHECKED: MMC_BUTTON_STATE = 2
-HIDDEN: MMC_BUTTON_STATE = 4
-INDETERMINATE: MMC_BUTTON_STATE = 8
-BUTTONPRESSED: MMC_BUTTON_STATE = 16
+ENABLED: win32more.Windows.Win32.System.Mmc.MMC_BUTTON_STATE = 1
+CHECKED: win32more.Windows.Win32.System.Mmc.MMC_BUTTON_STATE = 2
+HIDDEN: win32more.Windows.Win32.System.Mmc.MMC_BUTTON_STATE = 4
+INDETERMINATE: win32more.Windows.Win32.System.Mmc.MMC_BUTTON_STATE = 8
+BUTTONPRESSED: win32more.Windows.Win32.System.Mmc.MMC_BUTTON_STATE = 16
 class MMC_COLUMN_DATA(EasyCastStructure):
     nColIndex: Int32
     dwFlags: UInt32
@@ -775,23 +774,23 @@ class MMC_COLUMN_SET_DATA(EasyCastStructure):
     nNumCols: Int32
     pColData: POINTER(win32more.Windows.Win32.System.Mmc.MMC_COLUMN_DATA)
 MMC_CONSOLE_VERB = Int32
-MMC_VERB_NONE: MMC_CONSOLE_VERB = 0
-MMC_VERB_OPEN: MMC_CONSOLE_VERB = 32768
-MMC_VERB_COPY: MMC_CONSOLE_VERB = 32769
-MMC_VERB_PASTE: MMC_CONSOLE_VERB = 32770
-MMC_VERB_DELETE: MMC_CONSOLE_VERB = 32771
-MMC_VERB_PROPERTIES: MMC_CONSOLE_VERB = 32772
-MMC_VERB_RENAME: MMC_CONSOLE_VERB = 32773
-MMC_VERB_REFRESH: MMC_CONSOLE_VERB = 32774
-MMC_VERB_PRINT: MMC_CONSOLE_VERB = 32775
-MMC_VERB_CUT: MMC_CONSOLE_VERB = 32776
-MMC_VERB_MAX: MMC_CONSOLE_VERB = 32777
-MMC_VERB_FIRST: MMC_CONSOLE_VERB = 32768
-MMC_VERB_LAST: MMC_CONSOLE_VERB = 32776
+MMC_VERB_NONE: win32more.Windows.Win32.System.Mmc.MMC_CONSOLE_VERB = 0
+MMC_VERB_OPEN: win32more.Windows.Win32.System.Mmc.MMC_CONSOLE_VERB = 32768
+MMC_VERB_COPY: win32more.Windows.Win32.System.Mmc.MMC_CONSOLE_VERB = 32769
+MMC_VERB_PASTE: win32more.Windows.Win32.System.Mmc.MMC_CONSOLE_VERB = 32770
+MMC_VERB_DELETE: win32more.Windows.Win32.System.Mmc.MMC_CONSOLE_VERB = 32771
+MMC_VERB_PROPERTIES: win32more.Windows.Win32.System.Mmc.MMC_CONSOLE_VERB = 32772
+MMC_VERB_RENAME: win32more.Windows.Win32.System.Mmc.MMC_CONSOLE_VERB = 32773
+MMC_VERB_REFRESH: win32more.Windows.Win32.System.Mmc.MMC_CONSOLE_VERB = 32774
+MMC_VERB_PRINT: win32more.Windows.Win32.System.Mmc.MMC_CONSOLE_VERB = 32775
+MMC_VERB_CUT: win32more.Windows.Win32.System.Mmc.MMC_CONSOLE_VERB = 32776
+MMC_VERB_MAX: win32more.Windows.Win32.System.Mmc.MMC_CONSOLE_VERB = 32777
+MMC_VERB_FIRST: win32more.Windows.Win32.System.Mmc.MMC_CONSOLE_VERB = 32768
+MMC_VERB_LAST: win32more.Windows.Win32.System.Mmc.MMC_CONSOLE_VERB = 32776
 MMC_CONTROL_TYPE = Int32
-TOOLBAR: MMC_CONTROL_TYPE = 0
-MENUBUTTON: MMC_CONTROL_TYPE = 1
-COMBOBOXBAR: MMC_CONTROL_TYPE = 2
+TOOLBAR: win32more.Windows.Win32.System.Mmc.MMC_CONTROL_TYPE = 0
+MENUBUTTON: win32more.Windows.Win32.System.Mmc.MMC_CONTROL_TYPE = 1
+COMBOBOXBAR: win32more.Windows.Win32.System.Mmc.MMC_CONTROL_TYPE = 2
 class MMC_EXPANDSYNC_STRUCT(EasyCastStructure):
     bHandled: win32more.Windows.Win32.Foundation.BOOL
     bExpanding: win32more.Windows.Win32.Foundation.BOOL
@@ -807,73 +806,73 @@ class MMC_FILTERDATA(EasyCastStructure):
     cchTextMax: Int32
     lValue: Int32
 MMC_FILTER_CHANGE_CODE = Int32
-MFCC_DISABLE: MMC_FILTER_CHANGE_CODE = 0
-MFCC_ENABLE: MMC_FILTER_CHANGE_CODE = 1
-MFCC_VALUE_CHANGE: MMC_FILTER_CHANGE_CODE = 2
+MFCC_DISABLE: win32more.Windows.Win32.System.Mmc.MMC_FILTER_CHANGE_CODE = 0
+MFCC_ENABLE: win32more.Windows.Win32.System.Mmc.MMC_FILTER_CHANGE_CODE = 1
+MFCC_VALUE_CHANGE: win32more.Windows.Win32.System.Mmc.MMC_FILTER_CHANGE_CODE = 2
 MMC_FILTER_TYPE = Int32
-MMC_STRING_FILTER: MMC_FILTER_TYPE = 0
-MMC_INT_FILTER: MMC_FILTER_TYPE = 1
-MMC_FILTER_NOVALUE: MMC_FILTER_TYPE = 32768
+MMC_STRING_FILTER: win32more.Windows.Win32.System.Mmc.MMC_FILTER_TYPE = 0
+MMC_INT_FILTER: win32more.Windows.Win32.System.Mmc.MMC_FILTER_TYPE = 1
+MMC_FILTER_NOVALUE: win32more.Windows.Win32.System.Mmc.MMC_FILTER_TYPE = 32768
 class MMC_LISTPAD_INFO(EasyCastStructure):
     szTitle: win32more.Windows.Win32.Foundation.PWSTR
     szButtonText: win32more.Windows.Win32.Foundation.PWSTR
     nCommandID: IntPtr
 MMC_MENU_COMMAND_IDS = Int32
-MMCC_STANDARD_VIEW_SELECT: MMC_MENU_COMMAND_IDS = -1
+MMCC_STANDARD_VIEW_SELECT: win32more.Windows.Win32.System.Mmc.MMC_MENU_COMMAND_IDS = -1
 MMC_NOTIFY_TYPE = Int32
-MMCN_ACTIVATE: MMC_NOTIFY_TYPE = 32769
-MMCN_ADD_IMAGES: MMC_NOTIFY_TYPE = 32770
-MMCN_BTN_CLICK: MMC_NOTIFY_TYPE = 32771
-MMCN_CLICK: MMC_NOTIFY_TYPE = 32772
-MMCN_COLUMN_CLICK: MMC_NOTIFY_TYPE = 32773
-MMCN_CONTEXTMENU: MMC_NOTIFY_TYPE = 32774
-MMCN_CUTORMOVE: MMC_NOTIFY_TYPE = 32775
-MMCN_DBLCLICK: MMC_NOTIFY_TYPE = 32776
-MMCN_DELETE: MMC_NOTIFY_TYPE = 32777
-MMCN_DESELECT_ALL: MMC_NOTIFY_TYPE = 32778
-MMCN_EXPAND: MMC_NOTIFY_TYPE = 32779
-MMCN_HELP: MMC_NOTIFY_TYPE = 32780
-MMCN_MENU_BTNCLICK: MMC_NOTIFY_TYPE = 32781
-MMCN_MINIMIZED: MMC_NOTIFY_TYPE = 32782
-MMCN_PASTE: MMC_NOTIFY_TYPE = 32783
-MMCN_PROPERTY_CHANGE: MMC_NOTIFY_TYPE = 32784
-MMCN_QUERY_PASTE: MMC_NOTIFY_TYPE = 32785
-MMCN_REFRESH: MMC_NOTIFY_TYPE = 32786
-MMCN_REMOVE_CHILDREN: MMC_NOTIFY_TYPE = 32787
-MMCN_RENAME: MMC_NOTIFY_TYPE = 32788
-MMCN_SELECT: MMC_NOTIFY_TYPE = 32789
-MMCN_SHOW: MMC_NOTIFY_TYPE = 32790
-MMCN_VIEW_CHANGE: MMC_NOTIFY_TYPE = 32791
-MMCN_SNAPINHELP: MMC_NOTIFY_TYPE = 32792
-MMCN_CONTEXTHELP: MMC_NOTIFY_TYPE = 32793
-MMCN_INITOCX: MMC_NOTIFY_TYPE = 32794
-MMCN_FILTER_CHANGE: MMC_NOTIFY_TYPE = 32795
-MMCN_FILTERBTN_CLICK: MMC_NOTIFY_TYPE = 32796
-MMCN_RESTORE_VIEW: MMC_NOTIFY_TYPE = 32797
-MMCN_PRINT: MMC_NOTIFY_TYPE = 32798
-MMCN_PRELOAD: MMC_NOTIFY_TYPE = 32799
-MMCN_LISTPAD: MMC_NOTIFY_TYPE = 32800
-MMCN_EXPANDSYNC: MMC_NOTIFY_TYPE = 32801
-MMCN_COLUMNS_CHANGED: MMC_NOTIFY_TYPE = 32802
-MMCN_CANPASTE_OUTOFPROC: MMC_NOTIFY_TYPE = 32803
+MMCN_ACTIVATE: win32more.Windows.Win32.System.Mmc.MMC_NOTIFY_TYPE = 32769
+MMCN_ADD_IMAGES: win32more.Windows.Win32.System.Mmc.MMC_NOTIFY_TYPE = 32770
+MMCN_BTN_CLICK: win32more.Windows.Win32.System.Mmc.MMC_NOTIFY_TYPE = 32771
+MMCN_CLICK: win32more.Windows.Win32.System.Mmc.MMC_NOTIFY_TYPE = 32772
+MMCN_COLUMN_CLICK: win32more.Windows.Win32.System.Mmc.MMC_NOTIFY_TYPE = 32773
+MMCN_CONTEXTMENU: win32more.Windows.Win32.System.Mmc.MMC_NOTIFY_TYPE = 32774
+MMCN_CUTORMOVE: win32more.Windows.Win32.System.Mmc.MMC_NOTIFY_TYPE = 32775
+MMCN_DBLCLICK: win32more.Windows.Win32.System.Mmc.MMC_NOTIFY_TYPE = 32776
+MMCN_DELETE: win32more.Windows.Win32.System.Mmc.MMC_NOTIFY_TYPE = 32777
+MMCN_DESELECT_ALL: win32more.Windows.Win32.System.Mmc.MMC_NOTIFY_TYPE = 32778
+MMCN_EXPAND: win32more.Windows.Win32.System.Mmc.MMC_NOTIFY_TYPE = 32779
+MMCN_HELP: win32more.Windows.Win32.System.Mmc.MMC_NOTIFY_TYPE = 32780
+MMCN_MENU_BTNCLICK: win32more.Windows.Win32.System.Mmc.MMC_NOTIFY_TYPE = 32781
+MMCN_MINIMIZED: win32more.Windows.Win32.System.Mmc.MMC_NOTIFY_TYPE = 32782
+MMCN_PASTE: win32more.Windows.Win32.System.Mmc.MMC_NOTIFY_TYPE = 32783
+MMCN_PROPERTY_CHANGE: win32more.Windows.Win32.System.Mmc.MMC_NOTIFY_TYPE = 32784
+MMCN_QUERY_PASTE: win32more.Windows.Win32.System.Mmc.MMC_NOTIFY_TYPE = 32785
+MMCN_REFRESH: win32more.Windows.Win32.System.Mmc.MMC_NOTIFY_TYPE = 32786
+MMCN_REMOVE_CHILDREN: win32more.Windows.Win32.System.Mmc.MMC_NOTIFY_TYPE = 32787
+MMCN_RENAME: win32more.Windows.Win32.System.Mmc.MMC_NOTIFY_TYPE = 32788
+MMCN_SELECT: win32more.Windows.Win32.System.Mmc.MMC_NOTIFY_TYPE = 32789
+MMCN_SHOW: win32more.Windows.Win32.System.Mmc.MMC_NOTIFY_TYPE = 32790
+MMCN_VIEW_CHANGE: win32more.Windows.Win32.System.Mmc.MMC_NOTIFY_TYPE = 32791
+MMCN_SNAPINHELP: win32more.Windows.Win32.System.Mmc.MMC_NOTIFY_TYPE = 32792
+MMCN_CONTEXTHELP: win32more.Windows.Win32.System.Mmc.MMC_NOTIFY_TYPE = 32793
+MMCN_INITOCX: win32more.Windows.Win32.System.Mmc.MMC_NOTIFY_TYPE = 32794
+MMCN_FILTER_CHANGE: win32more.Windows.Win32.System.Mmc.MMC_NOTIFY_TYPE = 32795
+MMCN_FILTERBTN_CLICK: win32more.Windows.Win32.System.Mmc.MMC_NOTIFY_TYPE = 32796
+MMCN_RESTORE_VIEW: win32more.Windows.Win32.System.Mmc.MMC_NOTIFY_TYPE = 32797
+MMCN_PRINT: win32more.Windows.Win32.System.Mmc.MMC_NOTIFY_TYPE = 32798
+MMCN_PRELOAD: win32more.Windows.Win32.System.Mmc.MMC_NOTIFY_TYPE = 32799
+MMCN_LISTPAD: win32more.Windows.Win32.System.Mmc.MMC_NOTIFY_TYPE = 32800
+MMCN_EXPANDSYNC: win32more.Windows.Win32.System.Mmc.MMC_NOTIFY_TYPE = 32801
+MMCN_COLUMNS_CHANGED: win32more.Windows.Win32.System.Mmc.MMC_NOTIFY_TYPE = 32802
+MMCN_CANPASTE_OUTOFPROC: win32more.Windows.Win32.System.Mmc.MMC_NOTIFY_TYPE = 32803
 MMC_PROPERTY_ACTION = Int32
-MMC_PROPACT_DELETING: MMC_PROPERTY_ACTION = 1
-MMC_PROPACT_CHANGING: MMC_PROPERTY_ACTION = 2
-MMC_PROPACT_INITIALIZED: MMC_PROPERTY_ACTION = 3
+MMC_PROPACT_DELETING: win32more.Windows.Win32.System.Mmc.MMC_PROPERTY_ACTION = 1
+MMC_PROPACT_CHANGING: win32more.Windows.Win32.System.Mmc.MMC_PROPERTY_ACTION = 2
+MMC_PROPACT_INITIALIZED: win32more.Windows.Win32.System.Mmc.MMC_PROPERTY_ACTION = 3
 class MMC_RESTORE_VIEW(EasyCastStructure):
     dwSize: UInt32
     cookie: IntPtr
     pViewType: win32more.Windows.Win32.Foundation.PWSTR
     lViewOptions: Int32
 MMC_RESULT_VIEW_STYLE = Int32
-MMC_SINGLESEL: MMC_RESULT_VIEW_STYLE = 1
-MMC_SHOWSELALWAYS: MMC_RESULT_VIEW_STYLE = 2
-MMC_NOSORTHEADER: MMC_RESULT_VIEW_STYLE = 4
-MMC_ENSUREFOCUSVISIBLE: MMC_RESULT_VIEW_STYLE = 8
+MMC_SINGLESEL: win32more.Windows.Win32.System.Mmc.MMC_RESULT_VIEW_STYLE = 1
+MMC_SHOWSELALWAYS: win32more.Windows.Win32.System.Mmc.MMC_RESULT_VIEW_STYLE = 2
+MMC_NOSORTHEADER: win32more.Windows.Win32.System.Mmc.MMC_RESULT_VIEW_STYLE = 4
+MMC_ENSUREFOCUSVISIBLE: win32more.Windows.Win32.System.Mmc.MMC_RESULT_VIEW_STYLE = 8
 MMC_SCOPE_ITEM_STATE = Int32
-MMC_SCOPE_ITEM_STATE_NORMAL: MMC_SCOPE_ITEM_STATE = 1
-MMC_SCOPE_ITEM_STATE_BOLD: MMC_SCOPE_ITEM_STATE = 2
-MMC_SCOPE_ITEM_STATE_EXPANDEDONCE: MMC_SCOPE_ITEM_STATE = 3
+MMC_SCOPE_ITEM_STATE_NORMAL: win32more.Windows.Win32.System.Mmc.MMC_SCOPE_ITEM_STATE = 1
+MMC_SCOPE_ITEM_STATE_BOLD: win32more.Windows.Win32.System.Mmc.MMC_SCOPE_ITEM_STATE = 2
+MMC_SCOPE_ITEM_STATE_EXPANDEDONCE: win32more.Windows.Win32.System.Mmc.MMC_SCOPE_ITEM_STATE = 3
 class MMC_SNAPIN_PROPERTY(EasyCastStructure):
     pszPropName: win32more.Windows.Win32.Foundation.PWSTR
     varValue: win32more.Windows.Win32.System.Variant.VARIANT
@@ -910,15 +909,15 @@ class MMC_TASK_DISPLAY_SYMBOL(EasyCastStructure):
     szURLtoEOT: win32more.Windows.Win32.Foundation.PWSTR
     szSymbolString: win32more.Windows.Win32.Foundation.PWSTR
 MMC_TASK_DISPLAY_TYPE = Int32
-MMC_TASK_DISPLAY_UNINITIALIZED: MMC_TASK_DISPLAY_TYPE = 0
-MMC_TASK_DISPLAY_TYPE_SYMBOL: MMC_TASK_DISPLAY_TYPE = 1
-MMC_TASK_DISPLAY_TYPE_VANILLA_GIF: MMC_TASK_DISPLAY_TYPE = 2
-MMC_TASK_DISPLAY_TYPE_CHOCOLATE_GIF: MMC_TASK_DISPLAY_TYPE = 3
-MMC_TASK_DISPLAY_TYPE_BITMAP: MMC_TASK_DISPLAY_TYPE = 4
+MMC_TASK_DISPLAY_UNINITIALIZED: win32more.Windows.Win32.System.Mmc.MMC_TASK_DISPLAY_TYPE = 0
+MMC_TASK_DISPLAY_TYPE_SYMBOL: win32more.Windows.Win32.System.Mmc.MMC_TASK_DISPLAY_TYPE = 1
+MMC_TASK_DISPLAY_TYPE_VANILLA_GIF: win32more.Windows.Win32.System.Mmc.MMC_TASK_DISPLAY_TYPE = 2
+MMC_TASK_DISPLAY_TYPE_CHOCOLATE_GIF: win32more.Windows.Win32.System.Mmc.MMC_TASK_DISPLAY_TYPE = 3
+MMC_TASK_DISPLAY_TYPE_BITMAP: win32more.Windows.Win32.System.Mmc.MMC_TASK_DISPLAY_TYPE = 4
 MMC_VIEW_TYPE = Int32
-MMC_VIEW_TYPE_LIST: MMC_VIEW_TYPE = 0
-MMC_VIEW_TYPE_HTML: MMC_VIEW_TYPE = 1
-MMC_VIEW_TYPE_OCX: MMC_VIEW_TYPE = 2
+MMC_VIEW_TYPE_LIST: win32more.Windows.Win32.System.Mmc.MMC_VIEW_TYPE = 0
+MMC_VIEW_TYPE_HTML: win32more.Windows.Win32.System.Mmc.MMC_VIEW_TYPE = 1
+MMC_VIEW_TYPE_OCX: win32more.Windows.Win32.System.Mmc.MMC_VIEW_TYPE = 2
 class MMC_VISIBLE_COLUMNS(EasyCastStructure):
     nVisibleColumns: Int32
     rgVisibleCols: Int32 * 1
@@ -1243,13 +1242,13 @@ class _Application(ComPtr):
     @commethod(18)
     def get_VersionMinor(self, VersionMinor: POINTER(Int32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 _ColumnSortOrder = Int32
-SortOrder_Ascending: _ColumnSortOrder = 0
-SortOrder_Descending: _ColumnSortOrder = 1
+SortOrder_Ascending: win32more.Windows.Win32.System.Mmc._ColumnSortOrder = 0
+SortOrder_Descending: win32more.Windows.Win32.System.Mmc._ColumnSortOrder = 1
 _DocumentMode = Int32
-DocumentMode_Author: _DocumentMode = 0
-DocumentMode_User: _DocumentMode = 1
-DocumentMode_User_MDI: _DocumentMode = 2
-DocumentMode_User_SDI: _DocumentMode = 3
+DocumentMode_Author: win32more.Windows.Win32.System.Mmc._DocumentMode = 0
+DocumentMode_User: win32more.Windows.Win32.System.Mmc._DocumentMode = 1
+DocumentMode_User_MDI: win32more.Windows.Win32.System.Mmc._DocumentMode = 2
+DocumentMode_User_SDI: win32more.Windows.Win32.System.Mmc._DocumentMode = 3
 class _EventConnector(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IDispatch
     _iid_ = Guid('{c0bccd30-de44-4528-8403-a05a6a1cc8ea}')
@@ -1258,20 +1257,22 @@ class _EventConnector(ComPtr):
     @commethod(8)
     def Disconnect(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 _ExportListOptions = Int32
-ExportListOptions_Default: _ExportListOptions = 0
-ExportListOptions_Unicode: _ExportListOptions = 1
-ExportListOptions_TabDelimited: _ExportListOptions = 2
-ExportListOptions_SelectedItemsOnly: _ExportListOptions = 4
+ExportListOptions_Default: win32more.Windows.Win32.System.Mmc._ExportListOptions = 0
+ExportListOptions_Unicode: win32more.Windows.Win32.System.Mmc._ExportListOptions = 1
+ExportListOptions_TabDelimited: win32more.Windows.Win32.System.Mmc._ExportListOptions = 2
+ExportListOptions_SelectedItemsOnly: win32more.Windows.Win32.System.Mmc._ExportListOptions = 4
 _ListViewMode = Int32
-ListMode_Small_Icons: _ListViewMode = 0
-ListMode_Large_Icons: _ListViewMode = 1
-ListMode_List: _ListViewMode = 2
-ListMode_Detail: _ListViewMode = 3
-ListMode_Filtered: _ListViewMode = 4
+ListMode_Small_Icons: win32more.Windows.Win32.System.Mmc._ListViewMode = 0
+ListMode_Large_Icons: win32more.Windows.Win32.System.Mmc._ListViewMode = 1
+ListMode_List: win32more.Windows.Win32.System.Mmc._ListViewMode = 2
+ListMode_Detail: win32more.Windows.Win32.System.Mmc._ListViewMode = 3
+ListMode_Filtered: win32more.Windows.Win32.System.Mmc._ListViewMode = 4
 _ViewOptions = Int32
-ViewOption_Default: _ViewOptions = 0
-ViewOption_ScopeTreeHidden: _ViewOptions = 1
-ViewOption_NoToolBars: _ViewOptions = 2
-ViewOption_NotPersistable: _ViewOptions = 4
-ViewOption_ActionPaneHidden: _ViewOptions = 8
+ViewOption_Default: win32more.Windows.Win32.System.Mmc._ViewOptions = 0
+ViewOption_ScopeTreeHidden: win32more.Windows.Win32.System.Mmc._ViewOptions = 1
+ViewOption_NoToolBars: win32more.Windows.Win32.System.Mmc._ViewOptions = 2
+ViewOption_NotPersistable: win32more.Windows.Win32.System.Mmc._ViewOptions = 4
+ViewOption_ActionPaneHidden: win32more.Windows.Win32.System.Mmc._ViewOptions = 8
+
+
 make_ready(__name__)

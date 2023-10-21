@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Storage.Cabinets
 INCLUDED_FCI: UInt32 = 1
@@ -73,16 +72,16 @@ class ERF(EasyCastStructure):
     erfType: Int32
     fError: win32more.Windows.Win32.Foundation.BOOL
 FCIERROR = Int32
-FCIERR_NONE: FCIERROR = 0
-FCIERR_OPEN_SRC: FCIERROR = 1
-FCIERR_READ_SRC: FCIERROR = 2
-FCIERR_ALLOC_FAIL: FCIERROR = 3
-FCIERR_TEMP_FILE: FCIERROR = 4
-FCIERR_BAD_COMPR_TYPE: FCIERROR = 5
-FCIERR_CAB_FILE: FCIERROR = 6
-FCIERR_USER_ABORT: FCIERROR = 7
-FCIERR_MCI_FAIL: FCIERROR = 8
-FCIERR_CAB_FORMAT_LIMIT: FCIERROR = 9
+FCIERR_NONE: win32more.Windows.Win32.Storage.Cabinets.FCIERROR = 0
+FCIERR_OPEN_SRC: win32more.Windows.Win32.Storage.Cabinets.FCIERROR = 1
+FCIERR_READ_SRC: win32more.Windows.Win32.Storage.Cabinets.FCIERROR = 2
+FCIERR_ALLOC_FAIL: win32more.Windows.Win32.Storage.Cabinets.FCIERROR = 3
+FCIERR_TEMP_FILE: win32more.Windows.Win32.Storage.Cabinets.FCIERROR = 4
+FCIERR_BAD_COMPR_TYPE: win32more.Windows.Win32.Storage.Cabinets.FCIERROR = 5
+FCIERR_CAB_FILE: win32more.Windows.Win32.Storage.Cabinets.FCIERROR = 6
+FCIERR_USER_ABORT: win32more.Windows.Win32.Storage.Cabinets.FCIERROR = 7
+FCIERR_MCI_FAIL: win32more.Windows.Win32.Storage.Cabinets.FCIERROR = 8
+FCIERR_CAB_FORMAT_LIMIT: win32more.Windows.Win32.Storage.Cabinets.FCIERROR = 9
 class FDICABINETINFO(EasyCastStructure):
     cbCabinet: Int32
     cFolders: UInt16
@@ -93,9 +92,9 @@ class FDICABINETINFO(EasyCastStructure):
     hasprev: win32more.Windows.Win32.Foundation.BOOL
     hasnext: win32more.Windows.Win32.Foundation.BOOL
 FDICREATE_CPU_TYPE = Int32
-FDICREATE_CPU_TYPE_cpuUNKNOWN: FDICREATE_CPU_TYPE = -1
-FDICREATE_CPU_TYPE_cpu80286: FDICREATE_CPU_TYPE = 0
-FDICREATE_CPU_TYPE_cpu80386: FDICREATE_CPU_TYPE = 1
+FDICREATE_CPU_TYPE_cpuUNKNOWN: win32more.Windows.Win32.Storage.Cabinets.FDICREATE_CPU_TYPE = -1
+FDICREATE_CPU_TYPE_cpu80286: win32more.Windows.Win32.Storage.Cabinets.FDICREATE_CPU_TYPE = 0
+FDICREATE_CPU_TYPE_cpu80386: win32more.Windows.Win32.Storage.Cabinets.FDICREATE_CPU_TYPE = 1
 class FDIDECRYPT(EasyCastStructure):
     fdidt: win32more.Windows.Win32.Storage.Cabinets.FDIDECRYPTTYPE
     pvUser: VoidPtr
@@ -121,23 +120,23 @@ class FDIDECRYPT(EasyCastStructure):
             fSplit: win32more.Windows.Win32.Foundation.BOOL
             cbPartial: UInt16
 FDIDECRYPTTYPE = Int32
-FDIDECRYPTTYPE_fdidtNEW_CABINET: FDIDECRYPTTYPE = 0
-FDIDECRYPTTYPE_fdidtNEW_FOLDER: FDIDECRYPTTYPE = 1
-FDIDECRYPTTYPE_fdidtDECRYPT: FDIDECRYPTTYPE = 2
+FDIDECRYPTTYPE_fdidtNEW_CABINET: win32more.Windows.Win32.Storage.Cabinets.FDIDECRYPTTYPE = 0
+FDIDECRYPTTYPE_fdidtNEW_FOLDER: win32more.Windows.Win32.Storage.Cabinets.FDIDECRYPTTYPE = 1
+FDIDECRYPTTYPE_fdidtDECRYPT: win32more.Windows.Win32.Storage.Cabinets.FDIDECRYPTTYPE = 2
 FDIERROR = Int32
-FDIERROR_NONE: FDIERROR = 0
-FDIERROR_CABINET_NOT_FOUND: FDIERROR = 1
-FDIERROR_NOT_A_CABINET: FDIERROR = 2
-FDIERROR_UNKNOWN_CABINET_VERSION: FDIERROR = 3
-FDIERROR_CORRUPT_CABINET: FDIERROR = 4
-FDIERROR_ALLOC_FAIL: FDIERROR = 5
-FDIERROR_BAD_COMPR_TYPE: FDIERROR = 6
-FDIERROR_MDI_FAIL: FDIERROR = 7
-FDIERROR_TARGET_FILE: FDIERROR = 8
-FDIERROR_RESERVE_MISMATCH: FDIERROR = 9
-FDIERROR_WRONG_CABINET: FDIERROR = 10
-FDIERROR_USER_ABORT: FDIERROR = 11
-FDIERROR_EOF: FDIERROR = 12
+FDIERROR_NONE: win32more.Windows.Win32.Storage.Cabinets.FDIERROR = 0
+FDIERROR_CABINET_NOT_FOUND: win32more.Windows.Win32.Storage.Cabinets.FDIERROR = 1
+FDIERROR_NOT_A_CABINET: win32more.Windows.Win32.Storage.Cabinets.FDIERROR = 2
+FDIERROR_UNKNOWN_CABINET_VERSION: win32more.Windows.Win32.Storage.Cabinets.FDIERROR = 3
+FDIERROR_CORRUPT_CABINET: win32more.Windows.Win32.Storage.Cabinets.FDIERROR = 4
+FDIERROR_ALLOC_FAIL: win32more.Windows.Win32.Storage.Cabinets.FDIERROR = 5
+FDIERROR_BAD_COMPR_TYPE: win32more.Windows.Win32.Storage.Cabinets.FDIERROR = 6
+FDIERROR_MDI_FAIL: win32more.Windows.Win32.Storage.Cabinets.FDIERROR = 7
+FDIERROR_TARGET_FILE: win32more.Windows.Win32.Storage.Cabinets.FDIERROR = 8
+FDIERROR_RESERVE_MISMATCH: win32more.Windows.Win32.Storage.Cabinets.FDIERROR = 9
+FDIERROR_WRONG_CABINET: win32more.Windows.Win32.Storage.Cabinets.FDIERROR = 10
+FDIERROR_USER_ABORT: win32more.Windows.Win32.Storage.Cabinets.FDIERROR = 11
+FDIERROR_EOF: win32more.Windows.Win32.Storage.Cabinets.FDIERROR = 12
 class FDINOTIFICATION(EasyCastStructure):
     cb: Int32
     psz1: win32more.Windows.Win32.Foundation.PSTR
@@ -153,12 +152,12 @@ class FDINOTIFICATION(EasyCastStructure):
     iFolder: UInt16
     fdie: win32more.Windows.Win32.Storage.Cabinets.FDIERROR
 FDINOTIFICATIONTYPE = Int32
-FDINOTIFICATIONTYPE_fdintCABINET_INFO: FDINOTIFICATIONTYPE = 0
-FDINOTIFICATIONTYPE_fdintPARTIAL_FILE: FDINOTIFICATIONTYPE = 1
-FDINOTIFICATIONTYPE_fdintCOPY_FILE: FDINOTIFICATIONTYPE = 2
-FDINOTIFICATIONTYPE_fdintCLOSE_FILE_INFO: FDINOTIFICATIONTYPE = 3
-FDINOTIFICATIONTYPE_fdintNEXT_CABINET: FDINOTIFICATIONTYPE = 4
-FDINOTIFICATIONTYPE_fdintENUMERATE: FDINOTIFICATIONTYPE = 5
+FDINOTIFICATIONTYPE_fdintCABINET_INFO: win32more.Windows.Win32.Storage.Cabinets.FDINOTIFICATIONTYPE = 0
+FDINOTIFICATIONTYPE_fdintPARTIAL_FILE: win32more.Windows.Win32.Storage.Cabinets.FDINOTIFICATIONTYPE = 1
+FDINOTIFICATIONTYPE_fdintCOPY_FILE: win32more.Windows.Win32.Storage.Cabinets.FDINOTIFICATIONTYPE = 2
+FDINOTIFICATIONTYPE_fdintCLOSE_FILE_INFO: win32more.Windows.Win32.Storage.Cabinets.FDINOTIFICATIONTYPE = 3
+FDINOTIFICATIONTYPE_fdintNEXT_CABINET: win32more.Windows.Win32.Storage.Cabinets.FDINOTIFICATIONTYPE = 4
+FDINOTIFICATIONTYPE_fdintENUMERATE: win32more.Windows.Win32.Storage.Cabinets.FDINOTIFICATIONTYPE = 5
 if ARCH in 'X64,ARM64':
     class FDISPILLFILE(EasyCastStructure):
         ach: win32more.Windows.Win32.Foundation.CHAR * 2
@@ -212,4 +211,6 @@ def PFNREAD(hf: IntPtr, pv: VoidPtr, cb: UInt32) -> UInt32: ...
 def PFNSEEK(hf: IntPtr, dist: Int32, seektype: Int32) -> Int32: ...
 @cfunctype_pointer
 def PFNWRITE(hf: IntPtr, pv: VoidPtr, cb: UInt32) -> UInt32: ...
+
+
 make_ready(__name__)

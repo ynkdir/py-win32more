@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.ProcessStatus
 PSAPI_VERSION: UInt32 = 2
@@ -119,10 +118,10 @@ class ENUM_PAGE_FILE_INFORMATION(EasyCastStructure):
     TotalInUse: UIntPtr
     PeakUsage: UIntPtr
 ENUM_PROCESS_MODULES_EX_FLAGS = UInt32
-LIST_MODULES_ALL: ENUM_PROCESS_MODULES_EX_FLAGS = 3
-LIST_MODULES_DEFAULT: ENUM_PROCESS_MODULES_EX_FLAGS = 0
-LIST_MODULES_32BIT: ENUM_PROCESS_MODULES_EX_FLAGS = 1
-LIST_MODULES_64BIT: ENUM_PROCESS_MODULES_EX_FLAGS = 2
+LIST_MODULES_ALL: win32more.Windows.Win32.System.ProcessStatus.ENUM_PROCESS_MODULES_EX_FLAGS = 3
+LIST_MODULES_DEFAULT: win32more.Windows.Win32.System.ProcessStatus.ENUM_PROCESS_MODULES_EX_FLAGS = 0
+LIST_MODULES_32BIT: win32more.Windows.Win32.System.ProcessStatus.ENUM_PROCESS_MODULES_EX_FLAGS = 1
+LIST_MODULES_64BIT: win32more.Windows.Win32.System.ProcessStatus.ENUM_PROCESS_MODULES_EX_FLAGS = 2
 class MODULEINFO(EasyCastStructure):
     lpBaseOfDll: VoidPtr
     SizeOfImage: UInt32
@@ -197,4 +196,6 @@ class PSAPI_WS_WATCH_INFORMATION_EX(EasyCastStructure):
     BasicInfo: win32more.Windows.Win32.System.ProcessStatus.PSAPI_WS_WATCH_INFORMATION
     FaultingThreadId: UIntPtr
     Flags: UIntPtr
+
+
 make_ready(__name__)

@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Storage.IndexServer
 import win32more.Windows.Win32.System.Com
@@ -160,15 +159,15 @@ def BindIFilterFromStorage(pStg: win32more.Windows.Win32.System.Com.StructuredSt
 @winfunctype('query.dll')
 def BindIFilterFromStream(pStm: win32more.Windows.Win32.System.Com.IStream, pUnkOuter: win32more.Windows.Win32.System.Com.IUnknown, ppIUnk: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 CHUNKSTATE = Int32
-CHUNK_TEXT: CHUNKSTATE = 1
-CHUNK_VALUE: CHUNKSTATE = 2
-CHUNK_FILTER_OWNED_VALUE: CHUNKSTATE = 4
+CHUNK_TEXT: win32more.Windows.Win32.Storage.IndexServer.CHUNKSTATE = 1
+CHUNK_VALUE: win32more.Windows.Win32.Storage.IndexServer.CHUNKSTATE = 2
+CHUNK_FILTER_OWNED_VALUE: win32more.Windows.Win32.Storage.IndexServer.CHUNKSTATE = 4
 CHUNK_BREAKTYPE = Int32
-CHUNK_NO_BREAK: CHUNK_BREAKTYPE = 0
-CHUNK_EOW: CHUNK_BREAKTYPE = 1
-CHUNK_EOS: CHUNK_BREAKTYPE = 2
-CHUNK_EOP: CHUNK_BREAKTYPE = 3
-CHUNK_EOC: CHUNK_BREAKTYPE = 4
+CHUNK_NO_BREAK: win32more.Windows.Win32.Storage.IndexServer.CHUNK_BREAKTYPE = 0
+CHUNK_EOW: win32more.Windows.Win32.Storage.IndexServer.CHUNK_BREAKTYPE = 1
+CHUNK_EOS: win32more.Windows.Win32.Storage.IndexServer.CHUNK_BREAKTYPE = 2
+CHUNK_EOP: win32more.Windows.Win32.Storage.IndexServer.CHUNK_BREAKTYPE = 3
+CHUNK_EOC: win32more.Windows.Win32.Storage.IndexServer.CHUNK_BREAKTYPE = 4
 class CI_STATE(EasyCastStructure):
     cbStruct: UInt32
     cWordList: UInt32
@@ -211,13 +210,13 @@ if ARCH in 'X86':
             ulPropid: UInt32
             _pack_ = 2
 DBKINDENUM = Int32
-DBKIND_GUID_NAME: DBKINDENUM = 0
-DBKIND_GUID_PROPID: DBKINDENUM = 1
-DBKIND_NAME: DBKINDENUM = 2
-DBKIND_PGUID_NAME: DBKINDENUM = 3
-DBKIND_PGUID_PROPID: DBKINDENUM = 4
-DBKIND_PROPID: DBKINDENUM = 5
-DBKIND_GUID: DBKINDENUM = 6
+DBKIND_GUID_NAME: win32more.Windows.Win32.Storage.IndexServer.DBKINDENUM = 0
+DBKIND_GUID_PROPID: win32more.Windows.Win32.Storage.IndexServer.DBKINDENUM = 1
+DBKIND_NAME: win32more.Windows.Win32.Storage.IndexServer.DBKINDENUM = 2
+DBKIND_PGUID_NAME: win32more.Windows.Win32.Storage.IndexServer.DBKINDENUM = 3
+DBKIND_PGUID_PROPID: win32more.Windows.Win32.Storage.IndexServer.DBKINDENUM = 4
+DBKIND_PROPID: win32more.Windows.Win32.Storage.IndexServer.DBKINDENUM = 5
+DBKIND_GUID: win32more.Windows.Win32.Storage.IndexServer.DBKINDENUM = 6
 class FILTERREGION(EasyCastStructure):
     idChunk: UInt32
     cwcStart: UInt32
@@ -226,21 +225,21 @@ class FULLPROPSPEC(EasyCastStructure):
     guidPropSet: Guid
     psProperty: win32more.Windows.Win32.System.Com.StructuredStorage.PROPSPEC
 IFILTER_FLAGS = Int32
-IFILTER_FLAGS_OLE_PROPERTIES: IFILTER_FLAGS = 1
+IFILTER_FLAGS_OLE_PROPERTIES: win32more.Windows.Win32.Storage.IndexServer.IFILTER_FLAGS = 1
 IFILTER_INIT = Int32
-IFILTER_INIT_CANON_PARAGRAPHS: IFILTER_INIT = 1
-IFILTER_INIT_HARD_LINE_BREAKS: IFILTER_INIT = 2
-IFILTER_INIT_CANON_HYPHENS: IFILTER_INIT = 4
-IFILTER_INIT_CANON_SPACES: IFILTER_INIT = 8
-IFILTER_INIT_APPLY_INDEX_ATTRIBUTES: IFILTER_INIT = 16
-IFILTER_INIT_APPLY_OTHER_ATTRIBUTES: IFILTER_INIT = 32
-IFILTER_INIT_APPLY_CRAWL_ATTRIBUTES: IFILTER_INIT = 256
-IFILTER_INIT_INDEXING_ONLY: IFILTER_INIT = 64
-IFILTER_INIT_SEARCH_LINKS: IFILTER_INIT = 128
-IFILTER_INIT_FILTER_OWNED_VALUE_OK: IFILTER_INIT = 512
-IFILTER_INIT_FILTER_AGGRESSIVE_BREAK: IFILTER_INIT = 1024
-IFILTER_INIT_DISABLE_EMBEDDED: IFILTER_INIT = 2048
-IFILTER_INIT_EMIT_FORMATTING: IFILTER_INIT = 4096
+IFILTER_INIT_CANON_PARAGRAPHS: win32more.Windows.Win32.Storage.IndexServer.IFILTER_INIT = 1
+IFILTER_INIT_HARD_LINE_BREAKS: win32more.Windows.Win32.Storage.IndexServer.IFILTER_INIT = 2
+IFILTER_INIT_CANON_HYPHENS: win32more.Windows.Win32.Storage.IndexServer.IFILTER_INIT = 4
+IFILTER_INIT_CANON_SPACES: win32more.Windows.Win32.Storage.IndexServer.IFILTER_INIT = 8
+IFILTER_INIT_APPLY_INDEX_ATTRIBUTES: win32more.Windows.Win32.Storage.IndexServer.IFILTER_INIT = 16
+IFILTER_INIT_APPLY_OTHER_ATTRIBUTES: win32more.Windows.Win32.Storage.IndexServer.IFILTER_INIT = 32
+IFILTER_INIT_APPLY_CRAWL_ATTRIBUTES: win32more.Windows.Win32.Storage.IndexServer.IFILTER_INIT = 256
+IFILTER_INIT_INDEXING_ONLY: win32more.Windows.Win32.Storage.IndexServer.IFILTER_INIT = 64
+IFILTER_INIT_SEARCH_LINKS: win32more.Windows.Win32.Storage.IndexServer.IFILTER_INIT = 128
+IFILTER_INIT_FILTER_OWNED_VALUE_OK: win32more.Windows.Win32.Storage.IndexServer.IFILTER_INIT = 512
+IFILTER_INIT_FILTER_AGGRESSIVE_BREAK: win32more.Windows.Win32.Storage.IndexServer.IFILTER_INIT = 1024
+IFILTER_INIT_DISABLE_EMBEDDED: win32more.Windows.Win32.Storage.IndexServer.IFILTER_INIT = 2048
+IFILTER_INIT_EMIT_FORMATTING: win32more.Windows.Win32.Storage.IndexServer.IFILTER_INIT = 4096
 class IFilter(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{89bcb740-6119-101a-bcb7-00dd010655af}')
@@ -271,8 +270,10 @@ class STAT_CHUNK(EasyCastStructure):
     cwcStartSource: UInt32
     cwcLenSource: UInt32
 WORDREP_BREAK_TYPE = Int32
-WORDREP_BREAK_EOW: WORDREP_BREAK_TYPE = 0
-WORDREP_BREAK_EOS: WORDREP_BREAK_TYPE = 1
-WORDREP_BREAK_EOP: WORDREP_BREAK_TYPE = 2
-WORDREP_BREAK_EOC: WORDREP_BREAK_TYPE = 3
+WORDREP_BREAK_EOW: win32more.Windows.Win32.Storage.IndexServer.WORDREP_BREAK_TYPE = 0
+WORDREP_BREAK_EOS: win32more.Windows.Win32.Storage.IndexServer.WORDREP_BREAK_TYPE = 1
+WORDREP_BREAK_EOP: win32more.Windows.Win32.Storage.IndexServer.WORDREP_BREAK_TYPE = 2
+WORDREP_BREAK_EOC: win32more.Windows.Win32.Storage.IndexServer.WORDREP_BREAK_TYPE = 3
+
+
 make_ready(__name__)

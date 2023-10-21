@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Storage.OperationRecorder
 @winfunctype('ADVAPI32.dll')
@@ -12,11 +11,13 @@ class OPERATION_END_PARAMETERS(EasyCastStructure):
     OperationId: UInt32
     Flags: win32more.Windows.Win32.Storage.OperationRecorder.OPERATION_END_PARAMETERS_FLAGS
 OPERATION_END_PARAMETERS_FLAGS = UInt32
-OPERATION_END_DISCARD: OPERATION_END_PARAMETERS_FLAGS = 1
+OPERATION_END_DISCARD: win32more.Windows.Win32.Storage.OperationRecorder.OPERATION_END_PARAMETERS_FLAGS = 1
 OPERATION_START_FLAGS = UInt32
-OPERATION_START_TRACE_CURRENT_THREAD: OPERATION_START_FLAGS = 1
+OPERATION_START_TRACE_CURRENT_THREAD: win32more.Windows.Win32.Storage.OperationRecorder.OPERATION_START_FLAGS = 1
 class OPERATION_START_PARAMETERS(EasyCastStructure):
     Version: UInt32
     OperationId: UInt32
     Flags: win32more.Windows.Win32.Storage.OperationRecorder.OPERATION_START_FLAGS
+
+
 make_ready(__name__)

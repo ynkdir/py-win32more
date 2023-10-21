@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Direct3D
 import win32more.Windows.Win32.Graphics.Direct3D11
@@ -37,4 +36,6 @@ class ID3D11On12Device2(ComPtr):
     def ReturnUnderlyingResource(self, pResource11: win32more.Windows.Win32.Graphics.Direct3D11.ID3D11Resource, NumSync: UInt32, pSignalValues: POINTER(UInt64), ppFences: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Fence)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def PFN_D3D11ON12_CREATE_DEVICE(param0: win32more.Windows.Win32.System.Com.IUnknown, param1: UInt32, param2: POINTER(win32more.Windows.Win32.Graphics.Direct3D.D3D_FEATURE_LEVEL), FeatureLevels: UInt32, param4: POINTER(win32more.Windows.Win32.System.Com.IUnknown), NumQueues: UInt32, param6: UInt32, param7: POINTER(win32more.Windows.Win32.Graphics.Direct3D11.ID3D11Device), param8: POINTER(win32more.Windows.Win32.Graphics.Direct3D11.ID3D11DeviceContext), param9: POINTER(win32more.Windows.Win32.Graphics.Direct3D.D3D_FEATURE_LEVEL)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+
+
 make_ready(__name__)

@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.SettingsManagementInfrastructure
@@ -265,40 +264,42 @@ class ITargetInfo(ComPtr):
     def GetSchemaHiveMountName(self, pMountName: POINTER(win32more.Windows.Win32.Foundation.BSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 SettingsEngine = Guid('{9f7d7bb5-20b3-11da-81a5-0030f1642e3c}')
 WcmDataType = Int32
-WcmDataType_dataTypeByte: WcmDataType = 1
-WcmDataType_dataTypeSByte: WcmDataType = 2
-WcmDataType_dataTypeUInt16: WcmDataType = 3
-WcmDataType_dataTypeInt16: WcmDataType = 4
-WcmDataType_dataTypeUInt32: WcmDataType = 5
-WcmDataType_dataTypeInt32: WcmDataType = 6
-WcmDataType_dataTypeUInt64: WcmDataType = 7
-WcmDataType_dataTypeInt64: WcmDataType = 8
-WcmDataType_dataTypeBoolean: WcmDataType = 11
-WcmDataType_dataTypeString: WcmDataType = 12
-WcmDataType_dataTypeFlagArray: WcmDataType = 32768
+WcmDataType_dataTypeByte: win32more.Windows.Win32.System.SettingsManagementInfrastructure.WcmDataType = 1
+WcmDataType_dataTypeSByte: win32more.Windows.Win32.System.SettingsManagementInfrastructure.WcmDataType = 2
+WcmDataType_dataTypeUInt16: win32more.Windows.Win32.System.SettingsManagementInfrastructure.WcmDataType = 3
+WcmDataType_dataTypeInt16: win32more.Windows.Win32.System.SettingsManagementInfrastructure.WcmDataType = 4
+WcmDataType_dataTypeUInt32: win32more.Windows.Win32.System.SettingsManagementInfrastructure.WcmDataType = 5
+WcmDataType_dataTypeInt32: win32more.Windows.Win32.System.SettingsManagementInfrastructure.WcmDataType = 6
+WcmDataType_dataTypeUInt64: win32more.Windows.Win32.System.SettingsManagementInfrastructure.WcmDataType = 7
+WcmDataType_dataTypeInt64: win32more.Windows.Win32.System.SettingsManagementInfrastructure.WcmDataType = 8
+WcmDataType_dataTypeBoolean: win32more.Windows.Win32.System.SettingsManagementInfrastructure.WcmDataType = 11
+WcmDataType_dataTypeString: win32more.Windows.Win32.System.SettingsManagementInfrastructure.WcmDataType = 12
+WcmDataType_dataTypeFlagArray: win32more.Windows.Win32.System.SettingsManagementInfrastructure.WcmDataType = 32768
 WcmNamespaceAccess = Int32
-WcmNamespaceAccess_ReadOnlyAccess: WcmNamespaceAccess = 1
-WcmNamespaceAccess_ReadWriteAccess: WcmNamespaceAccess = 2
+WcmNamespaceAccess_ReadOnlyAccess: win32more.Windows.Win32.System.SettingsManagementInfrastructure.WcmNamespaceAccess = 1
+WcmNamespaceAccess_ReadWriteAccess: win32more.Windows.Win32.System.SettingsManagementInfrastructure.WcmNamespaceAccess = 2
 WcmNamespaceEnumerationFlags = Int32
-WcmNamespaceEnumerationFlags_SharedEnumeration: WcmNamespaceEnumerationFlags = 1
-WcmNamespaceEnumerationFlags_UserEnumeration: WcmNamespaceEnumerationFlags = 2
-WcmNamespaceEnumerationFlags_AllEnumeration: WcmNamespaceEnumerationFlags = 3
+WcmNamespaceEnumerationFlags_SharedEnumeration: win32more.Windows.Win32.System.SettingsManagementInfrastructure.WcmNamespaceEnumerationFlags = 1
+WcmNamespaceEnumerationFlags_UserEnumeration: win32more.Windows.Win32.System.SettingsManagementInfrastructure.WcmNamespaceEnumerationFlags = 2
+WcmNamespaceEnumerationFlags_AllEnumeration: win32more.Windows.Win32.System.SettingsManagementInfrastructure.WcmNamespaceEnumerationFlags = 3
 WcmRestrictionFacets = Int32
-WcmRestrictionFacets_restrictionFacetMaxLength: WcmRestrictionFacets = 1
-WcmRestrictionFacets_restrictionFacetEnumeration: WcmRestrictionFacets = 2
-WcmRestrictionFacets_restrictionFacetMaxInclusive: WcmRestrictionFacets = 4
-WcmRestrictionFacets_restrictionFacetMinInclusive: WcmRestrictionFacets = 8
+WcmRestrictionFacets_restrictionFacetMaxLength: win32more.Windows.Win32.System.SettingsManagementInfrastructure.WcmRestrictionFacets = 1
+WcmRestrictionFacets_restrictionFacetEnumeration: win32more.Windows.Win32.System.SettingsManagementInfrastructure.WcmRestrictionFacets = 2
+WcmRestrictionFacets_restrictionFacetMaxInclusive: win32more.Windows.Win32.System.SettingsManagementInfrastructure.WcmRestrictionFacets = 4
+WcmRestrictionFacets_restrictionFacetMinInclusive: win32more.Windows.Win32.System.SettingsManagementInfrastructure.WcmRestrictionFacets = 8
 WcmSettingType = Int32
-WcmSettingType_settingTypeScalar: WcmSettingType = 1
-WcmSettingType_settingTypeComplex: WcmSettingType = 2
-WcmSettingType_settingTypeList: WcmSettingType = 3
+WcmSettingType_settingTypeScalar: win32more.Windows.Win32.System.SettingsManagementInfrastructure.WcmSettingType = 1
+WcmSettingType_settingTypeComplex: win32more.Windows.Win32.System.SettingsManagementInfrastructure.WcmSettingType = 2
+WcmSettingType_settingTypeList: win32more.Windows.Win32.System.SettingsManagementInfrastructure.WcmSettingType = 3
 WcmTargetMode = Int32
-WcmTargetMode_OfflineMode: WcmTargetMode = 1
-WcmTargetMode_OnlineMode: WcmTargetMode = 2
+WcmTargetMode_OfflineMode: win32more.Windows.Win32.System.SettingsManagementInfrastructure.WcmTargetMode = 1
+WcmTargetMode_OnlineMode: win32more.Windows.Win32.System.SettingsManagementInfrastructure.WcmTargetMode = 2
 WcmUserStatus = Int32
-WcmUserStatus_UnknownStatus: WcmUserStatus = 0
-WcmUserStatus_UserRegistered: WcmUserStatus = 1
-WcmUserStatus_UserUnregistered: WcmUserStatus = 2
-WcmUserStatus_UserLoaded: WcmUserStatus = 3
-WcmUserStatus_UserUnloaded: WcmUserStatus = 4
+WcmUserStatus_UnknownStatus: win32more.Windows.Win32.System.SettingsManagementInfrastructure.WcmUserStatus = 0
+WcmUserStatus_UserRegistered: win32more.Windows.Win32.System.SettingsManagementInfrastructure.WcmUserStatus = 1
+WcmUserStatus_UserUnregistered: win32more.Windows.Win32.System.SettingsManagementInfrastructure.WcmUserStatus = 2
+WcmUserStatus_UserLoaded: win32more.Windows.Win32.System.SettingsManagementInfrastructure.WcmUserStatus = 3
+WcmUserStatus_UserUnloaded: win32more.Windows.Win32.System.SettingsManagementInfrastructure.WcmUserStatus = 4
+
+
 make_ready(__name__)

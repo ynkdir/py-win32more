@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Storage.Xps
 import win32more.Windows.Win32.Storage.Xps.Printing
@@ -51,10 +50,10 @@ class IXpsPrintJobStream(ComPtr):
     @commethod(5)
     def Close(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 PrintDocumentPackageCompletion = Int32
-PrintDocumentPackageCompletion_InProgress: PrintDocumentPackageCompletion = 0
-PrintDocumentPackageCompletion_Completed: PrintDocumentPackageCompletion = 1
-PrintDocumentPackageCompletion_Canceled: PrintDocumentPackageCompletion = 2
-PrintDocumentPackageCompletion_Failed: PrintDocumentPackageCompletion = 3
+PrintDocumentPackageCompletion_InProgress: win32more.Windows.Win32.Storage.Xps.Printing.PrintDocumentPackageCompletion = 0
+PrintDocumentPackageCompletion_Completed: win32more.Windows.Win32.Storage.Xps.Printing.PrintDocumentPackageCompletion = 1
+PrintDocumentPackageCompletion_Canceled: win32more.Windows.Win32.Storage.Xps.Printing.PrintDocumentPackageCompletion = 2
+PrintDocumentPackageCompletion_Failed: win32more.Windows.Win32.Storage.Xps.Printing.PrintDocumentPackageCompletion = 3
 class PrintDocumentPackageStatus(EasyCastStructure):
     JobId: UInt32
     CurrentDocument: Int32
@@ -65,10 +64,10 @@ class PrintDocumentPackageStatus(EasyCastStructure):
 PrintDocumentPackageTarget = Guid('{4842669e-9947-46ea-8ba2-d8cce432c2ca}')
 PrintDocumentPackageTargetFactory = Guid('{348ef17d-6c81-4982-92b4-ee188a43867a}')
 XPS_JOB_COMPLETION = Int32
-XPS_JOB_IN_PROGRESS: XPS_JOB_COMPLETION = 0
-XPS_JOB_COMPLETED: XPS_JOB_COMPLETION = 1
-XPS_JOB_CANCELLED: XPS_JOB_COMPLETION = 2
-XPS_JOB_FAILED: XPS_JOB_COMPLETION = 3
+XPS_JOB_IN_PROGRESS: win32more.Windows.Win32.Storage.Xps.Printing.XPS_JOB_COMPLETION = 0
+XPS_JOB_COMPLETED: win32more.Windows.Win32.Storage.Xps.Printing.XPS_JOB_COMPLETION = 1
+XPS_JOB_CANCELLED: win32more.Windows.Win32.Storage.Xps.Printing.XPS_JOB_COMPLETION = 2
+XPS_JOB_FAILED: win32more.Windows.Win32.Storage.Xps.Printing.XPS_JOB_COMPLETION = 3
 class XPS_JOB_STATUS(EasyCastStructure):
     jobId: UInt32
     currentDocument: Int32
@@ -76,4 +75,6 @@ class XPS_JOB_STATUS(EasyCastStructure):
     currentPageTotal: Int32
     completion: win32more.Windows.Win32.Storage.Xps.Printing.XPS_JOB_COMPLETION
     jobStatus: win32more.Windows.Win32.Foundation.HRESULT
+
+
 make_ready(__name__)

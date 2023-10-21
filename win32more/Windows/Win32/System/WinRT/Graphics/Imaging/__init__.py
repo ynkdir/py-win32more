@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Imaging
 import win32more.Windows.Win32.Media.MediaFoundation
@@ -19,4 +18,6 @@ class ISoftwareBitmapNativeFactory(ComPtr):
     def CreateFromWICBitmap(self, data: win32more.Windows.Win32.Graphics.Imaging.IWICBitmap, forceReadOnly: win32more.Windows.Win32.Foundation.BOOL, riid: POINTER(Guid), ppv: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def CreateFromMF2DBuffer2(self, data: win32more.Windows.Win32.Media.MediaFoundation.IMF2DBuffer2, subtype: POINTER(Guid), width: UInt32, height: UInt32, forceReadOnly: win32more.Windows.Win32.Foundation.BOOL, minDisplayAperture: POINTER(win32more.Windows.Win32.Media.MediaFoundation.MFVideoArea), riid: POINTER(Guid), ppv: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+
+
 make_ready(__name__)

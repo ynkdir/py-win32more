@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.Graphics.OpenGL
@@ -1598,32 +1597,32 @@ class LAYERPLANEDESCRIPTOR(EasyCastStructure):
     bReserved: Byte
     crTransparent: win32more.Windows.Win32.Foundation.COLORREF
 PFD_FLAGS = UInt32
-PFD_DOUBLEBUFFER: PFD_FLAGS = 1
-PFD_STEREO: PFD_FLAGS = 2
-PFD_DRAW_TO_WINDOW: PFD_FLAGS = 4
-PFD_DRAW_TO_BITMAP: PFD_FLAGS = 8
-PFD_SUPPORT_GDI: PFD_FLAGS = 16
-PFD_SUPPORT_OPENGL: PFD_FLAGS = 32
-PFD_GENERIC_FORMAT: PFD_FLAGS = 64
-PFD_NEED_PALETTE: PFD_FLAGS = 128
-PFD_NEED_SYSTEM_PALETTE: PFD_FLAGS = 256
-PFD_SWAP_EXCHANGE: PFD_FLAGS = 512
-PFD_SWAP_COPY: PFD_FLAGS = 1024
-PFD_SWAP_LAYER_BUFFERS: PFD_FLAGS = 2048
-PFD_GENERIC_ACCELERATED: PFD_FLAGS = 4096
-PFD_SUPPORT_DIRECTDRAW: PFD_FLAGS = 8192
-PFD_DIRECT3D_ACCELERATED: PFD_FLAGS = 16384
-PFD_SUPPORT_COMPOSITION: PFD_FLAGS = 32768
-PFD_DEPTH_DONTCARE: PFD_FLAGS = 536870912
-PFD_DOUBLEBUFFER_DONTCARE: PFD_FLAGS = 1073741824
-PFD_STEREO_DONTCARE: PFD_FLAGS = 2147483648
+PFD_DOUBLEBUFFER: win32more.Windows.Win32.Graphics.OpenGL.PFD_FLAGS = 1
+PFD_STEREO: win32more.Windows.Win32.Graphics.OpenGL.PFD_FLAGS = 2
+PFD_DRAW_TO_WINDOW: win32more.Windows.Win32.Graphics.OpenGL.PFD_FLAGS = 4
+PFD_DRAW_TO_BITMAP: win32more.Windows.Win32.Graphics.OpenGL.PFD_FLAGS = 8
+PFD_SUPPORT_GDI: win32more.Windows.Win32.Graphics.OpenGL.PFD_FLAGS = 16
+PFD_SUPPORT_OPENGL: win32more.Windows.Win32.Graphics.OpenGL.PFD_FLAGS = 32
+PFD_GENERIC_FORMAT: win32more.Windows.Win32.Graphics.OpenGL.PFD_FLAGS = 64
+PFD_NEED_PALETTE: win32more.Windows.Win32.Graphics.OpenGL.PFD_FLAGS = 128
+PFD_NEED_SYSTEM_PALETTE: win32more.Windows.Win32.Graphics.OpenGL.PFD_FLAGS = 256
+PFD_SWAP_EXCHANGE: win32more.Windows.Win32.Graphics.OpenGL.PFD_FLAGS = 512
+PFD_SWAP_COPY: win32more.Windows.Win32.Graphics.OpenGL.PFD_FLAGS = 1024
+PFD_SWAP_LAYER_BUFFERS: win32more.Windows.Win32.Graphics.OpenGL.PFD_FLAGS = 2048
+PFD_GENERIC_ACCELERATED: win32more.Windows.Win32.Graphics.OpenGL.PFD_FLAGS = 4096
+PFD_SUPPORT_DIRECTDRAW: win32more.Windows.Win32.Graphics.OpenGL.PFD_FLAGS = 8192
+PFD_DIRECT3D_ACCELERATED: win32more.Windows.Win32.Graphics.OpenGL.PFD_FLAGS = 16384
+PFD_SUPPORT_COMPOSITION: win32more.Windows.Win32.Graphics.OpenGL.PFD_FLAGS = 32768
+PFD_DEPTH_DONTCARE: win32more.Windows.Win32.Graphics.OpenGL.PFD_FLAGS = 536870912
+PFD_DOUBLEBUFFER_DONTCARE: win32more.Windows.Win32.Graphics.OpenGL.PFD_FLAGS = 1073741824
+PFD_STEREO_DONTCARE: win32more.Windows.Win32.Graphics.OpenGL.PFD_FLAGS = 2147483648
 PFD_LAYER_TYPE = SByte
-PFD_UNDERLAY_PLANE: PFD_LAYER_TYPE = -1
-PFD_MAIN_PLANE: PFD_LAYER_TYPE = 0
-PFD_OVERLAY_PLANE: PFD_LAYER_TYPE = 1
+PFD_UNDERLAY_PLANE: win32more.Windows.Win32.Graphics.OpenGL.PFD_LAYER_TYPE = -1
+PFD_MAIN_PLANE: win32more.Windows.Win32.Graphics.OpenGL.PFD_LAYER_TYPE = 0
+PFD_OVERLAY_PLANE: win32more.Windows.Win32.Graphics.OpenGL.PFD_LAYER_TYPE = 1
 PFD_PIXEL_TYPE = Byte
-PFD_TYPE_RGBA: PFD_PIXEL_TYPE = 0
-PFD_TYPE_COLORINDEX: PFD_PIXEL_TYPE = 1
+PFD_TYPE_RGBA: win32more.Windows.Win32.Graphics.OpenGL.PFD_PIXEL_TYPE = 0
+PFD_TYPE_COLORINDEX: win32more.Windows.Win32.Graphics.OpenGL.PFD_PIXEL_TYPE = 1
 @winfunctype_pointer
 def PFNGLADDSWAPHINTRECTWINPROC(x: Int32, y: Int32, width: Int32, height: Int32) -> Void: ...
 @winfunctype_pointer
@@ -1688,4 +1687,6 @@ class PIXELFORMATDESCRIPTOR(EasyCastStructure):
 class POINTFLOAT(EasyCastStructure):
     x: Single
     y: Single
+
+
 make_ready(__name__)

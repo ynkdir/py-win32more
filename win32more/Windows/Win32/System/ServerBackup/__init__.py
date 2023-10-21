@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.ServerBackup
@@ -43,13 +42,13 @@ class WSB_OB_STATUS_ENTRY(EasyCastStructure):
     m_cValueTypePair: UInt32
     m_rgValueTypePair: POINTER(win32more.Windows.Win32.System.ServerBackup.WSB_OB_STATUS_ENTRY_VALUE_TYPE_PAIR)
 WSB_OB_STATUS_ENTRY_PAIR_TYPE = Int32
-WSB_OB_ET_UNDEFINED: WSB_OB_STATUS_ENTRY_PAIR_TYPE = 0
-WSB_OB_ET_STRING: WSB_OB_STATUS_ENTRY_PAIR_TYPE = 1
-WSB_OB_ET_NUMBER: WSB_OB_STATUS_ENTRY_PAIR_TYPE = 2
-WSB_OB_ET_DATETIME: WSB_OB_STATUS_ENTRY_PAIR_TYPE = 3
-WSB_OB_ET_TIME: WSB_OB_STATUS_ENTRY_PAIR_TYPE = 4
-WSB_OB_ET_SIZE: WSB_OB_STATUS_ENTRY_PAIR_TYPE = 5
-WSB_OB_ET_MAX: WSB_OB_STATUS_ENTRY_PAIR_TYPE = 6
+WSB_OB_ET_UNDEFINED: win32more.Windows.Win32.System.ServerBackup.WSB_OB_STATUS_ENTRY_PAIR_TYPE = 0
+WSB_OB_ET_STRING: win32more.Windows.Win32.System.ServerBackup.WSB_OB_STATUS_ENTRY_PAIR_TYPE = 1
+WSB_OB_ET_NUMBER: win32more.Windows.Win32.System.ServerBackup.WSB_OB_STATUS_ENTRY_PAIR_TYPE = 2
+WSB_OB_ET_DATETIME: win32more.Windows.Win32.System.ServerBackup.WSB_OB_STATUS_ENTRY_PAIR_TYPE = 3
+WSB_OB_ET_TIME: win32more.Windows.Win32.System.ServerBackup.WSB_OB_STATUS_ENTRY_PAIR_TYPE = 4
+WSB_OB_ET_SIZE: win32more.Windows.Win32.System.ServerBackup.WSB_OB_STATUS_ENTRY_PAIR_TYPE = 5
+WSB_OB_ET_MAX: win32more.Windows.Win32.System.ServerBackup.WSB_OB_STATUS_ENTRY_PAIR_TYPE = 6
 class WSB_OB_STATUS_ENTRY_VALUE_TYPE_PAIR(EasyCastStructure):
     m_wszObStatusEntryPairValue: win32more.Windows.Win32.Foundation.PWSTR
     m_ObStatusEntryPairType: win32more.Windows.Win32.System.ServerBackup.WSB_OB_STATUS_ENTRY_PAIR_TYPE
@@ -57,4 +56,6 @@ class WSB_OB_STATUS_INFO(EasyCastStructure):
     m_guidSnapinId: Guid
     m_cStatusEntry: UInt32
     m_rgStatusEntry: POINTER(win32more.Windows.Win32.System.ServerBackup.WSB_OB_STATUS_ENTRY)
+
+
 make_ready(__name__)

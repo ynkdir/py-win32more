@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform
 import win32more.Windows.Win32.Security
@@ -960,9 +959,9 @@ def FwpmvSwitchEventsGetSecurityInfo0(engineHandle: win32more.Windows.Win32.Foun
 @winfunctype('fwpuclnt.dll')
 def FwpmvSwitchEventsSetSecurityInfo0(engineHandle: win32more.Windows.Win32.Foundation.HANDLE, securityInfo: UInt32, sidOwner: POINTER(win32more.Windows.Win32.Security.SID), sidGroup: POINTER(win32more.Windows.Win32.Security.SID), dacl: POINTER(win32more.Windows.Win32.Security.ACL), sacl: POINTER(win32more.Windows.Win32.Security.ACL)) -> UInt32: ...
 DL_ADDRESS_TYPE = Int32
-DL_ADDRESS_TYPE_DlUnicast: DL_ADDRESS_TYPE = 0
-DL_ADDRESS_TYPE_DlMulticast: DL_ADDRESS_TYPE = 1
-DL_ADDRESS_TYPE_DlBroadcast: DL_ADDRESS_TYPE = 2
+DL_ADDRESS_TYPE_DlUnicast: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.DL_ADDRESS_TYPE = 0
+DL_ADDRESS_TYPE_DlMulticast: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.DL_ADDRESS_TYPE = 1
+DL_ADDRESS_TYPE_DlBroadcast: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.DL_ADDRESS_TYPE = 2
 class FWPM_ACTION0(EasyCastStructure):
     type: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_ACTION_TYPE
     Anonymous: _Anonymous_e__Union
@@ -970,9 +969,9 @@ class FWPM_ACTION0(EasyCastStructure):
         filterType: Guid
         calloutKey: Guid
 FWPM_APPC_NETWORK_CAPABILITY_TYPE = Int32
-FWPM_APPC_NETWORK_CAPABILITY_INTERNET_CLIENT: FWPM_APPC_NETWORK_CAPABILITY_TYPE = 0
-FWPM_APPC_NETWORK_CAPABILITY_INTERNET_CLIENT_SERVER: FWPM_APPC_NETWORK_CAPABILITY_TYPE = 1
-FWPM_APPC_NETWORK_CAPABILITY_INTERNET_PRIVATE_NETWORK: FWPM_APPC_NETWORK_CAPABILITY_TYPE = 2
+FWPM_APPC_NETWORK_CAPABILITY_INTERNET_CLIENT: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_APPC_NETWORK_CAPABILITY_TYPE = 0
+FWPM_APPC_NETWORK_CAPABILITY_INTERNET_CLIENT_SERVER: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_APPC_NETWORK_CAPABILITY_TYPE = 1
+FWPM_APPC_NETWORK_CAPABILITY_INTERNET_PRIVATE_NETWORK: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_APPC_NETWORK_CAPABILITY_TYPE = 2
 class FWPM_CALLOUT0(EasyCastStructure):
     calloutKey: Guid
     displayData: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_DISPLAY_DATA0
@@ -995,9 +994,9 @@ class FWPM_CALLOUT_SUBSCRIPTION0(EasyCastStructure):
     flags: UInt32
     sessionKey: Guid
 FWPM_CHANGE_TYPE = Int32
-FWPM_CHANGE_ADD: FWPM_CHANGE_TYPE = 1
-FWPM_CHANGE_DELETE: FWPM_CHANGE_TYPE = 2
-FWPM_CHANGE_TYPE_MAX: FWPM_CHANGE_TYPE = 3
+FWPM_CHANGE_ADD: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_CHANGE_TYPE = 1
+FWPM_CHANGE_DELETE: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_CHANGE_TYPE = 2
+FWPM_CHANGE_TYPE_MAX: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_CHANGE_TYPE = 3
 class FWPM_CLASSIFY_OPTION0(EasyCastStructure):
     type: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_CLASSIFY_OPTION_TYPE
     value: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_VALUE0
@@ -1031,9 +1030,9 @@ class FWPM_CONNECTION_ENUM_TEMPLATE0(EasyCastStructure):
     connectionId: UInt64
     flags: UInt32
 FWPM_CONNECTION_EVENT_TYPE = Int32
-FWPM_CONNECTION_EVENT_ADD: FWPM_CONNECTION_EVENT_TYPE = 0
-FWPM_CONNECTION_EVENT_DELETE: FWPM_CONNECTION_EVENT_TYPE = 1
-FWPM_CONNECTION_EVENT_MAX: FWPM_CONNECTION_EVENT_TYPE = 2
+FWPM_CONNECTION_EVENT_ADD: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_CONNECTION_EVENT_TYPE = 0
+FWPM_CONNECTION_EVENT_DELETE: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_CONNECTION_EVENT_TYPE = 1
+FWPM_CONNECTION_EVENT_MAX: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_CONNECTION_EVENT_TYPE = 2
 class FWPM_CONNECTION_SUBSCRIPTION0(EasyCastStructure):
     enumTemplate: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_CONNECTION_ENUM_TEMPLATE0)
     flags: UInt32
@@ -1044,22 +1043,22 @@ class FWPM_DISPLAY_DATA0(EasyCastStructure):
 @winfunctype_pointer
 def FWPM_DYNAMIC_KEYWORD_CALLBACK0(notification: VoidPtr, context: VoidPtr) -> Void: ...
 FWPM_ENGINE_OPTION = Int32
-FWPM_ENGINE_COLLECT_NET_EVENTS: FWPM_ENGINE_OPTION = 0
-FWPM_ENGINE_NET_EVENT_MATCH_ANY_KEYWORDS: FWPM_ENGINE_OPTION = 1
-FWPM_ENGINE_NAME_CACHE: FWPM_ENGINE_OPTION = 2
-FWPM_ENGINE_MONITOR_IPSEC_CONNECTIONS: FWPM_ENGINE_OPTION = 3
-FWPM_ENGINE_PACKET_QUEUING: FWPM_ENGINE_OPTION = 4
-FWPM_ENGINE_TXN_WATCHDOG_TIMEOUT_IN_MSEC: FWPM_ENGINE_OPTION = 5
-FWPM_ENGINE_OPTION_MAX: FWPM_ENGINE_OPTION = 6
+FWPM_ENGINE_COLLECT_NET_EVENTS: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_ENGINE_OPTION = 0
+FWPM_ENGINE_NET_EVENT_MATCH_ANY_KEYWORDS: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_ENGINE_OPTION = 1
+FWPM_ENGINE_NAME_CACHE: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_ENGINE_OPTION = 2
+FWPM_ENGINE_MONITOR_IPSEC_CONNECTIONS: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_ENGINE_OPTION = 3
+FWPM_ENGINE_PACKET_QUEUING: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_ENGINE_OPTION = 4
+FWPM_ENGINE_TXN_WATCHDOG_TIMEOUT_IN_MSEC: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_ENGINE_OPTION = 5
+FWPM_ENGINE_OPTION_MAX: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_ENGINE_OPTION = 6
 class FWPM_FIELD0(EasyCastStructure):
     fieldKey: POINTER(Guid)
     type: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_FIELD_TYPE
     dataType: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_DATA_TYPE
 FWPM_FIELD_TYPE = Int32
-FWPM_FIELD_RAW_DATA: FWPM_FIELD_TYPE = 0
-FWPM_FIELD_IP_ADDRESS: FWPM_FIELD_TYPE = 1
-FWPM_FIELD_FLAGS: FWPM_FIELD_TYPE = 2
-FWPM_FIELD_TYPE_MAX: FWPM_FIELD_TYPE = 3
+FWPM_FIELD_RAW_DATA: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_FIELD_TYPE = 0
+FWPM_FIELD_IP_ADDRESS: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_FIELD_TYPE = 1
+FWPM_FIELD_FLAGS: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_FIELD_TYPE = 2
+FWPM_FIELD_TYPE_MAX: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_FIELD_TYPE = 3
 class FWPM_FILTER0(EasyCastStructure):
     filterKey: Guid
     displayData: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_DISPLAY_DATA0
@@ -1100,14 +1099,14 @@ class FWPM_FILTER_ENUM_TEMPLATE0(EasyCastStructure):
     actionMask: UInt32
     calloutKey: POINTER(Guid)
 FWPM_FILTER_FLAGS = UInt32
-FWPM_FILTER_FLAG_NONE: FWPM_FILTER_FLAGS = 0
-FWPM_FILTER_FLAG_PERSISTENT: FWPM_FILTER_FLAGS = 1
-FWPM_FILTER_FLAG_BOOTTIME: FWPM_FILTER_FLAGS = 2
-FWPM_FILTER_FLAG_HAS_PROVIDER_CONTEXT: FWPM_FILTER_FLAGS = 4
-FWPM_FILTER_FLAG_CLEAR_ACTION_RIGHT: FWPM_FILTER_FLAGS = 8
-FWPM_FILTER_FLAG_PERMIT_IF_CALLOUT_UNREGISTERED: FWPM_FILTER_FLAGS = 16
-FWPM_FILTER_FLAG_DISABLED: FWPM_FILTER_FLAGS = 32
-FWPM_FILTER_FLAG_INDEXED: FWPM_FILTER_FLAGS = 64
+FWPM_FILTER_FLAG_NONE: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_FILTER_FLAGS = 0
+FWPM_FILTER_FLAG_PERSISTENT: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_FILTER_FLAGS = 1
+FWPM_FILTER_FLAG_BOOTTIME: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_FILTER_FLAGS = 2
+FWPM_FILTER_FLAG_HAS_PROVIDER_CONTEXT: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_FILTER_FLAGS = 4
+FWPM_FILTER_FLAG_CLEAR_ACTION_RIGHT: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_FILTER_FLAGS = 8
+FWPM_FILTER_FLAG_PERMIT_IF_CALLOUT_UNREGISTERED: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_FILTER_FLAGS = 16
+FWPM_FILTER_FLAG_DISABLED: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_FILTER_FLAGS = 32
+FWPM_FILTER_FLAG_INDEXED: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_FILTER_FLAGS = 64
 class FWPM_FILTER_SUBSCRIPTION0(EasyCastStructure):
     enumTemplate: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_FILTER_ENUM_TEMPLATE0)
     flags: UInt32
@@ -1515,18 +1514,18 @@ class FWPM_NET_EVENT_SUBSCRIPTION0(EasyCastStructure):
     flags: UInt32
     sessionKey: Guid
 FWPM_NET_EVENT_TYPE = Int32
-FWPM_NET_EVENT_TYPE_IKEEXT_MM_FAILURE: FWPM_NET_EVENT_TYPE = 0
-FWPM_NET_EVENT_TYPE_IKEEXT_QM_FAILURE: FWPM_NET_EVENT_TYPE = 1
-FWPM_NET_EVENT_TYPE_IKEEXT_EM_FAILURE: FWPM_NET_EVENT_TYPE = 2
-FWPM_NET_EVENT_TYPE_CLASSIFY_DROP: FWPM_NET_EVENT_TYPE = 3
-FWPM_NET_EVENT_TYPE_IPSEC_KERNEL_DROP: FWPM_NET_EVENT_TYPE = 4
-FWPM_NET_EVENT_TYPE_IPSEC_DOSP_DROP: FWPM_NET_EVENT_TYPE = 5
-FWPM_NET_EVENT_TYPE_CLASSIFY_ALLOW: FWPM_NET_EVENT_TYPE = 6
-FWPM_NET_EVENT_TYPE_CAPABILITY_DROP: FWPM_NET_EVENT_TYPE = 7
-FWPM_NET_EVENT_TYPE_CAPABILITY_ALLOW: FWPM_NET_EVENT_TYPE = 8
-FWPM_NET_EVENT_TYPE_CLASSIFY_DROP_MAC: FWPM_NET_EVENT_TYPE = 9
-FWPM_NET_EVENT_TYPE_LPM_PACKET_ARRIVAL: FWPM_NET_EVENT_TYPE = 10
-FWPM_NET_EVENT_TYPE_MAX: FWPM_NET_EVENT_TYPE = 11
+FWPM_NET_EVENT_TYPE_IKEEXT_MM_FAILURE: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_TYPE = 0
+FWPM_NET_EVENT_TYPE_IKEEXT_QM_FAILURE: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_TYPE = 1
+FWPM_NET_EVENT_TYPE_IKEEXT_EM_FAILURE: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_TYPE = 2
+FWPM_NET_EVENT_TYPE_CLASSIFY_DROP: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_TYPE = 3
+FWPM_NET_EVENT_TYPE_IPSEC_KERNEL_DROP: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_TYPE = 4
+FWPM_NET_EVENT_TYPE_IPSEC_DOSP_DROP: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_TYPE = 5
+FWPM_NET_EVENT_TYPE_CLASSIFY_ALLOW: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_TYPE = 6
+FWPM_NET_EVENT_TYPE_CAPABILITY_DROP: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_TYPE = 7
+FWPM_NET_EVENT_TYPE_CAPABILITY_ALLOW: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_TYPE = 8
+FWPM_NET_EVENT_TYPE_CLASSIFY_DROP_MAC: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_TYPE = 9
+FWPM_NET_EVENT_TYPE_LPM_PACKET_ARRIVAL: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_TYPE = 10
+FWPM_NET_EVENT_TYPE_MAX: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_TYPE = 11
 class FWPM_PROVIDER0(EasyCastStructure):
     providerKey: Guid
     displayData: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_DISPLAY_DATA0
@@ -1640,21 +1639,21 @@ class FWPM_PROVIDER_CONTEXT_SUBSCRIPTION0(EasyCastStructure):
     flags: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_SUBSCRIPTION_FLAGS
     sessionKey: Guid
 FWPM_PROVIDER_CONTEXT_TYPE = Int32
-FWPM_IPSEC_KEYING_CONTEXT: FWPM_PROVIDER_CONTEXT_TYPE = 0
-FWPM_IPSEC_IKE_QM_TRANSPORT_CONTEXT: FWPM_PROVIDER_CONTEXT_TYPE = 1
-FWPM_IPSEC_IKE_QM_TUNNEL_CONTEXT: FWPM_PROVIDER_CONTEXT_TYPE = 2
-FWPM_IPSEC_AUTHIP_QM_TRANSPORT_CONTEXT: FWPM_PROVIDER_CONTEXT_TYPE = 3
-FWPM_IPSEC_AUTHIP_QM_TUNNEL_CONTEXT: FWPM_PROVIDER_CONTEXT_TYPE = 4
-FWPM_IPSEC_IKE_MM_CONTEXT: FWPM_PROVIDER_CONTEXT_TYPE = 5
-FWPM_IPSEC_AUTHIP_MM_CONTEXT: FWPM_PROVIDER_CONTEXT_TYPE = 6
-FWPM_CLASSIFY_OPTIONS_CONTEXT: FWPM_PROVIDER_CONTEXT_TYPE = 7
-FWPM_GENERAL_CONTEXT: FWPM_PROVIDER_CONTEXT_TYPE = 8
-FWPM_IPSEC_IKEV2_QM_TUNNEL_CONTEXT: FWPM_PROVIDER_CONTEXT_TYPE = 9
-FWPM_IPSEC_IKEV2_MM_CONTEXT: FWPM_PROVIDER_CONTEXT_TYPE = 10
-FWPM_IPSEC_DOSP_CONTEXT: FWPM_PROVIDER_CONTEXT_TYPE = 11
-FWPM_IPSEC_IKEV2_QM_TRANSPORT_CONTEXT: FWPM_PROVIDER_CONTEXT_TYPE = 12
-FWPM_NETWORK_CONNECTION_POLICY_CONTEXT: FWPM_PROVIDER_CONTEXT_TYPE = 13
-FWPM_PROVIDER_CONTEXT_TYPE_MAX: FWPM_PROVIDER_CONTEXT_TYPE = 14
+FWPM_IPSEC_KEYING_CONTEXT: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_PROVIDER_CONTEXT_TYPE = 0
+FWPM_IPSEC_IKE_QM_TRANSPORT_CONTEXT: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_PROVIDER_CONTEXT_TYPE = 1
+FWPM_IPSEC_IKE_QM_TUNNEL_CONTEXT: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_PROVIDER_CONTEXT_TYPE = 2
+FWPM_IPSEC_AUTHIP_QM_TRANSPORT_CONTEXT: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_PROVIDER_CONTEXT_TYPE = 3
+FWPM_IPSEC_AUTHIP_QM_TUNNEL_CONTEXT: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_PROVIDER_CONTEXT_TYPE = 4
+FWPM_IPSEC_IKE_MM_CONTEXT: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_PROVIDER_CONTEXT_TYPE = 5
+FWPM_IPSEC_AUTHIP_MM_CONTEXT: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_PROVIDER_CONTEXT_TYPE = 6
+FWPM_CLASSIFY_OPTIONS_CONTEXT: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_PROVIDER_CONTEXT_TYPE = 7
+FWPM_GENERAL_CONTEXT: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_PROVIDER_CONTEXT_TYPE = 8
+FWPM_IPSEC_IKEV2_QM_TUNNEL_CONTEXT: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_PROVIDER_CONTEXT_TYPE = 9
+FWPM_IPSEC_IKEV2_MM_CONTEXT: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_PROVIDER_CONTEXT_TYPE = 10
+FWPM_IPSEC_DOSP_CONTEXT: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_PROVIDER_CONTEXT_TYPE = 11
+FWPM_IPSEC_IKEV2_QM_TRANSPORT_CONTEXT: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_PROVIDER_CONTEXT_TYPE = 12
+FWPM_NETWORK_CONNECTION_POLICY_CONTEXT: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_PROVIDER_CONTEXT_TYPE = 13
+FWPM_PROVIDER_CONTEXT_TYPE_MAX: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_PROVIDER_CONTEXT_TYPE = 14
 class FWPM_PROVIDER_ENUM_TEMPLATE0(EasyCastStructure):
     reserved: UInt64
 class FWPM_PROVIDER_SUBSCRIPTION0(EasyCastStructure):
@@ -1662,11 +1661,11 @@ class FWPM_PROVIDER_SUBSCRIPTION0(EasyCastStructure):
     flags: UInt32
     sessionKey: Guid
 FWPM_SERVICE_STATE = Int32
-FWPM_SERVICE_STOPPED: FWPM_SERVICE_STATE = 0
-FWPM_SERVICE_START_PENDING: FWPM_SERVICE_STATE = 1
-FWPM_SERVICE_STOP_PENDING: FWPM_SERVICE_STATE = 2
-FWPM_SERVICE_RUNNING: FWPM_SERVICE_STATE = 3
-FWPM_SERVICE_STATE_MAX: FWPM_SERVICE_STATE = 4
+FWPM_SERVICE_STOPPED: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_SERVICE_STATE = 0
+FWPM_SERVICE_START_PENDING: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_SERVICE_STATE = 1
+FWPM_SERVICE_STOP_PENDING: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_SERVICE_STATE = 2
+FWPM_SERVICE_RUNNING: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_SERVICE_STATE = 3
+FWPM_SERVICE_STATE_MAX: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_SERVICE_STATE = 4
 class FWPM_SESSION0(EasyCastStructure):
     sessionKey: Guid
     displayData: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_DISPLAY_DATA0
@@ -1734,8 +1733,8 @@ class FWPM_SUBLAYER_SUBSCRIPTION0(EasyCastStructure):
     flags: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_SUBSCRIPTION_FLAGS
     sessionKey: Guid
 FWPM_SUBSCRIPTION_FLAGS = UInt32
-FWPM_SUBSCRIPTION_FLAG_NOTIFY_ON_ADD: FWPM_SUBSCRIPTION_FLAGS = 1
-FWPM_SUBSCRIPTION_FLAG_NOTIFY_ON_DELETE: FWPM_SUBSCRIPTION_FLAGS = 2
+FWPM_SUBSCRIPTION_FLAG_NOTIFY_ON_ADD: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_SUBSCRIPTION_FLAGS = 1
+FWPM_SUBSCRIPTION_FLAG_NOTIFY_ON_DELETE: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_SUBSCRIPTION_FLAGS = 2
 class FWPM_SYSTEM_PORTS0(EasyCastStructure):
     numTypes: UInt32
     types: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_SYSTEM_PORTS_BY_TYPE0)
@@ -1746,11 +1745,11 @@ class FWPM_SYSTEM_PORTS_BY_TYPE0(EasyCastStructure):
 @winfunctype_pointer
 def FWPM_SYSTEM_PORTS_CALLBACK0(context: VoidPtr, sysPorts: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_SYSTEM_PORTS0)) -> Void: ...
 FWPM_SYSTEM_PORT_TYPE = Int32
-FWPM_SYSTEM_PORT_RPC_EPMAP: FWPM_SYSTEM_PORT_TYPE = 0
-FWPM_SYSTEM_PORT_TEREDO: FWPM_SYSTEM_PORT_TYPE = 1
-FWPM_SYSTEM_PORT_IPHTTPS_IN: FWPM_SYSTEM_PORT_TYPE = 2
-FWPM_SYSTEM_PORT_IPHTTPS_OUT: FWPM_SYSTEM_PORT_TYPE = 3
-FWPM_SYSTEM_PORT_TYPE_MAX: FWPM_SYSTEM_PORT_TYPE = 4
+FWPM_SYSTEM_PORT_RPC_EPMAP: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_SYSTEM_PORT_TYPE = 0
+FWPM_SYSTEM_PORT_TEREDO: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_SYSTEM_PORT_TYPE = 1
+FWPM_SYSTEM_PORT_IPHTTPS_IN: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_SYSTEM_PORT_TYPE = 2
+FWPM_SYSTEM_PORT_IPHTTPS_OUT: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_SYSTEM_PORT_TYPE = 3
+FWPM_SYSTEM_PORT_TYPE_MAX: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_SYSTEM_PORT_TYPE = 4
 class FWPM_VSWITCH_EVENT0(EasyCastStructure):
     eventType: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_VSWITCH_EVENT_TYPE
     vSwitchId: win32more.Windows.Win32.Foundation.PWSTR
@@ -1771,26 +1770,26 @@ class FWPM_VSWITCH_EVENT_SUBSCRIPTION0(EasyCastStructure):
     flags: UInt32
     sessionKey: Guid
 FWPM_VSWITCH_EVENT_TYPE = Int32
-FWPM_VSWITCH_EVENT_FILTER_ADD_TO_INCOMPLETE_LAYER: FWPM_VSWITCH_EVENT_TYPE = 0
-FWPM_VSWITCH_EVENT_FILTER_ENGINE_NOT_IN_REQUIRED_POSITION: FWPM_VSWITCH_EVENT_TYPE = 1
-FWPM_VSWITCH_EVENT_ENABLED_FOR_INSPECTION: FWPM_VSWITCH_EVENT_TYPE = 2
-FWPM_VSWITCH_EVENT_DISABLED_FOR_INSPECTION: FWPM_VSWITCH_EVENT_TYPE = 3
-FWPM_VSWITCH_EVENT_FILTER_ENGINE_REORDER: FWPM_VSWITCH_EVENT_TYPE = 4
-FWPM_VSWITCH_EVENT_MAX: FWPM_VSWITCH_EVENT_TYPE = 5
+FWPM_VSWITCH_EVENT_FILTER_ADD_TO_INCOMPLETE_LAYER: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_VSWITCH_EVENT_TYPE = 0
+FWPM_VSWITCH_EVENT_FILTER_ENGINE_NOT_IN_REQUIRED_POSITION: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_VSWITCH_EVENT_TYPE = 1
+FWPM_VSWITCH_EVENT_ENABLED_FOR_INSPECTION: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_VSWITCH_EVENT_TYPE = 2
+FWPM_VSWITCH_EVENT_DISABLED_FOR_INSPECTION: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_VSWITCH_EVENT_TYPE = 3
+FWPM_VSWITCH_EVENT_FILTER_ENGINE_REORDER: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_VSWITCH_EVENT_TYPE = 4
+FWPM_VSWITCH_EVENT_MAX: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_VSWITCH_EVENT_TYPE = 5
 FWP_ACTION_TYPE = UInt32
-FWP_ACTION_BLOCK: FWP_ACTION_TYPE = 4097
-FWP_ACTION_PERMIT: FWP_ACTION_TYPE = 4098
-FWP_ACTION_CALLOUT_TERMINATING: FWP_ACTION_TYPE = 20483
-FWP_ACTION_CALLOUT_INSPECTION: FWP_ACTION_TYPE = 24580
-FWP_ACTION_CALLOUT_UNKNOWN: FWP_ACTION_TYPE = 16389
-FWP_ACTION_CONTINUE: FWP_ACTION_TYPE = 8198
-FWP_ACTION_NONE: FWP_ACTION_TYPE = 7
-FWP_ACTION_NONE_NO_MATCH: FWP_ACTION_TYPE = 8
+FWP_ACTION_BLOCK: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_ACTION_TYPE = 4097
+FWP_ACTION_PERMIT: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_ACTION_TYPE = 4098
+FWP_ACTION_CALLOUT_TERMINATING: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_ACTION_TYPE = 20483
+FWP_ACTION_CALLOUT_INSPECTION: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_ACTION_TYPE = 24580
+FWP_ACTION_CALLOUT_UNKNOWN: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_ACTION_TYPE = 16389
+FWP_ACTION_CONTINUE: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_ACTION_TYPE = 8198
+FWP_ACTION_NONE: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_ACTION_TYPE = 7
+FWP_ACTION_NONE_NO_MATCH: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_ACTION_TYPE = 8
 FWP_AF = Int32
-FWP_AF_INET: FWP_AF = 0
-FWP_AF_INET6: FWP_AF = 1
-FWP_AF_ETHER: FWP_AF = 2
-FWP_AF_NONE: FWP_AF = 3
+FWP_AF_INET: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_AF = 0
+FWP_AF_INET6: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_AF = 1
+FWP_AF_ETHER: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_AF = 2
+FWP_AF_NONE: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_AF = 3
 class FWP_BYTE_ARRAY16(EasyCastStructure):
     byteArray16: Byte * 16
 class FWP_BYTE_ARRAY6(EasyCastStructure):
@@ -1799,15 +1798,15 @@ class FWP_BYTE_BLOB(EasyCastStructure):
     size: UInt32
     data: POINTER(Byte)
 FWP_CLASSIFY_OPTION_TYPE = Int32
-FWP_CLASSIFY_OPTION_MULTICAST_STATE: FWP_CLASSIFY_OPTION_TYPE = 0
-FWP_CLASSIFY_OPTION_LOOSE_SOURCE_MAPPING: FWP_CLASSIFY_OPTION_TYPE = 1
-FWP_CLASSIFY_OPTION_UNICAST_LIFETIME: FWP_CLASSIFY_OPTION_TYPE = 2
-FWP_CLASSIFY_OPTION_MCAST_BCAST_LIFETIME: FWP_CLASSIFY_OPTION_TYPE = 3
-FWP_CLASSIFY_OPTION_SECURE_SOCKET_SECURITY_FLAGS: FWP_CLASSIFY_OPTION_TYPE = 4
-FWP_CLASSIFY_OPTION_SECURE_SOCKET_AUTHIP_MM_POLICY_KEY: FWP_CLASSIFY_OPTION_TYPE = 5
-FWP_CLASSIFY_OPTION_SECURE_SOCKET_AUTHIP_QM_POLICY_KEY: FWP_CLASSIFY_OPTION_TYPE = 6
-FWP_CLASSIFY_OPTION_LOCAL_ONLY_MAPPING: FWP_CLASSIFY_OPTION_TYPE = 7
-FWP_CLASSIFY_OPTION_MAX: FWP_CLASSIFY_OPTION_TYPE = 8
+FWP_CLASSIFY_OPTION_MULTICAST_STATE: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_CLASSIFY_OPTION_TYPE = 0
+FWP_CLASSIFY_OPTION_LOOSE_SOURCE_MAPPING: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_CLASSIFY_OPTION_TYPE = 1
+FWP_CLASSIFY_OPTION_UNICAST_LIFETIME: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_CLASSIFY_OPTION_TYPE = 2
+FWP_CLASSIFY_OPTION_MCAST_BCAST_LIFETIME: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_CLASSIFY_OPTION_TYPE = 3
+FWP_CLASSIFY_OPTION_SECURE_SOCKET_SECURITY_FLAGS: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_CLASSIFY_OPTION_TYPE = 4
+FWP_CLASSIFY_OPTION_SECURE_SOCKET_AUTHIP_MM_POLICY_KEY: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_CLASSIFY_OPTION_TYPE = 5
+FWP_CLASSIFY_OPTION_SECURE_SOCKET_AUTHIP_QM_POLICY_KEY: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_CLASSIFY_OPTION_TYPE = 6
+FWP_CLASSIFY_OPTION_LOCAL_ONLY_MAPPING: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_CLASSIFY_OPTION_TYPE = 7
+FWP_CLASSIFY_OPTION_MAX: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_CLASSIFY_OPTION_TYPE = 8
 class FWP_CONDITION_VALUE0(EasyCastStructure):
     type: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_DATA_TYPE
     Anonymous: _Anonymous_e__Union
@@ -1834,67 +1833,67 @@ class FWP_CONDITION_VALUE0(EasyCastStructure):
         v6AddrMask: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_V6_ADDR_AND_MASK)
         rangeValue: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_RANGE0)
 FWP_DATA_TYPE = Int32
-FWP_EMPTY: FWP_DATA_TYPE = 0
-FWP_UINT8: FWP_DATA_TYPE = 1
-FWP_UINT16: FWP_DATA_TYPE = 2
-FWP_UINT32: FWP_DATA_TYPE = 3
-FWP_UINT64: FWP_DATA_TYPE = 4
-FWP_INT8: FWP_DATA_TYPE = 5
-FWP_INT16: FWP_DATA_TYPE = 6
-FWP_INT32: FWP_DATA_TYPE = 7
-FWP_INT64: FWP_DATA_TYPE = 8
-FWP_FLOAT: FWP_DATA_TYPE = 9
-FWP_DOUBLE: FWP_DATA_TYPE = 10
-FWP_BYTE_ARRAY16_TYPE: FWP_DATA_TYPE = 11
-FWP_BYTE_BLOB_TYPE: FWP_DATA_TYPE = 12
-FWP_SID: FWP_DATA_TYPE = 13
-FWP_SECURITY_DESCRIPTOR_TYPE: FWP_DATA_TYPE = 14
-FWP_TOKEN_INFORMATION_TYPE: FWP_DATA_TYPE = 15
-FWP_TOKEN_ACCESS_INFORMATION_TYPE: FWP_DATA_TYPE = 16
-FWP_UNICODE_STRING_TYPE: FWP_DATA_TYPE = 17
-FWP_BYTE_ARRAY6_TYPE: FWP_DATA_TYPE = 18
-FWP_SINGLE_DATA_TYPE_MAX: FWP_DATA_TYPE = 255
-FWP_V4_ADDR_MASK: FWP_DATA_TYPE = 256
-FWP_V6_ADDR_MASK: FWP_DATA_TYPE = 257
-FWP_RANGE_TYPE: FWP_DATA_TYPE = 258
-FWP_DATA_TYPE_MAX: FWP_DATA_TYPE = 259
+FWP_EMPTY: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_DATA_TYPE = 0
+FWP_UINT8: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_DATA_TYPE = 1
+FWP_UINT16: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_DATA_TYPE = 2
+FWP_UINT32: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_DATA_TYPE = 3
+FWP_UINT64: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_DATA_TYPE = 4
+FWP_INT8: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_DATA_TYPE = 5
+FWP_INT16: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_DATA_TYPE = 6
+FWP_INT32: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_DATA_TYPE = 7
+FWP_INT64: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_DATA_TYPE = 8
+FWP_FLOAT: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_DATA_TYPE = 9
+FWP_DOUBLE: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_DATA_TYPE = 10
+FWP_BYTE_ARRAY16_TYPE: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_DATA_TYPE = 11
+FWP_BYTE_BLOB_TYPE: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_DATA_TYPE = 12
+FWP_SID: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_DATA_TYPE = 13
+FWP_SECURITY_DESCRIPTOR_TYPE: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_DATA_TYPE = 14
+FWP_TOKEN_INFORMATION_TYPE: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_DATA_TYPE = 15
+FWP_TOKEN_ACCESS_INFORMATION_TYPE: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_DATA_TYPE = 16
+FWP_UNICODE_STRING_TYPE: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_DATA_TYPE = 17
+FWP_BYTE_ARRAY6_TYPE: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_DATA_TYPE = 18
+FWP_SINGLE_DATA_TYPE_MAX: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_DATA_TYPE = 255
+FWP_V4_ADDR_MASK: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_DATA_TYPE = 256
+FWP_V6_ADDR_MASK: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_DATA_TYPE = 257
+FWP_RANGE_TYPE: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_DATA_TYPE = 258
+FWP_DATA_TYPE_MAX: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_DATA_TYPE = 259
 FWP_DIRECTION = Int32
-FWP_DIRECTION_OUTBOUND: FWP_DIRECTION = 0
-FWP_DIRECTION_INBOUND: FWP_DIRECTION = 1
-FWP_DIRECTION_MAX: FWP_DIRECTION = 2
+FWP_DIRECTION_OUTBOUND: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_DIRECTION = 0
+FWP_DIRECTION_INBOUND: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_DIRECTION = 1
+FWP_DIRECTION_MAX: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_DIRECTION = 2
 FWP_ETHER_ENCAP_METHOD = Int32
-FWP_ETHER_ENCAP_METHOD_ETHER_V2: FWP_ETHER_ENCAP_METHOD = 0
-FWP_ETHER_ENCAP_METHOD_SNAP: FWP_ETHER_ENCAP_METHOD = 1
-FWP_ETHER_ENCAP_METHOD_SNAP_W_OUI_ZERO: FWP_ETHER_ENCAP_METHOD = 3
+FWP_ETHER_ENCAP_METHOD_ETHER_V2: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_ETHER_ENCAP_METHOD = 0
+FWP_ETHER_ENCAP_METHOD_SNAP: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_ETHER_ENCAP_METHOD = 1
+FWP_ETHER_ENCAP_METHOD_SNAP_W_OUI_ZERO: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_ETHER_ENCAP_METHOD = 3
 FWP_FILTER_ENUM_TYPE = Int32
-FWP_FILTER_ENUM_FULLY_CONTAINED: FWP_FILTER_ENUM_TYPE = 0
-FWP_FILTER_ENUM_OVERLAPPING: FWP_FILTER_ENUM_TYPE = 1
-FWP_FILTER_ENUM_TYPE_MAX: FWP_FILTER_ENUM_TYPE = 2
+FWP_FILTER_ENUM_FULLY_CONTAINED: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_FILTER_ENUM_TYPE = 0
+FWP_FILTER_ENUM_OVERLAPPING: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_FILTER_ENUM_TYPE = 1
+FWP_FILTER_ENUM_TYPE_MAX: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_FILTER_ENUM_TYPE = 2
 FWP_IP_VERSION = Int32
-FWP_IP_VERSION_V4: FWP_IP_VERSION = 0
-FWP_IP_VERSION_V6: FWP_IP_VERSION = 1
-FWP_IP_VERSION_NONE: FWP_IP_VERSION = 2
-FWP_IP_VERSION_MAX: FWP_IP_VERSION = 3
+FWP_IP_VERSION_V4: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_IP_VERSION = 0
+FWP_IP_VERSION_V6: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_IP_VERSION = 1
+FWP_IP_VERSION_NONE: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_IP_VERSION = 2
+FWP_IP_VERSION_MAX: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_IP_VERSION = 3
 FWP_MATCH_TYPE = Int32
-FWP_MATCH_EQUAL: FWP_MATCH_TYPE = 0
-FWP_MATCH_GREATER: FWP_MATCH_TYPE = 1
-FWP_MATCH_LESS: FWP_MATCH_TYPE = 2
-FWP_MATCH_GREATER_OR_EQUAL: FWP_MATCH_TYPE = 3
-FWP_MATCH_LESS_OR_EQUAL: FWP_MATCH_TYPE = 4
-FWP_MATCH_RANGE: FWP_MATCH_TYPE = 5
-FWP_MATCH_FLAGS_ALL_SET: FWP_MATCH_TYPE = 6
-FWP_MATCH_FLAGS_ANY_SET: FWP_MATCH_TYPE = 7
-FWP_MATCH_FLAGS_NONE_SET: FWP_MATCH_TYPE = 8
-FWP_MATCH_EQUAL_CASE_INSENSITIVE: FWP_MATCH_TYPE = 9
-FWP_MATCH_NOT_EQUAL: FWP_MATCH_TYPE = 10
-FWP_MATCH_PREFIX: FWP_MATCH_TYPE = 11
-FWP_MATCH_NOT_PREFIX: FWP_MATCH_TYPE = 12
-FWP_MATCH_TYPE_MAX: FWP_MATCH_TYPE = 13
+FWP_MATCH_EQUAL: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_MATCH_TYPE = 0
+FWP_MATCH_GREATER: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_MATCH_TYPE = 1
+FWP_MATCH_LESS: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_MATCH_TYPE = 2
+FWP_MATCH_GREATER_OR_EQUAL: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_MATCH_TYPE = 3
+FWP_MATCH_LESS_OR_EQUAL: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_MATCH_TYPE = 4
+FWP_MATCH_RANGE: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_MATCH_TYPE = 5
+FWP_MATCH_FLAGS_ALL_SET: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_MATCH_TYPE = 6
+FWP_MATCH_FLAGS_ANY_SET: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_MATCH_TYPE = 7
+FWP_MATCH_FLAGS_NONE_SET: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_MATCH_TYPE = 8
+FWP_MATCH_EQUAL_CASE_INSENSITIVE: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_MATCH_TYPE = 9
+FWP_MATCH_NOT_EQUAL: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_MATCH_TYPE = 10
+FWP_MATCH_PREFIX: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_MATCH_TYPE = 11
+FWP_MATCH_NOT_PREFIX: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_MATCH_TYPE = 12
+FWP_MATCH_TYPE_MAX: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_MATCH_TYPE = 13
 FWP_NETWORK_CONNECTION_POLICY_SETTING_TYPE = Int32
-FWP_NETWORK_CONNECTION_POLICY_SOURCE_ADDRESS: FWP_NETWORK_CONNECTION_POLICY_SETTING_TYPE = 0
-FWP_NETWORK_CONNECTION_POLICY_NEXT_HOP_INTERFACE: FWP_NETWORK_CONNECTION_POLICY_SETTING_TYPE = 1
-FWP_NETWORK_CONNECTION_POLICY_NEXT_HOP: FWP_NETWORK_CONNECTION_POLICY_SETTING_TYPE = 2
-FWP_NETWORK_CONNECTION_POLICY_MAX: FWP_NETWORK_CONNECTION_POLICY_SETTING_TYPE = 3
+FWP_NETWORK_CONNECTION_POLICY_SOURCE_ADDRESS: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_NETWORK_CONNECTION_POLICY_SETTING_TYPE = 0
+FWP_NETWORK_CONNECTION_POLICY_NEXT_HOP_INTERFACE: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_NETWORK_CONNECTION_POLICY_SETTING_TYPE = 1
+FWP_NETWORK_CONNECTION_POLICY_NEXT_HOP: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_NETWORK_CONNECTION_POLICY_SETTING_TYPE = 2
+FWP_NETWORK_CONNECTION_POLICY_MAX: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_NETWORK_CONNECTION_POLICY_SETTING_TYPE = 3
 class FWP_RANGE0(EasyCastStructure):
     valueLow: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_VALUE0
     valueHigh: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_VALUE0
@@ -1932,14 +1931,14 @@ class FWP_VALUE0(EasyCastStructure):
         unicodeString: win32more.Windows.Win32.Foundation.PWSTR
         byteArray6: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_BYTE_ARRAY6)
 FWP_VSWITCH_NETWORK_TYPE = Int32
-FWP_VSWITCH_NETWORK_TYPE_UNKNOWN: FWP_VSWITCH_NETWORK_TYPE = 0
-FWP_VSWITCH_NETWORK_TYPE_PRIVATE: FWP_VSWITCH_NETWORK_TYPE = 1
-FWP_VSWITCH_NETWORK_TYPE_INTERNAL: FWP_VSWITCH_NETWORK_TYPE = 2
-FWP_VSWITCH_NETWORK_TYPE_EXTERNAL: FWP_VSWITCH_NETWORK_TYPE = 3
+FWP_VSWITCH_NETWORK_TYPE_UNKNOWN: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_VSWITCH_NETWORK_TYPE = 0
+FWP_VSWITCH_NETWORK_TYPE_PRIVATE: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_VSWITCH_NETWORK_TYPE = 1
+FWP_VSWITCH_NETWORK_TYPE_INTERNAL: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_VSWITCH_NETWORK_TYPE = 2
+FWP_VSWITCH_NETWORK_TYPE_EXTERNAL: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_VSWITCH_NETWORK_TYPE = 3
 IKEEXT_AUTHENTICATION_IMPERSONATION_TYPE = Int32
-IKEEXT_IMPERSONATION_NONE: IKEEXT_AUTHENTICATION_IMPERSONATION_TYPE = 0
-IKEEXT_IMPERSONATION_SOCKET_PRINCIPAL: IKEEXT_AUTHENTICATION_IMPERSONATION_TYPE = 1
-IKEEXT_IMPERSONATION_MAX: IKEEXT_AUTHENTICATION_IMPERSONATION_TYPE = 2
+IKEEXT_IMPERSONATION_NONE: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_AUTHENTICATION_IMPERSONATION_TYPE = 0
+IKEEXT_IMPERSONATION_SOCKET_PRINCIPAL: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_AUTHENTICATION_IMPERSONATION_TYPE = 1
+IKEEXT_IMPERSONATION_MAX: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_AUTHENTICATION_IMPERSONATION_TYPE = 2
 class IKEEXT_AUTHENTICATION_METHOD0(EasyCastStructure):
     authenticationMethodType: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_AUTHENTICATION_METHOD_TYPE
     Anonymous: _Anonymous_e__Union
@@ -1974,20 +1973,20 @@ class IKEEXT_AUTHENTICATION_METHOD2(EasyCastStructure):
         cgaAuthentication: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_IPV6_CGA_AUTHENTICATION0
         eapAuthentication: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_EAP_AUTHENTICATION0
 IKEEXT_AUTHENTICATION_METHOD_TYPE = Int32
-IKEEXT_PRESHARED_KEY: IKEEXT_AUTHENTICATION_METHOD_TYPE = 0
-IKEEXT_CERTIFICATE: IKEEXT_AUTHENTICATION_METHOD_TYPE = 1
-IKEEXT_KERBEROS: IKEEXT_AUTHENTICATION_METHOD_TYPE = 2
-IKEEXT_ANONYMOUS: IKEEXT_AUTHENTICATION_METHOD_TYPE = 3
-IKEEXT_SSL: IKEEXT_AUTHENTICATION_METHOD_TYPE = 4
-IKEEXT_NTLM_V2: IKEEXT_AUTHENTICATION_METHOD_TYPE = 5
-IKEEXT_IPV6_CGA: IKEEXT_AUTHENTICATION_METHOD_TYPE = 6
-IKEEXT_CERTIFICATE_ECDSA_P256: IKEEXT_AUTHENTICATION_METHOD_TYPE = 7
-IKEEXT_CERTIFICATE_ECDSA_P384: IKEEXT_AUTHENTICATION_METHOD_TYPE = 8
-IKEEXT_SSL_ECDSA_P256: IKEEXT_AUTHENTICATION_METHOD_TYPE = 9
-IKEEXT_SSL_ECDSA_P384: IKEEXT_AUTHENTICATION_METHOD_TYPE = 10
-IKEEXT_EAP: IKEEXT_AUTHENTICATION_METHOD_TYPE = 11
-IKEEXT_RESERVED: IKEEXT_AUTHENTICATION_METHOD_TYPE = 12
-IKEEXT_AUTHENTICATION_METHOD_TYPE_MAX: IKEEXT_AUTHENTICATION_METHOD_TYPE = 13
+IKEEXT_PRESHARED_KEY: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_AUTHENTICATION_METHOD_TYPE = 0
+IKEEXT_CERTIFICATE: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_AUTHENTICATION_METHOD_TYPE = 1
+IKEEXT_KERBEROS: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_AUTHENTICATION_METHOD_TYPE = 2
+IKEEXT_ANONYMOUS: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_AUTHENTICATION_METHOD_TYPE = 3
+IKEEXT_SSL: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_AUTHENTICATION_METHOD_TYPE = 4
+IKEEXT_NTLM_V2: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_AUTHENTICATION_METHOD_TYPE = 5
+IKEEXT_IPV6_CGA: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_AUTHENTICATION_METHOD_TYPE = 6
+IKEEXT_CERTIFICATE_ECDSA_P256: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_AUTHENTICATION_METHOD_TYPE = 7
+IKEEXT_CERTIFICATE_ECDSA_P384: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_AUTHENTICATION_METHOD_TYPE = 8
+IKEEXT_SSL_ECDSA_P256: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_AUTHENTICATION_METHOD_TYPE = 9
+IKEEXT_SSL_ECDSA_P384: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_AUTHENTICATION_METHOD_TYPE = 10
+IKEEXT_EAP: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_AUTHENTICATION_METHOD_TYPE = 11
+IKEEXT_RESERVED: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_AUTHENTICATION_METHOD_TYPE = 12
+IKEEXT_AUTHENTICATION_METHOD_TYPE_MAX: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_AUTHENTICATION_METHOD_TYPE = 13
 class IKEEXT_CERTIFICATE_AUTHENTICATION0(EasyCastStructure):
     inboundConfigType: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_CONFIG_TYPE
     Anonymous1: _Anonymous1_e__Union
@@ -2078,39 +2077,39 @@ class IKEEXT_CERTIFICATE_CRITERIA0(EasyCastStructure):
     name: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_NAME0)
     flags: UInt32
 IKEEXT_CERT_AUTH = UInt32
-IKEEXT_CERT_AUTH_FLAG_SSL_ONE_WAY: IKEEXT_CERT_AUTH = 1
-IKEEXT_CERT_AUTH_ENABLE_CRL_CHECK_STRONG: IKEEXT_CERT_AUTH = 4
-IKEEXT_CERT_AUTH_DISABLE_SSL_CERT_VALIDATION: IKEEXT_CERT_AUTH = 8
-IKEEXT_CERT_AUTH_ALLOW_HTTP_CERT_LOOKUP: IKEEXT_CERT_AUTH = 16
-IKEEXT_CERT_AUTH_URL_CONTAINS_BUNDLE: IKEEXT_CERT_AUTH = 32
+IKEEXT_CERT_AUTH_FLAG_SSL_ONE_WAY: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_AUTH = 1
+IKEEXT_CERT_AUTH_ENABLE_CRL_CHECK_STRONG: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_AUTH = 4
+IKEEXT_CERT_AUTH_DISABLE_SSL_CERT_VALIDATION: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_AUTH = 8
+IKEEXT_CERT_AUTH_ALLOW_HTTP_CERT_LOOKUP: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_AUTH = 16
+IKEEXT_CERT_AUTH_URL_CONTAINS_BUNDLE: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_AUTH = 32
 IKEEXT_CERT_CONFIG_TYPE = Int32
-IKEEXT_CERT_CONFIG_EXPLICIT_TRUST_LIST: IKEEXT_CERT_CONFIG_TYPE = 0
-IKEEXT_CERT_CONFIG_ENTERPRISE_STORE: IKEEXT_CERT_CONFIG_TYPE = 1
-IKEEXT_CERT_CONFIG_TRUSTED_ROOT_STORE: IKEEXT_CERT_CONFIG_TYPE = 2
-IKEEXT_CERT_CONFIG_UNSPECIFIED: IKEEXT_CERT_CONFIG_TYPE = 3
-IKEEXT_CERT_CONFIG_TYPE_MAX: IKEEXT_CERT_CONFIG_TYPE = 4
+IKEEXT_CERT_CONFIG_EXPLICIT_TRUST_LIST: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_CONFIG_TYPE = 0
+IKEEXT_CERT_CONFIG_ENTERPRISE_STORE: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_CONFIG_TYPE = 1
+IKEEXT_CERT_CONFIG_TRUSTED_ROOT_STORE: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_CONFIG_TYPE = 2
+IKEEXT_CERT_CONFIG_UNSPECIFIED: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_CONFIG_TYPE = 3
+IKEEXT_CERT_CONFIG_TYPE_MAX: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_CONFIG_TYPE = 4
 IKEEXT_CERT_CRITERIA_NAME_TYPE = Int32
-IKEEXT_CERT_CRITERIA_DNS: IKEEXT_CERT_CRITERIA_NAME_TYPE = 0
-IKEEXT_CERT_CRITERIA_UPN: IKEEXT_CERT_CRITERIA_NAME_TYPE = 1
-IKEEXT_CERT_CRITERIA_RFC822: IKEEXT_CERT_CRITERIA_NAME_TYPE = 2
-IKEEXT_CERT_CRITERIA_CN: IKEEXT_CERT_CRITERIA_NAME_TYPE = 3
-IKEEXT_CERT_CRITERIA_OU: IKEEXT_CERT_CRITERIA_NAME_TYPE = 4
-IKEEXT_CERT_CRITERIA_O: IKEEXT_CERT_CRITERIA_NAME_TYPE = 5
-IKEEXT_CERT_CRITERIA_DC: IKEEXT_CERT_CRITERIA_NAME_TYPE = 6
-IKEEXT_CERT_CRITERIA_NAME_TYPE_MAX: IKEEXT_CERT_CRITERIA_NAME_TYPE = 7
+IKEEXT_CERT_CRITERIA_DNS: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_CRITERIA_NAME_TYPE = 0
+IKEEXT_CERT_CRITERIA_UPN: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_CRITERIA_NAME_TYPE = 1
+IKEEXT_CERT_CRITERIA_RFC822: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_CRITERIA_NAME_TYPE = 2
+IKEEXT_CERT_CRITERIA_CN: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_CRITERIA_NAME_TYPE = 3
+IKEEXT_CERT_CRITERIA_OU: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_CRITERIA_NAME_TYPE = 4
+IKEEXT_CERT_CRITERIA_O: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_CRITERIA_NAME_TYPE = 5
+IKEEXT_CERT_CRITERIA_DC: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_CRITERIA_NAME_TYPE = 6
+IKEEXT_CERT_CRITERIA_NAME_TYPE_MAX: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_CRITERIA_NAME_TYPE = 7
 class IKEEXT_CERT_EKUS0(EasyCastStructure):
     numEku: UInt32
     eku: POINTER(win32more.Windows.Win32.Foundation.PSTR)
 IKEEXT_CERT_FLAGS = UInt32
-IKEEXT_CERT_FLAG_ENABLE_ACCOUNT_MAPPING: IKEEXT_CERT_FLAGS = 1
-IKEEXT_CERT_FLAG_DISABLE_REQUEST_PAYLOAD: IKEEXT_CERT_FLAGS = 2
-IKEEXT_CERT_FLAG_USE_NAP_CERTIFICATE: IKEEXT_CERT_FLAGS = 4
-IKEEXT_CERT_FLAG_INTERMEDIATE_CA: IKEEXT_CERT_FLAGS = 8
-IKEEXT_CERT_FLAG_IGNORE_INIT_CERT_MAP_FAILURE: IKEEXT_CERT_FLAGS = 16
-IKEEXT_CERT_FLAG_PREFER_NAP_CERTIFICATE_OUTBOUND: IKEEXT_CERT_FLAGS = 32
-IKEEXT_CERT_FLAG_SELECT_NAP_CERTIFICATE: IKEEXT_CERT_FLAGS = 64
-IKEEXT_CERT_FLAG_VERIFY_NAP_CERTIFICATE: IKEEXT_CERT_FLAGS = 128
-IKEEXT_CERT_FLAG_FOLLOW_RENEWAL_CERTIFICATE: IKEEXT_CERT_FLAGS = 256
+IKEEXT_CERT_FLAG_ENABLE_ACCOUNT_MAPPING: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_FLAGS = 1
+IKEEXT_CERT_FLAG_DISABLE_REQUEST_PAYLOAD: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_FLAGS = 2
+IKEEXT_CERT_FLAG_USE_NAP_CERTIFICATE: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_FLAGS = 4
+IKEEXT_CERT_FLAG_INTERMEDIATE_CA: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_FLAGS = 8
+IKEEXT_CERT_FLAG_IGNORE_INIT_CERT_MAP_FAILURE: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_FLAGS = 16
+IKEEXT_CERT_FLAG_PREFER_NAP_CERTIFICATE_OUTBOUND: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_FLAGS = 32
+IKEEXT_CERT_FLAG_SELECT_NAP_CERTIFICATE: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_FLAGS = 64
+IKEEXT_CERT_FLAG_VERIFY_NAP_CERTIFICATE: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_FLAGS = 128
+IKEEXT_CERT_FLAG_FOLLOW_RENEWAL_CERTIFICATE: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_FLAGS = 256
 class IKEEXT_CERT_NAME0(EasyCastStructure):
     nameType: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_CRITERIA_NAME_TYPE
     certName: win32more.Windows.Win32.Foundation.PWSTR
@@ -2122,14 +2121,14 @@ class IKEEXT_CIPHER_ALGORITHM0(EasyCastStructure):
     keyLen: UInt32
     rounds: UInt32
 IKEEXT_CIPHER_TYPE = Int32
-IKEEXT_CIPHER_DES: IKEEXT_CIPHER_TYPE = 0
-IKEEXT_CIPHER_3DES: IKEEXT_CIPHER_TYPE = 1
-IKEEXT_CIPHER_AES_128: IKEEXT_CIPHER_TYPE = 2
-IKEEXT_CIPHER_AES_192: IKEEXT_CIPHER_TYPE = 3
-IKEEXT_CIPHER_AES_256: IKEEXT_CIPHER_TYPE = 4
-IKEEXT_CIPHER_AES_GCM_128_16ICV: IKEEXT_CIPHER_TYPE = 5
-IKEEXT_CIPHER_AES_GCM_256_16ICV: IKEEXT_CIPHER_TYPE = 6
-IKEEXT_CIPHER_TYPE_MAX: IKEEXT_CIPHER_TYPE = 7
+IKEEXT_CIPHER_DES: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CIPHER_TYPE = 0
+IKEEXT_CIPHER_3DES: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CIPHER_TYPE = 1
+IKEEXT_CIPHER_AES_128: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CIPHER_TYPE = 2
+IKEEXT_CIPHER_AES_192: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CIPHER_TYPE = 3
+IKEEXT_CIPHER_AES_256: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CIPHER_TYPE = 4
+IKEEXT_CIPHER_AES_GCM_128_16ICV: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CIPHER_TYPE = 5
+IKEEXT_CIPHER_AES_GCM_256_16ICV: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CIPHER_TYPE = 6
+IKEEXT_CIPHER_TYPE_MAX: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CIPHER_TYPE = 7
 class IKEEXT_COMMON_STATISTICS0(EasyCastStructure):
     v4Statistics: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_IP_VERSION_SPECIFIC_COMMON_STATISTICS0
     v6Statistics: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_IP_VERSION_SPECIFIC_COMMON_STATISTICS0
@@ -2188,20 +2187,20 @@ class IKEEXT_CREDENTIAL_PAIR2(EasyCastStructure):
     localCredentials: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CREDENTIAL2
     peerCredentials: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CREDENTIAL2
 IKEEXT_DH_GROUP = Int32
-IKEEXT_DH_GROUP_NONE: IKEEXT_DH_GROUP = 0
-IKEEXT_DH_GROUP_1: IKEEXT_DH_GROUP = 1
-IKEEXT_DH_GROUP_2: IKEEXT_DH_GROUP = 2
-IKEEXT_DH_GROUP_14: IKEEXT_DH_GROUP = 3
-IKEEXT_DH_GROUP_2048: IKEEXT_DH_GROUP = 3
-IKEEXT_DH_ECP_256: IKEEXT_DH_GROUP = 4
-IKEEXT_DH_ECP_384: IKEEXT_DH_GROUP = 5
-IKEEXT_DH_GROUP_24: IKEEXT_DH_GROUP = 6
-IKEEXT_DH_GROUP_MAX: IKEEXT_DH_GROUP = 7
+IKEEXT_DH_GROUP_NONE: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_DH_GROUP = 0
+IKEEXT_DH_GROUP_1: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_DH_GROUP = 1
+IKEEXT_DH_GROUP_2: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_DH_GROUP = 2
+IKEEXT_DH_GROUP_14: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_DH_GROUP = 3
+IKEEXT_DH_GROUP_2048: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_DH_GROUP = 3
+IKEEXT_DH_ECP_256: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_DH_GROUP = 4
+IKEEXT_DH_ECP_384: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_DH_GROUP = 5
+IKEEXT_DH_GROUP_24: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_DH_GROUP = 6
+IKEEXT_DH_GROUP_MAX: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_DH_GROUP = 7
 class IKEEXT_EAP_AUTHENTICATION0(EasyCastStructure):
     flags: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_EAP_AUTHENTICATION_FLAGS
 IKEEXT_EAP_AUTHENTICATION_FLAGS = UInt32
-IKEEXT_EAP_FLAG_LOCAL_AUTH_ONLY: IKEEXT_EAP_AUTHENTICATION_FLAGS = 1
-IKEEXT_EAP_FLAG_REMOTE_AUTH_ONLY: IKEEXT_EAP_AUTHENTICATION_FLAGS = 2
+IKEEXT_EAP_FLAG_LOCAL_AUTH_ONLY: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_EAP_AUTHENTICATION_FLAGS = 1
+IKEEXT_EAP_FLAG_REMOTE_AUTH_ONLY: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_EAP_AUTHENTICATION_FLAGS = 2
 class IKEEXT_EM_POLICY0(EasyCastStructure):
     numAuthenticationMethods: UInt32
     authenticationMethods: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_AUTHENTICATION_METHOD0)
@@ -2215,21 +2214,21 @@ class IKEEXT_EM_POLICY2(EasyCastStructure):
     authenticationMethods: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_AUTHENTICATION_METHOD2)
     initiatorImpersonationType: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_AUTHENTICATION_IMPERSONATION_TYPE
 IKEEXT_EM_SA_STATE = Int32
-IKEEXT_EM_SA_STATE_NONE: IKEEXT_EM_SA_STATE = 0
-IKEEXT_EM_SA_STATE_SENT_ATTS: IKEEXT_EM_SA_STATE = 1
-IKEEXT_EM_SA_STATE_SSPI_SENT: IKEEXT_EM_SA_STATE = 2
-IKEEXT_EM_SA_STATE_AUTH_COMPLETE: IKEEXT_EM_SA_STATE = 3
-IKEEXT_EM_SA_STATE_FINAL: IKEEXT_EM_SA_STATE = 4
-IKEEXT_EM_SA_STATE_COMPLETE: IKEEXT_EM_SA_STATE = 5
-IKEEXT_EM_SA_STATE_MAX: IKEEXT_EM_SA_STATE = 6
+IKEEXT_EM_SA_STATE_NONE: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_EM_SA_STATE = 0
+IKEEXT_EM_SA_STATE_SENT_ATTS: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_EM_SA_STATE = 1
+IKEEXT_EM_SA_STATE_SSPI_SENT: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_EM_SA_STATE = 2
+IKEEXT_EM_SA_STATE_AUTH_COMPLETE: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_EM_SA_STATE = 3
+IKEEXT_EM_SA_STATE_FINAL: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_EM_SA_STATE = 4
+IKEEXT_EM_SA_STATE_COMPLETE: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_EM_SA_STATE = 5
+IKEEXT_EM_SA_STATE_MAX: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_EM_SA_STATE = 6
 class IKEEXT_INTEGRITY_ALGORITHM0(EasyCastStructure):
     algoIdentifier: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_INTEGRITY_TYPE
 IKEEXT_INTEGRITY_TYPE = Int32
-IKEEXT_INTEGRITY_MD5: IKEEXT_INTEGRITY_TYPE = 0
-IKEEXT_INTEGRITY_SHA1: IKEEXT_INTEGRITY_TYPE = 1
-IKEEXT_INTEGRITY_SHA_256: IKEEXT_INTEGRITY_TYPE = 2
-IKEEXT_INTEGRITY_SHA_384: IKEEXT_INTEGRITY_TYPE = 3
-IKEEXT_INTEGRITY_TYPE_MAX: IKEEXT_INTEGRITY_TYPE = 4
+IKEEXT_INTEGRITY_MD5: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_INTEGRITY_TYPE = 0
+IKEEXT_INTEGRITY_SHA1: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_INTEGRITY_TYPE = 1
+IKEEXT_INTEGRITY_SHA_256: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_INTEGRITY_TYPE = 2
+IKEEXT_INTEGRITY_SHA_384: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_INTEGRITY_TYPE = 3
+IKEEXT_INTEGRITY_TYPE_MAX: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_INTEGRITY_TYPE = 4
 class IKEEXT_IPV6_CGA_AUTHENTICATION0(EasyCastStructure):
     keyContainerName: win32more.Windows.Win32.Foundation.PWSTR
     cspName: win32more.Windows.Win32.Foundation.PWSTR
@@ -2286,8 +2285,8 @@ class IKEEXT_KERBEROS_AUTHENTICATION1(EasyCastStructure):
     flags: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_KERBEROS_AUTHENTICATION_FLAGS
     proxyServer: win32more.Windows.Win32.Foundation.PWSTR
 IKEEXT_KERBEROS_AUTHENTICATION_FLAGS = UInt32
-IKEEXT_KERB_AUTH_DISABLE_INITIATOR_TOKEN_GENERATION: IKEEXT_KERBEROS_AUTHENTICATION_FLAGS = 1
-IKEEXT_KERB_AUTH_DONT_ACCEPT_EXPLICIT_CREDENTIALS: IKEEXT_KERBEROS_AUTHENTICATION_FLAGS = 2
+IKEEXT_KERB_AUTH_DISABLE_INITIATOR_TOKEN_GENERATION: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_KERBEROS_AUTHENTICATION_FLAGS = 1
+IKEEXT_KERB_AUTH_DONT_ACCEPT_EXPLICIT_CREDENTIALS: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_KERBEROS_AUTHENTICATION_FLAGS = 2
 class IKEEXT_KEYMODULE_STATISTICS0(EasyCastStructure):
     v4Statistics: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_IP_VERSION_SPECIFIC_KEYMODULE_STATISTICS0
     v6Statistics: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_IP_VERSION_SPECIFIC_KEYMODULE_STATISTICS0
@@ -2303,18 +2302,18 @@ class IKEEXT_KEYMODULE_STATISTICS1(EasyCastStructure):
     quickModeNegotiationTime: UInt32
     extendedModeNegotiationTime: UInt32
 IKEEXT_KEY_MODULE_TYPE = Int32
-IKEEXT_KEY_MODULE_IKE: IKEEXT_KEY_MODULE_TYPE = 0
-IKEEXT_KEY_MODULE_AUTHIP: IKEEXT_KEY_MODULE_TYPE = 1
-IKEEXT_KEY_MODULE_IKEV2: IKEEXT_KEY_MODULE_TYPE = 2
-IKEEXT_KEY_MODULE_MAX: IKEEXT_KEY_MODULE_TYPE = 3
+IKEEXT_KEY_MODULE_IKE: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_KEY_MODULE_TYPE = 0
+IKEEXT_KEY_MODULE_AUTHIP: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_KEY_MODULE_TYPE = 1
+IKEEXT_KEY_MODULE_IKEV2: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_KEY_MODULE_TYPE = 2
+IKEEXT_KEY_MODULE_MAX: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_KEY_MODULE_TYPE = 3
 IKEEXT_MM_SA_STATE = Int32
-IKEEXT_MM_SA_STATE_NONE: IKEEXT_MM_SA_STATE = 0
-IKEEXT_MM_SA_STATE_SA_SENT: IKEEXT_MM_SA_STATE = 1
-IKEEXT_MM_SA_STATE_SSPI_SENT: IKEEXT_MM_SA_STATE = 2
-IKEEXT_MM_SA_STATE_FINAL: IKEEXT_MM_SA_STATE = 3
-IKEEXT_MM_SA_STATE_FINAL_SENT: IKEEXT_MM_SA_STATE = 4
-IKEEXT_MM_SA_STATE_COMPLETE: IKEEXT_MM_SA_STATE = 5
-IKEEXT_MM_SA_STATE_MAX: IKEEXT_MM_SA_STATE = 6
+IKEEXT_MM_SA_STATE_NONE: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_MM_SA_STATE = 0
+IKEEXT_MM_SA_STATE_SA_SENT: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_MM_SA_STATE = 1
+IKEEXT_MM_SA_STATE_SSPI_SENT: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_MM_SA_STATE = 2
+IKEEXT_MM_SA_STATE_FINAL: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_MM_SA_STATE = 3
+IKEEXT_MM_SA_STATE_FINAL_SENT: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_MM_SA_STATE = 4
+IKEEXT_MM_SA_STATE_COMPLETE: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_MM_SA_STATE = 5
+IKEEXT_MM_SA_STATE_MAX: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_MM_SA_STATE = 6
 class IKEEXT_NAME_CREDENTIAL0(EasyCastStructure):
     principalName: win32more.Windows.Win32.Foundation.PWSTR
 class IKEEXT_NTLM_V2_AUTHENTICATION0(EasyCastStructure):
@@ -2349,18 +2348,18 @@ class IKEEXT_POLICY2(EasyCastStructure):
     maxDynamicFilters: UInt32
     retransmitDurationSecs: UInt32
 IKEEXT_POLICY_FLAG = UInt32
-IKEEXT_POLICY_FLAG_DISABLE_DIAGNOSTICS: IKEEXT_POLICY_FLAG = 1
-IKEEXT_POLICY_FLAG_NO_MACHINE_LUID_VERIFY: IKEEXT_POLICY_FLAG = 2
-IKEEXT_POLICY_FLAG_NO_IMPERSONATION_LUID_VERIFY: IKEEXT_POLICY_FLAG = 4
-IKEEXT_POLICY_FLAG_ENABLE_OPTIONAL_DH: IKEEXT_POLICY_FLAG = 8
+IKEEXT_POLICY_FLAG_DISABLE_DIAGNOSTICS: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_POLICY_FLAG = 1
+IKEEXT_POLICY_FLAG_NO_MACHINE_LUID_VERIFY: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_POLICY_FLAG = 2
+IKEEXT_POLICY_FLAG_NO_IMPERSONATION_LUID_VERIFY: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_POLICY_FLAG = 4
+IKEEXT_POLICY_FLAG_ENABLE_OPTIONAL_DH: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_POLICY_FLAG = 8
 class IKEEXT_PRESHARED_KEY_AUTHENTICATION0(EasyCastStructure):
     presharedKey: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_BYTE_BLOB
 class IKEEXT_PRESHARED_KEY_AUTHENTICATION1(EasyCastStructure):
     presharedKey: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_BYTE_BLOB
     flags: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_PRESHARED_KEY_AUTHENTICATION_FLAGS
 IKEEXT_PRESHARED_KEY_AUTHENTICATION_FLAGS = UInt32
-IKEEXT_PSK_FLAG_LOCAL_AUTH_ONLY: IKEEXT_PRESHARED_KEY_AUTHENTICATION_FLAGS = 1
-IKEEXT_PSK_FLAG_REMOTE_AUTH_ONLY: IKEEXT_PRESHARED_KEY_AUTHENTICATION_FLAGS = 2
+IKEEXT_PSK_FLAG_LOCAL_AUTH_ONLY: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_PRESHARED_KEY_AUTHENTICATION_FLAGS = 1
+IKEEXT_PSK_FLAG_REMOTE_AUTH_ONLY: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_PRESHARED_KEY_AUTHENTICATION_FLAGS = 2
 class IKEEXT_PROPOSAL0(EasyCastStructure):
     cipherAlgorithm: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CIPHER_ALGORITHM0
     integrityAlgorithm: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_INTEGRITY_ALGORITHM0
@@ -2368,15 +2367,15 @@ class IKEEXT_PROPOSAL0(EasyCastStructure):
     dhGroup: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_DH_GROUP
     quickModeLimit: UInt32
 IKEEXT_QM_SA_STATE = Int32
-IKEEXT_QM_SA_STATE_NONE: IKEEXT_QM_SA_STATE = 0
-IKEEXT_QM_SA_STATE_INITIAL: IKEEXT_QM_SA_STATE = 1
-IKEEXT_QM_SA_STATE_FINAL: IKEEXT_QM_SA_STATE = 2
-IKEEXT_QM_SA_STATE_COMPLETE: IKEEXT_QM_SA_STATE = 3
-IKEEXT_QM_SA_STATE_MAX: IKEEXT_QM_SA_STATE = 4
+IKEEXT_QM_SA_STATE_NONE: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_QM_SA_STATE = 0
+IKEEXT_QM_SA_STATE_INITIAL: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_QM_SA_STATE = 1
+IKEEXT_QM_SA_STATE_FINAL: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_QM_SA_STATE = 2
+IKEEXT_QM_SA_STATE_COMPLETE: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_QM_SA_STATE = 3
+IKEEXT_QM_SA_STATE_MAX: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_QM_SA_STATE = 4
 class IKEEXT_RESERVED_AUTHENTICATION0(EasyCastStructure):
     flags: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_RESERVED_AUTHENTICATION_FLAGS
 IKEEXT_RESERVED_AUTHENTICATION_FLAGS = UInt32
-IKEEXT_RESERVED_AUTH_DISABLE_INITIATOR_TOKEN_GENERATION: IKEEXT_RESERVED_AUTHENTICATION_FLAGS = 1
+IKEEXT_RESERVED_AUTH_DISABLE_INITIATOR_TOKEN_GENERATION: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_RESERVED_AUTHENTICATION_FLAGS = 1
 class IKEEXT_SA_DETAILS0(EasyCastStructure):
     saId: UInt64
     keyModuleType: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_KEY_MODULE_TYPE
@@ -2423,9 +2422,9 @@ class IKEEXT_SA_ENUM_TEMPLATE0(EasyCastStructure):
     remoteSubNet: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_CONDITION_VALUE0
     localMainModeCertHash: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_BYTE_BLOB
 IKEEXT_SA_ROLE = Int32
-IKEEXT_SA_ROLE_INITIATOR: IKEEXT_SA_ROLE = 0
-IKEEXT_SA_ROLE_RESPONDER: IKEEXT_SA_ROLE = 1
-IKEEXT_SA_ROLE_MAX: IKEEXT_SA_ROLE = 2
+IKEEXT_SA_ROLE_INITIATOR: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_SA_ROLE = 0
+IKEEXT_SA_ROLE_RESPONDER: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_SA_ROLE = 1
+IKEEXT_SA_ROLE_MAX: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_SA_ROLE = 2
 class IKEEXT_STATISTICS0(EasyCastStructure):
     ikeStatistics: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_KEYMODULE_STATISTICS0
     authipStatistics: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_KEYMODULE_STATISTICS0
@@ -2495,13 +2494,13 @@ class IPSEC_AUTH_TRANSFORM_ID0(EasyCastStructure):
     authType: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_AUTH_TYPE
     authConfig: Byte
 IPSEC_AUTH_TYPE = Int32
-IPSEC_AUTH_MD5: IPSEC_AUTH_TYPE = 0
-IPSEC_AUTH_SHA_1: IPSEC_AUTH_TYPE = 1
-IPSEC_AUTH_SHA_256: IPSEC_AUTH_TYPE = 2
-IPSEC_AUTH_AES_128: IPSEC_AUTH_TYPE = 3
-IPSEC_AUTH_AES_192: IPSEC_AUTH_TYPE = 4
-IPSEC_AUTH_AES_256: IPSEC_AUTH_TYPE = 5
-IPSEC_AUTH_MAX: IPSEC_AUTH_TYPE = 6
+IPSEC_AUTH_MD5: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_AUTH_TYPE = 0
+IPSEC_AUTH_SHA_1: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_AUTH_TYPE = 1
+IPSEC_AUTH_SHA_256: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_AUTH_TYPE = 2
+IPSEC_AUTH_AES_128: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_AUTH_TYPE = 3
+IPSEC_AUTH_AES_192: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_AUTH_TYPE = 4
+IPSEC_AUTH_AES_256: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_AUTH_TYPE = 5
+IPSEC_AUTH_MAX: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_AUTH_TYPE = 6
 class IPSEC_CIPHER_TRANSFORM0(EasyCastStructure):
     cipherTransformId: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_CIPHER_TRANSFORM_ID0
     cryptoModuleId: POINTER(Guid)
@@ -2509,19 +2508,19 @@ class IPSEC_CIPHER_TRANSFORM_ID0(EasyCastStructure):
     cipherType: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_CIPHER_TYPE
     cipherConfig: Byte
 IPSEC_CIPHER_TYPE = Int32
-IPSEC_CIPHER_TYPE_DES: IPSEC_CIPHER_TYPE = 1
-IPSEC_CIPHER_TYPE_3DES: IPSEC_CIPHER_TYPE = 2
-IPSEC_CIPHER_TYPE_AES_128: IPSEC_CIPHER_TYPE = 3
-IPSEC_CIPHER_TYPE_AES_192: IPSEC_CIPHER_TYPE = 4
-IPSEC_CIPHER_TYPE_AES_256: IPSEC_CIPHER_TYPE = 5
-IPSEC_CIPHER_TYPE_MAX: IPSEC_CIPHER_TYPE = 6
+IPSEC_CIPHER_TYPE_DES: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_CIPHER_TYPE = 1
+IPSEC_CIPHER_TYPE_3DES: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_CIPHER_TYPE = 2
+IPSEC_CIPHER_TYPE_AES_128: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_CIPHER_TYPE = 3
+IPSEC_CIPHER_TYPE_AES_192: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_CIPHER_TYPE = 4
+IPSEC_CIPHER_TYPE_AES_256: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_CIPHER_TYPE = 5
+IPSEC_CIPHER_TYPE_MAX: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_CIPHER_TYPE = 6
 IPSEC_DOSP_FLAGS = UInt32
-IPSEC_DOSP_FLAG_ENABLE_IKEV1: IPSEC_DOSP_FLAGS = 1
-IPSEC_DOSP_FLAG_ENABLE_IKEV2: IPSEC_DOSP_FLAGS = 2
-IPSEC_DOSP_FLAG_DISABLE_AUTHIP: IPSEC_DOSP_FLAGS = 4
-IPSEC_DOSP_FLAG_DISABLE_DEFAULT_BLOCK: IPSEC_DOSP_FLAGS = 8
-IPSEC_DOSP_FLAG_FILTER_BLOCK: IPSEC_DOSP_FLAGS = 16
-IPSEC_DOSP_FLAG_FILTER_EXEMPT: IPSEC_DOSP_FLAGS = 32
+IPSEC_DOSP_FLAG_ENABLE_IKEV1: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_DOSP_FLAGS = 1
+IPSEC_DOSP_FLAG_ENABLE_IKEV2: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_DOSP_FLAGS = 2
+IPSEC_DOSP_FLAG_DISABLE_AUTHIP: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_DOSP_FLAGS = 4
+IPSEC_DOSP_FLAG_DISABLE_DEFAULT_BLOCK: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_DOSP_FLAGS = 8
+IPSEC_DOSP_FLAG_FILTER_BLOCK: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_DOSP_FLAGS = 16
+IPSEC_DOSP_FLAG_FILTER_EXEMPT: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_DOSP_FLAGS = 32
 class IPSEC_DOSP_OPTIONS0(EasyCastStructure):
     stateIdleTimeoutSeconds: UInt32
     perIPRateLimitQueueIdleTimeoutSeconds: UInt32
@@ -2580,10 +2579,10 @@ class IPSEC_ESP_DROP_PACKET_STATISTICS0(EasyCastStructure):
     replayCheckFailuresOnInbound: UInt32
     saNotInitializedOnInbound: UInt32
 IPSEC_FAILURE_POINT = Int32
-IPSEC_FAILURE_NONE: IPSEC_FAILURE_POINT = 0
-IPSEC_FAILURE_ME: IPSEC_FAILURE_POINT = 1
-IPSEC_FAILURE_PEER: IPSEC_FAILURE_POINT = 2
-IPSEC_FAILURE_POINT_MAX: IPSEC_FAILURE_POINT = 3
+IPSEC_FAILURE_NONE: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_FAILURE_POINT = 0
+IPSEC_FAILURE_ME: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_FAILURE_POINT = 1
+IPSEC_FAILURE_PEER: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_FAILURE_POINT = 2
+IPSEC_FAILURE_POINT_MAX: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_FAILURE_POINT = 3
 class IPSEC_GETSPI0(EasyCastStructure):
     inboundIpsecTraffic: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_TRAFFIC0
     ipVersion: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_IP_VERSION
@@ -2633,30 +2632,30 @@ def IPSEC_KEY_MANAGER_KEY_DICTATION_CHECK0(ikeTraffic: POINTER(win32more.Windows
 @winfunctype_pointer
 def IPSEC_KEY_MANAGER_NOTIFY_KEY0(inboundSa: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_SA_DETAILS1), outboundSa: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_SA_DETAILS1)) -> Void: ...
 IPSEC_PFS_GROUP = Int32
-IPSEC_PFS_NONE: IPSEC_PFS_GROUP = 0
-IPSEC_PFS_1: IPSEC_PFS_GROUP = 1
-IPSEC_PFS_2: IPSEC_PFS_GROUP = 2
-IPSEC_PFS_2048: IPSEC_PFS_GROUP = 3
-IPSEC_PFS_14: IPSEC_PFS_GROUP = 3
-IPSEC_PFS_ECP_256: IPSEC_PFS_GROUP = 4
-IPSEC_PFS_ECP_384: IPSEC_PFS_GROUP = 5
-IPSEC_PFS_MM: IPSEC_PFS_GROUP = 6
-IPSEC_PFS_24: IPSEC_PFS_GROUP = 7
-IPSEC_PFS_MAX: IPSEC_PFS_GROUP = 8
+IPSEC_PFS_NONE: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_PFS_GROUP = 0
+IPSEC_PFS_1: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_PFS_GROUP = 1
+IPSEC_PFS_2: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_PFS_GROUP = 2
+IPSEC_PFS_2048: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_PFS_GROUP = 3
+IPSEC_PFS_14: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_PFS_GROUP = 3
+IPSEC_PFS_ECP_256: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_PFS_GROUP = 4
+IPSEC_PFS_ECP_384: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_PFS_GROUP = 5
+IPSEC_PFS_MM: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_PFS_GROUP = 6
+IPSEC_PFS_24: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_PFS_GROUP = 7
+IPSEC_PFS_MAX: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_PFS_GROUP = 8
 IPSEC_POLICY_FLAG = UInt32
-IPSEC_POLICY_FLAG_ND_SECURE: IPSEC_POLICY_FLAG = 2
-IPSEC_POLICY_FLAG_ND_BOUNDARY: IPSEC_POLICY_FLAG = 4
-IPSEC_POLICY_FLAG_NAT_ENCAP_ALLOW_PEER_BEHIND_NAT: IPSEC_POLICY_FLAG = 16
-IPSEC_POLICY_FLAG_NAT_ENCAP_ALLOW_GENERAL_NAT_TRAVERSAL: IPSEC_POLICY_FLAG = 32
-IPSEC_POLICY_FLAG_DONT_NEGOTIATE_SECOND_LIFETIME: IPSEC_POLICY_FLAG = 64
-IPSEC_POLICY_FLAG_DONT_NEGOTIATE_BYTE_LIFETIME: IPSEC_POLICY_FLAG = 128
-IPSEC_POLICY_FLAG_CLEAR_DF_ON_TUNNEL: IPSEC_POLICY_FLAG = 8
-IPSEC_POLICY_FLAG_ENABLE_V6_IN_V4_TUNNELING: IPSEC_POLICY_FLAG = 256
-IPSEC_POLICY_FLAG_ENABLE_SERVER_ADDR_ASSIGNMENT: IPSEC_POLICY_FLAG = 512
-IPSEC_POLICY_FLAG_TUNNEL_ALLOW_OUTBOUND_CLEAR_CONNECTION: IPSEC_POLICY_FLAG = 1024
-IPSEC_POLICY_FLAG_TUNNEL_BYPASS_ALREADY_SECURE_CONNECTION: IPSEC_POLICY_FLAG = 2048
-IPSEC_POLICY_FLAG_TUNNEL_BYPASS_ICMPV6: IPSEC_POLICY_FLAG = 4096
-IPSEC_POLICY_FLAG_KEY_MANAGER_ALLOW_DICTATE_KEY: IPSEC_POLICY_FLAG = 8192
+IPSEC_POLICY_FLAG_ND_SECURE: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_POLICY_FLAG = 2
+IPSEC_POLICY_FLAG_ND_BOUNDARY: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_POLICY_FLAG = 4
+IPSEC_POLICY_FLAG_NAT_ENCAP_ALLOW_PEER_BEHIND_NAT: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_POLICY_FLAG = 16
+IPSEC_POLICY_FLAG_NAT_ENCAP_ALLOW_GENERAL_NAT_TRAVERSAL: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_POLICY_FLAG = 32
+IPSEC_POLICY_FLAG_DONT_NEGOTIATE_SECOND_LIFETIME: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_POLICY_FLAG = 64
+IPSEC_POLICY_FLAG_DONT_NEGOTIATE_BYTE_LIFETIME: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_POLICY_FLAG = 128
+IPSEC_POLICY_FLAG_CLEAR_DF_ON_TUNNEL: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_POLICY_FLAG = 8
+IPSEC_POLICY_FLAG_ENABLE_V6_IN_V4_TUNNELING: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_POLICY_FLAG = 256
+IPSEC_POLICY_FLAG_ENABLE_SERVER_ADDR_ASSIGNMENT: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_POLICY_FLAG = 512
+IPSEC_POLICY_FLAG_TUNNEL_ALLOW_OUTBOUND_CLEAR_CONNECTION: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_POLICY_FLAG = 1024
+IPSEC_POLICY_FLAG_TUNNEL_BYPASS_ALREADY_SECURE_CONNECTION: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_POLICY_FLAG = 2048
+IPSEC_POLICY_FLAG_TUNNEL_BYPASS_ICMPV6: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_POLICY_FLAG = 4096
+IPSEC_POLICY_FLAG_KEY_MANAGER_ALLOW_DICTATE_KEY: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_POLICY_FLAG = 8192
 class IPSEC_PROPOSAL0(EasyCastStructure):
     lifetime: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_SA_LIFETIME0
     numSaTransforms: UInt32
@@ -2715,16 +2714,16 @@ class IPSEC_SA_BUNDLE1(EasyCastStructure):
     class _Anonymous_e__Union(EasyCastUnion):
         peerV4PrivateAddress: UInt32
 IPSEC_SA_BUNDLE_FLAGS = UInt32
-IPSEC_SA_BUNDLE_FLAG_ND_SECURE: IPSEC_SA_BUNDLE_FLAGS = 1
-IPSEC_SA_BUNDLE_FLAG_ND_BOUNDARY: IPSEC_SA_BUNDLE_FLAGS = 2
-IPSEC_SA_BUNDLE_FLAG_ND_PEER_NAT_BOUNDARY: IPSEC_SA_BUNDLE_FLAGS = 4
-IPSEC_SA_BUNDLE_FLAG_GUARANTEE_ENCRYPTION: IPSEC_SA_BUNDLE_FLAGS = 8
-IPSEC_SA_BUNDLE_FLAG_ALLOW_NULL_TARGET_NAME_MATCH: IPSEC_SA_BUNDLE_FLAGS = 512
-IPSEC_SA_BUNDLE_FLAG_CLEAR_DF_ON_TUNNEL: IPSEC_SA_BUNDLE_FLAGS = 1024
-IPSEC_SA_BUNDLE_FLAG_ASSUME_UDP_CONTEXT_OUTBOUND: IPSEC_SA_BUNDLE_FLAGS = 2048
-IPSEC_SA_BUNDLE_FLAG_ND_PEER_BOUNDARY: IPSEC_SA_BUNDLE_FLAGS = 4096
-IPSEC_SA_BUNDLE_FLAG_SUPPRESS_DUPLICATE_DELETION: IPSEC_SA_BUNDLE_FLAGS = 8192
-IPSEC_SA_BUNDLE_FLAG_PEER_SUPPORTS_GUARANTEE_ENCRYPTION: IPSEC_SA_BUNDLE_FLAGS = 16384
+IPSEC_SA_BUNDLE_FLAG_ND_SECURE: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_SA_BUNDLE_FLAGS = 1
+IPSEC_SA_BUNDLE_FLAG_ND_BOUNDARY: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_SA_BUNDLE_FLAGS = 2
+IPSEC_SA_BUNDLE_FLAG_ND_PEER_NAT_BOUNDARY: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_SA_BUNDLE_FLAGS = 4
+IPSEC_SA_BUNDLE_FLAG_GUARANTEE_ENCRYPTION: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_SA_BUNDLE_FLAGS = 8
+IPSEC_SA_BUNDLE_FLAG_ALLOW_NULL_TARGET_NAME_MATCH: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_SA_BUNDLE_FLAGS = 512
+IPSEC_SA_BUNDLE_FLAG_CLEAR_DF_ON_TUNNEL: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_SA_BUNDLE_FLAGS = 1024
+IPSEC_SA_BUNDLE_FLAG_ASSUME_UDP_CONTEXT_OUTBOUND: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_SA_BUNDLE_FLAGS = 2048
+IPSEC_SA_BUNDLE_FLAG_ND_PEER_BOUNDARY: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_SA_BUNDLE_FLAGS = 4096
+IPSEC_SA_BUNDLE_FLAG_SUPPRESS_DUPLICATE_DELETION: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_SA_BUNDLE_FLAGS = 8192
+IPSEC_SA_BUNDLE_FLAG_PEER_SUPPORTS_GUARANTEE_ENCRYPTION: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_SA_BUNDLE_FLAGS = 16384
 class IPSEC_SA_CIPHER_INFORMATION0(EasyCastStructure):
     cipherTransform: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_CIPHER_TRANSFORM0
     cipherKey: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_BYTE_BLOB
@@ -2745,9 +2744,9 @@ class IPSEC_SA_CONTEXT_ENUM_TEMPLATE0(EasyCastStructure):
     localSubNet: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_CONDITION_VALUE0
     remoteSubNet: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_CONDITION_VALUE0
 IPSEC_SA_CONTEXT_EVENT_TYPE0 = Int32
-IPSEC_SA_CONTEXT_EVENT_ADD: IPSEC_SA_CONTEXT_EVENT_TYPE0 = 1
-IPSEC_SA_CONTEXT_EVENT_DELETE: IPSEC_SA_CONTEXT_EVENT_TYPE0 = 2
-IPSEC_SA_CONTEXT_EVENT_MAX: IPSEC_SA_CONTEXT_EVENT_TYPE0 = 3
+IPSEC_SA_CONTEXT_EVENT_ADD: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_SA_CONTEXT_EVENT_TYPE0 = 1
+IPSEC_SA_CONTEXT_EVENT_DELETE: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_SA_CONTEXT_EVENT_TYPE0 = 2
+IPSEC_SA_CONTEXT_EVENT_MAX: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_SA_CONTEXT_EVENT_TYPE0 = 3
 class IPSEC_SA_CONTEXT_SUBSCRIPTION0(EasyCastStructure):
     enumTemplate: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_SA_CONTEXT_ENUM_TEMPLATE0)
     flags: UInt32
@@ -2809,17 +2808,17 @@ class IPSEC_TOKEN0(EasyCastStructure):
     mode: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_TOKEN_MODE
     token: UInt64
 IPSEC_TOKEN_MODE = Int32
-IPSEC_TOKEN_MODE_MAIN: IPSEC_TOKEN_MODE = 0
-IPSEC_TOKEN_MODE_EXTENDED: IPSEC_TOKEN_MODE = 1
-IPSEC_TOKEN_MODE_MAX: IPSEC_TOKEN_MODE = 2
+IPSEC_TOKEN_MODE_MAIN: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_TOKEN_MODE = 0
+IPSEC_TOKEN_MODE_EXTENDED: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_TOKEN_MODE = 1
+IPSEC_TOKEN_MODE_MAX: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_TOKEN_MODE = 2
 IPSEC_TOKEN_PRINCIPAL = Int32
-IPSEC_TOKEN_PRINCIPAL_LOCAL: IPSEC_TOKEN_PRINCIPAL = 0
-IPSEC_TOKEN_PRINCIPAL_PEER: IPSEC_TOKEN_PRINCIPAL = 1
-IPSEC_TOKEN_PRINCIPAL_MAX: IPSEC_TOKEN_PRINCIPAL = 2
+IPSEC_TOKEN_PRINCIPAL_LOCAL: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_TOKEN_PRINCIPAL = 0
+IPSEC_TOKEN_PRINCIPAL_PEER: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_TOKEN_PRINCIPAL = 1
+IPSEC_TOKEN_PRINCIPAL_MAX: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_TOKEN_PRINCIPAL = 2
 IPSEC_TOKEN_TYPE = Int32
-IPSEC_TOKEN_TYPE_MACHINE: IPSEC_TOKEN_TYPE = 0
-IPSEC_TOKEN_TYPE_IMPERSONATION: IPSEC_TOKEN_TYPE = 1
-IPSEC_TOKEN_TYPE_MAX: IPSEC_TOKEN_TYPE = 2
+IPSEC_TOKEN_TYPE_MACHINE: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_TOKEN_TYPE = 0
+IPSEC_TOKEN_TYPE_IMPERSONATION: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_TOKEN_TYPE = 1
+IPSEC_TOKEN_TYPE_MAX: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_TOKEN_TYPE = 2
 class IPSEC_TRAFFIC0(EasyCastStructure):
     ipVersion: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_IP_VERSION
     Anonymous1: _Anonymous1_e__Union
@@ -2891,16 +2890,16 @@ class IPSEC_TRAFFIC_STATISTICS1(EasyCastStructure):
     offloadByteCount: UInt64
     totalSuccessfulPackets: UInt64
 IPSEC_TRAFFIC_TYPE = Int32
-IPSEC_TRAFFIC_TYPE_TRANSPORT: IPSEC_TRAFFIC_TYPE = 0
-IPSEC_TRAFFIC_TYPE_TUNNEL: IPSEC_TRAFFIC_TYPE = 1
-IPSEC_TRAFFIC_TYPE_MAX: IPSEC_TRAFFIC_TYPE = 2
+IPSEC_TRAFFIC_TYPE_TRANSPORT: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_TRAFFIC_TYPE = 0
+IPSEC_TRAFFIC_TYPE_TUNNEL: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_TRAFFIC_TYPE = 1
+IPSEC_TRAFFIC_TYPE_MAX: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_TRAFFIC_TYPE = 2
 IPSEC_TRANSFORM_TYPE = Int32
-IPSEC_TRANSFORM_AH: IPSEC_TRANSFORM_TYPE = 1
-IPSEC_TRANSFORM_ESP_AUTH: IPSEC_TRANSFORM_TYPE = 2
-IPSEC_TRANSFORM_ESP_CIPHER: IPSEC_TRANSFORM_TYPE = 3
-IPSEC_TRANSFORM_ESP_AUTH_AND_CIPHER: IPSEC_TRANSFORM_TYPE = 4
-IPSEC_TRANSFORM_ESP_AUTH_FW: IPSEC_TRANSFORM_TYPE = 5
-IPSEC_TRANSFORM_TYPE_MAX: IPSEC_TRANSFORM_TYPE = 6
+IPSEC_TRANSFORM_AH: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_TRANSFORM_TYPE = 1
+IPSEC_TRANSFORM_ESP_AUTH: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_TRANSFORM_TYPE = 2
+IPSEC_TRANSFORM_ESP_CIPHER: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_TRANSFORM_TYPE = 3
+IPSEC_TRANSFORM_ESP_AUTH_AND_CIPHER: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_TRANSFORM_TYPE = 4
+IPSEC_TRANSFORM_ESP_AUTH_FW: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_TRANSFORM_TYPE = 5
+IPSEC_TRANSFORM_TYPE_MAX: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_TRANSFORM_TYPE = 6
 class IPSEC_TRANSPORT_POLICY0(EasyCastStructure):
     numIpsecProposals: UInt32
     ipsecProposals: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_PROPOSAL0)
@@ -3002,4 +3001,6 @@ class IPSEC_V4_UDP_ENCAPSULATION0(EasyCastStructure):
 class IPSEC_VIRTUAL_IF_TUNNEL_INFO0(EasyCastStructure):
     virtualIfTunnelId: UInt64
     trafficSelectorId: UInt64
+
+
 make_ready(__name__)

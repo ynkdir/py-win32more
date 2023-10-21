@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.Com.Events
@@ -17,9 +16,9 @@ class COMEVENTSYSCHANGEINFO(EasyCastStructure):
     applicationId: win32more.Windows.Win32.Foundation.BSTR
     reserved: Guid * 10
 EOC_ChangeType = Int32
-EOC_NewObject: EOC_ChangeType = 0
-EOC_ModifiedObject: EOC_ChangeType = 1
-EOC_DeletedObject: EOC_ChangeType = 2
+EOC_NewObject: win32more.Windows.Win32.System.Com.Events.EOC_ChangeType = 0
+EOC_ModifiedObject: win32more.Windows.Win32.System.Com.Events.EOC_ChangeType = 1
+EOC_DeletedObject: win32more.Windows.Win32.System.Com.Events.EOC_ChangeType = 2
 EventObjectChange = Guid('{d0565000-9df4-11d1-a281-00c04fca0aa7}')
 EventObjectChange2 = Guid('{bb07bacd-cd56-4e63-a8ff-cbf0355fb9f4}')
 class IDontSupportEventSubscription(ComPtr):
@@ -294,4 +293,6 @@ class IPublisherFilter(ComPtr):
     def Initialize(self, methodName: win32more.Windows.Win32.Foundation.BSTR, dispUserDefined: win32more.Windows.Win32.System.Com.IDispatch) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def PrepareToFire(self, methodName: win32more.Windows.Win32.Foundation.BSTR, firingControl: win32more.Windows.Win32.System.Com.Events.IFiringControl) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+
+
 make_ready(__name__)

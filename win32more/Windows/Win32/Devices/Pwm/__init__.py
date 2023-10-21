@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Devices.Pwm
 import win32more.Windows.Win32.Foundation
 GUID_DEVINTERFACE_PWM_CONTROLLER: Guid = Guid('{60824b4c-eed1-4c9c-b49c-1b961461a819}')
@@ -47,6 +46,8 @@ class PWM_PIN_SET_ACTIVE_DUTY_CYCLE_PERCENTAGE_INPUT(EasyCastStructure):
 class PWM_PIN_SET_POLARITY_INPUT(EasyCastStructure):
     Polarity: win32more.Windows.Win32.Devices.Pwm.PWM_POLARITY
 PWM_POLARITY = Int32
-PWM_ACTIVE_HIGH: PWM_POLARITY = 0
-PWM_ACTIVE_LOW: PWM_POLARITY = 1
+PWM_ACTIVE_HIGH: win32more.Windows.Win32.Devices.Pwm.PWM_POLARITY = 0
+PWM_ACTIVE_LOW: win32more.Windows.Win32.Devices.Pwm.PWM_POLARITY = 1
+
+
 make_ready(__name__)

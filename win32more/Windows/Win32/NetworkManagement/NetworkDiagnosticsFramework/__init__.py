@@ -1,27 +1,26 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework
 import win32more.Windows.Win32.Networking.WinSock
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.System.Com
 ATTRIBUTE_TYPE = Int32
-AT_INVALID: ATTRIBUTE_TYPE = 0
-AT_BOOLEAN: ATTRIBUTE_TYPE = 1
-AT_INT8: ATTRIBUTE_TYPE = 2
-AT_UINT8: ATTRIBUTE_TYPE = 3
-AT_INT16: ATTRIBUTE_TYPE = 4
-AT_UINT16: ATTRIBUTE_TYPE = 5
-AT_INT32: ATTRIBUTE_TYPE = 6
-AT_UINT32: ATTRIBUTE_TYPE = 7
-AT_INT64: ATTRIBUTE_TYPE = 8
-AT_UINT64: ATTRIBUTE_TYPE = 9
-AT_STRING: ATTRIBUTE_TYPE = 10
-AT_GUID: ATTRIBUTE_TYPE = 11
-AT_LIFE_TIME: ATTRIBUTE_TYPE = 12
-AT_SOCKADDR: ATTRIBUTE_TYPE = 13
-AT_OCTET_STRING: ATTRIBUTE_TYPE = 14
+AT_INVALID: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.ATTRIBUTE_TYPE = 0
+AT_BOOLEAN: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.ATTRIBUTE_TYPE = 1
+AT_INT8: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.ATTRIBUTE_TYPE = 2
+AT_UINT8: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.ATTRIBUTE_TYPE = 3
+AT_INT16: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.ATTRIBUTE_TYPE = 4
+AT_UINT16: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.ATTRIBUTE_TYPE = 5
+AT_INT32: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.ATTRIBUTE_TYPE = 6
+AT_UINT32: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.ATTRIBUTE_TYPE = 7
+AT_INT64: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.ATTRIBUTE_TYPE = 8
+AT_UINT64: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.ATTRIBUTE_TYPE = 9
+AT_STRING: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.ATTRIBUTE_TYPE = 10
+AT_GUID: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.ATTRIBUTE_TYPE = 11
+AT_LIFE_TIME: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.ATTRIBUTE_TYPE = 12
+AT_SOCKADDR: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.ATTRIBUTE_TYPE = 13
+AT_OCTET_STRING: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.ATTRIBUTE_TYPE = 14
 NDF_ERROR_START: UInt32 = 63744
 NDF_E_LENGTH_EXCEEDED: win32more.Windows.Win32.Foundation.HRESULT = -2146895616
 NDF_E_NOHELPERCLASS: win32more.Windows.Win32.Foundation.HRESULT = -2146895615
@@ -85,12 +84,12 @@ def NdfCancelIncident(Handle: VoidPtr) -> win32more.Windows.Win32.Foundation.HRE
 @winfunctype('NDFAPI.dll')
 def NdfGetTraceFile(Handle: VoidPtr, TraceFileLocation: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 DIAGNOSIS_STATUS = Int32
-DS_NOT_IMPLEMENTED: DIAGNOSIS_STATUS = 0
-DS_CONFIRMED: DIAGNOSIS_STATUS = 1
-DS_REJECTED: DIAGNOSIS_STATUS = 2
-DS_INDETERMINATE: DIAGNOSIS_STATUS = 3
-DS_DEFERRED: DIAGNOSIS_STATUS = 4
-DS_PASSTHROUGH: DIAGNOSIS_STATUS = 5
+DS_NOT_IMPLEMENTED: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.DIAGNOSIS_STATUS = 0
+DS_CONFIRMED: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.DIAGNOSIS_STATUS = 1
+DS_REJECTED: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.DIAGNOSIS_STATUS = 2
+DS_INDETERMINATE: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.DIAGNOSIS_STATUS = 3
+DS_DEFERRED: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.DIAGNOSIS_STATUS = 4
+DS_PASSTHROUGH: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.DIAGNOSIS_STATUS = 5
 class DIAG_SOCKADDR(EasyCastStructure):
     family: UInt16
     data: win32more.Windows.Win32.Foundation.CHAR * 126
@@ -197,28 +196,28 @@ class OCTET_STRING(EasyCastStructure):
     dwLength: UInt32
     lpValue: POINTER(Byte)
 PROBLEM_TYPE = Int32
-PT_INVALID: PROBLEM_TYPE = 0
-PT_LOW_HEALTH: PROBLEM_TYPE = 1
-PT_LOWER_HEALTH: PROBLEM_TYPE = 2
-PT_DOWN_STREAM_HEALTH: PROBLEM_TYPE = 4
-PT_HIGH_UTILIZATION: PROBLEM_TYPE = 8
-PT_HIGHER_UTILIZATION: PROBLEM_TYPE = 16
-PT_UP_STREAM_UTILIZATION: PROBLEM_TYPE = 32
+PT_INVALID: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.PROBLEM_TYPE = 0
+PT_LOW_HEALTH: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.PROBLEM_TYPE = 1
+PT_LOWER_HEALTH: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.PROBLEM_TYPE = 2
+PT_DOWN_STREAM_HEALTH: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.PROBLEM_TYPE = 4
+PT_HIGH_UTILIZATION: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.PROBLEM_TYPE = 8
+PT_HIGHER_UTILIZATION: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.PROBLEM_TYPE = 16
+PT_UP_STREAM_UTILIZATION: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.PROBLEM_TYPE = 32
 REPAIR_RISK = Int32
-RR_NOROLLBACK: REPAIR_RISK = 0
-RR_ROLLBACK: REPAIR_RISK = 1
-RR_NORISK: REPAIR_RISK = 2
+RR_NOROLLBACK: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.REPAIR_RISK = 0
+RR_ROLLBACK: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.REPAIR_RISK = 1
+RR_NORISK: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.REPAIR_RISK = 2
 REPAIR_SCOPE = Int32
-RS_SYSTEM: REPAIR_SCOPE = 0
-RS_USER: REPAIR_SCOPE = 1
-RS_APPLICATION: REPAIR_SCOPE = 2
-RS_PROCESS: REPAIR_SCOPE = 3
+RS_SYSTEM: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.REPAIR_SCOPE = 0
+RS_USER: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.REPAIR_SCOPE = 1
+RS_APPLICATION: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.REPAIR_SCOPE = 2
+RS_PROCESS: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.REPAIR_SCOPE = 3
 REPAIR_STATUS = Int32
-RS_NOT_IMPLEMENTED: REPAIR_STATUS = 0
-RS_REPAIRED: REPAIR_STATUS = 1
-RS_UNREPAIRED: REPAIR_STATUS = 2
-RS_DEFERRED: REPAIR_STATUS = 3
-RS_USER_ACTION: REPAIR_STATUS = 4
+RS_NOT_IMPLEMENTED: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.REPAIR_STATUS = 0
+RS_REPAIRED: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.REPAIR_STATUS = 1
+RS_UNREPAIRED: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.REPAIR_STATUS = 2
+RS_DEFERRED: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.REPAIR_STATUS = 3
+RS_USER_ACTION: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.REPAIR_STATUS = 4
 class RepairInfo(EasyCastStructure):
     guid: Guid
     pwszClassName: win32more.Windows.Win32.Foundation.PWSTR
@@ -247,11 +246,11 @@ class ShellCommandInfo(EasyCastStructure):
     pwszDirectory: win32more.Windows.Win32.Foundation.PWSTR
     nShowCmd: UInt32
 UI_INFO_TYPE = Int32
-UIT_INVALID: UI_INFO_TYPE = 0
-UIT_NONE: UI_INFO_TYPE = 1
-UIT_SHELL_COMMAND: UI_INFO_TYPE = 2
-UIT_HELP_PANE: UI_INFO_TYPE = 3
-UIT_DUI: UI_INFO_TYPE = 4
+UIT_INVALID: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.UI_INFO_TYPE = 0
+UIT_NONE: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.UI_INFO_TYPE = 1
+UIT_SHELL_COMMAND: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.UI_INFO_TYPE = 2
+UIT_HELP_PANE: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.UI_INFO_TYPE = 3
+UIT_DUI: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.UI_INFO_TYPE = 4
 class UiInfo(EasyCastStructure):
     type: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.UI_INFO_TYPE
     Anonymous: _Anonymous_e__Union
@@ -260,4 +259,6 @@ class UiInfo(EasyCastStructure):
         ShellInfo: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.ShellCommandInfo
         pwzHelpUrl: win32more.Windows.Win32.Foundation.PWSTR
         pwzDui: win32more.Windows.Win32.Foundation.PWSTR
+
+
 make_ready(__name__)

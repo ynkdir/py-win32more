@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.System.Com
@@ -1100,25 +1099,25 @@ class CUSTOM_SYSTEM_EVENT_TRIGGER_CONFIG(EasyCastStructure):
     TriggerId: win32more.Windows.Win32.Foundation.PWSTR
 CameraUIControl = Guid('{16d5a2be-b1c5-47b3-8eae-ccbcf452c7e8}')
 CameraUIControlCaptureMode = Int32
-CameraUIControlCaptureMode_PhotoOrVideo: CameraUIControlCaptureMode = 0
-CameraUIControlCaptureMode_Photo: CameraUIControlCaptureMode = 1
-CameraUIControlCaptureMode_Video: CameraUIControlCaptureMode = 2
+CameraUIControlCaptureMode_PhotoOrVideo: win32more.Windows.Win32.System.WindowsProgramming.CameraUIControlCaptureMode = 0
+CameraUIControlCaptureMode_Photo: win32more.Windows.Win32.System.WindowsProgramming.CameraUIControlCaptureMode = 1
+CameraUIControlCaptureMode_Video: win32more.Windows.Win32.System.WindowsProgramming.CameraUIControlCaptureMode = 2
 CameraUIControlLinearSelectionMode = Int32
-CameraUIControlLinearSelectionMode_Single: CameraUIControlLinearSelectionMode = 0
-CameraUIControlLinearSelectionMode_Multiple: CameraUIControlLinearSelectionMode = 1
+CameraUIControlLinearSelectionMode_Single: win32more.Windows.Win32.System.WindowsProgramming.CameraUIControlLinearSelectionMode = 0
+CameraUIControlLinearSelectionMode_Multiple: win32more.Windows.Win32.System.WindowsProgramming.CameraUIControlLinearSelectionMode = 1
 CameraUIControlMode = Int32
-CameraUIControlMode_Browse: CameraUIControlMode = 0
-CameraUIControlMode_Linear: CameraUIControlMode = 1
+CameraUIControlMode_Browse: win32more.Windows.Win32.System.WindowsProgramming.CameraUIControlMode = 0
+CameraUIControlMode_Linear: win32more.Windows.Win32.System.WindowsProgramming.CameraUIControlMode = 1
 CameraUIControlPhotoFormat = Int32
-CameraUIControlPhotoFormat_Jpeg: CameraUIControlPhotoFormat = 0
-CameraUIControlPhotoFormat_Png: CameraUIControlPhotoFormat = 1
-CameraUIControlPhotoFormat_JpegXR: CameraUIControlPhotoFormat = 2
+CameraUIControlPhotoFormat_Jpeg: win32more.Windows.Win32.System.WindowsProgramming.CameraUIControlPhotoFormat = 0
+CameraUIControlPhotoFormat_Png: win32more.Windows.Win32.System.WindowsProgramming.CameraUIControlPhotoFormat = 1
+CameraUIControlPhotoFormat_JpegXR: win32more.Windows.Win32.System.WindowsProgramming.CameraUIControlPhotoFormat = 2
 CameraUIControlVideoFormat = Int32
-CameraUIControlVideoFormat_Mp4: CameraUIControlVideoFormat = 0
-CameraUIControlVideoFormat_Wmv: CameraUIControlVideoFormat = 1
+CameraUIControlVideoFormat_Mp4: win32more.Windows.Win32.System.WindowsProgramming.CameraUIControlVideoFormat = 0
+CameraUIControlVideoFormat_Wmv: win32more.Windows.Win32.System.WindowsProgramming.CameraUIControlVideoFormat = 1
 CameraUIControlViewType = Int32
-CameraUIControlViewType_SingleItem: CameraUIControlViewType = 0
-CameraUIControlViewType_ItemList: CameraUIControlViewType = 1
+CameraUIControlViewType_SingleItem: win32more.Windows.Win32.System.WindowsProgramming.CameraUIControlViewType = 0
+CameraUIControlViewType_ItemList: win32more.Windows.Win32.System.WindowsProgramming.CameraUIControlViewType = 1
 class DATETIME(EasyCastStructure):
     year: UInt16
     month: UInt16
@@ -1175,16 +1174,16 @@ class DCISURFACEINFO(EasyCastStructure):
     EndAccess: IntPtr
     DestroySurface: IntPtr
 DECISION_LOCATION = Int32
-DECISION_LOCATION_REFRESH_GLOBAL_DATA: DECISION_LOCATION = 0
-DECISION_LOCATION_PARAMETER_VALIDATION: DECISION_LOCATION = 1
-DECISION_LOCATION_AUDIT: DECISION_LOCATION = 2
-DECISION_LOCATION_FAILED_CONVERT_GUID: DECISION_LOCATION = 3
-DECISION_LOCATION_ENTERPRISE_DEFINED_CLASS_ID: DECISION_LOCATION = 4
-DECISION_LOCATION_GLOBAL_BUILT_IN_LIST: DECISION_LOCATION = 5
-DECISION_LOCATION_PROVIDER_BUILT_IN_LIST: DECISION_LOCATION = 6
-DECISION_LOCATION_ENFORCE_STATE_LIST: DECISION_LOCATION = 7
-DECISION_LOCATION_NOT_FOUND: DECISION_LOCATION = 8
-DECISION_LOCATION_UNKNOWN: DECISION_LOCATION = 9
+DECISION_LOCATION_REFRESH_GLOBAL_DATA: win32more.Windows.Win32.System.WindowsProgramming.DECISION_LOCATION = 0
+DECISION_LOCATION_PARAMETER_VALIDATION: win32more.Windows.Win32.System.WindowsProgramming.DECISION_LOCATION = 1
+DECISION_LOCATION_AUDIT: win32more.Windows.Win32.System.WindowsProgramming.DECISION_LOCATION = 2
+DECISION_LOCATION_FAILED_CONVERT_GUID: win32more.Windows.Win32.System.WindowsProgramming.DECISION_LOCATION = 3
+DECISION_LOCATION_ENTERPRISE_DEFINED_CLASS_ID: win32more.Windows.Win32.System.WindowsProgramming.DECISION_LOCATION = 4
+DECISION_LOCATION_GLOBAL_BUILT_IN_LIST: win32more.Windows.Win32.System.WindowsProgramming.DECISION_LOCATION = 5
+DECISION_LOCATION_PROVIDER_BUILT_IN_LIST: win32more.Windows.Win32.System.WindowsProgramming.DECISION_LOCATION = 6
+DECISION_LOCATION_ENFORCE_STATE_LIST: win32more.Windows.Win32.System.WindowsProgramming.DECISION_LOCATION = 7
+DECISION_LOCATION_NOT_FOUND: win32more.Windows.Win32.System.WindowsProgramming.DECISION_LOCATION = 8
+DECISION_LOCATION_UNKNOWN: win32more.Windows.Win32.System.WindowsProgramming.DECISION_LOCATION = 9
 if ARCH in 'X64,ARM64':
     class DELAYLOAD_INFO(EasyCastStructure):
         Size: UInt32
@@ -1217,14 +1216,14 @@ def ENUM_CALLBACK(lpSurfaceInfo: POINTER(win32more.Windows.Win32.System.WindowsP
 EditionUpgradeBroker = Guid('{c4270827-4f39-45df-9288-12ff6b85a921}')
 EditionUpgradeHelper = Guid('{01776df3-b9af-4e50-9b1c-56e93116d704}')
 FEATURE_CHANGE_TIME = Int32
-FEATURE_CHANGE_TIME_READ: FEATURE_CHANGE_TIME = 0
-FEATURE_CHANGE_TIME_MODULE_RELOAD: FEATURE_CHANGE_TIME = 1
-FEATURE_CHANGE_TIME_SESSION: FEATURE_CHANGE_TIME = 2
-FEATURE_CHANGE_TIME_REBOOT: FEATURE_CHANGE_TIME = 3
+FEATURE_CHANGE_TIME_READ: win32more.Windows.Win32.System.WindowsProgramming.FEATURE_CHANGE_TIME = 0
+FEATURE_CHANGE_TIME_MODULE_RELOAD: win32more.Windows.Win32.System.WindowsProgramming.FEATURE_CHANGE_TIME = 1
+FEATURE_CHANGE_TIME_SESSION: win32more.Windows.Win32.System.WindowsProgramming.FEATURE_CHANGE_TIME = 2
+FEATURE_CHANGE_TIME_REBOOT: win32more.Windows.Win32.System.WindowsProgramming.FEATURE_CHANGE_TIME = 3
 FEATURE_ENABLED_STATE = Int32
-FEATURE_ENABLED_STATE_DEFAULT: FEATURE_ENABLED_STATE = 0
-FEATURE_ENABLED_STATE_DISABLED: FEATURE_ENABLED_STATE = 1
-FEATURE_ENABLED_STATE_ENABLED: FEATURE_ENABLED_STATE = 2
+FEATURE_ENABLED_STATE_DEFAULT: win32more.Windows.Win32.System.WindowsProgramming.FEATURE_ENABLED_STATE = 0
+FEATURE_ENABLED_STATE_DISABLED: win32more.Windows.Win32.System.WindowsProgramming.FEATURE_ENABLED_STATE = 1
+FEATURE_ENABLED_STATE_ENABLED: win32more.Windows.Win32.System.WindowsProgramming.FEATURE_ENABLED_STATE = 2
 class FEATURE_ERROR(EasyCastStructure):
     hr: win32more.Windows.Win32.Foundation.HRESULT
     lineNumber: UInt16
@@ -1245,7 +1244,7 @@ FH_SERVICE_PIPE_HANDLE = IntPtr
 class FILE_CASE_SENSITIVE_INFO(EasyCastStructure):
     Flags: UInt32
 FILE_INFORMATION_CLASS = Int32
-FILE_INFORMATION_CLASS_FileDirectoryInformation: FILE_INFORMATION_CLASS = 1
+FILE_INFORMATION_CLASS_FileDirectoryInformation: win32more.Windows.Win32.System.WindowsProgramming.FILE_INFORMATION_CLASS = 1
 HWINWATCH = IntPtr
 class HW_PROFILE_INFOA(EasyCastStructure):
     dwDockInfo: UInt32
@@ -1597,14 +1596,14 @@ class TCP_REQUEST_SET_INFORMATION_EX(EasyCastStructure):
     BufferSize: UInt32
     Buffer: Byte * 1
 TDIENTITY_ENTITY_TYPE = UInt32
-GENERIC_ENTITY: TDIENTITY_ENTITY_TYPE = 0
-AT_ENTITY: TDIENTITY_ENTITY_TYPE = 640
-CL_NL_ENTITY: TDIENTITY_ENTITY_TYPE = 769
-CO_NL_ENTITY: TDIENTITY_ENTITY_TYPE = 768
-CL_TL_ENTITY: TDIENTITY_ENTITY_TYPE = 1025
-CO_TL_ENTITY: TDIENTITY_ENTITY_TYPE = 1024
-ER_ENTITY: TDIENTITY_ENTITY_TYPE = 896
-IF_ENTITY: TDIENTITY_ENTITY_TYPE = 512
+GENERIC_ENTITY: win32more.Windows.Win32.System.WindowsProgramming.TDIENTITY_ENTITY_TYPE = 0
+AT_ENTITY: win32more.Windows.Win32.System.WindowsProgramming.TDIENTITY_ENTITY_TYPE = 640
+CL_NL_ENTITY: win32more.Windows.Win32.System.WindowsProgramming.TDIENTITY_ENTITY_TYPE = 769
+CO_NL_ENTITY: win32more.Windows.Win32.System.WindowsProgramming.TDIENTITY_ENTITY_TYPE = 768
+CL_TL_ENTITY: win32more.Windows.Win32.System.WindowsProgramming.TDIENTITY_ENTITY_TYPE = 1025
+CO_TL_ENTITY: win32more.Windows.Win32.System.WindowsProgramming.TDIENTITY_ENTITY_TYPE = 1024
+ER_ENTITY: win32more.Windows.Win32.System.WindowsProgramming.TDIENTITY_ENTITY_TYPE = 896
+IF_ENTITY: win32more.Windows.Win32.System.WindowsProgramming.TDIENTITY_ENTITY_TYPE = 512
 class TDIEntityID(EasyCastStructure):
     tei_entity: win32more.Windows.Win32.System.WindowsProgramming.TDIENTITY_ENTITY_TYPE
     tei_instance: UInt32
@@ -1625,10 +1624,10 @@ class TDI_TL_IO_CONTROL_ENDPOINT(EasyCastStructure):
         IoControlCode: UInt32
         OptionName: UInt32
 TDI_TL_IO_CONTROL_TYPE = Int32
-TDI_TL_IO_CONTROL_TYPE_EndpointIoControlType: TDI_TL_IO_CONTROL_TYPE = 0
-TDI_TL_IO_CONTROL_TYPE_SetSockOptIoControlType: TDI_TL_IO_CONTROL_TYPE = 1
-TDI_TL_IO_CONTROL_TYPE_GetSockOptIoControlType: TDI_TL_IO_CONTROL_TYPE = 2
-TDI_TL_IO_CONTROL_TYPE_SocketIoControlType: TDI_TL_IO_CONTROL_TYPE = 3
+TDI_TL_IO_CONTROL_TYPE_EndpointIoControlType: win32more.Windows.Win32.System.WindowsProgramming.TDI_TL_IO_CONTROL_TYPE = 0
+TDI_TL_IO_CONTROL_TYPE_SetSockOptIoControlType: win32more.Windows.Win32.System.WindowsProgramming.TDI_TL_IO_CONTROL_TYPE = 1
+TDI_TL_IO_CONTROL_TYPE_GetSockOptIoControlType: win32more.Windows.Win32.System.WindowsProgramming.TDI_TL_IO_CONTROL_TYPE = 2
+TDI_TL_IO_CONTROL_TYPE_SocketIoControlType: win32more.Windows.Win32.System.WindowsProgramming.TDI_TL_IO_CONTROL_TYPE = 3
 class THREAD_NAME_INFORMATION(EasyCastStructure):
     ThreadName: win32more.Windows.Win32.Foundation.UNICODE_STRING
 class UNDETERMINESTRUCT(EasyCastStructure):
@@ -1647,11 +1646,11 @@ class UNDETERMINESTRUCT(EasyCastStructure):
     uYomiTextPos: UInt32
     uYomiDelimPos: UInt32
 VALUENAME = Int32
-VALUENAME_UNKNOWN: VALUENAME = 0
-VALUENAME_ENTERPRISE_DEFINED_CLASS_ID: VALUENAME = 1
-VALUENAME_BUILT_IN_LIST: VALUENAME = 2
+VALUENAME_UNKNOWN: win32more.Windows.Win32.System.WindowsProgramming.VALUENAME = 0
+VALUENAME_ENTERPRISE_DEFINED_CLASS_ID: win32more.Windows.Win32.System.WindowsProgramming.VALUENAME = 1
+VALUENAME_BUILT_IN_LIST: win32more.Windows.Win32.System.WindowsProgramming.VALUENAME = 2
 WINSTATIONINFOCLASS = Int32
-WINSTATIONINFOCLASS_WinStationInformation: WINSTATIONINFOCLASS = 8
+WINSTATIONINFOCLASS_WinStationInformation: win32more.Windows.Win32.System.WindowsProgramming.WINSTATIONINFOCLASS = 8
 class WINSTATIONINFORMATIONW(EasyCastStructure):
     Reserved2: Byte * 70
     LogonId: UInt32
@@ -1664,45 +1663,47 @@ class WLDP_DEVICE_SECURITY_INFORMATION(EasyCastStructure):
     ManufacturerIDLength: UInt32
     ManufacturerID: win32more.Windows.Win32.Foundation.PWSTR
 WLDP_EXECUTION_EVALUATION_OPTIONS = Int32
-WLDP_EXECUTION_EVALUATION_OPTION_NONE: WLDP_EXECUTION_EVALUATION_OPTIONS = 0
-WLDP_EXECUTION_EVALUATION_OPTION_EXECUTE_IN_INTERACTIVE_SESSION: WLDP_EXECUTION_EVALUATION_OPTIONS = 1
+WLDP_EXECUTION_EVALUATION_OPTION_NONE: win32more.Windows.Win32.System.WindowsProgramming.WLDP_EXECUTION_EVALUATION_OPTIONS = 0
+WLDP_EXECUTION_EVALUATION_OPTION_EXECUTE_IN_INTERACTIVE_SESSION: win32more.Windows.Win32.System.WindowsProgramming.WLDP_EXECUTION_EVALUATION_OPTIONS = 1
 WLDP_EXECUTION_POLICY = Int32
-WLDP_EXECUTION_POLICY_BLOCKED: WLDP_EXECUTION_POLICY = 0
-WLDP_EXECUTION_POLICY_ALLOWED: WLDP_EXECUTION_POLICY = 1
-WLDP_EXECUTION_POLICY_REQUIRE_SANDBOX: WLDP_EXECUTION_POLICY = 2
+WLDP_EXECUTION_POLICY_BLOCKED: win32more.Windows.Win32.System.WindowsProgramming.WLDP_EXECUTION_POLICY = 0
+WLDP_EXECUTION_POLICY_ALLOWED: win32more.Windows.Win32.System.WindowsProgramming.WLDP_EXECUTION_POLICY = 1
+WLDP_EXECUTION_POLICY_REQUIRE_SANDBOX: win32more.Windows.Win32.System.WindowsProgramming.WLDP_EXECUTION_POLICY = 2
 WLDP_HOST = Int32
-WLDP_HOST_RUNDLL32: WLDP_HOST = 0
-WLDP_HOST_SVCHOST: WLDP_HOST = 1
-WLDP_HOST_MAX: WLDP_HOST = 2
+WLDP_HOST_RUNDLL32: win32more.Windows.Win32.System.WindowsProgramming.WLDP_HOST = 0
+WLDP_HOST_SVCHOST: win32more.Windows.Win32.System.WindowsProgramming.WLDP_HOST = 1
+WLDP_HOST_MAX: win32more.Windows.Win32.System.WindowsProgramming.WLDP_HOST = 2
 WLDP_HOST_ID = Int32
-WLDP_HOST_ID_UNKNOWN: WLDP_HOST_ID = 0
-WLDP_HOST_ID_GLOBAL: WLDP_HOST_ID = 1
-WLDP_HOST_ID_VBA: WLDP_HOST_ID = 2
-WLDP_HOST_ID_WSH: WLDP_HOST_ID = 3
-WLDP_HOST_ID_POWERSHELL: WLDP_HOST_ID = 4
-WLDP_HOST_ID_IE: WLDP_HOST_ID = 5
-WLDP_HOST_ID_MSI: WLDP_HOST_ID = 6
-WLDP_HOST_ID_ALL: WLDP_HOST_ID = 7
-WLDP_HOST_ID_MAX: WLDP_HOST_ID = 8
+WLDP_HOST_ID_UNKNOWN: win32more.Windows.Win32.System.WindowsProgramming.WLDP_HOST_ID = 0
+WLDP_HOST_ID_GLOBAL: win32more.Windows.Win32.System.WindowsProgramming.WLDP_HOST_ID = 1
+WLDP_HOST_ID_VBA: win32more.Windows.Win32.System.WindowsProgramming.WLDP_HOST_ID = 2
+WLDP_HOST_ID_WSH: win32more.Windows.Win32.System.WindowsProgramming.WLDP_HOST_ID = 3
+WLDP_HOST_ID_POWERSHELL: win32more.Windows.Win32.System.WindowsProgramming.WLDP_HOST_ID = 4
+WLDP_HOST_ID_IE: win32more.Windows.Win32.System.WindowsProgramming.WLDP_HOST_ID = 5
+WLDP_HOST_ID_MSI: win32more.Windows.Win32.System.WindowsProgramming.WLDP_HOST_ID = 6
+WLDP_HOST_ID_ALL: win32more.Windows.Win32.System.WindowsProgramming.WLDP_HOST_ID = 7
+WLDP_HOST_ID_MAX: win32more.Windows.Win32.System.WindowsProgramming.WLDP_HOST_ID = 8
 class WLDP_HOST_INFORMATION(EasyCastStructure):
     dwRevision: UInt32
     dwHostId: win32more.Windows.Win32.System.WindowsProgramming.WLDP_HOST_ID
     szSource: win32more.Windows.Win32.Foundation.PWSTR
     hSource: win32more.Windows.Win32.Foundation.HANDLE
 WLDP_KEY = Int32
-KEY_UNKNOWN: WLDP_KEY = 0
-KEY_OVERRIDE: WLDP_KEY = 1
-KEY_ALL_KEYS: WLDP_KEY = 2
+KEY_UNKNOWN: win32more.Windows.Win32.System.WindowsProgramming.WLDP_KEY = 0
+KEY_OVERRIDE: win32more.Windows.Win32.System.WindowsProgramming.WLDP_KEY = 1
+KEY_ALL_KEYS: win32more.Windows.Win32.System.WindowsProgramming.WLDP_KEY = 2
 WLDP_POLICY_SETTING = Int32
-WLDP_POLICY_SETTING_AV_PERF_MODE: WLDP_POLICY_SETTING = 1000
+WLDP_POLICY_SETTING_AV_PERF_MODE: win32more.Windows.Win32.System.WindowsProgramming.WLDP_POLICY_SETTING = 1000
 WLDP_WINDOWS_LOCKDOWN_MODE = Int32
-WLDP_WINDOWS_LOCKDOWN_MODE_UNLOCKED: WLDP_WINDOWS_LOCKDOWN_MODE = 0
-WLDP_WINDOWS_LOCKDOWN_MODE_TRIAL: WLDP_WINDOWS_LOCKDOWN_MODE = 1
-WLDP_WINDOWS_LOCKDOWN_MODE_LOCKED: WLDP_WINDOWS_LOCKDOWN_MODE = 2
-WLDP_WINDOWS_LOCKDOWN_MODE_MAX: WLDP_WINDOWS_LOCKDOWN_MODE = 3
+WLDP_WINDOWS_LOCKDOWN_MODE_UNLOCKED: win32more.Windows.Win32.System.WindowsProgramming.WLDP_WINDOWS_LOCKDOWN_MODE = 0
+WLDP_WINDOWS_LOCKDOWN_MODE_TRIAL: win32more.Windows.Win32.System.WindowsProgramming.WLDP_WINDOWS_LOCKDOWN_MODE = 1
+WLDP_WINDOWS_LOCKDOWN_MODE_LOCKED: win32more.Windows.Win32.System.WindowsProgramming.WLDP_WINDOWS_LOCKDOWN_MODE = 2
+WLDP_WINDOWS_LOCKDOWN_MODE_MAX: win32more.Windows.Win32.System.WindowsProgramming.WLDP_WINDOWS_LOCKDOWN_MODE = 3
 WLDP_WINDOWS_LOCKDOWN_RESTRICTION = Int32
-WLDP_WINDOWS_LOCKDOWN_RESTRICTION_NONE: WLDP_WINDOWS_LOCKDOWN_RESTRICTION = 0
-WLDP_WINDOWS_LOCKDOWN_RESTRICTION_NOUNLOCK: WLDP_WINDOWS_LOCKDOWN_RESTRICTION = 1
-WLDP_WINDOWS_LOCKDOWN_RESTRICTION_NOUNLOCK_PERMANENT: WLDP_WINDOWS_LOCKDOWN_RESTRICTION = 2
-WLDP_WINDOWS_LOCKDOWN_RESTRICTION_MAX: WLDP_WINDOWS_LOCKDOWN_RESTRICTION = 3
+WLDP_WINDOWS_LOCKDOWN_RESTRICTION_NONE: win32more.Windows.Win32.System.WindowsProgramming.WLDP_WINDOWS_LOCKDOWN_RESTRICTION = 0
+WLDP_WINDOWS_LOCKDOWN_RESTRICTION_NOUNLOCK: win32more.Windows.Win32.System.WindowsProgramming.WLDP_WINDOWS_LOCKDOWN_RESTRICTION = 1
+WLDP_WINDOWS_LOCKDOWN_RESTRICTION_NOUNLOCK_PERMANENT: win32more.Windows.Win32.System.WindowsProgramming.WLDP_WINDOWS_LOCKDOWN_RESTRICTION = 2
+WLDP_WINDOWS_LOCKDOWN_RESTRICTION_MAX: win32more.Windows.Win32.System.WindowsProgramming.WLDP_WINDOWS_LOCKDOWN_RESTRICTION = 3
+
+
 make_ready(__name__)

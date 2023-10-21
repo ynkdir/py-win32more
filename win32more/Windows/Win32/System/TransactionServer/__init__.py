@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.TransactionServer
@@ -54,56 +53,58 @@ class IRoleAssociationUtil(ComPtr):
     @commethod(8)
     def AssociateRoleByName(self, bstrRoleName: win32more.Windows.Win32.Foundation.BSTR) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 MTSAdminErrorCodes = Int32
-MTSAdminErrorCodes_mtsErrObjectErrors: MTSAdminErrorCodes = -2146368511
-MTSAdminErrorCodes_mtsErrObjectInvalid: MTSAdminErrorCodes = -2146368510
-MTSAdminErrorCodes_mtsErrKeyMissing: MTSAdminErrorCodes = -2146368509
-MTSAdminErrorCodes_mtsErrAlreadyInstalled: MTSAdminErrorCodes = -2146368508
-MTSAdminErrorCodes_mtsErrDownloadFailed: MTSAdminErrorCodes = -2146368507
-MTSAdminErrorCodes_mtsErrPDFWriteFail: MTSAdminErrorCodes = -2146368505
-MTSAdminErrorCodes_mtsErrPDFReadFail: MTSAdminErrorCodes = -2146368504
-MTSAdminErrorCodes_mtsErrPDFVersion: MTSAdminErrorCodes = -2146368503
-MTSAdminErrorCodes_mtsErrCoReqCompInstalled: MTSAdminErrorCodes = -2146368496
-MTSAdminErrorCodes_mtsErrBadPath: MTSAdminErrorCodes = -2146368502
-MTSAdminErrorCodes_mtsErrPackageExists: MTSAdminErrorCodes = -2146368501
-MTSAdminErrorCodes_mtsErrRoleExists: MTSAdminErrorCodes = -2146368500
-MTSAdminErrorCodes_mtsErrCantCopyFile: MTSAdminErrorCodes = -2146368499
-MTSAdminErrorCodes_mtsErrNoTypeLib: MTSAdminErrorCodes = -2146368498
-MTSAdminErrorCodes_mtsErrNoUser: MTSAdminErrorCodes = -2146368497
-MTSAdminErrorCodes_mtsErrInvalidUserids: MTSAdminErrorCodes = -2146368496
-MTSAdminErrorCodes_mtsErrNoRegistryCLSID: MTSAdminErrorCodes = -2146368495
-MTSAdminErrorCodes_mtsErrBadRegistryProgID: MTSAdminErrorCodes = -2146368494
-MTSAdminErrorCodes_mtsErrAuthenticationLevel: MTSAdminErrorCodes = -2146368493
-MTSAdminErrorCodes_mtsErrUserPasswdNotValid: MTSAdminErrorCodes = -2146368492
-MTSAdminErrorCodes_mtsErrNoRegistryRead: MTSAdminErrorCodes = -2146368491
-MTSAdminErrorCodes_mtsErrNoRegistryWrite: MTSAdminErrorCodes = -2146368490
-MTSAdminErrorCodes_mtsErrNoRegistryRepair: MTSAdminErrorCodes = -2146368489
-MTSAdminErrorCodes_mtsErrCLSIDOrIIDMismatch: MTSAdminErrorCodes = -2146368488
-MTSAdminErrorCodes_mtsErrRemoteInterface: MTSAdminErrorCodes = -2146368487
-MTSAdminErrorCodes_mtsErrDllRegisterServer: MTSAdminErrorCodes = -2146368486
-MTSAdminErrorCodes_mtsErrNoServerShare: MTSAdminErrorCodes = -2146368485
-MTSAdminErrorCodes_mtsErrNoAccessToUNC: MTSAdminErrorCodes = -2146368484
-MTSAdminErrorCodes_mtsErrDllLoadFailed: MTSAdminErrorCodes = -2146368483
-MTSAdminErrorCodes_mtsErrBadRegistryLibID: MTSAdminErrorCodes = -2146368482
-MTSAdminErrorCodes_mtsErrPackDirNotFound: MTSAdminErrorCodes = -2146368481
-MTSAdminErrorCodes_mtsErrTreatAs: MTSAdminErrorCodes = -2146368480
-MTSAdminErrorCodes_mtsErrBadForward: MTSAdminErrorCodes = -2146368479
-MTSAdminErrorCodes_mtsErrBadIID: MTSAdminErrorCodes = -2146368478
-MTSAdminErrorCodes_mtsErrRegistrarFailed: MTSAdminErrorCodes = -2146368477
-MTSAdminErrorCodes_mtsErrCompFileDoesNotExist: MTSAdminErrorCodes = -2146368476
-MTSAdminErrorCodes_mtsErrCompFileLoadDLLFail: MTSAdminErrorCodes = -2146368475
-MTSAdminErrorCodes_mtsErrCompFileGetClassObj: MTSAdminErrorCodes = -2146368474
-MTSAdminErrorCodes_mtsErrCompFileClassNotAvail: MTSAdminErrorCodes = -2146368473
-MTSAdminErrorCodes_mtsErrCompFileBadTLB: MTSAdminErrorCodes = -2146368472
-MTSAdminErrorCodes_mtsErrCompFileNotInstallable: MTSAdminErrorCodes = -2146368471
-MTSAdminErrorCodes_mtsErrNotChangeable: MTSAdminErrorCodes = -2146368470
-MTSAdminErrorCodes_mtsErrNotDeletable: MTSAdminErrorCodes = -2146368469
-MTSAdminErrorCodes_mtsErrSession: MTSAdminErrorCodes = -2146368468
-MTSAdminErrorCodes_mtsErrCompFileNoRegistrar: MTSAdminErrorCodes = -2146368460
+MTSAdminErrorCodes_mtsErrObjectErrors: win32more.Windows.Win32.System.TransactionServer.MTSAdminErrorCodes = -2146368511
+MTSAdminErrorCodes_mtsErrObjectInvalid: win32more.Windows.Win32.System.TransactionServer.MTSAdminErrorCodes = -2146368510
+MTSAdminErrorCodes_mtsErrKeyMissing: win32more.Windows.Win32.System.TransactionServer.MTSAdminErrorCodes = -2146368509
+MTSAdminErrorCodes_mtsErrAlreadyInstalled: win32more.Windows.Win32.System.TransactionServer.MTSAdminErrorCodes = -2146368508
+MTSAdminErrorCodes_mtsErrDownloadFailed: win32more.Windows.Win32.System.TransactionServer.MTSAdminErrorCodes = -2146368507
+MTSAdminErrorCodes_mtsErrPDFWriteFail: win32more.Windows.Win32.System.TransactionServer.MTSAdminErrorCodes = -2146368505
+MTSAdminErrorCodes_mtsErrPDFReadFail: win32more.Windows.Win32.System.TransactionServer.MTSAdminErrorCodes = -2146368504
+MTSAdminErrorCodes_mtsErrPDFVersion: win32more.Windows.Win32.System.TransactionServer.MTSAdminErrorCodes = -2146368503
+MTSAdminErrorCodes_mtsErrCoReqCompInstalled: win32more.Windows.Win32.System.TransactionServer.MTSAdminErrorCodes = -2146368496
+MTSAdminErrorCodes_mtsErrBadPath: win32more.Windows.Win32.System.TransactionServer.MTSAdminErrorCodes = -2146368502
+MTSAdminErrorCodes_mtsErrPackageExists: win32more.Windows.Win32.System.TransactionServer.MTSAdminErrorCodes = -2146368501
+MTSAdminErrorCodes_mtsErrRoleExists: win32more.Windows.Win32.System.TransactionServer.MTSAdminErrorCodes = -2146368500
+MTSAdminErrorCodes_mtsErrCantCopyFile: win32more.Windows.Win32.System.TransactionServer.MTSAdminErrorCodes = -2146368499
+MTSAdminErrorCodes_mtsErrNoTypeLib: win32more.Windows.Win32.System.TransactionServer.MTSAdminErrorCodes = -2146368498
+MTSAdminErrorCodes_mtsErrNoUser: win32more.Windows.Win32.System.TransactionServer.MTSAdminErrorCodes = -2146368497
+MTSAdminErrorCodes_mtsErrInvalidUserids: win32more.Windows.Win32.System.TransactionServer.MTSAdminErrorCodes = -2146368496
+MTSAdminErrorCodes_mtsErrNoRegistryCLSID: win32more.Windows.Win32.System.TransactionServer.MTSAdminErrorCodes = -2146368495
+MTSAdminErrorCodes_mtsErrBadRegistryProgID: win32more.Windows.Win32.System.TransactionServer.MTSAdminErrorCodes = -2146368494
+MTSAdminErrorCodes_mtsErrAuthenticationLevel: win32more.Windows.Win32.System.TransactionServer.MTSAdminErrorCodes = -2146368493
+MTSAdminErrorCodes_mtsErrUserPasswdNotValid: win32more.Windows.Win32.System.TransactionServer.MTSAdminErrorCodes = -2146368492
+MTSAdminErrorCodes_mtsErrNoRegistryRead: win32more.Windows.Win32.System.TransactionServer.MTSAdminErrorCodes = -2146368491
+MTSAdminErrorCodes_mtsErrNoRegistryWrite: win32more.Windows.Win32.System.TransactionServer.MTSAdminErrorCodes = -2146368490
+MTSAdminErrorCodes_mtsErrNoRegistryRepair: win32more.Windows.Win32.System.TransactionServer.MTSAdminErrorCodes = -2146368489
+MTSAdminErrorCodes_mtsErrCLSIDOrIIDMismatch: win32more.Windows.Win32.System.TransactionServer.MTSAdminErrorCodes = -2146368488
+MTSAdminErrorCodes_mtsErrRemoteInterface: win32more.Windows.Win32.System.TransactionServer.MTSAdminErrorCodes = -2146368487
+MTSAdminErrorCodes_mtsErrDllRegisterServer: win32more.Windows.Win32.System.TransactionServer.MTSAdminErrorCodes = -2146368486
+MTSAdminErrorCodes_mtsErrNoServerShare: win32more.Windows.Win32.System.TransactionServer.MTSAdminErrorCodes = -2146368485
+MTSAdminErrorCodes_mtsErrNoAccessToUNC: win32more.Windows.Win32.System.TransactionServer.MTSAdminErrorCodes = -2146368484
+MTSAdminErrorCodes_mtsErrDllLoadFailed: win32more.Windows.Win32.System.TransactionServer.MTSAdminErrorCodes = -2146368483
+MTSAdminErrorCodes_mtsErrBadRegistryLibID: win32more.Windows.Win32.System.TransactionServer.MTSAdminErrorCodes = -2146368482
+MTSAdminErrorCodes_mtsErrPackDirNotFound: win32more.Windows.Win32.System.TransactionServer.MTSAdminErrorCodes = -2146368481
+MTSAdminErrorCodes_mtsErrTreatAs: win32more.Windows.Win32.System.TransactionServer.MTSAdminErrorCodes = -2146368480
+MTSAdminErrorCodes_mtsErrBadForward: win32more.Windows.Win32.System.TransactionServer.MTSAdminErrorCodes = -2146368479
+MTSAdminErrorCodes_mtsErrBadIID: win32more.Windows.Win32.System.TransactionServer.MTSAdminErrorCodes = -2146368478
+MTSAdminErrorCodes_mtsErrRegistrarFailed: win32more.Windows.Win32.System.TransactionServer.MTSAdminErrorCodes = -2146368477
+MTSAdminErrorCodes_mtsErrCompFileDoesNotExist: win32more.Windows.Win32.System.TransactionServer.MTSAdminErrorCodes = -2146368476
+MTSAdminErrorCodes_mtsErrCompFileLoadDLLFail: win32more.Windows.Win32.System.TransactionServer.MTSAdminErrorCodes = -2146368475
+MTSAdminErrorCodes_mtsErrCompFileGetClassObj: win32more.Windows.Win32.System.TransactionServer.MTSAdminErrorCodes = -2146368474
+MTSAdminErrorCodes_mtsErrCompFileClassNotAvail: win32more.Windows.Win32.System.TransactionServer.MTSAdminErrorCodes = -2146368473
+MTSAdminErrorCodes_mtsErrCompFileBadTLB: win32more.Windows.Win32.System.TransactionServer.MTSAdminErrorCodes = -2146368472
+MTSAdminErrorCodes_mtsErrCompFileNotInstallable: win32more.Windows.Win32.System.TransactionServer.MTSAdminErrorCodes = -2146368471
+MTSAdminErrorCodes_mtsErrNotChangeable: win32more.Windows.Win32.System.TransactionServer.MTSAdminErrorCodes = -2146368470
+MTSAdminErrorCodes_mtsErrNotDeletable: win32more.Windows.Win32.System.TransactionServer.MTSAdminErrorCodes = -2146368469
+MTSAdminErrorCodes_mtsErrSession: win32more.Windows.Win32.System.TransactionServer.MTSAdminErrorCodes = -2146368468
+MTSAdminErrorCodes_mtsErrCompFileNoRegistrar: win32more.Windows.Win32.System.TransactionServer.MTSAdminErrorCodes = -2146368460
 MTSPackageExportOptions = Int32
-MTSPackageExportOptions_mtsExportUsers: MTSPackageExportOptions = 1
+MTSPackageExportOptions_mtsExportUsers: win32more.Windows.Win32.System.TransactionServer.MTSPackageExportOptions = 1
 MTSPackageInstallOptions = Int32
-MTSPackageInstallOptions_mtsInstallUsers: MTSPackageInstallOptions = 1
+MTSPackageInstallOptions_mtsInstallUsers: win32more.Windows.Win32.System.TransactionServer.MTSPackageInstallOptions = 1
 PackageUtil = Guid('{6eb22885-8a19-11d0-81b6-00a0c9231c29}')
 RemoteComponentUtil = Guid('{6eb22886-8a19-11d0-81b6-00a0c9231c29}')
 RoleAssociationUtil = Guid('{6eb22887-8a19-11d0-81b6-00a0c9231c29}')
+
+
 make_ready(__name__)

@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Environment
 ENCLAVE_RUNTIME_POLICY_ALLOW_FULL_DEBUG: UInt32 = 1
@@ -113,12 +112,12 @@ class ENCLAVE_INFORMATION(EasyCastStructure):
     Size: UIntPtr
     Identity: win32more.Windows.Win32.System.Environment.ENCLAVE_IDENTITY
 ENCLAVE_SEALING_IDENTITY_POLICY = Int32
-ENCLAVE_IDENTITY_POLICY_SEAL_INVALID: ENCLAVE_SEALING_IDENTITY_POLICY = 0
-ENCLAVE_IDENTITY_POLICY_SEAL_EXACT_CODE: ENCLAVE_SEALING_IDENTITY_POLICY = 1
-ENCLAVE_IDENTITY_POLICY_SEAL_SAME_PRIMARY_CODE: ENCLAVE_SEALING_IDENTITY_POLICY = 2
-ENCLAVE_IDENTITY_POLICY_SEAL_SAME_IMAGE: ENCLAVE_SEALING_IDENTITY_POLICY = 3
-ENCLAVE_IDENTITY_POLICY_SEAL_SAME_FAMILY: ENCLAVE_SEALING_IDENTITY_POLICY = 4
-ENCLAVE_IDENTITY_POLICY_SEAL_SAME_AUTHOR: ENCLAVE_SEALING_IDENTITY_POLICY = 5
+ENCLAVE_IDENTITY_POLICY_SEAL_INVALID: win32more.Windows.Win32.System.Environment.ENCLAVE_SEALING_IDENTITY_POLICY = 0
+ENCLAVE_IDENTITY_POLICY_SEAL_EXACT_CODE: win32more.Windows.Win32.System.Environment.ENCLAVE_SEALING_IDENTITY_POLICY = 1
+ENCLAVE_IDENTITY_POLICY_SEAL_SAME_PRIMARY_CODE: win32more.Windows.Win32.System.Environment.ENCLAVE_SEALING_IDENTITY_POLICY = 2
+ENCLAVE_IDENTITY_POLICY_SEAL_SAME_IMAGE: win32more.Windows.Win32.System.Environment.ENCLAVE_SEALING_IDENTITY_POLICY = 3
+ENCLAVE_IDENTITY_POLICY_SEAL_SAME_FAMILY: win32more.Windows.Win32.System.Environment.ENCLAVE_SEALING_IDENTITY_POLICY = 4
+ENCLAVE_IDENTITY_POLICY_SEAL_SAME_AUTHOR: win32more.Windows.Win32.System.Environment.ENCLAVE_SEALING_IDENTITY_POLICY = 5
 class ENCLAVE_VBS_BASIC_KEY_REQUEST(EasyCastStructure):
     RequestSize: UInt32
     Flags: UInt32
@@ -231,4 +230,6 @@ class VBS_ENCLAVE_REPORT_VARDATA_HEADER(EasyCastStructure):
     DataType: UInt32
     Size: UInt32
     _pack_ = 1
+
+
 make_ready(__name__)

@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Media.MediaFoundation
 import win32more.Windows.Win32.System.WinRT
@@ -29,4 +28,6 @@ class IVideoFrameNativeFactory(ComPtr):
     _iid_ = Guid('{69e3693e-8e1e-4e63-ac4c-7fdc21d9731d}')
     @commethod(6)
     def CreateFromMFSample(self, data: win32more.Windows.Win32.Media.MediaFoundation.IMFSample, subtype: POINTER(Guid), width: UInt32, height: UInt32, forceReadOnly: win32more.Windows.Win32.Foundation.BOOL, minDisplayAperture: POINTER(win32more.Windows.Win32.Media.MediaFoundation.MFVideoArea), device: win32more.Windows.Win32.Media.MediaFoundation.IMFDXGIDeviceManager, riid: POINTER(Guid), ppv: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+
+
 make_ready(__name__)

@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Devices.Properties
 import win32more.Windows.Win32.Foundation
 DEVPROP_TRUE: win32more.Windows.Win32.Devices.Properties.DEVPROP_BOOLEAN = 255
@@ -417,36 +416,38 @@ class DEVPROPKEY(EasyCastStructure):
     fmtid: Guid
     pid: UInt32
 DEVPROPSTORE = Int32
-DEVPROP_STORE_SYSTEM: DEVPROPSTORE = 0
-DEVPROP_STORE_USER: DEVPROPSTORE = 1
+DEVPROP_STORE_SYSTEM: win32more.Windows.Win32.Devices.Properties.DEVPROPSTORE = 0
+DEVPROP_STORE_USER: win32more.Windows.Win32.Devices.Properties.DEVPROPSTORE = 1
 DEVPROPTYPE = UInt32
-DEVPROP_TYPE_EMPTY: DEVPROPTYPE = 0
-DEVPROP_TYPE_NULL: DEVPROPTYPE = 1
-DEVPROP_TYPE_SBYTE: DEVPROPTYPE = 2
-DEVPROP_TYPE_BYTE: DEVPROPTYPE = 3
-DEVPROP_TYPE_INT16: DEVPROPTYPE = 4
-DEVPROP_TYPE_UINT16: DEVPROPTYPE = 5
-DEVPROP_TYPE_INT32: DEVPROPTYPE = 6
-DEVPROP_TYPE_UINT32: DEVPROPTYPE = 7
-DEVPROP_TYPE_INT64: DEVPROPTYPE = 8
-DEVPROP_TYPE_UINT64: DEVPROPTYPE = 9
-DEVPROP_TYPE_FLOAT: DEVPROPTYPE = 10
-DEVPROP_TYPE_DOUBLE: DEVPROPTYPE = 11
-DEVPROP_TYPE_DECIMAL: DEVPROPTYPE = 12
-DEVPROP_TYPE_GUID: DEVPROPTYPE = 13
-DEVPROP_TYPE_CURRENCY: DEVPROPTYPE = 14
-DEVPROP_TYPE_DATE: DEVPROPTYPE = 15
-DEVPROP_TYPE_FILETIME: DEVPROPTYPE = 16
-DEVPROP_TYPE_BOOLEAN: DEVPROPTYPE = 17
-DEVPROP_TYPE_STRING: DEVPROPTYPE = 18
-DEVPROP_TYPE_STRING_LIST: DEVPROPTYPE = 8210
-DEVPROP_TYPE_SECURITY_DESCRIPTOR: DEVPROPTYPE = 19
-DEVPROP_TYPE_SECURITY_DESCRIPTOR_STRING: DEVPROPTYPE = 20
-DEVPROP_TYPE_DEVPROPKEY: DEVPROPTYPE = 21
-DEVPROP_TYPE_DEVPROPTYPE: DEVPROPTYPE = 22
-DEVPROP_TYPE_BINARY: DEVPROPTYPE = 4099
-DEVPROP_TYPE_ERROR: DEVPROPTYPE = 23
-DEVPROP_TYPE_NTSTATUS: DEVPROPTYPE = 24
-DEVPROP_TYPE_STRING_INDIRECT: DEVPROPTYPE = 25
+DEVPROP_TYPE_EMPTY: win32more.Windows.Win32.Devices.Properties.DEVPROPTYPE = 0
+DEVPROP_TYPE_NULL: win32more.Windows.Win32.Devices.Properties.DEVPROPTYPE = 1
+DEVPROP_TYPE_SBYTE: win32more.Windows.Win32.Devices.Properties.DEVPROPTYPE = 2
+DEVPROP_TYPE_BYTE: win32more.Windows.Win32.Devices.Properties.DEVPROPTYPE = 3
+DEVPROP_TYPE_INT16: win32more.Windows.Win32.Devices.Properties.DEVPROPTYPE = 4
+DEVPROP_TYPE_UINT16: win32more.Windows.Win32.Devices.Properties.DEVPROPTYPE = 5
+DEVPROP_TYPE_INT32: win32more.Windows.Win32.Devices.Properties.DEVPROPTYPE = 6
+DEVPROP_TYPE_UINT32: win32more.Windows.Win32.Devices.Properties.DEVPROPTYPE = 7
+DEVPROP_TYPE_INT64: win32more.Windows.Win32.Devices.Properties.DEVPROPTYPE = 8
+DEVPROP_TYPE_UINT64: win32more.Windows.Win32.Devices.Properties.DEVPROPTYPE = 9
+DEVPROP_TYPE_FLOAT: win32more.Windows.Win32.Devices.Properties.DEVPROPTYPE = 10
+DEVPROP_TYPE_DOUBLE: win32more.Windows.Win32.Devices.Properties.DEVPROPTYPE = 11
+DEVPROP_TYPE_DECIMAL: win32more.Windows.Win32.Devices.Properties.DEVPROPTYPE = 12
+DEVPROP_TYPE_GUID: win32more.Windows.Win32.Devices.Properties.DEVPROPTYPE = 13
+DEVPROP_TYPE_CURRENCY: win32more.Windows.Win32.Devices.Properties.DEVPROPTYPE = 14
+DEVPROP_TYPE_DATE: win32more.Windows.Win32.Devices.Properties.DEVPROPTYPE = 15
+DEVPROP_TYPE_FILETIME: win32more.Windows.Win32.Devices.Properties.DEVPROPTYPE = 16
+DEVPROP_TYPE_BOOLEAN: win32more.Windows.Win32.Devices.Properties.DEVPROPTYPE = 17
+DEVPROP_TYPE_STRING: win32more.Windows.Win32.Devices.Properties.DEVPROPTYPE = 18
+DEVPROP_TYPE_STRING_LIST: win32more.Windows.Win32.Devices.Properties.DEVPROPTYPE = 8210
+DEVPROP_TYPE_SECURITY_DESCRIPTOR: win32more.Windows.Win32.Devices.Properties.DEVPROPTYPE = 19
+DEVPROP_TYPE_SECURITY_DESCRIPTOR_STRING: win32more.Windows.Win32.Devices.Properties.DEVPROPTYPE = 20
+DEVPROP_TYPE_DEVPROPKEY: win32more.Windows.Win32.Devices.Properties.DEVPROPTYPE = 21
+DEVPROP_TYPE_DEVPROPTYPE: win32more.Windows.Win32.Devices.Properties.DEVPROPTYPE = 22
+DEVPROP_TYPE_BINARY: win32more.Windows.Win32.Devices.Properties.DEVPROPTYPE = 4099
+DEVPROP_TYPE_ERROR: win32more.Windows.Win32.Devices.Properties.DEVPROPTYPE = 23
+DEVPROP_TYPE_NTSTATUS: win32more.Windows.Win32.Devices.Properties.DEVPROPTYPE = 24
+DEVPROP_TYPE_STRING_INDIRECT: win32more.Windows.Win32.Devices.Properties.DEVPROPTYPE = 25
 DEVPROP_BOOLEAN = Byte
+
+
 make_ready(__name__)

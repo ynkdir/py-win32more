@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Devices.HumanInterfaceDevice
 import win32more.Windows.Win32.Devices.Properties
 import win32more.Windows.Win32.Foundation
@@ -3090,24 +3089,24 @@ class DIRAMPFORCE(EasyCastStructure):
     lStart: Int32
     lEnd: Int32
 GPIOBUTTONS_BUTTON_TYPE = Int32
-GPIO_BUTTON_POWER: GPIOBUTTONS_BUTTON_TYPE = 0
-GPIO_BUTTON_WINDOWS: GPIOBUTTONS_BUTTON_TYPE = 1
-GPIO_BUTTON_VOLUME_UP: GPIOBUTTONS_BUTTON_TYPE = 2
-GPIO_BUTTON_VOLUME_DOWN: GPIOBUTTONS_BUTTON_TYPE = 3
-GPIO_BUTTON_ROTATION_LOCK: GPIOBUTTONS_BUTTON_TYPE = 4
-GPIO_BUTTON_BACK: GPIOBUTTONS_BUTTON_TYPE = 5
-GPIO_BUTTON_SEARCH: GPIOBUTTONS_BUTTON_TYPE = 6
-GPIO_BUTTON_CAMERA_FOCUS: GPIOBUTTONS_BUTTON_TYPE = 7
-GPIO_BUTTON_CAMERA_SHUTTER: GPIOBUTTONS_BUTTON_TYPE = 8
-GPIO_BUTTON_RINGER_TOGGLE: GPIOBUTTONS_BUTTON_TYPE = 9
-GPIO_BUTTON_HEADSET: GPIOBUTTONS_BUTTON_TYPE = 10
-GPIO_BUTTON_HWKB_DEPLOY: GPIOBUTTONS_BUTTON_TYPE = 11
-GPIO_BUTTON_CAMERA_LENS: GPIOBUTTONS_BUTTON_TYPE = 12
-GPIO_BUTTON_OEM_CUSTOM: GPIOBUTTONS_BUTTON_TYPE = 13
-GPIO_BUTTON_OEM_CUSTOM2: GPIOBUTTONS_BUTTON_TYPE = 14
-GPIO_BUTTON_OEM_CUSTOM3: GPIOBUTTONS_BUTTON_TYPE = 15
-GPIO_BUTTON_COUNT_MIN: GPIOBUTTONS_BUTTON_TYPE = 5
-GPIO_BUTTON_COUNT: GPIOBUTTONS_BUTTON_TYPE = 16
+GPIO_BUTTON_POWER: win32more.Windows.Win32.Devices.HumanInterfaceDevice.GPIOBUTTONS_BUTTON_TYPE = 0
+GPIO_BUTTON_WINDOWS: win32more.Windows.Win32.Devices.HumanInterfaceDevice.GPIOBUTTONS_BUTTON_TYPE = 1
+GPIO_BUTTON_VOLUME_UP: win32more.Windows.Win32.Devices.HumanInterfaceDevice.GPIOBUTTONS_BUTTON_TYPE = 2
+GPIO_BUTTON_VOLUME_DOWN: win32more.Windows.Win32.Devices.HumanInterfaceDevice.GPIOBUTTONS_BUTTON_TYPE = 3
+GPIO_BUTTON_ROTATION_LOCK: win32more.Windows.Win32.Devices.HumanInterfaceDevice.GPIOBUTTONS_BUTTON_TYPE = 4
+GPIO_BUTTON_BACK: win32more.Windows.Win32.Devices.HumanInterfaceDevice.GPIOBUTTONS_BUTTON_TYPE = 5
+GPIO_BUTTON_SEARCH: win32more.Windows.Win32.Devices.HumanInterfaceDevice.GPIOBUTTONS_BUTTON_TYPE = 6
+GPIO_BUTTON_CAMERA_FOCUS: win32more.Windows.Win32.Devices.HumanInterfaceDevice.GPIOBUTTONS_BUTTON_TYPE = 7
+GPIO_BUTTON_CAMERA_SHUTTER: win32more.Windows.Win32.Devices.HumanInterfaceDevice.GPIOBUTTONS_BUTTON_TYPE = 8
+GPIO_BUTTON_RINGER_TOGGLE: win32more.Windows.Win32.Devices.HumanInterfaceDevice.GPIOBUTTONS_BUTTON_TYPE = 9
+GPIO_BUTTON_HEADSET: win32more.Windows.Win32.Devices.HumanInterfaceDevice.GPIOBUTTONS_BUTTON_TYPE = 10
+GPIO_BUTTON_HWKB_DEPLOY: win32more.Windows.Win32.Devices.HumanInterfaceDevice.GPIOBUTTONS_BUTTON_TYPE = 11
+GPIO_BUTTON_CAMERA_LENS: win32more.Windows.Win32.Devices.HumanInterfaceDevice.GPIOBUTTONS_BUTTON_TYPE = 12
+GPIO_BUTTON_OEM_CUSTOM: win32more.Windows.Win32.Devices.HumanInterfaceDevice.GPIOBUTTONS_BUTTON_TYPE = 13
+GPIO_BUTTON_OEM_CUSTOM2: win32more.Windows.Win32.Devices.HumanInterfaceDevice.GPIOBUTTONS_BUTTON_TYPE = 14
+GPIO_BUTTON_OEM_CUSTOM3: win32more.Windows.Win32.Devices.HumanInterfaceDevice.GPIOBUTTONS_BUTTON_TYPE = 15
+GPIO_BUTTON_COUNT_MIN: win32more.Windows.Win32.Devices.HumanInterfaceDevice.GPIOBUTTONS_BUTTON_TYPE = 5
+GPIO_BUTTON_COUNT: win32more.Windows.Win32.Devices.HumanInterfaceDevice.GPIOBUTTONS_BUTTON_TYPE = 16
 class HIDD_ATTRIBUTES(EasyCastStructure):
     Size: UInt32
     VendorID: UInt16
@@ -3189,8 +3188,8 @@ class HIDP_EXTENDED_ATTRIBUTES(EasyCastStructure):
     Data: UInt32 * 1
     _pack_ = 4
 HIDP_KEYBOARD_DIRECTION = Int32
-HidP_Keyboard_Break: HIDP_KEYBOARD_DIRECTION = 0
-HidP_Keyboard_Make: HIDP_KEYBOARD_DIRECTION = 1
+HidP_Keyboard_Break: win32more.Windows.Win32.Devices.HumanInterfaceDevice.HIDP_KEYBOARD_DIRECTION = 0
+HidP_Keyboard_Make: win32more.Windows.Win32.Devices.HumanInterfaceDevice.HIDP_KEYBOARD_DIRECTION = 1
 class HIDP_KEYBOARD_MODIFIER_STATE(EasyCastStructure):
     Anonymous: _Anonymous_e__Union
     class _Anonymous_e__Union(EasyCastUnion):
@@ -3209,9 +3208,9 @@ class HIDP_LINK_COLLECTION_NODE(EasyCastStructure):
     UserContext: VoidPtr
     _pack_ = 4
 HIDP_REPORT_TYPE = Int32
-HidP_Input: HIDP_REPORT_TYPE = 0
-HidP_Output: HIDP_REPORT_TYPE = 1
-HidP_Feature: HIDP_REPORT_TYPE = 2
+HidP_Input: win32more.Windows.Win32.Devices.HumanInterfaceDevice.HIDP_REPORT_TYPE = 0
+HidP_Output: win32more.Windows.Win32.Devices.HumanInterfaceDevice.HIDP_REPORT_TYPE = 1
+HidP_Feature: win32more.Windows.Win32.Devices.HumanInterfaceDevice.HIDP_REPORT_TYPE = 2
 class HIDP_UNKNOWN_TOKEN(EasyCastStructure):
     Token: Byte
     Reserved: Byte * 3
@@ -3859,4 +3858,6 @@ PHIDP_PREPARSED_DATA = IntPtr
 class USAGE_AND_PAGE(EasyCastStructure):
     Usage: UInt16
     UsagePage: UInt16
+
+
 make_ready(__name__)

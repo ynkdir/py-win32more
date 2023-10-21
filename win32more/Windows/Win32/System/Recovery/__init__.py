@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Recovery
 import win32more.Windows.Win32.System.WindowsProgramming
@@ -21,8 +20,10 @@ def ApplicationRecoveryInProgress(pbCancelled: POINTER(win32more.Windows.Win32.F
 @winfunctype('KERNEL32.dll')
 def ApplicationRecoveryFinished(bSuccess: win32more.Windows.Win32.Foundation.BOOL) -> Void: ...
 REGISTER_APPLICATION_RESTART_FLAGS = UInt32
-RESTART_NO_CRASH: REGISTER_APPLICATION_RESTART_FLAGS = 1
-RESTART_NO_HANG: REGISTER_APPLICATION_RESTART_FLAGS = 2
-RESTART_NO_PATCH: REGISTER_APPLICATION_RESTART_FLAGS = 4
-RESTART_NO_REBOOT: REGISTER_APPLICATION_RESTART_FLAGS = 8
+RESTART_NO_CRASH: win32more.Windows.Win32.System.Recovery.REGISTER_APPLICATION_RESTART_FLAGS = 1
+RESTART_NO_HANG: win32more.Windows.Win32.System.Recovery.REGISTER_APPLICATION_RESTART_FLAGS = 2
+RESTART_NO_PATCH: win32more.Windows.Win32.System.Recovery.REGISTER_APPLICATION_RESTART_FLAGS = 4
+RESTART_NO_REBOOT: win32more.Windows.Win32.System.Recovery.REGISTER_APPLICATION_RESTART_FLAGS = 8
+
+
 make_ready(__name__)

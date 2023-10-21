@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService
 import win32more.Windows.Win32.System.Com
@@ -236,36 +235,36 @@ class BG_AUTH_CREDENTIALS(EasyCastStructure):
 class BG_AUTH_CREDENTIALS_UNION(EasyCastUnion):
     Basic: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.BG_BASIC_CREDENTIALS
 BG_AUTH_SCHEME = Int32
-BG_AUTH_SCHEME_BASIC: BG_AUTH_SCHEME = 1
-BG_AUTH_SCHEME_DIGEST: BG_AUTH_SCHEME = 2
-BG_AUTH_SCHEME_NTLM: BG_AUTH_SCHEME = 3
-BG_AUTH_SCHEME_NEGOTIATE: BG_AUTH_SCHEME = 4
-BG_AUTH_SCHEME_PASSPORT: BG_AUTH_SCHEME = 5
+BG_AUTH_SCHEME_BASIC: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.BG_AUTH_SCHEME = 1
+BG_AUTH_SCHEME_DIGEST: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.BG_AUTH_SCHEME = 2
+BG_AUTH_SCHEME_NTLM: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.BG_AUTH_SCHEME = 3
+BG_AUTH_SCHEME_NEGOTIATE: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.BG_AUTH_SCHEME = 4
+BG_AUTH_SCHEME_PASSPORT: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.BG_AUTH_SCHEME = 5
 BG_AUTH_TARGET = Int32
-BG_AUTH_TARGET_SERVER: BG_AUTH_TARGET = 1
-BG_AUTH_TARGET_PROXY: BG_AUTH_TARGET = 2
+BG_AUTH_TARGET_SERVER: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.BG_AUTH_TARGET = 1
+BG_AUTH_TARGET_PROXY: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.BG_AUTH_TARGET = 2
 class BG_BASIC_CREDENTIALS(EasyCastStructure):
     UserName: win32more.Windows.Win32.Foundation.PWSTR
     Password: win32more.Windows.Win32.Foundation.PWSTR
 BG_CERT_STORE_LOCATION = Int32
-BG_CERT_STORE_LOCATION_CURRENT_USER: BG_CERT_STORE_LOCATION = 0
-BG_CERT_STORE_LOCATION_LOCAL_MACHINE: BG_CERT_STORE_LOCATION = 1
-BG_CERT_STORE_LOCATION_CURRENT_SERVICE: BG_CERT_STORE_LOCATION = 2
-BG_CERT_STORE_LOCATION_SERVICES: BG_CERT_STORE_LOCATION = 3
-BG_CERT_STORE_LOCATION_USERS: BG_CERT_STORE_LOCATION = 4
-BG_CERT_STORE_LOCATION_CURRENT_USER_GROUP_POLICY: BG_CERT_STORE_LOCATION = 5
-BG_CERT_STORE_LOCATION_LOCAL_MACHINE_GROUP_POLICY: BG_CERT_STORE_LOCATION = 6
-BG_CERT_STORE_LOCATION_LOCAL_MACHINE_ENTERPRISE: BG_CERT_STORE_LOCATION = 7
+BG_CERT_STORE_LOCATION_CURRENT_USER: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.BG_CERT_STORE_LOCATION = 0
+BG_CERT_STORE_LOCATION_LOCAL_MACHINE: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.BG_CERT_STORE_LOCATION = 1
+BG_CERT_STORE_LOCATION_CURRENT_SERVICE: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.BG_CERT_STORE_LOCATION = 2
+BG_CERT_STORE_LOCATION_SERVICES: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.BG_CERT_STORE_LOCATION = 3
+BG_CERT_STORE_LOCATION_USERS: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.BG_CERT_STORE_LOCATION = 4
+BG_CERT_STORE_LOCATION_CURRENT_USER_GROUP_POLICY: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.BG_CERT_STORE_LOCATION = 5
+BG_CERT_STORE_LOCATION_LOCAL_MACHINE_GROUP_POLICY: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.BG_CERT_STORE_LOCATION = 6
+BG_CERT_STORE_LOCATION_LOCAL_MACHINE_ENTERPRISE: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.BG_CERT_STORE_LOCATION = 7
 BG_ERROR_CONTEXT = Int32
-BG_ERROR_CONTEXT_NONE: BG_ERROR_CONTEXT = 0
-BG_ERROR_CONTEXT_UNKNOWN: BG_ERROR_CONTEXT = 1
-BG_ERROR_CONTEXT_GENERAL_QUEUE_MANAGER: BG_ERROR_CONTEXT = 2
-BG_ERROR_CONTEXT_QUEUE_MANAGER_NOTIFICATION: BG_ERROR_CONTEXT = 3
-BG_ERROR_CONTEXT_LOCAL_FILE: BG_ERROR_CONTEXT = 4
-BG_ERROR_CONTEXT_REMOTE_FILE: BG_ERROR_CONTEXT = 5
-BG_ERROR_CONTEXT_GENERAL_TRANSPORT: BG_ERROR_CONTEXT = 6
-BG_ERROR_CONTEXT_REMOTE_APPLICATION: BG_ERROR_CONTEXT = 7
-BG_ERROR_CONTEXT_SERVER_CERTIFICATE_CALLBACK: BG_ERROR_CONTEXT = 8
+BG_ERROR_CONTEXT_NONE: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.BG_ERROR_CONTEXT = 0
+BG_ERROR_CONTEXT_UNKNOWN: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.BG_ERROR_CONTEXT = 1
+BG_ERROR_CONTEXT_GENERAL_QUEUE_MANAGER: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.BG_ERROR_CONTEXT = 2
+BG_ERROR_CONTEXT_QUEUE_MANAGER_NOTIFICATION: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.BG_ERROR_CONTEXT = 3
+BG_ERROR_CONTEXT_LOCAL_FILE: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.BG_ERROR_CONTEXT = 4
+BG_ERROR_CONTEXT_REMOTE_FILE: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.BG_ERROR_CONTEXT = 5
+BG_ERROR_CONTEXT_GENERAL_TRANSPORT: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.BG_ERROR_CONTEXT = 6
+BG_ERROR_CONTEXT_REMOTE_APPLICATION: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.BG_ERROR_CONTEXT = 7
+BG_ERROR_CONTEXT_SERVER_CERTIFICATE_CALLBACK: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.BG_ERROR_CONTEXT = 8
 class BG_FILE_INFO(EasyCastStructure):
     RemoteName: win32more.Windows.Win32.Foundation.PWSTR
     LocalName: win32more.Windows.Win32.Foundation.PWSTR
@@ -277,58 +276,58 @@ class BG_FILE_RANGE(EasyCastStructure):
     InitialOffset: UInt64
     Length: UInt64
 BG_JOB_PRIORITY = Int32
-BG_JOB_PRIORITY_FOREGROUND: BG_JOB_PRIORITY = 0
-BG_JOB_PRIORITY_HIGH: BG_JOB_PRIORITY = 1
-BG_JOB_PRIORITY_NORMAL: BG_JOB_PRIORITY = 2
-BG_JOB_PRIORITY_LOW: BG_JOB_PRIORITY = 3
+BG_JOB_PRIORITY_FOREGROUND: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.BG_JOB_PRIORITY = 0
+BG_JOB_PRIORITY_HIGH: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.BG_JOB_PRIORITY = 1
+BG_JOB_PRIORITY_NORMAL: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.BG_JOB_PRIORITY = 2
+BG_JOB_PRIORITY_LOW: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.BG_JOB_PRIORITY = 3
 class BG_JOB_PROGRESS(EasyCastStructure):
     BytesTotal: UInt64
     BytesTransferred: UInt64
     FilesTotal: UInt32
     FilesTransferred: UInt32
 BG_JOB_PROXY_USAGE = Int32
-BG_JOB_PROXY_USAGE_PRECONFIG: BG_JOB_PROXY_USAGE = 0
-BG_JOB_PROXY_USAGE_NO_PROXY: BG_JOB_PROXY_USAGE = 1
-BG_JOB_PROXY_USAGE_OVERRIDE: BG_JOB_PROXY_USAGE = 2
-BG_JOB_PROXY_USAGE_AUTODETECT: BG_JOB_PROXY_USAGE = 3
+BG_JOB_PROXY_USAGE_PRECONFIG: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.BG_JOB_PROXY_USAGE = 0
+BG_JOB_PROXY_USAGE_NO_PROXY: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.BG_JOB_PROXY_USAGE = 1
+BG_JOB_PROXY_USAGE_OVERRIDE: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.BG_JOB_PROXY_USAGE = 2
+BG_JOB_PROXY_USAGE_AUTODETECT: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.BG_JOB_PROXY_USAGE = 3
 class BG_JOB_REPLY_PROGRESS(EasyCastStructure):
     BytesTotal: UInt64
     BytesTransferred: UInt64
 BG_JOB_STATE = Int32
-BG_JOB_STATE_QUEUED: BG_JOB_STATE = 0
-BG_JOB_STATE_CONNECTING: BG_JOB_STATE = 1
-BG_JOB_STATE_TRANSFERRING: BG_JOB_STATE = 2
-BG_JOB_STATE_SUSPENDED: BG_JOB_STATE = 3
-BG_JOB_STATE_ERROR: BG_JOB_STATE = 4
-BG_JOB_STATE_TRANSIENT_ERROR: BG_JOB_STATE = 5
-BG_JOB_STATE_TRANSFERRED: BG_JOB_STATE = 6
-BG_JOB_STATE_ACKNOWLEDGED: BG_JOB_STATE = 7
-BG_JOB_STATE_CANCELLED: BG_JOB_STATE = 8
+BG_JOB_STATE_QUEUED: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.BG_JOB_STATE = 0
+BG_JOB_STATE_CONNECTING: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.BG_JOB_STATE = 1
+BG_JOB_STATE_TRANSFERRING: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.BG_JOB_STATE = 2
+BG_JOB_STATE_SUSPENDED: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.BG_JOB_STATE = 3
+BG_JOB_STATE_ERROR: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.BG_JOB_STATE = 4
+BG_JOB_STATE_TRANSIENT_ERROR: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.BG_JOB_STATE = 5
+BG_JOB_STATE_TRANSFERRED: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.BG_JOB_STATE = 6
+BG_JOB_STATE_ACKNOWLEDGED: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.BG_JOB_STATE = 7
+BG_JOB_STATE_CANCELLED: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.BG_JOB_STATE = 8
 class BG_JOB_TIMES(EasyCastStructure):
     CreationTime: win32more.Windows.Win32.Foundation.FILETIME
     ModificationTime: win32more.Windows.Win32.Foundation.FILETIME
     TransferCompletionTime: win32more.Windows.Win32.Foundation.FILETIME
 BG_JOB_TYPE = Int32
-BG_JOB_TYPE_DOWNLOAD: BG_JOB_TYPE = 0
-BG_JOB_TYPE_UPLOAD: BG_JOB_TYPE = 1
-BG_JOB_TYPE_UPLOAD_REPLY: BG_JOB_TYPE = 2
+BG_JOB_TYPE_DOWNLOAD: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.BG_JOB_TYPE = 0
+BG_JOB_TYPE_UPLOAD: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.BG_JOB_TYPE = 1
+BG_JOB_TYPE_UPLOAD_REPLY: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.BG_JOB_TYPE = 2
 BG_TOKEN = UInt32
-BG_TOKEN_LOCAL_FILE: BG_TOKEN = 1
-BG_TOKEN_NETWORK: BG_TOKEN = 2
+BG_TOKEN_LOCAL_FILE: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.BG_TOKEN = 1
+BG_TOKEN_NETWORK: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.BG_TOKEN = 2
 BITSExtensionSetupFactory = Guid('{efbbab68-7286-4783-94bf-9461d8b7e7e9}')
 BITS_FILE_PROPERTY_ID = Int32
-BITS_FILE_PROPERTY_ID_HTTP_RESPONSE_HEADERS: BITS_FILE_PROPERTY_ID = 1
+BITS_FILE_PROPERTY_ID_HTTP_RESPONSE_HEADERS: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.BITS_FILE_PROPERTY_ID = 1
 class BITS_FILE_PROPERTY_VALUE(EasyCastUnion):
     String: win32more.Windows.Win32.Foundation.PWSTR
 BITS_JOB_PROPERTY_ID = Int32
-BITS_JOB_PROPERTY_ID_COST_FLAGS: BITS_JOB_PROPERTY_ID = 1
-BITS_JOB_PROPERTY_NOTIFICATION_CLSID: BITS_JOB_PROPERTY_ID = 2
-BITS_JOB_PROPERTY_DYNAMIC_CONTENT: BITS_JOB_PROPERTY_ID = 3
-BITS_JOB_PROPERTY_HIGH_PERFORMANCE: BITS_JOB_PROPERTY_ID = 4
-BITS_JOB_PROPERTY_MAX_DOWNLOAD_SIZE: BITS_JOB_PROPERTY_ID = 5
-BITS_JOB_PROPERTY_USE_STORED_CREDENTIALS: BITS_JOB_PROPERTY_ID = 7
-BITS_JOB_PROPERTY_MINIMUM_NOTIFICATION_INTERVAL_MS: BITS_JOB_PROPERTY_ID = 9
-BITS_JOB_PROPERTY_ON_DEMAND_MODE: BITS_JOB_PROPERTY_ID = 10
+BITS_JOB_PROPERTY_ID_COST_FLAGS: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.BITS_JOB_PROPERTY_ID = 1
+BITS_JOB_PROPERTY_NOTIFICATION_CLSID: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.BITS_JOB_PROPERTY_ID = 2
+BITS_JOB_PROPERTY_DYNAMIC_CONTENT: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.BITS_JOB_PROPERTY_ID = 3
+BITS_JOB_PROPERTY_HIGH_PERFORMANCE: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.BITS_JOB_PROPERTY_ID = 4
+BITS_JOB_PROPERTY_MAX_DOWNLOAD_SIZE: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.BITS_JOB_PROPERTY_ID = 5
+BITS_JOB_PROPERTY_USE_STORED_CREDENTIALS: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.BITS_JOB_PROPERTY_ID = 7
+BITS_JOB_PROPERTY_MINIMUM_NOTIFICATION_INTERVAL_MS: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.BITS_JOB_PROPERTY_ID = 9
+BITS_JOB_PROPERTY_ON_DEMAND_MODE: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.BITS_JOB_PROPERTY_ID = 10
 class BITS_JOB_PROPERTY_VALUE(EasyCastUnion):
     Dword: UInt32
     ClsID: Guid
@@ -336,11 +335,11 @@ class BITS_JOB_PROPERTY_VALUE(EasyCastUnion):
     Uint64: UInt64
     Target: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.BG_AUTH_TARGET
 BITS_JOB_TRANSFER_POLICY = Int32
-BITS_JOB_TRANSFER_POLICY_ALWAYS: BITS_JOB_TRANSFER_POLICY = -2147483393
-BITS_JOB_TRANSFER_POLICY_NOT_ROAMING: BITS_JOB_TRANSFER_POLICY = -2147483521
-BITS_JOB_TRANSFER_POLICY_NO_SURCHARGE: BITS_JOB_TRANSFER_POLICY = -2147483537
-BITS_JOB_TRANSFER_POLICY_STANDARD: BITS_JOB_TRANSFER_POLICY = -2147483545
-BITS_JOB_TRANSFER_POLICY_UNRESTRICTED: BITS_JOB_TRANSFER_POLICY = -2147483615
+BITS_JOB_TRANSFER_POLICY_ALWAYS: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.BITS_JOB_TRANSFER_POLICY = -2147483393
+BITS_JOB_TRANSFER_POLICY_NOT_ROAMING: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.BITS_JOB_TRANSFER_POLICY = -2147483521
+BITS_JOB_TRANSFER_POLICY_NO_SURCHARGE: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.BITS_JOB_TRANSFER_POLICY = -2147483537
+BITS_JOB_TRANSFER_POLICY_STANDARD: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.BITS_JOB_TRANSFER_POLICY = -2147483545
+BITS_JOB_TRANSFER_POLICY_UNRESTRICTED: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.BITS_JOB_TRANSFER_POLICY = -2147483615
 BackgroundCopyManager = Guid('{4991d34b-80a1-4291-83b6-3328366b9097}')
 BackgroundCopyManager10_1 = Guid('{4bd3e4e1-7bd4-4a2b-9964-496400de5193}')
 BackgroundCopyManager10_2 = Guid('{4575438f-a6c8-4976-b0fe-2f26b80d959e}')
@@ -357,19 +356,19 @@ class FILESETINFO(EasyCastStructure):
     bstrLocalFile: win32more.Windows.Win32.Foundation.BSTR
     dwSizeHint: UInt32
 GROUPPROP = Int32
-GROUPPROP_PRIORITY: GROUPPROP = 0
-GROUPPROP_REMOTEUSERID: GROUPPROP = 1
-GROUPPROP_REMOTEUSERPWD: GROUPPROP = 2
-GROUPPROP_LOCALUSERID: GROUPPROP = 3
-GROUPPROP_LOCALUSERPWD: GROUPPROP = 4
-GROUPPROP_PROTOCOLFLAGS: GROUPPROP = 5
-GROUPPROP_NOTIFYFLAGS: GROUPPROP = 6
-GROUPPROP_NOTIFYCLSID: GROUPPROP = 7
-GROUPPROP_PROGRESSSIZE: GROUPPROP = 8
-GROUPPROP_PROGRESSPERCENT: GROUPPROP = 9
-GROUPPROP_PROGRESSTIME: GROUPPROP = 10
-GROUPPROP_DISPLAYNAME: GROUPPROP = 11
-GROUPPROP_DESCRIPTION: GROUPPROP = 12
+GROUPPROP_PRIORITY: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.GROUPPROP = 0
+GROUPPROP_REMOTEUSERID: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.GROUPPROP = 1
+GROUPPROP_REMOTEUSERPWD: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.GROUPPROP = 2
+GROUPPROP_LOCALUSERID: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.GROUPPROP = 3
+GROUPPROP_LOCALUSERPWD: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.GROUPPROP = 4
+GROUPPROP_PROTOCOLFLAGS: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.GROUPPROP = 5
+GROUPPROP_NOTIFYFLAGS: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.GROUPPROP = 6
+GROUPPROP_NOTIFYCLSID: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.GROUPPROP = 7
+GROUPPROP_PROGRESSSIZE: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.GROUPPROP = 8
+GROUPPROP_PROGRESSPERCENT: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.GROUPPROP = 9
+GROUPPROP_PROGRESSTIME: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.GROUPPROP = 10
+GROUPPROP_DISPLAYNAME: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.GROUPPROP = 11
+GROUPPROP_DESCRIPTION: win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.GROUPPROP = 12
 class IBITSExtensionSetup(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IDispatch
     _iid_ = Guid('{29cfbbf7-09e4-4b97-b0bc-f2287e3d8eb3}')
@@ -852,4 +851,6 @@ class IEnumBitsPeers(ComPtr):
     def Clone(self, ppenum: POINTER(win32more.Windows.Win32.Networking.BackgroundIntelligentTransferService.IEnumBitsPeers)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def GetCount(self, puCount: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+
+
 make_ready(__name__)

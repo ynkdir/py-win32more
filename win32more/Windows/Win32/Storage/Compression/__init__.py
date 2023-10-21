@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Storage.Compression
 COMPRESS_ALGORITHM_INVALID: UInt32 = 0
@@ -33,20 +32,22 @@ def ResetDecompressor(DecompressorHandle: IntPtr) -> win32more.Windows.Win32.Fou
 def CloseDecompressor(DecompressorHandle: IntPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 COMPRESSOR_HANDLE = IntPtr
 COMPRESS_ALGORITHM = UInt32
-COMPRESS_ALGORITHM_MSZIP: COMPRESS_ALGORITHM = 2
-COMPRESS_ALGORITHM_XPRESS: COMPRESS_ALGORITHM = 3
-COMPRESS_ALGORITHM_XPRESS_HUFF: COMPRESS_ALGORITHM = 4
-COMPRESS_ALGORITHM_LZMS: COMPRESS_ALGORITHM = 5
+COMPRESS_ALGORITHM_MSZIP: win32more.Windows.Win32.Storage.Compression.COMPRESS_ALGORITHM = 2
+COMPRESS_ALGORITHM_XPRESS: win32more.Windows.Win32.Storage.Compression.COMPRESS_ALGORITHM = 3
+COMPRESS_ALGORITHM_XPRESS_HUFF: win32more.Windows.Win32.Storage.Compression.COMPRESS_ALGORITHM = 4
+COMPRESS_ALGORITHM_LZMS: win32more.Windows.Win32.Storage.Compression.COMPRESS_ALGORITHM = 5
 class COMPRESS_ALLOCATION_ROUTINES(EasyCastStructure):
     Allocate: win32more.Windows.Win32.Storage.Compression.PFN_COMPRESS_ALLOCATE
     Free: win32more.Windows.Win32.Storage.Compression.PFN_COMPRESS_FREE
     UserContext: VoidPtr
 COMPRESS_INFORMATION_CLASS = Int32
-COMPRESS_INFORMATION_CLASS_INVALID: COMPRESS_INFORMATION_CLASS = 0
-COMPRESS_INFORMATION_CLASS_BLOCK_SIZE: COMPRESS_INFORMATION_CLASS = 1
-COMPRESS_INFORMATION_CLASS_LEVEL: COMPRESS_INFORMATION_CLASS = 2
+COMPRESS_INFORMATION_CLASS_INVALID: win32more.Windows.Win32.Storage.Compression.COMPRESS_INFORMATION_CLASS = 0
+COMPRESS_INFORMATION_CLASS_BLOCK_SIZE: win32more.Windows.Win32.Storage.Compression.COMPRESS_INFORMATION_CLASS = 1
+COMPRESS_INFORMATION_CLASS_LEVEL: win32more.Windows.Win32.Storage.Compression.COMPRESS_INFORMATION_CLASS = 2
 @cfunctype_pointer
 def PFN_COMPRESS_ALLOCATE(UserContext: VoidPtr, Size: UIntPtr) -> VoidPtr: ...
 @cfunctype_pointer
 def PFN_COMPRESS_FREE(UserContext: VoidPtr, Memory: VoidPtr) -> Void: ...
+
+
 make_ready(__name__)

@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Devices.Usb
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.IO
@@ -729,15 +728,15 @@ class PACKET_PARAMETERS(EasyCastStructure):
     Data: Byte * 4
     _pack_ = 1
 PIPE_TYPE = Int32
-EVENT_PIPE: PIPE_TYPE = 0
-READ_DATA_PIPE: PIPE_TYPE = 1
-WRITE_DATA_PIPE: PIPE_TYPE = 2
-ALL_PIPE: PIPE_TYPE = 3
+EVENT_PIPE: win32more.Windows.Win32.Devices.Usb.PIPE_TYPE = 0
+READ_DATA_PIPE: win32more.Windows.Win32.Devices.Usb.PIPE_TYPE = 1
+WRITE_DATA_PIPE: win32more.Windows.Win32.Devices.Usb.PIPE_TYPE = 2
+ALL_PIPE: win32more.Windows.Win32.Devices.Usb.PIPE_TYPE = 3
 RAW_PIPE_TYPE = Int32
-USBSCAN_PIPE_CONTROL: RAW_PIPE_TYPE = 0
-USBSCAN_PIPE_ISOCHRONOUS: RAW_PIPE_TYPE = 1
-USBSCAN_PIPE_BULK: RAW_PIPE_TYPE = 2
-USBSCAN_PIPE_INTERRUPT: RAW_PIPE_TYPE = 3
+USBSCAN_PIPE_CONTROL: win32more.Windows.Win32.Devices.Usb.RAW_PIPE_TYPE = 0
+USBSCAN_PIPE_ISOCHRONOUS: win32more.Windows.Win32.Devices.Usb.RAW_PIPE_TYPE = 1
+USBSCAN_PIPE_BULK: win32more.Windows.Win32.Devices.Usb.RAW_PIPE_TYPE = 2
+USBSCAN_PIPE_INTERRUPT: win32more.Windows.Win32.Devices.Usb.RAW_PIPE_TYPE = 3
 class RAW_RESET_PORT_PARAMETERS(EasyCastStructure):
     PortNumber: UInt16
     PortStatus: UInt16
@@ -797,9 +796,9 @@ class USBD_ENDPOINT_OFFLOAD_INFORMATION(EasyCastStructure):
     EventRingInitialCycleBit: UInt32
     _pack_ = 1
 USBD_ENDPOINT_OFFLOAD_MODE = Int32
-USBD_ENDPOINT_OFFLOAD_MODE_UsbdEndpointOffloadModeNotSupported: USBD_ENDPOINT_OFFLOAD_MODE = 0
-USBD_ENDPOINT_OFFLOAD_MODE_UsbdEndpointOffloadSoftwareAssisted: USBD_ENDPOINT_OFFLOAD_MODE = 1
-USBD_ENDPOINT_OFFLOAD_MODE_UsbdEndpointOffloadHardwareAssisted: USBD_ENDPOINT_OFFLOAD_MODE = 2
+USBD_ENDPOINT_OFFLOAD_MODE_UsbdEndpointOffloadModeNotSupported: win32more.Windows.Win32.Devices.Usb.USBD_ENDPOINT_OFFLOAD_MODE = 0
+USBD_ENDPOINT_OFFLOAD_MODE_UsbdEndpointOffloadSoftwareAssisted: win32more.Windows.Win32.Devices.Usb.USBD_ENDPOINT_OFFLOAD_MODE = 1
+USBD_ENDPOINT_OFFLOAD_MODE_UsbdEndpointOffloadHardwareAssisted: win32more.Windows.Win32.Devices.Usb.USBD_ENDPOINT_OFFLOAD_MODE = 2
 class USBD_INTERFACE_INFORMATION(EasyCastStructure):
     Length: UInt16
     InterfaceNumber: Byte
@@ -824,10 +823,10 @@ class USBD_PIPE_INFORMATION(EasyCastStructure):
     MaximumTransferSize: UInt32
     PipeFlags: UInt32
 USBD_PIPE_TYPE = Int32
-USBD_PIPE_TYPE_UsbdPipeTypeControl: USBD_PIPE_TYPE = 0
-USBD_PIPE_TYPE_UsbdPipeTypeIsochronous: USBD_PIPE_TYPE = 1
-USBD_PIPE_TYPE_UsbdPipeTypeBulk: USBD_PIPE_TYPE = 2
-USBD_PIPE_TYPE_UsbdPipeTypeInterrupt: USBD_PIPE_TYPE = 3
+USBD_PIPE_TYPE_UsbdPipeTypeControl: win32more.Windows.Win32.Devices.Usb.USBD_PIPE_TYPE = 0
+USBD_PIPE_TYPE_UsbdPipeTypeIsochronous: win32more.Windows.Win32.Devices.Usb.USBD_PIPE_TYPE = 1
+USBD_PIPE_TYPE_UsbdPipeTypeBulk: win32more.Windows.Win32.Devices.Usb.USBD_PIPE_TYPE = 2
+USBD_PIPE_TYPE_UsbdPipeTypeInterrupt: win32more.Windows.Win32.Devices.Usb.USBD_PIPE_TYPE = 3
 class USBD_STREAM_INFORMATION(EasyCastStructure):
     PipeHandle: VoidPtr
     StreamID: UInt32
@@ -841,11 +840,11 @@ class USBFN_BUS_CONFIGURATION_INFO(EasyCastStructure):
     IsCurrent: win32more.Windows.Win32.Foundation.BOOLEAN
     IsActive: win32more.Windows.Win32.Foundation.BOOLEAN
 USBFN_BUS_SPEED = Int32
-USBFN_BUS_SPEED_UsbfnBusSpeedLow: USBFN_BUS_SPEED = 0
-USBFN_BUS_SPEED_UsbfnBusSpeedFull: USBFN_BUS_SPEED = 1
-USBFN_BUS_SPEED_UsbfnBusSpeedHigh: USBFN_BUS_SPEED = 2
-USBFN_BUS_SPEED_UsbfnBusSpeedSuper: USBFN_BUS_SPEED = 3
-USBFN_BUS_SPEED_UsbfnBusSpeedMaximum: USBFN_BUS_SPEED = 4
+USBFN_BUS_SPEED_UsbfnBusSpeedLow: win32more.Windows.Win32.Devices.Usb.USBFN_BUS_SPEED = 0
+USBFN_BUS_SPEED_UsbfnBusSpeedFull: win32more.Windows.Win32.Devices.Usb.USBFN_BUS_SPEED = 1
+USBFN_BUS_SPEED_UsbfnBusSpeedHigh: win32more.Windows.Win32.Devices.Usb.USBFN_BUS_SPEED = 2
+USBFN_BUS_SPEED_UsbfnBusSpeedSuper: win32more.Windows.Win32.Devices.Usb.USBFN_BUS_SPEED = 3
+USBFN_BUS_SPEED_UsbfnBusSpeedMaximum: win32more.Windows.Win32.Devices.Usb.USBFN_BUS_SPEED = 4
 class USBFN_CLASS_INFORMATION_PACKET(EasyCastStructure):
     FullSpeedClassInterface: win32more.Windows.Win32.Devices.Usb.USBFN_CLASS_INTERFACE
     HighSpeedClassInterface: win32more.Windows.Win32.Devices.Usb.USBFN_CLASS_INTERFACE
@@ -870,35 +869,35 @@ class USBFN_CLASS_INTERFACE_EX(EasyCastStructure):
     PipeCount: Byte
     PipeArr: win32more.Windows.Win32.Devices.Usb.USBFN_PIPE_INFORMATION * 16
 USBFN_DEVICE_STATE = Int32
-USBFN_DEVICE_STATE_UsbfnDeviceStateMinimum: USBFN_DEVICE_STATE = 0
-USBFN_DEVICE_STATE_UsbfnDeviceStateAttached: USBFN_DEVICE_STATE = 1
-USBFN_DEVICE_STATE_UsbfnDeviceStateDefault: USBFN_DEVICE_STATE = 2
-USBFN_DEVICE_STATE_UsbfnDeviceStateDetached: USBFN_DEVICE_STATE = 3
-USBFN_DEVICE_STATE_UsbfnDeviceStateAddressed: USBFN_DEVICE_STATE = 4
-USBFN_DEVICE_STATE_UsbfnDeviceStateConfigured: USBFN_DEVICE_STATE = 5
-USBFN_DEVICE_STATE_UsbfnDeviceStateSuspended: USBFN_DEVICE_STATE = 6
-USBFN_DEVICE_STATE_UsbfnDeviceStateStateMaximum: USBFN_DEVICE_STATE = 7
+USBFN_DEVICE_STATE_UsbfnDeviceStateMinimum: win32more.Windows.Win32.Devices.Usb.USBFN_DEVICE_STATE = 0
+USBFN_DEVICE_STATE_UsbfnDeviceStateAttached: win32more.Windows.Win32.Devices.Usb.USBFN_DEVICE_STATE = 1
+USBFN_DEVICE_STATE_UsbfnDeviceStateDefault: win32more.Windows.Win32.Devices.Usb.USBFN_DEVICE_STATE = 2
+USBFN_DEVICE_STATE_UsbfnDeviceStateDetached: win32more.Windows.Win32.Devices.Usb.USBFN_DEVICE_STATE = 3
+USBFN_DEVICE_STATE_UsbfnDeviceStateAddressed: win32more.Windows.Win32.Devices.Usb.USBFN_DEVICE_STATE = 4
+USBFN_DEVICE_STATE_UsbfnDeviceStateConfigured: win32more.Windows.Win32.Devices.Usb.USBFN_DEVICE_STATE = 5
+USBFN_DEVICE_STATE_UsbfnDeviceStateSuspended: win32more.Windows.Win32.Devices.Usb.USBFN_DEVICE_STATE = 6
+USBFN_DEVICE_STATE_UsbfnDeviceStateStateMaximum: win32more.Windows.Win32.Devices.Usb.USBFN_DEVICE_STATE = 7
 USBFN_DIRECTION = Int32
-USBFN_DIRECTION_UsbfnDirectionMinimum: USBFN_DIRECTION = 0
-USBFN_DIRECTION_UsbfnDirectionIn: USBFN_DIRECTION = 1
-USBFN_DIRECTION_UsbfnDirectionOut: USBFN_DIRECTION = 2
-USBFN_DIRECTION_UsbfnDirectionTx: USBFN_DIRECTION = 1
-USBFN_DIRECTION_UsbfnDirectionRx: USBFN_DIRECTION = 2
-USBFN_DIRECTION_UsbfnDirectionMaximum: USBFN_DIRECTION = 3
+USBFN_DIRECTION_UsbfnDirectionMinimum: win32more.Windows.Win32.Devices.Usb.USBFN_DIRECTION = 0
+USBFN_DIRECTION_UsbfnDirectionIn: win32more.Windows.Win32.Devices.Usb.USBFN_DIRECTION = 1
+USBFN_DIRECTION_UsbfnDirectionOut: win32more.Windows.Win32.Devices.Usb.USBFN_DIRECTION = 2
+USBFN_DIRECTION_UsbfnDirectionTx: win32more.Windows.Win32.Devices.Usb.USBFN_DIRECTION = 1
+USBFN_DIRECTION_UsbfnDirectionRx: win32more.Windows.Win32.Devices.Usb.USBFN_DIRECTION = 2
+USBFN_DIRECTION_UsbfnDirectionMaximum: win32more.Windows.Win32.Devices.Usb.USBFN_DIRECTION = 3
 USBFN_EVENT = Int32
-USBFN_EVENT_UsbfnEventMinimum: USBFN_EVENT = 0
-USBFN_EVENT_UsbfnEventAttach: USBFN_EVENT = 1
-USBFN_EVENT_UsbfnEventReset: USBFN_EVENT = 2
-USBFN_EVENT_UsbfnEventDetach: USBFN_EVENT = 3
-USBFN_EVENT_UsbfnEventSuspend: USBFN_EVENT = 4
-USBFN_EVENT_UsbfnEventResume: USBFN_EVENT = 5
-USBFN_EVENT_UsbfnEventSetupPacket: USBFN_EVENT = 6
-USBFN_EVENT_UsbfnEventConfigured: USBFN_EVENT = 7
-USBFN_EVENT_UsbfnEventUnConfigured: USBFN_EVENT = 8
-USBFN_EVENT_UsbfnEventPortType: USBFN_EVENT = 9
-USBFN_EVENT_UsbfnEventBusTearDown: USBFN_EVENT = 10
-USBFN_EVENT_UsbfnEventSetInterface: USBFN_EVENT = 11
-USBFN_EVENT_UsbfnEventMaximum: USBFN_EVENT = 12
+USBFN_EVENT_UsbfnEventMinimum: win32more.Windows.Win32.Devices.Usb.USBFN_EVENT = 0
+USBFN_EVENT_UsbfnEventAttach: win32more.Windows.Win32.Devices.Usb.USBFN_EVENT = 1
+USBFN_EVENT_UsbfnEventReset: win32more.Windows.Win32.Devices.Usb.USBFN_EVENT = 2
+USBFN_EVENT_UsbfnEventDetach: win32more.Windows.Win32.Devices.Usb.USBFN_EVENT = 3
+USBFN_EVENT_UsbfnEventSuspend: win32more.Windows.Win32.Devices.Usb.USBFN_EVENT = 4
+USBFN_EVENT_UsbfnEventResume: win32more.Windows.Win32.Devices.Usb.USBFN_EVENT = 5
+USBFN_EVENT_UsbfnEventSetupPacket: win32more.Windows.Win32.Devices.Usb.USBFN_EVENT = 6
+USBFN_EVENT_UsbfnEventConfigured: win32more.Windows.Win32.Devices.Usb.USBFN_EVENT = 7
+USBFN_EVENT_UsbfnEventUnConfigured: win32more.Windows.Win32.Devices.Usb.USBFN_EVENT = 8
+USBFN_EVENT_UsbfnEventPortType: win32more.Windows.Win32.Devices.Usb.USBFN_EVENT = 9
+USBFN_EVENT_UsbfnEventBusTearDown: win32more.Windows.Win32.Devices.Usb.USBFN_EVENT = 10
+USBFN_EVENT_UsbfnEventSetInterface: win32more.Windows.Win32.Devices.Usb.USBFN_EVENT = 11
+USBFN_EVENT_UsbfnEventMaximum: win32more.Windows.Win32.Devices.Usb.USBFN_EVENT = 12
 class USBFN_INTERFACE_INFO(EasyCastStructure):
     InterfaceNumber: Byte
     Speed: win32more.Windows.Win32.Devices.Usb.USBFN_BUS_SPEED
@@ -917,13 +916,13 @@ class USBFN_PIPE_INFORMATION(EasyCastStructure):
     EpDesc: win32more.Windows.Win32.Devices.Usb.USB_ENDPOINT_DESCRIPTOR
     PipeId: UInt32
 USBFN_PORT_TYPE = Int32
-USBFN_PORT_TYPE_UsbfnUnknownPort: USBFN_PORT_TYPE = 0
-USBFN_PORT_TYPE_UsbfnStandardDownstreamPort: USBFN_PORT_TYPE = 1
-USBFN_PORT_TYPE_UsbfnChargingDownstreamPort: USBFN_PORT_TYPE = 2
-USBFN_PORT_TYPE_UsbfnDedicatedChargingPort: USBFN_PORT_TYPE = 3
-USBFN_PORT_TYPE_UsbfnInvalidDedicatedChargingPort: USBFN_PORT_TYPE = 4
-USBFN_PORT_TYPE_UsbfnProprietaryDedicatedChargingPort: USBFN_PORT_TYPE = 5
-USBFN_PORT_TYPE_UsbfnPortTypeMaximum: USBFN_PORT_TYPE = 6
+USBFN_PORT_TYPE_UsbfnUnknownPort: win32more.Windows.Win32.Devices.Usb.USBFN_PORT_TYPE = 0
+USBFN_PORT_TYPE_UsbfnStandardDownstreamPort: win32more.Windows.Win32.Devices.Usb.USBFN_PORT_TYPE = 1
+USBFN_PORT_TYPE_UsbfnChargingDownstreamPort: win32more.Windows.Win32.Devices.Usb.USBFN_PORT_TYPE = 2
+USBFN_PORT_TYPE_UsbfnDedicatedChargingPort: win32more.Windows.Win32.Devices.Usb.USBFN_PORT_TYPE = 3
+USBFN_PORT_TYPE_UsbfnInvalidDedicatedChargingPort: win32more.Windows.Win32.Devices.Usb.USBFN_PORT_TYPE = 4
+USBFN_PORT_TYPE_UsbfnProprietaryDedicatedChargingPort: win32more.Windows.Win32.Devices.Usb.USBFN_PORT_TYPE = 5
+USBFN_PORT_TYPE_UsbfnPortTypeMaximum: win32more.Windows.Win32.Devices.Usb.USBFN_PORT_TYPE = 6
 class USBFN_USB_STRING(EasyCastStructure):
     StringIndex: Byte
     UsbString: Char * 255
@@ -1152,17 +1151,17 @@ class USB_CONNECTION_NOTIFICATION(EasyCastStructure):
     HubNameLength: UInt32
     _pack_ = 1
 USB_CONNECTION_STATUS = Int32
-USB_CONNECTION_STATUS_NoDeviceConnected: USB_CONNECTION_STATUS = 0
-USB_CONNECTION_STATUS_DeviceConnected: USB_CONNECTION_STATUS = 1
-USB_CONNECTION_STATUS_DeviceFailedEnumeration: USB_CONNECTION_STATUS = 2
-USB_CONNECTION_STATUS_DeviceGeneralFailure: USB_CONNECTION_STATUS = 3
-USB_CONNECTION_STATUS_DeviceCausedOvercurrent: USB_CONNECTION_STATUS = 4
-USB_CONNECTION_STATUS_DeviceNotEnoughPower: USB_CONNECTION_STATUS = 5
-USB_CONNECTION_STATUS_DeviceNotEnoughBandwidth: USB_CONNECTION_STATUS = 6
-USB_CONNECTION_STATUS_DeviceHubNestedTooDeeply: USB_CONNECTION_STATUS = 7
-USB_CONNECTION_STATUS_DeviceInLegacyHub: USB_CONNECTION_STATUS = 8
-USB_CONNECTION_STATUS_DeviceEnumerating: USB_CONNECTION_STATUS = 9
-USB_CONNECTION_STATUS_DeviceReset: USB_CONNECTION_STATUS = 10
+USB_CONNECTION_STATUS_NoDeviceConnected: win32more.Windows.Win32.Devices.Usb.USB_CONNECTION_STATUS = 0
+USB_CONNECTION_STATUS_DeviceConnected: win32more.Windows.Win32.Devices.Usb.USB_CONNECTION_STATUS = 1
+USB_CONNECTION_STATUS_DeviceFailedEnumeration: win32more.Windows.Win32.Devices.Usb.USB_CONNECTION_STATUS = 2
+USB_CONNECTION_STATUS_DeviceGeneralFailure: win32more.Windows.Win32.Devices.Usb.USB_CONNECTION_STATUS = 3
+USB_CONNECTION_STATUS_DeviceCausedOvercurrent: win32more.Windows.Win32.Devices.Usb.USB_CONNECTION_STATUS = 4
+USB_CONNECTION_STATUS_DeviceNotEnoughPower: win32more.Windows.Win32.Devices.Usb.USB_CONNECTION_STATUS = 5
+USB_CONNECTION_STATUS_DeviceNotEnoughBandwidth: win32more.Windows.Win32.Devices.Usb.USB_CONNECTION_STATUS = 6
+USB_CONNECTION_STATUS_DeviceHubNestedTooDeeply: win32more.Windows.Win32.Devices.Usb.USB_CONNECTION_STATUS = 7
+USB_CONNECTION_STATUS_DeviceInLegacyHub: win32more.Windows.Win32.Devices.Usb.USB_CONNECTION_STATUS = 8
+USB_CONNECTION_STATUS_DeviceEnumerating: win32more.Windows.Win32.Devices.Usb.USB_CONNECTION_STATUS = 9
+USB_CONNECTION_STATUS_DeviceReset: win32more.Windows.Win32.Devices.Usb.USB_CONNECTION_STATUS = 10
 class USB_CONTROLLER_DEVICE_INFO(EasyCastStructure):
     PciVendorId: UInt32
     PciDeviceId: UInt32
@@ -1171,33 +1170,33 @@ class USB_CONTROLLER_DEVICE_INFO(EasyCastStructure):
     HcFeatureFlags: UInt32
     _pack_ = 1
 USB_CONTROLLER_FLAVOR = Int32
-USB_HcGeneric: USB_CONTROLLER_FLAVOR = 0
-OHCI_Generic: USB_CONTROLLER_FLAVOR = 100
-OHCI_Hydra: USB_CONTROLLER_FLAVOR = 101
-OHCI_NEC: USB_CONTROLLER_FLAVOR = 102
-UHCI_Generic: USB_CONTROLLER_FLAVOR = 200
-UHCI_Piix4: USB_CONTROLLER_FLAVOR = 201
-UHCI_Piix3: USB_CONTROLLER_FLAVOR = 202
-UHCI_Ich2: USB_CONTROLLER_FLAVOR = 203
-UHCI_Reserved204: USB_CONTROLLER_FLAVOR = 204
-UHCI_Ich1: USB_CONTROLLER_FLAVOR = 205
-UHCI_Ich3m: USB_CONTROLLER_FLAVOR = 206
-UHCI_Ich4: USB_CONTROLLER_FLAVOR = 207
-UHCI_Ich5: USB_CONTROLLER_FLAVOR = 208
-UHCI_Ich6: USB_CONTROLLER_FLAVOR = 209
-UHCI_Intel: USB_CONTROLLER_FLAVOR = 249
-UHCI_VIA: USB_CONTROLLER_FLAVOR = 250
-UHCI_VIA_x01: USB_CONTROLLER_FLAVOR = 251
-UHCI_VIA_x02: USB_CONTROLLER_FLAVOR = 252
-UHCI_VIA_x03: USB_CONTROLLER_FLAVOR = 253
-UHCI_VIA_x04: USB_CONTROLLER_FLAVOR = 254
-UHCI_VIA_x0E_FIFO: USB_CONTROLLER_FLAVOR = 264
-EHCI_Generic: USB_CONTROLLER_FLAVOR = 1000
-EHCI_NEC: USB_CONTROLLER_FLAVOR = 2000
-EHCI_Lucent: USB_CONTROLLER_FLAVOR = 3000
-EHCI_NVIDIA_Tegra2: USB_CONTROLLER_FLAVOR = 4000
-EHCI_NVIDIA_Tegra3: USB_CONTROLLER_FLAVOR = 4001
-EHCI_Intel_Medfield: USB_CONTROLLER_FLAVOR = 5001
+USB_HcGeneric: win32more.Windows.Win32.Devices.Usb.USB_CONTROLLER_FLAVOR = 0
+OHCI_Generic: win32more.Windows.Win32.Devices.Usb.USB_CONTROLLER_FLAVOR = 100
+OHCI_Hydra: win32more.Windows.Win32.Devices.Usb.USB_CONTROLLER_FLAVOR = 101
+OHCI_NEC: win32more.Windows.Win32.Devices.Usb.USB_CONTROLLER_FLAVOR = 102
+UHCI_Generic: win32more.Windows.Win32.Devices.Usb.USB_CONTROLLER_FLAVOR = 200
+UHCI_Piix4: win32more.Windows.Win32.Devices.Usb.USB_CONTROLLER_FLAVOR = 201
+UHCI_Piix3: win32more.Windows.Win32.Devices.Usb.USB_CONTROLLER_FLAVOR = 202
+UHCI_Ich2: win32more.Windows.Win32.Devices.Usb.USB_CONTROLLER_FLAVOR = 203
+UHCI_Reserved204: win32more.Windows.Win32.Devices.Usb.USB_CONTROLLER_FLAVOR = 204
+UHCI_Ich1: win32more.Windows.Win32.Devices.Usb.USB_CONTROLLER_FLAVOR = 205
+UHCI_Ich3m: win32more.Windows.Win32.Devices.Usb.USB_CONTROLLER_FLAVOR = 206
+UHCI_Ich4: win32more.Windows.Win32.Devices.Usb.USB_CONTROLLER_FLAVOR = 207
+UHCI_Ich5: win32more.Windows.Win32.Devices.Usb.USB_CONTROLLER_FLAVOR = 208
+UHCI_Ich6: win32more.Windows.Win32.Devices.Usb.USB_CONTROLLER_FLAVOR = 209
+UHCI_Intel: win32more.Windows.Win32.Devices.Usb.USB_CONTROLLER_FLAVOR = 249
+UHCI_VIA: win32more.Windows.Win32.Devices.Usb.USB_CONTROLLER_FLAVOR = 250
+UHCI_VIA_x01: win32more.Windows.Win32.Devices.Usb.USB_CONTROLLER_FLAVOR = 251
+UHCI_VIA_x02: win32more.Windows.Win32.Devices.Usb.USB_CONTROLLER_FLAVOR = 252
+UHCI_VIA_x03: win32more.Windows.Win32.Devices.Usb.USB_CONTROLLER_FLAVOR = 253
+UHCI_VIA_x04: win32more.Windows.Win32.Devices.Usb.USB_CONTROLLER_FLAVOR = 254
+UHCI_VIA_x0E_FIFO: win32more.Windows.Win32.Devices.Usb.USB_CONTROLLER_FLAVOR = 264
+EHCI_Generic: win32more.Windows.Win32.Devices.Usb.USB_CONTROLLER_FLAVOR = 1000
+EHCI_NEC: win32more.Windows.Win32.Devices.Usb.USB_CONTROLLER_FLAVOR = 2000
+EHCI_Lucent: win32more.Windows.Win32.Devices.Usb.USB_CONTROLLER_FLAVOR = 3000
+EHCI_NVIDIA_Tegra2: win32more.Windows.Win32.Devices.Usb.USB_CONTROLLER_FLAVOR = 4000
+EHCI_NVIDIA_Tegra3: win32more.Windows.Win32.Devices.Usb.USB_CONTROLLER_FLAVOR = 4001
+EHCI_Intel_Medfield: win32more.Windows.Win32.Devices.Usb.USB_CONTROLLER_FLAVOR = 5001
 class USB_CONTROLLER_INFO_0(EasyCastStructure):
     PciVendorId: UInt32
     PciDeviceId: UInt32
@@ -1480,10 +1479,10 @@ class USB_DEVICE_QUALIFIER_DESCRIPTOR(EasyCastStructure):
     bReserved: Byte
     _pack_ = 1
 USB_DEVICE_SPEED = Int32
-USB_DEVICE_SPEED_UsbLowSpeed: USB_DEVICE_SPEED = 0
-USB_DEVICE_SPEED_UsbFullSpeed: USB_DEVICE_SPEED = 1
-USB_DEVICE_SPEED_UsbHighSpeed: USB_DEVICE_SPEED = 2
-USB_DEVICE_SPEED_UsbSuperSpeed: USB_DEVICE_SPEED = 3
+USB_DEVICE_SPEED_UsbLowSpeed: win32more.Windows.Win32.Devices.Usb.USB_DEVICE_SPEED = 0
+USB_DEVICE_SPEED_UsbFullSpeed: win32more.Windows.Win32.Devices.Usb.USB_DEVICE_SPEED = 1
+USB_DEVICE_SPEED_UsbHighSpeed: win32more.Windows.Win32.Devices.Usb.USB_DEVICE_SPEED = 2
+USB_DEVICE_SPEED_UsbSuperSpeed: win32more.Windows.Win32.Devices.Usb.USB_DEVICE_SPEED = 3
 class USB_DEVICE_STATE(EasyCastStructure):
     _bitfield: UInt32
     _pack_ = 1
@@ -1495,8 +1494,8 @@ class USB_DEVICE_STATUS(EasyCastUnion):
         _bitfield: UInt16
         _pack_ = 1
 USB_DEVICE_TYPE = Int32
-USB_DEVICE_TYPE_Usb11Device: USB_DEVICE_TYPE = 0
-USB_DEVICE_TYPE_Usb20Device: USB_DEVICE_TYPE = 1
+USB_DEVICE_TYPE_Usb11Device: win32more.Windows.Win32.Devices.Usb.USB_DEVICE_TYPE = 0
+USB_DEVICE_TYPE_Usb20Device: win32more.Windows.Win32.Devices.Usb.USB_DEVICE_TYPE = 1
 class USB_DRIVER_VERSION_PARAMETERS(EasyCastStructure):
     DriverTrackingCode: UInt32
     USBDI_Version: UInt32
@@ -1616,8 +1615,8 @@ class USB_HUB_NAME(EasyCastStructure):
     HubName: Char * 1
     _pack_ = 1
 USB_HUB_NODE = Int32
-USB_HUB_NODE_UsbHub: USB_HUB_NODE = 0
-USB_HUB_NODE_UsbMIParent: USB_HUB_NODE = 1
+USB_HUB_NODE_UsbHub: win32more.Windows.Win32.Devices.Usb.USB_HUB_NODE = 0
+USB_HUB_NODE_UsbMIParent: win32more.Windows.Win32.Devices.Usb.USB_HUB_NODE = 1
 class USB_HUB_PORT_INFORMATION(EasyCastStructure):
     DeviceState: win32more.Windows.Win32.Devices.Usb.USB_DEVICE_STATE
     PortNumber: UInt16
@@ -1640,9 +1639,9 @@ class USB_HUB_STATUS_AND_CHANGE(EasyCastUnion):
         HubStatus: win32more.Windows.Win32.Devices.Usb.USB_HUB_STATUS
         HubChange: win32more.Windows.Win32.Devices.Usb.USB_HUB_CHANGE
 USB_HUB_TYPE = Int32
-USB_HUB_TYPE_UsbRootHub: USB_HUB_TYPE = 1
-USB_HUB_TYPE_Usb20Hub: USB_HUB_TYPE = 2
-USB_HUB_TYPE_Usb30Hub: USB_HUB_TYPE = 3
+USB_HUB_TYPE_UsbRootHub: win32more.Windows.Win32.Devices.Usb.USB_HUB_TYPE = 1
+USB_HUB_TYPE_Usb20Hub: win32more.Windows.Win32.Devices.Usb.USB_HUB_TYPE = 2
+USB_HUB_TYPE_Usb30Hub: win32more.Windows.Win32.Devices.Usb.USB_HUB_TYPE = 3
 @winfunctype_pointer
 def USB_IDLE_CALLBACK(Context: VoidPtr) -> Void: ...
 class USB_IDLE_CALLBACK_INFO(EasyCastStructure):
@@ -1758,18 +1757,18 @@ class USB_NOTIFICATION(EasyCastStructure):
     NotificationType: win32more.Windows.Win32.Devices.Usb.USB_NOTIFICATION_TYPE
     _pack_ = 1
 USB_NOTIFICATION_TYPE = Int32
-USB_NOTIFICATION_TYPE_EnumerationFailure: USB_NOTIFICATION_TYPE = 0
-USB_NOTIFICATION_TYPE_InsufficentBandwidth: USB_NOTIFICATION_TYPE = 1
-USB_NOTIFICATION_TYPE_InsufficentPower: USB_NOTIFICATION_TYPE = 2
-USB_NOTIFICATION_TYPE_OverCurrent: USB_NOTIFICATION_TYPE = 3
-USB_NOTIFICATION_TYPE_ResetOvercurrent: USB_NOTIFICATION_TYPE = 4
-USB_NOTIFICATION_TYPE_AcquireBusInfo: USB_NOTIFICATION_TYPE = 5
-USB_NOTIFICATION_TYPE_AcquireHubName: USB_NOTIFICATION_TYPE = 6
-USB_NOTIFICATION_TYPE_AcquireControllerName: USB_NOTIFICATION_TYPE = 7
-USB_NOTIFICATION_TYPE_HubOvercurrent: USB_NOTIFICATION_TYPE = 8
-USB_NOTIFICATION_TYPE_HubPowerChange: USB_NOTIFICATION_TYPE = 9
-USB_NOTIFICATION_TYPE_HubNestedTooDeeply: USB_NOTIFICATION_TYPE = 10
-USB_NOTIFICATION_TYPE_ModernDeviceInLegacyHub: USB_NOTIFICATION_TYPE = 11
+USB_NOTIFICATION_TYPE_EnumerationFailure: win32more.Windows.Win32.Devices.Usb.USB_NOTIFICATION_TYPE = 0
+USB_NOTIFICATION_TYPE_InsufficentBandwidth: win32more.Windows.Win32.Devices.Usb.USB_NOTIFICATION_TYPE = 1
+USB_NOTIFICATION_TYPE_InsufficentPower: win32more.Windows.Win32.Devices.Usb.USB_NOTIFICATION_TYPE = 2
+USB_NOTIFICATION_TYPE_OverCurrent: win32more.Windows.Win32.Devices.Usb.USB_NOTIFICATION_TYPE = 3
+USB_NOTIFICATION_TYPE_ResetOvercurrent: win32more.Windows.Win32.Devices.Usb.USB_NOTIFICATION_TYPE = 4
+USB_NOTIFICATION_TYPE_AcquireBusInfo: win32more.Windows.Win32.Devices.Usb.USB_NOTIFICATION_TYPE = 5
+USB_NOTIFICATION_TYPE_AcquireHubName: win32more.Windows.Win32.Devices.Usb.USB_NOTIFICATION_TYPE = 6
+USB_NOTIFICATION_TYPE_AcquireControllerName: win32more.Windows.Win32.Devices.Usb.USB_NOTIFICATION_TYPE = 7
+USB_NOTIFICATION_TYPE_HubOvercurrent: win32more.Windows.Win32.Devices.Usb.USB_NOTIFICATION_TYPE = 8
+USB_NOTIFICATION_TYPE_HubPowerChange: win32more.Windows.Win32.Devices.Usb.USB_NOTIFICATION_TYPE = 9
+USB_NOTIFICATION_TYPE_HubNestedTooDeeply: win32more.Windows.Win32.Devices.Usb.USB_NOTIFICATION_TYPE = 10
+USB_NOTIFICATION_TYPE_ModernDeviceInLegacyHub: win32more.Windows.Win32.Devices.Usb.USB_NOTIFICATION_TYPE = 11
 class USB_OPEN_RAW_DEVICE_PARAMETERS(EasyCastStructure):
     PortStatus: UInt16
     MaxPacketEp0: UInt16
@@ -1932,36 +1931,36 @@ class USB_USB2HW_VERSION_PARAMETERS(EasyCastStructure):
     Usb2HwRevision: Byte
     _pack_ = 1
 USB_USER_ERROR_CODE = Int32
-USB_USER_ERROR_CODE_UsbUserSuccess: USB_USER_ERROR_CODE = 0
-USB_USER_ERROR_CODE_UsbUserNotSupported: USB_USER_ERROR_CODE = 1
-USB_USER_ERROR_CODE_UsbUserInvalidRequestCode: USB_USER_ERROR_CODE = 2
-USB_USER_ERROR_CODE_UsbUserFeatureDisabled: USB_USER_ERROR_CODE = 3
-USB_USER_ERROR_CODE_UsbUserInvalidHeaderParameter: USB_USER_ERROR_CODE = 4
-USB_USER_ERROR_CODE_UsbUserInvalidParameter: USB_USER_ERROR_CODE = 5
-USB_USER_ERROR_CODE_UsbUserMiniportError: USB_USER_ERROR_CODE = 6
-USB_USER_ERROR_CODE_UsbUserBufferTooSmall: USB_USER_ERROR_CODE = 7
-USB_USER_ERROR_CODE_UsbUserErrorNotMapped: USB_USER_ERROR_CODE = 8
-USB_USER_ERROR_CODE_UsbUserDeviceNotStarted: USB_USER_ERROR_CODE = 9
-USB_USER_ERROR_CODE_UsbUserNoDeviceConnected: USB_USER_ERROR_CODE = 10
+USB_USER_ERROR_CODE_UsbUserSuccess: win32more.Windows.Win32.Devices.Usb.USB_USER_ERROR_CODE = 0
+USB_USER_ERROR_CODE_UsbUserNotSupported: win32more.Windows.Win32.Devices.Usb.USB_USER_ERROR_CODE = 1
+USB_USER_ERROR_CODE_UsbUserInvalidRequestCode: win32more.Windows.Win32.Devices.Usb.USB_USER_ERROR_CODE = 2
+USB_USER_ERROR_CODE_UsbUserFeatureDisabled: win32more.Windows.Win32.Devices.Usb.USB_USER_ERROR_CODE = 3
+USB_USER_ERROR_CODE_UsbUserInvalidHeaderParameter: win32more.Windows.Win32.Devices.Usb.USB_USER_ERROR_CODE = 4
+USB_USER_ERROR_CODE_UsbUserInvalidParameter: win32more.Windows.Win32.Devices.Usb.USB_USER_ERROR_CODE = 5
+USB_USER_ERROR_CODE_UsbUserMiniportError: win32more.Windows.Win32.Devices.Usb.USB_USER_ERROR_CODE = 6
+USB_USER_ERROR_CODE_UsbUserBufferTooSmall: win32more.Windows.Win32.Devices.Usb.USB_USER_ERROR_CODE = 7
+USB_USER_ERROR_CODE_UsbUserErrorNotMapped: win32more.Windows.Win32.Devices.Usb.USB_USER_ERROR_CODE = 8
+USB_USER_ERROR_CODE_UsbUserDeviceNotStarted: win32more.Windows.Win32.Devices.Usb.USB_USER_ERROR_CODE = 9
+USB_USER_ERROR_CODE_UsbUserNoDeviceConnected: win32more.Windows.Win32.Devices.Usb.USB_USER_ERROR_CODE = 10
 USB_WMI_DEVICE_NODE_TYPE = Int32
-USB_WMI_DEVICE_NODE_TYPE_UsbDevice: USB_WMI_DEVICE_NODE_TYPE = 0
-USB_WMI_DEVICE_NODE_TYPE_HubDevice: USB_WMI_DEVICE_NODE_TYPE = 1
-USB_WMI_DEVICE_NODE_TYPE_CompositeDevice: USB_WMI_DEVICE_NODE_TYPE = 2
-USB_WMI_DEVICE_NODE_TYPE_UsbController: USB_WMI_DEVICE_NODE_TYPE = 3
+USB_WMI_DEVICE_NODE_TYPE_UsbDevice: win32more.Windows.Win32.Devices.Usb.USB_WMI_DEVICE_NODE_TYPE = 0
+USB_WMI_DEVICE_NODE_TYPE_HubDevice: win32more.Windows.Win32.Devices.Usb.USB_WMI_DEVICE_NODE_TYPE = 1
+USB_WMI_DEVICE_NODE_TYPE_CompositeDevice: win32more.Windows.Win32.Devices.Usb.USB_WMI_DEVICE_NODE_TYPE = 2
+USB_WMI_DEVICE_NODE_TYPE_UsbController: win32more.Windows.Win32.Devices.Usb.USB_WMI_DEVICE_NODE_TYPE = 3
 WDMUSB_POWER_STATE = Int32
-WDMUSB_POWER_STATE_WdmUsbPowerNotMapped: WDMUSB_POWER_STATE = 0
-WDMUSB_POWER_STATE_WdmUsbPowerSystemUnspecified: WDMUSB_POWER_STATE = 100
-WDMUSB_POWER_STATE_WdmUsbPowerSystemWorking: WDMUSB_POWER_STATE = 101
-WDMUSB_POWER_STATE_WdmUsbPowerSystemSleeping1: WDMUSB_POWER_STATE = 102
-WDMUSB_POWER_STATE_WdmUsbPowerSystemSleeping2: WDMUSB_POWER_STATE = 103
-WDMUSB_POWER_STATE_WdmUsbPowerSystemSleeping3: WDMUSB_POWER_STATE = 104
-WDMUSB_POWER_STATE_WdmUsbPowerSystemHibernate: WDMUSB_POWER_STATE = 105
-WDMUSB_POWER_STATE_WdmUsbPowerSystemShutdown: WDMUSB_POWER_STATE = 106
-WDMUSB_POWER_STATE_WdmUsbPowerDeviceUnspecified: WDMUSB_POWER_STATE = 200
-WDMUSB_POWER_STATE_WdmUsbPowerDeviceD0: WDMUSB_POWER_STATE = 201
-WDMUSB_POWER_STATE_WdmUsbPowerDeviceD1: WDMUSB_POWER_STATE = 202
-WDMUSB_POWER_STATE_WdmUsbPowerDeviceD2: WDMUSB_POWER_STATE = 203
-WDMUSB_POWER_STATE_WdmUsbPowerDeviceD3: WDMUSB_POWER_STATE = 204
+WDMUSB_POWER_STATE_WdmUsbPowerNotMapped: win32more.Windows.Win32.Devices.Usb.WDMUSB_POWER_STATE = 0
+WDMUSB_POWER_STATE_WdmUsbPowerSystemUnspecified: win32more.Windows.Win32.Devices.Usb.WDMUSB_POWER_STATE = 100
+WDMUSB_POWER_STATE_WdmUsbPowerSystemWorking: win32more.Windows.Win32.Devices.Usb.WDMUSB_POWER_STATE = 101
+WDMUSB_POWER_STATE_WdmUsbPowerSystemSleeping1: win32more.Windows.Win32.Devices.Usb.WDMUSB_POWER_STATE = 102
+WDMUSB_POWER_STATE_WdmUsbPowerSystemSleeping2: win32more.Windows.Win32.Devices.Usb.WDMUSB_POWER_STATE = 103
+WDMUSB_POWER_STATE_WdmUsbPowerSystemSleeping3: win32more.Windows.Win32.Devices.Usb.WDMUSB_POWER_STATE = 104
+WDMUSB_POWER_STATE_WdmUsbPowerSystemHibernate: win32more.Windows.Win32.Devices.Usb.WDMUSB_POWER_STATE = 105
+WDMUSB_POWER_STATE_WdmUsbPowerSystemShutdown: win32more.Windows.Win32.Devices.Usb.WDMUSB_POWER_STATE = 106
+WDMUSB_POWER_STATE_WdmUsbPowerDeviceUnspecified: win32more.Windows.Win32.Devices.Usb.WDMUSB_POWER_STATE = 200
+WDMUSB_POWER_STATE_WdmUsbPowerDeviceD0: win32more.Windows.Win32.Devices.Usb.WDMUSB_POWER_STATE = 201
+WDMUSB_POWER_STATE_WdmUsbPowerDeviceD1: win32more.Windows.Win32.Devices.Usb.WDMUSB_POWER_STATE = 202
+WDMUSB_POWER_STATE_WdmUsbPowerDeviceD2: win32more.Windows.Win32.Devices.Usb.WDMUSB_POWER_STATE = 203
+WDMUSB_POWER_STATE_WdmUsbPowerDeviceD3: win32more.Windows.Win32.Devices.Usb.WDMUSB_POWER_STATE = 204
 WINUSB_INTERFACE_HANDLE = IntPtr
 class WINUSB_PIPE_INFORMATION(EasyCastStructure):
     PipeType: win32more.Windows.Win32.Devices.Usb.USBD_PIPE_TYPE
@@ -1975,18 +1974,18 @@ class WINUSB_PIPE_INFORMATION_EX(EasyCastStructure):
     Interval: Byte
     MaximumBytesPerInterval: UInt32
 WINUSB_PIPE_POLICY = UInt32
-SHORT_PACKET_TERMINATE: WINUSB_PIPE_POLICY = 1
-AUTO_CLEAR_STALL: WINUSB_PIPE_POLICY = 2
-PIPE_TRANSFER_TIMEOUT: WINUSB_PIPE_POLICY = 3
-IGNORE_SHORT_PACKETS: WINUSB_PIPE_POLICY = 4
-ALLOW_PARTIAL_READS: WINUSB_PIPE_POLICY = 5
-AUTO_FLUSH: WINUSB_PIPE_POLICY = 6
-RAW_IO: WINUSB_PIPE_POLICY = 7
-MAXIMUM_TRANSFER_SIZE: WINUSB_PIPE_POLICY = 8
-RESET_PIPE_ON_RESUME: WINUSB_PIPE_POLICY = 9
+SHORT_PACKET_TERMINATE: win32more.Windows.Win32.Devices.Usb.WINUSB_PIPE_POLICY = 1
+AUTO_CLEAR_STALL: win32more.Windows.Win32.Devices.Usb.WINUSB_PIPE_POLICY = 2
+PIPE_TRANSFER_TIMEOUT: win32more.Windows.Win32.Devices.Usb.WINUSB_PIPE_POLICY = 3
+IGNORE_SHORT_PACKETS: win32more.Windows.Win32.Devices.Usb.WINUSB_PIPE_POLICY = 4
+ALLOW_PARTIAL_READS: win32more.Windows.Win32.Devices.Usb.WINUSB_PIPE_POLICY = 5
+AUTO_FLUSH: win32more.Windows.Win32.Devices.Usb.WINUSB_PIPE_POLICY = 6
+RAW_IO: win32more.Windows.Win32.Devices.Usb.WINUSB_PIPE_POLICY = 7
+MAXIMUM_TRANSFER_SIZE: win32more.Windows.Win32.Devices.Usb.WINUSB_PIPE_POLICY = 8
+RESET_PIPE_ON_RESUME: win32more.Windows.Win32.Devices.Usb.WINUSB_PIPE_POLICY = 9
 WINUSB_POWER_POLICY = UInt32
-AUTO_SUSPEND: WINUSB_POWER_POLICY = 129
-SUSPEND_DELAY: WINUSB_POWER_POLICY = 131
+AUTO_SUSPEND: win32more.Windows.Win32.Devices.Usb.WINUSB_POWER_POLICY = 129
+SUSPEND_DELAY: win32more.Windows.Win32.Devices.Usb.WINUSB_POWER_POLICY = 131
 class WINUSB_SETUP_PACKET(EasyCastStructure):
     RequestType: Byte
     Request: Byte
@@ -2171,4 +2170,6 @@ class _URB_SELECT_INTERFACE(EasyCastStructure):
 class _URB_SET_FRAME_LENGTH(EasyCastStructure):
     Hdr: win32more.Windows.Win32.Devices.Usb._URB_HEADER
     FrameLengthDelta: Int32
+
+
 make_ready(__name__)

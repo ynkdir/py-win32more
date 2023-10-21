@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Management.MobileDeviceManagementRegistration
 MENROLL_E_DEVICE_MESSAGE_FORMAT_ERROR: win32more.Windows.Win32.Foundation.HRESULT = -2145910783
@@ -115,6 +114,8 @@ class MANAGEMENT_SERVICE_INFO(EasyCastStructure):
     pszMDMServiceUri: win32more.Windows.Win32.Foundation.PWSTR
     pszAuthenticationUri: win32more.Windows.Win32.Foundation.PWSTR
 REGISTRATION_INFORMATION_CLASS = Int32
-REGISTRATION_INFORMATION_CLASS_DeviceRegistrationBasicInfo: REGISTRATION_INFORMATION_CLASS = 1
-REGISTRATION_INFORMATION_CLASS_MaxDeviceInfoClass: REGISTRATION_INFORMATION_CLASS = 2
+REGISTRATION_INFORMATION_CLASS_DeviceRegistrationBasicInfo: win32more.Windows.Win32.Management.MobileDeviceManagementRegistration.REGISTRATION_INFORMATION_CLASS = 1
+REGISTRATION_INFORMATION_CLASS_MaxDeviceInfoClass: win32more.Windows.Win32.Management.MobileDeviceManagementRegistration.REGISTRATION_INFORMATION_CLASS = 2
+
+
 make_ready(__name__)

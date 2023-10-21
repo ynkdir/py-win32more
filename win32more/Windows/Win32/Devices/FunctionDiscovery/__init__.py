@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Devices.FunctionDiscovery
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
@@ -826,26 +825,28 @@ class IProviderQueryConstraintCollection(ComPtr):
 PNPXAssociation = Guid('{cee8ccc9-4f6b-4469-a235-5a22869eef03}')
 PNPXPairingHandler = Guid('{b8a27942-ade7-4085-aa6e-4fadc7ada1ef}')
 PropertyConstraint = Int32
-QC_EQUALS: PropertyConstraint = 0
-QC_NOTEQUAL: PropertyConstraint = 1
-QC_LESSTHAN: PropertyConstraint = 2
-QC_LESSTHANOREQUAL: PropertyConstraint = 3
-QC_GREATERTHAN: PropertyConstraint = 4
-QC_GREATERTHANOREQUAL: PropertyConstraint = 5
-QC_STARTSWITH: PropertyConstraint = 6
-QC_EXISTS: PropertyConstraint = 7
-QC_DOESNOTEXIST: PropertyConstraint = 8
-QC_CONTAINS: PropertyConstraint = 9
+QC_EQUALS: win32more.Windows.Win32.Devices.FunctionDiscovery.PropertyConstraint = 0
+QC_NOTEQUAL: win32more.Windows.Win32.Devices.FunctionDiscovery.PropertyConstraint = 1
+QC_LESSTHAN: win32more.Windows.Win32.Devices.FunctionDiscovery.PropertyConstraint = 2
+QC_LESSTHANOREQUAL: win32more.Windows.Win32.Devices.FunctionDiscovery.PropertyConstraint = 3
+QC_GREATERTHAN: win32more.Windows.Win32.Devices.FunctionDiscovery.PropertyConstraint = 4
+QC_GREATERTHANOREQUAL: win32more.Windows.Win32.Devices.FunctionDiscovery.PropertyConstraint = 5
+QC_STARTSWITH: win32more.Windows.Win32.Devices.FunctionDiscovery.PropertyConstraint = 6
+QC_EXISTS: win32more.Windows.Win32.Devices.FunctionDiscovery.PropertyConstraint = 7
+QC_DOESNOTEXIST: win32more.Windows.Win32.Devices.FunctionDiscovery.PropertyConstraint = 8
+QC_CONTAINS: win32more.Windows.Win32.Devices.FunctionDiscovery.PropertyConstraint = 9
 PropertyStore = Guid('{e4796550-df61-448b-9193-13fc1341b163}')
 PropertyStoreCollection = Guid('{edd36029-d753-4862-aa5b-5bccad2a4d29}')
 QueryCategoryType = Int32
-QCT_PROVIDER: QueryCategoryType = 0
-QCT_LAYERED: QueryCategoryType = 1
+QCT_PROVIDER: win32more.Windows.Win32.Devices.FunctionDiscovery.QueryCategoryType = 0
+QCT_LAYERED: win32more.Windows.Win32.Devices.FunctionDiscovery.QueryCategoryType = 1
 QueryUpdateAction = Int32
-QUA_ADD: QueryUpdateAction = 0
-QUA_REMOVE: QueryUpdateAction = 1
-QUA_CHANGE: QueryUpdateAction = 2
+QUA_ADD: win32more.Windows.Win32.Devices.FunctionDiscovery.QueryUpdateAction = 0
+QUA_REMOVE: win32more.Windows.Win32.Devices.FunctionDiscovery.QueryUpdateAction = 1
+QUA_CHANGE: win32more.Windows.Win32.Devices.FunctionDiscovery.QueryUpdateAction = 2
 SystemVisibilityFlags = Int32
-SVF_SYSTEM: SystemVisibilityFlags = 0
-SVF_USER: SystemVisibilityFlags = 1
+SVF_SYSTEM: win32more.Windows.Win32.Devices.FunctionDiscovery.SystemVisibilityFlags = 0
+SVF_USER: win32more.Windows.Win32.Devices.FunctionDiscovery.SystemVisibilityFlags = 1
+
+
 make_ready(__name__)

@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Diagnostics.Debug.ActiveScript
 import win32more.Windows.Win32.System.Js
@@ -189,66 +188,68 @@ def JsBackgroundWorkItemCallback(callbackState: VoidPtr) -> Void: ...
 @winfunctype_pointer
 def JsBeforeCollectCallback(callbackState: VoidPtr) -> Void: ...
 JsErrorCode = UInt32
-JsErrorCode_JsNoError: JsErrorCode = 0
-JsErrorCode_JsErrorCategoryUsage: JsErrorCode = 65536
-JsErrorCode_JsErrorInvalidArgument: JsErrorCode = 65537
-JsErrorCode_JsErrorNullArgument: JsErrorCode = 65538
-JsErrorCode_JsErrorNoCurrentContext: JsErrorCode = 65539
-JsErrorCode_JsErrorInExceptionState: JsErrorCode = 65540
-JsErrorCode_JsErrorNotImplemented: JsErrorCode = 65541
-JsErrorCode_JsErrorWrongThread: JsErrorCode = 65542
-JsErrorCode_JsErrorRuntimeInUse: JsErrorCode = 65543
-JsErrorCode_JsErrorBadSerializedScript: JsErrorCode = 65544
-JsErrorCode_JsErrorInDisabledState: JsErrorCode = 65545
-JsErrorCode_JsErrorCannotDisableExecution: JsErrorCode = 65546
-JsErrorCode_JsErrorHeapEnumInProgress: JsErrorCode = 65547
-JsErrorCode_JsErrorArgumentNotObject: JsErrorCode = 65548
-JsErrorCode_JsErrorInProfileCallback: JsErrorCode = 65549
-JsErrorCode_JsErrorInThreadServiceCallback: JsErrorCode = 65550
-JsErrorCode_JsErrorCannotSerializeDebugScript: JsErrorCode = 65551
-JsErrorCode_JsErrorAlreadyDebuggingContext: JsErrorCode = 65552
-JsErrorCode_JsErrorAlreadyProfilingContext: JsErrorCode = 65553
-JsErrorCode_JsErrorIdleNotEnabled: JsErrorCode = 65554
-JsErrorCode_JsErrorCategoryEngine: JsErrorCode = 131072
-JsErrorCode_JsErrorOutOfMemory: JsErrorCode = 131073
-JsErrorCode_JsErrorCategoryScript: JsErrorCode = 196608
-JsErrorCode_JsErrorScriptException: JsErrorCode = 196609
-JsErrorCode_JsErrorScriptCompile: JsErrorCode = 196610
-JsErrorCode_JsErrorScriptTerminated: JsErrorCode = 196611
-JsErrorCode_JsErrorScriptEvalDisabled: JsErrorCode = 196612
-JsErrorCode_JsErrorCategoryFatal: JsErrorCode = 262144
-JsErrorCode_JsErrorFatal: JsErrorCode = 262145
+JsErrorCode_JsNoError: win32more.Windows.Win32.System.Js.JsErrorCode = 0
+JsErrorCode_JsErrorCategoryUsage: win32more.Windows.Win32.System.Js.JsErrorCode = 65536
+JsErrorCode_JsErrorInvalidArgument: win32more.Windows.Win32.System.Js.JsErrorCode = 65537
+JsErrorCode_JsErrorNullArgument: win32more.Windows.Win32.System.Js.JsErrorCode = 65538
+JsErrorCode_JsErrorNoCurrentContext: win32more.Windows.Win32.System.Js.JsErrorCode = 65539
+JsErrorCode_JsErrorInExceptionState: win32more.Windows.Win32.System.Js.JsErrorCode = 65540
+JsErrorCode_JsErrorNotImplemented: win32more.Windows.Win32.System.Js.JsErrorCode = 65541
+JsErrorCode_JsErrorWrongThread: win32more.Windows.Win32.System.Js.JsErrorCode = 65542
+JsErrorCode_JsErrorRuntimeInUse: win32more.Windows.Win32.System.Js.JsErrorCode = 65543
+JsErrorCode_JsErrorBadSerializedScript: win32more.Windows.Win32.System.Js.JsErrorCode = 65544
+JsErrorCode_JsErrorInDisabledState: win32more.Windows.Win32.System.Js.JsErrorCode = 65545
+JsErrorCode_JsErrorCannotDisableExecution: win32more.Windows.Win32.System.Js.JsErrorCode = 65546
+JsErrorCode_JsErrorHeapEnumInProgress: win32more.Windows.Win32.System.Js.JsErrorCode = 65547
+JsErrorCode_JsErrorArgumentNotObject: win32more.Windows.Win32.System.Js.JsErrorCode = 65548
+JsErrorCode_JsErrorInProfileCallback: win32more.Windows.Win32.System.Js.JsErrorCode = 65549
+JsErrorCode_JsErrorInThreadServiceCallback: win32more.Windows.Win32.System.Js.JsErrorCode = 65550
+JsErrorCode_JsErrorCannotSerializeDebugScript: win32more.Windows.Win32.System.Js.JsErrorCode = 65551
+JsErrorCode_JsErrorAlreadyDebuggingContext: win32more.Windows.Win32.System.Js.JsErrorCode = 65552
+JsErrorCode_JsErrorAlreadyProfilingContext: win32more.Windows.Win32.System.Js.JsErrorCode = 65553
+JsErrorCode_JsErrorIdleNotEnabled: win32more.Windows.Win32.System.Js.JsErrorCode = 65554
+JsErrorCode_JsErrorCategoryEngine: win32more.Windows.Win32.System.Js.JsErrorCode = 131072
+JsErrorCode_JsErrorOutOfMemory: win32more.Windows.Win32.System.Js.JsErrorCode = 131073
+JsErrorCode_JsErrorCategoryScript: win32more.Windows.Win32.System.Js.JsErrorCode = 196608
+JsErrorCode_JsErrorScriptException: win32more.Windows.Win32.System.Js.JsErrorCode = 196609
+JsErrorCode_JsErrorScriptCompile: win32more.Windows.Win32.System.Js.JsErrorCode = 196610
+JsErrorCode_JsErrorScriptTerminated: win32more.Windows.Win32.System.Js.JsErrorCode = 196611
+JsErrorCode_JsErrorScriptEvalDisabled: win32more.Windows.Win32.System.Js.JsErrorCode = 196612
+JsErrorCode_JsErrorCategoryFatal: win32more.Windows.Win32.System.Js.JsErrorCode = 262144
+JsErrorCode_JsErrorFatal: win32more.Windows.Win32.System.Js.JsErrorCode = 262145
 @winfunctype_pointer
 def JsFinalizeCallback(data: VoidPtr) -> Void: ...
 @winfunctype_pointer
 def JsMemoryAllocationCallback(callbackState: VoidPtr, allocationEvent: win32more.Windows.Win32.System.Js.JsMemoryEventType, allocationSize: UIntPtr) -> Boolean: ...
 JsMemoryEventType = Int32
-JsMemoryEventType_JsMemoryAllocate: JsMemoryEventType = 0
-JsMemoryEventType_JsMemoryFree: JsMemoryEventType = 1
-JsMemoryEventType_JsMemoryFailure: JsMemoryEventType = 2
+JsMemoryEventType_JsMemoryAllocate: win32more.Windows.Win32.System.Js.JsMemoryEventType = 0
+JsMemoryEventType_JsMemoryFree: win32more.Windows.Win32.System.Js.JsMemoryEventType = 1
+JsMemoryEventType_JsMemoryFailure: win32more.Windows.Win32.System.Js.JsMemoryEventType = 2
 @winfunctype_pointer
 def JsNativeFunction(callee: VoidPtr, isConstructCall: Boolean, arguments: POINTER(VoidPtr), argumentCount: UInt16, callbackState: VoidPtr) -> VoidPtr: ...
 JsRuntimeAttributes = Int32
-JsRuntimeAttributes_JsRuntimeAttributeNone: JsRuntimeAttributes = 0
-JsRuntimeAttributes_JsRuntimeAttributeDisableBackgroundWork: JsRuntimeAttributes = 1
-JsRuntimeAttributes_JsRuntimeAttributeAllowScriptInterrupt: JsRuntimeAttributes = 2
-JsRuntimeAttributes_JsRuntimeAttributeEnableIdleProcessing: JsRuntimeAttributes = 4
-JsRuntimeAttributes_JsRuntimeAttributeDisableNativeCodeGeneration: JsRuntimeAttributes = 8
-JsRuntimeAttributes_JsRuntimeAttributeDisableEval: JsRuntimeAttributes = 16
+JsRuntimeAttributes_JsRuntimeAttributeNone: win32more.Windows.Win32.System.Js.JsRuntimeAttributes = 0
+JsRuntimeAttributes_JsRuntimeAttributeDisableBackgroundWork: win32more.Windows.Win32.System.Js.JsRuntimeAttributes = 1
+JsRuntimeAttributes_JsRuntimeAttributeAllowScriptInterrupt: win32more.Windows.Win32.System.Js.JsRuntimeAttributes = 2
+JsRuntimeAttributes_JsRuntimeAttributeEnableIdleProcessing: win32more.Windows.Win32.System.Js.JsRuntimeAttributes = 4
+JsRuntimeAttributes_JsRuntimeAttributeDisableNativeCodeGeneration: win32more.Windows.Win32.System.Js.JsRuntimeAttributes = 8
+JsRuntimeAttributes_JsRuntimeAttributeDisableEval: win32more.Windows.Win32.System.Js.JsRuntimeAttributes = 16
 JsRuntimeVersion = Int32
-JsRuntimeVersion_JsRuntimeVersion10: JsRuntimeVersion = 0
-JsRuntimeVersion_JsRuntimeVersion11: JsRuntimeVersion = 1
-JsRuntimeVersion_JsRuntimeVersionEdge: JsRuntimeVersion = -1
+JsRuntimeVersion_JsRuntimeVersion10: win32more.Windows.Win32.System.Js.JsRuntimeVersion = 0
+JsRuntimeVersion_JsRuntimeVersion11: win32more.Windows.Win32.System.Js.JsRuntimeVersion = 1
+JsRuntimeVersion_JsRuntimeVersionEdge: win32more.Windows.Win32.System.Js.JsRuntimeVersion = -1
 @winfunctype_pointer
 def JsThreadServiceCallback(callback: win32more.Windows.Win32.System.Js.JsBackgroundWorkItemCallback, callbackState: VoidPtr) -> Boolean: ...
 JsValueType = Int32
-JsValueType_JsUndefined: JsValueType = 0
-JsValueType_JsNull: JsValueType = 1
-JsValueType_JsNumber: JsValueType = 2
-JsValueType_JsString: JsValueType = 3
-JsValueType_JsBoolean: JsValueType = 4
-JsValueType_JsObject: JsValueType = 5
-JsValueType_JsFunction: JsValueType = 6
-JsValueType_JsError: JsValueType = 7
-JsValueType_JsArray: JsValueType = 8
+JsValueType_JsUndefined: win32more.Windows.Win32.System.Js.JsValueType = 0
+JsValueType_JsNull: win32more.Windows.Win32.System.Js.JsValueType = 1
+JsValueType_JsNumber: win32more.Windows.Win32.System.Js.JsValueType = 2
+JsValueType_JsString: win32more.Windows.Win32.System.Js.JsValueType = 3
+JsValueType_JsBoolean: win32more.Windows.Win32.System.Js.JsValueType = 4
+JsValueType_JsObject: win32more.Windows.Win32.System.Js.JsValueType = 5
+JsValueType_JsFunction: win32more.Windows.Win32.System.Js.JsValueType = 6
+JsValueType_JsError: win32more.Windows.Win32.System.Js.JsValueType = 7
+JsValueType_JsArray: win32more.Windows.Win32.System.Js.JsValueType = 8
+
+
 make_ready(__name__)

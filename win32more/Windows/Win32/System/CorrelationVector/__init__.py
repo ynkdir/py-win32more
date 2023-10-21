@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.CorrelationVector
 RTL_CORRELATION_VECTOR_STRING_LENGTH: UInt32 = 129
@@ -19,4 +18,6 @@ def RtlValidateCorrelationVector(Vector: POINTER(win32more.Windows.Win32.System.
 class CORRELATION_VECTOR(EasyCastStructure):
     Version: win32more.Windows.Win32.Foundation.CHAR
     Vector: win32more.Windows.Win32.Foundation.CHAR * 129
+
+
 make_ready(__name__)

@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Direct2D
 import win32more.Windows.Win32.Graphics.Imaging
@@ -20,4 +19,6 @@ class IWICImagingFactory2(ComPtr):
     _iid_ = Guid('{7b816b45-1996-4476-b132-de9e247c8af0}')
     @commethod(28)
     def CreateImageEncoder(self, pD2DDevice: win32more.Windows.Win32.Graphics.Direct2D.ID2D1Device, ppWICImageEncoder: POINTER(win32more.Windows.Win32.Graphics.Imaging.D2D.IWICImageEncoder)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+
+
 make_ready(__name__)

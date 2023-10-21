@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.Media.PictureAcquisition
@@ -56,26 +55,26 @@ PAPS_PRESAVE: UInt32 = 0
 PAPS_POSTSAVE: UInt32 = 1
 PAPS_CLEANUP: UInt32 = 2
 DEVICE_SELECTION_DEVICE_TYPE = Int32
-DST_UNKNOWN_DEVICE: DEVICE_SELECTION_DEVICE_TYPE = 0
-DST_WPD_DEVICE: DEVICE_SELECTION_DEVICE_TYPE = 1
-DST_WIA_DEVICE: DEVICE_SELECTION_DEVICE_TYPE = 2
-DST_STI_DEVICE: DEVICE_SELECTION_DEVICE_TYPE = 3
-DSF_TWAIN_DEVICE: DEVICE_SELECTION_DEVICE_TYPE = 4
-DST_FS_DEVICE: DEVICE_SELECTION_DEVICE_TYPE = 5
-DST_DV_DEVICE: DEVICE_SELECTION_DEVICE_TYPE = 6
+DST_UNKNOWN_DEVICE: win32more.Windows.Win32.Media.PictureAcquisition.DEVICE_SELECTION_DEVICE_TYPE = 0
+DST_WPD_DEVICE: win32more.Windows.Win32.Media.PictureAcquisition.DEVICE_SELECTION_DEVICE_TYPE = 1
+DST_WIA_DEVICE: win32more.Windows.Win32.Media.PictureAcquisition.DEVICE_SELECTION_DEVICE_TYPE = 2
+DST_STI_DEVICE: win32more.Windows.Win32.Media.PictureAcquisition.DEVICE_SELECTION_DEVICE_TYPE = 3
+DSF_TWAIN_DEVICE: win32more.Windows.Win32.Media.PictureAcquisition.DEVICE_SELECTION_DEVICE_TYPE = 4
+DST_FS_DEVICE: win32more.Windows.Win32.Media.PictureAcquisition.DEVICE_SELECTION_DEVICE_TYPE = 5
+DST_DV_DEVICE: win32more.Windows.Win32.Media.PictureAcquisition.DEVICE_SELECTION_DEVICE_TYPE = 6
 ERROR_ADVISE_MESSAGE_TYPE = Int32
-PHOTOACQUIRE_ERROR_SKIPRETRYCANCEL: ERROR_ADVISE_MESSAGE_TYPE = 0
-PHOTOACQUIRE_ERROR_RETRYCANCEL: ERROR_ADVISE_MESSAGE_TYPE = 1
-PHOTOACQUIRE_ERROR_YESNO: ERROR_ADVISE_MESSAGE_TYPE = 2
-PHOTOACQUIRE_ERROR_OK: ERROR_ADVISE_MESSAGE_TYPE = 3
+PHOTOACQUIRE_ERROR_SKIPRETRYCANCEL: win32more.Windows.Win32.Media.PictureAcquisition.ERROR_ADVISE_MESSAGE_TYPE = 0
+PHOTOACQUIRE_ERROR_RETRYCANCEL: win32more.Windows.Win32.Media.PictureAcquisition.ERROR_ADVISE_MESSAGE_TYPE = 1
+PHOTOACQUIRE_ERROR_YESNO: win32more.Windows.Win32.Media.PictureAcquisition.ERROR_ADVISE_MESSAGE_TYPE = 2
+PHOTOACQUIRE_ERROR_OK: win32more.Windows.Win32.Media.PictureAcquisition.ERROR_ADVISE_MESSAGE_TYPE = 3
 ERROR_ADVISE_RESULT = Int32
-PHOTOACQUIRE_RESULT_YES: ERROR_ADVISE_RESULT = 0
-PHOTOACQUIRE_RESULT_NO: ERROR_ADVISE_RESULT = 1
-PHOTOACQUIRE_RESULT_OK: ERROR_ADVISE_RESULT = 2
-PHOTOACQUIRE_RESULT_SKIP: ERROR_ADVISE_RESULT = 3
-PHOTOACQUIRE_RESULT_SKIP_ALL: ERROR_ADVISE_RESULT = 4
-PHOTOACQUIRE_RESULT_RETRY: ERROR_ADVISE_RESULT = 5
-PHOTOACQUIRE_RESULT_ABORT: ERROR_ADVISE_RESULT = 6
+PHOTOACQUIRE_RESULT_YES: win32more.Windows.Win32.Media.PictureAcquisition.ERROR_ADVISE_RESULT = 0
+PHOTOACQUIRE_RESULT_NO: win32more.Windows.Win32.Media.PictureAcquisition.ERROR_ADVISE_RESULT = 1
+PHOTOACQUIRE_RESULT_OK: win32more.Windows.Win32.Media.PictureAcquisition.ERROR_ADVISE_RESULT = 2
+PHOTOACQUIRE_RESULT_SKIP: win32more.Windows.Win32.Media.PictureAcquisition.ERROR_ADVISE_RESULT = 3
+PHOTOACQUIRE_RESULT_SKIP_ALL: win32more.Windows.Win32.Media.PictureAcquisition.ERROR_ADVISE_RESULT = 4
+PHOTOACQUIRE_RESULT_RETRY: win32more.Windows.Win32.Media.PictureAcquisition.ERROR_ADVISE_RESULT = 5
+PHOTOACQUIRE_RESULT_ABORT: win32more.Windows.Win32.Media.PictureAcquisition.ERROR_ADVISE_RESULT = 6
 class IPhotoAcquire(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{00f23353-e31b-4955-a8ad-ca5ebf31e2ce}')
@@ -296,12 +295,12 @@ class IUserInputString(ComPtr):
     @commethod(12)
     def GetImage(self, nSize: UInt32, phBitmap: POINTER(win32more.Windows.Win32.Graphics.Gdi.HBITMAP), phIcon: POINTER(win32more.Windows.Win32.UI.WindowsAndMessaging.HICON)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 PROGRESS_DIALOG_CHECKBOX_ID = Int32
-PROGRESS_DIALOG_CHECKBOX_ID_DEFAULT: PROGRESS_DIALOG_CHECKBOX_ID = 0
+PROGRESS_DIALOG_CHECKBOX_ID_DEFAULT: win32more.Windows.Win32.Media.PictureAcquisition.PROGRESS_DIALOG_CHECKBOX_ID = 0
 PROGRESS_DIALOG_IMAGE_TYPE = Int32
-PROGRESS_DIALOG_ICON_SMALL: PROGRESS_DIALOG_IMAGE_TYPE = 0
-PROGRESS_DIALOG_ICON_LARGE: PROGRESS_DIALOG_IMAGE_TYPE = 1
-PROGRESS_DIALOG_ICON_THUMBNAIL: PROGRESS_DIALOG_IMAGE_TYPE = 2
-PROGRESS_DIALOG_BITMAP_THUMBNAIL: PROGRESS_DIALOG_IMAGE_TYPE = 3
+PROGRESS_DIALOG_ICON_SMALL: win32more.Windows.Win32.Media.PictureAcquisition.PROGRESS_DIALOG_IMAGE_TYPE = 0
+PROGRESS_DIALOG_ICON_LARGE: win32more.Windows.Win32.Media.PictureAcquisition.PROGRESS_DIALOG_IMAGE_TYPE = 1
+PROGRESS_DIALOG_ICON_THUMBNAIL: win32more.Windows.Win32.Media.PictureAcquisition.PROGRESS_DIALOG_IMAGE_TYPE = 2
+PROGRESS_DIALOG_BITMAP_THUMBNAIL: win32more.Windows.Win32.Media.PictureAcquisition.PROGRESS_DIALOG_IMAGE_TYPE = 3
 PhotoAcquire = Guid('{00f26e02-e9f2-4a9f-9fdd-5a962fb26a98}')
 PhotoAcquireAutoPlayDropTarget = Guid('{00f20eb5-8fd6-4d9d-b75e-36801766c8f1}')
 PhotoAcquireAutoPlayHWEventHandler = Guid('{00f2b433-44e4-4d88-b2b0-2698a0a91dba}')
@@ -309,6 +308,8 @@ PhotoAcquireDeviceSelectionDialog = Guid('{00f29a34-b8a1-482c-bcf8-3ac7b0fe8f62}
 PhotoAcquireOptionsDialog = Guid('{00f210a1-62f0-438b-9f7e-9618d72a1831}')
 PhotoProgressDialog = Guid('{00f24ca0-748f-4e8a-894f-0e0357c6799f}')
 USER_INPUT_STRING_TYPE = Int32
-USER_INPUT_DEFAULT: USER_INPUT_STRING_TYPE = 0
-USER_INPUT_PATH_ELEMENT: USER_INPUT_STRING_TYPE = 1
+USER_INPUT_DEFAULT: win32more.Windows.Win32.Media.PictureAcquisition.USER_INPUT_STRING_TYPE = 0
+USER_INPUT_PATH_ELEMENT: win32more.Windows.Win32.Media.PictureAcquisition.USER_INPUT_STRING_TYPE = 1
+
+
 make_ready(__name__)

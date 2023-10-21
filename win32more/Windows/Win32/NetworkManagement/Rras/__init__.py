@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.NetworkManagement.IpHelper
 import win32more.Windows.Win32.NetworkManagement.Rras
@@ -1297,19 +1296,19 @@ class IKEV2_CONFIG_PARAMS(EasyCastStructure):
     dwTunnelConfigParamFlags: UInt32
     TunnelConfigParams: win32more.Windows.Win32.NetworkManagement.Rras.IKEV2_TUNNEL_CONFIG_PARAMS4
 IKEV2_ID_PAYLOAD_TYPE = Int32
-IKEV2_ID_PAYLOAD_TYPE_INVALID: IKEV2_ID_PAYLOAD_TYPE = 0
-IKEV2_ID_PAYLOAD_TYPE_IPV4_ADDR: IKEV2_ID_PAYLOAD_TYPE = 1
-IKEV2_ID_PAYLOAD_TYPE_FQDN: IKEV2_ID_PAYLOAD_TYPE = 2
-IKEV2_ID_PAYLOAD_TYPE_RFC822_ADDR: IKEV2_ID_PAYLOAD_TYPE = 3
-IKEV2_ID_PAYLOAD_TYPE_RESERVED1: IKEV2_ID_PAYLOAD_TYPE = 4
-IKEV2_ID_PAYLOAD_TYPE_ID_IPV6_ADDR: IKEV2_ID_PAYLOAD_TYPE = 5
-IKEV2_ID_PAYLOAD_TYPE_RESERVED2: IKEV2_ID_PAYLOAD_TYPE = 6
-IKEV2_ID_PAYLOAD_TYPE_RESERVED3: IKEV2_ID_PAYLOAD_TYPE = 7
-IKEV2_ID_PAYLOAD_TYPE_RESERVED4: IKEV2_ID_PAYLOAD_TYPE = 8
-IKEV2_ID_PAYLOAD_TYPE_DER_ASN1_DN: IKEV2_ID_PAYLOAD_TYPE = 9
-IKEV2_ID_PAYLOAD_TYPE_DER_ASN1_GN: IKEV2_ID_PAYLOAD_TYPE = 10
-IKEV2_ID_PAYLOAD_TYPE_KEY_ID: IKEV2_ID_PAYLOAD_TYPE = 11
-IKEV2_ID_PAYLOAD_TYPE_MAX: IKEV2_ID_PAYLOAD_TYPE = 12
+IKEV2_ID_PAYLOAD_TYPE_INVALID: win32more.Windows.Win32.NetworkManagement.Rras.IKEV2_ID_PAYLOAD_TYPE = 0
+IKEV2_ID_PAYLOAD_TYPE_IPV4_ADDR: win32more.Windows.Win32.NetworkManagement.Rras.IKEV2_ID_PAYLOAD_TYPE = 1
+IKEV2_ID_PAYLOAD_TYPE_FQDN: win32more.Windows.Win32.NetworkManagement.Rras.IKEV2_ID_PAYLOAD_TYPE = 2
+IKEV2_ID_PAYLOAD_TYPE_RFC822_ADDR: win32more.Windows.Win32.NetworkManagement.Rras.IKEV2_ID_PAYLOAD_TYPE = 3
+IKEV2_ID_PAYLOAD_TYPE_RESERVED1: win32more.Windows.Win32.NetworkManagement.Rras.IKEV2_ID_PAYLOAD_TYPE = 4
+IKEV2_ID_PAYLOAD_TYPE_ID_IPV6_ADDR: win32more.Windows.Win32.NetworkManagement.Rras.IKEV2_ID_PAYLOAD_TYPE = 5
+IKEV2_ID_PAYLOAD_TYPE_RESERVED2: win32more.Windows.Win32.NetworkManagement.Rras.IKEV2_ID_PAYLOAD_TYPE = 6
+IKEV2_ID_PAYLOAD_TYPE_RESERVED3: win32more.Windows.Win32.NetworkManagement.Rras.IKEV2_ID_PAYLOAD_TYPE = 7
+IKEV2_ID_PAYLOAD_TYPE_RESERVED4: win32more.Windows.Win32.NetworkManagement.Rras.IKEV2_ID_PAYLOAD_TYPE = 8
+IKEV2_ID_PAYLOAD_TYPE_DER_ASN1_DN: win32more.Windows.Win32.NetworkManagement.Rras.IKEV2_ID_PAYLOAD_TYPE = 9
+IKEV2_ID_PAYLOAD_TYPE_DER_ASN1_GN: win32more.Windows.Win32.NetworkManagement.Rras.IKEV2_ID_PAYLOAD_TYPE = 10
+IKEV2_ID_PAYLOAD_TYPE_KEY_ID: win32more.Windows.Win32.NetworkManagement.Rras.IKEV2_ID_PAYLOAD_TYPE = 11
+IKEV2_ID_PAYLOAD_TYPE_MAX: win32more.Windows.Win32.NetworkManagement.Rras.IKEV2_ID_PAYLOAD_TYPE = 12
 class IKEV2_PROJECTION_INFO(EasyCastStructure):
     dwIPv4NegotiationError: UInt32
     wszAddress: Char * 16
@@ -1405,8 +1404,8 @@ class L2TP_TUNNEL_CONFIG_PARAMS2(EasyCastStructure):
     customPolicy: POINTER(win32more.Windows.Win32.NetworkManagement.Rras.ROUTER_CUSTOM_IKEv2_POLICY0)
     dwMmSaLifeTime: UInt32
 MGM_ENUM_TYPES = Int32
-ANY_SOURCE: MGM_ENUM_TYPES = 0
-ALL_SOURCES: MGM_ENUM_TYPES = 1
+ANY_SOURCE: win32more.Windows.Win32.NetworkManagement.Rras.MGM_ENUM_TYPES = 0
+ALL_SOURCES: win32more.Windows.Win32.NetworkManagement.Rras.MGM_ENUM_TYPES = 1
 class MGM_IF_ENTRY(EasyCastStructure):
     dwIfIndex: UInt32
     dwIfNextHopAddr: UInt32
@@ -1431,12 +1430,12 @@ class MPRAPI_OBJECT_HEADER(EasyCastStructure):
     type: Byte
     size: UInt16
 MPRAPI_OBJECT_TYPE = Int32
-MPRAPI_OBJECT_TYPE_RAS_CONNECTION_OBJECT: MPRAPI_OBJECT_TYPE = 1
-MPRAPI_OBJECT_TYPE_MPR_SERVER_OBJECT: MPRAPI_OBJECT_TYPE = 2
-MPRAPI_OBJECT_TYPE_MPR_SERVER_SET_CONFIG_OBJECT: MPRAPI_OBJECT_TYPE = 3
-MPRAPI_OBJECT_TYPE_AUTH_VALIDATION_OBJECT: MPRAPI_OBJECT_TYPE = 4
-MPRAPI_OBJECT_TYPE_UPDATE_CONNECTION_OBJECT: MPRAPI_OBJECT_TYPE = 5
-MPRAPI_OBJECT_TYPE_IF_CUSTOM_CONFIG_OBJECT: MPRAPI_OBJECT_TYPE = 6
+MPRAPI_OBJECT_TYPE_RAS_CONNECTION_OBJECT: win32more.Windows.Win32.NetworkManagement.Rras.MPRAPI_OBJECT_TYPE = 1
+MPRAPI_OBJECT_TYPE_MPR_SERVER_OBJECT: win32more.Windows.Win32.NetworkManagement.Rras.MPRAPI_OBJECT_TYPE = 2
+MPRAPI_OBJECT_TYPE_MPR_SERVER_SET_CONFIG_OBJECT: win32more.Windows.Win32.NetworkManagement.Rras.MPRAPI_OBJECT_TYPE = 3
+MPRAPI_OBJECT_TYPE_AUTH_VALIDATION_OBJECT: win32more.Windows.Win32.NetworkManagement.Rras.MPRAPI_OBJECT_TYPE = 4
+MPRAPI_OBJECT_TYPE_UPDATE_CONNECTION_OBJECT: win32more.Windows.Win32.NetworkManagement.Rras.MPRAPI_OBJECT_TYPE = 5
+MPRAPI_OBJECT_TYPE_IF_CUSTOM_CONFIG_OBJECT: win32more.Windows.Win32.NetworkManagement.Rras.MPRAPI_OBJECT_TYPE = 6
 class MPRAPI_TUNNEL_CONFIG_PARAMS0(EasyCastStructure):
     IkeConfigParams: win32more.Windows.Win32.NetworkManagement.Rras.IKEV2_CONFIG_PARAMS
     PptpConfigParams: win32more.Windows.Win32.NetworkManagement.Rras.PPTP_CONFIG_PARAMS
@@ -1467,10 +1466,10 @@ class MPR_DEVICE_1(EasyCastStructure):
     szLocalPhoneNumber: Char * 129
     szAlternates: win32more.Windows.Win32.Foundation.PWSTR
 MPR_ET = UInt32
-MPR_ET_None: MPR_ET = 0
-MPR_ET_Require: MPR_ET = 1
-MPR_ET_RequireMax: MPR_ET = 2
-MPR_ET_Optional: MPR_ET = 3
+MPR_ET_None: win32more.Windows.Win32.NetworkManagement.Rras.MPR_ET = 0
+MPR_ET_Require: win32more.Windows.Win32.NetworkManagement.Rras.MPR_ET = 1
+MPR_ET_RequireMax: win32more.Windows.Win32.NetworkManagement.Rras.MPR_ET = 2
+MPR_ET_Optional: win32more.Windows.Win32.NetworkManagement.Rras.MPR_ET = 3
 class MPR_FILTER_0(EasyCastStructure):
     fEnable: win32more.Windows.Win32.Foundation.BOOL
 class MPR_IFTRANSPORT_0(EasyCastStructure):
@@ -1587,9 +1586,9 @@ class MPR_INTERFACE_3(EasyCastStructure):
     ipv6addrDnsAlt: win32more.Windows.Win32.Networking.WinSock.IN6_ADDR
     ipv6addr: POINTER(win32more.Windows.Win32.Networking.WinSock.IN6_ADDR)
 MPR_INTERFACE_DIAL_MODE = UInt32
-MPRDM_DialFirst: MPR_INTERFACE_DIAL_MODE = 0
-MPRDM_DialAll: MPR_INTERFACE_DIAL_MODE = 1
-MPRDM_DialAsNeeded: MPR_INTERFACE_DIAL_MODE = 2
+MPRDM_DialFirst: win32more.Windows.Win32.NetworkManagement.Rras.MPR_INTERFACE_DIAL_MODE = 0
+MPRDM_DialAll: win32more.Windows.Win32.NetworkManagement.Rras.MPR_INTERFACE_DIAL_MODE = 1
+MPRDM_DialAsNeeded: win32more.Windows.Win32.NetworkManagement.Rras.MPR_INTERFACE_DIAL_MODE = 2
 class MPR_IPINIP_INTERFACE_0(EasyCastStructure):
     wszFriendlyName: Char * 257
     Guid: Guid
@@ -1652,14 +1651,14 @@ class MPR_VPN_TRAFFIC_SELECTORS(EasyCastStructure):
     tsI: POINTER(win32more.Windows.Win32.NetworkManagement.Rras.MPR_VPN_TRAFFIC_SELECTOR)
     tsR: POINTER(win32more.Windows.Win32.NetworkManagement.Rras.MPR_VPN_TRAFFIC_SELECTOR)
 MPR_VPN_TS_TYPE = Int32
-MPR_VPN_TS_IPv4_ADDR_RANGE: MPR_VPN_TS_TYPE = 7
-MPR_VPN_TS_IPv6_ADDR_RANGE: MPR_VPN_TS_TYPE = 8
+MPR_VPN_TS_IPv4_ADDR_RANGE: win32more.Windows.Win32.NetworkManagement.Rras.MPR_VPN_TS_TYPE = 7
+MPR_VPN_TS_IPv6_ADDR_RANGE: win32more.Windows.Win32.NetworkManagement.Rras.MPR_VPN_TS_TYPE = 8
 MPR_VS = UInt32
-MPR_VS_Default: MPR_VS = 0
-MPR_VS_PptpOnly: MPR_VS = 1
-MPR_VS_PptpFirst: MPR_VS = 2
-MPR_VS_L2tpOnly: MPR_VS = 3
-MPR_VS_L2tpFirst: MPR_VS = 4
+MPR_VS_Default: win32more.Windows.Win32.NetworkManagement.Rras.MPR_VS = 0
+MPR_VS_PptpOnly: win32more.Windows.Win32.NetworkManagement.Rras.MPR_VS = 1
+MPR_VS_PptpFirst: win32more.Windows.Win32.NetworkManagement.Rras.MPR_VS = 2
+MPR_VS_L2tpOnly: win32more.Windows.Win32.NetworkManagement.Rras.MPR_VS = 3
+MPR_VS_L2tpFirst: win32more.Windows.Win32.NetworkManagement.Rras.MPR_VS = 4
 @winfunctype_pointer
 def ORASADFUNC(param0: win32more.Windows.Win32.Foundation.HWND, param1: win32more.Windows.Win32.Foundation.PSTR, param2: UInt32, param3: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
@@ -1781,10 +1780,10 @@ class PPP_IPXCP_INFO(EasyCastStructure):
     dwError: UInt32
     wszAddress: Char * 23
 PPP_LCP = UInt32
-PPP_LCP_PAP: PPP_LCP = 49187
-PPP_LCP_CHAP: PPP_LCP = 49699
-PPP_LCP_EAP: PPP_LCP = 49703
-PPP_LCP_SPAP: PPP_LCP = 49191
+PPP_LCP_PAP: win32more.Windows.Win32.NetworkManagement.Rras.PPP_LCP = 49187
+PPP_LCP_CHAP: win32more.Windows.Win32.NetworkManagement.Rras.PPP_LCP = 49699
+PPP_LCP_EAP: win32more.Windows.Win32.NetworkManagement.Rras.PPP_LCP = 49703
+PPP_LCP_SPAP: win32more.Windows.Win32.NetworkManagement.Rras.PPP_LCP = 49191
 class PPP_LCP_INFO(EasyCastStructure):
     dwError: UInt32
     dwAuthenticationProtocol: win32more.Windows.Win32.NetworkManagement.Rras.PPP_LCP
@@ -1798,9 +1797,9 @@ class PPP_LCP_INFO(EasyCastStructure):
     dwEapTypeId: UInt32
     dwRemoteEapTypeId: UInt32
 PPP_LCP_INFO_AUTH_DATA = UInt32
-PPP_LCP_CHAP_MD5: PPP_LCP_INFO_AUTH_DATA = 5
-PPP_LCP_CHAP_MS: PPP_LCP_INFO_AUTH_DATA = 128
-PPP_LCP_CHAP_MSV2: PPP_LCP_INFO_AUTH_DATA = 129
+PPP_LCP_CHAP_MD5: win32more.Windows.Win32.NetworkManagement.Rras.PPP_LCP_INFO_AUTH_DATA = 5
+PPP_LCP_CHAP_MS: win32more.Windows.Win32.NetworkManagement.Rras.PPP_LCP_INFO_AUTH_DATA = 128
+PPP_LCP_CHAP_MSV2: win32more.Windows.Win32.NetworkManagement.Rras.PPP_LCP_INFO_AUTH_DATA = 129
 class PPP_NBFCP_INFO(EasyCastStructure):
     dwError: UInt32
     wszWksta: Char * 17
@@ -1900,10 +1899,10 @@ class RASAMBW(EasyCastStructure):
     szNetBiosError: Char * 17
     bLana: Byte
 RASAPIVERSION = Int32
-RASAPIVERSION_500: RASAPIVERSION = 1
-RASAPIVERSION_501: RASAPIVERSION = 2
-RASAPIVERSION_600: RASAPIVERSION = 3
-RASAPIVERSION_601: RASAPIVERSION = 4
+RASAPIVERSION_500: win32more.Windows.Win32.NetworkManagement.Rras.RASAPIVERSION = 1
+RASAPIVERSION_501: win32more.Windows.Win32.NetworkManagement.Rras.RASAPIVERSION = 2
+RASAPIVERSION_600: win32more.Windows.Win32.NetworkManagement.Rras.RASAPIVERSION = 3
+RASAPIVERSION_601: win32more.Windows.Win32.NetworkManagement.Rras.RASAPIVERSION = 4
 class RASAUTODIALENTRYA(EasyCastStructure):
     dwSize: UInt32
     dwFlags: UInt32
@@ -1948,38 +1947,38 @@ if ARCH in 'X86':
         luid: win32more.Windows.Win32.Foundation.LUID
         guidCorrelationId: Guid
 RASCONNSTATE = Int32
-RASCS_OpenPort: RASCONNSTATE = 0
-RASCS_PortOpened: RASCONNSTATE = 1
-RASCS_ConnectDevice: RASCONNSTATE = 2
-RASCS_DeviceConnected: RASCONNSTATE = 3
-RASCS_AllDevicesConnected: RASCONNSTATE = 4
-RASCS_Authenticate: RASCONNSTATE = 5
-RASCS_AuthNotify: RASCONNSTATE = 6
-RASCS_AuthRetry: RASCONNSTATE = 7
-RASCS_AuthCallback: RASCONNSTATE = 8
-RASCS_AuthChangePassword: RASCONNSTATE = 9
-RASCS_AuthProject: RASCONNSTATE = 10
-RASCS_AuthLinkSpeed: RASCONNSTATE = 11
-RASCS_AuthAck: RASCONNSTATE = 12
-RASCS_ReAuthenticate: RASCONNSTATE = 13
-RASCS_Authenticated: RASCONNSTATE = 14
-RASCS_PrepareForCallback: RASCONNSTATE = 15
-RASCS_WaitForModemReset: RASCONNSTATE = 16
-RASCS_WaitForCallback: RASCONNSTATE = 17
-RASCS_Projected: RASCONNSTATE = 18
-RASCS_StartAuthentication: RASCONNSTATE = 19
-RASCS_CallbackComplete: RASCONNSTATE = 20
-RASCS_LogonNetwork: RASCONNSTATE = 21
-RASCS_SubEntryConnected: RASCONNSTATE = 22
-RASCS_SubEntryDisconnected: RASCONNSTATE = 23
-RASCS_ApplySettings: RASCONNSTATE = 24
-RASCS_Interactive: RASCONNSTATE = 4096
-RASCS_RetryAuthentication: RASCONNSTATE = 4097
-RASCS_CallbackSetByCaller: RASCONNSTATE = 4098
-RASCS_PasswordExpired: RASCONNSTATE = 4099
-RASCS_InvokeEapUI: RASCONNSTATE = 4100
-RASCS_Connected: RASCONNSTATE = 8192
-RASCS_Disconnected: RASCONNSTATE = 8193
+RASCS_OpenPort: win32more.Windows.Win32.NetworkManagement.Rras.RASCONNSTATE = 0
+RASCS_PortOpened: win32more.Windows.Win32.NetworkManagement.Rras.RASCONNSTATE = 1
+RASCS_ConnectDevice: win32more.Windows.Win32.NetworkManagement.Rras.RASCONNSTATE = 2
+RASCS_DeviceConnected: win32more.Windows.Win32.NetworkManagement.Rras.RASCONNSTATE = 3
+RASCS_AllDevicesConnected: win32more.Windows.Win32.NetworkManagement.Rras.RASCONNSTATE = 4
+RASCS_Authenticate: win32more.Windows.Win32.NetworkManagement.Rras.RASCONNSTATE = 5
+RASCS_AuthNotify: win32more.Windows.Win32.NetworkManagement.Rras.RASCONNSTATE = 6
+RASCS_AuthRetry: win32more.Windows.Win32.NetworkManagement.Rras.RASCONNSTATE = 7
+RASCS_AuthCallback: win32more.Windows.Win32.NetworkManagement.Rras.RASCONNSTATE = 8
+RASCS_AuthChangePassword: win32more.Windows.Win32.NetworkManagement.Rras.RASCONNSTATE = 9
+RASCS_AuthProject: win32more.Windows.Win32.NetworkManagement.Rras.RASCONNSTATE = 10
+RASCS_AuthLinkSpeed: win32more.Windows.Win32.NetworkManagement.Rras.RASCONNSTATE = 11
+RASCS_AuthAck: win32more.Windows.Win32.NetworkManagement.Rras.RASCONNSTATE = 12
+RASCS_ReAuthenticate: win32more.Windows.Win32.NetworkManagement.Rras.RASCONNSTATE = 13
+RASCS_Authenticated: win32more.Windows.Win32.NetworkManagement.Rras.RASCONNSTATE = 14
+RASCS_PrepareForCallback: win32more.Windows.Win32.NetworkManagement.Rras.RASCONNSTATE = 15
+RASCS_WaitForModemReset: win32more.Windows.Win32.NetworkManagement.Rras.RASCONNSTATE = 16
+RASCS_WaitForCallback: win32more.Windows.Win32.NetworkManagement.Rras.RASCONNSTATE = 17
+RASCS_Projected: win32more.Windows.Win32.NetworkManagement.Rras.RASCONNSTATE = 18
+RASCS_StartAuthentication: win32more.Windows.Win32.NetworkManagement.Rras.RASCONNSTATE = 19
+RASCS_CallbackComplete: win32more.Windows.Win32.NetworkManagement.Rras.RASCONNSTATE = 20
+RASCS_LogonNetwork: win32more.Windows.Win32.NetworkManagement.Rras.RASCONNSTATE = 21
+RASCS_SubEntryConnected: win32more.Windows.Win32.NetworkManagement.Rras.RASCONNSTATE = 22
+RASCS_SubEntryDisconnected: win32more.Windows.Win32.NetworkManagement.Rras.RASCONNSTATE = 23
+RASCS_ApplySettings: win32more.Windows.Win32.NetworkManagement.Rras.RASCONNSTATE = 24
+RASCS_Interactive: win32more.Windows.Win32.NetworkManagement.Rras.RASCONNSTATE = 4096
+RASCS_RetryAuthentication: win32more.Windows.Win32.NetworkManagement.Rras.RASCONNSTATE = 4097
+RASCS_CallbackSetByCaller: win32more.Windows.Win32.NetworkManagement.Rras.RASCONNSTATE = 4098
+RASCS_PasswordExpired: win32more.Windows.Win32.NetworkManagement.Rras.RASCONNSTATE = 4099
+RASCS_InvokeEapUI: win32more.Windows.Win32.NetworkManagement.Rras.RASCONNSTATE = 4100
+RASCS_Connected: win32more.Windows.Win32.NetworkManagement.Rras.RASCONNSTATE = 8192
+RASCS_Disconnected: win32more.Windows.Win32.NetworkManagement.Rras.RASCONNSTATE = 8193
 class RASCONNSTATUSA(EasyCastStructure):
     dwSize: UInt32
     rasconnstate: win32more.Windows.Win32.NetworkManagement.Rras.RASCONNSTATE
@@ -2001,10 +2000,10 @@ class RASCONNSTATUSW(EasyCastStructure):
     remoteEndPoint: win32more.Windows.Win32.NetworkManagement.Rras.RASTUNNELENDPOINT
     rasconnsubstate: win32more.Windows.Win32.NetworkManagement.Rras.RASCONNSUBSTATE
 RASCONNSUBSTATE = Int32
-RASCSS_None: RASCONNSUBSTATE = 0
-RASCSS_Dormant: RASCONNSUBSTATE = 1
-RASCSS_Reconnecting: RASCONNSUBSTATE = 2
-RASCSS_Reconnected: RASCONNSUBSTATE = 8192
+RASCSS_None: win32more.Windows.Win32.NetworkManagement.Rras.RASCONNSUBSTATE = 0
+RASCSS_Dormant: win32more.Windows.Win32.NetworkManagement.Rras.RASCONNSUBSTATE = 1
+RASCSS_Reconnecting: win32more.Windows.Win32.NetworkManagement.Rras.RASCONNSUBSTATE = 2
+RASCSS_Reconnected: win32more.Windows.Win32.NetworkManagement.Rras.RASCONNSUBSTATE = 8192
 if ARCH in 'X64,ARM64':
     class RASCONNW(EasyCastStructure):
         dwSize: UInt32
@@ -2345,8 +2344,8 @@ class RASENTRYW(EasyCastStructure):
     IdrType: win32more.Windows.Win32.NetworkManagement.Rras.IKEV2_ID_PAYLOAD_TYPE
     fDisableIKEv2Fragmentation: win32more.Windows.Win32.Foundation.BOOL
 RASENTRY_DIAL_MODE = UInt32
-RASEDM_DialAll: RASENTRY_DIAL_MODE = 1
-RASEDM_DialAsNeeded: RASENTRY_DIAL_MODE = 2
+RASEDM_DialAll: win32more.Windows.Win32.NetworkManagement.Rras.RASENTRY_DIAL_MODE = 1
+RASEDM_DialAsNeeded: win32more.Windows.Win32.NetworkManagement.Rras.RASENTRY_DIAL_MODE = 2
 if ARCH in 'X64,ARM64':
     class RASIKEV2_PROJECTION_INFO(EasyCastStructure):
         dwIPv4NegotiationError: UInt32
@@ -2383,9 +2382,9 @@ if ARCH in 'X86':
         numIPv6ServerAddresses: UInt32
         ipv6ServerAddresses: POINTER(win32more.Windows.Win32.Networking.WinSock.IN6_ADDR)
 RASIKEV_PROJECTION_INFO_FLAGS = UInt32
-RASIKEv2_FLAGS_MOBIKESUPPORTED: RASIKEV_PROJECTION_INFO_FLAGS = 1
-RASIKEv2_FLAGS_BEHIND_NAT: RASIKEV_PROJECTION_INFO_FLAGS = 2
-RASIKEv2_FLAGS_SERVERBEHIND_NAT: RASIKEV_PROJECTION_INFO_FLAGS = 4
+RASIKEv2_FLAGS_MOBIKESUPPORTED: win32more.Windows.Win32.NetworkManagement.Rras.RASIKEV_PROJECTION_INFO_FLAGS = 1
+RASIKEv2_FLAGS_BEHIND_NAT: win32more.Windows.Win32.NetworkManagement.Rras.RASIKEV_PROJECTION_INFO_FLAGS = 2
+RASIKEv2_FLAGS_SERVERBEHIND_NAT: win32more.Windows.Win32.NetworkManagement.Rras.RASIKEV_PROJECTION_INFO_FLAGS = 4
 class RASIPADDR(EasyCastStructure):
     a: Byte
     b: Byte
@@ -2566,25 +2565,25 @@ class RASPPP_PROJECTION_INFO(EasyCastStructure):
     dwCcpOptions: UInt32
     dwCcpServerOptions: UInt32
 RASPPP_PROJECTION_INFO_SERVER_AUTH_DATA = UInt32
-RASLCPAD_CHAP_MD5: RASPPP_PROJECTION_INFO_SERVER_AUTH_DATA = 5
-RASLCPAD_CHAP_MS: RASPPP_PROJECTION_INFO_SERVER_AUTH_DATA = 128
-RASLCPAD_CHAP_MSV2: RASPPP_PROJECTION_INFO_SERVER_AUTH_DATA = 129
+RASLCPAD_CHAP_MD5: win32more.Windows.Win32.NetworkManagement.Rras.RASPPP_PROJECTION_INFO_SERVER_AUTH_DATA = 5
+RASLCPAD_CHAP_MS: win32more.Windows.Win32.NetworkManagement.Rras.RASPPP_PROJECTION_INFO_SERVER_AUTH_DATA = 128
+RASLCPAD_CHAP_MSV2: win32more.Windows.Win32.NetworkManagement.Rras.RASPPP_PROJECTION_INFO_SERVER_AUTH_DATA = 129
 RASPPP_PROJECTION_INFO_SERVER_AUTH_PROTOCOL = UInt32
-RASLCPAP_PAP: RASPPP_PROJECTION_INFO_SERVER_AUTH_PROTOCOL = 49187
-RASLCPAP_SPAP: RASPPP_PROJECTION_INFO_SERVER_AUTH_PROTOCOL = 49191
-RASLCPAP_CHAP: RASPPP_PROJECTION_INFO_SERVER_AUTH_PROTOCOL = 49699
-RASLCPAP_EAP: RASPPP_PROJECTION_INFO_SERVER_AUTH_PROTOCOL = 49703
+RASLCPAP_PAP: win32more.Windows.Win32.NetworkManagement.Rras.RASPPP_PROJECTION_INFO_SERVER_AUTH_PROTOCOL = 49187
+RASLCPAP_SPAP: win32more.Windows.Win32.NetworkManagement.Rras.RASPPP_PROJECTION_INFO_SERVER_AUTH_PROTOCOL = 49191
+RASLCPAP_CHAP: win32more.Windows.Win32.NetworkManagement.Rras.RASPPP_PROJECTION_INFO_SERVER_AUTH_PROTOCOL = 49699
+RASLCPAP_EAP: win32more.Windows.Win32.NetworkManagement.Rras.RASPPP_PROJECTION_INFO_SERVER_AUTH_PROTOCOL = 49703
 RASPROJECTION = Int32
-RASP_Amb: RASPROJECTION = 65536
-RASP_PppNbf: RASPROJECTION = 32831
-RASP_PppIpx: RASPROJECTION = 32811
-RASP_PppIp: RASPROJECTION = 32801
-RASP_PppCcp: RASPROJECTION = 33021
-RASP_PppLcp: RASPROJECTION = 49185
-RASP_PppIpv6: RASPROJECTION = 32855
+RASP_Amb: win32more.Windows.Win32.NetworkManagement.Rras.RASPROJECTION = 65536
+RASP_PppNbf: win32more.Windows.Win32.NetworkManagement.Rras.RASPROJECTION = 32831
+RASP_PppIpx: win32more.Windows.Win32.NetworkManagement.Rras.RASPROJECTION = 32811
+RASP_PppIp: win32more.Windows.Win32.NetworkManagement.Rras.RASPROJECTION = 32801
+RASP_PppCcp: win32more.Windows.Win32.NetworkManagement.Rras.RASPROJECTION = 33021
+RASP_PppLcp: win32more.Windows.Win32.NetworkManagement.Rras.RASPROJECTION = 49185
+RASP_PppIpv6: win32more.Windows.Win32.NetworkManagement.Rras.RASPROJECTION = 32855
 RASPROJECTION_INFO_TYPE = Int32
-PROJECTION_INFO_TYPE_PPP: RASPROJECTION_INFO_TYPE = 1
-PROJECTION_INFO_TYPE_IKEv2: RASPROJECTION_INFO_TYPE = 2
+PROJECTION_INFO_TYPE_PPP: win32more.Windows.Win32.NetworkManagement.Rras.RASPROJECTION_INFO_TYPE = 1
+PROJECTION_INFO_TYPE_IKEv2: win32more.Windows.Win32.NetworkManagement.Rras.RASPROJECTION_INFO_TYPE = 2
 @winfunctype_pointer
 def RASSECURITYPROC() -> UInt32: ...
 class RASSUBENTRYA(EasyCastStructure):
@@ -2718,15 +2717,15 @@ class RAS_CONNECTION_EX(EasyCastStructure):
     hConnection: win32more.Windows.Win32.Foundation.HANDLE
     hInterface: win32more.Windows.Win32.Foundation.HANDLE
 RAS_FLAGS = UInt32
-RAS_FLAGS_PPP_CONNECTION: RAS_FLAGS = 1
-RAS_FLAGS_MESSENGER_PRESENT: RAS_FLAGS = 2
-RAS_FLAGS_QUARANTINE_PRESENT: RAS_FLAGS = 8
-RAS_FLAGS_ARAP_CONNECTION: RAS_FLAGS = 16
-RAS_FLAGS_IKEV2_CONNECTION: RAS_FLAGS = 16
-RAS_FLAGS_DORMANT: RAS_FLAGS = 32
+RAS_FLAGS_PPP_CONNECTION: win32more.Windows.Win32.NetworkManagement.Rras.RAS_FLAGS = 1
+RAS_FLAGS_MESSENGER_PRESENT: win32more.Windows.Win32.NetworkManagement.Rras.RAS_FLAGS = 2
+RAS_FLAGS_QUARANTINE_PRESENT: win32more.Windows.Win32.NetworkManagement.Rras.RAS_FLAGS = 8
+RAS_FLAGS_ARAP_CONNECTION: win32more.Windows.Win32.NetworkManagement.Rras.RAS_FLAGS = 16
+RAS_FLAGS_IKEV2_CONNECTION: win32more.Windows.Win32.NetworkManagement.Rras.RAS_FLAGS = 16
+RAS_FLAGS_DORMANT: win32more.Windows.Win32.NetworkManagement.Rras.RAS_FLAGS = 32
 RAS_HARDWARE_CONDITION = Int32
-RAS_HARDWARE_OPERATIONAL: RAS_HARDWARE_CONDITION = 0
-RAS_HARDWARE_FAILURE: RAS_HARDWARE_CONDITION = 1
+RAS_HARDWARE_OPERATIONAL: win32more.Windows.Win32.NetworkManagement.Rras.RAS_HARDWARE_CONDITION = 0
+RAS_HARDWARE_FAILURE: win32more.Windows.Win32.NetworkManagement.Rras.RAS_HARDWARE_CONDITION = 1
 class RAS_PORT_0(EasyCastStructure):
     hPort: win32more.Windows.Win32.Foundation.HANDLE
     hConnection: win32more.Windows.Win32.Foundation.HANDLE
@@ -2783,13 +2782,13 @@ class RAS_PORT_2(EasyCastStructure):
     ullBytesRcvUncompressed: UInt64
     ullBytesRcvCompressed: UInt64
 RAS_PORT_CONDITION = Int32
-RAS_PORT_NON_OPERATIONAL: RAS_PORT_CONDITION = 0
-RAS_PORT_DISCONNECTED: RAS_PORT_CONDITION = 1
-RAS_PORT_CALLING_BACK: RAS_PORT_CONDITION = 2
-RAS_PORT_LISTENING: RAS_PORT_CONDITION = 3
-RAS_PORT_AUTHENTICATING: RAS_PORT_CONDITION = 4
-RAS_PORT_AUTHENTICATED: RAS_PORT_CONDITION = 5
-RAS_PORT_INITIALIZING: RAS_PORT_CONDITION = 6
+RAS_PORT_NON_OPERATIONAL: win32more.Windows.Win32.NetworkManagement.Rras.RAS_PORT_CONDITION = 0
+RAS_PORT_DISCONNECTED: win32more.Windows.Win32.NetworkManagement.Rras.RAS_PORT_CONDITION = 1
+RAS_PORT_CALLING_BACK: win32more.Windows.Win32.NetworkManagement.Rras.RAS_PORT_CONDITION = 2
+RAS_PORT_LISTENING: win32more.Windows.Win32.NetworkManagement.Rras.RAS_PORT_CONDITION = 3
+RAS_PORT_AUTHENTICATING: win32more.Windows.Win32.NetworkManagement.Rras.RAS_PORT_CONDITION = 4
+RAS_PORT_AUTHENTICATED: win32more.Windows.Win32.NetworkManagement.Rras.RAS_PORT_CONDITION = 5
+RAS_PORT_INITIALIZING: win32more.Windows.Win32.NetworkManagement.Rras.RAS_PORT_CONDITION = 6
 class RAS_PROJECTION_INFO(EasyCastStructure):
     version: win32more.Windows.Win32.NetworkManagement.Rras.RASAPIVERSION
     type: win32more.Windows.Win32.NetworkManagement.Rras.RASPROJECTION_INFO_TYPE
@@ -2798,10 +2797,10 @@ class RAS_PROJECTION_INFO(EasyCastStructure):
         ppp: win32more.Windows.Win32.NetworkManagement.Rras.RASPPP_PROJECTION_INFO
         ikev2: win32more.Windows.Win32.NetworkManagement.Rras.RASIKEV2_PROJECTION_INFO
 RAS_QUARANTINE_STATE = Int32
-RAS_QUAR_STATE_NORMAL: RAS_QUARANTINE_STATE = 0
-RAS_QUAR_STATE_QUARANTINE: RAS_QUARANTINE_STATE = 1
-RAS_QUAR_STATE_PROBATION: RAS_QUARANTINE_STATE = 2
-RAS_QUAR_STATE_NOT_CAPABLE: RAS_QUARANTINE_STATE = 3
+RAS_QUAR_STATE_NORMAL: win32more.Windows.Win32.NetworkManagement.Rras.RAS_QUARANTINE_STATE = 0
+RAS_QUAR_STATE_QUARANTINE: win32more.Windows.Win32.NetworkManagement.Rras.RAS_QUARANTINE_STATE = 1
+RAS_QUAR_STATE_PROBATION: win32more.Windows.Win32.NetworkManagement.Rras.RAS_QUARANTINE_STATE = 2
+RAS_QUAR_STATE_NOT_CAPABLE: win32more.Windows.Win32.NetworkManagement.Rras.RAS_QUARANTINE_STATE = 3
 class RAS_SECURITY_INFO(EasyCastStructure):
     LastError: UInt32
     BytesReceived: UInt32
@@ -2835,10 +2834,10 @@ class RAS_USER_1(EasyCastStructure):
     wszPhoneNumber: Char * 129
     bfPrivilege2: Byte
 ROUTER_CONNECTION_STATE = Int32
-ROUTER_IF_STATE_UNREACHABLE: ROUTER_CONNECTION_STATE = 0
-ROUTER_IF_STATE_DISCONNECTED: ROUTER_CONNECTION_STATE = 1
-ROUTER_IF_STATE_CONNECTING: ROUTER_CONNECTION_STATE = 2
-ROUTER_IF_STATE_CONNECTED: ROUTER_CONNECTION_STATE = 3
+ROUTER_IF_STATE_UNREACHABLE: win32more.Windows.Win32.NetworkManagement.Rras.ROUTER_CONNECTION_STATE = 0
+ROUTER_IF_STATE_DISCONNECTED: win32more.Windows.Win32.NetworkManagement.Rras.ROUTER_CONNECTION_STATE = 1
+ROUTER_IF_STATE_CONNECTING: win32more.Windows.Win32.NetworkManagement.Rras.ROUTER_CONNECTION_STATE = 2
+ROUTER_IF_STATE_CONNECTED: win32more.Windows.Win32.NetworkManagement.Rras.ROUTER_CONNECTION_STATE = 3
 class ROUTER_CUSTOM_IKEv2_POLICY0(EasyCastStructure):
     dwIntegrityMethod: UInt32
     dwEncryptionMethod: UInt32
@@ -2866,15 +2865,15 @@ class ROUTER_IKEv2_IF_CUSTOM_CONFIG2(EasyCastStructure):
     dwMmSaLifeTime: UInt32
     vpnTrafficSelectors: win32more.Windows.Win32.NetworkManagement.Rras.MPR_VPN_TRAFFIC_SELECTORS
 ROUTER_INTERFACE_TYPE = Int32
-ROUTER_IF_TYPE_CLIENT: ROUTER_INTERFACE_TYPE = 0
-ROUTER_IF_TYPE_HOME_ROUTER: ROUTER_INTERFACE_TYPE = 1
-ROUTER_IF_TYPE_FULL_ROUTER: ROUTER_INTERFACE_TYPE = 2
-ROUTER_IF_TYPE_DEDICATED: ROUTER_INTERFACE_TYPE = 3
-ROUTER_IF_TYPE_INTERNAL: ROUTER_INTERFACE_TYPE = 4
-ROUTER_IF_TYPE_LOOPBACK: ROUTER_INTERFACE_TYPE = 5
-ROUTER_IF_TYPE_TUNNEL1: ROUTER_INTERFACE_TYPE = 6
-ROUTER_IF_TYPE_DIALOUT: ROUTER_INTERFACE_TYPE = 7
-ROUTER_IF_TYPE_MAX: ROUTER_INTERFACE_TYPE = 8
+ROUTER_IF_TYPE_CLIENT: win32more.Windows.Win32.NetworkManagement.Rras.ROUTER_INTERFACE_TYPE = 0
+ROUTER_IF_TYPE_HOME_ROUTER: win32more.Windows.Win32.NetworkManagement.Rras.ROUTER_INTERFACE_TYPE = 1
+ROUTER_IF_TYPE_FULL_ROUTER: win32more.Windows.Win32.NetworkManagement.Rras.ROUTER_INTERFACE_TYPE = 2
+ROUTER_IF_TYPE_DEDICATED: win32more.Windows.Win32.NetworkManagement.Rras.ROUTER_INTERFACE_TYPE = 3
+ROUTER_IF_TYPE_INTERNAL: win32more.Windows.Win32.NetworkManagement.Rras.ROUTER_INTERFACE_TYPE = 4
+ROUTER_IF_TYPE_LOOPBACK: win32more.Windows.Win32.NetworkManagement.Rras.ROUTER_INTERFACE_TYPE = 5
+ROUTER_IF_TYPE_TUNNEL1: win32more.Windows.Win32.NetworkManagement.Rras.ROUTER_INTERFACE_TYPE = 6
+ROUTER_IF_TYPE_DIALOUT: win32more.Windows.Win32.NetworkManagement.Rras.ROUTER_INTERFACE_TYPE = 7
+ROUTER_IF_TYPE_MAX: win32more.Windows.Win32.NetworkManagement.Rras.ROUTER_INTERFACE_TYPE = 8
 class ROUTING_PROTOCOL_CONFIG(EasyCastStructure):
     dwCallbackFlags: UInt32
     pfnRpfCallback: win32more.Windows.Win32.NetworkManagement.Rras.PMGM_RPF_CALLBACK
@@ -2929,10 +2928,10 @@ class RTM_ENTITY_METHOD_OUTPUT(EasyCastStructure):
 @winfunctype_pointer
 def RTM_EVENT_CALLBACK(RtmRegHandle: IntPtr, EventType: win32more.Windows.Win32.NetworkManagement.Rras.RTM_EVENT_TYPE, Context1: VoidPtr, Context2: VoidPtr) -> UInt32: ...
 RTM_EVENT_TYPE = Int32
-RTM_ENTITY_REGISTERED: RTM_EVENT_TYPE = 0
-RTM_ENTITY_DEREGISTERED: RTM_EVENT_TYPE = 1
-RTM_ROUTE_EXPIRED: RTM_EVENT_TYPE = 2
-RTM_CHANGE_NOTIFICATION: RTM_EVENT_TYPE = 3
+RTM_ENTITY_REGISTERED: win32more.Windows.Win32.NetworkManagement.Rras.RTM_EVENT_TYPE = 0
+RTM_ENTITY_DEREGISTERED: win32more.Windows.Win32.NetworkManagement.Rras.RTM_EVENT_TYPE = 1
+RTM_ROUTE_EXPIRED: win32more.Windows.Win32.NetworkManagement.Rras.RTM_EVENT_TYPE = 2
+RTM_CHANGE_NOTIFICATION: win32more.Windows.Win32.NetworkManagement.Rras.RTM_EVENT_TYPE = 3
 class RTM_NET_ADDRESS(EasyCastStructure):
     AddressFamily: UInt16
     NumBits: UInt16
@@ -2986,9 +2985,9 @@ class SECURITY_MESSAGE(EasyCastStructure):
     UserName: win32more.Windows.Win32.Foundation.CHAR * 257
     Domain: win32more.Windows.Win32.Foundation.CHAR * 16
 SECURITY_MESSAGE_MSG_ID = UInt32
-SECURITYMSG_SUCCESS: SECURITY_MESSAGE_MSG_ID = 1
-SECURITYMSG_FAILURE: SECURITY_MESSAGE_MSG_ID = 2
-SECURITYMSG_ERROR: SECURITY_MESSAGE_MSG_ID = 3
+SECURITYMSG_SUCCESS: win32more.Windows.Win32.NetworkManagement.Rras.SECURITY_MESSAGE_MSG_ID = 1
+SECURITYMSG_FAILURE: win32more.Windows.Win32.NetworkManagement.Rras.SECURITY_MESSAGE_MSG_ID = 2
+SECURITYMSG_ERROR: win32more.Windows.Win32.NetworkManagement.Rras.SECURITY_MESSAGE_MSG_ID = 3
 class SOURCE_GROUP_ENTRY(EasyCastStructure):
     dwSourceAddr: UInt32
     dwSourceMask: UInt32
@@ -3009,4 +3008,6 @@ class VPN_TS_IP_ADDRESS(EasyCastStructure):
     class _Anonymous_e__Union(EasyCastUnion):
         v4: win32more.Windows.Win32.Networking.WinSock.IN_ADDR
         v6: win32more.Windows.Win32.Networking.WinSock.IN6_ADDR
+
+
 make_ready(__name__)

@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Direct3D.Dxc
 import win32more.Windows.Win32.System.Com
@@ -50,21 +49,21 @@ def DxcCreateInstance(rclsid: POINTER(Guid), riid: POINTER(Guid), ppv: POINTER(V
 @winfunctype('dxcompiler.dll')
 def DxcCreateInstance2(pMalloc: win32more.Windows.Win32.System.Com.IMalloc, rclsid: POINTER(Guid), riid: POINTER(Guid), ppv: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 DXC_CP = UInt32
-DXC_CP_ACP: DXC_CP = 0
-DXC_CP_UTF16: DXC_CP = 1200
-DXC_CP_UTF8: DXC_CP = 65001
+DXC_CP_ACP: win32more.Windows.Win32.Graphics.Direct3D.Dxc.DXC_CP = 0
+DXC_CP_UTF16: win32more.Windows.Win32.Graphics.Direct3D.Dxc.DXC_CP = 1200
+DXC_CP_UTF8: win32more.Windows.Win32.Graphics.Direct3D.Dxc.DXC_CP = 65001
 DXC_OUT_KIND = Int32
-DXC_OUT_NONE: DXC_OUT_KIND = 0
-DXC_OUT_OBJECT: DXC_OUT_KIND = 1
-DXC_OUT_ERRORS: DXC_OUT_KIND = 2
-DXC_OUT_PDB: DXC_OUT_KIND = 3
-DXC_OUT_SHADER_HASH: DXC_OUT_KIND = 4
-DXC_OUT_DISASSEMBLY: DXC_OUT_KIND = 5
-DXC_OUT_HLSL: DXC_OUT_KIND = 6
-DXC_OUT_TEXT: DXC_OUT_KIND = 7
-DXC_OUT_REFLECTION: DXC_OUT_KIND = 8
-DXC_OUT_ROOT_SIGNATURE: DXC_OUT_KIND = 9
-DXC_OUT_EXTRA_OUTPUTS: DXC_OUT_KIND = 10
+DXC_OUT_NONE: win32more.Windows.Win32.Graphics.Direct3D.Dxc.DXC_OUT_KIND = 0
+DXC_OUT_OBJECT: win32more.Windows.Win32.Graphics.Direct3D.Dxc.DXC_OUT_KIND = 1
+DXC_OUT_ERRORS: win32more.Windows.Win32.Graphics.Direct3D.Dxc.DXC_OUT_KIND = 2
+DXC_OUT_PDB: win32more.Windows.Win32.Graphics.Direct3D.Dxc.DXC_OUT_KIND = 3
+DXC_OUT_SHADER_HASH: win32more.Windows.Win32.Graphics.Direct3D.Dxc.DXC_OUT_KIND = 4
+DXC_OUT_DISASSEMBLY: win32more.Windows.Win32.Graphics.Direct3D.Dxc.DXC_OUT_KIND = 5
+DXC_OUT_HLSL: win32more.Windows.Win32.Graphics.Direct3D.Dxc.DXC_OUT_KIND = 6
+DXC_OUT_TEXT: win32more.Windows.Win32.Graphics.Direct3D.Dxc.DXC_OUT_KIND = 7
+DXC_OUT_REFLECTION: win32more.Windows.Win32.Graphics.Direct3D.Dxc.DXC_OUT_KIND = 8
+DXC_OUT_ROOT_SIGNATURE: win32more.Windows.Win32.Graphics.Direct3D.Dxc.DXC_OUT_KIND = 9
+DXC_OUT_EXTRA_OUTPUTS: win32more.Windows.Win32.Graphics.Direct3D.Dxc.DXC_OUT_KIND = 10
 class DxcArgPair(EasyCastStructure):
     pName: win32more.Windows.Win32.Foundation.PWSTR
     pValue: win32more.Windows.Win32.Foundation.PWSTR
@@ -366,4 +365,6 @@ class IDxcVersionInfo3(ComPtr):
     _iid_ = Guid('{5e13e843-9d25-473c-9ad2-03b2d0b44b1e}')
     @commethod(3)
     def GetCustomVersionString(self, pVersionString: POINTER(POINTER(SByte))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+
+
 make_ready(__name__)

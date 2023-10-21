@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security.Authentication.Identity.Provider
 import win32more.Windows.Win32.System.Com
@@ -8,9 +7,9 @@ import win32more.Windows.Win32.System.Com.StructuredStorage
 import win32more.Windows.Win32.System.Variant
 import win32more.Windows.Win32.UI.Shell.PropertiesSystem
 ACCOUNT_STATE = Int32
-NOT_CONNECTED: ACCOUNT_STATE = 0
-CONNECTING: ACCOUNT_STATE = 1
-CONNECT_COMPLETED: ACCOUNT_STATE = 2
+NOT_CONNECTED: win32more.Windows.Win32.Security.Authentication.Identity.Provider.ACCOUNT_STATE = 0
+CONNECTING: win32more.Windows.Win32.Security.Authentication.Identity.Provider.ACCOUNT_STATE = 1
+CONNECT_COMPLETED: win32more.Windows.Win32.Security.Authentication.Identity.Provider.ACCOUNT_STATE = 2
 IDENTITY_KEYWORD_ASSOCIATED: String = 'associated'
 IDENTITY_KEYWORD_LOCAL: String = 'local'
 IDENTITY_KEYWORD_HOMEGROUP: String = 'homegroup'
@@ -177,16 +176,16 @@ class IConnectedIdentityProvider(ComPtr):
     @commethod(7)
     def GetAccountState(self, pState: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.Provider.ACCOUNT_STATE)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 IDENTITY_TYPE = Int32
-IDENTITIES_ALL: IDENTITY_TYPE = 0
-IDENTITIES_ME_ONLY: IDENTITY_TYPE = 1
+IDENTITIES_ALL: win32more.Windows.Win32.Security.Authentication.Identity.Provider.IDENTITY_TYPE = 0
+IDENTITIES_ME_ONLY: win32more.Windows.Win32.Security.Authentication.Identity.Provider.IDENTITY_TYPE = 1
 IDENTITY_URL = Int32
-IDENTITY_URL_CREATE_ACCOUNT_WIZARD: IDENTITY_URL = 0
-IDENTITY_URL_SIGN_IN_WIZARD: IDENTITY_URL = 1
-IDENTITY_URL_CHANGE_PASSWORD_WIZARD: IDENTITY_URL = 2
-IDENTITY_URL_IFEXISTS_WIZARD: IDENTITY_URL = 3
-IDENTITY_URL_ACCOUNT_SETTINGS: IDENTITY_URL = 4
-IDENTITY_URL_RESTORE_WIZARD: IDENTITY_URL = 5
-IDENTITY_URL_CONNECT_WIZARD: IDENTITY_URL = 6
+IDENTITY_URL_CREATE_ACCOUNT_WIZARD: win32more.Windows.Win32.Security.Authentication.Identity.Provider.IDENTITY_URL = 0
+IDENTITY_URL_SIGN_IN_WIZARD: win32more.Windows.Win32.Security.Authentication.Identity.Provider.IDENTITY_URL = 1
+IDENTITY_URL_CHANGE_PASSWORD_WIZARD: win32more.Windows.Win32.Security.Authentication.Identity.Provider.IDENTITY_URL = 2
+IDENTITY_URL_IFEXISTS_WIZARD: win32more.Windows.Win32.Security.Authentication.Identity.Provider.IDENTITY_URL = 3
+IDENTITY_URL_ACCOUNT_SETTINGS: win32more.Windows.Win32.Security.Authentication.Identity.Provider.IDENTITY_URL = 4
+IDENTITY_URL_RESTORE_WIZARD: win32more.Windows.Win32.Security.Authentication.Identity.Provider.IDENTITY_URL = 5
+IDENTITY_URL_CONNECT_WIZARD: win32more.Windows.Win32.Security.Authentication.Identity.Provider.IDENTITY_URL = 6
 class IIdentityAdvise(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{4e982fed-d14b-440c-b8d6-bb386453d386}')
@@ -241,12 +240,14 @@ class IIdentityStoreEx(ComPtr):
     @commethod(4)
     def DeleteConnectedIdentity(self, ConnectedName: win32more.Windows.Win32.Foundation.PWSTR, ProviderGUID: POINTER(Guid)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 IdentityUpdateEvent = Int32
-IDENTITY_ASSOCIATED: IdentityUpdateEvent = 1
-IDENTITY_DISASSOCIATED: IdentityUpdateEvent = 2
-IDENTITY_CREATED: IdentityUpdateEvent = 4
-IDENTITY_IMPORTED: IdentityUpdateEvent = 8
-IDENTITY_DELETED: IdentityUpdateEvent = 16
-IDENTITY_PROPCHANGED: IdentityUpdateEvent = 32
-IDENTITY_CONNECTED: IdentityUpdateEvent = 64
-IDENTITY_DISCONNECTED: IdentityUpdateEvent = 128
+IDENTITY_ASSOCIATED: win32more.Windows.Win32.Security.Authentication.Identity.Provider.IdentityUpdateEvent = 1
+IDENTITY_DISASSOCIATED: win32more.Windows.Win32.Security.Authentication.Identity.Provider.IdentityUpdateEvent = 2
+IDENTITY_CREATED: win32more.Windows.Win32.Security.Authentication.Identity.Provider.IdentityUpdateEvent = 4
+IDENTITY_IMPORTED: win32more.Windows.Win32.Security.Authentication.Identity.Provider.IdentityUpdateEvent = 8
+IDENTITY_DELETED: win32more.Windows.Win32.Security.Authentication.Identity.Provider.IdentityUpdateEvent = 16
+IDENTITY_PROPCHANGED: win32more.Windows.Win32.Security.Authentication.Identity.Provider.IdentityUpdateEvent = 32
+IDENTITY_CONNECTED: win32more.Windows.Win32.Security.Authentication.Identity.Provider.IdentityUpdateEvent = 64
+IDENTITY_DISCONNECTED: win32more.Windows.Win32.Security.Authentication.Identity.Provider.IdentityUpdateEvent = 128
+
+
 make_ready(__name__)

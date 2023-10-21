@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.Storage.FileSystem
@@ -55,14 +54,16 @@ def GetNamedPipeServerProcessId(Pipe: win32more.Windows.Win32.Foundation.HANDLE,
 @winfunctype('KERNEL32.dll')
 def GetNamedPipeServerSessionId(Pipe: win32more.Windows.Win32.Foundation.HANDLE, ServerSessionId: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 NAMED_PIPE_MODE = UInt32
-PIPE_WAIT: NAMED_PIPE_MODE = 0
-PIPE_NOWAIT: NAMED_PIPE_MODE = 1
-PIPE_READMODE_BYTE: NAMED_PIPE_MODE = 0
-PIPE_READMODE_MESSAGE: NAMED_PIPE_MODE = 2
-PIPE_CLIENT_END: NAMED_PIPE_MODE = 0
-PIPE_SERVER_END: NAMED_PIPE_MODE = 1
-PIPE_TYPE_BYTE: NAMED_PIPE_MODE = 0
-PIPE_TYPE_MESSAGE: NAMED_PIPE_MODE = 4
-PIPE_ACCEPT_REMOTE_CLIENTS: NAMED_PIPE_MODE = 0
-PIPE_REJECT_REMOTE_CLIENTS: NAMED_PIPE_MODE = 8
+PIPE_WAIT: win32more.Windows.Win32.System.Pipes.NAMED_PIPE_MODE = 0
+PIPE_NOWAIT: win32more.Windows.Win32.System.Pipes.NAMED_PIPE_MODE = 1
+PIPE_READMODE_BYTE: win32more.Windows.Win32.System.Pipes.NAMED_PIPE_MODE = 0
+PIPE_READMODE_MESSAGE: win32more.Windows.Win32.System.Pipes.NAMED_PIPE_MODE = 2
+PIPE_CLIENT_END: win32more.Windows.Win32.System.Pipes.NAMED_PIPE_MODE = 0
+PIPE_SERVER_END: win32more.Windows.Win32.System.Pipes.NAMED_PIPE_MODE = 1
+PIPE_TYPE_BYTE: win32more.Windows.Win32.System.Pipes.NAMED_PIPE_MODE = 0
+PIPE_TYPE_MESSAGE: win32more.Windows.Win32.System.Pipes.NAMED_PIPE_MODE = 4
+PIPE_ACCEPT_REMOTE_CLIENTS: win32more.Windows.Win32.System.Pipes.NAMED_PIPE_MODE = 0
+PIPE_REJECT_REMOTE_CLIENTS: win32more.Windows.Win32.System.Pipes.NAMED_PIPE_MODE = 8
+
+
 make_ready(__name__)

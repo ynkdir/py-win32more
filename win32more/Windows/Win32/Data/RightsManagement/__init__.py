@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Data.RightsManagement
 import win32more.Windows.Win32.Foundation
 DRMHANDLE_INVALID: UInt32 = 0
@@ -239,8 +238,8 @@ def DRMIsWindowProtected(hwnd: win32more.Windows.Win32.Foundation.HWND, pfProtec
 @winfunctype('msdrm.dll')
 def DRMAcquireIssuanceLicenseTemplate(hClient: UInt32, uFlags: UInt32, pvReserved: VoidPtr, cTemplates: UInt32, pwszTemplateIds: POINTER(win32more.Windows.Win32.Foundation.PWSTR), wszUrl: win32more.Windows.Win32.Foundation.PWSTR, pvContext: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 DRMATTESTTYPE = Int32
-DRMATTESTTYPE_FULLENVIRONMENT: DRMATTESTTYPE = 0
-DRMATTESTTYPE_HASHONLY: DRMATTESTTYPE = 1
+DRMATTESTTYPE_FULLENVIRONMENT: win32more.Windows.Win32.Data.RightsManagement.DRMATTESTTYPE = 0
+DRMATTESTTYPE_HASHONLY: win32more.Windows.Win32.Data.RightsManagement.DRMATTESTTYPE = 1
 class DRMBOUNDLICENSEPARAMS(EasyCastStructure):
     uVersion: UInt32
     hEnablingPrincipal: UInt32
@@ -255,27 +254,27 @@ class DRMBOUNDLICENSEPARAMS(EasyCastStructure):
 @winfunctype_pointer
 def DRMCALLBACK(param0: win32more.Windows.Win32.Data.RightsManagement.DRM_STATUS_MSG, param1: win32more.Windows.Win32.Foundation.HRESULT, param2: VoidPtr, param3: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 DRMENCODINGTYPE = Int32
-DRMENCODINGTYPE_BASE64: DRMENCODINGTYPE = 0
-DRMENCODINGTYPE_STRING: DRMENCODINGTYPE = 1
-DRMENCODINGTYPE_LONG: DRMENCODINGTYPE = 2
-DRMENCODINGTYPE_TIME: DRMENCODINGTYPE = 3
-DRMENCODINGTYPE_UINT: DRMENCODINGTYPE = 4
-DRMENCODINGTYPE_RAW: DRMENCODINGTYPE = 5
+DRMENCODINGTYPE_BASE64: win32more.Windows.Win32.Data.RightsManagement.DRMENCODINGTYPE = 0
+DRMENCODINGTYPE_STRING: win32more.Windows.Win32.Data.RightsManagement.DRMENCODINGTYPE = 1
+DRMENCODINGTYPE_LONG: win32more.Windows.Win32.Data.RightsManagement.DRMENCODINGTYPE = 2
+DRMENCODINGTYPE_TIME: win32more.Windows.Win32.Data.RightsManagement.DRMENCODINGTYPE = 3
+DRMENCODINGTYPE_UINT: win32more.Windows.Win32.Data.RightsManagement.DRMENCODINGTYPE = 4
+DRMENCODINGTYPE_RAW: win32more.Windows.Win32.Data.RightsManagement.DRMENCODINGTYPE = 5
 DRMGLOBALOPTIONS = Int32
-DRMGLOBALOPTIONS_USE_WINHTTP: DRMGLOBALOPTIONS = 0
-DRMGLOBALOPTIONS_USE_SERVERSECURITYPROCESSOR: DRMGLOBALOPTIONS = 1
+DRMGLOBALOPTIONS_USE_WINHTTP: win32more.Windows.Win32.Data.RightsManagement.DRMGLOBALOPTIONS = 0
+DRMGLOBALOPTIONS_USE_SERVERSECURITYPROCESSOR: win32more.Windows.Win32.Data.RightsManagement.DRMGLOBALOPTIONS = 1
 class DRMID(EasyCastStructure):
     uVersion: UInt32
     wszIDType: win32more.Windows.Win32.Foundation.PWSTR
     wszID: win32more.Windows.Win32.Foundation.PWSTR
 DRMSECURITYPROVIDERTYPE = Int32
-DRMSECURITYPROVIDERTYPE_SOFTWARESECREP: DRMSECURITYPROVIDERTYPE = 0
+DRMSECURITYPROVIDERTYPE_SOFTWARESECREP: win32more.Windows.Win32.Data.RightsManagement.DRMSECURITYPROVIDERTYPE = 0
 DRMSPECTYPE = Int32
-DRMSPECTYPE_UNKNOWN: DRMSPECTYPE = 0
-DRMSPECTYPE_FILENAME: DRMSPECTYPE = 1
+DRMSPECTYPE_UNKNOWN: win32more.Windows.Win32.Data.RightsManagement.DRMSPECTYPE = 0
+DRMSPECTYPE_FILENAME: win32more.Windows.Win32.Data.RightsManagement.DRMSPECTYPE = 1
 DRMTIMETYPE = Int32
-DRMTIMETYPE_SYSTEMUTC: DRMTIMETYPE = 0
-DRMTIMETYPE_SYSTEMLOCAL: DRMTIMETYPE = 1
+DRMTIMETYPE_SYSTEMUTC: win32more.Windows.Win32.Data.RightsManagement.DRMTIMETYPE = 0
+DRMTIMETYPE_SYSTEMLOCAL: win32more.Windows.Win32.Data.RightsManagement.DRMTIMETYPE = 1
 class DRM_ACTSERV_INFO(EasyCastStructure):
     uVersion: UInt32
     wszPubKey: win32more.Windows.Win32.Foundation.PWSTR
@@ -287,9 +286,9 @@ class DRM_CLIENT_VERSION_INFO(EasyCastStructure):
     wszProductId: Char * 256
     wszProductDescription: Char * 256
 DRM_DISTRIBUTION_POINT_INFO = Int32
-DRM_DISTRIBUTION_POINT_LICENSE_ACQUISITION: DRM_DISTRIBUTION_POINT_INFO = 0
-DRM_DISTRIBUTION_POINT_PUBLISHING: DRM_DISTRIBUTION_POINT_INFO = 1
-DRM_DISTRIBUTION_POINT_REFERRAL_INFO: DRM_DISTRIBUTION_POINT_INFO = 2
+DRM_DISTRIBUTION_POINT_LICENSE_ACQUISITION: win32more.Windows.Win32.Data.RightsManagement.DRM_DISTRIBUTION_POINT_INFO = 0
+DRM_DISTRIBUTION_POINT_PUBLISHING: win32more.Windows.Win32.Data.RightsManagement.DRM_DISTRIBUTION_POINT_INFO = 1
+DRM_DISTRIBUTION_POINT_REFERRAL_INFO: win32more.Windows.Win32.Data.RightsManagement.DRM_DISTRIBUTION_POINT_INFO = 2
 class DRM_LICENSE_ACQ_DATA(EasyCastStructure):
     uVersion: UInt32
     wszURL: win32more.Windows.Win32.Foundation.PWSTR
@@ -298,16 +297,18 @@ class DRM_LICENSE_ACQ_DATA(EasyCastStructure):
     dwPostDataSize: UInt32
     wszFriendlyName: win32more.Windows.Win32.Foundation.PWSTR
 DRM_STATUS_MSG = Int32
-DRM_MSG_ACTIVATE_MACHINE: DRM_STATUS_MSG = 0
-DRM_MSG_ACTIVATE_GROUPIDENTITY: DRM_STATUS_MSG = 1
-DRM_MSG_ACQUIRE_LICENSE: DRM_STATUS_MSG = 2
-DRM_MSG_ACQUIRE_ADVISORY: DRM_STATUS_MSG = 3
-DRM_MSG_SIGN_ISSUANCE_LICENSE: DRM_STATUS_MSG = 4
-DRM_MSG_ACQUIRE_CLIENTLICENSOR: DRM_STATUS_MSG = 5
-DRM_MSG_ACQUIRE_ISSUANCE_LICENSE_TEMPLATE: DRM_STATUS_MSG = 6
+DRM_MSG_ACTIVATE_MACHINE: win32more.Windows.Win32.Data.RightsManagement.DRM_STATUS_MSG = 0
+DRM_MSG_ACTIVATE_GROUPIDENTITY: win32more.Windows.Win32.Data.RightsManagement.DRM_STATUS_MSG = 1
+DRM_MSG_ACQUIRE_LICENSE: win32more.Windows.Win32.Data.RightsManagement.DRM_STATUS_MSG = 2
+DRM_MSG_ACQUIRE_ADVISORY: win32more.Windows.Win32.Data.RightsManagement.DRM_STATUS_MSG = 3
+DRM_MSG_SIGN_ISSUANCE_LICENSE: win32more.Windows.Win32.Data.RightsManagement.DRM_STATUS_MSG = 4
+DRM_MSG_ACQUIRE_CLIENTLICENSOR: win32more.Windows.Win32.Data.RightsManagement.DRM_STATUS_MSG = 5
+DRM_MSG_ACQUIRE_ISSUANCE_LICENSE_TEMPLATE: win32more.Windows.Win32.Data.RightsManagement.DRM_STATUS_MSG = 6
 DRM_USAGEPOLICY_TYPE = Int32
-DRM_USAGEPOLICY_TYPE_BYNAME: DRM_USAGEPOLICY_TYPE = 0
-DRM_USAGEPOLICY_TYPE_BYPUBLICKEY: DRM_USAGEPOLICY_TYPE = 1
-DRM_USAGEPOLICY_TYPE_BYDIGEST: DRM_USAGEPOLICY_TYPE = 2
-DRM_USAGEPOLICY_TYPE_OSEXCLUSION: DRM_USAGEPOLICY_TYPE = 3
+DRM_USAGEPOLICY_TYPE_BYNAME: win32more.Windows.Win32.Data.RightsManagement.DRM_USAGEPOLICY_TYPE = 0
+DRM_USAGEPOLICY_TYPE_BYPUBLICKEY: win32more.Windows.Win32.Data.RightsManagement.DRM_USAGEPOLICY_TYPE = 1
+DRM_USAGEPOLICY_TYPE_BYDIGEST: win32more.Windows.Win32.Data.RightsManagement.DRM_USAGEPOLICY_TYPE = 2
+DRM_USAGEPOLICY_TYPE_OSEXCLUSION: win32more.Windows.Win32.Data.RightsManagement.DRM_USAGEPOLICY_TYPE = 3
+
+
 make_ready(__name__)

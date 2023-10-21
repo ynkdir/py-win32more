@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Media
 import win32more.Windows.Win32.Media.Multimedia
@@ -185,7 +184,9 @@ class TIMECODE_SAMPLE(EasyCastStructure):
     dwUser: UInt32
     dwFlags: win32more.Windows.Win32.Media.TIMECODE_SAMPLE_FLAGS
 TIMECODE_SAMPLE_FLAGS = UInt32
-ED_DEVCAP_TIMECODE_READ: TIMECODE_SAMPLE_FLAGS = 4121
-ED_DEVCAP_ATN_READ: TIMECODE_SAMPLE_FLAGS = 5047
-ED_DEVCAP_RTC_READ: TIMECODE_SAMPLE_FLAGS = 5050
+ED_DEVCAP_TIMECODE_READ: win32more.Windows.Win32.Media.TIMECODE_SAMPLE_FLAGS = 4121
+ED_DEVCAP_ATN_READ: win32more.Windows.Win32.Media.TIMECODE_SAMPLE_FLAGS = 5047
+ED_DEVCAP_RTC_READ: win32more.Windows.Win32.Media.TIMECODE_SAMPLE_FLAGS = 5050
+
+
 make_ready(__name__)

@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Performance.HardwareCounterProfiling
 @winfunctype('KERNEL32.dll')
@@ -16,8 +15,8 @@ class HARDWARE_COUNTER_DATA(EasyCastStructure):
     Reserved: UInt32
     Value: UInt64
 HARDWARE_COUNTER_TYPE = Int32
-HARDWARE_COUNTER_TYPE_PMCCounter: HARDWARE_COUNTER_TYPE = 0
-HARDWARE_COUNTER_TYPE_MaxHardwareCounterType: HARDWARE_COUNTER_TYPE = 1
+HARDWARE_COUNTER_TYPE_PMCCounter: win32more.Windows.Win32.System.Performance.HardwareCounterProfiling.HARDWARE_COUNTER_TYPE = 0
+HARDWARE_COUNTER_TYPE_MaxHardwareCounterType: win32more.Windows.Win32.System.Performance.HardwareCounterProfiling.HARDWARE_COUNTER_TYPE = 1
 class PERFORMANCE_DATA(EasyCastStructure):
     Size: UInt16
     Version: Byte
@@ -28,4 +27,6 @@ class PERFORMANCE_DATA(EasyCastStructure):
     RetryCount: UInt32
     Reserved: UInt32
     HwCounters: win32more.Windows.Win32.System.Performance.HardwareCounterProfiling.HARDWARE_COUNTER_DATA * 16
+
+
 make_ready(__name__)

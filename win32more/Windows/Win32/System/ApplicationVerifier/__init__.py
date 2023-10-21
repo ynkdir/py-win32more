@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.ApplicationVerifier
 class AVRF_BACKTRACE_INFORMATION(EasyCastStructure):
@@ -34,26 +33,28 @@ AVRF_MAX_TRACES: UInt32 = 32
 @winfunctype('verifier.dll')
 def VerifierEnumerateResource(Process: win32more.Windows.Win32.Foundation.HANDLE, Flags: win32more.Windows.Win32.System.ApplicationVerifier.VERIFIER_ENUM_RESOURCE_FLAGS, ResourceType: UInt32, ResourceCallback: win32more.Windows.Win32.System.ApplicationVerifier.AVRF_RESOURCE_ENUMERATE_CALLBACK, EnumerationContext: VoidPtr) -> UInt32: ...
 VERIFIER_ENUM_RESOURCE_FLAGS = UInt32
-AVRF_ENUM_RESOURCES_FLAGS_DONT_RESOLVE_TRACES: VERIFIER_ENUM_RESOURCE_FLAGS = 2
-AVRF_ENUM_RESOURCES_FLAGS_SUSPEND: VERIFIER_ENUM_RESOURCE_FLAGS = 1
+AVRF_ENUM_RESOURCES_FLAGS_DONT_RESOLVE_TRACES: win32more.Windows.Win32.System.ApplicationVerifier.VERIFIER_ENUM_RESOURCE_FLAGS = 2
+AVRF_ENUM_RESOURCES_FLAGS_SUSPEND: win32more.Windows.Win32.System.ApplicationVerifier.VERIFIER_ENUM_RESOURCE_FLAGS = 1
 eAvrfResourceTypes = Int32
-eAvrfResourceTypes_AvrfResourceHeapAllocation: eAvrfResourceTypes = 0
-eAvrfResourceTypes_AvrfResourceHandleTrace: eAvrfResourceTypes = 1
-eAvrfResourceTypes_AvrfResourceMax: eAvrfResourceTypes = 2
+eAvrfResourceTypes_AvrfResourceHeapAllocation: win32more.Windows.Win32.System.ApplicationVerifier.eAvrfResourceTypes = 0
+eAvrfResourceTypes_AvrfResourceHandleTrace: win32more.Windows.Win32.System.ApplicationVerifier.eAvrfResourceTypes = 1
+eAvrfResourceTypes_AvrfResourceMax: win32more.Windows.Win32.System.ApplicationVerifier.eAvrfResourceTypes = 2
 eHANDLE_TRACE_OPERATIONS = Int32
-eHANDLE_TRACE_OPERATIONS_OperationDbUnused: eHANDLE_TRACE_OPERATIONS = 0
-eHANDLE_TRACE_OPERATIONS_OperationDbOPEN: eHANDLE_TRACE_OPERATIONS = 1
-eHANDLE_TRACE_OPERATIONS_OperationDbCLOSE: eHANDLE_TRACE_OPERATIONS = 2
-eHANDLE_TRACE_OPERATIONS_OperationDbBADREF: eHANDLE_TRACE_OPERATIONS = 3
+eHANDLE_TRACE_OPERATIONS_OperationDbUnused: win32more.Windows.Win32.System.ApplicationVerifier.eHANDLE_TRACE_OPERATIONS = 0
+eHANDLE_TRACE_OPERATIONS_OperationDbOPEN: win32more.Windows.Win32.System.ApplicationVerifier.eHANDLE_TRACE_OPERATIONS = 1
+eHANDLE_TRACE_OPERATIONS_OperationDbCLOSE: win32more.Windows.Win32.System.ApplicationVerifier.eHANDLE_TRACE_OPERATIONS = 2
+eHANDLE_TRACE_OPERATIONS_OperationDbBADREF: win32more.Windows.Win32.System.ApplicationVerifier.eHANDLE_TRACE_OPERATIONS = 3
 eHeapAllocationState = Int32
-eHeapAllocationState_HeapFullPageHeap: eHeapAllocationState = 1073741824
-eHeapAllocationState_HeapMetadata: eHeapAllocationState = -2147483648
-eHeapAllocationState_HeapStateMask: eHeapAllocationState = -65536
+eHeapAllocationState_HeapFullPageHeap: win32more.Windows.Win32.System.ApplicationVerifier.eHeapAllocationState = 1073741824
+eHeapAllocationState_HeapMetadata: win32more.Windows.Win32.System.ApplicationVerifier.eHeapAllocationState = -2147483648
+eHeapAllocationState_HeapStateMask: win32more.Windows.Win32.System.ApplicationVerifier.eHeapAllocationState = -65536
 eHeapEnumerationLevel = Int32
-eHeapEnumerationLevel_HeapEnumerationEverything: eHeapEnumerationLevel = 0
-eHeapEnumerationLevel_HeapEnumerationStop: eHeapEnumerationLevel = -1
+eHeapEnumerationLevel_HeapEnumerationEverything: win32more.Windows.Win32.System.ApplicationVerifier.eHeapEnumerationLevel = 0
+eHeapEnumerationLevel_HeapEnumerationStop: win32more.Windows.Win32.System.ApplicationVerifier.eHeapEnumerationLevel = -1
 eUserAllocationState = Int32
-eUserAllocationState_AllocationStateUnknown: eUserAllocationState = 0
-eUserAllocationState_AllocationStateBusy: eUserAllocationState = 1
-eUserAllocationState_AllocationStateFree: eUserAllocationState = 2
+eUserAllocationState_AllocationStateUnknown: win32more.Windows.Win32.System.ApplicationVerifier.eUserAllocationState = 0
+eUserAllocationState_AllocationStateBusy: win32more.Windows.Win32.System.ApplicationVerifier.eUserAllocationState = 1
+eUserAllocationState_AllocationStateFree: win32more.Windows.Win32.System.ApplicationVerifier.eUserAllocationState = 2
+
+
 make_ready(__name__)

@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Storage.FileHistory
 import win32more.Windows.Win32.System.Com
@@ -62,50 +61,50 @@ def FhServiceBlockBackup(Pipe: win32more.Windows.Win32.System.WindowsProgramming
 @winfunctype('fhsvcctl.dll')
 def FhServiceUnblockBackup(Pipe: win32more.Windows.Win32.System.WindowsProgramming.FH_SERVICE_PIPE_HANDLE) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 FH_BACKUP_STATUS = Int32
-FH_STATUS_DISABLED: FH_BACKUP_STATUS = 0
-FH_STATUS_DISABLED_BY_GP: FH_BACKUP_STATUS = 1
-FH_STATUS_ENABLED: FH_BACKUP_STATUS = 2
-FH_STATUS_REHYDRATING: FH_BACKUP_STATUS = 3
-MAX_BACKUP_STATUS: FH_BACKUP_STATUS = 4
+FH_STATUS_DISABLED: win32more.Windows.Win32.Storage.FileHistory.FH_BACKUP_STATUS = 0
+FH_STATUS_DISABLED_BY_GP: win32more.Windows.Win32.Storage.FileHistory.FH_BACKUP_STATUS = 1
+FH_STATUS_ENABLED: win32more.Windows.Win32.Storage.FileHistory.FH_BACKUP_STATUS = 2
+FH_STATUS_REHYDRATING: win32more.Windows.Win32.Storage.FileHistory.FH_BACKUP_STATUS = 3
+MAX_BACKUP_STATUS: win32more.Windows.Win32.Storage.FileHistory.FH_BACKUP_STATUS = 4
 FH_DEVICE_VALIDATION_RESULT = Int32
-FH_ACCESS_DENIED: FH_DEVICE_VALIDATION_RESULT = 0
-FH_INVALID_DRIVE_TYPE: FH_DEVICE_VALIDATION_RESULT = 1
-FH_READ_ONLY_PERMISSION: FH_DEVICE_VALIDATION_RESULT = 2
-FH_CURRENT_DEFAULT: FH_DEVICE_VALIDATION_RESULT = 3
-FH_NAMESPACE_EXISTS: FH_DEVICE_VALIDATION_RESULT = 4
-FH_TARGET_PART_OF_LIBRARY: FH_DEVICE_VALIDATION_RESULT = 5
-FH_VALID_TARGET: FH_DEVICE_VALIDATION_RESULT = 6
-MAX_VALIDATION_RESULT: FH_DEVICE_VALIDATION_RESULT = 7
+FH_ACCESS_DENIED: win32more.Windows.Win32.Storage.FileHistory.FH_DEVICE_VALIDATION_RESULT = 0
+FH_INVALID_DRIVE_TYPE: win32more.Windows.Win32.Storage.FileHistory.FH_DEVICE_VALIDATION_RESULT = 1
+FH_READ_ONLY_PERMISSION: win32more.Windows.Win32.Storage.FileHistory.FH_DEVICE_VALIDATION_RESULT = 2
+FH_CURRENT_DEFAULT: win32more.Windows.Win32.Storage.FileHistory.FH_DEVICE_VALIDATION_RESULT = 3
+FH_NAMESPACE_EXISTS: win32more.Windows.Win32.Storage.FileHistory.FH_DEVICE_VALIDATION_RESULT = 4
+FH_TARGET_PART_OF_LIBRARY: win32more.Windows.Win32.Storage.FileHistory.FH_DEVICE_VALIDATION_RESULT = 5
+FH_VALID_TARGET: win32more.Windows.Win32.Storage.FileHistory.FH_DEVICE_VALIDATION_RESULT = 6
+MAX_VALIDATION_RESULT: win32more.Windows.Win32.Storage.FileHistory.FH_DEVICE_VALIDATION_RESULT = 7
 FH_LOCAL_POLICY_TYPE = Int32
-FH_FREQUENCY: FH_LOCAL_POLICY_TYPE = 0
-FH_RETENTION_TYPE: FH_LOCAL_POLICY_TYPE = 1
-FH_RETENTION_AGE: FH_LOCAL_POLICY_TYPE = 2
-MAX_LOCAL_POLICY: FH_LOCAL_POLICY_TYPE = 3
+FH_FREQUENCY: win32more.Windows.Win32.Storage.FileHistory.FH_LOCAL_POLICY_TYPE = 0
+FH_RETENTION_TYPE: win32more.Windows.Win32.Storage.FileHistory.FH_LOCAL_POLICY_TYPE = 1
+FH_RETENTION_AGE: win32more.Windows.Win32.Storage.FileHistory.FH_LOCAL_POLICY_TYPE = 2
+MAX_LOCAL_POLICY: win32more.Windows.Win32.Storage.FileHistory.FH_LOCAL_POLICY_TYPE = 3
 FH_PROTECTED_ITEM_CATEGORY = Int32
-FH_FOLDER: FH_PROTECTED_ITEM_CATEGORY = 0
-FH_LIBRARY: FH_PROTECTED_ITEM_CATEGORY = 1
-MAX_PROTECTED_ITEM_CATEGORY: FH_PROTECTED_ITEM_CATEGORY = 2
+FH_FOLDER: win32more.Windows.Win32.Storage.FileHistory.FH_PROTECTED_ITEM_CATEGORY = 0
+FH_LIBRARY: win32more.Windows.Win32.Storage.FileHistory.FH_PROTECTED_ITEM_CATEGORY = 1
+MAX_PROTECTED_ITEM_CATEGORY: win32more.Windows.Win32.Storage.FileHistory.FH_PROTECTED_ITEM_CATEGORY = 2
 FH_RETENTION_TYPES = Int32
-FH_RETENTION_DISABLED: FH_RETENTION_TYPES = 0
-FH_RETENTION_UNLIMITED: FH_RETENTION_TYPES = 1
-FH_RETENTION_AGE_BASED: FH_RETENTION_TYPES = 2
-MAX_RETENTION_TYPE: FH_RETENTION_TYPES = 3
+FH_RETENTION_DISABLED: win32more.Windows.Win32.Storage.FileHistory.FH_RETENTION_TYPES = 0
+FH_RETENTION_UNLIMITED: win32more.Windows.Win32.Storage.FileHistory.FH_RETENTION_TYPES = 1
+FH_RETENTION_AGE_BASED: win32more.Windows.Win32.Storage.FileHistory.FH_RETENTION_TYPES = 2
+MAX_RETENTION_TYPE: win32more.Windows.Win32.Storage.FileHistory.FH_RETENTION_TYPES = 3
 FH_TARGET_DRIVE_TYPES = Int32
-FH_DRIVE_UNKNOWN: FH_TARGET_DRIVE_TYPES = 0
-FH_DRIVE_REMOVABLE: FH_TARGET_DRIVE_TYPES = 2
-FH_DRIVE_FIXED: FH_TARGET_DRIVE_TYPES = 3
-FH_DRIVE_REMOTE: FH_TARGET_DRIVE_TYPES = 4
+FH_DRIVE_UNKNOWN: win32more.Windows.Win32.Storage.FileHistory.FH_TARGET_DRIVE_TYPES = 0
+FH_DRIVE_REMOVABLE: win32more.Windows.Win32.Storage.FileHistory.FH_TARGET_DRIVE_TYPES = 2
+FH_DRIVE_FIXED: win32more.Windows.Win32.Storage.FileHistory.FH_TARGET_DRIVE_TYPES = 3
+FH_DRIVE_REMOTE: win32more.Windows.Win32.Storage.FileHistory.FH_TARGET_DRIVE_TYPES = 4
 FH_TARGET_PROPERTY_TYPE = Int32
-FH_TARGET_NAME: FH_TARGET_PROPERTY_TYPE = 0
-FH_TARGET_URL: FH_TARGET_PROPERTY_TYPE = 1
-FH_TARGET_DRIVE_TYPE: FH_TARGET_PROPERTY_TYPE = 2
-MAX_TARGET_PROPERTY: FH_TARGET_PROPERTY_TYPE = 3
+FH_TARGET_NAME: win32more.Windows.Win32.Storage.FileHistory.FH_TARGET_PROPERTY_TYPE = 0
+FH_TARGET_URL: win32more.Windows.Win32.Storage.FileHistory.FH_TARGET_PROPERTY_TYPE = 1
+FH_TARGET_DRIVE_TYPE: win32more.Windows.Win32.Storage.FileHistory.FH_TARGET_PROPERTY_TYPE = 2
+MAX_TARGET_PROPERTY: win32more.Windows.Win32.Storage.FileHistory.FH_TARGET_PROPERTY_TYPE = 3
 FhBackupStopReason = Int32
-FhBackupStopReason_BackupInvalidStopReason: FhBackupStopReason = 0
-FhBackupStopReason_BackupLimitUserBusyMachineOnAC: FhBackupStopReason = 1
-FhBackupStopReason_BackupLimitUserIdleMachineOnDC: FhBackupStopReason = 2
-FhBackupStopReason_BackupLimitUserBusyMachineOnDC: FhBackupStopReason = 3
-FhBackupStopReason_BackupCancelled: FhBackupStopReason = 4
+FhBackupStopReason_BackupInvalidStopReason: win32more.Windows.Win32.Storage.FileHistory.FhBackupStopReason = 0
+FhBackupStopReason_BackupLimitUserBusyMachineOnAC: win32more.Windows.Win32.Storage.FileHistory.FhBackupStopReason = 1
+FhBackupStopReason_BackupLimitUserIdleMachineOnDC: win32more.Windows.Win32.Storage.FileHistory.FhBackupStopReason = 2
+FhBackupStopReason_BackupLimitUserBusyMachineOnDC: win32more.Windows.Win32.Storage.FileHistory.FhBackupStopReason = 3
+FhBackupStopReason_BackupCancelled: win32more.Windows.Win32.Storage.FileHistory.FhBackupStopReason = 4
 FhConfigMgr = Guid('{ed43bb3c-09e9-498a-9df6-2177244c6db4}')
 FhReassociation = Guid('{4d728e35-16fa-4320-9e8b-bfd7100a8846}')
 class IFhConfigMgr(ComPtr):
@@ -166,4 +165,6 @@ class IFhTarget(ComPtr):
     def GetStringProperty(self, PropertyType: win32more.Windows.Win32.Storage.FileHistory.FH_TARGET_PROPERTY_TYPE, PropertyValue: POINTER(win32more.Windows.Win32.Foundation.BSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetNumericalProperty(self, PropertyType: win32more.Windows.Win32.Storage.FileHistory.FH_TARGET_PROPERTY_TYPE, PropertyValue: POINTER(UInt64)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+
+
 make_ready(__name__)

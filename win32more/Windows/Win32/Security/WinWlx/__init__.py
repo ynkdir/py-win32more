@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.Security.WinWlx
@@ -302,11 +301,13 @@ class WLX_SC_NOTIFICATION_INFO(EasyCastStructure):
     pszContainer: win32more.Windows.Win32.Foundation.PWSTR
     pszCryptoProvider: win32more.Windows.Win32.Foundation.PWSTR
 WLX_SHUTDOWN_TYPE = UInt32
-WLX_SAS_ACTION_SHUTDOWN: WLX_SHUTDOWN_TYPE = 5
-WLX_SAS_ACTION_SHUTDOWN_REBOOT: WLX_SHUTDOWN_TYPE = 11
-WLX_SAS_ACTION_SHUTDOWN_POWER_OFF: WLX_SHUTDOWN_TYPE = 10
+WLX_SAS_ACTION_SHUTDOWN: win32more.Windows.Win32.Security.WinWlx.WLX_SHUTDOWN_TYPE = 5
+WLX_SAS_ACTION_SHUTDOWN_REBOOT: win32more.Windows.Win32.Security.WinWlx.WLX_SHUTDOWN_TYPE = 11
+WLX_SAS_ACTION_SHUTDOWN_POWER_OFF: win32more.Windows.Win32.Security.WinWlx.WLX_SHUTDOWN_TYPE = 10
 class WLX_TERMINAL_SERVICES_DATA(EasyCastStructure):
     ProfilePath: Char * 257
     HomeDir: Char * 257
     HomeDirDrive: Char * 4
+
+
 make_ready(__name__)

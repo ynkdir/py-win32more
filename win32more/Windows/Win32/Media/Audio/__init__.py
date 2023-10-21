@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Media
 import win32more.Windows.Win32.Media.Audio
@@ -308,10 +307,10 @@ if ARCH in 'X86':
         dwReservedDriver: UInt32 * 10
         _pack_ = 1
 AMBISONICS_CHANNEL_ORDERING = Int32
-AMBISONICS_CHANNEL_ORDERING_ACN: AMBISONICS_CHANNEL_ORDERING = 0
+AMBISONICS_CHANNEL_ORDERING_ACN: win32more.Windows.Win32.Media.Audio.AMBISONICS_CHANNEL_ORDERING = 0
 AMBISONICS_NORMALIZATION = Int32
-AMBISONICS_NORMALIZATION_SN3D: AMBISONICS_NORMALIZATION = 0
-AMBISONICS_NORMALIZATION_N3D: AMBISONICS_NORMALIZATION = 1
+AMBISONICS_NORMALIZATION_SN3D: win32more.Windows.Win32.Media.Audio.AMBISONICS_NORMALIZATION = 0
+AMBISONICS_NORMALIZATION_N3D: win32more.Windows.Win32.Media.Audio.AMBISONICS_NORMALIZATION = 1
 class AMBISONICS_PARAMS(EasyCastStructure):
     u32Size: UInt32
     u32Version: UInt32
@@ -322,56 +321,56 @@ class AMBISONICS_PARAMS(EasyCastStructure):
     u32NumChannels: UInt32
     pu32ChannelMap: POINTER(UInt32)
 AMBISONICS_TYPE = Int32
-AMBISONICS_TYPE_FULL3D: AMBISONICS_TYPE = 0
+AMBISONICS_TYPE_FULL3D: win32more.Windows.Win32.Media.Audio.AMBISONICS_TYPE = 0
 AUDCLNT_SHAREMODE = Int32
-AUDCLNT_SHAREMODE_SHARED: AUDCLNT_SHAREMODE = 0
-AUDCLNT_SHAREMODE_EXCLUSIVE: AUDCLNT_SHAREMODE = 1
+AUDCLNT_SHAREMODE_SHARED: win32more.Windows.Win32.Media.Audio.AUDCLNT_SHAREMODE = 0
+AUDCLNT_SHAREMODE_EXCLUSIVE: win32more.Windows.Win32.Media.Audio.AUDCLNT_SHAREMODE = 1
 AUDCLNT_STREAMOPTIONS = Int32
-AUDCLNT_STREAMOPTIONS_NONE: AUDCLNT_STREAMOPTIONS = 0
-AUDCLNT_STREAMOPTIONS_RAW: AUDCLNT_STREAMOPTIONS = 1
-AUDCLNT_STREAMOPTIONS_MATCH_FORMAT: AUDCLNT_STREAMOPTIONS = 2
-AUDCLNT_STREAMOPTIONS_AMBISONICS: AUDCLNT_STREAMOPTIONS = 4
+AUDCLNT_STREAMOPTIONS_NONE: win32more.Windows.Win32.Media.Audio.AUDCLNT_STREAMOPTIONS = 0
+AUDCLNT_STREAMOPTIONS_RAW: win32more.Windows.Win32.Media.Audio.AUDCLNT_STREAMOPTIONS = 1
+AUDCLNT_STREAMOPTIONS_MATCH_FORMAT: win32more.Windows.Win32.Media.Audio.AUDCLNT_STREAMOPTIONS = 2
+AUDCLNT_STREAMOPTIONS_AMBISONICS: win32more.Windows.Win32.Media.Audio.AUDCLNT_STREAMOPTIONS = 4
 class AUDIOCLIENT_ACTIVATION_PARAMS(EasyCastStructure):
     ActivationType: win32more.Windows.Win32.Media.Audio.AUDIOCLIENT_ACTIVATION_TYPE
     Anonymous: _Anonymous_e__Union
     class _Anonymous_e__Union(EasyCastUnion):
         ProcessLoopbackParams: win32more.Windows.Win32.Media.Audio.AUDIOCLIENT_PROCESS_LOOPBACK_PARAMS
 AUDIOCLIENT_ACTIVATION_TYPE = Int32
-AUDIOCLIENT_ACTIVATION_TYPE_DEFAULT: AUDIOCLIENT_ACTIVATION_TYPE = 0
-AUDIOCLIENT_ACTIVATION_TYPE_PROCESS_LOOPBACK: AUDIOCLIENT_ACTIVATION_TYPE = 1
+AUDIOCLIENT_ACTIVATION_TYPE_DEFAULT: win32more.Windows.Win32.Media.Audio.AUDIOCLIENT_ACTIVATION_TYPE = 0
+AUDIOCLIENT_ACTIVATION_TYPE_PROCESS_LOOPBACK: win32more.Windows.Win32.Media.Audio.AUDIOCLIENT_ACTIVATION_TYPE = 1
 class AUDIOCLIENT_PROCESS_LOOPBACK_PARAMS(EasyCastStructure):
     TargetProcessId: UInt32
     ProcessLoopbackMode: win32more.Windows.Win32.Media.Audio.PROCESS_LOOPBACK_MODE
 AUDIO_DUCKING_OPTIONS = Int32
-AUDIO_DUCKING_OPTIONS_DEFAULT: AUDIO_DUCKING_OPTIONS = 0
-AUDIO_DUCKING_OPTIONS_DO_NOT_DUCK_OTHER_STREAMS: AUDIO_DUCKING_OPTIONS = 1
+AUDIO_DUCKING_OPTIONS_DEFAULT: win32more.Windows.Win32.Media.Audio.AUDIO_DUCKING_OPTIONS = 0
+AUDIO_DUCKING_OPTIONS_DO_NOT_DUCK_OTHER_STREAMS: win32more.Windows.Win32.Media.Audio.AUDIO_DUCKING_OPTIONS = 1
 class AUDIO_EFFECT(EasyCastStructure):
     id: Guid
     canSetState: win32more.Windows.Win32.Foundation.BOOL
     state: win32more.Windows.Win32.Media.Audio.AUDIO_EFFECT_STATE
 AUDIO_EFFECT_STATE = Int32
-AUDIO_EFFECT_STATE_OFF: AUDIO_EFFECT_STATE = 0
-AUDIO_EFFECT_STATE_ON: AUDIO_EFFECT_STATE = 1
+AUDIO_EFFECT_STATE_OFF: win32more.Windows.Win32.Media.Audio.AUDIO_EFFECT_STATE = 0
+AUDIO_EFFECT_STATE_ON: win32more.Windows.Win32.Media.Audio.AUDIO_EFFECT_STATE = 1
 AUDIO_STREAM_CATEGORY = Int32
-AudioCategory_Other: AUDIO_STREAM_CATEGORY = 0
-AudioCategory_ForegroundOnlyMedia: AUDIO_STREAM_CATEGORY = 1
-AudioCategory_Communications: AUDIO_STREAM_CATEGORY = 3
-AudioCategory_Alerts: AUDIO_STREAM_CATEGORY = 4
-AudioCategory_SoundEffects: AUDIO_STREAM_CATEGORY = 5
-AudioCategory_GameEffects: AUDIO_STREAM_CATEGORY = 6
-AudioCategory_GameMedia: AUDIO_STREAM_CATEGORY = 7
-AudioCategory_GameChat: AUDIO_STREAM_CATEGORY = 8
-AudioCategory_Speech: AUDIO_STREAM_CATEGORY = 9
-AudioCategory_Movie: AUDIO_STREAM_CATEGORY = 10
-AudioCategory_Media: AUDIO_STREAM_CATEGORY = 11
-AudioCategory_FarFieldSpeech: AUDIO_STREAM_CATEGORY = 12
-AudioCategory_UniformSpeech: AUDIO_STREAM_CATEGORY = 13
-AudioCategory_VoiceTyping: AUDIO_STREAM_CATEGORY = 14
+AudioCategory_Other: win32more.Windows.Win32.Media.Audio.AUDIO_STREAM_CATEGORY = 0
+AudioCategory_ForegroundOnlyMedia: win32more.Windows.Win32.Media.Audio.AUDIO_STREAM_CATEGORY = 1
+AudioCategory_Communications: win32more.Windows.Win32.Media.Audio.AUDIO_STREAM_CATEGORY = 3
+AudioCategory_Alerts: win32more.Windows.Win32.Media.Audio.AUDIO_STREAM_CATEGORY = 4
+AudioCategory_SoundEffects: win32more.Windows.Win32.Media.Audio.AUDIO_STREAM_CATEGORY = 5
+AudioCategory_GameEffects: win32more.Windows.Win32.Media.Audio.AUDIO_STREAM_CATEGORY = 6
+AudioCategory_GameMedia: win32more.Windows.Win32.Media.Audio.AUDIO_STREAM_CATEGORY = 7
+AudioCategory_GameChat: win32more.Windows.Win32.Media.Audio.AUDIO_STREAM_CATEGORY = 8
+AudioCategory_Speech: win32more.Windows.Win32.Media.Audio.AUDIO_STREAM_CATEGORY = 9
+AudioCategory_Movie: win32more.Windows.Win32.Media.Audio.AUDIO_STREAM_CATEGORY = 10
+AudioCategory_Media: win32more.Windows.Win32.Media.Audio.AUDIO_STREAM_CATEGORY = 11
+AudioCategory_FarFieldSpeech: win32more.Windows.Win32.Media.Audio.AUDIO_STREAM_CATEGORY = 12
+AudioCategory_UniformSpeech: win32more.Windows.Win32.Media.Audio.AUDIO_STREAM_CATEGORY = 13
+AudioCategory_VoiceTyping: win32more.Windows.Win32.Media.Audio.AUDIO_STREAM_CATEGORY = 14
 AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE = Int32
-AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE_DEFAULT: AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE = 0
-AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE_USER: AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE = 1
-AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE_VOLATILE: AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE = 2
-AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE_ENUM_COUNT: AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE = 3
+AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE_DEFAULT: win32more.Windows.Win32.Media.Audio.AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE = 0
+AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE_USER: win32more.Windows.Win32.Media.Audio.AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE = 1
+AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE_VOLATILE: win32more.Windows.Win32.Media.Audio.AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE = 2
+AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE_ENUM_COUNT: win32more.Windows.Win32.Media.Audio.AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE = 3
 class AUDIO_VOLUME_NOTIFICATION_DATA(EasyCastStructure):
     guidEventContext: Guid
     bMuted: win32more.Windows.Win32.Foundation.BOOL
@@ -1241,54 +1240,54 @@ class AudioExtensionParams(EasyCastStructure):
     pPnpInterface: win32more.Windows.Win32.Media.Audio.IMMDevice
     pPnpDevnode: win32more.Windows.Win32.Media.Audio.IMMDevice
 AudioObjectType = Int32
-AudioObjectType_None: AudioObjectType = 0
-AudioObjectType_Dynamic: AudioObjectType = 1
-AudioObjectType_FrontLeft: AudioObjectType = 2
-AudioObjectType_FrontRight: AudioObjectType = 4
-AudioObjectType_FrontCenter: AudioObjectType = 8
-AudioObjectType_LowFrequency: AudioObjectType = 16
-AudioObjectType_SideLeft: AudioObjectType = 32
-AudioObjectType_SideRight: AudioObjectType = 64
-AudioObjectType_BackLeft: AudioObjectType = 128
-AudioObjectType_BackRight: AudioObjectType = 256
-AudioObjectType_TopFrontLeft: AudioObjectType = 512
-AudioObjectType_TopFrontRight: AudioObjectType = 1024
-AudioObjectType_TopBackLeft: AudioObjectType = 2048
-AudioObjectType_TopBackRight: AudioObjectType = 4096
-AudioObjectType_BottomFrontLeft: AudioObjectType = 8192
-AudioObjectType_BottomFrontRight: AudioObjectType = 16384
-AudioObjectType_BottomBackLeft: AudioObjectType = 32768
-AudioObjectType_BottomBackRight: AudioObjectType = 65536
-AudioObjectType_BackCenter: AudioObjectType = 131072
+AudioObjectType_None: win32more.Windows.Win32.Media.Audio.AudioObjectType = 0
+AudioObjectType_Dynamic: win32more.Windows.Win32.Media.Audio.AudioObjectType = 1
+AudioObjectType_FrontLeft: win32more.Windows.Win32.Media.Audio.AudioObjectType = 2
+AudioObjectType_FrontRight: win32more.Windows.Win32.Media.Audio.AudioObjectType = 4
+AudioObjectType_FrontCenter: win32more.Windows.Win32.Media.Audio.AudioObjectType = 8
+AudioObjectType_LowFrequency: win32more.Windows.Win32.Media.Audio.AudioObjectType = 16
+AudioObjectType_SideLeft: win32more.Windows.Win32.Media.Audio.AudioObjectType = 32
+AudioObjectType_SideRight: win32more.Windows.Win32.Media.Audio.AudioObjectType = 64
+AudioObjectType_BackLeft: win32more.Windows.Win32.Media.Audio.AudioObjectType = 128
+AudioObjectType_BackRight: win32more.Windows.Win32.Media.Audio.AudioObjectType = 256
+AudioObjectType_TopFrontLeft: win32more.Windows.Win32.Media.Audio.AudioObjectType = 512
+AudioObjectType_TopFrontRight: win32more.Windows.Win32.Media.Audio.AudioObjectType = 1024
+AudioObjectType_TopBackLeft: win32more.Windows.Win32.Media.Audio.AudioObjectType = 2048
+AudioObjectType_TopBackRight: win32more.Windows.Win32.Media.Audio.AudioObjectType = 4096
+AudioObjectType_BottomFrontLeft: win32more.Windows.Win32.Media.Audio.AudioObjectType = 8192
+AudioObjectType_BottomFrontRight: win32more.Windows.Win32.Media.Audio.AudioObjectType = 16384
+AudioObjectType_BottomBackLeft: win32more.Windows.Win32.Media.Audio.AudioObjectType = 32768
+AudioObjectType_BottomBackRight: win32more.Windows.Win32.Media.Audio.AudioObjectType = 65536
+AudioObjectType_BackCenter: win32more.Windows.Win32.Media.Audio.AudioObjectType = 131072
 AudioSessionDisconnectReason = Int32
-AudioSessionDisconnectReason_DisconnectReasonDeviceRemoval: AudioSessionDisconnectReason = 0
-AudioSessionDisconnectReason_DisconnectReasonServerShutdown: AudioSessionDisconnectReason = 1
-AudioSessionDisconnectReason_DisconnectReasonFormatChanged: AudioSessionDisconnectReason = 2
-AudioSessionDisconnectReason_DisconnectReasonSessionLogoff: AudioSessionDisconnectReason = 3
-AudioSessionDisconnectReason_DisconnectReasonSessionDisconnected: AudioSessionDisconnectReason = 4
-AudioSessionDisconnectReason_DisconnectReasonExclusiveModeOverride: AudioSessionDisconnectReason = 5
+AudioSessionDisconnectReason_DisconnectReasonDeviceRemoval: win32more.Windows.Win32.Media.Audio.AudioSessionDisconnectReason = 0
+AudioSessionDisconnectReason_DisconnectReasonServerShutdown: win32more.Windows.Win32.Media.Audio.AudioSessionDisconnectReason = 1
+AudioSessionDisconnectReason_DisconnectReasonFormatChanged: win32more.Windows.Win32.Media.Audio.AudioSessionDisconnectReason = 2
+AudioSessionDisconnectReason_DisconnectReasonSessionLogoff: win32more.Windows.Win32.Media.Audio.AudioSessionDisconnectReason = 3
+AudioSessionDisconnectReason_DisconnectReasonSessionDisconnected: win32more.Windows.Win32.Media.Audio.AudioSessionDisconnectReason = 4
+AudioSessionDisconnectReason_DisconnectReasonExclusiveModeOverride: win32more.Windows.Win32.Media.Audio.AudioSessionDisconnectReason = 5
 AudioSessionState = Int32
-AudioSessionState_AudioSessionStateInactive: AudioSessionState = 0
-AudioSessionState_AudioSessionStateActive: AudioSessionState = 1
-AudioSessionState_AudioSessionStateExpired: AudioSessionState = 2
+AudioSessionState_AudioSessionStateInactive: win32more.Windows.Win32.Media.Audio.AudioSessionState = 0
+AudioSessionState_AudioSessionStateActive: win32more.Windows.Win32.Media.Audio.AudioSessionState = 1
+AudioSessionState_AudioSessionStateExpired: win32more.Windows.Win32.Media.Audio.AudioSessionState = 2
 AudioStateMonitorSoundLevel = Int32
-AudioStateMonitorSoundLevel_Muted: AudioStateMonitorSoundLevel = 0
-AudioStateMonitorSoundLevel_Low: AudioStateMonitorSoundLevel = 1
-AudioStateMonitorSoundLevel_Full: AudioStateMonitorSoundLevel = 2
+AudioStateMonitorSoundLevel_Muted: win32more.Windows.Win32.Media.Audio.AudioStateMonitorSoundLevel = 0
+AudioStateMonitorSoundLevel_Low: win32more.Windows.Win32.Media.Audio.AudioStateMonitorSoundLevel = 1
+AudioStateMonitorSoundLevel_Full: win32more.Windows.Win32.Media.Audio.AudioStateMonitorSoundLevel = 2
 ConnectorType = Int32
-ConnectorType_Unknown_Connector: ConnectorType = 0
-ConnectorType_Physical_Internal: ConnectorType = 1
-ConnectorType_Physical_External: ConnectorType = 2
-ConnectorType_Software_IO: ConnectorType = 3
-ConnectorType_Software_Fixed: ConnectorType = 4
-ConnectorType_Network: ConnectorType = 5
+ConnectorType_Unknown_Connector: win32more.Windows.Win32.Media.Audio.ConnectorType = 0
+ConnectorType_Physical_Internal: win32more.Windows.Win32.Media.Audio.ConnectorType = 1
+ConnectorType_Physical_External: win32more.Windows.Win32.Media.Audio.ConnectorType = 2
+ConnectorType_Software_IO: win32more.Windows.Win32.Media.Audio.ConnectorType = 3
+ConnectorType_Software_Fixed: win32more.Windows.Win32.Media.Audio.ConnectorType = 4
+ConnectorType_Network: win32more.Windows.Win32.Media.Audio.ConnectorType = 5
 class DIRECTX_AUDIO_ACTIVATION_PARAMS(EasyCastStructure):
     cbDirectXAudioActivationParams: UInt32
     guidAudioSession: Guid
     dwAudioStreamFlags: UInt32
 DataFlow = Int32
-DataFlow_In: DataFlow = 0
-DataFlow_Out: DataFlow = 1
+DataFlow_In: win32more.Windows.Win32.Media.Audio.DataFlow = 0
+DataFlow_Out: win32more.Windows.Win32.Media.Audio.DataFlow = 1
 DeviceTopology = Guid('{1df639d0-5ec1-47aa-9379-828dc1aa8c59}')
 class ECHOWAVEFILTER(EasyCastStructure):
     wfltr: win32more.Windows.Win32.Media.Audio.WAVEFILTER
@@ -1296,28 +1295,28 @@ class ECHOWAVEFILTER(EasyCastStructure):
     dwDelay: UInt32
     _pack_ = 1
 EDataFlow = Int32
-EDataFlow_eRender: EDataFlow = 0
-EDataFlow_eCapture: EDataFlow = 1
-EDataFlow_eAll: EDataFlow = 2
-EDataFlow_EDataFlow_enum_count: EDataFlow = 3
+EDataFlow_eRender: win32more.Windows.Win32.Media.Audio.EDataFlow = 0
+EDataFlow_eCapture: win32more.Windows.Win32.Media.Audio.EDataFlow = 1
+EDataFlow_eAll: win32more.Windows.Win32.Media.Audio.EDataFlow = 2
+EDataFlow_EDataFlow_enum_count: win32more.Windows.Win32.Media.Audio.EDataFlow = 3
 ERole = Int32
-ERole_eConsole: ERole = 0
-ERole_eMultimedia: ERole = 1
-ERole_eCommunications: ERole = 2
-ERole_ERole_enum_count: ERole = 3
+ERole_eConsole: win32more.Windows.Win32.Media.Audio.ERole = 0
+ERole_eMultimedia: win32more.Windows.Win32.Media.Audio.ERole = 1
+ERole_eCommunications: win32more.Windows.Win32.Media.Audio.ERole = 2
+ERole_ERole_enum_count: win32more.Windows.Win32.Media.Audio.ERole = 3
 EndpointFormFactor = Int32
-EndpointFormFactor_RemoteNetworkDevice: EndpointFormFactor = 0
-EndpointFormFactor_Speakers: EndpointFormFactor = 1
-EndpointFormFactor_LineLevel: EndpointFormFactor = 2
-EndpointFormFactor_Headphones: EndpointFormFactor = 3
-EndpointFormFactor_Microphone: EndpointFormFactor = 4
-EndpointFormFactor_Headset: EndpointFormFactor = 5
-EndpointFormFactor_Handset: EndpointFormFactor = 6
-EndpointFormFactor_UnknownDigitalPassthrough: EndpointFormFactor = 7
-EndpointFormFactor_SPDIF: EndpointFormFactor = 8
-EndpointFormFactor_DigitalAudioDisplayDevice: EndpointFormFactor = 9
-EndpointFormFactor_UnknownFormFactor: EndpointFormFactor = 10
-EndpointFormFactor_EndpointFormFactor_enum_count: EndpointFormFactor = 11
+EndpointFormFactor_RemoteNetworkDevice: win32more.Windows.Win32.Media.Audio.EndpointFormFactor = 0
+EndpointFormFactor_Speakers: win32more.Windows.Win32.Media.Audio.EndpointFormFactor = 1
+EndpointFormFactor_LineLevel: win32more.Windows.Win32.Media.Audio.EndpointFormFactor = 2
+EndpointFormFactor_Headphones: win32more.Windows.Win32.Media.Audio.EndpointFormFactor = 3
+EndpointFormFactor_Microphone: win32more.Windows.Win32.Media.Audio.EndpointFormFactor = 4
+EndpointFormFactor_Headset: win32more.Windows.Win32.Media.Audio.EndpointFormFactor = 5
+EndpointFormFactor_Handset: win32more.Windows.Win32.Media.Audio.EndpointFormFactor = 6
+EndpointFormFactor_UnknownDigitalPassthrough: win32more.Windows.Win32.Media.Audio.EndpointFormFactor = 7
+EndpointFormFactor_SPDIF: win32more.Windows.Win32.Media.Audio.EndpointFormFactor = 8
+EndpointFormFactor_DigitalAudioDisplayDevice: win32more.Windows.Win32.Media.Audio.EndpointFormFactor = 9
+EndpointFormFactor_UnknownFormFactor: win32more.Windows.Win32.Media.Audio.EndpointFormFactor = 10
+EndpointFormFactor_EndpointFormFactor_enum_count: win32more.Windows.Win32.Media.Audio.EndpointFormFactor = 11
 HACMDRIVER = IntPtr
 HACMDRIVERID = IntPtr
 HACMOBJ = IntPtr
@@ -2160,20 +2159,20 @@ class MIDISTRMBUFFVER(EasyCastStructure):
     dwOEMVersion: UInt32
     _pack_ = 1
 MIDI_WAVE_OPEN_TYPE = UInt32
-CALLBACK_TYPEMASK: MIDI_WAVE_OPEN_TYPE = 458752
-CALLBACK_NULL: MIDI_WAVE_OPEN_TYPE = 0
-CALLBACK_WINDOW: MIDI_WAVE_OPEN_TYPE = 65536
-CALLBACK_TASK: MIDI_WAVE_OPEN_TYPE = 131072
-CALLBACK_FUNCTION: MIDI_WAVE_OPEN_TYPE = 196608
-CALLBACK_THREAD: MIDI_WAVE_OPEN_TYPE = 131072
-CALLBACK_EVENT: MIDI_WAVE_OPEN_TYPE = 327680
-WAVE_FORMAT_QUERY: MIDI_WAVE_OPEN_TYPE = 1
-WAVE_ALLOWSYNC: MIDI_WAVE_OPEN_TYPE = 2
-WAVE_MAPPED: MIDI_WAVE_OPEN_TYPE = 4
-WAVE_FORMAT_DIRECT: MIDI_WAVE_OPEN_TYPE = 8
-WAVE_FORMAT_DIRECT_QUERY: MIDI_WAVE_OPEN_TYPE = 9
-WAVE_MAPPED_DEFAULT_COMMUNICATION_DEVICE: MIDI_WAVE_OPEN_TYPE = 16
-MIDI_IO_STATUS: MIDI_WAVE_OPEN_TYPE = 32
+CALLBACK_TYPEMASK: win32more.Windows.Win32.Media.Audio.MIDI_WAVE_OPEN_TYPE = 458752
+CALLBACK_NULL: win32more.Windows.Win32.Media.Audio.MIDI_WAVE_OPEN_TYPE = 0
+CALLBACK_WINDOW: win32more.Windows.Win32.Media.Audio.MIDI_WAVE_OPEN_TYPE = 65536
+CALLBACK_TASK: win32more.Windows.Win32.Media.Audio.MIDI_WAVE_OPEN_TYPE = 131072
+CALLBACK_FUNCTION: win32more.Windows.Win32.Media.Audio.MIDI_WAVE_OPEN_TYPE = 196608
+CALLBACK_THREAD: win32more.Windows.Win32.Media.Audio.MIDI_WAVE_OPEN_TYPE = 131072
+CALLBACK_EVENT: win32more.Windows.Win32.Media.Audio.MIDI_WAVE_OPEN_TYPE = 327680
+WAVE_FORMAT_QUERY: win32more.Windows.Win32.Media.Audio.MIDI_WAVE_OPEN_TYPE = 1
+WAVE_ALLOWSYNC: win32more.Windows.Win32.Media.Audio.MIDI_WAVE_OPEN_TYPE = 2
+WAVE_MAPPED: win32more.Windows.Win32.Media.Audio.MIDI_WAVE_OPEN_TYPE = 4
+WAVE_FORMAT_DIRECT: win32more.Windows.Win32.Media.Audio.MIDI_WAVE_OPEN_TYPE = 8
+WAVE_FORMAT_DIRECT_QUERY: win32more.Windows.Win32.Media.Audio.MIDI_WAVE_OPEN_TYPE = 9
+WAVE_MAPPED_DEFAULT_COMMUNICATION_DEVICE: win32more.Windows.Win32.Media.Audio.MIDI_WAVE_OPEN_TYPE = 16
+MIDI_IO_STATUS: win32more.Windows.Win32.Media.Audio.MIDI_WAVE_OPEN_TYPE = 32
 class MIXERCAPS2A(EasyCastStructure):
     wMid: UInt16
     wPid: UInt16
@@ -2372,26 +2371,26 @@ class MIXERLINEW(EasyCastStructure):
         szPname: Char * 32
         _pack_ = 1
 MIXERLINE_COMPONENTTYPE = UInt32
-MIXERLINE_COMPONENTTYPE_DST_DIGITAL: MIXERLINE_COMPONENTTYPE = 1
-MIXERLINE_COMPONENTTYPE_DST_HEADPHONES: MIXERLINE_COMPONENTTYPE = 5
-MIXERLINE_COMPONENTTYPE_DST_LINE: MIXERLINE_COMPONENTTYPE = 2
-MIXERLINE_COMPONENTTYPE_DST_MONITOR: MIXERLINE_COMPONENTTYPE = 3
-MIXERLINE_COMPONENTTYPE_DST_SPEAKERS: MIXERLINE_COMPONENTTYPE = 4
-MIXERLINE_COMPONENTTYPE_DST_TELEPHONE: MIXERLINE_COMPONENTTYPE = 6
-MIXERLINE_COMPONENTTYPE_DST_UNDEFINED: MIXERLINE_COMPONENTTYPE = 0
-MIXERLINE_COMPONENTTYPE_DST_VOICEIN: MIXERLINE_COMPONENTTYPE = 8
-MIXERLINE_COMPONENTTYPE_DST_WAVEIN: MIXERLINE_COMPONENTTYPE = 7
-MIXERLINE_COMPONENTTYPE_SRC_ANALOG: MIXERLINE_COMPONENTTYPE = 4106
-MIXERLINE_COMPONENTTYPE_SRC_AUXILIARY: MIXERLINE_COMPONENTTYPE = 4105
-MIXERLINE_COMPONENTTYPE_SRC_COMPACTDISC: MIXERLINE_COMPONENTTYPE = 4101
-MIXERLINE_COMPONENTTYPE_SRC_DIGITAL: MIXERLINE_COMPONENTTYPE = 4097
-MIXERLINE_COMPONENTTYPE_SRC_LINE: MIXERLINE_COMPONENTTYPE = 4098
-MIXERLINE_COMPONENTTYPE_SRC_MICROPHONE: MIXERLINE_COMPONENTTYPE = 4099
-MIXERLINE_COMPONENTTYPE_SRC_PCSPEAKER: MIXERLINE_COMPONENTTYPE = 4103
-MIXERLINE_COMPONENTTYPE_SRC_SYNTHESIZER: MIXERLINE_COMPONENTTYPE = 4100
-MIXERLINE_COMPONENTTYPE_SRC_TELEPHONE: MIXERLINE_COMPONENTTYPE = 4102
-MIXERLINE_COMPONENTTYPE_SRC_UNDEFINED: MIXERLINE_COMPONENTTYPE = 4096
-MIXERLINE_COMPONENTTYPE_SRC_WAVEOUT: MIXERLINE_COMPONENTTYPE = 4104
+MIXERLINE_COMPONENTTYPE_DST_DIGITAL: win32more.Windows.Win32.Media.Audio.MIXERLINE_COMPONENTTYPE = 1
+MIXERLINE_COMPONENTTYPE_DST_HEADPHONES: win32more.Windows.Win32.Media.Audio.MIXERLINE_COMPONENTTYPE = 5
+MIXERLINE_COMPONENTTYPE_DST_LINE: win32more.Windows.Win32.Media.Audio.MIXERLINE_COMPONENTTYPE = 2
+MIXERLINE_COMPONENTTYPE_DST_MONITOR: win32more.Windows.Win32.Media.Audio.MIXERLINE_COMPONENTTYPE = 3
+MIXERLINE_COMPONENTTYPE_DST_SPEAKERS: win32more.Windows.Win32.Media.Audio.MIXERLINE_COMPONENTTYPE = 4
+MIXERLINE_COMPONENTTYPE_DST_TELEPHONE: win32more.Windows.Win32.Media.Audio.MIXERLINE_COMPONENTTYPE = 6
+MIXERLINE_COMPONENTTYPE_DST_UNDEFINED: win32more.Windows.Win32.Media.Audio.MIXERLINE_COMPONENTTYPE = 0
+MIXERLINE_COMPONENTTYPE_DST_VOICEIN: win32more.Windows.Win32.Media.Audio.MIXERLINE_COMPONENTTYPE = 8
+MIXERLINE_COMPONENTTYPE_DST_WAVEIN: win32more.Windows.Win32.Media.Audio.MIXERLINE_COMPONENTTYPE = 7
+MIXERLINE_COMPONENTTYPE_SRC_ANALOG: win32more.Windows.Win32.Media.Audio.MIXERLINE_COMPONENTTYPE = 4106
+MIXERLINE_COMPONENTTYPE_SRC_AUXILIARY: win32more.Windows.Win32.Media.Audio.MIXERLINE_COMPONENTTYPE = 4105
+MIXERLINE_COMPONENTTYPE_SRC_COMPACTDISC: win32more.Windows.Win32.Media.Audio.MIXERLINE_COMPONENTTYPE = 4101
+MIXERLINE_COMPONENTTYPE_SRC_DIGITAL: win32more.Windows.Win32.Media.Audio.MIXERLINE_COMPONENTTYPE = 4097
+MIXERLINE_COMPONENTTYPE_SRC_LINE: win32more.Windows.Win32.Media.Audio.MIXERLINE_COMPONENTTYPE = 4098
+MIXERLINE_COMPONENTTYPE_SRC_MICROPHONE: win32more.Windows.Win32.Media.Audio.MIXERLINE_COMPONENTTYPE = 4099
+MIXERLINE_COMPONENTTYPE_SRC_PCSPEAKER: win32more.Windows.Win32.Media.Audio.MIXERLINE_COMPONENTTYPE = 4103
+MIXERLINE_COMPONENTTYPE_SRC_SYNTHESIZER: win32more.Windows.Win32.Media.Audio.MIXERLINE_COMPONENTTYPE = 4100
+MIXERLINE_COMPONENTTYPE_SRC_TELEPHONE: win32more.Windows.Win32.Media.Audio.MIXERLINE_COMPONENTTYPE = 4102
+MIXERLINE_COMPONENTTYPE_SRC_UNDEFINED: win32more.Windows.Win32.Media.Audio.MIXERLINE_COMPONENTTYPE = 4096
+MIXERLINE_COMPONENTTYPE_SRC_WAVEOUT: win32more.Windows.Win32.Media.Audio.MIXERLINE_COMPONENTTYPE = 4104
 MMDeviceEnumerator = Guid('{bcde0395-e52f-467c-8e3d-c4579291692e}')
 @winfunctype_pointer
 def PAudioStateMonitorCallback(audioStateMonitor: win32more.Windows.Win32.Media.Audio.IAudioStateMonitor, context: VoidPtr) -> Void: ...
@@ -2400,30 +2399,30 @@ class PCMWAVEFORMAT(EasyCastStructure):
     wBitsPerSample: UInt16
     _pack_ = 1
 PROCESS_LOOPBACK_MODE = Int32
-PROCESS_LOOPBACK_MODE_INCLUDE_TARGET_PROCESS_TREE: PROCESS_LOOPBACK_MODE = 0
-PROCESS_LOOPBACK_MODE_EXCLUDE_TARGET_PROCESS_TREE: PROCESS_LOOPBACK_MODE = 1
+PROCESS_LOOPBACK_MODE_INCLUDE_TARGET_PROCESS_TREE: win32more.Windows.Win32.Media.Audio.PROCESS_LOOPBACK_MODE = 0
+PROCESS_LOOPBACK_MODE_EXCLUDE_TARGET_PROCESS_TREE: win32more.Windows.Win32.Media.Audio.PROCESS_LOOPBACK_MODE = 1
 PartType = Int32
-PartType_Connector: PartType = 0
-PartType_Subunit: PartType = 1
+PartType_Connector: win32more.Windows.Win32.Media.Audio.PartType = 0
+PartType_Subunit: win32more.Windows.Win32.Media.Audio.PartType = 1
 SND_FLAGS = UInt32
-SND_APPLICATION: SND_FLAGS = 128
-SND_ALIAS: SND_FLAGS = 65536
-SND_ALIAS_ID: SND_FLAGS = 1114112
-SND_FILENAME: SND_FLAGS = 131072
-SND_RESOURCE: SND_FLAGS = 262148
-SND_ASYNC: SND_FLAGS = 1
-SND_NODEFAULT: SND_FLAGS = 2
-SND_LOOP: SND_FLAGS = 8
-SND_MEMORY: SND_FLAGS = 4
-SND_NOSTOP: SND_FLAGS = 16
-SND_NOWAIT: SND_FLAGS = 8192
-SND_PURGE: SND_FLAGS = 64
-SND_SENTRY: SND_FLAGS = 524288
-SND_SYNC: SND_FLAGS = 0
-SND_SYSTEM: SND_FLAGS = 2097152
+SND_APPLICATION: win32more.Windows.Win32.Media.Audio.SND_FLAGS = 128
+SND_ALIAS: win32more.Windows.Win32.Media.Audio.SND_FLAGS = 65536
+SND_ALIAS_ID: win32more.Windows.Win32.Media.Audio.SND_FLAGS = 1114112
+SND_FILENAME: win32more.Windows.Win32.Media.Audio.SND_FLAGS = 131072
+SND_RESOURCE: win32more.Windows.Win32.Media.Audio.SND_FLAGS = 262148
+SND_ASYNC: win32more.Windows.Win32.Media.Audio.SND_FLAGS = 1
+SND_NODEFAULT: win32more.Windows.Win32.Media.Audio.SND_FLAGS = 2
+SND_LOOP: win32more.Windows.Win32.Media.Audio.SND_FLAGS = 8
+SND_MEMORY: win32more.Windows.Win32.Media.Audio.SND_FLAGS = 4
+SND_NOSTOP: win32more.Windows.Win32.Media.Audio.SND_FLAGS = 16
+SND_NOWAIT: win32more.Windows.Win32.Media.Audio.SND_FLAGS = 8192
+SND_PURGE: win32more.Windows.Win32.Media.Audio.SND_FLAGS = 64
+SND_SENTRY: win32more.Windows.Win32.Media.Audio.SND_FLAGS = 524288
+SND_SYNC: win32more.Windows.Win32.Media.Audio.SND_FLAGS = 0
+SND_SYSTEM: win32more.Windows.Win32.Media.Audio.SND_FLAGS = 2097152
 SPATIAL_AUDIO_STREAM_OPTIONS = Int32
-SPATIAL_AUDIO_STREAM_OPTIONS_NONE: SPATIAL_AUDIO_STREAM_OPTIONS = 0
-SPATIAL_AUDIO_STREAM_OPTIONS_OFFLOAD: SPATIAL_AUDIO_STREAM_OPTIONS = 1
+SPATIAL_AUDIO_STREAM_OPTIONS_NONE: win32more.Windows.Win32.Media.Audio.SPATIAL_AUDIO_STREAM_OPTIONS = 0
+SPATIAL_AUDIO_STREAM_OPTIONS_OFFLOAD: win32more.Windows.Win32.Media.Audio.SPATIAL_AUDIO_STREAM_OPTIONS = 1
 class SpatialAudioClientActivationParams(EasyCastStructure):
     tracingContextId: Guid
     appId: Guid
@@ -2472,9 +2471,9 @@ class SpatialAudioHrtfDirectivityCone(EasyCastStructure):
     OuterAngle: Single
     _pack_ = 1
 SpatialAudioHrtfDirectivityType = Int32
-SpatialAudioHrtfDirectivity_OmniDirectional: SpatialAudioHrtfDirectivityType = 0
-SpatialAudioHrtfDirectivity_Cardioid: SpatialAudioHrtfDirectivityType = 1
-SpatialAudioHrtfDirectivity_Cone: SpatialAudioHrtfDirectivityType = 2
+SpatialAudioHrtfDirectivity_OmniDirectional: win32more.Windows.Win32.Media.Audio.SpatialAudioHrtfDirectivityType = 0
+SpatialAudioHrtfDirectivity_Cardioid: win32more.Windows.Win32.Media.Audio.SpatialAudioHrtfDirectivityType = 1
+SpatialAudioHrtfDirectivity_Cone: win32more.Windows.Win32.Media.Audio.SpatialAudioHrtfDirectivityType = 2
 class SpatialAudioHrtfDirectivityUnion(EasyCastUnion):
     Cone: win32more.Windows.Win32.Media.Audio.SpatialAudioHrtfDirectivityCone
     Cardiod: win32more.Windows.Win32.Media.Audio.SpatialAudioHrtfDirectivityCardioid
@@ -2487,19 +2486,19 @@ class SpatialAudioHrtfDistanceDecay(EasyCastStructure):
     CutoffDistance: Single
     _pack_ = 1
 SpatialAudioHrtfDistanceDecayType = Int32
-SpatialAudioHrtfDistanceDecay_NaturalDecay: SpatialAudioHrtfDistanceDecayType = 0
-SpatialAudioHrtfDistanceDecay_CustomDecay: SpatialAudioHrtfDistanceDecayType = 1
+SpatialAudioHrtfDistanceDecay_NaturalDecay: win32more.Windows.Win32.Media.Audio.SpatialAudioHrtfDistanceDecayType = 0
+SpatialAudioHrtfDistanceDecay_CustomDecay: win32more.Windows.Win32.Media.Audio.SpatialAudioHrtfDistanceDecayType = 1
 SpatialAudioHrtfEnvironmentType = Int32
-SpatialAudioHrtfEnvironment_Small: SpatialAudioHrtfEnvironmentType = 0
-SpatialAudioHrtfEnvironment_Medium: SpatialAudioHrtfEnvironmentType = 1
-SpatialAudioHrtfEnvironment_Large: SpatialAudioHrtfEnvironmentType = 2
-SpatialAudioHrtfEnvironment_Outdoors: SpatialAudioHrtfEnvironmentType = 3
-SpatialAudioHrtfEnvironment_Average: SpatialAudioHrtfEnvironmentType = 4
+SpatialAudioHrtfEnvironment_Small: win32more.Windows.Win32.Media.Audio.SpatialAudioHrtfEnvironmentType = 0
+SpatialAudioHrtfEnvironment_Medium: win32more.Windows.Win32.Media.Audio.SpatialAudioHrtfEnvironmentType = 1
+SpatialAudioHrtfEnvironment_Large: win32more.Windows.Win32.Media.Audio.SpatialAudioHrtfEnvironmentType = 2
+SpatialAudioHrtfEnvironment_Outdoors: win32more.Windows.Win32.Media.Audio.SpatialAudioHrtfEnvironmentType = 3
+SpatialAudioHrtfEnvironment_Average: win32more.Windows.Win32.Media.Audio.SpatialAudioHrtfEnvironmentType = 4
 SpatialAudioMetadataCopyMode = Int32
-SpatialAudioMetadataCopy_Overwrite: SpatialAudioMetadataCopyMode = 0
-SpatialAudioMetadataCopy_Append: SpatialAudioMetadataCopyMode = 1
-SpatialAudioMetadataCopy_AppendMergeWithLast: SpatialAudioMetadataCopyMode = 2
-SpatialAudioMetadataCopy_AppendMergeWithFirst: SpatialAudioMetadataCopyMode = 3
+SpatialAudioMetadataCopy_Overwrite: win32more.Windows.Win32.Media.Audio.SpatialAudioMetadataCopyMode = 0
+SpatialAudioMetadataCopy_Append: win32more.Windows.Win32.Media.Audio.SpatialAudioMetadataCopyMode = 1
+SpatialAudioMetadataCopy_AppendMergeWithLast: win32more.Windows.Win32.Media.Audio.SpatialAudioMetadataCopyMode = 2
+SpatialAudioMetadataCopy_AppendMergeWithFirst: win32more.Windows.Win32.Media.Audio.SpatialAudioMetadataCopyMode = 3
 class SpatialAudioMetadataItemsInfo(EasyCastStructure):
     FrameCount: UInt16
     ItemCount: UInt16
@@ -2507,9 +2506,9 @@ class SpatialAudioMetadataItemsInfo(EasyCastStructure):
     MaxValueBufferLength: UInt32
     _pack_ = 1
 SpatialAudioMetadataWriterOverflowMode = Int32
-SpatialAudioMetadataWriterOverflow_Fail: SpatialAudioMetadataWriterOverflowMode = 0
-SpatialAudioMetadataWriterOverflow_MergeWithNew: SpatialAudioMetadataWriterOverflowMode = 1
-SpatialAudioMetadataWriterOverflow_MergeWithLast: SpatialAudioMetadataWriterOverflowMode = 2
+SpatialAudioMetadataWriterOverflow_Fail: win32more.Windows.Win32.Media.Audio.SpatialAudioMetadataWriterOverflowMode = 0
+SpatialAudioMetadataWriterOverflow_MergeWithNew: win32more.Windows.Win32.Media.Audio.SpatialAudioMetadataWriterOverflowMode = 1
+SpatialAudioMetadataWriterOverflow_MergeWithLast: win32more.Windows.Win32.Media.Audio.SpatialAudioMetadataWriterOverflowMode = 2
 class SpatialAudioObjectRenderStreamActivationParams(EasyCastStructure):
     ObjectFormat: POINTER(win32more.Windows.Win32.Media.Audio.WAVEFORMATEX)
     StaticObjectTypeMask: win32more.Windows.Win32.Media.Audio.AudioObjectType
@@ -2690,9 +2689,9 @@ class WAVEOUTCAPSW(EasyCastStructure):
     dwSupport: UInt32
     _pack_ = 1
 _AUDCLNT_BUFFERFLAGS = Int32
-AUDCLNT_BUFFERFLAGS_DATA_DISCONTINUITY: _AUDCLNT_BUFFERFLAGS = 1
-AUDCLNT_BUFFERFLAGS_SILENT: _AUDCLNT_BUFFERFLAGS = 2
-AUDCLNT_BUFFERFLAGS_TIMESTAMP_ERROR: _AUDCLNT_BUFFERFLAGS = 4
+AUDCLNT_BUFFERFLAGS_DATA_DISCONTINUITY: win32more.Windows.Win32.Media.Audio._AUDCLNT_BUFFERFLAGS = 1
+AUDCLNT_BUFFERFLAGS_SILENT: win32more.Windows.Win32.Media.Audio._AUDCLNT_BUFFERFLAGS = 2
+AUDCLNT_BUFFERFLAGS_TIMESTAMP_ERROR: win32more.Windows.Win32.Media.Audio._AUDCLNT_BUFFERFLAGS = 4
 class tACMFORMATDETAILSW(EasyCastStructure):
     cbStruct: UInt32
     dwFormatIndex: UInt32
@@ -2702,4 +2701,6 @@ class tACMFORMATDETAILSW(EasyCastStructure):
     cbwfx: UInt32
     szFormat: Char * 128
     _pack_ = 1
+
+
 make_ready(__name__)

@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.CompositionSwapchain
 import win32more.Windows.Win32.Graphics.Dxgi.Common
@@ -17,9 +16,9 @@ class CompositionFrameDisplayInstance(EasyCastStructure):
     requiredCrossAdapterCopy: Byte
     colorSpace: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_COLOR_SPACE_TYPE
 CompositionFrameInstanceKind = Int32
-CompositionFrameInstanceKind_ComposedOnScreen: CompositionFrameInstanceKind = 0
-CompositionFrameInstanceKind_ScanoutOnScreen: CompositionFrameInstanceKind = 1
-CompositionFrameInstanceKind_ComposedToIntermediate: CompositionFrameInstanceKind = 2
+CompositionFrameInstanceKind_ComposedOnScreen: win32more.Windows.Win32.Graphics.CompositionSwapchain.CompositionFrameInstanceKind = 0
+CompositionFrameInstanceKind_ScanoutOnScreen: win32more.Windows.Win32.Graphics.CompositionSwapchain.CompositionFrameInstanceKind = 1
+CompositionFrameInstanceKind_ComposedToIntermediate: win32more.Windows.Win32.Graphics.CompositionSwapchain.CompositionFrameInstanceKind = 2
 class ICompositionFramePresentStatistics(ComPtr):
     extends: win32more.Windows.Win32.Graphics.CompositionSwapchain.IPresentStatistics
     _iid_ = Guid('{ab41d127-c101-4c0a-911d-f9f2e9d08e64}')
@@ -126,13 +125,13 @@ class IPresentationSurface(ComPtr):
     @commethod(11)
     def SetLetterboxingMargins(self, leftLetterboxSize: Single, topLetterboxSize: Single, rightLetterboxSize: Single, bottomLetterboxSize: Single) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 PresentStatisticsKind = Int32
-PresentStatisticsKind_PresentStatus: PresentStatisticsKind = 1
-PresentStatisticsKind_CompositionFrame: PresentStatisticsKind = 2
-PresentStatisticsKind_IndependentFlipFrame: PresentStatisticsKind = 3
+PresentStatisticsKind_PresentStatus: win32more.Windows.Win32.Graphics.CompositionSwapchain.PresentStatisticsKind = 1
+PresentStatisticsKind_CompositionFrame: win32more.Windows.Win32.Graphics.CompositionSwapchain.PresentStatisticsKind = 2
+PresentStatisticsKind_IndependentFlipFrame: win32more.Windows.Win32.Graphics.CompositionSwapchain.PresentStatisticsKind = 3
 PresentStatus = Int32
-PresentStatus_Queued: PresentStatus = 0
-PresentStatus_Skipped: PresentStatus = 1
-PresentStatus_Canceled: PresentStatus = 2
+PresentStatus_Queued: win32more.Windows.Win32.Graphics.CompositionSwapchain.PresentStatus = 0
+PresentStatus_Skipped: win32more.Windows.Win32.Graphics.CompositionSwapchain.PresentStatus = 1
+PresentStatus_Canceled: win32more.Windows.Win32.Graphics.CompositionSwapchain.PresentStatus = 2
 class PresentationTransform(EasyCastStructure):
     M11: Single
     M12: Single
@@ -142,4 +141,6 @@ class PresentationTransform(EasyCastStructure):
     M32: Single
 class SystemInterruptTime(EasyCastStructure):
     value: UInt64
+
+
 make_ready(__name__)

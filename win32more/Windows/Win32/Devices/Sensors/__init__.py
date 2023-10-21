@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Devices.PortableDevices
 import win32more.Windows.Win32.Devices.Properties
 import win32more.Windows.Win32.Devices.Sensors
@@ -9,23 +8,23 @@ import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.Com.StructuredStorage
 import win32more.Windows.Win32.UI.Shell.PropertiesSystem
 ACTIVITY_STATE = Int32
-ActivityState_Unknown: ACTIVITY_STATE = 1
-ActivityState_Stationary: ACTIVITY_STATE = 2
-ActivityState_Fidgeting: ACTIVITY_STATE = 4
-ActivityState_Walking: ACTIVITY_STATE = 8
-ActivityState_Running: ACTIVITY_STATE = 16
-ActivityState_InVehicle: ACTIVITY_STATE = 32
-ActivityState_Biking: ACTIVITY_STATE = 64
-ActivityState_Idle: ACTIVITY_STATE = 128
-ActivityState_Max: ACTIVITY_STATE = 256
-ActivityState_Force_Dword: ACTIVITY_STATE = -1
+ActivityState_Unknown: win32more.Windows.Win32.Devices.Sensors.ACTIVITY_STATE = 1
+ActivityState_Stationary: win32more.Windows.Win32.Devices.Sensors.ACTIVITY_STATE = 2
+ActivityState_Fidgeting: win32more.Windows.Win32.Devices.Sensors.ACTIVITY_STATE = 4
+ActivityState_Walking: win32more.Windows.Win32.Devices.Sensors.ACTIVITY_STATE = 8
+ActivityState_Running: win32more.Windows.Win32.Devices.Sensors.ACTIVITY_STATE = 16
+ActivityState_InVehicle: win32more.Windows.Win32.Devices.Sensors.ACTIVITY_STATE = 32
+ActivityState_Biking: win32more.Windows.Win32.Devices.Sensors.ACTIVITY_STATE = 64
+ActivityState_Idle: win32more.Windows.Win32.Devices.Sensors.ACTIVITY_STATE = 128
+ActivityState_Max: win32more.Windows.Win32.Devices.Sensors.ACTIVITY_STATE = 256
+ActivityState_Force_Dword: win32more.Windows.Win32.Devices.Sensors.ACTIVITY_STATE = -1
 ACTIVITY_STATE_COUNT = Int32
-ACTIVITY_STATE_COUNT_ActivityStateCount: ACTIVITY_STATE_COUNT = 8
+ACTIVITY_STATE_COUNT_ActivityStateCount: win32more.Windows.Win32.Devices.Sensors.ACTIVITY_STATE_COUNT = 8
 AXIS = Int32
-AXIS_X: AXIS = 0
-AXIS_Y: AXIS = 1
-AXIS_Z: AXIS = 2
-AXIS_MAX: AXIS = 3
+AXIS_X: win32more.Windows.Win32.Devices.Sensors.AXIS = 0
+AXIS_Y: win32more.Windows.Win32.Devices.Sensors.AXIS = 1
+AXIS_Z: win32more.Windows.Win32.Devices.Sensors.AXIS = 2
+AXIS_MAX: win32more.Windows.Win32.Devices.Sensors.AXIS = 3
 GUID_DEVINTERFACE_SENSOR: Guid = Guid('{ba1bb692-9b7a-4833-9a1e-525ed134e7e2}')
 SENSOR_EVENT_STATE_CHANGED: Guid = Guid('{bfd96016-6bd7-4560-ad34-f2f6607e8f81}')
 SENSOR_EVENT_DATA_UPDATED: Guid = Guid('{2ed0f2a4-0087-41d3-87db-6773370b3c88}')
@@ -542,19 +541,19 @@ def IsSensorSubscribed(subscriptionList: POINTER(win32more.Windows.Win32.Devices
 @winfunctype('SensorsUtilsV2.dll')
 def IsGUIDPresentInList(guidArray: POINTER(Guid), arrayLength: UInt32, guidElem: POINTER(Guid)) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
 ELEVATION_CHANGE_MODE = Int32
-ElevationChangeMode_Unknown: ELEVATION_CHANGE_MODE = 0
-ElevationChangeMode_Elevator: ELEVATION_CHANGE_MODE = 1
-ElevationChangeMode_Stepping: ELEVATION_CHANGE_MODE = 2
-ElevationChangeMode_Max: ELEVATION_CHANGE_MODE = 3
-ElevationChangeMode_Force_Dword: ELEVATION_CHANGE_MODE = -1
+ElevationChangeMode_Unknown: win32more.Windows.Win32.Devices.Sensors.ELEVATION_CHANGE_MODE = 0
+ElevationChangeMode_Elevator: win32more.Windows.Win32.Devices.Sensors.ELEVATION_CHANGE_MODE = 1
+ElevationChangeMode_Stepping: win32more.Windows.Win32.Devices.Sensors.ELEVATION_CHANGE_MODE = 2
+ElevationChangeMode_Max: win32more.Windows.Win32.Devices.Sensors.ELEVATION_CHANGE_MODE = 3
+ElevationChangeMode_Force_Dword: win32more.Windows.Win32.Devices.Sensors.ELEVATION_CHANGE_MODE = -1
 HUMAN_PRESENCE_DETECTION_TYPE = Int32
-HumanPresenceDetectionType_VendorDefinedNonBiometric: HUMAN_PRESENCE_DETECTION_TYPE = 1
-HumanPresenceDetectionType_VendorDefinedBiometric: HUMAN_PRESENCE_DETECTION_TYPE = 2
-HumanPresenceDetectionType_FacialBiometric: HUMAN_PRESENCE_DETECTION_TYPE = 4
-HumanPresenceDetectionType_AudioBiometric: HUMAN_PRESENCE_DETECTION_TYPE = 8
-HumanPresenceDetectionType_Force_Dword: HUMAN_PRESENCE_DETECTION_TYPE = -1
+HumanPresenceDetectionType_VendorDefinedNonBiometric: win32more.Windows.Win32.Devices.Sensors.HUMAN_PRESENCE_DETECTION_TYPE = 1
+HumanPresenceDetectionType_VendorDefinedBiometric: win32more.Windows.Win32.Devices.Sensors.HUMAN_PRESENCE_DETECTION_TYPE = 2
+HumanPresenceDetectionType_FacialBiometric: win32more.Windows.Win32.Devices.Sensors.HUMAN_PRESENCE_DETECTION_TYPE = 4
+HumanPresenceDetectionType_AudioBiometric: win32more.Windows.Win32.Devices.Sensors.HUMAN_PRESENCE_DETECTION_TYPE = 8
+HumanPresenceDetectionType_Force_Dword: win32more.Windows.Win32.Devices.Sensors.HUMAN_PRESENCE_DETECTION_TYPE = -1
 HUMAN_PRESENCE_DETECTION_TYPE_COUNT = Int32
-HUMAN_PRESENCE_DETECTION_TYPE_COUNT_HumanPresenceDetectionTypeCount: HUMAN_PRESENCE_DETECTION_TYPE_COUNT = 4
+HUMAN_PRESENCE_DETECTION_TYPE_COUNT_HumanPresenceDetectionTypeCount: win32more.Windows.Win32.Devices.Sensors.HUMAN_PRESENCE_DETECTION_TYPE_COUNT = 4
 class ILocationPermissions(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{d5fb0a7f-e74e-44f5-8e02-4806863a274f}')
@@ -649,19 +648,19 @@ class ISensorManagerEvents(ComPtr):
     @commethod(3)
     def OnSensorEnter(self, pSensor: win32more.Windows.Win32.Devices.Sensors.ISensor, state: win32more.Windows.Win32.Devices.Sensors.SensorState) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 LOCATION_DESIRED_ACCURACY = Int32
-LOCATION_DESIRED_ACCURACY_DEFAULT: LOCATION_DESIRED_ACCURACY = 0
-LOCATION_DESIRED_ACCURACY_HIGH: LOCATION_DESIRED_ACCURACY = 1
+LOCATION_DESIRED_ACCURACY_DEFAULT: win32more.Windows.Win32.Devices.Sensors.LOCATION_DESIRED_ACCURACY = 0
+LOCATION_DESIRED_ACCURACY_HIGH: win32more.Windows.Win32.Devices.Sensors.LOCATION_DESIRED_ACCURACY = 1
 LOCATION_POSITION_SOURCE = Int32
-LOCATION_POSITION_SOURCE_CELLULAR: LOCATION_POSITION_SOURCE = 0
-LOCATION_POSITION_SOURCE_SATELLITE: LOCATION_POSITION_SOURCE = 1
-LOCATION_POSITION_SOURCE_WIFI: LOCATION_POSITION_SOURCE = 2
-LOCATION_POSITION_SOURCE_IPADDRESS: LOCATION_POSITION_SOURCE = 3
-LOCATION_POSITION_SOURCE_UNKNOWN: LOCATION_POSITION_SOURCE = 4
+LOCATION_POSITION_SOURCE_CELLULAR: win32more.Windows.Win32.Devices.Sensors.LOCATION_POSITION_SOURCE = 0
+LOCATION_POSITION_SOURCE_SATELLITE: win32more.Windows.Win32.Devices.Sensors.LOCATION_POSITION_SOURCE = 1
+LOCATION_POSITION_SOURCE_WIFI: win32more.Windows.Win32.Devices.Sensors.LOCATION_POSITION_SOURCE = 2
+LOCATION_POSITION_SOURCE_IPADDRESS: win32more.Windows.Win32.Devices.Sensors.LOCATION_POSITION_SOURCE = 3
+LOCATION_POSITION_SOURCE_UNKNOWN: win32more.Windows.Win32.Devices.Sensors.LOCATION_POSITION_SOURCE = 4
 MAGNETOMETER_ACCURACY = Int32
-MagnetometerAccuracy_Unknown: MAGNETOMETER_ACCURACY = 0
-MagnetometerAccuracy_Unreliable: MAGNETOMETER_ACCURACY = 1
-MagnetometerAccuracy_Approximate: MAGNETOMETER_ACCURACY = 2
-MagnetometerAccuracy_High: MAGNETOMETER_ACCURACY = 3
+MagnetometerAccuracy_Unknown: win32more.Windows.Win32.Devices.Sensors.MAGNETOMETER_ACCURACY = 0
+MagnetometerAccuracy_Unreliable: win32more.Windows.Win32.Devices.Sensors.MAGNETOMETER_ACCURACY = 1
+MagnetometerAccuracy_Approximate: win32more.Windows.Win32.Devices.Sensors.MAGNETOMETER_ACCURACY = 2
+MagnetometerAccuracy_High: win32more.Windows.Win32.Devices.Sensors.MAGNETOMETER_ACCURACY = 3
 class MATRIX3X3(EasyCastStructure):
     Anonymous: _Anonymous_e__Union
     class _Anonymous_e__Union(EasyCastUnion):
@@ -683,26 +682,26 @@ class MATRIX3X3(EasyCastStructure):
             V2: win32more.Windows.Win32.Devices.Sensors.VEC3D
             V3: win32more.Windows.Win32.Devices.Sensors.VEC3D
 MagnetometerAccuracy = Int32
-MAGNETOMETER_ACCURACY_UNKNOWN: MagnetometerAccuracy = 0
-MAGNETOMETER_ACCURACY_UNRELIABLE: MagnetometerAccuracy = 1
-MAGNETOMETER_ACCURACY_APPROXIMATE: MagnetometerAccuracy = 2
-MAGNETOMETER_ACCURACY_HIGH: MagnetometerAccuracy = 3
+MAGNETOMETER_ACCURACY_UNKNOWN: win32more.Windows.Win32.Devices.Sensors.MagnetometerAccuracy = 0
+MAGNETOMETER_ACCURACY_UNRELIABLE: win32more.Windows.Win32.Devices.Sensors.MagnetometerAccuracy = 1
+MAGNETOMETER_ACCURACY_APPROXIMATE: win32more.Windows.Win32.Devices.Sensors.MagnetometerAccuracy = 2
+MAGNETOMETER_ACCURACY_HIGH: win32more.Windows.Win32.Devices.Sensors.MagnetometerAccuracy = 3
 PEDOMETER_STEP_TYPE = Int32
-PedometerStepType_Unknown: PEDOMETER_STEP_TYPE = 1
-PedometerStepType_Walking: PEDOMETER_STEP_TYPE = 2
-PedometerStepType_Running: PEDOMETER_STEP_TYPE = 4
-PedometerStepType_Max: PEDOMETER_STEP_TYPE = 8
-PedometerStepType_Force_Dword: PEDOMETER_STEP_TYPE = -1
+PedometerStepType_Unknown: win32more.Windows.Win32.Devices.Sensors.PEDOMETER_STEP_TYPE = 1
+PedometerStepType_Walking: win32more.Windows.Win32.Devices.Sensors.PEDOMETER_STEP_TYPE = 2
+PedometerStepType_Running: win32more.Windows.Win32.Devices.Sensors.PEDOMETER_STEP_TYPE = 4
+PedometerStepType_Max: win32more.Windows.Win32.Devices.Sensors.PEDOMETER_STEP_TYPE = 8
+PedometerStepType_Force_Dword: win32more.Windows.Win32.Devices.Sensors.PEDOMETER_STEP_TYPE = -1
 PEDOMETER_STEP_TYPE_COUNT = Int32
-PEDOMETER_STEP_TYPE_COUNT_PedometerStepTypeCount: PEDOMETER_STEP_TYPE_COUNT = 3
+PEDOMETER_STEP_TYPE_COUNT_PedometerStepTypeCount: win32more.Windows.Win32.Devices.Sensors.PEDOMETER_STEP_TYPE_COUNT = 3
 PROXIMITY_SENSOR_CAPABILITIES = Int32
-Proximity_Sensor_Human_Presence_Capable: PROXIMITY_SENSOR_CAPABILITIES = 1
-Proximity_Sensor_Human_Engagement_Capable: PROXIMITY_SENSOR_CAPABILITIES = 2
-Proximity_Sensor_Supported_Capabilities: PROXIMITY_SENSOR_CAPABILITIES = 3
+Proximity_Sensor_Human_Presence_Capable: win32more.Windows.Win32.Devices.Sensors.PROXIMITY_SENSOR_CAPABILITIES = 1
+Proximity_Sensor_Human_Engagement_Capable: win32more.Windows.Win32.Devices.Sensors.PROXIMITY_SENSOR_CAPABILITIES = 2
+Proximity_Sensor_Supported_Capabilities: win32more.Windows.Win32.Devices.Sensors.PROXIMITY_SENSOR_CAPABILITIES = 3
 PROXIMITY_TYPE = Int32
-ProximityType_ObjectProximity: PROXIMITY_TYPE = 0
-ProximityType_HumanProximity: PROXIMITY_TYPE = 1
-ProximityType_Force_Dword: PROXIMITY_TYPE = -1
+ProximityType_ObjectProximity: win32more.Windows.Win32.Devices.Sensors.PROXIMITY_TYPE = 0
+ProximityType_HumanProximity: win32more.Windows.Win32.Devices.Sensors.PROXIMITY_TYPE = 1
+ProximityType_Force_Dword: win32more.Windows.Win32.Devices.Sensors.PROXIMITY_TYPE = -1
 class QUATERNION(EasyCastStructure):
     X: Single
     Y: Single
@@ -713,54 +712,56 @@ class SENSOR_COLLECTION_LIST(EasyCastStructure):
     Count: UInt32
     List: win32more.Windows.Win32.Devices.Sensors.SENSOR_VALUE_PAIR * 1
 SENSOR_CONNECTION_TYPES = Int32
-SensorConnectionType_Integrated: SENSOR_CONNECTION_TYPES = 0
-SensorConnectionType_Attached: SENSOR_CONNECTION_TYPES = 1
-SensorConnectionType_External: SENSOR_CONNECTION_TYPES = 2
+SensorConnectionType_Integrated: win32more.Windows.Win32.Devices.Sensors.SENSOR_CONNECTION_TYPES = 0
+SensorConnectionType_Attached: win32more.Windows.Win32.Devices.Sensors.SENSOR_CONNECTION_TYPES = 1
+SensorConnectionType_External: win32more.Windows.Win32.Devices.Sensors.SENSOR_CONNECTION_TYPES = 2
 class SENSOR_PROPERTY_LIST(EasyCastStructure):
     AllocatedSizeInBytes: UInt32
     Count: UInt32
     List: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY * 1
 SENSOR_STATE = Int32
-SensorState_Initializing: SENSOR_STATE = 0
-SensorState_Idle: SENSOR_STATE = 1
-SensorState_Active: SENSOR_STATE = 2
-SensorState_Error: SENSOR_STATE = 3
+SensorState_Initializing: win32more.Windows.Win32.Devices.Sensors.SENSOR_STATE = 0
+SensorState_Idle: win32more.Windows.Win32.Devices.Sensors.SENSOR_STATE = 1
+SensorState_Active: win32more.Windows.Win32.Devices.Sensors.SENSOR_STATE = 2
+SensorState_Error: win32more.Windows.Win32.Devices.Sensors.SENSOR_STATE = 3
 class SENSOR_VALUE_PAIR(EasyCastStructure):
     Key: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY
     Value: win32more.Windows.Win32.System.Com.StructuredStorage.PROPVARIANT
 SIMPLE_DEVICE_ORIENTATION = Int32
-SimpleDeviceOrientation_NotRotated: SIMPLE_DEVICE_ORIENTATION = 0
-SimpleDeviceOrientation_Rotated90DegreesCounterclockwise: SIMPLE_DEVICE_ORIENTATION = 1
-SimpleDeviceOrientation_Rotated180DegreesCounterclockwise: SIMPLE_DEVICE_ORIENTATION = 2
-SimpleDeviceOrientation_Rotated270DegreesCounterclockwise: SIMPLE_DEVICE_ORIENTATION = 3
-SimpleDeviceOrientation_Faceup: SIMPLE_DEVICE_ORIENTATION = 4
-SimpleDeviceOrientation_Facedown: SIMPLE_DEVICE_ORIENTATION = 5
+SimpleDeviceOrientation_NotRotated: win32more.Windows.Win32.Devices.Sensors.SIMPLE_DEVICE_ORIENTATION = 0
+SimpleDeviceOrientation_Rotated90DegreesCounterclockwise: win32more.Windows.Win32.Devices.Sensors.SIMPLE_DEVICE_ORIENTATION = 1
+SimpleDeviceOrientation_Rotated180DegreesCounterclockwise: win32more.Windows.Win32.Devices.Sensors.SIMPLE_DEVICE_ORIENTATION = 2
+SimpleDeviceOrientation_Rotated270DegreesCounterclockwise: win32more.Windows.Win32.Devices.Sensors.SIMPLE_DEVICE_ORIENTATION = 3
+SimpleDeviceOrientation_Faceup: win32more.Windows.Win32.Devices.Sensors.SIMPLE_DEVICE_ORIENTATION = 4
+SimpleDeviceOrientation_Facedown: win32more.Windows.Win32.Devices.Sensors.SIMPLE_DEVICE_ORIENTATION = 5
 Sensor = Guid('{e97ced00-523a-4133-bf6f-d3a2dae7f6ba}')
 SensorCollection = Guid('{79c43adb-a429-469f-aa39-2f2b74b75937}')
 SensorConnectionType = Int32
-SENSOR_CONNECTION_TYPE_PC_INTEGRATED: SensorConnectionType = 0
-SENSOR_CONNECTION_TYPE_PC_ATTACHED: SensorConnectionType = 1
-SENSOR_CONNECTION_TYPE_PC_EXTERNAL: SensorConnectionType = 2
+SENSOR_CONNECTION_TYPE_PC_INTEGRATED: win32more.Windows.Win32.Devices.Sensors.SensorConnectionType = 0
+SENSOR_CONNECTION_TYPE_PC_ATTACHED: win32more.Windows.Win32.Devices.Sensors.SensorConnectionType = 1
+SENSOR_CONNECTION_TYPE_PC_EXTERNAL: win32more.Windows.Win32.Devices.Sensors.SensorConnectionType = 2
 SensorDataReport = Guid('{4ea9d6ef-694b-4218-8816-ccda8da74bba}')
 SensorManager = Guid('{77a1c827-fcd2-4689-8915-9d613cc5fa3e}')
 SensorState = Int32
-SENSOR_STATE_MIN: SensorState = 0
-SENSOR_STATE_READY: SensorState = 0
-SENSOR_STATE_NOT_AVAILABLE: SensorState = 1
-SENSOR_STATE_NO_DATA: SensorState = 2
-SENSOR_STATE_INITIALIZING: SensorState = 3
-SENSOR_STATE_ACCESS_DENIED: SensorState = 4
-SENSOR_STATE_ERROR: SensorState = 5
-SENSOR_STATE_MAX: SensorState = 5
+SENSOR_STATE_MIN: win32more.Windows.Win32.Devices.Sensors.SensorState = 0
+SENSOR_STATE_READY: win32more.Windows.Win32.Devices.Sensors.SensorState = 0
+SENSOR_STATE_NOT_AVAILABLE: win32more.Windows.Win32.Devices.Sensors.SensorState = 1
+SENSOR_STATE_NO_DATA: win32more.Windows.Win32.Devices.Sensors.SensorState = 2
+SENSOR_STATE_INITIALIZING: win32more.Windows.Win32.Devices.Sensors.SensorState = 3
+SENSOR_STATE_ACCESS_DENIED: win32more.Windows.Win32.Devices.Sensors.SensorState = 4
+SENSOR_STATE_ERROR: win32more.Windows.Win32.Devices.Sensors.SensorState = 5
+SENSOR_STATE_MAX: win32more.Windows.Win32.Devices.Sensors.SensorState = 5
 SimpleDeviceOrientation = Int32
-SIMPLE_DEVICE_ORIENTATION_NOT_ROTATED: SimpleDeviceOrientation = 0
-SIMPLE_DEVICE_ORIENTATION_ROTATED_90: SimpleDeviceOrientation = 1
-SIMPLE_DEVICE_ORIENTATION_ROTATED_180: SimpleDeviceOrientation = 2
-SIMPLE_DEVICE_ORIENTATION_ROTATED_270: SimpleDeviceOrientation = 3
-SIMPLE_DEVICE_ORIENTATION_ROTATED_FACE_UP: SimpleDeviceOrientation = 4
-SIMPLE_DEVICE_ORIENTATION_ROTATED_FACE_DOWN: SimpleDeviceOrientation = 5
+SIMPLE_DEVICE_ORIENTATION_NOT_ROTATED: win32more.Windows.Win32.Devices.Sensors.SimpleDeviceOrientation = 0
+SIMPLE_DEVICE_ORIENTATION_ROTATED_90: win32more.Windows.Win32.Devices.Sensors.SimpleDeviceOrientation = 1
+SIMPLE_DEVICE_ORIENTATION_ROTATED_180: win32more.Windows.Win32.Devices.Sensors.SimpleDeviceOrientation = 2
+SIMPLE_DEVICE_ORIENTATION_ROTATED_270: win32more.Windows.Win32.Devices.Sensors.SimpleDeviceOrientation = 3
+SIMPLE_DEVICE_ORIENTATION_ROTATED_FACE_UP: win32more.Windows.Win32.Devices.Sensors.SimpleDeviceOrientation = 4
+SIMPLE_DEVICE_ORIENTATION_ROTATED_FACE_DOWN: win32more.Windows.Win32.Devices.Sensors.SimpleDeviceOrientation = 5
 class VEC3D(EasyCastStructure):
     X: Single
     Y: Single
     Z: Single
+
+
 make_ready(__name__)

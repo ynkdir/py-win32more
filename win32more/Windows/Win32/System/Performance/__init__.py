@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.Ole
@@ -471,30 +470,30 @@ def PdhGetLogSetGUID(hLog: IntPtr, pGuid: POINTER(Guid), pRunId: POINTER(Int32))
 def PdhSetLogSetRunID(hLog: IntPtr, RunId: Int32) -> UInt32: ...
 AppearPropPage = Guid('{e49741e9-93a8-4ab1-8e96-bf4482282e9c}')
 AutoPathFormat = Int32
-AutoPathFormat_plaNone: AutoPathFormat = 0
-AutoPathFormat_plaPattern: AutoPathFormat = 1
-AutoPathFormat_plaComputer: AutoPathFormat = 2
-AutoPathFormat_plaMonthDayHour: AutoPathFormat = 256
-AutoPathFormat_plaSerialNumber: AutoPathFormat = 512
-AutoPathFormat_plaYearDayOfYear: AutoPathFormat = 1024
-AutoPathFormat_plaYearMonth: AutoPathFormat = 2048
-AutoPathFormat_plaYearMonthDay: AutoPathFormat = 4096
-AutoPathFormat_plaYearMonthDayHour: AutoPathFormat = 8192
-AutoPathFormat_plaMonthDayHourMinute: AutoPathFormat = 16384
+AutoPathFormat_plaNone: win32more.Windows.Win32.System.Performance.AutoPathFormat = 0
+AutoPathFormat_plaPattern: win32more.Windows.Win32.System.Performance.AutoPathFormat = 1
+AutoPathFormat_plaComputer: win32more.Windows.Win32.System.Performance.AutoPathFormat = 2
+AutoPathFormat_plaMonthDayHour: win32more.Windows.Win32.System.Performance.AutoPathFormat = 256
+AutoPathFormat_plaSerialNumber: win32more.Windows.Win32.System.Performance.AutoPathFormat = 512
+AutoPathFormat_plaYearDayOfYear: win32more.Windows.Win32.System.Performance.AutoPathFormat = 1024
+AutoPathFormat_plaYearMonth: win32more.Windows.Win32.System.Performance.AutoPathFormat = 2048
+AutoPathFormat_plaYearMonthDay: win32more.Windows.Win32.System.Performance.AutoPathFormat = 4096
+AutoPathFormat_plaYearMonthDayHour: win32more.Windows.Win32.System.Performance.AutoPathFormat = 8192
+AutoPathFormat_plaMonthDayHourMinute: win32more.Windows.Win32.System.Performance.AutoPathFormat = 16384
 BootTraceSession = Guid('{03837538-098b-11d8-9414-505054503030}')
 BootTraceSessionCollection = Guid('{03837539-098b-11d8-9414-505054503030}')
 ClockType = Int32
-ClockType_plaTimeStamp: ClockType = 0
-ClockType_plaPerformance: ClockType = 1
-ClockType_plaSystem: ClockType = 2
-ClockType_plaCycle: ClockType = 3
+ClockType_plaTimeStamp: win32more.Windows.Win32.System.Performance.ClockType = 0
+ClockType_plaPerformance: win32more.Windows.Win32.System.Performance.ClockType = 1
+ClockType_plaSystem: win32more.Windows.Win32.System.Performance.ClockType = 2
+ClockType_plaCycle: win32more.Windows.Win32.System.Performance.ClockType = 3
 CommitMode = Int32
-CommitMode_plaCreateNew: CommitMode = 1
-CommitMode_plaModify: CommitMode = 2
-CommitMode_plaCreateOrModify: CommitMode = 3
-CommitMode_plaUpdateRunningInstance: CommitMode = 16
-CommitMode_plaFlushTrace: CommitMode = 32
-CommitMode_plaValidateOnly: CommitMode = 4096
+CommitMode_plaCreateNew: win32more.Windows.Win32.System.Performance.CommitMode = 1
+CommitMode_plaModify: win32more.Windows.Win32.System.Performance.CommitMode = 2
+CommitMode_plaCreateOrModify: win32more.Windows.Win32.System.Performance.CommitMode = 3
+CommitMode_plaUpdateRunningInstance: win32more.Windows.Win32.System.Performance.CommitMode = 16
+CommitMode_plaFlushTrace: win32more.Windows.Win32.System.Performance.CommitMode = 32
+CommitMode_plaValidateOnly: win32more.Windows.Win32.System.Performance.CommitMode = 4096
 CounterItem = Guid('{c4d2d8e0-d1dd-11ce-940f-008029004348}')
 CounterItem2 = Guid('{43196c62-c31f-4ce3-a02e-79efe0f6a525}')
 @winfunctype_pointer
@@ -519,45 +518,45 @@ class DISystemMonitorInternal(ComPtr):
 DataCollectorSet = Guid('{03837521-098b-11d8-9414-505054503030}')
 DataCollectorSetCollection = Guid('{03837525-098b-11d8-9414-505054503030}')
 DataCollectorSetStatus = Int32
-DataCollectorSetStatus_plaStopped: DataCollectorSetStatus = 0
-DataCollectorSetStatus_plaRunning: DataCollectorSetStatus = 1
-DataCollectorSetStatus_plaCompiling: DataCollectorSetStatus = 2
-DataCollectorSetStatus_plaPending: DataCollectorSetStatus = 3
-DataCollectorSetStatus_plaUndefined: DataCollectorSetStatus = 4
+DataCollectorSetStatus_plaStopped: win32more.Windows.Win32.System.Performance.DataCollectorSetStatus = 0
+DataCollectorSetStatus_plaRunning: win32more.Windows.Win32.System.Performance.DataCollectorSetStatus = 1
+DataCollectorSetStatus_plaCompiling: win32more.Windows.Win32.System.Performance.DataCollectorSetStatus = 2
+DataCollectorSetStatus_plaPending: win32more.Windows.Win32.System.Performance.DataCollectorSetStatus = 3
+DataCollectorSetStatus_plaUndefined: win32more.Windows.Win32.System.Performance.DataCollectorSetStatus = 4
 DataCollectorType = Int32
-DataCollectorType_plaPerformanceCounter: DataCollectorType = 0
-DataCollectorType_plaTrace: DataCollectorType = 1
-DataCollectorType_plaConfiguration: DataCollectorType = 2
-DataCollectorType_plaAlert: DataCollectorType = 3
-DataCollectorType_plaApiTrace: DataCollectorType = 4
+DataCollectorType_plaPerformanceCounter: win32more.Windows.Win32.System.Performance.DataCollectorType = 0
+DataCollectorType_plaTrace: win32more.Windows.Win32.System.Performance.DataCollectorType = 1
+DataCollectorType_plaConfiguration: win32more.Windows.Win32.System.Performance.DataCollectorType = 2
+DataCollectorType_plaAlert: win32more.Windows.Win32.System.Performance.DataCollectorType = 3
+DataCollectorType_plaApiTrace: win32more.Windows.Win32.System.Performance.DataCollectorType = 4
 DataManagerSteps = Int32
-DataManagerSteps_plaCreateReport: DataManagerSteps = 1
-DataManagerSteps_plaRunRules: DataManagerSteps = 2
-DataManagerSteps_plaCreateHtml: DataManagerSteps = 4
-DataManagerSteps_plaFolderActions: DataManagerSteps = 8
-DataManagerSteps_plaResourceFreeing: DataManagerSteps = 16
+DataManagerSteps_plaCreateReport: win32more.Windows.Win32.System.Performance.DataManagerSteps = 1
+DataManagerSteps_plaRunRules: win32more.Windows.Win32.System.Performance.DataManagerSteps = 2
+DataManagerSteps_plaCreateHtml: win32more.Windows.Win32.System.Performance.DataManagerSteps = 4
+DataManagerSteps_plaFolderActions: win32more.Windows.Win32.System.Performance.DataManagerSteps = 8
+DataManagerSteps_plaResourceFreeing: win32more.Windows.Win32.System.Performance.DataManagerSteps = 16
 DataSourceTypeConstants = Int32
-DataSourceTypeConstants_sysmonNullDataSource: DataSourceTypeConstants = -1
-DataSourceTypeConstants_sysmonCurrentActivity: DataSourceTypeConstants = 1
-DataSourceTypeConstants_sysmonLogFiles: DataSourceTypeConstants = 2
-DataSourceTypeConstants_sysmonSqlLog: DataSourceTypeConstants = 3
+DataSourceTypeConstants_sysmonNullDataSource: win32more.Windows.Win32.System.Performance.DataSourceTypeConstants = -1
+DataSourceTypeConstants_sysmonCurrentActivity: win32more.Windows.Win32.System.Performance.DataSourceTypeConstants = 1
+DataSourceTypeConstants_sysmonLogFiles: win32more.Windows.Win32.System.Performance.DataSourceTypeConstants = 2
+DataSourceTypeConstants_sysmonSqlLog: win32more.Windows.Win32.System.Performance.DataSourceTypeConstants = 3
 DisplayTypeConstants = Int32
-DisplayTypeConstants_sysmonLineGraph: DisplayTypeConstants = 1
-DisplayTypeConstants_sysmonHistogram: DisplayTypeConstants = 2
-DisplayTypeConstants_sysmonReport: DisplayTypeConstants = 3
-DisplayTypeConstants_sysmonChartArea: DisplayTypeConstants = 4
-DisplayTypeConstants_sysmonChartStackedArea: DisplayTypeConstants = 5
+DisplayTypeConstants_sysmonLineGraph: win32more.Windows.Win32.System.Performance.DisplayTypeConstants = 1
+DisplayTypeConstants_sysmonHistogram: win32more.Windows.Win32.System.Performance.DisplayTypeConstants = 2
+DisplayTypeConstants_sysmonReport: win32more.Windows.Win32.System.Performance.DisplayTypeConstants = 3
+DisplayTypeConstants_sysmonChartArea: win32more.Windows.Win32.System.Performance.DisplayTypeConstants = 4
+DisplayTypeConstants_sysmonChartStackedArea: win32more.Windows.Win32.System.Performance.DisplayTypeConstants = 5
 FileFormat = Int32
-FileFormat_plaCommaSeparated: FileFormat = 0
-FileFormat_plaTabSeparated: FileFormat = 1
-FileFormat_plaSql: FileFormat = 2
-FileFormat_plaBinary: FileFormat = 3
+FileFormat_plaCommaSeparated: win32more.Windows.Win32.System.Performance.FileFormat = 0
+FileFormat_plaTabSeparated: win32more.Windows.Win32.System.Performance.FileFormat = 1
+FileFormat_plaSql: win32more.Windows.Win32.System.Performance.FileFormat = 2
+FileFormat_plaBinary: win32more.Windows.Win32.System.Performance.FileFormat = 3
 FolderActionSteps = Int32
-FolderActionSteps_plaCreateCab: FolderActionSteps = 1
-FolderActionSteps_plaDeleteData: FolderActionSteps = 2
-FolderActionSteps_plaSendCab: FolderActionSteps = 4
-FolderActionSteps_plaDeleteCab: FolderActionSteps = 8
-FolderActionSteps_plaDeleteReport: FolderActionSteps = 16
+FolderActionSteps_plaCreateCab: win32more.Windows.Win32.System.Performance.FolderActionSteps = 1
+FolderActionSteps_plaDeleteData: win32more.Windows.Win32.System.Performance.FolderActionSteps = 2
+FolderActionSteps_plaSendCab: win32more.Windows.Win32.System.Performance.FolderActionSteps = 4
+FolderActionSteps_plaDeleteCab: win32more.Windows.Win32.System.Performance.FolderActionSteps = 8
+FolderActionSteps_plaDeleteReport: win32more.Windows.Win32.System.Performance.FolderActionSteps = 16
 GeneralPropPage = Guid('{c3e5d3d2-1a03-11cf-942d-008029004347}')
 GraphPropPage = Guid('{c3e5d3d3-1a03-11cf-942d-008029004347}')
 class IAlertDataCollector(ComPtr):
@@ -1639,12 +1638,12 @@ class PDH_DATA_ITEM_PATH_ELEMENTS_W(EasyCastStructure):
     dwItemId: UInt32
     szInstanceName: win32more.Windows.Win32.Foundation.PWSTR
 PDH_DLL_VERSION = UInt32
-PDH_CVERSION_WIN50: PDH_DLL_VERSION = 1280
-PDH_VERSION: PDH_DLL_VERSION = 1283
+PDH_CVERSION_WIN50: win32more.Windows.Win32.System.Performance.PDH_DLL_VERSION = 1280
+PDH_VERSION: win32more.Windows.Win32.System.Performance.PDH_DLL_VERSION = 1283
 PDH_FMT = UInt32
-PDH_FMT_DOUBLE: PDH_FMT = 512
-PDH_FMT_LARGE: PDH_FMT = 1024
-PDH_FMT_LONG: PDH_FMT = 256
+PDH_FMT_DOUBLE: win32more.Windows.Win32.System.Performance.PDH_FMT = 512
+PDH_FMT_LARGE: win32more.Windows.Win32.System.Performance.PDH_FMT = 1024
+PDH_FMT_LONG: win32more.Windows.Win32.System.Performance.PDH_FMT = 256
 class PDH_FMT_COUNTERVALUE(EasyCastStructure):
     CStatus: UInt32
     Anonymous: _Anonymous_e__Union
@@ -1661,9 +1660,9 @@ class PDH_FMT_COUNTERVALUE_ITEM_W(EasyCastStructure):
     szName: win32more.Windows.Win32.Foundation.PWSTR
     FmtValue: win32more.Windows.Win32.System.Performance.PDH_FMT_COUNTERVALUE
 PDH_LOG = UInt32
-PDH_LOG_READ_ACCESS: PDH_LOG = 65536
-PDH_LOG_WRITE_ACCESS: PDH_LOG = 131072
-PDH_LOG_UPDATE_ACCESS: PDH_LOG = 262144
+PDH_LOG_READ_ACCESS: win32more.Windows.Win32.System.Performance.PDH_LOG = 65536
+PDH_LOG_WRITE_ACCESS: win32more.Windows.Win32.System.Performance.PDH_LOG = 131072
+PDH_LOG_UPDATE_ACCESS: win32more.Windows.Win32.System.Performance.PDH_LOG = 262144
 class PDH_LOG_SERVICE_QUERY_INFO_A(EasyCastStructure):
     dwSize: UInt32
     dwFlags: UInt32
@@ -1731,16 +1730,16 @@ class PDH_LOG_SERVICE_QUERY_INFO_W(EasyCastStructure):
             TlLogHandle: UInt32
             TlLogFileName: win32more.Windows.Win32.Foundation.PWSTR
 PDH_LOG_TYPE = UInt32
-PDH_LOG_TYPE_UNDEFINED: PDH_LOG_TYPE = 0
-PDH_LOG_TYPE_CSV: PDH_LOG_TYPE = 1
-PDH_LOG_TYPE_SQL: PDH_LOG_TYPE = 7
-PDH_LOG_TYPE_TSV: PDH_LOG_TYPE = 2
-PDH_LOG_TYPE_BINARY: PDH_LOG_TYPE = 8
-PDH_LOG_TYPE_PERFMON: PDH_LOG_TYPE = 6
+PDH_LOG_TYPE_UNDEFINED: win32more.Windows.Win32.System.Performance.PDH_LOG_TYPE = 0
+PDH_LOG_TYPE_CSV: win32more.Windows.Win32.System.Performance.PDH_LOG_TYPE = 1
+PDH_LOG_TYPE_SQL: win32more.Windows.Win32.System.Performance.PDH_LOG_TYPE = 7
+PDH_LOG_TYPE_TSV: win32more.Windows.Win32.System.Performance.PDH_LOG_TYPE = 2
+PDH_LOG_TYPE_BINARY: win32more.Windows.Win32.System.Performance.PDH_LOG_TYPE = 8
+PDH_LOG_TYPE_PERFMON: win32more.Windows.Win32.System.Performance.PDH_LOG_TYPE = 6
 PDH_PATH_FLAGS = UInt32
-PDH_PATH_WBEM_RESULT: PDH_PATH_FLAGS = 1
-PDH_PATH_WBEM_INPUT: PDH_PATH_FLAGS = 2
-PDH_PATH_WBEM_NONE: PDH_PATH_FLAGS = 0
+PDH_PATH_WBEM_RESULT: win32more.Windows.Win32.System.Performance.PDH_PATH_FLAGS = 1
+PDH_PATH_WBEM_INPUT: win32more.Windows.Win32.System.Performance.PDH_PATH_FLAGS = 2
+PDH_PATH_WBEM_NONE: win32more.Windows.Win32.System.Performance.PDH_PATH_FLAGS = 0
 class PDH_RAW_COUNTER(EasyCastStructure):
     CStatus: UInt32
     TimeStamp: win32more.Windows.Win32.Foundation.FILETIME
@@ -1759,8 +1758,8 @@ class PDH_RAW_LOG_RECORD(EasyCastStructure):
     dwItems: UInt32
     RawBytes: Byte * 1
 PDH_SELECT_DATA_SOURCE_FLAGS = UInt32
-PDH_FLAGS_FILE_BROWSER_ONLY: PDH_SELECT_DATA_SOURCE_FLAGS = 1
-PDH_FLAGS_NONE: PDH_SELECT_DATA_SOURCE_FLAGS = 0
+PDH_FLAGS_FILE_BROWSER_ONLY: win32more.Windows.Win32.System.Performance.PDH_SELECT_DATA_SOURCE_FLAGS = 1
+PDH_FLAGS_NONE: win32more.Windows.Win32.System.Performance.PDH_SELECT_DATA_SOURCE_FLAGS = 0
 class PDH_STATISTICS(EasyCastStructure):
     dwFormat: UInt32
     count: UInt32
@@ -1791,10 +1790,10 @@ class PERF_COUNTERSET_REG_INFO(EasyCastStructure):
     NumCounters: UInt32
     InstanceType: UInt32
 PERF_COUNTER_AGGREGATE_FUNC = UInt32
-PERF_AGGREGATE_UNDEFINED: PERF_COUNTER_AGGREGATE_FUNC = 0
-PERF_AGGREGATE_TOTAL: PERF_COUNTER_AGGREGATE_FUNC = 1
-PERF_AGGREGATE_AVG: PERF_COUNTER_AGGREGATE_FUNC = 2
-PERF_AGGREGATE_MIN: PERF_COUNTER_AGGREGATE_FUNC = 3
+PERF_AGGREGATE_UNDEFINED: win32more.Windows.Win32.System.Performance.PERF_COUNTER_AGGREGATE_FUNC = 0
+PERF_AGGREGATE_TOTAL: win32more.Windows.Win32.System.Performance.PERF_COUNTER_AGGREGATE_FUNC = 1
+PERF_AGGREGATE_AVG: win32more.Windows.Win32.System.Performance.PERF_COUNTER_AGGREGATE_FUNC = 2
+PERF_AGGREGATE_MIN: win32more.Windows.Win32.System.Performance.PERF_COUNTER_AGGREGATE_FUNC = 3
 class PERF_COUNTER_BLOCK(EasyCastStructure):
     ByteLength: UInt32
 class PERF_COUNTER_DATA(EasyCastStructure):
@@ -1888,10 +1887,10 @@ class PERF_DATA_HEADER(EasyCastStructure):
     PerfFreq: Int64
     SystemTime: win32more.Windows.Win32.Foundation.SYSTEMTIME
 PERF_DETAIL = UInt32
-PERF_DETAIL_NOVICE: PERF_DETAIL = 100
-PERF_DETAIL_ADVANCED: PERF_DETAIL = 200
-PERF_DETAIL_EXPERT: PERF_DETAIL = 300
-PERF_DETAIL_WIZARD: PERF_DETAIL = 400
+PERF_DETAIL_NOVICE: win32more.Windows.Win32.System.Performance.PERF_DETAIL = 100
+PERF_DETAIL_ADVANCED: win32more.Windows.Win32.System.Performance.PERF_DETAIL = 200
+PERF_DETAIL_EXPERT: win32more.Windows.Win32.System.Performance.PERF_DETAIL = 300
+PERF_DETAIL_WIZARD: win32more.Windows.Win32.System.Performance.PERF_DETAIL = 400
 class PERF_INSTANCE_DEFINITION(EasyCastStructure):
     ByteLength: UInt32
     ParentObjectTitleIndex: UInt32
@@ -1966,61 +1965,61 @@ def PM_COLLECT_PROC(pValueName: win32more.Windows.Win32.Foundation.PWSTR, ppData
 @winfunctype_pointer
 def PM_OPEN_PROC(pContext: win32more.Windows.Win32.Foundation.PWSTR) -> UInt32: ...
 PerfCounterDataType = Int32
-PERF_ERROR_RETURN: PerfCounterDataType = 0
-PERF_SINGLE_COUNTER: PerfCounterDataType = 1
-PERF_MULTIPLE_COUNTERS: PerfCounterDataType = 2
-PERF_MULTIPLE_INSTANCES: PerfCounterDataType = 4
-PERF_COUNTERSET: PerfCounterDataType = 6
+PERF_ERROR_RETURN: win32more.Windows.Win32.System.Performance.PerfCounterDataType = 0
+PERF_SINGLE_COUNTER: win32more.Windows.Win32.System.Performance.PerfCounterDataType = 1
+PERF_MULTIPLE_COUNTERS: win32more.Windows.Win32.System.Performance.PerfCounterDataType = 2
+PERF_MULTIPLE_INSTANCES: win32more.Windows.Win32.System.Performance.PerfCounterDataType = 4
+PERF_COUNTERSET: win32more.Windows.Win32.System.Performance.PerfCounterDataType = 6
 PerfRegInfoType = Int32
-PERF_REG_COUNTERSET_STRUCT: PerfRegInfoType = 1
-PERF_REG_COUNTER_STRUCT: PerfRegInfoType = 2
-PERF_REG_COUNTERSET_NAME_STRING: PerfRegInfoType = 3
-PERF_REG_COUNTERSET_HELP_STRING: PerfRegInfoType = 4
-PERF_REG_COUNTER_NAME_STRINGS: PerfRegInfoType = 5
-PERF_REG_COUNTER_HELP_STRINGS: PerfRegInfoType = 6
-PERF_REG_PROVIDER_NAME: PerfRegInfoType = 7
-PERF_REG_PROVIDER_GUID: PerfRegInfoType = 8
-PERF_REG_COUNTERSET_ENGLISH_NAME: PerfRegInfoType = 9
-PERF_REG_COUNTER_ENGLISH_NAMES: PerfRegInfoType = 10
+PERF_REG_COUNTERSET_STRUCT: win32more.Windows.Win32.System.Performance.PerfRegInfoType = 1
+PERF_REG_COUNTER_STRUCT: win32more.Windows.Win32.System.Performance.PerfRegInfoType = 2
+PERF_REG_COUNTERSET_NAME_STRING: win32more.Windows.Win32.System.Performance.PerfRegInfoType = 3
+PERF_REG_COUNTERSET_HELP_STRING: win32more.Windows.Win32.System.Performance.PerfRegInfoType = 4
+PERF_REG_COUNTER_NAME_STRINGS: win32more.Windows.Win32.System.Performance.PerfRegInfoType = 5
+PERF_REG_COUNTER_HELP_STRINGS: win32more.Windows.Win32.System.Performance.PerfRegInfoType = 6
+PERF_REG_PROVIDER_NAME: win32more.Windows.Win32.System.Performance.PerfRegInfoType = 7
+PERF_REG_PROVIDER_GUID: win32more.Windows.Win32.System.Performance.PerfRegInfoType = 8
+PERF_REG_COUNTERSET_ENGLISH_NAME: win32more.Windows.Win32.System.Performance.PerfRegInfoType = 9
+PERF_REG_COUNTER_ENGLISH_NAMES: win32more.Windows.Win32.System.Performance.PerfRegInfoType = 10
 REAL_TIME_DATA_SOURCE_ID_FLAGS = UInt32
-DATA_SOURCE_REGISTRY: REAL_TIME_DATA_SOURCE_ID_FLAGS = 1
-DATA_SOURCE_WBEM: REAL_TIME_DATA_SOURCE_ID_FLAGS = 4
+DATA_SOURCE_REGISTRY: win32more.Windows.Win32.System.Performance.REAL_TIME_DATA_SOURCE_ID_FLAGS = 1
+DATA_SOURCE_WBEM: win32more.Windows.Win32.System.Performance.REAL_TIME_DATA_SOURCE_ID_FLAGS = 4
 ReportValueTypeConstants = Int32
-ReportValueTypeConstants_sysmonDefaultValue: ReportValueTypeConstants = 0
-ReportValueTypeConstants_sysmonCurrentValue: ReportValueTypeConstants = 1
-ReportValueTypeConstants_sysmonAverage: ReportValueTypeConstants = 2
-ReportValueTypeConstants_sysmonMinimum: ReportValueTypeConstants = 3
-ReportValueTypeConstants_sysmonMaximum: ReportValueTypeConstants = 4
+ReportValueTypeConstants_sysmonDefaultValue: win32more.Windows.Win32.System.Performance.ReportValueTypeConstants = 0
+ReportValueTypeConstants_sysmonCurrentValue: win32more.Windows.Win32.System.Performance.ReportValueTypeConstants = 1
+ReportValueTypeConstants_sysmonAverage: win32more.Windows.Win32.System.Performance.ReportValueTypeConstants = 2
+ReportValueTypeConstants_sysmonMinimum: win32more.Windows.Win32.System.Performance.ReportValueTypeConstants = 3
+ReportValueTypeConstants_sysmonMaximum: win32more.Windows.Win32.System.Performance.ReportValueTypeConstants = 4
 ResourcePolicy = Int32
-ResourcePolicy_plaDeleteLargest: ResourcePolicy = 0
-ResourcePolicy_plaDeleteOldest: ResourcePolicy = 1
+ResourcePolicy_plaDeleteLargest: win32more.Windows.Win32.System.Performance.ResourcePolicy = 0
+ResourcePolicy_plaDeleteOldest: win32more.Windows.Win32.System.Performance.ResourcePolicy = 1
 ServerDataCollectorSet = Guid('{03837531-098b-11d8-9414-505054503030}')
 ServerDataCollectorSetCollection = Guid('{03837532-098b-11d8-9414-505054503030}')
 SourcePropPage = Guid('{0cf32aa1-7571-11d0-93c4-00aa00a3ddea}')
 StreamMode = Int32
-StreamMode_plaFile: StreamMode = 1
-StreamMode_plaRealTime: StreamMode = 2
-StreamMode_plaBoth: StreamMode = 3
-StreamMode_plaBuffering: StreamMode = 4
+StreamMode_plaFile: win32more.Windows.Win32.System.Performance.StreamMode = 1
+StreamMode_plaRealTime: win32more.Windows.Win32.System.Performance.StreamMode = 2
+StreamMode_plaBoth: win32more.Windows.Win32.System.Performance.StreamMode = 3
+StreamMode_plaBuffering: win32more.Windows.Win32.System.Performance.StreamMode = 4
 SysmonBatchReason = Int32
-SysmonBatchReason_sysmonBatchNone: SysmonBatchReason = 0
-SysmonBatchReason_sysmonBatchAddFiles: SysmonBatchReason = 1
-SysmonBatchReason_sysmonBatchAddCounters: SysmonBatchReason = 2
-SysmonBatchReason_sysmonBatchAddFilesAutoCounters: SysmonBatchReason = 3
+SysmonBatchReason_sysmonBatchNone: win32more.Windows.Win32.System.Performance.SysmonBatchReason = 0
+SysmonBatchReason_sysmonBatchAddFiles: win32more.Windows.Win32.System.Performance.SysmonBatchReason = 1
+SysmonBatchReason_sysmonBatchAddCounters: win32more.Windows.Win32.System.Performance.SysmonBatchReason = 2
+SysmonBatchReason_sysmonBatchAddFilesAutoCounters: win32more.Windows.Win32.System.Performance.SysmonBatchReason = 3
 SysmonDataType = Int32
-SysmonDataType_sysmonDataAvg: SysmonDataType = 1
-SysmonDataType_sysmonDataMin: SysmonDataType = 2
-SysmonDataType_sysmonDataMax: SysmonDataType = 3
-SysmonDataType_sysmonDataTime: SysmonDataType = 4
-SysmonDataType_sysmonDataCount: SysmonDataType = 5
+SysmonDataType_sysmonDataAvg: win32more.Windows.Win32.System.Performance.SysmonDataType = 1
+SysmonDataType_sysmonDataMin: win32more.Windows.Win32.System.Performance.SysmonDataType = 2
+SysmonDataType_sysmonDataMax: win32more.Windows.Win32.System.Performance.SysmonDataType = 3
+SysmonDataType_sysmonDataTime: win32more.Windows.Win32.System.Performance.SysmonDataType = 4
+SysmonDataType_sysmonDataCount: win32more.Windows.Win32.System.Performance.SysmonDataType = 5
 SysmonFileType = Int32
-SysmonFileType_sysmonFileHtml: SysmonFileType = 1
-SysmonFileType_sysmonFileReport: SysmonFileType = 2
-SysmonFileType_sysmonFileCsv: SysmonFileType = 3
-SysmonFileType_sysmonFileTsv: SysmonFileType = 4
-SysmonFileType_sysmonFileBlg: SysmonFileType = 5
-SysmonFileType_sysmonFileRetiredBlg: SysmonFileType = 6
-SysmonFileType_sysmonFileGif: SysmonFileType = 7
+SysmonFileType_sysmonFileHtml: win32more.Windows.Win32.System.Performance.SysmonFileType = 1
+SysmonFileType_sysmonFileReport: win32more.Windows.Win32.System.Performance.SysmonFileType = 2
+SysmonFileType_sysmonFileCsv: win32more.Windows.Win32.System.Performance.SysmonFileType = 3
+SysmonFileType_sysmonFileTsv: win32more.Windows.Win32.System.Performance.SysmonFileType = 4
+SysmonFileType_sysmonFileBlg: win32more.Windows.Win32.System.Performance.SysmonFileType = 5
+SysmonFileType_sysmonFileRetiredBlg: win32more.Windows.Win32.System.Performance.SysmonFileType = 6
+SysmonFileType_sysmonFileGif: win32more.Windows.Win32.System.Performance.SysmonFileType = 7
 SystemDataCollectorSet = Guid('{03837546-098b-11d8-9414-505054503030}')
 SystemDataCollectorSetCollection = Guid('{03837547-098b-11d8-9414-505054503030}')
 SystemMonitor = Guid('{c4d2d8e0-d1dd-11ce-940f-008029004347}')
@@ -2030,20 +2029,20 @@ TraceDataProviderCollection = Guid('{03837511-098b-11d8-9414-505054503030}')
 TraceSession = Guid('{0383751c-098b-11d8-9414-505054503030}')
 TraceSessionCollection = Guid('{03837530-098b-11d8-9414-505054503030}')
 ValueMapType = Int32
-ValueMapType_plaIndex: ValueMapType = 1
-ValueMapType_plaFlag: ValueMapType = 2
-ValueMapType_plaFlagArray: ValueMapType = 3
-ValueMapType_plaValidation: ValueMapType = 4
+ValueMapType_plaIndex: win32more.Windows.Win32.System.Performance.ValueMapType = 1
+ValueMapType_plaFlag: win32more.Windows.Win32.System.Performance.ValueMapType = 2
+ValueMapType_plaFlagArray: win32more.Windows.Win32.System.Performance.ValueMapType = 3
+ValueMapType_plaValidation: win32more.Windows.Win32.System.Performance.ValueMapType = 4
 WeekDays = Int32
-WeekDays_plaRunOnce: WeekDays = 0
-WeekDays_plaSunday: WeekDays = 1
-WeekDays_plaMonday: WeekDays = 2
-WeekDays_plaTuesday: WeekDays = 4
-WeekDays_plaWednesday: WeekDays = 8
-WeekDays_plaThursday: WeekDays = 16
-WeekDays_plaFriday: WeekDays = 32
-WeekDays_plaSaturday: WeekDays = 64
-WeekDays_plaEveryday: WeekDays = 127
+WeekDays_plaRunOnce: win32more.Windows.Win32.System.Performance.WeekDays = 0
+WeekDays_plaSunday: win32more.Windows.Win32.System.Performance.WeekDays = 1
+WeekDays_plaMonday: win32more.Windows.Win32.System.Performance.WeekDays = 2
+WeekDays_plaTuesday: win32more.Windows.Win32.System.Performance.WeekDays = 4
+WeekDays_plaWednesday: win32more.Windows.Win32.System.Performance.WeekDays = 8
+WeekDays_plaThursday: win32more.Windows.Win32.System.Performance.WeekDays = 16
+WeekDays_plaFriday: win32more.Windows.Win32.System.Performance.WeekDays = 32
+WeekDays_plaSaturday: win32more.Windows.Win32.System.Performance.WeekDays = 64
+WeekDays_plaEveryday: win32more.Windows.Win32.System.Performance.WeekDays = 127
 class _ICounterItemUnion(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{de1a6b74-9182-4c41-8e2c-24c2cd30ee83}')
@@ -2276,4 +2275,6 @@ class _ISystemMonitorUnion(ComPtr):
     def BatchingLock(self, fLock: win32more.Windows.Win32.Foundation.VARIANT_BOOL, eBatchReason: win32more.Windows.Win32.System.Performance.SysmonBatchReason) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(98)
     def LoadSettings(self, bstrSettingFileName: win32more.Windows.Win32.Foundation.BSTR) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+
+
 make_ready(__name__)

@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Media.Audio
 import win32more.Windows.Win32.Media.Audio.Apo
@@ -35,13 +34,13 @@ class APOInitSystemEffects3(EasyCastStructure):
     AudioProcessingMode: Guid
     InitializeForDiscoveryOnly: win32more.Windows.Win32.Foundation.BOOL
 APO_BUFFER_FLAGS = Int32
-BUFFER_INVALID: APO_BUFFER_FLAGS = 0
-BUFFER_VALID: APO_BUFFER_FLAGS = 1
-BUFFER_SILENT: APO_BUFFER_FLAGS = 2
+BUFFER_INVALID: win32more.Windows.Win32.Media.Audio.Apo.APO_BUFFER_FLAGS = 0
+BUFFER_VALID: win32more.Windows.Win32.Media.Audio.Apo.APO_BUFFER_FLAGS = 1
+BUFFER_SILENT: win32more.Windows.Win32.Media.Audio.Apo.APO_BUFFER_FLAGS = 2
 APO_CONNECTION_BUFFER_TYPE = Int32
-APO_CONNECTION_BUFFER_TYPE_ALLOCATED: APO_CONNECTION_BUFFER_TYPE = 0
-APO_CONNECTION_BUFFER_TYPE_EXTERNAL: APO_CONNECTION_BUFFER_TYPE = 1
-APO_CONNECTION_BUFFER_TYPE_DEPENDANT: APO_CONNECTION_BUFFER_TYPE = 2
+APO_CONNECTION_BUFFER_TYPE_ALLOCATED: win32more.Windows.Win32.Media.Audio.Apo.APO_CONNECTION_BUFFER_TYPE = 0
+APO_CONNECTION_BUFFER_TYPE_EXTERNAL: win32more.Windows.Win32.Media.Audio.Apo.APO_CONNECTION_BUFFER_TYPE = 1
+APO_CONNECTION_BUFFER_TYPE_DEPENDANT: win32more.Windows.Win32.Media.Audio.Apo.APO_CONNECTION_BUFFER_TYPE = 2
 class APO_CONNECTION_DESCRIPTOR(EasyCastStructure):
     Type: win32more.Windows.Win32.Media.Audio.Apo.APO_CONNECTION_BUFFER_TYPE
     pBuffer: UIntPtr
@@ -57,20 +56,20 @@ class APO_CONNECTION_PROPERTY_V2(EasyCastStructure):
     property: win32more.Windows.Win32.Media.Audio.Apo.APO_CONNECTION_PROPERTY
     u64QPCTime: UInt64
 APO_FLAG = Int32
-APO_FLAG_NONE: APO_FLAG = 0
-APO_FLAG_INPLACE: APO_FLAG = 1
-APO_FLAG_SAMPLESPERFRAME_MUST_MATCH: APO_FLAG = 2
-APO_FLAG_FRAMESPERSECOND_MUST_MATCH: APO_FLAG = 4
-APO_FLAG_BITSPERSAMPLE_MUST_MATCH: APO_FLAG = 8
-APO_FLAG_MIXER: APO_FLAG = 16
-APO_FLAG_DEFAULT: APO_FLAG = 14
+APO_FLAG_NONE: win32more.Windows.Win32.Media.Audio.Apo.APO_FLAG = 0
+APO_FLAG_INPLACE: win32more.Windows.Win32.Media.Audio.Apo.APO_FLAG = 1
+APO_FLAG_SAMPLESPERFRAME_MUST_MATCH: win32more.Windows.Win32.Media.Audio.Apo.APO_FLAG = 2
+APO_FLAG_FRAMESPERSECOND_MUST_MATCH: win32more.Windows.Win32.Media.Audio.Apo.APO_FLAG = 4
+APO_FLAG_BITSPERSAMPLE_MUST_MATCH: win32more.Windows.Win32.Media.Audio.Apo.APO_FLAG = 8
+APO_FLAG_MIXER: win32more.Windows.Win32.Media.Audio.Apo.APO_FLAG = 16
+APO_FLAG_DEFAULT: win32more.Windows.Win32.Media.Audio.Apo.APO_FLAG = 14
 APO_LOG_LEVEL = Int32
-APO_LOG_LEVEL_ALWAYS: APO_LOG_LEVEL = 0
-APO_LOG_LEVEL_CRITICAL: APO_LOG_LEVEL = 1
-APO_LOG_LEVEL_ERROR: APO_LOG_LEVEL = 2
-APO_LOG_LEVEL_WARNING: APO_LOG_LEVEL = 3
-APO_LOG_LEVEL_INFO: APO_LOG_LEVEL = 4
-APO_LOG_LEVEL_VERBOSE: APO_LOG_LEVEL = 5
+APO_LOG_LEVEL_ALWAYS: win32more.Windows.Win32.Media.Audio.Apo.APO_LOG_LEVEL = 0
+APO_LOG_LEVEL_CRITICAL: win32more.Windows.Win32.Media.Audio.Apo.APO_LOG_LEVEL = 1
+APO_LOG_LEVEL_ERROR: win32more.Windows.Win32.Media.Audio.Apo.APO_LOG_LEVEL = 2
+APO_LOG_LEVEL_WARNING: win32more.Windows.Win32.Media.Audio.Apo.APO_LOG_LEVEL = 3
+APO_LOG_LEVEL_INFO: win32more.Windows.Win32.Media.Audio.Apo.APO_LOG_LEVEL = 4
+APO_LOG_LEVEL_VERBOSE: win32more.Windows.Win32.Media.Audio.Apo.APO_LOG_LEVEL = 5
 class APO_NOTIFICATION(EasyCastStructure):
     type: win32more.Windows.Win32.Media.Audio.Apo.APO_NOTIFICATION_TYPE
     Anonymous: _Anonymous_e__Union
@@ -90,13 +89,13 @@ class APO_NOTIFICATION_DESCRIPTOR(EasyCastStructure):
         audioSystemEffectsPropertyChange: win32more.Windows.Win32.Media.Audio.Apo.AUDIO_SYSTEMEFFECTS_PROPERTY_CHANGE_APO_NOTIFICATION_DESCRIPTOR
         audioMicrophoneBoost: win32more.Windows.Win32.Media.Audio.Apo.AUDIO_MICROPHONE_BOOST_APO_NOTIFICATION_DESCRIPTOR
 APO_NOTIFICATION_TYPE = Int32
-APO_NOTIFICATION_TYPE_NONE: APO_NOTIFICATION_TYPE = 0
-APO_NOTIFICATION_TYPE_ENDPOINT_VOLUME: APO_NOTIFICATION_TYPE = 1
-APO_NOTIFICATION_TYPE_ENDPOINT_PROPERTY_CHANGE: APO_NOTIFICATION_TYPE = 2
-APO_NOTIFICATION_TYPE_SYSTEM_EFFECTS_PROPERTY_CHANGE: APO_NOTIFICATION_TYPE = 3
-APO_NOTIFICATION_TYPE_ENDPOINT_VOLUME2: APO_NOTIFICATION_TYPE = 4
-APO_NOTIFICATION_TYPE_DEVICE_ORIENTATION: APO_NOTIFICATION_TYPE = 5
-APO_NOTIFICATION_TYPE_MICROPHONE_BOOST: APO_NOTIFICATION_TYPE = 6
+APO_NOTIFICATION_TYPE_NONE: win32more.Windows.Win32.Media.Audio.Apo.APO_NOTIFICATION_TYPE = 0
+APO_NOTIFICATION_TYPE_ENDPOINT_VOLUME: win32more.Windows.Win32.Media.Audio.Apo.APO_NOTIFICATION_TYPE = 1
+APO_NOTIFICATION_TYPE_ENDPOINT_PROPERTY_CHANGE: win32more.Windows.Win32.Media.Audio.Apo.APO_NOTIFICATION_TYPE = 2
+APO_NOTIFICATION_TYPE_SYSTEM_EFFECTS_PROPERTY_CHANGE: win32more.Windows.Win32.Media.Audio.Apo.APO_NOTIFICATION_TYPE = 3
+APO_NOTIFICATION_TYPE_ENDPOINT_VOLUME2: win32more.Windows.Win32.Media.Audio.Apo.APO_NOTIFICATION_TYPE = 4
+APO_NOTIFICATION_TYPE_DEVICE_ORIENTATION: win32more.Windows.Win32.Media.Audio.Apo.APO_NOTIFICATION_TYPE = 5
+APO_NOTIFICATION_TYPE_MICROPHONE_BOOST: win32more.Windows.Win32.Media.Audio.Apo.APO_NOTIFICATION_TYPE = 6
 class APO_REG_PROPERTIES(EasyCastStructure):
     clsid: Guid
     Flags: win32more.Windows.Win32.Media.Audio.Apo.APO_FLAG
@@ -126,8 +125,8 @@ class AUDIO_ENDPOINT_VOLUME_CHANGE_NOTIFICATION2(EasyCastStructure):
     endpoint: win32more.Windows.Win32.Media.Audio.IMMDevice
     volume: POINTER(win32more.Windows.Win32.Media.Audio.Apo.AUDIO_VOLUME_NOTIFICATION_DATA2)
 AUDIO_FLOW_TYPE = Int32
-AUDIO_FLOW_PULL: AUDIO_FLOW_TYPE = 0
-AUDIO_FLOW_PUSH: AUDIO_FLOW_TYPE = 1
+AUDIO_FLOW_PULL: win32more.Windows.Win32.Media.Audio.Apo.AUDIO_FLOW_TYPE = 0
+AUDIO_FLOW_PUSH: win32more.Windows.Win32.Media.Audio.Apo.AUDIO_FLOW_TYPE = 1
 class AUDIO_MICROPHONE_BOOST_APO_NOTIFICATION_DESCRIPTOR(EasyCastStructure):
     device: win32more.Windows.Win32.Media.Audio.IMMDevice
 class AUDIO_MICROPHONE_BOOST_NOTIFICATION(EasyCastStructure):
@@ -154,8 +153,8 @@ class AUDIO_SYSTEMEFFECTS_PROPERTY_CHANGE_NOTIFICATION(EasyCastStructure):
     propertyStore: win32more.Windows.Win32.UI.Shell.PropertiesSystem.IPropertyStore
     propertyKey: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY
 AUDIO_SYSTEMEFFECT_STATE = Int32
-AUDIO_SYSTEMEFFECT_STATE_OFF: AUDIO_SYSTEMEFFECT_STATE = 0
-AUDIO_SYSTEMEFFECT_STATE_ON: AUDIO_SYSTEMEFFECT_STATE = 1
+AUDIO_SYSTEMEFFECT_STATE_OFF: win32more.Windows.Win32.Media.Audio.Apo.AUDIO_SYSTEMEFFECT_STATE = 0
+AUDIO_SYSTEMEFFECT_STATE_ON: win32more.Windows.Win32.Media.Audio.Apo.AUDIO_SYSTEMEFFECT_STATE = 1
 class AUDIO_VOLUME_NOTIFICATION_DATA2(EasyCastStructure):
     notificationData: POINTER(win32more.Windows.Win32.Media.Audio.AUDIO_VOLUME_NOTIFICATION_DATA)
     masterVolumeInDb: Single
@@ -280,16 +279,16 @@ class AudioFXExtensionParams(EasyCastStructure):
     pwstrEndpointID: win32more.Windows.Win32.Foundation.PWSTR
     pFxProperties: win32more.Windows.Win32.UI.Shell.PropertiesSystem.IPropertyStore
 DEVICE_ORIENTATION_TYPE = Int32
-DEVICE_NOT_ROTATED: DEVICE_ORIENTATION_TYPE = 0
-DEVICE_ROTATED_90_DEGREES_CLOCKWISE: DEVICE_ORIENTATION_TYPE = 1
-DEVICE_ROTATED_180_DEGREES_CLOCKWISE: DEVICE_ORIENTATION_TYPE = 2
-DEVICE_ROTATED_270_DEGREES_CLOCKWISE: DEVICE_ORIENTATION_TYPE = 3
+DEVICE_NOT_ROTATED: win32more.Windows.Win32.Media.Audio.Apo.DEVICE_ORIENTATION_TYPE = 0
+DEVICE_ROTATED_90_DEGREES_CLOCKWISE: win32more.Windows.Win32.Media.Audio.Apo.DEVICE_ORIENTATION_TYPE = 1
+DEVICE_ROTATED_180_DEGREES_CLOCKWISE: win32more.Windows.Win32.Media.Audio.Apo.DEVICE_ORIENTATION_TYPE = 2
+DEVICE_ROTATED_270_DEGREES_CLOCKWISE: win32more.Windows.Win32.Media.Audio.Apo.DEVICE_ORIENTATION_TYPE = 3
 EAudioConstriction = Int32
-EAudioConstriction_eAudioConstrictionOff: EAudioConstriction = 0
-EAudioConstriction_eAudioConstriction48_16: EAudioConstriction = 1
-EAudioConstriction_eAudioConstriction44_16: EAudioConstriction = 2
-EAudioConstriction_eAudioConstriction14_14: EAudioConstriction = 3
-EAudioConstriction_eAudioConstrictionMute: EAudioConstriction = 4
+EAudioConstriction_eAudioConstrictionOff: win32more.Windows.Win32.Media.Audio.Apo.EAudioConstriction = 0
+EAudioConstriction_eAudioConstriction48_16: win32more.Windows.Win32.Media.Audio.Apo.EAudioConstriction = 1
+EAudioConstriction_eAudioConstriction44_16: win32more.Windows.Win32.Media.Audio.Apo.EAudioConstriction = 2
+EAudioConstriction_eAudioConstriction14_14: win32more.Windows.Win32.Media.Audio.Apo.EAudioConstriction = 3
+EAudioConstriction_eAudioConstrictionMute: win32more.Windows.Win32.Media.Audio.Apo.EAudioConstriction = 4
 @winfunctype_pointer
 def FNAPONOTIFICATIONCALLBACK(pProperties: POINTER(win32more.Windows.Win32.Media.Audio.Apo.APO_REG_PROPERTIES), pvRefData: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IApoAcousticEchoCancellation(ComPtr):
@@ -418,4 +417,6 @@ class UNCOMPRESSEDAUDIOFORMAT(EasyCastStructure):
     dwValidBitsPerSample: UInt32
     fFramesPerSecond: Single
     dwChannelMask: UInt32
+
+
 make_ready(__name__)

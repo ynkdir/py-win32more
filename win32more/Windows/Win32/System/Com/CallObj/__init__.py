@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.Com.CallObj
@@ -28,16 +27,16 @@ class CALLFRAMEPARAMINFO(EasyCastStructure):
     stackOffset: UInt32
     cbParam: UInt32
 CALLFRAME_COPY = Int32
-CALLFRAME_COPY_NESTED: CALLFRAME_COPY = 1
-CALLFRAME_COPY_INDEPENDENT: CALLFRAME_COPY = 2
+CALLFRAME_COPY_NESTED: win32more.Windows.Win32.System.Com.CallObj.CALLFRAME_COPY = 1
+CALLFRAME_COPY_INDEPENDENT: win32more.Windows.Win32.System.Com.CallObj.CALLFRAME_COPY = 2
 CALLFRAME_FREE = Int32
-CALLFRAME_FREE_NONE: CALLFRAME_FREE = 0
-CALLFRAME_FREE_IN: CALLFRAME_FREE = 1
-CALLFRAME_FREE_INOUT: CALLFRAME_FREE = 2
-CALLFRAME_FREE_OUT: CALLFRAME_FREE = 4
-CALLFRAME_FREE_TOP_INOUT: CALLFRAME_FREE = 8
-CALLFRAME_FREE_TOP_OUT: CALLFRAME_FREE = 16
-CALLFRAME_FREE_ALL: CALLFRAME_FREE = 31
+CALLFRAME_FREE_NONE: win32more.Windows.Win32.System.Com.CallObj.CALLFRAME_FREE = 0
+CALLFRAME_FREE_IN: win32more.Windows.Win32.System.Com.CallObj.CALLFRAME_FREE = 1
+CALLFRAME_FREE_INOUT: win32more.Windows.Win32.System.Com.CallObj.CALLFRAME_FREE = 2
+CALLFRAME_FREE_OUT: win32more.Windows.Win32.System.Com.CallObj.CALLFRAME_FREE = 4
+CALLFRAME_FREE_TOP_INOUT: win32more.Windows.Win32.System.Com.CallObj.CALLFRAME_FREE = 8
+CALLFRAME_FREE_TOP_OUT: win32more.Windows.Win32.System.Com.CallObj.CALLFRAME_FREE = 16
+CALLFRAME_FREE_ALL: win32more.Windows.Win32.System.Com.CallObj.CALLFRAME_FREE = 31
 class CALLFRAME_MARSHALCONTEXT(EasyCastStructure):
     fIn: win32more.Windows.Win32.Foundation.BOOLEAN
     dwDestContext: UInt32
@@ -45,14 +44,14 @@ class CALLFRAME_MARSHALCONTEXT(EasyCastStructure):
     punkReserved: win32more.Windows.Win32.System.Com.IUnknown
     guidTransferSyntax: Guid
 CALLFRAME_NULL = Int32
-CALLFRAME_NULL_NONE: CALLFRAME_NULL = 0
-CALLFRAME_NULL_INOUT: CALLFRAME_NULL = 2
-CALLFRAME_NULL_OUT: CALLFRAME_NULL = 4
-CALLFRAME_NULL_ALL: CALLFRAME_NULL = 6
+CALLFRAME_NULL_NONE: win32more.Windows.Win32.System.Com.CallObj.CALLFRAME_NULL = 0
+CALLFRAME_NULL_INOUT: win32more.Windows.Win32.System.Com.CallObj.CALLFRAME_NULL = 2
+CALLFRAME_NULL_OUT: win32more.Windows.Win32.System.Com.CallObj.CALLFRAME_NULL = 4
+CALLFRAME_NULL_ALL: win32more.Windows.Win32.System.Com.CallObj.CALLFRAME_NULL = 6
 CALLFRAME_WALK = Int32
-CALLFRAME_WALK_IN: CALLFRAME_WALK = 1
-CALLFRAME_WALK_INOUT: CALLFRAME_WALK = 2
-CALLFRAME_WALK_OUT: CALLFRAME_WALK = 4
+CALLFRAME_WALK_IN: win32more.Windows.Win32.System.Com.CallObj.CALLFRAME_WALK = 1
+CALLFRAME_WALK_INOUT: win32more.Windows.Win32.System.Com.CallObj.CALLFRAME_WALK = 2
+CALLFRAME_WALK_OUT: win32more.Windows.Win32.System.Com.CallObj.CALLFRAME_WALK = 4
 class ICallFrame(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{d573b4b0-894e-11d2-b8b6-00c04fb9618a}')
@@ -136,4 +135,6 @@ class IInterfaceRelated(ComPtr):
     def SetIID(self, iid: POINTER(Guid)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetIID(self, piid: POINTER(Guid)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+
+
 make_ready(__name__)

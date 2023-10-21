@@ -1,52 +1,51 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Data.Xml.MsXml
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Storage.Packaging.Appx
 import win32more.Windows.Win32.System.Com
 APPX_BUNDLE_FOOTPRINT_FILE_TYPE = Int32
-APPX_BUNDLE_FOOTPRINT_FILE_TYPE_FIRST: APPX_BUNDLE_FOOTPRINT_FILE_TYPE = 0
-APPX_BUNDLE_FOOTPRINT_FILE_TYPE_MANIFEST: APPX_BUNDLE_FOOTPRINT_FILE_TYPE = 0
-APPX_BUNDLE_FOOTPRINT_FILE_TYPE_BLOCKMAP: APPX_BUNDLE_FOOTPRINT_FILE_TYPE = 1
-APPX_BUNDLE_FOOTPRINT_FILE_TYPE_SIGNATURE: APPX_BUNDLE_FOOTPRINT_FILE_TYPE = 2
-APPX_BUNDLE_FOOTPRINT_FILE_TYPE_LAST: APPX_BUNDLE_FOOTPRINT_FILE_TYPE = 2
+APPX_BUNDLE_FOOTPRINT_FILE_TYPE_FIRST: win32more.Windows.Win32.Storage.Packaging.Appx.APPX_BUNDLE_FOOTPRINT_FILE_TYPE = 0
+APPX_BUNDLE_FOOTPRINT_FILE_TYPE_MANIFEST: win32more.Windows.Win32.Storage.Packaging.Appx.APPX_BUNDLE_FOOTPRINT_FILE_TYPE = 0
+APPX_BUNDLE_FOOTPRINT_FILE_TYPE_BLOCKMAP: win32more.Windows.Win32.Storage.Packaging.Appx.APPX_BUNDLE_FOOTPRINT_FILE_TYPE = 1
+APPX_BUNDLE_FOOTPRINT_FILE_TYPE_SIGNATURE: win32more.Windows.Win32.Storage.Packaging.Appx.APPX_BUNDLE_FOOTPRINT_FILE_TYPE = 2
+APPX_BUNDLE_FOOTPRINT_FILE_TYPE_LAST: win32more.Windows.Win32.Storage.Packaging.Appx.APPX_BUNDLE_FOOTPRINT_FILE_TYPE = 2
 APPX_BUNDLE_PAYLOAD_PACKAGE_TYPE = Int32
-APPX_BUNDLE_PAYLOAD_PACKAGE_TYPE_APPLICATION: APPX_BUNDLE_PAYLOAD_PACKAGE_TYPE = 0
-APPX_BUNDLE_PAYLOAD_PACKAGE_TYPE_RESOURCE: APPX_BUNDLE_PAYLOAD_PACKAGE_TYPE = 1
+APPX_BUNDLE_PAYLOAD_PACKAGE_TYPE_APPLICATION: win32more.Windows.Win32.Storage.Packaging.Appx.APPX_BUNDLE_PAYLOAD_PACKAGE_TYPE = 0
+APPX_BUNDLE_PAYLOAD_PACKAGE_TYPE_RESOURCE: win32more.Windows.Win32.Storage.Packaging.Appx.APPX_BUNDLE_PAYLOAD_PACKAGE_TYPE = 1
 APPX_CAPABILITIES = Int32
-APPX_CAPABILITY_INTERNET_CLIENT: APPX_CAPABILITIES = 1
-APPX_CAPABILITY_INTERNET_CLIENT_SERVER: APPX_CAPABILITIES = 2
-APPX_CAPABILITY_PRIVATE_NETWORK_CLIENT_SERVER: APPX_CAPABILITIES = 4
-APPX_CAPABILITY_DOCUMENTS_LIBRARY: APPX_CAPABILITIES = 8
-APPX_CAPABILITY_PICTURES_LIBRARY: APPX_CAPABILITIES = 16
-APPX_CAPABILITY_VIDEOS_LIBRARY: APPX_CAPABILITIES = 32
-APPX_CAPABILITY_MUSIC_LIBRARY: APPX_CAPABILITIES = 64
-APPX_CAPABILITY_ENTERPRISE_AUTHENTICATION: APPX_CAPABILITIES = 128
-APPX_CAPABILITY_SHARED_USER_CERTIFICATES: APPX_CAPABILITIES = 256
-APPX_CAPABILITY_REMOVABLE_STORAGE: APPX_CAPABILITIES = 512
-APPX_CAPABILITY_APPOINTMENTS: APPX_CAPABILITIES = 1024
-APPX_CAPABILITY_CONTACTS: APPX_CAPABILITIES = 2048
+APPX_CAPABILITY_INTERNET_CLIENT: win32more.Windows.Win32.Storage.Packaging.Appx.APPX_CAPABILITIES = 1
+APPX_CAPABILITY_INTERNET_CLIENT_SERVER: win32more.Windows.Win32.Storage.Packaging.Appx.APPX_CAPABILITIES = 2
+APPX_CAPABILITY_PRIVATE_NETWORK_CLIENT_SERVER: win32more.Windows.Win32.Storage.Packaging.Appx.APPX_CAPABILITIES = 4
+APPX_CAPABILITY_DOCUMENTS_LIBRARY: win32more.Windows.Win32.Storage.Packaging.Appx.APPX_CAPABILITIES = 8
+APPX_CAPABILITY_PICTURES_LIBRARY: win32more.Windows.Win32.Storage.Packaging.Appx.APPX_CAPABILITIES = 16
+APPX_CAPABILITY_VIDEOS_LIBRARY: win32more.Windows.Win32.Storage.Packaging.Appx.APPX_CAPABILITIES = 32
+APPX_CAPABILITY_MUSIC_LIBRARY: win32more.Windows.Win32.Storage.Packaging.Appx.APPX_CAPABILITIES = 64
+APPX_CAPABILITY_ENTERPRISE_AUTHENTICATION: win32more.Windows.Win32.Storage.Packaging.Appx.APPX_CAPABILITIES = 128
+APPX_CAPABILITY_SHARED_USER_CERTIFICATES: win32more.Windows.Win32.Storage.Packaging.Appx.APPX_CAPABILITIES = 256
+APPX_CAPABILITY_REMOVABLE_STORAGE: win32more.Windows.Win32.Storage.Packaging.Appx.APPX_CAPABILITIES = 512
+APPX_CAPABILITY_APPOINTMENTS: win32more.Windows.Win32.Storage.Packaging.Appx.APPX_CAPABILITIES = 1024
+APPX_CAPABILITY_CONTACTS: win32more.Windows.Win32.Storage.Packaging.Appx.APPX_CAPABILITIES = 2048
 APPX_CAPABILITY_CLASS_TYPE = Int32
-APPX_CAPABILITY_CLASS_DEFAULT: APPX_CAPABILITY_CLASS_TYPE = 0
-APPX_CAPABILITY_CLASS_GENERAL: APPX_CAPABILITY_CLASS_TYPE = 1
-APPX_CAPABILITY_CLASS_RESTRICTED: APPX_CAPABILITY_CLASS_TYPE = 2
-APPX_CAPABILITY_CLASS_WINDOWS: APPX_CAPABILITY_CLASS_TYPE = 4
-APPX_CAPABILITY_CLASS_ALL: APPX_CAPABILITY_CLASS_TYPE = 7
-APPX_CAPABILITY_CLASS_CUSTOM: APPX_CAPABILITY_CLASS_TYPE = 8
+APPX_CAPABILITY_CLASS_DEFAULT: win32more.Windows.Win32.Storage.Packaging.Appx.APPX_CAPABILITY_CLASS_TYPE = 0
+APPX_CAPABILITY_CLASS_GENERAL: win32more.Windows.Win32.Storage.Packaging.Appx.APPX_CAPABILITY_CLASS_TYPE = 1
+APPX_CAPABILITY_CLASS_RESTRICTED: win32more.Windows.Win32.Storage.Packaging.Appx.APPX_CAPABILITY_CLASS_TYPE = 2
+APPX_CAPABILITY_CLASS_WINDOWS: win32more.Windows.Win32.Storage.Packaging.Appx.APPX_CAPABILITY_CLASS_TYPE = 4
+APPX_CAPABILITY_CLASS_ALL: win32more.Windows.Win32.Storage.Packaging.Appx.APPX_CAPABILITY_CLASS_TYPE = 7
+APPX_CAPABILITY_CLASS_CUSTOM: win32more.Windows.Win32.Storage.Packaging.Appx.APPX_CAPABILITY_CLASS_TYPE = 8
 APPX_COMPRESSION_OPTION = Int32
-APPX_COMPRESSION_OPTION_NONE: APPX_COMPRESSION_OPTION = 0
-APPX_COMPRESSION_OPTION_NORMAL: APPX_COMPRESSION_OPTION = 1
-APPX_COMPRESSION_OPTION_MAXIMUM: APPX_COMPRESSION_OPTION = 2
-APPX_COMPRESSION_OPTION_FAST: APPX_COMPRESSION_OPTION = 3
-APPX_COMPRESSION_OPTION_SUPERFAST: APPX_COMPRESSION_OPTION = 4
+APPX_COMPRESSION_OPTION_NONE: win32more.Windows.Win32.Storage.Packaging.Appx.APPX_COMPRESSION_OPTION = 0
+APPX_COMPRESSION_OPTION_NORMAL: win32more.Windows.Win32.Storage.Packaging.Appx.APPX_COMPRESSION_OPTION = 1
+APPX_COMPRESSION_OPTION_MAXIMUM: win32more.Windows.Win32.Storage.Packaging.Appx.APPX_COMPRESSION_OPTION = 2
+APPX_COMPRESSION_OPTION_FAST: win32more.Windows.Win32.Storage.Packaging.Appx.APPX_COMPRESSION_OPTION = 3
+APPX_COMPRESSION_OPTION_SUPERFAST: win32more.Windows.Win32.Storage.Packaging.Appx.APPX_COMPRESSION_OPTION = 4
 class APPX_ENCRYPTED_EXEMPTIONS(EasyCastStructure):
     count: UInt32
     plainTextFiles: POINTER(win32more.Windows.Win32.Foundation.PWSTR)
 APPX_ENCRYPTED_PACKAGE_OPTIONS = Int32
-APPX_ENCRYPTED_PACKAGE_OPTION_NONE: APPX_ENCRYPTED_PACKAGE_OPTIONS = 0
-APPX_ENCRYPTED_PACKAGE_OPTION_DIFFUSION: APPX_ENCRYPTED_PACKAGE_OPTIONS = 1
-APPX_ENCRYPTED_PACKAGE_OPTION_PAGE_HASHING: APPX_ENCRYPTED_PACKAGE_OPTIONS = 2
+APPX_ENCRYPTED_PACKAGE_OPTION_NONE: win32more.Windows.Win32.Storage.Packaging.Appx.APPX_ENCRYPTED_PACKAGE_OPTIONS = 0
+APPX_ENCRYPTED_PACKAGE_OPTION_DIFFUSION: win32more.Windows.Win32.Storage.Packaging.Appx.APPX_ENCRYPTED_PACKAGE_OPTIONS = 1
+APPX_ENCRYPTED_PACKAGE_OPTION_PAGE_HASHING: win32more.Windows.Win32.Storage.Packaging.Appx.APPX_ENCRYPTED_PACKAGE_OPTIONS = 2
 class APPX_ENCRYPTED_PACKAGE_SETTINGS(EasyCastStructure):
     keyLength: UInt32
     encryptionAlgorithm: win32more.Windows.Win32.Foundation.PWSTR
@@ -58,36 +57,36 @@ class APPX_ENCRYPTED_PACKAGE_SETTINGS2(EasyCastStructure):
     blockMapHashAlgorithm: win32more.Windows.Win32.System.Com.IUri
     options: UInt32
 APPX_FOOTPRINT_FILE_TYPE = Int32
-APPX_FOOTPRINT_FILE_TYPE_MANIFEST: APPX_FOOTPRINT_FILE_TYPE = 0
-APPX_FOOTPRINT_FILE_TYPE_BLOCKMAP: APPX_FOOTPRINT_FILE_TYPE = 1
-APPX_FOOTPRINT_FILE_TYPE_SIGNATURE: APPX_FOOTPRINT_FILE_TYPE = 2
-APPX_FOOTPRINT_FILE_TYPE_CODEINTEGRITY: APPX_FOOTPRINT_FILE_TYPE = 3
-APPX_FOOTPRINT_FILE_TYPE_CONTENTGROUPMAP: APPX_FOOTPRINT_FILE_TYPE = 4
+APPX_FOOTPRINT_FILE_TYPE_MANIFEST: win32more.Windows.Win32.Storage.Packaging.Appx.APPX_FOOTPRINT_FILE_TYPE = 0
+APPX_FOOTPRINT_FILE_TYPE_BLOCKMAP: win32more.Windows.Win32.Storage.Packaging.Appx.APPX_FOOTPRINT_FILE_TYPE = 1
+APPX_FOOTPRINT_FILE_TYPE_SIGNATURE: win32more.Windows.Win32.Storage.Packaging.Appx.APPX_FOOTPRINT_FILE_TYPE = 2
+APPX_FOOTPRINT_FILE_TYPE_CODEINTEGRITY: win32more.Windows.Win32.Storage.Packaging.Appx.APPX_FOOTPRINT_FILE_TYPE = 3
+APPX_FOOTPRINT_FILE_TYPE_CONTENTGROUPMAP: win32more.Windows.Win32.Storage.Packaging.Appx.APPX_FOOTPRINT_FILE_TYPE = 4
 class APPX_KEY_INFO(EasyCastStructure):
     keyLength: UInt32
     keyIdLength: UInt32
     key: POINTER(Byte)
     keyId: POINTER(Byte)
 APPX_PACKAGE_ARCHITECTURE = Int32
-APPX_PACKAGE_ARCHITECTURE_X86: APPX_PACKAGE_ARCHITECTURE = 0
-APPX_PACKAGE_ARCHITECTURE_ARM: APPX_PACKAGE_ARCHITECTURE = 5
-APPX_PACKAGE_ARCHITECTURE_X64: APPX_PACKAGE_ARCHITECTURE = 9
-APPX_PACKAGE_ARCHITECTURE_NEUTRAL: APPX_PACKAGE_ARCHITECTURE = 11
-APPX_PACKAGE_ARCHITECTURE_ARM64: APPX_PACKAGE_ARCHITECTURE = 12
+APPX_PACKAGE_ARCHITECTURE_X86: win32more.Windows.Win32.Storage.Packaging.Appx.APPX_PACKAGE_ARCHITECTURE = 0
+APPX_PACKAGE_ARCHITECTURE_ARM: win32more.Windows.Win32.Storage.Packaging.Appx.APPX_PACKAGE_ARCHITECTURE = 5
+APPX_PACKAGE_ARCHITECTURE_X64: win32more.Windows.Win32.Storage.Packaging.Appx.APPX_PACKAGE_ARCHITECTURE = 9
+APPX_PACKAGE_ARCHITECTURE_NEUTRAL: win32more.Windows.Win32.Storage.Packaging.Appx.APPX_PACKAGE_ARCHITECTURE = 11
+APPX_PACKAGE_ARCHITECTURE_ARM64: win32more.Windows.Win32.Storage.Packaging.Appx.APPX_PACKAGE_ARCHITECTURE = 12
 APPX_PACKAGE_ARCHITECTURE2 = Int32
-APPX_PACKAGE_ARCHITECTURE2_X86: APPX_PACKAGE_ARCHITECTURE2 = 0
-APPX_PACKAGE_ARCHITECTURE2_ARM: APPX_PACKAGE_ARCHITECTURE2 = 5
-APPX_PACKAGE_ARCHITECTURE2_X64: APPX_PACKAGE_ARCHITECTURE2 = 9
-APPX_PACKAGE_ARCHITECTURE2_NEUTRAL: APPX_PACKAGE_ARCHITECTURE2 = 11
-APPX_PACKAGE_ARCHITECTURE2_ARM64: APPX_PACKAGE_ARCHITECTURE2 = 12
-APPX_PACKAGE_ARCHITECTURE2_X86_ON_ARM64: APPX_PACKAGE_ARCHITECTURE2 = 14
-APPX_PACKAGE_ARCHITECTURE2_UNKNOWN: APPX_PACKAGE_ARCHITECTURE2 = 65535
+APPX_PACKAGE_ARCHITECTURE2_X86: win32more.Windows.Win32.Storage.Packaging.Appx.APPX_PACKAGE_ARCHITECTURE2 = 0
+APPX_PACKAGE_ARCHITECTURE2_ARM: win32more.Windows.Win32.Storage.Packaging.Appx.APPX_PACKAGE_ARCHITECTURE2 = 5
+APPX_PACKAGE_ARCHITECTURE2_X64: win32more.Windows.Win32.Storage.Packaging.Appx.APPX_PACKAGE_ARCHITECTURE2 = 9
+APPX_PACKAGE_ARCHITECTURE2_NEUTRAL: win32more.Windows.Win32.Storage.Packaging.Appx.APPX_PACKAGE_ARCHITECTURE2 = 11
+APPX_PACKAGE_ARCHITECTURE2_ARM64: win32more.Windows.Win32.Storage.Packaging.Appx.APPX_PACKAGE_ARCHITECTURE2 = 12
+APPX_PACKAGE_ARCHITECTURE2_X86_ON_ARM64: win32more.Windows.Win32.Storage.Packaging.Appx.APPX_PACKAGE_ARCHITECTURE2 = 14
+APPX_PACKAGE_ARCHITECTURE2_UNKNOWN: win32more.Windows.Win32.Storage.Packaging.Appx.APPX_PACKAGE_ARCHITECTURE2 = 65535
 APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_MANIFEST_OPTIONS = Int32
-APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_MANIFEST_OPTION_NONE: APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_MANIFEST_OPTIONS = 0
-APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_MANIFEST_OPTION_SKIP_VALIDATION: APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_MANIFEST_OPTIONS = 1
-APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_MANIFEST_OPTION_LOCALIZED: APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_MANIFEST_OPTIONS = 2
+APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_MANIFEST_OPTION_NONE: win32more.Windows.Win32.Storage.Packaging.Appx.APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_MANIFEST_OPTIONS = 0
+APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_MANIFEST_OPTION_SKIP_VALIDATION: win32more.Windows.Win32.Storage.Packaging.Appx.APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_MANIFEST_OPTIONS = 1
+APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_MANIFEST_OPTION_LOCALIZED: win32more.Windows.Win32.Storage.Packaging.Appx.APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_MANIFEST_OPTIONS = 2
 APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_OPTION = Int32
-APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_OPTION_APPEND_DELTA: APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_OPTION = 0
+APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_OPTION_APPEND_DELTA: win32more.Windows.Win32.Storage.Packaging.Appx.APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_OPTION = 0
 class APPX_PACKAGE_SETTINGS(EasyCastStructure):
     forceZip32: win32more.Windows.Win32.Foundation.BOOL
     hashMethod: win32more.Windows.Win32.System.Com.IUri
@@ -97,13 +96,13 @@ class APPX_PACKAGE_WRITER_PAYLOAD_STREAM(EasyCastStructure):
     contentType: win32more.Windows.Win32.Foundation.PWSTR
     compressionOption: win32more.Windows.Win32.Storage.Packaging.Appx.APPX_COMPRESSION_OPTION
 APPX_PACKAGING_CONTEXT_CHANGE_TYPE = Int32
-APPX_PACKAGING_CONTEXT_CHANGE_TYPE_START: APPX_PACKAGING_CONTEXT_CHANGE_TYPE = 0
-APPX_PACKAGING_CONTEXT_CHANGE_TYPE_CHANGE: APPX_PACKAGING_CONTEXT_CHANGE_TYPE = 1
-APPX_PACKAGING_CONTEXT_CHANGE_TYPE_DETAILS: APPX_PACKAGING_CONTEXT_CHANGE_TYPE = 2
-APPX_PACKAGING_CONTEXT_CHANGE_TYPE_END: APPX_PACKAGING_CONTEXT_CHANGE_TYPE = 3
+APPX_PACKAGING_CONTEXT_CHANGE_TYPE_START: win32more.Windows.Win32.Storage.Packaging.Appx.APPX_PACKAGING_CONTEXT_CHANGE_TYPE = 0
+APPX_PACKAGING_CONTEXT_CHANGE_TYPE_CHANGE: win32more.Windows.Win32.Storage.Packaging.Appx.APPX_PACKAGING_CONTEXT_CHANGE_TYPE = 1
+APPX_PACKAGING_CONTEXT_CHANGE_TYPE_DETAILS: win32more.Windows.Win32.Storage.Packaging.Appx.APPX_PACKAGING_CONTEXT_CHANGE_TYPE = 2
+APPX_PACKAGING_CONTEXT_CHANGE_TYPE_END: win32more.Windows.Win32.Storage.Packaging.Appx.APPX_PACKAGING_CONTEXT_CHANGE_TYPE = 3
 AddPackageDependencyOptions = Int32
-AddPackageDependencyOptions_None: AddPackageDependencyOptions = 0
-AddPackageDependencyOptions_PrependIfRankCollision: AddPackageDependencyOptions = 1
+AddPackageDependencyOptions_None: win32more.Windows.Win32.Storage.Packaging.Appx.AddPackageDependencyOptions = 0
+AddPackageDependencyOptions_PrependIfRankCollision: win32more.Windows.Win32.Storage.Packaging.Appx.AddPackageDependencyOptions = 1
 PACKAGE_PROPERTY_FRAMEWORK: UInt32 = 1
 PACKAGE_PROPERTY_RESOURCE: UInt32 = 2
 PACKAGE_PROPERTY_BUNDLE: UInt32 = 4
@@ -255,47 +254,47 @@ def GetCurrentPackageVirtualizationContext() -> win32more.Windows.Win32.Storage.
 @winfunctype('KERNEL32.dll')
 def GetProcessesInVirtualizationContext(packageFamilyName: win32more.Windows.Win32.Foundation.PWSTR, count: POINTER(UInt32), processes: POINTER(POINTER(win32more.Windows.Win32.Foundation.HANDLE))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 AppPolicyClrCompat = Int32
-AppPolicyClrCompat_Other: AppPolicyClrCompat = 0
-AppPolicyClrCompat_ClassicDesktop: AppPolicyClrCompat = 1
-AppPolicyClrCompat_Universal: AppPolicyClrCompat = 2
-AppPolicyClrCompat_PackagedDesktop: AppPolicyClrCompat = 3
+AppPolicyClrCompat_Other: win32more.Windows.Win32.Storage.Packaging.Appx.AppPolicyClrCompat = 0
+AppPolicyClrCompat_ClassicDesktop: win32more.Windows.Win32.Storage.Packaging.Appx.AppPolicyClrCompat = 1
+AppPolicyClrCompat_Universal: win32more.Windows.Win32.Storage.Packaging.Appx.AppPolicyClrCompat = 2
+AppPolicyClrCompat_PackagedDesktop: win32more.Windows.Win32.Storage.Packaging.Appx.AppPolicyClrCompat = 3
 AppPolicyCreateFileAccess = Int32
-AppPolicyCreateFileAccess_Full: AppPolicyCreateFileAccess = 0
-AppPolicyCreateFileAccess_Limited: AppPolicyCreateFileAccess = 1
+AppPolicyCreateFileAccess_Full: win32more.Windows.Win32.Storage.Packaging.Appx.AppPolicyCreateFileAccess = 0
+AppPolicyCreateFileAccess_Limited: win32more.Windows.Win32.Storage.Packaging.Appx.AppPolicyCreateFileAccess = 1
 AppPolicyLifecycleManagement = Int32
-AppPolicyLifecycleManagement_Unmanaged: AppPolicyLifecycleManagement = 0
-AppPolicyLifecycleManagement_Managed: AppPolicyLifecycleManagement = 1
+AppPolicyLifecycleManagement_Unmanaged: win32more.Windows.Win32.Storage.Packaging.Appx.AppPolicyLifecycleManagement = 0
+AppPolicyLifecycleManagement_Managed: win32more.Windows.Win32.Storage.Packaging.Appx.AppPolicyLifecycleManagement = 1
 AppPolicyMediaFoundationCodecLoading = Int32
-AppPolicyMediaFoundationCodecLoading_All: AppPolicyMediaFoundationCodecLoading = 0
-AppPolicyMediaFoundationCodecLoading_InboxOnly: AppPolicyMediaFoundationCodecLoading = 1
+AppPolicyMediaFoundationCodecLoading_All: win32more.Windows.Win32.Storage.Packaging.Appx.AppPolicyMediaFoundationCodecLoading = 0
+AppPolicyMediaFoundationCodecLoading_InboxOnly: win32more.Windows.Win32.Storage.Packaging.Appx.AppPolicyMediaFoundationCodecLoading = 1
 AppPolicyProcessTerminationMethod = Int32
-AppPolicyProcessTerminationMethod_ExitProcess: AppPolicyProcessTerminationMethod = 0
-AppPolicyProcessTerminationMethod_TerminateProcess: AppPolicyProcessTerminationMethod = 1
+AppPolicyProcessTerminationMethod_ExitProcess: win32more.Windows.Win32.Storage.Packaging.Appx.AppPolicyProcessTerminationMethod = 0
+AppPolicyProcessTerminationMethod_TerminateProcess: win32more.Windows.Win32.Storage.Packaging.Appx.AppPolicyProcessTerminationMethod = 1
 AppPolicyShowDeveloperDiagnostic = Int32
-AppPolicyShowDeveloperDiagnostic_None: AppPolicyShowDeveloperDiagnostic = 0
-AppPolicyShowDeveloperDiagnostic_ShowUI: AppPolicyShowDeveloperDiagnostic = 1
+AppPolicyShowDeveloperDiagnostic_None: win32more.Windows.Win32.Storage.Packaging.Appx.AppPolicyShowDeveloperDiagnostic = 0
+AppPolicyShowDeveloperDiagnostic_ShowUI: win32more.Windows.Win32.Storage.Packaging.Appx.AppPolicyShowDeveloperDiagnostic = 1
 AppPolicyThreadInitializationType = Int32
-AppPolicyThreadInitializationType_None: AppPolicyThreadInitializationType = 0
-AppPolicyThreadInitializationType_InitializeWinRT: AppPolicyThreadInitializationType = 1
+AppPolicyThreadInitializationType_None: win32more.Windows.Win32.Storage.Packaging.Appx.AppPolicyThreadInitializationType = 0
+AppPolicyThreadInitializationType_InitializeWinRT: win32more.Windows.Win32.Storage.Packaging.Appx.AppPolicyThreadInitializationType = 1
 AppPolicyWindowingModel = Int32
-AppPolicyWindowingModel_None: AppPolicyWindowingModel = 0
-AppPolicyWindowingModel_Universal: AppPolicyWindowingModel = 1
-AppPolicyWindowingModel_ClassicDesktop: AppPolicyWindowingModel = 2
-AppPolicyWindowingModel_ClassicPhone: AppPolicyWindowingModel = 3
+AppPolicyWindowingModel_None: win32more.Windows.Win32.Storage.Packaging.Appx.AppPolicyWindowingModel = 0
+AppPolicyWindowingModel_Universal: win32more.Windows.Win32.Storage.Packaging.Appx.AppPolicyWindowingModel = 1
+AppPolicyWindowingModel_ClassicDesktop: win32more.Windows.Win32.Storage.Packaging.Appx.AppPolicyWindowingModel = 2
+AppPolicyWindowingModel_ClassicPhone: win32more.Windows.Win32.Storage.Packaging.Appx.AppPolicyWindowingModel = 3
 AppxBundleFactory = Guid('{378e0446-5384-43b7-8877-e7dbdd883446}')
 AppxEncryptionFactory = Guid('{dc664fdd-d868-46ee-8780-8d196cb739f7}')
 AppxFactory = Guid('{5842a140-ff9f-4166-8f5c-62f5b7b0c781}')
 AppxPackageEditor = Guid('{f004f2ca-aebc-4b0d-bf58-e516d5bcc0ab}')
 AppxPackagingDiagnosticEventSinkManager = Guid('{50ca0a46-1588-4161-8ed2-ef9e469ced5d}')
 CreatePackageDependencyOptions = Int32
-CreatePackageDependencyOptions_None: CreatePackageDependencyOptions = 0
-CreatePackageDependencyOptions_DoNotVerifyDependencyResolution: CreatePackageDependencyOptions = 1
-CreatePackageDependencyOptions_ScopeIsSystem: CreatePackageDependencyOptions = 2
+CreatePackageDependencyOptions_None: win32more.Windows.Win32.Storage.Packaging.Appx.CreatePackageDependencyOptions = 0
+CreatePackageDependencyOptions_DoNotVerifyDependencyResolution: win32more.Windows.Win32.Storage.Packaging.Appx.CreatePackageDependencyOptions = 1
+CreatePackageDependencyOptions_ScopeIsSystem: win32more.Windows.Win32.Storage.Packaging.Appx.CreatePackageDependencyOptions = 2
 DX_FEATURE_LEVEL = Int32
-DX_FEATURE_LEVEL_UNSPECIFIED: DX_FEATURE_LEVEL = 0
-DX_FEATURE_LEVEL_9: DX_FEATURE_LEVEL = 1
-DX_FEATURE_LEVEL_10: DX_FEATURE_LEVEL = 2
-DX_FEATURE_LEVEL_11: DX_FEATURE_LEVEL = 3
+DX_FEATURE_LEVEL_UNSPECIFIED: win32more.Windows.Win32.Storage.Packaging.Appx.DX_FEATURE_LEVEL = 0
+DX_FEATURE_LEVEL_9: win32more.Windows.Win32.Storage.Packaging.Appx.DX_FEATURE_LEVEL = 1
+DX_FEATURE_LEVEL_10: win32more.Windows.Win32.Storage.Packaging.Appx.DX_FEATURE_LEVEL = 2
+DX_FEATURE_LEVEL_11: win32more.Windows.Win32.Storage.Packaging.Appx.DX_FEATURE_LEVEL = 3
 class IAppxAppInstallerReader(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{f35bc38c-1d2f-43db-a1f4-586430d1fed2}')
@@ -1062,32 +1061,34 @@ class PACKAGE_VERSION(EasyCastStructure):
             Major: UInt16
 PACKAGE_VIRTUALIZATION_CONTEXT_HANDLE = IntPtr
 PackageDependencyLifetimeKind = Int32
-PackageDependencyLifetimeKind_Process: PackageDependencyLifetimeKind = 0
-PackageDependencyLifetimeKind_FilePath: PackageDependencyLifetimeKind = 1
-PackageDependencyLifetimeKind_RegistryKey: PackageDependencyLifetimeKind = 2
+PackageDependencyLifetimeKind_Process: win32more.Windows.Win32.Storage.Packaging.Appx.PackageDependencyLifetimeKind = 0
+PackageDependencyLifetimeKind_FilePath: win32more.Windows.Win32.Storage.Packaging.Appx.PackageDependencyLifetimeKind = 1
+PackageDependencyLifetimeKind_RegistryKey: win32more.Windows.Win32.Storage.Packaging.Appx.PackageDependencyLifetimeKind = 2
 PackageDependencyProcessorArchitectures = Int32
-PackageDependencyProcessorArchitectures_None: PackageDependencyProcessorArchitectures = 0
-PackageDependencyProcessorArchitectures_Neutral: PackageDependencyProcessorArchitectures = 1
-PackageDependencyProcessorArchitectures_X86: PackageDependencyProcessorArchitectures = 2
-PackageDependencyProcessorArchitectures_X64: PackageDependencyProcessorArchitectures = 4
-PackageDependencyProcessorArchitectures_Arm: PackageDependencyProcessorArchitectures = 8
-PackageDependencyProcessorArchitectures_Arm64: PackageDependencyProcessorArchitectures = 16
-PackageDependencyProcessorArchitectures_X86A64: PackageDependencyProcessorArchitectures = 32
+PackageDependencyProcessorArchitectures_None: win32more.Windows.Win32.Storage.Packaging.Appx.PackageDependencyProcessorArchitectures = 0
+PackageDependencyProcessorArchitectures_Neutral: win32more.Windows.Win32.Storage.Packaging.Appx.PackageDependencyProcessorArchitectures = 1
+PackageDependencyProcessorArchitectures_X86: win32more.Windows.Win32.Storage.Packaging.Appx.PackageDependencyProcessorArchitectures = 2
+PackageDependencyProcessorArchitectures_X64: win32more.Windows.Win32.Storage.Packaging.Appx.PackageDependencyProcessorArchitectures = 4
+PackageDependencyProcessorArchitectures_Arm: win32more.Windows.Win32.Storage.Packaging.Appx.PackageDependencyProcessorArchitectures = 8
+PackageDependencyProcessorArchitectures_Arm64: win32more.Windows.Win32.Storage.Packaging.Appx.PackageDependencyProcessorArchitectures = 16
+PackageDependencyProcessorArchitectures_X86A64: win32more.Windows.Win32.Storage.Packaging.Appx.PackageDependencyProcessorArchitectures = 32
 PackageOrigin = Int32
-PackageOrigin_Unknown: PackageOrigin = 0
-PackageOrigin_Unsigned: PackageOrigin = 1
-PackageOrigin_Inbox: PackageOrigin = 2
-PackageOrigin_Store: PackageOrigin = 3
-PackageOrigin_DeveloperUnsigned: PackageOrigin = 4
-PackageOrigin_DeveloperSigned: PackageOrigin = 5
-PackageOrigin_LineOfBusiness: PackageOrigin = 6
+PackageOrigin_Unknown: win32more.Windows.Win32.Storage.Packaging.Appx.PackageOrigin = 0
+PackageOrigin_Unsigned: win32more.Windows.Win32.Storage.Packaging.Appx.PackageOrigin = 1
+PackageOrigin_Inbox: win32more.Windows.Win32.Storage.Packaging.Appx.PackageOrigin = 2
+PackageOrigin_Store: win32more.Windows.Win32.Storage.Packaging.Appx.PackageOrigin = 3
+PackageOrigin_DeveloperUnsigned: win32more.Windows.Win32.Storage.Packaging.Appx.PackageOrigin = 4
+PackageOrigin_DeveloperSigned: win32more.Windows.Win32.Storage.Packaging.Appx.PackageOrigin = 5
+PackageOrigin_LineOfBusiness: win32more.Windows.Win32.Storage.Packaging.Appx.PackageOrigin = 6
 PackagePathType = Int32
-PackagePathType_Install: PackagePathType = 0
-PackagePathType_Mutable: PackagePathType = 1
-PackagePathType_Effective: PackagePathType = 2
-PackagePathType_MachineExternal: PackagePathType = 3
-PackagePathType_UserExternal: PackagePathType = 4
-PackagePathType_EffectiveExternal: PackagePathType = 5
+PackagePathType_Install: win32more.Windows.Win32.Storage.Packaging.Appx.PackagePathType = 0
+PackagePathType_Mutable: win32more.Windows.Win32.Storage.Packaging.Appx.PackagePathType = 1
+PackagePathType_Effective: win32more.Windows.Win32.Storage.Packaging.Appx.PackagePathType = 2
+PackagePathType_MachineExternal: win32more.Windows.Win32.Storage.Packaging.Appx.PackagePathType = 3
+PackagePathType_UserExternal: win32more.Windows.Win32.Storage.Packaging.Appx.PackagePathType = 4
+PackagePathType_EffectiveExternal: win32more.Windows.Win32.Storage.Packaging.Appx.PackagePathType = 5
 class _PACKAGE_INFO_REFERENCE(EasyCastStructure):
     reserved: VoidPtr
+
+
 make_ready(__name__)

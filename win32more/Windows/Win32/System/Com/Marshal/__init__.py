@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.System.Com
@@ -256,6 +255,8 @@ class IMarshalingStream(ComPtr):
     @commethod(14)
     def GetMarshalingContextAttribute(self, attribute: win32more.Windows.Win32.System.Com.CO_MARSHALING_CONTEXT_ATTRIBUTES, pAttributeValue: POINTER(UIntPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 STDMSHLFLAGS = Int32
-SMEXF_SERVER: STDMSHLFLAGS = 1
-SMEXF_HANDLER: STDMSHLFLAGS = 2
+SMEXF_SERVER: win32more.Windows.Win32.System.Com.Marshal.STDMSHLFLAGS = 1
+SMEXF_HANDLER: win32more.Windows.Win32.System.Com.Marshal.STDMSHLFLAGS = 2
+
+
 make_ready(__name__)

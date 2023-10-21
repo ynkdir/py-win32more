@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security.Cryptography
 import win32more.Windows.Win32.System.Com
@@ -1283,22 +1282,22 @@ def CS_TYPE_TO_NETCS_ROUTINE(hBinding: VoidPtr, ulNetworkCodeSet: UInt32, pLocal
 @winfunctype_pointer
 def EXPR_EVAL(param0: POINTER(win32more.Windows.Win32.System.Rpc.MIDL_STUB_MESSAGE)) -> Void: ...
 EXPR_TOKEN = Int32
-FC_EXPR_START: EXPR_TOKEN = 0
-FC_EXPR_ILLEGAL: EXPR_TOKEN = 0
-FC_EXPR_CONST32: EXPR_TOKEN = 1
-FC_EXPR_CONST64: EXPR_TOKEN = 2
-FC_EXPR_VAR: EXPR_TOKEN = 3
-FC_EXPR_OPER: EXPR_TOKEN = 4
-FC_EXPR_NOOP: EXPR_TOKEN = 5
-FC_EXPR_END: EXPR_TOKEN = 6
+FC_EXPR_START: win32more.Windows.Win32.System.Rpc.EXPR_TOKEN = 0
+FC_EXPR_ILLEGAL: win32more.Windows.Win32.System.Rpc.EXPR_TOKEN = 0
+FC_EXPR_CONST32: win32more.Windows.Win32.System.Rpc.EXPR_TOKEN = 1
+FC_EXPR_CONST64: win32more.Windows.Win32.System.Rpc.EXPR_TOKEN = 2
+FC_EXPR_VAR: win32more.Windows.Win32.System.Rpc.EXPR_TOKEN = 3
+FC_EXPR_OPER: win32more.Windows.Win32.System.Rpc.EXPR_TOKEN = 4
+FC_EXPR_NOOP: win32more.Windows.Win32.System.Rpc.EXPR_TOKEN = 5
+FC_EXPR_END: win32more.Windows.Win32.System.Rpc.EXPR_TOKEN = 6
 ExtendedErrorParamTypes = Int32
-ExtendedErrorParamTypes_eeptAnsiString: ExtendedErrorParamTypes = 1
-ExtendedErrorParamTypes_eeptUnicodeString: ExtendedErrorParamTypes = 2
-ExtendedErrorParamTypes_eeptLongVal: ExtendedErrorParamTypes = 3
-ExtendedErrorParamTypes_eeptShortVal: ExtendedErrorParamTypes = 4
-ExtendedErrorParamTypes_eeptPointerVal: ExtendedErrorParamTypes = 5
-ExtendedErrorParamTypes_eeptNone: ExtendedErrorParamTypes = 6
-ExtendedErrorParamTypes_eeptBinary: ExtendedErrorParamTypes = 7
+ExtendedErrorParamTypes_eeptAnsiString: win32more.Windows.Win32.System.Rpc.ExtendedErrorParamTypes = 1
+ExtendedErrorParamTypes_eeptUnicodeString: win32more.Windows.Win32.System.Rpc.ExtendedErrorParamTypes = 2
+ExtendedErrorParamTypes_eeptLongVal: win32more.Windows.Win32.System.Rpc.ExtendedErrorParamTypes = 3
+ExtendedErrorParamTypes_eeptShortVal: win32more.Windows.Win32.System.Rpc.ExtendedErrorParamTypes = 4
+ExtendedErrorParamTypes_eeptPointerVal: win32more.Windows.Win32.System.Rpc.ExtendedErrorParamTypes = 5
+ExtendedErrorParamTypes_eeptNone: win32more.Windows.Win32.System.Rpc.ExtendedErrorParamTypes = 6
+ExtendedErrorParamTypes_eeptBinary: win32more.Windows.Win32.System.Rpc.ExtendedErrorParamTypes = 7
 class FULL_PTR_XLAT_TABLES(EasyCastStructure):
     RefIdToPointer: VoidPtr
     PointerToRefId: VoidPtr
@@ -1317,12 +1316,12 @@ class GENERIC_BINDING_ROUTINE_PAIR(EasyCastStructure):
 @winfunctype_pointer
 def GENERIC_UNBIND_ROUTINE(param0: VoidPtr, param1: POINTER(Byte)) -> Void: ...
 GROUP_NAME_SYNTAX = UInt32
-RPC_C_NS_SYNTAX_DEFAULT: GROUP_NAME_SYNTAX = 0
-RPC_C_NS_SYNTAX_DCE: GROUP_NAME_SYNTAX = 3
+RPC_C_NS_SYNTAX_DEFAULT: win32more.Windows.Win32.System.Rpc.GROUP_NAME_SYNTAX = 0
+RPC_C_NS_SYNTAX_DCE: win32more.Windows.Win32.System.Rpc.GROUP_NAME_SYNTAX = 3
 IDL_CS_CONVERT = Int32
-IDL_CS_NO_CONVERT: IDL_CS_CONVERT = 0
-IDL_CS_IN_PLACE_CONVERT: IDL_CS_CONVERT = 1
-IDL_CS_NEW_BUFFER_CONVERT: IDL_CS_CONVERT = 2
+IDL_CS_NO_CONVERT: win32more.Windows.Win32.System.Rpc.IDL_CS_CONVERT = 0
+IDL_CS_IN_PLACE_CONVERT: win32more.Windows.Win32.System.Rpc.IDL_CS_CONVERT = 1
+IDL_CS_NEW_BUFFER_CONVERT: win32more.Windows.Win32.System.Rpc.IDL_CS_CONVERT = 2
 @winfunctype_pointer
 def I_RpcFreeCalloutStateFn(CallOutState: POINTER(win32more.Windows.Win32.System.Rpc.RDR_CALLOUT_STATE)) -> Void: ...
 @winfunctype_pointer
@@ -1352,21 +1351,21 @@ def I_RpcProxyUpdatePerfCounterBackendServerFn(MachineName: POINTER(UInt16), IsC
 @winfunctype_pointer
 def I_RpcProxyUpdatePerfCounterFn(Counter: win32more.Windows.Win32.System.Rpc.RpcPerfCounters, ModifyTrend: Int32, Size: UInt32) -> Void: ...
 LRPC_SYSTEM_HANDLE_MARSHAL_DIRECTION = Int32
-LRPC_SYSTEM_HANDLE_MARSHAL_DIRECTION_MarshalDirectionMarshal: LRPC_SYSTEM_HANDLE_MARSHAL_DIRECTION = 0
-LRPC_SYSTEM_HANDLE_MARSHAL_DIRECTION_MarshalDirectionUnmarshal: LRPC_SYSTEM_HANDLE_MARSHAL_DIRECTION = 1
+LRPC_SYSTEM_HANDLE_MARSHAL_DIRECTION_MarshalDirectionMarshal: win32more.Windows.Win32.System.Rpc.LRPC_SYSTEM_HANDLE_MARSHAL_DIRECTION = 0
+LRPC_SYSTEM_HANDLE_MARSHAL_DIRECTION_MarshalDirectionUnmarshal: win32more.Windows.Win32.System.Rpc.LRPC_SYSTEM_HANDLE_MARSHAL_DIRECTION = 1
 class MALLOC_FREE_STRUCT(EasyCastStructure):
     pfnAllocate: IntPtr
     pfnFree: IntPtr
 @winfunctype_pointer
 def MIDL_ES_ALLOC(state: VoidPtr, pbuffer: POINTER(POINTER(SByte)), psize: POINTER(UInt32)) -> Void: ...
 MIDL_ES_CODE = Int32
-MES_ENCODE: MIDL_ES_CODE = 0
-MES_DECODE: MIDL_ES_CODE = 1
-MES_ENCODE_NDR64: MIDL_ES_CODE = 2
+MES_ENCODE: win32more.Windows.Win32.System.Rpc.MIDL_ES_CODE = 0
+MES_DECODE: win32more.Windows.Win32.System.Rpc.MIDL_ES_CODE = 1
+MES_ENCODE_NDR64: win32more.Windows.Win32.System.Rpc.MIDL_ES_CODE = 2
 MIDL_ES_HANDLE_STYLE = Int32
-MES_INCREMENTAL_HANDLE: MIDL_ES_HANDLE_STYLE = 0
-MES_FIXED_BUFFER_HANDLE: MIDL_ES_HANDLE_STYLE = 1
-MES_DYNAMIC_BUFFER_HANDLE: MIDL_ES_HANDLE_STYLE = 2
+MES_INCREMENTAL_HANDLE: win32more.Windows.Win32.System.Rpc.MIDL_ES_HANDLE_STYLE = 0
+MES_FIXED_BUFFER_HANDLE: win32more.Windows.Win32.System.Rpc.MIDL_ES_HANDLE_STYLE = 1
+MES_DYNAMIC_BUFFER_HANDLE: win32more.Windows.Win32.System.Rpc.MIDL_ES_HANDLE_STYLE = 2
 @winfunctype_pointer
 def MIDL_ES_READ(state: VoidPtr, pbuffer: POINTER(POINTER(SByte)), psize: POINTER(UInt32)) -> Void: ...
 @winfunctype_pointer
@@ -1873,11 +1872,11 @@ def PFN_RPC_FREE(param0: VoidPtr) -> Void: ...
 PNDR_ASYNC_MESSAGE = IntPtr
 PNDR_CORRELATION_INFO = IntPtr
 PROXY_PHASE = Int32
-PROXY_CALCSIZE: PROXY_PHASE = 0
-PROXY_GETBUFFER: PROXY_PHASE = 1
-PROXY_MARSHAL: PROXY_PHASE = 2
-PROXY_SENDRECEIVE: PROXY_PHASE = 3
-PROXY_UNMARSHAL: PROXY_PHASE = 4
+PROXY_CALCSIZE: win32more.Windows.Win32.System.Rpc.PROXY_PHASE = 0
+PROXY_GETBUFFER: win32more.Windows.Win32.System.Rpc.PROXY_PHASE = 1
+PROXY_MARSHAL: win32more.Windows.Win32.System.Rpc.PROXY_PHASE = 2
+PROXY_SENDRECEIVE: win32more.Windows.Win32.System.Rpc.PROXY_PHASE = 3
+PROXY_UNMARSHAL: win32more.Windows.Win32.System.Rpc.PROXY_PHASE = 4
 @winfunctype_pointer
 def PRPC_RUNDOWN(AssociationContext: VoidPtr) -> Void: ...
 class RDR_CALLOUT_STATE(EasyCastStructure):
@@ -1900,15 +1899,15 @@ def RPCLT_PDU_FILTER_FUNC(Buffer: VoidPtr, BufferLength: UInt32, fDatagram: Int3
 @winfunctype_pointer
 def RPC_ADDRESS_CHANGE_FN(arg: VoidPtr) -> Void: ...
 RPC_ADDRESS_CHANGE_TYPE = Int32
-PROTOCOL_NOT_LOADED: RPC_ADDRESS_CHANGE_TYPE = 1
-PROTOCOL_LOADED: RPC_ADDRESS_CHANGE_TYPE = 2
-PROTOCOL_ADDRESS_CHANGE: RPC_ADDRESS_CHANGE_TYPE = 3
+PROTOCOL_NOT_LOADED: win32more.Windows.Win32.System.Rpc.RPC_ADDRESS_CHANGE_TYPE = 1
+PROTOCOL_LOADED: win32more.Windows.Win32.System.Rpc.RPC_ADDRESS_CHANGE_TYPE = 2
+PROTOCOL_ADDRESS_CHANGE: win32more.Windows.Win32.System.Rpc.RPC_ADDRESS_CHANGE_TYPE = 3
 RPC_ASYNC_EVENT = Int32
-RPC_ASYNC_EVENT_RpcCallComplete: RPC_ASYNC_EVENT = 0
-RPC_ASYNC_EVENT_RpcSendComplete: RPC_ASYNC_EVENT = 1
-RPC_ASYNC_EVENT_RpcReceiveComplete: RPC_ASYNC_EVENT = 2
-RPC_ASYNC_EVENT_RpcClientDisconnect: RPC_ASYNC_EVENT = 3
-RPC_ASYNC_EVENT_RpcClientCancel: RPC_ASYNC_EVENT = 4
+RPC_ASYNC_EVENT_RpcCallComplete: win32more.Windows.Win32.System.Rpc.RPC_ASYNC_EVENT = 0
+RPC_ASYNC_EVENT_RpcSendComplete: win32more.Windows.Win32.System.Rpc.RPC_ASYNC_EVENT = 1
+RPC_ASYNC_EVENT_RpcReceiveComplete: win32more.Windows.Win32.System.Rpc.RPC_ASYNC_EVENT = 2
+RPC_ASYNC_EVENT_RpcClientDisconnect: win32more.Windows.Win32.System.Rpc.RPC_ASYNC_EVENT = 3
+RPC_ASYNC_EVENT_RpcClientCancel: win32more.Windows.Win32.System.Rpc.RPC_ASYNC_EVENT = 4
 class RPC_ASYNC_NOTIFICATION_INFO(EasyCastUnion):
     APC: _APC_e__Struct
     IOC: _IOC_e__Struct
@@ -1941,8 +1940,8 @@ class RPC_ASYNC_STATE(EasyCastStructure):
 @winfunctype_pointer
 def RPC_AUTH_KEY_RETRIEVAL_FN(Arg: VoidPtr, ServerPrincName: win32more.Windows.Win32.Foundation.PWSTR, KeyVer: UInt32, Key: POINTER(VoidPtr), Status: POINTER(win32more.Windows.Win32.System.Rpc.RPC_STATUS)) -> Void: ...
 RPC_BINDING_HANDLE_OPTIONS_FLAGS = UInt32
-RPC_BHO_NONCAUSAL: RPC_BINDING_HANDLE_OPTIONS_FLAGS = 1
-RPC_BHO_DONTLINGER: RPC_BINDING_HANDLE_OPTIONS_FLAGS = 2
+RPC_BHO_NONCAUSAL: win32more.Windows.Win32.System.Rpc.RPC_BINDING_HANDLE_OPTIONS_FLAGS = 1
+RPC_BHO_DONTLINGER: win32more.Windows.Win32.System.Rpc.RPC_BINDING_HANDLE_OPTIONS_FLAGS = 2
 class RPC_BINDING_HANDLE_OPTIONS_V1(EasyCastStructure):
     Version: UInt32
     Flags: win32more.Windows.Win32.System.Rpc.RPC_BINDING_HANDLE_OPTIONS_FLAGS
@@ -2112,30 +2111,30 @@ class RPC_CLIENT_INTERFACE(EasyCastStructure):
     InterpreterInfo: VoidPtr
     Flags: UInt32
 RPC_C_AUTHN_INFO_TYPE = UInt32
-RPC_C_AUTHN_INFO_NONE: RPC_C_AUTHN_INFO_TYPE = 0
-RPC_C_AUTHN_INFO_TYPE_HTTP: RPC_C_AUTHN_INFO_TYPE = 1
+RPC_C_AUTHN_INFO_NONE: win32more.Windows.Win32.System.Rpc.RPC_C_AUTHN_INFO_TYPE = 0
+RPC_C_AUTHN_INFO_TYPE_HTTP: win32more.Windows.Win32.System.Rpc.RPC_C_AUTHN_INFO_TYPE = 1
 RPC_C_HTTP_AUTHN_TARGET = UInt32
-RPC_C_HTTP_AUTHN_TARGET_SERVER: RPC_C_HTTP_AUTHN_TARGET = 1
-RPC_C_HTTP_AUTHN_TARGET_PROXY: RPC_C_HTTP_AUTHN_TARGET = 2
+RPC_C_HTTP_AUTHN_TARGET_SERVER: win32more.Windows.Win32.System.Rpc.RPC_C_HTTP_AUTHN_TARGET = 1
+RPC_C_HTTP_AUTHN_TARGET_PROXY: win32more.Windows.Win32.System.Rpc.RPC_C_HTTP_AUTHN_TARGET = 2
 RPC_C_HTTP_FLAGS = UInt32
-RPC_C_HTTP_FLAG_USE_SSL: RPC_C_HTTP_FLAGS = 1
-RPC_C_HTTP_FLAG_USE_FIRST_AUTH_SCHEME: RPC_C_HTTP_FLAGS = 2
-RPC_C_HTTP_FLAG_IGNORE_CERT_CN_INVALID: RPC_C_HTTP_FLAGS = 8
-RPC_C_HTTP_FLAG_ENABLE_CERT_REVOCATION_CHECK: RPC_C_HTTP_FLAGS = 16
+RPC_C_HTTP_FLAG_USE_SSL: win32more.Windows.Win32.System.Rpc.RPC_C_HTTP_FLAGS = 1
+RPC_C_HTTP_FLAG_USE_FIRST_AUTH_SCHEME: win32more.Windows.Win32.System.Rpc.RPC_C_HTTP_FLAGS = 2
+RPC_C_HTTP_FLAG_IGNORE_CERT_CN_INVALID: win32more.Windows.Win32.System.Rpc.RPC_C_HTTP_FLAGS = 8
+RPC_C_HTTP_FLAG_ENABLE_CERT_REVOCATION_CHECK: win32more.Windows.Win32.System.Rpc.RPC_C_HTTP_FLAGS = 16
 class RPC_C_OPT_COOKIE_AUTH_DESCRIPTOR(EasyCastStructure):
     BufferSize: UInt32
     Buffer: win32more.Windows.Win32.Foundation.PSTR
 RPC_C_QOS_CAPABILITIES = UInt32
-RPC_C_QOS_CAPABILITIES_DEFAULT: RPC_C_QOS_CAPABILITIES = 0
-RPC_C_QOS_CAPABILITIES_MUTUAL_AUTH: RPC_C_QOS_CAPABILITIES = 1
-RPC_C_QOS_CAPABILITIES_MAKE_FULLSIC: RPC_C_QOS_CAPABILITIES = 2
-RPC_C_QOS_CAPABILITIES_ANY_AUTHORITY: RPC_C_QOS_CAPABILITIES = 4
-RPC_C_QOS_CAPABILITIES_IGNORE_DELEGATE_FAILURE: RPC_C_QOS_CAPABILITIES = 8
-RPC_C_QOS_CAPABILITIES_LOCAL_MA_HINT: RPC_C_QOS_CAPABILITIES = 16
-RPC_C_QOS_CAPABILITIES_SCHANNEL_FULL_AUTH_IDENTITY: RPC_C_QOS_CAPABILITIES = 32
+RPC_C_QOS_CAPABILITIES_DEFAULT: win32more.Windows.Win32.System.Rpc.RPC_C_QOS_CAPABILITIES = 0
+RPC_C_QOS_CAPABILITIES_MUTUAL_AUTH: win32more.Windows.Win32.System.Rpc.RPC_C_QOS_CAPABILITIES = 1
+RPC_C_QOS_CAPABILITIES_MAKE_FULLSIC: win32more.Windows.Win32.System.Rpc.RPC_C_QOS_CAPABILITIES = 2
+RPC_C_QOS_CAPABILITIES_ANY_AUTHORITY: win32more.Windows.Win32.System.Rpc.RPC_C_QOS_CAPABILITIES = 4
+RPC_C_QOS_CAPABILITIES_IGNORE_DELEGATE_FAILURE: win32more.Windows.Win32.System.Rpc.RPC_C_QOS_CAPABILITIES = 8
+RPC_C_QOS_CAPABILITIES_LOCAL_MA_HINT: win32more.Windows.Win32.System.Rpc.RPC_C_QOS_CAPABILITIES = 16
+RPC_C_QOS_CAPABILITIES_SCHANNEL_FULL_AUTH_IDENTITY: win32more.Windows.Win32.System.Rpc.RPC_C_QOS_CAPABILITIES = 32
 RPC_C_QOS_IDENTITY = UInt32
-RPC_C_QOS_IDENTITY_STATIC: RPC_C_QOS_IDENTITY = 0
-RPC_C_QOS_IDENTITY_DYNAMIC: RPC_C_QOS_IDENTITY = 1
+RPC_C_QOS_IDENTITY_STATIC: win32more.Windows.Win32.System.Rpc.RPC_C_QOS_IDENTITY = 0
+RPC_C_QOS_IDENTITY_DYNAMIC: win32more.Windows.Win32.System.Rpc.RPC_C_QOS_IDENTITY = 1
 @winfunctype_pointer
 def RPC_DISPATCH_FUNCTION(Message: POINTER(win32more.Windows.Win32.System.Rpc.RPC_MESSAGE)) -> Void: ...
 class RPC_DISPATCH_TABLE(EasyCastStructure):
@@ -2187,11 +2186,11 @@ def RPC_FORWARD_FUNCTION(InterfaceId: POINTER(Guid), InterfaceVersion: POINTER(w
 @winfunctype_pointer
 def RPC_HTTP_PROXY_FREE_STRING(String: win32more.Windows.Win32.Foundation.PWSTR) -> Void: ...
 RPC_HTTP_REDIRECTOR_STAGE = Int32
-RPCHTTP_RS_REDIRECT: RPC_HTTP_REDIRECTOR_STAGE = 1
-RPCHTTP_RS_ACCESS_1: RPC_HTTP_REDIRECTOR_STAGE = 2
-RPCHTTP_RS_SESSION: RPC_HTTP_REDIRECTOR_STAGE = 3
-RPCHTTP_RS_ACCESS_2: RPC_HTTP_REDIRECTOR_STAGE = 4
-RPCHTTP_RS_INTERFACE: RPC_HTTP_REDIRECTOR_STAGE = 5
+RPCHTTP_RS_REDIRECT: win32more.Windows.Win32.System.Rpc.RPC_HTTP_REDIRECTOR_STAGE = 1
+RPCHTTP_RS_ACCESS_1: win32more.Windows.Win32.System.Rpc.RPC_HTTP_REDIRECTOR_STAGE = 2
+RPCHTTP_RS_SESSION: win32more.Windows.Win32.System.Rpc.RPC_HTTP_REDIRECTOR_STAGE = 3
+RPCHTTP_RS_ACCESS_2: win32more.Windows.Win32.System.Rpc.RPC_HTTP_REDIRECTOR_STAGE = 4
+RPCHTTP_RS_INTERFACE: win32more.Windows.Win32.System.Rpc.RPC_HTTP_REDIRECTOR_STAGE = 5
 class RPC_HTTP_TRANSPORT_CREDENTIALS_A(EasyCastStructure):
     TransportCredentials: POINTER(win32more.Windows.Win32.System.Rpc.SEC_WINNT_AUTH_IDENTITY_A)
     Flags: win32more.Windows.Win32.System.Rpc.RPC_C_HTTP_FLAGS
@@ -2302,16 +2301,16 @@ def RPC_MGMT_AUTHORIZATION_FN(ClientBinding: VoidPtr, RequestedMgmtOperation: UI
 @winfunctype_pointer
 def RPC_NEW_HTTP_PROXY_CHANNEL(RedirectorStage: win32more.Windows.Win32.System.Rpc.RPC_HTTP_REDIRECTOR_STAGE, ServerName: win32more.Windows.Win32.Foundation.PWSTR, ServerPort: win32more.Windows.Win32.Foundation.PWSTR, RemoteUser: win32more.Windows.Win32.Foundation.PWSTR, AuthType: win32more.Windows.Win32.Foundation.PWSTR, ResourceUuid: VoidPtr, SessionId: VoidPtr, Interface: VoidPtr, Reserved: VoidPtr, Flags: UInt32, NewServerName: POINTER(win32more.Windows.Win32.Foundation.PWSTR), NewServerPort: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
 RPC_NOTIFICATIONS = Int32
-RPC_NOTIFICATIONS_RpcNotificationCallNone: RPC_NOTIFICATIONS = 0
-RPC_NOTIFICATIONS_RpcNotificationClientDisconnect: RPC_NOTIFICATIONS = 1
-RPC_NOTIFICATIONS_RpcNotificationCallCancel: RPC_NOTIFICATIONS = 2
+RPC_NOTIFICATIONS_RpcNotificationCallNone: win32more.Windows.Win32.System.Rpc.RPC_NOTIFICATIONS = 0
+RPC_NOTIFICATIONS_RpcNotificationClientDisconnect: win32more.Windows.Win32.System.Rpc.RPC_NOTIFICATIONS = 1
+RPC_NOTIFICATIONS_RpcNotificationCallCancel: win32more.Windows.Win32.System.Rpc.RPC_NOTIFICATIONS = 2
 RPC_NOTIFICATION_TYPES = Int32
-RPC_NOTIFICATION_TYPES_RpcNotificationTypeNone: RPC_NOTIFICATION_TYPES = 0
-RPC_NOTIFICATION_TYPES_RpcNotificationTypeEvent: RPC_NOTIFICATION_TYPES = 1
-RPC_NOTIFICATION_TYPES_RpcNotificationTypeApc: RPC_NOTIFICATION_TYPES = 2
-RPC_NOTIFICATION_TYPES_RpcNotificationTypeIoc: RPC_NOTIFICATION_TYPES = 3
-RPC_NOTIFICATION_TYPES_RpcNotificationTypeHwnd: RPC_NOTIFICATION_TYPES = 4
-RPC_NOTIFICATION_TYPES_RpcNotificationTypeCallback: RPC_NOTIFICATION_TYPES = 5
+RPC_NOTIFICATION_TYPES_RpcNotificationTypeNone: win32more.Windows.Win32.System.Rpc.RPC_NOTIFICATION_TYPES = 0
+RPC_NOTIFICATION_TYPES_RpcNotificationTypeEvent: win32more.Windows.Win32.System.Rpc.RPC_NOTIFICATION_TYPES = 1
+RPC_NOTIFICATION_TYPES_RpcNotificationTypeApc: win32more.Windows.Win32.System.Rpc.RPC_NOTIFICATION_TYPES = 2
+RPC_NOTIFICATION_TYPES_RpcNotificationTypeIoc: win32more.Windows.Win32.System.Rpc.RPC_NOTIFICATION_TYPES = 3
+RPC_NOTIFICATION_TYPES_RpcNotificationTypeHwnd: win32more.Windows.Win32.System.Rpc.RPC_NOTIFICATION_TYPES = 4
+RPC_NOTIFICATION_TYPES_RpcNotificationTypeCallback: win32more.Windows.Win32.System.Rpc.RPC_NOTIFICATION_TYPES = 5
 @winfunctype_pointer
 def RPC_OBJECT_INQ_FN(ObjectUuid: POINTER(Guid), TypeUuid: POINTER(Guid), Status: POINTER(win32more.Windows.Win32.System.Rpc.RPC_STATUS)) -> Void: ...
 class RPC_POLICY(EasyCastStructure):
@@ -2438,106 +2437,106 @@ class RPC_STATS_VECTOR(EasyCastStructure):
     Count: UInt32
     Stats: UInt32 * 1
 RPC_STATUS = Int32
-RPC_S_INVALID_STRING_BINDING: RPC_STATUS = 1700
-RPC_S_WRONG_KIND_OF_BINDING: RPC_STATUS = 1701
-RPC_S_INVALID_BINDING: RPC_STATUS = 1702
-RPC_S_PROTSEQ_NOT_SUPPORTED: RPC_STATUS = 1703
-RPC_S_INVALID_RPC_PROTSEQ: RPC_STATUS = 1704
-RPC_S_INVALID_STRING_UUID: RPC_STATUS = 1705
-RPC_S_INVALID_ENDPOINT_FORMAT: RPC_STATUS = 1706
-RPC_S_INVALID_NET_ADDR: RPC_STATUS = 1707
-RPC_S_NO_ENDPOINT_FOUND: RPC_STATUS = 1708
-RPC_S_INVALID_TIMEOUT: RPC_STATUS = 1709
-RPC_S_OBJECT_NOT_FOUND: RPC_STATUS = 1710
-RPC_S_ALREADY_REGISTERED: RPC_STATUS = 1711
-RPC_S_TYPE_ALREADY_REGISTERED: RPC_STATUS = 1712
-RPC_S_ALREADY_LISTENING: RPC_STATUS = 1713
-RPC_S_NO_PROTSEQS_REGISTERED: RPC_STATUS = 1714
-RPC_S_NOT_LISTENING: RPC_STATUS = 1715
-RPC_S_UNKNOWN_MGR_TYPE: RPC_STATUS = 1716
-RPC_S_UNKNOWN_IF: RPC_STATUS = 1717
-RPC_S_NO_BINDINGS: RPC_STATUS = 1718
-RPC_S_NO_PROTSEQS: RPC_STATUS = 1719
-RPC_S_CANT_CREATE_ENDPOINT: RPC_STATUS = 1720
-RPC_S_OUT_OF_RESOURCES: RPC_STATUS = 1721
-RPC_S_SERVER_UNAVAILABLE: RPC_STATUS = 1722
-RPC_S_SERVER_TOO_BUSY: RPC_STATUS = 1723
-RPC_S_INVALID_NETWORK_OPTIONS: RPC_STATUS = 1724
-RPC_S_NO_CALL_ACTIVE: RPC_STATUS = 1725
-RPC_S_CALL_FAILED: RPC_STATUS = 1726
-RPC_S_CALL_FAILED_DNE: RPC_STATUS = 1727
-RPC_S_PROTOCOL_ERROR: RPC_STATUS = 1728
-RPC_S_PROXY_ACCESS_DENIED: RPC_STATUS = 1729
-RPC_S_UNSUPPORTED_TRANS_SYN: RPC_STATUS = 1730
-RPC_S_UNSUPPORTED_TYPE: RPC_STATUS = 1732
-RPC_S_INVALID_TAG: RPC_STATUS = 1733
-RPC_S_INVALID_BOUND: RPC_STATUS = 1734
-RPC_S_NO_ENTRY_NAME: RPC_STATUS = 1735
-RPC_S_INVALID_NAME_SYNTAX: RPC_STATUS = 1736
-RPC_S_UNSUPPORTED_NAME_SYNTAX: RPC_STATUS = 1737
-RPC_S_UUID_NO_ADDRESS: RPC_STATUS = 1739
-RPC_S_DUPLICATE_ENDPOINT: RPC_STATUS = 1740
-RPC_S_UNKNOWN_AUTHN_TYPE: RPC_STATUS = 1741
-RPC_S_MAX_CALLS_TOO_SMALL: RPC_STATUS = 1742
-RPC_S_STRING_TOO_LONG: RPC_STATUS = 1743
-RPC_S_PROTSEQ_NOT_FOUND: RPC_STATUS = 1744
-RPC_S_PROCNUM_OUT_OF_RANGE: RPC_STATUS = 1745
-RPC_S_BINDING_HAS_NO_AUTH: RPC_STATUS = 1746
-RPC_S_UNKNOWN_AUTHN_SERVICE: RPC_STATUS = 1747
-RPC_S_UNKNOWN_AUTHN_LEVEL: RPC_STATUS = 1748
-RPC_S_INVALID_AUTH_IDENTITY: RPC_STATUS = 1749
-RPC_S_UNKNOWN_AUTHZ_SERVICE: RPC_STATUS = 1750
-EPT_S_INVALID_ENTRY: RPC_STATUS = 1751
-EPT_S_CANT_PERFORM_OP: RPC_STATUS = 1752
-EPT_S_NOT_REGISTERED: RPC_STATUS = 1753
-RPC_S_NOTHING_TO_EXPORT: RPC_STATUS = 1754
-RPC_S_INCOMPLETE_NAME: RPC_STATUS = 1755
-RPC_S_INVALID_VERS_OPTION: RPC_STATUS = 1756
-RPC_S_NO_MORE_MEMBERS: RPC_STATUS = 1757
-RPC_S_NOT_ALL_OBJS_UNEXPORTED: RPC_STATUS = 1758
-RPC_S_INTERFACE_NOT_FOUND: RPC_STATUS = 1759
-RPC_S_ENTRY_ALREADY_EXISTS: RPC_STATUS = 1760
-RPC_S_ENTRY_NOT_FOUND: RPC_STATUS = 1761
-RPC_S_NAME_SERVICE_UNAVAILABLE: RPC_STATUS = 1762
-RPC_S_INVALID_NAF_ID: RPC_STATUS = 1763
-RPC_S_CANNOT_SUPPORT: RPC_STATUS = 1764
-RPC_S_NO_CONTEXT_AVAILABLE: RPC_STATUS = 1765
-RPC_S_INTERNAL_ERROR: RPC_STATUS = 1766
-RPC_S_ZERO_DIVIDE: RPC_STATUS = 1767
-RPC_S_ADDRESS_ERROR: RPC_STATUS = 1768
-RPC_S_FP_DIV_ZERO: RPC_STATUS = 1769
-RPC_S_FP_UNDERFLOW: RPC_STATUS = 1770
-RPC_S_FP_OVERFLOW: RPC_STATUS = 1771
-RPC_S_CALL_IN_PROGRESS: RPC_STATUS = 1791
-RPC_S_NO_MORE_BINDINGS: RPC_STATUS = 1806
-RPC_S_NO_INTERFACES: RPC_STATUS = 1817
-RPC_S_CALL_CANCELLED: RPC_STATUS = 1818
-RPC_S_BINDING_INCOMPLETE: RPC_STATUS = 1819
-RPC_S_COMM_FAILURE: RPC_STATUS = 1820
-RPC_S_UNSUPPORTED_AUTHN_LEVEL: RPC_STATUS = 1821
-RPC_S_NO_PRINC_NAME: RPC_STATUS = 1822
-RPC_S_NOT_RPC_ERROR: RPC_STATUS = 1823
-RPC_S_UUID_LOCAL_ONLY: RPC_STATUS = 1824
-RPC_S_SEC_PKG_ERROR: RPC_STATUS = 1825
-RPC_S_NOT_CANCELLED: RPC_STATUS = 1826
-RPC_S_COOKIE_AUTH_FAILED: RPC_STATUS = 1833
-RPC_S_DO_NOT_DISTURB: RPC_STATUS = 1834
-RPC_S_SYSTEM_HANDLE_COUNT_EXCEEDED: RPC_STATUS = 1835
-RPC_S_SYSTEM_HANDLE_TYPE_MISMATCH: RPC_STATUS = 1836
-RPC_S_GROUP_MEMBER_NOT_FOUND: RPC_STATUS = 1898
-EPT_S_CANT_CREATE: RPC_STATUS = 1899
-RPC_S_INVALID_OBJECT: RPC_STATUS = 1900
-RPC_S_SEND_INCOMPLETE: RPC_STATUS = 1913
-RPC_S_INVALID_ASYNC_HANDLE: RPC_STATUS = 1914
-RPC_S_INVALID_ASYNC_CALL: RPC_STATUS = 1915
-RPC_S_ENTRY_TYPE_MISMATCH: RPC_STATUS = 1922
-RPC_S_NOT_ALL_OBJS_EXPORTED: RPC_STATUS = 1923
-RPC_S_INTERFACE_NOT_EXPORTED: RPC_STATUS = 1924
-RPC_S_PROFILE_NOT_ADDED: RPC_STATUS = 1925
-RPC_S_PRF_ELT_NOT_ADDED: RPC_STATUS = 1926
-RPC_S_PRF_ELT_NOT_REMOVED: RPC_STATUS = 1927
-RPC_S_GRP_ELT_NOT_ADDED: RPC_STATUS = 1928
-RPC_S_GRP_ELT_NOT_REMOVED: RPC_STATUS = 1929
+RPC_S_INVALID_STRING_BINDING: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1700
+RPC_S_WRONG_KIND_OF_BINDING: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1701
+RPC_S_INVALID_BINDING: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1702
+RPC_S_PROTSEQ_NOT_SUPPORTED: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1703
+RPC_S_INVALID_RPC_PROTSEQ: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1704
+RPC_S_INVALID_STRING_UUID: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1705
+RPC_S_INVALID_ENDPOINT_FORMAT: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1706
+RPC_S_INVALID_NET_ADDR: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1707
+RPC_S_NO_ENDPOINT_FOUND: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1708
+RPC_S_INVALID_TIMEOUT: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1709
+RPC_S_OBJECT_NOT_FOUND: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1710
+RPC_S_ALREADY_REGISTERED: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1711
+RPC_S_TYPE_ALREADY_REGISTERED: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1712
+RPC_S_ALREADY_LISTENING: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1713
+RPC_S_NO_PROTSEQS_REGISTERED: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1714
+RPC_S_NOT_LISTENING: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1715
+RPC_S_UNKNOWN_MGR_TYPE: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1716
+RPC_S_UNKNOWN_IF: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1717
+RPC_S_NO_BINDINGS: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1718
+RPC_S_NO_PROTSEQS: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1719
+RPC_S_CANT_CREATE_ENDPOINT: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1720
+RPC_S_OUT_OF_RESOURCES: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1721
+RPC_S_SERVER_UNAVAILABLE: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1722
+RPC_S_SERVER_TOO_BUSY: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1723
+RPC_S_INVALID_NETWORK_OPTIONS: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1724
+RPC_S_NO_CALL_ACTIVE: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1725
+RPC_S_CALL_FAILED: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1726
+RPC_S_CALL_FAILED_DNE: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1727
+RPC_S_PROTOCOL_ERROR: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1728
+RPC_S_PROXY_ACCESS_DENIED: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1729
+RPC_S_UNSUPPORTED_TRANS_SYN: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1730
+RPC_S_UNSUPPORTED_TYPE: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1732
+RPC_S_INVALID_TAG: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1733
+RPC_S_INVALID_BOUND: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1734
+RPC_S_NO_ENTRY_NAME: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1735
+RPC_S_INVALID_NAME_SYNTAX: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1736
+RPC_S_UNSUPPORTED_NAME_SYNTAX: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1737
+RPC_S_UUID_NO_ADDRESS: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1739
+RPC_S_DUPLICATE_ENDPOINT: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1740
+RPC_S_UNKNOWN_AUTHN_TYPE: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1741
+RPC_S_MAX_CALLS_TOO_SMALL: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1742
+RPC_S_STRING_TOO_LONG: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1743
+RPC_S_PROTSEQ_NOT_FOUND: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1744
+RPC_S_PROCNUM_OUT_OF_RANGE: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1745
+RPC_S_BINDING_HAS_NO_AUTH: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1746
+RPC_S_UNKNOWN_AUTHN_SERVICE: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1747
+RPC_S_UNKNOWN_AUTHN_LEVEL: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1748
+RPC_S_INVALID_AUTH_IDENTITY: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1749
+RPC_S_UNKNOWN_AUTHZ_SERVICE: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1750
+EPT_S_INVALID_ENTRY: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1751
+EPT_S_CANT_PERFORM_OP: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1752
+EPT_S_NOT_REGISTERED: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1753
+RPC_S_NOTHING_TO_EXPORT: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1754
+RPC_S_INCOMPLETE_NAME: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1755
+RPC_S_INVALID_VERS_OPTION: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1756
+RPC_S_NO_MORE_MEMBERS: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1757
+RPC_S_NOT_ALL_OBJS_UNEXPORTED: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1758
+RPC_S_INTERFACE_NOT_FOUND: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1759
+RPC_S_ENTRY_ALREADY_EXISTS: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1760
+RPC_S_ENTRY_NOT_FOUND: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1761
+RPC_S_NAME_SERVICE_UNAVAILABLE: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1762
+RPC_S_INVALID_NAF_ID: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1763
+RPC_S_CANNOT_SUPPORT: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1764
+RPC_S_NO_CONTEXT_AVAILABLE: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1765
+RPC_S_INTERNAL_ERROR: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1766
+RPC_S_ZERO_DIVIDE: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1767
+RPC_S_ADDRESS_ERROR: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1768
+RPC_S_FP_DIV_ZERO: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1769
+RPC_S_FP_UNDERFLOW: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1770
+RPC_S_FP_OVERFLOW: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1771
+RPC_S_CALL_IN_PROGRESS: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1791
+RPC_S_NO_MORE_BINDINGS: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1806
+RPC_S_NO_INTERFACES: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1817
+RPC_S_CALL_CANCELLED: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1818
+RPC_S_BINDING_INCOMPLETE: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1819
+RPC_S_COMM_FAILURE: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1820
+RPC_S_UNSUPPORTED_AUTHN_LEVEL: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1821
+RPC_S_NO_PRINC_NAME: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1822
+RPC_S_NOT_RPC_ERROR: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1823
+RPC_S_UUID_LOCAL_ONLY: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1824
+RPC_S_SEC_PKG_ERROR: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1825
+RPC_S_NOT_CANCELLED: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1826
+RPC_S_COOKIE_AUTH_FAILED: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1833
+RPC_S_DO_NOT_DISTURB: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1834
+RPC_S_SYSTEM_HANDLE_COUNT_EXCEEDED: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1835
+RPC_S_SYSTEM_HANDLE_TYPE_MISMATCH: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1836
+RPC_S_GROUP_MEMBER_NOT_FOUND: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1898
+EPT_S_CANT_CREATE: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1899
+RPC_S_INVALID_OBJECT: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1900
+RPC_S_SEND_INCOMPLETE: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1913
+RPC_S_INVALID_ASYNC_HANDLE: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1914
+RPC_S_INVALID_ASYNC_CALL: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1915
+RPC_S_ENTRY_TYPE_MISMATCH: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1922
+RPC_S_NOT_ALL_OBJS_EXPORTED: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1923
+RPC_S_INTERFACE_NOT_EXPORTED: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1924
+RPC_S_PROFILE_NOT_ADDED: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1925
+RPC_S_PRF_ELT_NOT_ADDED: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1926
+RPC_S_PRF_ELT_NOT_REMOVED: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1927
+RPC_S_GRP_ELT_NOT_ADDED: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1928
+RPC_S_GRP_ELT_NOT_REMOVED: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1929
 class RPC_SYNTAX_IDENTIFIER(EasyCastStructure):
     SyntaxGUID: Guid
     SyntaxVersion: win32more.Windows.Win32.System.Rpc.RPC_VERSION
@@ -2549,38 +2548,38 @@ class RPC_VERSION(EasyCastStructure):
     MajorVersion: UInt16
     MinorVersion: UInt16
 RpcCallClientLocality = Int32
-RpcCallClientLocality_rcclInvalid: RpcCallClientLocality = 0
-RpcCallClientLocality_rcclLocal: RpcCallClientLocality = 1
-RpcCallClientLocality_rcclRemote: RpcCallClientLocality = 2
-RpcCallClientLocality_rcclClientUnknownLocality: RpcCallClientLocality = 3
+RpcCallClientLocality_rcclInvalid: win32more.Windows.Win32.System.Rpc.RpcCallClientLocality = 0
+RpcCallClientLocality_rcclLocal: win32more.Windows.Win32.System.Rpc.RpcCallClientLocality = 1
+RpcCallClientLocality_rcclRemote: win32more.Windows.Win32.System.Rpc.RpcCallClientLocality = 2
+RpcCallClientLocality_rcclClientUnknownLocality: win32more.Windows.Win32.System.Rpc.RpcCallClientLocality = 3
 RpcCallType = Int32
-RpcCallType_rctInvalid: RpcCallType = 0
-RpcCallType_rctNormal: RpcCallType = 1
-RpcCallType_rctTraining: RpcCallType = 2
-RpcCallType_rctGuaranteed: RpcCallType = 3
+RpcCallType_rctInvalid: win32more.Windows.Win32.System.Rpc.RpcCallType = 0
+RpcCallType_rctNormal: win32more.Windows.Win32.System.Rpc.RpcCallType = 1
+RpcCallType_rctTraining: win32more.Windows.Win32.System.Rpc.RpcCallType = 2
+RpcCallType_rctGuaranteed: win32more.Windows.Win32.System.Rpc.RpcCallType = 3
 RpcLocalAddressFormat = Int32
-RpcLocalAddressFormat_rlafInvalid: RpcLocalAddressFormat = 0
-RpcLocalAddressFormat_rlafIPv4: RpcLocalAddressFormat = 1
-RpcLocalAddressFormat_rlafIPv6: RpcLocalAddressFormat = 2
+RpcLocalAddressFormat_rlafInvalid: win32more.Windows.Win32.System.Rpc.RpcLocalAddressFormat = 0
+RpcLocalAddressFormat_rlafIPv4: win32more.Windows.Win32.System.Rpc.RpcLocalAddressFormat = 1
+RpcLocalAddressFormat_rlafIPv6: win32more.Windows.Win32.System.Rpc.RpcLocalAddressFormat = 2
 RpcPerfCounters = Int32
-RpcPerfCounters_RpcCurrentUniqueUser: RpcPerfCounters = 1
-RpcPerfCounters_RpcBackEndConnectionAttempts: RpcPerfCounters = 2
-RpcPerfCounters_RpcBackEndConnectionFailed: RpcPerfCounters = 3
-RpcPerfCounters_RpcRequestsPerSecond: RpcPerfCounters = 4
-RpcPerfCounters_RpcIncomingConnections: RpcPerfCounters = 5
-RpcPerfCounters_RpcIncomingBandwidth: RpcPerfCounters = 6
-RpcPerfCounters_RpcOutgoingBandwidth: RpcPerfCounters = 7
-RpcPerfCounters_RpcAttemptedLbsDecisions: RpcPerfCounters = 8
-RpcPerfCounters_RpcFailedLbsDecisions: RpcPerfCounters = 9
-RpcPerfCounters_RpcAttemptedLbsMessages: RpcPerfCounters = 10
-RpcPerfCounters_RpcFailedLbsMessages: RpcPerfCounters = 11
-RpcPerfCounters_RpcLastCounter: RpcPerfCounters = 12
+RpcPerfCounters_RpcCurrentUniqueUser: win32more.Windows.Win32.System.Rpc.RpcPerfCounters = 1
+RpcPerfCounters_RpcBackEndConnectionAttempts: win32more.Windows.Win32.System.Rpc.RpcPerfCounters = 2
+RpcPerfCounters_RpcBackEndConnectionFailed: win32more.Windows.Win32.System.Rpc.RpcPerfCounters = 3
+RpcPerfCounters_RpcRequestsPerSecond: win32more.Windows.Win32.System.Rpc.RpcPerfCounters = 4
+RpcPerfCounters_RpcIncomingConnections: win32more.Windows.Win32.System.Rpc.RpcPerfCounters = 5
+RpcPerfCounters_RpcIncomingBandwidth: win32more.Windows.Win32.System.Rpc.RpcPerfCounters = 6
+RpcPerfCounters_RpcOutgoingBandwidth: win32more.Windows.Win32.System.Rpc.RpcPerfCounters = 7
+RpcPerfCounters_RpcAttemptedLbsDecisions: win32more.Windows.Win32.System.Rpc.RpcPerfCounters = 8
+RpcPerfCounters_RpcFailedLbsDecisions: win32more.Windows.Win32.System.Rpc.RpcPerfCounters = 9
+RpcPerfCounters_RpcAttemptedLbsMessages: win32more.Windows.Win32.System.Rpc.RpcPerfCounters = 10
+RpcPerfCounters_RpcFailedLbsMessages: win32more.Windows.Win32.System.Rpc.RpcPerfCounters = 11
+RpcPerfCounters_RpcLastCounter: win32more.Windows.Win32.System.Rpc.RpcPerfCounters = 12
 class SCONTEXT_QUEUE(EasyCastStructure):
     NumberOfObjects: UInt32
     ArrayOfObjects: POINTER(POINTER(win32more.Windows.Win32.System.Rpc.NDR_SCONTEXT))
 SEC_WINNT_AUTH_IDENTITY = UInt32
-SEC_WINNT_AUTH_IDENTITY_ANSI: SEC_WINNT_AUTH_IDENTITY = 1
-SEC_WINNT_AUTH_IDENTITY_UNICODE: SEC_WINNT_AUTH_IDENTITY = 2
+SEC_WINNT_AUTH_IDENTITY_ANSI: win32more.Windows.Win32.System.Rpc.SEC_WINNT_AUTH_IDENTITY = 1
+SEC_WINNT_AUTH_IDENTITY_UNICODE: win32more.Windows.Win32.System.Rpc.SEC_WINNT_AUTH_IDENTITY = 2
 class SEC_WINNT_AUTH_IDENTITY_A(EasyCastStructure):
     User: POINTER(Byte)
     UserLength: UInt32
@@ -2600,10 +2599,10 @@ class SEC_WINNT_AUTH_IDENTITY_W(EasyCastStructure):
 @winfunctype_pointer
 def SERVER_ROUTINE() -> Int32: ...
 STUB_PHASE = Int32
-STUB_UNMARSHAL: STUB_PHASE = 0
-STUB_CALL_SERVER: STUB_PHASE = 1
-STUB_MARSHAL: STUB_PHASE = 2
-STUB_CALL_SERVER_NO_HRESULT: STUB_PHASE = 3
+STUB_UNMARSHAL: win32more.Windows.Win32.System.Rpc.STUB_PHASE = 0
+STUB_CALL_SERVER: win32more.Windows.Win32.System.Rpc.STUB_PHASE = 1
+STUB_MARSHAL: win32more.Windows.Win32.System.Rpc.STUB_PHASE = 2
+STUB_CALL_SERVER_NO_HRESULT: win32more.Windows.Win32.System.Rpc.STUB_PHASE = 3
 @winfunctype_pointer
 def STUB_THUNK(param0: POINTER(win32more.Windows.Win32.System.Rpc.MIDL_STUB_MESSAGE)) -> Void: ...
 class USER_MARSHAL_CB(EasyCastStructure):
@@ -2615,10 +2614,10 @@ class USER_MARSHAL_CB(EasyCastStructure):
     pFormat: POINTER(Byte)
     pTypeFormat: POINTER(Byte)
 USER_MARSHAL_CB_TYPE = Int32
-USER_MARSHAL_CB_BUFFER_SIZE: USER_MARSHAL_CB_TYPE = 0
-USER_MARSHAL_CB_MARSHALL: USER_MARSHAL_CB_TYPE = 1
-USER_MARSHAL_CB_UNMARSHALL: USER_MARSHAL_CB_TYPE = 2
-USER_MARSHAL_CB_FREE: USER_MARSHAL_CB_TYPE = 3
+USER_MARSHAL_CB_BUFFER_SIZE: win32more.Windows.Win32.System.Rpc.USER_MARSHAL_CB_TYPE = 0
+USER_MARSHAL_CB_MARSHALL: win32more.Windows.Win32.System.Rpc.USER_MARSHAL_CB_TYPE = 1
+USER_MARSHAL_CB_UNMARSHALL: win32more.Windows.Win32.System.Rpc.USER_MARSHAL_CB_TYPE = 2
+USER_MARSHAL_CB_FREE: win32more.Windows.Win32.System.Rpc.USER_MARSHAL_CB_TYPE = 3
 @winfunctype_pointer
 def USER_MARSHAL_FREEING_ROUTINE(param0: POINTER(UInt32), param1: VoidPtr) -> Void: ...
 @winfunctype_pointer
@@ -2636,8 +2635,8 @@ class UUID_VECTOR(EasyCastStructure):
     Count: UInt32
     Uuid: POINTER(Guid) * 1
 XLAT_SIDE = Int32
-XLAT_SERVER: XLAT_SIDE = 1
-XLAT_CLIENT: XLAT_SIDE = 2
+XLAT_SERVER: win32more.Windows.Win32.System.Rpc.XLAT_SIDE = 1
+XLAT_CLIENT: win32more.Windows.Win32.System.Rpc.XLAT_SIDE = 2
 @winfunctype_pointer
 def XMIT_HELPER_ROUTINE(param0: POINTER(win32more.Windows.Win32.System.Rpc.MIDL_STUB_MESSAGE)) -> Void: ...
 class XMIT_ROUTINE_QUINTUPLE(EasyCastStructure):
@@ -2647,19 +2646,21 @@ class XMIT_ROUTINE_QUINTUPLE(EasyCastStructure):
     pfnFreeInst: win32more.Windows.Win32.System.Rpc.XMIT_HELPER_ROUTINE
 _NDR_PROC_CONTEXT = IntPtr
 system_handle_t = Int32
-SYSTEM_HANDLE_FILE: system_handle_t = 0
-SYSTEM_HANDLE_SEMAPHORE: system_handle_t = 1
-SYSTEM_HANDLE_EVENT: system_handle_t = 2
-SYSTEM_HANDLE_MUTEX: system_handle_t = 3
-SYSTEM_HANDLE_PROCESS: system_handle_t = 4
-SYSTEM_HANDLE_TOKEN: system_handle_t = 5
-SYSTEM_HANDLE_SECTION: system_handle_t = 6
-SYSTEM_HANDLE_REG_KEY: system_handle_t = 7
-SYSTEM_HANDLE_THREAD: system_handle_t = 8
-SYSTEM_HANDLE_COMPOSITION_OBJECT: system_handle_t = 9
-SYSTEM_HANDLE_SOCKET: system_handle_t = 10
-SYSTEM_HANDLE_JOB: system_handle_t = 11
-SYSTEM_HANDLE_PIPE: system_handle_t = 12
-SYSTEM_HANDLE_MAX: system_handle_t = 12
-SYSTEM_HANDLE_INVALID: system_handle_t = 255
+SYSTEM_HANDLE_FILE: win32more.Windows.Win32.System.Rpc.system_handle_t = 0
+SYSTEM_HANDLE_SEMAPHORE: win32more.Windows.Win32.System.Rpc.system_handle_t = 1
+SYSTEM_HANDLE_EVENT: win32more.Windows.Win32.System.Rpc.system_handle_t = 2
+SYSTEM_HANDLE_MUTEX: win32more.Windows.Win32.System.Rpc.system_handle_t = 3
+SYSTEM_HANDLE_PROCESS: win32more.Windows.Win32.System.Rpc.system_handle_t = 4
+SYSTEM_HANDLE_TOKEN: win32more.Windows.Win32.System.Rpc.system_handle_t = 5
+SYSTEM_HANDLE_SECTION: win32more.Windows.Win32.System.Rpc.system_handle_t = 6
+SYSTEM_HANDLE_REG_KEY: win32more.Windows.Win32.System.Rpc.system_handle_t = 7
+SYSTEM_HANDLE_THREAD: win32more.Windows.Win32.System.Rpc.system_handle_t = 8
+SYSTEM_HANDLE_COMPOSITION_OBJECT: win32more.Windows.Win32.System.Rpc.system_handle_t = 9
+SYSTEM_HANDLE_SOCKET: win32more.Windows.Win32.System.Rpc.system_handle_t = 10
+SYSTEM_HANDLE_JOB: win32more.Windows.Win32.System.Rpc.system_handle_t = 11
+SYSTEM_HANDLE_PIPE: win32more.Windows.Win32.System.Rpc.system_handle_t = 12
+SYSTEM_HANDLE_MAX: win32more.Windows.Win32.System.Rpc.system_handle_t = 12
+SYSTEM_HANDLE_INVALID: win32more.Windows.Win32.System.Rpc.system_handle_t = 255
+
+
 make_ready(__name__)

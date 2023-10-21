@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.System.Com
@@ -8,8 +7,8 @@ import win32more.Windows.Win32.System.Variant
 import win32more.Windows.Win32.UI.TextServices
 import win32more.Windows.Win32.UI.WindowsAndMessaging
 ANCHOR_CHANGE_HISTORY_FLAGS = UInt32
-TS_CH_PRECEDING_DEL: ANCHOR_CHANGE_HISTORY_FLAGS = 1
-TS_CH_FOLLOWING_DEL: ANCHOR_CHANGE_HISTORY_FLAGS = 2
+TS_CH_PRECEDING_DEL: win32more.Windows.Win32.UI.TextServices.ANCHOR_CHANGE_HISTORY_FLAGS = 1
+TS_CH_FOLLOWING_DEL: win32more.Windows.Win32.UI.TextServices.ANCHOR_CHANGE_HISTORY_FLAGS = 2
 AccClientDocMgr = Guid('{fc48cc30-4f3e-4fa1-803b-ad0e196a83b1}')
 AccDictionary = Guid('{6572ee16-5fe5-4331-bb6d-76a49c56e423}')
 AccServerDocMgr = Guid('{6089a37e-eb8a-482d-bd6f-f9f46904d16d}')
@@ -463,8 +462,8 @@ def InitLocalMsCtfMonitor(dwFlags: UInt32) -> win32more.Windows.Win32.Foundation
 def UninitLocalMsCtfMonitor() -> win32more.Windows.Win32.Foundation.HRESULT: ...
 DocWrap = Guid('{bf426f7e-7a5e-44d6-830c-a390ea9462a3}')
 GET_TEXT_AND_PROPERTY_UPDATES_FLAGS = UInt32
-TF_GTP_NONE: GET_TEXT_AND_PROPERTY_UPDATES_FLAGS = 0
-TF_GTP_INCL_TEXT: GET_TEXT_AND_PROPERTY_UPDATES_FLAGS = 1
+TF_GTP_NONE: win32more.Windows.Win32.UI.TextServices.GET_TEXT_AND_PROPERTY_UPDATES_FLAGS = 0
+TF_GTP_INCL_TEXT: win32more.Windows.Win32.UI.TextServices.GET_TEXT_AND_PROPERTY_UPDATES_FLAGS = 1
 HKL = IntPtr
 class IAccClientDocMgr(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
@@ -745,9 +744,9 @@ class IInternalDocWrap(ComPtr):
     @commethod(3)
     def NotifyRevoke(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 INSERT_TEXT_AT_SELECTION_FLAGS = UInt32
-TF_IAS_NOQUERY: INSERT_TEXT_AT_SELECTION_FLAGS = 1
-TF_IAS_QUERYONLY: INSERT_TEXT_AT_SELECTION_FLAGS = 2
-TF_IAS_NO_DEFAULT_COMPOSITION: INSERT_TEXT_AT_SELECTION_FLAGS = 2147483648
+TF_IAS_NOQUERY: win32more.Windows.Win32.UI.TextServices.INSERT_TEXT_AT_SELECTION_FLAGS = 1
+TF_IAS_QUERYONLY: win32more.Windows.Win32.UI.TextServices.INSERT_TEXT_AT_SELECTION_FLAGS = 2
+TF_IAS_NO_DEFAULT_COMPOSITION: win32more.Windows.Win32.UI.TextServices.INSERT_TEXT_AT_SELECTION_FLAGS = 2147483648
 class ISpeechCommandProvider(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{38e09d4c-586d-435a-b592-c8a86691dec6}')
@@ -2183,107 +2182,107 @@ class IVersionInfo(ComPtr):
     @commethod(7)
     def GetInstanceDescription(self, ulSub: UInt32, pImplStr: POINTER(win32more.Windows.Win32.Foundation.BSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 InputScope = Int32
-IS_DEFAULT: InputScope = 0
-IS_URL: InputScope = 1
-IS_FILE_FULLFILEPATH: InputScope = 2
-IS_FILE_FILENAME: InputScope = 3
-IS_EMAIL_USERNAME: InputScope = 4
-IS_EMAIL_SMTPEMAILADDRESS: InputScope = 5
-IS_LOGINNAME: InputScope = 6
-IS_PERSONALNAME_FULLNAME: InputScope = 7
-IS_PERSONALNAME_PREFIX: InputScope = 8
-IS_PERSONALNAME_GIVENNAME: InputScope = 9
-IS_PERSONALNAME_MIDDLENAME: InputScope = 10
-IS_PERSONALNAME_SURNAME: InputScope = 11
-IS_PERSONALNAME_SUFFIX: InputScope = 12
-IS_ADDRESS_FULLPOSTALADDRESS: InputScope = 13
-IS_ADDRESS_POSTALCODE: InputScope = 14
-IS_ADDRESS_STREET: InputScope = 15
-IS_ADDRESS_STATEORPROVINCE: InputScope = 16
-IS_ADDRESS_CITY: InputScope = 17
-IS_ADDRESS_COUNTRYNAME: InputScope = 18
-IS_ADDRESS_COUNTRYSHORTNAME: InputScope = 19
-IS_CURRENCY_AMOUNTANDSYMBOL: InputScope = 20
-IS_CURRENCY_AMOUNT: InputScope = 21
-IS_DATE_FULLDATE: InputScope = 22
-IS_DATE_MONTH: InputScope = 23
-IS_DATE_DAY: InputScope = 24
-IS_DATE_YEAR: InputScope = 25
-IS_DATE_MONTHNAME: InputScope = 26
-IS_DATE_DAYNAME: InputScope = 27
-IS_DIGITS: InputScope = 28
-IS_NUMBER: InputScope = 29
-IS_ONECHAR: InputScope = 30
-IS_PASSWORD: InputScope = 31
-IS_TELEPHONE_FULLTELEPHONENUMBER: InputScope = 32
-IS_TELEPHONE_COUNTRYCODE: InputScope = 33
-IS_TELEPHONE_AREACODE: InputScope = 34
-IS_TELEPHONE_LOCALNUMBER: InputScope = 35
-IS_TIME_FULLTIME: InputScope = 36
-IS_TIME_HOUR: InputScope = 37
-IS_TIME_MINORSEC: InputScope = 38
-IS_NUMBER_FULLWIDTH: InputScope = 39
-IS_ALPHANUMERIC_HALFWIDTH: InputScope = 40
-IS_ALPHANUMERIC_FULLWIDTH: InputScope = 41
-IS_CURRENCY_CHINESE: InputScope = 42
-IS_BOPOMOFO: InputScope = 43
-IS_HIRAGANA: InputScope = 44
-IS_KATAKANA_HALFWIDTH: InputScope = 45
-IS_KATAKANA_FULLWIDTH: InputScope = 46
-IS_HANJA: InputScope = 47
-IS_HANGUL_HALFWIDTH: InputScope = 48
-IS_HANGUL_FULLWIDTH: InputScope = 49
-IS_SEARCH: InputScope = 50
-IS_FORMULA: InputScope = 51
-IS_SEARCH_INCREMENTAL: InputScope = 52
-IS_CHINESE_HALFWIDTH: InputScope = 53
-IS_CHINESE_FULLWIDTH: InputScope = 54
-IS_NATIVE_SCRIPT: InputScope = 55
-IS_YOMI: InputScope = 56
-IS_TEXT: InputScope = 57
-IS_CHAT: InputScope = 58
-IS_NAME_OR_PHONENUMBER: InputScope = 59
-IS_EMAILNAME_OR_ADDRESS: InputScope = 60
-IS_PRIVATE: InputScope = 61
-IS_MAPS: InputScope = 62
-IS_NUMERIC_PASSWORD: InputScope = 63
-IS_NUMERIC_PIN: InputScope = 64
-IS_ALPHANUMERIC_PIN: InputScope = 65
-IS_ALPHANUMERIC_PIN_SET: InputScope = 66
-IS_FORMULA_NUMBER: InputScope = 67
-IS_CHAT_WITHOUT_EMOJI: InputScope = 68
-IS_PHRASELIST: InputScope = -1
-IS_REGULAREXPRESSION: InputScope = -2
-IS_SRGS: InputScope = -3
-IS_XML: InputScope = -4
-IS_ENUMSTRING: InputScope = -5
+IS_DEFAULT: win32more.Windows.Win32.UI.TextServices.InputScope = 0
+IS_URL: win32more.Windows.Win32.UI.TextServices.InputScope = 1
+IS_FILE_FULLFILEPATH: win32more.Windows.Win32.UI.TextServices.InputScope = 2
+IS_FILE_FILENAME: win32more.Windows.Win32.UI.TextServices.InputScope = 3
+IS_EMAIL_USERNAME: win32more.Windows.Win32.UI.TextServices.InputScope = 4
+IS_EMAIL_SMTPEMAILADDRESS: win32more.Windows.Win32.UI.TextServices.InputScope = 5
+IS_LOGINNAME: win32more.Windows.Win32.UI.TextServices.InputScope = 6
+IS_PERSONALNAME_FULLNAME: win32more.Windows.Win32.UI.TextServices.InputScope = 7
+IS_PERSONALNAME_PREFIX: win32more.Windows.Win32.UI.TextServices.InputScope = 8
+IS_PERSONALNAME_GIVENNAME: win32more.Windows.Win32.UI.TextServices.InputScope = 9
+IS_PERSONALNAME_MIDDLENAME: win32more.Windows.Win32.UI.TextServices.InputScope = 10
+IS_PERSONALNAME_SURNAME: win32more.Windows.Win32.UI.TextServices.InputScope = 11
+IS_PERSONALNAME_SUFFIX: win32more.Windows.Win32.UI.TextServices.InputScope = 12
+IS_ADDRESS_FULLPOSTALADDRESS: win32more.Windows.Win32.UI.TextServices.InputScope = 13
+IS_ADDRESS_POSTALCODE: win32more.Windows.Win32.UI.TextServices.InputScope = 14
+IS_ADDRESS_STREET: win32more.Windows.Win32.UI.TextServices.InputScope = 15
+IS_ADDRESS_STATEORPROVINCE: win32more.Windows.Win32.UI.TextServices.InputScope = 16
+IS_ADDRESS_CITY: win32more.Windows.Win32.UI.TextServices.InputScope = 17
+IS_ADDRESS_COUNTRYNAME: win32more.Windows.Win32.UI.TextServices.InputScope = 18
+IS_ADDRESS_COUNTRYSHORTNAME: win32more.Windows.Win32.UI.TextServices.InputScope = 19
+IS_CURRENCY_AMOUNTANDSYMBOL: win32more.Windows.Win32.UI.TextServices.InputScope = 20
+IS_CURRENCY_AMOUNT: win32more.Windows.Win32.UI.TextServices.InputScope = 21
+IS_DATE_FULLDATE: win32more.Windows.Win32.UI.TextServices.InputScope = 22
+IS_DATE_MONTH: win32more.Windows.Win32.UI.TextServices.InputScope = 23
+IS_DATE_DAY: win32more.Windows.Win32.UI.TextServices.InputScope = 24
+IS_DATE_YEAR: win32more.Windows.Win32.UI.TextServices.InputScope = 25
+IS_DATE_MONTHNAME: win32more.Windows.Win32.UI.TextServices.InputScope = 26
+IS_DATE_DAYNAME: win32more.Windows.Win32.UI.TextServices.InputScope = 27
+IS_DIGITS: win32more.Windows.Win32.UI.TextServices.InputScope = 28
+IS_NUMBER: win32more.Windows.Win32.UI.TextServices.InputScope = 29
+IS_ONECHAR: win32more.Windows.Win32.UI.TextServices.InputScope = 30
+IS_PASSWORD: win32more.Windows.Win32.UI.TextServices.InputScope = 31
+IS_TELEPHONE_FULLTELEPHONENUMBER: win32more.Windows.Win32.UI.TextServices.InputScope = 32
+IS_TELEPHONE_COUNTRYCODE: win32more.Windows.Win32.UI.TextServices.InputScope = 33
+IS_TELEPHONE_AREACODE: win32more.Windows.Win32.UI.TextServices.InputScope = 34
+IS_TELEPHONE_LOCALNUMBER: win32more.Windows.Win32.UI.TextServices.InputScope = 35
+IS_TIME_FULLTIME: win32more.Windows.Win32.UI.TextServices.InputScope = 36
+IS_TIME_HOUR: win32more.Windows.Win32.UI.TextServices.InputScope = 37
+IS_TIME_MINORSEC: win32more.Windows.Win32.UI.TextServices.InputScope = 38
+IS_NUMBER_FULLWIDTH: win32more.Windows.Win32.UI.TextServices.InputScope = 39
+IS_ALPHANUMERIC_HALFWIDTH: win32more.Windows.Win32.UI.TextServices.InputScope = 40
+IS_ALPHANUMERIC_FULLWIDTH: win32more.Windows.Win32.UI.TextServices.InputScope = 41
+IS_CURRENCY_CHINESE: win32more.Windows.Win32.UI.TextServices.InputScope = 42
+IS_BOPOMOFO: win32more.Windows.Win32.UI.TextServices.InputScope = 43
+IS_HIRAGANA: win32more.Windows.Win32.UI.TextServices.InputScope = 44
+IS_KATAKANA_HALFWIDTH: win32more.Windows.Win32.UI.TextServices.InputScope = 45
+IS_KATAKANA_FULLWIDTH: win32more.Windows.Win32.UI.TextServices.InputScope = 46
+IS_HANJA: win32more.Windows.Win32.UI.TextServices.InputScope = 47
+IS_HANGUL_HALFWIDTH: win32more.Windows.Win32.UI.TextServices.InputScope = 48
+IS_HANGUL_FULLWIDTH: win32more.Windows.Win32.UI.TextServices.InputScope = 49
+IS_SEARCH: win32more.Windows.Win32.UI.TextServices.InputScope = 50
+IS_FORMULA: win32more.Windows.Win32.UI.TextServices.InputScope = 51
+IS_SEARCH_INCREMENTAL: win32more.Windows.Win32.UI.TextServices.InputScope = 52
+IS_CHINESE_HALFWIDTH: win32more.Windows.Win32.UI.TextServices.InputScope = 53
+IS_CHINESE_FULLWIDTH: win32more.Windows.Win32.UI.TextServices.InputScope = 54
+IS_NATIVE_SCRIPT: win32more.Windows.Win32.UI.TextServices.InputScope = 55
+IS_YOMI: win32more.Windows.Win32.UI.TextServices.InputScope = 56
+IS_TEXT: win32more.Windows.Win32.UI.TextServices.InputScope = 57
+IS_CHAT: win32more.Windows.Win32.UI.TextServices.InputScope = 58
+IS_NAME_OR_PHONENUMBER: win32more.Windows.Win32.UI.TextServices.InputScope = 59
+IS_EMAILNAME_OR_ADDRESS: win32more.Windows.Win32.UI.TextServices.InputScope = 60
+IS_PRIVATE: win32more.Windows.Win32.UI.TextServices.InputScope = 61
+IS_MAPS: win32more.Windows.Win32.UI.TextServices.InputScope = 62
+IS_NUMERIC_PASSWORD: win32more.Windows.Win32.UI.TextServices.InputScope = 63
+IS_NUMERIC_PIN: win32more.Windows.Win32.UI.TextServices.InputScope = 64
+IS_ALPHANUMERIC_PIN: win32more.Windows.Win32.UI.TextServices.InputScope = 65
+IS_ALPHANUMERIC_PIN_SET: win32more.Windows.Win32.UI.TextServices.InputScope = 66
+IS_FORMULA_NUMBER: win32more.Windows.Win32.UI.TextServices.InputScope = 67
+IS_CHAT_WITHOUT_EMOJI: win32more.Windows.Win32.UI.TextServices.InputScope = 68
+IS_PHRASELIST: win32more.Windows.Win32.UI.TextServices.InputScope = -1
+IS_REGULAREXPRESSION: win32more.Windows.Win32.UI.TextServices.InputScope = -2
+IS_SRGS: win32more.Windows.Win32.UI.TextServices.InputScope = -3
+IS_XML: win32more.Windows.Win32.UI.TextServices.InputScope = -4
+IS_ENUMSTRING: win32more.Windows.Win32.UI.TextServices.InputScope = -5
 LANG_BAR_ITEM_ICON_MODE_FLAGS = UInt32
-TF_DTLBI_NONE: LANG_BAR_ITEM_ICON_MODE_FLAGS = 0
-TF_DTLBI_USEPROFILEICON: LANG_BAR_ITEM_ICON_MODE_FLAGS = 1
+TF_DTLBI_NONE: win32more.Windows.Win32.UI.TextServices.LANG_BAR_ITEM_ICON_MODE_FLAGS = 0
+TF_DTLBI_USEPROFILEICON: win32more.Windows.Win32.UI.TextServices.LANG_BAR_ITEM_ICON_MODE_FLAGS = 1
 MSAAControl = Guid('{08cd963f-7a3e-4f5c-9bd8-d692bb043c5b}')
 TEXT_STORE_CHANGE_FLAGS = UInt32
-TS_TC_NONE: TEXT_STORE_CHANGE_FLAGS = 0
-TS_TC_CORRECTION: TEXT_STORE_CHANGE_FLAGS = 1
+TS_TC_NONE: win32more.Windows.Win32.UI.TextServices.TEXT_STORE_CHANGE_FLAGS = 0
+TS_TC_CORRECTION: win32more.Windows.Win32.UI.TextServices.TEXT_STORE_CHANGE_FLAGS = 1
 TEXT_STORE_LOCK_FLAGS = UInt32
-TS_LF_READ: TEXT_STORE_LOCK_FLAGS = 2
-TS_LF_READWRITE: TEXT_STORE_LOCK_FLAGS = 6
+TS_LF_READ: win32more.Windows.Win32.UI.TextServices.TEXT_STORE_LOCK_FLAGS = 2
+TS_LF_READWRITE: win32more.Windows.Win32.UI.TextServices.TEXT_STORE_LOCK_FLAGS = 6
 TEXT_STORE_TEXT_CHANGE_FLAGS = UInt32
-TS_ST_NONE: TEXT_STORE_TEXT_CHANGE_FLAGS = 0
-TS_ST_CORRECTION: TEXT_STORE_TEXT_CHANGE_FLAGS = 1
+TS_ST_NONE: win32more.Windows.Win32.UI.TextServices.TEXT_STORE_TEXT_CHANGE_FLAGS = 0
+TS_ST_CORRECTION: win32more.Windows.Win32.UI.TextServices.TEXT_STORE_TEXT_CHANGE_FLAGS = 1
 TF_CONTEXT_EDIT_CONTEXT_FLAGS = UInt32
-TF_ES_ASYNCDONTCARE: TF_CONTEXT_EDIT_CONTEXT_FLAGS = 0
-TF_ES_SYNC: TF_CONTEXT_EDIT_CONTEXT_FLAGS = 1
-TF_ES_READ: TF_CONTEXT_EDIT_CONTEXT_FLAGS = 2
-TF_ES_READWRITE: TF_CONTEXT_EDIT_CONTEXT_FLAGS = 6
-TF_ES_ASYNC: TF_CONTEXT_EDIT_CONTEXT_FLAGS = 8
+TF_ES_ASYNCDONTCARE: win32more.Windows.Win32.UI.TextServices.TF_CONTEXT_EDIT_CONTEXT_FLAGS = 0
+TF_ES_SYNC: win32more.Windows.Win32.UI.TextServices.TF_CONTEXT_EDIT_CONTEXT_FLAGS = 1
+TF_ES_READ: win32more.Windows.Win32.UI.TextServices.TF_CONTEXT_EDIT_CONTEXT_FLAGS = 2
+TF_ES_READWRITE: win32more.Windows.Win32.UI.TextServices.TF_CONTEXT_EDIT_CONTEXT_FLAGS = 6
+TF_ES_ASYNC: win32more.Windows.Win32.UI.TextServices.TF_CONTEXT_EDIT_CONTEXT_FLAGS = 8
 TF_DA_ATTR_INFO = Int32
-TF_ATTR_INPUT: TF_DA_ATTR_INFO = 0
-TF_ATTR_TARGET_CONVERTED: TF_DA_ATTR_INFO = 1
-TF_ATTR_CONVERTED: TF_DA_ATTR_INFO = 2
-TF_ATTR_TARGET_NOTCONVERTED: TF_DA_ATTR_INFO = 3
-TF_ATTR_INPUT_ERROR: TF_DA_ATTR_INFO = 4
-TF_ATTR_FIXEDCONVERTED: TF_DA_ATTR_INFO = 5
-TF_ATTR_OTHER: TF_DA_ATTR_INFO = -1
+TF_ATTR_INPUT: win32more.Windows.Win32.UI.TextServices.TF_DA_ATTR_INFO = 0
+TF_ATTR_TARGET_CONVERTED: win32more.Windows.Win32.UI.TextServices.TF_DA_ATTR_INFO = 1
+TF_ATTR_CONVERTED: win32more.Windows.Win32.UI.TextServices.TF_DA_ATTR_INFO = 2
+TF_ATTR_TARGET_NOTCONVERTED: win32more.Windows.Win32.UI.TextServices.TF_DA_ATTR_INFO = 3
+TF_ATTR_INPUT_ERROR: win32more.Windows.Win32.UI.TextServices.TF_DA_ATTR_INFO = 4
+TF_ATTR_FIXEDCONVERTED: win32more.Windows.Win32.UI.TextServices.TF_DA_ATTR_INFO = 5
+TF_ATTR_OTHER: win32more.Windows.Win32.UI.TextServices.TF_DA_ATTR_INFO = -1
 class TF_DA_COLOR(EasyCastStructure):
     type: win32more.Windows.Win32.UI.TextServices.TF_DA_COLORTYPE
     Anonymous: _Anonymous_e__Union
@@ -2291,15 +2290,15 @@ class TF_DA_COLOR(EasyCastStructure):
         nIndex: Int32
         cr: win32more.Windows.Win32.Foundation.COLORREF
 TF_DA_COLORTYPE = Int32
-TF_CT_NONE: TF_DA_COLORTYPE = 0
-TF_CT_SYSCOLOR: TF_DA_COLORTYPE = 1
-TF_CT_COLORREF: TF_DA_COLORTYPE = 2
+TF_CT_NONE: win32more.Windows.Win32.UI.TextServices.TF_DA_COLORTYPE = 0
+TF_CT_SYSCOLOR: win32more.Windows.Win32.UI.TextServices.TF_DA_COLORTYPE = 1
+TF_CT_COLORREF: win32more.Windows.Win32.UI.TextServices.TF_DA_COLORTYPE = 2
 TF_DA_LINESTYLE = Int32
-TF_LS_NONE: TF_DA_LINESTYLE = 0
-TF_LS_SOLID: TF_DA_LINESTYLE = 1
-TF_LS_DOT: TF_DA_LINESTYLE = 2
-TF_LS_DASH: TF_DA_LINESTYLE = 3
-TF_LS_SQUIGGLE: TF_DA_LINESTYLE = 4
+TF_LS_NONE: win32more.Windows.Win32.UI.TextServices.TF_DA_LINESTYLE = 0
+TF_LS_SOLID: win32more.Windows.Win32.UI.TextServices.TF_DA_LINESTYLE = 1
+TF_LS_DOT: win32more.Windows.Win32.UI.TextServices.TF_DA_LINESTYLE = 2
+TF_LS_DASH: win32more.Windows.Win32.UI.TextServices.TF_DA_LINESTYLE = 3
+TF_LS_SQUIGGLE: win32more.Windows.Win32.UI.TextServices.TF_DA_LINESTYLE = 4
 class TF_DISPLAYATTRIBUTE(EasyCastStructure):
     crText: win32more.Windows.Win32.UI.TextServices.TF_DA_COLOR
     crBk: win32more.Windows.Win32.UI.TextServices.TF_DA_COLOR
@@ -2364,9 +2363,9 @@ class TF_SELECTIONSTYLE(EasyCastStructure):
     ase: win32more.Windows.Win32.UI.TextServices.TfActiveSelEnd
     fInterimChar: win32more.Windows.Win32.Foundation.BOOL
 TKBLayoutType = Int32
-TKBLT_UNDEFINED: TKBLayoutType = 0
-TKBLT_CLASSIC: TKBLayoutType = 1
-TKBLT_OPTIMIZED: TKBLayoutType = 2
+TKBLT_UNDEFINED: win32more.Windows.Win32.UI.TextServices.TKBLayoutType = 0
+TKBLT_CLASSIC: win32more.Windows.Win32.UI.TextServices.TKBLayoutType = 1
+TKBLT_OPTIMIZED: win32more.Windows.Win32.UI.TextServices.TKBLayoutType = 2
 class TS_ATTRVAL(EasyCastStructure):
     idAttr: Guid
     dwOverlapId: UInt32
@@ -2393,59 +2392,61 @@ class TS_TEXTCHANGE(EasyCastStructure):
     acpOldEnd: Int32
     acpNewEnd: Int32
 TfActiveSelEnd = Int32
-TF_AE_NONE: TfActiveSelEnd = 0
-TF_AE_START: TfActiveSelEnd = 1
-TF_AE_END: TfActiveSelEnd = 2
+TF_AE_NONE: win32more.Windows.Win32.UI.TextServices.TfActiveSelEnd = 0
+TF_AE_START: win32more.Windows.Win32.UI.TextServices.TfActiveSelEnd = 1
+TF_AE_END: win32more.Windows.Win32.UI.TextServices.TfActiveSelEnd = 2
 TfAnchor = Int32
-TF_ANCHOR_START: TfAnchor = 0
-TF_ANCHOR_END: TfAnchor = 1
+TF_ANCHOR_START: win32more.Windows.Win32.UI.TextServices.TfAnchor = 0
+TF_ANCHOR_END: win32more.Windows.Win32.UI.TextServices.TfAnchor = 1
 TfCandidateResult = Int32
-CAND_FINALIZED: TfCandidateResult = 0
-CAND_SELECTED: TfCandidateResult = 1
-CAND_CANCELED: TfCandidateResult = 2
+CAND_FINALIZED: win32more.Windows.Win32.UI.TextServices.TfCandidateResult = 0
+CAND_SELECTED: win32more.Windows.Win32.UI.TextServices.TfCandidateResult = 1
+CAND_CANCELED: win32more.Windows.Win32.UI.TextServices.TfCandidateResult = 2
 TfGravity = Int32
-TF_GRAVITY_BACKWARD: TfGravity = 0
-TF_GRAVITY_FORWARD: TfGravity = 1
+TF_GRAVITY_BACKWARD: win32more.Windows.Win32.UI.TextServices.TfGravity = 0
+TF_GRAVITY_FORWARD: win32more.Windows.Win32.UI.TextServices.TfGravity = 1
 TfIntegratableCandidateListSelectionStyle = Int32
-STYLE_ACTIVE_SELECTION: TfIntegratableCandidateListSelectionStyle = 0
-STYLE_IMPLIED_SELECTION: TfIntegratableCandidateListSelectionStyle = 1
+STYLE_ACTIVE_SELECTION: win32more.Windows.Win32.UI.TextServices.TfIntegratableCandidateListSelectionStyle = 0
+STYLE_IMPLIED_SELECTION: win32more.Windows.Win32.UI.TextServices.TfIntegratableCandidateListSelectionStyle = 1
 TfLBBalloonStyle = Int32
-TF_LB_BALLOON_RECO: TfLBBalloonStyle = 0
-TF_LB_BALLOON_SHOW: TfLBBalloonStyle = 1
-TF_LB_BALLOON_MISS: TfLBBalloonStyle = 2
+TF_LB_BALLOON_RECO: win32more.Windows.Win32.UI.TextServices.TfLBBalloonStyle = 0
+TF_LB_BALLOON_SHOW: win32more.Windows.Win32.UI.TextServices.TfLBBalloonStyle = 1
+TF_LB_BALLOON_MISS: win32more.Windows.Win32.UI.TextServices.TfLBBalloonStyle = 2
 TfLBIClick = Int32
-TF_LBI_CLK_RIGHT: TfLBIClick = 1
-TF_LBI_CLK_LEFT: TfLBIClick = 2
+TF_LBI_CLK_RIGHT: win32more.Windows.Win32.UI.TextServices.TfLBIClick = 1
+TF_LBI_CLK_LEFT: win32more.Windows.Win32.UI.TextServices.TfLBIClick = 2
 TfLayoutCode = Int32
-TF_LC_CREATE: TfLayoutCode = 0
-TF_LC_CHANGE: TfLayoutCode = 1
-TF_LC_DESTROY: TfLayoutCode = 2
+TF_LC_CREATE: win32more.Windows.Win32.UI.TextServices.TfLayoutCode = 0
+TF_LC_CHANGE: win32more.Windows.Win32.UI.TextServices.TfLayoutCode = 1
+TF_LC_DESTROY: win32more.Windows.Win32.UI.TextServices.TfLayoutCode = 2
 TfSapiObject = Int32
-GETIF_RESMGR: TfSapiObject = 0
-GETIF_RECOCONTEXT: TfSapiObject = 1
-GETIF_RECOGNIZER: TfSapiObject = 2
-GETIF_VOICE: TfSapiObject = 3
-GETIF_DICTGRAM: TfSapiObject = 4
-GETIF_RECOGNIZERNOINIT: TfSapiObject = 5
+GETIF_RESMGR: win32more.Windows.Win32.UI.TextServices.TfSapiObject = 0
+GETIF_RECOCONTEXT: win32more.Windows.Win32.UI.TextServices.TfSapiObject = 1
+GETIF_RECOGNIZER: win32more.Windows.Win32.UI.TextServices.TfSapiObject = 2
+GETIF_VOICE: win32more.Windows.Win32.UI.TextServices.TfSapiObject = 3
+GETIF_DICTGRAM: win32more.Windows.Win32.UI.TextServices.TfSapiObject = 4
+GETIF_RECOGNIZERNOINIT: win32more.Windows.Win32.UI.TextServices.TfSapiObject = 5
 TfShiftDir = Int32
-TF_SD_BACKWARD: TfShiftDir = 0
-TF_SD_FORWARD: TfShiftDir = 1
+TF_SD_BACKWARD: win32more.Windows.Win32.UI.TextServices.TfShiftDir = 0
+TF_SD_FORWARD: win32more.Windows.Win32.UI.TextServices.TfShiftDir = 1
 TsActiveSelEnd = Int32
-TS_AE_NONE: TsActiveSelEnd = 0
-TS_AE_START: TsActiveSelEnd = 1
-TS_AE_END: TsActiveSelEnd = 2
+TS_AE_NONE: win32more.Windows.Win32.UI.TextServices.TsActiveSelEnd = 0
+TS_AE_START: win32more.Windows.Win32.UI.TextServices.TsActiveSelEnd = 1
+TS_AE_END: win32more.Windows.Win32.UI.TextServices.TsActiveSelEnd = 2
 TsGravity = Int32
-TS_GR_BACKWARD: TsGravity = 0
-TS_GR_FORWARD: TsGravity = 1
+TS_GR_BACKWARD: win32more.Windows.Win32.UI.TextServices.TsGravity = 0
+TS_GR_FORWARD: win32more.Windows.Win32.UI.TextServices.TsGravity = 1
 TsLayoutCode = Int32
-TS_LC_CREATE: TsLayoutCode = 0
-TS_LC_CHANGE: TsLayoutCode = 1
-TS_LC_DESTROY: TsLayoutCode = 2
+TS_LC_CREATE: win32more.Windows.Win32.UI.TextServices.TsLayoutCode = 0
+TS_LC_CHANGE: win32more.Windows.Win32.UI.TextServices.TsLayoutCode = 1
+TS_LC_DESTROY: win32more.Windows.Win32.UI.TextServices.TsLayoutCode = 2
 TsRunType = Int32
-TS_RT_PLAIN: TsRunType = 0
-TS_RT_HIDDEN: TsRunType = 1
-TS_RT_OPAQUE: TsRunType = 2
+TS_RT_PLAIN: win32more.Windows.Win32.UI.TextServices.TsRunType = 0
+TS_RT_HIDDEN: win32more.Windows.Win32.UI.TextServices.TsRunType = 1
+TS_RT_OPAQUE: win32more.Windows.Win32.UI.TextServices.TsRunType = 2
 TsShiftDir = Int32
-TS_SD_BACKWARD: TsShiftDir = 0
-TS_SD_FORWARD: TsShiftDir = 1
+TS_SD_BACKWARD: win32more.Windows.Win32.UI.TextServices.TsShiftDir = 0
+TS_SD_FORWARD: win32more.Windows.Win32.UI.TextServices.TsShiftDir = 1
+
+
 make_ready(__name__)

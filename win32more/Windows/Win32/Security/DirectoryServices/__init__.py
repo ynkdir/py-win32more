@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.Security.Authorization.UI
@@ -33,4 +32,6 @@ def PFNDSEDITSECURITY(param0: win32more.Windows.Win32.Foundation.HWND, param1: w
 def PFNREADOBJECTSECURITY(param0: win32more.Windows.Win32.Foundation.PWSTR, param1: UInt32, param2: POINTER(win32more.Windows.Win32.Security.PSECURITY_DESCRIPTOR), param3: win32more.Windows.Win32.Foundation.LPARAM) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def PFNWRITEOBJECTSECURITY(param0: win32more.Windows.Win32.Foundation.PWSTR, param1: UInt32, param2: win32more.Windows.Win32.Security.PSECURITY_DESCRIPTOR, param3: win32more.Windows.Win32.Foundation.LPARAM) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+
+
 make_ready(__name__)

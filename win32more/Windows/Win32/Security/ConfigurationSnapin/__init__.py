@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security.ConfigurationSnapin
 import win32more.Windows.Win32.System.Com
@@ -90,13 +89,15 @@ class SCESVC_CONFIGURATION_LINE(EasyCastStructure):
     Value: POINTER(SByte)
     ValueLen: UInt32
 SCESVC_INFO_TYPE = Int32
-SCESVC_INFO_TYPE_SceSvcConfigurationInfo: SCESVC_INFO_TYPE = 0
-SCESVC_INFO_TYPE_SceSvcMergedPolicyInfo: SCESVC_INFO_TYPE = 1
-SCESVC_INFO_TYPE_SceSvcAnalysisInfo: SCESVC_INFO_TYPE = 2
-SCESVC_INFO_TYPE_SceSvcInternalUse: SCESVC_INFO_TYPE = 3
+SCESVC_INFO_TYPE_SceSvcConfigurationInfo: win32more.Windows.Win32.Security.ConfigurationSnapin.SCESVC_INFO_TYPE = 0
+SCESVC_INFO_TYPE_SceSvcMergedPolicyInfo: win32more.Windows.Win32.Security.ConfigurationSnapin.SCESVC_INFO_TYPE = 1
+SCESVC_INFO_TYPE_SceSvcAnalysisInfo: win32more.Windows.Win32.Security.ConfigurationSnapin.SCESVC_INFO_TYPE = 2
+SCESVC_INFO_TYPE_SceSvcInternalUse: win32more.Windows.Win32.Security.ConfigurationSnapin.SCESVC_INFO_TYPE = 3
 SCE_LOG_ERR_LEVEL = Int32
-SCE_LOG_LEVEL_ALWAYS: SCE_LOG_ERR_LEVEL = 0
-SCE_LOG_LEVEL_ERROR: SCE_LOG_ERR_LEVEL = 1
-SCE_LOG_LEVEL_DETAIL: SCE_LOG_ERR_LEVEL = 2
-SCE_LOG_LEVEL_DEBUG: SCE_LOG_ERR_LEVEL = 3
+SCE_LOG_LEVEL_ALWAYS: win32more.Windows.Win32.Security.ConfigurationSnapin.SCE_LOG_ERR_LEVEL = 0
+SCE_LOG_LEVEL_ERROR: win32more.Windows.Win32.Security.ConfigurationSnapin.SCE_LOG_ERR_LEVEL = 1
+SCE_LOG_LEVEL_DETAIL: win32more.Windows.Win32.Security.ConfigurationSnapin.SCE_LOG_ERR_LEVEL = 2
+SCE_LOG_LEVEL_DEBUG: win32more.Windows.Win32.Security.ConfigurationSnapin.SCE_LOG_ERR_LEVEL = 3
+
+
 make_ready(__name__)

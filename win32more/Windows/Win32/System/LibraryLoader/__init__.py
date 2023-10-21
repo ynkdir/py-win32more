@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.LibraryLoader
 FIND_RESOURCE_DIRECTORY_TYPES: UInt32 = 256
@@ -130,20 +129,20 @@ class ENUMUILANG(EasyCastStructure):
     SizeOfEnumUIBuffer: UInt32
     pEnumUIBuffer: POINTER(UInt16)
 LOAD_LIBRARY_FLAGS = UInt32
-DONT_RESOLVE_DLL_REFERENCES: LOAD_LIBRARY_FLAGS = 1
-LOAD_LIBRARY_AS_DATAFILE: LOAD_LIBRARY_FLAGS = 2
-LOAD_WITH_ALTERED_SEARCH_PATH: LOAD_LIBRARY_FLAGS = 8
-LOAD_IGNORE_CODE_AUTHZ_LEVEL: LOAD_LIBRARY_FLAGS = 16
-LOAD_LIBRARY_AS_IMAGE_RESOURCE: LOAD_LIBRARY_FLAGS = 32
-LOAD_LIBRARY_AS_DATAFILE_EXCLUSIVE: LOAD_LIBRARY_FLAGS = 64
-LOAD_LIBRARY_REQUIRE_SIGNED_TARGET: LOAD_LIBRARY_FLAGS = 128
-LOAD_LIBRARY_SEARCH_DLL_LOAD_DIR: LOAD_LIBRARY_FLAGS = 256
-LOAD_LIBRARY_SEARCH_APPLICATION_DIR: LOAD_LIBRARY_FLAGS = 512
-LOAD_LIBRARY_SEARCH_USER_DIRS: LOAD_LIBRARY_FLAGS = 1024
-LOAD_LIBRARY_SEARCH_SYSTEM32: LOAD_LIBRARY_FLAGS = 2048
-LOAD_LIBRARY_SEARCH_DEFAULT_DIRS: LOAD_LIBRARY_FLAGS = 4096
-LOAD_LIBRARY_SAFE_CURRENT_DIRS: LOAD_LIBRARY_FLAGS = 8192
-LOAD_LIBRARY_SEARCH_SYSTEM32_NO_FORWARDER: LOAD_LIBRARY_FLAGS = 16384
+DONT_RESOLVE_DLL_REFERENCES: win32more.Windows.Win32.System.LibraryLoader.LOAD_LIBRARY_FLAGS = 1
+LOAD_LIBRARY_AS_DATAFILE: win32more.Windows.Win32.System.LibraryLoader.LOAD_LIBRARY_FLAGS = 2
+LOAD_WITH_ALTERED_SEARCH_PATH: win32more.Windows.Win32.System.LibraryLoader.LOAD_LIBRARY_FLAGS = 8
+LOAD_IGNORE_CODE_AUTHZ_LEVEL: win32more.Windows.Win32.System.LibraryLoader.LOAD_LIBRARY_FLAGS = 16
+LOAD_LIBRARY_AS_IMAGE_RESOURCE: win32more.Windows.Win32.System.LibraryLoader.LOAD_LIBRARY_FLAGS = 32
+LOAD_LIBRARY_AS_DATAFILE_EXCLUSIVE: win32more.Windows.Win32.System.LibraryLoader.LOAD_LIBRARY_FLAGS = 64
+LOAD_LIBRARY_REQUIRE_SIGNED_TARGET: win32more.Windows.Win32.System.LibraryLoader.LOAD_LIBRARY_FLAGS = 128
+LOAD_LIBRARY_SEARCH_DLL_LOAD_DIR: win32more.Windows.Win32.System.LibraryLoader.LOAD_LIBRARY_FLAGS = 256
+LOAD_LIBRARY_SEARCH_APPLICATION_DIR: win32more.Windows.Win32.System.LibraryLoader.LOAD_LIBRARY_FLAGS = 512
+LOAD_LIBRARY_SEARCH_USER_DIRS: win32more.Windows.Win32.System.LibraryLoader.LOAD_LIBRARY_FLAGS = 1024
+LOAD_LIBRARY_SEARCH_SYSTEM32: win32more.Windows.Win32.System.LibraryLoader.LOAD_LIBRARY_FLAGS = 2048
+LOAD_LIBRARY_SEARCH_DEFAULT_DIRS: win32more.Windows.Win32.System.LibraryLoader.LOAD_LIBRARY_FLAGS = 4096
+LOAD_LIBRARY_SAFE_CURRENT_DIRS: win32more.Windows.Win32.System.LibraryLoader.LOAD_LIBRARY_FLAGS = 8192
+LOAD_LIBRARY_SEARCH_SYSTEM32_NO_FORWARDER: win32more.Windows.Win32.System.LibraryLoader.LOAD_LIBRARY_FLAGS = 16384
 @winfunctype_pointer
 def PGET_MODULE_HANDLE_EXA(dwFlags: UInt32, lpModuleName: win32more.Windows.Win32.Foundation.PSTR, phModule: POINTER(win32more.Windows.Win32.Foundation.HMODULE)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
@@ -156,4 +155,6 @@ class REDIRECTION_FUNCTION_DESCRIPTOR(EasyCastStructure):
     DllName: win32more.Windows.Win32.Foundation.PSTR
     FunctionName: win32more.Windows.Win32.Foundation.PSTR
     RedirectionTarget: VoidPtr
+
+
 make_ready(__name__)

@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.AI.MachineLearning.WinML
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Direct3D12
@@ -195,13 +194,13 @@ class MLOperatorAttributeNameValue(EasyCastStructure):
         strings: POINTER(POINTER(SByte))
         floats: POINTER(Single)
 MLOperatorAttributeType = UInt32
-MLOperatorAttributeType_Undefined: MLOperatorAttributeType = 0
-MLOperatorAttributeType_Float: MLOperatorAttributeType = 2
-MLOperatorAttributeType_Int: MLOperatorAttributeType = 3
-MLOperatorAttributeType_String: MLOperatorAttributeType = 4
-MLOperatorAttributeType_FloatArray: MLOperatorAttributeType = 7
-MLOperatorAttributeType_IntArray: MLOperatorAttributeType = 8
-MLOperatorAttributeType_StringArray: MLOperatorAttributeType = 9
+MLOperatorAttributeType_Undefined: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorAttributeType = 0
+MLOperatorAttributeType_Float: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorAttributeType = 2
+MLOperatorAttributeType_Int: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorAttributeType = 3
+MLOperatorAttributeType_String: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorAttributeType = 4
+MLOperatorAttributeType_FloatArray: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorAttributeType = 7
+MLOperatorAttributeType_IntArray: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorAttributeType = 8
+MLOperatorAttributeType_StringArray: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorAttributeType = 9
 class MLOperatorEdgeDescription(EasyCastStructure):
     edgeType: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorEdgeType
     Anonymous: _Anonymous_e__Union
@@ -209,16 +208,16 @@ class MLOperatorEdgeDescription(EasyCastStructure):
         reserved: UInt64
         tensorDataType: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorTensorDataType
 MLOperatorEdgeType = UInt32
-MLOperatorEdgeType_Undefined: MLOperatorEdgeType = 0
-MLOperatorEdgeType_Tensor: MLOperatorEdgeType = 1
+MLOperatorEdgeType_Undefined: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorEdgeType = 0
+MLOperatorEdgeType_Tensor: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorEdgeType = 1
 class MLOperatorEdgeTypeConstraint(EasyCastStructure):
     typeLabel: win32more.Windows.Win32.Foundation.PSTR
     allowedTypes: POINTER(win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorEdgeDescription)
     allowedTypeCount: UInt32
 MLOperatorExecutionType = UInt32
-MLOperatorExecutionType_Undefined: MLOperatorExecutionType = 0
-MLOperatorExecutionType_Cpu: MLOperatorExecutionType = 1
-MLOperatorExecutionType_D3D12: MLOperatorExecutionType = 2
+MLOperatorExecutionType_Undefined: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorExecutionType = 0
+MLOperatorExecutionType_Cpu: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorExecutionType = 1
+MLOperatorExecutionType_D3D12: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorExecutionType = 2
 class MLOperatorKernelDescription(EasyCastStructure):
     domain: win32more.Windows.Win32.Foundation.PSTR
     name: win32more.Windows.Win32.Foundation.PSTR
@@ -231,12 +230,12 @@ class MLOperatorKernelDescription(EasyCastStructure):
     options: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorKernelOptions
     executionOptions: UInt32
 MLOperatorKernelOptions = UInt32
-MLOperatorKernelOptions_None: MLOperatorKernelOptions = 0
-MLOperatorKernelOptions_AllowDynamicInputShapes: MLOperatorKernelOptions = 1
+MLOperatorKernelOptions_None: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorKernelOptions = 0
+MLOperatorKernelOptions_AllowDynamicInputShapes: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorKernelOptions = 1
 MLOperatorParameterOptions = UInt32
-MLOperatorParameterOptions_Single: MLOperatorParameterOptions = 0
-MLOperatorParameterOptions_Optional: MLOperatorParameterOptions = 1
-MLOperatorParameterOptions_Variadic: MLOperatorParameterOptions = 2
+MLOperatorParameterOptions_Single: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorParameterOptions = 0
+MLOperatorParameterOptions_Optional: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorParameterOptions = 1
+MLOperatorParameterOptions_Variadic: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorParameterOptions = 2
 class MLOperatorSchemaDescription(EasyCastStructure):
     name: win32more.Windows.Win32.Foundation.PSTR
     operatorSetVersionAtLastChange: Int32
@@ -259,28 +258,28 @@ class MLOperatorSchemaEdgeDescription(EasyCastStructure):
         typeLabel: win32more.Windows.Win32.Foundation.PSTR
         edgeDescription: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorEdgeDescription
 MLOperatorSchemaEdgeTypeFormat = Int32
-MLOperatorSchemaEdgeTypeFormat_EdgeDescription: MLOperatorSchemaEdgeTypeFormat = 0
-MLOperatorSchemaEdgeTypeFormat_Label: MLOperatorSchemaEdgeTypeFormat = 1
+MLOperatorSchemaEdgeTypeFormat_EdgeDescription: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorSchemaEdgeTypeFormat = 0
+MLOperatorSchemaEdgeTypeFormat_Label: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorSchemaEdgeTypeFormat = 1
 class MLOperatorSetId(EasyCastStructure):
     domain: win32more.Windows.Win32.Foundation.PSTR
     version: Int32
 MLOperatorTensorDataType = UInt32
-MLOperatorTensorDataType_Undefined: MLOperatorTensorDataType = 0
-MLOperatorTensorDataType_Float: MLOperatorTensorDataType = 1
-MLOperatorTensorDataType_UInt8: MLOperatorTensorDataType = 2
-MLOperatorTensorDataType_Int8: MLOperatorTensorDataType = 3
-MLOperatorTensorDataType_UInt16: MLOperatorTensorDataType = 4
-MLOperatorTensorDataType_Int16: MLOperatorTensorDataType = 5
-MLOperatorTensorDataType_Int32: MLOperatorTensorDataType = 6
-MLOperatorTensorDataType_Int64: MLOperatorTensorDataType = 7
-MLOperatorTensorDataType_String: MLOperatorTensorDataType = 8
-MLOperatorTensorDataType_Bool: MLOperatorTensorDataType = 9
-MLOperatorTensorDataType_Float16: MLOperatorTensorDataType = 10
-MLOperatorTensorDataType_Double: MLOperatorTensorDataType = 11
-MLOperatorTensorDataType_UInt32: MLOperatorTensorDataType = 12
-MLOperatorTensorDataType_UInt64: MLOperatorTensorDataType = 13
-MLOperatorTensorDataType_Complex64: MLOperatorTensorDataType = 14
-MLOperatorTensorDataType_Complex128: MLOperatorTensorDataType = 15
+MLOperatorTensorDataType_Undefined: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorTensorDataType = 0
+MLOperatorTensorDataType_Float: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorTensorDataType = 1
+MLOperatorTensorDataType_UInt8: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorTensorDataType = 2
+MLOperatorTensorDataType_Int8: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorTensorDataType = 3
+MLOperatorTensorDataType_UInt16: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorTensorDataType = 4
+MLOperatorTensorDataType_Int16: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorTensorDataType = 5
+MLOperatorTensorDataType_Int32: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorTensorDataType = 6
+MLOperatorTensorDataType_Int64: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorTensorDataType = 7
+MLOperatorTensorDataType_String: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorTensorDataType = 8
+MLOperatorTensorDataType_Bool: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorTensorDataType = 9
+MLOperatorTensorDataType_Float16: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorTensorDataType = 10
+MLOperatorTensorDataType_Double: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorTensorDataType = 11
+MLOperatorTensorDataType_UInt32: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorTensorDataType = 12
+MLOperatorTensorDataType_UInt64: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorTensorDataType = 13
+MLOperatorTensorDataType_Complex64: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorTensorDataType = 14
+MLOperatorTensorDataType_Complex128: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorTensorDataType = 15
 class WINML_BINDING_DESC(EasyCastStructure):
     Name: win32more.Windows.Win32.Foundation.PWSTR
     BindType: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_BINDING_TYPE
@@ -292,18 +291,18 @@ class WINML_BINDING_DESC(EasyCastStructure):
         Image: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_IMAGE_BINDING_DESC
         Resource: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_RESOURCE_BINDING_DESC
 WINML_BINDING_TYPE = Int32
-WINML_BINDING_UNDEFINED: WINML_BINDING_TYPE = 0
-WINML_BINDING_TENSOR: WINML_BINDING_TYPE = 1
-WINML_BINDING_SEQUENCE: WINML_BINDING_TYPE = 2
-WINML_BINDING_MAP: WINML_BINDING_TYPE = 3
-WINML_BINDING_IMAGE: WINML_BINDING_TYPE = 4
-WINML_BINDING_RESOURCE: WINML_BINDING_TYPE = 5
+WINML_BINDING_UNDEFINED: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_BINDING_TYPE = 0
+WINML_BINDING_TENSOR: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_BINDING_TYPE = 1
+WINML_BINDING_SEQUENCE: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_BINDING_TYPE = 2
+WINML_BINDING_MAP: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_BINDING_TYPE = 3
+WINML_BINDING_IMAGE: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_BINDING_TYPE = 4
+WINML_BINDING_RESOURCE: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_BINDING_TYPE = 5
 WINML_FEATURE_TYPE = Int32
-WINML_FEATURE_UNDEFINED: WINML_FEATURE_TYPE = 0
-WINML_FEATURE_TENSOR: WINML_FEATURE_TYPE = 1
-WINML_FEATURE_SEQUENCE: WINML_FEATURE_TYPE = 2
-WINML_FEATURE_MAP: WINML_FEATURE_TYPE = 3
-WINML_FEATURE_IMAGE: WINML_FEATURE_TYPE = 4
+WINML_FEATURE_UNDEFINED: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_FEATURE_TYPE = 0
+WINML_FEATURE_TENSOR: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_FEATURE_TYPE = 1
+WINML_FEATURE_SEQUENCE: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_FEATURE_TYPE = 2
+WINML_FEATURE_MAP: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_FEATURE_TYPE = 3
+WINML_FEATURE_IMAGE: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_FEATURE_TYPE = 4
 class WINML_IMAGE_BINDING_DESC(EasyCastStructure):
     ElementType: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_TENSOR_DATA_TYPE
     NumDimensions: UInt32
@@ -343,7 +342,7 @@ class WINML_RESOURCE_BINDING_DESC(EasyCastStructure):
     pShape: POINTER(Int64)
     pResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource
 WINML_RUNTIME_TYPE = Int32
-WINML_RUNTIME_CNTK: WINML_RUNTIME_TYPE = 0
+WINML_RUNTIME_CNTK: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_RUNTIME_TYPE = 0
 class WINML_SEQUENCE_BINDING_DESC(EasyCastStructure):
     ElementCount: UInt32
     ElementType: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_TENSOR_DATA_TYPE
@@ -362,22 +361,22 @@ class WINML_TENSOR_BINDING_DESC(EasyCastStructure):
     DataSize: UInt32
     pData: VoidPtr
 WINML_TENSOR_DATA_TYPE = Int32
-WINML_TENSOR_UNDEFINED: WINML_TENSOR_DATA_TYPE = 0
-WINML_TENSOR_FLOAT: WINML_TENSOR_DATA_TYPE = 1
-WINML_TENSOR_UINT8: WINML_TENSOR_DATA_TYPE = 2
-WINML_TENSOR_INT8: WINML_TENSOR_DATA_TYPE = 3
-WINML_TENSOR_UINT16: WINML_TENSOR_DATA_TYPE = 4
-WINML_TENSOR_INT16: WINML_TENSOR_DATA_TYPE = 5
-WINML_TENSOR_INT32: WINML_TENSOR_DATA_TYPE = 6
-WINML_TENSOR_INT64: WINML_TENSOR_DATA_TYPE = 7
-WINML_TENSOR_STRING: WINML_TENSOR_DATA_TYPE = 8
-WINML_TENSOR_BOOLEAN: WINML_TENSOR_DATA_TYPE = 9
-WINML_TENSOR_FLOAT16: WINML_TENSOR_DATA_TYPE = 10
-WINML_TENSOR_DOUBLE: WINML_TENSOR_DATA_TYPE = 11
-WINML_TENSOR_UINT32: WINML_TENSOR_DATA_TYPE = 12
-WINML_TENSOR_UINT64: WINML_TENSOR_DATA_TYPE = 13
-WINML_TENSOR_COMPLEX64: WINML_TENSOR_DATA_TYPE = 14
-WINML_TENSOR_COMPLEX128: WINML_TENSOR_DATA_TYPE = 15
+WINML_TENSOR_UNDEFINED: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_TENSOR_DATA_TYPE = 0
+WINML_TENSOR_FLOAT: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_TENSOR_DATA_TYPE = 1
+WINML_TENSOR_UINT8: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_TENSOR_DATA_TYPE = 2
+WINML_TENSOR_INT8: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_TENSOR_DATA_TYPE = 3
+WINML_TENSOR_UINT16: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_TENSOR_DATA_TYPE = 4
+WINML_TENSOR_INT16: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_TENSOR_DATA_TYPE = 5
+WINML_TENSOR_INT32: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_TENSOR_DATA_TYPE = 6
+WINML_TENSOR_INT64: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_TENSOR_DATA_TYPE = 7
+WINML_TENSOR_STRING: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_TENSOR_DATA_TYPE = 8
+WINML_TENSOR_BOOLEAN: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_TENSOR_DATA_TYPE = 9
+WINML_TENSOR_FLOAT16: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_TENSOR_DATA_TYPE = 10
+WINML_TENSOR_DOUBLE: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_TENSOR_DATA_TYPE = 11
+WINML_TENSOR_UINT32: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_TENSOR_DATA_TYPE = 12
+WINML_TENSOR_UINT64: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_TENSOR_DATA_TYPE = 13
+WINML_TENSOR_COMPLEX64: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_TENSOR_DATA_TYPE = 14
+WINML_TENSOR_COMPLEX128: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_TENSOR_DATA_TYPE = 15
 class WINML_TENSOR_VARIABLE_DESC(EasyCastStructure):
     ElementType: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_TENSOR_DATA_TYPE
     NumDimensions: UInt32
@@ -393,4 +392,6 @@ class WINML_VARIABLE_DESC(EasyCastStructure):
         Sequence: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_SEQUENCE_VARIABLE_DESC
         Map: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_MAP_VARIABLE_DESC
         Image: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_IMAGE_VARIABLE_DESC
+
+
 make_ready(__name__)

@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.Com.StructuredStorage
@@ -190,18 +189,18 @@ class NEW_EVENT_DATA_AVAILABLE(EasyCastStructure):
     dwVersion: UInt32
     _pack_ = 1
 SCF_BUTTON_IDS = Int32
-SCF_BUTTON_MENU: SCF_BUTTON_IDS = 1
-SCF_BUTTON_SELECT: SCF_BUTTON_IDS = 2
-SCF_BUTTON_UP: SCF_BUTTON_IDS = 3
-SCF_BUTTON_DOWN: SCF_BUTTON_IDS = 4
-SCF_BUTTON_LEFT: SCF_BUTTON_IDS = 5
-SCF_BUTTON_RIGHT: SCF_BUTTON_IDS = 6
-SCF_BUTTON_PLAY: SCF_BUTTON_IDS = 7
-SCF_BUTTON_PAUSE: SCF_BUTTON_IDS = 8
-SCF_BUTTON_FASTFORWARD: SCF_BUTTON_IDS = 9
-SCF_BUTTON_REWIND: SCF_BUTTON_IDS = 10
-SCF_BUTTON_STOP: SCF_BUTTON_IDS = 11
-SCF_BUTTON_BACK: SCF_BUTTON_IDS = 65280
+SCF_BUTTON_MENU: win32more.Windows.Win32.System.SideShow.SCF_BUTTON_IDS = 1
+SCF_BUTTON_SELECT: win32more.Windows.Win32.System.SideShow.SCF_BUTTON_IDS = 2
+SCF_BUTTON_UP: win32more.Windows.Win32.System.SideShow.SCF_BUTTON_IDS = 3
+SCF_BUTTON_DOWN: win32more.Windows.Win32.System.SideShow.SCF_BUTTON_IDS = 4
+SCF_BUTTON_LEFT: win32more.Windows.Win32.System.SideShow.SCF_BUTTON_IDS = 5
+SCF_BUTTON_RIGHT: win32more.Windows.Win32.System.SideShow.SCF_BUTTON_IDS = 6
+SCF_BUTTON_PLAY: win32more.Windows.Win32.System.SideShow.SCF_BUTTON_IDS = 7
+SCF_BUTTON_PAUSE: win32more.Windows.Win32.System.SideShow.SCF_BUTTON_IDS = 8
+SCF_BUTTON_FASTFORWARD: win32more.Windows.Win32.System.SideShow.SCF_BUTTON_IDS = 9
+SCF_BUTTON_REWIND: win32more.Windows.Win32.System.SideShow.SCF_BUTTON_IDS = 10
+SCF_BUTTON_STOP: win32more.Windows.Win32.System.SideShow.SCF_BUTTON_IDS = 11
+SCF_BUTTON_BACK: win32more.Windows.Win32.System.SideShow.SCF_BUTTON_IDS = 65280
 class SCF_CONTEXTMENU_EVENT(EasyCastStructure):
     PreviousPage: UInt32
     TargetPage: UInt32
@@ -212,9 +211,9 @@ class SCF_EVENT_HEADER(EasyCastStructure):
     PreviousPage: UInt32
     TargetPage: UInt32
 SCF_EVENT_IDS = Int32
-SCF_EVENT_NAVIGATION: SCF_EVENT_IDS = 1
-SCF_EVENT_MENUACTION: SCF_EVENT_IDS = 2
-SCF_EVENT_CONTEXTMENU: SCF_EVENT_IDS = 3
+SCF_EVENT_NAVIGATION: win32more.Windows.Win32.System.SideShow.SCF_EVENT_IDS = 1
+SCF_EVENT_MENUACTION: win32more.Windows.Win32.System.SideShow.SCF_EVENT_IDS = 2
+SCF_EVENT_CONTEXTMENU: win32more.Windows.Win32.System.SideShow.SCF_EVENT_IDS = 3
 class SCF_MENUACTION_EVENT(EasyCastStructure):
     PreviousPage: UInt32
     TargetPage: UInt32
@@ -225,14 +224,16 @@ class SCF_NAVIGATION_EVENT(EasyCastStructure):
     TargetPage: UInt32
     Button: UInt32
 SIDESHOW_COLOR_TYPE = Int32
-SIDESHOW_COLOR_TYPE_COLOR: SIDESHOW_COLOR_TYPE = 0
-SIDESHOW_COLOR_TYPE_GREYSCALE: SIDESHOW_COLOR_TYPE = 1
-SIDESHOW_COLOR_TYPE_BLACK_AND_WHITE: SIDESHOW_COLOR_TYPE = 2
+SIDESHOW_COLOR_TYPE_COLOR: win32more.Windows.Win32.System.SideShow.SIDESHOW_COLOR_TYPE = 0
+SIDESHOW_COLOR_TYPE_GREYSCALE: win32more.Windows.Win32.System.SideShow.SIDESHOW_COLOR_TYPE = 1
+SIDESHOW_COLOR_TYPE_BLACK_AND_WHITE: win32more.Windows.Win32.System.SideShow.SIDESHOW_COLOR_TYPE = 2
 SIDESHOW_SCREEN_TYPE = Int32
-SIDESHOW_SCREEN_TYPE_BITMAP: SIDESHOW_SCREEN_TYPE = 0
-SIDESHOW_SCREEN_TYPE_TEXT: SIDESHOW_SCREEN_TYPE = 1
+SIDESHOW_SCREEN_TYPE_BITMAP: win32more.Windows.Win32.System.SideShow.SIDESHOW_SCREEN_TYPE = 0
+SIDESHOW_SCREEN_TYPE_TEXT: win32more.Windows.Win32.System.SideShow.SIDESHOW_SCREEN_TYPE = 1
 SideShowKeyCollection = Guid('{dfbbdbf8-18de-49b8-83dc-ebc727c62d94}')
 SideShowNotification = Guid('{0ce3e86f-d5cd-4525-a766-1abab1a752f5}')
 SideShowPropVariantCollection = Guid('{e640f415-539e-4923-96cd-5f093bc250cd}')
 SideShowSession = Guid('{e20543b9-f785-4ea2-981e-c4ffa76bbc7c}')
+
+
 make_ready(__name__)

@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Diagnostics.ToolHelp
 MAX_MODULE_NAME32: UInt32 = 255
@@ -39,13 +38,13 @@ def Module32First(hSnapshot: win32more.Windows.Win32.Foundation.HANDLE, lpme: PO
 @winfunctype('KERNEL32.dll')
 def Module32Next(hSnapshot: win32more.Windows.Win32.Foundation.HANDLE, lpme: POINTER(win32more.Windows.Win32.System.Diagnostics.ToolHelp.MODULEENTRY32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 CREATE_TOOLHELP_SNAPSHOT_FLAGS = UInt32
-TH32CS_INHERIT: CREATE_TOOLHELP_SNAPSHOT_FLAGS = 2147483648
-TH32CS_SNAPALL: CREATE_TOOLHELP_SNAPSHOT_FLAGS = 15
-TH32CS_SNAPHEAPLIST: CREATE_TOOLHELP_SNAPSHOT_FLAGS = 1
-TH32CS_SNAPMODULE: CREATE_TOOLHELP_SNAPSHOT_FLAGS = 8
-TH32CS_SNAPMODULE32: CREATE_TOOLHELP_SNAPSHOT_FLAGS = 16
-TH32CS_SNAPPROCESS: CREATE_TOOLHELP_SNAPSHOT_FLAGS = 2
-TH32CS_SNAPTHREAD: CREATE_TOOLHELP_SNAPSHOT_FLAGS = 4
+TH32CS_INHERIT: win32more.Windows.Win32.System.Diagnostics.ToolHelp.CREATE_TOOLHELP_SNAPSHOT_FLAGS = 2147483648
+TH32CS_SNAPALL: win32more.Windows.Win32.System.Diagnostics.ToolHelp.CREATE_TOOLHELP_SNAPSHOT_FLAGS = 15
+TH32CS_SNAPHEAPLIST: win32more.Windows.Win32.System.Diagnostics.ToolHelp.CREATE_TOOLHELP_SNAPSHOT_FLAGS = 1
+TH32CS_SNAPMODULE: win32more.Windows.Win32.System.Diagnostics.ToolHelp.CREATE_TOOLHELP_SNAPSHOT_FLAGS = 8
+TH32CS_SNAPMODULE32: win32more.Windows.Win32.System.Diagnostics.ToolHelp.CREATE_TOOLHELP_SNAPSHOT_FLAGS = 16
+TH32CS_SNAPPROCESS: win32more.Windows.Win32.System.Diagnostics.ToolHelp.CREATE_TOOLHELP_SNAPSHOT_FLAGS = 2
+TH32CS_SNAPTHREAD: win32more.Windows.Win32.System.Diagnostics.ToolHelp.CREATE_TOOLHELP_SNAPSHOT_FLAGS = 4
 class HEAPENTRY32(EasyCastStructure):
     dwSize: UIntPtr
     hHandle: win32more.Windows.Win32.Foundation.HANDLE
@@ -57,9 +56,9 @@ class HEAPENTRY32(EasyCastStructure):
     th32ProcessID: UInt32
     th32HeapID: UIntPtr
 HEAPENTRY32_FLAGS = UInt32
-LF32_FIXED: HEAPENTRY32_FLAGS = 1
-LF32_FREE: HEAPENTRY32_FLAGS = 2
-LF32_MOVEABLE: HEAPENTRY32_FLAGS = 4
+LF32_FIXED: win32more.Windows.Win32.System.Diagnostics.ToolHelp.HEAPENTRY32_FLAGS = 1
+LF32_FREE: win32more.Windows.Win32.System.Diagnostics.ToolHelp.HEAPENTRY32_FLAGS = 2
+LF32_MOVEABLE: win32more.Windows.Win32.System.Diagnostics.ToolHelp.HEAPENTRY32_FLAGS = 4
 class HEAPLIST32(EasyCastStructure):
     dwSize: UIntPtr
     th32ProcessID: UInt32
@@ -117,4 +116,6 @@ class THREADENTRY32(EasyCastStructure):
     tpBasePri: Int32
     tpDeltaPri: Int32
     dwFlags: UInt32
+
+
 make_ready(__name__)

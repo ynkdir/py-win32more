@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.UI.Shell
@@ -10,11 +9,11 @@ class ACCEL(EasyCastStructure):
     key: UInt16
     cmd: UInt16
 ACCEL_VIRT_FLAGS = Byte
-FVIRTKEY: ACCEL_VIRT_FLAGS = 1
-FNOINVERT: ACCEL_VIRT_FLAGS = 2
-FSHIFT: ACCEL_VIRT_FLAGS = 4
-FCONTROL: ACCEL_VIRT_FLAGS = 8
-FALT: ACCEL_VIRT_FLAGS = 16
+FVIRTKEY: win32more.Windows.Win32.UI.WindowsAndMessaging.ACCEL_VIRT_FLAGS = 1
+FNOINVERT: win32more.Windows.Win32.UI.WindowsAndMessaging.ACCEL_VIRT_FLAGS = 2
+FSHIFT: win32more.Windows.Win32.UI.WindowsAndMessaging.ACCEL_VIRT_FLAGS = 4
+FCONTROL: win32more.Windows.Win32.UI.WindowsAndMessaging.ACCEL_VIRT_FLAGS = 8
+FALT: win32more.Windows.Win32.UI.WindowsAndMessaging.ACCEL_VIRT_FLAGS = 16
 class ALTTABINFO(EasyCastStructure):
     cbSize: UInt32
     cItems: Int32
@@ -26,15 +25,15 @@ class ALTTABINFO(EasyCastStructure):
     cyItem: Int32
     ptStart: win32more.Windows.Win32.Foundation.POINT
 ANIMATE_WINDOW_FLAGS = UInt32
-AW_ACTIVATE: ANIMATE_WINDOW_FLAGS = 131072
-AW_BLEND: ANIMATE_WINDOW_FLAGS = 524288
-AW_CENTER: ANIMATE_WINDOW_FLAGS = 16
-AW_HIDE: ANIMATE_WINDOW_FLAGS = 65536
-AW_HOR_POSITIVE: ANIMATE_WINDOW_FLAGS = 1
-AW_HOR_NEGATIVE: ANIMATE_WINDOW_FLAGS = 2
-AW_SLIDE: ANIMATE_WINDOW_FLAGS = 262144
-AW_VER_POSITIVE: ANIMATE_WINDOW_FLAGS = 4
-AW_VER_NEGATIVE: ANIMATE_WINDOW_FLAGS = 8
+AW_ACTIVATE: win32more.Windows.Win32.UI.WindowsAndMessaging.ANIMATE_WINDOW_FLAGS = 131072
+AW_BLEND: win32more.Windows.Win32.UI.WindowsAndMessaging.ANIMATE_WINDOW_FLAGS = 524288
+AW_CENTER: win32more.Windows.Win32.UI.WindowsAndMessaging.ANIMATE_WINDOW_FLAGS = 16
+AW_HIDE: win32more.Windows.Win32.UI.WindowsAndMessaging.ANIMATE_WINDOW_FLAGS = 65536
+AW_HOR_POSITIVE: win32more.Windows.Win32.UI.WindowsAndMessaging.ANIMATE_WINDOW_FLAGS = 1
+AW_HOR_NEGATIVE: win32more.Windows.Win32.UI.WindowsAndMessaging.ANIMATE_WINDOW_FLAGS = 2
+AW_SLIDE: win32more.Windows.Win32.UI.WindowsAndMessaging.ANIMATE_WINDOW_FLAGS = 262144
+AW_VER_POSITIVE: win32more.Windows.Win32.UI.WindowsAndMessaging.ANIMATE_WINDOW_FLAGS = 4
+AW_VER_NEGATIVE: win32more.Windows.Win32.UI.WindowsAndMessaging.ANIMATE_WINDOW_FLAGS = 8
 class ANIMATIONINFO(EasyCastStructure):
     cbSize: UInt32
     iMinAnimate: Int32
@@ -2265,8 +2264,8 @@ def MrmCreateConfigInMemory(platformVersion: win32more.Windows.Win32.UI.WindowsA
 @winfunctype('MrmSupport.dll')
 def MrmGetPriFileContentChecksum(priFile: win32more.Windows.Win32.Foundation.PWSTR, checksum: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 CASCADE_WINDOWS_HOW = UInt32
-MDITILE_SKIPDISABLED: CASCADE_WINDOWS_HOW = 2
-MDITILE_ZORDER: CASCADE_WINDOWS_HOW = 4
+MDITILE_SKIPDISABLED: win32more.Windows.Win32.UI.WindowsAndMessaging.CASCADE_WINDOWS_HOW = 2
+MDITILE_ZORDER: win32more.Windows.Win32.UI.WindowsAndMessaging.CASCADE_WINDOWS_HOW = 4
 class CBTACTIVATESTRUCT(EasyCastStructure):
     fMouse: win32more.Windows.Win32.Foundation.BOOL
     hWndActive: win32more.Windows.Win32.Foundation.HWND
@@ -2280,8 +2279,8 @@ class CHANGEFILTERSTRUCT(EasyCastStructure):
     cbSize: UInt32
     ExtStatus: win32more.Windows.Win32.UI.WindowsAndMessaging.MSGFLTINFO_STATUS
 CHANGE_WINDOW_MESSAGE_FILTER_FLAGS = UInt32
-MSGFLT_ADD: CHANGE_WINDOW_MESSAGE_FILTER_FLAGS = 1
-MSGFLT_REMOVE: CHANGE_WINDOW_MESSAGE_FILTER_FLAGS = 2
+MSGFLT_ADD: win32more.Windows.Win32.UI.WindowsAndMessaging.CHANGE_WINDOW_MESSAGE_FILTER_FLAGS = 1
+MSGFLT_REMOVE: win32more.Windows.Win32.UI.WindowsAndMessaging.CHANGE_WINDOW_MESSAGE_FILTER_FLAGS = 2
 class CLIENTCREATESTRUCT(EasyCastStructure):
     hWindowMenu: win32more.Windows.Win32.Foundation.HANDLE
     idFirstChild: UInt32
@@ -2317,8 +2316,8 @@ class CURSORINFO(EasyCastStructure):
     hCursor: win32more.Windows.Win32.UI.WindowsAndMessaging.HCURSOR
     ptScreenPos: win32more.Windows.Win32.Foundation.POINT
 CURSORINFO_FLAGS = UInt32
-CURSOR_SHOWING: CURSORINFO_FLAGS = 1
-CURSOR_SUPPRESSED: CURSORINFO_FLAGS = 2
+CURSOR_SHOWING: win32more.Windows.Win32.UI.WindowsAndMessaging.CURSORINFO_FLAGS = 1
+CURSOR_SUPPRESSED: win32more.Windows.Win32.UI.WindowsAndMessaging.CURSORINFO_FLAGS = 2
 class CURSORSHAPE(EasyCastStructure):
     xHotSpot: Int32
     yHotSpot: Int32
@@ -2339,10 +2338,10 @@ class CWPSTRUCT(EasyCastStructure):
     message: UInt32
     hwnd: win32more.Windows.Win32.Foundation.HWND
 CWP_FLAGS = UInt32
-CWP_ALL: CWP_FLAGS = 0
-CWP_SKIPINVISIBLE: CWP_FLAGS = 1
-CWP_SKIPDISABLED: CWP_FLAGS = 2
-CWP_SKIPTRANSPARENT: CWP_FLAGS = 4
+CWP_ALL: win32more.Windows.Win32.UI.WindowsAndMessaging.CWP_FLAGS = 0
+CWP_SKIPINVISIBLE: win32more.Windows.Win32.UI.WindowsAndMessaging.CWP_FLAGS = 1
+CWP_SKIPDISABLED: win32more.Windows.Win32.UI.WindowsAndMessaging.CWP_FLAGS = 2
+CWP_SKIPTRANSPARENT: win32more.Windows.Win32.UI.WindowsAndMessaging.CWP_FLAGS = 4
 class DEBUGHOOKINFO(EasyCastStructure):
     idThread: UInt32
     idThreadInstaller: UInt32
@@ -2422,11 +2421,11 @@ class DEV_BROADCAST_HDR(EasyCastStructure):
     dbch_devicetype: win32more.Windows.Win32.UI.WindowsAndMessaging.DEV_BROADCAST_HDR_DEVICE_TYPE
     dbch_reserved: UInt32
 DEV_BROADCAST_HDR_DEVICE_TYPE = UInt32
-DBT_DEVTYP_DEVICEINTERFACE: DEV_BROADCAST_HDR_DEVICE_TYPE = 5
-DBT_DEVTYP_HANDLE: DEV_BROADCAST_HDR_DEVICE_TYPE = 6
-DBT_DEVTYP_OEM: DEV_BROADCAST_HDR_DEVICE_TYPE = 0
-DBT_DEVTYP_PORT: DEV_BROADCAST_HDR_DEVICE_TYPE = 3
-DBT_DEVTYP_VOLUME: DEV_BROADCAST_HDR_DEVICE_TYPE = 2
+DBT_DEVTYP_DEVICEINTERFACE: win32more.Windows.Win32.UI.WindowsAndMessaging.DEV_BROADCAST_HDR_DEVICE_TYPE = 5
+DBT_DEVTYP_HANDLE: win32more.Windows.Win32.UI.WindowsAndMessaging.DEV_BROADCAST_HDR_DEVICE_TYPE = 6
+DBT_DEVTYP_OEM: win32more.Windows.Win32.UI.WindowsAndMessaging.DEV_BROADCAST_HDR_DEVICE_TYPE = 0
+DBT_DEVTYP_PORT: win32more.Windows.Win32.UI.WindowsAndMessaging.DEV_BROADCAST_HDR_DEVICE_TYPE = 3
+DBT_DEVTYP_VOLUME: win32more.Windows.Win32.UI.WindowsAndMessaging.DEV_BROADCAST_HDR_DEVICE_TYPE = 2
 class DEV_BROADCAST_NET(EasyCastStructure):
     dbcn_size: UInt32
     dbcn_devicetype: UInt32
@@ -2456,17 +2455,17 @@ class DEV_BROADCAST_VOLUME(EasyCastStructure):
     dbcv_unitmask: UInt32
     dbcv_flags: win32more.Windows.Win32.UI.WindowsAndMessaging.DEV_BROADCAST_VOLUME_FLAGS
 DEV_BROADCAST_VOLUME_FLAGS = UInt16
-DBTF_MEDIA: DEV_BROADCAST_VOLUME_FLAGS = 1
-DBTF_NET: DEV_BROADCAST_VOLUME_FLAGS = 2
+DBTF_MEDIA: win32more.Windows.Win32.UI.WindowsAndMessaging.DEV_BROADCAST_VOLUME_FLAGS = 1
+DBTF_NET: win32more.Windows.Win32.UI.WindowsAndMessaging.DEV_BROADCAST_VOLUME_FLAGS = 2
 class DISK_HEALTH_NOTIFICATION_DATA(EasyCastStructure):
     DeviceGuid: Guid
 DI_FLAGS = UInt32
-DI_MASK: DI_FLAGS = 1
-DI_IMAGE: DI_FLAGS = 2
-DI_NORMAL: DI_FLAGS = 3
-DI_COMPAT: DI_FLAGS = 4
-DI_DEFAULTSIZE: DI_FLAGS = 8
-DI_NOMIRROR: DI_FLAGS = 16
+DI_MASK: win32more.Windows.Win32.UI.WindowsAndMessaging.DI_FLAGS = 1
+DI_IMAGE: win32more.Windows.Win32.UI.WindowsAndMessaging.DI_FLAGS = 2
+DI_NORMAL: win32more.Windows.Win32.UI.WindowsAndMessaging.DI_FLAGS = 3
+DI_COMPAT: win32more.Windows.Win32.UI.WindowsAndMessaging.DI_FLAGS = 4
+DI_DEFAULTSIZE: win32more.Windows.Win32.UI.WindowsAndMessaging.DI_FLAGS = 8
+DI_NOMIRROR: win32more.Windows.Win32.UI.WindowsAndMessaging.DI_FLAGS = 16
 class DLGITEMTEMPLATE(EasyCastStructure):
     style: UInt32
     dwExtendedStyle: UInt32
@@ -2495,8 +2494,8 @@ class DROPSTRUCT(EasyCastStructure):
     ptDrop: win32more.Windows.Win32.Foundation.POINT
     dwControlData: UInt32
 EDIT_CONTROL_FEATURE = Int32
-EDIT_CONTROL_FEATURE_ENTERPRISE_DATA_PROTECTION_PASTE_SUPPORT: EDIT_CONTROL_FEATURE = 0
-EDIT_CONTROL_FEATURE_PASTE_NOTIFICATIONS: EDIT_CONTROL_FEATURE = 1
+EDIT_CONTROL_FEATURE_ENTERPRISE_DATA_PROTECTION_PASTE_SUPPORT: win32more.Windows.Win32.UI.WindowsAndMessaging.EDIT_CONTROL_FEATURE = 0
+EDIT_CONTROL_FEATURE_PASTE_NOTIFICATIONS: win32more.Windows.Win32.UI.WindowsAndMessaging.EDIT_CONTROL_FEATURE = 1
 class EVENTMSG(EasyCastStructure):
     message: UInt32
     paramL: UInt32
@@ -2510,57 +2509,57 @@ class FLASHWINFO(EasyCastStructure):
     uCount: UInt32
     dwTimeout: UInt32
 FLASHWINFO_FLAGS = UInt32
-FLASHW_ALL: FLASHWINFO_FLAGS = 3
-FLASHW_CAPTION: FLASHWINFO_FLAGS = 1
-FLASHW_STOP: FLASHWINFO_FLAGS = 0
-FLASHW_TIMER: FLASHWINFO_FLAGS = 4
-FLASHW_TIMERNOFG: FLASHWINFO_FLAGS = 12
-FLASHW_TRAY: FLASHWINFO_FLAGS = 2
+FLASHW_ALL: win32more.Windows.Win32.UI.WindowsAndMessaging.FLASHWINFO_FLAGS = 3
+FLASHW_CAPTION: win32more.Windows.Win32.UI.WindowsAndMessaging.FLASHWINFO_FLAGS = 1
+FLASHW_STOP: win32more.Windows.Win32.UI.WindowsAndMessaging.FLASHWINFO_FLAGS = 0
+FLASHW_TIMER: win32more.Windows.Win32.UI.WindowsAndMessaging.FLASHWINFO_FLAGS = 4
+FLASHW_TIMERNOFG: win32more.Windows.Win32.UI.WindowsAndMessaging.FLASHWINFO_FLAGS = 12
+FLASHW_TRAY: win32more.Windows.Win32.UI.WindowsAndMessaging.FLASHWINFO_FLAGS = 2
 FOREGROUND_WINDOW_LOCK_CODE = UInt32
-LSFW_LOCK: FOREGROUND_WINDOW_LOCK_CODE = 1
-LSFW_UNLOCK: FOREGROUND_WINDOW_LOCK_CODE = 2
+LSFW_LOCK: win32more.Windows.Win32.UI.WindowsAndMessaging.FOREGROUND_WINDOW_LOCK_CODE = 1
+LSFW_UNLOCK: win32more.Windows.Win32.UI.WindowsAndMessaging.FOREGROUND_WINDOW_LOCK_CODE = 2
 GDI_IMAGE_TYPE = UInt32
-IMAGE_BITMAP: GDI_IMAGE_TYPE = 0
-IMAGE_CURSOR: GDI_IMAGE_TYPE = 2
-IMAGE_ICON: GDI_IMAGE_TYPE = 1
+IMAGE_BITMAP: win32more.Windows.Win32.UI.WindowsAndMessaging.GDI_IMAGE_TYPE = 0
+IMAGE_CURSOR: win32more.Windows.Win32.UI.WindowsAndMessaging.GDI_IMAGE_TYPE = 2
+IMAGE_ICON: win32more.Windows.Win32.UI.WindowsAndMessaging.GDI_IMAGE_TYPE = 1
 class GETCLIPBMETADATA(EasyCastStructure):
     Version: UInt32
     IsDelayRendered: win32more.Windows.Win32.Foundation.BOOL
     IsSynthetic: win32more.Windows.Win32.Foundation.BOOL
 GET_ANCESTOR_FLAGS = UInt32
-GA_PARENT: GET_ANCESTOR_FLAGS = 1
-GA_ROOT: GET_ANCESTOR_FLAGS = 2
-GA_ROOTOWNER: GET_ANCESTOR_FLAGS = 3
+GA_PARENT: win32more.Windows.Win32.UI.WindowsAndMessaging.GET_ANCESTOR_FLAGS = 1
+GA_ROOT: win32more.Windows.Win32.UI.WindowsAndMessaging.GET_ANCESTOR_FLAGS = 2
+GA_ROOTOWNER: win32more.Windows.Win32.UI.WindowsAndMessaging.GET_ANCESTOR_FLAGS = 3
 GET_CLASS_LONG_INDEX = Int32
-GCW_ATOM: GET_CLASS_LONG_INDEX = -32
-GCL_CBCLSEXTRA: GET_CLASS_LONG_INDEX = -20
-GCL_CBWNDEXTRA: GET_CLASS_LONG_INDEX = -18
-GCL_HBRBACKGROUND: GET_CLASS_LONG_INDEX = -10
-GCL_HCURSOR: GET_CLASS_LONG_INDEX = -12
-GCL_HICON: GET_CLASS_LONG_INDEX = -14
-GCL_HICONSM: GET_CLASS_LONG_INDEX = -34
-GCL_HMODULE: GET_CLASS_LONG_INDEX = -16
-GCL_MENUNAME: GET_CLASS_LONG_INDEX = -8
-GCL_STYLE: GET_CLASS_LONG_INDEX = -26
-GCL_WNDPROC: GET_CLASS_LONG_INDEX = -24
-GCLP_HBRBACKGROUND: GET_CLASS_LONG_INDEX = -10
-GCLP_HCURSOR: GET_CLASS_LONG_INDEX = -12
-GCLP_HICON: GET_CLASS_LONG_INDEX = -14
-GCLP_HICONSM: GET_CLASS_LONG_INDEX = -34
-GCLP_HMODULE: GET_CLASS_LONG_INDEX = -16
-GCLP_MENUNAME: GET_CLASS_LONG_INDEX = -8
-GCLP_WNDPROC: GET_CLASS_LONG_INDEX = -24
+GCW_ATOM: win32more.Windows.Win32.UI.WindowsAndMessaging.GET_CLASS_LONG_INDEX = -32
+GCL_CBCLSEXTRA: win32more.Windows.Win32.UI.WindowsAndMessaging.GET_CLASS_LONG_INDEX = -20
+GCL_CBWNDEXTRA: win32more.Windows.Win32.UI.WindowsAndMessaging.GET_CLASS_LONG_INDEX = -18
+GCL_HBRBACKGROUND: win32more.Windows.Win32.UI.WindowsAndMessaging.GET_CLASS_LONG_INDEX = -10
+GCL_HCURSOR: win32more.Windows.Win32.UI.WindowsAndMessaging.GET_CLASS_LONG_INDEX = -12
+GCL_HICON: win32more.Windows.Win32.UI.WindowsAndMessaging.GET_CLASS_LONG_INDEX = -14
+GCL_HICONSM: win32more.Windows.Win32.UI.WindowsAndMessaging.GET_CLASS_LONG_INDEX = -34
+GCL_HMODULE: win32more.Windows.Win32.UI.WindowsAndMessaging.GET_CLASS_LONG_INDEX = -16
+GCL_MENUNAME: win32more.Windows.Win32.UI.WindowsAndMessaging.GET_CLASS_LONG_INDEX = -8
+GCL_STYLE: win32more.Windows.Win32.UI.WindowsAndMessaging.GET_CLASS_LONG_INDEX = -26
+GCL_WNDPROC: win32more.Windows.Win32.UI.WindowsAndMessaging.GET_CLASS_LONG_INDEX = -24
+GCLP_HBRBACKGROUND: win32more.Windows.Win32.UI.WindowsAndMessaging.GET_CLASS_LONG_INDEX = -10
+GCLP_HCURSOR: win32more.Windows.Win32.UI.WindowsAndMessaging.GET_CLASS_LONG_INDEX = -12
+GCLP_HICON: win32more.Windows.Win32.UI.WindowsAndMessaging.GET_CLASS_LONG_INDEX = -14
+GCLP_HICONSM: win32more.Windows.Win32.UI.WindowsAndMessaging.GET_CLASS_LONG_INDEX = -34
+GCLP_HMODULE: win32more.Windows.Win32.UI.WindowsAndMessaging.GET_CLASS_LONG_INDEX = -16
+GCLP_MENUNAME: win32more.Windows.Win32.UI.WindowsAndMessaging.GET_CLASS_LONG_INDEX = -8
+GCLP_WNDPROC: win32more.Windows.Win32.UI.WindowsAndMessaging.GET_CLASS_LONG_INDEX = -24
 GET_MENU_DEFAULT_ITEM_FLAGS = UInt32
-GMDI_GOINTOPOPUPS: GET_MENU_DEFAULT_ITEM_FLAGS = 2
-GMDI_USEDISABLED: GET_MENU_DEFAULT_ITEM_FLAGS = 1
+GMDI_GOINTOPOPUPS: win32more.Windows.Win32.UI.WindowsAndMessaging.GET_MENU_DEFAULT_ITEM_FLAGS = 2
+GMDI_USEDISABLED: win32more.Windows.Win32.UI.WindowsAndMessaging.GET_MENU_DEFAULT_ITEM_FLAGS = 1
 GET_WINDOW_CMD = UInt32
-GW_CHILD: GET_WINDOW_CMD = 5
-GW_ENABLEDPOPUP: GET_WINDOW_CMD = 6
-GW_HWNDFIRST: GET_WINDOW_CMD = 0
-GW_HWNDLAST: GET_WINDOW_CMD = 1
-GW_HWNDNEXT: GET_WINDOW_CMD = 2
-GW_HWNDPREV: GET_WINDOW_CMD = 3
-GW_OWNER: GET_WINDOW_CMD = 4
+GW_CHILD: win32more.Windows.Win32.UI.WindowsAndMessaging.GET_WINDOW_CMD = 5
+GW_ENABLEDPOPUP: win32more.Windows.Win32.UI.WindowsAndMessaging.GET_WINDOW_CMD = 6
+GW_HWNDFIRST: win32more.Windows.Win32.UI.WindowsAndMessaging.GET_WINDOW_CMD = 0
+GW_HWNDLAST: win32more.Windows.Win32.UI.WindowsAndMessaging.GET_WINDOW_CMD = 1
+GW_HWNDNEXT: win32more.Windows.Win32.UI.WindowsAndMessaging.GET_WINDOW_CMD = 2
+GW_HWNDPREV: win32more.Windows.Win32.UI.WindowsAndMessaging.GET_WINDOW_CMD = 3
+GW_OWNER: win32more.Windows.Win32.UI.WindowsAndMessaging.GET_WINDOW_CMD = 4
 class GUID_IO_DISK_CLONE_ARRIVAL_INFORMATION(EasyCastStructure):
     DiskNumber: UInt32
 class GUITHREADINFO(EasyCastStructure):
@@ -2574,15 +2573,15 @@ class GUITHREADINFO(EasyCastStructure):
     hwndCaret: win32more.Windows.Win32.Foundation.HWND
     rcCaret: win32more.Windows.Win32.Foundation.RECT
 GUITHREADINFO_FLAGS = UInt32
-GUI_CARETBLINKING: GUITHREADINFO_FLAGS = 1
-GUI_INMENUMODE: GUITHREADINFO_FLAGS = 4
-GUI_INMOVESIZE: GUITHREADINFO_FLAGS = 2
-GUI_POPUPMENUMODE: GUITHREADINFO_FLAGS = 16
-GUI_SYSTEMMENUMODE: GUITHREADINFO_FLAGS = 8
+GUI_CARETBLINKING: win32more.Windows.Win32.UI.WindowsAndMessaging.GUITHREADINFO_FLAGS = 1
+GUI_INMENUMODE: win32more.Windows.Win32.UI.WindowsAndMessaging.GUITHREADINFO_FLAGS = 4
+GUI_INMOVESIZE: win32more.Windows.Win32.UI.WindowsAndMessaging.GUITHREADINFO_FLAGS = 2
+GUI_POPUPMENUMODE: win32more.Windows.Win32.UI.WindowsAndMessaging.GUITHREADINFO_FLAGS = 16
+GUI_SYSTEMMENUMODE: win32more.Windows.Win32.UI.WindowsAndMessaging.GUITHREADINFO_FLAGS = 8
 HACCEL = IntPtr
 HANDEDNESS = Int32
-HANDEDNESS_LEFT: HANDEDNESS = 0
-HANDEDNESS_RIGHT: HANDEDNESS = 1
+HANDEDNESS_LEFT: win32more.Windows.Win32.UI.WindowsAndMessaging.HANDEDNESS = 0
+HANDEDNESS_RIGHT: win32more.Windows.Win32.UI.WindowsAndMessaging.HANDEDNESS = 1
 class HARDWAREHOOKSTRUCT(EasyCastStructure):
     hwnd: win32more.Windows.Win32.Foundation.HWND
     message: UInt32
@@ -2635,18 +2634,18 @@ class ICONMETRICSW(EasyCastStructure):
     iTitleWrap: Int32
     lfFont: win32more.Windows.Win32.Graphics.Gdi.LOGFONTW
 IMAGE_FLAGS = UInt32
-LR_CREATEDIBSECTION: IMAGE_FLAGS = 8192
-LR_DEFAULTCOLOR: IMAGE_FLAGS = 0
-LR_DEFAULTSIZE: IMAGE_FLAGS = 64
-LR_LOADFROMFILE: IMAGE_FLAGS = 16
-LR_LOADMAP3DCOLORS: IMAGE_FLAGS = 4096
-LR_LOADTRANSPARENT: IMAGE_FLAGS = 32
-LR_MONOCHROME: IMAGE_FLAGS = 1
-LR_SHARED: IMAGE_FLAGS = 32768
-LR_VGACOLOR: IMAGE_FLAGS = 128
-LR_COPYDELETEORG: IMAGE_FLAGS = 8
-LR_COPYFROMRESOURCE: IMAGE_FLAGS = 16384
-LR_COPYRETURNORG: IMAGE_FLAGS = 4
+LR_CREATEDIBSECTION: win32more.Windows.Win32.UI.WindowsAndMessaging.IMAGE_FLAGS = 8192
+LR_DEFAULTCOLOR: win32more.Windows.Win32.UI.WindowsAndMessaging.IMAGE_FLAGS = 0
+LR_DEFAULTSIZE: win32more.Windows.Win32.UI.WindowsAndMessaging.IMAGE_FLAGS = 64
+LR_LOADFROMFILE: win32more.Windows.Win32.UI.WindowsAndMessaging.IMAGE_FLAGS = 16
+LR_LOADMAP3DCOLORS: win32more.Windows.Win32.UI.WindowsAndMessaging.IMAGE_FLAGS = 4096
+LR_LOADTRANSPARENT: win32more.Windows.Win32.UI.WindowsAndMessaging.IMAGE_FLAGS = 32
+LR_MONOCHROME: win32more.Windows.Win32.UI.WindowsAndMessaging.IMAGE_FLAGS = 1
+LR_SHARED: win32more.Windows.Win32.UI.WindowsAndMessaging.IMAGE_FLAGS = 32768
+LR_VGACOLOR: win32more.Windows.Win32.UI.WindowsAndMessaging.IMAGE_FLAGS = 128
+LR_COPYDELETEORG: win32more.Windows.Win32.UI.WindowsAndMessaging.IMAGE_FLAGS = 8
+LR_COPYFROMRESOURCE: win32more.Windows.Win32.UI.WindowsAndMessaging.IMAGE_FLAGS = 16384
+LR_COPYRETURNORG: win32more.Windows.Win32.UI.WindowsAndMessaging.IMAGE_FLAGS = 4
 class IndexedResourceQualifier(EasyCastStructure):
     name: win32more.Windows.Win32.Foundation.PWSTR
     value: win32more.Windows.Win32.Foundation.PWSTR
@@ -2657,14 +2656,14 @@ class KBDLLHOOKSTRUCT(EasyCastStructure):
     time: UInt32
     dwExtraInfo: UIntPtr
 KBDLLHOOKSTRUCT_FLAGS = UInt32
-LLKHF_EXTENDED: KBDLLHOOKSTRUCT_FLAGS = 1
-LLKHF_ALTDOWN: KBDLLHOOKSTRUCT_FLAGS = 32
-LLKHF_UP: KBDLLHOOKSTRUCT_FLAGS = 128
-LLKHF_INJECTED: KBDLLHOOKSTRUCT_FLAGS = 16
-LLKHF_LOWER_IL_INJECTED: KBDLLHOOKSTRUCT_FLAGS = 2
+LLKHF_EXTENDED: win32more.Windows.Win32.UI.WindowsAndMessaging.KBDLLHOOKSTRUCT_FLAGS = 1
+LLKHF_ALTDOWN: win32more.Windows.Win32.UI.WindowsAndMessaging.KBDLLHOOKSTRUCT_FLAGS = 32
+LLKHF_UP: win32more.Windows.Win32.UI.WindowsAndMessaging.KBDLLHOOKSTRUCT_FLAGS = 128
+LLKHF_INJECTED: win32more.Windows.Win32.UI.WindowsAndMessaging.KBDLLHOOKSTRUCT_FLAGS = 16
+LLKHF_LOWER_IL_INJECTED: win32more.Windows.Win32.UI.WindowsAndMessaging.KBDLLHOOKSTRUCT_FLAGS = 2
 LAYERED_WINDOW_ATTRIBUTES_FLAGS = UInt32
-LWA_ALPHA: LAYERED_WINDOW_ATTRIBUTES_FLAGS = 2
-LWA_COLORKEY: LAYERED_WINDOW_ATTRIBUTES_FLAGS = 1
+LWA_ALPHA: win32more.Windows.Win32.UI.WindowsAndMessaging.LAYERED_WINDOW_ATTRIBUTES_FLAGS = 2
+LWA_COLORKEY: win32more.Windows.Win32.UI.WindowsAndMessaging.LAYERED_WINDOW_ATTRIBUTES_FLAGS = 1
 class MDICREATESTRUCTA(EasyCastStructure):
     szClass: win32more.Windows.Win32.Foundation.PSTR
     szTitle: win32more.Windows.Win32.Foundation.PSTR
@@ -2712,8 +2711,8 @@ class MENUGETOBJECTINFO(EasyCastStructure):
     riid: VoidPtr
     pvObj: VoidPtr
 MENUGETOBJECTINFO_FLAGS = UInt32
-MNGOF_BOTTOMGAP: MENUGETOBJECTINFO_FLAGS = 2
-MNGOF_TOPGAP: MENUGETOBJECTINFO_FLAGS = 1
+MNGOF_BOTTOMGAP: win32more.Windows.Win32.UI.WindowsAndMessaging.MENUGETOBJECTINFO_FLAGS = 2
+MNGOF_TOPGAP: win32more.Windows.Win32.UI.WindowsAndMessaging.MENUGETOBJECTINFO_FLAGS = 1
 class MENUINFO(EasyCastStructure):
     cbSize: UInt32
     fMask: win32more.Windows.Win32.UI.WindowsAndMessaging.MENUINFO_MASK
@@ -2723,19 +2722,19 @@ class MENUINFO(EasyCastStructure):
     dwContextHelpID: UInt32
     dwMenuData: UIntPtr
 MENUINFO_MASK = UInt32
-MIM_APPLYTOSUBMENUS: MENUINFO_MASK = 2147483648
-MIM_BACKGROUND: MENUINFO_MASK = 2
-MIM_HELPID: MENUINFO_MASK = 4
-MIM_MAXHEIGHT: MENUINFO_MASK = 1
-MIM_MENUDATA: MENUINFO_MASK = 8
-MIM_STYLE: MENUINFO_MASK = 16
+MIM_APPLYTOSUBMENUS: win32more.Windows.Win32.UI.WindowsAndMessaging.MENUINFO_MASK = 2147483648
+MIM_BACKGROUND: win32more.Windows.Win32.UI.WindowsAndMessaging.MENUINFO_MASK = 2
+MIM_HELPID: win32more.Windows.Win32.UI.WindowsAndMessaging.MENUINFO_MASK = 4
+MIM_MAXHEIGHT: win32more.Windows.Win32.UI.WindowsAndMessaging.MENUINFO_MASK = 1
+MIM_MENUDATA: win32more.Windows.Win32.UI.WindowsAndMessaging.MENUINFO_MASK = 8
+MIM_STYLE: win32more.Windows.Win32.UI.WindowsAndMessaging.MENUINFO_MASK = 16
 MENUINFO_STYLE = UInt32
-MNS_AUTODISMISS: MENUINFO_STYLE = 268435456
-MNS_CHECKORBMP: MENUINFO_STYLE = 67108864
-MNS_DRAGDROP: MENUINFO_STYLE = 536870912
-MNS_MODELESS: MENUINFO_STYLE = 1073741824
-MNS_NOCHECK: MENUINFO_STYLE = 2147483648
-MNS_NOTIFYBYPOS: MENUINFO_STYLE = 134217728
+MNS_AUTODISMISS: win32more.Windows.Win32.UI.WindowsAndMessaging.MENUINFO_STYLE = 268435456
+MNS_CHECKORBMP: win32more.Windows.Win32.UI.WindowsAndMessaging.MENUINFO_STYLE = 67108864
+MNS_DRAGDROP: win32more.Windows.Win32.UI.WindowsAndMessaging.MENUINFO_STYLE = 536870912
+MNS_MODELESS: win32more.Windows.Win32.UI.WindowsAndMessaging.MENUINFO_STYLE = 1073741824
+MNS_NOCHECK: win32more.Windows.Win32.UI.WindowsAndMessaging.MENUINFO_STYLE = 2147483648
+MNS_NOTIFYBYPOS: win32more.Windows.Win32.UI.WindowsAndMessaging.MENUINFO_STYLE = 134217728
 class MENUITEMINFOA(EasyCastStructure):
     cbSize: UInt32
     fMask: win32more.Windows.Win32.UI.WindowsAndMessaging.MENU_ITEM_MASK
@@ -2781,115 +2780,115 @@ class MENUTEMPLATEEX(EasyCastStructure):
             mexHeader: win32more.Windows.Win32.UI.WindowsAndMessaging.MENUEX_TEMPLATE_HEADER
             mexItem: win32more.Windows.Win32.UI.WindowsAndMessaging.MENUEX_TEMPLATE_ITEM * 1
 MENU_ITEM_FLAGS = UInt32
-MF_BYCOMMAND: MENU_ITEM_FLAGS = 0
-MF_BYPOSITION: MENU_ITEM_FLAGS = 1024
-MF_BITMAP: MENU_ITEM_FLAGS = 4
-MF_CHECKED: MENU_ITEM_FLAGS = 8
-MF_DISABLED: MENU_ITEM_FLAGS = 2
-MF_ENABLED: MENU_ITEM_FLAGS = 0
-MF_GRAYED: MENU_ITEM_FLAGS = 1
-MF_MENUBARBREAK: MENU_ITEM_FLAGS = 32
-MF_MENUBREAK: MENU_ITEM_FLAGS = 64
-MF_OWNERDRAW: MENU_ITEM_FLAGS = 256
-MF_POPUP: MENU_ITEM_FLAGS = 16
-MF_SEPARATOR: MENU_ITEM_FLAGS = 2048
-MF_STRING: MENU_ITEM_FLAGS = 0
-MF_UNCHECKED: MENU_ITEM_FLAGS = 0
-MF_INSERT: MENU_ITEM_FLAGS = 0
-MF_CHANGE: MENU_ITEM_FLAGS = 128
-MF_APPEND: MENU_ITEM_FLAGS = 256
-MF_DELETE: MENU_ITEM_FLAGS = 512
-MF_REMOVE: MENU_ITEM_FLAGS = 4096
-MF_USECHECKBITMAPS: MENU_ITEM_FLAGS = 512
-MF_UNHILITE: MENU_ITEM_FLAGS = 0
-MF_HILITE: MENU_ITEM_FLAGS = 128
-MF_DEFAULT: MENU_ITEM_FLAGS = 4096
-MF_SYSMENU: MENU_ITEM_FLAGS = 8192
-MF_HELP: MENU_ITEM_FLAGS = 16384
-MF_RIGHTJUSTIFY: MENU_ITEM_FLAGS = 16384
-MF_MOUSESELECT: MENU_ITEM_FLAGS = 32768
-MF_END: MENU_ITEM_FLAGS = 128
+MF_BYCOMMAND: win32more.Windows.Win32.UI.WindowsAndMessaging.MENU_ITEM_FLAGS = 0
+MF_BYPOSITION: win32more.Windows.Win32.UI.WindowsAndMessaging.MENU_ITEM_FLAGS = 1024
+MF_BITMAP: win32more.Windows.Win32.UI.WindowsAndMessaging.MENU_ITEM_FLAGS = 4
+MF_CHECKED: win32more.Windows.Win32.UI.WindowsAndMessaging.MENU_ITEM_FLAGS = 8
+MF_DISABLED: win32more.Windows.Win32.UI.WindowsAndMessaging.MENU_ITEM_FLAGS = 2
+MF_ENABLED: win32more.Windows.Win32.UI.WindowsAndMessaging.MENU_ITEM_FLAGS = 0
+MF_GRAYED: win32more.Windows.Win32.UI.WindowsAndMessaging.MENU_ITEM_FLAGS = 1
+MF_MENUBARBREAK: win32more.Windows.Win32.UI.WindowsAndMessaging.MENU_ITEM_FLAGS = 32
+MF_MENUBREAK: win32more.Windows.Win32.UI.WindowsAndMessaging.MENU_ITEM_FLAGS = 64
+MF_OWNERDRAW: win32more.Windows.Win32.UI.WindowsAndMessaging.MENU_ITEM_FLAGS = 256
+MF_POPUP: win32more.Windows.Win32.UI.WindowsAndMessaging.MENU_ITEM_FLAGS = 16
+MF_SEPARATOR: win32more.Windows.Win32.UI.WindowsAndMessaging.MENU_ITEM_FLAGS = 2048
+MF_STRING: win32more.Windows.Win32.UI.WindowsAndMessaging.MENU_ITEM_FLAGS = 0
+MF_UNCHECKED: win32more.Windows.Win32.UI.WindowsAndMessaging.MENU_ITEM_FLAGS = 0
+MF_INSERT: win32more.Windows.Win32.UI.WindowsAndMessaging.MENU_ITEM_FLAGS = 0
+MF_CHANGE: win32more.Windows.Win32.UI.WindowsAndMessaging.MENU_ITEM_FLAGS = 128
+MF_APPEND: win32more.Windows.Win32.UI.WindowsAndMessaging.MENU_ITEM_FLAGS = 256
+MF_DELETE: win32more.Windows.Win32.UI.WindowsAndMessaging.MENU_ITEM_FLAGS = 512
+MF_REMOVE: win32more.Windows.Win32.UI.WindowsAndMessaging.MENU_ITEM_FLAGS = 4096
+MF_USECHECKBITMAPS: win32more.Windows.Win32.UI.WindowsAndMessaging.MENU_ITEM_FLAGS = 512
+MF_UNHILITE: win32more.Windows.Win32.UI.WindowsAndMessaging.MENU_ITEM_FLAGS = 0
+MF_HILITE: win32more.Windows.Win32.UI.WindowsAndMessaging.MENU_ITEM_FLAGS = 128
+MF_DEFAULT: win32more.Windows.Win32.UI.WindowsAndMessaging.MENU_ITEM_FLAGS = 4096
+MF_SYSMENU: win32more.Windows.Win32.UI.WindowsAndMessaging.MENU_ITEM_FLAGS = 8192
+MF_HELP: win32more.Windows.Win32.UI.WindowsAndMessaging.MENU_ITEM_FLAGS = 16384
+MF_RIGHTJUSTIFY: win32more.Windows.Win32.UI.WindowsAndMessaging.MENU_ITEM_FLAGS = 16384
+MF_MOUSESELECT: win32more.Windows.Win32.UI.WindowsAndMessaging.MENU_ITEM_FLAGS = 32768
+MF_END: win32more.Windows.Win32.UI.WindowsAndMessaging.MENU_ITEM_FLAGS = 128
 MENU_ITEM_MASK = UInt32
-MIIM_BITMAP: MENU_ITEM_MASK = 128
-MIIM_CHECKMARKS: MENU_ITEM_MASK = 8
-MIIM_DATA: MENU_ITEM_MASK = 32
-MIIM_FTYPE: MENU_ITEM_MASK = 256
-MIIM_ID: MENU_ITEM_MASK = 2
-MIIM_STATE: MENU_ITEM_MASK = 1
-MIIM_STRING: MENU_ITEM_MASK = 64
-MIIM_SUBMENU: MENU_ITEM_MASK = 4
-MIIM_TYPE: MENU_ITEM_MASK = 16
+MIIM_BITMAP: win32more.Windows.Win32.UI.WindowsAndMessaging.MENU_ITEM_MASK = 128
+MIIM_CHECKMARKS: win32more.Windows.Win32.UI.WindowsAndMessaging.MENU_ITEM_MASK = 8
+MIIM_DATA: win32more.Windows.Win32.UI.WindowsAndMessaging.MENU_ITEM_MASK = 32
+MIIM_FTYPE: win32more.Windows.Win32.UI.WindowsAndMessaging.MENU_ITEM_MASK = 256
+MIIM_ID: win32more.Windows.Win32.UI.WindowsAndMessaging.MENU_ITEM_MASK = 2
+MIIM_STATE: win32more.Windows.Win32.UI.WindowsAndMessaging.MENU_ITEM_MASK = 1
+MIIM_STRING: win32more.Windows.Win32.UI.WindowsAndMessaging.MENU_ITEM_MASK = 64
+MIIM_SUBMENU: win32more.Windows.Win32.UI.WindowsAndMessaging.MENU_ITEM_MASK = 4
+MIIM_TYPE: win32more.Windows.Win32.UI.WindowsAndMessaging.MENU_ITEM_MASK = 16
 MENU_ITEM_STATE = UInt32
-MFS_GRAYED: MENU_ITEM_STATE = 3
-MFS_DISABLED: MENU_ITEM_STATE = 3
-MFS_CHECKED: MENU_ITEM_STATE = 8
-MFS_HILITE: MENU_ITEM_STATE = 128
-MFS_ENABLED: MENU_ITEM_STATE = 0
-MFS_UNCHECKED: MENU_ITEM_STATE = 0
-MFS_UNHILITE: MENU_ITEM_STATE = 0
-MFS_DEFAULT: MENU_ITEM_STATE = 4096
+MFS_GRAYED: win32more.Windows.Win32.UI.WindowsAndMessaging.MENU_ITEM_STATE = 3
+MFS_DISABLED: win32more.Windows.Win32.UI.WindowsAndMessaging.MENU_ITEM_STATE = 3
+MFS_CHECKED: win32more.Windows.Win32.UI.WindowsAndMessaging.MENU_ITEM_STATE = 8
+MFS_HILITE: win32more.Windows.Win32.UI.WindowsAndMessaging.MENU_ITEM_STATE = 128
+MFS_ENABLED: win32more.Windows.Win32.UI.WindowsAndMessaging.MENU_ITEM_STATE = 0
+MFS_UNCHECKED: win32more.Windows.Win32.UI.WindowsAndMessaging.MENU_ITEM_STATE = 0
+MFS_UNHILITE: win32more.Windows.Win32.UI.WindowsAndMessaging.MENU_ITEM_STATE = 0
+MFS_DEFAULT: win32more.Windows.Win32.UI.WindowsAndMessaging.MENU_ITEM_STATE = 4096
 MENU_ITEM_TYPE = UInt32
-MFT_BITMAP: MENU_ITEM_TYPE = 4
-MFT_MENUBARBREAK: MENU_ITEM_TYPE = 32
-MFT_MENUBREAK: MENU_ITEM_TYPE = 64
-MFT_OWNERDRAW: MENU_ITEM_TYPE = 256
-MFT_RADIOCHECK: MENU_ITEM_TYPE = 512
-MFT_RIGHTJUSTIFY: MENU_ITEM_TYPE = 16384
-MFT_RIGHTORDER: MENU_ITEM_TYPE = 8192
-MFT_SEPARATOR: MENU_ITEM_TYPE = 2048
-MFT_STRING: MENU_ITEM_TYPE = 0
+MFT_BITMAP: win32more.Windows.Win32.UI.WindowsAndMessaging.MENU_ITEM_TYPE = 4
+MFT_MENUBARBREAK: win32more.Windows.Win32.UI.WindowsAndMessaging.MENU_ITEM_TYPE = 32
+MFT_MENUBREAK: win32more.Windows.Win32.UI.WindowsAndMessaging.MENU_ITEM_TYPE = 64
+MFT_OWNERDRAW: win32more.Windows.Win32.UI.WindowsAndMessaging.MENU_ITEM_TYPE = 256
+MFT_RADIOCHECK: win32more.Windows.Win32.UI.WindowsAndMessaging.MENU_ITEM_TYPE = 512
+MFT_RIGHTJUSTIFY: win32more.Windows.Win32.UI.WindowsAndMessaging.MENU_ITEM_TYPE = 16384
+MFT_RIGHTORDER: win32more.Windows.Win32.UI.WindowsAndMessaging.MENU_ITEM_TYPE = 8192
+MFT_SEPARATOR: win32more.Windows.Win32.UI.WindowsAndMessaging.MENU_ITEM_TYPE = 2048
+MFT_STRING: win32more.Windows.Win32.UI.WindowsAndMessaging.MENU_ITEM_TYPE = 0
 MESSAGEBOX_RESULT = Int32
-IDOK: MESSAGEBOX_RESULT = 1
-IDCANCEL: MESSAGEBOX_RESULT = 2
-IDABORT: MESSAGEBOX_RESULT = 3
-IDRETRY: MESSAGEBOX_RESULT = 4
-IDIGNORE: MESSAGEBOX_RESULT = 5
-IDYES: MESSAGEBOX_RESULT = 6
-IDNO: MESSAGEBOX_RESULT = 7
-IDCLOSE: MESSAGEBOX_RESULT = 8
-IDHELP: MESSAGEBOX_RESULT = 9
-IDTRYAGAIN: MESSAGEBOX_RESULT = 10
-IDCONTINUE: MESSAGEBOX_RESULT = 11
-IDASYNC: MESSAGEBOX_RESULT = 32001
-IDTIMEOUT: MESSAGEBOX_RESULT = 32000
+IDOK: win32more.Windows.Win32.UI.WindowsAndMessaging.MESSAGEBOX_RESULT = 1
+IDCANCEL: win32more.Windows.Win32.UI.WindowsAndMessaging.MESSAGEBOX_RESULT = 2
+IDABORT: win32more.Windows.Win32.UI.WindowsAndMessaging.MESSAGEBOX_RESULT = 3
+IDRETRY: win32more.Windows.Win32.UI.WindowsAndMessaging.MESSAGEBOX_RESULT = 4
+IDIGNORE: win32more.Windows.Win32.UI.WindowsAndMessaging.MESSAGEBOX_RESULT = 5
+IDYES: win32more.Windows.Win32.UI.WindowsAndMessaging.MESSAGEBOX_RESULT = 6
+IDNO: win32more.Windows.Win32.UI.WindowsAndMessaging.MESSAGEBOX_RESULT = 7
+IDCLOSE: win32more.Windows.Win32.UI.WindowsAndMessaging.MESSAGEBOX_RESULT = 8
+IDHELP: win32more.Windows.Win32.UI.WindowsAndMessaging.MESSAGEBOX_RESULT = 9
+IDTRYAGAIN: win32more.Windows.Win32.UI.WindowsAndMessaging.MESSAGEBOX_RESULT = 10
+IDCONTINUE: win32more.Windows.Win32.UI.WindowsAndMessaging.MESSAGEBOX_RESULT = 11
+IDASYNC: win32more.Windows.Win32.UI.WindowsAndMessaging.MESSAGEBOX_RESULT = 32001
+IDTIMEOUT: win32more.Windows.Win32.UI.WindowsAndMessaging.MESSAGEBOX_RESULT = 32000
 MESSAGEBOX_STYLE = UInt32
-MB_ABORTRETRYIGNORE: MESSAGEBOX_STYLE = 2
-MB_CANCELTRYCONTINUE: MESSAGEBOX_STYLE = 6
-MB_HELP: MESSAGEBOX_STYLE = 16384
-MB_OK: MESSAGEBOX_STYLE = 0
-MB_OKCANCEL: MESSAGEBOX_STYLE = 1
-MB_RETRYCANCEL: MESSAGEBOX_STYLE = 5
-MB_YESNO: MESSAGEBOX_STYLE = 4
-MB_YESNOCANCEL: MESSAGEBOX_STYLE = 3
-MB_ICONHAND: MESSAGEBOX_STYLE = 16
-MB_ICONQUESTION: MESSAGEBOX_STYLE = 32
-MB_ICONEXCLAMATION: MESSAGEBOX_STYLE = 48
-MB_ICONASTERISK: MESSAGEBOX_STYLE = 64
-MB_USERICON: MESSAGEBOX_STYLE = 128
-MB_ICONWARNING: MESSAGEBOX_STYLE = 48
-MB_ICONERROR: MESSAGEBOX_STYLE = 16
-MB_ICONINFORMATION: MESSAGEBOX_STYLE = 64
-MB_ICONSTOP: MESSAGEBOX_STYLE = 16
-MB_DEFBUTTON1: MESSAGEBOX_STYLE = 0
-MB_DEFBUTTON2: MESSAGEBOX_STYLE = 256
-MB_DEFBUTTON3: MESSAGEBOX_STYLE = 512
-MB_DEFBUTTON4: MESSAGEBOX_STYLE = 768
-MB_APPLMODAL: MESSAGEBOX_STYLE = 0
-MB_SYSTEMMODAL: MESSAGEBOX_STYLE = 4096
-MB_TASKMODAL: MESSAGEBOX_STYLE = 8192
-MB_NOFOCUS: MESSAGEBOX_STYLE = 32768
-MB_SETFOREGROUND: MESSAGEBOX_STYLE = 65536
-MB_DEFAULT_DESKTOP_ONLY: MESSAGEBOX_STYLE = 131072
-MB_TOPMOST: MESSAGEBOX_STYLE = 262144
-MB_RIGHT: MESSAGEBOX_STYLE = 524288
-MB_RTLREADING: MESSAGEBOX_STYLE = 1048576
-MB_SERVICE_NOTIFICATION: MESSAGEBOX_STYLE = 2097152
-MB_SERVICE_NOTIFICATION_NT3X: MESSAGEBOX_STYLE = 262144
-MB_TYPEMASK: MESSAGEBOX_STYLE = 15
-MB_ICONMASK: MESSAGEBOX_STYLE = 240
-MB_DEFMASK: MESSAGEBOX_STYLE = 3840
-MB_MODEMASK: MESSAGEBOX_STYLE = 12288
-MB_MISCMASK: MESSAGEBOX_STYLE = 49152
+MB_ABORTRETRYIGNORE: win32more.Windows.Win32.UI.WindowsAndMessaging.MESSAGEBOX_STYLE = 2
+MB_CANCELTRYCONTINUE: win32more.Windows.Win32.UI.WindowsAndMessaging.MESSAGEBOX_STYLE = 6
+MB_HELP: win32more.Windows.Win32.UI.WindowsAndMessaging.MESSAGEBOX_STYLE = 16384
+MB_OK: win32more.Windows.Win32.UI.WindowsAndMessaging.MESSAGEBOX_STYLE = 0
+MB_OKCANCEL: win32more.Windows.Win32.UI.WindowsAndMessaging.MESSAGEBOX_STYLE = 1
+MB_RETRYCANCEL: win32more.Windows.Win32.UI.WindowsAndMessaging.MESSAGEBOX_STYLE = 5
+MB_YESNO: win32more.Windows.Win32.UI.WindowsAndMessaging.MESSAGEBOX_STYLE = 4
+MB_YESNOCANCEL: win32more.Windows.Win32.UI.WindowsAndMessaging.MESSAGEBOX_STYLE = 3
+MB_ICONHAND: win32more.Windows.Win32.UI.WindowsAndMessaging.MESSAGEBOX_STYLE = 16
+MB_ICONQUESTION: win32more.Windows.Win32.UI.WindowsAndMessaging.MESSAGEBOX_STYLE = 32
+MB_ICONEXCLAMATION: win32more.Windows.Win32.UI.WindowsAndMessaging.MESSAGEBOX_STYLE = 48
+MB_ICONASTERISK: win32more.Windows.Win32.UI.WindowsAndMessaging.MESSAGEBOX_STYLE = 64
+MB_USERICON: win32more.Windows.Win32.UI.WindowsAndMessaging.MESSAGEBOX_STYLE = 128
+MB_ICONWARNING: win32more.Windows.Win32.UI.WindowsAndMessaging.MESSAGEBOX_STYLE = 48
+MB_ICONERROR: win32more.Windows.Win32.UI.WindowsAndMessaging.MESSAGEBOX_STYLE = 16
+MB_ICONINFORMATION: win32more.Windows.Win32.UI.WindowsAndMessaging.MESSAGEBOX_STYLE = 64
+MB_ICONSTOP: win32more.Windows.Win32.UI.WindowsAndMessaging.MESSAGEBOX_STYLE = 16
+MB_DEFBUTTON1: win32more.Windows.Win32.UI.WindowsAndMessaging.MESSAGEBOX_STYLE = 0
+MB_DEFBUTTON2: win32more.Windows.Win32.UI.WindowsAndMessaging.MESSAGEBOX_STYLE = 256
+MB_DEFBUTTON3: win32more.Windows.Win32.UI.WindowsAndMessaging.MESSAGEBOX_STYLE = 512
+MB_DEFBUTTON4: win32more.Windows.Win32.UI.WindowsAndMessaging.MESSAGEBOX_STYLE = 768
+MB_APPLMODAL: win32more.Windows.Win32.UI.WindowsAndMessaging.MESSAGEBOX_STYLE = 0
+MB_SYSTEMMODAL: win32more.Windows.Win32.UI.WindowsAndMessaging.MESSAGEBOX_STYLE = 4096
+MB_TASKMODAL: win32more.Windows.Win32.UI.WindowsAndMessaging.MESSAGEBOX_STYLE = 8192
+MB_NOFOCUS: win32more.Windows.Win32.UI.WindowsAndMessaging.MESSAGEBOX_STYLE = 32768
+MB_SETFOREGROUND: win32more.Windows.Win32.UI.WindowsAndMessaging.MESSAGEBOX_STYLE = 65536
+MB_DEFAULT_DESKTOP_ONLY: win32more.Windows.Win32.UI.WindowsAndMessaging.MESSAGEBOX_STYLE = 131072
+MB_TOPMOST: win32more.Windows.Win32.UI.WindowsAndMessaging.MESSAGEBOX_STYLE = 262144
+MB_RIGHT: win32more.Windows.Win32.UI.WindowsAndMessaging.MESSAGEBOX_STYLE = 524288
+MB_RTLREADING: win32more.Windows.Win32.UI.WindowsAndMessaging.MESSAGEBOX_STYLE = 1048576
+MB_SERVICE_NOTIFICATION: win32more.Windows.Win32.UI.WindowsAndMessaging.MESSAGEBOX_STYLE = 2097152
+MB_SERVICE_NOTIFICATION_NT3X: win32more.Windows.Win32.UI.WindowsAndMessaging.MESSAGEBOX_STYLE = 262144
+MB_TYPEMASK: win32more.Windows.Win32.UI.WindowsAndMessaging.MESSAGEBOX_STYLE = 15
+MB_ICONMASK: win32more.Windows.Win32.UI.WindowsAndMessaging.MESSAGEBOX_STYLE = 240
+MB_DEFMASK: win32more.Windows.Win32.UI.WindowsAndMessaging.MESSAGEBOX_STYLE = 3840
+MB_MODEMASK: win32more.Windows.Win32.UI.WindowsAndMessaging.MESSAGEBOX_STYLE = 12288
+MB_MISCMASK: win32more.Windows.Win32.UI.WindowsAndMessaging.MESSAGEBOX_STYLE = 49152
 class MESSAGE_RESOURCE_BLOCK(EasyCastStructure):
     LowId: UInt32
     HighId: UInt32
@@ -2908,10 +2907,10 @@ class MINIMIZEDMETRICS(EasyCastStructure):
     iVertGap: Int32
     iArrange: win32more.Windows.Win32.UI.WindowsAndMessaging.MINIMIZEDMETRICS_ARRANGE
 MINIMIZEDMETRICS_ARRANGE = Int32
-ARW_BOTTOMLEFT: MINIMIZEDMETRICS_ARRANGE = 0
-ARW_BOTTOMRIGHT: MINIMIZEDMETRICS_ARRANGE = 1
-ARW_TOPLEFT: MINIMIZEDMETRICS_ARRANGE = 2
-ARW_TOPRIGHT: MINIMIZEDMETRICS_ARRANGE = 3
+ARW_BOTTOMLEFT: win32more.Windows.Win32.UI.WindowsAndMessaging.MINIMIZEDMETRICS_ARRANGE = 0
+ARW_BOTTOMRIGHT: win32more.Windows.Win32.UI.WindowsAndMessaging.MINIMIZEDMETRICS_ARRANGE = 1
+ARW_TOPLEFT: win32more.Windows.Win32.UI.WindowsAndMessaging.MINIMIZEDMETRICS_ARRANGE = 2
+ARW_TOPRIGHT: win32more.Windows.Win32.UI.WindowsAndMessaging.MINIMIZEDMETRICS_ARRANGE = 3
 class MINMAXINFO(EasyCastStructure):
     ptReserved: win32more.Windows.Win32.Foundation.POINT
     ptMaxSize: win32more.Windows.Win32.Foundation.POINT
@@ -2958,15 +2957,15 @@ class MSGBOXPARAMSW(EasyCastStructure):
     lpfnMsgBoxCallback: win32more.Windows.Win32.UI.WindowsAndMessaging.MSGBOXCALLBACK
     dwLanguageId: UInt32
 MSGFLTINFO_STATUS = UInt32
-MSGFLTINFO_NONE: MSGFLTINFO_STATUS = 0
-MSGFLTINFO_ALLOWED_HIGHER: MSGFLTINFO_STATUS = 3
-MSGFLTINFO_ALREADYALLOWED_FORWND: MSGFLTINFO_STATUS = 1
-MSGFLTINFO_ALREADYDISALLOWED_FORWND: MSGFLTINFO_STATUS = 2
+MSGFLTINFO_NONE: win32more.Windows.Win32.UI.WindowsAndMessaging.MSGFLTINFO_STATUS = 0
+MSGFLTINFO_ALLOWED_HIGHER: win32more.Windows.Win32.UI.WindowsAndMessaging.MSGFLTINFO_STATUS = 3
+MSGFLTINFO_ALREADYALLOWED_FORWND: win32more.Windows.Win32.UI.WindowsAndMessaging.MSGFLTINFO_STATUS = 1
+MSGFLTINFO_ALREADYDISALLOWED_FORWND: win32more.Windows.Win32.UI.WindowsAndMessaging.MSGFLTINFO_STATUS = 2
 MSG_WAIT_FOR_MULTIPLE_OBJECTS_EX_FLAGS = UInt32
-MWMO_NONE: MSG_WAIT_FOR_MULTIPLE_OBJECTS_EX_FLAGS = 0
-MWMO_ALERTABLE: MSG_WAIT_FOR_MULTIPLE_OBJECTS_EX_FLAGS = 2
-MWMO_INPUTAVAILABLE: MSG_WAIT_FOR_MULTIPLE_OBJECTS_EX_FLAGS = 4
-MWMO_WAITALL: MSG_WAIT_FOR_MULTIPLE_OBJECTS_EX_FLAGS = 1
+MWMO_NONE: win32more.Windows.Win32.UI.WindowsAndMessaging.MSG_WAIT_FOR_MULTIPLE_OBJECTS_EX_FLAGS = 0
+MWMO_ALERTABLE: win32more.Windows.Win32.UI.WindowsAndMessaging.MSG_WAIT_FOR_MULTIPLE_OBJECTS_EX_FLAGS = 2
+MWMO_INPUTAVAILABLE: win32more.Windows.Win32.UI.WindowsAndMessaging.MSG_WAIT_FOR_MULTIPLE_OBJECTS_EX_FLAGS = 4
+MWMO_WAITALL: win32more.Windows.Win32.UI.WindowsAndMessaging.MSG_WAIT_FOR_MULTIPLE_OBJECTS_EX_FLAGS = 1
 class MSLLHOOKSTRUCT(EasyCastStructure):
     pt: win32more.Windows.Win32.Foundation.POINT
     mouseData: UInt32
@@ -2974,25 +2973,25 @@ class MSLLHOOKSTRUCT(EasyCastStructure):
     time: UInt32
     dwExtraInfo: UIntPtr
 MrmDumpType = Int32
-MrmDumpType_Basic: MrmDumpType = 0
-MrmDumpType_Detailed: MrmDumpType = 1
-MrmDumpType_Schema: MrmDumpType = 2
+MrmDumpType_Basic: win32more.Windows.Win32.UI.WindowsAndMessaging.MrmDumpType = 0
+MrmDumpType_Detailed: win32more.Windows.Win32.UI.WindowsAndMessaging.MrmDumpType = 1
+MrmDumpType_Schema: win32more.Windows.Win32.UI.WindowsAndMessaging.MrmDumpType = 2
 MrmIndexerFlags = Int32
-MrmIndexerFlags_MrmIndexerFlagsNone: MrmIndexerFlags = 0
-MrmIndexerFlags_MrmIndexerFlagsAutoMerge: MrmIndexerFlags = 1
-MrmIndexerFlags_MrmIndexerFlagsCreateContentChecksum: MrmIndexerFlags = 2
+MrmIndexerFlags_MrmIndexerFlagsNone: win32more.Windows.Win32.UI.WindowsAndMessaging.MrmIndexerFlags = 0
+MrmIndexerFlags_MrmIndexerFlagsAutoMerge: win32more.Windows.Win32.UI.WindowsAndMessaging.MrmIndexerFlags = 1
+MrmIndexerFlags_MrmIndexerFlagsCreateContentChecksum: win32more.Windows.Win32.UI.WindowsAndMessaging.MrmIndexerFlags = 2
 MrmPackagingMode = Int32
-MrmPackagingMode_MrmPackagingModeStandaloneFile: MrmPackagingMode = 0
-MrmPackagingMode_MrmPackagingModeAutoSplit: MrmPackagingMode = 1
-MrmPackagingMode_MrmPackagingModeResourcePack: MrmPackagingMode = 2
+MrmPackagingMode_MrmPackagingModeStandaloneFile: win32more.Windows.Win32.UI.WindowsAndMessaging.MrmPackagingMode = 0
+MrmPackagingMode_MrmPackagingModeAutoSplit: win32more.Windows.Win32.UI.WindowsAndMessaging.MrmPackagingMode = 1
+MrmPackagingMode_MrmPackagingModeResourcePack: win32more.Windows.Win32.UI.WindowsAndMessaging.MrmPackagingMode = 2
 MrmPackagingOptions = Int32
-MrmPackagingOptions_MrmPackagingOptionsNone: MrmPackagingOptions = 0
-MrmPackagingOptions_MrmPackagingOptionsOmitSchemaFromResourcePacks: MrmPackagingOptions = 1
-MrmPackagingOptions_MrmPackagingOptionsSplitLanguageVariants: MrmPackagingOptions = 2
+MrmPackagingOptions_MrmPackagingOptionsNone: win32more.Windows.Win32.UI.WindowsAndMessaging.MrmPackagingOptions = 0
+MrmPackagingOptions_MrmPackagingOptionsOmitSchemaFromResourcePacks: win32more.Windows.Win32.UI.WindowsAndMessaging.MrmPackagingOptions = 1
+MrmPackagingOptions_MrmPackagingOptionsSplitLanguageVariants: win32more.Windows.Win32.UI.WindowsAndMessaging.MrmPackagingOptions = 2
 MrmPlatformVersion = Int32
-MrmPlatformVersion_Default: MrmPlatformVersion = 0
-MrmPlatformVersion_Windows10_0_0_0: MrmPlatformVersion = 17432576
-MrmPlatformVersion_Windows10_0_0_5: MrmPlatformVersion = 17432581
+MrmPlatformVersion_Default: win32more.Windows.Win32.UI.WindowsAndMessaging.MrmPlatformVersion = 0
+MrmPlatformVersion_Windows10_0_0_0: win32more.Windows.Win32.UI.WindowsAndMessaging.MrmPlatformVersion = 17432576
+MrmPlatformVersion_Windows10_0_0_5: win32more.Windows.Win32.UI.WindowsAndMessaging.MrmPlatformVersion = 17432581
 class MrmResourceIndexerHandle(EasyCastStructure):
     handle: VoidPtr
 class MrmResourceIndexerMessage(EasyCastStructure):
@@ -3000,10 +2999,10 @@ class MrmResourceIndexerMessage(EasyCastStructure):
     id: UInt32
     text: win32more.Windows.Win32.Foundation.PWSTR
 MrmResourceIndexerMessageSeverity = Int32
-MrmResourceIndexerMessageSeverity_MrmResourceIndexerMessageSeverityVerbose: MrmResourceIndexerMessageSeverity = 0
-MrmResourceIndexerMessageSeverity_MrmResourceIndexerMessageSeverityInfo: MrmResourceIndexerMessageSeverity = 1
-MrmResourceIndexerMessageSeverity_MrmResourceIndexerMessageSeverityWarning: MrmResourceIndexerMessageSeverity = 2
-MrmResourceIndexerMessageSeverity_MrmResourceIndexerMessageSeverityError: MrmResourceIndexerMessageSeverity = 3
+MrmResourceIndexerMessageSeverity_MrmResourceIndexerMessageSeverityVerbose: win32more.Windows.Win32.UI.WindowsAndMessaging.MrmResourceIndexerMessageSeverity = 0
+MrmResourceIndexerMessageSeverity_MrmResourceIndexerMessageSeverityInfo: win32more.Windows.Win32.UI.WindowsAndMessaging.MrmResourceIndexerMessageSeverity = 1
+MrmResourceIndexerMessageSeverity_MrmResourceIndexerMessageSeverityWarning: win32more.Windows.Win32.UI.WindowsAndMessaging.MrmResourceIndexerMessageSeverity = 2
+MrmResourceIndexerMessageSeverity_MrmResourceIndexerMessageSeverityError: win32more.Windows.Win32.UI.WindowsAndMessaging.MrmResourceIndexerMessageSeverity = 3
 @winfunctype_pointer
 def NAMEENUMPROCA(param0: win32more.Windows.Win32.Foundation.PSTR, param1: win32more.Windows.Win32.Foundation.LPARAM) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
@@ -3046,34 +3045,34 @@ class NONCLIENTMETRICSW(EasyCastStructure):
     lfMessageFont: win32more.Windows.Win32.Graphics.Gdi.LOGFONTW
     iPaddedBorderWidth: Int32
 OBJECT_IDENTIFIER = Int32
-OBJID_WINDOW: OBJECT_IDENTIFIER = 0
-OBJID_SYSMENU: OBJECT_IDENTIFIER = -1
-OBJID_TITLEBAR: OBJECT_IDENTIFIER = -2
-OBJID_MENU: OBJECT_IDENTIFIER = -3
-OBJID_CLIENT: OBJECT_IDENTIFIER = -4
-OBJID_VSCROLL: OBJECT_IDENTIFIER = -5
-OBJID_HSCROLL: OBJECT_IDENTIFIER = -6
-OBJID_SIZEGRIP: OBJECT_IDENTIFIER = -7
-OBJID_CARET: OBJECT_IDENTIFIER = -8
-OBJID_CURSOR: OBJECT_IDENTIFIER = -9
-OBJID_ALERT: OBJECT_IDENTIFIER = -10
-OBJID_SOUND: OBJECT_IDENTIFIER = -11
-OBJID_QUERYCLASSNAMEIDX: OBJECT_IDENTIFIER = -12
-OBJID_NATIVEOM: OBJECT_IDENTIFIER = -16
+OBJID_WINDOW: win32more.Windows.Win32.UI.WindowsAndMessaging.OBJECT_IDENTIFIER = 0
+OBJID_SYSMENU: win32more.Windows.Win32.UI.WindowsAndMessaging.OBJECT_IDENTIFIER = -1
+OBJID_TITLEBAR: win32more.Windows.Win32.UI.WindowsAndMessaging.OBJECT_IDENTIFIER = -2
+OBJID_MENU: win32more.Windows.Win32.UI.WindowsAndMessaging.OBJECT_IDENTIFIER = -3
+OBJID_CLIENT: win32more.Windows.Win32.UI.WindowsAndMessaging.OBJECT_IDENTIFIER = -4
+OBJID_VSCROLL: win32more.Windows.Win32.UI.WindowsAndMessaging.OBJECT_IDENTIFIER = -5
+OBJID_HSCROLL: win32more.Windows.Win32.UI.WindowsAndMessaging.OBJECT_IDENTIFIER = -6
+OBJID_SIZEGRIP: win32more.Windows.Win32.UI.WindowsAndMessaging.OBJECT_IDENTIFIER = -7
+OBJID_CARET: win32more.Windows.Win32.UI.WindowsAndMessaging.OBJECT_IDENTIFIER = -8
+OBJID_CURSOR: win32more.Windows.Win32.UI.WindowsAndMessaging.OBJECT_IDENTIFIER = -9
+OBJID_ALERT: win32more.Windows.Win32.UI.WindowsAndMessaging.OBJECT_IDENTIFIER = -10
+OBJID_SOUND: win32more.Windows.Win32.UI.WindowsAndMessaging.OBJECT_IDENTIFIER = -11
+OBJID_QUERYCLASSNAMEIDX: win32more.Windows.Win32.UI.WindowsAndMessaging.OBJECT_IDENTIFIER = -12
+OBJID_NATIVEOM: win32more.Windows.Win32.UI.WindowsAndMessaging.OBJECT_IDENTIFIER = -16
 PEEK_MESSAGE_REMOVE_TYPE = UInt32
-PM_NOREMOVE: PEEK_MESSAGE_REMOVE_TYPE = 0
-PM_REMOVE: PEEK_MESSAGE_REMOVE_TYPE = 1
-PM_NOYIELD: PEEK_MESSAGE_REMOVE_TYPE = 2
-PM_QS_INPUT: PEEK_MESSAGE_REMOVE_TYPE = 67567616
-PM_QS_POSTMESSAGE: PEEK_MESSAGE_REMOVE_TYPE = 9961472
-PM_QS_PAINT: PEEK_MESSAGE_REMOVE_TYPE = 2097152
-PM_QS_SENDMESSAGE: PEEK_MESSAGE_REMOVE_TYPE = 4194304
+PM_NOREMOVE: win32more.Windows.Win32.UI.WindowsAndMessaging.PEEK_MESSAGE_REMOVE_TYPE = 0
+PM_REMOVE: win32more.Windows.Win32.UI.WindowsAndMessaging.PEEK_MESSAGE_REMOVE_TYPE = 1
+PM_NOYIELD: win32more.Windows.Win32.UI.WindowsAndMessaging.PEEK_MESSAGE_REMOVE_TYPE = 2
+PM_QS_INPUT: win32more.Windows.Win32.UI.WindowsAndMessaging.PEEK_MESSAGE_REMOVE_TYPE = 67567616
+PM_QS_POSTMESSAGE: win32more.Windows.Win32.UI.WindowsAndMessaging.PEEK_MESSAGE_REMOVE_TYPE = 9961472
+PM_QS_PAINT: win32more.Windows.Win32.UI.WindowsAndMessaging.PEEK_MESSAGE_REMOVE_TYPE = 2097152
+PM_QS_SENDMESSAGE: win32more.Windows.Win32.UI.WindowsAndMessaging.PEEK_MESSAGE_REMOVE_TYPE = 4194304
 POINTER_INPUT_TYPE = Int32
-PT_POINTER: POINTER_INPUT_TYPE = 1
-PT_TOUCH: POINTER_INPUT_TYPE = 2
-PT_PEN: POINTER_INPUT_TYPE = 3
-PT_MOUSE: POINTER_INPUT_TYPE = 4
-PT_TOUCHPAD: POINTER_INPUT_TYPE = 5
+PT_POINTER: win32more.Windows.Win32.UI.WindowsAndMessaging.POINTER_INPUT_TYPE = 1
+PT_TOUCH: win32more.Windows.Win32.UI.WindowsAndMessaging.POINTER_INPUT_TYPE = 2
+PT_PEN: win32more.Windows.Win32.UI.WindowsAndMessaging.POINTER_INPUT_TYPE = 3
+PT_MOUSE: win32more.Windows.Win32.UI.WindowsAndMessaging.POINTER_INPUT_TYPE = 4
+PT_TOUCHPAD: win32more.Windows.Win32.UI.WindowsAndMessaging.POINTER_INPUT_TYPE = 5
 @winfunctype_pointer
 def PREGISTERCLASSNAMEW(param0: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
 @winfunctype_pointer
@@ -3085,25 +3084,25 @@ def PROPENUMPROCEXW(param0: win32more.Windows.Win32.Foundation.HWND, param1: win
 @winfunctype_pointer
 def PROPENUMPROCW(param0: win32more.Windows.Win32.Foundation.HWND, param1: win32more.Windows.Win32.Foundation.PWSTR, param2: win32more.Windows.Win32.Foundation.HANDLE) -> win32more.Windows.Win32.Foundation.BOOL: ...
 QUEUE_STATUS_FLAGS = UInt32
-QS_ALLEVENTS: QUEUE_STATUS_FLAGS = 1215
-QS_ALLINPUT: QUEUE_STATUS_FLAGS = 1279
-QS_ALLPOSTMESSAGE: QUEUE_STATUS_FLAGS = 256
-QS_HOTKEY: QUEUE_STATUS_FLAGS = 128
-QS_INPUT: QUEUE_STATUS_FLAGS = 1031
-QS_KEY: QUEUE_STATUS_FLAGS = 1
-QS_MOUSE: QUEUE_STATUS_FLAGS = 6
-QS_MOUSEBUTTON: QUEUE_STATUS_FLAGS = 4
-QS_MOUSEMOVE: QUEUE_STATUS_FLAGS = 2
-QS_PAINT: QUEUE_STATUS_FLAGS = 32
-QS_POSTMESSAGE: QUEUE_STATUS_FLAGS = 8
-QS_RAWINPUT: QUEUE_STATUS_FLAGS = 1024
-QS_SENDMESSAGE: QUEUE_STATUS_FLAGS = 64
-QS_TIMER: QUEUE_STATUS_FLAGS = 16
+QS_ALLEVENTS: win32more.Windows.Win32.UI.WindowsAndMessaging.QUEUE_STATUS_FLAGS = 1215
+QS_ALLINPUT: win32more.Windows.Win32.UI.WindowsAndMessaging.QUEUE_STATUS_FLAGS = 1279
+QS_ALLPOSTMESSAGE: win32more.Windows.Win32.UI.WindowsAndMessaging.QUEUE_STATUS_FLAGS = 256
+QS_HOTKEY: win32more.Windows.Win32.UI.WindowsAndMessaging.QUEUE_STATUS_FLAGS = 128
+QS_INPUT: win32more.Windows.Win32.UI.WindowsAndMessaging.QUEUE_STATUS_FLAGS = 1031
+QS_KEY: win32more.Windows.Win32.UI.WindowsAndMessaging.QUEUE_STATUS_FLAGS = 1
+QS_MOUSE: win32more.Windows.Win32.UI.WindowsAndMessaging.QUEUE_STATUS_FLAGS = 6
+QS_MOUSEBUTTON: win32more.Windows.Win32.UI.WindowsAndMessaging.QUEUE_STATUS_FLAGS = 4
+QS_MOUSEMOVE: win32more.Windows.Win32.UI.WindowsAndMessaging.QUEUE_STATUS_FLAGS = 2
+QS_PAINT: win32more.Windows.Win32.UI.WindowsAndMessaging.QUEUE_STATUS_FLAGS = 32
+QS_POSTMESSAGE: win32more.Windows.Win32.UI.WindowsAndMessaging.QUEUE_STATUS_FLAGS = 8
+QS_RAWINPUT: win32more.Windows.Win32.UI.WindowsAndMessaging.QUEUE_STATUS_FLAGS = 1024
+QS_SENDMESSAGE: win32more.Windows.Win32.UI.WindowsAndMessaging.QUEUE_STATUS_FLAGS = 64
+QS_TIMER: win32more.Windows.Win32.UI.WindowsAndMessaging.QUEUE_STATUS_FLAGS = 16
 REGISTER_NOTIFICATION_FLAGS = UInt32
-DEVICE_NOTIFY_SERVICE_HANDLE: REGISTER_NOTIFICATION_FLAGS = 1
-DEVICE_NOTIFY_CALLBACK: REGISTER_NOTIFICATION_FLAGS = 2
-DEVICE_NOTIFY_WINDOW_HANDLE: REGISTER_NOTIFICATION_FLAGS = 0
-DEVICE_NOTIFY_ALL_INTERFACE_CLASSES: REGISTER_NOTIFICATION_FLAGS = 4
+DEVICE_NOTIFY_SERVICE_HANDLE: win32more.Windows.Win32.UI.WindowsAndMessaging.REGISTER_NOTIFICATION_FLAGS = 1
+DEVICE_NOTIFY_CALLBACK: win32more.Windows.Win32.UI.WindowsAndMessaging.REGISTER_NOTIFICATION_FLAGS = 2
+DEVICE_NOTIFY_WINDOW_HANDLE: win32more.Windows.Win32.UI.WindowsAndMessaging.REGISTER_NOTIFICATION_FLAGS = 0
+DEVICE_NOTIFY_ALL_INTERFACE_CLASSES: win32more.Windows.Win32.UI.WindowsAndMessaging.REGISTER_NOTIFICATION_FLAGS = 4
 class SCROLLBARINFO(EasyCastStructure):
     cbSize: UInt32
     rcScrollBar: win32more.Windows.Win32.Foundation.RECT
@@ -3113,26 +3112,26 @@ class SCROLLBARINFO(EasyCastStructure):
     reserved: Int32
     rgstate: UInt32 * 6
 SCROLLBAR_COMMAND = Int32
-SB_LINEUP: SCROLLBAR_COMMAND = 0
-SB_LINELEFT: SCROLLBAR_COMMAND = 0
-SB_LINEDOWN: SCROLLBAR_COMMAND = 1
-SB_LINERIGHT: SCROLLBAR_COMMAND = 1
-SB_PAGEUP: SCROLLBAR_COMMAND = 2
-SB_PAGELEFT: SCROLLBAR_COMMAND = 2
-SB_PAGEDOWN: SCROLLBAR_COMMAND = 3
-SB_PAGERIGHT: SCROLLBAR_COMMAND = 3
-SB_THUMBPOSITION: SCROLLBAR_COMMAND = 4
-SB_THUMBTRACK: SCROLLBAR_COMMAND = 5
-SB_TOP: SCROLLBAR_COMMAND = 6
-SB_LEFT: SCROLLBAR_COMMAND = 6
-SB_RIGHT: SCROLLBAR_COMMAND = 7
-SB_BOTTOM: SCROLLBAR_COMMAND = 7
-SB_ENDSCROLL: SCROLLBAR_COMMAND = 8
+SB_LINEUP: win32more.Windows.Win32.UI.WindowsAndMessaging.SCROLLBAR_COMMAND = 0
+SB_LINELEFT: win32more.Windows.Win32.UI.WindowsAndMessaging.SCROLLBAR_COMMAND = 0
+SB_LINEDOWN: win32more.Windows.Win32.UI.WindowsAndMessaging.SCROLLBAR_COMMAND = 1
+SB_LINERIGHT: win32more.Windows.Win32.UI.WindowsAndMessaging.SCROLLBAR_COMMAND = 1
+SB_PAGEUP: win32more.Windows.Win32.UI.WindowsAndMessaging.SCROLLBAR_COMMAND = 2
+SB_PAGELEFT: win32more.Windows.Win32.UI.WindowsAndMessaging.SCROLLBAR_COMMAND = 2
+SB_PAGEDOWN: win32more.Windows.Win32.UI.WindowsAndMessaging.SCROLLBAR_COMMAND = 3
+SB_PAGERIGHT: win32more.Windows.Win32.UI.WindowsAndMessaging.SCROLLBAR_COMMAND = 3
+SB_THUMBPOSITION: win32more.Windows.Win32.UI.WindowsAndMessaging.SCROLLBAR_COMMAND = 4
+SB_THUMBTRACK: win32more.Windows.Win32.UI.WindowsAndMessaging.SCROLLBAR_COMMAND = 5
+SB_TOP: win32more.Windows.Win32.UI.WindowsAndMessaging.SCROLLBAR_COMMAND = 6
+SB_LEFT: win32more.Windows.Win32.UI.WindowsAndMessaging.SCROLLBAR_COMMAND = 6
+SB_RIGHT: win32more.Windows.Win32.UI.WindowsAndMessaging.SCROLLBAR_COMMAND = 7
+SB_BOTTOM: win32more.Windows.Win32.UI.WindowsAndMessaging.SCROLLBAR_COMMAND = 7
+SB_ENDSCROLL: win32more.Windows.Win32.UI.WindowsAndMessaging.SCROLLBAR_COMMAND = 8
 SCROLLBAR_CONSTANTS = Int32
-SB_CTL: SCROLLBAR_CONSTANTS = 2
-SB_HORZ: SCROLLBAR_CONSTANTS = 0
-SB_VERT: SCROLLBAR_CONSTANTS = 1
-SB_BOTH: SCROLLBAR_CONSTANTS = 3
+SB_CTL: win32more.Windows.Win32.UI.WindowsAndMessaging.SCROLLBAR_CONSTANTS = 2
+SB_HORZ: win32more.Windows.Win32.UI.WindowsAndMessaging.SCROLLBAR_CONSTANTS = 0
+SB_VERT: win32more.Windows.Win32.UI.WindowsAndMessaging.SCROLLBAR_CONSTANTS = 1
+SB_BOTH: win32more.Windows.Win32.UI.WindowsAndMessaging.SCROLLBAR_CONSTANTS = 3
 class SCROLLINFO(EasyCastStructure):
     cbSize: UInt32
     fMask: win32more.Windows.Win32.UI.WindowsAndMessaging.SCROLLINFO_MASK
@@ -3142,428 +3141,428 @@ class SCROLLINFO(EasyCastStructure):
     nPos: Int32
     nTrackPos: Int32
 SCROLLINFO_MASK = UInt32
-SIF_ALL: SCROLLINFO_MASK = 23
-SIF_DISABLENOSCROLL: SCROLLINFO_MASK = 8
-SIF_PAGE: SCROLLINFO_MASK = 2
-SIF_POS: SCROLLINFO_MASK = 4
-SIF_RANGE: SCROLLINFO_MASK = 1
-SIF_TRACKPOS: SCROLLINFO_MASK = 16
+SIF_ALL: win32more.Windows.Win32.UI.WindowsAndMessaging.SCROLLINFO_MASK = 23
+SIF_DISABLENOSCROLL: win32more.Windows.Win32.UI.WindowsAndMessaging.SCROLLINFO_MASK = 8
+SIF_PAGE: win32more.Windows.Win32.UI.WindowsAndMessaging.SCROLLINFO_MASK = 2
+SIF_POS: win32more.Windows.Win32.UI.WindowsAndMessaging.SCROLLINFO_MASK = 4
+SIF_RANGE: win32more.Windows.Win32.UI.WindowsAndMessaging.SCROLLINFO_MASK = 1
+SIF_TRACKPOS: win32more.Windows.Win32.UI.WindowsAndMessaging.SCROLLINFO_MASK = 16
 SCROLL_WINDOW_FLAGS = UInt32
-SW_SCROLLCHILDREN: SCROLL_WINDOW_FLAGS = 1
-SW_INVALIDATE: SCROLL_WINDOW_FLAGS = 2
-SW_ERASE: SCROLL_WINDOW_FLAGS = 4
-SW_SMOOTHSCROLL: SCROLL_WINDOW_FLAGS = 16
+SW_SCROLLCHILDREN: win32more.Windows.Win32.UI.WindowsAndMessaging.SCROLL_WINDOW_FLAGS = 1
+SW_INVALIDATE: win32more.Windows.Win32.UI.WindowsAndMessaging.SCROLL_WINDOW_FLAGS = 2
+SW_ERASE: win32more.Windows.Win32.UI.WindowsAndMessaging.SCROLL_WINDOW_FLAGS = 4
+SW_SMOOTHSCROLL: win32more.Windows.Win32.UI.WindowsAndMessaging.SCROLL_WINDOW_FLAGS = 16
 @winfunctype_pointer
 def SENDASYNCPROC(param0: win32more.Windows.Win32.Foundation.HWND, param1: UInt32, param2: UIntPtr, param3: win32more.Windows.Win32.Foundation.LRESULT) -> Void: ...
 SEND_MESSAGE_TIMEOUT_FLAGS = UInt32
-SMTO_ABORTIFHUNG: SEND_MESSAGE_TIMEOUT_FLAGS = 2
-SMTO_BLOCK: SEND_MESSAGE_TIMEOUT_FLAGS = 1
-SMTO_NORMAL: SEND_MESSAGE_TIMEOUT_FLAGS = 0
-SMTO_NOTIMEOUTIFNOTHUNG: SEND_MESSAGE_TIMEOUT_FLAGS = 8
-SMTO_ERRORONEXIT: SEND_MESSAGE_TIMEOUT_FLAGS = 32
+SMTO_ABORTIFHUNG: win32more.Windows.Win32.UI.WindowsAndMessaging.SEND_MESSAGE_TIMEOUT_FLAGS = 2
+SMTO_BLOCK: win32more.Windows.Win32.UI.WindowsAndMessaging.SEND_MESSAGE_TIMEOUT_FLAGS = 1
+SMTO_NORMAL: win32more.Windows.Win32.UI.WindowsAndMessaging.SEND_MESSAGE_TIMEOUT_FLAGS = 0
+SMTO_NOTIMEOUTIFNOTHUNG: win32more.Windows.Win32.UI.WindowsAndMessaging.SEND_MESSAGE_TIMEOUT_FLAGS = 8
+SMTO_ERRORONEXIT: win32more.Windows.Win32.UI.WindowsAndMessaging.SEND_MESSAGE_TIMEOUT_FLAGS = 32
 SET_WINDOW_POS_FLAGS = UInt32
-SWP_ASYNCWINDOWPOS: SET_WINDOW_POS_FLAGS = 16384
-SWP_DEFERERASE: SET_WINDOW_POS_FLAGS = 8192
-SWP_DRAWFRAME: SET_WINDOW_POS_FLAGS = 32
-SWP_FRAMECHANGED: SET_WINDOW_POS_FLAGS = 32
-SWP_HIDEWINDOW: SET_WINDOW_POS_FLAGS = 128
-SWP_NOACTIVATE: SET_WINDOW_POS_FLAGS = 16
-SWP_NOCOPYBITS: SET_WINDOW_POS_FLAGS = 256
-SWP_NOMOVE: SET_WINDOW_POS_FLAGS = 2
-SWP_NOOWNERZORDER: SET_WINDOW_POS_FLAGS = 512
-SWP_NOREDRAW: SET_WINDOW_POS_FLAGS = 8
-SWP_NOREPOSITION: SET_WINDOW_POS_FLAGS = 512
-SWP_NOSENDCHANGING: SET_WINDOW_POS_FLAGS = 1024
-SWP_NOSIZE: SET_WINDOW_POS_FLAGS = 1
-SWP_NOZORDER: SET_WINDOW_POS_FLAGS = 4
-SWP_SHOWWINDOW: SET_WINDOW_POS_FLAGS = 64
+SWP_ASYNCWINDOWPOS: win32more.Windows.Win32.UI.WindowsAndMessaging.SET_WINDOW_POS_FLAGS = 16384
+SWP_DEFERERASE: win32more.Windows.Win32.UI.WindowsAndMessaging.SET_WINDOW_POS_FLAGS = 8192
+SWP_DRAWFRAME: win32more.Windows.Win32.UI.WindowsAndMessaging.SET_WINDOW_POS_FLAGS = 32
+SWP_FRAMECHANGED: win32more.Windows.Win32.UI.WindowsAndMessaging.SET_WINDOW_POS_FLAGS = 32
+SWP_HIDEWINDOW: win32more.Windows.Win32.UI.WindowsAndMessaging.SET_WINDOW_POS_FLAGS = 128
+SWP_NOACTIVATE: win32more.Windows.Win32.UI.WindowsAndMessaging.SET_WINDOW_POS_FLAGS = 16
+SWP_NOCOPYBITS: win32more.Windows.Win32.UI.WindowsAndMessaging.SET_WINDOW_POS_FLAGS = 256
+SWP_NOMOVE: win32more.Windows.Win32.UI.WindowsAndMessaging.SET_WINDOW_POS_FLAGS = 2
+SWP_NOOWNERZORDER: win32more.Windows.Win32.UI.WindowsAndMessaging.SET_WINDOW_POS_FLAGS = 512
+SWP_NOREDRAW: win32more.Windows.Win32.UI.WindowsAndMessaging.SET_WINDOW_POS_FLAGS = 8
+SWP_NOREPOSITION: win32more.Windows.Win32.UI.WindowsAndMessaging.SET_WINDOW_POS_FLAGS = 512
+SWP_NOSENDCHANGING: win32more.Windows.Win32.UI.WindowsAndMessaging.SET_WINDOW_POS_FLAGS = 1024
+SWP_NOSIZE: win32more.Windows.Win32.UI.WindowsAndMessaging.SET_WINDOW_POS_FLAGS = 1
+SWP_NOZORDER: win32more.Windows.Win32.UI.WindowsAndMessaging.SET_WINDOW_POS_FLAGS = 4
+SWP_SHOWWINDOW: win32more.Windows.Win32.UI.WindowsAndMessaging.SET_WINDOW_POS_FLAGS = 64
 class SHELLHOOKINFO(EasyCastStructure):
     hwnd: win32more.Windows.Win32.Foundation.HWND
     rc: win32more.Windows.Win32.Foundation.RECT
 SHOW_WINDOW_CMD = Int32
-SW_HIDE: SHOW_WINDOW_CMD = 0
-SW_SHOWNORMAL: SHOW_WINDOW_CMD = 1
-SW_NORMAL: SHOW_WINDOW_CMD = 1
-SW_SHOWMINIMIZED: SHOW_WINDOW_CMD = 2
-SW_SHOWMAXIMIZED: SHOW_WINDOW_CMD = 3
-SW_MAXIMIZE: SHOW_WINDOW_CMD = 3
-SW_SHOWNOACTIVATE: SHOW_WINDOW_CMD = 4
-SW_SHOW: SHOW_WINDOW_CMD = 5
-SW_MINIMIZE: SHOW_WINDOW_CMD = 6
-SW_SHOWMINNOACTIVE: SHOW_WINDOW_CMD = 7
-SW_SHOWNA: SHOW_WINDOW_CMD = 8
-SW_RESTORE: SHOW_WINDOW_CMD = 9
-SW_SHOWDEFAULT: SHOW_WINDOW_CMD = 10
-SW_FORCEMINIMIZE: SHOW_WINDOW_CMD = 11
-SW_MAX: SHOW_WINDOW_CMD = 11
+SW_HIDE: win32more.Windows.Win32.UI.WindowsAndMessaging.SHOW_WINDOW_CMD = 0
+SW_SHOWNORMAL: win32more.Windows.Win32.UI.WindowsAndMessaging.SHOW_WINDOW_CMD = 1
+SW_NORMAL: win32more.Windows.Win32.UI.WindowsAndMessaging.SHOW_WINDOW_CMD = 1
+SW_SHOWMINIMIZED: win32more.Windows.Win32.UI.WindowsAndMessaging.SHOW_WINDOW_CMD = 2
+SW_SHOWMAXIMIZED: win32more.Windows.Win32.UI.WindowsAndMessaging.SHOW_WINDOW_CMD = 3
+SW_MAXIMIZE: win32more.Windows.Win32.UI.WindowsAndMessaging.SHOW_WINDOW_CMD = 3
+SW_SHOWNOACTIVATE: win32more.Windows.Win32.UI.WindowsAndMessaging.SHOW_WINDOW_CMD = 4
+SW_SHOW: win32more.Windows.Win32.UI.WindowsAndMessaging.SHOW_WINDOW_CMD = 5
+SW_MINIMIZE: win32more.Windows.Win32.UI.WindowsAndMessaging.SHOW_WINDOW_CMD = 6
+SW_SHOWMINNOACTIVE: win32more.Windows.Win32.UI.WindowsAndMessaging.SHOW_WINDOW_CMD = 7
+SW_SHOWNA: win32more.Windows.Win32.UI.WindowsAndMessaging.SHOW_WINDOW_CMD = 8
+SW_RESTORE: win32more.Windows.Win32.UI.WindowsAndMessaging.SHOW_WINDOW_CMD = 9
+SW_SHOWDEFAULT: win32more.Windows.Win32.UI.WindowsAndMessaging.SHOW_WINDOW_CMD = 10
+SW_FORCEMINIMIZE: win32more.Windows.Win32.UI.WindowsAndMessaging.SHOW_WINDOW_CMD = 11
+SW_MAX: win32more.Windows.Win32.UI.WindowsAndMessaging.SHOW_WINDOW_CMD = 11
 SHOW_WINDOW_STATUS = UInt32
-SW_PARENTCLOSING: SHOW_WINDOW_STATUS = 1
-SW_OTHERZOOM: SHOW_WINDOW_STATUS = 2
-SW_PARENTOPENING: SHOW_WINDOW_STATUS = 3
-SW_OTHERUNZOOM: SHOW_WINDOW_STATUS = 4
+SW_PARENTCLOSING: win32more.Windows.Win32.UI.WindowsAndMessaging.SHOW_WINDOW_STATUS = 1
+SW_OTHERZOOM: win32more.Windows.Win32.UI.WindowsAndMessaging.SHOW_WINDOW_STATUS = 2
+SW_PARENTOPENING: win32more.Windows.Win32.UI.WindowsAndMessaging.SHOW_WINDOW_STATUS = 3
+SW_OTHERUNZOOM: win32more.Windows.Win32.UI.WindowsAndMessaging.SHOW_WINDOW_STATUS = 4
 class STYLESTRUCT(EasyCastStructure):
     styleOld: UInt32
     styleNew: UInt32
 SYSTEM_CURSOR_ID = UInt32
-OCR_APPSTARTING: SYSTEM_CURSOR_ID = 32650
-OCR_NORMAL: SYSTEM_CURSOR_ID = 32512
-OCR_CROSS: SYSTEM_CURSOR_ID = 32515
-OCR_HAND: SYSTEM_CURSOR_ID = 32649
-OCR_HELP: SYSTEM_CURSOR_ID = 32651
-OCR_IBEAM: SYSTEM_CURSOR_ID = 32513
-OCR_NO: SYSTEM_CURSOR_ID = 32648
-OCR_SIZEALL: SYSTEM_CURSOR_ID = 32646
-OCR_SIZENESW: SYSTEM_CURSOR_ID = 32643
-OCR_SIZENS: SYSTEM_CURSOR_ID = 32645
-OCR_SIZENWSE: SYSTEM_CURSOR_ID = 32642
-OCR_SIZEWE: SYSTEM_CURSOR_ID = 32644
-OCR_UP: SYSTEM_CURSOR_ID = 32516
-OCR_WAIT: SYSTEM_CURSOR_ID = 32514
+OCR_APPSTARTING: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_CURSOR_ID = 32650
+OCR_NORMAL: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_CURSOR_ID = 32512
+OCR_CROSS: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_CURSOR_ID = 32515
+OCR_HAND: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_CURSOR_ID = 32649
+OCR_HELP: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_CURSOR_ID = 32651
+OCR_IBEAM: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_CURSOR_ID = 32513
+OCR_NO: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_CURSOR_ID = 32648
+OCR_SIZEALL: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_CURSOR_ID = 32646
+OCR_SIZENESW: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_CURSOR_ID = 32643
+OCR_SIZENS: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_CURSOR_ID = 32645
+OCR_SIZENWSE: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_CURSOR_ID = 32642
+OCR_SIZEWE: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_CURSOR_ID = 32644
+OCR_UP: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_CURSOR_ID = 32516
+OCR_WAIT: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_CURSOR_ID = 32514
 SYSTEM_METRICS_INDEX = Int32
-SM_ARRANGE: SYSTEM_METRICS_INDEX = 56
-SM_CLEANBOOT: SYSTEM_METRICS_INDEX = 67
-SM_CMONITORS: SYSTEM_METRICS_INDEX = 80
-SM_CMOUSEBUTTONS: SYSTEM_METRICS_INDEX = 43
-SM_CONVERTIBLESLATEMODE: SYSTEM_METRICS_INDEX = 8195
-SM_CXBORDER: SYSTEM_METRICS_INDEX = 5
-SM_CXCURSOR: SYSTEM_METRICS_INDEX = 13
-SM_CXDLGFRAME: SYSTEM_METRICS_INDEX = 7
-SM_CXDOUBLECLK: SYSTEM_METRICS_INDEX = 36
-SM_CXDRAG: SYSTEM_METRICS_INDEX = 68
-SM_CXEDGE: SYSTEM_METRICS_INDEX = 45
-SM_CXFIXEDFRAME: SYSTEM_METRICS_INDEX = 7
-SM_CXFOCUSBORDER: SYSTEM_METRICS_INDEX = 83
-SM_CXFRAME: SYSTEM_METRICS_INDEX = 32
-SM_CXFULLSCREEN: SYSTEM_METRICS_INDEX = 16
-SM_CXHSCROLL: SYSTEM_METRICS_INDEX = 21
-SM_CXHTHUMB: SYSTEM_METRICS_INDEX = 10
-SM_CXICON: SYSTEM_METRICS_INDEX = 11
-SM_CXICONSPACING: SYSTEM_METRICS_INDEX = 38
-SM_CXMAXIMIZED: SYSTEM_METRICS_INDEX = 61
-SM_CXMAXTRACK: SYSTEM_METRICS_INDEX = 59
-SM_CXMENUCHECK: SYSTEM_METRICS_INDEX = 71
-SM_CXMENUSIZE: SYSTEM_METRICS_INDEX = 54
-SM_CXMIN: SYSTEM_METRICS_INDEX = 28
-SM_CXMINIMIZED: SYSTEM_METRICS_INDEX = 57
-SM_CXMINSPACING: SYSTEM_METRICS_INDEX = 47
-SM_CXMINTRACK: SYSTEM_METRICS_INDEX = 34
-SM_CXPADDEDBORDER: SYSTEM_METRICS_INDEX = 92
-SM_CXSCREEN: SYSTEM_METRICS_INDEX = 0
-SM_CXSIZE: SYSTEM_METRICS_INDEX = 30
-SM_CXSIZEFRAME: SYSTEM_METRICS_INDEX = 32
-SM_CXSMICON: SYSTEM_METRICS_INDEX = 49
-SM_CXSMSIZE: SYSTEM_METRICS_INDEX = 52
-SM_CXVIRTUALSCREEN: SYSTEM_METRICS_INDEX = 78
-SM_CXVSCROLL: SYSTEM_METRICS_INDEX = 2
-SM_CYBORDER: SYSTEM_METRICS_INDEX = 6
-SM_CYCAPTION: SYSTEM_METRICS_INDEX = 4
-SM_CYCURSOR: SYSTEM_METRICS_INDEX = 14
-SM_CYDLGFRAME: SYSTEM_METRICS_INDEX = 8
-SM_CYDOUBLECLK: SYSTEM_METRICS_INDEX = 37
-SM_CYDRAG: SYSTEM_METRICS_INDEX = 69
-SM_CYEDGE: SYSTEM_METRICS_INDEX = 46
-SM_CYFIXEDFRAME: SYSTEM_METRICS_INDEX = 8
-SM_CYFOCUSBORDER: SYSTEM_METRICS_INDEX = 84
-SM_CYFRAME: SYSTEM_METRICS_INDEX = 33
-SM_CYFULLSCREEN: SYSTEM_METRICS_INDEX = 17
-SM_CYHSCROLL: SYSTEM_METRICS_INDEX = 3
-SM_CYICON: SYSTEM_METRICS_INDEX = 12
-SM_CYICONSPACING: SYSTEM_METRICS_INDEX = 39
-SM_CYKANJIWINDOW: SYSTEM_METRICS_INDEX = 18
-SM_CYMAXIMIZED: SYSTEM_METRICS_INDEX = 62
-SM_CYMAXTRACK: SYSTEM_METRICS_INDEX = 60
-SM_CYMENU: SYSTEM_METRICS_INDEX = 15
-SM_CYMENUCHECK: SYSTEM_METRICS_INDEX = 72
-SM_CYMENUSIZE: SYSTEM_METRICS_INDEX = 55
-SM_CYMIN: SYSTEM_METRICS_INDEX = 29
-SM_CYMINIMIZED: SYSTEM_METRICS_INDEX = 58
-SM_CYMINSPACING: SYSTEM_METRICS_INDEX = 48
-SM_CYMINTRACK: SYSTEM_METRICS_INDEX = 35
-SM_CYSCREEN: SYSTEM_METRICS_INDEX = 1
-SM_CYSIZE: SYSTEM_METRICS_INDEX = 31
-SM_CYSIZEFRAME: SYSTEM_METRICS_INDEX = 33
-SM_CYSMCAPTION: SYSTEM_METRICS_INDEX = 51
-SM_CYSMICON: SYSTEM_METRICS_INDEX = 50
-SM_CYSMSIZE: SYSTEM_METRICS_INDEX = 53
-SM_CYVIRTUALSCREEN: SYSTEM_METRICS_INDEX = 79
-SM_CYVSCROLL: SYSTEM_METRICS_INDEX = 20
-SM_CYVTHUMB: SYSTEM_METRICS_INDEX = 9
-SM_DBCSENABLED: SYSTEM_METRICS_INDEX = 42
-SM_DEBUG: SYSTEM_METRICS_INDEX = 22
-SM_DIGITIZER: SYSTEM_METRICS_INDEX = 94
-SM_IMMENABLED: SYSTEM_METRICS_INDEX = 82
-SM_MAXIMUMTOUCHES: SYSTEM_METRICS_INDEX = 95
-SM_MEDIACENTER: SYSTEM_METRICS_INDEX = 87
-SM_MENUDROPALIGNMENT: SYSTEM_METRICS_INDEX = 40
-SM_MIDEASTENABLED: SYSTEM_METRICS_INDEX = 74
-SM_MOUSEPRESENT: SYSTEM_METRICS_INDEX = 19
-SM_MOUSEHORIZONTALWHEELPRESENT: SYSTEM_METRICS_INDEX = 91
-SM_MOUSEWHEELPRESENT: SYSTEM_METRICS_INDEX = 75
-SM_NETWORK: SYSTEM_METRICS_INDEX = 63
-SM_PENWINDOWS: SYSTEM_METRICS_INDEX = 41
-SM_REMOTECONTROL: SYSTEM_METRICS_INDEX = 8193
-SM_REMOTESESSION: SYSTEM_METRICS_INDEX = 4096
-SM_SAMEDISPLAYFORMAT: SYSTEM_METRICS_INDEX = 81
-SM_SECURE: SYSTEM_METRICS_INDEX = 44
-SM_SERVERR2: SYSTEM_METRICS_INDEX = 89
-SM_SHOWSOUNDS: SYSTEM_METRICS_INDEX = 70
-SM_SHUTTINGDOWN: SYSTEM_METRICS_INDEX = 8192
-SM_SLOWMACHINE: SYSTEM_METRICS_INDEX = 73
-SM_STARTER: SYSTEM_METRICS_INDEX = 88
-SM_SWAPBUTTON: SYSTEM_METRICS_INDEX = 23
-SM_SYSTEMDOCKED: SYSTEM_METRICS_INDEX = 8196
-SM_TABLETPC: SYSTEM_METRICS_INDEX = 86
-SM_XVIRTUALSCREEN: SYSTEM_METRICS_INDEX = 76
-SM_YVIRTUALSCREEN: SYSTEM_METRICS_INDEX = 77
+SM_ARRANGE: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 56
+SM_CLEANBOOT: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 67
+SM_CMONITORS: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 80
+SM_CMOUSEBUTTONS: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 43
+SM_CONVERTIBLESLATEMODE: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 8195
+SM_CXBORDER: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 5
+SM_CXCURSOR: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 13
+SM_CXDLGFRAME: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 7
+SM_CXDOUBLECLK: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 36
+SM_CXDRAG: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 68
+SM_CXEDGE: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 45
+SM_CXFIXEDFRAME: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 7
+SM_CXFOCUSBORDER: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 83
+SM_CXFRAME: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 32
+SM_CXFULLSCREEN: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 16
+SM_CXHSCROLL: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 21
+SM_CXHTHUMB: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 10
+SM_CXICON: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 11
+SM_CXICONSPACING: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 38
+SM_CXMAXIMIZED: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 61
+SM_CXMAXTRACK: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 59
+SM_CXMENUCHECK: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 71
+SM_CXMENUSIZE: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 54
+SM_CXMIN: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 28
+SM_CXMINIMIZED: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 57
+SM_CXMINSPACING: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 47
+SM_CXMINTRACK: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 34
+SM_CXPADDEDBORDER: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 92
+SM_CXSCREEN: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 0
+SM_CXSIZE: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 30
+SM_CXSIZEFRAME: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 32
+SM_CXSMICON: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 49
+SM_CXSMSIZE: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 52
+SM_CXVIRTUALSCREEN: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 78
+SM_CXVSCROLL: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 2
+SM_CYBORDER: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 6
+SM_CYCAPTION: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 4
+SM_CYCURSOR: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 14
+SM_CYDLGFRAME: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 8
+SM_CYDOUBLECLK: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 37
+SM_CYDRAG: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 69
+SM_CYEDGE: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 46
+SM_CYFIXEDFRAME: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 8
+SM_CYFOCUSBORDER: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 84
+SM_CYFRAME: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 33
+SM_CYFULLSCREEN: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 17
+SM_CYHSCROLL: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 3
+SM_CYICON: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 12
+SM_CYICONSPACING: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 39
+SM_CYKANJIWINDOW: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 18
+SM_CYMAXIMIZED: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 62
+SM_CYMAXTRACK: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 60
+SM_CYMENU: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 15
+SM_CYMENUCHECK: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 72
+SM_CYMENUSIZE: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 55
+SM_CYMIN: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 29
+SM_CYMINIMIZED: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 58
+SM_CYMINSPACING: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 48
+SM_CYMINTRACK: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 35
+SM_CYSCREEN: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 1
+SM_CYSIZE: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 31
+SM_CYSIZEFRAME: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 33
+SM_CYSMCAPTION: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 51
+SM_CYSMICON: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 50
+SM_CYSMSIZE: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 53
+SM_CYVIRTUALSCREEN: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 79
+SM_CYVSCROLL: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 20
+SM_CYVTHUMB: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 9
+SM_DBCSENABLED: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 42
+SM_DEBUG: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 22
+SM_DIGITIZER: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 94
+SM_IMMENABLED: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 82
+SM_MAXIMUMTOUCHES: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 95
+SM_MEDIACENTER: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 87
+SM_MENUDROPALIGNMENT: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 40
+SM_MIDEASTENABLED: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 74
+SM_MOUSEPRESENT: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 19
+SM_MOUSEHORIZONTALWHEELPRESENT: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 91
+SM_MOUSEWHEELPRESENT: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 75
+SM_NETWORK: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 63
+SM_PENWINDOWS: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 41
+SM_REMOTECONTROL: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 8193
+SM_REMOTESESSION: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 4096
+SM_SAMEDISPLAYFORMAT: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 81
+SM_SECURE: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 44
+SM_SERVERR2: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 89
+SM_SHOWSOUNDS: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 70
+SM_SHUTTINGDOWN: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 8192
+SM_SLOWMACHINE: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 73
+SM_STARTER: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 88
+SM_SWAPBUTTON: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 23
+SM_SYSTEMDOCKED: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 8196
+SM_TABLETPC: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 86
+SM_XVIRTUALSCREEN: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 76
+SM_YVIRTUALSCREEN: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX = 77
 SYSTEM_PARAMETERS_INFO_ACTION = UInt32
-SPI_GETBEEP: SYSTEM_PARAMETERS_INFO_ACTION = 1
-SPI_SETBEEP: SYSTEM_PARAMETERS_INFO_ACTION = 2
-SPI_GETMOUSE: SYSTEM_PARAMETERS_INFO_ACTION = 3
-SPI_SETMOUSE: SYSTEM_PARAMETERS_INFO_ACTION = 4
-SPI_GETBORDER: SYSTEM_PARAMETERS_INFO_ACTION = 5
-SPI_SETBORDER: SYSTEM_PARAMETERS_INFO_ACTION = 6
-SPI_GETKEYBOARDSPEED: SYSTEM_PARAMETERS_INFO_ACTION = 10
-SPI_SETKEYBOARDSPEED: SYSTEM_PARAMETERS_INFO_ACTION = 11
-SPI_LANGDRIVER: SYSTEM_PARAMETERS_INFO_ACTION = 12
-SPI_ICONHORIZONTALSPACING: SYSTEM_PARAMETERS_INFO_ACTION = 13
-SPI_GETSCREENSAVETIMEOUT: SYSTEM_PARAMETERS_INFO_ACTION = 14
-SPI_SETSCREENSAVETIMEOUT: SYSTEM_PARAMETERS_INFO_ACTION = 15
-SPI_GETSCREENSAVEACTIVE: SYSTEM_PARAMETERS_INFO_ACTION = 16
-SPI_SETSCREENSAVEACTIVE: SYSTEM_PARAMETERS_INFO_ACTION = 17
-SPI_GETGRIDGRANULARITY: SYSTEM_PARAMETERS_INFO_ACTION = 18
-SPI_SETGRIDGRANULARITY: SYSTEM_PARAMETERS_INFO_ACTION = 19
-SPI_SETDESKWALLPAPER: SYSTEM_PARAMETERS_INFO_ACTION = 20
-SPI_SETDESKPATTERN: SYSTEM_PARAMETERS_INFO_ACTION = 21
-SPI_GETKEYBOARDDELAY: SYSTEM_PARAMETERS_INFO_ACTION = 22
-SPI_SETKEYBOARDDELAY: SYSTEM_PARAMETERS_INFO_ACTION = 23
-SPI_ICONVERTICALSPACING: SYSTEM_PARAMETERS_INFO_ACTION = 24
-SPI_GETICONTITLEWRAP: SYSTEM_PARAMETERS_INFO_ACTION = 25
-SPI_SETICONTITLEWRAP: SYSTEM_PARAMETERS_INFO_ACTION = 26
-SPI_GETMENUDROPALIGNMENT: SYSTEM_PARAMETERS_INFO_ACTION = 27
-SPI_SETMENUDROPALIGNMENT: SYSTEM_PARAMETERS_INFO_ACTION = 28
-SPI_SETDOUBLECLKWIDTH: SYSTEM_PARAMETERS_INFO_ACTION = 29
-SPI_SETDOUBLECLKHEIGHT: SYSTEM_PARAMETERS_INFO_ACTION = 30
-SPI_GETICONTITLELOGFONT: SYSTEM_PARAMETERS_INFO_ACTION = 31
-SPI_SETDOUBLECLICKTIME: SYSTEM_PARAMETERS_INFO_ACTION = 32
-SPI_SETMOUSEBUTTONSWAP: SYSTEM_PARAMETERS_INFO_ACTION = 33
-SPI_SETICONTITLELOGFONT: SYSTEM_PARAMETERS_INFO_ACTION = 34
-SPI_GETFASTTASKSWITCH: SYSTEM_PARAMETERS_INFO_ACTION = 35
-SPI_SETFASTTASKSWITCH: SYSTEM_PARAMETERS_INFO_ACTION = 36
-SPI_SETDRAGFULLWINDOWS: SYSTEM_PARAMETERS_INFO_ACTION = 37
-SPI_GETDRAGFULLWINDOWS: SYSTEM_PARAMETERS_INFO_ACTION = 38
-SPI_GETNONCLIENTMETRICS: SYSTEM_PARAMETERS_INFO_ACTION = 41
-SPI_SETNONCLIENTMETRICS: SYSTEM_PARAMETERS_INFO_ACTION = 42
-SPI_GETMINIMIZEDMETRICS: SYSTEM_PARAMETERS_INFO_ACTION = 43
-SPI_SETMINIMIZEDMETRICS: SYSTEM_PARAMETERS_INFO_ACTION = 44
-SPI_GETICONMETRICS: SYSTEM_PARAMETERS_INFO_ACTION = 45
-SPI_SETICONMETRICS: SYSTEM_PARAMETERS_INFO_ACTION = 46
-SPI_SETWORKAREA: SYSTEM_PARAMETERS_INFO_ACTION = 47
-SPI_GETWORKAREA: SYSTEM_PARAMETERS_INFO_ACTION = 48
-SPI_SETPENWINDOWS: SYSTEM_PARAMETERS_INFO_ACTION = 49
-SPI_GETHIGHCONTRAST: SYSTEM_PARAMETERS_INFO_ACTION = 66
-SPI_SETHIGHCONTRAST: SYSTEM_PARAMETERS_INFO_ACTION = 67
-SPI_GETKEYBOARDPREF: SYSTEM_PARAMETERS_INFO_ACTION = 68
-SPI_SETKEYBOARDPREF: SYSTEM_PARAMETERS_INFO_ACTION = 69
-SPI_GETSCREENREADER: SYSTEM_PARAMETERS_INFO_ACTION = 70
-SPI_SETSCREENREADER: SYSTEM_PARAMETERS_INFO_ACTION = 71
-SPI_GETANIMATION: SYSTEM_PARAMETERS_INFO_ACTION = 72
-SPI_SETANIMATION: SYSTEM_PARAMETERS_INFO_ACTION = 73
-SPI_GETFONTSMOOTHING: SYSTEM_PARAMETERS_INFO_ACTION = 74
-SPI_SETFONTSMOOTHING: SYSTEM_PARAMETERS_INFO_ACTION = 75
-SPI_SETDRAGWIDTH: SYSTEM_PARAMETERS_INFO_ACTION = 76
-SPI_SETDRAGHEIGHT: SYSTEM_PARAMETERS_INFO_ACTION = 77
-SPI_SETHANDHELD: SYSTEM_PARAMETERS_INFO_ACTION = 78
-SPI_GETLOWPOWERTIMEOUT: SYSTEM_PARAMETERS_INFO_ACTION = 79
-SPI_GETPOWEROFFTIMEOUT: SYSTEM_PARAMETERS_INFO_ACTION = 80
-SPI_SETLOWPOWERTIMEOUT: SYSTEM_PARAMETERS_INFO_ACTION = 81
-SPI_SETPOWEROFFTIMEOUT: SYSTEM_PARAMETERS_INFO_ACTION = 82
-SPI_GETLOWPOWERACTIVE: SYSTEM_PARAMETERS_INFO_ACTION = 83
-SPI_GETPOWEROFFACTIVE: SYSTEM_PARAMETERS_INFO_ACTION = 84
-SPI_SETLOWPOWERACTIVE: SYSTEM_PARAMETERS_INFO_ACTION = 85
-SPI_SETPOWEROFFACTIVE: SYSTEM_PARAMETERS_INFO_ACTION = 86
-SPI_SETCURSORS: SYSTEM_PARAMETERS_INFO_ACTION = 87
-SPI_SETICONS: SYSTEM_PARAMETERS_INFO_ACTION = 88
-SPI_GETDEFAULTINPUTLANG: SYSTEM_PARAMETERS_INFO_ACTION = 89
-SPI_SETDEFAULTINPUTLANG: SYSTEM_PARAMETERS_INFO_ACTION = 90
-SPI_SETLANGTOGGLE: SYSTEM_PARAMETERS_INFO_ACTION = 91
-SPI_GETWINDOWSEXTENSION: SYSTEM_PARAMETERS_INFO_ACTION = 92
-SPI_SETMOUSETRAILS: SYSTEM_PARAMETERS_INFO_ACTION = 93
-SPI_GETMOUSETRAILS: SYSTEM_PARAMETERS_INFO_ACTION = 94
-SPI_SETSCREENSAVERRUNNING: SYSTEM_PARAMETERS_INFO_ACTION = 97
-SPI_SCREENSAVERRUNNING: SYSTEM_PARAMETERS_INFO_ACTION = 97
-SPI_GETFILTERKEYS: SYSTEM_PARAMETERS_INFO_ACTION = 50
-SPI_SETFILTERKEYS: SYSTEM_PARAMETERS_INFO_ACTION = 51
-SPI_GETTOGGLEKEYS: SYSTEM_PARAMETERS_INFO_ACTION = 52
-SPI_SETTOGGLEKEYS: SYSTEM_PARAMETERS_INFO_ACTION = 53
-SPI_GETMOUSEKEYS: SYSTEM_PARAMETERS_INFO_ACTION = 54
-SPI_SETMOUSEKEYS: SYSTEM_PARAMETERS_INFO_ACTION = 55
-SPI_GETSHOWSOUNDS: SYSTEM_PARAMETERS_INFO_ACTION = 56
-SPI_SETSHOWSOUNDS: SYSTEM_PARAMETERS_INFO_ACTION = 57
-SPI_GETSTICKYKEYS: SYSTEM_PARAMETERS_INFO_ACTION = 58
-SPI_SETSTICKYKEYS: SYSTEM_PARAMETERS_INFO_ACTION = 59
-SPI_GETACCESSTIMEOUT: SYSTEM_PARAMETERS_INFO_ACTION = 60
-SPI_SETACCESSTIMEOUT: SYSTEM_PARAMETERS_INFO_ACTION = 61
-SPI_GETSERIALKEYS: SYSTEM_PARAMETERS_INFO_ACTION = 62
-SPI_SETSERIALKEYS: SYSTEM_PARAMETERS_INFO_ACTION = 63
-SPI_GETSOUNDSENTRY: SYSTEM_PARAMETERS_INFO_ACTION = 64
-SPI_SETSOUNDSENTRY: SYSTEM_PARAMETERS_INFO_ACTION = 65
-SPI_GETSNAPTODEFBUTTON: SYSTEM_PARAMETERS_INFO_ACTION = 95
-SPI_SETSNAPTODEFBUTTON: SYSTEM_PARAMETERS_INFO_ACTION = 96
-SPI_GETMOUSEHOVERWIDTH: SYSTEM_PARAMETERS_INFO_ACTION = 98
-SPI_SETMOUSEHOVERWIDTH: SYSTEM_PARAMETERS_INFO_ACTION = 99
-SPI_GETMOUSEHOVERHEIGHT: SYSTEM_PARAMETERS_INFO_ACTION = 100
-SPI_SETMOUSEHOVERHEIGHT: SYSTEM_PARAMETERS_INFO_ACTION = 101
-SPI_GETMOUSEHOVERTIME: SYSTEM_PARAMETERS_INFO_ACTION = 102
-SPI_SETMOUSEHOVERTIME: SYSTEM_PARAMETERS_INFO_ACTION = 103
-SPI_GETWHEELSCROLLLINES: SYSTEM_PARAMETERS_INFO_ACTION = 104
-SPI_SETWHEELSCROLLLINES: SYSTEM_PARAMETERS_INFO_ACTION = 105
-SPI_GETMENUSHOWDELAY: SYSTEM_PARAMETERS_INFO_ACTION = 106
-SPI_SETMENUSHOWDELAY: SYSTEM_PARAMETERS_INFO_ACTION = 107
-SPI_GETWHEELSCROLLCHARS: SYSTEM_PARAMETERS_INFO_ACTION = 108
-SPI_SETWHEELSCROLLCHARS: SYSTEM_PARAMETERS_INFO_ACTION = 109
-SPI_GETSHOWIMEUI: SYSTEM_PARAMETERS_INFO_ACTION = 110
-SPI_SETSHOWIMEUI: SYSTEM_PARAMETERS_INFO_ACTION = 111
-SPI_GETMOUSESPEED: SYSTEM_PARAMETERS_INFO_ACTION = 112
-SPI_SETMOUSESPEED: SYSTEM_PARAMETERS_INFO_ACTION = 113
-SPI_GETSCREENSAVERRUNNING: SYSTEM_PARAMETERS_INFO_ACTION = 114
-SPI_GETDESKWALLPAPER: SYSTEM_PARAMETERS_INFO_ACTION = 115
-SPI_GETAUDIODESCRIPTION: SYSTEM_PARAMETERS_INFO_ACTION = 116
-SPI_SETAUDIODESCRIPTION: SYSTEM_PARAMETERS_INFO_ACTION = 117
-SPI_GETSCREENSAVESECURE: SYSTEM_PARAMETERS_INFO_ACTION = 118
-SPI_SETSCREENSAVESECURE: SYSTEM_PARAMETERS_INFO_ACTION = 119
-SPI_GETHUNGAPPTIMEOUT: SYSTEM_PARAMETERS_INFO_ACTION = 120
-SPI_SETHUNGAPPTIMEOUT: SYSTEM_PARAMETERS_INFO_ACTION = 121
-SPI_GETWAITTOKILLTIMEOUT: SYSTEM_PARAMETERS_INFO_ACTION = 122
-SPI_SETWAITTOKILLTIMEOUT: SYSTEM_PARAMETERS_INFO_ACTION = 123
-SPI_GETWAITTOKILLSERVICETIMEOUT: SYSTEM_PARAMETERS_INFO_ACTION = 124
-SPI_SETWAITTOKILLSERVICETIMEOUT: SYSTEM_PARAMETERS_INFO_ACTION = 125
-SPI_GETMOUSEDOCKTHRESHOLD: SYSTEM_PARAMETERS_INFO_ACTION = 126
-SPI_SETMOUSEDOCKTHRESHOLD: SYSTEM_PARAMETERS_INFO_ACTION = 127
-SPI_GETPENDOCKTHRESHOLD: SYSTEM_PARAMETERS_INFO_ACTION = 128
-SPI_SETPENDOCKTHRESHOLD: SYSTEM_PARAMETERS_INFO_ACTION = 129
-SPI_GETWINARRANGING: SYSTEM_PARAMETERS_INFO_ACTION = 130
-SPI_SETWINARRANGING: SYSTEM_PARAMETERS_INFO_ACTION = 131
-SPI_GETMOUSEDRAGOUTTHRESHOLD: SYSTEM_PARAMETERS_INFO_ACTION = 132
-SPI_SETMOUSEDRAGOUTTHRESHOLD: SYSTEM_PARAMETERS_INFO_ACTION = 133
-SPI_GETPENDRAGOUTTHRESHOLD: SYSTEM_PARAMETERS_INFO_ACTION = 134
-SPI_SETPENDRAGOUTTHRESHOLD: SYSTEM_PARAMETERS_INFO_ACTION = 135
-SPI_GETMOUSESIDEMOVETHRESHOLD: SYSTEM_PARAMETERS_INFO_ACTION = 136
-SPI_SETMOUSESIDEMOVETHRESHOLD: SYSTEM_PARAMETERS_INFO_ACTION = 137
-SPI_GETPENSIDEMOVETHRESHOLD: SYSTEM_PARAMETERS_INFO_ACTION = 138
-SPI_SETPENSIDEMOVETHRESHOLD: SYSTEM_PARAMETERS_INFO_ACTION = 139
-SPI_GETDRAGFROMMAXIMIZE: SYSTEM_PARAMETERS_INFO_ACTION = 140
-SPI_SETDRAGFROMMAXIMIZE: SYSTEM_PARAMETERS_INFO_ACTION = 141
-SPI_GETSNAPSIZING: SYSTEM_PARAMETERS_INFO_ACTION = 142
-SPI_SETSNAPSIZING: SYSTEM_PARAMETERS_INFO_ACTION = 143
-SPI_GETDOCKMOVING: SYSTEM_PARAMETERS_INFO_ACTION = 144
-SPI_SETDOCKMOVING: SYSTEM_PARAMETERS_INFO_ACTION = 145
-SPI_GETTOUCHPREDICTIONPARAMETERS: SYSTEM_PARAMETERS_INFO_ACTION = 156
-SPI_SETTOUCHPREDICTIONPARAMETERS: SYSTEM_PARAMETERS_INFO_ACTION = 157
-SPI_GETLOGICALDPIOVERRIDE: SYSTEM_PARAMETERS_INFO_ACTION = 158
-SPI_SETLOGICALDPIOVERRIDE: SYSTEM_PARAMETERS_INFO_ACTION = 159
-SPI_GETMENURECT: SYSTEM_PARAMETERS_INFO_ACTION = 162
-SPI_SETMENURECT: SYSTEM_PARAMETERS_INFO_ACTION = 163
-SPI_GETACTIVEWINDOWTRACKING: SYSTEM_PARAMETERS_INFO_ACTION = 4096
-SPI_SETACTIVEWINDOWTRACKING: SYSTEM_PARAMETERS_INFO_ACTION = 4097
-SPI_GETMENUANIMATION: SYSTEM_PARAMETERS_INFO_ACTION = 4098
-SPI_SETMENUANIMATION: SYSTEM_PARAMETERS_INFO_ACTION = 4099
-SPI_GETCOMBOBOXANIMATION: SYSTEM_PARAMETERS_INFO_ACTION = 4100
-SPI_SETCOMBOBOXANIMATION: SYSTEM_PARAMETERS_INFO_ACTION = 4101
-SPI_GETLISTBOXSMOOTHSCROLLING: SYSTEM_PARAMETERS_INFO_ACTION = 4102
-SPI_SETLISTBOXSMOOTHSCROLLING: SYSTEM_PARAMETERS_INFO_ACTION = 4103
-SPI_GETGRADIENTCAPTIONS: SYSTEM_PARAMETERS_INFO_ACTION = 4104
-SPI_SETGRADIENTCAPTIONS: SYSTEM_PARAMETERS_INFO_ACTION = 4105
-SPI_GETKEYBOARDCUES: SYSTEM_PARAMETERS_INFO_ACTION = 4106
-SPI_SETKEYBOARDCUES: SYSTEM_PARAMETERS_INFO_ACTION = 4107
-SPI_GETMENUUNDERLINES: SYSTEM_PARAMETERS_INFO_ACTION = 4106
-SPI_SETMENUUNDERLINES: SYSTEM_PARAMETERS_INFO_ACTION = 4107
-SPI_GETACTIVEWNDTRKZORDER: SYSTEM_PARAMETERS_INFO_ACTION = 4108
-SPI_SETACTIVEWNDTRKZORDER: SYSTEM_PARAMETERS_INFO_ACTION = 4109
-SPI_GETHOTTRACKING: SYSTEM_PARAMETERS_INFO_ACTION = 4110
-SPI_SETHOTTRACKING: SYSTEM_PARAMETERS_INFO_ACTION = 4111
-SPI_GETMENUFADE: SYSTEM_PARAMETERS_INFO_ACTION = 4114
-SPI_SETMENUFADE: SYSTEM_PARAMETERS_INFO_ACTION = 4115
-SPI_GETSELECTIONFADE: SYSTEM_PARAMETERS_INFO_ACTION = 4116
-SPI_SETSELECTIONFADE: SYSTEM_PARAMETERS_INFO_ACTION = 4117
-SPI_GETTOOLTIPANIMATION: SYSTEM_PARAMETERS_INFO_ACTION = 4118
-SPI_SETTOOLTIPANIMATION: SYSTEM_PARAMETERS_INFO_ACTION = 4119
-SPI_GETTOOLTIPFADE: SYSTEM_PARAMETERS_INFO_ACTION = 4120
-SPI_SETTOOLTIPFADE: SYSTEM_PARAMETERS_INFO_ACTION = 4121
-SPI_GETCURSORSHADOW: SYSTEM_PARAMETERS_INFO_ACTION = 4122
-SPI_SETCURSORSHADOW: SYSTEM_PARAMETERS_INFO_ACTION = 4123
-SPI_GETMOUSESONAR: SYSTEM_PARAMETERS_INFO_ACTION = 4124
-SPI_SETMOUSESONAR: SYSTEM_PARAMETERS_INFO_ACTION = 4125
-SPI_GETMOUSECLICKLOCK: SYSTEM_PARAMETERS_INFO_ACTION = 4126
-SPI_SETMOUSECLICKLOCK: SYSTEM_PARAMETERS_INFO_ACTION = 4127
-SPI_GETMOUSEVANISH: SYSTEM_PARAMETERS_INFO_ACTION = 4128
-SPI_SETMOUSEVANISH: SYSTEM_PARAMETERS_INFO_ACTION = 4129
-SPI_GETFLATMENU: SYSTEM_PARAMETERS_INFO_ACTION = 4130
-SPI_SETFLATMENU: SYSTEM_PARAMETERS_INFO_ACTION = 4131
-SPI_GETDROPSHADOW: SYSTEM_PARAMETERS_INFO_ACTION = 4132
-SPI_SETDROPSHADOW: SYSTEM_PARAMETERS_INFO_ACTION = 4133
-SPI_GETBLOCKSENDINPUTRESETS: SYSTEM_PARAMETERS_INFO_ACTION = 4134
-SPI_SETBLOCKSENDINPUTRESETS: SYSTEM_PARAMETERS_INFO_ACTION = 4135
-SPI_GETUIEFFECTS: SYSTEM_PARAMETERS_INFO_ACTION = 4158
-SPI_SETUIEFFECTS: SYSTEM_PARAMETERS_INFO_ACTION = 4159
-SPI_GETDISABLEOVERLAPPEDCONTENT: SYSTEM_PARAMETERS_INFO_ACTION = 4160
-SPI_SETDISABLEOVERLAPPEDCONTENT: SYSTEM_PARAMETERS_INFO_ACTION = 4161
-SPI_GETCLIENTAREAANIMATION: SYSTEM_PARAMETERS_INFO_ACTION = 4162
-SPI_SETCLIENTAREAANIMATION: SYSTEM_PARAMETERS_INFO_ACTION = 4163
-SPI_GETCLEARTYPE: SYSTEM_PARAMETERS_INFO_ACTION = 4168
-SPI_SETCLEARTYPE: SYSTEM_PARAMETERS_INFO_ACTION = 4169
-SPI_GETSPEECHRECOGNITION: SYSTEM_PARAMETERS_INFO_ACTION = 4170
-SPI_SETSPEECHRECOGNITION: SYSTEM_PARAMETERS_INFO_ACTION = 4171
-SPI_GETCARETBROWSING: SYSTEM_PARAMETERS_INFO_ACTION = 4172
-SPI_SETCARETBROWSING: SYSTEM_PARAMETERS_INFO_ACTION = 4173
-SPI_GETTHREADLOCALINPUTSETTINGS: SYSTEM_PARAMETERS_INFO_ACTION = 4174
-SPI_SETTHREADLOCALINPUTSETTINGS: SYSTEM_PARAMETERS_INFO_ACTION = 4175
-SPI_GETSYSTEMLANGUAGEBAR: SYSTEM_PARAMETERS_INFO_ACTION = 4176
-SPI_SETSYSTEMLANGUAGEBAR: SYSTEM_PARAMETERS_INFO_ACTION = 4177
-SPI_GETFOREGROUNDLOCKTIMEOUT: SYSTEM_PARAMETERS_INFO_ACTION = 8192
-SPI_SETFOREGROUNDLOCKTIMEOUT: SYSTEM_PARAMETERS_INFO_ACTION = 8193
-SPI_GETACTIVEWNDTRKTIMEOUT: SYSTEM_PARAMETERS_INFO_ACTION = 8194
-SPI_SETACTIVEWNDTRKTIMEOUT: SYSTEM_PARAMETERS_INFO_ACTION = 8195
-SPI_GETFOREGROUNDFLASHCOUNT: SYSTEM_PARAMETERS_INFO_ACTION = 8196
-SPI_SETFOREGROUNDFLASHCOUNT: SYSTEM_PARAMETERS_INFO_ACTION = 8197
-SPI_GETCARETWIDTH: SYSTEM_PARAMETERS_INFO_ACTION = 8198
-SPI_SETCARETWIDTH: SYSTEM_PARAMETERS_INFO_ACTION = 8199
-SPI_GETMOUSECLICKLOCKTIME: SYSTEM_PARAMETERS_INFO_ACTION = 8200
-SPI_SETMOUSECLICKLOCKTIME: SYSTEM_PARAMETERS_INFO_ACTION = 8201
-SPI_GETFONTSMOOTHINGTYPE: SYSTEM_PARAMETERS_INFO_ACTION = 8202
-SPI_SETFONTSMOOTHINGTYPE: SYSTEM_PARAMETERS_INFO_ACTION = 8203
-SPI_GETFONTSMOOTHINGCONTRAST: SYSTEM_PARAMETERS_INFO_ACTION = 8204
-SPI_SETFONTSMOOTHINGCONTRAST: SYSTEM_PARAMETERS_INFO_ACTION = 8205
-SPI_GETFOCUSBORDERWIDTH: SYSTEM_PARAMETERS_INFO_ACTION = 8206
-SPI_SETFOCUSBORDERWIDTH: SYSTEM_PARAMETERS_INFO_ACTION = 8207
-SPI_GETFOCUSBORDERHEIGHT: SYSTEM_PARAMETERS_INFO_ACTION = 8208
-SPI_SETFOCUSBORDERHEIGHT: SYSTEM_PARAMETERS_INFO_ACTION = 8209
-SPI_GETFONTSMOOTHINGORIENTATION: SYSTEM_PARAMETERS_INFO_ACTION = 8210
-SPI_SETFONTSMOOTHINGORIENTATION: SYSTEM_PARAMETERS_INFO_ACTION = 8211
-SPI_GETMINIMUMHITRADIUS: SYSTEM_PARAMETERS_INFO_ACTION = 8212
-SPI_SETMINIMUMHITRADIUS: SYSTEM_PARAMETERS_INFO_ACTION = 8213
-SPI_GETMESSAGEDURATION: SYSTEM_PARAMETERS_INFO_ACTION = 8214
-SPI_SETMESSAGEDURATION: SYSTEM_PARAMETERS_INFO_ACTION = 8215
-SPI_GETCONTACTVISUALIZATION: SYSTEM_PARAMETERS_INFO_ACTION = 8216
-SPI_SETCONTACTVISUALIZATION: SYSTEM_PARAMETERS_INFO_ACTION = 8217
-SPI_GETGESTUREVISUALIZATION: SYSTEM_PARAMETERS_INFO_ACTION = 8218
-SPI_SETGESTUREVISUALIZATION: SYSTEM_PARAMETERS_INFO_ACTION = 8219
-SPI_GETMOUSEWHEELROUTING: SYSTEM_PARAMETERS_INFO_ACTION = 8220
-SPI_SETMOUSEWHEELROUTING: SYSTEM_PARAMETERS_INFO_ACTION = 8221
-SPI_GETPENVISUALIZATION: SYSTEM_PARAMETERS_INFO_ACTION = 8222
-SPI_SETPENVISUALIZATION: SYSTEM_PARAMETERS_INFO_ACTION = 8223
-SPI_GETPENARBITRATIONTYPE: SYSTEM_PARAMETERS_INFO_ACTION = 8224
-SPI_SETPENARBITRATIONTYPE: SYSTEM_PARAMETERS_INFO_ACTION = 8225
-SPI_GETCARETTIMEOUT: SYSTEM_PARAMETERS_INFO_ACTION = 8226
-SPI_SETCARETTIMEOUT: SYSTEM_PARAMETERS_INFO_ACTION = 8227
-SPI_GETHANDEDNESS: SYSTEM_PARAMETERS_INFO_ACTION = 8228
-SPI_SETHANDEDNESS: SYSTEM_PARAMETERS_INFO_ACTION = 8229
+SPI_GETBEEP: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 1
+SPI_SETBEEP: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 2
+SPI_GETMOUSE: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 3
+SPI_SETMOUSE: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 4
+SPI_GETBORDER: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 5
+SPI_SETBORDER: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 6
+SPI_GETKEYBOARDSPEED: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 10
+SPI_SETKEYBOARDSPEED: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 11
+SPI_LANGDRIVER: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 12
+SPI_ICONHORIZONTALSPACING: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 13
+SPI_GETSCREENSAVETIMEOUT: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 14
+SPI_SETSCREENSAVETIMEOUT: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 15
+SPI_GETSCREENSAVEACTIVE: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 16
+SPI_SETSCREENSAVEACTIVE: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 17
+SPI_GETGRIDGRANULARITY: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 18
+SPI_SETGRIDGRANULARITY: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 19
+SPI_SETDESKWALLPAPER: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 20
+SPI_SETDESKPATTERN: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 21
+SPI_GETKEYBOARDDELAY: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 22
+SPI_SETKEYBOARDDELAY: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 23
+SPI_ICONVERTICALSPACING: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 24
+SPI_GETICONTITLEWRAP: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 25
+SPI_SETICONTITLEWRAP: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 26
+SPI_GETMENUDROPALIGNMENT: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 27
+SPI_SETMENUDROPALIGNMENT: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 28
+SPI_SETDOUBLECLKWIDTH: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 29
+SPI_SETDOUBLECLKHEIGHT: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 30
+SPI_GETICONTITLELOGFONT: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 31
+SPI_SETDOUBLECLICKTIME: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 32
+SPI_SETMOUSEBUTTONSWAP: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 33
+SPI_SETICONTITLELOGFONT: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 34
+SPI_GETFASTTASKSWITCH: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 35
+SPI_SETFASTTASKSWITCH: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 36
+SPI_SETDRAGFULLWINDOWS: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 37
+SPI_GETDRAGFULLWINDOWS: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 38
+SPI_GETNONCLIENTMETRICS: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 41
+SPI_SETNONCLIENTMETRICS: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 42
+SPI_GETMINIMIZEDMETRICS: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 43
+SPI_SETMINIMIZEDMETRICS: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 44
+SPI_GETICONMETRICS: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 45
+SPI_SETICONMETRICS: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 46
+SPI_SETWORKAREA: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 47
+SPI_GETWORKAREA: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 48
+SPI_SETPENWINDOWS: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 49
+SPI_GETHIGHCONTRAST: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 66
+SPI_SETHIGHCONTRAST: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 67
+SPI_GETKEYBOARDPREF: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 68
+SPI_SETKEYBOARDPREF: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 69
+SPI_GETSCREENREADER: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 70
+SPI_SETSCREENREADER: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 71
+SPI_GETANIMATION: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 72
+SPI_SETANIMATION: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 73
+SPI_GETFONTSMOOTHING: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 74
+SPI_SETFONTSMOOTHING: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 75
+SPI_SETDRAGWIDTH: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 76
+SPI_SETDRAGHEIGHT: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 77
+SPI_SETHANDHELD: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 78
+SPI_GETLOWPOWERTIMEOUT: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 79
+SPI_GETPOWEROFFTIMEOUT: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 80
+SPI_SETLOWPOWERTIMEOUT: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 81
+SPI_SETPOWEROFFTIMEOUT: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 82
+SPI_GETLOWPOWERACTIVE: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 83
+SPI_GETPOWEROFFACTIVE: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 84
+SPI_SETLOWPOWERACTIVE: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 85
+SPI_SETPOWEROFFACTIVE: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 86
+SPI_SETCURSORS: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 87
+SPI_SETICONS: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 88
+SPI_GETDEFAULTINPUTLANG: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 89
+SPI_SETDEFAULTINPUTLANG: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 90
+SPI_SETLANGTOGGLE: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 91
+SPI_GETWINDOWSEXTENSION: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 92
+SPI_SETMOUSETRAILS: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 93
+SPI_GETMOUSETRAILS: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 94
+SPI_SETSCREENSAVERRUNNING: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 97
+SPI_SCREENSAVERRUNNING: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 97
+SPI_GETFILTERKEYS: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 50
+SPI_SETFILTERKEYS: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 51
+SPI_GETTOGGLEKEYS: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 52
+SPI_SETTOGGLEKEYS: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 53
+SPI_GETMOUSEKEYS: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 54
+SPI_SETMOUSEKEYS: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 55
+SPI_GETSHOWSOUNDS: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 56
+SPI_SETSHOWSOUNDS: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 57
+SPI_GETSTICKYKEYS: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 58
+SPI_SETSTICKYKEYS: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 59
+SPI_GETACCESSTIMEOUT: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 60
+SPI_SETACCESSTIMEOUT: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 61
+SPI_GETSERIALKEYS: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 62
+SPI_SETSERIALKEYS: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 63
+SPI_GETSOUNDSENTRY: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 64
+SPI_SETSOUNDSENTRY: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 65
+SPI_GETSNAPTODEFBUTTON: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 95
+SPI_SETSNAPTODEFBUTTON: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 96
+SPI_GETMOUSEHOVERWIDTH: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 98
+SPI_SETMOUSEHOVERWIDTH: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 99
+SPI_GETMOUSEHOVERHEIGHT: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 100
+SPI_SETMOUSEHOVERHEIGHT: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 101
+SPI_GETMOUSEHOVERTIME: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 102
+SPI_SETMOUSEHOVERTIME: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 103
+SPI_GETWHEELSCROLLLINES: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 104
+SPI_SETWHEELSCROLLLINES: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 105
+SPI_GETMENUSHOWDELAY: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 106
+SPI_SETMENUSHOWDELAY: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 107
+SPI_GETWHEELSCROLLCHARS: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 108
+SPI_SETWHEELSCROLLCHARS: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 109
+SPI_GETSHOWIMEUI: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 110
+SPI_SETSHOWIMEUI: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 111
+SPI_GETMOUSESPEED: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 112
+SPI_SETMOUSESPEED: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 113
+SPI_GETSCREENSAVERRUNNING: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 114
+SPI_GETDESKWALLPAPER: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 115
+SPI_GETAUDIODESCRIPTION: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 116
+SPI_SETAUDIODESCRIPTION: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 117
+SPI_GETSCREENSAVESECURE: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 118
+SPI_SETSCREENSAVESECURE: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 119
+SPI_GETHUNGAPPTIMEOUT: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 120
+SPI_SETHUNGAPPTIMEOUT: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 121
+SPI_GETWAITTOKILLTIMEOUT: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 122
+SPI_SETWAITTOKILLTIMEOUT: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 123
+SPI_GETWAITTOKILLSERVICETIMEOUT: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 124
+SPI_SETWAITTOKILLSERVICETIMEOUT: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 125
+SPI_GETMOUSEDOCKTHRESHOLD: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 126
+SPI_SETMOUSEDOCKTHRESHOLD: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 127
+SPI_GETPENDOCKTHRESHOLD: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 128
+SPI_SETPENDOCKTHRESHOLD: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 129
+SPI_GETWINARRANGING: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 130
+SPI_SETWINARRANGING: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 131
+SPI_GETMOUSEDRAGOUTTHRESHOLD: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 132
+SPI_SETMOUSEDRAGOUTTHRESHOLD: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 133
+SPI_GETPENDRAGOUTTHRESHOLD: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 134
+SPI_SETPENDRAGOUTTHRESHOLD: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 135
+SPI_GETMOUSESIDEMOVETHRESHOLD: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 136
+SPI_SETMOUSESIDEMOVETHRESHOLD: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 137
+SPI_GETPENSIDEMOVETHRESHOLD: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 138
+SPI_SETPENSIDEMOVETHRESHOLD: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 139
+SPI_GETDRAGFROMMAXIMIZE: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 140
+SPI_SETDRAGFROMMAXIMIZE: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 141
+SPI_GETSNAPSIZING: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 142
+SPI_SETSNAPSIZING: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 143
+SPI_GETDOCKMOVING: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 144
+SPI_SETDOCKMOVING: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 145
+SPI_GETTOUCHPREDICTIONPARAMETERS: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 156
+SPI_SETTOUCHPREDICTIONPARAMETERS: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 157
+SPI_GETLOGICALDPIOVERRIDE: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 158
+SPI_SETLOGICALDPIOVERRIDE: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 159
+SPI_GETMENURECT: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 162
+SPI_SETMENURECT: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 163
+SPI_GETACTIVEWINDOWTRACKING: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 4096
+SPI_SETACTIVEWINDOWTRACKING: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 4097
+SPI_GETMENUANIMATION: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 4098
+SPI_SETMENUANIMATION: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 4099
+SPI_GETCOMBOBOXANIMATION: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 4100
+SPI_SETCOMBOBOXANIMATION: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 4101
+SPI_GETLISTBOXSMOOTHSCROLLING: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 4102
+SPI_SETLISTBOXSMOOTHSCROLLING: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 4103
+SPI_GETGRADIENTCAPTIONS: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 4104
+SPI_SETGRADIENTCAPTIONS: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 4105
+SPI_GETKEYBOARDCUES: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 4106
+SPI_SETKEYBOARDCUES: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 4107
+SPI_GETMENUUNDERLINES: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 4106
+SPI_SETMENUUNDERLINES: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 4107
+SPI_GETACTIVEWNDTRKZORDER: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 4108
+SPI_SETACTIVEWNDTRKZORDER: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 4109
+SPI_GETHOTTRACKING: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 4110
+SPI_SETHOTTRACKING: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 4111
+SPI_GETMENUFADE: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 4114
+SPI_SETMENUFADE: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 4115
+SPI_GETSELECTIONFADE: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 4116
+SPI_SETSELECTIONFADE: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 4117
+SPI_GETTOOLTIPANIMATION: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 4118
+SPI_SETTOOLTIPANIMATION: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 4119
+SPI_GETTOOLTIPFADE: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 4120
+SPI_SETTOOLTIPFADE: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 4121
+SPI_GETCURSORSHADOW: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 4122
+SPI_SETCURSORSHADOW: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 4123
+SPI_GETMOUSESONAR: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 4124
+SPI_SETMOUSESONAR: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 4125
+SPI_GETMOUSECLICKLOCK: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 4126
+SPI_SETMOUSECLICKLOCK: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 4127
+SPI_GETMOUSEVANISH: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 4128
+SPI_SETMOUSEVANISH: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 4129
+SPI_GETFLATMENU: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 4130
+SPI_SETFLATMENU: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 4131
+SPI_GETDROPSHADOW: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 4132
+SPI_SETDROPSHADOW: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 4133
+SPI_GETBLOCKSENDINPUTRESETS: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 4134
+SPI_SETBLOCKSENDINPUTRESETS: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 4135
+SPI_GETUIEFFECTS: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 4158
+SPI_SETUIEFFECTS: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 4159
+SPI_GETDISABLEOVERLAPPEDCONTENT: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 4160
+SPI_SETDISABLEOVERLAPPEDCONTENT: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 4161
+SPI_GETCLIENTAREAANIMATION: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 4162
+SPI_SETCLIENTAREAANIMATION: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 4163
+SPI_GETCLEARTYPE: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 4168
+SPI_SETCLEARTYPE: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 4169
+SPI_GETSPEECHRECOGNITION: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 4170
+SPI_SETSPEECHRECOGNITION: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 4171
+SPI_GETCARETBROWSING: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 4172
+SPI_SETCARETBROWSING: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 4173
+SPI_GETTHREADLOCALINPUTSETTINGS: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 4174
+SPI_SETTHREADLOCALINPUTSETTINGS: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 4175
+SPI_GETSYSTEMLANGUAGEBAR: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 4176
+SPI_SETSYSTEMLANGUAGEBAR: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 4177
+SPI_GETFOREGROUNDLOCKTIMEOUT: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 8192
+SPI_SETFOREGROUNDLOCKTIMEOUT: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 8193
+SPI_GETACTIVEWNDTRKTIMEOUT: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 8194
+SPI_SETACTIVEWNDTRKTIMEOUT: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 8195
+SPI_GETFOREGROUNDFLASHCOUNT: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 8196
+SPI_SETFOREGROUNDFLASHCOUNT: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 8197
+SPI_GETCARETWIDTH: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 8198
+SPI_SETCARETWIDTH: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 8199
+SPI_GETMOUSECLICKLOCKTIME: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 8200
+SPI_SETMOUSECLICKLOCKTIME: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 8201
+SPI_GETFONTSMOOTHINGTYPE: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 8202
+SPI_SETFONTSMOOTHINGTYPE: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 8203
+SPI_GETFONTSMOOTHINGCONTRAST: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 8204
+SPI_SETFONTSMOOTHINGCONTRAST: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 8205
+SPI_GETFOCUSBORDERWIDTH: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 8206
+SPI_SETFOCUSBORDERWIDTH: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 8207
+SPI_GETFOCUSBORDERHEIGHT: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 8208
+SPI_SETFOCUSBORDERHEIGHT: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 8209
+SPI_GETFONTSMOOTHINGORIENTATION: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 8210
+SPI_SETFONTSMOOTHINGORIENTATION: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 8211
+SPI_GETMINIMUMHITRADIUS: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 8212
+SPI_SETMINIMUMHITRADIUS: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 8213
+SPI_GETMESSAGEDURATION: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 8214
+SPI_SETMESSAGEDURATION: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 8215
+SPI_GETCONTACTVISUALIZATION: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 8216
+SPI_SETCONTACTVISUALIZATION: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 8217
+SPI_GETGESTUREVISUALIZATION: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 8218
+SPI_SETGESTUREVISUALIZATION: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 8219
+SPI_GETMOUSEWHEELROUTING: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 8220
+SPI_SETMOUSEWHEELROUTING: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 8221
+SPI_GETPENVISUALIZATION: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 8222
+SPI_SETPENVISUALIZATION: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 8223
+SPI_GETPENARBITRATIONTYPE: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 8224
+SPI_SETPENARBITRATIONTYPE: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 8225
+SPI_GETCARETTIMEOUT: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 8226
+SPI_SETCARETTIMEOUT: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 8227
+SPI_GETHANDEDNESS: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 8228
+SPI_SETHANDEDNESS: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_ACTION = 8229
 SYSTEM_PARAMETERS_INFO_UPDATE_FLAGS = UInt32
-SPIF_UPDATEINIFILE: SYSTEM_PARAMETERS_INFO_UPDATE_FLAGS = 1
-SPIF_SENDCHANGE: SYSTEM_PARAMETERS_INFO_UPDATE_FLAGS = 2
-SPIF_SENDWININICHANGE: SYSTEM_PARAMETERS_INFO_UPDATE_FLAGS = 2
+SPIF_UPDATEINIFILE: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_UPDATE_FLAGS = 1
+SPIF_SENDCHANGE: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_UPDATE_FLAGS = 2
+SPIF_SENDWININICHANGE: win32more.Windows.Win32.UI.WindowsAndMessaging.SYSTEM_PARAMETERS_INFO_UPDATE_FLAGS = 2
 TILE_WINDOWS_HOW = UInt32
-MDITILE_HORIZONTAL: TILE_WINDOWS_HOW = 1
-MDITILE_VERTICAL: TILE_WINDOWS_HOW = 0
+MDITILE_HORIZONTAL: win32more.Windows.Win32.UI.WindowsAndMessaging.TILE_WINDOWS_HOW = 1
+MDITILE_VERTICAL: win32more.Windows.Win32.UI.WindowsAndMessaging.TILE_WINDOWS_HOW = 0
 @winfunctype_pointer
 def TIMERPROC(param0: win32more.Windows.Win32.Foundation.HWND, param1: UInt32, param2: UIntPtr, param3: UInt32) -> Void: ...
 class TITLEBARINFO(EasyCastStructure):
@@ -3576,8 +3575,8 @@ class TITLEBARINFOEX(EasyCastStructure):
     rgstate: UInt32 * 6
     rgrect: win32more.Windows.Win32.Foundation.RECT * 6
 TOOLTIP_DISMISS_FLAGS = Int32
-TDF_REGISTER: TOOLTIP_DISMISS_FLAGS = 1
-TDF_UNREGISTER: TOOLTIP_DISMISS_FLAGS = 2
+TDF_REGISTER: win32more.Windows.Win32.UI.WindowsAndMessaging.TOOLTIP_DISMISS_FLAGS = 1
+TDF_UNREGISTER: win32more.Windows.Win32.UI.WindowsAndMessaging.TOOLTIP_DISMISS_FLAGS = 2
 class TOUCHPREDICTIONPARAMETERS(EasyCastStructure):
     cbSize: UInt32
     dwLatency: UInt32
@@ -3587,26 +3586,26 @@ class TPMPARAMS(EasyCastStructure):
     cbSize: UInt32
     rcExclude: win32more.Windows.Win32.Foundation.RECT
 TRACK_POPUP_MENU_FLAGS = UInt32
-TPM_LEFTBUTTON: TRACK_POPUP_MENU_FLAGS = 0
-TPM_RIGHTBUTTON: TRACK_POPUP_MENU_FLAGS = 2
-TPM_LEFTALIGN: TRACK_POPUP_MENU_FLAGS = 0
-TPM_CENTERALIGN: TRACK_POPUP_MENU_FLAGS = 4
-TPM_RIGHTALIGN: TRACK_POPUP_MENU_FLAGS = 8
-TPM_TOPALIGN: TRACK_POPUP_MENU_FLAGS = 0
-TPM_VCENTERALIGN: TRACK_POPUP_MENU_FLAGS = 16
-TPM_BOTTOMALIGN: TRACK_POPUP_MENU_FLAGS = 32
-TPM_HORIZONTAL: TRACK_POPUP_MENU_FLAGS = 0
-TPM_VERTICAL: TRACK_POPUP_MENU_FLAGS = 64
-TPM_NONOTIFY: TRACK_POPUP_MENU_FLAGS = 128
-TPM_RETURNCMD: TRACK_POPUP_MENU_FLAGS = 256
-TPM_RECURSE: TRACK_POPUP_MENU_FLAGS = 1
-TPM_HORPOSANIMATION: TRACK_POPUP_MENU_FLAGS = 1024
-TPM_HORNEGANIMATION: TRACK_POPUP_MENU_FLAGS = 2048
-TPM_VERPOSANIMATION: TRACK_POPUP_MENU_FLAGS = 4096
-TPM_VERNEGANIMATION: TRACK_POPUP_MENU_FLAGS = 8192
-TPM_NOANIMATION: TRACK_POPUP_MENU_FLAGS = 16384
-TPM_LAYOUTRTL: TRACK_POPUP_MENU_FLAGS = 32768
-TPM_WORKAREA: TRACK_POPUP_MENU_FLAGS = 65536
+TPM_LEFTBUTTON: win32more.Windows.Win32.UI.WindowsAndMessaging.TRACK_POPUP_MENU_FLAGS = 0
+TPM_RIGHTBUTTON: win32more.Windows.Win32.UI.WindowsAndMessaging.TRACK_POPUP_MENU_FLAGS = 2
+TPM_LEFTALIGN: win32more.Windows.Win32.UI.WindowsAndMessaging.TRACK_POPUP_MENU_FLAGS = 0
+TPM_CENTERALIGN: win32more.Windows.Win32.UI.WindowsAndMessaging.TRACK_POPUP_MENU_FLAGS = 4
+TPM_RIGHTALIGN: win32more.Windows.Win32.UI.WindowsAndMessaging.TRACK_POPUP_MENU_FLAGS = 8
+TPM_TOPALIGN: win32more.Windows.Win32.UI.WindowsAndMessaging.TRACK_POPUP_MENU_FLAGS = 0
+TPM_VCENTERALIGN: win32more.Windows.Win32.UI.WindowsAndMessaging.TRACK_POPUP_MENU_FLAGS = 16
+TPM_BOTTOMALIGN: win32more.Windows.Win32.UI.WindowsAndMessaging.TRACK_POPUP_MENU_FLAGS = 32
+TPM_HORIZONTAL: win32more.Windows.Win32.UI.WindowsAndMessaging.TRACK_POPUP_MENU_FLAGS = 0
+TPM_VERTICAL: win32more.Windows.Win32.UI.WindowsAndMessaging.TRACK_POPUP_MENU_FLAGS = 64
+TPM_NONOTIFY: win32more.Windows.Win32.UI.WindowsAndMessaging.TRACK_POPUP_MENU_FLAGS = 128
+TPM_RETURNCMD: win32more.Windows.Win32.UI.WindowsAndMessaging.TRACK_POPUP_MENU_FLAGS = 256
+TPM_RECURSE: win32more.Windows.Win32.UI.WindowsAndMessaging.TRACK_POPUP_MENU_FLAGS = 1
+TPM_HORPOSANIMATION: win32more.Windows.Win32.UI.WindowsAndMessaging.TRACK_POPUP_MENU_FLAGS = 1024
+TPM_HORNEGANIMATION: win32more.Windows.Win32.UI.WindowsAndMessaging.TRACK_POPUP_MENU_FLAGS = 2048
+TPM_VERPOSANIMATION: win32more.Windows.Win32.UI.WindowsAndMessaging.TRACK_POPUP_MENU_FLAGS = 4096
+TPM_VERNEGANIMATION: win32more.Windows.Win32.UI.WindowsAndMessaging.TRACK_POPUP_MENU_FLAGS = 8192
+TPM_NOANIMATION: win32more.Windows.Win32.UI.WindowsAndMessaging.TRACK_POPUP_MENU_FLAGS = 16384
+TPM_LAYOUTRTL: win32more.Windows.Win32.UI.WindowsAndMessaging.TRACK_POPUP_MENU_FLAGS = 32768
+TPM_WORKAREA: win32more.Windows.Win32.UI.WindowsAndMessaging.TRACK_POPUP_MENU_FLAGS = 65536
 class UPDATELAYEREDWINDOWINFO(EasyCastStructure):
     cbSize: UInt32
     hdcDst: win32more.Windows.Win32.Graphics.Gdi.HDC
@@ -3619,10 +3618,10 @@ class UPDATELAYEREDWINDOWINFO(EasyCastStructure):
     dwFlags: win32more.Windows.Win32.UI.WindowsAndMessaging.UPDATE_LAYERED_WINDOW_FLAGS
     prcDirty: POINTER(win32more.Windows.Win32.Foundation.RECT)
 UPDATE_LAYERED_WINDOW_FLAGS = UInt32
-ULW_ALPHA: UPDATE_LAYERED_WINDOW_FLAGS = 2
-ULW_COLORKEY: UPDATE_LAYERED_WINDOW_FLAGS = 1
-ULW_OPAQUE: UPDATE_LAYERED_WINDOW_FLAGS = 4
-ULW_EX_NORESIZE: UPDATE_LAYERED_WINDOW_FLAGS = 8
+ULW_ALPHA: win32more.Windows.Win32.UI.WindowsAndMessaging.UPDATE_LAYERED_WINDOW_FLAGS = 2
+ULW_COLORKEY: win32more.Windows.Win32.UI.WindowsAndMessaging.UPDATE_LAYERED_WINDOW_FLAGS = 1
+ULW_OPAQUE: win32more.Windows.Win32.UI.WindowsAndMessaging.UPDATE_LAYERED_WINDOW_FLAGS = 4
+ULW_EX_NORESIZE: win32more.Windows.Win32.UI.WindowsAndMessaging.UPDATE_LAYERED_WINDOW_FLAGS = 8
 class VolLockBroadcast(EasyCastStructure):
     vlb_dbh: win32more.Windows.Win32.UI.WindowsAndMessaging.DEV_BROADCAST_HDR
     vlb_owner: UInt32
@@ -3649,9 +3648,9 @@ class WINDOWPLACEMENT(EasyCastStructure):
     ptMaxPosition: win32more.Windows.Win32.Foundation.POINT
     rcNormalPosition: win32more.Windows.Win32.Foundation.RECT
 WINDOWPLACEMENT_FLAGS = UInt32
-WPF_ASYNCWINDOWPLACEMENT: WINDOWPLACEMENT_FLAGS = 4
-WPF_RESTORETOMAXIMIZED: WINDOWPLACEMENT_FLAGS = 2
-WPF_SETMINPOSITION: WINDOWPLACEMENT_FLAGS = 1
+WPF_ASYNCWINDOWPLACEMENT: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOWPLACEMENT_FLAGS = 4
+WPF_RESTORETOMAXIMIZED: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOWPLACEMENT_FLAGS = 2
+WPF_SETMINPOSITION: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOWPLACEMENT_FLAGS = 1
 class WINDOWPOS(EasyCastStructure):
     hwnd: win32more.Windows.Win32.Foundation.HWND
     hwndInsertAfter: win32more.Windows.Win32.Foundation.HWND
@@ -3661,99 +3660,99 @@ class WINDOWPOS(EasyCastStructure):
     cy: Int32
     flags: win32more.Windows.Win32.UI.WindowsAndMessaging.SET_WINDOW_POS_FLAGS
 WINDOWS_HOOK_ID = Int32
-WH_CALLWNDPROC: WINDOWS_HOOK_ID = 4
-WH_CALLWNDPROCRET: WINDOWS_HOOK_ID = 12
-WH_CBT: WINDOWS_HOOK_ID = 5
-WH_DEBUG: WINDOWS_HOOK_ID = 9
-WH_FOREGROUNDIDLE: WINDOWS_HOOK_ID = 11
-WH_GETMESSAGE: WINDOWS_HOOK_ID = 3
-WH_JOURNALPLAYBACK: WINDOWS_HOOK_ID = 1
-WH_JOURNALRECORD: WINDOWS_HOOK_ID = 0
-WH_KEYBOARD: WINDOWS_HOOK_ID = 2
-WH_KEYBOARD_LL: WINDOWS_HOOK_ID = 13
-WH_MOUSE: WINDOWS_HOOK_ID = 7
-WH_MOUSE_LL: WINDOWS_HOOK_ID = 14
-WH_MSGFILTER: WINDOWS_HOOK_ID = -1
-WH_SHELL: WINDOWS_HOOK_ID = 10
-WH_SYSMSGFILTER: WINDOWS_HOOK_ID = 6
+WH_CALLWNDPROC: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOWS_HOOK_ID = 4
+WH_CALLWNDPROCRET: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOWS_HOOK_ID = 12
+WH_CBT: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOWS_HOOK_ID = 5
+WH_DEBUG: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOWS_HOOK_ID = 9
+WH_FOREGROUNDIDLE: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOWS_HOOK_ID = 11
+WH_GETMESSAGE: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOWS_HOOK_ID = 3
+WH_JOURNALPLAYBACK: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOWS_HOOK_ID = 1
+WH_JOURNALRECORD: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOWS_HOOK_ID = 0
+WH_KEYBOARD: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOWS_HOOK_ID = 2
+WH_KEYBOARD_LL: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOWS_HOOK_ID = 13
+WH_MOUSE: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOWS_HOOK_ID = 7
+WH_MOUSE_LL: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOWS_HOOK_ID = 14
+WH_MSGFILTER: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOWS_HOOK_ID = -1
+WH_SHELL: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOWS_HOOK_ID = 10
+WH_SYSMSGFILTER: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOWS_HOOK_ID = 6
 WINDOW_DISPLAY_AFFINITY = UInt32
-WDA_NONE: WINDOW_DISPLAY_AFFINITY = 0
-WDA_MONITOR: WINDOW_DISPLAY_AFFINITY = 1
-WDA_EXCLUDEFROMCAPTURE: WINDOW_DISPLAY_AFFINITY = 17
+WDA_NONE: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_DISPLAY_AFFINITY = 0
+WDA_MONITOR: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_DISPLAY_AFFINITY = 1
+WDA_EXCLUDEFROMCAPTURE: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_DISPLAY_AFFINITY = 17
 WINDOW_EX_STYLE = UInt32
-WS_EX_DLGMODALFRAME: WINDOW_EX_STYLE = 1
-WS_EX_NOPARENTNOTIFY: WINDOW_EX_STYLE = 4
-WS_EX_TOPMOST: WINDOW_EX_STYLE = 8
-WS_EX_ACCEPTFILES: WINDOW_EX_STYLE = 16
-WS_EX_TRANSPARENT: WINDOW_EX_STYLE = 32
-WS_EX_MDICHILD: WINDOW_EX_STYLE = 64
-WS_EX_TOOLWINDOW: WINDOW_EX_STYLE = 128
-WS_EX_WINDOWEDGE: WINDOW_EX_STYLE = 256
-WS_EX_CLIENTEDGE: WINDOW_EX_STYLE = 512
-WS_EX_CONTEXTHELP: WINDOW_EX_STYLE = 1024
-WS_EX_RIGHT: WINDOW_EX_STYLE = 4096
-WS_EX_LEFT: WINDOW_EX_STYLE = 0
-WS_EX_RTLREADING: WINDOW_EX_STYLE = 8192
-WS_EX_LTRREADING: WINDOW_EX_STYLE = 0
-WS_EX_LEFTSCROLLBAR: WINDOW_EX_STYLE = 16384
-WS_EX_RIGHTSCROLLBAR: WINDOW_EX_STYLE = 0
-WS_EX_CONTROLPARENT: WINDOW_EX_STYLE = 65536
-WS_EX_STATICEDGE: WINDOW_EX_STYLE = 131072
-WS_EX_APPWINDOW: WINDOW_EX_STYLE = 262144
-WS_EX_OVERLAPPEDWINDOW: WINDOW_EX_STYLE = 768
-WS_EX_PALETTEWINDOW: WINDOW_EX_STYLE = 392
-WS_EX_LAYERED: WINDOW_EX_STYLE = 524288
-WS_EX_NOINHERITLAYOUT: WINDOW_EX_STYLE = 1048576
-WS_EX_NOREDIRECTIONBITMAP: WINDOW_EX_STYLE = 2097152
-WS_EX_LAYOUTRTL: WINDOW_EX_STYLE = 4194304
-WS_EX_COMPOSITED: WINDOW_EX_STYLE = 33554432
-WS_EX_NOACTIVATE: WINDOW_EX_STYLE = 134217728
+WS_EX_DLGMODALFRAME: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_EX_STYLE = 1
+WS_EX_NOPARENTNOTIFY: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_EX_STYLE = 4
+WS_EX_TOPMOST: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_EX_STYLE = 8
+WS_EX_ACCEPTFILES: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_EX_STYLE = 16
+WS_EX_TRANSPARENT: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_EX_STYLE = 32
+WS_EX_MDICHILD: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_EX_STYLE = 64
+WS_EX_TOOLWINDOW: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_EX_STYLE = 128
+WS_EX_WINDOWEDGE: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_EX_STYLE = 256
+WS_EX_CLIENTEDGE: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_EX_STYLE = 512
+WS_EX_CONTEXTHELP: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_EX_STYLE = 1024
+WS_EX_RIGHT: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_EX_STYLE = 4096
+WS_EX_LEFT: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_EX_STYLE = 0
+WS_EX_RTLREADING: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_EX_STYLE = 8192
+WS_EX_LTRREADING: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_EX_STYLE = 0
+WS_EX_LEFTSCROLLBAR: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_EX_STYLE = 16384
+WS_EX_RIGHTSCROLLBAR: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_EX_STYLE = 0
+WS_EX_CONTROLPARENT: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_EX_STYLE = 65536
+WS_EX_STATICEDGE: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_EX_STYLE = 131072
+WS_EX_APPWINDOW: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_EX_STYLE = 262144
+WS_EX_OVERLAPPEDWINDOW: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_EX_STYLE = 768
+WS_EX_PALETTEWINDOW: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_EX_STYLE = 392
+WS_EX_LAYERED: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_EX_STYLE = 524288
+WS_EX_NOINHERITLAYOUT: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_EX_STYLE = 1048576
+WS_EX_NOREDIRECTIONBITMAP: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_EX_STYLE = 2097152
+WS_EX_LAYOUTRTL: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_EX_STYLE = 4194304
+WS_EX_COMPOSITED: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_EX_STYLE = 33554432
+WS_EX_NOACTIVATE: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_EX_STYLE = 134217728
 WINDOW_LONG_PTR_INDEX = Int32
-GWL_EXSTYLE: WINDOW_LONG_PTR_INDEX = -20
-GWLP_HINSTANCE: WINDOW_LONG_PTR_INDEX = -6
-GWLP_HWNDPARENT: WINDOW_LONG_PTR_INDEX = -8
-GWLP_ID: WINDOW_LONG_PTR_INDEX = -12
-GWL_STYLE: WINDOW_LONG_PTR_INDEX = -16
-GWLP_USERDATA: WINDOW_LONG_PTR_INDEX = -21
-GWLP_WNDPROC: WINDOW_LONG_PTR_INDEX = -4
-GWL_HINSTANCE: WINDOW_LONG_PTR_INDEX = -6
-GWL_ID: WINDOW_LONG_PTR_INDEX = -12
-GWL_USERDATA: WINDOW_LONG_PTR_INDEX = -21
-GWL_WNDPROC: WINDOW_LONG_PTR_INDEX = -4
-GWL_HWNDPARENT: WINDOW_LONG_PTR_INDEX = -8
+GWL_EXSTYLE: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_LONG_PTR_INDEX = -20
+GWLP_HINSTANCE: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_LONG_PTR_INDEX = -6
+GWLP_HWNDPARENT: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_LONG_PTR_INDEX = -8
+GWLP_ID: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_LONG_PTR_INDEX = -12
+GWL_STYLE: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_LONG_PTR_INDEX = -16
+GWLP_USERDATA: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_LONG_PTR_INDEX = -21
+GWLP_WNDPROC: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_LONG_PTR_INDEX = -4
+GWL_HINSTANCE: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_LONG_PTR_INDEX = -6
+GWL_ID: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_LONG_PTR_INDEX = -12
+GWL_USERDATA: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_LONG_PTR_INDEX = -21
+GWL_WNDPROC: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_LONG_PTR_INDEX = -4
+GWL_HWNDPARENT: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_LONG_PTR_INDEX = -8
 WINDOW_MESSAGE_FILTER_ACTION = UInt32
-MSGFLT_ALLOW: WINDOW_MESSAGE_FILTER_ACTION = 1
-MSGFLT_DISALLOW: WINDOW_MESSAGE_FILTER_ACTION = 2
-MSGFLT_RESET: WINDOW_MESSAGE_FILTER_ACTION = 0
+MSGFLT_ALLOW: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_MESSAGE_FILTER_ACTION = 1
+MSGFLT_DISALLOW: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_MESSAGE_FILTER_ACTION = 2
+MSGFLT_RESET: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_MESSAGE_FILTER_ACTION = 0
 WINDOW_STYLE = UInt32
-WS_OVERLAPPED: WINDOW_STYLE = 0
-WS_POPUP: WINDOW_STYLE = 2147483648
-WS_CHILD: WINDOW_STYLE = 1073741824
-WS_MINIMIZE: WINDOW_STYLE = 536870912
-WS_VISIBLE: WINDOW_STYLE = 268435456
-WS_DISABLED: WINDOW_STYLE = 134217728
-WS_CLIPSIBLINGS: WINDOW_STYLE = 67108864
-WS_CLIPCHILDREN: WINDOW_STYLE = 33554432
-WS_MAXIMIZE: WINDOW_STYLE = 16777216
-WS_CAPTION: WINDOW_STYLE = 12582912
-WS_BORDER: WINDOW_STYLE = 8388608
-WS_DLGFRAME: WINDOW_STYLE = 4194304
-WS_VSCROLL: WINDOW_STYLE = 2097152
-WS_HSCROLL: WINDOW_STYLE = 1048576
-WS_SYSMENU: WINDOW_STYLE = 524288
-WS_THICKFRAME: WINDOW_STYLE = 262144
-WS_GROUP: WINDOW_STYLE = 131072
-WS_TABSTOP: WINDOW_STYLE = 65536
-WS_MINIMIZEBOX: WINDOW_STYLE = 131072
-WS_MAXIMIZEBOX: WINDOW_STYLE = 65536
-WS_TILED: WINDOW_STYLE = 0
-WS_ICONIC: WINDOW_STYLE = 536870912
-WS_SIZEBOX: WINDOW_STYLE = 262144
-WS_TILEDWINDOW: WINDOW_STYLE = 13565952
-WS_OVERLAPPEDWINDOW: WINDOW_STYLE = 13565952
-WS_POPUPWINDOW: WINDOW_STYLE = 2156396544
-WS_CHILDWINDOW: WINDOW_STYLE = 1073741824
-WS_ACTIVECAPTION: WINDOW_STYLE = 1
+WS_OVERLAPPED: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_STYLE = 0
+WS_POPUP: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_STYLE = 2147483648
+WS_CHILD: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_STYLE = 1073741824
+WS_MINIMIZE: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_STYLE = 536870912
+WS_VISIBLE: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_STYLE = 268435456
+WS_DISABLED: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_STYLE = 134217728
+WS_CLIPSIBLINGS: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_STYLE = 67108864
+WS_CLIPCHILDREN: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_STYLE = 33554432
+WS_MAXIMIZE: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_STYLE = 16777216
+WS_CAPTION: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_STYLE = 12582912
+WS_BORDER: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_STYLE = 8388608
+WS_DLGFRAME: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_STYLE = 4194304
+WS_VSCROLL: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_STYLE = 2097152
+WS_HSCROLL: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_STYLE = 1048576
+WS_SYSMENU: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_STYLE = 524288
+WS_THICKFRAME: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_STYLE = 262144
+WS_GROUP: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_STYLE = 131072
+WS_TABSTOP: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_STYLE = 65536
+WS_MINIMIZEBOX: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_STYLE = 131072
+WS_MAXIMIZEBOX: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_STYLE = 65536
+WS_TILED: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_STYLE = 0
+WS_ICONIC: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_STYLE = 536870912
+WS_SIZEBOX: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_STYLE = 262144
+WS_TILEDWINDOW: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_STYLE = 13565952
+WS_OVERLAPPEDWINDOW: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_STYLE = 13565952
+WS_POPUPWINDOW: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_STYLE = 2156396544
+WS_CHILDWINDOW: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_STYLE = 1073741824
+WS_ACTIVECAPTION: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_STYLE = 1
 class WNDCLASSA(EasyCastStructure):
     style: win32more.Windows.Win32.UI.WindowsAndMessaging.WNDCLASS_STYLES
     lpfnWndProc: win32more.Windows.Win32.UI.WindowsAndMessaging.WNDPROC
@@ -3803,19 +3802,19 @@ class WNDCLASSW(EasyCastStructure):
     lpszMenuName: win32more.Windows.Win32.Foundation.PWSTR
     lpszClassName: win32more.Windows.Win32.Foundation.PWSTR
 WNDCLASS_STYLES = UInt32
-CS_VREDRAW: WNDCLASS_STYLES = 1
-CS_HREDRAW: WNDCLASS_STYLES = 2
-CS_DBLCLKS: WNDCLASS_STYLES = 8
-CS_OWNDC: WNDCLASS_STYLES = 32
-CS_CLASSDC: WNDCLASS_STYLES = 64
-CS_PARENTDC: WNDCLASS_STYLES = 128
-CS_NOCLOSE: WNDCLASS_STYLES = 512
-CS_SAVEBITS: WNDCLASS_STYLES = 2048
-CS_BYTEALIGNCLIENT: WNDCLASS_STYLES = 4096
-CS_BYTEALIGNWINDOW: WNDCLASS_STYLES = 8192
-CS_GLOBALCLASS: WNDCLASS_STYLES = 16384
-CS_IME: WNDCLASS_STYLES = 65536
-CS_DROPSHADOW: WNDCLASS_STYLES = 131072
+CS_VREDRAW: win32more.Windows.Win32.UI.WindowsAndMessaging.WNDCLASS_STYLES = 1
+CS_HREDRAW: win32more.Windows.Win32.UI.WindowsAndMessaging.WNDCLASS_STYLES = 2
+CS_DBLCLKS: win32more.Windows.Win32.UI.WindowsAndMessaging.WNDCLASS_STYLES = 8
+CS_OWNDC: win32more.Windows.Win32.UI.WindowsAndMessaging.WNDCLASS_STYLES = 32
+CS_CLASSDC: win32more.Windows.Win32.UI.WindowsAndMessaging.WNDCLASS_STYLES = 64
+CS_PARENTDC: win32more.Windows.Win32.UI.WindowsAndMessaging.WNDCLASS_STYLES = 128
+CS_NOCLOSE: win32more.Windows.Win32.UI.WindowsAndMessaging.WNDCLASS_STYLES = 512
+CS_SAVEBITS: win32more.Windows.Win32.UI.WindowsAndMessaging.WNDCLASS_STYLES = 2048
+CS_BYTEALIGNCLIENT: win32more.Windows.Win32.UI.WindowsAndMessaging.WNDCLASS_STYLES = 4096
+CS_BYTEALIGNWINDOW: win32more.Windows.Win32.UI.WindowsAndMessaging.WNDCLASS_STYLES = 8192
+CS_GLOBALCLASS: win32more.Windows.Win32.UI.WindowsAndMessaging.WNDCLASS_STYLES = 16384
+CS_IME: win32more.Windows.Win32.UI.WindowsAndMessaging.WNDCLASS_STYLES = 65536
+CS_DROPSHADOW: win32more.Windows.Win32.UI.WindowsAndMessaging.WNDCLASS_STYLES = 131072
 @winfunctype_pointer
 def WNDENUMPROC(param0: win32more.Windows.Win32.Foundation.HWND, param1: win32more.Windows.Win32.Foundation.LPARAM) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
@@ -3827,4 +3826,6 @@ class _DEV_BROADCAST_HEADER(EasyCastStructure):
 class _DEV_BROADCAST_USERDEFINED(EasyCastStructure):
     dbud_dbh: win32more.Windows.Win32.UI.WindowsAndMessaging.DEV_BROADCAST_HDR
     dbud_szName: win32more.Windows.Win32.Foundation.CHAR * 1
+
+
 make_ready(__name__)

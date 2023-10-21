@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.UI.Magnification
@@ -60,8 +59,10 @@ class MAGIMAGEHEADER(EasyCastStructure):
 class MAGTRANSFORM(EasyCastStructure):
     v: Single * 9
 MW_FILTERMODE = UInt32
-MW_FILTERMODE_EXCLUDE: MW_FILTERMODE = 0
-MW_FILTERMODE_INCLUDE: MW_FILTERMODE = 1
+MW_FILTERMODE_EXCLUDE: win32more.Windows.Win32.UI.Magnification.MW_FILTERMODE = 0
+MW_FILTERMODE_INCLUDE: win32more.Windows.Win32.UI.Magnification.MW_FILTERMODE = 1
 @winfunctype_pointer
 def MagImageScalingCallback(hwnd: win32more.Windows.Win32.Foundation.HWND, srcdata: VoidPtr, srcheader: win32more.Windows.Win32.UI.Magnification.MAGIMAGEHEADER, destdata: VoidPtr, destheader: win32more.Windows.Win32.UI.Magnification.MAGIMAGEHEADER, unclipped: win32more.Windows.Win32.Foundation.RECT, clipped: win32more.Windows.Win32.Foundation.RECT, dirty: win32more.Windows.Win32.Graphics.Gdi.HRGN) -> win32more.Windows.Win32.Foundation.BOOL: ...
+
+
 make_ready(__name__)

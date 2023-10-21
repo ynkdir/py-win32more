@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Data.Xml.MsXml
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Media.DirectShow
@@ -16,4 +15,6 @@ class IXMLGraphBuilder(ComPtr):
     def SaveToXML(self, pGraph: win32more.Windows.Win32.Media.DirectShow.IGraphBuilder, pbstrxml: POINTER(win32more.Windows.Win32.Foundation.BSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def BuildFromXMLFile(self, pGraph: win32more.Windows.Win32.Media.DirectShow.IGraphBuilder, wszFileName: win32more.Windows.Win32.Foundation.PWSTR, wszBaseURL: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+
+
 make_ready(__name__)

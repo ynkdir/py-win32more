@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Devices.ImageAcquisition
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
@@ -1848,12 +1847,12 @@ class WIAS_ENDORSER_VALUE(EasyCastStructure):
     wszTokenName: win32more.Windows.Win32.Foundation.PWSTR
     wszValue: win32more.Windows.Win32.Foundation.PWSTR
 WIAVIDEO_STATE = Int32
-WIAVIDEO_NO_VIDEO: WIAVIDEO_STATE = 1
-WIAVIDEO_CREATING_VIDEO: WIAVIDEO_STATE = 2
-WIAVIDEO_VIDEO_CREATED: WIAVIDEO_STATE = 3
-WIAVIDEO_VIDEO_PLAYING: WIAVIDEO_STATE = 4
-WIAVIDEO_VIDEO_PAUSED: WIAVIDEO_STATE = 5
-WIAVIDEO_DESTROYING_VIDEO: WIAVIDEO_STATE = 6
+WIAVIDEO_NO_VIDEO: win32more.Windows.Win32.Devices.ImageAcquisition.WIAVIDEO_STATE = 1
+WIAVIDEO_CREATING_VIDEO: win32more.Windows.Win32.Devices.ImageAcquisition.WIAVIDEO_STATE = 2
+WIAVIDEO_VIDEO_CREATED: win32more.Windows.Win32.Devices.ImageAcquisition.WIAVIDEO_STATE = 3
+WIAVIDEO_VIDEO_PLAYING: win32more.Windows.Win32.Devices.ImageAcquisition.WIAVIDEO_STATE = 4
+WIAVIDEO_VIDEO_PAUSED: win32more.Windows.Win32.Devices.ImageAcquisition.WIAVIDEO_STATE = 5
+WIAVIDEO_DESTROYING_VIDEO: win32more.Windows.Win32.Devices.ImageAcquisition.WIAVIDEO_STATE = 6
 class WIA_BARCODES(EasyCastStructure):
     Tag: UInt32
     Version: UInt32
@@ -2013,4 +2012,6 @@ class WiaTransferParams(EasyCastStructure):
     ulTransferredBytes: UInt64
     hrErrorStatus: win32more.Windows.Win32.Foundation.HRESULT
 WiaVideo = Guid('{3908c3cd-4478-4536-af2f-10c25d4ef89a}')
+
+
 make_ready(__name__)

@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security.Cryptography
 import win32more.Windows.Win32.Security.Cryptography.Catalog
@@ -143,22 +142,24 @@ class CRYPTCATSTORE(EasyCastStructure):
     hCryptMsg: VoidPtr
     hSorted: win32more.Windows.Win32.Foundation.HANDLE
 CRYPTCAT_OPEN_FLAGS = UInt32
-CRYPTCAT_OPEN_ALWAYS: CRYPTCAT_OPEN_FLAGS = 2
-CRYPTCAT_OPEN_CREATENEW: CRYPTCAT_OPEN_FLAGS = 1
-CRYPTCAT_OPEN_EXISTING: CRYPTCAT_OPEN_FLAGS = 4
-CRYPTCAT_OPEN_EXCLUDE_PAGE_HASHES: CRYPTCAT_OPEN_FLAGS = 65536
-CRYPTCAT_OPEN_INCLUDE_PAGE_HASHES: CRYPTCAT_OPEN_FLAGS = 131072
-CRYPTCAT_OPEN_VERIFYSIGHASH: CRYPTCAT_OPEN_FLAGS = 268435456
-CRYPTCAT_OPEN_NO_CONTENT_HCRYPTMSG: CRYPTCAT_OPEN_FLAGS = 536870912
-CRYPTCAT_OPEN_SORTED: CRYPTCAT_OPEN_FLAGS = 1073741824
-CRYPTCAT_OPEN_FLAGS_MASK: CRYPTCAT_OPEN_FLAGS = 4294901760
+CRYPTCAT_OPEN_ALWAYS: win32more.Windows.Win32.Security.Cryptography.Catalog.CRYPTCAT_OPEN_FLAGS = 2
+CRYPTCAT_OPEN_CREATENEW: win32more.Windows.Win32.Security.Cryptography.Catalog.CRYPTCAT_OPEN_FLAGS = 1
+CRYPTCAT_OPEN_EXISTING: win32more.Windows.Win32.Security.Cryptography.Catalog.CRYPTCAT_OPEN_FLAGS = 4
+CRYPTCAT_OPEN_EXCLUDE_PAGE_HASHES: win32more.Windows.Win32.Security.Cryptography.Catalog.CRYPTCAT_OPEN_FLAGS = 65536
+CRYPTCAT_OPEN_INCLUDE_PAGE_HASHES: win32more.Windows.Win32.Security.Cryptography.Catalog.CRYPTCAT_OPEN_FLAGS = 131072
+CRYPTCAT_OPEN_VERIFYSIGHASH: win32more.Windows.Win32.Security.Cryptography.Catalog.CRYPTCAT_OPEN_FLAGS = 268435456
+CRYPTCAT_OPEN_NO_CONTENT_HCRYPTMSG: win32more.Windows.Win32.Security.Cryptography.Catalog.CRYPTCAT_OPEN_FLAGS = 536870912
+CRYPTCAT_OPEN_SORTED: win32more.Windows.Win32.Security.Cryptography.Catalog.CRYPTCAT_OPEN_FLAGS = 1073741824
+CRYPTCAT_OPEN_FLAGS_MASK: win32more.Windows.Win32.Security.Cryptography.Catalog.CRYPTCAT_OPEN_FLAGS = 4294901760
 CRYPTCAT_VERSION = UInt32
-CRYPTCAT_VERSION_1: CRYPTCAT_VERSION = 256
-CRYPTCAT_VERSION_2: CRYPTCAT_VERSION = 512
+CRYPTCAT_VERSION_1: win32more.Windows.Win32.Security.Cryptography.Catalog.CRYPTCAT_VERSION = 256
+CRYPTCAT_VERSION_2: win32more.Windows.Win32.Security.Cryptography.Catalog.CRYPTCAT_VERSION = 512
 class MS_ADDINFO_CATALOGMEMBER(EasyCastStructure):
     cbStruct: UInt32
     pStore: POINTER(win32more.Windows.Win32.Security.Cryptography.Catalog.CRYPTCATSTORE)
     pMember: POINTER(win32more.Windows.Win32.Security.Cryptography.Catalog.CRYPTCATMEMBER)
 @winfunctype_pointer
 def PFN_CDF_PARSE_ERROR_CALLBACK(dwErrorArea: UInt32, dwLocalError: UInt32, pwszLine: win32more.Windows.Win32.Foundation.PWSTR) -> Void: ...
+
+
 make_ready(__name__)

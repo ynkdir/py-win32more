@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Media.Audio
 import win32more.Windows.Win32.Media.Audio.Apo
@@ -24,28 +23,28 @@ class AAAccountingData(EasyCastStructure):
     mainSessionId: Guid
     subSessionId: Int32
 AAAccountingDataType = Int32
-AA_MAIN_SESSION_CREATION: AAAccountingDataType = 0
-AA_SUB_SESSION_CREATION: AAAccountingDataType = 1
-AA_SUB_SESSION_CLOSED: AAAccountingDataType = 2
-AA_MAIN_SESSION_CLOSED: AAAccountingDataType = 3
+AA_MAIN_SESSION_CREATION: win32more.Windows.Win32.System.RemoteDesktop.AAAccountingDataType = 0
+AA_SUB_SESSION_CREATION: win32more.Windows.Win32.System.RemoteDesktop.AAAccountingDataType = 1
+AA_SUB_SESSION_CLOSED: win32more.Windows.Win32.System.RemoteDesktop.AAAccountingDataType = 2
+AA_MAIN_SESSION_CLOSED: win32more.Windows.Win32.System.RemoteDesktop.AAAccountingDataType = 3
 AAAuthSchemes = Int32
-AA_AUTH_MIN: AAAuthSchemes = 0
-AA_AUTH_BASIC: AAAuthSchemes = 1
-AA_AUTH_NTLM: AAAuthSchemes = 2
-AA_AUTH_SC: AAAuthSchemes = 3
-AA_AUTH_LOGGEDONCREDENTIALS: AAAuthSchemes = 4
-AA_AUTH_NEGOTIATE: AAAuthSchemes = 5
-AA_AUTH_ANY: AAAuthSchemes = 6
-AA_AUTH_COOKIE: AAAuthSchemes = 7
-AA_AUTH_DIGEST: AAAuthSchemes = 8
-AA_AUTH_ORGID: AAAuthSchemes = 9
-AA_AUTH_CONID: AAAuthSchemes = 10
-AA_AUTH_SSPI_NTLM: AAAuthSchemes = 11
-AA_AUTH_MAX: AAAuthSchemes = 12
+AA_AUTH_MIN: win32more.Windows.Win32.System.RemoteDesktop.AAAuthSchemes = 0
+AA_AUTH_BASIC: win32more.Windows.Win32.System.RemoteDesktop.AAAuthSchemes = 1
+AA_AUTH_NTLM: win32more.Windows.Win32.System.RemoteDesktop.AAAuthSchemes = 2
+AA_AUTH_SC: win32more.Windows.Win32.System.RemoteDesktop.AAAuthSchemes = 3
+AA_AUTH_LOGGEDONCREDENTIALS: win32more.Windows.Win32.System.RemoteDesktop.AAAuthSchemes = 4
+AA_AUTH_NEGOTIATE: win32more.Windows.Win32.System.RemoteDesktop.AAAuthSchemes = 5
+AA_AUTH_ANY: win32more.Windows.Win32.System.RemoteDesktop.AAAuthSchemes = 6
+AA_AUTH_COOKIE: win32more.Windows.Win32.System.RemoteDesktop.AAAuthSchemes = 7
+AA_AUTH_DIGEST: win32more.Windows.Win32.System.RemoteDesktop.AAAuthSchemes = 8
+AA_AUTH_ORGID: win32more.Windows.Win32.System.RemoteDesktop.AAAuthSchemes = 9
+AA_AUTH_CONID: win32more.Windows.Win32.System.RemoteDesktop.AAAuthSchemes = 10
+AA_AUTH_SSPI_NTLM: win32more.Windows.Win32.System.RemoteDesktop.AAAuthSchemes = 11
+AA_AUTH_MAX: win32more.Windows.Win32.System.RemoteDesktop.AAAuthSchemes = 12
 AATrustClassID = Int32
-AA_UNTRUSTED: AATrustClassID = 0
-AA_TRUSTEDUSER_UNTRUSTEDCLIENT: AATrustClassID = 1
-AA_TRUSTEDUSER_TRUSTEDCLIENT: AATrustClassID = 2
+AA_UNTRUSTED: win32more.Windows.Win32.System.RemoteDesktop.AATrustClassID = 0
+AA_TRUSTEDUSER_UNTRUSTEDCLIENT: win32more.Windows.Win32.System.RemoteDesktop.AATrustClassID = 1
+AA_TRUSTEDUSER_TRUSTEDCLIENT: win32more.Windows.Win32.System.RemoteDesktop.AATrustClassID = 2
 ADsTSUserEx = Guid('{e2e9cae6-1e7b-4b8e-babd-e9bf6292ac29}')
 class AE_CURRENT_POSITION(EasyCastStructure):
     u64DevicePosition: UInt64
@@ -55,10 +54,10 @@ class AE_CURRENT_POSITION(EasyCastStructure):
     f32FramesPerSecond: Single
     Flag: win32more.Windows.Win32.System.RemoteDesktop.AE_POSITION_FLAGS
 AE_POSITION_FLAGS = Int32
-POSITION_INVALID: AE_POSITION_FLAGS = 0
-POSITION_DISCONTINUOUS: AE_POSITION_FLAGS = 1
-POSITION_CONTINUOUS: AE_POSITION_FLAGS = 2
-POSITION_QPC_ERROR: AE_POSITION_FLAGS = 4
+POSITION_INVALID: win32more.Windows.Win32.System.RemoteDesktop.AE_POSITION_FLAGS = 0
+POSITION_DISCONTINUOUS: win32more.Windows.Win32.System.RemoteDesktop.AE_POSITION_FLAGS = 1
+POSITION_CONTINUOUS: win32more.Windows.Win32.System.RemoteDesktop.AE_POSITION_FLAGS = 2
+POSITION_QPC_ERROR: win32more.Windows.Win32.System.RemoteDesktop.AE_POSITION_FLAGS = 4
 WTS_CURRENT_SERVER: win32more.Windows.Win32.Foundation.HANDLE = 0
 WTS_CURRENT_SERVER_HANDLE: win32more.Windows.Win32.Foundation.HANDLE = 0
 WTS_CURRENT_SERVER_NAME: String = ''
@@ -463,19 +462,19 @@ class CLIENT_DISPLAY(EasyCastStructure):
     VerticalResolution: UInt32
     ColorDepth: UInt32
 CLIENT_MESSAGE_TYPE = Int32
-CLIENT_MESSAGE_CONNECTION_INVALID: CLIENT_MESSAGE_TYPE = 0
-CLIENT_MESSAGE_CONNECTION_STATUS: CLIENT_MESSAGE_TYPE = 1
-CLIENT_MESSAGE_CONNECTION_ERROR: CLIENT_MESSAGE_TYPE = 2
+CLIENT_MESSAGE_CONNECTION_INVALID: win32more.Windows.Win32.System.RemoteDesktop.CLIENT_MESSAGE_TYPE = 0
+CLIENT_MESSAGE_CONNECTION_STATUS: win32more.Windows.Win32.System.RemoteDesktop.CLIENT_MESSAGE_TYPE = 1
+CLIENT_MESSAGE_CONNECTION_ERROR: win32more.Windows.Win32.System.RemoteDesktop.CLIENT_MESSAGE_TYPE = 2
 CONNECTION_CHANGE_NOTIFICATION = Int32
-CONNECTION_REQUEST_INVALID: CONNECTION_CHANGE_NOTIFICATION = 0
-CONNECTION_REQUEST_PENDING: CONNECTION_CHANGE_NOTIFICATION = 1
-CONNECTION_REQUEST_FAILED: CONNECTION_CHANGE_NOTIFICATION = 2
-CONNECTION_REQUEST_TIMEDOUT: CONNECTION_CHANGE_NOTIFICATION = 3
-CONNECTION_REQUEST_SUCCEEDED: CONNECTION_CHANGE_NOTIFICATION = 4
-CONNECTION_REQUEST_CANCELLED: CONNECTION_CHANGE_NOTIFICATION = 5
-CONNECTION_REQUEST_LB_COMPLETED: CONNECTION_CHANGE_NOTIFICATION = 6
-CONNECTION_REQUEST_QUERY_PL_COMPLETED: CONNECTION_CHANGE_NOTIFICATION = 7
-CONNECTION_REQUEST_ORCH_COMPLETED: CONNECTION_CHANGE_NOTIFICATION = 8
+CONNECTION_REQUEST_INVALID: win32more.Windows.Win32.System.RemoteDesktop.CONNECTION_CHANGE_NOTIFICATION = 0
+CONNECTION_REQUEST_PENDING: win32more.Windows.Win32.System.RemoteDesktop.CONNECTION_CHANGE_NOTIFICATION = 1
+CONNECTION_REQUEST_FAILED: win32more.Windows.Win32.System.RemoteDesktop.CONNECTION_CHANGE_NOTIFICATION = 2
+CONNECTION_REQUEST_TIMEDOUT: win32more.Windows.Win32.System.RemoteDesktop.CONNECTION_CHANGE_NOTIFICATION = 3
+CONNECTION_REQUEST_SUCCEEDED: win32more.Windows.Win32.System.RemoteDesktop.CONNECTION_CHANGE_NOTIFICATION = 4
+CONNECTION_REQUEST_CANCELLED: win32more.Windows.Win32.System.RemoteDesktop.CONNECTION_CHANGE_NOTIFICATION = 5
+CONNECTION_REQUEST_LB_COMPLETED: win32more.Windows.Win32.System.RemoteDesktop.CONNECTION_CHANGE_NOTIFICATION = 6
+CONNECTION_REQUEST_QUERY_PL_COMPLETED: win32more.Windows.Win32.System.RemoteDesktop.CONNECTION_CHANGE_NOTIFICATION = 7
+CONNECTION_REQUEST_ORCH_COMPLETED: win32more.Windows.Win32.System.RemoteDesktop.CONNECTION_CHANGE_NOTIFICATION = 8
 class IADsTSUserEx(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IDispatch
     _iid_ = Guid('{c4930e79-2989-4462-8a60-2fcf2f2955ef}')
@@ -1633,25 +1632,25 @@ class ItsPubPlugin2(ComPtr):
     @commethod(12)
     def DeletePersonalDesktopAssignment(self, userId: win32more.Windows.Win32.Foundation.PWSTR, poolId: win32more.Windows.Win32.Foundation.PWSTR, endpointName: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 KeyCombinationType = Int32
-KeyCombinationType_KeyCombinationHome: KeyCombinationType = 0
-KeyCombinationType_KeyCombinationLeft: KeyCombinationType = 1
-KeyCombinationType_KeyCombinationUp: KeyCombinationType = 2
-KeyCombinationType_KeyCombinationRight: KeyCombinationType = 3
-KeyCombinationType_KeyCombinationDown: KeyCombinationType = 4
-KeyCombinationType_KeyCombinationScroll: KeyCombinationType = 5
+KeyCombinationType_KeyCombinationHome: win32more.Windows.Win32.System.RemoteDesktop.KeyCombinationType = 0
+KeyCombinationType_KeyCombinationLeft: win32more.Windows.Win32.System.RemoteDesktop.KeyCombinationType = 1
+KeyCombinationType_KeyCombinationUp: win32more.Windows.Win32.System.RemoteDesktop.KeyCombinationType = 2
+KeyCombinationType_KeyCombinationRight: win32more.Windows.Win32.System.RemoteDesktop.KeyCombinationType = 3
+KeyCombinationType_KeyCombinationDown: win32more.Windows.Win32.System.RemoteDesktop.KeyCombinationType = 4
+KeyCombinationType_KeyCombinationScroll: win32more.Windows.Win32.System.RemoteDesktop.KeyCombinationType = 5
 @winfunctype_pointer
 def PCHANNEL_INIT_EVENT_FN(pInitHandle: VoidPtr, event: UInt32, pData: VoidPtr, dataLength: UInt32) -> Void: ...
 @winfunctype_pointer
 def PCHANNEL_OPEN_EVENT_FN(openHandle: UInt32, event: UInt32, pData: VoidPtr, dataLength: UInt32, totalLength: UInt32, dataFlags: UInt32) -> Void: ...
 PLUGIN_TYPE = Int32
-UNKNOWN_PLUGIN: PLUGIN_TYPE = 0
-POLICY_PLUGIN: PLUGIN_TYPE = 1
-RESOURCE_PLUGIN: PLUGIN_TYPE = 2
-LOAD_BALANCING_PLUGIN: PLUGIN_TYPE = 4
-PLACEMENT_PLUGIN: PLUGIN_TYPE = 8
-ORCHESTRATION_PLUGIN: PLUGIN_TYPE = 16
-PROVISIONING_PLUGIN: PLUGIN_TYPE = 32
-TASK_PLUGIN: PLUGIN_TYPE = 64
+UNKNOWN_PLUGIN: win32more.Windows.Win32.System.RemoteDesktop.PLUGIN_TYPE = 0
+POLICY_PLUGIN: win32more.Windows.Win32.System.RemoteDesktop.PLUGIN_TYPE = 1
+RESOURCE_PLUGIN: win32more.Windows.Win32.System.RemoteDesktop.PLUGIN_TYPE = 2
+LOAD_BALANCING_PLUGIN: win32more.Windows.Win32.System.RemoteDesktop.PLUGIN_TYPE = 4
+PLACEMENT_PLUGIN: win32more.Windows.Win32.System.RemoteDesktop.PLUGIN_TYPE = 8
+ORCHESTRATION_PLUGIN: win32more.Windows.Win32.System.RemoteDesktop.PLUGIN_TYPE = 16
+PROVISIONING_PLUGIN: win32more.Windows.Win32.System.RemoteDesktop.PLUGIN_TYPE = 32
+TASK_PLUGIN: win32more.Windows.Win32.System.RemoteDesktop.PLUGIN_TYPE = 64
 class PRODUCT_INFOA(EasyCastStructure):
     CompanyName: win32more.Windows.Win32.Foundation.CHAR * 256
     ProductID: win32more.Windows.Win32.Foundation.CHAR * 4
@@ -1669,36 +1668,36 @@ def PVIRTUALCHANNELOPEN(pInitHandle: VoidPtr, pOpenHandle: POINTER(UInt32), pCha
 @winfunctype_pointer
 def PVIRTUALCHANNELWRITE(openHandle: UInt32, pData: VoidPtr, dataLength: UInt32, pUserData: VoidPtr) -> UInt32: ...
 PasswordEncodingType = Int32
-PasswordEncodingType_PasswordEncodingUTF8: PasswordEncodingType = 0
-PasswordEncodingType_PasswordEncodingUTF16LE: PasswordEncodingType = 1
-PasswordEncodingType_PasswordEncodingUTF16BE: PasswordEncodingType = 2
+PasswordEncodingType_PasswordEncodingUTF8: win32more.Windows.Win32.System.RemoteDesktop.PasswordEncodingType = 0
+PasswordEncodingType_PasswordEncodingUTF16LE: win32more.Windows.Win32.System.RemoteDesktop.PasswordEncodingType = 1
+PasswordEncodingType_PasswordEncodingUTF16BE: win32more.Windows.Win32.System.RemoteDesktop.PasswordEncodingType = 2
 PolicyAttributeType = Int32
-PolicyAttributeType_EnableAllRedirections: PolicyAttributeType = 0
-PolicyAttributeType_DisableAllRedirections: PolicyAttributeType = 1
-PolicyAttributeType_DriveRedirectionDisabled: PolicyAttributeType = 2
-PolicyAttributeType_PrinterRedirectionDisabled: PolicyAttributeType = 3
-PolicyAttributeType_PortRedirectionDisabled: PolicyAttributeType = 4
-PolicyAttributeType_ClipboardRedirectionDisabled: PolicyAttributeType = 5
-PolicyAttributeType_PnpRedirectionDisabled: PolicyAttributeType = 6
-PolicyAttributeType_AllowOnlySDRServers: PolicyAttributeType = 7
+PolicyAttributeType_EnableAllRedirections: win32more.Windows.Win32.System.RemoteDesktop.PolicyAttributeType = 0
+PolicyAttributeType_DisableAllRedirections: win32more.Windows.Win32.System.RemoteDesktop.PolicyAttributeType = 1
+PolicyAttributeType_DriveRedirectionDisabled: win32more.Windows.Win32.System.RemoteDesktop.PolicyAttributeType = 2
+PolicyAttributeType_PrinterRedirectionDisabled: win32more.Windows.Win32.System.RemoteDesktop.PolicyAttributeType = 3
+PolicyAttributeType_PortRedirectionDisabled: win32more.Windows.Win32.System.RemoteDesktop.PolicyAttributeType = 4
+PolicyAttributeType_ClipboardRedirectionDisabled: win32more.Windows.Win32.System.RemoteDesktop.PolicyAttributeType = 5
+PolicyAttributeType_PnpRedirectionDisabled: win32more.Windows.Win32.System.RemoteDesktop.PolicyAttributeType = 6
+PolicyAttributeType_AllowOnlySDRServers: win32more.Windows.Win32.System.RemoteDesktop.PolicyAttributeType = 7
 RDV_TASK_STATUS = Int32
-RDV_TASK_STATUS_UNKNOWN: RDV_TASK_STATUS = 0
-RDV_TASK_STATUS_SEARCHING: RDV_TASK_STATUS = 1
-RDV_TASK_STATUS_DOWNLOADING: RDV_TASK_STATUS = 2
-RDV_TASK_STATUS_APPLYING: RDV_TASK_STATUS = 3
-RDV_TASK_STATUS_REBOOTING: RDV_TASK_STATUS = 4
-RDV_TASK_STATUS_REBOOTED: RDV_TASK_STATUS = 5
-RDV_TASK_STATUS_SUCCESS: RDV_TASK_STATUS = 6
-RDV_TASK_STATUS_FAILED: RDV_TASK_STATUS = 7
-RDV_TASK_STATUS_TIMEOUT: RDV_TASK_STATUS = 8
+RDV_TASK_STATUS_UNKNOWN: win32more.Windows.Win32.System.RemoteDesktop.RDV_TASK_STATUS = 0
+RDV_TASK_STATUS_SEARCHING: win32more.Windows.Win32.System.RemoteDesktop.RDV_TASK_STATUS = 1
+RDV_TASK_STATUS_DOWNLOADING: win32more.Windows.Win32.System.RemoteDesktop.RDV_TASK_STATUS = 2
+RDV_TASK_STATUS_APPLYING: win32more.Windows.Win32.System.RemoteDesktop.RDV_TASK_STATUS = 3
+RDV_TASK_STATUS_REBOOTING: win32more.Windows.Win32.System.RemoteDesktop.RDV_TASK_STATUS = 4
+RDV_TASK_STATUS_REBOOTED: win32more.Windows.Win32.System.RemoteDesktop.RDV_TASK_STATUS = 5
+RDV_TASK_STATUS_SUCCESS: win32more.Windows.Win32.System.RemoteDesktop.RDV_TASK_STATUS = 6
+RDV_TASK_STATUS_FAILED: win32more.Windows.Win32.System.RemoteDesktop.RDV_TASK_STATUS = 7
+RDV_TASK_STATUS_TIMEOUT: win32more.Windows.Win32.System.RemoteDesktop.RDV_TASK_STATUS = 8
 RD_FARM_TYPE = Int32
-RD_FARM_RDSH: RD_FARM_TYPE = 0
-RD_FARM_TEMP_VM: RD_FARM_TYPE = 1
-RD_FARM_MANUAL_PERSONAL_VM: RD_FARM_TYPE = 2
-RD_FARM_AUTO_PERSONAL_VM: RD_FARM_TYPE = 3
-RD_FARM_MANUAL_PERSONAL_RDSH: RD_FARM_TYPE = 4
-RD_FARM_AUTO_PERSONAL_RDSH: RD_FARM_TYPE = 5
-RD_FARM_TYPE_UNKNOWN: RD_FARM_TYPE = -1
+RD_FARM_RDSH: win32more.Windows.Win32.System.RemoteDesktop.RD_FARM_TYPE = 0
+RD_FARM_TEMP_VM: win32more.Windows.Win32.System.RemoteDesktop.RD_FARM_TYPE = 1
+RD_FARM_MANUAL_PERSONAL_VM: win32more.Windows.Win32.System.RemoteDesktop.RD_FARM_TYPE = 2
+RD_FARM_AUTO_PERSONAL_VM: win32more.Windows.Win32.System.RemoteDesktop.RD_FARM_TYPE = 3
+RD_FARM_MANUAL_PERSONAL_RDSH: win32more.Windows.Win32.System.RemoteDesktop.RD_FARM_TYPE = 4
+RD_FARM_AUTO_PERSONAL_RDSH: win32more.Windows.Win32.System.RemoteDesktop.RD_FARM_TYPE = 5
+RD_FARM_TYPE_UNKNOWN: win32more.Windows.Win32.System.RemoteDesktop.RD_FARM_TYPE = -1
 class RFX_GFX_MONITOR_INFO(EasyCastStructure):
     left: Int32
     top: Int32
@@ -1753,101 +1752,101 @@ class RFX_GFX_RECT(EasyCastStructure):
     bottom: Int32
     _pack_ = 1
 RemoteActionType = Int32
-RemoteActionType_RemoteActionCharms: RemoteActionType = 0
-RemoteActionType_RemoteActionAppbar: RemoteActionType = 1
-RemoteActionType_RemoteActionSnap: RemoteActionType = 2
-RemoteActionType_RemoteActionStartScreen: RemoteActionType = 3
-RemoteActionType_RemoteActionAppSwitch: RemoteActionType = 4
+RemoteActionType_RemoteActionCharms: win32more.Windows.Win32.System.RemoteDesktop.RemoteActionType = 0
+RemoteActionType_RemoteActionAppbar: win32more.Windows.Win32.System.RemoteDesktop.RemoteActionType = 1
+RemoteActionType_RemoteActionSnap: win32more.Windows.Win32.System.RemoteDesktop.RemoteActionType = 2
+RemoteActionType_RemoteActionStartScreen: win32more.Windows.Win32.System.RemoteDesktop.RemoteActionType = 3
+RemoteActionType_RemoteActionAppSwitch: win32more.Windows.Win32.System.RemoteDesktop.RemoteActionType = 4
 SESSION_TIMEOUT_ACTION_TYPE = Int32
-SESSION_TIMEOUT_ACTION_DISCONNECT: SESSION_TIMEOUT_ACTION_TYPE = 0
-SESSION_TIMEOUT_ACTION_SILENT_REAUTH: SESSION_TIMEOUT_ACTION_TYPE = 1
+SESSION_TIMEOUT_ACTION_DISCONNECT: win32more.Windows.Win32.System.RemoteDesktop.SESSION_TIMEOUT_ACTION_TYPE = 0
+SESSION_TIMEOUT_ACTION_SILENT_REAUTH: win32more.Windows.Win32.System.RemoteDesktop.SESSION_TIMEOUT_ACTION_TYPE = 1
 SnapshotEncodingType = Int32
-SnapshotEncodingType_SnapshotEncodingDataUri: SnapshotEncodingType = 0
+SnapshotEncodingType_SnapshotEncodingDataUri: win32more.Windows.Win32.System.RemoteDesktop.SnapshotEncodingType = 0
 SnapshotFormatType = Int32
-SnapshotFormatType_SnapshotFormatPng: SnapshotFormatType = 0
-SnapshotFormatType_SnapshotFormatJpeg: SnapshotFormatType = 1
-SnapshotFormatType_SnapshotFormatBmp: SnapshotFormatType = 2
+SnapshotFormatType_SnapshotFormatPng: win32more.Windows.Win32.System.RemoteDesktop.SnapshotFormatType = 0
+SnapshotFormatType_SnapshotFormatJpeg: win32more.Windows.Win32.System.RemoteDesktop.SnapshotFormatType = 1
+SnapshotFormatType_SnapshotFormatBmp: win32more.Windows.Win32.System.RemoteDesktop.SnapshotFormatType = 2
 TARGET_CHANGE_TYPE = Int32
-TARGET_CHANGE_UNSPEC: TARGET_CHANGE_TYPE = 1
-TARGET_EXTERNALIP_CHANGED: TARGET_CHANGE_TYPE = 2
-TARGET_INTERNALIP_CHANGED: TARGET_CHANGE_TYPE = 4
-TARGET_JOINED: TARGET_CHANGE_TYPE = 8
-TARGET_REMOVED: TARGET_CHANGE_TYPE = 16
-TARGET_STATE_CHANGED: TARGET_CHANGE_TYPE = 32
-TARGET_IDLE: TARGET_CHANGE_TYPE = 64
-TARGET_PENDING: TARGET_CHANGE_TYPE = 128
-TARGET_INUSE: TARGET_CHANGE_TYPE = 256
-TARGET_PATCH_STATE_CHANGED: TARGET_CHANGE_TYPE = 512
-TARGET_FARM_MEMBERSHIP_CHANGED: TARGET_CHANGE_TYPE = 1024
+TARGET_CHANGE_UNSPEC: win32more.Windows.Win32.System.RemoteDesktop.TARGET_CHANGE_TYPE = 1
+TARGET_EXTERNALIP_CHANGED: win32more.Windows.Win32.System.RemoteDesktop.TARGET_CHANGE_TYPE = 2
+TARGET_INTERNALIP_CHANGED: win32more.Windows.Win32.System.RemoteDesktop.TARGET_CHANGE_TYPE = 4
+TARGET_JOINED: win32more.Windows.Win32.System.RemoteDesktop.TARGET_CHANGE_TYPE = 8
+TARGET_REMOVED: win32more.Windows.Win32.System.RemoteDesktop.TARGET_CHANGE_TYPE = 16
+TARGET_STATE_CHANGED: win32more.Windows.Win32.System.RemoteDesktop.TARGET_CHANGE_TYPE = 32
+TARGET_IDLE: win32more.Windows.Win32.System.RemoteDesktop.TARGET_CHANGE_TYPE = 64
+TARGET_PENDING: win32more.Windows.Win32.System.RemoteDesktop.TARGET_CHANGE_TYPE = 128
+TARGET_INUSE: win32more.Windows.Win32.System.RemoteDesktop.TARGET_CHANGE_TYPE = 256
+TARGET_PATCH_STATE_CHANGED: win32more.Windows.Win32.System.RemoteDesktop.TARGET_CHANGE_TYPE = 512
+TARGET_FARM_MEMBERSHIP_CHANGED: win32more.Windows.Win32.System.RemoteDesktop.TARGET_CHANGE_TYPE = 1024
 TARGET_OWNER = Int32
-OWNER_UNKNOWN: TARGET_OWNER = 0
-OWNER_MS_TS_PLUGIN: TARGET_OWNER = 1
-OWNER_MS_VM_PLUGIN: TARGET_OWNER = 2
+OWNER_UNKNOWN: win32more.Windows.Win32.System.RemoteDesktop.TARGET_OWNER = 0
+OWNER_MS_TS_PLUGIN: win32more.Windows.Win32.System.RemoteDesktop.TARGET_OWNER = 1
+OWNER_MS_VM_PLUGIN: win32more.Windows.Win32.System.RemoteDesktop.TARGET_OWNER = 2
 TARGET_PATCH_STATE = Int32
-TARGET_PATCH_UNKNOWN: TARGET_PATCH_STATE = 0
-TARGET_PATCH_NOT_STARTED: TARGET_PATCH_STATE = 1
-TARGET_PATCH_IN_PROGRESS: TARGET_PATCH_STATE = 2
-TARGET_PATCH_COMPLETED: TARGET_PATCH_STATE = 3
-TARGET_PATCH_FAILED: TARGET_PATCH_STATE = 4
+TARGET_PATCH_UNKNOWN: win32more.Windows.Win32.System.RemoteDesktop.TARGET_PATCH_STATE = 0
+TARGET_PATCH_NOT_STARTED: win32more.Windows.Win32.System.RemoteDesktop.TARGET_PATCH_STATE = 1
+TARGET_PATCH_IN_PROGRESS: win32more.Windows.Win32.System.RemoteDesktop.TARGET_PATCH_STATE = 2
+TARGET_PATCH_COMPLETED: win32more.Windows.Win32.System.RemoteDesktop.TARGET_PATCH_STATE = 3
+TARGET_PATCH_FAILED: win32more.Windows.Win32.System.RemoteDesktop.TARGET_PATCH_STATE = 4
 TARGET_STATE = Int32
-TARGET_UNKNOWN: TARGET_STATE = 1
-TARGET_INITIALIZING: TARGET_STATE = 2
-TARGET_RUNNING: TARGET_STATE = 3
-TARGET_DOWN: TARGET_STATE = 4
-TARGET_HIBERNATED: TARGET_STATE = 5
-TARGET_CHECKED_OUT: TARGET_STATE = 6
-TARGET_STOPPED: TARGET_STATE = 7
-TARGET_INVALID: TARGET_STATE = 8
-TARGET_STARTING: TARGET_STATE = 9
-TARGET_STOPPING: TARGET_STATE = 10
-TARGET_MAXSTATE: TARGET_STATE = 11
+TARGET_UNKNOWN: win32more.Windows.Win32.System.RemoteDesktop.TARGET_STATE = 1
+TARGET_INITIALIZING: win32more.Windows.Win32.System.RemoteDesktop.TARGET_STATE = 2
+TARGET_RUNNING: win32more.Windows.Win32.System.RemoteDesktop.TARGET_STATE = 3
+TARGET_DOWN: win32more.Windows.Win32.System.RemoteDesktop.TARGET_STATE = 4
+TARGET_HIBERNATED: win32more.Windows.Win32.System.RemoteDesktop.TARGET_STATE = 5
+TARGET_CHECKED_OUT: win32more.Windows.Win32.System.RemoteDesktop.TARGET_STATE = 6
+TARGET_STOPPED: win32more.Windows.Win32.System.RemoteDesktop.TARGET_STATE = 7
+TARGET_INVALID: win32more.Windows.Win32.System.RemoteDesktop.TARGET_STATE = 8
+TARGET_STARTING: win32more.Windows.Win32.System.RemoteDesktop.TARGET_STATE = 9
+TARGET_STOPPING: win32more.Windows.Win32.System.RemoteDesktop.TARGET_STATE = 10
+TARGET_MAXSTATE: win32more.Windows.Win32.System.RemoteDesktop.TARGET_STATE = 11
 TARGET_TYPE = Int32
-UNKNOWN: TARGET_TYPE = 0
-FARM: TARGET_TYPE = 1
-NONFARM: TARGET_TYPE = 2
+UNKNOWN: win32more.Windows.Win32.System.RemoteDesktop.TARGET_TYPE = 0
+FARM: win32more.Windows.Win32.System.RemoteDesktop.TARGET_TYPE = 1
+NONFARM: win32more.Windows.Win32.System.RemoteDesktop.TARGET_TYPE = 2
 TSPUB_PLUGIN_PD_ASSIGNMENT_TYPE = Int32
-TSPUB_PLUGIN_PD_ASSIGNMENT_NEW: TSPUB_PLUGIN_PD_ASSIGNMENT_TYPE = 0
-TSPUB_PLUGIN_PD_ASSIGNMENT_EXISTING: TSPUB_PLUGIN_PD_ASSIGNMENT_TYPE = 1
+TSPUB_PLUGIN_PD_ASSIGNMENT_NEW: win32more.Windows.Win32.System.RemoteDesktop.TSPUB_PLUGIN_PD_ASSIGNMENT_TYPE = 0
+TSPUB_PLUGIN_PD_ASSIGNMENT_EXISTING: win32more.Windows.Win32.System.RemoteDesktop.TSPUB_PLUGIN_PD_ASSIGNMENT_TYPE = 1
 TSPUB_PLUGIN_PD_RESOLUTION_TYPE = Int32
-TSPUB_PLUGIN_PD_QUERY_OR_CREATE: TSPUB_PLUGIN_PD_RESOLUTION_TYPE = 0
-TSPUB_PLUGIN_PD_QUERY_EXISTING: TSPUB_PLUGIN_PD_RESOLUTION_TYPE = 1
+TSPUB_PLUGIN_PD_QUERY_OR_CREATE: win32more.Windows.Win32.System.RemoteDesktop.TSPUB_PLUGIN_PD_RESOLUTION_TYPE = 0
+TSPUB_PLUGIN_PD_QUERY_EXISTING: win32more.Windows.Win32.System.RemoteDesktop.TSPUB_PLUGIN_PD_RESOLUTION_TYPE = 1
 TSSB_NOTIFICATION_TYPE = Int32
-TSSB_NOTIFY_INVALID: TSSB_NOTIFICATION_TYPE = 0
-TSSB_NOTIFY_TARGET_CHANGE: TSSB_NOTIFICATION_TYPE = 1
-TSSB_NOTIFY_SESSION_CHANGE: TSSB_NOTIFICATION_TYPE = 2
-TSSB_NOTIFY_CONNECTION_REQUEST_CHANGE: TSSB_NOTIFICATION_TYPE = 4
+TSSB_NOTIFY_INVALID: win32more.Windows.Win32.System.RemoteDesktop.TSSB_NOTIFICATION_TYPE = 0
+TSSB_NOTIFY_TARGET_CHANGE: win32more.Windows.Win32.System.RemoteDesktop.TSSB_NOTIFICATION_TYPE = 1
+TSSB_NOTIFY_SESSION_CHANGE: win32more.Windows.Win32.System.RemoteDesktop.TSSB_NOTIFICATION_TYPE = 2
+TSSB_NOTIFY_CONNECTION_REQUEST_CHANGE: win32more.Windows.Win32.System.RemoteDesktop.TSSB_NOTIFICATION_TYPE = 4
 TSSD_AddrV46Type = Int32
-TSSD_ADDR_UNDEFINED: TSSD_AddrV46Type = 0
-TSSD_ADDR_IPv4: TSSD_AddrV46Type = 4
-TSSD_ADDR_IPv6: TSSD_AddrV46Type = 6
+TSSD_ADDR_UNDEFINED: win32more.Windows.Win32.System.RemoteDesktop.TSSD_AddrV46Type = 0
+TSSD_ADDR_IPv4: win32more.Windows.Win32.System.RemoteDesktop.TSSD_AddrV46Type = 4
+TSSD_ADDR_IPv6: win32more.Windows.Win32.System.RemoteDesktop.TSSD_AddrV46Type = 6
 class TSSD_ConnectionPoint(EasyCastStructure):
     ServerAddressB: Byte * 16
     AddressType: win32more.Windows.Win32.System.RemoteDesktop.TSSD_AddrV46Type
     PortNumber: UInt16
     AddressScope: UInt32
 TSSESSION_STATE = Int32
-STATE_INVALID: TSSESSION_STATE = -1
-STATE_ACTIVE: TSSESSION_STATE = 0
-STATE_CONNECTED: TSSESSION_STATE = 1
-STATE_CONNECTQUERY: TSSESSION_STATE = 2
-STATE_SHADOW: TSSESSION_STATE = 3
-STATE_DISCONNECTED: TSSESSION_STATE = 4
-STATE_IDLE: TSSESSION_STATE = 5
-STATE_LISTEN: TSSESSION_STATE = 6
-STATE_RESET: TSSESSION_STATE = 7
-STATE_DOWN: TSSESSION_STATE = 8
-STATE_INIT: TSSESSION_STATE = 9
-STATE_MAX: TSSESSION_STATE = 10
+STATE_INVALID: win32more.Windows.Win32.System.RemoteDesktop.TSSESSION_STATE = -1
+STATE_ACTIVE: win32more.Windows.Win32.System.RemoteDesktop.TSSESSION_STATE = 0
+STATE_CONNECTED: win32more.Windows.Win32.System.RemoteDesktop.TSSESSION_STATE = 1
+STATE_CONNECTQUERY: win32more.Windows.Win32.System.RemoteDesktop.TSSESSION_STATE = 2
+STATE_SHADOW: win32more.Windows.Win32.System.RemoteDesktop.TSSESSION_STATE = 3
+STATE_DISCONNECTED: win32more.Windows.Win32.System.RemoteDesktop.TSSESSION_STATE = 4
+STATE_IDLE: win32more.Windows.Win32.System.RemoteDesktop.TSSESSION_STATE = 5
+STATE_LISTEN: win32more.Windows.Win32.System.RemoteDesktop.TSSESSION_STATE = 6
+STATE_RESET: win32more.Windows.Win32.System.RemoteDesktop.TSSESSION_STATE = 7
+STATE_DOWN: win32more.Windows.Win32.System.RemoteDesktop.TSSESSION_STATE = 8
+STATE_INIT: win32more.Windows.Win32.System.RemoteDesktop.TSSESSION_STATE = 9
+STATE_MAX: win32more.Windows.Win32.System.RemoteDesktop.TSSESSION_STATE = 10
 TSUserExInterfaces = Guid('{0910dd01-df8c-11d1-ae27-00c04fa35813}')
 TS_SB_SORT_BY = Int32
-TS_SB_SORT_BY_NONE: TS_SB_SORT_BY = 0
-TS_SB_SORT_BY_NAME: TS_SB_SORT_BY = 1
-TS_SB_SORT_BY_PROP: TS_SB_SORT_BY = 2
+TS_SB_SORT_BY_NONE: win32more.Windows.Win32.System.RemoteDesktop.TS_SB_SORT_BY = 0
+TS_SB_SORT_BY_NAME: win32more.Windows.Win32.System.RemoteDesktop.TS_SB_SORT_BY = 1
+TS_SB_SORT_BY_PROP: win32more.Windows.Win32.System.RemoteDesktop.TS_SB_SORT_BY = 2
 VM_HOST_NOTIFY_STATUS = Int32
-VM_HOST_STATUS_INIT_PENDING: VM_HOST_NOTIFY_STATUS = 0
-VM_HOST_STATUS_INIT_IN_PROGRESS: VM_HOST_NOTIFY_STATUS = 1
-VM_HOST_STATUS_INIT_COMPLETE: VM_HOST_NOTIFY_STATUS = 2
-VM_HOST_STATUS_INIT_FAILED: VM_HOST_NOTIFY_STATUS = 3
+VM_HOST_STATUS_INIT_PENDING: win32more.Windows.Win32.System.RemoteDesktop.VM_HOST_NOTIFY_STATUS = 0
+VM_HOST_STATUS_INIT_IN_PROGRESS: win32more.Windows.Win32.System.RemoteDesktop.VM_HOST_NOTIFY_STATUS = 1
+VM_HOST_STATUS_INIT_COMPLETE: win32more.Windows.Win32.System.RemoteDesktop.VM_HOST_NOTIFY_STATUS = 2
+VM_HOST_STATUS_INIT_FAILED: win32more.Windows.Win32.System.RemoteDesktop.VM_HOST_NOTIFY_STATUS = 3
 class VM_NOTIFY_ENTRY(EasyCastStructure):
     VmName: Char * 128
     VmHost: Char * 128
@@ -1855,11 +1854,11 @@ class VM_NOTIFY_INFO(EasyCastStructure):
     dwNumEntries: UInt32
     ppVmEntries: POINTER(POINTER(win32more.Windows.Win32.System.RemoteDesktop.VM_NOTIFY_ENTRY))
 VM_NOTIFY_STATUS = Int32
-VM_NOTIFY_STATUS_PENDING: VM_NOTIFY_STATUS = 0
-VM_NOTIFY_STATUS_IN_PROGRESS: VM_NOTIFY_STATUS = 1
-VM_NOTIFY_STATUS_COMPLETE: VM_NOTIFY_STATUS = 2
-VM_NOTIFY_STATUS_FAILED: VM_NOTIFY_STATUS = 3
-VM_NOTIFY_STATUS_CANCELED: VM_NOTIFY_STATUS = 4
+VM_NOTIFY_STATUS_PENDING: win32more.Windows.Win32.System.RemoteDesktop.VM_NOTIFY_STATUS = 0
+VM_NOTIFY_STATUS_IN_PROGRESS: win32more.Windows.Win32.System.RemoteDesktop.VM_NOTIFY_STATUS = 1
+VM_NOTIFY_STATUS_COMPLETE: win32more.Windows.Win32.System.RemoteDesktop.VM_NOTIFY_STATUS = 2
+VM_NOTIFY_STATUS_FAILED: win32more.Windows.Win32.System.RemoteDesktop.VM_NOTIFY_STATUS = 3
+VM_NOTIFY_STATUS_CANCELED: win32more.Windows.Win32.System.RemoteDesktop.VM_NOTIFY_STATUS = 4
 class VM_PATCH_INFO(EasyCastStructure):
     dwNumEntries: UInt32
     pVmNames: POINTER(win32more.Windows.Win32.Foundation.PWSTR)
@@ -1935,8 +1934,8 @@ class WRDS_CONNECTION_SETTINGS_1(EasyCastStructure):
     ContextSize: UInt32
     ContextData: POINTER(Byte)
 WRDS_CONNECTION_SETTING_LEVEL = Int32
-WRDS_CONNECTION_SETTING_LEVEL_INVALID: WRDS_CONNECTION_SETTING_LEVEL = 0
-WRDS_CONNECTION_SETTING_LEVEL_1: WRDS_CONNECTION_SETTING_LEVEL = 1
+WRDS_CONNECTION_SETTING_LEVEL_INVALID: win32more.Windows.Win32.System.RemoteDesktop.WRDS_CONNECTION_SETTING_LEVEL = 0
+WRDS_CONNECTION_SETTING_LEVEL_1: win32more.Windows.Win32.System.RemoteDesktop.WRDS_CONNECTION_SETTING_LEVEL = 1
 class WRDS_DYNAMIC_TIME_ZONE_INFORMATION(EasyCastStructure):
     Bias: Int32
     StandardName: Char * 32
@@ -1957,8 +1956,8 @@ class WRDS_LISTENER_SETTINGS_1(EasyCastStructure):
     SecurityDescriptorSize: UInt32
     pSecurityDescriptor: POINTER(Byte)
 WRDS_LISTENER_SETTING_LEVEL = Int32
-WRDS_LISTENER_SETTING_LEVEL_INVALID: WRDS_LISTENER_SETTING_LEVEL = 0
-WRDS_LISTENER_SETTING_LEVEL_1: WRDS_LISTENER_SETTING_LEVEL = 1
+WRDS_LISTENER_SETTING_LEVEL_INVALID: win32more.Windows.Win32.System.RemoteDesktop.WRDS_LISTENER_SETTING_LEVEL = 0
+WRDS_LISTENER_SETTING_LEVEL_1: win32more.Windows.Win32.System.RemoteDesktop.WRDS_LISTENER_SETTING_LEVEL = 1
 class WRDS_SETTING(EasyCastUnion):
     WRdsSettings1: win32more.Windows.Win32.System.RemoteDesktop.WRDS_SETTINGS_1
 class WRDS_SETTINGS(EasyCastStructure):
@@ -1998,21 +1997,21 @@ class WRDS_SETTINGS_1(EasyCastStructure):
     WRdsKeepAliveStartValue: win32more.Windows.Win32.Foundation.BOOLEAN
     WRdsKeepAliveIntervalValue: UInt32
 WRDS_SETTING_LEVEL = Int32
-WRDS_SETTING_LEVEL_INVALID: WRDS_SETTING_LEVEL = 0
-WRDS_SETTING_LEVEL_1: WRDS_SETTING_LEVEL = 1
+WRDS_SETTING_LEVEL_INVALID: win32more.Windows.Win32.System.RemoteDesktop.WRDS_SETTING_LEVEL = 0
+WRDS_SETTING_LEVEL_1: win32more.Windows.Win32.System.RemoteDesktop.WRDS_SETTING_LEVEL = 1
 WRDS_SETTING_STATUS = Int32
-WRDS_SETTING_STATUS_NOTAPPLICABLE: WRDS_SETTING_STATUS = -1
-WRDS_SETTING_STATUS_DISABLED: WRDS_SETTING_STATUS = 0
-WRDS_SETTING_STATUS_ENABLED: WRDS_SETTING_STATUS = 1
-WRDS_SETTING_STATUS_NOTCONFIGURED: WRDS_SETTING_STATUS = 2
+WRDS_SETTING_STATUS_NOTAPPLICABLE: win32more.Windows.Win32.System.RemoteDesktop.WRDS_SETTING_STATUS = -1
+WRDS_SETTING_STATUS_DISABLED: win32more.Windows.Win32.System.RemoteDesktop.WRDS_SETTING_STATUS = 0
+WRDS_SETTING_STATUS_ENABLED: win32more.Windows.Win32.System.RemoteDesktop.WRDS_SETTING_STATUS = 1
+WRDS_SETTING_STATUS_NOTCONFIGURED: win32more.Windows.Win32.System.RemoteDesktop.WRDS_SETTING_STATUS = 2
 WRDS_SETTING_TYPE = Int32
-WRDS_SETTING_TYPE_INVALID: WRDS_SETTING_TYPE = 0
-WRDS_SETTING_TYPE_MACHINE: WRDS_SETTING_TYPE = 1
-WRDS_SETTING_TYPE_USER: WRDS_SETTING_TYPE = 2
-WRDS_SETTING_TYPE_SAM: WRDS_SETTING_TYPE = 3
+WRDS_SETTING_TYPE_INVALID: win32more.Windows.Win32.System.RemoteDesktop.WRDS_SETTING_TYPE = 0
+WRDS_SETTING_TYPE_MACHINE: win32more.Windows.Win32.System.RemoteDesktop.WRDS_SETTING_TYPE = 1
+WRDS_SETTING_TYPE_USER: win32more.Windows.Win32.System.RemoteDesktop.WRDS_SETTING_TYPE = 2
+WRDS_SETTING_TYPE_SAM: win32more.Windows.Win32.System.RemoteDesktop.WRDS_SETTING_TYPE = 3
 WRdsGraphicsChannelType = Int32
-WRdsGraphicsChannelType_GuaranteedDelivery: WRdsGraphicsChannelType = 0
-WRdsGraphicsChannelType_BestEffortDelivery: WRdsGraphicsChannelType = 1
+WRdsGraphicsChannelType_GuaranteedDelivery: win32more.Windows.Win32.System.RemoteDesktop.WRdsGraphicsChannelType = 0
+WRdsGraphicsChannelType_BestEffortDelivery: win32more.Windows.Win32.System.RemoteDesktop.WRdsGraphicsChannelType = 1
 class WTSCLIENTA(EasyCastStructure):
     ClientName: win32more.Windows.Win32.Foundation.CHAR * 21
     Domain: win32more.Windows.Win32.Foundation.CHAR * 18
@@ -2222,11 +2221,11 @@ class WTSLISTENERCONFIGW(EasyCastStructure):
     WorkDirectory: Char * 261
     InitialProgram: Char * 261
 WTSSBX_ADDRESS_FAMILY = Int32
-WTSSBX_ADDRESS_FAMILY_AF_UNSPEC: WTSSBX_ADDRESS_FAMILY = 0
-WTSSBX_ADDRESS_FAMILY_AF_INET: WTSSBX_ADDRESS_FAMILY = 1
-WTSSBX_ADDRESS_FAMILY_AF_INET6: WTSSBX_ADDRESS_FAMILY = 2
-WTSSBX_ADDRESS_FAMILY_AF_IPX: WTSSBX_ADDRESS_FAMILY = 3
-WTSSBX_ADDRESS_FAMILY_AF_NETBIOS: WTSSBX_ADDRESS_FAMILY = 4
+WTSSBX_ADDRESS_FAMILY_AF_UNSPEC: win32more.Windows.Win32.System.RemoteDesktop.WTSSBX_ADDRESS_FAMILY = 0
+WTSSBX_ADDRESS_FAMILY_AF_INET: win32more.Windows.Win32.System.RemoteDesktop.WTSSBX_ADDRESS_FAMILY = 1
+WTSSBX_ADDRESS_FAMILY_AF_INET6: win32more.Windows.Win32.System.RemoteDesktop.WTSSBX_ADDRESS_FAMILY = 2
+WTSSBX_ADDRESS_FAMILY_AF_IPX: win32more.Windows.Win32.System.RemoteDesktop.WTSSBX_ADDRESS_FAMILY = 3
+WTSSBX_ADDRESS_FAMILY_AF_NETBIOS: win32more.Windows.Win32.System.RemoteDesktop.WTSSBX_ADDRESS_FAMILY = 4
 class WTSSBX_IP_ADDRESS(EasyCastStructure):
     AddressFamily: win32more.Windows.Win32.System.RemoteDesktop.WTSSBX_ADDRESS_FAMILY
     Address: Byte * 16
@@ -2238,9 +2237,9 @@ class WTSSBX_MACHINE_CONNECT_INFO(EasyCastStructure):
     dwNumOfIPAddr: UInt32
     IPaddr: win32more.Windows.Win32.System.RemoteDesktop.WTSSBX_IP_ADDRESS * 12
 WTSSBX_MACHINE_DRAIN = Int32
-WTSSBX_MACHINE_DRAIN_UNSPEC: WTSSBX_MACHINE_DRAIN = 0
-WTSSBX_MACHINE_DRAIN_OFF: WTSSBX_MACHINE_DRAIN = 1
-WTSSBX_MACHINE_DRAIN_ON: WTSSBX_MACHINE_DRAIN = 2
+WTSSBX_MACHINE_DRAIN_UNSPEC: win32more.Windows.Win32.System.RemoteDesktop.WTSSBX_MACHINE_DRAIN = 0
+WTSSBX_MACHINE_DRAIN_OFF: win32more.Windows.Win32.System.RemoteDesktop.WTSSBX_MACHINE_DRAIN = 1
+WTSSBX_MACHINE_DRAIN_ON: win32more.Windows.Win32.System.RemoteDesktop.WTSSBX_MACHINE_DRAIN = 2
 class WTSSBX_MACHINE_INFO(EasyCastStructure):
     ClientConnectInfo: win32more.Windows.Win32.System.RemoteDesktop.WTSSBX_MACHINE_CONNECT_INFO
     wczFarmName: Char * 257
@@ -2251,18 +2250,18 @@ class WTSSBX_MACHINE_INFO(EasyCastStructure):
     InDrain: win32more.Windows.Win32.System.RemoteDesktop.WTSSBX_MACHINE_DRAIN
     MachineState: win32more.Windows.Win32.System.RemoteDesktop.WTSSBX_MACHINE_STATE
 WTSSBX_MACHINE_SESSION_MODE = Int32
-WTSSBX_MACHINE_SESSION_MODE_UNSPEC: WTSSBX_MACHINE_SESSION_MODE = 0
-WTSSBX_MACHINE_SESSION_MODE_SINGLE: WTSSBX_MACHINE_SESSION_MODE = 1
-WTSSBX_MACHINE_SESSION_MODE_MULTIPLE: WTSSBX_MACHINE_SESSION_MODE = 2
+WTSSBX_MACHINE_SESSION_MODE_UNSPEC: win32more.Windows.Win32.System.RemoteDesktop.WTSSBX_MACHINE_SESSION_MODE = 0
+WTSSBX_MACHINE_SESSION_MODE_SINGLE: win32more.Windows.Win32.System.RemoteDesktop.WTSSBX_MACHINE_SESSION_MODE = 1
+WTSSBX_MACHINE_SESSION_MODE_MULTIPLE: win32more.Windows.Win32.System.RemoteDesktop.WTSSBX_MACHINE_SESSION_MODE = 2
 WTSSBX_MACHINE_STATE = Int32
-WTSSBX_MACHINE_STATE_UNSPEC: WTSSBX_MACHINE_STATE = 0
-WTSSBX_MACHINE_STATE_READY: WTSSBX_MACHINE_STATE = 1
-WTSSBX_MACHINE_STATE_SYNCHRONIZING: WTSSBX_MACHINE_STATE = 2
+WTSSBX_MACHINE_STATE_UNSPEC: win32more.Windows.Win32.System.RemoteDesktop.WTSSBX_MACHINE_STATE = 0
+WTSSBX_MACHINE_STATE_READY: win32more.Windows.Win32.System.RemoteDesktop.WTSSBX_MACHINE_STATE = 1
+WTSSBX_MACHINE_STATE_SYNCHRONIZING: win32more.Windows.Win32.System.RemoteDesktop.WTSSBX_MACHINE_STATE = 2
 WTSSBX_NOTIFICATION_TYPE = Int32
-WTSSBX_NOTIFICATION_REMOVED: WTSSBX_NOTIFICATION_TYPE = 1
-WTSSBX_NOTIFICATION_CHANGED: WTSSBX_NOTIFICATION_TYPE = 2
-WTSSBX_NOTIFICATION_ADDED: WTSSBX_NOTIFICATION_TYPE = 4
-WTSSBX_NOTIFICATION_RESYNC: WTSSBX_NOTIFICATION_TYPE = 8
+WTSSBX_NOTIFICATION_REMOVED: win32more.Windows.Win32.System.RemoteDesktop.WTSSBX_NOTIFICATION_TYPE = 1
+WTSSBX_NOTIFICATION_CHANGED: win32more.Windows.Win32.System.RemoteDesktop.WTSSBX_NOTIFICATION_TYPE = 2
+WTSSBX_NOTIFICATION_ADDED: win32more.Windows.Win32.System.RemoteDesktop.WTSSBX_NOTIFICATION_TYPE = 4
+WTSSBX_NOTIFICATION_RESYNC: win32more.Windows.Win32.System.RemoteDesktop.WTSSBX_NOTIFICATION_TYPE = 8
 class WTSSBX_SESSION_INFO(EasyCastStructure):
     wszUserName: Char * 105
     wszDomainName: Char * 257
@@ -2272,9 +2271,9 @@ class WTSSBX_SESSION_INFO(EasyCastStructure):
     DisconnectTime: win32more.Windows.Win32.Foundation.FILETIME
     SessionState: win32more.Windows.Win32.System.RemoteDesktop.WTSSBX_SESSION_STATE
 WTSSBX_SESSION_STATE = Int32
-WTSSBX_SESSION_STATE_UNSPEC: WTSSBX_SESSION_STATE = 0
-WTSSBX_SESSION_STATE_ACTIVE: WTSSBX_SESSION_STATE = 1
-WTSSBX_SESSION_STATE_DISCONNECTED: WTSSBX_SESSION_STATE = 2
+WTSSBX_SESSION_STATE_UNSPEC: win32more.Windows.Win32.System.RemoteDesktop.WTSSBX_SESSION_STATE = 0
+WTSSBX_SESSION_STATE_ACTIVE: win32more.Windows.Win32.System.RemoteDesktop.WTSSBX_SESSION_STATE = 1
+WTSSBX_SESSION_STATE_DISCONNECTED: win32more.Windows.Win32.System.RemoteDesktop.WTSSBX_SESSION_STATE = 2
 class WTSSESSION_NOTIFICATION(EasyCastStructure):
     cbSize: UInt32
     dwSessionId: UInt32
@@ -2326,9 +2325,9 @@ class WTS_CACHE_STATS_UN(EasyCastUnion):
     TShareCacheStats: UInt32
     Reserved: UInt32 * 20
 WTS_CERT_TYPE = Int32
-WTS_CERT_TYPE_INVALID: WTS_CERT_TYPE = 0
-WTS_CERT_TYPE_PROPRIETORY: WTS_CERT_TYPE = 1
-WTS_CERT_TYPE_X509: WTS_CERT_TYPE = 2
+WTS_CERT_TYPE_INVALID: win32more.Windows.Win32.System.RemoteDesktop.WTS_CERT_TYPE = 0
+WTS_CERT_TYPE_PROPRIETORY: win32more.Windows.Win32.System.RemoteDesktop.WTS_CERT_TYPE = 1
+WTS_CERT_TYPE_X509: win32more.Windows.Win32.System.RemoteDesktop.WTS_CERT_TYPE = 2
 class WTS_CLIENT_ADDRESS(EasyCastStructure):
     AddressFamily: UInt32
     Address: Byte * 20
@@ -2393,73 +2392,73 @@ class WTS_CLIENT_DISPLAY(EasyCastStructure):
     VerticalResolution: UInt32
     ColorDepth: UInt32
 WTS_CONFIG_CLASS = Int32
-WTS_CONFIG_CLASS_WTSUserConfigInitialProgram: WTS_CONFIG_CLASS = 0
-WTS_CONFIG_CLASS_WTSUserConfigWorkingDirectory: WTS_CONFIG_CLASS = 1
-WTS_CONFIG_CLASS_WTSUserConfigfInheritInitialProgram: WTS_CONFIG_CLASS = 2
-WTS_CONFIG_CLASS_WTSUserConfigfAllowLogonTerminalServer: WTS_CONFIG_CLASS = 3
-WTS_CONFIG_CLASS_WTSUserConfigTimeoutSettingsConnections: WTS_CONFIG_CLASS = 4
-WTS_CONFIG_CLASS_WTSUserConfigTimeoutSettingsDisconnections: WTS_CONFIG_CLASS = 5
-WTS_CONFIG_CLASS_WTSUserConfigTimeoutSettingsIdle: WTS_CONFIG_CLASS = 6
-WTS_CONFIG_CLASS_WTSUserConfigfDeviceClientDrives: WTS_CONFIG_CLASS = 7
-WTS_CONFIG_CLASS_WTSUserConfigfDeviceClientPrinters: WTS_CONFIG_CLASS = 8
-WTS_CONFIG_CLASS_WTSUserConfigfDeviceClientDefaultPrinter: WTS_CONFIG_CLASS = 9
-WTS_CONFIG_CLASS_WTSUserConfigBrokenTimeoutSettings: WTS_CONFIG_CLASS = 10
-WTS_CONFIG_CLASS_WTSUserConfigReconnectSettings: WTS_CONFIG_CLASS = 11
-WTS_CONFIG_CLASS_WTSUserConfigModemCallbackSettings: WTS_CONFIG_CLASS = 12
-WTS_CONFIG_CLASS_WTSUserConfigModemCallbackPhoneNumber: WTS_CONFIG_CLASS = 13
-WTS_CONFIG_CLASS_WTSUserConfigShadowingSettings: WTS_CONFIG_CLASS = 14
-WTS_CONFIG_CLASS_WTSUserConfigTerminalServerProfilePath: WTS_CONFIG_CLASS = 15
-WTS_CONFIG_CLASS_WTSUserConfigTerminalServerHomeDir: WTS_CONFIG_CLASS = 16
-WTS_CONFIG_CLASS_WTSUserConfigTerminalServerHomeDirDrive: WTS_CONFIG_CLASS = 17
-WTS_CONFIG_CLASS_WTSUserConfigfTerminalServerRemoteHomeDir: WTS_CONFIG_CLASS = 18
-WTS_CONFIG_CLASS_WTSUserConfigUser: WTS_CONFIG_CLASS = 19
+WTS_CONFIG_CLASS_WTSUserConfigInitialProgram: win32more.Windows.Win32.System.RemoteDesktop.WTS_CONFIG_CLASS = 0
+WTS_CONFIG_CLASS_WTSUserConfigWorkingDirectory: win32more.Windows.Win32.System.RemoteDesktop.WTS_CONFIG_CLASS = 1
+WTS_CONFIG_CLASS_WTSUserConfigfInheritInitialProgram: win32more.Windows.Win32.System.RemoteDesktop.WTS_CONFIG_CLASS = 2
+WTS_CONFIG_CLASS_WTSUserConfigfAllowLogonTerminalServer: win32more.Windows.Win32.System.RemoteDesktop.WTS_CONFIG_CLASS = 3
+WTS_CONFIG_CLASS_WTSUserConfigTimeoutSettingsConnections: win32more.Windows.Win32.System.RemoteDesktop.WTS_CONFIG_CLASS = 4
+WTS_CONFIG_CLASS_WTSUserConfigTimeoutSettingsDisconnections: win32more.Windows.Win32.System.RemoteDesktop.WTS_CONFIG_CLASS = 5
+WTS_CONFIG_CLASS_WTSUserConfigTimeoutSettingsIdle: win32more.Windows.Win32.System.RemoteDesktop.WTS_CONFIG_CLASS = 6
+WTS_CONFIG_CLASS_WTSUserConfigfDeviceClientDrives: win32more.Windows.Win32.System.RemoteDesktop.WTS_CONFIG_CLASS = 7
+WTS_CONFIG_CLASS_WTSUserConfigfDeviceClientPrinters: win32more.Windows.Win32.System.RemoteDesktop.WTS_CONFIG_CLASS = 8
+WTS_CONFIG_CLASS_WTSUserConfigfDeviceClientDefaultPrinter: win32more.Windows.Win32.System.RemoteDesktop.WTS_CONFIG_CLASS = 9
+WTS_CONFIG_CLASS_WTSUserConfigBrokenTimeoutSettings: win32more.Windows.Win32.System.RemoteDesktop.WTS_CONFIG_CLASS = 10
+WTS_CONFIG_CLASS_WTSUserConfigReconnectSettings: win32more.Windows.Win32.System.RemoteDesktop.WTS_CONFIG_CLASS = 11
+WTS_CONFIG_CLASS_WTSUserConfigModemCallbackSettings: win32more.Windows.Win32.System.RemoteDesktop.WTS_CONFIG_CLASS = 12
+WTS_CONFIG_CLASS_WTSUserConfigModemCallbackPhoneNumber: win32more.Windows.Win32.System.RemoteDesktop.WTS_CONFIG_CLASS = 13
+WTS_CONFIG_CLASS_WTSUserConfigShadowingSettings: win32more.Windows.Win32.System.RemoteDesktop.WTS_CONFIG_CLASS = 14
+WTS_CONFIG_CLASS_WTSUserConfigTerminalServerProfilePath: win32more.Windows.Win32.System.RemoteDesktop.WTS_CONFIG_CLASS = 15
+WTS_CONFIG_CLASS_WTSUserConfigTerminalServerHomeDir: win32more.Windows.Win32.System.RemoteDesktop.WTS_CONFIG_CLASS = 16
+WTS_CONFIG_CLASS_WTSUserConfigTerminalServerHomeDirDrive: win32more.Windows.Win32.System.RemoteDesktop.WTS_CONFIG_CLASS = 17
+WTS_CONFIG_CLASS_WTSUserConfigfTerminalServerRemoteHomeDir: win32more.Windows.Win32.System.RemoteDesktop.WTS_CONFIG_CLASS = 18
+WTS_CONFIG_CLASS_WTSUserConfigUser: win32more.Windows.Win32.System.RemoteDesktop.WTS_CONFIG_CLASS = 19
 WTS_CONFIG_SOURCE = Int32
-WTS_CONFIG_SOURCE_WTSUserConfigSourceSAM: WTS_CONFIG_SOURCE = 0
+WTS_CONFIG_SOURCE_WTSUserConfigSourceSAM: win32more.Windows.Win32.System.RemoteDesktop.WTS_CONFIG_SOURCE = 0
 WTS_CONNECTSTATE_CLASS = Int32
-WTS_CONNECTSTATE_CLASS_WTSActive: WTS_CONNECTSTATE_CLASS = 0
-WTS_CONNECTSTATE_CLASS_WTSConnected: WTS_CONNECTSTATE_CLASS = 1
-WTS_CONNECTSTATE_CLASS_WTSConnectQuery: WTS_CONNECTSTATE_CLASS = 2
-WTS_CONNECTSTATE_CLASS_WTSShadow: WTS_CONNECTSTATE_CLASS = 3
-WTS_CONNECTSTATE_CLASS_WTSDisconnected: WTS_CONNECTSTATE_CLASS = 4
-WTS_CONNECTSTATE_CLASS_WTSIdle: WTS_CONNECTSTATE_CLASS = 5
-WTS_CONNECTSTATE_CLASS_WTSListen: WTS_CONNECTSTATE_CLASS = 6
-WTS_CONNECTSTATE_CLASS_WTSReset: WTS_CONNECTSTATE_CLASS = 7
-WTS_CONNECTSTATE_CLASS_WTSDown: WTS_CONNECTSTATE_CLASS = 8
-WTS_CONNECTSTATE_CLASS_WTSInit: WTS_CONNECTSTATE_CLASS = 9
+WTS_CONNECTSTATE_CLASS_WTSActive: win32more.Windows.Win32.System.RemoteDesktop.WTS_CONNECTSTATE_CLASS = 0
+WTS_CONNECTSTATE_CLASS_WTSConnected: win32more.Windows.Win32.System.RemoteDesktop.WTS_CONNECTSTATE_CLASS = 1
+WTS_CONNECTSTATE_CLASS_WTSConnectQuery: win32more.Windows.Win32.System.RemoteDesktop.WTS_CONNECTSTATE_CLASS = 2
+WTS_CONNECTSTATE_CLASS_WTSShadow: win32more.Windows.Win32.System.RemoteDesktop.WTS_CONNECTSTATE_CLASS = 3
+WTS_CONNECTSTATE_CLASS_WTSDisconnected: win32more.Windows.Win32.System.RemoteDesktop.WTS_CONNECTSTATE_CLASS = 4
+WTS_CONNECTSTATE_CLASS_WTSIdle: win32more.Windows.Win32.System.RemoteDesktop.WTS_CONNECTSTATE_CLASS = 5
+WTS_CONNECTSTATE_CLASS_WTSListen: win32more.Windows.Win32.System.RemoteDesktop.WTS_CONNECTSTATE_CLASS = 6
+WTS_CONNECTSTATE_CLASS_WTSReset: win32more.Windows.Win32.System.RemoteDesktop.WTS_CONNECTSTATE_CLASS = 7
+WTS_CONNECTSTATE_CLASS_WTSDown: win32more.Windows.Win32.System.RemoteDesktop.WTS_CONNECTSTATE_CLASS = 8
+WTS_CONNECTSTATE_CLASS_WTSInit: win32more.Windows.Win32.System.RemoteDesktop.WTS_CONNECTSTATE_CLASS = 9
 class WTS_DISPLAY_IOCTL(EasyCastStructure):
     pDisplayIOCtlData: Byte * 256
     cbDisplayIOCtlData: UInt32
 WTS_INFO_CLASS = Int32
-WTS_INFO_CLASS_WTSInitialProgram: WTS_INFO_CLASS = 0
-WTS_INFO_CLASS_WTSApplicationName: WTS_INFO_CLASS = 1
-WTS_INFO_CLASS_WTSWorkingDirectory: WTS_INFO_CLASS = 2
-WTS_INFO_CLASS_WTSOEMId: WTS_INFO_CLASS = 3
-WTS_INFO_CLASS_WTSSessionId: WTS_INFO_CLASS = 4
-WTS_INFO_CLASS_WTSUserName: WTS_INFO_CLASS = 5
-WTS_INFO_CLASS_WTSWinStationName: WTS_INFO_CLASS = 6
-WTS_INFO_CLASS_WTSDomainName: WTS_INFO_CLASS = 7
-WTS_INFO_CLASS_WTSConnectState: WTS_INFO_CLASS = 8
-WTS_INFO_CLASS_WTSClientBuildNumber: WTS_INFO_CLASS = 9
-WTS_INFO_CLASS_WTSClientName: WTS_INFO_CLASS = 10
-WTS_INFO_CLASS_WTSClientDirectory: WTS_INFO_CLASS = 11
-WTS_INFO_CLASS_WTSClientProductId: WTS_INFO_CLASS = 12
-WTS_INFO_CLASS_WTSClientHardwareId: WTS_INFO_CLASS = 13
-WTS_INFO_CLASS_WTSClientAddress: WTS_INFO_CLASS = 14
-WTS_INFO_CLASS_WTSClientDisplay: WTS_INFO_CLASS = 15
-WTS_INFO_CLASS_WTSClientProtocolType: WTS_INFO_CLASS = 16
-WTS_INFO_CLASS_WTSIdleTime: WTS_INFO_CLASS = 17
-WTS_INFO_CLASS_WTSLogonTime: WTS_INFO_CLASS = 18
-WTS_INFO_CLASS_WTSIncomingBytes: WTS_INFO_CLASS = 19
-WTS_INFO_CLASS_WTSOutgoingBytes: WTS_INFO_CLASS = 20
-WTS_INFO_CLASS_WTSIncomingFrames: WTS_INFO_CLASS = 21
-WTS_INFO_CLASS_WTSOutgoingFrames: WTS_INFO_CLASS = 22
-WTS_INFO_CLASS_WTSClientInfo: WTS_INFO_CLASS = 23
-WTS_INFO_CLASS_WTSSessionInfo: WTS_INFO_CLASS = 24
-WTS_INFO_CLASS_WTSSessionInfoEx: WTS_INFO_CLASS = 25
-WTS_INFO_CLASS_WTSConfigInfo: WTS_INFO_CLASS = 26
-WTS_INFO_CLASS_WTSValidationInfo: WTS_INFO_CLASS = 27
-WTS_INFO_CLASS_WTSSessionAddressV4: WTS_INFO_CLASS = 28
-WTS_INFO_CLASS_WTSIsRemoteSession: WTS_INFO_CLASS = 29
+WTS_INFO_CLASS_WTSInitialProgram: win32more.Windows.Win32.System.RemoteDesktop.WTS_INFO_CLASS = 0
+WTS_INFO_CLASS_WTSApplicationName: win32more.Windows.Win32.System.RemoteDesktop.WTS_INFO_CLASS = 1
+WTS_INFO_CLASS_WTSWorkingDirectory: win32more.Windows.Win32.System.RemoteDesktop.WTS_INFO_CLASS = 2
+WTS_INFO_CLASS_WTSOEMId: win32more.Windows.Win32.System.RemoteDesktop.WTS_INFO_CLASS = 3
+WTS_INFO_CLASS_WTSSessionId: win32more.Windows.Win32.System.RemoteDesktop.WTS_INFO_CLASS = 4
+WTS_INFO_CLASS_WTSUserName: win32more.Windows.Win32.System.RemoteDesktop.WTS_INFO_CLASS = 5
+WTS_INFO_CLASS_WTSWinStationName: win32more.Windows.Win32.System.RemoteDesktop.WTS_INFO_CLASS = 6
+WTS_INFO_CLASS_WTSDomainName: win32more.Windows.Win32.System.RemoteDesktop.WTS_INFO_CLASS = 7
+WTS_INFO_CLASS_WTSConnectState: win32more.Windows.Win32.System.RemoteDesktop.WTS_INFO_CLASS = 8
+WTS_INFO_CLASS_WTSClientBuildNumber: win32more.Windows.Win32.System.RemoteDesktop.WTS_INFO_CLASS = 9
+WTS_INFO_CLASS_WTSClientName: win32more.Windows.Win32.System.RemoteDesktop.WTS_INFO_CLASS = 10
+WTS_INFO_CLASS_WTSClientDirectory: win32more.Windows.Win32.System.RemoteDesktop.WTS_INFO_CLASS = 11
+WTS_INFO_CLASS_WTSClientProductId: win32more.Windows.Win32.System.RemoteDesktop.WTS_INFO_CLASS = 12
+WTS_INFO_CLASS_WTSClientHardwareId: win32more.Windows.Win32.System.RemoteDesktop.WTS_INFO_CLASS = 13
+WTS_INFO_CLASS_WTSClientAddress: win32more.Windows.Win32.System.RemoteDesktop.WTS_INFO_CLASS = 14
+WTS_INFO_CLASS_WTSClientDisplay: win32more.Windows.Win32.System.RemoteDesktop.WTS_INFO_CLASS = 15
+WTS_INFO_CLASS_WTSClientProtocolType: win32more.Windows.Win32.System.RemoteDesktop.WTS_INFO_CLASS = 16
+WTS_INFO_CLASS_WTSIdleTime: win32more.Windows.Win32.System.RemoteDesktop.WTS_INFO_CLASS = 17
+WTS_INFO_CLASS_WTSLogonTime: win32more.Windows.Win32.System.RemoteDesktop.WTS_INFO_CLASS = 18
+WTS_INFO_CLASS_WTSIncomingBytes: win32more.Windows.Win32.System.RemoteDesktop.WTS_INFO_CLASS = 19
+WTS_INFO_CLASS_WTSOutgoingBytes: win32more.Windows.Win32.System.RemoteDesktop.WTS_INFO_CLASS = 20
+WTS_INFO_CLASS_WTSIncomingFrames: win32more.Windows.Win32.System.RemoteDesktop.WTS_INFO_CLASS = 21
+WTS_INFO_CLASS_WTSOutgoingFrames: win32more.Windows.Win32.System.RemoteDesktop.WTS_INFO_CLASS = 22
+WTS_INFO_CLASS_WTSClientInfo: win32more.Windows.Win32.System.RemoteDesktop.WTS_INFO_CLASS = 23
+WTS_INFO_CLASS_WTSSessionInfo: win32more.Windows.Win32.System.RemoteDesktop.WTS_INFO_CLASS = 24
+WTS_INFO_CLASS_WTSSessionInfoEx: win32more.Windows.Win32.System.RemoteDesktop.WTS_INFO_CLASS = 25
+WTS_INFO_CLASS_WTSConfigInfo: win32more.Windows.Win32.System.RemoteDesktop.WTS_INFO_CLASS = 26
+WTS_INFO_CLASS_WTSValidationInfo: win32more.Windows.Win32.System.RemoteDesktop.WTS_INFO_CLASS = 27
+WTS_INFO_CLASS_WTSSessionAddressV4: win32more.Windows.Win32.System.RemoteDesktop.WTS_INFO_CLASS = 28
+WTS_INFO_CLASS_WTSIsRemoteSession: win32more.Windows.Win32.System.RemoteDesktop.WTS_INFO_CLASS = 29
 class WTS_LICENSE_CAPABILITIES(EasyCastStructure):
     KeyExchangeAlg: UInt32
     ProtocolVer: UInt32
@@ -2468,11 +2467,11 @@ class WTS_LICENSE_CAPABILITIES(EasyCastStructure):
     cbClientName: UInt32
     rgbClientName: Byte * 42
 WTS_LOGON_ERROR_REDIRECTOR_RESPONSE = Int32
-WTS_LOGON_ERR_INVALID: WTS_LOGON_ERROR_REDIRECTOR_RESPONSE = 0
-WTS_LOGON_ERR_NOT_HANDLED: WTS_LOGON_ERROR_REDIRECTOR_RESPONSE = 1
-WTS_LOGON_ERR_HANDLED_SHOW: WTS_LOGON_ERROR_REDIRECTOR_RESPONSE = 2
-WTS_LOGON_ERR_HANDLED_DONT_SHOW: WTS_LOGON_ERROR_REDIRECTOR_RESPONSE = 3
-WTS_LOGON_ERR_HANDLED_DONT_SHOW_START_OVER: WTS_LOGON_ERROR_REDIRECTOR_RESPONSE = 4
+WTS_LOGON_ERR_INVALID: win32more.Windows.Win32.System.RemoteDesktop.WTS_LOGON_ERROR_REDIRECTOR_RESPONSE = 0
+WTS_LOGON_ERR_NOT_HANDLED: win32more.Windows.Win32.System.RemoteDesktop.WTS_LOGON_ERROR_REDIRECTOR_RESPONSE = 1
+WTS_LOGON_ERR_HANDLED_SHOW: win32more.Windows.Win32.System.RemoteDesktop.WTS_LOGON_ERROR_REDIRECTOR_RESPONSE = 2
+WTS_LOGON_ERR_HANDLED_DONT_SHOW: win32more.Windows.Win32.System.RemoteDesktop.WTS_LOGON_ERROR_REDIRECTOR_RESPONSE = 3
+WTS_LOGON_ERR_HANDLED_DONT_SHOW_START_OVER: win32more.Windows.Win32.System.RemoteDesktop.WTS_LOGON_ERROR_REDIRECTOR_RESPONSE = 4
 class WTS_POLICY_DATA(EasyCastStructure):
     fDisableEncryption: win32more.Windows.Win32.Foundation.BOOLEAN
     fDisableAutoReconnect: win32more.Windows.Win32.Foundation.BOOLEAN
@@ -2564,29 +2563,29 @@ class WTS_PROTOCOL_STATUS(EasyCastStructure):
     AsyncSignalMask: UInt32
     Counters: Int64 * 100
 WTS_RCM_DRAIN_STATE = Int32
-WTS_DRAIN_STATE_NONE: WTS_RCM_DRAIN_STATE = 0
-WTS_DRAIN_IN_DRAIN: WTS_RCM_DRAIN_STATE = 1
-WTS_DRAIN_NOT_IN_DRAIN: WTS_RCM_DRAIN_STATE = 2
+WTS_DRAIN_STATE_NONE: win32more.Windows.Win32.System.RemoteDesktop.WTS_RCM_DRAIN_STATE = 0
+WTS_DRAIN_IN_DRAIN: win32more.Windows.Win32.System.RemoteDesktop.WTS_RCM_DRAIN_STATE = 1
+WTS_DRAIN_NOT_IN_DRAIN: win32more.Windows.Win32.System.RemoteDesktop.WTS_RCM_DRAIN_STATE = 2
 WTS_RCM_SERVICE_STATE = Int32
-WTS_SERVICE_NONE: WTS_RCM_SERVICE_STATE = 0
-WTS_SERVICE_START: WTS_RCM_SERVICE_STATE = 1
-WTS_SERVICE_STOP: WTS_RCM_SERVICE_STATE = 2
+WTS_SERVICE_NONE: win32more.Windows.Win32.System.RemoteDesktop.WTS_RCM_SERVICE_STATE = 0
+WTS_SERVICE_START: win32more.Windows.Win32.System.RemoteDesktop.WTS_RCM_SERVICE_STATE = 1
+WTS_SERVICE_STOP: win32more.Windows.Win32.System.RemoteDesktop.WTS_RCM_SERVICE_STATE = 2
 WTS_SECURITY_FLAGS = UInt32
-WTS_SECURITY_CURRENT_GUEST_ACCESS: WTS_SECURITY_FLAGS = 72
-WTS_SECURITY_USER_ACCESS: WTS_SECURITY_FLAGS = 329
-WTS_SECURITY_CURRENT_USER_ACCESS: WTS_SECURITY_FLAGS = 590
-WTS_SECURITY_ALL_ACCESS: WTS_SECURITY_FLAGS = 983999
-WTS_SECURITY_QUERY_INFORMATION: WTS_SECURITY_FLAGS = 1
-WTS_SECURITY_SET_INFORMATION: WTS_SECURITY_FLAGS = 2
-WTS_SECURITY_RESET: WTS_SECURITY_FLAGS = 4
-WTS_SECURITY_VIRTUAL_CHANNELS: WTS_SECURITY_FLAGS = 8
-WTS_SECURITY_REMOTE_CONTROL: WTS_SECURITY_FLAGS = 16
-WTS_SECURITY_LOGON: WTS_SECURITY_FLAGS = 32
-WTS_SECURITY_LOGOFF: WTS_SECURITY_FLAGS = 64
-WTS_SECURITY_MESSAGE: WTS_SECURITY_FLAGS = 128
-WTS_SECURITY_CONNECT: WTS_SECURITY_FLAGS = 256
-WTS_SECURITY_DISCONNECT: WTS_SECURITY_FLAGS = 512
-WTS_SECURITY_GUEST_ACCESS: WTS_SECURITY_FLAGS = 32
+WTS_SECURITY_CURRENT_GUEST_ACCESS: win32more.Windows.Win32.System.RemoteDesktop.WTS_SECURITY_FLAGS = 72
+WTS_SECURITY_USER_ACCESS: win32more.Windows.Win32.System.RemoteDesktop.WTS_SECURITY_FLAGS = 329
+WTS_SECURITY_CURRENT_USER_ACCESS: win32more.Windows.Win32.System.RemoteDesktop.WTS_SECURITY_FLAGS = 590
+WTS_SECURITY_ALL_ACCESS: win32more.Windows.Win32.System.RemoteDesktop.WTS_SECURITY_FLAGS = 983999
+WTS_SECURITY_QUERY_INFORMATION: win32more.Windows.Win32.System.RemoteDesktop.WTS_SECURITY_FLAGS = 1
+WTS_SECURITY_SET_INFORMATION: win32more.Windows.Win32.System.RemoteDesktop.WTS_SECURITY_FLAGS = 2
+WTS_SECURITY_RESET: win32more.Windows.Win32.System.RemoteDesktop.WTS_SECURITY_FLAGS = 4
+WTS_SECURITY_VIRTUAL_CHANNELS: win32more.Windows.Win32.System.RemoteDesktop.WTS_SECURITY_FLAGS = 8
+WTS_SECURITY_REMOTE_CONTROL: win32more.Windows.Win32.System.RemoteDesktop.WTS_SECURITY_FLAGS = 16
+WTS_SECURITY_LOGON: win32more.Windows.Win32.System.RemoteDesktop.WTS_SECURITY_FLAGS = 32
+WTS_SECURITY_LOGOFF: win32more.Windows.Win32.System.RemoteDesktop.WTS_SECURITY_FLAGS = 64
+WTS_SECURITY_MESSAGE: win32more.Windows.Win32.System.RemoteDesktop.WTS_SECURITY_FLAGS = 128
+WTS_SECURITY_CONNECT: win32more.Windows.Win32.System.RemoteDesktop.WTS_SECURITY_FLAGS = 256
+WTS_SECURITY_DISCONNECT: win32more.Windows.Win32.System.RemoteDesktop.WTS_SECURITY_FLAGS = 512
+WTS_SECURITY_GUEST_ACCESS: win32more.Windows.Win32.System.RemoteDesktop.WTS_SECURITY_FLAGS = 32
 class WTS_SERVER_INFOA(EasyCastStructure):
     pServerName: win32more.Windows.Win32.Foundation.PSTR
 class WTS_SERVER_INFOW(EasyCastStructure):
@@ -2664,9 +2663,9 @@ class WTS_TIME_ZONE_INFORMATION(EasyCastStructure):
     DaylightDate: win32more.Windows.Win32.System.RemoteDesktop.WTS_SYSTEMTIME
     DaylightBias: Int32
 WTS_TYPE_CLASS = Int32
-WTS_TYPE_CLASS_WTSTypeProcessInfoLevel0: WTS_TYPE_CLASS = 0
-WTS_TYPE_CLASS_WTSTypeProcessInfoLevel1: WTS_TYPE_CLASS = 1
-WTS_TYPE_CLASS_WTSTypeSessionInfoLevel1: WTS_TYPE_CLASS = 2
+WTS_TYPE_CLASS_WTSTypeProcessInfoLevel0: win32more.Windows.Win32.System.RemoteDesktop.WTS_TYPE_CLASS = 0
+WTS_TYPE_CLASS_WTSTypeProcessInfoLevel1: win32more.Windows.Win32.System.RemoteDesktop.WTS_TYPE_CLASS = 1
+WTS_TYPE_CLASS_WTSTypeSessionInfoLevel1: win32more.Windows.Win32.System.RemoteDesktop.WTS_TYPE_CLASS = 2
 class WTS_USER_CREDENTIAL(EasyCastStructure):
     UserName: Char * 256
     Password: Char * 256
@@ -2688,8 +2687,8 @@ class WTS_VALIDATION_INFORMATIONW(EasyCastStructure):
     HardwareID: Byte * 20
     HardwareIDLength: UInt32
 WTS_VIRTUAL_CLASS = Int32
-WTS_VIRTUAL_CLASS_WTSVirtualClientData: WTS_VIRTUAL_CLASS = 0
-WTS_VIRTUAL_CLASS_WTSVirtualFileHandle: WTS_VIRTUAL_CLASS = 1
+WTS_VIRTUAL_CLASS_WTSVirtualClientData: win32more.Windows.Win32.System.RemoteDesktop.WTS_VIRTUAL_CLASS = 0
+WTS_VIRTUAL_CLASS_WTSVirtualFileHandle: win32more.Windows.Win32.System.RemoteDesktop.WTS_VIRTUAL_CLASS = 1
 Workspace = Guid('{4f1dfca6-3aad-48e1-8406-4bc21a501d7c}')
 class _ITSWkspEvents(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IDispatch
@@ -2718,4 +2717,6 @@ class pluginResource2FileAssociation(EasyCastStructure):
     primaryHandler: Byte
     pceIconSize: UInt32
     iconContents: POINTER(Byte)
+
+
 make_ready(__name__)

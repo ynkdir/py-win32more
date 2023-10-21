@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Devices.Properties
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Media.Streaming
@@ -75,14 +74,16 @@ class HistogramHeader(EasyCastStructure):
     ChannelMasks: UInt32
     Grid: win32more.Windows.Win32.Media.Streaming.HistogramGrid
 MF_MEDIASOURCE_STATUS_INFO = Int32
-MF_MEDIASOURCE_STATUS_INFO_FULLYSUPPORTED: MF_MEDIASOURCE_STATUS_INFO = 0
-MF_MEDIASOURCE_STATUS_INFO_UNKNOWN: MF_MEDIASOURCE_STATUS_INFO = 1
+MF_MEDIASOURCE_STATUS_INFO_FULLYSUPPORTED: win32more.Windows.Win32.Media.Streaming.MF_MEDIASOURCE_STATUS_INFO = 0
+MF_MEDIASOURCE_STATUS_INFO_UNKNOWN: win32more.Windows.Win32.Media.Streaming.MF_MEDIASOURCE_STATUS_INFO = 1
 MF_TRANSFER_VIDEO_FRAME_FLAGS = Int32
-MF_TRANSFER_VIDEO_FRAME_DEFAULT: MF_TRANSFER_VIDEO_FRAME_FLAGS = 0
-MF_TRANSFER_VIDEO_FRAME_STRETCH: MF_TRANSFER_VIDEO_FRAME_FLAGS = 1
-MF_TRANSFER_VIDEO_FRAME_IGNORE_PAR: MF_TRANSFER_VIDEO_FRAME_FLAGS = 2
+MF_TRANSFER_VIDEO_FRAME_DEFAULT: win32more.Windows.Win32.Media.Streaming.MF_TRANSFER_VIDEO_FRAME_FLAGS = 0
+MF_TRANSFER_VIDEO_FRAME_STRETCH: win32more.Windows.Win32.Media.Streaming.MF_TRANSFER_VIDEO_FRAME_FLAGS = 1
+MF_TRANSFER_VIDEO_FRAME_IGNORE_PAR: win32more.Windows.Win32.Media.Streaming.MF_TRANSFER_VIDEO_FRAME_FLAGS = 2
 class MetadataTimeStamps(EasyCastStructure):
     Flags: UInt32
     Device: Int64
     Presentation: Int64
+
+
 make_ready(__name__)

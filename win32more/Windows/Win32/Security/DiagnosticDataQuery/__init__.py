@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.Security.DiagnosticDataQuery
@@ -150,7 +149,9 @@ class DIAGNOSTIC_REPORT_SIGNATURE(EasyCastStructure):
     eventName: Char * 65
     parameters: win32more.Windows.Win32.Security.DiagnosticDataQuery.DIAGNOSTIC_REPORT_PARAMETER * 10
 DdqAccessLevel = Int32
-DdqAccessLevel_NoData: DdqAccessLevel = 0
-DdqAccessLevel_CurrentUserData: DdqAccessLevel = 1
-DdqAccessLevel_AllUserData: DdqAccessLevel = 2
+DdqAccessLevel_NoData: win32more.Windows.Win32.Security.DiagnosticDataQuery.DdqAccessLevel = 0
+DdqAccessLevel_CurrentUserData: win32more.Windows.Win32.Security.DiagnosticDataQuery.DdqAccessLevel = 1
+DdqAccessLevel_AllUserData: win32more.Windows.Win32.Security.DiagnosticDataQuery.DdqAccessLevel = 2
+
+
 make_ready(__name__)

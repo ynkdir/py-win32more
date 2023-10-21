@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Storage.Jet
 import win32more.Windows.Win32.Storage.StructuredStorage
@@ -1721,24 +1720,24 @@ class JET_ENUMCOLUMNVALUE(EasyCastStructure):
     cbData: UInt32
     pvData: VoidPtr
 JET_ERRCAT = Int32
-JET_errcatUnknown: JET_ERRCAT = 0
-JET_errcatError: JET_ERRCAT = 1
-JET_errcatOperation: JET_ERRCAT = 2
-JET_errcatFatal: JET_ERRCAT = 3
-JET_errcatIO: JET_ERRCAT = 4
-JET_errcatResource: JET_ERRCAT = 5
-JET_errcatMemory: JET_ERRCAT = 6
-JET_errcatQuota: JET_ERRCAT = 7
-JET_errcatDisk: JET_ERRCAT = 8
-JET_errcatData: JET_ERRCAT = 9
-JET_errcatCorruption: JET_ERRCAT = 10
-JET_errcatInconsistent: JET_ERRCAT = 11
-JET_errcatFragmentation: JET_ERRCAT = 12
-JET_errcatApi: JET_ERRCAT = 13
-JET_errcatUsage: JET_ERRCAT = 14
-JET_errcatState: JET_ERRCAT = 15
-JET_errcatObsolete: JET_ERRCAT = 16
-JET_errcatMax: JET_ERRCAT = 17
+JET_errcatUnknown: win32more.Windows.Win32.Storage.Jet.JET_ERRCAT = 0
+JET_errcatError: win32more.Windows.Win32.Storage.Jet.JET_ERRCAT = 1
+JET_errcatOperation: win32more.Windows.Win32.Storage.Jet.JET_ERRCAT = 2
+JET_errcatFatal: win32more.Windows.Win32.Storage.Jet.JET_ERRCAT = 3
+JET_errcatIO: win32more.Windows.Win32.Storage.Jet.JET_ERRCAT = 4
+JET_errcatResource: win32more.Windows.Win32.Storage.Jet.JET_ERRCAT = 5
+JET_errcatMemory: win32more.Windows.Win32.Storage.Jet.JET_ERRCAT = 6
+JET_errcatQuota: win32more.Windows.Win32.Storage.Jet.JET_ERRCAT = 7
+JET_errcatDisk: win32more.Windows.Win32.Storage.Jet.JET_ERRCAT = 8
+JET_errcatData: win32more.Windows.Win32.Storage.Jet.JET_ERRCAT = 9
+JET_errcatCorruption: win32more.Windows.Win32.Storage.Jet.JET_ERRCAT = 10
+JET_errcatInconsistent: win32more.Windows.Win32.Storage.Jet.JET_ERRCAT = 11
+JET_errcatFragmentation: win32more.Windows.Win32.Storage.Jet.JET_ERRCAT = 12
+JET_errcatApi: win32more.Windows.Win32.Storage.Jet.JET_ERRCAT = 13
+JET_errcatUsage: win32more.Windows.Win32.Storage.Jet.JET_ERRCAT = 14
+JET_errcatState: win32more.Windows.Win32.Storage.Jet.JET_ERRCAT = 15
+JET_errcatObsolete: win32more.Windows.Win32.Storage.Jet.JET_ERRCAT = 16
+JET_errcatMax: win32more.Windows.Win32.Storage.Jet.JET_ERRCAT = 17
 class JET_ERRINFOBASIC_W(EasyCastStructure):
     cbStruct: UInt32
     errValue: Int32
@@ -1747,10 +1746,10 @@ class JET_ERRINFOBASIC_W(EasyCastStructure):
     lSourceLine: UInt32
     rgszSourceFile: Char * 64
 JET_INDEXCHECKING = Int32
-JET_IndexCheckingOff: JET_INDEXCHECKING = 0
-JET_IndexCheckingOn: JET_INDEXCHECKING = 1
-JET_IndexCheckingDeferToOpenTable: JET_INDEXCHECKING = 2
-JET_IndexCheckingMax: JET_INDEXCHECKING = 3
+JET_IndexCheckingOff: win32more.Windows.Win32.Storage.Jet.JET_INDEXCHECKING = 0
+JET_IndexCheckingOn: win32more.Windows.Win32.Storage.Jet.JET_INDEXCHECKING = 1
+JET_IndexCheckingDeferToOpenTable: win32more.Windows.Win32.Storage.Jet.JET_INDEXCHECKING = 2
+JET_IndexCheckingMax: win32more.Windows.Win32.Storage.Jet.JET_INDEXCHECKING = 3
 class JET_INDEXCREATE2_A(EasyCastStructure):
     cbStruct: UInt32
     szIndexName: win32more.Windows.Win32.Foundation.PSTR
@@ -2098,15 +2097,15 @@ if ARCH in 'X86':
         cbLongValueDataCompressed: UInt64
         _pack_ = 4
 JET_RELOP = Int32
-JET_relopEquals: JET_RELOP = 0
-JET_relopPrefixEquals: JET_RELOP = 1
-JET_relopNotEquals: JET_RELOP = 2
-JET_relopLessThanOrEqual: JET_RELOP = 3
-JET_relopLessThan: JET_RELOP = 4
-JET_relopGreaterThanOrEqual: JET_RELOP = 5
-JET_relopGreaterThan: JET_RELOP = 6
-JET_relopBitmaskEqualsZero: JET_RELOP = 7
-JET_relopBitmaskNotEqualsZero: JET_RELOP = 8
+JET_relopEquals: win32more.Windows.Win32.Storage.Jet.JET_RELOP = 0
+JET_relopPrefixEquals: win32more.Windows.Win32.Storage.Jet.JET_RELOP = 1
+JET_relopNotEquals: win32more.Windows.Win32.Storage.Jet.JET_RELOP = 2
+JET_relopLessThanOrEqual: win32more.Windows.Win32.Storage.Jet.JET_RELOP = 3
+JET_relopLessThan: win32more.Windows.Win32.Storage.Jet.JET_RELOP = 4
+JET_relopGreaterThanOrEqual: win32more.Windows.Win32.Storage.Jet.JET_RELOP = 5
+JET_relopGreaterThan: win32more.Windows.Win32.Storage.Jet.JET_RELOP = 6
+JET_relopBitmaskEqualsZero: win32more.Windows.Win32.Storage.Jet.JET_RELOP = 7
+JET_relopBitmaskNotEqualsZero: win32more.Windows.Win32.Storage.Jet.JET_RELOP = 8
 class JET_RETINFO(EasyCastStructure):
     cbStruct: UInt32
     ibLongValue: UInt32
@@ -2366,4 +2365,6 @@ class JET_USERDEFINEDDEFAULT_W(EasyCastStructure):
     pbUserData: POINTER(Byte)
     cbUserData: UInt32
     szDependantColumns: win32more.Windows.Win32.Foundation.PWSTR
+
+
 make_ready(__name__)

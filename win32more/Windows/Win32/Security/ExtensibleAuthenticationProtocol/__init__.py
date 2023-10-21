@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Data.Xml.MsXml
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security.Cryptography
@@ -317,13 +316,13 @@ class EAPHOST_AUTH_INFO(EasyCastStructure):
     dwErrorCode: UInt32
     dwReasonCode: UInt32
 EAPHOST_AUTH_STATUS = Int32
-EAPHOST_AUTH_STATUS_EapHostInvalidSession: EAPHOST_AUTH_STATUS = 0
-EAPHOST_AUTH_STATUS_EapHostAuthNotStarted: EAPHOST_AUTH_STATUS = 1
-EAPHOST_AUTH_STATUS_EapHostAuthIdentityExchange: EAPHOST_AUTH_STATUS = 2
-EAPHOST_AUTH_STATUS_EapHostAuthNegotiatingType: EAPHOST_AUTH_STATUS = 3
-EAPHOST_AUTH_STATUS_EapHostAuthInProgress: EAPHOST_AUTH_STATUS = 4
-EAPHOST_AUTH_STATUS_EapHostAuthSucceeded: EAPHOST_AUTH_STATUS = 5
-EAPHOST_AUTH_STATUS_EapHostAuthFailed: EAPHOST_AUTH_STATUS = 6
+EAPHOST_AUTH_STATUS_EapHostInvalidSession: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAPHOST_AUTH_STATUS = 0
+EAPHOST_AUTH_STATUS_EapHostAuthNotStarted: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAPHOST_AUTH_STATUS = 1
+EAPHOST_AUTH_STATUS_EapHostAuthIdentityExchange: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAPHOST_AUTH_STATUS = 2
+EAPHOST_AUTH_STATUS_EapHostAuthNegotiatingType: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAPHOST_AUTH_STATUS = 3
+EAPHOST_AUTH_STATUS_EapHostAuthInProgress: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAPHOST_AUTH_STATUS = 4
+EAPHOST_AUTH_STATUS_EapHostAuthSucceeded: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAPHOST_AUTH_STATUS = 5
+EAPHOST_AUTH_STATUS_EapHostAuthFailed: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAPHOST_AUTH_STATUS = 6
 class EAPHOST_IDENTITY_UI_PARAMS(EasyCastStructure):
     eapMethodType: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_TYPE
     dwFlags: UInt32
@@ -351,104 +350,104 @@ class EAP_ATTRIBUTES(EasyCastStructure):
     dwNumberOfAttributes: UInt32
     pAttribs: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE)
 EAP_ATTRIBUTE_TYPE = Int32
-EAP_ATTRIBUTE_TYPE_eatMinimum: EAP_ATTRIBUTE_TYPE = 0
-EAP_ATTRIBUTE_TYPE_eatUserName: EAP_ATTRIBUTE_TYPE = 1
-EAP_ATTRIBUTE_TYPE_eatUserPassword: EAP_ATTRIBUTE_TYPE = 2
-EAP_ATTRIBUTE_TYPE_eatMD5CHAPPassword: EAP_ATTRIBUTE_TYPE = 3
-EAP_ATTRIBUTE_TYPE_eatNASIPAddress: EAP_ATTRIBUTE_TYPE = 4
-EAP_ATTRIBUTE_TYPE_eatNASPort: EAP_ATTRIBUTE_TYPE = 5
-EAP_ATTRIBUTE_TYPE_eatServiceType: EAP_ATTRIBUTE_TYPE = 6
-EAP_ATTRIBUTE_TYPE_eatFramedProtocol: EAP_ATTRIBUTE_TYPE = 7
-EAP_ATTRIBUTE_TYPE_eatFramedIPAddress: EAP_ATTRIBUTE_TYPE = 8
-EAP_ATTRIBUTE_TYPE_eatFramedIPNetmask: EAP_ATTRIBUTE_TYPE = 9
-EAP_ATTRIBUTE_TYPE_eatFramedRouting: EAP_ATTRIBUTE_TYPE = 10
-EAP_ATTRIBUTE_TYPE_eatFilterId: EAP_ATTRIBUTE_TYPE = 11
-EAP_ATTRIBUTE_TYPE_eatFramedMTU: EAP_ATTRIBUTE_TYPE = 12
-EAP_ATTRIBUTE_TYPE_eatFramedCompression: EAP_ATTRIBUTE_TYPE = 13
-EAP_ATTRIBUTE_TYPE_eatLoginIPHost: EAP_ATTRIBUTE_TYPE = 14
-EAP_ATTRIBUTE_TYPE_eatLoginService: EAP_ATTRIBUTE_TYPE = 15
-EAP_ATTRIBUTE_TYPE_eatLoginTCPPort: EAP_ATTRIBUTE_TYPE = 16
-EAP_ATTRIBUTE_TYPE_eatUnassigned17: EAP_ATTRIBUTE_TYPE = 17
-EAP_ATTRIBUTE_TYPE_eatReplyMessage: EAP_ATTRIBUTE_TYPE = 18
-EAP_ATTRIBUTE_TYPE_eatCallbackNumber: EAP_ATTRIBUTE_TYPE = 19
-EAP_ATTRIBUTE_TYPE_eatCallbackId: EAP_ATTRIBUTE_TYPE = 20
-EAP_ATTRIBUTE_TYPE_eatUnassigned21: EAP_ATTRIBUTE_TYPE = 21
-EAP_ATTRIBUTE_TYPE_eatFramedRoute: EAP_ATTRIBUTE_TYPE = 22
-EAP_ATTRIBUTE_TYPE_eatFramedIPXNetwork: EAP_ATTRIBUTE_TYPE = 23
-EAP_ATTRIBUTE_TYPE_eatState: EAP_ATTRIBUTE_TYPE = 24
-EAP_ATTRIBUTE_TYPE_eatClass: EAP_ATTRIBUTE_TYPE = 25
-EAP_ATTRIBUTE_TYPE_eatVendorSpecific: EAP_ATTRIBUTE_TYPE = 26
-EAP_ATTRIBUTE_TYPE_eatSessionTimeout: EAP_ATTRIBUTE_TYPE = 27
-EAP_ATTRIBUTE_TYPE_eatIdleTimeout: EAP_ATTRIBUTE_TYPE = 28
-EAP_ATTRIBUTE_TYPE_eatTerminationAction: EAP_ATTRIBUTE_TYPE = 29
-EAP_ATTRIBUTE_TYPE_eatCalledStationId: EAP_ATTRIBUTE_TYPE = 30
-EAP_ATTRIBUTE_TYPE_eatCallingStationId: EAP_ATTRIBUTE_TYPE = 31
-EAP_ATTRIBUTE_TYPE_eatNASIdentifier: EAP_ATTRIBUTE_TYPE = 32
-EAP_ATTRIBUTE_TYPE_eatProxyState: EAP_ATTRIBUTE_TYPE = 33
-EAP_ATTRIBUTE_TYPE_eatLoginLATService: EAP_ATTRIBUTE_TYPE = 34
-EAP_ATTRIBUTE_TYPE_eatLoginLATNode: EAP_ATTRIBUTE_TYPE = 35
-EAP_ATTRIBUTE_TYPE_eatLoginLATGroup: EAP_ATTRIBUTE_TYPE = 36
-EAP_ATTRIBUTE_TYPE_eatFramedAppleTalkLink: EAP_ATTRIBUTE_TYPE = 37
-EAP_ATTRIBUTE_TYPE_eatFramedAppleTalkNetwork: EAP_ATTRIBUTE_TYPE = 38
-EAP_ATTRIBUTE_TYPE_eatFramedAppleTalkZone: EAP_ATTRIBUTE_TYPE = 39
-EAP_ATTRIBUTE_TYPE_eatAcctStatusType: EAP_ATTRIBUTE_TYPE = 40
-EAP_ATTRIBUTE_TYPE_eatAcctDelayTime: EAP_ATTRIBUTE_TYPE = 41
-EAP_ATTRIBUTE_TYPE_eatAcctInputOctets: EAP_ATTRIBUTE_TYPE = 42
-EAP_ATTRIBUTE_TYPE_eatAcctOutputOctets: EAP_ATTRIBUTE_TYPE = 43
-EAP_ATTRIBUTE_TYPE_eatAcctSessionId: EAP_ATTRIBUTE_TYPE = 44
-EAP_ATTRIBUTE_TYPE_eatAcctAuthentic: EAP_ATTRIBUTE_TYPE = 45
-EAP_ATTRIBUTE_TYPE_eatAcctSessionTime: EAP_ATTRIBUTE_TYPE = 46
-EAP_ATTRIBUTE_TYPE_eatAcctInputPackets: EAP_ATTRIBUTE_TYPE = 47
-EAP_ATTRIBUTE_TYPE_eatAcctOutputPackets: EAP_ATTRIBUTE_TYPE = 48
-EAP_ATTRIBUTE_TYPE_eatAcctTerminateCause: EAP_ATTRIBUTE_TYPE = 49
-EAP_ATTRIBUTE_TYPE_eatAcctMultiSessionId: EAP_ATTRIBUTE_TYPE = 50
-EAP_ATTRIBUTE_TYPE_eatAcctLinkCount: EAP_ATTRIBUTE_TYPE = 51
-EAP_ATTRIBUTE_TYPE_eatAcctEventTimeStamp: EAP_ATTRIBUTE_TYPE = 55
-EAP_ATTRIBUTE_TYPE_eatMD5CHAPChallenge: EAP_ATTRIBUTE_TYPE = 60
-EAP_ATTRIBUTE_TYPE_eatNASPortType: EAP_ATTRIBUTE_TYPE = 61
-EAP_ATTRIBUTE_TYPE_eatPortLimit: EAP_ATTRIBUTE_TYPE = 62
-EAP_ATTRIBUTE_TYPE_eatLoginLATPort: EAP_ATTRIBUTE_TYPE = 63
-EAP_ATTRIBUTE_TYPE_eatTunnelType: EAP_ATTRIBUTE_TYPE = 64
-EAP_ATTRIBUTE_TYPE_eatTunnelMediumType: EAP_ATTRIBUTE_TYPE = 65
-EAP_ATTRIBUTE_TYPE_eatTunnelClientEndpoint: EAP_ATTRIBUTE_TYPE = 66
-EAP_ATTRIBUTE_TYPE_eatTunnelServerEndpoint: EAP_ATTRIBUTE_TYPE = 67
-EAP_ATTRIBUTE_TYPE_eatARAPPassword: EAP_ATTRIBUTE_TYPE = 70
-EAP_ATTRIBUTE_TYPE_eatARAPFeatures: EAP_ATTRIBUTE_TYPE = 71
-EAP_ATTRIBUTE_TYPE_eatARAPZoneAccess: EAP_ATTRIBUTE_TYPE = 72
-EAP_ATTRIBUTE_TYPE_eatARAPSecurity: EAP_ATTRIBUTE_TYPE = 73
-EAP_ATTRIBUTE_TYPE_eatARAPSecurityData: EAP_ATTRIBUTE_TYPE = 74
-EAP_ATTRIBUTE_TYPE_eatPasswordRetry: EAP_ATTRIBUTE_TYPE = 75
-EAP_ATTRIBUTE_TYPE_eatPrompt: EAP_ATTRIBUTE_TYPE = 76
-EAP_ATTRIBUTE_TYPE_eatConnectInfo: EAP_ATTRIBUTE_TYPE = 77
-EAP_ATTRIBUTE_TYPE_eatConfigurationToken: EAP_ATTRIBUTE_TYPE = 78
-EAP_ATTRIBUTE_TYPE_eatEAPMessage: EAP_ATTRIBUTE_TYPE = 79
-EAP_ATTRIBUTE_TYPE_eatSignature: EAP_ATTRIBUTE_TYPE = 80
-EAP_ATTRIBUTE_TYPE_eatARAPChallengeResponse: EAP_ATTRIBUTE_TYPE = 84
-EAP_ATTRIBUTE_TYPE_eatAcctInterimInterval: EAP_ATTRIBUTE_TYPE = 85
-EAP_ATTRIBUTE_TYPE_eatNASIPv6Address: EAP_ATTRIBUTE_TYPE = 95
-EAP_ATTRIBUTE_TYPE_eatFramedInterfaceId: EAP_ATTRIBUTE_TYPE = 96
-EAP_ATTRIBUTE_TYPE_eatFramedIPv6Prefix: EAP_ATTRIBUTE_TYPE = 97
-EAP_ATTRIBUTE_TYPE_eatLoginIPv6Host: EAP_ATTRIBUTE_TYPE = 98
-EAP_ATTRIBUTE_TYPE_eatFramedIPv6Route: EAP_ATTRIBUTE_TYPE = 99
-EAP_ATTRIBUTE_TYPE_eatFramedIPv6Pool: EAP_ATTRIBUTE_TYPE = 100
-EAP_ATTRIBUTE_TYPE_eatARAPGuestLogon: EAP_ATTRIBUTE_TYPE = 8096
-EAP_ATTRIBUTE_TYPE_eatCertificateOID: EAP_ATTRIBUTE_TYPE = 8097
-EAP_ATTRIBUTE_TYPE_eatEAPConfiguration: EAP_ATTRIBUTE_TYPE = 8098
-EAP_ATTRIBUTE_TYPE_eatPEAPEmbeddedEAPTypeId: EAP_ATTRIBUTE_TYPE = 8099
-EAP_ATTRIBUTE_TYPE_eatPEAPFastRoamedSession: EAP_ATTRIBUTE_TYPE = 8100
-EAP_ATTRIBUTE_TYPE_eatFastRoamedSession: EAP_ATTRIBUTE_TYPE = 8100
-EAP_ATTRIBUTE_TYPE_eatEAPTLV: EAP_ATTRIBUTE_TYPE = 8102
-EAP_ATTRIBUTE_TYPE_eatCredentialsChanged: EAP_ATTRIBUTE_TYPE = 8103
-EAP_ATTRIBUTE_TYPE_eatInnerEapMethodType: EAP_ATTRIBUTE_TYPE = 8104
-EAP_ATTRIBUTE_TYPE_eatClearTextPassword: EAP_ATTRIBUTE_TYPE = 8107
-EAP_ATTRIBUTE_TYPE_eatQuarantineSoH: EAP_ATTRIBUTE_TYPE = 8150
-EAP_ATTRIBUTE_TYPE_eatCertificateThumbprint: EAP_ATTRIBUTE_TYPE = 8250
-EAP_ATTRIBUTE_TYPE_eatPeerId: EAP_ATTRIBUTE_TYPE = 9000
-EAP_ATTRIBUTE_TYPE_eatServerId: EAP_ATTRIBUTE_TYPE = 9001
-EAP_ATTRIBUTE_TYPE_eatMethodId: EAP_ATTRIBUTE_TYPE = 9002
-EAP_ATTRIBUTE_TYPE_eatEMSK: EAP_ATTRIBUTE_TYPE = 9003
-EAP_ATTRIBUTE_TYPE_eatSessionId: EAP_ATTRIBUTE_TYPE = 9004
-EAP_ATTRIBUTE_TYPE_eatReserved: EAP_ATTRIBUTE_TYPE = -1
+EAP_ATTRIBUTE_TYPE_eatMinimum: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 0
+EAP_ATTRIBUTE_TYPE_eatUserName: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 1
+EAP_ATTRIBUTE_TYPE_eatUserPassword: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 2
+EAP_ATTRIBUTE_TYPE_eatMD5CHAPPassword: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 3
+EAP_ATTRIBUTE_TYPE_eatNASIPAddress: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 4
+EAP_ATTRIBUTE_TYPE_eatNASPort: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 5
+EAP_ATTRIBUTE_TYPE_eatServiceType: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 6
+EAP_ATTRIBUTE_TYPE_eatFramedProtocol: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 7
+EAP_ATTRIBUTE_TYPE_eatFramedIPAddress: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 8
+EAP_ATTRIBUTE_TYPE_eatFramedIPNetmask: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 9
+EAP_ATTRIBUTE_TYPE_eatFramedRouting: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 10
+EAP_ATTRIBUTE_TYPE_eatFilterId: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 11
+EAP_ATTRIBUTE_TYPE_eatFramedMTU: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 12
+EAP_ATTRIBUTE_TYPE_eatFramedCompression: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 13
+EAP_ATTRIBUTE_TYPE_eatLoginIPHost: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 14
+EAP_ATTRIBUTE_TYPE_eatLoginService: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 15
+EAP_ATTRIBUTE_TYPE_eatLoginTCPPort: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 16
+EAP_ATTRIBUTE_TYPE_eatUnassigned17: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 17
+EAP_ATTRIBUTE_TYPE_eatReplyMessage: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 18
+EAP_ATTRIBUTE_TYPE_eatCallbackNumber: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 19
+EAP_ATTRIBUTE_TYPE_eatCallbackId: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 20
+EAP_ATTRIBUTE_TYPE_eatUnassigned21: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 21
+EAP_ATTRIBUTE_TYPE_eatFramedRoute: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 22
+EAP_ATTRIBUTE_TYPE_eatFramedIPXNetwork: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 23
+EAP_ATTRIBUTE_TYPE_eatState: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 24
+EAP_ATTRIBUTE_TYPE_eatClass: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 25
+EAP_ATTRIBUTE_TYPE_eatVendorSpecific: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 26
+EAP_ATTRIBUTE_TYPE_eatSessionTimeout: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 27
+EAP_ATTRIBUTE_TYPE_eatIdleTimeout: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 28
+EAP_ATTRIBUTE_TYPE_eatTerminationAction: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 29
+EAP_ATTRIBUTE_TYPE_eatCalledStationId: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 30
+EAP_ATTRIBUTE_TYPE_eatCallingStationId: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 31
+EAP_ATTRIBUTE_TYPE_eatNASIdentifier: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 32
+EAP_ATTRIBUTE_TYPE_eatProxyState: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 33
+EAP_ATTRIBUTE_TYPE_eatLoginLATService: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 34
+EAP_ATTRIBUTE_TYPE_eatLoginLATNode: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 35
+EAP_ATTRIBUTE_TYPE_eatLoginLATGroup: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 36
+EAP_ATTRIBUTE_TYPE_eatFramedAppleTalkLink: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 37
+EAP_ATTRIBUTE_TYPE_eatFramedAppleTalkNetwork: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 38
+EAP_ATTRIBUTE_TYPE_eatFramedAppleTalkZone: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 39
+EAP_ATTRIBUTE_TYPE_eatAcctStatusType: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 40
+EAP_ATTRIBUTE_TYPE_eatAcctDelayTime: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 41
+EAP_ATTRIBUTE_TYPE_eatAcctInputOctets: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 42
+EAP_ATTRIBUTE_TYPE_eatAcctOutputOctets: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 43
+EAP_ATTRIBUTE_TYPE_eatAcctSessionId: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 44
+EAP_ATTRIBUTE_TYPE_eatAcctAuthentic: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 45
+EAP_ATTRIBUTE_TYPE_eatAcctSessionTime: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 46
+EAP_ATTRIBUTE_TYPE_eatAcctInputPackets: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 47
+EAP_ATTRIBUTE_TYPE_eatAcctOutputPackets: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 48
+EAP_ATTRIBUTE_TYPE_eatAcctTerminateCause: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 49
+EAP_ATTRIBUTE_TYPE_eatAcctMultiSessionId: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 50
+EAP_ATTRIBUTE_TYPE_eatAcctLinkCount: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 51
+EAP_ATTRIBUTE_TYPE_eatAcctEventTimeStamp: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 55
+EAP_ATTRIBUTE_TYPE_eatMD5CHAPChallenge: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 60
+EAP_ATTRIBUTE_TYPE_eatNASPortType: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 61
+EAP_ATTRIBUTE_TYPE_eatPortLimit: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 62
+EAP_ATTRIBUTE_TYPE_eatLoginLATPort: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 63
+EAP_ATTRIBUTE_TYPE_eatTunnelType: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 64
+EAP_ATTRIBUTE_TYPE_eatTunnelMediumType: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 65
+EAP_ATTRIBUTE_TYPE_eatTunnelClientEndpoint: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 66
+EAP_ATTRIBUTE_TYPE_eatTunnelServerEndpoint: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 67
+EAP_ATTRIBUTE_TYPE_eatARAPPassword: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 70
+EAP_ATTRIBUTE_TYPE_eatARAPFeatures: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 71
+EAP_ATTRIBUTE_TYPE_eatARAPZoneAccess: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 72
+EAP_ATTRIBUTE_TYPE_eatARAPSecurity: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 73
+EAP_ATTRIBUTE_TYPE_eatARAPSecurityData: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 74
+EAP_ATTRIBUTE_TYPE_eatPasswordRetry: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 75
+EAP_ATTRIBUTE_TYPE_eatPrompt: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 76
+EAP_ATTRIBUTE_TYPE_eatConnectInfo: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 77
+EAP_ATTRIBUTE_TYPE_eatConfigurationToken: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 78
+EAP_ATTRIBUTE_TYPE_eatEAPMessage: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 79
+EAP_ATTRIBUTE_TYPE_eatSignature: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 80
+EAP_ATTRIBUTE_TYPE_eatARAPChallengeResponse: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 84
+EAP_ATTRIBUTE_TYPE_eatAcctInterimInterval: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 85
+EAP_ATTRIBUTE_TYPE_eatNASIPv6Address: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 95
+EAP_ATTRIBUTE_TYPE_eatFramedInterfaceId: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 96
+EAP_ATTRIBUTE_TYPE_eatFramedIPv6Prefix: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 97
+EAP_ATTRIBUTE_TYPE_eatLoginIPv6Host: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 98
+EAP_ATTRIBUTE_TYPE_eatFramedIPv6Route: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 99
+EAP_ATTRIBUTE_TYPE_eatFramedIPv6Pool: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 100
+EAP_ATTRIBUTE_TYPE_eatARAPGuestLogon: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 8096
+EAP_ATTRIBUTE_TYPE_eatCertificateOID: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 8097
+EAP_ATTRIBUTE_TYPE_eatEAPConfiguration: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 8098
+EAP_ATTRIBUTE_TYPE_eatPEAPEmbeddedEAPTypeId: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 8099
+EAP_ATTRIBUTE_TYPE_eatPEAPFastRoamedSession: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 8100
+EAP_ATTRIBUTE_TYPE_eatFastRoamedSession: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 8100
+EAP_ATTRIBUTE_TYPE_eatEAPTLV: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 8102
+EAP_ATTRIBUTE_TYPE_eatCredentialsChanged: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 8103
+EAP_ATTRIBUTE_TYPE_eatInnerEapMethodType: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 8104
+EAP_ATTRIBUTE_TYPE_eatClearTextPassword: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 8107
+EAP_ATTRIBUTE_TYPE_eatQuarantineSoH: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 8150
+EAP_ATTRIBUTE_TYPE_eatCertificateThumbprint: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 8250
+EAP_ATTRIBUTE_TYPE_eatPeerId: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 9000
+EAP_ATTRIBUTE_TYPE_eatServerId: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 9001
+EAP_ATTRIBUTE_TYPE_eatMethodId: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 9002
+EAP_ATTRIBUTE_TYPE_eatEMSK: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 9003
+EAP_ATTRIBUTE_TYPE_eatSessionId: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 9004
+EAP_ATTRIBUTE_TYPE_eatReserved: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = -1
 class EAP_AUTHENTICATOR_METHOD_ROUTINES(EasyCastStructure):
     dwSizeInBytes: UInt32
     pEapType: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_TYPE)
@@ -463,9 +462,9 @@ class EAP_AUTHENTICATOR_METHOD_ROUTINES(EasyCastStructure):
     EapMethodAuthenticatorEndSession: IntPtr
     EapMethodAuthenticatorShutdown: IntPtr
 EAP_AUTHENTICATOR_SEND_TIMEOUT = Int32
-EAP_AUTHENTICATOR_SEND_TIMEOUT_NONE: EAP_AUTHENTICATOR_SEND_TIMEOUT = 0
-EAP_AUTHENTICATOR_SEND_TIMEOUT_BASIC: EAP_AUTHENTICATOR_SEND_TIMEOUT = 1
-EAP_AUTHENTICATOR_SEND_TIMEOUT_INTERACTIVE: EAP_AUTHENTICATOR_SEND_TIMEOUT = 2
+EAP_AUTHENTICATOR_SEND_TIMEOUT_NONE: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_AUTHENTICATOR_SEND_TIMEOUT = 0
+EAP_AUTHENTICATOR_SEND_TIMEOUT_BASIC: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_AUTHENTICATOR_SEND_TIMEOUT = 1
+EAP_AUTHENTICATOR_SEND_TIMEOUT_INTERACTIVE: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_AUTHENTICATOR_SEND_TIMEOUT = 2
 class EAP_CONFIG_INPUT_FIELD_ARRAY(EasyCastStructure):
     dwVersion: UInt32
     dwNumberOfFields: UInt32
@@ -479,15 +478,15 @@ class EAP_CONFIG_INPUT_FIELD_DATA(EasyCastStructure):
     dwMinDataLength: UInt32
     dwMaxDataLength: UInt32
 EAP_CONFIG_INPUT_FIELD_TYPE = Int32
-EAP_CONFIG_INPUT_FIELD_TYPE_EapConfigInputUsername: EAP_CONFIG_INPUT_FIELD_TYPE = 0
-EAP_CONFIG_INPUT_FIELD_TYPE_EapConfigInputPassword: EAP_CONFIG_INPUT_FIELD_TYPE = 1
-EAP_CONFIG_INPUT_FIELD_TYPE_EapConfigInputNetworkUsername: EAP_CONFIG_INPUT_FIELD_TYPE = 2
-EAP_CONFIG_INPUT_FIELD_TYPE_EapConfigInputNetworkPassword: EAP_CONFIG_INPUT_FIELD_TYPE = 3
-EAP_CONFIG_INPUT_FIELD_TYPE_EapConfigInputPin: EAP_CONFIG_INPUT_FIELD_TYPE = 4
-EAP_CONFIG_INPUT_FIELD_TYPE_EapConfigInputPSK: EAP_CONFIG_INPUT_FIELD_TYPE = 5
-EAP_CONFIG_INPUT_FIELD_TYPE_EapConfigInputEdit: EAP_CONFIG_INPUT_FIELD_TYPE = 6
-EAP_CONFIG_INPUT_FIELD_TYPE_EapConfigSmartCardUsername: EAP_CONFIG_INPUT_FIELD_TYPE = 7
-EAP_CONFIG_INPUT_FIELD_TYPE_EapConfigSmartCardError: EAP_CONFIG_INPUT_FIELD_TYPE = 8
+EAP_CONFIG_INPUT_FIELD_TYPE_EapConfigInputUsername: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_CONFIG_INPUT_FIELD_TYPE = 0
+EAP_CONFIG_INPUT_FIELD_TYPE_EapConfigInputPassword: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_CONFIG_INPUT_FIELD_TYPE = 1
+EAP_CONFIG_INPUT_FIELD_TYPE_EapConfigInputNetworkUsername: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_CONFIG_INPUT_FIELD_TYPE = 2
+EAP_CONFIG_INPUT_FIELD_TYPE_EapConfigInputNetworkPassword: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_CONFIG_INPUT_FIELD_TYPE = 3
+EAP_CONFIG_INPUT_FIELD_TYPE_EapConfigInputPin: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_CONFIG_INPUT_FIELD_TYPE = 4
+EAP_CONFIG_INPUT_FIELD_TYPE_EapConfigInputPSK: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_CONFIG_INPUT_FIELD_TYPE = 5
+EAP_CONFIG_INPUT_FIELD_TYPE_EapConfigInputEdit: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_CONFIG_INPUT_FIELD_TYPE = 6
+EAP_CONFIG_INPUT_FIELD_TYPE_EapConfigSmartCardUsername: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_CONFIG_INPUT_FIELD_TYPE = 7
+EAP_CONFIG_INPUT_FIELD_TYPE_EapConfigSmartCardError: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_CONFIG_INPUT_FIELD_TYPE = 8
 class EAP_CRED_EXPIRY_REQ(EasyCastStructure):
     curCreds: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_CONFIG_INPUT_FIELD_ARRAY
     newCreds: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_CONFIG_INPUT_FIELD_ARRAY
@@ -507,19 +506,19 @@ class EAP_INTERACTIVE_UI_DATA(EasyCastStructure):
     cbUiData: UInt32
     pbUiData: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_UI_DATA_FORMAT
 EAP_INTERACTIVE_UI_DATA_TYPE = Int32
-EAP_INTERACTIVE_UI_DATA_TYPE_EapCredReq: EAP_INTERACTIVE_UI_DATA_TYPE = 0
-EAP_INTERACTIVE_UI_DATA_TYPE_EapCredResp: EAP_INTERACTIVE_UI_DATA_TYPE = 1
-EAP_INTERACTIVE_UI_DATA_TYPE_EapCredExpiryReq: EAP_INTERACTIVE_UI_DATA_TYPE = 2
-EAP_INTERACTIVE_UI_DATA_TYPE_EapCredExpiryResp: EAP_INTERACTIVE_UI_DATA_TYPE = 3
-EAP_INTERACTIVE_UI_DATA_TYPE_EapCredLogonReq: EAP_INTERACTIVE_UI_DATA_TYPE = 4
-EAP_INTERACTIVE_UI_DATA_TYPE_EapCredLogonResp: EAP_INTERACTIVE_UI_DATA_TYPE = 5
+EAP_INTERACTIVE_UI_DATA_TYPE_EapCredReq: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_INTERACTIVE_UI_DATA_TYPE = 0
+EAP_INTERACTIVE_UI_DATA_TYPE_EapCredResp: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_INTERACTIVE_UI_DATA_TYPE = 1
+EAP_INTERACTIVE_UI_DATA_TYPE_EapCredExpiryReq: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_INTERACTIVE_UI_DATA_TYPE = 2
+EAP_INTERACTIVE_UI_DATA_TYPE_EapCredExpiryResp: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_INTERACTIVE_UI_DATA_TYPE = 3
+EAP_INTERACTIVE_UI_DATA_TYPE_EapCredLogonReq: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_INTERACTIVE_UI_DATA_TYPE = 4
+EAP_INTERACTIVE_UI_DATA_TYPE_EapCredLogonResp: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_INTERACTIVE_UI_DATA_TYPE = 5
 EAP_METHOD_AUTHENTICATOR_RESPONSE_ACTION = Int32
-EAP_METHOD_AUTHENTICATOR_RESPONSE_DISCARD: EAP_METHOD_AUTHENTICATOR_RESPONSE_ACTION = 0
-EAP_METHOD_AUTHENTICATOR_RESPONSE_SEND: EAP_METHOD_AUTHENTICATOR_RESPONSE_ACTION = 1
-EAP_METHOD_AUTHENTICATOR_RESPONSE_RESULT: EAP_METHOD_AUTHENTICATOR_RESPONSE_ACTION = 2
-EAP_METHOD_AUTHENTICATOR_RESPONSE_RESPOND: EAP_METHOD_AUTHENTICATOR_RESPONSE_ACTION = 3
-EAP_METHOD_AUTHENTICATOR_RESPONSE_AUTHENTICATE: EAP_METHOD_AUTHENTICATOR_RESPONSE_ACTION = 4
-EAP_METHOD_AUTHENTICATOR_RESPONSE_HANDLE_IDENTITY: EAP_METHOD_AUTHENTICATOR_RESPONSE_ACTION = 5
+EAP_METHOD_AUTHENTICATOR_RESPONSE_DISCARD: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_AUTHENTICATOR_RESPONSE_ACTION = 0
+EAP_METHOD_AUTHENTICATOR_RESPONSE_SEND: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_AUTHENTICATOR_RESPONSE_ACTION = 1
+EAP_METHOD_AUTHENTICATOR_RESPONSE_RESULT: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_AUTHENTICATOR_RESPONSE_ACTION = 2
+EAP_METHOD_AUTHENTICATOR_RESPONSE_RESPOND: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_AUTHENTICATOR_RESPONSE_ACTION = 3
+EAP_METHOD_AUTHENTICATOR_RESPONSE_AUTHENTICATE: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_AUTHENTICATOR_RESPONSE_ACTION = 4
+EAP_METHOD_AUTHENTICATOR_RESPONSE_HANDLE_IDENTITY: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_AUTHENTICATOR_RESPONSE_ACTION = 5
 class EAP_METHOD_AUTHENTICATOR_RESULT(EasyCastStructure):
     fIsSuccess: win32more.Windows.Win32.Foundation.BOOL
     dwFailureReason: UInt32
@@ -550,37 +549,37 @@ class EAP_METHOD_PROPERTY_ARRAY(EasyCastStructure):
     dwNumberOfProperties: UInt32
     pMethodProperty: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_PROPERTY)
 EAP_METHOD_PROPERTY_TYPE = Int32
-EAP_METHOD_PROPERTY_TYPE_emptPropCipherSuiteNegotiation: EAP_METHOD_PROPERTY_TYPE = 0
-EAP_METHOD_PROPERTY_TYPE_emptPropMutualAuth: EAP_METHOD_PROPERTY_TYPE = 1
-EAP_METHOD_PROPERTY_TYPE_emptPropIntegrity: EAP_METHOD_PROPERTY_TYPE = 2
-EAP_METHOD_PROPERTY_TYPE_emptPropReplayProtection: EAP_METHOD_PROPERTY_TYPE = 3
-EAP_METHOD_PROPERTY_TYPE_emptPropConfidentiality: EAP_METHOD_PROPERTY_TYPE = 4
-EAP_METHOD_PROPERTY_TYPE_emptPropKeyDerivation: EAP_METHOD_PROPERTY_TYPE = 5
-EAP_METHOD_PROPERTY_TYPE_emptPropKeyStrength64: EAP_METHOD_PROPERTY_TYPE = 6
-EAP_METHOD_PROPERTY_TYPE_emptPropKeyStrength128: EAP_METHOD_PROPERTY_TYPE = 7
-EAP_METHOD_PROPERTY_TYPE_emptPropKeyStrength256: EAP_METHOD_PROPERTY_TYPE = 8
-EAP_METHOD_PROPERTY_TYPE_emptPropKeyStrength512: EAP_METHOD_PROPERTY_TYPE = 9
-EAP_METHOD_PROPERTY_TYPE_emptPropKeyStrength1024: EAP_METHOD_PROPERTY_TYPE = 10
-EAP_METHOD_PROPERTY_TYPE_emptPropDictionaryAttackResistance: EAP_METHOD_PROPERTY_TYPE = 11
-EAP_METHOD_PROPERTY_TYPE_emptPropFastReconnect: EAP_METHOD_PROPERTY_TYPE = 12
-EAP_METHOD_PROPERTY_TYPE_emptPropCryptoBinding: EAP_METHOD_PROPERTY_TYPE = 13
-EAP_METHOD_PROPERTY_TYPE_emptPropSessionIndependence: EAP_METHOD_PROPERTY_TYPE = 14
-EAP_METHOD_PROPERTY_TYPE_emptPropFragmentation: EAP_METHOD_PROPERTY_TYPE = 15
-EAP_METHOD_PROPERTY_TYPE_emptPropChannelBinding: EAP_METHOD_PROPERTY_TYPE = 16
-EAP_METHOD_PROPERTY_TYPE_emptPropNap: EAP_METHOD_PROPERTY_TYPE = 17
-EAP_METHOD_PROPERTY_TYPE_emptPropStandalone: EAP_METHOD_PROPERTY_TYPE = 18
-EAP_METHOD_PROPERTY_TYPE_emptPropMppeEncryption: EAP_METHOD_PROPERTY_TYPE = 19
-EAP_METHOD_PROPERTY_TYPE_emptPropTunnelMethod: EAP_METHOD_PROPERTY_TYPE = 20
-EAP_METHOD_PROPERTY_TYPE_emptPropSupportsConfig: EAP_METHOD_PROPERTY_TYPE = 21
-EAP_METHOD_PROPERTY_TYPE_emptPropCertifiedMethod: EAP_METHOD_PROPERTY_TYPE = 22
-EAP_METHOD_PROPERTY_TYPE_emptPropHiddenMethod: EAP_METHOD_PROPERTY_TYPE = 23
-EAP_METHOD_PROPERTY_TYPE_emptPropMachineAuth: EAP_METHOD_PROPERTY_TYPE = 24
-EAP_METHOD_PROPERTY_TYPE_emptPropUserAuth: EAP_METHOD_PROPERTY_TYPE = 25
-EAP_METHOD_PROPERTY_TYPE_emptPropIdentityPrivacy: EAP_METHOD_PROPERTY_TYPE = 26
-EAP_METHOD_PROPERTY_TYPE_emptPropMethodChaining: EAP_METHOD_PROPERTY_TYPE = 27
-EAP_METHOD_PROPERTY_TYPE_emptPropSharedStateEquivalence: EAP_METHOD_PROPERTY_TYPE = 28
-EAP_METHOD_PROPERTY_TYPE_emptLegacyMethodPropertyFlag: EAP_METHOD_PROPERTY_TYPE = 31
-EAP_METHOD_PROPERTY_TYPE_emptPropVendorSpecific: EAP_METHOD_PROPERTY_TYPE = 255
+EAP_METHOD_PROPERTY_TYPE_emptPropCipherSuiteNegotiation: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_PROPERTY_TYPE = 0
+EAP_METHOD_PROPERTY_TYPE_emptPropMutualAuth: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_PROPERTY_TYPE = 1
+EAP_METHOD_PROPERTY_TYPE_emptPropIntegrity: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_PROPERTY_TYPE = 2
+EAP_METHOD_PROPERTY_TYPE_emptPropReplayProtection: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_PROPERTY_TYPE = 3
+EAP_METHOD_PROPERTY_TYPE_emptPropConfidentiality: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_PROPERTY_TYPE = 4
+EAP_METHOD_PROPERTY_TYPE_emptPropKeyDerivation: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_PROPERTY_TYPE = 5
+EAP_METHOD_PROPERTY_TYPE_emptPropKeyStrength64: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_PROPERTY_TYPE = 6
+EAP_METHOD_PROPERTY_TYPE_emptPropKeyStrength128: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_PROPERTY_TYPE = 7
+EAP_METHOD_PROPERTY_TYPE_emptPropKeyStrength256: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_PROPERTY_TYPE = 8
+EAP_METHOD_PROPERTY_TYPE_emptPropKeyStrength512: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_PROPERTY_TYPE = 9
+EAP_METHOD_PROPERTY_TYPE_emptPropKeyStrength1024: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_PROPERTY_TYPE = 10
+EAP_METHOD_PROPERTY_TYPE_emptPropDictionaryAttackResistance: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_PROPERTY_TYPE = 11
+EAP_METHOD_PROPERTY_TYPE_emptPropFastReconnect: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_PROPERTY_TYPE = 12
+EAP_METHOD_PROPERTY_TYPE_emptPropCryptoBinding: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_PROPERTY_TYPE = 13
+EAP_METHOD_PROPERTY_TYPE_emptPropSessionIndependence: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_PROPERTY_TYPE = 14
+EAP_METHOD_PROPERTY_TYPE_emptPropFragmentation: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_PROPERTY_TYPE = 15
+EAP_METHOD_PROPERTY_TYPE_emptPropChannelBinding: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_PROPERTY_TYPE = 16
+EAP_METHOD_PROPERTY_TYPE_emptPropNap: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_PROPERTY_TYPE = 17
+EAP_METHOD_PROPERTY_TYPE_emptPropStandalone: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_PROPERTY_TYPE = 18
+EAP_METHOD_PROPERTY_TYPE_emptPropMppeEncryption: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_PROPERTY_TYPE = 19
+EAP_METHOD_PROPERTY_TYPE_emptPropTunnelMethod: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_PROPERTY_TYPE = 20
+EAP_METHOD_PROPERTY_TYPE_emptPropSupportsConfig: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_PROPERTY_TYPE = 21
+EAP_METHOD_PROPERTY_TYPE_emptPropCertifiedMethod: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_PROPERTY_TYPE = 22
+EAP_METHOD_PROPERTY_TYPE_emptPropHiddenMethod: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_PROPERTY_TYPE = 23
+EAP_METHOD_PROPERTY_TYPE_emptPropMachineAuth: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_PROPERTY_TYPE = 24
+EAP_METHOD_PROPERTY_TYPE_emptPropUserAuth: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_PROPERTY_TYPE = 25
+EAP_METHOD_PROPERTY_TYPE_emptPropIdentityPrivacy: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_PROPERTY_TYPE = 26
+EAP_METHOD_PROPERTY_TYPE_emptPropMethodChaining: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_PROPERTY_TYPE = 27
+EAP_METHOD_PROPERTY_TYPE_emptPropSharedStateEquivalence: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_PROPERTY_TYPE = 28
+EAP_METHOD_PROPERTY_TYPE_emptLegacyMethodPropertyFlag: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_PROPERTY_TYPE = 31
+EAP_METHOD_PROPERTY_TYPE_emptPropVendorSpecific: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_PROPERTY_TYPE = 255
 class EAP_METHOD_PROPERTY_VALUE(EasyCastUnion):
     empvBool: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_PROPERTY_VALUE_BOOL
     empvDword: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_PROPERTY_VALUE_DWORD
@@ -595,9 +594,9 @@ class EAP_METHOD_PROPERTY_VALUE_STRING(EasyCastStructure):
     length: UInt32
     value: POINTER(Byte)
 EAP_METHOD_PROPERTY_VALUE_TYPE = Int32
-EAP_METHOD_PROPERTY_VALUE_TYPE_empvtBool: EAP_METHOD_PROPERTY_VALUE_TYPE = 0
-EAP_METHOD_PROPERTY_VALUE_TYPE_empvtDword: EAP_METHOD_PROPERTY_VALUE_TYPE = 1
-EAP_METHOD_PROPERTY_VALUE_TYPE_empvtString: EAP_METHOD_PROPERTY_VALUE_TYPE = 2
+EAP_METHOD_PROPERTY_VALUE_TYPE_empvtBool: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_PROPERTY_VALUE_TYPE = 0
+EAP_METHOD_PROPERTY_VALUE_TYPE_empvtDword: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_PROPERTY_VALUE_TYPE = 1
+EAP_METHOD_PROPERTY_VALUE_TYPE_empvtString: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_PROPERTY_VALUE_TYPE = 2
 class EAP_METHOD_TYPE(EasyCastStructure):
     eapType: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_TYPE
     dwAuthorId: UInt32
@@ -629,30 +628,30 @@ class EapCertificateCredential(EasyCastStructure):
     certHash: Byte * 20
     password: win32more.Windows.Win32.Foundation.PWSTR
 EapCode = Int32
-EapCode_EapCodeMinimum: EapCode = 1
-EapCode_EapCodeRequest: EapCode = 1
-EapCode_EapCodeResponse: EapCode = 2
-EapCode_EapCodeSuccess: EapCode = 3
-EapCode_EapCodeFailure: EapCode = 4
-EapCode_EapCodeMaximum: EapCode = 4
+EapCode_EapCodeMinimum: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapCode = 1
+EapCode_EapCodeRequest: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapCode = 1
+EapCode_EapCodeResponse: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapCode = 2
+EapCode_EapCodeSuccess: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapCode = 3
+EapCode_EapCodeFailure: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapCode = 4
+EapCode_EapCodeMaximum: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapCode = 4
 class EapCredential(EasyCastStructure):
     credType: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapCredentialType
     credData: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapCredentialTypeData
 EapCredentialType = Int32
-EAP_EMPTY_CREDENTIAL: EapCredentialType = 0
-EAP_USERNAME_PASSWORD_CREDENTIAL: EapCredentialType = 1
-EAP_WINLOGON_CREDENTIAL: EapCredentialType = 2
-EAP_CERTIFICATE_CREDENTIAL: EapCredentialType = 3
-EAP_SIM_CREDENTIAL: EapCredentialType = 4
+EAP_EMPTY_CREDENTIAL: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapCredentialType = 0
+EAP_USERNAME_PASSWORD_CREDENTIAL: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapCredentialType = 1
+EAP_WINLOGON_CREDENTIAL: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapCredentialType = 2
+EAP_CERTIFICATE_CREDENTIAL: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapCredentialType = 3
+EAP_SIM_CREDENTIAL: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapCredentialType = 4
 class EapCredentialTypeData(EasyCastUnion):
     username_password: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapUsernamePasswordCredential
     certificate: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapCertificateCredential
     sim: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapSimCredential
 EapHostPeerAuthParams = Int32
-EapHostPeerAuthParams_EapHostPeerAuthStatus: EapHostPeerAuthParams = 1
-EapHostPeerAuthParams_EapHostPeerIdentity: EapHostPeerAuthParams = 2
-EapHostPeerAuthParams_EapHostPeerIdentityExtendedInfo: EapHostPeerAuthParams = 3
-EapHostPeerAuthParams_EapHostNapInfo: EapHostPeerAuthParams = 4
+EapHostPeerAuthParams_EapHostPeerAuthStatus: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapHostPeerAuthParams = 1
+EapHostPeerAuthParams_EapHostPeerIdentity: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapHostPeerAuthParams = 2
+EapHostPeerAuthParams_EapHostPeerIdentityExtendedInfo: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapHostPeerAuthParams = 3
+EapHostPeerAuthParams_EapHostNapInfo: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapHostPeerAuthParams = 4
 class EapHostPeerMethodResult(EasyCastStructure):
     fIsSuccess: win32more.Windows.Win32.Foundation.BOOL
     dwFailureReasonCode: UInt32
@@ -667,17 +666,17 @@ class EapHostPeerMethodResult(EasyCastStructure):
     pEapMethodInfo: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_INFO)
     pEapError: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ERROR)
 EapHostPeerMethodResultReason = Int32
-EapHostPeerMethodResultReason_EapHostPeerMethodResultAltSuccessReceived: EapHostPeerMethodResultReason = 1
-EapHostPeerMethodResultReason_EapHostPeerMethodResultTimeout: EapHostPeerMethodResultReason = 2
-EapHostPeerMethodResultReason_EapHostPeerMethodResultFromMethod: EapHostPeerMethodResultReason = 3
+EapHostPeerMethodResultReason_EapHostPeerMethodResultAltSuccessReceived: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapHostPeerMethodResultReason = 1
+EapHostPeerMethodResultReason_EapHostPeerMethodResultTimeout: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapHostPeerMethodResultReason = 2
+EapHostPeerMethodResultReason_EapHostPeerMethodResultFromMethod: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapHostPeerMethodResultReason = 3
 EapHostPeerResponseAction = Int32
-EapHostPeerResponseAction_EapHostPeerResponseDiscard: EapHostPeerResponseAction = 0
-EapHostPeerResponseAction_EapHostPeerResponseSend: EapHostPeerResponseAction = 1
-EapHostPeerResponseAction_EapHostPeerResponseResult: EapHostPeerResponseAction = 2
-EapHostPeerResponseAction_EapHostPeerResponseInvokeUi: EapHostPeerResponseAction = 3
-EapHostPeerResponseAction_EapHostPeerResponseRespond: EapHostPeerResponseAction = 4
-EapHostPeerResponseAction_EapHostPeerResponseStartAuthentication: EapHostPeerResponseAction = 5
-EapHostPeerResponseAction_EapHostPeerResponseNone: EapHostPeerResponseAction = 6
+EapHostPeerResponseAction_EapHostPeerResponseDiscard: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapHostPeerResponseAction = 0
+EapHostPeerResponseAction_EapHostPeerResponseSend: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapHostPeerResponseAction = 1
+EapHostPeerResponseAction_EapHostPeerResponseResult: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapHostPeerResponseAction = 2
+EapHostPeerResponseAction_EapHostPeerResponseInvokeUi: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapHostPeerResponseAction = 3
+EapHostPeerResponseAction_EapHostPeerResponseRespond: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapHostPeerResponseAction = 4
+EapHostPeerResponseAction_EapHostPeerResponseStartAuthentication: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapHostPeerResponseAction = 5
+EapHostPeerResponseAction_EapHostPeerResponseNone: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapHostPeerResponseAction = 6
 class EapPacket(EasyCastStructure):
     Code: Byte
     Id: Byte
@@ -687,12 +686,12 @@ class EapPeerMethodOutput(EasyCastStructure):
     action: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapPeerMethodResponseAction
     fAllowNotifications: win32more.Windows.Win32.Foundation.BOOL
 EapPeerMethodResponseAction = Int32
-EapPeerMethodResponseAction_EapPeerMethodResponseActionDiscard: EapPeerMethodResponseAction = 0
-EapPeerMethodResponseAction_EapPeerMethodResponseActionSend: EapPeerMethodResponseAction = 1
-EapPeerMethodResponseAction_EapPeerMethodResponseActionResult: EapPeerMethodResponseAction = 2
-EapPeerMethodResponseAction_EapPeerMethodResponseActionInvokeUI: EapPeerMethodResponseAction = 3
-EapPeerMethodResponseAction_EapPeerMethodResponseActionRespond: EapPeerMethodResponseAction = 4
-EapPeerMethodResponseAction_EapPeerMethodResponseActionNone: EapPeerMethodResponseAction = 5
+EapPeerMethodResponseAction_EapPeerMethodResponseActionDiscard: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapPeerMethodResponseAction = 0
+EapPeerMethodResponseAction_EapPeerMethodResponseActionSend: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapPeerMethodResponseAction = 1
+EapPeerMethodResponseAction_EapPeerMethodResponseActionResult: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapPeerMethodResponseAction = 2
+EapPeerMethodResponseAction_EapPeerMethodResponseActionInvokeUI: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapPeerMethodResponseAction = 3
+EapPeerMethodResponseAction_EapPeerMethodResponseActionRespond: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapPeerMethodResponseAction = 4
+EapPeerMethodResponseAction_EapPeerMethodResponseActionNone: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapPeerMethodResponseAction = 5
 class EapPeerMethodResult(EasyCastStructure):
     fIsSuccess: win32more.Windows.Win32.Foundation.BOOL
     dwFailureReasonCode: UInt32
@@ -707,9 +706,9 @@ class EapPeerMethodResult(EasyCastStructure):
     pNgcKerbTicket: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.NgcTicketContext)
     fSaveToCredMan: win32more.Windows.Win32.Foundation.BOOL
 EapPeerMethodResultReason = Int32
-EapPeerMethodResultReason_EapPeerMethodResultUnknown: EapPeerMethodResultReason = 1
-EapPeerMethodResultReason_EapPeerMethodResultSuccess: EapPeerMethodResultReason = 2
-EapPeerMethodResultReason_EapPeerMethodResultFailure: EapPeerMethodResultReason = 3
+EapPeerMethodResultReason_EapPeerMethodResultUnknown: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapPeerMethodResultReason = 1
+EapPeerMethodResultReason_EapPeerMethodResultSuccess: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapPeerMethodResultReason = 2
+EapPeerMethodResultReason_EapPeerMethodResultFailure: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapPeerMethodResultReason = 3
 class EapSimCredential(EasyCastStructure):
     iccID: win32more.Windows.Win32.Foundation.PWSTR
 class EapUsernamePasswordCredential(EasyCastStructure):
@@ -774,10 +773,10 @@ class IRouterProtocolConfig(ComPtr):
     @commethod(4)
     def RemoveProtocol(self, pszMachineName: win32more.Windows.Win32.Foundation.PWSTR, dwTransportId: UInt32, dwProtocolId: UInt32, hWnd: win32more.Windows.Win32.Foundation.HWND, dwFlags: UInt32, pRouter: win32more.Windows.Win32.System.Com.IUnknown, uReserved1: UIntPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 ISOLATION_STATE = Int32
-ISOLATION_STATE_UNKNOWN: ISOLATION_STATE = 0
-ISOLATION_STATE_NOT_RESTRICTED: ISOLATION_STATE = 1
-ISOLATION_STATE_IN_PROBATION: ISOLATION_STATE = 2
-ISOLATION_STATE_RESTRICTED_ACCESS: ISOLATION_STATE = 3
+ISOLATION_STATE_UNKNOWN: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.ISOLATION_STATE = 0
+ISOLATION_STATE_NOT_RESTRICTED: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.ISOLATION_STATE = 1
+ISOLATION_STATE_IN_PROBATION: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.ISOLATION_STATE = 2
+ISOLATION_STATE_RESTRICTED_ACCESS: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.ISOLATION_STATE = 3
 class LEGACY_IDENTITY_UI_PARAMS(EasyCastStructure):
     eapType: UInt32
     dwFlags: UInt32
@@ -803,15 +802,15 @@ class NgcTicketContext(EasyCastStructure):
 @winfunctype_pointer
 def NotificationHandler(connectionId: Guid, pContextData: VoidPtr) -> Void: ...
 PPP_EAP_ACTION = Int32
-EAPACTION_NoAction: PPP_EAP_ACTION = 0
-EAPACTION_Authenticate: PPP_EAP_ACTION = 1
-EAPACTION_Done: PPP_EAP_ACTION = 2
-EAPACTION_SendAndDone: PPP_EAP_ACTION = 3
-EAPACTION_Send: PPP_EAP_ACTION = 4
-EAPACTION_SendWithTimeout: PPP_EAP_ACTION = 5
-EAPACTION_SendWithTimeoutInteractive: PPP_EAP_ACTION = 6
-EAPACTION_IndicateTLV: PPP_EAP_ACTION = 7
-EAPACTION_IndicateIdentity: PPP_EAP_ACTION = 8
+EAPACTION_NoAction: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.PPP_EAP_ACTION = 0
+EAPACTION_Authenticate: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.PPP_EAP_ACTION = 1
+EAPACTION_Done: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.PPP_EAP_ACTION = 2
+EAPACTION_SendAndDone: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.PPP_EAP_ACTION = 3
+EAPACTION_Send: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.PPP_EAP_ACTION = 4
+EAPACTION_SendWithTimeout: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.PPP_EAP_ACTION = 5
+EAPACTION_SendWithTimeoutInteractive: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.PPP_EAP_ACTION = 6
+EAPACTION_IndicateTLV: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.PPP_EAP_ACTION = 7
+EAPACTION_IndicateIdentity: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.PPP_EAP_ACTION = 8
 class PPP_EAP_INFO(EasyCastStructure):
     dwSizeInBytes: UInt32
     dwEapTypeId: UInt32
@@ -867,100 +866,102 @@ class RAS_AUTH_ATTRIBUTE(EasyCastStructure):
     dwLength: UInt32
     Value: VoidPtr
 RAS_AUTH_ATTRIBUTE_TYPE = Int32
-RAS_AUTH_ATTRIBUTE_TYPE_raatMinimum: RAS_AUTH_ATTRIBUTE_TYPE = 0
-RAS_AUTH_ATTRIBUTE_TYPE_raatUserName: RAS_AUTH_ATTRIBUTE_TYPE = 1
-RAS_AUTH_ATTRIBUTE_TYPE_raatUserPassword: RAS_AUTH_ATTRIBUTE_TYPE = 2
-RAS_AUTH_ATTRIBUTE_TYPE_raatMD5CHAPPassword: RAS_AUTH_ATTRIBUTE_TYPE = 3
-RAS_AUTH_ATTRIBUTE_TYPE_raatNASIPAddress: RAS_AUTH_ATTRIBUTE_TYPE = 4
-RAS_AUTH_ATTRIBUTE_TYPE_raatNASPort: RAS_AUTH_ATTRIBUTE_TYPE = 5
-RAS_AUTH_ATTRIBUTE_TYPE_raatServiceType: RAS_AUTH_ATTRIBUTE_TYPE = 6
-RAS_AUTH_ATTRIBUTE_TYPE_raatFramedProtocol: RAS_AUTH_ATTRIBUTE_TYPE = 7
-RAS_AUTH_ATTRIBUTE_TYPE_raatFramedIPAddress: RAS_AUTH_ATTRIBUTE_TYPE = 8
-RAS_AUTH_ATTRIBUTE_TYPE_raatFramedIPNetmask: RAS_AUTH_ATTRIBUTE_TYPE = 9
-RAS_AUTH_ATTRIBUTE_TYPE_raatFramedRouting: RAS_AUTH_ATTRIBUTE_TYPE = 10
-RAS_AUTH_ATTRIBUTE_TYPE_raatFilterId: RAS_AUTH_ATTRIBUTE_TYPE = 11
-RAS_AUTH_ATTRIBUTE_TYPE_raatFramedMTU: RAS_AUTH_ATTRIBUTE_TYPE = 12
-RAS_AUTH_ATTRIBUTE_TYPE_raatFramedCompression: RAS_AUTH_ATTRIBUTE_TYPE = 13
-RAS_AUTH_ATTRIBUTE_TYPE_raatLoginIPHost: RAS_AUTH_ATTRIBUTE_TYPE = 14
-RAS_AUTH_ATTRIBUTE_TYPE_raatLoginService: RAS_AUTH_ATTRIBUTE_TYPE = 15
-RAS_AUTH_ATTRIBUTE_TYPE_raatLoginTCPPort: RAS_AUTH_ATTRIBUTE_TYPE = 16
-RAS_AUTH_ATTRIBUTE_TYPE_raatUnassigned17: RAS_AUTH_ATTRIBUTE_TYPE = 17
-RAS_AUTH_ATTRIBUTE_TYPE_raatReplyMessage: RAS_AUTH_ATTRIBUTE_TYPE = 18
-RAS_AUTH_ATTRIBUTE_TYPE_raatCallbackNumber: RAS_AUTH_ATTRIBUTE_TYPE = 19
-RAS_AUTH_ATTRIBUTE_TYPE_raatCallbackId: RAS_AUTH_ATTRIBUTE_TYPE = 20
-RAS_AUTH_ATTRIBUTE_TYPE_raatUnassigned21: RAS_AUTH_ATTRIBUTE_TYPE = 21
-RAS_AUTH_ATTRIBUTE_TYPE_raatFramedRoute: RAS_AUTH_ATTRIBUTE_TYPE = 22
-RAS_AUTH_ATTRIBUTE_TYPE_raatFramedIPXNetwork: RAS_AUTH_ATTRIBUTE_TYPE = 23
-RAS_AUTH_ATTRIBUTE_TYPE_raatState: RAS_AUTH_ATTRIBUTE_TYPE = 24
-RAS_AUTH_ATTRIBUTE_TYPE_raatClass: RAS_AUTH_ATTRIBUTE_TYPE = 25
-RAS_AUTH_ATTRIBUTE_TYPE_raatVendorSpecific: RAS_AUTH_ATTRIBUTE_TYPE = 26
-RAS_AUTH_ATTRIBUTE_TYPE_raatSessionTimeout: RAS_AUTH_ATTRIBUTE_TYPE = 27
-RAS_AUTH_ATTRIBUTE_TYPE_raatIdleTimeout: RAS_AUTH_ATTRIBUTE_TYPE = 28
-RAS_AUTH_ATTRIBUTE_TYPE_raatTerminationAction: RAS_AUTH_ATTRIBUTE_TYPE = 29
-RAS_AUTH_ATTRIBUTE_TYPE_raatCalledStationId: RAS_AUTH_ATTRIBUTE_TYPE = 30
-RAS_AUTH_ATTRIBUTE_TYPE_raatCallingStationId: RAS_AUTH_ATTRIBUTE_TYPE = 31
-RAS_AUTH_ATTRIBUTE_TYPE_raatNASIdentifier: RAS_AUTH_ATTRIBUTE_TYPE = 32
-RAS_AUTH_ATTRIBUTE_TYPE_raatProxyState: RAS_AUTH_ATTRIBUTE_TYPE = 33
-RAS_AUTH_ATTRIBUTE_TYPE_raatLoginLATService: RAS_AUTH_ATTRIBUTE_TYPE = 34
-RAS_AUTH_ATTRIBUTE_TYPE_raatLoginLATNode: RAS_AUTH_ATTRIBUTE_TYPE = 35
-RAS_AUTH_ATTRIBUTE_TYPE_raatLoginLATGroup: RAS_AUTH_ATTRIBUTE_TYPE = 36
-RAS_AUTH_ATTRIBUTE_TYPE_raatFramedAppleTalkLink: RAS_AUTH_ATTRIBUTE_TYPE = 37
-RAS_AUTH_ATTRIBUTE_TYPE_raatFramedAppleTalkNetwork: RAS_AUTH_ATTRIBUTE_TYPE = 38
-RAS_AUTH_ATTRIBUTE_TYPE_raatFramedAppleTalkZone: RAS_AUTH_ATTRIBUTE_TYPE = 39
-RAS_AUTH_ATTRIBUTE_TYPE_raatAcctStatusType: RAS_AUTH_ATTRIBUTE_TYPE = 40
-RAS_AUTH_ATTRIBUTE_TYPE_raatAcctDelayTime: RAS_AUTH_ATTRIBUTE_TYPE = 41
-RAS_AUTH_ATTRIBUTE_TYPE_raatAcctInputOctets: RAS_AUTH_ATTRIBUTE_TYPE = 42
-RAS_AUTH_ATTRIBUTE_TYPE_raatAcctOutputOctets: RAS_AUTH_ATTRIBUTE_TYPE = 43
-RAS_AUTH_ATTRIBUTE_TYPE_raatAcctSessionId: RAS_AUTH_ATTRIBUTE_TYPE = 44
-RAS_AUTH_ATTRIBUTE_TYPE_raatAcctAuthentic: RAS_AUTH_ATTRIBUTE_TYPE = 45
-RAS_AUTH_ATTRIBUTE_TYPE_raatAcctSessionTime: RAS_AUTH_ATTRIBUTE_TYPE = 46
-RAS_AUTH_ATTRIBUTE_TYPE_raatAcctInputPackets: RAS_AUTH_ATTRIBUTE_TYPE = 47
-RAS_AUTH_ATTRIBUTE_TYPE_raatAcctOutputPackets: RAS_AUTH_ATTRIBUTE_TYPE = 48
-RAS_AUTH_ATTRIBUTE_TYPE_raatAcctTerminateCause: RAS_AUTH_ATTRIBUTE_TYPE = 49
-RAS_AUTH_ATTRIBUTE_TYPE_raatAcctMultiSessionId: RAS_AUTH_ATTRIBUTE_TYPE = 50
-RAS_AUTH_ATTRIBUTE_TYPE_raatAcctLinkCount: RAS_AUTH_ATTRIBUTE_TYPE = 51
-RAS_AUTH_ATTRIBUTE_TYPE_raatAcctEventTimeStamp: RAS_AUTH_ATTRIBUTE_TYPE = 55
-RAS_AUTH_ATTRIBUTE_TYPE_raatMD5CHAPChallenge: RAS_AUTH_ATTRIBUTE_TYPE = 60
-RAS_AUTH_ATTRIBUTE_TYPE_raatNASPortType: RAS_AUTH_ATTRIBUTE_TYPE = 61
-RAS_AUTH_ATTRIBUTE_TYPE_raatPortLimit: RAS_AUTH_ATTRIBUTE_TYPE = 62
-RAS_AUTH_ATTRIBUTE_TYPE_raatLoginLATPort: RAS_AUTH_ATTRIBUTE_TYPE = 63
-RAS_AUTH_ATTRIBUTE_TYPE_raatTunnelType: RAS_AUTH_ATTRIBUTE_TYPE = 64
-RAS_AUTH_ATTRIBUTE_TYPE_raatTunnelMediumType: RAS_AUTH_ATTRIBUTE_TYPE = 65
-RAS_AUTH_ATTRIBUTE_TYPE_raatTunnelClientEndpoint: RAS_AUTH_ATTRIBUTE_TYPE = 66
-RAS_AUTH_ATTRIBUTE_TYPE_raatTunnelServerEndpoint: RAS_AUTH_ATTRIBUTE_TYPE = 67
-RAS_AUTH_ATTRIBUTE_TYPE_raatARAPPassword: RAS_AUTH_ATTRIBUTE_TYPE = 70
-RAS_AUTH_ATTRIBUTE_TYPE_raatARAPFeatures: RAS_AUTH_ATTRIBUTE_TYPE = 71
-RAS_AUTH_ATTRIBUTE_TYPE_raatARAPZoneAccess: RAS_AUTH_ATTRIBUTE_TYPE = 72
-RAS_AUTH_ATTRIBUTE_TYPE_raatARAPSecurity: RAS_AUTH_ATTRIBUTE_TYPE = 73
-RAS_AUTH_ATTRIBUTE_TYPE_raatARAPSecurityData: RAS_AUTH_ATTRIBUTE_TYPE = 74
-RAS_AUTH_ATTRIBUTE_TYPE_raatPasswordRetry: RAS_AUTH_ATTRIBUTE_TYPE = 75
-RAS_AUTH_ATTRIBUTE_TYPE_raatPrompt: RAS_AUTH_ATTRIBUTE_TYPE = 76
-RAS_AUTH_ATTRIBUTE_TYPE_raatConnectInfo: RAS_AUTH_ATTRIBUTE_TYPE = 77
-RAS_AUTH_ATTRIBUTE_TYPE_raatConfigurationToken: RAS_AUTH_ATTRIBUTE_TYPE = 78
-RAS_AUTH_ATTRIBUTE_TYPE_raatEAPMessage: RAS_AUTH_ATTRIBUTE_TYPE = 79
-RAS_AUTH_ATTRIBUTE_TYPE_raatSignature: RAS_AUTH_ATTRIBUTE_TYPE = 80
-RAS_AUTH_ATTRIBUTE_TYPE_raatARAPChallengeResponse: RAS_AUTH_ATTRIBUTE_TYPE = 84
-RAS_AUTH_ATTRIBUTE_TYPE_raatAcctInterimInterval: RAS_AUTH_ATTRIBUTE_TYPE = 85
-RAS_AUTH_ATTRIBUTE_TYPE_raatNASIPv6Address: RAS_AUTH_ATTRIBUTE_TYPE = 95
-RAS_AUTH_ATTRIBUTE_TYPE_raatFramedInterfaceId: RAS_AUTH_ATTRIBUTE_TYPE = 96
-RAS_AUTH_ATTRIBUTE_TYPE_raatFramedIPv6Prefix: RAS_AUTH_ATTRIBUTE_TYPE = 97
-RAS_AUTH_ATTRIBUTE_TYPE_raatLoginIPv6Host: RAS_AUTH_ATTRIBUTE_TYPE = 98
-RAS_AUTH_ATTRIBUTE_TYPE_raatFramedIPv6Route: RAS_AUTH_ATTRIBUTE_TYPE = 99
-RAS_AUTH_ATTRIBUTE_TYPE_raatFramedIPv6Pool: RAS_AUTH_ATTRIBUTE_TYPE = 100
-RAS_AUTH_ATTRIBUTE_TYPE_raatARAPGuestLogon: RAS_AUTH_ATTRIBUTE_TYPE = 8096
-RAS_AUTH_ATTRIBUTE_TYPE_raatCertificateOID: RAS_AUTH_ATTRIBUTE_TYPE = 8097
-RAS_AUTH_ATTRIBUTE_TYPE_raatEAPConfiguration: RAS_AUTH_ATTRIBUTE_TYPE = 8098
-RAS_AUTH_ATTRIBUTE_TYPE_raatPEAPEmbeddedEAPTypeId: RAS_AUTH_ATTRIBUTE_TYPE = 8099
-RAS_AUTH_ATTRIBUTE_TYPE_raatInnerEAPTypeId: RAS_AUTH_ATTRIBUTE_TYPE = 8099
-RAS_AUTH_ATTRIBUTE_TYPE_raatPEAPFastRoamedSession: RAS_AUTH_ATTRIBUTE_TYPE = 8100
-RAS_AUTH_ATTRIBUTE_TYPE_raatFastRoamedSession: RAS_AUTH_ATTRIBUTE_TYPE = 8100
-RAS_AUTH_ATTRIBUTE_TYPE_raatEAPTLV: RAS_AUTH_ATTRIBUTE_TYPE = 8102
-RAS_AUTH_ATTRIBUTE_TYPE_raatCredentialsChanged: RAS_AUTH_ATTRIBUTE_TYPE = 8103
-RAS_AUTH_ATTRIBUTE_TYPE_raatCertificateThumbprint: RAS_AUTH_ATTRIBUTE_TYPE = 8250
-RAS_AUTH_ATTRIBUTE_TYPE_raatPeerId: RAS_AUTH_ATTRIBUTE_TYPE = 9000
-RAS_AUTH_ATTRIBUTE_TYPE_raatServerId: RAS_AUTH_ATTRIBUTE_TYPE = 9001
-RAS_AUTH_ATTRIBUTE_TYPE_raatMethodId: RAS_AUTH_ATTRIBUTE_TYPE = 9002
-RAS_AUTH_ATTRIBUTE_TYPE_raatEMSK: RAS_AUTH_ATTRIBUTE_TYPE = 9003
-RAS_AUTH_ATTRIBUTE_TYPE_raatSessionId: RAS_AUTH_ATTRIBUTE_TYPE = 9004
-RAS_AUTH_ATTRIBUTE_TYPE_raatReserved: RAS_AUTH_ATTRIBUTE_TYPE = -1
+RAS_AUTH_ATTRIBUTE_TYPE_raatMinimum: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 0
+RAS_AUTH_ATTRIBUTE_TYPE_raatUserName: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 1
+RAS_AUTH_ATTRIBUTE_TYPE_raatUserPassword: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 2
+RAS_AUTH_ATTRIBUTE_TYPE_raatMD5CHAPPassword: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 3
+RAS_AUTH_ATTRIBUTE_TYPE_raatNASIPAddress: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 4
+RAS_AUTH_ATTRIBUTE_TYPE_raatNASPort: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 5
+RAS_AUTH_ATTRIBUTE_TYPE_raatServiceType: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 6
+RAS_AUTH_ATTRIBUTE_TYPE_raatFramedProtocol: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 7
+RAS_AUTH_ATTRIBUTE_TYPE_raatFramedIPAddress: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 8
+RAS_AUTH_ATTRIBUTE_TYPE_raatFramedIPNetmask: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 9
+RAS_AUTH_ATTRIBUTE_TYPE_raatFramedRouting: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 10
+RAS_AUTH_ATTRIBUTE_TYPE_raatFilterId: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 11
+RAS_AUTH_ATTRIBUTE_TYPE_raatFramedMTU: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 12
+RAS_AUTH_ATTRIBUTE_TYPE_raatFramedCompression: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 13
+RAS_AUTH_ATTRIBUTE_TYPE_raatLoginIPHost: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 14
+RAS_AUTH_ATTRIBUTE_TYPE_raatLoginService: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 15
+RAS_AUTH_ATTRIBUTE_TYPE_raatLoginTCPPort: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 16
+RAS_AUTH_ATTRIBUTE_TYPE_raatUnassigned17: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 17
+RAS_AUTH_ATTRIBUTE_TYPE_raatReplyMessage: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 18
+RAS_AUTH_ATTRIBUTE_TYPE_raatCallbackNumber: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 19
+RAS_AUTH_ATTRIBUTE_TYPE_raatCallbackId: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 20
+RAS_AUTH_ATTRIBUTE_TYPE_raatUnassigned21: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 21
+RAS_AUTH_ATTRIBUTE_TYPE_raatFramedRoute: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 22
+RAS_AUTH_ATTRIBUTE_TYPE_raatFramedIPXNetwork: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 23
+RAS_AUTH_ATTRIBUTE_TYPE_raatState: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 24
+RAS_AUTH_ATTRIBUTE_TYPE_raatClass: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 25
+RAS_AUTH_ATTRIBUTE_TYPE_raatVendorSpecific: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 26
+RAS_AUTH_ATTRIBUTE_TYPE_raatSessionTimeout: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 27
+RAS_AUTH_ATTRIBUTE_TYPE_raatIdleTimeout: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 28
+RAS_AUTH_ATTRIBUTE_TYPE_raatTerminationAction: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 29
+RAS_AUTH_ATTRIBUTE_TYPE_raatCalledStationId: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 30
+RAS_AUTH_ATTRIBUTE_TYPE_raatCallingStationId: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 31
+RAS_AUTH_ATTRIBUTE_TYPE_raatNASIdentifier: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 32
+RAS_AUTH_ATTRIBUTE_TYPE_raatProxyState: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 33
+RAS_AUTH_ATTRIBUTE_TYPE_raatLoginLATService: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 34
+RAS_AUTH_ATTRIBUTE_TYPE_raatLoginLATNode: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 35
+RAS_AUTH_ATTRIBUTE_TYPE_raatLoginLATGroup: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 36
+RAS_AUTH_ATTRIBUTE_TYPE_raatFramedAppleTalkLink: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 37
+RAS_AUTH_ATTRIBUTE_TYPE_raatFramedAppleTalkNetwork: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 38
+RAS_AUTH_ATTRIBUTE_TYPE_raatFramedAppleTalkZone: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 39
+RAS_AUTH_ATTRIBUTE_TYPE_raatAcctStatusType: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 40
+RAS_AUTH_ATTRIBUTE_TYPE_raatAcctDelayTime: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 41
+RAS_AUTH_ATTRIBUTE_TYPE_raatAcctInputOctets: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 42
+RAS_AUTH_ATTRIBUTE_TYPE_raatAcctOutputOctets: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 43
+RAS_AUTH_ATTRIBUTE_TYPE_raatAcctSessionId: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 44
+RAS_AUTH_ATTRIBUTE_TYPE_raatAcctAuthentic: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 45
+RAS_AUTH_ATTRIBUTE_TYPE_raatAcctSessionTime: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 46
+RAS_AUTH_ATTRIBUTE_TYPE_raatAcctInputPackets: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 47
+RAS_AUTH_ATTRIBUTE_TYPE_raatAcctOutputPackets: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 48
+RAS_AUTH_ATTRIBUTE_TYPE_raatAcctTerminateCause: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 49
+RAS_AUTH_ATTRIBUTE_TYPE_raatAcctMultiSessionId: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 50
+RAS_AUTH_ATTRIBUTE_TYPE_raatAcctLinkCount: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 51
+RAS_AUTH_ATTRIBUTE_TYPE_raatAcctEventTimeStamp: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 55
+RAS_AUTH_ATTRIBUTE_TYPE_raatMD5CHAPChallenge: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 60
+RAS_AUTH_ATTRIBUTE_TYPE_raatNASPortType: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 61
+RAS_AUTH_ATTRIBUTE_TYPE_raatPortLimit: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 62
+RAS_AUTH_ATTRIBUTE_TYPE_raatLoginLATPort: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 63
+RAS_AUTH_ATTRIBUTE_TYPE_raatTunnelType: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 64
+RAS_AUTH_ATTRIBUTE_TYPE_raatTunnelMediumType: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 65
+RAS_AUTH_ATTRIBUTE_TYPE_raatTunnelClientEndpoint: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 66
+RAS_AUTH_ATTRIBUTE_TYPE_raatTunnelServerEndpoint: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 67
+RAS_AUTH_ATTRIBUTE_TYPE_raatARAPPassword: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 70
+RAS_AUTH_ATTRIBUTE_TYPE_raatARAPFeatures: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 71
+RAS_AUTH_ATTRIBUTE_TYPE_raatARAPZoneAccess: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 72
+RAS_AUTH_ATTRIBUTE_TYPE_raatARAPSecurity: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 73
+RAS_AUTH_ATTRIBUTE_TYPE_raatARAPSecurityData: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 74
+RAS_AUTH_ATTRIBUTE_TYPE_raatPasswordRetry: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 75
+RAS_AUTH_ATTRIBUTE_TYPE_raatPrompt: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 76
+RAS_AUTH_ATTRIBUTE_TYPE_raatConnectInfo: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 77
+RAS_AUTH_ATTRIBUTE_TYPE_raatConfigurationToken: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 78
+RAS_AUTH_ATTRIBUTE_TYPE_raatEAPMessage: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 79
+RAS_AUTH_ATTRIBUTE_TYPE_raatSignature: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 80
+RAS_AUTH_ATTRIBUTE_TYPE_raatARAPChallengeResponse: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 84
+RAS_AUTH_ATTRIBUTE_TYPE_raatAcctInterimInterval: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 85
+RAS_AUTH_ATTRIBUTE_TYPE_raatNASIPv6Address: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 95
+RAS_AUTH_ATTRIBUTE_TYPE_raatFramedInterfaceId: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 96
+RAS_AUTH_ATTRIBUTE_TYPE_raatFramedIPv6Prefix: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 97
+RAS_AUTH_ATTRIBUTE_TYPE_raatLoginIPv6Host: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 98
+RAS_AUTH_ATTRIBUTE_TYPE_raatFramedIPv6Route: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 99
+RAS_AUTH_ATTRIBUTE_TYPE_raatFramedIPv6Pool: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 100
+RAS_AUTH_ATTRIBUTE_TYPE_raatARAPGuestLogon: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 8096
+RAS_AUTH_ATTRIBUTE_TYPE_raatCertificateOID: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 8097
+RAS_AUTH_ATTRIBUTE_TYPE_raatEAPConfiguration: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 8098
+RAS_AUTH_ATTRIBUTE_TYPE_raatPEAPEmbeddedEAPTypeId: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 8099
+RAS_AUTH_ATTRIBUTE_TYPE_raatInnerEAPTypeId: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 8099
+RAS_AUTH_ATTRIBUTE_TYPE_raatPEAPFastRoamedSession: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 8100
+RAS_AUTH_ATTRIBUTE_TYPE_raatFastRoamedSession: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 8100
+RAS_AUTH_ATTRIBUTE_TYPE_raatEAPTLV: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 8102
+RAS_AUTH_ATTRIBUTE_TYPE_raatCredentialsChanged: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 8103
+RAS_AUTH_ATTRIBUTE_TYPE_raatCertificateThumbprint: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 8250
+RAS_AUTH_ATTRIBUTE_TYPE_raatPeerId: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 9000
+RAS_AUTH_ATTRIBUTE_TYPE_raatServerId: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 9001
+RAS_AUTH_ATTRIBUTE_TYPE_raatMethodId: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 9002
+RAS_AUTH_ATTRIBUTE_TYPE_raatEMSK: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 9003
+RAS_AUTH_ATTRIBUTE_TYPE_raatSessionId: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = 9004
+RAS_AUTH_ATTRIBUTE_TYPE_raatReserved: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE = -1
+
+
 make_ready(__name__)

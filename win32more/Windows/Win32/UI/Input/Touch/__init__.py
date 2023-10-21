@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.UI.Input.Touch
@@ -29,14 +28,14 @@ class GESTURECONFIG(EasyCastStructure):
     dwWant: UInt32
     dwBlock: UInt32
 GESTURECONFIG_ID = UInt32
-GID_BEGIN: GESTURECONFIG_ID = 1
-GID_END: GESTURECONFIG_ID = 2
-GID_ZOOM: GESTURECONFIG_ID = 3
-GID_PAN: GESTURECONFIG_ID = 4
-GID_ROTATE: GESTURECONFIG_ID = 5
-GID_TWOFINGERTAP: GESTURECONFIG_ID = 6
-GID_PRESSANDTAP: GESTURECONFIG_ID = 7
-GID_ROLLOVER: GESTURECONFIG_ID = 7
+GID_BEGIN: win32more.Windows.Win32.UI.Input.Touch.GESTURECONFIG_ID = 1
+GID_END: win32more.Windows.Win32.UI.Input.Touch.GESTURECONFIG_ID = 2
+GID_ZOOM: win32more.Windows.Win32.UI.Input.Touch.GESTURECONFIG_ID = 3
+GID_PAN: win32more.Windows.Win32.UI.Input.Touch.GESTURECONFIG_ID = 4
+GID_ROTATE: win32more.Windows.Win32.UI.Input.Touch.GESTURECONFIG_ID = 5
+GID_TWOFINGERTAP: win32more.Windows.Win32.UI.Input.Touch.GESTURECONFIG_ID = 6
+GID_PRESSANDTAP: win32more.Windows.Win32.UI.Input.Touch.GESTURECONFIG_ID = 7
+GID_ROLLOVER: win32more.Windows.Win32.UI.Input.Touch.GESTURECONFIG_ID = 7
 class GESTUREINFO(EasyCastStructure):
     cbSize: UInt32
     dwFlags: UInt32
@@ -203,25 +202,25 @@ class IManipulationProcessor(ComPtr):
     def put_MinimumScaleRotateRadius(self, minRadius: Single) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 InertiaProcessor = Guid('{abb27087-4ce0-4e58-a0cb-e24df96814be}')
 MANIPULATION_PROCESSOR_MANIPULATIONS = Int32
-MANIPULATION_NONE: MANIPULATION_PROCESSOR_MANIPULATIONS = 0
-MANIPULATION_TRANSLATE_X: MANIPULATION_PROCESSOR_MANIPULATIONS = 1
-MANIPULATION_TRANSLATE_Y: MANIPULATION_PROCESSOR_MANIPULATIONS = 2
-MANIPULATION_SCALE: MANIPULATION_PROCESSOR_MANIPULATIONS = 4
-MANIPULATION_ROTATE: MANIPULATION_PROCESSOR_MANIPULATIONS = 8
-MANIPULATION_ALL: MANIPULATION_PROCESSOR_MANIPULATIONS = 15
+MANIPULATION_NONE: win32more.Windows.Win32.UI.Input.Touch.MANIPULATION_PROCESSOR_MANIPULATIONS = 0
+MANIPULATION_TRANSLATE_X: win32more.Windows.Win32.UI.Input.Touch.MANIPULATION_PROCESSOR_MANIPULATIONS = 1
+MANIPULATION_TRANSLATE_Y: win32more.Windows.Win32.UI.Input.Touch.MANIPULATION_PROCESSOR_MANIPULATIONS = 2
+MANIPULATION_SCALE: win32more.Windows.Win32.UI.Input.Touch.MANIPULATION_PROCESSOR_MANIPULATIONS = 4
+MANIPULATION_ROTATE: win32more.Windows.Win32.UI.Input.Touch.MANIPULATION_PROCESSOR_MANIPULATIONS = 8
+MANIPULATION_ALL: win32more.Windows.Win32.UI.Input.Touch.MANIPULATION_PROCESSOR_MANIPULATIONS = 15
 ManipulationProcessor = Guid('{597d4fb0-47fd-4aff-89b9-c6cfae8cf08e}')
 REGISTER_TOUCH_WINDOW_FLAGS = UInt32
-TWF_FINETOUCH: REGISTER_TOUCH_WINDOW_FLAGS = 1
-TWF_WANTPALM: REGISTER_TOUCH_WINDOW_FLAGS = 2
+TWF_FINETOUCH: win32more.Windows.Win32.UI.Input.Touch.REGISTER_TOUCH_WINDOW_FLAGS = 1
+TWF_WANTPALM: win32more.Windows.Win32.UI.Input.Touch.REGISTER_TOUCH_WINDOW_FLAGS = 2
 TOUCHEVENTF_FLAGS = UInt32
-TOUCHEVENTF_MOVE: TOUCHEVENTF_FLAGS = 1
-TOUCHEVENTF_DOWN: TOUCHEVENTF_FLAGS = 2
-TOUCHEVENTF_UP: TOUCHEVENTF_FLAGS = 4
-TOUCHEVENTF_INRANGE: TOUCHEVENTF_FLAGS = 8
-TOUCHEVENTF_PRIMARY: TOUCHEVENTF_FLAGS = 16
-TOUCHEVENTF_NOCOALESCE: TOUCHEVENTF_FLAGS = 32
-TOUCHEVENTF_PEN: TOUCHEVENTF_FLAGS = 64
-TOUCHEVENTF_PALM: TOUCHEVENTF_FLAGS = 128
+TOUCHEVENTF_MOVE: win32more.Windows.Win32.UI.Input.Touch.TOUCHEVENTF_FLAGS = 1
+TOUCHEVENTF_DOWN: win32more.Windows.Win32.UI.Input.Touch.TOUCHEVENTF_FLAGS = 2
+TOUCHEVENTF_UP: win32more.Windows.Win32.UI.Input.Touch.TOUCHEVENTF_FLAGS = 4
+TOUCHEVENTF_INRANGE: win32more.Windows.Win32.UI.Input.Touch.TOUCHEVENTF_FLAGS = 8
+TOUCHEVENTF_PRIMARY: win32more.Windows.Win32.UI.Input.Touch.TOUCHEVENTF_FLAGS = 16
+TOUCHEVENTF_NOCOALESCE: win32more.Windows.Win32.UI.Input.Touch.TOUCHEVENTF_FLAGS = 32
+TOUCHEVENTF_PEN: win32more.Windows.Win32.UI.Input.Touch.TOUCHEVENTF_FLAGS = 64
+TOUCHEVENTF_PALM: win32more.Windows.Win32.UI.Input.Touch.TOUCHEVENTF_FLAGS = 128
 class TOUCHINPUT(EasyCastStructure):
     x: Int32
     y: Int32
@@ -234,9 +233,9 @@ class TOUCHINPUT(EasyCastStructure):
     cxContact: UInt32
     cyContact: UInt32
 TOUCHINPUTMASKF_MASK = UInt32
-TOUCHINPUTMASKF_TIMEFROMSYSTEM: TOUCHINPUTMASKF_MASK = 1
-TOUCHINPUTMASKF_EXTRAINFO: TOUCHINPUTMASKF_MASK = 2
-TOUCHINPUTMASKF_CONTACTAREA: TOUCHINPUTMASKF_MASK = 4
+TOUCHINPUTMASKF_TIMEFROMSYSTEM: win32more.Windows.Win32.UI.Input.Touch.TOUCHINPUTMASKF_MASK = 1
+TOUCHINPUTMASKF_EXTRAINFO: win32more.Windows.Win32.UI.Input.Touch.TOUCHINPUTMASKF_MASK = 2
+TOUCHINPUTMASKF_CONTACTAREA: win32more.Windows.Win32.UI.Input.Touch.TOUCHINPUTMASKF_MASK = 4
 class _IManipulationEvents(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{4f62c8da-9c53-4b22-93df-927a862bbb03}')
@@ -246,4 +245,6 @@ class _IManipulationEvents(ComPtr):
     def ManipulationDelta(self, x: Single, y: Single, translationDeltaX: Single, translationDeltaY: Single, scaleDelta: Single, expansionDelta: Single, rotationDelta: Single, cumulativeTranslationX: Single, cumulativeTranslationY: Single, cumulativeScale: Single, cumulativeExpansion: Single, cumulativeRotation: Single) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def ManipulationCompleted(self, x: Single, y: Single, cumulativeTranslationX: Single, cumulativeTranslationY: Single, cumulativeScale: Single, cumulativeExpansion: Single, cumulativeRotation: Single) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+
+
 make_ready(__name__)

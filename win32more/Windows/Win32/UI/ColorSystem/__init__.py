@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.System.Com
@@ -332,47 +331,47 @@ def ColorProfileGetDisplayDefault(scope: win32more.Windows.Win32.UI.ColorSystem.
 @winfunctype('mscms.dll')
 def ColorProfileGetDisplayUserScope(targetAdapterID: win32more.Windows.Win32.Foundation.LUID, sourceID: UInt32, scope: POINTER(win32more.Windows.Win32.UI.ColorSystem.WCS_PROFILE_MANAGEMENT_SCOPE)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 BMFORMAT = Int32
-BM_x555RGB: BMFORMAT = 0
-BM_x555XYZ: BMFORMAT = 257
-BM_x555Yxy: BMFORMAT = 258
-BM_x555Lab: BMFORMAT = 259
-BM_x555G3CH: BMFORMAT = 260
-BM_RGBTRIPLETS: BMFORMAT = 2
-BM_BGRTRIPLETS: BMFORMAT = 4
-BM_XYZTRIPLETS: BMFORMAT = 513
-BM_YxyTRIPLETS: BMFORMAT = 514
-BM_LabTRIPLETS: BMFORMAT = 515
-BM_G3CHTRIPLETS: BMFORMAT = 516
-BM_5CHANNEL: BMFORMAT = 517
-BM_6CHANNEL: BMFORMAT = 518
-BM_7CHANNEL: BMFORMAT = 519
-BM_8CHANNEL: BMFORMAT = 520
-BM_GRAY: BMFORMAT = 521
-BM_xRGBQUADS: BMFORMAT = 8
-BM_xBGRQUADS: BMFORMAT = 16
-BM_xG3CHQUADS: BMFORMAT = 772
-BM_KYMCQUADS: BMFORMAT = 773
-BM_CMYKQUADS: BMFORMAT = 32
-BM_10b_RGB: BMFORMAT = 9
-BM_10b_XYZ: BMFORMAT = 1025
-BM_10b_Yxy: BMFORMAT = 1026
-BM_10b_Lab: BMFORMAT = 1027
-BM_10b_G3CH: BMFORMAT = 1028
-BM_NAMED_INDEX: BMFORMAT = 1029
-BM_16b_RGB: BMFORMAT = 10
-BM_16b_XYZ: BMFORMAT = 1281
-BM_16b_Yxy: BMFORMAT = 1282
-BM_16b_Lab: BMFORMAT = 1283
-BM_16b_G3CH: BMFORMAT = 1284
-BM_16b_GRAY: BMFORMAT = 1285
-BM_565RGB: BMFORMAT = 1
-BM_32b_scRGB: BMFORMAT = 1537
-BM_32b_scARGB: BMFORMAT = 1538
-BM_S2DOT13FIXED_scRGB: BMFORMAT = 1539
-BM_S2DOT13FIXED_scARGB: BMFORMAT = 1540
-BM_R10G10B10A2: BMFORMAT = 1793
-BM_R10G10B10A2_XR: BMFORMAT = 1794
-BM_R16G16B16A16_FLOAT: BMFORMAT = 1795
+BM_x555RGB: win32more.Windows.Win32.UI.ColorSystem.BMFORMAT = 0
+BM_x555XYZ: win32more.Windows.Win32.UI.ColorSystem.BMFORMAT = 257
+BM_x555Yxy: win32more.Windows.Win32.UI.ColorSystem.BMFORMAT = 258
+BM_x555Lab: win32more.Windows.Win32.UI.ColorSystem.BMFORMAT = 259
+BM_x555G3CH: win32more.Windows.Win32.UI.ColorSystem.BMFORMAT = 260
+BM_RGBTRIPLETS: win32more.Windows.Win32.UI.ColorSystem.BMFORMAT = 2
+BM_BGRTRIPLETS: win32more.Windows.Win32.UI.ColorSystem.BMFORMAT = 4
+BM_XYZTRIPLETS: win32more.Windows.Win32.UI.ColorSystem.BMFORMAT = 513
+BM_YxyTRIPLETS: win32more.Windows.Win32.UI.ColorSystem.BMFORMAT = 514
+BM_LabTRIPLETS: win32more.Windows.Win32.UI.ColorSystem.BMFORMAT = 515
+BM_G3CHTRIPLETS: win32more.Windows.Win32.UI.ColorSystem.BMFORMAT = 516
+BM_5CHANNEL: win32more.Windows.Win32.UI.ColorSystem.BMFORMAT = 517
+BM_6CHANNEL: win32more.Windows.Win32.UI.ColorSystem.BMFORMAT = 518
+BM_7CHANNEL: win32more.Windows.Win32.UI.ColorSystem.BMFORMAT = 519
+BM_8CHANNEL: win32more.Windows.Win32.UI.ColorSystem.BMFORMAT = 520
+BM_GRAY: win32more.Windows.Win32.UI.ColorSystem.BMFORMAT = 521
+BM_xRGBQUADS: win32more.Windows.Win32.UI.ColorSystem.BMFORMAT = 8
+BM_xBGRQUADS: win32more.Windows.Win32.UI.ColorSystem.BMFORMAT = 16
+BM_xG3CHQUADS: win32more.Windows.Win32.UI.ColorSystem.BMFORMAT = 772
+BM_KYMCQUADS: win32more.Windows.Win32.UI.ColorSystem.BMFORMAT = 773
+BM_CMYKQUADS: win32more.Windows.Win32.UI.ColorSystem.BMFORMAT = 32
+BM_10b_RGB: win32more.Windows.Win32.UI.ColorSystem.BMFORMAT = 9
+BM_10b_XYZ: win32more.Windows.Win32.UI.ColorSystem.BMFORMAT = 1025
+BM_10b_Yxy: win32more.Windows.Win32.UI.ColorSystem.BMFORMAT = 1026
+BM_10b_Lab: win32more.Windows.Win32.UI.ColorSystem.BMFORMAT = 1027
+BM_10b_G3CH: win32more.Windows.Win32.UI.ColorSystem.BMFORMAT = 1028
+BM_NAMED_INDEX: win32more.Windows.Win32.UI.ColorSystem.BMFORMAT = 1029
+BM_16b_RGB: win32more.Windows.Win32.UI.ColorSystem.BMFORMAT = 10
+BM_16b_XYZ: win32more.Windows.Win32.UI.ColorSystem.BMFORMAT = 1281
+BM_16b_Yxy: win32more.Windows.Win32.UI.ColorSystem.BMFORMAT = 1282
+BM_16b_Lab: win32more.Windows.Win32.UI.ColorSystem.BMFORMAT = 1283
+BM_16b_G3CH: win32more.Windows.Win32.UI.ColorSystem.BMFORMAT = 1284
+BM_16b_GRAY: win32more.Windows.Win32.UI.ColorSystem.BMFORMAT = 1285
+BM_565RGB: win32more.Windows.Win32.UI.ColorSystem.BMFORMAT = 1
+BM_32b_scRGB: win32more.Windows.Win32.UI.ColorSystem.BMFORMAT = 1537
+BM_32b_scARGB: win32more.Windows.Win32.UI.ColorSystem.BMFORMAT = 1538
+BM_S2DOT13FIXED_scRGB: win32more.Windows.Win32.UI.ColorSystem.BMFORMAT = 1539
+BM_S2DOT13FIXED_scARGB: win32more.Windows.Win32.UI.ColorSystem.BMFORMAT = 1540
+BM_R10G10B10A2: win32more.Windows.Win32.UI.ColorSystem.BMFORMAT = 1793
+BM_R10G10B10A2_XR: win32more.Windows.Win32.UI.ColorSystem.BMFORMAT = 1794
+BM_R16G16B16A16_FLOAT: win32more.Windows.Win32.UI.ColorSystem.BMFORMAT = 1795
 class BlackInformation(EasyCastStructure):
     fBlackOnly: win32more.Windows.Win32.Foundation.BOOL
     blackWeight: Single
@@ -396,13 +395,13 @@ class COLOR(EasyCastUnion):
         reserved1: UInt32
         reserved2: VoidPtr
 COLORDATATYPE = Int32
-COLOR_BYTE: COLORDATATYPE = 1
-COLOR_WORD: COLORDATATYPE = 2
-COLOR_FLOAT: COLORDATATYPE = 3
-COLOR_S2DOT13FIXED: COLORDATATYPE = 4
-COLOR_10b_R10G10B10A2: COLORDATATYPE = 5
-COLOR_10b_R10G10B10A2_XR: COLORDATATYPE = 6
-COLOR_FLOAT16: COLORDATATYPE = 7
+COLOR_BYTE: win32more.Windows.Win32.UI.ColorSystem.COLORDATATYPE = 1
+COLOR_WORD: win32more.Windows.Win32.UI.ColorSystem.COLORDATATYPE = 2
+COLOR_FLOAT: win32more.Windows.Win32.UI.ColorSystem.COLORDATATYPE = 3
+COLOR_S2DOT13FIXED: win32more.Windows.Win32.UI.ColorSystem.COLORDATATYPE = 4
+COLOR_10b_R10G10B10A2: win32more.Windows.Win32.UI.ColorSystem.COLORDATATYPE = 5
+COLOR_10b_R10G10B10A2_XR: win32more.Windows.Win32.UI.ColorSystem.COLORDATATYPE = 6
+COLOR_FLOAT16: win32more.Windows.Win32.UI.ColorSystem.COLORDATATYPE = 7
 class COLORMATCHSETUPA(EasyCastStructure):
     dwSize: UInt32
     dwVersion: UInt32
@@ -444,37 +443,37 @@ class COLORMATCHSETUPW(EasyCastStructure):
     lpfnApplyCallback: win32more.Windows.Win32.UI.ColorSystem.PCMSCALLBACKW
     lParamApplyCallback: win32more.Windows.Win32.Foundation.LPARAM
 COLORPROFILESUBTYPE = Int32
-CPST_PERCEPTUAL: COLORPROFILESUBTYPE = 0
-CPST_RELATIVE_COLORIMETRIC: COLORPROFILESUBTYPE = 1
-CPST_SATURATION: COLORPROFILESUBTYPE = 2
-CPST_ABSOLUTE_COLORIMETRIC: COLORPROFILESUBTYPE = 3
-CPST_NONE: COLORPROFILESUBTYPE = 4
-CPST_RGB_WORKING_SPACE: COLORPROFILESUBTYPE = 5
-CPST_CUSTOM_WORKING_SPACE: COLORPROFILESUBTYPE = 6
-CPST_STANDARD_DISPLAY_COLOR_MODE: COLORPROFILESUBTYPE = 7
-CPST_EXTENDED_DISPLAY_COLOR_MODE: COLORPROFILESUBTYPE = 8
+CPST_PERCEPTUAL: win32more.Windows.Win32.UI.ColorSystem.COLORPROFILESUBTYPE = 0
+CPST_RELATIVE_COLORIMETRIC: win32more.Windows.Win32.UI.ColorSystem.COLORPROFILESUBTYPE = 1
+CPST_SATURATION: win32more.Windows.Win32.UI.ColorSystem.COLORPROFILESUBTYPE = 2
+CPST_ABSOLUTE_COLORIMETRIC: win32more.Windows.Win32.UI.ColorSystem.COLORPROFILESUBTYPE = 3
+CPST_NONE: win32more.Windows.Win32.UI.ColorSystem.COLORPROFILESUBTYPE = 4
+CPST_RGB_WORKING_SPACE: win32more.Windows.Win32.UI.ColorSystem.COLORPROFILESUBTYPE = 5
+CPST_CUSTOM_WORKING_SPACE: win32more.Windows.Win32.UI.ColorSystem.COLORPROFILESUBTYPE = 6
+CPST_STANDARD_DISPLAY_COLOR_MODE: win32more.Windows.Win32.UI.ColorSystem.COLORPROFILESUBTYPE = 7
+CPST_EXTENDED_DISPLAY_COLOR_MODE: win32more.Windows.Win32.UI.ColorSystem.COLORPROFILESUBTYPE = 8
 COLORPROFILETYPE = Int32
-CPT_ICC: COLORPROFILETYPE = 0
-CPT_DMP: COLORPROFILETYPE = 1
-CPT_CAMP: COLORPROFILETYPE = 2
-CPT_GMMP: COLORPROFILETYPE = 3
+CPT_ICC: win32more.Windows.Win32.UI.ColorSystem.COLORPROFILETYPE = 0
+CPT_DMP: win32more.Windows.Win32.UI.ColorSystem.COLORPROFILETYPE = 1
+CPT_CAMP: win32more.Windows.Win32.UI.ColorSystem.COLORPROFILETYPE = 2
+CPT_GMMP: win32more.Windows.Win32.UI.ColorSystem.COLORPROFILETYPE = 3
 COLORTYPE = Int32
-COLOR_GRAY: COLORTYPE = 1
-COLOR_RGB: COLORTYPE = 2
-COLOR_XYZ: COLORTYPE = 3
-COLOR_Yxy: COLORTYPE = 4
-COLOR_Lab: COLORTYPE = 5
-COLOR_3_CHANNEL: COLORTYPE = 6
-COLOR_CMYK: COLORTYPE = 7
-COLOR_5_CHANNEL: COLORTYPE = 8
-COLOR_6_CHANNEL: COLORTYPE = 9
-COLOR_7_CHANNEL: COLORTYPE = 10
-COLOR_8_CHANNEL: COLORTYPE = 11
-COLOR_NAMED: COLORTYPE = 12
+COLOR_GRAY: win32more.Windows.Win32.UI.ColorSystem.COLORTYPE = 1
+COLOR_RGB: win32more.Windows.Win32.UI.ColorSystem.COLORTYPE = 2
+COLOR_XYZ: win32more.Windows.Win32.UI.ColorSystem.COLORTYPE = 3
+COLOR_Yxy: win32more.Windows.Win32.UI.ColorSystem.COLORTYPE = 4
+COLOR_Lab: win32more.Windows.Win32.UI.ColorSystem.COLORTYPE = 5
+COLOR_3_CHANNEL: win32more.Windows.Win32.UI.ColorSystem.COLORTYPE = 6
+COLOR_CMYK: win32more.Windows.Win32.UI.ColorSystem.COLORTYPE = 7
+COLOR_5_CHANNEL: win32more.Windows.Win32.UI.ColorSystem.COLORTYPE = 8
+COLOR_6_CHANNEL: win32more.Windows.Win32.UI.ColorSystem.COLORTYPE = 9
+COLOR_7_CHANNEL: win32more.Windows.Win32.UI.ColorSystem.COLORTYPE = 10
+COLOR_8_CHANNEL: win32more.Windows.Win32.UI.ColorSystem.COLORTYPE = 11
+COLOR_NAMED: win32more.Windows.Win32.UI.ColorSystem.COLORTYPE = 12
 COLOR_MATCH_TO_TARGET_ACTION = UInt32
-CS_ENABLE: COLOR_MATCH_TO_TARGET_ACTION = 1
-CS_DISABLE: COLOR_MATCH_TO_TARGET_ACTION = 2
-CS_DELETE_TRANSFORM: COLOR_MATCH_TO_TARGET_ACTION = 3
+CS_ENABLE: win32more.Windows.Win32.UI.ColorSystem.COLOR_MATCH_TO_TARGET_ACTION = 1
+CS_DISABLE: win32more.Windows.Win32.UI.ColorSystem.COLOR_MATCH_TO_TARGET_ACTION = 2
+CS_DELETE_TRANSFORM: win32more.Windows.Win32.UI.ColorSystem.COLOR_MATCH_TO_TARGET_ACTION = 3
 class EMRCREATECOLORSPACE(EasyCastStructure):
     emr: win32more.Windows.Win32.Graphics.Gdi.EMR
     ihCS: UInt32
@@ -558,18 +557,18 @@ def ICMENUMPROCA(param0: win32more.Windows.Win32.Foundation.PSTR, param1: win32m
 @winfunctype_pointer
 def ICMENUMPROCW(param0: win32more.Windows.Win32.Foundation.PWSTR, param1: win32more.Windows.Win32.Foundation.LPARAM) -> Int32: ...
 ICM_COMMAND = UInt32
-ICM_ADDPROFILE: ICM_COMMAND = 1
-ICM_DELETEPROFILE: ICM_COMMAND = 2
-ICM_QUERYPROFILE: ICM_COMMAND = 3
-ICM_SETDEFAULTPROFILE: ICM_COMMAND = 4
-ICM_REGISTERICMATCHER: ICM_COMMAND = 5
-ICM_UNREGISTERICMATCHER: ICM_COMMAND = 6
-ICM_QUERYMATCH: ICM_COMMAND = 7
+ICM_ADDPROFILE: win32more.Windows.Win32.UI.ColorSystem.ICM_COMMAND = 1
+ICM_DELETEPROFILE: win32more.Windows.Win32.UI.ColorSystem.ICM_COMMAND = 2
+ICM_QUERYPROFILE: win32more.Windows.Win32.UI.ColorSystem.ICM_COMMAND = 3
+ICM_SETDEFAULTPROFILE: win32more.Windows.Win32.UI.ColorSystem.ICM_COMMAND = 4
+ICM_REGISTERICMATCHER: win32more.Windows.Win32.UI.ColorSystem.ICM_COMMAND = 5
+ICM_UNREGISTERICMATCHER: win32more.Windows.Win32.UI.ColorSystem.ICM_COMMAND = 6
+ICM_QUERYMATCH: win32more.Windows.Win32.UI.ColorSystem.ICM_COMMAND = 7
 ICM_MODE = Int32
-ICM_OFF: ICM_MODE = 1
-ICM_ON: ICM_MODE = 2
-ICM_QUERY: ICM_MODE = 3
-ICM_DONE_OUTSIDEDC: ICM_MODE = 4
+ICM_OFF: win32more.Windows.Win32.UI.ColorSystem.ICM_MODE = 1
+ICM_ON: win32more.Windows.Win32.UI.ColorSystem.ICM_MODE = 2
+ICM_QUERY: win32more.Windows.Win32.UI.ColorSystem.ICM_MODE = 3
+ICM_DONE_OUTSIDEDC: win32more.Windows.Win32.UI.ColorSystem.ICM_MODE = 4
 class IDeviceModelPlugIn(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{1cd63475-07c4-46fe-a903-d655316d11fd}')
@@ -695,8 +694,8 @@ class RGBCOLOR(EasyCastStructure):
     green: UInt16
     blue: UInt16
 WCS_DEVICE_CAPABILITIES_TYPE = Int32
-WCS_DEVICE_CAPABILITIES_TYPE_VideoCardGammaTable: WCS_DEVICE_CAPABILITIES_TYPE = 1
-WCS_DEVICE_CAPABILITIES_TYPE_MicrosoftHardwareColorV2: WCS_DEVICE_CAPABILITIES_TYPE = 2
+WCS_DEVICE_CAPABILITIES_TYPE_VideoCardGammaTable: win32more.Windows.Win32.UI.ColorSystem.WCS_DEVICE_CAPABILITIES_TYPE = 1
+WCS_DEVICE_CAPABILITIES_TYPE_MicrosoftHardwareColorV2: win32more.Windows.Win32.UI.ColorSystem.WCS_DEVICE_CAPABILITIES_TYPE = 2
 class WCS_DEVICE_MHC2_CAPABILITIES(EasyCastStructure):
     Size: UInt32
     SupportsMhc2: win32more.Windows.Win32.Foundation.BOOL
@@ -707,8 +706,8 @@ class WCS_DEVICE_VCGT_CAPABILITIES(EasyCastStructure):
     Size: UInt32
     SupportsVcgt: win32more.Windows.Win32.Foundation.BOOL
 WCS_PROFILE_MANAGEMENT_SCOPE = Int32
-WCS_PROFILE_MANAGEMENT_SCOPE_SYSTEM_WIDE: WCS_PROFILE_MANAGEMENT_SCOPE = 0
-WCS_PROFILE_MANAGEMENT_SCOPE_CURRENT_USER: WCS_PROFILE_MANAGEMENT_SCOPE = 1
+WCS_PROFILE_MANAGEMENT_SCOPE_SYSTEM_WIDE: win32more.Windows.Win32.UI.ColorSystem.WCS_PROFILE_MANAGEMENT_SCOPE = 0
+WCS_PROFILE_MANAGEMENT_SCOPE_CURRENT_USER: win32more.Windows.Win32.UI.ColorSystem.WCS_PROFILE_MANAGEMENT_SCOPE = 1
 class XYZCOLOR(EasyCastStructure):
     X: UInt16
     Y: UInt16
@@ -721,4 +720,6 @@ class YxyCOLOR(EasyCastStructure):
     Y: UInt16
     x: UInt16
     y: UInt16
+
+
 make_ready(__name__)

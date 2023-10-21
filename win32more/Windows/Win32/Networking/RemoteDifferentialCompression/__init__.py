@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Networking.RemoteDifferentialCompression
 import win32more.Windows.Win32.System.Com
@@ -33,8 +32,8 @@ class FindSimilarFileIndexResults(EasyCastStructure):
     m_MatchCount: UInt32
 FindSimilarResults = Guid('{96236a93-9dbc-11da-9e3f-0011114ae311}')
 GeneratorParametersType = Int32
-RDCGENTYPE_Unused: GeneratorParametersType = 0
-RDCGENTYPE_FilterMax: GeneratorParametersType = 1
+RDCGENTYPE_Unused: win32more.Windows.Win32.Networking.RemoteDifferentialCompression.GeneratorParametersType = 0
+RDCGENTYPE_FilterMax: win32more.Windows.Win32.Networking.RemoteDifferentialCompression.GeneratorParametersType = 1
 class IFindSimilarResults(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{96236a81-9dbc-11da-9e3f-0011114ae311}')
@@ -215,35 +214,35 @@ class ISimilarityTraitsTable(ComPtr):
     @commethod(9)
     def GetLastIndex(self, fileIndex: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 RDC_ErrorCode = Int32
-RDC_NoError: RDC_ErrorCode = 0
-RDC_HeaderVersionNewer: RDC_ErrorCode = 1
-RDC_HeaderVersionOlder: RDC_ErrorCode = 2
-RDC_HeaderMissingOrCorrupt: RDC_ErrorCode = 3
-RDC_HeaderWrongType: RDC_ErrorCode = 4
-RDC_DataMissingOrCorrupt: RDC_ErrorCode = 5
-RDC_DataTooManyRecords: RDC_ErrorCode = 6
-RDC_FileChecksumMismatch: RDC_ErrorCode = 7
-RDC_ApplicationError: RDC_ErrorCode = 8
-RDC_Aborted: RDC_ErrorCode = 9
-RDC_Win32Error: RDC_ErrorCode = 10
+RDC_NoError: win32more.Windows.Win32.Networking.RemoteDifferentialCompression.RDC_ErrorCode = 0
+RDC_HeaderVersionNewer: win32more.Windows.Win32.Networking.RemoteDifferentialCompression.RDC_ErrorCode = 1
+RDC_HeaderVersionOlder: win32more.Windows.Win32.Networking.RemoteDifferentialCompression.RDC_ErrorCode = 2
+RDC_HeaderMissingOrCorrupt: win32more.Windows.Win32.Networking.RemoteDifferentialCompression.RDC_ErrorCode = 3
+RDC_HeaderWrongType: win32more.Windows.Win32.Networking.RemoteDifferentialCompression.RDC_ErrorCode = 4
+RDC_DataMissingOrCorrupt: win32more.Windows.Win32.Networking.RemoteDifferentialCompression.RDC_ErrorCode = 5
+RDC_DataTooManyRecords: win32more.Windows.Win32.Networking.RemoteDifferentialCompression.RDC_ErrorCode = 6
+RDC_FileChecksumMismatch: win32more.Windows.Win32.Networking.RemoteDifferentialCompression.RDC_ErrorCode = 7
+RDC_ApplicationError: win32more.Windows.Win32.Networking.RemoteDifferentialCompression.RDC_ErrorCode = 8
+RDC_Aborted: win32more.Windows.Win32.Networking.RemoteDifferentialCompression.RDC_ErrorCode = 9
+RDC_Win32Error: win32more.Windows.Win32.Networking.RemoteDifferentialCompression.RDC_ErrorCode = 10
 class RdcBufferPointer(EasyCastStructure):
     m_Size: UInt32
     m_Used: UInt32
     m_Data: POINTER(Byte)
 RdcComparator = Guid('{96236a8b-9dbc-11da-9e3f-0011114ae311}')
 RdcCreatedTables = Int32
-RDCTABLE_InvalidOrUnknown: RdcCreatedTables = 0
-RDCTABLE_Existing: RdcCreatedTables = 1
-RDCTABLE_New: RdcCreatedTables = 2
+RDCTABLE_InvalidOrUnknown: win32more.Windows.Win32.Networking.RemoteDifferentialCompression.RdcCreatedTables = 0
+RDCTABLE_Existing: win32more.Windows.Win32.Networking.RemoteDifferentialCompression.RdcCreatedTables = 1
+RDCTABLE_New: win32more.Windows.Win32.Networking.RemoteDifferentialCompression.RdcCreatedTables = 2
 RdcFileReader = Guid('{96236a89-9dbc-11da-9e3f-0011114ae311}')
 RdcGenerator = Guid('{96236a88-9dbc-11da-9e3f-0011114ae311}')
 RdcGeneratorFilterMaxParameters = Guid('{96236a87-9dbc-11da-9e3f-0011114ae311}')
 RdcGeneratorParameters = Guid('{96236a86-9dbc-11da-9e3f-0011114ae311}')
 RdcLibrary = Guid('{96236a85-9dbc-11da-9e3f-0011114ae311}')
 RdcMappingAccessMode = Int32
-RDCMAPPING_Undefined: RdcMappingAccessMode = 0
-RDCMAPPING_ReadOnly: RdcMappingAccessMode = 1
-RDCMAPPING_ReadWrite: RdcMappingAccessMode = 2
+RDCMAPPING_Undefined: win32more.Windows.Win32.Networking.RemoteDifferentialCompression.RdcMappingAccessMode = 0
+RDCMAPPING_ReadOnly: win32more.Windows.Win32.Networking.RemoteDifferentialCompression.RdcMappingAccessMode = 1
+RDCMAPPING_ReadWrite: win32more.Windows.Win32.Networking.RemoteDifferentialCompression.RdcMappingAccessMode = 2
 class RdcNeed(EasyCastStructure):
     m_BlockType: win32more.Windows.Win32.Networking.RemoteDifferentialCompression.RdcNeedType
     m_FileOffset: UInt64
@@ -253,10 +252,10 @@ class RdcNeedPointer(EasyCastStructure):
     m_Used: UInt32
     m_Data: POINTER(win32more.Windows.Win32.Networking.RemoteDifferentialCompression.RdcNeed)
 RdcNeedType = Int32
-RDCNEED_SOURCE: RdcNeedType = 0
-RDCNEED_TARGET: RdcNeedType = 1
-RDCNEED_SEED: RdcNeedType = 2
-RDCNEED_SEED_MAX: RdcNeedType = 255
+RDCNEED_SOURCE: win32more.Windows.Win32.Networking.RemoteDifferentialCompression.RdcNeedType = 0
+RDCNEED_TARGET: win32more.Windows.Win32.Networking.RemoteDifferentialCompression.RdcNeedType = 1
+RDCNEED_SEED: win32more.Windows.Win32.Networking.RemoteDifferentialCompression.RdcNeedType = 2
+RDCNEED_SEED_MAX: win32more.Windows.Win32.Networking.RemoteDifferentialCompression.RdcNeedType = 255
 class RdcSignature(EasyCastStructure):
     m_Signature: Byte * 16
     m_BlockLength: UInt16
@@ -283,4 +282,6 @@ SimilarityTableDumpState = Guid('{96236a8e-9dbc-11da-9e3f-0011114ae311}')
 SimilarityTraitsMappedView = Guid('{96236a95-9dbc-11da-9e3f-0011114ae311}')
 SimilarityTraitsMapping = Guid('{96236a94-9dbc-11da-9e3f-0011114ae311}')
 SimilarityTraitsTable = Guid('{96236a8f-9dbc-11da-9e3f-0011114ae311}')
+
+
 make_ready(__name__)

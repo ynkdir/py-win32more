@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.UpdateAssessment
@@ -25,22 +24,24 @@ class UpdateAssessment(EasyCastStructure):
     impact: win32more.Windows.Win32.System.UpdateAssessment.UpdateImpactLevel
     daysOutOfDate: UInt32
 UpdateAssessmentStatus = Int32
-UpdateAssessmentStatus_Latest: UpdateAssessmentStatus = 0
-UpdateAssessmentStatus_NotLatestSoftRestriction: UpdateAssessmentStatus = 1
-UpdateAssessmentStatus_NotLatestHardRestriction: UpdateAssessmentStatus = 2
-UpdateAssessmentStatus_NotLatestEndOfSupport: UpdateAssessmentStatus = 3
-UpdateAssessmentStatus_NotLatestServicingTrain: UpdateAssessmentStatus = 4
-UpdateAssessmentStatus_NotLatestDeferredFeature: UpdateAssessmentStatus = 5
-UpdateAssessmentStatus_NotLatestDeferredQuality: UpdateAssessmentStatus = 6
-UpdateAssessmentStatus_NotLatestPausedFeature: UpdateAssessmentStatus = 7
-UpdateAssessmentStatus_NotLatestPausedQuality: UpdateAssessmentStatus = 8
-UpdateAssessmentStatus_NotLatestManaged: UpdateAssessmentStatus = 9
-UpdateAssessmentStatus_NotLatestUnknown: UpdateAssessmentStatus = 10
-UpdateAssessmentStatus_NotLatestTargetedVersion: UpdateAssessmentStatus = 11
+UpdateAssessmentStatus_Latest: win32more.Windows.Win32.System.UpdateAssessment.UpdateAssessmentStatus = 0
+UpdateAssessmentStatus_NotLatestSoftRestriction: win32more.Windows.Win32.System.UpdateAssessment.UpdateAssessmentStatus = 1
+UpdateAssessmentStatus_NotLatestHardRestriction: win32more.Windows.Win32.System.UpdateAssessment.UpdateAssessmentStatus = 2
+UpdateAssessmentStatus_NotLatestEndOfSupport: win32more.Windows.Win32.System.UpdateAssessment.UpdateAssessmentStatus = 3
+UpdateAssessmentStatus_NotLatestServicingTrain: win32more.Windows.Win32.System.UpdateAssessment.UpdateAssessmentStatus = 4
+UpdateAssessmentStatus_NotLatestDeferredFeature: win32more.Windows.Win32.System.UpdateAssessment.UpdateAssessmentStatus = 5
+UpdateAssessmentStatus_NotLatestDeferredQuality: win32more.Windows.Win32.System.UpdateAssessment.UpdateAssessmentStatus = 6
+UpdateAssessmentStatus_NotLatestPausedFeature: win32more.Windows.Win32.System.UpdateAssessment.UpdateAssessmentStatus = 7
+UpdateAssessmentStatus_NotLatestPausedQuality: win32more.Windows.Win32.System.UpdateAssessment.UpdateAssessmentStatus = 8
+UpdateAssessmentStatus_NotLatestManaged: win32more.Windows.Win32.System.UpdateAssessment.UpdateAssessmentStatus = 9
+UpdateAssessmentStatus_NotLatestUnknown: win32more.Windows.Win32.System.UpdateAssessment.UpdateAssessmentStatus = 10
+UpdateAssessmentStatus_NotLatestTargetedVersion: win32more.Windows.Win32.System.UpdateAssessment.UpdateAssessmentStatus = 11
 UpdateImpactLevel = Int32
-UpdateImpactLevel_None: UpdateImpactLevel = 0
-UpdateImpactLevel_Low: UpdateImpactLevel = 1
-UpdateImpactLevel_Medium: UpdateImpactLevel = 2
-UpdateImpactLevel_High: UpdateImpactLevel = 3
+UpdateImpactLevel_None: win32more.Windows.Win32.System.UpdateAssessment.UpdateImpactLevel = 0
+UpdateImpactLevel_Low: win32more.Windows.Win32.System.UpdateAssessment.UpdateImpactLevel = 1
+UpdateImpactLevel_Medium: win32more.Windows.Win32.System.UpdateAssessment.UpdateImpactLevel = 2
+UpdateImpactLevel_High: win32more.Windows.Win32.System.UpdateAssessment.UpdateImpactLevel = 3
 WaaSAssessor = Guid('{098ef871-fa9f-46af-8958-c083515d7c9c}')
+
+
 make_ready(__name__)

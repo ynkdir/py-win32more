@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.Com.StructuredStorage
@@ -18,15 +17,15 @@ REC_E_NORESIDUES: win32more.Windows.Win32.Foundation.HRESULT = -2147217406
 REC_E_TOODIFFERENT: win32more.Windows.Win32.Foundation.HRESULT = -2147217405
 REC_E_INEEDTODOTHEUPDATES: win32more.Windows.Win32.Foundation.HRESULT = -2147217404
 EMPTY_VOLUME_CACHE_FLAGS = UInt32
-EVCF_HASSETTINGS: EMPTY_VOLUME_CACHE_FLAGS = 1
-EVCF_ENABLEBYDEFAULT: EMPTY_VOLUME_CACHE_FLAGS = 2
-EVCF_REMOVEFROMLIST: EMPTY_VOLUME_CACHE_FLAGS = 4
-EVCF_ENABLEBYDEFAULT_AUTO: EMPTY_VOLUME_CACHE_FLAGS = 8
-EVCF_DONTSHOWIFZERO: EMPTY_VOLUME_CACHE_FLAGS = 16
-EVCF_SETTINGSMODE: EMPTY_VOLUME_CACHE_FLAGS = 32
-EVCF_OUTOFDISKSPACE: EMPTY_VOLUME_CACHE_FLAGS = 64
-EVCF_USERCONSENTOBTAINED: EMPTY_VOLUME_CACHE_FLAGS = 128
-EVCF_SYSTEMAUTORUN: EMPTY_VOLUME_CACHE_FLAGS = 256
+EVCF_HASSETTINGS: win32more.Windows.Win32.UI.LegacyWindowsEnvironmentFeatures.EMPTY_VOLUME_CACHE_FLAGS = 1
+EVCF_ENABLEBYDEFAULT: win32more.Windows.Win32.UI.LegacyWindowsEnvironmentFeatures.EMPTY_VOLUME_CACHE_FLAGS = 2
+EVCF_REMOVEFROMLIST: win32more.Windows.Win32.UI.LegacyWindowsEnvironmentFeatures.EMPTY_VOLUME_CACHE_FLAGS = 4
+EVCF_ENABLEBYDEFAULT_AUTO: win32more.Windows.Win32.UI.LegacyWindowsEnvironmentFeatures.EMPTY_VOLUME_CACHE_FLAGS = 8
+EVCF_DONTSHOWIFZERO: win32more.Windows.Win32.UI.LegacyWindowsEnvironmentFeatures.EMPTY_VOLUME_CACHE_FLAGS = 16
+EVCF_SETTINGSMODE: win32more.Windows.Win32.UI.LegacyWindowsEnvironmentFeatures.EMPTY_VOLUME_CACHE_FLAGS = 32
+EVCF_OUTOFDISKSPACE: win32more.Windows.Win32.UI.LegacyWindowsEnvironmentFeatures.EMPTY_VOLUME_CACHE_FLAGS = 64
+EVCF_USERCONSENTOBTAINED: win32more.Windows.Win32.UI.LegacyWindowsEnvironmentFeatures.EMPTY_VOLUME_CACHE_FLAGS = 128
+EVCF_SYSTEMAUTORUN: win32more.Windows.Win32.UI.LegacyWindowsEnvironmentFeatures.EMPTY_VOLUME_CACHE_FLAGS = 256
 class IADesktopP2(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{b22754e2-4574-11d1-9888-006097deacf9}')
@@ -94,12 +93,14 @@ class IReconcileInitiator(ComPtr):
     @commethod(4)
     def SetProgressFeedback(self, ulProgress: UInt32, ulProgressMax: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 RECONCILEF = Int32
-RECONCILEF_MAYBOTHERUSER: RECONCILEF = 1
-RECONCILEF_FEEDBACKWINDOWVALID: RECONCILEF = 2
-RECONCILEF_NORESIDUESOK: RECONCILEF = 4
-RECONCILEF_OMITSELFRESIDUE: RECONCILEF = 8
-RECONCILEF_RESUMERECONCILIATION: RECONCILEF = 16
-RECONCILEF_YOUMAYDOTHEUPDATES: RECONCILEF = 32
-RECONCILEF_ONLYYOUWERECHANGED: RECONCILEF = 64
-ALL_RECONCILE_FLAGS: RECONCILEF = 127
+RECONCILEF_MAYBOTHERUSER: win32more.Windows.Win32.UI.LegacyWindowsEnvironmentFeatures.RECONCILEF = 1
+RECONCILEF_FEEDBACKWINDOWVALID: win32more.Windows.Win32.UI.LegacyWindowsEnvironmentFeatures.RECONCILEF = 2
+RECONCILEF_NORESIDUESOK: win32more.Windows.Win32.UI.LegacyWindowsEnvironmentFeatures.RECONCILEF = 4
+RECONCILEF_OMITSELFRESIDUE: win32more.Windows.Win32.UI.LegacyWindowsEnvironmentFeatures.RECONCILEF = 8
+RECONCILEF_RESUMERECONCILIATION: win32more.Windows.Win32.UI.LegacyWindowsEnvironmentFeatures.RECONCILEF = 16
+RECONCILEF_YOUMAYDOTHEUPDATES: win32more.Windows.Win32.UI.LegacyWindowsEnvironmentFeatures.RECONCILEF = 32
+RECONCILEF_ONLYYOUWERECHANGED: win32more.Windows.Win32.UI.LegacyWindowsEnvironmentFeatures.RECONCILEF = 64
+ALL_RECONCILE_FLAGS: win32more.Windows.Win32.UI.LegacyWindowsEnvironmentFeatures.RECONCILEF = 127
+
+
 make_ready(__name__)

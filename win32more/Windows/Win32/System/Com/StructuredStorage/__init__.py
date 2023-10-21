@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.System.Com
@@ -591,16 +590,16 @@ class OLESTREAMVTBL(EasyCastStructure):
     Get: IntPtr
     Put: IntPtr
 PIDMSI_STATUS_VALUE = Int32
-PIDMSI_STATUS_NORMAL: PIDMSI_STATUS_VALUE = 0
-PIDMSI_STATUS_NEW: PIDMSI_STATUS_VALUE = 1
-PIDMSI_STATUS_PRELIM: PIDMSI_STATUS_VALUE = 2
-PIDMSI_STATUS_DRAFT: PIDMSI_STATUS_VALUE = 3
-PIDMSI_STATUS_INPROGRESS: PIDMSI_STATUS_VALUE = 4
-PIDMSI_STATUS_EDIT: PIDMSI_STATUS_VALUE = 5
-PIDMSI_STATUS_REVIEW: PIDMSI_STATUS_VALUE = 6
-PIDMSI_STATUS_PROOF: PIDMSI_STATUS_VALUE = 7
-PIDMSI_STATUS_FINAL: PIDMSI_STATUS_VALUE = 8
-PIDMSI_STATUS_OTHER: PIDMSI_STATUS_VALUE = 32767
+PIDMSI_STATUS_NORMAL: win32more.Windows.Win32.System.Com.StructuredStorage.PIDMSI_STATUS_VALUE = 0
+PIDMSI_STATUS_NEW: win32more.Windows.Win32.System.Com.StructuredStorage.PIDMSI_STATUS_VALUE = 1
+PIDMSI_STATUS_PRELIM: win32more.Windows.Win32.System.Com.StructuredStorage.PIDMSI_STATUS_VALUE = 2
+PIDMSI_STATUS_DRAFT: win32more.Windows.Win32.System.Com.StructuredStorage.PIDMSI_STATUS_VALUE = 3
+PIDMSI_STATUS_INPROGRESS: win32more.Windows.Win32.System.Com.StructuredStorage.PIDMSI_STATUS_VALUE = 4
+PIDMSI_STATUS_EDIT: win32more.Windows.Win32.System.Com.StructuredStorage.PIDMSI_STATUS_VALUE = 5
+PIDMSI_STATUS_REVIEW: win32more.Windows.Win32.System.Com.StructuredStorage.PIDMSI_STATUS_VALUE = 6
+PIDMSI_STATUS_PROOF: win32more.Windows.Win32.System.Com.StructuredStorage.PIDMSI_STATUS_VALUE = 7
+PIDMSI_STATUS_FINAL: win32more.Windows.Win32.System.Com.StructuredStorage.PIDMSI_STATUS_VALUE = 8
+PIDMSI_STATUS_OTHER: win32more.Windows.Win32.System.Com.StructuredStorage.PIDMSI_STATUS_VALUE = 32767
 class PROPBAG2(EasyCastStructure):
     dwType: UInt32
     vt: win32more.Windows.Win32.System.Variant.VARENUM
@@ -615,8 +614,8 @@ class PROPSPEC(EasyCastStructure):
         propid: UInt32
         lpwstr: win32more.Windows.Win32.Foundation.PWSTR
 PROPSPEC_KIND = UInt32
-PRSPEC_LPWSTR: PROPSPEC_KIND = 0
-PRSPEC_PROPID: PROPSPEC_KIND = 1
+PRSPEC_LPWSTR: win32more.Windows.Win32.System.Com.StructuredStorage.PROPSPEC_KIND = 0
+PRSPEC_PROPID: win32more.Windows.Win32.System.Com.StructuredStorage.PROPSPEC_KIND = 1
 class PROPVARIANT(EasyCastStructure):
     Anonymous: _Anonymous_e__Union
     class _Anonymous_e__Union(EasyCastUnion):
@@ -703,28 +702,28 @@ class PROPVARIANT(EasyCastStructure):
                 pparray: POINTER(POINTER(win32more.Windows.Win32.System.Com.SAFEARRAY))
                 pvarVal: POINTER(win32more.Windows.Win32.System.Com.StructuredStorage.PROPVARIANT)
 PROPVAR_CHANGE_FLAGS = Int32
-PVCHF_DEFAULT: PROPVAR_CHANGE_FLAGS = 0
-PVCHF_NOVALUEPROP: PROPVAR_CHANGE_FLAGS = 1
-PVCHF_ALPHABOOL: PROPVAR_CHANGE_FLAGS = 2
-PVCHF_NOUSEROVERRIDE: PROPVAR_CHANGE_FLAGS = 4
-PVCHF_LOCALBOOL: PROPVAR_CHANGE_FLAGS = 8
-PVCHF_NOHEXSTRING: PROPVAR_CHANGE_FLAGS = 16
+PVCHF_DEFAULT: win32more.Windows.Win32.System.Com.StructuredStorage.PROPVAR_CHANGE_FLAGS = 0
+PVCHF_NOVALUEPROP: win32more.Windows.Win32.System.Com.StructuredStorage.PROPVAR_CHANGE_FLAGS = 1
+PVCHF_ALPHABOOL: win32more.Windows.Win32.System.Com.StructuredStorage.PROPVAR_CHANGE_FLAGS = 2
+PVCHF_NOUSEROVERRIDE: win32more.Windows.Win32.System.Com.StructuredStorage.PROPVAR_CHANGE_FLAGS = 4
+PVCHF_LOCALBOOL: win32more.Windows.Win32.System.Com.StructuredStorage.PROPVAR_CHANGE_FLAGS = 8
+PVCHF_NOHEXSTRING: win32more.Windows.Win32.System.Com.StructuredStorage.PROPVAR_CHANGE_FLAGS = 16
 PROPVAR_COMPARE_FLAGS = Int32
-PVCF_DEFAULT: PROPVAR_COMPARE_FLAGS = 0
-PVCF_TREATEMPTYASGREATERTHAN: PROPVAR_COMPARE_FLAGS = 1
-PVCF_USESTRCMP: PROPVAR_COMPARE_FLAGS = 2
-PVCF_USESTRCMPC: PROPVAR_COMPARE_FLAGS = 4
-PVCF_USESTRCMPI: PROPVAR_COMPARE_FLAGS = 8
-PVCF_USESTRCMPIC: PROPVAR_COMPARE_FLAGS = 16
-PVCF_DIGITSASNUMBERS_CASESENSITIVE: PROPVAR_COMPARE_FLAGS = 32
+PVCF_DEFAULT: win32more.Windows.Win32.System.Com.StructuredStorage.PROPVAR_COMPARE_FLAGS = 0
+PVCF_TREATEMPTYASGREATERTHAN: win32more.Windows.Win32.System.Com.StructuredStorage.PROPVAR_COMPARE_FLAGS = 1
+PVCF_USESTRCMP: win32more.Windows.Win32.System.Com.StructuredStorage.PROPVAR_COMPARE_FLAGS = 2
+PVCF_USESTRCMPC: win32more.Windows.Win32.System.Com.StructuredStorage.PROPVAR_COMPARE_FLAGS = 4
+PVCF_USESTRCMPI: win32more.Windows.Win32.System.Com.StructuredStorage.PROPVAR_COMPARE_FLAGS = 8
+PVCF_USESTRCMPIC: win32more.Windows.Win32.System.Com.StructuredStorage.PROPVAR_COMPARE_FLAGS = 16
+PVCF_DIGITSASNUMBERS_CASESENSITIVE: win32more.Windows.Win32.System.Com.StructuredStorage.PROPVAR_COMPARE_FLAGS = 32
 PROPVAR_COMPARE_UNIT = Int32
-PVCU_DEFAULT: PROPVAR_COMPARE_UNIT = 0
-PVCU_SECOND: PROPVAR_COMPARE_UNIT = 1
-PVCU_MINUTE: PROPVAR_COMPARE_UNIT = 2
-PVCU_HOUR: PROPVAR_COMPARE_UNIT = 3
-PVCU_DAY: PROPVAR_COMPARE_UNIT = 4
-PVCU_MONTH: PROPVAR_COMPARE_UNIT = 5
-PVCU_YEAR: PROPVAR_COMPARE_UNIT = 6
+PVCU_DEFAULT: win32more.Windows.Win32.System.Com.StructuredStorage.PROPVAR_COMPARE_UNIT = 0
+PVCU_SECOND: win32more.Windows.Win32.System.Com.StructuredStorage.PROPVAR_COMPARE_UNIT = 1
+PVCU_MINUTE: win32more.Windows.Win32.System.Com.StructuredStorage.PROPVAR_COMPARE_UNIT = 2
+PVCU_HOUR: win32more.Windows.Win32.System.Com.StructuredStorage.PROPVAR_COMPARE_UNIT = 3
+PVCU_DAY: win32more.Windows.Win32.System.Com.StructuredStorage.PROPVAR_COMPARE_UNIT = 4
+PVCU_MONTH: win32more.Windows.Win32.System.Com.StructuredStorage.PROPVAR_COMPARE_UNIT = 5
+PVCU_YEAR: win32more.Windows.Win32.System.Com.StructuredStorage.PROPVAR_COMPARE_UNIT = 6
 class RemSNB(EasyCastStructure):
     ulCntStr: UInt32
     ulCntChar: UInt32
@@ -745,16 +744,16 @@ class STATPROPSTG(EasyCastStructure):
     propid: UInt32
     vt: win32more.Windows.Win32.System.Variant.VARENUM
 STGFMT = UInt32
-STGFMT_STORAGE: STGFMT = 0
-STGFMT_NATIVE: STGFMT = 1
-STGFMT_FILE: STGFMT = 3
-STGFMT_ANY: STGFMT = 4
-STGFMT_DOCFILE: STGFMT = 5
-STGFMT_DOCUMENT: STGFMT = 0
+STGFMT_STORAGE: win32more.Windows.Win32.System.Com.StructuredStorage.STGFMT = 0
+STGFMT_NATIVE: win32more.Windows.Win32.System.Com.StructuredStorage.STGFMT = 1
+STGFMT_FILE: win32more.Windows.Win32.System.Com.StructuredStorage.STGFMT = 3
+STGFMT_ANY: win32more.Windows.Win32.System.Com.StructuredStorage.STGFMT = 4
+STGFMT_DOCFILE: win32more.Windows.Win32.System.Com.StructuredStorage.STGFMT = 5
+STGFMT_DOCUMENT: win32more.Windows.Win32.System.Com.StructuredStorage.STGFMT = 0
 STGMOVE = Int32
-STGMOVE_MOVE: STGMOVE = 0
-STGMOVE_COPY: STGMOVE = 1
-STGMOVE_SHALLOWCOPY: STGMOVE = 2
+STGMOVE_MOVE: win32more.Windows.Win32.System.Com.StructuredStorage.STGMOVE = 0
+STGMOVE_COPY: win32more.Windows.Win32.System.Com.StructuredStorage.STGMOVE = 1
+STGMOVE_SHALLOWCOPY: win32more.Windows.Win32.System.Com.StructuredStorage.STGMOVE = 2
 class STGOPTIONS(EasyCastStructure):
     usVersion: UInt16
     reserved: UInt16
@@ -763,4 +762,6 @@ class STGOPTIONS(EasyCastStructure):
 class VERSIONEDSTREAM(EasyCastStructure):
     guidVersion: Guid
     pStream: win32more.Windows.Win32.System.Com.IStream
+
+
 make_ready(__name__)

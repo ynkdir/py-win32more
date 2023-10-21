@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.TpmBaseServices
 TBS_CONTEXT_VERSION_ONE: UInt32 = 1
@@ -59,17 +58,17 @@ def Tbsi_Get_TCG_Log_Ex(logType: UInt32, pbOutput: POINTER(Byte), pcbOutput: POI
 @winfunctype('tbs.dll')
 def Tbsi_Is_Tpm_Present() -> win32more.Windows.Win32.Foundation.BOOL: ...
 TBS_COMMAND_LOCALITY = UInt32
-TBS_COMMAND_LOCALITY_ZERO: TBS_COMMAND_LOCALITY = 0
-TBS_COMMAND_LOCALITY_ONE: TBS_COMMAND_LOCALITY = 1
-TBS_COMMAND_LOCALITY_TWO: TBS_COMMAND_LOCALITY = 2
-TBS_COMMAND_LOCALITY_THREE: TBS_COMMAND_LOCALITY = 3
-TBS_COMMAND_LOCALITY_FOUR: TBS_COMMAND_LOCALITY = 4
+TBS_COMMAND_LOCALITY_ZERO: win32more.Windows.Win32.System.TpmBaseServices.TBS_COMMAND_LOCALITY = 0
+TBS_COMMAND_LOCALITY_ONE: win32more.Windows.Win32.System.TpmBaseServices.TBS_COMMAND_LOCALITY = 1
+TBS_COMMAND_LOCALITY_TWO: win32more.Windows.Win32.System.TpmBaseServices.TBS_COMMAND_LOCALITY = 2
+TBS_COMMAND_LOCALITY_THREE: win32more.Windows.Win32.System.TpmBaseServices.TBS_COMMAND_LOCALITY = 3
+TBS_COMMAND_LOCALITY_FOUR: win32more.Windows.Win32.System.TpmBaseServices.TBS_COMMAND_LOCALITY = 4
 TBS_COMMAND_PRIORITY = UInt32
-TBS_COMMAND_PRIORITY_LOW: TBS_COMMAND_PRIORITY = 100
-TBS_COMMAND_PRIORITY_NORMAL: TBS_COMMAND_PRIORITY = 200
-TBS_COMMAND_PRIORITY_SYSTEM: TBS_COMMAND_PRIORITY = 400
-TBS_COMMAND_PRIORITY_HIGH: TBS_COMMAND_PRIORITY = 300
-TBS_COMMAND_PRIORITY_MAX: TBS_COMMAND_PRIORITY = 2147483648
+TBS_COMMAND_PRIORITY_LOW: win32more.Windows.Win32.System.TpmBaseServices.TBS_COMMAND_PRIORITY = 100
+TBS_COMMAND_PRIORITY_NORMAL: win32more.Windows.Win32.System.TpmBaseServices.TBS_COMMAND_PRIORITY = 200
+TBS_COMMAND_PRIORITY_SYSTEM: win32more.Windows.Win32.System.TpmBaseServices.TBS_COMMAND_PRIORITY = 400
+TBS_COMMAND_PRIORITY_HIGH: win32more.Windows.Win32.System.TpmBaseServices.TBS_COMMAND_PRIORITY = 300
+TBS_COMMAND_PRIORITY_MAX: win32more.Windows.Win32.System.TpmBaseServices.TBS_COMMAND_PRIORITY = 2147483648
 class TBS_CONTEXT_PARAMS(EasyCastStructure):
     version: UInt32
 class TBS_CONTEXT_PARAMS2(EasyCastStructure):
@@ -88,4 +87,6 @@ class TPM_DEVICE_INFO(EasyCastStructure):
 class TPM_WNF_PROVISIONING(EasyCastStructure):
     status: UInt32
     message: Byte * 28
+
+
 make_ready(__name__)

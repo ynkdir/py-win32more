@@ -1,16 +1,15 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Devices.Bluetooth
 import win32more.Windows.Win32.Foundation
 AUTHENTICATION_REQUIREMENTS = Int32
-AUTHENTICATION_REQUIREMENTS_MITMProtectionNotRequired: AUTHENTICATION_REQUIREMENTS = 0
-AUTHENTICATION_REQUIREMENTS_MITMProtectionRequired: AUTHENTICATION_REQUIREMENTS = 1
-AUTHENTICATION_REQUIREMENTS_MITMProtectionNotRequiredBonding: AUTHENTICATION_REQUIREMENTS = 2
-AUTHENTICATION_REQUIREMENTS_MITMProtectionRequiredBonding: AUTHENTICATION_REQUIREMENTS = 3
-AUTHENTICATION_REQUIREMENTS_MITMProtectionNotRequiredGeneralBonding: AUTHENTICATION_REQUIREMENTS = 4
-AUTHENTICATION_REQUIREMENTS_MITMProtectionRequiredGeneralBonding: AUTHENTICATION_REQUIREMENTS = 5
-AUTHENTICATION_REQUIREMENTS_MITMProtectionNotDefined: AUTHENTICATION_REQUIREMENTS = 255
+AUTHENTICATION_REQUIREMENTS_MITMProtectionNotRequired: win32more.Windows.Win32.Devices.Bluetooth.AUTHENTICATION_REQUIREMENTS = 0
+AUTHENTICATION_REQUIREMENTS_MITMProtectionRequired: win32more.Windows.Win32.Devices.Bluetooth.AUTHENTICATION_REQUIREMENTS = 1
+AUTHENTICATION_REQUIREMENTS_MITMProtectionNotRequiredBonding: win32more.Windows.Win32.Devices.Bluetooth.AUTHENTICATION_REQUIREMENTS = 2
+AUTHENTICATION_REQUIREMENTS_MITMProtectionRequiredBonding: win32more.Windows.Win32.Devices.Bluetooth.AUTHENTICATION_REQUIREMENTS = 3
+AUTHENTICATION_REQUIREMENTS_MITMProtectionNotRequiredGeneralBonding: win32more.Windows.Win32.Devices.Bluetooth.AUTHENTICATION_REQUIREMENTS = 4
+AUTHENTICATION_REQUIREMENTS_MITMProtectionRequiredGeneralBonding: win32more.Windows.Win32.Devices.Bluetooth.AUTHENTICATION_REQUIREMENTS = 5
+AUTHENTICATION_REQUIREMENTS_MITMProtectionNotDefined: win32more.Windows.Win32.Devices.Bluetooth.AUTHENTICATION_REQUIREMENTS = 255
 BTH_MAJORVERSION: UInt32 = 2
 BTH_MINORVERSION: UInt32 = 1
 GUID_BTHPORT_DEVICE_INTERFACE: Guid = Guid('{0850302a-b344-4fda-9be9-90576b8d46f0}')
@@ -960,19 +959,19 @@ class BLUETOOTH_AUTHENTICATION_CALLBACK_PARAMS(EasyCastStructure):
         Numeric_Value: UInt32
         Passkey: UInt32
 BLUETOOTH_AUTHENTICATION_METHOD = Int32
-BLUETOOTH_AUTHENTICATION_METHOD_LEGACY: BLUETOOTH_AUTHENTICATION_METHOD = 1
-BLUETOOTH_AUTHENTICATION_METHOD_OOB: BLUETOOTH_AUTHENTICATION_METHOD = 2
-BLUETOOTH_AUTHENTICATION_METHOD_NUMERIC_COMPARISON: BLUETOOTH_AUTHENTICATION_METHOD = 3
-BLUETOOTH_AUTHENTICATION_METHOD_PASSKEY_NOTIFICATION: BLUETOOTH_AUTHENTICATION_METHOD = 4
-BLUETOOTH_AUTHENTICATION_METHOD_PASSKEY: BLUETOOTH_AUTHENTICATION_METHOD = 5
+BLUETOOTH_AUTHENTICATION_METHOD_LEGACY: win32more.Windows.Win32.Devices.Bluetooth.BLUETOOTH_AUTHENTICATION_METHOD = 1
+BLUETOOTH_AUTHENTICATION_METHOD_OOB: win32more.Windows.Win32.Devices.Bluetooth.BLUETOOTH_AUTHENTICATION_METHOD = 2
+BLUETOOTH_AUTHENTICATION_METHOD_NUMERIC_COMPARISON: win32more.Windows.Win32.Devices.Bluetooth.BLUETOOTH_AUTHENTICATION_METHOD = 3
+BLUETOOTH_AUTHENTICATION_METHOD_PASSKEY_NOTIFICATION: win32more.Windows.Win32.Devices.Bluetooth.BLUETOOTH_AUTHENTICATION_METHOD = 4
+BLUETOOTH_AUTHENTICATION_METHOD_PASSKEY: win32more.Windows.Win32.Devices.Bluetooth.BLUETOOTH_AUTHENTICATION_METHOD = 5
 BLUETOOTH_AUTHENTICATION_REQUIREMENTS = Int32
-BLUETOOTH_MITM_ProtectionNotRequired: BLUETOOTH_AUTHENTICATION_REQUIREMENTS = 0
-BLUETOOTH_MITM_ProtectionRequired: BLUETOOTH_AUTHENTICATION_REQUIREMENTS = 1
-BLUETOOTH_MITM_ProtectionNotRequiredBonding: BLUETOOTH_AUTHENTICATION_REQUIREMENTS = 2
-BLUETOOTH_MITM_ProtectionRequiredBonding: BLUETOOTH_AUTHENTICATION_REQUIREMENTS = 3
-BLUETOOTH_MITM_ProtectionNotRequiredGeneralBonding: BLUETOOTH_AUTHENTICATION_REQUIREMENTS = 4
-BLUETOOTH_MITM_ProtectionRequiredGeneralBonding: BLUETOOTH_AUTHENTICATION_REQUIREMENTS = 5
-BLUETOOTH_MITM_ProtectionNotDefined: BLUETOOTH_AUTHENTICATION_REQUIREMENTS = 255
+BLUETOOTH_MITM_ProtectionNotRequired: win32more.Windows.Win32.Devices.Bluetooth.BLUETOOTH_AUTHENTICATION_REQUIREMENTS = 0
+BLUETOOTH_MITM_ProtectionRequired: win32more.Windows.Win32.Devices.Bluetooth.BLUETOOTH_AUTHENTICATION_REQUIREMENTS = 1
+BLUETOOTH_MITM_ProtectionNotRequiredBonding: win32more.Windows.Win32.Devices.Bluetooth.BLUETOOTH_AUTHENTICATION_REQUIREMENTS = 2
+BLUETOOTH_MITM_ProtectionRequiredBonding: win32more.Windows.Win32.Devices.Bluetooth.BLUETOOTH_AUTHENTICATION_REQUIREMENTS = 3
+BLUETOOTH_MITM_ProtectionNotRequiredGeneralBonding: win32more.Windows.Win32.Devices.Bluetooth.BLUETOOTH_AUTHENTICATION_REQUIREMENTS = 4
+BLUETOOTH_MITM_ProtectionRequiredGeneralBonding: win32more.Windows.Win32.Devices.Bluetooth.BLUETOOTH_AUTHENTICATION_REQUIREMENTS = 5
+BLUETOOTH_MITM_ProtectionNotDefined: win32more.Windows.Win32.Devices.Bluetooth.BLUETOOTH_AUTHENTICATION_REQUIREMENTS = 255
 class BLUETOOTH_COD_PAIRS(EasyCastStructure):
     ulCODMask: UInt32
     pcszDescription: win32more.Windows.Win32.Foundation.PWSTR
@@ -1005,11 +1004,11 @@ class BLUETOOTH_GATT_VALUE_CHANGED_EVENT_REGISTRATION(EasyCastStructure):
     NumCharacteristics: UInt16
     Characteristics: win32more.Windows.Win32.Devices.Bluetooth.BTH_LE_GATT_CHARACTERISTIC * 1
 BLUETOOTH_IO_CAPABILITY = Int32
-BLUETOOTH_IO_CAPABILITY_DISPLAYONLY: BLUETOOTH_IO_CAPABILITY = 0
-BLUETOOTH_IO_CAPABILITY_DISPLAYYESNO: BLUETOOTH_IO_CAPABILITY = 1
-BLUETOOTH_IO_CAPABILITY_KEYBOARDONLY: BLUETOOTH_IO_CAPABILITY = 2
-BLUETOOTH_IO_CAPABILITY_NOINPUTNOOUTPUT: BLUETOOTH_IO_CAPABILITY = 3
-BLUETOOTH_IO_CAPABILITY_UNDEFINED: BLUETOOTH_IO_CAPABILITY = 255
+BLUETOOTH_IO_CAPABILITY_DISPLAYONLY: win32more.Windows.Win32.Devices.Bluetooth.BLUETOOTH_IO_CAPABILITY = 0
+BLUETOOTH_IO_CAPABILITY_DISPLAYYESNO: win32more.Windows.Win32.Devices.Bluetooth.BLUETOOTH_IO_CAPABILITY = 1
+BLUETOOTH_IO_CAPABILITY_KEYBOARDONLY: win32more.Windows.Win32.Devices.Bluetooth.BLUETOOTH_IO_CAPABILITY = 2
+BLUETOOTH_IO_CAPABILITY_NOINPUTNOOUTPUT: win32more.Windows.Win32.Devices.Bluetooth.BLUETOOTH_IO_CAPABILITY = 3
+BLUETOOTH_IO_CAPABILITY_UNDEFINED: win32more.Windows.Win32.Devices.Bluetooth.BLUETOOTH_IO_CAPABILITY = 255
 class BLUETOOTH_LOCAL_SERVICE_INFO(EasyCastStructure):
     Enabled: win32more.Windows.Win32.Foundation.BOOL
     btAddr: win32more.Windows.Win32.Devices.Bluetooth.BLUETOOTH_ADDRESS
@@ -1098,13 +1097,13 @@ class BTH_LE_GATT_DESCRIPTOR(EasyCastStructure):
     DescriptorUuid: win32more.Windows.Win32.Devices.Bluetooth.BTH_LE_UUID
     AttributeHandle: UInt16
 BTH_LE_GATT_DESCRIPTOR_TYPE = Int32
-BTH_LE_GATT_DESCRIPTOR_TYPE_CharacteristicExtendedProperties: BTH_LE_GATT_DESCRIPTOR_TYPE = 0
-BTH_LE_GATT_DESCRIPTOR_TYPE_CharacteristicUserDescription: BTH_LE_GATT_DESCRIPTOR_TYPE = 1
-BTH_LE_GATT_DESCRIPTOR_TYPE_ClientCharacteristicConfiguration: BTH_LE_GATT_DESCRIPTOR_TYPE = 2
-BTH_LE_GATT_DESCRIPTOR_TYPE_ServerCharacteristicConfiguration: BTH_LE_GATT_DESCRIPTOR_TYPE = 3
-BTH_LE_GATT_DESCRIPTOR_TYPE_CharacteristicFormat: BTH_LE_GATT_DESCRIPTOR_TYPE = 4
-BTH_LE_GATT_DESCRIPTOR_TYPE_CharacteristicAggregateFormat: BTH_LE_GATT_DESCRIPTOR_TYPE = 5
-BTH_LE_GATT_DESCRIPTOR_TYPE_CustomDescriptor: BTH_LE_GATT_DESCRIPTOR_TYPE = 6
+BTH_LE_GATT_DESCRIPTOR_TYPE_CharacteristicExtendedProperties: win32more.Windows.Win32.Devices.Bluetooth.BTH_LE_GATT_DESCRIPTOR_TYPE = 0
+BTH_LE_GATT_DESCRIPTOR_TYPE_CharacteristicUserDescription: win32more.Windows.Win32.Devices.Bluetooth.BTH_LE_GATT_DESCRIPTOR_TYPE = 1
+BTH_LE_GATT_DESCRIPTOR_TYPE_ClientCharacteristicConfiguration: win32more.Windows.Win32.Devices.Bluetooth.BTH_LE_GATT_DESCRIPTOR_TYPE = 2
+BTH_LE_GATT_DESCRIPTOR_TYPE_ServerCharacteristicConfiguration: win32more.Windows.Win32.Devices.Bluetooth.BTH_LE_GATT_DESCRIPTOR_TYPE = 3
+BTH_LE_GATT_DESCRIPTOR_TYPE_CharacteristicFormat: win32more.Windows.Win32.Devices.Bluetooth.BTH_LE_GATT_DESCRIPTOR_TYPE = 4
+BTH_LE_GATT_DESCRIPTOR_TYPE_CharacteristicAggregateFormat: win32more.Windows.Win32.Devices.Bluetooth.BTH_LE_GATT_DESCRIPTOR_TYPE = 5
+BTH_LE_GATT_DESCRIPTOR_TYPE_CustomDescriptor: win32more.Windows.Win32.Devices.Bluetooth.BTH_LE_GATT_DESCRIPTOR_TYPE = 6
 class BTH_LE_GATT_DESCRIPTOR_VALUE(EasyCastStructure):
     DescriptorType: win32more.Windows.Win32.Devices.Bluetooth.BTH_LE_GATT_DESCRIPTOR_TYPE
     DescriptorUuid: win32more.Windows.Win32.Devices.Bluetooth.BTH_LE_UUID
@@ -1131,7 +1130,7 @@ class BTH_LE_GATT_DESCRIPTOR_VALUE(EasyCastStructure):
             NameSpace: Byte
             Description: win32more.Windows.Win32.Devices.Bluetooth.BTH_LE_UUID
 BTH_LE_GATT_EVENT_TYPE = Int32
-BTH_LE_GATT_EVENT_TYPE_CharacteristicValueChangedEvent: BTH_LE_GATT_EVENT_TYPE = 0
+BTH_LE_GATT_EVENT_TYPE_CharacteristicValueChangedEvent: win32more.Windows.Win32.Devices.Bluetooth.BTH_LE_GATT_EVENT_TYPE = 0
 class BTH_LE_GATT_SERVICE(EasyCastStructure):
     ServiceUuid: win32more.Windows.Win32.Devices.Bluetooth.BTH_LE_UUID
     AttributeHandle: UInt16
@@ -1175,14 +1174,14 @@ HANDLE_SDP_TYPE = UInt64
 HBLUETOOTH_DEVICE_FIND = IntPtr
 HBLUETOOTH_RADIO_FIND = IntPtr
 IO_CAPABILITY = Int32
-IoCaps_DisplayOnly: IO_CAPABILITY = 0
-IoCaps_DisplayYesNo: IO_CAPABILITY = 1
-IoCaps_KeyboardOnly: IO_CAPABILITY = 2
-IoCaps_NoInputNoOutput: IO_CAPABILITY = 3
-IoCaps_Undefined: IO_CAPABILITY = 255
+IoCaps_DisplayOnly: win32more.Windows.Win32.Devices.Bluetooth.IO_CAPABILITY = 0
+IoCaps_DisplayYesNo: win32more.Windows.Win32.Devices.Bluetooth.IO_CAPABILITY = 1
+IoCaps_KeyboardOnly: win32more.Windows.Win32.Devices.Bluetooth.IO_CAPABILITY = 2
+IoCaps_NoInputNoOutput: win32more.Windows.Win32.Devices.Bluetooth.IO_CAPABILITY = 3
+IoCaps_Undefined: win32more.Windows.Win32.Devices.Bluetooth.IO_CAPABILITY = 255
 NodeContainerType = Int32
-NodeContainerType_NodeContainerTypeSequence: NodeContainerType = 0
-NodeContainerType_NodeContainerTypeAlternative: NodeContainerType = 1
+NodeContainerType_NodeContainerTypeSequence: win32more.Windows.Win32.Devices.Bluetooth.NodeContainerType = 0
+NodeContainerType_NodeContainerTypeAlternative: win32more.Windows.Win32.Devices.Bluetooth.NodeContainerType = 1
 @winfunctype_pointer
 def PFNBLUETOOTH_GATT_EVENT_CALLBACK(EventType: win32more.Windows.Win32.Devices.Bluetooth.BTH_LE_GATT_EVENT_TYPE, EventOutParameter: VoidPtr, Context: VoidPtr) -> Void: ...
 @winfunctype_pointer
@@ -1253,35 +1252,35 @@ class SDP_LARGE_INTEGER_16(EasyCastStructure):
     LowPart: UInt64
     HighPart: Int64
 SDP_SPECIFICTYPE = Int32
-SDP_ST_NONE: SDP_SPECIFICTYPE = 0
-SDP_ST_UINT8: SDP_SPECIFICTYPE = 16
-SDP_ST_UINT16: SDP_SPECIFICTYPE = 272
-SDP_ST_UINT32: SDP_SPECIFICTYPE = 528
-SDP_ST_UINT64: SDP_SPECIFICTYPE = 784
-SDP_ST_UINT128: SDP_SPECIFICTYPE = 1040
-SDP_ST_INT8: SDP_SPECIFICTYPE = 32
-SDP_ST_INT16: SDP_SPECIFICTYPE = 288
-SDP_ST_INT32: SDP_SPECIFICTYPE = 544
-SDP_ST_INT64: SDP_SPECIFICTYPE = 800
-SDP_ST_INT128: SDP_SPECIFICTYPE = 1056
-SDP_ST_UUID16: SDP_SPECIFICTYPE = 304
-SDP_ST_UUID32: SDP_SPECIFICTYPE = 544
-SDP_ST_UUID128: SDP_SPECIFICTYPE = 1072
+SDP_ST_NONE: win32more.Windows.Win32.Devices.Bluetooth.SDP_SPECIFICTYPE = 0
+SDP_ST_UINT8: win32more.Windows.Win32.Devices.Bluetooth.SDP_SPECIFICTYPE = 16
+SDP_ST_UINT16: win32more.Windows.Win32.Devices.Bluetooth.SDP_SPECIFICTYPE = 272
+SDP_ST_UINT32: win32more.Windows.Win32.Devices.Bluetooth.SDP_SPECIFICTYPE = 528
+SDP_ST_UINT64: win32more.Windows.Win32.Devices.Bluetooth.SDP_SPECIFICTYPE = 784
+SDP_ST_UINT128: win32more.Windows.Win32.Devices.Bluetooth.SDP_SPECIFICTYPE = 1040
+SDP_ST_INT8: win32more.Windows.Win32.Devices.Bluetooth.SDP_SPECIFICTYPE = 32
+SDP_ST_INT16: win32more.Windows.Win32.Devices.Bluetooth.SDP_SPECIFICTYPE = 288
+SDP_ST_INT32: win32more.Windows.Win32.Devices.Bluetooth.SDP_SPECIFICTYPE = 544
+SDP_ST_INT64: win32more.Windows.Win32.Devices.Bluetooth.SDP_SPECIFICTYPE = 800
+SDP_ST_INT128: win32more.Windows.Win32.Devices.Bluetooth.SDP_SPECIFICTYPE = 1056
+SDP_ST_UUID16: win32more.Windows.Win32.Devices.Bluetooth.SDP_SPECIFICTYPE = 304
+SDP_ST_UUID32: win32more.Windows.Win32.Devices.Bluetooth.SDP_SPECIFICTYPE = 544
+SDP_ST_UUID128: win32more.Windows.Win32.Devices.Bluetooth.SDP_SPECIFICTYPE = 1072
 class SDP_STRING_TYPE_DATA(EasyCastStructure):
     encoding: UInt16
     mibeNum: UInt16
     attributeId: UInt16
 SDP_TYPE = Int32
-SDP_TYPE_NIL: SDP_TYPE = 0
-SDP_TYPE_UINT: SDP_TYPE = 1
-SDP_TYPE_INT: SDP_TYPE = 2
-SDP_TYPE_UUID: SDP_TYPE = 3
-SDP_TYPE_STRING: SDP_TYPE = 4
-SDP_TYPE_BOOLEAN: SDP_TYPE = 5
-SDP_TYPE_SEQUENCE: SDP_TYPE = 6
-SDP_TYPE_ALTERNATIVE: SDP_TYPE = 7
-SDP_TYPE_URL: SDP_TYPE = 8
-SDP_TYPE_CONTAINER: SDP_TYPE = 32
+SDP_TYPE_NIL: win32more.Windows.Win32.Devices.Bluetooth.SDP_TYPE = 0
+SDP_TYPE_UINT: win32more.Windows.Win32.Devices.Bluetooth.SDP_TYPE = 1
+SDP_TYPE_INT: win32more.Windows.Win32.Devices.Bluetooth.SDP_TYPE = 2
+SDP_TYPE_UUID: win32more.Windows.Win32.Devices.Bluetooth.SDP_TYPE = 3
+SDP_TYPE_STRING: win32more.Windows.Win32.Devices.Bluetooth.SDP_TYPE = 4
+SDP_TYPE_BOOLEAN: win32more.Windows.Win32.Devices.Bluetooth.SDP_TYPE = 5
+SDP_TYPE_SEQUENCE: win32more.Windows.Win32.Devices.Bluetooth.SDP_TYPE = 6
+SDP_TYPE_ALTERNATIVE: win32more.Windows.Win32.Devices.Bluetooth.SDP_TYPE = 7
+SDP_TYPE_URL: win32more.Windows.Win32.Devices.Bluetooth.SDP_TYPE = 8
+SDP_TYPE_CONTAINER: win32more.Windows.Win32.Devices.Bluetooth.SDP_TYPE = 32
 class SDP_ULARGE_INTEGER_16(EasyCastStructure):
     LowPart: UInt64
     HighPart: UInt64
@@ -1301,4 +1300,6 @@ class SdpQueryUuidUnion(EasyCastUnion):
     uuid128: Guid
     uuid32: UInt32
     uuid16: UInt16
+
+
 make_ready(__name__)

@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Devices.Properties
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.NetworkManagement.Ndis
@@ -912,112 +911,112 @@ def WFDCloseSession(hSessionHandle: win32more.Windows.Win32.Foundation.HANDLE) -
 @winfunctype('wlanapi.dll')
 def WFDUpdateDeviceVisibility(pDeviceAddress: POINTER(POINTER(Byte))) -> UInt32: ...
 CH_DESCRIPTION_TYPE = Int32
-ch_description_type_logical: CH_DESCRIPTION_TYPE = 1
-ch_description_type_center_frequency: CH_DESCRIPTION_TYPE = 2
-ch_description_type_phy_specific: CH_DESCRIPTION_TYPE = 3
+ch_description_type_logical: win32more.Windows.Win32.NetworkManagement.WiFi.CH_DESCRIPTION_TYPE = 1
+ch_description_type_center_frequency: win32more.Windows.Win32.NetworkManagement.WiFi.CH_DESCRIPTION_TYPE = 2
+ch_description_type_phy_specific: win32more.Windows.Win32.NetworkManagement.WiFi.CH_DESCRIPTION_TYPE = 3
 DEVPROP_PCIDEVICE_ACSCOMPATIBLEUPHIERARCHY = UInt32
-DevProp_PciDevice_AcsCompatibleUpHierarchy_NotSupported: DEVPROP_PCIDEVICE_ACSCOMPATIBLEUPHIERARCHY = 0
-DevProp_PciDevice_AcsCompatibleUpHierarchy_SingleFunctionSupported: DEVPROP_PCIDEVICE_ACSCOMPATIBLEUPHIERARCHY = 1
-DevProp_PciDevice_AcsCompatibleUpHierarchy_NoP2PSupported: DEVPROP_PCIDEVICE_ACSCOMPATIBLEUPHIERARCHY = 2
-DevProp_PciDevice_AcsCompatibleUpHierarchy_Supported: DEVPROP_PCIDEVICE_ACSCOMPATIBLEUPHIERARCHY = 3
-DevProp_PciDevice_AcsCompatibleUpHierarchy_Enhanced: DEVPROP_PCIDEVICE_ACSCOMPATIBLEUPHIERARCHY = 4
+DevProp_PciDevice_AcsCompatibleUpHierarchy_NotSupported: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIDEVICE_ACSCOMPATIBLEUPHIERARCHY = 0
+DevProp_PciDevice_AcsCompatibleUpHierarchy_SingleFunctionSupported: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIDEVICE_ACSCOMPATIBLEUPHIERARCHY = 1
+DevProp_PciDevice_AcsCompatibleUpHierarchy_NoP2PSupported: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIDEVICE_ACSCOMPATIBLEUPHIERARCHY = 2
+DevProp_PciDevice_AcsCompatibleUpHierarchy_Supported: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIDEVICE_ACSCOMPATIBLEUPHIERARCHY = 3
+DevProp_PciDevice_AcsCompatibleUpHierarchy_Enhanced: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIDEVICE_ACSCOMPATIBLEUPHIERARCHY = 4
 DEVPROP_PCIDEVICE_ACSSUPPORT = UInt32
-DevProp_PciDevice_AcsSupport_Present: DEVPROP_PCIDEVICE_ACSSUPPORT = 0
-DevProp_PciDevice_AcsSupport_NotNeeded: DEVPROP_PCIDEVICE_ACSSUPPORT = 1
-DevProp_PciDevice_AcsSupport_Missing: DEVPROP_PCIDEVICE_ACSSUPPORT = 2
+DevProp_PciDevice_AcsSupport_Present: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIDEVICE_ACSSUPPORT = 0
+DevProp_PciDevice_AcsSupport_NotNeeded: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIDEVICE_ACSSUPPORT = 1
+DevProp_PciDevice_AcsSupport_Missing: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIDEVICE_ACSSUPPORT = 2
 DEVPROP_PCIDEVICE_CURRENTSPEEDANDMODE = UInt32
-DevProp_PciDevice_CurrentSpeedAndMode_Pci_Conventional_33MHz: DEVPROP_PCIDEVICE_CURRENTSPEEDANDMODE = 0
-DevProp_PciDevice_CurrentSpeedAndMode_Pci_Conventional_66MHz: DEVPROP_PCIDEVICE_CURRENTSPEEDANDMODE = 1
-DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode_Conventional_Pci: DEVPROP_PCIDEVICE_CURRENTSPEEDANDMODE = 0
-DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode1_66Mhz: DEVPROP_PCIDEVICE_CURRENTSPEEDANDMODE = 1
-DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode1_100Mhz: DEVPROP_PCIDEVICE_CURRENTSPEEDANDMODE = 2
-DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode1_133MHZ: DEVPROP_PCIDEVICE_CURRENTSPEEDANDMODE = 3
-DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode1_ECC_66Mhz: DEVPROP_PCIDEVICE_CURRENTSPEEDANDMODE = 5
-DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode1_ECC_100Mhz: DEVPROP_PCIDEVICE_CURRENTSPEEDANDMODE = 6
-DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode1_ECC_133Mhz: DEVPROP_PCIDEVICE_CURRENTSPEEDANDMODE = 7
-DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode2_266_66MHz: DEVPROP_PCIDEVICE_CURRENTSPEEDANDMODE = 9
-DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode2_266_100MHz: DEVPROP_PCIDEVICE_CURRENTSPEEDANDMODE = 10
-DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode2_266_133MHz: DEVPROP_PCIDEVICE_CURRENTSPEEDANDMODE = 11
-DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode2_533_66MHz: DEVPROP_PCIDEVICE_CURRENTSPEEDANDMODE = 13
-DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode2_533_100MHz: DEVPROP_PCIDEVICE_CURRENTSPEEDANDMODE = 14
-DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode2_533_133MHz: DEVPROP_PCIDEVICE_CURRENTSPEEDANDMODE = 15
+DevProp_PciDevice_CurrentSpeedAndMode_Pci_Conventional_33MHz: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIDEVICE_CURRENTSPEEDANDMODE = 0
+DevProp_PciDevice_CurrentSpeedAndMode_Pci_Conventional_66MHz: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIDEVICE_CURRENTSPEEDANDMODE = 1
+DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode_Conventional_Pci: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIDEVICE_CURRENTSPEEDANDMODE = 0
+DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode1_66Mhz: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIDEVICE_CURRENTSPEEDANDMODE = 1
+DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode1_100Mhz: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIDEVICE_CURRENTSPEEDANDMODE = 2
+DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode1_133MHZ: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIDEVICE_CURRENTSPEEDANDMODE = 3
+DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode1_ECC_66Mhz: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIDEVICE_CURRENTSPEEDANDMODE = 5
+DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode1_ECC_100Mhz: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIDEVICE_CURRENTSPEEDANDMODE = 6
+DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode1_ECC_133Mhz: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIDEVICE_CURRENTSPEEDANDMODE = 7
+DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode2_266_66MHz: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIDEVICE_CURRENTSPEEDANDMODE = 9
+DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode2_266_100MHz: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIDEVICE_CURRENTSPEEDANDMODE = 10
+DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode2_266_133MHz: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIDEVICE_CURRENTSPEEDANDMODE = 11
+DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode2_533_66MHz: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIDEVICE_CURRENTSPEEDANDMODE = 13
+DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode2_533_100MHz: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIDEVICE_CURRENTSPEEDANDMODE = 14
+DevProp_PciDevice_CurrentSpeedAndMode_PciX_Mode2_533_133MHz: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIDEVICE_CURRENTSPEEDANDMODE = 15
 DEVPROP_PCIDEVICE_DEVICEBRIDGETYPE = UInt32
-DevProp_PciDevice_DeviceType_PciConventional: DEVPROP_PCIDEVICE_DEVICEBRIDGETYPE = 0
-DevProp_PciDevice_DeviceType_PciX: DEVPROP_PCIDEVICE_DEVICEBRIDGETYPE = 1
-DevProp_PciDevice_DeviceType_PciExpressEndpoint: DEVPROP_PCIDEVICE_DEVICEBRIDGETYPE = 2
-DevProp_PciDevice_DeviceType_PciExpressLegacyEndpoint: DEVPROP_PCIDEVICE_DEVICEBRIDGETYPE = 3
-DevProp_PciDevice_DeviceType_PciExpressRootComplexIntegratedEndpoint: DEVPROP_PCIDEVICE_DEVICEBRIDGETYPE = 4
-DevProp_PciDevice_DeviceType_PciExpressTreatedAsPci: DEVPROP_PCIDEVICE_DEVICEBRIDGETYPE = 5
-DevProp_PciDevice_BridgeType_PciConventional: DEVPROP_PCIDEVICE_DEVICEBRIDGETYPE = 6
-DevProp_PciDevice_BridgeType_PciX: DEVPROP_PCIDEVICE_DEVICEBRIDGETYPE = 7
-DevProp_PciDevice_BridgeType_PciExpressRootPort: DEVPROP_PCIDEVICE_DEVICEBRIDGETYPE = 8
-DevProp_PciDevice_BridgeType_PciExpressUpstreamSwitchPort: DEVPROP_PCIDEVICE_DEVICEBRIDGETYPE = 9
-DevProp_PciDevice_BridgeType_PciExpressDownstreamSwitchPort: DEVPROP_PCIDEVICE_DEVICEBRIDGETYPE = 10
-DevProp_PciDevice_BridgeType_PciExpressToPciXBridge: DEVPROP_PCIDEVICE_DEVICEBRIDGETYPE = 11
-DevProp_PciDevice_BridgeType_PciXToExpressBridge: DEVPROP_PCIDEVICE_DEVICEBRIDGETYPE = 12
-DevProp_PciDevice_BridgeType_PciExpressTreatedAsPci: DEVPROP_PCIDEVICE_DEVICEBRIDGETYPE = 13
-DevProp_PciDevice_BridgeType_PciExpressEventCollector: DEVPROP_PCIDEVICE_DEVICEBRIDGETYPE = 14
+DevProp_PciDevice_DeviceType_PciConventional: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIDEVICE_DEVICEBRIDGETYPE = 0
+DevProp_PciDevice_DeviceType_PciX: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIDEVICE_DEVICEBRIDGETYPE = 1
+DevProp_PciDevice_DeviceType_PciExpressEndpoint: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIDEVICE_DEVICEBRIDGETYPE = 2
+DevProp_PciDevice_DeviceType_PciExpressLegacyEndpoint: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIDEVICE_DEVICEBRIDGETYPE = 3
+DevProp_PciDevice_DeviceType_PciExpressRootComplexIntegratedEndpoint: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIDEVICE_DEVICEBRIDGETYPE = 4
+DevProp_PciDevice_DeviceType_PciExpressTreatedAsPci: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIDEVICE_DEVICEBRIDGETYPE = 5
+DevProp_PciDevice_BridgeType_PciConventional: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIDEVICE_DEVICEBRIDGETYPE = 6
+DevProp_PciDevice_BridgeType_PciX: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIDEVICE_DEVICEBRIDGETYPE = 7
+DevProp_PciDevice_BridgeType_PciExpressRootPort: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIDEVICE_DEVICEBRIDGETYPE = 8
+DevProp_PciDevice_BridgeType_PciExpressUpstreamSwitchPort: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIDEVICE_DEVICEBRIDGETYPE = 9
+DevProp_PciDevice_BridgeType_PciExpressDownstreamSwitchPort: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIDEVICE_DEVICEBRIDGETYPE = 10
+DevProp_PciDevice_BridgeType_PciExpressToPciXBridge: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIDEVICE_DEVICEBRIDGETYPE = 11
+DevProp_PciDevice_BridgeType_PciXToExpressBridge: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIDEVICE_DEVICEBRIDGETYPE = 12
+DevProp_PciDevice_BridgeType_PciExpressTreatedAsPci: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIDEVICE_DEVICEBRIDGETYPE = 13
+DevProp_PciDevice_BridgeType_PciExpressEventCollector: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIDEVICE_DEVICEBRIDGETYPE = 14
 DEVPROP_PCIDEVICE_INTERRUPTTYPE = UInt32
-DevProp_PciDevice_InterruptType_LineBased: DEVPROP_PCIDEVICE_INTERRUPTTYPE = 1
-DevProp_PciDevice_InterruptType_Msi: DEVPROP_PCIDEVICE_INTERRUPTTYPE = 2
-DevProp_PciDevice_InterruptType_MsiX: DEVPROP_PCIDEVICE_INTERRUPTTYPE = 4
+DevProp_PciDevice_InterruptType_LineBased: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIDEVICE_INTERRUPTTYPE = 1
+DevProp_PciDevice_InterruptType_Msi: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIDEVICE_INTERRUPTTYPE = 2
+DevProp_PciDevice_InterruptType_MsiX: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIDEVICE_INTERRUPTTYPE = 4
 DEVPROP_PCIDEVICE_SRIOVSUPPORT = UInt32
-DevProp_PciDevice_SriovSupport_Ok: DEVPROP_PCIDEVICE_SRIOVSUPPORT = 0
-DevProp_PciDevice_SriovSupport_MissingAcs: DEVPROP_PCIDEVICE_SRIOVSUPPORT = 1
-DevProp_PciDevice_SriovSupport_MissingPfDriver: DEVPROP_PCIDEVICE_SRIOVSUPPORT = 2
-DevProp_PciDevice_SriovSupport_NoBusResource: DEVPROP_PCIDEVICE_SRIOVSUPPORT = 3
-DevProp_PciDevice_SriovSupport_DidntGetVfBarSpace: DEVPROP_PCIDEVICE_SRIOVSUPPORT = 4
+DevProp_PciDevice_SriovSupport_Ok: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIDEVICE_SRIOVSUPPORT = 0
+DevProp_PciDevice_SriovSupport_MissingAcs: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIDEVICE_SRIOVSUPPORT = 1
+DevProp_PciDevice_SriovSupport_MissingPfDriver: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIDEVICE_SRIOVSUPPORT = 2
+DevProp_PciDevice_SriovSupport_NoBusResource: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIDEVICE_SRIOVSUPPORT = 3
+DevProp_PciDevice_SriovSupport_DidntGetVfBarSpace: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIDEVICE_SRIOVSUPPORT = 4
 DEVPROP_PCIEXPRESSDEVICE_LINKSPEED = UInt32
-DevProp_PciExpressDevice_LinkSpeed_TwoAndHalf_Gbps: DEVPROP_PCIEXPRESSDEVICE_LINKSPEED = 1
-DevProp_PciExpressDevice_LinkSpeed_Five_Gbps: DEVPROP_PCIEXPRESSDEVICE_LINKSPEED = 2
+DevProp_PciExpressDevice_LinkSpeed_TwoAndHalf_Gbps: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIEXPRESSDEVICE_LINKSPEED = 1
+DevProp_PciExpressDevice_LinkSpeed_Five_Gbps: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIEXPRESSDEVICE_LINKSPEED = 2
 DEVPROP_PCIEXPRESSDEVICE_LINKWIDTH = UInt32
-DevProp_PciExpressDevice_LinkWidth_By_1: DEVPROP_PCIEXPRESSDEVICE_LINKWIDTH = 1
-DevProp_PciExpressDevice_LinkWidth_By_2: DEVPROP_PCIEXPRESSDEVICE_LINKWIDTH = 2
-DevProp_PciExpressDevice_LinkWidth_By_4: DEVPROP_PCIEXPRESSDEVICE_LINKWIDTH = 4
-DevProp_PciExpressDevice_LinkWidth_By_8: DEVPROP_PCIEXPRESSDEVICE_LINKWIDTH = 8
-DevProp_PciExpressDevice_LinkWidth_By_12: DEVPROP_PCIEXPRESSDEVICE_LINKWIDTH = 12
-DevProp_PciExpressDevice_LinkWidth_By_16: DEVPROP_PCIEXPRESSDEVICE_LINKWIDTH = 16
-DevProp_PciExpressDevice_LinkWidth_By_32: DEVPROP_PCIEXPRESSDEVICE_LINKWIDTH = 32
+DevProp_PciExpressDevice_LinkWidth_By_1: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIEXPRESSDEVICE_LINKWIDTH = 1
+DevProp_PciExpressDevice_LinkWidth_By_2: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIEXPRESSDEVICE_LINKWIDTH = 2
+DevProp_PciExpressDevice_LinkWidth_By_4: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIEXPRESSDEVICE_LINKWIDTH = 4
+DevProp_PciExpressDevice_LinkWidth_By_8: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIEXPRESSDEVICE_LINKWIDTH = 8
+DevProp_PciExpressDevice_LinkWidth_By_12: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIEXPRESSDEVICE_LINKWIDTH = 12
+DevProp_PciExpressDevice_LinkWidth_By_16: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIEXPRESSDEVICE_LINKWIDTH = 16
+DevProp_PciExpressDevice_LinkWidth_By_32: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIEXPRESSDEVICE_LINKWIDTH = 32
 DEVPROP_PCIEXPRESSDEVICE_PAYLOADORREQUESTSIZE = UInt32
-DevProp_PciExpressDevice_PayloadOrRequestSize_128Bytes: DEVPROP_PCIEXPRESSDEVICE_PAYLOADORREQUESTSIZE = 0
-DevProp_PciExpressDevice_PayloadOrRequestSize_256Bytes: DEVPROP_PCIEXPRESSDEVICE_PAYLOADORREQUESTSIZE = 1
-DevProp_PciExpressDevice_PayloadOrRequestSize_512Bytes: DEVPROP_PCIEXPRESSDEVICE_PAYLOADORREQUESTSIZE = 2
-DevProp_PciExpressDevice_PayloadOrRequestSize_1024Bytes: DEVPROP_PCIEXPRESSDEVICE_PAYLOADORREQUESTSIZE = 3
-DevProp_PciExpressDevice_PayloadOrRequestSize_2048Bytes: DEVPROP_PCIEXPRESSDEVICE_PAYLOADORREQUESTSIZE = 4
-DevProp_PciExpressDevice_PayloadOrRequestSize_4096Bytes: DEVPROP_PCIEXPRESSDEVICE_PAYLOADORREQUESTSIZE = 5
+DevProp_PciExpressDevice_PayloadOrRequestSize_128Bytes: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIEXPRESSDEVICE_PAYLOADORREQUESTSIZE = 0
+DevProp_PciExpressDevice_PayloadOrRequestSize_256Bytes: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIEXPRESSDEVICE_PAYLOADORREQUESTSIZE = 1
+DevProp_PciExpressDevice_PayloadOrRequestSize_512Bytes: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIEXPRESSDEVICE_PAYLOADORREQUESTSIZE = 2
+DevProp_PciExpressDevice_PayloadOrRequestSize_1024Bytes: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIEXPRESSDEVICE_PAYLOADORREQUESTSIZE = 3
+DevProp_PciExpressDevice_PayloadOrRequestSize_2048Bytes: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIEXPRESSDEVICE_PAYLOADORREQUESTSIZE = 4
+DevProp_PciExpressDevice_PayloadOrRequestSize_4096Bytes: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIEXPRESSDEVICE_PAYLOADORREQUESTSIZE = 5
 DEVPROP_PCIEXPRESSDEVICE_SPEC_VERSION = UInt32
-DevProp_PciExpressDevice_Spec_Version_10: DEVPROP_PCIEXPRESSDEVICE_SPEC_VERSION = 1
-DevProp_PciExpressDevice_Spec_Version_11: DEVPROP_PCIEXPRESSDEVICE_SPEC_VERSION = 2
+DevProp_PciExpressDevice_Spec_Version_10: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIEXPRESSDEVICE_SPEC_VERSION = 1
+DevProp_PciExpressDevice_Spec_Version_11: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIEXPRESSDEVICE_SPEC_VERSION = 2
 DEVPROP_PCIROOTBUS_BUSWIDTH = UInt32
-DevProp_PciRootBus_BusWidth_32Bits: DEVPROP_PCIROOTBUS_BUSWIDTH = 0
-DevProp_PciRootBus_BusWidth_64Bits: DEVPROP_PCIROOTBUS_BUSWIDTH = 1
+DevProp_PciRootBus_BusWidth_32Bits: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIROOTBUS_BUSWIDTH = 0
+DevProp_PciRootBus_BusWidth_64Bits: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIROOTBUS_BUSWIDTH = 1
 DEVPROP_PCIROOTBUS_CURRENTSPEEDANDMODE = UInt32
-DevProp_PciRootBus_CurrentSpeedAndMode_Pci_Conventional_33Mhz: DEVPROP_PCIROOTBUS_CURRENTSPEEDANDMODE = 0
-DevProp_PciRootBus_CurrentSpeedAndMode_Pci_Conventional_66Mhz: DEVPROP_PCIROOTBUS_CURRENTSPEEDANDMODE = 1
-DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_Mode1_66Mhz: DEVPROP_PCIROOTBUS_CURRENTSPEEDANDMODE = 2
-DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_Mode1_100Mhz: DEVPROP_PCIROOTBUS_CURRENTSPEEDANDMODE = 3
-DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_Mode1_133Mhz: DEVPROP_PCIROOTBUS_CURRENTSPEEDANDMODE = 4
-DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_Mode1_ECC_66Mhz: DEVPROP_PCIROOTBUS_CURRENTSPEEDANDMODE = 5
-DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_Mode1_ECC_100Mhz: DEVPROP_PCIROOTBUS_CURRENTSPEEDANDMODE = 6
-DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_Mode1_ECC_133Mhz: DEVPROP_PCIROOTBUS_CURRENTSPEEDANDMODE = 7
-DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_266_Mode2_66Mhz: DEVPROP_PCIROOTBUS_CURRENTSPEEDANDMODE = 8
-DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_266_Mode2_100Mhz: DEVPROP_PCIROOTBUS_CURRENTSPEEDANDMODE = 9
-DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_266_Mode2_133Mhz: DEVPROP_PCIROOTBUS_CURRENTSPEEDANDMODE = 10
-DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_533_Mode2_66Mhz: DEVPROP_PCIROOTBUS_CURRENTSPEEDANDMODE = 11
-DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_533_Mode2_100Mhz: DEVPROP_PCIROOTBUS_CURRENTSPEEDANDMODE = 12
-DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_533_Mode2_133Mhz: DEVPROP_PCIROOTBUS_CURRENTSPEEDANDMODE = 13
+DevProp_PciRootBus_CurrentSpeedAndMode_Pci_Conventional_33Mhz: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIROOTBUS_CURRENTSPEEDANDMODE = 0
+DevProp_PciRootBus_CurrentSpeedAndMode_Pci_Conventional_66Mhz: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIROOTBUS_CURRENTSPEEDANDMODE = 1
+DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_Mode1_66Mhz: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIROOTBUS_CURRENTSPEEDANDMODE = 2
+DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_Mode1_100Mhz: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIROOTBUS_CURRENTSPEEDANDMODE = 3
+DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_Mode1_133Mhz: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIROOTBUS_CURRENTSPEEDANDMODE = 4
+DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_Mode1_ECC_66Mhz: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIROOTBUS_CURRENTSPEEDANDMODE = 5
+DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_Mode1_ECC_100Mhz: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIROOTBUS_CURRENTSPEEDANDMODE = 6
+DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_Mode1_ECC_133Mhz: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIROOTBUS_CURRENTSPEEDANDMODE = 7
+DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_266_Mode2_66Mhz: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIROOTBUS_CURRENTSPEEDANDMODE = 8
+DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_266_Mode2_100Mhz: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIROOTBUS_CURRENTSPEEDANDMODE = 9
+DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_266_Mode2_133Mhz: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIROOTBUS_CURRENTSPEEDANDMODE = 10
+DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_533_Mode2_66Mhz: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIROOTBUS_CURRENTSPEEDANDMODE = 11
+DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_533_Mode2_100Mhz: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIROOTBUS_CURRENTSPEEDANDMODE = 12
+DevProp_PciRootBus_CurrentSpeedAndMode_Pci_X_533_Mode2_133Mhz: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIROOTBUS_CURRENTSPEEDANDMODE = 13
 DEVPROP_PCIROOTBUS_SECONDARYINTERFACE = UInt32
-DevProp_PciRootBus_SecondaryInterface_PciConventional: DEVPROP_PCIROOTBUS_SECONDARYINTERFACE = 0
-DevProp_PciRootBus_SecondaryInterface_PciXMode1: DEVPROP_PCIROOTBUS_SECONDARYINTERFACE = 1
-DevProp_PciRootBus_SecondaryInterface_PciXMode2: DEVPROP_PCIROOTBUS_SECONDARYINTERFACE = 2
-DevProp_PciRootBus_SecondaryInterface_PciExpress: DEVPROP_PCIROOTBUS_SECONDARYINTERFACE = 3
+DevProp_PciRootBus_SecondaryInterface_PciConventional: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIROOTBUS_SECONDARYINTERFACE = 0
+DevProp_PciRootBus_SecondaryInterface_PciXMode1: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIROOTBUS_SECONDARYINTERFACE = 1
+DevProp_PciRootBus_SecondaryInterface_PciXMode2: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIROOTBUS_SECONDARYINTERFACE = 2
+DevProp_PciRootBus_SecondaryInterface_PciExpress: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIROOTBUS_SECONDARYINTERFACE = 3
 DEVPROP_PCIROOTBUS_SUPPORTEDSPEEDSANDMODES = UInt32
-DevProp_PciRootBus_SupportedSpeedsAndModes_Pci_Conventional_33Mhz: DEVPROP_PCIROOTBUS_SUPPORTEDSPEEDSANDMODES = 1
-DevProp_PciRootBus_SupportedSpeedsAndModes_Pci_Conventional_66Mhz: DEVPROP_PCIROOTBUS_SUPPORTEDSPEEDSANDMODES = 2
-DevProp_PciRootBus_SupportedSpeedsAndModes_Pci_X_66Mhz: DEVPROP_PCIROOTBUS_SUPPORTEDSPEEDSANDMODES = 4
-DevProp_PciRootBus_SupportedSpeedsAndModes_Pci_X_133Mhz: DEVPROP_PCIROOTBUS_SUPPORTEDSPEEDSANDMODES = 8
-DevProp_PciRootBus_SupportedSpeedsAndModes_Pci_X_266Mhz: DEVPROP_PCIROOTBUS_SUPPORTEDSPEEDSANDMODES = 16
-DevProp_PciRootBus_SupportedSpeedsAndModes_Pci_X_533Mhz: DEVPROP_PCIROOTBUS_SUPPORTEDSPEEDSANDMODES = 32
+DevProp_PciRootBus_SupportedSpeedsAndModes_Pci_Conventional_33Mhz: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIROOTBUS_SUPPORTEDSPEEDSANDMODES = 1
+DevProp_PciRootBus_SupportedSpeedsAndModes_Pci_Conventional_66Mhz: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIROOTBUS_SUPPORTEDSPEEDSANDMODES = 2
+DevProp_PciRootBus_SupportedSpeedsAndModes_Pci_X_66Mhz: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIROOTBUS_SUPPORTEDSPEEDSANDMODES = 4
+DevProp_PciRootBus_SupportedSpeedsAndModes_Pci_X_133Mhz: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIROOTBUS_SUPPORTEDSPEEDSANDMODES = 8
+DevProp_PciRootBus_SupportedSpeedsAndModes_Pci_X_266Mhz: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIROOTBUS_SUPPORTEDSPEEDSANDMODES = 16
+DevProp_PciRootBus_SupportedSpeedsAndModes_Pci_X_533Mhz: win32more.Windows.Win32.NetworkManagement.WiFi.DEVPROP_PCIROOTBUS_SUPPORTEDSPEEDSANDMODES = 32
 @winfunctype_pointer
 def DOT11EXTIHV_ADAPTER_RESET(hIhvExtAdapter: win32more.Windows.Win32.Foundation.HANDLE) -> UInt32: ...
 @winfunctype_pointer
@@ -1092,9 +1091,9 @@ def DOT11EXT_FREE_BUFFER(pvMemory: VoidPtr) -> Void: ...
 @winfunctype_pointer
 def DOT11EXT_GET_PROFILE_CUSTOM_USER_DATA(hDot11SvcHandle: win32more.Windows.Win32.Foundation.HANDLE, hConnectSession: win32more.Windows.Win32.Foundation.HANDLE, dwSessionID: UInt32, pdwDataSize: POINTER(UInt32), ppvData: POINTER(VoidPtr)) -> UInt32: ...
 DOT11EXT_IHV_CONNECTION_PHASE = Int32
-connection_phase_any: DOT11EXT_IHV_CONNECTION_PHASE = 0
-connection_phase_initial_connection: DOT11EXT_IHV_CONNECTION_PHASE = 1
-connection_phase_post_l3_connection: DOT11EXT_IHV_CONNECTION_PHASE = 2
+connection_phase_any: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_CONNECTION_PHASE = 0
+connection_phase_initial_connection: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_CONNECTION_PHASE = 1
+connection_phase_post_l3_connection: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_CONNECTION_PHASE = 2
 class DOT11EXT_IHV_CONNECTIVITY_PROFILE(EasyCastStructure):
     pszXmlFragmentIhvConnectivity: win32more.Windows.Win32.Foundation.PWSTR
 class DOT11EXT_IHV_DISCOVERY_PROFILE(EasyCastStructure):
@@ -1124,11 +1123,11 @@ class DOT11EXT_IHV_HANDLERS(EasyCastStructure):
     Dot11ExtIhvOnexIndicateResult: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXTIHV_ONEX_INDICATE_RESULT
     Dot11ExtIhvControl: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXTIHV_CONTROL
 DOT11EXT_IHV_INDICATION_TYPE = Int32
-DOT11EXT_IHV_INDICATION_TYPE_IndicationTypeNicSpecificNotification: DOT11EXT_IHV_INDICATION_TYPE = 0
-DOT11EXT_IHV_INDICATION_TYPE_IndicationTypePmkidCandidateList: DOT11EXT_IHV_INDICATION_TYPE = 1
-DOT11EXT_IHV_INDICATION_TYPE_IndicationTypeTkipMicFailure: DOT11EXT_IHV_INDICATION_TYPE = 2
-DOT11EXT_IHV_INDICATION_TYPE_IndicationTypePhyStateChange: DOT11EXT_IHV_INDICATION_TYPE = 3
-DOT11EXT_IHV_INDICATION_TYPE_IndicationTypeLinkQuality: DOT11EXT_IHV_INDICATION_TYPE = 4
+DOT11EXT_IHV_INDICATION_TYPE_IndicationTypeNicSpecificNotification: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_INDICATION_TYPE = 0
+DOT11EXT_IHV_INDICATION_TYPE_IndicationTypePmkidCandidateList: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_INDICATION_TYPE = 1
+DOT11EXT_IHV_INDICATION_TYPE_IndicationTypeTkipMicFailure: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_INDICATION_TYPE = 2
+DOT11EXT_IHV_INDICATION_TYPE_IndicationTypePhyStateChange: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_INDICATION_TYPE = 3
+DOT11EXT_IHV_INDICATION_TYPE_IndicationTypeLinkQuality: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_INDICATION_TYPE = 4
 class DOT11EXT_IHV_PARAMS(EasyCastStructure):
     dot11ExtIhvProfileParams: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_PROFILE_PARAMS
     wstrProfileName: Char * 256
@@ -1215,11 +1214,11 @@ class DOT11_ACCESSNETWORKOPTIONS(EasyCastStructure):
     ESR: Byte
     UESA: Byte
 DOT11_AC_PARAM = Int32
-dot11_AC_param_BE: DOT11_AC_PARAM = 0
-dot11_AC_param_BK: DOT11_AC_PARAM = 1
-dot11_AC_param_VI: DOT11_AC_PARAM = 2
-dot11_AC_param_VO: DOT11_AC_PARAM = 3
-dot11_AC_param_max: DOT11_AC_PARAM = 4
+dot11_AC_param_BE: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_AC_PARAM = 0
+dot11_AC_param_BK: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_AC_PARAM = 1
+dot11_AC_param_VI: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_AC_PARAM = 2
+dot11_AC_param_VO: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_AC_PARAM = 3
+dot11_AC_param_max: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_AC_PARAM = 4
 class DOT11_ADAPTER(EasyCastStructure):
     gAdapterId: Guid
     pszDescription: win32more.Windows.Win32.Foundation.PWSTR
@@ -1231,38 +1230,38 @@ class DOT11_ADDITIONAL_IE(EasyCastStructure):
     uResponseIEsOffset: UInt32
     uResponseIEsLength: UInt32
 DOT11_ADHOC_AUTH_ALGORITHM = Int32
-DOT11_ADHOC_AUTH_ALGO_INVALID: DOT11_ADHOC_AUTH_ALGORITHM = -1
-DOT11_ADHOC_AUTH_ALGO_80211_OPEN: DOT11_ADHOC_AUTH_ALGORITHM = 1
-DOT11_ADHOC_AUTH_ALGO_RSNA_PSK: DOT11_ADHOC_AUTH_ALGORITHM = 7
+DOT11_ADHOC_AUTH_ALGO_INVALID: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_ADHOC_AUTH_ALGORITHM = -1
+DOT11_ADHOC_AUTH_ALGO_80211_OPEN: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_ADHOC_AUTH_ALGORITHM = 1
+DOT11_ADHOC_AUTH_ALGO_RSNA_PSK: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_ADHOC_AUTH_ALGORITHM = 7
 DOT11_ADHOC_CIPHER_ALGORITHM = Int32
-DOT11_ADHOC_CIPHER_ALGO_INVALID: DOT11_ADHOC_CIPHER_ALGORITHM = -1
-DOT11_ADHOC_CIPHER_ALGO_NONE: DOT11_ADHOC_CIPHER_ALGORITHM = 0
-DOT11_ADHOC_CIPHER_ALGO_CCMP: DOT11_ADHOC_CIPHER_ALGORITHM = 4
-DOT11_ADHOC_CIPHER_ALGO_WEP: DOT11_ADHOC_CIPHER_ALGORITHM = 257
+DOT11_ADHOC_CIPHER_ALGO_INVALID: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_ADHOC_CIPHER_ALGORITHM = -1
+DOT11_ADHOC_CIPHER_ALGO_NONE: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_ADHOC_CIPHER_ALGORITHM = 0
+DOT11_ADHOC_CIPHER_ALGO_CCMP: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_ADHOC_CIPHER_ALGORITHM = 4
+DOT11_ADHOC_CIPHER_ALGO_WEP: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_ADHOC_CIPHER_ALGORITHM = 257
 DOT11_ADHOC_CONNECT_FAIL_REASON = Int32
-DOT11_ADHOC_CONNECT_FAIL_DOMAIN_MISMATCH: DOT11_ADHOC_CONNECT_FAIL_REASON = 0
-DOT11_ADHOC_CONNECT_FAIL_PASSPHRASE_MISMATCH: DOT11_ADHOC_CONNECT_FAIL_REASON = 1
-DOT11_ADHOC_CONNECT_FAIL_OTHER: DOT11_ADHOC_CONNECT_FAIL_REASON = 2
+DOT11_ADHOC_CONNECT_FAIL_DOMAIN_MISMATCH: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_ADHOC_CONNECT_FAIL_REASON = 0
+DOT11_ADHOC_CONNECT_FAIL_PASSPHRASE_MISMATCH: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_ADHOC_CONNECT_FAIL_REASON = 1
+DOT11_ADHOC_CONNECT_FAIL_OTHER: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_ADHOC_CONNECT_FAIL_REASON = 2
 DOT11_ADHOC_NETWORK_CONNECTION_STATUS = Int32
-DOT11_ADHOC_NETWORK_CONNECTION_STATUS_INVALID: DOT11_ADHOC_NETWORK_CONNECTION_STATUS = 0
-DOT11_ADHOC_NETWORK_CONNECTION_STATUS_DISCONNECTED: DOT11_ADHOC_NETWORK_CONNECTION_STATUS = 11
-DOT11_ADHOC_NETWORK_CONNECTION_STATUS_CONNECTING: DOT11_ADHOC_NETWORK_CONNECTION_STATUS = 12
-DOT11_ADHOC_NETWORK_CONNECTION_STATUS_CONNECTED: DOT11_ADHOC_NETWORK_CONNECTION_STATUS = 13
-DOT11_ADHOC_NETWORK_CONNECTION_STATUS_FORMED: DOT11_ADHOC_NETWORK_CONNECTION_STATUS = 14
+DOT11_ADHOC_NETWORK_CONNECTION_STATUS_INVALID: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_ADHOC_NETWORK_CONNECTION_STATUS = 0
+DOT11_ADHOC_NETWORK_CONNECTION_STATUS_DISCONNECTED: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_ADHOC_NETWORK_CONNECTION_STATUS = 11
+DOT11_ADHOC_NETWORK_CONNECTION_STATUS_CONNECTING: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_ADHOC_NETWORK_CONNECTION_STATUS = 12
+DOT11_ADHOC_NETWORK_CONNECTION_STATUS_CONNECTED: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_ADHOC_NETWORK_CONNECTION_STATUS = 13
+DOT11_ADHOC_NETWORK_CONNECTION_STATUS_FORMED: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_ADHOC_NETWORK_CONNECTION_STATUS = 14
 class DOT11_ANQP_QUERY_COMPLETE_PARAMETERS(EasyCastStructure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     Status: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_ANQP_QUERY_RESULT
     hContext: win32more.Windows.Win32.Foundation.HANDLE
     uResponseLength: UInt32
 DOT11_ANQP_QUERY_RESULT = Int32
-dot11_ANQP_query_result_success: DOT11_ANQP_QUERY_RESULT = 0
-dot11_ANQP_query_result_failure: DOT11_ANQP_QUERY_RESULT = 1
-dot11_ANQP_query_result_timed_out: DOT11_ANQP_QUERY_RESULT = 2
-dot11_ANQP_query_result_resources: DOT11_ANQP_QUERY_RESULT = 3
-dot11_ANQP_query_result_advertisement_protocol_not_supported_on_remote: DOT11_ANQP_QUERY_RESULT = 4
-dot11_ANQP_query_result_gas_protocol_failure: DOT11_ANQP_QUERY_RESULT = 5
-dot11_ANQP_query_result_advertisement_server_not_responding: DOT11_ANQP_QUERY_RESULT = 6
-dot11_ANQP_query_result_access_issues: DOT11_ANQP_QUERY_RESULT = 7
+dot11_ANQP_query_result_success: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_ANQP_QUERY_RESULT = 0
+dot11_ANQP_query_result_failure: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_ANQP_QUERY_RESULT = 1
+dot11_ANQP_query_result_timed_out: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_ANQP_QUERY_RESULT = 2
+dot11_ANQP_query_result_resources: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_ANQP_QUERY_RESULT = 3
+dot11_ANQP_query_result_advertisement_protocol_not_supported_on_remote: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_ANQP_QUERY_RESULT = 4
+dot11_ANQP_query_result_gas_protocol_failure: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_ANQP_QUERY_RESULT = 5
+dot11_ANQP_query_result_advertisement_server_not_responding: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_ANQP_QUERY_RESULT = 6
+dot11_ANQP_query_result_access_issues: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_ANQP_QUERY_RESULT = 7
 class DOT11_AP_JOIN_REQUEST(EasyCastStructure):
     uJoinFailureTimeout: UInt32
     OperationalRateSet: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_RATE_SET
@@ -1326,25 +1325,25 @@ class DOT11_ASSOCIATION_START_PARAMETERS(EasyCastStructure):
     uIHVDataOffset: UInt32
     uIHVDataSize: UInt32
 DOT11_ASSOCIATION_STATE = Int32
-dot11_assoc_state_zero: DOT11_ASSOCIATION_STATE = 0
-dot11_assoc_state_unauth_unassoc: DOT11_ASSOCIATION_STATE = 1
-dot11_assoc_state_auth_unassoc: DOT11_ASSOCIATION_STATE = 2
-dot11_assoc_state_auth_assoc: DOT11_ASSOCIATION_STATE = 3
+dot11_assoc_state_zero: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_ASSOCIATION_STATE = 0
+dot11_assoc_state_unauth_unassoc: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_ASSOCIATION_STATE = 1
+dot11_assoc_state_auth_unassoc: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_ASSOCIATION_STATE = 2
+dot11_assoc_state_auth_assoc: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_ASSOCIATION_STATE = 3
 DOT11_AUTH_ALGORITHM = Int32
-DOT11_AUTH_ALGO_80211_OPEN: DOT11_AUTH_ALGORITHM = 1
-DOT11_AUTH_ALGO_80211_SHARED_KEY: DOT11_AUTH_ALGORITHM = 2
-DOT11_AUTH_ALGO_WPA: DOT11_AUTH_ALGORITHM = 3
-DOT11_AUTH_ALGO_WPA_PSK: DOT11_AUTH_ALGORITHM = 4
-DOT11_AUTH_ALGO_WPA_NONE: DOT11_AUTH_ALGORITHM = 5
-DOT11_AUTH_ALGO_RSNA: DOT11_AUTH_ALGORITHM = 6
-DOT11_AUTH_ALGO_RSNA_PSK: DOT11_AUTH_ALGORITHM = 7
-DOT11_AUTH_ALGO_WPA3: DOT11_AUTH_ALGORITHM = 8
-DOT11_AUTH_ALGO_WPA3_ENT_192: DOT11_AUTH_ALGORITHM = 8
-DOT11_AUTH_ALGO_WPA3_SAE: DOT11_AUTH_ALGORITHM = 9
-DOT11_AUTH_ALGO_OWE: DOT11_AUTH_ALGORITHM = 10
-DOT11_AUTH_ALGO_WPA3_ENT: DOT11_AUTH_ALGORITHM = 11
-DOT11_AUTH_ALGO_IHV_START: DOT11_AUTH_ALGORITHM = -2147483648
-DOT11_AUTH_ALGO_IHV_END: DOT11_AUTH_ALGORITHM = -1
+DOT11_AUTH_ALGO_80211_OPEN: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_AUTH_ALGORITHM = 1
+DOT11_AUTH_ALGO_80211_SHARED_KEY: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_AUTH_ALGORITHM = 2
+DOT11_AUTH_ALGO_WPA: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_AUTH_ALGORITHM = 3
+DOT11_AUTH_ALGO_WPA_PSK: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_AUTH_ALGORITHM = 4
+DOT11_AUTH_ALGO_WPA_NONE: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_AUTH_ALGORITHM = 5
+DOT11_AUTH_ALGO_RSNA: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_AUTH_ALGORITHM = 6
+DOT11_AUTH_ALGO_RSNA_PSK: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_AUTH_ALGORITHM = 7
+DOT11_AUTH_ALGO_WPA3: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_AUTH_ALGORITHM = 8
+DOT11_AUTH_ALGO_WPA3_ENT_192: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_AUTH_ALGORITHM = 8
+DOT11_AUTH_ALGO_WPA3_SAE: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_AUTH_ALGORITHM = 9
+DOT11_AUTH_ALGO_OWE: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_AUTH_ALGORITHM = 10
+DOT11_AUTH_ALGO_WPA3_ENT: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_AUTH_ALGORITHM = 11
+DOT11_AUTH_ALGO_IHV_START: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_AUTH_ALGORITHM = -2147483648
+DOT11_AUTH_ALGO_IHV_END: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_AUTH_ALGORITHM = -1
 class DOT11_AUTH_ALGORITHM_LIST(EasyCastStructure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     uNumOfEntries: UInt32
@@ -1369,9 +1368,9 @@ class DOT11_AVAILABLE_FREQUENCY_LIST(EasyCastStructure):
     uTotalNumOfEntries: UInt32
     uFrequencyValue: UInt32 * 1
 DOT11_BAND = Int32
-dot11_band_2p4g: DOT11_BAND = 1
-dot11_band_4p9g: DOT11_BAND = 2
-dot11_band_5g: DOT11_BAND = 3
+dot11_band_2p4g: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_BAND = 1
+dot11_band_4p9g: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_BAND = 2
+dot11_band_5g: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_BAND = 3
 class DOT11_BSSID_CANDIDATE(EasyCastStructure):
     BSSID: Byte * 6
     uFlags: UInt32
@@ -1414,9 +1413,9 @@ class DOT11_BSS_LIST(EasyCastStructure):
     uNumOfBytes: UInt32
     pucBuffer: POINTER(Byte)
 DOT11_BSS_TYPE = Int32
-dot11_BSS_type_infrastructure: DOT11_BSS_TYPE = 1
-dot11_BSS_type_independent: DOT11_BSS_TYPE = 2
-dot11_BSS_type_any: DOT11_BSS_TYPE = 3
+dot11_BSS_type_infrastructure: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_BSS_TYPE = 1
+dot11_BSS_type_independent: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_BSS_TYPE = 2
+dot11_BSS_type_any: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_BSS_TYPE = 3
 class DOT11_BYTE_ARRAY(EasyCastStructure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     uNumOfBytes: UInt32
@@ -1429,23 +1428,23 @@ class DOT11_CHANNEL_HINT(EasyCastStructure):
     Dot11PhyType: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_PHY_TYPE
     uChannelNumber: UInt32
 DOT11_CIPHER_ALGORITHM = Int32
-DOT11_CIPHER_ALGO_NONE: DOT11_CIPHER_ALGORITHM = 0
-DOT11_CIPHER_ALGO_WEP40: DOT11_CIPHER_ALGORITHM = 1
-DOT11_CIPHER_ALGO_TKIP: DOT11_CIPHER_ALGORITHM = 2
-DOT11_CIPHER_ALGO_CCMP: DOT11_CIPHER_ALGORITHM = 4
-DOT11_CIPHER_ALGO_WEP104: DOT11_CIPHER_ALGORITHM = 5
-DOT11_CIPHER_ALGO_BIP: DOT11_CIPHER_ALGORITHM = 6
-DOT11_CIPHER_ALGO_GCMP: DOT11_CIPHER_ALGORITHM = 8
-DOT11_CIPHER_ALGO_GCMP_256: DOT11_CIPHER_ALGORITHM = 9
-DOT11_CIPHER_ALGO_CCMP_256: DOT11_CIPHER_ALGORITHM = 10
-DOT11_CIPHER_ALGO_BIP_GMAC_128: DOT11_CIPHER_ALGORITHM = 11
-DOT11_CIPHER_ALGO_BIP_GMAC_256: DOT11_CIPHER_ALGORITHM = 12
-DOT11_CIPHER_ALGO_BIP_CMAC_256: DOT11_CIPHER_ALGORITHM = 13
-DOT11_CIPHER_ALGO_WPA_USE_GROUP: DOT11_CIPHER_ALGORITHM = 256
-DOT11_CIPHER_ALGO_RSN_USE_GROUP: DOT11_CIPHER_ALGORITHM = 256
-DOT11_CIPHER_ALGO_WEP: DOT11_CIPHER_ALGORITHM = 257
-DOT11_CIPHER_ALGO_IHV_START: DOT11_CIPHER_ALGORITHM = -2147483648
-DOT11_CIPHER_ALGO_IHV_END: DOT11_CIPHER_ALGORITHM = -1
+DOT11_CIPHER_ALGO_NONE: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM = 0
+DOT11_CIPHER_ALGO_WEP40: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM = 1
+DOT11_CIPHER_ALGO_TKIP: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM = 2
+DOT11_CIPHER_ALGO_CCMP: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM = 4
+DOT11_CIPHER_ALGO_WEP104: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM = 5
+DOT11_CIPHER_ALGO_BIP: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM = 6
+DOT11_CIPHER_ALGO_GCMP: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM = 8
+DOT11_CIPHER_ALGO_GCMP_256: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM = 9
+DOT11_CIPHER_ALGO_CCMP_256: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM = 10
+DOT11_CIPHER_ALGO_BIP_GMAC_128: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM = 11
+DOT11_CIPHER_ALGO_BIP_GMAC_256: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM = 12
+DOT11_CIPHER_ALGO_BIP_CMAC_256: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM = 13
+DOT11_CIPHER_ALGO_WPA_USE_GROUP: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM = 256
+DOT11_CIPHER_ALGO_RSN_USE_GROUP: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM = 256
+DOT11_CIPHER_ALGO_WEP: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM = 257
+DOT11_CIPHER_ALGO_IHV_START: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM = -2147483648
+DOT11_CIPHER_ALGO_IHV_END: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM = -1
 class DOT11_CIPHER_ALGORITHM_LIST(EasyCastStructure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     uNumOfEntries: UInt32
@@ -1538,9 +1537,9 @@ class DOT11_DEFAULT_WEP_UPLOAD(EasyCastStructure):
     dot11IV48Counters: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_IV48_COUNTER * 16
     usDot11RWBitMaps: UInt16 * 16
 DOT11_DIRECTION = Int32
-DOT11_DIR_INBOUND: DOT11_DIRECTION = 1
-DOT11_DIR_OUTBOUND: DOT11_DIRECTION = 2
-DOT11_DIR_BOTH: DOT11_DIRECTION = 3
+DOT11_DIR_INBOUND: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_DIRECTION = 1
+DOT11_DIR_OUTBOUND: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_DIRECTION = 2
+DOT11_DIR_BOTH: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_DIRECTION = 3
 class DOT11_DISASSOCIATE_PEER_REQUEST(EasyCastStructure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     PeerMacAddr: Byte * 6
@@ -1559,14 +1558,14 @@ class DOT11_DIVERSITY_SELECTION_RX_LIST(EasyCastStructure):
     uTotalNumOfEntries: UInt32
     dot11DiversitySelectionRx: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_DIVERSITY_SELECTION_RX * 1
 DOT11_DIVERSITY_SUPPORT = Int32
-dot11_diversity_support_unknown: DOT11_DIVERSITY_SUPPORT = 0
-dot11_diversity_support_fixedlist: DOT11_DIVERSITY_SUPPORT = 1
-dot11_diversity_support_notsupported: DOT11_DIVERSITY_SUPPORT = 2
-dot11_diversity_support_dynamic: DOT11_DIVERSITY_SUPPORT = 3
+dot11_diversity_support_unknown: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_DIVERSITY_SUPPORT = 0
+dot11_diversity_support_fixedlist: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_DIVERSITY_SUPPORT = 1
+dot11_diversity_support_notsupported: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_DIVERSITY_SUPPORT = 2
+dot11_diversity_support_dynamic: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_DIVERSITY_SUPPORT = 3
 DOT11_DS_INFO = Int32
-DOT11_DS_CHANGED: DOT11_DS_INFO = 0
-DOT11_DS_UNCHANGED: DOT11_DS_INFO = 1
-DOT11_DS_UNKNOWN: DOT11_DS_INFO = 2
+DOT11_DS_CHANGED: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_DS_INFO = 0
+DOT11_DS_UNCHANGED: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_DS_INFO = 1
+DOT11_DS_UNKNOWN: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_DS_INFO = 2
 class DOT11_EAP_RESULT(EasyCastStructure):
     dwFailureReasonCode: UInt32
     pAttribArray: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTES)
@@ -1690,9 +1689,9 @@ class DOT11_HOPPING_PATTERN_ENTRY_LIST(EasyCastStructure):
     uTotalNumOfEntries: UInt32
     dot11HoppingPatternEntry: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_HOPPING_PATTERN_ENTRY * 1
 DOT11_HOP_ALGO_ADOPTED = Int32
-dot11_hop_algo_current: DOT11_HOP_ALGO_ADOPTED = 0
-dot11_hop_algo_hop_index: DOT11_HOP_ALGO_ADOPTED = 1
-dot11_hop_algo_hcc: DOT11_HOP_ALGO_ADOPTED = 2
+dot11_hop_algo_current: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_HOP_ALGO_ADOPTED = 0
+dot11_hop_algo_hop_index: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_HOP_ALGO_ADOPTED = 1
+dot11_hop_algo_hcc: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_HOP_ALGO_ADOPTED = 2
 class DOT11_HRDSSS_PHY_ATTRIBUTES(EasyCastStructure):
     bShortPreambleOptionImplemented: win32more.Windows.Win32.Foundation.BOOLEAN
     bPBCCOptionImplemented: win32more.Windows.Win32.Foundation.BOOLEAN
@@ -1797,9 +1796,9 @@ class DOT11_KEY_ALGO_TKIP_MIC(EasyCastStructure):
     ulMICKeyLength: UInt32
     ucTKIPMICKeys: Byte * 1
 DOT11_KEY_DIRECTION = Int32
-dot11_key_direction_both: DOT11_KEY_DIRECTION = 1
-dot11_key_direction_inbound: DOT11_KEY_DIRECTION = 2
-dot11_key_direction_outbound: DOT11_KEY_DIRECTION = 3
+dot11_key_direction_both: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_KEY_DIRECTION = 1
+dot11_key_direction_inbound: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_KEY_DIRECTION = 2
+dot11_key_direction_outbound: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_KEY_DIRECTION = 3
 class DOT11_LINK_QUALITY_ENTRY(EasyCastStructure):
     PeerMacAddr: Byte * 6
     ucLinkQuality: Byte
@@ -1840,11 +1839,11 @@ class DOT11_MANUFACTURING_CALLBACK_PARAMETERS(EasyCastStructure):
     uStatus: UInt32
     pvContext: VoidPtr
 DOT11_MANUFACTURING_CALLBACK_TYPE = Int32
-dot11_manufacturing_callback_unknown: DOT11_MANUFACTURING_CALLBACK_TYPE = 0
-dot11_manufacturing_callback_self_test_complete: DOT11_MANUFACTURING_CALLBACK_TYPE = 1
-dot11_manufacturing_callback_sleep_complete: DOT11_MANUFACTURING_CALLBACK_TYPE = 2
-dot11_manufacturing_callback_IHV_start: DOT11_MANUFACTURING_CALLBACK_TYPE = -2147483648
-dot11_manufacturing_callback_IHV_end: DOT11_MANUFACTURING_CALLBACK_TYPE = -1
+dot11_manufacturing_callback_unknown: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_MANUFACTURING_CALLBACK_TYPE = 0
+dot11_manufacturing_callback_self_test_complete: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_MANUFACTURING_CALLBACK_TYPE = 1
+dot11_manufacturing_callback_sleep_complete: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_MANUFACTURING_CALLBACK_TYPE = 2
+dot11_manufacturing_callback_IHV_start: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_MANUFACTURING_CALLBACK_TYPE = -2147483648
+dot11_manufacturing_callback_IHV_end: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_MANUFACTURING_CALLBACK_TYPE = -1
 class DOT11_MANUFACTURING_FUNCTIONAL_TEST_QUERY_ADC(EasyCastStructure):
     Dot11Band: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_BAND
     uChannel: UInt32
@@ -1877,9 +1876,9 @@ class DOT11_MANUFACTURING_SELF_TEST_SET_PARAMS(EasyCastStructure):
     uBufferLength: UInt32
     ucBufferIn: Byte * 1
 DOT11_MANUFACTURING_SELF_TEST_TYPE = Int32
-DOT11_MANUFACTURING_SELF_TEST_TYPE_INTERFACE: DOT11_MANUFACTURING_SELF_TEST_TYPE = 1
-DOT11_MANUFACTURING_SELF_TEST_TYPE_RF_INTERFACE: DOT11_MANUFACTURING_SELF_TEST_TYPE = 2
-DOT11_MANUFACTURING_SELF_TEST_TYPE_BT_COEXISTENCE: DOT11_MANUFACTURING_SELF_TEST_TYPE = 3
+DOT11_MANUFACTURING_SELF_TEST_TYPE_INTERFACE: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_MANUFACTURING_SELF_TEST_TYPE = 1
+DOT11_MANUFACTURING_SELF_TEST_TYPE_RF_INTERFACE: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_MANUFACTURING_SELF_TEST_TYPE = 2
+DOT11_MANUFACTURING_SELF_TEST_TYPE_BT_COEXISTENCE: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_MANUFACTURING_SELF_TEST_TYPE = 3
 class DOT11_MANUFACTURING_TEST(EasyCastStructure):
     dot11ManufacturingTestType: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_MANUFACTURING_TEST_TYPE
     uBufferLength: UInt32
@@ -1899,18 +1898,18 @@ class DOT11_MANUFACTURING_TEST_SLEEP(EasyCastStructure):
     uSleepTime: UInt32
     pvContext: VoidPtr
 DOT11_MANUFACTURING_TEST_TYPE = Int32
-dot11_manufacturing_test_unknown: DOT11_MANUFACTURING_TEST_TYPE = 0
-dot11_manufacturing_test_self_start: DOT11_MANUFACTURING_TEST_TYPE = 1
-dot11_manufacturing_test_self_query_result: DOT11_MANUFACTURING_TEST_TYPE = 2
-dot11_manufacturing_test_rx: DOT11_MANUFACTURING_TEST_TYPE = 3
-dot11_manufacturing_test_tx: DOT11_MANUFACTURING_TEST_TYPE = 4
-dot11_manufacturing_test_query_adc: DOT11_MANUFACTURING_TEST_TYPE = 5
-dot11_manufacturing_test_set_data: DOT11_MANUFACTURING_TEST_TYPE = 6
-dot11_manufacturing_test_query_data: DOT11_MANUFACTURING_TEST_TYPE = 7
-dot11_manufacturing_test_sleep: DOT11_MANUFACTURING_TEST_TYPE = 8
-dot11_manufacturing_test_awake: DOT11_MANUFACTURING_TEST_TYPE = 9
-dot11_manufacturing_test_IHV_start: DOT11_MANUFACTURING_TEST_TYPE = -2147483648
-dot11_manufacturing_test_IHV_end: DOT11_MANUFACTURING_TEST_TYPE = -1
+dot11_manufacturing_test_unknown: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_MANUFACTURING_TEST_TYPE = 0
+dot11_manufacturing_test_self_start: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_MANUFACTURING_TEST_TYPE = 1
+dot11_manufacturing_test_self_query_result: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_MANUFACTURING_TEST_TYPE = 2
+dot11_manufacturing_test_rx: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_MANUFACTURING_TEST_TYPE = 3
+dot11_manufacturing_test_tx: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_MANUFACTURING_TEST_TYPE = 4
+dot11_manufacturing_test_query_adc: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_MANUFACTURING_TEST_TYPE = 5
+dot11_manufacturing_test_set_data: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_MANUFACTURING_TEST_TYPE = 6
+dot11_manufacturing_test_query_data: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_MANUFACTURING_TEST_TYPE = 7
+dot11_manufacturing_test_sleep: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_MANUFACTURING_TEST_TYPE = 8
+dot11_manufacturing_test_awake: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_MANUFACTURING_TEST_TYPE = 9
+dot11_manufacturing_test_IHV_start: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_MANUFACTURING_TEST_TYPE = -2147483648
+dot11_manufacturing_test_IHV_end: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_MANUFACTURING_TEST_TYPE = -1
 class DOT11_MD_CAPABILITY_ENTRY_LIST(EasyCastStructure):
     uNumOfEntries: UInt32
     uTotalNumOfEntries: UInt32
@@ -1920,9 +1919,9 @@ class DOT11_MPDU_MAX_LENGTH_INDICATION(EasyCastStructure):
     uPhyId: UInt32
     uMPDUMaxLength: UInt32
 DOT11_MSONEX_RESULT = Int32
-DOT11_MSONEX_SUCCESS: DOT11_MSONEX_RESULT = 0
-DOT11_MSONEX_FAILURE: DOT11_MSONEX_RESULT = 1
-DOT11_MSONEX_IN_PROGRESS: DOT11_MSONEX_RESULT = 2
+DOT11_MSONEX_SUCCESS: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_MSONEX_RESULT = 0
+DOT11_MSONEX_FAILURE: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_MSONEX_RESULT = 1
+DOT11_MSONEX_IN_PROGRESS: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_MSONEX_RESULT = 2
 class DOT11_MSONEX_RESULT_PARAMS(EasyCastStructure):
     Dot11OnexAuthStatus: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_STATUS
     Dot11OneXReasonCode: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_REASON_CODE
@@ -1981,8 +1980,8 @@ class DOT11_OFFLOAD_NETWORK_STATUS_PARAMETERS(EasyCastStructure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     Status: Int32
 DOT11_OFFLOAD_TYPE = Int32
-dot11_offload_type_wep: DOT11_OFFLOAD_TYPE = 1
-dot11_offload_type_auth: DOT11_OFFLOAD_TYPE = 2
+dot11_offload_type_wep: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_OFFLOAD_TYPE = 1
+dot11_offload_type_auth: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_OFFLOAD_TYPE = 2
 class DOT11_OI(EasyCastStructure):
     OILength: UInt16
     OI: Byte * 5
@@ -2086,21 +2085,21 @@ class DOT11_PHY_STATE_PARAMETERS(EasyCastStructure):
     bHardwarePhyState: win32more.Windows.Win32.Foundation.BOOLEAN
     bSoftwarePhyState: win32more.Windows.Win32.Foundation.BOOLEAN
 DOT11_PHY_TYPE = Int32
-dot11_phy_type_unknown: DOT11_PHY_TYPE = 0
-dot11_phy_type_any: DOT11_PHY_TYPE = 0
-dot11_phy_type_fhss: DOT11_PHY_TYPE = 1
-dot11_phy_type_dsss: DOT11_PHY_TYPE = 2
-dot11_phy_type_irbaseband: DOT11_PHY_TYPE = 3
-dot11_phy_type_ofdm: DOT11_PHY_TYPE = 4
-dot11_phy_type_hrdsss: DOT11_PHY_TYPE = 5
-dot11_phy_type_erp: DOT11_PHY_TYPE = 6
-dot11_phy_type_ht: DOT11_PHY_TYPE = 7
-dot11_phy_type_vht: DOT11_PHY_TYPE = 8
-dot11_phy_type_dmg: DOT11_PHY_TYPE = 9
-dot11_phy_type_he: DOT11_PHY_TYPE = 10
-dot11_phy_type_eht: DOT11_PHY_TYPE = 11
-dot11_phy_type_IHV_start: DOT11_PHY_TYPE = -2147483648
-dot11_phy_type_IHV_end: DOT11_PHY_TYPE = -1
+dot11_phy_type_unknown: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_PHY_TYPE = 0
+dot11_phy_type_any: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_PHY_TYPE = 0
+dot11_phy_type_fhss: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_PHY_TYPE = 1
+dot11_phy_type_dsss: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_PHY_TYPE = 2
+dot11_phy_type_irbaseband: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_PHY_TYPE = 3
+dot11_phy_type_ofdm: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_PHY_TYPE = 4
+dot11_phy_type_hrdsss: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_PHY_TYPE = 5
+dot11_phy_type_erp: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_PHY_TYPE = 6
+dot11_phy_type_ht: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_PHY_TYPE = 7
+dot11_phy_type_vht: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_PHY_TYPE = 8
+dot11_phy_type_dmg: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_PHY_TYPE = 9
+dot11_phy_type_he: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_PHY_TYPE = 10
+dot11_phy_type_eht: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_PHY_TYPE = 11
+dot11_phy_type_IHV_start: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_PHY_TYPE = -2147483648
+dot11_phy_type_IHV_end: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_PHY_TYPE = -1
 class DOT11_PHY_TYPE_INFO(EasyCastStructure):
     dot11PhyType: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_PHY_TYPE
     bUseParameters: win32more.Windows.Win32.Foundation.BOOLEAN
@@ -2152,16 +2151,16 @@ class DOT11_POWER_MGMT_MODE_STATUS_INFO(EasyCastStructure):
     uPowerSaveLevel: UInt32
     Reason: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_POWER_MODE_REASON
 DOT11_POWER_MODE = Int32
-dot11_power_mode_unknown: DOT11_POWER_MODE = 0
-dot11_power_mode_active: DOT11_POWER_MODE = 1
-dot11_power_mode_powersave: DOT11_POWER_MODE = 2
+dot11_power_mode_unknown: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_POWER_MODE = 0
+dot11_power_mode_active: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_POWER_MODE = 1
+dot11_power_mode_powersave: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_POWER_MODE = 2
 DOT11_POWER_MODE_REASON = Int32
-dot11_power_mode_reason_no_change: DOT11_POWER_MODE_REASON = 0
-dot11_power_mode_reason_noncompliant_AP: DOT11_POWER_MODE_REASON = 1
-dot11_power_mode_reason_legacy_WFD_device: DOT11_POWER_MODE_REASON = 2
-dot11_power_mode_reason_compliant_AP: DOT11_POWER_MODE_REASON = 3
-dot11_power_mode_reason_compliant_WFD_device: DOT11_POWER_MODE_REASON = 4
-dot11_power_mode_reason_others: DOT11_POWER_MODE_REASON = 5
+dot11_power_mode_reason_no_change: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_POWER_MODE_REASON = 0
+dot11_power_mode_reason_noncompliant_AP: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_POWER_MODE_REASON = 1
+dot11_power_mode_reason_legacy_WFD_device: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_POWER_MODE_REASON = 2
+dot11_power_mode_reason_compliant_AP: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_POWER_MODE_REASON = 3
+dot11_power_mode_reason_compliant_WFD_device: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_POWER_MODE_REASON = 4
+dot11_power_mode_reason_others: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_POWER_MODE_REASON = 5
 class DOT11_PRIVACY_EXEMPTION(EasyCastStructure):
     usEtherType: UInt16
     usExemptionActionType: UInt16
@@ -2198,9 +2197,9 @@ class DOT11_QOS_TX_MEDIUM_TIME(EasyCastStructure):
     ucQoSPriority: Byte
     uMediumTimeAdmited: UInt32
 DOT11_RADIO_STATE = Int32
-dot11_radio_state_unknown: DOT11_RADIO_STATE = 0
-dot11_radio_state_on: DOT11_RADIO_STATE = 1
-dot11_radio_state_off: DOT11_RADIO_STATE = 2
+dot11_radio_state_unknown: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_RADIO_STATE = 0
+dot11_radio_state_on: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_RADIO_STATE = 1
+dot11_radio_state_off: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_RADIO_STATE = 2
 class DOT11_RATE_SET(EasyCastStructure):
     uRateSetLength: UInt32
     ucRateSet: Byte * 126
@@ -2324,9 +2323,9 @@ class DOT11_RESET_REQUEST(EasyCastStructure):
     dot11MacAddress: Byte * 6
     bSetDefaultMIB: win32more.Windows.Win32.Foundation.BOOLEAN
 DOT11_RESET_TYPE = Int32
-dot11_reset_type_phy: DOT11_RESET_TYPE = 1
-dot11_reset_type_mac: DOT11_RESET_TYPE = 2
-dot11_reset_type_phy_and_mac: DOT11_RESET_TYPE = 3
+dot11_reset_type_phy: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_RESET_TYPE = 1
+dot11_reset_type_mac: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_RESET_TYPE = 2
+dot11_reset_type_phy_and_mac: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_RESET_TYPE = 3
 class DOT11_ROAMING_COMPLETION_PARAMETERS(EasyCastStructure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     uStatus: UInt32
@@ -2369,10 +2368,10 @@ class DOT11_SCAN_REQUEST_V2(EasyCastStructure):
     uIEsLength: UInt32
     ucBuffer: Byte * 1
 DOT11_SCAN_TYPE = Int32
-dot11_scan_type_active: DOT11_SCAN_TYPE = 1
-dot11_scan_type_passive: DOT11_SCAN_TYPE = 2
-dot11_scan_type_auto: DOT11_SCAN_TYPE = 3
-dot11_scan_type_forced: DOT11_SCAN_TYPE = -2147483648
+dot11_scan_type_active: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_SCAN_TYPE = 1
+dot11_scan_type_passive: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_SCAN_TYPE = 2
+dot11_scan_type_auto: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_SCAN_TYPE = 3
+dot11_scan_type_forced: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_SCAN_TYPE = -2147483648
 class DOT11_SECURITY_PACKET_HEADER(EasyCastStructure):
     PeerMac: Byte * 6
     usEtherType: UInt16
@@ -2523,9 +2522,9 @@ class DOT11_SUPPORTED_POWER_LEVELS(EasyCastStructure):
     uNumOfSupportedPowerLevels: UInt32
     uTxPowerLevelValues: UInt32 * 8
 DOT11_TEMP_TYPE = Int32
-dot11_temp_type_unknown: DOT11_TEMP_TYPE = 0
-dot11_temp_type_1: DOT11_TEMP_TYPE = 1
-dot11_temp_type_2: DOT11_TEMP_TYPE = 2
+dot11_temp_type_unknown: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_TEMP_TYPE = 0
+dot11_temp_type_1: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_TEMP_TYPE = 1
+dot11_temp_type_2: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_TEMP_TYPE = 2
 class DOT11_TKIPMIC_FAILURE_PARAMETERS(EasyCastStructure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     bDefaultKeyFailure: win32more.Windows.Win32.Foundation.BOOLEAN
@@ -2536,8 +2535,8 @@ class DOT11_UPDATE_IE(EasyCastStructure):
     uBufferLength: UInt32
     ucBuffer: Byte * 1
 DOT11_UPDATE_IE_OP = Int32
-dot11_update_ie_op_create_replace: DOT11_UPDATE_IE_OP = 1
-dot11_update_ie_op_delete: DOT11_UPDATE_IE_OP = 2
+dot11_update_ie_op_create_replace: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_UPDATE_IE_OP = 1
+dot11_update_ie_op_delete: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_UPDATE_IE_OP = 2
 class DOT11_VENUEINFO(EasyCastStructure):
     VenueGroup: Byte
     VenueType: Byte
@@ -2689,11 +2688,11 @@ class DOT11_WFD_DISCOVER_REQUEST(EasyCastStructure):
     uIEsLength: UInt32
     bForceScanLegacyNetworks: win32more.Windows.Win32.Foundation.BOOLEAN
 DOT11_WFD_DISCOVER_TYPE = Int32
-dot11_wfd_discover_type_scan_only: DOT11_WFD_DISCOVER_TYPE = 1
-dot11_wfd_discover_type_find_only: DOT11_WFD_DISCOVER_TYPE = 2
-dot11_wfd_discover_type_auto: DOT11_WFD_DISCOVER_TYPE = 3
-dot11_wfd_discover_type_scan_social_channels: DOT11_WFD_DISCOVER_TYPE = 4
-dot11_wfd_discover_type_forced: DOT11_WFD_DISCOVER_TYPE = -2147483648
+dot11_wfd_discover_type_scan_only: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_WFD_DISCOVER_TYPE = 1
+dot11_wfd_discover_type_find_only: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_WFD_DISCOVER_TYPE = 2
+dot11_wfd_discover_type_auto: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_WFD_DISCOVER_TYPE = 3
+dot11_wfd_discover_type_scan_social_channels: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_WFD_DISCOVER_TYPE = 4
+dot11_wfd_discover_type_forced: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_WFD_DISCOVER_TYPE = -2147483648
 class DOT11_WFD_GO_INTENT(EasyCastStructure):
     _bitfield: Byte
 class DOT11_WFD_GROUP_ID(EasyCastStructure):
@@ -2728,9 +2727,9 @@ class DOT11_WFD_GROUP_START_PARAMETERS(EasyCastStructure):
 class DOT11_WFD_INVITATION_FLAGS(EasyCastStructure):
     _bitfield: Byte
 DOT11_WFD_SCAN_TYPE = Int32
-dot11_wfd_scan_type_active: DOT11_WFD_SCAN_TYPE = 1
-dot11_wfd_scan_type_passive: DOT11_WFD_SCAN_TYPE = 2
-dot11_wfd_scan_type_auto: DOT11_WFD_SCAN_TYPE = 3
+dot11_wfd_scan_type_active: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_WFD_SCAN_TYPE = 1
+dot11_wfd_scan_type_passive: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_WFD_SCAN_TYPE = 2
+dot11_wfd_scan_type_auto: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_WFD_SCAN_TYPE = 3
 class DOT11_WFD_SECONDARY_DEVICE_TYPE_LIST(EasyCastStructure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     uNumOfEntries: UInt32
@@ -2768,27 +2767,27 @@ class DOT11_WPA_TSC(EasyCastStructure):
     hOffload: win32more.Windows.Win32.Foundation.HANDLE
     dot11IV48Counter: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_IV48_COUNTER
 DOT11_WPS_CONFIG_METHOD = Int32
-DOT11_WPS_CONFIG_METHOD_NULL: DOT11_WPS_CONFIG_METHOD = 0
-DOT11_WPS_CONFIG_METHOD_DISPLAY: DOT11_WPS_CONFIG_METHOD = 8
-DOT11_WPS_CONFIG_METHOD_NFC_TAG: DOT11_WPS_CONFIG_METHOD = 32
-DOT11_WPS_CONFIG_METHOD_NFC_INTERFACE: DOT11_WPS_CONFIG_METHOD = 64
-DOT11_WPS_CONFIG_METHOD_PUSHBUTTON: DOT11_WPS_CONFIG_METHOD = 128
-DOT11_WPS_CONFIG_METHOD_KEYPAD: DOT11_WPS_CONFIG_METHOD = 256
-DOT11_WPS_CONFIG_METHOD_WFDS_DEFAULT: DOT11_WPS_CONFIG_METHOD = 4096
+DOT11_WPS_CONFIG_METHOD_NULL: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_WPS_CONFIG_METHOD = 0
+DOT11_WPS_CONFIG_METHOD_DISPLAY: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_WPS_CONFIG_METHOD = 8
+DOT11_WPS_CONFIG_METHOD_NFC_TAG: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_WPS_CONFIG_METHOD = 32
+DOT11_WPS_CONFIG_METHOD_NFC_INTERFACE: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_WPS_CONFIG_METHOD = 64
+DOT11_WPS_CONFIG_METHOD_PUSHBUTTON: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_WPS_CONFIG_METHOD = 128
+DOT11_WPS_CONFIG_METHOD_KEYPAD: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_WPS_CONFIG_METHOD = 256
+DOT11_WPS_CONFIG_METHOD_WFDS_DEFAULT: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_WPS_CONFIG_METHOD = 4096
 class DOT11_WPS_DEVICE_NAME(EasyCastStructure):
     uDeviceNameLength: UInt32
     ucDeviceName: Byte * 32
 DOT11_WPS_DEVICE_PASSWORD_ID = Int32
-DOT11_WPS_PASSWORD_ID_DEFAULT: DOT11_WPS_DEVICE_PASSWORD_ID = 0
-DOT11_WPS_PASSWORD_ID_USER_SPECIFIED: DOT11_WPS_DEVICE_PASSWORD_ID = 1
-DOT11_WPS_PASSWORD_ID_MACHINE_SPECIFIED: DOT11_WPS_DEVICE_PASSWORD_ID = 2
-DOT11_WPS_PASSWORD_ID_REKEY: DOT11_WPS_DEVICE_PASSWORD_ID = 3
-DOT11_WPS_PASSWORD_ID_PUSHBUTTON: DOT11_WPS_DEVICE_PASSWORD_ID = 4
-DOT11_WPS_PASSWORD_ID_REGISTRAR_SPECIFIED: DOT11_WPS_DEVICE_PASSWORD_ID = 5
-DOT11_WPS_PASSWORD_ID_NFC_CONNECTION_HANDOVER: DOT11_WPS_DEVICE_PASSWORD_ID = 7
-DOT11_WPS_PASSWORD_ID_WFD_SERVICES: DOT11_WPS_DEVICE_PASSWORD_ID = 8
-DOT11_WPS_PASSWORD_ID_OOB_RANGE_MIN: DOT11_WPS_DEVICE_PASSWORD_ID = 16
-DOT11_WPS_PASSWORD_ID_OOB_RANGE_MAX: DOT11_WPS_DEVICE_PASSWORD_ID = 65535
+DOT11_WPS_PASSWORD_ID_DEFAULT: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_WPS_DEVICE_PASSWORD_ID = 0
+DOT11_WPS_PASSWORD_ID_USER_SPECIFIED: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_WPS_DEVICE_PASSWORD_ID = 1
+DOT11_WPS_PASSWORD_ID_MACHINE_SPECIFIED: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_WPS_DEVICE_PASSWORD_ID = 2
+DOT11_WPS_PASSWORD_ID_REKEY: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_WPS_DEVICE_PASSWORD_ID = 3
+DOT11_WPS_PASSWORD_ID_PUSHBUTTON: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_WPS_DEVICE_PASSWORD_ID = 4
+DOT11_WPS_PASSWORD_ID_REGISTRAR_SPECIFIED: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_WPS_DEVICE_PASSWORD_ID = 5
+DOT11_WPS_PASSWORD_ID_NFC_CONNECTION_HANDOVER: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_WPS_DEVICE_PASSWORD_ID = 7
+DOT11_WPS_PASSWORD_ID_WFD_SERVICES: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_WPS_DEVICE_PASSWORD_ID = 8
+DOT11_WPS_PASSWORD_ID_OOB_RANGE_MIN: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_WPS_DEVICE_PASSWORD_ID = 16
+DOT11_WPS_PASSWORD_ID_OOB_RANGE_MAX: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_WPS_DEVICE_PASSWORD_ID = 65535
 Dot11AdHocManager = Guid('{dd06a84f-83bd-4d01-8ab9-2389fea0869e}')
 class IDot11AdHocInterface(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
@@ -2921,12 +2920,12 @@ class L2_NOTIFICATION_DATA(EasyCastStructure):
     dwDataSize: UInt32
     pData: VoidPtr
 ONEX_AUTH_IDENTITY = Int32
-ONEX_AUTH_IDENTITY_OneXAuthIdentityNone: ONEX_AUTH_IDENTITY = 0
-ONEX_AUTH_IDENTITY_OneXAuthIdentityMachine: ONEX_AUTH_IDENTITY = 1
-ONEX_AUTH_IDENTITY_OneXAuthIdentityUser: ONEX_AUTH_IDENTITY = 2
-ONEX_AUTH_IDENTITY_OneXAuthIdentityExplicitUser: ONEX_AUTH_IDENTITY = 3
-ONEX_AUTH_IDENTITY_OneXAuthIdentityGuest: ONEX_AUTH_IDENTITY = 4
-ONEX_AUTH_IDENTITY_OneXAuthIdentityInvalid: ONEX_AUTH_IDENTITY = 5
+ONEX_AUTH_IDENTITY_OneXAuthIdentityNone: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_IDENTITY = 0
+ONEX_AUTH_IDENTITY_OneXAuthIdentityMachine: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_IDENTITY = 1
+ONEX_AUTH_IDENTITY_OneXAuthIdentityUser: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_IDENTITY = 2
+ONEX_AUTH_IDENTITY_OneXAuthIdentityExplicitUser: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_IDENTITY = 3
+ONEX_AUTH_IDENTITY_OneXAuthIdentityGuest: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_IDENTITY = 4
+ONEX_AUTH_IDENTITY_OneXAuthIdentityInvalid: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_IDENTITY = 5
 class ONEX_AUTH_PARAMS(EasyCastStructure):
     fUpdatePending: win32more.Windows.Win32.Foundation.BOOL
     oneXConnProfile: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_VARIABLE_BLOB
@@ -2940,22 +2939,22 @@ class ONEX_AUTH_PARAMS(EasyCastStructure):
     UserName: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_VARIABLE_BLOB
     Domain: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_VARIABLE_BLOB
 ONEX_AUTH_RESTART_REASON = Int32
-ONEX_AUTH_RESTART_REASON_OneXRestartReasonPeerInitiated: ONEX_AUTH_RESTART_REASON = 0
-ONEX_AUTH_RESTART_REASON_OneXRestartReasonMsmInitiated: ONEX_AUTH_RESTART_REASON = 1
-ONEX_AUTH_RESTART_REASON_OneXRestartReasonOneXHeldStateTimeout: ONEX_AUTH_RESTART_REASON = 2
-ONEX_AUTH_RESTART_REASON_OneXRestartReasonOneXAuthTimeout: ONEX_AUTH_RESTART_REASON = 3
-ONEX_AUTH_RESTART_REASON_OneXRestartReasonOneXConfigurationChanged: ONEX_AUTH_RESTART_REASON = 4
-ONEX_AUTH_RESTART_REASON_OneXRestartReasonOneXUserChanged: ONEX_AUTH_RESTART_REASON = 5
-ONEX_AUTH_RESTART_REASON_OneXRestartReasonQuarantineStateChanged: ONEX_AUTH_RESTART_REASON = 6
-ONEX_AUTH_RESTART_REASON_OneXRestartReasonAltCredsTrial: ONEX_AUTH_RESTART_REASON = 7
-ONEX_AUTH_RESTART_REASON_OneXRestartReasonInvalid: ONEX_AUTH_RESTART_REASON = 8
+ONEX_AUTH_RESTART_REASON_OneXRestartReasonPeerInitiated: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_RESTART_REASON = 0
+ONEX_AUTH_RESTART_REASON_OneXRestartReasonMsmInitiated: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_RESTART_REASON = 1
+ONEX_AUTH_RESTART_REASON_OneXRestartReasonOneXHeldStateTimeout: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_RESTART_REASON = 2
+ONEX_AUTH_RESTART_REASON_OneXRestartReasonOneXAuthTimeout: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_RESTART_REASON = 3
+ONEX_AUTH_RESTART_REASON_OneXRestartReasonOneXConfigurationChanged: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_RESTART_REASON = 4
+ONEX_AUTH_RESTART_REASON_OneXRestartReasonOneXUserChanged: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_RESTART_REASON = 5
+ONEX_AUTH_RESTART_REASON_OneXRestartReasonQuarantineStateChanged: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_RESTART_REASON = 6
+ONEX_AUTH_RESTART_REASON_OneXRestartReasonAltCredsTrial: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_RESTART_REASON = 7
+ONEX_AUTH_RESTART_REASON_OneXRestartReasonInvalid: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_RESTART_REASON = 8
 ONEX_AUTH_STATUS = Int32
-ONEX_AUTH_STATUS_OneXAuthNotStarted: ONEX_AUTH_STATUS = 0
-ONEX_AUTH_STATUS_OneXAuthInProgress: ONEX_AUTH_STATUS = 1
-ONEX_AUTH_STATUS_OneXAuthNoAuthenticatorFound: ONEX_AUTH_STATUS = 2
-ONEX_AUTH_STATUS_OneXAuthSuccess: ONEX_AUTH_STATUS = 3
-ONEX_AUTH_STATUS_OneXAuthFailure: ONEX_AUTH_STATUS = 4
-ONEX_AUTH_STATUS_OneXAuthInvalid: ONEX_AUTH_STATUS = 5
+ONEX_AUTH_STATUS_OneXAuthNotStarted: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_STATUS = 0
+ONEX_AUTH_STATUS_OneXAuthInProgress: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_STATUS = 1
+ONEX_AUTH_STATUS_OneXAuthNoAuthenticatorFound: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_STATUS = 2
+ONEX_AUTH_STATUS_OneXAuthSuccess: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_STATUS = 3
+ONEX_AUTH_STATUS_OneXAuthFailure: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_STATUS = 4
+ONEX_AUTH_STATUS_OneXAuthInvalid: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_STATUS = 5
 class ONEX_EAP_ERROR(EasyCastStructure):
     dwWinError: UInt32
     type: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_TYPE
@@ -2967,38 +2966,38 @@ class ONEX_EAP_ERROR(EasyCastStructure):
     RootCauseString: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_VARIABLE_BLOB
     RepairString: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_VARIABLE_BLOB
 ONEX_EAP_METHOD_BACKEND_SUPPORT = Int32
-ONEX_EAP_METHOD_BACKEND_SUPPORT_OneXEapMethodBackendSupportUnknown: ONEX_EAP_METHOD_BACKEND_SUPPORT = 0
-ONEX_EAP_METHOD_BACKEND_SUPPORT_OneXEapMethodBackendSupported: ONEX_EAP_METHOD_BACKEND_SUPPORT = 1
-ONEX_EAP_METHOD_BACKEND_SUPPORT_OneXEapMethodBackendUnsupported: ONEX_EAP_METHOD_BACKEND_SUPPORT = 2
+ONEX_EAP_METHOD_BACKEND_SUPPORT_OneXEapMethodBackendSupportUnknown: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_EAP_METHOD_BACKEND_SUPPORT = 0
+ONEX_EAP_METHOD_BACKEND_SUPPORT_OneXEapMethodBackendSupported: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_EAP_METHOD_BACKEND_SUPPORT = 1
+ONEX_EAP_METHOD_BACKEND_SUPPORT_OneXEapMethodBackendUnsupported: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_EAP_METHOD_BACKEND_SUPPORT = 2
 ONEX_NOTIFICATION_TYPE = Int32
-ONEX_NOTIFICATION_TYPE_OneXPublicNotificationBase: ONEX_NOTIFICATION_TYPE = 0
-ONEX_NOTIFICATION_TYPE_OneXNotificationTypeResultUpdate: ONEX_NOTIFICATION_TYPE = 1
-ONEX_NOTIFICATION_TYPE_OneXNotificationTypeAuthRestarted: ONEX_NOTIFICATION_TYPE = 2
-ONEX_NOTIFICATION_TYPE_OneXNotificationTypeEventInvalid: ONEX_NOTIFICATION_TYPE = 3
-ONEX_NOTIFICATION_TYPE_OneXNumNotifications: ONEX_NOTIFICATION_TYPE = 3
+ONEX_NOTIFICATION_TYPE_OneXPublicNotificationBase: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_NOTIFICATION_TYPE = 0
+ONEX_NOTIFICATION_TYPE_OneXNotificationTypeResultUpdate: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_NOTIFICATION_TYPE = 1
+ONEX_NOTIFICATION_TYPE_OneXNotificationTypeAuthRestarted: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_NOTIFICATION_TYPE = 2
+ONEX_NOTIFICATION_TYPE_OneXNotificationTypeEventInvalid: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_NOTIFICATION_TYPE = 3
+ONEX_NOTIFICATION_TYPE_OneXNumNotifications: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_NOTIFICATION_TYPE = 3
 ONEX_REASON_CODE = Int32
-ONEX_REASON_CODE_SUCCESS: ONEX_REASON_CODE = 0
-ONEX_REASON_START: ONEX_REASON_CODE = 327680
-ONEX_UNABLE_TO_IDENTIFY_USER: ONEX_REASON_CODE = 327681
-ONEX_IDENTITY_NOT_FOUND: ONEX_REASON_CODE = 327682
-ONEX_UI_DISABLED: ONEX_REASON_CODE = 327683
-ONEX_UI_FAILURE: ONEX_REASON_CODE = 327684
-ONEX_EAP_FAILURE_RECEIVED: ONEX_REASON_CODE = 327685
-ONEX_AUTHENTICATOR_NO_LONGER_PRESENT: ONEX_REASON_CODE = 327686
-ONEX_NO_RESPONSE_TO_IDENTITY: ONEX_REASON_CODE = 327687
-ONEX_PROFILE_VERSION_NOT_SUPPORTED: ONEX_REASON_CODE = 327688
-ONEX_PROFILE_INVALID_LENGTH: ONEX_REASON_CODE = 327689
-ONEX_PROFILE_DISALLOWED_EAP_TYPE: ONEX_REASON_CODE = 327690
-ONEX_PROFILE_INVALID_EAP_TYPE_OR_FLAG: ONEX_REASON_CODE = 327691
-ONEX_PROFILE_INVALID_ONEX_FLAGS: ONEX_REASON_CODE = 327692
-ONEX_PROFILE_INVALID_TIMER_VALUE: ONEX_REASON_CODE = 327693
-ONEX_PROFILE_INVALID_SUPPLICANT_MODE: ONEX_REASON_CODE = 327694
-ONEX_PROFILE_INVALID_AUTH_MODE: ONEX_REASON_CODE = 327695
-ONEX_PROFILE_INVALID_EAP_CONNECTION_PROPERTIES: ONEX_REASON_CODE = 327696
-ONEX_UI_CANCELLED: ONEX_REASON_CODE = 327697
-ONEX_PROFILE_INVALID_EXPLICIT_CREDENTIALS: ONEX_REASON_CODE = 327698
-ONEX_PROFILE_EXPIRED_EXPLICIT_CREDENTIALS: ONEX_REASON_CODE = 327699
-ONEX_UI_NOT_PERMITTED: ONEX_REASON_CODE = 327700
+ONEX_REASON_CODE_SUCCESS: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_REASON_CODE = 0
+ONEX_REASON_START: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_REASON_CODE = 327680
+ONEX_UNABLE_TO_IDENTIFY_USER: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_REASON_CODE = 327681
+ONEX_IDENTITY_NOT_FOUND: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_REASON_CODE = 327682
+ONEX_UI_DISABLED: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_REASON_CODE = 327683
+ONEX_UI_FAILURE: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_REASON_CODE = 327684
+ONEX_EAP_FAILURE_RECEIVED: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_REASON_CODE = 327685
+ONEX_AUTHENTICATOR_NO_LONGER_PRESENT: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_REASON_CODE = 327686
+ONEX_NO_RESPONSE_TO_IDENTITY: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_REASON_CODE = 327687
+ONEX_PROFILE_VERSION_NOT_SUPPORTED: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_REASON_CODE = 327688
+ONEX_PROFILE_INVALID_LENGTH: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_REASON_CODE = 327689
+ONEX_PROFILE_DISALLOWED_EAP_TYPE: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_REASON_CODE = 327690
+ONEX_PROFILE_INVALID_EAP_TYPE_OR_FLAG: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_REASON_CODE = 327691
+ONEX_PROFILE_INVALID_ONEX_FLAGS: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_REASON_CODE = 327692
+ONEX_PROFILE_INVALID_TIMER_VALUE: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_REASON_CODE = 327693
+ONEX_PROFILE_INVALID_SUPPLICANT_MODE: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_REASON_CODE = 327694
+ONEX_PROFILE_INVALID_AUTH_MODE: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_REASON_CODE = 327695
+ONEX_PROFILE_INVALID_EAP_CONNECTION_PROPERTIES: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_REASON_CODE = 327696
+ONEX_UI_CANCELLED: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_REASON_CODE = 327697
+ONEX_PROFILE_INVALID_EXPLICIT_CREDENTIALS: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_REASON_CODE = 327698
+ONEX_PROFILE_EXPIRED_EXPLICIT_CREDENTIALS: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_REASON_CODE = 327699
+ONEX_UI_NOT_PERMITTED: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_REASON_CODE = 327700
 class ONEX_RESULT_UPDATE_DATA(EasyCastStructure):
     oneXStatus: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_STATUS
     BackendSupport: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_EAP_METHOD_BACKEND_SUPPORT
@@ -3034,14 +3033,14 @@ class WFD_GROUP_ID(EasyCastStructure):
 @winfunctype_pointer
 def WFD_OPEN_SESSION_COMPLETE_CALLBACK(hSessionHandle: win32more.Windows.Win32.Foundation.HANDLE, pvContext: VoidPtr, guidSessionInterface: Guid, dwError: UInt32, dwReasonCode: UInt32) -> Void: ...
 WFD_ROLE_TYPE = Int32
-WFD_ROLE_TYPE_NONE: WFD_ROLE_TYPE = 0
-WFD_ROLE_TYPE_DEVICE: WFD_ROLE_TYPE = 1
-WFD_ROLE_TYPE_GROUP_OWNER: WFD_ROLE_TYPE = 2
-WFD_ROLE_TYPE_CLIENT: WFD_ROLE_TYPE = 4
-WFD_ROLE_TYPE_MAX: WFD_ROLE_TYPE = 5
+WFD_ROLE_TYPE_NONE: win32more.Windows.Win32.NetworkManagement.WiFi.WFD_ROLE_TYPE = 0
+WFD_ROLE_TYPE_DEVICE: win32more.Windows.Win32.NetworkManagement.WiFi.WFD_ROLE_TYPE = 1
+WFD_ROLE_TYPE_GROUP_OWNER: win32more.Windows.Win32.NetworkManagement.WiFi.WFD_ROLE_TYPE = 2
+WFD_ROLE_TYPE_CLIENT: win32more.Windows.Win32.NetworkManagement.WiFi.WFD_ROLE_TYPE = 4
+WFD_ROLE_TYPE_MAX: win32more.Windows.Win32.NetworkManagement.WiFi.WFD_ROLE_TYPE = 5
 WLAN_ADHOC_NETWORK_STATE = Int32
-wlan_adhoc_network_state_formed: WLAN_ADHOC_NETWORK_STATE = 0
-wlan_adhoc_network_state_connected: WLAN_ADHOC_NETWORK_STATE = 1
+wlan_adhoc_network_state_formed: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_ADHOC_NETWORK_STATE = 0
+wlan_adhoc_network_state_connected: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_ADHOC_NETWORK_STATE = 1
 class WLAN_ASSOCIATION_ATTRIBUTES(EasyCastStructure):
     dot11Ssid: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_SSID
     dot11BssType: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_BSS_TYPE
@@ -3055,14 +3054,14 @@ class WLAN_AUTH_CIPHER_PAIR_LIST(EasyCastStructure):
     dwNumberOfItems: UInt32
     pAuthCipherPairList: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_AUTH_CIPHER_PAIR * 1
 WLAN_AUTOCONF_OPCODE = Int32
-wlan_autoconf_opcode_start: WLAN_AUTOCONF_OPCODE = 0
-wlan_autoconf_opcode_show_denied_networks: WLAN_AUTOCONF_OPCODE = 1
-wlan_autoconf_opcode_power_setting: WLAN_AUTOCONF_OPCODE = 2
-wlan_autoconf_opcode_only_use_gp_profiles_for_allowed_networks: WLAN_AUTOCONF_OPCODE = 3
-wlan_autoconf_opcode_allow_explicit_creds: WLAN_AUTOCONF_OPCODE = 4
-wlan_autoconf_opcode_block_period: WLAN_AUTOCONF_OPCODE = 5
-wlan_autoconf_opcode_allow_virtual_station_extensibility: WLAN_AUTOCONF_OPCODE = 6
-wlan_autoconf_opcode_end: WLAN_AUTOCONF_OPCODE = 7
+wlan_autoconf_opcode_start: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_AUTOCONF_OPCODE = 0
+wlan_autoconf_opcode_show_denied_networks: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_AUTOCONF_OPCODE = 1
+wlan_autoconf_opcode_power_setting: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_AUTOCONF_OPCODE = 2
+wlan_autoconf_opcode_only_use_gp_profiles_for_allowed_networks: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_AUTOCONF_OPCODE = 3
+wlan_autoconf_opcode_allow_explicit_creds: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_AUTOCONF_OPCODE = 4
+wlan_autoconf_opcode_block_period: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_AUTOCONF_OPCODE = 5
+wlan_autoconf_opcode_allow_virtual_station_extensibility: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_AUTOCONF_OPCODE = 6
+wlan_autoconf_opcode_end: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_AUTOCONF_OPCODE = 7
 class WLAN_AVAILABLE_NETWORK(EasyCastStructure):
     strProfileName: Char * 256
     dot11Ssid: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_SSID
@@ -3134,12 +3133,12 @@ class WLAN_CONNECTION_ATTRIBUTES(EasyCastStructure):
     wlanAssociationAttributes: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_ASSOCIATION_ATTRIBUTES
     wlanSecurityAttributes: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_SECURITY_ATTRIBUTES
 WLAN_CONNECTION_MODE = Int32
-wlan_connection_mode_profile: WLAN_CONNECTION_MODE = 0
-wlan_connection_mode_temporary_profile: WLAN_CONNECTION_MODE = 1
-wlan_connection_mode_discovery_secure: WLAN_CONNECTION_MODE = 2
-wlan_connection_mode_discovery_unsecure: WLAN_CONNECTION_MODE = 3
-wlan_connection_mode_auto: WLAN_CONNECTION_MODE = 4
-wlan_connection_mode_invalid: WLAN_CONNECTION_MODE = 5
+wlan_connection_mode_profile: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_CONNECTION_MODE = 0
+wlan_connection_mode_temporary_profile: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_CONNECTION_MODE = 1
+wlan_connection_mode_discovery_secure: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_CONNECTION_MODE = 2
+wlan_connection_mode_discovery_unsecure: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_CONNECTION_MODE = 3
+wlan_connection_mode_auto: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_CONNECTION_MODE = 4
+wlan_connection_mode_invalid: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_CONNECTION_MODE = 5
 class WLAN_CONNECTION_NOTIFICATION_DATA(EasyCastStructure):
     wlanConnectionMode: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_CONNECTION_MODE
     strProfileName: Char * 256
@@ -3150,8 +3149,8 @@ class WLAN_CONNECTION_NOTIFICATION_DATA(EasyCastStructure):
     dwFlags: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_CONNECTION_NOTIFICATION_FLAGS
     strProfileXml: Char * 1
 WLAN_CONNECTION_NOTIFICATION_FLAGS = UInt32
-WLAN_CONNECTION_NOTIFICATION_ADHOC_NETWORK_FORMED: WLAN_CONNECTION_NOTIFICATION_FLAGS = 1
-WLAN_CONNECTION_NOTIFICATION_CONSOLE_USER_PROFILE: WLAN_CONNECTION_NOTIFICATION_FLAGS = 4
+WLAN_CONNECTION_NOTIFICATION_ADHOC_NETWORK_FORMED: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_CONNECTION_NOTIFICATION_FLAGS = 1
+WLAN_CONNECTION_NOTIFICATION_CONSOLE_USER_PROFILE: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_CONNECTION_NOTIFICATION_FLAGS = 4
 class WLAN_CONNECTION_PARAMETERS(EasyCastStructure):
     wlanConnectionMode: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_CONNECTION_MODE
     strProfile: win32more.Windows.Win32.Foundation.PWSTR
@@ -3181,10 +3180,10 @@ class WLAN_DEVICE_SERVICE_NOTIFICATION_DATA(EasyCastStructure):
     dwDataSize: UInt32
     DataBlob: Byte * 1
 WLAN_FILTER_LIST_TYPE = Int32
-wlan_filter_list_type_gp_permit: WLAN_FILTER_LIST_TYPE = 0
-wlan_filter_list_type_gp_deny: WLAN_FILTER_LIST_TYPE = 1
-wlan_filter_list_type_user_permit: WLAN_FILTER_LIST_TYPE = 2
-wlan_filter_list_type_user_deny: WLAN_FILTER_LIST_TYPE = 3
+wlan_filter_list_type_gp_permit: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_FILTER_LIST_TYPE = 0
+wlan_filter_list_type_gp_deny: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_FILTER_LIST_TYPE = 1
+wlan_filter_list_type_user_permit: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_FILTER_LIST_TYPE = 2
+wlan_filter_list_type_user_deny: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_FILTER_LIST_TYPE = 3
 class WLAN_HOSTED_NETWORK_CONNECTION_SETTINGS(EasyCastStructure):
     hostedNetworkSSID: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_SSID
     dwMaxNumberOfPeers: UInt32
@@ -3193,17 +3192,17 @@ class WLAN_HOSTED_NETWORK_DATA_PEER_STATE_CHANGE(EasyCastStructure):
     NewState: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_PEER_STATE
     PeerStateChangeReason: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_REASON
 WLAN_HOSTED_NETWORK_NOTIFICATION_CODE = Int32
-wlan_hosted_network_state_change: WLAN_HOSTED_NETWORK_NOTIFICATION_CODE = 4096
-wlan_hosted_network_peer_state_change: WLAN_HOSTED_NETWORK_NOTIFICATION_CODE = 4097
-wlan_hosted_network_radio_state_change: WLAN_HOSTED_NETWORK_NOTIFICATION_CODE = 4098
+wlan_hosted_network_state_change: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_NOTIFICATION_CODE = 4096
+wlan_hosted_network_peer_state_change: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_NOTIFICATION_CODE = 4097
+wlan_hosted_network_radio_state_change: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_NOTIFICATION_CODE = 4098
 WLAN_HOSTED_NETWORK_OPCODE = Int32
-wlan_hosted_network_opcode_connection_settings: WLAN_HOSTED_NETWORK_OPCODE = 0
-wlan_hosted_network_opcode_security_settings: WLAN_HOSTED_NETWORK_OPCODE = 1
-wlan_hosted_network_opcode_station_profile: WLAN_HOSTED_NETWORK_OPCODE = 2
-wlan_hosted_network_opcode_enable: WLAN_HOSTED_NETWORK_OPCODE = 3
+wlan_hosted_network_opcode_connection_settings: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_OPCODE = 0
+wlan_hosted_network_opcode_security_settings: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_OPCODE = 1
+wlan_hosted_network_opcode_station_profile: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_OPCODE = 2
+wlan_hosted_network_opcode_enable: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_OPCODE = 3
 WLAN_HOSTED_NETWORK_PEER_AUTH_STATE = Int32
-wlan_hosted_network_peer_state_invalid: WLAN_HOSTED_NETWORK_PEER_AUTH_STATE = 0
-wlan_hosted_network_peer_state_authenticated: WLAN_HOSTED_NETWORK_PEER_AUTH_STATE = 1
+wlan_hosted_network_peer_state_invalid: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_PEER_AUTH_STATE = 0
+wlan_hosted_network_peer_state_authenticated: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_PEER_AUTH_STATE = 1
 class WLAN_HOSTED_NETWORK_PEER_STATE(EasyCastStructure):
     PeerMacAddress: Byte * 6
     PeerAuthState: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_PEER_AUTH_STATE
@@ -3211,42 +3210,42 @@ class WLAN_HOSTED_NETWORK_RADIO_STATE(EasyCastStructure):
     dot11SoftwareRadioState: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_RADIO_STATE
     dot11HardwareRadioState: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_RADIO_STATE
 WLAN_HOSTED_NETWORK_REASON = Int32
-wlan_hosted_network_reason_success: WLAN_HOSTED_NETWORK_REASON = 0
-wlan_hosted_network_reason_unspecified: WLAN_HOSTED_NETWORK_REASON = 1
-wlan_hosted_network_reason_bad_parameters: WLAN_HOSTED_NETWORK_REASON = 2
-wlan_hosted_network_reason_service_shutting_down: WLAN_HOSTED_NETWORK_REASON = 3
-wlan_hosted_network_reason_insufficient_resources: WLAN_HOSTED_NETWORK_REASON = 4
-wlan_hosted_network_reason_elevation_required: WLAN_HOSTED_NETWORK_REASON = 5
-wlan_hosted_network_reason_read_only: WLAN_HOSTED_NETWORK_REASON = 6
-wlan_hosted_network_reason_persistence_failed: WLAN_HOSTED_NETWORK_REASON = 7
-wlan_hosted_network_reason_crypt_error: WLAN_HOSTED_NETWORK_REASON = 8
-wlan_hosted_network_reason_impersonation: WLAN_HOSTED_NETWORK_REASON = 9
-wlan_hosted_network_reason_stop_before_start: WLAN_HOSTED_NETWORK_REASON = 10
-wlan_hosted_network_reason_interface_available: WLAN_HOSTED_NETWORK_REASON = 11
-wlan_hosted_network_reason_interface_unavailable: WLAN_HOSTED_NETWORK_REASON = 12
-wlan_hosted_network_reason_miniport_stopped: WLAN_HOSTED_NETWORK_REASON = 13
-wlan_hosted_network_reason_miniport_started: WLAN_HOSTED_NETWORK_REASON = 14
-wlan_hosted_network_reason_incompatible_connection_started: WLAN_HOSTED_NETWORK_REASON = 15
-wlan_hosted_network_reason_incompatible_connection_stopped: WLAN_HOSTED_NETWORK_REASON = 16
-wlan_hosted_network_reason_user_action: WLAN_HOSTED_NETWORK_REASON = 17
-wlan_hosted_network_reason_client_abort: WLAN_HOSTED_NETWORK_REASON = 18
-wlan_hosted_network_reason_ap_start_failed: WLAN_HOSTED_NETWORK_REASON = 19
-wlan_hosted_network_reason_peer_arrived: WLAN_HOSTED_NETWORK_REASON = 20
-wlan_hosted_network_reason_peer_departed: WLAN_HOSTED_NETWORK_REASON = 21
-wlan_hosted_network_reason_peer_timeout: WLAN_HOSTED_NETWORK_REASON = 22
-wlan_hosted_network_reason_gp_denied: WLAN_HOSTED_NETWORK_REASON = 23
-wlan_hosted_network_reason_service_unavailable: WLAN_HOSTED_NETWORK_REASON = 24
-wlan_hosted_network_reason_device_change: WLAN_HOSTED_NETWORK_REASON = 25
-wlan_hosted_network_reason_properties_change: WLAN_HOSTED_NETWORK_REASON = 26
-wlan_hosted_network_reason_virtual_station_blocking_use: WLAN_HOSTED_NETWORK_REASON = 27
-wlan_hosted_network_reason_service_available_on_virtual_station: WLAN_HOSTED_NETWORK_REASON = 28
+wlan_hosted_network_reason_success: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_REASON = 0
+wlan_hosted_network_reason_unspecified: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_REASON = 1
+wlan_hosted_network_reason_bad_parameters: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_REASON = 2
+wlan_hosted_network_reason_service_shutting_down: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_REASON = 3
+wlan_hosted_network_reason_insufficient_resources: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_REASON = 4
+wlan_hosted_network_reason_elevation_required: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_REASON = 5
+wlan_hosted_network_reason_read_only: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_REASON = 6
+wlan_hosted_network_reason_persistence_failed: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_REASON = 7
+wlan_hosted_network_reason_crypt_error: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_REASON = 8
+wlan_hosted_network_reason_impersonation: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_REASON = 9
+wlan_hosted_network_reason_stop_before_start: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_REASON = 10
+wlan_hosted_network_reason_interface_available: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_REASON = 11
+wlan_hosted_network_reason_interface_unavailable: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_REASON = 12
+wlan_hosted_network_reason_miniport_stopped: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_REASON = 13
+wlan_hosted_network_reason_miniport_started: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_REASON = 14
+wlan_hosted_network_reason_incompatible_connection_started: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_REASON = 15
+wlan_hosted_network_reason_incompatible_connection_stopped: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_REASON = 16
+wlan_hosted_network_reason_user_action: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_REASON = 17
+wlan_hosted_network_reason_client_abort: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_REASON = 18
+wlan_hosted_network_reason_ap_start_failed: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_REASON = 19
+wlan_hosted_network_reason_peer_arrived: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_REASON = 20
+wlan_hosted_network_reason_peer_departed: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_REASON = 21
+wlan_hosted_network_reason_peer_timeout: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_REASON = 22
+wlan_hosted_network_reason_gp_denied: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_REASON = 23
+wlan_hosted_network_reason_service_unavailable: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_REASON = 24
+wlan_hosted_network_reason_device_change: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_REASON = 25
+wlan_hosted_network_reason_properties_change: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_REASON = 26
+wlan_hosted_network_reason_virtual_station_blocking_use: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_REASON = 27
+wlan_hosted_network_reason_service_available_on_virtual_station: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_REASON = 28
 class WLAN_HOSTED_NETWORK_SECURITY_SETTINGS(EasyCastStructure):
     dot11AuthAlgo: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_AUTH_ALGORITHM
     dot11CipherAlgo: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM
 WLAN_HOSTED_NETWORK_STATE = Int32
-wlan_hosted_network_unavailable: WLAN_HOSTED_NETWORK_STATE = 0
-wlan_hosted_network_idle: WLAN_HOSTED_NETWORK_STATE = 1
-wlan_hosted_network_active: WLAN_HOSTED_NETWORK_STATE = 2
+wlan_hosted_network_unavailable: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_STATE = 0
+wlan_hosted_network_idle: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_STATE = 1
+wlan_hosted_network_active: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_STATE = 2
 class WLAN_HOSTED_NETWORK_STATE_CHANGE(EasyCastStructure):
     OldState: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_STATE
     NewState: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_STATE
@@ -3260,8 +3259,8 @@ class WLAN_HOSTED_NETWORK_STATUS(EasyCastStructure):
     dwNumberOfPeers: UInt32
     PeerList: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_PEER_STATE * 1
 WLAN_IHV_CONTROL_TYPE = Int32
-wlan_ihv_control_type_service: WLAN_IHV_CONTROL_TYPE = 0
-wlan_ihv_control_type_driver: WLAN_IHV_CONTROL_TYPE = 1
+wlan_ihv_control_type_service: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_IHV_CONTROL_TYPE = 0
+wlan_ihv_control_type_driver: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_IHV_CONTROL_TYPE = 1
 class WLAN_INTERFACE_CAPABILITY(EasyCastStructure):
     interfaceType: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_INTERFACE_TYPE
     bDot11DSupported: win32more.Windows.Win32.Foundation.BOOL
@@ -3278,47 +3277,47 @@ class WLAN_INTERFACE_INFO_LIST(EasyCastStructure):
     dwIndex: UInt32
     InterfaceInfo: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_INTERFACE_INFO * 1
 WLAN_INTERFACE_STATE = Int32
-wlan_interface_state_not_ready: WLAN_INTERFACE_STATE = 0
-wlan_interface_state_connected: WLAN_INTERFACE_STATE = 1
-wlan_interface_state_ad_hoc_network_formed: WLAN_INTERFACE_STATE = 2
-wlan_interface_state_disconnecting: WLAN_INTERFACE_STATE = 3
-wlan_interface_state_disconnected: WLAN_INTERFACE_STATE = 4
-wlan_interface_state_associating: WLAN_INTERFACE_STATE = 5
-wlan_interface_state_discovering: WLAN_INTERFACE_STATE = 6
-wlan_interface_state_authenticating: WLAN_INTERFACE_STATE = 7
+wlan_interface_state_not_ready: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_INTERFACE_STATE = 0
+wlan_interface_state_connected: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_INTERFACE_STATE = 1
+wlan_interface_state_ad_hoc_network_formed: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_INTERFACE_STATE = 2
+wlan_interface_state_disconnecting: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_INTERFACE_STATE = 3
+wlan_interface_state_disconnected: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_INTERFACE_STATE = 4
+wlan_interface_state_associating: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_INTERFACE_STATE = 5
+wlan_interface_state_discovering: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_INTERFACE_STATE = 6
+wlan_interface_state_authenticating: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_INTERFACE_STATE = 7
 WLAN_INTERFACE_TYPE = Int32
-wlan_interface_type_emulated_802_11: WLAN_INTERFACE_TYPE = 0
-wlan_interface_type_native_802_11: WLAN_INTERFACE_TYPE = 1
-wlan_interface_type_invalid: WLAN_INTERFACE_TYPE = 2
+wlan_interface_type_emulated_802_11: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_INTERFACE_TYPE = 0
+wlan_interface_type_native_802_11: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_INTERFACE_TYPE = 1
+wlan_interface_type_invalid: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_INTERFACE_TYPE = 2
 WLAN_INTF_OPCODE = Int32
-wlan_intf_opcode_autoconf_start: WLAN_INTF_OPCODE = 0
-wlan_intf_opcode_autoconf_enabled: WLAN_INTF_OPCODE = 1
-wlan_intf_opcode_background_scan_enabled: WLAN_INTF_OPCODE = 2
-wlan_intf_opcode_media_streaming_mode: WLAN_INTF_OPCODE = 3
-wlan_intf_opcode_radio_state: WLAN_INTF_OPCODE = 4
-wlan_intf_opcode_bss_type: WLAN_INTF_OPCODE = 5
-wlan_intf_opcode_interface_state: WLAN_INTF_OPCODE = 6
-wlan_intf_opcode_current_connection: WLAN_INTF_OPCODE = 7
-wlan_intf_opcode_channel_number: WLAN_INTF_OPCODE = 8
-wlan_intf_opcode_supported_infrastructure_auth_cipher_pairs: WLAN_INTF_OPCODE = 9
-wlan_intf_opcode_supported_adhoc_auth_cipher_pairs: WLAN_INTF_OPCODE = 10
-wlan_intf_opcode_supported_country_or_region_string_list: WLAN_INTF_OPCODE = 11
-wlan_intf_opcode_current_operation_mode: WLAN_INTF_OPCODE = 12
-wlan_intf_opcode_supported_safe_mode: WLAN_INTF_OPCODE = 13
-wlan_intf_opcode_certified_safe_mode: WLAN_INTF_OPCODE = 14
-wlan_intf_opcode_hosted_network_capable: WLAN_INTF_OPCODE = 15
-wlan_intf_opcode_management_frame_protection_capable: WLAN_INTF_OPCODE = 16
-wlan_intf_opcode_secondary_sta_interfaces: WLAN_INTF_OPCODE = 17
-wlan_intf_opcode_secondary_sta_synchronized_connections: WLAN_INTF_OPCODE = 18
-wlan_intf_opcode_autoconf_end: WLAN_INTF_OPCODE = 268435455
-wlan_intf_opcode_msm_start: WLAN_INTF_OPCODE = 268435712
-wlan_intf_opcode_statistics: WLAN_INTF_OPCODE = 268435713
-wlan_intf_opcode_rssi: WLAN_INTF_OPCODE = 268435714
-wlan_intf_opcode_msm_end: WLAN_INTF_OPCODE = 536870911
-wlan_intf_opcode_security_start: WLAN_INTF_OPCODE = 536936448
-wlan_intf_opcode_security_end: WLAN_INTF_OPCODE = 805306367
-wlan_intf_opcode_ihv_start: WLAN_INTF_OPCODE = 805306368
-wlan_intf_opcode_ihv_end: WLAN_INTF_OPCODE = 1073741823
+wlan_intf_opcode_autoconf_start: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_INTF_OPCODE = 0
+wlan_intf_opcode_autoconf_enabled: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_INTF_OPCODE = 1
+wlan_intf_opcode_background_scan_enabled: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_INTF_OPCODE = 2
+wlan_intf_opcode_media_streaming_mode: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_INTF_OPCODE = 3
+wlan_intf_opcode_radio_state: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_INTF_OPCODE = 4
+wlan_intf_opcode_bss_type: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_INTF_OPCODE = 5
+wlan_intf_opcode_interface_state: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_INTF_OPCODE = 6
+wlan_intf_opcode_current_connection: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_INTF_OPCODE = 7
+wlan_intf_opcode_channel_number: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_INTF_OPCODE = 8
+wlan_intf_opcode_supported_infrastructure_auth_cipher_pairs: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_INTF_OPCODE = 9
+wlan_intf_opcode_supported_adhoc_auth_cipher_pairs: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_INTF_OPCODE = 10
+wlan_intf_opcode_supported_country_or_region_string_list: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_INTF_OPCODE = 11
+wlan_intf_opcode_current_operation_mode: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_INTF_OPCODE = 12
+wlan_intf_opcode_supported_safe_mode: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_INTF_OPCODE = 13
+wlan_intf_opcode_certified_safe_mode: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_INTF_OPCODE = 14
+wlan_intf_opcode_hosted_network_capable: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_INTF_OPCODE = 15
+wlan_intf_opcode_management_frame_protection_capable: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_INTF_OPCODE = 16
+wlan_intf_opcode_secondary_sta_interfaces: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_INTF_OPCODE = 17
+wlan_intf_opcode_secondary_sta_synchronized_connections: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_INTF_OPCODE = 18
+wlan_intf_opcode_autoconf_end: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_INTF_OPCODE = 268435455
+wlan_intf_opcode_msm_start: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_INTF_OPCODE = 268435712
+wlan_intf_opcode_statistics: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_INTF_OPCODE = 268435713
+wlan_intf_opcode_rssi: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_INTF_OPCODE = 268435714
+wlan_intf_opcode_msm_end: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_INTF_OPCODE = 536870911
+wlan_intf_opcode_security_start: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_INTF_OPCODE = 536936448
+wlan_intf_opcode_security_end: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_INTF_OPCODE = 805306367
+wlan_intf_opcode_ihv_start: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_INTF_OPCODE = 805306368
+wlan_intf_opcode_ihv_end: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_INTF_OPCODE = 1073741823
 class WLAN_MAC_FRAME_STATISTICS(EasyCastStructure):
     ullTransmittedFrameCount: UInt64
     ullReceivedFrameCount: UInt64
@@ -3343,80 +3342,80 @@ class WLAN_MSM_NOTIFICATION_DATA(EasyCastStructure):
     bLastPeer: win32more.Windows.Win32.Foundation.BOOL
     wlanReasonCode: UInt32
 WLAN_NOTIFICATION_ACM = Int32
-wlan_notification_acm_start: WLAN_NOTIFICATION_ACM = 0
-wlan_notification_acm_autoconf_enabled: WLAN_NOTIFICATION_ACM = 1
-wlan_notification_acm_autoconf_disabled: WLAN_NOTIFICATION_ACM = 2
-wlan_notification_acm_background_scan_enabled: WLAN_NOTIFICATION_ACM = 3
-wlan_notification_acm_background_scan_disabled: WLAN_NOTIFICATION_ACM = 4
-wlan_notification_acm_bss_type_change: WLAN_NOTIFICATION_ACM = 5
-wlan_notification_acm_power_setting_change: WLAN_NOTIFICATION_ACM = 6
-wlan_notification_acm_scan_complete: WLAN_NOTIFICATION_ACM = 7
-wlan_notification_acm_scan_fail: WLAN_NOTIFICATION_ACM = 8
-wlan_notification_acm_connection_start: WLAN_NOTIFICATION_ACM = 9
-wlan_notification_acm_connection_complete: WLAN_NOTIFICATION_ACM = 10
-wlan_notification_acm_connection_attempt_fail: WLAN_NOTIFICATION_ACM = 11
-wlan_notification_acm_filter_list_change: WLAN_NOTIFICATION_ACM = 12
-wlan_notification_acm_interface_arrival: WLAN_NOTIFICATION_ACM = 13
-wlan_notification_acm_interface_removal: WLAN_NOTIFICATION_ACM = 14
-wlan_notification_acm_profile_change: WLAN_NOTIFICATION_ACM = 15
-wlan_notification_acm_profile_name_change: WLAN_NOTIFICATION_ACM = 16
-wlan_notification_acm_profiles_exhausted: WLAN_NOTIFICATION_ACM = 17
-wlan_notification_acm_network_not_available: WLAN_NOTIFICATION_ACM = 18
-wlan_notification_acm_network_available: WLAN_NOTIFICATION_ACM = 19
-wlan_notification_acm_disconnecting: WLAN_NOTIFICATION_ACM = 20
-wlan_notification_acm_disconnected: WLAN_NOTIFICATION_ACM = 21
-wlan_notification_acm_adhoc_network_state_change: WLAN_NOTIFICATION_ACM = 22
-wlan_notification_acm_profile_unblocked: WLAN_NOTIFICATION_ACM = 23
-wlan_notification_acm_screen_power_change: WLAN_NOTIFICATION_ACM = 24
-wlan_notification_acm_profile_blocked: WLAN_NOTIFICATION_ACM = 25
-wlan_notification_acm_scan_list_refresh: WLAN_NOTIFICATION_ACM = 26
-wlan_notification_acm_operational_state_change: WLAN_NOTIFICATION_ACM = 27
-wlan_notification_acm_end: WLAN_NOTIFICATION_ACM = 28
+wlan_notification_acm_start: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_NOTIFICATION_ACM = 0
+wlan_notification_acm_autoconf_enabled: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_NOTIFICATION_ACM = 1
+wlan_notification_acm_autoconf_disabled: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_NOTIFICATION_ACM = 2
+wlan_notification_acm_background_scan_enabled: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_NOTIFICATION_ACM = 3
+wlan_notification_acm_background_scan_disabled: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_NOTIFICATION_ACM = 4
+wlan_notification_acm_bss_type_change: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_NOTIFICATION_ACM = 5
+wlan_notification_acm_power_setting_change: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_NOTIFICATION_ACM = 6
+wlan_notification_acm_scan_complete: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_NOTIFICATION_ACM = 7
+wlan_notification_acm_scan_fail: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_NOTIFICATION_ACM = 8
+wlan_notification_acm_connection_start: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_NOTIFICATION_ACM = 9
+wlan_notification_acm_connection_complete: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_NOTIFICATION_ACM = 10
+wlan_notification_acm_connection_attempt_fail: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_NOTIFICATION_ACM = 11
+wlan_notification_acm_filter_list_change: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_NOTIFICATION_ACM = 12
+wlan_notification_acm_interface_arrival: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_NOTIFICATION_ACM = 13
+wlan_notification_acm_interface_removal: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_NOTIFICATION_ACM = 14
+wlan_notification_acm_profile_change: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_NOTIFICATION_ACM = 15
+wlan_notification_acm_profile_name_change: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_NOTIFICATION_ACM = 16
+wlan_notification_acm_profiles_exhausted: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_NOTIFICATION_ACM = 17
+wlan_notification_acm_network_not_available: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_NOTIFICATION_ACM = 18
+wlan_notification_acm_network_available: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_NOTIFICATION_ACM = 19
+wlan_notification_acm_disconnecting: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_NOTIFICATION_ACM = 20
+wlan_notification_acm_disconnected: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_NOTIFICATION_ACM = 21
+wlan_notification_acm_adhoc_network_state_change: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_NOTIFICATION_ACM = 22
+wlan_notification_acm_profile_unblocked: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_NOTIFICATION_ACM = 23
+wlan_notification_acm_screen_power_change: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_NOTIFICATION_ACM = 24
+wlan_notification_acm_profile_blocked: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_NOTIFICATION_ACM = 25
+wlan_notification_acm_scan_list_refresh: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_NOTIFICATION_ACM = 26
+wlan_notification_acm_operational_state_change: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_NOTIFICATION_ACM = 27
+wlan_notification_acm_end: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_NOTIFICATION_ACM = 28
 @winfunctype_pointer
 def WLAN_NOTIFICATION_CALLBACK(param0: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.L2_NOTIFICATION_DATA), param1: VoidPtr) -> Void: ...
 WLAN_NOTIFICATION_MSM = Int32
-wlan_notification_msm_start: WLAN_NOTIFICATION_MSM = 0
-wlan_notification_msm_associating: WLAN_NOTIFICATION_MSM = 1
-wlan_notification_msm_associated: WLAN_NOTIFICATION_MSM = 2
-wlan_notification_msm_authenticating: WLAN_NOTIFICATION_MSM = 3
-wlan_notification_msm_connected: WLAN_NOTIFICATION_MSM = 4
-wlan_notification_msm_roaming_start: WLAN_NOTIFICATION_MSM = 5
-wlan_notification_msm_roaming_end: WLAN_NOTIFICATION_MSM = 6
-wlan_notification_msm_radio_state_change: WLAN_NOTIFICATION_MSM = 7
-wlan_notification_msm_signal_quality_change: WLAN_NOTIFICATION_MSM = 8
-wlan_notification_msm_disassociating: WLAN_NOTIFICATION_MSM = 9
-wlan_notification_msm_disconnected: WLAN_NOTIFICATION_MSM = 10
-wlan_notification_msm_peer_join: WLAN_NOTIFICATION_MSM = 11
-wlan_notification_msm_peer_leave: WLAN_NOTIFICATION_MSM = 12
-wlan_notification_msm_adapter_removal: WLAN_NOTIFICATION_MSM = 13
-wlan_notification_msm_adapter_operation_mode_change: WLAN_NOTIFICATION_MSM = 14
-wlan_notification_msm_link_degraded: WLAN_NOTIFICATION_MSM = 15
-wlan_notification_msm_link_improved: WLAN_NOTIFICATION_MSM = 16
-wlan_notification_msm_end: WLAN_NOTIFICATION_MSM = 17
+wlan_notification_msm_start: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_NOTIFICATION_MSM = 0
+wlan_notification_msm_associating: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_NOTIFICATION_MSM = 1
+wlan_notification_msm_associated: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_NOTIFICATION_MSM = 2
+wlan_notification_msm_authenticating: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_NOTIFICATION_MSM = 3
+wlan_notification_msm_connected: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_NOTIFICATION_MSM = 4
+wlan_notification_msm_roaming_start: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_NOTIFICATION_MSM = 5
+wlan_notification_msm_roaming_end: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_NOTIFICATION_MSM = 6
+wlan_notification_msm_radio_state_change: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_NOTIFICATION_MSM = 7
+wlan_notification_msm_signal_quality_change: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_NOTIFICATION_MSM = 8
+wlan_notification_msm_disassociating: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_NOTIFICATION_MSM = 9
+wlan_notification_msm_disconnected: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_NOTIFICATION_MSM = 10
+wlan_notification_msm_peer_join: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_NOTIFICATION_MSM = 11
+wlan_notification_msm_peer_leave: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_NOTIFICATION_MSM = 12
+wlan_notification_msm_adapter_removal: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_NOTIFICATION_MSM = 13
+wlan_notification_msm_adapter_operation_mode_change: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_NOTIFICATION_MSM = 14
+wlan_notification_msm_link_degraded: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_NOTIFICATION_MSM = 15
+wlan_notification_msm_link_improved: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_NOTIFICATION_MSM = 16
+wlan_notification_msm_end: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_NOTIFICATION_MSM = 17
 WLAN_NOTIFICATION_SECURITY = Int32
-wlan_notification_security_start: WLAN_NOTIFICATION_SECURITY = 0
-wlan_notification_security_end: WLAN_NOTIFICATION_SECURITY = 1
+wlan_notification_security_start: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_NOTIFICATION_SECURITY = 0
+wlan_notification_security_end: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_NOTIFICATION_SECURITY = 1
 WLAN_NOTIFICATION_SOURCES = UInt32
-WLAN_NOTIFICATION_SOURCE_NONE: WLAN_NOTIFICATION_SOURCES = 0
-WLAN_NOTIFICATION_SOURCE_ALL: WLAN_NOTIFICATION_SOURCES = 65535
-WLAN_NOTIFICATION_SOURCE_ACM: WLAN_NOTIFICATION_SOURCES = 8
-WLAN_NOTIFICATION_SOURCE_MSM: WLAN_NOTIFICATION_SOURCES = 16
-WLAN_NOTIFICATION_SOURCE_SECURITY: WLAN_NOTIFICATION_SOURCES = 32
-WLAN_NOTIFICATION_SOURCE_IHV: WLAN_NOTIFICATION_SOURCES = 64
-WLAN_NOTIFICATION_SOURCE_HNWK: WLAN_NOTIFICATION_SOURCES = 128
-WLAN_NOTIFICATION_SOURCE_ONEX: WLAN_NOTIFICATION_SOURCES = 4
-WLAN_NOTIFICATION_SOURCE_DEVICE_SERVICE: WLAN_NOTIFICATION_SOURCES = 2048
+WLAN_NOTIFICATION_SOURCE_NONE: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_NOTIFICATION_SOURCES = 0
+WLAN_NOTIFICATION_SOURCE_ALL: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_NOTIFICATION_SOURCES = 65535
+WLAN_NOTIFICATION_SOURCE_ACM: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_NOTIFICATION_SOURCES = 8
+WLAN_NOTIFICATION_SOURCE_MSM: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_NOTIFICATION_SOURCES = 16
+WLAN_NOTIFICATION_SOURCE_SECURITY: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_NOTIFICATION_SOURCES = 32
+WLAN_NOTIFICATION_SOURCE_IHV: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_NOTIFICATION_SOURCES = 64
+WLAN_NOTIFICATION_SOURCE_HNWK: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_NOTIFICATION_SOURCES = 128
+WLAN_NOTIFICATION_SOURCE_ONEX: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_NOTIFICATION_SOURCES = 4
+WLAN_NOTIFICATION_SOURCE_DEVICE_SERVICE: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_NOTIFICATION_SOURCES = 2048
 WLAN_OPCODE_VALUE_TYPE = Int32
-wlan_opcode_value_type_query_only: WLAN_OPCODE_VALUE_TYPE = 0
-wlan_opcode_value_type_set_by_group_policy: WLAN_OPCODE_VALUE_TYPE = 1
-wlan_opcode_value_type_set_by_user: WLAN_OPCODE_VALUE_TYPE = 2
-wlan_opcode_value_type_invalid: WLAN_OPCODE_VALUE_TYPE = 3
+wlan_opcode_value_type_query_only: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_OPCODE_VALUE_TYPE = 0
+wlan_opcode_value_type_set_by_group_policy: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_OPCODE_VALUE_TYPE = 1
+wlan_opcode_value_type_set_by_user: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_OPCODE_VALUE_TYPE = 2
+wlan_opcode_value_type_invalid: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_OPCODE_VALUE_TYPE = 3
 WLAN_OPERATIONAL_STATE = Int32
-wlan_operational_state_unknown: WLAN_OPERATIONAL_STATE = 0
-wlan_operational_state_off: WLAN_OPERATIONAL_STATE = 1
-wlan_operational_state_on: WLAN_OPERATIONAL_STATE = 2
-wlan_operational_state_going_off: WLAN_OPERATIONAL_STATE = 3
-wlan_operational_state_going_on: WLAN_OPERATIONAL_STATE = 4
+wlan_operational_state_unknown: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_OPERATIONAL_STATE = 0
+wlan_operational_state_off: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_OPERATIONAL_STATE = 1
+wlan_operational_state_on: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_OPERATIONAL_STATE = 2
+wlan_operational_state_going_off: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_OPERATIONAL_STATE = 3
+wlan_operational_state_going_on: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_OPERATIONAL_STATE = 4
 class WLAN_PHY_FRAME_STATISTICS(EasyCastStructure):
     ullTransmittedFrameCount: UInt64
     ullMulticastTransmittedFrameCount: UInt64
@@ -3441,11 +3440,11 @@ class WLAN_PHY_RADIO_STATE(EasyCastStructure):
     dot11SoftwareRadioState: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_RADIO_STATE
     dot11HardwareRadioState: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_RADIO_STATE
 WLAN_POWER_SETTING = Int32
-wlan_power_setting_no_saving: WLAN_POWER_SETTING = 0
-wlan_power_setting_low_saving: WLAN_POWER_SETTING = 1
-wlan_power_setting_medium_saving: WLAN_POWER_SETTING = 2
-wlan_power_setting_maximum_saving: WLAN_POWER_SETTING = 3
-wlan_power_setting_invalid: WLAN_POWER_SETTING = 4
+wlan_power_setting_no_saving: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_POWER_SETTING = 0
+wlan_power_setting_low_saving: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_POWER_SETTING = 1
+wlan_power_setting_medium_saving: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_POWER_SETTING = 2
+wlan_power_setting_maximum_saving: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_POWER_SETTING = 3
+wlan_power_setting_invalid: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_POWER_SETTING = 4
 class WLAN_PROFILE_INFO(EasyCastStructure):
     strProfileName: Char * 256
     dwFlags: UInt32
@@ -3470,31 +3469,31 @@ class WLAN_RAW_DATA_LIST(EasyCastStructure):
         dwDataOffset: UInt32
         dwDataSize: UInt32
 WLAN_SECURABLE_OBJECT = Int32
-wlan_secure_permit_list: WLAN_SECURABLE_OBJECT = 0
-wlan_secure_deny_list: WLAN_SECURABLE_OBJECT = 1
-wlan_secure_ac_enabled: WLAN_SECURABLE_OBJECT = 2
-wlan_secure_bc_scan_enabled: WLAN_SECURABLE_OBJECT = 3
-wlan_secure_bss_type: WLAN_SECURABLE_OBJECT = 4
-wlan_secure_show_denied: WLAN_SECURABLE_OBJECT = 5
-wlan_secure_interface_properties: WLAN_SECURABLE_OBJECT = 6
-wlan_secure_ihv_control: WLAN_SECURABLE_OBJECT = 7
-wlan_secure_all_user_profiles_order: WLAN_SECURABLE_OBJECT = 8
-wlan_secure_add_new_all_user_profiles: WLAN_SECURABLE_OBJECT = 9
-wlan_secure_add_new_per_user_profiles: WLAN_SECURABLE_OBJECT = 10
-wlan_secure_media_streaming_mode_enabled: WLAN_SECURABLE_OBJECT = 11
-wlan_secure_current_operation_mode: WLAN_SECURABLE_OBJECT = 12
-wlan_secure_get_plaintext_key: WLAN_SECURABLE_OBJECT = 13
-wlan_secure_hosted_network_elevated_access: WLAN_SECURABLE_OBJECT = 14
-wlan_secure_virtual_station_extensibility: WLAN_SECURABLE_OBJECT = 15
-wlan_secure_wfd_elevated_access: WLAN_SECURABLE_OBJECT = 16
-WLAN_SECURABLE_OBJECT_COUNT: WLAN_SECURABLE_OBJECT = 17
+wlan_secure_permit_list: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_SECURABLE_OBJECT = 0
+wlan_secure_deny_list: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_SECURABLE_OBJECT = 1
+wlan_secure_ac_enabled: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_SECURABLE_OBJECT = 2
+wlan_secure_bc_scan_enabled: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_SECURABLE_OBJECT = 3
+wlan_secure_bss_type: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_SECURABLE_OBJECT = 4
+wlan_secure_show_denied: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_SECURABLE_OBJECT = 5
+wlan_secure_interface_properties: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_SECURABLE_OBJECT = 6
+wlan_secure_ihv_control: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_SECURABLE_OBJECT = 7
+wlan_secure_all_user_profiles_order: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_SECURABLE_OBJECT = 8
+wlan_secure_add_new_all_user_profiles: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_SECURABLE_OBJECT = 9
+wlan_secure_add_new_per_user_profiles: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_SECURABLE_OBJECT = 10
+wlan_secure_media_streaming_mode_enabled: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_SECURABLE_OBJECT = 11
+wlan_secure_current_operation_mode: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_SECURABLE_OBJECT = 12
+wlan_secure_get_plaintext_key: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_SECURABLE_OBJECT = 13
+wlan_secure_hosted_network_elevated_access: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_SECURABLE_OBJECT = 14
+wlan_secure_virtual_station_extensibility: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_SECURABLE_OBJECT = 15
+wlan_secure_wfd_elevated_access: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_SECURABLE_OBJECT = 16
+WLAN_SECURABLE_OBJECT_COUNT: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_SECURABLE_OBJECT = 17
 class WLAN_SECURITY_ATTRIBUTES(EasyCastStructure):
     bSecurityEnabled: win32more.Windows.Win32.Foundation.BOOL
     bOneXEnabled: win32more.Windows.Win32.Foundation.BOOL
     dot11AuthAlgorithm: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_AUTH_ALGORITHM
     dot11CipherAlgorithm: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM
 WLAN_SET_EAPHOST_FLAGS = UInt32
-WLAN_SET_EAPHOST_DATA_ALL_USERS: WLAN_SET_EAPHOST_FLAGS = 1
+WLAN_SET_EAPHOST_DATA_ALL_USERS: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_SET_EAPHOST_FLAGS = 1
 class WLAN_STATISTICS(EasyCastStructure):
     ullFourWayHandshakeFailures: UInt64
     ullTKIPCounterMeasuresInvoked: UInt64
@@ -3504,7 +3503,9 @@ class WLAN_STATISTICS(EasyCastStructure):
     dwNumberOfPhys: UInt32
     PhyCounters: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_PHY_FRAME_STATISTICS * 1
 WL_DISPLAY_PAGES = Int32
-WL_DISPLAY_PAGES_WLConnectionPage: WL_DISPLAY_PAGES = 0
-WL_DISPLAY_PAGES_WLSecurityPage: WL_DISPLAY_PAGES = 1
-WL_DISPLAY_PAGES_WLAdvPage: WL_DISPLAY_PAGES = 2
+WL_DISPLAY_PAGES_WLConnectionPage: win32more.Windows.Win32.NetworkManagement.WiFi.WL_DISPLAY_PAGES = 0
+WL_DISPLAY_PAGES_WLSecurityPage: win32more.Windows.Win32.NetworkManagement.WiFi.WL_DISPLAY_PAGES = 1
+WL_DISPLAY_PAGES_WLAdvPage: win32more.Windows.Win32.NetworkManagement.WiFi.WL_DISPLAY_PAGES = 2
+
+
 make_ready(__name__)

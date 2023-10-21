@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Devices.Properties
 import win32more.Windows.Win32.Devices.SerialCommunication
 import win32more.Windows.Win32.Foundation
@@ -108,9 +107,9 @@ def PSERENUM_READPORT(SerPortAddress: VoidPtr) -> Byte: ...
 @winfunctype_pointer
 def PSERENUM_WRITEPORT(SerPortAddress: VoidPtr, Value: Byte) -> Void: ...
 SERENUM_PORTION = Int32
-SERENUM_PORTION_SerenumFirstHalf: SERENUM_PORTION = 0
-SERENUM_PORTION_SerenumSecondHalf: SERENUM_PORTION = 1
-SERENUM_PORTION_SerenumWhole: SERENUM_PORTION = 2
+SERENUM_PORTION_SerenumFirstHalf: win32more.Windows.Win32.Devices.SerialCommunication.SERENUM_PORTION = 0
+SERENUM_PORTION_SerenumSecondHalf: win32more.Windows.Win32.Devices.SerialCommunication.SERENUM_PORTION = 1
+SERENUM_PORTION_SerenumWhole: win32more.Windows.Win32.Devices.SerialCommunication.SERENUM_PORTION = 2
 class SERENUM_PORT_DESC(EasyCastStructure):
     Size: UInt32
     PortHandle: VoidPtr
@@ -201,4 +200,6 @@ class SERIAL_XOFF_COUNTER(EasyCastStructure):
     Timeout: UInt32
     Counter: Int32
     XoffChar: Byte
+
+
 make_ready(__name__)

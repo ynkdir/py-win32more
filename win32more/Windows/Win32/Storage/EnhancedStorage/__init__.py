@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Devices.PortableDevices
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Storage.EnhancedStorage
@@ -9,8 +8,8 @@ import win32more.Windows.Win32.UI.Shell.PropertiesSystem
 class ACT_AUTHORIZATION_STATE(EasyCastStructure):
     ulState: UInt32
 ACT_AUTHORIZATION_STATE_VALUE = Int32
-ACT_UNAUTHORIZED: ACT_AUTHORIZATION_STATE_VALUE = 0
-ACT_AUTHORIZED: ACT_AUTHORIZATION_STATE_VALUE = 1
+ACT_UNAUTHORIZED: win32more.Windows.Win32.Storage.EnhancedStorage.ACT_AUTHORIZATION_STATE_VALUE = 0
+ACT_AUTHORIZED: win32more.Windows.Win32.Storage.EnhancedStorage.ACT_AUTHORIZATION_STATE_VALUE = 1
 GUID_DEVINTERFACE_ENHANCED_STORAGE_SILO: Guid = Guid('{3897f6a4-fd35-4bc8-a0b7-5dbba36adafa}')
 WPD_CATEGORY_ENHANCED_STORAGE: Guid = Guid('{91248166-b832-4ad4-baa4-7ca0b6b2798c}')
 def ENHANCED_STORAGE_COMMAND_SILO_IS_AUTHENTICATION_SILO():
@@ -2596,4 +2595,6 @@ class SILO_INFO(EasyCastStructure):
     ImplementationMinor: Byte
     type: Byte
     capabilities: Byte
+
+
 make_ready(__name__)

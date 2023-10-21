@@ -1,6 +1,5 @@
 from __future__ import annotations
-from ctypes import POINTER
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, winfunctype, winfunctype_pointer, make_ready
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.EventNotificationService
@@ -81,11 +80,13 @@ class QOCINFO(EasyCastStructure):
     dwOutSpeed: UInt32
 SENS = Guid('{d597cafe-5b9f-11d1-8dd2-00aa004abd5e}')
 SENS_CONNECTION_TYPE = UInt32
-CONNECTION_LAN: SENS_CONNECTION_TYPE = 0
-CONNECTION_WAN: SENS_CONNECTION_TYPE = 1
+CONNECTION_LAN: win32more.Windows.Win32.System.EventNotificationService.SENS_CONNECTION_TYPE = 0
+CONNECTION_WAN: win32more.Windows.Win32.System.EventNotificationService.SENS_CONNECTION_TYPE = 1
 class SENS_QOCINFO(EasyCastStructure):
     dwSize: UInt32
     dwFlags: UInt32
     dwOutSpeed: UInt32
     dwInSpeed: UInt32
+
+
 make_ready(__name__)
