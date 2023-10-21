@@ -36,6 +36,7 @@ BASE_EXPORTS = [
     "Int64",
     "IntPtr",
     "MissingType",
+    "POINTER",
     "SByte",
     "SUCCEEDED",
     "Single",
@@ -49,13 +50,19 @@ BASE_EXPORTS = [
     "cfunctype",
     "cfunctype_pointer",
     "commethod",
+    "make_ready",
     "winfunctype",
     "winfunctype_pointer",
-    "make_ready",
 ]
 BASE_EXPORTS_CSV = ", ".join(BASE_EXPORTS)
 
 JsonType: TypeAlias = Any
+
+is_onefile = False
+
+
+def abs_pkg(name: str) -> str:
+    return name.split('.')[-1] if is_onefile else f"{PACKAGE_NAME}.{name}"
 
 
 class TType:
@@ -86,7 +93,7 @@ class TType:
 
     @property
     def fullname(self) -> str:
-        return f"{self.namespace}.{self.name}"
+        return self.name if is_onefile else f"{self.namespace}.{self.name}"
 
     @property
     def type(self) -> TType:
@@ -120,7 +127,7 @@ class TType:
             if self.type.kind == "Primitive" and self.type.name == "Void":
                 return "VoidPtr"
             elif self.type.is_struct:
-                return f"POINTER({PACKAGE_NAME}.{self.type.fullname})"
+                return f"POINTER({abs_pkg(self.type.fullname)})"
             else:
                 return f"POINTER({self.type.pytype})"
         elif self.kind == "Array":
@@ -134,9 +141,9 @@ class TType:
                 sys.stderr.write(f"DEBUG: missing type '{self.fullname}'\n")
                 return "MissingType"
             elif self.is_com:
-                return f"{PACKAGE_NAME}.{self.fullname}"
+                return f"{abs_pkg(self.fullname)}"
             else:
-                return f"{PACKAGE_NAME}.{self.fullname}"
+                return f"{abs_pkg(self.fullname)}"
         else:
             raise NotImplementedError()
 
@@ -471,19 +478,19 @@ class FieldDefinition:
             return f"Guid('{guid}')"
         elif self.signature.kind == "Type" and self.signature.fullname == "Windows.Win32.Devices.Properties.DEVPROPKEY":
             guid, pid = self.custom_attributes.get_property_key()
-            return f"{PACKAGE_NAME}.{self.signature.fullname}(fmtid=Guid('{guid}'), pid={pid})"
+            return f"{abs_pkg(self.signature.fullname)}(fmtid=Guid('{guid}'), pid={pid})"
         elif (
             self.signature.kind == "Type"
             and self.signature.fullname == "Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY"
         ):
             guid, pid = self.custom_attributes.get_property_key()
-            return f"{PACKAGE_NAME}.{self.signature.fullname}(fmtid=Guid('{guid}'), pid={pid})"
+            return f"{abs_pkg(self.signature.fullname)}(fmtid=Guid('{guid}'), pid={pid})"
         elif (
             self.signature.kind == "Type"
             and self.signature.fullname == "Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY"
         ):
             value = self.custom_attributes.get_constant()
-            return f"{PACKAGE_NAME}.{self.signature.fullname}({value})"
+            return f"{abs_pkg(self.signature.fullname)}({value})"
         else:
             # FIXME:
             raise NotImplementedError()
@@ -956,16 +963,6 @@ class Preprocessor:
         for nested_type in td.nested_types:
             self.patch_keyword_name_td(nested_type)
 
-    def patch_namespace_one(self, meta: Metadata, namespace: str) -> None:
-        for td in meta:
-            td["Namespace"] = namespace
-            for ii in td.interface_implementations:
-                ii.interface.type_reference["Namespace"] = namespace
-            for t in td.enumerate_types():
-                t = t.get_element_type()
-                if t.kind == "Type" and t.namespace != "System" and t.namespace != "":
-                    t["Namespace"] = namespace
-
 
 class PyGenerator:
     def emit(self, td: TypeDefinition) -> str:
@@ -1087,7 +1084,7 @@ class PyGenerator:
         type_field, *value_fields = td.fields
         writer.write(f"{td.name} = {type_field.signature.pytype}\n")
         for fd in value_fields:
-            writer.write(f"{fd.name}: {td.name} = {fd.default_value.value}\n")
+            writer.write(f"{fd.name}: {abs_pkg(td.fullname)} = {fd.default_value.value}\n")
         return writer.getvalue()
 
     def emit_native_typedef(self, td: TypeDefinition) -> str:
@@ -1176,7 +1173,7 @@ class PyGenerator:
         if not td.interface_implementations:
             return "None"
         base = td.interface_implementations[0].interface.type_reference.fullname
-        return f"{PACKAGE_NAME}.{base}"
+        return f"{abs_pkg(base)}"
 
     def emit_attribute(self, td: TypeDefinition) -> str:
         writer = StringIO()
@@ -1192,33 +1189,8 @@ class PyGenerator:
 
     def emit_header(self, import_namespaces: set[str]) -> str:
         writer = StringIO()
-        writer.write(self.emit_import_annotations())
-        writer.write(self.emit_import_ctypes())
-        writer.write(self.emit_import_base())
-        writer.write(self.emit_import_namespaces(import_namespaces))
-        return writer.getvalue()
-
-    def emit_header_one(self) -> str:
-        writer = StringIO()
-        writer.write(self.emit_import_annotations())
-        writer.write(self.emit_import_ctypes())
-        writer.write(self.emit_include_base())
-        return writer.getvalue()
-
-    def emit_import_annotations(self) -> str:
-        return "from __future__ import annotations\n"
-
-    def emit_import_ctypes(self) -> str:
-        return "from ctypes import POINTER\n"
-
-    def emit_import_base(self) -> str:
-        return f"from {PACKAGE_NAME} import {BASE_EXPORTS_CSV}\n"
-
-    def emit_include_base(self) -> str:
-        return (Path(__file__).parent / f"{PACKAGE_NAME}\\__init__.py").read_text()
-
-    def emit_import_namespaces(self, import_namespaces: set[str]) -> str:
-        writer = StringIO()
+        writer.write("from __future__ import annotations\n")
+        writer.write(f"from {PACKAGE_NAME} import {BASE_EXPORTS_CSV}\n")
         for namespace in sorted(import_namespaces):
             writer.write(f"import {PACKAGE_NAME}.{namespace}\n")
         return writer.getvalue()
@@ -1349,30 +1321,29 @@ def generate(meta: Metadata) -> None:
             writer.write(pg.emit_header(import_namespaces))
             for td in meta_group_by_namespace:
                 writer.write(pg.emit(td))
-            writer.write("make_ready(__name__)\n")
+            writer.write("\n\nmake_ready(__name__)\n")
 
 
 def generate_one(meta: Metadata, writer: TextIO) -> None:
+    global is_onefile
+    is_onefile = True
+
     pg = PyGenerator()
-    writer.write(pg.emit_header_one())
+    writer.write(pg.emit_header(set()))
+    module = ''
     for td in meta:
+        ns = td["Namespace"]
+        if ns != module:
+            module = ns
+            writer.write(f"\n\n# {module}\n")
         writer.write(pg.emit(td))
-    writer.write("make_ready(__name__)\n")
+    writer.write("\n\nmake_ready(__name__)\n")
 
 
 def xopen(path: str) -> TextIO | lzma.LZMAFile:
     if path.endswith(".xz"):
         return lzma.open(path)
     return open(path)
-
-
-def main() -> None:
-    parser = argparse.ArgumentParser(description="Metadata to Python generator")
-    parser.add_argument("-o", "--one", help="out to one file")
-    parser.add_argument("-s", "--selector", help="selector.txt")
-    parser.add_argument("metadata", help="metadata.json")
-    args = parser.parse_args()
-    build(args.metadata, args.selector, args.one)
 
 
 def build(metadata, selector=None, one=None) -> None:
@@ -1394,12 +1365,20 @@ def build(metadata, selector=None, one=None) -> None:
     pp.patch_name_conflict(meta)
     pp.patch_keyword_name(meta)
 
-    if one is not None:
-        pp.patch_namespace_one(meta, "_module")
-        with open(one, "w") as writer:
-            generate_one(meta, writer)
-    else:
-        generate(meta)
+    if one is None:
+        return generate(meta)
+
+    with open(one, "w") as writer:
+        generate_one(meta, writer)
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description="Metadata to Python generator")
+    parser.add_argument("-o", "--one", help="out to one file")
+    parser.add_argument("-s", "--selector", help="selector.txt")
+    parser.add_argument("metadata", help="metadata.json")
+    args = parser.parse_args()
+    build(args.metadata, args.selector, args.one)
 
 
 if __name__ == "__main__":
