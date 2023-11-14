@@ -707,113 +707,18 @@ MAX_IRQS: UInt32 = 7
 MAX_DMA_CHANNELS: UInt32 = 7
 DWORD_MAX: UInt32 = 4294967295
 CONFIGMG_VERSION: UInt32 = 1024
-mMD_MemoryType: UInt32 = 1
-fMD_MemoryType: UInt32 = 1
-fMD_ROM: UInt32 = 0
-fMD_RAM: UInt32 = 1
-mMD_32_24: UInt32 = 2
-fMD_32_24: UInt32 = 2
-fMD_24: UInt32 = 0
-fMD_32: UInt32 = 2
-mMD_Prefetchable: UInt32 = 4
-fMD_Prefetchable: UInt32 = 4
-fMD_Pref: UInt32 = 4
-fMD_PrefetchDisallowed: UInt32 = 0
-fMD_PrefetchAllowed: UInt32 = 4
-mMD_Readable: UInt32 = 8
-fMD_Readable: UInt32 = 8
-fMD_ReadAllowed: UInt32 = 0
-fMD_ReadDisallowed: UInt32 = 8
-mMD_CombinedWrite: UInt32 = 16
-fMD_CombinedWrite: UInt32 = 16
-fMD_CombinedWriteDisallowed: UInt32 = 0
-fMD_CombinedWriteAllowed: UInt32 = 16
-mMD_Cacheable: UInt32 = 32
-fMD_NonCacheable: UInt32 = 0
-fMD_Cacheable: UInt32 = 32
-fMD_WINDOW_DECODE: UInt32 = 64
-fMD_MEMORY_BAR: UInt32 = 128
-fIOD_PortType: UInt32 = 1
-fIOD_Memory: UInt32 = 0
-fIOD_IO: UInt32 = 1
-fIOD_DECODE: UInt32 = 252
-fIOD_10_BIT_DECODE: UInt32 = 4
-fIOD_12_BIT_DECODE: UInt32 = 8
-fIOD_16_BIT_DECODE: UInt32 = 16
-fIOD_POSITIVE_DECODE: UInt32 = 32
-fIOD_PASSIVE_DECODE: UInt32 = 64
-fIOD_WINDOW_DECODE: UInt32 = 128
-fIOD_PORT_BAR: UInt32 = 256
 IO_ALIAS_10_BIT_DECODE: UInt32 = 4
 IO_ALIAS_12_BIT_DECODE: UInt32 = 16
 IO_ALIAS_16_BIT_DECODE: UInt32 = 0
 IO_ALIAS_POSITIVE_DECODE: UInt32 = 255
 IOA_Local: UInt32 = 255
-mDD_Width: UInt32 = 3
-fDD_BYTE: UInt32 = 0
-fDD_WORD: UInt32 = 1
-fDD_DWORD: UInt32 = 2
-fDD_BYTE_AND_WORD: UInt32 = 3
-mDD_BusMaster: UInt32 = 4
-fDD_NoBusMaster: UInt32 = 0
-fDD_BusMaster: UInt32 = 4
-mDD_Type: UInt32 = 24
-fDD_TypeStandard: UInt32 = 0
-fDD_TypeA: UInt32 = 8
-fDD_TypeB: UInt32 = 16
-fDD_TypeF: UInt32 = 24
-mIRQD_Share: UInt32 = 1
-fIRQD_Exclusive: UInt32 = 0
-fIRQD_Share: UInt32 = 1
-fIRQD_Share_Bit: UInt32 = 0
-fIRQD_Level_Bit: UInt32 = 1
-mIRQD_Edge_Level: UInt32 = 2
-fIRQD_Level: UInt32 = 0
-fIRQD_Edge: UInt32 = 2
 CM_RESDES_WIDTH_DEFAULT: UInt32 = 0
 CM_RESDES_WIDTH_32: UInt32 = 1
 CM_RESDES_WIDTH_64: UInt32 = 2
 CM_RESDES_WIDTH_BITS: UInt32 = 3
-mPCD_IO_8_16: UInt32 = 1
-fPCD_IO_8: UInt32 = 0
-fPCD_IO_16: UInt32 = 1
-mPCD_MEM_8_16: UInt32 = 2
-fPCD_MEM_8: UInt32 = 0
-fPCD_MEM_16: UInt32 = 2
-mPCD_MEM_A_C: UInt32 = 12
-fPCD_MEM1_A: UInt32 = 4
-fPCD_MEM2_A: UInt32 = 8
-fPCD_IO_ZW_8: UInt32 = 16
-fPCD_IO_SRC_16: UInt32 = 32
-fPCD_IO_WS_16: UInt32 = 64
-mPCD_MEM_WS: UInt32 = 768
-fPCD_MEM_WS_ONE: UInt32 = 256
-fPCD_MEM_WS_TWO: UInt32 = 512
-fPCD_MEM_WS_THREE: UInt32 = 768
-fPCD_MEM_A: UInt32 = 4
-fPCD_ATTRIBUTES_PER_WINDOW: UInt32 = 32768
-fPCD_IO1_16: UInt32 = 65536
-fPCD_IO1_ZW_8: UInt32 = 131072
-fPCD_IO1_SRC_16: UInt32 = 262144
-fPCD_IO1_WS_16: UInt32 = 524288
-fPCD_IO2_16: UInt32 = 1048576
-fPCD_IO2_ZW_8: UInt32 = 2097152
-fPCD_IO2_SRC_16: UInt32 = 4194304
-fPCD_IO2_WS_16: UInt32 = 8388608
-mPCD_MEM1_WS: UInt32 = 50331648
-fPCD_MEM1_WS_ONE: UInt32 = 16777216
-fPCD_MEM1_WS_TWO: UInt32 = 33554432
-fPCD_MEM1_WS_THREE: UInt32 = 50331648
-fPCD_MEM1_16: UInt32 = 67108864
-mPCD_MEM2_WS: UInt32 = 805306368
-fPCD_MEM2_WS_ONE: UInt32 = 268435456
-fPCD_MEM2_WS_TWO: UInt32 = 536870912
-fPCD_MEM2_WS_THREE: UInt32 = 805306368
-fPCD_MEM2_16: UInt32 = 1073741824
 PCD_MAX_MEMORY: UInt32 = 2
 PCD_MAX_IO: UInt32 = 2
 mPMF_AUDIO_ENABLE: UInt32 = 8
-fPMF_AUDIO_ENABLE: UInt32 = 8
 CM_HWPI_NOT_DOCKABLE: UInt32 = 0
 CM_HWPI_UNDOCKED: UInt32 = 1
 CM_HWPI_DOCKED: UInt32 = 2
@@ -2179,9 +2084,9 @@ def CM_Get_Device_Interface_ListA(InterfaceClassGuid: POINTER(Guid), pDeviceID: 
 @winfunctype('CFGMGR32.dll')
 def CM_Get_Device_Interface_ListW(InterfaceClassGuid: POINTER(Guid), pDeviceID: win32more.Windows.Win32.Foundation.PWSTR, Buffer: win32more.Windows.Win32.Foundation.PWSTR, BufferLen: UInt32, ulFlags: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.CM_GET_DEVICE_INTERFACE_LIST_FLAGS) -> win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.CONFIGRET: ...
 @winfunctype('CFGMGR32.dll')
-def CM_Get_Device_Interface_List_ExA(InterfaceClassGuid: POINTER(Guid), pDeviceID: win32more.Windows.Win32.Foundation.PSTR, Buffer: win32more.Windows.Win32.Foundation.PSTR, BufferLen: UInt32, ulFlags: UInt32, hMachine: IntPtr) -> win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.CONFIGRET: ...
+def CM_Get_Device_Interface_List_ExA(InterfaceClassGuid: POINTER(Guid), pDeviceID: win32more.Windows.Win32.Foundation.PSTR, Buffer: win32more.Windows.Win32.Foundation.PSTR, BufferLen: UInt32, ulFlags: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.CM_GET_DEVICE_INTERFACE_LIST_FLAGS, hMachine: IntPtr) -> win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.CONFIGRET: ...
 @winfunctype('CFGMGR32.dll')
-def CM_Get_Device_Interface_List_ExW(InterfaceClassGuid: POINTER(Guid), pDeviceID: win32more.Windows.Win32.Foundation.PWSTR, Buffer: win32more.Windows.Win32.Foundation.PWSTR, BufferLen: UInt32, ulFlags: UInt32, hMachine: IntPtr) -> win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.CONFIGRET: ...
+def CM_Get_Device_Interface_List_ExW(InterfaceClassGuid: POINTER(Guid), pDeviceID: win32more.Windows.Win32.Foundation.PWSTR, Buffer: win32more.Windows.Win32.Foundation.PWSTR, BufferLen: UInt32, ulFlags: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.CM_GET_DEVICE_INTERFACE_LIST_FLAGS, hMachine: IntPtr) -> win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.CONFIGRET: ...
 @winfunctype('CFGMGR32.dll')
 def CM_Get_Device_Interface_List_SizeA(pulLen: POINTER(UInt32), InterfaceClassGuid: POINTER(Guid), pDeviceID: win32more.Windows.Win32.Foundation.PSTR, ulFlags: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.CM_GET_DEVICE_INTERFACE_LIST_FLAGS) -> win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.CONFIGRET: ...
 @winfunctype('CFGMGR32.dll')
@@ -2844,6 +2749,20 @@ class CS_DES(EasyCastStructure):
 class CS_RESOURCE(EasyCastStructure):
     CS_Header: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.CS_DES
     _pack_ = 1
+DD_FLAGS = UInt32
+mDD_Width: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.DD_FLAGS = 3
+fDD_BYTE: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.DD_FLAGS = 0
+fDD_WORD: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.DD_FLAGS = 1
+fDD_DWORD: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.DD_FLAGS = 2
+fDD_BYTE_AND_WORD: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.DD_FLAGS = 3
+mDD_BusMaster: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.DD_FLAGS = 4
+fDD_NoBusMaster: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.DD_FLAGS = 0
+fDD_BusMaster: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.DD_FLAGS = 4
+mDD_Type: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.DD_FLAGS = 24
+fDD_TypeStandard: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.DD_FLAGS = 0
+fDD_TypeA: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.DD_FLAGS = 8
+fDD_TypeB: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.DD_FLAGS = 16
+fDD_TypeF: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.DD_FLAGS = 24
 class DEVPRIVATE_DES(EasyCastStructure):
     PD_Count: UInt32
     PD_Type: UInt32
@@ -2887,7 +2806,7 @@ DIURFLAG_RESERVED: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.D
 class DMA_DES(EasyCastStructure):
     DD_Count: UInt32
     DD_Type: UInt32
-    DD_Flags: UInt32
+    DD_Flags: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.DD_FLAGS
     DD_Alloc_Chan: UInt32
     _pack_ = 1
 class DMA_RANGE(EasyCastStructure):
@@ -3033,12 +2952,24 @@ INF_STYLE_WIN4: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.INF_
 INF_STYLE_CACHE_ENABLE: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.INF_STYLE = 16
 INF_STYLE_CACHE_DISABLE: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.INF_STYLE = 32
 INF_STYLE_CACHE_IGNORE: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.INF_STYLE = 64
+IOD_DESFLAGS = UInt32
+fIOD_PortType: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.IOD_DESFLAGS = 1
+fIOD_Memory: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.IOD_DESFLAGS = 0
+fIOD_IO: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.IOD_DESFLAGS = 1
+fIOD_DECODE: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.IOD_DESFLAGS = 252
+fIOD_10_BIT_DECODE: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.IOD_DESFLAGS = 4
+fIOD_12_BIT_DECODE: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.IOD_DESFLAGS = 8
+fIOD_16_BIT_DECODE: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.IOD_DESFLAGS = 16
+fIOD_POSITIVE_DECODE: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.IOD_DESFLAGS = 32
+fIOD_PASSIVE_DECODE: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.IOD_DESFLAGS = 64
+fIOD_WINDOW_DECODE: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.IOD_DESFLAGS = 128
+fIOD_PORT_BAR: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.IOD_DESFLAGS = 256
 class IO_DES(EasyCastStructure):
     IOD_Count: UInt32
     IOD_Type: UInt32
     IOD_Alloc_Base: UInt64
     IOD_Alloc_End: UInt64
-    IOD_DesFlags: UInt32
+    IOD_DesFlags: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.IOD_DESFLAGS
     _pack_ = 1
 class IO_RANGE(EasyCastStructure):
     IOR_Align: UInt64
@@ -3051,17 +2982,26 @@ class IO_RANGE(EasyCastStructure):
 class IO_RESOURCE(EasyCastStructure):
     IO_Header: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.IO_DES
     IO_Data: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.IO_RANGE * 1
+IRQD_FLAGS = UInt32
+mIRQD_Share: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.IRQD_FLAGS = 1
+fIRQD_Exclusive: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.IRQD_FLAGS = 0
+fIRQD_Share: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.IRQD_FLAGS = 1
+fIRQD_Share_Bit: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.IRQD_FLAGS = 0
+fIRQD_Level_Bit: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.IRQD_FLAGS = 1
+mIRQD_Edge_Level: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.IRQD_FLAGS = 2
+fIRQD_Level: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.IRQD_FLAGS = 0
+fIRQD_Edge: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.IRQD_FLAGS = 2
 class IRQ_DES_32(EasyCastStructure):
     IRQD_Count: UInt32
     IRQD_Type: UInt32
-    IRQD_Flags: UInt32
+    IRQD_Flags: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.IRQD_FLAGS
     IRQD_Alloc_Num: UInt32
     IRQD_Affinity: UInt32
     _pack_ = 1
 class IRQ_DES_64(EasyCastStructure):
     IRQD_Count: UInt32
     IRQD_Type: UInt32
-    IRQD_Flags: UInt32
+    IRQD_Flags: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.IRQD_FLAGS
     IRQD_Alloc_Num: UInt32
     IRQD_Affinity: UInt64
     _pack_ = 1
@@ -3078,12 +3018,39 @@ class IRQ_RESOURCE_64(EasyCastStructure):
     IRQ_Header: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.IRQ_DES_64
     IRQ_Data: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.IRQ_RANGE * 1
     _pack_ = 1
+MD_FLAGS = UInt32
+mMD_MemoryType: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.MD_FLAGS = 1
+fMD_MemoryType: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.MD_FLAGS = 1
+fMD_ROM: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.MD_FLAGS = 0
+fMD_RAM: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.MD_FLAGS = 1
+mMD_32_24: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.MD_FLAGS = 2
+fMD_32_24: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.MD_FLAGS = 2
+fMD_24: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.MD_FLAGS = 0
+fMD_32: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.MD_FLAGS = 2
+mMD_Prefetchable: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.MD_FLAGS = 4
+fMD_Prefetchable: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.MD_FLAGS = 4
+fMD_Pref: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.MD_FLAGS = 4
+fMD_PrefetchDisallowed: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.MD_FLAGS = 0
+fMD_PrefetchAllowed: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.MD_FLAGS = 4
+mMD_Readable: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.MD_FLAGS = 8
+fMD_Readable: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.MD_FLAGS = 8
+fMD_ReadAllowed: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.MD_FLAGS = 0
+fMD_ReadDisallowed: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.MD_FLAGS = 8
+mMD_CombinedWrite: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.MD_FLAGS = 16
+fMD_CombinedWrite: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.MD_FLAGS = 16
+fMD_CombinedWriteDisallowed: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.MD_FLAGS = 0
+fMD_CombinedWriteAllowed: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.MD_FLAGS = 16
+mMD_Cacheable: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.MD_FLAGS = 32
+fMD_NonCacheable: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.MD_FLAGS = 0
+fMD_Cacheable: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.MD_FLAGS = 32
+fMD_WINDOW_DECODE: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.MD_FLAGS = 64
+fMD_MEMORY_BAR: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.MD_FLAGS = 128
 class MEM_DES(EasyCastStructure):
     MD_Count: UInt32
     MD_Type: UInt32
     MD_Alloc_Base: UInt64
     MD_Alloc_End: UInt64
-    MD_Flags: UInt32
+    MD_Flags: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.MD_FLAGS
     MD_Reserved: UInt32
     _pack_ = 1
 class MEM_LARGE_DES(EasyCastStructure):
@@ -3121,7 +3088,7 @@ class MEM_RESOURCE(EasyCastStructure):
 class MFCARD_DES(EasyCastStructure):
     PMF_Count: UInt32
     PMF_Type: UInt32
-    PMF_Flags: UInt32
+    PMF_Flags: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.PMF_FLAGS
     PMF_ConfigOptions: Byte
     PMF_IoResourceIndex: Byte
     PMF_Reserved: Byte * 2
@@ -3137,7 +3104,7 @@ SPOST_URL: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.OEM_SOURC
 class PCCARD_DES(EasyCastStructure):
     PCD_Count: UInt32
     PCD_Type: UInt32
-    PCD_Flags: UInt32
+    PCD_Flags: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.PCD_FLAGS
     PCD_ConfigIndex: Byte
     PCD_Reserved: Byte * 3
     PCD_MemoryCardBase1: UInt32
@@ -3149,10 +3116,49 @@ class PCCARD_DES(EasyCastStructure):
 class PCCARD_RESOURCE(EasyCastStructure):
     PcCard_Header: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.PCCARD_DES
     _pack_ = 1
+PCD_FLAGS = UInt32
+mPCD_IO_8_16: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.PCD_FLAGS = 1
+fPCD_IO_8: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.PCD_FLAGS = 0
+fPCD_IO_16: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.PCD_FLAGS = 1
+mPCD_MEM_8_16: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.PCD_FLAGS = 2
+fPCD_MEM_8: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.PCD_FLAGS = 0
+fPCD_MEM_16: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.PCD_FLAGS = 2
+mPCD_MEM_A_C: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.PCD_FLAGS = 12
+fPCD_MEM1_A: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.PCD_FLAGS = 4
+fPCD_MEM2_A: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.PCD_FLAGS = 8
+fPCD_IO_ZW_8: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.PCD_FLAGS = 16
+fPCD_IO_SRC_16: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.PCD_FLAGS = 32
+fPCD_IO_WS_16: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.PCD_FLAGS = 64
+mPCD_MEM_WS: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.PCD_FLAGS = 768
+fPCD_MEM_WS_ONE: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.PCD_FLAGS = 256
+fPCD_MEM_WS_TWO: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.PCD_FLAGS = 512
+fPCD_MEM_WS_THREE: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.PCD_FLAGS = 768
+fPCD_MEM_A: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.PCD_FLAGS = 4
+fPCD_ATTRIBUTES_PER_WINDOW: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.PCD_FLAGS = 32768
+fPCD_IO1_16: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.PCD_FLAGS = 65536
+fPCD_IO1_ZW_8: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.PCD_FLAGS = 131072
+fPCD_IO1_SRC_16: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.PCD_FLAGS = 262144
+fPCD_IO1_WS_16: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.PCD_FLAGS = 524288
+fPCD_IO2_16: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.PCD_FLAGS = 1048576
+fPCD_IO2_ZW_8: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.PCD_FLAGS = 2097152
+fPCD_IO2_SRC_16: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.PCD_FLAGS = 4194304
+fPCD_IO2_WS_16: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.PCD_FLAGS = 8388608
+mPCD_MEM1_WS: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.PCD_FLAGS = 50331648
+fPCD_MEM1_WS_ONE: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.PCD_FLAGS = 16777216
+fPCD_MEM1_WS_TWO: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.PCD_FLAGS = 33554432
+fPCD_MEM1_WS_THREE: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.PCD_FLAGS = 50331648
+fPCD_MEM1_16: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.PCD_FLAGS = 67108864
+mPCD_MEM2_WS: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.PCD_FLAGS = 805306368
+fPCD_MEM2_WS_ONE: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.PCD_FLAGS = 268435456
+fPCD_MEM2_WS_TWO: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.PCD_FLAGS = 536870912
+fPCD_MEM2_WS_THREE: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.PCD_FLAGS = 805306368
+fPCD_MEM2_16: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.PCD_FLAGS = 1073741824
 @winfunctype_pointer
 def PCM_NOTIFY_CALLBACK(hNotify: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.HCMNOTIFICATION, Context: VoidPtr, Action: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.CM_NOTIFY_ACTION, EventData: POINTER(win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.CM_NOTIFY_EVENT_DATA), EventDataSize: UInt32) -> UInt32: ...
 @winfunctype_pointer
 def PDETECT_PROGRESS_NOTIFY(ProgressNotifyParam: VoidPtr, DetectComplete: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+PMF_FLAGS = UInt32
+fPMF_AUDIO_ENABLE: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.PMF_FLAGS = 8
 PNP_VETO_TYPE = Int32
 PNP_VetoTypeUnknown: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.PNP_VETO_TYPE = 0
 PNP_VetoLegacyDevice: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.PNP_VETO_TYPE = 1

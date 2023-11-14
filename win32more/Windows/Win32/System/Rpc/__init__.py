@@ -2437,6 +2437,7 @@ class RPC_STATS_VECTOR(EasyCastStructure):
     Count: UInt32
     Stats: UInt32 * 1
 RPC_STATUS = Int32
+RPC_S_OK: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 0
 RPC_S_INVALID_STRING_BINDING: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1700
 RPC_S_WRONG_KIND_OF_BINDING: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1701
 RPC_S_INVALID_BINDING: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1702
