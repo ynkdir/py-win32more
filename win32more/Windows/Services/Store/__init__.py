@@ -240,6 +240,16 @@ class IStoreContext4(ComPtr):
     def RequestRateAndReviewAppAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Services.Store.StoreRateAndReviewResult]: ...
     @winrt_commethod(7)
     def SetInstallOrderForAssociatedStoreQueueItemsAsync(self, items: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Services.Store.StoreQueueItem]) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Services.Store.StoreQueueItem]]: ...
+class IStoreContext5(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Store.IStoreContext5'
+    _iid_ = Guid('{6de6c52b-c43a-5953-b39a-71643c57d96e}')
+    @winrt_commethod(6)
+    def GetUserPurchaseHistoryAsync(self, productKinds: win32more.Windows.Foundation.Collections.IIterable[WinRT_String]) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Services.Store.StoreProductQueryResult]: ...
+    @winrt_commethod(7)
+    def GetAssociatedStoreProductsByInAppOfferTokenAsync(self, inAppOfferTokens: win32more.Windows.Foundation.Collections.IIterable[WinRT_String]) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Services.Store.StoreProductQueryResult]: ...
+    @winrt_commethod(8)
+    def RequestPurchaseByInAppOfferTokenAsync(self, inAppOfferToken: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Services.Store.StorePurchaseResult]: ...
 class IStoreContextStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Services.Store.IStoreContextStatics'
@@ -360,6 +370,19 @@ class IStorePrice(ComPtr):
     SaleEndDate = property(get_SaleEndDate, None)
     CurrencyCode = property(get_CurrencyCode, None)
     FormattedRecurrencePrice = property(get_FormattedRecurrencePrice, None)
+class IStorePrice2(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Services.Store.IStorePrice2'
+    _iid_ = Guid('{f711573c-40e6-5641-b063-f1df42b2b12a}')
+    @winrt_commethod(6)
+    def get_UnformattedBasePrice(self) -> WinRT_String: ...
+    @winrt_commethod(7)
+    def get_UnformattedPrice(self) -> WinRT_String: ...
+    @winrt_commethod(8)
+    def get_UnformattedRecurrencePrice(self) -> WinRT_String: ...
+    UnformattedBasePrice = property(get_UnformattedBasePrice, None)
+    UnformattedPrice = property(get_UnformattedPrice, None)
+    UnformattedRecurrencePrice = property(get_UnformattedRecurrencePrice, None)
 class IStoreProduct(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Services.Store.IStoreProduct'
@@ -903,6 +926,12 @@ class StoreContext(ComPtr):
     def RequestRateAndReviewAppAsync(self: win32more.Windows.Services.Store.IStoreContext4) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Services.Store.StoreRateAndReviewResult]: ...
     @winrt_mixinmethod
     def SetInstallOrderForAssociatedStoreQueueItemsAsync(self: win32more.Windows.Services.Store.IStoreContext4, items: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Services.Store.StoreQueueItem]) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Services.Store.StoreQueueItem]]: ...
+    @winrt_mixinmethod
+    def GetUserPurchaseHistoryAsync(self: win32more.Windows.Services.Store.IStoreContext5, productKinds: win32more.Windows.Foundation.Collections.IIterable[WinRT_String]) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Services.Store.StoreProductQueryResult]: ...
+    @winrt_mixinmethod
+    def GetAssociatedStoreProductsByInAppOfferTokenAsync(self: win32more.Windows.Services.Store.IStoreContext5, inAppOfferTokens: win32more.Windows.Foundation.Collections.IIterable[WinRT_String]) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Services.Store.StoreProductQueryResult]: ...
+    @winrt_mixinmethod
+    def RequestPurchaseByInAppOfferTokenAsync(self: win32more.Windows.Services.Store.IStoreContext5, inAppOfferToken: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Services.Store.StorePurchaseResult]: ...
     @winrt_classmethod
     def GetDefault(cls: win32more.Windows.Services.Store.IStoreContextStatics) -> win32more.Windows.Services.Store.StoreContext: ...
     @winrt_classmethod
@@ -1040,12 +1069,21 @@ class StorePrice(ComPtr):
     def get_CurrencyCode(self: win32more.Windows.Services.Store.IStorePrice) -> WinRT_String: ...
     @winrt_mixinmethod
     def get_FormattedRecurrencePrice(self: win32more.Windows.Services.Store.IStorePrice) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_UnformattedBasePrice(self: win32more.Windows.Services.Store.IStorePrice2) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_UnformattedPrice(self: win32more.Windows.Services.Store.IStorePrice2) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_UnformattedRecurrencePrice(self: win32more.Windows.Services.Store.IStorePrice2) -> WinRT_String: ...
     FormattedBasePrice = property(get_FormattedBasePrice, None)
     FormattedPrice = property(get_FormattedPrice, None)
     IsOnSale = property(get_IsOnSale, None)
     SaleEndDate = property(get_SaleEndDate, None)
     CurrencyCode = property(get_CurrencyCode, None)
     FormattedRecurrencePrice = property(get_FormattedRecurrencePrice, None)
+    UnformattedBasePrice = property(get_UnformattedBasePrice, None)
+    UnformattedPrice = property(get_UnformattedPrice, None)
+    UnformattedRecurrencePrice = property(get_UnformattedRecurrencePrice, None)
 class StoreProduct(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Services.Store.IStoreProduct

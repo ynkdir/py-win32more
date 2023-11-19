@@ -210,6 +210,15 @@ ActivityType_Walking: ActivityType = 4
 ActivityType_Running: ActivityType = 5
 ActivityType_InVehicle: ActivityType = 6
 ActivityType_Biking: ActivityType = 7
+class AdaptiveDimmingOptions(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    default_interface: win32more.Windows.Devices.Sensors.IAdaptiveDimmingOptions
+    _classid_ = 'Windows.Devices.Sensors.AdaptiveDimmingOptions'
+    @winrt_mixinmethod
+    def get_AllowWhenExternalDisplayConnected(self: win32more.Windows.Devices.Sensors.IAdaptiveDimmingOptions) -> Boolean: ...
+    @winrt_mixinmethod
+    def put_AllowWhenExternalDisplayConnected(self: win32more.Windows.Devices.Sensors.IAdaptiveDimmingOptions, value: Boolean) -> Void: ...
+    AllowWhenExternalDisplayConnected = property(get_AllowWhenExternalDisplayConnected, put_AllowWhenExternalDisplayConnected)
 class Altimeter(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Sensors.IAltimeter
@@ -577,11 +586,14 @@ class HumanPresenceFeatures(ComPtr):
     def get_IsLockOnLeaveSupported(self: win32more.Windows.Devices.Sensors.IHumanPresenceFeatures) -> Boolean: ...
     @winrt_mixinmethod
     def get_IsAttentionAwareDimmingSupported(self: win32more.Windows.Devices.Sensors.IHumanPresenceFeatures) -> Boolean: ...
+    @winrt_mixinmethod
+    def get_IsAdaptiveDimmingSupported(self: win32more.Windows.Devices.Sensors.IHumanPresenceFeatures2) -> Boolean: ...
     SensorId = property(get_SensorId, None)
     SupportedWakeOrLockDistancesInMillimeters = property(get_SupportedWakeOrLockDistancesInMillimeters, None)
     IsWakeOnApproachSupported = property(get_IsWakeOnApproachSupported, None)
     IsLockOnLeaveSupported = property(get_IsLockOnLeaveSupported, None)
     IsAttentionAwareDimmingSupported = property(get_IsAttentionAwareDimmingSupported, None)
+    IsAdaptiveDimmingSupported = property(get_IsAdaptiveDimmingSupported, None)
 class HumanPresenceSensor(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Sensors.IHumanPresenceSensor
@@ -598,6 +610,14 @@ class HumanPresenceSensor(ComPtr):
     def add_ReadingChanged(self: win32more.Windows.Devices.Sensors.IHumanPresenceSensor, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Sensors.HumanPresenceSensor, win32more.Windows.Devices.Sensors.HumanPresenceSensorReadingChangedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_ReadingChanged(self: win32more.Windows.Devices.Sensors.IHumanPresenceSensor, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_mixinmethod
+    def get_IsPresenceSupported(self: win32more.Windows.Devices.Sensors.IHumanPresenceSensor2) -> Boolean: ...
+    @winrt_mixinmethod
+    def get_IsEngagementSupported(self: win32more.Windows.Devices.Sensors.IHumanPresenceSensor2) -> Boolean: ...
+    @winrt_classmethod
+    def FromId(cls: win32more.Windows.Devices.Sensors.IHumanPresenceSensorStatics2, sensorId: WinRT_String) -> win32more.Windows.Devices.Sensors.HumanPresenceSensor: ...
+    @winrt_classmethod
+    def GetDefault(cls: win32more.Windows.Devices.Sensors.IHumanPresenceSensorStatics2) -> win32more.Windows.Devices.Sensors.HumanPresenceSensor: ...
     @winrt_classmethod
     def GetDeviceSelector(cls: win32more.Windows.Devices.Sensors.IHumanPresenceSensorStatics) -> WinRT_String: ...
     @winrt_classmethod
@@ -607,6 +627,8 @@ class HumanPresenceSensor(ComPtr):
     DeviceId = property(get_DeviceId, None)
     MaxDetectableDistanceInMillimeters = property(get_MaxDetectableDistanceInMillimeters, None)
     MinDetectableDistanceInMillimeters = property(get_MinDetectableDistanceInMillimeters, None)
+    IsPresenceSupported = property(get_IsPresenceSupported, None)
+    IsEngagementSupported = property(get_IsEngagementSupported, None)
 class HumanPresenceSensorReading(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Sensors.IHumanPresenceSensorReading
@@ -619,10 +641,13 @@ class HumanPresenceSensorReading(ComPtr):
     def get_Engagement(self: win32more.Windows.Devices.Sensors.IHumanPresenceSensorReading) -> win32more.Windows.Devices.Sensors.HumanEngagement: ...
     @winrt_mixinmethod
     def get_DistanceInMillimeters(self: win32more.Windows.Devices.Sensors.IHumanPresenceSensorReading) -> win32more.Windows.Foundation.IReference[UInt32]: ...
+    @winrt_mixinmethod
+    def get_Properties(self: win32more.Windows.Devices.Sensors.IHumanPresenceSensorReading2) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     Timestamp = property(get_Timestamp, None)
     Presence = property(get_Presence, None)
     Engagement = property(get_Engagement, None)
     DistanceInMillimeters = property(get_DistanceInMillimeters, None)
+    Properties = property(get_Properties, None)
 class HumanPresenceSensorReadingChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Sensors.IHumanPresenceSensorReadingChangedEventArgs
@@ -630,6 +655,32 @@ class HumanPresenceSensorReadingChangedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Reading(self: win32more.Windows.Devices.Sensors.IHumanPresenceSensorReadingChangedEventArgs) -> win32more.Windows.Devices.Sensors.HumanPresenceSensorReading: ...
     Reading = property(get_Reading, None)
+class HumanPresenceSensorReadingUpdate(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    default_interface: win32more.Windows.Devices.Sensors.IHumanPresenceSensorReadingUpdate
+    _classid_ = 'Windows.Devices.Sensors.HumanPresenceSensorReadingUpdate'
+    @winrt_activatemethod
+    def CreateInstance(cls) -> win32more.Windows.Devices.Sensors.HumanPresenceSensorReadingUpdate: ...
+    @winrt_mixinmethod
+    def get_Timestamp(self: win32more.Windows.Devices.Sensors.IHumanPresenceSensorReadingUpdate) -> win32more.Windows.Foundation.IReference[win32more.Windows.Foundation.DateTime]: ...
+    @winrt_mixinmethod
+    def put_Timestamp(self: win32more.Windows.Devices.Sensors.IHumanPresenceSensorReadingUpdate, value: win32more.Windows.Foundation.IReference[win32more.Windows.Foundation.DateTime]) -> Void: ...
+    @winrt_mixinmethod
+    def get_Presence(self: win32more.Windows.Devices.Sensors.IHumanPresenceSensorReadingUpdate) -> win32more.Windows.Foundation.IReference[win32more.Windows.Devices.Sensors.HumanPresence]: ...
+    @winrt_mixinmethod
+    def put_Presence(self: win32more.Windows.Devices.Sensors.IHumanPresenceSensorReadingUpdate, value: win32more.Windows.Foundation.IReference[win32more.Windows.Devices.Sensors.HumanPresence]) -> Void: ...
+    @winrt_mixinmethod
+    def get_Engagement(self: win32more.Windows.Devices.Sensors.IHumanPresenceSensorReadingUpdate) -> win32more.Windows.Foundation.IReference[win32more.Windows.Devices.Sensors.HumanEngagement]: ...
+    @winrt_mixinmethod
+    def put_Engagement(self: win32more.Windows.Devices.Sensors.IHumanPresenceSensorReadingUpdate, value: win32more.Windows.Foundation.IReference[win32more.Windows.Devices.Sensors.HumanEngagement]) -> Void: ...
+    @winrt_mixinmethod
+    def get_DistanceInMillimeters(self: win32more.Windows.Devices.Sensors.IHumanPresenceSensorReadingUpdate) -> win32more.Windows.Foundation.IReference[UInt32]: ...
+    @winrt_mixinmethod
+    def put_DistanceInMillimeters(self: win32more.Windows.Devices.Sensors.IHumanPresenceSensorReadingUpdate, value: win32more.Windows.Foundation.IReference[UInt32]) -> Void: ...
+    Timestamp = property(get_Timestamp, put_Timestamp)
+    Presence = property(get_Presence, put_Presence)
+    Engagement = property(get_Engagement, put_Engagement)
+    DistanceInMillimeters = property(get_DistanceInMillimeters, put_DistanceInMillimeters)
 class HumanPresenceSettings(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Sensors.IHumanPresenceSettings
@@ -662,6 +713,16 @@ class HumanPresenceSettings(ComPtr):
     def get_IsAttentionAwareDimmingEnabled(self: win32more.Windows.Devices.Sensors.IHumanPresenceSettings) -> Boolean: ...
     @winrt_mixinmethod
     def put_IsAttentionAwareDimmingEnabled(self: win32more.Windows.Devices.Sensors.IHumanPresenceSettings, value: Boolean) -> Void: ...
+    @winrt_mixinmethod
+    def get_IsAdaptiveDimmingEnabled(self: win32more.Windows.Devices.Sensors.IHumanPresenceSettings2) -> Boolean: ...
+    @winrt_mixinmethod
+    def put_IsAdaptiveDimmingEnabled(self: win32more.Windows.Devices.Sensors.IHumanPresenceSettings2, value: Boolean) -> Void: ...
+    @winrt_mixinmethod
+    def get_WakeOptions(self: win32more.Windows.Devices.Sensors.IHumanPresenceSettings2) -> win32more.Windows.Devices.Sensors.WakeOnApproachOptions: ...
+    @winrt_mixinmethod
+    def get_DimmingOptions(self: win32more.Windows.Devices.Sensors.IHumanPresenceSettings2) -> win32more.Windows.Devices.Sensors.AdaptiveDimmingOptions: ...
+    @winrt_mixinmethod
+    def get_LockOptions(self: win32more.Windows.Devices.Sensors.IHumanPresenceSettings2) -> win32more.Windows.Devices.Sensors.LockOnLeaveOptions: ...
     @winrt_classmethod
     def GetCurrentSettingsAsync(cls: win32more.Windows.Devices.Sensors.IHumanPresenceSettingsStatics) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Sensors.HumanPresenceSettings]: ...
     @winrt_classmethod
@@ -687,6 +748,10 @@ class HumanPresenceSettings(ComPtr):
     LockOnLeaveDistanceInMillimeters = property(get_LockOnLeaveDistanceInMillimeters, put_LockOnLeaveDistanceInMillimeters)
     LockOnLeaveTimeout = property(get_LockOnLeaveTimeout, put_LockOnLeaveTimeout)
     IsAttentionAwareDimmingEnabled = property(get_IsAttentionAwareDimmingEnabled, put_IsAttentionAwareDimmingEnabled)
+    IsAdaptiveDimmingEnabled = property(get_IsAdaptiveDimmingEnabled, put_IsAdaptiveDimmingEnabled)
+    WakeOptions = property(get_WakeOptions, None)
+    DimmingOptions = property(get_DimmingOptions, None)
+    LockOptions = property(get_LockOptions, None)
 class IAccelerometer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Sensors.IAccelerometer'
@@ -902,6 +967,15 @@ class IActivitySensorTriggerDetails(ComPtr):
     _iid_ = Guid('{2c9e6612-b9ca-4677-b263-243297f79d3a}')
     @winrt_commethod(6)
     def ReadReports(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Devices.Sensors.ActivitySensorReadingChangeReport]: ...
+class IAdaptiveDimmingOptions(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Sensors.IAdaptiveDimmingOptions'
+    _iid_ = Guid('{d3213cf7-89b5-5732-b2a0-aefe324f54e6}')
+    @winrt_commethod(6)
+    def get_AllowWhenExternalDisplayConnected(self) -> Boolean: ...
+    @winrt_commethod(7)
+    def put_AllowWhenExternalDisplayConnected(self, value: Boolean) -> Void: ...
+    AllowWhenExternalDisplayConnected = property(get_AllowWhenExternalDisplayConnected, put_AllowWhenExternalDisplayConnected)
 class IAltimeter(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Sensors.IAltimeter'
@@ -1362,6 +1436,13 @@ class IHumanPresenceFeatures(ComPtr):
     IsWakeOnApproachSupported = property(get_IsWakeOnApproachSupported, None)
     IsLockOnLeaveSupported = property(get_IsLockOnLeaveSupported, None)
     IsAttentionAwareDimmingSupported = property(get_IsAttentionAwareDimmingSupported, None)
+class IHumanPresenceFeatures2(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Sensors.IHumanPresenceFeatures2'
+    _iid_ = Guid('{08a9cdda-d929-5ec2-81e2-940bafa089cf}')
+    @winrt_commethod(6)
+    def get_IsAdaptiveDimmingSupported(self) -> Boolean: ...
+    IsAdaptiveDimmingSupported = property(get_IsAdaptiveDimmingSupported, None)
 class IHumanPresenceSensor(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Sensors.IHumanPresenceSensor'
@@ -1381,6 +1462,34 @@ class IHumanPresenceSensor(ComPtr):
     DeviceId = property(get_DeviceId, None)
     MaxDetectableDistanceInMillimeters = property(get_MaxDetectableDistanceInMillimeters, None)
     MinDetectableDistanceInMillimeters = property(get_MinDetectableDistanceInMillimeters, None)
+class IHumanPresenceSensor2(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Sensors.IHumanPresenceSensor2'
+    _iid_ = Guid('{f8833779-65fe-541a-b9d6-1e474a485e7a}')
+    @winrt_commethod(6)
+    def get_IsPresenceSupported(self) -> Boolean: ...
+    @winrt_commethod(7)
+    def get_IsEngagementSupported(self) -> Boolean: ...
+    IsPresenceSupported = property(get_IsPresenceSupported, None)
+    IsEngagementSupported = property(get_IsEngagementSupported, None)
+class IHumanPresenceSensorExtension(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Sensors.IHumanPresenceSensorExtension'
+    _iid_ = Guid('{3e526a71-2d1d-5d43-8a8e-a434a8242ef0}')
+    @winrt_commethod(6)
+    def Initialize(self, deviceInterface: WinRT_String) -> Void: ...
+    @winrt_commethod(7)
+    def Start(self) -> Void: ...
+    @winrt_commethod(8)
+    def ProcessReading(self, reading: win32more.Windows.Devices.Sensors.HumanPresenceSensorReading) -> win32more.Windows.Devices.Sensors.HumanPresenceSensorReadingUpdate: ...
+    @winrt_commethod(9)
+    def ProcessReadingTimeoutExpired(self, reading: win32more.Windows.Devices.Sensors.HumanPresenceSensorReading) -> Void: ...
+    @winrt_commethod(10)
+    def Stop(self) -> Void: ...
+    @winrt_commethod(11)
+    def Uninitialize(self) -> Void: ...
+    @winrt_commethod(12)
+    def Reset(self) -> Void: ...
 class IHumanPresenceSensorReading(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Sensors.IHumanPresenceSensorReading'
@@ -1397,6 +1506,13 @@ class IHumanPresenceSensorReading(ComPtr):
     Presence = property(get_Presence, None)
     Engagement = property(get_Engagement, None)
     DistanceInMillimeters = property(get_DistanceInMillimeters, None)
+class IHumanPresenceSensorReading2(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Sensors.IHumanPresenceSensorReading2'
+    _iid_ = Guid('{c4f0e950-3bff-53d6-a0f8-514ea3705c66}')
+    @winrt_commethod(6)
+    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
+    Properties = property(get_Properties, None)
 class IHumanPresenceSensorReadingChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Sensors.IHumanPresenceSensorReadingChangedEventArgs'
@@ -1404,6 +1520,30 @@ class IHumanPresenceSensorReadingChangedEventArgs(ComPtr):
     @winrt_commethod(6)
     def get_Reading(self) -> win32more.Windows.Devices.Sensors.HumanPresenceSensorReading: ...
     Reading = property(get_Reading, None)
+class IHumanPresenceSensorReadingUpdate(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Sensors.IHumanPresenceSensorReadingUpdate'
+    _iid_ = Guid('{42419c77-6d2f-55a0-9e01-c9cbe7b2d6df}')
+    @winrt_commethod(6)
+    def get_Timestamp(self) -> win32more.Windows.Foundation.IReference[win32more.Windows.Foundation.DateTime]: ...
+    @winrt_commethod(7)
+    def put_Timestamp(self, value: win32more.Windows.Foundation.IReference[win32more.Windows.Foundation.DateTime]) -> Void: ...
+    @winrt_commethod(8)
+    def get_Presence(self) -> win32more.Windows.Foundation.IReference[win32more.Windows.Devices.Sensors.HumanPresence]: ...
+    @winrt_commethod(9)
+    def put_Presence(self, value: win32more.Windows.Foundation.IReference[win32more.Windows.Devices.Sensors.HumanPresence]) -> Void: ...
+    @winrt_commethod(10)
+    def get_Engagement(self) -> win32more.Windows.Foundation.IReference[win32more.Windows.Devices.Sensors.HumanEngagement]: ...
+    @winrt_commethod(11)
+    def put_Engagement(self, value: win32more.Windows.Foundation.IReference[win32more.Windows.Devices.Sensors.HumanEngagement]) -> Void: ...
+    @winrt_commethod(12)
+    def get_DistanceInMillimeters(self) -> win32more.Windows.Foundation.IReference[UInt32]: ...
+    @winrt_commethod(13)
+    def put_DistanceInMillimeters(self, value: win32more.Windows.Foundation.IReference[UInt32]) -> Void: ...
+    Timestamp = property(get_Timestamp, put_Timestamp)
+    Presence = property(get_Presence, put_Presence)
+    Engagement = property(get_Engagement, put_Engagement)
+    DistanceInMillimeters = property(get_DistanceInMillimeters, put_DistanceInMillimeters)
 class IHumanPresenceSensorStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Sensors.IHumanPresenceSensorStatics'
@@ -1414,6 +1554,14 @@ class IHumanPresenceSensorStatics(ComPtr):
     def FromIdAsync(self, sensorId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Sensors.HumanPresenceSensor]: ...
     @winrt_commethod(8)
     def GetDefaultAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Sensors.HumanPresenceSensor]: ...
+class IHumanPresenceSensorStatics2(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Sensors.IHumanPresenceSensorStatics2'
+    _iid_ = Guid('{5de35843-d260-5a87-995e-ace91326e1c4}')
+    @winrt_commethod(6)
+    def FromId(self, sensorId: WinRT_String) -> win32more.Windows.Devices.Sensors.HumanPresenceSensor: ...
+    @winrt_commethod(7)
+    def GetDefault(self) -> win32more.Windows.Devices.Sensors.HumanPresenceSensor: ...
 class IHumanPresenceSettings(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Sensors.IHumanPresenceSettings'
@@ -1453,6 +1601,24 @@ class IHumanPresenceSettings(ComPtr):
     LockOnLeaveDistanceInMillimeters = property(get_LockOnLeaveDistanceInMillimeters, put_LockOnLeaveDistanceInMillimeters)
     LockOnLeaveTimeout = property(get_LockOnLeaveTimeout, put_LockOnLeaveTimeout)
     IsAttentionAwareDimmingEnabled = property(get_IsAttentionAwareDimmingEnabled, put_IsAttentionAwareDimmingEnabled)
+class IHumanPresenceSettings2(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Sensors.IHumanPresenceSettings2'
+    _iid_ = Guid('{a26f705e-8696-5eb4-b9e1-26a508de1cd4}')
+    @winrt_commethod(6)
+    def get_IsAdaptiveDimmingEnabled(self) -> Boolean: ...
+    @winrt_commethod(7)
+    def put_IsAdaptiveDimmingEnabled(self, value: Boolean) -> Void: ...
+    @winrt_commethod(8)
+    def get_WakeOptions(self) -> win32more.Windows.Devices.Sensors.WakeOnApproachOptions: ...
+    @winrt_commethod(9)
+    def get_DimmingOptions(self) -> win32more.Windows.Devices.Sensors.AdaptiveDimmingOptions: ...
+    @winrt_commethod(10)
+    def get_LockOptions(self) -> win32more.Windows.Devices.Sensors.LockOnLeaveOptions: ...
+    IsAdaptiveDimmingEnabled = property(get_IsAdaptiveDimmingEnabled, put_IsAdaptiveDimmingEnabled)
+    WakeOptions = property(get_WakeOptions, None)
+    DimmingOptions = property(get_DimmingOptions, None)
+    LockOptions = property(get_LockOptions, None)
 class IHumanPresenceSettingsStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Sensors.IHumanPresenceSettingsStatics'
@@ -1715,6 +1881,15 @@ class ILightSensorStatics2(ComPtr):
     def GetDeviceSelector(self) -> WinRT_String: ...
     @winrt_commethod(7)
     def FromIdAsync(self, deviceId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Sensors.LightSensor]: ...
+class ILockOnLeaveOptions(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Sensors.ILockOnLeaveOptions'
+    _iid_ = Guid('{3c6bf8bd-04c1-5829-8d4e-70521755b8be}')
+    @winrt_commethod(6)
+    def get_AllowWhenExternalDisplayConnected(self) -> Boolean: ...
+    @winrt_commethod(7)
+    def put_AllowWhenExternalDisplayConnected(self, value: Boolean) -> Void: ...
+    AllowWhenExternalDisplayConnected = property(get_AllowWhenExternalDisplayConnected, put_AllowWhenExternalDisplayConnected)
 class IMagnetometer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Sensors.IMagnetometer'
@@ -2202,6 +2377,20 @@ class ISimpleOrientationSensorStatics2(ComPtr):
     def GetDeviceSelector(self) -> WinRT_String: ...
     @winrt_commethod(7)
     def FromIdAsync(self, deviceId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Sensors.SimpleOrientationSensor]: ...
+class IWakeOnApproachOptions(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Sensors.IWakeOnApproachOptions'
+    _iid_ = Guid('{f0b87ae7-7e1f-5ea5-814d-6b7e07defc2b}')
+    @winrt_commethod(6)
+    def get_AllowWhenExternalDisplayConnected(self) -> Boolean: ...
+    @winrt_commethod(7)
+    def put_AllowWhenExternalDisplayConnected(self, value: Boolean) -> Void: ...
+    @winrt_commethod(8)
+    def get_DisableWhenBatterySaverOn(self) -> Boolean: ...
+    @winrt_commethod(9)
+    def put_DisableWhenBatterySaverOn(self, value: Boolean) -> Void: ...
+    AllowWhenExternalDisplayConnected = property(get_AllowWhenExternalDisplayConnected, put_AllowWhenExternalDisplayConnected)
+    DisableWhenBatterySaverOn = property(get_DisableWhenBatterySaverOn, put_DisableWhenBatterySaverOn)
 class Inclinometer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Sensors.IInclinometer
@@ -2378,6 +2567,15 @@ class LightSensorReadingChangedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Reading(self: win32more.Windows.Devices.Sensors.ILightSensorReadingChangedEventArgs) -> win32more.Windows.Devices.Sensors.LightSensorReading: ...
     Reading = property(get_Reading, None)
+class LockOnLeaveOptions(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    default_interface: win32more.Windows.Devices.Sensors.ILockOnLeaveOptions
+    _classid_ = 'Windows.Devices.Sensors.LockOnLeaveOptions'
+    @winrt_mixinmethod
+    def get_AllowWhenExternalDisplayConnected(self: win32more.Windows.Devices.Sensors.ILockOnLeaveOptions) -> Boolean: ...
+    @winrt_mixinmethod
+    def put_AllowWhenExternalDisplayConnected(self: win32more.Windows.Devices.Sensors.ILockOnLeaveOptions, value: Boolean) -> Void: ...
+    AllowWhenExternalDisplayConnected = property(get_AllowWhenExternalDisplayConnected, put_AllowWhenExternalDisplayConnected)
 class Magnetometer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Sensors.IMagnetometer
@@ -2804,4 +3002,18 @@ class SimpleOrientationSensorOrientationChangedEventArgs(ComPtr):
     def get_Orientation(self: win32more.Windows.Devices.Sensors.ISimpleOrientationSensorOrientationChangedEventArgs) -> win32more.Windows.Devices.Sensors.SimpleOrientation: ...
     Timestamp = property(get_Timestamp, None)
     Orientation = property(get_Orientation, None)
+class WakeOnApproachOptions(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    default_interface: win32more.Windows.Devices.Sensors.IWakeOnApproachOptions
+    _classid_ = 'Windows.Devices.Sensors.WakeOnApproachOptions'
+    @winrt_mixinmethod
+    def get_AllowWhenExternalDisplayConnected(self: win32more.Windows.Devices.Sensors.IWakeOnApproachOptions) -> Boolean: ...
+    @winrt_mixinmethod
+    def put_AllowWhenExternalDisplayConnected(self: win32more.Windows.Devices.Sensors.IWakeOnApproachOptions, value: Boolean) -> Void: ...
+    @winrt_mixinmethod
+    def get_DisableWhenBatterySaverOn(self: win32more.Windows.Devices.Sensors.IWakeOnApproachOptions) -> Boolean: ...
+    @winrt_mixinmethod
+    def put_DisableWhenBatterySaverOn(self: win32more.Windows.Devices.Sensors.IWakeOnApproachOptions, value: Boolean) -> Void: ...
+    AllowWhenExternalDisplayConnected = property(get_AllowWhenExternalDisplayConnected, put_AllowWhenExternalDisplayConnected)
+    DisableWhenBatterySaverOn = property(get_DisableWhenBatterySaverOn, put_DisableWhenBatterySaverOn)
 make_ready(__name__)

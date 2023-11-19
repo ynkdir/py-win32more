@@ -280,6 +280,63 @@ class IStorageProviderItemPropertySource(ComPtr):
     _iid_ = Guid('{8f6f9c3e-f632-4a9b-8d99-d2d7a11df56a}')
     @winrt_commethod(6)
     def GetItemProperties(self, itemPath: WinRT_String) -> win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Storage.Provider.StorageProviderItemProperty]: ...
+class IStorageProviderKnownFolderEntry(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Storage.Provider.IStorageProviderKnownFolderEntry'
+    _iid_ = Guid('{effa7db0-1d44-596b-8464-928800c5e2d8}')
+    @winrt_commethod(6)
+    def get_KnownFolderId(self) -> Guid: ...
+    @winrt_commethod(7)
+    def put_KnownFolderId(self, value: Guid) -> Void: ...
+    @winrt_commethod(8)
+    def get_Status(self) -> win32more.Windows.Storage.Provider.StorageProviderKnownFolderSyncStatus: ...
+    @winrt_commethod(9)
+    def put_Status(self, value: win32more.Windows.Storage.Provider.StorageProviderKnownFolderSyncStatus) -> Void: ...
+    KnownFolderId = property(get_KnownFolderId, put_KnownFolderId)
+    Status = property(get_Status, put_Status)
+class IStorageProviderKnownFolderSyncInfo(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Storage.Provider.IStorageProviderKnownFolderSyncInfo'
+    _iid_ = Guid('{98b017ce-ffc1-5b11-ae77-cc17afec1049}')
+    @winrt_commethod(6)
+    def get_ProviderDisplayName(self) -> WinRT_String: ...
+    @winrt_commethod(7)
+    def put_ProviderDisplayName(self, value: WinRT_String) -> Void: ...
+    @winrt_commethod(8)
+    def get_KnownFolderEntries(self) -> win32more.Windows.Foundation.Collections.IVector[win32more.Windows.Storage.Provider.StorageProviderKnownFolderEntry]: ...
+    @winrt_commethod(9)
+    def get_SyncRequested(self) -> win32more.Windows.Storage.Provider.StorageProviderKnownFolderSyncRequestedHandler: ...
+    @winrt_commethod(10)
+    def put_SyncRequested(self, value: win32more.Windows.Storage.Provider.StorageProviderKnownFolderSyncRequestedHandler) -> Void: ...
+    ProviderDisplayName = property(get_ProviderDisplayName, put_ProviderDisplayName)
+    KnownFolderEntries = property(get_KnownFolderEntries, None)
+    SyncRequested = property(get_SyncRequested, put_SyncRequested)
+class IStorageProviderKnownFolderSyncInfoSource(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Storage.Provider.IStorageProviderKnownFolderSyncInfoSource'
+    _iid_ = Guid('{51359342-f7c0-53d0-bbb6-1cdc098ebda9}')
+    @winrt_commethod(6)
+    def GetKnownFolderSyncInfo(self) -> win32more.Windows.Storage.Provider.StorageProviderKnownFolderSyncInfo: ...
+    @winrt_commethod(7)
+    def add_KnownFolderSyncInfoChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Storage.Provider.IStorageProviderKnownFolderSyncInfoSource, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_commethod(8)
+    def remove_KnownFolderSyncInfoChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+class IStorageProviderKnownFolderSyncInfoSourceFactory(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Storage.Provider.IStorageProviderKnownFolderSyncInfoSourceFactory'
+    _iid_ = Guid('{aaee03a7-a7f6-50be-a9b0-8e82d0c81082}')
+    @winrt_commethod(6)
+    def GetKnownFolderSyncInfoSource(self) -> win32more.Windows.Storage.Provider.IStorageProviderKnownFolderSyncInfoSource: ...
+class IStorageProviderKnownFolderSyncRequestArgs(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Storage.Provider.IStorageProviderKnownFolderSyncRequestArgs'
+    _iid_ = Guid('{eda6d569-b4e8-542f-ab8d-f3613f250a4a}')
+    @winrt_commethod(6)
+    def get_KnownFolders(self) -> win32more.Windows.Foundation.Collections.IVectorView[Guid]: ...
+    @winrt_commethod(7)
+    def get_Source(self) -> win32more.Windows.Storage.StorageFolder: ...
+    KnownFolders = property(get_KnownFolders, None)
+    Source = property(get_Source, None)
 class IStorageProviderMoreInfoUI(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Storage.Provider.IStorageProviderMoreInfoUI'
@@ -649,6 +706,59 @@ class StorageProviderItemPropertyDefinition(ComPtr):
     def put_DisplayNameResource(self: win32more.Windows.Storage.Provider.IStorageProviderItemPropertyDefinition, value: WinRT_String) -> Void: ...
     Id = property(get_Id, put_Id)
     DisplayNameResource = property(get_DisplayNameResource, put_DisplayNameResource)
+class StorageProviderKnownFolderEntry(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    default_interface: win32more.Windows.Storage.Provider.IStorageProviderKnownFolderEntry
+    _classid_ = 'Windows.Storage.Provider.StorageProviderKnownFolderEntry'
+    @winrt_activatemethod
+    def CreateInstance(cls) -> win32more.Windows.Storage.Provider.StorageProviderKnownFolderEntry: ...
+    @winrt_mixinmethod
+    def get_KnownFolderId(self: win32more.Windows.Storage.Provider.IStorageProviderKnownFolderEntry) -> Guid: ...
+    @winrt_mixinmethod
+    def put_KnownFolderId(self: win32more.Windows.Storage.Provider.IStorageProviderKnownFolderEntry, value: Guid) -> Void: ...
+    @winrt_mixinmethod
+    def get_Status(self: win32more.Windows.Storage.Provider.IStorageProviderKnownFolderEntry) -> win32more.Windows.Storage.Provider.StorageProviderKnownFolderSyncStatus: ...
+    @winrt_mixinmethod
+    def put_Status(self: win32more.Windows.Storage.Provider.IStorageProviderKnownFolderEntry, value: win32more.Windows.Storage.Provider.StorageProviderKnownFolderSyncStatus) -> Void: ...
+    KnownFolderId = property(get_KnownFolderId, put_KnownFolderId)
+    Status = property(get_Status, put_Status)
+class StorageProviderKnownFolderSyncInfo(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    default_interface: win32more.Windows.Storage.Provider.IStorageProviderKnownFolderSyncInfo
+    _classid_ = 'Windows.Storage.Provider.StorageProviderKnownFolderSyncInfo'
+    @winrt_activatemethod
+    def CreateInstance(cls) -> win32more.Windows.Storage.Provider.StorageProviderKnownFolderSyncInfo: ...
+    @winrt_mixinmethod
+    def get_ProviderDisplayName(self: win32more.Windows.Storage.Provider.IStorageProviderKnownFolderSyncInfo) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def put_ProviderDisplayName(self: win32more.Windows.Storage.Provider.IStorageProviderKnownFolderSyncInfo, value: WinRT_String) -> Void: ...
+    @winrt_mixinmethod
+    def get_KnownFolderEntries(self: win32more.Windows.Storage.Provider.IStorageProviderKnownFolderSyncInfo) -> win32more.Windows.Foundation.Collections.IVector[win32more.Windows.Storage.Provider.StorageProviderKnownFolderEntry]: ...
+    @winrt_mixinmethod
+    def get_SyncRequested(self: win32more.Windows.Storage.Provider.IStorageProviderKnownFolderSyncInfo) -> win32more.Windows.Storage.Provider.StorageProviderKnownFolderSyncRequestedHandler: ...
+    @winrt_mixinmethod
+    def put_SyncRequested(self: win32more.Windows.Storage.Provider.IStorageProviderKnownFolderSyncInfo, value: win32more.Windows.Storage.Provider.StorageProviderKnownFolderSyncRequestedHandler) -> Void: ...
+    ProviderDisplayName = property(get_ProviderDisplayName, put_ProviderDisplayName)
+    KnownFolderEntries = property(get_KnownFolderEntries, None)
+    SyncRequested = property(get_SyncRequested, put_SyncRequested)
+class StorageProviderKnownFolderSyncRequestArgs(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    default_interface: win32more.Windows.Storage.Provider.IStorageProviderKnownFolderSyncRequestArgs
+    _classid_ = 'Windows.Storage.Provider.StorageProviderKnownFolderSyncRequestArgs'
+    @winrt_mixinmethod
+    def get_KnownFolders(self: win32more.Windows.Storage.Provider.IStorageProviderKnownFolderSyncRequestArgs) -> win32more.Windows.Foundation.Collections.IVectorView[Guid]: ...
+    @winrt_mixinmethod
+    def get_Source(self: win32more.Windows.Storage.Provider.IStorageProviderKnownFolderSyncRequestArgs) -> win32more.Windows.Storage.StorageFolder: ...
+    KnownFolders = property(get_KnownFolders, None)
+    Source = property(get_Source, None)
+class StorageProviderKnownFolderSyncRequestedHandler(MulticastDelegate):
+    extends: win32more.Windows.Win32.System.Com.IUnknown
+    _iid_ = Guid('{c4cbb4f5-13dd-5c8e-8b96-336fc30c629b}')
+    def Invoke(self, args: win32more.Windows.Storage.Provider.StorageProviderKnownFolderSyncRequestArgs) -> Void: ...
+StorageProviderKnownFolderSyncStatus = Int32
+StorageProviderKnownFolderSyncStatus_Available: StorageProviderKnownFolderSyncStatus = 0
+StorageProviderKnownFolderSyncStatus_Enrolling: StorageProviderKnownFolderSyncStatus = 1
+StorageProviderKnownFolderSyncStatus_Enrolled: StorageProviderKnownFolderSyncStatus = 2
 class StorageProviderMoreInfoUI(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Storage.Provider.IStorageProviderMoreInfoUI

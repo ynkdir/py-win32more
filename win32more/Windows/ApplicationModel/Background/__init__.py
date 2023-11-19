@@ -444,10 +444,10 @@ class ContentPrefetchTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.IContentPrefetchTrigger
     _classid_ = 'Windows.ApplicationModel.Background.ContentPrefetchTrigger'
-    @winrt_activatemethod
-    def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Background.ContentPrefetchTrigger: ...
     @winrt_factorymethod
     def Create(cls: win32more.Windows.ApplicationModel.Background.IContentPrefetchTriggerFactory, waitInterval: win32more.Windows.Foundation.TimeSpan) -> win32more.Windows.ApplicationModel.Background.ContentPrefetchTrigger: ...
+    @winrt_activatemethod
+    def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Background.ContentPrefetchTrigger: ...
     @winrt_mixinmethod
     def get_WaitInterval(self: win32more.Windows.ApplicationModel.Background.IContentPrefetchTrigger) -> win32more.Windows.Foundation.TimeSpan: ...
     WaitInterval = property(get_WaitInterval, None)
@@ -1524,10 +1524,10 @@ class PushNotificationTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.IBackgroundTrigger
     _classid_ = 'Windows.ApplicationModel.Background.PushNotificationTrigger'
-    @winrt_activatemethod
-    def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Background.PushNotificationTrigger: ...
     @winrt_factorymethod
     def Create(cls: win32more.Windows.ApplicationModel.Background.IPushNotificationTriggerFactory, applicationId: WinRT_String) -> win32more.Windows.ApplicationModel.Background.PushNotificationTrigger: ...
+    @winrt_activatemethod
+    def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Background.PushNotificationTrigger: ...
 class RcsEndUserMessageAvailableTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.IRcsEndUserMessageAvailableTrigger
@@ -1681,10 +1681,10 @@ class ToastNotificationActionTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.IBackgroundTrigger
     _classid_ = 'Windows.ApplicationModel.Background.ToastNotificationActionTrigger'
-    @winrt_factorymethod
-    def Create(cls: win32more.Windows.ApplicationModel.Background.IToastNotificationActionTriggerFactory, applicationId: WinRT_String) -> win32more.Windows.ApplicationModel.Background.ToastNotificationActionTrigger: ...
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Background.ToastNotificationActionTrigger: ...
+    @winrt_factorymethod
+    def Create(cls: win32more.Windows.ApplicationModel.Background.IToastNotificationActionTriggerFactory, applicationId: WinRT_String) -> win32more.Windows.ApplicationModel.Background.ToastNotificationActionTrigger: ...
 class ToastNotificationHistoryChangedTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.IBackgroundTrigger

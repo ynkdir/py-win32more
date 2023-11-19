@@ -118,6 +118,17 @@ class ILampArray(ComPtr):
     BrightnessLevel = property(get_BrightnessLevel, put_BrightnessLevel)
     IsConnected = property(get_IsConnected, None)
     SupportsVirtualKeys = property(get_SupportsVirtualKeys, None)
+class ILampArray2(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Lights.ILampArray2'
+    _iid_ = Guid('{050c181f-60a8-4711-a1af-1b1b4c658ea2}')
+    @winrt_commethod(6)
+    def get_IsAvailable(self) -> Boolean: ...
+    @winrt_commethod(7)
+    def add_AvailabilityChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Lights.LampArray, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_commethod(8)
+    def remove_AvailabilityChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    IsAvailable = property(get_IsAvailable, None)
 class ILampArrayStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Lights.ILampArrayStatics'
@@ -269,6 +280,12 @@ class LampArray(ComPtr):
     def SendMessageAsync(self: win32more.Windows.Devices.Lights.ILampArray, messageId: Int32, message: win32more.Windows.Storage.Streams.IBuffer) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_mixinmethod
     def RequestMessageAsync(self: win32more.Windows.Devices.Lights.ILampArray, messageId: Int32) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Storage.Streams.IBuffer]: ...
+    @winrt_mixinmethod
+    def get_IsAvailable(self: win32more.Windows.Devices.Lights.ILampArray2) -> Boolean: ...
+    @winrt_mixinmethod
+    def add_AvailabilityChanged(self: win32more.Windows.Devices.Lights.ILampArray2, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Lights.LampArray, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_mixinmethod
+    def remove_AvailabilityChanged(self: win32more.Windows.Devices.Lights.ILampArray2, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
     def GetDeviceSelector(cls: win32more.Windows.Devices.Lights.ILampArrayStatics) -> WinRT_String: ...
     @winrt_classmethod
@@ -285,6 +302,7 @@ class LampArray(ComPtr):
     BrightnessLevel = property(get_BrightnessLevel, put_BrightnessLevel)
     IsConnected = property(get_IsConnected, None)
     SupportsVirtualKeys = property(get_SupportsVirtualKeys, None)
+    IsAvailable = property(get_IsAvailable, None)
 LampArrayKind = Int32
 LampArrayKind_Undefined: LampArrayKind = 0
 LampArrayKind_Keyboard: LampArrayKind = 1
@@ -297,6 +315,7 @@ LampArrayKind_Chassis: LampArrayKind = 7
 LampArrayKind_Wearable: LampArrayKind = 8
 LampArrayKind_Furniture: LampArrayKind = 9
 LampArrayKind_Art: LampArrayKind = 10
+LampArrayKind_Headset: LampArrayKind = 11
 class LampAvailabilityChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Lights.ILampAvailabilityChangedEventArgs

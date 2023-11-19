@@ -86,6 +86,47 @@ AudioEncodingQuality_Auto: AudioEncodingQuality = 0
 AudioEncodingQuality_High: AudioEncodingQuality = 1
 AudioEncodingQuality_Medium: AudioEncodingQuality = 2
 AudioEncodingQuality_Low: AudioEncodingQuality = 3
+class _Av1ProfileIds_Meta_(ComPtr.__class__):
+    pass
+class Av1ProfileIds(ComPtr, metaclass=_Av1ProfileIds_Meta_):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.MediaProperties.Av1ProfileIds'
+    @winrt_classmethod
+    def get_MainChromaSubsampling420BitDepth8(cls: win32more.Windows.Media.MediaProperties.IAv1ProfileIdsStatics) -> Int32: ...
+    @winrt_classmethod
+    def get_MainChromaSubsampling420BitDepth10(cls: win32more.Windows.Media.MediaProperties.IAv1ProfileIdsStatics) -> Int32: ...
+    @winrt_classmethod
+    def get_MainChromaSubsampling400BitDepth8(cls: win32more.Windows.Media.MediaProperties.IAv1ProfileIdsStatics) -> Int32: ...
+    @winrt_classmethod
+    def get_MainChromaSubsampling400BitDepth10(cls: win32more.Windows.Media.MediaProperties.IAv1ProfileIdsStatics) -> Int32: ...
+    @winrt_classmethod
+    def get_HighChromaSubsampling444BitDepth8(cls: win32more.Windows.Media.MediaProperties.IAv1ProfileIdsStatics) -> Int32: ...
+    @winrt_classmethod
+    def get_HighChromaSubsampling444BitDepth10(cls: win32more.Windows.Media.MediaProperties.IAv1ProfileIdsStatics) -> Int32: ...
+    @winrt_classmethod
+    def get_ProfessionalChromaSubsampling420BitDepth12(cls: win32more.Windows.Media.MediaProperties.IAv1ProfileIdsStatics) -> Int32: ...
+    @winrt_classmethod
+    def get_ProfessionalChromaSubsampling400BitDepth12(cls: win32more.Windows.Media.MediaProperties.IAv1ProfileIdsStatics) -> Int32: ...
+    @winrt_classmethod
+    def get_ProfessionalChromaSubsampling444BitDepth12(cls: win32more.Windows.Media.MediaProperties.IAv1ProfileIdsStatics) -> Int32: ...
+    @winrt_classmethod
+    def get_ProfessionalChromaSubsampling422BitDepth8(cls: win32more.Windows.Media.MediaProperties.IAv1ProfileIdsStatics) -> Int32: ...
+    @winrt_classmethod
+    def get_ProfessionalChromaSubsampling422BitDepth10(cls: win32more.Windows.Media.MediaProperties.IAv1ProfileIdsStatics) -> Int32: ...
+    @winrt_classmethod
+    def get_ProfessionalChromaSubsampling422BitDepth12(cls: win32more.Windows.Media.MediaProperties.IAv1ProfileIdsStatics) -> Int32: ...
+    _Av1ProfileIds_Meta_.MainChromaSubsampling420BitDepth8 = property(get_MainChromaSubsampling420BitDepth8.__wrapped__, None)
+    _Av1ProfileIds_Meta_.MainChromaSubsampling420BitDepth10 = property(get_MainChromaSubsampling420BitDepth10.__wrapped__, None)
+    _Av1ProfileIds_Meta_.MainChromaSubsampling400BitDepth8 = property(get_MainChromaSubsampling400BitDepth8.__wrapped__, None)
+    _Av1ProfileIds_Meta_.MainChromaSubsampling400BitDepth10 = property(get_MainChromaSubsampling400BitDepth10.__wrapped__, None)
+    _Av1ProfileIds_Meta_.HighChromaSubsampling444BitDepth8 = property(get_HighChromaSubsampling444BitDepth8.__wrapped__, None)
+    _Av1ProfileIds_Meta_.HighChromaSubsampling444BitDepth10 = property(get_HighChromaSubsampling444BitDepth10.__wrapped__, None)
+    _Av1ProfileIds_Meta_.ProfessionalChromaSubsampling420BitDepth12 = property(get_ProfessionalChromaSubsampling420BitDepth12.__wrapped__, None)
+    _Av1ProfileIds_Meta_.ProfessionalChromaSubsampling400BitDepth12 = property(get_ProfessionalChromaSubsampling400BitDepth12.__wrapped__, None)
+    _Av1ProfileIds_Meta_.ProfessionalChromaSubsampling444BitDepth12 = property(get_ProfessionalChromaSubsampling444BitDepth12.__wrapped__, None)
+    _Av1ProfileIds_Meta_.ProfessionalChromaSubsampling422BitDepth8 = property(get_ProfessionalChromaSubsampling422BitDepth8.__wrapped__, None)
+    _Av1ProfileIds_Meta_.ProfessionalChromaSubsampling422BitDepth10 = property(get_ProfessionalChromaSubsampling422BitDepth10.__wrapped__, None)
+    _Av1ProfileIds_Meta_.ProfessionalChromaSubsampling422BitDepth12 = property(get_ProfessionalChromaSubsampling422BitDepth12.__wrapped__, None)
 class ContainerEncodingProperties(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.MediaProperties.IContainerEncodingProperties
@@ -140,6 +181,77 @@ class H264ProfileIds(ComPtr, metaclass=_H264ProfileIds_Meta_):
     _H264ProfileIds_Meta_.High444 = property(get_High444.__wrapped__, None)
     _H264ProfileIds_Meta_.StereoHigh = property(get_StereoHigh.__wrapped__, None)
     _H264ProfileIds_Meta_.MultiviewHigh = property(get_MultiviewHigh.__wrapped__, None)
+class _HevcProfileIds_Meta_(ComPtr.__class__):
+    pass
+class HevcProfileIds(ComPtr, metaclass=_HevcProfileIds_Meta_):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.MediaProperties.HevcProfileIds'
+    @winrt_classmethod
+    def get_MainChromaSubsampling420BitDepth8(cls: win32more.Windows.Media.MediaProperties.IHevcProfileIdsStatics) -> Int32: ...
+    @winrt_classmethod
+    def get_MainChromaSubsampling420BitDepth10(cls: win32more.Windows.Media.MediaProperties.IHevcProfileIdsStatics) -> Int32: ...
+    @winrt_classmethod
+    def get_MainChromaSubsampling420BitDepth12(cls: win32more.Windows.Media.MediaProperties.IHevcProfileIdsStatics) -> Int32: ...
+    @winrt_classmethod
+    def get_MainChromaSubsampling422BitDepth10(cls: win32more.Windows.Media.MediaProperties.IHevcProfileIdsStatics) -> Int32: ...
+    @winrt_classmethod
+    def get_MainChromaSubsampling422BitDepth12(cls: win32more.Windows.Media.MediaProperties.IHevcProfileIdsStatics) -> Int32: ...
+    @winrt_classmethod
+    def get_MainChromaSubsampling444BitDepth8(cls: win32more.Windows.Media.MediaProperties.IHevcProfileIdsStatics) -> Int32: ...
+    @winrt_classmethod
+    def get_MainChromaSubsampling444BitDepth10(cls: win32more.Windows.Media.MediaProperties.IHevcProfileIdsStatics) -> Int32: ...
+    @winrt_classmethod
+    def get_MainChromaSubsampling444BitDepth12(cls: win32more.Windows.Media.MediaProperties.IHevcProfileIdsStatics) -> Int32: ...
+    @winrt_classmethod
+    def get_MonochromeBitDepth12(cls: win32more.Windows.Media.MediaProperties.IHevcProfileIdsStatics) -> Int32: ...
+    @winrt_classmethod
+    def get_MonochromeBitDepth16(cls: win32more.Windows.Media.MediaProperties.IHevcProfileIdsStatics) -> Int32: ...
+    @winrt_classmethod
+    def get_MainIntraChromaSubsampling420BitDepth8(cls: win32more.Windows.Media.MediaProperties.IHevcProfileIdsStatics) -> Int32: ...
+    @winrt_classmethod
+    def get_MainIntraChromaSubsampling420BitDepth10(cls: win32more.Windows.Media.MediaProperties.IHevcProfileIdsStatics) -> Int32: ...
+    @winrt_classmethod
+    def get_MainIntraChromaSubsampling420BitDepth12(cls: win32more.Windows.Media.MediaProperties.IHevcProfileIdsStatics) -> Int32: ...
+    @winrt_classmethod
+    def get_MainIntraChromaSubsampling422BitDepth10(cls: win32more.Windows.Media.MediaProperties.IHevcProfileIdsStatics) -> Int32: ...
+    @winrt_classmethod
+    def get_MainIntraChromaSubsampling422BitDepth12(cls: win32more.Windows.Media.MediaProperties.IHevcProfileIdsStatics) -> Int32: ...
+    @winrt_classmethod
+    def get_MainIntraChromaSubsampling444BitDepth8(cls: win32more.Windows.Media.MediaProperties.IHevcProfileIdsStatics) -> Int32: ...
+    @winrt_classmethod
+    def get_MainIntraChromaSubsampling444BitDepth10(cls: win32more.Windows.Media.MediaProperties.IHevcProfileIdsStatics) -> Int32: ...
+    @winrt_classmethod
+    def get_MainIntraChromaSubsampling444BitDepth12(cls: win32more.Windows.Media.MediaProperties.IHevcProfileIdsStatics) -> Int32: ...
+    @winrt_classmethod
+    def get_MainIntraChromaSubsampling444BitDepth16(cls: win32more.Windows.Media.MediaProperties.IHevcProfileIdsStatics) -> Int32: ...
+    @winrt_classmethod
+    def get_MainStillChromaSubsampling420BitDepth8(cls: win32more.Windows.Media.MediaProperties.IHevcProfileIdsStatics) -> Int32: ...
+    @winrt_classmethod
+    def get_MainStillChromaSubsampling444BitDepth8(cls: win32more.Windows.Media.MediaProperties.IHevcProfileIdsStatics) -> Int32: ...
+    @winrt_classmethod
+    def get_MainStillChromaSubsampling444BitDepth16(cls: win32more.Windows.Media.MediaProperties.IHevcProfileIdsStatics) -> Int32: ...
+    _HevcProfileIds_Meta_.MainChromaSubsampling420BitDepth8 = property(get_MainChromaSubsampling420BitDepth8.__wrapped__, None)
+    _HevcProfileIds_Meta_.MainChromaSubsampling420BitDepth10 = property(get_MainChromaSubsampling420BitDepth10.__wrapped__, None)
+    _HevcProfileIds_Meta_.MainChromaSubsampling420BitDepth12 = property(get_MainChromaSubsampling420BitDepth12.__wrapped__, None)
+    _HevcProfileIds_Meta_.MainChromaSubsampling422BitDepth10 = property(get_MainChromaSubsampling422BitDepth10.__wrapped__, None)
+    _HevcProfileIds_Meta_.MainChromaSubsampling422BitDepth12 = property(get_MainChromaSubsampling422BitDepth12.__wrapped__, None)
+    _HevcProfileIds_Meta_.MainChromaSubsampling444BitDepth8 = property(get_MainChromaSubsampling444BitDepth8.__wrapped__, None)
+    _HevcProfileIds_Meta_.MainChromaSubsampling444BitDepth10 = property(get_MainChromaSubsampling444BitDepth10.__wrapped__, None)
+    _HevcProfileIds_Meta_.MainChromaSubsampling444BitDepth12 = property(get_MainChromaSubsampling444BitDepth12.__wrapped__, None)
+    _HevcProfileIds_Meta_.MonochromeBitDepth12 = property(get_MonochromeBitDepth12.__wrapped__, None)
+    _HevcProfileIds_Meta_.MonochromeBitDepth16 = property(get_MonochromeBitDepth16.__wrapped__, None)
+    _HevcProfileIds_Meta_.MainIntraChromaSubsampling420BitDepth8 = property(get_MainIntraChromaSubsampling420BitDepth8.__wrapped__, None)
+    _HevcProfileIds_Meta_.MainIntraChromaSubsampling420BitDepth10 = property(get_MainIntraChromaSubsampling420BitDepth10.__wrapped__, None)
+    _HevcProfileIds_Meta_.MainIntraChromaSubsampling420BitDepth12 = property(get_MainIntraChromaSubsampling420BitDepth12.__wrapped__, None)
+    _HevcProfileIds_Meta_.MainIntraChromaSubsampling422BitDepth10 = property(get_MainIntraChromaSubsampling422BitDepth10.__wrapped__, None)
+    _HevcProfileIds_Meta_.MainIntraChromaSubsampling422BitDepth12 = property(get_MainIntraChromaSubsampling422BitDepth12.__wrapped__, None)
+    _HevcProfileIds_Meta_.MainIntraChromaSubsampling444BitDepth8 = property(get_MainIntraChromaSubsampling444BitDepth8.__wrapped__, None)
+    _HevcProfileIds_Meta_.MainIntraChromaSubsampling444BitDepth10 = property(get_MainIntraChromaSubsampling444BitDepth10.__wrapped__, None)
+    _HevcProfileIds_Meta_.MainIntraChromaSubsampling444BitDepth12 = property(get_MainIntraChromaSubsampling444BitDepth12.__wrapped__, None)
+    _HevcProfileIds_Meta_.MainIntraChromaSubsampling444BitDepth16 = property(get_MainIntraChromaSubsampling444BitDepth16.__wrapped__, None)
+    _HevcProfileIds_Meta_.MainStillChromaSubsampling420BitDepth8 = property(get_MainStillChromaSubsampling420BitDepth8.__wrapped__, None)
+    _HevcProfileIds_Meta_.MainStillChromaSubsampling444BitDepth8 = property(get_MainStillChromaSubsampling444BitDepth8.__wrapped__, None)
+    _HevcProfileIds_Meta_.MainStillChromaSubsampling444BitDepth16 = property(get_MainStillChromaSubsampling444BitDepth16.__wrapped__, None)
 class IAudioEncodingProperties(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.MediaProperties.IAudioEncodingProperties'
@@ -207,6 +319,46 @@ class IAudioEncodingPropertiesWithFormatUserData(ComPtr):
     def SetFormatUserData(self, value: Annotated[SZArray[Byte], 'In']) -> Void: ...
     @winrt_commethod(7)
     def GetFormatUserData(self, value: POINTER(SZArray[Byte])) -> Void: ...
+class IAv1ProfileIdsStatics(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.MediaProperties.IAv1ProfileIdsStatics'
+    _iid_ = Guid('{9105812b-7c09-5882-88a4-678008a5174d}')
+    @winrt_commethod(6)
+    def get_MainChromaSubsampling420BitDepth8(self) -> Int32: ...
+    @winrt_commethod(7)
+    def get_MainChromaSubsampling420BitDepth10(self) -> Int32: ...
+    @winrt_commethod(8)
+    def get_MainChromaSubsampling400BitDepth8(self) -> Int32: ...
+    @winrt_commethod(9)
+    def get_MainChromaSubsampling400BitDepth10(self) -> Int32: ...
+    @winrt_commethod(10)
+    def get_HighChromaSubsampling444BitDepth8(self) -> Int32: ...
+    @winrt_commethod(11)
+    def get_HighChromaSubsampling444BitDepth10(self) -> Int32: ...
+    @winrt_commethod(12)
+    def get_ProfessionalChromaSubsampling420BitDepth12(self) -> Int32: ...
+    @winrt_commethod(13)
+    def get_ProfessionalChromaSubsampling400BitDepth12(self) -> Int32: ...
+    @winrt_commethod(14)
+    def get_ProfessionalChromaSubsampling444BitDepth12(self) -> Int32: ...
+    @winrt_commethod(15)
+    def get_ProfessionalChromaSubsampling422BitDepth8(self) -> Int32: ...
+    @winrt_commethod(16)
+    def get_ProfessionalChromaSubsampling422BitDepth10(self) -> Int32: ...
+    @winrt_commethod(17)
+    def get_ProfessionalChromaSubsampling422BitDepth12(self) -> Int32: ...
+    MainChromaSubsampling420BitDepth8 = property(get_MainChromaSubsampling420BitDepth8, None)
+    MainChromaSubsampling420BitDepth10 = property(get_MainChromaSubsampling420BitDepth10, None)
+    MainChromaSubsampling400BitDepth8 = property(get_MainChromaSubsampling400BitDepth8, None)
+    MainChromaSubsampling400BitDepth10 = property(get_MainChromaSubsampling400BitDepth10, None)
+    HighChromaSubsampling444BitDepth8 = property(get_HighChromaSubsampling444BitDepth8, None)
+    HighChromaSubsampling444BitDepth10 = property(get_HighChromaSubsampling444BitDepth10, None)
+    ProfessionalChromaSubsampling420BitDepth12 = property(get_ProfessionalChromaSubsampling420BitDepth12, None)
+    ProfessionalChromaSubsampling400BitDepth12 = property(get_ProfessionalChromaSubsampling400BitDepth12, None)
+    ProfessionalChromaSubsampling444BitDepth12 = property(get_ProfessionalChromaSubsampling444BitDepth12, None)
+    ProfessionalChromaSubsampling422BitDepth8 = property(get_ProfessionalChromaSubsampling422BitDepth8, None)
+    ProfessionalChromaSubsampling422BitDepth10 = property(get_ProfessionalChromaSubsampling422BitDepth10, None)
+    ProfessionalChromaSubsampling422BitDepth12 = property(get_ProfessionalChromaSubsampling422BitDepth12, None)
 class IContainerEncodingProperties(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.MediaProperties.IContainerEncodingProperties'
@@ -251,6 +403,76 @@ class IH264ProfileIdsStatics(ComPtr):
     High444 = property(get_High444, None)
     StereoHigh = property(get_StereoHigh, None)
     MultiviewHigh = property(get_MultiviewHigh, None)
+class IHevcProfileIdsStatics(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.MediaProperties.IHevcProfileIdsStatics'
+    _iid_ = Guid('{1e50d280-2aa7-53c1-973f-2189fa656f53}')
+    @winrt_commethod(6)
+    def get_MainChromaSubsampling420BitDepth8(self) -> Int32: ...
+    @winrt_commethod(7)
+    def get_MainChromaSubsampling420BitDepth10(self) -> Int32: ...
+    @winrt_commethod(8)
+    def get_MainChromaSubsampling420BitDepth12(self) -> Int32: ...
+    @winrt_commethod(9)
+    def get_MainChromaSubsampling422BitDepth10(self) -> Int32: ...
+    @winrt_commethod(10)
+    def get_MainChromaSubsampling422BitDepth12(self) -> Int32: ...
+    @winrt_commethod(11)
+    def get_MainChromaSubsampling444BitDepth8(self) -> Int32: ...
+    @winrt_commethod(12)
+    def get_MainChromaSubsampling444BitDepth10(self) -> Int32: ...
+    @winrt_commethod(13)
+    def get_MainChromaSubsampling444BitDepth12(self) -> Int32: ...
+    @winrt_commethod(14)
+    def get_MonochromeBitDepth12(self) -> Int32: ...
+    @winrt_commethod(15)
+    def get_MonochromeBitDepth16(self) -> Int32: ...
+    @winrt_commethod(16)
+    def get_MainIntraChromaSubsampling420BitDepth8(self) -> Int32: ...
+    @winrt_commethod(17)
+    def get_MainIntraChromaSubsampling420BitDepth10(self) -> Int32: ...
+    @winrt_commethod(18)
+    def get_MainIntraChromaSubsampling420BitDepth12(self) -> Int32: ...
+    @winrt_commethod(19)
+    def get_MainIntraChromaSubsampling422BitDepth10(self) -> Int32: ...
+    @winrt_commethod(20)
+    def get_MainIntraChromaSubsampling422BitDepth12(self) -> Int32: ...
+    @winrt_commethod(21)
+    def get_MainIntraChromaSubsampling444BitDepth8(self) -> Int32: ...
+    @winrt_commethod(22)
+    def get_MainIntraChromaSubsampling444BitDepth10(self) -> Int32: ...
+    @winrt_commethod(23)
+    def get_MainIntraChromaSubsampling444BitDepth12(self) -> Int32: ...
+    @winrt_commethod(24)
+    def get_MainIntraChromaSubsampling444BitDepth16(self) -> Int32: ...
+    @winrt_commethod(25)
+    def get_MainStillChromaSubsampling420BitDepth8(self) -> Int32: ...
+    @winrt_commethod(26)
+    def get_MainStillChromaSubsampling444BitDepth8(self) -> Int32: ...
+    @winrt_commethod(27)
+    def get_MainStillChromaSubsampling444BitDepth16(self) -> Int32: ...
+    MainChromaSubsampling420BitDepth8 = property(get_MainChromaSubsampling420BitDepth8, None)
+    MainChromaSubsampling420BitDepth10 = property(get_MainChromaSubsampling420BitDepth10, None)
+    MainChromaSubsampling420BitDepth12 = property(get_MainChromaSubsampling420BitDepth12, None)
+    MainChromaSubsampling422BitDepth10 = property(get_MainChromaSubsampling422BitDepth10, None)
+    MainChromaSubsampling422BitDepth12 = property(get_MainChromaSubsampling422BitDepth12, None)
+    MainChromaSubsampling444BitDepth8 = property(get_MainChromaSubsampling444BitDepth8, None)
+    MainChromaSubsampling444BitDepth10 = property(get_MainChromaSubsampling444BitDepth10, None)
+    MainChromaSubsampling444BitDepth12 = property(get_MainChromaSubsampling444BitDepth12, None)
+    MonochromeBitDepth12 = property(get_MonochromeBitDepth12, None)
+    MonochromeBitDepth16 = property(get_MonochromeBitDepth16, None)
+    MainIntraChromaSubsampling420BitDepth8 = property(get_MainIntraChromaSubsampling420BitDepth8, None)
+    MainIntraChromaSubsampling420BitDepth10 = property(get_MainIntraChromaSubsampling420BitDepth10, None)
+    MainIntraChromaSubsampling420BitDepth12 = property(get_MainIntraChromaSubsampling420BitDepth12, None)
+    MainIntraChromaSubsampling422BitDepth10 = property(get_MainIntraChromaSubsampling422BitDepth10, None)
+    MainIntraChromaSubsampling422BitDepth12 = property(get_MainIntraChromaSubsampling422BitDepth12, None)
+    MainIntraChromaSubsampling444BitDepth8 = property(get_MainIntraChromaSubsampling444BitDepth8, None)
+    MainIntraChromaSubsampling444BitDepth10 = property(get_MainIntraChromaSubsampling444BitDepth10, None)
+    MainIntraChromaSubsampling444BitDepth12 = property(get_MainIntraChromaSubsampling444BitDepth12, None)
+    MainIntraChromaSubsampling444BitDepth16 = property(get_MainIntraChromaSubsampling444BitDepth16, None)
+    MainStillChromaSubsampling420BitDepth8 = property(get_MainStillChromaSubsampling420BitDepth8, None)
+    MainStillChromaSubsampling444BitDepth8 = property(get_MainStillChromaSubsampling444BitDepth8, None)
+    MainStillChromaSubsampling444BitDepth16 = property(get_MainStillChromaSubsampling444BitDepth16, None)
 class IImageEncodingProperties(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.MediaProperties.IImageEncodingProperties'
@@ -370,6 +592,14 @@ class IMediaEncodingProfileStatics3(ComPtr):
     def CreateFlac(self, quality: win32more.Windows.Media.MediaProperties.AudioEncodingQuality) -> win32more.Windows.Media.MediaProperties.MediaEncodingProfile: ...
     @winrt_commethod(8)
     def CreateHevc(self, quality: win32more.Windows.Media.MediaProperties.VideoEncodingQuality) -> win32more.Windows.Media.MediaProperties.MediaEncodingProfile: ...
+class IMediaEncodingProfileStatics4(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.MediaProperties.IMediaEncodingProfileStatics4'
+    _iid_ = Guid('{6fafd7b5-9404-514a-81dd-c9444d648af0}')
+    @winrt_commethod(6)
+    def CreateVp9(self, quality: win32more.Windows.Media.MediaProperties.VideoEncodingQuality) -> win32more.Windows.Media.MediaProperties.MediaEncodingProfile: ...
+    @winrt_commethod(7)
+    def CreateAv1(self, quality: win32more.Windows.Media.MediaProperties.VideoEncodingQuality) -> win32more.Windows.Media.MediaProperties.MediaEncodingProfile: ...
 class IMediaEncodingProperties(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.MediaProperties.IMediaEncodingProperties'
@@ -565,6 +795,13 @@ class IMediaEncodingSubtypesStatics6(ComPtr):
     Srt = property(get_Srt, None)
     Ssa = property(get_Ssa, None)
     VobSub = property(get_VobSub, None)
+class IMediaEncodingSubtypesStatics7(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.MediaProperties.IMediaEncodingSubtypesStatics7'
+    _iid_ = Guid('{92f2dca7-9937-52a1-b619-ddfad81cd99c}')
+    @winrt_commethod(6)
+    def get_Av1(self) -> WinRT_String: ...
+    Av1 = property(get_Av1, None)
 class IMediaRatio(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.MediaProperties.IMediaRatio'
@@ -694,6 +931,27 @@ class IVideoEncodingPropertiesStatics2(ComPtr):
     _iid_ = Guid('{cf1ebd5d-49fe-4d00-b59a-cfa4dfc51944}')
     @winrt_commethod(6)
     def CreateHevc(self) -> win32more.Windows.Media.MediaProperties.VideoEncodingProperties: ...
+class IVideoEncodingPropertiesStatics3(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.MediaProperties.IVideoEncodingPropertiesStatics3'
+    _iid_ = Guid('{65b46685-60da-5e51-91a2-b38c4763b872}')
+    @winrt_commethod(6)
+    def CreateVp9(self) -> win32more.Windows.Media.MediaProperties.VideoEncodingProperties: ...
+    @winrt_commethod(7)
+    def CreateAv1(self) -> win32more.Windows.Media.MediaProperties.VideoEncodingProperties: ...
+class IVp9ProfileIdsStatics(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.MediaProperties.IVp9ProfileIdsStatics'
+    _iid_ = Guid('{20311a55-fe06-5883-92d9-6080c97743e5}')
+    @winrt_commethod(6)
+    def get_Profile0ChromaSubsampling420BitDepth8(self) -> Int32: ...
+    @winrt_commethod(7)
+    def get_Profile2ChromaSubsampling420BitDepth10(self) -> Int32: ...
+    @winrt_commethod(8)
+    def get_Profile2ChromaSubsampling420BitDepth12(self) -> Int32: ...
+    Profile0ChromaSubsampling420BitDepth8 = property(get_Profile0ChromaSubsampling420BitDepth8, None)
+    Profile2ChromaSubsampling420BitDepth10 = property(get_Profile2ChromaSubsampling420BitDepth10, None)
+    Profile2ChromaSubsampling420BitDepth12 = property(get_Profile2ChromaSubsampling420BitDepth12, None)
 class ImageEncodingProperties(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.MediaProperties.IImageEncodingProperties
@@ -766,6 +1024,10 @@ class MediaEncodingProfile(ComPtr):
     @winrt_mixinmethod
     def GetTimedMetadataTracks(self: win32more.Windows.Media.MediaProperties.IMediaEncodingProfile3) -> win32more.Windows.Foundation.Collections.IVector[win32more.Windows.Media.Core.TimedMetadataStreamDescriptor]: ...
     @winrt_classmethod
+    def CreateVp9(cls: win32more.Windows.Media.MediaProperties.IMediaEncodingProfileStatics4, quality: win32more.Windows.Media.MediaProperties.VideoEncodingQuality) -> win32more.Windows.Media.MediaProperties.MediaEncodingProfile: ...
+    @winrt_classmethod
+    def CreateAv1(cls: win32more.Windows.Media.MediaProperties.IMediaEncodingProfileStatics4, quality: win32more.Windows.Media.MediaProperties.VideoEncodingQuality) -> win32more.Windows.Media.MediaProperties.MediaEncodingProfile: ...
+    @winrt_classmethod
     def CreateAlac(cls: win32more.Windows.Media.MediaProperties.IMediaEncodingProfileStatics3, quality: win32more.Windows.Media.MediaProperties.AudioEncodingQuality) -> win32more.Windows.Media.MediaProperties.MediaEncodingProfile: ...
     @winrt_classmethod
     def CreateFlac(cls: win32more.Windows.Media.MediaProperties.IMediaEncodingProfileStatics3, quality: win32more.Windows.Media.MediaProperties.AudioEncodingQuality) -> win32more.Windows.Media.MediaProperties.MediaEncodingProfile: ...
@@ -797,6 +1059,8 @@ class _MediaEncodingSubtypes_Meta_(ComPtr.__class__):
 class MediaEncodingSubtypes(ComPtr, metaclass=_MediaEncodingSubtypes_Meta_):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.MediaProperties.MediaEncodingSubtypes'
+    @winrt_classmethod
+    def get_Av1(cls: win32more.Windows.Media.MediaProperties.IMediaEncodingSubtypesStatics7) -> WinRT_String: ...
     @winrt_classmethod
     def get_Pgs(cls: win32more.Windows.Media.MediaProperties.IMediaEncodingSubtypesStatics6) -> WinRT_String: ...
     @winrt_classmethod
@@ -901,6 +1165,7 @@ class MediaEncodingSubtypes(ComPtr, metaclass=_MediaEncodingSubtypes_Meta_):
     def get_Yuy2(cls: win32more.Windows.Media.MediaProperties.IMediaEncodingSubtypesStatics) -> WinRT_String: ...
     @winrt_classmethod
     def get_Yv12(cls: win32more.Windows.Media.MediaProperties.IMediaEncodingSubtypesStatics) -> WinRT_String: ...
+    _MediaEncodingSubtypes_Meta_.Av1 = property(get_Av1.__wrapped__, None)
     _MediaEncodingSubtypes_Meta_.Pgs = property(get_Pgs.__wrapped__, None)
     _MediaEncodingSubtypes_Meta_.Srt = property(get_Srt.__wrapped__, None)
     _MediaEncodingSubtypes_Meta_.Ssa = property(get_Ssa.__wrapped__, None)
@@ -1110,6 +1375,10 @@ class VideoEncodingProperties(ComPtr):
     @winrt_mixinmethod
     def Copy(self: win32more.Windows.Media.MediaProperties.IVideoEncodingProperties5) -> win32more.Windows.Media.MediaProperties.VideoEncodingProperties: ...
     @winrt_classmethod
+    def CreateVp9(cls: win32more.Windows.Media.MediaProperties.IVideoEncodingPropertiesStatics3) -> win32more.Windows.Media.MediaProperties.VideoEncodingProperties: ...
+    @winrt_classmethod
+    def CreateAv1(cls: win32more.Windows.Media.MediaProperties.IVideoEncodingPropertiesStatics3) -> win32more.Windows.Media.MediaProperties.VideoEncodingProperties: ...
+    @winrt_classmethod
     def CreateHevc(cls: win32more.Windows.Media.MediaProperties.IVideoEncodingPropertiesStatics2) -> win32more.Windows.Media.MediaProperties.VideoEncodingProperties: ...
     @winrt_classmethod
     def CreateH264(cls: win32more.Windows.Media.MediaProperties.IVideoEncodingPropertiesStatics) -> win32more.Windows.Media.MediaProperties.VideoEncodingProperties: ...
@@ -1139,4 +1408,18 @@ VideoEncodingQuality_Vga: VideoEncodingQuality = 6
 VideoEncodingQuality_Qvga: VideoEncodingQuality = 7
 VideoEncodingQuality_Uhd2160p: VideoEncodingQuality = 8
 VideoEncodingQuality_Uhd4320p: VideoEncodingQuality = 9
+class _Vp9ProfileIds_Meta_(ComPtr.__class__):
+    pass
+class Vp9ProfileIds(ComPtr, metaclass=_Vp9ProfileIds_Meta_):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.MediaProperties.Vp9ProfileIds'
+    @winrt_classmethod
+    def get_Profile0ChromaSubsampling420BitDepth8(cls: win32more.Windows.Media.MediaProperties.IVp9ProfileIdsStatics) -> Int32: ...
+    @winrt_classmethod
+    def get_Profile2ChromaSubsampling420BitDepth10(cls: win32more.Windows.Media.MediaProperties.IVp9ProfileIdsStatics) -> Int32: ...
+    @winrt_classmethod
+    def get_Profile2ChromaSubsampling420BitDepth12(cls: win32more.Windows.Media.MediaProperties.IVp9ProfileIdsStatics) -> Int32: ...
+    _Vp9ProfileIds_Meta_.Profile0ChromaSubsampling420BitDepth8 = property(get_Profile0ChromaSubsampling420BitDepth8.__wrapped__, None)
+    _Vp9ProfileIds_Meta_.Profile2ChromaSubsampling420BitDepth10 = property(get_Profile2ChromaSubsampling420BitDepth10.__wrapped__, None)
+    _Vp9ProfileIds_Meta_.Profile2ChromaSubsampling420BitDepth12 = property(get_Profile2ChromaSubsampling420BitDepth12.__wrapped__, None)
 make_ready(__name__)

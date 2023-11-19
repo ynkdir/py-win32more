@@ -15,6 +15,7 @@ TSender = TypeVar('TSender')
 from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
 from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
+import win32more.Windows.Foundation
 import win32more.Windows.Media.ClosedCaptioning
 import win32more.Windows.UI
 ClosedCaptionColor = Int32
@@ -45,6 +46,10 @@ class _ClosedCaptionProperties_Meta_(ComPtr.__class__):
 class ClosedCaptionProperties(ComPtr, metaclass=_ClosedCaptionProperties_Meta_):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.ClosedCaptioning.ClosedCaptionProperties'
+    @winrt_classmethod
+    def add_PropertiesChanged(cls: win32more.Windows.Media.ClosedCaptioning.IClosedCaptionPropertiesStatics2, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_classmethod
+    def remove_PropertiesChanged(cls: win32more.Windows.Media.ClosedCaptioning.IClosedCaptionPropertiesStatics2, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
     def get_FontColor(cls: win32more.Windows.Media.ClosedCaptioning.IClosedCaptionPropertiesStatics) -> win32more.Windows.Media.ClosedCaptioning.ClosedCaptionColor: ...
     @winrt_classmethod
@@ -136,4 +141,12 @@ class IClosedCaptionPropertiesStatics(ComPtr):
     RegionColor = property(get_RegionColor, None)
     ComputedRegionColor = property(get_ComputedRegionColor, None)
     RegionOpacity = property(get_RegionOpacity, None)
+class IClosedCaptionPropertiesStatics2(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.ClosedCaptioning.IClosedCaptionPropertiesStatics2'
+    _iid_ = Guid('{9de26870-37de-4197-8845-9a48dc5ac317}')
+    @winrt_commethod(6)
+    def add_PropertiesChanged(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_commethod(7)
+    def remove_PropertiesChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
 make_ready(__name__)

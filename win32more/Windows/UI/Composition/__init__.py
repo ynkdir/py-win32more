@@ -1313,6 +1313,25 @@ class CompositionTarget(ComPtr):
     @winrt_mixinmethod
     def put_Root(self: win32more.Windows.UI.Composition.ICompositionTarget, value: win32more.Windows.UI.Composition.Visual) -> Void: ...
     Root = property(get_Root, put_Root)
+class CompositionTexture(ComPtr):
+    extends: win32more.Windows.UI.Composition.CompositionObject
+    default_interface: win32more.Windows.UI.Composition.ICompositionTexture
+    _classid_ = 'Windows.UI.Composition.CompositionTexture'
+    @winrt_mixinmethod
+    def get_SourceRect(self: win32more.Windows.UI.Composition.ICompositionTexture) -> win32more.Windows.Graphics.RectInt32: ...
+    @winrt_mixinmethod
+    def put_SourceRect(self: win32more.Windows.UI.Composition.ICompositionTexture, value: win32more.Windows.Graphics.RectInt32) -> Void: ...
+    @winrt_mixinmethod
+    def get_AlphaMode(self: win32more.Windows.UI.Composition.ICompositionTexture) -> win32more.Windows.Graphics.DirectX.DirectXAlphaMode: ...
+    @winrt_mixinmethod
+    def put_AlphaMode(self: win32more.Windows.UI.Composition.ICompositionTexture, value: win32more.Windows.Graphics.DirectX.DirectXAlphaMode) -> Void: ...
+    @winrt_mixinmethod
+    def get_ColorSpace(self: win32more.Windows.UI.Composition.ICompositionTexture) -> win32more.Windows.Graphics.DirectX.DirectXColorSpace: ...
+    @winrt_mixinmethod
+    def put_ColorSpace(self: win32more.Windows.UI.Composition.ICompositionTexture, value: win32more.Windows.Graphics.DirectX.DirectXColorSpace) -> Void: ...
+    SourceRect = property(get_SourceRect, put_SourceRect)
+    AlphaMode = property(get_AlphaMode, put_AlphaMode)
+    ColorSpace = property(get_ColorSpace, put_ColorSpace)
 class CompositionTransform(ComPtr):
     extends: win32more.Windows.UI.Composition.CompositionObject
     default_interface: win32more.Windows.UI.Composition.ICompositionTransform
@@ -2948,6 +2967,29 @@ class ICompositionTargetFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Composition.ICompositionTargetFactory'
     _iid_ = Guid('{93cd9d2b-8516-4b14-a8ce-f49e2119ec42}')
+class ICompositionTexture(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Composition.ICompositionTexture'
+    _iid_ = Guid('{347d03a0-1c0a-4c0b-b232-8570b2b1a4ea}')
+    @winrt_commethod(6)
+    def get_SourceRect(self) -> win32more.Windows.Graphics.RectInt32: ...
+    @winrt_commethod(7)
+    def put_SourceRect(self, value: win32more.Windows.Graphics.RectInt32) -> Void: ...
+    @winrt_commethod(8)
+    def get_AlphaMode(self) -> win32more.Windows.Graphics.DirectX.DirectXAlphaMode: ...
+    @winrt_commethod(9)
+    def put_AlphaMode(self, value: win32more.Windows.Graphics.DirectX.DirectXAlphaMode) -> Void: ...
+    @winrt_commethod(10)
+    def get_ColorSpace(self) -> win32more.Windows.Graphics.DirectX.DirectXColorSpace: ...
+    @winrt_commethod(11)
+    def put_ColorSpace(self, value: win32more.Windows.Graphics.DirectX.DirectXColorSpace) -> Void: ...
+    SourceRect = property(get_SourceRect, put_SourceRect)
+    AlphaMode = property(get_AlphaMode, put_AlphaMode)
+    ColorSpace = property(get_ColorSpace, put_ColorSpace)
+class ICompositionTextureFactory(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Composition.ICompositionTextureFactory'
+    _iid_ = Guid('{09d9523d-471c-5ab5-b053-b568ee46ebfb}')
 class ICompositionTransform(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Composition.ICompositionTransform'

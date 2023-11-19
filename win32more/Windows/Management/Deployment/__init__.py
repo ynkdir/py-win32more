@@ -91,6 +91,12 @@ class AddPackageOptions(ComPtr):
     def get_DeferRegistrationWhenPackagesAreInUse(self: win32more.Windows.Management.Deployment.IAddPackageOptions) -> Boolean: ...
     @winrt_mixinmethod
     def put_DeferRegistrationWhenPackagesAreInUse(self: win32more.Windows.Management.Deployment.IAddPackageOptions, value: Boolean) -> Void: ...
+    @winrt_mixinmethod
+    def get_ExpectedDigests(self: win32more.Windows.Management.Deployment.IAddPackageOptions2) -> win32more.Windows.Foundation.Collections.IMap[win32more.Windows.Foundation.Uri, WinRT_String]: ...
+    @winrt_mixinmethod
+    def get_LimitToExistingPackages(self: win32more.Windows.Management.Deployment.IAddPackageOptions2) -> Boolean: ...
+    @winrt_mixinmethod
+    def put_LimitToExistingPackages(self: win32more.Windows.Management.Deployment.IAddPackageOptions2, value: Boolean) -> Void: ...
     DependencyPackageUris = property(get_DependencyPackageUris, None)
     TargetVolume = property(get_TargetVolume, put_TargetVolume)
     OptionalPackageFamilyNames = property(get_OptionalPackageFamilyNames, None)
@@ -108,6 +114,8 @@ class AddPackageOptions(ComPtr):
     StageInPlace = property(get_StageInPlace, put_StageInPlace)
     AllowUnsigned = property(get_AllowUnsigned, put_AllowUnsigned)
     DeferRegistrationWhenPackagesAreInUse = property(get_DeferRegistrationWhenPackagesAreInUse, put_DeferRegistrationWhenPackagesAreInUse)
+    ExpectedDigests = property(get_ExpectedDigests, None)
+    LimitToExistingPackages = property(get_LimitToExistingPackages, put_LimitToExistingPackages)
 class AppInstallerManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Management.Deployment.IAppInstallerManager
@@ -374,6 +382,18 @@ class IAddPackageOptions(ComPtr):
     StageInPlace = property(get_StageInPlace, put_StageInPlace)
     AllowUnsigned = property(get_AllowUnsigned, put_AllowUnsigned)
     DeferRegistrationWhenPackagesAreInUse = property(get_DeferRegistrationWhenPackagesAreInUse, put_DeferRegistrationWhenPackagesAreInUse)
+class IAddPackageOptions2(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Management.Deployment.IAddPackageOptions2'
+    _iid_ = Guid('{ee515828-bf33-40f7-84af-1b6fad2919d7}')
+    @winrt_commethod(6)
+    def get_ExpectedDigests(self) -> win32more.Windows.Foundation.Collections.IMap[win32more.Windows.Foundation.Uri, WinRT_String]: ...
+    @winrt_commethod(7)
+    def get_LimitToExistingPackages(self) -> Boolean: ...
+    @winrt_commethod(8)
+    def put_LimitToExistingPackages(self, value: Boolean) -> Void: ...
+    ExpectedDigests = property(get_ExpectedDigests, None)
+    LimitToExistingPackages = property(get_LimitToExistingPackages, put_LimitToExistingPackages)
 class IAppInstallerManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Management.Deployment.IAppInstallerManager'
@@ -862,6 +882,13 @@ class IRegisterPackageOptions(ComPtr):
     StageInPlace = property(get_StageInPlace, put_StageInPlace)
     AllowUnsigned = property(get_AllowUnsigned, put_AllowUnsigned)
     DeferRegistrationWhenPackagesAreInUse = property(get_DeferRegistrationWhenPackagesAreInUse, put_DeferRegistrationWhenPackagesAreInUse)
+class IRegisterPackageOptions2(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Management.Deployment.IRegisterPackageOptions2'
+    _iid_ = Guid('{3dfa9743-86ff-4a11-bc93-434eb6be3a0b}')
+    @winrt_commethod(6)
+    def get_ExpectedDigests(self) -> win32more.Windows.Foundation.Collections.IMap[win32more.Windows.Foundation.Uri, WinRT_String]: ...
+    ExpectedDigests = property(get_ExpectedDigests, None)
 class ISharedPackageContainer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Management.Deployment.ISharedPackageContainer'
@@ -976,6 +1003,13 @@ class IStagePackageOptions(ComPtr):
     RequiredContentGroupOnly = property(get_RequiredContentGroupOnly, put_RequiredContentGroupOnly)
     StageInPlace = property(get_StageInPlace, put_StageInPlace)
     AllowUnsigned = property(get_AllowUnsigned, put_AllowUnsigned)
+class IStagePackageOptions2(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Management.Deployment.IStagePackageOptions2'
+    _iid_ = Guid('{990c4ccc-6226-4192-ba92-79875fce0d9c}')
+    @winrt_commethod(6)
+    def get_ExpectedDigests(self) -> win32more.Windows.Foundation.Collections.IMap[win32more.Windows.Foundation.Uri, WinRT_String]: ...
+    ExpectedDigests = property(get_ExpectedDigests, None)
 class IUpdateSharedPackageContainerOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Management.Deployment.IUpdateSharedPackageContainerOptions'
@@ -1297,6 +1331,8 @@ class RegisterPackageOptions(ComPtr):
     def get_DeferRegistrationWhenPackagesAreInUse(self: win32more.Windows.Management.Deployment.IRegisterPackageOptions) -> Boolean: ...
     @winrt_mixinmethod
     def put_DeferRegistrationWhenPackagesAreInUse(self: win32more.Windows.Management.Deployment.IRegisterPackageOptions, value: Boolean) -> Void: ...
+    @winrt_mixinmethod
+    def get_ExpectedDigests(self: win32more.Windows.Management.Deployment.IRegisterPackageOptions2) -> win32more.Windows.Foundation.Collections.IMap[win32more.Windows.Foundation.Uri, WinRT_String]: ...
     DependencyPackageUris = property(get_DependencyPackageUris, None)
     AppDataVolume = property(get_AppDataVolume, put_AppDataVolume)
     OptionalPackageFamilyNames = property(get_OptionalPackageFamilyNames, None)
@@ -1309,6 +1345,7 @@ class RegisterPackageOptions(ComPtr):
     StageInPlace = property(get_StageInPlace, put_StageInPlace)
     AllowUnsigned = property(get_AllowUnsigned, put_AllowUnsigned)
     DeferRegistrationWhenPackagesAreInUse = property(get_DeferRegistrationWhenPackagesAreInUse, put_DeferRegistrationWhenPackagesAreInUse)
+    ExpectedDigests = property(get_ExpectedDigests, None)
 RemovalOptions = UInt32
 RemovalOptions_None: RemovalOptions = 0
 RemovalOptions_PreserveApplicationData: RemovalOptions = 4096
@@ -1421,6 +1458,8 @@ class StagePackageOptions(ComPtr):
     def get_AllowUnsigned(self: win32more.Windows.Management.Deployment.IStagePackageOptions) -> Boolean: ...
     @winrt_mixinmethod
     def put_AllowUnsigned(self: win32more.Windows.Management.Deployment.IStagePackageOptions, value: Boolean) -> Void: ...
+    @winrt_mixinmethod
+    def get_ExpectedDigests(self: win32more.Windows.Management.Deployment.IStagePackageOptions2) -> win32more.Windows.Foundation.Collections.IMap[win32more.Windows.Foundation.Uri, WinRT_String]: ...
     DependencyPackageUris = property(get_DependencyPackageUris, None)
     TargetVolume = property(get_TargetVolume, put_TargetVolume)
     OptionalPackageFamilyNames = property(get_OptionalPackageFamilyNames, None)
@@ -1434,6 +1473,7 @@ class StagePackageOptions(ComPtr):
     RequiredContentGroupOnly = property(get_RequiredContentGroupOnly, put_RequiredContentGroupOnly)
     StageInPlace = property(get_StageInPlace, put_StageInPlace)
     AllowUnsigned = property(get_AllowUnsigned, put_AllowUnsigned)
+    ExpectedDigests = property(get_ExpectedDigests, None)
 StubPackageOption = Int32
 StubPackageOption_Default: StubPackageOption = 0
 StubPackageOption_InstallFull: StubPackageOption = 1
