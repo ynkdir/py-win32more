@@ -320,7 +320,7 @@ class TypeDefinition:
 
     @property
     def kind(self) -> str:
-        if self.basetype is None or self.basetype == "System.Object" or self.basetype.startswith("Windows."):
+        if self.basetype is None or self.basetype == "System.Object" or self.basetype.startswith(("Windows.", "Microsoft.")):
             return "com"
         elif self.basetype == "System.MulticastDelegate":
             return "delegate"
@@ -1701,14 +1701,17 @@ def main() -> None:
     # FIXME: --one not work for now
     parser.add_argument("-o", "--one", help="out to one file")
     parser.add_argument("-s", "--selector", help="selector.txt")
-    parser.add_argument("metadata", help="metadata.json")
+    parser.add_argument("metadata", nargs="+", help="metadata.json")
     args = parser.parse_args()
     build(args.metadata, args.selector, args.one)
 
 
 def build(metadata, selector=None, one=None) -> None:
-    with xopen(metadata) as f:
-        meta = Metadata(TypeDefinition(typedef) for typedef in json.load(f))
+    js = []
+    for file in metadata:
+        with xopen(file) as f:
+            js.extend(json.load(f))
+    meta = Metadata(TypeDefinition(typedef) for typedef in js)
 
     pp = Preprocessor()
     meta = pp.filter_public(meta)
