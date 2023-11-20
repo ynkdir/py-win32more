@@ -6,8 +6,9 @@ from ctypes import (
 )
 
 from win32more import FAILED
-from win32more.mddbootstrap import PACKAGE_VERSION, MddBootstrapInitialize2, MddBootstrapShutdown
+from win32more.mddbootstrap import MddBootstrapInitialize2, MddBootstrapShutdown
 from win32more.Microsoft.UI.Windowing import AppWindow
+from win32more.Windows.Win32.Storage.Packaging.Appx import PACKAGE_VERSION
 from win32more.Windows.Win32.UI.WindowsAndMessaging import (
     MSG,
     DispatchMessageW,
@@ -29,9 +30,8 @@ def main() -> None:
         raise WinError(hr)
 
     appwin = AppWindow.Create()
-    appwin.Show()
-
     appwin.add_Destroying(on_destroying)
+    appwin.Show()
 
     msg = MSG()
     while GetMessageW(msg, 0, 0, 0) > 0:
