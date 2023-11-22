@@ -484,7 +484,7 @@ def _get_type_signature(cls) -> str:
 
 
 class MulticastDelegateImpl(Structure):
-    _fields_ = [("lpvtbl", POINTER(c_void_p)), ("comptr", py_object)]
+    _fields_ = [("lpvtbl", POINTER(c_void_p)), ("comptr", py_object), ("restype", py_object)]
 
     def __init__(self, comptr, cls, invoke_prototype):
         self.lpvtbl = (c_void_p * 4)()
@@ -497,6 +497,11 @@ class MulticastDelegateImpl(Structure):
     def _make_trampoline(self, cls, invoke_prototype):
         hints = generic_get_type_hints(cls, invoke_prototype)
         restype = hints.pop("return")
+        # https://learn.microsoft.com/en-us/dotnet/standard/native-interop/preserve-sig
+        # It seems void is treated as HRESULT.
+        self.restype = restype
+        if restype is None:
+            restype = Int32
         argtypes = list(hints.values())
         factory = WINFUNCTYPE(restype, c_void_p, *argtypes)
         return factory(self.Invoke)
@@ -520,7 +525,12 @@ class MulticastDelegateImpl(Structure):
     @staticmethod
     def Invoke(this, *args):
         self = cast(this, POINTER(MulticastDelegateImpl)).contents
-        return self.comptr._Invoke(*args)
+        r = self.comptr._Invoke(*args)
+        if self.restype is None:
+            if r is not None:
+                raise ValueError(f"{r} cannot be treated as Void")
+            r = 0
+        return r
 
 
 class MulticastDelegate(ComPtr):
