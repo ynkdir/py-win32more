@@ -3,8 +3,8 @@ from ctypes import (
 )
 
 from win32more import FAILED
-from win32more.mddbootstrap import MddBootstrapInitialize2, MddBootstrapShutdown
-from win32more.Microsoft.UI.Xaml import Application, HorizontalAlignment_Center, Window
+from win32more.mddbootstrap import MddBootstrapInitialize2, MddBootstrapShutdown, MddBootstrapInitializeOptions_OnNoMatch_ShowUI
+from win32more.Microsoft.UI.Xaml import Application, HorizontalAlignment_Center, VerticalAlignment_Center, Window
 from win32more.Microsoft.UI.Xaml.Controls import Button, StackPanel
 from win32more.Windows.Foundation import PropertyValue
 from win32more.Windows.Win32.Storage.Packaging.Appx import PACKAGE_VERSION
@@ -15,39 +15,35 @@ def box_str(s):
 
 
 # FIXME: How to implement OnLaunched()?
-class App:
-    def init(self, params):
-        self.app = Application.CreateInstance(None, None)
+def init(params):
+    app = Application.CreateInstance(None, None)
 
-        self.win = Window.CreateInstance(None, None)
-        self.win.Title = "WinUI3 Xaml Test"
+    win = Window.CreateInstance(None, None)
+    win.Title = "WinUI3 Xaml Test"
 
-        self.panel = StackPanel.CreateInstance(None, None)
-        self.win.Content = self.panel
+    panel = StackPanel.CreateInstance(None, None)
+    panel.HorizontalAlignment = HorizontalAlignment_Center
+    panel.VerticalAlignment = VerticalAlignment_Center
+    win.Content = panel
 
-        self.button = Button.CreateInstance(None, None)
-        self.button.HorizontalAlignment = HorizontalAlignment_Center
-        self.button.Content = box_str("Click me!")
-        self.button_count = 0
+    button = Button.CreateInstance(None, None)
 
-        @self.button.add_Click
-        def on_click(sender, e):
-            self.button_count += 1
-            self.button.Content = box_str(f"{'[' * self.button_count}Click me!{']' * self.button_count}")
+    button.Content = box_str("Click me!")
+    button_count = 0
 
-        self.panel.Children.Append(self.button)
+    @button.add_Click
+    def on_click(sender, e):
+        button_count += 1
+        button.Content = box_str(f"{'[' * button_count}Click me!{']' * button_count}")
 
-        self.win.Activate()
+    panel.Children.Append(button)
+
+    win.Activate()
 
 
 def main() -> None:
-    hr = MddBootstrapInitialize2(0x00010004, "", PACKAGE_VERSION(Revision=0, Build=0, Minor=4, Major=1), 0)
-    if FAILED(hr):
-        raise WinError(hr)
-
-    app = App()
-    Application.Start(app.init)
-
+    MddBootstrapInitialize2(0x00010004, "", PACKAGE_VERSION(Version=0x0FA0041900750000), MddBootstrapInitializeOptions_OnNoMatch_ShowUI)
+    Application.Start(init)
     MddBootstrapShutdown()
 
 
