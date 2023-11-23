@@ -496,14 +496,12 @@ class MulticastDelegateImpl(Structure):
 
     def _make_trampoline(self, cls, invoke_prototype):
         hints = generic_get_type_hints(cls, invoke_prototype)
-        restype = hints.pop("return")
-        # https://learn.microsoft.com/en-us/dotnet/standard/native-interop/preserve-sig
-        # It seems void is treated as HRESULT.
-        self.restype = restype
-        if restype is None:
-            restype = Int32
+        self.restype = hints.pop("return")
         argtypes = list(hints.values())
-        factory = WINFUNCTYPE(restype, c_void_p, *argtypes)
+        # FIXME: not tested for non Void.
+        if self.restype is not Void:
+            argtypes.append(POINTER(self.restype))
+        factory = WINFUNCTYPE(HRESULT, c_void_p, *argtypes)
         return factory(self.Invoke)
 
     @WINFUNCTYPE(HRESULT, c_void_p, POINTER(Guid), POINTER(c_void_p))
@@ -525,8 +523,12 @@ class MulticastDelegateImpl(Structure):
     @staticmethod
     def Invoke(this, *args):
         self = cast(this, POINTER(MulticastDelegateImpl)).contents
+        if self.restype is not Void:
+            *args, return_pointer = args
         r = self.comptr._Invoke(*args)
-        if self.restype is None:
+        if self.restype is not Void:
+            return_pointer.contents = r
+        else:
             if r is not None:
                 raise ValueError(f"{r} cannot be treated as Void")
             r = 0
