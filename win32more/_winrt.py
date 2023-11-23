@@ -501,9 +501,11 @@ class MulticastDelegateImpl(Structure):
         hints = generic_get_type_hints(cls, invoke_prototype)
         self.restype = hints.pop("return")
         argtypes = list(hints.values())
-        # FIXME: not tested for non Void.
         if self.restype is not Void:
-            argtypes.append(POINTER(self.restype))
+            restype = self.restype
+            if is_generic_alias(restype):
+                restype = restype.__origin__
+            argtypes.append(POINTER(restype))
         factory = WINFUNCTYPE(HRESULT, c_void_p, *argtypes)
         return factory(self.Invoke)
 
