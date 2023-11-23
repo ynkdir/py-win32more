@@ -531,8 +531,7 @@ class MulticastDelegateImpl(Structure):
         else:
             if r is not None:
                 raise ValueError(f"{r} cannot be treated as Void")
-            r = 0
-        return r
+        return 0
 
 
 class MulticastDelegate(ComPtr):
