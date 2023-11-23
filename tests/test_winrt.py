@@ -6,15 +6,11 @@ from ctypes import (
 from pathlib import Path
 
 from win32more import FAILED
-from win32more._winrt import SZArray, WinRT_String
-from win32more.Windows.Foundation.Collections import StringMap
+from win32more._winrt import SZArray, WinRT_String, _ro_get_parameterized_type_instance_iid
+from win32more.Windows.Foundation.Collections import IVector, StringMap
 from win32more.Windows.Storage import FileIO, PathIO, StorageFile
 from win32more.Windows.Win32.Foundation import WAIT_FAILED, WAIT_TIMEOUT
-from win32more.Windows.Win32.System.WinRT import (
-    RO_INIT_SINGLETHREADED,
-    RoInitialize,
-    RoUninitialize,
-)
+from win32more.Windows.Win32.System.WinRT import RO_INIT_SINGLETHREADED, IInspectable, RoInitialize, RoUninitialize
 from win32more.Windows.Win32.UI.WindowsAndMessaging import (
     MSG,
     MWMO_INPUTAVAILABLE,
@@ -118,3 +114,9 @@ class TestWinrt(unittest.TestCase):
         ivector.ReplaceAll(array)
         lines10 = [ivector.GetAt(i) for i in range(10)]
         self.assertEqual(lines10, lines[0:10])
+
+    def test_guid_generation_for_parameterized_types(self):
+        self.assertEqual(
+            str(_ro_get_parameterized_type_instance_iid(IVector[IInspectable])),
+            "{b32bdca4-5e52-5b27-bc5d-d66a1a268c2a}",
+        )

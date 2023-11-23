@@ -51,6 +51,7 @@ from win32more.Windows.Win32.Foundation import (
 )
 from win32more.Windows.Win32.System.WinRT import (
     HSTRING,
+    IInspectable,
     RoActivateInstance,
     RoGetActivationFactory,
     WindowsCreateString,
@@ -447,7 +448,9 @@ def _ro_get_parameterized_type_instance_iid(ga: _GenericAlias) -> Guid:
 
 # FIXME: not completed
 def _get_type_signature(cls) -> str:
-    if isinstance(cls, _GenericAlias):
+    if cls is IInspectable:
+        return "cinterface(IInspectable)"
+    elif isinstance(cls, _GenericAlias):
         piid_guid = str(cls._iid_)
         args = ";".join(_get_type_signature(arg) for arg in cls.__args__)
         return f"pinterface({piid_guid};{args})"
