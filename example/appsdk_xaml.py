@@ -42,7 +42,9 @@ def init(params):
 
 
 def main() -> None:
-    MddBootstrapInitialize2(0x00010004, "", PACKAGE_VERSION(Version=0x0FA0041900750000), MddBootstrapInitializeOptions_OnNoMatch_ShowUI)
+    hr = MddBootstrapInitialize2(0x00010004, "", PACKAGE_VERSION(Version=0x0FA0041900750000), MddBootstrapInitializeOptions_OnNoMatch_ShowUI)
+    if FAILED(hr):
+        raise WinError(hr)
     Application.Start(init)
     MddBootstrapShutdown()
 
