@@ -12,7 +12,7 @@ from ctypes import (
 
 from win32more import FAILED, Guid, UInt32
 from win32more._winrt import WinRT_String, SZArray
-from win32more.mddbootstrap import MddBootstrapInitialize2, MddBootstrapShutdown
+from win32more.mddbootstrap import MddBootstrapInitialize2, MddBootstrapShutdown, MddBootstrapInitializeOptions_OnNoMatch_ShowUI
 from win32more.Windows.Win32.Foundation import HRESULT, S_OK
 from win32more.Windows.Win32.Storage.Packaging.Appx import PACKAGE_VERSION
 from win32more.Windows.Win32.System.WinRT import HSTRING, IInspectable, TrustLevel
@@ -167,7 +167,7 @@ class XamlApplication(IApplicationOverrides):
 
     @classmethod
     def Start(cls, app):
-        hr = MddBootstrapInitialize2(0x00010004, "", PACKAGE_VERSION(Revision=0, Build=0, Minor=4, Major=1), 0)
+        hr = MddBootstrapInitialize2(0x00010004, "", PACKAGE_VERSION(Version=0x0FA0041900750000), MddBootstrapInitializeOptions_OnNoMatch_ShowUI)
         if FAILED(hr):
             raise WinError(hr)
         Application.Start(lambda params: app() and None)
