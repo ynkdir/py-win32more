@@ -8,6 +8,7 @@ from ctypes import (
     c_void_p,
     cast,
     py_object,
+    sizeof
 )
 
 from win32more import FAILED, Guid, UInt32
@@ -20,7 +21,7 @@ from win32more.Microsoft.UI.Xaml import (
     Window,
 )
 from win32more._winrt import WinRT_String, SZArray
-from win32more.Microsoft.UI.Xaml.Controls import Button, StackPanel, XamlControlsResources
+from win32more.Microsoft.UI.Xaml.Controls import Button, StackPanel, XamlControlsResources, ColorPicker
 from win32more.Windows.Foundation import PropertyValue
 from win32more.Windows.Win32.Foundation import HRESULT, S_OK
 from win32more.Windows.Win32.Storage.Packaging.Appx import PACKAGE_VERSION
@@ -97,19 +98,19 @@ class XamlApplicationImpl(Structure):
         self.comptr._OnLaunched(args)
         return S_OK
 
-    @WINFUNCTYPE(HRESULT, c_void_p, TypeName, IXamlType)
+    @WINFUNCTYPE(HRESULT, c_void_p, TypeName, POINTER(IXamlType))
     def GetXamlType(this, type, value):
-        self = cast(this, POINTER(XamlApplicationImpl)).contents
+        self = cast(this-sizeof(c_void_p), POINTER(XamlApplicationImpl)).contents
         return self.comptr.GetXamlType(type, value)
 
-    @WINFUNCTYPE(HRESULT, c_void_p, WinRT_String, IXamlType)
+    @WINFUNCTYPE(HRESULT, c_void_p, WinRT_String, POINTER(IXamlType))
     def GetXamlTypeByFullName(this, fullName, value):
-        self = cast(this, POINTER(XamlApplicationImpl)).contents
+        self = cast(this-sizeof(c_void_p), POINTER(XamlApplicationImpl)).contents
         return self.comptr.GetXamlTypeByFullName(fullName, value)
 
     @WINFUNCTYPE(HRESULT, c_void_p, c_void_p) #POINTER(SZArray[XmlnsDefinition])
     def GetXmlnsDefinitions(this, value):
-        self = cast(this, POINTER(XamlApplicationImpl)).contents
+        self = cast(this-sizeof(c_void_p), POINTER(XamlApplicationImpl)).contents
         return self.comptr.GetXmlnsDefinitions(value)
 
 
@@ -167,7 +168,7 @@ class XamlApplication(IApplicationOverrides):
         return self._inner_interface.GetTrustLevel(trustLevel)
 
     def _OnLaunched(self, args):
-        #Application.Current.Resources.MergedDictionaries.Append(XamlControlsResources.CreateInstance())
+        Application.Current.Resources.MergedDictionaries.Append(XamlControlsResources.CreateInstance())
         self.OnLaunched(args)
 
     def OnLaunched(self, args):
@@ -175,15 +176,15 @@ class XamlApplication(IApplicationOverrides):
         ...
 
     def GetXamlType(self, type, value):
-        value.value = self._provider.GetXamlType(type).value
+        value.contents.value = self._provider.GetXamlType(type).value
         return S_OK
 
     def GetXamlTypeByFullName(self, fullName, value):
-        value.value =  self._provider.GetXamlTypeByFullName(fullName).value
+        value.contents.value =  self._provider.GetXamlTypeByFullName(fullName).value
         return S_OK
 
     def GetXmlnsDefinitions(self, value):
-        value.value = self._provider.GetXmlnsDefinitions().value
+        value.contents.value = self._provider.GetXmlnsDefinitions().value
         return S_OK
 
     @classmethod
@@ -198,6 +199,19 @@ class XamlApplication(IApplicationOverrides):
 class App(XamlApplication):
     def OnLaunched(self, args):
         win = Window.CreateInstance(None, None)
+        clr = ColorPicker.CreateInstance(None, None)
+        win.Content = clr
         win.Activate()
 
 XamlApplication.Start(App)
+
+#from win32more.Windows.Foundation import Uri
+#from win32more.Windows.Win32.System.WinRT import (
+#    RO_INIT_SINGLETHREADED,
+#    RoInitialize,
+#    RoUninitialize,
+#)
+#RoInitialize(RO_INIT_SINGLETHREADED)
+#uri = Uri.CreateUri("https://github.com")
+#print(uri.Port)
+#RoUninitialize()
