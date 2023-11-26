@@ -35,12 +35,12 @@ class XamlApplicationImpl(Structure):
         self.lpvtbl[5] = cast(self.GetTrustLevel, c_void_p)
         self.lpvtbl[6] = cast(self.OnLaunched, c_void_p)
         self.lpvtbl2 = (c_void_p * 9)()
-        self.lpvtbl2[0] = cast(self.QueryInterface, c_void_p)
-        self.lpvtbl2[1] = cast(self.AddRef, c_void_p)
-        self.lpvtbl2[2] = cast(self.Release, c_void_p)
-        self.lpvtbl2[3] = cast(self.GetIids, c_void_p)
-        self.lpvtbl2[4] = cast(self.GetRuntimeClassName, c_void_p)
-        self.lpvtbl2[5] = cast(self.GetTrustLevel, c_void_p)
+        self.lpvtbl2[0] = cast(self.QueryInterface2, c_void_p)
+        self.lpvtbl2[1] = cast(self.AddRef2, c_void_p)
+        self.lpvtbl2[2] = cast(self.Release2, c_void_p)
+        self.lpvtbl2[3] = cast(self.GetIids2, c_void_p)
+        self.lpvtbl2[4] = cast(self.GetRuntimeClassName2, c_void_p)
+        self.lpvtbl2[5] = cast(self.GetTrustLevel2, c_void_p)
         self.lpvtbl2[6] = cast(self.GetXamlType, c_void_p)
         self.lpvtbl2[7] = cast(self.GetXamlTypeByFullName, c_void_p)
         self.lpvtbl2[8] = cast(self.GetXmlnsDefinitions, c_void_p)
@@ -81,6 +81,36 @@ class XamlApplicationImpl(Structure):
         self = cast(this, POINTER(XamlApplicationImpl)).contents
         self.comptr._OnLaunched(args)
         return S_OK
+
+    @WINFUNCTYPE(HRESULT, c_void_p, POINTER(Guid), POINTER(c_void_p))
+    def QueryInterface2(this, riid, ppvObject):
+        self = cast(this-sizeof(c_void_p), POINTER(XamlApplicationImpl)).contents
+        return self.comptr.QueryInterface(riid, ppvObject)
+
+    @WINFUNCTYPE(UInt32, c_void_p)
+    def AddRef2(this):
+        self = cast(this-sizeof(c_void_p), POINTER(XamlApplicationImpl)).contents
+        return self.comptr.AddRef()
+
+    @WINFUNCTYPE(UInt32, c_void_p)
+    def Release2(this):
+        self = cast(this-sizeof(c_void_p), POINTER(XamlApplicationImpl)).contents
+        return self.comptr.Release()
+
+    @WINFUNCTYPE(HRESULT, c_void_p, POINTER(UInt32), POINTER(POINTER(Guid)))
+    def GetIids2(this, iidCount, iids):
+        self = cast(this-sizeof(c_void_p), POINTER(XamlApplicationImpl)).contents
+        return self.comptr.GetIids(iidCount, iids)
+
+    @WINFUNCTYPE(HRESULT, c_void_p, POINTER(HSTRING))
+    def GetRuntimeClassName2(this, className):
+        self = cast(this-sizeof(c_void_p), POINTER(XamlApplicationImpl)).contents
+        return self.comptr.GetRuntimeClassName(className)
+
+    @WINFUNCTYPE(HRESULT, c_void_p, POINTER(TrustLevel))
+    def GetTrustLevel2(this, trustLevel):
+        self = cast(this-sizeof(c_void_p), POINTER(XamlApplicationImpl)).contents
+        return self.comptr.GetTrustLevel(trustLevel)
 
     @WINFUNCTYPE(HRESULT, c_void_p, TypeName, POINTER(IXamlType))
     def GetXamlType(this, type, value):
