@@ -163,6 +163,7 @@ class XamlApplication(IApplicationOverrides):
         self._refcount -= 1
         if self._refcount == 0:
             self._comobj.comptr = None
+            self._inner_interface.Release()
             del self._keep_reference_in_python_world_[id(self)]
         return self._refcount
 
@@ -196,9 +197,19 @@ class XamlApplication(IApplicationOverrides):
         return S_OK
 
     @classmethod
-    def Start(cls, app):
+    def Start(cls, appcls):
         hr = MddBootstrapInitialize2(0x00010004, "", PACKAGE_VERSION(Version=0x0FA0041900750000), MddBootstrapInitializeOptions_OnNoMatch_ShowUI)
         if FAILED(hr):
             raise WinError(hr)
-        Application.Start(lambda params: app() and None)
+
+        app = None
+
+        def init(params):
+            nonlocal app
+            app = appcls()
+
+        Application.Start(init)
+
+        app.Release()
+
         MddBootstrapShutdown()
