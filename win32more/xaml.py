@@ -16,6 +16,7 @@ from win32more.mddbootstrap import MddBootstrapInitialize2, MddBootstrapShutdown
 from win32more.Windows.Win32.Foundation import HRESULT, S_OK
 from win32more.Windows.Win32.Storage.Packaging.Appx import PACKAGE_VERSION
 from win32more.Windows.Win32.System.WinRT import HSTRING, IInspectable, TrustLevel
+from win32more.Windows.Win32.UI.HiDpi import SetProcessDpiAwarenessContext, DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2
 from win32more.Windows.UI.Xaml.Interop import TypeName
 from win32more.Microsoft.UI.Xaml import Application, IApplicationOverrides, LaunchActivatedEventArgs
 from win32more.Microsoft.UI.Xaml.Controls import XamlControlsResources
@@ -198,6 +199,10 @@ class XamlApplication(IApplicationOverrides):
 
     @classmethod
     def Start(cls, appcls):
+        r = SetProcessDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2)
+        if FAILED(r):
+            raise WinError(r)
+
         hr = MddBootstrapInitialize2(0x00010004, "", PACKAGE_VERSION(Version=0x0FA0041900750000), MddBootstrapInitializeOptions_OnNoMatch_ShowUI)
         if FAILED(hr):
             raise WinError(hr)
