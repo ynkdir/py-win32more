@@ -1,0 +1,13 @@
+<Page xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+    <NavigationView IsBackButtonVisible="Collapsed">
+        <NavigationView.MenuItems>
+            <NavigationViewItem Content="Home" Icon="Home" />
+        </NavigationView.MenuItems>
+        <Frame>
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="WinUI 3 with Python!" FontSize="40" Padding="10" HorizontalAlignment="Center" />
+                <HyperlinkButton Content="GitHub repository" NavigateUri="https://github.com/ynkdir/py-win32more" HorizontalAlignment="Center" />
+            </StackPanel>
+        </Frame>
+    </NavigationView>
+</Page>
