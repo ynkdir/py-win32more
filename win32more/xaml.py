@@ -17,6 +17,7 @@ from win32more.Microsoft.UI.Xaml.XamlTypeInfo import XamlControlsXamlMetaDataPro
 from win32more.Windows.UI.Xaml.Interop import TypeName
 from win32more.Windows.Win32.Foundation import HRESULT, S_OK
 from win32more.Windows.Win32.Storage.Packaging.Appx import PACKAGE_VERSION
+from win32more.Windows.Win32.System.Com import COINIT_APARTMENTTHREADED, CoInitializeEx, CoUninitialize
 from win32more.Windows.Win32.System.WinRT import HSTRING, IInspectable, TrustLevel
 from win32more.Windows.Win32.UI.HiDpi import DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2, SetProcessDpiAwarenessContext
 
@@ -201,6 +202,10 @@ class XamlApplication(IApplicationOverrides):
         if FAILED(r):
             raise WinError(r)
 
+        hr = CoInitializeEx(None, COINIT_APARTMENTTHREADED)
+        if FAILED(hr):
+            raise WinError(hr)
+
         hr = MddBootstrapInitialize2(
             WINDOWSAPPSDK_RELEASE_MAJORMINOR,
             WINDOWSAPPSDK_RELEASE_VERSION_SHORTTAG_W,
@@ -221,3 +226,5 @@ class XamlApplication(IApplicationOverrides):
         app.Release()
 
         MddBootstrapShutdown()
+
+        CoUninitialize()

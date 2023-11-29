@@ -14,9 +14,14 @@ from win32more.mddbootstrap import (
 from win32more.Microsoft.Windows.AppNotifications import AppNotificationManager
 from win32more.Microsoft.Windows.AppNotifications.Builder import AppNotificationBuilder
 from win32more.Windows.Win32.Storage.Packaging.Appx import PACKAGE_VERSION
+from win32more.Windows.Win32.System.Com import COINIT_APARTMENTTHREADED, CoInitializeEx, CoUninitialize
 
 
 def main() -> None:
+    hr = CoInitializeEx(None, COINIT_APARTMENTTHREADED)
+    if FAILED(hr):
+        raise WinError(hr)
+
     hr = MddBootstrapInitialize2(
         WINDOWSAPPSDK_RELEASE_MAJORMINOR,
         WINDOWSAPPSDK_RELEASE_VERSION_SHORTTAG_W,
@@ -40,6 +45,8 @@ def main() -> None:
     notification_manager.Unregister()
 
     MddBootstrapShutdown()
+
+    CoUninitialize()
 
 
 if __name__ == "__main__":
