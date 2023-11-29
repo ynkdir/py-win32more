@@ -6,7 +6,14 @@ from ctypes import (
 )
 
 from win32more import FAILED
-from win32more.mddbootstrap import MddBootstrapInitialize2, MddBootstrapShutdown
+from win32more.mddbootstrap import (
+    WINDOWSAPPSDK_RELEASE_MAJORMINOR,
+    WINDOWSAPPSDK_RELEASE_VERSION_SHORTTAG_W,
+    WINDOWSAPPSDK_RUNTIME_VERSION_UINT64,
+    MddBootstrapInitialize2,
+    MddBootstrapInitializeOptions_OnNoMatch_ShowUI,
+    MddBootstrapShutdown,
+)
 from win32more.Microsoft.UI.Windowing import AppWindow
 from win32more.Windows.Win32.Storage.Packaging.Appx import PACKAGE_VERSION
 from win32more.Windows.Win32.UI.WindowsAndMessaging import (
@@ -25,7 +32,12 @@ def on_destroying(appwin, obj):
 
 
 def main() -> None:
-    hr = MddBootstrapInitialize2(0x00010004, "", PACKAGE_VERSION(Revision=0, Build=0, Minor=4, Major=1), 0)
+    hr = MddBootstrapInitialize2(
+        WINDOWSAPPSDK_RELEASE_MAJORMINOR,
+        WINDOWSAPPSDK_RELEASE_VERSION_SHORTTAG_W,
+        PACKAGE_VERSION(Version=WINDOWSAPPSDK_RUNTIME_VERSION_UINT64),
+        MddBootstrapInitializeOptions_OnNoMatch_ShowUI,
+    )
     if FAILED(hr):
         raise WinError(hr)
 

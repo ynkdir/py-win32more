@@ -6,6 +6,12 @@ import win32more.mddbootstrap
 
 import os.path
 
+# TODO: keep sync with WindowsAppSDK-VersionInfo.h
+# VERSION: 1.4.23115000
+WINDOWSAPPSDK_RELEASE_MAJORMINOR = 0x00010004
+WINDOWSAPPSDK_RELEASE_VERSION_SHORTTAG_W = ""
+WINDOWSAPPSDK_RUNTIME_VERSION_UINT64 = 0x0FA0041900750000
+
 Microsoft_WindowsAppRuntime_Bootstrap_dll = os.path.dirname(__file__) + "\\Microsoft.WindowsAppRuntime.Bootstrap.dll"
 
 MddBootstrapInitializeOptions = Int32
