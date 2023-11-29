@@ -268,6 +268,24 @@ class Guid(EasyCastStructure):
     def __str__(self):
         return f"{{{self.Data1:08x}-{self.Data2:04x}-{self.Data3:04x}-{self.Data4[0]:02x}{self.Data4[1]:02x}-{self.Data4[2]:02x}{self.Data4[3]:02x}{self.Data4[4]:02x}{self.Data4[5]:02x}{self.Data4[6]:02x}{self.Data4[7]:02x}}}"
 
+    def __eq__(self, other):
+        if not isinstance(other, Guid):
+            raise ValueError(f"cannot compare with {type(other)}")
+        print(self, other)
+        return (
+            self.Data1 == other.Data1
+            and self.Data2 == other.Data2
+            and self.Data3 == other.Data3
+            and self.Data4[0] == other.Data4[0]
+            and self.Data4[1] == other.Data4[1]
+            and self.Data4[2] == other.Data4[2]
+            and self.Data4[3] == other.Data4[3]
+            and self.Data4[4] == other.Data4[4]
+            and self.Data4[5] == other.Data4[5]
+            and self.Data4[6] == other.Data4[6]
+            and self.Data4[7] == other.Data4[7]
+        )
+
 
 def SUCCEEDED(hr):
     return hr >= 0
@@ -447,7 +465,7 @@ class CustomGet(dict):
         super().__init__(*args, **kwargs)
 
     def __getitem__(self, key):
-        mapping = getattr(self._mod, '__dict__', {})
+        mapping = getattr(self._mod, "__dict__", {})
         if key in mapping:
             return mapping[key]
         elif isinstance(self._mod, types.ModuleType):
