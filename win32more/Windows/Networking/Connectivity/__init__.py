@@ -48,6 +48,16 @@ class CellularApnContext(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Connectivity.ICellularApnContext
     _classid_ = 'Windows.Networking.Connectivity.CellularApnContext'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Networking.Connectivity.CellularApnContext.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Networking.Connectivity.CellularApnContext: ...
     @winrt_mixinmethod
@@ -172,6 +182,16 @@ class ConnectionProfileFilter(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Connectivity.IConnectionProfileFilter
     _classid_ = 'Windows.Networking.Connectivity.ConnectionProfileFilter'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Networking.Connectivity.ConnectionProfileFilter.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Networking.Connectivity.ConnectionProfileFilter: ...
     @winrt_mixinmethod
@@ -1030,6 +1050,16 @@ class RoutePolicy(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Connectivity.IRoutePolicy
     _classid_ = 'Windows.Networking.Connectivity.RoutePolicy'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 3:
+            instance = win32more.Windows.Networking.Connectivity.RoutePolicy.CreateRoutePolicy(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateRoutePolicy(cls: win32more.Windows.Networking.Connectivity.IRoutePolicyFactory, connectionProfile: win32more.Windows.Networking.Connectivity.ConnectionProfile, hostName: win32more.Windows.Networking.HostName, type: win32more.Windows.Networking.DomainNameType) -> win32more.Windows.Networking.Connectivity.RoutePolicy: ...
     @winrt_mixinmethod

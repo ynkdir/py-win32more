@@ -201,10 +201,22 @@ class ResourceCandidate(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Windows.ApplicationModel.Resources.IResourceCandidate
     _classid_ = 'Microsoft.Windows.ApplicationModel.Resources.ResourceCandidate'
-    @winrt_factorymethod
-    def CreateInstance(cls: win32more.Microsoft.Windows.ApplicationModel.Resources.IResourceCandidateFactory, kind: win32more.Microsoft.Windows.ApplicationModel.Resources.ResourceCandidateKind, data: WinRT_String) -> win32more.Microsoft.Windows.ApplicationModel.Resources.ResourceCandidate: ...
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Microsoft.Windows.ApplicationModel.Resources.ResourceCandidate.CreateInstance2(*args)
+        elif len(args) == 2:
+            instance = win32more.Microsoft.Windows.ApplicationModel.Resources.ResourceCandidate.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstance2(cls: win32more.Microsoft.Windows.ApplicationModel.Resources.IResourceCandidateFactory, data: Annotated[SZArray[Byte], 'In']) -> win32more.Microsoft.Windows.ApplicationModel.Resources.ResourceCandidate: ...
+    @winrt_factorymethod
+    def CreateInstance(cls: win32more.Microsoft.Windows.ApplicationModel.Resources.IResourceCandidateFactory, kind: win32more.Microsoft.Windows.ApplicationModel.Resources.ResourceCandidateKind, data: WinRT_String) -> win32more.Microsoft.Windows.ApplicationModel.Resources.ResourceCandidate: ...
     @winrt_mixinmethod
     def get_ValueAsString(self: win32more.Microsoft.Windows.ApplicationModel.Resources.IResourceCandidate) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -233,6 +245,20 @@ class ResourceLoader(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Windows.ApplicationModel.Resources.IResourceLoader
     _classid_ = 'Microsoft.Windows.ApplicationModel.Resources.ResourceLoader'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Microsoft.Windows.ApplicationModel.Resources.ResourceLoader.CreateInstance(*args)
+        elif len(args) == 1:
+            instance = win32more.Microsoft.Windows.ApplicationModel.Resources.ResourceLoader.CreateInstance(*args)
+        elif len(args) == 2:
+            instance = win32more.Microsoft.Windows.ApplicationModel.Resources.ResourceLoader.CreateInstance2(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Microsoft.Windows.ApplicationModel.Resources.ResourceLoader: ...
     @winrt_factorymethod
@@ -249,6 +275,18 @@ class ResourceManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Windows.ApplicationModel.Resources.IResourceManager
     _classid_ = 'Microsoft.Windows.ApplicationModel.Resources.ResourceManager'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Microsoft.Windows.ApplicationModel.Resources.ResourceManager.CreateInstance(*args)
+        elif len(args) == 1:
+            instance = win32more.Microsoft.Windows.ApplicationModel.Resources.ResourceManager.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Microsoft.Windows.ApplicationModel.Resources.ResourceManager: ...
     @winrt_factorymethod

@@ -472,10 +472,22 @@ class SyndicationAttribute(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Syndication.ISyndicationAttribute
     _classid_ = 'Windows.Web.Syndication.SyndicationAttribute'
-    @winrt_factorymethod
-    def CreateSyndicationAttribute(cls: win32more.Windows.Web.Syndication.ISyndicationAttributeFactory, attributeName: WinRT_String, attributeNamespace: WinRT_String, attributeValue: WinRT_String) -> win32more.Windows.Web.Syndication.SyndicationAttribute: ...
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Web.Syndication.SyndicationAttribute.CreateInstance(*args)
+        elif len(args) == 3:
+            instance = win32more.Windows.Web.Syndication.SyndicationAttribute.CreateSyndicationAttribute(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Web.Syndication.SyndicationAttribute: ...
+    @winrt_factorymethod
+    def CreateSyndicationAttribute(cls: win32more.Windows.Web.Syndication.ISyndicationAttributeFactory, attributeName: WinRT_String, attributeNamespace: WinRT_String, attributeValue: WinRT_String) -> win32more.Windows.Web.Syndication.SyndicationAttribute: ...
     @winrt_mixinmethod
     def get_Name(self: win32more.Windows.Web.Syndication.ISyndicationAttribute) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -495,6 +507,20 @@ class SyndicationCategory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Syndication.ISyndicationCategory
     _classid_ = 'Windows.Web.Syndication.SyndicationCategory'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Web.Syndication.SyndicationCategory.CreateInstance(*args)
+        elif len(args) == 1:
+            instance = win32more.Windows.Web.Syndication.SyndicationCategory.CreateSyndicationCategory(*args)
+        elif len(args) == 3:
+            instance = win32more.Windows.Web.Syndication.SyndicationCategory.CreateSyndicationCategoryEx(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Web.Syndication.SyndicationCategory: ...
     @winrt_factorymethod
@@ -553,6 +579,18 @@ class SyndicationClient(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Syndication.ISyndicationClient
     _classid_ = 'Windows.Web.Syndication.SyndicationClient'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Web.Syndication.SyndicationClient.CreateInstance(*args)
+        elif len(args) == 1:
+            instance = win32more.Windows.Web.Syndication.SyndicationClient.CreateSyndicationClient(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Web.Syndication.SyndicationClient: ...
     @winrt_factorymethod
@@ -590,12 +628,26 @@ class SyndicationContent(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Syndication.ISyndicationContent
     _classid_ = 'Windows.Web.Syndication.SyndicationContent'
-    @winrt_factorymethod
-    def CreateSyndicationContent(cls: win32more.Windows.Web.Syndication.ISyndicationContentFactory, text: WinRT_String, type: win32more.Windows.Web.Syndication.SyndicationTextType) -> win32more.Windows.Web.Syndication.SyndicationContent: ...
-    @winrt_factorymethod
-    def CreateSyndicationContentWithSourceUri(cls: win32more.Windows.Web.Syndication.ISyndicationContentFactory, sourceUri: win32more.Windows.Foundation.Uri) -> win32more.Windows.Web.Syndication.SyndicationContent: ...
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Web.Syndication.SyndicationContent.CreateInstance(*args)
+        elif len(args) == 1:
+            instance = win32more.Windows.Web.Syndication.SyndicationContent.CreateSyndicationContentWithSourceUri(*args)
+        elif len(args) == 2:
+            instance = win32more.Windows.Web.Syndication.SyndicationContent.CreateSyndicationContent(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Web.Syndication.SyndicationContent: ...
+    @winrt_factorymethod
+    def CreateSyndicationContentWithSourceUri(cls: win32more.Windows.Web.Syndication.ISyndicationContentFactory, sourceUri: win32more.Windows.Foundation.Uri) -> win32more.Windows.Web.Syndication.SyndicationContent: ...
+    @winrt_factorymethod
+    def CreateSyndicationContent(cls: win32more.Windows.Web.Syndication.ISyndicationContentFactory, text: WinRT_String, type: win32more.Windows.Web.Syndication.SyndicationTextType) -> win32more.Windows.Web.Syndication.SyndicationContent: ...
     @winrt_mixinmethod
     def get_Text(self: win32more.Windows.Web.Syndication.ISyndicationText) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -665,10 +717,22 @@ class SyndicationFeed(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Syndication.ISyndicationFeed
     _classid_ = 'Windows.Web.Syndication.SyndicationFeed'
-    @winrt_factorymethod
-    def CreateSyndicationFeed(cls: win32more.Windows.Web.Syndication.ISyndicationFeedFactory, title: WinRT_String, subtitle: WinRT_String, uri: win32more.Windows.Foundation.Uri) -> win32more.Windows.Web.Syndication.SyndicationFeed: ...
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Web.Syndication.SyndicationFeed.CreateInstance(*args)
+        elif len(args) == 3:
+            instance = win32more.Windows.Web.Syndication.SyndicationFeed.CreateSyndicationFeed(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Web.Syndication.SyndicationFeed: ...
+    @winrt_factorymethod
+    def CreateSyndicationFeed(cls: win32more.Windows.Web.Syndication.ISyndicationFeedFactory, title: WinRT_String, subtitle: WinRT_String, uri: win32more.Windows.Foundation.Uri) -> win32more.Windows.Web.Syndication.SyndicationFeed: ...
     @winrt_mixinmethod
     def get_Authors(self: win32more.Windows.Web.Syndication.ISyndicationFeed) -> win32more.Windows.Foundation.Collections.IVector[win32more.Windows.Web.Syndication.SyndicationPerson]: ...
     @winrt_mixinmethod
@@ -787,6 +851,18 @@ class SyndicationGenerator(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Syndication.ISyndicationGenerator
     _classid_ = 'Windows.Web.Syndication.SyndicationGenerator'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Web.Syndication.SyndicationGenerator.CreateInstance(*args)
+        elif len(args) == 1:
+            instance = win32more.Windows.Web.Syndication.SyndicationGenerator.CreateSyndicationGenerator(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Web.Syndication.SyndicationGenerator: ...
     @winrt_factorymethod
@@ -843,6 +919,18 @@ class SyndicationItem(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Syndication.ISyndicationItem
     _classid_ = 'Windows.Web.Syndication.SyndicationItem'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Web.Syndication.SyndicationItem.CreateInstance(*args)
+        elif len(args) == 3:
+            instance = win32more.Windows.Web.Syndication.SyndicationItem.CreateSyndicationItem(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Web.Syndication.SyndicationItem: ...
     @winrt_factorymethod
@@ -957,12 +1045,26 @@ class SyndicationLink(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Syndication.ISyndicationLink
     _classid_ = 'Windows.Web.Syndication.SyndicationLink'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Web.Syndication.SyndicationLink.CreateInstance(*args)
+        elif len(args) == 1:
+            instance = win32more.Windows.Web.Syndication.SyndicationLink.CreateSyndicationLink(*args)
+        elif len(args) == 5:
+            instance = win32more.Windows.Web.Syndication.SyndicationLink.CreateSyndicationLinkEx(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
+    @winrt_activatemethod
+    def CreateInstance(cls) -> win32more.Windows.Web.Syndication.SyndicationLink: ...
     @winrt_factorymethod
     def CreateSyndicationLink(cls: win32more.Windows.Web.Syndication.ISyndicationLinkFactory, uri: win32more.Windows.Foundation.Uri) -> win32more.Windows.Web.Syndication.SyndicationLink: ...
     @winrt_factorymethod
     def CreateSyndicationLinkEx(cls: win32more.Windows.Web.Syndication.ISyndicationLinkFactory, uri: win32more.Windows.Foundation.Uri, relationship: WinRT_String, title: WinRT_String, mediaType: WinRT_String, length: UInt32) -> win32more.Windows.Web.Syndication.SyndicationLink: ...
-    @winrt_activatemethod
-    def CreateInstance(cls) -> win32more.Windows.Web.Syndication.SyndicationLink: ...
     @winrt_mixinmethod
     def get_Length(self: win32more.Windows.Web.Syndication.ISyndicationLink) -> UInt32: ...
     @winrt_mixinmethod
@@ -1030,10 +1132,22 @@ class SyndicationNode(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Syndication.ISyndicationNode
     _classid_ = 'Windows.Web.Syndication.SyndicationNode'
-    @winrt_factorymethod
-    def CreateSyndicationNode(cls: win32more.Windows.Web.Syndication.ISyndicationNodeFactory, nodeName: WinRT_String, nodeNamespace: WinRT_String, nodeValue: WinRT_String) -> win32more.Windows.Web.Syndication.SyndicationNode: ...
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Web.Syndication.SyndicationNode.CreateInstance(*args)
+        elif len(args) == 3:
+            instance = win32more.Windows.Web.Syndication.SyndicationNode.CreateSyndicationNode(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Web.Syndication.SyndicationNode: ...
+    @winrt_factorymethod
+    def CreateSyndicationNode(cls: win32more.Windows.Web.Syndication.ISyndicationNodeFactory, nodeName: WinRT_String, nodeNamespace: WinRT_String, nodeValue: WinRT_String) -> win32more.Windows.Web.Syndication.SyndicationNode: ...
     @winrt_mixinmethod
     def get_NodeName(self: win32more.Windows.Web.Syndication.ISyndicationNode) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -1071,12 +1185,26 @@ class SyndicationPerson(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Syndication.ISyndicationPerson
     _classid_ = 'Windows.Web.Syndication.SyndicationPerson'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Web.Syndication.SyndicationPerson.CreateInstance(*args)
+        elif len(args) == 1:
+            instance = win32more.Windows.Web.Syndication.SyndicationPerson.CreateSyndicationPerson(*args)
+        elif len(args) == 3:
+            instance = win32more.Windows.Web.Syndication.SyndicationPerson.CreateSyndicationPersonEx(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
+    @winrt_activatemethod
+    def CreateInstance(cls) -> win32more.Windows.Web.Syndication.SyndicationPerson: ...
     @winrt_factorymethod
     def CreateSyndicationPerson(cls: win32more.Windows.Web.Syndication.ISyndicationPersonFactory, name: WinRT_String) -> win32more.Windows.Web.Syndication.SyndicationPerson: ...
     @winrt_factorymethod
     def CreateSyndicationPersonEx(cls: win32more.Windows.Web.Syndication.ISyndicationPersonFactory, name: WinRT_String, email: WinRT_String, uri: win32more.Windows.Foundation.Uri) -> win32more.Windows.Web.Syndication.SyndicationPerson: ...
-    @winrt_activatemethod
-    def CreateInstance(cls) -> win32more.Windows.Web.Syndication.SyndicationPerson: ...
     @winrt_mixinmethod
     def get_Email(self: win32more.Windows.Web.Syndication.ISyndicationPerson) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -1129,6 +1257,20 @@ class SyndicationText(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Syndication.ISyndicationText
     _classid_ = 'Windows.Web.Syndication.SyndicationText'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Web.Syndication.SyndicationText.CreateInstance(*args)
+        elif len(args) == 1:
+            instance = win32more.Windows.Web.Syndication.SyndicationText.CreateSyndicationText(*args)
+        elif len(args) == 2:
+            instance = win32more.Windows.Web.Syndication.SyndicationText.CreateSyndicationTextEx(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Web.Syndication.SyndicationText: ...
     @winrt_factorymethod

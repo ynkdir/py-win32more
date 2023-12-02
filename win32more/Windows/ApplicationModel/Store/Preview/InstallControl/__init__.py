@@ -98,6 +98,16 @@ class AppInstallManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Store.Preview.InstallControl.IAppInstallManager
     _classid_ = 'Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallManager'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallManager.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallManager: ...
     @winrt_mixinmethod
@@ -212,6 +222,16 @@ class AppInstallOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Store.Preview.InstallControl.IAppInstallOptions
     _classid_ = 'Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallOptions'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallOptions.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallOptions: ...
     @winrt_mixinmethod
@@ -345,6 +365,16 @@ class AppUpdateOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Store.Preview.InstallControl.IAppUpdateOptions
     _classid_ = 'Windows.ApplicationModel.Store.Preview.InstallControl.AppUpdateOptions'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.ApplicationModel.Store.Preview.InstallControl.AppUpdateOptions.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Store.Preview.InstallControl.AppUpdateOptions: ...
     @winrt_mixinmethod

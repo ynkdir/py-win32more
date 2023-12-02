@@ -430,6 +430,18 @@ class SpeechRecognitionGrammarFileConstraint(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.SpeechRecognition.ISpeechRecognitionGrammarFileConstraint
     _classid_ = 'Windows.Media.SpeechRecognition.SpeechRecognitionGrammarFileConstraint'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.Media.SpeechRecognition.SpeechRecognitionGrammarFileConstraint.Create(*args)
+        elif len(args) == 2:
+            instance = win32more.Windows.Media.SpeechRecognition.SpeechRecognitionGrammarFileConstraint.CreateWithTag(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.Media.SpeechRecognition.ISpeechRecognitionGrammarFileConstraintFactory, file: win32more.Windows.Storage.StorageFile) -> win32more.Windows.Media.SpeechRecognition.SpeechRecognitionGrammarFileConstraint: ...
     @winrt_factorymethod
@@ -473,6 +485,18 @@ class SpeechRecognitionListConstraint(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.SpeechRecognition.ISpeechRecognitionListConstraint
     _classid_ = 'Windows.Media.SpeechRecognition.SpeechRecognitionListConstraint'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.Media.SpeechRecognition.SpeechRecognitionListConstraint.Create(*args)
+        elif len(args) == 2:
+            instance = win32more.Windows.Media.SpeechRecognition.SpeechRecognitionListConstraint.CreateWithTag(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.Media.SpeechRecognition.ISpeechRecognitionListConstraintFactory, commands: win32more.Windows.Foundation.Collections.IIterable[WinRT_String]) -> win32more.Windows.Media.SpeechRecognition.SpeechRecognitionListConstraint: ...
     @winrt_factorymethod
@@ -565,6 +589,18 @@ class SpeechRecognitionTopicConstraint(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.SpeechRecognition.ISpeechRecognitionTopicConstraint
     _classid_ = 'Windows.Media.SpeechRecognition.SpeechRecognitionTopicConstraint'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 2:
+            instance = win32more.Windows.Media.SpeechRecognition.SpeechRecognitionTopicConstraint.Create(*args)
+        elif len(args) == 3:
+            instance = win32more.Windows.Media.SpeechRecognition.SpeechRecognitionTopicConstraint.CreateWithTag(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.Media.SpeechRecognition.ISpeechRecognitionTopicConstraintFactory, scenario: win32more.Windows.Media.SpeechRecognition.SpeechRecognitionScenario, topicHint: WinRT_String) -> win32more.Windows.Media.SpeechRecognition.SpeechRecognitionTopicConstraint: ...
     @winrt_factorymethod
@@ -621,6 +657,18 @@ class SpeechRecognizer(ComPtr, metaclass=_SpeechRecognizer_Meta_):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.SpeechRecognition.ISpeechRecognizer
     _classid_ = 'Windows.Media.SpeechRecognition.SpeechRecognizer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Media.SpeechRecognition.SpeechRecognizer.CreateInstance(*args)
+        elif len(args) == 1:
+            instance = win32more.Windows.Media.SpeechRecognition.SpeechRecognizer.Create(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Media.SpeechRecognition.SpeechRecognizer: ...
     @winrt_factorymethod

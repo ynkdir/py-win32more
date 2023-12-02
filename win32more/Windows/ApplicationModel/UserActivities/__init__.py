@@ -261,6 +261,16 @@ class UserActivity(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.UserActivities.IUserActivity
     _classid_ = 'Windows.ApplicationModel.UserActivities.UserActivity'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.ApplicationModel.UserActivities.UserActivity.CreateWithActivityId(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateWithActivityId(cls: win32more.Windows.ApplicationModel.UserActivities.IUserActivityFactory, activityId: WinRT_String) -> win32more.Windows.ApplicationModel.UserActivities.UserActivity: ...
     @winrt_mixinmethod
@@ -318,10 +328,22 @@ class UserActivityAttribution(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.UserActivities.IUserActivityAttribution
     _classid_ = 'Windows.ApplicationModel.UserActivities.UserActivityAttribution'
-    @winrt_factorymethod
-    def CreateWithUri(cls: win32more.Windows.ApplicationModel.UserActivities.IUserActivityAttributionFactory, iconUri: win32more.Windows.Foundation.Uri) -> win32more.Windows.ApplicationModel.UserActivities.UserActivityAttribution: ...
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.ApplicationModel.UserActivities.UserActivityAttribution.CreateInstance(*args)
+        elif len(args) == 1:
+            instance = win32more.Windows.ApplicationModel.UserActivities.UserActivityAttribution.CreateWithUri(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.UserActivities.UserActivityAttribution: ...
+    @winrt_factorymethod
+    def CreateWithUri(cls: win32more.Windows.ApplicationModel.UserActivities.IUserActivityAttributionFactory, iconUri: win32more.Windows.Foundation.Uri) -> win32more.Windows.ApplicationModel.UserActivities.UserActivityAttribution: ...
     @winrt_mixinmethod
     def get_IconUri(self: win32more.Windows.ApplicationModel.UserActivities.IUserActivityAttribution) -> win32more.Windows.Foundation.Uri: ...
     @winrt_mixinmethod

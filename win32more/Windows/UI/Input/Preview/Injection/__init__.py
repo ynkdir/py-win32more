@@ -239,10 +239,22 @@ class InjectedInputGamepadInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Input.Preview.Injection.IInjectedInputGamepadInfo
     _classid_ = 'Windows.UI.Input.Preview.Injection.InjectedInputGamepadInfo'
-    @winrt_factorymethod
-    def CreateInstance(cls: win32more.Windows.UI.Input.Preview.Injection.IInjectedInputGamepadInfoFactory, reading: win32more.Windows.Gaming.Input.GamepadReading) -> win32more.Windows.UI.Input.Preview.Injection.InjectedInputGamepadInfo: ...
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.UI.Input.Preview.Injection.InjectedInputGamepadInfo.CreateInstance(*args)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Input.Preview.Injection.InjectedInputGamepadInfo.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Input.Preview.Injection.InjectedInputGamepadInfo: ...
+    @winrt_factorymethod
+    def CreateInstance(cls: win32more.Windows.UI.Input.Preview.Injection.IInjectedInputGamepadInfoFactory, reading: win32more.Windows.Gaming.Input.GamepadReading) -> win32more.Windows.UI.Input.Preview.Injection.InjectedInputGamepadInfo: ...
     @winrt_mixinmethod
     def get_Buttons(self: win32more.Windows.UI.Input.Preview.Injection.IInjectedInputGamepadInfo) -> win32more.Windows.Gaming.Input.GamepadButtons: ...
     @winrt_mixinmethod
@@ -288,6 +300,16 @@ class InjectedInputKeyboardInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Input.Preview.Injection.IInjectedInputKeyboardInfo
     _classid_ = 'Windows.UI.Input.Preview.Injection.InjectedInputKeyboardInfo'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.UI.Input.Preview.Injection.InjectedInputKeyboardInfo.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Input.Preview.Injection.InjectedInputKeyboardInfo: ...
     @winrt_mixinmethod
@@ -309,6 +331,16 @@ class InjectedInputMouseInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Input.Preview.Injection.IInjectedInputMouseInfo
     _classid_ = 'Windows.UI.Input.Preview.Injection.InjectedInputMouseInfo'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.UI.Input.Preview.Injection.InjectedInputMouseInfo.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Input.Preview.Injection.InjectedInputMouseInfo: ...
     @winrt_mixinmethod
@@ -361,6 +393,16 @@ class InjectedInputPenInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Input.Preview.Injection.IInjectedInputPenInfo
     _classid_ = 'Windows.UI.Input.Preview.Injection.InjectedInputPenInfo'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.UI.Input.Preview.Injection.InjectedInputPenInfo.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Input.Preview.Injection.InjectedInputPenInfo: ...
     @winrt_mixinmethod
@@ -440,6 +482,16 @@ class InjectedInputTouchInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Input.Preview.Injection.IInjectedInputTouchInfo
     _classid_ = 'Windows.UI.Input.Preview.Injection.InjectedInputTouchInfo'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.UI.Input.Preview.Injection.InjectedInputTouchInfo.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Input.Preview.Injection.InjectedInputTouchInfo: ...
     @winrt_mixinmethod

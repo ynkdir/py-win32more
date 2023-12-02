@@ -67,6 +67,16 @@ class ClipboardContentOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.DataTransfer.IClipboardContentOptions
     _classid_ = 'Windows.ApplicationModel.DataTransfer.ClipboardContentOptions'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.ApplicationModel.DataTransfer.ClipboardContentOptions.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.DataTransfer.ClipboardContentOptions: ...
     @winrt_mixinmethod
@@ -120,6 +130,16 @@ class DataPackage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.DataTransfer.IDataPackage
     _classid_ = 'Windows.ApplicationModel.DataTransfer.DataPackage'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.ApplicationModel.DataTransfer.DataPackage.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.DataTransfer.DataPackage: ...
     @winrt_mixinmethod
@@ -1081,6 +1101,16 @@ class ShareProvider(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.DataTransfer.IShareProvider
     _classid_ = 'Windows.ApplicationModel.DataTransfer.ShareProvider'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 4:
+            instance = win32more.Windows.ApplicationModel.DataTransfer.ShareProvider.Create(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.ApplicationModel.DataTransfer.IShareProviderFactory, title: WinRT_String, displayIcon: win32more.Windows.Storage.Streams.RandomAccessStreamReference, backgroundColor: win32more.Windows.UI.Color, handler: win32more.Windows.ApplicationModel.DataTransfer.ShareProviderHandler) -> win32more.Windows.ApplicationModel.DataTransfer.ShareProvider: ...
     @winrt_mixinmethod
@@ -1139,6 +1169,16 @@ class ShareUIOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.DataTransfer.IShareUIOptions
     _classid_ = 'Windows.ApplicationModel.DataTransfer.ShareUIOptions'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.ApplicationModel.DataTransfer.ShareUIOptions.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.DataTransfer.ShareUIOptions: ...
     @winrt_mixinmethod

@@ -140,6 +140,16 @@ class FileUnprotectOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.EnterpriseData.IFileUnprotectOptions
     _classid_ = 'Windows.Security.EnterpriseData.FileUnprotectOptions'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.Security.EnterpriseData.FileUnprotectOptions.Create(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.Security.EnterpriseData.IFileUnprotectOptionsFactory, audit: Boolean) -> win32more.Windows.Security.EnterpriseData.FileUnprotectOptions: ...
     @winrt_mixinmethod
@@ -554,10 +564,22 @@ class ProtectionPolicyAuditInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.EnterpriseData.IProtectionPolicyAuditInfo
     _classid_ = 'Windows.Security.EnterpriseData.ProtectionPolicyAuditInfo'
-    @winrt_factorymethod
-    def Create(cls: win32more.Windows.Security.EnterpriseData.IProtectionPolicyAuditInfoFactory, action: win32more.Windows.Security.EnterpriseData.ProtectionPolicyAuditAction, dataDescription: WinRT_String, sourceDescription: WinRT_String, targetDescription: WinRT_String) -> win32more.Windows.Security.EnterpriseData.ProtectionPolicyAuditInfo: ...
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 2:
+            instance = win32more.Windows.Security.EnterpriseData.ProtectionPolicyAuditInfo.CreateWithActionAndDataDescription(*args)
+        elif len(args) == 4:
+            instance = win32more.Windows.Security.EnterpriseData.ProtectionPolicyAuditInfo.Create(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateWithActionAndDataDescription(cls: win32more.Windows.Security.EnterpriseData.IProtectionPolicyAuditInfoFactory, action: win32more.Windows.Security.EnterpriseData.ProtectionPolicyAuditAction, dataDescription: WinRT_String) -> win32more.Windows.Security.EnterpriseData.ProtectionPolicyAuditInfo: ...
+    @winrt_factorymethod
+    def Create(cls: win32more.Windows.Security.EnterpriseData.IProtectionPolicyAuditInfoFactory, action: win32more.Windows.Security.EnterpriseData.ProtectionPolicyAuditAction, dataDescription: WinRT_String, sourceDescription: WinRT_String, targetDescription: WinRT_String) -> win32more.Windows.Security.EnterpriseData.ProtectionPolicyAuditInfo: ...
     @winrt_mixinmethod
     def put_Action(self: win32more.Windows.Security.EnterpriseData.IProtectionPolicyAuditInfo, value: win32more.Windows.Security.EnterpriseData.ProtectionPolicyAuditAction) -> Void: ...
     @winrt_mixinmethod

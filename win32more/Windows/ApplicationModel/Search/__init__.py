@@ -251,6 +251,16 @@ class LocalContentSuggestionSettings(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Search.ILocalContentSuggestionSettings
     _classid_ = 'Windows.ApplicationModel.Search.LocalContentSuggestionSettings'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.ApplicationModel.Search.LocalContentSuggestionSettings.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Search.LocalContentSuggestionSettings: ...
     @winrt_mixinmethod
@@ -426,6 +436,16 @@ class SearchQueryLinguisticDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Search.ISearchQueryLinguisticDetails
     _classid_ = 'Windows.ApplicationModel.Search.SearchQueryLinguisticDetails'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 3:
+            instance = win32more.Windows.ApplicationModel.Search.SearchQueryLinguisticDetails.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.ApplicationModel.Search.ISearchQueryLinguisticDetailsFactory, queryTextAlternatives: win32more.Windows.Foundation.Collections.IIterable[WinRT_String], queryTextCompositionStart: UInt32, queryTextCompositionLength: UInt32) -> win32more.Windows.ApplicationModel.Search.SearchQueryLinguisticDetails: ...
     @winrt_mixinmethod

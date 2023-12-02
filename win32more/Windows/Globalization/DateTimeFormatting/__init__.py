@@ -24,16 +24,38 @@ class DateTimeFormatter(ComPtr, metaclass=_DateTimeFormatter_Meta_):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Globalization.DateTimeFormatting.IDateTimeFormatter
     _classid_ = 'Windows.Globalization.DateTimeFormatting.DateTimeFormatter'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.Globalization.DateTimeFormatting.DateTimeFormatter.CreateDateTimeFormatter(*args)
+        elif len(args) == 2:
+            instance = win32more.Windows.Globalization.DateTimeFormatting.DateTimeFormatter.CreateDateTimeFormatterLanguages(*args)
+        elif len(args) == 3:
+            instance = win32more.Windows.Globalization.DateTimeFormatting.DateTimeFormatter.CreateDateTimeFormatterTime(*args)
+        elif len(args) == 4:
+            instance = win32more.Windows.Globalization.DateTimeFormatting.DateTimeFormatter.CreateDateTimeFormatterDate(*args)
+        elif len(args) == 5:
+            instance = win32more.Windows.Globalization.DateTimeFormatting.DateTimeFormatter.CreateDateTimeFormatterContext(*args)
+        elif len(args) == 8:
+            instance = win32more.Windows.Globalization.DateTimeFormatting.DateTimeFormatter.CreateDateTimeFormatterDateTimeLanguages(*args)
+        elif len(args) == 11:
+            instance = win32more.Windows.Globalization.DateTimeFormatting.DateTimeFormatter.CreateDateTimeFormatterDateTimeContext(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateDateTimeFormatter(cls: win32more.Windows.Globalization.DateTimeFormatting.IDateTimeFormatterFactory, formatTemplate: WinRT_String) -> win32more.Windows.Globalization.DateTimeFormatting.DateTimeFormatter: ...
     @winrt_factorymethod
     def CreateDateTimeFormatterLanguages(cls: win32more.Windows.Globalization.DateTimeFormatting.IDateTimeFormatterFactory, formatTemplate: WinRT_String, languages: win32more.Windows.Foundation.Collections.IIterable[WinRT_String]) -> win32more.Windows.Globalization.DateTimeFormatting.DateTimeFormatter: ...
     @winrt_factorymethod
-    def CreateDateTimeFormatterContext(cls: win32more.Windows.Globalization.DateTimeFormatting.IDateTimeFormatterFactory, formatTemplate: WinRT_String, languages: win32more.Windows.Foundation.Collections.IIterable[WinRT_String], geographicRegion: WinRT_String, calendar: WinRT_String, clock: WinRT_String) -> win32more.Windows.Globalization.DateTimeFormatting.DateTimeFormatter: ...
+    def CreateDateTimeFormatterTime(cls: win32more.Windows.Globalization.DateTimeFormatting.IDateTimeFormatterFactory, hourFormat: win32more.Windows.Globalization.DateTimeFormatting.HourFormat, minuteFormat: win32more.Windows.Globalization.DateTimeFormatting.MinuteFormat, secondFormat: win32more.Windows.Globalization.DateTimeFormatting.SecondFormat) -> win32more.Windows.Globalization.DateTimeFormatting.DateTimeFormatter: ...
     @winrt_factorymethod
     def CreateDateTimeFormatterDate(cls: win32more.Windows.Globalization.DateTimeFormatting.IDateTimeFormatterFactory, yearFormat: win32more.Windows.Globalization.DateTimeFormatting.YearFormat, monthFormat: win32more.Windows.Globalization.DateTimeFormatting.MonthFormat, dayFormat: win32more.Windows.Globalization.DateTimeFormatting.DayFormat, dayOfWeekFormat: win32more.Windows.Globalization.DateTimeFormatting.DayOfWeekFormat) -> win32more.Windows.Globalization.DateTimeFormatting.DateTimeFormatter: ...
     @winrt_factorymethod
-    def CreateDateTimeFormatterTime(cls: win32more.Windows.Globalization.DateTimeFormatting.IDateTimeFormatterFactory, hourFormat: win32more.Windows.Globalization.DateTimeFormatting.HourFormat, minuteFormat: win32more.Windows.Globalization.DateTimeFormatting.MinuteFormat, secondFormat: win32more.Windows.Globalization.DateTimeFormatting.SecondFormat) -> win32more.Windows.Globalization.DateTimeFormatting.DateTimeFormatter: ...
+    def CreateDateTimeFormatterContext(cls: win32more.Windows.Globalization.DateTimeFormatting.IDateTimeFormatterFactory, formatTemplate: WinRT_String, languages: win32more.Windows.Foundation.Collections.IIterable[WinRT_String], geographicRegion: WinRT_String, calendar: WinRT_String, clock: WinRT_String) -> win32more.Windows.Globalization.DateTimeFormatting.DateTimeFormatter: ...
     @winrt_factorymethod
     def CreateDateTimeFormatterDateTimeLanguages(cls: win32more.Windows.Globalization.DateTimeFormatting.IDateTimeFormatterFactory, yearFormat: win32more.Windows.Globalization.DateTimeFormatting.YearFormat, monthFormat: win32more.Windows.Globalization.DateTimeFormatting.MonthFormat, dayFormat: win32more.Windows.Globalization.DateTimeFormatting.DayFormat, dayOfWeekFormat: win32more.Windows.Globalization.DateTimeFormatting.DayOfWeekFormat, hourFormat: win32more.Windows.Globalization.DateTimeFormatting.HourFormat, minuteFormat: win32more.Windows.Globalization.DateTimeFormatting.MinuteFormat, secondFormat: win32more.Windows.Globalization.DateTimeFormatting.SecondFormat, languages: win32more.Windows.Foundation.Collections.IIterable[WinRT_String]) -> win32more.Windows.Globalization.DateTimeFormatting.DateTimeFormatter: ...
     @winrt_factorymethod

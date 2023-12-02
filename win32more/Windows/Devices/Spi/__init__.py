@@ -134,6 +134,16 @@ class SpiConnectionSettings(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Spi.ISpiConnectionSettings
     _classid_ = 'Windows.Devices.Spi.SpiConnectionSettings'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.Devices.Spi.SpiConnectionSettings.Create(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.Devices.Spi.ISpiConnectionSettingsFactory, chipSelectLine: Int32) -> win32more.Windows.Devices.Spi.SpiConnectionSettings: ...
     @winrt_mixinmethod

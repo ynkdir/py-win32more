@@ -23,6 +23,22 @@ class Geofence(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Geolocation.Geofencing.IGeofence
     _classid_ = 'Windows.Devices.Geolocation.Geofencing.Geofence'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 2:
+            instance = win32more.Windows.Devices.Geolocation.Geofencing.Geofence.Create(*args)
+        elif len(args) == 4:
+            instance = win32more.Windows.Devices.Geolocation.Geofencing.Geofence.CreateWithMonitorStates(*args)
+        elif len(args) == 5:
+            instance = win32more.Windows.Devices.Geolocation.Geofencing.Geofence.CreateWithMonitorStatesAndDwellTime(*args)
+        elif len(args) == 7:
+            instance = win32more.Windows.Devices.Geolocation.Geofencing.Geofence.CreateWithMonitorStatesDwellTimeStartTimeAndDuration(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.Devices.Geolocation.Geofencing.IGeofenceFactory, id: WinRT_String, geoshape: win32more.Windows.Devices.Geolocation.IGeoshape) -> win32more.Windows.Devices.Geolocation.Geofencing.Geofence: ...
     @winrt_factorymethod

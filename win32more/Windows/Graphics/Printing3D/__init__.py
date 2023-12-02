@@ -650,6 +650,16 @@ class Printing3D3MFPackage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing3D.IPrinting3D3MFPackage
     _classid_ = 'Windows.Graphics.Printing3D.Printing3D3MFPackage'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Graphics.Printing3D.Printing3D3MFPackage.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Graphics.Printing3D.Printing3D3MFPackage: ...
     @winrt_mixinmethod
@@ -689,6 +699,16 @@ class Printing3DBaseMaterial(ComPtr, metaclass=_Printing3DBaseMaterial_Meta_):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing3D.IPrinting3DBaseMaterial
     _classid_ = 'Windows.Graphics.Printing3D.Printing3DBaseMaterial'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Graphics.Printing3D.Printing3DBaseMaterial.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Graphics.Printing3D.Printing3DBaseMaterial: ...
     @winrt_mixinmethod
@@ -711,6 +731,16 @@ class Printing3DBaseMaterialGroup(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing3D.IPrinting3DBaseMaterialGroup
     _classid_ = 'Windows.Graphics.Printing3D.Printing3DBaseMaterialGroup'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.Graphics.Printing3D.Printing3DBaseMaterialGroup.Create(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.Graphics.Printing3D.IPrinting3DBaseMaterialGroupFactory, MaterialGroupId: UInt32) -> win32more.Windows.Graphics.Printing3D.Printing3DBaseMaterialGroup: ...
     @winrt_mixinmethod
@@ -734,6 +764,16 @@ class Printing3DColorMaterial(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing3D.IPrinting3DColorMaterial
     _classid_ = 'Windows.Graphics.Printing3D.Printing3DColorMaterial'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Graphics.Printing3D.Printing3DColorMaterial.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Graphics.Printing3D.Printing3DColorMaterial: ...
     @winrt_mixinmethod
@@ -750,6 +790,16 @@ class Printing3DColorMaterialGroup(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing3D.IPrinting3DColorMaterialGroup
     _classid_ = 'Windows.Graphics.Printing3D.Printing3DColorMaterialGroup'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.Graphics.Printing3D.Printing3DColorMaterialGroup.Create(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.Graphics.Printing3D.IPrinting3DColorMaterialGroupFactory, MaterialGroupId: UInt32) -> win32more.Windows.Graphics.Printing3D.Printing3DColorMaterialGroup: ...
     @winrt_mixinmethod
@@ -762,6 +812,16 @@ class Printing3DComponent(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing3D.IPrinting3DComponent
     _classid_ = 'Windows.Graphics.Printing3D.Printing3DComponent'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Graphics.Printing3D.Printing3DComponent.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Graphics.Printing3D.Printing3DComponent: ...
     @winrt_mixinmethod
@@ -796,6 +856,16 @@ class Printing3DComponentWithMatrix(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing3D.IPrinting3DComponentWithMatrix
     _classid_ = 'Windows.Graphics.Printing3D.Printing3DComponentWithMatrix'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Graphics.Printing3D.Printing3DComponentWithMatrix.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Graphics.Printing3D.Printing3DComponentWithMatrix: ...
     @winrt_mixinmethod
@@ -812,6 +882,16 @@ class Printing3DCompositeMaterial(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing3D.IPrinting3DCompositeMaterial
     _classid_ = 'Windows.Graphics.Printing3D.Printing3DCompositeMaterial'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Graphics.Printing3D.Printing3DCompositeMaterial.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Graphics.Printing3D.Printing3DCompositeMaterial: ...
     @winrt_mixinmethod
@@ -821,6 +901,16 @@ class Printing3DCompositeMaterialGroup(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing3D.IPrinting3DCompositeMaterialGroup
     _classid_ = 'Windows.Graphics.Printing3D.Printing3DCompositeMaterialGroup'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.Graphics.Printing3D.Printing3DCompositeMaterialGroup.Create(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.Graphics.Printing3D.IPrinting3DCompositeMaterialGroupFactory, MaterialGroupId: UInt32) -> win32more.Windows.Graphics.Printing3D.Printing3DCompositeMaterialGroup: ...
     @winrt_mixinmethod
@@ -842,6 +932,16 @@ class Printing3DFaceReductionOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing3D.IPrinting3DFaceReductionOptions
     _classid_ = 'Windows.Graphics.Printing3D.Printing3DFaceReductionOptions'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Graphics.Printing3D.Printing3DFaceReductionOptions.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Graphics.Printing3D.Printing3DFaceReductionOptions: ...
     @winrt_mixinmethod
@@ -863,6 +963,16 @@ class Printing3DMaterial(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing3D.IPrinting3DMaterial
     _classid_ = 'Windows.Graphics.Printing3D.Printing3DMaterial'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Graphics.Printing3D.Printing3DMaterial.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Graphics.Printing3D.Printing3DMaterial: ...
     @winrt_mixinmethod
@@ -884,6 +994,16 @@ class Printing3DMesh(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing3D.IPrinting3DMesh
     _classid_ = 'Windows.Graphics.Printing3D.Printing3DMesh'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Graphics.Printing3D.Printing3DMesh.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Graphics.Printing3D.Printing3DMesh: ...
     @winrt_mixinmethod
@@ -960,6 +1080,16 @@ class Printing3DModel(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing3D.IPrinting3DModel
     _classid_ = 'Windows.Graphics.Printing3D.Printing3DModel'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Graphics.Printing3D.Printing3DModel.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Graphics.Printing3D.Printing3DModel: ...
     @winrt_mixinmethod
@@ -1017,6 +1147,16 @@ class Printing3DModelTexture(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing3D.IPrinting3DModelTexture
     _classid_ = 'Windows.Graphics.Printing3D.Printing3DModelTexture'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Graphics.Printing3D.Printing3DModelTexture.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Graphics.Printing3D.Printing3DModelTexture: ...
     @winrt_mixinmethod
@@ -1045,6 +1185,16 @@ class Printing3DMultiplePropertyMaterial(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing3D.IPrinting3DMultiplePropertyMaterial
     _classid_ = 'Windows.Graphics.Printing3D.Printing3DMultiplePropertyMaterial'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Graphics.Printing3D.Printing3DMultiplePropertyMaterial.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Graphics.Printing3D.Printing3DMultiplePropertyMaterial: ...
     @winrt_mixinmethod
@@ -1054,6 +1204,16 @@ class Printing3DMultiplePropertyMaterialGroup(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing3D.IPrinting3DMultiplePropertyMaterialGroup
     _classid_ = 'Windows.Graphics.Printing3D.Printing3DMultiplePropertyMaterialGroup'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.Graphics.Printing3D.Printing3DMultiplePropertyMaterialGroup.Create(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.Graphics.Printing3D.IPrinting3DMultiplePropertyMaterialGroupFactory, MaterialGroupId: UInt32) -> win32more.Windows.Graphics.Printing3D.Printing3DMultiplePropertyMaterialGroup: ...
     @winrt_mixinmethod
@@ -1077,6 +1237,16 @@ class Printing3DTexture2CoordMaterial(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing3D.IPrinting3DTexture2CoordMaterial
     _classid_ = 'Windows.Graphics.Printing3D.Printing3DTexture2CoordMaterial'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Graphics.Printing3D.Printing3DTexture2CoordMaterial.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Graphics.Printing3D.Printing3DTexture2CoordMaterial: ...
     @winrt_mixinmethod
@@ -1098,6 +1268,16 @@ class Printing3DTexture2CoordMaterialGroup(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing3D.IPrinting3DTexture2CoordMaterialGroup
     _classid_ = 'Windows.Graphics.Printing3D.Printing3DTexture2CoordMaterialGroup'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.Graphics.Printing3D.Printing3DTexture2CoordMaterialGroup.Create(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.Graphics.Printing3D.IPrinting3DTexture2CoordMaterialGroupFactory, MaterialGroupId: UInt32) -> win32more.Windows.Graphics.Printing3D.Printing3DTexture2CoordMaterialGroup: ...
     @winrt_mixinmethod
@@ -1120,6 +1300,16 @@ class Printing3DTextureResource(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing3D.IPrinting3DTextureResource
     _classid_ = 'Windows.Graphics.Printing3D.Printing3DTextureResource'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Graphics.Printing3D.Printing3DTextureResource.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Graphics.Printing3D.Printing3DTextureResource: ...
     @winrt_mixinmethod

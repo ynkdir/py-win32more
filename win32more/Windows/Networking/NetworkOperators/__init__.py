@@ -2120,6 +2120,16 @@ class MobileBroadbandAccountWatcher(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.NetworkOperators.IMobileBroadbandAccountWatcher
     _classid_ = 'Windows.Networking.NetworkOperators.MobileBroadbandAccountWatcher'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Networking.NetworkOperators.MobileBroadbandAccountWatcher.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Networking.NetworkOperators.MobileBroadbandAccountWatcher: ...
     @winrt_mixinmethod
@@ -2159,6 +2169,16 @@ class MobileBroadbandAntennaSar(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.NetworkOperators.IMobileBroadbandAntennaSar
     _classid_ = 'Windows.Networking.NetworkOperators.MobileBroadbandAntennaSar'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 2:
+            instance = win32more.Windows.Networking.NetworkOperators.MobileBroadbandAntennaSar.CreateWithIndex(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateWithIndex(cls: win32more.Windows.Networking.NetworkOperators.IMobileBroadbandAntennaSarFactory, antennaIndex: Int32, sarBackoffIndex: Int32) -> win32more.Windows.Networking.NetworkOperators.MobileBroadbandAntennaSar: ...
     @winrt_mixinmethod
@@ -2614,6 +2634,16 @@ class MobileBroadbandModemIsolation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.NetworkOperators.IMobileBroadbandModemIsolation
     _classid_ = 'Windows.Networking.NetworkOperators.MobileBroadbandModemIsolation'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 2:
+            instance = win32more.Windows.Networking.NetworkOperators.MobileBroadbandModemIsolation.Create(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.Networking.NetworkOperators.IMobileBroadbandModemIsolationFactory, modemDeviceId: WinRT_String, ruleGroupId: WinRT_String) -> win32more.Windows.Networking.NetworkOperators.MobileBroadbandModemIsolation: ...
     @winrt_mixinmethod
@@ -3050,6 +3080,16 @@ class NetworkOperatorTetheringAccessPointConfiguration(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.NetworkOperators.INetworkOperatorTetheringAccessPointConfiguration
     _classid_ = 'Windows.Networking.NetworkOperators.NetworkOperatorTetheringAccessPointConfiguration'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Networking.NetworkOperators.NetworkOperatorTetheringAccessPointConfiguration.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Networking.NetworkOperators.NetworkOperatorTetheringAccessPointConfiguration: ...
     @winrt_mixinmethod
@@ -3171,6 +3211,16 @@ class ProvisioningAgent(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.NetworkOperators.IProvisioningAgent
     _classid_ = 'Windows.Networking.NetworkOperators.ProvisioningAgent'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Networking.NetworkOperators.ProvisioningAgent.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Networking.NetworkOperators.ProvisioningAgent: ...
     @winrt_mixinmethod
@@ -3243,6 +3293,16 @@ class UssdMessage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.NetworkOperators.IUssdMessage
     _classid_ = 'Windows.Networking.NetworkOperators.UssdMessage'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.Networking.NetworkOperators.UssdMessage.CreateMessage(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateMessage(cls: win32more.Windows.Networking.NetworkOperators.IUssdMessageFactory, messageText: WinRT_String) -> win32more.Windows.Networking.NetworkOperators.UssdMessage: ...
     @winrt_mixinmethod

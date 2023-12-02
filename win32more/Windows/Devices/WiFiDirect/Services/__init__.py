@@ -283,6 +283,16 @@ class WiFiDirectServiceAdvertiser(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.WiFiDirect.Services.IWiFiDirectServiceAdvertiser
     _classid_ = 'Windows.Devices.WiFiDirect.Services.WiFiDirectServiceAdvertiser'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.Devices.WiFiDirect.Services.WiFiDirectServiceAdvertiser.CreateWiFiDirectServiceAdvertiser(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateWiFiDirectServiceAdvertiser(cls: win32more.Windows.Devices.WiFiDirect.Services.IWiFiDirectServiceAdvertiserFactory, serviceName: WinRT_String) -> win32more.Windows.Devices.WiFiDirect.Services.WiFiDirectServiceAdvertiser: ...
     @winrt_mixinmethod

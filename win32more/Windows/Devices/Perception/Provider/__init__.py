@@ -235,6 +235,16 @@ class PerceptionControlGroup(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Perception.Provider.IPerceptionControlGroup
     _classid_ = 'Windows.Devices.Perception.Provider.PerceptionControlGroup'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.Devices.Perception.Provider.PerceptionControlGroup.Create(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.Devices.Perception.Provider.IPerceptionControlGroupFactory, ids: win32more.Windows.Foundation.Collections.IIterable[WinRT_String]) -> win32more.Windows.Devices.Perception.Provider.PerceptionControlGroup: ...
     @winrt_mixinmethod
@@ -244,6 +254,16 @@ class PerceptionCorrelation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Perception.Provider.IPerceptionCorrelation
     _classid_ = 'Windows.Devices.Perception.Provider.PerceptionCorrelation'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 3:
+            instance = win32more.Windows.Devices.Perception.Provider.PerceptionCorrelation.Create(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.Devices.Perception.Provider.IPerceptionCorrelationFactory, targetId: WinRT_String, position: win32more.Windows.Foundation.Numerics.Vector3, orientation: win32more.Windows.Foundation.Numerics.Quaternion) -> win32more.Windows.Devices.Perception.Provider.PerceptionCorrelation: ...
     @winrt_mixinmethod
@@ -259,6 +279,16 @@ class PerceptionCorrelationGroup(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Perception.Provider.IPerceptionCorrelationGroup
     _classid_ = 'Windows.Devices.Perception.Provider.PerceptionCorrelationGroup'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.Devices.Perception.Provider.PerceptionCorrelationGroup.Create(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.Devices.Perception.Provider.IPerceptionCorrelationGroupFactory, relativeLocations: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Devices.Perception.Provider.PerceptionCorrelation]) -> win32more.Windows.Devices.Perception.Provider.PerceptionCorrelationGroup: ...
     @winrt_mixinmethod
@@ -268,6 +298,16 @@ class PerceptionFaceAuthenticationGroup(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Perception.Provider.IPerceptionFaceAuthenticationGroup
     _classid_ = 'Windows.Devices.Perception.Provider.PerceptionFaceAuthenticationGroup'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 3:
+            instance = win32more.Windows.Devices.Perception.Provider.PerceptionFaceAuthenticationGroup.Create(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.Devices.Perception.Provider.IPerceptionFaceAuthenticationGroupFactory, ids: win32more.Windows.Foundation.Collections.IIterable[WinRT_String], startHandler: win32more.Windows.Devices.Perception.Provider.PerceptionStartFaceAuthenticationHandler, stopHandler: win32more.Windows.Devices.Perception.Provider.PerceptionStopFaceAuthenticationHandler) -> win32more.Windows.Devices.Perception.Provider.PerceptionFaceAuthenticationGroup: ...
     @winrt_mixinmethod
@@ -292,6 +332,16 @@ class PerceptionFrameProviderInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Perception.Provider.IPerceptionFrameProviderInfo
     _classid_ = 'Windows.Devices.Perception.Provider.PerceptionFrameProviderInfo'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Devices.Perception.Provider.PerceptionFrameProviderInfo.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Devices.Perception.Provider.PerceptionFrameProviderInfo: ...
     @winrt_mixinmethod
@@ -371,6 +421,16 @@ class PerceptionVideoFrameAllocator(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Perception.Provider.IPerceptionVideoFrameAllocator
     _classid_ = 'Windows.Devices.Perception.Provider.PerceptionVideoFrameAllocator'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 4:
+            instance = win32more.Windows.Devices.Perception.Provider.PerceptionVideoFrameAllocator.Create(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.Devices.Perception.Provider.IPerceptionVideoFrameAllocatorFactory, maxOutstandingFrameCountForWrite: UInt32, format: win32more.Windows.Graphics.Imaging.BitmapPixelFormat, resolution: win32more.Windows.Foundation.Size, alpha: win32more.Windows.Graphics.Imaging.BitmapAlphaMode) -> win32more.Windows.Devices.Perception.Provider.PerceptionVideoFrameAllocator: ...
     @winrt_mixinmethod

@@ -22,6 +22,16 @@ class CustomXamlResourceLoader(ComPtr, metaclass=_CustomXamlResourceLoader_Meta_
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Resources.ICustomXamlResourceLoader
     _classid_ = 'Microsoft.UI.Xaml.Resources.CustomXamlResourceLoader'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Microsoft.UI.Xaml.Resources.CustomXamlResourceLoader.CreateInstance(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Microsoft.UI.Xaml.Resources.ICustomXamlResourceLoaderFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Resources.CustomXamlResourceLoader: ...
     @winrt_mixinmethod

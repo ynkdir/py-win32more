@@ -22,6 +22,18 @@ class CurrencyFormatter(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Globalization.NumberFormatting.ICurrencyFormatter
     _classid_ = 'Windows.Globalization.NumberFormatting.CurrencyFormatter'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.Globalization.NumberFormatting.CurrencyFormatter.CreateCurrencyFormatterCode(*args)
+        elif len(args) == 3:
+            instance = win32more.Windows.Globalization.NumberFormatting.CurrencyFormatter.CreateCurrencyFormatterCodeContext(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateCurrencyFormatterCode(cls: win32more.Windows.Globalization.NumberFormatting.ICurrencyFormatterFactory, currencyCode: WinRT_String) -> win32more.Windows.Globalization.NumberFormatting.CurrencyFormatter: ...
     @winrt_factorymethod
@@ -115,6 +127,18 @@ class DecimalFormatter(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Globalization.NumberFormatting.INumberFormatter
     _classid_ = 'Windows.Globalization.NumberFormatting.DecimalFormatter'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Globalization.NumberFormatting.DecimalFormatter.CreateInstance(*args)
+        elif len(args) == 2:
+            instance = win32more.Windows.Globalization.NumberFormatting.DecimalFormatter.CreateDecimalFormatter(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Globalization.NumberFormatting.DecimalFormatter: ...
     @winrt_factorymethod
@@ -404,6 +428,16 @@ class IncrementNumberRounder(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Globalization.NumberFormatting.INumberRounder
     _classid_ = 'Windows.Globalization.NumberFormatting.IncrementNumberRounder'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Globalization.NumberFormatting.IncrementNumberRounder.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Globalization.NumberFormatting.IncrementNumberRounder: ...
     @winrt_mixinmethod
@@ -432,10 +466,22 @@ class NumeralSystemTranslator(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Globalization.NumberFormatting.INumeralSystemTranslator
     _classid_ = 'Windows.Globalization.NumberFormatting.NumeralSystemTranslator'
-    @winrt_factorymethod
-    def Create(cls: win32more.Windows.Globalization.NumberFormatting.INumeralSystemTranslatorFactory, languages: win32more.Windows.Foundation.Collections.IIterable[WinRT_String]) -> win32more.Windows.Globalization.NumberFormatting.NumeralSystemTranslator: ...
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Globalization.NumberFormatting.NumeralSystemTranslator.CreateInstance(*args)
+        elif len(args) == 1:
+            instance = win32more.Windows.Globalization.NumberFormatting.NumeralSystemTranslator.Create(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Globalization.NumberFormatting.NumeralSystemTranslator: ...
+    @winrt_factorymethod
+    def Create(cls: win32more.Windows.Globalization.NumberFormatting.INumeralSystemTranslatorFactory, languages: win32more.Windows.Foundation.Collections.IIterable[WinRT_String]) -> win32more.Windows.Globalization.NumberFormatting.NumeralSystemTranslator: ...
     @winrt_mixinmethod
     def get_Languages(self: win32more.Windows.Globalization.NumberFormatting.INumeralSystemTranslator) -> win32more.Windows.Foundation.Collections.IVectorView[WinRT_String]: ...
     @winrt_mixinmethod
@@ -453,10 +499,22 @@ class PercentFormatter(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Globalization.NumberFormatting.INumberFormatter
     _classid_ = 'Windows.Globalization.NumberFormatting.PercentFormatter'
-    @winrt_factorymethod
-    def CreatePercentFormatter(cls: win32more.Windows.Globalization.NumberFormatting.IPercentFormatterFactory, languages: win32more.Windows.Foundation.Collections.IIterable[WinRT_String], geographicRegion: WinRT_String) -> win32more.Windows.Globalization.NumberFormatting.PercentFormatter: ...
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Globalization.NumberFormatting.PercentFormatter.CreateInstance(*args)
+        elif len(args) == 2:
+            instance = win32more.Windows.Globalization.NumberFormatting.PercentFormatter.CreatePercentFormatter(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Globalization.NumberFormatting.PercentFormatter: ...
+    @winrt_factorymethod
+    def CreatePercentFormatter(cls: win32more.Windows.Globalization.NumberFormatting.IPercentFormatterFactory, languages: win32more.Windows.Foundation.Collections.IIterable[WinRT_String], geographicRegion: WinRT_String) -> win32more.Windows.Globalization.NumberFormatting.PercentFormatter: ...
     @winrt_mixinmethod
     def get_Languages(self: win32more.Windows.Globalization.NumberFormatting.INumberFormatterOptions) -> win32more.Windows.Foundation.Collections.IVectorView[WinRT_String]: ...
     @winrt_mixinmethod
@@ -531,10 +589,22 @@ class PermilleFormatter(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Globalization.NumberFormatting.INumberFormatter
     _classid_ = 'Windows.Globalization.NumberFormatting.PermilleFormatter'
-    @winrt_factorymethod
-    def CreatePermilleFormatter(cls: win32more.Windows.Globalization.NumberFormatting.IPermilleFormatterFactory, languages: win32more.Windows.Foundation.Collections.IIterable[WinRT_String], geographicRegion: WinRT_String) -> win32more.Windows.Globalization.NumberFormatting.PermilleFormatter: ...
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Globalization.NumberFormatting.PermilleFormatter.CreateInstance(*args)
+        elif len(args) == 2:
+            instance = win32more.Windows.Globalization.NumberFormatting.PermilleFormatter.CreatePermilleFormatter(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Globalization.NumberFormatting.PermilleFormatter: ...
+    @winrt_factorymethod
+    def CreatePermilleFormatter(cls: win32more.Windows.Globalization.NumberFormatting.IPermilleFormatterFactory, languages: win32more.Windows.Foundation.Collections.IIterable[WinRT_String], geographicRegion: WinRT_String) -> win32more.Windows.Globalization.NumberFormatting.PermilleFormatter: ...
     @winrt_mixinmethod
     def get_Languages(self: win32more.Windows.Globalization.NumberFormatting.INumberFormatterOptions) -> win32more.Windows.Foundation.Collections.IVectorView[WinRT_String]: ...
     @winrt_mixinmethod
@@ -621,6 +691,16 @@ class SignificantDigitsNumberRounder(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Globalization.NumberFormatting.INumberRounder
     _classid_ = 'Windows.Globalization.NumberFormatting.SignificantDigitsNumberRounder'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Globalization.NumberFormatting.SignificantDigitsNumberRounder.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Globalization.NumberFormatting.SignificantDigitsNumberRounder: ...
     @winrt_mixinmethod

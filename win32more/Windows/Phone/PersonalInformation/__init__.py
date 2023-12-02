@@ -23,6 +23,16 @@ class ContactAddress(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Phone.PersonalInformation.IContactAddress
     _classid_ = 'Windows.Phone.PersonalInformation.ContactAddress'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Phone.PersonalInformation.ContactAddress.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Phone.PersonalInformation.ContactAddress: ...
     @winrt_mixinmethod
@@ -74,6 +84,16 @@ class ContactInformation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Phone.PersonalInformation.IContactInformation
     _classid_ = 'Windows.Phone.PersonalInformation.ContactInformation'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Phone.PersonalInformation.ContactInformation.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Phone.PersonalInformation.ContactInformation: ...
     @winrt_mixinmethod
@@ -120,6 +140,16 @@ class ContactQueryOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Phone.PersonalInformation.IContactQueryOptions
     _classid_ = 'Windows.Phone.PersonalInformation.ContactQueryOptions'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Phone.PersonalInformation.ContactQueryOptions.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Phone.PersonalInformation.ContactQueryOptions: ...
     @winrt_mixinmethod
@@ -600,6 +630,18 @@ class StoredContact(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Phone.PersonalInformation.IStoredContact
     _classid_ = 'Windows.Phone.PersonalInformation.StoredContact'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.Phone.PersonalInformation.StoredContact.CreateStoredContact(*args)
+        elif len(args) == 2:
+            instance = win32more.Windows.Phone.PersonalInformation.StoredContact.CreateStoredContactFromInformation(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateStoredContact(cls: win32more.Windows.Phone.PersonalInformation.IStoredContactFactory, store: win32more.Windows.Phone.PersonalInformation.ContactStore) -> win32more.Windows.Phone.PersonalInformation.StoredContact: ...
     @winrt_factorymethod

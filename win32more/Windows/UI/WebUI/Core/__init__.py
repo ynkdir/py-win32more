@@ -251,10 +251,22 @@ class WebUICommandBarBitmapIcon(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.WebUI.Core.IWebUICommandBarBitmapIcon
     _classid_ = 'Windows.UI.WebUI.Core.WebUICommandBarBitmapIcon'
-    @winrt_factorymethod
-    def Create(cls: win32more.Windows.UI.WebUI.Core.IWebUICommandBarBitmapIconFactory, uri: win32more.Windows.Foundation.Uri) -> win32more.Windows.UI.WebUI.Core.WebUICommandBarBitmapIcon: ...
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.UI.WebUI.Core.WebUICommandBarBitmapIcon.CreateInstance(*args)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.WebUI.Core.WebUICommandBarBitmapIcon.Create(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.WebUI.Core.WebUICommandBarBitmapIcon: ...
+    @winrt_factorymethod
+    def Create(cls: win32more.Windows.UI.WebUI.Core.IWebUICommandBarBitmapIconFactory, uri: win32more.Windows.Foundation.Uri) -> win32more.Windows.UI.WebUI.Core.WebUICommandBarBitmapIcon: ...
     @winrt_mixinmethod
     def get_Uri(self: win32more.Windows.UI.WebUI.Core.IWebUICommandBarBitmapIcon) -> win32more.Windows.Foundation.Uri: ...
     @winrt_mixinmethod
@@ -268,6 +280,16 @@ class WebUICommandBarConfirmationButton(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.WebUI.Core.IWebUICommandBarConfirmationButton
     _classid_ = 'Windows.UI.WebUI.Core.WebUICommandBarConfirmationButton'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.UI.WebUI.Core.WebUICommandBarConfirmationButton.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.WebUI.Core.WebUICommandBarConfirmationButton: ...
     @winrt_mixinmethod
@@ -284,6 +306,16 @@ class WebUICommandBarIconButton(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.WebUI.Core.IWebUICommandBarIconButton
     _classid_ = 'Windows.UI.WebUI.Core.WebUICommandBarIconButton'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.UI.WebUI.Core.WebUICommandBarIconButton.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.WebUI.Core.WebUICommandBarIconButton: ...
     @winrt_mixinmethod
@@ -333,10 +365,22 @@ class WebUICommandBarSymbolIcon(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.WebUI.Core.IWebUICommandBarSymbolIcon
     _classid_ = 'Windows.UI.WebUI.Core.WebUICommandBarSymbolIcon'
-    @winrt_factorymethod
-    def Create(cls: win32more.Windows.UI.WebUI.Core.IWebUICommandBarSymbolIconFactory, symbol: WinRT_String) -> win32more.Windows.UI.WebUI.Core.WebUICommandBarSymbolIcon: ...
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.UI.WebUI.Core.WebUICommandBarSymbolIcon.CreateInstance(*args)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.WebUI.Core.WebUICommandBarSymbolIcon.Create(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.WebUI.Core.WebUICommandBarSymbolIcon: ...
+    @winrt_factorymethod
+    def Create(cls: win32more.Windows.UI.WebUI.Core.IWebUICommandBarSymbolIconFactory, symbol: WinRT_String) -> win32more.Windows.UI.WebUI.Core.WebUICommandBarSymbolIcon: ...
     @winrt_mixinmethod
     def get_Symbol(self: win32more.Windows.UI.WebUI.Core.IWebUICommandBarSymbolIcon) -> WinRT_String: ...
     @winrt_mixinmethod

@@ -592,6 +592,16 @@ class UsbControlRequestType(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Usb.IUsbControlRequestType
     _classid_ = 'Windows.Devices.Usb.UsbControlRequestType'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Devices.Usb.UsbControlRequestType.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Devices.Usb.UsbControlRequestType: ...
     @winrt_mixinmethod
@@ -667,6 +677,16 @@ class UsbDeviceClass(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Usb.IUsbDeviceClass
     _classid_ = 'Windows.Devices.Usb.UsbDeviceClass'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Devices.Usb.UsbDeviceClass.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Devices.Usb.UsbDeviceClass: ...
     @winrt_mixinmethod
@@ -927,6 +947,18 @@ class UsbSetupPacket(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Usb.IUsbSetupPacket
     _classid_ = 'Windows.Devices.Usb.UsbSetupPacket'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Devices.Usb.UsbSetupPacket.CreateInstance(*args)
+        elif len(args) == 1:
+            instance = win32more.Windows.Devices.Usb.UsbSetupPacket.CreateWithEightByteBuffer(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Devices.Usb.UsbSetupPacket: ...
     @winrt_factorymethod

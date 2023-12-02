@@ -23,6 +23,16 @@ class AppBroadcastingMonitor(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.AppBroadcasting.IAppBroadcastingMonitor
     _classid_ = 'Windows.Media.AppBroadcasting.AppBroadcastingMonitor'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs.get('allocate', False):
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Media.AppBroadcasting.AppBroadcastingMonitor.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Media.AppBroadcasting.AppBroadcastingMonitor: ...
     @winrt_mixinmethod

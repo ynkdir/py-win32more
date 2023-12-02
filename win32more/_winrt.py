@@ -219,7 +219,7 @@ class WinrtMethod:
             ckwargs["return_length"] = pointer(result._length)
             ckwargs["return"] = pointer(result._contents)
         elif is_com_class(self.restype):
-            result = self.restype(own=True)
+            result = self.restype(own=True, allocate=True)
             ckwargs["return"] = pointer(result)
         else:
             result = self.restype()
@@ -237,10 +237,10 @@ class WinrtMethod:
                     cargs.append(v._length)
                     cargs.append(v._contents)
                 elif callable(v) and is_delegate_class(self.generic_hints[k]):
-                    cargs.append(self.generic_hints[k](own=True).CreateInstance(v))
+                    cargs.append(self.generic_hints[k](own=True, allocate=True).CreateInstance(v))
                 # FIXME: Workaround for runtime class to interface class.  check interface_implementations?
                 elif is_com_instance(v) and is_com_class(self.generic_hints[k]):
-                    cargs.append(self.generic_hints[k](v.value, own=False))
+                    cargs.append(self.generic_hints[k](value=v.value, own=False, allocate=True))
                 else:
                     cargs.append(easycast(v, self.generic_hints[k]))
             else:
@@ -252,10 +252,10 @@ class WinrtMethod:
                     ckwargs[f"{k}_length"] = v._length
                     ckwargs[k] = v._contents
                 if callable(v) and is_delegate_class(self.generic_hints[k]):
-                    ckwargs[k] = self.generic_hints[k](own=True).CreateInstance(v)
+                    ckwargs[k] = self.generic_hints[k](own=True, allocate=True).CreateInstance(v)
                 # FIXME: Workaround for runtime class to interface class.  check interface_implementations?
                 elif is_com_instance(v) and is_com_class(self.generic_hints[k]):
-                    ckwargs[k] = self.generic_hints[k](v.value, own=False)
+                    ckwargs[k] = self.generic_hints[k](value=v.value, own=False, allocate=True)
                 else:
                     ckwargs[k] = easycast(v, self.generic_hints[k])
             else:
@@ -301,7 +301,7 @@ def winrt_mixinmethod(prototype):
     def wrapper(self, *args, **kwargs):
         hints = get_type_hints(prototype)
         interface_class = hints["self"]
-        interface = interface_class(own=True)
+        interface = interface_class(own=True, allocate=True)
         if is_generic_alias(interface_class):
             iid = _ro_get_parameterized_type_instance_iid(interface_class)
         else:
@@ -397,7 +397,7 @@ def _windows_get_string_raw_buffer(hs: HSTRING) -> str:
 
 def _ro_get_activation_factory(classid: str, factory_class: type[T]) -> T:
     hs = _windows_create_string(classid)
-    factory = factory_class(own=True)
+    factory = factory_class(own=True, allocate=True)
     hr = RoGetActivationFactory(hs, factory_class._iid_, factory)
     WindowsDeleteString(hs)
     if FAILED(hr):
@@ -407,7 +407,7 @@ def _ro_get_activation_factory(classid: str, factory_class: type[T]) -> T:
 
 def _ro_activate_instance(classid: str, cls: type[T]) -> T:
     hs = _windows_create_string(classid)
-    instance = cls(own=True)
+    instance = cls(own=True, allocate=True)
     hr = RoActivateInstance(hs, instance)
     WindowsDeleteString(hs)
     if FAILED(hr):
