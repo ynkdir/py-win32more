@@ -142,22 +142,6 @@ class FileInformationFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Storage.BulkAccess.IFileInformationFactory
     _classid_ = 'Windows.Storage.BulkAccess.FileInformationFactory'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 2:
-            instance = win32more.Windows.Storage.BulkAccess.FileInformationFactory.CreateWithMode(*args)
-        elif len(args) == 3:
-            instance = win32more.Windows.Storage.BulkAccess.FileInformationFactory.CreateWithModeAndSize(*args)
-        elif len(args) == 4:
-            instance = win32more.Windows.Storage.BulkAccess.FileInformationFactory.CreateWithModeAndSizeAndOptions(*args)
-        elif len(args) == 5:
-            instance = win32more.Windows.Storage.BulkAccess.FileInformationFactory.CreateWithModeAndSizeAndOptionsAndFlags(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateWithMode(cls: win32more.Windows.Storage.BulkAccess.IFileInformationFactoryFactory, queryResult: win32more.Windows.Storage.Search.IStorageQueryResultBase, mode: win32more.Windows.Storage.FileProperties.ThumbnailMode) -> win32more.Windows.Storage.BulkAccess.FileInformationFactory: ...
     @winrt_factorymethod

@@ -291,32 +291,12 @@ class CompactOverlayPresentationConfiguration(ComPtr):
     extends: win32more.Windows.UI.WindowManagement.AppWindowPresentationConfiguration
     default_interface: win32more.Windows.UI.WindowManagement.ICompactOverlayPresentationConfiguration
     _classid_ = 'Windows.UI.WindowManagement.CompactOverlayPresentationConfiguration'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.UI.WindowManagement.CompactOverlayPresentationConfiguration.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.WindowManagement.CompactOverlayPresentationConfiguration: ...
 class DefaultPresentationConfiguration(ComPtr):
     extends: win32more.Windows.UI.WindowManagement.AppWindowPresentationConfiguration
     default_interface: win32more.Windows.UI.WindowManagement.IDefaultPresentationConfiguration
     _classid_ = 'Windows.UI.WindowManagement.DefaultPresentationConfiguration'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.UI.WindowManagement.DefaultPresentationConfiguration.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.WindowManagement.DefaultPresentationConfiguration: ...
 class DisplayRegion(ComPtr):
@@ -346,16 +326,6 @@ class FullScreenPresentationConfiguration(ComPtr):
     extends: win32more.Windows.UI.WindowManagement.AppWindowPresentationConfiguration
     default_interface: win32more.Windows.UI.WindowManagement.IFullScreenPresentationConfiguration
     _classid_ = 'Windows.UI.WindowManagement.FullScreenPresentationConfiguration'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.UI.WindowManagement.FullScreenPresentationConfiguration.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.WindowManagement.FullScreenPresentationConfiguration: ...
     @winrt_mixinmethod

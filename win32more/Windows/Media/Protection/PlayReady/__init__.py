@@ -709,16 +709,6 @@ class NDClient(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Protection.PlayReady.INDClient
     _classid_ = 'Windows.Media.Protection.PlayReady.NDClient'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 3:
-            instance = win32more.Windows.Media.Protection.PlayReady.NDClient.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.Media.Protection.PlayReady.INDClientFactory, downloadEngine: win32more.Windows.Media.Protection.PlayReady.INDDownloadEngine, streamParser: win32more.Windows.Media.Protection.PlayReady.INDStreamParser, pMessenger: win32more.Windows.Media.Protection.PlayReady.INDMessenger) -> win32more.Windows.Media.Protection.PlayReady.NDClient: ...
     @winrt_mixinmethod
@@ -761,16 +751,6 @@ class NDCustomData(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Protection.PlayReady.INDCustomData
     _classid_ = 'Windows.Media.Protection.PlayReady.NDCustomData'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 2:
-            instance = win32more.Windows.Media.Protection.PlayReady.NDCustomData.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.Media.Protection.PlayReady.INDCustomDataFactory, customDataTypeIDBytes: Annotated[SZArray[Byte], 'In'], customDataBytes: Annotated[SZArray[Byte], 'In']) -> win32more.Windows.Media.Protection.PlayReady.NDCustomData: ...
     @winrt_mixinmethod
@@ -783,16 +763,6 @@ class NDDownloadEngineNotifier(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Protection.PlayReady.INDDownloadEngineNotifier
     _classid_ = 'Windows.Media.Protection.PlayReady.NDDownloadEngineNotifier'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.Media.Protection.PlayReady.NDDownloadEngineNotifier.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Media.Protection.PlayReady.NDDownloadEngineNotifier: ...
     @winrt_mixinmethod
@@ -811,16 +781,6 @@ class NDLicenseFetchDescriptor(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Protection.PlayReady.INDLicenseFetchDescriptor
     _classid_ = 'Windows.Media.Protection.PlayReady.NDLicenseFetchDescriptor'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 3:
-            instance = win32more.Windows.Media.Protection.PlayReady.NDLicenseFetchDescriptor.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.Media.Protection.PlayReady.INDLicenseFetchDescriptorFactory, contentIDType: win32more.Windows.Media.Protection.PlayReady.NDContentIDType, contentIDBytes: Annotated[SZArray[Byte], 'In'], licenseFetchChallengeCustomData: win32more.Windows.Media.Protection.PlayReady.INDCustomData) -> win32more.Windows.Media.Protection.PlayReady.NDLicenseFetchDescriptor: ...
     @winrt_mixinmethod
@@ -848,16 +808,6 @@ class NDStorageFileHelper(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Protection.PlayReady.INDStorageFileHelper
     _classid_ = 'Windows.Media.Protection.PlayReady.NDStorageFileHelper'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.Media.Protection.PlayReady.NDStorageFileHelper.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Media.Protection.PlayReady.NDStorageFileHelper: ...
     @winrt_mixinmethod
@@ -866,16 +816,6 @@ class NDStreamParserNotifier(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Protection.PlayReady.INDStreamParserNotifier
     _classid_ = 'Windows.Media.Protection.PlayReady.NDStreamParserNotifier'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.Media.Protection.PlayReady.NDStreamParserNotifier.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Media.Protection.PlayReady.NDStreamParserNotifier: ...
     @winrt_mixinmethod
@@ -890,16 +830,6 @@ class NDTCPMessenger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Protection.PlayReady.INDMessenger
     _classid_ = 'Windows.Media.Protection.PlayReady.NDTCPMessenger'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 2:
-            instance = win32more.Windows.Media.Protection.PlayReady.NDTCPMessenger.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.Media.Protection.PlayReady.INDTCPMessengerFactory, remoteHostName: WinRT_String, remoteHostPort: UInt32) -> win32more.Windows.Media.Protection.PlayReady.NDTCPMessenger: ...
     @winrt_mixinmethod
@@ -914,30 +844,14 @@ class PlayReadyContentHeader(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Protection.PlayReady.IPlayReadyContentHeader
     _classid_ = 'Windows.Media.Protection.PlayReady.PlayReadyContentHeader'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 1:
-            instance = win32more.Windows.Media.Protection.PlayReady.PlayReadyContentHeader.CreateInstanceFromPlayReadyHeader(*args)
-        elif len(args) == 5:
-            instance = win32more.Windows.Media.Protection.PlayReady.PlayReadyContentHeader.CreateInstanceFromWindowsMediaDrmHeader(*args)
-        elif len(args) == 7:
-            instance = win32more.Windows.Media.Protection.PlayReady.PlayReadyContentHeader.CreateInstanceFromComponents(*args)
-        elif len(args) == 8:
-            instance = win32more.Windows.Media.Protection.PlayReady.PlayReadyContentHeader.CreateInstanceFromComponents2(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
-    def CreateInstanceFromPlayReadyHeader(cls: win32more.Windows.Media.Protection.PlayReady.IPlayReadyContentHeaderFactory, headerBytes: Annotated[SZArray[Byte], 'In']) -> win32more.Windows.Media.Protection.PlayReady.PlayReadyContentHeader: ...
+    def CreateInstanceFromComponents2(cls: win32more.Windows.Media.Protection.PlayReady.IPlayReadyContentHeaderFactory2, dwFlags: UInt32, contentKeyIds: Annotated[SZArray[Guid], 'In'], contentKeyIdStrings: Annotated[SZArray[WinRT_String], 'In'], contentEncryptionAlgorithm: win32more.Windows.Media.Protection.PlayReady.PlayReadyEncryptionAlgorithm, licenseAcquisitionUrl: win32more.Windows.Foundation.Uri, licenseAcquisitionUserInterfaceUrl: win32more.Windows.Foundation.Uri, customAttributes: WinRT_String, domainServiceId: Guid) -> win32more.Windows.Media.Protection.PlayReady.PlayReadyContentHeader: ...
     @winrt_factorymethod
     def CreateInstanceFromWindowsMediaDrmHeader(cls: win32more.Windows.Media.Protection.PlayReady.IPlayReadyContentHeaderFactory, headerBytes: Annotated[SZArray[Byte], 'In'], licenseAcquisitionUrl: win32more.Windows.Foundation.Uri, licenseAcquisitionUserInterfaceUrl: win32more.Windows.Foundation.Uri, customAttributes: WinRT_String, domainServiceId: Guid) -> win32more.Windows.Media.Protection.PlayReady.PlayReadyContentHeader: ...
     @winrt_factorymethod
     def CreateInstanceFromComponents(cls: win32more.Windows.Media.Protection.PlayReady.IPlayReadyContentHeaderFactory, contentKeyId: Guid, contentKeyIdString: WinRT_String, contentEncryptionAlgorithm: win32more.Windows.Media.Protection.PlayReady.PlayReadyEncryptionAlgorithm, licenseAcquisitionUrl: win32more.Windows.Foundation.Uri, licenseAcquisitionUserInterfaceUrl: win32more.Windows.Foundation.Uri, customAttributes: WinRT_String, domainServiceId: Guid) -> win32more.Windows.Media.Protection.PlayReady.PlayReadyContentHeader: ...
     @winrt_factorymethod
-    def CreateInstanceFromComponents2(cls: win32more.Windows.Media.Protection.PlayReady.IPlayReadyContentHeaderFactory2, dwFlags: UInt32, contentKeyIds: Annotated[SZArray[Guid], 'In'], contentKeyIdStrings: Annotated[SZArray[WinRT_String], 'In'], contentEncryptionAlgorithm: win32more.Windows.Media.Protection.PlayReady.PlayReadyEncryptionAlgorithm, licenseAcquisitionUrl: win32more.Windows.Foundation.Uri, licenseAcquisitionUserInterfaceUrl: win32more.Windows.Foundation.Uri, customAttributes: WinRT_String, domainServiceId: Guid) -> win32more.Windows.Media.Protection.PlayReady.PlayReadyContentHeader: ...
+    def CreateInstanceFromPlayReadyHeader(cls: win32more.Windows.Media.Protection.PlayReady.IPlayReadyContentHeaderFactory, headerBytes: Annotated[SZArray[Byte], 'In']) -> win32more.Windows.Media.Protection.PlayReady.PlayReadyContentHeader: ...
     @winrt_mixinmethod
     def get_KeyId(self: win32more.Windows.Media.Protection.PlayReady.IPlayReadyContentHeader) -> Guid: ...
     @winrt_mixinmethod
@@ -1004,16 +918,6 @@ class PlayReadyDomainIterable(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Media.Protection.PlayReady.IPlayReadyDomain]
     _classid_ = 'Windows.Media.Protection.PlayReady.PlayReadyDomainIterable'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 1:
-            instance = win32more.Windows.Media.Protection.PlayReady.PlayReadyDomainIterable.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.Media.Protection.PlayReady.IPlayReadyDomainIterableFactory, domainAccountId: Guid) -> win32more.Windows.Media.Protection.PlayReady.PlayReadyDomainIterable: ...
     @winrt_mixinmethod
@@ -1036,16 +940,6 @@ class PlayReadyDomainJoinServiceRequest(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Protection.PlayReady.IPlayReadyDomainJoinServiceRequest
     _classid_ = 'Windows.Media.Protection.PlayReady.PlayReadyDomainJoinServiceRequest'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.Media.Protection.PlayReady.PlayReadyDomainJoinServiceRequest.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Media.Protection.PlayReady.PlayReadyDomainJoinServiceRequest: ...
     @winrt_mixinmethod
@@ -1094,16 +988,6 @@ class PlayReadyDomainLeaveServiceRequest(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Protection.PlayReady.IPlayReadyDomainLeaveServiceRequest
     _classid_ = 'Windows.Media.Protection.PlayReady.PlayReadyDomainLeaveServiceRequest'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.Media.Protection.PlayReady.PlayReadyDomainLeaveServiceRequest.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Media.Protection.PlayReady.PlayReadyDomainLeaveServiceRequest: ...
     @winrt_mixinmethod
@@ -1161,16 +1045,6 @@ class PlayReadyITADataGenerator(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Protection.PlayReady.IPlayReadyITADataGenerator
     _classid_ = 'Windows.Media.Protection.PlayReady.PlayReadyITADataGenerator'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.Media.Protection.PlayReady.PlayReadyITADataGenerator.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Media.Protection.PlayReady.PlayReadyITADataGenerator: ...
     @winrt_mixinmethod
@@ -1179,16 +1053,6 @@ class PlayReadyIndividualizationServiceRequest(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Protection.PlayReady.IPlayReadyIndividualizationServiceRequest
     _classid_ = 'Windows.Media.Protection.PlayReady.PlayReadyIndividualizationServiceRequest'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.Media.Protection.PlayReady.PlayReadyIndividualizationServiceRequest.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Media.Protection.PlayReady.PlayReadyIndividualizationServiceRequest: ...
     @winrt_mixinmethod
@@ -1258,16 +1122,6 @@ class PlayReadyLicenseAcquisitionServiceRequest(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Protection.PlayReady.IPlayReadyLicenseAcquisitionServiceRequest
     _classid_ = 'Windows.Media.Protection.PlayReady.PlayReadyLicenseAcquisitionServiceRequest'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.Media.Protection.PlayReady.PlayReadyLicenseAcquisitionServiceRequest.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Media.Protection.PlayReady.PlayReadyLicenseAcquisitionServiceRequest: ...
     @winrt_mixinmethod
@@ -1316,22 +1170,10 @@ class PlayReadyLicenseIterable(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Media.Protection.PlayReady.IPlayReadyLicense]
     _classid_ = 'Windows.Media.Protection.PlayReady.PlayReadyLicenseIterable'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.Media.Protection.PlayReady.PlayReadyLicenseIterable.CreateInstance(*args)
-        elif len(args) == 2:
-            instance = win32more.Windows.Media.Protection.PlayReady.PlayReadyLicenseIterable.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
-    @winrt_activatemethod
-    def CreateInstance(cls) -> win32more.Windows.Media.Protection.PlayReady.PlayReadyLicenseIterable: ...
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.Media.Protection.PlayReady.IPlayReadyLicenseIterableFactory, contentHeader: win32more.Windows.Media.Protection.PlayReady.PlayReadyContentHeader, fullyEvaluated: Boolean) -> win32more.Windows.Media.Protection.PlayReady.PlayReadyLicenseIterable: ...
+    @winrt_activatemethod
+    def CreateInstance(cls) -> win32more.Windows.Media.Protection.PlayReady.PlayReadyLicenseIterable: ...
     @winrt_mixinmethod
     def First(self: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Media.Protection.PlayReady.IPlayReadyLicense]) -> win32more.Windows.Foundation.Collections.IIterator[win32more.Windows.Media.Protection.PlayReady.IPlayReadyLicense]: ...
 class PlayReadyLicenseIterator(ComPtr):
@@ -1357,16 +1199,6 @@ class PlayReadyLicenseSession(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Protection.PlayReady.IPlayReadyLicenseSession
     _classid_ = 'Windows.Media.Protection.PlayReady.PlayReadyLicenseSession'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 1:
-            instance = win32more.Windows.Media.Protection.PlayReady.PlayReadyLicenseSession.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.Media.Protection.PlayReady.IPlayReadyLicenseSessionFactory, configuration: win32more.Windows.Foundation.Collections.IPropertySet) -> win32more.Windows.Media.Protection.PlayReady.PlayReadyLicenseSession: ...
     @winrt_mixinmethod
@@ -1379,16 +1211,6 @@ class PlayReadyMeteringReportServiceRequest(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Protection.PlayReady.IPlayReadyMeteringReportServiceRequest
     _classid_ = 'Windows.Media.Protection.PlayReady.PlayReadyMeteringReportServiceRequest'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.Media.Protection.PlayReady.PlayReadyMeteringReportServiceRequest.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Media.Protection.PlayReady.PlayReadyMeteringReportServiceRequest: ...
     @winrt_mixinmethod
@@ -1427,16 +1249,6 @@ class PlayReadyRevocationServiceRequest(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Protection.PlayReady.IPlayReadyRevocationServiceRequest
     _classid_ = 'Windows.Media.Protection.PlayReady.PlayReadyRevocationServiceRequest'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.Media.Protection.PlayReady.PlayReadyRevocationServiceRequest.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Media.Protection.PlayReady.PlayReadyRevocationServiceRequest: ...
     @winrt_mixinmethod
@@ -1470,16 +1282,6 @@ class PlayReadySecureStopIterable(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Media.Protection.PlayReady.IPlayReadySecureStopServiceRequest]
     _classid_ = 'Windows.Media.Protection.PlayReady.PlayReadySecureStopIterable'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 1:
-            instance = win32more.Windows.Media.Protection.PlayReady.PlayReadySecureStopIterable.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.Media.Protection.PlayReady.IPlayReadySecureStopIterableFactory, publisherCertBytes: Annotated[SZArray[Byte], 'In']) -> win32more.Windows.Media.Protection.PlayReady.PlayReadySecureStopIterable: ...
     @winrt_mixinmethod
@@ -1502,18 +1304,6 @@ class PlayReadySecureStopServiceRequest(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Protection.PlayReady.IPlayReadySecureStopServiceRequest
     _classid_ = 'Windows.Media.Protection.PlayReady.PlayReadySecureStopServiceRequest'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 1:
-            instance = win32more.Windows.Media.Protection.PlayReady.PlayReadySecureStopServiceRequest.CreateInstance(*args)
-        elif len(args) == 2:
-            instance = win32more.Windows.Media.Protection.PlayReady.PlayReadySecureStopServiceRequest.CreateInstanceFromSessionID(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.Media.Protection.PlayReady.IPlayReadySecureStopServiceRequestFactory, publisherCertBytes: Annotated[SZArray[Byte], 'In']) -> win32more.Windows.Media.Protection.PlayReady.PlayReadySecureStopServiceRequest: ...
     @winrt_factorymethod

@@ -70,7 +70,7 @@ Void = None
 
 # FIXME: How to manage com reference count?  ContextManager style?
 class ComPtr(c_void_p):
-    def __init__(self, value=None, own=False, **kwargs):
+    def __init__(self, value=None, own=False):
         super().__init__(value)
         self._own = own
 

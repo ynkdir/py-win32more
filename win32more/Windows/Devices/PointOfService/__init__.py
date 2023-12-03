@@ -115,16 +115,6 @@ class BarcodeScannerReport(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.PointOfService.IBarcodeScannerReport
     _classid_ = 'Windows.Devices.PointOfService.BarcodeScannerReport'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 3:
-            instance = win32more.Windows.Devices.PointOfService.BarcodeScannerReport.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.Devices.PointOfService.IBarcodeScannerReportFactory, scanDataType: UInt32, scanData: win32more.Windows.Storage.Streams.IBuffer, scanDataLabel: win32more.Windows.Storage.Streams.IBuffer) -> win32more.Windows.Devices.PointOfService.BarcodeScannerReport: ...
     @winrt_mixinmethod
@@ -4308,16 +4298,6 @@ class PosPrinterPrintOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.PointOfService.IPosPrinterPrintOptions
     _classid_ = 'Windows.Devices.PointOfService.PosPrinterPrintOptions'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.Devices.PointOfService.PosPrinterPrintOptions.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Devices.PointOfService.PosPrinterPrintOptions: ...
     @winrt_mixinmethod
@@ -4727,16 +4707,6 @@ class UnifiedPosErrorData(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.PointOfService.IUnifiedPosErrorData
     _classid_ = 'Windows.Devices.PointOfService.UnifiedPosErrorData'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 4:
-            instance = win32more.Windows.Devices.PointOfService.UnifiedPosErrorData.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.Devices.PointOfService.IUnifiedPosErrorDataFactory, message: WinRT_String, severity: win32more.Windows.Devices.PointOfService.UnifiedPosErrorSeverity, reason: win32more.Windows.Devices.PointOfService.UnifiedPosErrorReason, extendedReason: UInt32) -> win32more.Windows.Devices.PointOfService.UnifiedPosErrorData: ...
     @winrt_mixinmethod

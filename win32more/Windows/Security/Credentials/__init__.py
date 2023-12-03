@@ -288,22 +288,10 @@ class PasswordCredential(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Credentials.IPasswordCredential
     _classid_ = 'Windows.Security.Credentials.PasswordCredential'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.Security.Credentials.PasswordCredential.CreateInstance(*args)
-        elif len(args) == 3:
-            instance = win32more.Windows.Security.Credentials.PasswordCredential.CreatePasswordCredential(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
-    @winrt_activatemethod
-    def CreateInstance(cls) -> win32more.Windows.Security.Credentials.PasswordCredential: ...
     @winrt_factorymethod
     def CreatePasswordCredential(cls: win32more.Windows.Security.Credentials.ICredentialFactory, resource: WinRT_String, userName: WinRT_String, password: WinRT_String) -> win32more.Windows.Security.Credentials.PasswordCredential: ...
+    @winrt_activatemethod
+    def CreateInstance(cls) -> win32more.Windows.Security.Credentials.PasswordCredential: ...
     @winrt_mixinmethod
     def get_Resource(self: win32more.Windows.Security.Credentials.IPasswordCredential) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -328,16 +316,6 @@ class PasswordCredentialPropertyStore(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.Collections.IPropertySet
     _classid_ = 'Windows.Security.Credentials.PasswordCredentialPropertyStore'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.Security.Credentials.PasswordCredentialPropertyStore.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Security.Credentials.PasswordCredentialPropertyStore: ...
     @winrt_mixinmethod
@@ -365,16 +343,6 @@ class PasswordVault(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Credentials.IPasswordVault
     _classid_ = 'Windows.Security.Credentials.PasswordVault'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.Security.Credentials.PasswordVault.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Security.Credentials.PasswordVault: ...
     @winrt_mixinmethod
@@ -393,16 +361,6 @@ class WebAccount(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Credentials.IWebAccount
     _classid_ = 'Windows.Security.Credentials.WebAccount'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 3:
-            instance = win32more.Windows.Security.Credentials.WebAccount.CreateWebAccount(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateWebAccount(cls: win32more.Windows.Security.Credentials.IWebAccountFactory, webAccountProvider: win32more.Windows.Security.Credentials.WebAccountProvider, userName: WinRT_String, state: win32more.Windows.Security.Credentials.WebAccountState) -> win32more.Windows.Security.Credentials.WebAccount: ...
     @winrt_mixinmethod
@@ -435,16 +393,6 @@ class WebAccountProvider(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Credentials.IWebAccountProvider
     _classid_ = 'Windows.Security.Credentials.WebAccountProvider'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 3:
-            instance = win32more.Windows.Security.Credentials.WebAccountProvider.CreateWebAccountProvider(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateWebAccountProvider(cls: win32more.Windows.Security.Credentials.IWebAccountProviderFactory, id: WinRT_String, displayName: WinRT_String, iconUri: win32more.Windows.Foundation.Uri) -> win32more.Windows.Security.Credentials.WebAccountProvider: ...
     @winrt_mixinmethod

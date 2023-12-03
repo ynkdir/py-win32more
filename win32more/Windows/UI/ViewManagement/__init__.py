@@ -27,16 +27,6 @@ class AccessibilitySettings(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.ViewManagement.IAccessibilitySettings
     _classid_ = 'Windows.UI.ViewManagement.AccessibilitySettings'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.UI.ViewManagement.AccessibilitySettings.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.ViewManagement.AccessibilitySettings: ...
     @winrt_mixinmethod
@@ -323,16 +313,6 @@ class ApplicationViewTransferContext(ComPtr, metaclass=_ApplicationViewTransferC
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.ViewManagement.IApplicationViewTransferContext
     _classid_ = 'Windows.UI.ViewManagement.ApplicationViewTransferContext'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.UI.ViewManagement.ApplicationViewTransferContext.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.ViewManagement.ApplicationViewTransferContext: ...
     @winrt_mixinmethod
@@ -1152,16 +1132,6 @@ class UISettings(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.ViewManagement.IUISettings
     _classid_ = 'Windows.UI.ViewManagement.UISettings'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.UI.ViewManagement.UISettings.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.ViewManagement.UISettings: ...
     @winrt_mixinmethod

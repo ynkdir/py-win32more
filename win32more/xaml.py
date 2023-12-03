@@ -137,7 +137,7 @@ class XamlApplication(IApplicationOverrides):
         self.value2 = addressof(self._comobj.lpvtbl2)
         self._refcount = 0
         self.AddRef()
-        self._provider = XamlControlsXamlMetaDataProvider()
+        self._provider = XamlControlsXamlMetaDataProvider.CreateInstance()
         self._inner_interface = IInspectable()
         Application.CreateInstance(self, self._inner_interface)
 
@@ -177,7 +177,7 @@ class XamlApplication(IApplicationOverrides):
         return self._inner_interface.GetTrustLevel(trustLevel)
 
     def _OnLaunched(self, args):
-        Application.Current.Resources.MergedDictionaries.Append(XamlControlsResources())
+        Application.Current.Resources.MergedDictionaries.Append(XamlControlsResources.CreateInstance())
         self.OnLaunched(args)
 
     def OnLaunched(self, args):

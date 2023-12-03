@@ -696,16 +696,6 @@ class InkDrawingAttributes(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Input.Inking.IInkDrawingAttributes
     _classid_ = 'Windows.UI.Input.Inking.InkDrawingAttributes'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.UI.Input.Inking.InkDrawingAttributes.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Input.Inking.InkDrawingAttributes: ...
     @winrt_mixinmethod
@@ -819,16 +809,6 @@ class InkManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Input.Inking.IInkManager
     _classid_ = 'Windows.UI.Input.Inking.InkManager'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.UI.Input.Inking.InkManager.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Input.Inking.InkManager: ...
     @winrt_mixinmethod
@@ -911,18 +891,6 @@ class InkPoint(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Input.Inking.IInkPoint
     _classid_ = 'Windows.UI.Input.Inking.InkPoint'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 2:
-            instance = win32more.Windows.UI.Input.Inking.InkPoint.CreateInkPoint(*args)
-        elif len(args) == 5:
-            instance = win32more.Windows.UI.Input.Inking.InkPoint.CreateInkPointWithTiltAndTimestamp(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInkPoint(cls: win32more.Windows.UI.Input.Inking.IInkPointFactory, position: win32more.Windows.Foundation.Point, pressure: Single) -> win32more.Windows.UI.Input.Inking.InkPoint: ...
     @winrt_factorymethod
@@ -1001,16 +969,6 @@ class InkPresenterProtractor(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Input.Inking.IInkPresenterProtractor
     _classid_ = 'Windows.UI.Input.Inking.InkPresenterProtractor'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 1:
-            instance = win32more.Windows.UI.Input.Inking.InkPresenterProtractor.Create(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.UI.Input.Inking.IInkPresenterProtractorFactory, inkPresenter: win32more.Windows.UI.Input.Inking.InkPresenter) -> win32more.Windows.UI.Input.Inking.InkPresenterProtractor: ...
     @winrt_mixinmethod
@@ -1075,16 +1033,6 @@ class InkPresenterRuler(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Input.Inking.IInkPresenterRuler
     _classid_ = 'Windows.UI.Input.Inking.InkPresenterRuler'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 1:
-            instance = win32more.Windows.UI.Input.Inking.InkPresenterRuler.Create(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.UI.Input.Inking.IInkPresenterRulerFactory, inkPresenter: win32more.Windows.UI.Input.Inking.InkPresenter) -> win32more.Windows.UI.Input.Inking.InkPresenterRuler: ...
     @winrt_mixinmethod
@@ -1160,16 +1108,6 @@ class InkRecognizerContainer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Input.Inking.IInkRecognizerContainer
     _classid_ = 'Windows.UI.Input.Inking.InkRecognizerContainer'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.UI.Input.Inking.InkRecognizerContainer.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Input.Inking.InkRecognizerContainer: ...
     @winrt_mixinmethod
@@ -1229,16 +1167,6 @@ class InkStrokeBuilder(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Input.Inking.IInkStrokeBuilder
     _classid_ = 'Windows.UI.Input.Inking.InkStrokeBuilder'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.UI.Input.Inking.InkStrokeBuilder.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Input.Inking.InkStrokeBuilder: ...
     @winrt_mixinmethod
@@ -1259,16 +1187,6 @@ class InkStrokeContainer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Input.Inking.IInkStrokeContainer
     _classid_ = 'Windows.UI.Input.Inking.InkStrokeContainer'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.UI.Input.Inking.InkStrokeContainer.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Input.Inking.InkStrokeContainer: ...
     @winrt_mixinmethod

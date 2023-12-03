@@ -265,16 +265,6 @@ class LearningModelBindingPreview(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.AI.MachineLearning.Preview.ILearningModelBindingPreview
     _classid_ = 'Windows.AI.MachineLearning.Preview.LearningModelBindingPreview'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 1:
-            instance = win32more.Windows.AI.MachineLearning.Preview.LearningModelBindingPreview.CreateFromModel(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateFromModel(cls: win32more.Windows.AI.MachineLearning.Preview.ILearningModelBindingPreviewFactory, model: win32more.Windows.AI.MachineLearning.Preview.LearningModelPreview) -> win32more.Windows.AI.MachineLearning.Preview.LearningModelBindingPreview: ...
     @winrt_mixinmethod

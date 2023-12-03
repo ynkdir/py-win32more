@@ -29,16 +29,6 @@ class Block(ComPtr, metaclass=_Block_Meta_):
     extends: win32more.Windows.UI.Xaml.Documents.TextElement
     default_interface: win32more.Windows.UI.Xaml.Documents.IBlock
     _classid_ = 'Windows.UI.Xaml.Documents.Block'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Documents.Block.CreateInstance(*args, None, None)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Documents.IBlockFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Documents.Block: ...
     @winrt_mixinmethod
@@ -116,32 +106,12 @@ class Bold(ComPtr):
     extends: win32more.Windows.UI.Xaml.Documents.Span
     default_interface: win32more.Windows.UI.Xaml.Documents.IBold
     _classid_ = 'Windows.UI.Xaml.Documents.Bold'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Documents.Bold.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Documents.Bold: ...
 class ContactContentLinkProvider(ComPtr):
     extends: win32more.Windows.UI.Xaml.Documents.ContentLinkProvider
     default_interface: win32more.Windows.UI.Xaml.Documents.IContactContentLinkProvider
     _classid_ = 'Windows.UI.Xaml.Documents.ContactContentLinkProvider'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Documents.ContactContentLinkProvider.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Documents.ContactContentLinkProvider: ...
 class _ContentLink_Meta_(ComPtr.__class__):
@@ -150,16 +120,6 @@ class ContentLink(ComPtr, metaclass=_ContentLink_Meta_):
     extends: win32more.Windows.UI.Xaml.Documents.Inline
     default_interface: win32more.Windows.UI.Xaml.Documents.IContentLink
     _classid_ = 'Windows.UI.Xaml.Documents.ContentLink'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Documents.ContentLink.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Documents.ContentLink: ...
     @winrt_mixinmethod
@@ -307,32 +267,12 @@ class ContentLinkProvider(ComPtr):
     extends: win32more.Windows.UI.Xaml.DependencyObject
     default_interface: win32more.Windows.UI.Xaml.Documents.IContentLinkProvider
     _classid_ = 'Windows.UI.Xaml.Documents.ContentLinkProvider'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Documents.ContentLinkProvider.CreateInstance(*args, None, None)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Documents.IContentLinkProviderFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Documents.ContentLinkProvider: ...
 class ContentLinkProviderCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Documents.IContentLinkProviderCollection
     _classid_ = 'Windows.UI.Xaml.Documents.ContentLinkProviderCollection'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Documents.ContentLinkProviderCollection.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Documents.ContentLinkProviderCollection: ...
     @winrt_mixinmethod
@@ -368,16 +308,6 @@ class Glyphs(ComPtr, metaclass=_Glyphs_Meta_):
     extends: win32more.Windows.UI.Xaml.FrameworkElement
     default_interface: win32more.Windows.UI.Xaml.Documents.IGlyphs
     _classid_ = 'Windows.UI.Xaml.Documents.Glyphs'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Documents.Glyphs.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Documents.Glyphs: ...
     @winrt_mixinmethod
@@ -466,16 +396,6 @@ class Hyperlink(ComPtr, metaclass=_Hyperlink_Meta_):
     extends: win32more.Windows.UI.Xaml.Documents.Span
     default_interface: win32more.Windows.UI.Xaml.Documents.IHyperlink
     _classid_ = 'Windows.UI.Xaml.Documents.Hyperlink'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Documents.Hyperlink.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Documents.Hyperlink: ...
     @winrt_mixinmethod
@@ -1791,16 +1711,6 @@ class Inline(ComPtr):
     extends: win32more.Windows.UI.Xaml.Documents.TextElement
     default_interface: win32more.Windows.UI.Xaml.Documents.IInline
     _classid_ = 'Windows.UI.Xaml.Documents.Inline'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Documents.Inline.CreateInstance(*args, None, None)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Documents.IInlineFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Documents.Inline: ...
 class InlineCollection(ComPtr):
@@ -1838,16 +1748,6 @@ class InlineUIContainer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Documents.Inline
     default_interface: win32more.Windows.UI.Xaml.Documents.IInlineUIContainer
     _classid_ = 'Windows.UI.Xaml.Documents.InlineUIContainer'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Documents.InlineUIContainer.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Documents.InlineUIContainer: ...
     @winrt_mixinmethod
@@ -1859,32 +1759,12 @@ class Italic(ComPtr):
     extends: win32more.Windows.UI.Xaml.Documents.Span
     default_interface: win32more.Windows.UI.Xaml.Documents.IItalic
     _classid_ = 'Windows.UI.Xaml.Documents.Italic'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Documents.Italic.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Documents.Italic: ...
 class LineBreak(ComPtr):
     extends: win32more.Windows.UI.Xaml.Documents.Inline
     default_interface: win32more.Windows.UI.Xaml.Documents.ILineBreak
     _classid_ = 'Windows.UI.Xaml.Documents.LineBreak'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Documents.LineBreak.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Documents.LineBreak: ...
 LogicalDirection = Int32
@@ -1896,16 +1776,6 @@ class Paragraph(ComPtr, metaclass=_Paragraph_Meta_):
     extends: win32more.Windows.UI.Xaml.Documents.Block
     default_interface: win32more.Windows.UI.Xaml.Documents.IParagraph
     _classid_ = 'Windows.UI.Xaml.Documents.Paragraph'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Documents.Paragraph.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Documents.Paragraph: ...
     @winrt_mixinmethod
@@ -1923,16 +1793,6 @@ class PlaceContentLinkProvider(ComPtr):
     extends: win32more.Windows.UI.Xaml.Documents.ContentLinkProvider
     default_interface: win32more.Windows.UI.Xaml.Documents.IPlaceContentLinkProvider
     _classid_ = 'Windows.UI.Xaml.Documents.PlaceContentLinkProvider'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Documents.PlaceContentLinkProvider.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Documents.PlaceContentLinkProvider: ...
 class _Run_Meta_(ComPtr.__class__):
@@ -1941,16 +1801,6 @@ class Run(ComPtr, metaclass=_Run_Meta_):
     extends: win32more.Windows.UI.Xaml.Documents.Inline
     default_interface: win32more.Windows.UI.Xaml.Documents.IRun
     _classid_ = 'Windows.UI.Xaml.Documents.Run'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Documents.Run.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Documents.Run: ...
     @winrt_mixinmethod
@@ -1970,16 +1820,6 @@ class Span(ComPtr):
     extends: win32more.Windows.UI.Xaml.Documents.Inline
     default_interface: win32more.Windows.UI.Xaml.Documents.ISpan
     _classid_ = 'Windows.UI.Xaml.Documents.Span'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Documents.Span.CreateInstance(*args, None, None)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Documents.ISpanFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Documents.Span: ...
     @winrt_mixinmethod
@@ -2179,16 +2019,6 @@ class TextHighlighter(ComPtr, metaclass=_TextHighlighter_Meta_):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Documents.ITextHighlighter
     _classid_ = 'Windows.UI.Xaml.Documents.TextHighlighter'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Documents.TextHighlighter.CreateInstance(*args, None, None)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Documents.ITextHighlighterFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Documents.TextHighlighter: ...
     @winrt_mixinmethod
@@ -2548,16 +2378,6 @@ class Underline(ComPtr):
     extends: win32more.Windows.UI.Xaml.Documents.Span
     default_interface: win32more.Windows.UI.Xaml.Documents.IUnderline
     _classid_ = 'Windows.UI.Xaml.Documents.Underline'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Documents.Underline.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Documents.Underline: ...
 UnderlineStyle = Int32

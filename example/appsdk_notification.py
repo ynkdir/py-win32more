@@ -36,7 +36,7 @@ def main() -> None:
     notification_manager.Register()
 
     # How to set title?
-    notification = AppNotificationBuilder().AddText("title").AddText("message").BuildNotification()
+    notification = AppNotificationBuilder.CreateInstance().AddText("title").AddText("message").BuildNotification()
 
     notification_manager.Show(notification)
 

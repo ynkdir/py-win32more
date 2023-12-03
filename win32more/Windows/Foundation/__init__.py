@@ -52,16 +52,6 @@ class Deferral(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.IDeferral
     _classid_ = 'Windows.Foundation.Deferral'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 1:
-            instance = win32more.Windows.Foundation.Deferral.Create(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.Foundation.IDeferralFactory, handler: win32more.Windows.Foundation.DeferralCompletedHandler) -> win32more.Windows.Foundation.Deferral: ...
     @winrt_mixinmethod
@@ -525,16 +515,6 @@ class MemoryBuffer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.IMemoryBuffer
     _classid_ = 'Windows.Foundation.MemoryBuffer'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 1:
-            instance = win32more.Windows.Foundation.MemoryBuffer.Create(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.Foundation.IMemoryBufferFactory, capacity: UInt32) -> win32more.Windows.Foundation.MemoryBuffer: ...
     @winrt_mixinmethod
@@ -686,18 +666,6 @@ class Uri(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.IUriRuntimeClass
     _classid_ = 'Windows.Foundation.Uri'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 1:
-            instance = win32more.Windows.Foundation.Uri.CreateUri(*args)
-        elif len(args) == 2:
-            instance = win32more.Windows.Foundation.Uri.CreateWithRelativeUri(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateUri(cls: win32more.Windows.Foundation.IUriRuntimeClassFactory, uri: WinRT_String) -> win32more.Windows.Foundation.Uri: ...
     @winrt_factorymethod
@@ -767,16 +735,6 @@ class WwwFormUrlDecoder(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.IWwwFormUrlDecoderRuntimeClass
     _classid_ = 'Windows.Foundation.WwwFormUrlDecoder'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 1:
-            instance = win32more.Windows.Foundation.WwwFormUrlDecoder.CreateWwwFormUrlDecoder(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateWwwFormUrlDecoder(cls: win32more.Windows.Foundation.IWwwFormUrlDecoderRuntimeClassFactory, query: WinRT_String) -> win32more.Windows.Foundation.WwwFormUrlDecoder: ...
     @winrt_mixinmethod

@@ -58,20 +58,6 @@ class PreallocatedWorkItem(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.System.Threading.Core.IPreallocatedWorkItem
     _classid_ = 'Windows.System.Threading.Core.PreallocatedWorkItem'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 1:
-            instance = win32more.Windows.System.Threading.Core.PreallocatedWorkItem.CreateWorkItem(*args)
-        elif len(args) == 2:
-            instance = win32more.Windows.System.Threading.Core.PreallocatedWorkItem.CreateWorkItemWithPriority(*args)
-        elif len(args) == 3:
-            instance = win32more.Windows.System.Threading.Core.PreallocatedWorkItem.CreateWorkItemWithPriorityAndOptions(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateWorkItem(cls: win32more.Windows.System.Threading.Core.IPreallocatedWorkItemFactory, handler: win32more.Windows.System.Threading.WorkItemHandler) -> win32more.Windows.System.Threading.Core.PreallocatedWorkItem: ...
     @winrt_factorymethod

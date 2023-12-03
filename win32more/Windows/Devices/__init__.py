@@ -64,16 +64,6 @@ class LowLevelDevicesAggregateProvider(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.ILowLevelDevicesAggregateProvider
     _classid_ = 'Windows.Devices.LowLevelDevicesAggregateProvider'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 5:
-            instance = win32more.Windows.Devices.LowLevelDevicesAggregateProvider.Create(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.Devices.ILowLevelDevicesAggregateProviderFactory, adc: win32more.Windows.Devices.Adc.Provider.IAdcControllerProvider, pwm: win32more.Windows.Devices.Pwm.Provider.IPwmControllerProvider, gpio: win32more.Windows.Devices.Gpio.Provider.IGpioControllerProvider, i2c: win32more.Windows.Devices.I2c.Provider.II2cControllerProvider, spi: win32more.Windows.Devices.Spi.Provider.ISpiControllerProvider) -> win32more.Windows.Devices.LowLevelDevicesAggregateProvider: ...
     @winrt_mixinmethod

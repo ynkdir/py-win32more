@@ -282,18 +282,6 @@ class WebAccountClientView(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Authentication.Web.Provider.IWebAccountClientView
     _classid_ = 'Windows.Security.Authentication.Web.Provider.WebAccountClientView'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 2:
-            instance = win32more.Windows.Security.Authentication.Web.Provider.WebAccountClientView.Create(*args)
-        elif len(args) == 3:
-            instance = win32more.Windows.Security.Authentication.Web.Provider.WebAccountClientView.CreateWithPairwiseId(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.Security.Authentication.Web.Provider.IWebAccountClientViewFactory, viewType: win32more.Windows.Security.Authentication.Web.Provider.WebAccountClientViewType, applicationCallbackUri: win32more.Windows.Foundation.Uri) -> win32more.Windows.Security.Authentication.Web.Provider.WebAccountClientView: ...
     @winrt_factorymethod
@@ -547,16 +535,6 @@ class WebProviderTokenResponse(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Authentication.Web.Provider.IWebProviderTokenResponse
     _classid_ = 'Windows.Security.Authentication.Web.Provider.WebProviderTokenResponse'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 1:
-            instance = win32more.Windows.Security.Authentication.Web.Provider.WebProviderTokenResponse.Create(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.Security.Authentication.Web.Provider.IWebProviderTokenResponseFactory, webTokenResponse: win32more.Windows.Security.Authentication.Web.Core.WebTokenResponse) -> win32more.Windows.Security.Authentication.Web.Provider.WebProviderTokenResponse: ...
     @winrt_mixinmethod

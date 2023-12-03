@@ -25,16 +25,6 @@ class EndpointPair(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.IEndpointPair
     _classid_ = 'Windows.Networking.EndpointPair'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 4:
-            instance = win32more.Windows.Networking.EndpointPair.CreateEndpointPair(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateEndpointPair(cls: win32more.Windows.Networking.IEndpointPairFactory, localHostName: win32more.Windows.Networking.HostName, localServiceName: WinRT_String, remoteHostName: win32more.Windows.Networking.HostName, remoteServiceName: WinRT_String) -> win32more.Windows.Networking.EndpointPair: ...
     @winrt_mixinmethod
@@ -61,16 +51,6 @@ class HostName(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.IHostName
     _classid_ = 'Windows.Networking.HostName'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 1:
-            instance = win32more.Windows.Networking.HostName.CreateHostName(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateHostName(cls: win32more.Windows.Networking.IHostNameFactory, hostName: WinRT_String) -> win32more.Windows.Networking.HostName: ...
     @winrt_mixinmethod

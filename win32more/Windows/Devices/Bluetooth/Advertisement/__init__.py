@@ -24,16 +24,6 @@ class BluetoothLEAdvertisement(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Bluetooth.Advertisement.IBluetoothLEAdvertisement
     _classid_ = 'Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisement'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisement.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisement: ...
     @winrt_mixinmethod
@@ -63,18 +53,6 @@ class BluetoothLEAdvertisementBytePattern(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Bluetooth.Advertisement.IBluetoothLEAdvertisementBytePattern
     _classid_ = 'Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementBytePattern'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementBytePattern.CreateInstance(*args)
-        elif len(args) == 3:
-            instance = win32more.Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementBytePattern.Create(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementBytePattern: ...
     @winrt_factorymethod
@@ -98,22 +76,10 @@ class BluetoothLEAdvertisementDataSection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Bluetooth.Advertisement.IBluetoothLEAdvertisementDataSection
     _classid_ = 'Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementDataSection'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementDataSection.CreateInstance(*args)
-        elif len(args) == 2:
-            instance = win32more.Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementDataSection.Create(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
-    @winrt_activatemethod
-    def CreateInstance(cls) -> win32more.Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementDataSection: ...
     @winrt_factorymethod
     def Create(cls: win32more.Windows.Devices.Bluetooth.Advertisement.IBluetoothLEAdvertisementDataSectionFactory, dataType: Byte, data: win32more.Windows.Storage.Streams.IBuffer) -> win32more.Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementDataSection: ...
+    @winrt_activatemethod
+    def CreateInstance(cls) -> win32more.Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementDataSection: ...
     @winrt_mixinmethod
     def get_DataType(self: win32more.Windows.Devices.Bluetooth.Advertisement.IBluetoothLEAdvertisementDataSection) -> Byte: ...
     @winrt_mixinmethod
@@ -199,16 +165,6 @@ class BluetoothLEAdvertisementFilter(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Bluetooth.Advertisement.IBluetoothLEAdvertisementFilter
     _classid_ = 'Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementFilter'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementFilter.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementFilter: ...
     @winrt_mixinmethod
@@ -230,18 +186,6 @@ class BluetoothLEAdvertisementPublisher(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Bluetooth.Advertisement.IBluetoothLEAdvertisementPublisher
     _classid_ = 'Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementPublisher'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementPublisher.CreateInstance(*args)
-        elif len(args) == 1:
-            instance = win32more.Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementPublisher.Create(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementPublisher: ...
     @winrt_factorymethod
@@ -351,18 +295,6 @@ class BluetoothLEAdvertisementWatcher(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Bluetooth.Advertisement.IBluetoothLEAdvertisementWatcher
     _classid_ = 'Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementWatcher'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementWatcher.CreateInstance(*args)
-        elif len(args) == 1:
-            instance = win32more.Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementWatcher.Create(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementWatcher: ...
     @winrt_factorymethod
@@ -431,18 +363,6 @@ class BluetoothLEManufacturerData(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Bluetooth.Advertisement.IBluetoothLEManufacturerData
     _classid_ = 'Windows.Devices.Bluetooth.Advertisement.BluetoothLEManufacturerData'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.Devices.Bluetooth.Advertisement.BluetoothLEManufacturerData.CreateInstance(*args)
-        elif len(args) == 2:
-            instance = win32more.Windows.Devices.Bluetooth.Advertisement.BluetoothLEManufacturerData.Create(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Devices.Bluetooth.Advertisement.BluetoothLEManufacturerData: ...
     @winrt_factorymethod

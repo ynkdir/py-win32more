@@ -26,26 +26,12 @@ class EmailAttachment(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Email.IEmailAttachment
     _classid_ = 'Windows.ApplicationModel.Email.EmailAttachment'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.ApplicationModel.Email.EmailAttachment.CreateInstance(*args)
-        elif len(args) == 2:
-            instance = win32more.Windows.ApplicationModel.Email.EmailAttachment.Create(*args)
-        elif len(args) == 3:
-            instance = win32more.Windows.ApplicationModel.Email.EmailAttachment.Create(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
-    @winrt_activatemethod
-    def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Email.EmailAttachment: ...
-    @winrt_factorymethod
-    def Create(cls: win32more.Windows.ApplicationModel.Email.IEmailAttachmentFactory, fileName: WinRT_String, data: win32more.Windows.Storage.Streams.IRandomAccessStreamReference) -> win32more.Windows.ApplicationModel.Email.EmailAttachment: ...
     @winrt_factorymethod
     def Create(cls: win32more.Windows.ApplicationModel.Email.IEmailAttachmentFactory2, fileName: WinRT_String, data: win32more.Windows.Storage.Streams.IRandomAccessStreamReference, mimeType: WinRT_String) -> win32more.Windows.ApplicationModel.Email.EmailAttachment: ...
+    @winrt_factorymethod
+    def Create(cls: win32more.Windows.ApplicationModel.Email.IEmailAttachmentFactory, fileName: WinRT_String, data: win32more.Windows.Storage.Streams.IRandomAccessStreamReference) -> win32more.Windows.ApplicationModel.Email.EmailAttachment: ...
+    @winrt_activatemethod
+    def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Email.EmailAttachment: ...
     @winrt_mixinmethod
     def get_FileName(self: win32more.Windows.ApplicationModel.Email.IEmailAttachment) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -251,18 +237,6 @@ class EmailIrmInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Email.IEmailIrmInfo
     _classid_ = 'Windows.ApplicationModel.Email.EmailIrmInfo'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.ApplicationModel.Email.EmailIrmInfo.CreateInstance(*args)
-        elif len(args) == 2:
-            instance = win32more.Windows.ApplicationModel.Email.EmailIrmInfo.Create(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Email.EmailIrmInfo: ...
     @winrt_factorymethod
@@ -331,22 +305,10 @@ class EmailIrmTemplate(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Email.IEmailIrmTemplate
     _classid_ = 'Windows.ApplicationModel.Email.EmailIrmTemplate'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.ApplicationModel.Email.EmailIrmTemplate.CreateInstance(*args)
-        elif len(args) == 3:
-            instance = win32more.Windows.ApplicationModel.Email.EmailIrmTemplate.Create(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
-    @winrt_activatemethod
-    def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Email.EmailIrmTemplate: ...
     @winrt_factorymethod
     def Create(cls: win32more.Windows.ApplicationModel.Email.IEmailIrmTemplateFactory, id: WinRT_String, name: WinRT_String, description: WinRT_String) -> win32more.Windows.ApplicationModel.Email.EmailIrmTemplate: ...
+    @winrt_activatemethod
+    def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Email.EmailIrmTemplate: ...
     @winrt_mixinmethod
     def get_Id(self: win32more.Windows.ApplicationModel.Email.IEmailIrmTemplate) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -566,16 +528,6 @@ class EmailMailboxAutoReplySettings(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Email.IEmailMailboxAutoReplySettings
     _classid_ = 'Windows.ApplicationModel.Email.EmailMailboxAutoReplySettings'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.ApplicationModel.Email.EmailMailboxAutoReplySettings.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Email.EmailMailboxAutoReplySettings: ...
     @winrt_mixinmethod
@@ -881,16 +833,6 @@ class EmailMeetingInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Email.IEmailMeetingInfo
     _classid_ = 'Windows.ApplicationModel.Email.EmailMeetingInfo'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.ApplicationModel.Email.EmailMeetingInfo.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Email.EmailMeetingInfo: ...
     @winrt_mixinmethod
@@ -969,16 +911,6 @@ class EmailMessage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Email.IEmailMessage
     _classid_ = 'Windows.ApplicationModel.Email.EmailMessage'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.ApplicationModel.Email.EmailMessage.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Email.EmailMessage: ...
     @winrt_mixinmethod
@@ -1183,26 +1115,12 @@ class EmailQueryOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Email.IEmailQueryOptions
     _classid_ = 'Windows.ApplicationModel.Email.EmailQueryOptions'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.ApplicationModel.Email.EmailQueryOptions.CreateInstance(*args)
-        elif len(args) == 1:
-            instance = win32more.Windows.ApplicationModel.Email.EmailQueryOptions.CreateWithText(*args)
-        elif len(args) == 2:
-            instance = win32more.Windows.ApplicationModel.Email.EmailQueryOptions.CreateWithTextAndFields(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
-    @winrt_activatemethod
-    def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Email.EmailQueryOptions: ...
     @winrt_factorymethod
     def CreateWithText(cls: win32more.Windows.ApplicationModel.Email.IEmailQueryOptionsFactory, text: WinRT_String) -> win32more.Windows.ApplicationModel.Email.EmailQueryOptions: ...
     @winrt_factorymethod
     def CreateWithTextAndFields(cls: win32more.Windows.ApplicationModel.Email.IEmailQueryOptionsFactory, text: WinRT_String, fields: win32more.Windows.ApplicationModel.Email.EmailQuerySearchFields) -> win32more.Windows.ApplicationModel.Email.EmailQueryOptions: ...
+    @winrt_activatemethod
+    def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Email.EmailQueryOptions: ...
     @winrt_mixinmethod
     def get_TextSearch(self: win32more.Windows.ApplicationModel.Email.IEmailQueryOptions) -> win32more.Windows.ApplicationModel.Email.EmailQueryTextSearch: ...
     @winrt_mixinmethod
@@ -1262,20 +1180,6 @@ class EmailRecipient(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Email.IEmailRecipient
     _classid_ = 'Windows.ApplicationModel.Email.EmailRecipient'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.ApplicationModel.Email.EmailRecipient.CreateInstance(*args)
-        elif len(args) == 1:
-            instance = win32more.Windows.ApplicationModel.Email.EmailRecipient.Create(*args)
-        elif len(args) == 2:
-            instance = win32more.Windows.ApplicationModel.Email.EmailRecipient.CreateWithName(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Email.EmailRecipient: ...
     @winrt_factorymethod
@@ -1296,16 +1200,6 @@ class EmailRecipientResolutionResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Email.IEmailRecipientResolutionResult
     _classid_ = 'Windows.ApplicationModel.Email.EmailRecipientResolutionResult'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.ApplicationModel.Email.EmailRecipientResolutionResult.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Email.EmailRecipientResolutionResult: ...
     @winrt_mixinmethod

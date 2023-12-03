@@ -22,16 +22,6 @@ class AnimationDescription(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Core.AnimationMetrics.IAnimationDescription
     _classid_ = 'Windows.UI.Core.AnimationMetrics.AnimationDescription'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 2:
-            instance = win32more.Windows.UI.Core.AnimationMetrics.AnimationDescription.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Core.AnimationMetrics.IAnimationDescriptionFactory, effect: win32more.Windows.UI.Core.AnimationMetrics.AnimationEffect, target: win32more.Windows.UI.Core.AnimationMetrics.AnimationEffectTarget) -> win32more.Windows.UI.Core.AnimationMetrics.AnimationDescription: ...
     @winrt_mixinmethod

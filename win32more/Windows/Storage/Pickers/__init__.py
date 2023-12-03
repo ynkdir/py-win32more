@@ -55,16 +55,6 @@ class FileOpenPicker(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Storage.Pickers.IFileOpenPicker
     _classid_ = 'Windows.Storage.Pickers.FileOpenPicker'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.Storage.Pickers.FileOpenPicker.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Storage.Pickers.FileOpenPicker: ...
     @winrt_mixinmethod
@@ -150,16 +140,6 @@ class FileSavePicker(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Storage.Pickers.IFileSavePicker
     _classid_ = 'Windows.Storage.Pickers.FileSavePicker'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.Storage.Pickers.FileSavePicker.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Storage.Pickers.FileSavePicker: ...
     @winrt_mixinmethod
@@ -216,16 +196,6 @@ class FolderPicker(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Storage.Pickers.IFolderPicker
     _classid_ = 'Windows.Storage.Pickers.FolderPicker'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.Storage.Pickers.FolderPicker.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Storage.Pickers.FolderPicker: ...
     @winrt_mixinmethod

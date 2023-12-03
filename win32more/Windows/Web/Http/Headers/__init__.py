@@ -83,18 +83,6 @@ class HttpChallengeHeaderValue(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Http.Headers.IHttpChallengeHeaderValue
     _classid_ = 'Windows.Web.Http.Headers.HttpChallengeHeaderValue'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 1:
-            instance = win32more.Windows.Web.Http.Headers.HttpChallengeHeaderValue.CreateFromScheme(*args)
-        elif len(args) == 2:
-            instance = win32more.Windows.Web.Http.Headers.HttpChallengeHeaderValue.CreateFromSchemeWithToken(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateFromScheme(cls: win32more.Windows.Web.Http.Headers.IHttpChallengeHeaderValueFactory, scheme: WinRT_String) -> win32more.Windows.Web.Http.Headers.HttpChallengeHeaderValue: ...
     @winrt_factorymethod
@@ -155,16 +143,6 @@ class HttpConnectionOptionHeaderValue(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Http.Headers.IHttpConnectionOptionHeaderValue
     _classid_ = 'Windows.Web.Http.Headers.HttpConnectionOptionHeaderValue'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 1:
-            instance = win32more.Windows.Web.Http.Headers.HttpConnectionOptionHeaderValue.Create(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.Web.Http.Headers.IHttpConnectionOptionHeaderValueFactory, token: WinRT_String) -> win32more.Windows.Web.Http.Headers.HttpConnectionOptionHeaderValue: ...
     @winrt_mixinmethod
@@ -217,16 +195,6 @@ class HttpContentCodingHeaderValue(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Http.Headers.IHttpContentCodingHeaderValue
     _classid_ = 'Windows.Web.Http.Headers.HttpContentCodingHeaderValue'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 1:
-            instance = win32more.Windows.Web.Http.Headers.HttpContentCodingHeaderValue.Create(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.Web.Http.Headers.IHttpContentCodingHeaderValueFactory, contentCoding: WinRT_String) -> win32more.Windows.Web.Http.Headers.HttpContentCodingHeaderValue: ...
     @winrt_mixinmethod
@@ -279,18 +247,6 @@ class HttpContentCodingWithQualityHeaderValue(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Http.Headers.IHttpContentCodingWithQualityHeaderValue
     _classid_ = 'Windows.Web.Http.Headers.HttpContentCodingWithQualityHeaderValue'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 1:
-            instance = win32more.Windows.Web.Http.Headers.HttpContentCodingWithQualityHeaderValue.CreateFromValue(*args)
-        elif len(args) == 2:
-            instance = win32more.Windows.Web.Http.Headers.HttpContentCodingWithQualityHeaderValue.CreateFromValueWithQuality(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateFromValue(cls: win32more.Windows.Web.Http.Headers.IHttpContentCodingWithQualityHeaderValueFactory, contentCoding: WinRT_String) -> win32more.Windows.Web.Http.Headers.HttpContentCodingWithQualityHeaderValue: ...
     @winrt_factorymethod
@@ -348,16 +304,6 @@ class HttpContentDispositionHeaderValue(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Http.Headers.IHttpContentDispositionHeaderValue
     _classid_ = 'Windows.Web.Http.Headers.HttpContentDispositionHeaderValue'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 1:
-            instance = win32more.Windows.Web.Http.Headers.HttpContentDispositionHeaderValue.Create(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.Web.Http.Headers.IHttpContentDispositionHeaderValueFactory, dispositionType: WinRT_String) -> win32more.Windows.Web.Http.Headers.HttpContentDispositionHeaderValue: ...
     @winrt_mixinmethod
@@ -398,16 +344,6 @@ class HttpContentHeaderCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Http.Headers.IHttpContentHeaderCollection
     _classid_ = 'Windows.Web.Http.Headers.HttpContentHeaderCollection'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.Web.Http.Headers.HttpContentHeaderCollection.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Web.Http.Headers.HttpContentHeaderCollection: ...
     @winrt_mixinmethod
@@ -483,20 +419,6 @@ class HttpContentRangeHeaderValue(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Http.Headers.IHttpContentRangeHeaderValue
     _classid_ = 'Windows.Web.Http.Headers.HttpContentRangeHeaderValue'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 1:
-            instance = win32more.Windows.Web.Http.Headers.HttpContentRangeHeaderValue.CreateFromLength(*args)
-        elif len(args) == 2:
-            instance = win32more.Windows.Web.Http.Headers.HttpContentRangeHeaderValue.CreateFromRange(*args)
-        elif len(args) == 3:
-            instance = win32more.Windows.Web.Http.Headers.HttpContentRangeHeaderValue.CreateFromRangeWithLength(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateFromLength(cls: win32more.Windows.Web.Http.Headers.IHttpContentRangeHeaderValueFactory, length: UInt64) -> win32more.Windows.Web.Http.Headers.HttpContentRangeHeaderValue: ...
     @winrt_factorymethod
@@ -527,18 +449,6 @@ class HttpCookiePairHeaderValue(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Http.Headers.IHttpCookiePairHeaderValue
     _classid_ = 'Windows.Web.Http.Headers.HttpCookiePairHeaderValue'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 1:
-            instance = win32more.Windows.Web.Http.Headers.HttpCookiePairHeaderValue.CreateFromName(*args)
-        elif len(args) == 2:
-            instance = win32more.Windows.Web.Http.Headers.HttpCookiePairHeaderValue.CreateFromNameWithValue(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateFromName(cls: win32more.Windows.Web.Http.Headers.IHttpCookiePairHeaderValueFactory, name: WinRT_String) -> win32more.Windows.Web.Http.Headers.HttpCookiePairHeaderValue: ...
     @winrt_factorymethod
@@ -598,18 +508,6 @@ class HttpCredentialsHeaderValue(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Http.Headers.IHttpCredentialsHeaderValue
     _classid_ = 'Windows.Web.Http.Headers.HttpCredentialsHeaderValue'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 1:
-            instance = win32more.Windows.Web.Http.Headers.HttpCredentialsHeaderValue.CreateFromScheme(*args)
-        elif len(args) == 2:
-            instance = win32more.Windows.Web.Http.Headers.HttpCredentialsHeaderValue.CreateFromSchemeWithToken(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateFromScheme(cls: win32more.Windows.Web.Http.Headers.IHttpCredentialsHeaderValueFactory, scheme: WinRT_String) -> win32more.Windows.Web.Http.Headers.HttpCredentialsHeaderValue: ...
     @winrt_factorymethod
@@ -649,18 +547,6 @@ class HttpExpectationHeaderValue(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Http.Headers.IHttpExpectationHeaderValue
     _classid_ = 'Windows.Web.Http.Headers.HttpExpectationHeaderValue'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 1:
-            instance = win32more.Windows.Web.Http.Headers.HttpExpectationHeaderValue.CreateFromName(*args)
-        elif len(args) == 2:
-            instance = win32more.Windows.Web.Http.Headers.HttpExpectationHeaderValue.CreateFromNameWithValue(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateFromName(cls: win32more.Windows.Web.Http.Headers.IHttpExpectationHeaderValueFactory, name: WinRT_String) -> win32more.Windows.Web.Http.Headers.HttpExpectationHeaderValue: ...
     @winrt_factorymethod
@@ -760,18 +646,6 @@ class HttpLanguageRangeWithQualityHeaderValue(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Http.Headers.IHttpLanguageRangeWithQualityHeaderValue
     _classid_ = 'Windows.Web.Http.Headers.HttpLanguageRangeWithQualityHeaderValue'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 1:
-            instance = win32more.Windows.Web.Http.Headers.HttpLanguageRangeWithQualityHeaderValue.CreateFromLanguageRange(*args)
-        elif len(args) == 2:
-            instance = win32more.Windows.Web.Http.Headers.HttpLanguageRangeWithQualityHeaderValue.CreateFromLanguageRangeWithQuality(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateFromLanguageRange(cls: win32more.Windows.Web.Http.Headers.IHttpLanguageRangeWithQualityHeaderValueFactory, languageRange: WinRT_String) -> win32more.Windows.Web.Http.Headers.HttpLanguageRangeWithQualityHeaderValue: ...
     @winrt_factorymethod
@@ -829,16 +703,6 @@ class HttpMediaTypeHeaderValue(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Http.Headers.IHttpMediaTypeHeaderValue
     _classid_ = 'Windows.Web.Http.Headers.HttpMediaTypeHeaderValue'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 1:
-            instance = win32more.Windows.Web.Http.Headers.HttpMediaTypeHeaderValue.Create(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.Web.Http.Headers.IHttpMediaTypeHeaderValueFactory, mediaType: WinRT_String) -> win32more.Windows.Web.Http.Headers.HttpMediaTypeHeaderValue: ...
     @winrt_mixinmethod
@@ -864,18 +728,6 @@ class HttpMediaTypeWithQualityHeaderValue(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Http.Headers.IHttpMediaTypeWithQualityHeaderValue
     _classid_ = 'Windows.Web.Http.Headers.HttpMediaTypeWithQualityHeaderValue'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 1:
-            instance = win32more.Windows.Web.Http.Headers.HttpMediaTypeWithQualityHeaderValue.CreateFromMediaType(*args)
-        elif len(args) == 2:
-            instance = win32more.Windows.Web.Http.Headers.HttpMediaTypeWithQualityHeaderValue.CreateFromMediaTypeWithQuality(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateFromMediaType(cls: win32more.Windows.Web.Http.Headers.IHttpMediaTypeWithQualityHeaderValueFactory, mediaType: WinRT_String) -> win32more.Windows.Web.Http.Headers.HttpMediaTypeWithQualityHeaderValue: ...
     @winrt_factorymethod
@@ -982,18 +834,6 @@ class HttpNameValueHeaderValue(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Http.Headers.IHttpNameValueHeaderValue
     _classid_ = 'Windows.Web.Http.Headers.HttpNameValueHeaderValue'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 1:
-            instance = win32more.Windows.Web.Http.Headers.HttpNameValueHeaderValue.CreateFromName(*args)
-        elif len(args) == 2:
-            instance = win32more.Windows.Web.Http.Headers.HttpNameValueHeaderValue.CreateFromNameWithValue(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateFromName(cls: win32more.Windows.Web.Http.Headers.IHttpNameValueHeaderValueFactory, name: WinRT_String) -> win32more.Windows.Web.Http.Headers.HttpNameValueHeaderValue: ...
     @winrt_factorymethod
@@ -1016,18 +856,6 @@ class HttpProductHeaderValue(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Http.Headers.IHttpProductHeaderValue
     _classid_ = 'Windows.Web.Http.Headers.HttpProductHeaderValue'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 1:
-            instance = win32more.Windows.Web.Http.Headers.HttpProductHeaderValue.CreateFromName(*args)
-        elif len(args) == 2:
-            instance = win32more.Windows.Web.Http.Headers.HttpProductHeaderValue.CreateFromNameWithVersion(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateFromName(cls: win32more.Windows.Web.Http.Headers.IHttpProductHeaderValueFactory, productName: WinRT_String) -> win32more.Windows.Web.Http.Headers.HttpProductHeaderValue: ...
     @winrt_factorymethod
@@ -1048,18 +876,6 @@ class HttpProductInfoHeaderValue(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Http.Headers.IHttpProductInfoHeaderValue
     _classid_ = 'Windows.Web.Http.Headers.HttpProductInfoHeaderValue'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 1:
-            instance = win32more.Windows.Web.Http.Headers.HttpProductInfoHeaderValue.CreateFromComment(*args)
-        elif len(args) == 2:
-            instance = win32more.Windows.Web.Http.Headers.HttpProductInfoHeaderValue.CreateFromNameWithVersion(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateFromComment(cls: win32more.Windows.Web.Http.Headers.IHttpProductInfoHeaderValueFactory, productComment: WinRT_String) -> win32more.Windows.Web.Http.Headers.HttpProductInfoHeaderValue: ...
     @winrt_factorymethod
@@ -1281,16 +1097,6 @@ class HttpTransferCodingHeaderValue(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Http.Headers.IHttpTransferCodingHeaderValue
     _classid_ = 'Windows.Web.Http.Headers.HttpTransferCodingHeaderValue'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 1:
-            instance = win32more.Windows.Web.Http.Headers.HttpTransferCodingHeaderValue.Create(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.Web.Http.Headers.IHttpTransferCodingHeaderValueFactory, input: WinRT_String) -> win32more.Windows.Web.Http.Headers.HttpTransferCodingHeaderValue: ...
     @winrt_mixinmethod

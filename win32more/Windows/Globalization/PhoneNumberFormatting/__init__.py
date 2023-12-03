@@ -88,16 +88,6 @@ class PhoneNumberFormatter(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Globalization.PhoneNumberFormatting.IPhoneNumberFormatter
     _classid_ = 'Windows.Globalization.PhoneNumberFormatting.PhoneNumberFormatter'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.Globalization.PhoneNumberFormatting.PhoneNumberFormatter.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Globalization.PhoneNumberFormatting.PhoneNumberFormatter: ...
     @winrt_mixinmethod
@@ -122,16 +112,6 @@ class PhoneNumberInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Globalization.PhoneNumberFormatting.IPhoneNumberInfo
     _classid_ = 'Windows.Globalization.PhoneNumberFormatting.PhoneNumberInfo'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 1:
-            instance = win32more.Windows.Globalization.PhoneNumberFormatting.PhoneNumberInfo.Create(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.Globalization.PhoneNumberFormatting.IPhoneNumberInfoFactory, number: WinRT_String) -> win32more.Windows.Globalization.PhoneNumberFormatting.PhoneNumberInfo: ...
     @winrt_mixinmethod

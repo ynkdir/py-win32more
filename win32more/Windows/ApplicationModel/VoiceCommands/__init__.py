@@ -242,16 +242,6 @@ class VoiceCommandContentTile(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.VoiceCommands.IVoiceCommandContentTile
     _classid_ = 'Windows.ApplicationModel.VoiceCommands.VoiceCommandContentTile'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.ApplicationModel.VoiceCommands.VoiceCommandContentTile.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.VoiceCommands.VoiceCommandContentTile: ...
     @winrt_mixinmethod
@@ -398,16 +388,6 @@ class VoiceCommandUserMessage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.VoiceCommands.IVoiceCommandUserMessage
     _classid_ = 'Windows.ApplicationModel.VoiceCommands.VoiceCommandUserMessage'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.ApplicationModel.VoiceCommands.VoiceCommandUserMessage.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.VoiceCommands.VoiceCommandUserMessage: ...
     @winrt_mixinmethod

@@ -49,16 +49,6 @@ class AdaptiveTrigger(ComPtr, metaclass=_AdaptiveTrigger_Meta_):
     extends: win32more.Microsoft.UI.Xaml.StateTriggerBase
     default_interface: win32more.Microsoft.UI.Xaml.IAdaptiveTrigger
     _classid_ = 'Microsoft.UI.Xaml.AdaptiveTrigger'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Microsoft.UI.Xaml.AdaptiveTrigger.CreateInstance(*args, None, None)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Microsoft.UI.Xaml.IAdaptiveTriggerFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.AdaptiveTrigger: ...
     @winrt_mixinmethod
@@ -83,16 +73,6 @@ class Application(ComPtr, metaclass=_Application_Meta_):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.IApplication
     _classid_ = 'Microsoft.UI.Xaml.Application'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Microsoft.UI.Xaml.Application.CreateInstance(*args, None, None)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Microsoft.UI.Xaml.IApplicationFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Application: ...
     @winrt_mixinmethod
@@ -212,16 +192,6 @@ class BringIntoViewOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.IBringIntoViewOptions
     _classid_ = 'Microsoft.UI.Xaml.BringIntoViewOptions'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Microsoft.UI.Xaml.BringIntoViewOptions.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Microsoft.UI.Xaml.BringIntoViewOptions: ...
     @winrt_mixinmethod
@@ -298,16 +268,6 @@ class BrushTransition(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.IBrushTransition
     _classid_ = 'Microsoft.UI.Xaml.BrushTransition'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Microsoft.UI.Xaml.BrushTransition.CreateInstance(*args, None, None)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Microsoft.UI.Xaml.IBrushTransitionFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.BrushTransition: ...
     @winrt_mixinmethod
@@ -319,16 +279,6 @@ class ColorPaletteResources(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.ResourceDictionary
     default_interface: win32more.Microsoft.UI.Xaml.IColorPaletteResources
     _classid_ = 'Microsoft.UI.Xaml.ColorPaletteResources'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Microsoft.UI.Xaml.ColorPaletteResources.CreateInstance(*args, None, None)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Microsoft.UI.Xaml.IColorPaletteResourcesFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.ColorPaletteResources: ...
     @winrt_mixinmethod
@@ -501,16 +451,6 @@ class DataTemplate(ComPtr, metaclass=_DataTemplate_Meta_):
     extends: win32more.Microsoft.UI.Xaml.FrameworkTemplate
     default_interface: win32more.Microsoft.UI.Xaml.IDataTemplate
     _classid_ = 'Microsoft.UI.Xaml.DataTemplate'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Microsoft.UI.Xaml.DataTemplate.CreateInstance(*args, None, None)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Microsoft.UI.Xaml.IDataTemplateFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.DataTemplate: ...
     @winrt_mixinmethod
@@ -530,18 +470,6 @@ class DataTemplateKey(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.IDataTemplateKey
     _classid_ = 'Microsoft.UI.Xaml.DataTemplateKey'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Microsoft.UI.Xaml.DataTemplateKey.CreateInstance(*args, None, None)
-        elif len(args) == 1:
-            instance = win32more.Microsoft.UI.Xaml.DataTemplateKey.CreateInstanceWithType(*args, None, None)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Microsoft.UI.Xaml.IDataTemplateKeyFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.DataTemplateKey: ...
     @winrt_factorymethod
@@ -592,16 +520,6 @@ class DependencyObject(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.IDependencyObject
     _classid_ = 'Microsoft.UI.Xaml.DependencyObject'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Microsoft.UI.Xaml.DependencyObject.CreateInstance(*args, None, None)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Microsoft.UI.Xaml.IDependencyObjectFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.DependencyObject: ...
     @winrt_mixinmethod
@@ -628,16 +546,6 @@ class DependencyObjectCollection(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.DependencyObject
     default_interface: win32more.Windows.Foundation.Collections.IObservableVector[win32more.Microsoft.UI.Xaml.DependencyObject]
     _classid_ = 'Microsoft.UI.Xaml.DependencyObjectCollection'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Microsoft.UI.Xaml.DependencyObjectCollection.CreateInstance(*args, None, None)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Microsoft.UI.Xaml.IDependencyObjectCollectionFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.DependencyObjectCollection: ...
     @winrt_mixinmethod
@@ -711,16 +619,6 @@ class DispatcherTimer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.IDispatcherTimer
     _classid_ = 'Microsoft.UI.Xaml.DispatcherTimer'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Microsoft.UI.Xaml.DispatcherTimer.CreateInstance(*args, None, None)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Microsoft.UI.Xaml.IDispatcherTimerFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.DispatcherTimer: ...
     @winrt_mixinmethod
@@ -914,16 +812,6 @@ class ElementFactoryGetArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.IElementFactoryGetArgs
     _classid_ = 'Microsoft.UI.Xaml.ElementFactoryGetArgs'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Microsoft.UI.Xaml.ElementFactoryGetArgs.CreateInstance(*args, None, None)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Microsoft.UI.Xaml.IElementFactoryGetArgsFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.ElementFactoryGetArgs: ...
     @winrt_mixinmethod
@@ -940,16 +828,6 @@ class ElementFactoryRecycleArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.IElementFactoryRecycleArgs
     _classid_ = 'Microsoft.UI.Xaml.ElementFactoryRecycleArgs'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Microsoft.UI.Xaml.ElementFactoryRecycleArgs.CreateInstance(*args, None, None)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Microsoft.UI.Xaml.IElementFactoryRecycleArgsFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.ElementFactoryRecycleArgs: ...
     @winrt_mixinmethod
@@ -1021,16 +899,6 @@ class EventTrigger(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.TriggerBase
     default_interface: win32more.Microsoft.UI.Xaml.IEventTrigger
     _classid_ = 'Microsoft.UI.Xaml.EventTrigger'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Microsoft.UI.Xaml.EventTrigger.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Microsoft.UI.Xaml.EventTrigger: ...
     @winrt_mixinmethod
@@ -1115,16 +983,6 @@ class FrameworkElement(ComPtr, metaclass=_FrameworkElement_Meta_):
     extends: win32more.Microsoft.UI.Xaml.UIElement
     default_interface: win32more.Microsoft.UI.Xaml.IFrameworkElement
     _classid_ = 'Microsoft.UI.Xaml.FrameworkElement'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Microsoft.UI.Xaml.FrameworkElement.CreateInstance(*args, None, None)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Microsoft.UI.Xaml.IFrameworkElementFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.FrameworkElement: ...
     @winrt_mixinmethod
@@ -1400,32 +1258,12 @@ class FrameworkTemplate(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.DependencyObject
     default_interface: win32more.Microsoft.UI.Xaml.IFrameworkTemplate
     _classid_ = 'Microsoft.UI.Xaml.FrameworkTemplate'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Microsoft.UI.Xaml.FrameworkTemplate.CreateInstance(*args, None, None)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Microsoft.UI.Xaml.IFrameworkTemplateFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.FrameworkTemplate: ...
 class FrameworkView(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.IFrameworkView
     _classid_ = 'Microsoft.UI.Xaml.FrameworkView'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Microsoft.UI.Xaml.FrameworkView.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Microsoft.UI.Xaml.FrameworkView: ...
     @winrt_mixinmethod
@@ -1442,16 +1280,6 @@ class FrameworkViewSource(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.IFrameworkViewSource
     _classid_ = 'Microsoft.UI.Xaml.FrameworkViewSource'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Microsoft.UI.Xaml.FrameworkViewSource.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Microsoft.UI.Xaml.FrameworkViewSource: ...
     @winrt_mixinmethod
@@ -4162,18 +3990,6 @@ class PropertyMetadata(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.IPropertyMetadata
     _classid_ = 'Microsoft.UI.Xaml.PropertyMetadata'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 1:
-            instance = win32more.Microsoft.UI.Xaml.PropertyMetadata.CreateInstanceWithDefaultValue(*args, None, None)
-        elif len(args) == 2:
-            instance = win32more.Microsoft.UI.Xaml.PropertyMetadata.CreateInstanceWithDefaultValueAndCallback(*args, None, None)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithDefaultValue(cls: win32more.Microsoft.UI.Xaml.IPropertyMetadataFactory, defaultValue: win32more.Windows.Win32.System.WinRT.IInspectable, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.PropertyMetadata: ...
     @winrt_factorymethod
@@ -4196,16 +4012,6 @@ class PropertyPath(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.DependencyObject
     default_interface: win32more.Microsoft.UI.Xaml.IPropertyPath
     _classid_ = 'Microsoft.UI.Xaml.PropertyPath'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 1:
-            instance = win32more.Microsoft.UI.Xaml.PropertyPath.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Microsoft.UI.Xaml.IPropertyPathFactory, path: WinRT_String) -> win32more.Microsoft.UI.Xaml.PropertyPath: ...
     @winrt_mixinmethod
@@ -4250,16 +4056,6 @@ class ResourceDictionary(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.DependencyObject
     default_interface: win32more.Microsoft.UI.Xaml.IResourceDictionary
     _classid_ = 'Microsoft.UI.Xaml.ResourceDictionary'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Microsoft.UI.Xaml.ResourceDictionary.CreateInstance(*args, None, None)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Microsoft.UI.Xaml.IResourceDictionaryFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.ResourceDictionary: ...
     @winrt_mixinmethod
@@ -4307,16 +4103,6 @@ class RoutedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.IRoutedEventArgs
     _classid_ = 'Microsoft.UI.Xaml.RoutedEventArgs'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Microsoft.UI.Xaml.RoutedEventArgs.CreateInstance(*args, None, None)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Microsoft.UI.Xaml.IRoutedEventArgsFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.RoutedEventArgs: ...
     @winrt_mixinmethod
@@ -4330,16 +4116,6 @@ class ScalarTransition(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.IScalarTransition
     _classid_ = 'Microsoft.UI.Xaml.ScalarTransition'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Microsoft.UI.Xaml.ScalarTransition.CreateInstance(*args, None, None)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Microsoft.UI.Xaml.IScalarTransitionFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.ScalarTransition: ...
     @winrt_mixinmethod
@@ -4351,22 +4127,10 @@ class Setter(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.SetterBase
     default_interface: win32more.Microsoft.UI.Xaml.ISetter
     _classid_ = 'Microsoft.UI.Xaml.Setter'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Microsoft.UI.Xaml.Setter.CreateInstance(*args)
-        elif len(args) == 2:
-            instance = win32more.Microsoft.UI.Xaml.Setter.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
-    @winrt_activatemethod
-    def CreateInstance(cls) -> win32more.Microsoft.UI.Xaml.Setter: ...
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Microsoft.UI.Xaml.ISetterFactory, targetProperty: win32more.Microsoft.UI.Xaml.DependencyProperty, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> win32more.Microsoft.UI.Xaml.Setter: ...
+    @winrt_activatemethod
+    def CreateInstance(cls) -> win32more.Microsoft.UI.Xaml.Setter: ...
     @winrt_mixinmethod
     def get_Property(self: win32more.Microsoft.UI.Xaml.ISetter) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
     @winrt_mixinmethod
@@ -4393,16 +4157,6 @@ class SetterBaseCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.ISetterBaseCollection
     _classid_ = 'Microsoft.UI.Xaml.SetterBaseCollection'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Microsoft.UI.Xaml.SetterBaseCollection.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Microsoft.UI.Xaml.SetterBaseCollection: ...
     @winrt_mixinmethod
@@ -4470,16 +4224,6 @@ class StateTrigger(ComPtr, metaclass=_StateTrigger_Meta_):
     extends: win32more.Microsoft.UI.Xaml.StateTriggerBase
     default_interface: win32more.Microsoft.UI.Xaml.IStateTrigger
     _classid_ = 'Microsoft.UI.Xaml.StateTrigger'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Microsoft.UI.Xaml.StateTrigger.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Microsoft.UI.Xaml.StateTrigger: ...
     @winrt_mixinmethod
@@ -4494,16 +4238,6 @@ class StateTriggerBase(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.DependencyObject
     default_interface: win32more.Microsoft.UI.Xaml.IStateTriggerBase
     _classid_ = 'Microsoft.UI.Xaml.StateTriggerBase'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Microsoft.UI.Xaml.StateTriggerBase.CreateInstance(*args, None, None)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Microsoft.UI.Xaml.IStateTriggerBaseFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.StateTriggerBase: ...
     @winrt_mixinmethod
@@ -4512,22 +4246,10 @@ class Style(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.DependencyObject
     default_interface: win32more.Microsoft.UI.Xaml.IStyle
     _classid_ = 'Microsoft.UI.Xaml.Style'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Microsoft.UI.Xaml.Style.CreateInstance(*args)
-        elif len(args) == 1:
-            instance = win32more.Microsoft.UI.Xaml.Style.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
-    @winrt_activatemethod
-    def CreateInstance(cls) -> win32more.Microsoft.UI.Xaml.Style: ...
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Microsoft.UI.Xaml.IStyleFactory, targetType: win32more.Windows.UI.Xaml.Interop.TypeName) -> win32more.Microsoft.UI.Xaml.Style: ...
+    @winrt_activatemethod
+    def CreateInstance(cls) -> win32more.Microsoft.UI.Xaml.Style: ...
     @winrt_mixinmethod
     def get_IsSealed(self: win32more.Microsoft.UI.Xaml.IStyle) -> Boolean: ...
     @winrt_mixinmethod
@@ -4554,22 +4276,10 @@ class TargetPropertyPath(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.ITargetPropertyPath
     _classid_ = 'Microsoft.UI.Xaml.TargetPropertyPath'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Microsoft.UI.Xaml.TargetPropertyPath.CreateInstance(*args)
-        elif len(args) == 1:
-            instance = win32more.Microsoft.UI.Xaml.TargetPropertyPath.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
-    @winrt_activatemethod
-    def CreateInstance(cls) -> win32more.Microsoft.UI.Xaml.TargetPropertyPath: ...
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Microsoft.UI.Xaml.ITargetPropertyPathFactory, targetProperty: win32more.Microsoft.UI.Xaml.DependencyProperty) -> win32more.Microsoft.UI.Xaml.TargetPropertyPath: ...
+    @winrt_activatemethod
+    def CreateInstance(cls) -> win32more.Microsoft.UI.Xaml.TargetPropertyPath: ...
     @winrt_mixinmethod
     def get_Path(self: win32more.Microsoft.UI.Xaml.ITargetPropertyPath) -> win32more.Microsoft.UI.Xaml.PropertyPath: ...
     @winrt_mixinmethod
@@ -4627,16 +4337,6 @@ class TriggerActionCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.Collections.IVector[win32more.Microsoft.UI.Xaml.TriggerAction]
     _classid_ = 'Microsoft.UI.Xaml.TriggerActionCollection'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Microsoft.UI.Xaml.TriggerActionCollection.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Microsoft.UI.Xaml.TriggerActionCollection: ...
     @winrt_mixinmethod
@@ -5492,16 +5192,6 @@ class UIElementWeakCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.Collections.IVector[win32more.Microsoft.UI.Xaml.UIElement]
     _classid_ = 'Microsoft.UI.Xaml.UIElementWeakCollection'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Microsoft.UI.Xaml.UIElementWeakCollection.CreateInstance(*args, None, None)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Microsoft.UI.Xaml.IUIElementWeakCollectionFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.UIElementWeakCollection: ...
     @winrt_mixinmethod
@@ -5554,16 +5244,6 @@ class Vector3Transition(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.IVector3Transition
     _classid_ = 'Microsoft.UI.Xaml.Vector3Transition'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Microsoft.UI.Xaml.Vector3Transition.CreateInstance(*args, None, None)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Microsoft.UI.Xaml.IVector3TransitionFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Vector3Transition: ...
     @winrt_mixinmethod
@@ -5592,16 +5272,6 @@ class VisualState(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.DependencyObject
     default_interface: win32more.Microsoft.UI.Xaml.IVisualState
     _classid_ = 'Microsoft.UI.Xaml.VisualState'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Microsoft.UI.Xaml.VisualState.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Microsoft.UI.Xaml.VisualState: ...
     @winrt_mixinmethod
@@ -5622,16 +5292,6 @@ class VisualStateChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.IVisualStateChangedEventArgs
     _classid_ = 'Microsoft.UI.Xaml.VisualStateChangedEventArgs'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Microsoft.UI.Xaml.VisualStateChangedEventArgs.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Microsoft.UI.Xaml.VisualStateChangedEventArgs: ...
     @winrt_mixinmethod
@@ -5657,16 +5317,6 @@ class VisualStateGroup(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.DependencyObject
     default_interface: win32more.Microsoft.UI.Xaml.IVisualStateGroup
     _classid_ = 'Microsoft.UI.Xaml.VisualStateGroup'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Microsoft.UI.Xaml.VisualStateGroup.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Microsoft.UI.Xaml.VisualStateGroup: ...
     @winrt_mixinmethod
@@ -5695,16 +5345,6 @@ class VisualStateManager(ComPtr, metaclass=_VisualStateManager_Meta_):
     extends: win32more.Microsoft.UI.Xaml.DependencyObject
     default_interface: win32more.Microsoft.UI.Xaml.IVisualStateManager
     _classid_ = 'Microsoft.UI.Xaml.VisualStateManager'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Microsoft.UI.Xaml.VisualStateManager.CreateInstance(*args, None, None)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Microsoft.UI.Xaml.IVisualStateManagerFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.VisualStateManager: ...
     @winrt_mixinmethod
@@ -5728,16 +5368,6 @@ class VisualTransition(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.DependencyObject
     default_interface: win32more.Microsoft.UI.Xaml.IVisualTransition
     _classid_ = 'Microsoft.UI.Xaml.VisualTransition'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Microsoft.UI.Xaml.VisualTransition.CreateInstance(*args, None, None)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Microsoft.UI.Xaml.IVisualTransitionFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.VisualTransition: ...
     @winrt_mixinmethod
@@ -5772,16 +5402,6 @@ class Window(ComPtr, metaclass=_Window_Meta_):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.IWindow
     _classid_ = 'Microsoft.UI.Xaml.Window'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Microsoft.UI.Xaml.Window.CreateInstance(*args, None, None)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Microsoft.UI.Xaml.IWindowFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Window: ...
     @winrt_mixinmethod

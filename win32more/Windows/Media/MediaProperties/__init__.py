@@ -25,16 +25,6 @@ class AudioEncodingProperties(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.MediaProperties.IAudioEncodingProperties
     _classid_ = 'Windows.Media.MediaProperties.AudioEncodingProperties'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.Media.MediaProperties.AudioEncodingProperties.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Media.MediaProperties.AudioEncodingProperties: ...
     @winrt_mixinmethod
@@ -141,16 +131,6 @@ class ContainerEncodingProperties(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.MediaProperties.IContainerEncodingProperties
     _classid_ = 'Windows.Media.MediaProperties.ContainerEncodingProperties'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.Media.MediaProperties.ContainerEncodingProperties.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Media.MediaProperties.ContainerEncodingProperties: ...
     @winrt_mixinmethod
@@ -976,16 +956,6 @@ class ImageEncodingProperties(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.MediaProperties.IImageEncodingProperties
     _classid_ = 'Windows.Media.MediaProperties.ImageEncodingProperties'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.Media.MediaProperties.ImageEncodingProperties.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Media.MediaProperties.ImageEncodingProperties: ...
     @winrt_mixinmethod
@@ -1027,16 +997,6 @@ class MediaEncodingProfile(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.MediaProperties.IMediaEncodingProfile
     _classid_ = 'Windows.Media.MediaProperties.MediaEncodingProfile'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.Media.MediaProperties.MediaEncodingProfile.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Media.MediaProperties.MediaEncodingProfile: ...
     @winrt_mixinmethod
@@ -1270,16 +1230,6 @@ class MediaPropertySet(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.Collections.IMap[Guid, win32more.Windows.Win32.System.WinRT.IInspectable]
     _classid_ = 'Windows.Media.MediaProperties.MediaPropertySet'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.Media.MediaProperties.MediaPropertySet.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Media.MediaProperties.MediaPropertySet: ...
     @winrt_mixinmethod
@@ -1353,16 +1303,6 @@ class TimedMetadataEncodingProperties(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.MediaProperties.IMediaEncodingProperties
     _classid_ = 'Windows.Media.MediaProperties.TimedMetadataEncodingProperties'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.Media.MediaProperties.TimedMetadataEncodingProperties.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Media.MediaProperties.TimedMetadataEncodingProperties: ...
     @winrt_mixinmethod
@@ -1394,16 +1334,6 @@ class VideoEncodingProperties(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.MediaProperties.IVideoEncodingProperties
     _classid_ = 'Windows.Media.MediaProperties.VideoEncodingProperties'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.Media.MediaProperties.VideoEncodingProperties.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Media.MediaProperties.VideoEncodingProperties: ...
     @winrt_mixinmethod

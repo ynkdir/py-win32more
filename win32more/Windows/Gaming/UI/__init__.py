@@ -78,16 +78,6 @@ class GameChatOverlayMessageSource(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Gaming.UI.IGameChatOverlayMessageSource
     _classid_ = 'Windows.Gaming.UI.GameChatOverlayMessageSource'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.Gaming.UI.GameChatOverlayMessageSource.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Gaming.UI.GameChatOverlayMessageSource: ...
     @winrt_mixinmethod

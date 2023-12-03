@@ -263,16 +263,6 @@ class LampArrayBitmapEffect(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Lights.Effects.ILampArrayBitmapEffect
     _classid_ = 'Windows.Devices.Lights.Effects.LampArrayBitmapEffect'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 2:
-            instance = win32more.Windows.Devices.Lights.Effects.LampArrayBitmapEffect.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.Devices.Lights.Effects.ILampArrayBitmapEffectFactory, lampArray: win32more.Windows.Devices.Lights.LampArray, lampIndexes: Annotated[SZArray[Int32], 'In']) -> win32more.Windows.Devices.Lights.Effects.LampArrayBitmapEffect: ...
     @winrt_mixinmethod
@@ -315,16 +305,6 @@ class LampArrayBlinkEffect(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Lights.Effects.ILampArrayBlinkEffect
     _classid_ = 'Windows.Devices.Lights.Effects.LampArrayBlinkEffect'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 2:
-            instance = win32more.Windows.Devices.Lights.Effects.LampArrayBlinkEffect.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.Devices.Lights.Effects.ILampArrayBlinkEffectFactory, lampArray: win32more.Windows.Devices.Lights.LampArray, lampIndexes: Annotated[SZArray[Int32], 'In']) -> win32more.Windows.Devices.Lights.Effects.LampArrayBlinkEffect: ...
     @winrt_mixinmethod
@@ -376,16 +356,6 @@ class LampArrayColorRampEffect(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Lights.Effects.ILampArrayColorRampEffect
     _classid_ = 'Windows.Devices.Lights.Effects.LampArrayColorRampEffect'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 2:
-            instance = win32more.Windows.Devices.Lights.Effects.LampArrayColorRampEffect.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.Devices.Lights.Effects.ILampArrayColorRampEffectFactory, lampArray: win32more.Windows.Devices.Lights.LampArray, lampIndexes: Annotated[SZArray[Int32], 'In']) -> win32more.Windows.Devices.Lights.Effects.LampArrayColorRampEffect: ...
     @winrt_mixinmethod
@@ -417,16 +387,6 @@ class LampArrayCustomEffect(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Lights.Effects.ILampArrayCustomEffect
     _classid_ = 'Windows.Devices.Lights.Effects.LampArrayCustomEffect'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 2:
-            instance = win32more.Windows.Devices.Lights.Effects.LampArrayCustomEffect.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.Devices.Lights.Effects.ILampArrayCustomEffectFactory, lampArray: win32more.Windows.Devices.Lights.LampArray, lampIndexes: Annotated[SZArray[Int32], 'In']) -> win32more.Windows.Devices.Lights.Effects.LampArrayCustomEffect: ...
     @winrt_mixinmethod
@@ -455,16 +415,6 @@ class LampArrayEffectPlaylist(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Lights.Effects.ILampArrayEffectPlaylist
     _classid_ = 'Windows.Devices.Lights.Effects.LampArrayEffectPlaylist'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.Devices.Lights.Effects.LampArrayEffectPlaylist.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Devices.Lights.Effects.LampArrayEffectPlaylist: ...
     @winrt_mixinmethod
@@ -519,16 +469,6 @@ class LampArraySolidEffect(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Lights.Effects.ILampArraySolidEffect
     _classid_ = 'Windows.Devices.Lights.Effects.LampArraySolidEffect'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 2:
-            instance = win32more.Windows.Devices.Lights.Effects.LampArraySolidEffect.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.Devices.Lights.Effects.ILampArraySolidEffectFactory, lampArray: win32more.Windows.Devices.Lights.LampArray, lampIndexes: Annotated[SZArray[Int32], 'In']) -> win32more.Windows.Devices.Lights.Effects.LampArraySolidEffect: ...
     @winrt_mixinmethod

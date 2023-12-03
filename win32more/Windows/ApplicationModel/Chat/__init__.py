@@ -118,16 +118,6 @@ class ChatConversationThreadingInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Chat.IChatConversationThreadingInfo
     _classid_ = 'Windows.ApplicationModel.Chat.ChatConversationThreadingInfo'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.ApplicationModel.Chat.ChatConversationThreadingInfo.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Chat.ChatConversationThreadingInfo: ...
     @winrt_mixinmethod
@@ -165,16 +155,6 @@ class ChatMessage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Chat.IChatMessage
     _classid_ = 'Windows.ApplicationModel.Chat.ChatMessage'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.ApplicationModel.Chat.ChatMessage.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Chat.ChatMessage: ...
     @winrt_mixinmethod
@@ -308,16 +288,6 @@ class ChatMessageAttachment(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Chat.IChatMessageAttachment
     _classid_ = 'Windows.ApplicationModel.Chat.ChatMessageAttachment'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 2:
-            instance = win32more.Windows.ApplicationModel.Chat.ChatMessageAttachment.CreateChatMessageAttachment(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateChatMessageAttachment(cls: win32more.Windows.ApplicationModel.Chat.IChatMessageAttachmentFactory, mimeType: WinRT_String, dataStreamReference: win32more.Windows.Storage.Streams.IRandomAccessStreamReference) -> win32more.Windows.ApplicationModel.Chat.ChatMessageAttachment: ...
     @winrt_mixinmethod
@@ -637,16 +607,6 @@ class ChatQueryOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Chat.IChatQueryOptions
     _classid_ = 'Windows.ApplicationModel.Chat.ChatQueryOptions'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.ApplicationModel.Chat.ChatQueryOptions.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Chat.ChatQueryOptions: ...
     @winrt_mixinmethod
@@ -658,16 +618,6 @@ class ChatRecipientDeliveryInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Chat.IChatRecipientDeliveryInfo
     _classid_ = 'Windows.ApplicationModel.Chat.ChatRecipientDeliveryInfo'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.ApplicationModel.Chat.ChatRecipientDeliveryInfo.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Chat.ChatRecipientDeliveryInfo: ...
     @winrt_mixinmethod

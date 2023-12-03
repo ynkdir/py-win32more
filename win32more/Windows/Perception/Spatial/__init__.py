@@ -487,18 +487,6 @@ class SpatialEntity(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Perception.Spatial.ISpatialEntity
     _classid_ = 'Windows.Perception.Spatial.SpatialEntity'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 1:
-            instance = win32more.Windows.Perception.Spatial.SpatialEntity.CreateWithSpatialAnchor(*args)
-        elif len(args) == 2:
-            instance = win32more.Windows.Perception.Spatial.SpatialEntity.CreateWithSpatialAnchorAndProperties(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateWithSpatialAnchor(cls: win32more.Windows.Perception.Spatial.ISpatialEntityFactory, spatialAnchor: win32more.Windows.Perception.Spatial.SpatialAnchor) -> win32more.Windows.Perception.Spatial.SpatialEntity: ...
     @winrt_factorymethod

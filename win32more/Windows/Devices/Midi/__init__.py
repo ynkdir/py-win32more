@@ -275,16 +275,6 @@ class MidiActiveSensingMessage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Midi.IMidiMessage
     _classid_ = 'Windows.Devices.Midi.MidiActiveSensingMessage'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.Devices.Midi.MidiActiveSensingMessage.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Devices.Midi.MidiActiveSensingMessage: ...
     @winrt_mixinmethod
@@ -300,16 +290,6 @@ class MidiChannelPressureMessage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Midi.IMidiChannelPressureMessage
     _classid_ = 'Windows.Devices.Midi.MidiChannelPressureMessage'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 2:
-            instance = win32more.Windows.Devices.Midi.MidiChannelPressureMessage.CreateMidiChannelPressureMessage(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateMidiChannelPressureMessage(cls: win32more.Windows.Devices.Midi.IMidiChannelPressureMessageFactory, channel: Byte, pressure: Byte) -> win32more.Windows.Devices.Midi.MidiChannelPressureMessage: ...
     @winrt_mixinmethod
@@ -331,16 +311,6 @@ class MidiContinueMessage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Midi.IMidiMessage
     _classid_ = 'Windows.Devices.Midi.MidiContinueMessage'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.Devices.Midi.MidiContinueMessage.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Devices.Midi.MidiContinueMessage: ...
     @winrt_mixinmethod
@@ -356,16 +326,6 @@ class MidiControlChangeMessage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Midi.IMidiControlChangeMessage
     _classid_ = 'Windows.Devices.Midi.MidiControlChangeMessage'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 3:
-            instance = win32more.Windows.Devices.Midi.MidiControlChangeMessage.CreateMidiControlChangeMessage(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateMidiControlChangeMessage(cls: win32more.Windows.Devices.Midi.IMidiControlChangeMessageFactory, channel: Byte, controller: Byte, controlValue: Byte) -> win32more.Windows.Devices.Midi.MidiControlChangeMessage: ...
     @winrt_mixinmethod
@@ -435,16 +395,6 @@ class MidiNoteOffMessage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Midi.IMidiNoteOffMessage
     _classid_ = 'Windows.Devices.Midi.MidiNoteOffMessage'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 3:
-            instance = win32more.Windows.Devices.Midi.MidiNoteOffMessage.CreateMidiNoteOffMessage(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateMidiNoteOffMessage(cls: win32more.Windows.Devices.Midi.IMidiNoteOffMessageFactory, channel: Byte, note: Byte, velocity: Byte) -> win32more.Windows.Devices.Midi.MidiNoteOffMessage: ...
     @winrt_mixinmethod
@@ -469,16 +419,6 @@ class MidiNoteOnMessage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Midi.IMidiNoteOnMessage
     _classid_ = 'Windows.Devices.Midi.MidiNoteOnMessage'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 3:
-            instance = win32more.Windows.Devices.Midi.MidiNoteOnMessage.CreateMidiNoteOnMessage(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateMidiNoteOnMessage(cls: win32more.Windows.Devices.Midi.IMidiNoteOnMessageFactory, channel: Byte, note: Byte, velocity: Byte) -> win32more.Windows.Devices.Midi.MidiNoteOnMessage: ...
     @winrt_mixinmethod
@@ -520,16 +460,6 @@ class MidiPitchBendChangeMessage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Midi.IMidiPitchBendChangeMessage
     _classid_ = 'Windows.Devices.Midi.MidiPitchBendChangeMessage'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 2:
-            instance = win32more.Windows.Devices.Midi.MidiPitchBendChangeMessage.CreateMidiPitchBendChangeMessage(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateMidiPitchBendChangeMessage(cls: win32more.Windows.Devices.Midi.IMidiPitchBendChangeMessageFactory, channel: Byte, bend: UInt16) -> win32more.Windows.Devices.Midi.MidiPitchBendChangeMessage: ...
     @winrt_mixinmethod
@@ -551,16 +481,6 @@ class MidiPolyphonicKeyPressureMessage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Midi.IMidiPolyphonicKeyPressureMessage
     _classid_ = 'Windows.Devices.Midi.MidiPolyphonicKeyPressureMessage'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 3:
-            instance = win32more.Windows.Devices.Midi.MidiPolyphonicKeyPressureMessage.CreateMidiPolyphonicKeyPressureMessage(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateMidiPolyphonicKeyPressureMessage(cls: win32more.Windows.Devices.Midi.IMidiPolyphonicKeyPressureMessageFactory, channel: Byte, note: Byte, pressure: Byte) -> win32more.Windows.Devices.Midi.MidiPolyphonicKeyPressureMessage: ...
     @winrt_mixinmethod
@@ -585,16 +505,6 @@ class MidiProgramChangeMessage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Midi.IMidiProgramChangeMessage
     _classid_ = 'Windows.Devices.Midi.MidiProgramChangeMessage'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 2:
-            instance = win32more.Windows.Devices.Midi.MidiProgramChangeMessage.CreateMidiProgramChangeMessage(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateMidiProgramChangeMessage(cls: win32more.Windows.Devices.Midi.IMidiProgramChangeMessageFactory, channel: Byte, program: Byte) -> win32more.Windows.Devices.Midi.MidiProgramChangeMessage: ...
     @winrt_mixinmethod
@@ -616,16 +526,6 @@ class MidiSongPositionPointerMessage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Midi.IMidiSongPositionPointerMessage
     _classid_ = 'Windows.Devices.Midi.MidiSongPositionPointerMessage'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 1:
-            instance = win32more.Windows.Devices.Midi.MidiSongPositionPointerMessage.CreateMidiSongPositionPointerMessage(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateMidiSongPositionPointerMessage(cls: win32more.Windows.Devices.Midi.IMidiSongPositionPointerMessageFactory, beats: UInt16) -> win32more.Windows.Devices.Midi.MidiSongPositionPointerMessage: ...
     @winrt_mixinmethod
@@ -644,16 +544,6 @@ class MidiSongSelectMessage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Midi.IMidiSongSelectMessage
     _classid_ = 'Windows.Devices.Midi.MidiSongSelectMessage'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 1:
-            instance = win32more.Windows.Devices.Midi.MidiSongSelectMessage.CreateMidiSongSelectMessage(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateMidiSongSelectMessage(cls: win32more.Windows.Devices.Midi.IMidiSongSelectMessageFactory, song: Byte) -> win32more.Windows.Devices.Midi.MidiSongSelectMessage: ...
     @winrt_mixinmethod
@@ -672,16 +562,6 @@ class MidiStartMessage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Midi.IMidiMessage
     _classid_ = 'Windows.Devices.Midi.MidiStartMessage'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.Devices.Midi.MidiStartMessage.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Devices.Midi.MidiStartMessage: ...
     @winrt_mixinmethod
@@ -697,16 +577,6 @@ class MidiStopMessage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Midi.IMidiMessage
     _classid_ = 'Windows.Devices.Midi.MidiStopMessage'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.Devices.Midi.MidiStopMessage.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Devices.Midi.MidiStopMessage: ...
     @winrt_mixinmethod
@@ -749,16 +619,6 @@ class MidiSystemExclusiveMessage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Midi.IMidiMessage
     _classid_ = 'Windows.Devices.Midi.MidiSystemExclusiveMessage'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 1:
-            instance = win32more.Windows.Devices.Midi.MidiSystemExclusiveMessage.CreateMidiSystemExclusiveMessage(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateMidiSystemExclusiveMessage(cls: win32more.Windows.Devices.Midi.IMidiSystemExclusiveMessageFactory, rawData: win32more.Windows.Storage.Streams.IBuffer) -> win32more.Windows.Devices.Midi.MidiSystemExclusiveMessage: ...
     @winrt_mixinmethod
@@ -774,16 +634,6 @@ class MidiSystemResetMessage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Midi.IMidiMessage
     _classid_ = 'Windows.Devices.Midi.MidiSystemResetMessage'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.Devices.Midi.MidiSystemResetMessage.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Devices.Midi.MidiSystemResetMessage: ...
     @winrt_mixinmethod
@@ -799,16 +649,6 @@ class MidiTimeCodeMessage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Midi.IMidiTimeCodeMessage
     _classid_ = 'Windows.Devices.Midi.MidiTimeCodeMessage'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 2:
-            instance = win32more.Windows.Devices.Midi.MidiTimeCodeMessage.CreateMidiTimeCodeMessage(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateMidiTimeCodeMessage(cls: win32more.Windows.Devices.Midi.IMidiTimeCodeMessageFactory, frameType: Byte, values: Byte) -> win32more.Windows.Devices.Midi.MidiTimeCodeMessage: ...
     @winrt_mixinmethod
@@ -830,16 +670,6 @@ class MidiTimingClockMessage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Midi.IMidiMessage
     _classid_ = 'Windows.Devices.Midi.MidiTimingClockMessage'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.Devices.Midi.MidiTimingClockMessage.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Devices.Midi.MidiTimingClockMessage: ...
     @winrt_mixinmethod
@@ -855,16 +685,6 @@ class MidiTuneRequestMessage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Midi.IMidiMessage
     _classid_ = 'Windows.Devices.Midi.MidiTuneRequestMessage'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.Devices.Midi.MidiTuneRequestMessage.CreateInstance(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Devices.Midi.MidiTuneRequestMessage: ...
     @winrt_mixinmethod

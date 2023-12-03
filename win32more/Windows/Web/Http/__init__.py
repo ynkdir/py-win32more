@@ -27,18 +27,6 @@ class HttpBufferContent(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Http.IHttpContent
     _classid_ = 'Windows.Web.Http.HttpBufferContent'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 1:
-            instance = win32more.Windows.Web.Http.HttpBufferContent.CreateFromBuffer(*args)
-        elif len(args) == 3:
-            instance = win32more.Windows.Web.Http.HttpBufferContent.CreateFromBufferWithOffset(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateFromBuffer(cls: win32more.Windows.Web.Http.IHttpBufferContentFactory, content: win32more.Windows.Storage.Streams.IBuffer) -> win32more.Windows.Web.Http.HttpBufferContent: ...
     @winrt_factorymethod
@@ -66,18 +54,6 @@ class HttpClient(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Http.IHttpClient
     _classid_ = 'Windows.Web.Http.HttpClient'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.Web.Http.HttpClient.CreateInstance(*args)
-        elif len(args) == 1:
-            instance = win32more.Windows.Web.Http.HttpClient.Create(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Web.Http.HttpClient: ...
     @winrt_factorymethod
@@ -141,16 +117,6 @@ class HttpCookie(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Http.IHttpCookie
     _classid_ = 'Windows.Web.Http.HttpCookie'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 3:
-            instance = win32more.Windows.Web.Http.HttpCookie.Create(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.Web.Http.IHttpCookieFactory, name: WinRT_String, domain: WinRT_String, path: WinRT_String) -> win32more.Windows.Web.Http.HttpCookie: ...
     @winrt_mixinmethod
@@ -215,16 +181,6 @@ class HttpFormUrlEncodedContent(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Http.IHttpContent
     _classid_ = 'Windows.Web.Http.HttpFormUrlEncodedContent'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 1:
-            instance = win32more.Windows.Web.Http.HttpFormUrlEncodedContent.Create(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.Web.Http.IHttpFormUrlEncodedContentFactory, content: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, WinRT_String]]) -> win32more.Windows.Web.Http.HttpFormUrlEncodedContent: ...
     @winrt_mixinmethod
@@ -321,16 +277,6 @@ class HttpMethod(ComPtr, metaclass=_HttpMethod_Meta_):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Http.IHttpMethod
     _classid_ = 'Windows.Web.Http.HttpMethod'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 1:
-            instance = win32more.Windows.Web.Http.HttpMethod.Create(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.Web.Http.IHttpMethodFactory, method: WinRT_String) -> win32more.Windows.Web.Http.HttpMethod: ...
     @winrt_mixinmethod
@@ -363,20 +309,6 @@ class HttpMultipartContent(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Http.IHttpContent
     _classid_ = 'Windows.Web.Http.HttpMultipartContent'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.Web.Http.HttpMultipartContent.CreateInstance(*args)
-        elif len(args) == 1:
-            instance = win32more.Windows.Web.Http.HttpMultipartContent.CreateWithSubtype(*args)
-        elif len(args) == 2:
-            instance = win32more.Windows.Web.Http.HttpMultipartContent.CreateWithSubtypeAndBoundary(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Web.Http.HttpMultipartContent: ...
     @winrt_factorymethod
@@ -410,22 +342,10 @@ class HttpMultipartFormDataContent(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Http.IHttpContent
     _classid_ = 'Windows.Web.Http.HttpMultipartFormDataContent'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.Web.Http.HttpMultipartFormDataContent.CreateInstance(*args)
-        elif len(args) == 1:
-            instance = win32more.Windows.Web.Http.HttpMultipartFormDataContent.CreateWithBoundary(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
-    @winrt_activatemethod
-    def CreateInstance(cls) -> win32more.Windows.Web.Http.HttpMultipartFormDataContent: ...
     @winrt_factorymethod
     def CreateWithBoundary(cls: win32more.Windows.Web.Http.IHttpMultipartFormDataContentFactory, boundary: WinRT_String) -> win32more.Windows.Web.Http.HttpMultipartFormDataContent: ...
+    @winrt_activatemethod
+    def CreateInstance(cls) -> win32more.Windows.Web.Http.HttpMultipartFormDataContent: ...
     @winrt_mixinmethod
     def Add(self: win32more.Windows.Web.Http.IHttpMultipartFormDataContent, content: win32more.Windows.Web.Http.IHttpContent) -> Void: ...
     @winrt_mixinmethod
@@ -475,22 +395,10 @@ class HttpRequestMessage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Http.IHttpRequestMessage
     _classid_ = 'Windows.Web.Http.HttpRequestMessage'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.Web.Http.HttpRequestMessage.CreateInstance(*args)
-        elif len(args) == 2:
-            instance = win32more.Windows.Web.Http.HttpRequestMessage.Create(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
-    @winrt_activatemethod
-    def CreateInstance(cls) -> win32more.Windows.Web.Http.HttpRequestMessage: ...
     @winrt_factorymethod
     def Create(cls: win32more.Windows.Web.Http.IHttpRequestMessageFactory, method: win32more.Windows.Web.Http.HttpMethod, uri: win32more.Windows.Foundation.Uri) -> win32more.Windows.Web.Http.HttpRequestMessage: ...
+    @winrt_activatemethod
+    def CreateInstance(cls) -> win32more.Windows.Web.Http.HttpRequestMessage: ...
     @winrt_mixinmethod
     def get_Content(self: win32more.Windows.Web.Http.IHttpRequestMessage) -> win32more.Windows.Web.Http.IHttpContent: ...
     @winrt_mixinmethod
@@ -548,22 +456,10 @@ class HttpResponseMessage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Http.IHttpResponseMessage
     _classid_ = 'Windows.Web.Http.HttpResponseMessage'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 0:
-            instance = win32more.Windows.Web.Http.HttpResponseMessage.CreateInstance(*args)
-        elif len(args) == 1:
-            instance = win32more.Windows.Web.Http.HttpResponseMessage.Create(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
-    @winrt_activatemethod
-    def CreateInstance(cls) -> win32more.Windows.Web.Http.HttpResponseMessage: ...
     @winrt_factorymethod
     def Create(cls: win32more.Windows.Web.Http.IHttpResponseMessageFactory, statusCode: win32more.Windows.Web.Http.HttpStatusCode) -> win32more.Windows.Web.Http.HttpResponseMessage: ...
+    @winrt_activatemethod
+    def CreateInstance(cls) -> win32more.Windows.Web.Http.HttpResponseMessage: ...
     @winrt_mixinmethod
     def get_Content(self: win32more.Windows.Web.Http.IHttpResponseMessage) -> win32more.Windows.Web.Http.IHttpContent: ...
     @winrt_mixinmethod
@@ -673,16 +569,6 @@ class HttpStreamContent(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Http.IHttpContent
     _classid_ = 'Windows.Web.Http.HttpStreamContent'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 1:
-            instance = win32more.Windows.Web.Http.HttpStreamContent.CreateFromInputStream(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateFromInputStream(cls: win32more.Windows.Web.Http.IHttpStreamContentFactory, content: win32more.Windows.Storage.Streams.IInputStream) -> win32more.Windows.Web.Http.HttpStreamContent: ...
     @winrt_mixinmethod
@@ -708,20 +594,6 @@ class HttpStringContent(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Http.IHttpContent
     _classid_ = 'Windows.Web.Http.HttpStringContent'
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('allocate', False):
-            return super().__init__(**kwargs)
-        elif len(args) == 1:
-            instance = win32more.Windows.Web.Http.HttpStringContent.CreateFromString(*args)
-        elif len(args) == 2:
-            instance = win32more.Windows.Web.Http.HttpStringContent.CreateFromStringWithEncoding(*args)
-        elif len(args) == 3:
-            instance = win32more.Windows.Web.Http.HttpStringContent.CreateFromStringWithEncodingAndMediaType(*args)
-        else:
-            raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateFromString(cls: win32more.Windows.Web.Http.IHttpStringContentFactory, content: WinRT_String) -> win32more.Windows.Web.Http.HttpStringContent: ...
     @winrt_factorymethod
