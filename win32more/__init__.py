@@ -9,6 +9,7 @@ from ctypes import (
     Array,
     Structure,
     Union,
+    WinError,
     _CFuncPtr,
     c_bool,
     c_byte,
@@ -85,6 +86,20 @@ class ComPtr(c_void_p):
         # Generic class have multiple base class (Generic[], ComPtr).
         struct.__bases__ = tuple(struct._hints_["extends"] if t is ComPtr else t for t in struct.__bases__)
         return struct
+
+    def as_(self, cls):
+        is_generic_alias = not isinstance(cls, type)
+        if is_generic_alias:
+            from win32more._winrt import _ro_get_parameterized_type_instance_iid
+
+            iid = _ro_get_parameterized_type_instance_iid(cls)
+        else:
+            iid = cls._iid_
+        instance = cls(own=True, allocate=True)
+        hr = self.QueryInterface(iid, instance)
+        if FAILED(hr):
+            raise WinError(hr)
+        return instance
 
 
 # to avoid auto conversion to str when struct.member access and function() result.
