@@ -95,7 +95,7 @@ class ComPtr(c_void_p):
             iid = _ro_get_parameterized_type_instance_iid(cls)
         else:
             iid = cls._iid_
-        instance = cls(own=True, allocate=True)
+        instance = cls(own=True)
         hr = self.QueryInterface(iid, instance)
         if FAILED(hr):
             raise WinError(hr)
