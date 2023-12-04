@@ -133,6 +133,16 @@ class RemoteDesktopInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.System.RemoteDesktop.Provider.IRemoteDesktopInfo
     _classid_ = 'Windows.System.RemoteDesktop.Provider.RemoteDesktopInfo'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 2:
+            instance = win32more.Windows.System.RemoteDesktop.Provider.RemoteDesktopInfo.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.System.RemoteDesktop.Provider.IRemoteDesktopInfoFactory, id: WinRT_String, displayName: WinRT_String) -> win32more.Windows.System.RemoteDesktop.Provider.RemoteDesktopInfo: ...
     @winrt_mixinmethod

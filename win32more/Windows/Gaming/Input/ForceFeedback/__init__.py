@@ -22,6 +22,16 @@ class ConditionForceEffect(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Gaming.Input.ForceFeedback.IForceFeedbackEffect
     _classid_ = 'Windows.Gaming.Input.ForceFeedback.ConditionForceEffect'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.Gaming.Input.ForceFeedback.ConditionForceEffect.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.Gaming.Input.ForceFeedback.IConditionForceEffectFactory, effectKind: win32more.Windows.Gaming.Input.ForceFeedback.ConditionForceEffectKind) -> win32more.Windows.Gaming.Input.ForceFeedback.ConditionForceEffect: ...
     @winrt_mixinmethod
@@ -50,6 +60,16 @@ class ConstantForceEffect(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Gaming.Input.ForceFeedback.IForceFeedbackEffect
     _classid_ = 'Windows.Gaming.Input.ForceFeedback.ConstantForceEffect'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Gaming.Input.ForceFeedback.ConstantForceEffect.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Gaming.Input.ForceFeedback.ConstantForceEffect: ...
     @winrt_mixinmethod
@@ -218,6 +238,16 @@ class PeriodicForceEffect(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Gaming.Input.ForceFeedback.IForceFeedbackEffect
     _classid_ = 'Windows.Gaming.Input.ForceFeedback.PeriodicForceEffect'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.Gaming.Input.ForceFeedback.PeriodicForceEffect.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.Gaming.Input.ForceFeedback.IPeriodicForceEffectFactory, effectKind: win32more.Windows.Gaming.Input.ForceFeedback.PeriodicForceEffectKind) -> win32more.Windows.Gaming.Input.ForceFeedback.PeriodicForceEffect: ...
     @winrt_mixinmethod
@@ -249,6 +279,16 @@ class RampForceEffect(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Gaming.Input.ForceFeedback.IForceFeedbackEffect
     _classid_ = 'Windows.Gaming.Input.ForceFeedback.RampForceEffect'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Gaming.Input.ForceFeedback.RampForceEffect.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Gaming.Input.ForceFeedback.RampForceEffect: ...
     @winrt_mixinmethod

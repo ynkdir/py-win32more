@@ -23,6 +23,16 @@ class CompositeTransform3D(ComPtr, metaclass=_CompositeTransform3D_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Media.Media3D.Transform3D
     default_interface: win32more.Microsoft.UI.Xaml.Media.Media3D.ICompositeTransform3D
     _classid_ = 'Microsoft.UI.Xaml.Media.Media3D.CompositeTransform3D'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Microsoft.UI.Xaml.Media.Media3D.CompositeTransform3D.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Microsoft.UI.Xaml.Media.Media3D.CompositeTransform3D: ...
     @winrt_mixinmethod
@@ -330,6 +340,16 @@ class PerspectiveTransform3D(ComPtr, metaclass=_PerspectiveTransform3D_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Media.Media3D.Transform3D
     default_interface: win32more.Microsoft.UI.Xaml.Media.Media3D.IPerspectiveTransform3D
     _classid_ = 'Microsoft.UI.Xaml.Media.Media3D.PerspectiveTransform3D'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Microsoft.UI.Xaml.Media.Media3D.PerspectiveTransform3D.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Microsoft.UI.Xaml.Media.Media3D.PerspectiveTransform3D: ...
     @winrt_mixinmethod
@@ -360,6 +380,16 @@ class Transform3D(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.DependencyObject
     default_interface: win32more.Microsoft.UI.Xaml.Media.Media3D.ITransform3D
     _classid_ = 'Microsoft.UI.Xaml.Media.Media3D.Transform3D'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Microsoft.UI.Xaml.Media.Media3D.Transform3D.CreateInstance(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Microsoft.UI.Xaml.Media.Media3D.ITransform3DFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Media.Media3D.Transform3D: ...
 make_ready(__name__)

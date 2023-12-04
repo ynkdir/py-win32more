@@ -4,8 +4,8 @@ from win32more.Microsoft.UI.Xaml.Controls import ColorPicker
 
 class App(XamlApplication):
     def OnLaunched(self, args):
-        win = Window.CreateInstance(None, None)
-        clr = ColorPicker.CreateInstance(None, None)
+        win = Window()
+        clr = ColorPicker()
         win.Content = clr
         win.Activate()
 

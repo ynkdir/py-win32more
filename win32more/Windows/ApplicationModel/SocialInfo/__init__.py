@@ -202,6 +202,16 @@ class SocialFeedChildItem(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.SocialInfo.ISocialFeedChildItem
     _classid_ = 'Windows.ApplicationModel.SocialInfo.SocialFeedChildItem'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.ApplicationModel.SocialInfo.SocialFeedChildItem.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.SocialInfo.SocialFeedChildItem: ...
     @winrt_mixinmethod
@@ -254,6 +264,16 @@ class SocialFeedItem(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.SocialInfo.ISocialFeedItem
     _classid_ = 'Windows.ApplicationModel.SocialInfo.SocialFeedItem'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.ApplicationModel.SocialInfo.SocialFeedItem.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.SocialInfo.SocialFeedItem: ...
     @winrt_mixinmethod
@@ -319,6 +339,16 @@ class SocialFeedSharedItem(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.SocialInfo.ISocialFeedSharedItem
     _classid_ = 'Windows.ApplicationModel.SocialInfo.SocialFeedSharedItem'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.ApplicationModel.SocialInfo.SocialFeedSharedItem.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.SocialInfo.SocialFeedSharedItem: ...
     @winrt_mixinmethod
@@ -356,6 +386,16 @@ class SocialItemThumbnail(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.SocialInfo.ISocialItemThumbnail
     _classid_ = 'Windows.ApplicationModel.SocialInfo.SocialItemThumbnail'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.ApplicationModel.SocialInfo.SocialItemThumbnail.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.SocialInfo.SocialItemThumbnail: ...
     @winrt_mixinmethod

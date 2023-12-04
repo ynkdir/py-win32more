@@ -31,6 +31,16 @@ class AppBarAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IAppBarAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.AppBarAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.AppBarAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Windows.UI.Xaml.Automation.Peers.IAppBarAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.AppBar, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.AppBarAutomationPeer: ...
     @winrt_mixinmethod
@@ -73,6 +83,16 @@ class AppBarButtonAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.ButtonAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IAppBarButtonAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.AppBarButtonAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.AppBarButtonAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Windows.UI.Xaml.Automation.Peers.IAppBarButtonAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.AppBarButton, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.AppBarButtonAutomationPeer: ...
     @winrt_mixinmethod
@@ -86,12 +106,32 @@ class AppBarToggleButtonAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.ToggleButtonAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IAppBarToggleButtonAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.AppBarToggleButtonAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.AppBarToggleButtonAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Windows.UI.Xaml.Automation.Peers.IAppBarToggleButtonAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.AppBarToggleButton, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.AppBarToggleButtonAutomationPeer: ...
 class AutoSuggestBoxAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IAutoSuggestBoxAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.AutoSuggestBoxAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.AutoSuggestBoxAutomationPeer.CreateInstanceWithOwner(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Windows.UI.Xaml.Automation.Peers.IAutoSuggestBoxAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.AutoSuggestBox) -> win32more.Windows.UI.Xaml.Automation.Peers.AutoSuggestBoxAutomationPeer: ...
     @winrt_mixinmethod
@@ -217,6 +257,16 @@ class AutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.DependencyObject
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.AutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.AutomationPeer.CreateInstance(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Automation.Peers.IAutomationPeerFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.AutomationPeer: ...
     @winrt_mixinmethod
@@ -436,6 +486,20 @@ class AutomationPeerAnnotation(ComPtr, metaclass=_AutomationPeerAnnotation_Meta_
     extends: win32more.Windows.UI.Xaml.DependencyObject
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IAutomationPeerAnnotation
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.AutomationPeerAnnotation'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.AutomationPeerAnnotation.CreateInstance(*args)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.AutomationPeerAnnotation.CreateInstance(*args)
+        elif len(args) == 2:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.AutomationPeerAnnotation.CreateWithPeerParameter(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Automation.Peers.AutomationPeerAnnotation: ...
     @winrt_factorymethod
@@ -469,6 +533,16 @@ class ButtonAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.ButtonBaseAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IButtonAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ButtonAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.ButtonAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Windows.UI.Xaml.Automation.Peers.IButtonAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.Button, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.ButtonAutomationPeer: ...
     @winrt_mixinmethod
@@ -477,12 +551,32 @@ class ButtonBaseAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IButtonBaseAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ButtonBaseAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.ButtonBaseAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Windows.UI.Xaml.Automation.Peers.IButtonBaseAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.Primitives.ButtonBase, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.ButtonBaseAutomationPeer: ...
 class CalendarDatePickerAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.ICalendarDatePickerAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.CalendarDatePickerAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.CalendarDatePickerAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Windows.UI.Xaml.Automation.Peers.ICalendarDatePickerAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.CalendarDatePicker, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.CalendarDatePickerAutomationPeer: ...
     @winrt_mixinmethod
@@ -499,30 +593,80 @@ class CaptureElementAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.ICaptureElementAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.CaptureElementAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.CaptureElementAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Windows.UI.Xaml.Automation.Peers.ICaptureElementAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.CaptureElement, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.CaptureElementAutomationPeer: ...
 class CheckBoxAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.ToggleButtonAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.ICheckBoxAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.CheckBoxAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.CheckBoxAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Windows.UI.Xaml.Automation.Peers.ICheckBoxAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.CheckBox, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.CheckBoxAutomationPeer: ...
 class ColorPickerSliderAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.SliderAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IColorPickerSliderAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ColorPickerSliderAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.ColorPickerSliderAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Windows.UI.Xaml.Automation.Peers.IColorPickerSliderAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.Primitives.ColorPickerSlider, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.ColorPickerSliderAutomationPeer: ...
 class ColorSpectrumAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IColorSpectrumAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ColorSpectrumAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.ColorSpectrumAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Windows.UI.Xaml.Automation.Peers.IColorSpectrumAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.Primitives.ColorSpectrum, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.ColorSpectrumAutomationPeer: ...
 class ComboBoxAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.SelectorAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IComboBoxAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ComboBoxAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.ComboBoxAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Windows.UI.Xaml.Automation.Peers.IComboBoxAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.ComboBox, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.ComboBoxAutomationPeer: ...
     @winrt_mixinmethod
@@ -568,12 +712,32 @@ class ComboBoxItemAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IComboBoxItemAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ComboBoxItemAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.ComboBoxItemAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Windows.UI.Xaml.Automation.Peers.IComboBoxItemAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.ComboBoxItem, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.ComboBoxItemAutomationPeer: ...
 class ComboBoxItemDataAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.SelectorItemAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IComboBoxItemDataAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ComboBoxItemDataAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 2:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.ComboBoxItemDataAutomationPeer.CreateInstanceWithParentAndItem(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithParentAndItem(cls: win32more.Windows.UI.Xaml.Automation.Peers.IComboBoxItemDataAutomationPeerFactory, item: win32more.Windows.Win32.System.WinRT.IInspectable, parent: win32more.Windows.UI.Xaml.Automation.Peers.ComboBoxAutomationPeer, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.ComboBoxItemDataAutomationPeer: ...
     @winrt_mixinmethod
@@ -582,6 +746,16 @@ class DatePickerAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IDatePickerAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.DatePickerAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.DatePickerAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Windows.UI.Xaml.Automation.Peers.IDatePickerAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.DatePicker, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.DatePickerAutomationPeer: ...
 class DatePickerFlyoutPresenterAutomationPeer(ComPtr):
@@ -592,18 +766,48 @@ class FlipViewAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.SelectorAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IFlipViewAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.FlipViewAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.FlipViewAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Windows.UI.Xaml.Automation.Peers.IFlipViewAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.FlipView, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.FlipViewAutomationPeer: ...
 class FlipViewItemAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IFlipViewItemAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.FlipViewItemAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.FlipViewItemAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Windows.UI.Xaml.Automation.Peers.IFlipViewItemAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.FlipViewItem, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.FlipViewItemAutomationPeer: ...
 class FlipViewItemDataAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.SelectorItemAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IFlipViewItemDataAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.FlipViewItemDataAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 2:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.FlipViewItemDataAutomationPeer.CreateInstanceWithParentAndItem(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithParentAndItem(cls: win32more.Windows.UI.Xaml.Automation.Peers.IFlipViewItemDataAutomationPeerFactory, item: win32more.Windows.Win32.System.WinRT.IInspectable, parent: win32more.Windows.UI.Xaml.Automation.Peers.FlipViewAutomationPeer, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.FlipViewItemDataAutomationPeer: ...
     @winrt_mixinmethod
@@ -612,12 +816,32 @@ class FlyoutPresenterAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IFlyoutPresenterAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.FlyoutPresenterAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.FlyoutPresenterAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Windows.UI.Xaml.Automation.Peers.IFlyoutPresenterAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.FlyoutPresenter, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.FlyoutPresenterAutomationPeer: ...
 class FrameworkElementAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.AutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IFrameworkElementAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Windows.UI.Xaml.Automation.Peers.IFrameworkElementAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.FrameworkElement, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer: ...
     @winrt_mixinmethod
@@ -631,24 +855,64 @@ class GridViewAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.ListViewBaseAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IGridViewAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.GridViewAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.GridViewAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Windows.UI.Xaml.Automation.Peers.IGridViewAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.GridView, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.GridViewAutomationPeer: ...
 class GridViewHeaderItemAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.ListViewBaseHeaderItemAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IGridViewHeaderItemAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.GridViewHeaderItemAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.GridViewHeaderItemAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Windows.UI.Xaml.Automation.Peers.IGridViewHeaderItemAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.GridViewHeaderItem, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.GridViewHeaderItemAutomationPeer: ...
 class GridViewItemAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IGridViewItemAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.GridViewItemAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.GridViewItemAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Windows.UI.Xaml.Automation.Peers.IGridViewItemAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.GridViewItem, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.GridViewItemAutomationPeer: ...
 class GridViewItemDataAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.SelectorItemAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IGridViewItemDataAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.GridViewItemDataAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 2:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.GridViewItemDataAutomationPeer.CreateInstanceWithParentAndItem(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithParentAndItem(cls: win32more.Windows.UI.Xaml.Automation.Peers.IGridViewItemDataAutomationPeerFactory, item: win32more.Windows.Win32.System.WinRT.IInspectable, parent: win32more.Windows.UI.Xaml.Automation.Peers.GridViewAutomationPeer, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.GridViewItemDataAutomationPeer: ...
     @winrt_mixinmethod
@@ -657,18 +921,48 @@ class GroupItemAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IGroupItemAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.GroupItemAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.GroupItemAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Windows.UI.Xaml.Automation.Peers.IGroupItemAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.GroupItem, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.GroupItemAutomationPeer: ...
 class HubAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IHubAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.HubAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.HubAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Windows.UI.Xaml.Automation.Peers.IHubAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.Hub, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.HubAutomationPeer: ...
 class HubSectionAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IHubSectionAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.HubSectionAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.HubSectionAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Windows.UI.Xaml.Automation.Peers.IHubSectionAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.HubSection, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.HubSectionAutomationPeer: ...
     @winrt_mixinmethod
@@ -677,6 +971,16 @@ class HyperlinkButtonAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.ButtonBaseAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IHyperlinkButtonAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.HyperlinkButtonAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.HyperlinkButtonAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Windows.UI.Xaml.Automation.Peers.IHyperlinkButtonAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.HyperlinkButton, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.HyperlinkButtonAutomationPeer: ...
     @winrt_mixinmethod
@@ -1869,6 +2173,16 @@ class ImageAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IImageAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ImageAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.ImageAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Windows.UI.Xaml.Automation.Peers.IImageAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.Image, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.ImageAutomationPeer: ...
 class InkToolbarAutomationPeer(ComPtr):
@@ -1879,6 +2193,16 @@ class ItemAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.AutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IItemAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ItemAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 2:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.ItemAutomationPeer.CreateInstanceWithParentAndItem(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithParentAndItem(cls: win32more.Windows.UI.Xaml.Automation.Peers.IItemAutomationPeerFactory, item: win32more.Windows.Win32.System.WinRT.IInspectable, parent: win32more.Windows.UI.Xaml.Automation.Peers.ItemsControlAutomationPeer, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.ItemAutomationPeer: ...
     @winrt_mixinmethod
@@ -1893,6 +2217,16 @@ class ItemsControlAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IItemsControlAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ItemsControlAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.ItemsControlAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Windows.UI.Xaml.Automation.Peers.IItemsControlAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.ItemsControl, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.ItemsControlAutomationPeer: ...
     @winrt_mixinmethod
@@ -1905,18 +2239,48 @@ class ListBoxAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.SelectorAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IListBoxAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ListBoxAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.ListBoxAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Windows.UI.Xaml.Automation.Peers.IListBoxAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.ListBox, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.ListBoxAutomationPeer: ...
 class ListBoxItemAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IListBoxItemAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ListBoxItemAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.ListBoxItemAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Windows.UI.Xaml.Automation.Peers.IListBoxItemAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.ListBoxItem, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.ListBoxItemAutomationPeer: ...
 class ListBoxItemDataAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.SelectorItemAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IListBoxItemDataAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ListBoxItemDataAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 2:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.ListBoxItemDataAutomationPeer.CreateInstanceWithParentAndItem(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithParentAndItem(cls: win32more.Windows.UI.Xaml.Automation.Peers.IListBoxItemDataAutomationPeerFactory, item: win32more.Windows.Win32.System.WinRT.IInspectable, parent: win32more.Windows.UI.Xaml.Automation.Peers.ListBoxAutomationPeer, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.ListBoxItemDataAutomationPeer: ...
     @winrt_mixinmethod
@@ -1929,12 +2293,32 @@ class ListViewAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.ListViewBaseAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IListViewAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ListViewAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.ListViewAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Windows.UI.Xaml.Automation.Peers.IListViewAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.ListView, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.ListViewAutomationPeer: ...
 class ListViewBaseAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.SelectorAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IListViewBaseAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ListViewBaseAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.ListViewBaseAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Windows.UI.Xaml.Automation.Peers.IListViewBaseAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.ListViewBase, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.ListViewBaseAutomationPeer: ...
     @winrt_mixinmethod
@@ -1947,24 +2331,64 @@ class ListViewBaseHeaderItemAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IListViewBaseHeaderItemAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ListViewBaseHeaderItemAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.ListViewBaseHeaderItemAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Windows.UI.Xaml.Automation.Peers.IListViewBaseHeaderItemAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.ListViewBaseHeaderItem, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.ListViewBaseHeaderItemAutomationPeer: ...
 class ListViewHeaderItemAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.ListViewBaseHeaderItemAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IListViewHeaderItemAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ListViewHeaderItemAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.ListViewHeaderItemAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Windows.UI.Xaml.Automation.Peers.IListViewHeaderItemAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.ListViewHeaderItem, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.ListViewHeaderItemAutomationPeer: ...
 class ListViewItemAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IListViewItemAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ListViewItemAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.ListViewItemAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Windows.UI.Xaml.Automation.Peers.IListViewItemAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.ListViewItem, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.ListViewItemAutomationPeer: ...
 class ListViewItemDataAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.SelectorItemAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IListViewItemDataAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ListViewItemDataAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 2:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.ListViewItemDataAutomationPeer.CreateInstanceWithParentAndItem(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithParentAndItem(cls: win32more.Windows.UI.Xaml.Automation.Peers.IListViewItemDataAutomationPeerFactory, item: win32more.Windows.Win32.System.WinRT.IInspectable, parent: win32more.Windows.UI.Xaml.Automation.Peers.ListViewBaseAutomationPeer, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.ListViewItemDataAutomationPeer: ...
     @winrt_mixinmethod
@@ -2097,30 +2521,80 @@ class MediaElementAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IMediaElementAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.MediaElementAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.MediaElementAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Windows.UI.Xaml.Automation.Peers.IMediaElementAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.MediaElement, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.MediaElementAutomationPeer: ...
 class MediaPlayerElementAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IMediaPlayerElementAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.MediaPlayerElementAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.MediaPlayerElementAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Windows.UI.Xaml.Automation.Peers.IMediaPlayerElementAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.MediaPlayerElement, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.MediaPlayerElementAutomationPeer: ...
 class MediaTransportControlsAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IMediaTransportControlsAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.MediaTransportControlsAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.MediaTransportControlsAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Windows.UI.Xaml.Automation.Peers.IMediaTransportControlsAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.MediaTransportControls, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.MediaTransportControlsAutomationPeer: ...
 class MenuBarAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IMenuBarAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.MenuBarAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.MenuBarAutomationPeer.CreateInstance(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Automation.Peers.IMenuBarAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.MenuBar, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.MenuBarAutomationPeer: ...
 class MenuBarItemAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IMenuBarItemAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.MenuBarItemAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.MenuBarItemAutomationPeer.CreateInstance(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Automation.Peers.IMenuBarItemAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.MenuBarItem, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.MenuBarItemAutomationPeer: ...
     @winrt_mixinmethod
@@ -2136,6 +2610,16 @@ class MenuFlyoutItemAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IMenuFlyoutItemAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.MenuFlyoutItemAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.MenuFlyoutItemAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Windows.UI.Xaml.Automation.Peers.IMenuFlyoutItemAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.MenuFlyoutItem, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.MenuFlyoutItemAutomationPeer: ...
     @winrt_mixinmethod
@@ -2144,18 +2628,48 @@ class MenuFlyoutPresenterAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.ItemsControlAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IMenuFlyoutPresenterAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.MenuFlyoutPresenterAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.MenuFlyoutPresenterAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Windows.UI.Xaml.Automation.Peers.IMenuFlyoutPresenterAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.MenuFlyoutPresenter, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.MenuFlyoutPresenterAutomationPeer: ...
 class NavigationViewItemAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.ListViewItemAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.INavigationViewItemAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.NavigationViewItemAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.NavigationViewItemAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Windows.UI.Xaml.Automation.Peers.INavigationViewItemAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.NavigationViewItem, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.NavigationViewItemAutomationPeer: ...
 class PasswordBoxAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IPasswordBoxAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.PasswordBoxAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.PasswordBoxAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Windows.UI.Xaml.Automation.Peers.IPasswordBoxAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.PasswordBox, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.PasswordBoxAutomationPeer: ...
 PatternInterface = Int32
@@ -2197,6 +2711,16 @@ class PersonPictureAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IPersonPictureAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.PersonPictureAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.PersonPictureAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Windows.UI.Xaml.Automation.Peers.IPersonPictureAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.PersonPicture, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.PersonPictureAutomationPeer: ...
 class PickerFlyoutPresenterAutomationPeer(ComPtr):
@@ -2207,6 +2731,16 @@ class PivotAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.ItemsControlAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IPivotAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.PivotAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.PivotAutomationPeer.CreateInstanceWithOwner(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Windows.UI.Xaml.Automation.Peers.IPivotAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.Pivot) -> win32more.Windows.UI.Xaml.Automation.Peers.PivotAutomationPeer: ...
     @winrt_mixinmethod
@@ -2243,12 +2777,32 @@ class PivotItemAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IPivotItemAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.PivotItemAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.PivotItemAutomationPeer.CreateInstanceWithOwner(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Windows.UI.Xaml.Automation.Peers.IPivotItemAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.PivotItem) -> win32more.Windows.UI.Xaml.Automation.Peers.PivotItemAutomationPeer: ...
 class PivotItemDataAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.ItemAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IPivotItemDataAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.PivotItemDataAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 2:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.PivotItemDataAutomationPeer.CreateInstanceWithParentAndItem(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithParentAndItem(cls: win32more.Windows.UI.Xaml.Automation.Peers.IPivotItemDataAutomationPeerFactory, item: win32more.Windows.Win32.System.WinRT.IInspectable, parent: win32more.Windows.UI.Xaml.Automation.Peers.PivotAutomationPeer) -> win32more.Windows.UI.Xaml.Automation.Peers.PivotItemDataAutomationPeer: ...
     @winrt_mixinmethod
@@ -2271,18 +2825,48 @@ class ProgressBarAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.RangeBaseAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IProgressBarAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ProgressBarAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.ProgressBarAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Windows.UI.Xaml.Automation.Peers.IProgressBarAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.ProgressBar, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.ProgressBarAutomationPeer: ...
 class ProgressRingAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IProgressRingAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ProgressRingAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.ProgressRingAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Windows.UI.Xaml.Automation.Peers.IProgressRingAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.ProgressRing, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.ProgressRingAutomationPeer: ...
 class RadioButtonAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.ToggleButtonAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IRadioButtonAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.RadioButtonAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.RadioButtonAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Windows.UI.Xaml.Automation.Peers.IRadioButtonAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.RadioButton, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.RadioButtonAutomationPeer: ...
     @winrt_mixinmethod
@@ -2301,6 +2885,16 @@ class RangeBaseAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IRangeBaseAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.RangeBaseAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.RangeBaseAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Windows.UI.Xaml.Automation.Peers.IRangeBaseAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.Primitives.RangeBase, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.RangeBaseAutomationPeer: ...
     @winrt_mixinmethod
@@ -2327,6 +2921,16 @@ class RatingControlAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IRatingControlAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.RatingControlAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.RatingControlAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Windows.UI.Xaml.Automation.Peers.IRatingControlAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.RatingControl, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.RatingControlAutomationPeer: ...
 class RawElementProviderRuntimeId(EasyCastStructure):
@@ -2336,6 +2940,16 @@ class RepeatButtonAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.ButtonBaseAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IRepeatButtonAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.RepeatButtonAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.RepeatButtonAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Windows.UI.Xaml.Automation.Peers.IRepeatButtonAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.Primitives.RepeatButton, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.RepeatButtonAutomationPeer: ...
     @winrt_mixinmethod
@@ -2344,30 +2958,80 @@ class RichEditBoxAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IRichEditBoxAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.RichEditBoxAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.RichEditBoxAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Windows.UI.Xaml.Automation.Peers.IRichEditBoxAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.RichEditBox, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.RichEditBoxAutomationPeer: ...
 class RichTextBlockAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IRichTextBlockAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.RichTextBlockAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.RichTextBlockAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Windows.UI.Xaml.Automation.Peers.IRichTextBlockAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.RichTextBlock, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.RichTextBlockAutomationPeer: ...
 class RichTextBlockOverflowAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IRichTextBlockOverflowAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.RichTextBlockOverflowAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.RichTextBlockOverflowAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Windows.UI.Xaml.Automation.Peers.IRichTextBlockOverflowAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.RichTextBlockOverflow, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.RichTextBlockOverflowAutomationPeer: ...
 class ScrollBarAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.RangeBaseAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IScrollBarAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ScrollBarAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.ScrollBarAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Windows.UI.Xaml.Automation.Peers.IScrollBarAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.Primitives.ScrollBar, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.ScrollBarAutomationPeer: ...
 class ScrollViewerAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IScrollViewerAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ScrollViewerAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.ScrollViewerAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Windows.UI.Xaml.Automation.Peers.IScrollViewerAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.ScrollViewer, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.ScrollViewerAutomationPeer: ...
     @winrt_mixinmethod
@@ -2396,12 +3060,32 @@ class SearchBoxAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.ISearchBoxAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.SearchBoxAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.SearchBoxAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Windows.UI.Xaml.Automation.Peers.ISearchBoxAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.SearchBox, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.SearchBoxAutomationPeer: ...
 class SelectorAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.ItemsControlAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.ISelectorAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.SelectorAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.SelectorAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Windows.UI.Xaml.Automation.Peers.ISelectorAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.Primitives.Selector, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.SelectorAutomationPeer: ...
     @winrt_mixinmethod
@@ -2416,6 +3100,16 @@ class SelectorItemAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.ItemAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.ISelectorItemAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.SelectorItemAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 2:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.SelectorItemAutomationPeer.CreateInstanceWithParentAndItem(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithParentAndItem(cls: win32more.Windows.UI.Xaml.Automation.Peers.ISelectorItemAutomationPeerFactory, item: win32more.Windows.Win32.System.WinRT.IInspectable, parent: win32more.Windows.UI.Xaml.Automation.Peers.SelectorAutomationPeer, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.SelectorItemAutomationPeer: ...
     @winrt_mixinmethod
@@ -2434,6 +3128,16 @@ class SemanticZoomAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.ISemanticZoomAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.SemanticZoomAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.SemanticZoomAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Windows.UI.Xaml.Automation.Peers.ISemanticZoomAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.SemanticZoom, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.SemanticZoomAutomationPeer: ...
     @winrt_mixinmethod
@@ -2445,36 +3149,96 @@ class SettingsFlyoutAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.ISettingsFlyoutAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.SettingsFlyoutAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.SettingsFlyoutAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Windows.UI.Xaml.Automation.Peers.ISettingsFlyoutAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.SettingsFlyout, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.SettingsFlyoutAutomationPeer: ...
 class SliderAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.RangeBaseAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.ISliderAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.SliderAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.SliderAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Windows.UI.Xaml.Automation.Peers.ISliderAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.Slider, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.SliderAutomationPeer: ...
 class TextBlockAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.ITextBlockAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.TextBlockAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.TextBlockAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Windows.UI.Xaml.Automation.Peers.ITextBlockAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.TextBlock, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.TextBlockAutomationPeer: ...
 class TextBoxAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.ITextBoxAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.TextBoxAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.TextBoxAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Windows.UI.Xaml.Automation.Peers.ITextBoxAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.TextBox, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.TextBoxAutomationPeer: ...
 class ThumbAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IThumbAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ThumbAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.ThumbAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Windows.UI.Xaml.Automation.Peers.IThumbAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.Primitives.Thumb, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.ThumbAutomationPeer: ...
 class TimePickerAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.ITimePickerAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.TimePickerAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.TimePickerAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Windows.UI.Xaml.Automation.Peers.ITimePickerAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.TimePicker, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.TimePickerAutomationPeer: ...
 class TimePickerFlyoutPresenterAutomationPeer(ComPtr):
@@ -2485,6 +3249,16 @@ class ToggleButtonAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.ButtonBaseAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IToggleButtonAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ToggleButtonAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.ToggleButtonAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Windows.UI.Xaml.Automation.Peers.IToggleButtonAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.Primitives.ToggleButton, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.ToggleButtonAutomationPeer: ...
     @winrt_mixinmethod
@@ -2496,6 +3270,16 @@ class ToggleMenuFlyoutItemAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IToggleMenuFlyoutItemAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ToggleMenuFlyoutItemAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.ToggleMenuFlyoutItemAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Windows.UI.Xaml.Automation.Peers.IToggleMenuFlyoutItemAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.ToggleMenuFlyoutItem, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.ToggleMenuFlyoutItemAutomationPeer: ...
     @winrt_mixinmethod
@@ -2507,6 +3291,16 @@ class ToggleSwitchAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IToggleSwitchAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ToggleSwitchAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.ToggleSwitchAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Windows.UI.Xaml.Automation.Peers.IToggleSwitchAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.ToggleSwitch, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.ToggleSwitchAutomationPeer: ...
     @winrt_mixinmethod
@@ -2518,6 +3312,16 @@ class TreeViewItemAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.ListViewItemAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.ITreeViewItemAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.TreeViewItemAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.TreeViewItemAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Windows.UI.Xaml.Automation.Peers.ITreeViewItemAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.TreeViewItem, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.TreeViewItemAutomationPeer: ...
     @winrt_mixinmethod
@@ -2531,6 +3335,16 @@ class TreeViewListAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.SelectorAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.ITreeViewListAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.TreeViewListAutomationPeer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Xaml.Automation.Peers.TreeViewListAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Windows.UI.Xaml.Automation.Peers.ITreeViewListAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.TreeViewList, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Automation.Peers.TreeViewListAutomationPeer: ...
 make_ready(__name__)

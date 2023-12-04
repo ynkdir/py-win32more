@@ -368,6 +368,16 @@ class MediaComposition(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Editing.IMediaComposition
     _classid_ = 'Windows.Media.Editing.MediaComposition'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Media.Editing.MediaComposition.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Media.Editing.MediaComposition: ...
     @winrt_mixinmethod
@@ -413,6 +423,18 @@ class MediaOverlay(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Editing.IMediaOverlay
     _classid_ = 'Windows.Media.Editing.MediaOverlay'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.Media.Editing.MediaOverlay.Create(*args)
+        elif len(args) == 3:
+            instance = win32more.Windows.Media.Editing.MediaOverlay.CreateWithPositionAndOpacity(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.Media.Editing.IMediaOverlayFactory, clip: win32more.Windows.Media.Editing.MediaClip) -> win32more.Windows.Media.Editing.MediaOverlay: ...
     @winrt_factorymethod
@@ -446,6 +468,18 @@ class MediaOverlayLayer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Editing.IMediaOverlayLayer
     _classid_ = 'Windows.Media.Editing.MediaOverlayLayer'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Media.Editing.MediaOverlayLayer.CreateInstance(*args)
+        elif len(args) == 1:
+            instance = win32more.Windows.Media.Editing.MediaOverlayLayer.CreateWithCompositorDefinition(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Media.Editing.MediaOverlayLayer: ...
     @winrt_factorymethod

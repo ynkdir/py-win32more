@@ -8,6 +8,7 @@ import re
 import sys
 from collections import defaultdict
 from collections.abc import Iterable, Iterator, Mapping
+from dataclasses import dataclass
 from io import StringIO
 from pathlib import Path
 from typing import TYPE_CHECKING, Any, Collection, MutableSequence, TextIO, overload
@@ -320,7 +321,11 @@ class TypeDefinition:
 
     @property
     def kind(self) -> str:
-        if self.basetype is None or self.basetype == "System.Object" or self.basetype.startswith(("Windows.", "Microsoft.")):
+        if (
+            self.basetype is None
+            or self.basetype == "System.Object"
+            or self.basetype.startswith(("Windows.", "Microsoft."))
+        ):
             return "com"
         elif self.basetype == "System.MulticastDelegate":
             return "delegate"
@@ -1197,6 +1202,13 @@ class Preprocessor:
                     t["Namespace"] = namespace
 
 
+@dataclass
+class Constructor:
+    nargs: int
+    invoke: str
+    method_declare: str
+
+
 class PyGenerator:
     def emit(self, td: TypeDefinition) -> str:
         if td.kind == "enum":
@@ -1302,20 +1314,7 @@ class PyGenerator:
         if td.custom_attributes.has_guid():
             guid = td.custom_attributes.get_guid()
             writer.write(f"    _iid_ = Guid('{guid}')\n")
-        if td.custom_attributes.has_composable():
-            ca = td.custom_attributes.get_composable()
-            factory = ca["_typedef"]
-            for md in factory.method_definitions:
-                assert md.signature.return_type.fullname == td.fullname
-                writer.write(self.winrt_factorymethod(factory, md))
-        for ca in td.custom_attributes.get_activatable():
-            if ca.fixed_arguments[0].type.kind == "Type":
-                factory = ca["_typedef"]
-                for md in factory.method_definitions:
-                    assert md.signature.return_type.fullname == td.fullname
-                    writer.write(self.winrt_factorymethod(factory, md))
-            else:
-                writer.write(self.winrt_activatemethod(td))
+        writer.write(self.winrt_constructor(td))
         properties: dict[str, dict[str, str | bool | None]] = defaultdict(lambda: {"get": None, "put": None})
         for md in td.method_definitions:
             if md.name == ".ctor":
@@ -1472,6 +1471,61 @@ class PyGenerator:
             name = td.fullname
         writer.write("    @winrt_activatemethod\n")
         writer.write(f"    def CreateInstance(cls) -> {PACKAGE_NAME}.{name}: ...\n")
+        return writer.getvalue()
+
+    # TODO: fix method name conflict
+    def winrt_constructor(self, td: TypeDefinition) -> str:
+        writer = StringIO()
+        constructors = []
+        if td.custom_attributes.has_composable():
+            ca = td.custom_attributes.get_composable()
+            factory = ca["_typedef"]
+            for md in factory.method_definitions:
+                assert md.signature.return_type.fullname == td.fullname
+                constructors.append(
+                    Constructor(
+                        nargs=len(md.get_parameter_names()) - 2,
+                        invoke=f"{PACKAGE_NAME}.{td.fullname}.{md.name}(*args, None, None)",
+                        method_declare=self.winrt_factorymethod(factory, md),
+                    )
+                )
+        for ca in td.custom_attributes.get_activatable():
+            if ca.fixed_arguments[0].type.kind == "Type":
+                factory = ca["_typedef"]
+                for md in factory.method_definitions:
+                    assert md.signature.return_type.fullname == td.fullname
+                    constructors.append(
+                        Constructor(
+                            nargs=len(md.get_parameter_names()),
+                            invoke=f"{PACKAGE_NAME}.{td.fullname}.{md.name}(*args)",
+                            method_declare=self.winrt_factorymethod(factory, md),
+                        )
+                    )
+            else:
+                constructors.append(
+                    Constructor(
+                        nargs=0,
+                        invoke=f"{PACKAGE_NAME}.{td.fullname}.CreateInstance(*args)",
+                        method_declare=self.winrt_activatemethod(td),
+                    )
+                )
+        if not constructors:
+            return ""
+        constructors.sort(key=lambda constructor: constructor.nargs)
+        writer.write("    def __init__(self, *args, **kwargs) -> None:\n")
+        # FIXME: How to implement?
+        writer.write("        if kwargs:\n")
+        writer.write("            return super().__init__(**kwargs)\n")
+        for i, constructor in enumerate(constructors):
+            writer.write(f"        elif len(args) == {constructor.nargs}:\n")
+            writer.write(f"            instance = {constructor.invoke}\n")
+        writer.write("        else:\n")
+        writer.write("            raise ValueError('no matched constructor')\n")
+        writer.write("        self.value = instance.value\n")
+        writer.write("        self._own = instance._own\n")
+        writer.write("        instance._own = False\n")
+        for constructor in constructors:
+            writer.write(constructor.method_declare)
         return writer.getvalue()
 
     def emit_delegate(self, td: TypeDefinition) -> str:
