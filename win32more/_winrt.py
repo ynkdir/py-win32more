@@ -511,13 +511,7 @@ class MulticastDelegateImpl(Structure):
 
     # FIXME: dirty hack to allocate winrt runtime class without constructor.
     def _make_allocator(cls):
-        allocator = type(c_void_p).__new__(type(c_void_p), "Allocator", (c_void_p,), {})
-
-        def __new__(_):
-            return cls(own=False)
-
-        allocator.__new__ = __new__
-        return allocator
+        return type(c_void_p)("Allocator", (c_void_p,), {"__new__": lambda _: cls(own=False)})
 
     @WINFUNCTYPE(HRESULT, c_void_p, POINTER(Guid), POINTER(c_void_p))
     def QueryInterface(this, riid, ppvObject):
