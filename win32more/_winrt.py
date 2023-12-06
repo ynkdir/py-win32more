@@ -509,7 +509,7 @@ class MulticastDelegateImpl(Structure):
         factory = WINFUNCTYPE(HRESULT, c_void_p, *argtypes)
         return factory(self.Invoke)
 
-    # FIXME: dirty hack to allocate winrt runtime class without constructor.
+    # allocate winrt runtime class without constructor.
     def _make_allocator(cls):
         return type(c_void_p)("Allocator", (c_void_p,), {"__new__": lambda _: cls(own=False)})
 

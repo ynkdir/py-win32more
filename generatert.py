@@ -1513,7 +1513,6 @@ class PyGenerator:
             return ""
         constructors.sort(key=lambda constructor: constructor.nargs)
         writer.write("    def __init__(self, *args, **kwargs) -> None:\n")
-        # FIXME: How to implement?
         writer.write("        if kwargs:\n")
         writer.write("            return super().__init__(**kwargs)\n")
         for i, constructor in enumerate(constructors):
