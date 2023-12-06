@@ -445,16 +445,34 @@ class SecondaryTile(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.StartScreen.ISecondaryTile
     _classid_ = 'Windows.UI.StartScreen.SecondaryTile'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.UI.StartScreen.SecondaryTile.CreateInstance(*args)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.StartScreen.SecondaryTile.CreateWithId(*args)
+        elif len(args) == 5:
+            instance = win32more.Windows.UI.StartScreen.SecondaryTile.CreateMinimalTile(*args)
+        elif len(args) == 6:
+            instance = win32more.Windows.UI.StartScreen.SecondaryTile.CreateTile(*args)
+        elif len(args) == 7:
+            instance = win32more.Windows.UI.StartScreen.SecondaryTile.CreateWideTile(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.StartScreen.SecondaryTile: ...
+    @winrt_factorymethod
+    def CreateWithId(cls: win32more.Windows.UI.StartScreen.ISecondaryTileFactory, tileId: WinRT_String) -> win32more.Windows.UI.StartScreen.SecondaryTile: ...
     @winrt_factorymethod
     def CreateMinimalTile(cls: win32more.Windows.UI.StartScreen.ISecondaryTileFactory2, tileId: WinRT_String, displayName: WinRT_String, arguments: WinRT_String, square150x150Logo: win32more.Windows.Foundation.Uri, desiredSize: win32more.Windows.UI.StartScreen.TileSize) -> win32more.Windows.UI.StartScreen.SecondaryTile: ...
     @winrt_factorymethod
     def CreateTile(cls: win32more.Windows.UI.StartScreen.ISecondaryTileFactory, tileId: WinRT_String, shortName: WinRT_String, displayName: WinRT_String, arguments: WinRT_String, tileOptions: win32more.Windows.UI.StartScreen.TileOptions, logoReference: win32more.Windows.Foundation.Uri) -> win32more.Windows.UI.StartScreen.SecondaryTile: ...
     @winrt_factorymethod
     def CreateWideTile(cls: win32more.Windows.UI.StartScreen.ISecondaryTileFactory, tileId: WinRT_String, shortName: WinRT_String, displayName: WinRT_String, arguments: WinRT_String, tileOptions: win32more.Windows.UI.StartScreen.TileOptions, logoReference: win32more.Windows.Foundation.Uri, wideLogoReference: win32more.Windows.Foundation.Uri) -> win32more.Windows.UI.StartScreen.SecondaryTile: ...
-    @winrt_factorymethod
-    def CreateWithId(cls: win32more.Windows.UI.StartScreen.ISecondaryTileFactory, tileId: WinRT_String) -> win32more.Windows.UI.StartScreen.SecondaryTile: ...
     @winrt_mixinmethod
     def put_TileId(self: win32more.Windows.UI.StartScreen.ISecondaryTile, value: WinRT_String) -> Void: ...
     @winrt_mixinmethod

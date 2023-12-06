@@ -334,6 +334,16 @@ class DisplayPrimaryDescription(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Display.Core.IDisplayPrimaryDescription
     _classid_ = 'Windows.Devices.Display.Core.DisplayPrimaryDescription'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 6:
+            instance = win32more.Windows.Devices.Display.Core.DisplayPrimaryDescription.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.Devices.Display.Core.IDisplayPrimaryDescriptionFactory, width: UInt32, height: UInt32, pixelFormat: win32more.Windows.Graphics.DirectX.DirectXPixelFormat, colorSpace: win32more.Windows.Graphics.DirectX.DirectXColorSpace, isStereo: Boolean, multisampleDescription: win32more.Windows.Graphics.DirectX.Direct3D11.Direct3DMultisampleDescription) -> win32more.Windows.Devices.Display.Core.DisplayPrimaryDescription: ...
     @winrt_mixinmethod
@@ -570,6 +580,16 @@ class DisplayWireFormat(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Display.Core.IDisplayWireFormat
     _classid_ = 'Windows.Devices.Display.Core.DisplayWireFormat'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 5:
+            instance = win32more.Windows.Devices.Display.Core.DisplayWireFormat.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.Devices.Display.Core.IDisplayWireFormatFactory, pixelEncoding: win32more.Windows.Devices.Display.Core.DisplayWireFormatPixelEncoding, bitsPerChannel: Int32, colorSpace: win32more.Windows.Devices.Display.Core.DisplayWireFormatColorSpace, eotf: win32more.Windows.Devices.Display.Core.DisplayWireFormatEotf, hdrMetadata: win32more.Windows.Devices.Display.Core.DisplayWireFormatHdrMetadata) -> win32more.Windows.Devices.Display.Core.DisplayWireFormat: ...
     @winrt_mixinmethod

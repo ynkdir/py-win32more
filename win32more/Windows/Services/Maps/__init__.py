@@ -24,6 +24,16 @@ class EnhancedWaypoint(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Services.Maps.IEnhancedWaypoint
     _classid_ = 'Windows.Services.Maps.EnhancedWaypoint'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 2:
+            instance = win32more.Windows.Services.Maps.EnhancedWaypoint.Create(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.Services.Maps.IEnhancedWaypointFactory, point: win32more.Windows.Devices.Geolocation.Geopoint, kind: win32more.Windows.Services.Maps.WaypointKind) -> win32more.Windows.Services.Maps.EnhancedWaypoint: ...
     @winrt_mixinmethod
@@ -670,6 +680,16 @@ class MapRouteDrivingOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Services.Maps.IMapRouteDrivingOptions
     _classid_ = 'Windows.Services.Maps.MapRouteDrivingOptions'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Services.Maps.MapRouteDrivingOptions.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Services.Maps.MapRouteDrivingOptions: ...
     @winrt_mixinmethod
@@ -915,6 +935,16 @@ class PlaceInfoCreateOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Services.Maps.IPlaceInfoCreateOptions
     _classid_ = 'Windows.Services.Maps.PlaceInfoCreateOptions'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Services.Maps.PlaceInfoCreateOptions.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Services.Maps.PlaceInfoCreateOptions: ...
     @winrt_mixinmethod

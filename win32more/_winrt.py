@@ -240,7 +240,7 @@ class WinrtMethod:
                     cargs.append(self.generic_hints[k](own=True).CreateInstance(v))
                 # FIXME: Workaround for runtime class to interface class.  check interface_implementations?
                 elif is_com_instance(v) and is_com_class(self.generic_hints[k]):
-                    cargs.append(self.generic_hints[k](v.value, own=False))
+                    cargs.append(self.generic_hints[k](value=v.value, own=False))
                 else:
                     cargs.append(easycast(v, self.generic_hints[k]))
             else:
@@ -255,7 +255,7 @@ class WinrtMethod:
                     ckwargs[k] = self.generic_hints[k](own=True).CreateInstance(v)
                 # FIXME: Workaround for runtime class to interface class.  check interface_implementations?
                 elif is_com_instance(v) and is_com_class(self.generic_hints[k]):
-                    ckwargs[k] = self.generic_hints[k](v.value, own=False)
+                    ckwargs[k] = self.generic_hints[k](value=v.value, own=False)
                 else:
                     ckwargs[k] = easycast(v, self.generic_hints[k])
             else:
@@ -500,7 +500,7 @@ class MulticastDelegateImpl(Structure):
     def _make_trampoline(self, cls, invoke_prototype):
         hints = generic_get_type_hints(cls, invoke_prototype)
         self.restype = hints.pop("return")
-        argtypes = list(hints.values())
+        argtypes = [(self._make_allocator(t) if isinstance(t, ComPtr) else t) for t in hints.values()]
         if self.restype is not Void:
             restype = self.restype
             if is_generic_alias(restype):
@@ -508,6 +508,10 @@ class MulticastDelegateImpl(Structure):
             argtypes.append(POINTER(restype))
         factory = WINFUNCTYPE(HRESULT, c_void_p, *argtypes)
         return factory(self.Invoke)
+
+    # allocate winrt runtime class without constructor.
+    def _make_allocator(cls):
+        return type(c_void_p)("Allocator", (c_void_p,), {"__new__": lambda _: cls(own=False)})
 
     @WINFUNCTYPE(HRESULT, c_void_p, POINTER(Guid), POINTER(c_void_p))
     def QueryInterface(this, riid, ppvObject):

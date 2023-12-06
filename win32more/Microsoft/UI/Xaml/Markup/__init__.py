@@ -286,6 +286,16 @@ class MarkupExtension(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Markup.IMarkupExtension
     _classid_ = 'Microsoft.UI.Xaml.Markup.MarkupExtension'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Microsoft.UI.Xaml.Markup.MarkupExtension.CreateInstance(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Microsoft.UI.Xaml.Markup.IMarkupExtensionFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Markup.MarkupExtension: ...
     @winrt_mixinmethod
@@ -296,6 +306,16 @@ class ProvideValueTargetProperty(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Markup.IProvideValueTargetProperty
     _classid_ = 'Microsoft.UI.Xaml.Markup.ProvideValueTargetProperty'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Microsoft.UI.Xaml.Markup.ProvideValueTargetProperty.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Microsoft.UI.Xaml.Markup.ProvideValueTargetProperty: ...
     @winrt_mixinmethod

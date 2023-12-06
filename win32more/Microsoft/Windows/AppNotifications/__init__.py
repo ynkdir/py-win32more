@@ -22,6 +22,16 @@ class AppNotification(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Windows.AppNotifications.IAppNotification
     _classid_ = 'Microsoft.Windows.AppNotifications.AppNotification'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Microsoft.Windows.AppNotifications.AppNotification.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Microsoft.Windows.AppNotifications.IAppNotificationFactory, payload: WinRT_String) -> win32more.Microsoft.Windows.AppNotifications.AppNotification: ...
     @winrt_mixinmethod
@@ -129,6 +139,16 @@ class AppNotificationProgressData(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Windows.AppNotifications.IAppNotificationProgressData
     _classid_ = 'Microsoft.Windows.AppNotifications.AppNotificationProgressData'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Microsoft.Windows.AppNotifications.AppNotificationProgressData.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Microsoft.Windows.AppNotifications.IAppNotificationProgressDataFactory, sequenceNumber: UInt32) -> win32more.Microsoft.Windows.AppNotifications.AppNotificationProgressData: ...
     @winrt_mixinmethod

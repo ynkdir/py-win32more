@@ -24,6 +24,16 @@ class FrameNavigationOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Navigation.IFrameNavigationOptions
     _classid_ = 'Microsoft.UI.Xaml.Navigation.FrameNavigationOptions'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Microsoft.UI.Xaml.Navigation.FrameNavigationOptions.CreateInstance(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Microsoft.UI.Xaml.Navigation.IFrameNavigationOptionsFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Navigation.FrameNavigationOptions: ...
     @winrt_mixinmethod
@@ -233,6 +243,16 @@ class PageStackEntry(ComPtr, metaclass=_PageStackEntry_Meta_):
     extends: win32more.Microsoft.UI.Xaml.DependencyObject
     default_interface: win32more.Microsoft.UI.Xaml.Navigation.IPageStackEntry
     _classid_ = 'Microsoft.UI.Xaml.Navigation.PageStackEntry'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 3:
+            instance = win32more.Microsoft.UI.Xaml.Navigation.PageStackEntry.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Microsoft.UI.Xaml.Navigation.IPageStackEntryFactory, sourcePageType: win32more.Windows.UI.Xaml.Interop.TypeName, parameter: win32more.Windows.Win32.System.WinRT.IInspectable, navigationTransitionInfo: win32more.Microsoft.UI.Xaml.Media.Animation.NavigationTransitionInfo) -> win32more.Microsoft.UI.Xaml.Navigation.PageStackEntry: ...
     @winrt_mixinmethod

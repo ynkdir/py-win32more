@@ -48,6 +48,16 @@ class AudioFrame(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.IAudioFrame
     _classid_ = 'Windows.Media.AudioFrame'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.Media.AudioFrame.Create(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.Media.IAudioFrameFactory, capacity: UInt32) -> win32more.Windows.Media.AudioFrame: ...
     @winrt_mixinmethod
@@ -805,6 +815,16 @@ class MediaExtensionManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.IMediaExtensionManager
     _classid_ = 'Windows.Media.MediaExtensionManager'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Media.MediaExtensionManager.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Media.MediaExtensionManager: ...
     @winrt_mixinmethod
@@ -870,6 +890,16 @@ class MediaTimelineController(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.IMediaTimelineController
     _classid_ = 'Windows.Media.MediaTimelineController'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Media.MediaTimelineController.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Media.MediaTimelineController: ...
     @winrt_mixinmethod
@@ -1169,6 +1199,16 @@ class SystemMediaTransportControlsTimelineProperties(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.ISystemMediaTransportControlsTimelineProperties
     _classid_ = 'Windows.Media.SystemMediaTransportControlsTimelineProperties'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Media.SystemMediaTransportControlsTimelineProperties.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Media.SystemMediaTransportControlsTimelineProperties: ...
     @winrt_mixinmethod
@@ -1225,6 +1265,18 @@ class VideoFrame(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.IVideoFrame
     _classid_ = 'Windows.Media.VideoFrame'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 3:
+            instance = win32more.Windows.Media.VideoFrame.Create(*args)
+        elif len(args) == 4:
+            instance = win32more.Windows.Media.VideoFrame.CreateWithAlpha(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.Media.IVideoFrameFactory, format: win32more.Windows.Graphics.Imaging.BitmapPixelFormat, width: Int32, height: Int32) -> win32more.Windows.Media.VideoFrame: ...
     @winrt_factorymethod

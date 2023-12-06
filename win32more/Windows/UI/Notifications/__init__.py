@@ -27,6 +27,16 @@ class AdaptiveNotificationText(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Notifications.IAdaptiveNotificationText
     _classid_ = 'Windows.UI.Notifications.AdaptiveNotificationText'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.UI.Notifications.AdaptiveNotificationText.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Notifications.AdaptiveNotificationText: ...
     @winrt_mixinmethod
@@ -49,6 +59,16 @@ class BadgeNotification(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Notifications.IBadgeNotification
     _classid_ = 'Windows.UI.Notifications.BadgeNotification'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Notifications.BadgeNotification.CreateBadgeNotification(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateBadgeNotification(cls: win32more.Windows.UI.Notifications.IBadgeNotificationFactory, content: win32more.Windows.Data.Xml.Dom.XmlDocument) -> win32more.Windows.UI.Notifications.BadgeNotification: ...
     @winrt_mixinmethod
@@ -1045,6 +1065,16 @@ class Notification(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Notifications.INotification
     _classid_ = 'Windows.UI.Notifications.Notification'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.UI.Notifications.Notification.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Notifications.Notification: ...
     @winrt_mixinmethod
@@ -1080,12 +1110,26 @@ class NotificationData(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Notifications.INotificationData
     _classid_ = 'Windows.UI.Notifications.NotificationData'
-    @winrt_factorymethod
-    def CreateNotificationData(cls: win32more.Windows.UI.Notifications.INotificationDataFactory, initialValues: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, WinRT_String]], sequenceNumber: UInt32) -> win32more.Windows.UI.Notifications.NotificationData: ...
-    @winrt_factorymethod
-    def CreateNotificationData(cls: win32more.Windows.UI.Notifications.INotificationDataFactory, initialValues: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, WinRT_String]]) -> win32more.Windows.UI.Notifications.NotificationData: ...
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.UI.Notifications.NotificationData.CreateInstance(*args)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Notifications.NotificationData.CreateNotificationData(*args)
+        elif len(args) == 2:
+            instance = win32more.Windows.UI.Notifications.NotificationData.CreateNotificationData(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Notifications.NotificationData: ...
+    @winrt_factorymethod
+    def CreateNotificationData(cls: win32more.Windows.UI.Notifications.INotificationDataFactory, initialValues: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, WinRT_String]]) -> win32more.Windows.UI.Notifications.NotificationData: ...
+    @winrt_factorymethod
+    def CreateNotificationData(cls: win32more.Windows.UI.Notifications.INotificationDataFactory, initialValues: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, WinRT_String]], sequenceNumber: UInt32) -> win32more.Windows.UI.Notifications.NotificationData: ...
     @winrt_mixinmethod
     def get_Values(self: win32more.Windows.UI.Notifications.INotificationData) -> win32more.Windows.Foundation.Collections.IMap[WinRT_String, WinRT_String]: ...
     @winrt_mixinmethod
@@ -1134,6 +1178,16 @@ class ScheduledTileNotification(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Notifications.IScheduledTileNotification
     _classid_ = 'Windows.UI.Notifications.ScheduledTileNotification'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 2:
+            instance = win32more.Windows.UI.Notifications.ScheduledTileNotification.CreateScheduledTileNotification(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateScheduledTileNotification(cls: win32more.Windows.UI.Notifications.IScheduledTileNotificationFactory, content: win32more.Windows.Data.Xml.Dom.XmlDocument, deliveryTime: win32more.Windows.Foundation.DateTime) -> win32more.Windows.UI.Notifications.ScheduledTileNotification: ...
     @winrt_mixinmethod
@@ -1161,6 +1215,18 @@ class ScheduledToastNotification(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Notifications.IScheduledToastNotification
     _classid_ = 'Windows.UI.Notifications.ScheduledToastNotification'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 2:
+            instance = win32more.Windows.UI.Notifications.ScheduledToastNotification.CreateScheduledToastNotification(*args)
+        elif len(args) == 4:
+            instance = win32more.Windows.UI.Notifications.ScheduledToastNotification.CreateScheduledToastNotificationRecurring(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateScheduledToastNotification(cls: win32more.Windows.UI.Notifications.IScheduledToastNotificationFactory, content: win32more.Windows.Data.Xml.Dom.XmlDocument, deliveryTime: win32more.Windows.Foundation.DateTime) -> win32more.Windows.UI.Notifications.ScheduledToastNotification: ...
     @winrt_factorymethod
@@ -1237,6 +1303,16 @@ class TileFlyoutNotification(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Notifications.ITileFlyoutNotification
     _classid_ = 'Windows.UI.Notifications.TileFlyoutNotification'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Notifications.TileFlyoutNotification.CreateTileFlyoutNotification(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateTileFlyoutNotification(cls: win32more.Windows.UI.Notifications.ITileFlyoutNotificationFactory, content: win32more.Windows.Data.Xml.Dom.XmlDocument) -> win32more.Windows.UI.Notifications.TileFlyoutNotification: ...
     @winrt_mixinmethod
@@ -1281,6 +1357,16 @@ class TileNotification(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Notifications.ITileNotification
     _classid_ = 'Windows.UI.Notifications.TileNotification'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Notifications.TileNotification.CreateTileNotification(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateTileNotification(cls: win32more.Windows.UI.Notifications.ITileNotificationFactory, content: win32more.Windows.Data.Xml.Dom.XmlDocument) -> win32more.Windows.UI.Notifications.TileNotification: ...
     @winrt_mixinmethod
@@ -1498,6 +1584,16 @@ class ToastCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Notifications.IToastCollection
     _classid_ = 'Windows.UI.Notifications.ToastCollection'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 4:
+            instance = win32more.Windows.UI.Notifications.ToastCollection.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Notifications.IToastCollectionFactory, collectionId: WinRT_String, displayName: WinRT_String, launchArgs: WinRT_String, iconUri: win32more.Windows.Foundation.Uri) -> win32more.Windows.UI.Notifications.ToastCollection: ...
     @winrt_mixinmethod
@@ -1565,6 +1661,16 @@ class ToastNotification(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Notifications.IToastNotification
     _classid_ = 'Windows.UI.Notifications.ToastNotification'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.Notifications.ToastNotification.CreateToastNotification(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateToastNotification(cls: win32more.Windows.UI.Notifications.IToastNotificationFactory, content: win32more.Windows.Data.Xml.Dom.XmlDocument) -> win32more.Windows.UI.Notifications.ToastNotification: ...
     @winrt_mixinmethod

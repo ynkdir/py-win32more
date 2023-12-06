@@ -34,10 +34,22 @@ class BackgroundDownloader(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.BackgroundTransfer.IBackgroundDownloader
     _classid_ = 'Windows.Networking.BackgroundTransfer.BackgroundDownloader'
-    @winrt_factorymethod
-    def CreateWithCompletionGroup(cls: win32more.Windows.Networking.BackgroundTransfer.IBackgroundDownloaderFactory, completionGroup: win32more.Windows.Networking.BackgroundTransfer.BackgroundTransferCompletionGroup) -> win32more.Windows.Networking.BackgroundTransfer.BackgroundDownloader: ...
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Networking.BackgroundTransfer.BackgroundDownloader.CreateInstance(*args)
+        elif len(args) == 1:
+            instance = win32more.Windows.Networking.BackgroundTransfer.BackgroundDownloader.CreateWithCompletionGroup(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Networking.BackgroundTransfer.BackgroundDownloader: ...
+    @winrt_factorymethod
+    def CreateWithCompletionGroup(cls: win32more.Windows.Networking.BackgroundTransfer.IBackgroundDownloaderFactory, completionGroup: win32more.Windows.Networking.BackgroundTransfer.BackgroundTransferCompletionGroup) -> win32more.Windows.Networking.BackgroundTransfer.BackgroundDownloader: ...
     @winrt_mixinmethod
     def CreateDownload(self: win32more.Windows.Networking.BackgroundTransfer.IBackgroundDownloader, uri: win32more.Windows.Foundation.Uri, resultFile: win32more.Windows.Storage.IStorageFile) -> win32more.Windows.Networking.BackgroundTransfer.DownloadOperation: ...
     @winrt_mixinmethod
@@ -114,6 +126,16 @@ class BackgroundTransferCompletionGroup(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.BackgroundTransfer.IBackgroundTransferCompletionGroup
     _classid_ = 'Windows.Networking.BackgroundTransfer.BackgroundTransferCompletionGroup'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Networking.BackgroundTransfer.BackgroundTransferCompletionGroup.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Networking.BackgroundTransfer.BackgroundTransferCompletionGroup: ...
     @winrt_mixinmethod
@@ -138,6 +160,20 @@ class BackgroundTransferContentPart(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.BackgroundTransfer.IBackgroundTransferContentPart
     _classid_ = 'Windows.Networking.BackgroundTransfer.BackgroundTransferContentPart'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Networking.BackgroundTransfer.BackgroundTransferContentPart.CreateInstance(*args)
+        elif len(args) == 1:
+            instance = win32more.Windows.Networking.BackgroundTransfer.BackgroundTransferContentPart.CreateWithName(*args)
+        elif len(args) == 2:
+            instance = win32more.Windows.Networking.BackgroundTransfer.BackgroundTransferContentPart.CreateWithNameAndFileName(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Networking.BackgroundTransfer.BackgroundTransferContentPart: ...
     @winrt_factorymethod
@@ -215,10 +251,22 @@ class BackgroundUploader(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.BackgroundTransfer.IBackgroundUploader
     _classid_ = 'Windows.Networking.BackgroundTransfer.BackgroundUploader'
-    @winrt_factorymethod
-    def CreateWithCompletionGroup(cls: win32more.Windows.Networking.BackgroundTransfer.IBackgroundUploaderFactory, completionGroup: win32more.Windows.Networking.BackgroundTransfer.BackgroundTransferCompletionGroup) -> win32more.Windows.Networking.BackgroundTransfer.BackgroundUploader: ...
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Networking.BackgroundTransfer.BackgroundUploader.CreateInstance(*args)
+        elif len(args) == 1:
+            instance = win32more.Windows.Networking.BackgroundTransfer.BackgroundUploader.CreateWithCompletionGroup(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Networking.BackgroundTransfer.BackgroundUploader: ...
+    @winrt_factorymethod
+    def CreateWithCompletionGroup(cls: win32more.Windows.Networking.BackgroundTransfer.IBackgroundUploaderFactory, completionGroup: win32more.Windows.Networking.BackgroundTransfer.BackgroundTransferCompletionGroup) -> win32more.Windows.Networking.BackgroundTransfer.BackgroundUploader: ...
     @winrt_mixinmethod
     def CreateUpload(self: win32more.Windows.Networking.BackgroundTransfer.IBackgroundUploader, uri: win32more.Windows.Foundation.Uri, sourceFile: win32more.Windows.Storage.IStorageFile) -> win32more.Windows.Networking.BackgroundTransfer.UploadOperation: ...
     @winrt_mixinmethod

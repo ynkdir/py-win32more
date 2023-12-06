@@ -116,6 +116,16 @@ class RatedContentDescription(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.ContentRestrictions.IRatedContentDescription
     _classid_ = 'Windows.Media.ContentRestrictions.RatedContentDescription'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 3:
+            instance = win32more.Windows.Media.ContentRestrictions.RatedContentDescription.Create(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.Media.ContentRestrictions.IRatedContentDescriptionFactory, id: WinRT_String, title: WinRT_String, category: win32more.Windows.Media.ContentRestrictions.RatedContentCategory) -> win32more.Windows.Media.ContentRestrictions.RatedContentDescription: ...
     @winrt_mixinmethod
@@ -147,10 +157,22 @@ class RatedContentRestrictions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.ContentRestrictions.IRatedContentRestrictions
     _classid_ = 'Windows.Media.ContentRestrictions.RatedContentRestrictions'
-    @winrt_factorymethod
-    def CreateWithMaxAgeRating(cls: win32more.Windows.Media.ContentRestrictions.IRatedContentRestrictionsFactory, maxAgeRating: UInt32) -> win32more.Windows.Media.ContentRestrictions.RatedContentRestrictions: ...
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Media.ContentRestrictions.RatedContentRestrictions.CreateInstance(*args)
+        elif len(args) == 1:
+            instance = win32more.Windows.Media.ContentRestrictions.RatedContentRestrictions.CreateWithMaxAgeRating(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Media.ContentRestrictions.RatedContentRestrictions: ...
+    @winrt_factorymethod
+    def CreateWithMaxAgeRating(cls: win32more.Windows.Media.ContentRestrictions.IRatedContentRestrictionsFactory, maxAgeRating: UInt32) -> win32more.Windows.Media.ContentRestrictions.RatedContentRestrictions: ...
     @winrt_mixinmethod
     def GetBrowsePolicyAsync(self: win32more.Windows.Media.ContentRestrictions.IRatedContentRestrictions) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Media.ContentRestrictions.ContentRestrictionsBrowsePolicy]: ...
     @winrt_mixinmethod

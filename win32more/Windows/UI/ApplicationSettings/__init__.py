@@ -78,6 +78,18 @@ class CredentialCommand(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.ApplicationSettings.ICredentialCommand
     _classid_ = 'Windows.UI.ApplicationSettings.CredentialCommand'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Windows.UI.ApplicationSettings.CredentialCommand.CreateCredentialCommand(*args)
+        elif len(args) == 2:
+            instance = win32more.Windows.UI.ApplicationSettings.CredentialCommand.CreateCredentialCommandWithHandler(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateCredentialCommand(cls: win32more.Windows.UI.ApplicationSettings.ICredentialCommandFactory, passwordCredential: win32more.Windows.Security.Credentials.PasswordCredential) -> win32more.Windows.UI.ApplicationSettings.CredentialCommand: ...
     @winrt_factorymethod
@@ -272,6 +284,16 @@ class SettingsCommand(ComPtr, metaclass=_SettingsCommand_Meta_):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Popups.IUICommand
     _classid_ = 'Windows.UI.ApplicationSettings.SettingsCommand'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 3:
+            instance = win32more.Windows.UI.ApplicationSettings.SettingsCommand.CreateSettingsCommand(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateSettingsCommand(cls: win32more.Windows.UI.ApplicationSettings.ISettingsCommandFactory, settingsCommandId: win32more.Windows.Win32.System.WinRT.IInspectable, label: WinRT_String, handler: win32more.Windows.UI.Popups.UICommandInvokedHandler) -> win32more.Windows.UI.ApplicationSettings.SettingsCommand: ...
     @winrt_mixinmethod
@@ -343,6 +365,16 @@ class WebAccountCommand(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.ApplicationSettings.IWebAccountCommand
     _classid_ = 'Windows.UI.ApplicationSettings.WebAccountCommand'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 3:
+            instance = win32more.Windows.UI.ApplicationSettings.WebAccountCommand.CreateWebAccountCommand(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateWebAccountCommand(cls: win32more.Windows.UI.ApplicationSettings.IWebAccountCommandFactory, webAccount: win32more.Windows.Security.Credentials.WebAccount, invoked: win32more.Windows.UI.ApplicationSettings.WebAccountCommandInvokedHandler, actions: win32more.Windows.UI.ApplicationSettings.SupportedWebAccountActions) -> win32more.Windows.UI.ApplicationSettings.WebAccountCommand: ...
     @winrt_mixinmethod
@@ -369,6 +401,16 @@ class WebAccountProviderCommand(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.ApplicationSettings.IWebAccountProviderCommand
     _classid_ = 'Windows.UI.ApplicationSettings.WebAccountProviderCommand'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 2:
+            instance = win32more.Windows.UI.ApplicationSettings.WebAccountProviderCommand.CreateWebAccountProviderCommand(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateWebAccountProviderCommand(cls: win32more.Windows.UI.ApplicationSettings.IWebAccountProviderCommandFactory, webAccountProvider: win32more.Windows.Security.Credentials.WebAccountProvider, invoked: win32more.Windows.UI.ApplicationSettings.WebAccountProviderCommandInvokedHandler) -> win32more.Windows.UI.ApplicationSettings.WebAccountProviderCommand: ...
     @winrt_mixinmethod

@@ -31,6 +31,16 @@ class AcrylicBrush(ComPtr, metaclass=_AcrylicBrush_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Media.XamlCompositionBrushBase
     default_interface: win32more.Microsoft.UI.Xaml.Media.IAcrylicBrush
     _classid_ = 'Microsoft.UI.Xaml.Media.AcrylicBrush'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Microsoft.UI.Xaml.Media.AcrylicBrush.CreateInstance(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Microsoft.UI.Xaml.Media.IAcrylicBrushFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Media.AcrylicBrush: ...
     @winrt_mixinmethod
@@ -87,6 +97,16 @@ class ArcSegment(ComPtr, metaclass=_ArcSegment_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Media.PathSegment
     default_interface: win32more.Microsoft.UI.Xaml.Media.IArcSegment
     _classid_ = 'Microsoft.UI.Xaml.Media.ArcSegment'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Microsoft.UI.Xaml.Media.ArcSegment.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Microsoft.UI.Xaml.Media.ArcSegment: ...
     @winrt_mixinmethod
@@ -135,6 +155,16 @@ class BezierSegment(ComPtr, metaclass=_BezierSegment_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Media.PathSegment
     default_interface: win32more.Microsoft.UI.Xaml.Media.IBezierSegment
     _classid_ = 'Microsoft.UI.Xaml.Media.BezierSegment'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Microsoft.UI.Xaml.Media.BezierSegment.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Microsoft.UI.Xaml.Media.BezierSegment: ...
     @winrt_mixinmethod
@@ -165,6 +195,16 @@ class BitmapCache(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.Media.CacheMode
     default_interface: win32more.Microsoft.UI.Xaml.Media.IBitmapCache
     _classid_ = 'Microsoft.UI.Xaml.Media.BitmapCache'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Microsoft.UI.Xaml.Media.BitmapCache.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Microsoft.UI.Xaml.Media.BitmapCache: ...
 class _Brush_Meta_(ComPtr.__class__):
@@ -173,6 +213,16 @@ class Brush(ComPtr, metaclass=_Brush_Meta_):
     extends: win32more.Microsoft.UI.Xaml.DependencyObject
     default_interface: win32more.Microsoft.UI.Xaml.Media.IBrush
     _classid_ = 'Microsoft.UI.Xaml.Media.Brush'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Microsoft.UI.Xaml.Media.Brush.CreateInstance(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Microsoft.UI.Xaml.Media.IBrushFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Media.Brush: ...
     @winrt_mixinmethod
@@ -207,6 +257,16 @@ class BrushCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.Collections.IVector[win32more.Microsoft.UI.Xaml.Media.Brush]
     _classid_ = 'Microsoft.UI.Xaml.Media.BrushCollection'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Microsoft.UI.Xaml.Media.BrushCollection.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Microsoft.UI.Xaml.Media.BrushCollection: ...
     @winrt_mixinmethod
@@ -243,6 +303,16 @@ class CacheMode(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.DependencyObject
     default_interface: win32more.Microsoft.UI.Xaml.Media.ICacheMode
     _classid_ = 'Microsoft.UI.Xaml.Media.CacheMode'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Microsoft.UI.Xaml.Media.CacheMode.CreateInstance(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Microsoft.UI.Xaml.Media.ICacheModeFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Media.CacheMode: ...
 ColorInterpolationMode = Int32
@@ -254,6 +324,16 @@ class CompositeTransform(ComPtr, metaclass=_CompositeTransform_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Media.Transform
     default_interface: win32more.Microsoft.UI.Xaml.Media.ICompositeTransform
     _classid_ = 'Microsoft.UI.Xaml.Media.CompositeTransform'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Microsoft.UI.Xaml.Media.CompositeTransform.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Microsoft.UI.Xaml.Media.CompositeTransform: ...
     @winrt_mixinmethod
@@ -350,12 +430,32 @@ class DesktopAcrylicBackdrop(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.Media.SystemBackdrop
     default_interface: win32more.Microsoft.UI.Xaml.Media.IDesktopAcrylicBackdrop
     _classid_ = 'Microsoft.UI.Xaml.Media.DesktopAcrylicBackdrop'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Microsoft.UI.Xaml.Media.DesktopAcrylicBackdrop.CreateInstance(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Microsoft.UI.Xaml.Media.IDesktopAcrylicBackdropFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Media.DesktopAcrylicBackdrop: ...
 class DoubleCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.Collections.IVector[Double]
     _classid_ = 'Microsoft.UI.Xaml.Media.DoubleCollection'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Microsoft.UI.Xaml.Media.DoubleCollection.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Microsoft.UI.Xaml.Media.DoubleCollection: ...
     @winrt_mixinmethod
@@ -395,6 +495,16 @@ class EllipseGeometry(ComPtr, metaclass=_EllipseGeometry_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Media.Geometry
     default_interface: win32more.Microsoft.UI.Xaml.Media.IEllipseGeometry
     _classid_ = 'Microsoft.UI.Xaml.Media.EllipseGeometry'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Microsoft.UI.Xaml.Media.EllipseGeometry.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Microsoft.UI.Xaml.Media.EllipseGeometry: ...
     @winrt_mixinmethod
@@ -434,6 +544,16 @@ class FontFamily(ComPtr, metaclass=_FontFamily_Meta_):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Media.IFontFamily
     _classid_ = 'Microsoft.UI.Xaml.Media.FontFamily'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 1:
+            instance = win32more.Microsoft.UI.Xaml.Media.FontFamily.CreateInstanceWithName(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithName(cls: win32more.Microsoft.UI.Xaml.Media.IFontFamilyFactory, familyName: WinRT_String, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Media.FontFamily: ...
     @winrt_mixinmethod
@@ -446,6 +566,16 @@ class GeneralTransform(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.DependencyObject
     default_interface: win32more.Microsoft.UI.Xaml.Media.IGeneralTransform
     _classid_ = 'Microsoft.UI.Xaml.Media.GeneralTransform'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Microsoft.UI.Xaml.Media.GeneralTransform.CreateInstance(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Microsoft.UI.Xaml.Media.IGeneralTransformFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Media.GeneralTransform: ...
     @winrt_mixinmethod
@@ -491,6 +621,16 @@ class GeometryCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.Collections.IVector[win32more.Microsoft.UI.Xaml.Media.Geometry]
     _classid_ = 'Microsoft.UI.Xaml.Media.GeometryCollection'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Microsoft.UI.Xaml.Media.GeometryCollection.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Microsoft.UI.Xaml.Media.GeometryCollection: ...
     @winrt_mixinmethod
@@ -526,6 +666,16 @@ class GeometryGroup(ComPtr, metaclass=_GeometryGroup_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Media.Geometry
     default_interface: win32more.Microsoft.UI.Xaml.Media.IGeometryGroup
     _classid_ = 'Microsoft.UI.Xaml.Media.GeometryGroup'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Microsoft.UI.Xaml.Media.GeometryGroup.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Microsoft.UI.Xaml.Media.GeometryGroup: ...
     @winrt_mixinmethod
@@ -550,6 +700,16 @@ class GradientBrush(ComPtr, metaclass=_GradientBrush_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Media.Brush
     default_interface: win32more.Microsoft.UI.Xaml.Media.IGradientBrush
     _classid_ = 'Microsoft.UI.Xaml.Media.GradientBrush'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Microsoft.UI.Xaml.Media.GradientBrush.CreateInstance(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Microsoft.UI.Xaml.Media.IGradientBrushFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Media.GradientBrush: ...
     @winrt_mixinmethod
@@ -594,6 +754,16 @@ class GradientStop(ComPtr, metaclass=_GradientStop_Meta_):
     extends: win32more.Microsoft.UI.Xaml.DependencyObject
     default_interface: win32more.Microsoft.UI.Xaml.Media.IGradientStop
     _classid_ = 'Microsoft.UI.Xaml.Media.GradientStop'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Microsoft.UI.Xaml.Media.GradientStop.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Microsoft.UI.Xaml.Media.GradientStop: ...
     @winrt_mixinmethod
@@ -616,6 +786,16 @@ class GradientStopCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.Collections.IVector[win32more.Microsoft.UI.Xaml.Media.GradientStop]
     _classid_ = 'Microsoft.UI.Xaml.Media.GradientStopCollection'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Microsoft.UI.Xaml.Media.GradientStopCollection.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Microsoft.UI.Xaml.Media.GradientStopCollection: ...
     @winrt_mixinmethod
@@ -2126,6 +2306,16 @@ class ImageBrush(ComPtr, metaclass=_ImageBrush_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Media.TileBrush
     default_interface: win32more.Microsoft.UI.Xaml.Media.IImageBrush
     _classid_ = 'Microsoft.UI.Xaml.Media.ImageBrush'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Microsoft.UI.Xaml.Media.ImageBrush.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Microsoft.UI.Xaml.Media.ImageBrush: ...
     @winrt_mixinmethod
@@ -2154,6 +2344,16 @@ class LineGeometry(ComPtr, metaclass=_LineGeometry_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Media.Geometry
     default_interface: win32more.Microsoft.UI.Xaml.Media.ILineGeometry
     _classid_ = 'Microsoft.UI.Xaml.Media.LineGeometry'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Microsoft.UI.Xaml.Media.LineGeometry.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Microsoft.UI.Xaml.Media.LineGeometry: ...
     @winrt_mixinmethod
@@ -2178,6 +2378,16 @@ class LineSegment(ComPtr, metaclass=_LineSegment_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Media.PathSegment
     default_interface: win32more.Microsoft.UI.Xaml.Media.ILineSegment
     _classid_ = 'Microsoft.UI.Xaml.Media.LineSegment'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Microsoft.UI.Xaml.Media.LineSegment.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Microsoft.UI.Xaml.Media.LineSegment: ...
     @winrt_mixinmethod
@@ -2194,6 +2404,18 @@ class LinearGradientBrush(ComPtr, metaclass=_LinearGradientBrush_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Media.GradientBrush
     default_interface: win32more.Microsoft.UI.Xaml.Media.ILinearGradientBrush
     _classid_ = 'Microsoft.UI.Xaml.Media.LinearGradientBrush'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Microsoft.UI.Xaml.Media.LinearGradientBrush.CreateInstance(*args)
+        elif len(args) == 2:
+            instance = win32more.Microsoft.UI.Xaml.Media.LinearGradientBrush.CreateInstanceWithGradientStopCollectionAndAngle(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Microsoft.UI.Xaml.Media.LinearGradientBrush: ...
     @winrt_factorymethod
@@ -2266,6 +2488,16 @@ class Matrix3DProjection(ComPtr, metaclass=_Matrix3DProjection_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Media.Projection
     default_interface: win32more.Microsoft.UI.Xaml.Media.IMatrix3DProjection
     _classid_ = 'Microsoft.UI.Xaml.Media.Matrix3DProjection'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Microsoft.UI.Xaml.Media.Matrix3DProjection.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Microsoft.UI.Xaml.Media.Matrix3DProjection: ...
     @winrt_mixinmethod
@@ -2297,6 +2529,16 @@ class MatrixTransform(ComPtr, metaclass=_MatrixTransform_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Media.Transform
     default_interface: win32more.Microsoft.UI.Xaml.Media.IMatrixTransform
     _classid_ = 'Microsoft.UI.Xaml.Media.MatrixTransform'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Microsoft.UI.Xaml.Media.MatrixTransform.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Microsoft.UI.Xaml.Media.MatrixTransform: ...
     @winrt_mixinmethod
@@ -2321,6 +2563,16 @@ class MicaBackdrop(ComPtr, metaclass=_MicaBackdrop_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Media.SystemBackdrop
     default_interface: win32more.Microsoft.UI.Xaml.Media.IMicaBackdrop
     _classid_ = 'Microsoft.UI.Xaml.Media.MicaBackdrop'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Microsoft.UI.Xaml.Media.MicaBackdrop.CreateInstance(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Microsoft.UI.Xaml.Media.IMicaBackdropFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Media.MicaBackdrop: ...
     @winrt_mixinmethod
@@ -2337,6 +2589,16 @@ class PathFigure(ComPtr, metaclass=_PathFigure_Meta_):
     extends: win32more.Microsoft.UI.Xaml.DependencyObject
     default_interface: win32more.Microsoft.UI.Xaml.Media.IPathFigure
     _classid_ = 'Microsoft.UI.Xaml.Media.PathFigure'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Microsoft.UI.Xaml.Media.PathFigure.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Microsoft.UI.Xaml.Media.PathFigure: ...
     @winrt_mixinmethod
@@ -2375,6 +2637,16 @@ class PathFigureCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.Collections.IVector[win32more.Microsoft.UI.Xaml.Media.PathFigure]
     _classid_ = 'Microsoft.UI.Xaml.Media.PathFigureCollection'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Microsoft.UI.Xaml.Media.PathFigureCollection.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Microsoft.UI.Xaml.Media.PathFigureCollection: ...
     @winrt_mixinmethod
@@ -2410,6 +2682,16 @@ class PathGeometry(ComPtr, metaclass=_PathGeometry_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Media.Geometry
     default_interface: win32more.Microsoft.UI.Xaml.Media.IPathGeometry
     _classid_ = 'Microsoft.UI.Xaml.Media.PathGeometry'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Microsoft.UI.Xaml.Media.PathGeometry.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Microsoft.UI.Xaml.Media.PathGeometry: ...
     @winrt_mixinmethod
@@ -2436,6 +2718,16 @@ class PathSegmentCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.Collections.IVector[win32more.Microsoft.UI.Xaml.Media.PathSegment]
     _classid_ = 'Microsoft.UI.Xaml.Media.PathSegmentCollection'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Microsoft.UI.Xaml.Media.PathSegmentCollection.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Microsoft.UI.Xaml.Media.PathSegmentCollection: ...
     @winrt_mixinmethod
@@ -2480,6 +2772,16 @@ class PlaneProjection(ComPtr, metaclass=_PlaneProjection_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Media.Projection
     default_interface: win32more.Microsoft.UI.Xaml.Media.IPlaneProjection
     _classid_ = 'Microsoft.UI.Xaml.Media.PlaneProjection'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Microsoft.UI.Xaml.Media.PlaneProjection.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Microsoft.UI.Xaml.Media.PlaneProjection: ...
     @winrt_mixinmethod
@@ -2588,6 +2890,16 @@ class PointCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.Collections.IVector[win32more.Windows.Foundation.Point]
     _classid_ = 'Microsoft.UI.Xaml.Media.PointCollection'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Microsoft.UI.Xaml.Media.PointCollection.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Microsoft.UI.Xaml.Media.PointCollection: ...
     @winrt_mixinmethod
@@ -2623,6 +2935,16 @@ class PolyBezierSegment(ComPtr, metaclass=_PolyBezierSegment_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Media.PathSegment
     default_interface: win32more.Microsoft.UI.Xaml.Media.IPolyBezierSegment
     _classid_ = 'Microsoft.UI.Xaml.Media.PolyBezierSegment'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Microsoft.UI.Xaml.Media.PolyBezierSegment.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Microsoft.UI.Xaml.Media.PolyBezierSegment: ...
     @winrt_mixinmethod
@@ -2639,6 +2961,16 @@ class PolyLineSegment(ComPtr, metaclass=_PolyLineSegment_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Media.PathSegment
     default_interface: win32more.Microsoft.UI.Xaml.Media.IPolyLineSegment
     _classid_ = 'Microsoft.UI.Xaml.Media.PolyLineSegment'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Microsoft.UI.Xaml.Media.PolyLineSegment.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Microsoft.UI.Xaml.Media.PolyLineSegment: ...
     @winrt_mixinmethod
@@ -2655,6 +2987,16 @@ class PolyQuadraticBezierSegment(ComPtr, metaclass=_PolyQuadraticBezierSegment_M
     extends: win32more.Microsoft.UI.Xaml.Media.PathSegment
     default_interface: win32more.Microsoft.UI.Xaml.Media.IPolyQuadraticBezierSegment
     _classid_ = 'Microsoft.UI.Xaml.Media.PolyQuadraticBezierSegment'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Microsoft.UI.Xaml.Media.PolyQuadraticBezierSegment.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Microsoft.UI.Xaml.Media.PolyQuadraticBezierSegment: ...
     @winrt_mixinmethod
@@ -2669,6 +3011,16 @@ class Projection(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.DependencyObject
     default_interface: win32more.Microsoft.UI.Xaml.Media.IProjection
     _classid_ = 'Microsoft.UI.Xaml.Media.Projection'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Microsoft.UI.Xaml.Media.Projection.CreateInstance(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Microsoft.UI.Xaml.Media.IProjectionFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Media.Projection: ...
 class _QuadraticBezierSegment_Meta_(ComPtr.__class__):
@@ -2677,6 +3029,16 @@ class QuadraticBezierSegment(ComPtr, metaclass=_QuadraticBezierSegment_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Media.PathSegment
     default_interface: win32more.Microsoft.UI.Xaml.Media.IQuadraticBezierSegment
     _classid_ = 'Microsoft.UI.Xaml.Media.QuadraticBezierSegment'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Microsoft.UI.Xaml.Media.QuadraticBezierSegment.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Microsoft.UI.Xaml.Media.QuadraticBezierSegment: ...
     @winrt_mixinmethod
@@ -2701,6 +3063,16 @@ class RadialGradientBrush(ComPtr, metaclass=_RadialGradientBrush_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Media.XamlCompositionBrushBase
     default_interface: win32more.Microsoft.UI.Xaml.Media.IRadialGradientBrush
     _classid_ = 'Microsoft.UI.Xaml.Media.RadialGradientBrush'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Microsoft.UI.Xaml.Media.RadialGradientBrush.CreateInstance(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Microsoft.UI.Xaml.Media.IRadialGradientBrushFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Media.RadialGradientBrush: ...
     @winrt_mixinmethod
@@ -2768,6 +3140,16 @@ class RectangleGeometry(ComPtr, metaclass=_RectangleGeometry_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Media.Geometry
     default_interface: win32more.Microsoft.UI.Xaml.Media.IRectangleGeometry
     _classid_ = 'Microsoft.UI.Xaml.Media.RectangleGeometry'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Microsoft.UI.Xaml.Media.RectangleGeometry.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Microsoft.UI.Xaml.Media.RectangleGeometry: ...
     @winrt_mixinmethod
@@ -2798,6 +3180,16 @@ class RotateTransform(ComPtr, metaclass=_RotateTransform_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Media.Transform
     default_interface: win32more.Microsoft.UI.Xaml.Media.IRotateTransform
     _classid_ = 'Microsoft.UI.Xaml.Media.RotateTransform'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Microsoft.UI.Xaml.Media.RotateTransform.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Microsoft.UI.Xaml.Media.RotateTransform: ...
     @winrt_mixinmethod
@@ -2830,6 +3222,16 @@ class ScaleTransform(ComPtr, metaclass=_ScaleTransform_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Media.Transform
     default_interface: win32more.Microsoft.UI.Xaml.Media.IScaleTransform
     _classid_ = 'Microsoft.UI.Xaml.Media.ScaleTransform'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Microsoft.UI.Xaml.Media.ScaleTransform.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Microsoft.UI.Xaml.Media.ScaleTransform: ...
     @winrt_mixinmethod
@@ -2874,6 +3276,16 @@ class SkewTransform(ComPtr, metaclass=_SkewTransform_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Media.Transform
     default_interface: win32more.Microsoft.UI.Xaml.Media.ISkewTransform
     _classid_ = 'Microsoft.UI.Xaml.Media.SkewTransform'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Microsoft.UI.Xaml.Media.SkewTransform.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Microsoft.UI.Xaml.Media.SkewTransform: ...
     @winrt_mixinmethod
@@ -2914,10 +3326,22 @@ class SolidColorBrush(ComPtr, metaclass=_SolidColorBrush_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Media.Brush
     default_interface: win32more.Microsoft.UI.Xaml.Media.ISolidColorBrush
     _classid_ = 'Microsoft.UI.Xaml.Media.SolidColorBrush'
-    @winrt_factorymethod
-    def CreateInstanceWithColor(cls: win32more.Microsoft.UI.Xaml.Media.ISolidColorBrushFactory, color: win32more.Windows.UI.Color) -> win32more.Microsoft.UI.Xaml.Media.SolidColorBrush: ...
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Microsoft.UI.Xaml.Media.SolidColorBrush.CreateInstance(*args)
+        elif len(args) == 1:
+            instance = win32more.Microsoft.UI.Xaml.Media.SolidColorBrush.CreateInstanceWithColor(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Microsoft.UI.Xaml.Media.SolidColorBrush: ...
+    @winrt_factorymethod
+    def CreateInstanceWithColor(cls: win32more.Microsoft.UI.Xaml.Media.ISolidColorBrushFactory, color: win32more.Windows.UI.Color) -> win32more.Microsoft.UI.Xaml.Media.SolidColorBrush: ...
     @winrt_mixinmethod
     def get_Color(self: win32more.Microsoft.UI.Xaml.Media.ISolidColorBrush) -> win32more.Windows.UI.Color: ...
     @winrt_mixinmethod
@@ -2943,6 +3367,16 @@ class SystemBackdrop(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.DependencyObject
     default_interface: win32more.Microsoft.UI.Xaml.Media.ISystemBackdrop
     _classid_ = 'Microsoft.UI.Xaml.Media.SystemBackdrop'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Microsoft.UI.Xaml.Media.SystemBackdrop.CreateInstance(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Microsoft.UI.Xaml.Media.ISystemBackdropFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Media.SystemBackdrop: ...
     @winrt_mixinmethod
@@ -2957,6 +3391,16 @@ class ThemeShadow(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.Media.Shadow
     default_interface: win32more.Microsoft.UI.Xaml.Media.IThemeShadow
     _classid_ = 'Microsoft.UI.Xaml.Media.ThemeShadow'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Microsoft.UI.Xaml.Media.ThemeShadow.CreateInstance(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Microsoft.UI.Xaml.Media.IThemeShadowFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Media.ThemeShadow: ...
     @winrt_mixinmethod
@@ -2968,6 +3412,16 @@ class TileBrush(ComPtr, metaclass=_TileBrush_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Media.Brush
     default_interface: win32more.Microsoft.UI.Xaml.Media.ITileBrush
     _classid_ = 'Microsoft.UI.Xaml.Media.TileBrush'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Microsoft.UI.Xaml.Media.TileBrush.CreateInstance(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Microsoft.UI.Xaml.Media.ITileBrushFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Media.TileBrush: ...
     @winrt_mixinmethod
@@ -3002,6 +3456,16 @@ class TransformCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.Collections.IVector[win32more.Microsoft.UI.Xaml.Media.Transform]
     _classid_ = 'Microsoft.UI.Xaml.Media.TransformCollection'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Microsoft.UI.Xaml.Media.TransformCollection.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Microsoft.UI.Xaml.Media.TransformCollection: ...
     @winrt_mixinmethod
@@ -3037,6 +3501,16 @@ class TransformGroup(ComPtr, metaclass=_TransformGroup_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Media.Transform
     default_interface: win32more.Microsoft.UI.Xaml.Media.ITransformGroup
     _classid_ = 'Microsoft.UI.Xaml.Media.TransformGroup'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Microsoft.UI.Xaml.Media.TransformGroup.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Microsoft.UI.Xaml.Media.TransformGroup: ...
     @winrt_mixinmethod
@@ -3056,6 +3530,16 @@ class TranslateTransform(ComPtr, metaclass=_TranslateTransform_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Media.Transform
     default_interface: win32more.Microsoft.UI.Xaml.Media.ITranslateTransform
     _classid_ = 'Microsoft.UI.Xaml.Media.TranslateTransform'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Microsoft.UI.Xaml.Media.TranslateTransform.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Microsoft.UI.Xaml.Media.TranslateTransform: ...
     @winrt_mixinmethod
@@ -3104,6 +3588,16 @@ class XamlCompositionBrushBase(ComPtr, metaclass=_XamlCompositionBrushBase_Meta_
     extends: win32more.Microsoft.UI.Xaml.Media.Brush
     default_interface: win32more.Microsoft.UI.Xaml.Media.IXamlCompositionBrushBase
     _classid_ = 'Microsoft.UI.Xaml.Media.XamlCompositionBrushBase'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Microsoft.UI.Xaml.Media.XamlCompositionBrushBase.CreateInstance(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Microsoft.UI.Xaml.Media.IXamlCompositionBrushBaseFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Media.XamlCompositionBrushBase: ...
     @winrt_mixinmethod
@@ -3127,6 +3621,16 @@ class XamlLight(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.DependencyObject
     default_interface: win32more.Microsoft.UI.Xaml.Media.IXamlLight
     _classid_ = 'Microsoft.UI.Xaml.Media.XamlLight'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Microsoft.UI.Xaml.Media.XamlLight.CreateInstance(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Microsoft.UI.Xaml.Media.IXamlLightFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Media.XamlLight: ...
     @winrt_mixinmethod

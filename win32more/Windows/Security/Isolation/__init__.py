@@ -531,6 +531,16 @@ class IsolatedWindowsEnvironmentOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Isolation.IIsolatedWindowsEnvironmentOptions
     _classid_ = 'Windows.Security.Isolation.IsolatedWindowsEnvironmentOptions'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Security.Isolation.IsolatedWindowsEnvironmentOptions.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Security.Isolation.IsolatedWindowsEnvironmentOptions: ...
     @winrt_mixinmethod
@@ -607,6 +617,16 @@ class IsolatedWindowsEnvironmentOwnerRegistrationData(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Isolation.IIsolatedWindowsEnvironmentOwnerRegistrationData
     _classid_ = 'Windows.Security.Isolation.IsolatedWindowsEnvironmentOwnerRegistrationData'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Security.Isolation.IsolatedWindowsEnvironmentOwnerRegistrationData.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Security.Isolation.IsolatedWindowsEnvironmentOwnerRegistrationData: ...
     @winrt_mixinmethod
@@ -683,6 +703,16 @@ class IsolatedWindowsEnvironmentShareFileRequestOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Isolation.IIsolatedWindowsEnvironmentShareFileRequestOptions
     _classid_ = 'Windows.Security.Isolation.IsolatedWindowsEnvironmentShareFileRequestOptions'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Security.Isolation.IsolatedWindowsEnvironmentShareFileRequestOptions.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Security.Isolation.IsolatedWindowsEnvironmentShareFileRequestOptions: ...
     @winrt_mixinmethod
@@ -714,6 +744,16 @@ class IsolatedWindowsEnvironmentShareFolderRequestOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Isolation.IIsolatedWindowsEnvironmentShareFolderRequestOptions
     _classid_ = 'Windows.Security.Isolation.IsolatedWindowsEnvironmentShareFolderRequestOptions'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Security.Isolation.IsolatedWindowsEnvironmentShareFolderRequestOptions.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Security.Isolation.IsolatedWindowsEnvironmentShareFolderRequestOptions: ...
     @winrt_mixinmethod
@@ -767,6 +807,16 @@ class IsolatedWindowsEnvironmentTelemetryParameters(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Isolation.IIsolatedWindowsEnvironmentTelemetryParameters
     _classid_ = 'Windows.Security.Isolation.IsolatedWindowsEnvironmentTelemetryParameters'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Security.Isolation.IsolatedWindowsEnvironmentTelemetryParameters.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Security.Isolation.IsolatedWindowsEnvironmentTelemetryParameters: ...
     @winrt_mixinmethod

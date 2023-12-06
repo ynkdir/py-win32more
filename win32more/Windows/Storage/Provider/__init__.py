@@ -592,6 +592,16 @@ class StorageProviderFileTypeInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Storage.Provider.IStorageProviderFileTypeInfo
     _classid_ = 'Windows.Storage.Provider.StorageProviderFileTypeInfo'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 2:
+            instance = win32more.Windows.Storage.Provider.StorageProviderFileTypeInfo.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.Storage.Provider.IStorageProviderFileTypeInfoFactory, fileExtension: WinRT_String, iconResource: WinRT_String) -> win32more.Windows.Storage.Provider.StorageProviderFileTypeInfo: ...
     @winrt_mixinmethod
@@ -604,6 +614,16 @@ class StorageProviderGetContentInfoForPathResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Storage.Provider.IStorageProviderGetContentInfoForPathResult
     _classid_ = 'Windows.Storage.Provider.StorageProviderGetContentInfoForPathResult'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Storage.Provider.StorageProviderGetContentInfoForPathResult.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Storage.Provider.StorageProviderGetContentInfoForPathResult: ...
     @winrt_mixinmethod
@@ -625,6 +645,16 @@ class StorageProviderGetPathForContentUriResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Storage.Provider.IStorageProviderGetPathForContentUriResult
     _classid_ = 'Windows.Storage.Provider.StorageProviderGetPathForContentUriResult'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Storage.Provider.StorageProviderGetPathForContentUriResult.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Storage.Provider.StorageProviderGetPathForContentUriResult: ...
     @winrt_mixinmethod
@@ -673,6 +703,16 @@ class StorageProviderItemProperty(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Storage.Provider.IStorageProviderItemProperty
     _classid_ = 'Windows.Storage.Provider.StorageProviderItemProperty'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Storage.Provider.StorageProviderItemProperty.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Storage.Provider.StorageProviderItemProperty: ...
     @winrt_mixinmethod
@@ -694,6 +734,16 @@ class StorageProviderItemPropertyDefinition(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Storage.Provider.IStorageProviderItemPropertyDefinition
     _classid_ = 'Windows.Storage.Provider.StorageProviderItemPropertyDefinition'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Storage.Provider.StorageProviderItemPropertyDefinition.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Storage.Provider.StorageProviderItemPropertyDefinition: ...
     @winrt_mixinmethod
@@ -710,6 +760,16 @@ class StorageProviderKnownFolderEntry(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Storage.Provider.IStorageProviderKnownFolderEntry
     _classid_ = 'Windows.Storage.Provider.StorageProviderKnownFolderEntry'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Storage.Provider.StorageProviderKnownFolderEntry.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Storage.Provider.StorageProviderKnownFolderEntry: ...
     @winrt_mixinmethod
@@ -726,6 +786,16 @@ class StorageProviderKnownFolderSyncInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Storage.Provider.IStorageProviderKnownFolderSyncInfo
     _classid_ = 'Windows.Storage.Provider.StorageProviderKnownFolderSyncInfo'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Storage.Provider.StorageProviderKnownFolderSyncInfo.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Storage.Provider.StorageProviderKnownFolderSyncInfo: ...
     @winrt_mixinmethod
@@ -763,6 +833,16 @@ class StorageProviderMoreInfoUI(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Storage.Provider.IStorageProviderMoreInfoUI
     _classid_ = 'Windows.Storage.Provider.StorageProviderMoreInfoUI'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Storage.Provider.StorageProviderMoreInfoUI.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Storage.Provider.StorageProviderMoreInfoUI: ...
     @winrt_mixinmethod
@@ -785,6 +865,16 @@ class StorageProviderQuotaUI(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Storage.Provider.IStorageProviderQuotaUI
     _classid_ = 'Windows.Storage.Provider.StorageProviderQuotaUI'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Storage.Provider.StorageProviderQuotaUI.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Storage.Provider.StorageProviderQuotaUI: ...
     @winrt_mixinmethod
@@ -818,6 +908,16 @@ class StorageProviderStatusUI(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Storage.Provider.IStorageProviderStatusUI
     _classid_ = 'Windows.Storage.Provider.StorageProviderStatusUI'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Storage.Provider.StorageProviderStatusUI.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Storage.Provider.StorageProviderStatusUI: ...
     @winrt_mixinmethod
@@ -864,6 +964,16 @@ class StorageProviderSyncRootInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Storage.Provider.IStorageProviderSyncRootInfo
     _classid_ = 'Windows.Storage.Provider.StorageProviderSyncRootInfo'
+    def __init__(self, *args, **kwargs) -> None:
+        if kwargs:
+            return super().__init__(**kwargs)
+        elif len(args) == 0:
+            instance = win32more.Windows.Storage.Provider.StorageProviderSyncRootInfo.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+        self.value = instance.value
+        self._own = instance._own
+        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Storage.Provider.StorageProviderSyncRootInfo: ...
     @winrt_mixinmethod
