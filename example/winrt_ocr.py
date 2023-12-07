@@ -39,7 +39,7 @@ async def open_file(filter):
     picker = FileOpenPicker.CreateInstance()
     initialize_with_window(picker, mainhwnd)
     picker.FileTypeFilter.Append(filter)
-    return await picker.PickSingleFileAsync_2()
+    return await picker.PickSingleFileAsync()
 
 
 async def read_image(storage_file):

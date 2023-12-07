@@ -13,7 +13,7 @@ TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
 from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
-from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
+from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, winrt_overload, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Microsoft.UI.Composition
 import win32more.Microsoft.UI.Input
@@ -4556,6 +4556,7 @@ class Frame(ComPtr, metaclass=_Frame_Meta_):
     def GoBackWithTransitionInfo(self: win32more.Microsoft.UI.Xaml.Controls.IFrame, transitionInfoOverride: win32more.Microsoft.UI.Xaml.Media.Animation.NavigationTransitionInfo) -> Void: ...
     @winrt_mixinmethod
     def GoForward(self: win32more.Microsoft.UI.Xaml.Controls.IFrame) -> Void: ...
+    @winrt_overload
     @winrt_mixinmethod
     def Navigate(self: win32more.Microsoft.UI.Xaml.Controls.IFrame, sourcePageType: win32more.Windows.UI.Xaml.Interop.TypeName, parameter: win32more.Windows.Win32.System.WinRT.IInspectable) -> Boolean: ...
     @winrt_mixinmethod
@@ -4568,8 +4569,9 @@ class Frame(ComPtr, metaclass=_Frame_Meta_):
     def SetNavigationState(self: win32more.Microsoft.UI.Xaml.Controls.IFrame, navigationState: WinRT_String) -> Void: ...
     @winrt_mixinmethod
     def SetNavigationStateWithNavigationControl(self: win32more.Microsoft.UI.Xaml.Controls.IFrame, navigationState: WinRT_String, suppressNavigate: Boolean) -> Void: ...
+    @Navigate.register
     @winrt_mixinmethod
-    def Navigate_2(self: win32more.Microsoft.UI.Xaml.Controls.INavigate, sourcePageType: win32more.Windows.UI.Xaml.Interop.TypeName) -> Boolean: ...
+    def Navigate(self: win32more.Microsoft.UI.Xaml.Controls.INavigate, sourcePageType: win32more.Windows.UI.Xaml.Interop.TypeName) -> Boolean: ...
     @winrt_classmethod
     def get_CacheSizeProperty(cls: win32more.Microsoft.UI.Xaml.Controls.IFrameStatics) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
     @winrt_classmethod

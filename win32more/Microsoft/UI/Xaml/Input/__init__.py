@@ -13,7 +13,7 @@ TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
 from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
-from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
+from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, winrt_overload, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Microsoft.UI.Input
 import win32more.Microsoft.UI.Xaml
@@ -1284,8 +1284,10 @@ class InputScopeName(ComPtr):
         self.value = instance.value
         self._own = instance._own
         instance._own = False
+    @winrt_overload
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Microsoft.UI.Xaml.Input.InputScopeName: ...
+    @CreateInstance.register
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Microsoft.UI.Xaml.Input.IInputScopeNameFactory, nameValue: win32more.Microsoft.UI.Xaml.Input.InputScopeNameValue) -> win32more.Microsoft.UI.Xaml.Input.InputScopeName: ...
     @winrt_mixinmethod

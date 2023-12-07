@@ -13,7 +13,7 @@ TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
 from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
-from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
+from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, winrt_overload, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.ApplicationModel.Activation
 import win32more.Windows.Devices.Printers
@@ -578,10 +578,12 @@ class PrintWorkflowPdlConverter(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing.Workflow.IPrintWorkflowPdlConverter
     _classid_ = 'Windows.Graphics.Printing.Workflow.PrintWorkflowPdlConverter'
+    @winrt_overload
     @winrt_mixinmethod
     def ConvertPdlAsync(self: win32more.Windows.Graphics.Printing.Workflow.IPrintWorkflowPdlConverter, printTicket: win32more.Windows.Graphics.Printing.PrintTicket.WorkflowPrintTicket, inputStream: win32more.Windows.Storage.Streams.IInputStream, outputStream: win32more.Windows.Storage.Streams.IOutputStream) -> win32more.Windows.Foundation.IAsyncAction: ...
+    @ConvertPdlAsync.register
     @winrt_mixinmethod
-    def ConvertPdlAsync_2(self: win32more.Windows.Graphics.Printing.Workflow.IPrintWorkflowPdlConverter2, printTicket: win32more.Windows.Graphics.Printing.PrintTicket.WorkflowPrintTicket, inputStream: win32more.Windows.Storage.Streams.IInputStream, outputStream: win32more.Windows.Storage.Streams.IOutputStream, hostBasedProcessingOperations: win32more.Windows.Graphics.Printing.Workflow.PdlConversionHostBasedProcessingOperations) -> win32more.Windows.Foundation.IAsyncAction: ...
+    def ConvertPdlAsync(self: win32more.Windows.Graphics.Printing.Workflow.IPrintWorkflowPdlConverter2, printTicket: win32more.Windows.Graphics.Printing.PrintTicket.WorkflowPrintTicket, inputStream: win32more.Windows.Storage.Streams.IInputStream, outputStream: win32more.Windows.Storage.Streams.IOutputStream, hostBasedProcessingOperations: win32more.Windows.Graphics.Printing.Workflow.PdlConversionHostBasedProcessingOperations) -> win32more.Windows.Foundation.IAsyncAction: ...
 class PrintWorkflowPdlDataAvailableEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing.Workflow.IPrintWorkflowPdlDataAvailableEventArgs
@@ -611,18 +613,22 @@ class PrintWorkflowPdlModificationRequestedEventArgs(ComPtr):
     def get_UILauncher(self: win32more.Windows.Graphics.Printing.Workflow.IPrintWorkflowPdlModificationRequestedEventArgs) -> win32more.Windows.Graphics.Printing.Workflow.PrintWorkflowUILauncher: ...
     @winrt_mixinmethod
     def CreateJobOnPrinter(self: win32more.Windows.Graphics.Printing.Workflow.IPrintWorkflowPdlModificationRequestedEventArgs, targetContentType: WinRT_String) -> win32more.Windows.Graphics.Printing.Workflow.PrintWorkflowPdlTargetStream: ...
+    @winrt_overload
     @winrt_mixinmethod
     def CreateJobOnPrinterWithAttributes(self: win32more.Windows.Graphics.Printing.Workflow.IPrintWorkflowPdlModificationRequestedEventArgs, jobAttributes: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, win32more.Windows.Devices.Printers.IppAttributeValue]], targetContentType: WinRT_String) -> win32more.Windows.Graphics.Printing.Workflow.PrintWorkflowPdlTargetStream: ...
+    @winrt_overload
     @winrt_mixinmethod
     def CreateJobOnPrinterWithAttributesBuffer(self: win32more.Windows.Graphics.Printing.Workflow.IPrintWorkflowPdlModificationRequestedEventArgs, jobAttributesBuffer: win32more.Windows.Storage.Streams.IBuffer, targetContentType: WinRT_String) -> win32more.Windows.Graphics.Printing.Workflow.PrintWorkflowPdlTargetStream: ...
     @winrt_mixinmethod
     def GetPdlConverter(self: win32more.Windows.Graphics.Printing.Workflow.IPrintWorkflowPdlModificationRequestedEventArgs, conversionType: win32more.Windows.Graphics.Printing.Workflow.PrintWorkflowPdlConversionType) -> win32more.Windows.Graphics.Printing.Workflow.PrintWorkflowPdlConverter: ...
     @winrt_mixinmethod
     def GetDeferral(self: win32more.Windows.Graphics.Printing.Workflow.IPrintWorkflowPdlModificationRequestedEventArgs) -> win32more.Windows.Foundation.Deferral: ...
+    @CreateJobOnPrinterWithAttributes.register
     @winrt_mixinmethod
-    def CreateJobOnPrinterWithAttributes_2(self: win32more.Windows.Graphics.Printing.Workflow.IPrintWorkflowPdlModificationRequestedEventArgs2, jobAttributes: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, win32more.Windows.Devices.Printers.IppAttributeValue]], targetContentType: WinRT_String, operationAttributes: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, win32more.Windows.Devices.Printers.IppAttributeValue]], jobAttributesMergePolicy: win32more.Windows.Graphics.Printing.Workflow.PrintWorkflowAttributesMergePolicy, operationAttributesMergePolicy: win32more.Windows.Graphics.Printing.Workflow.PrintWorkflowAttributesMergePolicy) -> win32more.Windows.Graphics.Printing.Workflow.PrintWorkflowPdlTargetStream: ...
+    def CreateJobOnPrinterWithAttributes(self: win32more.Windows.Graphics.Printing.Workflow.IPrintWorkflowPdlModificationRequestedEventArgs2, jobAttributes: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, win32more.Windows.Devices.Printers.IppAttributeValue]], targetContentType: WinRT_String, operationAttributes: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, win32more.Windows.Devices.Printers.IppAttributeValue]], jobAttributesMergePolicy: win32more.Windows.Graphics.Printing.Workflow.PrintWorkflowAttributesMergePolicy, operationAttributesMergePolicy: win32more.Windows.Graphics.Printing.Workflow.PrintWorkflowAttributesMergePolicy) -> win32more.Windows.Graphics.Printing.Workflow.PrintWorkflowPdlTargetStream: ...
+    @CreateJobOnPrinterWithAttributesBuffer.register
     @winrt_mixinmethod
-    def CreateJobOnPrinterWithAttributesBuffer_2(self: win32more.Windows.Graphics.Printing.Workflow.IPrintWorkflowPdlModificationRequestedEventArgs2, jobAttributesBuffer: win32more.Windows.Storage.Streams.IBuffer, targetContentType: WinRT_String, operationAttributesBuffer: win32more.Windows.Storage.Streams.IBuffer, jobAttributesMergePolicy: win32more.Windows.Graphics.Printing.Workflow.PrintWorkflowAttributesMergePolicy, operationAttributesMergePolicy: win32more.Windows.Graphics.Printing.Workflow.PrintWorkflowAttributesMergePolicy) -> win32more.Windows.Graphics.Printing.Workflow.PrintWorkflowPdlTargetStream: ...
+    def CreateJobOnPrinterWithAttributesBuffer(self: win32more.Windows.Graphics.Printing.Workflow.IPrintWorkflowPdlModificationRequestedEventArgs2, jobAttributesBuffer: win32more.Windows.Storage.Streams.IBuffer, targetContentType: WinRT_String, operationAttributesBuffer: win32more.Windows.Storage.Streams.IBuffer, jobAttributesMergePolicy: win32more.Windows.Graphics.Printing.Workflow.PrintWorkflowAttributesMergePolicy, operationAttributesMergePolicy: win32more.Windows.Graphics.Printing.Workflow.PrintWorkflowAttributesMergePolicy) -> win32more.Windows.Graphics.Printing.Workflow.PrintWorkflowPdlTargetStream: ...
     Configuration = property(get_Configuration, None)
     PrinterJob = property(get_PrinterJob, None)
     SourceContent = property(get_SourceContent, None)

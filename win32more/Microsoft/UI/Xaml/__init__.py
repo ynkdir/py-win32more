@@ -13,7 +13,7 @@ TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
 from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
-from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
+from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, winrt_overload, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Microsoft.UI.Composition
 import win32more.Microsoft.UI.Content
@@ -4363,8 +4363,10 @@ class Setter(ComPtr):
         self.value = instance.value
         self._own = instance._own
         instance._own = False
+    @winrt_overload
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Microsoft.UI.Xaml.Setter: ...
+    @CreateInstance.register
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Microsoft.UI.Xaml.ISetterFactory, targetProperty: win32more.Microsoft.UI.Xaml.DependencyProperty, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> win32more.Microsoft.UI.Xaml.Setter: ...
     @winrt_mixinmethod
@@ -4524,8 +4526,10 @@ class Style(ComPtr):
         self.value = instance.value
         self._own = instance._own
         instance._own = False
+    @winrt_overload
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Microsoft.UI.Xaml.Style: ...
+    @CreateInstance.register
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Microsoft.UI.Xaml.IStyleFactory, targetType: win32more.Windows.UI.Xaml.Interop.TypeName) -> win32more.Microsoft.UI.Xaml.Style: ...
     @winrt_mixinmethod
@@ -4566,8 +4570,10 @@ class TargetPropertyPath(ComPtr):
         self.value = instance.value
         self._own = instance._own
         instance._own = False
+    @winrt_overload
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Microsoft.UI.Xaml.TargetPropertyPath: ...
+    @CreateInstance.register
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Microsoft.UI.Xaml.ITargetPropertyPathFactory, targetProperty: win32more.Microsoft.UI.Xaml.DependencyProperty) -> win32more.Microsoft.UI.Xaml.TargetPropertyPath: ...
     @winrt_mixinmethod

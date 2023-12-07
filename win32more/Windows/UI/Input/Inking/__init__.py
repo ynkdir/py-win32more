@@ -13,7 +13,7 @@ TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
 from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
-from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
+from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, winrt_overload, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -1251,10 +1251,12 @@ class InkStrokeBuilder(ComPtr):
     def CreateStroke(self: win32more.Windows.UI.Input.Inking.IInkStrokeBuilder, points: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Point]) -> win32more.Windows.UI.Input.Inking.InkStroke: ...
     @winrt_mixinmethod
     def SetDefaultDrawingAttributes(self: win32more.Windows.UI.Input.Inking.IInkStrokeBuilder, drawingAttributes: win32more.Windows.UI.Input.Inking.InkDrawingAttributes) -> Void: ...
+    @winrt_overload
     @winrt_mixinmethod
     def CreateStrokeFromInkPoints(self: win32more.Windows.UI.Input.Inking.IInkStrokeBuilder2, inkPoints: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.UI.Input.Inking.InkPoint], transform: win32more.Windows.Foundation.Numerics.Matrix3x2) -> win32more.Windows.UI.Input.Inking.InkStroke: ...
+    @CreateStrokeFromInkPoints.register
     @winrt_mixinmethod
-    def CreateStrokeFromInkPoints_2(self: win32more.Windows.UI.Input.Inking.IInkStrokeBuilder3, inkPoints: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.UI.Input.Inking.InkPoint], transform: win32more.Windows.Foundation.Numerics.Matrix3x2, strokeStartedTime: win32more.Windows.Foundation.IReference[win32more.Windows.Foundation.DateTime], strokeDuration: win32more.Windows.Foundation.IReference[win32more.Windows.Foundation.TimeSpan]) -> win32more.Windows.UI.Input.Inking.InkStroke: ...
+    def CreateStrokeFromInkPoints(self: win32more.Windows.UI.Input.Inking.IInkStrokeBuilder3, inkPoints: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.UI.Input.Inking.InkPoint], transform: win32more.Windows.Foundation.Numerics.Matrix3x2, strokeStartedTime: win32more.Windows.Foundation.IReference[win32more.Windows.Foundation.DateTime], strokeDuration: win32more.Windows.Foundation.IReference[win32more.Windows.Foundation.TimeSpan]) -> win32more.Windows.UI.Input.Inking.InkStroke: ...
 class InkStrokeContainer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Input.Inking.IInkStrokeContainer

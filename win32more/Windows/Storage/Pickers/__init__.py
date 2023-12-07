@@ -13,7 +13,7 @@ TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
 from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
-from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
+from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, winrt_overload, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -73,6 +73,7 @@ class FileOpenPicker(ComPtr):
     def PickSingleFileAndContinue(self: win32more.Windows.Storage.Pickers.IFileOpenPicker2) -> Void: ...
     @winrt_mixinmethod
     def PickMultipleFilesAndContinue(self: win32more.Windows.Storage.Pickers.IFileOpenPicker2) -> Void: ...
+    @winrt_overload
     @winrt_mixinmethod
     def PickSingleFileAsync(self: win32more.Windows.Storage.Pickers.IFileOpenPickerWithOperationId, pickerOperationId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Storage.StorageFile]: ...
     @winrt_mixinmethod
@@ -93,8 +94,9 @@ class FileOpenPicker(ComPtr):
     def put_CommitButtonText(self: win32more.Windows.Storage.Pickers.IFileOpenPicker, value: WinRT_String) -> Void: ...
     @winrt_mixinmethod
     def get_FileTypeFilter(self: win32more.Windows.Storage.Pickers.IFileOpenPicker) -> win32more.Windows.Foundation.Collections.IVector[WinRT_String]: ...
+    @PickSingleFileAsync.register
     @winrt_mixinmethod
-    def PickSingleFileAsync_2(self: win32more.Windows.Storage.Pickers.IFileOpenPicker) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Storage.StorageFile]: ...
+    def PickSingleFileAsync(self: win32more.Windows.Storage.Pickers.IFileOpenPicker) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Storage.StorageFile]: ...
     @winrt_mixinmethod
     def PickMultipleFilesAsync(self: win32more.Windows.Storage.Pickers.IFileOpenPicker) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Storage.StorageFile]]: ...
     @winrt_mixinmethod

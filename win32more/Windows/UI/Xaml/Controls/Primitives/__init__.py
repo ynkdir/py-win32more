@@ -13,7 +13,7 @@ TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
 from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
-from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
+from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, winrt_overload, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -693,6 +693,7 @@ class FlyoutBase(ComPtr, metaclass=_FlyoutBase_Meta_):
     def add_Opening(self: win32more.Windows.UI.Xaml.Controls.Primitives.IFlyoutBase, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_Opening(self: win32more.Windows.UI.Xaml.Controls.Primitives.IFlyoutBase, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_overload
     @winrt_mixinmethod
     def ShowAt(self: win32more.Windows.UI.Xaml.Controls.Primitives.IFlyoutBase, placementTarget: win32more.Windows.UI.Xaml.FrameworkElement) -> Void: ...
     @winrt_mixinmethod
@@ -737,8 +738,9 @@ class FlyoutBase(ComPtr, metaclass=_FlyoutBase_Meta_):
     def put_AreOpenCloseAnimationsEnabled(self: win32more.Windows.UI.Xaml.Controls.Primitives.IFlyoutBase5, value: Boolean) -> Void: ...
     @winrt_mixinmethod
     def get_IsOpen(self: win32more.Windows.UI.Xaml.Controls.Primitives.IFlyoutBase5) -> Boolean: ...
+    @ShowAt.register
     @winrt_mixinmethod
-    def ShowAt_2(self: win32more.Windows.UI.Xaml.Controls.Primitives.IFlyoutBase5, placementTarget: win32more.Windows.UI.Xaml.DependencyObject, showOptions: win32more.Windows.UI.Xaml.Controls.Primitives.FlyoutShowOptions) -> Void: ...
+    def ShowAt(self: win32more.Windows.UI.Xaml.Controls.Primitives.IFlyoutBase5, placementTarget: win32more.Windows.UI.Xaml.DependencyObject, showOptions: win32more.Windows.UI.Xaml.Controls.Primitives.FlyoutShowOptions) -> Void: ...
     @winrt_mixinmethod
     def get_ShouldConstrainToRootBounds(self: win32more.Windows.UI.Xaml.Controls.Primitives.IFlyoutBase6) -> Boolean: ...
     @winrt_mixinmethod

@@ -13,7 +13,7 @@ TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
 from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
-from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
+from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, winrt_overload, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.ApplicationModel.Appointments
 import win32more.Windows.ApplicationModel.Email
@@ -42,8 +42,10 @@ class EmailAttachment(ComPtr):
         instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Email.EmailAttachment: ...
+    @winrt_overload
     @winrt_factorymethod
     def Create(cls: win32more.Windows.ApplicationModel.Email.IEmailAttachmentFactory, fileName: WinRT_String, data: win32more.Windows.Storage.Streams.IRandomAccessStreamReference) -> win32more.Windows.ApplicationModel.Email.EmailAttachment: ...
+    @Create.register
     @winrt_factorymethod
     def Create(cls: win32more.Windows.ApplicationModel.Email.IEmailAttachmentFactory2, fileName: WinRT_String, data: win32more.Windows.Storage.Streams.IRandomAccessStreamReference, mimeType: WinRT_String) -> win32more.Windows.ApplicationModel.Email.EmailAttachment: ...
     @winrt_mixinmethod

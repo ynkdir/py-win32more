@@ -292,6 +292,8 @@ def winrt_commethod(vtbl_index):
                 delegate_generic[generic_args] = WinrtMethod(cls, prototype, factory)
             return delegate_generic[generic_args](self, *args, **kwargs)
 
+        wrapper.prototype = prototype
+
         return wrapper
 
     return decorator
@@ -315,6 +317,8 @@ def winrt_mixinmethod(prototype):
         if m:
             method_name = m.group(1)
         return getattr(interface, method_name)(*args, **kwargs)
+
+    wrapper.prototype = prototype
 
     return wrapper
 
@@ -366,6 +370,8 @@ def winrt_classmethod(prototype):
         factory = _ro_get_activation_factory(cls._classid_, factory_class)
         return getattr(factory, prototype.__name__)(*args, **kwargs)
 
+    wrapper.prototype = prototype
+
     return wrapper
 
 
@@ -378,7 +384,36 @@ def winrt_activatemethod(prototype):
     def wrapper(cls):
         return _ro_activate_instance(cls._classid_, cls)
 
+    wrapper.prototype = prototype
+
     return wrapper
+
+
+class winrt_overload:
+    def __init__(self, func):
+        self.funcs = [func]
+
+    def register(self, func):
+        self.funcs.append(func)
+        return self
+
+    def __get__(self, obj, cls=None):
+        def _classmethod(*args):
+            for func in self.funcs:
+                if isinstance(func, classmethod) and len(args) == func.prototype.__code__.co_argcount - 1:
+                    return func.__get__(obj, cls)(*args)
+            raise ValueError("no matched method")
+
+        def _method(*args):
+            for func in self.funcs:
+                if not isinstance(func, classmethod) and len(args) == func.prototype.__code__.co_argcount - 1:
+                    return func.__get__(obj, cls)(*args)
+            raise ValueError("no matched method")
+
+        if obj is None:
+            return _classmethod
+        else:
+            return _method
 
 
 def _windows_create_string(s: str) -> HSTRING:

@@ -6,7 +6,7 @@ import keyword
 import lzma
 import re
 import sys
-from collections import defaultdict
+from collections import Counter, defaultdict
 from collections.abc import Iterable, Iterator, Mapping
 from dataclasses import dataclass
 from io import StringIO
@@ -64,6 +64,7 @@ WINRT_EXPORTS = [
     "winrt_classmethod",
     "winrt_factorymethod",
     "winrt_activatemethod",
+    "winrt_overload",
     "MulticastDelegate",
 ]
 WINRT_EXPORTS_CSV = ", ".join(WINRT_EXPORTS)
@@ -519,6 +520,9 @@ class CustomAttributeCollection(Collection[CustomAttribute]):
     def get_contract_version(self) -> CustomAttributeFixedArgument:
         return self.get("Windows.Foundation.Metadata.ContractVersionAttribute").fixed_arguments[0]
 
+    def has_default_overload(self) -> bool:
+        return self.has("Windows.Foundation.Metadata.DefaultOverloadAttribute")
+
     def has_overload(self) -> bool:
         return self.has("Windows.Foundation.Metadata.OverloadAttribute")
 
@@ -820,6 +824,12 @@ class MethodDefinition:
     @property
     def name(self) -> str:
         return self["Name"]
+
+    @property
+    def name_overload(self) -> str:
+        if self.custom_attributes.has_overload():
+            return self.custom_attributes.get_overload()
+        return self.name
 
     @property
     def attributes(self) -> list[str]:
@@ -1203,10 +1213,12 @@ class Preprocessor:
 
 
 @dataclass
-class Constructor:
+class Method:
+    name: str
     nargs: int
     invoke: str
-    method_declare: str
+    declare: str
+    default_overload: bool
 
 
 class PyGenerator:
@@ -1315,6 +1327,7 @@ class PyGenerator:
             guid = td.custom_attributes.get_guid()
             writer.write(f"    _iid_ = Guid('{guid}')\n")
         writer.write(self.winrt_constructor(td))
+        writer.write(self.winrt_method_definitions(td))
         properties: dict[str, dict[str, str | bool | None]] = defaultdict(lambda: {"get": None, "put": None})
         for md in td.method_definitions:
             if md.name == ".ctor":
@@ -1339,7 +1352,6 @@ class PyGenerator:
                     pass
                 else:
                     raise NotImplementedError()
-            writer.write(self.winrt_method(td, md))
         for name, attrs in properties.items():
             if attrs["is_static"]:
                 if attrs["get"] is None:
@@ -1385,8 +1397,7 @@ class PyGenerator:
     def com_static_types(self, td: TypeDefinition) -> str:
         return ", ".join(ca.fixed_arguments[0].value for ca in td.custom_attributes.get_static())
 
-    def com_get_interface_for_method(self, td: TypeDefinition, method_name: str, params: list[str]) -> tuple[str, int]:
-        overload_count = 1
+    def com_get_interface_for_method(self, td: TypeDefinition, method_name: str, params: list[str]) -> str:
         for ii in td.interface_implementations:
             td_interface = ii["_typedef"]
             for md in td_interface.method_definitions:
@@ -1396,8 +1407,7 @@ class PyGenerator:
                     interface_method_name = md.name
                 if interface_method_name == method_name:
                     if md.get_parameter_names() == params:
-                        return ii.generic_fullname, overload_count
-                    overload_count += 1
+                        return ii.generic_fullname
         raise KeyError()
 
     def com_get_static_for_method(self, td: TypeDefinition, method_name: str) -> str:
@@ -1424,10 +1434,7 @@ class PyGenerator:
 
     def winrt_method(self, td: TypeDefinition, md: MethodDefinition) -> str:
         writer = StringIO()
-        if md.custom_attributes.has_overload():
-            method_name = md.custom_attributes.get_overload()
-        else:
-            method_name = md.name
+        method_name = md.name_overload
         params = ["self"] + md.format_parameters_list()
         restype = md.signature.return_type.pytype
         if td.basetype == "System.MulticastDelegate":
@@ -1438,10 +1445,7 @@ class PyGenerator:
             params[0] = f"cls: {PACKAGE_NAME}.{interface}"
         elif "Abstract" not in td.attributes:
             writer.write("    @winrt_mixinmethod\n")
-            interface, overload_count = self.com_get_interface_for_method(td, method_name, md.get_parameter_names())
-            # FIXME: Workaround for overload method.
-            if overload_count > 1:
-                method_name = f"{method_name}_{overload_count}"
+            interface = self.com_get_interface_for_method(td, method_name, md.get_parameter_names())
             params[0] = f"self: {PACKAGE_NAME}.{interface}"
         else:
             vtbl_index = md["_vtbl_index"]
@@ -1473,20 +1477,21 @@ class PyGenerator:
         writer.write(f"    def CreateInstance(cls) -> {PACKAGE_NAME}.{name}: ...\n")
         return writer.getvalue()
 
-    # TODO: fix method name conflict
     def winrt_constructor(self, td: TypeDefinition) -> str:
         writer = StringIO()
-        constructors = []
+        methods = []
         if td.custom_attributes.has_composable():
             ca = td.custom_attributes.get_composable()
             factory = ca["_typedef"]
             for md in factory.method_definitions:
                 assert md.signature.return_type.fullname == td.fullname
-                constructors.append(
-                    Constructor(
+                methods.append(
+                    Method(
+                        name=md.name_overload,
                         nargs=len(md.get_parameter_names()) - 2,
-                        invoke=f"{PACKAGE_NAME}.{td.fullname}.{md.name}(*args, None, None)",
-                        method_declare=self.winrt_factorymethod(factory, md),
+                        invoke=f"{PACKAGE_NAME}.{td.fullname}.{md.name_overload}(*args, None, None)",
+                        declare=self.winrt_factorymethod(factory, md),
+                        default_overload=False,
                     )
                 )
         for ca in td.custom_attributes.get_activatable():
@@ -1494,37 +1499,96 @@ class PyGenerator:
                 factory = ca["_typedef"]
                 for md in factory.method_definitions:
                     assert md.signature.return_type.fullname == td.fullname
-                    constructors.append(
-                        Constructor(
+                    methods.append(
+                        Method(
+                            name=md.name_overload,
                             nargs=len(md.get_parameter_names()),
-                            invoke=f"{PACKAGE_NAME}.{td.fullname}.{md.name}(*args)",
-                            method_declare=self.winrt_factorymethod(factory, md),
+                            invoke=f"{PACKAGE_NAME}.{td.fullname}.{md.name_overload}(*args)",
+                            declare=self.winrt_factorymethod(factory, md),
+                            default_overload=False,
                         )
                     )
             else:
-                constructors.append(
-                    Constructor(
+                methods.append(
+                    Method(
+                        name="CreateInstance",
                         nargs=0,
                         invoke=f"{PACKAGE_NAME}.{td.fullname}.CreateInstance(*args)",
-                        method_declare=self.winrt_activatemethod(td),
+                        declare=self.winrt_activatemethod(td),
+                        default_overload=False,
                     )
                 )
-        if not constructors:
+        if not methods:
             return ""
-        constructors.sort(key=lambda constructor: constructor.nargs)
+        methods.sort(key=lambda method: method.nargs)
         writer.write("    def __init__(self, *args, **kwargs) -> None:\n")
         writer.write("        if kwargs:\n")
         writer.write("            return super().__init__(**kwargs)\n")
-        for i, constructor in enumerate(constructors):
-            writer.write(f"        elif len(args) == {constructor.nargs}:\n")
-            writer.write(f"            instance = {constructor.invoke}\n")
+        for i, method in enumerate(methods):
+            writer.write(f"        elif len(args) == {method.nargs}:\n")
+            writer.write(f"            instance = {method.invoke}\n")
         writer.write("        else:\n")
         writer.write("            raise ValueError('no matched constructor')\n")
         writer.write("        self.value = instance.value\n")
         writer.write("        self._own = instance._own\n")
         writer.write("        instance._own = False\n")
-        for constructor in constructors:
-            writer.write(constructor.method_declare)
+        overload_initialized = set()
+        overload_count = Counter(method.name for method in methods)
+        overload_same_name_and_nargs = set()
+        for method in methods:
+            if overload_count[method.name] > 1:
+                if method.name not in overload_initialized:
+                    overload_initialized.add(method.name)
+                    writer.write("    @winrt_overload\n")
+                else:
+                    writer.write(f"    @{method.name}.register\n")
+            writer.write(method.declare)
+            assert (method.name, method.nargs) not in overload_same_name_and_nargs
+            overload_same_name_and_nargs.add((method.name, method.nargs))
+        return writer.getvalue()
+
+    def winrt_method_definitions(self, td: TypeDefinition) -> str:
+        writer = StringIO()
+        methods = []
+        default_overload = set()
+        for md in td.method_definitions:
+            if md.name == ".ctor":
+                continue
+            method = Method(
+                name=md.name_overload,
+                nargs=len(md.get_parameter_names()),
+                invoke="",
+                declare=self.winrt_method(td, md),
+                default_overload=md.custom_attributes.has_default_overload(),
+            )
+            methods.append(method)
+            if method.default_overload:
+                default_overload.add((method.name, method.nargs))
+
+        # Remove colliding method
+        # FIXME: Need strongly typed dispatch?
+        # Windows.Globalization.NumberFormatting.CurrencyFormatter has Format(Int64) (overload_name=FormatInt) and FormatInt(Int64).
+        methods = list(
+            {
+                method.declare: method
+                for method in methods
+                if method.default_overload or ((method.name, method.nargs) not in default_overload)
+            }.values()
+        )
+
+        overload_initialized = set()
+        overload_count = Counter(method.name for method in methods)
+        overload_same_name_and_nargs = set()
+        for method in methods:
+            if overload_count[method.name] > 1:
+                if method.name not in overload_initialized:
+                    overload_initialized.add(method.name)
+                    writer.write("    @winrt_overload\n")
+                else:
+                    writer.write(f"    @{method.name}.register\n")
+            writer.write(method.declare)
+            assert (method.name, method.nargs) not in overload_same_name_and_nargs
+            overload_same_name_and_nargs.add((method.name, method.nargs))
         return writer.getvalue()
 
     def emit_delegate(self, td: TypeDefinition) -> str:

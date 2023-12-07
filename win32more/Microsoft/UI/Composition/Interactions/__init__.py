@@ -13,7 +13,7 @@ TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
 from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
-from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
+from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, winrt_overload, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Microsoft.UI.Composition
 import win32more.Microsoft.UI.Composition.Interactions
@@ -653,14 +653,16 @@ class InteractionTracker(ComPtr):
     def ConfigureCenterPointYInertiaModifiers(self: win32more.Microsoft.UI.Composition.Interactions.IInteractionTracker2, conditionalValues: win32more.Windows.Foundation.Collections.IIterable[win32more.Microsoft.UI.Composition.Interactions.CompositionConditionalValue]) -> Void: ...
     @winrt_mixinmethod
     def ConfigureVector2PositionInertiaModifiers(self: win32more.Microsoft.UI.Composition.Interactions.IInteractionTracker3, modifiers: win32more.Windows.Foundation.Collections.IIterable[win32more.Microsoft.UI.Composition.Interactions.InteractionTrackerVector2InertiaModifier]) -> Void: ...
+    @winrt_overload
     @winrt_mixinmethod
     def TryUpdatePositionWithOption(self: win32more.Microsoft.UI.Composition.Interactions.IInteractionTracker4, value: win32more.Windows.Foundation.Numerics.Vector3, option: win32more.Microsoft.UI.Composition.Interactions.InteractionTrackerClampingOption) -> Int32: ...
     @winrt_mixinmethod
     def TryUpdatePositionByWithOption(self: win32more.Microsoft.UI.Composition.Interactions.IInteractionTracker4, amount: win32more.Windows.Foundation.Numerics.Vector3, option: win32more.Microsoft.UI.Composition.Interactions.InteractionTrackerClampingOption) -> Int32: ...
     @winrt_mixinmethod
     def get_IsInertiaFromImpulse(self: win32more.Microsoft.UI.Composition.Interactions.IInteractionTracker4) -> Boolean: ...
+    @TryUpdatePositionWithOption.register
     @winrt_mixinmethod
-    def TryUpdatePositionWithOption_2(self: win32more.Microsoft.UI.Composition.Interactions.IInteractionTracker5, value: win32more.Windows.Foundation.Numerics.Vector3, option: win32more.Microsoft.UI.Composition.Interactions.InteractionTrackerClampingOption, posUpdateOption: win32more.Microsoft.UI.Composition.Interactions.InteractionTrackerPositionUpdateOption) -> Int32: ...
+    def TryUpdatePositionWithOption(self: win32more.Microsoft.UI.Composition.Interactions.IInteractionTracker5, value: win32more.Windows.Foundation.Numerics.Vector3, option: win32more.Microsoft.UI.Composition.Interactions.InteractionTrackerClampingOption, posUpdateOption: win32more.Microsoft.UI.Composition.Interactions.InteractionTrackerPositionUpdateOption) -> Int32: ...
     @winrt_mixinmethod
     def TryUpdatePositionBy(self: win32more.Microsoft.UI.Composition.Interactions.IInteractionTracker, amount: win32more.Windows.Foundation.Numerics.Vector3) -> Int32: ...
     @winrt_mixinmethod

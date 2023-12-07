@@ -13,7 +13,7 @@ TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
 from win32more import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, EasyCastStructure, EasyCastUnion, ComPtr, make_ready
-from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, MulticastDelegate
+from win32more._winrt import SZArray, WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, winrt_overload, MulticastDelegate
 import win32more.Windows.Win32.System.WinRT
 import win32more.Microsoft.Windows.AppNotifications
 import win32more.Windows.Foundation
@@ -94,6 +94,7 @@ class AppNotificationManager(ComPtr, metaclass=_AppNotificationManager_Meta_):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Windows.AppNotifications.IAppNotificationManager
     _classid_ = 'Microsoft.Windows.AppNotifications.AppNotificationManager'
+    @winrt_overload
     @winrt_mixinmethod
     def Register(self: win32more.Microsoft.Windows.AppNotifications.IAppNotificationManager) -> Void: ...
     @winrt_mixinmethod
@@ -124,8 +125,9 @@ class AppNotificationManager(ComPtr, metaclass=_AppNotificationManager_Meta_):
     def RemoveAllAsync(self: win32more.Microsoft.Windows.AppNotifications.IAppNotificationManager) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_mixinmethod
     def GetAllAsync(self: win32more.Microsoft.Windows.AppNotifications.IAppNotificationManager) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IVector[win32more.Microsoft.Windows.AppNotifications.AppNotification]]: ...
+    @Register.register
     @winrt_mixinmethod
-    def Register_2(self: win32more.Microsoft.Windows.AppNotifications.IAppNotificationManager2, displayName: WinRT_String, iconUri: win32more.Windows.Foundation.Uri) -> Void: ...
+    def Register(self: win32more.Microsoft.Windows.AppNotifications.IAppNotificationManager2, displayName: WinRT_String, iconUri: win32more.Windows.Foundation.Uri) -> Void: ...
     @winrt_classmethod
     def IsSupported(cls: win32more.Microsoft.Windows.AppNotifications.IAppNotificationManagerStatics2) -> Boolean: ...
     @winrt_classmethod
