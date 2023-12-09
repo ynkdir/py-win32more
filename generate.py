@@ -93,7 +93,7 @@ class TType:
 
     @property
     def fullname(self) -> str:
-        return self.name if is_onefile else f"{self.namespace}.{self.name}"
+        return f"{self.namespace}.{self.name}"
 
     @property
     def type(self) -> TType:
