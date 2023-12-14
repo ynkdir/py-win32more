@@ -1410,14 +1410,14 @@ class PyGenerator:
                         return ii.generic_fullname
         raise KeyError()
 
-    def com_get_static_for_method(self, td: TypeDefinition, method_name: str) -> str:
+    def com_get_static_for_method(self, td: TypeDefinition, method_name: str, method_nargs: int) -> str:
         for ca in td.custom_attributes.get_static():
             for md in ca["_typedef"].method_definitions:
                 if md.custom_attributes.has_overload():
                     static_method_name = md.custom_attributes.get_overload()
                 else:
                     static_method_name = md.name
-                if static_method_name == method_name:
+                if static_method_name == method_name and len(md.get_parameter_names()) == method_nargs:
                     return ca.fixed_arguments[0].value
         raise KeyError()
 
@@ -1441,7 +1441,7 @@ class PyGenerator:
             pass
         elif "Static" in md.attributes:
             writer.write("    @winrt_classmethod\n")
-            interface = self.com_get_static_for_method(td, method_name)
+            interface = self.com_get_static_for_method(td, method_name, len(md.get_parameter_names()))
             params[0] = f"cls: {PACKAGE_NAME}.{interface}"
         elif "Abstract" not in td.attributes:
             writer.write("    @winrt_mixinmethod\n")
