@@ -59,6 +59,17 @@ class TestSyntax(unittest.TestCase):
         self.assertNotEqual(sizeof(WNDCLASSA), 0)
         self.assertNotEqual(sizeof(WNDCLASSW), 0)
 
+    def test_winrt_overload_select_statics_properly(self):
+        from win32more.Microsoft.Windows.ApplicationModel.WindowsAppRuntime import DeploymentManager
+
+        self.assertEqual(
+            set(func.prototype.__annotations__["cls"] for func in DeploymentManager.__dict__["Initialize"].funcs),
+            {
+                "win32more.Microsoft.Windows.ApplicationModel.WindowsAppRuntime.IDeploymentManagerStatics2",
+                "win32more.Microsoft.Windows.ApplicationModel.WindowsAppRuntime.IDeploymentManagerStatics",
+            },
+        )
+
 
 if __name__ == "__main__":
     unittest.main()
