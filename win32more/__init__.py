@@ -93,8 +93,12 @@ class ComPtr(c_void_p):
             from win32more._winrt import _ro_get_parameterized_type_instance_iid
 
             iid = _ro_get_parameterized_type_instance_iid(cls)
-        else:
+        elif "_iid_" in cls.__dict__:
             iid = cls._iid_
+        elif "default_interface" in cls._hints_:
+            iid = cls._hints_["default_interface"]._iid_
+        else:
+            raise RuntimeError("no _iid_ found")
         instance = cls(own=True)
         hr = self.QueryInterface(pointer(iid), pointer(instance))
         if FAILED(hr):

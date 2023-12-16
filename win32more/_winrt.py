@@ -238,9 +238,8 @@ class WinrtMethod:
                     cargs.append(v._contents)
                 elif callable(v) and is_delegate_class(self.generic_hints[k]):
                     cargs.append(self.generic_hints[k](own=True).CreateInstance(v))
-                # FIXME: Workaround for runtime class to interface class.  check interface_implementations?
                 elif is_com_instance(v) and is_com_class(self.generic_hints[k]):
-                    cargs.append(self.generic_hints[k](value=v.value, own=False))
+                    cargs.append(v.as_(self.generic_hints[k]))
                 else:
                     cargs.append(easycast(v, self.generic_hints[k]))
             else:
@@ -253,9 +252,8 @@ class WinrtMethod:
                     ckwargs[k] = v._contents
                 if callable(v) and is_delegate_class(self.generic_hints[k]):
                     ckwargs[k] = self.generic_hints[k](own=True).CreateInstance(v)
-                # FIXME: Workaround for runtime class to interface class.  check interface_implementations?
                 elif is_com_instance(v) and is_com_class(self.generic_hints[k]):
-                    ckwargs[k] = self.generic_hints[k](value=v.value, own=False)
+                    ckwargs[k] = v.as_(self.generic_hints[k])
                 else:
                     ckwargs[k] = easycast(v, self.generic_hints[k])
             else:
