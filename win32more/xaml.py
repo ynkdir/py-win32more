@@ -17,7 +17,7 @@ from win32more.Microsoft.UI.Xaml.XamlTypeInfo import XamlControlsXamlMetaDataPro
 from win32more.Windows.UI.Xaml.Interop import TypeName
 from win32more.Windows.Win32.Foundation import HRESULT, S_OK
 from win32more.Windows.Win32.Storage.Packaging.Appx import PACKAGE_VERSION
-from win32more.Windows.Win32.System.Com import COINIT_APARTMENTTHREADED, CoInitializeEx, CoUninitialize
+from win32more.Windows.Win32.System.Com import COINIT_APARTMENTTHREADED, CoInitializeEx, CoUninitialize, IUnknown
 from win32more.Windows.Win32.System.WinRT import HSTRING, IInspectable, TrustLevel
 from win32more.Windows.Win32.UI.HiDpi import DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2, SetProcessDpiAwarenessContext
 
@@ -142,11 +142,19 @@ class XamlApplication(IApplicationOverrides):
         Application.CreateInstance(self, self._inner_interface)
 
     def QueryInterface(self, riid, ppvObject):
-        if str(riid.contents) == str(IApplicationOverrides._iid_):
+        if riid.contents == IUnknown._iid_:
             ppvObject.contents.value = self.value
             self.AddRef()
             return S_OK
-        elif str(riid.contents) == str(IXamlMetadataProvider._iid_):
+        elif riid.contents == IInspectable._iid_:
+            ppvObject.contents.value = self.value
+            self.AddRef()
+            return S_OK
+        elif riid.contents == IApplicationOverrides._iid_:
+            ppvObject.contents.value = self.value
+            self.AddRef()
+            return S_OK
+        elif riid.contents == IXamlMetadataProvider._iid_:
             ppvObject.contents.value = self.value2
             self.AddRef()
             return S_OK
