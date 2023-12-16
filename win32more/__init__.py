@@ -286,7 +286,6 @@ class Guid(EasyCastStructure):
     def __eq__(self, other):
         if not isinstance(other, Guid):
             raise ValueError(f"cannot compare with {type(other)}")
-        print(self, other)
         return (
             self.Data1 == other.Data1
             and self.Data2 == other.Data2
