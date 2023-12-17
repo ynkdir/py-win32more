@@ -12,7 +12,7 @@ from win32more.mddbootstrap import (
 )
 from win32more.Microsoft.UI.Xaml import Application, IApplicationOverrides, LaunchActivatedEventArgs
 from win32more.Microsoft.UI.Xaml.Controls import XamlControlsResources
-from win32more.Microsoft.UI.Xaml.Markup import IXamlMetadataProvider, IXamlType
+from win32more.Microsoft.UI.Xaml.Markup import IXamlMetadataProvider, IXamlType, XmlnsDefinition
 from win32more.Microsoft.UI.Xaml.XamlTypeInfo import XamlControlsXamlMetaDataProvider
 from win32more.Windows.UI.Xaml.Interop import TypeName
 from win32more.Windows.Win32.Foundation import HRESULT, S_OK
@@ -122,10 +122,10 @@ class XamlApplicationImpl(Structure):
         self = cast(this - sizeof(c_void_p), POINTER(XamlApplicationImpl)).contents
         return self.comptr.GetXamlTypeByFullName(fullName, value)
 
-    @WINFUNCTYPE(HRESULT, c_void_p, c_void_p)
-    def GetXmlnsDefinitions(this, value):
+    @WINFUNCTYPE(HRESULT, POINTER(UInt32), POINTER(XmlnsDefinition))
+    def GetXmlnsDefinitions(this, szarr_length, szarr_contents):
         self = cast(this - sizeof(c_void_p), POINTER(XamlApplicationImpl)).contents
-        return self.comptr.GetXmlnsDefinitions(value)
+        return self.comptr.GetXmlnsDefinitions(szarr_length, szarr_contents)
 
 
 class XamlApplication(IApplicationOverrides):
@@ -200,8 +200,10 @@ class XamlApplication(IApplicationOverrides):
         value.contents.value = self._provider.GetXamlTypeByFullName(fullName).value
         return S_OK
 
-    def GetXmlnsDefinitions(self, value):
-        value.contents.value = self._provider.GetXmlnsDefinitions().value
+    def GetXmlnsDefinitions(self, szarr_length, szarr_contents):
+        szarr = self._provider.GetXmlnsDefinitions()
+        szarr_length.contents.value = szarr.length
+        szarr_contents.value = szarr.contents.value
         return S_OK
 
     @classmethod
