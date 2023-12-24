@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "py-win32more"
+name = "win32more"
 version = "0.5.0"
 dependencies = [
     "typing_extensions; python_version < '3.9'",
@@ -15,7 +15,6 @@ only-include = ["win32more"]
 [tool.hatch.envs.default]
 dependencies = [
     "pytest",
-    "black",
     "ruff",
     "mypy",
 ]
@@ -24,8 +23,8 @@ dependencies = [
 test = "pytest {args:tests}"
 typing = "mypy {args}"
 fmt = [
-    "black {args}",
-    "ruff --fix {args}",
+    "ruff format {args}",
+    "ruff check --fix {args}",
 ]
 
 [tool.hatch.envs.all]
@@ -52,9 +51,6 @@ python = [
     "3.7-64",
     "3.7-32",
 ]
-
-[tool.black]
-line-length = 120
 
 [tool.ruff]
 line-length = 120
