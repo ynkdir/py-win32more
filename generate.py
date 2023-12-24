@@ -53,6 +53,7 @@ BASE_EXPORTS = [
     "make_ready",
     "winfunctype",
     "winfunctype_pointer",
+    "ConstantLazyLoader",
 ]
 BASE_EXPORTS_CSV = ", ".join(BASE_EXPORTS)
 
@@ -62,7 +63,7 @@ is_onefile = False
 
 
 def abs_pkg(name: str) -> str:
-    return name.split('.')[-1] if is_onefile else f"{PACKAGE_NAME}.{name}"
+    return name.split(".")[-1] if is_onefile else f"{PACKAGE_NAME}.{name}"
 
 
 class TType:
@@ -478,19 +479,19 @@ class FieldDefinition:
             return f"Guid('{guid}')"
         elif self.signature.kind == "Type" and self.signature.fullname == "Windows.Win32.Devices.Properties.DEVPROPKEY":
             guid, pid = self.custom_attributes.get_property_key()
-            return f"{abs_pkg(self.signature.fullname)}(fmtid=Guid('{guid}'), pid={pid})"
+            return f"ConstantLazyLoader(fmtid=Guid('{guid}'), pid={pid})"
         elif (
             self.signature.kind == "Type"
             and self.signature.fullname == "Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY"
         ):
             guid, pid = self.custom_attributes.get_property_key()
-            return f"{abs_pkg(self.signature.fullname)}(fmtid=Guid('{guid}'), pid={pid})"
+            return f"ConstantLazyLoader(fmtid=Guid('{guid}'), pid={pid})"
         elif (
             self.signature.kind == "Type"
             and self.signature.fullname == "Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY"
         ):
             value = self.custom_attributes.get_constant()
-            return f"{abs_pkg(self.signature.fullname)}({value})"
+            return f"ConstantLazyLoader({value})"
         else:
             # FIXME:
             raise NotImplementedError()
@@ -1003,8 +1004,8 @@ class PyGenerator:
         elif fd.signature.is_guid:
             writer.write(f"{fd.name}: Guid = {fd.pyvalue}\n")
         else:
-            writer.write(f"def {fd.name}():\n")
-            writer.write(f"    return {fd.pyvalue}\n")
+            # composite type
+            writer.write(f"{fd.name}: {fd.signature.pytype} = {fd.pyvalue}\n")
         return writer.getvalue()
 
     def emit_function(self, md: MethodDefinition) -> str:
@@ -1019,6 +1020,7 @@ class PyGenerator:
         restype = md.signature.return_type.pytype
         params_csv = md.format_parameters()
         value = md.custom_attributes.get_constant()
+        # FIXME: Should result be python primitive?  (e.g. -4 insted of HANDLE(-4))
         writer.write(f"{indent}def {md.name}({params_csv}) -> {restype}:\n")
         writer.write(f"{indent}    return {restype}({value})\n")
         return writer.getvalue()
@@ -1330,7 +1332,7 @@ def generate_one(meta: Metadata, writer: TextIO) -> None:
 
     pg = PyGenerator()
     writer.write(pg.emit_header(set()))
-    module = ''
+    module = ""
     for td in meta:
         ns = td["Namespace"]
         if ns != module:

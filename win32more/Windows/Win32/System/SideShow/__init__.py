@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer, ConstantLazyLoader
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.Com.StructuredStorage
@@ -17,32 +17,19 @@ class APPLICATION_EVENT_DATA(EasyCastStructure):
 SIDESHOW_ENDPOINT_SIMPLE_CONTENT_FORMAT: Guid = Guid('{a9a5353f-2d4b-47ce-93ee-759f3a7dda4f}')
 SIDESHOW_ENDPOINT_ICAL: Guid = Guid('{4dff36b5-9dde-4f76-9a2a-96435047063d}')
 SIDESHOW_CAPABILITY_DEVICE_PROPERTIES: Guid = Guid('{8abc88a8-857b-4ad7-a35a-b5942f492b99}')
-def SIDESHOW_CAPABILITY_DEVICE_ID():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{8abc88a8-857b-4ad7-a35a-b5942f492b99}'), pid=1)
-def SIDESHOW_CAPABILITY_SCREEN_TYPE():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{8abc88a8-857b-4ad7-a35a-b5942f492b99}'), pid=2)
-def SIDESHOW_CAPABILITY_SCREEN_WIDTH():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{8abc88a8-857b-4ad7-a35a-b5942f492b99}'), pid=3)
-def SIDESHOW_CAPABILITY_SCREEN_HEIGHT():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{8abc88a8-857b-4ad7-a35a-b5942f492b99}'), pid=4)
-def SIDESHOW_CAPABILITY_COLOR_DEPTH():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{8abc88a8-857b-4ad7-a35a-b5942f492b99}'), pid=5)
-def SIDESHOW_CAPABILITY_COLOR_TYPE():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{8abc88a8-857b-4ad7-a35a-b5942f492b99}'), pid=6)
-def SIDESHOW_CAPABILITY_DATA_CACHE():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{8abc88a8-857b-4ad7-a35a-b5942f492b99}'), pid=7)
-def SIDESHOW_CAPABILITY_SUPPORTED_LANGUAGES():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{8abc88a8-857b-4ad7-a35a-b5942f492b99}'), pid=8)
-def SIDESHOW_CAPABILITY_CURRENT_LANGUAGE():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{8abc88a8-857b-4ad7-a35a-b5942f492b99}'), pid=9)
-def SIDESHOW_CAPABILITY_SUPPORTED_THEMES():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{8abc88a8-857b-4ad7-a35a-b5942f492b99}'), pid=10)
-def SIDESHOW_CAPABILITY_SUPPORTED_IMAGE_FORMATS():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{8abc88a8-857b-4ad7-a35a-b5942f492b99}'), pid=14)
-def SIDESHOW_CAPABILITY_CLIENT_AREA_WIDTH():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{8abc88a8-857b-4ad7-a35a-b5942f492b99}'), pid=15)
-def SIDESHOW_CAPABILITY_CLIENT_AREA_HEIGHT():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{8abc88a8-857b-4ad7-a35a-b5942f492b99}'), pid=16)
+SIDESHOW_CAPABILITY_DEVICE_ID: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{8abc88a8-857b-4ad7-a35a-b5942f492b99}'), pid=1)
+SIDESHOW_CAPABILITY_SCREEN_TYPE: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{8abc88a8-857b-4ad7-a35a-b5942f492b99}'), pid=2)
+SIDESHOW_CAPABILITY_SCREEN_WIDTH: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{8abc88a8-857b-4ad7-a35a-b5942f492b99}'), pid=3)
+SIDESHOW_CAPABILITY_SCREEN_HEIGHT: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{8abc88a8-857b-4ad7-a35a-b5942f492b99}'), pid=4)
+SIDESHOW_CAPABILITY_COLOR_DEPTH: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{8abc88a8-857b-4ad7-a35a-b5942f492b99}'), pid=5)
+SIDESHOW_CAPABILITY_COLOR_TYPE: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{8abc88a8-857b-4ad7-a35a-b5942f492b99}'), pid=6)
+SIDESHOW_CAPABILITY_DATA_CACHE: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{8abc88a8-857b-4ad7-a35a-b5942f492b99}'), pid=7)
+SIDESHOW_CAPABILITY_SUPPORTED_LANGUAGES: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{8abc88a8-857b-4ad7-a35a-b5942f492b99}'), pid=8)
+SIDESHOW_CAPABILITY_CURRENT_LANGUAGE: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{8abc88a8-857b-4ad7-a35a-b5942f492b99}'), pid=9)
+SIDESHOW_CAPABILITY_SUPPORTED_THEMES: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{8abc88a8-857b-4ad7-a35a-b5942f492b99}'), pid=10)
+SIDESHOW_CAPABILITY_SUPPORTED_IMAGE_FORMATS: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{8abc88a8-857b-4ad7-a35a-b5942f492b99}'), pid=14)
+SIDESHOW_CAPABILITY_CLIENT_AREA_WIDTH: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{8abc88a8-857b-4ad7-a35a-b5942f492b99}'), pid=15)
+SIDESHOW_CAPABILITY_CLIENT_AREA_HEIGHT: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{8abc88a8-857b-4ad7-a35a-b5942f492b99}'), pid=16)
 GUID_DEVINTERFACE_SIDESHOW: Guid = Guid('{152e5811-feb9-4b00-90f4-d32947ae1681}')
 SIDESHOW_CONTENT_MISSING_EVENT: Guid = Guid('{5007fba8-d313-439f-bea2-a50201d3e9a8}')
 SIDESHOW_APPLICATION_EVENT: Guid = Guid('{4cb572fa-1d3b-49b3-a17a-2e6bff052854}')

@@ -70,6 +70,11 @@ class TestSyntax(unittest.TestCase):
             },
         )
 
+    def test_inline_function(self):
+        from win32more.Windows.Win32.System.Threading import GetCurrentProcessToken
+
+        self.assertEqual(GetCurrentProcessToken().value, -4)
+
 
 if __name__ == "__main__":
     unittest.main()

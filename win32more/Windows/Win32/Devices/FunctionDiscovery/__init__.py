@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer, ConstantLazyLoader
 import win32more.Windows.Win32.Devices.FunctionDiscovery
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
@@ -24,116 +24,64 @@ SID_UnpairProvider: Guid = Guid('{89a502fc-857b-4698-a0b7-027192002f9e}')
 SID_DeviceDisplayStatusManager: Guid = Guid('{f59aa553-8309-46ca-9736-1ac3c62d6031}')
 SID_FunctionDiscoveryProviderRefresh: Guid = Guid('{2b4cbdc9-31c4-40d4-a62d-772aa174ed52}')
 SID_UninstallDeviceFunction: Guid = Guid('{c920566e-5671-4496-8025-bf0b89bd44cd}')
-def PKEY_FunctionInstance():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{08c0c253-a154-4746-9005-82de5317148b}'), pid=1)
+PKEY_FunctionInstance: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{08c0c253-a154-4746-9005-82de5317148b}'), pid=1)
 FMTID_FD: Guid = Guid('{904b03a2-471d-423c-a584-f3483238a146}')
 FD_Visibility_Default: UInt32 = 0
 FD_Visibility_Hidden: UInt32 = 1
 FMTID_Device: Guid = Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}')
 FMTID_DeviceInterface: Guid = Guid('{53808008-07bb-4661-bc3c-b5953e708560}')
-def PKEY_DeviceDisplay_Address():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=51)
-def PKEY_DeviceDisplay_DiscoveryMethod():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=52)
-def PKEY_DeviceDisplay_IsEncrypted():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=53)
-def PKEY_DeviceDisplay_IsAuthenticated():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=54)
-def PKEY_DeviceDisplay_IsConnected():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=55)
-def PKEY_DeviceDisplay_IsPaired():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=56)
-def PKEY_DeviceDisplay_Icon():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=57)
-def PKEY_DeviceDisplay_Version():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=65)
-def PKEY_DeviceDisplay_Last_Seen():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=66)
-def PKEY_DeviceDisplay_Last_Connected():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=67)
-def PKEY_DeviceDisplay_IsShowInDisconnectedState():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=68)
-def PKEY_DeviceDisplay_IsLocalMachine():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=70)
-def PKEY_DeviceDisplay_MetadataPath():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=71)
-def PKEY_DeviceDisplay_IsMetadataSearchInProgress():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=72)
-def PKEY_DeviceDisplay_MetadataChecksum():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=73)
-def PKEY_DeviceDisplay_IsNotInterestingForDisplay():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=74)
-def PKEY_DeviceDisplay_LaunchDeviceStageOnDeviceConnect():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=76)
-def PKEY_DeviceDisplay_LaunchDeviceStageFromExplorer():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=77)
-def PKEY_DeviceDisplay_BaselineExperienceId():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=78)
-def PKEY_DeviceDisplay_IsDeviceUniquelyIdentifiable():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=79)
-def PKEY_DeviceDisplay_AssociationArray():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=80)
-def PKEY_DeviceDisplay_DeviceDescription1():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=81)
-def PKEY_DeviceDisplay_DeviceDescription2():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=82)
-def PKEY_DeviceDisplay_IsNotWorkingProperly():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=83)
-def PKEY_DeviceDisplay_IsSharedDevice():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=84)
-def PKEY_DeviceDisplay_IsNetworkDevice():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=85)
-def PKEY_DeviceDisplay_IsDefaultDevice():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=86)
-def PKEY_DeviceDisplay_MetadataCabinet():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=87)
-def PKEY_DeviceDisplay_RequiresPairingElevation():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=88)
-def PKEY_DeviceDisplay_ExperienceId():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=89)
-def PKEY_DeviceDisplay_Category():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=90)
-def PKEY_DeviceDisplay_Category_Desc_Singular():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=91)
-def PKEY_DeviceDisplay_Category_Desc_Plural():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=92)
-def PKEY_DeviceDisplay_Category_Icon():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=93)
-def PKEY_DeviceDisplay_CategoryGroup_Desc():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=94)
-def PKEY_DeviceDisplay_CategoryGroup_Icon():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=95)
-def PKEY_DeviceDisplay_PrimaryCategory():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=97)
-def PKEY_DeviceDisplay_UnpairUninstall():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=98)
-def PKEY_DeviceDisplay_RequiresUninstallElevation():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=99)
-def PKEY_DeviceDisplay_DeviceFunctionSubRank():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=100)
-def PKEY_DeviceDisplay_AlwaysShowDeviceAsConnected():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=101)
-def PKEY_DeviceDisplay_FriendlyName():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=12288)
-def PKEY_DeviceDisplay_Manufacturer():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=8192)
-def PKEY_DeviceDisplay_ModelName():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=8194)
-def PKEY_DeviceDisplay_ModelNumber():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=8195)
-def PKEY_DeviceDisplay_InstallInProgress():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{83da6326-97a6-4088-9453-a1923f573b29}'), pid=9)
+PKEY_DeviceDisplay_Address: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=51)
+PKEY_DeviceDisplay_DiscoveryMethod: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=52)
+PKEY_DeviceDisplay_IsEncrypted: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=53)
+PKEY_DeviceDisplay_IsAuthenticated: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=54)
+PKEY_DeviceDisplay_IsConnected: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=55)
+PKEY_DeviceDisplay_IsPaired: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=56)
+PKEY_DeviceDisplay_Icon: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=57)
+PKEY_DeviceDisplay_Version: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=65)
+PKEY_DeviceDisplay_Last_Seen: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=66)
+PKEY_DeviceDisplay_Last_Connected: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=67)
+PKEY_DeviceDisplay_IsShowInDisconnectedState: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=68)
+PKEY_DeviceDisplay_IsLocalMachine: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=70)
+PKEY_DeviceDisplay_MetadataPath: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=71)
+PKEY_DeviceDisplay_IsMetadataSearchInProgress: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=72)
+PKEY_DeviceDisplay_MetadataChecksum: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=73)
+PKEY_DeviceDisplay_IsNotInterestingForDisplay: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=74)
+PKEY_DeviceDisplay_LaunchDeviceStageOnDeviceConnect: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=76)
+PKEY_DeviceDisplay_LaunchDeviceStageFromExplorer: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=77)
+PKEY_DeviceDisplay_BaselineExperienceId: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=78)
+PKEY_DeviceDisplay_IsDeviceUniquelyIdentifiable: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=79)
+PKEY_DeviceDisplay_AssociationArray: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=80)
+PKEY_DeviceDisplay_DeviceDescription1: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=81)
+PKEY_DeviceDisplay_DeviceDescription2: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=82)
+PKEY_DeviceDisplay_IsNotWorkingProperly: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=83)
+PKEY_DeviceDisplay_IsSharedDevice: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=84)
+PKEY_DeviceDisplay_IsNetworkDevice: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=85)
+PKEY_DeviceDisplay_IsDefaultDevice: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=86)
+PKEY_DeviceDisplay_MetadataCabinet: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=87)
+PKEY_DeviceDisplay_RequiresPairingElevation: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=88)
+PKEY_DeviceDisplay_ExperienceId: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=89)
+PKEY_DeviceDisplay_Category: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=90)
+PKEY_DeviceDisplay_Category_Desc_Singular: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=91)
+PKEY_DeviceDisplay_Category_Desc_Plural: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=92)
+PKEY_DeviceDisplay_Category_Icon: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=93)
+PKEY_DeviceDisplay_CategoryGroup_Desc: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=94)
+PKEY_DeviceDisplay_CategoryGroup_Icon: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=95)
+PKEY_DeviceDisplay_PrimaryCategory: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=97)
+PKEY_DeviceDisplay_UnpairUninstall: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=98)
+PKEY_DeviceDisplay_RequiresUninstallElevation: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=99)
+PKEY_DeviceDisplay_DeviceFunctionSubRank: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=100)
+PKEY_DeviceDisplay_AlwaysShowDeviceAsConnected: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=101)
+PKEY_DeviceDisplay_FriendlyName: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=12288)
+PKEY_DeviceDisplay_Manufacturer: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=8192)
+PKEY_DeviceDisplay_ModelName: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=8194)
+PKEY_DeviceDisplay_ModelNumber: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=8195)
+PKEY_DeviceDisplay_InstallInProgress: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{83da6326-97a6-4088-9453-a1923f573b29}'), pid=9)
 FMTID_Pairing: Guid = Guid('{8807cae6-7db6-4f10-8ee4-435eaa1392bc}')
-def PKEY_Pairing_ListItemText():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{8807cae6-7db6-4f10-8ee4-435eaa1392bc}'), pid=1)
-def PKEY_Pairing_ListItemDescription():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{8807cae6-7db6-4f10-8ee4-435eaa1392bc}'), pid=2)
-def PKEY_Pairing_ListItemIcon():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{8807cae6-7db6-4f10-8ee4-435eaa1392bc}'), pid=3)
-def PKEY_Pairing_ListItemDefault():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{8807cae6-7db6-4f10-8ee4-435eaa1392bc}'), pid=4)
-def PKEY_Pairing_IsWifiOnlyDevice():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{8807cae6-7db6-4f10-8ee4-435eaa1392bc}'), pid=16)
+PKEY_Pairing_ListItemText: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{8807cae6-7db6-4f10-8ee4-435eaa1392bc}'), pid=1)
+PKEY_Pairing_ListItemDescription: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{8807cae6-7db6-4f10-8ee4-435eaa1392bc}'), pid=2)
+PKEY_Pairing_ListItemIcon: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{8807cae6-7db6-4f10-8ee4-435eaa1392bc}'), pid=3)
+PKEY_Pairing_ListItemDefault: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{8807cae6-7db6-4f10-8ee4-435eaa1392bc}'), pid=4)
+PKEY_Pairing_IsWifiOnlyDevice: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{8807cae6-7db6-4f10-8ee4-435eaa1392bc}'), pid=16)
 DEVICEDISPLAY_DISCOVERYMETHOD_BLUETOOTH: String = 'Bluetooth'
 DEVICEDISPLAY_DISCOVERYMETHOD_BLUETOOTH_LE: String = 'Bluetooth Low Energy'
 DEVICEDISPLAY_DISCOVERYMETHOD_NETBIOS: String = 'NetBIOS'
@@ -144,46 +92,27 @@ DEVICEDISPLAY_DISCOVERYMETHOD_WSD: String = 'WSD'
 DEVICEDISPLAY_DISCOVERYMETHOD_WUSB: String = 'WUSB'
 DEVICEDISPLAY_DISCOVERYMETHOD_WFD: String = 'WiFiDirect'
 DEVICEDISPLAY_DISCOVERYMETHOD_ASP_INFRA: String = 'AspInfra'
-def PKEY_Device_BIOSVersion():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{eaee7f1d-6a33-44d1-9441-5f46def23198}'), pid=9)
+PKEY_Device_BIOSVersion: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{eaee7f1d-6a33-44d1-9441-5f46def23198}'), pid=9)
 FMTID_WSD: Guid = Guid('{92506491-ff95-4724-a05a-5b81885a7c92}')
 FMTID_PNPX: Guid = Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}')
-def PKEY_PNPX_GlobalIdentity():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=4096)
-def PKEY_PNPX_Types():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=4097)
-def PKEY_PNPX_Scopes():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=4098)
-def PKEY_PNPX_XAddrs():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=4099)
-def PKEY_PNPX_MetadataVersion():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=4100)
-def PKEY_PNPX_ID():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=4101)
-def PKEY_PNPX_RemoteAddress():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=4102)
-def PKEY_PNPX_RootProxy():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=4103)
-def PKEY_PNPX_ManufacturerUrl():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=8193)
-def PKEY_PNPX_ModelUrl():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=8196)
-def PKEY_PNPX_Upc():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=8197)
-def PKEY_PNPX_PresentationUrl():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=8198)
-def PKEY_PNPX_FirmwareVersion():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=12289)
-def PKEY_PNPX_SerialNumber():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=12290)
-def PKEY_PNPX_DeviceCategory():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=12292)
-def PKEY_PNPX_SecureChannel():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=28673)
-def PKEY_PNPX_CompactSignature():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=28674)
-def PKEY_PNPX_DeviceCertHash():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=28675)
+PKEY_PNPX_GlobalIdentity: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=4096)
+PKEY_PNPX_Types: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=4097)
+PKEY_PNPX_Scopes: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=4098)
+PKEY_PNPX_XAddrs: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=4099)
+PKEY_PNPX_MetadataVersion: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=4100)
+PKEY_PNPX_ID: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=4101)
+PKEY_PNPX_RemoteAddress: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=4102)
+PKEY_PNPX_RootProxy: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=4103)
+PKEY_PNPX_ManufacturerUrl: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=8193)
+PKEY_PNPX_ModelUrl: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=8196)
+PKEY_PNPX_Upc: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=8197)
+PKEY_PNPX_PresentationUrl: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=8198)
+PKEY_PNPX_FirmwareVersion: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=12289)
+PKEY_PNPX_SerialNumber: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=12290)
+PKEY_PNPX_DeviceCategory: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=12292)
+PKEY_PNPX_SecureChannel: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=28673)
+PKEY_PNPX_CompactSignature: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=28674)
+PKEY_PNPX_DeviceCertHash: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=28675)
 PNPX_DEVICECATEGORY_COMPUTER: String = 'Computers'
 PNPX_DEVICECATEGORY_INPUTDEVICE: String = 'Input'
 PNPX_DEVICECATEGORY_PRINTER: String = 'Printers'
@@ -200,345 +129,178 @@ PNPX_DEVICECATEGORY_TELEPHONE: String = 'Phones'
 PNPX_DEVICECATEGORY_HOME_AUTOMATION_SYSTEM: String = 'HomeAutomation'
 PNPX_DEVICECATEGORY_HOME_SECURITY_SYSTEM: String = 'HomeSecurity'
 PNPX_DEVICECATEGORY_OTHER: String = 'Other'
-def PKEY_PNPX_DeviceCategory_Desc():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=12293)
-def PKEY_PNPX_Category_Desc_NonPlural():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=12304)
-def PKEY_PNPX_PhysicalAddress():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=12294)
-def PKEY_PNPX_NetworkInterfaceLuid():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=12295)
-def PKEY_PNPX_NetworkInterfaceGuid():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=12296)
-def PKEY_PNPX_IpAddress():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=12297)
-def PKEY_PNPX_ServiceAddress():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=16384)
-def PKEY_PNPX_ServiceId():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=16385)
-def PKEY_PNPX_ServiceTypes():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=16386)
-def PKEY_PNPX_ServiceControlUrl():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=16388)
-def PKEY_PNPX_ServiceDescUrl():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=16389)
-def PKEY_PNPX_ServiceEventSubUrl():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=16390)
-def PKEY_PNPX_DomainName():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=20480)
-def PKEY_PNPX_ShareName():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=20482)
-def PKEY_SSDP_AltLocationInfo():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=24576)
-def PKEY_SSDP_DevLifeTime():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=24577)
-def PKEY_SSDP_NetworkInterface():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=24578)
+PKEY_PNPX_DeviceCategory_Desc: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=12293)
+PKEY_PNPX_Category_Desc_NonPlural: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=12304)
+PKEY_PNPX_PhysicalAddress: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=12294)
+PKEY_PNPX_NetworkInterfaceLuid: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=12295)
+PKEY_PNPX_NetworkInterfaceGuid: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=12296)
+PKEY_PNPX_IpAddress: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=12297)
+PKEY_PNPX_ServiceAddress: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=16384)
+PKEY_PNPX_ServiceId: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=16385)
+PKEY_PNPX_ServiceTypes: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=16386)
+PKEY_PNPX_ServiceControlUrl: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=16388)
+PKEY_PNPX_ServiceDescUrl: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=16389)
+PKEY_PNPX_ServiceEventSubUrl: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=16390)
+PKEY_PNPX_DomainName: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=20480)
+PKEY_PNPX_ShareName: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=20482)
+PKEY_SSDP_AltLocationInfo: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=24576)
+PKEY_SSDP_DevLifeTime: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=24577)
+PKEY_SSDP_NetworkInterface: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=24578)
 FMTID_PNPXDynamicProperty: Guid = Guid('{4fc5077e-b686-44be-93e3-86cafe368ccd}')
-def PKEY_PNPX_Installable():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{4fc5077e-b686-44be-93e3-86cafe368ccd}'), pid=1)
-def PKEY_PNPX_Associated():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{4fc5077e-b686-44be-93e3-86cafe368ccd}'), pid=2)
-def PKEY_PNPX_CompatibleTypes():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{4fc5077e-b686-44be-93e3-86cafe368ccd}'), pid=3)
-def PKEY_PNPX_InstallState():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{4fc5077e-b686-44be-93e3-86cafe368ccd}'), pid=4)
+PKEY_PNPX_Installable: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{4fc5077e-b686-44be-93e3-86cafe368ccd}'), pid=1)
+PKEY_PNPX_Associated: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{4fc5077e-b686-44be-93e3-86cafe368ccd}'), pid=2)
+PKEY_PNPX_CompatibleTypes: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{4fc5077e-b686-44be-93e3-86cafe368ccd}'), pid=3)
+PKEY_PNPX_InstallState: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{4fc5077e-b686-44be-93e3-86cafe368ccd}'), pid=4)
 PNPX_INSTALLSTATE_NOTINSTALLED: UInt32 = 0
 PNPX_INSTALLSTATE_INSTALLED: UInt32 = 1
 PNPX_INSTALLSTATE_INSTALLING: UInt32 = 2
 PNPX_INSTALLSTATE_FAILED: UInt32 = 3
-def PKEY_PNPX_Removable():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=28672)
-def PKEY_PNPX_IPBusEnumerated():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=28688)
-def PKEY_WNET_Scope():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{debda43a-37b3-4383-91e7-4498da2995ab}'), pid=1)
-def PKEY_WNET_Type():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{debda43a-37b3-4383-91e7-4498da2995ab}'), pid=2)
-def PKEY_WNET_DisplayType():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{debda43a-37b3-4383-91e7-4498da2995ab}'), pid=3)
-def PKEY_WNET_Usage():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{debda43a-37b3-4383-91e7-4498da2995ab}'), pid=4)
-def PKEY_WNET_LocalName():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{debda43a-37b3-4383-91e7-4498da2995ab}'), pid=5)
-def PKEY_WNET_RemoteName():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{debda43a-37b3-4383-91e7-4498da2995ab}'), pid=6)
-def PKEY_WNET_Comment():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{debda43a-37b3-4383-91e7-4498da2995ab}'), pid=7)
-def PKEY_WNET_Provider():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{debda43a-37b3-4383-91e7-4498da2995ab}'), pid=8)
-def PKEY_WCN_Version():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{88190b80-4684-11da-a26a-0002b3988e81}'), pid=1)
-def PKEY_WCN_RequestType():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{88190b81-4684-11da-a26a-0002b3988e81}'), pid=2)
-def PKEY_WCN_AuthType():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{88190b82-4684-11da-a26a-0002b3988e81}'), pid=3)
-def PKEY_WCN_EncryptType():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{88190b83-4684-11da-a26a-0002b3988e81}'), pid=4)
-def PKEY_WCN_ConnType():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{88190b84-4684-11da-a26a-0002b3988e81}'), pid=5)
-def PKEY_WCN_ConfigMethods():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{88190b85-4684-11da-a26a-0002b3988e81}'), pid=6)
-def PKEY_WCN_RfBand():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{88190b87-4684-11da-a26a-0002b3988e81}'), pid=8)
-def PKEY_WCN_AssocState():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{88190b88-4684-11da-a26a-0002b3988e81}'), pid=9)
-def PKEY_WCN_ConfigError():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{88190b89-4684-11da-a26a-0002b3988e81}'), pid=10)
-def PKEY_WCN_ConfigState():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{88190b89-4684-11da-a26a-0002b3988e81}'), pid=11)
-def PKEY_WCN_DevicePasswordId():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{88190b89-4684-11da-a26a-0002b3988e81}'), pid=12)
-def PKEY_WCN_OSVersion():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{88190b89-4684-11da-a26a-0002b3988e81}'), pid=13)
-def PKEY_WCN_VendorExtension():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{88190b8a-4684-11da-a26a-0002b3988e81}'), pid=14)
-def PKEY_WCN_RegistrarType():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{88190b8b-4684-11da-a26a-0002b3988e81}'), pid=15)
-def PKEY_Hardware_Devinst():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{5eaf3ef2-e0ca-4598-bf06-71ed1d9dd953}'), pid=4097)
-def PKEY_Hardware_DisplayAttribute():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{5eaf3ef2-e0ca-4598-bf06-71ed1d9dd953}'), pid=5)
-def PKEY_Hardware_DriverDate():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{5eaf3ef2-e0ca-4598-bf06-71ed1d9dd953}'), pid=11)
-def PKEY_Hardware_DriverProvider():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{5eaf3ef2-e0ca-4598-bf06-71ed1d9dd953}'), pid=10)
-def PKEY_Hardware_DriverVersion():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{5eaf3ef2-e0ca-4598-bf06-71ed1d9dd953}'), pid=9)
-def PKEY_Hardware_Function():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{5eaf3ef2-e0ca-4598-bf06-71ed1d9dd953}'), pid=4099)
-def PKEY_Hardware_Icon():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{5eaf3ef2-e0ca-4598-bf06-71ed1d9dd953}'), pid=3)
-def PKEY_Hardware_Image():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{5eaf3ef2-e0ca-4598-bf06-71ed1d9dd953}'), pid=4098)
-def PKEY_Hardware_Manufacturer():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{5eaf3ef2-e0ca-4598-bf06-71ed1d9dd953}'), pid=6)
-def PKEY_Hardware_Model():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{5eaf3ef2-e0ca-4598-bf06-71ed1d9dd953}'), pid=7)
-def PKEY_Hardware_Name():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{5eaf3ef2-e0ca-4598-bf06-71ed1d9dd953}'), pid=2)
-def PKEY_Hardware_SerialNumber():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{5eaf3ef2-e0ca-4598-bf06-71ed1d9dd953}'), pid=8)
-def PKEY_Hardware_ShellAttributes():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{5eaf3ef2-e0ca-4598-bf06-71ed1d9dd953}'), pid=4100)
-def PKEY_Hardware_Status():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{5eaf3ef2-e0ca-4598-bf06-71ed1d9dd953}'), pid=4096)
-def PKEY_NAME():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{b725f130-47ef-101a-a5f1-02608c9eebac}'), pid=10)
-def PKEY_Device_DeviceDesc():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{a45c254e-df1c-4efd-8020-67d146a850e0}'), pid=2)
-def PKEY_Device_HardwareIds():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{a45c254e-df1c-4efd-8020-67d146a850e0}'), pid=3)
-def PKEY_Device_CompatibleIds():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{a45c254e-df1c-4efd-8020-67d146a850e0}'), pid=4)
-def PKEY_Device_Service():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{a45c254e-df1c-4efd-8020-67d146a850e0}'), pid=6)
-def PKEY_Device_Class():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{a45c254e-df1c-4efd-8020-67d146a850e0}'), pid=9)
-def PKEY_Device_ClassGuid():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{a45c254e-df1c-4efd-8020-67d146a850e0}'), pid=10)
-def PKEY_Device_Driver():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{a45c254e-df1c-4efd-8020-67d146a850e0}'), pid=11)
-def PKEY_Device_ConfigFlags():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{a45c254e-df1c-4efd-8020-67d146a850e0}'), pid=12)
-def PKEY_Device_Manufacturer():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{a45c254e-df1c-4efd-8020-67d146a850e0}'), pid=13)
-def PKEY_Device_FriendlyName():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{a45c254e-df1c-4efd-8020-67d146a850e0}'), pid=14)
-def PKEY_Device_LocationInfo():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{a45c254e-df1c-4efd-8020-67d146a850e0}'), pid=15)
-def PKEY_Device_PDOName():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{a45c254e-df1c-4efd-8020-67d146a850e0}'), pid=16)
-def PKEY_Device_Capabilities():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{a45c254e-df1c-4efd-8020-67d146a850e0}'), pid=17)
-def PKEY_Device_UINumber():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{a45c254e-df1c-4efd-8020-67d146a850e0}'), pid=18)
-def PKEY_Device_UpperFilters():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{a45c254e-df1c-4efd-8020-67d146a850e0}'), pid=19)
-def PKEY_Device_LowerFilters():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{a45c254e-df1c-4efd-8020-67d146a850e0}'), pid=20)
-def PKEY_Device_BusTypeGuid():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{a45c254e-df1c-4efd-8020-67d146a850e0}'), pid=21)
-def PKEY_Device_LegacyBusType():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{a45c254e-df1c-4efd-8020-67d146a850e0}'), pid=22)
-def PKEY_Device_BusNumber():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{a45c254e-df1c-4efd-8020-67d146a850e0}'), pid=23)
-def PKEY_Device_EnumeratorName():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{a45c254e-df1c-4efd-8020-67d146a850e0}'), pid=24)
-def PKEY_Device_Security():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{a45c254e-df1c-4efd-8020-67d146a850e0}'), pid=25)
-def PKEY_Device_SecuritySDS():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{a45c254e-df1c-4efd-8020-67d146a850e0}'), pid=26)
-def PKEY_Device_DevType():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{a45c254e-df1c-4efd-8020-67d146a850e0}'), pid=27)
-def PKEY_Device_Exclusive():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{a45c254e-df1c-4efd-8020-67d146a850e0}'), pid=28)
-def PKEY_Device_Characteristics():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{a45c254e-df1c-4efd-8020-67d146a850e0}'), pid=29)
-def PKEY_Device_Address():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{a45c254e-df1c-4efd-8020-67d146a850e0}'), pid=30)
-def PKEY_Device_UINumberDescFormat():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{a45c254e-df1c-4efd-8020-67d146a850e0}'), pid=31)
-def PKEY_Device_PowerData():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{a45c254e-df1c-4efd-8020-67d146a850e0}'), pid=32)
-def PKEY_Device_RemovalPolicy():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{a45c254e-df1c-4efd-8020-67d146a850e0}'), pid=33)
-def PKEY_Device_RemovalPolicyDefault():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{a45c254e-df1c-4efd-8020-67d146a850e0}'), pid=34)
-def PKEY_Device_RemovalPolicyOverride():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{a45c254e-df1c-4efd-8020-67d146a850e0}'), pid=35)
-def PKEY_Device_InstallState():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{a45c254e-df1c-4efd-8020-67d146a850e0}'), pid=36)
-def PKEY_Device_LocationPaths():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{a45c254e-df1c-4efd-8020-67d146a850e0}'), pid=37)
-def PKEY_Device_BaseContainerId():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{a45c254e-df1c-4efd-8020-67d146a850e0}'), pid=38)
-def PKEY_Device_DevNodeStatus():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{4340a6c5-93fa-4706-972c-7b648008a5a7}'), pid=2)
-def PKEY_Device_ProblemCode():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{4340a6c5-93fa-4706-972c-7b648008a5a7}'), pid=3)
-def PKEY_Device_EjectionRelations():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{4340a6c5-93fa-4706-972c-7b648008a5a7}'), pid=4)
-def PKEY_Device_RemovalRelations():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{4340a6c5-93fa-4706-972c-7b648008a5a7}'), pid=5)
-def PKEY_Device_PowerRelations():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{4340a6c5-93fa-4706-972c-7b648008a5a7}'), pid=6)
-def PKEY_Device_BusRelations():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{4340a6c5-93fa-4706-972c-7b648008a5a7}'), pid=7)
-def PKEY_Device_Parent():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{4340a6c5-93fa-4706-972c-7b648008a5a7}'), pid=8)
-def PKEY_Device_Children():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{4340a6c5-93fa-4706-972c-7b648008a5a7}'), pid=9)
-def PKEY_Device_Siblings():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{4340a6c5-93fa-4706-972c-7b648008a5a7}'), pid=10)
-def PKEY_Device_TransportRelations():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{4340a6c5-93fa-4706-972c-7b648008a5a7}'), pid=11)
-def PKEY_Device_Reported():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{80497100-8c73-48b9-aad9-ce387e19c56e}'), pid=2)
-def PKEY_Device_Legacy():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{80497100-8c73-48b9-aad9-ce387e19c56e}'), pid=3)
-def PKEY_Device_InstanceId():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=256)
-def PKEY_Device_ContainerId():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{8c7ed206-3f8a-4827-b3ab-ae9e1faefc6c}'), pid=2)
-def PKEY_Device_ModelId():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{80d81ea6-7473-4b0c-8216-efc11a2c4c8b}'), pid=2)
-def PKEY_Device_FriendlyNameAttributes():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{80d81ea6-7473-4b0c-8216-efc11a2c4c8b}'), pid=3)
-def PKEY_Device_ManufacturerAttributes():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{80d81ea6-7473-4b0c-8216-efc11a2c4c8b}'), pid=4)
-def PKEY_Device_PresenceNotForDevice():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{80d81ea6-7473-4b0c-8216-efc11a2c4c8b}'), pid=5)
-def PKEY_Device_SignalStrength():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{80d81ea6-7473-4b0c-8216-efc11a2c4c8b}'), pid=6)
-def PKEY_Device_IsAssociateableByUserAction():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{80d81ea6-7473-4b0c-8216-efc11a2c4c8b}'), pid=7)
-def PKEY_Numa_Proximity_Domain():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{540b947e-8b40-45bc-a8a2-6a0b894cbda2}'), pid=1)
-def PKEY_Device_DHP_Rebalance_Policy():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{540b947e-8b40-45bc-a8a2-6a0b894cbda2}'), pid=2)
-def PKEY_Device_Numa_Node():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{540b947e-8b40-45bc-a8a2-6a0b894cbda2}'), pid=3)
-def PKEY_Device_BusReportedDeviceDesc():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{540b947e-8b40-45bc-a8a2-6a0b894cbda2}'), pid=4)
-def PKEY_Device_InstallInProgress():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{83da6326-97a6-4088-9453-a1923f573b29}'), pid=9)
-def PKEY_Device_DriverDate():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{a8b865dd-2e3d-4094-ad97-e593a70c75d6}'), pid=2)
-def PKEY_Device_DriverVersion():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{a8b865dd-2e3d-4094-ad97-e593a70c75d6}'), pid=3)
-def PKEY_Device_DriverDesc():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{a8b865dd-2e3d-4094-ad97-e593a70c75d6}'), pid=4)
-def PKEY_Device_DriverInfPath():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{a8b865dd-2e3d-4094-ad97-e593a70c75d6}'), pid=5)
-def PKEY_Device_DriverInfSection():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{a8b865dd-2e3d-4094-ad97-e593a70c75d6}'), pid=6)
-def PKEY_Device_DriverInfSectionExt():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{a8b865dd-2e3d-4094-ad97-e593a70c75d6}'), pid=7)
-def PKEY_Device_MatchingDeviceId():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{a8b865dd-2e3d-4094-ad97-e593a70c75d6}'), pid=8)
-def PKEY_Device_DriverProvider():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{a8b865dd-2e3d-4094-ad97-e593a70c75d6}'), pid=9)
-def PKEY_Device_DriverPropPageProvider():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{a8b865dd-2e3d-4094-ad97-e593a70c75d6}'), pid=10)
-def PKEY_Device_DriverCoInstallers():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{a8b865dd-2e3d-4094-ad97-e593a70c75d6}'), pid=11)
-def PKEY_Device_ResourcePickerTags():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{a8b865dd-2e3d-4094-ad97-e593a70c75d6}'), pid=12)
-def PKEY_Device_ResourcePickerExceptions():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{a8b865dd-2e3d-4094-ad97-e593a70c75d6}'), pid=13)
-def PKEY_Device_DriverRank():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{a8b865dd-2e3d-4094-ad97-e593a70c75d6}'), pid=14)
-def PKEY_Device_DriverLogoLevel():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{a8b865dd-2e3d-4094-ad97-e593a70c75d6}'), pid=15)
-def PKEY_Device_NoConnectSound():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{a8b865dd-2e3d-4094-ad97-e593a70c75d6}'), pid=17)
-def PKEY_Device_GenericDriverInstalled():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{a8b865dd-2e3d-4094-ad97-e593a70c75d6}'), pid=18)
-def PKEY_Device_AdditionalSoftwareRequested():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{a8b865dd-2e3d-4094-ad97-e593a70c75d6}'), pid=19)
-def PKEY_Device_SafeRemovalRequired():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{afd97640-86a3-4210-b67c-289c41aabe55}'), pid=2)
-def PKEY_Device_SafeRemovalRequiredOverride():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{afd97640-86a3-4210-b67c-289c41aabe55}'), pid=3)
-def PKEY_DrvPkg_Model():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{cf73bb51-3abf-44a2-85e0-9a3dc7a12132}'), pid=2)
-def PKEY_DrvPkg_VendorWebSite():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{cf73bb51-3abf-44a2-85e0-9a3dc7a12132}'), pid=3)
-def PKEY_DrvPkg_DetailedDescription():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{cf73bb51-3abf-44a2-85e0-9a3dc7a12132}'), pid=4)
-def PKEY_DrvPkg_DocumentationLink():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{cf73bb51-3abf-44a2-85e0-9a3dc7a12132}'), pid=5)
-def PKEY_DrvPkg_Icon():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{cf73bb51-3abf-44a2-85e0-9a3dc7a12132}'), pid=6)
-def PKEY_DrvPkg_BrandingIcon():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{cf73bb51-3abf-44a2-85e0-9a3dc7a12132}'), pid=7)
-def PKEY_DeviceClass_UpperFilters():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{4321918b-f69e-470d-a5de-4d88c75ad24b}'), pid=19)
-def PKEY_DeviceClass_LowerFilters():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{4321918b-f69e-470d-a5de-4d88c75ad24b}'), pid=20)
-def PKEY_DeviceClass_Security():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{4321918b-f69e-470d-a5de-4d88c75ad24b}'), pid=25)
-def PKEY_DeviceClass_SecuritySDS():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{4321918b-f69e-470d-a5de-4d88c75ad24b}'), pid=26)
-def PKEY_DeviceClass_DevType():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{4321918b-f69e-470d-a5de-4d88c75ad24b}'), pid=27)
-def PKEY_DeviceClass_Exclusive():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{4321918b-f69e-470d-a5de-4d88c75ad24b}'), pid=28)
-def PKEY_DeviceClass_Characteristics():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{4321918b-f69e-470d-a5de-4d88c75ad24b}'), pid=29)
-def PKEY_DeviceClass_Name():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{259abffc-50a7-47ce-af08-68c9a7d73366}'), pid=2)
-def PKEY_DeviceClass_ClassName():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{259abffc-50a7-47ce-af08-68c9a7d73366}'), pid=3)
-def PKEY_DeviceClass_Icon():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{259abffc-50a7-47ce-af08-68c9a7d73366}'), pid=4)
-def PKEY_DeviceClass_ClassInstaller():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{259abffc-50a7-47ce-af08-68c9a7d73366}'), pid=5)
-def PKEY_DeviceClass_PropPageProvider():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{259abffc-50a7-47ce-af08-68c9a7d73366}'), pid=6)
-def PKEY_DeviceClass_NoInstallClass():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{259abffc-50a7-47ce-af08-68c9a7d73366}'), pid=7)
-def PKEY_DeviceClass_NoDisplayClass():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{259abffc-50a7-47ce-af08-68c9a7d73366}'), pid=8)
-def PKEY_DeviceClass_SilentInstall():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{259abffc-50a7-47ce-af08-68c9a7d73366}'), pid=9)
-def PKEY_DeviceClass_NoUseClass():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{259abffc-50a7-47ce-af08-68c9a7d73366}'), pid=10)
-def PKEY_DeviceClass_DefaultService():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{259abffc-50a7-47ce-af08-68c9a7d73366}'), pid=11)
-def PKEY_DeviceClass_IconPath():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{259abffc-50a7-47ce-af08-68c9a7d73366}'), pid=12)
-def PKEY_DeviceClass_ClassCoInstallers():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{713d1703-a2e2-49f5-9214-56472ef3da5c}'), pid=2)
-def PKEY_DeviceInterface_FriendlyName():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{026e516e-b814-414b-83cd-856d6fef4822}'), pid=2)
-def PKEY_DeviceInterface_Enabled():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{026e516e-b814-414b-83cd-856d6fef4822}'), pid=3)
-def PKEY_DeviceInterface_ClassGuid():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{026e516e-b814-414b-83cd-856d6fef4822}'), pid=4)
-def PKEY_DeviceInterfaceClass_DefaultInterface():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{14c83a99-0b3f-44b7-be4c-a178d3990564}'), pid=2)
+PKEY_PNPX_Removable: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=28672)
+PKEY_PNPX_IPBusEnumerated: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=28688)
+PKEY_WNET_Scope: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{debda43a-37b3-4383-91e7-4498da2995ab}'), pid=1)
+PKEY_WNET_Type: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{debda43a-37b3-4383-91e7-4498da2995ab}'), pid=2)
+PKEY_WNET_DisplayType: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{debda43a-37b3-4383-91e7-4498da2995ab}'), pid=3)
+PKEY_WNET_Usage: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{debda43a-37b3-4383-91e7-4498da2995ab}'), pid=4)
+PKEY_WNET_LocalName: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{debda43a-37b3-4383-91e7-4498da2995ab}'), pid=5)
+PKEY_WNET_RemoteName: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{debda43a-37b3-4383-91e7-4498da2995ab}'), pid=6)
+PKEY_WNET_Comment: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{debda43a-37b3-4383-91e7-4498da2995ab}'), pid=7)
+PKEY_WNET_Provider: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{debda43a-37b3-4383-91e7-4498da2995ab}'), pid=8)
+PKEY_WCN_Version: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{88190b80-4684-11da-a26a-0002b3988e81}'), pid=1)
+PKEY_WCN_RequestType: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{88190b81-4684-11da-a26a-0002b3988e81}'), pid=2)
+PKEY_WCN_AuthType: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{88190b82-4684-11da-a26a-0002b3988e81}'), pid=3)
+PKEY_WCN_EncryptType: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{88190b83-4684-11da-a26a-0002b3988e81}'), pid=4)
+PKEY_WCN_ConnType: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{88190b84-4684-11da-a26a-0002b3988e81}'), pid=5)
+PKEY_WCN_ConfigMethods: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{88190b85-4684-11da-a26a-0002b3988e81}'), pid=6)
+PKEY_WCN_RfBand: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{88190b87-4684-11da-a26a-0002b3988e81}'), pid=8)
+PKEY_WCN_AssocState: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{88190b88-4684-11da-a26a-0002b3988e81}'), pid=9)
+PKEY_WCN_ConfigError: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{88190b89-4684-11da-a26a-0002b3988e81}'), pid=10)
+PKEY_WCN_ConfigState: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{88190b89-4684-11da-a26a-0002b3988e81}'), pid=11)
+PKEY_WCN_DevicePasswordId: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{88190b89-4684-11da-a26a-0002b3988e81}'), pid=12)
+PKEY_WCN_OSVersion: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{88190b89-4684-11da-a26a-0002b3988e81}'), pid=13)
+PKEY_WCN_VendorExtension: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{88190b8a-4684-11da-a26a-0002b3988e81}'), pid=14)
+PKEY_WCN_RegistrarType: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{88190b8b-4684-11da-a26a-0002b3988e81}'), pid=15)
+PKEY_Hardware_Devinst: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{5eaf3ef2-e0ca-4598-bf06-71ed1d9dd953}'), pid=4097)
+PKEY_Hardware_DisplayAttribute: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{5eaf3ef2-e0ca-4598-bf06-71ed1d9dd953}'), pid=5)
+PKEY_Hardware_DriverDate: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{5eaf3ef2-e0ca-4598-bf06-71ed1d9dd953}'), pid=11)
+PKEY_Hardware_DriverProvider: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{5eaf3ef2-e0ca-4598-bf06-71ed1d9dd953}'), pid=10)
+PKEY_Hardware_DriverVersion: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{5eaf3ef2-e0ca-4598-bf06-71ed1d9dd953}'), pid=9)
+PKEY_Hardware_Function: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{5eaf3ef2-e0ca-4598-bf06-71ed1d9dd953}'), pid=4099)
+PKEY_Hardware_Icon: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{5eaf3ef2-e0ca-4598-bf06-71ed1d9dd953}'), pid=3)
+PKEY_Hardware_Image: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{5eaf3ef2-e0ca-4598-bf06-71ed1d9dd953}'), pid=4098)
+PKEY_Hardware_Manufacturer: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{5eaf3ef2-e0ca-4598-bf06-71ed1d9dd953}'), pid=6)
+PKEY_Hardware_Model: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{5eaf3ef2-e0ca-4598-bf06-71ed1d9dd953}'), pid=7)
+PKEY_Hardware_Name: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{5eaf3ef2-e0ca-4598-bf06-71ed1d9dd953}'), pid=2)
+PKEY_Hardware_SerialNumber: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{5eaf3ef2-e0ca-4598-bf06-71ed1d9dd953}'), pid=8)
+PKEY_Hardware_ShellAttributes: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{5eaf3ef2-e0ca-4598-bf06-71ed1d9dd953}'), pid=4100)
+PKEY_Hardware_Status: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{5eaf3ef2-e0ca-4598-bf06-71ed1d9dd953}'), pid=4096)
+PKEY_NAME: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{b725f130-47ef-101a-a5f1-02608c9eebac}'), pid=10)
+PKEY_Device_DeviceDesc: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{a45c254e-df1c-4efd-8020-67d146a850e0}'), pid=2)
+PKEY_Device_HardwareIds: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{a45c254e-df1c-4efd-8020-67d146a850e0}'), pid=3)
+PKEY_Device_CompatibleIds: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{a45c254e-df1c-4efd-8020-67d146a850e0}'), pid=4)
+PKEY_Device_Service: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{a45c254e-df1c-4efd-8020-67d146a850e0}'), pid=6)
+PKEY_Device_Class: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{a45c254e-df1c-4efd-8020-67d146a850e0}'), pid=9)
+PKEY_Device_ClassGuid: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{a45c254e-df1c-4efd-8020-67d146a850e0}'), pid=10)
+PKEY_Device_Driver: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{a45c254e-df1c-4efd-8020-67d146a850e0}'), pid=11)
+PKEY_Device_ConfigFlags: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{a45c254e-df1c-4efd-8020-67d146a850e0}'), pid=12)
+PKEY_Device_Manufacturer: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{a45c254e-df1c-4efd-8020-67d146a850e0}'), pid=13)
+PKEY_Device_FriendlyName: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{a45c254e-df1c-4efd-8020-67d146a850e0}'), pid=14)
+PKEY_Device_LocationInfo: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{a45c254e-df1c-4efd-8020-67d146a850e0}'), pid=15)
+PKEY_Device_PDOName: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{a45c254e-df1c-4efd-8020-67d146a850e0}'), pid=16)
+PKEY_Device_Capabilities: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{a45c254e-df1c-4efd-8020-67d146a850e0}'), pid=17)
+PKEY_Device_UINumber: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{a45c254e-df1c-4efd-8020-67d146a850e0}'), pid=18)
+PKEY_Device_UpperFilters: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{a45c254e-df1c-4efd-8020-67d146a850e0}'), pid=19)
+PKEY_Device_LowerFilters: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{a45c254e-df1c-4efd-8020-67d146a850e0}'), pid=20)
+PKEY_Device_BusTypeGuid: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{a45c254e-df1c-4efd-8020-67d146a850e0}'), pid=21)
+PKEY_Device_LegacyBusType: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{a45c254e-df1c-4efd-8020-67d146a850e0}'), pid=22)
+PKEY_Device_BusNumber: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{a45c254e-df1c-4efd-8020-67d146a850e0}'), pid=23)
+PKEY_Device_EnumeratorName: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{a45c254e-df1c-4efd-8020-67d146a850e0}'), pid=24)
+PKEY_Device_Security: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{a45c254e-df1c-4efd-8020-67d146a850e0}'), pid=25)
+PKEY_Device_SecuritySDS: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{a45c254e-df1c-4efd-8020-67d146a850e0}'), pid=26)
+PKEY_Device_DevType: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{a45c254e-df1c-4efd-8020-67d146a850e0}'), pid=27)
+PKEY_Device_Exclusive: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{a45c254e-df1c-4efd-8020-67d146a850e0}'), pid=28)
+PKEY_Device_Characteristics: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{a45c254e-df1c-4efd-8020-67d146a850e0}'), pid=29)
+PKEY_Device_Address: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{a45c254e-df1c-4efd-8020-67d146a850e0}'), pid=30)
+PKEY_Device_UINumberDescFormat: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{a45c254e-df1c-4efd-8020-67d146a850e0}'), pid=31)
+PKEY_Device_PowerData: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{a45c254e-df1c-4efd-8020-67d146a850e0}'), pid=32)
+PKEY_Device_RemovalPolicy: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{a45c254e-df1c-4efd-8020-67d146a850e0}'), pid=33)
+PKEY_Device_RemovalPolicyDefault: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{a45c254e-df1c-4efd-8020-67d146a850e0}'), pid=34)
+PKEY_Device_RemovalPolicyOverride: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{a45c254e-df1c-4efd-8020-67d146a850e0}'), pid=35)
+PKEY_Device_InstallState: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{a45c254e-df1c-4efd-8020-67d146a850e0}'), pid=36)
+PKEY_Device_LocationPaths: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{a45c254e-df1c-4efd-8020-67d146a850e0}'), pid=37)
+PKEY_Device_BaseContainerId: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{a45c254e-df1c-4efd-8020-67d146a850e0}'), pid=38)
+PKEY_Device_DevNodeStatus: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{4340a6c5-93fa-4706-972c-7b648008a5a7}'), pid=2)
+PKEY_Device_ProblemCode: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{4340a6c5-93fa-4706-972c-7b648008a5a7}'), pid=3)
+PKEY_Device_EjectionRelations: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{4340a6c5-93fa-4706-972c-7b648008a5a7}'), pid=4)
+PKEY_Device_RemovalRelations: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{4340a6c5-93fa-4706-972c-7b648008a5a7}'), pid=5)
+PKEY_Device_PowerRelations: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{4340a6c5-93fa-4706-972c-7b648008a5a7}'), pid=6)
+PKEY_Device_BusRelations: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{4340a6c5-93fa-4706-972c-7b648008a5a7}'), pid=7)
+PKEY_Device_Parent: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{4340a6c5-93fa-4706-972c-7b648008a5a7}'), pid=8)
+PKEY_Device_Children: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{4340a6c5-93fa-4706-972c-7b648008a5a7}'), pid=9)
+PKEY_Device_Siblings: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{4340a6c5-93fa-4706-972c-7b648008a5a7}'), pid=10)
+PKEY_Device_TransportRelations: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{4340a6c5-93fa-4706-972c-7b648008a5a7}'), pid=11)
+PKEY_Device_Reported: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{80497100-8c73-48b9-aad9-ce387e19c56e}'), pid=2)
+PKEY_Device_Legacy: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{80497100-8c73-48b9-aad9-ce387e19c56e}'), pid=3)
+PKEY_Device_InstanceId: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{78c34fc8-104a-4aca-9ea4-524d52996e57}'), pid=256)
+PKEY_Device_ContainerId: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{8c7ed206-3f8a-4827-b3ab-ae9e1faefc6c}'), pid=2)
+PKEY_Device_ModelId: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{80d81ea6-7473-4b0c-8216-efc11a2c4c8b}'), pid=2)
+PKEY_Device_FriendlyNameAttributes: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{80d81ea6-7473-4b0c-8216-efc11a2c4c8b}'), pid=3)
+PKEY_Device_ManufacturerAttributes: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{80d81ea6-7473-4b0c-8216-efc11a2c4c8b}'), pid=4)
+PKEY_Device_PresenceNotForDevice: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{80d81ea6-7473-4b0c-8216-efc11a2c4c8b}'), pid=5)
+PKEY_Device_SignalStrength: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{80d81ea6-7473-4b0c-8216-efc11a2c4c8b}'), pid=6)
+PKEY_Device_IsAssociateableByUserAction: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{80d81ea6-7473-4b0c-8216-efc11a2c4c8b}'), pid=7)
+PKEY_Numa_Proximity_Domain: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{540b947e-8b40-45bc-a8a2-6a0b894cbda2}'), pid=1)
+PKEY_Device_DHP_Rebalance_Policy: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{540b947e-8b40-45bc-a8a2-6a0b894cbda2}'), pid=2)
+PKEY_Device_Numa_Node: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{540b947e-8b40-45bc-a8a2-6a0b894cbda2}'), pid=3)
+PKEY_Device_BusReportedDeviceDesc: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{540b947e-8b40-45bc-a8a2-6a0b894cbda2}'), pid=4)
+PKEY_Device_InstallInProgress: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{83da6326-97a6-4088-9453-a1923f573b29}'), pid=9)
+PKEY_Device_DriverDate: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{a8b865dd-2e3d-4094-ad97-e593a70c75d6}'), pid=2)
+PKEY_Device_DriverVersion: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{a8b865dd-2e3d-4094-ad97-e593a70c75d6}'), pid=3)
+PKEY_Device_DriverDesc: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{a8b865dd-2e3d-4094-ad97-e593a70c75d6}'), pid=4)
+PKEY_Device_DriverInfPath: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{a8b865dd-2e3d-4094-ad97-e593a70c75d6}'), pid=5)
+PKEY_Device_DriverInfSection: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{a8b865dd-2e3d-4094-ad97-e593a70c75d6}'), pid=6)
+PKEY_Device_DriverInfSectionExt: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{a8b865dd-2e3d-4094-ad97-e593a70c75d6}'), pid=7)
+PKEY_Device_MatchingDeviceId: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{a8b865dd-2e3d-4094-ad97-e593a70c75d6}'), pid=8)
+PKEY_Device_DriverProvider: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{a8b865dd-2e3d-4094-ad97-e593a70c75d6}'), pid=9)
+PKEY_Device_DriverPropPageProvider: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{a8b865dd-2e3d-4094-ad97-e593a70c75d6}'), pid=10)
+PKEY_Device_DriverCoInstallers: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{a8b865dd-2e3d-4094-ad97-e593a70c75d6}'), pid=11)
+PKEY_Device_ResourcePickerTags: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{a8b865dd-2e3d-4094-ad97-e593a70c75d6}'), pid=12)
+PKEY_Device_ResourcePickerExceptions: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{a8b865dd-2e3d-4094-ad97-e593a70c75d6}'), pid=13)
+PKEY_Device_DriverRank: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{a8b865dd-2e3d-4094-ad97-e593a70c75d6}'), pid=14)
+PKEY_Device_DriverLogoLevel: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{a8b865dd-2e3d-4094-ad97-e593a70c75d6}'), pid=15)
+PKEY_Device_NoConnectSound: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{a8b865dd-2e3d-4094-ad97-e593a70c75d6}'), pid=17)
+PKEY_Device_GenericDriverInstalled: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{a8b865dd-2e3d-4094-ad97-e593a70c75d6}'), pid=18)
+PKEY_Device_AdditionalSoftwareRequested: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{a8b865dd-2e3d-4094-ad97-e593a70c75d6}'), pid=19)
+PKEY_Device_SafeRemovalRequired: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{afd97640-86a3-4210-b67c-289c41aabe55}'), pid=2)
+PKEY_Device_SafeRemovalRequiredOverride: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{afd97640-86a3-4210-b67c-289c41aabe55}'), pid=3)
+PKEY_DrvPkg_Model: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{cf73bb51-3abf-44a2-85e0-9a3dc7a12132}'), pid=2)
+PKEY_DrvPkg_VendorWebSite: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{cf73bb51-3abf-44a2-85e0-9a3dc7a12132}'), pid=3)
+PKEY_DrvPkg_DetailedDescription: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{cf73bb51-3abf-44a2-85e0-9a3dc7a12132}'), pid=4)
+PKEY_DrvPkg_DocumentationLink: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{cf73bb51-3abf-44a2-85e0-9a3dc7a12132}'), pid=5)
+PKEY_DrvPkg_Icon: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{cf73bb51-3abf-44a2-85e0-9a3dc7a12132}'), pid=6)
+PKEY_DrvPkg_BrandingIcon: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{cf73bb51-3abf-44a2-85e0-9a3dc7a12132}'), pid=7)
+PKEY_DeviceClass_UpperFilters: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{4321918b-f69e-470d-a5de-4d88c75ad24b}'), pid=19)
+PKEY_DeviceClass_LowerFilters: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{4321918b-f69e-470d-a5de-4d88c75ad24b}'), pid=20)
+PKEY_DeviceClass_Security: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{4321918b-f69e-470d-a5de-4d88c75ad24b}'), pid=25)
+PKEY_DeviceClass_SecuritySDS: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{4321918b-f69e-470d-a5de-4d88c75ad24b}'), pid=26)
+PKEY_DeviceClass_DevType: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{4321918b-f69e-470d-a5de-4d88c75ad24b}'), pid=27)
+PKEY_DeviceClass_Exclusive: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{4321918b-f69e-470d-a5de-4d88c75ad24b}'), pid=28)
+PKEY_DeviceClass_Characteristics: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{4321918b-f69e-470d-a5de-4d88c75ad24b}'), pid=29)
+PKEY_DeviceClass_Name: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{259abffc-50a7-47ce-af08-68c9a7d73366}'), pid=2)
+PKEY_DeviceClass_ClassName: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{259abffc-50a7-47ce-af08-68c9a7d73366}'), pid=3)
+PKEY_DeviceClass_Icon: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{259abffc-50a7-47ce-af08-68c9a7d73366}'), pid=4)
+PKEY_DeviceClass_ClassInstaller: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{259abffc-50a7-47ce-af08-68c9a7d73366}'), pid=5)
+PKEY_DeviceClass_PropPageProvider: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{259abffc-50a7-47ce-af08-68c9a7d73366}'), pid=6)
+PKEY_DeviceClass_NoInstallClass: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{259abffc-50a7-47ce-af08-68c9a7d73366}'), pid=7)
+PKEY_DeviceClass_NoDisplayClass: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{259abffc-50a7-47ce-af08-68c9a7d73366}'), pid=8)
+PKEY_DeviceClass_SilentInstall: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{259abffc-50a7-47ce-af08-68c9a7d73366}'), pid=9)
+PKEY_DeviceClass_NoUseClass: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{259abffc-50a7-47ce-af08-68c9a7d73366}'), pid=10)
+PKEY_DeviceClass_DefaultService: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{259abffc-50a7-47ce-af08-68c9a7d73366}'), pid=11)
+PKEY_DeviceClass_IconPath: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{259abffc-50a7-47ce-af08-68c9a7d73366}'), pid=12)
+PKEY_DeviceClass_ClassCoInstallers: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{713d1703-a2e2-49f5-9214-56472ef3da5c}'), pid=2)
+PKEY_DeviceInterface_FriendlyName: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{026e516e-b814-414b-83cd-856d6fef4822}'), pid=2)
+PKEY_DeviceInterface_Enabled: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{026e516e-b814-414b-83cd-856d6fef4822}'), pid=3)
+PKEY_DeviceInterface_ClassGuid: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{026e516e-b814-414b-83cd-856d6fef4822}'), pid=4)
+PKEY_DeviceInterfaceClass_DefaultInterface: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{14c83a99-0b3f-44b7-be4c-a178d3990564}'), pid=2)
 FD_LONGHORN: UInt32 = 1
 FD_SUBKEY: String = 'SOFTWARE\\Microsoft\\Function Discovery\\'
 FCTN_CATEGORY_PNP: String = 'Provider\\Microsoft.Base.PnP'

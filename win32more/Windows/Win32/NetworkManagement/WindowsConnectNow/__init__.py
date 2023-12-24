@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer, ConstantLazyLoader
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.NetworkManagement.WindowsConnectNow
 import win32more.Windows.Win32.System.Com
@@ -89,14 +89,10 @@ WCN_FLAG_DISCOVERY_VE: UInt32 = 1
 WCN_FLAG_AUTHENTICATED_VE: UInt32 = 2
 WCN_FLAG_ENCRYPTED_VE: UInt32 = 4
 SID_WcnProvider: Guid = Guid('{c100beca-d33a-4a4b-bf23-bbef4663d017}')
-def PKEY_WCN_DeviceType_Category():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{88190b8b-4684-11da-a26a-0002b3988e81}'), pid=16)
-def PKEY_WCN_DeviceType_SubCategoryOUI():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{88190b8b-4684-11da-a26a-0002b3988e81}'), pid=17)
-def PKEY_WCN_DeviceType_SubCategory():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{88190b8b-4684-11da-a26a-0002b3988e81}'), pid=18)
-def PKEY_WCN_SSID():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{88190b8b-4684-11da-a26a-0002b3988e81}'), pid=32)
+PKEY_WCN_DeviceType_Category: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{88190b8b-4684-11da-a26a-0002b3988e81}'), pid=16)
+PKEY_WCN_DeviceType_SubCategoryOUI: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{88190b8b-4684-11da-a26a-0002b3988e81}'), pid=17)
+PKEY_WCN_DeviceType_SubCategory: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{88190b8b-4684-11da-a26a-0002b3988e81}'), pid=18)
+PKEY_WCN_SSID: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{88190b8b-4684-11da-a26a-0002b3988e81}'), pid=32)
 class IWCNConnectNotify(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{c100be9f-d33a-4a4b-bf23-bbef4663d017}')

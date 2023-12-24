@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer, ConstantLazyLoader
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Media.Audio
 import win32more.Windows.Win32.Media.Audio.Apo
@@ -12,14 +12,10 @@ class AUDIO_ENDPOINT_SHARED_CREATE_PARAMS(EasyCastStructure):
     u32TSSessionId: UInt32
     targetEndpointConnectorType: win32more.Windows.Win32.Media.Audio.Endpoints.EndpointConnectorType
     wfxDeviceFormat: win32more.Windows.Win32.Media.Audio.WAVEFORMATEX
-def DEVPKEY_AudioEndpointPlugin_FactoryCLSID():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{12d83bd7-cf12-46be-8540-812710d3021c}'), pid=1)
-def DEVPKEY_AudioEndpointPlugin_DataFlow():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{12d83bd7-cf12-46be-8540-812710d3021c}'), pid=2)
-def DEVPKEY_AudioEndpointPlugin_PnPInterface():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{12d83bd7-cf12-46be-8540-812710d3021c}'), pid=3)
-def DEVPKEY_AudioEndpointPlugin2_FactoryCLSID():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{12d83bd7-cf12-46be-8540-812710d3021c}'), pid=4)
+DEVPKEY_AudioEndpointPlugin_FactoryCLSID: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{12d83bd7-cf12-46be-8540-812710d3021c}'), pid=1)
+DEVPKEY_AudioEndpointPlugin_DataFlow: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{12d83bd7-cf12-46be-8540-812710d3021c}'), pid=2)
+DEVPKEY_AudioEndpointPlugin_PnPInterface: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{12d83bd7-cf12-46be-8540-812710d3021c}'), pid=3)
+DEVPKEY_AudioEndpointPlugin2_FactoryCLSID: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{12d83bd7-cf12-46be-8540-812710d3021c}'), pid=4)
 DEVINTERFACE_AUDIOENDPOINTPLUGIN = Guid('{9f2f7b66-65ac-4fa6-8ae4-123c78b89313}')
 EndpointConnectorType = Int32
 EndpointConnectorType_eHostProcessConnector: win32more.Windows.Win32.Media.Audio.Endpoints.EndpointConnectorType = 0

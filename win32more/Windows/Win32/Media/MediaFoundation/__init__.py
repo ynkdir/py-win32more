@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer, ConstantLazyLoader
 import win32more.Windows.Win32.Devices.Properties
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Direct3D12
@@ -1553,12 +1553,9 @@ MF_INVALID_ACCESS_ERR: UInt32 = 2154823695
 MF_QUOTA_EXCEEDED_ERR: UInt32 = 2154823702
 MF_PARSE_ERR: UInt32 = 2154823761
 MF_TYPE_ERR: UInt32 = 2154840069
-def DEVPKEY_DeviceInterface_IsVirtualCamera():
-    return win32more.Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{6edc630d-c2e3-43b7-b2d1-20525a1af120}'), pid=3)
-def DEVPKEY_DeviceInterface_IsWindowsCameraEffectAvailable():
-    return win32more.Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{6edc630d-c2e3-43b7-b2d1-20525a1af120}'), pid=4)
-def DEVPKEY_DeviceInterface_VirtualCameraAssociatedCameras():
-    return win32more.Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{6edc630d-c2e3-43b7-b2d1-20525a1af120}'), pid=5)
+DEVPKEY_DeviceInterface_IsVirtualCamera: win32more.Windows.Win32.Devices.Properties.DEVPROPKEY = ConstantLazyLoader(fmtid=Guid('{6edc630d-c2e3-43b7-b2d1-20525a1af120}'), pid=3)
+DEVPKEY_DeviceInterface_IsWindowsCameraEffectAvailable: win32more.Windows.Win32.Devices.Properties.DEVPROPKEY = ConstantLazyLoader(fmtid=Guid('{6edc630d-c2e3-43b7-b2d1-20525a1af120}'), pid=4)
+DEVPKEY_DeviceInterface_VirtualCameraAssociatedCameras: win32more.Windows.Win32.Devices.Properties.DEVPROPKEY = ConstantLazyLoader(fmtid=Guid('{6edc630d-c2e3-43b7-b2d1-20525a1af120}'), pid=5)
 g_wszSpeechFormatCaps: String = 'SpeechFormatCap'
 g_wszWMCPCodecName: String = '_CODECNAME'
 g_wszWMCPSupportedVBRModes: String = '_SUPPORTEDVBRMODES'

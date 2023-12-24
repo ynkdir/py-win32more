@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer, ConstantLazyLoader
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security
 class ACCESS_ALLOWED_ACE(EasyCastStructure):
@@ -89,30 +89,18 @@ AUDIT_EVENT_TYPE_AuditEventObjectAccess: win32more.Windows.Win32.Security.AUDIT_
 AUDIT_EVENT_TYPE_AuditEventDirectoryServiceAccess: win32more.Windows.Win32.Security.AUDIT_EVENT_TYPE = 1
 SECURITY_DYNAMIC_TRACKING: win32more.Windows.Win32.Foundation.BOOLEAN = 1
 SECURITY_STATIC_TRACKING: win32more.Windows.Win32.Foundation.BOOLEAN = 0
-def SECURITY_NULL_SID_AUTHORITY():
-    return win32more.Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY((0, 0, 0, 0, 0, 0))
-def SECURITY_WORLD_SID_AUTHORITY():
-    return win32more.Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY((0, 0, 0, 0, 0, 1))
-def SECURITY_LOCAL_SID_AUTHORITY():
-    return win32more.Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY((0, 0, 0, 0, 0, 2))
-def SECURITY_CREATOR_SID_AUTHORITY():
-    return win32more.Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY((0, 0, 0, 0, 0, 3))
-def SECURITY_NON_UNIQUE_AUTHORITY():
-    return win32more.Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY((0, 0, 0, 0, 0, 4))
-def SECURITY_NT_AUTHORITY():
-    return win32more.Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY((0, 0, 0, 0, 0, 5))
-def SECURITY_RESOURCE_MANAGER_AUTHORITY():
-    return win32more.Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY((0, 0, 0, 0, 0, 9))
-def SECURITY_APP_PACKAGE_AUTHORITY():
-    return win32more.Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY((0, 0, 0, 0, 0, 15))
-def SECURITY_MANDATORY_LABEL_AUTHORITY():
-    return win32more.Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY((0, 0, 0, 0, 0, 16))
-def SECURITY_SCOPED_POLICY_ID_AUTHORITY():
-    return win32more.Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY((0, 0, 0, 0, 0, 17))
-def SECURITY_AUTHENTICATION_AUTHORITY():
-    return win32more.Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY((0, 0, 0, 0, 0, 18))
-def SECURITY_PROCESS_TRUST_AUTHORITY():
-    return win32more.Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY((0, 0, 0, 0, 0, 19))
+SECURITY_NULL_SID_AUTHORITY: win32more.Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY = ConstantLazyLoader((0, 0, 0, 0, 0, 0))
+SECURITY_WORLD_SID_AUTHORITY: win32more.Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY = ConstantLazyLoader((0, 0, 0, 0, 0, 1))
+SECURITY_LOCAL_SID_AUTHORITY: win32more.Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY = ConstantLazyLoader((0, 0, 0, 0, 0, 2))
+SECURITY_CREATOR_SID_AUTHORITY: win32more.Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY = ConstantLazyLoader((0, 0, 0, 0, 0, 3))
+SECURITY_NON_UNIQUE_AUTHORITY: win32more.Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY = ConstantLazyLoader((0, 0, 0, 0, 0, 4))
+SECURITY_NT_AUTHORITY: win32more.Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY = ConstantLazyLoader((0, 0, 0, 0, 0, 5))
+SECURITY_RESOURCE_MANAGER_AUTHORITY: win32more.Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY = ConstantLazyLoader((0, 0, 0, 0, 0, 9))
+SECURITY_APP_PACKAGE_AUTHORITY: win32more.Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY = ConstantLazyLoader((0, 0, 0, 0, 0, 15))
+SECURITY_MANDATORY_LABEL_AUTHORITY: win32more.Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY = ConstantLazyLoader((0, 0, 0, 0, 0, 16))
+SECURITY_SCOPED_POLICY_ID_AUTHORITY: win32more.Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY = ConstantLazyLoader((0, 0, 0, 0, 0, 17))
+SECURITY_AUTHENTICATION_AUTHORITY: win32more.Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY = ConstantLazyLoader((0, 0, 0, 0, 0, 18))
+SECURITY_PROCESS_TRUST_AUTHORITY: win32more.Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY = ConstantLazyLoader((0, 0, 0, 0, 0, 19))
 SE_CREATE_TOKEN_NAME: String = 'SeCreateTokenPrivilege'
 SE_ASSIGNPRIMARYTOKEN_NAME: String = 'SeAssignPrimaryTokenPrivilege'
 SE_LOCK_MEMORY_NAME: String = 'SeLockMemoryPrivilege'

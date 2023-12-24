@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer, ConstantLazyLoader
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.WindowsSync
@@ -26,50 +26,28 @@ SYNC_PROVIDER_CONFIGURATION_VERSION: UInt32 = 1
 SYNC_PROVIDER_CONFIGUI_CONFIGURATION_VERSION: UInt32 = 1
 SYNC_32_BIT_SUPPORTED: UInt32 = 1
 SYNC_64_BIT_SUPPORTED: UInt32 = 2
-def PKEY_PROVIDER_INSTANCEID():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{84179e61-60f6-4c1c-88ed-f1c531b32bda}'), pid=2)
-def PKEY_PROVIDER_CLSID():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{84179e61-60f6-4c1c-88ed-f1c531b32bda}'), pid=3)
-def PKEY_PROVIDER_CONFIGUI():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{84179e61-60f6-4c1c-88ed-f1c531b32bda}'), pid=4)
-def PKEY_PROVIDER_CONTENTTYPE():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{84179e61-60f6-4c1c-88ed-f1c531b32bda}'), pid=5)
-def PKEY_PROVIDER_CAPABILITIES():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{84179e61-60f6-4c1c-88ed-f1c531b32bda}'), pid=6)
-def PKEY_PROVIDER_SUPPORTED_ARCHITECTURE():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{84179e61-60f6-4c1c-88ed-f1c531b32bda}'), pid=7)
-def PKEY_PROVIDER_NAME():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{84179e61-60f6-4c1c-88ed-f1c531b32bda}'), pid=8)
-def PKEY_PROVIDER_DESCRIPTION():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{84179e61-60f6-4c1c-88ed-f1c531b32bda}'), pid=9)
-def PKEY_PROVIDER_TOOLTIPS():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{84179e61-60f6-4c1c-88ed-f1c531b32bda}'), pid=10)
-def PKEY_PROVIDER_ICON():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{84179e61-60f6-4c1c-88ed-f1c531b32bda}'), pid=11)
-def PKEY_CONFIGUI_INSTANCEID():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{554b24ea-e8e3-45ba-9352-dfb561e171e4}'), pid=2)
-def PKEY_CONFIGUI_CLSID():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{554b24ea-e8e3-45ba-9352-dfb561e171e4}'), pid=3)
-def PKEY_CONFIGUI_CONTENTTYPE():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{554b24ea-e8e3-45ba-9352-dfb561e171e4}'), pid=4)
-def PKEY_CONFIGUI_CAPABILITIES():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{554b24ea-e8e3-45ba-9352-dfb561e171e4}'), pid=5)
-def PKEY_CONFIGUI_SUPPORTED_ARCHITECTURE():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{554b24ea-e8e3-45ba-9352-dfb561e171e4}'), pid=6)
-def PKEY_CONFIGUI_IS_GLOBAL():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{554b24ea-e8e3-45ba-9352-dfb561e171e4}'), pid=7)
-def PKEY_CONFIGUI_NAME():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{554b24ea-e8e3-45ba-9352-dfb561e171e4}'), pid=8)
-def PKEY_CONFIGUI_DESCRIPTION():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{554b24ea-e8e3-45ba-9352-dfb561e171e4}'), pid=9)
-def PKEY_CONFIGUI_TOOLTIPS():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{554b24ea-e8e3-45ba-9352-dfb561e171e4}'), pid=10)
-def PKEY_CONFIGUI_ICON():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{554b24ea-e8e3-45ba-9352-dfb561e171e4}'), pid=11)
-def PKEY_CONFIGUI_MENUITEM_NOUI():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{554b24ea-e8e3-45ba-9352-dfb561e171e4}'), pid=12)
-def PKEY_CONFIGUI_MENUITEM():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{554b24ea-e8e3-45ba-9352-dfb561e171e4}'), pid=13)
+PKEY_PROVIDER_INSTANCEID: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{84179e61-60f6-4c1c-88ed-f1c531b32bda}'), pid=2)
+PKEY_PROVIDER_CLSID: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{84179e61-60f6-4c1c-88ed-f1c531b32bda}'), pid=3)
+PKEY_PROVIDER_CONFIGUI: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{84179e61-60f6-4c1c-88ed-f1c531b32bda}'), pid=4)
+PKEY_PROVIDER_CONTENTTYPE: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{84179e61-60f6-4c1c-88ed-f1c531b32bda}'), pid=5)
+PKEY_PROVIDER_CAPABILITIES: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{84179e61-60f6-4c1c-88ed-f1c531b32bda}'), pid=6)
+PKEY_PROVIDER_SUPPORTED_ARCHITECTURE: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{84179e61-60f6-4c1c-88ed-f1c531b32bda}'), pid=7)
+PKEY_PROVIDER_NAME: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{84179e61-60f6-4c1c-88ed-f1c531b32bda}'), pid=8)
+PKEY_PROVIDER_DESCRIPTION: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{84179e61-60f6-4c1c-88ed-f1c531b32bda}'), pid=9)
+PKEY_PROVIDER_TOOLTIPS: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{84179e61-60f6-4c1c-88ed-f1c531b32bda}'), pid=10)
+PKEY_PROVIDER_ICON: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{84179e61-60f6-4c1c-88ed-f1c531b32bda}'), pid=11)
+PKEY_CONFIGUI_INSTANCEID: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{554b24ea-e8e3-45ba-9352-dfb561e171e4}'), pid=2)
+PKEY_CONFIGUI_CLSID: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{554b24ea-e8e3-45ba-9352-dfb561e171e4}'), pid=3)
+PKEY_CONFIGUI_CONTENTTYPE: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{554b24ea-e8e3-45ba-9352-dfb561e171e4}'), pid=4)
+PKEY_CONFIGUI_CAPABILITIES: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{554b24ea-e8e3-45ba-9352-dfb561e171e4}'), pid=5)
+PKEY_CONFIGUI_SUPPORTED_ARCHITECTURE: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{554b24ea-e8e3-45ba-9352-dfb561e171e4}'), pid=6)
+PKEY_CONFIGUI_IS_GLOBAL: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{554b24ea-e8e3-45ba-9352-dfb561e171e4}'), pid=7)
+PKEY_CONFIGUI_NAME: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{554b24ea-e8e3-45ba-9352-dfb561e171e4}'), pid=8)
+PKEY_CONFIGUI_DESCRIPTION: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{554b24ea-e8e3-45ba-9352-dfb561e171e4}'), pid=9)
+PKEY_CONFIGUI_TOOLTIPS: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{554b24ea-e8e3-45ba-9352-dfb561e171e4}'), pid=10)
+PKEY_CONFIGUI_ICON: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{554b24ea-e8e3-45ba-9352-dfb561e171e4}'), pid=11)
+PKEY_CONFIGUI_MENUITEM_NOUI: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{554b24ea-e8e3-45ba-9352-dfb561e171e4}'), pid=12)
+PKEY_CONFIGUI_MENUITEM: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{554b24ea-e8e3-45ba-9352-dfb561e171e4}'), pid=13)
 CONFLICT_RESOLUTION_POLICY = Int32
 CRP_NONE: win32more.Windows.Win32.System.WindowsSync.CONFLICT_RESOLUTION_POLICY = 0
 CRP_DESTINATION_PROVIDER_WINS: win32more.Windows.Win32.System.WindowsSync.CONFLICT_RESOLUTION_POLICY = 1

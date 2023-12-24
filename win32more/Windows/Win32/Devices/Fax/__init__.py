@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer, ConstantLazyLoader
 import win32more.Windows.Win32.Devices.Fax
 import win32more.Windows.Win32.Devices.Properties
 import win32more.Windows.Win32.Foundation
@@ -271,10 +271,8 @@ STI_DEVICE_VALUE_DEFAULT_LAUNCHAPP_A: String = 'DefaultLaunchApp'
 STI_DEVICE_VALUE_TIMEOUT_A: String = 'PollTimeout'
 STI_DEVICE_VALUE_DISABLE_NOTIFICATIONS_A: String = 'DisableNotifications'
 REGSTR_VAL_BAUDRATE_A: String = 'BaudRate'
-def DEVPKEY_WIA_DeviceType():
-    return win32more.Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{6bdd1fc6-810f-11d0-bec7-08002be2092f}'), pid=2)
-def DEVPKEY_WIA_USDClassId():
-    return win32more.Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{6bdd1fc6-810f-11d0-bec7-08002be2092f}'), pid=3)
+DEVPKEY_WIA_DeviceType: win32more.Windows.Win32.Devices.Properties.DEVPROPKEY = ConstantLazyLoader(fmtid=Guid('{6bdd1fc6-810f-11d0-bec7-08002be2092f}'), pid=2)
+DEVPKEY_WIA_USDClassId: win32more.Windows.Win32.Devices.Properties.DEVPROPKEY = ConstantLazyLoader(fmtid=Guid('{6bdd1fc6-810f-11d0-bec7-08002be2092f}'), pid=3)
 STI_USD_GENCAP_NATIVE_PUSHSUPPORT: UInt32 = 1
 STI_DEVICE_CREATE_FOR_MONITOR: UInt32 = 16777216
 lDEFAULT_PREFETCH_SIZE: Int32 = 100

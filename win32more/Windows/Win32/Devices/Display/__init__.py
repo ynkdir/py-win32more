@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer, ConstantLazyLoader
 import win32more.Windows.Win32.Devices.Display
 import win32more.Windows.Win32.Devices.Properties
 import win32more.Windows.Win32.Foundation
@@ -31,14 +31,10 @@ GUID_DEVINTERFACE_DISPLAY_ADAPTER: Guid = Guid('{5b45201d-f2f2-4f3b-85bb-30ff1f9
 GUID_DEVINTERFACE_MONITOR: Guid = Guid('{e6f07b5f-ee97-4a90-b076-33f57bf4eaa7}')
 GUID_DISPLAY_DEVICE_ARRIVAL: Guid = Guid('{1ca05180-a699-450a-9a0c-de4fbe3ddd89}')
 GUID_DEVINTERFACE_VIDEO_OUTPUT_ARRIVAL: Guid = Guid('{1ad9e4f0-f88d-4360-bab9-4c2d55e564cd}')
-def DEVPKEY_IndirectDisplay():
-    return win32more.Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{c50a3f10-aa5c-4247-b830-d6a6f8eaa310}'), pid=1)
-def DEVPKEY_Device_TerminalLuid():
-    return win32more.Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{c50a3f10-aa5c-4247-b830-d6a6f8eaa310}'), pid=2)
-def DEVPKEY_Device_AdapterLuid():
-    return win32more.Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{c50a3f10-aa5c-4247-b830-d6a6f8eaa310}'), pid=3)
-def DEVPKEY_Device_ActivityId():
-    return win32more.Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('{c50a3f10-aa5c-4247-b830-d6a6f8eaa310}'), pid=4)
+DEVPKEY_IndirectDisplay: win32more.Windows.Win32.Devices.Properties.DEVPROPKEY = ConstantLazyLoader(fmtid=Guid('{c50a3f10-aa5c-4247-b830-d6a6f8eaa310}'), pid=1)
+DEVPKEY_Device_TerminalLuid: win32more.Windows.Win32.Devices.Properties.DEVPROPKEY = ConstantLazyLoader(fmtid=Guid('{c50a3f10-aa5c-4247-b830-d6a6f8eaa310}'), pid=2)
+DEVPKEY_Device_AdapterLuid: win32more.Windows.Win32.Devices.Properties.DEVPROPKEY = ConstantLazyLoader(fmtid=Guid('{c50a3f10-aa5c-4247-b830-d6a6f8eaa310}'), pid=3)
+DEVPKEY_Device_ActivityId: win32more.Windows.Win32.Devices.Properties.DEVPROPKEY = ConstantLazyLoader(fmtid=Guid('{c50a3f10-aa5c-4247-b830-d6a6f8eaa310}'), pid=4)
 INDIRECT_DISPLAY_INFO_FLAGS_CREATED_IDDCX_ADAPTER: UInt32 = 1
 VIDEO_DEVICE_NAME: String = 'DISPLAY%d'
 WVIDEO_DEVICE_NAME: String = 'DISPLAY%d'

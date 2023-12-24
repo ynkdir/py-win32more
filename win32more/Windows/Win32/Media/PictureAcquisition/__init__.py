@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer, ConstantLazyLoader
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.Media.PictureAcquisition
@@ -7,24 +7,15 @@ import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.Com.StructuredStorage
 import win32more.Windows.Win32.UI.Shell.PropertiesSystem
 import win32more.Windows.Win32.UI.WindowsAndMessaging
-def PKEY_PhotoAcquire_RelativePathname():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{00f23377-7ac6-4b7a-8443-345e731fa57a}'), pid=2)
-def PKEY_PhotoAcquire_FinalFilename():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{00f23377-7ac6-4b7a-8443-345e731fa57a}'), pid=3)
-def PKEY_PhotoAcquire_GroupTag():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{00f23377-7ac6-4b7a-8443-345e731fa57a}'), pid=4)
-def PKEY_PhotoAcquire_TransferResult():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{00f23377-7ac6-4b7a-8443-345e731fa57a}'), pid=5)
-def PKEY_PhotoAcquire_OriginalFilename():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{00f23377-7ac6-4b7a-8443-345e731fa57a}'), pid=6)
-def PKEY_PhotoAcquire_CameraSequenceNumber():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{00f23377-7ac6-4b7a-8443-345e731fa57a}'), pid=7)
-def PKEY_PhotoAcquire_IntermediateFile():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{00f23377-7ac6-4b7a-8443-345e731fa57a}'), pid=8)
-def PKEY_PhotoAcquire_SkipImport():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{00f23377-7ac6-4b7a-8443-345e731fa57a}'), pid=9)
-def PKEY_PhotoAcquire_DuplicateDetectionID():
-    return win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('{00f23377-7ac6-4b7a-8443-345e731fa57a}'), pid=10)
+PKEY_PhotoAcquire_RelativePathname: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{00f23377-7ac6-4b7a-8443-345e731fa57a}'), pid=2)
+PKEY_PhotoAcquire_FinalFilename: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{00f23377-7ac6-4b7a-8443-345e731fa57a}'), pid=3)
+PKEY_PhotoAcquire_GroupTag: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{00f23377-7ac6-4b7a-8443-345e731fa57a}'), pid=4)
+PKEY_PhotoAcquire_TransferResult: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{00f23377-7ac6-4b7a-8443-345e731fa57a}'), pid=5)
+PKEY_PhotoAcquire_OriginalFilename: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{00f23377-7ac6-4b7a-8443-345e731fa57a}'), pid=6)
+PKEY_PhotoAcquire_CameraSequenceNumber: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{00f23377-7ac6-4b7a-8443-345e731fa57a}'), pid=7)
+PKEY_PhotoAcquire_IntermediateFile: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{00f23377-7ac6-4b7a-8443-345e731fa57a}'), pid=8)
+PKEY_PhotoAcquire_SkipImport: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{00f23377-7ac6-4b7a-8443-345e731fa57a}'), pid=9)
+PKEY_PhotoAcquire_DuplicateDetectionID: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{00f23377-7ac6-4b7a-8443-345e731fa57a}'), pid=10)
 PROGRESS_INDETERMINATE: Int32 = -1
 PHOTOACQ_ERROR_RESTART_REQUIRED: win32more.Windows.Win32.Foundation.HRESULT = -2147180543
 PHOTOACQ_RUN_DEFAULT: UInt32 = 0

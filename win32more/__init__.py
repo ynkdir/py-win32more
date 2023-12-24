@@ -470,11 +470,19 @@ class GetAttr:
 
 
 class ConstantLazyLoader:
-    def __init__(self, prototype):
-        self._prototype = prototype
+    def __init__(self, *args, **kwargs):
+        self._args = args
+        self._kwargs = kwargs
+        self.__module__ = ""
+        self.__annotations__ = {}
+
+    def set_hint(self, module, hint):
+        self.__module__ = module
+        self.__annotations__["self"] = hint
 
     def __commit__(self):
-        return self._prototype()
+        cls = get_type_hints(self)["self"]
+        return cls(*self._args, **self._kwargs)
 
 
 class CustomGet(dict):
@@ -497,8 +505,9 @@ def make_ready(mod: str) -> None:
 
     for name in dir(obj):
         prototype = getattr(obj, name)
-        if isinstance(prototype, types.FunctionType) and prototype.__module__ == mod:
-            setattr(obj, f"_unused_{name}", ConstantLazyLoader(prototype))
+        if isinstance(prototype, ConstantLazyLoader):
+            prototype.set_hint(obj.__name__, obj.__annotations__[name])
+            setattr(obj, f"_unused_{name}", prototype)
             delattr(obj, name)
         elif isinstance(prototype, BaseFuncType):
             setattr(obj, f"_unused_{name}", prototype)
