@@ -307,16 +307,13 @@ class UserDataTask(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.UserDataTasks.IUserDataTask
     _classid_ = 'Windows.ApplicationModel.UserDataTasks.UserDataTask'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.ApplicationModel.UserDataTasks.UserDataTask.CreateInstance(*args)
+            return win32more.Windows.ApplicationModel.UserDataTasks.UserDataTask.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.UserDataTasks.UserDataTask: ...
     @winrt_mixinmethod
@@ -537,16 +534,13 @@ class UserDataTaskQueryOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.UserDataTasks.IUserDataTaskQueryOptions
     _classid_ = 'Windows.ApplicationModel.UserDataTasks.UserDataTaskQueryOptions'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.ApplicationModel.UserDataTasks.UserDataTaskQueryOptions.CreateInstance(*args)
+            return win32more.Windows.ApplicationModel.UserDataTasks.UserDataTaskQueryOptions.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.UserDataTasks.UserDataTaskQueryOptions: ...
     @winrt_mixinmethod
@@ -571,16 +565,13 @@ class UserDataTaskRecurrenceProperties(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.UserDataTasks.IUserDataTaskRecurrenceProperties
     _classid_ = 'Windows.ApplicationModel.UserDataTasks.UserDataTaskRecurrenceProperties'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.ApplicationModel.UserDataTasks.UserDataTaskRecurrenceProperties.CreateInstance(*args)
+            return win32more.Windows.ApplicationModel.UserDataTasks.UserDataTaskRecurrenceProperties.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.UserDataTasks.UserDataTaskRecurrenceProperties: ...
     @winrt_mixinmethod
@@ -634,16 +625,13 @@ class UserDataTaskRegenerationProperties(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.UserDataTasks.IUserDataTaskRegenerationProperties
     _classid_ = 'Windows.ApplicationModel.UserDataTasks.UserDataTaskRegenerationProperties'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.ApplicationModel.UserDataTasks.UserDataTaskRegenerationProperties.CreateInstance(*args)
+            return win32more.Windows.ApplicationModel.UserDataTasks.UserDataTaskRegenerationProperties.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.UserDataTasks.UserDataTaskRegenerationProperties: ...
     @winrt_mixinmethod

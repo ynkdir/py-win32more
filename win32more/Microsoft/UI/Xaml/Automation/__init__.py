@@ -83,20 +83,17 @@ class AutomationAnnotation(ComPtr, metaclass=_AutomationAnnotation_Meta_):
     extends: win32more.Microsoft.UI.Xaml.DependencyObject
     default_interface: win32more.Microsoft.UI.Xaml.Automation.IAutomationAnnotation
     _classid_ = 'Microsoft.UI.Xaml.Automation.AutomationAnnotation'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Microsoft.UI.Xaml.Automation.AutomationAnnotation.CreateInstance(*args)
+            return win32more.Microsoft.UI.Xaml.Automation.AutomationAnnotation.CreateInstance(*args)
         elif len(args) == 1:
-            instance = win32more.Microsoft.UI.Xaml.Automation.AutomationAnnotation.CreateInstance(*args)
+            return win32more.Microsoft.UI.Xaml.Automation.AutomationAnnotation.CreateInstance(*args)
         elif len(args) == 2:
-            instance = win32more.Microsoft.UI.Xaml.Automation.AutomationAnnotation.CreateWithElementParameter(*args)
+            return win32more.Microsoft.UI.Xaml.Automation.AutomationAnnotation.CreateWithElementParameter(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_overload
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Microsoft.UI.Xaml.Automation.AutomationAnnotation: ...

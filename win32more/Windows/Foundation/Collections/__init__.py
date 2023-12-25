@@ -174,16 +174,13 @@ class PropertySet(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.Collections.IPropertySet
     _classid_ = 'Windows.Foundation.Collections.PropertySet'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Foundation.Collections.PropertySet.CreateInstance(*args)
+            return win32more.Windows.Foundation.Collections.PropertySet.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Foundation.Collections.PropertySet: ...
     @winrt_mixinmethod
@@ -211,16 +208,13 @@ class StringMap(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.Collections.IMap[WinRT_String, WinRT_String]
     _classid_ = 'Windows.Foundation.Collections.StringMap'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Foundation.Collections.StringMap.CreateInstance(*args)
+            return win32more.Windows.Foundation.Collections.StringMap.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Foundation.Collections.StringMap: ...
     @winrt_mixinmethod
@@ -248,16 +242,13 @@ class ValueSet(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.Collections.IPropertySet
     _classid_ = 'Windows.Foundation.Collections.ValueSet'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Foundation.Collections.ValueSet.CreateInstance(*args)
+            return win32more.Windows.Foundation.Collections.ValueSet.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Foundation.Collections.ValueSet: ...
     @winrt_mixinmethod

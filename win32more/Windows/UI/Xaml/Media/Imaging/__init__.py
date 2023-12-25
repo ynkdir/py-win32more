@@ -30,18 +30,15 @@ class BitmapImage(ComPtr, metaclass=_BitmapImage_Meta_):
     extends: win32more.Windows.UI.Xaml.Media.Imaging.BitmapSource
     default_interface: win32more.Windows.UI.Xaml.Media.Imaging.IBitmapImage
     _classid_ = 'Windows.UI.Xaml.Media.Imaging.BitmapImage'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Media.Imaging.BitmapImage.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Media.Imaging.BitmapImage.CreateInstance(*args)
         elif len(args) == 1:
-            instance = win32more.Windows.UI.Xaml.Media.Imaging.BitmapImage.CreateInstanceWithUriSource(*args)
+            return win32more.Windows.UI.Xaml.Media.Imaging.BitmapImage.CreateInstanceWithUriSource(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Media.Imaging.BitmapImage: ...
     @winrt_factorymethod
@@ -128,16 +125,13 @@ class BitmapSource(ComPtr, metaclass=_BitmapSource_Meta_):
     extends: win32more.Windows.UI.Xaml.Media.ImageSource
     default_interface: win32more.Windows.UI.Xaml.Media.Imaging.IBitmapSource
     _classid_ = 'Windows.UI.Xaml.Media.Imaging.BitmapSource'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Media.Imaging.BitmapSource.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Media.Imaging.BitmapSource.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Media.Imaging.IBitmapSourceFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Media.Imaging.BitmapSource: ...
     @winrt_mixinmethod
@@ -471,16 +465,13 @@ class RenderTargetBitmap(ComPtr, metaclass=_RenderTargetBitmap_Meta_):
     extends: win32more.Windows.UI.Xaml.Media.ImageSource
     default_interface: win32more.Windows.UI.Xaml.Media.Imaging.IRenderTargetBitmap
     _classid_ = 'Windows.UI.Xaml.Media.Imaging.RenderTargetBitmap'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Media.Imaging.RenderTargetBitmap.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Media.Imaging.RenderTargetBitmap.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Media.Imaging.RenderTargetBitmap: ...
     @winrt_mixinmethod
@@ -505,16 +496,13 @@ class SoftwareBitmapSource(ComPtr):
     extends: win32more.Windows.UI.Xaml.Media.ImageSource
     default_interface: win32more.Windows.UI.Xaml.Media.Imaging.ISoftwareBitmapSource
     _classid_ = 'Windows.UI.Xaml.Media.Imaging.SoftwareBitmapSource'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Media.Imaging.SoftwareBitmapSource.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Media.Imaging.SoftwareBitmapSource.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Media.Imaging.SoftwareBitmapSource: ...
     @winrt_mixinmethod
@@ -525,18 +513,15 @@ class SurfaceImageSource(ComPtr):
     extends: win32more.Windows.UI.Xaml.Media.ImageSource
     default_interface: win32more.Windows.UI.Xaml.Media.Imaging.ISurfaceImageSource
     _classid_ = 'Windows.UI.Xaml.Media.Imaging.SurfaceImageSource'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 2:
-            instance = win32more.Windows.UI.Xaml.Media.Imaging.SurfaceImageSource.CreateInstanceWithDimensions(*args, None, None)
+            return win32more.Windows.UI.Xaml.Media.Imaging.SurfaceImageSource.CreateInstanceWithDimensions(*args, None, None)
         elif len(args) == 3:
-            instance = win32more.Windows.UI.Xaml.Media.Imaging.SurfaceImageSource.CreateInstanceWithDimensionsAndOpacity(*args, None, None)
+            return win32more.Windows.UI.Xaml.Media.Imaging.SurfaceImageSource.CreateInstanceWithDimensionsAndOpacity(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithDimensions(cls: win32more.Windows.UI.Xaml.Media.Imaging.ISurfaceImageSourceFactory, pixelWidth: Int32, pixelHeight: Int32, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Media.Imaging.SurfaceImageSource: ...
     @winrt_factorymethod
@@ -547,18 +532,15 @@ class SvgImageSource(ComPtr, metaclass=_SvgImageSource_Meta_):
     extends: win32more.Windows.UI.Xaml.Media.ImageSource
     default_interface: win32more.Windows.UI.Xaml.Media.Imaging.ISvgImageSource
     _classid_ = 'Windows.UI.Xaml.Media.Imaging.SvgImageSource'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Media.Imaging.SvgImageSource.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Media.Imaging.SvgImageSource.CreateInstance(*args, None, None)
         elif len(args) == 1:
-            instance = win32more.Windows.UI.Xaml.Media.Imaging.SvgImageSource.CreateInstanceWithUriSource(*args, None, None)
+            return win32more.Windows.UI.Xaml.Media.Imaging.SvgImageSource.CreateInstanceWithUriSource(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Media.Imaging.ISvgImageSourceFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Media.Imaging.SvgImageSource: ...
     @winrt_factorymethod
@@ -617,18 +599,15 @@ class VirtualSurfaceImageSource(ComPtr):
     extends: win32more.Windows.UI.Xaml.Media.Imaging.SurfaceImageSource
     default_interface: win32more.Windows.UI.Xaml.Media.Imaging.IVirtualSurfaceImageSource
     _classid_ = 'Windows.UI.Xaml.Media.Imaging.VirtualSurfaceImageSource'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 2:
-            instance = win32more.Windows.UI.Xaml.Media.Imaging.VirtualSurfaceImageSource.CreateInstanceWithDimensions(*args)
+            return win32more.Windows.UI.Xaml.Media.Imaging.VirtualSurfaceImageSource.CreateInstanceWithDimensions(*args)
         elif len(args) == 3:
-            instance = win32more.Windows.UI.Xaml.Media.Imaging.VirtualSurfaceImageSource.CreateInstanceWithDimensionsAndOpacity(*args)
+            return win32more.Windows.UI.Xaml.Media.Imaging.VirtualSurfaceImageSource.CreateInstanceWithDimensionsAndOpacity(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithDimensions(cls: win32more.Windows.UI.Xaml.Media.Imaging.IVirtualSurfaceImageSourceFactory, pixelWidth: Int32, pixelHeight: Int32) -> win32more.Windows.UI.Xaml.Media.Imaging.VirtualSurfaceImageSource: ...
     @winrt_factorymethod
@@ -637,16 +616,13 @@ class WriteableBitmap(ComPtr):
     extends: win32more.Windows.UI.Xaml.Media.Imaging.BitmapSource
     default_interface: win32more.Windows.UI.Xaml.Media.Imaging.IWriteableBitmap
     _classid_ = 'Windows.UI.Xaml.Media.Imaging.WriteableBitmap'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 2:
-            instance = win32more.Windows.UI.Xaml.Media.Imaging.WriteableBitmap.CreateInstanceWithDimensions(*args)
+            return win32more.Windows.UI.Xaml.Media.Imaging.WriteableBitmap.CreateInstanceWithDimensions(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithDimensions(cls: win32more.Windows.UI.Xaml.Media.Imaging.IWriteableBitmapFactory, pixelWidth: Int32, pixelHeight: Int32) -> win32more.Windows.UI.Xaml.Media.Imaging.WriteableBitmap: ...
     @winrt_mixinmethod
@@ -658,16 +634,13 @@ class XamlRenderingBackgroundTask(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Media.Imaging.IXamlRenderingBackgroundTask
     _classid_ = 'Windows.UI.Xaml.Media.Imaging.XamlRenderingBackgroundTask'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Media.Imaging.XamlRenderingBackgroundTask.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Media.Imaging.XamlRenderingBackgroundTask.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Media.Imaging.IXamlRenderingBackgroundTaskFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Media.Imaging.XamlRenderingBackgroundTask: ...
     @winrt_mixinmethod

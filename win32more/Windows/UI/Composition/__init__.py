@@ -514,16 +514,13 @@ class CompositionEffectSourceParameter(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Composition.ICompositionEffectSourceParameter
     _classid_ = 'Windows.UI.Composition.CompositionEffectSourceParameter'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.UI.Composition.CompositionEffectSourceParameter.Create(*args)
+            return win32more.Windows.UI.Composition.CompositionEffectSourceParameter.Create(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.UI.Composition.ICompositionEffectSourceParameterFactory, name: WinRT_String) -> win32more.Windows.UI.Composition.CompositionEffectSourceParameter: ...
     @winrt_mixinmethod
@@ -851,16 +848,13 @@ class CompositionPath(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Composition.ICompositionPath
     _classid_ = 'Windows.UI.Composition.CompositionPath'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.UI.Composition.CompositionPath.Create(*args)
+            return win32more.Windows.UI.Composition.CompositionPath.Create(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.UI.Composition.ICompositionPathFactory, source: win32more.Windows.Graphics.IGeometrySource2D) -> win32more.Windows.UI.Composition.CompositionPath: ...
 class CompositionPathGeometry(ComPtr):
@@ -1416,16 +1410,13 @@ class Compositor(ComPtr, metaclass=_Compositor_Meta_):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Composition.ICompositor
     _classid_ = 'Windows.UI.Composition.Compositor'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Composition.Compositor.CreateInstance(*args)
+            return win32more.Windows.UI.Composition.Compositor.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Composition.Compositor: ...
     @winrt_mixinmethod

@@ -183,16 +183,13 @@ class FindRelatedPackagesOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.IFindRelatedPackagesOptions
     _classid_ = 'Windows.ApplicationModel.FindRelatedPackagesOptions'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.ApplicationModel.FindRelatedPackagesOptions.CreateInstance(*args)
+            return win32more.Windows.ApplicationModel.FindRelatedPackagesOptions.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.ApplicationModel.IFindRelatedPackagesOptionsFactory, Relationship: win32more.Windows.ApplicationModel.PackageRelationship) -> win32more.Windows.ApplicationModel.FindRelatedPackagesOptions: ...
     @winrt_mixinmethod

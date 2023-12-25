@@ -50,18 +50,15 @@ class AudioEffectDefinition(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Effects.IAudioEffectDefinition
     _classid_ = 'Windows.Media.Effects.AudioEffectDefinition'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.Media.Effects.AudioEffectDefinition.Create(*args)
+            return win32more.Windows.Media.Effects.AudioEffectDefinition.Create(*args)
         elif len(args) == 2:
-            instance = win32more.Windows.Media.Effects.AudioEffectDefinition.CreateWithProperties(*args)
+            return win32more.Windows.Media.Effects.AudioEffectDefinition.CreateWithProperties(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.Media.Effects.IAudioEffectDefinitionFactory, activatableClassId: WinRT_String) -> win32more.Windows.Media.Effects.AudioEffectDefinition: ...
     @winrt_factorymethod
@@ -446,16 +443,13 @@ class SlowMotionEffectDefinition(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Effects.ISlowMotionEffectDefinition
     _classid_ = 'Windows.Media.Effects.SlowMotionEffectDefinition'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Media.Effects.SlowMotionEffectDefinition.CreateInstance(*args)
+            return win32more.Windows.Media.Effects.SlowMotionEffectDefinition.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Media.Effects.SlowMotionEffectDefinition: ...
     @winrt_mixinmethod
@@ -473,18 +467,15 @@ class VideoCompositorDefinition(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Effects.IVideoCompositorDefinition
     _classid_ = 'Windows.Media.Effects.VideoCompositorDefinition'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.Media.Effects.VideoCompositorDefinition.Create(*args)
+            return win32more.Windows.Media.Effects.VideoCompositorDefinition.Create(*args)
         elif len(args) == 2:
-            instance = win32more.Windows.Media.Effects.VideoCompositorDefinition.CreateWithProperties(*args)
+            return win32more.Windows.Media.Effects.VideoCompositorDefinition.CreateWithProperties(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.Media.Effects.IVideoCompositorDefinitionFactory, activatableClassId: WinRT_String) -> win32more.Windows.Media.Effects.VideoCompositorDefinition: ...
     @winrt_factorymethod
@@ -499,18 +490,15 @@ class VideoEffectDefinition(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Effects.IVideoEffectDefinition
     _classid_ = 'Windows.Media.Effects.VideoEffectDefinition'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.Media.Effects.VideoEffectDefinition.Create(*args)
+            return win32more.Windows.Media.Effects.VideoEffectDefinition.Create(*args)
         elif len(args) == 2:
-            instance = win32more.Windows.Media.Effects.VideoEffectDefinition.CreateWithProperties(*args)
+            return win32more.Windows.Media.Effects.VideoEffectDefinition.CreateWithProperties(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.Media.Effects.IVideoEffectDefinitionFactory, activatableClassId: WinRT_String) -> win32more.Windows.Media.Effects.VideoEffectDefinition: ...
     @winrt_factorymethod
@@ -525,16 +513,13 @@ class VideoTransformEffectDefinition(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Effects.IVideoEffectDefinition
     _classid_ = 'Windows.Media.Effects.VideoTransformEffectDefinition'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Media.Effects.VideoTransformEffectDefinition.CreateInstance(*args)
+            return win32more.Windows.Media.Effects.VideoTransformEffectDefinition.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Media.Effects.VideoTransformEffectDefinition: ...
     @winrt_mixinmethod

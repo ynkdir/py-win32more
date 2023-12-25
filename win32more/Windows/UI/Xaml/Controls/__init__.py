@@ -66,16 +66,13 @@ class AppBar(ComPtr, metaclass=_AppBar_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.ContentControl
     default_interface: win32more.Windows.UI.Xaml.Controls.IAppBar
     _classid_ = 'Windows.UI.Xaml.Controls.AppBar'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.AppBar.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.AppBar.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IAppBarFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.AppBar: ...
     @winrt_mixinmethod
@@ -143,16 +140,13 @@ class AppBarButton(ComPtr, metaclass=_AppBarButton_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Button
     default_interface: win32more.Windows.UI.Xaml.Controls.IAppBarButton
     _classid_ = 'Windows.UI.Xaml.Controls.AppBarButton'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.AppBarButton.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.AppBarButton.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IAppBarButtonFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.AppBarButton: ...
     @winrt_mixinmethod
@@ -222,16 +216,13 @@ class AppBarElementContainer(ComPtr, metaclass=_AppBarElementContainer_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.ContentControl
     default_interface: win32more.Windows.UI.Xaml.Controls.IAppBarElementContainer
     _classid_ = 'Windows.UI.Xaml.Controls.AppBarElementContainer'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.AppBarElementContainer.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.AppBarElementContainer.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IAppBarElementContainerFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.AppBarElementContainer: ...
     @winrt_mixinmethod
@@ -262,16 +253,13 @@ class AppBarSeparator(ComPtr, metaclass=_AppBarSeparator_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Control
     default_interface: win32more.Windows.UI.Xaml.Controls.IAppBarSeparator
     _classid_ = 'Windows.UI.Xaml.Controls.AppBarSeparator'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.AppBarSeparator.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.AppBarSeparator.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IAppBarSeparatorFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.AppBarSeparator: ...
     @winrt_mixinmethod
@@ -302,16 +290,13 @@ class AppBarToggleButton(ComPtr, metaclass=_AppBarToggleButton_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Primitives.ToggleButton
     default_interface: win32more.Windows.UI.Xaml.Controls.IAppBarToggleButton
     _classid_ = 'Windows.UI.Xaml.Controls.AppBarToggleButton'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.AppBarToggleButton.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.AppBarToggleButton.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IAppBarToggleButtonFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.AppBarToggleButton: ...
     @winrt_mixinmethod
@@ -377,16 +362,13 @@ class AutoSuggestBox(ComPtr, metaclass=_AutoSuggestBox_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.ItemsControl
     default_interface: win32more.Windows.UI.Xaml.Controls.IAutoSuggestBox
     _classid_ = 'Windows.UI.Xaml.Controls.AutoSuggestBox'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.AutoSuggestBox.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.AutoSuggestBox.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.AutoSuggestBox: ...
     @winrt_mixinmethod
@@ -501,16 +483,13 @@ class AutoSuggestBoxQuerySubmittedEventArgs(ComPtr):
     extends: win32more.Windows.UI.Xaml.DependencyObject
     default_interface: win32more.Windows.UI.Xaml.Controls.IAutoSuggestBoxQuerySubmittedEventArgs
     _classid_ = 'Windows.UI.Xaml.Controls.AutoSuggestBoxQuerySubmittedEventArgs'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.AutoSuggestBoxQuerySubmittedEventArgs.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.AutoSuggestBoxQuerySubmittedEventArgs.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.AutoSuggestBoxQuerySubmittedEventArgs: ...
     @winrt_mixinmethod
@@ -523,16 +502,13 @@ class AutoSuggestBoxSuggestionChosenEventArgs(ComPtr):
     extends: win32more.Windows.UI.Xaml.DependencyObject
     default_interface: win32more.Windows.UI.Xaml.Controls.IAutoSuggestBoxSuggestionChosenEventArgs
     _classid_ = 'Windows.UI.Xaml.Controls.AutoSuggestBoxSuggestionChosenEventArgs'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.AutoSuggestBoxSuggestionChosenEventArgs.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.AutoSuggestBoxSuggestionChosenEventArgs.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.AutoSuggestBoxSuggestionChosenEventArgs: ...
     @winrt_mixinmethod
@@ -544,16 +520,13 @@ class AutoSuggestBoxTextChangedEventArgs(ComPtr, metaclass=_AutoSuggestBoxTextCh
     extends: win32more.Windows.UI.Xaml.DependencyObject
     default_interface: win32more.Windows.UI.Xaml.Controls.IAutoSuggestBoxTextChangedEventArgs
     _classid_ = 'Windows.UI.Xaml.Controls.AutoSuggestBoxTextChangedEventArgs'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.AutoSuggestBoxTextChangedEventArgs.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.AutoSuggestBoxTextChangedEventArgs.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.AutoSuggestBoxTextChangedEventArgs: ...
     @winrt_mixinmethod
@@ -574,16 +547,13 @@ class BackClickEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Controls.IBackClickEventArgs
     _classid_ = 'Windows.UI.Xaml.Controls.BackClickEventArgs'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.BackClickEventArgs.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.BackClickEventArgs.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.BackClickEventArgs: ...
     @winrt_mixinmethod
@@ -604,16 +574,13 @@ class BitmapIcon(ComPtr, metaclass=_BitmapIcon_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.IconElement
     default_interface: win32more.Windows.UI.Xaml.Controls.IBitmapIcon
     _classid_ = 'Windows.UI.Xaml.Controls.BitmapIcon'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.BitmapIcon.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.BitmapIcon.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IBitmapIconFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.BitmapIcon: ...
     @winrt_mixinmethod
@@ -638,16 +605,13 @@ class BitmapIconSource(ComPtr, metaclass=_BitmapIconSource_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.IconSource
     default_interface: win32more.Windows.UI.Xaml.Controls.IBitmapIconSource
     _classid_ = 'Windows.UI.Xaml.Controls.BitmapIconSource'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.BitmapIconSource.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.BitmapIconSource.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IBitmapIconSourceFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.BitmapIconSource: ...
     @winrt_mixinmethod
@@ -672,16 +636,13 @@ class Border(ComPtr, metaclass=_Border_Meta_):
     extends: win32more.Windows.UI.Xaml.FrameworkElement
     default_interface: win32more.Windows.UI.Xaml.Controls.IBorder
     _classid_ = 'Windows.UI.Xaml.Controls.Border'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.Border.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.Border.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.Border: ...
     @winrt_mixinmethod
@@ -756,16 +717,13 @@ class Button(ComPtr, metaclass=_Button_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Primitives.ButtonBase
     default_interface: win32more.Windows.UI.Xaml.Controls.IButton
     _classid_ = 'Windows.UI.Xaml.Controls.Button'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.Button.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.Button.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IButtonFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Button: ...
     @winrt_mixinmethod
@@ -782,16 +740,13 @@ class CalendarDatePicker(ComPtr, metaclass=_CalendarDatePicker_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Control
     default_interface: win32more.Windows.UI.Xaml.Controls.ICalendarDatePicker
     _classid_ = 'Windows.UI.Xaml.Controls.CalendarDatePicker'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.CalendarDatePicker.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.CalendarDatePicker.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.ICalendarDatePickerFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.CalendarDatePicker: ...
     @winrt_mixinmethod
@@ -974,16 +929,13 @@ class CalendarView(ComPtr, metaclass=_CalendarView_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Control
     default_interface: win32more.Windows.UI.Xaml.Controls.ICalendarView
     _classid_ = 'Windows.UI.Xaml.Controls.CalendarView'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.CalendarView.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.CalendarView.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.ICalendarViewFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.CalendarView: ...
     @winrt_mixinmethod
@@ -1600,16 +1552,13 @@ class CalendarViewDayItem(ComPtr, metaclass=_CalendarViewDayItem_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Control
     default_interface: win32more.Windows.UI.Xaml.Controls.ICalendarViewDayItem
     _classid_ = 'Windows.UI.Xaml.Controls.CalendarViewDayItem'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.CalendarViewDayItem.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.CalendarViewDayItem.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.ICalendarViewDayItemFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.CalendarViewDayItem: ...
     @winrt_mixinmethod
@@ -1683,16 +1632,13 @@ class Canvas(ComPtr, metaclass=_Canvas_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Panel
     default_interface: win32more.Windows.UI.Xaml.Controls.ICanvas
     _classid_ = 'Windows.UI.Xaml.Controls.Canvas'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.Canvas.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.Canvas.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.ICanvasFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Canvas: ...
     @winrt_classmethod
@@ -1722,16 +1668,13 @@ class CaptureElement(ComPtr, metaclass=_CaptureElement_Meta_):
     extends: win32more.Windows.UI.Xaml.FrameworkElement
     default_interface: win32more.Windows.UI.Xaml.Controls.ICaptureElement
     _classid_ = 'Windows.UI.Xaml.Controls.CaptureElement'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.CaptureElement.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.CaptureElement.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.CaptureElement: ...
     @winrt_mixinmethod
@@ -1758,32 +1701,26 @@ class CheckBox(ComPtr):
     extends: win32more.Windows.UI.Xaml.Controls.Primitives.ToggleButton
     default_interface: win32more.Windows.UI.Xaml.Controls.ICheckBox
     _classid_ = 'Windows.UI.Xaml.Controls.CheckBox'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.CheckBox.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.CheckBox.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.ICheckBoxFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.CheckBox: ...
 class ChoosingGroupHeaderContainerEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Controls.IChoosingGroupHeaderContainerEventArgs
     _classid_ = 'Windows.UI.Xaml.Controls.ChoosingGroupHeaderContainerEventArgs'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.ChoosingGroupHeaderContainerEventArgs.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.ChoosingGroupHeaderContainerEventArgs.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.ChoosingGroupHeaderContainerEventArgs: ...
     @winrt_mixinmethod
@@ -1801,16 +1738,13 @@ class ChoosingItemContainerEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Controls.IChoosingItemContainerEventArgs
     _classid_ = 'Windows.UI.Xaml.Controls.ChoosingItemContainerEventArgs'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.ChoosingItemContainerEventArgs.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.ChoosingItemContainerEventArgs.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.ChoosingItemContainerEventArgs: ...
     @winrt_mixinmethod
@@ -1868,16 +1802,13 @@ class ColorPicker(ComPtr, metaclass=_ColorPicker_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Control
     default_interface: win32more.Windows.UI.Xaml.Controls.IColorPicker
     _classid_ = 'Windows.UI.Xaml.Controls.ColorPicker'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.ColorPicker.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.ColorPicker.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IColorPickerFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.ColorPicker: ...
     @winrt_mixinmethod
@@ -2057,16 +1988,13 @@ class ColumnDefinition(ComPtr, metaclass=_ColumnDefinition_Meta_):
     extends: win32more.Windows.UI.Xaml.DependencyObject
     default_interface: win32more.Windows.UI.Xaml.Controls.IColumnDefinition
     _classid_ = 'Windows.UI.Xaml.Controls.ColumnDefinition'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.ColumnDefinition.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.ColumnDefinition.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.ColumnDefinition: ...
     @winrt_mixinmethod
@@ -2133,16 +2061,13 @@ class ComboBox(ComPtr, metaclass=_ComboBox_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Primitives.Selector
     default_interface: win32more.Windows.UI.Xaml.Controls.IComboBox
     _classid_ = 'Windows.UI.Xaml.Controls.ComboBox'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.ComboBox.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.ComboBox.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IComboBoxFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.ComboBox: ...
     @winrt_mixinmethod
@@ -2281,16 +2206,13 @@ class ComboBoxItem(ComPtr):
     extends: win32more.Windows.UI.Xaml.Controls.Primitives.SelectorItem
     default_interface: win32more.Windows.UI.Xaml.Controls.IComboBoxItem
     _classid_ = 'Windows.UI.Xaml.Controls.ComboBoxItem'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.ComboBoxItem.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.ComboBoxItem.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IComboBoxItemFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.ComboBoxItem: ...
 ComboBoxSelectionChangedTrigger = Int32
@@ -2314,16 +2236,13 @@ class CommandBar(ComPtr, metaclass=_CommandBar_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.AppBar
     default_interface: win32more.Windows.UI.Xaml.Controls.ICommandBar
     _classid_ = 'Windows.UI.Xaml.Controls.CommandBar'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.CommandBar.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.CommandBar.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.ICommandBarFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.CommandBar: ...
     @winrt_mixinmethod
@@ -2388,16 +2307,13 @@ class CommandBarFlyout(ComPtr):
     extends: win32more.Windows.UI.Xaml.Controls.Primitives.FlyoutBase
     default_interface: win32more.Windows.UI.Xaml.Controls.ICommandBarFlyout
     _classid_ = 'Windows.UI.Xaml.Controls.CommandBarFlyout'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.CommandBarFlyout.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.CommandBarFlyout.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.ICommandBarFlyoutFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.CommandBarFlyout: ...
     @winrt_mixinmethod
@@ -2417,32 +2333,26 @@ class CommandBarOverflowPresenter(ComPtr):
     extends: win32more.Windows.UI.Xaml.Controls.ItemsControl
     default_interface: win32more.Windows.UI.Xaml.Controls.ICommandBarOverflowPresenter
     _classid_ = 'Windows.UI.Xaml.Controls.CommandBarOverflowPresenter'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.CommandBarOverflowPresenter.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.CommandBarOverflowPresenter.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.ICommandBarOverflowPresenterFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.CommandBarOverflowPresenter: ...
 class ContainerContentChangingEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Controls.IContainerContentChangingEventArgs
     _classid_ = 'Windows.UI.Xaml.Controls.ContainerContentChangingEventArgs'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.ContainerContentChangingEventArgs.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.ContainerContentChangingEventArgs.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.ContainerContentChangingEventArgs: ...
     @winrt_mixinmethod
@@ -2475,16 +2385,13 @@ class ContentControl(ComPtr, metaclass=_ContentControl_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Control
     default_interface: win32more.Windows.UI.Xaml.Controls.IContentControl
     _classid_ = 'Windows.UI.Xaml.Controls.ContentControl'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.ContentControl.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.ContentControl.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IContentControlFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.ContentControl: ...
     @winrt_mixinmethod
@@ -2534,16 +2441,13 @@ class ContentDialog(ComPtr, metaclass=_ContentDialog_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.ContentControl
     default_interface: win32more.Windows.UI.Xaml.Controls.IContentDialog
     _classid_ = 'Windows.UI.Xaml.Controls.ContentDialog'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.ContentDialog.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.ContentDialog.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IContentDialogFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.ContentDialog: ...
     @winrt_mixinmethod
@@ -2803,16 +2707,13 @@ class ContentPresenter(ComPtr, metaclass=_ContentPresenter_Meta_):
     extends: win32more.Windows.UI.Xaml.FrameworkElement
     default_interface: win32more.Windows.UI.Xaml.Controls.IContentPresenter
     _classid_ = 'Windows.UI.Xaml.Controls.ContentPresenter'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.ContentPresenter.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.ContentPresenter.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IContentPresenterFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.ContentPresenter: ...
     @winrt_mixinmethod
@@ -3057,16 +2958,13 @@ class Control(ComPtr, metaclass=_Control_Meta_):
     extends: win32more.Windows.UI.Xaml.FrameworkElement
     default_interface: win32more.Windows.UI.Xaml.Controls.IControl
     _classid_ = 'Windows.UI.Xaml.Controls.Control'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.Control.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.Control.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IControlFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Control: ...
     @winrt_mixinmethod
@@ -3425,16 +3323,13 @@ class ControlTemplate(ComPtr):
     extends: win32more.Windows.UI.Xaml.FrameworkTemplate
     default_interface: win32more.Windows.UI.Xaml.Controls.IControlTemplate
     _classid_ = 'Windows.UI.Xaml.Controls.ControlTemplate'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.ControlTemplate.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.ControlTemplate.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.ControlTemplate: ...
     @winrt_mixinmethod
@@ -3446,16 +3341,13 @@ class DataTemplateSelector(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Controls.IDataTemplateSelector
     _classid_ = 'Windows.UI.Xaml.Controls.DataTemplateSelector'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.DataTemplateSelector.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.DataTemplateSelector.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IDataTemplateSelectorFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.DataTemplateSelector: ...
     @winrt_mixinmethod
@@ -3474,16 +3366,13 @@ class DatePickedEventArgs(ComPtr):
     extends: win32more.Windows.UI.Xaml.DependencyObject
     default_interface: win32more.Windows.UI.Xaml.Controls.IDatePickedEventArgs
     _classid_ = 'Windows.UI.Xaml.Controls.DatePickedEventArgs'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.DatePickedEventArgs.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.DatePickedEventArgs.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.DatePickedEventArgs: ...
     @winrt_mixinmethod
@@ -3498,16 +3387,13 @@ class DatePicker(ComPtr, metaclass=_DatePicker_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Control
     default_interface: win32more.Windows.UI.Xaml.Controls.IDatePicker
     _classid_ = 'Windows.UI.Xaml.Controls.DatePicker'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.DatePicker.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.DatePicker.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IDatePickerFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.DatePicker: ...
     @winrt_mixinmethod
@@ -3644,16 +3530,13 @@ class DatePickerFlyout(ComPtr, metaclass=_DatePickerFlyout_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Primitives.PickerFlyoutBase
     default_interface: win32more.Windows.UI.Xaml.Controls.IDatePickerFlyout
     _classid_ = 'Windows.UI.Xaml.Controls.DatePickerFlyout'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.DatePickerFlyout.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.DatePickerFlyout.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.DatePickerFlyout: ...
     @winrt_mixinmethod
@@ -3827,16 +3710,13 @@ class DragItemsStartingEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Controls.IDragItemsStartingEventArgs
     _classid_ = 'Windows.UI.Xaml.Controls.DragItemsStartingEventArgs'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.DragItemsStartingEventArgs.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.DragItemsStartingEventArgs.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.DragItemsStartingEventArgs: ...
     @winrt_mixinmethod
@@ -3858,32 +3738,26 @@ class DropDownButton(ComPtr):
     extends: win32more.Windows.UI.Xaml.Controls.Button
     default_interface: win32more.Windows.UI.Xaml.Controls.IDropDownButton
     _classid_ = 'Windows.UI.Xaml.Controls.DropDownButton'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.DropDownButton.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.DropDownButton.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IDropDownButtonFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.DropDownButton: ...
 class DropDownButtonAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.ButtonAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Controls.IDropDownButtonAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Controls.DropDownButtonAutomationPeer'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.UI.Xaml.Controls.DropDownButtonAutomationPeer.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.DropDownButtonAutomationPeer.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IDropDownButtonAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.DropDownButton, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.DropDownButtonAutomationPeer: ...
     @winrt_mixinmethod
@@ -3897,16 +3771,13 @@ class DynamicOverflowItemsChangingEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Controls.IDynamicOverflowItemsChangingEventArgs
     _classid_ = 'Windows.UI.Xaml.Controls.DynamicOverflowItemsChangingEventArgs'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.DynamicOverflowItemsChangingEventArgs.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.DynamicOverflowItemsChangingEventArgs.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.DynamicOverflowItemsChangingEventArgs: ...
     @winrt_mixinmethod
@@ -3918,16 +3789,13 @@ class FlipView(ComPtr, metaclass=_FlipView_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Primitives.Selector
     default_interface: win32more.Windows.UI.Xaml.Controls.IFlipView
     _classid_ = 'Windows.UI.Xaml.Controls.FlipView'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.FlipView.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.FlipView.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IFlipViewFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.FlipView: ...
     @winrt_mixinmethod
@@ -3942,16 +3810,13 @@ class FlipViewItem(ComPtr):
     extends: win32more.Windows.UI.Xaml.Controls.Primitives.SelectorItem
     default_interface: win32more.Windows.UI.Xaml.Controls.IFlipViewItem
     _classid_ = 'Windows.UI.Xaml.Controls.FlipViewItem'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.FlipViewItem.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.FlipViewItem.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IFlipViewItemFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.FlipViewItem: ...
 class _Flyout_Meta_(ComPtr.__class__):
@@ -3960,16 +3825,13 @@ class Flyout(ComPtr, metaclass=_Flyout_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Primitives.FlyoutBase
     default_interface: win32more.Windows.UI.Xaml.Controls.IFlyout
     _classid_ = 'Windows.UI.Xaml.Controls.Flyout'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.Flyout.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.Flyout.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IFlyoutFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Flyout: ...
     @winrt_mixinmethod
@@ -3994,16 +3856,13 @@ class FlyoutPresenter(ComPtr, metaclass=_FlyoutPresenter_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.ContentControl
     default_interface: win32more.Windows.UI.Xaml.Controls.IFlyoutPresenter
     _classid_ = 'Windows.UI.Xaml.Controls.FlyoutPresenter'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.FlyoutPresenter.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.FlyoutPresenter.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IFlyoutPresenterFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.FlyoutPresenter: ...
     @winrt_mixinmethod
@@ -4033,16 +3892,13 @@ class FontIcon(ComPtr, metaclass=_FontIcon_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.IconElement
     default_interface: win32more.Windows.UI.Xaml.Controls.IFontIcon
     _classid_ = 'Windows.UI.Xaml.Controls.FontIcon'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.FontIcon.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.FontIcon.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IFontIconFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.FontIcon: ...
     @winrt_mixinmethod
@@ -4107,16 +3963,13 @@ class FontIconSource(ComPtr, metaclass=_FontIconSource_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.IconSource
     default_interface: win32more.Windows.UI.Xaml.Controls.IFontIconSource
     _classid_ = 'Windows.UI.Xaml.Controls.FontIconSource'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.FontIconSource.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.FontIconSource.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IFontIconSourceFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.FontIconSource: ...
     @winrt_mixinmethod
@@ -4181,16 +4034,13 @@ class Frame(ComPtr, metaclass=_Frame_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.ContentControl
     default_interface: win32more.Windows.UI.Xaml.Controls.IFrame
     _classid_ = 'Windows.UI.Xaml.Controls.Frame'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.Frame.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.Frame.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IFrameFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Frame: ...
     @winrt_mixinmethod
@@ -4300,16 +4150,13 @@ class Grid(ComPtr, metaclass=_Grid_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Panel
     default_interface: win32more.Windows.UI.Xaml.Controls.IGrid
     _classid_ = 'Windows.UI.Xaml.Controls.Grid'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.Grid.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.Grid.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IGridFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Grid: ...
     @winrt_mixinmethod
@@ -4406,48 +4253,39 @@ class GridView(ComPtr):
     extends: win32more.Windows.UI.Xaml.Controls.ListViewBase
     default_interface: win32more.Windows.UI.Xaml.Controls.IGridView
     _classid_ = 'Windows.UI.Xaml.Controls.GridView'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.GridView.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.GridView.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IGridViewFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.GridView: ...
 class GridViewHeaderItem(ComPtr):
     extends: win32more.Windows.UI.Xaml.Controls.ListViewBaseHeaderItem
     default_interface: win32more.Windows.UI.Xaml.Controls.IGridViewHeaderItem
     _classid_ = 'Windows.UI.Xaml.Controls.GridViewHeaderItem'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.GridViewHeaderItem.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.GridViewHeaderItem.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IGridViewHeaderItemFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.GridViewHeaderItem: ...
 class GridViewItem(ComPtr):
     extends: win32more.Windows.UI.Xaml.Controls.Primitives.SelectorItem
     default_interface: win32more.Windows.UI.Xaml.Controls.IGridViewItem
     _classid_ = 'Windows.UI.Xaml.Controls.GridViewItem'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.GridViewItem.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.GridViewItem.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IGridViewItemFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.GridViewItem: ...
     @winrt_mixinmethod
@@ -4457,32 +4295,26 @@ class GroupItem(ComPtr):
     extends: win32more.Windows.UI.Xaml.Controls.ContentControl
     default_interface: win32more.Windows.UI.Xaml.Controls.IGroupItem
     _classid_ = 'Windows.UI.Xaml.Controls.GroupItem'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.GroupItem.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.GroupItem.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IGroupItemFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.GroupItem: ...
 class GroupStyle(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Controls.IGroupStyle
     _classid_ = 'Windows.UI.Xaml.Controls.GroupStyle'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.GroupStyle.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.GroupStyle.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IGroupStyleFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.GroupStyle: ...
     @winrt_mixinmethod
@@ -4528,16 +4360,13 @@ class GroupStyleSelector(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Controls.IGroupStyleSelector
     _classid_ = 'Windows.UI.Xaml.Controls.GroupStyleSelector'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.GroupStyleSelector.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.GroupStyleSelector.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IGroupStyleSelectorFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.GroupStyleSelector: ...
     @winrt_mixinmethod
@@ -4564,16 +4393,13 @@ class HandwritingView(ComPtr, metaclass=_HandwritingView_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Control
     default_interface: win32more.Windows.UI.Xaml.Controls.IHandwritingView
     _classid_ = 'Windows.UI.Xaml.Controls.HandwritingView'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.HandwritingView.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.HandwritingView.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IHandwritingViewFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.HandwritingView: ...
     @winrt_mixinmethod
@@ -4668,16 +4494,13 @@ class Hub(ComPtr, metaclass=_Hub_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Control
     default_interface: win32more.Windows.UI.Xaml.Controls.IHub
     _classid_ = 'Windows.UI.Xaml.Controls.Hub'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.Hub.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.Hub.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IHubFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Hub: ...
     @winrt_mixinmethod
@@ -4775,16 +4598,13 @@ class HubSection(ComPtr, metaclass=_HubSection_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Control
     default_interface: win32more.Windows.UI.Xaml.Controls.IHubSection
     _classid_ = 'Windows.UI.Xaml.Controls.HubSection'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.HubSection.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.HubSection.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IHubSectionFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.HubSection: ...
     @winrt_mixinmethod
@@ -4854,16 +4674,13 @@ class HubSectionHeaderClickEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Controls.IHubSectionHeaderClickEventArgs
     _classid_ = 'Windows.UI.Xaml.Controls.HubSectionHeaderClickEventArgs'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.HubSectionHeaderClickEventArgs.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.HubSectionHeaderClickEventArgs.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.HubSectionHeaderClickEventArgs: ...
     @winrt_mixinmethod
@@ -4879,16 +4696,13 @@ class HyperlinkButton(ComPtr, metaclass=_HyperlinkButton_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Primitives.ButtonBase
     default_interface: win32more.Windows.UI.Xaml.Controls.IHyperlinkButton
     _classid_ = 'Windows.UI.Xaml.Controls.HyperlinkButton'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.HyperlinkButton.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.HyperlinkButton.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IHyperlinkButtonFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.HyperlinkButton: ...
     @winrt_mixinmethod
@@ -18868,16 +18682,13 @@ class IconSourceElement(ComPtr, metaclass=_IconSourceElement_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.IconElement
     default_interface: win32more.Windows.UI.Xaml.Controls.IIconSourceElement
     _classid_ = 'Windows.UI.Xaml.Controls.IconSourceElement'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.IconSourceElement.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.IconSourceElement.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IIconSourceElementFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.IconSourceElement: ...
     @winrt_mixinmethod
@@ -18894,16 +18705,13 @@ class Image(ComPtr, metaclass=_Image_Meta_):
     extends: win32more.Windows.UI.Xaml.FrameworkElement
     default_interface: win32more.Windows.UI.Xaml.Controls.IImage
     _classid_ = 'Windows.UI.Xaml.Controls.Image'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.Image.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.Image.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.Image: ...
     @winrt_mixinmethod
@@ -18955,16 +18763,13 @@ class InkCanvas(ComPtr):
     extends: win32more.Windows.UI.Xaml.FrameworkElement
     default_interface: win32more.Windows.UI.Xaml.Controls.IInkCanvas
     _classid_ = 'Windows.UI.Xaml.Controls.InkCanvas'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.InkCanvas.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.InkCanvas.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IInkCanvasFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.InkCanvas: ...
     @winrt_mixinmethod
@@ -18976,16 +18781,13 @@ class InkToolbar(ComPtr, metaclass=_InkToolbar_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Control
     default_interface: win32more.Windows.UI.Xaml.Controls.IInkToolbar
     _classid_ = 'Windows.UI.Xaml.Controls.InkToolbar'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.InkToolbar.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.InkToolbar.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IInkToolbarFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.InkToolbar: ...
     @winrt_mixinmethod
@@ -19094,16 +18896,13 @@ class InkToolbarBallpointPenButton(ComPtr):
     extends: win32more.Windows.UI.Xaml.Controls.InkToolbarPenButton
     default_interface: win32more.Windows.UI.Xaml.Controls.IInkToolbarBallpointPenButton
     _classid_ = 'Windows.UI.Xaml.Controls.InkToolbarBallpointPenButton'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.InkToolbarBallpointPenButton.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.InkToolbarBallpointPenButton.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IInkToolbarBallpointPenButtonFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.InkToolbarBallpointPenButton: ...
 InkToolbarButtonFlyoutPlacement = Int32
@@ -19116,16 +18915,13 @@ class InkToolbarCustomPen(ComPtr):
     extends: win32more.Windows.UI.Xaml.DependencyObject
     default_interface: win32more.Windows.UI.Xaml.Controls.IInkToolbarCustomPen
     _classid_ = 'Windows.UI.Xaml.Controls.InkToolbarCustomPen'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.InkToolbarCustomPen.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.InkToolbarCustomPen.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IInkToolbarCustomPenFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.InkToolbarCustomPen: ...
     @winrt_mixinmethod
@@ -19138,16 +18934,13 @@ class InkToolbarCustomPenButton(ComPtr, metaclass=_InkToolbarCustomPenButton_Met
     extends: win32more.Windows.UI.Xaml.Controls.InkToolbarPenButton
     default_interface: win32more.Windows.UI.Xaml.Controls.IInkToolbarCustomPenButton
     _classid_ = 'Windows.UI.Xaml.Controls.InkToolbarCustomPenButton'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.InkToolbarCustomPenButton.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.InkToolbarCustomPenButton.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IInkToolbarCustomPenButtonFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.InkToolbarCustomPenButton: ...
     @winrt_mixinmethod
@@ -19170,16 +18963,13 @@ class InkToolbarCustomToggleButton(ComPtr):
     extends: win32more.Windows.UI.Xaml.Controls.InkToolbarToggleButton
     default_interface: win32more.Windows.UI.Xaml.Controls.IInkToolbarCustomToggleButton
     _classid_ = 'Windows.UI.Xaml.Controls.InkToolbarCustomToggleButton'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.InkToolbarCustomToggleButton.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.InkToolbarCustomToggleButton.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IInkToolbarCustomToggleButtonFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.InkToolbarCustomToggleButton: ...
 class _InkToolbarCustomToolButton_Meta_(ComPtr.__class__):
@@ -19188,16 +18978,13 @@ class InkToolbarCustomToolButton(ComPtr, metaclass=_InkToolbarCustomToolButton_M
     extends: win32more.Windows.UI.Xaml.Controls.InkToolbarToolButton
     default_interface: win32more.Windows.UI.Xaml.Controls.IInkToolbarCustomToolButton
     _classid_ = 'Windows.UI.Xaml.Controls.InkToolbarCustomToolButton'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.InkToolbarCustomToolButton.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.InkToolbarCustomToolButton.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IInkToolbarCustomToolButtonFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.InkToolbarCustomToolButton: ...
     @winrt_mixinmethod
@@ -19214,16 +19001,13 @@ class InkToolbarEraserButton(ComPtr, metaclass=_InkToolbarEraserButton_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.InkToolbarToolButton
     default_interface: win32more.Windows.UI.Xaml.Controls.IInkToolbarEraserButton
     _classid_ = 'Windows.UI.Xaml.Controls.InkToolbarEraserButton'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.InkToolbarEraserButton.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.InkToolbarEraserButton.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IInkToolbarEraserButtonFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.InkToolbarEraserButton: ...
     @winrt_mixinmethod
@@ -19240,16 +19024,13 @@ class InkToolbarFlyoutItem(ComPtr, metaclass=_InkToolbarFlyoutItem_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Primitives.ButtonBase
     default_interface: win32more.Windows.UI.Xaml.Controls.IInkToolbarFlyoutItem
     _classid_ = 'Windows.UI.Xaml.Controls.InkToolbarFlyoutItem'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.InkToolbarFlyoutItem.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.InkToolbarFlyoutItem.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IInkToolbarFlyoutItemFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.InkToolbarFlyoutItem: ...
     @winrt_mixinmethod
@@ -19285,16 +19066,13 @@ class InkToolbarHighlighterButton(ComPtr):
     extends: win32more.Windows.UI.Xaml.Controls.InkToolbarPenButton
     default_interface: win32more.Windows.UI.Xaml.Controls.IInkToolbarHighlighterButton
     _classid_ = 'Windows.UI.Xaml.Controls.InkToolbarHighlighterButton'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.InkToolbarHighlighterButton.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.InkToolbarHighlighterButton.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IInkToolbarHighlighterButtonFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.InkToolbarHighlighterButton: ...
 InkToolbarInitialControls = Int32
@@ -19306,16 +19084,13 @@ class InkToolbarIsStencilButtonCheckedChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Controls.IInkToolbarIsStencilButtonCheckedChangedEventArgs
     _classid_ = 'Windows.UI.Xaml.Controls.InkToolbarIsStencilButtonCheckedChangedEventArgs'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.InkToolbarIsStencilButtonCheckedChangedEventArgs.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.InkToolbarIsStencilButtonCheckedChangedEventArgs.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.InkToolbarIsStencilButtonCheckedChangedEventArgs: ...
     @winrt_mixinmethod
@@ -19401,16 +19176,13 @@ class InkToolbarPenConfigurationControl(ComPtr, metaclass=_InkToolbarPenConfigur
     extends: win32more.Windows.UI.Xaml.Controls.Control
     default_interface: win32more.Windows.UI.Xaml.Controls.IInkToolbarPenConfigurationControl
     _classid_ = 'Windows.UI.Xaml.Controls.InkToolbarPenConfigurationControl'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.InkToolbarPenConfigurationControl.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.InkToolbarPenConfigurationControl.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IInkToolbarPenConfigurationControlFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.InkToolbarPenConfigurationControl: ...
     @winrt_mixinmethod
@@ -19423,16 +19195,13 @@ class InkToolbarPencilButton(ComPtr):
     extends: win32more.Windows.UI.Xaml.Controls.InkToolbarPenButton
     default_interface: win32more.Windows.UI.Xaml.Controls.IInkToolbarPencilButton
     _classid_ = 'Windows.UI.Xaml.Controls.InkToolbarPencilButton'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.InkToolbarPencilButton.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.InkToolbarPencilButton.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IInkToolbarPencilButtonFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.InkToolbarPencilButton: ...
 class _InkToolbarRulerButton_Meta_(ComPtr.__class__):
@@ -19441,16 +19210,13 @@ class InkToolbarRulerButton(ComPtr, metaclass=_InkToolbarRulerButton_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.InkToolbarToggleButton
     default_interface: win32more.Windows.UI.Xaml.Controls.IInkToolbarRulerButton
     _classid_ = 'Windows.UI.Xaml.Controls.InkToolbarRulerButton'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.InkToolbarRulerButton.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.InkToolbarRulerButton.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IInkToolbarRulerButtonFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.InkToolbarRulerButton: ...
     @winrt_mixinmethod
@@ -19465,16 +19231,13 @@ class InkToolbarStencilButton(ComPtr, metaclass=_InkToolbarStencilButton_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.InkToolbarMenuButton
     default_interface: win32more.Windows.UI.Xaml.Controls.IInkToolbarStencilButton
     _classid_ = 'Windows.UI.Xaml.Controls.InkToolbarStencilButton'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.InkToolbarStencilButton.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.InkToolbarStencilButton.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IInkToolbarStencilButtonFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.InkToolbarStencilButton: ...
     @winrt_mixinmethod
@@ -19558,16 +19321,13 @@ class ItemClickEventArgs(ComPtr):
     extends: win32more.Windows.UI.Xaml.RoutedEventArgs
     default_interface: win32more.Windows.UI.Xaml.Controls.IItemClickEventArgs
     _classid_ = 'Windows.UI.Xaml.Controls.ItemClickEventArgs'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.ItemClickEventArgs.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.ItemClickEventArgs.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.ItemClickEventArgs: ...
     @winrt_mixinmethod
@@ -19654,16 +19414,13 @@ class ItemsControl(ComPtr, metaclass=_ItemsControl_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Control
     default_interface: win32more.Windows.UI.Xaml.Controls.IItemsControl
     _classid_ = 'Windows.UI.Xaml.Controls.ItemsControl'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.ItemsControl.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.ItemsControl.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IItemsControlFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.ItemsControl: ...
     @winrt_mixinmethod
@@ -19794,32 +19551,26 @@ class ItemsPanelTemplate(ComPtr):
     extends: win32more.Windows.UI.Xaml.FrameworkTemplate
     default_interface: win32more.Windows.UI.Xaml.Controls.IItemsPanelTemplate
     _classid_ = 'Windows.UI.Xaml.Controls.ItemsPanelTemplate'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.ItemsPanelTemplate.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.ItemsPanelTemplate.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.ItemsPanelTemplate: ...
 class ItemsPickedEventArgs(ComPtr):
     extends: win32more.Windows.UI.Xaml.DependencyObject
     default_interface: win32more.Windows.UI.Xaml.Controls.IItemsPickedEventArgs
     _classid_ = 'Windows.UI.Xaml.Controls.ItemsPickedEventArgs'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.ItemsPickedEventArgs.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.ItemsPickedEventArgs.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.ItemsPickedEventArgs: ...
     @winrt_mixinmethod
@@ -19834,16 +19585,13 @@ class ItemsPresenter(ComPtr, metaclass=_ItemsPresenter_Meta_):
     extends: win32more.Windows.UI.Xaml.FrameworkElement
     default_interface: win32more.Windows.UI.Xaml.Controls.IItemsPresenter
     _classid_ = 'Windows.UI.Xaml.Controls.ItemsPresenter'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.ItemsPresenter.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.ItemsPresenter.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.ItemsPresenter: ...
     @winrt_mixinmethod
@@ -19926,16 +19674,13 @@ class ItemsStackPanel(ComPtr, metaclass=_ItemsStackPanel_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Panel
     default_interface: win32more.Windows.UI.Xaml.Controls.IItemsStackPanel
     _classid_ = 'Windows.UI.Xaml.Controls.ItemsStackPanel'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.ItemsStackPanel.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.ItemsStackPanel.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.ItemsStackPanel: ...
     @winrt_mixinmethod
@@ -20008,16 +19753,13 @@ class ItemsWrapGrid(ComPtr, metaclass=_ItemsWrapGrid_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Panel
     default_interface: win32more.Windows.UI.Xaml.Controls.IItemsWrapGrid
     _classid_ = 'Windows.UI.Xaml.Controls.ItemsWrapGrid'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.ItemsWrapGrid.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.ItemsWrapGrid.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.ItemsWrapGrid: ...
     @winrt_mixinmethod
@@ -20109,16 +19851,13 @@ class ListBox(ComPtr, metaclass=_ListBox_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Primitives.Selector
     default_interface: win32more.Windows.UI.Xaml.Controls.IListBox
     _classid_ = 'Windows.UI.Xaml.Controls.ListBox'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.ListBox.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.ListBox.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IListBoxFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.ListBox: ...
     @winrt_mixinmethod
@@ -20148,16 +19887,13 @@ class ListBoxItem(ComPtr):
     extends: win32more.Windows.UI.Xaml.Controls.Primitives.SelectorItem
     default_interface: win32more.Windows.UI.Xaml.Controls.IListBoxItem
     _classid_ = 'Windows.UI.Xaml.Controls.ListBoxItem'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.ListBoxItem.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.ListBoxItem.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IListBoxItemFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.ListBoxItem: ...
 class _ListPickerFlyout_Meta_(ComPtr.__class__):
@@ -20166,16 +19902,13 @@ class ListPickerFlyout(ComPtr, metaclass=_ListPickerFlyout_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Primitives.PickerFlyoutBase
     default_interface: win32more.Windows.UI.Xaml.Controls.IListPickerFlyout
     _classid_ = 'Windows.UI.Xaml.Controls.ListPickerFlyout'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.ListPickerFlyout.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.ListPickerFlyout.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.ListPickerFlyout: ...
     @winrt_mixinmethod
@@ -20262,16 +19995,13 @@ class ListView(ComPtr):
     extends: win32more.Windows.UI.Xaml.Controls.ListViewBase
     default_interface: win32more.Windows.UI.Xaml.Controls.IListView
     _classid_ = 'Windows.UI.Xaml.Controls.ListView'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.ListView.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.ListView.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IListViewFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.ListView: ...
 class _ListViewBase_Meta_(ComPtr.__class__):
@@ -20280,16 +20010,13 @@ class ListViewBase(ComPtr, metaclass=_ListViewBase_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Primitives.Selector
     default_interface: win32more.Windows.UI.Xaml.Controls.IListViewBase
     _classid_ = 'Windows.UI.Xaml.Controls.ListViewBase'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.ListViewBase.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.ListViewBase.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IListViewBaseFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.ListViewBase: ...
     @winrt_mixinmethod
@@ -20532,32 +20259,26 @@ class ListViewHeaderItem(ComPtr):
     extends: win32more.Windows.UI.Xaml.Controls.ListViewBaseHeaderItem
     default_interface: win32more.Windows.UI.Xaml.Controls.IListViewHeaderItem
     _classid_ = 'Windows.UI.Xaml.Controls.ListViewHeaderItem'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.ListViewHeaderItem.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.ListViewHeaderItem.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IListViewHeaderItemFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.ListViewHeaderItem: ...
 class ListViewItem(ComPtr):
     extends: win32more.Windows.UI.Xaml.Controls.Primitives.SelectorItem
     default_interface: win32more.Windows.UI.Xaml.Controls.IListViewItem
     _classid_ = 'Windows.UI.Xaml.Controls.ListViewItem'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.ListViewItem.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.ListViewItem.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IListViewItemFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.ListViewItem: ...
     @winrt_mixinmethod
@@ -20593,16 +20314,13 @@ class MediaElement(ComPtr, metaclass=_MediaElement_Meta_):
     extends: win32more.Windows.UI.Xaml.FrameworkElement
     default_interface: win32more.Windows.UI.Xaml.Controls.IMediaElement
     _classid_ = 'Windows.UI.Xaml.Controls.MediaElement'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.MediaElement.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.MediaElement.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.MediaElement: ...
     @winrt_mixinmethod
@@ -20951,16 +20669,13 @@ class MediaPlayerElement(ComPtr, metaclass=_MediaPlayerElement_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Control
     default_interface: win32more.Windows.UI.Xaml.Controls.IMediaPlayerElement
     _classid_ = 'Windows.UI.Xaml.Controls.MediaPlayerElement'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.MediaPlayerElement.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.MediaPlayerElement.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IMediaPlayerElementFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.MediaPlayerElement: ...
     @winrt_mixinmethod
@@ -21030,16 +20745,13 @@ class MediaPlayerPresenter(ComPtr, metaclass=_MediaPlayerPresenter_Meta_):
     extends: win32more.Windows.UI.Xaml.FrameworkElement
     default_interface: win32more.Windows.UI.Xaml.Controls.IMediaPlayerPresenter
     _classid_ = 'Windows.UI.Xaml.Controls.MediaPlayerPresenter'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.MediaPlayerPresenter.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.MediaPlayerPresenter.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IMediaPlayerPresenterFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.MediaPlayerPresenter: ...
     @winrt_mixinmethod
@@ -21072,16 +20784,13 @@ class MediaTransportControls(ComPtr, metaclass=_MediaTransportControls_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Control
     default_interface: win32more.Windows.UI.Xaml.Controls.IMediaTransportControls
     _classid_ = 'Windows.UI.Xaml.Controls.MediaTransportControls'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.MediaTransportControls.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.MediaTransportControls.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IMediaTransportControlsFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.MediaTransportControls: ...
     @winrt_mixinmethod
@@ -21343,16 +21052,13 @@ class MenuBar(ComPtr, metaclass=_MenuBar_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Control
     default_interface: win32more.Windows.UI.Xaml.Controls.IMenuBar
     _classid_ = 'Windows.UI.Xaml.Controls.MenuBar'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.MenuBar.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.MenuBar.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IMenuBarFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.MenuBar: ...
     @winrt_mixinmethod
@@ -21367,16 +21073,13 @@ class MenuBarItem(ComPtr, metaclass=_MenuBarItem_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Control
     default_interface: win32more.Windows.UI.Xaml.Controls.IMenuBarItem
     _classid_ = 'Windows.UI.Xaml.Controls.MenuBarItem'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.MenuBarItem.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.MenuBarItem.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IMenuBarItemFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.MenuBarItem: ...
     @winrt_mixinmethod
@@ -21397,16 +21100,13 @@ class MenuBarItemFlyout(ComPtr):
     extends: win32more.Windows.UI.Xaml.Controls.MenuFlyout
     default_interface: win32more.Windows.UI.Xaml.Controls.IMenuBarItemFlyout
     _classid_ = 'Windows.UI.Xaml.Controls.MenuBarItemFlyout'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.MenuBarItemFlyout.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.MenuBarItemFlyout.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IMenuBarItemFlyoutFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.MenuBarItemFlyout: ...
 class _MenuFlyout_Meta_(ComPtr.__class__):
@@ -21415,16 +21115,13 @@ class MenuFlyout(ComPtr, metaclass=_MenuFlyout_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Primitives.FlyoutBase
     default_interface: win32more.Windows.UI.Xaml.Controls.IMenuFlyout
     _classid_ = 'Windows.UI.Xaml.Controls.MenuFlyout'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.MenuFlyout.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.MenuFlyout.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IMenuFlyoutFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.MenuFlyout: ...
     @winrt_mixinmethod
@@ -21446,16 +21143,13 @@ class MenuFlyoutItem(ComPtr, metaclass=_MenuFlyoutItem_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.MenuFlyoutItemBase
     default_interface: win32more.Windows.UI.Xaml.Controls.IMenuFlyoutItem
     _classid_ = 'Windows.UI.Xaml.Controls.MenuFlyoutItem'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.MenuFlyoutItem.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.MenuFlyoutItem.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IMenuFlyoutItemFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.MenuFlyoutItem: ...
     @winrt_mixinmethod
@@ -21515,16 +21209,13 @@ class MenuFlyoutPresenter(ComPtr, metaclass=_MenuFlyoutPresenter_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.ItemsControl
     default_interface: win32more.Windows.UI.Xaml.Controls.IMenuFlyoutPresenter
     _classid_ = 'Windows.UI.Xaml.Controls.MenuFlyoutPresenter'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.MenuFlyoutPresenter.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.MenuFlyoutPresenter.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IMenuFlyoutPresenterFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.MenuFlyoutPresenter: ...
     @winrt_mixinmethod
@@ -21542,16 +21233,13 @@ class MenuFlyoutSeparator(ComPtr):
     extends: win32more.Windows.UI.Xaml.Controls.MenuFlyoutItemBase
     default_interface: win32more.Windows.UI.Xaml.Controls.IMenuFlyoutSeparator
     _classid_ = 'Windows.UI.Xaml.Controls.MenuFlyoutSeparator'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.MenuFlyoutSeparator.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.MenuFlyoutSeparator.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IMenuFlyoutSeparatorFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.MenuFlyoutSeparator: ...
 class _MenuFlyoutSubItem_Meta_(ComPtr.__class__):
@@ -21560,16 +21248,13 @@ class MenuFlyoutSubItem(ComPtr, metaclass=_MenuFlyoutSubItem_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.MenuFlyoutItemBase
     default_interface: win32more.Windows.UI.Xaml.Controls.IMenuFlyoutSubItem
     _classid_ = 'Windows.UI.Xaml.Controls.MenuFlyoutSubItem'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.MenuFlyoutSubItem.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.MenuFlyoutSubItem.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.MenuFlyoutSubItem: ...
     @winrt_mixinmethod
@@ -21597,16 +21282,13 @@ class NavigationView(ComPtr, metaclass=_NavigationView_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.ContentControl
     default_interface: win32more.Windows.UI.Xaml.Controls.INavigationView
     _classid_ = 'Windows.UI.Xaml.Controls.NavigationView'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.NavigationView.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.NavigationView.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.INavigationViewFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.NavigationView: ...
     @winrt_mixinmethod
@@ -21934,16 +21616,13 @@ class NavigationViewItem(ComPtr, metaclass=_NavigationViewItem_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.NavigationViewItemBase
     default_interface: win32more.Windows.UI.Xaml.Controls.INavigationViewItem
     _classid_ = 'Windows.UI.Xaml.Controls.NavigationViewItem'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.NavigationViewItem.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.NavigationViewItem.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.INavigationViewItemFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.NavigationViewItem: ...
     @winrt_mixinmethod
@@ -21976,32 +21655,26 @@ class NavigationViewItemHeader(ComPtr):
     extends: win32more.Windows.UI.Xaml.Controls.NavigationViewItemBase
     default_interface: win32more.Windows.UI.Xaml.Controls.INavigationViewItemHeader
     _classid_ = 'Windows.UI.Xaml.Controls.NavigationViewItemHeader'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.NavigationViewItemHeader.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.NavigationViewItemHeader.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.INavigationViewItemHeaderFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.NavigationViewItemHeader: ...
 class NavigationViewItemInvokedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Controls.INavigationViewItemInvokedEventArgs
     _classid_ = 'Windows.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs: ...
     @winrt_mixinmethod
@@ -22020,32 +21693,26 @@ class NavigationViewItemSeparator(ComPtr):
     extends: win32more.Windows.UI.Xaml.Controls.NavigationViewItemBase
     default_interface: win32more.Windows.UI.Xaml.Controls.INavigationViewItemSeparator
     _classid_ = 'Windows.UI.Xaml.Controls.NavigationViewItemSeparator'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.NavigationViewItemSeparator.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.NavigationViewItemSeparator.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.INavigationViewItemSeparatorFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.NavigationViewItemSeparator: ...
 class NavigationViewList(ComPtr):
     extends: win32more.Windows.UI.Xaml.Controls.ListView
     default_interface: win32more.Windows.UI.Xaml.Controls.INavigationViewList
     _classid_ = 'Windows.UI.Xaml.Controls.NavigationViewList'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.NavigationViewList.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.NavigationViewList.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.INavigationViewListFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.NavigationViewList: ...
 NavigationViewOverflowLabelMode = Int32
@@ -22095,16 +21762,13 @@ class NavigationViewTemplateSettings(ComPtr, metaclass=_NavigationViewTemplateSe
     extends: win32more.Windows.UI.Xaml.DependencyObject
     default_interface: win32more.Windows.UI.Xaml.Controls.INavigationViewTemplateSettings
     _classid_ = 'Windows.UI.Xaml.Controls.NavigationViewTemplateSettings'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.NavigationViewTemplateSettings.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.NavigationViewTemplateSettings.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.INavigationViewTemplateSettingsFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.NavigationViewTemplateSettings: ...
     @winrt_mixinmethod
@@ -22172,16 +21836,13 @@ class Page(ComPtr, metaclass=_Page_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.UserControl
     default_interface: win32more.Windows.UI.Xaml.Controls.IPage
     _classid_ = 'Windows.UI.Xaml.Controls.Page'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.Page.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.Page.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IPageFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Page: ...
     @winrt_mixinmethod
@@ -22223,16 +21884,13 @@ class Panel(ComPtr, metaclass=_Panel_Meta_):
     extends: win32more.Windows.UI.Xaml.FrameworkElement
     default_interface: win32more.Windows.UI.Xaml.Controls.IPanel
     _classid_ = 'Windows.UI.Xaml.Controls.Panel'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.Panel.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.Panel.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IPanelFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Panel: ...
     @winrt_mixinmethod
@@ -22278,16 +21936,13 @@ class ParallaxView(ComPtr, metaclass=_ParallaxView_Meta_):
     extends: win32more.Windows.UI.Xaml.FrameworkElement
     default_interface: win32more.Windows.UI.Xaml.Controls.IParallaxView
     _classid_ = 'Windows.UI.Xaml.Controls.ParallaxView'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.ParallaxView.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.ParallaxView.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IParallaxViewFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.ParallaxView: ...
     @winrt_mixinmethod
@@ -22412,16 +22067,13 @@ class PasswordBox(ComPtr, metaclass=_PasswordBox_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Control
     default_interface: win32more.Windows.UI.Xaml.Controls.IPasswordBox
     _classid_ = 'Windows.UI.Xaml.Controls.PasswordBox'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.PasswordBox.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.PasswordBox.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.PasswordBox: ...
     @winrt_mixinmethod
@@ -22579,16 +22231,13 @@ class PathIcon(ComPtr, metaclass=_PathIcon_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.IconElement
     default_interface: win32more.Windows.UI.Xaml.Controls.IPathIcon
     _classid_ = 'Windows.UI.Xaml.Controls.PathIcon'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.PathIcon.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.PathIcon.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IPathIconFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.PathIcon: ...
     @winrt_mixinmethod
@@ -22605,16 +22254,13 @@ class PathIconSource(ComPtr, metaclass=_PathIconSource_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.IconSource
     default_interface: win32more.Windows.UI.Xaml.Controls.IPathIconSource
     _classid_ = 'Windows.UI.Xaml.Controls.PathIconSource'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.PathIconSource.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.PathIconSource.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IPathIconSourceFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.PathIconSource: ...
     @winrt_mixinmethod
@@ -22631,16 +22277,13 @@ class PersonPicture(ComPtr, metaclass=_PersonPicture_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Control
     default_interface: win32more.Windows.UI.Xaml.Controls.IPersonPicture
     _classid_ = 'Windows.UI.Xaml.Controls.PersonPicture'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.PersonPicture.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.PersonPicture.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IPersonPictureFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.PersonPicture: ...
     @winrt_mixinmethod
@@ -22727,16 +22370,13 @@ class PickerConfirmedEventArgs(ComPtr):
     extends: win32more.Windows.UI.Xaml.DependencyObject
     default_interface: win32more.Windows.UI.Xaml.Controls.IPickerConfirmedEventArgs
     _classid_ = 'Windows.UI.Xaml.Controls.PickerConfirmedEventArgs'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.PickerConfirmedEventArgs.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.PickerConfirmedEventArgs.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.PickerConfirmedEventArgs: ...
 class _PickerFlyout_Meta_(ComPtr.__class__):
@@ -22745,16 +22385,13 @@ class PickerFlyout(ComPtr, metaclass=_PickerFlyout_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Primitives.PickerFlyoutBase
     default_interface: win32more.Windows.UI.Xaml.Controls.IPickerFlyout
     _classid_ = 'Windows.UI.Xaml.Controls.PickerFlyout'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.PickerFlyout.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.PickerFlyout.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.PickerFlyout: ...
     @winrt_mixinmethod
@@ -22789,16 +22426,13 @@ class Pivot(ComPtr, metaclass=_Pivot_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.ItemsControl
     default_interface: win32more.Windows.UI.Xaml.Controls.IPivot
     _classid_ = 'Windows.UI.Xaml.Controls.Pivot'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.Pivot.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.Pivot.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IPivotFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Pivot: ...
     @winrt_mixinmethod
@@ -22933,16 +22567,13 @@ class PivotItem(ComPtr, metaclass=_PivotItem_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.ContentControl
     default_interface: win32more.Windows.UI.Xaml.Controls.IPivotItem
     _classid_ = 'Windows.UI.Xaml.Controls.PivotItem'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.PivotItem.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.PivotItem.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IPivotItemFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.PivotItem: ...
     @winrt_mixinmethod
@@ -22957,16 +22588,13 @@ class PivotItemEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Controls.IPivotItemEventArgs
     _classid_ = 'Windows.UI.Xaml.Controls.PivotItemEventArgs'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.PivotItemEventArgs.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.PivotItemEventArgs.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.PivotItemEventArgs: ...
     @winrt_mixinmethod
@@ -22985,16 +22613,13 @@ class ProgressBar(ComPtr, metaclass=_ProgressBar_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Primitives.RangeBase
     default_interface: win32more.Windows.UI.Xaml.Controls.IProgressBar
     _classid_ = 'Windows.UI.Xaml.Controls.ProgressBar'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.ProgressBar.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.ProgressBar.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IProgressBarFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.ProgressBar: ...
     @winrt_mixinmethod
@@ -23030,16 +22655,13 @@ class ProgressRing(ComPtr, metaclass=_ProgressRing_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Control
     default_interface: win32more.Windows.UI.Xaml.Controls.IProgressRing
     _classid_ = 'Windows.UI.Xaml.Controls.ProgressRing'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.ProgressRing.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.ProgressRing.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.ProgressRing: ...
     @winrt_mixinmethod
@@ -23059,16 +22681,13 @@ class RadioButton(ComPtr, metaclass=_RadioButton_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Primitives.ToggleButton
     default_interface: win32more.Windows.UI.Xaml.Controls.IRadioButton
     _classid_ = 'Windows.UI.Xaml.Controls.RadioButton'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.RadioButton.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.RadioButton.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IRadioButtonFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.RadioButton: ...
     @winrt_mixinmethod
@@ -23085,16 +22704,13 @@ class RatingControl(ComPtr, metaclass=_RatingControl_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Control
     default_interface: win32more.Windows.UI.Xaml.Controls.IRatingControl
     _classid_ = 'Windows.UI.Xaml.Controls.RatingControl'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.RatingControl.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.RatingControl.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IRatingControlFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.RatingControl: ...
     @winrt_mixinmethod
@@ -23171,16 +22787,13 @@ class RatingItemFontInfo(ComPtr, metaclass=_RatingItemFontInfo_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.RatingItemInfo
     default_interface: win32more.Windows.UI.Xaml.Controls.IRatingItemFontInfo
     _classid_ = 'Windows.UI.Xaml.Controls.RatingItemFontInfo'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.RatingItemFontInfo.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.RatingItemFontInfo.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IRatingItemFontInfoFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.RatingItemFontInfo: ...
     @winrt_mixinmethod
@@ -23237,16 +22850,13 @@ class RatingItemImageInfo(ComPtr, metaclass=_RatingItemImageInfo_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.RatingItemInfo
     default_interface: win32more.Windows.UI.Xaml.Controls.IRatingItemImageInfo
     _classid_ = 'Windows.UI.Xaml.Controls.RatingItemImageInfo'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.RatingItemImageInfo.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.RatingItemImageInfo.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IRatingItemImageInfoFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.RatingItemImageInfo: ...
     @winrt_mixinmethod
@@ -23301,16 +22911,13 @@ class RatingItemInfo(ComPtr):
     extends: win32more.Windows.UI.Xaml.DependencyObject
     default_interface: win32more.Windows.UI.Xaml.Controls.IRatingItemInfo
     _classid_ = 'Windows.UI.Xaml.Controls.RatingItemInfo'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.RatingItemInfo.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.RatingItemInfo.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IRatingItemInfoFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.RatingItemInfo: ...
 class _RefreshContainer_Meta_(ComPtr.__class__):
@@ -23319,16 +22926,13 @@ class RefreshContainer(ComPtr, metaclass=_RefreshContainer_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.ContentControl
     default_interface: win32more.Windows.UI.Xaml.Controls.IRefreshContainer
     _classid_ = 'Windows.UI.Xaml.Controls.RefreshContainer'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.RefreshContainer.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.RefreshContainer.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IRefreshContainerFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.RefreshContainer: ...
     @winrt_mixinmethod
@@ -23387,16 +22991,13 @@ class RefreshVisualizer(ComPtr, metaclass=_RefreshVisualizer_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Control
     default_interface: win32more.Windows.UI.Xaml.Controls.IRefreshVisualizer
     _classid_ = 'Windows.UI.Xaml.Controls.RefreshVisualizer'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.RefreshVisualizer.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.RefreshVisualizer.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IRefreshVisualizerFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.RefreshVisualizer: ...
     @winrt_mixinmethod
@@ -23451,16 +23052,13 @@ class RelativePanel(ComPtr, metaclass=_RelativePanel_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Panel
     default_interface: win32more.Windows.UI.Xaml.Controls.IRelativePanel
     _classid_ = 'Windows.UI.Xaml.Controls.RelativePanel'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.RelativePanel.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.RelativePanel.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IRelativePanelFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.RelativePanel: ...
     @winrt_mixinmethod
@@ -23625,16 +23223,13 @@ class RichEditBox(ComPtr, metaclass=_RichEditBox_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Control
     default_interface: win32more.Windows.UI.Xaml.Controls.IRichEditBox
     _classid_ = 'Windows.UI.Xaml.Controls.RichEditBox'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.RichEditBox.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.RichEditBox.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IRichEditBoxFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.RichEditBox: ...
     @winrt_mixinmethod
@@ -23962,16 +23557,13 @@ class RichTextBlock(ComPtr, metaclass=_RichTextBlock_Meta_):
     extends: win32more.Windows.UI.Xaml.FrameworkElement
     default_interface: win32more.Windows.UI.Xaml.Controls.IRichTextBlock
     _classid_ = 'Windows.UI.Xaml.Controls.RichTextBlock'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.RichTextBlock.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.RichTextBlock.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.RichTextBlock: ...
     @winrt_mixinmethod
@@ -24249,16 +23841,13 @@ class RichTextBlockOverflow(ComPtr, metaclass=_RichTextBlockOverflow_Meta_):
     extends: win32more.Windows.UI.Xaml.FrameworkElement
     default_interface: win32more.Windows.UI.Xaml.Controls.IRichTextBlockOverflow
     _classid_ = 'Windows.UI.Xaml.Controls.RichTextBlockOverflow'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.RichTextBlockOverflow.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.RichTextBlockOverflow.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.RichTextBlockOverflow: ...
     @winrt_mixinmethod
@@ -24323,16 +23912,13 @@ class RowDefinition(ComPtr, metaclass=_RowDefinition_Meta_):
     extends: win32more.Windows.UI.Xaml.DependencyObject
     default_interface: win32more.Windows.UI.Xaml.Controls.IRowDefinition
     _classid_ = 'Windows.UI.Xaml.Controls.RowDefinition'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.RowDefinition.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.RowDefinition.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.RowDefinition: ...
     @winrt_mixinmethod
@@ -24404,16 +23990,13 @@ class ScrollContentPresenter(ComPtr, metaclass=_ScrollContentPresenter_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.ContentPresenter
     default_interface: win32more.Windows.UI.Xaml.Controls.IScrollContentPresenter
     _classid_ = 'Windows.UI.Xaml.Controls.ScrollContentPresenter'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.ScrollContentPresenter.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.ScrollContentPresenter.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.ScrollContentPresenter: ...
     @winrt_mixinmethod
@@ -24508,16 +24091,13 @@ class ScrollViewer(ComPtr, metaclass=_ScrollViewer_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.ContentControl
     default_interface: win32more.Windows.UI.Xaml.Controls.IScrollViewer
     _classid_ = 'Windows.UI.Xaml.Controls.ScrollViewer'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.ScrollViewer.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.ScrollViewer.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.ScrollViewer: ...
     @winrt_mixinmethod
@@ -24932,16 +24512,13 @@ class ScrollViewerViewChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Controls.IScrollViewerViewChangedEventArgs
     _classid_ = 'Windows.UI.Xaml.Controls.ScrollViewerViewChangedEventArgs'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.ScrollViewerViewChangedEventArgs.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.ScrollViewerViewChangedEventArgs.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.ScrollViewerViewChangedEventArgs: ...
     @winrt_mixinmethod
@@ -24966,16 +24543,13 @@ class SearchBox(ComPtr, metaclass=_SearchBox_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Control
     default_interface: win32more.Windows.UI.Xaml.Controls.ISearchBox
     _classid_ = 'Windows.UI.Xaml.Controls.SearchBox'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.SearchBox.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.SearchBox.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.ISearchBoxFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.SearchBox: ...
     @winrt_mixinmethod
@@ -25081,16 +24655,13 @@ class SearchBoxResultSuggestionChosenEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Controls.ISearchBoxResultSuggestionChosenEventArgs
     _classid_ = 'Windows.UI.Xaml.Controls.SearchBoxResultSuggestionChosenEventArgs'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.SearchBoxResultSuggestionChosenEventArgs.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.SearchBoxResultSuggestionChosenEventArgs.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.SearchBoxResultSuggestionChosenEventArgs: ...
     @winrt_mixinmethod
@@ -25133,16 +24704,13 @@ class SelectionChangedEventArgs(ComPtr):
     extends: win32more.Windows.UI.Xaml.RoutedEventArgs
     default_interface: win32more.Windows.UI.Xaml.Controls.ISelectionChangedEventArgs
     _classid_ = 'Windows.UI.Xaml.Controls.SelectionChangedEventArgs'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 2:
-            instance = win32more.Windows.UI.Xaml.Controls.SelectionChangedEventArgs.CreateInstanceWithRemovedItemsAndAddedItems(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.SelectionChangedEventArgs.CreateInstanceWithRemovedItemsAndAddedItems(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithRemovedItemsAndAddedItems(cls: win32more.Windows.UI.Xaml.Controls.ISelectionChangedEventArgsFactory, removedItems: win32more.Windows.Foundation.Collections.IVector[win32more.Windows.Win32.System.WinRT.IInspectable], addedItems: win32more.Windows.Foundation.Collections.IVector[win32more.Windows.Win32.System.WinRT.IInspectable], baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.SelectionChangedEventArgs: ...
     @winrt_mixinmethod
@@ -25165,16 +24733,13 @@ class SemanticZoom(ComPtr, metaclass=_SemanticZoom_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Control
     default_interface: win32more.Windows.UI.Xaml.Controls.ISemanticZoom
     _classid_ = 'Windows.UI.Xaml.Controls.SemanticZoom'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.SemanticZoom.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.SemanticZoom.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.SemanticZoom: ...
     @winrt_mixinmethod
@@ -25231,16 +24796,13 @@ class SemanticZoomLocation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Controls.ISemanticZoomLocation
     _classid_ = 'Windows.UI.Xaml.Controls.SemanticZoomLocation'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.SemanticZoomLocation.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.SemanticZoomLocation.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.SemanticZoomLocation: ...
     @winrt_mixinmethod
@@ -25257,16 +24819,13 @@ class SemanticZoomViewChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Controls.ISemanticZoomViewChangedEventArgs
     _classid_ = 'Windows.UI.Xaml.Controls.SemanticZoomViewChangedEventArgs'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.SemanticZoomViewChangedEventArgs.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.SemanticZoomViewChangedEventArgs.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.SemanticZoomViewChangedEventArgs: ...
     @winrt_mixinmethod
@@ -25294,16 +24853,13 @@ class SettingsFlyout(ComPtr, metaclass=_SettingsFlyout_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.ContentControl
     default_interface: win32more.Windows.UI.Xaml.Controls.ISettingsFlyout
     _classid_ = 'Windows.UI.Xaml.Controls.SettingsFlyout'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.SettingsFlyout.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.SettingsFlyout.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.ISettingsFlyoutFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.SettingsFlyout: ...
     @winrt_mixinmethod
@@ -25357,16 +24913,13 @@ class Slider(ComPtr, metaclass=_Slider_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Primitives.RangeBase
     default_interface: win32more.Windows.UI.Xaml.Controls.ISlider
     _classid_ = 'Windows.UI.Xaml.Controls.Slider'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.Slider.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.Slider.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.ISliderFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Slider: ...
     @winrt_mixinmethod
@@ -25469,16 +25022,13 @@ class SplitButton(ComPtr, metaclass=_SplitButton_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.ContentControl
     default_interface: win32more.Windows.UI.Xaml.Controls.ISplitButton
     _classid_ = 'Windows.UI.Xaml.Controls.SplitButton'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.SplitButton.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.SplitButton.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.ISplitButtonFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.SplitButton: ...
     @winrt_mixinmethod
@@ -25513,16 +25063,13 @@ class SplitButtonAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Controls.ISplitButtonAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Controls.SplitButtonAutomationPeer'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.UI.Xaml.Controls.SplitButtonAutomationPeer.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.SplitButtonAutomationPeer.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.ISplitButtonAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.SplitButton, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.SplitButtonAutomationPeer: ...
     @winrt_mixinmethod
@@ -25544,16 +25091,13 @@ class SplitView(ComPtr, metaclass=_SplitView_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Control
     default_interface: win32more.Windows.UI.Xaml.Controls.ISplitView
     _classid_ = 'Windows.UI.Xaml.Controls.SplitView'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.SplitView.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.SplitView.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.ISplitViewFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.SplitView: ...
     @winrt_mixinmethod
@@ -25673,16 +25217,13 @@ class StackPanel(ComPtr, metaclass=_StackPanel_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Panel
     default_interface: win32more.Windows.UI.Xaml.Controls.IStackPanel
     _classid_ = 'Windows.UI.Xaml.Controls.StackPanel'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.StackPanel.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.StackPanel.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IStackPanelFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.StackPanel: ...
     @winrt_mixinmethod
@@ -25777,16 +25318,13 @@ class StyleSelector(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Controls.IStyleSelector
     _classid_ = 'Windows.UI.Xaml.Controls.StyleSelector'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.StyleSelector.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.StyleSelector.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IStyleSelectorFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.StyleSelector: ...
     @winrt_mixinmethod
@@ -25797,16 +25335,13 @@ class SwapChainBackgroundPanel(ComPtr):
     extends: win32more.Windows.UI.Xaml.Controls.Grid
     default_interface: win32more.Windows.UI.Xaml.Controls.ISwapChainBackgroundPanel
     _classid_ = 'Windows.UI.Xaml.Controls.SwapChainBackgroundPanel'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.SwapChainBackgroundPanel.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.SwapChainBackgroundPanel.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.ISwapChainBackgroundPanelFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.SwapChainBackgroundPanel: ...
     @winrt_mixinmethod
@@ -25817,16 +25352,13 @@ class SwapChainPanel(ComPtr, metaclass=_SwapChainPanel_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Grid
     default_interface: win32more.Windows.UI.Xaml.Controls.ISwapChainPanel
     _classid_ = 'Windows.UI.Xaml.Controls.SwapChainPanel'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.SwapChainPanel.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.SwapChainPanel.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.ISwapChainPanelFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.SwapChainPanel: ...
     @winrt_mixinmethod
@@ -25857,16 +25389,13 @@ class SwipeControl(ComPtr, metaclass=_SwipeControl_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.ContentControl
     default_interface: win32more.Windows.UI.Xaml.Controls.ISwipeControl
     _classid_ = 'Windows.UI.Xaml.Controls.SwipeControl'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.SwipeControl.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.SwipeControl.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.ISwipeControlFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.SwipeControl: ...
     @winrt_mixinmethod
@@ -25909,16 +25438,13 @@ class SwipeItem(ComPtr, metaclass=_SwipeItem_Meta_):
     extends: win32more.Windows.UI.Xaml.DependencyObject
     default_interface: win32more.Windows.UI.Xaml.Controls.ISwipeItem
     _classid_ = 'Windows.UI.Xaml.Controls.SwipeItem'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.SwipeItem.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.SwipeItem.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.ISwipeItemFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.SwipeItem: ...
     @winrt_mixinmethod
@@ -25994,16 +25520,13 @@ class SwipeItems(ComPtr, metaclass=_SwipeItems_Meta_):
     extends: win32more.Windows.UI.Xaml.DependencyObject
     default_interface: win32more.Windows.UI.Xaml.Controls.ISwipeItems
     _classid_ = 'Windows.UI.Xaml.Controls.SwipeItems'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.SwipeItems.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.SwipeItems.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.ISwipeItemsFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.SwipeItems: ...
     @winrt_mixinmethod
@@ -26248,18 +25771,15 @@ class SymbolIcon(ComPtr, metaclass=_SymbolIcon_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.IconElement
     default_interface: win32more.Windows.UI.Xaml.Controls.ISymbolIcon
     _classid_ = 'Windows.UI.Xaml.Controls.SymbolIcon'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.SymbolIcon.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.SymbolIcon.CreateInstance(*args)
         elif len(args) == 1:
-            instance = win32more.Windows.UI.Xaml.Controls.SymbolIcon.CreateInstanceWithSymbol(*args)
+            return win32more.Windows.UI.Xaml.Controls.SymbolIcon.CreateInstanceWithSymbol(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.SymbolIcon: ...
     @winrt_factorymethod
@@ -26278,16 +25798,13 @@ class SymbolIconSource(ComPtr, metaclass=_SymbolIconSource_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.IconSource
     default_interface: win32more.Windows.UI.Xaml.Controls.ISymbolIconSource
     _classid_ = 'Windows.UI.Xaml.Controls.SymbolIconSource'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.SymbolIconSource.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.SymbolIconSource.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.ISymbolIconSourceFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.SymbolIconSource: ...
     @winrt_mixinmethod
@@ -26304,16 +25821,13 @@ class TextBlock(ComPtr, metaclass=_TextBlock_Meta_):
     extends: win32more.Windows.UI.Xaml.FrameworkElement
     default_interface: win32more.Windows.UI.Xaml.Controls.ITextBlock
     _classid_ = 'Windows.UI.Xaml.Controls.TextBlock'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.TextBlock.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.TextBlock.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.TextBlock: ...
     @winrt_mixinmethod
@@ -26577,16 +26091,13 @@ class TextBox(ComPtr, metaclass=_TextBox_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Control
     default_interface: win32more.Windows.UI.Xaml.Controls.ITextBox
     _classid_ = 'Windows.UI.Xaml.Controls.TextBox'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.TextBox.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.TextBox.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.ITextBoxFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.TextBox: ...
     @winrt_mixinmethod
@@ -26946,16 +26457,13 @@ class TextCommandBarFlyout(ComPtr):
     extends: win32more.Windows.UI.Xaml.Controls.CommandBarFlyout
     default_interface: win32more.Windows.UI.Xaml.Controls.ITextCommandBarFlyout
     _classid_ = 'Windows.UI.Xaml.Controls.TextCommandBarFlyout'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.TextCommandBarFlyout.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.TextCommandBarFlyout.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.ITextCommandBarFlyoutFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.TextCommandBarFlyout: ...
 class TextCompositionChangedEventArgs(ComPtr):
@@ -27023,16 +26531,13 @@ class TimePickedEventArgs(ComPtr):
     extends: win32more.Windows.UI.Xaml.DependencyObject
     default_interface: win32more.Windows.UI.Xaml.Controls.ITimePickedEventArgs
     _classid_ = 'Windows.UI.Xaml.Controls.TimePickedEventArgs'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.TimePickedEventArgs.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.TimePickedEventArgs.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.TimePickedEventArgs: ...
     @winrt_mixinmethod
@@ -27047,16 +26552,13 @@ class TimePicker(ComPtr, metaclass=_TimePicker_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Control
     default_interface: win32more.Windows.UI.Xaml.Controls.ITimePicker
     _classid_ = 'Windows.UI.Xaml.Controls.TimePicker'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.TimePicker.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.TimePicker.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.ITimePickerFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.TimePicker: ...
     @winrt_mixinmethod
@@ -27129,16 +26631,13 @@ class TimePickerFlyout(ComPtr, metaclass=_TimePickerFlyout_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Primitives.PickerFlyoutBase
     default_interface: win32more.Windows.UI.Xaml.Controls.ITimePickerFlyout
     _classid_ = 'Windows.UI.Xaml.Controls.TimePickerFlyout'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.TimePickerFlyout.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.TimePickerFlyout.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.TimePickerFlyout: ...
     @winrt_mixinmethod
@@ -27211,16 +26710,13 @@ class ToggleMenuFlyoutItem(ComPtr, metaclass=_ToggleMenuFlyoutItem_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.MenuFlyoutItem
     default_interface: win32more.Windows.UI.Xaml.Controls.IToggleMenuFlyoutItem
     _classid_ = 'Windows.UI.Xaml.Controls.ToggleMenuFlyoutItem'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.ToggleMenuFlyoutItem.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.ToggleMenuFlyoutItem.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IToggleMenuFlyoutItemFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.ToggleMenuFlyoutItem: ...
     @winrt_mixinmethod
@@ -27235,16 +26731,13 @@ class ToggleSplitButton(ComPtr):
     extends: win32more.Windows.UI.Xaml.Controls.SplitButton
     default_interface: win32more.Windows.UI.Xaml.Controls.IToggleSplitButton
     _classid_ = 'Windows.UI.Xaml.Controls.ToggleSplitButton'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.ToggleSplitButton.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.ToggleSplitButton.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IToggleSplitButtonFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.ToggleSplitButton: ...
     @winrt_mixinmethod
@@ -27260,16 +26753,13 @@ class ToggleSplitButtonAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Controls.IToggleSplitButtonAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Controls.ToggleSplitButtonAutomationPeer'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.UI.Xaml.Controls.ToggleSplitButtonAutomationPeer.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.ToggleSplitButtonAutomationPeer.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IToggleSplitButtonAutomationPeerFactory, owner: win32more.Windows.UI.Xaml.Controls.ToggleSplitButton, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.ToggleSplitButtonAutomationPeer: ...
     @winrt_mixinmethod
@@ -27294,16 +26784,13 @@ class ToggleSwitch(ComPtr, metaclass=_ToggleSwitch_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Control
     default_interface: win32more.Windows.UI.Xaml.Controls.IToggleSwitch
     _classid_ = 'Windows.UI.Xaml.Controls.ToggleSwitch'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.ToggleSwitch.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.ToggleSwitch.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.ToggleSwitch: ...
     @winrt_mixinmethod
@@ -27383,16 +26870,13 @@ class ToolTip(ComPtr, metaclass=_ToolTip_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.ContentControl
     default_interface: win32more.Windows.UI.Xaml.Controls.IToolTip
     _classid_ = 'Windows.UI.Xaml.Controls.ToolTip'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.ToolTip.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.ToolTip.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IToolTipFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.ToolTip: ...
     @winrt_mixinmethod
@@ -27487,16 +26971,13 @@ class TreeView(ComPtr, metaclass=_TreeView_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Control
     default_interface: win32more.Windows.UI.Xaml.Controls.ITreeView
     _classid_ = 'Windows.UI.Xaml.Controls.TreeView'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.TreeView.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.TreeView.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.ITreeViewFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.TreeView: ...
     @winrt_mixinmethod
@@ -27662,16 +27143,13 @@ class TreeViewItem(ComPtr, metaclass=_TreeViewItem_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.ListViewItem
     default_interface: win32more.Windows.UI.Xaml.Controls.ITreeViewItem
     _classid_ = 'Windows.UI.Xaml.Controls.TreeViewItem'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.TreeViewItem.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.TreeViewItem.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.ITreeViewItemFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.TreeViewItem: ...
     @winrt_mixinmethod
@@ -27762,16 +27240,13 @@ class TreeViewItemTemplateSettings(ComPtr, metaclass=_TreeViewItemTemplateSettin
     extends: win32more.Windows.UI.Xaml.DependencyObject
     default_interface: win32more.Windows.UI.Xaml.Controls.ITreeViewItemTemplateSettings
     _classid_ = 'Windows.UI.Xaml.Controls.TreeViewItemTemplateSettings'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.TreeViewItemTemplateSettings.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.TreeViewItemTemplateSettings.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.ITreeViewItemTemplateSettingsFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.TreeViewItemTemplateSettings: ...
     @winrt_mixinmethod
@@ -27802,16 +27277,13 @@ class TreeViewList(ComPtr):
     extends: win32more.Windows.UI.Xaml.Controls.ListView
     default_interface: win32more.Windows.UI.Xaml.Controls.ITreeViewList
     _classid_ = 'Windows.UI.Xaml.Controls.TreeViewList'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.TreeViewList.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.TreeViewList.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.ITreeViewListFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.TreeViewList: ...
 class _TreeViewNode_Meta_(ComPtr.__class__):
@@ -27820,16 +27292,13 @@ class TreeViewNode(ComPtr, metaclass=_TreeViewNode_Meta_):
     extends: win32more.Windows.UI.Xaml.DependencyObject
     default_interface: win32more.Windows.UI.Xaml.Controls.ITreeViewNode
     _classid_ = 'Windows.UI.Xaml.Controls.TreeViewNode'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.TreeViewNode.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.TreeViewNode.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.ITreeViewNodeFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.TreeViewNode: ...
     @winrt_mixinmethod
@@ -27881,16 +27350,13 @@ class TwoPaneView(ComPtr, metaclass=_TwoPaneView_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Control
     default_interface: win32more.Windows.UI.Xaml.Controls.ITwoPaneView
     _classid_ = 'Windows.UI.Xaml.Controls.TwoPaneView'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.TwoPaneView.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.TwoPaneView.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.ITwoPaneViewFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.TwoPaneView: ...
     @winrt_mixinmethod
@@ -28029,16 +27495,13 @@ class UserControl(ComPtr, metaclass=_UserControl_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Control
     default_interface: win32more.Windows.UI.Xaml.Controls.IUserControl
     _classid_ = 'Windows.UI.Xaml.Controls.UserControl'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.UserControl.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.UserControl.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.IUserControlFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.UserControl: ...
     @winrt_mixinmethod
@@ -28055,16 +27518,13 @@ class VariableSizedWrapGrid(ComPtr, metaclass=_VariableSizedWrapGrid_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Panel
     default_interface: win32more.Windows.UI.Xaml.Controls.IVariableSizedWrapGrid
     _classid_ = 'Windows.UI.Xaml.Controls.VariableSizedWrapGrid'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.VariableSizedWrapGrid.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.VariableSizedWrapGrid.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.VariableSizedWrapGrid: ...
     @winrt_mixinmethod
@@ -28135,16 +27595,13 @@ class Viewbox(ComPtr, metaclass=_Viewbox_Meta_):
     extends: win32more.Windows.UI.Xaml.FrameworkElement
     default_interface: win32more.Windows.UI.Xaml.Controls.IViewbox
     _classid_ = 'Windows.UI.Xaml.Controls.Viewbox'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.Viewbox.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.Viewbox.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.Viewbox: ...
     @winrt_mixinmethod
@@ -28196,16 +27653,13 @@ class VirtualizingStackPanel(ComPtr, metaclass=_VirtualizingStackPanel_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Primitives.OrientedVirtualizingPanel
     default_interface: win32more.Windows.UI.Xaml.Controls.IVirtualizingStackPanel
     _classid_ = 'Windows.UI.Xaml.Controls.VirtualizingStackPanel'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.VirtualizingStackPanel.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.VirtualizingStackPanel.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.VirtualizingStackPanel: ...
     @winrt_mixinmethod
@@ -28248,18 +27702,15 @@ class WebView(ComPtr, metaclass=_WebView_Meta_):
     extends: win32more.Windows.UI.Xaml.FrameworkElement
     default_interface: win32more.Windows.UI.Xaml.Controls.IWebView
     _classid_ = 'Windows.UI.Xaml.Controls.WebView'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.WebView.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.WebView.CreateInstance(*args)
         elif len(args) == 1:
-            instance = win32more.Windows.UI.Xaml.Controls.WebView.CreateInstanceWithExecutionMode(*args)
+            return win32more.Windows.UI.Xaml.Controls.WebView.CreateInstanceWithExecutionMode(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.WebView: ...
     @winrt_factorymethod
@@ -28485,16 +27936,13 @@ class WebViewBrush(ComPtr, metaclass=_WebViewBrush_Meta_):
     extends: win32more.Windows.UI.Xaml.Media.TileBrush
     default_interface: win32more.Windows.UI.Xaml.Controls.IWebViewBrush
     _classid_ = 'Windows.UI.Xaml.Controls.WebViewBrush'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.WebViewBrush.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.WebViewBrush.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.WebViewBrush: ...
     @winrt_mixinmethod
@@ -28715,16 +28163,13 @@ class WrapGrid(ComPtr, metaclass=_WrapGrid_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Primitives.OrientedVirtualizingPanel
     default_interface: win32more.Windows.UI.Xaml.Controls.IWrapGrid
     _classid_ = 'Windows.UI.Xaml.Controls.WrapGrid'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.WrapGrid.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.WrapGrid.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.WrapGrid: ...
     @winrt_mixinmethod

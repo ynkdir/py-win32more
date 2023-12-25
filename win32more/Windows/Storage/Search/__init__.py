@@ -364,16 +364,13 @@ class IndexableContent(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Storage.Search.IIndexableContent
     _classid_ = 'Windows.Storage.Search.IndexableContent'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Storage.Search.IndexableContent.CreateInstance(*args)
+            return win32more.Windows.Storage.Search.IndexableContent.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Storage.Search.IndexableContent: ...
     @winrt_mixinmethod
@@ -408,20 +405,17 @@ class QueryOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Storage.Search.IQueryOptions
     _classid_ = 'Windows.Storage.Search.QueryOptions'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Storage.Search.QueryOptions.CreateInstance(*args)
+            return win32more.Windows.Storage.Search.QueryOptions.CreateInstance(*args)
         elif len(args) == 1:
-            instance = win32more.Windows.Storage.Search.QueryOptions.CreateCommonFolderQuery(*args)
+            return win32more.Windows.Storage.Search.QueryOptions.CreateCommonFolderQuery(*args)
         elif len(args) == 2:
-            instance = win32more.Windows.Storage.Search.QueryOptions.CreateCommonFileQuery(*args)
+            return win32more.Windows.Storage.Search.QueryOptions.CreateCommonFileQuery(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Storage.Search.QueryOptions: ...
     @winrt_factorymethod
@@ -616,16 +610,13 @@ class ValueAndLanguage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Storage.Search.IValueAndLanguage
     _classid_ = 'Windows.Storage.Search.ValueAndLanguage'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Storage.Search.ValueAndLanguage.CreateInstance(*args)
+            return win32more.Windows.Storage.Search.ValueAndLanguage.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Storage.Search.ValueAndLanguage: ...
     @winrt_mixinmethod

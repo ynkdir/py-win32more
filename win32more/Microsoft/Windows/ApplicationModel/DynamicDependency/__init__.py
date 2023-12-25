@@ -21,16 +21,13 @@ class AddPackageDependencyOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Windows.ApplicationModel.DynamicDependency.IAddPackageDependencyOptions
     _classid_ = 'Microsoft.Windows.ApplicationModel.DynamicDependency.AddPackageDependencyOptions'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Microsoft.Windows.ApplicationModel.DynamicDependency.AddPackageDependencyOptions.CreateInstance(*args)
+            return win32more.Microsoft.Windows.ApplicationModel.DynamicDependency.AddPackageDependencyOptions.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Microsoft.Windows.ApplicationModel.DynamicDependency.AddPackageDependencyOptions: ...
     @winrt_mixinmethod
@@ -47,16 +44,13 @@ class CreatePackageDependencyOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Windows.ApplicationModel.DynamicDependency.ICreatePackageDependencyOptions
     _classid_ = 'Microsoft.Windows.ApplicationModel.DynamicDependency.CreatePackageDependencyOptions'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Microsoft.Windows.ApplicationModel.DynamicDependency.CreatePackageDependencyOptions.CreateInstance(*args)
+            return win32more.Microsoft.Windows.ApplicationModel.DynamicDependency.CreatePackageDependencyOptions.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Microsoft.Windows.ApplicationModel.DynamicDependency.CreatePackageDependencyOptions: ...
     @winrt_mixinmethod
@@ -218,16 +212,13 @@ class PackageDependencyContext(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Windows.ApplicationModel.DynamicDependency.IPackageDependencyContext
     _classid_ = 'Microsoft.Windows.ApplicationModel.DynamicDependency.PackageDependencyContext'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Microsoft.Windows.ApplicationModel.DynamicDependency.PackageDependencyContext.CreateInstance(*args)
+            return win32more.Microsoft.Windows.ApplicationModel.DynamicDependency.PackageDependencyContext.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Microsoft.Windows.ApplicationModel.DynamicDependency.IPackageDependencyContextFactory, contextId: win32more.Microsoft.Windows.ApplicationModel.DynamicDependency.PackageDependencyContextId) -> win32more.Microsoft.Windows.ApplicationModel.DynamicDependency.PackageDependencyContext: ...
     @winrt_mixinmethod

@@ -659,16 +659,13 @@ class HumanPresenceSensorReadingUpdate(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Sensors.IHumanPresenceSensorReadingUpdate
     _classid_ = 'Windows.Devices.Sensors.HumanPresenceSensorReadingUpdate'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Devices.Sensors.HumanPresenceSensorReadingUpdate.CreateInstance(*args)
+            return win32more.Windows.Devices.Sensors.HumanPresenceSensorReadingUpdate.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Devices.Sensors.HumanPresenceSensorReadingUpdate: ...
     @winrt_mixinmethod
@@ -2805,16 +2802,13 @@ class PedometerDataThreshold(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Sensors.ISensorDataThreshold
     _classid_ = 'Windows.Devices.Sensors.PedometerDataThreshold'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 2:
-            instance = win32more.Windows.Devices.Sensors.PedometerDataThreshold.Create(*args)
+            return win32more.Windows.Devices.Sensors.PedometerDataThreshold.Create(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.Devices.Sensors.IPedometerDataThresholdFactory, sensor: win32more.Windows.Devices.Sensors.Pedometer, stepGoal: Int32) -> win32more.Windows.Devices.Sensors.PedometerDataThreshold: ...
 class PedometerReading(ComPtr):
@@ -2875,16 +2869,13 @@ class ProximitySensorDataThreshold(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Sensors.ISensorDataThreshold
     _classid_ = 'Windows.Devices.Sensors.ProximitySensorDataThreshold'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.Devices.Sensors.ProximitySensorDataThreshold.Create(*args)
+            return win32more.Windows.Devices.Sensors.ProximitySensorDataThreshold.Create(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.Devices.Sensors.IProximitySensorDataThresholdFactory, sensor: win32more.Windows.Devices.Sensors.ProximitySensor) -> win32more.Windows.Devices.Sensors.ProximitySensorDataThreshold: ...
 class ProximitySensorDisplayOnOffController(ComPtr):

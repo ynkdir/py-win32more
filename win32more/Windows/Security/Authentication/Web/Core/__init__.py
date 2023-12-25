@@ -295,16 +295,13 @@ class WebProviderError(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Authentication.Web.Core.IWebProviderError
     _classid_ = 'Windows.Security.Authentication.Web.Core.WebProviderError'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 2:
-            instance = win32more.Windows.Security.Authentication.Web.Core.WebProviderError.Create(*args)
+            return win32more.Windows.Security.Authentication.Web.Core.WebProviderError.Create(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.Security.Authentication.Web.Core.IWebProviderErrorFactory, errorCode: UInt32, errorMessage: WinRT_String) -> win32more.Windows.Security.Authentication.Web.Core.WebProviderError: ...
     @winrt_mixinmethod
@@ -320,22 +317,19 @@ class WebTokenRequest(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Authentication.Web.Core.IWebTokenRequest
     _classid_ = 'Windows.Security.Authentication.Web.Core.WebTokenRequest'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.Security.Authentication.Web.Core.WebTokenRequest.CreateWithProvider(*args)
+            return win32more.Windows.Security.Authentication.Web.Core.WebTokenRequest.CreateWithProvider(*args)
         elif len(args) == 2:
-            instance = win32more.Windows.Security.Authentication.Web.Core.WebTokenRequest.CreateWithScope(*args)
+            return win32more.Windows.Security.Authentication.Web.Core.WebTokenRequest.CreateWithScope(*args)
         elif len(args) == 3:
-            instance = win32more.Windows.Security.Authentication.Web.Core.WebTokenRequest.Create(*args)
+            return win32more.Windows.Security.Authentication.Web.Core.WebTokenRequest.Create(*args)
         elif len(args) == 4:
-            instance = win32more.Windows.Security.Authentication.Web.Core.WebTokenRequest.CreateWithPromptType(*args)
+            return win32more.Windows.Security.Authentication.Web.Core.WebTokenRequest.CreateWithPromptType(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateWithProvider(cls: win32more.Windows.Security.Authentication.Web.Core.IWebTokenRequestFactory, provider: win32more.Windows.Security.Credentials.WebAccountProvider) -> win32more.Windows.Security.Authentication.Web.Core.WebTokenRequest: ...
     @winrt_factorymethod
@@ -396,22 +390,19 @@ class WebTokenResponse(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Authentication.Web.Core.IWebTokenResponse
     _classid_ = 'Windows.Security.Authentication.Web.Core.WebTokenResponse'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Security.Authentication.Web.Core.WebTokenResponse.CreateInstance(*args)
+            return win32more.Windows.Security.Authentication.Web.Core.WebTokenResponse.CreateInstance(*args)
         elif len(args) == 1:
-            instance = win32more.Windows.Security.Authentication.Web.Core.WebTokenResponse.CreateWithToken(*args)
+            return win32more.Windows.Security.Authentication.Web.Core.WebTokenResponse.CreateWithToken(*args)
         elif len(args) == 2:
-            instance = win32more.Windows.Security.Authentication.Web.Core.WebTokenResponse.CreateWithTokenAndAccount(*args)
+            return win32more.Windows.Security.Authentication.Web.Core.WebTokenResponse.CreateWithTokenAndAccount(*args)
         elif len(args) == 3:
-            instance = win32more.Windows.Security.Authentication.Web.Core.WebTokenResponse.CreateWithTokenAccountAndError(*args)
+            return win32more.Windows.Security.Authentication.Web.Core.WebTokenResponse.CreateWithTokenAccountAndError(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Security.Authentication.Web.Core.WebTokenResponse: ...
     @winrt_factorymethod

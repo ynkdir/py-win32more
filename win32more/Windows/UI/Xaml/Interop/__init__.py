@@ -126,16 +126,13 @@ class NotifyCollectionChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Interop.INotifyCollectionChangedEventArgs
     _classid_ = 'Windows.UI.Xaml.Interop.NotifyCollectionChangedEventArgs'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 5:
-            instance = win32more.Windows.UI.Xaml.Interop.NotifyCollectionChangedEventArgs.CreateInstanceWithAllParameters(*args, None, None)
+            return win32more.Windows.UI.Xaml.Interop.NotifyCollectionChangedEventArgs.CreateInstanceWithAllParameters(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithAllParameters(cls: win32more.Windows.UI.Xaml.Interop.INotifyCollectionChangedEventArgsFactory, action: win32more.Windows.UI.Xaml.Interop.NotifyCollectionChangedAction, newItems: win32more.Windows.UI.Xaml.Interop.IBindableVector, oldItems: win32more.Windows.UI.Xaml.Interop.IBindableVector, newIndex: Int32, oldIndex: Int32, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Interop.NotifyCollectionChangedEventArgs: ...
     @winrt_mixinmethod

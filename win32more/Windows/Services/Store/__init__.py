@@ -988,16 +988,13 @@ class StorePackageInstallOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Services.Store.IStorePackageInstallOptions
     _classid_ = 'Windows.Services.Store.StorePackageInstallOptions'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Services.Store.StorePackageInstallOptions.CreateInstance(*args)
+            return win32more.Windows.Services.Store.StorePackageInstallOptions.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Services.Store.StorePackageInstallOptions: ...
     @winrt_mixinmethod
@@ -1153,16 +1150,13 @@ class StoreProductOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Services.Store.IStoreProductOptions
     _classid_ = 'Windows.Services.Store.StoreProductOptions'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Services.Store.StoreProductOptions.CreateInstance(*args)
+            return win32more.Windows.Services.Store.StoreProductOptions.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Services.Store.StoreProductOptions: ...
     @winrt_mixinmethod
@@ -1207,18 +1201,15 @@ class StorePurchaseProperties(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Services.Store.IStorePurchaseProperties
     _classid_ = 'Windows.Services.Store.StorePurchaseProperties'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Services.Store.StorePurchaseProperties.CreateInstance(*args)
+            return win32more.Windows.Services.Store.StorePurchaseProperties.CreateInstance(*args)
         elif len(args) == 1:
-            instance = win32more.Windows.Services.Store.StorePurchaseProperties.Create(*args)
+            return win32more.Windows.Services.Store.StorePurchaseProperties.Create(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Services.Store.StorePurchaseProperties: ...
     @winrt_factorymethod

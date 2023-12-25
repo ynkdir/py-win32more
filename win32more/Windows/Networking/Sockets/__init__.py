@@ -36,18 +36,15 @@ class ControlChannelTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Sockets.IControlChannelTrigger
     _classid_ = 'Windows.Networking.Sockets.ControlChannelTrigger'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 2:
-            instance = win32more.Windows.Networking.Sockets.ControlChannelTrigger.CreateControlChannelTrigger(*args)
+            return win32more.Windows.Networking.Sockets.ControlChannelTrigger.CreateControlChannelTrigger(*args)
         elif len(args) == 3:
-            instance = win32more.Windows.Networking.Sockets.ControlChannelTrigger.CreateControlChannelTriggerEx(*args)
+            return win32more.Windows.Networking.Sockets.ControlChannelTrigger.CreateControlChannelTriggerEx(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateControlChannelTrigger(cls: win32more.Windows.Networking.Sockets.IControlChannelTriggerFactory, channelId: WinRT_String, serverKeepAliveIntervalInMinutes: UInt32) -> win32more.Windows.Networking.Sockets.ControlChannelTrigger: ...
     @winrt_factorymethod
@@ -106,16 +103,13 @@ class DatagramSocket(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Sockets.IDatagramSocket
     _classid_ = 'Windows.Networking.Sockets.DatagramSocket'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Networking.Sockets.DatagramSocket.CreateInstance(*args)
+            return win32more.Windows.Networking.Sockets.DatagramSocket.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Networking.Sockets.DatagramSocket: ...
     @winrt_mixinmethod
@@ -1061,16 +1055,13 @@ class MessageWebSocket(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Sockets.IMessageWebSocket
     _classid_ = 'Windows.Networking.Sockets.MessageWebSocket'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Networking.Sockets.MessageWebSocket.CreateInstance(*args)
+            return win32more.Windows.Networking.Sockets.MessageWebSocket.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Networking.Sockets.MessageWebSocket: ...
     @winrt_mixinmethod
@@ -1294,16 +1285,13 @@ class SocketActivityContext(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Sockets.ISocketActivityContext
     _classid_ = 'Windows.Networking.Sockets.SocketActivityContext'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.Networking.Sockets.SocketActivityContext.Create(*args)
+            return win32more.Windows.Networking.Sockets.SocketActivityContext.Create(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.Networking.Sockets.ISocketActivityContextFactory, data: win32more.Windows.Storage.Streams.IBuffer) -> win32more.Windows.Networking.Sockets.SocketActivityContext: ...
     @winrt_mixinmethod
@@ -1422,16 +1410,13 @@ class StreamSocket(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Sockets.IStreamSocket
     _classid_ = 'Windows.Networking.Sockets.StreamSocket'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Networking.Sockets.StreamSocket.CreateInstance(*args)
+            return win32more.Windows.Networking.Sockets.StreamSocket.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Networking.Sockets.StreamSocket: ...
     @winrt_mixinmethod
@@ -1573,16 +1558,13 @@ class StreamSocketListener(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Sockets.IStreamSocketListener
     _classid_ = 'Windows.Networking.Sockets.StreamSocketListener'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Networking.Sockets.StreamSocketListener.CreateInstance(*args)
+            return win32more.Windows.Networking.Sockets.StreamSocketListener.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Networking.Sockets.StreamSocketListener: ...
     @winrt_mixinmethod
@@ -1662,16 +1644,13 @@ class StreamWebSocket(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Sockets.IStreamWebSocket
     _classid_ = 'Windows.Networking.Sockets.StreamWebSocket'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Networking.Sockets.StreamWebSocket.CreateInstance(*args)
+            return win32more.Windows.Networking.Sockets.StreamWebSocket.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Networking.Sockets.StreamWebSocket: ...
     @winrt_mixinmethod
@@ -1789,16 +1768,13 @@ class WebSocketKeepAlive(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.IBackgroundTask
     _classid_ = 'Windows.Networking.Sockets.WebSocketKeepAlive'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Networking.Sockets.WebSocketKeepAlive.CreateInstance(*args)
+            return win32more.Windows.Networking.Sockets.WebSocketKeepAlive.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Networking.Sockets.WebSocketKeepAlive: ...
     @winrt_mixinmethod

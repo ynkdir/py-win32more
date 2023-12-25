@@ -33,16 +33,13 @@ class DesignerAppManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Hosting.IDesignerAppManager
     _classid_ = 'Windows.UI.Xaml.Hosting.DesignerAppManager'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.UI.Xaml.Hosting.DesignerAppManager.Create(*args)
+            return win32more.Windows.UI.Xaml.Hosting.DesignerAppManager.Create(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.UI.Xaml.Hosting.IDesignerAppManagerFactory, appUserModelId: WinRT_String) -> win32more.Windows.UI.Xaml.Hosting.DesignerAppManager: ...
     @winrt_mixinmethod
@@ -85,16 +82,13 @@ class DesktopWindowXamlSource(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Hosting.IDesktopWindowXamlSource
     _classid_ = 'Windows.UI.Xaml.Hosting.DesktopWindowXamlSource'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Hosting.DesktopWindowXamlSource.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Hosting.DesktopWindowXamlSource.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Hosting.IDesktopWindowXamlSourceFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Hosting.DesktopWindowXamlSource: ...
     @winrt_mixinmethod
@@ -411,20 +405,17 @@ class XamlSourceFocusNavigationRequest(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Hosting.IXamlSourceFocusNavigationRequest
     _classid_ = 'Windows.UI.Xaml.Hosting.XamlSourceFocusNavigationRequest'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.UI.Xaml.Hosting.XamlSourceFocusNavigationRequest.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Hosting.XamlSourceFocusNavigationRequest.CreateInstance(*args)
         elif len(args) == 2:
-            instance = win32more.Windows.UI.Xaml.Hosting.XamlSourceFocusNavigationRequest.CreateInstanceWithHintRect(*args)
+            return win32more.Windows.UI.Xaml.Hosting.XamlSourceFocusNavigationRequest.CreateInstanceWithHintRect(*args)
         elif len(args) == 3:
-            instance = win32more.Windows.UI.Xaml.Hosting.XamlSourceFocusNavigationRequest.CreateInstanceWithHintRectAndCorrelationId(*args)
+            return win32more.Windows.UI.Xaml.Hosting.XamlSourceFocusNavigationRequest.CreateInstanceWithHintRectAndCorrelationId(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Hosting.IXamlSourceFocusNavigationRequestFactory, reason: win32more.Windows.UI.Xaml.Hosting.XamlSourceFocusNavigationReason) -> win32more.Windows.UI.Xaml.Hosting.XamlSourceFocusNavigationRequest: ...
     @winrt_factorymethod
@@ -444,16 +435,13 @@ class XamlSourceFocusNavigationResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Hosting.IXamlSourceFocusNavigationResult
     _classid_ = 'Windows.UI.Xaml.Hosting.XamlSourceFocusNavigationResult'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.UI.Xaml.Hosting.XamlSourceFocusNavigationResult.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Hosting.XamlSourceFocusNavigationResult.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Hosting.IXamlSourceFocusNavigationResultFactory, focusMoved: Boolean) -> win32more.Windows.UI.Xaml.Hosting.XamlSourceFocusNavigationResult: ...
     @winrt_mixinmethod

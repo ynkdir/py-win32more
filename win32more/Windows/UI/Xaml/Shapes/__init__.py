@@ -23,16 +23,13 @@ class Ellipse(ComPtr):
     extends: win32more.Windows.UI.Xaml.Shapes.Shape
     default_interface: win32more.Windows.UI.Xaml.Shapes.IEllipse
     _classid_ = 'Windows.UI.Xaml.Shapes.Ellipse'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Shapes.Ellipse.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Shapes.Ellipse.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Shapes.Ellipse: ...
 class IEllipse(ComPtr):
@@ -290,16 +287,13 @@ class Line(ComPtr, metaclass=_Line_Meta_):
     extends: win32more.Windows.UI.Xaml.Shapes.Shape
     default_interface: win32more.Windows.UI.Xaml.Shapes.ILine
     _classid_ = 'Windows.UI.Xaml.Shapes.Line'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Shapes.Line.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Shapes.Line.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Shapes.Line: ...
     @winrt_mixinmethod
@@ -340,16 +334,13 @@ class Path(ComPtr, metaclass=_Path_Meta_):
     extends: win32more.Windows.UI.Xaml.Shapes.Shape
     default_interface: win32more.Windows.UI.Xaml.Shapes.IPath
     _classid_ = 'Windows.UI.Xaml.Shapes.Path'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Shapes.Path.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Shapes.Path.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Shapes.IPathFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Shapes.Path: ...
     @winrt_mixinmethod
@@ -366,16 +357,13 @@ class Polygon(ComPtr, metaclass=_Polygon_Meta_):
     extends: win32more.Windows.UI.Xaml.Shapes.Shape
     default_interface: win32more.Windows.UI.Xaml.Shapes.IPolygon
     _classid_ = 'Windows.UI.Xaml.Shapes.Polygon'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Shapes.Polygon.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Shapes.Polygon.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Shapes.Polygon: ...
     @winrt_mixinmethod
@@ -400,16 +388,13 @@ class Polyline(ComPtr, metaclass=_Polyline_Meta_):
     extends: win32more.Windows.UI.Xaml.Shapes.Shape
     default_interface: win32more.Windows.UI.Xaml.Shapes.IPolyline
     _classid_ = 'Windows.UI.Xaml.Shapes.Polyline'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Shapes.Polyline.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Shapes.Polyline.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Shapes.Polyline: ...
     @winrt_mixinmethod
@@ -434,16 +419,13 @@ class Rectangle(ComPtr, metaclass=_Rectangle_Meta_):
     extends: win32more.Windows.UI.Xaml.Shapes.Shape
     default_interface: win32more.Windows.UI.Xaml.Shapes.IRectangle
     _classid_ = 'Windows.UI.Xaml.Shapes.Rectangle'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Shapes.Rectangle.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Shapes.Rectangle.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Shapes.Rectangle: ...
     @winrt_mixinmethod
@@ -468,16 +450,13 @@ class Shape(ComPtr, metaclass=_Shape_Meta_):
     extends: win32more.Windows.UI.Xaml.FrameworkElement
     default_interface: win32more.Windows.UI.Xaml.Shapes.IShape
     _classid_ = 'Windows.UI.Xaml.Shapes.Shape'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Shapes.Shape.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Shapes.Shape.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Shapes.IShapeFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Shapes.Shape: ...
     @winrt_mixinmethod

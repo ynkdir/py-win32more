@@ -29,16 +29,13 @@ class CustomMapTileDataSource(ComPtr):
     extends: win32more.Windows.UI.Xaml.Controls.Maps.MapTileDataSource
     default_interface: win32more.Windows.UI.Xaml.Controls.Maps.ICustomMapTileDataSource
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.CustomMapTileDataSource'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.Maps.CustomMapTileDataSource.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.Maps.CustomMapTileDataSource.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.Maps.ICustomMapTileDataSourceFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Maps.CustomMapTileDataSource: ...
     @winrt_mixinmethod
@@ -49,18 +46,15 @@ class HttpMapTileDataSource(ComPtr):
     extends: win32more.Windows.UI.Xaml.Controls.Maps.MapTileDataSource
     default_interface: win32more.Windows.UI.Xaml.Controls.Maps.IHttpMapTileDataSource
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.HttpMapTileDataSource'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.Maps.HttpMapTileDataSource.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.Maps.HttpMapTileDataSource.CreateInstance(*args, None, None)
         elif len(args) == 1:
-            instance = win32more.Windows.UI.Xaml.Controls.Maps.HttpMapTileDataSource.CreateInstanceWithUriFormatString(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.Maps.HttpMapTileDataSource.CreateInstanceWithUriFormatString(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.Maps.IHttpMapTileDataSourceFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Maps.HttpMapTileDataSource: ...
     @winrt_factorymethod
@@ -2051,18 +2045,15 @@ class LocalMapTileDataSource(ComPtr):
     extends: win32more.Windows.UI.Xaml.Controls.Maps.MapTileDataSource
     default_interface: win32more.Windows.UI.Xaml.Controls.Maps.ILocalMapTileDataSource
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.LocalMapTileDataSource'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.Maps.LocalMapTileDataSource.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.Maps.LocalMapTileDataSource.CreateInstance(*args, None, None)
         elif len(args) == 1:
-            instance = win32more.Windows.UI.Xaml.Controls.Maps.LocalMapTileDataSource.CreateInstanceWithUriFormatString(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.Maps.LocalMapTileDataSource.CreateInstanceWithUriFormatString(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.Maps.ILocalMapTileDataSourceFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Maps.LocalMapTileDataSource: ...
     @winrt_factorymethod
@@ -2080,16 +2071,13 @@ class MapActualCameraChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Controls.Maps.IMapActualCameraChangedEventArgs
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.MapActualCameraChangedEventArgs'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.Maps.MapActualCameraChangedEventArgs.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.Maps.MapActualCameraChangedEventArgs.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.Maps.MapActualCameraChangedEventArgs: ...
     @winrt_mixinmethod
@@ -2102,16 +2090,13 @@ class MapActualCameraChangingEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Controls.Maps.IMapActualCameraChangingEventArgs
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.MapActualCameraChangingEventArgs'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.Maps.MapActualCameraChangingEventArgs.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.Maps.MapActualCameraChangingEventArgs.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.Maps.MapActualCameraChangingEventArgs: ...
     @winrt_mixinmethod
@@ -2131,16 +2116,13 @@ class MapBillboard(ComPtr, metaclass=_MapBillboard_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Maps.MapElement
     default_interface: win32more.Windows.UI.Xaml.Controls.Maps.IMapBillboard
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.MapBillboard'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.UI.Xaml.Controls.Maps.MapBillboard.CreateInstanceFromCamera(*args)
+            return win32more.Windows.UI.Xaml.Controls.Maps.MapBillboard.CreateInstanceFromCamera(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstanceFromCamera(cls: win32more.Windows.UI.Xaml.Controls.Maps.IMapBillboardFactory, camera: win32more.Windows.UI.Xaml.Controls.Maps.MapCamera) -> win32more.Windows.UI.Xaml.Controls.Maps.MapBillboard: ...
     @winrt_mixinmethod
@@ -2179,22 +2161,19 @@ class MapCamera(ComPtr):
     extends: win32more.Windows.UI.Xaml.DependencyObject
     default_interface: win32more.Windows.UI.Xaml.Controls.Maps.IMapCamera
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.MapCamera'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.UI.Xaml.Controls.Maps.MapCamera.CreateInstanceWithLocation(*args)
+            return win32more.Windows.UI.Xaml.Controls.Maps.MapCamera.CreateInstanceWithLocation(*args)
         elif len(args) == 2:
-            instance = win32more.Windows.UI.Xaml.Controls.Maps.MapCamera.CreateInstanceWithLocationAndHeading(*args)
+            return win32more.Windows.UI.Xaml.Controls.Maps.MapCamera.CreateInstanceWithLocationAndHeading(*args)
         elif len(args) == 3:
-            instance = win32more.Windows.UI.Xaml.Controls.Maps.MapCamera.CreateInstanceWithLocationHeadingAndPitch(*args)
+            return win32more.Windows.UI.Xaml.Controls.Maps.MapCamera.CreateInstanceWithLocationHeadingAndPitch(*args)
         elif len(args) == 5:
-            instance = win32more.Windows.UI.Xaml.Controls.Maps.MapCamera.CreateInstanceWithLocationHeadingPitchRollAndFieldOfView(*args)
+            return win32more.Windows.UI.Xaml.Controls.Maps.MapCamera.CreateInstanceWithLocationHeadingPitchRollAndFieldOfView(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithLocation(cls: win32more.Windows.UI.Xaml.Controls.Maps.IMapCameraFactory, location: win32more.Windows.Devices.Geolocation.Geopoint) -> win32more.Windows.UI.Xaml.Controls.Maps.MapCamera: ...
     @winrt_factorymethod
@@ -2239,16 +2218,13 @@ class MapContextRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Controls.Maps.IMapContextRequestedEventArgs
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.MapContextRequestedEventArgs'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.Maps.MapContextRequestedEventArgs.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.Maps.MapContextRequestedEventArgs.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.Maps.MapContextRequestedEventArgs: ...
     @winrt_mixinmethod
@@ -2266,16 +2242,13 @@ class MapControl(ComPtr, metaclass=_MapControl_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Control
     default_interface: win32more.Windows.UI.Xaml.Controls.Maps.IMapControl
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.MapControl'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.Maps.MapControl.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.Maps.MapControl.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.Maps.MapControl: ...
     @winrt_mixinmethod
@@ -2731,16 +2704,13 @@ class MapControlBusinessLandmarkClickEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Controls.Maps.IMapControlBusinessLandmarkClickEventArgs
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.MapControlBusinessLandmarkClickEventArgs'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.Maps.MapControlBusinessLandmarkClickEventArgs.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.Maps.MapControlBusinessLandmarkClickEventArgs.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.Maps.MapControlBusinessLandmarkClickEventArgs: ...
     @winrt_mixinmethod
@@ -2750,16 +2720,13 @@ class MapControlBusinessLandmarkPointerEnteredEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Controls.Maps.IMapControlBusinessLandmarkPointerEnteredEventArgs
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.MapControlBusinessLandmarkPointerEnteredEventArgs'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.Maps.MapControlBusinessLandmarkPointerEnteredEventArgs.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.Maps.MapControlBusinessLandmarkPointerEnteredEventArgs.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.Maps.MapControlBusinessLandmarkPointerEnteredEventArgs: ...
     @winrt_mixinmethod
@@ -2769,16 +2736,13 @@ class MapControlBusinessLandmarkPointerExitedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Controls.Maps.IMapControlBusinessLandmarkPointerExitedEventArgs
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.MapControlBusinessLandmarkPointerExitedEventArgs'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.Maps.MapControlBusinessLandmarkPointerExitedEventArgs.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.Maps.MapControlBusinessLandmarkPointerExitedEventArgs.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.Maps.MapControlBusinessLandmarkPointerExitedEventArgs: ...
     @winrt_mixinmethod
@@ -2788,16 +2752,13 @@ class MapControlBusinessLandmarkRightTappedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Controls.Maps.IMapControlBusinessLandmarkRightTappedEventArgs
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.MapControlBusinessLandmarkRightTappedEventArgs'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.Maps.MapControlBusinessLandmarkRightTappedEventArgs.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.Maps.MapControlBusinessLandmarkRightTappedEventArgs.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.Maps.MapControlBusinessLandmarkRightTappedEventArgs: ...
     @winrt_mixinmethod
@@ -2807,16 +2768,13 @@ class MapControlDataHelper(ComPtr):
     extends: win32more.Windows.UI.Xaml.DependencyObject
     default_interface: win32more.Windows.UI.Xaml.Controls.Maps.IMapControlDataHelper
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.MapControlDataHelper'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.UI.Xaml.Controls.Maps.MapControlDataHelper.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.Maps.MapControlDataHelper.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.Maps.IMapControlDataHelperFactory, map: win32more.Windows.UI.Xaml.Controls.Maps.MapControl) -> win32more.Windows.UI.Xaml.Controls.Maps.MapControlDataHelper: ...
     @winrt_mixinmethod
@@ -2857,16 +2815,13 @@ class MapControlTransitFeatureClickEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Controls.Maps.IMapControlTransitFeatureClickEventArgs
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.MapControlTransitFeatureClickEventArgs'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.Maps.MapControlTransitFeatureClickEventArgs.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.Maps.MapControlTransitFeatureClickEventArgs.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.Maps.MapControlTransitFeatureClickEventArgs: ...
     @winrt_mixinmethod
@@ -2882,16 +2837,13 @@ class MapControlTransitFeaturePointerEnteredEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Controls.Maps.IMapControlTransitFeaturePointerEnteredEventArgs
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.MapControlTransitFeaturePointerEnteredEventArgs'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.Maps.MapControlTransitFeaturePointerEnteredEventArgs.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.Maps.MapControlTransitFeaturePointerEnteredEventArgs.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.Maps.MapControlTransitFeaturePointerEnteredEventArgs: ...
     @winrt_mixinmethod
@@ -2907,16 +2859,13 @@ class MapControlTransitFeaturePointerExitedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Controls.Maps.IMapControlTransitFeaturePointerExitedEventArgs
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.MapControlTransitFeaturePointerExitedEventArgs'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.Maps.MapControlTransitFeaturePointerExitedEventArgs.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.Maps.MapControlTransitFeaturePointerExitedEventArgs.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.Maps.MapControlTransitFeaturePointerExitedEventArgs: ...
     @winrt_mixinmethod
@@ -2932,16 +2881,13 @@ class MapControlTransitFeatureRightTappedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Controls.Maps.IMapControlTransitFeatureRightTappedEventArgs
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.MapControlTransitFeatureRightTappedEventArgs'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.Maps.MapControlTransitFeatureRightTappedEventArgs.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.Maps.MapControlTransitFeatureRightTappedEventArgs.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.Maps.MapControlTransitFeatureRightTappedEventArgs: ...
     @winrt_mixinmethod
@@ -2957,32 +2903,26 @@ class MapCustomExperience(ComPtr):
     extends: win32more.Windows.UI.Xaml.DependencyObject
     default_interface: win32more.Windows.UI.Xaml.Controls.Maps.IMapCustomExperience
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.MapCustomExperience'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.Maps.MapCustomExperience.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.Maps.MapCustomExperience.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.Maps.IMapCustomExperienceFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Maps.MapCustomExperience: ...
 class MapCustomExperienceChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Controls.Maps.IMapCustomExperienceChangedEventArgs
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.MapCustomExperienceChangedEventArgs'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.Maps.MapCustomExperienceChangedEventArgs.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.Maps.MapCustomExperienceChangedEventArgs.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.Maps.MapCustomExperienceChangedEventArgs: ...
 class _MapElement_Meta_(ComPtr.__class__):
@@ -2991,16 +2931,13 @@ class MapElement(ComPtr, metaclass=_MapElement_Meta_):
     extends: win32more.Windows.UI.Xaml.DependencyObject
     default_interface: win32more.Windows.UI.Xaml.Controls.Maps.IMapElement
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.MapElement'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.Maps.MapElement.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.Maps.MapElement.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.Maps.IMapElementFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Maps.MapElement: ...
     @winrt_mixinmethod
@@ -3065,16 +3002,13 @@ class MapElement3D(ComPtr, metaclass=_MapElement3D_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Maps.MapElement
     default_interface: win32more.Windows.UI.Xaml.Controls.Maps.IMapElement3D
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.MapElement3D'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.Maps.MapElement3D.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.Maps.MapElement3D.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.Maps.MapElement3D: ...
     @winrt_mixinmethod
@@ -3126,16 +3060,13 @@ class MapElementClickEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Controls.Maps.IMapElementClickEventArgs
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.MapElementClickEventArgs'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.Maps.MapElementClickEventArgs.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.Maps.MapElementClickEventArgs.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.Maps.MapElementClickEventArgs: ...
     @winrt_mixinmethod
@@ -3154,16 +3085,13 @@ class MapElementPointerEnteredEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Controls.Maps.IMapElementPointerEnteredEventArgs
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.MapElementPointerEnteredEventArgs'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.Maps.MapElementPointerEnteredEventArgs.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.Maps.MapElementPointerEnteredEventArgs.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.Maps.MapElementPointerEnteredEventArgs: ...
     @winrt_mixinmethod
@@ -3179,16 +3107,13 @@ class MapElementPointerExitedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Controls.Maps.IMapElementPointerExitedEventArgs
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.MapElementPointerExitedEventArgs'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.Maps.MapElementPointerExitedEventArgs.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.Maps.MapElementPointerExitedEventArgs.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.Maps.MapElementPointerExitedEventArgs: ...
     @winrt_mixinmethod
@@ -3206,16 +3131,13 @@ class MapElementsLayer(ComPtr, metaclass=_MapElementsLayer_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Maps.MapLayer
     default_interface: win32more.Windows.UI.Xaml.Controls.Maps.IMapElementsLayer
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.MapElementsLayer'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.Maps.MapElementsLayer.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.Maps.MapElementsLayer.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.Maps.MapElementsLayer: ...
     @winrt_mixinmethod
@@ -3246,16 +3168,13 @@ class MapElementsLayerClickEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Controls.Maps.IMapElementsLayerClickEventArgs
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.MapElementsLayerClickEventArgs'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.Maps.MapElementsLayerClickEventArgs.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.Maps.MapElementsLayerClickEventArgs.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.Maps.MapElementsLayerClickEventArgs: ...
     @winrt_mixinmethod
@@ -3271,16 +3190,13 @@ class MapElementsLayerContextRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Controls.Maps.IMapElementsLayerContextRequestedEventArgs
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.MapElementsLayerContextRequestedEventArgs'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.Maps.MapElementsLayerContextRequestedEventArgs.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.Maps.MapElementsLayerContextRequestedEventArgs.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.Maps.MapElementsLayerContextRequestedEventArgs: ...
     @winrt_mixinmethod
@@ -3296,16 +3212,13 @@ class MapElementsLayerPointerEnteredEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Controls.Maps.IMapElementsLayerPointerEnteredEventArgs
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.MapElementsLayerPointerEnteredEventArgs'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.Maps.MapElementsLayerPointerEnteredEventArgs.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.Maps.MapElementsLayerPointerEnteredEventArgs.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.Maps.MapElementsLayerPointerEnteredEventArgs: ...
     @winrt_mixinmethod
@@ -3321,16 +3234,13 @@ class MapElementsLayerPointerExitedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Controls.Maps.IMapElementsLayerPointerExitedEventArgs
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.MapElementsLayerPointerExitedEventArgs'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.Maps.MapElementsLayerPointerExitedEventArgs.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.Maps.MapElementsLayerPointerExitedEventArgs.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.Maps.MapElementsLayerPointerExitedEventArgs: ...
     @winrt_mixinmethod
@@ -3348,16 +3258,13 @@ class MapIcon(ComPtr, metaclass=_MapIcon_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Maps.MapElement
     default_interface: win32more.Windows.UI.Xaml.Controls.Maps.IMapIcon
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.MapIcon'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.Maps.MapIcon.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.Maps.MapIcon.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.Maps.MapIcon: ...
     @winrt_mixinmethod
@@ -3401,16 +3308,13 @@ class MapInputEventArgs(ComPtr):
     extends: win32more.Windows.UI.Xaml.DependencyObject
     default_interface: win32more.Windows.UI.Xaml.Controls.Maps.IMapInputEventArgs
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.MapInputEventArgs'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.Maps.MapInputEventArgs.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.Maps.MapInputEventArgs.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.Maps.MapInputEventArgs: ...
     @winrt_mixinmethod
@@ -3434,16 +3338,13 @@ class MapItemsControl(ComPtr, metaclass=_MapItemsControl_Meta_):
     extends: win32more.Windows.UI.Xaml.DependencyObject
     default_interface: win32more.Windows.UI.Xaml.Controls.Maps.IMapItemsControl
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.MapItemsControl'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.Maps.MapItemsControl.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.Maps.MapItemsControl.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.Maps.MapItemsControl: ...
     @winrt_mixinmethod
@@ -3474,16 +3375,13 @@ class MapLayer(ComPtr, metaclass=_MapLayer_Meta_):
     extends: win32more.Windows.UI.Xaml.DependencyObject
     default_interface: win32more.Windows.UI.Xaml.Controls.Maps.IMapLayer
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.MapLayer'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.Maps.MapLayer.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.Maps.MapLayer.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.Maps.IMapLayerFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Maps.MapLayer: ...
     @winrt_mixinmethod
@@ -3519,16 +3417,13 @@ class MapModel3D(ComPtr):
     extends: win32more.Windows.UI.Xaml.DependencyObject
     default_interface: win32more.Windows.UI.Xaml.Controls.Maps.IMapModel3D
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.MapModel3D'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.Maps.MapModel3D.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.Maps.MapModel3D.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.Maps.IMapModel3DFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Maps.MapModel3D: ...
     @winrt_classmethod
@@ -3548,16 +3443,13 @@ class MapPolygon(ComPtr, metaclass=_MapPolygon_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Maps.MapElement
     default_interface: win32more.Windows.UI.Xaml.Controls.Maps.IMapPolygon
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.MapPolygon'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.Maps.MapPolygon.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.Maps.MapPolygon.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.Maps.MapPolygon: ...
     @winrt_mixinmethod
@@ -3603,16 +3495,13 @@ class MapPolyline(ComPtr, metaclass=_MapPolyline_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Maps.MapElement
     default_interface: win32more.Windows.UI.Xaml.Controls.Maps.IMapPolyline
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.MapPolyline'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.Maps.MapPolyline.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.Maps.MapPolyline.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.Maps.MapPolyline: ...
     @winrt_mixinmethod
@@ -3648,16 +3537,13 @@ class MapRightTappedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Controls.Maps.IMapRightTappedEventArgs
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.MapRightTappedEventArgs'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.Maps.MapRightTappedEventArgs.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.Maps.MapRightTappedEventArgs.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.Maps.MapRightTappedEventArgs: ...
     @winrt_mixinmethod
@@ -3670,16 +3556,13 @@ class MapRouteView(ComPtr):
     extends: win32more.Windows.UI.Xaml.DependencyObject
     default_interface: win32more.Windows.UI.Xaml.Controls.Maps.IMapRouteView
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.MapRouteView'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.UI.Xaml.Controls.Maps.MapRouteView.CreateInstanceWithMapRoute(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.Maps.MapRouteView.CreateInstanceWithMapRoute(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithMapRoute(cls: win32more.Windows.UI.Xaml.Controls.Maps.IMapRouteViewFactory, route: win32more.Windows.Services.Maps.MapRoute, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Maps.MapRouteView: ...
     @winrt_mixinmethod
@@ -3970,16 +3853,13 @@ class MapTargetCameraChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Controls.Maps.IMapTargetCameraChangedEventArgs
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.MapTargetCameraChangedEventArgs'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.Maps.MapTargetCameraChangedEventArgs.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.Maps.MapTargetCameraChangedEventArgs.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.Maps.MapTargetCameraChangedEventArgs: ...
     @winrt_mixinmethod
@@ -3996,16 +3876,13 @@ class MapTileBitmapRequest(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Controls.Maps.IMapTileBitmapRequest
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.MapTileBitmapRequest'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.Maps.MapTileBitmapRequest.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.Maps.MapTileBitmapRequest.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.Maps.MapTileBitmapRequest: ...
     @winrt_mixinmethod
@@ -4019,16 +3896,13 @@ class MapTileBitmapRequestDeferral(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Controls.Maps.IMapTileBitmapRequestDeferral
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.MapTileBitmapRequestDeferral'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.Maps.MapTileBitmapRequestDeferral.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.Maps.MapTileBitmapRequestDeferral.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.Maps.MapTileBitmapRequestDeferral: ...
     @winrt_mixinmethod
@@ -4037,16 +3911,13 @@ class MapTileBitmapRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Controls.Maps.IMapTileBitmapRequestedEventArgs
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.MapTileBitmapRequestedEventArgs'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.Maps.MapTileBitmapRequestedEventArgs.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.Maps.MapTileBitmapRequestedEventArgs.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.Maps.MapTileBitmapRequestedEventArgs: ...
     @winrt_mixinmethod
@@ -4068,16 +3939,13 @@ class MapTileDataSource(ComPtr):
     extends: win32more.Windows.UI.Xaml.DependencyObject
     default_interface: win32more.Windows.UI.Xaml.Controls.Maps.IMapTileDataSource
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.MapTileDataSource'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.Maps.MapTileDataSource.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.Maps.MapTileDataSource.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.Maps.IMapTileDataSourceFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Maps.MapTileDataSource: ...
 MapTileLayer = Int32
@@ -4092,24 +3960,21 @@ class MapTileSource(ComPtr, metaclass=_MapTileSource_Meta_):
     extends: win32more.Windows.UI.Xaml.DependencyObject
     default_interface: win32more.Windows.UI.Xaml.Controls.Maps.IMapTileSource
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.MapTileSource'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.Maps.MapTileSource.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.Maps.MapTileSource.CreateInstance(*args, None, None)
         elif len(args) == 1:
-            instance = win32more.Windows.UI.Xaml.Controls.Maps.MapTileSource.CreateInstanceWithDataSource(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.Maps.MapTileSource.CreateInstanceWithDataSource(*args, None, None)
         elif len(args) == 2:
-            instance = win32more.Windows.UI.Xaml.Controls.Maps.MapTileSource.CreateInstanceWithDataSourceAndZoomRange(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.Maps.MapTileSource.CreateInstanceWithDataSourceAndZoomRange(*args, None, None)
         elif len(args) == 3:
-            instance = win32more.Windows.UI.Xaml.Controls.Maps.MapTileSource.CreateInstanceWithDataSourceZoomRangeAndBounds(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.Maps.MapTileSource.CreateInstanceWithDataSourceZoomRangeAndBounds(*args, None, None)
         elif len(args) == 4:
-            instance = win32more.Windows.UI.Xaml.Controls.Maps.MapTileSource.CreateInstanceWithDataSourceZoomRangeBoundsAndTileSize(*args, None, None)
+            return win32more.Windows.UI.Xaml.Controls.Maps.MapTileSource.CreateInstanceWithDataSourceZoomRangeBoundsAndTileSize(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.Maps.IMapTileSourceFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Maps.MapTileSource: ...
     @winrt_factorymethod
@@ -4248,16 +4113,13 @@ class MapTileUriRequest(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Controls.Maps.IMapTileUriRequest
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.MapTileUriRequest'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.Maps.MapTileUriRequest.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.Maps.MapTileUriRequest.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.Maps.MapTileUriRequest: ...
     @winrt_mixinmethod
@@ -4271,16 +4133,13 @@ class MapTileUriRequestDeferral(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Controls.Maps.IMapTileUriRequestDeferral
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.MapTileUriRequestDeferral'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.Maps.MapTileUriRequestDeferral.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.Maps.MapTileUriRequestDeferral.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.Maps.MapTileUriRequestDeferral: ...
     @winrt_mixinmethod
@@ -4289,16 +4148,13 @@ class MapTileUriRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Controls.Maps.IMapTileUriRequestedEventArgs
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.MapTileUriRequestedEventArgs'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Controls.Maps.MapTileUriRequestedEventArgs.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Controls.Maps.MapTileUriRequestedEventArgs.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Controls.Maps.MapTileUriRequestedEventArgs: ...
     @winrt_mixinmethod
@@ -4329,18 +4185,15 @@ class StreetsideExperience(ComPtr):
     extends: win32more.Windows.UI.Xaml.Controls.Maps.MapCustomExperience
     default_interface: win32more.Windows.UI.Xaml.Controls.Maps.IStreetsideExperience
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.StreetsideExperience'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.UI.Xaml.Controls.Maps.StreetsideExperience.CreateInstanceWithPanorama(*args)
+            return win32more.Windows.UI.Xaml.Controls.Maps.StreetsideExperience.CreateInstanceWithPanorama(*args)
         elif len(args) == 4:
-            instance = win32more.Windows.UI.Xaml.Controls.Maps.StreetsideExperience.CreateInstanceWithPanoramaHeadingPitchAndFieldOfView(*args)
+            return win32more.Windows.UI.Xaml.Controls.Maps.StreetsideExperience.CreateInstanceWithPanoramaHeadingPitchAndFieldOfView(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstanceWithPanorama(cls: win32more.Windows.UI.Xaml.Controls.Maps.IStreetsideExperienceFactory, panorama: win32more.Windows.UI.Xaml.Controls.Maps.StreetsidePanorama) -> win32more.Windows.UI.Xaml.Controls.Maps.StreetsideExperience: ...
     @winrt_factorymethod

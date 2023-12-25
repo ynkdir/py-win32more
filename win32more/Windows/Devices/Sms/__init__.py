@@ -747,16 +747,13 @@ class SmsAppMessage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Sms.ISmsAppMessage
     _classid_ = 'Windows.Devices.Sms.SmsAppMessage'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Devices.Sms.SmsAppMessage.CreateInstance(*args)
+            return win32more.Windows.Devices.Sms.SmsAppMessage.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Devices.Sms.SmsAppMessage: ...
     @winrt_mixinmethod
@@ -834,16 +831,13 @@ class SmsBinaryMessage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Sms.ISmsBinaryMessage
     _classid_ = 'Windows.Devices.Sms.SmsBinaryMessage'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Devices.Sms.SmsBinaryMessage.CreateInstance(*args)
+            return win32more.Windows.Devices.Sms.SmsBinaryMessage.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Devices.Sms.SmsBinaryMessage: ...
     @winrt_mixinmethod
@@ -1063,16 +1057,13 @@ class SmsFilterRule(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Sms.ISmsFilterRule
     _classid_ = 'Windows.Devices.Sms.SmsFilterRule'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.Devices.Sms.SmsFilterRule.CreateFilterRule(*args)
+            return win32more.Windows.Devices.Sms.SmsFilterRule.CreateFilterRule(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateFilterRule(cls: win32more.Windows.Devices.Sms.ISmsFilterRuleFactory, messageType: win32more.Windows.Devices.Sms.SmsMessageType) -> win32more.Windows.Devices.Sms.SmsFilterRule: ...
     @winrt_mixinmethod
@@ -1120,16 +1111,13 @@ class SmsFilterRules(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Sms.ISmsFilterRules
     _classid_ = 'Windows.Devices.Sms.SmsFilterRules'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.Devices.Sms.SmsFilterRules.CreateFilterRules(*args)
+            return win32more.Windows.Devices.Sms.SmsFilterRules.CreateFilterRules(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateFilterRules(cls: win32more.Windows.Devices.Sms.ISmsFilterRulesFactory, actionType: win32more.Windows.Devices.Sms.SmsFilterActionType) -> win32more.Windows.Devices.Sms.SmsFilterRules: ...
     @winrt_mixinmethod
@@ -1325,16 +1313,13 @@ class SmsTextMessage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Sms.ISmsTextMessage
     _classid_ = 'Windows.Devices.Sms.SmsTextMessage'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Devices.Sms.SmsTextMessage.CreateInstance(*args)
+            return win32more.Windows.Devices.Sms.SmsTextMessage.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Devices.Sms.SmsTextMessage: ...
     @winrt_mixinmethod
@@ -1385,16 +1370,13 @@ class SmsTextMessage2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Sms.ISmsTextMessage2
     _classid_ = 'Windows.Devices.Sms.SmsTextMessage2'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Devices.Sms.SmsTextMessage2.CreateInstance(*args)
+            return win32more.Windows.Devices.Sms.SmsTextMessage2.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Devices.Sms.SmsTextMessage2: ...
     @winrt_mixinmethod

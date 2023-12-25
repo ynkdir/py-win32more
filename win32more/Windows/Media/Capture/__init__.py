@@ -943,16 +943,13 @@ class AppCaptureMetadataWriter(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Capture.IAppCaptureMetadataWriter
     _classid_ = 'Windows.Media.Capture.AppCaptureMetadataWriter'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Media.Capture.AppCaptureMetadataWriter.CreateInstance(*args)
+            return win32more.Windows.Media.Capture.AppCaptureMetadataWriter.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Media.Capture.AppCaptureMetadataWriter: ...
     @winrt_mixinmethod
@@ -1238,16 +1235,13 @@ class CameraCaptureUI(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Capture.ICameraCaptureUI
     _classid_ = 'Windows.Media.Capture.CameraCaptureUI'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Media.Capture.CameraCaptureUI.CreateInstance(*args)
+            return win32more.Windows.Media.Capture.CameraCaptureUI.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Media.Capture.CameraCaptureUI: ...
     @winrt_mixinmethod
@@ -3577,16 +3571,13 @@ class MediaCapture(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Capture.IMediaCapture
     _classid_ = 'Windows.Media.Capture.MediaCapture'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Media.Capture.MediaCapture.CreateInstance(*args)
+            return win32more.Windows.Media.Capture.MediaCapture.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Media.Capture.MediaCapture: ...
     @winrt_mixinmethod
@@ -3778,16 +3769,13 @@ class MediaCaptureInitializationSettings(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Capture.IMediaCaptureInitializationSettings
     _classid_ = 'Windows.Media.Capture.MediaCaptureInitializationSettings'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Media.Capture.MediaCaptureInitializationSettings.CreateInstance(*args)
+            return win32more.Windows.Media.Capture.MediaCaptureInitializationSettings.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Media.Capture.MediaCaptureInitializationSettings: ...
     @winrt_mixinmethod

@@ -1521,17 +1521,14 @@ class PyGenerator:
         if not methods:
             return ""
         methods.sort(key=lambda method: method.nargs)
-        writer.write("    def __init__(self, *args, **kwargs) -> None:\n")
+        writer.write("    def __new__(cls, *args, **kwargs):\n")
         writer.write("        if kwargs:\n")
-        writer.write("            return super().__init__(**kwargs)\n")
+        writer.write("            return super().__new__(cls, **kwargs)\n")
         for i, method in enumerate(methods):
             writer.write(f"        elif len(args) == {method.nargs}:\n")
-            writer.write(f"            instance = {method.invoke}\n")
+            writer.write(f"            return {method.invoke}\n")
         writer.write("        else:\n")
         writer.write("            raise ValueError('no matched constructor')\n")
-        writer.write("        self.value = instance.value\n")
-        writer.write("        self._own = instance._own\n")
-        writer.write("        instance._own = False\n")
         overload_initialized = set()
         overload_count = Counter(method.name for method in methods)
         overload_same_name_and_nargs = set()

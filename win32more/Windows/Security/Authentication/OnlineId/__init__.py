@@ -153,16 +153,13 @@ class OnlineIdAuthenticator(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Authentication.OnlineId.IOnlineIdAuthenticator
     _classid_ = 'Windows.Security.Authentication.OnlineId.OnlineIdAuthenticator'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Security.Authentication.OnlineId.OnlineIdAuthenticator.CreateInstance(*args)
+            return win32more.Windows.Security.Authentication.OnlineId.OnlineIdAuthenticator.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Security.Authentication.OnlineId.OnlineIdAuthenticator: ...
     @winrt_mixinmethod
@@ -199,18 +196,15 @@ class OnlineIdServiceTicketRequest(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Authentication.OnlineId.IOnlineIdServiceTicketRequest
     _classid_ = 'Windows.Security.Authentication.OnlineId.OnlineIdServiceTicketRequest'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.Security.Authentication.OnlineId.OnlineIdServiceTicketRequest.CreateOnlineIdServiceTicketRequestAdvanced(*args)
+            return win32more.Windows.Security.Authentication.OnlineId.OnlineIdServiceTicketRequest.CreateOnlineIdServiceTicketRequestAdvanced(*args)
         elif len(args) == 2:
-            instance = win32more.Windows.Security.Authentication.OnlineId.OnlineIdServiceTicketRequest.CreateOnlineIdServiceTicketRequest(*args)
+            return win32more.Windows.Security.Authentication.OnlineId.OnlineIdServiceTicketRequest.CreateOnlineIdServiceTicketRequest(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateOnlineIdServiceTicketRequestAdvanced(cls: win32more.Windows.Security.Authentication.OnlineId.IOnlineIdServiceTicketRequestFactory, service: WinRT_String) -> win32more.Windows.Security.Authentication.OnlineId.OnlineIdServiceTicketRequest: ...
     @winrt_factorymethod

@@ -104,16 +104,13 @@ class GestureRecognizer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Input.IGestureRecognizer
     _classid_ = 'Microsoft.UI.Input.GestureRecognizer'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Microsoft.UI.Input.GestureRecognizer.CreateInstance(*args)
+            return win32more.Microsoft.UI.Input.GestureRecognizer.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Microsoft.UI.Input.GestureRecognizer: ...
     @winrt_mixinmethod

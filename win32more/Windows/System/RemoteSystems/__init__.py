@@ -791,16 +791,13 @@ class RemoteSystemAuthorizationKindFilter(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.System.RemoteSystems.IRemoteSystemAuthorizationKindFilter
     _classid_ = 'Windows.System.RemoteSystems.RemoteSystemAuthorizationKindFilter'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.System.RemoteSystems.RemoteSystemAuthorizationKindFilter.Create(*args)
+            return win32more.Windows.System.RemoteSystems.RemoteSystemAuthorizationKindFilter.Create(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.System.RemoteSystems.IRemoteSystemAuthorizationKindFilterFactory, remoteSystemAuthorizationKind: win32more.Windows.System.RemoteSystems.RemoteSystemAuthorizationKind) -> win32more.Windows.System.RemoteSystems.RemoteSystemAuthorizationKindFilter: ...
     @winrt_mixinmethod
@@ -819,16 +816,13 @@ class RemoteSystemConnectionRequest(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.System.RemoteSystems.IRemoteSystemConnectionRequest
     _classid_ = 'Windows.System.RemoteSystems.RemoteSystemConnectionRequest'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.System.RemoteSystems.RemoteSystemConnectionRequest.Create(*args)
+            return win32more.Windows.System.RemoteSystems.RemoteSystemConnectionRequest.Create(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.System.RemoteSystems.IRemoteSystemConnectionRequestFactory, remoteSystem: win32more.Windows.System.RemoteSystems.RemoteSystem) -> win32more.Windows.System.RemoteSystems.RemoteSystemConnectionRequest: ...
     @winrt_mixinmethod
@@ -855,16 +849,13 @@ class RemoteSystemDiscoveryTypeFilter(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.System.RemoteSystems.IRemoteSystemDiscoveryTypeFilter
     _classid_ = 'Windows.System.RemoteSystems.RemoteSystemDiscoveryTypeFilter'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.System.RemoteSystems.RemoteSystemDiscoveryTypeFilter.Create(*args)
+            return win32more.Windows.System.RemoteSystems.RemoteSystemDiscoveryTypeFilter.Create(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.System.RemoteSystems.IRemoteSystemDiscoveryTypeFilterFactory, discoveryType: win32more.Windows.System.RemoteSystems.RemoteSystemDiscoveryType) -> win32more.Windows.System.RemoteSystems.RemoteSystemDiscoveryTypeFilter: ...
     @winrt_mixinmethod
@@ -878,16 +869,13 @@ class RemoteSystemKindFilter(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.System.RemoteSystems.IRemoteSystemKindFilter
     _classid_ = 'Windows.System.RemoteSystems.RemoteSystemKindFilter'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.System.RemoteSystems.RemoteSystemKindFilter.Create(*args)
+            return win32more.Windows.System.RemoteSystems.RemoteSystemKindFilter.Create(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.System.RemoteSystems.IRemoteSystemKindFilterFactory, remoteSystemKinds: win32more.Windows.Foundation.Collections.IIterable[WinRT_String]) -> win32more.Windows.System.RemoteSystems.RemoteSystemKindFilter: ...
     @winrt_mixinmethod
@@ -971,18 +959,15 @@ class RemoteSystemSessionController(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.System.RemoteSystems.IRemoteSystemSessionController
     _classid_ = 'Windows.System.RemoteSystems.RemoteSystemSessionController'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.System.RemoteSystems.RemoteSystemSessionController.CreateController(*args)
+            return win32more.Windows.System.RemoteSystems.RemoteSystemSessionController.CreateController(*args)
         elif len(args) == 2:
-            instance = win32more.Windows.System.RemoteSystems.RemoteSystemSessionController.CreateControllerWithSessionOptions(*args)
+            return win32more.Windows.System.RemoteSystems.RemoteSystemSessionController.CreateControllerWithSessionOptions(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateController(cls: win32more.Windows.System.RemoteSystems.IRemoteSystemSessionControllerFactory, displayName: WinRT_String) -> win32more.Windows.System.RemoteSystems.RemoteSystemSessionController: ...
     @winrt_factorymethod
@@ -1046,16 +1031,13 @@ class RemoteSystemSessionInvitationListener(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.System.RemoteSystems.IRemoteSystemSessionInvitationListener
     _classid_ = 'Windows.System.RemoteSystems.RemoteSystemSessionInvitationListener'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.System.RemoteSystems.RemoteSystemSessionInvitationListener.CreateInstance(*args)
+            return win32more.Windows.System.RemoteSystems.RemoteSystemSessionInvitationListener.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.System.RemoteSystems.RemoteSystemSessionInvitationListener: ...
     @winrt_mixinmethod
@@ -1107,18 +1089,15 @@ class RemoteSystemSessionMessageChannel(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.System.RemoteSystems.IRemoteSystemSessionMessageChannel
     _classid_ = 'Windows.System.RemoteSystems.RemoteSystemSessionMessageChannel'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 2:
-            instance = win32more.Windows.System.RemoteSystems.RemoteSystemSessionMessageChannel.Create(*args)
+            return win32more.Windows.System.RemoteSystems.RemoteSystemSessionMessageChannel.Create(*args)
         elif len(args) == 3:
-            instance = win32more.Windows.System.RemoteSystems.RemoteSystemSessionMessageChannel.CreateWithReliability(*args)
+            return win32more.Windows.System.RemoteSystems.RemoteSystemSessionMessageChannel.CreateWithReliability(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.System.RemoteSystems.IRemoteSystemSessionMessageChannelFactory, session: win32more.Windows.System.RemoteSystems.RemoteSystemSession, channelName: WinRT_String) -> win32more.Windows.System.RemoteSystems.RemoteSystemSessionMessageChannel: ...
     @winrt_factorymethod
@@ -1143,16 +1122,13 @@ class RemoteSystemSessionOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.System.RemoteSystems.IRemoteSystemSessionOptions
     _classid_ = 'Windows.System.RemoteSystems.RemoteSystemSessionOptions'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.System.RemoteSystems.RemoteSystemSessionOptions.CreateInstance(*args)
+            return win32more.Windows.System.RemoteSystems.RemoteSystemSessionOptions.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.System.RemoteSystems.RemoteSystemSessionOptions: ...
     @winrt_mixinmethod
@@ -1279,16 +1255,13 @@ class RemoteSystemStatusTypeFilter(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.System.RemoteSystems.IRemoteSystemStatusTypeFilter
     _classid_ = 'Windows.System.RemoteSystems.RemoteSystemStatusTypeFilter'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.System.RemoteSystems.RemoteSystemStatusTypeFilter.Create(*args)
+            return win32more.Windows.System.RemoteSystems.RemoteSystemStatusTypeFilter.Create(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.System.RemoteSystems.IRemoteSystemStatusTypeFilterFactory, remoteSystemStatusType: win32more.Windows.System.RemoteSystems.RemoteSystemStatusType) -> win32more.Windows.System.RemoteSystems.RemoteSystemStatusTypeFilter: ...
     @winrt_mixinmethod
@@ -1347,16 +1320,13 @@ class RemoteSystemWebAccountFilter(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.System.RemoteSystems.IRemoteSystemWebAccountFilter
     _classid_ = 'Windows.System.RemoteSystems.RemoteSystemWebAccountFilter'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.System.RemoteSystems.RemoteSystemWebAccountFilter.Create(*args)
+            return win32more.Windows.System.RemoteSystems.RemoteSystemWebAccountFilter.Create(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.System.RemoteSystems.IRemoteSystemWebAccountFilterFactory, account: win32more.Windows.Security.Credentials.WebAccount) -> win32more.Windows.System.RemoteSystems.RemoteSystemWebAccountFilter: ...
     @winrt_mixinmethod

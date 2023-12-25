@@ -38,16 +38,13 @@ class ActivitySensorTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.IActivitySensorTrigger
     _classid_ = 'Windows.ApplicationModel.Background.ActivitySensorTrigger'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.ApplicationModel.Background.ActivitySensorTrigger.Create(*args)
+            return win32more.Windows.ApplicationModel.Background.ActivitySensorTrigger.Create(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.ApplicationModel.Background.IActivitySensorTriggerFactory, reportIntervalInMilliseconds: UInt32) -> win32more.Windows.ApplicationModel.Background.ActivitySensorTrigger: ...
     @winrt_mixinmethod
@@ -78,16 +75,13 @@ class AppBroadcastTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.IAppBroadcastTrigger
     _classid_ = 'Windows.ApplicationModel.Background.AppBroadcastTrigger'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.ApplicationModel.Background.AppBroadcastTrigger.CreateAppBroadcastTrigger(*args)
+            return win32more.Windows.ApplicationModel.Background.AppBroadcastTrigger.CreateAppBroadcastTrigger(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateAppBroadcastTrigger(cls: win32more.Windows.ApplicationModel.Background.IAppBroadcastTriggerFactory, providerKey: WinRT_String) -> win32more.Windows.ApplicationModel.Background.AppBroadcastTrigger: ...
     @winrt_mixinmethod
@@ -133,16 +127,13 @@ class ApplicationTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.IApplicationTrigger
     _classid_ = 'Windows.ApplicationModel.Background.ApplicationTrigger'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.ApplicationModel.Background.ApplicationTrigger.CreateInstance(*args)
+            return win32more.Windows.ApplicationModel.Background.ApplicationTrigger.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Background.ApplicationTrigger: ...
     @winrt_mixinmethod
@@ -165,16 +156,13 @@ class AppointmentStoreNotificationTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.IAppointmentStoreNotificationTrigger
     _classid_ = 'Windows.ApplicationModel.Background.AppointmentStoreNotificationTrigger'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.ApplicationModel.Background.AppointmentStoreNotificationTrigger.CreateInstance(*args)
+            return win32more.Windows.ApplicationModel.Background.AppointmentStoreNotificationTrigger.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Background.AppointmentStoreNotificationTrigger: ...
 BackgroundAccessRequestKind = Int32
@@ -217,16 +205,13 @@ class BackgroundTaskBuilder(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.IBackgroundTaskBuilder
     _classid_ = 'Windows.ApplicationModel.Background.BackgroundTaskBuilder'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.ApplicationModel.Background.BackgroundTaskBuilder.CreateInstance(*args)
+            return win32more.Windows.ApplicationModel.Background.BackgroundTaskBuilder.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Background.BackgroundTaskBuilder: ...
     @winrt_mixinmethod
@@ -352,18 +337,15 @@ class BackgroundTaskRegistrationGroup(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.IBackgroundTaskRegistrationGroup
     _classid_ = 'Windows.ApplicationModel.Background.BackgroundTaskRegistrationGroup'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.ApplicationModel.Background.BackgroundTaskRegistrationGroup.Create(*args)
+            return win32more.Windows.ApplicationModel.Background.BackgroundTaskRegistrationGroup.Create(*args)
         elif len(args) == 2:
-            instance = win32more.Windows.ApplicationModel.Background.BackgroundTaskRegistrationGroup.CreateWithName(*args)
+            return win32more.Windows.ApplicationModel.Background.BackgroundTaskRegistrationGroup.CreateWithName(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.ApplicationModel.Background.IBackgroundTaskRegistrationGroupFactory, id: WinRT_String) -> win32more.Windows.ApplicationModel.Background.BackgroundTaskRegistrationGroup: ...
     @winrt_factorymethod
@@ -401,16 +383,13 @@ class BluetoothLEAdvertisementPublisherTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.IBluetoothLEAdvertisementPublisherTrigger
     _classid_ = 'Windows.ApplicationModel.Background.BluetoothLEAdvertisementPublisherTrigger'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.ApplicationModel.Background.BluetoothLEAdvertisementPublisherTrigger.CreateInstance(*args)
+            return win32more.Windows.ApplicationModel.Background.BluetoothLEAdvertisementPublisherTrigger.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Background.BluetoothLEAdvertisementPublisherTrigger: ...
     @winrt_mixinmethod
@@ -440,16 +419,13 @@ class BluetoothLEAdvertisementWatcherTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.IBluetoothLEAdvertisementWatcherTrigger
     _classid_ = 'Windows.ApplicationModel.Background.BluetoothLEAdvertisementWatcherTrigger'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.ApplicationModel.Background.BluetoothLEAdvertisementWatcherTrigger.CreateInstance(*args)
+            return win32more.Windows.ApplicationModel.Background.BluetoothLEAdvertisementWatcherTrigger.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Background.BluetoothLEAdvertisementWatcherTrigger: ...
     @winrt_mixinmethod
@@ -483,16 +459,13 @@ class CachedFileUpdaterTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.ICachedFileUpdaterTrigger
     _classid_ = 'Windows.ApplicationModel.Background.CachedFileUpdaterTrigger'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.ApplicationModel.Background.CachedFileUpdaterTrigger.CreateInstance(*args)
+            return win32more.Windows.ApplicationModel.Background.CachedFileUpdaterTrigger.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Background.CachedFileUpdaterTrigger: ...
 class CachedFileUpdaterTriggerDetails(ComPtr):
@@ -512,82 +485,67 @@ class ChatMessageNotificationTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.IChatMessageNotificationTrigger
     _classid_ = 'Windows.ApplicationModel.Background.ChatMessageNotificationTrigger'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.ApplicationModel.Background.ChatMessageNotificationTrigger.CreateInstance(*args)
+            return win32more.Windows.ApplicationModel.Background.ChatMessageNotificationTrigger.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Background.ChatMessageNotificationTrigger: ...
 class ChatMessageReceivedNotificationTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.IChatMessageReceivedNotificationTrigger
     _classid_ = 'Windows.ApplicationModel.Background.ChatMessageReceivedNotificationTrigger'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.ApplicationModel.Background.ChatMessageReceivedNotificationTrigger.CreateInstance(*args)
+            return win32more.Windows.ApplicationModel.Background.ChatMessageReceivedNotificationTrigger.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Background.ChatMessageReceivedNotificationTrigger: ...
 class CommunicationBlockingAppSetAsActiveTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.ICommunicationBlockingAppSetAsActiveTrigger
     _classid_ = 'Windows.ApplicationModel.Background.CommunicationBlockingAppSetAsActiveTrigger'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.ApplicationModel.Background.CommunicationBlockingAppSetAsActiveTrigger.CreateInstance(*args)
+            return win32more.Windows.ApplicationModel.Background.CommunicationBlockingAppSetAsActiveTrigger.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Background.CommunicationBlockingAppSetAsActiveTrigger: ...
 class ContactStoreNotificationTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.IContactStoreNotificationTrigger
     _classid_ = 'Windows.ApplicationModel.Background.ContactStoreNotificationTrigger'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.ApplicationModel.Background.ContactStoreNotificationTrigger.CreateInstance(*args)
+            return win32more.Windows.ApplicationModel.Background.ContactStoreNotificationTrigger.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Background.ContactStoreNotificationTrigger: ...
 class ContentPrefetchTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.IContentPrefetchTrigger
     _classid_ = 'Windows.ApplicationModel.Background.ContentPrefetchTrigger'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.ApplicationModel.Background.ContentPrefetchTrigger.CreateInstance(*args)
+            return win32more.Windows.ApplicationModel.Background.ContentPrefetchTrigger.CreateInstance(*args)
         elif len(args) == 1:
-            instance = win32more.Windows.ApplicationModel.Background.ContentPrefetchTrigger.Create(*args)
+            return win32more.Windows.ApplicationModel.Background.ContentPrefetchTrigger.Create(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Background.ContentPrefetchTrigger: ...
     @winrt_factorymethod
@@ -599,32 +557,26 @@ class ConversationalAgentTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.IBackgroundTrigger
     _classid_ = 'Windows.ApplicationModel.Background.ConversationalAgentTrigger'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.ApplicationModel.Background.ConversationalAgentTrigger.CreateInstance(*args)
+            return win32more.Windows.ApplicationModel.Background.ConversationalAgentTrigger.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Background.ConversationalAgentTrigger: ...
 class CustomSystemEventTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.ICustomSystemEventTrigger
     _classid_ = 'Windows.ApplicationModel.Background.CustomSystemEventTrigger'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 2:
-            instance = win32more.Windows.ApplicationModel.Background.CustomSystemEventTrigger.Create(*args)
+            return win32more.Windows.ApplicationModel.Background.CustomSystemEventTrigger.Create(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.ApplicationModel.Background.ICustomSystemEventTriggerFactory, triggerId: WinRT_String, recurrence: win32more.Windows.ApplicationModel.Background.CustomSystemEventTriggerRecurrence) -> win32more.Windows.ApplicationModel.Background.CustomSystemEventTrigger: ...
     @winrt_mixinmethod
@@ -657,16 +609,13 @@ class DeviceManufacturerNotificationTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.IDeviceManufacturerNotificationTrigger
     _classid_ = 'Windows.ApplicationModel.Background.DeviceManufacturerNotificationTrigger'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 2:
-            instance = win32more.Windows.ApplicationModel.Background.DeviceManufacturerNotificationTrigger.Create(*args)
+            return win32more.Windows.ApplicationModel.Background.DeviceManufacturerNotificationTrigger.Create(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.ApplicationModel.Background.IDeviceManufacturerNotificationTriggerFactory, triggerQualifier: WinRT_String, oneShot: Boolean) -> win32more.Windows.ApplicationModel.Background.DeviceManufacturerNotificationTrigger: ...
     @winrt_mixinmethod
@@ -679,16 +628,13 @@ class DeviceServicingTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.IDeviceServicingTrigger
     _classid_ = 'Windows.ApplicationModel.Background.DeviceServicingTrigger'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.ApplicationModel.Background.DeviceServicingTrigger.CreateInstance(*args)
+            return win32more.Windows.ApplicationModel.Background.DeviceServicingTrigger.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Background.DeviceServicingTrigger: ...
     @winrt_mixinmethod
@@ -704,16 +650,13 @@ class DeviceUseTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.IDeviceUseTrigger
     _classid_ = 'Windows.ApplicationModel.Background.DeviceUseTrigger'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.ApplicationModel.Background.DeviceUseTrigger.CreateInstance(*args)
+            return win32more.Windows.ApplicationModel.Background.DeviceUseTrigger.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Background.DeviceUseTrigger: ...
     @winrt_mixinmethod
@@ -728,34 +671,28 @@ class EmailStoreNotificationTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.IEmailStoreNotificationTrigger
     _classid_ = 'Windows.ApplicationModel.Background.EmailStoreNotificationTrigger'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.ApplicationModel.Background.EmailStoreNotificationTrigger.CreateInstance(*args)
+            return win32more.Windows.ApplicationModel.Background.EmailStoreNotificationTrigger.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Background.EmailStoreNotificationTrigger: ...
 class GattCharacteristicNotificationTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.IGattCharacteristicNotificationTrigger
     _classid_ = 'Windows.ApplicationModel.Background.GattCharacteristicNotificationTrigger'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.ApplicationModel.Background.GattCharacteristicNotificationTrigger.Create(*args)
+            return win32more.Windows.ApplicationModel.Background.GattCharacteristicNotificationTrigger.Create(*args)
         elif len(args) == 2:
-            instance = win32more.Windows.ApplicationModel.Background.GattCharacteristicNotificationTrigger.CreateWithEventTriggeringMode(*args)
+            return win32more.Windows.ApplicationModel.Background.GattCharacteristicNotificationTrigger.CreateWithEventTriggeringMode(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.ApplicationModel.Background.IGattCharacteristicNotificationTriggerFactory, characteristic: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristic) -> win32more.Windows.ApplicationModel.Background.GattCharacteristicNotificationTrigger: ...
     @winrt_factorymethod
@@ -797,16 +734,13 @@ class GeovisitTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.IGeovisitTrigger
     _classid_ = 'Windows.ApplicationModel.Background.GeovisitTrigger'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.ApplicationModel.Background.GeovisitTrigger.CreateInstance(*args)
+            return win32more.Windows.ApplicationModel.Background.GeovisitTrigger.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Background.GeovisitTrigger: ...
     @winrt_mixinmethod
@@ -1643,16 +1577,13 @@ class LocationTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.ILocationTrigger
     _classid_ = 'Windows.ApplicationModel.Background.LocationTrigger'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.ApplicationModel.Background.LocationTrigger.Create(*args)
+            return win32more.Windows.ApplicationModel.Background.LocationTrigger.Create(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.ApplicationModel.Background.ILocationTriggerFactory, triggerType: win32more.Windows.ApplicationModel.Background.LocationTriggerType) -> win32more.Windows.ApplicationModel.Background.LocationTrigger: ...
     @winrt_mixinmethod
@@ -1664,16 +1595,13 @@ class MaintenanceTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.IMaintenanceTrigger
     _classid_ = 'Windows.ApplicationModel.Background.MaintenanceTrigger'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 2:
-            instance = win32more.Windows.ApplicationModel.Background.MaintenanceTrigger.Create(*args)
+            return win32more.Windows.ApplicationModel.Background.MaintenanceTrigger.Create(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.ApplicationModel.Background.IMaintenanceTriggerFactory, freshnessTime: UInt32, oneShot: Boolean) -> win32more.Windows.ApplicationModel.Background.MaintenanceTrigger: ...
     @winrt_mixinmethod
@@ -1686,16 +1614,13 @@ class MediaProcessingTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.IMediaProcessingTrigger
     _classid_ = 'Windows.ApplicationModel.Background.MediaProcessingTrigger'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.ApplicationModel.Background.MediaProcessingTrigger.CreateInstance(*args)
+            return win32more.Windows.ApplicationModel.Background.MediaProcessingTrigger.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Background.MediaProcessingTrigger: ...
     @winrt_mixinmethod
@@ -1711,128 +1636,104 @@ class MobileBroadbandDeviceServiceNotificationTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.IBackgroundTrigger
     _classid_ = 'Windows.ApplicationModel.Background.MobileBroadbandDeviceServiceNotificationTrigger'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.ApplicationModel.Background.MobileBroadbandDeviceServiceNotificationTrigger.CreateInstance(*args)
+            return win32more.Windows.ApplicationModel.Background.MobileBroadbandDeviceServiceNotificationTrigger.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Background.MobileBroadbandDeviceServiceNotificationTrigger: ...
 class MobileBroadbandPcoDataChangeTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.IBackgroundTrigger
     _classid_ = 'Windows.ApplicationModel.Background.MobileBroadbandPcoDataChangeTrigger'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.ApplicationModel.Background.MobileBroadbandPcoDataChangeTrigger.CreateInstance(*args)
+            return win32more.Windows.ApplicationModel.Background.MobileBroadbandPcoDataChangeTrigger.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Background.MobileBroadbandPcoDataChangeTrigger: ...
 class MobileBroadbandPinLockStateChangeTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.IBackgroundTrigger
     _classid_ = 'Windows.ApplicationModel.Background.MobileBroadbandPinLockStateChangeTrigger'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.ApplicationModel.Background.MobileBroadbandPinLockStateChangeTrigger.CreateInstance(*args)
+            return win32more.Windows.ApplicationModel.Background.MobileBroadbandPinLockStateChangeTrigger.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Background.MobileBroadbandPinLockStateChangeTrigger: ...
 class MobileBroadbandRadioStateChangeTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.IBackgroundTrigger
     _classid_ = 'Windows.ApplicationModel.Background.MobileBroadbandRadioStateChangeTrigger'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.ApplicationModel.Background.MobileBroadbandRadioStateChangeTrigger.CreateInstance(*args)
+            return win32more.Windows.ApplicationModel.Background.MobileBroadbandRadioStateChangeTrigger.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Background.MobileBroadbandRadioStateChangeTrigger: ...
 class MobileBroadbandRegistrationStateChangeTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.IBackgroundTrigger
     _classid_ = 'Windows.ApplicationModel.Background.MobileBroadbandRegistrationStateChangeTrigger'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.ApplicationModel.Background.MobileBroadbandRegistrationStateChangeTrigger.CreateInstance(*args)
+            return win32more.Windows.ApplicationModel.Background.MobileBroadbandRegistrationStateChangeTrigger.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Background.MobileBroadbandRegistrationStateChangeTrigger: ...
 class NetworkOperatorDataUsageTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.IBackgroundTrigger
     _classid_ = 'Windows.ApplicationModel.Background.NetworkOperatorDataUsageTrigger'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.ApplicationModel.Background.NetworkOperatorDataUsageTrigger.CreateInstance(*args)
+            return win32more.Windows.ApplicationModel.Background.NetworkOperatorDataUsageTrigger.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Background.NetworkOperatorDataUsageTrigger: ...
 class NetworkOperatorHotspotAuthenticationTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.INetworkOperatorHotspotAuthenticationTrigger
     _classid_ = 'Windows.ApplicationModel.Background.NetworkOperatorHotspotAuthenticationTrigger'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.ApplicationModel.Background.NetworkOperatorHotspotAuthenticationTrigger.CreateInstance(*args)
+            return win32more.Windows.ApplicationModel.Background.NetworkOperatorHotspotAuthenticationTrigger.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Background.NetworkOperatorHotspotAuthenticationTrigger: ...
 class NetworkOperatorNotificationTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.INetworkOperatorNotificationTrigger
     _classid_ = 'Windows.ApplicationModel.Background.NetworkOperatorNotificationTrigger'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.ApplicationModel.Background.NetworkOperatorNotificationTrigger.Create(*args)
+            return win32more.Windows.ApplicationModel.Background.NetworkOperatorNotificationTrigger.Create(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.ApplicationModel.Background.INetworkOperatorNotificationTriggerFactory, networkAccountId: WinRT_String) -> win32more.Windows.ApplicationModel.Background.NetworkOperatorNotificationTrigger: ...
     @winrt_mixinmethod
@@ -1842,32 +1743,26 @@ class PaymentAppCanMakePaymentTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.IBackgroundTrigger
     _classid_ = 'Windows.ApplicationModel.Background.PaymentAppCanMakePaymentTrigger'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.ApplicationModel.Background.PaymentAppCanMakePaymentTrigger.CreateInstance(*args)
+            return win32more.Windows.ApplicationModel.Background.PaymentAppCanMakePaymentTrigger.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Background.PaymentAppCanMakePaymentTrigger: ...
 class PhoneTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.IPhoneTrigger
     _classid_ = 'Windows.ApplicationModel.Background.PhoneTrigger'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 2:
-            instance = win32more.Windows.ApplicationModel.Background.PhoneTrigger.Create(*args)
+            return win32more.Windows.ApplicationModel.Background.PhoneTrigger.Create(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.ApplicationModel.Background.IPhoneTriggerFactory, type: win32more.Windows.ApplicationModel.Calls.Background.PhoneTriggerType, oneShot: Boolean) -> win32more.Windows.ApplicationModel.Background.PhoneTrigger: ...
     @winrt_mixinmethod
@@ -1880,18 +1775,15 @@ class PushNotificationTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.IBackgroundTrigger
     _classid_ = 'Windows.ApplicationModel.Background.PushNotificationTrigger'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.ApplicationModel.Background.PushNotificationTrigger.CreateInstance(*args)
+            return win32more.Windows.ApplicationModel.Background.PushNotificationTrigger.CreateInstance(*args)
         elif len(args) == 1:
-            instance = win32more.Windows.ApplicationModel.Background.PushNotificationTrigger.Create(*args)
+            return win32more.Windows.ApplicationModel.Background.PushNotificationTrigger.Create(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Background.PushNotificationTrigger: ...
     @winrt_factorymethod
@@ -1900,32 +1792,26 @@ class RcsEndUserMessageAvailableTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.IRcsEndUserMessageAvailableTrigger
     _classid_ = 'Windows.ApplicationModel.Background.RcsEndUserMessageAvailableTrigger'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.ApplicationModel.Background.RcsEndUserMessageAvailableTrigger.CreateInstance(*args)
+            return win32more.Windows.ApplicationModel.Background.RcsEndUserMessageAvailableTrigger.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Background.RcsEndUserMessageAvailableTrigger: ...
 class RfcommConnectionTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.IRfcommConnectionTrigger
     _classid_ = 'Windows.ApplicationModel.Background.RfcommConnectionTrigger'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.ApplicationModel.Background.RfcommConnectionTrigger.CreateInstance(*args)
+            return win32more.Windows.ApplicationModel.Background.RfcommConnectionTrigger.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Background.RfcommConnectionTrigger: ...
     @winrt_mixinmethod
@@ -1953,48 +1839,39 @@ class SecondaryAuthenticationFactorAuthenticationTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.ISecondaryAuthenticationFactorAuthenticationTrigger
     _classid_ = 'Windows.ApplicationModel.Background.SecondaryAuthenticationFactorAuthenticationTrigger'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.ApplicationModel.Background.SecondaryAuthenticationFactorAuthenticationTrigger.CreateInstance(*args)
+            return win32more.Windows.ApplicationModel.Background.SecondaryAuthenticationFactorAuthenticationTrigger.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Background.SecondaryAuthenticationFactorAuthenticationTrigger: ...
 class SensorDataThresholdTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.ISensorDataThresholdTrigger
     _classid_ = 'Windows.ApplicationModel.Background.SensorDataThresholdTrigger'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.ApplicationModel.Background.SensorDataThresholdTrigger.Create(*args)
+            return win32more.Windows.ApplicationModel.Background.SensorDataThresholdTrigger.Create(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.ApplicationModel.Background.ISensorDataThresholdTriggerFactory, threshold: win32more.Windows.Devices.Sensors.ISensorDataThreshold) -> win32more.Windows.ApplicationModel.Background.SensorDataThresholdTrigger: ...
 class SmartCardTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.ISmartCardTrigger
     _classid_ = 'Windows.ApplicationModel.Background.SmartCardTrigger'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.ApplicationModel.Background.SmartCardTrigger.Create(*args)
+            return win32more.Windows.ApplicationModel.Background.SmartCardTrigger.Create(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.ApplicationModel.Background.ISmartCardTriggerFactory, triggerType: win32more.Windows.Devices.SmartCards.SmartCardTriggerType) -> win32more.Windows.ApplicationModel.Background.SmartCardTrigger: ...
     @winrt_mixinmethod
@@ -2004,32 +1881,26 @@ class SmsMessageReceivedTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.IBackgroundTrigger
     _classid_ = 'Windows.ApplicationModel.Background.SmsMessageReceivedTrigger'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.ApplicationModel.Background.SmsMessageReceivedTrigger.Create(*args)
+            return win32more.Windows.ApplicationModel.Background.SmsMessageReceivedTrigger.Create(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.ApplicationModel.Background.ISmsMessageReceivedTriggerFactory, filterRules: win32more.Windows.Devices.Sms.SmsFilterRules) -> win32more.Windows.ApplicationModel.Background.SmsMessageReceivedTrigger: ...
 class SocketActivityTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.IBackgroundTrigger
     _classid_ = 'Windows.ApplicationModel.Background.SocketActivityTrigger'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.ApplicationModel.Background.SocketActivityTrigger.CreateInstance(*args)
+            return win32more.Windows.ApplicationModel.Background.SocketActivityTrigger.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Background.SocketActivityTrigger: ...
     @winrt_mixinmethod
@@ -2039,16 +1910,13 @@ class StorageLibraryChangeTrackerTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.IBackgroundTrigger
     _classid_ = 'Windows.ApplicationModel.Background.StorageLibraryChangeTrackerTrigger'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.ApplicationModel.Background.StorageLibraryChangeTrackerTrigger.Create(*args)
+            return win32more.Windows.ApplicationModel.Background.StorageLibraryChangeTrackerTrigger.Create(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.ApplicationModel.Background.IStorageLibraryChangeTrackerTriggerFactory, tracker: win32more.Windows.Storage.StorageLibraryChangeTracker) -> win32more.Windows.ApplicationModel.Background.StorageLibraryChangeTrackerTrigger: ...
 class StorageLibraryContentChangedTrigger(ComPtr):
@@ -2063,16 +1931,13 @@ class SystemCondition(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.ISystemCondition
     _classid_ = 'Windows.ApplicationModel.Background.SystemCondition'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.ApplicationModel.Background.SystemCondition.Create(*args)
+            return win32more.Windows.ApplicationModel.Background.SystemCondition.Create(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.ApplicationModel.Background.ISystemConditionFactory, conditionType: win32more.Windows.ApplicationModel.Background.SystemConditionType) -> win32more.Windows.ApplicationModel.Background.SystemCondition: ...
     @winrt_mixinmethod
@@ -2092,16 +1957,13 @@ class SystemTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.ISystemTrigger
     _classid_ = 'Windows.ApplicationModel.Background.SystemTrigger'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 2:
-            instance = win32more.Windows.ApplicationModel.Background.SystemTrigger.Create(*args)
+            return win32more.Windows.ApplicationModel.Background.SystemTrigger.Create(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.ApplicationModel.Background.ISystemTriggerFactory, triggerType: win32more.Windows.ApplicationModel.Background.SystemTriggerType, oneShot: Boolean) -> win32more.Windows.ApplicationModel.Background.SystemTrigger: ...
     @winrt_mixinmethod
@@ -2131,32 +1993,26 @@ class TetheringEntitlementCheckTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.IBackgroundTrigger
     _classid_ = 'Windows.ApplicationModel.Background.TetheringEntitlementCheckTrigger'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.ApplicationModel.Background.TetheringEntitlementCheckTrigger.CreateInstance(*args)
+            return win32more.Windows.ApplicationModel.Background.TetheringEntitlementCheckTrigger.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Background.TetheringEntitlementCheckTrigger: ...
 class TimeTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.ITimeTrigger
     _classid_ = 'Windows.ApplicationModel.Background.TimeTrigger'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 2:
-            instance = win32more.Windows.ApplicationModel.Background.TimeTrigger.Create(*args)
+            return win32more.Windows.ApplicationModel.Background.TimeTrigger.Create(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.ApplicationModel.Background.ITimeTriggerFactory, freshnessTime: UInt32, oneShot: Boolean) -> win32more.Windows.ApplicationModel.Background.TimeTrigger: ...
     @winrt_mixinmethod
@@ -2169,18 +2025,15 @@ class ToastNotificationActionTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.IBackgroundTrigger
     _classid_ = 'Windows.ApplicationModel.Background.ToastNotificationActionTrigger'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.ApplicationModel.Background.ToastNotificationActionTrigger.CreateInstance(*args)
+            return win32more.Windows.ApplicationModel.Background.ToastNotificationActionTrigger.CreateInstance(*args)
         elif len(args) == 1:
-            instance = win32more.Windows.ApplicationModel.Background.ToastNotificationActionTrigger.Create(*args)
+            return win32more.Windows.ApplicationModel.Background.ToastNotificationActionTrigger.Create(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Background.ToastNotificationActionTrigger: ...
     @winrt_factorymethod
@@ -2189,18 +2042,15 @@ class ToastNotificationHistoryChangedTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.IBackgroundTrigger
     _classid_ = 'Windows.ApplicationModel.Background.ToastNotificationHistoryChangedTrigger'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.ApplicationModel.Background.ToastNotificationHistoryChangedTrigger.CreateInstance(*args)
+            return win32more.Windows.ApplicationModel.Background.ToastNotificationHistoryChangedTrigger.CreateInstance(*args)
         elif len(args) == 1:
-            instance = win32more.Windows.ApplicationModel.Background.ToastNotificationHistoryChangedTrigger.Create(*args)
+            return win32more.Windows.ApplicationModel.Background.ToastNotificationHistoryChangedTrigger.Create(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Background.ToastNotificationHistoryChangedTrigger: ...
     @winrt_factorymethod
@@ -2209,48 +2059,39 @@ class UserNotificationChangedTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.IBackgroundTrigger
     _classid_ = 'Windows.ApplicationModel.Background.UserNotificationChangedTrigger'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.ApplicationModel.Background.UserNotificationChangedTrigger.Create(*args)
+            return win32more.Windows.ApplicationModel.Background.UserNotificationChangedTrigger.Create(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.ApplicationModel.Background.IUserNotificationChangedTriggerFactory, notificationKinds: win32more.Windows.UI.Notifications.NotificationKinds) -> win32more.Windows.ApplicationModel.Background.UserNotificationChangedTrigger: ...
 class WiFiOnDemandHotspotConnectTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.IBackgroundTrigger
     _classid_ = 'Windows.ApplicationModel.Background.WiFiOnDemandHotspotConnectTrigger'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.ApplicationModel.Background.WiFiOnDemandHotspotConnectTrigger.CreateInstance(*args)
+            return win32more.Windows.ApplicationModel.Background.WiFiOnDemandHotspotConnectTrigger.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Background.WiFiOnDemandHotspotConnectTrigger: ...
 class WiFiOnDemandHotspotUpdateMetadataTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.IBackgroundTrigger
     _classid_ = 'Windows.ApplicationModel.Background.WiFiOnDemandHotspotUpdateMetadataTrigger'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.ApplicationModel.Background.WiFiOnDemandHotspotUpdateMetadataTrigger.CreateInstance(*args)
+            return win32more.Windows.ApplicationModel.Background.WiFiOnDemandHotspotUpdateMetadataTrigger.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Background.WiFiOnDemandHotspotUpdateMetadataTrigger: ...
 make_ready(__name__)

@@ -994,16 +994,13 @@ class PhoneCallHistoryEntry(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Calls.IPhoneCallHistoryEntry
     _classid_ = 'Windows.ApplicationModel.Calls.PhoneCallHistoryEntry'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.ApplicationModel.Calls.PhoneCallHistoryEntry.CreateInstance(*args)
+            return win32more.Windows.ApplicationModel.Calls.PhoneCallHistoryEntry.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Calls.PhoneCallHistoryEntry: ...
     @winrt_mixinmethod
@@ -1096,18 +1093,15 @@ class PhoneCallHistoryEntryAddress(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Calls.IPhoneCallHistoryEntryAddress
     _classid_ = 'Windows.ApplicationModel.Calls.PhoneCallHistoryEntryAddress'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.ApplicationModel.Calls.PhoneCallHistoryEntryAddress.CreateInstance(*args)
+            return win32more.Windows.ApplicationModel.Calls.PhoneCallHistoryEntryAddress.CreateInstance(*args)
         elif len(args) == 2:
-            instance = win32more.Windows.ApplicationModel.Calls.PhoneCallHistoryEntryAddress.Create(*args)
+            return win32more.Windows.ApplicationModel.Calls.PhoneCallHistoryEntryAddress.Create(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Calls.PhoneCallHistoryEntryAddress: ...
     @winrt_factorymethod
@@ -1147,16 +1141,13 @@ class PhoneCallHistoryEntryQueryOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Calls.IPhoneCallHistoryEntryQueryOptions
     _classid_ = 'Windows.ApplicationModel.Calls.PhoneCallHistoryEntryQueryOptions'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.ApplicationModel.Calls.PhoneCallHistoryEntryQueryOptions.CreateInstance(*args)
+            return win32more.Windows.ApplicationModel.Calls.PhoneCallHistoryEntryQueryOptions.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Calls.PhoneCallHistoryEntryQueryOptions: ...
     @winrt_mixinmethod
@@ -1323,16 +1314,13 @@ class PhoneDialOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Calls.IPhoneDialOptions
     _classid_ = 'Windows.ApplicationModel.Calls.PhoneDialOptions'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.ApplicationModel.Calls.PhoneDialOptions.CreateInstance(*args)
+            return win32more.Windows.ApplicationModel.Calls.PhoneDialOptions.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Calls.PhoneDialOptions: ...
     @winrt_mixinmethod

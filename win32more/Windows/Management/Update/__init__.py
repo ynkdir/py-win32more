@@ -584,16 +584,13 @@ class WindowsUpdateApprovalData(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Management.Update.IWindowsUpdateApprovalData
     _classid_ = 'Windows.Management.Update.WindowsUpdateApprovalData'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Management.Update.WindowsUpdateApprovalData.CreateInstance(*args)
+            return win32more.Windows.Management.Update.WindowsUpdateApprovalData.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Management.Update.WindowsUpdateApprovalData: ...
     @winrt_mixinmethod
@@ -718,16 +715,13 @@ class WindowsUpdateManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Management.Update.IWindowsUpdateManager
     _classid_ = 'Windows.Management.Update.WindowsUpdateManager'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.Management.Update.WindowsUpdateManager.CreateInstance(*args)
+            return win32more.Windows.Management.Update.WindowsUpdateManager.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.Management.Update.IWindowsUpdateManagerFactory, clientId: WinRT_String) -> win32more.Windows.Management.Update.WindowsUpdateManager: ...
     @winrt_mixinmethod
@@ -785,18 +779,15 @@ class WindowsUpdateRestartRequestOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Management.Update.IWindowsUpdateRestartRequestOptions
     _classid_ = 'Windows.Management.Update.WindowsUpdateRestartRequestOptions'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Management.Update.WindowsUpdateRestartRequestOptions.CreateInstance(*args)
+            return win32more.Windows.Management.Update.WindowsUpdateRestartRequestOptions.CreateInstance(*args)
         elif len(args) == 5:
-            instance = win32more.Windows.Management.Update.WindowsUpdateRestartRequestOptions.CreateInstance(*args)
+            return win32more.Windows.Management.Update.WindowsUpdateRestartRequestOptions.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_overload
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Management.Update.WindowsUpdateRestartRequestOptions: ...

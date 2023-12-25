@@ -1229,18 +1229,15 @@ class MediaBreak(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Playback.IMediaBreak
     _classid_ = 'Windows.Media.Playback.MediaBreak'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.Media.Playback.MediaBreak.Create(*args)
+            return win32more.Windows.Media.Playback.MediaBreak.Create(*args)
         elif len(args) == 2:
-            instance = win32more.Windows.Media.Playback.MediaBreak.CreateWithPresentationPosition(*args)
+            return win32more.Windows.Media.Playback.MediaBreak.CreateWithPresentationPosition(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.Media.Playback.IMediaBreakFactory, insertionMethod: win32more.Windows.Media.Playback.MediaBreakInsertionMethod) -> win32more.Windows.Media.Playback.MediaBreak: ...
     @winrt_factorymethod
@@ -1634,20 +1631,17 @@ class MediaPlaybackItem(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Playback.IMediaPlaybackItem
     _classid_ = 'Windows.Media.Playback.MediaPlaybackItem'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.Media.Playback.MediaPlaybackItem.Create(*args)
+            return win32more.Windows.Media.Playback.MediaPlaybackItem.Create(*args)
         elif len(args) == 2:
-            instance = win32more.Windows.Media.Playback.MediaPlaybackItem.CreateWithStartTime(*args)
+            return win32more.Windows.Media.Playback.MediaPlaybackItem.CreateWithStartTime(*args)
         elif len(args) == 3:
-            instance = win32more.Windows.Media.Playback.MediaPlaybackItem.CreateWithStartTimeAndDurationLimit(*args)
+            return win32more.Windows.Media.Playback.MediaPlaybackItem.CreateWithStartTimeAndDurationLimit(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.Media.Playback.IMediaPlaybackItemFactory, source: win32more.Windows.Media.Core.MediaSource) -> win32more.Windows.Media.Playback.MediaPlaybackItem: ...
     @winrt_factorymethod
@@ -1754,16 +1748,13 @@ class MediaPlaybackList(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Playback.IMediaPlaybackList
     _classid_ = 'Windows.Media.Playback.MediaPlaybackList'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Media.Playback.MediaPlaybackList.CreateInstance(*args)
+            return win32more.Windows.Media.Playback.MediaPlaybackList.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Media.Playback.MediaPlaybackList: ...
     @winrt_mixinmethod
@@ -2064,16 +2055,13 @@ class MediaPlayer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Playback.IMediaPlayer
     _classid_ = 'Windows.Media.Playback.MediaPlayer'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Media.Playback.MediaPlayer.CreateInstance(*args)
+            return win32more.Windows.Media.Playback.MediaPlayer.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Media.Playback.MediaPlayer: ...
     @winrt_mixinmethod
@@ -2367,18 +2355,15 @@ class PlaybackMediaMarker(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Playback.IPlaybackMediaMarker
     _classid_ = 'Windows.Media.Playback.PlaybackMediaMarker'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.Media.Playback.PlaybackMediaMarker.CreateFromTime(*args)
+            return win32more.Windows.Media.Playback.PlaybackMediaMarker.CreateFromTime(*args)
         elif len(args) == 3:
-            instance = win32more.Windows.Media.Playback.PlaybackMediaMarker.Create(*args)
+            return win32more.Windows.Media.Playback.PlaybackMediaMarker.Create(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateFromTime(cls: win32more.Windows.Media.Playback.IPlaybackMediaMarkerFactory, value: win32more.Windows.Foundation.TimeSpan) -> win32more.Windows.Media.Playback.PlaybackMediaMarker: ...
     @winrt_factorymethod

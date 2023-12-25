@@ -185,16 +185,13 @@ class SpeechSynthesizer(ComPtr, metaclass=_SpeechSynthesizer_Meta_):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.SpeechSynthesis.ISpeechSynthesizer
     _classid_ = 'Windows.Media.SpeechSynthesis.SpeechSynthesizer'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Media.SpeechSynthesis.SpeechSynthesizer.CreateInstance(*args)
+            return win32more.Windows.Media.SpeechSynthesis.SpeechSynthesizer.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Media.SpeechSynthesis.SpeechSynthesizer: ...
     @winrt_mixinmethod

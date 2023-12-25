@@ -714,16 +714,13 @@ class LearningModelBinding(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.AI.MachineLearning.ILearningModelBinding
     _classid_ = 'Windows.AI.MachineLearning.LearningModelBinding'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.AI.MachineLearning.LearningModelBinding.CreateFromSession(*args)
+            return win32more.Windows.AI.MachineLearning.LearningModelBinding.CreateFromSession(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateFromSession(cls: win32more.Windows.AI.MachineLearning.ILearningModelBindingFactory, session: win32more.Windows.AI.MachineLearning.LearningModelSession) -> win32more.Windows.AI.MachineLearning.LearningModelBinding: ...
     @winrt_mixinmethod
@@ -747,16 +744,13 @@ class LearningModelDevice(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.AI.MachineLearning.ILearningModelDevice
     _classid_ = 'Windows.AI.MachineLearning.LearningModelDevice'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.AI.MachineLearning.LearningModelDevice.Create(*args)
+            return win32more.Windows.AI.MachineLearning.LearningModelDevice.Create(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.AI.MachineLearning.ILearningModelDeviceFactory, deviceKind: win32more.Windows.AI.MachineLearning.LearningModelDeviceKind) -> win32more.Windows.AI.MachineLearning.LearningModelDevice: ...
     @winrt_mixinmethod
@@ -802,20 +796,17 @@ class LearningModelSession(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.AI.MachineLearning.ILearningModelSession
     _classid_ = 'Windows.AI.MachineLearning.LearningModelSession'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.AI.MachineLearning.LearningModelSession.CreateFromModel(*args)
+            return win32more.Windows.AI.MachineLearning.LearningModelSession.CreateFromModel(*args)
         elif len(args) == 2:
-            instance = win32more.Windows.AI.MachineLearning.LearningModelSession.CreateFromModelOnDevice(*args)
+            return win32more.Windows.AI.MachineLearning.LearningModelSession.CreateFromModelOnDevice(*args)
         elif len(args) == 3:
-            instance = win32more.Windows.AI.MachineLearning.LearningModelSession.CreateFromModelOnDeviceWithSessionOptions(*args)
+            return win32more.Windows.AI.MachineLearning.LearningModelSession.CreateFromModelOnDeviceWithSessionOptions(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateFromModel(cls: win32more.Windows.AI.MachineLearning.ILearningModelSessionFactory, model: win32more.Windows.AI.MachineLearning.LearningModel) -> win32more.Windows.AI.MachineLearning.LearningModelSession: ...
     @winrt_factorymethod
@@ -845,16 +836,13 @@ class LearningModelSessionOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.AI.MachineLearning.ILearningModelSessionOptions
     _classid_ = 'Windows.AI.MachineLearning.LearningModelSessionOptions'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.AI.MachineLearning.LearningModelSessionOptions.CreateInstance(*args)
+            return win32more.Windows.AI.MachineLearning.LearningModelSessionOptions.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.AI.MachineLearning.LearningModelSessionOptions: ...
     @winrt_mixinmethod

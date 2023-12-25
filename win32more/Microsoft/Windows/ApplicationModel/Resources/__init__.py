@@ -201,18 +201,15 @@ class ResourceCandidate(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Windows.ApplicationModel.Resources.IResourceCandidate
     _classid_ = 'Microsoft.Windows.ApplicationModel.Resources.ResourceCandidate'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Microsoft.Windows.ApplicationModel.Resources.ResourceCandidate.CreateInstance2(*args)
+            return win32more.Microsoft.Windows.ApplicationModel.Resources.ResourceCandidate.CreateInstance2(*args)
         elif len(args) == 2:
-            instance = win32more.Microsoft.Windows.ApplicationModel.Resources.ResourceCandidate.CreateInstance(*args)
+            return win32more.Microsoft.Windows.ApplicationModel.Resources.ResourceCandidate.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance2(cls: win32more.Microsoft.Windows.ApplicationModel.Resources.IResourceCandidateFactory, data: Annotated[SZArray[Byte], 'In']) -> win32more.Microsoft.Windows.ApplicationModel.Resources.ResourceCandidate: ...
     @winrt_factorymethod
@@ -245,20 +242,17 @@ class ResourceLoader(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Windows.ApplicationModel.Resources.IResourceLoader
     _classid_ = 'Microsoft.Windows.ApplicationModel.Resources.ResourceLoader'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Microsoft.Windows.ApplicationModel.Resources.ResourceLoader.CreateInstance(*args)
+            return win32more.Microsoft.Windows.ApplicationModel.Resources.ResourceLoader.CreateInstance(*args)
         elif len(args) == 1:
-            instance = win32more.Microsoft.Windows.ApplicationModel.Resources.ResourceLoader.CreateInstance(*args)
+            return win32more.Microsoft.Windows.ApplicationModel.Resources.ResourceLoader.CreateInstance(*args)
         elif len(args) == 2:
-            instance = win32more.Microsoft.Windows.ApplicationModel.Resources.ResourceLoader.CreateInstance2(*args)
+            return win32more.Microsoft.Windows.ApplicationModel.Resources.ResourceLoader.CreateInstance2(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_overload
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Microsoft.Windows.ApplicationModel.Resources.ResourceLoader: ...
@@ -277,18 +271,15 @@ class ResourceManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Windows.ApplicationModel.Resources.IResourceManager
     _classid_ = 'Microsoft.Windows.ApplicationModel.Resources.ResourceManager'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Microsoft.Windows.ApplicationModel.Resources.ResourceManager.CreateInstance(*args)
+            return win32more.Microsoft.Windows.ApplicationModel.Resources.ResourceManager.CreateInstance(*args)
         elif len(args) == 1:
-            instance = win32more.Microsoft.Windows.ApplicationModel.Resources.ResourceManager.CreateInstance(*args)
+            return win32more.Microsoft.Windows.ApplicationModel.Resources.ResourceManager.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_overload
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Microsoft.Windows.ApplicationModel.Resources.ResourceManager: ...

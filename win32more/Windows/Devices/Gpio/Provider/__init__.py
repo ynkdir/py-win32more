@@ -22,16 +22,13 @@ class GpioPinProviderValueChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Gpio.Provider.IGpioPinProviderValueChangedEventArgs
     _classid_ = 'Windows.Devices.Gpio.Provider.GpioPinProviderValueChangedEventArgs'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.Devices.Gpio.Provider.GpioPinProviderValueChangedEventArgs.Create(*args)
+            return win32more.Windows.Devices.Gpio.Provider.GpioPinProviderValueChangedEventArgs.Create(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.Devices.Gpio.Provider.IGpioPinProviderValueChangedEventArgsFactory, edge: win32more.Windows.Devices.Gpio.Provider.ProviderGpioPinEdge) -> win32more.Windows.Devices.Gpio.Provider.GpioPinProviderValueChangedEventArgs: ...
     @winrt_mixinmethod

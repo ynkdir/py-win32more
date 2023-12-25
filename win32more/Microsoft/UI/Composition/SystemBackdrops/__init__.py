@@ -26,16 +26,13 @@ class DesktopAcrylicController(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Composition.SystemBackdrops.IDesktopAcrylicController
     _classid_ = 'Microsoft.UI.Composition.SystemBackdrops.DesktopAcrylicController'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Microsoft.UI.Composition.SystemBackdrops.DesktopAcrylicController.CreateInstance(*args)
+            return win32more.Microsoft.UI.Composition.SystemBackdrops.DesktopAcrylicController.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Microsoft.UI.Composition.SystemBackdrops.DesktopAcrylicController: ...
     @winrt_mixinmethod
@@ -244,16 +241,13 @@ class MicaController(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Composition.SystemBackdrops.IMicaController
     _classid_ = 'Microsoft.UI.Composition.SystemBackdrops.MicaController'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Microsoft.UI.Composition.SystemBackdrops.MicaController.CreateInstance(*args)
+            return win32more.Microsoft.UI.Composition.SystemBackdrops.MicaController.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Microsoft.UI.Composition.SystemBackdrops.MicaController: ...
     @winrt_mixinmethod
@@ -324,16 +318,13 @@ class SystemBackdropConfiguration(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Composition.SystemBackdrops.ISystemBackdropConfiguration
     _classid_ = 'Microsoft.UI.Composition.SystemBackdrops.SystemBackdropConfiguration'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Microsoft.UI.Composition.SystemBackdrops.SystemBackdropConfiguration.CreateInstance(*args)
+            return win32more.Microsoft.UI.Composition.SystemBackdrops.SystemBackdropConfiguration.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Microsoft.UI.Composition.SystemBackdrops.SystemBackdropConfiguration: ...
     @winrt_mixinmethod

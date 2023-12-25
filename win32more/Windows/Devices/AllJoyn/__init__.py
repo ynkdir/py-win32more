@@ -141,16 +141,13 @@ class AllJoynAcceptSessionJoinerEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.AllJoyn.IAllJoynAcceptSessionJoinerEventArgs
     _classid_ = 'Windows.Devices.AllJoyn.AllJoynAcceptSessionJoinerEventArgs'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 5:
-            instance = win32more.Windows.Devices.AllJoyn.AllJoynAcceptSessionJoinerEventArgs.Create(*args)
+            return win32more.Windows.Devices.AllJoyn.AllJoynAcceptSessionJoinerEventArgs.Create(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.Devices.AllJoyn.IAllJoynAcceptSessionJoinerEventArgsFactory, uniqueName: WinRT_String, sessionPort: UInt16, trafficType: win32more.Windows.Devices.AllJoyn.AllJoynTrafficType, proximity: Byte, acceptSessionJoiner: win32more.Windows.Devices.AllJoyn.IAllJoynAcceptSessionJoiner) -> win32more.Windows.Devices.AllJoyn.AllJoynAcceptSessionJoinerEventArgs: ...
     @winrt_mixinmethod
@@ -195,18 +192,15 @@ class AllJoynBusAttachment(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.AllJoyn.IAllJoynBusAttachment
     _classid_ = 'Windows.Devices.AllJoyn.AllJoynBusAttachment'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Devices.AllJoyn.AllJoynBusAttachment.CreateInstance(*args)
+            return win32more.Windows.Devices.AllJoyn.AllJoynBusAttachment.CreateInstance(*args)
         elif len(args) == 1:
-            instance = win32more.Windows.Devices.AllJoyn.AllJoynBusAttachment.Create(*args)
+            return win32more.Windows.Devices.AllJoyn.AllJoynBusAttachment.Create(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Devices.AllJoyn.AllJoynBusAttachment: ...
     @winrt_factorymethod
@@ -283,20 +277,17 @@ class AllJoynBusObject(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.AllJoyn.IAllJoynBusObject
     _classid_ = 'Windows.Devices.AllJoyn.AllJoynBusObject'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Devices.AllJoyn.AllJoynBusObject.CreateInstance(*args)
+            return win32more.Windows.Devices.AllJoyn.AllJoynBusObject.CreateInstance(*args)
         elif len(args) == 1:
-            instance = win32more.Windows.Devices.AllJoyn.AllJoynBusObject.Create(*args)
+            return win32more.Windows.Devices.AllJoyn.AllJoynBusObject.Create(*args)
         elif len(args) == 2:
-            instance = win32more.Windows.Devices.AllJoyn.AllJoynBusObject.CreateWithBusAttachment(*args)
+            return win32more.Windows.Devices.AllJoyn.AllJoynBusObject.CreateWithBusAttachment(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Devices.AllJoyn.AllJoynBusObject: ...
     @winrt_factorymethod
@@ -323,16 +314,13 @@ class AllJoynBusObjectStoppedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.AllJoyn.IAllJoynBusObjectStoppedEventArgs
     _classid_ = 'Windows.Devices.AllJoyn.AllJoynBusObjectStoppedEventArgs'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.Devices.AllJoyn.AllJoynBusObjectStoppedEventArgs.Create(*args)
+            return win32more.Windows.Devices.AllJoyn.AllJoynBusObjectStoppedEventArgs.Create(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.Devices.AllJoyn.IAllJoynBusObjectStoppedEventArgsFactory, status: Int32) -> win32more.Windows.Devices.AllJoyn.AllJoynBusObjectStoppedEventArgs: ...
     @winrt_mixinmethod
@@ -408,16 +396,13 @@ class AllJoynMessageInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.AllJoyn.IAllJoynMessageInfo
     _classid_ = 'Windows.Devices.AllJoyn.AllJoynMessageInfo'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.Devices.AllJoyn.AllJoynMessageInfo.Create(*args)
+            return win32more.Windows.Devices.AllJoyn.AllJoynMessageInfo.Create(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.Devices.AllJoyn.IAllJoynMessageInfoFactory, senderUniqueName: WinRT_String) -> win32more.Windows.Devices.AllJoyn.AllJoynMessageInfo: ...
     @winrt_mixinmethod
@@ -427,16 +412,13 @@ class AllJoynProducerStoppedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.AllJoyn.IAllJoynProducerStoppedEventArgs
     _classid_ = 'Windows.Devices.AllJoyn.AllJoynProducerStoppedEventArgs'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.Devices.AllJoyn.AllJoynProducerStoppedEventArgs.Create(*args)
+            return win32more.Windows.Devices.AllJoyn.AllJoynProducerStoppedEventArgs.Create(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.Devices.AllJoyn.IAllJoynProducerStoppedEventArgsFactory, status: Int32) -> win32more.Windows.Devices.AllJoyn.AllJoynProducerStoppedEventArgs: ...
     @winrt_mixinmethod
@@ -446,16 +428,13 @@ class AllJoynServiceInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.AllJoyn.IAllJoynServiceInfo
     _classid_ = 'Windows.Devices.AllJoyn.AllJoynServiceInfo'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 3:
-            instance = win32more.Windows.Devices.AllJoyn.AllJoynServiceInfo.Create(*args)
+            return win32more.Windows.Devices.AllJoyn.AllJoynServiceInfo.Create(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.Devices.AllJoyn.IAllJoynServiceInfoFactory, uniqueName: WinRT_String, objectPath: WinRT_String, sessionPort: UInt16) -> win32more.Windows.Devices.AllJoyn.AllJoynServiceInfo: ...
     @winrt_mixinmethod
@@ -473,16 +452,13 @@ class AllJoynServiceInfoRemovedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.AllJoyn.IAllJoynServiceInfoRemovedEventArgs
     _classid_ = 'Windows.Devices.AllJoyn.AllJoynServiceInfoRemovedEventArgs'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.Devices.AllJoyn.AllJoynServiceInfoRemovedEventArgs.Create(*args)
+            return win32more.Windows.Devices.AllJoyn.AllJoynServiceInfoRemovedEventArgs.Create(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.Devices.AllJoyn.IAllJoynServiceInfoRemovedEventArgsFactory, uniqueName: WinRT_String) -> win32more.Windows.Devices.AllJoyn.AllJoynServiceInfoRemovedEventArgs: ...
     @winrt_mixinmethod
@@ -520,16 +496,13 @@ class AllJoynSessionJoinedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.AllJoyn.IAllJoynSessionJoinedEventArgs
     _classid_ = 'Windows.Devices.AllJoyn.AllJoynSessionJoinedEventArgs'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.Devices.AllJoyn.AllJoynSessionJoinedEventArgs.Create(*args)
+            return win32more.Windows.Devices.AllJoyn.AllJoynSessionJoinedEventArgs.Create(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.Devices.AllJoyn.IAllJoynSessionJoinedEventArgsFactory, session: win32more.Windows.Devices.AllJoyn.AllJoynSession) -> win32more.Windows.Devices.AllJoyn.AllJoynSessionJoinedEventArgs: ...
     @winrt_mixinmethod
@@ -539,16 +512,13 @@ class AllJoynSessionLostEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.AllJoyn.IAllJoynSessionLostEventArgs
     _classid_ = 'Windows.Devices.AllJoyn.AllJoynSessionLostEventArgs'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.Devices.AllJoyn.AllJoynSessionLostEventArgs.Create(*args)
+            return win32more.Windows.Devices.AllJoyn.AllJoynSessionLostEventArgs.Create(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.Devices.AllJoyn.IAllJoynSessionLostEventArgsFactory, reason: win32more.Windows.Devices.AllJoyn.AllJoynSessionLostReason) -> win32more.Windows.Devices.AllJoyn.AllJoynSessionLostEventArgs: ...
     @winrt_mixinmethod
@@ -565,16 +535,13 @@ class AllJoynSessionMemberAddedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.AllJoyn.IAllJoynSessionMemberAddedEventArgs
     _classid_ = 'Windows.Devices.AllJoyn.AllJoynSessionMemberAddedEventArgs'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.Devices.AllJoyn.AllJoynSessionMemberAddedEventArgs.Create(*args)
+            return win32more.Windows.Devices.AllJoyn.AllJoynSessionMemberAddedEventArgs.Create(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.Devices.AllJoyn.IAllJoynSessionMemberAddedEventArgsFactory, uniqueName: WinRT_String) -> win32more.Windows.Devices.AllJoyn.AllJoynSessionMemberAddedEventArgs: ...
     @winrt_mixinmethod
@@ -584,16 +551,13 @@ class AllJoynSessionMemberRemovedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.AllJoyn.IAllJoynSessionMemberRemovedEventArgs
     _classid_ = 'Windows.Devices.AllJoyn.AllJoynSessionMemberRemovedEventArgs'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.Devices.AllJoyn.AllJoynSessionMemberRemovedEventArgs.Create(*args)
+            return win32more.Windows.Devices.AllJoyn.AllJoynSessionMemberRemovedEventArgs.Create(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.Devices.AllJoyn.IAllJoynSessionMemberRemovedEventArgsFactory, uniqueName: WinRT_String) -> win32more.Windows.Devices.AllJoyn.AllJoynSessionMemberRemovedEventArgs: ...
     @winrt_mixinmethod
@@ -667,16 +631,13 @@ class AllJoynWatcherStoppedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.AllJoyn.IAllJoynWatcherStoppedEventArgs
     _classid_ = 'Windows.Devices.AllJoyn.AllJoynWatcherStoppedEventArgs'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.Devices.AllJoyn.AllJoynWatcherStoppedEventArgs.Create(*args)
+            return win32more.Windows.Devices.AllJoyn.AllJoynWatcherStoppedEventArgs.Create(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.Devices.AllJoyn.IAllJoynWatcherStoppedEventArgsFactory, status: Int32) -> win32more.Windows.Devices.AllJoyn.AllJoynWatcherStoppedEventArgs: ...
     @winrt_mixinmethod

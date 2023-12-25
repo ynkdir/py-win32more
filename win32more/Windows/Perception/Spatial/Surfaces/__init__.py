@@ -199,16 +199,13 @@ class SpatialSurfaceMeshOptions(ComPtr, metaclass=_SpatialSurfaceMeshOptions_Met
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Perception.Spatial.Surfaces.ISpatialSurfaceMeshOptions
     _classid_ = 'Windows.Perception.Spatial.Surfaces.SpatialSurfaceMeshOptions'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Perception.Spatial.Surfaces.SpatialSurfaceMeshOptions.CreateInstance(*args)
+            return win32more.Windows.Perception.Spatial.Surfaces.SpatialSurfaceMeshOptions.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Perception.Spatial.Surfaces.SpatialSurfaceMeshOptions: ...
     @winrt_mixinmethod
@@ -244,16 +241,13 @@ class SpatialSurfaceObserver(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Perception.Spatial.Surfaces.ISpatialSurfaceObserver
     _classid_ = 'Windows.Perception.Spatial.Surfaces.SpatialSurfaceObserver'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Perception.Spatial.Surfaces.SpatialSurfaceObserver.CreateInstance(*args)
+            return win32more.Windows.Perception.Spatial.Surfaces.SpatialSurfaceObserver.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Perception.Spatial.Surfaces.SpatialSurfaceObserver: ...
     @winrt_mixinmethod

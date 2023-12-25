@@ -666,16 +666,13 @@ class PrintPageInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing.IPrintPageInfo
     _classid_ = 'Windows.Graphics.Printing.PrintPageInfo'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Graphics.Printing.PrintPageInfo.CreateInstance(*args)
+            return win32more.Windows.Graphics.Printing.PrintPageInfo.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Graphics.Printing.PrintPageInfo: ...
     @winrt_mixinmethod
@@ -707,18 +704,15 @@ class PrintPageRange(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing.IPrintPageRange
     _classid_ = 'Windows.Graphics.Printing.PrintPageRange'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.Graphics.Printing.PrintPageRange.CreateWithSinglePage(*args)
+            return win32more.Windows.Graphics.Printing.PrintPageRange.CreateWithSinglePage(*args)
         elif len(args) == 2:
-            instance = win32more.Windows.Graphics.Printing.PrintPageRange.Create(*args)
+            return win32more.Windows.Graphics.Printing.PrintPageRange.Create(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateWithSinglePage(cls: win32more.Windows.Graphics.Printing.IPrintPageRangeFactory, page: Int32) -> win32more.Windows.Graphics.Printing.PrintPageRange: ...
     @winrt_factorymethod

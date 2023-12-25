@@ -220,16 +220,13 @@ class CoreCursor(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Core.ICoreCursor
     _classid_ = 'Windows.UI.Core.CoreCursor'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 2:
-            instance = win32more.Windows.UI.Core.CoreCursor.CreateCursor(*args)
+            return win32more.Windows.UI.Core.CoreCursor.CreateCursor(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateCursor(cls: win32more.Windows.UI.Core.ICoreCursorFactory, type: win32more.Windows.UI.Core.CoreCursorType, id: UInt32) -> win32more.Windows.UI.Core.CoreCursor: ...
     @winrt_mixinmethod
@@ -596,18 +593,15 @@ class CoreWindowDialog(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Core.ICoreWindowDialog
     _classid_ = 'Windows.UI.Core.CoreWindowDialog'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Core.CoreWindowDialog.CreateInstance(*args)
+            return win32more.Windows.UI.Core.CoreWindowDialog.CreateInstance(*args)
         elif len(args) == 1:
-            instance = win32more.Windows.UI.Core.CoreWindowDialog.CreateWithTitle(*args)
+            return win32more.Windows.UI.Core.CoreWindowDialog.CreateWithTitle(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Core.CoreWindowDialog: ...
     @winrt_factorymethod
@@ -669,18 +663,15 @@ class CoreWindowFlyout(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Core.ICoreWindowFlyout
     _classid_ = 'Windows.UI.Core.CoreWindowFlyout'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.UI.Core.CoreWindowFlyout.Create(*args)
+            return win32more.Windows.UI.Core.CoreWindowFlyout.Create(*args)
         elif len(args) == 2:
-            instance = win32more.Windows.UI.Core.CoreWindowFlyout.CreateWithTitle(*args)
+            return win32more.Windows.UI.Core.CoreWindowFlyout.CreateWithTitle(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.UI.Core.ICoreWindowFlyoutFactory, position: win32more.Windows.Foundation.Point) -> win32more.Windows.UI.Core.CoreWindowFlyout: ...
     @winrt_factorymethod

@@ -330,18 +330,15 @@ class WalletBarcode(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Wallet.IWalletBarcode
     _classid_ = 'Windows.ApplicationModel.Wallet.WalletBarcode'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.ApplicationModel.Wallet.WalletBarcode.CreateCustomWalletBarcode(*args)
+            return win32more.Windows.ApplicationModel.Wallet.WalletBarcode.CreateCustomWalletBarcode(*args)
         elif len(args) == 2:
-            instance = win32more.Windows.ApplicationModel.Wallet.WalletBarcode.CreateWalletBarcode(*args)
+            return win32more.Windows.ApplicationModel.Wallet.WalletBarcode.CreateWalletBarcode(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateCustomWalletBarcode(cls: win32more.Windows.ApplicationModel.Wallet.IWalletBarcodeFactory, streamToBarcodeImage: win32more.Windows.Storage.Streams.IRandomAccessStreamReference) -> win32more.Windows.ApplicationModel.Wallet.WalletBarcode: ...
     @winrt_factorymethod
@@ -388,16 +385,13 @@ class WalletItem(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Wallet.IWalletItem
     _classid_ = 'Windows.ApplicationModel.Wallet.WalletItem'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 2:
-            instance = win32more.Windows.ApplicationModel.Wallet.WalletItem.CreateWalletItem(*args)
+            return win32more.Windows.ApplicationModel.Wallet.WalletItem.CreateWalletItem(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateWalletItem(cls: win32more.Windows.ApplicationModel.Wallet.IWalletItemFactory, kind: win32more.Windows.ApplicationModel.Wallet.WalletItemKind, displayName: WinRT_String) -> win32more.Windows.ApplicationModel.Wallet.WalletItem: ...
     @winrt_mixinmethod
@@ -537,16 +531,13 @@ class WalletItemCustomProperty(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Wallet.IWalletItemCustomProperty
     _classid_ = 'Windows.ApplicationModel.Wallet.WalletItemCustomProperty'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 2:
-            instance = win32more.Windows.ApplicationModel.Wallet.WalletItemCustomProperty.CreateWalletItemCustomProperty(*args)
+            return win32more.Windows.ApplicationModel.Wallet.WalletItemCustomProperty.CreateWalletItemCustomProperty(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateWalletItemCustomProperty(cls: win32more.Windows.ApplicationModel.Wallet.IWalletItemCustomPropertyFactory, name: WinRT_String, value: WinRT_String) -> win32more.Windows.ApplicationModel.Wallet.WalletItemCustomProperty: ...
     @winrt_mixinmethod
@@ -615,16 +606,13 @@ class WalletRelevantLocation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Wallet.IWalletRelevantLocation
     _classid_ = 'Windows.ApplicationModel.Wallet.WalletRelevantLocation'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.ApplicationModel.Wallet.WalletRelevantLocation.CreateInstance(*args)
+            return win32more.Windows.ApplicationModel.Wallet.WalletRelevantLocation.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Wallet.WalletRelevantLocation: ...
     @winrt_mixinmethod
@@ -645,16 +633,13 @@ class WalletTransaction(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Wallet.IWalletTransaction
     _classid_ = 'Windows.ApplicationModel.Wallet.WalletTransaction'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.ApplicationModel.Wallet.WalletTransaction.CreateInstance(*args)
+            return win32more.Windows.ApplicationModel.Wallet.WalletTransaction.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Wallet.WalletTransaction: ...
     @winrt_mixinmethod
@@ -691,16 +676,13 @@ class WalletVerb(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Wallet.IWalletVerb
     _classid_ = 'Windows.ApplicationModel.Wallet.WalletVerb'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.ApplicationModel.Wallet.WalletVerb.CreateWalletVerb(*args)
+            return win32more.Windows.ApplicationModel.Wallet.WalletVerb.CreateWalletVerb(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateWalletVerb(cls: win32more.Windows.ApplicationModel.Wallet.IWalletVerbFactory, name: WinRT_String) -> win32more.Windows.ApplicationModel.Wallet.WalletVerb: ...
     @winrt_mixinmethod

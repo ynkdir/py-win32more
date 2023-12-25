@@ -29,16 +29,13 @@ class AddPackageOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Management.Deployment.IAddPackageOptions
     _classid_ = 'Windows.Management.Deployment.AddPackageOptions'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Management.Deployment.AddPackageOptions.CreateInstance(*args)
+            return win32more.Windows.Management.Deployment.AddPackageOptions.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Management.Deployment.AddPackageOptions: ...
     @winrt_mixinmethod
@@ -144,16 +141,13 @@ class AutoUpdateSettingsOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Management.Deployment.IAutoUpdateSettingsOptions
     _classid_ = 'Windows.Management.Deployment.AutoUpdateSettingsOptions'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Management.Deployment.AutoUpdateSettingsOptions.CreateInstance(*args)
+            return win32more.Windows.Management.Deployment.AutoUpdateSettingsOptions.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Management.Deployment.AutoUpdateSettingsOptions: ...
     @winrt_mixinmethod
@@ -219,16 +213,13 @@ class CreateSharedPackageContainerOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Management.Deployment.ICreateSharedPackageContainerOptions
     _classid_ = 'Windows.Management.Deployment.CreateSharedPackageContainerOptions'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Management.Deployment.CreateSharedPackageContainerOptions.CreateInstance(*args)
+            return win32more.Windows.Management.Deployment.CreateSharedPackageContainerOptions.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Management.Deployment.CreateSharedPackageContainerOptions: ...
     @winrt_mixinmethod
@@ -261,16 +252,13 @@ class DeleteSharedPackageContainerOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Management.Deployment.IDeleteSharedPackageContainerOptions
     _classid_ = 'Windows.Management.Deployment.DeleteSharedPackageContainerOptions'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Management.Deployment.DeleteSharedPackageContainerOptions.CreateInstance(*args)
+            return win32more.Windows.Management.Deployment.DeleteSharedPackageContainerOptions.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Management.Deployment.DeleteSharedPackageContainerOptions: ...
     @winrt_mixinmethod
@@ -329,16 +317,13 @@ class FindSharedPackageContainerOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Management.Deployment.IFindSharedPackageContainerOptions
     _classid_ = 'Windows.Management.Deployment.FindSharedPackageContainerOptions'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Management.Deployment.FindSharedPackageContainerOptions.CreateInstance(*args)
+            return win32more.Windows.Management.Deployment.FindSharedPackageContainerOptions.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Management.Deployment.FindSharedPackageContainerOptions: ...
     @winrt_mixinmethod
@@ -1088,16 +1073,13 @@ class PackageAllUserProvisioningOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Management.Deployment.IPackageAllUserProvisioningOptions
     _classid_ = 'Windows.Management.Deployment.PackageAllUserProvisioningOptions'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Management.Deployment.PackageAllUserProvisioningOptions.CreateInstance(*args)
+            return win32more.Windows.Management.Deployment.PackageAllUserProvisioningOptions.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Management.Deployment.PackageAllUserProvisioningOptions: ...
     @winrt_mixinmethod
@@ -1115,16 +1097,13 @@ class PackageManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Management.Deployment.IPackageManager
     _classid_ = 'Windows.Management.Deployment.PackageManager'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Management.Deployment.PackageManager.CreateInstance(*args)
+            return win32more.Windows.Management.Deployment.PackageManager.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Management.Deployment.PackageManager: ...
     @winrt_mixinmethod
@@ -1355,16 +1334,13 @@ class RegisterPackageOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Management.Deployment.IRegisterPackageOptions
     _classid_ = 'Windows.Management.Deployment.RegisterPackageOptions'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Management.Deployment.RegisterPackageOptions.CreateInstance(*args)
+            return win32more.Windows.Management.Deployment.RegisterPackageOptions.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Management.Deployment.RegisterPackageOptions: ...
     @winrt_mixinmethod
@@ -1476,16 +1452,13 @@ class SharedPackageContainerMember(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Management.Deployment.ISharedPackageContainerMember
     _classid_ = 'Windows.Management.Deployment.SharedPackageContainerMember'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.Management.Deployment.SharedPackageContainerMember.CreateInstance(*args)
+            return win32more.Windows.Management.Deployment.SharedPackageContainerMember.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.Management.Deployment.ISharedPackageContainerMemberFactory, packageFamilyName: WinRT_String) -> win32more.Windows.Management.Deployment.SharedPackageContainerMember: ...
     @winrt_mixinmethod
@@ -1502,16 +1475,13 @@ class StagePackageOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Management.Deployment.IStagePackageOptions
     _classid_ = 'Windows.Management.Deployment.StagePackageOptions'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Management.Deployment.StagePackageOptions.CreateInstance(*args)
+            return win32more.Windows.Management.Deployment.StagePackageOptions.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Management.Deployment.StagePackageOptions: ...
     @winrt_mixinmethod
@@ -1583,16 +1553,13 @@ class UpdateSharedPackageContainerOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Management.Deployment.IUpdateSharedPackageContainerOptions
     _classid_ = 'Windows.Management.Deployment.UpdateSharedPackageContainerOptions'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Management.Deployment.UpdateSharedPackageContainerOptions.CreateInstance(*args)
+            return win32more.Windows.Management.Deployment.UpdateSharedPackageContainerOptions.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Management.Deployment.UpdateSharedPackageContainerOptions: ...
     @winrt_mixinmethod

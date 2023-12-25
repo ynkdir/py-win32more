@@ -348,18 +348,15 @@ class WebViewControlProcess(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.UI.Interop.IWebViewControlProcess
     _classid_ = 'Windows.Web.UI.Interop.WebViewControlProcess'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Web.UI.Interop.WebViewControlProcess.CreateInstance(*args)
+            return win32more.Windows.Web.UI.Interop.WebViewControlProcess.CreateInstance(*args)
         elif len(args) == 1:
-            instance = win32more.Windows.Web.UI.Interop.WebViewControlProcess.CreateWithOptions(*args)
+            return win32more.Windows.Web.UI.Interop.WebViewControlProcess.CreateWithOptions(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Web.UI.Interop.WebViewControlProcess: ...
     @winrt_factorymethod
@@ -391,16 +388,13 @@ class WebViewControlProcessOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.UI.Interop.IWebViewControlProcessOptions
     _classid_ = 'Windows.Web.UI.Interop.WebViewControlProcessOptions'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Web.UI.Interop.WebViewControlProcessOptions.CreateInstance(*args)
+            return win32more.Windows.Web.UI.Interop.WebViewControlProcessOptions.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Web.UI.Interop.WebViewControlProcessOptions: ...
     @winrt_mixinmethod

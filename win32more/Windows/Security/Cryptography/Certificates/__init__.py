@@ -24,16 +24,13 @@ class Certificate(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Cryptography.Certificates.ICertificate
     _classid_ = 'Windows.Security.Cryptography.Certificates.Certificate'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.Security.Cryptography.Certificates.Certificate.CreateCertificate(*args)
+            return win32more.Windows.Security.Cryptography.Certificates.Certificate.CreateCertificate(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateCertificate(cls: win32more.Windows.Security.Cryptography.Certificates.ICertificateFactory, certBlob: win32more.Windows.Storage.Streams.IBuffer) -> win32more.Windows.Security.Cryptography.Certificates.Certificate: ...
     @winrt_mixinmethod
@@ -139,16 +136,13 @@ class CertificateExtension(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Cryptography.Certificates.ICertificateExtension
     _classid_ = 'Windows.Security.Cryptography.Certificates.CertificateExtension'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Security.Cryptography.Certificates.CertificateExtension.CreateInstance(*args)
+            return win32more.Windows.Security.Cryptography.Certificates.CertificateExtension.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Security.Cryptography.Certificates.CertificateExtension: ...
     @winrt_mixinmethod
@@ -172,16 +166,13 @@ class CertificateKeyUsages(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Cryptography.Certificates.ICertificateKeyUsages
     _classid_ = 'Windows.Security.Cryptography.Certificates.CertificateKeyUsages'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Security.Cryptography.Certificates.CertificateKeyUsages.CreateInstance(*args)
+            return win32more.Windows.Security.Cryptography.Certificates.CertificateKeyUsages.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Security.Cryptography.Certificates.CertificateKeyUsages: ...
     @winrt_mixinmethod
@@ -228,16 +219,13 @@ class CertificateQuery(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Cryptography.Certificates.ICertificateQuery
     _classid_ = 'Windows.Security.Cryptography.Certificates.CertificateQuery'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Security.Cryptography.Certificates.CertificateQuery.CreateInstance(*args)
+            return win32more.Windows.Security.Cryptography.Certificates.CertificateQuery.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Security.Cryptography.Certificates.CertificateQuery: ...
     @winrt_mixinmethod
@@ -282,16 +270,13 @@ class CertificateRequestProperties(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Cryptography.Certificates.ICertificateRequestProperties
     _classid_ = 'Windows.Security.Cryptography.Certificates.CertificateRequestProperties'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Security.Cryptography.Certificates.CertificateRequestProperties.CreateInstance(*args)
+            return win32more.Windows.Security.Cryptography.Certificates.CertificateRequestProperties.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Security.Cryptography.Certificates.CertificateRequestProperties: ...
     @winrt_mixinmethod
@@ -422,16 +407,13 @@ class ChainBuildingParameters(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Cryptography.Certificates.IChainBuildingParameters
     _classid_ = 'Windows.Security.Cryptography.Certificates.ChainBuildingParameters'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Security.Cryptography.Certificates.ChainBuildingParameters.CreateInstance(*args)
+            return win32more.Windows.Security.Cryptography.Certificates.ChainBuildingParameters.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Security.Cryptography.Certificates.ChainBuildingParameters: ...
     @winrt_mixinmethod
@@ -469,16 +451,13 @@ class ChainValidationParameters(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Cryptography.Certificates.IChainValidationParameters
     _classid_ = 'Windows.Security.Cryptography.Certificates.ChainValidationParameters'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Security.Cryptography.Certificates.ChainValidationParameters.CreateInstance(*args)
+            return win32more.Windows.Security.Cryptography.Certificates.ChainValidationParameters.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Security.Cryptography.Certificates.ChainValidationParameters: ...
     @winrt_mixinmethod
@@ -510,16 +489,13 @@ class CmsAttachedSignature(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Cryptography.Certificates.ICmsAttachedSignature
     _classid_ = 'Windows.Security.Cryptography.Certificates.CmsAttachedSignature'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.Security.Cryptography.Certificates.CmsAttachedSignature.CreateCmsAttachedSignature(*args)
+            return win32more.Windows.Security.Cryptography.Certificates.CmsAttachedSignature.CreateCmsAttachedSignature(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateCmsAttachedSignature(cls: win32more.Windows.Security.Cryptography.Certificates.ICmsAttachedSignatureFactory, inputBlob: win32more.Windows.Storage.Streams.IBuffer) -> win32more.Windows.Security.Cryptography.Certificates.CmsAttachedSignature: ...
     @winrt_mixinmethod
@@ -539,16 +515,13 @@ class CmsDetachedSignature(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Cryptography.Certificates.ICmsDetachedSignature
     _classid_ = 'Windows.Security.Cryptography.Certificates.CmsDetachedSignature'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.Security.Cryptography.Certificates.CmsDetachedSignature.CreateCmsDetachedSignature(*args)
+            return win32more.Windows.Security.Cryptography.Certificates.CmsDetachedSignature.CreateCmsDetachedSignature(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateCmsDetachedSignature(cls: win32more.Windows.Security.Cryptography.Certificates.ICmsDetachedSignatureFactory, inputBlob: win32more.Windows.Storage.Streams.IBuffer) -> win32more.Windows.Security.Cryptography.Certificates.CmsDetachedSignature: ...
     @winrt_mixinmethod
@@ -565,16 +538,13 @@ class CmsSignerInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Cryptography.Certificates.ICmsSignerInfo
     _classid_ = 'Windows.Security.Cryptography.Certificates.CmsSignerInfo'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Security.Cryptography.Certificates.CmsSignerInfo.CreateInstance(*args)
+            return win32more.Windows.Security.Cryptography.Certificates.CmsSignerInfo.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Security.Cryptography.Certificates.CmsSignerInfo: ...
     @winrt_mixinmethod
@@ -1396,16 +1366,13 @@ class PfxImportParameters(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Cryptography.Certificates.IPfxImportParameters
     _classid_ = 'Windows.Security.Cryptography.Certificates.PfxImportParameters'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Security.Cryptography.Certificates.PfxImportParameters.CreateInstance(*args)
+            return win32more.Windows.Security.Cryptography.Certificates.PfxImportParameters.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Security.Cryptography.Certificates.PfxImportParameters: ...
     @winrt_mixinmethod
@@ -1467,16 +1434,13 @@ class SubjectAlternativeNameInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Cryptography.Certificates.ISubjectAlternativeNameInfo
     _classid_ = 'Windows.Security.Cryptography.Certificates.SubjectAlternativeNameInfo'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Security.Cryptography.Certificates.SubjectAlternativeNameInfo.CreateInstance(*args)
+            return win32more.Windows.Security.Cryptography.Certificates.SubjectAlternativeNameInfo.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Security.Cryptography.Certificates.SubjectAlternativeNameInfo: ...
     @winrt_mixinmethod

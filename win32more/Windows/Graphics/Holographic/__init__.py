@@ -315,18 +315,15 @@ class HolographicQuadLayer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Holographic.IHolographicQuadLayer
     _classid_ = 'Windows.Graphics.Holographic.HolographicQuadLayer'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.Graphics.Holographic.HolographicQuadLayer.Create(*args)
+            return win32more.Windows.Graphics.Holographic.HolographicQuadLayer.Create(*args)
         elif len(args) == 2:
-            instance = win32more.Windows.Graphics.Holographic.HolographicQuadLayer.CreateWithPixelFormat(*args)
+            return win32more.Windows.Graphics.Holographic.HolographicQuadLayer.CreateWithPixelFormat(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.Graphics.Holographic.IHolographicQuadLayerFactory, size: win32more.Windows.Foundation.Size) -> win32more.Windows.Graphics.Holographic.HolographicQuadLayer: ...
     @winrt_factorymethod

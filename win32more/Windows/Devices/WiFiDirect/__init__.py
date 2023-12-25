@@ -238,16 +238,13 @@ class WiFiDirectAdvertisementPublisher(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.WiFiDirect.IWiFiDirectAdvertisementPublisher
     _classid_ = 'Windows.Devices.WiFiDirect.WiFiDirectAdvertisementPublisher'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Devices.WiFiDirect.WiFiDirectAdvertisementPublisher.CreateInstance(*args)
+            return win32more.Windows.Devices.WiFiDirect.WiFiDirectAdvertisementPublisher.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Devices.WiFiDirect.WiFiDirectAdvertisementPublisher: ...
     @winrt_mixinmethod
@@ -287,16 +284,13 @@ class WiFiDirectConnectionListener(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.WiFiDirect.IWiFiDirectConnectionListener
     _classid_ = 'Windows.Devices.WiFiDirect.WiFiDirectConnectionListener'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Devices.WiFiDirect.WiFiDirectConnectionListener.CreateInstance(*args)
+            return win32more.Windows.Devices.WiFiDirect.WiFiDirectConnectionListener.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Devices.WiFiDirect.WiFiDirectConnectionListener: ...
     @winrt_mixinmethod
@@ -307,16 +301,13 @@ class WiFiDirectConnectionParameters(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.WiFiDirect.IWiFiDirectConnectionParameters
     _classid_ = 'Windows.Devices.WiFiDirect.WiFiDirectConnectionParameters'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Devices.WiFiDirect.WiFiDirectConnectionParameters.CreateInstance(*args)
+            return win32more.Windows.Devices.WiFiDirect.WiFiDirectConnectionParameters.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Devices.WiFiDirect.WiFiDirectConnectionParameters: ...
     @winrt_mixinmethod
@@ -393,16 +384,13 @@ class WiFiDirectInformationElement(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.WiFiDirect.IWiFiDirectInformationElement
     _classid_ = 'Windows.Devices.WiFiDirect.WiFiDirectInformationElement'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Devices.WiFiDirect.WiFiDirectInformationElement.CreateInstance(*args)
+            return win32more.Windows.Devices.WiFiDirect.WiFiDirectInformationElement.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Devices.WiFiDirect.WiFiDirectInformationElement: ...
     @winrt_mixinmethod

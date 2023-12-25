@@ -50,16 +50,13 @@ class AudioStreamDescriptor(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Core.IAudioStreamDescriptor
     _classid_ = 'Windows.Media.Core.AudioStreamDescriptor'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.Media.Core.AudioStreamDescriptor.Create(*args)
+            return win32more.Windows.Media.Core.AudioStreamDescriptor.Create(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.Media.Core.IAudioStreamDescriptorFactory, encodingProperties: win32more.Windows.Media.MediaProperties.AudioEncodingProperties) -> win32more.Windows.Media.Core.AudioStreamDescriptor: ...
     @winrt_mixinmethod
@@ -155,16 +152,13 @@ class ChapterCue(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Core.IChapterCue
     _classid_ = 'Windows.Media.Core.ChapterCue'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Media.Core.ChapterCue.CreateInstance(*args)
+            return win32more.Windows.Media.Core.ChapterCue.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Media.Core.ChapterCue: ...
     @winrt_mixinmethod
@@ -216,16 +210,13 @@ class CodecQuery(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Core.ICodecQuery
     _classid_ = 'Windows.Media.Core.CodecQuery'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Media.Core.CodecQuery.CreateInstance(*args)
+            return win32more.Windows.Media.Core.CodecQuery.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Media.Core.CodecQuery: ...
     @winrt_mixinmethod
@@ -392,16 +383,13 @@ class DataCue(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Core.IDataCue
     _classid_ = 'Windows.Media.Core.DataCue'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Media.Core.DataCue.CreateInstance(*args)
+            return win32more.Windows.Media.Core.DataCue.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Media.Core.DataCue: ...
     @winrt_mixinmethod
@@ -458,16 +446,13 @@ class FaceDetectionEffectDefinition(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Effects.IVideoEffectDefinition
     _classid_ = 'Windows.Media.Core.FaceDetectionEffectDefinition'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Media.Core.FaceDetectionEffectDefinition.CreateInstance(*args)
+            return win32more.Windows.Media.Core.FaceDetectionEffectDefinition.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Media.Core.FaceDetectionEffectDefinition: ...
     @winrt_mixinmethod
@@ -2150,16 +2135,13 @@ class ImageCue(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Core.IImageCue
     _classid_ = 'Windows.Media.Core.ImageCue'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Media.Core.ImageCue.CreateInstance(*args)
+            return win32more.Windows.Media.Core.ImageCue.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Media.Core.ImageCue: ...
     @winrt_mixinmethod
@@ -2230,16 +2212,13 @@ class MediaBinder(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Core.IMediaBinder
     _classid_ = 'Windows.Media.Core.MediaBinder'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Media.Core.MediaBinder.CreateInstance(*args)
+            return win32more.Windows.Media.Core.MediaBinder.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Media.Core.MediaBinder: ...
     @winrt_mixinmethod
@@ -2368,16 +2347,13 @@ class MediaSourceAppServiceConnection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Core.IMediaSourceAppServiceConnection
     _classid_ = 'Windows.Media.Core.MediaSourceAppServiceConnection'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.Media.Core.MediaSourceAppServiceConnection.Create(*args)
+            return win32more.Windows.Media.Core.MediaSourceAppServiceConnection.Create(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.Media.Core.IMediaSourceAppServiceConnectionFactory, appServiceConnection: win32more.Windows.ApplicationModel.AppService.AppServiceConnection) -> win32more.Windows.Media.Core.MediaSourceAppServiceConnection: ...
     @winrt_mixinmethod
@@ -2509,18 +2485,15 @@ class MediaStreamSource(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Core.IMediaStreamSource
     _classid_ = 'Windows.Media.Core.MediaStreamSource'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.Media.Core.MediaStreamSource.CreateFromDescriptor(*args)
+            return win32more.Windows.Media.Core.MediaStreamSource.CreateFromDescriptor(*args)
         elif len(args) == 2:
-            instance = win32more.Windows.Media.Core.MediaStreamSource.CreateFromDescriptors(*args)
+            return win32more.Windows.Media.Core.MediaStreamSource.CreateFromDescriptors(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateFromDescriptor(cls: win32more.Windows.Media.Core.IMediaStreamSourceFactory, descriptor: win32more.Windows.Media.Core.IMediaStreamDescriptor) -> win32more.Windows.Media.Core.MediaStreamSource: ...
     @winrt_factorymethod
@@ -2809,16 +2782,13 @@ class MseStreamSource(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Core.IMseStreamSource
     _classid_ = 'Windows.Media.Core.MseStreamSource'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Media.Core.MseStreamSource.CreateInstance(*args)
+            return win32more.Windows.Media.Core.MseStreamSource.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Media.Core.MseStreamSource: ...
     @winrt_mixinmethod
@@ -2885,16 +2855,13 @@ class SceneAnalysisEffectDefinition(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Effects.IVideoEffectDefinition
     _classid_ = 'Windows.Media.Core.SceneAnalysisEffectDefinition'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Media.Core.SceneAnalysisEffectDefinition.CreateInstance(*args)
+            return win32more.Windows.Media.Core.SceneAnalysisEffectDefinition.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Media.Core.SceneAnalysisEffectDefinition: ...
     @winrt_mixinmethod
@@ -2962,16 +2929,13 @@ class SpeechCue(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Core.ISpeechCue
     _classid_ = 'Windows.Media.Core.SpeechCue'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Media.Core.SpeechCue.CreateInstance(*args)
+            return win32more.Windows.Media.Core.SpeechCue.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Media.Core.SpeechCue: ...
     @winrt_mixinmethod
@@ -3017,16 +2981,13 @@ class TimedMetadataStreamDescriptor(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Core.IMediaStreamDescriptor
     _classid_ = 'Windows.Media.Core.TimedMetadataStreamDescriptor'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.Media.Core.TimedMetadataStreamDescriptor.Create(*args)
+            return win32more.Windows.Media.Core.TimedMetadataStreamDescriptor.Create(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.Media.Core.ITimedMetadataStreamDescriptorFactory, encodingProperties: win32more.Windows.Media.MediaProperties.TimedMetadataEncodingProperties) -> win32more.Windows.Media.Core.TimedMetadataStreamDescriptor: ...
     @winrt_mixinmethod
@@ -3056,16 +3017,13 @@ class TimedMetadataTrack(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Core.ITimedMetadataTrack
     _classid_ = 'Windows.Media.Core.TimedMetadataTrack'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 3:
-            instance = win32more.Windows.Media.Core.TimedMetadataTrack.Create(*args)
+            return win32more.Windows.Media.Core.TimedMetadataTrack.Create(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.Media.Core.ITimedMetadataTrackFactory, id: WinRT_String, language: WinRT_String, kind: win32more.Windows.Media.Core.TimedMetadataKind) -> win32more.Windows.Media.Core.TimedMetadataTrack: ...
     @winrt_mixinmethod
@@ -3174,16 +3132,13 @@ class TimedTextCue(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Core.ITimedTextCue
     _classid_ = 'Windows.Media.Core.TimedTextCue'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Media.Core.TimedTextCue.CreateInstance(*args)
+            return win32more.Windows.Media.Core.TimedTextCue.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Media.Core.TimedTextCue: ...
     @winrt_mixinmethod
@@ -3232,16 +3187,13 @@ class TimedTextLine(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Core.ITimedTextLine
     _classid_ = 'Windows.Media.Core.TimedTextLine'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Media.Core.TimedTextLine.CreateInstance(*args)
+            return win32more.Windows.Media.Core.TimedTextLine.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Media.Core.TimedTextLine: ...
     @winrt_mixinmethod
@@ -3270,16 +3222,13 @@ class TimedTextRegion(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Core.ITimedTextRegion
     _classid_ = 'Windows.Media.Core.TimedTextRegion'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Media.Core.TimedTextRegion.CreateInstance(*args)
+            return win32more.Windows.Media.Core.TimedTextRegion.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Media.Core.TimedTextRegion: ...
     @winrt_mixinmethod
@@ -3428,16 +3377,13 @@ class TimedTextStyle(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Core.ITimedTextStyle
     _classid_ = 'Windows.Media.Core.TimedTextStyle'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Media.Core.TimedTextStyle.CreateInstance(*args)
+            return win32more.Windows.Media.Core.TimedTextStyle.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Media.Core.TimedTextStyle: ...
     @winrt_mixinmethod
@@ -3540,16 +3486,13 @@ class TimedTextSubformat(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Core.ITimedTextSubformat
     _classid_ = 'Windows.Media.Core.TimedTextSubformat'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Media.Core.TimedTextSubformat.CreateInstance(*args)
+            return win32more.Windows.Media.Core.TimedTextSubformat.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Media.Core.TimedTextSubformat: ...
     @winrt_mixinmethod
@@ -3605,16 +3548,13 @@ class VideoStabilizationEffectDefinition(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Effects.IVideoEffectDefinition
     _classid_ = 'Windows.Media.Core.VideoStabilizationEffectDefinition'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.Media.Core.VideoStabilizationEffectDefinition.CreateInstance(*args)
+            return win32more.Windows.Media.Core.VideoStabilizationEffectDefinition.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Media.Core.VideoStabilizationEffectDefinition: ...
     @winrt_mixinmethod
@@ -3638,16 +3578,13 @@ class VideoStreamDescriptor(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Core.IVideoStreamDescriptor
     _classid_ = 'Windows.Media.Core.VideoStreamDescriptor'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.Media.Core.VideoStreamDescriptor.Create(*args)
+            return win32more.Windows.Media.Core.VideoStreamDescriptor.Create(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.Media.Core.IVideoStreamDescriptorFactory, encodingProperties: win32more.Windows.Media.MediaProperties.VideoEncodingProperties) -> win32more.Windows.Media.Core.VideoStreamDescriptor: ...
     @winrt_mixinmethod

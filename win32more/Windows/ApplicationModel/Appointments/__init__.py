@@ -25,16 +25,13 @@ class Appointment(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Appointments.IAppointment
     _classid_ = 'Windows.ApplicationModel.Appointments.Appointment'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.ApplicationModel.Appointments.Appointment.CreateInstance(*args)
+            return win32more.Windows.ApplicationModel.Appointments.Appointment.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Appointments.Appointment: ...
     @winrt_mixinmethod
@@ -382,16 +379,13 @@ class AppointmentInvitee(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Appointments.IAppointmentInvitee
     _classid_ = 'Windows.ApplicationModel.Appointments.AppointmentInvitee'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.ApplicationModel.Appointments.AppointmentInvitee.CreateInstance(*args)
+            return win32more.Windows.ApplicationModel.Appointments.AppointmentInvitee.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Appointments.AppointmentInvitee: ...
     @winrt_mixinmethod
@@ -482,16 +476,13 @@ class AppointmentOrganizer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Appointments.IAppointmentParticipant
     _classid_ = 'Windows.ApplicationModel.Appointments.AppointmentOrganizer'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.ApplicationModel.Appointments.AppointmentOrganizer.CreateInstance(*args)
+            return win32more.Windows.ApplicationModel.Appointments.AppointmentOrganizer.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Appointments.AppointmentOrganizer: ...
     @winrt_mixinmethod
@@ -601,16 +592,13 @@ class AppointmentRecurrence(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Appointments.IAppointmentRecurrence
     _classid_ = 'Windows.ApplicationModel.Appointments.AppointmentRecurrence'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.ApplicationModel.Appointments.AppointmentRecurrence.CreateInstance(*args)
+            return win32more.Windows.ApplicationModel.Appointments.AppointmentRecurrence.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Appointments.AppointmentRecurrence: ...
     @winrt_mixinmethod
@@ -809,16 +797,13 @@ class FindAppointmentsOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Appointments.IFindAppointmentsOptions
     _classid_ = 'Windows.ApplicationModel.Appointments.FindAppointmentsOptions'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.ApplicationModel.Appointments.FindAppointmentsOptions.CreateInstance(*args)
+            return win32more.Windows.ApplicationModel.Appointments.FindAppointmentsOptions.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Appointments.FindAppointmentsOptions: ...
     @winrt_mixinmethod

@@ -29,18 +29,15 @@ class Compressor(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Storage.Compression.ICompressor
     _classid_ = 'Windows.Storage.Compression.Compressor'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.Storage.Compression.Compressor.CreateCompressor(*args)
+            return win32more.Windows.Storage.Compression.Compressor.CreateCompressor(*args)
         elif len(args) == 3:
-            instance = win32more.Windows.Storage.Compression.Compressor.CreateCompressorEx(*args)
+            return win32more.Windows.Storage.Compression.Compressor.CreateCompressorEx(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateCompressor(cls: win32more.Windows.Storage.Compression.ICompressorFactory, underlyingStream: win32more.Windows.Storage.Streams.IOutputStream) -> win32more.Windows.Storage.Compression.Compressor: ...
     @winrt_factorymethod
@@ -59,16 +56,13 @@ class Decompressor(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Storage.Compression.IDecompressor
     _classid_ = 'Windows.Storage.Compression.Decompressor'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.Storage.Compression.Decompressor.CreateDecompressor(*args)
+            return win32more.Windows.Storage.Compression.Decompressor.CreateDecompressor(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateDecompressor(cls: win32more.Windows.Storage.Compression.IDecompressorFactory, underlyingStream: win32more.Windows.Storage.Streams.IInputStream) -> win32more.Windows.Storage.Compression.Decompressor: ...
     @winrt_mixinmethod

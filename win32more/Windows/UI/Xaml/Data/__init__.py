@@ -24,16 +24,13 @@ class Binding(ComPtr):
     extends: win32more.Windows.UI.Xaml.Data.BindingBase
     default_interface: win32more.Windows.UI.Xaml.Data.IBinding
     _classid_ = 'Windows.UI.Xaml.Data.Binding'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Data.Binding.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Data.Binding.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Data.IBindingFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Data.Binding: ...
     @winrt_mixinmethod
@@ -95,16 +92,13 @@ class BindingBase(ComPtr):
     extends: win32more.Windows.UI.Xaml.DependencyObject
     default_interface: win32more.Windows.UI.Xaml.Data.IBindingBase
     _classid_ = 'Windows.UI.Xaml.Data.BindingBase'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Data.BindingBase.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Data.BindingBase.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Data.IBindingBaseFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Data.BindingBase: ...
 class BindingExpression(ComPtr):
@@ -139,16 +133,13 @@ class CollectionViewSource(ComPtr, metaclass=_CollectionViewSource_Meta_):
     extends: win32more.Windows.UI.Xaml.DependencyObject
     default_interface: win32more.Windows.UI.Xaml.Data.ICollectionViewSource
     _classid_ = 'Windows.UI.Xaml.Data.CollectionViewSource'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Data.CollectionViewSource.CreateInstance(*args)
+            return win32more.Windows.UI.Xaml.Data.CollectionViewSource.CreateInstance(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.Data.CollectionViewSource: ...
     @winrt_mixinmethod
@@ -185,18 +176,15 @@ class CurrentChangingEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Data.ICurrentChangingEventArgs
     _classid_ = 'Windows.UI.Xaml.Data.CurrentChangingEventArgs'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Data.CurrentChangingEventArgs.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Data.CurrentChangingEventArgs.CreateInstance(*args, None, None)
         elif len(args) == 1:
-            instance = win32more.Windows.UI.Xaml.Data.CurrentChangingEventArgs.CreateWithCancelableParameter(*args, None, None)
+            return win32more.Windows.UI.Xaml.Data.CurrentChangingEventArgs.CreateWithCancelableParameter(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Data.ICurrentChangingEventArgsFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Data.CurrentChangingEventArgs: ...
     @winrt_factorymethod
@@ -575,16 +563,13 @@ class ItemIndexRange(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Data.IItemIndexRange
     _classid_ = 'Windows.UI.Xaml.Data.ItemIndexRange'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 2:
-            instance = win32more.Windows.UI.Xaml.Data.ItemIndexRange.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Data.ItemIndexRange.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Data.IItemIndexRangeFactory, firstIndex: Int32, length: UInt32, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Data.ItemIndexRange: ...
     @winrt_mixinmethod
@@ -602,16 +587,13 @@ class PropertyChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Data.IPropertyChangedEventArgs
     _classid_ = 'Windows.UI.Xaml.Data.PropertyChangedEventArgs'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.UI.Xaml.Data.PropertyChangedEventArgs.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Data.PropertyChangedEventArgs.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Data.IPropertyChangedEventArgsFactory, name: WinRT_String, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Data.PropertyChangedEventArgs: ...
     @winrt_mixinmethod
@@ -625,16 +607,13 @@ class RelativeSource(ComPtr):
     extends: win32more.Windows.UI.Xaml.DependencyObject
     default_interface: win32more.Windows.UI.Xaml.Data.IRelativeSource
     _classid_ = 'Windows.UI.Xaml.Data.RelativeSource'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 0:
-            instance = win32more.Windows.UI.Xaml.Data.RelativeSource.CreateInstance(*args, None, None)
+            return win32more.Windows.UI.Xaml.Data.RelativeSource.CreateInstance(*args, None, None)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Data.IRelativeSourceFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Data.RelativeSource: ...
     @winrt_mixinmethod

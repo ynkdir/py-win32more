@@ -26,16 +26,13 @@ class GpioChangeCounter(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Gpio.IGpioChangeCounter
     _classid_ = 'Windows.Devices.Gpio.GpioChangeCounter'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.Devices.Gpio.GpioChangeCounter.Create(*args)
+            return win32more.Windows.Devices.Gpio.GpioChangeCounter.Create(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.Devices.Gpio.IGpioChangeCounterFactory, pin: win32more.Windows.Devices.Gpio.GpioPin) -> win32more.Windows.Devices.Gpio.GpioChangeCounter: ...
     @winrt_mixinmethod
@@ -64,18 +61,15 @@ class GpioChangeReader(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Gpio.IGpioChangeReader
     _classid_ = 'Windows.Devices.Gpio.GpioChangeReader'
-    def __init__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs):
         if kwargs:
-            return super().__init__(**kwargs)
+            return super().__new__(cls, **kwargs)
         elif len(args) == 1:
-            instance = win32more.Windows.Devices.Gpio.GpioChangeReader.Create(*args)
+            return win32more.Windows.Devices.Gpio.GpioChangeReader.Create(*args)
         elif len(args) == 2:
-            instance = win32more.Windows.Devices.Gpio.GpioChangeReader.CreateWithCapacity(*args)
+            return win32more.Windows.Devices.Gpio.GpioChangeReader.CreateWithCapacity(*args)
         else:
             raise ValueError('no matched constructor')
-        self.value = instance.value
-        self._own = instance._own
-        instance._own = False
     @winrt_factorymethod
     def Create(cls: win32more.Windows.Devices.Gpio.IGpioChangeReaderFactory, pin: win32more.Windows.Devices.Gpio.GpioPin) -> win32more.Windows.Devices.Gpio.GpioChangeReader: ...
     @winrt_factorymethod
