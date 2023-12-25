@@ -473,12 +473,11 @@ class ConstantLazyLoader:
     def __init__(self, *args, **kwargs):
         self._args = args
         self._kwargs = kwargs
-        self.__module__ = ""
         self.__annotations__ = {}
 
-    def set_hint(self, module, hint):
-        self.__module__ = module
-        self.__annotations__["self"] = hint
+    def __set_name__(self, owner, name):
+        self.__dict__[__name__] = owner.__dict__[__name__]  # = sys.modules["win32more"]
+        self.__annotations__["self"] = owner.__annotations__[name]
 
     def __commit__(self):
         cls = get_type_hints(self)["self"]
@@ -506,7 +505,7 @@ def make_ready(mod: str) -> None:
     for name in dir(obj):
         prototype = getattr(obj, name)
         if isinstance(prototype, ConstantLazyLoader):
-            prototype.set_hint(obj.__name__, obj.__annotations__[name])
+            prototype.__set_name__(obj, name)
             setattr(obj, f"_unused_{name}", prototype)
             delattr(obj, name)
         elif isinstance(prototype, BaseFuncType):
