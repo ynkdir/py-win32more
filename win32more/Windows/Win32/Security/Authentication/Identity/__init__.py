@@ -1460,11 +1460,11 @@ WINDOWS_SLID: Guid = Guid('{55c92734-d682-4d71-983e-d6ec3f16059f}')
 WDIGEST_SP_NAME_A: String = 'WDigest'
 WDIGEST_SP_NAME_W: String = 'WDigest'
 WDIGEST_SP_NAME: String = 'WDigest'
-@winfunctype('ADVAPI32.dll', entry_point='md.import_.name')
+@winfunctype('ADVAPI32.dll', entry_point='SystemFunction036')
 def RtlGenRandom(RandomBuffer: VoidPtr, RandomBufferLength: UInt32) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
-@winfunctype('ADVAPI32.dll', entry_point='md.import_.name')
+@winfunctype('ADVAPI32.dll', entry_point='SystemFunction040')
 def RtlEncryptMemory(Memory: VoidPtr, MemorySize: UInt32, OptionFlags: UInt32) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
-@winfunctype('ADVAPI32.dll', entry_point='md.import_.name')
+@winfunctype('ADVAPI32.dll', entry_point='SystemFunction041')
 def RtlDecryptMemory(Memory: VoidPtr, MemorySize: UInt32, OptionFlags: UInt32) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('SECUR32.dll')
 def LsaRegisterLogonProcess(LogonProcessName: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.LSA_STRING), LsaHandle: POINTER(win32more.Windows.Win32.Foundation.HANDLE), SecurityMode: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...

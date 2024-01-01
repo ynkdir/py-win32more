@@ -1059,7 +1059,7 @@ class PyGenerator:
             # ordinal number  (e.g. #123)
             return md.import_.name[1:]
         else:
-            return "'md.import_.name'"
+            return f"'{md.import_.name}'"
 
     def emit_function_pointer(self, td: TypeDefinition) -> str:
         writer = StringIO()
