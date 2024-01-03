@@ -1,0 +1,770 @@
+from __future__ import annotations
+
+import logging
+import textwrap
+from collections import Counter, defaultdict
+from collections.abc import Iterable
+from dataclasses import dataclass
+from io import StringIO
+
+from .backport import removeprefix
+from .metadata import FieldDefinition, InterfaceImplementation, MethodDefinition, TType, TypeDefinition
+from .package import ApiItem, Module, Package
+from .win32 import BASE_EXPORTS_CSV
+
+logger = logging.getLogger(__name__)
+
+WINRT_EXPORTS = [
+    "SZArray",
+    "WinRT_String",
+    "winrt_commethod",
+    "winrt_mixinmethod",
+    "winrt_classmethod",
+    "winrt_factorymethod",
+    "winrt_activatemethod",
+    "winrt_overload",
+    "MulticastDelegate",
+]
+WINRT_EXPORTS_CSV = ", ".join(WINRT_EXPORTS)
+
+iinspectable_checked = False
+
+
+def ttype_pytype(self: TType) -> str:
+    global iinspectable_checked
+    if self.kind == "Primitive":
+        if self.name == "Object":
+            if not iinspectable_checked:
+                iinspectable_checked = True
+                try:
+                    Package.current["Windows.Win32.System.WinRT"]["IInspectable"]
+                except KeyError:
+                    logger.warning("missing type 'Windows.Win32.System.WinRT.IInspectable")
+            return Package.abs_pkg("Windows.Win32.System.WinRT.IInspectable")
+        elif self.name == "String":
+            return "WinRT_String"
+        else:
+            return self.name
+    elif self.kind == "Reference":
+        if ttype_is_struct(self.type):
+            return f"POINTER({Package.abs_pkg(self.type.fullname)})"
+        else:
+            return f"POINTER({ttype_pytype(self.type)})"
+    elif self.kind == "SZArray":
+        return f"SZArray[{ttype_pytype(self.type)}]"
+    elif self.kind == "Type":
+        if self.is_guid:
+            return "Guid"
+        elif ttype_is_missing(self):
+            logger.warning(f"missing type '{self.fullname}'")
+            return self.fullname
+        else:
+            return f"{Package.abs_pkg(self.fullname)}"
+    elif self.kind == "Generic":
+        return f"{Package.abs_pkg(ttype_generic_fullname(self))}"
+    elif self.kind == "GenericParameter":
+        return self.name
+    elif self.kind == "Modified" and self.modifier_type.fullname == "System.Runtime.CompilerServices.IsConst":
+        return ttype_pytype(self.unmodified_type)
+    else:
+        raise NotImplementedError()
+
+
+def ttype_is_missing(self: TType) -> bool:
+    return self.kind == "Type" and not (
+        self.namespace in Package.current and self.name in Package.current[self.namespace]
+    )
+
+
+def ttype_is_struct(self: TType) -> bool:
+    if self.kind == "Type" and not self.is_nested and not self.is_guid and not ttype_is_missing(self):
+        item = Package.current[self.namespace][self.name]
+        return isinstance(item, StructUnion)
+    return False
+
+
+def generic_strip_suffix(name) -> str:
+    return name.split("`")[0]
+
+
+def ttype_generic_fullname(self: TType) -> str:
+    fullname = generic_strip_suffix(self.type.fullname)
+    parameters = ttype_format_generic_parameters(self)
+    return f"{fullname}[{parameters}]"
+
+
+def ttype_format_generic_parameters(self: TType) -> str:
+    return ", ".join(ttype_pytype(ta) for ta in self.type_arguments)
+
+
+def ttype_enumerate_dependencies(self: TType) -> Iterable[ApiItem]:
+    if self.kind == "Type" and self.namespace != "System":
+        item = Package.current[self.namespace][self.name]
+        yield item
+    elif self.kind == "Generic":
+        item = Package.current[self.type.namespace][self.type.name]
+        yield item
+        for t in self.type_arguments:
+            yield from ttype_enumerate_dependencies(t)
+
+
+def td_kind(self: TypeDefinition) -> str:
+    if (
+        self.basetype is None
+        or self.basetype == "System.Object"
+        or self.basetype.startswith(("Windows.", "Microsoft."))
+    ):
+        return "com"
+    elif self.basetype == "System.MulticastDelegate":
+        return "delegate"
+    elif self.basetype == "System.Enum":
+        return "enum"
+    elif self.basetype == "System.ValueType":
+        if self.fields:
+            return "struct"
+        else:
+            assert self.custom_attributes.has("Windows.Foundation.Metadata.ContractVersionAttribute")
+            return "contract_version"
+    else:
+        raise NotImplementedError()
+
+
+def md_parameter_names_annotated(self: MethodDefinition) -> list[str]:
+    r = []
+    for pa, type_ in self.parameters_with_type:
+        if type_.kind == "SZArray":
+            attrs = []
+            if "Out" in pa.attributes:
+                attrs.append("'Out'")
+            if "In" in pa.attributes:
+                attrs.append("'In'")
+            annotated = ", ".join([ttype_pytype(type_)] + attrs)
+            pytype = f"Annotated[{annotated}]"
+        else:
+            pytype = ttype_pytype(type_)
+        r.append(f"{pa.name}: {pytype}")
+    return r
+
+
+def fd_pyvalue(self: FieldDefinition) -> str:
+    if "HasDefault" in self.attributes:
+        return ascii(self.default_value.value)
+    elif self.signature.kind == "Type" and self.signature.fullname == "System.Guid":
+        guid = self.custom_attributes.get_winrt_guid()
+        return f"Guid('{guid}')"
+    else:
+        # FIXME:
+        raise NotImplementedError()
+
+
+def ii_generic_fullname(self: InterfaceImplementation) -> str:
+    if self.interface.kind == "TypeReference":
+        return self.interface.type_reference.fullname
+    elif self.interface.kind == "TypeSpecification":
+        if self.interface.type_specification.signature.kind == "Generic":
+            return ttype_generic_fullname(self.interface.type_specification.signature)
+        return self.interface.type_specification.signature.type.fullname
+    else:
+        raise NotImplementedError()
+
+
+@dataclass
+class Method:
+    name: str
+    nargs: int
+    invoke: str
+    declare: str
+    default_overload: bool
+
+
+class Parser:
+    def __init__(self, package: Package) -> None:
+        self._package = package
+
+    def parse(self, td: TypeDefinition) -> None:
+        if td.namespace not in self._package:
+            self._package[td.namespace] = WinrtModule(td.namespace)
+
+        module = self._package[td.namespace]
+
+        if td_kind(td) == "enum":
+            module.add(Enum(td))
+        elif td_kind(td) == "struct":
+            module.add(StructUnion(td))
+        elif td_kind(td) == "contract_version":
+            module.add(ContractVersion(td))
+        elif td_kind(td) == "com":
+            module.add(Com(td))
+        elif td_kind(td) == "delegate":
+            module.add(Delegate(td))
+        else:
+            raise NotImplementedError()
+
+
+class WinrtModule(Module):
+    def add(self, item: ApiItem) -> None:
+        assert self.namespace == item.namespace
+        assert item.name not in self._items
+        self._items[item.name] = item
+
+    def emit_header(self, import_namespaces: set[str]) -> str:
+        writer = StringIO()
+
+        writer.write("from __future__ import annotations\n")
+
+        writer.write("import sys\n")
+        writer.write("from typing import Generic, TypeVar\n")
+        writer.write("if sys.version_info < (3, 9):\n")
+        writer.write("    from typing_extensions import Annotated\n")
+        writer.write("else:\n")
+        writer.write("    from typing import Annotated\n")
+        writer.write("K = TypeVar('K')\n")
+        writer.write("T = TypeVar('T')\n")
+        writer.write("V = TypeVar('V')\n")
+        writer.write("TProgress = TypeVar('TProgress')\n")
+        writer.write("TResult = TypeVar('TResult')\n")
+        writer.write("TSender = TypeVar('TSender')\n")
+
+        writer.write(f"from {Package.name} import {BASE_EXPORTS_CSV}\n")
+
+        writer.write(f"from {Package.name}._winrt import {WINRT_EXPORTS_CSV}\n")
+
+        if not Package.is_onefile:
+            writer.write(f"import {Package.name}.Windows.Win32.System.WinRT\n")
+            for namespace in sorted(import_namespaces):
+                writer.write(f"import {Package.name}.{namespace}\n")
+
+        return writer.getvalue()
+
+
+class Enum:
+    def __init__(self, td: TypeDefinition) -> None:
+        self._td = td
+
+    @property
+    def namespace(self) -> str:
+        return self._td.namespace
+
+    @property
+    def name(self) -> str:
+        return self._td.name
+
+    @property
+    def supported_architecture(self) -> list[str]:
+        raise NotImplementedError()
+
+    def enumerate_dependencies(self) -> Iterable[ApiItem]:
+        yield from ttype_enumerate_dependencies(self._td.fields[0].signature.get_element_type())
+
+    def emit(self) -> str:
+        writer = StringIO()
+        type_field, *value_fields = self._td.fields
+        writer.write(f"{self._td.name} = {ttype_pytype(type_field.signature)}\n")
+        for fd in value_fields:
+            writer.write(f"{fd.name}: {self._td.name} = {fd.default_value.value}\n")
+        return writer.getvalue()
+
+
+class StructUnion:
+    def __init__(self, td: TypeDefinition) -> None:
+        self._td = td
+
+    def emit(self) -> str:
+        return self._emit_struct_union(self._td)
+
+    @property
+    def namespace(self) -> str:
+        return self._td.namespace
+
+    @property
+    def name(self) -> str:
+        return self._td.name
+
+    @property
+    def supported_architecture(self) -> list[str]:
+        raise NotImplementedError()
+
+    def enumerate_dependencies(self) -> Iterable[ApiItem]:
+        yield from self._enumerate_dependencies_nested(self._td)
+
+    def _enumerate_dependencies_nested(self, td: TypeDefinition) -> Iterable[ApiItem]:
+        for fd in td.fields:
+            yield from ttype_enumerate_dependencies(fd.signature.get_element_type())
+        for nested_type in td.nested_types:
+            yield from self._enumerate_dependencies_nested(nested_type)
+
+    # _fields_ and _anonymous_ is defined at runtime.
+    def _emit_struct_union(self, td: TypeDefinition) -> str:
+        writer = StringIO()
+        base = self.struct_union_base_type(td)
+        writer.write(f"class {td.name}({base}):\n")
+        if self._is_empty(td):
+            writer.write("    pass\n")
+            return writer.getvalue()
+        if td.custom_attributes.has_winrt_guid():
+            # FIXME: What id?
+            guid = td.custom_attributes.get_winrt_guid()
+            writer.write(f"    _uuid_ = Guid('{guid}')\n")
+        for fd in self._static_fields(td):
+            writer.write(f"    {fd.name} = {fd_pyvalue(fd)}\n")
+        for fd in self._member_fields(td):
+            writer.write(f"    {fd.name}: {ttype_pytype(fd.signature)}\n")
+        if td.layout.packing_size != 0:
+            writer.write(f"    _pack_ = {td.layout.packing_size}\n")
+        for nested_type in td.nested_types:
+            writer.write(textwrap.indent(self._emit_struct_union(nested_type), "    "))
+        return writer.getvalue()
+
+    def struct_union_base_type(self, td: TypeDefinition) -> str:
+        if td_kind(td) == "struct":
+            return "EasyCastStructure"
+        elif td_kind(td) == "union":
+            return "EasyCastUnion"
+        else:
+            raise NotImplementedError()
+
+    def _static_fields(self, td: TypeDefinition) -> Iterable[FieldDefinition]:
+        for fd in td.fields:
+            if self._is_static(fd):
+                yield fd
+
+    def _member_fields(self, td: TypeDefinition) -> Iterable[FieldDefinition]:
+        for fd in td.fields:
+            if not self._is_static(fd):
+                yield fd
+
+    def _is_static(self, fd: FieldDefinition) -> bool:
+        return {"Static", "HasDefault"} <= set(fd.attributes)
+
+    def _is_empty(self, td: TypeDefinition) -> bool:
+        if td.fields:
+            return False
+        assert not td.custom_attributes.has_winrt_guid()
+        return True
+
+
+class ContractVersion:
+    def __init__(self, td: TypeDefinition) -> None:
+        self._td = td
+
+    @property
+    def namespace(self) -> str:
+        return self._td.namespace
+
+    @property
+    def name(self) -> str:
+        return self._td.name
+
+    @property
+    def supported_architecture(self) -> list[str]:
+        raise NotImplementedError()
+
+    def enumerate_dependencies(self) -> Iterable[ApiItem]:
+        return []
+
+    def emit(self) -> str:
+        contract_version = self._td.custom_attributes.get_contract_version()
+        return f"{self._td.name}: {contract_version.type.name} = {contract_version.value}\n"
+
+
+class Com:
+    def __init__(self, td: TypeDefinition) -> None:
+        self._td = td
+
+    @property
+    def namespace(self) -> str:
+        return self._td.namespace
+
+    @property
+    def name(self) -> str:
+        return self._td.name
+
+    @property
+    def supported_architecture(self) -> list[str]:
+        raise NotImplementedError()
+
+    def enumerate_dependencies(self) -> Iterable[ApiItem]:
+        for ii in self._td.interface_implementations:
+            item = Package.current[ii.namespace][ii.name]
+            yield item
+            if ii.interface.kind == "TypeSpecification":
+                for t in ii.interface.type_specification.signature.enumerate_types():
+                    yield from ttype_enumerate_dependencies(t.get_element_type())
+        for ca in self._td.custom_attributes:
+            if ca.type == "Windows.Foundation.Metadata.ActivatableAttribute":
+                if ca.fixed_arguments[0].type.kind == "Type":
+                    namespace, name = ca.fixed_arguments[0].value.rsplit(".", 1)
+                    item = Package.current[namespace][name]
+                    yield item
+            elif ca.type == "Windows.Foundation.Metadata.StaticAttribute":
+                namespace, name = ca.fixed_arguments[0].value.rsplit(".", 1)
+                item = Package.current[namespace][name]
+                yield item
+            elif ca.type == "Windows.Foundation.Metadata.ComposableAttribute":
+                namespace, name = ca.fixed_arguments[0].value.rsplit(".", 1)
+                item = Package.current[namespace][name]
+                yield item
+        for md in self._td.method_definitions:
+            types = [md.signature.return_type] + md.signature.parameter_types
+            for t in types:
+                yield from ttype_enumerate_dependencies(t.get_element_type())
+
+    def emit(self) -> str:
+        writer = StringIO()
+        if self._td.is_generic:
+            generic_parameters = self._td.format_generic_parameters()
+            classname = self._td.generic_strip_suffix(self._td.name)
+            base = f"Generic[{generic_parameters}], ComPtr"
+        else:
+            classname = self._td.name
+            base = "ComPtr"
+        if self.com_has_classproperty(self._td):
+            metaclass = f"_{classname}_Meta_"
+            metaclass_args = f", metaclass={metaclass}"
+            writer.write(f"class {metaclass}(ComPtr.__class__):\n")
+            writer.write("    pass\n")
+        else:
+            metaclass = ""
+            metaclass_args = ""
+        extends = self.com_base_type(self._td)
+        writer.write(f"class {classname}({base}{metaclass_args}):\n")
+        writer.write(f"    extends: {extends}\n")
+        for ii in self._td.interface_implementations:
+            if ii.custom_attributes.has_default():
+                writer.write(f"    default_interface: {Package.abs_pkg(ii_generic_fullname(ii))}\n")
+                break
+        writer.write(f"    _classid_ = '{self._td.namespace}.{classname}'\n")
+        if self._td.custom_attributes.has_winrt_guid():
+            guid = self._td.custom_attributes.get_winrt_guid()
+            writer.write(f"    _iid_ = Guid('{guid}')\n")
+        writer.write(self.winrt_constructor(self._td))
+        writer.write(self.winrt_method_definitions(self._td))
+        properties: dict[str, dict[str, str | bool | None]] = defaultdict(lambda: {"get": None, "put": None})
+        for md in self._td.method_definitions:
+            if md.name == ".ctor":
+                continue
+            if "SpecialName" in md.attributes:
+                if md.name.startswith("get_"):
+                    property_name = removeprefix(md.name, "get_")
+                    properties[property_name]["get"] = md.name
+                    properties[property_name]["is_static"] = "Static" in md.attributes
+                elif md.name.startswith("put_"):
+                    property_name = removeprefix(md.name, "put_")
+                    properties[property_name]["put"] = md.name
+                    properties[property_name]["is_static"] = "Static" in md.attributes
+                elif md.name.startswith("add_"):
+                    # add event
+                    pass
+                elif md.name.startswith("remove_"):
+                    # remove event
+                    pass
+                elif md.name == "Invoke":
+                    # callback handler
+                    pass
+                else:
+                    raise NotImplementedError()
+        for name, attrs in properties.items():
+            if attrs["is_static"]:
+                if attrs["get"] is None:
+                    getter = "None"
+                else:
+                    getter = f"{attrs['get']}.__wrapped__"
+                if attrs["put"] is None:
+                    setter = "None"
+                else:
+                    setter = f"{attrs['put']}.__wrapped__"
+                writer.write(f"    {metaclass}.{name} = property({getter}, {setter})\n")
+            else:
+                writer.write(f"    {name} = property({attrs['get']}, {attrs['put']})\n")
+        if f"{self._td.namespace}.{classname}" == "Windows.Foundation.IAsyncOperation":
+            writer.write("    def __await__(self):\n")
+            writer.write(f"        from {Package.name}._winrt import IAsyncOperation___await__\n")
+            writer.write("        return IAsyncOperation___await__(self)\n")
+        elif f"{self._td.namespace}.{classname}" == "Windows.Foundation.IAsyncOperationWithProgress":
+            writer.write("    def __await__(self):\n")
+            writer.write(f"        from {Package.name}._winrt import IAsyncOperation___await__\n")
+            writer.write("        return IAsyncOperation___await__(self)\n")
+        elif f"{self._td.namespace}.{classname}" == "Windows.Foundation.IAsyncAction":
+            writer.write("    def __await__(self):\n")
+            writer.write(f"        from {Package.name}._winrt import IAsyncAction___await__\n")
+            writer.write("        return IAsyncAction___await__(self)\n")
+        elif f"{self._td.namespace}.{classname}" == "Windows.Foundation.IAsyncActionWithProgress":
+            writer.write("    def __await__(self):\n")
+            writer.write(f"        from {Package.name}._winrt import IAsyncAction___await__\n")
+            writer.write("        return IAsyncAction___await__(self)\n")
+        return writer.getvalue()
+
+    def com_base_type(self, td: TypeDefinition) -> str:
+        if td.basetype is None:
+            return Package.abs_pkg("Windows.Win32.System.WinRT.IInspectable")
+        elif td.basetype == "System.Object":
+            return Package.abs_pkg("Windows.Win32.System.WinRT.IInspectable")
+        else:
+            return f"{Package.abs_pkg(td.basetype)}"
+
+    @classmethod
+    def com_get_interface_for_method(cls, td: TypeDefinition, method_name: str, params: list[str]) -> str:
+        for ii in td.interface_implementations:
+            com = Package.current[ii.namespace][ii.name]
+            if not isinstance(com, Com):
+                raise TypeError()
+            td_interface = com._td
+            for md in td_interface.method_definitions:
+                if md.custom_attributes.has_overload():
+                    interface_method_name = md.custom_attributes.get_overload()
+                else:
+                    interface_method_name = md.name
+                if interface_method_name == method_name:
+                    if md.get_parameter_names() == params:
+                        return ii_generic_fullname(ii)
+        raise KeyError()
+
+    @classmethod
+    def com_get_static_for_method(cls, td: TypeDefinition, method_name: str, method_nargs: int) -> str:
+        for ca in td.custom_attributes.get_static():
+            namespace, name = ca.fixed_arguments[0].value.rsplit(".", 1)
+            com = Package.current[namespace][name]
+            if not isinstance(com, Com):
+                raise TypeError()
+            td_static = com._td
+            for md in td_static.method_definitions:
+                if md.custom_attributes.has_overload():
+                    static_method_name = md.custom_attributes.get_overload()
+                else:
+                    static_method_name = md.name
+                if static_method_name == method_name and len(md.get_parameter_names()) == method_nargs:
+                    return ca.fixed_arguments[0].value
+        raise KeyError()
+
+    def com_has_classproperty(self, td: TypeDefinition) -> bool:
+        for md in td.method_definitions:
+            if md.name == ".ctor":
+                continue
+            is_static = "Static" in md.attributes
+            is_special = "SpecialName" in md.attributes
+            is_property = md.name.startswith(("get_", "put_"))
+            if is_static and is_special and is_property:
+                return True
+        return False
+
+    @classmethod
+    def winrt_method(cls, td: TypeDefinition, md: MethodDefinition, p_vtbl_index: list[int]) -> str:
+        writer = StringIO()
+        method_name = md.name_overload
+        params = ["self"] + md_parameter_names_annotated(md)
+        restype = ttype_pytype(md.signature.return_type)
+        if td.basetype == "System.MulticastDelegate":
+            pass
+        elif "Static" in md.attributes:
+            writer.write("    @winrt_classmethod\n")
+            interface = cls.com_get_static_for_method(td, method_name, len(md.get_parameter_names()))
+            params[0] = f"cls: {Package.abs_pkg(interface)}"
+        elif "Abstract" not in td.attributes:
+            writer.write("    @winrt_mixinmethod\n")
+            interface = cls.com_get_interface_for_method(td, method_name, md.get_parameter_names())
+            params[0] = f"self: {Package.abs_pkg(interface)}"
+        else:
+            writer.write(f"    @winrt_commethod({p_vtbl_index[0]})\n")
+            p_vtbl_index[0] += 1
+        params_csv = ", ".join(params)
+        writer.write(f"    def {method_name}({params_csv}) -> {restype}: ...\n")
+        return writer.getvalue()
+
+    def _count_interface_method(self) -> int:
+        if self._td.basetype is None or self._td.basetype == "System.Object":
+            return 6  # count of IInspectable
+        elif self._td.basetype == "System.MulticastDelegate":
+            return 3  # count of IUnknown
+        namespace, name = self._td.basetype.rsplit(".", 1)
+        com = Package.current[namespace][name]
+        if not isinstance(com, Com):
+            raise TypeError()
+        return len(com._td.method_definitions) + com._count_interface_method()
+
+    def winrt_factorymethod(self, td: TypeDefinition, md: MethodDefinition) -> str:
+        writer = StringIO()
+        if td.is_generic:
+            name = td.generic_fullname
+        else:
+            name = td.fullname
+        params = [f"cls: {Package.abs_pkg(name)}"] + md_parameter_names_annotated(md)
+        params_csv = ", ".join(params)
+        restype = ttype_pytype(md.signature.return_type)
+        writer.write("    @winrt_factorymethod\n")
+        writer.write(f"    def {md.name}({params_csv}) -> {restype}: ...\n")
+        return writer.getvalue()
+
+    def winrt_activatemethod(self, td: TypeDefinition) -> str:
+        writer = StringIO()
+        if td.is_generic:
+            name = td.generic_fullname
+        else:
+            name = td.fullname
+        writer.write("    @winrt_activatemethod\n")
+        writer.write(f"    def CreateInstance(cls) -> {Package.abs_pkg(name)}: ...\n")
+        return writer.getvalue()
+
+    def winrt_constructor(self, td: TypeDefinition) -> str:
+        writer = StringIO()
+        methods = []
+        if td.custom_attributes.has_composable():
+            ca = td.custom_attributes.get_composable()
+            namespace, name = ca.fixed_arguments[0].value.rsplit(".", 1)
+            com = Package.current[namespace][name]
+            if not isinstance(com, Com):
+                raise TypeError()
+            factory = com._td
+            for md in factory.method_definitions:
+                assert md.signature.return_type.fullname == td.fullname
+                methods.append(
+                    Method(
+                        name=md.name_overload,
+                        nargs=len(md.get_parameter_names()) - 2,
+                        invoke=f"{Package.abs_pkg(td.fullname)}.{md.name_overload}(*args, None, None)",
+                        declare=self.winrt_factorymethod(factory, md),
+                        default_overload=False,
+                    )
+                )
+        for ca in td.custom_attributes.get_activatable():
+            if ca.fixed_arguments[0].type.kind == "Type":
+                namespace, name = ca.fixed_arguments[0].value.rsplit(".", 1)
+                com = Package.current[namespace][name]
+                if not isinstance(com, Com):
+                    raise TypeError()
+                factory = com._td
+                for md in factory.method_definitions:
+                    assert md.signature.return_type.fullname == td.fullname
+                    methods.append(
+                        Method(
+                            name=md.name_overload,
+                            nargs=len(md.get_parameter_names()),
+                            invoke=f"{Package.abs_pkg(td.fullname)}.{md.name_overload}(*args)",
+                            declare=self.winrt_factorymethod(factory, md),
+                            default_overload=False,
+                        )
+                    )
+            else:
+                methods.append(
+                    Method(
+                        name="CreateInstance",
+                        nargs=0,
+                        invoke=f"{Package.abs_pkg(td.fullname)}.CreateInstance(*args)",
+                        declare=self.winrt_activatemethod(td),
+                        default_overload=False,
+                    )
+                )
+        if not methods:
+            return ""
+        methods.sort(key=lambda method: method.nargs)
+        writer.write("    def __new__(cls, *args, **kwargs):\n")
+        writer.write("        if kwargs:\n")
+        writer.write("            return super().__new__(cls, **kwargs)\n")
+        for i, method in enumerate(methods):
+            writer.write(f"        elif len(args) == {method.nargs}:\n")
+            writer.write(f"            return {method.invoke}\n")
+        writer.write("        else:\n")
+        writer.write("            raise ValueError('no matched constructor')\n")
+        overload_initialized = set()
+        overload_count = Counter(method.name for method in methods)
+        overload_same_name_and_nargs = set()
+        for method in methods:
+            if overload_count[method.name] > 1:
+                if method.name not in overload_initialized:
+                    overload_initialized.add(method.name)
+                    writer.write("    @winrt_overload\n")
+                else:
+                    writer.write(f"    @{method.name}.register\n")
+            writer.write(method.declare)
+            assert (method.name, method.nargs) not in overload_same_name_and_nargs
+            overload_same_name_and_nargs.add((method.name, method.nargs))
+        return writer.getvalue()
+
+    def winrt_method_definitions(self, td: TypeDefinition) -> str:
+        writer = StringIO()
+        methods = []
+        default_overload = set()
+        p_vtbl_index = [self._count_interface_method()]
+        for md in td.method_definitions:
+            if md.name == ".ctor":
+                continue
+            method = Method(
+                name=md.name_overload,
+                nargs=len(md.get_parameter_names()),
+                invoke="",
+                declare=self.winrt_method(td, md, p_vtbl_index),
+                default_overload=md.custom_attributes.has_default_overload(),
+            )
+            methods.append(method)
+            if method.default_overload:
+                default_overload.add((method.name, method.nargs))
+
+        # Remove colliding method
+        # FIXME: Need strongly typed dispatch?
+        # Windows.Globalization.NumberFormatting.CurrencyFormatter has Format(Int64) (overload_name=FormatInt) and FormatInt(Int64).
+        methods = list(
+            {
+                method.declare: method
+                for method in methods
+                if method.default_overload or ((method.name, method.nargs) not in default_overload)
+            }.values()
+        )
+
+        overload_initialized = set()
+        overload_count = Counter(method.name for method in methods)
+        overload_same_name_and_nargs = set()
+        for method in methods:
+            if overload_count[method.name] > 1:
+                if method.name not in overload_initialized:
+                    overload_initialized.add(method.name)
+                    writer.write("    @winrt_overload\n")
+                else:
+                    writer.write(f"    @{method.name}.register\n")
+            writer.write(method.declare)
+            assert (method.name, method.nargs) not in overload_same_name_and_nargs
+            overload_same_name_and_nargs.add((method.name, method.nargs))
+        return writer.getvalue()
+
+
+class Delegate:
+    def __init__(self, td: TypeDefinition) -> None:
+        self._td = td
+
+    @property
+    def namespace(self) -> str:
+        return self._td.namespace
+
+    @property
+    def name(self) -> str:
+        return self._td.name
+
+    @property
+    def supported_architecture(self) -> list[str]:
+        raise NotImplementedError()
+
+    def enumerate_dependencies(self) -> Iterable[ApiItem]:
+        for md in self._td.method_definitions:
+            types = [md.signature.return_type] + md.signature.parameter_types
+            for t in types:
+                yield from ttype_enumerate_dependencies(t.get_element_type())
+
+    def emit(self) -> str:
+        writer = StringIO()
+        if self._td.is_generic:
+            generic_parameters = self._td.format_generic_parameters()
+            name = self._td.generic_strip_suffix(self._td.name)
+            base = f"Generic[{generic_parameters}], MulticastDelegate"
+        else:
+            name = self._td.name
+            base = "MulticastDelegate"
+        writer.write(f"class {name}({base}):\n")
+        writer.write(f"    extends: {Package.abs_pkg('Windows.Win32.System.Com.IUnknown')}\n")
+        if self._td.custom_attributes.has_winrt_guid():
+            guid = self._td.custom_attributes.get_winrt_guid()
+            writer.write(f"    _iid_ = Guid('{guid}')\n")
+        p_vtbl_index = [3]  # count of IUnknown
+        for md in self._td.method_definitions:
+            if md.name == ".ctor":
+                continue
+            # FIXME
+            writer.write(Com.winrt_method(self._td, md, p_vtbl_index))
+        return writer.getvalue()
