@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer, ConstantLazyLoader
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Devices.Display
 import win32more.Windows.Win32.Devices.Properties
 import win32more.Windows.Win32.Foundation
@@ -1527,7 +1527,7 @@ if ARCH in 'X64,ARM64':
         eXY: Single
         eYX: Single
         eYY: Single
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class FD_XFORM(EasyCastStructure):
         eXX: UInt32
         eXY: UInt32
@@ -1545,7 +1545,7 @@ if ARCH in 'X64,ARM64':
         eM22: Single
         eDx: Single
         eDy: Single
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class FLOATOBJ_XFORM(EasyCastStructure):
         eM11: win32more.Windows.Win32.Devices.Display.FLOATOBJ
         eM12: win32more.Windows.Win32.Devices.Display.FLOATOBJ
@@ -1557,7 +1557,7 @@ if ARCH in 'X64,ARM64':
     class FLOAT_LONG(EasyCastUnion):
         e: Single
         l: Int32
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class FLOAT_LONG(EasyCastUnion):
         e: UInt32
         l: Int32
@@ -1790,7 +1790,7 @@ if ARCH in 'X64,ARM64':
         ulPanoseCulture: UInt32
         panose: win32more.Windows.Win32.Graphics.Gdi.PANOSE
         Align: VoidPtr
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class IFIMETRICS(EasyCastStructure):
         cjThis: UInt32
         cjIfiExtra: UInt32
@@ -1886,7 +1886,7 @@ if ARCH in 'X64,ARM64':
         cstyle: UInt32
         pstyle: POINTER(win32more.Windows.Win32.Devices.Display.FLOAT_LONG)
         elStyleState: win32more.Windows.Win32.Devices.Display.FLOAT_LONG
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class LINEATTRS(EasyCastStructure):
         fl: UInt32
         iJoin: UInt32
@@ -2284,7 +2284,7 @@ if ARCH in 'X64,ARM64':
     class POINTE(EasyCastStructure):
         x: Single
         y: Single
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class POINTE(EasyCastStructure):
         x: UInt32
         y: UInt32
@@ -2667,7 +2667,7 @@ if ARCH in 'X64,ARM64':
         eM22: Single
         eDx: Single
         eDy: Single
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class XFORML(EasyCastStructure):
         eM11: UInt32
         eM12: UInt32

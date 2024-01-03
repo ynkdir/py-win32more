@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer, ConstantLazyLoader
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Globalization
 import win32more.Windows.Win32.Graphics.Direct2D
@@ -585,7 +585,7 @@ if ARCH in 'X64,ARM64':
         nmhdr: win32more.Windows.Win32.UI.Controls.NMHDR
         cf: UInt16
         _pack_ = 4
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class CLIPBOARDFORMAT(EasyCastStructure):
         nmhdr: win32more.Windows.Win32.UI.Controls.NMHDR
         cf: UInt16
@@ -599,7 +599,7 @@ if ARCH in 'X64,ARM64':
         dwError: UInt32
         pfnCallback: win32more.Windows.Win32.UI.Controls.RichEdit.EDITSTREAMCALLBACK
         _pack_ = 4
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class EDITSTREAM(EasyCastStructure):
         dwCookie: UIntPtr
         dwError: UInt32
@@ -614,7 +614,7 @@ if ARCH in 'X64,ARM64':
         chrg: win32more.Windows.Win32.UI.Controls.RichEdit.CHARRANGE
         seltyp: win32more.Windows.Win32.UI.Controls.RichEdit.RICH_EDIT_GET_CONTEXT_MENU_SEL_TYPE
         _pack_ = 4
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class ENCORRECTTEXT(EasyCastStructure):
         nmhdr: win32more.Windows.Win32.UI.Controls.NMHDR
         chrg: win32more.Windows.Win32.UI.Controls.RichEdit.CHARRANGE
@@ -624,7 +624,7 @@ if ARCH in 'X64,ARM64':
         nmhdr: win32more.Windows.Win32.UI.Controls.NMHDR
         dwCode: win32more.Windows.Win32.UI.Controls.RichEdit.ENDCOMPOSITIONNOTIFY_CODE
         _pack_ = 4
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class ENDCOMPOSITIONNOTIFY(EasyCastStructure):
         nmhdr: win32more.Windows.Win32.UI.Controls.NMHDR
         dwCode: win32more.Windows.Win32.UI.Controls.RichEdit.ENDCOMPOSITIONNOTIFY_CODE
@@ -638,7 +638,7 @@ if ARCH in 'X64,ARM64':
         cp: Int32
         fProtected: win32more.Windows.Win32.Foundation.BOOL
         _pack_ = 4
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class ENDROPFILES(EasyCastStructure):
         nmhdr: win32more.Windows.Win32.UI.Controls.NMHDR
         hDrop: win32more.Windows.Win32.Foundation.HANDLE
@@ -652,7 +652,7 @@ if ARCH in 'X64,ARM64':
         lParam: win32more.Windows.Win32.Foundation.LPARAM
         chrg: win32more.Windows.Win32.UI.Controls.RichEdit.CHARRANGE
         _pack_ = 4
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class ENLINK(EasyCastStructure):
         nmhdr: win32more.Windows.Win32.UI.Controls.NMHDR
         msg: UInt32
@@ -664,7 +664,7 @@ if ARCH in 'X64,ARM64':
         nmhdr: win32more.Windows.Win32.UI.Controls.NMHDR
         szControl: win32more.Windows.Win32.Foundation.PSTR
         _pack_ = 4
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class ENLOWFIRTF(EasyCastStructure):
         nmhdr: win32more.Windows.Win32.UI.Controls.NMHDR
         szControl: win32more.Windows.Win32.Foundation.PSTR
@@ -675,7 +675,7 @@ if ARCH in 'X64,ARM64':
         lOper: Int32
         hr: win32more.Windows.Win32.Foundation.HRESULT
         _pack_ = 4
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class ENOLEOPFAILED(EasyCastStructure):
         nmhdr: win32more.Windows.Win32.UI.Controls.NMHDR
         iob: Int32
@@ -689,7 +689,7 @@ if ARCH in 'X64,ARM64':
         lParam: win32more.Windows.Win32.Foundation.LPARAM
         chrg: win32more.Windows.Win32.UI.Controls.RichEdit.CHARRANGE
         _pack_ = 4
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class ENPROTECTED(EasyCastStructure):
         nmhdr: win32more.Windows.Win32.UI.Controls.NMHDR
         msg: UInt32
@@ -702,7 +702,7 @@ if ARCH in 'X64,ARM64':
         cObjectCount: Int32
         cch: Int32
         _pack_ = 4
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class ENSAVECLIPBOARD(EasyCastStructure):
         nmhdr: win32more.Windows.Win32.UI.Controls.NMHDR
         cObjectCount: Int32
@@ -712,7 +712,7 @@ if ARCH in 'X64,ARM64':
         chrg: win32more.Windows.Win32.UI.Controls.RichEdit.CHARRANGE
         lpstrText: win32more.Windows.Win32.Foundation.PSTR
         _pack_ = 4
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class FINDTEXTA(EasyCastStructure):
         chrg: win32more.Windows.Win32.UI.Controls.RichEdit.CHARRANGE
         lpstrText: win32more.Windows.Win32.Foundation.PSTR
@@ -722,7 +722,7 @@ if ARCH in 'X64,ARM64':
         lpstrText: win32more.Windows.Win32.Foundation.PSTR
         chrgText: win32more.Windows.Win32.UI.Controls.RichEdit.CHARRANGE
         _pack_ = 4
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class FINDTEXTEXA(EasyCastStructure):
         chrg: win32more.Windows.Win32.UI.Controls.RichEdit.CHARRANGE
         lpstrText: win32more.Windows.Win32.Foundation.PSTR
@@ -733,7 +733,7 @@ if ARCH in 'X64,ARM64':
         lpstrText: win32more.Windows.Win32.Foundation.PWSTR
         chrgText: win32more.Windows.Win32.UI.Controls.RichEdit.CHARRANGE
         _pack_ = 4
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class FINDTEXTEXW(EasyCastStructure):
         chrg: win32more.Windows.Win32.UI.Controls.RichEdit.CHARRANGE
         lpstrText: win32more.Windows.Win32.Foundation.PWSTR
@@ -743,7 +743,7 @@ if ARCH in 'X64,ARM64':
         chrg: win32more.Windows.Win32.UI.Controls.RichEdit.CHARRANGE
         lpstrText: win32more.Windows.Win32.Foundation.PWSTR
         _pack_ = 4
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class FINDTEXTW(EasyCastStructure):
         chrg: win32more.Windows.Win32.UI.Controls.RichEdit.CHARRANGE
         lpstrText: win32more.Windows.Win32.Foundation.PWSTR
@@ -755,7 +755,7 @@ if ARCH in 'X64,ARM64':
         rcPage: win32more.Windows.Win32.Foundation.RECT
         chrg: win32more.Windows.Win32.UI.Controls.RichEdit.CHARRANGE
         _pack_ = 4
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class FORMATRANGE(EasyCastStructure):
         hdc: win32more.Windows.Win32.Graphics.Gdi.HDC
         hdcTarget: win32more.Windows.Win32.Graphics.Gdi.HDC
@@ -769,7 +769,7 @@ if ARCH in 'X64,ARM64':
         pt: win32more.Windows.Win32.Foundation.POINT
         pvReserved: VoidPtr
         _pack_ = 4
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class GETCONTEXTMENUEX(EasyCastStructure):
         chrg: win32more.Windows.Win32.UI.Controls.RichEdit.CHARRANGE
         dwFlags: UInt32
@@ -783,7 +783,7 @@ if ARCH in 'X64,ARM64':
         lpDefaultChar: win32more.Windows.Win32.Foundation.PSTR
         lpUsedDefChar: POINTER(win32more.Windows.Win32.Foundation.BOOL)
         _pack_ = 4
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class GETTEXTEX(EasyCastStructure):
         cb: UInt32
         flags: win32more.Windows.Win32.UI.Controls.RichEdit.GETTEXTEX_FLAGS
@@ -816,7 +816,7 @@ if ARCH in 'X64,ARM64':
         dxHyphenateZone: Int16
         pfnHyphenate: IntPtr
         _pack_ = 4
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class HYPHENATEINFO(EasyCastStructure):
         cbSize: Int16
         dxHyphenateZone: Int16
@@ -1989,7 +1989,7 @@ if ARCH in 'X64,ARM64':
         wParam: win32more.Windows.Win32.Foundation.WPARAM
         lParam: win32more.Windows.Win32.Foundation.LPARAM
         _pack_ = 4
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class MSGFILTER(EasyCastStructure):
         nmhdr: win32more.Windows.Win32.UI.Controls.NMHDR
         msg: UInt32
@@ -2001,7 +2001,7 @@ if ARCH in 'X64,ARM64':
         cObjectCount: Int32
         pcpPositions: POINTER(Int32)
         _pack_ = 4
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class OBJECTPOSITIONS(EasyCastStructure):
         nmhdr: win32more.Windows.Win32.UI.Controls.NMHDR
         cObjectCount: Int32
@@ -2158,7 +2158,7 @@ if ARCH in 'X64,ARM64':
         iSize: UInt32
         szPunctuation: win32more.Windows.Win32.Foundation.PSTR
         _pack_ = 4
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class PUNCTUATION(EasyCastStructure):
         iSize: UInt32
         szPunctuation: win32more.Windows.Win32.Foundation.PSTR
@@ -2198,7 +2198,7 @@ if ARCH in 'X64,ARM64':
         dwAspect: win32more.Windows.Win32.System.Com.DVASPECT
         dwParam: UIntPtr
         _pack_ = 4
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class REPASTESPECIAL(EasyCastStructure):
         dwAspect: win32more.Windows.Win32.System.Com.DVASPECT
         dwParam: UIntPtr
@@ -2207,7 +2207,7 @@ if ARCH in 'X64,ARM64':
         nmhdr: win32more.Windows.Win32.UI.Controls.NMHDR
         rc: win32more.Windows.Win32.Foundation.RECT
         _pack_ = 4
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class REQRESIZE(EasyCastStructure):
         nmhdr: win32more.Windows.Win32.UI.Controls.NMHDR
         rc: win32more.Windows.Win32.Foundation.RECT
@@ -2220,7 +2220,7 @@ if ARCH in 'X64,ARM64':
         pwszAlternateText: win32more.Windows.Win32.Foundation.PWSTR
         pIStream: win32more.Windows.Win32.System.Com.IStream
         _pack_ = 4
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class RICHEDIT_IMAGE_PARAMETERS(EasyCastStructure):
         xWidth: Int32
         yHeight: Int32
@@ -2247,7 +2247,7 @@ if ARCH in 'X64,ARM64':
         chrg: win32more.Windows.Win32.UI.Controls.RichEdit.CHARRANGE
         seltyp: win32more.Windows.Win32.UI.Controls.RichEdit.RICH_EDIT_GET_CONTEXT_MENU_SEL_TYPE
         _pack_ = 4
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class SELCHANGE(EasyCastStructure):
         nmhdr: win32more.Windows.Win32.UI.Controls.NMHDR
         chrg: win32more.Windows.Win32.UI.Controls.RichEdit.CHARRANGE
@@ -2293,7 +2293,7 @@ if ARCH in 'X64,ARM64':
         chrg: win32more.Windows.Win32.UI.Controls.RichEdit.CHARRANGE
         lpstrText: win32more.Windows.Win32.Foundation.PSTR
         _pack_ = 4
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class TEXTRANGEA(EasyCastStructure):
         chrg: win32more.Windows.Win32.UI.Controls.RichEdit.CHARRANGE
         lpstrText: win32more.Windows.Win32.Foundation.PSTR
@@ -2302,7 +2302,7 @@ if ARCH in 'X64,ARM64':
         chrg: win32more.Windows.Win32.UI.Controls.RichEdit.CHARRANGE
         lpstrText: win32more.Windows.Win32.Foundation.PWSTR
         _pack_ = 4
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class TEXTRANGEW(EasyCastStructure):
         chrg: win32more.Windows.Win32.UI.Controls.RichEdit.CHARRANGE
         lpstrText: win32more.Windows.Win32.Foundation.PWSTR

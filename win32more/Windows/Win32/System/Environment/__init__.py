@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer, ConstantLazyLoader
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Environment
 ENCLAVE_RUNTIME_POLICY_ALLOW_FULL_DEBUG: UInt32 = 1
@@ -129,7 +129,7 @@ def VBS_BASIC_ENCLAVE_BASIC_CALL_COMMIT_PAGES(EnclaveAddress: VoidPtr, NumberOfB
 if ARCH in 'X64,ARM64':
     @winfunctype_pointer
     def VBS_BASIC_ENCLAVE_BASIC_CALL_CREATE_THREAD(ThreadDescriptor: POINTER(win32more.Windows.Win32.System.Environment.VBS_BASIC_ENCLAVE_THREAD_DESCRIPTOR64)) -> Int32: ...
-if ARCH in 'X86':
+elif ARCH in 'X86':
     @winfunctype_pointer
     def VBS_BASIC_ENCLAVE_BASIC_CALL_CREATE_THREAD(ThreadDescriptor: POINTER(win32more.Windows.Win32.System.Environment.VBS_BASIC_ENCLAVE_THREAD_DESCRIPTOR32)) -> Int32: ...
 @winfunctype_pointer
@@ -145,7 +145,7 @@ def VBS_BASIC_ENCLAVE_BASIC_CALL_GET_ENCLAVE_INFORMATION(EnclaveInfo: POINTER(wi
 if ARCH in 'X64,ARM64':
     @winfunctype_pointer
     def VBS_BASIC_ENCLAVE_BASIC_CALL_INTERRUPT_THREAD(ThreadDescriptor: POINTER(win32more.Windows.Win32.System.Environment.VBS_BASIC_ENCLAVE_THREAD_DESCRIPTOR64)) -> Int32: ...
-if ARCH in 'X86':
+elif ARCH in 'X86':
     @winfunctype_pointer
     def VBS_BASIC_ENCLAVE_BASIC_CALL_INTERRUPT_THREAD(ThreadDescriptor: POINTER(win32more.Windows.Win32.System.Environment.VBS_BASIC_ENCLAVE_THREAD_DESCRIPTOR32)) -> Int32: ...
 @winfunctype_pointer
@@ -155,13 +155,13 @@ def VBS_BASIC_ENCLAVE_BASIC_CALL_RETURN_FROM_ENCLAVE(ReturnValue: UIntPtr) -> Vo
 if ARCH in 'X64':
     @winfunctype_pointer
     def VBS_BASIC_ENCLAVE_BASIC_CALL_RETURN_FROM_EXCEPTION(ExceptionRecord: POINTER(win32more.Windows.Win32.System.Environment.VBS_BASIC_ENCLAVE_EXCEPTION_AMD64)) -> Int32: ...
-if ARCH in 'X86,ARM64':
+elif ARCH in 'X86,ARM64':
     @winfunctype_pointer
     def VBS_BASIC_ENCLAVE_BASIC_CALL_RETURN_FROM_EXCEPTION(ExceptionRecord: VoidPtr) -> Int32: ...
 if ARCH in 'X64,ARM64':
     @winfunctype_pointer
     def VBS_BASIC_ENCLAVE_BASIC_CALL_TERMINATE_THREAD(ThreadDescriptor: POINTER(win32more.Windows.Win32.System.Environment.VBS_BASIC_ENCLAVE_THREAD_DESCRIPTOR64)) -> Int32: ...
-if ARCH in 'X86':
+elif ARCH in 'X86':
     @winfunctype_pointer
     def VBS_BASIC_ENCLAVE_BASIC_CALL_TERMINATE_THREAD(ThreadDescriptor: POINTER(win32more.Windows.Win32.System.Environment.VBS_BASIC_ENCLAVE_THREAD_DESCRIPTOR32)) -> Int32: ...
 @winfunctype_pointer

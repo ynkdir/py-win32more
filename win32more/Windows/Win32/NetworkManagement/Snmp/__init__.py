@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer, ConstantLazyLoader
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.NetworkManagement.Snmp
 ASN_UNIVERSAL: UInt32 = 0
@@ -285,7 +285,7 @@ if ARCH in 'X64,ARM64':
         idLength: UInt32
         ids: POINTER(UInt32)
         _pack_ = 4
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class AsnObjectIdentifier(EasyCastStructure):
         idLength: UInt32
         ids: POINTER(UInt32)
@@ -295,7 +295,7 @@ if ARCH in 'X64,ARM64':
         length: UInt32
         dynamic: win32more.Windows.Win32.Foundation.BOOL
         _pack_ = 4
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class AsnOctetString(EasyCastStructure):
         stream: POINTER(Byte)
         length: UInt32
@@ -409,7 +409,7 @@ if ARCH in 'X64,ARM64':
         list: POINTER(win32more.Windows.Win32.NetworkManagement.Snmp.SnmpVarBind)
         len: UInt32
         _pack_ = 4
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class SnmpVarBindList(EasyCastStructure):
         list: POINTER(win32more.Windows.Win32.NetworkManagement.Snmp.SnmpVarBind)
         len: UInt32

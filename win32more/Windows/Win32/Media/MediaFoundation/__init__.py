@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer, ConstantLazyLoader
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Devices.Properties
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Direct3D12
@@ -4654,7 +4654,7 @@ if ARCH in 'X64,ARM64':
         BufferAlignmentStart: UInt32
         BlockAlignmentSize: UInt32
         ProtectedMemorySize: UInt64
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class D3DCONTENTPROTECTIONCAPS(EasyCastStructure):
         Caps: UInt32
         KeyExchangeType: Guid
@@ -5554,7 +5554,7 @@ if ARCH in 'X64,ARM64':
         rcSrc: win32more.Windows.Win32.Foundation.RECT
         rcDst: win32more.Windows.Win32.Foundation.RECT
         Palette: win32more.Windows.Win32.Media.MediaFoundation.DXVA_AYUVsample2 * 16
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class DXVA_VideoSample2(EasyCastStructure):
         rtStart: Int64
         rtEnd: Int64

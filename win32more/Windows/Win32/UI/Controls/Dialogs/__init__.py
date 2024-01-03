@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer, ConstantLazyLoader
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.System.Com
@@ -158,7 +158,7 @@ if ARCH in 'X64,ARM64':
         lCustData: win32more.Windows.Win32.Foundation.LPARAM
         lpfnHook: win32more.Windows.Win32.UI.Controls.Dialogs.LPCCHOOKPROC
         lpTemplateName: win32more.Windows.Win32.Foundation.PSTR
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class CHOOSECOLORA(EasyCastStructure):
         lStructSize: UInt32
         hwndOwner: win32more.Windows.Win32.Foundation.HWND
@@ -181,7 +181,7 @@ if ARCH in 'X64,ARM64':
         lCustData: win32more.Windows.Win32.Foundation.LPARAM
         lpfnHook: win32more.Windows.Win32.UI.Controls.Dialogs.LPCCHOOKPROC
         lpTemplateName: win32more.Windows.Win32.Foundation.PWSTR
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class CHOOSECOLORW(EasyCastStructure):
         lStructSize: UInt32
         hwndOwner: win32more.Windows.Win32.Foundation.HWND
@@ -221,7 +221,7 @@ if ARCH in 'X64,ARM64':
         ___MISSING_ALIGNMENT__: UInt16
         nSizeMin: Int32
         nSizeMax: Int32
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class CHOOSEFONTA(EasyCastStructure):
         lStructSize: UInt32
         hwndOwner: win32more.Windows.Win32.Foundation.HWND
@@ -258,7 +258,7 @@ if ARCH in 'X64,ARM64':
         ___MISSING_ALIGNMENT__: UInt16
         nSizeMin: Int32
         nSizeMax: Int32
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class CHOOSEFONTW(EasyCastStructure):
         lStructSize: UInt32
         hwndOwner: win32more.Windows.Win32.Foundation.HWND
@@ -358,7 +358,7 @@ if ARCH in 'X64,ARM64':
         wDeviceOffset: UInt16
         wOutputOffset: UInt16
         wDefault: UInt16
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class DEVNAMES(EasyCastStructure):
         wDriverOffset: UInt16
         wDeviceOffset: UInt16
@@ -378,7 +378,7 @@ if ARCH in 'X64,ARM64':
         lCustData: win32more.Windows.Win32.Foundation.LPARAM
         lpfnHook: win32more.Windows.Win32.UI.Controls.Dialogs.LPFRHOOKPROC
         lpTemplateName: win32more.Windows.Win32.Foundation.PSTR
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class FINDREPLACEA(EasyCastStructure):
         lStructSize: UInt32
         hwndOwner: win32more.Windows.Win32.Foundation.HWND
@@ -405,7 +405,7 @@ if ARCH in 'X64,ARM64':
         lCustData: win32more.Windows.Win32.Foundation.LPARAM
         lpfnHook: win32more.Windows.Win32.UI.Controls.Dialogs.LPFRHOOKPROC
         lpTemplateName: win32more.Windows.Win32.Foundation.PWSTR
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class FINDREPLACEW(EasyCastStructure):
         lStructSize: UInt32
         hwndOwner: win32more.Windows.Win32.Foundation.HWND
@@ -483,7 +483,7 @@ if ARCH in 'X64,ARM64':
         hdr: win32more.Windows.Win32.UI.Controls.NMHDR
         lpOFN: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.OPENFILENAMEA)
         pszFile: win32more.Windows.Win32.Foundation.PSTR
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class OFNOTIFYA(EasyCastStructure):
         hdr: win32more.Windows.Win32.UI.Controls.NMHDR
         lpOFN: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.OPENFILENAMEA)
@@ -495,7 +495,7 @@ if ARCH in 'X64,ARM64':
         lpOFN: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.OPENFILENAMEA)
         psf: VoidPtr
         pidl: VoidPtr
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class OFNOTIFYEXA(EasyCastStructure):
         hdr: win32more.Windows.Win32.UI.Controls.NMHDR
         lpOFN: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.OPENFILENAMEA)
@@ -508,7 +508,7 @@ if ARCH in 'X64,ARM64':
         lpOFN: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.OPENFILENAMEW)
         psf: VoidPtr
         pidl: VoidPtr
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class OFNOTIFYEXW(EasyCastStructure):
         hdr: win32more.Windows.Win32.UI.Controls.NMHDR
         lpOFN: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.OPENFILENAMEW)
@@ -520,7 +520,7 @@ if ARCH in 'X64,ARM64':
         hdr: win32more.Windows.Win32.UI.Controls.NMHDR
         lpOFN: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.OPENFILENAMEW)
         pszFile: win32more.Windows.Win32.Foundation.PWSTR
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class OFNOTIFYW(EasyCastStructure):
         hdr: win32more.Windows.Win32.UI.Controls.NMHDR
         lpOFN: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.OPENFILENAMEW)
@@ -551,7 +551,7 @@ if ARCH in 'X64,ARM64':
         pvReserved: VoidPtr
         dwReserved: UInt32
         FlagsEx: win32more.Windows.Win32.UI.Controls.Dialogs.OPEN_FILENAME_FLAGS_EX
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class OPENFILENAMEA(EasyCastStructure):
         lStructSize: UInt32
         hwndOwner: win32more.Windows.Win32.Foundation.HWND
@@ -602,7 +602,7 @@ if ARCH in 'X64,ARM64':
         pvReserved: VoidPtr
         dwReserved: UInt32
         FlagsEx: win32more.Windows.Win32.UI.Controls.Dialogs.OPEN_FILENAME_FLAGS_EX
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class OPENFILENAMEW(EasyCastStructure):
         lStructSize: UInt32
         hwndOwner: win32more.Windows.Win32.Foundation.HWND
@@ -650,7 +650,7 @@ if ARCH in 'X64,ARM64':
         lCustData: win32more.Windows.Win32.Foundation.LPARAM
         lpfnHook: win32more.Windows.Win32.UI.Controls.Dialogs.LPOFNHOOKPROC
         lpTemplateName: win32more.Windows.Win32.Foundation.PSTR
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class OPENFILENAME_NT4A(EasyCastStructure):
         lStructSize: UInt32
         hwndOwner: win32more.Windows.Win32.Foundation.HWND
@@ -695,7 +695,7 @@ if ARCH in 'X64,ARM64':
         lCustData: win32more.Windows.Win32.Foundation.LPARAM
         lpfnHook: win32more.Windows.Win32.UI.Controls.Dialogs.LPOFNHOOKPROC
         lpTemplateName: win32more.Windows.Win32.Foundation.PWSTR
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class OPENFILENAME_NT4W(EasyCastStructure):
         lStructSize: UInt32
         hwndOwner: win32more.Windows.Win32.Foundation.HWND
@@ -764,7 +764,7 @@ if ARCH in 'X64,ARM64':
         lpfnPagePaintHook: win32more.Windows.Win32.UI.Controls.Dialogs.LPPAGEPAINTHOOK
         lpPageSetupTemplateName: win32more.Windows.Win32.Foundation.PSTR
         hPageSetupTemplate: win32more.Windows.Win32.Foundation.HGLOBAL
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class PAGESETUPDLGA(EasyCastStructure):
         lStructSize: UInt32
         hwndOwner: win32more.Windows.Win32.Foundation.HWND
@@ -797,7 +797,7 @@ if ARCH in 'X64,ARM64':
         lpfnPagePaintHook: win32more.Windows.Win32.UI.Controls.Dialogs.LPPAGEPAINTHOOK
         lpPageSetupTemplateName: win32more.Windows.Win32.Foundation.PWSTR
         hPageSetupTemplate: win32more.Windows.Win32.Foundation.HGLOBAL
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class PAGESETUPDLGW(EasyCastStructure):
         lStructSize: UInt32
         hwndOwner: win32more.Windows.Win32.Foundation.HWND
@@ -855,7 +855,7 @@ if ARCH in 'X64,ARM64':
         lpSetupTemplateName: win32more.Windows.Win32.Foundation.PSTR
         hPrintTemplate: win32more.Windows.Win32.Foundation.HGLOBAL
         hSetupTemplate: win32more.Windows.Win32.Foundation.HGLOBAL
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class PRINTDLGA(EasyCastStructure):
         lStructSize: UInt32
         hwndOwner: win32more.Windows.Win32.Foundation.HWND
@@ -900,7 +900,7 @@ if ARCH in 'X64,ARM64':
         lphPropertyPages: POINTER(win32more.Windows.Win32.UI.Controls.HPROPSHEETPAGE)
         nStartPage: UInt32
         dwResultAction: UInt32
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class PRINTDLGEXA(EasyCastStructure):
         lStructSize: UInt32
         hwndOwner: win32more.Windows.Win32.Foundation.HWND
@@ -947,7 +947,7 @@ if ARCH in 'X64,ARM64':
         lphPropertyPages: POINTER(win32more.Windows.Win32.UI.Controls.HPROPSHEETPAGE)
         nStartPage: UInt32
         dwResultAction: UInt32
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class PRINTDLGEXW(EasyCastStructure):
         lStructSize: UInt32
         hwndOwner: win32more.Windows.Win32.Foundation.HWND
@@ -1021,7 +1021,7 @@ if ARCH in 'X64,ARM64':
         lpSetupTemplateName: win32more.Windows.Win32.Foundation.PWSTR
         hPrintTemplate: win32more.Windows.Win32.Foundation.HGLOBAL
         hSetupTemplate: win32more.Windows.Win32.Foundation.HGLOBAL
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class PRINTDLGW(EasyCastStructure):
         lStructSize: UInt32
         hwndOwner: win32more.Windows.Win32.Foundation.HWND
@@ -1047,7 +1047,7 @@ if ARCH in 'X64,ARM64':
     class PRINTPAGERANGE(EasyCastStructure):
         nFromPage: UInt32
         nToPage: UInt32
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class PRINTPAGERANGE(EasyCastStructure):
         nFromPage: UInt32
         nToPage: UInt32

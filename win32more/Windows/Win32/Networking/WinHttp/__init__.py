@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer, ConstantLazyLoader
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Networking.WinHttp
 import win32more.Windows.Win32.Networking.WinSock
@@ -780,7 +780,7 @@ if ARCH in 'X64,ARM64':
         cbSize: UInt32
         LocalAddress: win32more.Windows.Win32.Networking.WinSock.SOCKADDR_STORAGE
         RemoteAddress: win32more.Windows.Win32.Networking.WinSock.SOCKADDR_STORAGE
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class WINHTTP_CONNECTION_INFO(EasyCastStructure):
         cbSize: UInt32
         LocalAddress: win32more.Windows.Win32.Networking.WinSock.SOCKADDR_STORAGE
@@ -841,7 +841,7 @@ if ARCH in 'X64,ARM64':
     class WINHTTP_MATCH_CONNECTION_GUID(EasyCastStructure):
         ConnectionGuid: Guid
         ullFlags: UInt64
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class WINHTTP_MATCH_CONNECTION_GUID(EasyCastStructure):
         ConnectionGuid: Guid
         ullFlags: UInt64
@@ -904,7 +904,7 @@ if ARCH in 'X64,ARM64':
         rgpcwszProxyBypasses: POINTER(win32more.Windows.Win32.Foundation.PWSTR)
         dwInterfaceIndex: UInt32
         pcwszConnectionName: win32more.Windows.Win32.Foundation.PWSTR
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class WINHTTP_PROXY_SETTINGS_EX(EasyCastStructure):
         ullGenerationId: UInt64
         ullFlags: UInt64
@@ -921,7 +921,7 @@ if ARCH in 'X64,ARM64':
         ullFlags: UInt64
         pcwszConnectionName: win32more.Windows.Win32.Foundation.PWSTR
         pcwszProbeHost: win32more.Windows.Win32.Foundation.PWSTR
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class WINHTTP_PROXY_SETTINGS_PARAM(EasyCastStructure):
         ullFlags: UInt64
         pcwszConnectionName: win32more.Windows.Win32.Foundation.PWSTR
@@ -940,7 +940,7 @@ if ARCH in 'X64,ARM64':
         ulIndex: UInt32
         cStats: UInt32
         rgullStats: UInt64 * 32
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class WINHTTP_REQUEST_STATS(EasyCastStructure):
         ullFlags: UInt64
         ulIndex: UInt32
@@ -970,7 +970,7 @@ if ARCH in 'X64,ARM64':
     class WINHTTP_REQUEST_TIMES(EasyCastStructure):
         cTimes: UInt32
         rgullTimes: UInt64 * 64
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class WINHTTP_REQUEST_TIMES(EasyCastStructure):
         cTimes: UInt32
         rgullTimes: UInt64 * 64
@@ -1022,7 +1022,7 @@ if ARCH in 'X64,ARM64':
         SecureDnsSetting: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_SECURE_DNS_SETTING
         ullConnResolutionWaitTime: UInt64
         ullFlags: UInt64
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class WINHTTP_RESOLVER_CACHE_CONFIG(EasyCastStructure):
         ulMaxResolverCacheEntries: UInt32
         ulMaxCacheEntryAge: UInt32

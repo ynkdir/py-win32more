@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer, ConstantLazyLoader
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Networking.WinSock
 import win32more.Windows.Win32.System.Com
@@ -3128,7 +3128,7 @@ if ARCH in 'X64,ARM64':
         s_aliases: POINTER(POINTER(SByte))
         s_proto: win32more.Windows.Win32.Foundation.PSTR
         s_port: Int16
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class SERVENT(EasyCastStructure):
         s_name: win32more.Windows.Win32.Foundation.PSTR
         s_aliases: POINTER(POINTER(SByte))
@@ -3624,7 +3624,7 @@ if ARCH in 'X64,ARM64':
         lpVendorInfo: win32more.Windows.Win32.Foundation.PSTR
         szDescription: win32more.Windows.Win32.Foundation.CHAR * 257
         szSystemStatus: win32more.Windows.Win32.Foundation.CHAR * 129
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class WSADATA(EasyCastStructure):
         wVersion: UInt16
         wHighVersion: UInt16

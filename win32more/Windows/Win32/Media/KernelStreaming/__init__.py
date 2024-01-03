@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer, ConstantLazyLoader
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Devices.Properties
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Media
@@ -2139,7 +2139,7 @@ if ARCH in 'X64,ARM64':
     class KSNODEPROPERTY_AUDIO_3D_LISTENER(EasyCastStructure):
         NodeProperty: win32more.Windows.Win32.Media.KernelStreaming.KSNODEPROPERTY
         ListenerId: VoidPtr
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class KSNODEPROPERTY_AUDIO_3D_LISTENER(EasyCastStructure):
         NodeProperty: win32more.Windows.Win32.Media.KernelStreaming.KSNODEPROPERTY
         ListenerId: VoidPtr
@@ -2158,7 +2158,7 @@ if ARCH in 'X64,ARM64':
         NodeProperty: win32more.Windows.Win32.Media.KernelStreaming.KSNODEPROPERTY
         AppContext: VoidPtr
         Length: UInt32
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class KSNODEPROPERTY_AUDIO_PROPERTY(EasyCastStructure):
         NodeProperty: win32more.Windows.Win32.Media.KernelStreaming.KSNODEPROPERTY
         AppContext: VoidPtr
@@ -3470,7 +3470,7 @@ if ARCH in 'X64,ARM64':
         Data: VoidPtr
         OptionsFlags: UInt32
         Reserved: UInt32
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class KSSTREAM_HEADER(EasyCastStructure):
         Size: UInt32
         TypeSpecificFlags: UInt32

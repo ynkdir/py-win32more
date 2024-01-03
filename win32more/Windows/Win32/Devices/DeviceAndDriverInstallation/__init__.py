@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer, ConstantLazyLoader
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Data.HtmlHelp
 import win32more.Windows.Win32.Devices.DeviceAndDriverInstallation
 import win32more.Windows.Win32.Devices.Properties
@@ -2385,7 +2385,7 @@ if ARCH in 'X64,ARM64':
         DiskName: win32more.Windows.Win32.Foundation.PSTR
         SetId: UInt16
         CabinetNumber: UInt16
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class CABINET_INFO_A(EasyCastStructure):
         CabinetPath: win32more.Windows.Win32.Foundation.PSTR
         CabinetFile: win32more.Windows.Win32.Foundation.PSTR
@@ -2400,7 +2400,7 @@ if ARCH in 'X64,ARM64':
         DiskName: win32more.Windows.Win32.Foundation.PWSTR
         SetId: UInt16
         CabinetNumber: UInt16
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class CABINET_INFO_W(EasyCastStructure):
         CabinetPath: win32more.Windows.Win32.Foundation.PWSTR
         CabinetFile: win32more.Windows.Win32.Foundation.PWSTR
@@ -2640,7 +2640,7 @@ if ARCH in 'X64,ARM64':
         PostProcessing: win32more.Windows.Win32.Foundation.BOOL
         InstallResult: UInt32
         PrivateData: VoidPtr
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class COINSTALLER_CONTEXT_DATA(EasyCastStructure):
         PostProcessing: win32more.Windows.Win32.Foundation.BOOL
         InstallResult: UInt32
@@ -2824,7 +2824,7 @@ if ARCH in 'X64,ARM64':
         Source: win32more.Windows.Win32.Foundation.PSTR
         Win32Error: UInt32
         Flags: UInt32
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class FILEPATHS_A(EasyCastStructure):
         Target: win32more.Windows.Win32.Foundation.PSTR
         Source: win32more.Windows.Win32.Foundation.PSTR
@@ -2840,7 +2840,7 @@ if ARCH in 'X64,ARM64':
         DigitalSigner: win32more.Windows.Win32.Foundation.PSTR
         Version: win32more.Windows.Win32.Foundation.PSTR
         CatalogFile: win32more.Windows.Win32.Foundation.PSTR
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class FILEPATHS_SIGNERINFO_A(EasyCastStructure):
         Target: win32more.Windows.Win32.Foundation.PSTR
         Source: win32more.Windows.Win32.Foundation.PSTR
@@ -2859,7 +2859,7 @@ if ARCH in 'X64,ARM64':
         DigitalSigner: win32more.Windows.Win32.Foundation.PWSTR
         Version: win32more.Windows.Win32.Foundation.PWSTR
         CatalogFile: win32more.Windows.Win32.Foundation.PWSTR
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class FILEPATHS_SIGNERINFO_W(EasyCastStructure):
         Target: win32more.Windows.Win32.Foundation.PWSTR
         Source: win32more.Windows.Win32.Foundation.PWSTR
@@ -2875,7 +2875,7 @@ if ARCH in 'X64,ARM64':
         Source: win32more.Windows.Win32.Foundation.PWSTR
         Win32Error: UInt32
         Flags: UInt32
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class FILEPATHS_W(EasyCastStructure):
         Target: win32more.Windows.Win32.Foundation.PWSTR
         Source: win32more.Windows.Win32.Foundation.PWSTR
@@ -2891,7 +2891,7 @@ if ARCH in 'X64,ARM64':
         DosTime: UInt16
         DosAttribs: UInt16
         FullTargetName: win32more.Windows.Win32.Foundation.CHAR * 260
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class FILE_IN_CABINET_INFO_A(EasyCastStructure):
         NameInCabinet: win32more.Windows.Win32.Foundation.PSTR
         FileSize: UInt32
@@ -2910,7 +2910,7 @@ if ARCH in 'X64,ARM64':
         DosTime: UInt16
         DosAttribs: UInt16
         FullTargetName: Char * 260
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class FILE_IN_CABINET_INFO_W(EasyCastStructure):
         NameInCabinet: win32more.Windows.Win32.Foundation.PWSTR
         FileSize: UInt32
@@ -2938,7 +2938,7 @@ if ARCH in 'X64,ARM64':
         CurrentInf: VoidPtr
         Section: UInt32
         Line: UInt32
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class INFCONTEXT(EasyCastStructure):
         Inf: VoidPtr
         CurrentInf: VoidPtr
@@ -3206,7 +3206,7 @@ if ARCH in 'X64,ARM64':
         SourcePath: win32more.Windows.Win32.Foundation.PSTR
         SourceFile: win32more.Windows.Win32.Foundation.PSTR
         Flags: UInt32
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class SOURCE_MEDIA_A(EasyCastStructure):
         Reserved: win32more.Windows.Win32.Foundation.PSTR
         Tagfile: win32more.Windows.Win32.Foundation.PSTR
@@ -3223,7 +3223,7 @@ if ARCH in 'X64,ARM64':
         SourcePath: win32more.Windows.Win32.Foundation.PWSTR
         SourceFile: win32more.Windows.Win32.Foundation.PWSTR
         Flags: UInt32
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class SOURCE_MEDIA_W(EasyCastStructure):
         Reserved: win32more.Windows.Win32.Foundation.PWSTR
         Tagfile: win32more.Windows.Win32.Foundation.PWSTR
@@ -3259,7 +3259,7 @@ if ARCH in 'X64,ARM64':
         MinorVersion: UInt32
         ProcessorArchitecture: UInt16
         Reserved: UInt16
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class SP_ALTPLATFORM_INFO_V1(EasyCastStructure):
         cbSize: UInt32
         Platform: win32more.Windows.Win32.System.Diagnostics.Debug.VER_PLATFORM
@@ -3281,7 +3281,7 @@ if ARCH in 'X64,ARM64':
         class _Anonymous_e__Union(EasyCastUnion):
             Reserved: UInt16
             Flags: UInt16
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class SP_ALTPLATFORM_INFO_V2(EasyCastStructure):
         cbSize: UInt32
         Platform: win32more.Windows.Win32.System.Diagnostics.Debug.VER_PLATFORM
@@ -3312,7 +3312,7 @@ if ARCH in 'X64,ARM64':
         class _Anonymous_e__Union(EasyCastUnion):
             Reserved: UInt16
             Flags: UInt16
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class SP_ALTPLATFORM_INFO_V3(EasyCastStructure):
         cbSize: UInt32
         Platform: UInt32
@@ -3335,7 +3335,7 @@ if ARCH in 'X64,ARM64':
         cbSize: UInt32
         FullInfPath: win32more.Windows.Win32.Foundation.CHAR * 260
         FilenameOffset: Int32
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class SP_BACKUP_QUEUE_PARAMS_V1_A(EasyCastStructure):
         cbSize: UInt32
         FullInfPath: win32more.Windows.Win32.Foundation.CHAR * 260
@@ -3346,7 +3346,7 @@ if ARCH in 'X64,ARM64':
         cbSize: UInt32
         FullInfPath: Char * 260
         FilenameOffset: Int32
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class SP_BACKUP_QUEUE_PARAMS_V1_W(EasyCastStructure):
         cbSize: UInt32
         FullInfPath: Char * 260
@@ -3358,7 +3358,7 @@ if ARCH in 'X64,ARM64':
         FullInfPath: win32more.Windows.Win32.Foundation.CHAR * 260
         FilenameOffset: Int32
         ReinstallInstance: win32more.Windows.Win32.Foundation.CHAR * 260
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class SP_BACKUP_QUEUE_PARAMS_V2_A(EasyCastStructure):
         cbSize: UInt32
         FullInfPath: win32more.Windows.Win32.Foundation.CHAR * 260
@@ -3371,7 +3371,7 @@ if ARCH in 'X64,ARM64':
         FullInfPath: Char * 260
         FilenameOffset: Int32
         ReinstallInstance: Char * 260
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class SP_BACKUP_QUEUE_PARAMS_V2_W(EasyCastStructure):
         cbSize: UInt32
         FullInfPath: Char * 260
@@ -3383,7 +3383,7 @@ if ARCH in 'X64,ARM64':
         cbSize: UInt32
         ImageList: win32more.Windows.Win32.UI.Controls.HIMAGELIST
         Reserved: UIntPtr
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class SP_CLASSIMAGELIST_DATA(EasyCastStructure):
         cbSize: UInt32
         ImageList: win32more.Windows.Win32.UI.Controls.HIMAGELIST
@@ -3393,7 +3393,7 @@ if ARCH in 'X64,ARM64':
     class SP_CLASSINSTALL_HEADER(EasyCastStructure):
         cbSize: UInt32
         InstallFunction: UInt32
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class SP_CLASSINSTALL_HEADER(EasyCastStructure):
         cbSize: UInt32
         InstallFunction: UInt32
@@ -3432,7 +3432,7 @@ if ARCH in 'X64,ARM64':
         ClassInstallHeader: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.SP_CLASSINSTALL_HEADER
         DetectProgressNotify: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.PDETECT_PROGRESS_NOTIFY
         ProgressNotifyParam: VoidPtr
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class SP_DETECTDEVICE_PARAMS(EasyCastStructure):
         ClassInstallHeader: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.SP_CLASSINSTALL_HEADER
         DetectProgressNotify: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.PDETECT_PROGRESS_NOTIFY
@@ -3444,7 +3444,7 @@ if ARCH in 'X64,ARM64':
         InterfaceClassGuid: Guid
         Flags: UInt32
         Reserved: UIntPtr
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class SP_DEVICE_INTERFACE_DATA(EasyCastStructure):
         cbSize: UInt32
         InterfaceClassGuid: Guid
@@ -3455,7 +3455,7 @@ if ARCH in 'X64,ARM64':
     class SP_DEVICE_INTERFACE_DETAIL_DATA_A(EasyCastStructure):
         cbSize: UInt32
         DevicePath: win32more.Windows.Win32.Foundation.CHAR * 1
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class SP_DEVICE_INTERFACE_DETAIL_DATA_A(EasyCastStructure):
         cbSize: UInt32
         DevicePath: win32more.Windows.Win32.Foundation.CHAR * 1
@@ -3464,7 +3464,7 @@ if ARCH in 'X64,ARM64':
     class SP_DEVICE_INTERFACE_DETAIL_DATA_W(EasyCastStructure):
         cbSize: UInt32
         DevicePath: Char * 1
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class SP_DEVICE_INTERFACE_DETAIL_DATA_W(EasyCastStructure):
         cbSize: UInt32
         DevicePath: Char * 1
@@ -3475,7 +3475,7 @@ if ARCH in 'X64,ARM64':
         ClassGuid: Guid
         DevInst: UInt32
         Reserved: UIntPtr
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class SP_DEVINFO_DATA(EasyCastStructure):
         cbSize: UInt32
         ClassGuid: Guid
@@ -3488,7 +3488,7 @@ if ARCH in 'X64,ARM64':
         ClassGuid: Guid
         RemoteMachineHandle: win32more.Windows.Win32.Foundation.HANDLE
         RemoteMachineName: win32more.Windows.Win32.Foundation.CHAR * 263
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class SP_DEVINFO_LIST_DETAIL_DATA_A(EasyCastStructure):
         cbSize: UInt32
         ClassGuid: Guid
@@ -3501,7 +3501,7 @@ if ARCH in 'X64,ARM64':
         ClassGuid: Guid
         RemoteMachineHandle: win32more.Windows.Win32.Foundation.HANDLE
         RemoteMachineName: Char * 263
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class SP_DEVINFO_LIST_DETAIL_DATA_W(EasyCastStructure):
         cbSize: UInt32
         ClassGuid: Guid
@@ -3520,7 +3520,7 @@ if ARCH in 'X64,ARM64':
         ClassInstallReserved: UIntPtr
         Reserved: UInt32
         DriverPath: win32more.Windows.Win32.Foundation.CHAR * 260
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class SP_DEVINSTALL_PARAMS_A(EasyCastStructure):
         cbSize: UInt32
         Flags: UInt32
@@ -3545,7 +3545,7 @@ if ARCH in 'X64,ARM64':
         ClassInstallReserved: UIntPtr
         Reserved: UInt32
         DriverPath: Char * 260
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class SP_DEVINSTALL_PARAMS_W(EasyCastStructure):
         cbSize: UInt32
         Flags: UInt32
@@ -3566,7 +3566,7 @@ if ARCH in 'X64,ARM64':
         Description: win32more.Windows.Win32.Foundation.CHAR * 256
         MfgName: win32more.Windows.Win32.Foundation.CHAR * 256
         ProviderName: win32more.Windows.Win32.Foundation.CHAR * 256
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class SP_DRVINFO_DATA_V1_A(EasyCastStructure):
         cbSize: UInt32
         DriverType: UInt32
@@ -3583,7 +3583,7 @@ if ARCH in 'X64,ARM64':
         Description: Char * 256
         MfgName: Char * 256
         ProviderName: Char * 256
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class SP_DRVINFO_DATA_V1_W(EasyCastStructure):
         cbSize: UInt32
         DriverType: UInt32
@@ -3602,7 +3602,7 @@ if ARCH in 'X64,ARM64':
         ProviderName: win32more.Windows.Win32.Foundation.CHAR * 256
         DriverDate: win32more.Windows.Win32.Foundation.FILETIME
         DriverVersion: UInt64
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class SP_DRVINFO_DATA_V2_A(EasyCastStructure):
         cbSize: UInt32
         DriverType: UInt32
@@ -3623,7 +3623,7 @@ if ARCH in 'X64,ARM64':
         ProviderName: Char * 256
         DriverDate: win32more.Windows.Win32.Foundation.FILETIME
         DriverVersion: UInt64
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class SP_DRVINFO_DATA_V2_W(EasyCastStructure):
         cbSize: UInt32
         DriverType: UInt32
@@ -3645,7 +3645,7 @@ if ARCH in 'X64,ARM64':
         InfFileName: win32more.Windows.Win32.Foundation.CHAR * 260
         DrvDescription: win32more.Windows.Win32.Foundation.CHAR * 256
         HardwareID: win32more.Windows.Win32.Foundation.CHAR * 1
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class SP_DRVINFO_DETAIL_DATA_A(EasyCastStructure):
         cbSize: UInt32
         InfDate: win32more.Windows.Win32.Foundation.FILETIME
@@ -3668,7 +3668,7 @@ if ARCH in 'X64,ARM64':
         InfFileName: Char * 260
         DrvDescription: Char * 256
         HardwareID: Char * 1
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class SP_DRVINFO_DETAIL_DATA_W(EasyCastStructure):
         cbSize: UInt32
         InfDate: win32more.Windows.Win32.Foundation.FILETIME
@@ -3687,7 +3687,7 @@ if ARCH in 'X64,ARM64':
         Flags: UInt32
         PrivateData: UIntPtr
         Reserved: UInt32
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class SP_DRVINSTALL_PARAMS(EasyCastStructure):
         cbSize: UInt32
         Rank: UInt32
@@ -3700,7 +3700,7 @@ if ARCH in 'X64,ARM64':
         ClassInstallHeader: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.SP_CLASSINSTALL_HEADER
         ClassGuid: Guid
         EnableMessage: UInt32
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class SP_ENABLECLASS_PARAMS(EasyCastStructure):
         ClassInstallHeader: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.SP_CLASSINSTALL_HEADER
         ClassGuid: Guid
@@ -3720,7 +3720,7 @@ if ARCH in 'X64,ARM64':
         CopyStyle: UInt32
         LayoutInf: VoidPtr
         SecurityDescriptor: win32more.Windows.Win32.Foundation.PSTR
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class SP_FILE_COPY_PARAMS_A(EasyCastStructure):
         cbSize: UInt32
         QueueHandle: VoidPtr
@@ -3749,7 +3749,7 @@ if ARCH in 'X64,ARM64':
         CopyStyle: UInt32
         LayoutInf: VoidPtr
         SecurityDescriptor: win32more.Windows.Win32.Foundation.PWSTR
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class SP_FILE_COPY_PARAMS_W(EasyCastStructure):
         cbSize: UInt32
         QueueHandle: VoidPtr
@@ -3769,7 +3769,7 @@ if ARCH in 'X64,ARM64':
         InfStyle: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.INF_STYLE
         InfCount: UInt32
         VersionData: Byte * 1
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class SP_INF_INFORMATION(EasyCastStructure):
         InfStyle: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.INF_STYLE
         InfCount: UInt32
@@ -3781,7 +3781,7 @@ if ARCH in 'X64,ARM64':
         CatalogFile: win32more.Windows.Win32.Foundation.CHAR * 260
         DigitalSigner: win32more.Windows.Win32.Foundation.CHAR * 260
         DigitalSignerVersion: win32more.Windows.Win32.Foundation.CHAR * 260
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class SP_INF_SIGNER_INFO_V1_A(EasyCastStructure):
         cbSize: UInt32
         CatalogFile: win32more.Windows.Win32.Foundation.CHAR * 260
@@ -3794,7 +3794,7 @@ if ARCH in 'X64,ARM64':
         CatalogFile: Char * 260
         DigitalSigner: Char * 260
         DigitalSignerVersion: Char * 260
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class SP_INF_SIGNER_INFO_V1_W(EasyCastStructure):
         cbSize: UInt32
         CatalogFile: Char * 260
@@ -3808,7 +3808,7 @@ if ARCH in 'X64,ARM64':
         DigitalSigner: win32more.Windows.Win32.Foundation.CHAR * 260
         DigitalSignerVersion: win32more.Windows.Win32.Foundation.CHAR * 260
         SignerScore: UInt32
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class SP_INF_SIGNER_INFO_V2_A(EasyCastStructure):
         cbSize: UInt32
         CatalogFile: win32more.Windows.Win32.Foundation.CHAR * 260
@@ -3823,7 +3823,7 @@ if ARCH in 'X64,ARM64':
         DigitalSigner: Char * 260
         DigitalSignerVersion: Char * 260
         SignerScore: UInt32
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class SP_INF_SIGNER_INFO_V2_W(EasyCastStructure):
         cbSize: UInt32
         CatalogFile: Char * 260
@@ -3841,7 +3841,7 @@ if ARCH in 'X64,ARM64':
         PrivateFlags: UInt32
         PrivateData: win32more.Windows.Win32.Foundation.LPARAM
         hwndWizardDlg: win32more.Windows.Win32.Foundation.HWND
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class SP_INSTALLWIZARD_DATA(EasyCastStructure):
         ClassInstallHeader: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.SP_CLASSINSTALL_HEADER
         Flags: UInt32
@@ -3859,7 +3859,7 @@ if ARCH in 'X64,ARM64':
         DynamicPages: win32more.Windows.Win32.UI.Controls.HPROPSHEETPAGE * 20
         NumDynamicPages: UInt32
         hwndWizardDlg: win32more.Windows.Win32.Foundation.HWND
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class SP_NEWDEVICEWIZARD_DATA(EasyCastStructure):
         ClassInstallHeader: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.SP_CLASSINSTALL_HEADER
         Flags: UInt32
@@ -3872,7 +3872,7 @@ if ARCH in 'X64,ARM64':
         cbSize: UInt32
         OriginalInfName: win32more.Windows.Win32.Foundation.CHAR * 260
         OriginalCatalogName: win32more.Windows.Win32.Foundation.CHAR * 260
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class SP_ORIGINAL_FILE_INFO_A(EasyCastStructure):
         cbSize: UInt32
         OriginalInfName: win32more.Windows.Win32.Foundation.CHAR * 260
@@ -3883,7 +3883,7 @@ if ARCH in 'X64,ARM64':
         cbSize: UInt32
         OriginalInfName: Char * 260
         OriginalCatalogName: Char * 260
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class SP_ORIGINAL_FILE_INFO_W(EasyCastStructure):
         cbSize: UInt32
         OriginalInfName: Char * 260
@@ -3896,7 +3896,7 @@ if ARCH in 'X64,ARM64':
     class SP_POWERMESSAGEWAKE_PARAMS_W(EasyCastStructure):
         ClassInstallHeader: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.SP_CLASSINSTALL_HEADER
         PowerMessageWake: Char * 512
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class SP_POWERMESSAGEWAKE_PARAMS_W(EasyCastStructure):
         ClassInstallHeader: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.SP_CLASSINSTALL_HEADER
         PowerMessageWake: Char * 512
@@ -3907,7 +3907,7 @@ if ARCH in 'X64,ARM64':
         StateChange: UInt32
         Scope: UInt32
         HwProfile: UInt32
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class SP_PROPCHANGE_PARAMS(EasyCastStructure):
         ClassInstallHeader: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.SP_CLASSINSTALL_HEADER
         StateChange: UInt32
@@ -3920,7 +3920,7 @@ if ARCH in 'X64,ARM64':
         PageRequested: UInt32
         DeviceInfoSet: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.HDEVINFO
         DeviceInfoData: POINTER(win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.SP_DEVINFO_DATA)
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class SP_PROPSHEETPAGE_REQUEST(EasyCastStructure):
         cbSize: UInt32
         PageRequested: UInt32
@@ -3933,7 +3933,7 @@ if ARCH in 'X64,ARM64':
         FileName: win32more.Windows.Win32.Foundation.PSTR
         Win32Error: UInt32
         FailureCode: UInt32
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class SP_REGISTER_CONTROL_STATUSA(EasyCastStructure):
         cbSize: UInt32
         FileName: win32more.Windows.Win32.Foundation.PSTR
@@ -3946,7 +3946,7 @@ if ARCH in 'X64,ARM64':
         FileName: win32more.Windows.Win32.Foundation.PWSTR
         Win32Error: UInt32
         FailureCode: UInt32
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class SP_REGISTER_CONTROL_STATUSW(EasyCastStructure):
         cbSize: UInt32
         FileName: win32more.Windows.Win32.Foundation.PWSTR
@@ -3958,7 +3958,7 @@ if ARCH in 'X64,ARM64':
         ClassInstallHeader: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.SP_CLASSINSTALL_HEADER
         Scope: UInt32
         HwProfile: UInt32
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class SP_REMOVEDEVICE_PARAMS(EasyCastStructure):
         ClassInstallHeader: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.SP_CLASSINSTALL_HEADER
         Scope: UInt32
@@ -3978,7 +3978,7 @@ if ARCH in 'X64,ARM64':
         Instructions: Char * 256
         ListLabel: Char * 30
         SubTitle: Char * 256
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class SP_SELECTDEVICE_PARAMS_W(EasyCastStructure):
         ClassInstallHeader: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.SP_CLASSINSTALL_HEADER
         Title: Char * 60
@@ -3995,7 +3995,7 @@ if ARCH in 'X64,ARM64':
         ClassInstallHeader: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.SP_CLASSINSTALL_HEADER
         ChmFile: Char * 260
         HtmlTroubleShooter: Char * 260
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class SP_TROUBLESHOOTER_PARAMS_W(EasyCastStructure):
         ClassInstallHeader: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.SP_CLASSINSTALL_HEADER
         ChmFile: Char * 260
@@ -4006,7 +4006,7 @@ if ARCH in 'X64,ARM64':
         ClassInstallHeader: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.SP_CLASSINSTALL_HEADER
         Scope: UInt32
         HwProfile: UInt32
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class SP_UNREMOVEDEVICE_PARAMS(EasyCastStructure):
         ClassInstallHeader: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.SP_CLASSINSTALL_HEADER
         Scope: UInt32

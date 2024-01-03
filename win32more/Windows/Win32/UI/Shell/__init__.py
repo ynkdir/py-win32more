@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer, ConstantLazyLoader
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Data.Xml.MsXml
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.DirectComposition
@@ -79,7 +79,7 @@ if ARCH in 'X64,ARM64':
         uEdge: UInt32
         rc: win32more.Windows.Win32.Foundation.RECT
         lParam: win32more.Windows.Win32.Foundation.LPARAM
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class APPBARDATA(EasyCastStructure):
         cbSize: UInt32
         hWnd: win32more.Windows.Win32.Foundation.HWND
@@ -208,7 +208,7 @@ if ARCH in 'X64,ARM64':
         ac: win32more.Windows.Win32.UI.Shell.ASSOCCLASS
         hkClass: win32more.Windows.Win32.System.Registry.HKEY
         pszClass: win32more.Windows.Win32.Foundation.PWSTR
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class ASSOCIATIONELEMENT(EasyCastStructure):
         ac: win32more.Windows.Win32.UI.Shell.ASSOCCLASS
         hkClass: win32more.Windows.Win32.System.Registry.HKEY
@@ -3791,7 +3791,7 @@ if ARCH in 'X64,ARM64':
         fNC: win32more.Windows.Win32.Foundation.BOOL
         lpFileList: win32more.Windows.Win32.Foundation.PSTR
         grfKeyState: UInt32
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class DRAGINFOA(EasyCastStructure):
         uSize: UInt32
         pt: win32more.Windows.Win32.Foundation.POINT
@@ -3806,7 +3806,7 @@ if ARCH in 'X64,ARM64':
         fNC: win32more.Windows.Win32.Foundation.BOOL
         lpFileList: win32more.Windows.Win32.Foundation.PWSTR
         grfKeyState: UInt32
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class DRAGINFOW(EasyCastStructure):
         uSize: UInt32
         pt: win32more.Windows.Win32.Foundation.POINT
@@ -9529,7 +9529,7 @@ if ARCH in 'X64,ARM64':
         class _Anonymous_e__Union(EasyCastUnion):
             uTimeout: UInt32
             uVersion: UInt32
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class NOTIFYICONDATAA(EasyCastStructure):
         cbSize: UInt32
         hWnd: win32more.Windows.Win32.Foundation.HWND
@@ -9571,7 +9571,7 @@ if ARCH in 'X64,ARM64':
         class _Anonymous_e__Union(EasyCastUnion):
             uTimeout: UInt32
             uVersion: UInt32
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class NOTIFYICONDATAW(EasyCastStructure):
         cbSize: UInt32
         hWnd: win32more.Windows.Win32.Foundation.HWND
@@ -9599,7 +9599,7 @@ if ARCH in 'X64,ARM64':
         hWnd: win32more.Windows.Win32.Foundation.HWND
         uID: UInt32
         guidItem: Guid
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class NOTIFYICONIDENTIFIER(EasyCastStructure):
         cbSize: UInt32
         hWnd: win32more.Windows.Win32.Foundation.HWND
@@ -9736,7 +9736,7 @@ if ARCH in 'X64,ARM64':
         uSheetIndex: UInt32
         dwFlags: UInt32
         bModal: win32more.Windows.Win32.Foundation.BOOL
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class OPEN_PRINTER_PROPS_INFOA(EasyCastStructure):
         dwSize: UInt32
         pszSheetName: win32more.Windows.Win32.Foundation.PSTR
@@ -9751,7 +9751,7 @@ if ARCH in 'X64,ARM64':
         uSheetIndex: UInt32
         dwFlags: UInt32
         bModal: win32more.Windows.Win32.Foundation.BOOL
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class OPEN_PRINTER_PROPS_INFOW(EasyCastStructure):
         dwSize: UInt32
         pszSheetName: win32more.Windows.Win32.Foundation.PWSTR
@@ -10338,7 +10338,7 @@ if ARCH in 'X64,ARM64':
         dwCreationFlags: UInt32
         lpStartupInfo: POINTER(win32more.Windows.Win32.System.Threading.STARTUPINFOW)
         lpProcessInformation: POINTER(win32more.Windows.Win32.System.Threading.PROCESS_INFORMATION)
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class SHCREATEPROCESSINFOW(EasyCastStructure):
         cbSize: UInt32
         fMask: UInt32
@@ -10434,7 +10434,7 @@ if ARCH in 'X64,ARM64':
         class _Anonymous_e__Union(EasyCastUnion):
             hIcon: win32more.Windows.Win32.Foundation.HANDLE
             hMonitor: win32more.Windows.Win32.Foundation.HANDLE
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class SHELLEXECUTEINFOA(EasyCastStructure):
         cbSize: UInt32
         fMask: UInt32
@@ -10476,7 +10476,7 @@ if ARCH in 'X64,ARM64':
         class _Anonymous_e__Union(EasyCastUnion):
             hIcon: win32more.Windows.Win32.Foundation.HANDLE
             hMonitor: win32more.Windows.Win32.Foundation.HANDLE
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class SHELLEXECUTEINFOW(EasyCastStructure):
         cbSize: UInt32
         fMask: UInt32
@@ -10580,7 +10580,7 @@ if ARCH in 'X64,ARM64':
         dwAttributes: UInt32
         szDisplayName: win32more.Windows.Win32.Foundation.CHAR * 260
         szTypeName: win32more.Windows.Win32.Foundation.CHAR * 80
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class SHFILEINFOA(EasyCastStructure):
         hIcon: win32more.Windows.Win32.UI.WindowsAndMessaging.HICON
         iIcon: Int32
@@ -10595,7 +10595,7 @@ if ARCH in 'X64,ARM64':
         dwAttributes: UInt32
         szDisplayName: Char * 260
         szTypeName: Char * 80
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class SHFILEINFOW(EasyCastStructure):
         hIcon: win32more.Windows.Win32.UI.WindowsAndMessaging.HICON
         iIcon: Int32
@@ -10613,7 +10613,7 @@ if ARCH in 'X64,ARM64':
         fAnyOperationsAborted: win32more.Windows.Win32.Foundation.BOOL
         hNameMappings: VoidPtr
         lpszProgressTitle: win32more.Windows.Win32.Foundation.PSTR
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class SHFILEOPSTRUCTA(EasyCastStructure):
         hwnd: win32more.Windows.Win32.Foundation.HWND
         wFunc: UInt32
@@ -10634,7 +10634,7 @@ if ARCH in 'X64,ARM64':
         fAnyOperationsAborted: win32more.Windows.Win32.Foundation.BOOL
         hNameMappings: VoidPtr
         lpszProgressTitle: win32more.Windows.Win32.Foundation.PWSTR
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class SHFILEOPSTRUCTW(EasyCastStructure):
         hwnd: win32more.Windows.Win32.Foundation.HWND
         wFunc: UInt32
@@ -10779,7 +10779,7 @@ if ARCH in 'X64,ARM64':
         pszNewPath: win32more.Windows.Win32.Foundation.PSTR
         cchOldPath: Int32
         cchNewPath: Int32
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class SHNAMEMAPPINGA(EasyCastStructure):
         pszOldPath: win32more.Windows.Win32.Foundation.PSTR
         pszNewPath: win32more.Windows.Win32.Foundation.PSTR
@@ -10792,7 +10792,7 @@ if ARCH in 'X64,ARM64':
         pszNewPath: win32more.Windows.Win32.Foundation.PWSTR
         cchOldPath: Int32
         cchNewPath: Int32
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class SHNAMEMAPPINGW(EasyCastStructure):
         pszOldPath: win32more.Windows.Win32.Foundation.PWSTR
         pszNewPath: win32more.Windows.Win32.Foundation.PWSTR
@@ -10808,7 +10808,7 @@ if ARCH in 'X64,ARM64':
         cbSize: UInt32
         i64Size: Int64
         i64NumItems: Int64
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class SHQUERYRBINFO(EasyCastStructure):
         cbSize: UInt32
         i64Size: Int64
@@ -10926,7 +10926,7 @@ if ARCH in 'X64,ARM64':
         iSysImageIndex: Int32
         iIcon: Int32
         szPath: Char * 260
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class SHSTOCKICONINFO(EasyCastStructure):
         cbSize: UInt32
         hIcon: win32more.Windows.Win32.UI.WindowsAndMessaging.HICON

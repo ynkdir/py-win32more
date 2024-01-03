@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer, ConstantLazyLoader
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.NetworkManagement.IpHelper
 import win32more.Windows.Win32.NetworkManagement.Rras
@@ -1933,7 +1933,7 @@ if ARCH in 'X64,ARM64':
         luid: win32more.Windows.Win32.Foundation.LUID
         guidCorrelationId: Guid
         _pack_ = 4
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class RASCONNA(EasyCastStructure):
         dwSize: UInt32
         hrasconn: win32more.Windows.Win32.NetworkManagement.Rras.HRASCONN
@@ -2018,7 +2018,7 @@ if ARCH in 'X64,ARM64':
         luid: win32more.Windows.Win32.Foundation.LUID
         guidCorrelationId: Guid
         _pack_ = 4
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class RASCONNW(EasyCastStructure):
         dwSize: UInt32
         hrasconn: win32more.Windows.Win32.NetworkManagement.Rras.HRASCONN
@@ -2066,7 +2066,7 @@ if ARCH in 'X64,ARM64':
         dwSize: UInt32
         pbDevSpecificInfo: POINTER(Byte)
         _pack_ = 4
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class RASDEVSPECIFICINFO(EasyCastStructure):
         dwSize: UInt32
         pbDevSpecificInfo: POINTER(Byte)
@@ -2111,7 +2111,7 @@ if ARCH in 'X64,ARM64':
         dwIfIndex: UInt32
         szEncPassword: win32more.Windows.Win32.Foundation.PSTR
         _pack_ = 4
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class RASDIALPARAMSA(EasyCastStructure):
         dwSize: UInt32
         szEntryName: win32more.Windows.Win32.Foundation.CHAR * 257
@@ -2138,7 +2138,7 @@ if ARCH in 'X64,ARM64':
         dwIfIndex: UInt32
         szEncPassword: win32more.Windows.Win32.Foundation.PWSTR
         _pack_ = 4
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class RASDIALPARAMSW(EasyCastStructure):
         dwSize: UInt32
         szEntryName: Char * 257
@@ -2237,7 +2237,7 @@ if ARCH in 'X64,ARM64':
         reserved: UIntPtr
         reserved2: UIntPtr
         _pack_ = 4
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class RASENTRYDLGA(EasyCastStructure):
         dwSize: UInt32
         hwndOwner: win32more.Windows.Win32.Foundation.HWND
@@ -2260,7 +2260,7 @@ if ARCH in 'X64,ARM64':
         reserved: UIntPtr
         reserved2: UIntPtr
         _pack_ = 4
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class RASENTRYDLGW(EasyCastStructure):
         dwSize: UInt32
         hwndOwner: win32more.Windows.Win32.Foundation.HWND
@@ -2364,7 +2364,7 @@ if ARCH in 'X64,ARM64':
         numIPv6ServerAddresses: UInt32
         ipv6ServerAddresses: POINTER(win32more.Windows.Win32.Networking.WinSock.IN6_ADDR)
         _pack_ = 4
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class RASIKEV2_PROJECTION_INFO(EasyCastStructure):
         dwIPv4NegotiationError: UInt32
         ipv4Address: win32more.Windows.Win32.Networking.WinSock.IN_ADDR
@@ -2421,7 +2421,7 @@ if ARCH in 'X64,ARM64':
         reserved: UIntPtr
         reserved2: UIntPtr
         _pack_ = 4
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class RASPBDLGA(EasyCastStructure):
         dwSize: UInt32
         hwndOwner: win32more.Windows.Win32.Foundation.HWND
@@ -2450,7 +2450,7 @@ if ARCH in 'X64,ARM64':
         reserved: UIntPtr
         reserved2: UIntPtr
         _pack_ = 4
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class RASPBDLGW(EasyCastStructure):
         dwSize: UInt32
         hwndOwner: win32more.Windows.Win32.Foundation.HWND

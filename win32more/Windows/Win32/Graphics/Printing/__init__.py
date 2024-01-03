@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer, ConstantLazyLoader
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Data.Xml.MsXml
 import win32more.Windows.Win32.Devices.Communication
 import win32more.Windows.Win32.Devices.Display
@@ -4490,7 +4490,7 @@ class SPLCLIENT_INFO_2_W2K(EasyCastStructure):
 if ARCH in 'X64,ARM64':
     class SPLCLIENT_INFO_2_WINXP(EasyCastStructure):
         hSplPrinter: UInt64
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class SPLCLIENT_INFO_2_WINXP(EasyCastStructure):
         hSplPrinter: UInt32
 class SPLCLIENT_INFO_3_VISTA(EasyCastStructure):

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer, ConstantLazyLoader
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Data.Xml.MsXml
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Storage.Packaging.Appx
@@ -1022,7 +1022,7 @@ if ARCH in 'X64,ARM64':
         resourceId: win32more.Windows.Win32.Foundation.PWSTR
         publisherId: win32more.Windows.Win32.Foundation.PWSTR
         _pack_ = 4
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class PACKAGE_ID(EasyCastStructure):
         reserved: UInt32
         processorArchitecture: UInt32
@@ -1040,7 +1040,7 @@ if ARCH in 'X64,ARM64':
         packageFamilyName: win32more.Windows.Win32.Foundation.PWSTR
         packageId: win32more.Windows.Win32.Storage.Packaging.Appx.PACKAGE_ID
         _pack_ = 4
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class PACKAGE_INFO(EasyCastStructure):
         reserved: UInt32
         flags: UInt32

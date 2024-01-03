@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer, ConstantLazyLoader
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Diagnostics.Debug
 import win32more.Windows.Win32.System.Kernel
@@ -65,7 +65,7 @@ if ARCH in 'X64,ARM64':
         DataSelector: UInt32
         RegisterArea: Byte * 80
         Cr0NpxState: UInt32
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class FLOATING_SAVE_AREA(EasyCastStructure):
         ControlWord: UInt32
         StatusWord: UInt32
@@ -140,7 +140,7 @@ if ARCH in 'ARM64':
         class _HeaderArm64_e__Struct(EasyCastStructure):
             _bitfield1: UInt64
             _bitfield2: UInt64
-if ARCH in 'X64':
+elif ARCH in 'X64':
     class SLIST_HEADER(EasyCastUnion):
         Anonymous: _Anonymous_e__Struct
         HeaderX64: _HeaderX64_e__Struct
@@ -150,7 +150,7 @@ if ARCH in 'X64':
         class _HeaderX64_e__Struct(EasyCastStructure):
             _bitfield1: UInt64
             _bitfield2: UInt64
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class SLIST_HEADER(EasyCastUnion):
         Alignment: UInt64
         Anonymous: _Anonymous_e__Struct

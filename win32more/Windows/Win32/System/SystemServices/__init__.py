@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer, ConstantLazyLoader
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.Security
@@ -3114,7 +3114,7 @@ def PIMAGE_TLS_CALLBACK(DllHandle: VoidPtr, Reason: UInt32, Reserved: VoidPtr) -
 if ARCH in 'ARM64':
     @winfunctype_pointer
     def POUT_OF_PROCESS_FUNCTION_TABLE_CALLBACK(Process: win32more.Windows.Win32.Foundation.HANDLE, TableAddress: VoidPtr, Entries: POINTER(UInt32), Functions: POINTER(POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_ARM64_RUNTIME_FUNCTION_ENTRY))) -> UInt32: ...
-if ARCH in 'X64':
+elif ARCH in 'X64':
     @winfunctype_pointer
     def POUT_OF_PROCESS_FUNCTION_TABLE_CALLBACK(Process: win32more.Windows.Win32.Foundation.HANDLE, TableAddress: VoidPtr, Entries: POINTER(UInt32), Functions: POINTER(POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_RUNTIME_FUNCTION_ENTRY))) -> UInt32: ...
 class PROCESSOR_IDLESTATE_INFO(EasyCastStructure):
@@ -3281,7 +3281,7 @@ class PROCESS_MITIGATION_USER_SHADOW_STACK_POLICY(EasyCastStructure):
 if ARCH in 'ARM64':
     @winfunctype_pointer
     def PTERMINATION_HANDLER(_abnormal_termination: win32more.Windows.Win32.Foundation.BOOLEAN, EstablisherFrame: UInt64) -> Void: ...
-if ARCH in 'X64':
+elif ARCH in 'X64':
     @winfunctype_pointer
     def PTERMINATION_HANDLER(_abnormal_termination: win32more.Windows.Win32.Foundation.BOOLEAN, EstablisherFrame: VoidPtr) -> Void: ...
 @winfunctype_pointer

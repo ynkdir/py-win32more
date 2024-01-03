@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer, ConstantLazyLoader
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Storage.Jet
 import win32more.Windows.Win32.Storage.StructuredStorage
@@ -1517,7 +1517,7 @@ if ARCH in 'X64,ARM64':
         signLog: win32more.Windows.Win32.Storage.Jet.JET_SIGNATURE
         reserved: Int32
         commitId: Int64
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class JET_COMMIT_ID(EasyCastStructure):
         signLog: win32more.Windows.Win32.Storage.Jet.JET_SIGNATURE
         reserved: Int32
@@ -1866,7 +1866,7 @@ if ARCH in 'X64,ARM64':
     class JET_INDEXID(EasyCastStructure):
         cbStruct: UInt32
         rgbIndexId: Byte * 16
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class JET_INDEXID(EasyCastStructure):
         cbStruct: UInt32
         rgbIndexId: Byte * 12
@@ -1964,7 +1964,7 @@ if ARCH in 'X64,ARM64':
         flags: UInt32
         cRecord: UInt32
         cPage: UInt32
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class JET_OBJECTINFO(EasyCastStructure):
         cbStruct: UInt32
         objtyp: UInt32
@@ -2039,7 +2039,7 @@ if ARCH in 'X64,ARM64':
         centriesTotalDeprecated: UInt32
         centriesLT: UInt64
         centriesTotal: UInt64
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class JET_RECPOS2(EasyCastStructure):
         cbStruct: UInt32
         centriesLTDeprecated: UInt32
@@ -2058,7 +2058,7 @@ if ARCH in 'X64,ARM64':
         cTaggedColumns: UInt64
         cLongValues: UInt64
         cMultiValues: UInt64
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class JET_RECSIZE(EasyCastStructure):
         cbData: UInt64
         cbLongValueData: UInt64
@@ -2082,7 +2082,7 @@ if ARCH in 'X64,ARM64':
         cCompressedColumns: UInt64
         cbDataCompressed: UInt64
         cbLongValueDataCompressed: UInt64
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class JET_RECSIZE2(EasyCastStructure):
         cbData: UInt64
         cbLongValueData: UInt64
@@ -2330,7 +2330,7 @@ if ARCH in 'X64,ARM64':
         cbLogRecord: UInt32
         cusecPageCacheMiss: UInt64
         cPageCacheMiss: UInt32
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class JET_THREADSTATS2(EasyCastStructure):
         cbStruct: UInt32
         cPageReferenced: UInt32

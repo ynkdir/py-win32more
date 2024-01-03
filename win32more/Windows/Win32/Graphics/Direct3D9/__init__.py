@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer, ConstantLazyLoader
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Direct3D
 import win32more.Windows.Win32.Graphics.Direct3D9
@@ -730,7 +730,7 @@ if ARCH in 'X64,ARM64':
         Revision: UInt32
         DeviceIdentifier: Guid
         WHQLLevel: UInt32
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class D3DADAPTER_IDENTIFIER9(EasyCastStructure):
         Driver: win32more.Windows.Win32.Foundation.CHAR * 512
         Description: win32more.Windows.Win32.Foundation.CHAR * 512
@@ -747,7 +747,7 @@ if ARCH in 'X64,ARM64':
     class D3DAES_CTR_IV(EasyCastStructure):
         IV: UInt64
         Count: UInt64
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class D3DAES_CTR_IV(EasyCastStructure):
         IV: UInt64
         Count: UInt64
@@ -852,7 +852,7 @@ if ARCH in 'X64,ARM64':
         CryptoSessionHandle: win32more.Windows.Win32.Foundation.HANDLE
         OutputIDIndex: UInt32
         OutputID: UInt64
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class D3DAUTHENTICATEDCHANNEL_QUERYOUTPUTID_OUTPUT(EasyCastStructure):
         Output: win32more.Windows.Win32.Graphics.Direct3D9.D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT
         DeviceHandle: win32more.Windows.Win32.Foundation.HANDLE
@@ -1588,7 +1588,7 @@ if ARCH in 'X64,ARM64':
         BytesEvictedFromProcess: UInt64
         SizeOfInefficientAllocation: UInt64
         LevelOfEfficiency: UInt32
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class D3DMEMORYPRESSURE(EasyCastStructure):
         BytesEvictedFromProcess: UInt64
         SizeOfInefficientAllocation: UInt64
@@ -1650,7 +1650,7 @@ if ARCH in 'X64,ARM64':
         SyncRefreshCount: UInt32
         SyncQPCTime: Int64
         SyncGPUTime: Int64
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class D3DPRESENTSTATS(EasyCastStructure):
         PresentCount: UInt32
         PresentRefreshCount: UInt32

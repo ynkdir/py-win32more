@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer, ConstantLazyLoader
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.Ole
@@ -1811,7 +1811,7 @@ if ARCH in 'X64,ARM64':
         CounterType: UInt32
         CounterSize: UInt32
         CounterOffset: UInt32
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class PERF_COUNTER_DEFINITION(EasyCastStructure):
         ByteLength: UInt32
         CounterNameTitleIndex: UInt32
@@ -1927,7 +1927,7 @@ if ARCH in 'X64,ARM64':
         CodePage: UInt32
         PerfTime: Int64
         PerfFreq: Int64
-if ARCH in 'X86':
+elif ARCH in 'X86':
     class PERF_OBJECT_TYPE(EasyCastStructure):
         TotalByteLength: UInt32
         DefinitionLength: UInt32

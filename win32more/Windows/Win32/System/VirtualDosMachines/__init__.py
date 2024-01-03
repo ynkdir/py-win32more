@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer, ConstantLazyLoader
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Diagnostics.Debug
 import win32more.Windows.Win32.System.Kernel
@@ -214,7 +214,7 @@ def VDMGETADDREXPRESSIONPROC(param0: win32more.Windows.Win32.Foundation.PSTR, pa
 if ARCH in 'X64,ARM64':
     @winfunctype_pointer
     def VDMGETCONTEXTPROC(param0: win32more.Windows.Win32.Foundation.HANDLE, param1: win32more.Windows.Win32.Foundation.HANDLE, param2: POINTER(win32more.Windows.Win32.System.VirtualDosMachines.VDMCONTEXT)) -> win32more.Windows.Win32.Foundation.BOOL: ...
-if ARCH in 'X86':
+elif ARCH in 'X86':
     @winfunctype_pointer
     def VDMGETCONTEXTPROC(param0: win32more.Windows.Win32.Foundation.HANDLE, param1: win32more.Windows.Win32.Foundation.HANDLE, param2: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.CONTEXT)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
@@ -232,7 +232,7 @@ def VDMGETSYMBOLPROC(param0: win32more.Windows.Win32.Foundation.PSTR, param1: UI
 if ARCH in 'X64,ARM64':
     @winfunctype_pointer
     def VDMGETTHREADSELECTORENTRYPROC(param0: win32more.Windows.Win32.Foundation.HANDLE, param1: win32more.Windows.Win32.Foundation.HANDLE, param2: UInt32, param3: POINTER(win32more.Windows.Win32.System.VirtualDosMachines.VDMLDT_ENTRY)) -> win32more.Windows.Win32.Foundation.BOOL: ...
-if ARCH in 'X86':
+elif ARCH in 'X86':
     @winfunctype_pointer
     def VDMGETTHREADSELECTORENTRYPROC(param0: win32more.Windows.Win32.Foundation.HANDLE, param1: win32more.Windows.Win32.Foundation.HANDLE, param2: UInt32, param3: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.LDT_ENTRY)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
@@ -267,7 +267,7 @@ def VDMPROCESSEXCEPTIONPROC(param0: POINTER(win32more.Windows.Win32.System.Diagn
 if ARCH in 'X64,ARM64':
     @winfunctype_pointer
     def VDMSETCONTEXTPROC(param0: win32more.Windows.Win32.Foundation.HANDLE, param1: win32more.Windows.Win32.Foundation.HANDLE, param2: POINTER(win32more.Windows.Win32.System.VirtualDosMachines.VDMCONTEXT)) -> win32more.Windows.Win32.Foundation.BOOL: ...
-if ARCH in 'X86':
+elif ARCH in 'X86':
     @winfunctype_pointer
     def VDMSETCONTEXTPROC(param0: win32more.Windows.Win32.Foundation.HANDLE, param1: win32more.Windows.Win32.Foundation.HANDLE, param2: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.CONTEXT)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
