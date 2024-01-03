@@ -55,11 +55,14 @@ def parse(meta: Metadata) -> Package:
 
 
 def make_module_path_for_write(namespace) -> TextIO:
-    p = Path(Package.directory) / Package.name / namespace.replace(".", "/")
+    root = Path(Package.directory)
+    p = root / Package.name / namespace.replace(".", "/")
     p.mkdir(parents=True, exist_ok=True)
-    for d in p.parents[:-2]:
+    d = p
+    while d != root:
         if not (d / "__init__.py").exists():
             (d / "__init__.py").write_text("")
+        d = d.parent
     return (p / "__init__.py").open("w")
 
 
