@@ -463,6 +463,7 @@ class Clsid:
 
 class StructUnion:
     def __init__(self, td: TypeDefinition) -> None:
+        assert td.fields or not td.custom_attributes.has_guid()
         self._td = td
 
     @property
@@ -482,57 +483,50 @@ class StructUnion:
     def enumerate_dependencies(self) -> Iterable[str]:
         yield from self._td.enumerate_dependencies()
 
-    def emit(self) -> str:
-        return self._emit_struct_union(self._td)
-
     # _fields_ and _anonymous_ is defined at runtime.
-    def _emit_struct_union(self, td: TypeDefinition) -> str:
+    def emit(self) -> str:
         writer = StringIO()
-        base = self._basetype(td)
-        writer.write(f"class {td.name}({base}):\n")
-        if self._is_empty(td):
+        writer.write(f"class {self._td.name}({self._basetype()}):\n")
+        if self._is_empty():
             writer.write("    pass\n")
             return writer.getvalue()
-        if td.custom_attributes.has_guid():
+        if self._td.custom_attributes.has_guid():
             # FIXME: What id?
-            guid = td.custom_attributes.get_guid()
+            guid = self._td.custom_attributes.get_guid()
             writer.write(f"    _uuid_ = Guid('{guid}')\n")
-        for fd in self._static_fields(td):
+        for fd in self._static_fields():
             writer.write(f"    {fd.name} = {fd_pyvalue(fd)}\n")
-        for fd in self._member_fields(td):
+        for fd in self._member_fields():
             writer.write(f"    {fd.name}: {ttype_pytype(fd.signature)}\n")
-        if td.layout.packing_size != 0:
-            writer.write(f"    _pack_ = {td.layout.packing_size}\n")
-        for nested_type in td.nested_types:
-            writer.write(textwrap.indent(self._emit_struct_union(nested_type), "    "))
+        if self._td.layout.packing_size != 0:
+            writer.write(f"    _pack_ = {self._td.layout.packing_size}\n")
+        for nested_type in self._td.nested_types:
+            writer.write(textwrap.indent(StructUnion(nested_type).emit(), "    "))
         return writer.getvalue()
 
-    def _basetype(self, td: TypeDefinition) -> str:
-        if "SequentialLayout" in td.attributes:
+    def _basetype(self) -> str:
+        if "SequentialLayout" in self._td.attributes:
             return "EasyCastStructure"
-        elif "ExplicitLayout" in td.attributes:
+        elif "ExplicitLayout" in self._td.attributes:
             return "EasyCastUnion"
         else:
             raise ValueError()
 
-    def _static_fields(self, td: TypeDefinition) -> Iterable[FieldDefinition]:
-        for fd in td.fields:
+    def _static_fields(self) -> Iterable[FieldDefinition]:
+        for fd in self._td.fields:
             if self._is_static(fd):
                 yield fd
 
-    def _member_fields(self, td: TypeDefinition) -> Iterable[FieldDefinition]:
-        for fd in td.fields:
+    def _member_fields(self) -> Iterable[FieldDefinition]:
+        for fd in self._td.fields:
             if not self._is_static(fd):
                 yield fd
 
     def _is_static(self, fd: FieldDefinition) -> bool:
         return {"Static", "HasDefault"} <= set(fd.attributes)
 
-    def _is_empty(self, td: TypeDefinition) -> bool:
-        if td.fields:
-            return False
-        assert not td.custom_attributes.has_guid()
-        return True
+    def _is_empty(self) -> bool:
+        return not self._td.fields
 
 
 class Com:
