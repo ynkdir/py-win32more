@@ -169,6 +169,18 @@ class TypeDefinition:
         return [GenericParameter(gp) for gp in self["GenericParameters"]]
 
     def enumerate_dependencies(self) -> Iterable[str]:
+        if self.is_winrt:
+            if self.basetype is None:
+                yield "Windows.Win32.System.WinRT.IInspectable"
+            elif self.basetype == "System.Object":
+                yield "Windows.Win32.System.WinRT.IInspectable"
+            elif self.basetype == "System.MulticastDelegate":
+                yield "Windows.Win32.System.Com.IUnknown"
+            elif self.basetype.startswith(("Windows.", "Microsoft.")):
+                yield self.basetype
+        else:  # win32
+            if self.basetype is None:
+                yield "Windows.Win32.System.Com.IUnknown"
         for ii in self.interface_implementations:
             yield from ii.enumerate_dependencies()
         for fd in self.fields:
