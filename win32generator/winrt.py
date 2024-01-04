@@ -45,10 +45,7 @@ def ttype_pytype(self: TType) -> str:
         else:
             return self.name
     elif self.kind == "Reference":
-        if ttype_is_struct(self.type):
-            return f"POINTER({Package.abs_pkg(self.type.fullname)})"
-        else:
-            return f"POINTER({ttype_pytype(self.type)})"
+        return f"POINTER({ttype_pytype(self.type)})"
     elif self.kind == "SZArray":
         return f"SZArray[{ttype_pytype(self.type)}]"
     elif self.kind == "Type":
@@ -75,13 +72,6 @@ def ttype_is_missing(self: TType) -> bool:
     )
 
 
-def ttype_is_struct(self: TType) -> bool:
-    if self.kind == "Type" and not self.is_nested and not self.is_guid and not ttype_is_missing(self):
-        item = Package.current[self.namespace][self.name]
-        return isinstance(item, Struct)
-    return False
-
-
 def generic_strip_suffix(name) -> str:
     return name.split("`")[0]
 
@@ -94,27 +84,6 @@ def ttype_generic_fullname(self: TType) -> str:
 
 def ttype_format_generic_parameters(self: TType) -> str:
     return ", ".join(ttype_pytype(ta) for ta in self.type_arguments)
-
-
-def td_kind(self: TypeDefinition) -> str:
-    if (
-        self.basetype is None
-        or self.basetype == "System.Object"
-        or self.basetype.startswith(("Windows.", "Microsoft."))
-    ):
-        return "com"
-    elif self.basetype == "System.MulticastDelegate":
-        return "delegate"
-    elif self.basetype == "System.Enum":
-        return "enum"
-    elif self.basetype == "System.ValueType":
-        if self.fields:
-            return "struct"
-        else:
-            assert self.custom_attributes.has("Windows.Foundation.Metadata.ContractVersionAttribute")
-            return "contract_version"
-    else:
-        raise NotImplementedError()
 
 
 def md_parameter_names_annotated(self: MethodDefinition) -> list[str]:
@@ -175,16 +144,19 @@ class Parser:
 
         module = self._package[td.namespace]
 
-        if td_kind(td) == "enum":
-            module.add(Enum(td))
-        elif td_kind(td) == "struct":
-            module.add(Struct(td))
-        elif td_kind(td) == "contract_version":
-            module.add(ContractVersion(td))
-        elif td_kind(td) == "com":
+        if td.basetype is None or td.basetype == "System.Object" or td.basetype.startswith(("Windows.", "Microsoft.")):
             module.add(Com(td))
-        elif td_kind(td) == "delegate":
+        elif td.basetype == "System.MulticastDelegate":
             module.add(Delegate(td))
+        elif td.basetype == "System.Enum":
+            module.add(Enum(td))
+        elif td.basetype == "System.ValueType":
+            if td.fields:
+                module.add(Struct(td))
+            elif td.custom_attributes.has("Windows.Foundation.Metadata.ContractVersionAttribute"):
+                module.add(ContractVersion(td))
+            else:
+                raise NotImplementedError()
         else:
             raise NotImplementedError()
 

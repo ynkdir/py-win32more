@@ -55,8 +55,6 @@ def ttype_pytype(self: TType) -> str:
     elif self.kind == "Pointer":
         if self.type.kind == "Primitive" and self.type.name == "Void":
             return "VoidPtr"
-        elif ttype_is_struct(self.type):
-            return f"POINTER({Package.abs_pkg(self.type.fullname)})"
         else:
             return f"POINTER({ttype_pytype(self.type)})"
     elif self.kind == "Array":
@@ -69,8 +67,6 @@ def ttype_pytype(self: TType) -> str:
         elif ttype_is_missing(self):
             logger.warning(f"missing type '{self.fullname}'")
             return "MissingType"
-        elif ttype_is_com(self):
-            return f"{Package.abs_pkg(self.fullname)}"
         else:
             return f"{Package.abs_pkg(self.fullname)}"
     else:
@@ -82,45 +78,6 @@ def ttype_is_missing(self: TType) -> bool:
     return self.kind == "Type" and not (
         self.namespace in Package.current and self.name in Package.current[self.namespace]
     )
-
-
-def ttype_is_struct(self: TType) -> bool:
-    if self.kind == "Type" and not self.is_nested and not self.is_guid and not ttype_is_missing(self):
-        item = Package.current[self.namespace][self.name]
-        return isinstance(item, StructUnion)
-    return False
-
-
-def ttype_is_com(self: TType) -> bool:
-    if self.kind == "Type" and not self.is_nested and not self.is_guid and not ttype_is_missing(self):
-        item = Package.current[self.namespace][self.name]
-        return isinstance(item, Com)
-    return False
-
-
-def td_kind(self: TypeDefinition) -> str:
-    if self.basetype is None:
-        return "com"
-    elif self.basetype == "System.Object":
-        return "object"  # CONSTANT, FUNCTION
-    elif self.basetype == "System.MulticastDelegate":
-        return "function_pointer"
-    elif self.basetype == "System.Enum":
-        return "enum"
-    elif self.basetype == "System.ValueType":
-        if self.custom_attributes.has_native_typedef():
-            return "native_typedef"
-        # FIXME: CLSID_ComClass is defined as attribute like [uuid(...)] struct ComClass {}.
-        elif self.custom_attributes.has_guid() and not self.fields:
-            return "clsid"
-        elif "ExplicitLayout" in self.attributes:
-            return "union"
-        else:
-            return "struct"
-    elif self.basetype == "System.Attribute":
-        return "attribute"
-    else:
-        raise NotImplementedError()
 
 
 def md_parameter_names_annotated(self: MethodDefinition) -> list[str]:
@@ -160,7 +117,9 @@ class Parser:
 
         module = self._package[td.namespace]
 
-        if td_kind(td) == "object":  # CONSTANT, FUNCTION
+        if td.basetype is None:
+            module.add(Com(td))
+        elif td.basetype == "System.Object":
             for fd in td.fields:
                 module.add(Constant(td, fd))
             for md in td.method_definitions:
@@ -168,21 +127,23 @@ class Parser:
                     module.add(InlineFunction(td, md))
                 else:
                     module.add(ExternalFunction(td, md))
-        elif td_kind(td) == "function_pointer":
+        elif td.basetype == "System.MulticastDelegate":
             module.add(FunctionPointer(td))
-        elif td_kind(td) == "enum":
+        elif td.basetype == "System.Enum":
             module.add(Enum(td))
-        elif td_kind(td) == "native_typedef":
-            module.add(NativeTypedef(td))
-        elif td_kind(td) == "clsid":
-            module.add(Clsid(td))
-        elif td_kind(td) == "union":
-            module.add(StructUnion(td))
-        elif td_kind(td) == "struct":
-            module.add(StructUnion(td))
-        elif td_kind(td) == "com":
-            module.add(Com(td))
-        elif td_kind(td) == "attribute":
+        elif td.basetype == "System.ValueType":
+            if td.custom_attributes.has_native_typedef():
+                module.add(NativeTypedef(td))
+            # FIXME: CLSID_ComClass is defined as attribute like [uuid(...)] struct ComClass {}.
+            elif td.custom_attributes.has_guid() and not td.fields:
+                module.add(Clsid(td))
+            elif "SequentialLayout" in td.attributes:
+                module.add(StructUnion(td))  # struct
+            elif "ExplicitLayout" in td.attributes:
+                module.add(StructUnion(td))  # union
+            else:
+                raise NotImplementedError()
+        elif td.basetype == "System.Attribute":
             module.add(Attribute(td))
         else:
             raise NotImplementedError()
