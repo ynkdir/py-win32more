@@ -488,7 +488,7 @@ class StructUnion:
     # _fields_ and _anonymous_ is defined at runtime.
     def _emit_struct_union(self, td: TypeDefinition) -> str:
         writer = StringIO()
-        base = self._base_type(td)
+        base = self._basetype(td)
         writer.write(f"class {td.name}({base}):\n")
         if self._is_empty(td):
             writer.write("    pass\n")
@@ -507,13 +507,13 @@ class StructUnion:
             writer.write(textwrap.indent(self._emit_struct_union(nested_type), "    "))
         return writer.getvalue()
 
-    def _base_type(self, td: TypeDefinition) -> str:
-        if td_kind(td) == "struct":
+    def _basetype(self, td: TypeDefinition) -> str:
+        if "SequentialLayout" in td.attributes:
             return "EasyCastStructure"
-        elif td_kind(td) == "union":
+        elif "ExplicitLayout" in td.attributes:
             return "EasyCastUnion"
         else:
-            raise NotImplementedError()
+            raise ValueError()
 
     def _static_fields(self, td: TypeDefinition) -> Iterable[FieldDefinition]:
         for fd in td.fields:
@@ -558,7 +558,7 @@ class Com:
     def emit(self) -> str:
         assert len(self._td.interface_implementations) <= 1
         writer = StringIO()
-        base = self._base_type()
+        base = self._basetype()
         writer.write(f"class {self._td.name}(ComPtr):\n")
         writer.write(f"    extends: {base}\n")
         if self._td.custom_attributes.has_guid():
@@ -575,7 +575,7 @@ class Com:
             vtbl_index += 1
         return writer.getvalue()
 
-    def _base_type(self) -> str:
+    def _basetype(self) -> str:
         if not self._td.interface_implementations:
             return "None"
         base = self._td.interface_implementations[0].interface.type_reference.fullname

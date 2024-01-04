@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import logging
-import textwrap
 from collections import Counter, defaultdict
 from collections.abc import Iterable
 from dataclasses import dataclass
@@ -79,7 +78,7 @@ def ttype_is_missing(self: TType) -> bool:
 def ttype_is_struct(self: TType) -> bool:
     if self.kind == "Type" and not self.is_nested and not self.is_guid and not ttype_is_missing(self):
         item = Package.current[self.namespace][self.name]
-        return isinstance(item, StructUnion)
+        return isinstance(item, Struct)
     return False
 
 
@@ -179,7 +178,7 @@ class Parser:
         if td_kind(td) == "enum":
             module.add(Enum(td))
         elif td_kind(td) == "struct":
-            module.add(StructUnion(td))
+            module.add(Struct(td))
         elif td_kind(td) == "contract_version":
             module.add(ContractVersion(td))
         elif td_kind(td) == "com":
@@ -253,12 +252,15 @@ class Enum:
         return writer.getvalue()
 
 
-class StructUnion:
+class Struct:
     def __init__(self, td: TypeDefinition) -> None:
+        assert td.fields
+        assert not td.nested_types
+        assert "SequentialLayout" in td.attributes
+        assert not td.custom_attributes.has_winrt_guid()
+        assert not any(fd for fd in td.fields if {"Static", "HasDefault"} <= set(td.attributes))
+        assert td.layout.packing_size == 0
         self._td = td
-
-    def emit(self) -> str:
-        return self._emit_struct_union(self._td)
 
     @property
     def namespace(self) -> str:
@@ -276,53 +278,12 @@ class StructUnion:
         yield from self._td.enumerate_dependencies()
 
     # _fields_ and _anonymous_ is defined at runtime.
-    def _emit_struct_union(self, td: TypeDefinition) -> str:
+    def emit(self) -> str:
         writer = StringIO()
-        base = self.struct_union_base_type(td)
-        writer.write(f"class {td.name}({base}):\n")
-        if self._is_empty(td):
-            writer.write("    pass\n")
-            return writer.getvalue()
-        if td.custom_attributes.has_winrt_guid():
-            # FIXME: What id?
-            guid = td.custom_attributes.get_winrt_guid()
-            writer.write(f"    _uuid_ = Guid('{guid}')\n")
-        for fd in self._static_fields(td):
-            writer.write(f"    {fd.name} = {fd_pyvalue(fd)}\n")
-        for fd in self._member_fields(td):
+        writer.write(f"class {self._td.name}(EasyCastStructure):\n")
+        for fd in self._td.fields:
             writer.write(f"    {fd.name}: {ttype_pytype(fd.signature)}\n")
-        if td.layout.packing_size != 0:
-            writer.write(f"    _pack_ = {td.layout.packing_size}\n")
-        for nested_type in td.nested_types:
-            writer.write(textwrap.indent(self._emit_struct_union(nested_type), "    "))
         return writer.getvalue()
-
-    def struct_union_base_type(self, td: TypeDefinition) -> str:
-        if td_kind(td) == "struct":
-            return "EasyCastStructure"
-        elif td_kind(td) == "union":
-            return "EasyCastUnion"
-        else:
-            raise NotImplementedError()
-
-    def _static_fields(self, td: TypeDefinition) -> Iterable[FieldDefinition]:
-        for fd in td.fields:
-            if self._is_static(fd):
-                yield fd
-
-    def _member_fields(self, td: TypeDefinition) -> Iterable[FieldDefinition]:
-        for fd in td.fields:
-            if not self._is_static(fd):
-                yield fd
-
-    def _is_static(self, fd: FieldDefinition) -> bool:
-        return {"Static", "HasDefault"} <= set(fd.attributes)
-
-    def _is_empty(self, td: TypeDefinition) -> bool:
-        if td.fields:
-            return False
-        assert not td.custom_attributes.has_winrt_guid()
-        return True
 
 
 class ContractVersion:
@@ -385,9 +346,8 @@ class Com:
         else:
             metaclass = ""
             metaclass_args = ""
-        extends = self.com_base_type(self._td)
         writer.write(f"class {classname}({base}{metaclass_args}):\n")
-        writer.write(f"    extends: {extends}\n")
+        writer.write(f"    extends: {Package.abs_pkg(self._basetype())}\n")
         for ii in self._td.interface_implementations:
             if ii.custom_attributes.has_default():
                 writer.write(f"    default_interface: {Package.abs_pkg(ii_generic_fullname(ii))}\n")
@@ -453,13 +413,13 @@ class Com:
             writer.write("        return IAsyncAction___await__(self)\n")
         return writer.getvalue()
 
-    def com_base_type(self, td: TypeDefinition) -> str:
-        if td.basetype is None:
-            return Package.abs_pkg("Windows.Win32.System.WinRT.IInspectable")
-        elif td.basetype == "System.Object":
-            return Package.abs_pkg("Windows.Win32.System.WinRT.IInspectable")
+    def _basetype(self) -> str:
+        if self._td.basetype is None:
+            return "Windows.Win32.System.WinRT.IInspectable"
+        elif self._td.basetype == "System.Object":
+            return "Windows.Win32.System.WinRT.IInspectable"
         else:
-            return f"{Package.abs_pkg(td.basetype)}"
+            return self._td.basetype
 
     @classmethod
     def com_get_interface_for_method(cls, td: TypeDefinition, method_name: str, params: list[str]) -> str:
