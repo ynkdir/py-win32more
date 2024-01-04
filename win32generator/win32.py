@@ -98,16 +98,6 @@ def ttype_is_com(self: TType) -> bool:
     return False
 
 
-def ttype_enumerate_dependencies(self: TType) -> Iterable[ApiItem]:
-    if self.kind == "Type" and self.namespace not in ["", "System"]:
-        try:
-            item = Package.current[self.namespace][self.name]
-        except KeyError:
-            # missing type
-            return
-        yield item
-
-
 def td_kind(self: TypeDefinition) -> str:
     if self.basetype is None:
         return "com"
@@ -240,8 +230,8 @@ class Constant:
     def supported_architecture(self) -> list[str]:
         return []
 
-    def enumerate_dependencies(self) -> Iterable[ApiItem]:
-        yield from ttype_enumerate_dependencies(self._fd.signature)
+    def enumerate_dependencies(self) -> Iterable[str]:
+        yield from self._fd.enumerate_dependencies()
 
     def emit(self) -> str:
         writer = StringIO()
@@ -276,8 +266,8 @@ class InlineFunction:
             return self._md.custom_attributes.get_supported_architecture()
         return []
 
-    def enumerate_dependencies(self) -> Iterable[ApiItem]:
-        yield from ttype_enumerate_dependencies(self._md.signature.return_type.get_element_type())
+    def enumerate_dependencies(self) -> Iterable[str]:
+        yield from self._md.enumerate_dependencies()
 
     def emit(self) -> str:
         writer = StringIO()
@@ -308,10 +298,8 @@ class ExternalFunction:
             return self._md.custom_attributes.get_supported_architecture()
         return []
 
-    def enumerate_dependencies(self) -> Iterable[ApiItem]:
-        types = [self._md.signature.return_type] + self._md.signature.parameter_types
-        for t in types:
-            yield from ttype_enumerate_dependencies(t.get_element_type())
+    def enumerate_dependencies(self) -> Iterable[str]:
+        yield from self._md.enumerate_dependencies()
 
     def emit(self) -> str:
         writer = StringIO()
@@ -368,10 +356,8 @@ class FunctionPointer:
             return self._td.custom_attributes.get_supported_architecture()
         return []
 
-    def enumerate_dependencies(self) -> Iterable[ApiItem]:
-        types = [self._md.signature.return_type] + self._md.signature.parameter_types
-        for t in types:
-            yield from ttype_enumerate_dependencies(t.get_element_type())
+    def enumerate_dependencies(self) -> Iterable[str]:
+        yield from self._md.enumerate_dependencies()
 
     def emit(self) -> str:
         writer = StringIO()
@@ -409,8 +395,8 @@ class Enum:
     def supported_architecture(self) -> list[str]:
         return []
 
-    def enumerate_dependencies(self) -> Iterable[ApiItem]:
-        yield from ttype_enumerate_dependencies(self._td.fields[0].signature.get_element_type())
+    def enumerate_dependencies(self) -> Iterable[str]:
+        yield from self._td.fields[0].enumerate_dependencies()
 
     def emit(self) -> str:
         writer = StringIO()
@@ -438,8 +424,8 @@ class NativeTypedef:
     def supported_architecture(self) -> list[str]:
         return []
 
-    def enumerate_dependencies(self) -> Iterable[ApiItem]:
-        yield from ttype_enumerate_dependencies(self._td.fields[0].signature.get_element_type())
+    def enumerate_dependencies(self) -> Iterable[str]:
+        yield from self._td.fields[0].enumerate_dependencies()
 
     def emit(self) -> str:
         pytype = ttype_pytype(self._td.fields[0].signature)
@@ -467,7 +453,7 @@ class Clsid:
     def supported_architecture(self) -> list[str]:
         return []
 
-    def enumerate_dependencies(self) -> Iterable[ApiItem]:
+    def enumerate_dependencies(self) -> Iterable[str]:
         return []
 
     def emit(self) -> str:
@@ -493,14 +479,8 @@ class StructUnion:
             return self._td.custom_attributes.get_supported_architecture()
         return []
 
-    def enumerate_dependencies(self) -> Iterable[ApiItem]:
-        yield from self._enumerate_dependencies_nested(self._td)
-
-    def _enumerate_dependencies_nested(self, td: TypeDefinition) -> Iterable[ApiItem]:
-        for fd in td.fields:
-            yield from ttype_enumerate_dependencies(fd.signature.get_element_type())
-        for nested_type in td.nested_types:
-            yield from self._enumerate_dependencies_nested(nested_type)
+    def enumerate_dependencies(self) -> Iterable[str]:
+        yield from self._td.enumerate_dependencies()
 
     def emit(self) -> str:
         return self._emit_struct_union(self._td)
@@ -572,14 +552,8 @@ class Com:
     def supported_architecture(self) -> list[str]:
         return []
 
-    def enumerate_dependencies(self) -> Iterable[ApiItem]:
-        for ii in self._td.interface_implementations:
-            item = Package.current[ii.namespace][ii.name]
-            yield item
-        for md in self._td.method_definitions:
-            types = [md.signature.return_type] + md.signature.parameter_types
-            for t in types:
-                yield from ttype_enumerate_dependencies(t.get_element_type())
+    def enumerate_dependencies(self) -> Iterable[str]:
+        yield from self._td.enumerate_dependencies()
 
     def emit(self) -> str:
         assert len(self._td.interface_implementations) <= 1
@@ -636,7 +610,7 @@ class Attribute:
     def supported_architecture(self) -> list[str]:
         return []
 
-    def enumerate_dependencies(self) -> Iterable[ApiItem]:
+    def enumerate_dependencies(self) -> Iterable[str]:
         return []
 
     def emit(self) -> str:
@@ -670,7 +644,7 @@ class ArchitectureVariant:
     def supported_architecture(self) -> list[str]:
         raise NotImplementedError()
 
-    def enumerate_dependencies(self) -> Iterable[ApiItem]:
+    def enumerate_dependencies(self) -> Iterable[str]:
         for item in self._items:
             yield from item.enumerate_dependencies()
 

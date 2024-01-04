@@ -94,19 +94,6 @@ class TType:
         else:
             raise NotImplementedError()
 
-    def enumerate_types(self) -> Iterable[TType]:
-        yield self
-        if self.kind == "Generic":
-            yield from self.type.enumerate_types()
-            for t in self.type_arguments:
-                yield from t.enumerate_types()
-        elif self.kind == "SZArray":
-            yield from self.type.enumerate_types()
-        elif self.kind == "Reference":
-            yield from self.type.enumerate_types()
-        elif self.kind == "Modified":
-            yield from self.unmodified_type.enumerate_types()
-
     def enumerate_dependencies(self) -> Iterable[str]:
         t = self.get_element_type()
         if t.kind == "Type" and t.namespace not in ["", "System"]:
@@ -183,25 +170,14 @@ class TypeDefinition:
 
     def enumerate_dependencies(self) -> Iterable[str]:
         for ii in self.interface_implementations:
-            yield ii.fullname
+            yield from ii.enumerate_dependencies()
         for fd in self.fields:
-            yield from fd.signature.enumerate_dependencies()
+            yield from fd.enumerate_dependencies()
         for md in self.method_definitions:
-            yield from md.signature.return_type.enumerate_dependencies()
-            for t in md.signature.parameter_types:
-                yield from t.enumerate_dependencies()
+            yield from md.enumerate_dependencies()
         for nested_type in self.nested_types:
             yield from nested_type.enumerate_dependencies()
-        if self.custom_attributes.has_activatable():
-            for ca in self.custom_attributes.get_activatable():
-                if ca.fixed_arguments[0].type.kind == "Type":
-                    yield ca.fixed_arguments[0].value
-        if self.custom_attributes.has_static():
-            for ca in self.custom_attributes.get_static():
-                yield ca.fixed_arguments[0].value
-        if self.custom_attributes.has_composable():
-            ca = self.custom_attributes.get_composable()
-            yield ca.fixed_arguments[0].value
+        yield from self.custom_attributes.enumerate_dependencies()
 
     @property
     def is_winrt(self) -> bool:
@@ -416,6 +392,18 @@ class CustomAttributeCollection(Collection[CustomAttribute]):
     def get_composable(self) -> CustomAttribute:
         return self.get("Windows.Foundation.Metadata.ComposableAttribute")
 
+    def enumerate_dependencies(self) -> Iterable[str]:
+        if self.has_activatable():
+            for ca in self.get_activatable():
+                if ca.fixed_arguments[0].type.kind == "Type":
+                    yield ca.fixed_arguments[0].value
+        if self.has_static():
+            for ca in self.get_static():
+                yield ca.fixed_arguments[0].value
+        if self.has_composable():
+            ca = self.get_composable()
+            yield ca.fixed_arguments[0].value
+
 
 class CustomAttributeFixedArgument:
     def __init__(self, js: JsonType) -> None:
@@ -499,6 +487,9 @@ class FieldDefinition:
     def offset(self) -> int:
         return self["Offset"]
 
+    def enumerate_dependencies(self) -> Iterable[str]:
+        yield from self.signature.enumerate_dependencies()
+
 
 class Constant:
     def __init__(self, js: JsonType) -> None:
@@ -561,6 +552,14 @@ class InterfaceImplementation:
             return self.interface.type_reference.fullname
         elif self.interface.kind == "TypeSpecification":
             return self.interface.type_specification.signature.type.fullname
+        else:
+            raise NotImplementedError()
+
+    def enumerate_dependencies(self) -> Iterable[str]:
+        if self.interface.kind == "TypeReference":
+            yield self.fullname
+        elif self.interface.kind == "TypeSpecification":
+            yield from self.interface.type_specification.signature.enumerate_dependencies()
         else:
             raise NotImplementedError()
 
@@ -712,6 +711,9 @@ class MethodDefinition:
             return self.custom_attributes.get_overload()
         return self.name
 
+    def enumerate_dependencies(self) -> Iterable[str]:
+        yield from self.signature.enumerate_dependencies()
+
 
 class MethodSignature:
     def __init__(self, js: JsonType) -> None:
@@ -742,6 +744,11 @@ class MethodSignature:
     @property
     def return_type(self) -> TType:
         return TType(self["ReturnType"])
+
+    def enumerate_dependencies(self) -> Iterable[str]:
+        yield from self.return_type.enumerate_dependencies()
+        for t in self.parameter_types:
+            yield from t.enumerate_dependencies()
 
 
 class SignatureHeader:

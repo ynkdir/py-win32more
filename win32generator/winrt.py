@@ -97,17 +97,6 @@ def ttype_format_generic_parameters(self: TType) -> str:
     return ", ".join(ttype_pytype(ta) for ta in self.type_arguments)
 
 
-def ttype_enumerate_dependencies(self: TType) -> Iterable[ApiItem]:
-    if self.kind == "Type" and self.namespace != "System":
-        item = Package.current[self.namespace][self.name]
-        yield item
-    elif self.kind == "Generic":
-        item = Package.current[self.type.namespace][self.type.name]
-        yield item
-        for t in self.type_arguments:
-            yield from ttype_enumerate_dependencies(t)
-
-
 def td_kind(self: TypeDefinition) -> str:
     if (
         self.basetype is None
@@ -230,7 +219,6 @@ class WinrtModule(Module):
         writer.write(f"from {Package.name}._winrt import {WINRT_EXPORTS_CSV}\n")
 
         if not Package.is_onefile:
-            writer.write(f"import {Package.name}.Windows.Win32.System.WinRT\n")
             for namespace in sorted(import_namespaces):
                 writer.write(f"import {Package.name}.{namespace}\n")
 
@@ -253,8 +241,8 @@ class Enum:
     def supported_architecture(self) -> list[str]:
         raise NotImplementedError()
 
-    def enumerate_dependencies(self) -> Iterable[ApiItem]:
-        yield from ttype_enumerate_dependencies(self._td.fields[0].signature.get_element_type())
+    def enumerate_dependencies(self) -> Iterable[str]:
+        yield from self._td.fields[0].enumerate_dependencies()
 
     def emit(self) -> str:
         writer = StringIO()
@@ -284,14 +272,8 @@ class StructUnion:
     def supported_architecture(self) -> list[str]:
         raise NotImplementedError()
 
-    def enumerate_dependencies(self) -> Iterable[ApiItem]:
-        yield from self._enumerate_dependencies_nested(self._td)
-
-    def _enumerate_dependencies_nested(self, td: TypeDefinition) -> Iterable[ApiItem]:
-        for fd in td.fields:
-            yield from ttype_enumerate_dependencies(fd.signature.get_element_type())
-        for nested_type in td.nested_types:
-            yield from self._enumerate_dependencies_nested(nested_type)
+    def enumerate_dependencies(self) -> Iterable[str]:
+        yield from self._td.enumerate_dependencies()
 
     # _fields_ and _anonymous_ is defined at runtime.
     def _emit_struct_union(self, td: TypeDefinition) -> str:
@@ -359,7 +341,7 @@ class ContractVersion:
     def supported_architecture(self) -> list[str]:
         raise NotImplementedError()
 
-    def enumerate_dependencies(self) -> Iterable[ApiItem]:
+    def enumerate_dependencies(self) -> Iterable[str]:
         return []
 
     def emit(self) -> str:
@@ -383,31 +365,8 @@ class Com:
     def supported_architecture(self) -> list[str]:
         raise NotImplementedError()
 
-    def enumerate_dependencies(self) -> Iterable[ApiItem]:
-        for ii in self._td.interface_implementations:
-            item = Package.current[ii.namespace][ii.name]
-            yield item
-            if ii.interface.kind == "TypeSpecification":
-                for t in ii.interface.type_specification.signature.enumerate_types():
-                    yield from ttype_enumerate_dependencies(t.get_element_type())
-        for ca in self._td.custom_attributes:
-            if ca.type == "Windows.Foundation.Metadata.ActivatableAttribute":
-                if ca.fixed_arguments[0].type.kind == "Type":
-                    namespace, name = ca.fixed_arguments[0].value.rsplit(".", 1)
-                    item = Package.current[namespace][name]
-                    yield item
-            elif ca.type == "Windows.Foundation.Metadata.StaticAttribute":
-                namespace, name = ca.fixed_arguments[0].value.rsplit(".", 1)
-                item = Package.current[namespace][name]
-                yield item
-            elif ca.type == "Windows.Foundation.Metadata.ComposableAttribute":
-                namespace, name = ca.fixed_arguments[0].value.rsplit(".", 1)
-                item = Package.current[namespace][name]
-                yield item
-        for md in self._td.method_definitions:
-            types = [md.signature.return_type] + md.signature.parameter_types
-            for t in types:
-                yield from ttype_enumerate_dependencies(t.get_element_type())
+    def enumerate_dependencies(self) -> Iterable[str]:
+        yield from self._td.enumerate_dependencies()
 
     def emit(self) -> str:
         writer = StringIO()
@@ -741,11 +700,8 @@ class Delegate:
     def supported_architecture(self) -> list[str]:
         raise NotImplementedError()
 
-    def enumerate_dependencies(self) -> Iterable[ApiItem]:
-        for md in self._td.method_definitions:
-            types = [md.signature.return_type] + md.signature.parameter_types
-            for t in types:
-                yield from ttype_enumerate_dependencies(t.get_element_type())
+    def enumerate_dependencies(self) -> Iterable[str]:
+        yield from self._td.enumerate_dependencies()
 
     def emit(self) -> str:
         writer = StringIO()

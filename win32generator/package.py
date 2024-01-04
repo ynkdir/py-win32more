@@ -50,7 +50,7 @@ class Module:
     def items(self) -> Iterable[ApiItem]:
         return self._items.values()
 
-    def add(self, api_item: ApiItem) -> None:
+    def add(self, item: ApiItem) -> None:
         raise NotImplementedError()
 
     def emit_header(self, import_namespaces: set[str]) -> str:
@@ -58,8 +58,9 @@ class Module:
 
     def enumerate_imported_namespaces(self) -> Iterable[str]:
         for item in self._items.values():
-            for depend in item.enumerate_dependencies():
-                yield depend.namespace
+            for fullname in item.enumerate_dependencies():
+                namespace, name = fullname.rsplit(".", 1)
+                yield namespace
 
 
 class ApiItem(Protocol):
@@ -75,7 +76,7 @@ class ApiItem(Protocol):
     def supported_architecture(self) -> list[str]:
         ...
 
-    def enumerate_dependencies(self) -> Iterable[ApiItem]:
+    def enumerate_dependencies(self) -> Iterable[str]:
         ...
 
     def emit(self) -> str:
