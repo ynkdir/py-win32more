@@ -203,18 +203,6 @@ class TypeDefinition:
     def is_generic(self) -> bool:
         return "`" in self.name
 
-    def format_generic_parameters(self) -> str:
-        return ", ".join(gp.name for gp in self.generic_parameters)
-
-    def generic_strip_suffix(self, name) -> str:
-        return name.split("`")[0]
-
-    @property
-    def generic_fullname(self) -> str:
-        fullname = self.generic_strip_suffix(self.fullname)
-        parameters = self.format_generic_parameters()
-        return f"{fullname}[{parameters}]"
-
 
 class GenericParameter:
     def __init__(self, js: JsonType) -> None:

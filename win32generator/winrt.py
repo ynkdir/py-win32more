@@ -115,6 +115,16 @@ def ii_generic_fullname(self: InterfaceImplementation) -> str:
         raise NotImplementedError()
 
 
+def td_format_generic_parameters(self: TypeDefinition) -> str:
+    return ", ".join(gp.name for gp in self.generic_parameters)
+
+
+def td_generic_fullname(self: TypeDefinition) -> str:
+    fullname = generic_strip_suffix(self.fullname)
+    parameters = td_format_generic_parameters(self)
+    return f"{fullname}[{parameters}]"
+
+
 @dataclass
 class Method:
     name: str
@@ -281,8 +291,8 @@ class Com:
     def emit(self) -> str:
         writer = StringIO()
         if self._td.is_generic:
-            generic_parameters = self._td.format_generic_parameters()
-            classname = self._td.generic_strip_suffix(self._td.name)
+            generic_parameters = td_format_generic_parameters(self._td)
+            classname = generic_strip_suffix(self._td.name)
             base = f"Generic[{generic_parameters}], ComPtr"
         else:
             classname = self._td.name
@@ -454,7 +464,7 @@ class Com:
     def winrt_factorymethod(self, td: TypeDefinition, md: MethodDefinition) -> str:
         writer = StringIO()
         if td.is_generic:
-            name = td.generic_fullname
+            name = td_generic_fullname(td)
         else:
             name = td.fullname
         params = [f"cls: {Package.abs_pkg(name)}"] + md_parameter_names_annotated(md)
@@ -467,7 +477,7 @@ class Com:
     def winrt_activatemethod(self, td: TypeDefinition) -> str:
         writer = StringIO()
         if td.is_generic:
-            name = td.generic_fullname
+            name = td_generic_fullname(td)
         else:
             name = td.fullname
         writer.write("    @winrt_activatemethod\n")
@@ -617,8 +627,8 @@ class Delegate:
     def emit(self) -> str:
         writer = StringIO()
         if self._td.is_generic:
-            generic_parameters = self._td.format_generic_parameters()
-            name = self._td.generic_strip_suffix(self._td.name)
+            generic_parameters = td_format_generic_parameters(self._td)
+            name = generic_strip_suffix(self._td.name)
             base = f"Generic[{generic_parameters}], MulticastDelegate"
         else:
             name = self._td.name
