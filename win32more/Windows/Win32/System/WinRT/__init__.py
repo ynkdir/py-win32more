@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, MissingType, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.Com.Marshal
@@ -81,7 +81,7 @@ def WindowsInspectString(targetHString: UIntPtr, machine: UInt16, callback: win3
 @winfunctype('api-ms-win-core-winrt-string-l1-1-1.dll')
 def WindowsInspectString2(targetHString: UInt64, machine: UInt16, callback: win32more.Windows.Win32.System.WinRT.PINSPECT_HSTRING_CALLBACK2, context: VoidPtr, length: POINTER(UInt32), targetStringAddress: POINTER(UInt64)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('CoreMessaging.dll')
-def CreateDispatcherQueueController(options: win32more.Windows.Win32.System.WinRT.DispatcherQueueOptions, dispatcherQueueController: POINTER(MissingType)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def CreateDispatcherQueueController(options: win32more.Windows.Win32.System.WinRT.DispatcherQueueOptions, dispatcherQueueController: POINTER(win32more.Windows.System.DispatcherQueueController)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('api-ms-win-core-winrt-l1-1-0.dll')
 def RoInitialize(initType: win32more.Windows.Win32.System.WinRT.RO_INIT_TYPE) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('api-ms-win-core-winrt-l1-1-0.dll')
