@@ -46,8 +46,6 @@ elif "(amd64)" in sys.version.lower():
 else:
     ARCH = "X86"
 
-MissingType = c_void_p
-
 Byte = c_ubyte
 SByte = c_byte
 Char = c_wchar

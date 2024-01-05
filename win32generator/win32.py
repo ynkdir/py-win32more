@@ -27,7 +27,6 @@ BASE_EXPORTS = [
     "Int32",
     "Int64",
     "IntPtr",
-    "MissingType",
     "POINTER",
     "SByte",
     "SUCCEEDED",
