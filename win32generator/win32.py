@@ -513,9 +513,8 @@ class Com:
     def emit(self) -> str:
         assert len(self._td.interface_implementations) <= 1
         writer = StringIO()
-        base = self._basetype()
         writer.write(f"class {self._td.name}(ComPtr):\n")
-        writer.write(f"    extends: {base}\n")
+        writer.write(f"    extends: {self._extends()}\n")
         if self._td.custom_attributes.has_guid():
             guid = self._td.custom_attributes.get_guid()
             writer.write(f"    _iid_ = Guid('{guid}')\n")
@@ -530,8 +529,9 @@ class Com:
             vtbl_index += 1
         return writer.getvalue()
 
-    def _basetype(self) -> str:
+    def _extends(self) -> str:
         if not self._td.interface_implementations:
+            # non IUnknown interface
             return "None"
         base = self._td.interface_implementations[0].interface.type_reference.fullname
         return Package.abs_pkg(base)

@@ -319,7 +319,7 @@ class Com:
             metaclass = ""
             metaclass_args = ""
         writer.write(f"class {classname}({base}{metaclass_args}):\n")
-        writer.write(f"    extends: {Package.abs_pkg(self._basetype())}\n")
+        writer.write(f"    extends: {self._extends()}\n")
         for ii in self._td.interface_implementations:
             if ii.custom_attributes.has_default():
                 writer.write(f"    default_interface: {Package.abs_pkg(ii_generic_fullname(ii))}\n")
@@ -385,13 +385,15 @@ class Com:
             writer.write("        return IAsyncAction___await__(self)\n")
         return writer.getvalue()
 
-    def _basetype(self) -> str:
+    def _extends(self) -> str:
         if self._td.basetype is None:
-            return "Windows.Win32.System.WinRT.IInspectable"
+            # interface
+            return Package.abs_pkg("Windows.Win32.System.WinRT.IInspectable")
         elif self._td.basetype == "System.Object":
-            return "Windows.Win32.System.WinRT.IInspectable"
+            # runtime class
+            return Package.abs_pkg("Windows.Win32.System.WinRT.IInspectable")
         else:
-            return self._td.basetype
+            return Package.abs_pkg(self._td.basetype)
 
     @classmethod
     def com_get_interface_for_method(cls, td: TypeDefinition, method_name: str, params: list[str]) -> str:
