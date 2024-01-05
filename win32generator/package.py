@@ -56,11 +56,9 @@ class Module:
     def emit_header(self, import_namespaces: set[str]) -> str:
         raise NotImplementedError()
 
-    def enumerate_imported_namespaces(self) -> Iterable[str]:
+    def enumerate_dependencies(self) -> Iterable[str]:
         for item in self._items.values():
-            for fullname in item.enumerate_dependencies():
-                namespace, name = fullname.rsplit(".", 1)
-                yield namespace
+            yield from item.enumerate_dependencies()
 
 
 class ApiItem(Protocol):

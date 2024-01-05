@@ -11,6 +11,8 @@ from .package import Package
 from .preprocessor import Preprocessor
 from .selector import Selector
 
+logger = logging.getLogger(__name__)
+
 
 def xopen(path: str) -> TextIO | lzma.LZMAFile:
     if path.endswith(".xz"):
@@ -67,24 +69,39 @@ def make_module_path_for_write(namespace) -> TextIO:
 
 
 def generate(package: Package) -> None:
+    missing_types = set()
     for module in package.modules():
-        import_namespaces = set(module.enumerate_imported_namespaces()) | {module.namespace}
+        import_namespaces = {module.namespace}
+        for fullname in module.enumerate_dependencies():
+            namespace, name = fullname.rsplit(".", 1)
+            if namespace not in package or name not in package[namespace]:
+                missing_types.add(fullname)
+            import_namespaces.add(namespace)
         with make_module_path_for_write(module.namespace) as writer:
             writer.write(module.emit_header(import_namespaces))
             for item in module.items():
                 writer.write(item.emit())
             writer.write("\n\nmake_ready(__name__)\n")
+    for fullname in sorted(missing_types):
+        logger.warning(f"missing type: {fullname}")
 
 
 # FIXME: not work for winrt
 def generate_one(package: Package, writer: TextIO) -> None:
+    missing_types = set()
     for i, module in enumerate(package.modules()):
+        for fullname in module.enumerate_dependencies():
+            namespace, name = fullname.rsplit(".", 1)
+            if namespace not in package or name not in package[namespace]:
+                missing_types.add(fullname)
         if i == 0:
             writer.write(module.emit_header(set()))
         writer.write(f"\n\n# {module.namespace}\n")
         for item in module.items():
             writer.write(item.emit())
     writer.write("\n\nmake_ready(__name__)\n")
+    for fullname in sorted(missing_types):
+        logger.warning(f"missing type: {fullname}")
 
 
 def build(metadata_files, selector_file=None, one=None) -> None:

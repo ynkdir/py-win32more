@@ -64,20 +64,10 @@ def ttype_pytype(self: TType) -> str:
             return self.name
         elif self.is_guid:
             return "Guid"
-        elif ttype_is_missing(self):
-            logger.warning(f"missing type '{self.fullname}'")
-            return "MissingType"
         else:
             return f"{Package.abs_pkg(self.fullname)}"
     else:
         raise NotImplementedError()
-
-
-# missing type which is not defined in current winmd.
-def ttype_is_missing(self: TType) -> bool:
-    return self.kind == "Type" and not (
-        self.namespace in Package.current and self.name in Package.current[self.namespace]
-    )
 
 
 def md_parameter_names_annotated(self: MethodDefinition) -> list[str]:
@@ -169,6 +159,9 @@ class Win32Module(Module):
         writer.write(f"from {Package.name} import {BASE_EXPORTS_CSV}\n")
         if not Package.is_onefile:
             for namespace in sorted(import_namespaces):
+                if not namespace.startswith("Windows.Win32."):
+                    # FIXME: _winrt.py doesn't support circular import
+                    continue
                 writer.write(f"import {Package.name}.{namespace}\n")
         return writer.getvalue()
 

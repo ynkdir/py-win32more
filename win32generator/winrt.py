@@ -26,19 +26,10 @@ WINRT_EXPORTS = [
 ]
 WINRT_EXPORTS_CSV = ", ".join(WINRT_EXPORTS)
 
-iinspectable_checked = False
-
 
 def ttype_pytype(self: TType) -> str:
-    global iinspectable_checked
     if self.kind == "Primitive":
         if self.name == "Object":
-            if not iinspectable_checked:
-                iinspectable_checked = True
-                try:
-                    Package.current["Windows.Win32.System.WinRT"]["IInspectable"]
-                except KeyError:
-                    logger.warning("missing type 'Windows.Win32.System.WinRT.IInspectable")
             return Package.abs_pkg("Windows.Win32.System.WinRT.IInspectable")
         elif self.name == "String":
             return "WinRT_String"
@@ -51,9 +42,6 @@ def ttype_pytype(self: TType) -> str:
     elif self.kind == "Type":
         if self.is_guid:
             return "Guid"
-        elif ttype_is_missing(self):
-            logger.warning(f"missing type '{self.fullname}'")
-            return self.fullname
         else:
             return f"{Package.abs_pkg(self.fullname)}"
     elif self.kind == "Generic":
@@ -64,12 +52,6 @@ def ttype_pytype(self: TType) -> str:
         return ttype_pytype(self.unmodified_type)
     else:
         raise NotImplementedError()
-
-
-def ttype_is_missing(self: TType) -> bool:
-    return self.kind == "Type" and not (
-        self.namespace in Package.current and self.name in Package.current[self.namespace]
-    )
 
 
 def generic_strip_suffix(name) -> str:
