@@ -18,6 +18,11 @@ from ctypes import (
 )
 from typing import Generic, TypeVar, _GenericAlias
 
+if sys.version_info < (3, 9):
+    from typing_extensions import Annotated
+else:
+    from typing import Annotated
+
 if sys.version_info < (3, 8):
     from typing_extensions import get_args
 else:
@@ -59,7 +64,12 @@ from win32more.Windows.Win32.System.WinRT import (
     WindowsGetStringRawBuffer,
 )
 
+K = TypeVar("K")
 T = TypeVar("T")
+V = TypeVar("V")
+TProgress = TypeVar("TProgress")
+TResult = TypeVar("TResult")
+TSender = TypeVar("TSender")
 
 
 def generic_get_type_hints(cls, prototype, include_extras=False, use_generic_alias=False):

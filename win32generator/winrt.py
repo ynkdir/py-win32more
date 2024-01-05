@@ -14,15 +14,22 @@ from .win32 import BASE_EXPORTS_CSV
 logger = logging.getLogger(__name__)
 
 WINRT_EXPORTS = [
-    "SZArray",
-    "WinRT_String",
-    "winrt_commethod",
-    "winrt_mixinmethod",
-    "winrt_classmethod",
-    "winrt_factorymethod",
-    "winrt_activatemethod",
-    "winrt_overload",
+    "Annotated",
+    "K",
     "MulticastDelegate",
+    "SZArray",
+    "T",
+    "TProgress",
+    "TResult",
+    "TSender",
+    "V",
+    "WinRT_String",
+    "winrt_activatemethod",
+    "winrt_classmethod",
+    "winrt_commethod",
+    "winrt_factorymethod",
+    "winrt_mixinmethod",
+    "winrt_overload",
 ]
 WINRT_EXPORTS_CSV = ", ".join(WINRT_EXPORTS)
 
@@ -153,19 +160,6 @@ class WinrtModule(Module):
         writer = StringIO()
 
         writer.write("from __future__ import annotations\n")
-
-        writer.write("import sys\n")
-        writer.write("from typing import Generic, TypeVar\n")
-        writer.write("if sys.version_info < (3, 9):\n")
-        writer.write("    from typing_extensions import Annotated\n")
-        writer.write("else:\n")
-        writer.write("    from typing import Annotated\n")
-        writer.write("K = TypeVar('K')\n")
-        writer.write("T = TypeVar('T')\n")
-        writer.write("V = TypeVar('V')\n")
-        writer.write("TProgress = TypeVar('TProgress')\n")
-        writer.write("TResult = TypeVar('TResult')\n")
-        writer.write("TSender = TypeVar('TSender')\n")
 
         writer.write(f"from {Package.name} import {BASE_EXPORTS_CSV}\n")
 
