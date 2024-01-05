@@ -569,7 +569,7 @@ class InterfaceImplementation:
 
     def enumerate_dependencies(self) -> Iterable[str]:
         if self.interface.kind == "TypeReference":
-            yield self.fullname
+            yield self.interface.type_reference.fullname
         elif self.interface.kind == "TypeSpecification":
             yield from self.interface.type_specification.signature.enumerate_dependencies()
         else:
