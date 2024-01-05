@@ -15,6 +15,7 @@ logger = logging.getLogger(__name__)
 
 WINRT_EXPORTS = [
     "Annotated",
+    "Generic",
     "K",
     "MulticastDelegate",
     "SZArray",
