@@ -127,6 +127,11 @@ class Formatter:
     def generic_parameters(self, td: TypeDefinition) -> str:
         return ", ".join(gp.name for gp in td.generic_parameters)
 
+    def generic_name_with_parameters(self, td: TypeDefinition) -> str:
+        if td.is_generic:
+            return f"{td.generic_fullname}[{self.generic_parameters(td)}]"
+        return td.fullname
+
     def method_parameters_annotated(self, md: MethodDefinition) -> list[str]:
         r = []
         for pa, type_ in md.parameters_with_type:
@@ -297,32 +302,30 @@ class Com:
         if self._has_classproperty():
             writer.write(f"class {self._metaclass_name()}(ComPtr.__class__):\n")
             writer.write("    pass\n")
-        writer.write(f"class {self._generic_name}({self._basetype()}):\n")
+        writer.write(f"class {self._generic_name()}({self._basetype()}):\n")
         writer.write(f"    extends: {self._extends()}\n")
         if self._has_default_interface():
             writer.write(f"    default_interface: {self._default_interface()}\n")
-        writer.write(f"    _classid_ = '{self._generic_fullname}'\n")
+        writer.write(f"    _classid_ = '{self._generic_fullname()}'\n")
         if self._td.custom_attributes.has_winrt_guid():
             guid = self._td.custom_attributes.get_winrt_guid()
             writer.write(f"    _iid_ = Guid('{guid}')\n")
-        writer.write(self.winrt_constructor(self._td))
-        writer.write(self.winrt_method_definitions(self._td))
+        writer.write(self._constructor())
+        writer.write(self._methods())
         writer.write(self._properties())
         writer.write(self._await_method())
         return writer.getvalue()
 
-    @property
     def _generic_name(self) -> str:
         if self._td.is_generic:
             return self._td.generic_name
         return self._td.name
 
-    @property
     def _generic_fullname(self) -> str:
-        return f"{self.namespace}.{self._generic_name}"
+        return f"{self.namespace}.{self._generic_name()}"
 
     def _metaclass_name(self) -> str:
-        return f"_{self._generic_name}_Meta_"
+        return f"_{self._generic_name()}_Meta_"
 
     def _basetype(self) -> str:
         if self._td.is_generic:
@@ -428,8 +431,8 @@ class Com:
             writer.write("        return IAsyncAction___await__(self)\n")
         return writer.getvalue()
 
-    def com_get_interface_for_method(self, td: TypeDefinition, method_name: str, params: list[str]) -> str:
-        for ii in td.interface_implementations:
+    def _get_interface_for_method(self, method_name: str, params: list[str]) -> str:
+        for ii in self._td.interface_implementations:
             com = self._package[ii.namespace][ii.name]
             if not isinstance(com, Com):
                 raise TypeError()
@@ -444,8 +447,8 @@ class Com:
                         return self._formatter.generic_name_with_arguments(ii)
         raise KeyError()
 
-    def com_get_static_for_method(self, td: TypeDefinition, method_name: str, method_nargs: int) -> str:
-        for ca in td.custom_attributes.get_static():
+    def _get_static_interface_for_method(self, method_name: str, method_nargs: int) -> str:
+        for ca in self._td.custom_attributes.get_static():
             namespace, name = ca.fixed_arguments[0].value.rsplit(".", 1)
             com = self._package[namespace][name]
             if not isinstance(com, Com):
@@ -460,20 +463,20 @@ class Com:
                     return ca.fixed_arguments[0].value
         raise KeyError()
 
-    def winrt_method(self, td: TypeDefinition, md: MethodDefinition, p_vtbl_index: list[int]) -> str:
+    def winrt_method(self, md: MethodDefinition, p_vtbl_index: list[int]) -> str:
         writer = StringIO()
         method_name = md.name_overload
         params = ["self"] + self._formatter.method_parameters_annotated(md)
         restype = self._formatter.pytype(md.signature.return_type)
-        if td.basetype == "System.MulticastDelegate":
+        if self._td.basetype == "System.MulticastDelegate":
             pass
         elif "Static" in md.attributes:
             writer.write("    @winrt_classmethod\n")
-            interface = self.com_get_static_for_method(td, method_name, len(md.get_parameter_names()))
+            interface = self._get_static_interface_for_method(method_name, len(md.get_parameter_names()))
             params[0] = f"cls: {self._formatter.fullname(interface)}"
-        elif "Abstract" not in td.attributes:
+        elif "Abstract" not in self._td.attributes:
             writer.write("    @winrt_mixinmethod\n")
-            interface = self.com_get_interface_for_method(td, method_name, md.get_parameter_names())
+            interface = self._get_interface_for_method(method_name, md.get_parameter_names())
             params[0] = f"self: {self._formatter.fullname(interface)}"
         else:
             writer.write(f"    @winrt_commethod({p_vtbl_index[0]})\n")
@@ -493,53 +496,45 @@ class Com:
             raise TypeError()
         return len(com._td.method_definitions) + com._count_interface_method()
 
-    def winrt_factorymethod(self, td: TypeDefinition, md: MethodDefinition) -> str:
+    def _factorymethod(self, td: TypeDefinition, md: MethodDefinition) -> str:
         writer = StringIO()
-        if td.is_generic:
-            generic_parameters = self._formatter.generic_parameters(self._td)
-            name = f"{td.generic_fullname}[{generic_parameters}]"
-        else:
-            name = td.fullname
-        params = [f"cls: {self._formatter.fullname(name)}"] + self._formatter.method_parameters_annotated(md)
+        clsname = self._formatter.fullname(self._formatter.generic_name_with_parameters(td))
+        params = [f"cls: {clsname}"] + self._formatter.method_parameters_annotated(md)
         params_csv = ", ".join(params)
         restype = self._formatter.pytype(md.signature.return_type)
         writer.write("    @winrt_factorymethod\n")
         writer.write(f"    def {md.name}({params_csv}) -> {restype}: ...\n")
         return writer.getvalue()
 
-    def winrt_activatemethod(self, td: TypeDefinition) -> str:
+    def _activatemethod(self) -> str:
         writer = StringIO()
-        if td.is_generic:
-            generic_parameters = self._formatter.generic_parameters(self._td)
-            name = f"{td.generic_fullname}[{generic_parameters}]"
-        else:
-            name = td.fullname
+        clsname = self._formatter.fullname(self._formatter.generic_name_with_parameters(self._td))
         writer.write("    @winrt_activatemethod\n")
-        writer.write(f"    def CreateInstance(cls) -> {self._formatter.fullname(name)}: ...\n")
+        writer.write(f"    def CreateInstance(cls) -> {clsname}: ...\n")
         return writer.getvalue()
 
-    def winrt_constructor(self, td: TypeDefinition) -> str:
+    def _constructor(self) -> str:
         writer = StringIO()
         methods = []
-        if td.custom_attributes.has_composable():
-            ca = td.custom_attributes.get_composable()
+        if self._td.custom_attributes.has_composable():
+            ca = self._td.custom_attributes.get_composable()
             namespace, name = ca.fixed_arguments[0].value.rsplit(".", 1)
             com = self._package[namespace][name]
             if not isinstance(com, Com):
                 raise TypeError()
             factory = com._td
             for md in factory.method_definitions:
-                assert md.signature.return_type.fullname == td.fullname
+                assert md.signature.return_type.fullname == self._td.fullname
                 methods.append(
                     Method(
                         name=md.name_overload,
                         nargs=len(md.get_parameter_names()) - 2,
-                        invoke=f"{self._formatter.fullname(td)}.{md.name_overload}(*args, None, None)",
-                        declare=self.winrt_factorymethod(factory, md),
+                        invoke=f"{self._formatter.fullname(self._td)}.{md.name_overload}(*args, None, None)",
+                        declare=self._factorymethod(factory, md),
                         default_overload=False,
                     )
                 )
-        for ca in td.custom_attributes.get_activatable():
+        for ca in self._td.custom_attributes.get_activatable():
             if ca.fixed_arguments[0].type.kind == "Type":
                 namespace, name = ca.fixed_arguments[0].value.rsplit(".", 1)
                 com = self._package[namespace][name]
@@ -547,13 +542,13 @@ class Com:
                     raise TypeError()
                 factory = com._td
                 for md in factory.method_definitions:
-                    assert md.signature.return_type.fullname == td.fullname
+                    assert md.signature.return_type.fullname == self._td.fullname
                     methods.append(
                         Method(
                             name=md.name_overload,
                             nargs=len(md.get_parameter_names()),
-                            invoke=f"{self._formatter.fullname(td)}.{md.name_overload}(*args)",
-                            declare=self.winrt_factorymethod(factory, md),
+                            invoke=f"{self._formatter.fullname(self._td)}.{md.name_overload}(*args)",
+                            declare=self._factorymethod(factory, md),
                             default_overload=False,
                         )
                     )
@@ -562,8 +557,8 @@ class Com:
                     Method(
                         name="CreateInstance",
                         nargs=0,
-                        invoke=f"{self._formatter.fullname(td)}.CreateInstance(*args)",
-                        declare=self.winrt_activatemethod(td),
+                        invoke=f"{self._formatter.fullname(self._td)}.CreateInstance(*args)",
+                        declare=self._activatemethod(),
                         default_overload=False,
                     )
                 )
@@ -593,19 +588,19 @@ class Com:
             overload_same_name_and_nargs.add((method.name, method.nargs))
         return writer.getvalue()
 
-    def winrt_method_definitions(self, td: TypeDefinition) -> str:
+    def _methods(self) -> str:
         writer = StringIO()
         methods = []
         default_overload = set()
         p_vtbl_index = [self._count_interface_method()]
-        for md in td.method_definitions:
+        for md in self._td.method_definitions:
             if md.name == ".ctor":
                 continue
             method = Method(
                 name=md.name_overload,
                 nargs=len(md.get_parameter_names()),
                 invoke="",
-                declare=self.winrt_method(td, md, p_vtbl_index),
+                declare=self.winrt_method(md, p_vtbl_index),
                 default_overload=md.custom_attributes.has_default_overload(),
             )
             methods.append(method)
@@ -641,6 +636,10 @@ class Com:
 
 class Delegate:
     def __init__(self, td: TypeDefinition, package: Package, formatter: Formatter) -> None:
+        assert len(td.method_definitions) == 2
+        assert td.method_definitions[0].name == ".ctor"
+        assert td.method_definitions[1].name == "Invoke"
+        assert td.custom_attributes.has_winrt_guid()
         self._td = td
         self._package = package
         self._formatter = formatter
@@ -662,22 +661,28 @@ class Delegate:
 
     def emit(self) -> str:
         writer = StringIO()
+        writer.write(f"class {self._generic_name()}({self._basetype()}):\n")
+        writer.write(f"    extends: {self._formatter.fullname('Windows.Win32.System.Com.IUnknown')}\n")
+        guid = self._td.custom_attributes.get_winrt_guid()
+        writer.write(f"    _iid_ = Guid('{guid}')\n")
+        writer.write(self._method(self._td.method_definitions[1]))
+        return writer.getvalue()
+
+    def _generic_name(self) -> str:
+        if self._td.is_generic:
+            return self._td.generic_name
+        return self._td.name
+
+    def _basetype(self) -> str:
         if self._td.is_generic:
             generic_parameters = self._formatter.generic_parameters(self._td)
-            name = self._td.generic_name
-            base = f"Generic[{generic_parameters}], MulticastDelegate"
-        else:
-            name = self._td.name
-            base = "MulticastDelegate"
-        writer.write(f"class {name}({base}):\n")
-        writer.write(f"    extends: {self._formatter.fullname('Windows.Win32.System.Com.IUnknown')}\n")
-        if self._td.custom_attributes.has_winrt_guid():
-            guid = self._td.custom_attributes.get_winrt_guid()
-            writer.write(f"    _iid_ = Guid('{guid}')\n")
-        com = Com(self._td, self._package, self._formatter)  # FIXME
-        p_vtbl_index = [3]  # count of IUnknown
-        for md in self._td.method_definitions:
-            if md.name == ".ctor":
-                continue
-            writer.write(com.winrt_method(self._td, md, p_vtbl_index))
+            return f"Generic[{generic_parameters}], MulticastDelegate"
+        return "MulticastDelegate"
+
+    def _method(self, md: MethodDefinition) -> str:
+        writer = StringIO()
+        restype = self._formatter.pytype(md.signature.return_type)
+        params = ["self"] + self._formatter.method_parameters_annotated(md)
+        params_csv = ", ".join(params)
+        writer.write(f"    def {md.name}({params_csv}) -> {restype}: ...\n")
         return writer.getvalue()
