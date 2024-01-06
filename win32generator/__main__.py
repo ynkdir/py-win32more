@@ -66,37 +66,41 @@ def make_module_path_for_write(namespace: str, package_directory: Path) -> TextI
 
 
 def generate(package: Package, package_directory: Path) -> None:
-    missing_types = set()
     for module in package.modules():
-        import_namespaces = {module.namespace}
-        for fullname in module.enumerate_dependencies():
-            namespace, name = fullname.rsplit(".", 1)
-            if namespace not in package or name not in package[namespace]:
-                missing_types.add(fullname)
-            import_namespaces.add(namespace)
         with make_module_path_for_write(module.namespace, package_directory) as writer:
-            writer.write(module.emit_header(import_namespaces))
+            writer.write(module.emit_header())
             for item in module.items():
                 writer.write(item.emit())
             writer.write("\n\nmake_ready(__name__)\n")
-    for fullname in sorted(missing_types):
-        logger.warning(f"missing type: {fullname}")
 
 
-# FIXME: not work for winrt
 def generate_one(package: Package, writer: TextIO) -> None:
-    missing_types = set()
-    for i, module in enumerate(package.modules()):
-        for fullname in module.enumerate_dependencies():
-            namespace, name = fullname.rsplit(".", 1)
-            if namespace not in package or name not in package[namespace]:
-                missing_types.add(fullname)
-        if i == 0:
-            writer.write(module.emit_header(set()))
+    if has_winrt(package):
+        # NOTE: winrt one module will not work mostly due to name conflict.
+        writer.write(winrt.WinrtModule.emit_header_one(package.name))
+    else:
+        writer.write(win32.Win32Module.emit_header_one(package.name))
+    for module in package.modules():
         writer.write(f"\n\n# {module.namespace}\n")
         for item in module.items():
             writer.write(item.emit())
     writer.write("\n\nmake_ready(__name__)\n")
+
+
+def has_winrt(package: Package) -> bool:
+    for module in package.modules():
+        if isinstance(module, winrt.WinrtModule):
+            return True
+    return False
+
+
+def warn_missing_type(package: Package):
+    missing_types = set()
+    for module in package.modules():
+        for fullname in module.enumerate_dependencies():
+            namespace, name = fullname.rsplit(".", 1)
+            if namespace not in package or name not in package[namespace]:
+                missing_types.add(fullname)
     for fullname in sorted(missing_types):
         logger.warning(f"missing type: {fullname}")
 
@@ -134,6 +138,8 @@ def main() -> None:
     else:
         with open(args.one, "w") as writer:
             generate_one(package, writer)
+
+    warn_missing_type(package)
 
 
 if __name__ == "__main__":

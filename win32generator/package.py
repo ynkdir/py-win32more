@@ -48,7 +48,7 @@ class Module:
     def add(self, item: ApiItem) -> None:
         raise NotImplementedError()
 
-    def emit_header(self, import_namespaces: set[str]) -> str:
+    def emit_header(self) -> str:
         raise NotImplementedError()
 
     def enumerate_dependencies(self) -> Iterable[str]:

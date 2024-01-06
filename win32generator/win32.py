@@ -173,16 +173,25 @@ class Win32Module(Module):
         else:
             self._items[item.name] = item
 
-    def emit_header(self, import_namespaces: set[str]) -> str:
+    def imported_namespaces(self) -> set[str]:
+        return {fullname.rsplit(".", 1)[0] for fullname in self.enumerate_dependencies()}
+
+    def emit_header(self) -> str:
         writer = StringIO()
         writer.write("from __future__ import annotations\n")
         writer.write(f"from {self._package.name} import {BASE_EXPORTS_CSV}\n")
-        if not self._package.is_onefile:
-            for namespace in sorted(import_namespaces):
-                if not namespace.startswith("Windows.Win32."):
-                    # FIXME: _winrt.py doesn't support circular import
-                    continue
-                writer.write(f"import {self._package.name}.{namespace}\n")
+        for namespace in sorted(self.imported_namespaces() | {self.namespace}):
+            if not namespace.startswith("Windows.Win32."):
+                # FIXME: _winrt.py doesn't support circular import
+                continue
+            writer.write(f"import {self._package.name}.{namespace}\n")
+        return writer.getvalue()
+
+    @classmethod
+    def emit_header_one(cls, package_name: str) -> str:
+        writer = StringIO()
+        writer.write("from __future__ import annotations\n")
+        writer.write(f"from {package_name} import {BASE_EXPORTS_CSV}\n")
         return writer.getvalue()
 
 
