@@ -94,7 +94,7 @@ class Formatter:
             if ttype.is_guid:
                 return "Guid"
             else:
-                return f"{self.fullname(ttype)}"
+                return self.fullname(ttype)
         elif ttype.kind == "Generic":
             return self.generic_name_with_arguments(ttype)
         elif ttype.kind == "GenericParameter":
@@ -564,9 +564,7 @@ class Com:
         writer = StringIO()
         restype = self._formatter.pytype(md.signature.return_type)
         interface = self._get_static_interface_for_method(md.name_overload, len(md.get_parameter_names()))
-        params = ", ".join(
-            [f"cls: {self._formatter.fullname(interface)}"] + self._formatter.method_parameters_annotated(md)
-        )
+        params = ", ".join([f"cls: {interface}"] + self._formatter.method_parameters_annotated(md))
         writer.write("    @winrt_classmethod\n")
         writer.write(f"    def {md.name_overload}({params}) -> {restype}: ...\n")
         return writer.getvalue()
@@ -584,7 +582,7 @@ class Com:
                 else:
                     static_method_name = md.name
                 if static_method_name == method_name and len(md.get_parameter_names()) == method_nargs:
-                    return ca.fixed_arguments[0].value
+                    return self._formatter.fullname(ca.fixed_arguments[0].value)
         raise KeyError()
 
     def _commethod(self, md: MethodDefinition, vtbl_index: int) -> str:

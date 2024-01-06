@@ -113,7 +113,7 @@ class Formatter:
             elif ttype.is_guid:
                 return "Guid"
             else:
-                return f"{self.fullname(ttype)}"
+                return self.fullname(ttype)
         else:
             raise NotImplementedError()
 
