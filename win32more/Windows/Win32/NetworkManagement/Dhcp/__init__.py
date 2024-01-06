@@ -870,8 +870,8 @@ class DHCPV6_STATELESS_PARAMS(EasyCastStructure):
     Status: win32more.Windows.Win32.Foundation.BOOL
     PurgeInterval: UInt32
 DHCPV6_STATELESS_PARAM_TYPE = Int32
-DHCPV6_STATELESS_PARAM_TYPE_DhcpStatelessPurgeInterval: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCPV6_STATELESS_PARAM_TYPE = 1
-DHCPV6_STATELESS_PARAM_TYPE_DhcpStatelessStatus: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCPV6_STATELESS_PARAM_TYPE = 2
+DhcpStatelessPurgeInterval: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCPV6_STATELESS_PARAM_TYPE = 1
+DhcpStatelessStatus: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCPV6_STATELESS_PARAM_TYPE = 2
 class DHCPV6_STATELESS_SCOPE_STATS(EasyCastStructure):
     SubnetAddress: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS
     NumStatelessClientsAdded: UInt64
@@ -1093,8 +1093,8 @@ class DHCP_CLIENT_INFO_VQ(EasyCastStructure):
     ProbationEnds: win32more.Windows.Win32.NetworkManagement.Dhcp.DATE_TIME
     QuarantineCapable: win32more.Windows.Win32.Foundation.BOOL
 DHCP_FAILOVER_MODE = Int32
-DHCP_FAILOVER_MODE_LoadBalance: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_FAILOVER_MODE = 0
-DHCP_FAILOVER_MODE_HotStandby: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_FAILOVER_MODE = 1
+LoadBalance: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_FAILOVER_MODE = 0
+HotStandby: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_FAILOVER_MODE = 1
 class DHCP_FAILOVER_RELATIONSHIP(EasyCastStructure):
     PrimaryServer: UInt32
     SecondaryServer: UInt32
@@ -1114,8 +1114,8 @@ class DHCP_FAILOVER_RELATIONSHIP_ARRAY(EasyCastStructure):
     NumElements: UInt32
     pRelationships: POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_FAILOVER_RELATIONSHIP)
 DHCP_FAILOVER_SERVER = Int32
-DHCP_FAILOVER_SERVER_PrimaryServer: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_FAILOVER_SERVER = 0
-DHCP_FAILOVER_SERVER_SecondaryServer: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_FAILOVER_SERVER = 1
+PrimaryServer: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_FAILOVER_SERVER = 0
+SecondaryServer: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_FAILOVER_SERVER = 1
 class DHCP_FAILOVER_STATISTICS(EasyCastStructure):
     NumAddr: UInt32
     AddrFree: UInt32
@@ -1135,15 +1135,15 @@ class DHCP_FILTER_GLOBAL_INFO(EasyCastStructure):
     EnforceAllowList: win32more.Windows.Win32.Foundation.BOOL
     EnforceDenyList: win32more.Windows.Win32.Foundation.BOOL
 DHCP_FILTER_LIST_TYPE = Int32
-DHCP_FILTER_LIST_TYPE_Deny: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_FILTER_LIST_TYPE = 0
-DHCP_FILTER_LIST_TYPE_Allow: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_FILTER_LIST_TYPE = 1
+Deny: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_FILTER_LIST_TYPE = 0
+Allow: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_FILTER_LIST_TYPE = 1
 class DHCP_FILTER_RECORD(EasyCastStructure):
     AddrPatt: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_ADDR_PATTERN
     Comment: win32more.Windows.Win32.Foundation.PWSTR
 DHCP_FORCE_FLAG = Int32
-DHCP_FORCE_FLAG_DhcpFullForce: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_FORCE_FLAG = 0
-DHCP_FORCE_FLAG_DhcpNoForce: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_FORCE_FLAG = 1
-DHCP_FORCE_FLAG_DhcpFailoverForce: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_FORCE_FLAG = 2
+DhcpFullForce: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_FORCE_FLAG = 0
+DhcpNoForce: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_FORCE_FLAG = 1
+DhcpFailoverForce: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_FORCE_FLAG = 2
 class DHCP_HOST_INFO(EasyCastStructure):
     IpAddress: UInt32
     NetBiosName: win32more.Windows.Win32.Foundation.PWSTR
@@ -1277,15 +1277,15 @@ class DHCP_OPTION_DATA_ELEMENT(EasyCastStructure):
         EncapsulatedDataOption: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_BINARY_DATA
         Ipv6AddressDataOption: win32more.Windows.Win32.Foundation.PWSTR
 DHCP_OPTION_DATA_TYPE = Int32
-DHCP_OPTION_DATA_TYPE_DhcpByteOption: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_OPTION_DATA_TYPE = 0
-DHCP_OPTION_DATA_TYPE_DhcpWordOption: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_OPTION_DATA_TYPE = 1
-DHCP_OPTION_DATA_TYPE_DhcpDWordOption: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_OPTION_DATA_TYPE = 2
-DHCP_OPTION_DATA_TYPE_DhcpDWordDWordOption: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_OPTION_DATA_TYPE = 3
-DHCP_OPTION_DATA_TYPE_DhcpIpAddressOption: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_OPTION_DATA_TYPE = 4
-DHCP_OPTION_DATA_TYPE_DhcpStringDataOption: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_OPTION_DATA_TYPE = 5
-DHCP_OPTION_DATA_TYPE_DhcpBinaryDataOption: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_OPTION_DATA_TYPE = 6
-DHCP_OPTION_DATA_TYPE_DhcpEncapsulatedDataOption: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_OPTION_DATA_TYPE = 7
-DHCP_OPTION_DATA_TYPE_DhcpIpv6AddressOption: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_OPTION_DATA_TYPE = 8
+DhcpByteOption: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_OPTION_DATA_TYPE = 0
+DhcpWordOption: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_OPTION_DATA_TYPE = 1
+DhcpDWordOption: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_OPTION_DATA_TYPE = 2
+DhcpDWordDWordOption: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_OPTION_DATA_TYPE = 3
+DhcpIpAddressOption: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_OPTION_DATA_TYPE = 4
+DhcpStringDataOption: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_OPTION_DATA_TYPE = 5
+DhcpBinaryDataOption: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_OPTION_DATA_TYPE = 6
+DhcpEncapsulatedDataOption: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_OPTION_DATA_TYPE = 7
+DhcpIpv6AddressOption: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_OPTION_DATA_TYPE = 8
 class DHCP_OPTION_LIST(EasyCastStructure):
     NumOptions: UInt32
     Options: POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_OPTION_VALUE)
@@ -1306,19 +1306,19 @@ class DHCP_OPTION_SCOPE_INFO6(EasyCastStructure):
         SubnetScopeInfo: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS
         ReservedScopeInfo: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_RESERVED_SCOPE6
 DHCP_OPTION_SCOPE_TYPE = Int32
-DHCP_OPTION_SCOPE_TYPE_DhcpDefaultOptions: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_TYPE = 0
-DHCP_OPTION_SCOPE_TYPE_DhcpGlobalOptions: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_TYPE = 1
-DHCP_OPTION_SCOPE_TYPE_DhcpSubnetOptions: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_TYPE = 2
-DHCP_OPTION_SCOPE_TYPE_DhcpReservedOptions: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_TYPE = 3
-DHCP_OPTION_SCOPE_TYPE_DhcpMScopeOptions: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_TYPE = 4
+DhcpDefaultOptions: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_TYPE = 0
+DhcpGlobalOptions: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_TYPE = 1
+DhcpSubnetOptions: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_TYPE = 2
+DhcpReservedOptions: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_TYPE = 3
+DhcpMScopeOptions: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_TYPE = 4
 DHCP_OPTION_SCOPE_TYPE6 = Int32
-DHCP_OPTION_SCOPE_TYPE6_DhcpDefaultOptions6: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_TYPE6 = 0
-DHCP_OPTION_SCOPE_TYPE6_DhcpScopeOptions6: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_TYPE6 = 1
-DHCP_OPTION_SCOPE_TYPE6_DhcpReservedOptions6: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_TYPE6 = 2
-DHCP_OPTION_SCOPE_TYPE6_DhcpGlobalOptions6: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_TYPE6 = 3
+DhcpDefaultOptions6: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_TYPE6 = 0
+DhcpScopeOptions6: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_TYPE6 = 1
+DhcpReservedOptions6: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_TYPE6 = 2
+DhcpGlobalOptions6: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_TYPE6 = 3
 DHCP_OPTION_TYPE = Int32
-DHCP_OPTION_TYPE_DhcpUnaryElementTypeOption: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_OPTION_TYPE = 0
-DHCP_OPTION_TYPE_DhcpArrayTypeOption: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_OPTION_TYPE = 1
+DhcpUnaryElementTypeOption: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_OPTION_TYPE = 0
+DhcpArrayTypeOption: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_OPTION_TYPE = 1
 class DHCP_OPTION_VALUE(EasyCastStructure):
     OptionID: UInt32
     Value: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_OPTION_DATA
@@ -1373,26 +1373,26 @@ class DHCP_POLICY_EX_ARRAY(EasyCastStructure):
     NumElements: UInt32
     Elements: POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_POLICY_EX)
 DHCP_POLICY_FIELDS_TO_UPDATE = Int32
-DHCP_POLICY_FIELDS_TO_UPDATE_DhcpUpdatePolicyName: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_POLICY_FIELDS_TO_UPDATE = 1
-DHCP_POLICY_FIELDS_TO_UPDATE_DhcpUpdatePolicyOrder: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_POLICY_FIELDS_TO_UPDATE = 2
-DHCP_POLICY_FIELDS_TO_UPDATE_DhcpUpdatePolicyExpr: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_POLICY_FIELDS_TO_UPDATE = 4
-DHCP_POLICY_FIELDS_TO_UPDATE_DhcpUpdatePolicyRanges: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_POLICY_FIELDS_TO_UPDATE = 8
-DHCP_POLICY_FIELDS_TO_UPDATE_DhcpUpdatePolicyDescr: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_POLICY_FIELDS_TO_UPDATE = 16
-DHCP_POLICY_FIELDS_TO_UPDATE_DhcpUpdatePolicyStatus: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_POLICY_FIELDS_TO_UPDATE = 32
-DHCP_POLICY_FIELDS_TO_UPDATE_DhcpUpdatePolicyDnsSuffix: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_POLICY_FIELDS_TO_UPDATE = 64
+DhcpUpdatePolicyName: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_POLICY_FIELDS_TO_UPDATE = 1
+DhcpUpdatePolicyOrder: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_POLICY_FIELDS_TO_UPDATE = 2
+DhcpUpdatePolicyExpr: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_POLICY_FIELDS_TO_UPDATE = 4
+DhcpUpdatePolicyRanges: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_POLICY_FIELDS_TO_UPDATE = 8
+DhcpUpdatePolicyDescr: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_POLICY_FIELDS_TO_UPDATE = 16
+DhcpUpdatePolicyStatus: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_POLICY_FIELDS_TO_UPDATE = 32
+DhcpUpdatePolicyDnsSuffix: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_POLICY_FIELDS_TO_UPDATE = 64
 DHCP_POL_ATTR_TYPE = Int32
-DHCP_POL_ATTR_TYPE_DhcpAttrHWAddr: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_POL_ATTR_TYPE = 0
-DHCP_POL_ATTR_TYPE_DhcpAttrOption: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_POL_ATTR_TYPE = 1
-DHCP_POL_ATTR_TYPE_DhcpAttrSubOption: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_POL_ATTR_TYPE = 2
-DHCP_POL_ATTR_TYPE_DhcpAttrFqdn: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_POL_ATTR_TYPE = 3
-DHCP_POL_ATTR_TYPE_DhcpAttrFqdnSingleLabel: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_POL_ATTR_TYPE = 4
+DhcpAttrHWAddr: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_POL_ATTR_TYPE = 0
+DhcpAttrOption: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_POL_ATTR_TYPE = 1
+DhcpAttrSubOption: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_POL_ATTR_TYPE = 2
+DhcpAttrFqdn: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_POL_ATTR_TYPE = 3
+DhcpAttrFqdnSingleLabel: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_POL_ATTR_TYPE = 4
 DHCP_POL_COMPARATOR = Int32
-DHCP_POL_COMPARATOR_DhcpCompEqual: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_POL_COMPARATOR = 0
-DHCP_POL_COMPARATOR_DhcpCompNotEqual: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_POL_COMPARATOR = 1
-DHCP_POL_COMPARATOR_DhcpCompBeginsWith: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_POL_COMPARATOR = 2
-DHCP_POL_COMPARATOR_DhcpCompNotBeginWith: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_POL_COMPARATOR = 3
-DHCP_POL_COMPARATOR_DhcpCompEndsWith: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_POL_COMPARATOR = 4
-DHCP_POL_COMPARATOR_DhcpCompNotEndWith: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_POL_COMPARATOR = 5
+DhcpCompEqual: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_POL_COMPARATOR = 0
+DhcpCompNotEqual: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_POL_COMPARATOR = 1
+DhcpCompBeginsWith: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_POL_COMPARATOR = 2
+DhcpCompNotBeginWith: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_POL_COMPARATOR = 3
+DhcpCompEndsWith: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_POL_COMPARATOR = 4
+DhcpCompNotEndWith: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_POL_COMPARATOR = 5
 class DHCP_POL_COND(EasyCastStructure):
     ParentExpr: UInt32
     Type: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_POL_ATTR_TYPE
@@ -1412,8 +1412,8 @@ class DHCP_POL_EXPR_ARRAY(EasyCastStructure):
     NumElements: UInt32
     Elements: POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_POL_EXPR)
 DHCP_POL_LOGIC_OPER = Int32
-DHCP_POL_LOGIC_OPER_DhcpLogicalOr: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_POL_LOGIC_OPER = 0
-DHCP_POL_LOGIC_OPER_DhcpLogicalAnd: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_POL_LOGIC_OPER = 1
+DhcpLogicalOr: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_POL_LOGIC_OPER = 0
+DhcpLogicalAnd: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_POL_LOGIC_OPER = 1
 class DHCP_PROPERTY(EasyCastStructure):
     ID: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_PROPERTY_ID
     Type: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_PROPERTY_TYPE
@@ -1428,14 +1428,14 @@ class DHCP_PROPERTY_ARRAY(EasyCastStructure):
     NumElements: UInt32
     Elements: POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_PROPERTY)
 DHCP_PROPERTY_ID = Int32
-DHCP_PROPERTY_ID_DhcpPropIdPolicyDnsSuffix: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_PROPERTY_ID = 0
-DHCP_PROPERTY_ID_DhcpPropIdClientAddressStateEx: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_PROPERTY_ID = 1
+DhcpPropIdPolicyDnsSuffix: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_PROPERTY_ID = 0
+DhcpPropIdClientAddressStateEx: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_PROPERTY_ID = 1
 DHCP_PROPERTY_TYPE = Int32
-DHCP_PROPERTY_TYPE_DhcpPropTypeByte: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_PROPERTY_TYPE = 0
-DHCP_PROPERTY_TYPE_DhcpPropTypeWord: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_PROPERTY_TYPE = 1
-DHCP_PROPERTY_TYPE_DhcpPropTypeDword: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_PROPERTY_TYPE = 2
-DHCP_PROPERTY_TYPE_DhcpPropTypeString: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_PROPERTY_TYPE = 3
-DHCP_PROPERTY_TYPE_DhcpPropTypeBinary: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_PROPERTY_TYPE = 4
+DhcpPropTypeByte: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_PROPERTY_TYPE = 0
+DhcpPropTypeWord: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_PROPERTY_TYPE = 1
+DhcpPropTypeDword: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_PROPERTY_TYPE = 2
+DhcpPropTypeString: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_PROPERTY_TYPE = 3
+DhcpPropTypeBinary: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_PROPERTY_TYPE = 4
 class DHCP_RESERVATION_INFO_ARRAY(EasyCastStructure):
     NumElements: UInt32
     Elements: POINTER(POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_IP_RESERVATION_INFO))
@@ -1446,8 +1446,8 @@ class DHCP_RESERVED_SCOPE6(EasyCastStructure):
     ReservedIpAddress: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS
     ReservedIpSubnetAddress: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS
 DHCP_SCAN_FLAG = Int32
-DHCP_SCAN_FLAG_DhcpRegistryFix: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SCAN_FLAG = 0
-DHCP_SCAN_FLAG_DhcpDatabaseFix: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SCAN_FLAG = 1
+DhcpRegistryFix: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SCAN_FLAG = 0
+DhcpDatabaseFix: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SCAN_FLAG = 1
 class DHCP_SCAN_ITEM(EasyCastStructure):
     IpAddress: UInt32
     ScanFlag: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SCAN_FLAG
@@ -1462,13 +1462,13 @@ class DHCP_SEARCH_INFO(EasyCastStructure):
         ClientHardwareAddress: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_BINARY_DATA
         ClientName: win32more.Windows.Win32.Foundation.PWSTR
 DHCP_SEARCH_INFO_TYPE = Int32
-DHCP_SEARCH_INFO_TYPE_DhcpClientIpAddress: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SEARCH_INFO_TYPE = 0
-DHCP_SEARCH_INFO_TYPE_DhcpClientHardwareAddress: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SEARCH_INFO_TYPE = 1
-DHCP_SEARCH_INFO_TYPE_DhcpClientName: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SEARCH_INFO_TYPE = 2
+DhcpClientIpAddress: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SEARCH_INFO_TYPE = 0
+DhcpClientHardwareAddress: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SEARCH_INFO_TYPE = 1
+DhcpClientName: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SEARCH_INFO_TYPE = 2
 DHCP_SEARCH_INFO_TYPE_V6 = Int32
-DHCP_SEARCH_INFO_TYPE_V6_Dhcpv6ClientIpAddress: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SEARCH_INFO_TYPE_V6 = 0
-DHCP_SEARCH_INFO_TYPE_V6_Dhcpv6ClientDUID: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SEARCH_INFO_TYPE_V6 = 1
-DHCP_SEARCH_INFO_TYPE_V6_Dhcpv6ClientName: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SEARCH_INFO_TYPE_V6 = 2
+Dhcpv6ClientIpAddress: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SEARCH_INFO_TYPE_V6 = 0
+Dhcpv6ClientDUID: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SEARCH_INFO_TYPE_V6 = 1
+Dhcpv6ClientName: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SEARCH_INFO_TYPE_V6 = 2
 class DHCP_SEARCH_INFO_V6(EasyCastStructure):
     SearchType: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SEARCH_INFO_TYPE_V6
     SearchInfo: _DHCP_CLIENT_SEARCH_UNION_V6
@@ -1603,18 +1603,18 @@ class DHCP_SUBNET_ELEMENT_INFO_ARRAY_V6(EasyCastStructure):
     NumElements: UInt32
     Elements: POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_DATA_V6)
 DHCP_SUBNET_ELEMENT_TYPE = Int32
-DHCP_SUBNET_ELEMENT_TYPE_DhcpIpRanges: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_TYPE = 0
-DHCP_SUBNET_ELEMENT_TYPE_DhcpSecondaryHosts: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_TYPE = 1
-DHCP_SUBNET_ELEMENT_TYPE_DhcpReservedIps: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_TYPE = 2
-DHCP_SUBNET_ELEMENT_TYPE_DhcpExcludedIpRanges: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_TYPE = 3
-DHCP_SUBNET_ELEMENT_TYPE_DhcpIpUsedClusters: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_TYPE = 4
-DHCP_SUBNET_ELEMENT_TYPE_DhcpIpRangesDhcpOnly: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_TYPE = 5
-DHCP_SUBNET_ELEMENT_TYPE_DhcpIpRangesDhcpBootp: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_TYPE = 6
-DHCP_SUBNET_ELEMENT_TYPE_DhcpIpRangesBootpOnly: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_TYPE = 7
+DhcpIpRanges: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_TYPE = 0
+DhcpSecondaryHosts: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_TYPE = 1
+DhcpReservedIps: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_TYPE = 2
+DhcpExcludedIpRanges: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_TYPE = 3
+DhcpIpUsedClusters: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_TYPE = 4
+DhcpIpRangesDhcpOnly: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_TYPE = 5
+DhcpIpRangesDhcpBootp: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_TYPE = 6
+DhcpIpRangesBootpOnly: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_TYPE = 7
 DHCP_SUBNET_ELEMENT_TYPE_V6 = Int32
-DHCP_SUBNET_ELEMENT_TYPE_V6_Dhcpv6IpRanges: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_TYPE_V6 = 0
-DHCP_SUBNET_ELEMENT_TYPE_V6_Dhcpv6ReservedIps: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_TYPE_V6 = 1
-DHCP_SUBNET_ELEMENT_TYPE_V6_Dhcpv6ExcludedIpRanges: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_TYPE_V6 = 2
+Dhcpv6IpRanges: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_TYPE_V6 = 0
+Dhcpv6ReservedIps: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_TYPE_V6 = 1
+Dhcpv6ExcludedIpRanges: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_TYPE_V6 = 2
 class DHCP_SUBNET_INFO(EasyCastStructure):
     SubnetAddress: UInt32
     SubnetMask: UInt32
@@ -1643,11 +1643,11 @@ class DHCP_SUBNET_INFO_VQ(EasyCastStructure):
     Reserved3: Int64
     Reserved4: Int64
 DHCP_SUBNET_STATE = Int32
-DHCP_SUBNET_STATE_DhcpSubnetEnabled: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SUBNET_STATE = 0
-DHCP_SUBNET_STATE_DhcpSubnetDisabled: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SUBNET_STATE = 1
-DHCP_SUBNET_STATE_DhcpSubnetEnabledSwitched: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SUBNET_STATE = 2
-DHCP_SUBNET_STATE_DhcpSubnetDisabledSwitched: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SUBNET_STATE = 3
-DHCP_SUBNET_STATE_DhcpSubnetInvalidState: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SUBNET_STATE = 4
+DhcpSubnetEnabled: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SUBNET_STATE = 0
+DhcpSubnetDisabled: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SUBNET_STATE = 1
+DhcpSubnetEnabledSwitched: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SUBNET_STATE = 2
+DhcpSubnetDisabledSwitched: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SUBNET_STATE = 3
+DhcpSubnetInvalidState: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SUBNET_STATE = 4
 class DHCP_SUPER_SCOPE_TABLE(EasyCastStructure):
     cEntries: UInt32
     pEntries: POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SUPER_SCOPE_TABLE_ENTRY)

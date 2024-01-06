@@ -977,12 +977,12 @@ class CPU_INFO_v2(EasyCastStructure):
     ProcInfo: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.DEBUG_PROCESSOR_IDENTIFICATION_ALL * 1280
     Mhz: UInt32
 CallingConventionKind = Int32
-CallingConventionKind_CallingConventionUnknown: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.CallingConventionKind = 0
-CallingConventionKind_CallingConventionCDecl: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.CallingConventionKind = 1
-CallingConventionKind_CallingConventionFastCall: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.CallingConventionKind = 2
-CallingConventionKind_CallingConventionStdCall: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.CallingConventionKind = 3
-CallingConventionKind_CallingConventionSysCall: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.CallingConventionKind = 4
-CallingConventionKind_CallingConventionThisCall: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.CallingConventionKind = 5
+CallingConventionUnknown: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.CallingConventionKind = 0
+CallingConventionCDecl: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.CallingConventionKind = 1
+CallingConventionFastCall: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.CallingConventionKind = 2
+CallingConventionStdCall: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.CallingConventionKind = 3
+CallingConventionSysCall: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.CallingConventionKind = 4
+CallingConventionThisCall: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.CallingConventionKind = 5
 class DBGKD_DEBUG_DATA_HEADER32(EasyCastStructure):
     List: win32more.Windows.Win32.System.Kernel.LIST_ENTRY32
     OwnerTag: UInt32
@@ -2054,13 +2054,13 @@ class DEBUG_POOL_DATA(EasyCastStructure):
         class _Anonymous_e__Struct(EasyCastStructure):
             _bitfield: UInt32
 DEBUG_POOL_REGION = Int32
-DEBUG_POOL_REGION_DbgPoolRegionUnknown: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.DEBUG_POOL_REGION = 0
-DEBUG_POOL_REGION_DbgPoolRegionSpecial: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.DEBUG_POOL_REGION = 1
-DEBUG_POOL_REGION_DbgPoolRegionPaged: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.DEBUG_POOL_REGION = 2
-DEBUG_POOL_REGION_DbgPoolRegionNonPaged: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.DEBUG_POOL_REGION = 3
-DEBUG_POOL_REGION_DbgPoolRegionNonPagedExpansion: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.DEBUG_POOL_REGION = 4
-DEBUG_POOL_REGION_DbgPoolRegionSessionPaged: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.DEBUG_POOL_REGION = 5
-DEBUG_POOL_REGION_DbgPoolRegionMax: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.DEBUG_POOL_REGION = 6
+DbgPoolRegionUnknown: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.DEBUG_POOL_REGION = 0
+DbgPoolRegionSpecial: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.DEBUG_POOL_REGION = 1
+DbgPoolRegionPaged: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.DEBUG_POOL_REGION = 2
+DbgPoolRegionNonPaged: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.DEBUG_POOL_REGION = 3
+DbgPoolRegionNonPagedExpansion: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.DEBUG_POOL_REGION = 4
+DbgPoolRegionSessionPaged: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.DEBUG_POOL_REGION = 5
+DbgPoolRegionMax: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.DEBUG_POOL_REGION = 6
 class DEBUG_PROCESSOR_IDENTIFICATION_ALL(EasyCastUnion):
     Alpha: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.DEBUG_PROCESSOR_IDENTIFICATION_ALPHA
     Amd64: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.DEBUG_PROCESSOR_IDENTIFICATION_AMD64
@@ -2386,8 +2386,8 @@ class EXT_TYPED_DATA(EasyCastStructure):
 @winfunctype_pointer
 def EXT_XML_DATA(Client: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.IDebugClient4, pXmpData: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.EXT_CAB_XML_DATA)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 ErrorClass = Int32
-ErrorClass_ErrorClassWarning: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ErrorClass = 0
-ErrorClass_ErrorClassError: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ErrorClass = 1
+ErrorClassWarning: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ErrorClass = 0
+ErrorClassError: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ErrorClass = 1
 class FA_ENTRY(EasyCastStructure):
     Tag: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.DEBUG_FLR_PARAM_TYPE
     FullSize: UInt16
@@ -8646,18 +8646,18 @@ class IStringDisplayableConcept(ComPtr):
     @commethod(3)
     def ToDisplayString(self, contextObject: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.IModelObject, metadata: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.IKeyStore, displayString: POINTER(win32more.Windows.Win32.Foundation.BSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 IntrinsicKind = Int32
-IntrinsicKind_IntrinsicVoid: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.IntrinsicKind = 0
-IntrinsicKind_IntrinsicBool: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.IntrinsicKind = 1
-IntrinsicKind_IntrinsicChar: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.IntrinsicKind = 2
-IntrinsicKind_IntrinsicWChar: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.IntrinsicKind = 3
-IntrinsicKind_IntrinsicInt: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.IntrinsicKind = 4
-IntrinsicKind_IntrinsicUInt: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.IntrinsicKind = 5
-IntrinsicKind_IntrinsicLong: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.IntrinsicKind = 6
-IntrinsicKind_IntrinsicULong: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.IntrinsicKind = 7
-IntrinsicKind_IntrinsicFloat: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.IntrinsicKind = 8
-IntrinsicKind_IntrinsicHRESULT: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.IntrinsicKind = 9
-IntrinsicKind_IntrinsicChar16: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.IntrinsicKind = 10
-IntrinsicKind_IntrinsicChar32: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.IntrinsicKind = 11
+IntrinsicVoid: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.IntrinsicKind = 0
+IntrinsicBool: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.IntrinsicKind = 1
+IntrinsicChar: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.IntrinsicKind = 2
+IntrinsicWChar: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.IntrinsicKind = 3
+IntrinsicInt: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.IntrinsicKind = 4
+IntrinsicUInt: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.IntrinsicKind = 5
+IntrinsicLong: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.IntrinsicKind = 6
+IntrinsicULong: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.IntrinsicKind = 7
+IntrinsicFloat: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.IntrinsicKind = 8
+IntrinsicHRESULT: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.IntrinsicKind = 9
+IntrinsicChar16: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.IntrinsicKind = 10
+IntrinsicChar32: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.IntrinsicKind = 11
 class KDDEBUGGER_DATA32(EasyCastStructure):
     Header: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.DBGKD_DEBUG_DATA_HEADER32
     KernBase: UInt32
@@ -8940,29 +8940,29 @@ class KDEXT_THREAD_FIND_PARAMS(EasyCastStructure):
     Cid: UInt32
     Thread: UInt64
 LanguageKind = Int32
-LanguageKind_LanguageUnknown: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.LanguageKind = 0
-LanguageKind_LanguageC: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.LanguageKind = 1
-LanguageKind_LanguageCPP: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.LanguageKind = 2
-LanguageKind_LanguageAssembly: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.LanguageKind = 3
+LanguageUnknown: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.LanguageKind = 0
+LanguageC: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.LanguageKind = 1
+LanguageCPP: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.LanguageKind = 2
+LanguageAssembly: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.LanguageKind = 3
 class Location(EasyCastStructure):
     HostDefined: UInt64
     Offset: UInt64
 LocationKind = Int32
-LocationKind_LocationMember: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.LocationKind = 0
-LocationKind_LocationStatic: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.LocationKind = 1
-LocationKind_LocationConstant: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.LocationKind = 2
-LocationKind_LocationNone: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.LocationKind = 3
+LocationMember: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.LocationKind = 0
+LocationStatic: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.LocationKind = 1
+LocationConstant: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.LocationKind = 2
+LocationNone: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.LocationKind = 3
 ModelObjectKind = Int32
-ModelObjectKind_ObjectPropertyAccessor: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ModelObjectKind = 0
-ModelObjectKind_ObjectContext: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ModelObjectKind = 1
-ModelObjectKind_ObjectTargetObject: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ModelObjectKind = 2
-ModelObjectKind_ObjectTargetObjectReference: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ModelObjectKind = 3
-ModelObjectKind_ObjectSynthetic: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ModelObjectKind = 4
-ModelObjectKind_ObjectNoValue: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ModelObjectKind = 5
-ModelObjectKind_ObjectError: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ModelObjectKind = 6
-ModelObjectKind_ObjectIntrinsic: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ModelObjectKind = 7
-ModelObjectKind_ObjectMethod: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ModelObjectKind = 8
-ModelObjectKind_ObjectKeyReference: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ModelObjectKind = 9
+ObjectPropertyAccessor: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ModelObjectKind = 0
+ObjectContext: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ModelObjectKind = 1
+ObjectTargetObject: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ModelObjectKind = 2
+ObjectTargetObjectReference: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ModelObjectKind = 3
+ObjectSynthetic: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ModelObjectKind = 4
+ObjectNoValue: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ModelObjectKind = 5
+ObjectError: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ModelObjectKind = 6
+ObjectIntrinsic: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ModelObjectKind = 7
+ObjectMethod: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ModelObjectKind = 8
+ObjectKeyReference: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ModelObjectKind = 9
 class OS_INFO(EasyCastStructure):
     MajorVer: UInt32
     MinorVer: UInt32
@@ -9191,28 +9191,28 @@ def PWINDBG_WRITE_PROCESS_MEMORY_ROUTINE32(offset: UInt32, lpBuffer: VoidPtr, cb
 @winfunctype_pointer
 def PWINDBG_WRITE_PROCESS_MEMORY_ROUTINE64(offset: UInt64, lpBuffer: VoidPtr, cb: UInt32, lpcbBytesWritten: POINTER(UInt32)) -> UInt32: ...
 PointerKind = Int32
-PointerKind_PointerStandard: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.PointerKind = 0
-PointerKind_PointerReference: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.PointerKind = 1
-PointerKind_PointerRValueReference: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.PointerKind = 2
-PointerKind_PointerCXHat: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.PointerKind = 3
-PointerKind_PointerManagedReference: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.PointerKind = 4
+PointerStandard: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.PointerKind = 0
+PointerReference: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.PointerKind = 1
+PointerRValueReference: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.PointerKind = 2
+PointerCXHat: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.PointerKind = 3
+PointerManagedReference: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.PointerKind = 4
 PreferredFormat = Int32
-PreferredFormat_FormatNone: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.PreferredFormat = 0
-PreferredFormat_FormatSingleCharacter: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.PreferredFormat = 1
-PreferredFormat_FormatQuotedString: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.PreferredFormat = 2
-PreferredFormat_FormatString: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.PreferredFormat = 3
-PreferredFormat_FormatQuotedUnicodeString: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.PreferredFormat = 4
-PreferredFormat_FormatUnicodeString: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.PreferredFormat = 5
-PreferredFormat_FormatQuotedUTF8String: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.PreferredFormat = 6
-PreferredFormat_FormatUTF8String: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.PreferredFormat = 7
-PreferredFormat_FormatBSTRString: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.PreferredFormat = 8
-PreferredFormat_FormatQuotedHString: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.PreferredFormat = 9
-PreferredFormat_FormatHString: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.PreferredFormat = 10
-PreferredFormat_FormatRaw: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.PreferredFormat = 11
-PreferredFormat_FormatEnumNameOnly: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.PreferredFormat = 12
-PreferredFormat_FormatEscapedStringWithQuote: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.PreferredFormat = 13
-PreferredFormat_FormatUTF32String: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.PreferredFormat = 14
-PreferredFormat_FormatQuotedUTF32String: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.PreferredFormat = 15
+FormatNone: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.PreferredFormat = 0
+FormatSingleCharacter: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.PreferredFormat = 1
+FormatQuotedString: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.PreferredFormat = 2
+FormatString: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.PreferredFormat = 3
+FormatQuotedUnicodeString: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.PreferredFormat = 4
+FormatUnicodeString: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.PreferredFormat = 5
+FormatQuotedUTF8String: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.PreferredFormat = 6
+FormatUTF8String: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.PreferredFormat = 7
+FormatBSTRString: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.PreferredFormat = 8
+FormatQuotedHString: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.PreferredFormat = 9
+FormatHString: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.PreferredFormat = 10
+FormatRaw: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.PreferredFormat = 11
+FormatEnumNameOnly: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.PreferredFormat = 12
+FormatEscapedStringWithQuote: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.PreferredFormat = 13
+FormatUTF32String: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.PreferredFormat = 14
+FormatQuotedUTF32String: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.PreferredFormat = 15
 class READCONTROLSPACE(EasyCastStructure):
     Processor: UInt16
     Address: UInt32
@@ -9232,8 +9232,8 @@ class READ_WRITE_MSR(EasyCastStructure):
     Msr: UInt32
     Value: Int64
 RawSearchFlags = Int32
-RawSearchFlags_RawSearchNone: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.RawSearchFlags = 0
-RawSearchFlags_RawSearchNoBases: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.RawSearchFlags = 1
+RawSearchNone: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.RawSearchFlags = 0
+RawSearchNoBases: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.RawSearchFlags = 1
 class SEARCHMEMORY(EasyCastStructure):
     SearchAddress: UInt64
     SearchLength: UInt64
@@ -9276,17 +9276,17 @@ class SYM_DUMP_PARAM(EasyCastStructure):
         Context: VoidPtr
         pBuffer: VoidPtr
 ScriptChangeKind = Int32
-ScriptChangeKind_ScriptRename: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ScriptChangeKind = 0
+ScriptRename: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ScriptChangeKind = 0
 ScriptDebugEvent = Int32
-ScriptDebugEvent_ScriptDebugBreakpoint: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ScriptDebugEvent = 0
-ScriptDebugEvent_ScriptDebugStep: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ScriptDebugEvent = 1
-ScriptDebugEvent_ScriptDebugException: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ScriptDebugEvent = 2
-ScriptDebugEvent_ScriptDebugAsyncBreak: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ScriptDebugEvent = 3
+ScriptDebugBreakpoint: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ScriptDebugEvent = 0
+ScriptDebugStep: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ScriptDebugEvent = 1
+ScriptDebugException: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ScriptDebugEvent = 2
+ScriptDebugAsyncBreak: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ScriptDebugEvent = 3
 ScriptDebugEventFilter = Int32
-ScriptDebugEventFilter_ScriptDebugEventFilterEntry: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ScriptDebugEventFilter = 0
-ScriptDebugEventFilter_ScriptDebugEventFilterException: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ScriptDebugEventFilter = 1
-ScriptDebugEventFilter_ScriptDebugEventFilterUnhandledException: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ScriptDebugEventFilter = 2
-ScriptDebugEventFilter_ScriptDebugEventFilterAbort: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ScriptDebugEventFilter = 3
+ScriptDebugEventFilterEntry: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ScriptDebugEventFilter = 0
+ScriptDebugEventFilterException: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ScriptDebugEventFilter = 1
+ScriptDebugEventFilterUnhandledException: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ScriptDebugEventFilter = 2
+ScriptDebugEventFilterAbort: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ScriptDebugEventFilter = 3
 class ScriptDebugEventInformation(EasyCastStructure):
     DebugEvent: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ScriptDebugEvent
     EventPosition: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ScriptDebugPosition
@@ -9303,35 +9303,35 @@ class ScriptDebugPosition(EasyCastStructure):
     Line: UInt32
     Column: UInt32
 ScriptDebugState = Int32
-ScriptDebugState_ScriptDebugNoDebugger: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ScriptDebugState = 0
-ScriptDebugState_ScriptDebugNotExecuting: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ScriptDebugState = 1
-ScriptDebugState_ScriptDebugExecuting: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ScriptDebugState = 2
-ScriptDebugState_ScriptDebugBreak: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ScriptDebugState = 3
+ScriptDebugNoDebugger: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ScriptDebugState = 0
+ScriptDebugNotExecuting: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ScriptDebugState = 1
+ScriptDebugExecuting: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ScriptDebugState = 2
+ScriptDebugBreak: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ScriptDebugState = 3
 ScriptExecutionKind = Int32
-ScriptExecutionKind_ScriptExecutionNormal: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ScriptExecutionKind = 0
-ScriptExecutionKind_ScriptExecutionStepIn: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ScriptExecutionKind = 1
-ScriptExecutionKind_ScriptExecutionStepOut: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ScriptExecutionKind = 2
-ScriptExecutionKind_ScriptExecutionStepOver: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ScriptExecutionKind = 3
+ScriptExecutionNormal: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ScriptExecutionKind = 0
+ScriptExecutionStepIn: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ScriptExecutionKind = 1
+ScriptExecutionStepOut: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ScriptExecutionKind = 2
+ScriptExecutionStepOver: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ScriptExecutionKind = 3
 SignatureComparison = Int32
-SignatureComparison_Unrelated: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.SignatureComparison = 0
-SignatureComparison_Ambiguous: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.SignatureComparison = 1
-SignatureComparison_LessSpecific: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.SignatureComparison = 2
-SignatureComparison_MoreSpecific: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.SignatureComparison = 3
-SignatureComparison_Identical: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.SignatureComparison = 4
+Unrelated: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.SignatureComparison = 0
+Ambiguous: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.SignatureComparison = 1
+LessSpecific: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.SignatureComparison = 2
+MoreSpecific: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.SignatureComparison = 3
+Identical: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.SignatureComparison = 4
 SymbolKind = Int32
-SymbolKind_Symbol: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.SymbolKind = 0
-SymbolKind_SymbolModule: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.SymbolKind = 1
-SymbolKind_SymbolType: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.SymbolKind = 2
-SymbolKind_SymbolField: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.SymbolKind = 3
-SymbolKind_SymbolConstant: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.SymbolKind = 4
-SymbolKind_SymbolData: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.SymbolKind = 5
-SymbolKind_SymbolBaseClass: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.SymbolKind = 6
-SymbolKind_SymbolPublic: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.SymbolKind = 7
-SymbolKind_SymbolFunction: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.SymbolKind = 8
+Symbol: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.SymbolKind = 0
+SymbolModule: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.SymbolKind = 1
+SymbolType: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.SymbolKind = 2
+SymbolField: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.SymbolKind = 3
+SymbolConstant: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.SymbolKind = 4
+SymbolData: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.SymbolKind = 5
+SymbolBaseClass: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.SymbolKind = 6
+SymbolPublic: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.SymbolKind = 7
+SymbolFunction: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.SymbolKind = 8
 SymbolSearchOptions = Int32
-SymbolSearchOptions_SymbolSearchNone: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.SymbolSearchOptions = 0
-SymbolSearchOptions_SymbolSearchCompletion: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.SymbolSearchOptions = 1
-SymbolSearchOptions_SymbolSearchCaseInsensitive: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.SymbolSearchOptions = 2
+SymbolSearchNone: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.SymbolSearchOptions = 0
+SymbolSearchCompletion: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.SymbolSearchOptions = 1
+SymbolSearchCaseInsensitive: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.SymbolSearchOptions = 2
 TANALYZE_RETURN = Int32
 NO_TYPE: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.TANALYZE_RETURN = 0
 PROCESS_END: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.TANALYZE_RETURN = 1
@@ -9377,15 +9377,15 @@ class TRANSLATE_VIRTUAL_TO_PHYSICAL(EasyCastStructure):
     Virtual: UInt64
     Physical: UInt64
 TypeKind = Int32
-TypeKind_TypeUDT: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.TypeKind = 0
-TypeKind_TypePointer: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.TypeKind = 1
-TypeKind_TypeMemberPointer: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.TypeKind = 2
-TypeKind_TypeArray: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.TypeKind = 3
-TypeKind_TypeFunction: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.TypeKind = 4
-TypeKind_TypeTypedef: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.TypeKind = 5
-TypeKind_TypeEnum: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.TypeKind = 6
-TypeKind_TypeIntrinsic: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.TypeKind = 7
-TypeKind_TypeExtendedArray: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.TypeKind = 8
+TypeUDT: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.TypeKind = 0
+TypePointer: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.TypeKind = 1
+TypeMemberPointer: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.TypeKind = 2
+TypeArray: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.TypeKind = 3
+TypeFunction: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.TypeKind = 4
+TypeTypedef: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.TypeKind = 5
+TypeEnum: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.TypeKind = 6
+TypeIntrinsic: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.TypeKind = 7
+TypeExtendedArray: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.TypeKind = 8
 class VIRTUAL_TO_PHYSICAL(EasyCastStructure):
     Status: UInt32
     Size: UInt32
@@ -9393,8 +9393,8 @@ class VIRTUAL_TO_PHYSICAL(EasyCastStructure):
     Virtual: UInt64
     Physical: UInt64
 VarArgsKind = Int32
-VarArgsKind_VarArgsNone: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.VarArgsKind = 0
-VarArgsKind_VarArgsCStyle: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.VarArgsKind = 1
+VarArgsNone: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.VarArgsKind = 0
+VarArgsCStyle: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.VarArgsKind = 1
 class WDBGEXTS_CLR_DATA_INTERFACE(EasyCastStructure):
     Iid: POINTER(Guid)
     Iface: VoidPtr

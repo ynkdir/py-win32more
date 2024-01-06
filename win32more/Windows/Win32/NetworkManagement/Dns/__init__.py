@@ -387,30 +387,30 @@ class DNS_ATMA_DATA(EasyCastStructure):
 class DNS_A_DATA(EasyCastStructure):
     IpAddress: UInt32
 DNS_CHARSET = Int32
-DNS_CHARSET_DnsCharSetUnknown: win32more.Windows.Win32.NetworkManagement.Dns.DNS_CHARSET = 0
-DNS_CHARSET_DnsCharSetUnicode: win32more.Windows.Win32.NetworkManagement.Dns.DNS_CHARSET = 1
-DNS_CHARSET_DnsCharSetUtf8: win32more.Windows.Win32.NetworkManagement.Dns.DNS_CHARSET = 2
-DNS_CHARSET_DnsCharSetAnsi: win32more.Windows.Win32.NetworkManagement.Dns.DNS_CHARSET = 3
+DnsCharSetUnknown: win32more.Windows.Win32.NetworkManagement.Dns.DNS_CHARSET = 0
+DnsCharSetUnicode: win32more.Windows.Win32.NetworkManagement.Dns.DNS_CHARSET = 1
+DnsCharSetUtf8: win32more.Windows.Win32.NetworkManagement.Dns.DNS_CHARSET = 2
+DnsCharSetAnsi: win32more.Windows.Win32.NetworkManagement.Dns.DNS_CHARSET = 3
 DNS_CONFIG_TYPE = Int32
-DNS_CONFIG_TYPE_DnsConfigPrimaryDomainName_W: win32more.Windows.Win32.NetworkManagement.Dns.DNS_CONFIG_TYPE = 0
-DNS_CONFIG_TYPE_DnsConfigPrimaryDomainName_A: win32more.Windows.Win32.NetworkManagement.Dns.DNS_CONFIG_TYPE = 1
-DNS_CONFIG_TYPE_DnsConfigPrimaryDomainName_UTF8: win32more.Windows.Win32.NetworkManagement.Dns.DNS_CONFIG_TYPE = 2
-DNS_CONFIG_TYPE_DnsConfigAdapterDomainName_W: win32more.Windows.Win32.NetworkManagement.Dns.DNS_CONFIG_TYPE = 3
-DNS_CONFIG_TYPE_DnsConfigAdapterDomainName_A: win32more.Windows.Win32.NetworkManagement.Dns.DNS_CONFIG_TYPE = 4
-DNS_CONFIG_TYPE_DnsConfigAdapterDomainName_UTF8: win32more.Windows.Win32.NetworkManagement.Dns.DNS_CONFIG_TYPE = 5
-DNS_CONFIG_TYPE_DnsConfigDnsServerList: win32more.Windows.Win32.NetworkManagement.Dns.DNS_CONFIG_TYPE = 6
-DNS_CONFIG_TYPE_DnsConfigSearchList: win32more.Windows.Win32.NetworkManagement.Dns.DNS_CONFIG_TYPE = 7
-DNS_CONFIG_TYPE_DnsConfigAdapterInfo: win32more.Windows.Win32.NetworkManagement.Dns.DNS_CONFIG_TYPE = 8
-DNS_CONFIG_TYPE_DnsConfigPrimaryHostNameRegistrationEnabled: win32more.Windows.Win32.NetworkManagement.Dns.DNS_CONFIG_TYPE = 9
-DNS_CONFIG_TYPE_DnsConfigAdapterHostNameRegistrationEnabled: win32more.Windows.Win32.NetworkManagement.Dns.DNS_CONFIG_TYPE = 10
-DNS_CONFIG_TYPE_DnsConfigAddressRegistrationMaxCount: win32more.Windows.Win32.NetworkManagement.Dns.DNS_CONFIG_TYPE = 11
-DNS_CONFIG_TYPE_DnsConfigHostName_W: win32more.Windows.Win32.NetworkManagement.Dns.DNS_CONFIG_TYPE = 12
-DNS_CONFIG_TYPE_DnsConfigHostName_A: win32more.Windows.Win32.NetworkManagement.Dns.DNS_CONFIG_TYPE = 13
-DNS_CONFIG_TYPE_DnsConfigHostName_UTF8: win32more.Windows.Win32.NetworkManagement.Dns.DNS_CONFIG_TYPE = 14
-DNS_CONFIG_TYPE_DnsConfigFullHostName_W: win32more.Windows.Win32.NetworkManagement.Dns.DNS_CONFIG_TYPE = 15
-DNS_CONFIG_TYPE_DnsConfigFullHostName_A: win32more.Windows.Win32.NetworkManagement.Dns.DNS_CONFIG_TYPE = 16
-DNS_CONFIG_TYPE_DnsConfigFullHostName_UTF8: win32more.Windows.Win32.NetworkManagement.Dns.DNS_CONFIG_TYPE = 17
-DNS_CONFIG_TYPE_DnsConfigNameServer: win32more.Windows.Win32.NetworkManagement.Dns.DNS_CONFIG_TYPE = 18
+DnsConfigPrimaryDomainName_W: win32more.Windows.Win32.NetworkManagement.Dns.DNS_CONFIG_TYPE = 0
+DnsConfigPrimaryDomainName_A: win32more.Windows.Win32.NetworkManagement.Dns.DNS_CONFIG_TYPE = 1
+DnsConfigPrimaryDomainName_UTF8: win32more.Windows.Win32.NetworkManagement.Dns.DNS_CONFIG_TYPE = 2
+DnsConfigAdapterDomainName_W: win32more.Windows.Win32.NetworkManagement.Dns.DNS_CONFIG_TYPE = 3
+DnsConfigAdapterDomainName_A: win32more.Windows.Win32.NetworkManagement.Dns.DNS_CONFIG_TYPE = 4
+DnsConfigAdapterDomainName_UTF8: win32more.Windows.Win32.NetworkManagement.Dns.DNS_CONFIG_TYPE = 5
+DnsConfigDnsServerList: win32more.Windows.Win32.NetworkManagement.Dns.DNS_CONFIG_TYPE = 6
+DnsConfigSearchList: win32more.Windows.Win32.NetworkManagement.Dns.DNS_CONFIG_TYPE = 7
+DnsConfigAdapterInfo: win32more.Windows.Win32.NetworkManagement.Dns.DNS_CONFIG_TYPE = 8
+DnsConfigPrimaryHostNameRegistrationEnabled: win32more.Windows.Win32.NetworkManagement.Dns.DNS_CONFIG_TYPE = 9
+DnsConfigAdapterHostNameRegistrationEnabled: win32more.Windows.Win32.NetworkManagement.Dns.DNS_CONFIG_TYPE = 10
+DnsConfigAddressRegistrationMaxCount: win32more.Windows.Win32.NetworkManagement.Dns.DNS_CONFIG_TYPE = 11
+DnsConfigHostName_W: win32more.Windows.Win32.NetworkManagement.Dns.DNS_CONFIG_TYPE = 12
+DnsConfigHostName_A: win32more.Windows.Win32.NetworkManagement.Dns.DNS_CONFIG_TYPE = 13
+DnsConfigHostName_UTF8: win32more.Windows.Win32.NetworkManagement.Dns.DNS_CONFIG_TYPE = 14
+DnsConfigFullHostName_W: win32more.Windows.Win32.NetworkManagement.Dns.DNS_CONFIG_TYPE = 15
+DnsConfigFullHostName_A: win32more.Windows.Win32.NetworkManagement.Dns.DNS_CONFIG_TYPE = 16
+DnsConfigFullHostName_UTF8: win32more.Windows.Win32.NetworkManagement.Dns.DNS_CONFIG_TYPE = 17
+DnsConfigNameServer: win32more.Windows.Win32.NetworkManagement.Dns.DNS_CONFIG_TYPE = 18
 class DNS_CONNECTION_IFINDEX_ENTRY(EasyCastStructure):
     pwszConnectionName: win32more.Windows.Win32.Foundation.PWSTR
     dwIfIndex: UInt32
@@ -499,9 +499,9 @@ class DNS_DS_DATA(EasyCastStructure):
     wPad: UInt16
     Digest: Byte * 1
 DNS_FREE_TYPE = Int32
-DNS_FREE_TYPE_DnsFreeFlat: win32more.Windows.Win32.NetworkManagement.Dns.DNS_FREE_TYPE = 0
-DNS_FREE_TYPE_DnsFreeRecordList: win32more.Windows.Win32.NetworkManagement.Dns.DNS_FREE_TYPE = 1
-DNS_FREE_TYPE_DnsFreeParsedMessageFields: win32more.Windows.Win32.NetworkManagement.Dns.DNS_FREE_TYPE = 2
+DnsFreeFlat: win32more.Windows.Win32.NetworkManagement.Dns.DNS_FREE_TYPE = 0
+DnsFreeRecordList: win32more.Windows.Win32.NetworkManagement.Dns.DNS_FREE_TYPE = 1
+DnsFreeParsedMessageFields: win32more.Windows.Win32.NetworkManagement.Dns.DNS_FREE_TYPE = 2
 class DNS_HEADER(EasyCastStructure):
     Xid: UInt16
     _bitfield1: Byte
@@ -549,13 +549,13 @@ class DNS_MX_DATAW(EasyCastStructure):
     wPreference: UInt16
     Pad: UInt16
 DNS_NAME_FORMAT = Int32
-DNS_NAME_FORMAT_DnsNameDomain: win32more.Windows.Win32.NetworkManagement.Dns.DNS_NAME_FORMAT = 0
-DNS_NAME_FORMAT_DnsNameDomainLabel: win32more.Windows.Win32.NetworkManagement.Dns.DNS_NAME_FORMAT = 1
-DNS_NAME_FORMAT_DnsNameHostnameFull: win32more.Windows.Win32.NetworkManagement.Dns.DNS_NAME_FORMAT = 2
-DNS_NAME_FORMAT_DnsNameHostnameLabel: win32more.Windows.Win32.NetworkManagement.Dns.DNS_NAME_FORMAT = 3
-DNS_NAME_FORMAT_DnsNameWildcard: win32more.Windows.Win32.NetworkManagement.Dns.DNS_NAME_FORMAT = 4
-DNS_NAME_FORMAT_DnsNameSrvRecord: win32more.Windows.Win32.NetworkManagement.Dns.DNS_NAME_FORMAT = 5
-DNS_NAME_FORMAT_DnsNameValidateTld: win32more.Windows.Win32.NetworkManagement.Dns.DNS_NAME_FORMAT = 6
+DnsNameDomain: win32more.Windows.Win32.NetworkManagement.Dns.DNS_NAME_FORMAT = 0
+DnsNameDomainLabel: win32more.Windows.Win32.NetworkManagement.Dns.DNS_NAME_FORMAT = 1
+DnsNameHostnameFull: win32more.Windows.Win32.NetworkManagement.Dns.DNS_NAME_FORMAT = 2
+DnsNameHostnameLabel: win32more.Windows.Win32.NetworkManagement.Dns.DNS_NAME_FORMAT = 3
+DnsNameWildcard: win32more.Windows.Win32.NetworkManagement.Dns.DNS_NAME_FORMAT = 4
+DnsNameSrvRecord: win32more.Windows.Win32.NetworkManagement.Dns.DNS_NAME_FORMAT = 5
+DnsNameValidateTld: win32more.Windows.Win32.NetworkManagement.Dns.DNS_NAME_FORMAT = 6
 class DNS_NAPTR_DATAA(EasyCastStructure):
     wOrder: UInt16
     wPreference: UInt16
@@ -903,10 +903,10 @@ class DNS_RRSET(EasyCastStructure):
     pFirstRR: POINTER(win32more.Windows.Win32.NetworkManagement.Dns.DNS_RECORDA)
     pLastRR: POINTER(win32more.Windows.Win32.NetworkManagement.Dns.DNS_RECORDA)
 DNS_SECTION = Int32
-DNS_SECTION_DnsSectionQuestion: win32more.Windows.Win32.NetworkManagement.Dns.DNS_SECTION = 0
-DNS_SECTION_DnsSectionAnswer: win32more.Windows.Win32.NetworkManagement.Dns.DNS_SECTION = 1
-DNS_SECTION_DnsSectionAuthority: win32more.Windows.Win32.NetworkManagement.Dns.DNS_SECTION = 2
-DNS_SECTION_DnsSectionAddtional: win32more.Windows.Win32.NetworkManagement.Dns.DNS_SECTION = 3
+DnsSectionQuestion: win32more.Windows.Win32.NetworkManagement.Dns.DNS_SECTION = 0
+DnsSectionAnswer: win32more.Windows.Win32.NetworkManagement.Dns.DNS_SECTION = 1
+DnsSectionAuthority: win32more.Windows.Win32.NetworkManagement.Dns.DNS_SECTION = 2
+DnsSectionAddtional: win32more.Windows.Win32.NetworkManagement.Dns.DNS_SECTION = 3
 class DNS_SERVICE_BROWSE_REQUEST(EasyCastStructure):
     Version: UInt32
     InterfaceIndex: UInt32
@@ -1027,16 +1027,16 @@ class DNS_SVCB_PARAM_MANDATORY(EasyCastStructure):
     cMandatoryKeys: UInt16
     rgwMandatoryKeys: UInt16 * 1
 DNS_SVCB_PARAM_TYPE = Int32
-DNS_SVCB_PARAM_TYPE_DnsSvcbParamMandatory: win32more.Windows.Win32.NetworkManagement.Dns.DNS_SVCB_PARAM_TYPE = 0
-DNS_SVCB_PARAM_TYPE_DnsSvcbParamAlpn: win32more.Windows.Win32.NetworkManagement.Dns.DNS_SVCB_PARAM_TYPE = 1
-DNS_SVCB_PARAM_TYPE_DnsSvcbParamNoDefaultAlpn: win32more.Windows.Win32.NetworkManagement.Dns.DNS_SVCB_PARAM_TYPE = 2
-DNS_SVCB_PARAM_TYPE_DnsSvcbParamPort: win32more.Windows.Win32.NetworkManagement.Dns.DNS_SVCB_PARAM_TYPE = 3
-DNS_SVCB_PARAM_TYPE_DnsSvcbParamIpv4Hint: win32more.Windows.Win32.NetworkManagement.Dns.DNS_SVCB_PARAM_TYPE = 4
-DNS_SVCB_PARAM_TYPE_DnsSvcbParamEch: win32more.Windows.Win32.NetworkManagement.Dns.DNS_SVCB_PARAM_TYPE = 5
-DNS_SVCB_PARAM_TYPE_DnsSvcbParamIpv6Hint: win32more.Windows.Win32.NetworkManagement.Dns.DNS_SVCB_PARAM_TYPE = 6
-DNS_SVCB_PARAM_TYPE_DnsSvcbParamDohPath: win32more.Windows.Win32.NetworkManagement.Dns.DNS_SVCB_PARAM_TYPE = 7
-DNS_SVCB_PARAM_TYPE_DnsSvcbParamDohPathQuad9: win32more.Windows.Win32.NetworkManagement.Dns.DNS_SVCB_PARAM_TYPE = 65380
-DNS_SVCB_PARAM_TYPE_DnsSvcbParamDohPathOpenDns: win32more.Windows.Win32.NetworkManagement.Dns.DNS_SVCB_PARAM_TYPE = 65432
+DnsSvcbParamMandatory: win32more.Windows.Win32.NetworkManagement.Dns.DNS_SVCB_PARAM_TYPE = 0
+DnsSvcbParamAlpn: win32more.Windows.Win32.NetworkManagement.Dns.DNS_SVCB_PARAM_TYPE = 1
+DnsSvcbParamNoDefaultAlpn: win32more.Windows.Win32.NetworkManagement.Dns.DNS_SVCB_PARAM_TYPE = 2
+DnsSvcbParamPort: win32more.Windows.Win32.NetworkManagement.Dns.DNS_SVCB_PARAM_TYPE = 3
+DnsSvcbParamIpv4Hint: win32more.Windows.Win32.NetworkManagement.Dns.DNS_SVCB_PARAM_TYPE = 4
+DnsSvcbParamEch: win32more.Windows.Win32.NetworkManagement.Dns.DNS_SVCB_PARAM_TYPE = 5
+DnsSvcbParamIpv6Hint: win32more.Windows.Win32.NetworkManagement.Dns.DNS_SVCB_PARAM_TYPE = 6
+DnsSvcbParamDohPath: win32more.Windows.Win32.NetworkManagement.Dns.DNS_SVCB_PARAM_TYPE = 7
+DnsSvcbParamDohPathQuad9: win32more.Windows.Win32.NetworkManagement.Dns.DNS_SVCB_PARAM_TYPE = 65380
+DnsSvcbParamDohPathOpenDns: win32more.Windows.Win32.NetworkManagement.Dns.DNS_SVCB_PARAM_TYPE = 65432
 class DNS_SVCB_PARAM_UNKNOWN(EasyCastStructure):
     cBytes: UInt16
     pbSvcParamValue: Byte * 1

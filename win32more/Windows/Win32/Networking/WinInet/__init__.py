@@ -16,9 +16,9 @@ class APP_CACHE_DOWNLOAD_LIST(EasyCastStructure):
     dwEntryCount: UInt32
     pEntries: POINTER(win32more.Windows.Win32.Networking.WinInet.APP_CACHE_DOWNLOAD_ENTRY)
 APP_CACHE_FINALIZE_STATE = Int32
-APP_CACHE_FINALIZE_STATE_AppCacheFinalizeStateIncomplete: win32more.Windows.Win32.Networking.WinInet.APP_CACHE_FINALIZE_STATE = 0
-APP_CACHE_FINALIZE_STATE_AppCacheFinalizeStateManifestChange: win32more.Windows.Win32.Networking.WinInet.APP_CACHE_FINALIZE_STATE = 1
-APP_CACHE_FINALIZE_STATE_AppCacheFinalizeStateComplete: win32more.Windows.Win32.Networking.WinInet.APP_CACHE_FINALIZE_STATE = 2
+AppCacheFinalizeStateIncomplete: win32more.Windows.Win32.Networking.WinInet.APP_CACHE_FINALIZE_STATE = 0
+AppCacheFinalizeStateManifestChange: win32more.Windows.Win32.Networking.WinInet.APP_CACHE_FINALIZE_STATE = 1
+AppCacheFinalizeStateComplete: win32more.Windows.Win32.Networking.WinInet.APP_CACHE_FINALIZE_STATE = 2
 class APP_CACHE_GROUP_INFO(EasyCastStructure):
     pwszManifestUrl: win32more.Windows.Win32.Foundation.PWSTR
     ftLastAccessTime: win32more.Windows.Win32.Foundation.FILETIME
@@ -27,10 +27,10 @@ class APP_CACHE_GROUP_LIST(EasyCastStructure):
     dwAppCacheGroupCount: UInt32
     pAppCacheGroups: POINTER(win32more.Windows.Win32.Networking.WinInet.APP_CACHE_GROUP_INFO)
 APP_CACHE_STATE = Int32
-APP_CACHE_STATE_AppCacheStateNoUpdateNeeded: win32more.Windows.Win32.Networking.WinInet.APP_CACHE_STATE = 0
-APP_CACHE_STATE_AppCacheStateUpdateNeeded: win32more.Windows.Win32.Networking.WinInet.APP_CACHE_STATE = 1
-APP_CACHE_STATE_AppCacheStateUpdateNeededNew: win32more.Windows.Win32.Networking.WinInet.APP_CACHE_STATE = 2
-APP_CACHE_STATE_AppCacheStateUpdateNeededMasterOnly: win32more.Windows.Win32.Networking.WinInet.APP_CACHE_STATE = 3
+AppCacheStateNoUpdateNeeded: win32more.Windows.Win32.Networking.WinInet.APP_CACHE_STATE = 0
+AppCacheStateUpdateNeeded: win32more.Windows.Win32.Networking.WinInet.APP_CACHE_STATE = 1
+AppCacheStateUpdateNeededNew: win32more.Windows.Win32.Networking.WinInet.APP_CACHE_STATE = 2
+AppCacheStateUpdateNeededMasterOnly: win32more.Windows.Win32.Networking.WinInet.APP_CACHE_STATE = 3
 class AUTO_PROXY_SCRIPT_BUFFER(EasyCastStructure):
     dwStructSize: UInt32
     lpszScriptBuffer: win32more.Windows.Win32.Foundation.PSTR
@@ -1732,9 +1732,9 @@ class HTTP_PUSH_TRANSPORT_SETTING(EasyCastStructure):
     BrokerEventId: Guid
 HTTP_PUSH_WAIT_HANDLE = IntPtr
 HTTP_PUSH_WAIT_TYPE = Int32
-HTTP_PUSH_WAIT_TYPE_HttpPushWaitEnableComplete: win32more.Windows.Win32.Networking.WinInet.HTTP_PUSH_WAIT_TYPE = 0
-HTTP_PUSH_WAIT_TYPE_HttpPushWaitReceiveComplete: win32more.Windows.Win32.Networking.WinInet.HTTP_PUSH_WAIT_TYPE = 1
-HTTP_PUSH_WAIT_TYPE_HttpPushWaitSendComplete: win32more.Windows.Win32.Networking.WinInet.HTTP_PUSH_WAIT_TYPE = 2
+HttpPushWaitEnableComplete: win32more.Windows.Win32.Networking.WinInet.HTTP_PUSH_WAIT_TYPE = 0
+HttpPushWaitReceiveComplete: win32more.Windows.Win32.Networking.WinInet.HTTP_PUSH_WAIT_TYPE = 1
+HttpPushWaitSendComplete: win32more.Windows.Win32.Networking.WinInet.HTTP_PUSH_WAIT_TYPE = 2
 class HTTP_REQUEST_TIMES(EasyCastStructure):
     cTimes: UInt32
     rgTimes: UInt64 * 32
@@ -2163,13 +2163,13 @@ class ProofOfPossessionCookieInfo(EasyCastStructure):
     p3pHeader: win32more.Windows.Win32.Foundation.PWSTR
 ProofOfPossessionCookieInfoManager = Guid('{a9927f85-a304-4390-8b23-a75f1c668600}')
 REQUEST_TIMES = Int32
-REQUEST_TIMES_NameResolutionStart: win32more.Windows.Win32.Networking.WinInet.REQUEST_TIMES = 0
-REQUEST_TIMES_NameResolutionEnd: win32more.Windows.Win32.Networking.WinInet.REQUEST_TIMES = 1
-REQUEST_TIMES_ConnectionEstablishmentStart: win32more.Windows.Win32.Networking.WinInet.REQUEST_TIMES = 2
-REQUEST_TIMES_ConnectionEstablishmentEnd: win32more.Windows.Win32.Networking.WinInet.REQUEST_TIMES = 3
-REQUEST_TIMES_TLSHandshakeStart: win32more.Windows.Win32.Networking.WinInet.REQUEST_TIMES = 4
-REQUEST_TIMES_TLSHandshakeEnd: win32more.Windows.Win32.Networking.WinInet.REQUEST_TIMES = 5
-REQUEST_TIMES_HttpRequestTimeMax: win32more.Windows.Win32.Networking.WinInet.REQUEST_TIMES = 32
+NameResolutionStart: win32more.Windows.Win32.Networking.WinInet.REQUEST_TIMES = 0
+NameResolutionEnd: win32more.Windows.Win32.Networking.WinInet.REQUEST_TIMES = 1
+ConnectionEstablishmentStart: win32more.Windows.Win32.Networking.WinInet.REQUEST_TIMES = 2
+ConnectionEstablishmentEnd: win32more.Windows.Win32.Networking.WinInet.REQUEST_TIMES = 3
+TLSHandshakeStart: win32more.Windows.Win32.Networking.WinInet.REQUEST_TIMES = 4
+TLSHandshakeEnd: win32more.Windows.Win32.Networking.WinInet.REQUEST_TIMES = 5
+HttpRequestTimeMax: win32more.Windows.Win32.Networking.WinInet.REQUEST_TIMES = 32
 class URLCACHE_ENTRY_INFO(EasyCastStructure):
     pwszSourceUrlName: win32more.Windows.Win32.Foundation.PWSTR
     pwszLocalFileName: win32more.Windows.Win32.Foundation.PWSTR
@@ -2187,11 +2187,11 @@ class URLCACHE_ENTRY_INFO(EasyCastStructure):
     pbExtraData: POINTER(Byte)
     cbExtraDataSize: UInt32
 URL_CACHE_LIMIT_TYPE = Int32
-URL_CACHE_LIMIT_TYPE_UrlCacheLimitTypeIE: win32more.Windows.Win32.Networking.WinInet.URL_CACHE_LIMIT_TYPE = 0
-URL_CACHE_LIMIT_TYPE_UrlCacheLimitTypeIETotal: win32more.Windows.Win32.Networking.WinInet.URL_CACHE_LIMIT_TYPE = 1
-URL_CACHE_LIMIT_TYPE_UrlCacheLimitTypeAppContainer: win32more.Windows.Win32.Networking.WinInet.URL_CACHE_LIMIT_TYPE = 2
-URL_CACHE_LIMIT_TYPE_UrlCacheLimitTypeAppContainerTotal: win32more.Windows.Win32.Networking.WinInet.URL_CACHE_LIMIT_TYPE = 3
-URL_CACHE_LIMIT_TYPE_UrlCacheLimitTypeNum: win32more.Windows.Win32.Networking.WinInet.URL_CACHE_LIMIT_TYPE = 4
+UrlCacheLimitTypeIE: win32more.Windows.Win32.Networking.WinInet.URL_CACHE_LIMIT_TYPE = 0
+UrlCacheLimitTypeIETotal: win32more.Windows.Win32.Networking.WinInet.URL_CACHE_LIMIT_TYPE = 1
+UrlCacheLimitTypeAppContainer: win32more.Windows.Win32.Networking.WinInet.URL_CACHE_LIMIT_TYPE = 2
+UrlCacheLimitTypeAppContainerTotal: win32more.Windows.Win32.Networking.WinInet.URL_CACHE_LIMIT_TYPE = 3
+UrlCacheLimitTypeNum: win32more.Windows.Win32.Networking.WinInet.URL_CACHE_LIMIT_TYPE = 4
 class URL_COMPONENTSA(EasyCastStructure):
     dwStructSize: UInt32
     lpszScheme: win32more.Windows.Win32.Foundation.PSTR

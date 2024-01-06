@@ -76,8 +76,8 @@ class ACL(EasyCastStructure):
     AceCount: UInt16
     Sbz2: UInt16
 ACL_INFORMATION_CLASS = Int32
-ACL_INFORMATION_CLASS_AclRevisionInformation: win32more.Windows.Win32.Security.ACL_INFORMATION_CLASS = 1
-ACL_INFORMATION_CLASS_AclSizeInformation: win32more.Windows.Win32.Security.ACL_INFORMATION_CLASS = 2
+AclRevisionInformation: win32more.Windows.Win32.Security.ACL_INFORMATION_CLASS = 1
+AclSizeInformation: win32more.Windows.Win32.Security.ACL_INFORMATION_CLASS = 2
 class ACL_REVISION_INFORMATION(EasyCastStructure):
     AclRevision: UInt32
 class ACL_SIZE_INFORMATION(EasyCastStructure):
@@ -85,8 +85,8 @@ class ACL_SIZE_INFORMATION(EasyCastStructure):
     AclBytesInUse: UInt32
     AclBytesFree: UInt32
 AUDIT_EVENT_TYPE = Int32
-AUDIT_EVENT_TYPE_AuditEventObjectAccess: win32more.Windows.Win32.Security.AUDIT_EVENT_TYPE = 0
-AUDIT_EVENT_TYPE_AuditEventDirectoryServiceAccess: win32more.Windows.Win32.Security.AUDIT_EVENT_TYPE = 1
+AuditEventObjectAccess: win32more.Windows.Win32.Security.AUDIT_EVENT_TYPE = 0
+AuditEventDirectoryServiceAccess: win32more.Windows.Win32.Security.AUDIT_EVENT_TYPE = 1
 SECURITY_DYNAMIC_TRACKING: win32more.Windows.Win32.Foundation.BOOLEAN = 1
 SECURITY_STATIC_TRACKING: win32more.Windows.Win32.Foundation.BOOLEAN = 0
 SECURITY_NULL_SID_AUTHORITY: win32more.Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY = ConstantLazyLoader((0, 0, 0, 0, 0, 0))
@@ -529,13 +529,13 @@ class LUID_AND_ATTRIBUTES(EasyCastStructure):
     Luid: win32more.Windows.Win32.Foundation.LUID
     Attributes: win32more.Windows.Win32.Security.TOKEN_PRIVILEGES_ATTRIBUTES
 MANDATORY_LEVEL = Int32
-MANDATORY_LEVEL_MandatoryLevelUntrusted: win32more.Windows.Win32.Security.MANDATORY_LEVEL = 0
-MANDATORY_LEVEL_MandatoryLevelLow: win32more.Windows.Win32.Security.MANDATORY_LEVEL = 1
-MANDATORY_LEVEL_MandatoryLevelMedium: win32more.Windows.Win32.Security.MANDATORY_LEVEL = 2
-MANDATORY_LEVEL_MandatoryLevelHigh: win32more.Windows.Win32.Security.MANDATORY_LEVEL = 3
-MANDATORY_LEVEL_MandatoryLevelSystem: win32more.Windows.Win32.Security.MANDATORY_LEVEL = 4
-MANDATORY_LEVEL_MandatoryLevelSecureProcess: win32more.Windows.Win32.Security.MANDATORY_LEVEL = 5
-MANDATORY_LEVEL_MandatoryLevelCount: win32more.Windows.Win32.Security.MANDATORY_LEVEL = 6
+MandatoryLevelUntrusted: win32more.Windows.Win32.Security.MANDATORY_LEVEL = 0
+MandatoryLevelLow: win32more.Windows.Win32.Security.MANDATORY_LEVEL = 1
+MandatoryLevelMedium: win32more.Windows.Win32.Security.MANDATORY_LEVEL = 2
+MandatoryLevelHigh: win32more.Windows.Win32.Security.MANDATORY_LEVEL = 3
+MandatoryLevelSystem: win32more.Windows.Win32.Security.MANDATORY_LEVEL = 4
+MandatoryLevelSecureProcess: win32more.Windows.Win32.Security.MANDATORY_LEVEL = 5
+MandatoryLevelCount: win32more.Windows.Win32.Security.MANDATORY_LEVEL = 6
 NCRYPT_DESCRIPTOR_HANDLE = IntPtr
 NCRYPT_STREAM_HANDLE = IntPtr
 OBJECT_SECURITY_INFORMATION = UInt32
@@ -624,10 +624,10 @@ class SECURITY_DESCRIPTOR_RELATIVE(EasyCastStructure):
     Sacl: UInt32
     Dacl: UInt32
 SECURITY_IMPERSONATION_LEVEL = Int32
-SECURITY_IMPERSONATION_LEVEL_SecurityAnonymous: win32more.Windows.Win32.Security.SECURITY_IMPERSONATION_LEVEL = 0
-SECURITY_IMPERSONATION_LEVEL_SecurityIdentification: win32more.Windows.Win32.Security.SECURITY_IMPERSONATION_LEVEL = 1
-SECURITY_IMPERSONATION_LEVEL_SecurityImpersonation: win32more.Windows.Win32.Security.SECURITY_IMPERSONATION_LEVEL = 2
-SECURITY_IMPERSONATION_LEVEL_SecurityDelegation: win32more.Windows.Win32.Security.SECURITY_IMPERSONATION_LEVEL = 3
+SecurityAnonymous: win32more.Windows.Win32.Security.SECURITY_IMPERSONATION_LEVEL = 0
+SecurityIdentification: win32more.Windows.Win32.Security.SECURITY_IMPERSONATION_LEVEL = 1
+SecurityImpersonation: win32more.Windows.Win32.Security.SECURITY_IMPERSONATION_LEVEL = 2
+SecurityDelegation: win32more.Windows.Win32.Security.SECURITY_IMPERSONATION_LEVEL = 3
 class SECURITY_QUALITY_OF_SERVICE(EasyCastStructure):
     Length: UInt32
     ImpersonationLevel: win32more.Windows.Win32.Security.SECURITY_IMPERSONATION_LEVEL
@@ -678,17 +678,17 @@ class SID_AND_ATTRIBUTES_HASH(EasyCastStructure):
 class SID_IDENTIFIER_AUTHORITY(EasyCastStructure):
     Value: Byte * 6
 SID_NAME_USE = Int32
-SID_NAME_USE_SidTypeUser: win32more.Windows.Win32.Security.SID_NAME_USE = 1
-SID_NAME_USE_SidTypeGroup: win32more.Windows.Win32.Security.SID_NAME_USE = 2
-SID_NAME_USE_SidTypeDomain: win32more.Windows.Win32.Security.SID_NAME_USE = 3
-SID_NAME_USE_SidTypeAlias: win32more.Windows.Win32.Security.SID_NAME_USE = 4
-SID_NAME_USE_SidTypeWellKnownGroup: win32more.Windows.Win32.Security.SID_NAME_USE = 5
-SID_NAME_USE_SidTypeDeletedAccount: win32more.Windows.Win32.Security.SID_NAME_USE = 6
-SID_NAME_USE_SidTypeInvalid: win32more.Windows.Win32.Security.SID_NAME_USE = 7
-SID_NAME_USE_SidTypeUnknown: win32more.Windows.Win32.Security.SID_NAME_USE = 8
-SID_NAME_USE_SidTypeComputer: win32more.Windows.Win32.Security.SID_NAME_USE = 9
-SID_NAME_USE_SidTypeLabel: win32more.Windows.Win32.Security.SID_NAME_USE = 10
-SID_NAME_USE_SidTypeLogonSession: win32more.Windows.Win32.Security.SID_NAME_USE = 11
+SidTypeUser: win32more.Windows.Win32.Security.SID_NAME_USE = 1
+SidTypeGroup: win32more.Windows.Win32.Security.SID_NAME_USE = 2
+SidTypeDomain: win32more.Windows.Win32.Security.SID_NAME_USE = 3
+SidTypeAlias: win32more.Windows.Win32.Security.SID_NAME_USE = 4
+SidTypeWellKnownGroup: win32more.Windows.Win32.Security.SID_NAME_USE = 5
+SidTypeDeletedAccount: win32more.Windows.Win32.Security.SID_NAME_USE = 6
+SidTypeInvalid: win32more.Windows.Win32.Security.SID_NAME_USE = 7
+SidTypeUnknown: win32more.Windows.Win32.Security.SID_NAME_USE = 8
+SidTypeComputer: win32more.Windows.Win32.Security.SID_NAME_USE = 9
+SidTypeLabel: win32more.Windows.Win32.Security.SID_NAME_USE = 10
+SidTypeLogonSession: win32more.Windows.Win32.Security.SID_NAME_USE = 11
 class SYSTEM_ACCESS_FILTER_ACE(EasyCastStructure):
     Header: win32more.Windows.Win32.Security.ACE_HEADER
     Mask: UInt32
@@ -808,9 +808,9 @@ class TOKEN_DEVICE_CLAIMS(EasyCastStructure):
 class TOKEN_ELEVATION(EasyCastStructure):
     TokenIsElevated: UInt32
 TOKEN_ELEVATION_TYPE = Int32
-TOKEN_ELEVATION_TYPE_TokenElevationTypeDefault: win32more.Windows.Win32.Security.TOKEN_ELEVATION_TYPE = 1
-TOKEN_ELEVATION_TYPE_TokenElevationTypeFull: win32more.Windows.Win32.Security.TOKEN_ELEVATION_TYPE = 2
-TOKEN_ELEVATION_TYPE_TokenElevationTypeLimited: win32more.Windows.Win32.Security.TOKEN_ELEVATION_TYPE = 3
+TokenElevationTypeDefault: win32more.Windows.Win32.Security.TOKEN_ELEVATION_TYPE = 1
+TokenElevationTypeFull: win32more.Windows.Win32.Security.TOKEN_ELEVATION_TYPE = 2
+TokenElevationTypeLimited: win32more.Windows.Win32.Security.TOKEN_ELEVATION_TYPE = 3
 class TOKEN_GROUPS(EasyCastStructure):
     GroupCount: UInt32
     Groups: win32more.Windows.Win32.Security.SID_AND_ATTRIBUTES * 1
@@ -826,55 +826,55 @@ class TOKEN_GROUPS_AND_PRIVILEGES(EasyCastStructure):
     Privileges: POINTER(win32more.Windows.Win32.Security.LUID_AND_ATTRIBUTES)
     AuthenticationId: win32more.Windows.Win32.Foundation.LUID
 TOKEN_INFORMATION_CLASS = Int32
-TOKEN_INFORMATION_CLASS_TokenUser: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 1
-TOKEN_INFORMATION_CLASS_TokenGroups: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 2
-TOKEN_INFORMATION_CLASS_TokenPrivileges: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 3
-TOKEN_INFORMATION_CLASS_TokenOwner: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 4
-TOKEN_INFORMATION_CLASS_TokenPrimaryGroup: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 5
-TOKEN_INFORMATION_CLASS_TokenDefaultDacl: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 6
-TOKEN_INFORMATION_CLASS_TokenSource: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 7
-TOKEN_INFORMATION_CLASS_TokenType: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 8
-TOKEN_INFORMATION_CLASS_TokenImpersonationLevel: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 9
-TOKEN_INFORMATION_CLASS_TokenStatistics: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 10
-TOKEN_INFORMATION_CLASS_TokenRestrictedSids: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 11
-TOKEN_INFORMATION_CLASS_TokenSessionId: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 12
-TOKEN_INFORMATION_CLASS_TokenGroupsAndPrivileges: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 13
-TOKEN_INFORMATION_CLASS_TokenSessionReference: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 14
-TOKEN_INFORMATION_CLASS_TokenSandBoxInert: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 15
-TOKEN_INFORMATION_CLASS_TokenAuditPolicy: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 16
-TOKEN_INFORMATION_CLASS_TokenOrigin: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 17
-TOKEN_INFORMATION_CLASS_TokenElevationType: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 18
-TOKEN_INFORMATION_CLASS_TokenLinkedToken: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 19
-TOKEN_INFORMATION_CLASS_TokenElevation: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 20
-TOKEN_INFORMATION_CLASS_TokenHasRestrictions: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 21
-TOKEN_INFORMATION_CLASS_TokenAccessInformation: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 22
-TOKEN_INFORMATION_CLASS_TokenVirtualizationAllowed: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 23
-TOKEN_INFORMATION_CLASS_TokenVirtualizationEnabled: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 24
-TOKEN_INFORMATION_CLASS_TokenIntegrityLevel: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 25
-TOKEN_INFORMATION_CLASS_TokenUIAccess: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 26
-TOKEN_INFORMATION_CLASS_TokenMandatoryPolicy: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 27
-TOKEN_INFORMATION_CLASS_TokenLogonSid: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 28
-TOKEN_INFORMATION_CLASS_TokenIsAppContainer: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 29
-TOKEN_INFORMATION_CLASS_TokenCapabilities: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 30
-TOKEN_INFORMATION_CLASS_TokenAppContainerSid: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 31
-TOKEN_INFORMATION_CLASS_TokenAppContainerNumber: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 32
-TOKEN_INFORMATION_CLASS_TokenUserClaimAttributes: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 33
-TOKEN_INFORMATION_CLASS_TokenDeviceClaimAttributes: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 34
-TOKEN_INFORMATION_CLASS_TokenRestrictedUserClaimAttributes: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 35
-TOKEN_INFORMATION_CLASS_TokenRestrictedDeviceClaimAttributes: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 36
-TOKEN_INFORMATION_CLASS_TokenDeviceGroups: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 37
-TOKEN_INFORMATION_CLASS_TokenRestrictedDeviceGroups: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 38
-TOKEN_INFORMATION_CLASS_TokenSecurityAttributes: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 39
-TOKEN_INFORMATION_CLASS_TokenIsRestricted: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 40
-TOKEN_INFORMATION_CLASS_TokenProcessTrustLevel: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 41
-TOKEN_INFORMATION_CLASS_TokenPrivateNameSpace: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 42
-TOKEN_INFORMATION_CLASS_TokenSingletonAttributes: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 43
-TOKEN_INFORMATION_CLASS_TokenBnoIsolation: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 44
-TOKEN_INFORMATION_CLASS_TokenChildProcessFlags: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 45
-TOKEN_INFORMATION_CLASS_TokenIsLessPrivilegedAppContainer: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 46
-TOKEN_INFORMATION_CLASS_TokenIsSandboxed: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 47
-TOKEN_INFORMATION_CLASS_TokenIsAppSilo: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 48
-TOKEN_INFORMATION_CLASS_MaxTokenInfoClass: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 49
+TokenUser: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 1
+TokenGroups: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 2
+TokenPrivileges: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 3
+TokenOwner: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 4
+TokenPrimaryGroup: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 5
+TokenDefaultDacl: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 6
+TokenSource: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 7
+TokenType: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 8
+TokenImpersonationLevel: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 9
+TokenStatistics: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 10
+TokenRestrictedSids: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 11
+TokenSessionId: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 12
+TokenGroupsAndPrivileges: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 13
+TokenSessionReference: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 14
+TokenSandBoxInert: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 15
+TokenAuditPolicy: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 16
+TokenOrigin: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 17
+TokenElevationType: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 18
+TokenLinkedToken: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 19
+TokenElevation: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 20
+TokenHasRestrictions: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 21
+TokenAccessInformation: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 22
+TokenVirtualizationAllowed: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 23
+TokenVirtualizationEnabled: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 24
+TokenIntegrityLevel: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 25
+TokenUIAccess: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 26
+TokenMandatoryPolicy: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 27
+TokenLogonSid: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 28
+TokenIsAppContainer: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 29
+TokenCapabilities: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 30
+TokenAppContainerSid: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 31
+TokenAppContainerNumber: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 32
+TokenUserClaimAttributes: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 33
+TokenDeviceClaimAttributes: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 34
+TokenRestrictedUserClaimAttributes: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 35
+TokenRestrictedDeviceClaimAttributes: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 36
+TokenDeviceGroups: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 37
+TokenRestrictedDeviceGroups: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 38
+TokenSecurityAttributes: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 39
+TokenIsRestricted: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 40
+TokenProcessTrustLevel: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 41
+TokenPrivateNameSpace: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 42
+TokenSingletonAttributes: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 43
+TokenBnoIsolation: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 44
+TokenChildProcessFlags: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 45
+TokenIsLessPrivilegedAppContainer: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 46
+TokenIsSandboxed: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 47
+TokenIsAppSilo: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 48
+MaxTokenInfoClass: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 49
 class TOKEN_LINKED_TOKEN(EasyCastStructure):
     LinkedToken: win32more.Windows.Win32.Foundation.HANDLE
 class TOKEN_MANDATORY_LABEL(EasyCastStructure):
@@ -915,133 +915,133 @@ class TOKEN_STATISTICS(EasyCastStructure):
     PrivilegeCount: UInt32
     ModifiedId: win32more.Windows.Win32.Foundation.LUID
 TOKEN_TYPE = Int32
-TOKEN_TYPE_TokenPrimary: win32more.Windows.Win32.Security.TOKEN_TYPE = 1
-TOKEN_TYPE_TokenImpersonation: win32more.Windows.Win32.Security.TOKEN_TYPE = 2
+TokenPrimary: win32more.Windows.Win32.Security.TOKEN_TYPE = 1
+TokenImpersonation: win32more.Windows.Win32.Security.TOKEN_TYPE = 2
 class TOKEN_USER(EasyCastStructure):
     User: win32more.Windows.Win32.Security.SID_AND_ATTRIBUTES
 class TOKEN_USER_CLAIMS(EasyCastStructure):
     UserClaims: VoidPtr
 WELL_KNOWN_SID_TYPE = Int32
-WELL_KNOWN_SID_TYPE_WinNullSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 0
-WELL_KNOWN_SID_TYPE_WinWorldSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 1
-WELL_KNOWN_SID_TYPE_WinLocalSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 2
-WELL_KNOWN_SID_TYPE_WinCreatorOwnerSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 3
-WELL_KNOWN_SID_TYPE_WinCreatorGroupSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 4
-WELL_KNOWN_SID_TYPE_WinCreatorOwnerServerSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 5
-WELL_KNOWN_SID_TYPE_WinCreatorGroupServerSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 6
-WELL_KNOWN_SID_TYPE_WinNtAuthoritySid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 7
-WELL_KNOWN_SID_TYPE_WinDialupSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 8
-WELL_KNOWN_SID_TYPE_WinNetworkSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 9
-WELL_KNOWN_SID_TYPE_WinBatchSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 10
-WELL_KNOWN_SID_TYPE_WinInteractiveSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 11
-WELL_KNOWN_SID_TYPE_WinServiceSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 12
-WELL_KNOWN_SID_TYPE_WinAnonymousSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 13
-WELL_KNOWN_SID_TYPE_WinProxySid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 14
-WELL_KNOWN_SID_TYPE_WinEnterpriseControllersSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 15
-WELL_KNOWN_SID_TYPE_WinSelfSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 16
-WELL_KNOWN_SID_TYPE_WinAuthenticatedUserSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 17
-WELL_KNOWN_SID_TYPE_WinRestrictedCodeSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 18
-WELL_KNOWN_SID_TYPE_WinTerminalServerSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 19
-WELL_KNOWN_SID_TYPE_WinRemoteLogonIdSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 20
-WELL_KNOWN_SID_TYPE_WinLogonIdsSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 21
-WELL_KNOWN_SID_TYPE_WinLocalSystemSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 22
-WELL_KNOWN_SID_TYPE_WinLocalServiceSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 23
-WELL_KNOWN_SID_TYPE_WinNetworkServiceSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 24
-WELL_KNOWN_SID_TYPE_WinBuiltinDomainSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 25
-WELL_KNOWN_SID_TYPE_WinBuiltinAdministratorsSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 26
-WELL_KNOWN_SID_TYPE_WinBuiltinUsersSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 27
-WELL_KNOWN_SID_TYPE_WinBuiltinGuestsSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 28
-WELL_KNOWN_SID_TYPE_WinBuiltinPowerUsersSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 29
-WELL_KNOWN_SID_TYPE_WinBuiltinAccountOperatorsSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 30
-WELL_KNOWN_SID_TYPE_WinBuiltinSystemOperatorsSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 31
-WELL_KNOWN_SID_TYPE_WinBuiltinPrintOperatorsSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 32
-WELL_KNOWN_SID_TYPE_WinBuiltinBackupOperatorsSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 33
-WELL_KNOWN_SID_TYPE_WinBuiltinReplicatorSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 34
-WELL_KNOWN_SID_TYPE_WinBuiltinPreWindows2000CompatibleAccessSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 35
-WELL_KNOWN_SID_TYPE_WinBuiltinRemoteDesktopUsersSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 36
-WELL_KNOWN_SID_TYPE_WinBuiltinNetworkConfigurationOperatorsSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 37
-WELL_KNOWN_SID_TYPE_WinAccountAdministratorSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 38
-WELL_KNOWN_SID_TYPE_WinAccountGuestSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 39
-WELL_KNOWN_SID_TYPE_WinAccountKrbtgtSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 40
-WELL_KNOWN_SID_TYPE_WinAccountDomainAdminsSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 41
-WELL_KNOWN_SID_TYPE_WinAccountDomainUsersSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 42
-WELL_KNOWN_SID_TYPE_WinAccountDomainGuestsSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 43
-WELL_KNOWN_SID_TYPE_WinAccountComputersSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 44
-WELL_KNOWN_SID_TYPE_WinAccountControllersSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 45
-WELL_KNOWN_SID_TYPE_WinAccountCertAdminsSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 46
-WELL_KNOWN_SID_TYPE_WinAccountSchemaAdminsSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 47
-WELL_KNOWN_SID_TYPE_WinAccountEnterpriseAdminsSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 48
-WELL_KNOWN_SID_TYPE_WinAccountPolicyAdminsSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 49
-WELL_KNOWN_SID_TYPE_WinAccountRasAndIasServersSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 50
-WELL_KNOWN_SID_TYPE_WinNTLMAuthenticationSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 51
-WELL_KNOWN_SID_TYPE_WinDigestAuthenticationSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 52
-WELL_KNOWN_SID_TYPE_WinSChannelAuthenticationSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 53
-WELL_KNOWN_SID_TYPE_WinThisOrganizationSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 54
-WELL_KNOWN_SID_TYPE_WinOtherOrganizationSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 55
-WELL_KNOWN_SID_TYPE_WinBuiltinIncomingForestTrustBuildersSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 56
-WELL_KNOWN_SID_TYPE_WinBuiltinPerfMonitoringUsersSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 57
-WELL_KNOWN_SID_TYPE_WinBuiltinPerfLoggingUsersSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 58
-WELL_KNOWN_SID_TYPE_WinBuiltinAuthorizationAccessSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 59
-WELL_KNOWN_SID_TYPE_WinBuiltinTerminalServerLicenseServersSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 60
-WELL_KNOWN_SID_TYPE_WinBuiltinDCOMUsersSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 61
-WELL_KNOWN_SID_TYPE_WinBuiltinIUsersSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 62
-WELL_KNOWN_SID_TYPE_WinIUserSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 63
-WELL_KNOWN_SID_TYPE_WinBuiltinCryptoOperatorsSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 64
-WELL_KNOWN_SID_TYPE_WinUntrustedLabelSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 65
-WELL_KNOWN_SID_TYPE_WinLowLabelSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 66
-WELL_KNOWN_SID_TYPE_WinMediumLabelSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 67
-WELL_KNOWN_SID_TYPE_WinHighLabelSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 68
-WELL_KNOWN_SID_TYPE_WinSystemLabelSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 69
-WELL_KNOWN_SID_TYPE_WinWriteRestrictedCodeSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 70
-WELL_KNOWN_SID_TYPE_WinCreatorOwnerRightsSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 71
-WELL_KNOWN_SID_TYPE_WinCacheablePrincipalsGroupSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 72
-WELL_KNOWN_SID_TYPE_WinNonCacheablePrincipalsGroupSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 73
-WELL_KNOWN_SID_TYPE_WinEnterpriseReadonlyControllersSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 74
-WELL_KNOWN_SID_TYPE_WinAccountReadonlyControllersSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 75
-WELL_KNOWN_SID_TYPE_WinBuiltinEventLogReadersGroup: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 76
-WELL_KNOWN_SID_TYPE_WinNewEnterpriseReadonlyControllersSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 77
-WELL_KNOWN_SID_TYPE_WinBuiltinCertSvcDComAccessGroup: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 78
-WELL_KNOWN_SID_TYPE_WinMediumPlusLabelSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 79
-WELL_KNOWN_SID_TYPE_WinLocalLogonSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 80
-WELL_KNOWN_SID_TYPE_WinConsoleLogonSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 81
-WELL_KNOWN_SID_TYPE_WinThisOrganizationCertificateSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 82
-WELL_KNOWN_SID_TYPE_WinApplicationPackageAuthoritySid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 83
-WELL_KNOWN_SID_TYPE_WinBuiltinAnyPackageSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 84
-WELL_KNOWN_SID_TYPE_WinCapabilityInternetClientSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 85
-WELL_KNOWN_SID_TYPE_WinCapabilityInternetClientServerSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 86
-WELL_KNOWN_SID_TYPE_WinCapabilityPrivateNetworkClientServerSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 87
-WELL_KNOWN_SID_TYPE_WinCapabilityPicturesLibrarySid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 88
-WELL_KNOWN_SID_TYPE_WinCapabilityVideosLibrarySid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 89
-WELL_KNOWN_SID_TYPE_WinCapabilityMusicLibrarySid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 90
-WELL_KNOWN_SID_TYPE_WinCapabilityDocumentsLibrarySid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 91
-WELL_KNOWN_SID_TYPE_WinCapabilitySharedUserCertificatesSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 92
-WELL_KNOWN_SID_TYPE_WinCapabilityEnterpriseAuthenticationSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 93
-WELL_KNOWN_SID_TYPE_WinCapabilityRemovableStorageSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 94
-WELL_KNOWN_SID_TYPE_WinBuiltinRDSRemoteAccessServersSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 95
-WELL_KNOWN_SID_TYPE_WinBuiltinRDSEndpointServersSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 96
-WELL_KNOWN_SID_TYPE_WinBuiltinRDSManagementServersSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 97
-WELL_KNOWN_SID_TYPE_WinUserModeDriversSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 98
-WELL_KNOWN_SID_TYPE_WinBuiltinHyperVAdminsSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 99
-WELL_KNOWN_SID_TYPE_WinAccountCloneableControllersSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 100
-WELL_KNOWN_SID_TYPE_WinBuiltinAccessControlAssistanceOperatorsSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 101
-WELL_KNOWN_SID_TYPE_WinBuiltinRemoteManagementUsersSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 102
-WELL_KNOWN_SID_TYPE_WinAuthenticationAuthorityAssertedSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 103
-WELL_KNOWN_SID_TYPE_WinAuthenticationServiceAssertedSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 104
-WELL_KNOWN_SID_TYPE_WinLocalAccountSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 105
-WELL_KNOWN_SID_TYPE_WinLocalAccountAndAdministratorSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 106
-WELL_KNOWN_SID_TYPE_WinAccountProtectedUsersSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 107
-WELL_KNOWN_SID_TYPE_WinCapabilityAppointmentsSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 108
-WELL_KNOWN_SID_TYPE_WinCapabilityContactsSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 109
-WELL_KNOWN_SID_TYPE_WinAccountDefaultSystemManagedSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 110
-WELL_KNOWN_SID_TYPE_WinBuiltinDefaultSystemManagedGroupSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 111
-WELL_KNOWN_SID_TYPE_WinBuiltinStorageReplicaAdminsSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 112
-WELL_KNOWN_SID_TYPE_WinAccountKeyAdminsSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 113
-WELL_KNOWN_SID_TYPE_WinAccountEnterpriseKeyAdminsSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 114
-WELL_KNOWN_SID_TYPE_WinAuthenticationKeyTrustSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 115
-WELL_KNOWN_SID_TYPE_WinAuthenticationKeyPropertyMFASid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 116
-WELL_KNOWN_SID_TYPE_WinAuthenticationKeyPropertyAttestationSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 117
-WELL_KNOWN_SID_TYPE_WinAuthenticationFreshKeyAuthSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 118
-WELL_KNOWN_SID_TYPE_WinBuiltinDeviceOwnersSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 119
+WinNullSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 0
+WinWorldSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 1
+WinLocalSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 2
+WinCreatorOwnerSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 3
+WinCreatorGroupSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 4
+WinCreatorOwnerServerSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 5
+WinCreatorGroupServerSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 6
+WinNtAuthoritySid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 7
+WinDialupSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 8
+WinNetworkSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 9
+WinBatchSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 10
+WinInteractiveSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 11
+WinServiceSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 12
+WinAnonymousSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 13
+WinProxySid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 14
+WinEnterpriseControllersSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 15
+WinSelfSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 16
+WinAuthenticatedUserSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 17
+WinRestrictedCodeSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 18
+WinTerminalServerSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 19
+WinRemoteLogonIdSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 20
+WinLogonIdsSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 21
+WinLocalSystemSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 22
+WinLocalServiceSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 23
+WinNetworkServiceSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 24
+WinBuiltinDomainSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 25
+WinBuiltinAdministratorsSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 26
+WinBuiltinUsersSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 27
+WinBuiltinGuestsSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 28
+WinBuiltinPowerUsersSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 29
+WinBuiltinAccountOperatorsSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 30
+WinBuiltinSystemOperatorsSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 31
+WinBuiltinPrintOperatorsSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 32
+WinBuiltinBackupOperatorsSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 33
+WinBuiltinReplicatorSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 34
+WinBuiltinPreWindows2000CompatibleAccessSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 35
+WinBuiltinRemoteDesktopUsersSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 36
+WinBuiltinNetworkConfigurationOperatorsSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 37
+WinAccountAdministratorSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 38
+WinAccountGuestSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 39
+WinAccountKrbtgtSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 40
+WinAccountDomainAdminsSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 41
+WinAccountDomainUsersSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 42
+WinAccountDomainGuestsSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 43
+WinAccountComputersSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 44
+WinAccountControllersSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 45
+WinAccountCertAdminsSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 46
+WinAccountSchemaAdminsSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 47
+WinAccountEnterpriseAdminsSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 48
+WinAccountPolicyAdminsSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 49
+WinAccountRasAndIasServersSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 50
+WinNTLMAuthenticationSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 51
+WinDigestAuthenticationSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 52
+WinSChannelAuthenticationSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 53
+WinThisOrganizationSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 54
+WinOtherOrganizationSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 55
+WinBuiltinIncomingForestTrustBuildersSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 56
+WinBuiltinPerfMonitoringUsersSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 57
+WinBuiltinPerfLoggingUsersSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 58
+WinBuiltinAuthorizationAccessSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 59
+WinBuiltinTerminalServerLicenseServersSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 60
+WinBuiltinDCOMUsersSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 61
+WinBuiltinIUsersSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 62
+WinIUserSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 63
+WinBuiltinCryptoOperatorsSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 64
+WinUntrustedLabelSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 65
+WinLowLabelSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 66
+WinMediumLabelSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 67
+WinHighLabelSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 68
+WinSystemLabelSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 69
+WinWriteRestrictedCodeSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 70
+WinCreatorOwnerRightsSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 71
+WinCacheablePrincipalsGroupSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 72
+WinNonCacheablePrincipalsGroupSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 73
+WinEnterpriseReadonlyControllersSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 74
+WinAccountReadonlyControllersSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 75
+WinBuiltinEventLogReadersGroup: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 76
+WinNewEnterpriseReadonlyControllersSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 77
+WinBuiltinCertSvcDComAccessGroup: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 78
+WinMediumPlusLabelSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 79
+WinLocalLogonSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 80
+WinConsoleLogonSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 81
+WinThisOrganizationCertificateSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 82
+WinApplicationPackageAuthoritySid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 83
+WinBuiltinAnyPackageSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 84
+WinCapabilityInternetClientSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 85
+WinCapabilityInternetClientServerSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 86
+WinCapabilityPrivateNetworkClientServerSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 87
+WinCapabilityPicturesLibrarySid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 88
+WinCapabilityVideosLibrarySid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 89
+WinCapabilityMusicLibrarySid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 90
+WinCapabilityDocumentsLibrarySid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 91
+WinCapabilitySharedUserCertificatesSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 92
+WinCapabilityEnterpriseAuthenticationSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 93
+WinCapabilityRemovableStorageSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 94
+WinBuiltinRDSRemoteAccessServersSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 95
+WinBuiltinRDSEndpointServersSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 96
+WinBuiltinRDSManagementServersSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 97
+WinUserModeDriversSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 98
+WinBuiltinHyperVAdminsSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 99
+WinAccountCloneableControllersSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 100
+WinBuiltinAccessControlAssistanceOperatorsSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 101
+WinBuiltinRemoteManagementUsersSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 102
+WinAuthenticationAuthorityAssertedSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 103
+WinAuthenticationServiceAssertedSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 104
+WinLocalAccountSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 105
+WinLocalAccountAndAdministratorSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 106
+WinAccountProtectedUsersSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 107
+WinCapabilityAppointmentsSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 108
+WinCapabilityContactsSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 109
+WinAccountDefaultSystemManagedSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 110
+WinBuiltinDefaultSystemManagedGroupSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 111
+WinBuiltinStorageReplicaAdminsSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 112
+WinAccountKeyAdminsSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 113
+WinAccountEnterpriseKeyAdminsSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 114
+WinAuthenticationKeyTrustSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 115
+WinAuthenticationKeyPropertyMFASid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 116
+WinAuthenticationKeyPropertyAttestationSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 117
+WinAuthenticationFreshKeyAuthSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 118
+WinBuiltinDeviceOwnersSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 119
 
 
 make_ready(__name__)

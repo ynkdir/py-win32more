@@ -241,11 +241,11 @@ DEVICE_ROTATED_90_DEGREES_CLOCKWISE: win32more.Windows.Win32.Media.Audio.Apo.DEV
 DEVICE_ROTATED_180_DEGREES_CLOCKWISE: win32more.Windows.Win32.Media.Audio.Apo.DEVICE_ORIENTATION_TYPE = 2
 DEVICE_ROTATED_270_DEGREES_CLOCKWISE: win32more.Windows.Win32.Media.Audio.Apo.DEVICE_ORIENTATION_TYPE = 3
 EAudioConstriction = Int32
-EAudioConstriction_eAudioConstrictionOff: win32more.Windows.Win32.Media.Audio.Apo.EAudioConstriction = 0
-EAudioConstriction_eAudioConstriction48_16: win32more.Windows.Win32.Media.Audio.Apo.EAudioConstriction = 1
-EAudioConstriction_eAudioConstriction44_16: win32more.Windows.Win32.Media.Audio.Apo.EAudioConstriction = 2
-EAudioConstriction_eAudioConstriction14_14: win32more.Windows.Win32.Media.Audio.Apo.EAudioConstriction = 3
-EAudioConstriction_eAudioConstrictionMute: win32more.Windows.Win32.Media.Audio.Apo.EAudioConstriction = 4
+eAudioConstrictionOff: win32more.Windows.Win32.Media.Audio.Apo.EAudioConstriction = 0
+eAudioConstriction48_16: win32more.Windows.Win32.Media.Audio.Apo.EAudioConstriction = 1
+eAudioConstriction44_16: win32more.Windows.Win32.Media.Audio.Apo.EAudioConstriction = 2
+eAudioConstriction14_14: win32more.Windows.Win32.Media.Audio.Apo.EAudioConstriction = 3
+eAudioConstrictionMute: win32more.Windows.Win32.Media.Audio.Apo.EAudioConstriction = 4
 @winfunctype_pointer
 def FNAPONOTIFICATIONCALLBACK(pProperties: POINTER(win32more.Windows.Win32.Media.Audio.Apo.APO_REG_PROPERTIES), pvRefData: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IApoAcousticEchoCancellation(ComPtr):

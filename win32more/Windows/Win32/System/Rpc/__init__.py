@@ -1291,13 +1291,13 @@ FC_EXPR_OPER: win32more.Windows.Win32.System.Rpc.EXPR_TOKEN = 4
 FC_EXPR_NOOP: win32more.Windows.Win32.System.Rpc.EXPR_TOKEN = 5
 FC_EXPR_END: win32more.Windows.Win32.System.Rpc.EXPR_TOKEN = 6
 ExtendedErrorParamTypes = Int32
-ExtendedErrorParamTypes_eeptAnsiString: win32more.Windows.Win32.System.Rpc.ExtendedErrorParamTypes = 1
-ExtendedErrorParamTypes_eeptUnicodeString: win32more.Windows.Win32.System.Rpc.ExtendedErrorParamTypes = 2
-ExtendedErrorParamTypes_eeptLongVal: win32more.Windows.Win32.System.Rpc.ExtendedErrorParamTypes = 3
-ExtendedErrorParamTypes_eeptShortVal: win32more.Windows.Win32.System.Rpc.ExtendedErrorParamTypes = 4
-ExtendedErrorParamTypes_eeptPointerVal: win32more.Windows.Win32.System.Rpc.ExtendedErrorParamTypes = 5
-ExtendedErrorParamTypes_eeptNone: win32more.Windows.Win32.System.Rpc.ExtendedErrorParamTypes = 6
-ExtendedErrorParamTypes_eeptBinary: win32more.Windows.Win32.System.Rpc.ExtendedErrorParamTypes = 7
+eeptAnsiString: win32more.Windows.Win32.System.Rpc.ExtendedErrorParamTypes = 1
+eeptUnicodeString: win32more.Windows.Win32.System.Rpc.ExtendedErrorParamTypes = 2
+eeptLongVal: win32more.Windows.Win32.System.Rpc.ExtendedErrorParamTypes = 3
+eeptShortVal: win32more.Windows.Win32.System.Rpc.ExtendedErrorParamTypes = 4
+eeptPointerVal: win32more.Windows.Win32.System.Rpc.ExtendedErrorParamTypes = 5
+eeptNone: win32more.Windows.Win32.System.Rpc.ExtendedErrorParamTypes = 6
+eeptBinary: win32more.Windows.Win32.System.Rpc.ExtendedErrorParamTypes = 7
 class FULL_PTR_XLAT_TABLES(EasyCastStructure):
     RefIdToPointer: VoidPtr
     PointerToRefId: VoidPtr
@@ -1351,8 +1351,8 @@ def I_RpcProxyUpdatePerfCounterBackendServerFn(MachineName: POINTER(UInt16), IsC
 @winfunctype_pointer
 def I_RpcProxyUpdatePerfCounterFn(Counter: win32more.Windows.Win32.System.Rpc.RpcPerfCounters, ModifyTrend: Int32, Size: UInt32) -> Void: ...
 LRPC_SYSTEM_HANDLE_MARSHAL_DIRECTION = Int32
-LRPC_SYSTEM_HANDLE_MARSHAL_DIRECTION_MarshalDirectionMarshal: win32more.Windows.Win32.System.Rpc.LRPC_SYSTEM_HANDLE_MARSHAL_DIRECTION = 0
-LRPC_SYSTEM_HANDLE_MARSHAL_DIRECTION_MarshalDirectionUnmarshal: win32more.Windows.Win32.System.Rpc.LRPC_SYSTEM_HANDLE_MARSHAL_DIRECTION = 1
+MarshalDirectionMarshal: win32more.Windows.Win32.System.Rpc.LRPC_SYSTEM_HANDLE_MARSHAL_DIRECTION = 0
+MarshalDirectionUnmarshal: win32more.Windows.Win32.System.Rpc.LRPC_SYSTEM_HANDLE_MARSHAL_DIRECTION = 1
 class MALLOC_FREE_STRUCT(EasyCastStructure):
     pfnAllocate: IntPtr
     pfnFree: IntPtr
@@ -1903,11 +1903,11 @@ PROTOCOL_NOT_LOADED: win32more.Windows.Win32.System.Rpc.RPC_ADDRESS_CHANGE_TYPE 
 PROTOCOL_LOADED: win32more.Windows.Win32.System.Rpc.RPC_ADDRESS_CHANGE_TYPE = 2
 PROTOCOL_ADDRESS_CHANGE: win32more.Windows.Win32.System.Rpc.RPC_ADDRESS_CHANGE_TYPE = 3
 RPC_ASYNC_EVENT = Int32
-RPC_ASYNC_EVENT_RpcCallComplete: win32more.Windows.Win32.System.Rpc.RPC_ASYNC_EVENT = 0
-RPC_ASYNC_EVENT_RpcSendComplete: win32more.Windows.Win32.System.Rpc.RPC_ASYNC_EVENT = 1
-RPC_ASYNC_EVENT_RpcReceiveComplete: win32more.Windows.Win32.System.Rpc.RPC_ASYNC_EVENT = 2
-RPC_ASYNC_EVENT_RpcClientDisconnect: win32more.Windows.Win32.System.Rpc.RPC_ASYNC_EVENT = 3
-RPC_ASYNC_EVENT_RpcClientCancel: win32more.Windows.Win32.System.Rpc.RPC_ASYNC_EVENT = 4
+RpcCallComplete: win32more.Windows.Win32.System.Rpc.RPC_ASYNC_EVENT = 0
+RpcSendComplete: win32more.Windows.Win32.System.Rpc.RPC_ASYNC_EVENT = 1
+RpcReceiveComplete: win32more.Windows.Win32.System.Rpc.RPC_ASYNC_EVENT = 2
+RpcClientDisconnect: win32more.Windows.Win32.System.Rpc.RPC_ASYNC_EVENT = 3
+RpcClientCancel: win32more.Windows.Win32.System.Rpc.RPC_ASYNC_EVENT = 4
 class RPC_ASYNC_NOTIFICATION_INFO(EasyCastUnion):
     APC: _APC_e__Struct
     IOC: _IOC_e__Struct
@@ -2301,16 +2301,16 @@ def RPC_MGMT_AUTHORIZATION_FN(ClientBinding: VoidPtr, RequestedMgmtOperation: UI
 @winfunctype_pointer
 def RPC_NEW_HTTP_PROXY_CHANNEL(RedirectorStage: win32more.Windows.Win32.System.Rpc.RPC_HTTP_REDIRECTOR_STAGE, ServerName: win32more.Windows.Win32.Foundation.PWSTR, ServerPort: win32more.Windows.Win32.Foundation.PWSTR, RemoteUser: win32more.Windows.Win32.Foundation.PWSTR, AuthType: win32more.Windows.Win32.Foundation.PWSTR, ResourceUuid: VoidPtr, SessionId: VoidPtr, Interface: VoidPtr, Reserved: VoidPtr, Flags: UInt32, NewServerName: POINTER(win32more.Windows.Win32.Foundation.PWSTR), NewServerPort: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
 RPC_NOTIFICATIONS = Int32
-RPC_NOTIFICATIONS_RpcNotificationCallNone: win32more.Windows.Win32.System.Rpc.RPC_NOTIFICATIONS = 0
-RPC_NOTIFICATIONS_RpcNotificationClientDisconnect: win32more.Windows.Win32.System.Rpc.RPC_NOTIFICATIONS = 1
-RPC_NOTIFICATIONS_RpcNotificationCallCancel: win32more.Windows.Win32.System.Rpc.RPC_NOTIFICATIONS = 2
+RpcNotificationCallNone: win32more.Windows.Win32.System.Rpc.RPC_NOTIFICATIONS = 0
+RpcNotificationClientDisconnect: win32more.Windows.Win32.System.Rpc.RPC_NOTIFICATIONS = 1
+RpcNotificationCallCancel: win32more.Windows.Win32.System.Rpc.RPC_NOTIFICATIONS = 2
 RPC_NOTIFICATION_TYPES = Int32
-RPC_NOTIFICATION_TYPES_RpcNotificationTypeNone: win32more.Windows.Win32.System.Rpc.RPC_NOTIFICATION_TYPES = 0
-RPC_NOTIFICATION_TYPES_RpcNotificationTypeEvent: win32more.Windows.Win32.System.Rpc.RPC_NOTIFICATION_TYPES = 1
-RPC_NOTIFICATION_TYPES_RpcNotificationTypeApc: win32more.Windows.Win32.System.Rpc.RPC_NOTIFICATION_TYPES = 2
-RPC_NOTIFICATION_TYPES_RpcNotificationTypeIoc: win32more.Windows.Win32.System.Rpc.RPC_NOTIFICATION_TYPES = 3
-RPC_NOTIFICATION_TYPES_RpcNotificationTypeHwnd: win32more.Windows.Win32.System.Rpc.RPC_NOTIFICATION_TYPES = 4
-RPC_NOTIFICATION_TYPES_RpcNotificationTypeCallback: win32more.Windows.Win32.System.Rpc.RPC_NOTIFICATION_TYPES = 5
+RpcNotificationTypeNone: win32more.Windows.Win32.System.Rpc.RPC_NOTIFICATION_TYPES = 0
+RpcNotificationTypeEvent: win32more.Windows.Win32.System.Rpc.RPC_NOTIFICATION_TYPES = 1
+RpcNotificationTypeApc: win32more.Windows.Win32.System.Rpc.RPC_NOTIFICATION_TYPES = 2
+RpcNotificationTypeIoc: win32more.Windows.Win32.System.Rpc.RPC_NOTIFICATION_TYPES = 3
+RpcNotificationTypeHwnd: win32more.Windows.Win32.System.Rpc.RPC_NOTIFICATION_TYPES = 4
+RpcNotificationTypeCallback: win32more.Windows.Win32.System.Rpc.RPC_NOTIFICATION_TYPES = 5
 @winfunctype_pointer
 def RPC_OBJECT_INQ_FN(ObjectUuid: POINTER(Guid), TypeUuid: POINTER(Guid), Status: POINTER(win32more.Windows.Win32.System.Rpc.RPC_STATUS)) -> Void: ...
 class RPC_POLICY(EasyCastStructure):
@@ -2549,32 +2549,32 @@ class RPC_VERSION(EasyCastStructure):
     MajorVersion: UInt16
     MinorVersion: UInt16
 RpcCallClientLocality = Int32
-RpcCallClientLocality_rcclInvalid: win32more.Windows.Win32.System.Rpc.RpcCallClientLocality = 0
-RpcCallClientLocality_rcclLocal: win32more.Windows.Win32.System.Rpc.RpcCallClientLocality = 1
-RpcCallClientLocality_rcclRemote: win32more.Windows.Win32.System.Rpc.RpcCallClientLocality = 2
-RpcCallClientLocality_rcclClientUnknownLocality: win32more.Windows.Win32.System.Rpc.RpcCallClientLocality = 3
+rcclInvalid: win32more.Windows.Win32.System.Rpc.RpcCallClientLocality = 0
+rcclLocal: win32more.Windows.Win32.System.Rpc.RpcCallClientLocality = 1
+rcclRemote: win32more.Windows.Win32.System.Rpc.RpcCallClientLocality = 2
+rcclClientUnknownLocality: win32more.Windows.Win32.System.Rpc.RpcCallClientLocality = 3
 RpcCallType = Int32
-RpcCallType_rctInvalid: win32more.Windows.Win32.System.Rpc.RpcCallType = 0
-RpcCallType_rctNormal: win32more.Windows.Win32.System.Rpc.RpcCallType = 1
-RpcCallType_rctTraining: win32more.Windows.Win32.System.Rpc.RpcCallType = 2
-RpcCallType_rctGuaranteed: win32more.Windows.Win32.System.Rpc.RpcCallType = 3
+rctInvalid: win32more.Windows.Win32.System.Rpc.RpcCallType = 0
+rctNormal: win32more.Windows.Win32.System.Rpc.RpcCallType = 1
+rctTraining: win32more.Windows.Win32.System.Rpc.RpcCallType = 2
+rctGuaranteed: win32more.Windows.Win32.System.Rpc.RpcCallType = 3
 RpcLocalAddressFormat = Int32
-RpcLocalAddressFormat_rlafInvalid: win32more.Windows.Win32.System.Rpc.RpcLocalAddressFormat = 0
-RpcLocalAddressFormat_rlafIPv4: win32more.Windows.Win32.System.Rpc.RpcLocalAddressFormat = 1
-RpcLocalAddressFormat_rlafIPv6: win32more.Windows.Win32.System.Rpc.RpcLocalAddressFormat = 2
+rlafInvalid: win32more.Windows.Win32.System.Rpc.RpcLocalAddressFormat = 0
+rlafIPv4: win32more.Windows.Win32.System.Rpc.RpcLocalAddressFormat = 1
+rlafIPv6: win32more.Windows.Win32.System.Rpc.RpcLocalAddressFormat = 2
 RpcPerfCounters = Int32
-RpcPerfCounters_RpcCurrentUniqueUser: win32more.Windows.Win32.System.Rpc.RpcPerfCounters = 1
-RpcPerfCounters_RpcBackEndConnectionAttempts: win32more.Windows.Win32.System.Rpc.RpcPerfCounters = 2
-RpcPerfCounters_RpcBackEndConnectionFailed: win32more.Windows.Win32.System.Rpc.RpcPerfCounters = 3
-RpcPerfCounters_RpcRequestsPerSecond: win32more.Windows.Win32.System.Rpc.RpcPerfCounters = 4
-RpcPerfCounters_RpcIncomingConnections: win32more.Windows.Win32.System.Rpc.RpcPerfCounters = 5
-RpcPerfCounters_RpcIncomingBandwidth: win32more.Windows.Win32.System.Rpc.RpcPerfCounters = 6
-RpcPerfCounters_RpcOutgoingBandwidth: win32more.Windows.Win32.System.Rpc.RpcPerfCounters = 7
-RpcPerfCounters_RpcAttemptedLbsDecisions: win32more.Windows.Win32.System.Rpc.RpcPerfCounters = 8
-RpcPerfCounters_RpcFailedLbsDecisions: win32more.Windows.Win32.System.Rpc.RpcPerfCounters = 9
-RpcPerfCounters_RpcAttemptedLbsMessages: win32more.Windows.Win32.System.Rpc.RpcPerfCounters = 10
-RpcPerfCounters_RpcFailedLbsMessages: win32more.Windows.Win32.System.Rpc.RpcPerfCounters = 11
-RpcPerfCounters_RpcLastCounter: win32more.Windows.Win32.System.Rpc.RpcPerfCounters = 12
+RpcCurrentUniqueUser: win32more.Windows.Win32.System.Rpc.RpcPerfCounters = 1
+RpcBackEndConnectionAttempts: win32more.Windows.Win32.System.Rpc.RpcPerfCounters = 2
+RpcBackEndConnectionFailed: win32more.Windows.Win32.System.Rpc.RpcPerfCounters = 3
+RpcRequestsPerSecond: win32more.Windows.Win32.System.Rpc.RpcPerfCounters = 4
+RpcIncomingConnections: win32more.Windows.Win32.System.Rpc.RpcPerfCounters = 5
+RpcIncomingBandwidth: win32more.Windows.Win32.System.Rpc.RpcPerfCounters = 6
+RpcOutgoingBandwidth: win32more.Windows.Win32.System.Rpc.RpcPerfCounters = 7
+RpcAttemptedLbsDecisions: win32more.Windows.Win32.System.Rpc.RpcPerfCounters = 8
+RpcFailedLbsDecisions: win32more.Windows.Win32.System.Rpc.RpcPerfCounters = 9
+RpcAttemptedLbsMessages: win32more.Windows.Win32.System.Rpc.RpcPerfCounters = 10
+RpcFailedLbsMessages: win32more.Windows.Win32.System.Rpc.RpcPerfCounters = 11
+RpcLastCounter: win32more.Windows.Win32.System.Rpc.RpcPerfCounters = 12
 class SCONTEXT_QUEUE(EasyCastStructure):
     NumberOfObjects: UInt32
     ArrayOfObjects: POINTER(POINTER(win32more.Windows.Win32.System.Rpc.NDR_SCONTEXT))

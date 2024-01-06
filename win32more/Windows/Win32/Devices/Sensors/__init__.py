@@ -19,7 +19,7 @@ ActivityState_Idle: win32more.Windows.Win32.Devices.Sensors.ACTIVITY_STATE = 128
 ActivityState_Max: win32more.Windows.Win32.Devices.Sensors.ACTIVITY_STATE = 256
 ActivityState_Force_Dword: win32more.Windows.Win32.Devices.Sensors.ACTIVITY_STATE = -1
 ACTIVITY_STATE_COUNT = Int32
-ACTIVITY_STATE_COUNT_ActivityStateCount: win32more.Windows.Win32.Devices.Sensors.ACTIVITY_STATE_COUNT = 8
+ActivityStateCount: win32more.Windows.Win32.Devices.Sensors.ACTIVITY_STATE_COUNT = 8
 AXIS = Int32
 AXIS_X: win32more.Windows.Win32.Devices.Sensors.AXIS = 0
 AXIS_Y: win32more.Windows.Win32.Devices.Sensors.AXIS = 1
@@ -396,7 +396,7 @@ HumanPresenceDetectionType_FacialBiometric: win32more.Windows.Win32.Devices.Sens
 HumanPresenceDetectionType_AudioBiometric: win32more.Windows.Win32.Devices.Sensors.HUMAN_PRESENCE_DETECTION_TYPE = 8
 HumanPresenceDetectionType_Force_Dword: win32more.Windows.Win32.Devices.Sensors.HUMAN_PRESENCE_DETECTION_TYPE = -1
 HUMAN_PRESENCE_DETECTION_TYPE_COUNT = Int32
-HUMAN_PRESENCE_DETECTION_TYPE_COUNT_HumanPresenceDetectionTypeCount: win32more.Windows.Win32.Devices.Sensors.HUMAN_PRESENCE_DETECTION_TYPE_COUNT = 4
+HumanPresenceDetectionTypeCount: win32more.Windows.Win32.Devices.Sensors.HUMAN_PRESENCE_DETECTION_TYPE_COUNT = 4
 class ILocationPermissions(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{d5fb0a7f-e74e-44f5-8e02-4806863a274f}')
@@ -536,7 +536,7 @@ PedometerStepType_Running: win32more.Windows.Win32.Devices.Sensors.PEDOMETER_STE
 PedometerStepType_Max: win32more.Windows.Win32.Devices.Sensors.PEDOMETER_STEP_TYPE = 8
 PedometerStepType_Force_Dword: win32more.Windows.Win32.Devices.Sensors.PEDOMETER_STEP_TYPE = -1
 PEDOMETER_STEP_TYPE_COUNT = Int32
-PEDOMETER_STEP_TYPE_COUNT_PedometerStepTypeCount: win32more.Windows.Win32.Devices.Sensors.PEDOMETER_STEP_TYPE_COUNT = 3
+PedometerStepTypeCount: win32more.Windows.Win32.Devices.Sensors.PEDOMETER_STEP_TYPE_COUNT = 3
 PROXIMITY_SENSOR_CAPABILITIES = Int32
 Proximity_Sensor_Human_Presence_Capable: win32more.Windows.Win32.Devices.Sensors.PROXIMITY_SENSOR_CAPABILITIES = 1
 Proximity_Sensor_Human_Engagement_Capable: win32more.Windows.Win32.Devices.Sensors.PROXIMITY_SENSOR_CAPABILITIES = 2

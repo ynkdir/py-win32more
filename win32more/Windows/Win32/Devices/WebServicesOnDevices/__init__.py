@@ -87,9 +87,9 @@ def WSDUriEncode(source: win32more.Windows.Win32.Foundation.PWSTR, cchSource: UI
 @winfunctype('wsdapi.dll')
 def WSDUriDecode(source: win32more.Windows.Win32.Foundation.PWSTR, cchSource: UInt32, destOut: POINTER(win32more.Windows.Win32.Foundation.PWSTR), cchDestOut: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 DeviceDiscoveryMechanism = Int32
-DeviceDiscoveryMechanism_MulticastDiscovery: win32more.Windows.Win32.Devices.WebServicesOnDevices.DeviceDiscoveryMechanism = 0
-DeviceDiscoveryMechanism_DirectedDiscovery: win32more.Windows.Win32.Devices.WebServicesOnDevices.DeviceDiscoveryMechanism = 1
-DeviceDiscoveryMechanism_SecureDirectedDiscovery: win32more.Windows.Win32.Devices.WebServicesOnDevices.DeviceDiscoveryMechanism = 2
+MulticastDiscovery: win32more.Windows.Win32.Devices.WebServicesOnDevices.DeviceDiscoveryMechanism = 0
+DirectedDiscovery: win32more.Windows.Win32.Devices.WebServicesOnDevices.DeviceDiscoveryMechanism = 1
+SecureDirectedDiscovery: win32more.Windows.Win32.Devices.WebServicesOnDevices.DeviceDiscoveryMechanism = 2
 class IWSDAddress(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{b9574c6c-12a6-4f74-93a1-3318ff605759}')
@@ -574,53 +574,53 @@ class WSDXML_NODE(EasyCastStructure):
     Parent: POINTER(win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_ELEMENT)
     Next: POINTER(win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_NODE)
 WSDXML_OP = Int32
-WSDXML_OP_OpNone: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 0
-WSDXML_OP_OpEndOfTable: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 1
-WSDXML_OP_OpBeginElement_: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 2
-WSDXML_OP_OpBeginAnyElement: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 3
-WSDXML_OP_OpEndElement: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 4
-WSDXML_OP_OpElement_: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 5
-WSDXML_OP_OpAnyElement: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 6
-WSDXML_OP_OpAnyElements: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 7
-WSDXML_OP_OpAnyText: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 8
-WSDXML_OP_OpAttribute_: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 9
-WSDXML_OP_OpBeginChoice: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 10
-WSDXML_OP_OpEndChoice: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 11
-WSDXML_OP_OpBeginSequence: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 12
-WSDXML_OP_OpEndSequence: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 13
-WSDXML_OP_OpBeginAll: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 14
-WSDXML_OP_OpEndAll: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 15
-WSDXML_OP_OpAnything: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 16
-WSDXML_OP_OpAnyNumber: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 17
-WSDXML_OP_OpOneOrMore: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 18
-WSDXML_OP_OpOptional: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 19
-WSDXML_OP_OpFormatBool_: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 20
-WSDXML_OP_OpFormatInt8_: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 21
-WSDXML_OP_OpFormatInt16_: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 22
-WSDXML_OP_OpFormatInt32_: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 23
-WSDXML_OP_OpFormatInt64_: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 24
-WSDXML_OP_OpFormatUInt8_: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 25
-WSDXML_OP_OpFormatUInt16_: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 26
-WSDXML_OP_OpFormatUInt32_: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 27
-WSDXML_OP_OpFormatUInt64_: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 28
-WSDXML_OP_OpFormatUnicodeString_: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 29
-WSDXML_OP_OpFormatDom_: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 30
-WSDXML_OP_OpFormatStruct_: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 31
-WSDXML_OP_OpFormatUri_: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 32
-WSDXML_OP_OpFormatUuidUri_: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 33
-WSDXML_OP_OpFormatName_: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 34
-WSDXML_OP_OpFormatListInsertTail_: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 35
-WSDXML_OP_OpFormatType_: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 36
-WSDXML_OP_OpFormatDynamicType_: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 37
-WSDXML_OP_OpFormatLookupType_: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 38
-WSDXML_OP_OpFormatDuration_: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 39
-WSDXML_OP_OpFormatDateTime_: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 40
-WSDXML_OP_OpFormatFloat_: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 41
-WSDXML_OP_OpFormatDouble_: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 42
-WSDXML_OP_OpProcess_: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 43
-WSDXML_OP_OpQualifiedAttribute_: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 44
-WSDXML_OP_OpFormatXMLDeclaration_: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 45
-WSDXML_OP_OpFormatMax: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 46
+OpNone: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 0
+OpEndOfTable: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 1
+OpBeginElement_: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 2
+OpBeginAnyElement: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 3
+OpEndElement: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 4
+OpElement_: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 5
+OpAnyElement: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 6
+OpAnyElements: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 7
+OpAnyText: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 8
+OpAttribute_: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 9
+OpBeginChoice: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 10
+OpEndChoice: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 11
+OpBeginSequence: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 12
+OpEndSequence: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 13
+OpBeginAll: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 14
+OpEndAll: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 15
+OpAnything: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 16
+OpAnyNumber: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 17
+OpOneOrMore: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 18
+OpOptional: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 19
+OpFormatBool_: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 20
+OpFormatInt8_: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 21
+OpFormatInt16_: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 22
+OpFormatInt32_: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 23
+OpFormatInt64_: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 24
+OpFormatUInt8_: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 25
+OpFormatUInt16_: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 26
+OpFormatUInt32_: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 27
+OpFormatUInt64_: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 28
+OpFormatUnicodeString_: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 29
+OpFormatDom_: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 30
+OpFormatStruct_: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 31
+OpFormatUri_: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 32
+OpFormatUuidUri_: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 33
+OpFormatName_: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 34
+OpFormatListInsertTail_: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 35
+OpFormatType_: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 36
+OpFormatDynamicType_: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 37
+OpFormatLookupType_: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 38
+OpFormatDuration_: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 39
+OpFormatDateTime_: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 40
+OpFormatFloat_: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 41
+OpFormatDouble_: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 42
+OpProcess_: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 43
+OpQualifiedAttribute_: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 44
+OpFormatXMLDeclaration_: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 45
+OpFormatMax: win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_OP = 46
 class WSDXML_PREFIX_MAPPING(EasyCastStructure):
     Refs: UInt32
     Next: POINTER(win32more.Windows.Win32.Devices.WebServicesOnDevices.WSDXML_PREFIX_MAPPING)

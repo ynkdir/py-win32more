@@ -193,31 +193,31 @@ class MLOperatorAttributeNameValue(EasyCastStructure):
         ints: POINTER(Int64)
         strings: POINTER(POINTER(SByte))
         floats: POINTER(Single)
-MLOperatorAttributeType = UInt32
-MLOperatorAttributeType_Undefined: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorAttributeType = 0
-MLOperatorAttributeType_Float: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorAttributeType = 2
-MLOperatorAttributeType_Int: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorAttributeType = 3
-MLOperatorAttributeType_String: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorAttributeType = 4
-MLOperatorAttributeType_FloatArray: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorAttributeType = 7
-MLOperatorAttributeType_IntArray: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorAttributeType = 8
-MLOperatorAttributeType_StringArray: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorAttributeType = 9
+class MLOperatorAttributeType(UInt32):  # enum
+    Undefined = 0
+    Float = 2
+    Int = 3
+    String = 4
+    FloatArray = 7
+    IntArray = 8
+    StringArray = 9
 class MLOperatorEdgeDescription(EasyCastStructure):
     edgeType: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorEdgeType
     Anonymous: _Anonymous_e__Union
     class _Anonymous_e__Union(EasyCastUnion):
         reserved: UInt64
         tensorDataType: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorTensorDataType
-MLOperatorEdgeType = UInt32
-MLOperatorEdgeType_Undefined: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorEdgeType = 0
-MLOperatorEdgeType_Tensor: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorEdgeType = 1
+class MLOperatorEdgeType(UInt32):  # enum
+    Undefined = 0
+    Tensor = 1
 class MLOperatorEdgeTypeConstraint(EasyCastStructure):
     typeLabel: win32more.Windows.Win32.Foundation.PSTR
     allowedTypes: POINTER(win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorEdgeDescription)
     allowedTypeCount: UInt32
-MLOperatorExecutionType = UInt32
-MLOperatorExecutionType_Undefined: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorExecutionType = 0
-MLOperatorExecutionType_Cpu: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorExecutionType = 1
-MLOperatorExecutionType_D3D12: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorExecutionType = 2
+class MLOperatorExecutionType(UInt32):  # enum
+    Undefined = 0
+    Cpu = 1
+    D3D12 = 2
 class MLOperatorKernelDescription(EasyCastStructure):
     domain: win32more.Windows.Win32.Foundation.PSTR
     name: win32more.Windows.Win32.Foundation.PSTR
@@ -229,13 +229,13 @@ class MLOperatorKernelDescription(EasyCastStructure):
     defaultAttributeCount: UInt32
     options: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorKernelOptions
     executionOptions: UInt32
-MLOperatorKernelOptions = UInt32
-MLOperatorKernelOptions_None: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorKernelOptions = 0
-MLOperatorKernelOptions_AllowDynamicInputShapes: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorKernelOptions = 1
-MLOperatorParameterOptions = UInt32
-MLOperatorParameterOptions_Single: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorParameterOptions = 0
-MLOperatorParameterOptions_Optional: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorParameterOptions = 1
-MLOperatorParameterOptions_Variadic: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorParameterOptions = 2
+class MLOperatorKernelOptions(UInt32):  # enum
+    None_ = 0
+    AllowDynamicInputShapes = 1
+class MLOperatorParameterOptions(UInt32):  # enum
+    Single = 0
+    Optional = 1
+    Variadic = 2
 class MLOperatorSchemaDescription(EasyCastStructure):
     name: win32more.Windows.Win32.Foundation.PSTR
     operatorSetVersionAtLastChange: Int32
@@ -257,29 +257,29 @@ class MLOperatorSchemaEdgeDescription(EasyCastStructure):
         reserved: VoidPtr
         typeLabel: win32more.Windows.Win32.Foundation.PSTR
         edgeDescription: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorEdgeDescription
-MLOperatorSchemaEdgeTypeFormat = Int32
-MLOperatorSchemaEdgeTypeFormat_EdgeDescription: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorSchemaEdgeTypeFormat = 0
-MLOperatorSchemaEdgeTypeFormat_Label: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorSchemaEdgeTypeFormat = 1
+class MLOperatorSchemaEdgeTypeFormat(Int32):  # enum
+    EdgeDescription = 0
+    Label = 1
 class MLOperatorSetId(EasyCastStructure):
     domain: win32more.Windows.Win32.Foundation.PSTR
     version: Int32
-MLOperatorTensorDataType = UInt32
-MLOperatorTensorDataType_Undefined: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorTensorDataType = 0
-MLOperatorTensorDataType_Float: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorTensorDataType = 1
-MLOperatorTensorDataType_UInt8: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorTensorDataType = 2
-MLOperatorTensorDataType_Int8: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorTensorDataType = 3
-MLOperatorTensorDataType_UInt16: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorTensorDataType = 4
-MLOperatorTensorDataType_Int16: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorTensorDataType = 5
-MLOperatorTensorDataType_Int32: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorTensorDataType = 6
-MLOperatorTensorDataType_Int64: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorTensorDataType = 7
-MLOperatorTensorDataType_String: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorTensorDataType = 8
-MLOperatorTensorDataType_Bool: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorTensorDataType = 9
-MLOperatorTensorDataType_Float16: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorTensorDataType = 10
-MLOperatorTensorDataType_Double: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorTensorDataType = 11
-MLOperatorTensorDataType_UInt32: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorTensorDataType = 12
-MLOperatorTensorDataType_UInt64: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorTensorDataType = 13
-MLOperatorTensorDataType_Complex64: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorTensorDataType = 14
-MLOperatorTensorDataType_Complex128: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorTensorDataType = 15
+class MLOperatorTensorDataType(UInt32):  # enum
+    Undefined = 0
+    Float = 1
+    UInt8 = 2
+    Int8 = 3
+    UInt16 = 4
+    Int16 = 5
+    Int32 = 6
+    Int64 = 7
+    String = 8
+    Bool = 9
+    Float16 = 10
+    Double = 11
+    UInt32 = 12
+    UInt64 = 13
+    Complex64 = 14
+    Complex128 = 15
 class WINML_BINDING_DESC(EasyCastStructure):
     Name: win32more.Windows.Win32.Foundation.PWSTR
     BindType: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_BINDING_TYPE

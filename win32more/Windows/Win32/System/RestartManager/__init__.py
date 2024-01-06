@@ -30,27 +30,27 @@ def RmRemoveFilter(dwSessionHandle: UInt32, strModuleName: win32more.Windows.Win
 @winfunctype('RstrtMgr.dll')
 def RmGetFilterList(dwSessionHandle: UInt32, pbFilterBuf: POINTER(Byte), cbFilterBuf: UInt32, cbFilterBufNeeded: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
 RM_APP_STATUS = Int32
-RM_APP_STATUS_RmStatusUnknown: win32more.Windows.Win32.System.RestartManager.RM_APP_STATUS = 0
-RM_APP_STATUS_RmStatusRunning: win32more.Windows.Win32.System.RestartManager.RM_APP_STATUS = 1
-RM_APP_STATUS_RmStatusStopped: win32more.Windows.Win32.System.RestartManager.RM_APP_STATUS = 2
-RM_APP_STATUS_RmStatusStoppedOther: win32more.Windows.Win32.System.RestartManager.RM_APP_STATUS = 4
-RM_APP_STATUS_RmStatusRestarted: win32more.Windows.Win32.System.RestartManager.RM_APP_STATUS = 8
-RM_APP_STATUS_RmStatusErrorOnStop: win32more.Windows.Win32.System.RestartManager.RM_APP_STATUS = 16
-RM_APP_STATUS_RmStatusErrorOnRestart: win32more.Windows.Win32.System.RestartManager.RM_APP_STATUS = 32
-RM_APP_STATUS_RmStatusShutdownMasked: win32more.Windows.Win32.System.RestartManager.RM_APP_STATUS = 64
-RM_APP_STATUS_RmStatusRestartMasked: win32more.Windows.Win32.System.RestartManager.RM_APP_STATUS = 128
+RmStatusUnknown: win32more.Windows.Win32.System.RestartManager.RM_APP_STATUS = 0
+RmStatusRunning: win32more.Windows.Win32.System.RestartManager.RM_APP_STATUS = 1
+RmStatusStopped: win32more.Windows.Win32.System.RestartManager.RM_APP_STATUS = 2
+RmStatusStoppedOther: win32more.Windows.Win32.System.RestartManager.RM_APP_STATUS = 4
+RmStatusRestarted: win32more.Windows.Win32.System.RestartManager.RM_APP_STATUS = 8
+RmStatusErrorOnStop: win32more.Windows.Win32.System.RestartManager.RM_APP_STATUS = 16
+RmStatusErrorOnRestart: win32more.Windows.Win32.System.RestartManager.RM_APP_STATUS = 32
+RmStatusShutdownMasked: win32more.Windows.Win32.System.RestartManager.RM_APP_STATUS = 64
+RmStatusRestartMasked: win32more.Windows.Win32.System.RestartManager.RM_APP_STATUS = 128
 RM_APP_TYPE = Int32
-RM_APP_TYPE_RmUnknownApp: win32more.Windows.Win32.System.RestartManager.RM_APP_TYPE = 0
-RM_APP_TYPE_RmMainWindow: win32more.Windows.Win32.System.RestartManager.RM_APP_TYPE = 1
-RM_APP_TYPE_RmOtherWindow: win32more.Windows.Win32.System.RestartManager.RM_APP_TYPE = 2
-RM_APP_TYPE_RmService: win32more.Windows.Win32.System.RestartManager.RM_APP_TYPE = 3
-RM_APP_TYPE_RmExplorer: win32more.Windows.Win32.System.RestartManager.RM_APP_TYPE = 4
-RM_APP_TYPE_RmConsole: win32more.Windows.Win32.System.RestartManager.RM_APP_TYPE = 5
-RM_APP_TYPE_RmCritical: win32more.Windows.Win32.System.RestartManager.RM_APP_TYPE = 1000
+RmUnknownApp: win32more.Windows.Win32.System.RestartManager.RM_APP_TYPE = 0
+RmMainWindow: win32more.Windows.Win32.System.RestartManager.RM_APP_TYPE = 1
+RmOtherWindow: win32more.Windows.Win32.System.RestartManager.RM_APP_TYPE = 2
+RmService: win32more.Windows.Win32.System.RestartManager.RM_APP_TYPE = 3
+RmExplorer: win32more.Windows.Win32.System.RestartManager.RM_APP_TYPE = 4
+RmConsole: win32more.Windows.Win32.System.RestartManager.RM_APP_TYPE = 5
+RmCritical: win32more.Windows.Win32.System.RestartManager.RM_APP_TYPE = 1000
 RM_FILTER_ACTION = Int32
-RM_FILTER_ACTION_RmInvalidFilterAction: win32more.Windows.Win32.System.RestartManager.RM_FILTER_ACTION = 0
-RM_FILTER_ACTION_RmNoRestart: win32more.Windows.Win32.System.RestartManager.RM_FILTER_ACTION = 1
-RM_FILTER_ACTION_RmNoShutdown: win32more.Windows.Win32.System.RestartManager.RM_FILTER_ACTION = 2
+RmInvalidFilterAction: win32more.Windows.Win32.System.RestartManager.RM_FILTER_ACTION = 0
+RmNoRestart: win32more.Windows.Win32.System.RestartManager.RM_FILTER_ACTION = 1
+RmNoShutdown: win32more.Windows.Win32.System.RestartManager.RM_FILTER_ACTION = 2
 class RM_FILTER_INFO(EasyCastStructure):
     FilterAction: win32more.Windows.Win32.System.RestartManager.RM_FILTER_ACTION
     FilterTrigger: win32more.Windows.Win32.System.RestartManager.RM_FILTER_TRIGGER
@@ -61,10 +61,10 @@ class RM_FILTER_INFO(EasyCastStructure):
         Process: win32more.Windows.Win32.System.RestartManager.RM_UNIQUE_PROCESS
         strServiceShortName: win32more.Windows.Win32.Foundation.PWSTR
 RM_FILTER_TRIGGER = Int32
-RM_FILTER_TRIGGER_RmFilterTriggerInvalid: win32more.Windows.Win32.System.RestartManager.RM_FILTER_TRIGGER = 0
-RM_FILTER_TRIGGER_RmFilterTriggerFile: win32more.Windows.Win32.System.RestartManager.RM_FILTER_TRIGGER = 1
-RM_FILTER_TRIGGER_RmFilterTriggerProcess: win32more.Windows.Win32.System.RestartManager.RM_FILTER_TRIGGER = 2
-RM_FILTER_TRIGGER_RmFilterTriggerService: win32more.Windows.Win32.System.RestartManager.RM_FILTER_TRIGGER = 3
+RmFilterTriggerInvalid: win32more.Windows.Win32.System.RestartManager.RM_FILTER_TRIGGER = 0
+RmFilterTriggerFile: win32more.Windows.Win32.System.RestartManager.RM_FILTER_TRIGGER = 1
+RmFilterTriggerProcess: win32more.Windows.Win32.System.RestartManager.RM_FILTER_TRIGGER = 2
+RmFilterTriggerService: win32more.Windows.Win32.System.RestartManager.RM_FILTER_TRIGGER = 3
 class RM_PROCESS_INFO(EasyCastStructure):
     Process: win32more.Windows.Win32.System.RestartManager.RM_UNIQUE_PROCESS
     strAppName: Char * 256
@@ -74,15 +74,15 @@ class RM_PROCESS_INFO(EasyCastStructure):
     TSSessionId: UInt32
     bRestartable: win32more.Windows.Win32.Foundation.BOOL
 RM_REBOOT_REASON = Int32
-RM_REBOOT_REASON_RmRebootReasonNone: win32more.Windows.Win32.System.RestartManager.RM_REBOOT_REASON = 0
-RM_REBOOT_REASON_RmRebootReasonPermissionDenied: win32more.Windows.Win32.System.RestartManager.RM_REBOOT_REASON = 1
-RM_REBOOT_REASON_RmRebootReasonSessionMismatch: win32more.Windows.Win32.System.RestartManager.RM_REBOOT_REASON = 2
-RM_REBOOT_REASON_RmRebootReasonCriticalProcess: win32more.Windows.Win32.System.RestartManager.RM_REBOOT_REASON = 4
-RM_REBOOT_REASON_RmRebootReasonCriticalService: win32more.Windows.Win32.System.RestartManager.RM_REBOOT_REASON = 8
-RM_REBOOT_REASON_RmRebootReasonDetectedSelf: win32more.Windows.Win32.System.RestartManager.RM_REBOOT_REASON = 16
+RmRebootReasonNone: win32more.Windows.Win32.System.RestartManager.RM_REBOOT_REASON = 0
+RmRebootReasonPermissionDenied: win32more.Windows.Win32.System.RestartManager.RM_REBOOT_REASON = 1
+RmRebootReasonSessionMismatch: win32more.Windows.Win32.System.RestartManager.RM_REBOOT_REASON = 2
+RmRebootReasonCriticalProcess: win32more.Windows.Win32.System.RestartManager.RM_REBOOT_REASON = 4
+RmRebootReasonCriticalService: win32more.Windows.Win32.System.RestartManager.RM_REBOOT_REASON = 8
+RmRebootReasonDetectedSelf: win32more.Windows.Win32.System.RestartManager.RM_REBOOT_REASON = 16
 RM_SHUTDOWN_TYPE = Int32
-RM_SHUTDOWN_TYPE_RmForceShutdown: win32more.Windows.Win32.System.RestartManager.RM_SHUTDOWN_TYPE = 1
-RM_SHUTDOWN_TYPE_RmShutdownOnlyRegistered: win32more.Windows.Win32.System.RestartManager.RM_SHUTDOWN_TYPE = 16
+RmForceShutdown: win32more.Windows.Win32.System.RestartManager.RM_SHUTDOWN_TYPE = 1
+RmShutdownOnlyRegistered: win32more.Windows.Win32.System.RestartManager.RM_SHUTDOWN_TYPE = 16
 class RM_UNIQUE_PROCESS(EasyCastStructure):
     dwProcessId: UInt32
     ProcessStartTime: win32more.Windows.Win32.Foundation.FILETIME

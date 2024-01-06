@@ -92,9 +92,9 @@ class FDICABINETINFO(EasyCastStructure):
     hasprev: win32more.Windows.Win32.Foundation.BOOL
     hasnext: win32more.Windows.Win32.Foundation.BOOL
 FDICREATE_CPU_TYPE = Int32
-FDICREATE_CPU_TYPE_cpuUNKNOWN: win32more.Windows.Win32.Storage.Cabinets.FDICREATE_CPU_TYPE = -1
-FDICREATE_CPU_TYPE_cpu80286: win32more.Windows.Win32.Storage.Cabinets.FDICREATE_CPU_TYPE = 0
-FDICREATE_CPU_TYPE_cpu80386: win32more.Windows.Win32.Storage.Cabinets.FDICREATE_CPU_TYPE = 1
+cpuUNKNOWN: win32more.Windows.Win32.Storage.Cabinets.FDICREATE_CPU_TYPE = -1
+cpu80286: win32more.Windows.Win32.Storage.Cabinets.FDICREATE_CPU_TYPE = 0
+cpu80386: win32more.Windows.Win32.Storage.Cabinets.FDICREATE_CPU_TYPE = 1
 class FDIDECRYPT(EasyCastStructure):
     fdidt: win32more.Windows.Win32.Storage.Cabinets.FDIDECRYPTTYPE
     pvUser: VoidPtr
@@ -120,9 +120,9 @@ class FDIDECRYPT(EasyCastStructure):
             fSplit: win32more.Windows.Win32.Foundation.BOOL
             cbPartial: UInt16
 FDIDECRYPTTYPE = Int32
-FDIDECRYPTTYPE_fdidtNEW_CABINET: win32more.Windows.Win32.Storage.Cabinets.FDIDECRYPTTYPE = 0
-FDIDECRYPTTYPE_fdidtNEW_FOLDER: win32more.Windows.Win32.Storage.Cabinets.FDIDECRYPTTYPE = 1
-FDIDECRYPTTYPE_fdidtDECRYPT: win32more.Windows.Win32.Storage.Cabinets.FDIDECRYPTTYPE = 2
+fdidtNEW_CABINET: win32more.Windows.Win32.Storage.Cabinets.FDIDECRYPTTYPE = 0
+fdidtNEW_FOLDER: win32more.Windows.Win32.Storage.Cabinets.FDIDECRYPTTYPE = 1
+fdidtDECRYPT: win32more.Windows.Win32.Storage.Cabinets.FDIDECRYPTTYPE = 2
 FDIERROR = Int32
 FDIERROR_NONE: win32more.Windows.Win32.Storage.Cabinets.FDIERROR = 0
 FDIERROR_CABINET_NOT_FOUND: win32more.Windows.Win32.Storage.Cabinets.FDIERROR = 1
@@ -152,12 +152,12 @@ class FDINOTIFICATION(EasyCastStructure):
     iFolder: UInt16
     fdie: win32more.Windows.Win32.Storage.Cabinets.FDIERROR
 FDINOTIFICATIONTYPE = Int32
-FDINOTIFICATIONTYPE_fdintCABINET_INFO: win32more.Windows.Win32.Storage.Cabinets.FDINOTIFICATIONTYPE = 0
-FDINOTIFICATIONTYPE_fdintPARTIAL_FILE: win32more.Windows.Win32.Storage.Cabinets.FDINOTIFICATIONTYPE = 1
-FDINOTIFICATIONTYPE_fdintCOPY_FILE: win32more.Windows.Win32.Storage.Cabinets.FDINOTIFICATIONTYPE = 2
-FDINOTIFICATIONTYPE_fdintCLOSE_FILE_INFO: win32more.Windows.Win32.Storage.Cabinets.FDINOTIFICATIONTYPE = 3
-FDINOTIFICATIONTYPE_fdintNEXT_CABINET: win32more.Windows.Win32.Storage.Cabinets.FDINOTIFICATIONTYPE = 4
-FDINOTIFICATIONTYPE_fdintENUMERATE: win32more.Windows.Win32.Storage.Cabinets.FDINOTIFICATIONTYPE = 5
+fdintCABINET_INFO: win32more.Windows.Win32.Storage.Cabinets.FDINOTIFICATIONTYPE = 0
+fdintPARTIAL_FILE: win32more.Windows.Win32.Storage.Cabinets.FDINOTIFICATIONTYPE = 1
+fdintCOPY_FILE: win32more.Windows.Win32.Storage.Cabinets.FDINOTIFICATIONTYPE = 2
+fdintCLOSE_FILE_INFO: win32more.Windows.Win32.Storage.Cabinets.FDINOTIFICATIONTYPE = 3
+fdintNEXT_CABINET: win32more.Windows.Win32.Storage.Cabinets.FDINOTIFICATIONTYPE = 4
+fdintENUMERATE: win32more.Windows.Win32.Storage.Cabinets.FDINOTIFICATIONTYPE = 5
 if ARCH in 'X64,ARM64':
     class FDISPILLFILE(EasyCastStructure):
         ach: win32more.Windows.Win32.Foundation.CHAR * 2

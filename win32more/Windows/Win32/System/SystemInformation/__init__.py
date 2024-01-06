@@ -259,23 +259,23 @@ class CACHE_RELATIONSHIP(EasyCastStructure):
         GroupMask: win32more.Windows.Win32.System.SystemInformation.GROUP_AFFINITY
         GroupMasks: win32more.Windows.Win32.System.SystemInformation.GROUP_AFFINITY * 1
 COMPUTER_NAME_FORMAT = Int32
-COMPUTER_NAME_FORMAT_ComputerNameNetBIOS: win32more.Windows.Win32.System.SystemInformation.COMPUTER_NAME_FORMAT = 0
-COMPUTER_NAME_FORMAT_ComputerNameDnsHostname: win32more.Windows.Win32.System.SystemInformation.COMPUTER_NAME_FORMAT = 1
-COMPUTER_NAME_FORMAT_ComputerNameDnsDomain: win32more.Windows.Win32.System.SystemInformation.COMPUTER_NAME_FORMAT = 2
-COMPUTER_NAME_FORMAT_ComputerNameDnsFullyQualified: win32more.Windows.Win32.System.SystemInformation.COMPUTER_NAME_FORMAT = 3
-COMPUTER_NAME_FORMAT_ComputerNamePhysicalNetBIOS: win32more.Windows.Win32.System.SystemInformation.COMPUTER_NAME_FORMAT = 4
-COMPUTER_NAME_FORMAT_ComputerNamePhysicalDnsHostname: win32more.Windows.Win32.System.SystemInformation.COMPUTER_NAME_FORMAT = 5
-COMPUTER_NAME_FORMAT_ComputerNamePhysicalDnsDomain: win32more.Windows.Win32.System.SystemInformation.COMPUTER_NAME_FORMAT = 6
-COMPUTER_NAME_FORMAT_ComputerNamePhysicalDnsFullyQualified: win32more.Windows.Win32.System.SystemInformation.COMPUTER_NAME_FORMAT = 7
-COMPUTER_NAME_FORMAT_ComputerNameMax: win32more.Windows.Win32.System.SystemInformation.COMPUTER_NAME_FORMAT = 8
+ComputerNameNetBIOS: win32more.Windows.Win32.System.SystemInformation.COMPUTER_NAME_FORMAT = 0
+ComputerNameDnsHostname: win32more.Windows.Win32.System.SystemInformation.COMPUTER_NAME_FORMAT = 1
+ComputerNameDnsDomain: win32more.Windows.Win32.System.SystemInformation.COMPUTER_NAME_FORMAT = 2
+ComputerNameDnsFullyQualified: win32more.Windows.Win32.System.SystemInformation.COMPUTER_NAME_FORMAT = 3
+ComputerNamePhysicalNetBIOS: win32more.Windows.Win32.System.SystemInformation.COMPUTER_NAME_FORMAT = 4
+ComputerNamePhysicalDnsHostname: win32more.Windows.Win32.System.SystemInformation.COMPUTER_NAME_FORMAT = 5
+ComputerNamePhysicalDnsDomain: win32more.Windows.Win32.System.SystemInformation.COMPUTER_NAME_FORMAT = 6
+ComputerNamePhysicalDnsFullyQualified: win32more.Windows.Win32.System.SystemInformation.COMPUTER_NAME_FORMAT = 7
+ComputerNameMax: win32more.Windows.Win32.System.SystemInformation.COMPUTER_NAME_FORMAT = 8
 CPU_SET_INFORMATION_TYPE = Int32
-CPU_SET_INFORMATION_TYPE_CpuSetInformation: win32more.Windows.Win32.System.SystemInformation.CPU_SET_INFORMATION_TYPE = 0
+CpuSetInformation: win32more.Windows.Win32.System.SystemInformation.CPU_SET_INFORMATION_TYPE = 0
 DEP_SYSTEM_POLICY_TYPE = Int32
-DEP_SYSTEM_POLICY_TYPE_DEPPolicyAlwaysOff: win32more.Windows.Win32.System.SystemInformation.DEP_SYSTEM_POLICY_TYPE = 0
-DEP_SYSTEM_POLICY_TYPE_DEPPolicyAlwaysOn: win32more.Windows.Win32.System.SystemInformation.DEP_SYSTEM_POLICY_TYPE = 1
-DEP_SYSTEM_POLICY_TYPE_DEPPolicyOptIn: win32more.Windows.Win32.System.SystemInformation.DEP_SYSTEM_POLICY_TYPE = 2
-DEP_SYSTEM_POLICY_TYPE_DEPPolicyOptOut: win32more.Windows.Win32.System.SystemInformation.DEP_SYSTEM_POLICY_TYPE = 3
-DEP_SYSTEM_POLICY_TYPE_DEPTotalPolicyCount: win32more.Windows.Win32.System.SystemInformation.DEP_SYSTEM_POLICY_TYPE = 4
+DEPPolicyAlwaysOff: win32more.Windows.Win32.System.SystemInformation.DEP_SYSTEM_POLICY_TYPE = 0
+DEPPolicyAlwaysOn: win32more.Windows.Win32.System.SystemInformation.DEP_SYSTEM_POLICY_TYPE = 1
+DEPPolicyOptIn: win32more.Windows.Win32.System.SystemInformation.DEP_SYSTEM_POLICY_TYPE = 2
+DEPPolicyOptOut: win32more.Windows.Win32.System.SystemInformation.DEP_SYSTEM_POLICY_TYPE = 3
+DEPTotalPolicyCount: win32more.Windows.Win32.System.SystemInformation.DEP_SYSTEM_POLICY_TYPE = 4
 DEVICEFAMILYDEVICEFORM = UInt32
 DEVICEFAMILYDEVICEFORM_UNKNOWN: win32more.Windows.Win32.System.SystemInformation.DEVICEFAMILYDEVICEFORM = 0
 DEVICEFAMILYDEVICEFORM_PHONE: win32more.Windows.Win32.System.SystemInformation.DEVICEFAMILYDEVICEFORM = 1
@@ -349,10 +349,10 @@ ACPI: win32more.Windows.Win32.System.SystemInformation.FIRMWARE_TABLE_PROVIDER =
 FIRM: win32more.Windows.Win32.System.SystemInformation.FIRMWARE_TABLE_PROVIDER = 1179210317
 RSMB: win32more.Windows.Win32.System.SystemInformation.FIRMWARE_TABLE_PROVIDER = 1381190978
 FIRMWARE_TYPE = Int32
-FIRMWARE_TYPE_FirmwareTypeUnknown: win32more.Windows.Win32.System.SystemInformation.FIRMWARE_TYPE = 0
-FIRMWARE_TYPE_FirmwareTypeBios: win32more.Windows.Win32.System.SystemInformation.FIRMWARE_TYPE = 1
-FIRMWARE_TYPE_FirmwareTypeUefi: win32more.Windows.Win32.System.SystemInformation.FIRMWARE_TYPE = 2
-FIRMWARE_TYPE_FirmwareTypeMax: win32more.Windows.Win32.System.SystemInformation.FIRMWARE_TYPE = 3
+FirmwareTypeUnknown: win32more.Windows.Win32.System.SystemInformation.FIRMWARE_TYPE = 0
+FirmwareTypeBios: win32more.Windows.Win32.System.SystemInformation.FIRMWARE_TYPE = 1
+FirmwareTypeUefi: win32more.Windows.Win32.System.SystemInformation.FIRMWARE_TYPE = 2
+FirmwareTypeMax: win32more.Windows.Win32.System.SystemInformation.FIRMWARE_TYPE = 3
 class GROUP_AFFINITY(EasyCastStructure):
     Mask: UIntPtr
     Group: UInt16
@@ -396,15 +396,15 @@ IMAGE_FILE_MACHINE_M32R: win32more.Windows.Win32.System.SystemInformation.IMAGE_
 IMAGE_FILE_MACHINE_ARM64: win32more.Windows.Win32.System.SystemInformation.IMAGE_FILE_MACHINE = 43620
 IMAGE_FILE_MACHINE_CEE: win32more.Windows.Win32.System.SystemInformation.IMAGE_FILE_MACHINE = 49390
 LOGICAL_PROCESSOR_RELATIONSHIP = Int32
-LOGICAL_PROCESSOR_RELATIONSHIP_RelationProcessorCore: win32more.Windows.Win32.System.SystemInformation.LOGICAL_PROCESSOR_RELATIONSHIP = 0
-LOGICAL_PROCESSOR_RELATIONSHIP_RelationNumaNode: win32more.Windows.Win32.System.SystemInformation.LOGICAL_PROCESSOR_RELATIONSHIP = 1
-LOGICAL_PROCESSOR_RELATIONSHIP_RelationCache: win32more.Windows.Win32.System.SystemInformation.LOGICAL_PROCESSOR_RELATIONSHIP = 2
-LOGICAL_PROCESSOR_RELATIONSHIP_RelationProcessorPackage: win32more.Windows.Win32.System.SystemInformation.LOGICAL_PROCESSOR_RELATIONSHIP = 3
-LOGICAL_PROCESSOR_RELATIONSHIP_RelationGroup: win32more.Windows.Win32.System.SystemInformation.LOGICAL_PROCESSOR_RELATIONSHIP = 4
-LOGICAL_PROCESSOR_RELATIONSHIP_RelationProcessorDie: win32more.Windows.Win32.System.SystemInformation.LOGICAL_PROCESSOR_RELATIONSHIP = 5
-LOGICAL_PROCESSOR_RELATIONSHIP_RelationNumaNodeEx: win32more.Windows.Win32.System.SystemInformation.LOGICAL_PROCESSOR_RELATIONSHIP = 6
-LOGICAL_PROCESSOR_RELATIONSHIP_RelationProcessorModule: win32more.Windows.Win32.System.SystemInformation.LOGICAL_PROCESSOR_RELATIONSHIP = 7
-LOGICAL_PROCESSOR_RELATIONSHIP_RelationAll: win32more.Windows.Win32.System.SystemInformation.LOGICAL_PROCESSOR_RELATIONSHIP = 65535
+RelationProcessorCore: win32more.Windows.Win32.System.SystemInformation.LOGICAL_PROCESSOR_RELATIONSHIP = 0
+RelationNumaNode: win32more.Windows.Win32.System.SystemInformation.LOGICAL_PROCESSOR_RELATIONSHIP = 1
+RelationCache: win32more.Windows.Win32.System.SystemInformation.LOGICAL_PROCESSOR_RELATIONSHIP = 2
+RelationProcessorPackage: win32more.Windows.Win32.System.SystemInformation.LOGICAL_PROCESSOR_RELATIONSHIP = 3
+RelationGroup: win32more.Windows.Win32.System.SystemInformation.LOGICAL_PROCESSOR_RELATIONSHIP = 4
+RelationProcessorDie: win32more.Windows.Win32.System.SystemInformation.LOGICAL_PROCESSOR_RELATIONSHIP = 5
+RelationNumaNodeEx: win32more.Windows.Win32.System.SystemInformation.LOGICAL_PROCESSOR_RELATIONSHIP = 6
+RelationProcessorModule: win32more.Windows.Win32.System.SystemInformation.LOGICAL_PROCESSOR_RELATIONSHIP = 7
+RelationAll: win32more.Windows.Win32.System.SystemInformation.LOGICAL_PROCESSOR_RELATIONSHIP = 65535
 class MEMORYSTATUS(EasyCastStructure):
     dwLength: UInt32
     dwMemoryLoad: UInt32
@@ -592,10 +592,10 @@ PROCESSOR_ARCHITECTURE_ARM32_ON_WIN64: win32more.Windows.Win32.System.SystemInfo
 PROCESSOR_ARCHITECTURE_IA32_ON_ARM64: win32more.Windows.Win32.System.SystemInformation.PROCESSOR_ARCHITECTURE = 14
 PROCESSOR_ARCHITECTURE_UNKNOWN: win32more.Windows.Win32.System.SystemInformation.PROCESSOR_ARCHITECTURE = 65535
 PROCESSOR_CACHE_TYPE = Int32
-PROCESSOR_CACHE_TYPE_CacheUnified: win32more.Windows.Win32.System.SystemInformation.PROCESSOR_CACHE_TYPE = 0
-PROCESSOR_CACHE_TYPE_CacheInstruction: win32more.Windows.Win32.System.SystemInformation.PROCESSOR_CACHE_TYPE = 1
-PROCESSOR_CACHE_TYPE_CacheData: win32more.Windows.Win32.System.SystemInformation.PROCESSOR_CACHE_TYPE = 2
-PROCESSOR_CACHE_TYPE_CacheTrace: win32more.Windows.Win32.System.SystemInformation.PROCESSOR_CACHE_TYPE = 3
+CacheUnified: win32more.Windows.Win32.System.SystemInformation.PROCESSOR_CACHE_TYPE = 0
+CacheInstruction: win32more.Windows.Win32.System.SystemInformation.PROCESSOR_CACHE_TYPE = 1
+CacheData: win32more.Windows.Win32.System.SystemInformation.PROCESSOR_CACHE_TYPE = 2
+CacheTrace: win32more.Windows.Win32.System.SystemInformation.PROCESSOR_CACHE_TYPE = 3
 class PROCESSOR_GROUP_INFO(EasyCastStructure):
     MaximumProcessorCount: Byte
     ActiveProcessorCount: Byte
@@ -608,26 +608,26 @@ class PROCESSOR_RELATIONSHIP(EasyCastStructure):
     GroupCount: UInt16
     GroupMask: win32more.Windows.Win32.System.SystemInformation.GROUP_AFFINITY * 1
 RTL_SYSTEM_GLOBAL_DATA_ID = Int32
-RTL_SYSTEM_GLOBAL_DATA_ID_GlobalDataIdUnknown: win32more.Windows.Win32.System.SystemInformation.RTL_SYSTEM_GLOBAL_DATA_ID = 0
-RTL_SYSTEM_GLOBAL_DATA_ID_GlobalDataIdRngSeedVersion: win32more.Windows.Win32.System.SystemInformation.RTL_SYSTEM_GLOBAL_DATA_ID = 1
-RTL_SYSTEM_GLOBAL_DATA_ID_GlobalDataIdInterruptTime: win32more.Windows.Win32.System.SystemInformation.RTL_SYSTEM_GLOBAL_DATA_ID = 2
-RTL_SYSTEM_GLOBAL_DATA_ID_GlobalDataIdTimeZoneBias: win32more.Windows.Win32.System.SystemInformation.RTL_SYSTEM_GLOBAL_DATA_ID = 3
-RTL_SYSTEM_GLOBAL_DATA_ID_GlobalDataIdImageNumberLow: win32more.Windows.Win32.System.SystemInformation.RTL_SYSTEM_GLOBAL_DATA_ID = 4
-RTL_SYSTEM_GLOBAL_DATA_ID_GlobalDataIdImageNumberHigh: win32more.Windows.Win32.System.SystemInformation.RTL_SYSTEM_GLOBAL_DATA_ID = 5
-RTL_SYSTEM_GLOBAL_DATA_ID_GlobalDataIdTimeZoneId: win32more.Windows.Win32.System.SystemInformation.RTL_SYSTEM_GLOBAL_DATA_ID = 6
-RTL_SYSTEM_GLOBAL_DATA_ID_GlobalDataIdNtMajorVersion: win32more.Windows.Win32.System.SystemInformation.RTL_SYSTEM_GLOBAL_DATA_ID = 7
-RTL_SYSTEM_GLOBAL_DATA_ID_GlobalDataIdNtMinorVersion: win32more.Windows.Win32.System.SystemInformation.RTL_SYSTEM_GLOBAL_DATA_ID = 8
-RTL_SYSTEM_GLOBAL_DATA_ID_GlobalDataIdSystemExpirationDate: win32more.Windows.Win32.System.SystemInformation.RTL_SYSTEM_GLOBAL_DATA_ID = 9
-RTL_SYSTEM_GLOBAL_DATA_ID_GlobalDataIdKdDebuggerEnabled: win32more.Windows.Win32.System.SystemInformation.RTL_SYSTEM_GLOBAL_DATA_ID = 10
-RTL_SYSTEM_GLOBAL_DATA_ID_GlobalDataIdCyclesPerYield: win32more.Windows.Win32.System.SystemInformation.RTL_SYSTEM_GLOBAL_DATA_ID = 11
-RTL_SYSTEM_GLOBAL_DATA_ID_GlobalDataIdSafeBootMode: win32more.Windows.Win32.System.SystemInformation.RTL_SYSTEM_GLOBAL_DATA_ID = 12
-RTL_SYSTEM_GLOBAL_DATA_ID_GlobalDataIdLastSystemRITEventTickCount: win32more.Windows.Win32.System.SystemInformation.RTL_SYSTEM_GLOBAL_DATA_ID = 13
-RTL_SYSTEM_GLOBAL_DATA_ID_GlobalDataIdConsoleSharedDataFlags: win32more.Windows.Win32.System.SystemInformation.RTL_SYSTEM_GLOBAL_DATA_ID = 14
-RTL_SYSTEM_GLOBAL_DATA_ID_GlobalDataIdNtSystemRootDrive: win32more.Windows.Win32.System.SystemInformation.RTL_SYSTEM_GLOBAL_DATA_ID = 15
-RTL_SYSTEM_GLOBAL_DATA_ID_GlobalDataIdQpcShift: win32more.Windows.Win32.System.SystemInformation.RTL_SYSTEM_GLOBAL_DATA_ID = 16
-RTL_SYSTEM_GLOBAL_DATA_ID_GlobalDataIdQpcBypassEnabled: win32more.Windows.Win32.System.SystemInformation.RTL_SYSTEM_GLOBAL_DATA_ID = 17
-RTL_SYSTEM_GLOBAL_DATA_ID_GlobalDataIdQpcData: win32more.Windows.Win32.System.SystemInformation.RTL_SYSTEM_GLOBAL_DATA_ID = 18
-RTL_SYSTEM_GLOBAL_DATA_ID_GlobalDataIdQpcBias: win32more.Windows.Win32.System.SystemInformation.RTL_SYSTEM_GLOBAL_DATA_ID = 19
+GlobalDataIdUnknown: win32more.Windows.Win32.System.SystemInformation.RTL_SYSTEM_GLOBAL_DATA_ID = 0
+GlobalDataIdRngSeedVersion: win32more.Windows.Win32.System.SystemInformation.RTL_SYSTEM_GLOBAL_DATA_ID = 1
+GlobalDataIdInterruptTime: win32more.Windows.Win32.System.SystemInformation.RTL_SYSTEM_GLOBAL_DATA_ID = 2
+GlobalDataIdTimeZoneBias: win32more.Windows.Win32.System.SystemInformation.RTL_SYSTEM_GLOBAL_DATA_ID = 3
+GlobalDataIdImageNumberLow: win32more.Windows.Win32.System.SystemInformation.RTL_SYSTEM_GLOBAL_DATA_ID = 4
+GlobalDataIdImageNumberHigh: win32more.Windows.Win32.System.SystemInformation.RTL_SYSTEM_GLOBAL_DATA_ID = 5
+GlobalDataIdTimeZoneId: win32more.Windows.Win32.System.SystemInformation.RTL_SYSTEM_GLOBAL_DATA_ID = 6
+GlobalDataIdNtMajorVersion: win32more.Windows.Win32.System.SystemInformation.RTL_SYSTEM_GLOBAL_DATA_ID = 7
+GlobalDataIdNtMinorVersion: win32more.Windows.Win32.System.SystemInformation.RTL_SYSTEM_GLOBAL_DATA_ID = 8
+GlobalDataIdSystemExpirationDate: win32more.Windows.Win32.System.SystemInformation.RTL_SYSTEM_GLOBAL_DATA_ID = 9
+GlobalDataIdKdDebuggerEnabled: win32more.Windows.Win32.System.SystemInformation.RTL_SYSTEM_GLOBAL_DATA_ID = 10
+GlobalDataIdCyclesPerYield: win32more.Windows.Win32.System.SystemInformation.RTL_SYSTEM_GLOBAL_DATA_ID = 11
+GlobalDataIdSafeBootMode: win32more.Windows.Win32.System.SystemInformation.RTL_SYSTEM_GLOBAL_DATA_ID = 12
+GlobalDataIdLastSystemRITEventTickCount: win32more.Windows.Win32.System.SystemInformation.RTL_SYSTEM_GLOBAL_DATA_ID = 13
+GlobalDataIdConsoleSharedDataFlags: win32more.Windows.Win32.System.SystemInformation.RTL_SYSTEM_GLOBAL_DATA_ID = 14
+GlobalDataIdNtSystemRootDrive: win32more.Windows.Win32.System.SystemInformation.RTL_SYSTEM_GLOBAL_DATA_ID = 15
+GlobalDataIdQpcShift: win32more.Windows.Win32.System.SystemInformation.RTL_SYSTEM_GLOBAL_DATA_ID = 16
+GlobalDataIdQpcBypassEnabled: win32more.Windows.Win32.System.SystemInformation.RTL_SYSTEM_GLOBAL_DATA_ID = 17
+GlobalDataIdQpcData: win32more.Windows.Win32.System.SystemInformation.RTL_SYSTEM_GLOBAL_DATA_ID = 18
+GlobalDataIdQpcBias: win32more.Windows.Win32.System.SystemInformation.RTL_SYSTEM_GLOBAL_DATA_ID = 19
 class SYSTEM_CPU_SET_INFORMATION(EasyCastStructure):
     Size: UInt32
     Type: win32more.Windows.Win32.System.SystemInformation.CPU_SET_INFORMATION_TYPE

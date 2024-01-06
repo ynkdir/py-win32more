@@ -149,9 +149,9 @@ class DIAGNOSTIC_REPORT_SIGNATURE(EasyCastStructure):
     eventName: Char * 65
     parameters: win32more.Windows.Win32.Security.DiagnosticDataQuery.DIAGNOSTIC_REPORT_PARAMETER * 10
 DdqAccessLevel = Int32
-DdqAccessLevel_NoData: win32more.Windows.Win32.Security.DiagnosticDataQuery.DdqAccessLevel = 0
-DdqAccessLevel_CurrentUserData: win32more.Windows.Win32.Security.DiagnosticDataQuery.DdqAccessLevel = 1
-DdqAccessLevel_AllUserData: win32more.Windows.Win32.Security.DiagnosticDataQuery.DdqAccessLevel = 2
+NoData: win32more.Windows.Win32.Security.DiagnosticDataQuery.DdqAccessLevel = 0
+CurrentUserData: win32more.Windows.Win32.Security.DiagnosticDataQuery.DdqAccessLevel = 1
+AllUserData: win32more.Windows.Win32.Security.DiagnosticDataQuery.DdqAccessLevel = 2
 
 
 make_ready(__name__)

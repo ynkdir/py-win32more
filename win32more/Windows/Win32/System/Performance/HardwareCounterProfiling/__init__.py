@@ -15,8 +15,8 @@ class HARDWARE_COUNTER_DATA(EasyCastStructure):
     Reserved: UInt32
     Value: UInt64
 HARDWARE_COUNTER_TYPE = Int32
-HARDWARE_COUNTER_TYPE_PMCCounter: win32more.Windows.Win32.System.Performance.HardwareCounterProfiling.HARDWARE_COUNTER_TYPE = 0
-HARDWARE_COUNTER_TYPE_MaxHardwareCounterType: win32more.Windows.Win32.System.Performance.HardwareCounterProfiling.HARDWARE_COUNTER_TYPE = 1
+PMCCounter: win32more.Windows.Win32.System.Performance.HardwareCounterProfiling.HARDWARE_COUNTER_TYPE = 0
+MaxHardwareCounterType: win32more.Windows.Win32.System.Performance.HardwareCounterProfiling.HARDWARE_COUNTER_TYPE = 1
 class PERFORMANCE_DATA(EasyCastStructure):
     Size: UInt16
     Version: Byte

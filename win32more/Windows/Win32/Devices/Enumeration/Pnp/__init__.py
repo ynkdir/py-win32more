@@ -327,11 +327,11 @@ class IUPnPServices(ComPtr):
     @commethod(9)
     def get_Item(self, bstrServiceId: win32more.Windows.Win32.Foundation.BSTR, ppService: POINTER(win32more.Windows.Win32.Devices.Enumeration.Pnp.IUPnPService)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 SW_DEVICE_CAPABILITIES = Int32
-SW_DEVICE_CAPABILITIES_SWDeviceCapabilitiesNone: win32more.Windows.Win32.Devices.Enumeration.Pnp.SW_DEVICE_CAPABILITIES = 0
-SW_DEVICE_CAPABILITIES_SWDeviceCapabilitiesRemovable: win32more.Windows.Win32.Devices.Enumeration.Pnp.SW_DEVICE_CAPABILITIES = 1
-SW_DEVICE_CAPABILITIES_SWDeviceCapabilitiesSilentInstall: win32more.Windows.Win32.Devices.Enumeration.Pnp.SW_DEVICE_CAPABILITIES = 2
-SW_DEVICE_CAPABILITIES_SWDeviceCapabilitiesNoDisplayInUI: win32more.Windows.Win32.Devices.Enumeration.Pnp.SW_DEVICE_CAPABILITIES = 4
-SW_DEVICE_CAPABILITIES_SWDeviceCapabilitiesDriverRequired: win32more.Windows.Win32.Devices.Enumeration.Pnp.SW_DEVICE_CAPABILITIES = 8
+SWDeviceCapabilitiesNone: win32more.Windows.Win32.Devices.Enumeration.Pnp.SW_DEVICE_CAPABILITIES = 0
+SWDeviceCapabilitiesRemovable: win32more.Windows.Win32.Devices.Enumeration.Pnp.SW_DEVICE_CAPABILITIES = 1
+SWDeviceCapabilitiesSilentInstall: win32more.Windows.Win32.Devices.Enumeration.Pnp.SW_DEVICE_CAPABILITIES = 2
+SWDeviceCapabilitiesNoDisplayInUI: win32more.Windows.Win32.Devices.Enumeration.Pnp.SW_DEVICE_CAPABILITIES = 4
+SWDeviceCapabilitiesDriverRequired: win32more.Windows.Win32.Devices.Enumeration.Pnp.SW_DEVICE_CAPABILITIES = 8
 @winfunctype_pointer
 def SW_DEVICE_CREATE_CALLBACK(hSwDevice: win32more.Windows.Win32.Devices.Enumeration.Pnp.HSWDEVICE, CreateResult: win32more.Windows.Win32.Foundation.HRESULT, pContext: VoidPtr, pszDeviceInstanceId: win32more.Windows.Win32.Foundation.PWSTR) -> Void: ...
 class SW_DEVICE_CREATE_INFO(EasyCastStructure):
@@ -345,9 +345,9 @@ class SW_DEVICE_CREATE_INFO(EasyCastStructure):
     pszDeviceLocation: win32more.Windows.Win32.Foundation.PWSTR
     pSecurityDescriptor: POINTER(win32more.Windows.Win32.Security.SECURITY_DESCRIPTOR)
 SW_DEVICE_LIFETIME = Int32
-SW_DEVICE_LIFETIME_SWDeviceLifetimeHandle: win32more.Windows.Win32.Devices.Enumeration.Pnp.SW_DEVICE_LIFETIME = 0
-SW_DEVICE_LIFETIME_SWDeviceLifetimeParentPresent: win32more.Windows.Win32.Devices.Enumeration.Pnp.SW_DEVICE_LIFETIME = 1
-SW_DEVICE_LIFETIME_SWDeviceLifetimeMax: win32more.Windows.Win32.Devices.Enumeration.Pnp.SW_DEVICE_LIFETIME = 2
+SWDeviceLifetimeHandle: win32more.Windows.Win32.Devices.Enumeration.Pnp.SW_DEVICE_LIFETIME = 0
+SWDeviceLifetimeParentPresent: win32more.Windows.Win32.Devices.Enumeration.Pnp.SW_DEVICE_LIFETIME = 1
+SWDeviceLifetimeMax: win32more.Windows.Win32.Devices.Enumeration.Pnp.SW_DEVICE_LIFETIME = 2
 UPnPDescriptionDocument = Guid('{1d8a9b47-3a28-4ce2-8a4b-bd34e45bceeb}')
 UPnPDescriptionDocumentEx = Guid('{33fd0563-d81a-4393-83cc-0195b1da2f91}')
 UPnPDevice = Guid('{a32552c5-ba61-457a-b59a-a2561e125e33}')

@@ -1066,11 +1066,11 @@ class DOT11EXT_IHV_HANDLERS(EasyCastStructure):
     Dot11ExtIhvOnexIndicateResult: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXTIHV_ONEX_INDICATE_RESULT
     Dot11ExtIhvControl: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXTIHV_CONTROL
 DOT11EXT_IHV_INDICATION_TYPE = Int32
-DOT11EXT_IHV_INDICATION_TYPE_IndicationTypeNicSpecificNotification: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_INDICATION_TYPE = 0
-DOT11EXT_IHV_INDICATION_TYPE_IndicationTypePmkidCandidateList: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_INDICATION_TYPE = 1
-DOT11EXT_IHV_INDICATION_TYPE_IndicationTypeTkipMicFailure: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_INDICATION_TYPE = 2
-DOT11EXT_IHV_INDICATION_TYPE_IndicationTypePhyStateChange: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_INDICATION_TYPE = 3
-DOT11EXT_IHV_INDICATION_TYPE_IndicationTypeLinkQuality: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_INDICATION_TYPE = 4
+IndicationTypeNicSpecificNotification: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_INDICATION_TYPE = 0
+IndicationTypePmkidCandidateList: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_INDICATION_TYPE = 1
+IndicationTypeTkipMicFailure: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_INDICATION_TYPE = 2
+IndicationTypePhyStateChange: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_INDICATION_TYPE = 3
+IndicationTypeLinkQuality: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_INDICATION_TYPE = 4
 class DOT11EXT_IHV_PARAMS(EasyCastStructure):
     dot11ExtIhvProfileParams: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_PROFILE_PARAMS
     wstrProfileName: Char * 256
@@ -2863,12 +2863,12 @@ class L2_NOTIFICATION_DATA(EasyCastStructure):
     dwDataSize: UInt32
     pData: VoidPtr
 ONEX_AUTH_IDENTITY = Int32
-ONEX_AUTH_IDENTITY_OneXAuthIdentityNone: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_IDENTITY = 0
-ONEX_AUTH_IDENTITY_OneXAuthIdentityMachine: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_IDENTITY = 1
-ONEX_AUTH_IDENTITY_OneXAuthIdentityUser: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_IDENTITY = 2
-ONEX_AUTH_IDENTITY_OneXAuthIdentityExplicitUser: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_IDENTITY = 3
-ONEX_AUTH_IDENTITY_OneXAuthIdentityGuest: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_IDENTITY = 4
-ONEX_AUTH_IDENTITY_OneXAuthIdentityInvalid: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_IDENTITY = 5
+OneXAuthIdentityNone: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_IDENTITY = 0
+OneXAuthIdentityMachine: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_IDENTITY = 1
+OneXAuthIdentityUser: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_IDENTITY = 2
+OneXAuthIdentityExplicitUser: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_IDENTITY = 3
+OneXAuthIdentityGuest: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_IDENTITY = 4
+OneXAuthIdentityInvalid: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_IDENTITY = 5
 class ONEX_AUTH_PARAMS(EasyCastStructure):
     fUpdatePending: win32more.Windows.Win32.Foundation.BOOL
     oneXConnProfile: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_VARIABLE_BLOB
@@ -2882,22 +2882,22 @@ class ONEX_AUTH_PARAMS(EasyCastStructure):
     UserName: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_VARIABLE_BLOB
     Domain: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_VARIABLE_BLOB
 ONEX_AUTH_RESTART_REASON = Int32
-ONEX_AUTH_RESTART_REASON_OneXRestartReasonPeerInitiated: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_RESTART_REASON = 0
-ONEX_AUTH_RESTART_REASON_OneXRestartReasonMsmInitiated: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_RESTART_REASON = 1
-ONEX_AUTH_RESTART_REASON_OneXRestartReasonOneXHeldStateTimeout: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_RESTART_REASON = 2
-ONEX_AUTH_RESTART_REASON_OneXRestartReasonOneXAuthTimeout: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_RESTART_REASON = 3
-ONEX_AUTH_RESTART_REASON_OneXRestartReasonOneXConfigurationChanged: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_RESTART_REASON = 4
-ONEX_AUTH_RESTART_REASON_OneXRestartReasonOneXUserChanged: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_RESTART_REASON = 5
-ONEX_AUTH_RESTART_REASON_OneXRestartReasonQuarantineStateChanged: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_RESTART_REASON = 6
-ONEX_AUTH_RESTART_REASON_OneXRestartReasonAltCredsTrial: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_RESTART_REASON = 7
-ONEX_AUTH_RESTART_REASON_OneXRestartReasonInvalid: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_RESTART_REASON = 8
+OneXRestartReasonPeerInitiated: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_RESTART_REASON = 0
+OneXRestartReasonMsmInitiated: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_RESTART_REASON = 1
+OneXRestartReasonOneXHeldStateTimeout: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_RESTART_REASON = 2
+OneXRestartReasonOneXAuthTimeout: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_RESTART_REASON = 3
+OneXRestartReasonOneXConfigurationChanged: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_RESTART_REASON = 4
+OneXRestartReasonOneXUserChanged: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_RESTART_REASON = 5
+OneXRestartReasonQuarantineStateChanged: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_RESTART_REASON = 6
+OneXRestartReasonAltCredsTrial: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_RESTART_REASON = 7
+OneXRestartReasonInvalid: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_RESTART_REASON = 8
 ONEX_AUTH_STATUS = Int32
-ONEX_AUTH_STATUS_OneXAuthNotStarted: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_STATUS = 0
-ONEX_AUTH_STATUS_OneXAuthInProgress: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_STATUS = 1
-ONEX_AUTH_STATUS_OneXAuthNoAuthenticatorFound: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_STATUS = 2
-ONEX_AUTH_STATUS_OneXAuthSuccess: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_STATUS = 3
-ONEX_AUTH_STATUS_OneXAuthFailure: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_STATUS = 4
-ONEX_AUTH_STATUS_OneXAuthInvalid: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_STATUS = 5
+OneXAuthNotStarted: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_STATUS = 0
+OneXAuthInProgress: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_STATUS = 1
+OneXAuthNoAuthenticatorFound: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_STATUS = 2
+OneXAuthSuccess: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_STATUS = 3
+OneXAuthFailure: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_STATUS = 4
+OneXAuthInvalid: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_STATUS = 5
 class ONEX_EAP_ERROR(EasyCastStructure):
     dwWinError: UInt32
     type: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_TYPE
@@ -2909,15 +2909,15 @@ class ONEX_EAP_ERROR(EasyCastStructure):
     RootCauseString: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_VARIABLE_BLOB
     RepairString: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_VARIABLE_BLOB
 ONEX_EAP_METHOD_BACKEND_SUPPORT = Int32
-ONEX_EAP_METHOD_BACKEND_SUPPORT_OneXEapMethodBackendSupportUnknown: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_EAP_METHOD_BACKEND_SUPPORT = 0
-ONEX_EAP_METHOD_BACKEND_SUPPORT_OneXEapMethodBackendSupported: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_EAP_METHOD_BACKEND_SUPPORT = 1
-ONEX_EAP_METHOD_BACKEND_SUPPORT_OneXEapMethodBackendUnsupported: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_EAP_METHOD_BACKEND_SUPPORT = 2
+OneXEapMethodBackendSupportUnknown: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_EAP_METHOD_BACKEND_SUPPORT = 0
+OneXEapMethodBackendSupported: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_EAP_METHOD_BACKEND_SUPPORT = 1
+OneXEapMethodBackendUnsupported: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_EAP_METHOD_BACKEND_SUPPORT = 2
 ONEX_NOTIFICATION_TYPE = Int32
-ONEX_NOTIFICATION_TYPE_OneXPublicNotificationBase: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_NOTIFICATION_TYPE = 0
-ONEX_NOTIFICATION_TYPE_OneXNotificationTypeResultUpdate: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_NOTIFICATION_TYPE = 1
-ONEX_NOTIFICATION_TYPE_OneXNotificationTypeAuthRestarted: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_NOTIFICATION_TYPE = 2
-ONEX_NOTIFICATION_TYPE_OneXNotificationTypeEventInvalid: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_NOTIFICATION_TYPE = 3
-ONEX_NOTIFICATION_TYPE_OneXNumNotifications: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_NOTIFICATION_TYPE = 3
+OneXPublicNotificationBase: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_NOTIFICATION_TYPE = 0
+OneXNotificationTypeResultUpdate: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_NOTIFICATION_TYPE = 1
+OneXNotificationTypeAuthRestarted: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_NOTIFICATION_TYPE = 2
+OneXNotificationTypeEventInvalid: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_NOTIFICATION_TYPE = 3
+OneXNumNotifications: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_NOTIFICATION_TYPE = 3
 ONEX_REASON_CODE = Int32
 ONEX_REASON_CODE_SUCCESS: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_REASON_CODE = 0
 ONEX_REASON_START: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_REASON_CODE = 327680
@@ -3446,9 +3446,9 @@ class WLAN_STATISTICS(EasyCastStructure):
     dwNumberOfPhys: UInt32
     PhyCounters: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_PHY_FRAME_STATISTICS * 1
 WL_DISPLAY_PAGES = Int32
-WL_DISPLAY_PAGES_WLConnectionPage: win32more.Windows.Win32.NetworkManagement.WiFi.WL_DISPLAY_PAGES = 0
-WL_DISPLAY_PAGES_WLSecurityPage: win32more.Windows.Win32.NetworkManagement.WiFi.WL_DISPLAY_PAGES = 1
-WL_DISPLAY_PAGES_WLAdvPage: win32more.Windows.Win32.NetworkManagement.WiFi.WL_DISPLAY_PAGES = 2
+WLConnectionPage: win32more.Windows.Win32.NetworkManagement.WiFi.WL_DISPLAY_PAGES = 0
+WLSecurityPage: win32more.Windows.Win32.NetworkManagement.WiFi.WL_DISPLAY_PAGES = 1
+WLAdvPage: win32more.Windows.Win32.NetworkManagement.WiFi.WL_DISPLAY_PAGES = 2
 
 
 make_ready(__name__)

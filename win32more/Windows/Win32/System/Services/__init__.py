@@ -378,8 +378,8 @@ class SERVICE_DESCRIPTIONA(EasyCastStructure):
 class SERVICE_DESCRIPTIONW(EasyCastStructure):
     lpDescription: win32more.Windows.Win32.Foundation.PWSTR
 SERVICE_DIRECTORY_TYPE = Int32
-SERVICE_DIRECTORY_TYPE_ServiceDirectoryPersistentState: win32more.Windows.Win32.System.Services.SERVICE_DIRECTORY_TYPE = 0
-SERVICE_DIRECTORY_TYPE_ServiceDirectoryTypeMax: win32more.Windows.Win32.System.Services.SERVICE_DIRECTORY_TYPE = 1
+ServiceDirectoryPersistentState: win32more.Windows.Win32.System.Services.SERVICE_DIRECTORY_TYPE = 0
+ServiceDirectoryTypeMax: win32more.Windows.Win32.System.Services.SERVICE_DIRECTORY_TYPE = 1
 SERVICE_ERROR = UInt32
 SERVICE_ERROR_CRITICAL: win32more.Windows.Win32.System.Services.SERVICE_ERROR = 3
 SERVICE_ERROR_IGNORE: win32more.Windows.Win32.System.Services.SERVICE_ERROR = 0
@@ -444,9 +444,9 @@ class SERVICE_PREFERRED_NODE_INFO(EasyCastStructure):
 class SERVICE_PRESHUTDOWN_INFO(EasyCastStructure):
     dwPreshutdownTimeout: UInt32
 SERVICE_REGISTRY_STATE_TYPE = Int32
-SERVICE_REGISTRY_STATE_TYPE_ServiceRegistryStateParameters: win32more.Windows.Win32.System.Services.SERVICE_REGISTRY_STATE_TYPE = 0
-SERVICE_REGISTRY_STATE_TYPE_ServiceRegistryStatePersistent: win32more.Windows.Win32.System.Services.SERVICE_REGISTRY_STATE_TYPE = 1
-SERVICE_REGISTRY_STATE_TYPE_MaxServiceRegistryStateType: win32more.Windows.Win32.System.Services.SERVICE_REGISTRY_STATE_TYPE = 2
+ServiceRegistryStateParameters: win32more.Windows.Win32.System.Services.SERVICE_REGISTRY_STATE_TYPE = 0
+ServiceRegistryStatePersistent: win32more.Windows.Win32.System.Services.SERVICE_REGISTRY_STATE_TYPE = 1
+MaxServiceRegistryStateType: win32more.Windows.Win32.System.Services.SERVICE_REGISTRY_STATE_TYPE = 2
 class SERVICE_REQUIRED_PRIVILEGES_INFOA(EasyCastStructure):
     pmszRequiredPrivileges: win32more.Windows.Win32.Foundation.PSTR
 class SERVICE_REQUIRED_PRIVILEGES_INFOW(EasyCastStructure):
@@ -455,9 +455,9 @@ SERVICE_RUNS_IN_PROCESS = UInt32
 SERVICE_RUNS_IN_NON_SYSTEM_OR_NOT_RUNNING: win32more.Windows.Win32.System.Services.SERVICE_RUNS_IN_PROCESS = 0
 SERVICE_RUNS_IN_SYSTEM_PROCESS: win32more.Windows.Win32.System.Services.SERVICE_RUNS_IN_PROCESS = 1
 SERVICE_SHARED_DIRECTORY_TYPE = Int32
-SERVICE_SHARED_DIRECTORY_TYPE_ServiceSharedDirectoryPersistentState: win32more.Windows.Win32.System.Services.SERVICE_SHARED_DIRECTORY_TYPE = 0
+ServiceSharedDirectoryPersistentState: win32more.Windows.Win32.System.Services.SERVICE_SHARED_DIRECTORY_TYPE = 0
 SERVICE_SHARED_REGISTRY_STATE_TYPE = Int32
-SERVICE_SHARED_REGISTRY_STATE_TYPE_ServiceSharedRegistryPersistentState: win32more.Windows.Win32.System.Services.SERVICE_SHARED_REGISTRY_STATE_TYPE = 0
+ServiceSharedRegistryPersistentState: win32more.Windows.Win32.System.Services.SERVICE_SHARED_REGISTRY_STATE_TYPE = 0
 class SERVICE_SID_INFO(EasyCastStructure):
     dwServiceSidType: UInt32
 class SERVICE_START_REASON(EasyCastStructure):

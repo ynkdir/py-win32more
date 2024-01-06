@@ -1655,9 +1655,9 @@ DsRole_RoleMemberServer: win32more.Windows.Win32.Networking.ActiveDirectory.DSRO
 DsRole_RoleBackupDomainController: win32more.Windows.Win32.Networking.ActiveDirectory.DSROLE_MACHINE_ROLE = 4
 DsRole_RolePrimaryDomainController: win32more.Windows.Win32.Networking.ActiveDirectory.DSROLE_MACHINE_ROLE = 5
 DSROLE_OPERATION_STATE = Int32
-DSROLE_OPERATION_STATE_DsRoleOperationIdle: win32more.Windows.Win32.Networking.ActiveDirectory.DSROLE_OPERATION_STATE = 0
-DSROLE_OPERATION_STATE_DsRoleOperationActive: win32more.Windows.Win32.Networking.ActiveDirectory.DSROLE_OPERATION_STATE = 1
-DSROLE_OPERATION_STATE_DsRoleOperationNeedReboot: win32more.Windows.Win32.Networking.ActiveDirectory.DSROLE_OPERATION_STATE = 2
+DsRoleOperationIdle: win32more.Windows.Win32.Networking.ActiveDirectory.DSROLE_OPERATION_STATE = 0
+DsRoleOperationActive: win32more.Windows.Win32.Networking.ActiveDirectory.DSROLE_OPERATION_STATE = 1
+DsRoleOperationNeedReboot: win32more.Windows.Win32.Networking.ActiveDirectory.DSROLE_OPERATION_STATE = 2
 class DSROLE_OPERATION_STATE_INFO(EasyCastStructure):
     OperationState: win32more.Windows.Win32.Networking.ActiveDirectory.DSROLE_OPERATION_STATE
 class DSROLE_PRIMARY_DOMAIN_INFO_BASIC(EasyCastStructure):
@@ -1668,13 +1668,13 @@ class DSROLE_PRIMARY_DOMAIN_INFO_BASIC(EasyCastStructure):
     DomainForestName: win32more.Windows.Win32.Foundation.PWSTR
     DomainGuid: Guid
 DSROLE_PRIMARY_DOMAIN_INFO_LEVEL = Int32
-DSROLE_PRIMARY_DOMAIN_INFO_LEVEL_DsRolePrimaryDomainInfoBasic: win32more.Windows.Win32.Networking.ActiveDirectory.DSROLE_PRIMARY_DOMAIN_INFO_LEVEL = 1
-DSROLE_PRIMARY_DOMAIN_INFO_LEVEL_DsRoleUpgradeStatus: win32more.Windows.Win32.Networking.ActiveDirectory.DSROLE_PRIMARY_DOMAIN_INFO_LEVEL = 2
-DSROLE_PRIMARY_DOMAIN_INFO_LEVEL_DsRoleOperationState: win32more.Windows.Win32.Networking.ActiveDirectory.DSROLE_PRIMARY_DOMAIN_INFO_LEVEL = 3
+DsRolePrimaryDomainInfoBasic: win32more.Windows.Win32.Networking.ActiveDirectory.DSROLE_PRIMARY_DOMAIN_INFO_LEVEL = 1
+DsRoleUpgradeStatus: win32more.Windows.Win32.Networking.ActiveDirectory.DSROLE_PRIMARY_DOMAIN_INFO_LEVEL = 2
+DsRoleOperationState: win32more.Windows.Win32.Networking.ActiveDirectory.DSROLE_PRIMARY_DOMAIN_INFO_LEVEL = 3
 DSROLE_SERVER_STATE = Int32
-DSROLE_SERVER_STATE_DsRoleServerUnknown: win32more.Windows.Win32.Networking.ActiveDirectory.DSROLE_SERVER_STATE = 0
-DSROLE_SERVER_STATE_DsRoleServerPrimary: win32more.Windows.Win32.Networking.ActiveDirectory.DSROLE_SERVER_STATE = 1
-DSROLE_SERVER_STATE_DsRoleServerBackup: win32more.Windows.Win32.Networking.ActiveDirectory.DSROLE_SERVER_STATE = 2
+DsRoleServerUnknown: win32more.Windows.Win32.Networking.ActiveDirectory.DSROLE_SERVER_STATE = 0
+DsRoleServerPrimary: win32more.Windows.Win32.Networking.ActiveDirectory.DSROLE_SERVER_STATE = 1
+DsRoleServerBackup: win32more.Windows.Win32.Networking.ActiveDirectory.DSROLE_SERVER_STATE = 2
 class DSROLE_UPGRADE_STATUS_INFO(EasyCastStructure):
     OperationState: UInt32
     PreviousServerState: win32more.Windows.Win32.Networking.ActiveDirectory.DSROLE_SERVER_STATE

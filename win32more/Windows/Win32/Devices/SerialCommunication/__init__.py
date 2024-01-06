@@ -104,9 +104,9 @@ def PSERENUM_READPORT(SerPortAddress: VoidPtr) -> Byte: ...
 @winfunctype_pointer
 def PSERENUM_WRITEPORT(SerPortAddress: VoidPtr, Value: Byte) -> Void: ...
 SERENUM_PORTION = Int32
-SERENUM_PORTION_SerenumFirstHalf: win32more.Windows.Win32.Devices.SerialCommunication.SERENUM_PORTION = 0
-SERENUM_PORTION_SerenumSecondHalf: win32more.Windows.Win32.Devices.SerialCommunication.SERENUM_PORTION = 1
-SERENUM_PORTION_SerenumWhole: win32more.Windows.Win32.Devices.SerialCommunication.SERENUM_PORTION = 2
+SerenumFirstHalf: win32more.Windows.Win32.Devices.SerialCommunication.SERENUM_PORTION = 0
+SerenumSecondHalf: win32more.Windows.Win32.Devices.SerialCommunication.SERENUM_PORTION = 1
+SerenumWhole: win32more.Windows.Win32.Devices.SerialCommunication.SERENUM_PORTION = 2
 class SERENUM_PORT_DESC(EasyCastStructure):
     Size: UInt32
     PortHandle: VoidPtr

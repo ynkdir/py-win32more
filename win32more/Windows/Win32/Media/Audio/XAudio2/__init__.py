@@ -288,9 +288,9 @@ class HrtfDirectivityCone(EasyCastStructure):
     innerAngle: Single
     outerAngle: Single
 HrtfDirectivityType = Int32
-HrtfDirectivityType_OmniDirectional: win32more.Windows.Win32.Media.Audio.XAudio2.HrtfDirectivityType = 0
-HrtfDirectivityType_Cardioid: win32more.Windows.Win32.Media.Audio.XAudio2.HrtfDirectivityType = 1
-HrtfDirectivityType_Cone: win32more.Windows.Win32.Media.Audio.XAudio2.HrtfDirectivityType = 2
+OmniDirectional: win32more.Windows.Win32.Media.Audio.XAudio2.HrtfDirectivityType = 0
+Cardioid: win32more.Windows.Win32.Media.Audio.XAudio2.HrtfDirectivityType = 1
+Cone: win32more.Windows.Win32.Media.Audio.XAudio2.HrtfDirectivityType = 2
 class HrtfDistanceDecay(EasyCastStructure):
     type: win32more.Windows.Win32.Media.Audio.XAudio2.HrtfDistanceDecayType
     maxGain: Single
@@ -298,13 +298,13 @@ class HrtfDistanceDecay(EasyCastStructure):
     unityGainDistance: Single
     cutoffDistance: Single
 HrtfDistanceDecayType = Int32
-HrtfDistanceDecayType_NaturalDecay: win32more.Windows.Win32.Media.Audio.XAudio2.HrtfDistanceDecayType = 0
-HrtfDistanceDecayType_CustomDecay: win32more.Windows.Win32.Media.Audio.XAudio2.HrtfDistanceDecayType = 1
+NaturalDecay: win32more.Windows.Win32.Media.Audio.XAudio2.HrtfDistanceDecayType = 0
+CustomDecay: win32more.Windows.Win32.Media.Audio.XAudio2.HrtfDistanceDecayType = 1
 HrtfEnvironment = Int32
-HrtfEnvironment_Small: win32more.Windows.Win32.Media.Audio.XAudio2.HrtfEnvironment = 0
-HrtfEnvironment_Medium: win32more.Windows.Win32.Media.Audio.XAudio2.HrtfEnvironment = 1
-HrtfEnvironment_Large: win32more.Windows.Win32.Media.Audio.XAudio2.HrtfEnvironment = 2
-HrtfEnvironment_Outdoors: win32more.Windows.Win32.Media.Audio.XAudio2.HrtfEnvironment = 3
+Small: win32more.Windows.Win32.Media.Audio.XAudio2.HrtfEnvironment = 0
+Medium: win32more.Windows.Win32.Media.Audio.XAudio2.HrtfEnvironment = 1
+Large: win32more.Windows.Win32.Media.Audio.XAudio2.HrtfEnvironment = 2
+Outdoors: win32more.Windows.Win32.Media.Audio.XAudio2.HrtfEnvironment = 3
 class HrtfOrientation(EasyCastStructure):
     element: Single * 9
 class HrtfPosition(EasyCastStructure):
@@ -582,12 +582,12 @@ class XAUDIO2_FILTER_PARAMETERS(EasyCastStructure):
     OneOverQ: Single
     _pack_ = 1
 XAUDIO2_FILTER_TYPE = Int32
-XAUDIO2_FILTER_TYPE_LowPassFilter: win32more.Windows.Win32.Media.Audio.XAudio2.XAUDIO2_FILTER_TYPE = 0
-XAUDIO2_FILTER_TYPE_BandPassFilter: win32more.Windows.Win32.Media.Audio.XAudio2.XAUDIO2_FILTER_TYPE = 1
-XAUDIO2_FILTER_TYPE_HighPassFilter: win32more.Windows.Win32.Media.Audio.XAudio2.XAUDIO2_FILTER_TYPE = 2
-XAUDIO2_FILTER_TYPE_NotchFilter: win32more.Windows.Win32.Media.Audio.XAudio2.XAUDIO2_FILTER_TYPE = 3
-XAUDIO2_FILTER_TYPE_LowPassOnePoleFilter: win32more.Windows.Win32.Media.Audio.XAudio2.XAUDIO2_FILTER_TYPE = 4
-XAUDIO2_FILTER_TYPE_HighPassOnePoleFilter: win32more.Windows.Win32.Media.Audio.XAudio2.XAUDIO2_FILTER_TYPE = 5
+LowPassFilter: win32more.Windows.Win32.Media.Audio.XAudio2.XAUDIO2_FILTER_TYPE = 0
+BandPassFilter: win32more.Windows.Win32.Media.Audio.XAudio2.XAUDIO2_FILTER_TYPE = 1
+HighPassFilter: win32more.Windows.Win32.Media.Audio.XAudio2.XAUDIO2_FILTER_TYPE = 2
+NotchFilter: win32more.Windows.Win32.Media.Audio.XAudio2.XAUDIO2_FILTER_TYPE = 3
+LowPassOnePoleFilter: win32more.Windows.Win32.Media.Audio.XAudio2.XAUDIO2_FILTER_TYPE = 4
+HighPassOnePoleFilter: win32more.Windows.Win32.Media.Audio.XAudio2.XAUDIO2_FILTER_TYPE = 5
 class XAUDIO2_PERFORMANCE_DATA(EasyCastStructure):
     AudioCyclesSinceLastQuery: UInt64
     TotalCyclesSinceLastQuery: UInt64

@@ -100,11 +100,11 @@ FH_TARGET_URL: win32more.Windows.Win32.Storage.FileHistory.FH_TARGET_PROPERTY_TY
 FH_TARGET_DRIVE_TYPE: win32more.Windows.Win32.Storage.FileHistory.FH_TARGET_PROPERTY_TYPE = 2
 MAX_TARGET_PROPERTY: win32more.Windows.Win32.Storage.FileHistory.FH_TARGET_PROPERTY_TYPE = 3
 FhBackupStopReason = Int32
-FhBackupStopReason_BackupInvalidStopReason: win32more.Windows.Win32.Storage.FileHistory.FhBackupStopReason = 0
-FhBackupStopReason_BackupLimitUserBusyMachineOnAC: win32more.Windows.Win32.Storage.FileHistory.FhBackupStopReason = 1
-FhBackupStopReason_BackupLimitUserIdleMachineOnDC: win32more.Windows.Win32.Storage.FileHistory.FhBackupStopReason = 2
-FhBackupStopReason_BackupLimitUserBusyMachineOnDC: win32more.Windows.Win32.Storage.FileHistory.FhBackupStopReason = 3
-FhBackupStopReason_BackupCancelled: win32more.Windows.Win32.Storage.FileHistory.FhBackupStopReason = 4
+BackupInvalidStopReason: win32more.Windows.Win32.Storage.FileHistory.FhBackupStopReason = 0
+BackupLimitUserBusyMachineOnAC: win32more.Windows.Win32.Storage.FileHistory.FhBackupStopReason = 1
+BackupLimitUserIdleMachineOnDC: win32more.Windows.Win32.Storage.FileHistory.FhBackupStopReason = 2
+BackupLimitUserBusyMachineOnDC: win32more.Windows.Win32.Storage.FileHistory.FhBackupStopReason = 3
+BackupCancelled: win32more.Windows.Win32.Storage.FileHistory.FhBackupStopReason = 4
 FhConfigMgr = Guid('{ed43bb3c-09e9-498a-9df6-2177244c6db4}')
 FhReassociation = Guid('{4d728e35-16fa-4320-9e8b-bfd7100a8846}')
 class IFhConfigMgr(ComPtr):

@@ -7,35 +7,35 @@ import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.Diagnostics.Debug
 import win32more.Windows.Win32.System.SystemServices
 ACCESS_REASON_TYPE = Int32
-ACCESS_REASON_TYPE_AccessReasonNone: win32more.Windows.Win32.System.SystemServices.ACCESS_REASON_TYPE = 0
-ACCESS_REASON_TYPE_AccessReasonAllowedAce: win32more.Windows.Win32.System.SystemServices.ACCESS_REASON_TYPE = 65536
-ACCESS_REASON_TYPE_AccessReasonDeniedAce: win32more.Windows.Win32.System.SystemServices.ACCESS_REASON_TYPE = 131072
-ACCESS_REASON_TYPE_AccessReasonAllowedParentAce: win32more.Windows.Win32.System.SystemServices.ACCESS_REASON_TYPE = 196608
-ACCESS_REASON_TYPE_AccessReasonDeniedParentAce: win32more.Windows.Win32.System.SystemServices.ACCESS_REASON_TYPE = 262144
-ACCESS_REASON_TYPE_AccessReasonNotGrantedByCape: win32more.Windows.Win32.System.SystemServices.ACCESS_REASON_TYPE = 327680
-ACCESS_REASON_TYPE_AccessReasonNotGrantedByParentCape: win32more.Windows.Win32.System.SystemServices.ACCESS_REASON_TYPE = 393216
-ACCESS_REASON_TYPE_AccessReasonNotGrantedToAppContainer: win32more.Windows.Win32.System.SystemServices.ACCESS_REASON_TYPE = 458752
-ACCESS_REASON_TYPE_AccessReasonMissingPrivilege: win32more.Windows.Win32.System.SystemServices.ACCESS_REASON_TYPE = 1048576
-ACCESS_REASON_TYPE_AccessReasonFromPrivilege: win32more.Windows.Win32.System.SystemServices.ACCESS_REASON_TYPE = 2097152
-ACCESS_REASON_TYPE_AccessReasonIntegrityLevel: win32more.Windows.Win32.System.SystemServices.ACCESS_REASON_TYPE = 3145728
-ACCESS_REASON_TYPE_AccessReasonOwnership: win32more.Windows.Win32.System.SystemServices.ACCESS_REASON_TYPE = 4194304
-ACCESS_REASON_TYPE_AccessReasonNullDacl: win32more.Windows.Win32.System.SystemServices.ACCESS_REASON_TYPE = 5242880
-ACCESS_REASON_TYPE_AccessReasonEmptyDacl: win32more.Windows.Win32.System.SystemServices.ACCESS_REASON_TYPE = 6291456
-ACCESS_REASON_TYPE_AccessReasonNoSD: win32more.Windows.Win32.System.SystemServices.ACCESS_REASON_TYPE = 7340032
-ACCESS_REASON_TYPE_AccessReasonNoGrant: win32more.Windows.Win32.System.SystemServices.ACCESS_REASON_TYPE = 8388608
-ACCESS_REASON_TYPE_AccessReasonTrustLabel: win32more.Windows.Win32.System.SystemServices.ACCESS_REASON_TYPE = 9437184
-ACCESS_REASON_TYPE_AccessReasonFilterAce: win32more.Windows.Win32.System.SystemServices.ACCESS_REASON_TYPE = 10485760
+AccessReasonNone: win32more.Windows.Win32.System.SystemServices.ACCESS_REASON_TYPE = 0
+AccessReasonAllowedAce: win32more.Windows.Win32.System.SystemServices.ACCESS_REASON_TYPE = 65536
+AccessReasonDeniedAce: win32more.Windows.Win32.System.SystemServices.ACCESS_REASON_TYPE = 131072
+AccessReasonAllowedParentAce: win32more.Windows.Win32.System.SystemServices.ACCESS_REASON_TYPE = 196608
+AccessReasonDeniedParentAce: win32more.Windows.Win32.System.SystemServices.ACCESS_REASON_TYPE = 262144
+AccessReasonNotGrantedByCape: win32more.Windows.Win32.System.SystemServices.ACCESS_REASON_TYPE = 327680
+AccessReasonNotGrantedByParentCape: win32more.Windows.Win32.System.SystemServices.ACCESS_REASON_TYPE = 393216
+AccessReasonNotGrantedToAppContainer: win32more.Windows.Win32.System.SystemServices.ACCESS_REASON_TYPE = 458752
+AccessReasonMissingPrivilege: win32more.Windows.Win32.System.SystemServices.ACCESS_REASON_TYPE = 1048576
+AccessReasonFromPrivilege: win32more.Windows.Win32.System.SystemServices.ACCESS_REASON_TYPE = 2097152
+AccessReasonIntegrityLevel: win32more.Windows.Win32.System.SystemServices.ACCESS_REASON_TYPE = 3145728
+AccessReasonOwnership: win32more.Windows.Win32.System.SystemServices.ACCESS_REASON_TYPE = 4194304
+AccessReasonNullDacl: win32more.Windows.Win32.System.SystemServices.ACCESS_REASON_TYPE = 5242880
+AccessReasonEmptyDacl: win32more.Windows.Win32.System.SystemServices.ACCESS_REASON_TYPE = 6291456
+AccessReasonNoSD: win32more.Windows.Win32.System.SystemServices.ACCESS_REASON_TYPE = 7340032
+AccessReasonNoGrant: win32more.Windows.Win32.System.SystemServices.ACCESS_REASON_TYPE = 8388608
+AccessReasonTrustLabel: win32more.Windows.Win32.System.SystemServices.ACCESS_REASON_TYPE = 9437184
+AccessReasonFilterAce: win32more.Windows.Win32.System.SystemServices.ACCESS_REASON_TYPE = 10485760
 ACTIVATION_CONTEXT_INFO_CLASS = Int32
-ACTIVATION_CONTEXT_INFO_CLASS_ActivationContextBasicInformation: win32more.Windows.Win32.System.SystemServices.ACTIVATION_CONTEXT_INFO_CLASS = 1
-ACTIVATION_CONTEXT_INFO_CLASS_ActivationContextDetailedInformation: win32more.Windows.Win32.System.SystemServices.ACTIVATION_CONTEXT_INFO_CLASS = 2
-ACTIVATION_CONTEXT_INFO_CLASS_AssemblyDetailedInformationInActivationContext: win32more.Windows.Win32.System.SystemServices.ACTIVATION_CONTEXT_INFO_CLASS = 3
-ACTIVATION_CONTEXT_INFO_CLASS_FileInformationInAssemblyOfAssemblyInActivationContext: win32more.Windows.Win32.System.SystemServices.ACTIVATION_CONTEXT_INFO_CLASS = 4
-ACTIVATION_CONTEXT_INFO_CLASS_RunlevelInformationInActivationContext: win32more.Windows.Win32.System.SystemServices.ACTIVATION_CONTEXT_INFO_CLASS = 5
-ACTIVATION_CONTEXT_INFO_CLASS_CompatibilityInformationInActivationContext: win32more.Windows.Win32.System.SystemServices.ACTIVATION_CONTEXT_INFO_CLASS = 6
-ACTIVATION_CONTEXT_INFO_CLASS_ActivationContextManifestResourceName: win32more.Windows.Win32.System.SystemServices.ACTIVATION_CONTEXT_INFO_CLASS = 7
-ACTIVATION_CONTEXT_INFO_CLASS_MaxActivationContextInfoClass: win32more.Windows.Win32.System.SystemServices.ACTIVATION_CONTEXT_INFO_CLASS = 8
-ACTIVATION_CONTEXT_INFO_CLASS_AssemblyDetailedInformationInActivationContxt: win32more.Windows.Win32.System.SystemServices.ACTIVATION_CONTEXT_INFO_CLASS = 3
-ACTIVATION_CONTEXT_INFO_CLASS_FileInformationInAssemblyOfAssemblyInActivationContxt: win32more.Windows.Win32.System.SystemServices.ACTIVATION_CONTEXT_INFO_CLASS = 4
+ActivationContextBasicInformation: win32more.Windows.Win32.System.SystemServices.ACTIVATION_CONTEXT_INFO_CLASS = 1
+ActivationContextDetailedInformation: win32more.Windows.Win32.System.SystemServices.ACTIVATION_CONTEXT_INFO_CLASS = 2
+AssemblyDetailedInformationInActivationContext: win32more.Windows.Win32.System.SystemServices.ACTIVATION_CONTEXT_INFO_CLASS = 3
+FileInformationInAssemblyOfAssemblyInActivationContext: win32more.Windows.Win32.System.SystemServices.ACTIVATION_CONTEXT_INFO_CLASS = 4
+RunlevelInformationInActivationContext: win32more.Windows.Win32.System.SystemServices.ACTIVATION_CONTEXT_INFO_CLASS = 5
+CompatibilityInformationInActivationContext: win32more.Windows.Win32.System.SystemServices.ACTIVATION_CONTEXT_INFO_CLASS = 6
+ActivationContextManifestResourceName: win32more.Windows.Win32.System.SystemServices.ACTIVATION_CONTEXT_INFO_CLASS = 7
+MaxActivationContextInfoClass: win32more.Windows.Win32.System.SystemServices.ACTIVATION_CONTEXT_INFO_CLASS = 8
+AssemblyDetailedInformationInActivationContxt: win32more.Windows.Win32.System.SystemServices.ACTIVATION_CONTEXT_INFO_CLASS = 3
+FileInformationInAssemblyOfAssemblyInActivationContxt: win32more.Windows.Win32.System.SystemServices.ACTIVATION_CONTEXT_INFO_CLASS = 4
 ALERT_SYSTEM_SEV = UInt32
 ALERT_SYSTEM_INFORMATIONAL: win32more.Windows.Win32.System.SystemServices.ALERT_SYSTEM_SEV = 1
 ALERT_SYSTEM_WARNING: win32more.Windows.Win32.System.SystemServices.ALERT_SYSTEM_SEV = 2
@@ -135,14 +135,14 @@ class APPLICATIONLAUNCH_SETTING_VALUE(EasyCastStructure):
     Flags: UInt32
     ButtonInstanceID: UInt32
 ARM64_FNPDATA_CR = Int32
-ARM64_FNPDATA_CR_PdataCrUnchained: win32more.Windows.Win32.System.SystemServices.ARM64_FNPDATA_CR = 0
-ARM64_FNPDATA_CR_PdataCrUnchainedSavedLr: win32more.Windows.Win32.System.SystemServices.ARM64_FNPDATA_CR = 1
-ARM64_FNPDATA_CR_PdataCrChainedWithPac: win32more.Windows.Win32.System.SystemServices.ARM64_FNPDATA_CR = 2
-ARM64_FNPDATA_CR_PdataCrChained: win32more.Windows.Win32.System.SystemServices.ARM64_FNPDATA_CR = 3
+PdataCrUnchained: win32more.Windows.Win32.System.SystemServices.ARM64_FNPDATA_CR = 0
+PdataCrUnchainedSavedLr: win32more.Windows.Win32.System.SystemServices.ARM64_FNPDATA_CR = 1
+PdataCrChainedWithPac: win32more.Windows.Win32.System.SystemServices.ARM64_FNPDATA_CR = 2
+PdataCrChained: win32more.Windows.Win32.System.SystemServices.ARM64_FNPDATA_CR = 3
 ARM64_FNPDATA_FLAGS = Int32
-ARM64_FNPDATA_FLAGS_PdataRefToFullXdata: win32more.Windows.Win32.System.SystemServices.ARM64_FNPDATA_FLAGS = 0
-ARM64_FNPDATA_FLAGS_PdataPackedUnwindFunction: win32more.Windows.Win32.System.SystemServices.ARM64_FNPDATA_FLAGS = 1
-ARM64_FNPDATA_FLAGS_PdataPackedUnwindFragment: win32more.Windows.Win32.System.SystemServices.ARM64_FNPDATA_FLAGS = 2
+PdataRefToFullXdata: win32more.Windows.Win32.System.SystemServices.ARM64_FNPDATA_FLAGS = 0
+PdataPackedUnwindFunction: win32more.Windows.Win32.System.SystemServices.ARM64_FNPDATA_FLAGS = 1
+PdataPackedUnwindFragment: win32more.Windows.Win32.System.SystemServices.ARM64_FNPDATA_FLAGS = 2
 ATF_FLAGS = UInt32
 ATF_TIMEOUTON: win32more.Windows.Win32.System.SystemServices.ATF_FLAGS = 1
 ATF_ONOFFFEEDBACK: win32more.Windows.Win32.System.SystemServices.ATF_FLAGS = 2
@@ -2418,9 +2418,9 @@ class ENLISTMENT_CRM_INFORMATION(EasyCastStructure):
     CrmResourceManagerId: Guid
     CrmEnlistmentId: Guid
 ENLISTMENT_INFORMATION_CLASS = Int32
-ENLISTMENT_INFORMATION_CLASS_EnlistmentBasicInformation: win32more.Windows.Win32.System.SystemServices.ENLISTMENT_INFORMATION_CLASS = 0
-ENLISTMENT_INFORMATION_CLASS_EnlistmentRecoveryInformation: win32more.Windows.Win32.System.SystemServices.ENLISTMENT_INFORMATION_CLASS = 1
-ENLISTMENT_INFORMATION_CLASS_EnlistmentCrmInformation: win32more.Windows.Win32.System.SystemServices.ENLISTMENT_INFORMATION_CLASS = 2
+EnlistmentBasicInformation: win32more.Windows.Win32.System.SystemServices.ENLISTMENT_INFORMATION_CLASS = 0
+EnlistmentRecoveryInformation: win32more.Windows.Win32.System.SystemServices.ENLISTMENT_INFORMATION_CLASS = 1
+EnlistmentCrmInformation: win32more.Windows.Win32.System.SystemServices.ENLISTMENT_INFORMATION_CLASS = 2
 class FILE_NOTIFY_FULL_INFORMATION(EasyCastStructure):
     NextEntryOffset: UInt32
     Action: UInt32
@@ -2466,14 +2466,14 @@ class HIBERFILE_BUCKET(EasyCastStructure):
     MaxPhysicalMemory: UInt64
     PhysicalMemoryPercent: UInt32 * 3
 HIBERFILE_BUCKET_SIZE = Int32
-HIBERFILE_BUCKET_SIZE_HiberFileBucket1GB: win32more.Windows.Win32.System.SystemServices.HIBERFILE_BUCKET_SIZE = 0
-HIBERFILE_BUCKET_SIZE_HiberFileBucket2GB: win32more.Windows.Win32.System.SystemServices.HIBERFILE_BUCKET_SIZE = 1
-HIBERFILE_BUCKET_SIZE_HiberFileBucket4GB: win32more.Windows.Win32.System.SystemServices.HIBERFILE_BUCKET_SIZE = 2
-HIBERFILE_BUCKET_SIZE_HiberFileBucket8GB: win32more.Windows.Win32.System.SystemServices.HIBERFILE_BUCKET_SIZE = 3
-HIBERFILE_BUCKET_SIZE_HiberFileBucket16GB: win32more.Windows.Win32.System.SystemServices.HIBERFILE_BUCKET_SIZE = 4
-HIBERFILE_BUCKET_SIZE_HiberFileBucket32GB: win32more.Windows.Win32.System.SystemServices.HIBERFILE_BUCKET_SIZE = 5
-HIBERFILE_BUCKET_SIZE_HiberFileBucketUnlimited: win32more.Windows.Win32.System.SystemServices.HIBERFILE_BUCKET_SIZE = 6
-HIBERFILE_BUCKET_SIZE_HiberFileBucketMax: win32more.Windows.Win32.System.SystemServices.HIBERFILE_BUCKET_SIZE = 7
+HiberFileBucket1GB: win32more.Windows.Win32.System.SystemServices.HIBERFILE_BUCKET_SIZE = 0
+HiberFileBucket2GB: win32more.Windows.Win32.System.SystemServices.HIBERFILE_BUCKET_SIZE = 1
+HiberFileBucket4GB: win32more.Windows.Win32.System.SystemServices.HIBERFILE_BUCKET_SIZE = 2
+HiberFileBucket8GB: win32more.Windows.Win32.System.SystemServices.HIBERFILE_BUCKET_SIZE = 3
+HiberFileBucket16GB: win32more.Windows.Win32.System.SystemServices.HIBERFILE_BUCKET_SIZE = 4
+HiberFileBucket32GB: win32more.Windows.Win32.System.SystemServices.HIBERFILE_BUCKET_SIZE = 5
+HiberFileBucketUnlimited: win32more.Windows.Win32.System.SystemServices.HIBERFILE_BUCKET_SIZE = 6
+HiberFileBucketMax: win32more.Windows.Win32.System.SystemServices.HIBERFILE_BUCKET_SIZE = 7
 IGP_ID = UInt32
 IGP_GETIMEVERSION: win32more.Windows.Win32.System.SystemServices.IGP_ID = 4294967292
 IGP_PROPERTY: win32more.Windows.Win32.System.SystemServices.IGP_ID = 4
@@ -2802,34 +2802,34 @@ class IMAGE_POLICY_ENTRY(EasyCastStructure):
         AnsiStringValue: win32more.Windows.Win32.Foundation.PSTR
         UnicodeStringValue: win32more.Windows.Win32.Foundation.PWSTR
 IMAGE_POLICY_ENTRY_TYPE = Int32
-IMAGE_POLICY_ENTRY_TYPE_ImagePolicyEntryTypeNone: win32more.Windows.Win32.System.SystemServices.IMAGE_POLICY_ENTRY_TYPE = 0
-IMAGE_POLICY_ENTRY_TYPE_ImagePolicyEntryTypeBool: win32more.Windows.Win32.System.SystemServices.IMAGE_POLICY_ENTRY_TYPE = 1
-IMAGE_POLICY_ENTRY_TYPE_ImagePolicyEntryTypeInt8: win32more.Windows.Win32.System.SystemServices.IMAGE_POLICY_ENTRY_TYPE = 2
-IMAGE_POLICY_ENTRY_TYPE_ImagePolicyEntryTypeUInt8: win32more.Windows.Win32.System.SystemServices.IMAGE_POLICY_ENTRY_TYPE = 3
-IMAGE_POLICY_ENTRY_TYPE_ImagePolicyEntryTypeInt16: win32more.Windows.Win32.System.SystemServices.IMAGE_POLICY_ENTRY_TYPE = 4
-IMAGE_POLICY_ENTRY_TYPE_ImagePolicyEntryTypeUInt16: win32more.Windows.Win32.System.SystemServices.IMAGE_POLICY_ENTRY_TYPE = 5
-IMAGE_POLICY_ENTRY_TYPE_ImagePolicyEntryTypeInt32: win32more.Windows.Win32.System.SystemServices.IMAGE_POLICY_ENTRY_TYPE = 6
-IMAGE_POLICY_ENTRY_TYPE_ImagePolicyEntryTypeUInt32: win32more.Windows.Win32.System.SystemServices.IMAGE_POLICY_ENTRY_TYPE = 7
-IMAGE_POLICY_ENTRY_TYPE_ImagePolicyEntryTypeInt64: win32more.Windows.Win32.System.SystemServices.IMAGE_POLICY_ENTRY_TYPE = 8
-IMAGE_POLICY_ENTRY_TYPE_ImagePolicyEntryTypeUInt64: win32more.Windows.Win32.System.SystemServices.IMAGE_POLICY_ENTRY_TYPE = 9
-IMAGE_POLICY_ENTRY_TYPE_ImagePolicyEntryTypeAnsiString: win32more.Windows.Win32.System.SystemServices.IMAGE_POLICY_ENTRY_TYPE = 10
-IMAGE_POLICY_ENTRY_TYPE_ImagePolicyEntryTypeUnicodeString: win32more.Windows.Win32.System.SystemServices.IMAGE_POLICY_ENTRY_TYPE = 11
-IMAGE_POLICY_ENTRY_TYPE_ImagePolicyEntryTypeOverride: win32more.Windows.Win32.System.SystemServices.IMAGE_POLICY_ENTRY_TYPE = 12
-IMAGE_POLICY_ENTRY_TYPE_ImagePolicyEntryTypeMaximum: win32more.Windows.Win32.System.SystemServices.IMAGE_POLICY_ENTRY_TYPE = 13
+ImagePolicyEntryTypeNone: win32more.Windows.Win32.System.SystemServices.IMAGE_POLICY_ENTRY_TYPE = 0
+ImagePolicyEntryTypeBool: win32more.Windows.Win32.System.SystemServices.IMAGE_POLICY_ENTRY_TYPE = 1
+ImagePolicyEntryTypeInt8: win32more.Windows.Win32.System.SystemServices.IMAGE_POLICY_ENTRY_TYPE = 2
+ImagePolicyEntryTypeUInt8: win32more.Windows.Win32.System.SystemServices.IMAGE_POLICY_ENTRY_TYPE = 3
+ImagePolicyEntryTypeInt16: win32more.Windows.Win32.System.SystemServices.IMAGE_POLICY_ENTRY_TYPE = 4
+ImagePolicyEntryTypeUInt16: win32more.Windows.Win32.System.SystemServices.IMAGE_POLICY_ENTRY_TYPE = 5
+ImagePolicyEntryTypeInt32: win32more.Windows.Win32.System.SystemServices.IMAGE_POLICY_ENTRY_TYPE = 6
+ImagePolicyEntryTypeUInt32: win32more.Windows.Win32.System.SystemServices.IMAGE_POLICY_ENTRY_TYPE = 7
+ImagePolicyEntryTypeInt64: win32more.Windows.Win32.System.SystemServices.IMAGE_POLICY_ENTRY_TYPE = 8
+ImagePolicyEntryTypeUInt64: win32more.Windows.Win32.System.SystemServices.IMAGE_POLICY_ENTRY_TYPE = 9
+ImagePolicyEntryTypeAnsiString: win32more.Windows.Win32.System.SystemServices.IMAGE_POLICY_ENTRY_TYPE = 10
+ImagePolicyEntryTypeUnicodeString: win32more.Windows.Win32.System.SystemServices.IMAGE_POLICY_ENTRY_TYPE = 11
+ImagePolicyEntryTypeOverride: win32more.Windows.Win32.System.SystemServices.IMAGE_POLICY_ENTRY_TYPE = 12
+ImagePolicyEntryTypeMaximum: win32more.Windows.Win32.System.SystemServices.IMAGE_POLICY_ENTRY_TYPE = 13
 IMAGE_POLICY_ID = Int32
-IMAGE_POLICY_ID_ImagePolicyIdNone: win32more.Windows.Win32.System.SystemServices.IMAGE_POLICY_ID = 0
-IMAGE_POLICY_ID_ImagePolicyIdEtw: win32more.Windows.Win32.System.SystemServices.IMAGE_POLICY_ID = 1
-IMAGE_POLICY_ID_ImagePolicyIdDebug: win32more.Windows.Win32.System.SystemServices.IMAGE_POLICY_ID = 2
-IMAGE_POLICY_ID_ImagePolicyIdCrashDump: win32more.Windows.Win32.System.SystemServices.IMAGE_POLICY_ID = 3
-IMAGE_POLICY_ID_ImagePolicyIdCrashDumpKey: win32more.Windows.Win32.System.SystemServices.IMAGE_POLICY_ID = 4
-IMAGE_POLICY_ID_ImagePolicyIdCrashDumpKeyGuid: win32more.Windows.Win32.System.SystemServices.IMAGE_POLICY_ID = 5
-IMAGE_POLICY_ID_ImagePolicyIdParentSd: win32more.Windows.Win32.System.SystemServices.IMAGE_POLICY_ID = 6
-IMAGE_POLICY_ID_ImagePolicyIdParentSdRev: win32more.Windows.Win32.System.SystemServices.IMAGE_POLICY_ID = 7
-IMAGE_POLICY_ID_ImagePolicyIdSvn: win32more.Windows.Win32.System.SystemServices.IMAGE_POLICY_ID = 8
-IMAGE_POLICY_ID_ImagePolicyIdDeviceId: win32more.Windows.Win32.System.SystemServices.IMAGE_POLICY_ID = 9
-IMAGE_POLICY_ID_ImagePolicyIdCapability: win32more.Windows.Win32.System.SystemServices.IMAGE_POLICY_ID = 10
-IMAGE_POLICY_ID_ImagePolicyIdScenarioId: win32more.Windows.Win32.System.SystemServices.IMAGE_POLICY_ID = 11
-IMAGE_POLICY_ID_ImagePolicyIdMaximum: win32more.Windows.Win32.System.SystemServices.IMAGE_POLICY_ID = 12
+ImagePolicyIdNone: win32more.Windows.Win32.System.SystemServices.IMAGE_POLICY_ID = 0
+ImagePolicyIdEtw: win32more.Windows.Win32.System.SystemServices.IMAGE_POLICY_ID = 1
+ImagePolicyIdDebug: win32more.Windows.Win32.System.SystemServices.IMAGE_POLICY_ID = 2
+ImagePolicyIdCrashDump: win32more.Windows.Win32.System.SystemServices.IMAGE_POLICY_ID = 3
+ImagePolicyIdCrashDumpKey: win32more.Windows.Win32.System.SystemServices.IMAGE_POLICY_ID = 4
+ImagePolicyIdCrashDumpKeyGuid: win32more.Windows.Win32.System.SystemServices.IMAGE_POLICY_ID = 5
+ImagePolicyIdParentSd: win32more.Windows.Win32.System.SystemServices.IMAGE_POLICY_ID = 6
+ImagePolicyIdParentSdRev: win32more.Windows.Win32.System.SystemServices.IMAGE_POLICY_ID = 7
+ImagePolicyIdSvn: win32more.Windows.Win32.System.SystemServices.IMAGE_POLICY_ID = 8
+ImagePolicyIdDeviceId: win32more.Windows.Win32.System.SystemServices.IMAGE_POLICY_ID = 9
+ImagePolicyIdCapability: win32more.Windows.Win32.System.SystemServices.IMAGE_POLICY_ID = 10
+ImagePolicyIdScenarioId: win32more.Windows.Win32.System.SystemServices.IMAGE_POLICY_ID = 11
+ImagePolicyIdMaximum: win32more.Windows.Win32.System.SystemServices.IMAGE_POLICY_ID = 12
 class IMAGE_POLICY_METADATA(EasyCastStructure):
     Version: Byte
     Reserved0: Byte * 7
@@ -3061,9 +3061,9 @@ MK_MBUTTON: win32more.Windows.Win32.System.SystemServices.MODIFIERKEYS_FLAGS = 1
 MK_XBUTTON1: win32more.Windows.Win32.System.SystemServices.MODIFIERKEYS_FLAGS = 32
 MK_XBUTTON2: win32more.Windows.Win32.System.SystemServices.MODIFIERKEYS_FLAGS = 64
 MONITOR_DISPLAY_STATE = Int32
-MONITOR_DISPLAY_STATE_PowerMonitorOff: win32more.Windows.Win32.System.SystemServices.MONITOR_DISPLAY_STATE = 0
-MONITOR_DISPLAY_STATE_PowerMonitorOn: win32more.Windows.Win32.System.SystemServices.MONITOR_DISPLAY_STATE = 1
-MONITOR_DISPLAY_STATE_PowerMonitorDim: win32more.Windows.Win32.System.SystemServices.MONITOR_DISPLAY_STATE = 2
+PowerMonitorOff: win32more.Windows.Win32.System.SystemServices.MONITOR_DISPLAY_STATE = 0
+PowerMonitorOn: win32more.Windows.Win32.System.SystemServices.MONITOR_DISPLAY_STATE = 1
+PowerMonitorDim: win32more.Windows.Win32.System.SystemServices.MONITOR_DISPLAY_STATE = 2
 class NETWORK_APP_INSTANCE_EA(EasyCastStructure):
     AppInstanceID: Guid
     CsvFlags: UInt32
@@ -3336,12 +3336,12 @@ class RESOURCEMANAGER_COMPLETION_INFORMATION(EasyCastStructure):
     IoCompletionPortHandle: win32more.Windows.Win32.Foundation.HANDLE
     CompletionKey: UIntPtr
 RESOURCEMANAGER_INFORMATION_CLASS = Int32
-RESOURCEMANAGER_INFORMATION_CLASS_ResourceManagerBasicInformation: win32more.Windows.Win32.System.SystemServices.RESOURCEMANAGER_INFORMATION_CLASS = 0
-RESOURCEMANAGER_INFORMATION_CLASS_ResourceManagerCompletionInformation: win32more.Windows.Win32.System.SystemServices.RESOURCEMANAGER_INFORMATION_CLASS = 1
+ResourceManagerBasicInformation: win32more.Windows.Win32.System.SystemServices.RESOURCEMANAGER_INFORMATION_CLASS = 0
+ResourceManagerCompletionInformation: win32more.Windows.Win32.System.SystemServices.RESOURCEMANAGER_INFORMATION_CLASS = 1
 RTL_UMS_SCHEDULER_REASON = Int32
-RTL_UMS_SCHEDULER_REASON_UmsSchedulerStartup: win32more.Windows.Win32.System.SystemServices.RTL_UMS_SCHEDULER_REASON = 0
-RTL_UMS_SCHEDULER_REASON_UmsSchedulerThreadBlocked: win32more.Windows.Win32.System.SystemServices.RTL_UMS_SCHEDULER_REASON = 1
-RTL_UMS_SCHEDULER_REASON_UmsSchedulerThreadYield: win32more.Windows.Win32.System.SystemServices.RTL_UMS_SCHEDULER_REASON = 2
+UmsSchedulerStartup: win32more.Windows.Win32.System.SystemServices.RTL_UMS_SCHEDULER_REASON = 0
+UmsSchedulerThreadBlocked: win32more.Windows.Win32.System.SystemServices.RTL_UMS_SCHEDULER_REASON = 1
+UmsSchedulerThreadYield: win32more.Windows.Win32.System.SystemServices.RTL_UMS_SCHEDULER_REASON = 2
 class RemHBITMAP(EasyCastStructure):
     cbData: UInt32
     data: Byte * 1
@@ -3478,32 +3478,32 @@ SERVERSILO_SHUTTING_DOWN: win32more.Windows.Win32.System.SystemServices.SERVERSI
 SERVERSILO_TERMINATING: win32more.Windows.Win32.System.SystemServices.SERVERSILO_STATE = 3
 SERVERSILO_TERMINATED: win32more.Windows.Win32.System.SystemServices.SERVERSILO_STATE = 4
 SERVICE_ERROR_TYPE = Int32
-SERVICE_ERROR_TYPE_IgnoreError: win32more.Windows.Win32.System.SystemServices.SERVICE_ERROR_TYPE = 0
-SERVICE_ERROR_TYPE_NormalError: win32more.Windows.Win32.System.SystemServices.SERVICE_ERROR_TYPE = 1
-SERVICE_ERROR_TYPE_SevereError: win32more.Windows.Win32.System.SystemServices.SERVICE_ERROR_TYPE = 2
-SERVICE_ERROR_TYPE_CriticalError: win32more.Windows.Win32.System.SystemServices.SERVICE_ERROR_TYPE = 3
+IgnoreError: win32more.Windows.Win32.System.SystemServices.SERVICE_ERROR_TYPE = 0
+NormalError: win32more.Windows.Win32.System.SystemServices.SERVICE_ERROR_TYPE = 1
+SevereError: win32more.Windows.Win32.System.SystemServices.SERVICE_ERROR_TYPE = 2
+CriticalError: win32more.Windows.Win32.System.SystemServices.SERVICE_ERROR_TYPE = 3
 SERVICE_LOAD_TYPE = Int32
-SERVICE_LOAD_TYPE_BootLoad: win32more.Windows.Win32.System.SystemServices.SERVICE_LOAD_TYPE = 0
-SERVICE_LOAD_TYPE_SystemLoad: win32more.Windows.Win32.System.SystemServices.SERVICE_LOAD_TYPE = 1
-SERVICE_LOAD_TYPE_AutoLoad: win32more.Windows.Win32.System.SystemServices.SERVICE_LOAD_TYPE = 2
-SERVICE_LOAD_TYPE_DemandLoad: win32more.Windows.Win32.System.SystemServices.SERVICE_LOAD_TYPE = 3
-SERVICE_LOAD_TYPE_DisableLoad: win32more.Windows.Win32.System.SystemServices.SERVICE_LOAD_TYPE = 4
+BootLoad: win32more.Windows.Win32.System.SystemServices.SERVICE_LOAD_TYPE = 0
+SystemLoad: win32more.Windows.Win32.System.SystemServices.SERVICE_LOAD_TYPE = 1
+AutoLoad: win32more.Windows.Win32.System.SystemServices.SERVICE_LOAD_TYPE = 2
+DemandLoad: win32more.Windows.Win32.System.SystemServices.SERVICE_LOAD_TYPE = 3
+DisableLoad: win32more.Windows.Win32.System.SystemServices.SERVICE_LOAD_TYPE = 4
 SERVICE_NODE_TYPE = Int32
-SERVICE_NODE_TYPE_DriverType: win32more.Windows.Win32.System.SystemServices.SERVICE_NODE_TYPE = 1
-SERVICE_NODE_TYPE_FileSystemType: win32more.Windows.Win32.System.SystemServices.SERVICE_NODE_TYPE = 2
-SERVICE_NODE_TYPE_Win32ServiceOwnProcess: win32more.Windows.Win32.System.SystemServices.SERVICE_NODE_TYPE = 16
-SERVICE_NODE_TYPE_Win32ServiceShareProcess: win32more.Windows.Win32.System.SystemServices.SERVICE_NODE_TYPE = 32
-SERVICE_NODE_TYPE_AdapterType: win32more.Windows.Win32.System.SystemServices.SERVICE_NODE_TYPE = 4
-SERVICE_NODE_TYPE_RecognizerType: win32more.Windows.Win32.System.SystemServices.SERVICE_NODE_TYPE = 8
+DriverType: win32more.Windows.Win32.System.SystemServices.SERVICE_NODE_TYPE = 1
+FileSystemType: win32more.Windows.Win32.System.SystemServices.SERVICE_NODE_TYPE = 2
+Win32ServiceOwnProcess: win32more.Windows.Win32.System.SystemServices.SERVICE_NODE_TYPE = 16
+Win32ServiceShareProcess: win32more.Windows.Win32.System.SystemServices.SERVICE_NODE_TYPE = 32
+AdapterType: win32more.Windows.Win32.System.SystemServices.SERVICE_NODE_TYPE = 4
+RecognizerType: win32more.Windows.Win32.System.SystemServices.SERVICE_NODE_TYPE = 8
 SE_IMAGE_SIGNATURE_TYPE = Int32
-SE_IMAGE_SIGNATURE_TYPE_SeImageSignatureNone: win32more.Windows.Win32.System.SystemServices.SE_IMAGE_SIGNATURE_TYPE = 0
-SE_IMAGE_SIGNATURE_TYPE_SeImageSignatureEmbedded: win32more.Windows.Win32.System.SystemServices.SE_IMAGE_SIGNATURE_TYPE = 1
-SE_IMAGE_SIGNATURE_TYPE_SeImageSignatureCache: win32more.Windows.Win32.System.SystemServices.SE_IMAGE_SIGNATURE_TYPE = 2
-SE_IMAGE_SIGNATURE_TYPE_SeImageSignatureCatalogCached: win32more.Windows.Win32.System.SystemServices.SE_IMAGE_SIGNATURE_TYPE = 3
-SE_IMAGE_SIGNATURE_TYPE_SeImageSignatureCatalogNotCached: win32more.Windows.Win32.System.SystemServices.SE_IMAGE_SIGNATURE_TYPE = 4
-SE_IMAGE_SIGNATURE_TYPE_SeImageSignatureCatalogHint: win32more.Windows.Win32.System.SystemServices.SE_IMAGE_SIGNATURE_TYPE = 5
-SE_IMAGE_SIGNATURE_TYPE_SeImageSignaturePackageCatalog: win32more.Windows.Win32.System.SystemServices.SE_IMAGE_SIGNATURE_TYPE = 6
-SE_IMAGE_SIGNATURE_TYPE_SeImageSignaturePplMitigated: win32more.Windows.Win32.System.SystemServices.SE_IMAGE_SIGNATURE_TYPE = 7
+SeImageSignatureNone: win32more.Windows.Win32.System.SystemServices.SE_IMAGE_SIGNATURE_TYPE = 0
+SeImageSignatureEmbedded: win32more.Windows.Win32.System.SystemServices.SE_IMAGE_SIGNATURE_TYPE = 1
+SeImageSignatureCache: win32more.Windows.Win32.System.SystemServices.SE_IMAGE_SIGNATURE_TYPE = 2
+SeImageSignatureCatalogCached: win32more.Windows.Win32.System.SystemServices.SE_IMAGE_SIGNATURE_TYPE = 3
+SeImageSignatureCatalogNotCached: win32more.Windows.Win32.System.SystemServices.SE_IMAGE_SIGNATURE_TYPE = 4
+SeImageSignatureCatalogHint: win32more.Windows.Win32.System.SystemServices.SE_IMAGE_SIGNATURE_TYPE = 5
+SeImageSignaturePackageCatalog: win32more.Windows.Win32.System.SystemServices.SE_IMAGE_SIGNATURE_TYPE = 6
+SeImageSignaturePplMitigated: win32more.Windows.Win32.System.SystemServices.SE_IMAGE_SIGNATURE_TYPE = 7
 class SE_TOKEN_USER(EasyCastStructure):
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
@@ -3600,33 +3600,33 @@ class SUPPORTED_OS_INFO(EasyCastStructure):
     MajorVersion: UInt16
     MinorVersion: UInt16
 SharedVirtualDiskHandleState = Int32
-SharedVirtualDiskHandleState_SharedVirtualDiskHandleStateNone: win32more.Windows.Win32.System.SystemServices.SharedVirtualDiskHandleState = 0
-SharedVirtualDiskHandleState_SharedVirtualDiskHandleStateFileShared: win32more.Windows.Win32.System.SystemServices.SharedVirtualDiskHandleState = 1
-SharedVirtualDiskHandleState_SharedVirtualDiskHandleStateHandleShared: win32more.Windows.Win32.System.SystemServices.SharedVirtualDiskHandleState = 3
+SharedVirtualDiskHandleStateNone: win32more.Windows.Win32.System.SystemServices.SharedVirtualDiskHandleState = 0
+SharedVirtualDiskHandleStateFileShared: win32more.Windows.Win32.System.SystemServices.SharedVirtualDiskHandleState = 1
+SharedVirtualDiskHandleStateHandleShared: win32more.Windows.Win32.System.SystemServices.SharedVirtualDiskHandleState = 3
 SharedVirtualDiskSupportType = Int32
-SharedVirtualDiskSupportType_SharedVirtualDisksUnsupported: win32more.Windows.Win32.System.SystemServices.SharedVirtualDiskSupportType = 0
-SharedVirtualDiskSupportType_SharedVirtualDisksSupported: win32more.Windows.Win32.System.SystemServices.SharedVirtualDiskSupportType = 1
-SharedVirtualDiskSupportType_SharedVirtualDiskSnapshotsSupported: win32more.Windows.Win32.System.SystemServices.SharedVirtualDiskSupportType = 3
-SharedVirtualDiskSupportType_SharedVirtualDiskCDPSnapshotsSupported: win32more.Windows.Win32.System.SystemServices.SharedVirtualDiskSupportType = 7
+SharedVirtualDisksUnsupported: win32more.Windows.Win32.System.SystemServices.SharedVirtualDiskSupportType = 0
+SharedVirtualDisksSupported: win32more.Windows.Win32.System.SystemServices.SharedVirtualDiskSupportType = 1
+SharedVirtualDiskSnapshotsSupported: win32more.Windows.Win32.System.SystemServices.SharedVirtualDiskSupportType = 3
+SharedVirtualDiskCDPSnapshotsSupported: win32more.Windows.Win32.System.SystemServices.SharedVirtualDiskSupportType = 7
 class TAPE_CREATE_PARTITION(EasyCastStructure):
     Method: UInt32
     Count: UInt32
     Size: UInt32
 TAPE_DRIVE_PROBLEM_TYPE = Int32
-TAPE_DRIVE_PROBLEM_TYPE_TapeDriveProblemNone: win32more.Windows.Win32.System.SystemServices.TAPE_DRIVE_PROBLEM_TYPE = 0
-TAPE_DRIVE_PROBLEM_TYPE_TapeDriveReadWriteWarning: win32more.Windows.Win32.System.SystemServices.TAPE_DRIVE_PROBLEM_TYPE = 1
-TAPE_DRIVE_PROBLEM_TYPE_TapeDriveReadWriteError: win32more.Windows.Win32.System.SystemServices.TAPE_DRIVE_PROBLEM_TYPE = 2
-TAPE_DRIVE_PROBLEM_TYPE_TapeDriveReadWarning: win32more.Windows.Win32.System.SystemServices.TAPE_DRIVE_PROBLEM_TYPE = 3
-TAPE_DRIVE_PROBLEM_TYPE_TapeDriveWriteWarning: win32more.Windows.Win32.System.SystemServices.TAPE_DRIVE_PROBLEM_TYPE = 4
-TAPE_DRIVE_PROBLEM_TYPE_TapeDriveReadError: win32more.Windows.Win32.System.SystemServices.TAPE_DRIVE_PROBLEM_TYPE = 5
-TAPE_DRIVE_PROBLEM_TYPE_TapeDriveWriteError: win32more.Windows.Win32.System.SystemServices.TAPE_DRIVE_PROBLEM_TYPE = 6
-TAPE_DRIVE_PROBLEM_TYPE_TapeDriveHardwareError: win32more.Windows.Win32.System.SystemServices.TAPE_DRIVE_PROBLEM_TYPE = 7
-TAPE_DRIVE_PROBLEM_TYPE_TapeDriveUnsupportedMedia: win32more.Windows.Win32.System.SystemServices.TAPE_DRIVE_PROBLEM_TYPE = 8
-TAPE_DRIVE_PROBLEM_TYPE_TapeDriveScsiConnectionError: win32more.Windows.Win32.System.SystemServices.TAPE_DRIVE_PROBLEM_TYPE = 9
-TAPE_DRIVE_PROBLEM_TYPE_TapeDriveTimetoClean: win32more.Windows.Win32.System.SystemServices.TAPE_DRIVE_PROBLEM_TYPE = 10
-TAPE_DRIVE_PROBLEM_TYPE_TapeDriveCleanDriveNow: win32more.Windows.Win32.System.SystemServices.TAPE_DRIVE_PROBLEM_TYPE = 11
-TAPE_DRIVE_PROBLEM_TYPE_TapeDriveMediaLifeExpired: win32more.Windows.Win32.System.SystemServices.TAPE_DRIVE_PROBLEM_TYPE = 12
-TAPE_DRIVE_PROBLEM_TYPE_TapeDriveSnappedTape: win32more.Windows.Win32.System.SystemServices.TAPE_DRIVE_PROBLEM_TYPE = 13
+TapeDriveProblemNone: win32more.Windows.Win32.System.SystemServices.TAPE_DRIVE_PROBLEM_TYPE = 0
+TapeDriveReadWriteWarning: win32more.Windows.Win32.System.SystemServices.TAPE_DRIVE_PROBLEM_TYPE = 1
+TapeDriveReadWriteError: win32more.Windows.Win32.System.SystemServices.TAPE_DRIVE_PROBLEM_TYPE = 2
+TapeDriveReadWarning: win32more.Windows.Win32.System.SystemServices.TAPE_DRIVE_PROBLEM_TYPE = 3
+TapeDriveWriteWarning: win32more.Windows.Win32.System.SystemServices.TAPE_DRIVE_PROBLEM_TYPE = 4
+TapeDriveReadError: win32more.Windows.Win32.System.SystemServices.TAPE_DRIVE_PROBLEM_TYPE = 5
+TapeDriveWriteError: win32more.Windows.Win32.System.SystemServices.TAPE_DRIVE_PROBLEM_TYPE = 6
+TapeDriveHardwareError: win32more.Windows.Win32.System.SystemServices.TAPE_DRIVE_PROBLEM_TYPE = 7
+TapeDriveUnsupportedMedia: win32more.Windows.Win32.System.SystemServices.TAPE_DRIVE_PROBLEM_TYPE = 8
+TapeDriveScsiConnectionError: win32more.Windows.Win32.System.SystemServices.TAPE_DRIVE_PROBLEM_TYPE = 9
+TapeDriveTimetoClean: win32more.Windows.Win32.System.SystemServices.TAPE_DRIVE_PROBLEM_TYPE = 10
+TapeDriveCleanDriveNow: win32more.Windows.Win32.System.SystemServices.TAPE_DRIVE_PROBLEM_TYPE = 11
+TapeDriveMediaLifeExpired: win32more.Windows.Win32.System.SystemServices.TAPE_DRIVE_PROBLEM_TYPE = 12
+TapeDriveSnappedTape: win32more.Windows.Win32.System.SystemServices.TAPE_DRIVE_PROBLEM_TYPE = 13
 class TAPE_GET_DRIVE_PARAMETERS(EasyCastStructure):
     ECC: win32more.Windows.Win32.Foundation.BOOLEAN
     Compression: win32more.Windows.Win32.Foundation.BOOLEAN
@@ -3696,12 +3696,12 @@ class TRANSACTIONMANAGER_BASIC_INFORMATION(EasyCastStructure):
     TmIdentity: Guid
     VirtualClock: Int64
 TRANSACTIONMANAGER_INFORMATION_CLASS = Int32
-TRANSACTIONMANAGER_INFORMATION_CLASS_TransactionManagerBasicInformation: win32more.Windows.Win32.System.SystemServices.TRANSACTIONMANAGER_INFORMATION_CLASS = 0
-TRANSACTIONMANAGER_INFORMATION_CLASS_TransactionManagerLogInformation: win32more.Windows.Win32.System.SystemServices.TRANSACTIONMANAGER_INFORMATION_CLASS = 1
-TRANSACTIONMANAGER_INFORMATION_CLASS_TransactionManagerLogPathInformation: win32more.Windows.Win32.System.SystemServices.TRANSACTIONMANAGER_INFORMATION_CLASS = 2
-TRANSACTIONMANAGER_INFORMATION_CLASS_TransactionManagerRecoveryInformation: win32more.Windows.Win32.System.SystemServices.TRANSACTIONMANAGER_INFORMATION_CLASS = 4
-TRANSACTIONMANAGER_INFORMATION_CLASS_TransactionManagerOnlineProbeInformation: win32more.Windows.Win32.System.SystemServices.TRANSACTIONMANAGER_INFORMATION_CLASS = 3
-TRANSACTIONMANAGER_INFORMATION_CLASS_TransactionManagerOldestTransactionInformation: win32more.Windows.Win32.System.SystemServices.TRANSACTIONMANAGER_INFORMATION_CLASS = 5
+TransactionManagerBasicInformation: win32more.Windows.Win32.System.SystemServices.TRANSACTIONMANAGER_INFORMATION_CLASS = 0
+TransactionManagerLogInformation: win32more.Windows.Win32.System.SystemServices.TRANSACTIONMANAGER_INFORMATION_CLASS = 1
+TransactionManagerLogPathInformation: win32more.Windows.Win32.System.SystemServices.TRANSACTIONMANAGER_INFORMATION_CLASS = 2
+TransactionManagerRecoveryInformation: win32more.Windows.Win32.System.SystemServices.TRANSACTIONMANAGER_INFORMATION_CLASS = 4
+TransactionManagerOnlineProbeInformation: win32more.Windows.Win32.System.SystemServices.TRANSACTIONMANAGER_INFORMATION_CLASS = 3
+TransactionManagerOldestTransactionInformation: win32more.Windows.Win32.System.SystemServices.TRANSACTIONMANAGER_INFORMATION_CLASS = 5
 class TRANSACTIONMANAGER_LOGPATH_INFORMATION(EasyCastStructure):
     LogPathLength: UInt32
     LogPath: Char * 1
@@ -3724,12 +3724,12 @@ class TRANSACTION_ENLISTMENT_PAIR(EasyCastStructure):
     EnlistmentId: Guid
     ResourceManagerId: Guid
 TRANSACTION_INFORMATION_CLASS = Int32
-TRANSACTION_INFORMATION_CLASS_TransactionBasicInformation: win32more.Windows.Win32.System.SystemServices.TRANSACTION_INFORMATION_CLASS = 0
-TRANSACTION_INFORMATION_CLASS_TransactionPropertiesInformation: win32more.Windows.Win32.System.SystemServices.TRANSACTION_INFORMATION_CLASS = 1
-TRANSACTION_INFORMATION_CLASS_TransactionEnlistmentInformation: win32more.Windows.Win32.System.SystemServices.TRANSACTION_INFORMATION_CLASS = 2
-TRANSACTION_INFORMATION_CLASS_TransactionSuperiorEnlistmentInformation: win32more.Windows.Win32.System.SystemServices.TRANSACTION_INFORMATION_CLASS = 3
-TRANSACTION_INFORMATION_CLASS_TransactionBindInformation: win32more.Windows.Win32.System.SystemServices.TRANSACTION_INFORMATION_CLASS = 4
-TRANSACTION_INFORMATION_CLASS_TransactionDTCPrivateInformation: win32more.Windows.Win32.System.SystemServices.TRANSACTION_INFORMATION_CLASS = 5
+TransactionBasicInformation: win32more.Windows.Win32.System.SystemServices.TRANSACTION_INFORMATION_CLASS = 0
+TransactionPropertiesInformation: win32more.Windows.Win32.System.SystemServices.TRANSACTION_INFORMATION_CLASS = 1
+TransactionEnlistmentInformation: win32more.Windows.Win32.System.SystemServices.TRANSACTION_INFORMATION_CLASS = 2
+TransactionSuperiorEnlistmentInformation: win32more.Windows.Win32.System.SystemServices.TRANSACTION_INFORMATION_CLASS = 3
+TransactionBindInformation: win32more.Windows.Win32.System.SystemServices.TRANSACTION_INFORMATION_CLASS = 4
+TransactionDTCPrivateInformation: win32more.Windows.Win32.System.SystemServices.TRANSACTION_INFORMATION_CLASS = 5
 class TRANSACTION_LIST_ENTRY(EasyCastStructure):
     UOW: Guid
 class TRANSACTION_LIST_INFORMATION(EasyCastStructure):
@@ -3743,9 +3743,9 @@ class TRANSACTION_PROPERTIES_INFORMATION(EasyCastStructure):
     DescriptionLength: UInt32
     Description: Char * 1
 TRANSACTION_STATE = Int32
-TRANSACTION_STATE_TransactionStateNormal: win32more.Windows.Win32.System.SystemServices.TRANSACTION_STATE = 1
-TRANSACTION_STATE_TransactionStateIndoubt: win32more.Windows.Win32.System.SystemServices.TRANSACTION_STATE = 2
-TRANSACTION_STATE_TransactionStateCommittedNotify: win32more.Windows.Win32.System.SystemServices.TRANSACTION_STATE = 3
+TransactionStateNormal: win32more.Windows.Win32.System.SystemServices.TRANSACTION_STATE = 1
+TransactionStateIndoubt: win32more.Windows.Win32.System.SystemServices.TRANSACTION_STATE = 2
+TransactionStateCommittedNotify: win32more.Windows.Win32.System.SystemServices.TRANSACTION_STATE = 3
 class TRANSACTION_SUPERIOR_ENLISTMENT_INFORMATION(EasyCastStructure):
     SuperiorEnlistmentPair: win32more.Windows.Win32.System.SystemServices.TRANSACTION_ENLISTMENT_PAIR
 class UMS_CREATE_THREAD_ATTRIBUTES(EasyCastStructure):

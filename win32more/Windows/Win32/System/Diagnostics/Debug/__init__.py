@@ -24,10 +24,10 @@ class ADDRESS64(EasyCastStructure):
     Segment: UInt16
     Mode: win32more.Windows.Win32.System.Diagnostics.Debug.ADDRESS_MODE
 ADDRESS_MODE = Int32
-ADDRESS_MODE_AddrMode1616: win32more.Windows.Win32.System.Diagnostics.Debug.ADDRESS_MODE = 0
-ADDRESS_MODE_AddrMode1632: win32more.Windows.Win32.System.Diagnostics.Debug.ADDRESS_MODE = 1
-ADDRESS_MODE_AddrModeReal: win32more.Windows.Win32.System.Diagnostics.Debug.ADDRESS_MODE = 2
-ADDRESS_MODE_AddrModeFlat: win32more.Windows.Win32.System.Diagnostics.Debug.ADDRESS_MODE = 3
+AddrMode1616: win32more.Windows.Win32.System.Diagnostics.Debug.ADDRESS_MODE = 0
+AddrMode1632: win32more.Windows.Win32.System.Diagnostics.Debug.ADDRESS_MODE = 1
+AddrModeReal: win32more.Windows.Win32.System.Diagnostics.Debug.ADDRESS_MODE = 2
+AddrModeFlat: win32more.Windows.Win32.System.Diagnostics.Debug.ADDRESS_MODE = 3
 class AER_BRIDGE_DESCRIPTOR_FLAGS(EasyCastUnion):
     Anonymous: _Anonymous_e__Struct
     AsUSHORT: UInt16
@@ -2404,10 +2404,10 @@ class IMAGEHLP_CBA_EVENTW(EasyCastStructure):
     desc: win32more.Windows.Win32.Foundation.PWSTR
     object: VoidPtr
 IMAGEHLP_CBA_EVENT_SEVERITY = UInt32
-IMAGEHLP_CBA_EVENT_SEVERITY_sevInfo: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_CBA_EVENT_SEVERITY = 0
-IMAGEHLP_CBA_EVENT_SEVERITY_sevProblem: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_CBA_EVENT_SEVERITY = 1
-IMAGEHLP_CBA_EVENT_SEVERITY_sevAttn: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_CBA_EVENT_SEVERITY = 2
-IMAGEHLP_CBA_EVENT_SEVERITY_sevFatal: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_CBA_EVENT_SEVERITY = 3
+sevInfo: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_CBA_EVENT_SEVERITY = 0
+sevProblem: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_CBA_EVENT_SEVERITY = 1
+sevAttn: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_CBA_EVENT_SEVERITY = 2
+sevFatal: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_CBA_EVENT_SEVERITY = 3
 class IMAGEHLP_CBA_READ_MEMORY(EasyCastStructure):
     addr: UInt64
     buf: VoidPtr
@@ -2480,10 +2480,10 @@ class IMAGEHLP_GET_TYPE_INFO_PARAMS(EasyCastStructure):
     NumReqsValid: UInt32
     ReqsValid: POINTER(UInt64)
 IMAGEHLP_HD_TYPE = Int32
-IMAGEHLP_HD_TYPE_hdBase: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_HD_TYPE = 0
-IMAGEHLP_HD_TYPE_hdSym: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_HD_TYPE = 1
-IMAGEHLP_HD_TYPE_hdSrc: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_HD_TYPE = 2
-IMAGEHLP_HD_TYPE_hdMax: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_HD_TYPE = 3
+hdBase: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_HD_TYPE = 0
+hdSym: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_HD_TYPE = 1
+hdSrc: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_HD_TYPE = 2
+hdMax: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_HD_TYPE = 3
 class IMAGEHLP_JIT_SYMBOLMAP(EasyCastStructure):
     SizeOfStruct: UInt32
     Address: UInt64
@@ -2597,11 +2597,11 @@ class IMAGEHLP_MODULEW64_EX(EasyCastStructure):
     Module: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_MODULEW64
     RegionFlags: UInt32
 IMAGEHLP_SF_TYPE = Int32
-IMAGEHLP_SF_TYPE_sfImage: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_SF_TYPE = 0
-IMAGEHLP_SF_TYPE_sfDbg: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_SF_TYPE = 1
-IMAGEHLP_SF_TYPE_sfPdb: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_SF_TYPE = 2
-IMAGEHLP_SF_TYPE_sfMpd: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_SF_TYPE = 3
-IMAGEHLP_SF_TYPE_sfMax: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_SF_TYPE = 4
+sfImage: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_SF_TYPE = 0
+sfDbg: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_SF_TYPE = 1
+sfPdb: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_SF_TYPE = 2
+sfMpd: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_SF_TYPE = 3
+sfMax: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_SF_TYPE = 4
 class IMAGEHLP_STACK_FRAME(EasyCastStructure):
     InstructionOffset: UInt64
     ReturnOffset: UInt64
@@ -2614,26 +2614,26 @@ class IMAGEHLP_STACK_FRAME(EasyCastStructure):
     Virtual: win32more.Windows.Win32.Foundation.BOOL
     Reserved2: UInt32
 IMAGEHLP_STATUS_REASON = Int32
-IMAGEHLP_STATUS_REASON_BindOutOfMemory: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_STATUS_REASON = 0
-IMAGEHLP_STATUS_REASON_BindRvaToVaFailed: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_STATUS_REASON = 1
-IMAGEHLP_STATUS_REASON_BindNoRoomInImage: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_STATUS_REASON = 2
-IMAGEHLP_STATUS_REASON_BindImportModuleFailed: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_STATUS_REASON = 3
-IMAGEHLP_STATUS_REASON_BindImportProcedureFailed: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_STATUS_REASON = 4
-IMAGEHLP_STATUS_REASON_BindImportModule: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_STATUS_REASON = 5
-IMAGEHLP_STATUS_REASON_BindImportProcedure: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_STATUS_REASON = 6
-IMAGEHLP_STATUS_REASON_BindForwarder: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_STATUS_REASON = 7
-IMAGEHLP_STATUS_REASON_BindForwarderNOT: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_STATUS_REASON = 8
-IMAGEHLP_STATUS_REASON_BindImageModified: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_STATUS_REASON = 9
-IMAGEHLP_STATUS_REASON_BindExpandFileHeaders: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_STATUS_REASON = 10
-IMAGEHLP_STATUS_REASON_BindImageComplete: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_STATUS_REASON = 11
-IMAGEHLP_STATUS_REASON_BindMismatchedSymbols: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_STATUS_REASON = 12
-IMAGEHLP_STATUS_REASON_BindSymbolsNotUpdated: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_STATUS_REASON = 13
-IMAGEHLP_STATUS_REASON_BindImportProcedure32: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_STATUS_REASON = 14
-IMAGEHLP_STATUS_REASON_BindImportProcedure64: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_STATUS_REASON = 15
-IMAGEHLP_STATUS_REASON_BindForwarder32: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_STATUS_REASON = 16
-IMAGEHLP_STATUS_REASON_BindForwarder64: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_STATUS_REASON = 17
-IMAGEHLP_STATUS_REASON_BindForwarderNOT32: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_STATUS_REASON = 18
-IMAGEHLP_STATUS_REASON_BindForwarderNOT64: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_STATUS_REASON = 19
+BindOutOfMemory: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_STATUS_REASON = 0
+BindRvaToVaFailed: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_STATUS_REASON = 1
+BindNoRoomInImage: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_STATUS_REASON = 2
+BindImportModuleFailed: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_STATUS_REASON = 3
+BindImportProcedureFailed: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_STATUS_REASON = 4
+BindImportModule: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_STATUS_REASON = 5
+BindImportProcedure: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_STATUS_REASON = 6
+BindForwarder: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_STATUS_REASON = 7
+BindForwarderNOT: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_STATUS_REASON = 8
+BindImageModified: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_STATUS_REASON = 9
+BindExpandFileHeaders: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_STATUS_REASON = 10
+BindImageComplete: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_STATUS_REASON = 11
+BindMismatchedSymbols: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_STATUS_REASON = 12
+BindSymbolsNotUpdated: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_STATUS_REASON = 13
+BindImportProcedure32: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_STATUS_REASON = 14
+BindImportProcedure64: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_STATUS_REASON = 15
+BindForwarder32: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_STATUS_REASON = 16
+BindForwarder64: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_STATUS_REASON = 17
+BindForwarderNOT32: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_STATUS_REASON = 18
+BindForwarderNOT64: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_STATUS_REASON = 19
 if ARCH in 'X86':
     class IMAGEHLP_SYMBOL(EasyCastStructure):
         SizeOfStruct: UInt32
@@ -3186,17 +3186,17 @@ class IPMI_OS_SEL_RECORD(EasyCastStructure):
     Data: Byte * 1
     _pack_ = 1
 IPMI_OS_SEL_RECORD_TYPE = Int32
-IPMI_OS_SEL_RECORD_TYPE_IpmiOsSelRecordTypeWhea: win32more.Windows.Win32.System.Diagnostics.Debug.IPMI_OS_SEL_RECORD_TYPE = 0
-IPMI_OS_SEL_RECORD_TYPE_IpmiOsSelRecordTypeOther: win32more.Windows.Win32.System.Diagnostics.Debug.IPMI_OS_SEL_RECORD_TYPE = 1
-IPMI_OS_SEL_RECORD_TYPE_IpmiOsSelRecordTypeWheaErrorXpfMca: win32more.Windows.Win32.System.Diagnostics.Debug.IPMI_OS_SEL_RECORD_TYPE = 2
-IPMI_OS_SEL_RECORD_TYPE_IpmiOsSelRecordTypeWheaErrorPci: win32more.Windows.Win32.System.Diagnostics.Debug.IPMI_OS_SEL_RECORD_TYPE = 3
-IPMI_OS_SEL_RECORD_TYPE_IpmiOsSelRecordTypeWheaErrorNmi: win32more.Windows.Win32.System.Diagnostics.Debug.IPMI_OS_SEL_RECORD_TYPE = 4
-IPMI_OS_SEL_RECORD_TYPE_IpmiOsSelRecordTypeWheaErrorOther: win32more.Windows.Win32.System.Diagnostics.Debug.IPMI_OS_SEL_RECORD_TYPE = 5
-IPMI_OS_SEL_RECORD_TYPE_IpmiOsSelRecordTypeRaw: win32more.Windows.Win32.System.Diagnostics.Debug.IPMI_OS_SEL_RECORD_TYPE = 6
-IPMI_OS_SEL_RECORD_TYPE_IpmiOsSelRecordTypeDriver: win32more.Windows.Win32.System.Diagnostics.Debug.IPMI_OS_SEL_RECORD_TYPE = 7
-IPMI_OS_SEL_RECORD_TYPE_IpmiOsSelRecordTypeBugcheckRecovery: win32more.Windows.Win32.System.Diagnostics.Debug.IPMI_OS_SEL_RECORD_TYPE = 8
-IPMI_OS_SEL_RECORD_TYPE_IpmiOsSelRecordTypeBugcheckData: win32more.Windows.Win32.System.Diagnostics.Debug.IPMI_OS_SEL_RECORD_TYPE = 9
-IPMI_OS_SEL_RECORD_TYPE_IpmiOsSelRecordTypeMax: win32more.Windows.Win32.System.Diagnostics.Debug.IPMI_OS_SEL_RECORD_TYPE = 10
+IpmiOsSelRecordTypeWhea: win32more.Windows.Win32.System.Diagnostics.Debug.IPMI_OS_SEL_RECORD_TYPE = 0
+IpmiOsSelRecordTypeOther: win32more.Windows.Win32.System.Diagnostics.Debug.IPMI_OS_SEL_RECORD_TYPE = 1
+IpmiOsSelRecordTypeWheaErrorXpfMca: win32more.Windows.Win32.System.Diagnostics.Debug.IPMI_OS_SEL_RECORD_TYPE = 2
+IpmiOsSelRecordTypeWheaErrorPci: win32more.Windows.Win32.System.Diagnostics.Debug.IPMI_OS_SEL_RECORD_TYPE = 3
+IpmiOsSelRecordTypeWheaErrorNmi: win32more.Windows.Win32.System.Diagnostics.Debug.IPMI_OS_SEL_RECORD_TYPE = 4
+IpmiOsSelRecordTypeWheaErrorOther: win32more.Windows.Win32.System.Diagnostics.Debug.IPMI_OS_SEL_RECORD_TYPE = 5
+IpmiOsSelRecordTypeRaw: win32more.Windows.Win32.System.Diagnostics.Debug.IPMI_OS_SEL_RECORD_TYPE = 6
+IpmiOsSelRecordTypeDriver: win32more.Windows.Win32.System.Diagnostics.Debug.IPMI_OS_SEL_RECORD_TYPE = 7
+IpmiOsSelRecordTypeBugcheckRecovery: win32more.Windows.Win32.System.Diagnostics.Debug.IPMI_OS_SEL_RECORD_TYPE = 8
+IpmiOsSelRecordTypeBugcheckData: win32more.Windows.Win32.System.Diagnostics.Debug.IPMI_OS_SEL_RECORD_TYPE = 9
+IpmiOsSelRecordTypeMax: win32more.Windows.Win32.System.Diagnostics.Debug.IPMI_OS_SEL_RECORD_TYPE = 10
 class IPerPropertyBrowsing2(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{51973c54-cb0c-11d0-b5c9-00a0244a0e7a}')
@@ -3430,27 +3430,27 @@ class MINIDUMP_CALLBACK_OUTPUT(EasyCastStructure):
 @winfunctype_pointer
 def MINIDUMP_CALLBACK_ROUTINE(CallbackParam: VoidPtr, CallbackInput: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_CALLBACK_INPUT), CallbackOutput: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_CALLBACK_OUTPUT)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 MINIDUMP_CALLBACK_TYPE = Int32
-MINIDUMP_CALLBACK_TYPE_ModuleCallback: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_CALLBACK_TYPE = 0
-MINIDUMP_CALLBACK_TYPE_ThreadCallback: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_CALLBACK_TYPE = 1
-MINIDUMP_CALLBACK_TYPE_ThreadExCallback: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_CALLBACK_TYPE = 2
-MINIDUMP_CALLBACK_TYPE_IncludeThreadCallback: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_CALLBACK_TYPE = 3
-MINIDUMP_CALLBACK_TYPE_IncludeModuleCallback: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_CALLBACK_TYPE = 4
-MINIDUMP_CALLBACK_TYPE_MemoryCallback: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_CALLBACK_TYPE = 5
-MINIDUMP_CALLBACK_TYPE_CancelCallback: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_CALLBACK_TYPE = 6
-MINIDUMP_CALLBACK_TYPE_WriteKernelMinidumpCallback: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_CALLBACK_TYPE = 7
-MINIDUMP_CALLBACK_TYPE_KernelMinidumpStatusCallback: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_CALLBACK_TYPE = 8
-MINIDUMP_CALLBACK_TYPE_RemoveMemoryCallback: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_CALLBACK_TYPE = 9
-MINIDUMP_CALLBACK_TYPE_IncludeVmRegionCallback: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_CALLBACK_TYPE = 10
-MINIDUMP_CALLBACK_TYPE_IoStartCallback: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_CALLBACK_TYPE = 11
-MINIDUMP_CALLBACK_TYPE_IoWriteAllCallback: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_CALLBACK_TYPE = 12
-MINIDUMP_CALLBACK_TYPE_IoFinishCallback: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_CALLBACK_TYPE = 13
-MINIDUMP_CALLBACK_TYPE_ReadMemoryFailureCallback: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_CALLBACK_TYPE = 14
-MINIDUMP_CALLBACK_TYPE_SecondaryFlagsCallback: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_CALLBACK_TYPE = 15
-MINIDUMP_CALLBACK_TYPE_IsProcessSnapshotCallback: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_CALLBACK_TYPE = 16
-MINIDUMP_CALLBACK_TYPE_VmStartCallback: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_CALLBACK_TYPE = 17
-MINIDUMP_CALLBACK_TYPE_VmQueryCallback: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_CALLBACK_TYPE = 18
-MINIDUMP_CALLBACK_TYPE_VmPreReadCallback: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_CALLBACK_TYPE = 19
-MINIDUMP_CALLBACK_TYPE_VmPostReadCallback: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_CALLBACK_TYPE = 20
+ModuleCallback: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_CALLBACK_TYPE = 0
+ThreadCallback: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_CALLBACK_TYPE = 1
+ThreadExCallback: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_CALLBACK_TYPE = 2
+IncludeThreadCallback: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_CALLBACK_TYPE = 3
+IncludeModuleCallback: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_CALLBACK_TYPE = 4
+MemoryCallback: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_CALLBACK_TYPE = 5
+CancelCallback: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_CALLBACK_TYPE = 6
+WriteKernelMinidumpCallback: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_CALLBACK_TYPE = 7
+KernelMinidumpStatusCallback: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_CALLBACK_TYPE = 8
+RemoveMemoryCallback: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_CALLBACK_TYPE = 9
+IncludeVmRegionCallback: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_CALLBACK_TYPE = 10
+IoStartCallback: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_CALLBACK_TYPE = 11
+IoWriteAllCallback: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_CALLBACK_TYPE = 12
+IoFinishCallback: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_CALLBACK_TYPE = 13
+ReadMemoryFailureCallback: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_CALLBACK_TYPE = 14
+SecondaryFlagsCallback: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_CALLBACK_TYPE = 15
+IsProcessSnapshotCallback: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_CALLBACK_TYPE = 16
+VmStartCallback: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_CALLBACK_TYPE = 17
+VmQueryCallback: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_CALLBACK_TYPE = 18
+VmPreReadCallback: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_CALLBACK_TYPE = 19
+VmPostReadCallback: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_CALLBACK_TYPE = 20
 class MINIDUMP_DIRECTORY(EasyCastStructure):
     StreamType: UInt32
     Location: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_LOCATION_DESCRIPTOR
@@ -3534,16 +3534,16 @@ class MINIDUMP_HANDLE_OBJECT_INFORMATION(EasyCastStructure):
     SizeOfInfo: UInt32
     _pack_ = 4
 MINIDUMP_HANDLE_OBJECT_INFORMATION_TYPE = Int32
-MINIDUMP_HANDLE_OBJECT_INFORMATION_TYPE_MiniHandleObjectInformationNone: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_HANDLE_OBJECT_INFORMATION_TYPE = 0
-MINIDUMP_HANDLE_OBJECT_INFORMATION_TYPE_MiniThreadInformation1: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_HANDLE_OBJECT_INFORMATION_TYPE = 1
-MINIDUMP_HANDLE_OBJECT_INFORMATION_TYPE_MiniMutantInformation1: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_HANDLE_OBJECT_INFORMATION_TYPE = 2
-MINIDUMP_HANDLE_OBJECT_INFORMATION_TYPE_MiniMutantInformation2: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_HANDLE_OBJECT_INFORMATION_TYPE = 3
-MINIDUMP_HANDLE_OBJECT_INFORMATION_TYPE_MiniProcessInformation1: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_HANDLE_OBJECT_INFORMATION_TYPE = 4
-MINIDUMP_HANDLE_OBJECT_INFORMATION_TYPE_MiniProcessInformation2: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_HANDLE_OBJECT_INFORMATION_TYPE = 5
-MINIDUMP_HANDLE_OBJECT_INFORMATION_TYPE_MiniEventInformation1: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_HANDLE_OBJECT_INFORMATION_TYPE = 6
-MINIDUMP_HANDLE_OBJECT_INFORMATION_TYPE_MiniSectionInformation1: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_HANDLE_OBJECT_INFORMATION_TYPE = 7
-MINIDUMP_HANDLE_OBJECT_INFORMATION_TYPE_MiniSemaphoreInformation1: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_HANDLE_OBJECT_INFORMATION_TYPE = 8
-MINIDUMP_HANDLE_OBJECT_INFORMATION_TYPE_MiniHandleObjectInformationTypeMax: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_HANDLE_OBJECT_INFORMATION_TYPE = 9
+MiniHandleObjectInformationNone: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_HANDLE_OBJECT_INFORMATION_TYPE = 0
+MiniThreadInformation1: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_HANDLE_OBJECT_INFORMATION_TYPE = 1
+MiniMutantInformation1: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_HANDLE_OBJECT_INFORMATION_TYPE = 2
+MiniMutantInformation2: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_HANDLE_OBJECT_INFORMATION_TYPE = 3
+MiniProcessInformation1: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_HANDLE_OBJECT_INFORMATION_TYPE = 4
+MiniProcessInformation2: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_HANDLE_OBJECT_INFORMATION_TYPE = 5
+MiniEventInformation1: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_HANDLE_OBJECT_INFORMATION_TYPE = 6
+MiniSectionInformation1: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_HANDLE_OBJECT_INFORMATION_TYPE = 7
+MiniSemaphoreInformation1: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_HANDLE_OBJECT_INFORMATION_TYPE = 8
+MiniHandleObjectInformationTypeMax: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_HANDLE_OBJECT_INFORMATION_TYPE = 9
 class MINIDUMP_HANDLE_OPERATION_LIST(EasyCastStructure):
     SizeOfHeader: UInt32
     SizeOfEntry: UInt32
@@ -3769,48 +3769,48 @@ class MINIDUMP_READ_MEMORY_FAILURE_CALLBACK(EasyCastStructure):
     FailureStatus: win32more.Windows.Win32.Foundation.HRESULT
     _pack_ = 4
 MINIDUMP_SECONDARY_FLAGS = Int32
-MINIDUMP_SECONDARY_FLAGS_MiniSecondaryWithoutPowerInfo: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_SECONDARY_FLAGS = 1
-MINIDUMP_SECONDARY_FLAGS_MiniSecondaryValidFlags: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_SECONDARY_FLAGS = 1
+MiniSecondaryWithoutPowerInfo: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_SECONDARY_FLAGS = 1
+MiniSecondaryValidFlags: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_SECONDARY_FLAGS = 1
 MINIDUMP_STREAM_TYPE = Int32
-MINIDUMP_STREAM_TYPE_UnusedStream: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 0
-MINIDUMP_STREAM_TYPE_ReservedStream0: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 1
-MINIDUMP_STREAM_TYPE_ReservedStream1: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 2
-MINIDUMP_STREAM_TYPE_ThreadListStream: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 3
-MINIDUMP_STREAM_TYPE_ModuleListStream: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 4
-MINIDUMP_STREAM_TYPE_MemoryListStream: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 5
-MINIDUMP_STREAM_TYPE_ExceptionStream: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 6
-MINIDUMP_STREAM_TYPE_SystemInfoStream: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 7
-MINIDUMP_STREAM_TYPE_ThreadExListStream: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 8
-MINIDUMP_STREAM_TYPE_Memory64ListStream: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 9
-MINIDUMP_STREAM_TYPE_CommentStreamA: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 10
-MINIDUMP_STREAM_TYPE_CommentStreamW: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 11
-MINIDUMP_STREAM_TYPE_HandleDataStream: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 12
-MINIDUMP_STREAM_TYPE_FunctionTableStream: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 13
-MINIDUMP_STREAM_TYPE_UnloadedModuleListStream: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 14
-MINIDUMP_STREAM_TYPE_MiscInfoStream: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 15
-MINIDUMP_STREAM_TYPE_MemoryInfoListStream: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 16
-MINIDUMP_STREAM_TYPE_ThreadInfoListStream: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 17
-MINIDUMP_STREAM_TYPE_HandleOperationListStream: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 18
-MINIDUMP_STREAM_TYPE_TokenStream: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 19
-MINIDUMP_STREAM_TYPE_JavaScriptDataStream: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 20
-MINIDUMP_STREAM_TYPE_SystemMemoryInfoStream: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 21
-MINIDUMP_STREAM_TYPE_ProcessVmCountersStream: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 22
-MINIDUMP_STREAM_TYPE_IptTraceStream: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 23
-MINIDUMP_STREAM_TYPE_ThreadNamesStream: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 24
-MINIDUMP_STREAM_TYPE_ceStreamNull: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 32768
-MINIDUMP_STREAM_TYPE_ceStreamSystemInfo: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 32769
-MINIDUMP_STREAM_TYPE_ceStreamException: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 32770
-MINIDUMP_STREAM_TYPE_ceStreamModuleList: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 32771
-MINIDUMP_STREAM_TYPE_ceStreamProcessList: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 32772
-MINIDUMP_STREAM_TYPE_ceStreamThreadList: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 32773
-MINIDUMP_STREAM_TYPE_ceStreamThreadContextList: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 32774
-MINIDUMP_STREAM_TYPE_ceStreamThreadCallStackList: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 32775
-MINIDUMP_STREAM_TYPE_ceStreamMemoryVirtualList: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 32776
-MINIDUMP_STREAM_TYPE_ceStreamMemoryPhysicalList: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 32777
-MINIDUMP_STREAM_TYPE_ceStreamBucketParameters: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 32778
-MINIDUMP_STREAM_TYPE_ceStreamProcessModuleMap: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 32779
-MINIDUMP_STREAM_TYPE_ceStreamDiagnosisList: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 32780
-MINIDUMP_STREAM_TYPE_LastReservedStream: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 65535
+UnusedStream: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 0
+ReservedStream0: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 1
+ReservedStream1: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 2
+ThreadListStream: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 3
+ModuleListStream: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 4
+MemoryListStream: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 5
+ExceptionStream: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 6
+SystemInfoStream: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 7
+ThreadExListStream: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 8
+Memory64ListStream: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 9
+CommentStreamA: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 10
+CommentStreamW: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 11
+HandleDataStream: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 12
+FunctionTableStream: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 13
+UnloadedModuleListStream: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 14
+MiscInfoStream: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 15
+MemoryInfoListStream: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 16
+ThreadInfoListStream: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 17
+HandleOperationListStream: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 18
+TokenStream: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 19
+JavaScriptDataStream: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 20
+SystemMemoryInfoStream: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 21
+ProcessVmCountersStream: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 22
+IptTraceStream: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 23
+ThreadNamesStream: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 24
+ceStreamNull: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 32768
+ceStreamSystemInfo: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 32769
+ceStreamException: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 32770
+ceStreamModuleList: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 32771
+ceStreamProcessList: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 32772
+ceStreamThreadList: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 32773
+ceStreamThreadContextList: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 32774
+ceStreamThreadCallStackList: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 32775
+ceStreamMemoryVirtualList: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 32776
+ceStreamMemoryPhysicalList: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 32777
+ceStreamBucketParameters: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 32778
+ceStreamProcessModuleMap: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 32779
+ceStreamDiagnosisList: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 32780
+LastReservedStream: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 65535
 class MINIDUMP_STRING(EasyCastStructure):
     Length: UInt32
     Buffer: Char * 1
@@ -4070,33 +4070,33 @@ class MINIDUMP_TOKEN_INFO_LIST(EasyCastStructure):
     ElementHeaderSize: UInt32
     _pack_ = 4
 MINIDUMP_TYPE = Int32
-MINIDUMP_TYPE_MiniDumpNormal: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_TYPE = 0
-MINIDUMP_TYPE_MiniDumpWithDataSegs: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_TYPE = 1
-MINIDUMP_TYPE_MiniDumpWithFullMemory: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_TYPE = 2
-MINIDUMP_TYPE_MiniDumpWithHandleData: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_TYPE = 4
-MINIDUMP_TYPE_MiniDumpFilterMemory: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_TYPE = 8
-MINIDUMP_TYPE_MiniDumpScanMemory: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_TYPE = 16
-MINIDUMP_TYPE_MiniDumpWithUnloadedModules: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_TYPE = 32
-MINIDUMP_TYPE_MiniDumpWithIndirectlyReferencedMemory: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_TYPE = 64
-MINIDUMP_TYPE_MiniDumpFilterModulePaths: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_TYPE = 128
-MINIDUMP_TYPE_MiniDumpWithProcessThreadData: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_TYPE = 256
-MINIDUMP_TYPE_MiniDumpWithPrivateReadWriteMemory: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_TYPE = 512
-MINIDUMP_TYPE_MiniDumpWithoutOptionalData: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_TYPE = 1024
-MINIDUMP_TYPE_MiniDumpWithFullMemoryInfo: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_TYPE = 2048
-MINIDUMP_TYPE_MiniDumpWithThreadInfo: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_TYPE = 4096
-MINIDUMP_TYPE_MiniDumpWithCodeSegs: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_TYPE = 8192
-MINIDUMP_TYPE_MiniDumpWithoutAuxiliaryState: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_TYPE = 16384
-MINIDUMP_TYPE_MiniDumpWithFullAuxiliaryState: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_TYPE = 32768
-MINIDUMP_TYPE_MiniDumpWithPrivateWriteCopyMemory: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_TYPE = 65536
-MINIDUMP_TYPE_MiniDumpIgnoreInaccessibleMemory: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_TYPE = 131072
-MINIDUMP_TYPE_MiniDumpWithTokenInformation: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_TYPE = 262144
-MINIDUMP_TYPE_MiniDumpWithModuleHeaders: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_TYPE = 524288
-MINIDUMP_TYPE_MiniDumpFilterTriage: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_TYPE = 1048576
-MINIDUMP_TYPE_MiniDumpWithAvxXStateContext: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_TYPE = 2097152
-MINIDUMP_TYPE_MiniDumpWithIptTrace: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_TYPE = 4194304
-MINIDUMP_TYPE_MiniDumpScanInaccessiblePartialPages: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_TYPE = 8388608
-MINIDUMP_TYPE_MiniDumpFilterWriteCombinedMemory: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_TYPE = 16777216
-MINIDUMP_TYPE_MiniDumpValidTypeFlags: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_TYPE = 33554431
+MiniDumpNormal: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_TYPE = 0
+MiniDumpWithDataSegs: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_TYPE = 1
+MiniDumpWithFullMemory: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_TYPE = 2
+MiniDumpWithHandleData: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_TYPE = 4
+MiniDumpFilterMemory: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_TYPE = 8
+MiniDumpScanMemory: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_TYPE = 16
+MiniDumpWithUnloadedModules: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_TYPE = 32
+MiniDumpWithIndirectlyReferencedMemory: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_TYPE = 64
+MiniDumpFilterModulePaths: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_TYPE = 128
+MiniDumpWithProcessThreadData: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_TYPE = 256
+MiniDumpWithPrivateReadWriteMemory: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_TYPE = 512
+MiniDumpWithoutOptionalData: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_TYPE = 1024
+MiniDumpWithFullMemoryInfo: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_TYPE = 2048
+MiniDumpWithThreadInfo: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_TYPE = 4096
+MiniDumpWithCodeSegs: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_TYPE = 8192
+MiniDumpWithoutAuxiliaryState: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_TYPE = 16384
+MiniDumpWithFullAuxiliaryState: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_TYPE = 32768
+MiniDumpWithPrivateWriteCopyMemory: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_TYPE = 65536
+MiniDumpIgnoreInaccessibleMemory: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_TYPE = 131072
+MiniDumpWithTokenInformation: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_TYPE = 262144
+MiniDumpWithModuleHeaders: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_TYPE = 524288
+MiniDumpFilterTriage: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_TYPE = 1048576
+MiniDumpWithAvxXStateContext: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_TYPE = 2097152
+MiniDumpWithIptTrace: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_TYPE = 4194304
+MiniDumpScanInaccessiblePartialPages: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_TYPE = 8388608
+MiniDumpFilterWriteCombinedMemory: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_TYPE = 16777216
+MiniDumpValidTypeFlags: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_TYPE = 33554431
 class MINIDUMP_UNLOADED_MODULE(EasyCastStructure):
     BaseOfImage: UInt64
     SizeOfImage: UInt32
@@ -4172,13 +4172,13 @@ class MODULE_TYPE_INFO(EasyCastStructure):
     leaf: UInt16
     data: Byte * 1
 MODULE_WRITE_FLAGS = Int32
-MODULE_WRITE_FLAGS_ModuleWriteModule: win32more.Windows.Win32.System.Diagnostics.Debug.MODULE_WRITE_FLAGS = 1
-MODULE_WRITE_FLAGS_ModuleWriteDataSeg: win32more.Windows.Win32.System.Diagnostics.Debug.MODULE_WRITE_FLAGS = 2
-MODULE_WRITE_FLAGS_ModuleWriteMiscRecord: win32more.Windows.Win32.System.Diagnostics.Debug.MODULE_WRITE_FLAGS = 4
-MODULE_WRITE_FLAGS_ModuleWriteCvRecord: win32more.Windows.Win32.System.Diagnostics.Debug.MODULE_WRITE_FLAGS = 8
-MODULE_WRITE_FLAGS_ModuleReferencedByMemory: win32more.Windows.Win32.System.Diagnostics.Debug.MODULE_WRITE_FLAGS = 16
-MODULE_WRITE_FLAGS_ModuleWriteTlsData: win32more.Windows.Win32.System.Diagnostics.Debug.MODULE_WRITE_FLAGS = 32
-MODULE_WRITE_FLAGS_ModuleWriteCodeSegs: win32more.Windows.Win32.System.Diagnostics.Debug.MODULE_WRITE_FLAGS = 64
+ModuleWriteModule: win32more.Windows.Win32.System.Diagnostics.Debug.MODULE_WRITE_FLAGS = 1
+ModuleWriteDataSeg: win32more.Windows.Win32.System.Diagnostics.Debug.MODULE_WRITE_FLAGS = 2
+ModuleWriteMiscRecord: win32more.Windows.Win32.System.Diagnostics.Debug.MODULE_WRITE_FLAGS = 4
+ModuleWriteCvRecord: win32more.Windows.Win32.System.Diagnostics.Debug.MODULE_WRITE_FLAGS = 8
+ModuleReferencedByMemory: win32more.Windows.Win32.System.Diagnostics.Debug.MODULE_WRITE_FLAGS = 16
+ModuleWriteTlsData: win32more.Windows.Win32.System.Diagnostics.Debug.MODULE_WRITE_FLAGS = 32
+ModuleWriteCodeSegs: win32more.Windows.Win32.System.Diagnostics.Debug.MODULE_WRITE_FLAGS = 64
 OBJECT_ATTRIB_FLAGS = Int32
 OBJECT_ATTRIB_NO_ATTRIB: win32more.Windows.Win32.System.Diagnostics.Debug.OBJECT_ATTRIB_FLAGS = 0
 OBJECT_ATTRIB_NO_NAME: win32more.Windows.Win32.System.Diagnostics.Debug.OBJECT_ATTRIB_FLAGS = 1
@@ -4598,16 +4598,16 @@ SYMSTOREOPT_PASS_IF_EXISTS: win32more.Windows.Win32.System.Diagnostics.Debug.SYM
 SYMSTOREOPT_POINTER: win32more.Windows.Win32.System.Diagnostics.Debug.SYM_SRV_STORE_FILE_FLAGS = 8
 SYMSTOREOPT_RETURNINDEX: win32more.Windows.Win32.System.Diagnostics.Debug.SYM_SRV_STORE_FILE_FLAGS = 4
 SYM_TYPE = Int32
-SYM_TYPE_SymNone: win32more.Windows.Win32.System.Diagnostics.Debug.SYM_TYPE = 0
-SYM_TYPE_SymCoff: win32more.Windows.Win32.System.Diagnostics.Debug.SYM_TYPE = 1
-SYM_TYPE_SymCv: win32more.Windows.Win32.System.Diagnostics.Debug.SYM_TYPE = 2
-SYM_TYPE_SymPdb: win32more.Windows.Win32.System.Diagnostics.Debug.SYM_TYPE = 3
-SYM_TYPE_SymExport: win32more.Windows.Win32.System.Diagnostics.Debug.SYM_TYPE = 4
-SYM_TYPE_SymDeferred: win32more.Windows.Win32.System.Diagnostics.Debug.SYM_TYPE = 5
-SYM_TYPE_SymSym: win32more.Windows.Win32.System.Diagnostics.Debug.SYM_TYPE = 6
-SYM_TYPE_SymDia: win32more.Windows.Win32.System.Diagnostics.Debug.SYM_TYPE = 7
-SYM_TYPE_SymVirtual: win32more.Windows.Win32.System.Diagnostics.Debug.SYM_TYPE = 8
-SYM_TYPE_NumSymTypes: win32more.Windows.Win32.System.Diagnostics.Debug.SYM_TYPE = 9
+SymNone: win32more.Windows.Win32.System.Diagnostics.Debug.SYM_TYPE = 0
+SymCoff: win32more.Windows.Win32.System.Diagnostics.Debug.SYM_TYPE = 1
+SymCv: win32more.Windows.Win32.System.Diagnostics.Debug.SYM_TYPE = 2
+SymPdb: win32more.Windows.Win32.System.Diagnostics.Debug.SYM_TYPE = 3
+SymExport: win32more.Windows.Win32.System.Diagnostics.Debug.SYM_TYPE = 4
+SymDeferred: win32more.Windows.Win32.System.Diagnostics.Debug.SYM_TYPE = 5
+SymSym: win32more.Windows.Win32.System.Diagnostics.Debug.SYM_TYPE = 6
+SymDia: win32more.Windows.Win32.System.Diagnostics.Debug.SYM_TYPE = 7
+SymVirtual: win32more.Windows.Win32.System.Diagnostics.Debug.SYM_TYPE = 8
+NumSymTypes: win32more.Windows.Win32.System.Diagnostics.Debug.SYM_TYPE = 9
 THREAD_ERROR_MODE = UInt32
 SEM_ALL_ERRORS: win32more.Windows.Win32.System.Diagnostics.Debug.THREAD_ERROR_MODE = 0
 SEM_FAILCRITICALERRORS: win32more.Windows.Win32.System.Diagnostics.Debug.THREAD_ERROR_MODE = 1
@@ -4615,13 +4615,13 @@ SEM_NOGPFAULTERRORBOX: win32more.Windows.Win32.System.Diagnostics.Debug.THREAD_E
 SEM_NOOPENFILEERRORBOX: win32more.Windows.Win32.System.Diagnostics.Debug.THREAD_ERROR_MODE = 32768
 SEM_NOALIGNMENTFAULTEXCEPT: win32more.Windows.Win32.System.Diagnostics.Debug.THREAD_ERROR_MODE = 4
 THREAD_WRITE_FLAGS = Int32
-THREAD_WRITE_FLAGS_ThreadWriteThread: win32more.Windows.Win32.System.Diagnostics.Debug.THREAD_WRITE_FLAGS = 1
-THREAD_WRITE_FLAGS_ThreadWriteStack: win32more.Windows.Win32.System.Diagnostics.Debug.THREAD_WRITE_FLAGS = 2
-THREAD_WRITE_FLAGS_ThreadWriteContext: win32more.Windows.Win32.System.Diagnostics.Debug.THREAD_WRITE_FLAGS = 4
-THREAD_WRITE_FLAGS_ThreadWriteBackingStore: win32more.Windows.Win32.System.Diagnostics.Debug.THREAD_WRITE_FLAGS = 8
-THREAD_WRITE_FLAGS_ThreadWriteInstructionWindow: win32more.Windows.Win32.System.Diagnostics.Debug.THREAD_WRITE_FLAGS = 16
-THREAD_WRITE_FLAGS_ThreadWriteThreadData: win32more.Windows.Win32.System.Diagnostics.Debug.THREAD_WRITE_FLAGS = 32
-THREAD_WRITE_FLAGS_ThreadWriteThreadInfo: win32more.Windows.Win32.System.Diagnostics.Debug.THREAD_WRITE_FLAGS = 64
+ThreadWriteThread: win32more.Windows.Win32.System.Diagnostics.Debug.THREAD_WRITE_FLAGS = 1
+ThreadWriteStack: win32more.Windows.Win32.System.Diagnostics.Debug.THREAD_WRITE_FLAGS = 2
+ThreadWriteContext: win32more.Windows.Win32.System.Diagnostics.Debug.THREAD_WRITE_FLAGS = 4
+ThreadWriteBackingStore: win32more.Windows.Win32.System.Diagnostics.Debug.THREAD_WRITE_FLAGS = 8
+ThreadWriteInstructionWindow: win32more.Windows.Win32.System.Diagnostics.Debug.THREAD_WRITE_FLAGS = 16
+ThreadWriteThreadData: win32more.Windows.Win32.System.Diagnostics.Debug.THREAD_WRITE_FLAGS = 32
+ThreadWriteThreadInfo: win32more.Windows.Win32.System.Diagnostics.Debug.THREAD_WRITE_FLAGS = 64
 class TI_FINDCHILDREN_PARAMS(EasyCastStructure):
     Count: UInt32
     Start: UInt32
@@ -4671,31 +4671,31 @@ WCT_OUT_OF_PROC_COM_FLAG: win32more.Windows.Win32.System.Diagnostics.Debug.WAIT_
 WCT_OUT_OF_PROC_CS_FLAG: win32more.Windows.Win32.System.Diagnostics.Debug.WAIT_CHAIN_THREAD_OPTIONS = 4
 WCT_OUT_OF_PROC_FLAG: win32more.Windows.Win32.System.Diagnostics.Debug.WAIT_CHAIN_THREAD_OPTIONS = 1
 WCT_OBJECT_STATUS = Int32
-WCT_OBJECT_STATUS_WctStatusNoAccess: win32more.Windows.Win32.System.Diagnostics.Debug.WCT_OBJECT_STATUS = 1
-WCT_OBJECT_STATUS_WctStatusRunning: win32more.Windows.Win32.System.Diagnostics.Debug.WCT_OBJECT_STATUS = 2
-WCT_OBJECT_STATUS_WctStatusBlocked: win32more.Windows.Win32.System.Diagnostics.Debug.WCT_OBJECT_STATUS = 3
-WCT_OBJECT_STATUS_WctStatusPidOnly: win32more.Windows.Win32.System.Diagnostics.Debug.WCT_OBJECT_STATUS = 4
-WCT_OBJECT_STATUS_WctStatusPidOnlyRpcss: win32more.Windows.Win32.System.Diagnostics.Debug.WCT_OBJECT_STATUS = 5
-WCT_OBJECT_STATUS_WctStatusOwned: win32more.Windows.Win32.System.Diagnostics.Debug.WCT_OBJECT_STATUS = 6
-WCT_OBJECT_STATUS_WctStatusNotOwned: win32more.Windows.Win32.System.Diagnostics.Debug.WCT_OBJECT_STATUS = 7
-WCT_OBJECT_STATUS_WctStatusAbandoned: win32more.Windows.Win32.System.Diagnostics.Debug.WCT_OBJECT_STATUS = 8
-WCT_OBJECT_STATUS_WctStatusUnknown: win32more.Windows.Win32.System.Diagnostics.Debug.WCT_OBJECT_STATUS = 9
-WCT_OBJECT_STATUS_WctStatusError: win32more.Windows.Win32.System.Diagnostics.Debug.WCT_OBJECT_STATUS = 10
-WCT_OBJECT_STATUS_WctStatusMax: win32more.Windows.Win32.System.Diagnostics.Debug.WCT_OBJECT_STATUS = 11
+WctStatusNoAccess: win32more.Windows.Win32.System.Diagnostics.Debug.WCT_OBJECT_STATUS = 1
+WctStatusRunning: win32more.Windows.Win32.System.Diagnostics.Debug.WCT_OBJECT_STATUS = 2
+WctStatusBlocked: win32more.Windows.Win32.System.Diagnostics.Debug.WCT_OBJECT_STATUS = 3
+WctStatusPidOnly: win32more.Windows.Win32.System.Diagnostics.Debug.WCT_OBJECT_STATUS = 4
+WctStatusPidOnlyRpcss: win32more.Windows.Win32.System.Diagnostics.Debug.WCT_OBJECT_STATUS = 5
+WctStatusOwned: win32more.Windows.Win32.System.Diagnostics.Debug.WCT_OBJECT_STATUS = 6
+WctStatusNotOwned: win32more.Windows.Win32.System.Diagnostics.Debug.WCT_OBJECT_STATUS = 7
+WctStatusAbandoned: win32more.Windows.Win32.System.Diagnostics.Debug.WCT_OBJECT_STATUS = 8
+WctStatusUnknown: win32more.Windows.Win32.System.Diagnostics.Debug.WCT_OBJECT_STATUS = 9
+WctStatusError: win32more.Windows.Win32.System.Diagnostics.Debug.WCT_OBJECT_STATUS = 10
+WctStatusMax: win32more.Windows.Win32.System.Diagnostics.Debug.WCT_OBJECT_STATUS = 11
 WCT_OBJECT_TYPE = Int32
-WCT_OBJECT_TYPE_WctCriticalSectionType: win32more.Windows.Win32.System.Diagnostics.Debug.WCT_OBJECT_TYPE = 1
-WCT_OBJECT_TYPE_WctSendMessageType: win32more.Windows.Win32.System.Diagnostics.Debug.WCT_OBJECT_TYPE = 2
-WCT_OBJECT_TYPE_WctMutexType: win32more.Windows.Win32.System.Diagnostics.Debug.WCT_OBJECT_TYPE = 3
-WCT_OBJECT_TYPE_WctAlpcType: win32more.Windows.Win32.System.Diagnostics.Debug.WCT_OBJECT_TYPE = 4
-WCT_OBJECT_TYPE_WctComType: win32more.Windows.Win32.System.Diagnostics.Debug.WCT_OBJECT_TYPE = 5
-WCT_OBJECT_TYPE_WctThreadWaitType: win32more.Windows.Win32.System.Diagnostics.Debug.WCT_OBJECT_TYPE = 6
-WCT_OBJECT_TYPE_WctProcessWaitType: win32more.Windows.Win32.System.Diagnostics.Debug.WCT_OBJECT_TYPE = 7
-WCT_OBJECT_TYPE_WctThreadType: win32more.Windows.Win32.System.Diagnostics.Debug.WCT_OBJECT_TYPE = 8
-WCT_OBJECT_TYPE_WctComActivationType: win32more.Windows.Win32.System.Diagnostics.Debug.WCT_OBJECT_TYPE = 9
-WCT_OBJECT_TYPE_WctUnknownType: win32more.Windows.Win32.System.Diagnostics.Debug.WCT_OBJECT_TYPE = 10
-WCT_OBJECT_TYPE_WctSocketIoType: win32more.Windows.Win32.System.Diagnostics.Debug.WCT_OBJECT_TYPE = 11
-WCT_OBJECT_TYPE_WctSmbIoType: win32more.Windows.Win32.System.Diagnostics.Debug.WCT_OBJECT_TYPE = 12
-WCT_OBJECT_TYPE_WctMaxType: win32more.Windows.Win32.System.Diagnostics.Debug.WCT_OBJECT_TYPE = 13
+WctCriticalSectionType: win32more.Windows.Win32.System.Diagnostics.Debug.WCT_OBJECT_TYPE = 1
+WctSendMessageType: win32more.Windows.Win32.System.Diagnostics.Debug.WCT_OBJECT_TYPE = 2
+WctMutexType: win32more.Windows.Win32.System.Diagnostics.Debug.WCT_OBJECT_TYPE = 3
+WctAlpcType: win32more.Windows.Win32.System.Diagnostics.Debug.WCT_OBJECT_TYPE = 4
+WctComType: win32more.Windows.Win32.System.Diagnostics.Debug.WCT_OBJECT_TYPE = 5
+WctThreadWaitType: win32more.Windows.Win32.System.Diagnostics.Debug.WCT_OBJECT_TYPE = 6
+WctProcessWaitType: win32more.Windows.Win32.System.Diagnostics.Debug.WCT_OBJECT_TYPE = 7
+WctThreadType: win32more.Windows.Win32.System.Diagnostics.Debug.WCT_OBJECT_TYPE = 8
+WctComActivationType: win32more.Windows.Win32.System.Diagnostics.Debug.WCT_OBJECT_TYPE = 9
+WctUnknownType: win32more.Windows.Win32.System.Diagnostics.Debug.WCT_OBJECT_TYPE = 10
+WctSocketIoType: win32more.Windows.Win32.System.Diagnostics.Debug.WCT_OBJECT_TYPE = 11
+WctSmbIoType: win32more.Windows.Win32.System.Diagnostics.Debug.WCT_OBJECT_TYPE = 12
+WctMaxType: win32more.Windows.Win32.System.Diagnostics.Debug.WCT_OBJECT_TYPE = 13
 class WHEA_AER_BRIDGE_DESCRIPTOR(EasyCastStructure):
     Type: UInt16
     Enabled: win32more.Windows.Win32.Foundation.BOOLEAN
@@ -4821,31 +4821,31 @@ class WHEA_ERROR_SOURCE_DESCRIPTOR(EasyCastStructure):
 @winfunctype_pointer
 def WHEA_ERROR_SOURCE_INITIALIZE_DEVICE_DRIVER(Context: VoidPtr, ErrorSourceId: UInt32) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
 WHEA_ERROR_SOURCE_STATE = Int32
-WHEA_ERROR_SOURCE_STATE_WheaErrSrcStateStopped: win32more.Windows.Win32.System.Diagnostics.Debug.WHEA_ERROR_SOURCE_STATE = 1
-WHEA_ERROR_SOURCE_STATE_WheaErrSrcStateStarted: win32more.Windows.Win32.System.Diagnostics.Debug.WHEA_ERROR_SOURCE_STATE = 2
-WHEA_ERROR_SOURCE_STATE_WheaErrSrcStateRemoved: win32more.Windows.Win32.System.Diagnostics.Debug.WHEA_ERROR_SOURCE_STATE = 3
-WHEA_ERROR_SOURCE_STATE_WheaErrSrcStateRemovePending: win32more.Windows.Win32.System.Diagnostics.Debug.WHEA_ERROR_SOURCE_STATE = 4
+WheaErrSrcStateStopped: win32more.Windows.Win32.System.Diagnostics.Debug.WHEA_ERROR_SOURCE_STATE = 1
+WheaErrSrcStateStarted: win32more.Windows.Win32.System.Diagnostics.Debug.WHEA_ERROR_SOURCE_STATE = 2
+WheaErrSrcStateRemoved: win32more.Windows.Win32.System.Diagnostics.Debug.WHEA_ERROR_SOURCE_STATE = 3
+WheaErrSrcStateRemovePending: win32more.Windows.Win32.System.Diagnostics.Debug.WHEA_ERROR_SOURCE_STATE = 4
 WHEA_ERROR_SOURCE_TYPE = Int32
-WHEA_ERROR_SOURCE_TYPE_WheaErrSrcTypeMCE: win32more.Windows.Win32.System.Diagnostics.Debug.WHEA_ERROR_SOURCE_TYPE = 0
-WHEA_ERROR_SOURCE_TYPE_WheaErrSrcTypeCMC: win32more.Windows.Win32.System.Diagnostics.Debug.WHEA_ERROR_SOURCE_TYPE = 1
-WHEA_ERROR_SOURCE_TYPE_WheaErrSrcTypeCPE: win32more.Windows.Win32.System.Diagnostics.Debug.WHEA_ERROR_SOURCE_TYPE = 2
-WHEA_ERROR_SOURCE_TYPE_WheaErrSrcTypeNMI: win32more.Windows.Win32.System.Diagnostics.Debug.WHEA_ERROR_SOURCE_TYPE = 3
-WHEA_ERROR_SOURCE_TYPE_WheaErrSrcTypePCIe: win32more.Windows.Win32.System.Diagnostics.Debug.WHEA_ERROR_SOURCE_TYPE = 4
-WHEA_ERROR_SOURCE_TYPE_WheaErrSrcTypeGeneric: win32more.Windows.Win32.System.Diagnostics.Debug.WHEA_ERROR_SOURCE_TYPE = 5
-WHEA_ERROR_SOURCE_TYPE_WheaErrSrcTypeINIT: win32more.Windows.Win32.System.Diagnostics.Debug.WHEA_ERROR_SOURCE_TYPE = 6
-WHEA_ERROR_SOURCE_TYPE_WheaErrSrcTypeBOOT: win32more.Windows.Win32.System.Diagnostics.Debug.WHEA_ERROR_SOURCE_TYPE = 7
-WHEA_ERROR_SOURCE_TYPE_WheaErrSrcTypeSCIGeneric: win32more.Windows.Win32.System.Diagnostics.Debug.WHEA_ERROR_SOURCE_TYPE = 8
-WHEA_ERROR_SOURCE_TYPE_WheaErrSrcTypeIPFMCA: win32more.Windows.Win32.System.Diagnostics.Debug.WHEA_ERROR_SOURCE_TYPE = 9
-WHEA_ERROR_SOURCE_TYPE_WheaErrSrcTypeIPFCMC: win32more.Windows.Win32.System.Diagnostics.Debug.WHEA_ERROR_SOURCE_TYPE = 10
-WHEA_ERROR_SOURCE_TYPE_WheaErrSrcTypeIPFCPE: win32more.Windows.Win32.System.Diagnostics.Debug.WHEA_ERROR_SOURCE_TYPE = 11
-WHEA_ERROR_SOURCE_TYPE_WheaErrSrcTypeGenericV2: win32more.Windows.Win32.System.Diagnostics.Debug.WHEA_ERROR_SOURCE_TYPE = 12
-WHEA_ERROR_SOURCE_TYPE_WheaErrSrcTypeSCIGenericV2: win32more.Windows.Win32.System.Diagnostics.Debug.WHEA_ERROR_SOURCE_TYPE = 13
-WHEA_ERROR_SOURCE_TYPE_WheaErrSrcTypeBMC: win32more.Windows.Win32.System.Diagnostics.Debug.WHEA_ERROR_SOURCE_TYPE = 14
-WHEA_ERROR_SOURCE_TYPE_WheaErrSrcTypePMEM: win32more.Windows.Win32.System.Diagnostics.Debug.WHEA_ERROR_SOURCE_TYPE = 15
-WHEA_ERROR_SOURCE_TYPE_WheaErrSrcTypeDeviceDriver: win32more.Windows.Win32.System.Diagnostics.Debug.WHEA_ERROR_SOURCE_TYPE = 16
-WHEA_ERROR_SOURCE_TYPE_WheaErrSrcTypeSea: win32more.Windows.Win32.System.Diagnostics.Debug.WHEA_ERROR_SOURCE_TYPE = 17
-WHEA_ERROR_SOURCE_TYPE_WheaErrSrcTypeSei: win32more.Windows.Win32.System.Diagnostics.Debug.WHEA_ERROR_SOURCE_TYPE = 18
-WHEA_ERROR_SOURCE_TYPE_WheaErrSrcTypeMax: win32more.Windows.Win32.System.Diagnostics.Debug.WHEA_ERROR_SOURCE_TYPE = 19
+WheaErrSrcTypeMCE: win32more.Windows.Win32.System.Diagnostics.Debug.WHEA_ERROR_SOURCE_TYPE = 0
+WheaErrSrcTypeCMC: win32more.Windows.Win32.System.Diagnostics.Debug.WHEA_ERROR_SOURCE_TYPE = 1
+WheaErrSrcTypeCPE: win32more.Windows.Win32.System.Diagnostics.Debug.WHEA_ERROR_SOURCE_TYPE = 2
+WheaErrSrcTypeNMI: win32more.Windows.Win32.System.Diagnostics.Debug.WHEA_ERROR_SOURCE_TYPE = 3
+WheaErrSrcTypePCIe: win32more.Windows.Win32.System.Diagnostics.Debug.WHEA_ERROR_SOURCE_TYPE = 4
+WheaErrSrcTypeGeneric: win32more.Windows.Win32.System.Diagnostics.Debug.WHEA_ERROR_SOURCE_TYPE = 5
+WheaErrSrcTypeINIT: win32more.Windows.Win32.System.Diagnostics.Debug.WHEA_ERROR_SOURCE_TYPE = 6
+WheaErrSrcTypeBOOT: win32more.Windows.Win32.System.Diagnostics.Debug.WHEA_ERROR_SOURCE_TYPE = 7
+WheaErrSrcTypeSCIGeneric: win32more.Windows.Win32.System.Diagnostics.Debug.WHEA_ERROR_SOURCE_TYPE = 8
+WheaErrSrcTypeIPFMCA: win32more.Windows.Win32.System.Diagnostics.Debug.WHEA_ERROR_SOURCE_TYPE = 9
+WheaErrSrcTypeIPFCMC: win32more.Windows.Win32.System.Diagnostics.Debug.WHEA_ERROR_SOURCE_TYPE = 10
+WheaErrSrcTypeIPFCPE: win32more.Windows.Win32.System.Diagnostics.Debug.WHEA_ERROR_SOURCE_TYPE = 11
+WheaErrSrcTypeGenericV2: win32more.Windows.Win32.System.Diagnostics.Debug.WHEA_ERROR_SOURCE_TYPE = 12
+WheaErrSrcTypeSCIGenericV2: win32more.Windows.Win32.System.Diagnostics.Debug.WHEA_ERROR_SOURCE_TYPE = 13
+WheaErrSrcTypeBMC: win32more.Windows.Win32.System.Diagnostics.Debug.WHEA_ERROR_SOURCE_TYPE = 14
+WheaErrSrcTypePMEM: win32more.Windows.Win32.System.Diagnostics.Debug.WHEA_ERROR_SOURCE_TYPE = 15
+WheaErrSrcTypeDeviceDriver: win32more.Windows.Win32.System.Diagnostics.Debug.WHEA_ERROR_SOURCE_TYPE = 16
+WheaErrSrcTypeSea: win32more.Windows.Win32.System.Diagnostics.Debug.WHEA_ERROR_SOURCE_TYPE = 17
+WheaErrSrcTypeSei: win32more.Windows.Win32.System.Diagnostics.Debug.WHEA_ERROR_SOURCE_TYPE = 18
+WheaErrSrcTypeMax: win32more.Windows.Win32.System.Diagnostics.Debug.WHEA_ERROR_SOURCE_TYPE = 19
 @winfunctype_pointer
 def WHEA_ERROR_SOURCE_UNINITIALIZE_DEVICE_DRIVER(Context: VoidPtr) -> Void: ...
 class WHEA_GENERIC_ERROR_DESCRIPTOR(EasyCastStructure):

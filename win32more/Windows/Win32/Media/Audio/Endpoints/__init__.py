@@ -18,11 +18,11 @@ DEVPKEY_AudioEndpointPlugin_PnPInterface: win32more.Windows.Win32.UI.Shell.Prope
 DEVPKEY_AudioEndpointPlugin2_FactoryCLSID: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{12d83bd7-cf12-46be-8540-812710d3021c}'), pid=4)
 DEVINTERFACE_AUDIOENDPOINTPLUGIN = Guid('{9f2f7b66-65ac-4fa6-8ae4-123c78b89313}')
 EndpointConnectorType = Int32
-EndpointConnectorType_eHostProcessConnector: win32more.Windows.Win32.Media.Audio.Endpoints.EndpointConnectorType = 0
-EndpointConnectorType_eOffloadConnector: win32more.Windows.Win32.Media.Audio.Endpoints.EndpointConnectorType = 1
-EndpointConnectorType_eLoopbackConnector: win32more.Windows.Win32.Media.Audio.Endpoints.EndpointConnectorType = 2
-EndpointConnectorType_eKeywordDetectorConnector: win32more.Windows.Win32.Media.Audio.Endpoints.EndpointConnectorType = 3
-EndpointConnectorType_eConnectorCount: win32more.Windows.Win32.Media.Audio.Endpoints.EndpointConnectorType = 4
+eHostProcessConnector: win32more.Windows.Win32.Media.Audio.Endpoints.EndpointConnectorType = 0
+eOffloadConnector: win32more.Windows.Win32.Media.Audio.Endpoints.EndpointConnectorType = 1
+eLoopbackConnector: win32more.Windows.Win32.Media.Audio.Endpoints.EndpointConnectorType = 2
+eKeywordDetectorConnector: win32more.Windows.Win32.Media.Audio.Endpoints.EndpointConnectorType = 3
+eConnectorCount: win32more.Windows.Win32.Media.Audio.Endpoints.EndpointConnectorType = 4
 class IAudioEndpointFormatControl(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{784cfd40-9f89-456e-a1a6-873b006a664e}')

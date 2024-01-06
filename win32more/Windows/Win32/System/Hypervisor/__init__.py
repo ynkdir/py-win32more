@@ -301,31 +301,31 @@ class GUEST_OS_INFO(EasyCastUnion):
     class _OpenSource_e__Struct(EasyCastStructure):
         _bitfield: UInt64
 GUEST_OS_MICROSOFT_IDS = Int32
-GUEST_OS_MICROSOFT_IDS_GuestOsMicrosoftUndefined: win32more.Windows.Win32.System.Hypervisor.GUEST_OS_MICROSOFT_IDS = 0
-GUEST_OS_MICROSOFT_IDS_GuestOsMicrosoftMSDOS: win32more.Windows.Win32.System.Hypervisor.GUEST_OS_MICROSOFT_IDS = 1
-GUEST_OS_MICROSOFT_IDS_GuestOsMicrosoftWindows3x: win32more.Windows.Win32.System.Hypervisor.GUEST_OS_MICROSOFT_IDS = 2
-GUEST_OS_MICROSOFT_IDS_GuestOsMicrosoftWindows9x: win32more.Windows.Win32.System.Hypervisor.GUEST_OS_MICROSOFT_IDS = 3
-GUEST_OS_MICROSOFT_IDS_GuestOsMicrosoftWindowsNT: win32more.Windows.Win32.System.Hypervisor.GUEST_OS_MICROSOFT_IDS = 4
-GUEST_OS_MICROSOFT_IDS_GuestOsMicrosoftWindowsCE: win32more.Windows.Win32.System.Hypervisor.GUEST_OS_MICROSOFT_IDS = 5
+GuestOsMicrosoftUndefined: win32more.Windows.Win32.System.Hypervisor.GUEST_OS_MICROSOFT_IDS = 0
+GuestOsMicrosoftMSDOS: win32more.Windows.Win32.System.Hypervisor.GUEST_OS_MICROSOFT_IDS = 1
+GuestOsMicrosoftWindows3x: win32more.Windows.Win32.System.Hypervisor.GUEST_OS_MICROSOFT_IDS = 2
+GuestOsMicrosoftWindows9x: win32more.Windows.Win32.System.Hypervisor.GUEST_OS_MICROSOFT_IDS = 3
+GuestOsMicrosoftWindowsNT: win32more.Windows.Win32.System.Hypervisor.GUEST_OS_MICROSOFT_IDS = 4
+GuestOsMicrosoftWindowsCE: win32more.Windows.Win32.System.Hypervisor.GUEST_OS_MICROSOFT_IDS = 5
 GUEST_OS_OPENSOURCE_IDS = Int32
-GUEST_OS_OPENSOURCE_IDS_GuestOsOpenSourceUndefined: win32more.Windows.Win32.System.Hypervisor.GUEST_OS_OPENSOURCE_IDS = 0
-GUEST_OS_OPENSOURCE_IDS_GuestOsOpenSourceLinux: win32more.Windows.Win32.System.Hypervisor.GUEST_OS_OPENSOURCE_IDS = 1
-GUEST_OS_OPENSOURCE_IDS_GuestOsOpenSourceFreeBSD: win32more.Windows.Win32.System.Hypervisor.GUEST_OS_OPENSOURCE_IDS = 2
-GUEST_OS_OPENSOURCE_IDS_GuestOsOpenSourceXen: win32more.Windows.Win32.System.Hypervisor.GUEST_OS_OPENSOURCE_IDS = 3
-GUEST_OS_OPENSOURCE_IDS_GuestOsOpenSourceIllumos: win32more.Windows.Win32.System.Hypervisor.GUEST_OS_OPENSOURCE_IDS = 4
+GuestOsOpenSourceUndefined: win32more.Windows.Win32.System.Hypervisor.GUEST_OS_OPENSOURCE_IDS = 0
+GuestOsOpenSourceLinux: win32more.Windows.Win32.System.Hypervisor.GUEST_OS_OPENSOURCE_IDS = 1
+GuestOsOpenSourceFreeBSD: win32more.Windows.Win32.System.Hypervisor.GUEST_OS_OPENSOURCE_IDS = 2
+GuestOsOpenSourceXen: win32more.Windows.Win32.System.Hypervisor.GUEST_OS_OPENSOURCE_IDS = 3
+GuestOsOpenSourceIllumos: win32more.Windows.Win32.System.Hypervisor.GUEST_OS_OPENSOURCE_IDS = 4
 GUEST_OS_VENDOR = Int32
-GUEST_OS_VENDOR_GuestOsVendorUndefined: win32more.Windows.Win32.System.Hypervisor.GUEST_OS_VENDOR = 0
-GUEST_OS_VENDOR_GuestOsVendorMicrosoft: win32more.Windows.Win32.System.Hypervisor.GUEST_OS_VENDOR = 1
-GUEST_OS_VENDOR_GuestOsVendorHPE: win32more.Windows.Win32.System.Hypervisor.GUEST_OS_VENDOR = 2
-GUEST_OS_VENDOR_GuestOsVendorLANCOM: win32more.Windows.Win32.System.Hypervisor.GUEST_OS_VENDOR = 512
+GuestOsVendorUndefined: win32more.Windows.Win32.System.Hypervisor.GUEST_OS_VENDOR = 0
+GuestOsVendorMicrosoft: win32more.Windows.Win32.System.Hypervisor.GUEST_OS_VENDOR = 1
+GuestOsVendorHPE: win32more.Windows.Win32.System.Hypervisor.GUEST_OS_VENDOR = 2
+GuestOsVendorLANCOM: win32more.Windows.Win32.System.Hypervisor.GUEST_OS_VENDOR = 512
 @winfunctype_pointer
 def GUEST_SYMBOLS_PROVIDER_DEBUG_INFO_CALLBACK(InfoMessage: win32more.Windows.Win32.Foundation.PSTR) -> Void: ...
 HDV_DEVICE_HOST_FLAGS = Int32
-HDV_DEVICE_HOST_FLAGS_HdvDeviceHostFlagNone: win32more.Windows.Win32.System.Hypervisor.HDV_DEVICE_HOST_FLAGS = 0
-HDV_DEVICE_HOST_FLAGS_HdvDeviceHostFlagInitializeComSecurity: win32more.Windows.Win32.System.Hypervisor.HDV_DEVICE_HOST_FLAGS = 1
+HdvDeviceHostFlagNone: win32more.Windows.Win32.System.Hypervisor.HDV_DEVICE_HOST_FLAGS = 0
+HdvDeviceHostFlagInitializeComSecurity: win32more.Windows.Win32.System.Hypervisor.HDV_DEVICE_HOST_FLAGS = 1
 HDV_DEVICE_TYPE = Int32
-HDV_DEVICE_TYPE_HdvDeviceTypeUndefined: win32more.Windows.Win32.System.Hypervisor.HDV_DEVICE_TYPE = 0
-HDV_DEVICE_TYPE_HdvDeviceTypePCI: win32more.Windows.Win32.System.Hypervisor.HDV_DEVICE_TYPE = 1
+HdvDeviceTypeUndefined: win32more.Windows.Win32.System.Hypervisor.HDV_DEVICE_TYPE = 0
+HdvDeviceTypePCI: win32more.Windows.Win32.System.Hypervisor.HDV_DEVICE_TYPE = 1
 HDV_DOORBELL_FLAGS = Int32
 HDV_DOORBELL_FLAG_TRIGGER_SIZE_ANY: win32more.Windows.Win32.System.Hypervisor.HDV_DOORBELL_FLAGS = 0
 HDV_DOORBELL_FLAG_TRIGGER_SIZE_BYTE: win32more.Windows.Win32.System.Hypervisor.HDV_DOORBELL_FLAGS = 1
@@ -334,9 +334,9 @@ HDV_DOORBELL_FLAG_TRIGGER_SIZE_DWORD: win32more.Windows.Win32.System.Hypervisor.
 HDV_DOORBELL_FLAG_TRIGGER_SIZE_QWORD: win32more.Windows.Win32.System.Hypervisor.HDV_DOORBELL_FLAGS = 4
 HDV_DOORBELL_FLAG_TRIGGER_ANY_VALUE: win32more.Windows.Win32.System.Hypervisor.HDV_DOORBELL_FLAGS = -2147483648
 HDV_MMIO_MAPPING_FLAGS = Int32
-HDV_MMIO_MAPPING_FLAGS_HdvMmioMappingFlagNone: win32more.Windows.Win32.System.Hypervisor.HDV_MMIO_MAPPING_FLAGS = 0
-HDV_MMIO_MAPPING_FLAGS_HdvMmioMappingFlagWriteable: win32more.Windows.Win32.System.Hypervisor.HDV_MMIO_MAPPING_FLAGS = 1
-HDV_MMIO_MAPPING_FLAGS_HdvMmioMappingFlagExecutable: win32more.Windows.Win32.System.Hypervisor.HDV_MMIO_MAPPING_FLAGS = 2
+HdvMmioMappingFlagNone: win32more.Windows.Win32.System.Hypervisor.HDV_MMIO_MAPPING_FLAGS = 0
+HdvMmioMappingFlagWriteable: win32more.Windows.Win32.System.Hypervisor.HDV_MMIO_MAPPING_FLAGS = 1
+HdvMmioMappingFlagExecutable: win32more.Windows.Win32.System.Hypervisor.HDV_MMIO_MAPPING_FLAGS = 2
 HDV_PCI_BAR_SELECTOR = Int32
 HDV_PCI_BAR0: win32more.Windows.Win32.System.Hypervisor.HDV_PCI_BAR_SELECTOR = 0
 HDV_PCI_BAR1: win32more.Windows.Win32.System.Hypervisor.HDV_PCI_BAR_SELECTOR = 1
@@ -369,8 +369,8 @@ def HDV_PCI_DEVICE_STOP(deviceContext: VoidPtr) -> Void: ...
 @winfunctype_pointer
 def HDV_PCI_DEVICE_TEARDOWN(deviceContext: VoidPtr) -> Void: ...
 HDV_PCI_INTERFACE_VERSION = Int32
-HDV_PCI_INTERFACE_VERSION_HdvPciDeviceInterfaceVersionInvalid: win32more.Windows.Win32.System.Hypervisor.HDV_PCI_INTERFACE_VERSION = 0
-HDV_PCI_INTERFACE_VERSION_HdvPciDeviceInterfaceVersion1: win32more.Windows.Win32.System.Hypervisor.HDV_PCI_INTERFACE_VERSION = 1
+HdvPciDeviceInterfaceVersionInvalid: win32more.Windows.Win32.System.Hypervisor.HDV_PCI_INTERFACE_VERSION = 0
+HdvPciDeviceInterfaceVersion1: win32more.Windows.Win32.System.Hypervisor.HDV_PCI_INTERFACE_VERSION = 1
 class HDV_PCI_PNP_ID(EasyCastStructure):
     VendorID: UInt16
     DeviceID: UInt16
@@ -642,9 +642,9 @@ class WHV_ACCESS_GPA_CONTROLS(EasyCastUnion):
 class WHV_ADVISE_GPA_RANGE(EasyCastUnion):
     Populate: win32more.Windows.Win32.System.Hypervisor.WHV_ADVISE_GPA_RANGE_POPULATE
 WHV_ADVISE_GPA_RANGE_CODE = Int32
-WHV_ADVISE_GPA_RANGE_CODE_WHvAdviseGpaRangeCodePopulate: win32more.Windows.Win32.System.Hypervisor.WHV_ADVISE_GPA_RANGE_CODE = 0
-WHV_ADVISE_GPA_RANGE_CODE_WHvAdviseGpaRangeCodePin: win32more.Windows.Win32.System.Hypervisor.WHV_ADVISE_GPA_RANGE_CODE = 1
-WHV_ADVISE_GPA_RANGE_CODE_WHvAdviseGpaRangeCodeUnpin: win32more.Windows.Win32.System.Hypervisor.WHV_ADVISE_GPA_RANGE_CODE = 2
+WHvAdviseGpaRangeCodePopulate: win32more.Windows.Win32.System.Hypervisor.WHV_ADVISE_GPA_RANGE_CODE = 0
+WHvAdviseGpaRangeCodePin: win32more.Windows.Win32.System.Hypervisor.WHV_ADVISE_GPA_RANGE_CODE = 1
+WHvAdviseGpaRangeCodeUnpin: win32more.Windows.Win32.System.Hypervisor.WHV_ADVISE_GPA_RANGE_CODE = 2
 class WHV_ADVISE_GPA_RANGE_POPULATE(EasyCastStructure):
     Flags: win32more.Windows.Win32.System.Hypervisor.WHV_ADVISE_GPA_RANGE_POPULATE_FLAGS
     AccessType: win32more.Windows.Win32.System.Hypervisor.WHV_MEMORY_ACCESS_TYPE
@@ -654,13 +654,13 @@ class WHV_ADVISE_GPA_RANGE_POPULATE_FLAGS(EasyCastUnion):
     class _Anonymous_e__Struct(EasyCastStructure):
         _bitfield: UInt32
 WHV_ALLOCATE_VPCI_RESOURCE_FLAGS = Int32
-WHV_ALLOCATE_VPCI_RESOURCE_FLAGS_WHvAllocateVpciResourceFlagNone: win32more.Windows.Win32.System.Hypervisor.WHV_ALLOCATE_VPCI_RESOURCE_FLAGS = 0
-WHV_ALLOCATE_VPCI_RESOURCE_FLAGS_WHvAllocateVpciResourceFlagAllowDirectP2P: win32more.Windows.Win32.System.Hypervisor.WHV_ALLOCATE_VPCI_RESOURCE_FLAGS = 1
+WHvAllocateVpciResourceFlagNone: win32more.Windows.Win32.System.Hypervisor.WHV_ALLOCATE_VPCI_RESOURCE_FLAGS = 0
+WHvAllocateVpciResourceFlagAllowDirectP2P: win32more.Windows.Win32.System.Hypervisor.WHV_ALLOCATE_VPCI_RESOURCE_FLAGS = 1
 WHV_CACHE_TYPE = Int32
-WHV_CACHE_TYPE_WHvCacheTypeUncached: win32more.Windows.Win32.System.Hypervisor.WHV_CACHE_TYPE = 0
-WHV_CACHE_TYPE_WHvCacheTypeWriteCombining: win32more.Windows.Win32.System.Hypervisor.WHV_CACHE_TYPE = 1
-WHV_CACHE_TYPE_WHvCacheTypeWriteThrough: win32more.Windows.Win32.System.Hypervisor.WHV_CACHE_TYPE = 4
-WHV_CACHE_TYPE_WHvCacheTypeWriteBack: win32more.Windows.Win32.System.Hypervisor.WHV_CACHE_TYPE = 6
+WHvCacheTypeUncached: win32more.Windows.Win32.System.Hypervisor.WHV_CACHE_TYPE = 0
+WHvCacheTypeWriteCombining: win32more.Windows.Win32.System.Hypervisor.WHV_CACHE_TYPE = 1
+WHvCacheTypeWriteThrough: win32more.Windows.Win32.System.Hypervisor.WHV_CACHE_TYPE = 4
+WHvCacheTypeWriteBack: win32more.Windows.Win32.System.Hypervisor.WHV_CACHE_TYPE = 6
 class WHV_CAPABILITY(EasyCastUnion):
     HypervisorPresent: win32more.Windows.Win32.Foundation.BOOL
     Features: win32more.Windows.Win32.System.Hypervisor.WHV_CAPABILITY_FEATURES
@@ -680,23 +680,23 @@ class WHV_CAPABILITY(EasyCastUnion):
     ProcessorPerfmonFeatures: win32more.Windows.Win32.System.Hypervisor.WHV_PROCESSOR_PERFMON_FEATURES
     SchedulerFeatures: win32more.Windows.Win32.System.Hypervisor.WHV_SCHEDULER_FEATURES
 WHV_CAPABILITY_CODE = Int32
-WHV_CAPABILITY_CODE_WHvCapabilityCodeHypervisorPresent: win32more.Windows.Win32.System.Hypervisor.WHV_CAPABILITY_CODE = 0
-WHV_CAPABILITY_CODE_WHvCapabilityCodeFeatures: win32more.Windows.Win32.System.Hypervisor.WHV_CAPABILITY_CODE = 1
-WHV_CAPABILITY_CODE_WHvCapabilityCodeExtendedVmExits: win32more.Windows.Win32.System.Hypervisor.WHV_CAPABILITY_CODE = 2
-WHV_CAPABILITY_CODE_WHvCapabilityCodeExceptionExitBitmap: win32more.Windows.Win32.System.Hypervisor.WHV_CAPABILITY_CODE = 3
-WHV_CAPABILITY_CODE_WHvCapabilityCodeX64MsrExitBitmap: win32more.Windows.Win32.System.Hypervisor.WHV_CAPABILITY_CODE = 4
-WHV_CAPABILITY_CODE_WHvCapabilityCodeGpaRangePopulateFlags: win32more.Windows.Win32.System.Hypervisor.WHV_CAPABILITY_CODE = 5
-WHV_CAPABILITY_CODE_WHvCapabilityCodeSchedulerFeatures: win32more.Windows.Win32.System.Hypervisor.WHV_CAPABILITY_CODE = 6
-WHV_CAPABILITY_CODE_WHvCapabilityCodeProcessorVendor: win32more.Windows.Win32.System.Hypervisor.WHV_CAPABILITY_CODE = 4096
-WHV_CAPABILITY_CODE_WHvCapabilityCodeProcessorFeatures: win32more.Windows.Win32.System.Hypervisor.WHV_CAPABILITY_CODE = 4097
-WHV_CAPABILITY_CODE_WHvCapabilityCodeProcessorClFlushSize: win32more.Windows.Win32.System.Hypervisor.WHV_CAPABILITY_CODE = 4098
-WHV_CAPABILITY_CODE_WHvCapabilityCodeProcessorXsaveFeatures: win32more.Windows.Win32.System.Hypervisor.WHV_CAPABILITY_CODE = 4099
-WHV_CAPABILITY_CODE_WHvCapabilityCodeProcessorClockFrequency: win32more.Windows.Win32.System.Hypervisor.WHV_CAPABILITY_CODE = 4100
-WHV_CAPABILITY_CODE_WHvCapabilityCodeInterruptClockFrequency: win32more.Windows.Win32.System.Hypervisor.WHV_CAPABILITY_CODE = 4101
-WHV_CAPABILITY_CODE_WHvCapabilityCodeProcessorFeaturesBanks: win32more.Windows.Win32.System.Hypervisor.WHV_CAPABILITY_CODE = 4102
-WHV_CAPABILITY_CODE_WHvCapabilityCodeProcessorFrequencyCap: win32more.Windows.Win32.System.Hypervisor.WHV_CAPABILITY_CODE = 4103
-WHV_CAPABILITY_CODE_WHvCapabilityCodeSyntheticProcessorFeaturesBanks: win32more.Windows.Win32.System.Hypervisor.WHV_CAPABILITY_CODE = 4104
-WHV_CAPABILITY_CODE_WHvCapabilityCodeProcessorPerfmonFeatures: win32more.Windows.Win32.System.Hypervisor.WHV_CAPABILITY_CODE = 4105
+WHvCapabilityCodeHypervisorPresent: win32more.Windows.Win32.System.Hypervisor.WHV_CAPABILITY_CODE = 0
+WHvCapabilityCodeFeatures: win32more.Windows.Win32.System.Hypervisor.WHV_CAPABILITY_CODE = 1
+WHvCapabilityCodeExtendedVmExits: win32more.Windows.Win32.System.Hypervisor.WHV_CAPABILITY_CODE = 2
+WHvCapabilityCodeExceptionExitBitmap: win32more.Windows.Win32.System.Hypervisor.WHV_CAPABILITY_CODE = 3
+WHvCapabilityCodeX64MsrExitBitmap: win32more.Windows.Win32.System.Hypervisor.WHV_CAPABILITY_CODE = 4
+WHvCapabilityCodeGpaRangePopulateFlags: win32more.Windows.Win32.System.Hypervisor.WHV_CAPABILITY_CODE = 5
+WHvCapabilityCodeSchedulerFeatures: win32more.Windows.Win32.System.Hypervisor.WHV_CAPABILITY_CODE = 6
+WHvCapabilityCodeProcessorVendor: win32more.Windows.Win32.System.Hypervisor.WHV_CAPABILITY_CODE = 4096
+WHvCapabilityCodeProcessorFeatures: win32more.Windows.Win32.System.Hypervisor.WHV_CAPABILITY_CODE = 4097
+WHvCapabilityCodeProcessorClFlushSize: win32more.Windows.Win32.System.Hypervisor.WHV_CAPABILITY_CODE = 4098
+WHvCapabilityCodeProcessorXsaveFeatures: win32more.Windows.Win32.System.Hypervisor.WHV_CAPABILITY_CODE = 4099
+WHvCapabilityCodeProcessorClockFrequency: win32more.Windows.Win32.System.Hypervisor.WHV_CAPABILITY_CODE = 4100
+WHvCapabilityCodeInterruptClockFrequency: win32more.Windows.Win32.System.Hypervisor.WHV_CAPABILITY_CODE = 4101
+WHvCapabilityCodeProcessorFeaturesBanks: win32more.Windows.Win32.System.Hypervisor.WHV_CAPABILITY_CODE = 4102
+WHvCapabilityCodeProcessorFrequencyCap: win32more.Windows.Win32.System.Hypervisor.WHV_CAPABILITY_CODE = 4103
+WHvCapabilityCodeSyntheticProcessorFeaturesBanks: win32more.Windows.Win32.System.Hypervisor.WHV_CAPABILITY_CODE = 4104
+WHvCapabilityCodeProcessorPerfmonFeatures: win32more.Windows.Win32.System.Hypervisor.WHV_CAPABILITY_CODE = 4105
 class WHV_CAPABILITY_FEATURES(EasyCastUnion):
     Anonymous: _Anonymous_e__Struct
     AsUINT64: UInt64
@@ -714,9 +714,9 @@ class WHV_CPUID_OUTPUT(EasyCastStructure):
     Ecx: UInt32
     Edx: UInt32
 WHV_CREATE_VPCI_DEVICE_FLAGS = Int32
-WHV_CREATE_VPCI_DEVICE_FLAGS_WHvCreateVpciDeviceFlagNone: win32more.Windows.Win32.System.Hypervisor.WHV_CREATE_VPCI_DEVICE_FLAGS = 0
-WHV_CREATE_VPCI_DEVICE_FLAGS_WHvCreateVpciDeviceFlagPhysicallyBacked: win32more.Windows.Win32.System.Hypervisor.WHV_CREATE_VPCI_DEVICE_FLAGS = 1
-WHV_CREATE_VPCI_DEVICE_FLAGS_WHvCreateVpciDeviceFlagUseLogicalInterrupts: win32more.Windows.Win32.System.Hypervisor.WHV_CREATE_VPCI_DEVICE_FLAGS = 2
+WHvCreateVpciDeviceFlagNone: win32more.Windows.Win32.System.Hypervisor.WHV_CREATE_VPCI_DEVICE_FLAGS = 0
+WHvCreateVpciDeviceFlagPhysicallyBacked: win32more.Windows.Win32.System.Hypervisor.WHV_CREATE_VPCI_DEVICE_FLAGS = 1
+WHvCreateVpciDeviceFlagUseLogicalInterrupts: win32more.Windows.Win32.System.Hypervisor.WHV_CREATE_VPCI_DEVICE_FLAGS = 2
 class WHV_DOORBELL_MATCH_DATA(EasyCastStructure):
     GuestAddress: UInt64
     Value: UInt64
@@ -756,23 +756,23 @@ class WHV_EMULATOR_STATUS(EasyCastUnion):
 @winfunctype_pointer
 def WHV_EMULATOR_TRANSLATE_GVA_PAGE_CALLBACK(Context: VoidPtr, Gva: UInt64, TranslateFlags: win32more.Windows.Win32.System.Hypervisor.WHV_TRANSLATE_GVA_FLAGS, TranslationResult: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_TRANSLATE_GVA_RESULT_CODE), Gpa: POINTER(UInt64)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 WHV_EXCEPTION_TYPE = Int32
-WHV_EXCEPTION_TYPE_WHvX64ExceptionTypeDivideErrorFault: win32more.Windows.Win32.System.Hypervisor.WHV_EXCEPTION_TYPE = 0
-WHV_EXCEPTION_TYPE_WHvX64ExceptionTypeDebugTrapOrFault: win32more.Windows.Win32.System.Hypervisor.WHV_EXCEPTION_TYPE = 1
-WHV_EXCEPTION_TYPE_WHvX64ExceptionTypeBreakpointTrap: win32more.Windows.Win32.System.Hypervisor.WHV_EXCEPTION_TYPE = 3
-WHV_EXCEPTION_TYPE_WHvX64ExceptionTypeOverflowTrap: win32more.Windows.Win32.System.Hypervisor.WHV_EXCEPTION_TYPE = 4
-WHV_EXCEPTION_TYPE_WHvX64ExceptionTypeBoundRangeFault: win32more.Windows.Win32.System.Hypervisor.WHV_EXCEPTION_TYPE = 5
-WHV_EXCEPTION_TYPE_WHvX64ExceptionTypeInvalidOpcodeFault: win32more.Windows.Win32.System.Hypervisor.WHV_EXCEPTION_TYPE = 6
-WHV_EXCEPTION_TYPE_WHvX64ExceptionTypeDeviceNotAvailableFault: win32more.Windows.Win32.System.Hypervisor.WHV_EXCEPTION_TYPE = 7
-WHV_EXCEPTION_TYPE_WHvX64ExceptionTypeDoubleFaultAbort: win32more.Windows.Win32.System.Hypervisor.WHV_EXCEPTION_TYPE = 8
-WHV_EXCEPTION_TYPE_WHvX64ExceptionTypeInvalidTaskStateSegmentFault: win32more.Windows.Win32.System.Hypervisor.WHV_EXCEPTION_TYPE = 10
-WHV_EXCEPTION_TYPE_WHvX64ExceptionTypeSegmentNotPresentFault: win32more.Windows.Win32.System.Hypervisor.WHV_EXCEPTION_TYPE = 11
-WHV_EXCEPTION_TYPE_WHvX64ExceptionTypeStackFault: win32more.Windows.Win32.System.Hypervisor.WHV_EXCEPTION_TYPE = 12
-WHV_EXCEPTION_TYPE_WHvX64ExceptionTypeGeneralProtectionFault: win32more.Windows.Win32.System.Hypervisor.WHV_EXCEPTION_TYPE = 13
-WHV_EXCEPTION_TYPE_WHvX64ExceptionTypePageFault: win32more.Windows.Win32.System.Hypervisor.WHV_EXCEPTION_TYPE = 14
-WHV_EXCEPTION_TYPE_WHvX64ExceptionTypeFloatingPointErrorFault: win32more.Windows.Win32.System.Hypervisor.WHV_EXCEPTION_TYPE = 16
-WHV_EXCEPTION_TYPE_WHvX64ExceptionTypeAlignmentCheckFault: win32more.Windows.Win32.System.Hypervisor.WHV_EXCEPTION_TYPE = 17
-WHV_EXCEPTION_TYPE_WHvX64ExceptionTypeMachineCheckAbort: win32more.Windows.Win32.System.Hypervisor.WHV_EXCEPTION_TYPE = 18
-WHV_EXCEPTION_TYPE_WHvX64ExceptionTypeSimdFloatingPointFault: win32more.Windows.Win32.System.Hypervisor.WHV_EXCEPTION_TYPE = 19
+WHvX64ExceptionTypeDivideErrorFault: win32more.Windows.Win32.System.Hypervisor.WHV_EXCEPTION_TYPE = 0
+WHvX64ExceptionTypeDebugTrapOrFault: win32more.Windows.Win32.System.Hypervisor.WHV_EXCEPTION_TYPE = 1
+WHvX64ExceptionTypeBreakpointTrap: win32more.Windows.Win32.System.Hypervisor.WHV_EXCEPTION_TYPE = 3
+WHvX64ExceptionTypeOverflowTrap: win32more.Windows.Win32.System.Hypervisor.WHV_EXCEPTION_TYPE = 4
+WHvX64ExceptionTypeBoundRangeFault: win32more.Windows.Win32.System.Hypervisor.WHV_EXCEPTION_TYPE = 5
+WHvX64ExceptionTypeInvalidOpcodeFault: win32more.Windows.Win32.System.Hypervisor.WHV_EXCEPTION_TYPE = 6
+WHvX64ExceptionTypeDeviceNotAvailableFault: win32more.Windows.Win32.System.Hypervisor.WHV_EXCEPTION_TYPE = 7
+WHvX64ExceptionTypeDoubleFaultAbort: win32more.Windows.Win32.System.Hypervisor.WHV_EXCEPTION_TYPE = 8
+WHvX64ExceptionTypeInvalidTaskStateSegmentFault: win32more.Windows.Win32.System.Hypervisor.WHV_EXCEPTION_TYPE = 10
+WHvX64ExceptionTypeSegmentNotPresentFault: win32more.Windows.Win32.System.Hypervisor.WHV_EXCEPTION_TYPE = 11
+WHvX64ExceptionTypeStackFault: win32more.Windows.Win32.System.Hypervisor.WHV_EXCEPTION_TYPE = 12
+WHvX64ExceptionTypeGeneralProtectionFault: win32more.Windows.Win32.System.Hypervisor.WHV_EXCEPTION_TYPE = 13
+WHvX64ExceptionTypePageFault: win32more.Windows.Win32.System.Hypervisor.WHV_EXCEPTION_TYPE = 14
+WHvX64ExceptionTypeFloatingPointErrorFault: win32more.Windows.Win32.System.Hypervisor.WHV_EXCEPTION_TYPE = 16
+WHvX64ExceptionTypeAlignmentCheckFault: win32more.Windows.Win32.System.Hypervisor.WHV_EXCEPTION_TYPE = 17
+WHvX64ExceptionTypeMachineCheckAbort: win32more.Windows.Win32.System.Hypervisor.WHV_EXCEPTION_TYPE = 18
+WHvX64ExceptionTypeSimdFloatingPointFault: win32more.Windows.Win32.System.Hypervisor.WHV_EXCEPTION_TYPE = 19
 class WHV_EXTENDED_VM_EXITS(EasyCastUnion):
     Anonymous: _Anonymous_e__Struct
     AsUINT64: UInt64
@@ -799,24 +799,24 @@ class WHV_INTERRUPT_CONTROL(EasyCastStructure):
     Destination: UInt32
     Vector: UInt32
 WHV_INTERRUPT_DESTINATION_MODE = Int32
-WHV_INTERRUPT_DESTINATION_MODE_WHvX64InterruptDestinationModePhysical: win32more.Windows.Win32.System.Hypervisor.WHV_INTERRUPT_DESTINATION_MODE = 0
-WHV_INTERRUPT_DESTINATION_MODE_WHvX64InterruptDestinationModeLogical: win32more.Windows.Win32.System.Hypervisor.WHV_INTERRUPT_DESTINATION_MODE = 1
+WHvX64InterruptDestinationModePhysical: win32more.Windows.Win32.System.Hypervisor.WHV_INTERRUPT_DESTINATION_MODE = 0
+WHvX64InterruptDestinationModeLogical: win32more.Windows.Win32.System.Hypervisor.WHV_INTERRUPT_DESTINATION_MODE = 1
 WHV_INTERRUPT_TRIGGER_MODE = Int32
-WHV_INTERRUPT_TRIGGER_MODE_WHvX64InterruptTriggerModeEdge: win32more.Windows.Win32.System.Hypervisor.WHV_INTERRUPT_TRIGGER_MODE = 0
-WHV_INTERRUPT_TRIGGER_MODE_WHvX64InterruptTriggerModeLevel: win32more.Windows.Win32.System.Hypervisor.WHV_INTERRUPT_TRIGGER_MODE = 1
+WHvX64InterruptTriggerModeEdge: win32more.Windows.Win32.System.Hypervisor.WHV_INTERRUPT_TRIGGER_MODE = 0
+WHvX64InterruptTriggerModeLevel: win32more.Windows.Win32.System.Hypervisor.WHV_INTERRUPT_TRIGGER_MODE = 1
 WHV_INTERRUPT_TYPE = Int32
-WHV_INTERRUPT_TYPE_WHvX64InterruptTypeFixed: win32more.Windows.Win32.System.Hypervisor.WHV_INTERRUPT_TYPE = 0
-WHV_INTERRUPT_TYPE_WHvX64InterruptTypeLowestPriority: win32more.Windows.Win32.System.Hypervisor.WHV_INTERRUPT_TYPE = 1
-WHV_INTERRUPT_TYPE_WHvX64InterruptTypeNmi: win32more.Windows.Win32.System.Hypervisor.WHV_INTERRUPT_TYPE = 4
-WHV_INTERRUPT_TYPE_WHvX64InterruptTypeInit: win32more.Windows.Win32.System.Hypervisor.WHV_INTERRUPT_TYPE = 5
-WHV_INTERRUPT_TYPE_WHvX64InterruptTypeSipi: win32more.Windows.Win32.System.Hypervisor.WHV_INTERRUPT_TYPE = 6
-WHV_INTERRUPT_TYPE_WHvX64InterruptTypeLocalInt1: win32more.Windows.Win32.System.Hypervisor.WHV_INTERRUPT_TYPE = 9
+WHvX64InterruptTypeFixed: win32more.Windows.Win32.System.Hypervisor.WHV_INTERRUPT_TYPE = 0
+WHvX64InterruptTypeLowestPriority: win32more.Windows.Win32.System.Hypervisor.WHV_INTERRUPT_TYPE = 1
+WHvX64InterruptTypeNmi: win32more.Windows.Win32.System.Hypervisor.WHV_INTERRUPT_TYPE = 4
+WHvX64InterruptTypeInit: win32more.Windows.Win32.System.Hypervisor.WHV_INTERRUPT_TYPE = 5
+WHvX64InterruptTypeSipi: win32more.Windows.Win32.System.Hypervisor.WHV_INTERRUPT_TYPE = 6
+WHvX64InterruptTypeLocalInt1: win32more.Windows.Win32.System.Hypervisor.WHV_INTERRUPT_TYPE = 9
 WHV_MAP_GPA_RANGE_FLAGS = Int32
-WHV_MAP_GPA_RANGE_FLAGS_WHvMapGpaRangeFlagNone: win32more.Windows.Win32.System.Hypervisor.WHV_MAP_GPA_RANGE_FLAGS = 0
-WHV_MAP_GPA_RANGE_FLAGS_WHvMapGpaRangeFlagRead: win32more.Windows.Win32.System.Hypervisor.WHV_MAP_GPA_RANGE_FLAGS = 1
-WHV_MAP_GPA_RANGE_FLAGS_WHvMapGpaRangeFlagWrite: win32more.Windows.Win32.System.Hypervisor.WHV_MAP_GPA_RANGE_FLAGS = 2
-WHV_MAP_GPA_RANGE_FLAGS_WHvMapGpaRangeFlagExecute: win32more.Windows.Win32.System.Hypervisor.WHV_MAP_GPA_RANGE_FLAGS = 4
-WHV_MAP_GPA_RANGE_FLAGS_WHvMapGpaRangeFlagTrackDirtyPages: win32more.Windows.Win32.System.Hypervisor.WHV_MAP_GPA_RANGE_FLAGS = 8
+WHvMapGpaRangeFlagNone: win32more.Windows.Win32.System.Hypervisor.WHV_MAP_GPA_RANGE_FLAGS = 0
+WHvMapGpaRangeFlagRead: win32more.Windows.Win32.System.Hypervisor.WHV_MAP_GPA_RANGE_FLAGS = 1
+WHvMapGpaRangeFlagWrite: win32more.Windows.Win32.System.Hypervisor.WHV_MAP_GPA_RANGE_FLAGS = 2
+WHvMapGpaRangeFlagExecute: win32more.Windows.Win32.System.Hypervisor.WHV_MAP_GPA_RANGE_FLAGS = 4
+WHvMapGpaRangeFlagTrackDirtyPages: win32more.Windows.Win32.System.Hypervisor.WHV_MAP_GPA_RANGE_FLAGS = 8
 class WHV_MEMORY_ACCESS_CONTEXT(EasyCastStructure):
     InstructionByteCount: Byte
     Reserved: Byte * 3
@@ -830,16 +830,16 @@ class WHV_MEMORY_ACCESS_INFO(EasyCastUnion):
     class _Anonymous_e__Struct(EasyCastStructure):
         _bitfield: UInt32
 WHV_MEMORY_ACCESS_TYPE = Int32
-WHV_MEMORY_ACCESS_TYPE_WHvMemoryAccessRead: win32more.Windows.Win32.System.Hypervisor.WHV_MEMORY_ACCESS_TYPE = 0
-WHV_MEMORY_ACCESS_TYPE_WHvMemoryAccessWrite: win32more.Windows.Win32.System.Hypervisor.WHV_MEMORY_ACCESS_TYPE = 1
-WHV_MEMORY_ACCESS_TYPE_WHvMemoryAccessExecute: win32more.Windows.Win32.System.Hypervisor.WHV_MEMORY_ACCESS_TYPE = 2
+WHvMemoryAccessRead: win32more.Windows.Win32.System.Hypervisor.WHV_MEMORY_ACCESS_TYPE = 0
+WHvMemoryAccessWrite: win32more.Windows.Win32.System.Hypervisor.WHV_MEMORY_ACCESS_TYPE = 1
+WHvMemoryAccessExecute: win32more.Windows.Win32.System.Hypervisor.WHV_MEMORY_ACCESS_TYPE = 2
 class WHV_MEMORY_RANGE_ENTRY(EasyCastStructure):
     GuestAddress: UInt64
     SizeInBytes: UInt64
 WHV_MSR_ACTION = Int32
-WHV_MSR_ACTION_WHvMsrActionArchitectureDefault: win32more.Windows.Win32.System.Hypervisor.WHV_MSR_ACTION = 0
-WHV_MSR_ACTION_WHvMsrActionIgnoreWriteReadZero: win32more.Windows.Win32.System.Hypervisor.WHV_MSR_ACTION = 1
-WHV_MSR_ACTION_WHvMsrActionExit: win32more.Windows.Win32.System.Hypervisor.WHV_MSR_ACTION = 2
+WHvMsrActionArchitectureDefault: win32more.Windows.Win32.System.Hypervisor.WHV_MSR_ACTION = 0
+WHvMsrActionIgnoreWriteReadZero: win32more.Windows.Win32.System.Hypervisor.WHV_MSR_ACTION = 1
+WHvMsrActionExit: win32more.Windows.Win32.System.Hypervisor.WHV_MSR_ACTION = 2
 class WHV_MSR_ACTION_ENTRY(EasyCastStructure):
     Index: UInt32
     ReadAction: Byte
@@ -855,13 +855,13 @@ class WHV_NOTIFICATION_PORT_PARAMETERS(EasyCastStructure):
         class _Event_e__Struct(EasyCastStructure):
             ConnectionId: UInt32
 WHV_NOTIFICATION_PORT_PROPERTY_CODE = Int32
-WHV_NOTIFICATION_PORT_PROPERTY_CODE_WHvNotificationPortPropertyPreferredTargetVp: win32more.Windows.Win32.System.Hypervisor.WHV_NOTIFICATION_PORT_PROPERTY_CODE = 1
-WHV_NOTIFICATION_PORT_PROPERTY_CODE_WHvNotificationPortPropertyPreferredTargetDuration: win32more.Windows.Win32.System.Hypervisor.WHV_NOTIFICATION_PORT_PROPERTY_CODE = 5
+WHvNotificationPortPropertyPreferredTargetVp: win32more.Windows.Win32.System.Hypervisor.WHV_NOTIFICATION_PORT_PROPERTY_CODE = 1
+WHvNotificationPortPropertyPreferredTargetDuration: win32more.Windows.Win32.System.Hypervisor.WHV_NOTIFICATION_PORT_PROPERTY_CODE = 5
 WHV_NOTIFICATION_PORT_TYPE = Int32
-WHV_NOTIFICATION_PORT_TYPE_WHvNotificationPortTypeEvent: win32more.Windows.Win32.System.Hypervisor.WHV_NOTIFICATION_PORT_TYPE = 2
-WHV_NOTIFICATION_PORT_TYPE_WHvNotificationPortTypeDoorbell: win32more.Windows.Win32.System.Hypervisor.WHV_NOTIFICATION_PORT_TYPE = 4
+WHvNotificationPortTypeEvent: win32more.Windows.Win32.System.Hypervisor.WHV_NOTIFICATION_PORT_TYPE = 2
+WHvNotificationPortTypeDoorbell: win32more.Windows.Win32.System.Hypervisor.WHV_NOTIFICATION_PORT_TYPE = 4
 WHV_PARTITION_COUNTER_SET = Int32
-WHV_PARTITION_COUNTER_SET_WHvPartitionCounterSetMemory: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_COUNTER_SET = 0
+WHvPartitionCounterSetMemory: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_COUNTER_SET = 0
 WHV_PARTITION_HANDLE = IntPtr
 class WHV_PARTITION_MEMORY_COUNTERS(EasyCastStructure):
     Mapped4KPageCount: UInt64
@@ -899,36 +899,36 @@ class WHV_PARTITION_PROPERTY(EasyCastUnion):
     ProcessorPerfmonFeatures: win32more.Windows.Win32.System.Hypervisor.WHV_PROCESSOR_PERFMON_FEATURES
     DisableSmt: win32more.Windows.Win32.Foundation.BOOL
 WHV_PARTITION_PROPERTY_CODE = Int32
-WHV_PARTITION_PROPERTY_CODE_WHvPartitionPropertyCodeExtendedVmExits: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_PROPERTY_CODE = 1
-WHV_PARTITION_PROPERTY_CODE_WHvPartitionPropertyCodeExceptionExitBitmap: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_PROPERTY_CODE = 2
-WHV_PARTITION_PROPERTY_CODE_WHvPartitionPropertyCodeSeparateSecurityDomain: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_PROPERTY_CODE = 3
-WHV_PARTITION_PROPERTY_CODE_WHvPartitionPropertyCodeNestedVirtualization: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_PROPERTY_CODE = 4
-WHV_PARTITION_PROPERTY_CODE_WHvPartitionPropertyCodeX64MsrExitBitmap: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_PROPERTY_CODE = 5
-WHV_PARTITION_PROPERTY_CODE_WHvPartitionPropertyCodePrimaryNumaNode: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_PROPERTY_CODE = 6
-WHV_PARTITION_PROPERTY_CODE_WHvPartitionPropertyCodeCpuReserve: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_PROPERTY_CODE = 7
-WHV_PARTITION_PROPERTY_CODE_WHvPartitionPropertyCodeCpuCap: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_PROPERTY_CODE = 8
-WHV_PARTITION_PROPERTY_CODE_WHvPartitionPropertyCodeCpuWeight: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_PROPERTY_CODE = 9
-WHV_PARTITION_PROPERTY_CODE_WHvPartitionPropertyCodeCpuGroupId: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_PROPERTY_CODE = 10
-WHV_PARTITION_PROPERTY_CODE_WHvPartitionPropertyCodeProcessorFrequencyCap: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_PROPERTY_CODE = 11
-WHV_PARTITION_PROPERTY_CODE_WHvPartitionPropertyCodeAllowDeviceAssignment: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_PROPERTY_CODE = 12
-WHV_PARTITION_PROPERTY_CODE_WHvPartitionPropertyCodeDisableSmt: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_PROPERTY_CODE = 13
-WHV_PARTITION_PROPERTY_CODE_WHvPartitionPropertyCodeProcessorFeatures: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_PROPERTY_CODE = 4097
-WHV_PARTITION_PROPERTY_CODE_WHvPartitionPropertyCodeProcessorClFlushSize: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_PROPERTY_CODE = 4098
-WHV_PARTITION_PROPERTY_CODE_WHvPartitionPropertyCodeCpuidExitList: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_PROPERTY_CODE = 4099
-WHV_PARTITION_PROPERTY_CODE_WHvPartitionPropertyCodeCpuidResultList: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_PROPERTY_CODE = 4100
-WHV_PARTITION_PROPERTY_CODE_WHvPartitionPropertyCodeLocalApicEmulationMode: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_PROPERTY_CODE = 4101
-WHV_PARTITION_PROPERTY_CODE_WHvPartitionPropertyCodeProcessorXsaveFeatures: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_PROPERTY_CODE = 4102
-WHV_PARTITION_PROPERTY_CODE_WHvPartitionPropertyCodeProcessorClockFrequency: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_PROPERTY_CODE = 4103
-WHV_PARTITION_PROPERTY_CODE_WHvPartitionPropertyCodeInterruptClockFrequency: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_PROPERTY_CODE = 4104
-WHV_PARTITION_PROPERTY_CODE_WHvPartitionPropertyCodeApicRemoteReadSupport: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_PROPERTY_CODE = 4105
-WHV_PARTITION_PROPERTY_CODE_WHvPartitionPropertyCodeProcessorFeaturesBanks: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_PROPERTY_CODE = 4106
-WHV_PARTITION_PROPERTY_CODE_WHvPartitionPropertyCodeReferenceTime: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_PROPERTY_CODE = 4107
-WHV_PARTITION_PROPERTY_CODE_WHvPartitionPropertyCodeSyntheticProcessorFeaturesBanks: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_PROPERTY_CODE = 4108
-WHV_PARTITION_PROPERTY_CODE_WHvPartitionPropertyCodeCpuidResultList2: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_PROPERTY_CODE = 4109
-WHV_PARTITION_PROPERTY_CODE_WHvPartitionPropertyCodeProcessorPerfmonFeatures: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_PROPERTY_CODE = 4110
-WHV_PARTITION_PROPERTY_CODE_WHvPartitionPropertyCodeMsrActionList: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_PROPERTY_CODE = 4111
-WHV_PARTITION_PROPERTY_CODE_WHvPartitionPropertyCodeUnimplementedMsrAction: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_PROPERTY_CODE = 4112
-WHV_PARTITION_PROPERTY_CODE_WHvPartitionPropertyCodeProcessorCount: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_PROPERTY_CODE = 8191
+WHvPartitionPropertyCodeExtendedVmExits: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_PROPERTY_CODE = 1
+WHvPartitionPropertyCodeExceptionExitBitmap: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_PROPERTY_CODE = 2
+WHvPartitionPropertyCodeSeparateSecurityDomain: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_PROPERTY_CODE = 3
+WHvPartitionPropertyCodeNestedVirtualization: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_PROPERTY_CODE = 4
+WHvPartitionPropertyCodeX64MsrExitBitmap: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_PROPERTY_CODE = 5
+WHvPartitionPropertyCodePrimaryNumaNode: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_PROPERTY_CODE = 6
+WHvPartitionPropertyCodeCpuReserve: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_PROPERTY_CODE = 7
+WHvPartitionPropertyCodeCpuCap: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_PROPERTY_CODE = 8
+WHvPartitionPropertyCodeCpuWeight: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_PROPERTY_CODE = 9
+WHvPartitionPropertyCodeCpuGroupId: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_PROPERTY_CODE = 10
+WHvPartitionPropertyCodeProcessorFrequencyCap: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_PROPERTY_CODE = 11
+WHvPartitionPropertyCodeAllowDeviceAssignment: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_PROPERTY_CODE = 12
+WHvPartitionPropertyCodeDisableSmt: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_PROPERTY_CODE = 13
+WHvPartitionPropertyCodeProcessorFeatures: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_PROPERTY_CODE = 4097
+WHvPartitionPropertyCodeProcessorClFlushSize: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_PROPERTY_CODE = 4098
+WHvPartitionPropertyCodeCpuidExitList: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_PROPERTY_CODE = 4099
+WHvPartitionPropertyCodeCpuidResultList: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_PROPERTY_CODE = 4100
+WHvPartitionPropertyCodeLocalApicEmulationMode: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_PROPERTY_CODE = 4101
+WHvPartitionPropertyCodeProcessorXsaveFeatures: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_PROPERTY_CODE = 4102
+WHvPartitionPropertyCodeProcessorClockFrequency: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_PROPERTY_CODE = 4103
+WHvPartitionPropertyCodeInterruptClockFrequency: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_PROPERTY_CODE = 4104
+WHvPartitionPropertyCodeApicRemoteReadSupport: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_PROPERTY_CODE = 4105
+WHvPartitionPropertyCodeProcessorFeaturesBanks: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_PROPERTY_CODE = 4106
+WHvPartitionPropertyCodeReferenceTime: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_PROPERTY_CODE = 4107
+WHvPartitionPropertyCodeSyntheticProcessorFeaturesBanks: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_PROPERTY_CODE = 4108
+WHvPartitionPropertyCodeCpuidResultList2: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_PROPERTY_CODE = 4109
+WHvPartitionPropertyCodeProcessorPerfmonFeatures: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_PROPERTY_CODE = 4110
+WHvPartitionPropertyCodeMsrActionList: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_PROPERTY_CODE = 4111
+WHvPartitionPropertyCodeUnimplementedMsrAction: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_PROPERTY_CODE = 4112
+WHvPartitionPropertyCodeProcessorCount: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_PROPERTY_CODE = 8191
 class WHV_PROCESSOR_APIC_COUNTERS(EasyCastStructure):
     MmioAccessCount: UInt64
     EoiAccessCount: UInt64
@@ -936,11 +936,11 @@ class WHV_PROCESSOR_APIC_COUNTERS(EasyCastStructure):
     SentIpiCount: UInt64
     SelfIpiCount: UInt64
 WHV_PROCESSOR_COUNTER_SET = Int32
-WHV_PROCESSOR_COUNTER_SET_WHvProcessorCounterSetRuntime: win32more.Windows.Win32.System.Hypervisor.WHV_PROCESSOR_COUNTER_SET = 0
-WHV_PROCESSOR_COUNTER_SET_WHvProcessorCounterSetIntercepts: win32more.Windows.Win32.System.Hypervisor.WHV_PROCESSOR_COUNTER_SET = 1
-WHV_PROCESSOR_COUNTER_SET_WHvProcessorCounterSetEvents: win32more.Windows.Win32.System.Hypervisor.WHV_PROCESSOR_COUNTER_SET = 2
-WHV_PROCESSOR_COUNTER_SET_WHvProcessorCounterSetApic: win32more.Windows.Win32.System.Hypervisor.WHV_PROCESSOR_COUNTER_SET = 3
-WHV_PROCESSOR_COUNTER_SET_WHvProcessorCounterSetSyntheticFeatures: win32more.Windows.Win32.System.Hypervisor.WHV_PROCESSOR_COUNTER_SET = 4
+WHvProcessorCounterSetRuntime: win32more.Windows.Win32.System.Hypervisor.WHV_PROCESSOR_COUNTER_SET = 0
+WHvProcessorCounterSetIntercepts: win32more.Windows.Win32.System.Hypervisor.WHV_PROCESSOR_COUNTER_SET = 1
+WHvProcessorCounterSetEvents: win32more.Windows.Win32.System.Hypervisor.WHV_PROCESSOR_COUNTER_SET = 2
+WHvProcessorCounterSetApic: win32more.Windows.Win32.System.Hypervisor.WHV_PROCESSOR_COUNTER_SET = 3
+WHvProcessorCounterSetSyntheticFeatures: win32more.Windows.Win32.System.Hypervisor.WHV_PROCESSOR_COUNTER_SET = 4
 class WHV_PROCESSOR_EVENT_COUNTERS(EasyCastStructure):
     PageFaultCount: UInt64
     ExceptionCount: UInt64
@@ -999,241 +999,241 @@ class WHV_PROCESSOR_SYNTHETIC_FEATURES_COUNTERS(EasyCastStructure):
     VirtualInterruptHypercallsCount: UInt64
     VirtualMmuHypercallsCount: UInt64
 WHV_PROCESSOR_VENDOR = Int32
-WHV_PROCESSOR_VENDOR_WHvProcessorVendorAmd: win32more.Windows.Win32.System.Hypervisor.WHV_PROCESSOR_VENDOR = 0
-WHV_PROCESSOR_VENDOR_WHvProcessorVendorIntel: win32more.Windows.Win32.System.Hypervisor.WHV_PROCESSOR_VENDOR = 1
-WHV_PROCESSOR_VENDOR_WHvProcessorVendorHygon: win32more.Windows.Win32.System.Hypervisor.WHV_PROCESSOR_VENDOR = 2
+WHvProcessorVendorAmd: win32more.Windows.Win32.System.Hypervisor.WHV_PROCESSOR_VENDOR = 0
+WHvProcessorVendorIntel: win32more.Windows.Win32.System.Hypervisor.WHV_PROCESSOR_VENDOR = 1
+WHvProcessorVendorHygon: win32more.Windows.Win32.System.Hypervisor.WHV_PROCESSOR_VENDOR = 2
 class WHV_PROCESSOR_XSAVE_FEATURES(EasyCastUnion):
     Anonymous: _Anonymous_e__Struct
     AsUINT64: UInt64
     class _Anonymous_e__Struct(EasyCastStructure):
         _bitfield: UInt64
 WHV_REGISTER_NAME = Int32
-WHV_REGISTER_NAME_WHvX64RegisterRax: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 0
-WHV_REGISTER_NAME_WHvX64RegisterRcx: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 1
-WHV_REGISTER_NAME_WHvX64RegisterRdx: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 2
-WHV_REGISTER_NAME_WHvX64RegisterRbx: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 3
-WHV_REGISTER_NAME_WHvX64RegisterRsp: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 4
-WHV_REGISTER_NAME_WHvX64RegisterRbp: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 5
-WHV_REGISTER_NAME_WHvX64RegisterRsi: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 6
-WHV_REGISTER_NAME_WHvX64RegisterRdi: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 7
-WHV_REGISTER_NAME_WHvX64RegisterR8: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8
-WHV_REGISTER_NAME_WHvX64RegisterR9: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 9
-WHV_REGISTER_NAME_WHvX64RegisterR10: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 10
-WHV_REGISTER_NAME_WHvX64RegisterR11: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 11
-WHV_REGISTER_NAME_WHvX64RegisterR12: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12
-WHV_REGISTER_NAME_WHvX64RegisterR13: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 13
-WHV_REGISTER_NAME_WHvX64RegisterR14: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 14
-WHV_REGISTER_NAME_WHvX64RegisterR15: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 15
-WHV_REGISTER_NAME_WHvX64RegisterRip: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 16
-WHV_REGISTER_NAME_WHvX64RegisterRflags: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 17
-WHV_REGISTER_NAME_WHvX64RegisterEs: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 18
-WHV_REGISTER_NAME_WHvX64RegisterCs: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 19
-WHV_REGISTER_NAME_WHvX64RegisterSs: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 20
-WHV_REGISTER_NAME_WHvX64RegisterDs: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 21
-WHV_REGISTER_NAME_WHvX64RegisterFs: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 22
-WHV_REGISTER_NAME_WHvX64RegisterGs: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 23
-WHV_REGISTER_NAME_WHvX64RegisterLdtr: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 24
-WHV_REGISTER_NAME_WHvX64RegisterTr: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 25
-WHV_REGISTER_NAME_WHvX64RegisterIdtr: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 26
-WHV_REGISTER_NAME_WHvX64RegisterGdtr: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 27
-WHV_REGISTER_NAME_WHvX64RegisterCr0: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 28
-WHV_REGISTER_NAME_WHvX64RegisterCr2: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 29
-WHV_REGISTER_NAME_WHvX64RegisterCr3: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 30
-WHV_REGISTER_NAME_WHvX64RegisterCr4: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 31
-WHV_REGISTER_NAME_WHvX64RegisterCr8: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 32
-WHV_REGISTER_NAME_WHvX64RegisterDr0: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 33
-WHV_REGISTER_NAME_WHvX64RegisterDr1: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 34
-WHV_REGISTER_NAME_WHvX64RegisterDr2: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 35
-WHV_REGISTER_NAME_WHvX64RegisterDr3: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 36
-WHV_REGISTER_NAME_WHvX64RegisterDr6: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 37
-WHV_REGISTER_NAME_WHvX64RegisterDr7: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 38
-WHV_REGISTER_NAME_WHvX64RegisterXCr0: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 39
-WHV_REGISTER_NAME_WHvX64RegisterVirtualCr0: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 40
-WHV_REGISTER_NAME_WHvX64RegisterVirtualCr3: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 41
-WHV_REGISTER_NAME_WHvX64RegisterVirtualCr4: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 42
-WHV_REGISTER_NAME_WHvX64RegisterVirtualCr8: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 43
-WHV_REGISTER_NAME_WHvX64RegisterXmm0: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 4096
-WHV_REGISTER_NAME_WHvX64RegisterXmm1: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 4097
-WHV_REGISTER_NAME_WHvX64RegisterXmm2: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 4098
-WHV_REGISTER_NAME_WHvX64RegisterXmm3: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 4099
-WHV_REGISTER_NAME_WHvX64RegisterXmm4: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 4100
-WHV_REGISTER_NAME_WHvX64RegisterXmm5: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 4101
-WHV_REGISTER_NAME_WHvX64RegisterXmm6: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 4102
-WHV_REGISTER_NAME_WHvX64RegisterXmm7: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 4103
-WHV_REGISTER_NAME_WHvX64RegisterXmm8: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 4104
-WHV_REGISTER_NAME_WHvX64RegisterXmm9: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 4105
-WHV_REGISTER_NAME_WHvX64RegisterXmm10: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 4106
-WHV_REGISTER_NAME_WHvX64RegisterXmm11: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 4107
-WHV_REGISTER_NAME_WHvX64RegisterXmm12: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 4108
-WHV_REGISTER_NAME_WHvX64RegisterXmm13: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 4109
-WHV_REGISTER_NAME_WHvX64RegisterXmm14: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 4110
-WHV_REGISTER_NAME_WHvX64RegisterXmm15: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 4111
-WHV_REGISTER_NAME_WHvX64RegisterFpMmx0: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 4112
-WHV_REGISTER_NAME_WHvX64RegisterFpMmx1: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 4113
-WHV_REGISTER_NAME_WHvX64RegisterFpMmx2: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 4114
-WHV_REGISTER_NAME_WHvX64RegisterFpMmx3: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 4115
-WHV_REGISTER_NAME_WHvX64RegisterFpMmx4: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 4116
-WHV_REGISTER_NAME_WHvX64RegisterFpMmx5: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 4117
-WHV_REGISTER_NAME_WHvX64RegisterFpMmx6: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 4118
-WHV_REGISTER_NAME_WHvX64RegisterFpMmx7: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 4119
-WHV_REGISTER_NAME_WHvX64RegisterFpControlStatus: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 4120
-WHV_REGISTER_NAME_WHvX64RegisterXmmControlStatus: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 4121
-WHV_REGISTER_NAME_WHvX64RegisterTsc: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8192
-WHV_REGISTER_NAME_WHvX64RegisterEfer: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8193
-WHV_REGISTER_NAME_WHvX64RegisterKernelGsBase: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8194
-WHV_REGISTER_NAME_WHvX64RegisterApicBase: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8195
-WHV_REGISTER_NAME_WHvX64RegisterPat: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8196
-WHV_REGISTER_NAME_WHvX64RegisterSysenterCs: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8197
-WHV_REGISTER_NAME_WHvX64RegisterSysenterEip: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8198
-WHV_REGISTER_NAME_WHvX64RegisterSysenterEsp: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8199
-WHV_REGISTER_NAME_WHvX64RegisterStar: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8200
-WHV_REGISTER_NAME_WHvX64RegisterLstar: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8201
-WHV_REGISTER_NAME_WHvX64RegisterCstar: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8202
-WHV_REGISTER_NAME_WHvX64RegisterSfmask: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8203
-WHV_REGISTER_NAME_WHvX64RegisterInitialApicId: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8204
-WHV_REGISTER_NAME_WHvX64RegisterMsrMtrrCap: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8205
-WHV_REGISTER_NAME_WHvX64RegisterMsrMtrrDefType: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8206
-WHV_REGISTER_NAME_WHvX64RegisterMsrMtrrPhysBase0: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8208
-WHV_REGISTER_NAME_WHvX64RegisterMsrMtrrPhysBase1: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8209
-WHV_REGISTER_NAME_WHvX64RegisterMsrMtrrPhysBase2: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8210
-WHV_REGISTER_NAME_WHvX64RegisterMsrMtrrPhysBase3: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8211
-WHV_REGISTER_NAME_WHvX64RegisterMsrMtrrPhysBase4: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8212
-WHV_REGISTER_NAME_WHvX64RegisterMsrMtrrPhysBase5: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8213
-WHV_REGISTER_NAME_WHvX64RegisterMsrMtrrPhysBase6: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8214
-WHV_REGISTER_NAME_WHvX64RegisterMsrMtrrPhysBase7: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8215
-WHV_REGISTER_NAME_WHvX64RegisterMsrMtrrPhysBase8: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8216
-WHV_REGISTER_NAME_WHvX64RegisterMsrMtrrPhysBase9: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8217
-WHV_REGISTER_NAME_WHvX64RegisterMsrMtrrPhysBaseA: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8218
-WHV_REGISTER_NAME_WHvX64RegisterMsrMtrrPhysBaseB: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8219
-WHV_REGISTER_NAME_WHvX64RegisterMsrMtrrPhysBaseC: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8220
-WHV_REGISTER_NAME_WHvX64RegisterMsrMtrrPhysBaseD: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8221
-WHV_REGISTER_NAME_WHvX64RegisterMsrMtrrPhysBaseE: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8222
-WHV_REGISTER_NAME_WHvX64RegisterMsrMtrrPhysBaseF: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8223
-WHV_REGISTER_NAME_WHvX64RegisterMsrMtrrPhysMask0: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8256
-WHV_REGISTER_NAME_WHvX64RegisterMsrMtrrPhysMask1: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8257
-WHV_REGISTER_NAME_WHvX64RegisterMsrMtrrPhysMask2: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8258
-WHV_REGISTER_NAME_WHvX64RegisterMsrMtrrPhysMask3: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8259
-WHV_REGISTER_NAME_WHvX64RegisterMsrMtrrPhysMask4: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8260
-WHV_REGISTER_NAME_WHvX64RegisterMsrMtrrPhysMask5: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8261
-WHV_REGISTER_NAME_WHvX64RegisterMsrMtrrPhysMask6: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8262
-WHV_REGISTER_NAME_WHvX64RegisterMsrMtrrPhysMask7: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8263
-WHV_REGISTER_NAME_WHvX64RegisterMsrMtrrPhysMask8: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8264
-WHV_REGISTER_NAME_WHvX64RegisterMsrMtrrPhysMask9: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8265
-WHV_REGISTER_NAME_WHvX64RegisterMsrMtrrPhysMaskA: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8266
-WHV_REGISTER_NAME_WHvX64RegisterMsrMtrrPhysMaskB: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8267
-WHV_REGISTER_NAME_WHvX64RegisterMsrMtrrPhysMaskC: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8268
-WHV_REGISTER_NAME_WHvX64RegisterMsrMtrrPhysMaskD: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8269
-WHV_REGISTER_NAME_WHvX64RegisterMsrMtrrPhysMaskE: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8270
-WHV_REGISTER_NAME_WHvX64RegisterMsrMtrrPhysMaskF: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8271
-WHV_REGISTER_NAME_WHvX64RegisterMsrMtrrFix64k00000: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8304
-WHV_REGISTER_NAME_WHvX64RegisterMsrMtrrFix16k80000: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8305
-WHV_REGISTER_NAME_WHvX64RegisterMsrMtrrFix16kA0000: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8306
-WHV_REGISTER_NAME_WHvX64RegisterMsrMtrrFix4kC0000: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8307
-WHV_REGISTER_NAME_WHvX64RegisterMsrMtrrFix4kC8000: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8308
-WHV_REGISTER_NAME_WHvX64RegisterMsrMtrrFix4kD0000: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8309
-WHV_REGISTER_NAME_WHvX64RegisterMsrMtrrFix4kD8000: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8310
-WHV_REGISTER_NAME_WHvX64RegisterMsrMtrrFix4kE0000: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8311
-WHV_REGISTER_NAME_WHvX64RegisterMsrMtrrFix4kE8000: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8312
-WHV_REGISTER_NAME_WHvX64RegisterMsrMtrrFix4kF0000: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8313
-WHV_REGISTER_NAME_WHvX64RegisterMsrMtrrFix4kF8000: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8314
-WHV_REGISTER_NAME_WHvX64RegisterTscAux: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8315
-WHV_REGISTER_NAME_WHvX64RegisterBndcfgs: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8316
-WHV_REGISTER_NAME_WHvX64RegisterMCount: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8318
-WHV_REGISTER_NAME_WHvX64RegisterACount: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8319
-WHV_REGISTER_NAME_WHvX64RegisterSpecCtrl: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8324
-WHV_REGISTER_NAME_WHvX64RegisterPredCmd: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8325
-WHV_REGISTER_NAME_WHvX64RegisterTscVirtualOffset: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8327
-WHV_REGISTER_NAME_WHvX64RegisterTsxCtrl: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8328
-WHV_REGISTER_NAME_WHvX64RegisterXss: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8331
-WHV_REGISTER_NAME_WHvX64RegisterUCet: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8332
-WHV_REGISTER_NAME_WHvX64RegisterSCet: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8333
-WHV_REGISTER_NAME_WHvX64RegisterSsp: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8334
-WHV_REGISTER_NAME_WHvX64RegisterPl0Ssp: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8335
-WHV_REGISTER_NAME_WHvX64RegisterPl1Ssp: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8336
-WHV_REGISTER_NAME_WHvX64RegisterPl2Ssp: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8337
-WHV_REGISTER_NAME_WHvX64RegisterPl3Ssp: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8338
-WHV_REGISTER_NAME_WHvX64RegisterInterruptSspTableAddr: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8339
-WHV_REGISTER_NAME_WHvX64RegisterTscDeadline: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8341
-WHV_REGISTER_NAME_WHvX64RegisterTscAdjust: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8342
-WHV_REGISTER_NAME_WHvX64RegisterUmwaitControl: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8344
-WHV_REGISTER_NAME_WHvX64RegisterXfd: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8345
-WHV_REGISTER_NAME_WHvX64RegisterXfdErr: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8346
-WHV_REGISTER_NAME_WHvX64RegisterApicId: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12290
-WHV_REGISTER_NAME_WHvX64RegisterApicVersion: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12291
-WHV_REGISTER_NAME_WHvX64RegisterApicTpr: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12296
-WHV_REGISTER_NAME_WHvX64RegisterApicPpr: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12298
-WHV_REGISTER_NAME_WHvX64RegisterApicEoi: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12299
-WHV_REGISTER_NAME_WHvX64RegisterApicLdr: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12301
-WHV_REGISTER_NAME_WHvX64RegisterApicSpurious: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12303
-WHV_REGISTER_NAME_WHvX64RegisterApicIsr0: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12304
-WHV_REGISTER_NAME_WHvX64RegisterApicIsr1: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12305
-WHV_REGISTER_NAME_WHvX64RegisterApicIsr2: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12306
-WHV_REGISTER_NAME_WHvX64RegisterApicIsr3: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12307
-WHV_REGISTER_NAME_WHvX64RegisterApicIsr4: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12308
-WHV_REGISTER_NAME_WHvX64RegisterApicIsr5: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12309
-WHV_REGISTER_NAME_WHvX64RegisterApicIsr6: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12310
-WHV_REGISTER_NAME_WHvX64RegisterApicIsr7: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12311
-WHV_REGISTER_NAME_WHvX64RegisterApicTmr0: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12312
-WHV_REGISTER_NAME_WHvX64RegisterApicTmr1: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12313
-WHV_REGISTER_NAME_WHvX64RegisterApicTmr2: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12314
-WHV_REGISTER_NAME_WHvX64RegisterApicTmr3: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12315
-WHV_REGISTER_NAME_WHvX64RegisterApicTmr4: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12316
-WHV_REGISTER_NAME_WHvX64RegisterApicTmr5: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12317
-WHV_REGISTER_NAME_WHvX64RegisterApicTmr6: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12318
-WHV_REGISTER_NAME_WHvX64RegisterApicTmr7: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12319
-WHV_REGISTER_NAME_WHvX64RegisterApicIrr0: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12320
-WHV_REGISTER_NAME_WHvX64RegisterApicIrr1: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12321
-WHV_REGISTER_NAME_WHvX64RegisterApicIrr2: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12322
-WHV_REGISTER_NAME_WHvX64RegisterApicIrr3: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12323
-WHV_REGISTER_NAME_WHvX64RegisterApicIrr4: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12324
-WHV_REGISTER_NAME_WHvX64RegisterApicIrr5: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12325
-WHV_REGISTER_NAME_WHvX64RegisterApicIrr6: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12326
-WHV_REGISTER_NAME_WHvX64RegisterApicIrr7: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12327
-WHV_REGISTER_NAME_WHvX64RegisterApicEse: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12328
-WHV_REGISTER_NAME_WHvX64RegisterApicIcr: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12336
-WHV_REGISTER_NAME_WHvX64RegisterApicLvtTimer: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12338
-WHV_REGISTER_NAME_WHvX64RegisterApicLvtThermal: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12339
-WHV_REGISTER_NAME_WHvX64RegisterApicLvtPerfmon: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12340
-WHV_REGISTER_NAME_WHvX64RegisterApicLvtLint0: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12341
-WHV_REGISTER_NAME_WHvX64RegisterApicLvtLint1: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12342
-WHV_REGISTER_NAME_WHvX64RegisterApicLvtError: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12343
-WHV_REGISTER_NAME_WHvX64RegisterApicInitCount: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12344
-WHV_REGISTER_NAME_WHvX64RegisterApicCurrentCount: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12345
-WHV_REGISTER_NAME_WHvX64RegisterApicDivide: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12350
-WHV_REGISTER_NAME_WHvX64RegisterApicSelfIpi: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12351
-WHV_REGISTER_NAME_WHvRegisterSint0: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 16384
-WHV_REGISTER_NAME_WHvRegisterSint1: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 16385
-WHV_REGISTER_NAME_WHvRegisterSint2: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 16386
-WHV_REGISTER_NAME_WHvRegisterSint3: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 16387
-WHV_REGISTER_NAME_WHvRegisterSint4: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 16388
-WHV_REGISTER_NAME_WHvRegisterSint5: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 16389
-WHV_REGISTER_NAME_WHvRegisterSint6: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 16390
-WHV_REGISTER_NAME_WHvRegisterSint7: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 16391
-WHV_REGISTER_NAME_WHvRegisterSint8: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 16392
-WHV_REGISTER_NAME_WHvRegisterSint9: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 16393
-WHV_REGISTER_NAME_WHvRegisterSint10: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 16394
-WHV_REGISTER_NAME_WHvRegisterSint11: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 16395
-WHV_REGISTER_NAME_WHvRegisterSint12: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 16396
-WHV_REGISTER_NAME_WHvRegisterSint13: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 16397
-WHV_REGISTER_NAME_WHvRegisterSint14: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 16398
-WHV_REGISTER_NAME_WHvRegisterSint15: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 16399
-WHV_REGISTER_NAME_WHvRegisterScontrol: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 16400
-WHV_REGISTER_NAME_WHvRegisterSversion: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 16401
-WHV_REGISTER_NAME_WHvRegisterSiefp: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 16402
-WHV_REGISTER_NAME_WHvRegisterSimp: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 16403
-WHV_REGISTER_NAME_WHvRegisterEom: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 16404
-WHV_REGISTER_NAME_WHvRegisterVpRuntime: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 20480
-WHV_REGISTER_NAME_WHvX64RegisterHypercall: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 20481
-WHV_REGISTER_NAME_WHvRegisterGuestOsId: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 20482
-WHV_REGISTER_NAME_WHvRegisterVpAssistPage: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 20499
-WHV_REGISTER_NAME_WHvRegisterReferenceTsc: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 20503
-WHV_REGISTER_NAME_WHvRegisterReferenceTscSequence: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 20506
-WHV_REGISTER_NAME_WHvRegisterPendingInterruption: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = -2147483648
-WHV_REGISTER_NAME_WHvRegisterInterruptState: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = -2147483647
-WHV_REGISTER_NAME_WHvRegisterPendingEvent: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = -2147483646
-WHV_REGISTER_NAME_WHvX64RegisterDeliverabilityNotifications: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = -2147483644
-WHV_REGISTER_NAME_WHvRegisterInternalActivityState: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = -2147483643
-WHV_REGISTER_NAME_WHvX64RegisterPendingDebugException: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = -2147483642
+WHvX64RegisterRax: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 0
+WHvX64RegisterRcx: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 1
+WHvX64RegisterRdx: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 2
+WHvX64RegisterRbx: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 3
+WHvX64RegisterRsp: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 4
+WHvX64RegisterRbp: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 5
+WHvX64RegisterRsi: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 6
+WHvX64RegisterRdi: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 7
+WHvX64RegisterR8: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8
+WHvX64RegisterR9: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 9
+WHvX64RegisterR10: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 10
+WHvX64RegisterR11: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 11
+WHvX64RegisterR12: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12
+WHvX64RegisterR13: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 13
+WHvX64RegisterR14: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 14
+WHvX64RegisterR15: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 15
+WHvX64RegisterRip: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 16
+WHvX64RegisterRflags: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 17
+WHvX64RegisterEs: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 18
+WHvX64RegisterCs: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 19
+WHvX64RegisterSs: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 20
+WHvX64RegisterDs: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 21
+WHvX64RegisterFs: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 22
+WHvX64RegisterGs: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 23
+WHvX64RegisterLdtr: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 24
+WHvX64RegisterTr: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 25
+WHvX64RegisterIdtr: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 26
+WHvX64RegisterGdtr: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 27
+WHvX64RegisterCr0: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 28
+WHvX64RegisterCr2: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 29
+WHvX64RegisterCr3: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 30
+WHvX64RegisterCr4: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 31
+WHvX64RegisterCr8: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 32
+WHvX64RegisterDr0: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 33
+WHvX64RegisterDr1: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 34
+WHvX64RegisterDr2: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 35
+WHvX64RegisterDr3: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 36
+WHvX64RegisterDr6: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 37
+WHvX64RegisterDr7: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 38
+WHvX64RegisterXCr0: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 39
+WHvX64RegisterVirtualCr0: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 40
+WHvX64RegisterVirtualCr3: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 41
+WHvX64RegisterVirtualCr4: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 42
+WHvX64RegisterVirtualCr8: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 43
+WHvX64RegisterXmm0: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 4096
+WHvX64RegisterXmm1: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 4097
+WHvX64RegisterXmm2: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 4098
+WHvX64RegisterXmm3: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 4099
+WHvX64RegisterXmm4: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 4100
+WHvX64RegisterXmm5: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 4101
+WHvX64RegisterXmm6: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 4102
+WHvX64RegisterXmm7: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 4103
+WHvX64RegisterXmm8: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 4104
+WHvX64RegisterXmm9: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 4105
+WHvX64RegisterXmm10: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 4106
+WHvX64RegisterXmm11: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 4107
+WHvX64RegisterXmm12: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 4108
+WHvX64RegisterXmm13: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 4109
+WHvX64RegisterXmm14: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 4110
+WHvX64RegisterXmm15: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 4111
+WHvX64RegisterFpMmx0: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 4112
+WHvX64RegisterFpMmx1: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 4113
+WHvX64RegisterFpMmx2: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 4114
+WHvX64RegisterFpMmx3: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 4115
+WHvX64RegisterFpMmx4: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 4116
+WHvX64RegisterFpMmx5: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 4117
+WHvX64RegisterFpMmx6: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 4118
+WHvX64RegisterFpMmx7: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 4119
+WHvX64RegisterFpControlStatus: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 4120
+WHvX64RegisterXmmControlStatus: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 4121
+WHvX64RegisterTsc: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8192
+WHvX64RegisterEfer: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8193
+WHvX64RegisterKernelGsBase: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8194
+WHvX64RegisterApicBase: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8195
+WHvX64RegisterPat: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8196
+WHvX64RegisterSysenterCs: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8197
+WHvX64RegisterSysenterEip: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8198
+WHvX64RegisterSysenterEsp: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8199
+WHvX64RegisterStar: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8200
+WHvX64RegisterLstar: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8201
+WHvX64RegisterCstar: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8202
+WHvX64RegisterSfmask: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8203
+WHvX64RegisterInitialApicId: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8204
+WHvX64RegisterMsrMtrrCap: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8205
+WHvX64RegisterMsrMtrrDefType: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8206
+WHvX64RegisterMsrMtrrPhysBase0: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8208
+WHvX64RegisterMsrMtrrPhysBase1: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8209
+WHvX64RegisterMsrMtrrPhysBase2: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8210
+WHvX64RegisterMsrMtrrPhysBase3: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8211
+WHvX64RegisterMsrMtrrPhysBase4: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8212
+WHvX64RegisterMsrMtrrPhysBase5: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8213
+WHvX64RegisterMsrMtrrPhysBase6: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8214
+WHvX64RegisterMsrMtrrPhysBase7: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8215
+WHvX64RegisterMsrMtrrPhysBase8: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8216
+WHvX64RegisterMsrMtrrPhysBase9: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8217
+WHvX64RegisterMsrMtrrPhysBaseA: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8218
+WHvX64RegisterMsrMtrrPhysBaseB: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8219
+WHvX64RegisterMsrMtrrPhysBaseC: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8220
+WHvX64RegisterMsrMtrrPhysBaseD: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8221
+WHvX64RegisterMsrMtrrPhysBaseE: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8222
+WHvX64RegisterMsrMtrrPhysBaseF: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8223
+WHvX64RegisterMsrMtrrPhysMask0: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8256
+WHvX64RegisterMsrMtrrPhysMask1: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8257
+WHvX64RegisterMsrMtrrPhysMask2: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8258
+WHvX64RegisterMsrMtrrPhysMask3: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8259
+WHvX64RegisterMsrMtrrPhysMask4: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8260
+WHvX64RegisterMsrMtrrPhysMask5: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8261
+WHvX64RegisterMsrMtrrPhysMask6: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8262
+WHvX64RegisterMsrMtrrPhysMask7: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8263
+WHvX64RegisterMsrMtrrPhysMask8: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8264
+WHvX64RegisterMsrMtrrPhysMask9: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8265
+WHvX64RegisterMsrMtrrPhysMaskA: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8266
+WHvX64RegisterMsrMtrrPhysMaskB: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8267
+WHvX64RegisterMsrMtrrPhysMaskC: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8268
+WHvX64RegisterMsrMtrrPhysMaskD: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8269
+WHvX64RegisterMsrMtrrPhysMaskE: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8270
+WHvX64RegisterMsrMtrrPhysMaskF: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8271
+WHvX64RegisterMsrMtrrFix64k00000: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8304
+WHvX64RegisterMsrMtrrFix16k80000: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8305
+WHvX64RegisterMsrMtrrFix16kA0000: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8306
+WHvX64RegisterMsrMtrrFix4kC0000: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8307
+WHvX64RegisterMsrMtrrFix4kC8000: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8308
+WHvX64RegisterMsrMtrrFix4kD0000: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8309
+WHvX64RegisterMsrMtrrFix4kD8000: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8310
+WHvX64RegisterMsrMtrrFix4kE0000: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8311
+WHvX64RegisterMsrMtrrFix4kE8000: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8312
+WHvX64RegisterMsrMtrrFix4kF0000: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8313
+WHvX64RegisterMsrMtrrFix4kF8000: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8314
+WHvX64RegisterTscAux: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8315
+WHvX64RegisterBndcfgs: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8316
+WHvX64RegisterMCount: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8318
+WHvX64RegisterACount: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8319
+WHvX64RegisterSpecCtrl: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8324
+WHvX64RegisterPredCmd: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8325
+WHvX64RegisterTscVirtualOffset: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8327
+WHvX64RegisterTsxCtrl: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8328
+WHvX64RegisterXss: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8331
+WHvX64RegisterUCet: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8332
+WHvX64RegisterSCet: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8333
+WHvX64RegisterSsp: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8334
+WHvX64RegisterPl0Ssp: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8335
+WHvX64RegisterPl1Ssp: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8336
+WHvX64RegisterPl2Ssp: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8337
+WHvX64RegisterPl3Ssp: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8338
+WHvX64RegisterInterruptSspTableAddr: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8339
+WHvX64RegisterTscDeadline: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8341
+WHvX64RegisterTscAdjust: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8342
+WHvX64RegisterUmwaitControl: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8344
+WHvX64RegisterXfd: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8345
+WHvX64RegisterXfdErr: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 8346
+WHvX64RegisterApicId: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12290
+WHvX64RegisterApicVersion: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12291
+WHvX64RegisterApicTpr: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12296
+WHvX64RegisterApicPpr: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12298
+WHvX64RegisterApicEoi: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12299
+WHvX64RegisterApicLdr: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12301
+WHvX64RegisterApicSpurious: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12303
+WHvX64RegisterApicIsr0: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12304
+WHvX64RegisterApicIsr1: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12305
+WHvX64RegisterApicIsr2: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12306
+WHvX64RegisterApicIsr3: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12307
+WHvX64RegisterApicIsr4: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12308
+WHvX64RegisterApicIsr5: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12309
+WHvX64RegisterApicIsr6: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12310
+WHvX64RegisterApicIsr7: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12311
+WHvX64RegisterApicTmr0: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12312
+WHvX64RegisterApicTmr1: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12313
+WHvX64RegisterApicTmr2: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12314
+WHvX64RegisterApicTmr3: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12315
+WHvX64RegisterApicTmr4: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12316
+WHvX64RegisterApicTmr5: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12317
+WHvX64RegisterApicTmr6: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12318
+WHvX64RegisterApicTmr7: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12319
+WHvX64RegisterApicIrr0: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12320
+WHvX64RegisterApicIrr1: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12321
+WHvX64RegisterApicIrr2: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12322
+WHvX64RegisterApicIrr3: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12323
+WHvX64RegisterApicIrr4: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12324
+WHvX64RegisterApicIrr5: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12325
+WHvX64RegisterApicIrr6: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12326
+WHvX64RegisterApicIrr7: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12327
+WHvX64RegisterApicEse: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12328
+WHvX64RegisterApicIcr: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12336
+WHvX64RegisterApicLvtTimer: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12338
+WHvX64RegisterApicLvtThermal: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12339
+WHvX64RegisterApicLvtPerfmon: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12340
+WHvX64RegisterApicLvtLint0: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12341
+WHvX64RegisterApicLvtLint1: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12342
+WHvX64RegisterApicLvtError: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12343
+WHvX64RegisterApicInitCount: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12344
+WHvX64RegisterApicCurrentCount: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12345
+WHvX64RegisterApicDivide: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12350
+WHvX64RegisterApicSelfIpi: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 12351
+WHvRegisterSint0: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 16384
+WHvRegisterSint1: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 16385
+WHvRegisterSint2: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 16386
+WHvRegisterSint3: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 16387
+WHvRegisterSint4: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 16388
+WHvRegisterSint5: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 16389
+WHvRegisterSint6: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 16390
+WHvRegisterSint7: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 16391
+WHvRegisterSint8: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 16392
+WHvRegisterSint9: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 16393
+WHvRegisterSint10: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 16394
+WHvRegisterSint11: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 16395
+WHvRegisterSint12: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 16396
+WHvRegisterSint13: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 16397
+WHvRegisterSint14: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 16398
+WHvRegisterSint15: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 16399
+WHvRegisterScontrol: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 16400
+WHvRegisterSversion: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 16401
+WHvRegisterSiefp: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 16402
+WHvRegisterSimp: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 16403
+WHvRegisterEom: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 16404
+WHvRegisterVpRuntime: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 20480
+WHvX64RegisterHypercall: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 20481
+WHvRegisterGuestOsId: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 20482
+WHvRegisterVpAssistPage: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 20499
+WHvRegisterReferenceTsc: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 20503
+WHvRegisterReferenceTscSequence: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 20506
+WHvRegisterPendingInterruption: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = -2147483648
+WHvRegisterInterruptState: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = -2147483647
+WHvRegisterPendingEvent: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = -2147483646
+WHvX64RegisterDeliverabilityNotifications: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = -2147483644
+WHvRegisterInternalActivityState: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = -2147483643
+WHvX64RegisterPendingDebugException: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = -2147483642
 class WHV_REGISTER_VALUE(EasyCastUnion):
     Reg128: win32more.Windows.Win32.System.Hypervisor.WHV_UINT128
     Reg64: UInt64
@@ -1255,7 +1255,7 @@ class WHV_REGISTER_VALUE(EasyCastUnion):
 class WHV_RUN_VP_CANCELED_CONTEXT(EasyCastStructure):
     CancelReason: win32more.Windows.Win32.System.Hypervisor.WHV_RUN_VP_CANCEL_REASON
 WHV_RUN_VP_CANCEL_REASON = Int32
-WHV_RUN_VP_CANCEL_REASON_WHvRunVpCancelReasonUser: win32more.Windows.Win32.System.Hypervisor.WHV_RUN_VP_CANCEL_REASON = 0
+WHvRunVpCancelReasonUser: win32more.Windows.Win32.System.Hypervisor.WHV_RUN_VP_CANCEL_REASON = 0
 class WHV_RUN_VP_EXIT_CONTEXT(EasyCastStructure):
     ExitReason: win32more.Windows.Win32.System.Hypervisor.WHV_RUN_VP_EXIT_REASON
     Reserved: UInt32
@@ -1278,25 +1278,25 @@ class WHV_RUN_VP_EXIT_CONTEXT(EasyCastStructure):
         ApicWrite: win32more.Windows.Win32.System.Hypervisor.WHV_X64_APIC_WRITE_CONTEXT
         SynicSintDeliverable: win32more.Windows.Win32.System.Hypervisor.WHV_SYNIC_SINT_DELIVERABLE_CONTEXT
 WHV_RUN_VP_EXIT_REASON = Int32
-WHV_RUN_VP_EXIT_REASON_WHvRunVpExitReasonNone: win32more.Windows.Win32.System.Hypervisor.WHV_RUN_VP_EXIT_REASON = 0
-WHV_RUN_VP_EXIT_REASON_WHvRunVpExitReasonMemoryAccess: win32more.Windows.Win32.System.Hypervisor.WHV_RUN_VP_EXIT_REASON = 1
-WHV_RUN_VP_EXIT_REASON_WHvRunVpExitReasonX64IoPortAccess: win32more.Windows.Win32.System.Hypervisor.WHV_RUN_VP_EXIT_REASON = 2
-WHV_RUN_VP_EXIT_REASON_WHvRunVpExitReasonUnrecoverableException: win32more.Windows.Win32.System.Hypervisor.WHV_RUN_VP_EXIT_REASON = 4
-WHV_RUN_VP_EXIT_REASON_WHvRunVpExitReasonInvalidVpRegisterValue: win32more.Windows.Win32.System.Hypervisor.WHV_RUN_VP_EXIT_REASON = 5
-WHV_RUN_VP_EXIT_REASON_WHvRunVpExitReasonUnsupportedFeature: win32more.Windows.Win32.System.Hypervisor.WHV_RUN_VP_EXIT_REASON = 6
-WHV_RUN_VP_EXIT_REASON_WHvRunVpExitReasonX64InterruptWindow: win32more.Windows.Win32.System.Hypervisor.WHV_RUN_VP_EXIT_REASON = 7
-WHV_RUN_VP_EXIT_REASON_WHvRunVpExitReasonX64Halt: win32more.Windows.Win32.System.Hypervisor.WHV_RUN_VP_EXIT_REASON = 8
-WHV_RUN_VP_EXIT_REASON_WHvRunVpExitReasonX64ApicEoi: win32more.Windows.Win32.System.Hypervisor.WHV_RUN_VP_EXIT_REASON = 9
-WHV_RUN_VP_EXIT_REASON_WHvRunVpExitReasonSynicSintDeliverable: win32more.Windows.Win32.System.Hypervisor.WHV_RUN_VP_EXIT_REASON = 10
-WHV_RUN_VP_EXIT_REASON_WHvRunVpExitReasonX64MsrAccess: win32more.Windows.Win32.System.Hypervisor.WHV_RUN_VP_EXIT_REASON = 4096
-WHV_RUN_VP_EXIT_REASON_WHvRunVpExitReasonX64Cpuid: win32more.Windows.Win32.System.Hypervisor.WHV_RUN_VP_EXIT_REASON = 4097
-WHV_RUN_VP_EXIT_REASON_WHvRunVpExitReasonException: win32more.Windows.Win32.System.Hypervisor.WHV_RUN_VP_EXIT_REASON = 4098
-WHV_RUN_VP_EXIT_REASON_WHvRunVpExitReasonX64Rdtsc: win32more.Windows.Win32.System.Hypervisor.WHV_RUN_VP_EXIT_REASON = 4099
-WHV_RUN_VP_EXIT_REASON_WHvRunVpExitReasonX64ApicSmiTrap: win32more.Windows.Win32.System.Hypervisor.WHV_RUN_VP_EXIT_REASON = 4100
-WHV_RUN_VP_EXIT_REASON_WHvRunVpExitReasonHypercall: win32more.Windows.Win32.System.Hypervisor.WHV_RUN_VP_EXIT_REASON = 4101
-WHV_RUN_VP_EXIT_REASON_WHvRunVpExitReasonX64ApicInitSipiTrap: win32more.Windows.Win32.System.Hypervisor.WHV_RUN_VP_EXIT_REASON = 4102
-WHV_RUN_VP_EXIT_REASON_WHvRunVpExitReasonX64ApicWriteTrap: win32more.Windows.Win32.System.Hypervisor.WHV_RUN_VP_EXIT_REASON = 4103
-WHV_RUN_VP_EXIT_REASON_WHvRunVpExitReasonCanceled: win32more.Windows.Win32.System.Hypervisor.WHV_RUN_VP_EXIT_REASON = 8193
+WHvRunVpExitReasonNone: win32more.Windows.Win32.System.Hypervisor.WHV_RUN_VP_EXIT_REASON = 0
+WHvRunVpExitReasonMemoryAccess: win32more.Windows.Win32.System.Hypervisor.WHV_RUN_VP_EXIT_REASON = 1
+WHvRunVpExitReasonX64IoPortAccess: win32more.Windows.Win32.System.Hypervisor.WHV_RUN_VP_EXIT_REASON = 2
+WHvRunVpExitReasonUnrecoverableException: win32more.Windows.Win32.System.Hypervisor.WHV_RUN_VP_EXIT_REASON = 4
+WHvRunVpExitReasonInvalidVpRegisterValue: win32more.Windows.Win32.System.Hypervisor.WHV_RUN_VP_EXIT_REASON = 5
+WHvRunVpExitReasonUnsupportedFeature: win32more.Windows.Win32.System.Hypervisor.WHV_RUN_VP_EXIT_REASON = 6
+WHvRunVpExitReasonX64InterruptWindow: win32more.Windows.Win32.System.Hypervisor.WHV_RUN_VP_EXIT_REASON = 7
+WHvRunVpExitReasonX64Halt: win32more.Windows.Win32.System.Hypervisor.WHV_RUN_VP_EXIT_REASON = 8
+WHvRunVpExitReasonX64ApicEoi: win32more.Windows.Win32.System.Hypervisor.WHV_RUN_VP_EXIT_REASON = 9
+WHvRunVpExitReasonSynicSintDeliverable: win32more.Windows.Win32.System.Hypervisor.WHV_RUN_VP_EXIT_REASON = 10
+WHvRunVpExitReasonX64MsrAccess: win32more.Windows.Win32.System.Hypervisor.WHV_RUN_VP_EXIT_REASON = 4096
+WHvRunVpExitReasonX64Cpuid: win32more.Windows.Win32.System.Hypervisor.WHV_RUN_VP_EXIT_REASON = 4097
+WHvRunVpExitReasonException: win32more.Windows.Win32.System.Hypervisor.WHV_RUN_VP_EXIT_REASON = 4098
+WHvRunVpExitReasonX64Rdtsc: win32more.Windows.Win32.System.Hypervisor.WHV_RUN_VP_EXIT_REASON = 4099
+WHvRunVpExitReasonX64ApicSmiTrap: win32more.Windows.Win32.System.Hypervisor.WHV_RUN_VP_EXIT_REASON = 4100
+WHvRunVpExitReasonHypercall: win32more.Windows.Win32.System.Hypervisor.WHV_RUN_VP_EXIT_REASON = 4101
+WHvRunVpExitReasonX64ApicInitSipiTrap: win32more.Windows.Win32.System.Hypervisor.WHV_RUN_VP_EXIT_REASON = 4102
+WHvRunVpExitReasonX64ApicWriteTrap: win32more.Windows.Win32.System.Hypervisor.WHV_RUN_VP_EXIT_REASON = 4103
+WHvRunVpExitReasonCanceled: win32more.Windows.Win32.System.Hypervisor.WHV_RUN_VP_EXIT_REASON = 8193
 class WHV_SCHEDULER_FEATURES(EasyCastUnion):
     Anonymous: _Anonymous_e__Struct
     AsUINT64: UInt64
@@ -1331,27 +1331,27 @@ class WHV_SYNTHETIC_PROCESSOR_FEATURES_BANKS(EasyCastStructure):
         class _Anonymous_e__Struct(EasyCastStructure):
             Bank0: win32more.Windows.Win32.System.Hypervisor.WHV_SYNTHETIC_PROCESSOR_FEATURES
 WHV_TRANSLATE_GVA_FLAGS = Int32
-WHV_TRANSLATE_GVA_FLAGS_WHvTranslateGvaFlagNone: win32more.Windows.Win32.System.Hypervisor.WHV_TRANSLATE_GVA_FLAGS = 0
-WHV_TRANSLATE_GVA_FLAGS_WHvTranslateGvaFlagValidateRead: win32more.Windows.Win32.System.Hypervisor.WHV_TRANSLATE_GVA_FLAGS = 1
-WHV_TRANSLATE_GVA_FLAGS_WHvTranslateGvaFlagValidateWrite: win32more.Windows.Win32.System.Hypervisor.WHV_TRANSLATE_GVA_FLAGS = 2
-WHV_TRANSLATE_GVA_FLAGS_WHvTranslateGvaFlagValidateExecute: win32more.Windows.Win32.System.Hypervisor.WHV_TRANSLATE_GVA_FLAGS = 4
-WHV_TRANSLATE_GVA_FLAGS_WHvTranslateGvaFlagPrivilegeExempt: win32more.Windows.Win32.System.Hypervisor.WHV_TRANSLATE_GVA_FLAGS = 8
-WHV_TRANSLATE_GVA_FLAGS_WHvTranslateGvaFlagSetPageTableBits: win32more.Windows.Win32.System.Hypervisor.WHV_TRANSLATE_GVA_FLAGS = 16
-WHV_TRANSLATE_GVA_FLAGS_WHvTranslateGvaFlagEnforceSmap: win32more.Windows.Win32.System.Hypervisor.WHV_TRANSLATE_GVA_FLAGS = 256
-WHV_TRANSLATE_GVA_FLAGS_WHvTranslateGvaFlagOverrideSmap: win32more.Windows.Win32.System.Hypervisor.WHV_TRANSLATE_GVA_FLAGS = 512
+WHvTranslateGvaFlagNone: win32more.Windows.Win32.System.Hypervisor.WHV_TRANSLATE_GVA_FLAGS = 0
+WHvTranslateGvaFlagValidateRead: win32more.Windows.Win32.System.Hypervisor.WHV_TRANSLATE_GVA_FLAGS = 1
+WHvTranslateGvaFlagValidateWrite: win32more.Windows.Win32.System.Hypervisor.WHV_TRANSLATE_GVA_FLAGS = 2
+WHvTranslateGvaFlagValidateExecute: win32more.Windows.Win32.System.Hypervisor.WHV_TRANSLATE_GVA_FLAGS = 4
+WHvTranslateGvaFlagPrivilegeExempt: win32more.Windows.Win32.System.Hypervisor.WHV_TRANSLATE_GVA_FLAGS = 8
+WHvTranslateGvaFlagSetPageTableBits: win32more.Windows.Win32.System.Hypervisor.WHV_TRANSLATE_GVA_FLAGS = 16
+WHvTranslateGvaFlagEnforceSmap: win32more.Windows.Win32.System.Hypervisor.WHV_TRANSLATE_GVA_FLAGS = 256
+WHvTranslateGvaFlagOverrideSmap: win32more.Windows.Win32.System.Hypervisor.WHV_TRANSLATE_GVA_FLAGS = 512
 class WHV_TRANSLATE_GVA_RESULT(EasyCastStructure):
     ResultCode: win32more.Windows.Win32.System.Hypervisor.WHV_TRANSLATE_GVA_RESULT_CODE
     Reserved: UInt32
 WHV_TRANSLATE_GVA_RESULT_CODE = Int32
-WHV_TRANSLATE_GVA_RESULT_CODE_WHvTranslateGvaResultSuccess: win32more.Windows.Win32.System.Hypervisor.WHV_TRANSLATE_GVA_RESULT_CODE = 0
-WHV_TRANSLATE_GVA_RESULT_CODE_WHvTranslateGvaResultPageNotPresent: win32more.Windows.Win32.System.Hypervisor.WHV_TRANSLATE_GVA_RESULT_CODE = 1
-WHV_TRANSLATE_GVA_RESULT_CODE_WHvTranslateGvaResultPrivilegeViolation: win32more.Windows.Win32.System.Hypervisor.WHV_TRANSLATE_GVA_RESULT_CODE = 2
-WHV_TRANSLATE_GVA_RESULT_CODE_WHvTranslateGvaResultInvalidPageTableFlags: win32more.Windows.Win32.System.Hypervisor.WHV_TRANSLATE_GVA_RESULT_CODE = 3
-WHV_TRANSLATE_GVA_RESULT_CODE_WHvTranslateGvaResultGpaUnmapped: win32more.Windows.Win32.System.Hypervisor.WHV_TRANSLATE_GVA_RESULT_CODE = 4
-WHV_TRANSLATE_GVA_RESULT_CODE_WHvTranslateGvaResultGpaNoReadAccess: win32more.Windows.Win32.System.Hypervisor.WHV_TRANSLATE_GVA_RESULT_CODE = 5
-WHV_TRANSLATE_GVA_RESULT_CODE_WHvTranslateGvaResultGpaNoWriteAccess: win32more.Windows.Win32.System.Hypervisor.WHV_TRANSLATE_GVA_RESULT_CODE = 6
-WHV_TRANSLATE_GVA_RESULT_CODE_WHvTranslateGvaResultGpaIllegalOverlayAccess: win32more.Windows.Win32.System.Hypervisor.WHV_TRANSLATE_GVA_RESULT_CODE = 7
-WHV_TRANSLATE_GVA_RESULT_CODE_WHvTranslateGvaResultIntercept: win32more.Windows.Win32.System.Hypervisor.WHV_TRANSLATE_GVA_RESULT_CODE = 8
+WHvTranslateGvaResultSuccess: win32more.Windows.Win32.System.Hypervisor.WHV_TRANSLATE_GVA_RESULT_CODE = 0
+WHvTranslateGvaResultPageNotPresent: win32more.Windows.Win32.System.Hypervisor.WHV_TRANSLATE_GVA_RESULT_CODE = 1
+WHvTranslateGvaResultPrivilegeViolation: win32more.Windows.Win32.System.Hypervisor.WHV_TRANSLATE_GVA_RESULT_CODE = 2
+WHvTranslateGvaResultInvalidPageTableFlags: win32more.Windows.Win32.System.Hypervisor.WHV_TRANSLATE_GVA_RESULT_CODE = 3
+WHvTranslateGvaResultGpaUnmapped: win32more.Windows.Win32.System.Hypervisor.WHV_TRANSLATE_GVA_RESULT_CODE = 4
+WHvTranslateGvaResultGpaNoReadAccess: win32more.Windows.Win32.System.Hypervisor.WHV_TRANSLATE_GVA_RESULT_CODE = 5
+WHvTranslateGvaResultGpaNoWriteAccess: win32more.Windows.Win32.System.Hypervisor.WHV_TRANSLATE_GVA_RESULT_CODE = 6
+WHvTranslateGvaResultGpaIllegalOverlayAccess: win32more.Windows.Win32.System.Hypervisor.WHV_TRANSLATE_GVA_RESULT_CODE = 7
+WHvTranslateGvaResultIntercept: win32more.Windows.Win32.System.Hypervisor.WHV_TRANSLATE_GVA_RESULT_CODE = 8
 class WHV_TRIGGER_PARAMETERS(EasyCastStructure):
     TriggerType: win32more.Windows.Win32.System.Hypervisor.WHV_TRIGGER_TYPE
     Reserved: UInt32
@@ -1366,9 +1366,9 @@ class WHV_TRIGGER_PARAMETERS(EasyCastStructure):
             MsiData: UInt32
             Reserved: UInt32
 WHV_TRIGGER_TYPE = Int32
-WHV_TRIGGER_TYPE_WHvTriggerTypeInterrupt: win32more.Windows.Win32.System.Hypervisor.WHV_TRIGGER_TYPE = 0
-WHV_TRIGGER_TYPE_WHvTriggerTypeSynicEvent: win32more.Windows.Win32.System.Hypervisor.WHV_TRIGGER_TYPE = 1
-WHV_TRIGGER_TYPE_WHvTriggerTypeDeviceInterrupt: win32more.Windows.Win32.System.Hypervisor.WHV_TRIGGER_TYPE = 2
+WHvTriggerTypeInterrupt: win32more.Windows.Win32.System.Hypervisor.WHV_TRIGGER_TYPE = 0
+WHvTriggerTypeSynicEvent: win32more.Windows.Win32.System.Hypervisor.WHV_TRIGGER_TYPE = 1
+WHvTriggerTypeDeviceInterrupt: win32more.Windows.Win32.System.Hypervisor.WHV_TRIGGER_TYPE = 2
 class WHV_UINT128(EasyCastUnion):
     Anonymous: _Anonymous_e__Struct
     Dword: UInt32 * 4
@@ -1383,13 +1383,13 @@ class WHV_VIRTUAL_PROCESSOR_PROPERTY(EasyCastStructure):
         NumaNode: UInt16
         Padding: UInt64
 WHV_VIRTUAL_PROCESSOR_PROPERTY_CODE = Int32
-WHV_VIRTUAL_PROCESSOR_PROPERTY_CODE_WHvVirtualProcessorPropertyCodeNumaNode: win32more.Windows.Win32.System.Hypervisor.WHV_VIRTUAL_PROCESSOR_PROPERTY_CODE = 0
+WHvVirtualProcessorPropertyCodeNumaNode: win32more.Windows.Win32.System.Hypervisor.WHV_VIRTUAL_PROCESSOR_PROPERTY_CODE = 0
 WHV_VIRTUAL_PROCESSOR_STATE_TYPE = Int32
-WHV_VIRTUAL_PROCESSOR_STATE_TYPE_WHvVirtualProcessorStateTypeSynicMessagePage: win32more.Windows.Win32.System.Hypervisor.WHV_VIRTUAL_PROCESSOR_STATE_TYPE = 0
-WHV_VIRTUAL_PROCESSOR_STATE_TYPE_WHvVirtualProcessorStateTypeSynicEventFlagPage: win32more.Windows.Win32.System.Hypervisor.WHV_VIRTUAL_PROCESSOR_STATE_TYPE = 1
-WHV_VIRTUAL_PROCESSOR_STATE_TYPE_WHvVirtualProcessorStateTypeSynicTimerState: win32more.Windows.Win32.System.Hypervisor.WHV_VIRTUAL_PROCESSOR_STATE_TYPE = 2
-WHV_VIRTUAL_PROCESSOR_STATE_TYPE_WHvVirtualProcessorStateTypeInterruptControllerState2: win32more.Windows.Win32.System.Hypervisor.WHV_VIRTUAL_PROCESSOR_STATE_TYPE = 4096
-WHV_VIRTUAL_PROCESSOR_STATE_TYPE_WHvVirtualProcessorStateTypeXsaveState: win32more.Windows.Win32.System.Hypervisor.WHV_VIRTUAL_PROCESSOR_STATE_TYPE = 4097
+WHvVirtualProcessorStateTypeSynicMessagePage: win32more.Windows.Win32.System.Hypervisor.WHV_VIRTUAL_PROCESSOR_STATE_TYPE = 0
+WHvVirtualProcessorStateTypeSynicEventFlagPage: win32more.Windows.Win32.System.Hypervisor.WHV_VIRTUAL_PROCESSOR_STATE_TYPE = 1
+WHvVirtualProcessorStateTypeSynicTimerState: win32more.Windows.Win32.System.Hypervisor.WHV_VIRTUAL_PROCESSOR_STATE_TYPE = 2
+WHvVirtualProcessorStateTypeInterruptControllerState2: win32more.Windows.Win32.System.Hypervisor.WHV_VIRTUAL_PROCESSOR_STATE_TYPE = 4096
+WHvVirtualProcessorStateTypeXsaveState: win32more.Windows.Win32.System.Hypervisor.WHV_VIRTUAL_PROCESSOR_STATE_TYPE = 4097
 class WHV_VPCI_DEVICE_NOTIFICATION(EasyCastStructure):
     NotificationType: win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_DEVICE_NOTIFICATION_TYPE
     Reserved1: UInt32
@@ -1397,25 +1397,25 @@ class WHV_VPCI_DEVICE_NOTIFICATION(EasyCastStructure):
     class _Anonymous_e__Union(EasyCastUnion):
         Reserved2: UInt64
 WHV_VPCI_DEVICE_NOTIFICATION_TYPE = Int32
-WHV_VPCI_DEVICE_NOTIFICATION_TYPE_WHvVpciDeviceNotificationUndefined: win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_DEVICE_NOTIFICATION_TYPE = 0
-WHV_VPCI_DEVICE_NOTIFICATION_TYPE_WHvVpciDeviceNotificationMmioRemapping: win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_DEVICE_NOTIFICATION_TYPE = 1
-WHV_VPCI_DEVICE_NOTIFICATION_TYPE_WHvVpciDeviceNotificationSurpriseRemoval: win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_DEVICE_NOTIFICATION_TYPE = 2
+WHvVpciDeviceNotificationUndefined: win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_DEVICE_NOTIFICATION_TYPE = 0
+WHvVpciDeviceNotificationMmioRemapping: win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_DEVICE_NOTIFICATION_TYPE = 1
+WHvVpciDeviceNotificationSurpriseRemoval: win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_DEVICE_NOTIFICATION_TYPE = 2
 WHV_VPCI_DEVICE_PROPERTY_CODE = Int32
-WHV_VPCI_DEVICE_PROPERTY_CODE_WHvVpciDevicePropertyCodeUndefined: win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_DEVICE_PROPERTY_CODE = 0
-WHV_VPCI_DEVICE_PROPERTY_CODE_WHvVpciDevicePropertyCodeHardwareIDs: win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_DEVICE_PROPERTY_CODE = 1
-WHV_VPCI_DEVICE_PROPERTY_CODE_WHvVpciDevicePropertyCodeProbedBARs: win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_DEVICE_PROPERTY_CODE = 2
+WHvVpciDevicePropertyCodeUndefined: win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_DEVICE_PROPERTY_CODE = 0
+WHvVpciDevicePropertyCodeHardwareIDs: win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_DEVICE_PROPERTY_CODE = 1
+WHvVpciDevicePropertyCodeProbedBARs: win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_DEVICE_PROPERTY_CODE = 2
 class WHV_VPCI_DEVICE_REGISTER(EasyCastStructure):
     Location: win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_DEVICE_REGISTER_SPACE
     SizeInBytes: UInt32
     OffsetInBytes: UInt64
 WHV_VPCI_DEVICE_REGISTER_SPACE = Int32
-WHV_VPCI_DEVICE_REGISTER_SPACE_WHvVpciConfigSpace: win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_DEVICE_REGISTER_SPACE = -1
-WHV_VPCI_DEVICE_REGISTER_SPACE_WHvVpciBar0: win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_DEVICE_REGISTER_SPACE = 0
-WHV_VPCI_DEVICE_REGISTER_SPACE_WHvVpciBar1: win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_DEVICE_REGISTER_SPACE = 1
-WHV_VPCI_DEVICE_REGISTER_SPACE_WHvVpciBar2: win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_DEVICE_REGISTER_SPACE = 2
-WHV_VPCI_DEVICE_REGISTER_SPACE_WHvVpciBar3: win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_DEVICE_REGISTER_SPACE = 3
-WHV_VPCI_DEVICE_REGISTER_SPACE_WHvVpciBar4: win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_DEVICE_REGISTER_SPACE = 4
-WHV_VPCI_DEVICE_REGISTER_SPACE_WHvVpciBar5: win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_DEVICE_REGISTER_SPACE = 5
+WHvVpciConfigSpace: win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_DEVICE_REGISTER_SPACE = -1
+WHvVpciBar0: win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_DEVICE_REGISTER_SPACE = 0
+WHvVpciBar1: win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_DEVICE_REGISTER_SPACE = 1
+WHvVpciBar2: win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_DEVICE_REGISTER_SPACE = 2
+WHvVpciBar3: win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_DEVICE_REGISTER_SPACE = 3
+WHvVpciBar4: win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_DEVICE_REGISTER_SPACE = 4
+WHvVpciBar5: win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_DEVICE_REGISTER_SPACE = 5
 class WHV_VPCI_HARDWARE_IDS(EasyCastStructure):
     VendorID: UInt16
     DeviceID: UInt16
@@ -1431,8 +1431,8 @@ class WHV_VPCI_INTERRUPT_TARGET(EasyCastStructure):
     ProcessorCount: UInt32
     Processors: UInt32 * 1
 WHV_VPCI_INTERRUPT_TARGET_FLAGS = Int32
-WHV_VPCI_INTERRUPT_TARGET_FLAGS_WHvVpciInterruptTargetFlagNone: win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_INTERRUPT_TARGET_FLAGS = 0
-WHV_VPCI_INTERRUPT_TARGET_FLAGS_WHvVpciInterruptTargetFlagMulticast: win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_INTERRUPT_TARGET_FLAGS = 1
+WHvVpciInterruptTargetFlagNone: win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_INTERRUPT_TARGET_FLAGS = 0
+WHvVpciInterruptTargetFlagMulticast: win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_INTERRUPT_TARGET_FLAGS = 1
 class WHV_VPCI_MMIO_MAPPING(EasyCastStructure):
     Location: win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_DEVICE_REGISTER_SPACE
     Flags: win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_MMIO_RANGE_FLAGS
@@ -1440,8 +1440,8 @@ class WHV_VPCI_MMIO_MAPPING(EasyCastStructure):
     OffsetInBytes: UInt64
     VirtualAddress: VoidPtr
 WHV_VPCI_MMIO_RANGE_FLAGS = Int32
-WHV_VPCI_MMIO_RANGE_FLAGS_WHvVpciMmioRangeFlagReadAccess: win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_MMIO_RANGE_FLAGS = 1
-WHV_VPCI_MMIO_RANGE_FLAGS_WHvVpciMmioRangeFlagWriteAccess: win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_MMIO_RANGE_FLAGS = 2
+WHvVpciMmioRangeFlagReadAccess: win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_MMIO_RANGE_FLAGS = 1
+WHvVpciMmioRangeFlagWriteAccess: win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_MMIO_RANGE_FLAGS = 2
 class WHV_VPCI_PROBED_BARS(EasyCastStructure):
     Value: UInt32 * 6
 class WHV_VP_EXCEPTION_CONTEXT(EasyCastStructure):
@@ -1477,11 +1477,11 @@ class WHV_X64_APIC_WRITE_CONTEXT(EasyCastStructure):
     Reserved: UInt32
     WriteValue: UInt64
 WHV_X64_APIC_WRITE_TYPE = Int32
-WHV_X64_APIC_WRITE_TYPE_WHvX64ApicWriteTypeLdr: win32more.Windows.Win32.System.Hypervisor.WHV_X64_APIC_WRITE_TYPE = 208
-WHV_X64_APIC_WRITE_TYPE_WHvX64ApicWriteTypeDfr: win32more.Windows.Win32.System.Hypervisor.WHV_X64_APIC_WRITE_TYPE = 224
-WHV_X64_APIC_WRITE_TYPE_WHvX64ApicWriteTypeSvr: win32more.Windows.Win32.System.Hypervisor.WHV_X64_APIC_WRITE_TYPE = 240
-WHV_X64_APIC_WRITE_TYPE_WHvX64ApicWriteTypeLint0: win32more.Windows.Win32.System.Hypervisor.WHV_X64_APIC_WRITE_TYPE = 848
-WHV_X64_APIC_WRITE_TYPE_WHvX64ApicWriteTypeLint1: win32more.Windows.Win32.System.Hypervisor.WHV_X64_APIC_WRITE_TYPE = 864
+WHvX64ApicWriteTypeLdr: win32more.Windows.Win32.System.Hypervisor.WHV_X64_APIC_WRITE_TYPE = 208
+WHvX64ApicWriteTypeDfr: win32more.Windows.Win32.System.Hypervisor.WHV_X64_APIC_WRITE_TYPE = 224
+WHvX64ApicWriteTypeSvr: win32more.Windows.Win32.System.Hypervisor.WHV_X64_APIC_WRITE_TYPE = 240
+WHvX64ApicWriteTypeLint0: win32more.Windows.Win32.System.Hypervisor.WHV_X64_APIC_WRITE_TYPE = 848
+WHvX64ApicWriteTypeLint1: win32more.Windows.Win32.System.Hypervisor.WHV_X64_APIC_WRITE_TYPE = 864
 class WHV_X64_CPUID_ACCESS_CONTEXT(EasyCastStructure):
     Rax: UInt64
     Rcx: UInt64
@@ -1506,8 +1506,8 @@ class WHV_X64_CPUID_RESULT2(EasyCastStructure):
     Output: win32more.Windows.Win32.System.Hypervisor.WHV_CPUID_OUTPUT
     Mask: win32more.Windows.Win32.System.Hypervisor.WHV_CPUID_OUTPUT
 WHV_X64_CPUID_RESULT2_FLAGS = Int32
-WHV_X64_CPUID_RESULT2_FLAGS_WHvX64CpuidResult2FlagSubleafSpecific: win32more.Windows.Win32.System.Hypervisor.WHV_X64_CPUID_RESULT2_FLAGS = 1
-WHV_X64_CPUID_RESULT2_FLAGS_WHvX64CpuidResult2FlagVpSpecific: win32more.Windows.Win32.System.Hypervisor.WHV_X64_CPUID_RESULT2_FLAGS = 2
+WHvX64CpuidResult2FlagSubleafSpecific: win32more.Windows.Win32.System.Hypervisor.WHV_X64_CPUID_RESULT2_FLAGS = 1
+WHvX64CpuidResult2FlagVpSpecific: win32more.Windows.Win32.System.Hypervisor.WHV_X64_CPUID_RESULT2_FLAGS = 2
 class WHV_X64_DELIVERABILITY_NOTIFICATIONS_REGISTER(EasyCastUnion):
     Anonymous: _Anonymous_e__Struct
     AsUINT64: UInt64
@@ -1562,9 +1562,9 @@ class WHV_X64_IO_PORT_ACCESS_INFO(EasyCastUnion):
     class _Anonymous_e__Struct(EasyCastStructure):
         _bitfield: UInt32
 WHV_X64_LOCAL_APIC_EMULATION_MODE = Int32
-WHV_X64_LOCAL_APIC_EMULATION_MODE_WHvX64LocalApicEmulationModeNone: win32more.Windows.Win32.System.Hypervisor.WHV_X64_LOCAL_APIC_EMULATION_MODE = 0
-WHV_X64_LOCAL_APIC_EMULATION_MODE_WHvX64LocalApicEmulationModeXApic: win32more.Windows.Win32.System.Hypervisor.WHV_X64_LOCAL_APIC_EMULATION_MODE = 1
-WHV_X64_LOCAL_APIC_EMULATION_MODE_WHvX64LocalApicEmulationModeX2Apic: win32more.Windows.Win32.System.Hypervisor.WHV_X64_LOCAL_APIC_EMULATION_MODE = 2
+WHvX64LocalApicEmulationModeNone: win32more.Windows.Win32.System.Hypervisor.WHV_X64_LOCAL_APIC_EMULATION_MODE = 0
+WHvX64LocalApicEmulationModeXApic: win32more.Windows.Win32.System.Hypervisor.WHV_X64_LOCAL_APIC_EMULATION_MODE = 1
+WHvX64LocalApicEmulationModeX2Apic: win32more.Windows.Win32.System.Hypervisor.WHV_X64_LOCAL_APIC_EMULATION_MODE = 2
 class WHV_X64_MSR_ACCESS_CONTEXT(EasyCastStructure):
     AccessInfo: win32more.Windows.Win32.System.Hypervisor.WHV_X64_MSR_ACCESS_INFO
     MsrNumber: UInt32
@@ -1586,8 +1586,8 @@ class WHV_X64_PENDING_DEBUG_EXCEPTION(EasyCastUnion):
     class _Anonymous_e__Struct(EasyCastStructure):
         _bitfield: UInt64
 WHV_X64_PENDING_EVENT_TYPE = Int32
-WHV_X64_PENDING_EVENT_TYPE_WHvX64PendingEventException: win32more.Windows.Win32.System.Hypervisor.WHV_X64_PENDING_EVENT_TYPE = 0
-WHV_X64_PENDING_EVENT_TYPE_WHvX64PendingEventExtInt: win32more.Windows.Win32.System.Hypervisor.WHV_X64_PENDING_EVENT_TYPE = 5
+WHvX64PendingEventException: win32more.Windows.Win32.System.Hypervisor.WHV_X64_PENDING_EVENT_TYPE = 0
+WHvX64PendingEventExtInt: win32more.Windows.Win32.System.Hypervisor.WHV_X64_PENDING_EVENT_TYPE = 5
 class WHV_X64_PENDING_EXCEPTION_EVENT(EasyCastUnion):
     Anonymous: _Anonymous_e__Struct
     AsUINT128: win32more.Windows.Win32.System.Hypervisor.WHV_UINT128
@@ -1608,9 +1608,9 @@ class WHV_X64_PENDING_INTERRUPTION_REGISTER(EasyCastUnion):
         _bitfield: UInt32
         ErrorCode: UInt32
 WHV_X64_PENDING_INTERRUPTION_TYPE = Int32
-WHV_X64_PENDING_INTERRUPTION_TYPE_WHvX64PendingInterrupt: win32more.Windows.Win32.System.Hypervisor.WHV_X64_PENDING_INTERRUPTION_TYPE = 0
-WHV_X64_PENDING_INTERRUPTION_TYPE_WHvX64PendingNmi: win32more.Windows.Win32.System.Hypervisor.WHV_X64_PENDING_INTERRUPTION_TYPE = 2
-WHV_X64_PENDING_INTERRUPTION_TYPE_WHvX64PendingException: win32more.Windows.Win32.System.Hypervisor.WHV_X64_PENDING_INTERRUPTION_TYPE = 3
+WHvX64PendingInterrupt: win32more.Windows.Win32.System.Hypervisor.WHV_X64_PENDING_INTERRUPTION_TYPE = 0
+WHvX64PendingNmi: win32more.Windows.Win32.System.Hypervisor.WHV_X64_PENDING_INTERRUPTION_TYPE = 2
+WHvX64PendingException: win32more.Windows.Win32.System.Hypervisor.WHV_X64_PENDING_INTERRUPTION_TYPE = 3
 class WHV_X64_RDTSC_CONTEXT(EasyCastStructure):
     TscAux: UInt64
     VirtualOffset: UInt64
@@ -1637,8 +1637,8 @@ class WHV_X64_TABLE_REGISTER(EasyCastStructure):
     Limit: UInt16
     Base: UInt64
 WHV_X64_UNSUPPORTED_FEATURE_CODE = Int32
-WHV_X64_UNSUPPORTED_FEATURE_CODE_WHvUnsupportedFeatureIntercept: win32more.Windows.Win32.System.Hypervisor.WHV_X64_UNSUPPORTED_FEATURE_CODE = 1
-WHV_X64_UNSUPPORTED_FEATURE_CODE_WHvUnsupportedFeatureTaskSwitchTss: win32more.Windows.Win32.System.Hypervisor.WHV_X64_UNSUPPORTED_FEATURE_CODE = 2
+WHvUnsupportedFeatureIntercept: win32more.Windows.Win32.System.Hypervisor.WHV_X64_UNSUPPORTED_FEATURE_CODE = 1
+WHvUnsupportedFeatureTaskSwitchTss: win32more.Windows.Win32.System.Hypervisor.WHV_X64_UNSUPPORTED_FEATURE_CODE = 2
 class WHV_X64_UNSUPPORTED_FEATURE_CONTEXT(EasyCastStructure):
     FeatureCode: win32more.Windows.Win32.System.Hypervisor.WHV_X64_UNSUPPORTED_FEATURE_CODE
     Reserved: UInt32

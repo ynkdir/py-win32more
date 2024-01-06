@@ -1504,9 +1504,9 @@ class JsDebugPropertyInfo(EasyCastStructure):
     value: win32more.Windows.Win32.Foundation.BSTR
     fullName: win32more.Windows.Win32.Foundation.BSTR
     attr: win32more.Windows.Win32.System.Diagnostics.Debug.ActiveScript.JS_PROPERTY_ATTRIBUTES
-JsDebugReadMemoryFlags = Int32
-JsDebugReadMemoryFlags_None: win32more.Windows.Win32.System.Diagnostics.Debug.ActiveScript.JsDebugReadMemoryFlags = 0
-JsDebugReadMemoryFlags_JsDebugAllowPartialRead: win32more.Windows.Win32.System.Diagnostics.Debug.ActiveScript.JsDebugReadMemoryFlags = 1
+class JsDebugReadMemoryFlags(Int32):  # enum
+    None_ = 0
+    JsDebugAllowPartialRead = 1
 MachineDebugManager_DEBUG = Guid('{49769cec-3a55-4bb0-b697-88fede77e8ea}')
 MachineDebugManager_RETAIL = Guid('{0c0a3666-30c9-11d0-8f20-00805f2cd064}')
 PROFILER_EVENT_MASK = Int32

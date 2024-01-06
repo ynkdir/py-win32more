@@ -1512,20 +1512,20 @@ GC_WCH_FONLYAFTER: win32more.Windows.Win32.System.Ole.ENUM_CONTROLS_WHICH_FLAGS 
 GC_WCH_FONLYBEFORE: win32more.Windows.Win32.System.Ole.ENUM_CONTROLS_WHICH_FLAGS = 536870912
 GC_WCH_FSELECTED: win32more.Windows.Win32.System.Ole.ENUM_CONTROLS_WHICH_FLAGS = 1073741824
 FDEX_PROP_FLAGS = UInt32
-FDEX_PROP_FLAGS_fdexPropCanGet: win32more.Windows.Win32.System.Ole.FDEX_PROP_FLAGS = 1
-FDEX_PROP_FLAGS_fdexPropCannotGet: win32more.Windows.Win32.System.Ole.FDEX_PROP_FLAGS = 2
-FDEX_PROP_FLAGS_fdexPropCanPut: win32more.Windows.Win32.System.Ole.FDEX_PROP_FLAGS = 4
-FDEX_PROP_FLAGS_fdexPropCannotPut: win32more.Windows.Win32.System.Ole.FDEX_PROP_FLAGS = 8
-FDEX_PROP_FLAGS_fdexPropCanPutRef: win32more.Windows.Win32.System.Ole.FDEX_PROP_FLAGS = 16
-FDEX_PROP_FLAGS_fdexPropCannotPutRef: win32more.Windows.Win32.System.Ole.FDEX_PROP_FLAGS = 32
-FDEX_PROP_FLAGS_fdexPropNoSideEffects: win32more.Windows.Win32.System.Ole.FDEX_PROP_FLAGS = 64
-FDEX_PROP_FLAGS_fdexPropDynamicType: win32more.Windows.Win32.System.Ole.FDEX_PROP_FLAGS = 128
-FDEX_PROP_FLAGS_fdexPropCanCall: win32more.Windows.Win32.System.Ole.FDEX_PROP_FLAGS = 256
-FDEX_PROP_FLAGS_fdexPropCannotCall: win32more.Windows.Win32.System.Ole.FDEX_PROP_FLAGS = 512
-FDEX_PROP_FLAGS_fdexPropCanConstruct: win32more.Windows.Win32.System.Ole.FDEX_PROP_FLAGS = 1024
-FDEX_PROP_FLAGS_fdexPropCannotConstruct: win32more.Windows.Win32.System.Ole.FDEX_PROP_FLAGS = 2048
-FDEX_PROP_FLAGS_fdexPropCanSourceEvents: win32more.Windows.Win32.System.Ole.FDEX_PROP_FLAGS = 4096
-FDEX_PROP_FLAGS_fdexPropCannotSourceEvents: win32more.Windows.Win32.System.Ole.FDEX_PROP_FLAGS = 8192
+fdexPropCanGet: win32more.Windows.Win32.System.Ole.FDEX_PROP_FLAGS = 1
+fdexPropCannotGet: win32more.Windows.Win32.System.Ole.FDEX_PROP_FLAGS = 2
+fdexPropCanPut: win32more.Windows.Win32.System.Ole.FDEX_PROP_FLAGS = 4
+fdexPropCannotPut: win32more.Windows.Win32.System.Ole.FDEX_PROP_FLAGS = 8
+fdexPropCanPutRef: win32more.Windows.Win32.System.Ole.FDEX_PROP_FLAGS = 16
+fdexPropCannotPutRef: win32more.Windows.Win32.System.Ole.FDEX_PROP_FLAGS = 32
+fdexPropNoSideEffects: win32more.Windows.Win32.System.Ole.FDEX_PROP_FLAGS = 64
+fdexPropDynamicType: win32more.Windows.Win32.System.Ole.FDEX_PROP_FLAGS = 128
+fdexPropCanCall: win32more.Windows.Win32.System.Ole.FDEX_PROP_FLAGS = 256
+fdexPropCannotCall: win32more.Windows.Win32.System.Ole.FDEX_PROP_FLAGS = 512
+fdexPropCanConstruct: win32more.Windows.Win32.System.Ole.FDEX_PROP_FLAGS = 1024
+fdexPropCannotConstruct: win32more.Windows.Win32.System.Ole.FDEX_PROP_FLAGS = 2048
+fdexPropCanSourceEvents: win32more.Windows.Win32.System.Ole.FDEX_PROP_FLAGS = 4096
+fdexPropCannotSourceEvents: win32more.Windows.Win32.System.Ole.FDEX_PROP_FLAGS = 8192
 class FONTDESC(EasyCastStructure):
     cbSizeofstruct: UInt32
     lpstrName: win32more.Windows.Win32.Foundation.PWSTR
@@ -3416,9 +3416,9 @@ OLEWHICHMK_OBJREL: win32more.Windows.Win32.System.Ole.OLEWHICHMK = 2
 OLEWHICHMK_OBJFULL: win32more.Windows.Win32.System.Ole.OLEWHICHMK = 3
 OLE_HANDLE = UInt32
 OLE_TRISTATE = Int32
-OLE_TRISTATE_triUnchecked: win32more.Windows.Win32.System.Ole.OLE_TRISTATE = 0
-OLE_TRISTATE_triChecked: win32more.Windows.Win32.System.Ole.OLE_TRISTATE = 1
-OLE_TRISTATE_triGray: win32more.Windows.Win32.System.Ole.OLE_TRISTATE = 2
+triUnchecked: win32more.Windows.Win32.System.Ole.OLE_TRISTATE = 0
+triChecked: win32more.Windows.Win32.System.Ole.OLE_TRISTATE = 1
+triGray: win32more.Windows.Win32.System.Ole.OLE_TRISTATE = 2
 PAGEACTION_UI = Int32
 PAGEACTION_UI_DEFAULT: win32more.Windows.Win32.System.Ole.PAGEACTION_UI = 0
 PAGEACTION_UI_MODAL: win32more.Windows.Win32.System.Ole.PAGEACTION_UI = 1

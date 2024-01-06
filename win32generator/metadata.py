@@ -408,6 +408,9 @@ class CustomAttributeCollection(Collection[CustomAttribute]):
     def get_composable(self) -> CustomAttribute:
         return self.get("Windows.Foundation.Metadata.ComposableAttribute")
 
+    def has_scoped_enum(self) -> bool:
+        return self.has("Windows.Win32.Foundation.Metadata.ScopedEnumAttribute")
+
     def enumerate_dependencies(self) -> Iterable[str]:
         if self.has_activatable():
             for ca in self.get_activatable():

@@ -309,8 +309,8 @@ def SetErrorInfo(dwReserved: UInt32, perrinfo: win32more.Windows.Win32.System.Co
 @winfunctype('OLEAUT32.dll')
 def GetErrorInfo(dwReserved: UInt32, pperrinfo: POINTER(win32more.Windows.Win32.System.Com.IErrorInfo)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 ApplicationType = Int32
-ApplicationType_ServerApplication: win32more.Windows.Win32.System.Com.ApplicationType = 0
-ApplicationType_LibraryApplication: win32more.Windows.Win32.System.Com.ApplicationType = 1
+ServerApplication: win32more.Windows.Win32.System.Com.ApplicationType = 0
+LibraryApplication: win32more.Windows.Win32.System.Com.ApplicationType = 1
 class AsyncIAdviseSink(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{00000150-0000-0000-c000-000000000046}')
@@ -2196,8 +2196,8 @@ SYS_WIN32: win32more.Windows.Win32.System.Com.SYSKIND = 1
 SYS_MAC: win32more.Windows.Win32.System.Com.SYSKIND = 2
 SYS_WIN64: win32more.Windows.Win32.System.Com.SYSKIND = 3
 ShutdownType = Int32
-ShutdownType_IdleShutdown: win32more.Windows.Win32.System.Com.ShutdownType = 0
-ShutdownType_ForcedShutdown: win32more.Windows.Win32.System.Com.ShutdownType = 1
+IdleShutdown: win32more.Windows.Win32.System.Com.ShutdownType = 0
+ForcedShutdown: win32more.Windows.Win32.System.Com.ShutdownType = 1
 class StorageLayout(EasyCastStructure):
     LayoutType: UInt32
     pwcsElementName: win32more.Windows.Win32.Foundation.PWSTR

@@ -151,74 +151,74 @@ class HCS_EVENT(EasyCastStructure):
 @winfunctype_pointer
 def HCS_EVENT_CALLBACK(event: POINTER(win32more.Windows.Win32.System.HostComputeSystem.HCS_EVENT), context: VoidPtr) -> Void: ...
 HCS_EVENT_OPTIONS = Int32
-HCS_EVENT_OPTIONS_HcsEventOptionNone: win32more.Windows.Win32.System.HostComputeSystem.HCS_EVENT_OPTIONS = 0
-HCS_EVENT_OPTIONS_HcsEventOptionEnableOperationCallbacks: win32more.Windows.Win32.System.HostComputeSystem.HCS_EVENT_OPTIONS = 1
-HCS_EVENT_OPTIONS_HcsEventOptionEnableVmLifecycle: win32more.Windows.Win32.System.HostComputeSystem.HCS_EVENT_OPTIONS = 2
+HcsEventOptionNone: win32more.Windows.Win32.System.HostComputeSystem.HCS_EVENT_OPTIONS = 0
+HcsEventOptionEnableOperationCallbacks: win32more.Windows.Win32.System.HostComputeSystem.HCS_EVENT_OPTIONS = 1
+HcsEventOptionEnableVmLifecycle: win32more.Windows.Win32.System.HostComputeSystem.HCS_EVENT_OPTIONS = 2
 HCS_EVENT_TYPE = Int32
-HCS_EVENT_TYPE_HcsEventInvalid: win32more.Windows.Win32.System.HostComputeSystem.HCS_EVENT_TYPE = 0
-HCS_EVENT_TYPE_HcsEventSystemExited: win32more.Windows.Win32.System.HostComputeSystem.HCS_EVENT_TYPE = 1
-HCS_EVENT_TYPE_HcsEventSystemCrashInitiated: win32more.Windows.Win32.System.HostComputeSystem.HCS_EVENT_TYPE = 2
-HCS_EVENT_TYPE_HcsEventSystemCrashReport: win32more.Windows.Win32.System.HostComputeSystem.HCS_EVENT_TYPE = 3
-HCS_EVENT_TYPE_HcsEventSystemRdpEnhancedModeStateChanged: win32more.Windows.Win32.System.HostComputeSystem.HCS_EVENT_TYPE = 4
-HCS_EVENT_TYPE_HcsEventSystemSiloJobCreated: win32more.Windows.Win32.System.HostComputeSystem.HCS_EVENT_TYPE = 5
-HCS_EVENT_TYPE_HcsEventSystemGuestConnectionClosed: win32more.Windows.Win32.System.HostComputeSystem.HCS_EVENT_TYPE = 6
-HCS_EVENT_TYPE_HcsEventProcessExited: win32more.Windows.Win32.System.HostComputeSystem.HCS_EVENT_TYPE = 65536
-HCS_EVENT_TYPE_HcsEventOperationCallback: win32more.Windows.Win32.System.HostComputeSystem.HCS_EVENT_TYPE = 16777216
-HCS_EVENT_TYPE_HcsEventServiceDisconnect: win32more.Windows.Win32.System.HostComputeSystem.HCS_EVENT_TYPE = 33554432
-HCS_EVENT_TYPE_HcsEventGroupVmLifecycle: win32more.Windows.Win32.System.HostComputeSystem.HCS_EVENT_TYPE = -2147483646
-HCS_EVENT_TYPE_HcsEventGroupOperationInfo: win32more.Windows.Win32.System.HostComputeSystem.HCS_EVENT_TYPE = -1073741823
+HcsEventInvalid: win32more.Windows.Win32.System.HostComputeSystem.HCS_EVENT_TYPE = 0
+HcsEventSystemExited: win32more.Windows.Win32.System.HostComputeSystem.HCS_EVENT_TYPE = 1
+HcsEventSystemCrashInitiated: win32more.Windows.Win32.System.HostComputeSystem.HCS_EVENT_TYPE = 2
+HcsEventSystemCrashReport: win32more.Windows.Win32.System.HostComputeSystem.HCS_EVENT_TYPE = 3
+HcsEventSystemRdpEnhancedModeStateChanged: win32more.Windows.Win32.System.HostComputeSystem.HCS_EVENT_TYPE = 4
+HcsEventSystemSiloJobCreated: win32more.Windows.Win32.System.HostComputeSystem.HCS_EVENT_TYPE = 5
+HcsEventSystemGuestConnectionClosed: win32more.Windows.Win32.System.HostComputeSystem.HCS_EVENT_TYPE = 6
+HcsEventProcessExited: win32more.Windows.Win32.System.HostComputeSystem.HCS_EVENT_TYPE = 65536
+HcsEventOperationCallback: win32more.Windows.Win32.System.HostComputeSystem.HCS_EVENT_TYPE = 16777216
+HcsEventServiceDisconnect: win32more.Windows.Win32.System.HostComputeSystem.HCS_EVENT_TYPE = 33554432
+HcsEventGroupVmLifecycle: win32more.Windows.Win32.System.HostComputeSystem.HCS_EVENT_TYPE = -2147483646
+HcsEventGroupOperationInfo: win32more.Windows.Win32.System.HostComputeSystem.HCS_EVENT_TYPE = -1073741823
 HCS_NOTIFICATIONS = Int32
-HCS_NOTIFICATIONS_HcsNotificationInvalid: win32more.Windows.Win32.System.HostComputeSystem.HCS_NOTIFICATIONS = 0
-HCS_NOTIFICATIONS_HcsNotificationSystemExited: win32more.Windows.Win32.System.HostComputeSystem.HCS_NOTIFICATIONS = 1
-HCS_NOTIFICATIONS_HcsNotificationSystemCreateCompleted: win32more.Windows.Win32.System.HostComputeSystem.HCS_NOTIFICATIONS = 2
-HCS_NOTIFICATIONS_HcsNotificationSystemStartCompleted: win32more.Windows.Win32.System.HostComputeSystem.HCS_NOTIFICATIONS = 3
-HCS_NOTIFICATIONS_HcsNotificationSystemPauseCompleted: win32more.Windows.Win32.System.HostComputeSystem.HCS_NOTIFICATIONS = 4
-HCS_NOTIFICATIONS_HcsNotificationSystemResumeCompleted: win32more.Windows.Win32.System.HostComputeSystem.HCS_NOTIFICATIONS = 5
-HCS_NOTIFICATIONS_HcsNotificationSystemCrashReport: win32more.Windows.Win32.System.HostComputeSystem.HCS_NOTIFICATIONS = 6
-HCS_NOTIFICATIONS_HcsNotificationSystemSiloJobCreated: win32more.Windows.Win32.System.HostComputeSystem.HCS_NOTIFICATIONS = 7
-HCS_NOTIFICATIONS_HcsNotificationSystemSaveCompleted: win32more.Windows.Win32.System.HostComputeSystem.HCS_NOTIFICATIONS = 8
-HCS_NOTIFICATIONS_HcsNotificationSystemRdpEnhancedModeStateChanged: win32more.Windows.Win32.System.HostComputeSystem.HCS_NOTIFICATIONS = 9
-HCS_NOTIFICATIONS_HcsNotificationSystemShutdownFailed: win32more.Windows.Win32.System.HostComputeSystem.HCS_NOTIFICATIONS = 10
-HCS_NOTIFICATIONS_HcsNotificationSystemShutdownCompleted: win32more.Windows.Win32.System.HostComputeSystem.HCS_NOTIFICATIONS = 10
-HCS_NOTIFICATIONS_HcsNotificationSystemGetPropertiesCompleted: win32more.Windows.Win32.System.HostComputeSystem.HCS_NOTIFICATIONS = 11
-HCS_NOTIFICATIONS_HcsNotificationSystemModifyCompleted: win32more.Windows.Win32.System.HostComputeSystem.HCS_NOTIFICATIONS = 12
-HCS_NOTIFICATIONS_HcsNotificationSystemCrashInitiated: win32more.Windows.Win32.System.HostComputeSystem.HCS_NOTIFICATIONS = 13
-HCS_NOTIFICATIONS_HcsNotificationSystemGuestConnectionClosed: win32more.Windows.Win32.System.HostComputeSystem.HCS_NOTIFICATIONS = 14
-HCS_NOTIFICATIONS_HcsNotificationSystemOperationCompletion: win32more.Windows.Win32.System.HostComputeSystem.HCS_NOTIFICATIONS = 15
-HCS_NOTIFICATIONS_HcsNotificationSystemPassThru: win32more.Windows.Win32.System.HostComputeSystem.HCS_NOTIFICATIONS = 16
-HCS_NOTIFICATIONS_HcsNotificationOperationProgressUpdate: win32more.Windows.Win32.System.HostComputeSystem.HCS_NOTIFICATIONS = 256
-HCS_NOTIFICATIONS_HcsNotificationProcessExited: win32more.Windows.Win32.System.HostComputeSystem.HCS_NOTIFICATIONS = 65536
-HCS_NOTIFICATIONS_HcsNotificationServiceDisconnect: win32more.Windows.Win32.System.HostComputeSystem.HCS_NOTIFICATIONS = 16777216
-HCS_NOTIFICATIONS_HcsNotificationFlagsReserved: win32more.Windows.Win32.System.HostComputeSystem.HCS_NOTIFICATIONS = -268435456
+HcsNotificationInvalid: win32more.Windows.Win32.System.HostComputeSystem.HCS_NOTIFICATIONS = 0
+HcsNotificationSystemExited: win32more.Windows.Win32.System.HostComputeSystem.HCS_NOTIFICATIONS = 1
+HcsNotificationSystemCreateCompleted: win32more.Windows.Win32.System.HostComputeSystem.HCS_NOTIFICATIONS = 2
+HcsNotificationSystemStartCompleted: win32more.Windows.Win32.System.HostComputeSystem.HCS_NOTIFICATIONS = 3
+HcsNotificationSystemPauseCompleted: win32more.Windows.Win32.System.HostComputeSystem.HCS_NOTIFICATIONS = 4
+HcsNotificationSystemResumeCompleted: win32more.Windows.Win32.System.HostComputeSystem.HCS_NOTIFICATIONS = 5
+HcsNotificationSystemCrashReport: win32more.Windows.Win32.System.HostComputeSystem.HCS_NOTIFICATIONS = 6
+HcsNotificationSystemSiloJobCreated: win32more.Windows.Win32.System.HostComputeSystem.HCS_NOTIFICATIONS = 7
+HcsNotificationSystemSaveCompleted: win32more.Windows.Win32.System.HostComputeSystem.HCS_NOTIFICATIONS = 8
+HcsNotificationSystemRdpEnhancedModeStateChanged: win32more.Windows.Win32.System.HostComputeSystem.HCS_NOTIFICATIONS = 9
+HcsNotificationSystemShutdownFailed: win32more.Windows.Win32.System.HostComputeSystem.HCS_NOTIFICATIONS = 10
+HcsNotificationSystemShutdownCompleted: win32more.Windows.Win32.System.HostComputeSystem.HCS_NOTIFICATIONS = 10
+HcsNotificationSystemGetPropertiesCompleted: win32more.Windows.Win32.System.HostComputeSystem.HCS_NOTIFICATIONS = 11
+HcsNotificationSystemModifyCompleted: win32more.Windows.Win32.System.HostComputeSystem.HCS_NOTIFICATIONS = 12
+HcsNotificationSystemCrashInitiated: win32more.Windows.Win32.System.HostComputeSystem.HCS_NOTIFICATIONS = 13
+HcsNotificationSystemGuestConnectionClosed: win32more.Windows.Win32.System.HostComputeSystem.HCS_NOTIFICATIONS = 14
+HcsNotificationSystemOperationCompletion: win32more.Windows.Win32.System.HostComputeSystem.HCS_NOTIFICATIONS = 15
+HcsNotificationSystemPassThru: win32more.Windows.Win32.System.HostComputeSystem.HCS_NOTIFICATIONS = 16
+HcsNotificationOperationProgressUpdate: win32more.Windows.Win32.System.HostComputeSystem.HCS_NOTIFICATIONS = 256
+HcsNotificationProcessExited: win32more.Windows.Win32.System.HostComputeSystem.HCS_NOTIFICATIONS = 65536
+HcsNotificationServiceDisconnect: win32more.Windows.Win32.System.HostComputeSystem.HCS_NOTIFICATIONS = 16777216
+HcsNotificationFlagsReserved: win32more.Windows.Win32.System.HostComputeSystem.HCS_NOTIFICATIONS = -268435456
 @winfunctype_pointer
 def HCS_NOTIFICATION_CALLBACK(notificationType: UInt32, context: VoidPtr, notificationStatus: win32more.Windows.Win32.Foundation.HRESULT, notificationData: win32more.Windows.Win32.Foundation.PWSTR) -> Void: ...
 HCS_NOTIFICATION_FLAGS = Int32
-HCS_NOTIFICATION_FLAGS_HcsNotificationFlagSuccess: win32more.Windows.Win32.System.HostComputeSystem.HCS_NOTIFICATION_FLAGS = 0
-HCS_NOTIFICATION_FLAGS_HcsNotificationFlagFailure: win32more.Windows.Win32.System.HostComputeSystem.HCS_NOTIFICATION_FLAGS = -2147483648
+HcsNotificationFlagSuccess: win32more.Windows.Win32.System.HostComputeSystem.HCS_NOTIFICATION_FLAGS = 0
+HcsNotificationFlagFailure: win32more.Windows.Win32.System.HostComputeSystem.HCS_NOTIFICATION_FLAGS = -2147483648
 HCS_OPERATION = IntPtr
 @winfunctype_pointer
 def HCS_OPERATION_COMPLETION(operation: win32more.Windows.Win32.System.HostComputeSystem.HCS_OPERATION, context: VoidPtr) -> Void: ...
 HCS_OPERATION_OPTIONS = Int32
-HCS_OPERATION_OPTIONS_HcsOperationOptionNone: win32more.Windows.Win32.System.HostComputeSystem.HCS_OPERATION_OPTIONS = 0
-HCS_OPERATION_OPTIONS_HcsOperationOptionProgressUpdate: win32more.Windows.Win32.System.HostComputeSystem.HCS_OPERATION_OPTIONS = 1
+HcsOperationOptionNone: win32more.Windows.Win32.System.HostComputeSystem.HCS_OPERATION_OPTIONS = 0
+HcsOperationOptionProgressUpdate: win32more.Windows.Win32.System.HostComputeSystem.HCS_OPERATION_OPTIONS = 1
 HCS_OPERATION_TYPE = Int32
-HCS_OPERATION_TYPE_HcsOperationTypeNone: win32more.Windows.Win32.System.HostComputeSystem.HCS_OPERATION_TYPE = -1
-HCS_OPERATION_TYPE_HcsOperationTypeEnumerate: win32more.Windows.Win32.System.HostComputeSystem.HCS_OPERATION_TYPE = 0
-HCS_OPERATION_TYPE_HcsOperationTypeCreate: win32more.Windows.Win32.System.HostComputeSystem.HCS_OPERATION_TYPE = 1
-HCS_OPERATION_TYPE_HcsOperationTypeStart: win32more.Windows.Win32.System.HostComputeSystem.HCS_OPERATION_TYPE = 2
-HCS_OPERATION_TYPE_HcsOperationTypeShutdown: win32more.Windows.Win32.System.HostComputeSystem.HCS_OPERATION_TYPE = 3
-HCS_OPERATION_TYPE_HcsOperationTypePause: win32more.Windows.Win32.System.HostComputeSystem.HCS_OPERATION_TYPE = 4
-HCS_OPERATION_TYPE_HcsOperationTypeResume: win32more.Windows.Win32.System.HostComputeSystem.HCS_OPERATION_TYPE = 5
-HCS_OPERATION_TYPE_HcsOperationTypeSave: win32more.Windows.Win32.System.HostComputeSystem.HCS_OPERATION_TYPE = 6
-HCS_OPERATION_TYPE_HcsOperationTypeTerminate: win32more.Windows.Win32.System.HostComputeSystem.HCS_OPERATION_TYPE = 7
-HCS_OPERATION_TYPE_HcsOperationTypeModify: win32more.Windows.Win32.System.HostComputeSystem.HCS_OPERATION_TYPE = 8
-HCS_OPERATION_TYPE_HcsOperationTypeGetProperties: win32more.Windows.Win32.System.HostComputeSystem.HCS_OPERATION_TYPE = 9
-HCS_OPERATION_TYPE_HcsOperationTypeCreateProcess: win32more.Windows.Win32.System.HostComputeSystem.HCS_OPERATION_TYPE = 10
-HCS_OPERATION_TYPE_HcsOperationTypeSignalProcess: win32more.Windows.Win32.System.HostComputeSystem.HCS_OPERATION_TYPE = 11
-HCS_OPERATION_TYPE_HcsOperationTypeGetProcessInfo: win32more.Windows.Win32.System.HostComputeSystem.HCS_OPERATION_TYPE = 12
-HCS_OPERATION_TYPE_HcsOperationTypeGetProcessProperties: win32more.Windows.Win32.System.HostComputeSystem.HCS_OPERATION_TYPE = 13
-HCS_OPERATION_TYPE_HcsOperationTypeModifyProcess: win32more.Windows.Win32.System.HostComputeSystem.HCS_OPERATION_TYPE = 14
-HCS_OPERATION_TYPE_HcsOperationTypeCrash: win32more.Windows.Win32.System.HostComputeSystem.HCS_OPERATION_TYPE = 15
+HcsOperationTypeNone: win32more.Windows.Win32.System.HostComputeSystem.HCS_OPERATION_TYPE = -1
+HcsOperationTypeEnumerate: win32more.Windows.Win32.System.HostComputeSystem.HCS_OPERATION_TYPE = 0
+HcsOperationTypeCreate: win32more.Windows.Win32.System.HostComputeSystem.HCS_OPERATION_TYPE = 1
+HcsOperationTypeStart: win32more.Windows.Win32.System.HostComputeSystem.HCS_OPERATION_TYPE = 2
+HcsOperationTypeShutdown: win32more.Windows.Win32.System.HostComputeSystem.HCS_OPERATION_TYPE = 3
+HcsOperationTypePause: win32more.Windows.Win32.System.HostComputeSystem.HCS_OPERATION_TYPE = 4
+HcsOperationTypeResume: win32more.Windows.Win32.System.HostComputeSystem.HCS_OPERATION_TYPE = 5
+HcsOperationTypeSave: win32more.Windows.Win32.System.HostComputeSystem.HCS_OPERATION_TYPE = 6
+HcsOperationTypeTerminate: win32more.Windows.Win32.System.HostComputeSystem.HCS_OPERATION_TYPE = 7
+HcsOperationTypeModify: win32more.Windows.Win32.System.HostComputeSystem.HCS_OPERATION_TYPE = 8
+HcsOperationTypeGetProperties: win32more.Windows.Win32.System.HostComputeSystem.HCS_OPERATION_TYPE = 9
+HcsOperationTypeCreateProcess: win32more.Windows.Win32.System.HostComputeSystem.HCS_OPERATION_TYPE = 10
+HcsOperationTypeSignalProcess: win32more.Windows.Win32.System.HostComputeSystem.HCS_OPERATION_TYPE = 11
+HcsOperationTypeGetProcessInfo: win32more.Windows.Win32.System.HostComputeSystem.HCS_OPERATION_TYPE = 12
+HcsOperationTypeGetProcessProperties: win32more.Windows.Win32.System.HostComputeSystem.HCS_OPERATION_TYPE = 13
+HcsOperationTypeModifyProcess: win32more.Windows.Win32.System.HostComputeSystem.HCS_OPERATION_TYPE = 14
+HcsOperationTypeCrash: win32more.Windows.Win32.System.HostComputeSystem.HCS_OPERATION_TYPE = 15
 HCS_PROCESS = IntPtr
 class HCS_PROCESS_INFORMATION(EasyCastStructure):
     ProcessId: UInt32
@@ -227,9 +227,9 @@ class HCS_PROCESS_INFORMATION(EasyCastStructure):
     StdOutput: win32more.Windows.Win32.Foundation.HANDLE
     StdError: win32more.Windows.Win32.Foundation.HANDLE
 HCS_RESOURCE_TYPE = Int32
-HCS_RESOURCE_TYPE_HcsResourceTypeNone: win32more.Windows.Win32.System.HostComputeSystem.HCS_RESOURCE_TYPE = 0
-HCS_RESOURCE_TYPE_HcsResourceTypeFile: win32more.Windows.Win32.System.HostComputeSystem.HCS_RESOURCE_TYPE = 1
-HCS_RESOURCE_TYPE_HcsResourceTypeJob: win32more.Windows.Win32.System.HostComputeSystem.HCS_RESOURCE_TYPE = 2
+HcsResourceTypeNone: win32more.Windows.Win32.System.HostComputeSystem.HCS_RESOURCE_TYPE = 0
+HcsResourceTypeFile: win32more.Windows.Win32.System.HostComputeSystem.HCS_RESOURCE_TYPE = 1
+HcsResourceTypeJob: win32more.Windows.Win32.System.HostComputeSystem.HCS_RESOURCE_TYPE = 2
 HCS_SYSTEM = IntPtr
 
 

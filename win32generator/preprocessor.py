@@ -20,7 +20,6 @@ class Preprocessor:
     def sort(self, meta: Metadata) -> Metadata:
         return Metadata(sorted(meta, key=lambda td: (td.namespace, td.name)))
 
-    # FIXME: enum value name? (NAME or ENUM_NAME or ENUM.Name?)
     def patch_enum(self, meta: Metadata) -> None:
         for td in meta:
             if td.basetype != "System.Enum":
@@ -37,16 +36,6 @@ class Preprocessor:
                         logger.info(f"enum rename '{td.fullname}.{fd.name}'")
                         fd["Name"] = f"{fd['Name']}_"
                         break
-            elif self.enum_need_prefix(td):
-                for fd in td.fields[1:]:  # skip [0] which is type field
-                    # logger.debug(f"enum rename '{td.fullname}.{fd.name}'")
-                    fd["Name"] = f"{td['Name']}_{fd['Name']}"
-
-    def enum_need_prefix(self, td: TypeDefinition) -> bool:
-        for fd in td.fields[1:]:
-            if not ("_" in fd.name or fd.name.isupper()):
-                return True
-        return False
 
     def patch_name_conflict(self, meta: Metadata) -> None:
         meta_group_by_fullname = meta.group_by_fullname()
@@ -59,9 +48,12 @@ class Preprocessor:
             elif td.basetype == "System.Enum":
                 if td.is_winrt:
                     continue
+                if td.custom_attributes.has_scoped_enum():
+                    continue
                 for fd in td.fields[1:]:
-                    if f"{td.namespace}.{fd.name}" in meta_group_by_fullname:
-                        logger.warning(f"enum name conflict '{td.namespace}.{td.name}.{fd.name}'")
+                    if f"{fd.name}" in meta_group_by_fullname:
+                        logger.error(f"enum name conflict '{td.fullname}.{fd.name}'")
+                        raise ValueError()
 
     def patch_keyword_name(self, meta: Metadata) -> None:
         for td in meta:

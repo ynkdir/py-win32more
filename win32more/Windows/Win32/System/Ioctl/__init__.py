@@ -1064,8 +1064,8 @@ class BIN_RESULTS(EasyCastStructure):
     NumberOfBins: UInt32
     BinCounts: win32more.Windows.Win32.System.Ioctl.BIN_COUNT * 1
 BIN_TYPES = Int32
-BIN_TYPES_RequestSize: win32more.Windows.Win32.System.Ioctl.BIN_TYPES = 0
-BIN_TYPES_RequestLocation: win32more.Windows.Win32.System.Ioctl.BIN_TYPES = 1
+RequestSize: win32more.Windows.Win32.System.Ioctl.BIN_TYPES = 0
+RequestLocation: win32more.Windows.Win32.System.Ioctl.BIN_TYPES = 1
 class BOOT_AREA_INFO(EasyCastStructure):
     BootSectorCount: UInt32
     BootSectors: _Anonymous_e__Struct * 2
@@ -1075,20 +1075,20 @@ class BULK_SECURITY_TEST_DATA(EasyCastStructure):
     DesiredAccess: UInt32
     SecurityIds: UInt32 * 1
 CHANGER_DEVICE_PROBLEM_TYPE = Int32
-CHANGER_DEVICE_PROBLEM_TYPE_DeviceProblemNone: win32more.Windows.Win32.System.Ioctl.CHANGER_DEVICE_PROBLEM_TYPE = 0
-CHANGER_DEVICE_PROBLEM_TYPE_DeviceProblemHardware: win32more.Windows.Win32.System.Ioctl.CHANGER_DEVICE_PROBLEM_TYPE = 1
-CHANGER_DEVICE_PROBLEM_TYPE_DeviceProblemCHMError: win32more.Windows.Win32.System.Ioctl.CHANGER_DEVICE_PROBLEM_TYPE = 2
-CHANGER_DEVICE_PROBLEM_TYPE_DeviceProblemDoorOpen: win32more.Windows.Win32.System.Ioctl.CHANGER_DEVICE_PROBLEM_TYPE = 3
-CHANGER_DEVICE_PROBLEM_TYPE_DeviceProblemCalibrationError: win32more.Windows.Win32.System.Ioctl.CHANGER_DEVICE_PROBLEM_TYPE = 4
-CHANGER_DEVICE_PROBLEM_TYPE_DeviceProblemTargetFailure: win32more.Windows.Win32.System.Ioctl.CHANGER_DEVICE_PROBLEM_TYPE = 5
-CHANGER_DEVICE_PROBLEM_TYPE_DeviceProblemCHMMoveError: win32more.Windows.Win32.System.Ioctl.CHANGER_DEVICE_PROBLEM_TYPE = 6
-CHANGER_DEVICE_PROBLEM_TYPE_DeviceProblemCHMZeroError: win32more.Windows.Win32.System.Ioctl.CHANGER_DEVICE_PROBLEM_TYPE = 7
-CHANGER_DEVICE_PROBLEM_TYPE_DeviceProblemCartridgeInsertError: win32more.Windows.Win32.System.Ioctl.CHANGER_DEVICE_PROBLEM_TYPE = 8
-CHANGER_DEVICE_PROBLEM_TYPE_DeviceProblemPositionError: win32more.Windows.Win32.System.Ioctl.CHANGER_DEVICE_PROBLEM_TYPE = 9
-CHANGER_DEVICE_PROBLEM_TYPE_DeviceProblemSensorError: win32more.Windows.Win32.System.Ioctl.CHANGER_DEVICE_PROBLEM_TYPE = 10
-CHANGER_DEVICE_PROBLEM_TYPE_DeviceProblemCartridgeEjectError: win32more.Windows.Win32.System.Ioctl.CHANGER_DEVICE_PROBLEM_TYPE = 11
-CHANGER_DEVICE_PROBLEM_TYPE_DeviceProblemGripperError: win32more.Windows.Win32.System.Ioctl.CHANGER_DEVICE_PROBLEM_TYPE = 12
-CHANGER_DEVICE_PROBLEM_TYPE_DeviceProblemDriveError: win32more.Windows.Win32.System.Ioctl.CHANGER_DEVICE_PROBLEM_TYPE = 13
+DeviceProblemNone: win32more.Windows.Win32.System.Ioctl.CHANGER_DEVICE_PROBLEM_TYPE = 0
+DeviceProblemHardware: win32more.Windows.Win32.System.Ioctl.CHANGER_DEVICE_PROBLEM_TYPE = 1
+DeviceProblemCHMError: win32more.Windows.Win32.System.Ioctl.CHANGER_DEVICE_PROBLEM_TYPE = 2
+DeviceProblemDoorOpen: win32more.Windows.Win32.System.Ioctl.CHANGER_DEVICE_PROBLEM_TYPE = 3
+DeviceProblemCalibrationError: win32more.Windows.Win32.System.Ioctl.CHANGER_DEVICE_PROBLEM_TYPE = 4
+DeviceProblemTargetFailure: win32more.Windows.Win32.System.Ioctl.CHANGER_DEVICE_PROBLEM_TYPE = 5
+DeviceProblemCHMMoveError: win32more.Windows.Win32.System.Ioctl.CHANGER_DEVICE_PROBLEM_TYPE = 6
+DeviceProblemCHMZeroError: win32more.Windows.Win32.System.Ioctl.CHANGER_DEVICE_PROBLEM_TYPE = 7
+DeviceProblemCartridgeInsertError: win32more.Windows.Win32.System.Ioctl.CHANGER_DEVICE_PROBLEM_TYPE = 8
+DeviceProblemPositionError: win32more.Windows.Win32.System.Ioctl.CHANGER_DEVICE_PROBLEM_TYPE = 9
+DeviceProblemSensorError: win32more.Windows.Win32.System.Ioctl.CHANGER_DEVICE_PROBLEM_TYPE = 10
+DeviceProblemCartridgeEjectError: win32more.Windows.Win32.System.Ioctl.CHANGER_DEVICE_PROBLEM_TYPE = 11
+DeviceProblemGripperError: win32more.Windows.Win32.System.Ioctl.CHANGER_DEVICE_PROBLEM_TYPE = 12
+DeviceProblemDriveError: win32more.Windows.Win32.System.Ioctl.CHANGER_DEVICE_PROBLEM_TYPE = 13
 class CHANGER_ELEMENT(EasyCastStructure):
     ElementType: win32more.Windows.Win32.System.Ioctl.ELEMENT_TYPE
     ElementAddress: UInt32
@@ -1226,29 +1226,29 @@ class CREATE_USN_JOURNAL_DATA(EasyCastStructure):
     MaximumSize: UInt64
     AllocationDelta: UInt64
 CSVFS_DISK_CONNECTIVITY = Int32
-CSVFS_DISK_CONNECTIVITY_CsvFsDiskConnectivityNone: win32more.Windows.Win32.System.Ioctl.CSVFS_DISK_CONNECTIVITY = 0
-CSVFS_DISK_CONNECTIVITY_CsvFsDiskConnectivityMdsNodeOnly: win32more.Windows.Win32.System.Ioctl.CSVFS_DISK_CONNECTIVITY = 1
-CSVFS_DISK_CONNECTIVITY_CsvFsDiskConnectivitySubsetOfNodes: win32more.Windows.Win32.System.Ioctl.CSVFS_DISK_CONNECTIVITY = 2
-CSVFS_DISK_CONNECTIVITY_CsvFsDiskConnectivityAllNodes: win32more.Windows.Win32.System.Ioctl.CSVFS_DISK_CONNECTIVITY = 3
+CsvFsDiskConnectivityNone: win32more.Windows.Win32.System.Ioctl.CSVFS_DISK_CONNECTIVITY = 0
+CsvFsDiskConnectivityMdsNodeOnly: win32more.Windows.Win32.System.Ioctl.CSVFS_DISK_CONNECTIVITY = 1
+CsvFsDiskConnectivitySubsetOfNodes: win32more.Windows.Win32.System.Ioctl.CSVFS_DISK_CONNECTIVITY = 2
+CsvFsDiskConnectivityAllNodes: win32more.Windows.Win32.System.Ioctl.CSVFS_DISK_CONNECTIVITY = 3
 CSV_CONTROL_OP = Int32
-CSV_CONTROL_OP_CsvControlStartRedirectFile: win32more.Windows.Win32.System.Ioctl.CSV_CONTROL_OP = 2
-CSV_CONTROL_OP_CsvControlStopRedirectFile: win32more.Windows.Win32.System.Ioctl.CSV_CONTROL_OP = 3
-CSV_CONTROL_OP_CsvControlQueryRedirectState: win32more.Windows.Win32.System.Ioctl.CSV_CONTROL_OP = 4
-CSV_CONTROL_OP_CsvControlQueryFileRevision: win32more.Windows.Win32.System.Ioctl.CSV_CONTROL_OP = 6
-CSV_CONTROL_OP_CsvControlQueryMdsPath: win32more.Windows.Win32.System.Ioctl.CSV_CONTROL_OP = 8
-CSV_CONTROL_OP_CsvControlQueryFileRevisionFileId128: win32more.Windows.Win32.System.Ioctl.CSV_CONTROL_OP = 9
-CSV_CONTROL_OP_CsvControlQueryVolumeRedirectState: win32more.Windows.Win32.System.Ioctl.CSV_CONTROL_OP = 10
-CSV_CONTROL_OP_CsvControlEnableUSNRangeModificationTracking: win32more.Windows.Win32.System.Ioctl.CSV_CONTROL_OP = 13
-CSV_CONTROL_OP_CsvControlMarkHandleLocalVolumeMount: win32more.Windows.Win32.System.Ioctl.CSV_CONTROL_OP = 14
-CSV_CONTROL_OP_CsvControlUnmarkHandleLocalVolumeMount: win32more.Windows.Win32.System.Ioctl.CSV_CONTROL_OP = 15
-CSV_CONTROL_OP_CsvControlGetCsvFsMdsPathV2: win32more.Windows.Win32.System.Ioctl.CSV_CONTROL_OP = 18
-CSV_CONTROL_OP_CsvControlDisableCaching: win32more.Windows.Win32.System.Ioctl.CSV_CONTROL_OP = 19
-CSV_CONTROL_OP_CsvControlEnableCaching: win32more.Windows.Win32.System.Ioctl.CSV_CONTROL_OP = 20
-CSV_CONTROL_OP_CsvControlStartForceDFO: win32more.Windows.Win32.System.Ioctl.CSV_CONTROL_OP = 21
-CSV_CONTROL_OP_CsvControlStopForceDFO: win32more.Windows.Win32.System.Ioctl.CSV_CONTROL_OP = 22
-CSV_CONTROL_OP_CsvControlQueryMdsPathNoPause: win32more.Windows.Win32.System.Ioctl.CSV_CONTROL_OP = 23
-CSV_CONTROL_OP_CsvControlSetVolumeId: win32more.Windows.Win32.System.Ioctl.CSV_CONTROL_OP = 24
-CSV_CONTROL_OP_CsvControlQueryVolumeId: win32more.Windows.Win32.System.Ioctl.CSV_CONTROL_OP = 25
+CsvControlStartRedirectFile: win32more.Windows.Win32.System.Ioctl.CSV_CONTROL_OP = 2
+CsvControlStopRedirectFile: win32more.Windows.Win32.System.Ioctl.CSV_CONTROL_OP = 3
+CsvControlQueryRedirectState: win32more.Windows.Win32.System.Ioctl.CSV_CONTROL_OP = 4
+CsvControlQueryFileRevision: win32more.Windows.Win32.System.Ioctl.CSV_CONTROL_OP = 6
+CsvControlQueryMdsPath: win32more.Windows.Win32.System.Ioctl.CSV_CONTROL_OP = 8
+CsvControlQueryFileRevisionFileId128: win32more.Windows.Win32.System.Ioctl.CSV_CONTROL_OP = 9
+CsvControlQueryVolumeRedirectState: win32more.Windows.Win32.System.Ioctl.CSV_CONTROL_OP = 10
+CsvControlEnableUSNRangeModificationTracking: win32more.Windows.Win32.System.Ioctl.CSV_CONTROL_OP = 13
+CsvControlMarkHandleLocalVolumeMount: win32more.Windows.Win32.System.Ioctl.CSV_CONTROL_OP = 14
+CsvControlUnmarkHandleLocalVolumeMount: win32more.Windows.Win32.System.Ioctl.CSV_CONTROL_OP = 15
+CsvControlGetCsvFsMdsPathV2: win32more.Windows.Win32.System.Ioctl.CSV_CONTROL_OP = 18
+CsvControlDisableCaching: win32more.Windows.Win32.System.Ioctl.CSV_CONTROL_OP = 19
+CsvControlEnableCaching: win32more.Windows.Win32.System.Ioctl.CSV_CONTROL_OP = 20
+CsvControlStartForceDFO: win32more.Windows.Win32.System.Ioctl.CSV_CONTROL_OP = 21
+CsvControlStopForceDFO: win32more.Windows.Win32.System.Ioctl.CSV_CONTROL_OP = 22
+CsvControlQueryMdsPathNoPause: win32more.Windows.Win32.System.Ioctl.CSV_CONTROL_OP = 23
+CsvControlSetVolumeId: win32more.Windows.Win32.System.Ioctl.CSV_CONTROL_OP = 24
+CsvControlQueryVolumeId: win32more.Windows.Win32.System.Ioctl.CSV_CONTROL_OP = 25
 class CSV_CONTROL_PARAM(EasyCastStructure):
     Operation: win32more.Windows.Win32.System.Ioctl.CSV_CONTROL_OP
     Unused: Int64
@@ -1308,13 +1308,13 @@ class DELETE_USN_JOURNAL_DATA(EasyCastStructure):
     UsnJournalID: UInt64
     DeleteFlags: win32more.Windows.Win32.System.Ioctl.USN_DELETE_FLAGS
 DETECTION_TYPE = Int32
-DETECTION_TYPE_DetectNone: win32more.Windows.Win32.System.Ioctl.DETECTION_TYPE = 0
-DETECTION_TYPE_DetectInt13: win32more.Windows.Win32.System.Ioctl.DETECTION_TYPE = 1
-DETECTION_TYPE_DetectExInt13: win32more.Windows.Win32.System.Ioctl.DETECTION_TYPE = 2
+DetectNone: win32more.Windows.Win32.System.Ioctl.DETECTION_TYPE = 0
+DetectInt13: win32more.Windows.Win32.System.Ioctl.DETECTION_TYPE = 1
+DetectExInt13: win32more.Windows.Win32.System.Ioctl.DETECTION_TYPE = 2
 DEVICEDUMP_COLLECTION_TYPEIDE_NOTIFICATION_TYPE = Int32
-DEVICEDUMP_COLLECTION_TYPEIDE_NOTIFICATION_TYPE_TCCollectionBugCheck: win32more.Windows.Win32.System.Ioctl.DEVICEDUMP_COLLECTION_TYPEIDE_NOTIFICATION_TYPE = 1
-DEVICEDUMP_COLLECTION_TYPEIDE_NOTIFICATION_TYPE_TCCollectionApplicationRequested: win32more.Windows.Win32.System.Ioctl.DEVICEDUMP_COLLECTION_TYPEIDE_NOTIFICATION_TYPE = 2
-DEVICEDUMP_COLLECTION_TYPEIDE_NOTIFICATION_TYPE_TCCollectionDeviceRequested: win32more.Windows.Win32.System.Ioctl.DEVICEDUMP_COLLECTION_TYPEIDE_NOTIFICATION_TYPE = 3
+TCCollectionBugCheck: win32more.Windows.Win32.System.Ioctl.DEVICEDUMP_COLLECTION_TYPEIDE_NOTIFICATION_TYPE = 1
+TCCollectionApplicationRequested: win32more.Windows.Win32.System.Ioctl.DEVICEDUMP_COLLECTION_TYPEIDE_NOTIFICATION_TYPE = 2
+TCCollectionDeviceRequested: win32more.Windows.Win32.System.Ioctl.DEVICEDUMP_COLLECTION_TYPEIDE_NOTIFICATION_TYPE = 3
 class DEVICEDUMP_PRIVATE_SUBSECTION(EasyCastStructure):
     dwFlags: UInt32
     GPLogId: win32more.Windows.Win32.System.Ioctl.GP_LOG_PAGE_DESCRIPTOR
@@ -1535,18 +1535,18 @@ class DEVICE_INTERNAL_STATUS_DATA(EasyCastStructure):
     StatusDataLength: UInt32
     StatusData: Byte * 1
 DEVICE_INTERNAL_STATUS_DATA_REQUEST_TYPE = Int32
-DEVICE_INTERNAL_STATUS_DATA_REQUEST_TYPE_DeviceInternalStatusDataRequestTypeUndefined: win32more.Windows.Win32.System.Ioctl.DEVICE_INTERNAL_STATUS_DATA_REQUEST_TYPE = 0
-DEVICE_INTERNAL_STATUS_DATA_REQUEST_TYPE_DeviceCurrentInternalStatusDataHeader: win32more.Windows.Win32.System.Ioctl.DEVICE_INTERNAL_STATUS_DATA_REQUEST_TYPE = 1
-DEVICE_INTERNAL_STATUS_DATA_REQUEST_TYPE_DeviceCurrentInternalStatusData: win32more.Windows.Win32.System.Ioctl.DEVICE_INTERNAL_STATUS_DATA_REQUEST_TYPE = 2
-DEVICE_INTERNAL_STATUS_DATA_REQUEST_TYPE_DeviceSavedInternalStatusDataHeader: win32more.Windows.Win32.System.Ioctl.DEVICE_INTERNAL_STATUS_DATA_REQUEST_TYPE = 3
-DEVICE_INTERNAL_STATUS_DATA_REQUEST_TYPE_DeviceSavedInternalStatusData: win32more.Windows.Win32.System.Ioctl.DEVICE_INTERNAL_STATUS_DATA_REQUEST_TYPE = 4
+DeviceInternalStatusDataRequestTypeUndefined: win32more.Windows.Win32.System.Ioctl.DEVICE_INTERNAL_STATUS_DATA_REQUEST_TYPE = 0
+DeviceCurrentInternalStatusDataHeader: win32more.Windows.Win32.System.Ioctl.DEVICE_INTERNAL_STATUS_DATA_REQUEST_TYPE = 1
+DeviceCurrentInternalStatusData: win32more.Windows.Win32.System.Ioctl.DEVICE_INTERNAL_STATUS_DATA_REQUEST_TYPE = 2
+DeviceSavedInternalStatusDataHeader: win32more.Windows.Win32.System.Ioctl.DEVICE_INTERNAL_STATUS_DATA_REQUEST_TYPE = 3
+DeviceSavedInternalStatusData: win32more.Windows.Win32.System.Ioctl.DEVICE_INTERNAL_STATUS_DATA_REQUEST_TYPE = 4
 DEVICE_INTERNAL_STATUS_DATA_SET = Int32
-DEVICE_INTERNAL_STATUS_DATA_SET_DeviceStatusDataSetUndefined: win32more.Windows.Win32.System.Ioctl.DEVICE_INTERNAL_STATUS_DATA_SET = 0
-DEVICE_INTERNAL_STATUS_DATA_SET_DeviceStatusDataSet1: win32more.Windows.Win32.System.Ioctl.DEVICE_INTERNAL_STATUS_DATA_SET = 1
-DEVICE_INTERNAL_STATUS_DATA_SET_DeviceStatusDataSet2: win32more.Windows.Win32.System.Ioctl.DEVICE_INTERNAL_STATUS_DATA_SET = 2
-DEVICE_INTERNAL_STATUS_DATA_SET_DeviceStatusDataSet3: win32more.Windows.Win32.System.Ioctl.DEVICE_INTERNAL_STATUS_DATA_SET = 3
-DEVICE_INTERNAL_STATUS_DATA_SET_DeviceStatusDataSet4: win32more.Windows.Win32.System.Ioctl.DEVICE_INTERNAL_STATUS_DATA_SET = 4
-DEVICE_INTERNAL_STATUS_DATA_SET_DeviceStatusDataSetMax: win32more.Windows.Win32.System.Ioctl.DEVICE_INTERNAL_STATUS_DATA_SET = 5
+DeviceStatusDataSetUndefined: win32more.Windows.Win32.System.Ioctl.DEVICE_INTERNAL_STATUS_DATA_SET = 0
+DeviceStatusDataSet1: win32more.Windows.Win32.System.Ioctl.DEVICE_INTERNAL_STATUS_DATA_SET = 1
+DeviceStatusDataSet2: win32more.Windows.Win32.System.Ioctl.DEVICE_INTERNAL_STATUS_DATA_SET = 2
+DeviceStatusDataSet3: win32more.Windows.Win32.System.Ioctl.DEVICE_INTERNAL_STATUS_DATA_SET = 3
+DeviceStatusDataSet4: win32more.Windows.Win32.System.Ioctl.DEVICE_INTERNAL_STATUS_DATA_SET = 4
+DeviceStatusDataSetMax: win32more.Windows.Win32.System.Ioctl.DEVICE_INTERNAL_STATUS_DATA_SET = 5
 class DEVICE_LB_PROVISIONING_DESCRIPTOR(EasyCastStructure):
     Version: UInt32
     Size: UInt32
@@ -1677,9 +1677,9 @@ class DISK_CACHE_INFORMATION(EasyCastStructure):
             Minimum: UInt16
             Maximum: UInt16
 DISK_CACHE_RETENTION_PRIORITY = Int32
-DISK_CACHE_RETENTION_PRIORITY_EqualPriority: win32more.Windows.Win32.System.Ioctl.DISK_CACHE_RETENTION_PRIORITY = 0
-DISK_CACHE_RETENTION_PRIORITY_KeepPrefetchedData: win32more.Windows.Win32.System.Ioctl.DISK_CACHE_RETENTION_PRIORITY = 1
-DISK_CACHE_RETENTION_PRIORITY_KeepReadData: win32more.Windows.Win32.System.Ioctl.DISK_CACHE_RETENTION_PRIORITY = 2
+EqualPriority: win32more.Windows.Win32.System.Ioctl.DISK_CACHE_RETENTION_PRIORITY = 0
+KeepPrefetchedData: win32more.Windows.Win32.System.Ioctl.DISK_CACHE_RETENTION_PRIORITY = 1
+KeepReadData: win32more.Windows.Win32.System.Ioctl.DISK_CACHE_RETENTION_PRIORITY = 2
 class DISK_CONTROLLER_NUMBER(EasyCastStructure):
     ControllerNumber: UInt32
     DiskNumber: UInt32
@@ -1826,18 +1826,18 @@ if ARCH in 'X64,ARM64':
         ByteCount: Int64
         Flags: UInt32
 DUPLICATE_EXTENTS_STATE = Int32
-DUPLICATE_EXTENTS_STATE_FileSnapStateInactive: win32more.Windows.Win32.System.Ioctl.DUPLICATE_EXTENTS_STATE = 0
-DUPLICATE_EXTENTS_STATE_FileSnapStateSource: win32more.Windows.Win32.System.Ioctl.DUPLICATE_EXTENTS_STATE = 1
-DUPLICATE_EXTENTS_STATE_FileSnapStateTarget: win32more.Windows.Win32.System.Ioctl.DUPLICATE_EXTENTS_STATE = 2
+FileSnapStateInactive: win32more.Windows.Win32.System.Ioctl.DUPLICATE_EXTENTS_STATE = 0
+FileSnapStateSource: win32more.Windows.Win32.System.Ioctl.DUPLICATE_EXTENTS_STATE = 1
+FileSnapStateTarget: win32more.Windows.Win32.System.Ioctl.DUPLICATE_EXTENTS_STATE = 2
 ELEMENT_TYPE = Int32
-ELEMENT_TYPE_AllElements: win32more.Windows.Win32.System.Ioctl.ELEMENT_TYPE = 0
-ELEMENT_TYPE_ChangerTransport: win32more.Windows.Win32.System.Ioctl.ELEMENT_TYPE = 1
-ELEMENT_TYPE_ChangerSlot: win32more.Windows.Win32.System.Ioctl.ELEMENT_TYPE = 2
-ELEMENT_TYPE_ChangerIEPort: win32more.Windows.Win32.System.Ioctl.ELEMENT_TYPE = 3
-ELEMENT_TYPE_ChangerDrive: win32more.Windows.Win32.System.Ioctl.ELEMENT_TYPE = 4
-ELEMENT_TYPE_ChangerDoor: win32more.Windows.Win32.System.Ioctl.ELEMENT_TYPE = 5
-ELEMENT_TYPE_ChangerKeypad: win32more.Windows.Win32.System.Ioctl.ELEMENT_TYPE = 6
-ELEMENT_TYPE_ChangerMaxElement: win32more.Windows.Win32.System.Ioctl.ELEMENT_TYPE = 7
+AllElements: win32more.Windows.Win32.System.Ioctl.ELEMENT_TYPE = 0
+ChangerTransport: win32more.Windows.Win32.System.Ioctl.ELEMENT_TYPE = 1
+ChangerSlot: win32more.Windows.Win32.System.Ioctl.ELEMENT_TYPE = 2
+ChangerIEPort: win32more.Windows.Win32.System.Ioctl.ELEMENT_TYPE = 3
+ChangerDrive: win32more.Windows.Win32.System.Ioctl.ELEMENT_TYPE = 4
+ChangerDoor: win32more.Windows.Win32.System.Ioctl.ELEMENT_TYPE = 5
+ChangerKeypad: win32more.Windows.Win32.System.Ioctl.ELEMENT_TYPE = 6
+ChangerMaxElement: win32more.Windows.Win32.System.Ioctl.ELEMENT_TYPE = 7
 class ENCRYPTED_DATA_INFO(EasyCastStructure):
     StartingFileOffset: UInt64
     OutputBufferOffset: UInt32
@@ -2052,18 +2052,18 @@ class FILE_STORAGE_TIER(EasyCastStructure):
     MediaType: win32more.Windows.Win32.System.Ioctl.FILE_STORAGE_TIER_MEDIA_TYPE
     Class: win32more.Windows.Win32.System.Ioctl.FILE_STORAGE_TIER_CLASS
 FILE_STORAGE_TIER_CLASS = Int32
-FILE_STORAGE_TIER_CLASS_FileStorageTierClassUnspecified: win32more.Windows.Win32.System.Ioctl.FILE_STORAGE_TIER_CLASS = 0
-FILE_STORAGE_TIER_CLASS_FileStorageTierClassCapacity: win32more.Windows.Win32.System.Ioctl.FILE_STORAGE_TIER_CLASS = 1
-FILE_STORAGE_TIER_CLASS_FileStorageTierClassPerformance: win32more.Windows.Win32.System.Ioctl.FILE_STORAGE_TIER_CLASS = 2
-FILE_STORAGE_TIER_CLASS_FileStorageTierClassMax: win32more.Windows.Win32.System.Ioctl.FILE_STORAGE_TIER_CLASS = 3
+FileStorageTierClassUnspecified: win32more.Windows.Win32.System.Ioctl.FILE_STORAGE_TIER_CLASS = 0
+FileStorageTierClassCapacity: win32more.Windows.Win32.System.Ioctl.FILE_STORAGE_TIER_CLASS = 1
+FileStorageTierClassPerformance: win32more.Windows.Win32.System.Ioctl.FILE_STORAGE_TIER_CLASS = 2
+FileStorageTierClassMax: win32more.Windows.Win32.System.Ioctl.FILE_STORAGE_TIER_CLASS = 3
 FILE_STORAGE_TIER_FLAGS = UInt32
 FILE_STORAGE_TIER_FLAG_NO_SEEK_PENALTY: win32more.Windows.Win32.System.Ioctl.FILE_STORAGE_TIER_FLAGS = 131072
 FILE_STORAGE_TIER_MEDIA_TYPE = Int32
-FILE_STORAGE_TIER_MEDIA_TYPE_FileStorageTierMediaTypeUnspecified: win32more.Windows.Win32.System.Ioctl.FILE_STORAGE_TIER_MEDIA_TYPE = 0
-FILE_STORAGE_TIER_MEDIA_TYPE_FileStorageTierMediaTypeDisk: win32more.Windows.Win32.System.Ioctl.FILE_STORAGE_TIER_MEDIA_TYPE = 1
-FILE_STORAGE_TIER_MEDIA_TYPE_FileStorageTierMediaTypeSsd: win32more.Windows.Win32.System.Ioctl.FILE_STORAGE_TIER_MEDIA_TYPE = 2
-FILE_STORAGE_TIER_MEDIA_TYPE_FileStorageTierMediaTypeScm: win32more.Windows.Win32.System.Ioctl.FILE_STORAGE_TIER_MEDIA_TYPE = 4
-FILE_STORAGE_TIER_MEDIA_TYPE_FileStorageTierMediaTypeMax: win32more.Windows.Win32.System.Ioctl.FILE_STORAGE_TIER_MEDIA_TYPE = 5
+FileStorageTierMediaTypeUnspecified: win32more.Windows.Win32.System.Ioctl.FILE_STORAGE_TIER_MEDIA_TYPE = 0
+FileStorageTierMediaTypeDisk: win32more.Windows.Win32.System.Ioctl.FILE_STORAGE_TIER_MEDIA_TYPE = 1
+FileStorageTierMediaTypeSsd: win32more.Windows.Win32.System.Ioctl.FILE_STORAGE_TIER_MEDIA_TYPE = 2
+FileStorageTierMediaTypeScm: win32more.Windows.Win32.System.Ioctl.FILE_STORAGE_TIER_MEDIA_TYPE = 4
+FileStorageTierMediaTypeMax: win32more.Windows.Win32.System.Ioctl.FILE_STORAGE_TIER_MEDIA_TYPE = 5
 class FILE_STORAGE_TIER_REGION(EasyCastStructure):
     TierId: Guid
     Offset: UInt64
@@ -2311,7 +2311,7 @@ class IO_IRP_EXT_TRACK_OFFSET_HEADER(EasyCastStructure):
     Flags: UInt16
     TrackedOffsetCallback: win32more.Windows.Win32.System.Ioctl.PIO_IRP_EXT_PROCESS_TRACKED_OFFSET_CALLBACK
 LMR_QUERY_INFO_CLASS = Int32
-LMR_QUERY_INFO_CLASS_LMRQuerySessionInfo: win32more.Windows.Win32.System.Ioctl.LMR_QUERY_INFO_CLASS = 1
+LMRQuerySessionInfo: win32more.Windows.Win32.System.Ioctl.LMR_QUERY_INFO_CLASS = 1
 class LMR_QUERY_INFO_PARAM(EasyCastStructure):
     Operation: win32more.Windows.Win32.System.Ioctl.LMR_QUERY_INFO_CLASS
 class LMR_QUERY_SESSION_INFO(EasyCastStructure):
@@ -2346,32 +2346,32 @@ if ARCH in 'X64,ARM64':
             UsnSourceInfo: UInt32
             CopyNumber: UInt32
 MEDIA_TYPE = Int32
-MEDIA_TYPE_Unknown: win32more.Windows.Win32.System.Ioctl.MEDIA_TYPE = 0
-MEDIA_TYPE_F5_1Pt2_512: win32more.Windows.Win32.System.Ioctl.MEDIA_TYPE = 1
-MEDIA_TYPE_F3_1Pt44_512: win32more.Windows.Win32.System.Ioctl.MEDIA_TYPE = 2
-MEDIA_TYPE_F3_2Pt88_512: win32more.Windows.Win32.System.Ioctl.MEDIA_TYPE = 3
-MEDIA_TYPE_F3_20Pt8_512: win32more.Windows.Win32.System.Ioctl.MEDIA_TYPE = 4
-MEDIA_TYPE_F3_720_512: win32more.Windows.Win32.System.Ioctl.MEDIA_TYPE = 5
-MEDIA_TYPE_F5_360_512: win32more.Windows.Win32.System.Ioctl.MEDIA_TYPE = 6
-MEDIA_TYPE_F5_320_512: win32more.Windows.Win32.System.Ioctl.MEDIA_TYPE = 7
-MEDIA_TYPE_F5_320_1024: win32more.Windows.Win32.System.Ioctl.MEDIA_TYPE = 8
-MEDIA_TYPE_F5_180_512: win32more.Windows.Win32.System.Ioctl.MEDIA_TYPE = 9
-MEDIA_TYPE_F5_160_512: win32more.Windows.Win32.System.Ioctl.MEDIA_TYPE = 10
-MEDIA_TYPE_RemovableMedia: win32more.Windows.Win32.System.Ioctl.MEDIA_TYPE = 11
-MEDIA_TYPE_FixedMedia: win32more.Windows.Win32.System.Ioctl.MEDIA_TYPE = 12
-MEDIA_TYPE_F3_120M_512: win32more.Windows.Win32.System.Ioctl.MEDIA_TYPE = 13
-MEDIA_TYPE_F3_640_512: win32more.Windows.Win32.System.Ioctl.MEDIA_TYPE = 14
-MEDIA_TYPE_F5_640_512: win32more.Windows.Win32.System.Ioctl.MEDIA_TYPE = 15
-MEDIA_TYPE_F5_720_512: win32more.Windows.Win32.System.Ioctl.MEDIA_TYPE = 16
-MEDIA_TYPE_F3_1Pt2_512: win32more.Windows.Win32.System.Ioctl.MEDIA_TYPE = 17
-MEDIA_TYPE_F3_1Pt23_1024: win32more.Windows.Win32.System.Ioctl.MEDIA_TYPE = 18
-MEDIA_TYPE_F5_1Pt23_1024: win32more.Windows.Win32.System.Ioctl.MEDIA_TYPE = 19
-MEDIA_TYPE_F3_128Mb_512: win32more.Windows.Win32.System.Ioctl.MEDIA_TYPE = 20
-MEDIA_TYPE_F3_230Mb_512: win32more.Windows.Win32.System.Ioctl.MEDIA_TYPE = 21
-MEDIA_TYPE_F8_256_128: win32more.Windows.Win32.System.Ioctl.MEDIA_TYPE = 22
-MEDIA_TYPE_F3_200Mb_512: win32more.Windows.Win32.System.Ioctl.MEDIA_TYPE = 23
-MEDIA_TYPE_F3_240M_512: win32more.Windows.Win32.System.Ioctl.MEDIA_TYPE = 24
-MEDIA_TYPE_F3_32M_512: win32more.Windows.Win32.System.Ioctl.MEDIA_TYPE = 25
+Unknown: win32more.Windows.Win32.System.Ioctl.MEDIA_TYPE = 0
+F5_1Pt2_512: win32more.Windows.Win32.System.Ioctl.MEDIA_TYPE = 1
+F3_1Pt44_512: win32more.Windows.Win32.System.Ioctl.MEDIA_TYPE = 2
+F3_2Pt88_512: win32more.Windows.Win32.System.Ioctl.MEDIA_TYPE = 3
+F3_20Pt8_512: win32more.Windows.Win32.System.Ioctl.MEDIA_TYPE = 4
+F3_720_512: win32more.Windows.Win32.System.Ioctl.MEDIA_TYPE = 5
+F5_360_512: win32more.Windows.Win32.System.Ioctl.MEDIA_TYPE = 6
+F5_320_512: win32more.Windows.Win32.System.Ioctl.MEDIA_TYPE = 7
+F5_320_1024: win32more.Windows.Win32.System.Ioctl.MEDIA_TYPE = 8
+F5_180_512: win32more.Windows.Win32.System.Ioctl.MEDIA_TYPE = 9
+F5_160_512: win32more.Windows.Win32.System.Ioctl.MEDIA_TYPE = 10
+RemovableMedia: win32more.Windows.Win32.System.Ioctl.MEDIA_TYPE = 11
+FixedMedia: win32more.Windows.Win32.System.Ioctl.MEDIA_TYPE = 12
+F3_120M_512: win32more.Windows.Win32.System.Ioctl.MEDIA_TYPE = 13
+F3_640_512: win32more.Windows.Win32.System.Ioctl.MEDIA_TYPE = 14
+F5_640_512: win32more.Windows.Win32.System.Ioctl.MEDIA_TYPE = 15
+F5_720_512: win32more.Windows.Win32.System.Ioctl.MEDIA_TYPE = 16
+F3_1Pt2_512: win32more.Windows.Win32.System.Ioctl.MEDIA_TYPE = 17
+F3_1Pt23_1024: win32more.Windows.Win32.System.Ioctl.MEDIA_TYPE = 18
+F5_1Pt23_1024: win32more.Windows.Win32.System.Ioctl.MEDIA_TYPE = 19
+F3_128Mb_512: win32more.Windows.Win32.System.Ioctl.MEDIA_TYPE = 20
+F3_230Mb_512: win32more.Windows.Win32.System.Ioctl.MEDIA_TYPE = 21
+F8_256_128: win32more.Windows.Win32.System.Ioctl.MEDIA_TYPE = 22
+F3_200Mb_512: win32more.Windows.Win32.System.Ioctl.MEDIA_TYPE = 23
+F3_240M_512: win32more.Windows.Win32.System.Ioctl.MEDIA_TYPE = 24
+F3_32M_512: win32more.Windows.Win32.System.Ioctl.MEDIA_TYPE = 25
 class MFT_ENUM_DATA_V0(EasyCastStructure):
     StartFileReferenceNumber: UInt64
     LowUsn: Int64
@@ -2756,14 +2756,14 @@ class REASSIGN_BLOCKS_EX(EasyCastStructure):
     BlockNumber: Int64 * 1
     _pack_ = 1
 REFS_SMR_VOLUME_GC_ACTION = Int32
-REFS_SMR_VOLUME_GC_ACTION_SmrGcActionStart: win32more.Windows.Win32.System.Ioctl.REFS_SMR_VOLUME_GC_ACTION = 1
-REFS_SMR_VOLUME_GC_ACTION_SmrGcActionStartFullSpeed: win32more.Windows.Win32.System.Ioctl.REFS_SMR_VOLUME_GC_ACTION = 2
-REFS_SMR_VOLUME_GC_ACTION_SmrGcActionPause: win32more.Windows.Win32.System.Ioctl.REFS_SMR_VOLUME_GC_ACTION = 3
-REFS_SMR_VOLUME_GC_ACTION_SmrGcActionStop: win32more.Windows.Win32.System.Ioctl.REFS_SMR_VOLUME_GC_ACTION = 4
+SmrGcActionStart: win32more.Windows.Win32.System.Ioctl.REFS_SMR_VOLUME_GC_ACTION = 1
+SmrGcActionStartFullSpeed: win32more.Windows.Win32.System.Ioctl.REFS_SMR_VOLUME_GC_ACTION = 2
+SmrGcActionPause: win32more.Windows.Win32.System.Ioctl.REFS_SMR_VOLUME_GC_ACTION = 3
+SmrGcActionStop: win32more.Windows.Win32.System.Ioctl.REFS_SMR_VOLUME_GC_ACTION = 4
 REFS_SMR_VOLUME_GC_METHOD = Int32
-REFS_SMR_VOLUME_GC_METHOD_SmrGcMethodCompaction: win32more.Windows.Win32.System.Ioctl.REFS_SMR_VOLUME_GC_METHOD = 1
-REFS_SMR_VOLUME_GC_METHOD_SmrGcMethodCompression: win32more.Windows.Win32.System.Ioctl.REFS_SMR_VOLUME_GC_METHOD = 2
-REFS_SMR_VOLUME_GC_METHOD_SmrGcMethodRotation: win32more.Windows.Win32.System.Ioctl.REFS_SMR_VOLUME_GC_METHOD = 3
+SmrGcMethodCompaction: win32more.Windows.Win32.System.Ioctl.REFS_SMR_VOLUME_GC_METHOD = 1
+SmrGcMethodCompression: win32more.Windows.Win32.System.Ioctl.REFS_SMR_VOLUME_GC_METHOD = 2
+SmrGcMethodRotation: win32more.Windows.Win32.System.Ioctl.REFS_SMR_VOLUME_GC_METHOD = 3
 class REFS_SMR_VOLUME_GC_PARAMETERS(EasyCastStructure):
     Version: UInt32
     Flags: UInt32
@@ -2773,10 +2773,10 @@ class REFS_SMR_VOLUME_GC_PARAMETERS(EasyCastStructure):
     CompressionFormat: UInt32
     Unused: UInt64 * 8
 REFS_SMR_VOLUME_GC_STATE = Int32
-REFS_SMR_VOLUME_GC_STATE_SmrGcStateInactive: win32more.Windows.Win32.System.Ioctl.REFS_SMR_VOLUME_GC_STATE = 0
-REFS_SMR_VOLUME_GC_STATE_SmrGcStatePaused: win32more.Windows.Win32.System.Ioctl.REFS_SMR_VOLUME_GC_STATE = 1
-REFS_SMR_VOLUME_GC_STATE_SmrGcStateActive: win32more.Windows.Win32.System.Ioctl.REFS_SMR_VOLUME_GC_STATE = 2
-REFS_SMR_VOLUME_GC_STATE_SmrGcStateActiveFullSpeed: win32more.Windows.Win32.System.Ioctl.REFS_SMR_VOLUME_GC_STATE = 3
+SmrGcStateInactive: win32more.Windows.Win32.System.Ioctl.REFS_SMR_VOLUME_GC_STATE = 0
+SmrGcStatePaused: win32more.Windows.Win32.System.Ioctl.REFS_SMR_VOLUME_GC_STATE = 1
+SmrGcStateActive: win32more.Windows.Win32.System.Ioctl.REFS_SMR_VOLUME_GC_STATE = 2
+SmrGcStateActiveFullSpeed: win32more.Windows.Win32.System.Ioctl.REFS_SMR_VOLUME_GC_STATE = 3
 class REFS_SMR_VOLUME_INFO_OUTPUT(EasyCastStructure):
     Version: UInt32
     Flags: UInt32
@@ -3175,8 +3175,8 @@ class SCM_REGIONS(EasyCastStructure):
     RegionCount: UInt32
     Regions: win32more.Windows.Win32.System.Ioctl.SCM_REGION * 1
 SCM_REGION_FLAG = Int32
-SCM_REGION_FLAG_ScmRegionFlagNone: win32more.Windows.Win32.System.Ioctl.SCM_REGION_FLAG = 0
-SCM_REGION_FLAG_ScmRegionFlagLabel: win32more.Windows.Win32.System.Ioctl.SCM_REGION_FLAG = 1
+ScmRegionFlagNone: win32more.Windows.Win32.System.Ioctl.SCM_REGION_FLAG = 0
+ScmRegionFlagLabel: win32more.Windows.Win32.System.Ioctl.SCM_REGION_FLAG = 1
 class SD_CHANGE_MACHINE_SID_INPUT(EasyCastStructure):
     CurrentMachineSIDOffset: UInt16
     CurrentMachineSIDLength: UInt16
@@ -3271,9 +3271,9 @@ class SHRINK_VOLUME_INFORMATION(EasyCastStructure):
     Flags: UInt64
     NewNumberOfSectors: Int64
 SHRINK_VOLUME_REQUEST_TYPES = Int32
-SHRINK_VOLUME_REQUEST_TYPES_ShrinkPrepare: win32more.Windows.Win32.System.Ioctl.SHRINK_VOLUME_REQUEST_TYPES = 1
-SHRINK_VOLUME_REQUEST_TYPES_ShrinkCommit: win32more.Windows.Win32.System.Ioctl.SHRINK_VOLUME_REQUEST_TYPES = 2
-SHRINK_VOLUME_REQUEST_TYPES_ShrinkAbort: win32more.Windows.Win32.System.Ioctl.SHRINK_VOLUME_REQUEST_TYPES = 3
+ShrinkPrepare: win32more.Windows.Win32.System.Ioctl.SHRINK_VOLUME_REQUEST_TYPES = 1
+ShrinkCommit: win32more.Windows.Win32.System.Ioctl.SHRINK_VOLUME_REQUEST_TYPES = 2
+ShrinkAbort: win32more.Windows.Win32.System.Ioctl.SHRINK_VOLUME_REQUEST_TYPES = 3
 class SI_COPYFILE(EasyCastStructure):
     SourceFileNameLength: UInt32
     DestinationFileNameLength: UInt32
@@ -3330,9 +3330,9 @@ class STORAGE_ALLOCATE_BC_STREAM_OUTPUT(EasyCastStructure):
     RequestSize: UInt64
     NumOutStandingRequests: UInt32
 STORAGE_ASSOCIATION_TYPE = Int32
-STORAGE_ASSOCIATION_TYPE_StorageIdAssocDevice: win32more.Windows.Win32.System.Ioctl.STORAGE_ASSOCIATION_TYPE = 0
-STORAGE_ASSOCIATION_TYPE_StorageIdAssocPort: win32more.Windows.Win32.System.Ioctl.STORAGE_ASSOCIATION_TYPE = 1
-STORAGE_ASSOCIATION_TYPE_StorageIdAssocTarget: win32more.Windows.Win32.System.Ioctl.STORAGE_ASSOCIATION_TYPE = 2
+StorageIdAssocDevice: win32more.Windows.Win32.System.Ioctl.STORAGE_ASSOCIATION_TYPE = 0
+StorageIdAssocPort: win32more.Windows.Win32.System.Ioctl.STORAGE_ASSOCIATION_TYPE = 1
+StorageIdAssocTarget: win32more.Windows.Win32.System.Ioctl.STORAGE_ASSOCIATION_TYPE = 2
 class STORAGE_ATTRIBUTE_MGMT(EasyCastStructure):
     Version: UInt32
     Size: UInt32
@@ -3351,12 +3351,12 @@ class STORAGE_BREAK_RESERVATION_REQUEST(EasyCastStructure):
 class STORAGE_BUS_RESET_REQUEST(EasyCastStructure):
     PathId: Byte
 STORAGE_COMPONENT_HEALTH_STATUS = Int32
-STORAGE_COMPONENT_HEALTH_STATUS_HealthStatusUnknown: win32more.Windows.Win32.System.Ioctl.STORAGE_COMPONENT_HEALTH_STATUS = 0
-STORAGE_COMPONENT_HEALTH_STATUS_HealthStatusNormal: win32more.Windows.Win32.System.Ioctl.STORAGE_COMPONENT_HEALTH_STATUS = 1
-STORAGE_COMPONENT_HEALTH_STATUS_HealthStatusThrottled: win32more.Windows.Win32.System.Ioctl.STORAGE_COMPONENT_HEALTH_STATUS = 2
-STORAGE_COMPONENT_HEALTH_STATUS_HealthStatusWarning: win32more.Windows.Win32.System.Ioctl.STORAGE_COMPONENT_HEALTH_STATUS = 3
-STORAGE_COMPONENT_HEALTH_STATUS_HealthStatusDisabled: win32more.Windows.Win32.System.Ioctl.STORAGE_COMPONENT_HEALTH_STATUS = 4
-STORAGE_COMPONENT_HEALTH_STATUS_HealthStatusFailed: win32more.Windows.Win32.System.Ioctl.STORAGE_COMPONENT_HEALTH_STATUS = 5
+HealthStatusUnknown: win32more.Windows.Win32.System.Ioctl.STORAGE_COMPONENT_HEALTH_STATUS = 0
+HealthStatusNormal: win32more.Windows.Win32.System.Ioctl.STORAGE_COMPONENT_HEALTH_STATUS = 1
+HealthStatusThrottled: win32more.Windows.Win32.System.Ioctl.STORAGE_COMPONENT_HEALTH_STATUS = 2
+HealthStatusWarning: win32more.Windows.Win32.System.Ioctl.STORAGE_COMPONENT_HEALTH_STATUS = 3
+HealthStatusDisabled: win32more.Windows.Win32.System.Ioctl.STORAGE_COMPONENT_HEALTH_STATUS = 4
+HealthStatusFailed: win32more.Windows.Win32.System.Ioctl.STORAGE_COMPONENT_HEALTH_STATUS = 5
 class STORAGE_COUNTER(EasyCastStructure):
     Type: win32more.Windows.Win32.System.Ioctl.STORAGE_COUNTER_TYPE
     Value: _Value_e__Union
@@ -3372,35 +3372,35 @@ class STORAGE_COUNTERS(EasyCastStructure):
     NumberOfCounters: UInt32
     Counters: win32more.Windows.Win32.System.Ioctl.STORAGE_COUNTER * 1
 STORAGE_COUNTER_TYPE = Int32
-STORAGE_COUNTER_TYPE_StorageCounterTypeUnknown: win32more.Windows.Win32.System.Ioctl.STORAGE_COUNTER_TYPE = 0
-STORAGE_COUNTER_TYPE_StorageCounterTypeTemperatureCelsius: win32more.Windows.Win32.System.Ioctl.STORAGE_COUNTER_TYPE = 1
-STORAGE_COUNTER_TYPE_StorageCounterTypeTemperatureCelsiusMax: win32more.Windows.Win32.System.Ioctl.STORAGE_COUNTER_TYPE = 2
-STORAGE_COUNTER_TYPE_StorageCounterTypeReadErrorsTotal: win32more.Windows.Win32.System.Ioctl.STORAGE_COUNTER_TYPE = 3
-STORAGE_COUNTER_TYPE_StorageCounterTypeReadErrorsCorrected: win32more.Windows.Win32.System.Ioctl.STORAGE_COUNTER_TYPE = 4
-STORAGE_COUNTER_TYPE_StorageCounterTypeReadErrorsUncorrected: win32more.Windows.Win32.System.Ioctl.STORAGE_COUNTER_TYPE = 5
-STORAGE_COUNTER_TYPE_StorageCounterTypeWriteErrorsTotal: win32more.Windows.Win32.System.Ioctl.STORAGE_COUNTER_TYPE = 6
-STORAGE_COUNTER_TYPE_StorageCounterTypeWriteErrorsCorrected: win32more.Windows.Win32.System.Ioctl.STORAGE_COUNTER_TYPE = 7
-STORAGE_COUNTER_TYPE_StorageCounterTypeWriteErrorsUncorrected: win32more.Windows.Win32.System.Ioctl.STORAGE_COUNTER_TYPE = 8
-STORAGE_COUNTER_TYPE_StorageCounterTypeManufactureDate: win32more.Windows.Win32.System.Ioctl.STORAGE_COUNTER_TYPE = 9
-STORAGE_COUNTER_TYPE_StorageCounterTypeStartStopCycleCount: win32more.Windows.Win32.System.Ioctl.STORAGE_COUNTER_TYPE = 10
-STORAGE_COUNTER_TYPE_StorageCounterTypeStartStopCycleCountMax: win32more.Windows.Win32.System.Ioctl.STORAGE_COUNTER_TYPE = 11
-STORAGE_COUNTER_TYPE_StorageCounterTypeLoadUnloadCycleCount: win32more.Windows.Win32.System.Ioctl.STORAGE_COUNTER_TYPE = 12
-STORAGE_COUNTER_TYPE_StorageCounterTypeLoadUnloadCycleCountMax: win32more.Windows.Win32.System.Ioctl.STORAGE_COUNTER_TYPE = 13
-STORAGE_COUNTER_TYPE_StorageCounterTypeWearPercentage: win32more.Windows.Win32.System.Ioctl.STORAGE_COUNTER_TYPE = 14
-STORAGE_COUNTER_TYPE_StorageCounterTypeWearPercentageWarning: win32more.Windows.Win32.System.Ioctl.STORAGE_COUNTER_TYPE = 15
-STORAGE_COUNTER_TYPE_StorageCounterTypeWearPercentageMax: win32more.Windows.Win32.System.Ioctl.STORAGE_COUNTER_TYPE = 16
-STORAGE_COUNTER_TYPE_StorageCounterTypePowerOnHours: win32more.Windows.Win32.System.Ioctl.STORAGE_COUNTER_TYPE = 17
-STORAGE_COUNTER_TYPE_StorageCounterTypeReadLatency100NSMax: win32more.Windows.Win32.System.Ioctl.STORAGE_COUNTER_TYPE = 18
-STORAGE_COUNTER_TYPE_StorageCounterTypeWriteLatency100NSMax: win32more.Windows.Win32.System.Ioctl.STORAGE_COUNTER_TYPE = 19
-STORAGE_COUNTER_TYPE_StorageCounterTypeFlushLatency100NSMax: win32more.Windows.Win32.System.Ioctl.STORAGE_COUNTER_TYPE = 20
-STORAGE_COUNTER_TYPE_StorageCounterTypeMax: win32more.Windows.Win32.System.Ioctl.STORAGE_COUNTER_TYPE = 21
+StorageCounterTypeUnknown: win32more.Windows.Win32.System.Ioctl.STORAGE_COUNTER_TYPE = 0
+StorageCounterTypeTemperatureCelsius: win32more.Windows.Win32.System.Ioctl.STORAGE_COUNTER_TYPE = 1
+StorageCounterTypeTemperatureCelsiusMax: win32more.Windows.Win32.System.Ioctl.STORAGE_COUNTER_TYPE = 2
+StorageCounterTypeReadErrorsTotal: win32more.Windows.Win32.System.Ioctl.STORAGE_COUNTER_TYPE = 3
+StorageCounterTypeReadErrorsCorrected: win32more.Windows.Win32.System.Ioctl.STORAGE_COUNTER_TYPE = 4
+StorageCounterTypeReadErrorsUncorrected: win32more.Windows.Win32.System.Ioctl.STORAGE_COUNTER_TYPE = 5
+StorageCounterTypeWriteErrorsTotal: win32more.Windows.Win32.System.Ioctl.STORAGE_COUNTER_TYPE = 6
+StorageCounterTypeWriteErrorsCorrected: win32more.Windows.Win32.System.Ioctl.STORAGE_COUNTER_TYPE = 7
+StorageCounterTypeWriteErrorsUncorrected: win32more.Windows.Win32.System.Ioctl.STORAGE_COUNTER_TYPE = 8
+StorageCounterTypeManufactureDate: win32more.Windows.Win32.System.Ioctl.STORAGE_COUNTER_TYPE = 9
+StorageCounterTypeStartStopCycleCount: win32more.Windows.Win32.System.Ioctl.STORAGE_COUNTER_TYPE = 10
+StorageCounterTypeStartStopCycleCountMax: win32more.Windows.Win32.System.Ioctl.STORAGE_COUNTER_TYPE = 11
+StorageCounterTypeLoadUnloadCycleCount: win32more.Windows.Win32.System.Ioctl.STORAGE_COUNTER_TYPE = 12
+StorageCounterTypeLoadUnloadCycleCountMax: win32more.Windows.Win32.System.Ioctl.STORAGE_COUNTER_TYPE = 13
+StorageCounterTypeWearPercentage: win32more.Windows.Win32.System.Ioctl.STORAGE_COUNTER_TYPE = 14
+StorageCounterTypeWearPercentageWarning: win32more.Windows.Win32.System.Ioctl.STORAGE_COUNTER_TYPE = 15
+StorageCounterTypeWearPercentageMax: win32more.Windows.Win32.System.Ioctl.STORAGE_COUNTER_TYPE = 16
+StorageCounterTypePowerOnHours: win32more.Windows.Win32.System.Ioctl.STORAGE_COUNTER_TYPE = 17
+StorageCounterTypeReadLatency100NSMax: win32more.Windows.Win32.System.Ioctl.STORAGE_COUNTER_TYPE = 18
+StorageCounterTypeWriteLatency100NSMax: win32more.Windows.Win32.System.Ioctl.STORAGE_COUNTER_TYPE = 19
+StorageCounterTypeFlushLatency100NSMax: win32more.Windows.Win32.System.Ioctl.STORAGE_COUNTER_TYPE = 20
+StorageCounterTypeMax: win32more.Windows.Win32.System.Ioctl.STORAGE_COUNTER_TYPE = 21
 STORAGE_CRYPTO_ALGORITHM_ID = Int32
-STORAGE_CRYPTO_ALGORITHM_ID_StorageCryptoAlgorithmUnknown: win32more.Windows.Win32.System.Ioctl.STORAGE_CRYPTO_ALGORITHM_ID = 0
-STORAGE_CRYPTO_ALGORITHM_ID_StorageCryptoAlgorithmXTSAES: win32more.Windows.Win32.System.Ioctl.STORAGE_CRYPTO_ALGORITHM_ID = 1
-STORAGE_CRYPTO_ALGORITHM_ID_StorageCryptoAlgorithmBitlockerAESCBC: win32more.Windows.Win32.System.Ioctl.STORAGE_CRYPTO_ALGORITHM_ID = 2
-STORAGE_CRYPTO_ALGORITHM_ID_StorageCryptoAlgorithmAESECB: win32more.Windows.Win32.System.Ioctl.STORAGE_CRYPTO_ALGORITHM_ID = 3
-STORAGE_CRYPTO_ALGORITHM_ID_StorageCryptoAlgorithmESSIVAESCBC: win32more.Windows.Win32.System.Ioctl.STORAGE_CRYPTO_ALGORITHM_ID = 4
-STORAGE_CRYPTO_ALGORITHM_ID_StorageCryptoAlgorithmMax: win32more.Windows.Win32.System.Ioctl.STORAGE_CRYPTO_ALGORITHM_ID = 5
+StorageCryptoAlgorithmUnknown: win32more.Windows.Win32.System.Ioctl.STORAGE_CRYPTO_ALGORITHM_ID = 0
+StorageCryptoAlgorithmXTSAES: win32more.Windows.Win32.System.Ioctl.STORAGE_CRYPTO_ALGORITHM_ID = 1
+StorageCryptoAlgorithmBitlockerAESCBC: win32more.Windows.Win32.System.Ioctl.STORAGE_CRYPTO_ALGORITHM_ID = 2
+StorageCryptoAlgorithmAESECB: win32more.Windows.Win32.System.Ioctl.STORAGE_CRYPTO_ALGORITHM_ID = 3
+StorageCryptoAlgorithmESSIVAESCBC: win32more.Windows.Win32.System.Ioctl.STORAGE_CRYPTO_ALGORITHM_ID = 4
+StorageCryptoAlgorithmMax: win32more.Windows.Win32.System.Ioctl.STORAGE_CRYPTO_ALGORITHM_ID = 5
 class STORAGE_CRYPTO_CAPABILITY(EasyCastStructure):
     Version: UInt32
     Size: UInt32
@@ -3415,11 +3415,11 @@ class STORAGE_CRYPTO_DESCRIPTOR(EasyCastStructure):
     NumCryptoCapabilities: UInt32
     CryptoCapabilities: win32more.Windows.Win32.System.Ioctl.STORAGE_CRYPTO_CAPABILITY * 1
 STORAGE_CRYPTO_KEY_SIZE = Int32
-STORAGE_CRYPTO_KEY_SIZE_StorageCryptoKeySizeUnknown: win32more.Windows.Win32.System.Ioctl.STORAGE_CRYPTO_KEY_SIZE = 0
-STORAGE_CRYPTO_KEY_SIZE_StorageCryptoKeySize128Bits: win32more.Windows.Win32.System.Ioctl.STORAGE_CRYPTO_KEY_SIZE = 1
-STORAGE_CRYPTO_KEY_SIZE_StorageCryptoKeySize192Bits: win32more.Windows.Win32.System.Ioctl.STORAGE_CRYPTO_KEY_SIZE = 2
-STORAGE_CRYPTO_KEY_SIZE_StorageCryptoKeySize256Bits: win32more.Windows.Win32.System.Ioctl.STORAGE_CRYPTO_KEY_SIZE = 3
-STORAGE_CRYPTO_KEY_SIZE_StorageCryptoKeySize512Bits: win32more.Windows.Win32.System.Ioctl.STORAGE_CRYPTO_KEY_SIZE = 4
+StorageCryptoKeySizeUnknown: win32more.Windows.Win32.System.Ioctl.STORAGE_CRYPTO_KEY_SIZE = 0
+StorageCryptoKeySize128Bits: win32more.Windows.Win32.System.Ioctl.STORAGE_CRYPTO_KEY_SIZE = 1
+StorageCryptoKeySize192Bits: win32more.Windows.Win32.System.Ioctl.STORAGE_CRYPTO_KEY_SIZE = 2
+StorageCryptoKeySize256Bits: win32more.Windows.Win32.System.Ioctl.STORAGE_CRYPTO_KEY_SIZE = 3
+StorageCryptoKeySize512Bits: win32more.Windows.Win32.System.Ioctl.STORAGE_CRYPTO_KEY_SIZE = 4
 class STORAGE_DESCRIPTOR_HEADER(EasyCastStructure):
     Version: UInt32
     Size: UInt32
@@ -3447,17 +3447,17 @@ class STORAGE_DEVICE_FAULT_DOMAIN_DESCRIPTOR(EasyCastStructure):
     NumberOfFaultDomains: UInt32
     FaultDomainIds: Guid * 1
 STORAGE_DEVICE_FORM_FACTOR = Int32
-STORAGE_DEVICE_FORM_FACTOR_FormFactorUnknown: win32more.Windows.Win32.System.Ioctl.STORAGE_DEVICE_FORM_FACTOR = 0
-STORAGE_DEVICE_FORM_FACTOR_FormFactor3_5: win32more.Windows.Win32.System.Ioctl.STORAGE_DEVICE_FORM_FACTOR = 1
-STORAGE_DEVICE_FORM_FACTOR_FormFactor2_5: win32more.Windows.Win32.System.Ioctl.STORAGE_DEVICE_FORM_FACTOR = 2
-STORAGE_DEVICE_FORM_FACTOR_FormFactor1_8: win32more.Windows.Win32.System.Ioctl.STORAGE_DEVICE_FORM_FACTOR = 3
-STORAGE_DEVICE_FORM_FACTOR_FormFactor1_8Less: win32more.Windows.Win32.System.Ioctl.STORAGE_DEVICE_FORM_FACTOR = 4
-STORAGE_DEVICE_FORM_FACTOR_FormFactorEmbedded: win32more.Windows.Win32.System.Ioctl.STORAGE_DEVICE_FORM_FACTOR = 5
-STORAGE_DEVICE_FORM_FACTOR_FormFactorMemoryCard: win32more.Windows.Win32.System.Ioctl.STORAGE_DEVICE_FORM_FACTOR = 6
-STORAGE_DEVICE_FORM_FACTOR_FormFactormSata: win32more.Windows.Win32.System.Ioctl.STORAGE_DEVICE_FORM_FACTOR = 7
-STORAGE_DEVICE_FORM_FACTOR_FormFactorM_2: win32more.Windows.Win32.System.Ioctl.STORAGE_DEVICE_FORM_FACTOR = 8
-STORAGE_DEVICE_FORM_FACTOR_FormFactorPCIeBoard: win32more.Windows.Win32.System.Ioctl.STORAGE_DEVICE_FORM_FACTOR = 9
-STORAGE_DEVICE_FORM_FACTOR_FormFactorDimm: win32more.Windows.Win32.System.Ioctl.STORAGE_DEVICE_FORM_FACTOR = 10
+FormFactorUnknown: win32more.Windows.Win32.System.Ioctl.STORAGE_DEVICE_FORM_FACTOR = 0
+FormFactor3_5: win32more.Windows.Win32.System.Ioctl.STORAGE_DEVICE_FORM_FACTOR = 1
+FormFactor2_5: win32more.Windows.Win32.System.Ioctl.STORAGE_DEVICE_FORM_FACTOR = 2
+FormFactor1_8: win32more.Windows.Win32.System.Ioctl.STORAGE_DEVICE_FORM_FACTOR = 3
+FormFactor1_8Less: win32more.Windows.Win32.System.Ioctl.STORAGE_DEVICE_FORM_FACTOR = 4
+FormFactorEmbedded: win32more.Windows.Win32.System.Ioctl.STORAGE_DEVICE_FORM_FACTOR = 5
+FormFactorMemoryCard: win32more.Windows.Win32.System.Ioctl.STORAGE_DEVICE_FORM_FACTOR = 6
+FormFactormSata: win32more.Windows.Win32.System.Ioctl.STORAGE_DEVICE_FORM_FACTOR = 7
+FormFactorM_2: win32more.Windows.Win32.System.Ioctl.STORAGE_DEVICE_FORM_FACTOR = 8
+FormFactorPCIeBoard: win32more.Windows.Win32.System.Ioctl.STORAGE_DEVICE_FORM_FACTOR = 9
+FormFactorDimm: win32more.Windows.Win32.System.Ioctl.STORAGE_DEVICE_FORM_FACTOR = 10
 class STORAGE_DEVICE_ID_DESCRIPTOR(EasyCastStructure):
     Version: UInt32
     Size: UInt32
@@ -3512,8 +3512,8 @@ class STORAGE_DEVICE_POWER_CAP(EasyCastStructure):
     Units: win32more.Windows.Win32.System.Ioctl.STORAGE_DEVICE_POWER_CAP_UNITS
     MaxPower: UInt64
 STORAGE_DEVICE_POWER_CAP_UNITS = Int32
-STORAGE_DEVICE_POWER_CAP_UNITS_StorageDevicePowerCapUnitsPercent: win32more.Windows.Win32.System.Ioctl.STORAGE_DEVICE_POWER_CAP_UNITS = 0
-STORAGE_DEVICE_POWER_CAP_UNITS_StorageDevicePowerCapUnitsMilliwatts: win32more.Windows.Win32.System.Ioctl.STORAGE_DEVICE_POWER_CAP_UNITS = 1
+StorageDevicePowerCapUnitsPercent: win32more.Windows.Win32.System.Ioctl.STORAGE_DEVICE_POWER_CAP_UNITS = 0
+StorageDevicePowerCapUnitsMilliwatts: win32more.Windows.Win32.System.Ioctl.STORAGE_DEVICE_POWER_CAP_UNITS = 1
 class STORAGE_DEVICE_RESILIENCY_DESCRIPTOR(EasyCastStructure):
     Version: UInt32
     Size: UInt32
@@ -3551,8 +3551,8 @@ class STORAGE_DIAGNOSTIC_DATA(EasyCastStructure):
     Reserved: UInt32
     DiagnosticDataBuffer: Byte * 1
 STORAGE_DIAGNOSTIC_LEVEL = Int32
-STORAGE_DIAGNOSTIC_LEVEL_StorageDiagnosticLevelDefault: win32more.Windows.Win32.System.Ioctl.STORAGE_DIAGNOSTIC_LEVEL = 0
-STORAGE_DIAGNOSTIC_LEVEL_StorageDiagnosticLevelMax: win32more.Windows.Win32.System.Ioctl.STORAGE_DIAGNOSTIC_LEVEL = 1
+StorageDiagnosticLevelDefault: win32more.Windows.Win32.System.Ioctl.STORAGE_DIAGNOSTIC_LEVEL = 0
+StorageDiagnosticLevelMax: win32more.Windows.Win32.System.Ioctl.STORAGE_DIAGNOSTIC_LEVEL = 1
 class STORAGE_DIAGNOSTIC_REQUEST(EasyCastStructure):
     Version: UInt32
     Size: UInt32
@@ -3560,31 +3560,31 @@ class STORAGE_DIAGNOSTIC_REQUEST(EasyCastStructure):
     TargetType: win32more.Windows.Win32.System.Ioctl.STORAGE_DIAGNOSTIC_TARGET_TYPE
     Level: win32more.Windows.Win32.System.Ioctl.STORAGE_DIAGNOSTIC_LEVEL
 STORAGE_DIAGNOSTIC_TARGET_TYPE = Int32
-STORAGE_DIAGNOSTIC_TARGET_TYPE_StorageDiagnosticTargetTypeUndefined: win32more.Windows.Win32.System.Ioctl.STORAGE_DIAGNOSTIC_TARGET_TYPE = 0
-STORAGE_DIAGNOSTIC_TARGET_TYPE_StorageDiagnosticTargetTypePort: win32more.Windows.Win32.System.Ioctl.STORAGE_DIAGNOSTIC_TARGET_TYPE = 1
-STORAGE_DIAGNOSTIC_TARGET_TYPE_StorageDiagnosticTargetTypeMiniport: win32more.Windows.Win32.System.Ioctl.STORAGE_DIAGNOSTIC_TARGET_TYPE = 2
-STORAGE_DIAGNOSTIC_TARGET_TYPE_StorageDiagnosticTargetTypeHbaFirmware: win32more.Windows.Win32.System.Ioctl.STORAGE_DIAGNOSTIC_TARGET_TYPE = 3
-STORAGE_DIAGNOSTIC_TARGET_TYPE_StorageDiagnosticTargetTypeMax: win32more.Windows.Win32.System.Ioctl.STORAGE_DIAGNOSTIC_TARGET_TYPE = 4
+StorageDiagnosticTargetTypeUndefined: win32more.Windows.Win32.System.Ioctl.STORAGE_DIAGNOSTIC_TARGET_TYPE = 0
+StorageDiagnosticTargetTypePort: win32more.Windows.Win32.System.Ioctl.STORAGE_DIAGNOSTIC_TARGET_TYPE = 1
+StorageDiagnosticTargetTypeMiniport: win32more.Windows.Win32.System.Ioctl.STORAGE_DIAGNOSTIC_TARGET_TYPE = 2
+StorageDiagnosticTargetTypeHbaFirmware: win32more.Windows.Win32.System.Ioctl.STORAGE_DIAGNOSTIC_TARGET_TYPE = 3
+StorageDiagnosticTargetTypeMax: win32more.Windows.Win32.System.Ioctl.STORAGE_DIAGNOSTIC_TARGET_TYPE = 4
 STORAGE_DISK_HEALTH_STATUS = Int32
-STORAGE_DISK_HEALTH_STATUS_DiskHealthUnknown: win32more.Windows.Win32.System.Ioctl.STORAGE_DISK_HEALTH_STATUS = 0
-STORAGE_DISK_HEALTH_STATUS_DiskHealthUnhealthy: win32more.Windows.Win32.System.Ioctl.STORAGE_DISK_HEALTH_STATUS = 1
-STORAGE_DISK_HEALTH_STATUS_DiskHealthWarning: win32more.Windows.Win32.System.Ioctl.STORAGE_DISK_HEALTH_STATUS = 2
-STORAGE_DISK_HEALTH_STATUS_DiskHealthHealthy: win32more.Windows.Win32.System.Ioctl.STORAGE_DISK_HEALTH_STATUS = 3
-STORAGE_DISK_HEALTH_STATUS_DiskHealthMax: win32more.Windows.Win32.System.Ioctl.STORAGE_DISK_HEALTH_STATUS = 4
+DiskHealthUnknown: win32more.Windows.Win32.System.Ioctl.STORAGE_DISK_HEALTH_STATUS = 0
+DiskHealthUnhealthy: win32more.Windows.Win32.System.Ioctl.STORAGE_DISK_HEALTH_STATUS = 1
+DiskHealthWarning: win32more.Windows.Win32.System.Ioctl.STORAGE_DISK_HEALTH_STATUS = 2
+DiskHealthHealthy: win32more.Windows.Win32.System.Ioctl.STORAGE_DISK_HEALTH_STATUS = 3
+DiskHealthMax: win32more.Windows.Win32.System.Ioctl.STORAGE_DISK_HEALTH_STATUS = 4
 STORAGE_DISK_OPERATIONAL_STATUS = Int32
-STORAGE_DISK_OPERATIONAL_STATUS_DiskOpStatusNone: win32more.Windows.Win32.System.Ioctl.STORAGE_DISK_OPERATIONAL_STATUS = 0
-STORAGE_DISK_OPERATIONAL_STATUS_DiskOpStatusUnknown: win32more.Windows.Win32.System.Ioctl.STORAGE_DISK_OPERATIONAL_STATUS = 1
-STORAGE_DISK_OPERATIONAL_STATUS_DiskOpStatusOk: win32more.Windows.Win32.System.Ioctl.STORAGE_DISK_OPERATIONAL_STATUS = 2
-STORAGE_DISK_OPERATIONAL_STATUS_DiskOpStatusPredictingFailure: win32more.Windows.Win32.System.Ioctl.STORAGE_DISK_OPERATIONAL_STATUS = 3
-STORAGE_DISK_OPERATIONAL_STATUS_DiskOpStatusInService: win32more.Windows.Win32.System.Ioctl.STORAGE_DISK_OPERATIONAL_STATUS = 4
-STORAGE_DISK_OPERATIONAL_STATUS_DiskOpStatusHardwareError: win32more.Windows.Win32.System.Ioctl.STORAGE_DISK_OPERATIONAL_STATUS = 5
-STORAGE_DISK_OPERATIONAL_STATUS_DiskOpStatusNotUsable: win32more.Windows.Win32.System.Ioctl.STORAGE_DISK_OPERATIONAL_STATUS = 6
-STORAGE_DISK_OPERATIONAL_STATUS_DiskOpStatusTransientError: win32more.Windows.Win32.System.Ioctl.STORAGE_DISK_OPERATIONAL_STATUS = 7
-STORAGE_DISK_OPERATIONAL_STATUS_DiskOpStatusMissing: win32more.Windows.Win32.System.Ioctl.STORAGE_DISK_OPERATIONAL_STATUS = 8
+DiskOpStatusNone: win32more.Windows.Win32.System.Ioctl.STORAGE_DISK_OPERATIONAL_STATUS = 0
+DiskOpStatusUnknown: win32more.Windows.Win32.System.Ioctl.STORAGE_DISK_OPERATIONAL_STATUS = 1
+DiskOpStatusOk: win32more.Windows.Win32.System.Ioctl.STORAGE_DISK_OPERATIONAL_STATUS = 2
+DiskOpStatusPredictingFailure: win32more.Windows.Win32.System.Ioctl.STORAGE_DISK_OPERATIONAL_STATUS = 3
+DiskOpStatusInService: win32more.Windows.Win32.System.Ioctl.STORAGE_DISK_OPERATIONAL_STATUS = 4
+DiskOpStatusHardwareError: win32more.Windows.Win32.System.Ioctl.STORAGE_DISK_OPERATIONAL_STATUS = 5
+DiskOpStatusNotUsable: win32more.Windows.Win32.System.Ioctl.STORAGE_DISK_OPERATIONAL_STATUS = 6
+DiskOpStatusTransientError: win32more.Windows.Win32.System.Ioctl.STORAGE_DISK_OPERATIONAL_STATUS = 7
+DiskOpStatusMissing: win32more.Windows.Win32.System.Ioctl.STORAGE_DISK_OPERATIONAL_STATUS = 8
 STORAGE_ENCRYPTION_TYPE = Int32
-STORAGE_ENCRYPTION_TYPE_StorageEncryptionTypeUnknown: win32more.Windows.Win32.System.Ioctl.STORAGE_ENCRYPTION_TYPE = 0
-STORAGE_ENCRYPTION_TYPE_StorageEncryptionTypeEDrive: win32more.Windows.Win32.System.Ioctl.STORAGE_ENCRYPTION_TYPE = 1
-STORAGE_ENCRYPTION_TYPE_StorageEncryptionTypeTcgOpal: win32more.Windows.Win32.System.Ioctl.STORAGE_ENCRYPTION_TYPE = 2
+StorageEncryptionTypeUnknown: win32more.Windows.Win32.System.Ioctl.STORAGE_ENCRYPTION_TYPE = 0
+StorageEncryptionTypeEDrive: win32more.Windows.Win32.System.Ioctl.STORAGE_ENCRYPTION_TYPE = 1
+StorageEncryptionTypeTcgOpal: win32more.Windows.Win32.System.Ioctl.STORAGE_ENCRYPTION_TYPE = 2
 class STORAGE_EVENT_NOTIFICATION(EasyCastStructure):
     Version: UInt32
     Size: UInt32
@@ -3684,20 +3684,20 @@ class STORAGE_IDENTIFIER(EasyCastStructure):
     Association: win32more.Windows.Win32.System.Ioctl.STORAGE_ASSOCIATION_TYPE
     Identifier: Byte * 1
 STORAGE_IDENTIFIER_CODE_SET = Int32
-STORAGE_IDENTIFIER_CODE_SET_StorageIdCodeSetReserved: win32more.Windows.Win32.System.Ioctl.STORAGE_IDENTIFIER_CODE_SET = 0
-STORAGE_IDENTIFIER_CODE_SET_StorageIdCodeSetBinary: win32more.Windows.Win32.System.Ioctl.STORAGE_IDENTIFIER_CODE_SET = 1
-STORAGE_IDENTIFIER_CODE_SET_StorageIdCodeSetAscii: win32more.Windows.Win32.System.Ioctl.STORAGE_IDENTIFIER_CODE_SET = 2
-STORAGE_IDENTIFIER_CODE_SET_StorageIdCodeSetUtf8: win32more.Windows.Win32.System.Ioctl.STORAGE_IDENTIFIER_CODE_SET = 3
+StorageIdCodeSetReserved: win32more.Windows.Win32.System.Ioctl.STORAGE_IDENTIFIER_CODE_SET = 0
+StorageIdCodeSetBinary: win32more.Windows.Win32.System.Ioctl.STORAGE_IDENTIFIER_CODE_SET = 1
+StorageIdCodeSetAscii: win32more.Windows.Win32.System.Ioctl.STORAGE_IDENTIFIER_CODE_SET = 2
+StorageIdCodeSetUtf8: win32more.Windows.Win32.System.Ioctl.STORAGE_IDENTIFIER_CODE_SET = 3
 STORAGE_IDENTIFIER_TYPE = Int32
-STORAGE_IDENTIFIER_TYPE_StorageIdTypeVendorSpecific: win32more.Windows.Win32.System.Ioctl.STORAGE_IDENTIFIER_TYPE = 0
-STORAGE_IDENTIFIER_TYPE_StorageIdTypeVendorId: win32more.Windows.Win32.System.Ioctl.STORAGE_IDENTIFIER_TYPE = 1
-STORAGE_IDENTIFIER_TYPE_StorageIdTypeEUI64: win32more.Windows.Win32.System.Ioctl.STORAGE_IDENTIFIER_TYPE = 2
-STORAGE_IDENTIFIER_TYPE_StorageIdTypeFCPHName: win32more.Windows.Win32.System.Ioctl.STORAGE_IDENTIFIER_TYPE = 3
-STORAGE_IDENTIFIER_TYPE_StorageIdTypePortRelative: win32more.Windows.Win32.System.Ioctl.STORAGE_IDENTIFIER_TYPE = 4
-STORAGE_IDENTIFIER_TYPE_StorageIdTypeTargetPortGroup: win32more.Windows.Win32.System.Ioctl.STORAGE_IDENTIFIER_TYPE = 5
-STORAGE_IDENTIFIER_TYPE_StorageIdTypeLogicalUnitGroup: win32more.Windows.Win32.System.Ioctl.STORAGE_IDENTIFIER_TYPE = 6
-STORAGE_IDENTIFIER_TYPE_StorageIdTypeMD5LogicalUnitIdentifier: win32more.Windows.Win32.System.Ioctl.STORAGE_IDENTIFIER_TYPE = 7
-STORAGE_IDENTIFIER_TYPE_StorageIdTypeScsiNameString: win32more.Windows.Win32.System.Ioctl.STORAGE_IDENTIFIER_TYPE = 8
+StorageIdTypeVendorSpecific: win32more.Windows.Win32.System.Ioctl.STORAGE_IDENTIFIER_TYPE = 0
+StorageIdTypeVendorId: win32more.Windows.Win32.System.Ioctl.STORAGE_IDENTIFIER_TYPE = 1
+StorageIdTypeEUI64: win32more.Windows.Win32.System.Ioctl.STORAGE_IDENTIFIER_TYPE = 2
+StorageIdTypeFCPHName: win32more.Windows.Win32.System.Ioctl.STORAGE_IDENTIFIER_TYPE = 3
+StorageIdTypePortRelative: win32more.Windows.Win32.System.Ioctl.STORAGE_IDENTIFIER_TYPE = 4
+StorageIdTypeTargetPortGroup: win32more.Windows.Win32.System.Ioctl.STORAGE_IDENTIFIER_TYPE = 5
+StorageIdTypeLogicalUnitGroup: win32more.Windows.Win32.System.Ioctl.STORAGE_IDENTIFIER_TYPE = 6
+StorageIdTypeMD5LogicalUnitIdentifier: win32more.Windows.Win32.System.Ioctl.STORAGE_IDENTIFIER_TYPE = 7
+StorageIdTypeScsiNameString: win32more.Windows.Win32.System.Ioctl.STORAGE_IDENTIFIER_TYPE = 8
 class STORAGE_IDLE_POWER(EasyCastStructure):
     Version: UInt32
     Size: UInt32
@@ -3708,9 +3708,9 @@ class STORAGE_IDLE_POWERUP_REASON(EasyCastStructure):
     Size: UInt32
     PowerupReason: win32more.Windows.Win32.System.Ioctl.STORAGE_POWERUP_REASON_TYPE
 STORAGE_ID_NAA_FORMAT = Int32
-STORAGE_ID_NAA_FORMAT_StorageIdNAAFormatIEEEExtended: win32more.Windows.Win32.System.Ioctl.STORAGE_ID_NAA_FORMAT = 2
-STORAGE_ID_NAA_FORMAT_StorageIdNAAFormatIEEERegistered: win32more.Windows.Win32.System.Ioctl.STORAGE_ID_NAA_FORMAT = 3
-STORAGE_ID_NAA_FORMAT_StorageIdNAAFormatIEEEERegisteredExtended: win32more.Windows.Win32.System.Ioctl.STORAGE_ID_NAA_FORMAT = 5
+StorageIdNAAFormatIEEEExtended: win32more.Windows.Win32.System.Ioctl.STORAGE_ID_NAA_FORMAT = 2
+StorageIdNAAFormatIEEERegistered: win32more.Windows.Win32.System.Ioctl.STORAGE_ID_NAA_FORMAT = 3
+StorageIdNAAFormatIEEEERegisteredExtended: win32more.Windows.Win32.System.Ioctl.STORAGE_ID_NAA_FORMAT = 5
 class STORAGE_LB_PROVISIONING_MAP_RESOURCES(EasyCastStructure):
     Size: UInt32
     Version: UInt32
@@ -3725,69 +3725,69 @@ class STORAGE_MEDIA_SERIAL_NUMBER_DATA(EasyCastStructure):
     SerialNumberLength: UInt16
     SerialNumber: Byte * 1
 STORAGE_MEDIA_TYPE = Int32
-STORAGE_MEDIA_TYPE_DDS_4mm: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 32
-STORAGE_MEDIA_TYPE_MiniQic: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 33
-STORAGE_MEDIA_TYPE_Travan: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 34
-STORAGE_MEDIA_TYPE_QIC: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 35
-STORAGE_MEDIA_TYPE_MP_8mm: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 36
-STORAGE_MEDIA_TYPE_AME_8mm: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 37
-STORAGE_MEDIA_TYPE_AIT1_8mm: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 38
-STORAGE_MEDIA_TYPE_DLT: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 39
-STORAGE_MEDIA_TYPE_NCTP: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 40
-STORAGE_MEDIA_TYPE_IBM_3480: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 41
-STORAGE_MEDIA_TYPE_IBM_3490E: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 42
-STORAGE_MEDIA_TYPE_IBM_Magstar_3590: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 43
-STORAGE_MEDIA_TYPE_IBM_Magstar_MP: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 44
-STORAGE_MEDIA_TYPE_STK_DATA_D3: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 45
-STORAGE_MEDIA_TYPE_SONY_DTF: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 46
-STORAGE_MEDIA_TYPE_DV_6mm: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 47
-STORAGE_MEDIA_TYPE_DMI: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 48
-STORAGE_MEDIA_TYPE_SONY_D2: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 49
-STORAGE_MEDIA_TYPE_CLEANER_CARTRIDGE: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 50
-STORAGE_MEDIA_TYPE_CD_ROM: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 51
-STORAGE_MEDIA_TYPE_CD_R: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 52
-STORAGE_MEDIA_TYPE_CD_RW: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 53
-STORAGE_MEDIA_TYPE_DVD_ROM: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 54
-STORAGE_MEDIA_TYPE_DVD_R: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 55
-STORAGE_MEDIA_TYPE_DVD_RW: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 56
-STORAGE_MEDIA_TYPE_MO_3_RW: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 57
-STORAGE_MEDIA_TYPE_MO_5_WO: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 58
-STORAGE_MEDIA_TYPE_MO_5_RW: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 59
-STORAGE_MEDIA_TYPE_MO_5_LIMDOW: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 60
-STORAGE_MEDIA_TYPE_PC_5_WO: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 61
-STORAGE_MEDIA_TYPE_PC_5_RW: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 62
-STORAGE_MEDIA_TYPE_PD_5_RW: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 63
-STORAGE_MEDIA_TYPE_ABL_5_WO: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 64
-STORAGE_MEDIA_TYPE_PINNACLE_APEX_5_RW: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 65
-STORAGE_MEDIA_TYPE_SONY_12_WO: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 66
-STORAGE_MEDIA_TYPE_PHILIPS_12_WO: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 67
-STORAGE_MEDIA_TYPE_HITACHI_12_WO: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 68
-STORAGE_MEDIA_TYPE_CYGNET_12_WO: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 69
-STORAGE_MEDIA_TYPE_KODAK_14_WO: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 70
-STORAGE_MEDIA_TYPE_MO_NFR_525: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 71
-STORAGE_MEDIA_TYPE_NIKON_12_RW: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 72
-STORAGE_MEDIA_TYPE_IOMEGA_ZIP: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 73
-STORAGE_MEDIA_TYPE_IOMEGA_JAZ: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 74
-STORAGE_MEDIA_TYPE_SYQUEST_EZ135: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 75
-STORAGE_MEDIA_TYPE_SYQUEST_EZFLYER: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 76
-STORAGE_MEDIA_TYPE_SYQUEST_SYJET: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 77
-STORAGE_MEDIA_TYPE_AVATAR_F2: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 78
-STORAGE_MEDIA_TYPE_MP2_8mm: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 79
-STORAGE_MEDIA_TYPE_DST_S: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 80
-STORAGE_MEDIA_TYPE_DST_M: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 81
-STORAGE_MEDIA_TYPE_DST_L: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 82
-STORAGE_MEDIA_TYPE_VXATape_1: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 83
-STORAGE_MEDIA_TYPE_VXATape_2: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 84
-STORAGE_MEDIA_TYPE_STK_9840: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 85
-STORAGE_MEDIA_TYPE_LTO_Ultrium: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 86
-STORAGE_MEDIA_TYPE_LTO_Accelis: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 87
-STORAGE_MEDIA_TYPE_DVD_RAM: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 88
-STORAGE_MEDIA_TYPE_AIT_8mm: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 89
-STORAGE_MEDIA_TYPE_ADR_1: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 90
-STORAGE_MEDIA_TYPE_ADR_2: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 91
-STORAGE_MEDIA_TYPE_STK_9940: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 92
-STORAGE_MEDIA_TYPE_SAIT: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 93
-STORAGE_MEDIA_TYPE_VXATape: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 94
+DDS_4mm: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 32
+MiniQic: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 33
+Travan: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 34
+QIC: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 35
+MP_8mm: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 36
+AME_8mm: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 37
+AIT1_8mm: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 38
+DLT: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 39
+NCTP: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 40
+IBM_3480: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 41
+IBM_3490E: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 42
+IBM_Magstar_3590: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 43
+IBM_Magstar_MP: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 44
+STK_DATA_D3: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 45
+SONY_DTF: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 46
+DV_6mm: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 47
+DMI: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 48
+SONY_D2: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 49
+CLEANER_CARTRIDGE: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 50
+CD_ROM: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 51
+CD_R: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 52
+CD_RW: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 53
+DVD_ROM: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 54
+DVD_R: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 55
+DVD_RW: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 56
+MO_3_RW: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 57
+MO_5_WO: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 58
+MO_5_RW: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 59
+MO_5_LIMDOW: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 60
+PC_5_WO: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 61
+PC_5_RW: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 62
+PD_5_RW: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 63
+ABL_5_WO: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 64
+PINNACLE_APEX_5_RW: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 65
+SONY_12_WO: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 66
+PHILIPS_12_WO: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 67
+HITACHI_12_WO: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 68
+CYGNET_12_WO: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 69
+KODAK_14_WO: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 70
+MO_NFR_525: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 71
+NIKON_12_RW: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 72
+IOMEGA_ZIP: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 73
+IOMEGA_JAZ: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 74
+SYQUEST_EZ135: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 75
+SYQUEST_EZFLYER: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 76
+SYQUEST_SYJET: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 77
+AVATAR_F2: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 78
+MP2_8mm: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 79
+DST_S: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 80
+DST_M: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 81
+DST_L: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 82
+VXATape_1: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 83
+VXATape_2: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 84
+STK_9840: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 85
+LTO_Ultrium: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 86
+LTO_Accelis: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 87
+DVD_RAM: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 88
+AIT_8mm: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 89
+ADR_1: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 90
+ADR_2: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 91
+STK_9940: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 92
+SAIT: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 93
+VXATape: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 94
 class STORAGE_MEDIUM_PRODUCT_TYPE_DESCRIPTOR(EasyCastStructure):
     Version: UInt32
     Size: UInt32
@@ -3847,27 +3847,27 @@ class STORAGE_OPERATIONAL_REASON(EasyCastStructure):
             ModuleHealth: Byte * 2
             ErrorThresholdStatus: Byte
 STORAGE_OPERATIONAL_STATUS_REASON = Int32
-STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonUnknown: win32more.Windows.Win32.System.Ioctl.STORAGE_OPERATIONAL_STATUS_REASON = 0
-STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonScsiSenseCode: win32more.Windows.Win32.System.Ioctl.STORAGE_OPERATIONAL_STATUS_REASON = 1
-STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonMedia: win32more.Windows.Win32.System.Ioctl.STORAGE_OPERATIONAL_STATUS_REASON = 2
-STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonIo: win32more.Windows.Win32.System.Ioctl.STORAGE_OPERATIONAL_STATUS_REASON = 3
-STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonThresholdExceeded: win32more.Windows.Win32.System.Ioctl.STORAGE_OPERATIONAL_STATUS_REASON = 4
-STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonLostData: win32more.Windows.Win32.System.Ioctl.STORAGE_OPERATIONAL_STATUS_REASON = 5
-STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonEnergySource: win32more.Windows.Win32.System.Ioctl.STORAGE_OPERATIONAL_STATUS_REASON = 6
-STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonConfiguration: win32more.Windows.Win32.System.Ioctl.STORAGE_OPERATIONAL_STATUS_REASON = 7
-STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonDeviceController: win32more.Windows.Win32.System.Ioctl.STORAGE_OPERATIONAL_STATUS_REASON = 8
-STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonMediaController: win32more.Windows.Win32.System.Ioctl.STORAGE_OPERATIONAL_STATUS_REASON = 9
-STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonComponent: win32more.Windows.Win32.System.Ioctl.STORAGE_OPERATIONAL_STATUS_REASON = 10
-STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonNVDIMM_N: win32more.Windows.Win32.System.Ioctl.STORAGE_OPERATIONAL_STATUS_REASON = 11
-STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonBackgroundOperation: win32more.Windows.Win32.System.Ioctl.STORAGE_OPERATIONAL_STATUS_REASON = 12
-STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonInvalidFirmware: win32more.Windows.Win32.System.Ioctl.STORAGE_OPERATIONAL_STATUS_REASON = 13
-STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonHealthCheck: win32more.Windows.Win32.System.Ioctl.STORAGE_OPERATIONAL_STATUS_REASON = 14
-STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonLostDataPersistence: win32more.Windows.Win32.System.Ioctl.STORAGE_OPERATIONAL_STATUS_REASON = 15
-STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonDisabledByPlatform: win32more.Windows.Win32.System.Ioctl.STORAGE_OPERATIONAL_STATUS_REASON = 16
-STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonLostWritePersistence: win32more.Windows.Win32.System.Ioctl.STORAGE_OPERATIONAL_STATUS_REASON = 17
-STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonDataPersistenceLossImminent: win32more.Windows.Win32.System.Ioctl.STORAGE_OPERATIONAL_STATUS_REASON = 18
-STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonWritePersistenceLossImminent: win32more.Windows.Win32.System.Ioctl.STORAGE_OPERATIONAL_STATUS_REASON = 19
-STORAGE_OPERATIONAL_STATUS_REASON_DiskOpReasonMax: win32more.Windows.Win32.System.Ioctl.STORAGE_OPERATIONAL_STATUS_REASON = 20
+DiskOpReasonUnknown: win32more.Windows.Win32.System.Ioctl.STORAGE_OPERATIONAL_STATUS_REASON = 0
+DiskOpReasonScsiSenseCode: win32more.Windows.Win32.System.Ioctl.STORAGE_OPERATIONAL_STATUS_REASON = 1
+DiskOpReasonMedia: win32more.Windows.Win32.System.Ioctl.STORAGE_OPERATIONAL_STATUS_REASON = 2
+DiskOpReasonIo: win32more.Windows.Win32.System.Ioctl.STORAGE_OPERATIONAL_STATUS_REASON = 3
+DiskOpReasonThresholdExceeded: win32more.Windows.Win32.System.Ioctl.STORAGE_OPERATIONAL_STATUS_REASON = 4
+DiskOpReasonLostData: win32more.Windows.Win32.System.Ioctl.STORAGE_OPERATIONAL_STATUS_REASON = 5
+DiskOpReasonEnergySource: win32more.Windows.Win32.System.Ioctl.STORAGE_OPERATIONAL_STATUS_REASON = 6
+DiskOpReasonConfiguration: win32more.Windows.Win32.System.Ioctl.STORAGE_OPERATIONAL_STATUS_REASON = 7
+DiskOpReasonDeviceController: win32more.Windows.Win32.System.Ioctl.STORAGE_OPERATIONAL_STATUS_REASON = 8
+DiskOpReasonMediaController: win32more.Windows.Win32.System.Ioctl.STORAGE_OPERATIONAL_STATUS_REASON = 9
+DiskOpReasonComponent: win32more.Windows.Win32.System.Ioctl.STORAGE_OPERATIONAL_STATUS_REASON = 10
+DiskOpReasonNVDIMM_N: win32more.Windows.Win32.System.Ioctl.STORAGE_OPERATIONAL_STATUS_REASON = 11
+DiskOpReasonBackgroundOperation: win32more.Windows.Win32.System.Ioctl.STORAGE_OPERATIONAL_STATUS_REASON = 12
+DiskOpReasonInvalidFirmware: win32more.Windows.Win32.System.Ioctl.STORAGE_OPERATIONAL_STATUS_REASON = 13
+DiskOpReasonHealthCheck: win32more.Windows.Win32.System.Ioctl.STORAGE_OPERATIONAL_STATUS_REASON = 14
+DiskOpReasonLostDataPersistence: win32more.Windows.Win32.System.Ioctl.STORAGE_OPERATIONAL_STATUS_REASON = 15
+DiskOpReasonDisabledByPlatform: win32more.Windows.Win32.System.Ioctl.STORAGE_OPERATIONAL_STATUS_REASON = 16
+DiskOpReasonLostWritePersistence: win32more.Windows.Win32.System.Ioctl.STORAGE_OPERATIONAL_STATUS_REASON = 17
+DiskOpReasonDataPersistenceLossImminent: win32more.Windows.Win32.System.Ioctl.STORAGE_OPERATIONAL_STATUS_REASON = 18
+DiskOpReasonWritePersistenceLossImminent: win32more.Windows.Win32.System.Ioctl.STORAGE_OPERATIONAL_STATUS_REASON = 19
+DiskOpReasonMax: win32more.Windows.Win32.System.Ioctl.STORAGE_OPERATIONAL_STATUS_REASON = 20
 class STORAGE_PHYSICAL_ADAPTER_DATA(EasyCastStructure):
     AdapterId: UInt32
     HealthStatus: win32more.Windows.Win32.System.Ioctl.STORAGE_COMPONENT_HEALTH_STATUS
@@ -3909,60 +3909,60 @@ class STORAGE_PHYSICAL_TOPOLOGY_DESCRIPTOR(EasyCastStructure):
     Reserved: UInt32
     Node: win32more.Windows.Win32.System.Ioctl.STORAGE_PHYSICAL_NODE_DATA * 1
 STORAGE_PORT_CODE_SET = Int32
-STORAGE_PORT_CODE_SET_StoragePortCodeSetReserved: win32more.Windows.Win32.System.Ioctl.STORAGE_PORT_CODE_SET = 0
-STORAGE_PORT_CODE_SET_StoragePortCodeSetStorport: win32more.Windows.Win32.System.Ioctl.STORAGE_PORT_CODE_SET = 1
-STORAGE_PORT_CODE_SET_StoragePortCodeSetSCSIport: win32more.Windows.Win32.System.Ioctl.STORAGE_PORT_CODE_SET = 2
-STORAGE_PORT_CODE_SET_StoragePortCodeSetSpaceport: win32more.Windows.Win32.System.Ioctl.STORAGE_PORT_CODE_SET = 3
-STORAGE_PORT_CODE_SET_StoragePortCodeSetATAport: win32more.Windows.Win32.System.Ioctl.STORAGE_PORT_CODE_SET = 4
-STORAGE_PORT_CODE_SET_StoragePortCodeSetUSBport: win32more.Windows.Win32.System.Ioctl.STORAGE_PORT_CODE_SET = 5
-STORAGE_PORT_CODE_SET_StoragePortCodeSetSBP2port: win32more.Windows.Win32.System.Ioctl.STORAGE_PORT_CODE_SET = 6
-STORAGE_PORT_CODE_SET_StoragePortCodeSetSDport: win32more.Windows.Win32.System.Ioctl.STORAGE_PORT_CODE_SET = 7
+StoragePortCodeSetReserved: win32more.Windows.Win32.System.Ioctl.STORAGE_PORT_CODE_SET = 0
+StoragePortCodeSetStorport: win32more.Windows.Win32.System.Ioctl.STORAGE_PORT_CODE_SET = 1
+StoragePortCodeSetSCSIport: win32more.Windows.Win32.System.Ioctl.STORAGE_PORT_CODE_SET = 2
+StoragePortCodeSetSpaceport: win32more.Windows.Win32.System.Ioctl.STORAGE_PORT_CODE_SET = 3
+StoragePortCodeSetATAport: win32more.Windows.Win32.System.Ioctl.STORAGE_PORT_CODE_SET = 4
+StoragePortCodeSetUSBport: win32more.Windows.Win32.System.Ioctl.STORAGE_PORT_CODE_SET = 5
+StoragePortCodeSetSBP2port: win32more.Windows.Win32.System.Ioctl.STORAGE_PORT_CODE_SET = 6
+StoragePortCodeSetSDport: win32more.Windows.Win32.System.Ioctl.STORAGE_PORT_CODE_SET = 7
 STORAGE_POWERUP_REASON_TYPE = Int32
-STORAGE_POWERUP_REASON_TYPE_StoragePowerupUnknown: win32more.Windows.Win32.System.Ioctl.STORAGE_POWERUP_REASON_TYPE = 0
-STORAGE_POWERUP_REASON_TYPE_StoragePowerupIO: win32more.Windows.Win32.System.Ioctl.STORAGE_POWERUP_REASON_TYPE = 1
-STORAGE_POWERUP_REASON_TYPE_StoragePowerupDeviceAttention: win32more.Windows.Win32.System.Ioctl.STORAGE_POWERUP_REASON_TYPE = 2
+StoragePowerupUnknown: win32more.Windows.Win32.System.Ioctl.STORAGE_POWERUP_REASON_TYPE = 0
+StoragePowerupIO: win32more.Windows.Win32.System.Ioctl.STORAGE_POWERUP_REASON_TYPE = 1
+StoragePowerupDeviceAttention: win32more.Windows.Win32.System.Ioctl.STORAGE_POWERUP_REASON_TYPE = 2
 class STORAGE_PREDICT_FAILURE(EasyCastStructure):
     PredictFailure: UInt32
     VendorSpecific: Byte * 512
 class STORAGE_PRIORITY_HINT_SUPPORT(EasyCastStructure):
     SupportFlags: UInt32
 STORAGE_PROPERTY_ID = Int32
-STORAGE_PROPERTY_ID_StorageDeviceProperty: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 0
-STORAGE_PROPERTY_ID_StorageAdapterProperty: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 1
-STORAGE_PROPERTY_ID_StorageDeviceIdProperty: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 2
-STORAGE_PROPERTY_ID_StorageDeviceUniqueIdProperty: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 3
-STORAGE_PROPERTY_ID_StorageDeviceWriteCacheProperty: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 4
-STORAGE_PROPERTY_ID_StorageMiniportProperty: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 5
-STORAGE_PROPERTY_ID_StorageAccessAlignmentProperty: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 6
-STORAGE_PROPERTY_ID_StorageDeviceSeekPenaltyProperty: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 7
-STORAGE_PROPERTY_ID_StorageDeviceTrimProperty: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 8
-STORAGE_PROPERTY_ID_StorageDeviceWriteAggregationProperty: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 9
-STORAGE_PROPERTY_ID_StorageDeviceDeviceTelemetryProperty: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 10
-STORAGE_PROPERTY_ID_StorageDeviceLBProvisioningProperty: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 11
-STORAGE_PROPERTY_ID_StorageDevicePowerProperty: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 12
-STORAGE_PROPERTY_ID_StorageDeviceCopyOffloadProperty: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 13
-STORAGE_PROPERTY_ID_StorageDeviceResiliencyProperty: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 14
-STORAGE_PROPERTY_ID_StorageDeviceMediumProductType: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 15
-STORAGE_PROPERTY_ID_StorageAdapterRpmbProperty: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 16
-STORAGE_PROPERTY_ID_StorageAdapterCryptoProperty: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 17
-STORAGE_PROPERTY_ID_StorageDeviceIoCapabilityProperty: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 48
-STORAGE_PROPERTY_ID_StorageAdapterProtocolSpecificProperty: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 49
-STORAGE_PROPERTY_ID_StorageDeviceProtocolSpecificProperty: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 50
-STORAGE_PROPERTY_ID_StorageAdapterTemperatureProperty: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 51
-STORAGE_PROPERTY_ID_StorageDeviceTemperatureProperty: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 52
-STORAGE_PROPERTY_ID_StorageAdapterPhysicalTopologyProperty: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 53
-STORAGE_PROPERTY_ID_StorageDevicePhysicalTopologyProperty: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 54
-STORAGE_PROPERTY_ID_StorageDeviceAttributesProperty: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 55
-STORAGE_PROPERTY_ID_StorageDeviceManagementStatus: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 56
-STORAGE_PROPERTY_ID_StorageAdapterSerialNumberProperty: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 57
-STORAGE_PROPERTY_ID_StorageDeviceLocationProperty: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 58
-STORAGE_PROPERTY_ID_StorageDeviceNumaProperty: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 59
-STORAGE_PROPERTY_ID_StorageDeviceZonedDeviceProperty: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 60
-STORAGE_PROPERTY_ID_StorageDeviceUnsafeShutdownCount: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 61
-STORAGE_PROPERTY_ID_StorageDeviceEnduranceProperty: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 62
-STORAGE_PROPERTY_ID_StorageDeviceLedStateProperty: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 63
-STORAGE_PROPERTY_ID_StorageDeviceSelfEncryptionProperty: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 64
-STORAGE_PROPERTY_ID_StorageFruIdProperty: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 65
+StorageDeviceProperty: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 0
+StorageAdapterProperty: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 1
+StorageDeviceIdProperty: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 2
+StorageDeviceUniqueIdProperty: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 3
+StorageDeviceWriteCacheProperty: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 4
+StorageMiniportProperty: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 5
+StorageAccessAlignmentProperty: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 6
+StorageDeviceSeekPenaltyProperty: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 7
+StorageDeviceTrimProperty: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 8
+StorageDeviceWriteAggregationProperty: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 9
+StorageDeviceDeviceTelemetryProperty: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 10
+StorageDeviceLBProvisioningProperty: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 11
+StorageDevicePowerProperty: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 12
+StorageDeviceCopyOffloadProperty: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 13
+StorageDeviceResiliencyProperty: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 14
+StorageDeviceMediumProductType: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 15
+StorageAdapterRpmbProperty: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 16
+StorageAdapterCryptoProperty: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 17
+StorageDeviceIoCapabilityProperty: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 48
+StorageAdapterProtocolSpecificProperty: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 49
+StorageDeviceProtocolSpecificProperty: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 50
+StorageAdapterTemperatureProperty: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 51
+StorageDeviceTemperatureProperty: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 52
+StorageAdapterPhysicalTopologyProperty: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 53
+StorageDevicePhysicalTopologyProperty: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 54
+StorageDeviceAttributesProperty: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 55
+StorageDeviceManagementStatus: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 56
+StorageAdapterSerialNumberProperty: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 57
+StorageDeviceLocationProperty: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 58
+StorageDeviceNumaProperty: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 59
+StorageDeviceZonedDeviceProperty: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 60
+StorageDeviceUnsafeShutdownCount: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 61
+StorageDeviceEnduranceProperty: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 62
+StorageDeviceLedStateProperty: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 63
+StorageDeviceSelfEncryptionProperty: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 64
+StorageFruIdProperty: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 65
 class STORAGE_PROPERTY_QUERY(EasyCastStructure):
     PropertyId: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID
     QueryType: win32more.Windows.Win32.System.Ioctl.STORAGE_QUERY_TYPE
@@ -3972,9 +3972,9 @@ class STORAGE_PROPERTY_SET(EasyCastStructure):
     SetType: win32more.Windows.Win32.System.Ioctl.STORAGE_SET_TYPE
     AdditionalParameters: Byte * 1
 STORAGE_PROTOCOL_ATA_DATA_TYPE = Int32
-STORAGE_PROTOCOL_ATA_DATA_TYPE_AtaDataTypeUnknown: win32more.Windows.Win32.System.Ioctl.STORAGE_PROTOCOL_ATA_DATA_TYPE = 0
-STORAGE_PROTOCOL_ATA_DATA_TYPE_AtaDataTypeIdentify: win32more.Windows.Win32.System.Ioctl.STORAGE_PROTOCOL_ATA_DATA_TYPE = 1
-STORAGE_PROTOCOL_ATA_DATA_TYPE_AtaDataTypeLogPage: win32more.Windows.Win32.System.Ioctl.STORAGE_PROTOCOL_ATA_DATA_TYPE = 2
+AtaDataTypeUnknown: win32more.Windows.Win32.System.Ioctl.STORAGE_PROTOCOL_ATA_DATA_TYPE = 0
+AtaDataTypeIdentify: win32more.Windows.Win32.System.Ioctl.STORAGE_PROTOCOL_ATA_DATA_TYPE = 1
+AtaDataTypeLogPage: win32more.Windows.Win32.System.Ioctl.STORAGE_PROTOCOL_ATA_DATA_TYPE = 2
 class STORAGE_PROTOCOL_COMMAND(EasyCastStructure):
     Version: UInt32
     Length: UInt32
@@ -4009,10 +4009,10 @@ class STORAGE_PROTOCOL_DATA_SUBVALUE_GET_LOG_PAGE(EasyCastUnion):
     class _Anonymous_e__Struct(EasyCastStructure):
         _bitfield: UInt32
 STORAGE_PROTOCOL_NVME_DATA_TYPE = Int32
-STORAGE_PROTOCOL_NVME_DATA_TYPE_NVMeDataTypeUnknown: win32more.Windows.Win32.System.Ioctl.STORAGE_PROTOCOL_NVME_DATA_TYPE = 0
-STORAGE_PROTOCOL_NVME_DATA_TYPE_NVMeDataTypeIdentify: win32more.Windows.Win32.System.Ioctl.STORAGE_PROTOCOL_NVME_DATA_TYPE = 1
-STORAGE_PROTOCOL_NVME_DATA_TYPE_NVMeDataTypeLogPage: win32more.Windows.Win32.System.Ioctl.STORAGE_PROTOCOL_NVME_DATA_TYPE = 2
-STORAGE_PROTOCOL_NVME_DATA_TYPE_NVMeDataTypeFeature: win32more.Windows.Win32.System.Ioctl.STORAGE_PROTOCOL_NVME_DATA_TYPE = 3
+NVMeDataTypeUnknown: win32more.Windows.Win32.System.Ioctl.STORAGE_PROTOCOL_NVME_DATA_TYPE = 0
+NVMeDataTypeIdentify: win32more.Windows.Win32.System.Ioctl.STORAGE_PROTOCOL_NVME_DATA_TYPE = 1
+NVMeDataTypeLogPage: win32more.Windows.Win32.System.Ioctl.STORAGE_PROTOCOL_NVME_DATA_TYPE = 2
+NVMeDataTypeFeature: win32more.Windows.Win32.System.Ioctl.STORAGE_PROTOCOL_NVME_DATA_TYPE = 3
 class STORAGE_PROTOCOL_SPECIFIC_DATA(EasyCastStructure):
     ProtocolType: win32more.Windows.Win32.System.Ioctl.STORAGE_PROTOCOL_TYPE
     DataType: UInt32
@@ -4038,22 +4038,22 @@ class STORAGE_PROTOCOL_SPECIFIC_DATA_EXT(EasyCastStructure):
     ProtocolDataSubValue5: UInt32
     Reserved: UInt32 * 5
 STORAGE_PROTOCOL_TYPE = Int32
-STORAGE_PROTOCOL_TYPE_ProtocolTypeUnknown: win32more.Windows.Win32.System.Ioctl.STORAGE_PROTOCOL_TYPE = 0
-STORAGE_PROTOCOL_TYPE_ProtocolTypeScsi: win32more.Windows.Win32.System.Ioctl.STORAGE_PROTOCOL_TYPE = 1
-STORAGE_PROTOCOL_TYPE_ProtocolTypeAta: win32more.Windows.Win32.System.Ioctl.STORAGE_PROTOCOL_TYPE = 2
-STORAGE_PROTOCOL_TYPE_ProtocolTypeNvme: win32more.Windows.Win32.System.Ioctl.STORAGE_PROTOCOL_TYPE = 3
-STORAGE_PROTOCOL_TYPE_ProtocolTypeSd: win32more.Windows.Win32.System.Ioctl.STORAGE_PROTOCOL_TYPE = 4
-STORAGE_PROTOCOL_TYPE_ProtocolTypeUfs: win32more.Windows.Win32.System.Ioctl.STORAGE_PROTOCOL_TYPE = 5
-STORAGE_PROTOCOL_TYPE_ProtocolTypeProprietary: win32more.Windows.Win32.System.Ioctl.STORAGE_PROTOCOL_TYPE = 126
-STORAGE_PROTOCOL_TYPE_ProtocolTypeMaxReserved: win32more.Windows.Win32.System.Ioctl.STORAGE_PROTOCOL_TYPE = 127
+ProtocolTypeUnknown: win32more.Windows.Win32.System.Ioctl.STORAGE_PROTOCOL_TYPE = 0
+ProtocolTypeScsi: win32more.Windows.Win32.System.Ioctl.STORAGE_PROTOCOL_TYPE = 1
+ProtocolTypeAta: win32more.Windows.Win32.System.Ioctl.STORAGE_PROTOCOL_TYPE = 2
+ProtocolTypeNvme: win32more.Windows.Win32.System.Ioctl.STORAGE_PROTOCOL_TYPE = 3
+ProtocolTypeSd: win32more.Windows.Win32.System.Ioctl.STORAGE_PROTOCOL_TYPE = 4
+ProtocolTypeUfs: win32more.Windows.Win32.System.Ioctl.STORAGE_PROTOCOL_TYPE = 5
+ProtocolTypeProprietary: win32more.Windows.Win32.System.Ioctl.STORAGE_PROTOCOL_TYPE = 126
+ProtocolTypeMaxReserved: win32more.Windows.Win32.System.Ioctl.STORAGE_PROTOCOL_TYPE = 127
 STORAGE_PROTOCOL_UFS_DATA_TYPE = Int32
-STORAGE_PROTOCOL_UFS_DATA_TYPE_UfsDataTypeUnknown: win32more.Windows.Win32.System.Ioctl.STORAGE_PROTOCOL_UFS_DATA_TYPE = 0
-STORAGE_PROTOCOL_UFS_DATA_TYPE_UfsDataTypeQueryDescriptor: win32more.Windows.Win32.System.Ioctl.STORAGE_PROTOCOL_UFS_DATA_TYPE = 1
-STORAGE_PROTOCOL_UFS_DATA_TYPE_UfsDataTypeQueryAttribute: win32more.Windows.Win32.System.Ioctl.STORAGE_PROTOCOL_UFS_DATA_TYPE = 2
-STORAGE_PROTOCOL_UFS_DATA_TYPE_UfsDataTypeQueryFlag: win32more.Windows.Win32.System.Ioctl.STORAGE_PROTOCOL_UFS_DATA_TYPE = 3
-STORAGE_PROTOCOL_UFS_DATA_TYPE_UfsDataTypeQueryDmeAttribute: win32more.Windows.Win32.System.Ioctl.STORAGE_PROTOCOL_UFS_DATA_TYPE = 4
-STORAGE_PROTOCOL_UFS_DATA_TYPE_UfsDataTypeQueryDmePeerAttribute: win32more.Windows.Win32.System.Ioctl.STORAGE_PROTOCOL_UFS_DATA_TYPE = 5
-STORAGE_PROTOCOL_UFS_DATA_TYPE_UfsDataTypeMax: win32more.Windows.Win32.System.Ioctl.STORAGE_PROTOCOL_UFS_DATA_TYPE = 6
+UfsDataTypeUnknown: win32more.Windows.Win32.System.Ioctl.STORAGE_PROTOCOL_UFS_DATA_TYPE = 0
+UfsDataTypeQueryDescriptor: win32more.Windows.Win32.System.Ioctl.STORAGE_PROTOCOL_UFS_DATA_TYPE = 1
+UfsDataTypeQueryAttribute: win32more.Windows.Win32.System.Ioctl.STORAGE_PROTOCOL_UFS_DATA_TYPE = 2
+UfsDataTypeQueryFlag: win32more.Windows.Win32.System.Ioctl.STORAGE_PROTOCOL_UFS_DATA_TYPE = 3
+UfsDataTypeQueryDmeAttribute: win32more.Windows.Win32.System.Ioctl.STORAGE_PROTOCOL_UFS_DATA_TYPE = 4
+UfsDataTypeQueryDmePeerAttribute: win32more.Windows.Win32.System.Ioctl.STORAGE_PROTOCOL_UFS_DATA_TYPE = 5
+UfsDataTypeMax: win32more.Windows.Win32.System.Ioctl.STORAGE_PROTOCOL_UFS_DATA_TYPE = 6
 class STORAGE_QUERY_DEPENDENT_VOLUME_LEV1_ENTRY(EasyCastStructure):
     EntryLength: UInt32
     DependencyTypeFlags: UInt32
@@ -4084,10 +4084,10 @@ class STORAGE_QUERY_DEPENDENT_VOLUME_RESPONSE(EasyCastStructure):
         Lev1Depends: win32more.Windows.Win32.System.Ioctl.STORAGE_QUERY_DEPENDENT_VOLUME_LEV1_ENTRY * 1
         Lev2Depends: win32more.Windows.Win32.System.Ioctl.STORAGE_QUERY_DEPENDENT_VOLUME_LEV2_ENTRY * 1
 STORAGE_QUERY_TYPE = Int32
-STORAGE_QUERY_TYPE_PropertyStandardQuery: win32more.Windows.Win32.System.Ioctl.STORAGE_QUERY_TYPE = 0
-STORAGE_QUERY_TYPE_PropertyExistsQuery: win32more.Windows.Win32.System.Ioctl.STORAGE_QUERY_TYPE = 1
-STORAGE_QUERY_TYPE_PropertyMaskQuery: win32more.Windows.Win32.System.Ioctl.STORAGE_QUERY_TYPE = 2
-STORAGE_QUERY_TYPE_PropertyQueryMaxDefined: win32more.Windows.Win32.System.Ioctl.STORAGE_QUERY_TYPE = 3
+PropertyStandardQuery: win32more.Windows.Win32.System.Ioctl.STORAGE_QUERY_TYPE = 0
+PropertyExistsQuery: win32more.Windows.Win32.System.Ioctl.STORAGE_QUERY_TYPE = 1
+PropertyMaskQuery: win32more.Windows.Win32.System.Ioctl.STORAGE_QUERY_TYPE = 2
+PropertyQueryMaxDefined: win32more.Windows.Win32.System.Ioctl.STORAGE_QUERY_TYPE = 3
 class STORAGE_READ_CAPACITY(EasyCastStructure):
     Version: UInt32
     Size: UInt32
@@ -4102,19 +4102,19 @@ class STORAGE_REINITIALIZE_MEDIA(EasyCastStructure):
     class _SanitizeOption_e__Struct(EasyCastStructure):
         _bitfield: UInt32
 STORAGE_RESERVE_ID = Int32
-STORAGE_RESERVE_ID_StorageReserveIdNone: win32more.Windows.Win32.System.Ioctl.STORAGE_RESERVE_ID = 0
-STORAGE_RESERVE_ID_StorageReserveIdHard: win32more.Windows.Win32.System.Ioctl.STORAGE_RESERVE_ID = 1
-STORAGE_RESERVE_ID_StorageReserveIdSoft: win32more.Windows.Win32.System.Ioctl.STORAGE_RESERVE_ID = 2
-STORAGE_RESERVE_ID_StorageReserveIdUpdateScratch: win32more.Windows.Win32.System.Ioctl.STORAGE_RESERVE_ID = 3
-STORAGE_RESERVE_ID_StorageReserveIdMax: win32more.Windows.Win32.System.Ioctl.STORAGE_RESERVE_ID = 4
+StorageReserveIdNone: win32more.Windows.Win32.System.Ioctl.STORAGE_RESERVE_ID = 0
+StorageReserveIdHard: win32more.Windows.Win32.System.Ioctl.STORAGE_RESERVE_ID = 1
+StorageReserveIdSoft: win32more.Windows.Win32.System.Ioctl.STORAGE_RESERVE_ID = 2
+StorageReserveIdUpdateScratch: win32more.Windows.Win32.System.Ioctl.STORAGE_RESERVE_ID = 3
+StorageReserveIdMax: win32more.Windows.Win32.System.Ioctl.STORAGE_RESERVE_ID = 4
 STORAGE_RPMB_COMMAND_TYPE = Int32
-STORAGE_RPMB_COMMAND_TYPE_StorRpmbProgramAuthKey: win32more.Windows.Win32.System.Ioctl.STORAGE_RPMB_COMMAND_TYPE = 1
-STORAGE_RPMB_COMMAND_TYPE_StorRpmbQueryWriteCounter: win32more.Windows.Win32.System.Ioctl.STORAGE_RPMB_COMMAND_TYPE = 2
-STORAGE_RPMB_COMMAND_TYPE_StorRpmbAuthenticatedWrite: win32more.Windows.Win32.System.Ioctl.STORAGE_RPMB_COMMAND_TYPE = 3
-STORAGE_RPMB_COMMAND_TYPE_StorRpmbAuthenticatedRead: win32more.Windows.Win32.System.Ioctl.STORAGE_RPMB_COMMAND_TYPE = 4
-STORAGE_RPMB_COMMAND_TYPE_StorRpmbReadResultRequest: win32more.Windows.Win32.System.Ioctl.STORAGE_RPMB_COMMAND_TYPE = 5
-STORAGE_RPMB_COMMAND_TYPE_StorRpmbAuthenticatedDeviceConfigWrite: win32more.Windows.Win32.System.Ioctl.STORAGE_RPMB_COMMAND_TYPE = 6
-STORAGE_RPMB_COMMAND_TYPE_StorRpmbAuthenticatedDeviceConfigRead: win32more.Windows.Win32.System.Ioctl.STORAGE_RPMB_COMMAND_TYPE = 7
+StorRpmbProgramAuthKey: win32more.Windows.Win32.System.Ioctl.STORAGE_RPMB_COMMAND_TYPE = 1
+StorRpmbQueryWriteCounter: win32more.Windows.Win32.System.Ioctl.STORAGE_RPMB_COMMAND_TYPE = 2
+StorRpmbAuthenticatedWrite: win32more.Windows.Win32.System.Ioctl.STORAGE_RPMB_COMMAND_TYPE = 3
+StorRpmbAuthenticatedRead: win32more.Windows.Win32.System.Ioctl.STORAGE_RPMB_COMMAND_TYPE = 4
+StorRpmbReadResultRequest: win32more.Windows.Win32.System.Ioctl.STORAGE_RPMB_COMMAND_TYPE = 5
+StorRpmbAuthenticatedDeviceConfigWrite: win32more.Windows.Win32.System.Ioctl.STORAGE_RPMB_COMMAND_TYPE = 6
+StorRpmbAuthenticatedDeviceConfigRead: win32more.Windows.Win32.System.Ioctl.STORAGE_RPMB_COMMAND_TYPE = 7
 class STORAGE_RPMB_DATA_FRAME(EasyCastStructure):
     Stuff: Byte * 196
     KeyOrMAC: Byte * 32
@@ -4132,17 +4132,17 @@ class STORAGE_RPMB_DESCRIPTOR(EasyCastStructure):
     MaxReliableWriteSizeInBytes: UInt32
     FrameFormat: win32more.Windows.Win32.System.Ioctl.STORAGE_RPMB_FRAME_TYPE
 STORAGE_RPMB_FRAME_TYPE = Int32
-STORAGE_RPMB_FRAME_TYPE_StorageRpmbFrameTypeUnknown: win32more.Windows.Win32.System.Ioctl.STORAGE_RPMB_FRAME_TYPE = 0
-STORAGE_RPMB_FRAME_TYPE_StorageRpmbFrameTypeStandard: win32more.Windows.Win32.System.Ioctl.STORAGE_RPMB_FRAME_TYPE = 1
-STORAGE_RPMB_FRAME_TYPE_StorageRpmbFrameTypeMax: win32more.Windows.Win32.System.Ioctl.STORAGE_RPMB_FRAME_TYPE = 2
+StorageRpmbFrameTypeUnknown: win32more.Windows.Win32.System.Ioctl.STORAGE_RPMB_FRAME_TYPE = 0
+StorageRpmbFrameTypeStandard: win32more.Windows.Win32.System.Ioctl.STORAGE_RPMB_FRAME_TYPE = 1
+StorageRpmbFrameTypeMax: win32more.Windows.Win32.System.Ioctl.STORAGE_RPMB_FRAME_TYPE = 2
 STORAGE_SANITIZE_METHOD = Int32
-STORAGE_SANITIZE_METHOD_StorageSanitizeMethodDefault: win32more.Windows.Win32.System.Ioctl.STORAGE_SANITIZE_METHOD = 0
-STORAGE_SANITIZE_METHOD_StorageSanitizeMethodBlockErase: win32more.Windows.Win32.System.Ioctl.STORAGE_SANITIZE_METHOD = 1
-STORAGE_SANITIZE_METHOD_StorageSanitizeMethodCryptoErase: win32more.Windows.Win32.System.Ioctl.STORAGE_SANITIZE_METHOD = 2
+StorageSanitizeMethodDefault: win32more.Windows.Win32.System.Ioctl.STORAGE_SANITIZE_METHOD = 0
+StorageSanitizeMethodBlockErase: win32more.Windows.Win32.System.Ioctl.STORAGE_SANITIZE_METHOD = 1
+StorageSanitizeMethodCryptoErase: win32more.Windows.Win32.System.Ioctl.STORAGE_SANITIZE_METHOD = 2
 STORAGE_SET_TYPE = Int32
-STORAGE_SET_TYPE_PropertyStandardSet: win32more.Windows.Win32.System.Ioctl.STORAGE_SET_TYPE = 0
-STORAGE_SET_TYPE_PropertyExistsSet: win32more.Windows.Win32.System.Ioctl.STORAGE_SET_TYPE = 1
-STORAGE_SET_TYPE_PropertySetMaxDefined: win32more.Windows.Win32.System.Ioctl.STORAGE_SET_TYPE = 2
+PropertyStandardSet: win32more.Windows.Win32.System.Ioctl.STORAGE_SET_TYPE = 0
+PropertyExistsSet: win32more.Windows.Win32.System.Ioctl.STORAGE_SET_TYPE = 1
+PropertySetMaxDefined: win32more.Windows.Win32.System.Ioctl.STORAGE_SET_TYPE = 2
 class STORAGE_SPEC_VERSION(EasyCastUnion):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
@@ -4191,16 +4191,16 @@ class STORAGE_TIER(EasyCastStructure):
     MediaType: win32more.Windows.Win32.System.Ioctl.STORAGE_TIER_MEDIA_TYPE
     Class: win32more.Windows.Win32.System.Ioctl.STORAGE_TIER_CLASS
 STORAGE_TIER_CLASS = Int32
-STORAGE_TIER_CLASS_StorageTierClassUnspecified: win32more.Windows.Win32.System.Ioctl.STORAGE_TIER_CLASS = 0
-STORAGE_TIER_CLASS_StorageTierClassCapacity: win32more.Windows.Win32.System.Ioctl.STORAGE_TIER_CLASS = 1
-STORAGE_TIER_CLASS_StorageTierClassPerformance: win32more.Windows.Win32.System.Ioctl.STORAGE_TIER_CLASS = 2
-STORAGE_TIER_CLASS_StorageTierClassMax: win32more.Windows.Win32.System.Ioctl.STORAGE_TIER_CLASS = 3
+StorageTierClassUnspecified: win32more.Windows.Win32.System.Ioctl.STORAGE_TIER_CLASS = 0
+StorageTierClassCapacity: win32more.Windows.Win32.System.Ioctl.STORAGE_TIER_CLASS = 1
+StorageTierClassPerformance: win32more.Windows.Win32.System.Ioctl.STORAGE_TIER_CLASS = 2
+StorageTierClassMax: win32more.Windows.Win32.System.Ioctl.STORAGE_TIER_CLASS = 3
 STORAGE_TIER_MEDIA_TYPE = Int32
-STORAGE_TIER_MEDIA_TYPE_StorageTierMediaTypeUnspecified: win32more.Windows.Win32.System.Ioctl.STORAGE_TIER_MEDIA_TYPE = 0
-STORAGE_TIER_MEDIA_TYPE_StorageTierMediaTypeDisk: win32more.Windows.Win32.System.Ioctl.STORAGE_TIER_MEDIA_TYPE = 1
-STORAGE_TIER_MEDIA_TYPE_StorageTierMediaTypeSsd: win32more.Windows.Win32.System.Ioctl.STORAGE_TIER_MEDIA_TYPE = 2
-STORAGE_TIER_MEDIA_TYPE_StorageTierMediaTypeScm: win32more.Windows.Win32.System.Ioctl.STORAGE_TIER_MEDIA_TYPE = 4
-STORAGE_TIER_MEDIA_TYPE_StorageTierMediaTypeMax: win32more.Windows.Win32.System.Ioctl.STORAGE_TIER_MEDIA_TYPE = 5
+StorageTierMediaTypeUnspecified: win32more.Windows.Win32.System.Ioctl.STORAGE_TIER_MEDIA_TYPE = 0
+StorageTierMediaTypeDisk: win32more.Windows.Win32.System.Ioctl.STORAGE_TIER_MEDIA_TYPE = 1
+StorageTierMediaTypeSsd: win32more.Windows.Win32.System.Ioctl.STORAGE_TIER_MEDIA_TYPE = 2
+StorageTierMediaTypeScm: win32more.Windows.Win32.System.Ioctl.STORAGE_TIER_MEDIA_TYPE = 4
+StorageTierMediaTypeMax: win32more.Windows.Win32.System.Ioctl.STORAGE_TIER_MEDIA_TYPE = 5
 class STORAGE_TIER_REGION(EasyCastStructure):
     TierId: Guid
     Offset: UInt64
@@ -4234,24 +4234,24 @@ class STORAGE_ZONED_DEVICE_DESCRIPTOR(EasyCastStructure):
             OptimalOpenZoneCount: UInt32
             Reserved: UInt32
 STORAGE_ZONED_DEVICE_TYPES = Int32
-STORAGE_ZONED_DEVICE_TYPES_ZonedDeviceTypeUnknown: win32more.Windows.Win32.System.Ioctl.STORAGE_ZONED_DEVICE_TYPES = 0
-STORAGE_ZONED_DEVICE_TYPES_ZonedDeviceTypeHostManaged: win32more.Windows.Win32.System.Ioctl.STORAGE_ZONED_DEVICE_TYPES = 1
-STORAGE_ZONED_DEVICE_TYPES_ZonedDeviceTypeHostAware: win32more.Windows.Win32.System.Ioctl.STORAGE_ZONED_DEVICE_TYPES = 2
-STORAGE_ZONED_DEVICE_TYPES_ZonedDeviceTypeDeviceManaged: win32more.Windows.Win32.System.Ioctl.STORAGE_ZONED_DEVICE_TYPES = 3
+ZonedDeviceTypeUnknown: win32more.Windows.Win32.System.Ioctl.STORAGE_ZONED_DEVICE_TYPES = 0
+ZonedDeviceTypeHostManaged: win32more.Windows.Win32.System.Ioctl.STORAGE_ZONED_DEVICE_TYPES = 1
+ZonedDeviceTypeHostAware: win32more.Windows.Win32.System.Ioctl.STORAGE_ZONED_DEVICE_TYPES = 2
+ZonedDeviceTypeDeviceManaged: win32more.Windows.Win32.System.Ioctl.STORAGE_ZONED_DEVICE_TYPES = 3
 STORAGE_ZONES_ATTRIBUTES = Int32
-STORAGE_ZONES_ATTRIBUTES_ZonesAttributeTypeAndLengthMayDifferent: win32more.Windows.Win32.System.Ioctl.STORAGE_ZONES_ATTRIBUTES = 0
-STORAGE_ZONES_ATTRIBUTES_ZonesAttributeTypeSameLengthSame: win32more.Windows.Win32.System.Ioctl.STORAGE_ZONES_ATTRIBUTES = 1
-STORAGE_ZONES_ATTRIBUTES_ZonesAttributeTypeSameLastZoneLengthDifferent: win32more.Windows.Win32.System.Ioctl.STORAGE_ZONES_ATTRIBUTES = 2
-STORAGE_ZONES_ATTRIBUTES_ZonesAttributeTypeMayDifferentLengthSame: win32more.Windows.Win32.System.Ioctl.STORAGE_ZONES_ATTRIBUTES = 3
+ZonesAttributeTypeAndLengthMayDifferent: win32more.Windows.Win32.System.Ioctl.STORAGE_ZONES_ATTRIBUTES = 0
+ZonesAttributeTypeSameLengthSame: win32more.Windows.Win32.System.Ioctl.STORAGE_ZONES_ATTRIBUTES = 1
+ZonesAttributeTypeSameLastZoneLengthDifferent: win32more.Windows.Win32.System.Ioctl.STORAGE_ZONES_ATTRIBUTES = 2
+ZonesAttributeTypeMayDifferentLengthSame: win32more.Windows.Win32.System.Ioctl.STORAGE_ZONES_ATTRIBUTES = 3
 STORAGE_ZONE_CONDITION = Int32
-STORAGE_ZONE_CONDITION_ZoneConditionConventional: win32more.Windows.Win32.System.Ioctl.STORAGE_ZONE_CONDITION = 0
-STORAGE_ZONE_CONDITION_ZoneConditionEmpty: win32more.Windows.Win32.System.Ioctl.STORAGE_ZONE_CONDITION = 1
-STORAGE_ZONE_CONDITION_ZoneConditionImplicitlyOpened: win32more.Windows.Win32.System.Ioctl.STORAGE_ZONE_CONDITION = 2
-STORAGE_ZONE_CONDITION_ZoneConditionExplicitlyOpened: win32more.Windows.Win32.System.Ioctl.STORAGE_ZONE_CONDITION = 3
-STORAGE_ZONE_CONDITION_ZoneConditionClosed: win32more.Windows.Win32.System.Ioctl.STORAGE_ZONE_CONDITION = 4
-STORAGE_ZONE_CONDITION_ZoneConditionReadOnly: win32more.Windows.Win32.System.Ioctl.STORAGE_ZONE_CONDITION = 13
-STORAGE_ZONE_CONDITION_ZoneConditionFull: win32more.Windows.Win32.System.Ioctl.STORAGE_ZONE_CONDITION = 14
-STORAGE_ZONE_CONDITION_ZoneConditionOffline: win32more.Windows.Win32.System.Ioctl.STORAGE_ZONE_CONDITION = 15
+ZoneConditionConventional: win32more.Windows.Win32.System.Ioctl.STORAGE_ZONE_CONDITION = 0
+ZoneConditionEmpty: win32more.Windows.Win32.System.Ioctl.STORAGE_ZONE_CONDITION = 1
+ZoneConditionImplicitlyOpened: win32more.Windows.Win32.System.Ioctl.STORAGE_ZONE_CONDITION = 2
+ZoneConditionExplicitlyOpened: win32more.Windows.Win32.System.Ioctl.STORAGE_ZONE_CONDITION = 3
+ZoneConditionClosed: win32more.Windows.Win32.System.Ioctl.STORAGE_ZONE_CONDITION = 4
+ZoneConditionReadOnly: win32more.Windows.Win32.System.Ioctl.STORAGE_ZONE_CONDITION = 13
+ZoneConditionFull: win32more.Windows.Win32.System.Ioctl.STORAGE_ZONE_CONDITION = 14
+ZoneConditionOffline: win32more.Windows.Win32.System.Ioctl.STORAGE_ZONE_CONDITION = 15
 class STORAGE_ZONE_DESCRIPTOR(EasyCastStructure):
     Size: UInt32
     ZoneType: win32more.Windows.Win32.System.Ioctl.STORAGE_ZONE_TYPES
@@ -4265,11 +4265,11 @@ class STORAGE_ZONE_GROUP(EasyCastStructure):
     ZoneType: win32more.Windows.Win32.System.Ioctl.STORAGE_ZONE_TYPES
     ZoneSize: UInt64
 STORAGE_ZONE_TYPES = Int32
-STORAGE_ZONE_TYPES_ZoneTypeUnknown: win32more.Windows.Win32.System.Ioctl.STORAGE_ZONE_TYPES = 0
-STORAGE_ZONE_TYPES_ZoneTypeConventional: win32more.Windows.Win32.System.Ioctl.STORAGE_ZONE_TYPES = 1
-STORAGE_ZONE_TYPES_ZoneTypeSequentialWriteRequired: win32more.Windows.Win32.System.Ioctl.STORAGE_ZONE_TYPES = 2
-STORAGE_ZONE_TYPES_ZoneTypeSequentialWritePreferred: win32more.Windows.Win32.System.Ioctl.STORAGE_ZONE_TYPES = 3
-STORAGE_ZONE_TYPES_ZoneTypeMax: win32more.Windows.Win32.System.Ioctl.STORAGE_ZONE_TYPES = 4
+ZoneTypeUnknown: win32more.Windows.Win32.System.Ioctl.STORAGE_ZONE_TYPES = 0
+ZoneTypeConventional: win32more.Windows.Win32.System.Ioctl.STORAGE_ZONE_TYPES = 1
+ZoneTypeSequentialWriteRequired: win32more.Windows.Win32.System.Ioctl.STORAGE_ZONE_TYPES = 2
+ZoneTypeSequentialWritePreferred: win32more.Windows.Win32.System.Ioctl.STORAGE_ZONE_TYPES = 3
+ZoneTypeMax: win32more.Windows.Win32.System.Ioctl.STORAGE_ZONE_TYPES = 4
 class STREAMS_ASSOCIATE_ID_INPUT_BUFFER(EasyCastStructure):
     Flags: UInt32
     StreamId: UInt32
@@ -4575,11 +4575,11 @@ class VIRTUALIZATION_INSTANCE_INFO_INPUT_EX(EasyCastStructure):
 class VIRTUALIZATION_INSTANCE_INFO_OUTPUT(EasyCastStructure):
     VirtualizationInstanceID: Guid
 VIRTUAL_STORAGE_BEHAVIOR_CODE = Int32
-VIRTUAL_STORAGE_BEHAVIOR_CODE_VirtualStorageBehaviorUndefined: win32more.Windows.Win32.System.Ioctl.VIRTUAL_STORAGE_BEHAVIOR_CODE = 0
-VIRTUAL_STORAGE_BEHAVIOR_CODE_VirtualStorageBehaviorCacheWriteThrough: win32more.Windows.Win32.System.Ioctl.VIRTUAL_STORAGE_BEHAVIOR_CODE = 1
-VIRTUAL_STORAGE_BEHAVIOR_CODE_VirtualStorageBehaviorCacheWriteBack: win32more.Windows.Win32.System.Ioctl.VIRTUAL_STORAGE_BEHAVIOR_CODE = 2
-VIRTUAL_STORAGE_BEHAVIOR_CODE_VirtualStorageBehaviorStopIoProcessing: win32more.Windows.Win32.System.Ioctl.VIRTUAL_STORAGE_BEHAVIOR_CODE = 3
-VIRTUAL_STORAGE_BEHAVIOR_CODE_VirtualStorageBehaviorRestartIoProcessing: win32more.Windows.Win32.System.Ioctl.VIRTUAL_STORAGE_BEHAVIOR_CODE = 4
+VirtualStorageBehaviorUndefined: win32more.Windows.Win32.System.Ioctl.VIRTUAL_STORAGE_BEHAVIOR_CODE = 0
+VirtualStorageBehaviorCacheWriteThrough: win32more.Windows.Win32.System.Ioctl.VIRTUAL_STORAGE_BEHAVIOR_CODE = 1
+VirtualStorageBehaviorCacheWriteBack: win32more.Windows.Win32.System.Ioctl.VIRTUAL_STORAGE_BEHAVIOR_CODE = 2
+VirtualStorageBehaviorStopIoProcessing: win32more.Windows.Win32.System.Ioctl.VIRTUAL_STORAGE_BEHAVIOR_CODE = 3
+VirtualStorageBehaviorRestartIoProcessing: win32more.Windows.Win32.System.Ioctl.VIRTUAL_STORAGE_BEHAVIOR_CODE = 4
 class VIRTUAL_STORAGE_SET_BEHAVIOR_INPUT(EasyCastStructure):
     Size: UInt32
     BehaviorCode: win32more.Windows.Win32.System.Ioctl.VIRTUAL_STORAGE_BEHAVIOR_CODE
@@ -4626,22 +4626,22 @@ class WOF_EXTERNAL_INFO(EasyCastStructure):
 class WOF_VERSION_INFO(EasyCastStructure):
     WofVersion: UInt32
 WRITE_CACHE_CHANGE = Int32
-WRITE_CACHE_CHANGE_WriteCacheChangeUnknown: win32more.Windows.Win32.System.Ioctl.WRITE_CACHE_CHANGE = 0
-WRITE_CACHE_CHANGE_WriteCacheNotChangeable: win32more.Windows.Win32.System.Ioctl.WRITE_CACHE_CHANGE = 1
-WRITE_CACHE_CHANGE_WriteCacheChangeable: win32more.Windows.Win32.System.Ioctl.WRITE_CACHE_CHANGE = 2
+WriteCacheChangeUnknown: win32more.Windows.Win32.System.Ioctl.WRITE_CACHE_CHANGE = 0
+WriteCacheNotChangeable: win32more.Windows.Win32.System.Ioctl.WRITE_CACHE_CHANGE = 1
+WriteCacheChangeable: win32more.Windows.Win32.System.Ioctl.WRITE_CACHE_CHANGE = 2
 WRITE_CACHE_ENABLE = Int32
-WRITE_CACHE_ENABLE_WriteCacheEnableUnknown: win32more.Windows.Win32.System.Ioctl.WRITE_CACHE_ENABLE = 0
-WRITE_CACHE_ENABLE_WriteCacheDisabled: win32more.Windows.Win32.System.Ioctl.WRITE_CACHE_ENABLE = 1
-WRITE_CACHE_ENABLE_WriteCacheEnabled: win32more.Windows.Win32.System.Ioctl.WRITE_CACHE_ENABLE = 2
+WriteCacheEnableUnknown: win32more.Windows.Win32.System.Ioctl.WRITE_CACHE_ENABLE = 0
+WriteCacheDisabled: win32more.Windows.Win32.System.Ioctl.WRITE_CACHE_ENABLE = 1
+WriteCacheEnabled: win32more.Windows.Win32.System.Ioctl.WRITE_CACHE_ENABLE = 2
 WRITE_CACHE_TYPE = Int32
-WRITE_CACHE_TYPE_WriteCacheTypeUnknown: win32more.Windows.Win32.System.Ioctl.WRITE_CACHE_TYPE = 0
-WRITE_CACHE_TYPE_WriteCacheTypeNone: win32more.Windows.Win32.System.Ioctl.WRITE_CACHE_TYPE = 1
-WRITE_CACHE_TYPE_WriteCacheTypeWriteBack: win32more.Windows.Win32.System.Ioctl.WRITE_CACHE_TYPE = 2
-WRITE_CACHE_TYPE_WriteCacheTypeWriteThrough: win32more.Windows.Win32.System.Ioctl.WRITE_CACHE_TYPE = 3
+WriteCacheTypeUnknown: win32more.Windows.Win32.System.Ioctl.WRITE_CACHE_TYPE = 0
+WriteCacheTypeNone: win32more.Windows.Win32.System.Ioctl.WRITE_CACHE_TYPE = 1
+WriteCacheTypeWriteBack: win32more.Windows.Win32.System.Ioctl.WRITE_CACHE_TYPE = 2
+WriteCacheTypeWriteThrough: win32more.Windows.Win32.System.Ioctl.WRITE_CACHE_TYPE = 3
 WRITE_THROUGH = Int32
-WRITE_THROUGH_WriteThroughUnknown: win32more.Windows.Win32.System.Ioctl.WRITE_THROUGH = 0
-WRITE_THROUGH_WriteThroughNotSupported: win32more.Windows.Win32.System.Ioctl.WRITE_THROUGH = 1
-WRITE_THROUGH_WriteThroughSupported: win32more.Windows.Win32.System.Ioctl.WRITE_THROUGH = 2
+WriteThroughUnknown: win32more.Windows.Win32.System.Ioctl.WRITE_THROUGH = 0
+WriteThroughNotSupported: win32more.Windows.Win32.System.Ioctl.WRITE_THROUGH = 1
+WriteThroughSupported: win32more.Windows.Win32.System.Ioctl.WRITE_THROUGH = 2
 class WRITE_USN_REASON_INPUT(EasyCastStructure):
     Flags: UInt32
     UsnReasonToWrite: UInt32

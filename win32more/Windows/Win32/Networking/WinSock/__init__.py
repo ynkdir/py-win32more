@@ -1893,8 +1893,8 @@ class ETHERNET_HEADER(EasyCastStructure):
         Type: UInt16
         Length: UInt16
 FALLBACK_INDEX = Int32
-FALLBACK_INDEX_FallbackIndexTcpFastopen: win32more.Windows.Win32.Networking.WinSock.FALLBACK_INDEX = 0
-FALLBACK_INDEX_FallbackIndexMax: win32more.Windows.Win32.Networking.WinSock.FALLBACK_INDEX = 1
+FallbackIndexTcpFastopen: win32more.Windows.Win32.Networking.WinSock.FALLBACK_INDEX = 0
+FallbackIndexMax: win32more.Windows.Win32.Networking.WinSock.FALLBACK_INDEX = 1
 class FD_SET(EasyCastStructure):
     fd_count: UInt32
     fd_array: win32more.Windows.Win32.Networking.WinSock.SOCKET * 64
@@ -2715,64 +2715,64 @@ NLA_INTERNET_UNKNOWN: win32more.Windows.Win32.Networking.WinSock.NLA_INTERNET = 
 NLA_INTERNET_NO: win32more.Windows.Win32.Networking.WinSock.NLA_INTERNET = 1
 NLA_INTERNET_YES: win32more.Windows.Win32.Networking.WinSock.NLA_INTERNET = 2
 NL_ADDRESS_TYPE = Int32
-NL_ADDRESS_TYPE_NlatUnspecified: win32more.Windows.Win32.Networking.WinSock.NL_ADDRESS_TYPE = 0
-NL_ADDRESS_TYPE_NlatUnicast: win32more.Windows.Win32.Networking.WinSock.NL_ADDRESS_TYPE = 1
-NL_ADDRESS_TYPE_NlatAnycast: win32more.Windows.Win32.Networking.WinSock.NL_ADDRESS_TYPE = 2
-NL_ADDRESS_TYPE_NlatMulticast: win32more.Windows.Win32.Networking.WinSock.NL_ADDRESS_TYPE = 3
-NL_ADDRESS_TYPE_NlatBroadcast: win32more.Windows.Win32.Networking.WinSock.NL_ADDRESS_TYPE = 4
-NL_ADDRESS_TYPE_NlatInvalid: win32more.Windows.Win32.Networking.WinSock.NL_ADDRESS_TYPE = 5
+NlatUnspecified: win32more.Windows.Win32.Networking.WinSock.NL_ADDRESS_TYPE = 0
+NlatUnicast: win32more.Windows.Win32.Networking.WinSock.NL_ADDRESS_TYPE = 1
+NlatAnycast: win32more.Windows.Win32.Networking.WinSock.NL_ADDRESS_TYPE = 2
+NlatMulticast: win32more.Windows.Win32.Networking.WinSock.NL_ADDRESS_TYPE = 3
+NlatBroadcast: win32more.Windows.Win32.Networking.WinSock.NL_ADDRESS_TYPE = 4
+NlatInvalid: win32more.Windows.Win32.Networking.WinSock.NL_ADDRESS_TYPE = 5
 NL_BANDWIDTH_FLAG = Int32
-NL_BANDWIDTH_FLAG_NlbwDisabled: win32more.Windows.Win32.Networking.WinSock.NL_BANDWIDTH_FLAG = 0
-NL_BANDWIDTH_FLAG_NlbwEnabled: win32more.Windows.Win32.Networking.WinSock.NL_BANDWIDTH_FLAG = 1
-NL_BANDWIDTH_FLAG_NlbwUnchanged: win32more.Windows.Win32.Networking.WinSock.NL_BANDWIDTH_FLAG = -1
+NlbwDisabled: win32more.Windows.Win32.Networking.WinSock.NL_BANDWIDTH_FLAG = 0
+NlbwEnabled: win32more.Windows.Win32.Networking.WinSock.NL_BANDWIDTH_FLAG = 1
+NlbwUnchanged: win32more.Windows.Win32.Networking.WinSock.NL_BANDWIDTH_FLAG = -1
 class NL_BANDWIDTH_INFORMATION(EasyCastStructure):
     Bandwidth: UInt64
     Instability: UInt64
     BandwidthPeaked: win32more.Windows.Win32.Foundation.BOOLEAN
 NL_DAD_STATE = Int32
-NL_DAD_STATE_NldsInvalid: win32more.Windows.Win32.Networking.WinSock.NL_DAD_STATE = 0
-NL_DAD_STATE_NldsTentative: win32more.Windows.Win32.Networking.WinSock.NL_DAD_STATE = 1
-NL_DAD_STATE_NldsDuplicate: win32more.Windows.Win32.Networking.WinSock.NL_DAD_STATE = 2
-NL_DAD_STATE_NldsDeprecated: win32more.Windows.Win32.Networking.WinSock.NL_DAD_STATE = 3
-NL_DAD_STATE_NldsPreferred: win32more.Windows.Win32.Networking.WinSock.NL_DAD_STATE = 4
-NL_DAD_STATE_IpDadStateInvalid: win32more.Windows.Win32.Networking.WinSock.NL_DAD_STATE = 0
-NL_DAD_STATE_IpDadStateTentative: win32more.Windows.Win32.Networking.WinSock.NL_DAD_STATE = 1
-NL_DAD_STATE_IpDadStateDuplicate: win32more.Windows.Win32.Networking.WinSock.NL_DAD_STATE = 2
-NL_DAD_STATE_IpDadStateDeprecated: win32more.Windows.Win32.Networking.WinSock.NL_DAD_STATE = 3
-NL_DAD_STATE_IpDadStatePreferred: win32more.Windows.Win32.Networking.WinSock.NL_DAD_STATE = 4
+NldsInvalid: win32more.Windows.Win32.Networking.WinSock.NL_DAD_STATE = 0
+NldsTentative: win32more.Windows.Win32.Networking.WinSock.NL_DAD_STATE = 1
+NldsDuplicate: win32more.Windows.Win32.Networking.WinSock.NL_DAD_STATE = 2
+NldsDeprecated: win32more.Windows.Win32.Networking.WinSock.NL_DAD_STATE = 3
+NldsPreferred: win32more.Windows.Win32.Networking.WinSock.NL_DAD_STATE = 4
+IpDadStateInvalid: win32more.Windows.Win32.Networking.WinSock.NL_DAD_STATE = 0
+IpDadStateTentative: win32more.Windows.Win32.Networking.WinSock.NL_DAD_STATE = 1
+IpDadStateDuplicate: win32more.Windows.Win32.Networking.WinSock.NL_DAD_STATE = 2
+IpDadStateDeprecated: win32more.Windows.Win32.Networking.WinSock.NL_DAD_STATE = 3
+IpDadStatePreferred: win32more.Windows.Win32.Networking.WinSock.NL_DAD_STATE = 4
 NL_INTERFACE_NETWORK_CATEGORY_STATE = Int32
-NL_INTERFACE_NETWORK_CATEGORY_STATE_NlincCategoryUnknown: win32more.Windows.Win32.Networking.WinSock.NL_INTERFACE_NETWORK_CATEGORY_STATE = 0
-NL_INTERFACE_NETWORK_CATEGORY_STATE_NlincPublic: win32more.Windows.Win32.Networking.WinSock.NL_INTERFACE_NETWORK_CATEGORY_STATE = 1
-NL_INTERFACE_NETWORK_CATEGORY_STATE_NlincPrivate: win32more.Windows.Win32.Networking.WinSock.NL_INTERFACE_NETWORK_CATEGORY_STATE = 2
-NL_INTERFACE_NETWORK_CATEGORY_STATE_NlincDomainAuthenticated: win32more.Windows.Win32.Networking.WinSock.NL_INTERFACE_NETWORK_CATEGORY_STATE = 3
-NL_INTERFACE_NETWORK_CATEGORY_STATE_NlincCategoryStateMax: win32more.Windows.Win32.Networking.WinSock.NL_INTERFACE_NETWORK_CATEGORY_STATE = 4
+NlincCategoryUnknown: win32more.Windows.Win32.Networking.WinSock.NL_INTERFACE_NETWORK_CATEGORY_STATE = 0
+NlincPublic: win32more.Windows.Win32.Networking.WinSock.NL_INTERFACE_NETWORK_CATEGORY_STATE = 1
+NlincPrivate: win32more.Windows.Win32.Networking.WinSock.NL_INTERFACE_NETWORK_CATEGORY_STATE = 2
+NlincDomainAuthenticated: win32more.Windows.Win32.Networking.WinSock.NL_INTERFACE_NETWORK_CATEGORY_STATE = 3
+NlincCategoryStateMax: win32more.Windows.Win32.Networking.WinSock.NL_INTERFACE_NETWORK_CATEGORY_STATE = 4
 class NL_INTERFACE_OFFLOAD_ROD(EasyCastStructure):
     _bitfield: Byte
 NL_LINK_LOCAL_ADDRESS_BEHAVIOR = Int32
-NL_LINK_LOCAL_ADDRESS_BEHAVIOR_LinkLocalAlwaysOff: win32more.Windows.Win32.Networking.WinSock.NL_LINK_LOCAL_ADDRESS_BEHAVIOR = 0
-NL_LINK_LOCAL_ADDRESS_BEHAVIOR_LinkLocalDelayed: win32more.Windows.Win32.Networking.WinSock.NL_LINK_LOCAL_ADDRESS_BEHAVIOR = 1
-NL_LINK_LOCAL_ADDRESS_BEHAVIOR_LinkLocalAlwaysOn: win32more.Windows.Win32.Networking.WinSock.NL_LINK_LOCAL_ADDRESS_BEHAVIOR = 2
-NL_LINK_LOCAL_ADDRESS_BEHAVIOR_LinkLocalUnchanged: win32more.Windows.Win32.Networking.WinSock.NL_LINK_LOCAL_ADDRESS_BEHAVIOR = -1
+LinkLocalAlwaysOff: win32more.Windows.Win32.Networking.WinSock.NL_LINK_LOCAL_ADDRESS_BEHAVIOR = 0
+LinkLocalDelayed: win32more.Windows.Win32.Networking.WinSock.NL_LINK_LOCAL_ADDRESS_BEHAVIOR = 1
+LinkLocalAlwaysOn: win32more.Windows.Win32.Networking.WinSock.NL_LINK_LOCAL_ADDRESS_BEHAVIOR = 2
+LinkLocalUnchanged: win32more.Windows.Win32.Networking.WinSock.NL_LINK_LOCAL_ADDRESS_BEHAVIOR = -1
 NL_NEIGHBOR_STATE = Int32
-NL_NEIGHBOR_STATE_NlnsUnreachable: win32more.Windows.Win32.Networking.WinSock.NL_NEIGHBOR_STATE = 0
-NL_NEIGHBOR_STATE_NlnsIncomplete: win32more.Windows.Win32.Networking.WinSock.NL_NEIGHBOR_STATE = 1
-NL_NEIGHBOR_STATE_NlnsProbe: win32more.Windows.Win32.Networking.WinSock.NL_NEIGHBOR_STATE = 2
-NL_NEIGHBOR_STATE_NlnsDelay: win32more.Windows.Win32.Networking.WinSock.NL_NEIGHBOR_STATE = 3
-NL_NEIGHBOR_STATE_NlnsStale: win32more.Windows.Win32.Networking.WinSock.NL_NEIGHBOR_STATE = 4
-NL_NEIGHBOR_STATE_NlnsReachable: win32more.Windows.Win32.Networking.WinSock.NL_NEIGHBOR_STATE = 5
-NL_NEIGHBOR_STATE_NlnsPermanent: win32more.Windows.Win32.Networking.WinSock.NL_NEIGHBOR_STATE = 6
-NL_NEIGHBOR_STATE_NlnsMaximum: win32more.Windows.Win32.Networking.WinSock.NL_NEIGHBOR_STATE = 7
+NlnsUnreachable: win32more.Windows.Win32.Networking.WinSock.NL_NEIGHBOR_STATE = 0
+NlnsIncomplete: win32more.Windows.Win32.Networking.WinSock.NL_NEIGHBOR_STATE = 1
+NlnsProbe: win32more.Windows.Win32.Networking.WinSock.NL_NEIGHBOR_STATE = 2
+NlnsDelay: win32more.Windows.Win32.Networking.WinSock.NL_NEIGHBOR_STATE = 3
+NlnsStale: win32more.Windows.Win32.Networking.WinSock.NL_NEIGHBOR_STATE = 4
+NlnsReachable: win32more.Windows.Win32.Networking.WinSock.NL_NEIGHBOR_STATE = 5
+NlnsPermanent: win32more.Windows.Win32.Networking.WinSock.NL_NEIGHBOR_STATE = 6
+NlnsMaximum: win32more.Windows.Win32.Networking.WinSock.NL_NEIGHBOR_STATE = 7
 NL_NETWORK_CATEGORY = Int32
-NL_NETWORK_CATEGORY_NetworkCategoryPublic: win32more.Windows.Win32.Networking.WinSock.NL_NETWORK_CATEGORY = 0
-NL_NETWORK_CATEGORY_NetworkCategoryPrivate: win32more.Windows.Win32.Networking.WinSock.NL_NETWORK_CATEGORY = 1
-NL_NETWORK_CATEGORY_NetworkCategoryDomainAuthenticated: win32more.Windows.Win32.Networking.WinSock.NL_NETWORK_CATEGORY = 2
-NL_NETWORK_CATEGORY_NetworkCategoryUnchanged: win32more.Windows.Win32.Networking.WinSock.NL_NETWORK_CATEGORY = -1
-NL_NETWORK_CATEGORY_NetworkCategoryUnknown: win32more.Windows.Win32.Networking.WinSock.NL_NETWORK_CATEGORY = -1
+NetworkCategoryPublic: win32more.Windows.Win32.Networking.WinSock.NL_NETWORK_CATEGORY = 0
+NetworkCategoryPrivate: win32more.Windows.Win32.Networking.WinSock.NL_NETWORK_CATEGORY = 1
+NetworkCategoryDomainAuthenticated: win32more.Windows.Win32.Networking.WinSock.NL_NETWORK_CATEGORY = 2
+NetworkCategoryUnchanged: win32more.Windows.Win32.Networking.WinSock.NL_NETWORK_CATEGORY = -1
+NetworkCategoryUnknown: win32more.Windows.Win32.Networking.WinSock.NL_NETWORK_CATEGORY = -1
 NL_NETWORK_CONNECTIVITY_COST_HINT = Int32
-NL_NETWORK_CONNECTIVITY_COST_HINT_NetworkConnectivityCostHintUnknown: win32more.Windows.Win32.Networking.WinSock.NL_NETWORK_CONNECTIVITY_COST_HINT = 0
-NL_NETWORK_CONNECTIVITY_COST_HINT_NetworkConnectivityCostHintUnrestricted: win32more.Windows.Win32.Networking.WinSock.NL_NETWORK_CONNECTIVITY_COST_HINT = 1
-NL_NETWORK_CONNECTIVITY_COST_HINT_NetworkConnectivityCostHintFixed: win32more.Windows.Win32.Networking.WinSock.NL_NETWORK_CONNECTIVITY_COST_HINT = 2
-NL_NETWORK_CONNECTIVITY_COST_HINT_NetworkConnectivityCostHintVariable: win32more.Windows.Win32.Networking.WinSock.NL_NETWORK_CONNECTIVITY_COST_HINT = 3
+NetworkConnectivityCostHintUnknown: win32more.Windows.Win32.Networking.WinSock.NL_NETWORK_CONNECTIVITY_COST_HINT = 0
+NetworkConnectivityCostHintUnrestricted: win32more.Windows.Win32.Networking.WinSock.NL_NETWORK_CONNECTIVITY_COST_HINT = 1
+NetworkConnectivityCostHintFixed: win32more.Windows.Win32.Networking.WinSock.NL_NETWORK_CONNECTIVITY_COST_HINT = 2
+NetworkConnectivityCostHintVariable: win32more.Windows.Win32.Networking.WinSock.NL_NETWORK_CONNECTIVITY_COST_HINT = 3
 class NL_NETWORK_CONNECTIVITY_HINT(EasyCastStructure):
     ConnectivityLevel: win32more.Windows.Win32.Networking.WinSock.NL_NETWORK_CONNECTIVITY_LEVEL_HINT
     ConnectivityCost: win32more.Windows.Win32.Networking.WinSock.NL_NETWORK_CONNECTIVITY_COST_HINT
@@ -2780,112 +2780,112 @@ class NL_NETWORK_CONNECTIVITY_HINT(EasyCastStructure):
     OverDataLimit: win32more.Windows.Win32.Foundation.BOOLEAN
     Roaming: win32more.Windows.Win32.Foundation.BOOLEAN
 NL_NETWORK_CONNECTIVITY_LEVEL_HINT = Int32
-NL_NETWORK_CONNECTIVITY_LEVEL_HINT_NetworkConnectivityLevelHintUnknown: win32more.Windows.Win32.Networking.WinSock.NL_NETWORK_CONNECTIVITY_LEVEL_HINT = 0
-NL_NETWORK_CONNECTIVITY_LEVEL_HINT_NetworkConnectivityLevelHintNone: win32more.Windows.Win32.Networking.WinSock.NL_NETWORK_CONNECTIVITY_LEVEL_HINT = 1
-NL_NETWORK_CONNECTIVITY_LEVEL_HINT_NetworkConnectivityLevelHintLocalAccess: win32more.Windows.Win32.Networking.WinSock.NL_NETWORK_CONNECTIVITY_LEVEL_HINT = 2
-NL_NETWORK_CONNECTIVITY_LEVEL_HINT_NetworkConnectivityLevelHintInternetAccess: win32more.Windows.Win32.Networking.WinSock.NL_NETWORK_CONNECTIVITY_LEVEL_HINT = 3
-NL_NETWORK_CONNECTIVITY_LEVEL_HINT_NetworkConnectivityLevelHintConstrainedInternetAccess: win32more.Windows.Win32.Networking.WinSock.NL_NETWORK_CONNECTIVITY_LEVEL_HINT = 4
-NL_NETWORK_CONNECTIVITY_LEVEL_HINT_NetworkConnectivityLevelHintHidden: win32more.Windows.Win32.Networking.WinSock.NL_NETWORK_CONNECTIVITY_LEVEL_HINT = 5
+NetworkConnectivityLevelHintUnknown: win32more.Windows.Win32.Networking.WinSock.NL_NETWORK_CONNECTIVITY_LEVEL_HINT = 0
+NetworkConnectivityLevelHintNone: win32more.Windows.Win32.Networking.WinSock.NL_NETWORK_CONNECTIVITY_LEVEL_HINT = 1
+NetworkConnectivityLevelHintLocalAccess: win32more.Windows.Win32.Networking.WinSock.NL_NETWORK_CONNECTIVITY_LEVEL_HINT = 2
+NetworkConnectivityLevelHintInternetAccess: win32more.Windows.Win32.Networking.WinSock.NL_NETWORK_CONNECTIVITY_LEVEL_HINT = 3
+NetworkConnectivityLevelHintConstrainedInternetAccess: win32more.Windows.Win32.Networking.WinSock.NL_NETWORK_CONNECTIVITY_LEVEL_HINT = 4
+NetworkConnectivityLevelHintHidden: win32more.Windows.Win32.Networking.WinSock.NL_NETWORK_CONNECTIVITY_LEVEL_HINT = 5
 class NL_PATH_BANDWIDTH_ROD(EasyCastStructure):
     Bandwidth: UInt64
     Instability: UInt64
     BandwidthPeaked: win32more.Windows.Win32.Foundation.BOOLEAN
 NL_PREFIX_ORIGIN = Int32
-NL_PREFIX_ORIGIN_IpPrefixOriginOther: win32more.Windows.Win32.Networking.WinSock.NL_PREFIX_ORIGIN = 0
-NL_PREFIX_ORIGIN_IpPrefixOriginManual: win32more.Windows.Win32.Networking.WinSock.NL_PREFIX_ORIGIN = 1
-NL_PREFIX_ORIGIN_IpPrefixOriginWellKnown: win32more.Windows.Win32.Networking.WinSock.NL_PREFIX_ORIGIN = 2
-NL_PREFIX_ORIGIN_IpPrefixOriginDhcp: win32more.Windows.Win32.Networking.WinSock.NL_PREFIX_ORIGIN = 3
-NL_PREFIX_ORIGIN_IpPrefixOriginRouterAdvertisement: win32more.Windows.Win32.Networking.WinSock.NL_PREFIX_ORIGIN = 4
-NL_PREFIX_ORIGIN_IpPrefixOriginUnchanged: win32more.Windows.Win32.Networking.WinSock.NL_PREFIX_ORIGIN = 16
+IpPrefixOriginOther: win32more.Windows.Win32.Networking.WinSock.NL_PREFIX_ORIGIN = 0
+IpPrefixOriginManual: win32more.Windows.Win32.Networking.WinSock.NL_PREFIX_ORIGIN = 1
+IpPrefixOriginWellKnown: win32more.Windows.Win32.Networking.WinSock.NL_PREFIX_ORIGIN = 2
+IpPrefixOriginDhcp: win32more.Windows.Win32.Networking.WinSock.NL_PREFIX_ORIGIN = 3
+IpPrefixOriginRouterAdvertisement: win32more.Windows.Win32.Networking.WinSock.NL_PREFIX_ORIGIN = 4
+IpPrefixOriginUnchanged: win32more.Windows.Win32.Networking.WinSock.NL_PREFIX_ORIGIN = 16
 NL_ROUTER_DISCOVERY_BEHAVIOR = Int32
-NL_ROUTER_DISCOVERY_BEHAVIOR_RouterDiscoveryDisabled: win32more.Windows.Win32.Networking.WinSock.NL_ROUTER_DISCOVERY_BEHAVIOR = 0
-NL_ROUTER_DISCOVERY_BEHAVIOR_RouterDiscoveryEnabled: win32more.Windows.Win32.Networking.WinSock.NL_ROUTER_DISCOVERY_BEHAVIOR = 1
-NL_ROUTER_DISCOVERY_BEHAVIOR_RouterDiscoveryDhcp: win32more.Windows.Win32.Networking.WinSock.NL_ROUTER_DISCOVERY_BEHAVIOR = 2
-NL_ROUTER_DISCOVERY_BEHAVIOR_RouterDiscoveryUnchanged: win32more.Windows.Win32.Networking.WinSock.NL_ROUTER_DISCOVERY_BEHAVIOR = -1
+RouterDiscoveryDisabled: win32more.Windows.Win32.Networking.WinSock.NL_ROUTER_DISCOVERY_BEHAVIOR = 0
+RouterDiscoveryEnabled: win32more.Windows.Win32.Networking.WinSock.NL_ROUTER_DISCOVERY_BEHAVIOR = 1
+RouterDiscoveryDhcp: win32more.Windows.Win32.Networking.WinSock.NL_ROUTER_DISCOVERY_BEHAVIOR = 2
+RouterDiscoveryUnchanged: win32more.Windows.Win32.Networking.WinSock.NL_ROUTER_DISCOVERY_BEHAVIOR = -1
 NL_ROUTE_ORIGIN = Int32
-NL_ROUTE_ORIGIN_NlroManual: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_ORIGIN = 0
-NL_ROUTE_ORIGIN_NlroWellKnown: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_ORIGIN = 1
-NL_ROUTE_ORIGIN_NlroDHCP: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_ORIGIN = 2
-NL_ROUTE_ORIGIN_NlroRouterAdvertisement: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_ORIGIN = 3
-NL_ROUTE_ORIGIN_Nlro6to4: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_ORIGIN = 4
+NlroManual: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_ORIGIN = 0
+NlroWellKnown: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_ORIGIN = 1
+NlroDHCP: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_ORIGIN = 2
+NlroRouterAdvertisement: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_ORIGIN = 3
+Nlro6to4: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_ORIGIN = 4
 NL_ROUTE_PROTOCOL = Int32
-NL_ROUTE_PROTOCOL_RouteProtocolOther: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 1
-NL_ROUTE_PROTOCOL_RouteProtocolLocal: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 2
-NL_ROUTE_PROTOCOL_RouteProtocolNetMgmt: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 3
-NL_ROUTE_PROTOCOL_RouteProtocolIcmp: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 4
-NL_ROUTE_PROTOCOL_RouteProtocolEgp: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 5
-NL_ROUTE_PROTOCOL_RouteProtocolGgp: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 6
-NL_ROUTE_PROTOCOL_RouteProtocolHello: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 7
-NL_ROUTE_PROTOCOL_RouteProtocolRip: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 8
-NL_ROUTE_PROTOCOL_RouteProtocolIsIs: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 9
-NL_ROUTE_PROTOCOL_RouteProtocolEsIs: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 10
-NL_ROUTE_PROTOCOL_RouteProtocolCisco: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 11
-NL_ROUTE_PROTOCOL_RouteProtocolBbn: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 12
-NL_ROUTE_PROTOCOL_RouteProtocolOspf: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 13
-NL_ROUTE_PROTOCOL_RouteProtocolBgp: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 14
-NL_ROUTE_PROTOCOL_RouteProtocolIdpr: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 15
-NL_ROUTE_PROTOCOL_RouteProtocolEigrp: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 16
-NL_ROUTE_PROTOCOL_RouteProtocolDvmrp: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 17
-NL_ROUTE_PROTOCOL_RouteProtocolRpl: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 18
-NL_ROUTE_PROTOCOL_RouteProtocolDhcp: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 19
-NL_ROUTE_PROTOCOL_MIB_IPPROTO_OTHER: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 1
-NL_ROUTE_PROTOCOL_PROTO_IP_OTHER: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 1
-NL_ROUTE_PROTOCOL_MIB_IPPROTO_LOCAL: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 2
-NL_ROUTE_PROTOCOL_PROTO_IP_LOCAL: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 2
-NL_ROUTE_PROTOCOL_MIB_IPPROTO_NETMGMT: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 3
-NL_ROUTE_PROTOCOL_PROTO_IP_NETMGMT: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 3
-NL_ROUTE_PROTOCOL_MIB_IPPROTO_ICMP: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 4
-NL_ROUTE_PROTOCOL_PROTO_IP_ICMP: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 4
-NL_ROUTE_PROTOCOL_MIB_IPPROTO_EGP: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 5
-NL_ROUTE_PROTOCOL_PROTO_IP_EGP: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 5
-NL_ROUTE_PROTOCOL_MIB_IPPROTO_GGP: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 6
-NL_ROUTE_PROTOCOL_PROTO_IP_GGP: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 6
-NL_ROUTE_PROTOCOL_MIB_IPPROTO_HELLO: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 7
-NL_ROUTE_PROTOCOL_PROTO_IP_HELLO: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 7
-NL_ROUTE_PROTOCOL_MIB_IPPROTO_RIP: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 8
-NL_ROUTE_PROTOCOL_PROTO_IP_RIP: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 8
-NL_ROUTE_PROTOCOL_MIB_IPPROTO_IS_IS: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 9
-NL_ROUTE_PROTOCOL_PROTO_IP_IS_IS: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 9
-NL_ROUTE_PROTOCOL_MIB_IPPROTO_ES_IS: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 10
-NL_ROUTE_PROTOCOL_PROTO_IP_ES_IS: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 10
-NL_ROUTE_PROTOCOL_MIB_IPPROTO_CISCO: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 11
-NL_ROUTE_PROTOCOL_PROTO_IP_CISCO: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 11
-NL_ROUTE_PROTOCOL_MIB_IPPROTO_BBN: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 12
-NL_ROUTE_PROTOCOL_PROTO_IP_BBN: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 12
-NL_ROUTE_PROTOCOL_MIB_IPPROTO_OSPF: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 13
-NL_ROUTE_PROTOCOL_PROTO_IP_OSPF: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 13
-NL_ROUTE_PROTOCOL_MIB_IPPROTO_BGP: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 14
-NL_ROUTE_PROTOCOL_PROTO_IP_BGP: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 14
-NL_ROUTE_PROTOCOL_MIB_IPPROTO_IDPR: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 15
-NL_ROUTE_PROTOCOL_PROTO_IP_IDPR: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 15
-NL_ROUTE_PROTOCOL_MIB_IPPROTO_EIGRP: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 16
-NL_ROUTE_PROTOCOL_PROTO_IP_EIGRP: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 16
-NL_ROUTE_PROTOCOL_MIB_IPPROTO_DVMRP: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 17
-NL_ROUTE_PROTOCOL_PROTO_IP_DVMRP: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 17
-NL_ROUTE_PROTOCOL_MIB_IPPROTO_RPL: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 18
-NL_ROUTE_PROTOCOL_PROTO_IP_RPL: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 18
-NL_ROUTE_PROTOCOL_MIB_IPPROTO_DHCP: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 19
-NL_ROUTE_PROTOCOL_PROTO_IP_DHCP: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 19
-NL_ROUTE_PROTOCOL_MIB_IPPROTO_NT_AUTOSTATIC: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 10002
-NL_ROUTE_PROTOCOL_PROTO_IP_NT_AUTOSTATIC: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 10002
-NL_ROUTE_PROTOCOL_MIB_IPPROTO_NT_STATIC: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 10006
-NL_ROUTE_PROTOCOL_PROTO_IP_NT_STATIC: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 10006
-NL_ROUTE_PROTOCOL_MIB_IPPROTO_NT_STATIC_NON_DOD: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 10007
-NL_ROUTE_PROTOCOL_PROTO_IP_NT_STATIC_NON_DOD: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 10007
+RouteProtocolOther: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 1
+RouteProtocolLocal: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 2
+RouteProtocolNetMgmt: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 3
+RouteProtocolIcmp: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 4
+RouteProtocolEgp: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 5
+RouteProtocolGgp: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 6
+RouteProtocolHello: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 7
+RouteProtocolRip: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 8
+RouteProtocolIsIs: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 9
+RouteProtocolEsIs: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 10
+RouteProtocolCisco: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 11
+RouteProtocolBbn: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 12
+RouteProtocolOspf: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 13
+RouteProtocolBgp: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 14
+RouteProtocolIdpr: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 15
+RouteProtocolEigrp: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 16
+RouteProtocolDvmrp: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 17
+RouteProtocolRpl: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 18
+RouteProtocolDhcp: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 19
+MIB_IPPROTO_OTHER: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 1
+PROTO_IP_OTHER: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 1
+MIB_IPPROTO_LOCAL: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 2
+PROTO_IP_LOCAL: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 2
+MIB_IPPROTO_NETMGMT: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 3
+PROTO_IP_NETMGMT: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 3
+MIB_IPPROTO_ICMP: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 4
+PROTO_IP_ICMP: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 4
+MIB_IPPROTO_EGP: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 5
+PROTO_IP_EGP: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 5
+MIB_IPPROTO_GGP: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 6
+PROTO_IP_GGP: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 6
+MIB_IPPROTO_HELLO: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 7
+PROTO_IP_HELLO: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 7
+MIB_IPPROTO_RIP: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 8
+PROTO_IP_RIP: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 8
+MIB_IPPROTO_IS_IS: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 9
+PROTO_IP_IS_IS: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 9
+MIB_IPPROTO_ES_IS: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 10
+PROTO_IP_ES_IS: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 10
+MIB_IPPROTO_CISCO: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 11
+PROTO_IP_CISCO: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 11
+MIB_IPPROTO_BBN: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 12
+PROTO_IP_BBN: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 12
+MIB_IPPROTO_OSPF: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 13
+PROTO_IP_OSPF: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 13
+MIB_IPPROTO_BGP: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 14
+PROTO_IP_BGP: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 14
+MIB_IPPROTO_IDPR: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 15
+PROTO_IP_IDPR: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 15
+MIB_IPPROTO_EIGRP: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 16
+PROTO_IP_EIGRP: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 16
+MIB_IPPROTO_DVMRP: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 17
+PROTO_IP_DVMRP: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 17
+MIB_IPPROTO_RPL: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 18
+PROTO_IP_RPL: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 18
+MIB_IPPROTO_DHCP: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 19
+PROTO_IP_DHCP: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 19
+MIB_IPPROTO_NT_AUTOSTATIC: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 10002
+PROTO_IP_NT_AUTOSTATIC: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 10002
+MIB_IPPROTO_NT_STATIC: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 10006
+PROTO_IP_NT_STATIC: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 10006
+MIB_IPPROTO_NT_STATIC_NON_DOD: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 10007
+PROTO_IP_NT_STATIC_NON_DOD: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL = 10007
 NL_SUFFIX_ORIGIN = Int32
-NL_SUFFIX_ORIGIN_NlsoOther: win32more.Windows.Win32.Networking.WinSock.NL_SUFFIX_ORIGIN = 0
-NL_SUFFIX_ORIGIN_NlsoManual: win32more.Windows.Win32.Networking.WinSock.NL_SUFFIX_ORIGIN = 1
-NL_SUFFIX_ORIGIN_NlsoWellKnown: win32more.Windows.Win32.Networking.WinSock.NL_SUFFIX_ORIGIN = 2
-NL_SUFFIX_ORIGIN_NlsoDhcp: win32more.Windows.Win32.Networking.WinSock.NL_SUFFIX_ORIGIN = 3
-NL_SUFFIX_ORIGIN_NlsoLinkLayerAddress: win32more.Windows.Win32.Networking.WinSock.NL_SUFFIX_ORIGIN = 4
-NL_SUFFIX_ORIGIN_NlsoRandom: win32more.Windows.Win32.Networking.WinSock.NL_SUFFIX_ORIGIN = 5
-NL_SUFFIX_ORIGIN_IpSuffixOriginOther: win32more.Windows.Win32.Networking.WinSock.NL_SUFFIX_ORIGIN = 0
-NL_SUFFIX_ORIGIN_IpSuffixOriginManual: win32more.Windows.Win32.Networking.WinSock.NL_SUFFIX_ORIGIN = 1
-NL_SUFFIX_ORIGIN_IpSuffixOriginWellKnown: win32more.Windows.Win32.Networking.WinSock.NL_SUFFIX_ORIGIN = 2
-NL_SUFFIX_ORIGIN_IpSuffixOriginDhcp: win32more.Windows.Win32.Networking.WinSock.NL_SUFFIX_ORIGIN = 3
-NL_SUFFIX_ORIGIN_IpSuffixOriginLinkLayerAddress: win32more.Windows.Win32.Networking.WinSock.NL_SUFFIX_ORIGIN = 4
-NL_SUFFIX_ORIGIN_IpSuffixOriginRandom: win32more.Windows.Win32.Networking.WinSock.NL_SUFFIX_ORIGIN = 5
-NL_SUFFIX_ORIGIN_IpSuffixOriginUnchanged: win32more.Windows.Win32.Networking.WinSock.NL_SUFFIX_ORIGIN = 16
+NlsoOther: win32more.Windows.Win32.Networking.WinSock.NL_SUFFIX_ORIGIN = 0
+NlsoManual: win32more.Windows.Win32.Networking.WinSock.NL_SUFFIX_ORIGIN = 1
+NlsoWellKnown: win32more.Windows.Win32.Networking.WinSock.NL_SUFFIX_ORIGIN = 2
+NlsoDhcp: win32more.Windows.Win32.Networking.WinSock.NL_SUFFIX_ORIGIN = 3
+NlsoLinkLayerAddress: win32more.Windows.Win32.Networking.WinSock.NL_SUFFIX_ORIGIN = 4
+NlsoRandom: win32more.Windows.Win32.Networking.WinSock.NL_SUFFIX_ORIGIN = 5
+IpSuffixOriginOther: win32more.Windows.Win32.Networking.WinSock.NL_SUFFIX_ORIGIN = 0
+IpSuffixOriginManual: win32more.Windows.Win32.Networking.WinSock.NL_SUFFIX_ORIGIN = 1
+IpSuffixOriginWellKnown: win32more.Windows.Win32.Networking.WinSock.NL_SUFFIX_ORIGIN = 2
+IpSuffixOriginDhcp: win32more.Windows.Win32.Networking.WinSock.NL_SUFFIX_ORIGIN = 3
+IpSuffixOriginLinkLayerAddress: win32more.Windows.Win32.Networking.WinSock.NL_SUFFIX_ORIGIN = 4
+IpSuffixOriginRandom: win32more.Windows.Win32.Networking.WinSock.NL_SUFFIX_ORIGIN = 5
+IpSuffixOriginUnchanged: win32more.Windows.Win32.Networking.WinSock.NL_SUFFIX_ORIGIN = 16
 class NPI_MODULEID(EasyCastStructure):
     Length: UInt16
     Type: win32more.Windows.Win32.Networking.WinSock.NPI_MODULEID_TYPE
@@ -3108,14 +3108,14 @@ class SCOPE_ID(EasyCastStructure):
         class _Anonymous_e__Struct(EasyCastStructure):
             _bitfield: UInt32
 SCOPE_LEVEL = Int32
-SCOPE_LEVEL_ScopeLevelInterface: win32more.Windows.Win32.Networking.WinSock.SCOPE_LEVEL = 1
-SCOPE_LEVEL_ScopeLevelLink: win32more.Windows.Win32.Networking.WinSock.SCOPE_LEVEL = 2
-SCOPE_LEVEL_ScopeLevelSubnet: win32more.Windows.Win32.Networking.WinSock.SCOPE_LEVEL = 3
-SCOPE_LEVEL_ScopeLevelAdmin: win32more.Windows.Win32.Networking.WinSock.SCOPE_LEVEL = 4
-SCOPE_LEVEL_ScopeLevelSite: win32more.Windows.Win32.Networking.WinSock.SCOPE_LEVEL = 5
-SCOPE_LEVEL_ScopeLevelOrganization: win32more.Windows.Win32.Networking.WinSock.SCOPE_LEVEL = 8
-SCOPE_LEVEL_ScopeLevelGlobal: win32more.Windows.Win32.Networking.WinSock.SCOPE_LEVEL = 14
-SCOPE_LEVEL_ScopeLevelCount: win32more.Windows.Win32.Networking.WinSock.SCOPE_LEVEL = 16
+ScopeLevelInterface: win32more.Windows.Win32.Networking.WinSock.SCOPE_LEVEL = 1
+ScopeLevelLink: win32more.Windows.Win32.Networking.WinSock.SCOPE_LEVEL = 2
+ScopeLevelSubnet: win32more.Windows.Win32.Networking.WinSock.SCOPE_LEVEL = 3
+ScopeLevelAdmin: win32more.Windows.Win32.Networking.WinSock.SCOPE_LEVEL = 4
+ScopeLevelSite: win32more.Windows.Win32.Networking.WinSock.SCOPE_LEVEL = 5
+ScopeLevelOrganization: win32more.Windows.Win32.Networking.WinSock.SCOPE_LEVEL = 8
+ScopeLevelGlobal: win32more.Windows.Win32.Networking.WinSock.SCOPE_LEVEL = 14
+ScopeLevelCount: win32more.Windows.Win32.Networking.WinSock.SCOPE_LEVEL = 16
 SEND_RECV_FLAGS = Int32
 MSG_OOB: win32more.Windows.Win32.Networking.WinSock.SEND_RECV_FLAGS = 1
 MSG_PEEK: win32more.Windows.Win32.Networking.WinSock.SEND_RECV_FLAGS = 2
@@ -3303,10 +3303,10 @@ class SOCKET_PEER_TARGET_NAME(EasyCastStructure):
     PeerTargetNameStringLen: UInt32
     AllStrings: Char * 1
 SOCKET_PRIORITY_HINT = Int32
-SOCKET_PRIORITY_HINT_SocketPriorityHintVeryLow: win32more.Windows.Win32.Networking.WinSock.SOCKET_PRIORITY_HINT = 0
-SOCKET_PRIORITY_HINT_SocketPriorityHintLow: win32more.Windows.Win32.Networking.WinSock.SOCKET_PRIORITY_HINT = 1
-SOCKET_PRIORITY_HINT_SocketPriorityHintNormal: win32more.Windows.Win32.Networking.WinSock.SOCKET_PRIORITY_HINT = 2
-SOCKET_PRIORITY_HINT_SocketMaximumPriorityHintType: win32more.Windows.Win32.Networking.WinSock.SOCKET_PRIORITY_HINT = 3
+SocketPriorityHintVeryLow: win32more.Windows.Win32.Networking.WinSock.SOCKET_PRIORITY_HINT = 0
+SocketPriorityHintLow: win32more.Windows.Win32.Networking.WinSock.SOCKET_PRIORITY_HINT = 1
+SocketPriorityHintNormal: win32more.Windows.Win32.Networking.WinSock.SOCKET_PRIORITY_HINT = 2
+SocketMaximumPriorityHintType: win32more.Windows.Win32.Networking.WinSock.SOCKET_PRIORITY_HINT = 3
 class SOCKET_PROCESSOR_AFFINITY(EasyCastStructure):
     Processor: win32more.Windows.Win32.System.Kernel.PROCESSOR_NUMBER
     NumaNodeId: UInt16
@@ -3839,9 +3839,9 @@ class WSAVERSION(EasyCastStructure):
     dwVersion: UInt32
     ecHow: win32more.Windows.Win32.Networking.WinSock.WSAECOMPARATOR
 WSA_COMPATIBILITY_BEHAVIOR_ID = Int32
-WSA_COMPATIBILITY_BEHAVIOR_ID_WsaBehaviorAll: win32more.Windows.Win32.Networking.WinSock.WSA_COMPATIBILITY_BEHAVIOR_ID = 0
-WSA_COMPATIBILITY_BEHAVIOR_ID_WsaBehaviorReceiveBuffering: win32more.Windows.Win32.Networking.WinSock.WSA_COMPATIBILITY_BEHAVIOR_ID = 1
-WSA_COMPATIBILITY_BEHAVIOR_ID_WsaBehaviorAutoTuning: win32more.Windows.Win32.Networking.WinSock.WSA_COMPATIBILITY_BEHAVIOR_ID = 2
+WsaBehaviorAll: win32more.Windows.Win32.Networking.WinSock.WSA_COMPATIBILITY_BEHAVIOR_ID = 0
+WsaBehaviorReceiveBuffering: win32more.Windows.Win32.Networking.WinSock.WSA_COMPATIBILITY_BEHAVIOR_ID = 1
+WsaBehaviorAutoTuning: win32more.Windows.Win32.Networking.WinSock.WSA_COMPATIBILITY_BEHAVIOR_ID = 2
 class WSA_COMPATIBILITY_MODE(EasyCastStructure):
     BehaviorId: win32more.Windows.Win32.Networking.WinSock.WSA_COMPATIBILITY_BEHAVIOR_ID
     TargetOsVersion: UInt32
@@ -3950,8 +3950,8 @@ class WSC_PROVIDER_AUDIT_INFO(EasyCastStructure):
     RecordSize: UInt32
     Reserved: VoidPtr
 WSC_PROVIDER_INFO_TYPE = Int32
-WSC_PROVIDER_INFO_TYPE_ProviderInfoLspCategories: win32more.Windows.Win32.Networking.WinSock.WSC_PROVIDER_INFO_TYPE = 0
-WSC_PROVIDER_INFO_TYPE_ProviderInfoAudit: win32more.Windows.Win32.Networking.WinSock.WSC_PROVIDER_INFO_TYPE = 1
+ProviderInfoLspCategories: win32more.Windows.Win32.Networking.WinSock.WSC_PROVIDER_INFO_TYPE = 0
+ProviderInfoAudit: win32more.Windows.Win32.Networking.WinSock.WSC_PROVIDER_INFO_TYPE = 1
 class WSPDATA(EasyCastStructure):
     wVersion: UInt16
     wHighVersion: UInt16

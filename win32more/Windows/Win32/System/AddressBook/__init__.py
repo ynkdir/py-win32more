@@ -473,9 +473,9 @@ class FlagList(EasyCastStructure):
     cFlags: UInt32
     ulFlag: UInt32 * 1
 Gender = Int32
-Gender_genderUnspecified: win32more.Windows.Win32.System.AddressBook.Gender = 0
-Gender_genderFemale: win32more.Windows.Win32.System.AddressBook.Gender = 1
-Gender_genderMale: win32more.Windows.Win32.System.AddressBook.Gender = 2
+genderUnspecified: win32more.Windows.Win32.System.AddressBook.Gender = 0
+genderFemale: win32more.Windows.Win32.System.AddressBook.Gender = 1
+genderMale: win32more.Windows.Win32.System.AddressBook.Gender = 2
 class IABContainer(ComPtr):
     extends: win32more.Windows.Win32.System.AddressBook.IMAPIContainer
     @commethod(19)

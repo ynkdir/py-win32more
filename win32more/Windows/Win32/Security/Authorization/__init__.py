@@ -136,11 +136,11 @@ class AUTHZ_ACCESS_REQUEST(EasyCastStructure):
     OptionalArguments: VoidPtr
 AUTHZ_AUDIT_EVENT_HANDLE = IntPtr
 AUTHZ_AUDIT_EVENT_INFORMATION_CLASS = Int32
-AUTHZ_AUDIT_EVENT_INFORMATION_CLASS_AuthzAuditEventInfoFlags: win32more.Windows.Win32.Security.Authorization.AUTHZ_AUDIT_EVENT_INFORMATION_CLASS = 1
-AUTHZ_AUDIT_EVENT_INFORMATION_CLASS_AuthzAuditEventInfoOperationType: win32more.Windows.Win32.Security.Authorization.AUTHZ_AUDIT_EVENT_INFORMATION_CLASS = 2
-AUTHZ_AUDIT_EVENT_INFORMATION_CLASS_AuthzAuditEventInfoObjectType: win32more.Windows.Win32.Security.Authorization.AUTHZ_AUDIT_EVENT_INFORMATION_CLASS = 3
-AUTHZ_AUDIT_EVENT_INFORMATION_CLASS_AuthzAuditEventInfoObjectName: win32more.Windows.Win32.Security.Authorization.AUTHZ_AUDIT_EVENT_INFORMATION_CLASS = 4
-AUTHZ_AUDIT_EVENT_INFORMATION_CLASS_AuthzAuditEventInfoAdditionalInfo: win32more.Windows.Win32.Security.Authorization.AUTHZ_AUDIT_EVENT_INFORMATION_CLASS = 5
+AuthzAuditEventInfoFlags: win32more.Windows.Win32.Security.Authorization.AUTHZ_AUDIT_EVENT_INFORMATION_CLASS = 1
+AuthzAuditEventInfoOperationType: win32more.Windows.Win32.Security.Authorization.AUTHZ_AUDIT_EVENT_INFORMATION_CLASS = 2
+AuthzAuditEventInfoObjectType: win32more.Windows.Win32.Security.Authorization.AUTHZ_AUDIT_EVENT_INFORMATION_CLASS = 3
+AuthzAuditEventInfoObjectName: win32more.Windows.Win32.Security.Authorization.AUTHZ_AUDIT_EVENT_INFORMATION_CLASS = 4
+AuthzAuditEventInfoAdditionalInfo: win32more.Windows.Win32.Security.Authorization.AUTHZ_AUDIT_EVENT_INFORMATION_CLASS = 5
 AUTHZ_AUDIT_EVENT_TYPE_HANDLE = IntPtr
 class AUTHZ_AUDIT_EVENT_TYPE_LEGACY(EasyCastStructure):
     CategoryId: UInt16
@@ -158,22 +158,22 @@ class AUTHZ_AUDIT_EVENT_TYPE_UNION(EasyCastUnion):
 AUTHZ_CAP_CHANGE_SUBSCRIPTION_HANDLE = IntPtr
 AUTHZ_CLIENT_CONTEXT_HANDLE = IntPtr
 AUTHZ_CONTEXT_INFORMATION_CLASS = Int32
-AUTHZ_CONTEXT_INFORMATION_CLASS_AuthzContextInfoUserSid: win32more.Windows.Win32.Security.Authorization.AUTHZ_CONTEXT_INFORMATION_CLASS = 1
-AUTHZ_CONTEXT_INFORMATION_CLASS_AuthzContextInfoGroupsSids: win32more.Windows.Win32.Security.Authorization.AUTHZ_CONTEXT_INFORMATION_CLASS = 2
-AUTHZ_CONTEXT_INFORMATION_CLASS_AuthzContextInfoRestrictedSids: win32more.Windows.Win32.Security.Authorization.AUTHZ_CONTEXT_INFORMATION_CLASS = 3
-AUTHZ_CONTEXT_INFORMATION_CLASS_AuthzContextInfoPrivileges: win32more.Windows.Win32.Security.Authorization.AUTHZ_CONTEXT_INFORMATION_CLASS = 4
-AUTHZ_CONTEXT_INFORMATION_CLASS_AuthzContextInfoExpirationTime: win32more.Windows.Win32.Security.Authorization.AUTHZ_CONTEXT_INFORMATION_CLASS = 5
-AUTHZ_CONTEXT_INFORMATION_CLASS_AuthzContextInfoServerContext: win32more.Windows.Win32.Security.Authorization.AUTHZ_CONTEXT_INFORMATION_CLASS = 6
-AUTHZ_CONTEXT_INFORMATION_CLASS_AuthzContextInfoIdentifier: win32more.Windows.Win32.Security.Authorization.AUTHZ_CONTEXT_INFORMATION_CLASS = 7
-AUTHZ_CONTEXT_INFORMATION_CLASS_AuthzContextInfoSource: win32more.Windows.Win32.Security.Authorization.AUTHZ_CONTEXT_INFORMATION_CLASS = 8
-AUTHZ_CONTEXT_INFORMATION_CLASS_AuthzContextInfoAll: win32more.Windows.Win32.Security.Authorization.AUTHZ_CONTEXT_INFORMATION_CLASS = 9
-AUTHZ_CONTEXT_INFORMATION_CLASS_AuthzContextInfoAuthenticationId: win32more.Windows.Win32.Security.Authorization.AUTHZ_CONTEXT_INFORMATION_CLASS = 10
-AUTHZ_CONTEXT_INFORMATION_CLASS_AuthzContextInfoSecurityAttributes: win32more.Windows.Win32.Security.Authorization.AUTHZ_CONTEXT_INFORMATION_CLASS = 11
-AUTHZ_CONTEXT_INFORMATION_CLASS_AuthzContextInfoDeviceSids: win32more.Windows.Win32.Security.Authorization.AUTHZ_CONTEXT_INFORMATION_CLASS = 12
-AUTHZ_CONTEXT_INFORMATION_CLASS_AuthzContextInfoUserClaims: win32more.Windows.Win32.Security.Authorization.AUTHZ_CONTEXT_INFORMATION_CLASS = 13
-AUTHZ_CONTEXT_INFORMATION_CLASS_AuthzContextInfoDeviceClaims: win32more.Windows.Win32.Security.Authorization.AUTHZ_CONTEXT_INFORMATION_CLASS = 14
-AUTHZ_CONTEXT_INFORMATION_CLASS_AuthzContextInfoAppContainerSid: win32more.Windows.Win32.Security.Authorization.AUTHZ_CONTEXT_INFORMATION_CLASS = 15
-AUTHZ_CONTEXT_INFORMATION_CLASS_AuthzContextInfoCapabilitySids: win32more.Windows.Win32.Security.Authorization.AUTHZ_CONTEXT_INFORMATION_CLASS = 16
+AuthzContextInfoUserSid: win32more.Windows.Win32.Security.Authorization.AUTHZ_CONTEXT_INFORMATION_CLASS = 1
+AuthzContextInfoGroupsSids: win32more.Windows.Win32.Security.Authorization.AUTHZ_CONTEXT_INFORMATION_CLASS = 2
+AuthzContextInfoRestrictedSids: win32more.Windows.Win32.Security.Authorization.AUTHZ_CONTEXT_INFORMATION_CLASS = 3
+AuthzContextInfoPrivileges: win32more.Windows.Win32.Security.Authorization.AUTHZ_CONTEXT_INFORMATION_CLASS = 4
+AuthzContextInfoExpirationTime: win32more.Windows.Win32.Security.Authorization.AUTHZ_CONTEXT_INFORMATION_CLASS = 5
+AuthzContextInfoServerContext: win32more.Windows.Win32.Security.Authorization.AUTHZ_CONTEXT_INFORMATION_CLASS = 6
+AuthzContextInfoIdentifier: win32more.Windows.Win32.Security.Authorization.AUTHZ_CONTEXT_INFORMATION_CLASS = 7
+AuthzContextInfoSource: win32more.Windows.Win32.Security.Authorization.AUTHZ_CONTEXT_INFORMATION_CLASS = 8
+AuthzContextInfoAll: win32more.Windows.Win32.Security.Authorization.AUTHZ_CONTEXT_INFORMATION_CLASS = 9
+AuthzContextInfoAuthenticationId: win32more.Windows.Win32.Security.Authorization.AUTHZ_CONTEXT_INFORMATION_CLASS = 10
+AuthzContextInfoSecurityAttributes: win32more.Windows.Win32.Security.Authorization.AUTHZ_CONTEXT_INFORMATION_CLASS = 11
+AuthzContextInfoDeviceSids: win32more.Windows.Win32.Security.Authorization.AUTHZ_CONTEXT_INFORMATION_CLASS = 12
+AuthzContextInfoUserClaims: win32more.Windows.Win32.Security.Authorization.AUTHZ_CONTEXT_INFORMATION_CLASS = 13
+AuthzContextInfoDeviceClaims: win32more.Windows.Win32.Security.Authorization.AUTHZ_CONTEXT_INFORMATION_CLASS = 14
+AuthzContextInfoAppContainerSid: win32more.Windows.Win32.Security.Authorization.AUTHZ_CONTEXT_INFORMATION_CLASS = 15
+AuthzContextInfoCapabilitySids: win32more.Windows.Win32.Security.Authorization.AUTHZ_CONTEXT_INFORMATION_CLASS = 16
 AUTHZ_GENERATE_RESULTS = UInt32
 AUTHZ_GENERATE_SUCCESS_AUDIT: win32more.Windows.Win32.Security.Authorization.AUTHZ_GENERATE_RESULTS = 1
 AUTHZ_GENERATE_FAILURE_AUDIT: win32more.Windows.Win32.Security.Authorization.AUTHZ_GENERATE_RESULTS = 2
@@ -1713,12 +1713,12 @@ def PFN_AUTHZ_FREE_DYNAMIC_GROUPS(pSidAttrArray: POINTER(win32more.Windows.Win32
 @winfunctype_pointer
 def PFN_AUTHZ_GET_CENTRAL_ACCESS_POLICY(hAuthzClientContext: win32more.Windows.Win32.Security.Authorization.AUTHZ_CLIENT_CONTEXT_HANDLE, capid: win32more.Windows.Win32.Foundation.PSID, pArgs: VoidPtr, pCentralAccessPolicyApplicable: POINTER(win32more.Windows.Win32.Foundation.BOOL), ppCentralAccessPolicy: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 PROG_INVOKE_SETTING = Int32
-PROG_INVOKE_SETTING_ProgressInvokeNever: win32more.Windows.Win32.Security.Authorization.PROG_INVOKE_SETTING = 1
-PROG_INVOKE_SETTING_ProgressInvokeEveryObject: win32more.Windows.Win32.Security.Authorization.PROG_INVOKE_SETTING = 2
-PROG_INVOKE_SETTING_ProgressInvokeOnError: win32more.Windows.Win32.Security.Authorization.PROG_INVOKE_SETTING = 3
-PROG_INVOKE_SETTING_ProgressCancelOperation: win32more.Windows.Win32.Security.Authorization.PROG_INVOKE_SETTING = 4
-PROG_INVOKE_SETTING_ProgressRetryOperation: win32more.Windows.Win32.Security.Authorization.PROG_INVOKE_SETTING = 5
-PROG_INVOKE_SETTING_ProgressInvokePrePostError: win32more.Windows.Win32.Security.Authorization.PROG_INVOKE_SETTING = 6
+ProgressInvokeNever: win32more.Windows.Win32.Security.Authorization.PROG_INVOKE_SETTING = 1
+ProgressInvokeEveryObject: win32more.Windows.Win32.Security.Authorization.PROG_INVOKE_SETTING = 2
+ProgressInvokeOnError: win32more.Windows.Win32.Security.Authorization.PROG_INVOKE_SETTING = 3
+ProgressCancelOperation: win32more.Windows.Win32.Security.Authorization.PROG_INVOKE_SETTING = 4
+ProgressRetryOperation: win32more.Windows.Win32.Security.Authorization.PROG_INVOKE_SETTING = 5
+ProgressInvokePrePostError: win32more.Windows.Win32.Security.Authorization.PROG_INVOKE_SETTING = 6
 SE_OBJECT_TYPE = Int32
 SE_UNKNOWN_OBJECT_TYPE: win32more.Windows.Win32.Security.Authorization.SE_OBJECT_TYPE = 0
 SE_FILE_OBJECT: win32more.Windows.Win32.Security.Authorization.SE_OBJECT_TYPE = 1

@@ -1147,21 +1147,21 @@ def CLFS_BLOCK_ALLOCATION(cbBufferLength: UInt32, pvUserContext: VoidPtr) -> Voi
 @winfunctype_pointer
 def CLFS_BLOCK_DEALLOCATION(pvBuffer: VoidPtr, pvUserContext: VoidPtr) -> Void: ...
 CLFS_CONTEXT_MODE = Int32
-CLFS_CONTEXT_MODE_ClfsContextNone: win32more.Windows.Win32.Storage.FileSystem.CLFS_CONTEXT_MODE = 0
-CLFS_CONTEXT_MODE_ClfsContextUndoNext: win32more.Windows.Win32.Storage.FileSystem.CLFS_CONTEXT_MODE = 1
-CLFS_CONTEXT_MODE_ClfsContextPrevious: win32more.Windows.Win32.Storage.FileSystem.CLFS_CONTEXT_MODE = 2
-CLFS_CONTEXT_MODE_ClfsContextForward: win32more.Windows.Win32.Storage.FileSystem.CLFS_CONTEXT_MODE = 3
+ClfsContextNone: win32more.Windows.Win32.Storage.FileSystem.CLFS_CONTEXT_MODE = 0
+ClfsContextUndoNext: win32more.Windows.Win32.Storage.FileSystem.CLFS_CONTEXT_MODE = 1
+ClfsContextPrevious: win32more.Windows.Win32.Storage.FileSystem.CLFS_CONTEXT_MODE = 2
+ClfsContextForward: win32more.Windows.Win32.Storage.FileSystem.CLFS_CONTEXT_MODE = 3
 CLFS_FLAG = UInt32
 CLFS_FLAG_FORCE_APPEND: win32more.Windows.Win32.Storage.FileSystem.CLFS_FLAG = 1
 CLFS_FLAG_FORCE_FLUSH: win32more.Windows.Win32.Storage.FileSystem.CLFS_FLAG = 2
 CLFS_FLAG_NO_FLAGS: win32more.Windows.Win32.Storage.FileSystem.CLFS_FLAG = 0
 CLFS_FLAG_USE_RESERVATION: win32more.Windows.Win32.Storage.FileSystem.CLFS_FLAG = 4
 CLFS_IOSTATS_CLASS = Int32
-CLFS_IOSTATS_CLASS_ClfsIoStatsDefault: win32more.Windows.Win32.Storage.FileSystem.CLFS_IOSTATS_CLASS = 0
-CLFS_IOSTATS_CLASS_ClfsIoStatsMax: win32more.Windows.Win32.Storage.FileSystem.CLFS_IOSTATS_CLASS = 65535
+ClfsIoStatsDefault: win32more.Windows.Win32.Storage.FileSystem.CLFS_IOSTATS_CLASS = 0
+ClfsIoStatsMax: win32more.Windows.Win32.Storage.FileSystem.CLFS_IOSTATS_CLASS = 65535
 CLFS_LOG_ARCHIVE_MODE = Int32
-CLFS_LOG_ARCHIVE_MODE_ClfsLogArchiveEnabled: win32more.Windows.Win32.Storage.FileSystem.CLFS_LOG_ARCHIVE_MODE = 1
-CLFS_LOG_ARCHIVE_MODE_ClfsLogArchiveDisabled: win32more.Windows.Win32.Storage.FileSystem.CLFS_LOG_ARCHIVE_MODE = 2
+ClfsLogArchiveEnabled: win32more.Windows.Win32.Storage.FileSystem.CLFS_LOG_ARCHIVE_MODE = 1
+ClfsLogArchiveDisabled: win32more.Windows.Win32.Storage.FileSystem.CLFS_LOG_ARCHIVE_MODE = 2
 class CLFS_LOG_NAME_INFORMATION(EasyCastStructure):
     NameLengthInBytes: UInt16
     Name: Char * 1
@@ -1170,10 +1170,10 @@ class CLFS_MGMT_NOTIFICATION(EasyCastStructure):
     Lsn: win32more.Windows.Win32.Storage.FileSystem.CLS_LSN
     LogIsPinned: UInt16
 CLFS_MGMT_NOTIFICATION_TYPE = Int32
-CLFS_MGMT_NOTIFICATION_TYPE_ClfsMgmtAdvanceTailNotification: win32more.Windows.Win32.Storage.FileSystem.CLFS_MGMT_NOTIFICATION_TYPE = 0
-CLFS_MGMT_NOTIFICATION_TYPE_ClfsMgmtLogFullHandlerNotification: win32more.Windows.Win32.Storage.FileSystem.CLFS_MGMT_NOTIFICATION_TYPE = 1
-CLFS_MGMT_NOTIFICATION_TYPE_ClfsMgmtLogUnpinnedNotification: win32more.Windows.Win32.Storage.FileSystem.CLFS_MGMT_NOTIFICATION_TYPE = 2
-CLFS_MGMT_NOTIFICATION_TYPE_ClfsMgmtLogWriteNotification: win32more.Windows.Win32.Storage.FileSystem.CLFS_MGMT_NOTIFICATION_TYPE = 3
+ClfsMgmtAdvanceTailNotification: win32more.Windows.Win32.Storage.FileSystem.CLFS_MGMT_NOTIFICATION_TYPE = 0
+ClfsMgmtLogFullHandlerNotification: win32more.Windows.Win32.Storage.FileSystem.CLFS_MGMT_NOTIFICATION_TYPE = 1
+ClfsMgmtLogUnpinnedNotification: win32more.Windows.Win32.Storage.FileSystem.CLFS_MGMT_NOTIFICATION_TYPE = 2
+ClfsMgmtLogWriteNotification: win32more.Windows.Win32.Storage.FileSystem.CLFS_MGMT_NOTIFICATION_TYPE = 3
 class CLFS_MGMT_POLICY(EasyCastStructure):
     Version: UInt32
     LengthInBytes: UInt32
@@ -1216,17 +1216,17 @@ class CLFS_MGMT_POLICY(EasyCastStructure):
             ExtensionLengthInBytes: UInt16
             ExtensionString: Char * 1
 CLFS_MGMT_POLICY_TYPE = Int32
-CLFS_MGMT_POLICY_TYPE_ClfsMgmtPolicyMaximumSize: win32more.Windows.Win32.Storage.FileSystem.CLFS_MGMT_POLICY_TYPE = 0
-CLFS_MGMT_POLICY_TYPE_ClfsMgmtPolicyMinimumSize: win32more.Windows.Win32.Storage.FileSystem.CLFS_MGMT_POLICY_TYPE = 1
-CLFS_MGMT_POLICY_TYPE_ClfsMgmtPolicyNewContainerSize: win32more.Windows.Win32.Storage.FileSystem.CLFS_MGMT_POLICY_TYPE = 2
-CLFS_MGMT_POLICY_TYPE_ClfsMgmtPolicyGrowthRate: win32more.Windows.Win32.Storage.FileSystem.CLFS_MGMT_POLICY_TYPE = 3
-CLFS_MGMT_POLICY_TYPE_ClfsMgmtPolicyLogTail: win32more.Windows.Win32.Storage.FileSystem.CLFS_MGMT_POLICY_TYPE = 4
-CLFS_MGMT_POLICY_TYPE_ClfsMgmtPolicyAutoShrink: win32more.Windows.Win32.Storage.FileSystem.CLFS_MGMT_POLICY_TYPE = 5
-CLFS_MGMT_POLICY_TYPE_ClfsMgmtPolicyAutoGrow: win32more.Windows.Win32.Storage.FileSystem.CLFS_MGMT_POLICY_TYPE = 6
-CLFS_MGMT_POLICY_TYPE_ClfsMgmtPolicyNewContainerPrefix: win32more.Windows.Win32.Storage.FileSystem.CLFS_MGMT_POLICY_TYPE = 7
-CLFS_MGMT_POLICY_TYPE_ClfsMgmtPolicyNewContainerSuffix: win32more.Windows.Win32.Storage.FileSystem.CLFS_MGMT_POLICY_TYPE = 8
-CLFS_MGMT_POLICY_TYPE_ClfsMgmtPolicyNewContainerExtension: win32more.Windows.Win32.Storage.FileSystem.CLFS_MGMT_POLICY_TYPE = 9
-CLFS_MGMT_POLICY_TYPE_ClfsMgmtPolicyInvalid: win32more.Windows.Win32.Storage.FileSystem.CLFS_MGMT_POLICY_TYPE = 10
+ClfsMgmtPolicyMaximumSize: win32more.Windows.Win32.Storage.FileSystem.CLFS_MGMT_POLICY_TYPE = 0
+ClfsMgmtPolicyMinimumSize: win32more.Windows.Win32.Storage.FileSystem.CLFS_MGMT_POLICY_TYPE = 1
+ClfsMgmtPolicyNewContainerSize: win32more.Windows.Win32.Storage.FileSystem.CLFS_MGMT_POLICY_TYPE = 2
+ClfsMgmtPolicyGrowthRate: win32more.Windows.Win32.Storage.FileSystem.CLFS_MGMT_POLICY_TYPE = 3
+ClfsMgmtPolicyLogTail: win32more.Windows.Win32.Storage.FileSystem.CLFS_MGMT_POLICY_TYPE = 4
+ClfsMgmtPolicyAutoShrink: win32more.Windows.Win32.Storage.FileSystem.CLFS_MGMT_POLICY_TYPE = 5
+ClfsMgmtPolicyAutoGrow: win32more.Windows.Win32.Storage.FileSystem.CLFS_MGMT_POLICY_TYPE = 6
+ClfsMgmtPolicyNewContainerPrefix: win32more.Windows.Win32.Storage.FileSystem.CLFS_MGMT_POLICY_TYPE = 7
+ClfsMgmtPolicyNewContainerSuffix: win32more.Windows.Win32.Storage.FileSystem.CLFS_MGMT_POLICY_TYPE = 8
+ClfsMgmtPolicyNewContainerExtension: win32more.Windows.Win32.Storage.FileSystem.CLFS_MGMT_POLICY_TYPE = 9
+ClfsMgmtPolicyInvalid: win32more.Windows.Win32.Storage.FileSystem.CLFS_MGMT_POLICY_TYPE = 10
 class CLFS_NODE_ID(EasyCastStructure):
     cType: UInt32
     cbNode: UInt32
@@ -1253,10 +1253,10 @@ class CLS_CONTAINER_INFORMATION(EasyCastStructure):
     PhysicalContainerId: UInt32
     LogicalContainerId: UInt32
 CLS_CONTEXT_MODE = Int32
-CLS_CONTEXT_MODE_ClsContextNone: win32more.Windows.Win32.Storage.FileSystem.CLS_CONTEXT_MODE = 0
-CLS_CONTEXT_MODE_ClsContextUndoNext: win32more.Windows.Win32.Storage.FileSystem.CLS_CONTEXT_MODE = 1
-CLS_CONTEXT_MODE_ClsContextPrevious: win32more.Windows.Win32.Storage.FileSystem.CLS_CONTEXT_MODE = 2
-CLS_CONTEXT_MODE_ClsContextForward: win32more.Windows.Win32.Storage.FileSystem.CLS_CONTEXT_MODE = 3
+ClsContextNone: win32more.Windows.Win32.Storage.FileSystem.CLS_CONTEXT_MODE = 0
+ClsContextUndoNext: win32more.Windows.Win32.Storage.FileSystem.CLS_CONTEXT_MODE = 1
+ClsContextPrevious: win32more.Windows.Win32.Storage.FileSystem.CLS_CONTEXT_MODE = 2
+ClsContextForward: win32more.Windows.Win32.Storage.FileSystem.CLS_CONTEXT_MODE = 3
 class CLS_INFORMATION(EasyCastStructure):
     TotalAvailable: Int64
     CurrentAvailable: Int64
@@ -1276,8 +1276,8 @@ class CLS_INFORMATION(EasyCastStructure):
     RestartLsn: win32more.Windows.Win32.Storage.FileSystem.CLS_LSN
     Identity: Guid
 CLS_IOSTATS_CLASS = Int32
-CLS_IOSTATS_CLASS_ClsIoStatsDefault: win32more.Windows.Win32.Storage.FileSystem.CLS_IOSTATS_CLASS = 0
-CLS_IOSTATS_CLASS_ClsIoStatsMax: win32more.Windows.Win32.Storage.FileSystem.CLS_IOSTATS_CLASS = 65535
+ClsIoStatsDefault: win32more.Windows.Win32.Storage.FileSystem.CLS_IOSTATS_CLASS = 0
+ClsIoStatsMax: win32more.Windows.Win32.Storage.FileSystem.CLS_IOSTATS_CLASS = 65535
 class CLS_IO_STATISTICS(EasyCastStructure):
     hdrIoStats: win32more.Windows.Win32.Storage.FileSystem.CLS_IO_STATISTICS_HEADER
     cFlush: UInt64
@@ -1291,12 +1291,12 @@ class CLS_IO_STATISTICS_HEADER(EasyCastStructure):
     cbLength: UInt16
     coffData: UInt32
 CLS_LOG_INFORMATION_CLASS = Int32
-CLS_LOG_INFORMATION_CLASS_ClfsLogBasicInformation: win32more.Windows.Win32.Storage.FileSystem.CLS_LOG_INFORMATION_CLASS = 0
-CLS_LOG_INFORMATION_CLASS_ClfsLogBasicInformationPhysical: win32more.Windows.Win32.Storage.FileSystem.CLS_LOG_INFORMATION_CLASS = 1
-CLS_LOG_INFORMATION_CLASS_ClfsLogPhysicalNameInformation: win32more.Windows.Win32.Storage.FileSystem.CLS_LOG_INFORMATION_CLASS = 2
-CLS_LOG_INFORMATION_CLASS_ClfsLogStreamIdentifierInformation: win32more.Windows.Win32.Storage.FileSystem.CLS_LOG_INFORMATION_CLASS = 3
-CLS_LOG_INFORMATION_CLASS_ClfsLogSystemMarkingInformation: win32more.Windows.Win32.Storage.FileSystem.CLS_LOG_INFORMATION_CLASS = 4
-CLS_LOG_INFORMATION_CLASS_ClfsLogPhysicalLsnInformation: win32more.Windows.Win32.Storage.FileSystem.CLS_LOG_INFORMATION_CLASS = 5
+ClfsLogBasicInformation: win32more.Windows.Win32.Storage.FileSystem.CLS_LOG_INFORMATION_CLASS = 0
+ClfsLogBasicInformationPhysical: win32more.Windows.Win32.Storage.FileSystem.CLS_LOG_INFORMATION_CLASS = 1
+ClfsLogPhysicalNameInformation: win32more.Windows.Win32.Storage.FileSystem.CLS_LOG_INFORMATION_CLASS = 2
+ClfsLogStreamIdentifierInformation: win32more.Windows.Win32.Storage.FileSystem.CLS_LOG_INFORMATION_CLASS = 3
+ClfsLogSystemMarkingInformation: win32more.Windows.Win32.Storage.FileSystem.CLS_LOG_INFORMATION_CLASS = 4
+ClfsLogPhysicalLsnInformation: win32more.Windows.Win32.Storage.FileSystem.CLS_LOG_INFORMATION_CLASS = 5
 class CLS_LSN(EasyCastStructure):
     Internal: UInt64
 class CLS_SCAN_CONTEXT(EasyCastStructure):
@@ -1733,10 +1733,10 @@ class FILE_ID_INFO(EasyCastStructure):
     VolumeSerialNumber: UInt64
     FileId: win32more.Windows.Win32.Storage.FileSystem.FILE_ID_128
 FILE_ID_TYPE = Int32
-FILE_ID_TYPE_FileIdType: win32more.Windows.Win32.Storage.FileSystem.FILE_ID_TYPE = 0
-FILE_ID_TYPE_ObjectIdType: win32more.Windows.Win32.Storage.FileSystem.FILE_ID_TYPE = 1
-FILE_ID_TYPE_ExtendedFileIdType: win32more.Windows.Win32.Storage.FileSystem.FILE_ID_TYPE = 2
-FILE_ID_TYPE_MaximumFileIdType: win32more.Windows.Win32.Storage.FileSystem.FILE_ID_TYPE = 3
+FileIdType: win32more.Windows.Win32.Storage.FileSystem.FILE_ID_TYPE = 0
+ObjectIdType: win32more.Windows.Win32.Storage.FileSystem.FILE_ID_TYPE = 1
+ExtendedFileIdType: win32more.Windows.Win32.Storage.FileSystem.FILE_ID_TYPE = 2
+MaximumFileIdType: win32more.Windows.Win32.Storage.FileSystem.FILE_ID_TYPE = 3
 class FILE_INFO_2(EasyCastStructure):
     fi2_id: UInt32
 class FILE_INFO_3(EasyCastStructure):
@@ -1746,32 +1746,32 @@ class FILE_INFO_3(EasyCastStructure):
     fi3_pathname: win32more.Windows.Win32.Foundation.PWSTR
     fi3_username: win32more.Windows.Win32.Foundation.PWSTR
 FILE_INFO_BY_HANDLE_CLASS = Int32
-FILE_INFO_BY_HANDLE_CLASS_FileBasicInfo: win32more.Windows.Win32.Storage.FileSystem.FILE_INFO_BY_HANDLE_CLASS = 0
-FILE_INFO_BY_HANDLE_CLASS_FileStandardInfo: win32more.Windows.Win32.Storage.FileSystem.FILE_INFO_BY_HANDLE_CLASS = 1
-FILE_INFO_BY_HANDLE_CLASS_FileNameInfo: win32more.Windows.Win32.Storage.FileSystem.FILE_INFO_BY_HANDLE_CLASS = 2
-FILE_INFO_BY_HANDLE_CLASS_FileRenameInfo: win32more.Windows.Win32.Storage.FileSystem.FILE_INFO_BY_HANDLE_CLASS = 3
-FILE_INFO_BY_HANDLE_CLASS_FileDispositionInfo: win32more.Windows.Win32.Storage.FileSystem.FILE_INFO_BY_HANDLE_CLASS = 4
-FILE_INFO_BY_HANDLE_CLASS_FileAllocationInfo: win32more.Windows.Win32.Storage.FileSystem.FILE_INFO_BY_HANDLE_CLASS = 5
-FILE_INFO_BY_HANDLE_CLASS_FileEndOfFileInfo: win32more.Windows.Win32.Storage.FileSystem.FILE_INFO_BY_HANDLE_CLASS = 6
-FILE_INFO_BY_HANDLE_CLASS_FileStreamInfo: win32more.Windows.Win32.Storage.FileSystem.FILE_INFO_BY_HANDLE_CLASS = 7
-FILE_INFO_BY_HANDLE_CLASS_FileCompressionInfo: win32more.Windows.Win32.Storage.FileSystem.FILE_INFO_BY_HANDLE_CLASS = 8
-FILE_INFO_BY_HANDLE_CLASS_FileAttributeTagInfo: win32more.Windows.Win32.Storage.FileSystem.FILE_INFO_BY_HANDLE_CLASS = 9
-FILE_INFO_BY_HANDLE_CLASS_FileIdBothDirectoryInfo: win32more.Windows.Win32.Storage.FileSystem.FILE_INFO_BY_HANDLE_CLASS = 10
-FILE_INFO_BY_HANDLE_CLASS_FileIdBothDirectoryRestartInfo: win32more.Windows.Win32.Storage.FileSystem.FILE_INFO_BY_HANDLE_CLASS = 11
-FILE_INFO_BY_HANDLE_CLASS_FileIoPriorityHintInfo: win32more.Windows.Win32.Storage.FileSystem.FILE_INFO_BY_HANDLE_CLASS = 12
-FILE_INFO_BY_HANDLE_CLASS_FileRemoteProtocolInfo: win32more.Windows.Win32.Storage.FileSystem.FILE_INFO_BY_HANDLE_CLASS = 13
-FILE_INFO_BY_HANDLE_CLASS_FileFullDirectoryInfo: win32more.Windows.Win32.Storage.FileSystem.FILE_INFO_BY_HANDLE_CLASS = 14
-FILE_INFO_BY_HANDLE_CLASS_FileFullDirectoryRestartInfo: win32more.Windows.Win32.Storage.FileSystem.FILE_INFO_BY_HANDLE_CLASS = 15
-FILE_INFO_BY_HANDLE_CLASS_FileStorageInfo: win32more.Windows.Win32.Storage.FileSystem.FILE_INFO_BY_HANDLE_CLASS = 16
-FILE_INFO_BY_HANDLE_CLASS_FileAlignmentInfo: win32more.Windows.Win32.Storage.FileSystem.FILE_INFO_BY_HANDLE_CLASS = 17
-FILE_INFO_BY_HANDLE_CLASS_FileIdInfo: win32more.Windows.Win32.Storage.FileSystem.FILE_INFO_BY_HANDLE_CLASS = 18
-FILE_INFO_BY_HANDLE_CLASS_FileIdExtdDirectoryInfo: win32more.Windows.Win32.Storage.FileSystem.FILE_INFO_BY_HANDLE_CLASS = 19
-FILE_INFO_BY_HANDLE_CLASS_FileIdExtdDirectoryRestartInfo: win32more.Windows.Win32.Storage.FileSystem.FILE_INFO_BY_HANDLE_CLASS = 20
-FILE_INFO_BY_HANDLE_CLASS_FileDispositionInfoEx: win32more.Windows.Win32.Storage.FileSystem.FILE_INFO_BY_HANDLE_CLASS = 21
-FILE_INFO_BY_HANDLE_CLASS_FileRenameInfoEx: win32more.Windows.Win32.Storage.FileSystem.FILE_INFO_BY_HANDLE_CLASS = 22
-FILE_INFO_BY_HANDLE_CLASS_FileCaseSensitiveInfo: win32more.Windows.Win32.Storage.FileSystem.FILE_INFO_BY_HANDLE_CLASS = 23
-FILE_INFO_BY_HANDLE_CLASS_FileNormalizedNameInfo: win32more.Windows.Win32.Storage.FileSystem.FILE_INFO_BY_HANDLE_CLASS = 24
-FILE_INFO_BY_HANDLE_CLASS_MaximumFileInfoByHandleClass: win32more.Windows.Win32.Storage.FileSystem.FILE_INFO_BY_HANDLE_CLASS = 25
+FileBasicInfo: win32more.Windows.Win32.Storage.FileSystem.FILE_INFO_BY_HANDLE_CLASS = 0
+FileStandardInfo: win32more.Windows.Win32.Storage.FileSystem.FILE_INFO_BY_HANDLE_CLASS = 1
+FileNameInfo: win32more.Windows.Win32.Storage.FileSystem.FILE_INFO_BY_HANDLE_CLASS = 2
+FileRenameInfo: win32more.Windows.Win32.Storage.FileSystem.FILE_INFO_BY_HANDLE_CLASS = 3
+FileDispositionInfo: win32more.Windows.Win32.Storage.FileSystem.FILE_INFO_BY_HANDLE_CLASS = 4
+FileAllocationInfo: win32more.Windows.Win32.Storage.FileSystem.FILE_INFO_BY_HANDLE_CLASS = 5
+FileEndOfFileInfo: win32more.Windows.Win32.Storage.FileSystem.FILE_INFO_BY_HANDLE_CLASS = 6
+FileStreamInfo: win32more.Windows.Win32.Storage.FileSystem.FILE_INFO_BY_HANDLE_CLASS = 7
+FileCompressionInfo: win32more.Windows.Win32.Storage.FileSystem.FILE_INFO_BY_HANDLE_CLASS = 8
+FileAttributeTagInfo: win32more.Windows.Win32.Storage.FileSystem.FILE_INFO_BY_HANDLE_CLASS = 9
+FileIdBothDirectoryInfo: win32more.Windows.Win32.Storage.FileSystem.FILE_INFO_BY_HANDLE_CLASS = 10
+FileIdBothDirectoryRestartInfo: win32more.Windows.Win32.Storage.FileSystem.FILE_INFO_BY_HANDLE_CLASS = 11
+FileIoPriorityHintInfo: win32more.Windows.Win32.Storage.FileSystem.FILE_INFO_BY_HANDLE_CLASS = 12
+FileRemoteProtocolInfo: win32more.Windows.Win32.Storage.FileSystem.FILE_INFO_BY_HANDLE_CLASS = 13
+FileFullDirectoryInfo: win32more.Windows.Win32.Storage.FileSystem.FILE_INFO_BY_HANDLE_CLASS = 14
+FileFullDirectoryRestartInfo: win32more.Windows.Win32.Storage.FileSystem.FILE_INFO_BY_HANDLE_CLASS = 15
+FileStorageInfo: win32more.Windows.Win32.Storage.FileSystem.FILE_INFO_BY_HANDLE_CLASS = 16
+FileAlignmentInfo: win32more.Windows.Win32.Storage.FileSystem.FILE_INFO_BY_HANDLE_CLASS = 17
+FileIdInfo: win32more.Windows.Win32.Storage.FileSystem.FILE_INFO_BY_HANDLE_CLASS = 18
+FileIdExtdDirectoryInfo: win32more.Windows.Win32.Storage.FileSystem.FILE_INFO_BY_HANDLE_CLASS = 19
+FileIdExtdDirectoryRestartInfo: win32more.Windows.Win32.Storage.FileSystem.FILE_INFO_BY_HANDLE_CLASS = 20
+FileDispositionInfoEx: win32more.Windows.Win32.Storage.FileSystem.FILE_INFO_BY_HANDLE_CLASS = 21
+FileRenameInfoEx: win32more.Windows.Win32.Storage.FileSystem.FILE_INFO_BY_HANDLE_CLASS = 22
+FileCaseSensitiveInfo: win32more.Windows.Win32.Storage.FileSystem.FILE_INFO_BY_HANDLE_CLASS = 23
+FileNormalizedNameInfo: win32more.Windows.Win32.Storage.FileSystem.FILE_INFO_BY_HANDLE_CLASS = 24
+MaximumFileInfoByHandleClass: win32more.Windows.Win32.Storage.FileSystem.FILE_INFO_BY_HANDLE_CLASS = 25
 FILE_INFO_FLAGS_PERMISSIONS = UInt32
 PERM_FILE_READ: win32more.Windows.Win32.Storage.FileSystem.FILE_INFO_FLAGS_PERMISSIONS = 1
 PERM_FILE_WRITE: win32more.Windows.Win32.Storage.FileSystem.FILE_INFO_FLAGS_PERMISSIONS = 2
@@ -1883,14 +1883,14 @@ FILE_WRITE_FLAGS = Int32
 FILE_WRITE_FLAGS_NONE: win32more.Windows.Win32.Storage.FileSystem.FILE_WRITE_FLAGS = 0
 FILE_WRITE_FLAGS_WRITE_THROUGH: win32more.Windows.Win32.Storage.FileSystem.FILE_WRITE_FLAGS = 1
 FINDEX_INFO_LEVELS = Int32
-FINDEX_INFO_LEVELS_FindExInfoStandard: win32more.Windows.Win32.Storage.FileSystem.FINDEX_INFO_LEVELS = 0
-FINDEX_INFO_LEVELS_FindExInfoBasic: win32more.Windows.Win32.Storage.FileSystem.FINDEX_INFO_LEVELS = 1
-FINDEX_INFO_LEVELS_FindExInfoMaxInfoLevel: win32more.Windows.Win32.Storage.FileSystem.FINDEX_INFO_LEVELS = 2
+FindExInfoStandard: win32more.Windows.Win32.Storage.FileSystem.FINDEX_INFO_LEVELS = 0
+FindExInfoBasic: win32more.Windows.Win32.Storage.FileSystem.FINDEX_INFO_LEVELS = 1
+FindExInfoMaxInfoLevel: win32more.Windows.Win32.Storage.FileSystem.FINDEX_INFO_LEVELS = 2
 FINDEX_SEARCH_OPS = Int32
-FINDEX_SEARCH_OPS_FindExSearchNameMatch: win32more.Windows.Win32.Storage.FileSystem.FINDEX_SEARCH_OPS = 0
-FINDEX_SEARCH_OPS_FindExSearchLimitToDirectories: win32more.Windows.Win32.Storage.FileSystem.FINDEX_SEARCH_OPS = 1
-FINDEX_SEARCH_OPS_FindExSearchLimitToDevices: win32more.Windows.Win32.Storage.FileSystem.FINDEX_SEARCH_OPS = 2
-FINDEX_SEARCH_OPS_FindExSearchMaxSearchOp: win32more.Windows.Win32.Storage.FileSystem.FINDEX_SEARCH_OPS = 3
+FindExSearchNameMatch: win32more.Windows.Win32.Storage.FileSystem.FINDEX_SEARCH_OPS = 0
+FindExSearchLimitToDirectories: win32more.Windows.Win32.Storage.FileSystem.FINDEX_SEARCH_OPS = 1
+FindExSearchLimitToDevices: win32more.Windows.Win32.Storage.FileSystem.FINDEX_SEARCH_OPS = 2
+FindExSearchMaxSearchOp: win32more.Windows.Win32.Storage.FileSystem.FINDEX_SEARCH_OPS = 3
 FIND_FIRST_EX_FLAGS = UInt32
 FIND_FIRST_EX_CASE_SENSITIVE: win32more.Windows.Win32.Storage.FileSystem.FIND_FIRST_EX_FLAGS = 1
 FIND_FIRST_EX_LARGE_FETCH: win32more.Windows.Win32.Storage.FileSystem.FIND_FIRST_EX_FLAGS = 2
@@ -1909,8 +1909,8 @@ VOLUME_NAME_NONE: win32more.Windows.Win32.Storage.FileSystem.GETFINALPATHNAMEBYH
 FILE_NAME_NORMALIZED: win32more.Windows.Win32.Storage.FileSystem.GETFINALPATHNAMEBYHANDLE_FLAGS = 0
 FILE_NAME_OPENED: win32more.Windows.Win32.Storage.FileSystem.GETFINALPATHNAMEBYHANDLE_FLAGS = 8
 GET_FILEEX_INFO_LEVELS = Int32
-GET_FILEEX_INFO_LEVELS_GetFileExInfoStandard: win32more.Windows.Win32.Storage.FileSystem.GET_FILEEX_INFO_LEVELS = 0
-GET_FILEEX_INFO_LEVELS_GetFileExMaxInfoLevel: win32more.Windows.Win32.Storage.FileSystem.GET_FILEEX_INFO_LEVELS = 1
+GetFileExInfoStandard: win32more.Windows.Win32.Storage.FileSystem.GET_FILEEX_INFO_LEVELS = 0
+GetFileExMaxInfoLevel: win32more.Windows.Win32.Storage.FileSystem.GET_FILEEX_INFO_LEVELS = 1
 GET_FILE_VERSION_INFO_FLAGS = UInt32
 FILE_VER_GET_LOCALISED: win32more.Windows.Win32.Storage.FileSystem.GET_FILE_VERSION_INFO_FLAGS = 1
 FILE_VER_GET_NEUTRAL: win32more.Windows.Win32.Storage.FileSystem.GET_FILE_VERSION_INFO_FLAGS = 2
@@ -2931,15 +2931,15 @@ TAPE_TENSION: win32more.Windows.Win32.Storage.FileSystem.PREPARE_TAPE_OPERATION 
 TAPE_UNLOAD: win32more.Windows.Win32.Storage.FileSystem.PREPARE_TAPE_OPERATION = 1
 TAPE_UNLOCK: win32more.Windows.Win32.Storage.FileSystem.PREPARE_TAPE_OPERATION = 4
 PRIORITY_HINT = Int32
-PRIORITY_HINT_IoPriorityHintVeryLow: win32more.Windows.Win32.Storage.FileSystem.PRIORITY_HINT = 0
-PRIORITY_HINT_IoPriorityHintLow: win32more.Windows.Win32.Storage.FileSystem.PRIORITY_HINT = 1
-PRIORITY_HINT_IoPriorityHintNormal: win32more.Windows.Win32.Storage.FileSystem.PRIORITY_HINT = 2
-PRIORITY_HINT_MaximumIoPriorityHintType: win32more.Windows.Win32.Storage.FileSystem.PRIORITY_HINT = 3
+IoPriorityHintVeryLow: win32more.Windows.Win32.Storage.FileSystem.PRIORITY_HINT = 0
+IoPriorityHintLow: win32more.Windows.Win32.Storage.FileSystem.PRIORITY_HINT = 1
+IoPriorityHintNormal: win32more.Windows.Win32.Storage.FileSystem.PRIORITY_HINT = 2
+MaximumIoPriorityHintType: win32more.Windows.Win32.Storage.FileSystem.PRIORITY_HINT = 3
 READ_DIRECTORY_NOTIFY_INFORMATION_CLASS = Int32
-READ_DIRECTORY_NOTIFY_INFORMATION_CLASS_ReadDirectoryNotifyInformation: win32more.Windows.Win32.Storage.FileSystem.READ_DIRECTORY_NOTIFY_INFORMATION_CLASS = 1
-READ_DIRECTORY_NOTIFY_INFORMATION_CLASS_ReadDirectoryNotifyExtendedInformation: win32more.Windows.Win32.Storage.FileSystem.READ_DIRECTORY_NOTIFY_INFORMATION_CLASS = 2
-READ_DIRECTORY_NOTIFY_INFORMATION_CLASS_ReadDirectoryNotifyFullInformation: win32more.Windows.Win32.Storage.FileSystem.READ_DIRECTORY_NOTIFY_INFORMATION_CLASS = 3
-READ_DIRECTORY_NOTIFY_INFORMATION_CLASS_ReadDirectoryNotifyMaximumInformation: win32more.Windows.Win32.Storage.FileSystem.READ_DIRECTORY_NOTIFY_INFORMATION_CLASS = 4
+ReadDirectoryNotifyInformation: win32more.Windows.Win32.Storage.FileSystem.READ_DIRECTORY_NOTIFY_INFORMATION_CLASS = 1
+ReadDirectoryNotifyExtendedInformation: win32more.Windows.Win32.Storage.FileSystem.READ_DIRECTORY_NOTIFY_INFORMATION_CLASS = 2
+ReadDirectoryNotifyFullInformation: win32more.Windows.Win32.Storage.FileSystem.READ_DIRECTORY_NOTIFY_INFORMATION_CLASS = 3
+ReadDirectoryNotifyMaximumInformation: win32more.Windows.Win32.Storage.FileSystem.READ_DIRECTORY_NOTIFY_INFORMATION_CLASS = 4
 class REPARSE_GUID_DATA_BUFFER(EasyCastStructure):
     ReparseTag: UInt32
     ReparseDataLength: UInt16
@@ -3142,31 +3142,31 @@ class STAT_WORKSTATION_0(EasyCastStructure):
     FailedUseCount: UInt32
     CurrentCommands: UInt32
 STORAGE_BUS_TYPE = Int32
-STORAGE_BUS_TYPE_BusTypeUnknown: win32more.Windows.Win32.Storage.FileSystem.STORAGE_BUS_TYPE = 0
-STORAGE_BUS_TYPE_BusTypeScsi: win32more.Windows.Win32.Storage.FileSystem.STORAGE_BUS_TYPE = 1
-STORAGE_BUS_TYPE_BusTypeAtapi: win32more.Windows.Win32.Storage.FileSystem.STORAGE_BUS_TYPE = 2
-STORAGE_BUS_TYPE_BusTypeAta: win32more.Windows.Win32.Storage.FileSystem.STORAGE_BUS_TYPE = 3
-STORAGE_BUS_TYPE_BusType1394: win32more.Windows.Win32.Storage.FileSystem.STORAGE_BUS_TYPE = 4
-STORAGE_BUS_TYPE_BusTypeSsa: win32more.Windows.Win32.Storage.FileSystem.STORAGE_BUS_TYPE = 5
-STORAGE_BUS_TYPE_BusTypeFibre: win32more.Windows.Win32.Storage.FileSystem.STORAGE_BUS_TYPE = 6
-STORAGE_BUS_TYPE_BusTypeUsb: win32more.Windows.Win32.Storage.FileSystem.STORAGE_BUS_TYPE = 7
-STORAGE_BUS_TYPE_BusTypeRAID: win32more.Windows.Win32.Storage.FileSystem.STORAGE_BUS_TYPE = 8
-STORAGE_BUS_TYPE_BusTypeiScsi: win32more.Windows.Win32.Storage.FileSystem.STORAGE_BUS_TYPE = 9
-STORAGE_BUS_TYPE_BusTypeSas: win32more.Windows.Win32.Storage.FileSystem.STORAGE_BUS_TYPE = 10
-STORAGE_BUS_TYPE_BusTypeSata: win32more.Windows.Win32.Storage.FileSystem.STORAGE_BUS_TYPE = 11
-STORAGE_BUS_TYPE_BusTypeSd: win32more.Windows.Win32.Storage.FileSystem.STORAGE_BUS_TYPE = 12
-STORAGE_BUS_TYPE_BusTypeMmc: win32more.Windows.Win32.Storage.FileSystem.STORAGE_BUS_TYPE = 13
-STORAGE_BUS_TYPE_BusTypeVirtual: win32more.Windows.Win32.Storage.FileSystem.STORAGE_BUS_TYPE = 14
-STORAGE_BUS_TYPE_BusTypeFileBackedVirtual: win32more.Windows.Win32.Storage.FileSystem.STORAGE_BUS_TYPE = 15
-STORAGE_BUS_TYPE_BusTypeSpaces: win32more.Windows.Win32.Storage.FileSystem.STORAGE_BUS_TYPE = 16
-STORAGE_BUS_TYPE_BusTypeNvme: win32more.Windows.Win32.Storage.FileSystem.STORAGE_BUS_TYPE = 17
-STORAGE_BUS_TYPE_BusTypeSCM: win32more.Windows.Win32.Storage.FileSystem.STORAGE_BUS_TYPE = 18
-STORAGE_BUS_TYPE_BusTypeUfs: win32more.Windows.Win32.Storage.FileSystem.STORAGE_BUS_TYPE = 19
-STORAGE_BUS_TYPE_BusTypeMax: win32more.Windows.Win32.Storage.FileSystem.STORAGE_BUS_TYPE = 20
-STORAGE_BUS_TYPE_BusTypeMaxReserved: win32more.Windows.Win32.Storage.FileSystem.STORAGE_BUS_TYPE = 127
+BusTypeUnknown: win32more.Windows.Win32.Storage.FileSystem.STORAGE_BUS_TYPE = 0
+BusTypeScsi: win32more.Windows.Win32.Storage.FileSystem.STORAGE_BUS_TYPE = 1
+BusTypeAtapi: win32more.Windows.Win32.Storage.FileSystem.STORAGE_BUS_TYPE = 2
+BusTypeAta: win32more.Windows.Win32.Storage.FileSystem.STORAGE_BUS_TYPE = 3
+BusType1394: win32more.Windows.Win32.Storage.FileSystem.STORAGE_BUS_TYPE = 4
+BusTypeSsa: win32more.Windows.Win32.Storage.FileSystem.STORAGE_BUS_TYPE = 5
+BusTypeFibre: win32more.Windows.Win32.Storage.FileSystem.STORAGE_BUS_TYPE = 6
+BusTypeUsb: win32more.Windows.Win32.Storage.FileSystem.STORAGE_BUS_TYPE = 7
+BusTypeRAID: win32more.Windows.Win32.Storage.FileSystem.STORAGE_BUS_TYPE = 8
+BusTypeiScsi: win32more.Windows.Win32.Storage.FileSystem.STORAGE_BUS_TYPE = 9
+BusTypeSas: win32more.Windows.Win32.Storage.FileSystem.STORAGE_BUS_TYPE = 10
+BusTypeSata: win32more.Windows.Win32.Storage.FileSystem.STORAGE_BUS_TYPE = 11
+BusTypeSd: win32more.Windows.Win32.Storage.FileSystem.STORAGE_BUS_TYPE = 12
+BusTypeMmc: win32more.Windows.Win32.Storage.FileSystem.STORAGE_BUS_TYPE = 13
+BusTypeVirtual: win32more.Windows.Win32.Storage.FileSystem.STORAGE_BUS_TYPE = 14
+BusTypeFileBackedVirtual: win32more.Windows.Win32.Storage.FileSystem.STORAGE_BUS_TYPE = 15
+BusTypeSpaces: win32more.Windows.Win32.Storage.FileSystem.STORAGE_BUS_TYPE = 16
+BusTypeNvme: win32more.Windows.Win32.Storage.FileSystem.STORAGE_BUS_TYPE = 17
+BusTypeSCM: win32more.Windows.Win32.Storage.FileSystem.STORAGE_BUS_TYPE = 18
+BusTypeUfs: win32more.Windows.Win32.Storage.FileSystem.STORAGE_BUS_TYPE = 19
+BusTypeMax: win32more.Windows.Win32.Storage.FileSystem.STORAGE_BUS_TYPE = 20
+BusTypeMaxReserved: win32more.Windows.Win32.Storage.FileSystem.STORAGE_BUS_TYPE = 127
 STREAM_INFO_LEVELS = Int32
-STREAM_INFO_LEVELS_FindStreamInfoStandard: win32more.Windows.Win32.Storage.FileSystem.STREAM_INFO_LEVELS = 0
-STREAM_INFO_LEVELS_FindStreamInfoMaxInfoLevel: win32more.Windows.Win32.Storage.FileSystem.STREAM_INFO_LEVELS = 1
+FindStreamInfoStandard: win32more.Windows.Win32.Storage.FileSystem.STREAM_INFO_LEVELS = 0
+FindStreamInfoMaxInfoLevel: win32more.Windows.Win32.Storage.FileSystem.STREAM_INFO_LEVELS = 1
 SYMBOLIC_LINK_FLAGS = UInt32
 SYMBOLIC_LINK_FLAG_DIRECTORY: win32more.Windows.Win32.Storage.FileSystem.SYMBOLIC_LINK_FLAGS = 1
 SYMBOLIC_LINK_FLAG_ALLOW_UNPRIVILEGED_CREATE: win32more.Windows.Win32.Storage.FileSystem.SYMBOLIC_LINK_FLAGS = 2
@@ -3232,9 +3232,9 @@ class TRANSACTION_NOTIFICATION_TM_ONLINE_ARGUMENT(EasyCastStructure):
     TmIdentity: Guid
     Flags: UInt32
 TRANSACTION_OUTCOME = Int32
-TRANSACTION_OUTCOME_TransactionOutcomeUndetermined: win32more.Windows.Win32.Storage.FileSystem.TRANSACTION_OUTCOME = 1
-TRANSACTION_OUTCOME_TransactionOutcomeCommitted: win32more.Windows.Win32.Storage.FileSystem.TRANSACTION_OUTCOME = 2
-TRANSACTION_OUTCOME_TransactionOutcomeAborted: win32more.Windows.Win32.Storage.FileSystem.TRANSACTION_OUTCOME = 3
+TransactionOutcomeUndetermined: win32more.Windows.Win32.Storage.FileSystem.TRANSACTION_OUTCOME = 1
+TransactionOutcomeCommitted: win32more.Windows.Win32.Storage.FileSystem.TRANSACTION_OUTCOME = 2
+TransactionOutcomeAborted: win32more.Windows.Win32.Storage.FileSystem.TRANSACTION_OUTCOME = 3
 TXFS_MINIVERSION = UInt32
 TXFS_MINIVERSION_COMMITTED_VIEW: win32more.Windows.Win32.Storage.FileSystem.TXFS_MINIVERSION = 0
 TXFS_MINIVERSION_DIRTY_VIEW: win32more.Windows.Win32.Storage.FileSystem.TXFS_MINIVERSION = 65535

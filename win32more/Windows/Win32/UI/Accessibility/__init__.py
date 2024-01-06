@@ -2835,9 +2835,9 @@ def LPFNLRESULTFROMOBJECT(riid: POINTER(Guid), wParam: win32more.Windows.Win32.F
 @winfunctype_pointer
 def LPFNOBJECTFROMLRESULT(lResult: win32more.Windows.Win32.Foundation.LRESULT, riid: POINTER(Guid), wParam: win32more.Windows.Win32.Foundation.WPARAM, ppvObject: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 LiveSetting = Int32
-LiveSetting_Off: win32more.Windows.Win32.UI.Accessibility.LiveSetting = 0
-LiveSetting_Polite: win32more.Windows.Win32.UI.Accessibility.LiveSetting = 1
-LiveSetting_Assertive: win32more.Windows.Win32.UI.Accessibility.LiveSetting = 2
+Off: win32more.Windows.Win32.UI.Accessibility.LiveSetting = 0
+Polite: win32more.Windows.Win32.UI.Accessibility.LiveSetting = 1
+Assertive: win32more.Windows.Win32.UI.Accessibility.LiveSetting = 2
 class MOUSEKEYS(EasyCastStructure):
     cbSize: UInt32
     dwFlags: UInt32
@@ -3214,16 +3214,16 @@ UIA_ChangesEventId: win32more.Windows.Win32.UI.Accessibility.UIA_EVENT_ID = 2003
 UIA_NotificationEventId: win32more.Windows.Win32.UI.Accessibility.UIA_EVENT_ID = 20035
 UIA_ActiveTextPositionChangedEventId: win32more.Windows.Win32.UI.Accessibility.UIA_EVENT_ID = 20036
 UIA_HEADINGLEVEL_ID = Int32
-UIA_HEADINGLEVEL_ID_HeadingLevel_None: win32more.Windows.Win32.UI.Accessibility.UIA_HEADINGLEVEL_ID = 80050
-UIA_HEADINGLEVEL_ID_HeadingLevel1: win32more.Windows.Win32.UI.Accessibility.UIA_HEADINGLEVEL_ID = 80051
-UIA_HEADINGLEVEL_ID_HeadingLevel2: win32more.Windows.Win32.UI.Accessibility.UIA_HEADINGLEVEL_ID = 80052
-UIA_HEADINGLEVEL_ID_HeadingLevel3: win32more.Windows.Win32.UI.Accessibility.UIA_HEADINGLEVEL_ID = 80053
-UIA_HEADINGLEVEL_ID_HeadingLevel4: win32more.Windows.Win32.UI.Accessibility.UIA_HEADINGLEVEL_ID = 80054
-UIA_HEADINGLEVEL_ID_HeadingLevel5: win32more.Windows.Win32.UI.Accessibility.UIA_HEADINGLEVEL_ID = 80055
-UIA_HEADINGLEVEL_ID_HeadingLevel6: win32more.Windows.Win32.UI.Accessibility.UIA_HEADINGLEVEL_ID = 80056
-UIA_HEADINGLEVEL_ID_HeadingLevel7: win32more.Windows.Win32.UI.Accessibility.UIA_HEADINGLEVEL_ID = 80057
-UIA_HEADINGLEVEL_ID_HeadingLevel8: win32more.Windows.Win32.UI.Accessibility.UIA_HEADINGLEVEL_ID = 80058
-UIA_HEADINGLEVEL_ID_HeadingLevel9: win32more.Windows.Win32.UI.Accessibility.UIA_HEADINGLEVEL_ID = 80059
+HeadingLevel_None: win32more.Windows.Win32.UI.Accessibility.UIA_HEADINGLEVEL_ID = 80050
+HeadingLevel1: win32more.Windows.Win32.UI.Accessibility.UIA_HEADINGLEVEL_ID = 80051
+HeadingLevel2: win32more.Windows.Win32.UI.Accessibility.UIA_HEADINGLEVEL_ID = 80052
+HeadingLevel3: win32more.Windows.Win32.UI.Accessibility.UIA_HEADINGLEVEL_ID = 80053
+HeadingLevel4: win32more.Windows.Win32.UI.Accessibility.UIA_HEADINGLEVEL_ID = 80054
+HeadingLevel5: win32more.Windows.Win32.UI.Accessibility.UIA_HEADINGLEVEL_ID = 80055
+HeadingLevel6: win32more.Windows.Win32.UI.Accessibility.UIA_HEADINGLEVEL_ID = 80056
+HeadingLevel7: win32more.Windows.Win32.UI.Accessibility.UIA_HEADINGLEVEL_ID = 80057
+HeadingLevel8: win32more.Windows.Win32.UI.Accessibility.UIA_HEADINGLEVEL_ID = 80058
+HeadingLevel9: win32more.Windows.Win32.UI.Accessibility.UIA_HEADINGLEVEL_ID = 80059
 UIA_LANDMARKTYPE_ID = Int32
 UIA_CustomLandmarkTypeId: win32more.Windows.Win32.UI.Accessibility.UIA_LANDMARKTYPE_ID = 80000
 UIA_FormLandmarkTypeId: win32more.Windows.Win32.UI.Accessibility.UIA_LANDMARKTYPE_ID = 80001

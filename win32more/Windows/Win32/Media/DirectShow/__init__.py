@@ -1976,20 +1976,20 @@ CameraControl_Exposure: win32more.Windows.Win32.Media.DirectShow.CameraControlPr
 CameraControl_Iris: win32more.Windows.Win32.Media.DirectShow.CameraControlProperty = 5
 CameraControl_Focus: win32more.Windows.Win32.Media.DirectShow.CameraControlProperty = 6
 ComponentCategory = Int32
-ComponentCategory_CategoryNotSet: win32more.Windows.Win32.Media.DirectShow.ComponentCategory = -1
-ComponentCategory_CategoryOther: win32more.Windows.Win32.Media.DirectShow.ComponentCategory = 0
-ComponentCategory_CategoryVideo: win32more.Windows.Win32.Media.DirectShow.ComponentCategory = 1
-ComponentCategory_CategoryAudio: win32more.Windows.Win32.Media.DirectShow.ComponentCategory = 2
-ComponentCategory_CategoryText: win32more.Windows.Win32.Media.DirectShow.ComponentCategory = 3
-ComponentCategory_CategorySubtitles: win32more.Windows.Win32.Media.DirectShow.ComponentCategory = 4
-ComponentCategory_CategoryCaptions: win32more.Windows.Win32.Media.DirectShow.ComponentCategory = 5
-ComponentCategory_CategorySuperimpose: win32more.Windows.Win32.Media.DirectShow.ComponentCategory = 6
-ComponentCategory_CategoryData: win32more.Windows.Win32.Media.DirectShow.ComponentCategory = 7
-ComponentCategory_CATEGORY_COUNT: win32more.Windows.Win32.Media.DirectShow.ComponentCategory = 8
+CategoryNotSet: win32more.Windows.Win32.Media.DirectShow.ComponentCategory = -1
+CategoryOther: win32more.Windows.Win32.Media.DirectShow.ComponentCategory = 0
+CategoryVideo: win32more.Windows.Win32.Media.DirectShow.ComponentCategory = 1
+CategoryAudio: win32more.Windows.Win32.Media.DirectShow.ComponentCategory = 2
+CategoryText: win32more.Windows.Win32.Media.DirectShow.ComponentCategory = 3
+CategorySubtitles: win32more.Windows.Win32.Media.DirectShow.ComponentCategory = 4
+CategoryCaptions: win32more.Windows.Win32.Media.DirectShow.ComponentCategory = 5
+CategorySuperimpose: win32more.Windows.Win32.Media.DirectShow.ComponentCategory = 6
+CategoryData: win32more.Windows.Win32.Media.DirectShow.ComponentCategory = 7
+CATEGORY_COUNT: win32more.Windows.Win32.Media.DirectShow.ComponentCategory = 8
 ComponentStatus = Int32
-ComponentStatus_StatusActive: win32more.Windows.Win32.Media.DirectShow.ComponentStatus = 0
-ComponentStatus_StatusInactive: win32more.Windows.Win32.Media.DirectShow.ComponentStatus = 1
-ComponentStatus_StatusUnavailable: win32more.Windows.Win32.Media.DirectShow.ComponentStatus = 2
+StatusActive: win32more.Windows.Win32.Media.DirectShow.ComponentStatus = 0
+StatusInactive: win32more.Windows.Win32.Media.DirectShow.ComponentStatus = 1
+StatusUnavailable: win32more.Windows.Win32.Media.DirectShow.ComponentStatus = 2
 CompressionCaps = Int32
 CompressionCaps_CanQuality: win32more.Windows.Win32.Media.DirectShow.CompressionCaps = 1
 CompressionCaps_CanCrunch: win32more.Windows.Win32.Media.DirectShow.CompressionCaps = 2
@@ -2515,9 +2515,9 @@ class EALocationCodeType(EasyCastStructure):
     county_subdivision: Byte
     county_code: UInt16
 EntitlementType = Int32
-EntitlementType_Entitled: win32more.Windows.Win32.Media.DirectShow.EntitlementType = 0
-EntitlementType_NotEntitled: win32more.Windows.Win32.Media.DirectShow.EntitlementType = 1
-EntitlementType_TechnicalFailure: win32more.Windows.Win32.Media.DirectShow.EntitlementType = 2
+Entitled: win32more.Windows.Win32.Media.DirectShow.EntitlementType = 0
+NotEntitled: win32more.Windows.Win32.Media.DirectShow.EntitlementType = 1
+TechnicalFailure: win32more.Windows.Win32.Media.DirectShow.EntitlementType = 2
 FECMethod = Int32
 BDA_FEC_METHOD_NOT_SET: win32more.Windows.Win32.Media.DirectShow.FECMethod = -1
 BDA_FEC_METHOD_NOT_DEFINED: win32more.Windows.Win32.Media.DirectShow.FECMethod = 0
@@ -6719,42 +6719,42 @@ class MPEG1WAVEFORMAT(EasyCastStructure):
     dwPTSHigh: UInt32
     _pack_ = 1
 MPEG2StreamType = Int32
-MPEG2StreamType_BDA_UNITIALIZED_MPEG2STREAMTYPE: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = -1
-MPEG2StreamType_Reserved1: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 0
-MPEG2StreamType_ISO_IEC_11172_2_VIDEO: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 1
-MPEG2StreamType_ISO_IEC_13818_2_VIDEO: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 2
-MPEG2StreamType_ISO_IEC_11172_3_AUDIO: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 3
-MPEG2StreamType_ISO_IEC_13818_3_AUDIO: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 4
-MPEG2StreamType_ISO_IEC_13818_1_PRIVATE_SECTION: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 5
-MPEG2StreamType_ISO_IEC_13818_1_PES: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 6
-MPEG2StreamType_ISO_IEC_13522_MHEG: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 7
-MPEG2StreamType_ANNEX_A_DSM_CC: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 8
-MPEG2StreamType_ITU_T_REC_H_222_1: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 9
-MPEG2StreamType_ISO_IEC_13818_6_TYPE_A: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 10
-MPEG2StreamType_ISO_IEC_13818_6_TYPE_B: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 11
-MPEG2StreamType_ISO_IEC_13818_6_TYPE_C: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 12
-MPEG2StreamType_ISO_IEC_13818_6_TYPE_D: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 13
-MPEG2StreamType_ISO_IEC_13818_1_AUXILIARY: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 14
-MPEG2StreamType_ISO_IEC_13818_7_AUDIO: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 15
-MPEG2StreamType_ISO_IEC_14496_2_VISUAL: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 16
-MPEG2StreamType_ISO_IEC_14496_3_AUDIO: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 17
-MPEG2StreamType_ISO_IEC_14496_1_IN_PES: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 18
-MPEG2StreamType_ISO_IEC_14496_1_IN_SECTION: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 19
-MPEG2StreamType_ISO_IEC_13818_6_DOWNLOAD: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 20
-MPEG2StreamType_METADATA_IN_PES: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 21
-MPEG2StreamType_METADATA_IN_SECTION: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 22
-MPEG2StreamType_METADATA_IN_DATA_CAROUSEL: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 23
-MPEG2StreamType_METADATA_IN_OBJECT_CAROUSEL: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 24
-MPEG2StreamType_METADATA_IN_DOWNLOAD_PROTOCOL: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 25
-MPEG2StreamType_IRPM_STREAMM: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 26
-MPEG2StreamType_ITU_T_H264: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 27
-MPEG2StreamType_ISO_IEC_13818_1_RESERVED: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 28
-MPEG2StreamType_USER_PRIVATE: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 16
-MPEG2StreamType_HEVC_VIDEO_OR_TEMPORAL_VIDEO: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 36
-MPEG2StreamType_HEVC_TEMPORAL_VIDEO_SUBSET: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 37
-MPEG2StreamType_ISO_IEC_USER_PRIVATE: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 128
-MPEG2StreamType_DOLBY_AC3_AUDIO: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 129
-MPEG2StreamType_DOLBY_DIGITAL_PLUS_AUDIO_ATSC: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 135
+BDA_UNITIALIZED_MPEG2STREAMTYPE: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = -1
+Reserved1: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 0
+ISO_IEC_11172_2_VIDEO: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 1
+ISO_IEC_13818_2_VIDEO: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 2
+ISO_IEC_11172_3_AUDIO: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 3
+ISO_IEC_13818_3_AUDIO: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 4
+ISO_IEC_13818_1_PRIVATE_SECTION: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 5
+ISO_IEC_13818_1_PES: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 6
+ISO_IEC_13522_MHEG: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 7
+ANNEX_A_DSM_CC: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 8
+ITU_T_REC_H_222_1: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 9
+ISO_IEC_13818_6_TYPE_A: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 10
+ISO_IEC_13818_6_TYPE_B: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 11
+ISO_IEC_13818_6_TYPE_C: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 12
+ISO_IEC_13818_6_TYPE_D: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 13
+ISO_IEC_13818_1_AUXILIARY: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 14
+ISO_IEC_13818_7_AUDIO: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 15
+ISO_IEC_14496_2_VISUAL: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 16
+ISO_IEC_14496_3_AUDIO: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 17
+ISO_IEC_14496_1_IN_PES: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 18
+ISO_IEC_14496_1_IN_SECTION: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 19
+ISO_IEC_13818_6_DOWNLOAD: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 20
+METADATA_IN_PES: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 21
+METADATA_IN_SECTION: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 22
+METADATA_IN_DATA_CAROUSEL: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 23
+METADATA_IN_OBJECT_CAROUSEL: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 24
+METADATA_IN_DOWNLOAD_PROTOCOL: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 25
+IRPM_STREAMM: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 26
+ITU_T_H264: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 27
+ISO_IEC_13818_1_RESERVED: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 28
+USER_PRIVATE: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 16
+HEVC_VIDEO_OR_TEMPORAL_VIDEO: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 36
+HEVC_TEMPORAL_VIDEO_SUBSET: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 37
+ISO_IEC_USER_PRIVATE: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 128
+DOLBY_AC3_AUDIO: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 129
+DOLBY_DIGITAL_PLUS_AUDIO_ATSC: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 135
 class MPEG2_TRANSPORT_STRIDE(EasyCastStructure):
     dwOffset: UInt32
     dwPacketLength: UInt32
@@ -6862,9 +6862,9 @@ OA_BOOL = Int32
 OATRUE: win32more.Windows.Win32.Media.DirectShow.OA_BOOL = -1
 OAFALSE: win32more.Windows.Win32.Media.DirectShow.OA_BOOL = 0
 OUTPUT_STATE = Int32
-OUTPUT_STATE_Disabled: win32more.Windows.Win32.Media.DirectShow.OUTPUT_STATE = 0
-OUTPUT_STATE_ReadData: win32more.Windows.Win32.Media.DirectShow.OUTPUT_STATE = 1
-OUTPUT_STATE_RenderData: win32more.Windows.Win32.Media.DirectShow.OUTPUT_STATE = 2
+Disabled: win32more.Windows.Win32.Media.DirectShow.OUTPUT_STATE = 0
+ReadData: win32more.Windows.Win32.Media.DirectShow.OUTPUT_STATE = 1
+RenderData: win32more.Windows.Win32.Media.DirectShow.OUTPUT_STATE = 2
 @winfunctype_pointer
 def PDXVA2SW_CREATEVIDEOPROCESSDEVICE(pD3DD9: win32more.Windows.Win32.Graphics.Direct3D9.IDirect3DDevice9, pVideoDesc: POINTER(win32more.Windows.Win32.Media.MediaFoundation.DXVA2_VideoDesc), RenderTargetFormat: win32more.Windows.Win32.Graphics.Direct3D9.D3DFORMAT, MaxSubStreams: UInt32, phDevice: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
@@ -6947,8 +6947,8 @@ class Quality(EasyCastStructure):
     Late: Int64
     TimeStamp: Int64
 QualityMessageType = Int32
-QualityMessageType_Famine: win32more.Windows.Win32.Media.DirectShow.QualityMessageType = 0
-QualityMessageType_Flood: win32more.Windows.Win32.Media.DirectShow.QualityMessageType = 1
+Famine: win32more.Windows.Win32.Media.DirectShow.QualityMessageType = 0
+Flood: win32more.Windows.Win32.Media.DirectShow.QualityMessageType = 1
 class REGFILTER(EasyCastStructure):
     Clsid: Guid
     Name: win32more.Windows.Win32.Foundation.PWSTR
@@ -7085,15 +7085,15 @@ class SmartCardApplication(EasyCastStructure):
     pbstrApplicationName: win32more.Windows.Win32.Foundation.BSTR
     pbstrApplicationURL: win32more.Windows.Win32.Foundation.BSTR
 SmartCardAssociationType = Int32
-SmartCardAssociationType_NotAssociated: win32more.Windows.Win32.Media.DirectShow.SmartCardAssociationType = 0
-SmartCardAssociationType_Associated: win32more.Windows.Win32.Media.DirectShow.SmartCardAssociationType = 1
-SmartCardAssociationType_AssociationUnknown: win32more.Windows.Win32.Media.DirectShow.SmartCardAssociationType = 2
+NotAssociated: win32more.Windows.Win32.Media.DirectShow.SmartCardAssociationType = 0
+Associated: win32more.Windows.Win32.Media.DirectShow.SmartCardAssociationType = 1
+AssociationUnknown: win32more.Windows.Win32.Media.DirectShow.SmartCardAssociationType = 2
 SmartCardStatusType = Int32
-SmartCardStatusType_CardInserted: win32more.Windows.Win32.Media.DirectShow.SmartCardStatusType = 0
-SmartCardStatusType_CardRemoved: win32more.Windows.Win32.Media.DirectShow.SmartCardStatusType = 1
-SmartCardStatusType_CardError: win32more.Windows.Win32.Media.DirectShow.SmartCardStatusType = 2
-SmartCardStatusType_CardDataChanged: win32more.Windows.Win32.Media.DirectShow.SmartCardStatusType = 3
-SmartCardStatusType_CardFirmwareUpgrade: win32more.Windows.Win32.Media.DirectShow.SmartCardStatusType = 4
+CardInserted: win32more.Windows.Win32.Media.DirectShow.SmartCardStatusType = 0
+CardRemoved: win32more.Windows.Win32.Media.DirectShow.SmartCardStatusType = 1
+CardError: win32more.Windows.Win32.Media.DirectShow.SmartCardStatusType = 2
+CardDataChanged: win32more.Windows.Win32.Media.DirectShow.SmartCardStatusType = 3
+CardFirmwareUpgrade: win32more.Windows.Win32.Media.DirectShow.SmartCardStatusType = 4
 SpectralInversion = Int32
 BDA_SPECTRAL_INVERSION_NOT_SET: win32more.Windows.Win32.Media.DirectShow.SpectralInversion = -1
 BDA_SPECTRAL_INVERSION_NOT_DEFINED: win32more.Windows.Win32.Media.DirectShow.SpectralInversion = 0
@@ -7132,14 +7132,14 @@ BDA_XMIT_MODE_16K: win32more.Windows.Win32.Media.DirectShow.TransmissionMode = 7
 BDA_XMIT_MODE_32K: win32more.Windows.Win32.Media.DirectShow.TransmissionMode = 8
 BDA_XMIT_MODE_MAX: win32more.Windows.Win32.Media.DirectShow.TransmissionMode = 9
 TunerInputType = Int32
-TunerInputType_TunerInputCable: win32more.Windows.Win32.Media.DirectShow.TunerInputType = 0
-TunerInputType_TunerInputAntenna: win32more.Windows.Win32.Media.DirectShow.TunerInputType = 1
+TunerInputCable: win32more.Windows.Win32.Media.DirectShow.TunerInputType = 0
+TunerInputAntenna: win32more.Windows.Win32.Media.DirectShow.TunerInputType = 1
 UICloseReasonType = Int32
-UICloseReasonType_NotReady: win32more.Windows.Win32.Media.DirectShow.UICloseReasonType = 0
-UICloseReasonType_UserClosed: win32more.Windows.Win32.Media.DirectShow.UICloseReasonType = 1
-UICloseReasonType_SystemClosed: win32more.Windows.Win32.Media.DirectShow.UICloseReasonType = 2
-UICloseReasonType_DeviceClosed: win32more.Windows.Win32.Media.DirectShow.UICloseReasonType = 3
-UICloseReasonType_ErrorClosed: win32more.Windows.Win32.Media.DirectShow.UICloseReasonType = 4
+NotReady: win32more.Windows.Win32.Media.DirectShow.UICloseReasonType = 0
+UserClosed: win32more.Windows.Win32.Media.DirectShow.UICloseReasonType = 1
+SystemClosed: win32more.Windows.Win32.Media.DirectShow.UICloseReasonType = 2
+DeviceClosed: win32more.Windows.Win32.Media.DirectShow.UICloseReasonType = 3
+ErrorClosed: win32more.Windows.Win32.Media.DirectShow.UICloseReasonType = 4
 VALID_UOP_FLAG = Int32
 UOP_FLAG_Play_Title_Or_AtTime: win32more.Windows.Win32.Media.DirectShow.VALID_UOP_FLAG = 1
 UOP_FLAG_Play_Chapter: win32more.Windows.Win32.Media.DirectShow.VALID_UOP_FLAG = 2
@@ -7170,9 +7170,9 @@ class VFW_FILTERLIST(EasyCastStructure):
     cFilters: UInt32
     aClsId: Guid * 1
 VIDEOENCODER_BITRATE_MODE = Int32
-VIDEOENCODER_BITRATE_MODE_ConstantBitRate: win32more.Windows.Win32.Media.DirectShow.VIDEOENCODER_BITRATE_MODE = 0
-VIDEOENCODER_BITRATE_MODE_VariableBitRateAverage: win32more.Windows.Win32.Media.DirectShow.VIDEOENCODER_BITRATE_MODE = 1
-VIDEOENCODER_BITRATE_MODE_VariableBitRatePeak: win32more.Windows.Win32.Media.DirectShow.VIDEOENCODER_BITRATE_MODE = 2
+ConstantBitRate: win32more.Windows.Win32.Media.DirectShow.VIDEOENCODER_BITRATE_MODE = 0
+VariableBitRateAverage: win32more.Windows.Win32.Media.DirectShow.VIDEOENCODER_BITRATE_MODE = 1
+VariableBitRatePeak: win32more.Windows.Win32.Media.DirectShow.VIDEOENCODER_BITRATE_MODE = 2
 class VIDEOINFO(EasyCastStructure):
     rcSource: win32more.Windows.Win32.Foundation.RECT
     rcTarget: win32more.Windows.Win32.Foundation.RECT
@@ -7520,8 +7520,8 @@ VideoControlFlag_FlipVertical: win32more.Windows.Win32.Media.DirectShow.VideoCon
 VideoControlFlag_ExternalTriggerEnable: win32more.Windows.Win32.Media.DirectShow.VideoControlFlags = 4
 VideoControlFlag_Trigger: win32more.Windows.Win32.Media.DirectShow.VideoControlFlags = 8
 VideoCopyProtectionType = Int32
-VideoCopyProtectionType_VideoCopyProtectionMacrovisionBasic: win32more.Windows.Win32.Media.DirectShow.VideoCopyProtectionType = 0
-VideoCopyProtectionType_VideoCopyProtectionMacrovisionCBI: win32more.Windows.Win32.Media.DirectShow.VideoCopyProtectionType = 1
+VideoCopyProtectionMacrovisionBasic: win32more.Windows.Win32.Media.DirectShow.VideoCopyProtectionType = 0
+VideoCopyProtectionMacrovisionCBI: win32more.Windows.Win32.Media.DirectShow.VideoCopyProtectionType = 1
 VideoProcAmpFlags = Int32
 VideoProcAmp_Flags_Auto: win32more.Windows.Win32.Media.DirectShow.VideoProcAmpFlags = 1
 VideoProcAmp_Flags_Manual: win32more.Windows.Win32.Media.DirectShow.VideoProcAmpFlags = 2

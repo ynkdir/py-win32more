@@ -131,17 +131,17 @@ def AddERExcludedApplicationW(wszApplication: win32more.Windows.Win32.Foundation
 @winfunctype('faultrep.dll')
 def WerReportHang(hwndHungApp: win32more.Windows.Win32.Foundation.HWND, pwzHungApplicationName: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 EFaultRepRetVal = Int32
-EFaultRepRetVal_frrvOk: win32more.Windows.Win32.System.ErrorReporting.EFaultRepRetVal = 0
-EFaultRepRetVal_frrvOkManifest: win32more.Windows.Win32.System.ErrorReporting.EFaultRepRetVal = 1
-EFaultRepRetVal_frrvOkQueued: win32more.Windows.Win32.System.ErrorReporting.EFaultRepRetVal = 2
-EFaultRepRetVal_frrvErr: win32more.Windows.Win32.System.ErrorReporting.EFaultRepRetVal = 3
-EFaultRepRetVal_frrvErrNoDW: win32more.Windows.Win32.System.ErrorReporting.EFaultRepRetVal = 4
-EFaultRepRetVal_frrvErrTimeout: win32more.Windows.Win32.System.ErrorReporting.EFaultRepRetVal = 5
-EFaultRepRetVal_frrvLaunchDebugger: win32more.Windows.Win32.System.ErrorReporting.EFaultRepRetVal = 6
-EFaultRepRetVal_frrvOkHeadless: win32more.Windows.Win32.System.ErrorReporting.EFaultRepRetVal = 7
-EFaultRepRetVal_frrvErrAnotherInstance: win32more.Windows.Win32.System.ErrorReporting.EFaultRepRetVal = 8
-EFaultRepRetVal_frrvErrNoMemory: win32more.Windows.Win32.System.ErrorReporting.EFaultRepRetVal = 9
-EFaultRepRetVal_frrvErrDoubleFault: win32more.Windows.Win32.System.ErrorReporting.EFaultRepRetVal = 10
+frrvOk: win32more.Windows.Win32.System.ErrorReporting.EFaultRepRetVal = 0
+frrvOkManifest: win32more.Windows.Win32.System.ErrorReporting.EFaultRepRetVal = 1
+frrvOkQueued: win32more.Windows.Win32.System.ErrorReporting.EFaultRepRetVal = 2
+frrvErr: win32more.Windows.Win32.System.ErrorReporting.EFaultRepRetVal = 3
+frrvErrNoDW: win32more.Windows.Win32.System.ErrorReporting.EFaultRepRetVal = 4
+frrvErrTimeout: win32more.Windows.Win32.System.ErrorReporting.EFaultRepRetVal = 5
+frrvLaunchDebugger: win32more.Windows.Win32.System.ErrorReporting.EFaultRepRetVal = 6
+frrvOkHeadless: win32more.Windows.Win32.System.ErrorReporting.EFaultRepRetVal = 7
+frrvErrAnotherInstance: win32more.Windows.Win32.System.ErrorReporting.EFaultRepRetVal = 8
+frrvErrNoMemory: win32more.Windows.Win32.System.ErrorReporting.EFaultRepRetVal = 9
+frrvErrDoubleFault: win32more.Windows.Win32.System.ErrorReporting.EFaultRepRetVal = 10
 HREPORT = IntPtr
 HREPORTSTORE = IntPtr
 @winfunctype_pointer
@@ -157,11 +157,11 @@ E_STORE_MACHINE_ARCHIVE: win32more.Windows.Win32.System.ErrorReporting.REPORT_ST
 E_STORE_MACHINE_QUEUE: win32more.Windows.Win32.System.ErrorReporting.REPORT_STORE_TYPES = 3
 E_STORE_INVALID: win32more.Windows.Win32.System.ErrorReporting.REPORT_STORE_TYPES = 4
 WER_CONSENT = Int32
-WER_CONSENT_WerConsentNotAsked: win32more.Windows.Win32.System.ErrorReporting.WER_CONSENT = 1
-WER_CONSENT_WerConsentApproved: win32more.Windows.Win32.System.ErrorReporting.WER_CONSENT = 2
-WER_CONSENT_WerConsentDenied: win32more.Windows.Win32.System.ErrorReporting.WER_CONSENT = 3
-WER_CONSENT_WerConsentAlwaysPrompt: win32more.Windows.Win32.System.ErrorReporting.WER_CONSENT = 4
-WER_CONSENT_WerConsentMax: win32more.Windows.Win32.System.ErrorReporting.WER_CONSENT = 5
+WerConsentNotAsked: win32more.Windows.Win32.System.ErrorReporting.WER_CONSENT = 1
+WerConsentApproved: win32more.Windows.Win32.System.ErrorReporting.WER_CONSENT = 2
+WerConsentDenied: win32more.Windows.Win32.System.ErrorReporting.WER_CONSENT = 3
+WerConsentAlwaysPrompt: win32more.Windows.Win32.System.ErrorReporting.WER_CONSENT = 4
+WerConsentMax: win32more.Windows.Win32.System.ErrorReporting.WER_CONSENT = 5
 class WER_DUMP_CUSTOM_OPTIONS(EasyCastStructure):
     dwSize: UInt32
     dwMask: UInt32
@@ -206,12 +206,12 @@ class WER_DUMP_CUSTOM_OPTIONS_V3(EasyCastStructure):
     hSnapshot: win32more.Windows.Win32.Foundation.HANDLE
     dwThreadID: UInt32
 WER_DUMP_TYPE = Int32
-WER_DUMP_TYPE_WerDumpTypeNone: win32more.Windows.Win32.System.ErrorReporting.WER_DUMP_TYPE = 0
-WER_DUMP_TYPE_WerDumpTypeMicroDump: win32more.Windows.Win32.System.ErrorReporting.WER_DUMP_TYPE = 1
-WER_DUMP_TYPE_WerDumpTypeMiniDump: win32more.Windows.Win32.System.ErrorReporting.WER_DUMP_TYPE = 2
-WER_DUMP_TYPE_WerDumpTypeHeapDump: win32more.Windows.Win32.System.ErrorReporting.WER_DUMP_TYPE = 3
-WER_DUMP_TYPE_WerDumpTypeTriageDump: win32more.Windows.Win32.System.ErrorReporting.WER_DUMP_TYPE = 4
-WER_DUMP_TYPE_WerDumpTypeMax: win32more.Windows.Win32.System.ErrorReporting.WER_DUMP_TYPE = 5
+WerDumpTypeNone: win32more.Windows.Win32.System.ErrorReporting.WER_DUMP_TYPE = 0
+WerDumpTypeMicroDump: win32more.Windows.Win32.System.ErrorReporting.WER_DUMP_TYPE = 1
+WerDumpTypeMiniDump: win32more.Windows.Win32.System.ErrorReporting.WER_DUMP_TYPE = 2
+WerDumpTypeHeapDump: win32more.Windows.Win32.System.ErrorReporting.WER_DUMP_TYPE = 3
+WerDumpTypeTriageDump: win32more.Windows.Win32.System.ErrorReporting.WER_DUMP_TYPE = 4
+WerDumpTypeMax: win32more.Windows.Win32.System.ErrorReporting.WER_DUMP_TYPE = 5
 class WER_EXCEPTION_INFORMATION(EasyCastStructure):
     pExceptionPointers: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.EXCEPTION_POINTERS)
     bClientPointers: win32more.Windows.Win32.Foundation.BOOL
@@ -225,20 +225,20 @@ WER_FILE = UInt32
 WER_FILE_ANONYMOUS_DATA: win32more.Windows.Win32.System.ErrorReporting.WER_FILE = 2
 WER_FILE_DELETE_WHEN_DONE: win32more.Windows.Win32.System.ErrorReporting.WER_FILE = 1
 WER_FILE_TYPE = Int32
-WER_FILE_TYPE_WerFileTypeMicrodump: win32more.Windows.Win32.System.ErrorReporting.WER_FILE_TYPE = 1
-WER_FILE_TYPE_WerFileTypeMinidump: win32more.Windows.Win32.System.ErrorReporting.WER_FILE_TYPE = 2
-WER_FILE_TYPE_WerFileTypeHeapdump: win32more.Windows.Win32.System.ErrorReporting.WER_FILE_TYPE = 3
-WER_FILE_TYPE_WerFileTypeUserDocument: win32more.Windows.Win32.System.ErrorReporting.WER_FILE_TYPE = 4
-WER_FILE_TYPE_WerFileTypeOther: win32more.Windows.Win32.System.ErrorReporting.WER_FILE_TYPE = 5
-WER_FILE_TYPE_WerFileTypeTriagedump: win32more.Windows.Win32.System.ErrorReporting.WER_FILE_TYPE = 6
-WER_FILE_TYPE_WerFileTypeCustomDump: win32more.Windows.Win32.System.ErrorReporting.WER_FILE_TYPE = 7
-WER_FILE_TYPE_WerFileTypeAuxiliaryDump: win32more.Windows.Win32.System.ErrorReporting.WER_FILE_TYPE = 8
-WER_FILE_TYPE_WerFileTypeEtlTrace: win32more.Windows.Win32.System.ErrorReporting.WER_FILE_TYPE = 9
-WER_FILE_TYPE_WerFileTypeMax: win32more.Windows.Win32.System.ErrorReporting.WER_FILE_TYPE = 10
+WerFileTypeMicrodump: win32more.Windows.Win32.System.ErrorReporting.WER_FILE_TYPE = 1
+WerFileTypeMinidump: win32more.Windows.Win32.System.ErrorReporting.WER_FILE_TYPE = 2
+WerFileTypeHeapdump: win32more.Windows.Win32.System.ErrorReporting.WER_FILE_TYPE = 3
+WerFileTypeUserDocument: win32more.Windows.Win32.System.ErrorReporting.WER_FILE_TYPE = 4
+WerFileTypeOther: win32more.Windows.Win32.System.ErrorReporting.WER_FILE_TYPE = 5
+WerFileTypeTriagedump: win32more.Windows.Win32.System.ErrorReporting.WER_FILE_TYPE = 6
+WerFileTypeCustomDump: win32more.Windows.Win32.System.ErrorReporting.WER_FILE_TYPE = 7
+WerFileTypeAuxiliaryDump: win32more.Windows.Win32.System.ErrorReporting.WER_FILE_TYPE = 8
+WerFileTypeEtlTrace: win32more.Windows.Win32.System.ErrorReporting.WER_FILE_TYPE = 9
+WerFileTypeMax: win32more.Windows.Win32.System.ErrorReporting.WER_FILE_TYPE = 10
 WER_REGISTER_FILE_TYPE = Int32
-WER_REGISTER_FILE_TYPE_WerRegFileTypeUserDocument: win32more.Windows.Win32.System.ErrorReporting.WER_REGISTER_FILE_TYPE = 1
-WER_REGISTER_FILE_TYPE_WerRegFileTypeOther: win32more.Windows.Win32.System.ErrorReporting.WER_REGISTER_FILE_TYPE = 2
-WER_REGISTER_FILE_TYPE_WerRegFileTypeMax: win32more.Windows.Win32.System.ErrorReporting.WER_REGISTER_FILE_TYPE = 3
+WerRegFileTypeUserDocument: win32more.Windows.Win32.System.ErrorReporting.WER_REGISTER_FILE_TYPE = 1
+WerRegFileTypeOther: win32more.Windows.Win32.System.ErrorReporting.WER_REGISTER_FILE_TYPE = 2
+WerRegFileTypeMax: win32more.Windows.Win32.System.ErrorReporting.WER_REGISTER_FILE_TYPE = 3
 class WER_REPORT_INFORMATION(EasyCastStructure):
     dwSize: UInt32
     hProcess: win32more.Windows.Win32.Foundation.HANDLE
@@ -331,24 +331,24 @@ class WER_REPORT_SIGNATURE(EasyCastStructure):
     EventName: Char * 65
     Parameters: win32more.Windows.Win32.System.ErrorReporting.WER_REPORT_PARAMETER * 10
 WER_REPORT_TYPE = Int32
-WER_REPORT_TYPE_WerReportNonCritical: win32more.Windows.Win32.System.ErrorReporting.WER_REPORT_TYPE = 0
-WER_REPORT_TYPE_WerReportCritical: win32more.Windows.Win32.System.ErrorReporting.WER_REPORT_TYPE = 1
-WER_REPORT_TYPE_WerReportApplicationCrash: win32more.Windows.Win32.System.ErrorReporting.WER_REPORT_TYPE = 2
-WER_REPORT_TYPE_WerReportApplicationHang: win32more.Windows.Win32.System.ErrorReporting.WER_REPORT_TYPE = 3
-WER_REPORT_TYPE_WerReportKernel: win32more.Windows.Win32.System.ErrorReporting.WER_REPORT_TYPE = 4
-WER_REPORT_TYPE_WerReportInvalid: win32more.Windows.Win32.System.ErrorReporting.WER_REPORT_TYPE = 5
+WerReportNonCritical: win32more.Windows.Win32.System.ErrorReporting.WER_REPORT_TYPE = 0
+WerReportCritical: win32more.Windows.Win32.System.ErrorReporting.WER_REPORT_TYPE = 1
+WerReportApplicationCrash: win32more.Windows.Win32.System.ErrorReporting.WER_REPORT_TYPE = 2
+WerReportApplicationHang: win32more.Windows.Win32.System.ErrorReporting.WER_REPORT_TYPE = 3
+WerReportKernel: win32more.Windows.Win32.System.ErrorReporting.WER_REPORT_TYPE = 4
+WerReportInvalid: win32more.Windows.Win32.System.ErrorReporting.WER_REPORT_TYPE = 5
 WER_REPORT_UI = Int32
-WER_REPORT_UI_WerUIAdditionalDataDlgHeader: win32more.Windows.Win32.System.ErrorReporting.WER_REPORT_UI = 1
-WER_REPORT_UI_WerUIIconFilePath: win32more.Windows.Win32.System.ErrorReporting.WER_REPORT_UI = 2
-WER_REPORT_UI_WerUIConsentDlgHeader: win32more.Windows.Win32.System.ErrorReporting.WER_REPORT_UI = 3
-WER_REPORT_UI_WerUIConsentDlgBody: win32more.Windows.Win32.System.ErrorReporting.WER_REPORT_UI = 4
-WER_REPORT_UI_WerUIOnlineSolutionCheckText: win32more.Windows.Win32.System.ErrorReporting.WER_REPORT_UI = 5
-WER_REPORT_UI_WerUIOfflineSolutionCheckText: win32more.Windows.Win32.System.ErrorReporting.WER_REPORT_UI = 6
-WER_REPORT_UI_WerUICloseText: win32more.Windows.Win32.System.ErrorReporting.WER_REPORT_UI = 7
-WER_REPORT_UI_WerUICloseDlgHeader: win32more.Windows.Win32.System.ErrorReporting.WER_REPORT_UI = 8
-WER_REPORT_UI_WerUICloseDlgBody: win32more.Windows.Win32.System.ErrorReporting.WER_REPORT_UI = 9
-WER_REPORT_UI_WerUICloseDlgButtonText: win32more.Windows.Win32.System.ErrorReporting.WER_REPORT_UI = 10
-WER_REPORT_UI_WerUIMax: win32more.Windows.Win32.System.ErrorReporting.WER_REPORT_UI = 11
+WerUIAdditionalDataDlgHeader: win32more.Windows.Win32.System.ErrorReporting.WER_REPORT_UI = 1
+WerUIIconFilePath: win32more.Windows.Win32.System.ErrorReporting.WER_REPORT_UI = 2
+WerUIConsentDlgHeader: win32more.Windows.Win32.System.ErrorReporting.WER_REPORT_UI = 3
+WerUIConsentDlgBody: win32more.Windows.Win32.System.ErrorReporting.WER_REPORT_UI = 4
+WerUIOnlineSolutionCheckText: win32more.Windows.Win32.System.ErrorReporting.WER_REPORT_UI = 5
+WerUIOfflineSolutionCheckText: win32more.Windows.Win32.System.ErrorReporting.WER_REPORT_UI = 6
+WerUICloseText: win32more.Windows.Win32.System.ErrorReporting.WER_REPORT_UI = 7
+WerUICloseDlgHeader: win32more.Windows.Win32.System.ErrorReporting.WER_REPORT_UI = 8
+WerUICloseDlgBody: win32more.Windows.Win32.System.ErrorReporting.WER_REPORT_UI = 9
+WerUICloseDlgButtonText: win32more.Windows.Win32.System.ErrorReporting.WER_REPORT_UI = 10
+WerUIMax: win32more.Windows.Win32.System.ErrorReporting.WER_REPORT_UI = 11
 class WER_RUNTIME_EXCEPTION_INFORMATION(EasyCastStructure):
     dwSize: UInt32
     hProcess: win32more.Windows.Win32.Foundation.HANDLE
@@ -374,19 +374,19 @@ WER_SUBMIT_BYPASS_DATA_THROTTLING: win32more.Windows.Win32.System.ErrorReporting
 WER_SUBMIT_ARCHIVE_PARAMETERS_ONLY: win32more.Windows.Win32.System.ErrorReporting.WER_SUBMIT_FLAGS = 4096
 WER_SUBMIT_REPORT_MACHINE_ID: win32more.Windows.Win32.System.ErrorReporting.WER_SUBMIT_FLAGS = 8192
 WER_SUBMIT_RESULT = Int32
-WER_SUBMIT_RESULT_WerReportQueued: win32more.Windows.Win32.System.ErrorReporting.WER_SUBMIT_RESULT = 1
-WER_SUBMIT_RESULT_WerReportUploaded: win32more.Windows.Win32.System.ErrorReporting.WER_SUBMIT_RESULT = 2
-WER_SUBMIT_RESULT_WerReportDebug: win32more.Windows.Win32.System.ErrorReporting.WER_SUBMIT_RESULT = 3
-WER_SUBMIT_RESULT_WerReportFailed: win32more.Windows.Win32.System.ErrorReporting.WER_SUBMIT_RESULT = 4
-WER_SUBMIT_RESULT_WerDisabled: win32more.Windows.Win32.System.ErrorReporting.WER_SUBMIT_RESULT = 5
-WER_SUBMIT_RESULT_WerReportCancelled: win32more.Windows.Win32.System.ErrorReporting.WER_SUBMIT_RESULT = 6
-WER_SUBMIT_RESULT_WerDisabledQueue: win32more.Windows.Win32.System.ErrorReporting.WER_SUBMIT_RESULT = 7
-WER_SUBMIT_RESULT_WerReportAsync: win32more.Windows.Win32.System.ErrorReporting.WER_SUBMIT_RESULT = 8
-WER_SUBMIT_RESULT_WerCustomAction: win32more.Windows.Win32.System.ErrorReporting.WER_SUBMIT_RESULT = 9
-WER_SUBMIT_RESULT_WerThrottled: win32more.Windows.Win32.System.ErrorReporting.WER_SUBMIT_RESULT = 10
-WER_SUBMIT_RESULT_WerReportUploadedCab: win32more.Windows.Win32.System.ErrorReporting.WER_SUBMIT_RESULT = 11
-WER_SUBMIT_RESULT_WerStorageLocationNotFound: win32more.Windows.Win32.System.ErrorReporting.WER_SUBMIT_RESULT = 12
-WER_SUBMIT_RESULT_WerSubmitResultMax: win32more.Windows.Win32.System.ErrorReporting.WER_SUBMIT_RESULT = 13
+WerReportQueued: win32more.Windows.Win32.System.ErrorReporting.WER_SUBMIT_RESULT = 1
+WerReportUploaded: win32more.Windows.Win32.System.ErrorReporting.WER_SUBMIT_RESULT = 2
+WerReportDebug: win32more.Windows.Win32.System.ErrorReporting.WER_SUBMIT_RESULT = 3
+WerReportFailed: win32more.Windows.Win32.System.ErrorReporting.WER_SUBMIT_RESULT = 4
+WerDisabled: win32more.Windows.Win32.System.ErrorReporting.WER_SUBMIT_RESULT = 5
+WerReportCancelled: win32more.Windows.Win32.System.ErrorReporting.WER_SUBMIT_RESULT = 6
+WerDisabledQueue: win32more.Windows.Win32.System.ErrorReporting.WER_SUBMIT_RESULT = 7
+WerReportAsync: win32more.Windows.Win32.System.ErrorReporting.WER_SUBMIT_RESULT = 8
+WerCustomAction: win32more.Windows.Win32.System.ErrorReporting.WER_SUBMIT_RESULT = 9
+WerThrottled: win32more.Windows.Win32.System.ErrorReporting.WER_SUBMIT_RESULT = 10
+WerReportUploadedCab: win32more.Windows.Win32.System.ErrorReporting.WER_SUBMIT_RESULT = 11
+WerStorageLocationNotFound: win32more.Windows.Win32.System.ErrorReporting.WER_SUBMIT_RESULT = 12
+WerSubmitResultMax: win32more.Windows.Win32.System.ErrorReporting.WER_SUBMIT_RESULT = 13
 @winfunctype_pointer
 def pfn_ADDEREXCLUDEDAPPLICATIONA(param0: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.System.ErrorReporting.EFaultRepRetVal: ...
 @winfunctype_pointer

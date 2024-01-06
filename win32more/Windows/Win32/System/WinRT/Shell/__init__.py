@@ -5,9 +5,9 @@ import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.WinRT.Shell
 import win32more.Windows.Win32.UI.Shell
 CreateProcessMethod = Int32
-CreateProcessMethod_CpCreateProcess: win32more.Windows.Win32.System.WinRT.Shell.CreateProcessMethod = 0
-CreateProcessMethod_CpCreateProcessAsUser: win32more.Windows.Win32.System.WinRT.Shell.CreateProcessMethod = 1
-CreateProcessMethod_CpAicLaunchAdminProcess: win32more.Windows.Win32.System.WinRT.Shell.CreateProcessMethod = 2
+CpCreateProcess: win32more.Windows.Win32.System.WinRT.Shell.CreateProcessMethod = 0
+CpCreateProcessAsUser: win32more.Windows.Win32.System.WinRT.Shell.CreateProcessMethod = 1
+CpAicLaunchAdminProcess: win32more.Windows.Win32.System.WinRT.Shell.CreateProcessMethod = 2
 class IDDEInitializer(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{30dc931f-33fc-4ffd-a168-942258cf3ca4}')

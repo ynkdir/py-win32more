@@ -30,9 +30,9 @@ class ACPI_TIME_AND_ALARM_CAPABILITIES(EasyCastStructure):
     RealTimeFeaturesSupported: win32more.Windows.Win32.Foundation.BOOLEAN
     RealTimeResolution: win32more.Windows.Win32.System.Power.ACPI_TIME_RESOLUTION
 ACPI_TIME_RESOLUTION = Int32
-ACPI_TIME_RESOLUTION_AcpiTimeResolutionMilliseconds: win32more.Windows.Win32.System.Power.ACPI_TIME_RESOLUTION = 0
-ACPI_TIME_RESOLUTION_AcpiTimeResolutionSeconds: win32more.Windows.Win32.System.Power.ACPI_TIME_RESOLUTION = 1
-ACPI_TIME_RESOLUTION_AcpiTimeResolutionMax: win32more.Windows.Win32.System.Power.ACPI_TIME_RESOLUTION = 2
+AcpiTimeResolutionMilliseconds: win32more.Windows.Win32.System.Power.ACPI_TIME_RESOLUTION = 0
+AcpiTimeResolutionSeconds: win32more.Windows.Win32.System.Power.ACPI_TIME_RESOLUTION = 1
+AcpiTimeResolutionMax: win32more.Windows.Win32.System.Power.ACPI_TIME_RESOLUTION = 2
 class ADMINISTRATOR_POWER_POLICY(EasyCastStructure):
     MinSleep: win32more.Windows.Win32.System.Power.SYSTEM_POWER_STATE
     MaxSleep: win32more.Windows.Win32.System.Power.SYSTEM_POWER_STATE
@@ -443,15 +443,15 @@ class BATTERY_QUERY_INFORMATION(EasyCastStructure):
     InformationLevel: win32more.Windows.Win32.System.Power.BATTERY_QUERY_INFORMATION_LEVEL
     AtRate: UInt32
 BATTERY_QUERY_INFORMATION_LEVEL = Int32
-BATTERY_QUERY_INFORMATION_LEVEL_BatteryInformation: win32more.Windows.Win32.System.Power.BATTERY_QUERY_INFORMATION_LEVEL = 0
-BATTERY_QUERY_INFORMATION_LEVEL_BatteryGranularityInformation: win32more.Windows.Win32.System.Power.BATTERY_QUERY_INFORMATION_LEVEL = 1
-BATTERY_QUERY_INFORMATION_LEVEL_BatteryTemperature: win32more.Windows.Win32.System.Power.BATTERY_QUERY_INFORMATION_LEVEL = 2
-BATTERY_QUERY_INFORMATION_LEVEL_BatteryEstimatedTime: win32more.Windows.Win32.System.Power.BATTERY_QUERY_INFORMATION_LEVEL = 3
-BATTERY_QUERY_INFORMATION_LEVEL_BatteryDeviceName: win32more.Windows.Win32.System.Power.BATTERY_QUERY_INFORMATION_LEVEL = 4
-BATTERY_QUERY_INFORMATION_LEVEL_BatteryManufactureDate: win32more.Windows.Win32.System.Power.BATTERY_QUERY_INFORMATION_LEVEL = 5
-BATTERY_QUERY_INFORMATION_LEVEL_BatteryManufactureName: win32more.Windows.Win32.System.Power.BATTERY_QUERY_INFORMATION_LEVEL = 6
-BATTERY_QUERY_INFORMATION_LEVEL_BatteryUniqueID: win32more.Windows.Win32.System.Power.BATTERY_QUERY_INFORMATION_LEVEL = 7
-BATTERY_QUERY_INFORMATION_LEVEL_BatterySerialNumber: win32more.Windows.Win32.System.Power.BATTERY_QUERY_INFORMATION_LEVEL = 8
+BatteryInformation: win32more.Windows.Win32.System.Power.BATTERY_QUERY_INFORMATION_LEVEL = 0
+BatteryGranularityInformation: win32more.Windows.Win32.System.Power.BATTERY_QUERY_INFORMATION_LEVEL = 1
+BatteryTemperature: win32more.Windows.Win32.System.Power.BATTERY_QUERY_INFORMATION_LEVEL = 2
+BatteryEstimatedTime: win32more.Windows.Win32.System.Power.BATTERY_QUERY_INFORMATION_LEVEL = 3
+BatteryDeviceName: win32more.Windows.Win32.System.Power.BATTERY_QUERY_INFORMATION_LEVEL = 4
+BatteryManufactureDate: win32more.Windows.Win32.System.Power.BATTERY_QUERY_INFORMATION_LEVEL = 5
+BatteryManufactureName: win32more.Windows.Win32.System.Power.BATTERY_QUERY_INFORMATION_LEVEL = 6
+BatteryUniqueID: win32more.Windows.Win32.System.Power.BATTERY_QUERY_INFORMATION_LEVEL = 7
+BatterySerialNumber: win32more.Windows.Win32.System.Power.BATTERY_QUERY_INFORMATION_LEVEL = 8
 class BATTERY_REPORTING_SCALE(EasyCastStructure):
     Granularity: UInt32
     Capacity: UInt32
@@ -460,12 +460,12 @@ class BATTERY_SET_INFORMATION(EasyCastStructure):
     InformationLevel: win32more.Windows.Win32.System.Power.BATTERY_SET_INFORMATION_LEVEL
     Buffer: Byte * 1
 BATTERY_SET_INFORMATION_LEVEL = Int32
-BATTERY_SET_INFORMATION_LEVEL_BatteryCriticalBias: win32more.Windows.Win32.System.Power.BATTERY_SET_INFORMATION_LEVEL = 0
-BATTERY_SET_INFORMATION_LEVEL_BatteryCharge: win32more.Windows.Win32.System.Power.BATTERY_SET_INFORMATION_LEVEL = 1
-BATTERY_SET_INFORMATION_LEVEL_BatteryDischarge: win32more.Windows.Win32.System.Power.BATTERY_SET_INFORMATION_LEVEL = 2
-BATTERY_SET_INFORMATION_LEVEL_BatteryChargingSource: win32more.Windows.Win32.System.Power.BATTERY_SET_INFORMATION_LEVEL = 3
-BATTERY_SET_INFORMATION_LEVEL_BatteryChargerId: win32more.Windows.Win32.System.Power.BATTERY_SET_INFORMATION_LEVEL = 4
-BATTERY_SET_INFORMATION_LEVEL_BatteryChargerStatus: win32more.Windows.Win32.System.Power.BATTERY_SET_INFORMATION_LEVEL = 5
+BatteryCriticalBias: win32more.Windows.Win32.System.Power.BATTERY_SET_INFORMATION_LEVEL = 0
+BatteryCharge: win32more.Windows.Win32.System.Power.BATTERY_SET_INFORMATION_LEVEL = 1
+BatteryDischarge: win32more.Windows.Win32.System.Power.BATTERY_SET_INFORMATION_LEVEL = 2
+BatteryChargingSource: win32more.Windows.Win32.System.Power.BATTERY_SET_INFORMATION_LEVEL = 3
+BatteryChargerId: win32more.Windows.Win32.System.Power.BATTERY_SET_INFORMATION_LEVEL = 4
+BatteryChargerStatus: win32more.Windows.Win32.System.Power.BATTERY_SET_INFORMATION_LEVEL = 5
 class BATTERY_STATUS(EasyCastStructure):
     PowerState: UInt32
     Capacity: UInt32
@@ -500,20 +500,20 @@ class DEVICE_NOTIFY_SUBSCRIBE_PARAMETERS(EasyCastStructure):
     Callback: win32more.Windows.Win32.System.Power.PDEVICE_NOTIFY_CALLBACK_ROUTINE
     Context: VoidPtr
 DEVICE_POWER_STATE = Int32
-DEVICE_POWER_STATE_PowerDeviceUnspecified: win32more.Windows.Win32.System.Power.DEVICE_POWER_STATE = 0
-DEVICE_POWER_STATE_PowerDeviceD0: win32more.Windows.Win32.System.Power.DEVICE_POWER_STATE = 1
-DEVICE_POWER_STATE_PowerDeviceD1: win32more.Windows.Win32.System.Power.DEVICE_POWER_STATE = 2
-DEVICE_POWER_STATE_PowerDeviceD2: win32more.Windows.Win32.System.Power.DEVICE_POWER_STATE = 3
-DEVICE_POWER_STATE_PowerDeviceD3: win32more.Windows.Win32.System.Power.DEVICE_POWER_STATE = 4
-DEVICE_POWER_STATE_PowerDeviceMaximum: win32more.Windows.Win32.System.Power.DEVICE_POWER_STATE = 5
+PowerDeviceUnspecified: win32more.Windows.Win32.System.Power.DEVICE_POWER_STATE = 0
+PowerDeviceD0: win32more.Windows.Win32.System.Power.DEVICE_POWER_STATE = 1
+PowerDeviceD1: win32more.Windows.Win32.System.Power.DEVICE_POWER_STATE = 2
+PowerDeviceD2: win32more.Windows.Win32.System.Power.DEVICE_POWER_STATE = 3
+PowerDeviceD3: win32more.Windows.Win32.System.Power.DEVICE_POWER_STATE = 4
+PowerDeviceMaximum: win32more.Windows.Win32.System.Power.DEVICE_POWER_STATE = 5
 EFFECTIVE_POWER_MODE = Int32
-EFFECTIVE_POWER_MODE_EffectivePowerModeBatterySaver: win32more.Windows.Win32.System.Power.EFFECTIVE_POWER_MODE = 0
-EFFECTIVE_POWER_MODE_EffectivePowerModeBetterBattery: win32more.Windows.Win32.System.Power.EFFECTIVE_POWER_MODE = 1
-EFFECTIVE_POWER_MODE_EffectivePowerModeBalanced: win32more.Windows.Win32.System.Power.EFFECTIVE_POWER_MODE = 2
-EFFECTIVE_POWER_MODE_EffectivePowerModeHighPerformance: win32more.Windows.Win32.System.Power.EFFECTIVE_POWER_MODE = 3
-EFFECTIVE_POWER_MODE_EffectivePowerModeMaxPerformance: win32more.Windows.Win32.System.Power.EFFECTIVE_POWER_MODE = 4
-EFFECTIVE_POWER_MODE_EffectivePowerModeGameMode: win32more.Windows.Win32.System.Power.EFFECTIVE_POWER_MODE = 5
-EFFECTIVE_POWER_MODE_EffectivePowerModeMixedReality: win32more.Windows.Win32.System.Power.EFFECTIVE_POWER_MODE = 6
+EffectivePowerModeBatterySaver: win32more.Windows.Win32.System.Power.EFFECTIVE_POWER_MODE = 0
+EffectivePowerModeBetterBattery: win32more.Windows.Win32.System.Power.EFFECTIVE_POWER_MODE = 1
+EffectivePowerModeBalanced: win32more.Windows.Win32.System.Power.EFFECTIVE_POWER_MODE = 2
+EffectivePowerModeHighPerformance: win32more.Windows.Win32.System.Power.EFFECTIVE_POWER_MODE = 3
+EffectivePowerModeMaxPerformance: win32more.Windows.Win32.System.Power.EFFECTIVE_POWER_MODE = 4
+EffectivePowerModeGameMode: win32more.Windows.Win32.System.Power.EFFECTIVE_POWER_MODE = 5
+EffectivePowerModeMixedReality: win32more.Windows.Win32.System.Power.EFFECTIVE_POWER_MODE = 6
 @winfunctype_pointer
 def EFFECTIVE_POWER_MODE_CALLBACK(Mode: win32more.Windows.Win32.System.Power.EFFECTIVE_POWER_MODE, Context: VoidPtr) -> Void: ...
 class EMI_CHANNEL_MEASUREMENT_DATA(EasyCastStructure):
@@ -526,7 +526,7 @@ class EMI_CHANNEL_V2(EasyCastStructure):
 class EMI_MEASUREMENT_DATA_V2(EasyCastStructure):
     ChannelData: win32more.Windows.Win32.System.Power.EMI_CHANNEL_MEASUREMENT_DATA * 1
 EMI_MEASUREMENT_UNIT = Int32
-EMI_MEASUREMENT_UNIT_EmiMeasurementUnitPicowattHours: win32more.Windows.Win32.System.Power.EMI_MEASUREMENT_UNIT = 0
+EmiMeasurementUnitPicowattHours: win32more.Windows.Win32.System.Power.EMI_MEASUREMENT_UNIT = 0
 class EMI_METADATA_SIZE(EasyCastStructure):
     MetadataSize: UInt32
 class EMI_METADATA_V1(EasyCastStructure):
@@ -598,15 +598,15 @@ class POWERBROADCAST_SETTING(EasyCastStructure):
     DataLength: UInt32
     Data: Byte * 1
 POWER_ACTION = Int32
-POWER_ACTION_PowerActionNone: win32more.Windows.Win32.System.Power.POWER_ACTION = 0
-POWER_ACTION_PowerActionReserved: win32more.Windows.Win32.System.Power.POWER_ACTION = 1
-POWER_ACTION_PowerActionSleep: win32more.Windows.Win32.System.Power.POWER_ACTION = 2
-POWER_ACTION_PowerActionHibernate: win32more.Windows.Win32.System.Power.POWER_ACTION = 3
-POWER_ACTION_PowerActionShutdown: win32more.Windows.Win32.System.Power.POWER_ACTION = 4
-POWER_ACTION_PowerActionShutdownReset: win32more.Windows.Win32.System.Power.POWER_ACTION = 5
-POWER_ACTION_PowerActionShutdownOff: win32more.Windows.Win32.System.Power.POWER_ACTION = 6
-POWER_ACTION_PowerActionWarmEject: win32more.Windows.Win32.System.Power.POWER_ACTION = 7
-POWER_ACTION_PowerActionDisplayOff: win32more.Windows.Win32.System.Power.POWER_ACTION = 8
+PowerActionNone: win32more.Windows.Win32.System.Power.POWER_ACTION = 0
+PowerActionReserved: win32more.Windows.Win32.System.Power.POWER_ACTION = 1
+PowerActionSleep: win32more.Windows.Win32.System.Power.POWER_ACTION = 2
+PowerActionHibernate: win32more.Windows.Win32.System.Power.POWER_ACTION = 3
+PowerActionShutdown: win32more.Windows.Win32.System.Power.POWER_ACTION = 4
+PowerActionShutdownReset: win32more.Windows.Win32.System.Power.POWER_ACTION = 5
+PowerActionShutdownOff: win32more.Windows.Win32.System.Power.POWER_ACTION = 6
+PowerActionWarmEject: win32more.Windows.Win32.System.Power.POWER_ACTION = 7
+PowerActionDisplayOff: win32more.Windows.Win32.System.Power.POWER_ACTION = 8
 class POWER_ACTION_POLICY(EasyCastStructure):
     Action: win32more.Windows.Win32.System.Power.POWER_ACTION
     Flags: UInt32
@@ -655,182 +655,182 @@ class POWER_IDLE_RESILIENCY(EasyCastStructure):
     CoalescingTimeout: UInt32
     IdleResiliencyPeriod: UInt32
 POWER_INFORMATION_LEVEL = Int32
-POWER_INFORMATION_LEVEL_SystemPowerPolicyAc: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 0
-POWER_INFORMATION_LEVEL_SystemPowerPolicyDc: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 1
-POWER_INFORMATION_LEVEL_VerifySystemPolicyAc: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 2
-POWER_INFORMATION_LEVEL_VerifySystemPolicyDc: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 3
-POWER_INFORMATION_LEVEL_SystemPowerCapabilities: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 4
-POWER_INFORMATION_LEVEL_SystemBatteryState: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 5
-POWER_INFORMATION_LEVEL_SystemPowerStateHandler: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 6
-POWER_INFORMATION_LEVEL_ProcessorStateHandler: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 7
-POWER_INFORMATION_LEVEL_SystemPowerPolicyCurrent: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 8
-POWER_INFORMATION_LEVEL_AdministratorPowerPolicy: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 9
-POWER_INFORMATION_LEVEL_SystemReserveHiberFile: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 10
-POWER_INFORMATION_LEVEL_ProcessorInformation: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 11
-POWER_INFORMATION_LEVEL_SystemPowerInformation: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 12
-POWER_INFORMATION_LEVEL_ProcessorStateHandler2: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 13
-POWER_INFORMATION_LEVEL_LastWakeTime: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 14
-POWER_INFORMATION_LEVEL_LastSleepTime: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 15
-POWER_INFORMATION_LEVEL_SystemExecutionState: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 16
-POWER_INFORMATION_LEVEL_SystemPowerStateNotifyHandler: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 17
-POWER_INFORMATION_LEVEL_ProcessorPowerPolicyAc: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 18
-POWER_INFORMATION_LEVEL_ProcessorPowerPolicyDc: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 19
-POWER_INFORMATION_LEVEL_VerifyProcessorPowerPolicyAc: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 20
-POWER_INFORMATION_LEVEL_VerifyProcessorPowerPolicyDc: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 21
-POWER_INFORMATION_LEVEL_ProcessorPowerPolicyCurrent: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 22
-POWER_INFORMATION_LEVEL_SystemPowerStateLogging: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 23
-POWER_INFORMATION_LEVEL_SystemPowerLoggingEntry: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 24
-POWER_INFORMATION_LEVEL_SetPowerSettingValue: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 25
-POWER_INFORMATION_LEVEL_NotifyUserPowerSetting: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 26
-POWER_INFORMATION_LEVEL_PowerInformationLevelUnused0: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 27
-POWER_INFORMATION_LEVEL_SystemMonitorHiberBootPowerOff: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 28
-POWER_INFORMATION_LEVEL_SystemVideoState: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 29
-POWER_INFORMATION_LEVEL_TraceApplicationPowerMessage: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 30
-POWER_INFORMATION_LEVEL_TraceApplicationPowerMessageEnd: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 31
-POWER_INFORMATION_LEVEL_ProcessorPerfStates: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 32
-POWER_INFORMATION_LEVEL_ProcessorIdleStates: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 33
-POWER_INFORMATION_LEVEL_ProcessorCap: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 34
-POWER_INFORMATION_LEVEL_SystemWakeSource: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 35
-POWER_INFORMATION_LEVEL_SystemHiberFileInformation: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 36
-POWER_INFORMATION_LEVEL_TraceServicePowerMessage: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 37
-POWER_INFORMATION_LEVEL_ProcessorLoad: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 38
-POWER_INFORMATION_LEVEL_PowerShutdownNotification: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 39
-POWER_INFORMATION_LEVEL_MonitorCapabilities: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 40
-POWER_INFORMATION_LEVEL_SessionPowerInit: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 41
-POWER_INFORMATION_LEVEL_SessionDisplayState: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 42
-POWER_INFORMATION_LEVEL_PowerRequestCreate: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 43
-POWER_INFORMATION_LEVEL_PowerRequestAction: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 44
-POWER_INFORMATION_LEVEL_GetPowerRequestList: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 45
-POWER_INFORMATION_LEVEL_ProcessorInformationEx: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 46
-POWER_INFORMATION_LEVEL_NotifyUserModeLegacyPowerEvent: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 47
-POWER_INFORMATION_LEVEL_GroupPark: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 48
-POWER_INFORMATION_LEVEL_ProcessorIdleDomains: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 49
-POWER_INFORMATION_LEVEL_WakeTimerList: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 50
-POWER_INFORMATION_LEVEL_SystemHiberFileSize: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 51
-POWER_INFORMATION_LEVEL_ProcessorIdleStatesHv: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 52
-POWER_INFORMATION_LEVEL_ProcessorPerfStatesHv: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 53
-POWER_INFORMATION_LEVEL_ProcessorPerfCapHv: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 54
-POWER_INFORMATION_LEVEL_ProcessorSetIdle: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 55
-POWER_INFORMATION_LEVEL_LogicalProcessorIdling: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 56
-POWER_INFORMATION_LEVEL_UserPresence: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 57
-POWER_INFORMATION_LEVEL_PowerSettingNotificationName: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 58
-POWER_INFORMATION_LEVEL_GetPowerSettingValue: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 59
-POWER_INFORMATION_LEVEL_IdleResiliency: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 60
-POWER_INFORMATION_LEVEL_SessionRITState: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 61
-POWER_INFORMATION_LEVEL_SessionConnectNotification: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 62
-POWER_INFORMATION_LEVEL_SessionPowerCleanup: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 63
-POWER_INFORMATION_LEVEL_SessionLockState: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 64
-POWER_INFORMATION_LEVEL_SystemHiberbootState: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 65
-POWER_INFORMATION_LEVEL_PlatformInformation: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 66
-POWER_INFORMATION_LEVEL_PdcInvocation: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 67
-POWER_INFORMATION_LEVEL_MonitorInvocation: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 68
-POWER_INFORMATION_LEVEL_FirmwareTableInformationRegistered: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 69
-POWER_INFORMATION_LEVEL_SetShutdownSelectedTime: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 70
-POWER_INFORMATION_LEVEL_SuspendResumeInvocation: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 71
-POWER_INFORMATION_LEVEL_PlmPowerRequestCreate: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 72
-POWER_INFORMATION_LEVEL_ScreenOff: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 73
-POWER_INFORMATION_LEVEL_CsDeviceNotification: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 74
-POWER_INFORMATION_LEVEL_PlatformRole: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 75
-POWER_INFORMATION_LEVEL_LastResumePerformance: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 76
-POWER_INFORMATION_LEVEL_DisplayBurst: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 77
-POWER_INFORMATION_LEVEL_ExitLatencySamplingPercentage: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 78
-POWER_INFORMATION_LEVEL_RegisterSpmPowerSettings: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 79
-POWER_INFORMATION_LEVEL_PlatformIdleStates: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 80
-POWER_INFORMATION_LEVEL_ProcessorIdleVeto: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 81
-POWER_INFORMATION_LEVEL_PlatformIdleVeto: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 82
-POWER_INFORMATION_LEVEL_SystemBatteryStatePrecise: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 83
-POWER_INFORMATION_LEVEL_ThermalEvent: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 84
-POWER_INFORMATION_LEVEL_PowerRequestActionInternal: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 85
-POWER_INFORMATION_LEVEL_BatteryDeviceState: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 86
-POWER_INFORMATION_LEVEL_PowerInformationInternal: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 87
-POWER_INFORMATION_LEVEL_ThermalStandby: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 88
-POWER_INFORMATION_LEVEL_SystemHiberFileType: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 89
-POWER_INFORMATION_LEVEL_PhysicalPowerButtonPress: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 90
-POWER_INFORMATION_LEVEL_QueryPotentialDripsConstraint: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 91
-POWER_INFORMATION_LEVEL_EnergyTrackerCreate: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 92
-POWER_INFORMATION_LEVEL_EnergyTrackerQuery: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 93
-POWER_INFORMATION_LEVEL_UpdateBlackBoxRecorder: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 94
-POWER_INFORMATION_LEVEL_SessionAllowExternalDmaDevices: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 95
-POWER_INFORMATION_LEVEL_SendSuspendResumeNotification: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 96
-POWER_INFORMATION_LEVEL_BlackBoxRecorderDirectAccessBuffer: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 97
-POWER_INFORMATION_LEVEL_PowerInformationLevelMaximum: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 98
+SystemPowerPolicyAc: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 0
+SystemPowerPolicyDc: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 1
+VerifySystemPolicyAc: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 2
+VerifySystemPolicyDc: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 3
+SystemPowerCapabilities: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 4
+SystemBatteryState: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 5
+SystemPowerStateHandler: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 6
+ProcessorStateHandler: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 7
+SystemPowerPolicyCurrent: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 8
+AdministratorPowerPolicy: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 9
+SystemReserveHiberFile: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 10
+ProcessorInformation: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 11
+SystemPowerInformation: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 12
+ProcessorStateHandler2: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 13
+LastWakeTime: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 14
+LastSleepTime: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 15
+SystemExecutionState: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 16
+SystemPowerStateNotifyHandler: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 17
+ProcessorPowerPolicyAc: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 18
+ProcessorPowerPolicyDc: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 19
+VerifyProcessorPowerPolicyAc: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 20
+VerifyProcessorPowerPolicyDc: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 21
+ProcessorPowerPolicyCurrent: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 22
+SystemPowerStateLogging: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 23
+SystemPowerLoggingEntry: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 24
+SetPowerSettingValue: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 25
+NotifyUserPowerSetting: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 26
+PowerInformationLevelUnused0: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 27
+SystemMonitorHiberBootPowerOff: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 28
+SystemVideoState: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 29
+TraceApplicationPowerMessage: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 30
+TraceApplicationPowerMessageEnd: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 31
+ProcessorPerfStates: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 32
+ProcessorIdleStates: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 33
+ProcessorCap: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 34
+SystemWakeSource: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 35
+SystemHiberFileInformation: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 36
+TraceServicePowerMessage: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 37
+ProcessorLoad: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 38
+PowerShutdownNotification: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 39
+MonitorCapabilities: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 40
+SessionPowerInit: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 41
+SessionDisplayState: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 42
+PowerRequestCreate: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 43
+PowerRequestAction: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 44
+GetPowerRequestList: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 45
+ProcessorInformationEx: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 46
+NotifyUserModeLegacyPowerEvent: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 47
+GroupPark: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 48
+ProcessorIdleDomains: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 49
+WakeTimerList: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 50
+SystemHiberFileSize: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 51
+ProcessorIdleStatesHv: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 52
+ProcessorPerfStatesHv: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 53
+ProcessorPerfCapHv: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 54
+ProcessorSetIdle: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 55
+LogicalProcessorIdling: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 56
+UserPresence: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 57
+PowerSettingNotificationName: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 58
+GetPowerSettingValue: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 59
+IdleResiliency: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 60
+SessionRITState: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 61
+SessionConnectNotification: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 62
+SessionPowerCleanup: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 63
+SessionLockState: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 64
+SystemHiberbootState: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 65
+PlatformInformation: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 66
+PdcInvocation: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 67
+MonitorInvocation: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 68
+FirmwareTableInformationRegistered: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 69
+SetShutdownSelectedTime: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 70
+SuspendResumeInvocation: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 71
+PlmPowerRequestCreate: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 72
+ScreenOff: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 73
+CsDeviceNotification: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 74
+PlatformRole: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 75
+LastResumePerformance: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 76
+DisplayBurst: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 77
+ExitLatencySamplingPercentage: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 78
+RegisterSpmPowerSettings: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 79
+PlatformIdleStates: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 80
+ProcessorIdleVeto: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 81
+PlatformIdleVeto: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 82
+SystemBatteryStatePrecise: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 83
+ThermalEvent: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 84
+PowerRequestActionInternal: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 85
+BatteryDeviceState: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 86
+PowerInformationInternal: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 87
+ThermalStandby: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 88
+SystemHiberFileType: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 89
+PhysicalPowerButtonPress: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 90
+QueryPotentialDripsConstraint: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 91
+EnergyTrackerCreate: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 92
+EnergyTrackerQuery: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 93
+UpdateBlackBoxRecorder: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 94
+SessionAllowExternalDmaDevices: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 95
+SendSuspendResumeNotification: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 96
+BlackBoxRecorderDirectAccessBuffer: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 97
+PowerInformationLevelMaximum: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 98
 class POWER_MONITOR_INVOCATION(EasyCastStructure):
     Console: win32more.Windows.Win32.Foundation.BOOLEAN
     RequestReason: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON
 POWER_MONITOR_REQUEST_REASON = Int32
-POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonUnknown: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 0
-POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonPowerButton: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 1
-POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonRemoteConnection: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 2
-POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonScMonitorpower: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 3
-POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonUserInput: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 4
-POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonAcDcDisplayBurst: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 5
-POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonUserDisplayBurst: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 6
-POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonPoSetSystemState: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 7
-POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonSetThreadExecutionState: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 8
-POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonFullWake: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 9
-POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonSessionUnlock: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 10
-POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonScreenOffRequest: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 11
-POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonIdleTimeout: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 12
-POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonPolicyChange: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 13
-POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonSleepButton: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 14
-POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonLid: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 15
-POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonBatteryCountChange: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 16
-POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonGracePeriod: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 17
-POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonPnP: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 18
-POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonDP: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 19
-POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonSxTransition: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 20
-POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonSystemIdle: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 21
-POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonNearProximity: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 22
-POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonThermalStandby: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 23
-POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonResumePdc: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 24
-POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonResumeS4: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 25
-POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonTerminal: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 26
-POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonPdcSignal: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 27
-POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonAcDcDisplayBurstSuppressed: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 28
-POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonSystemStateEntered: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 29
-POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonWinrt: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 30
-POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonUserInputKeyboard: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 31
-POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonUserInputMouse: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 32
-POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonUserInputTouchpad: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 33
-POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonUserInputPen: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 34
-POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonUserInputAccelerometer: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 35
-POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonUserInputHid: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 36
-POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonUserInputPoUserPresent: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 37
-POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonUserInputSessionSwitch: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 38
-POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonUserInputInitialization: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 39
-POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonPdcSignalWindowsMobilePwrNotif: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 40
-POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonPdcSignalWindowsMobileShell: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 41
-POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonPdcSignalHeyCortana: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 42
-POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonPdcSignalHolographicShell: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 43
-POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonPdcSignalFingerprint: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 44
-POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonDirectedDrips: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 45
-POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonDim: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 46
-POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonBuiltinPanel: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 47
-POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonDisplayRequiredUnDim: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 48
-POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonBatteryCountChangeSuppressed: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 49
-POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonResumeModernStandby: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 50
-POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonTerminalInit: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 51
-POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonPdcSignalSensorsHumanPresence: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 52
-POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonBatteryPreCritical: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 53
-POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonUserInputTouch: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 54
-POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonMax: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 55
+MonitorRequestReasonUnknown: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 0
+MonitorRequestReasonPowerButton: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 1
+MonitorRequestReasonRemoteConnection: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 2
+MonitorRequestReasonScMonitorpower: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 3
+MonitorRequestReasonUserInput: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 4
+MonitorRequestReasonAcDcDisplayBurst: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 5
+MonitorRequestReasonUserDisplayBurst: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 6
+MonitorRequestReasonPoSetSystemState: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 7
+MonitorRequestReasonSetThreadExecutionState: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 8
+MonitorRequestReasonFullWake: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 9
+MonitorRequestReasonSessionUnlock: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 10
+MonitorRequestReasonScreenOffRequest: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 11
+MonitorRequestReasonIdleTimeout: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 12
+MonitorRequestReasonPolicyChange: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 13
+MonitorRequestReasonSleepButton: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 14
+MonitorRequestReasonLid: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 15
+MonitorRequestReasonBatteryCountChange: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 16
+MonitorRequestReasonGracePeriod: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 17
+MonitorRequestReasonPnP: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 18
+MonitorRequestReasonDP: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 19
+MonitorRequestReasonSxTransition: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 20
+MonitorRequestReasonSystemIdle: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 21
+MonitorRequestReasonNearProximity: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 22
+MonitorRequestReasonThermalStandby: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 23
+MonitorRequestReasonResumePdc: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 24
+MonitorRequestReasonResumeS4: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 25
+MonitorRequestReasonTerminal: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 26
+MonitorRequestReasonPdcSignal: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 27
+MonitorRequestReasonAcDcDisplayBurstSuppressed: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 28
+MonitorRequestReasonSystemStateEntered: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 29
+MonitorRequestReasonWinrt: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 30
+MonitorRequestReasonUserInputKeyboard: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 31
+MonitorRequestReasonUserInputMouse: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 32
+MonitorRequestReasonUserInputTouchpad: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 33
+MonitorRequestReasonUserInputPen: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 34
+MonitorRequestReasonUserInputAccelerometer: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 35
+MonitorRequestReasonUserInputHid: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 36
+MonitorRequestReasonUserInputPoUserPresent: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 37
+MonitorRequestReasonUserInputSessionSwitch: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 38
+MonitorRequestReasonUserInputInitialization: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 39
+MonitorRequestReasonPdcSignalWindowsMobilePwrNotif: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 40
+MonitorRequestReasonPdcSignalWindowsMobileShell: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 41
+MonitorRequestReasonPdcSignalHeyCortana: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 42
+MonitorRequestReasonPdcSignalHolographicShell: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 43
+MonitorRequestReasonPdcSignalFingerprint: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 44
+MonitorRequestReasonDirectedDrips: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 45
+MonitorRequestReasonDim: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 46
+MonitorRequestReasonBuiltinPanel: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 47
+MonitorRequestReasonDisplayRequiredUnDim: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 48
+MonitorRequestReasonBatteryCountChangeSuppressed: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 49
+MonitorRequestReasonResumeModernStandby: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 50
+MonitorRequestReasonTerminalInit: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 51
+MonitorRequestReasonPdcSignalSensorsHumanPresence: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 52
+MonitorRequestReasonBatteryPreCritical: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 53
+MonitorRequestReasonUserInputTouch: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 54
+MonitorRequestReasonMax: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON = 55
 POWER_MONITOR_REQUEST_TYPE = Int32
-POWER_MONITOR_REQUEST_TYPE_MonitorRequestTypeOff: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_TYPE = 0
-POWER_MONITOR_REQUEST_TYPE_MonitorRequestTypeOnAndPresent: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_TYPE = 1
-POWER_MONITOR_REQUEST_TYPE_MonitorRequestTypeToggleOn: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_TYPE = 2
+MonitorRequestTypeOff: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_TYPE = 0
+MonitorRequestTypeOnAndPresent: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_TYPE = 1
+MonitorRequestTypeToggleOn: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_TYPE = 2
 class POWER_PLATFORM_INFORMATION(EasyCastStructure):
     AoAc: win32more.Windows.Win32.Foundation.BOOLEAN
 POWER_PLATFORM_ROLE = Int32
-POWER_PLATFORM_ROLE_PlatformRoleUnspecified: win32more.Windows.Win32.System.Power.POWER_PLATFORM_ROLE = 0
-POWER_PLATFORM_ROLE_PlatformRoleDesktop: win32more.Windows.Win32.System.Power.POWER_PLATFORM_ROLE = 1
-POWER_PLATFORM_ROLE_PlatformRoleMobile: win32more.Windows.Win32.System.Power.POWER_PLATFORM_ROLE = 2
-POWER_PLATFORM_ROLE_PlatformRoleWorkstation: win32more.Windows.Win32.System.Power.POWER_PLATFORM_ROLE = 3
-POWER_PLATFORM_ROLE_PlatformRoleEnterpriseServer: win32more.Windows.Win32.System.Power.POWER_PLATFORM_ROLE = 4
-POWER_PLATFORM_ROLE_PlatformRoleSOHOServer: win32more.Windows.Win32.System.Power.POWER_PLATFORM_ROLE = 5
-POWER_PLATFORM_ROLE_PlatformRoleAppliancePC: win32more.Windows.Win32.System.Power.POWER_PLATFORM_ROLE = 6
-POWER_PLATFORM_ROLE_PlatformRolePerformanceServer: win32more.Windows.Win32.System.Power.POWER_PLATFORM_ROLE = 7
-POWER_PLATFORM_ROLE_PlatformRoleSlate: win32more.Windows.Win32.System.Power.POWER_PLATFORM_ROLE = 8
-POWER_PLATFORM_ROLE_PlatformRoleMaximum: win32more.Windows.Win32.System.Power.POWER_PLATFORM_ROLE = 9
+PlatformRoleUnspecified: win32more.Windows.Win32.System.Power.POWER_PLATFORM_ROLE = 0
+PlatformRoleDesktop: win32more.Windows.Win32.System.Power.POWER_PLATFORM_ROLE = 1
+PlatformRoleMobile: win32more.Windows.Win32.System.Power.POWER_PLATFORM_ROLE = 2
+PlatformRoleWorkstation: win32more.Windows.Win32.System.Power.POWER_PLATFORM_ROLE = 3
+PlatformRoleEnterpriseServer: win32more.Windows.Win32.System.Power.POWER_PLATFORM_ROLE = 4
+PlatformRoleSOHOServer: win32more.Windows.Win32.System.Power.POWER_PLATFORM_ROLE = 5
+PlatformRoleAppliancePC: win32more.Windows.Win32.System.Power.POWER_PLATFORM_ROLE = 6
+PlatformRolePerformanceServer: win32more.Windows.Win32.System.Power.POWER_PLATFORM_ROLE = 7
+PlatformRoleSlate: win32more.Windows.Win32.System.Power.POWER_PLATFORM_ROLE = 8
+PlatformRoleMaximum: win32more.Windows.Win32.System.Power.POWER_PLATFORM_ROLE = 9
 POWER_PLATFORM_ROLE_VERSION = UInt32
 POWER_PLATFORM_ROLE_V1: win32more.Windows.Win32.System.Power.POWER_PLATFORM_ROLE_VERSION = 1
 POWER_PLATFORM_ROLE_V2: win32more.Windows.Win32.System.Power.POWER_PLATFORM_ROLE_VERSION = 2
@@ -838,10 +838,10 @@ class POWER_POLICY(EasyCastStructure):
     user: win32more.Windows.Win32.System.Power.USER_POWER_POLICY
     mach: win32more.Windows.Win32.System.Power.MACHINE_POWER_POLICY
 POWER_REQUEST_TYPE = Int32
-POWER_REQUEST_TYPE_PowerRequestDisplayRequired: win32more.Windows.Win32.System.Power.POWER_REQUEST_TYPE = 0
-POWER_REQUEST_TYPE_PowerRequestSystemRequired: win32more.Windows.Win32.System.Power.POWER_REQUEST_TYPE = 1
-POWER_REQUEST_TYPE_PowerRequestAwayModeRequired: win32more.Windows.Win32.System.Power.POWER_REQUEST_TYPE = 2
-POWER_REQUEST_TYPE_PowerRequestExecutionRequired: win32more.Windows.Win32.System.Power.POWER_REQUEST_TYPE = 3
+PowerRequestDisplayRequired: win32more.Windows.Win32.System.Power.POWER_REQUEST_TYPE = 0
+PowerRequestSystemRequired: win32more.Windows.Win32.System.Power.POWER_REQUEST_TYPE = 1
+PowerRequestAwayModeRequired: win32more.Windows.Win32.System.Power.POWER_REQUEST_TYPE = 2
+PowerRequestExecutionRequired: win32more.Windows.Win32.System.Power.POWER_REQUEST_TYPE = 3
 class POWER_SESSION_ALLOW_EXTERNAL_DMA_DEVICES(EasyCastStructure):
     IsAllowed: win32more.Windows.Win32.Foundation.BOOLEAN
 class POWER_SESSION_CONNECT(EasyCastStructure):
@@ -868,9 +868,9 @@ ALTITUDE_OS_DEFAULT: win32more.Windows.Win32.System.Power.POWER_SETTING_ALTITUDE
 class POWER_USER_PRESENCE(EasyCastStructure):
     UserPresence: win32more.Windows.Win32.System.Power.POWER_USER_PRESENCE_TYPE
 POWER_USER_PRESENCE_TYPE = Int32
-POWER_USER_PRESENCE_TYPE_UserNotPresent: win32more.Windows.Win32.System.Power.POWER_USER_PRESENCE_TYPE = 0
-POWER_USER_PRESENCE_TYPE_UserPresent: win32more.Windows.Win32.System.Power.POWER_USER_PRESENCE_TYPE = 1
-POWER_USER_PRESENCE_TYPE_UserUnknown: win32more.Windows.Win32.System.Power.POWER_USER_PRESENCE_TYPE = 255
+UserNotPresent: win32more.Windows.Win32.System.Power.POWER_USER_PRESENCE_TYPE = 0
+UserPresent: win32more.Windows.Win32.System.Power.POWER_USER_PRESENCE_TYPE = 1
+UserUnknown: win32more.Windows.Win32.System.Power.POWER_USER_PRESENCE_TYPE = 255
 class PPM_IDLESTATE_EVENT(EasyCastStructure):
     NewState: UInt32
     OldState: UInt32
@@ -1107,10 +1107,10 @@ class SYSTEM_POWER_CAPABILITIES(EasyCastStructure):
     MinDeviceWakeState: win32more.Windows.Win32.System.Power.SYSTEM_POWER_STATE
     DefaultLowLatencyWake: win32more.Windows.Win32.System.Power.SYSTEM_POWER_STATE
 SYSTEM_POWER_CONDITION = Int32
-SYSTEM_POWER_CONDITION_PoAc: win32more.Windows.Win32.System.Power.SYSTEM_POWER_CONDITION = 0
-SYSTEM_POWER_CONDITION_PoDc: win32more.Windows.Win32.System.Power.SYSTEM_POWER_CONDITION = 1
-SYSTEM_POWER_CONDITION_PoHot: win32more.Windows.Win32.System.Power.SYSTEM_POWER_CONDITION = 2
-SYSTEM_POWER_CONDITION_PoConditionMaximum: win32more.Windows.Win32.System.Power.SYSTEM_POWER_CONDITION = 3
+PoAc: win32more.Windows.Win32.System.Power.SYSTEM_POWER_CONDITION = 0
+PoDc: win32more.Windows.Win32.System.Power.SYSTEM_POWER_CONDITION = 1
+PoHot: win32more.Windows.Win32.System.Power.SYSTEM_POWER_CONDITION = 2
+PoConditionMaximum: win32more.Windows.Win32.System.Power.SYSTEM_POWER_CONDITION = 3
 class SYSTEM_POWER_INFORMATION(EasyCastStructure):
     MaxIdlenessAllowed: UInt32
     Idleness: UInt32
@@ -1152,14 +1152,14 @@ class SYSTEM_POWER_POLICY(EasyCastStructure):
     MinThrottle: Byte
     OverThrottled: win32more.Windows.Win32.System.Power.POWER_ACTION_POLICY
 SYSTEM_POWER_STATE = Int32
-SYSTEM_POWER_STATE_PowerSystemUnspecified: win32more.Windows.Win32.System.Power.SYSTEM_POWER_STATE = 0
-SYSTEM_POWER_STATE_PowerSystemWorking: win32more.Windows.Win32.System.Power.SYSTEM_POWER_STATE = 1
-SYSTEM_POWER_STATE_PowerSystemSleeping1: win32more.Windows.Win32.System.Power.SYSTEM_POWER_STATE = 2
-SYSTEM_POWER_STATE_PowerSystemSleeping2: win32more.Windows.Win32.System.Power.SYSTEM_POWER_STATE = 3
-SYSTEM_POWER_STATE_PowerSystemSleeping3: win32more.Windows.Win32.System.Power.SYSTEM_POWER_STATE = 4
-SYSTEM_POWER_STATE_PowerSystemHibernate: win32more.Windows.Win32.System.Power.SYSTEM_POWER_STATE = 5
-SYSTEM_POWER_STATE_PowerSystemShutdown: win32more.Windows.Win32.System.Power.SYSTEM_POWER_STATE = 6
-SYSTEM_POWER_STATE_PowerSystemMaximum: win32more.Windows.Win32.System.Power.SYSTEM_POWER_STATE = 7
+PowerSystemUnspecified: win32more.Windows.Win32.System.Power.SYSTEM_POWER_STATE = 0
+PowerSystemWorking: win32more.Windows.Win32.System.Power.SYSTEM_POWER_STATE = 1
+PowerSystemSleeping1: win32more.Windows.Win32.System.Power.SYSTEM_POWER_STATE = 2
+PowerSystemSleeping2: win32more.Windows.Win32.System.Power.SYSTEM_POWER_STATE = 3
+PowerSystemSleeping3: win32more.Windows.Win32.System.Power.SYSTEM_POWER_STATE = 4
+PowerSystemHibernate: win32more.Windows.Win32.System.Power.SYSTEM_POWER_STATE = 5
+PowerSystemShutdown: win32more.Windows.Win32.System.Power.SYSTEM_POWER_STATE = 6
+PowerSystemMaximum: win32more.Windows.Win32.System.Power.SYSTEM_POWER_STATE = 7
 class SYSTEM_POWER_STATUS(EasyCastStructure):
     ACLineStatus: Byte
     BatteryFlag: Byte
@@ -1204,11 +1204,11 @@ UsbChargerPort_Legacy: win32more.Windows.Win32.System.Power.USB_CHARGER_PORT = 0
 UsbChargerPort_TypeC: win32more.Windows.Win32.System.Power.USB_CHARGER_PORT = 1
 UsbChargerPort_Max: win32more.Windows.Win32.System.Power.USB_CHARGER_PORT = 2
 USER_ACTIVITY_PRESENCE = Int32
-USER_ACTIVITY_PRESENCE_PowerUserPresent: win32more.Windows.Win32.System.Power.USER_ACTIVITY_PRESENCE = 0
-USER_ACTIVITY_PRESENCE_PowerUserNotPresent: win32more.Windows.Win32.System.Power.USER_ACTIVITY_PRESENCE = 1
-USER_ACTIVITY_PRESENCE_PowerUserInactive: win32more.Windows.Win32.System.Power.USER_ACTIVITY_PRESENCE = 2
-USER_ACTIVITY_PRESENCE_PowerUserMaximum: win32more.Windows.Win32.System.Power.USER_ACTIVITY_PRESENCE = 3
-USER_ACTIVITY_PRESENCE_PowerUserInvalid: win32more.Windows.Win32.System.Power.USER_ACTIVITY_PRESENCE = 3
+PowerUserPresent: win32more.Windows.Win32.System.Power.USER_ACTIVITY_PRESENCE = 0
+PowerUserNotPresent: win32more.Windows.Win32.System.Power.USER_ACTIVITY_PRESENCE = 1
+PowerUserInactive: win32more.Windows.Win32.System.Power.USER_ACTIVITY_PRESENCE = 2
+PowerUserMaximum: win32more.Windows.Win32.System.Power.USER_ACTIVITY_PRESENCE = 3
+PowerUserInvalid: win32more.Windows.Win32.System.Power.USER_ACTIVITY_PRESENCE = 3
 class USER_POWER_POLICY(EasyCastStructure):
     Revision: UInt32
     IdleAc: win32more.Windows.Win32.System.Power.POWER_ACTION_POLICY

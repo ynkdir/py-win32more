@@ -1430,15 +1430,15 @@ class VDS_DISK_NOTIFICATION(EasyCastStructure):
     ulEvent: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_NF_DISK
     diskId: Guid
 VDS_DISK_OFFLINE_REASON = Int32
-VDS_DISK_OFFLINE_REASON_VDSDiskOfflineReasonNone: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_DISK_OFFLINE_REASON = 0
-VDS_DISK_OFFLINE_REASON_VDSDiskOfflineReasonPolicy: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_DISK_OFFLINE_REASON = 1
-VDS_DISK_OFFLINE_REASON_VDSDiskOfflineReasonRedundantPath: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_DISK_OFFLINE_REASON = 2
-VDS_DISK_OFFLINE_REASON_VDSDiskOfflineReasonSnapshot: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_DISK_OFFLINE_REASON = 3
-VDS_DISK_OFFLINE_REASON_VDSDiskOfflineReasonCollision: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_DISK_OFFLINE_REASON = 4
-VDS_DISK_OFFLINE_REASON_VDSDiskOfflineReasonResourceExhaustion: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_DISK_OFFLINE_REASON = 5
-VDS_DISK_OFFLINE_REASON_VDSDiskOfflineReasonWriteFailure: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_DISK_OFFLINE_REASON = 6
-VDS_DISK_OFFLINE_REASON_VDSDiskOfflineReasonDIScan: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_DISK_OFFLINE_REASON = 7
-VDS_DISK_OFFLINE_REASON_VDSDiskOfflineReasonLostDataPersistence: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_DISK_OFFLINE_REASON = 8
+VDSDiskOfflineReasonNone: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_DISK_OFFLINE_REASON = 0
+VDSDiskOfflineReasonPolicy: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_DISK_OFFLINE_REASON = 1
+VDSDiskOfflineReasonRedundantPath: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_DISK_OFFLINE_REASON = 2
+VDSDiskOfflineReasonSnapshot: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_DISK_OFFLINE_REASON = 3
+VDSDiskOfflineReasonCollision: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_DISK_OFFLINE_REASON = 4
+VDSDiskOfflineReasonResourceExhaustion: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_DISK_OFFLINE_REASON = 5
+VDSDiskOfflineReasonWriteFailure: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_DISK_OFFLINE_REASON = 6
+VDSDiskOfflineReasonDIScan: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_DISK_OFFLINE_REASON = 7
+VDSDiskOfflineReasonLostDataPersistence: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_DISK_OFFLINE_REASON = 8
 class VDS_DISK_PROP(EasyCastStructure):
     id: Guid
     status: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_DISK_STATUS
@@ -1933,11 +1933,11 @@ VDS_LT_RAID53: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_LUN_TYPE =
 VDS_LT_RAID60: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_LUN_TYPE = 29
 VDS_LT_RAID61: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_LUN_TYPE = 30
 VDS_MAINTENANCE_OPERATION = Int32
-VDS_MAINTENANCE_OPERATION_BlinkLight: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_MAINTENANCE_OPERATION = 1
-VDS_MAINTENANCE_OPERATION_BeepAlarm: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_MAINTENANCE_OPERATION = 2
-VDS_MAINTENANCE_OPERATION_SpinDown: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_MAINTENANCE_OPERATION = 3
-VDS_MAINTENANCE_OPERATION_SpinUp: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_MAINTENANCE_OPERATION = 4
-VDS_MAINTENANCE_OPERATION_Ping: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_MAINTENANCE_OPERATION = 5
+BlinkLight: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_MAINTENANCE_OPERATION = 1
+BeepAlarm: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_MAINTENANCE_OPERATION = 2
+SpinDown: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_MAINTENANCE_OPERATION = 3
+SpinUp: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_MAINTENANCE_OPERATION = 4
+Ping: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_MAINTENANCE_OPERATION = 5
 class VDS_MOUNT_POINT_NOTIFICATION(EasyCastStructure):
     ulEvent: UInt32
     volumeId: Guid
@@ -2273,28 +2273,28 @@ class VDS_SERVICE_PROP(EasyCastStructure):
     pwszVersion: win32more.Windows.Win32.Foundation.PWSTR
     ulFlags: UInt32
 VDS_STORAGE_BUS_TYPE = Int32
-VDS_STORAGE_BUS_TYPE_VDSBusTypeUnknown: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_BUS_TYPE = 0
-VDS_STORAGE_BUS_TYPE_VDSBusTypeScsi: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_BUS_TYPE = 1
-VDS_STORAGE_BUS_TYPE_VDSBusTypeAtapi: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_BUS_TYPE = 2
-VDS_STORAGE_BUS_TYPE_VDSBusTypeAta: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_BUS_TYPE = 3
-VDS_STORAGE_BUS_TYPE_VDSBusType1394: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_BUS_TYPE = 4
-VDS_STORAGE_BUS_TYPE_VDSBusTypeSsa: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_BUS_TYPE = 5
-VDS_STORAGE_BUS_TYPE_VDSBusTypeFibre: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_BUS_TYPE = 6
-VDS_STORAGE_BUS_TYPE_VDSBusTypeUsb: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_BUS_TYPE = 7
-VDS_STORAGE_BUS_TYPE_VDSBusTypeRAID: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_BUS_TYPE = 8
-VDS_STORAGE_BUS_TYPE_VDSBusTypeiScsi: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_BUS_TYPE = 9
-VDS_STORAGE_BUS_TYPE_VDSBusTypeSas: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_BUS_TYPE = 10
-VDS_STORAGE_BUS_TYPE_VDSBusTypeSata: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_BUS_TYPE = 11
-VDS_STORAGE_BUS_TYPE_VDSBusTypeSd: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_BUS_TYPE = 12
-VDS_STORAGE_BUS_TYPE_VDSBusTypeMmc: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_BUS_TYPE = 13
-VDS_STORAGE_BUS_TYPE_VDSBusTypeMax: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_BUS_TYPE = 14
-VDS_STORAGE_BUS_TYPE_VDSBusTypeVirtual: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_BUS_TYPE = 14
-VDS_STORAGE_BUS_TYPE_VDSBusTypeFileBackedVirtual: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_BUS_TYPE = 15
-VDS_STORAGE_BUS_TYPE_VDSBusTypeSpaces: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_BUS_TYPE = 16
-VDS_STORAGE_BUS_TYPE_VDSBusTypeNVMe: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_BUS_TYPE = 17
-VDS_STORAGE_BUS_TYPE_VDSBusTypeScm: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_BUS_TYPE = 18
-VDS_STORAGE_BUS_TYPE_VDSBusTypeUfs: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_BUS_TYPE = 19
-VDS_STORAGE_BUS_TYPE_VDSBusTypeMaxReserved: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_BUS_TYPE = 127
+VDSBusTypeUnknown: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_BUS_TYPE = 0
+VDSBusTypeScsi: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_BUS_TYPE = 1
+VDSBusTypeAtapi: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_BUS_TYPE = 2
+VDSBusTypeAta: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_BUS_TYPE = 3
+VDSBusType1394: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_BUS_TYPE = 4
+VDSBusTypeSsa: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_BUS_TYPE = 5
+VDSBusTypeFibre: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_BUS_TYPE = 6
+VDSBusTypeUsb: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_BUS_TYPE = 7
+VDSBusTypeRAID: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_BUS_TYPE = 8
+VDSBusTypeiScsi: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_BUS_TYPE = 9
+VDSBusTypeSas: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_BUS_TYPE = 10
+VDSBusTypeSata: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_BUS_TYPE = 11
+VDSBusTypeSd: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_BUS_TYPE = 12
+VDSBusTypeMmc: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_BUS_TYPE = 13
+VDSBusTypeMax: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_BUS_TYPE = 14
+VDSBusTypeVirtual: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_BUS_TYPE = 14
+VDSBusTypeFileBackedVirtual: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_BUS_TYPE = 15
+VDSBusTypeSpaces: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_BUS_TYPE = 16
+VDSBusTypeNVMe: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_BUS_TYPE = 17
+VDSBusTypeScm: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_BUS_TYPE = 18
+VDSBusTypeUfs: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_BUS_TYPE = 19
+VDSBusTypeMaxReserved: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_BUS_TYPE = 127
 class VDS_STORAGE_DEVICE_ID_DESCRIPTOR(EasyCastStructure):
     m_version: UInt32
     m_cIdentifiers: UInt32
@@ -2305,20 +2305,20 @@ class VDS_STORAGE_IDENTIFIER(EasyCastStructure):
     m_cbIdentifier: UInt32
     m_rgbIdentifier: POINTER(Byte)
 VDS_STORAGE_IDENTIFIER_CODE_SET = Int32
-VDS_STORAGE_IDENTIFIER_CODE_SET_VDSStorageIdCodeSetReserved: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_IDENTIFIER_CODE_SET = 0
-VDS_STORAGE_IDENTIFIER_CODE_SET_VDSStorageIdCodeSetBinary: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_IDENTIFIER_CODE_SET = 1
-VDS_STORAGE_IDENTIFIER_CODE_SET_VDSStorageIdCodeSetAscii: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_IDENTIFIER_CODE_SET = 2
-VDS_STORAGE_IDENTIFIER_CODE_SET_VDSStorageIdCodeSetUtf8: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_IDENTIFIER_CODE_SET = 3
+VDSStorageIdCodeSetReserved: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_IDENTIFIER_CODE_SET = 0
+VDSStorageIdCodeSetBinary: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_IDENTIFIER_CODE_SET = 1
+VDSStorageIdCodeSetAscii: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_IDENTIFIER_CODE_SET = 2
+VDSStorageIdCodeSetUtf8: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_IDENTIFIER_CODE_SET = 3
 VDS_STORAGE_IDENTIFIER_TYPE = Int32
-VDS_STORAGE_IDENTIFIER_TYPE_VDSStorageIdTypeVendorSpecific: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_IDENTIFIER_TYPE = 0
-VDS_STORAGE_IDENTIFIER_TYPE_VDSStorageIdTypeVendorId: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_IDENTIFIER_TYPE = 1
-VDS_STORAGE_IDENTIFIER_TYPE_VDSStorageIdTypeEUI64: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_IDENTIFIER_TYPE = 2
-VDS_STORAGE_IDENTIFIER_TYPE_VDSStorageIdTypeFCPHName: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_IDENTIFIER_TYPE = 3
-VDS_STORAGE_IDENTIFIER_TYPE_VDSStorageIdTypePortRelative: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_IDENTIFIER_TYPE = 4
-VDS_STORAGE_IDENTIFIER_TYPE_VDSStorageIdTypeTargetPortGroup: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_IDENTIFIER_TYPE = 5
-VDS_STORAGE_IDENTIFIER_TYPE_VDSStorageIdTypeLogicalUnitGroup: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_IDENTIFIER_TYPE = 6
-VDS_STORAGE_IDENTIFIER_TYPE_VDSStorageIdTypeMD5LogicalUnitIdentifier: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_IDENTIFIER_TYPE = 7
-VDS_STORAGE_IDENTIFIER_TYPE_VDSStorageIdTypeScsiNameString: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_IDENTIFIER_TYPE = 8
+VDSStorageIdTypeVendorSpecific: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_IDENTIFIER_TYPE = 0
+VDSStorageIdTypeVendorId: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_IDENTIFIER_TYPE = 1
+VDSStorageIdTypeEUI64: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_IDENTIFIER_TYPE = 2
+VDSStorageIdTypeFCPHName: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_IDENTIFIER_TYPE = 3
+VDSStorageIdTypePortRelative: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_IDENTIFIER_TYPE = 4
+VDSStorageIdTypeTargetPortGroup: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_IDENTIFIER_TYPE = 5
+VDSStorageIdTypeLogicalUnitGroup: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_IDENTIFIER_TYPE = 6
+VDSStorageIdTypeMD5LogicalUnitIdentifier: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_IDENTIFIER_TYPE = 7
+VDSStorageIdTypeScsiNameString: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_IDENTIFIER_TYPE = 8
 class VDS_STORAGE_POOL_DRIVE_EXTENT(EasyCastStructure):
     id: Guid
     ullSize: UInt64

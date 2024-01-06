@@ -622,8 +622,8 @@ DRT_FAULTED: win32more.Windows.Win32.NetworkManagement.P2P.DRT_STATUS = 20
 class PEERDIST_CLIENT_BASIC_INFO(EasyCastStructure):
     fFlashCrowd: win32more.Windows.Win32.Foundation.BOOL
 PEERDIST_CLIENT_INFO_BY_HANDLE_CLASS = Int32
-PEERDIST_CLIENT_INFO_BY_HANDLE_CLASS_PeerDistClientBasicInfo: win32more.Windows.Win32.NetworkManagement.P2P.PEERDIST_CLIENT_INFO_BY_HANDLE_CLASS = 0
-PEERDIST_CLIENT_INFO_BY_HANDLE_CLASS_MaximumPeerDistClientInfoByHandlesClass: win32more.Windows.Win32.NetworkManagement.P2P.PEERDIST_CLIENT_INFO_BY_HANDLE_CLASS = 1
+PeerDistClientBasicInfo: win32more.Windows.Win32.NetworkManagement.P2P.PEERDIST_CLIENT_INFO_BY_HANDLE_CLASS = 0
+MaximumPeerDistClientInfoByHandlesClass: win32more.Windows.Win32.NetworkManagement.P2P.PEERDIST_CLIENT_INFO_BY_HANDLE_CLASS = 1
 class PEERDIST_CONTENT_TAG(EasyCastStructure):
     Data: Byte * 16
 class PEERDIST_PUBLICATION_OPTIONS(EasyCastStructure):

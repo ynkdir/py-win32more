@@ -114,8 +114,8 @@ class MANAGEMENT_SERVICE_INFO(EasyCastStructure):
     pszMDMServiceUri: win32more.Windows.Win32.Foundation.PWSTR
     pszAuthenticationUri: win32more.Windows.Win32.Foundation.PWSTR
 REGISTRATION_INFORMATION_CLASS = Int32
-REGISTRATION_INFORMATION_CLASS_DeviceRegistrationBasicInfo: win32more.Windows.Win32.Management.MobileDeviceManagementRegistration.REGISTRATION_INFORMATION_CLASS = 1
-REGISTRATION_INFORMATION_CLASS_MaxDeviceInfoClass: win32more.Windows.Win32.Management.MobileDeviceManagementRegistration.REGISTRATION_INFORMATION_CLASS = 2
+DeviceRegistrationBasicInfo: win32more.Windows.Win32.Management.MobileDeviceManagementRegistration.REGISTRATION_INFORMATION_CLASS = 1
+MaxDeviceInfoClass: win32more.Windows.Win32.Management.MobileDeviceManagementRegistration.REGISTRATION_INFORMATION_CLASS = 2
 
 
 make_ready(__name__)

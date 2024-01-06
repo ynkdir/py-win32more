@@ -11,21 +11,21 @@ def InitializeXamlDiagnostic(endPointName: win32more.Windows.Win32.Foundation.PW
 @winfunctype('Windows.UI.Xaml.dll')
 def InitializeXamlDiagnosticsEx(endPointName: win32more.Windows.Win32.Foundation.PWSTR, pid: UInt32, wszDllXamlDiagnostics: win32more.Windows.Win32.Foundation.PWSTR, wszTAPDllName: win32more.Windows.Win32.Foundation.PWSTR, tapClsid: Guid, wszInitializationData: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 BaseValueSource = Int32
-BaseValueSource_BaseValueSourceUnknown: win32more.Windows.Win32.UI.Xaml.Diagnostics.BaseValueSource = 0
-BaseValueSource_BaseValueSourceDefault: win32more.Windows.Win32.UI.Xaml.Diagnostics.BaseValueSource = 1
-BaseValueSource_BaseValueSourceBuiltInStyle: win32more.Windows.Win32.UI.Xaml.Diagnostics.BaseValueSource = 2
-BaseValueSource_BaseValueSourceStyle: win32more.Windows.Win32.UI.Xaml.Diagnostics.BaseValueSource = 3
-BaseValueSource_BaseValueSourceLocal: win32more.Windows.Win32.UI.Xaml.Diagnostics.BaseValueSource = 4
-BaseValueSource_Inherited: win32more.Windows.Win32.UI.Xaml.Diagnostics.BaseValueSource = 5
-BaseValueSource_DefaultStyleTrigger: win32more.Windows.Win32.UI.Xaml.Diagnostics.BaseValueSource = 6
-BaseValueSource_TemplateTrigger: win32more.Windows.Win32.UI.Xaml.Diagnostics.BaseValueSource = 7
-BaseValueSource_StyleTrigger: win32more.Windows.Win32.UI.Xaml.Diagnostics.BaseValueSource = 8
-BaseValueSource_ImplicitStyleReference: win32more.Windows.Win32.UI.Xaml.Diagnostics.BaseValueSource = 9
-BaseValueSource_ParentTemplate: win32more.Windows.Win32.UI.Xaml.Diagnostics.BaseValueSource = 10
-BaseValueSource_ParentTemplateTrigger: win32more.Windows.Win32.UI.Xaml.Diagnostics.BaseValueSource = 11
-BaseValueSource_Animation: win32more.Windows.Win32.UI.Xaml.Diagnostics.BaseValueSource = 12
-BaseValueSource_Coercion: win32more.Windows.Win32.UI.Xaml.Diagnostics.BaseValueSource = 13
-BaseValueSource_BaseValueSourceVisualState: win32more.Windows.Win32.UI.Xaml.Diagnostics.BaseValueSource = 14
+BaseValueSourceUnknown: win32more.Windows.Win32.UI.Xaml.Diagnostics.BaseValueSource = 0
+BaseValueSourceDefault: win32more.Windows.Win32.UI.Xaml.Diagnostics.BaseValueSource = 1
+BaseValueSourceBuiltInStyle: win32more.Windows.Win32.UI.Xaml.Diagnostics.BaseValueSource = 2
+BaseValueSourceStyle: win32more.Windows.Win32.UI.Xaml.Diagnostics.BaseValueSource = 3
+BaseValueSourceLocal: win32more.Windows.Win32.UI.Xaml.Diagnostics.BaseValueSource = 4
+Inherited: win32more.Windows.Win32.UI.Xaml.Diagnostics.BaseValueSource = 5
+DefaultStyleTrigger: win32more.Windows.Win32.UI.Xaml.Diagnostics.BaseValueSource = 6
+TemplateTrigger: win32more.Windows.Win32.UI.Xaml.Diagnostics.BaseValueSource = 7
+StyleTrigger: win32more.Windows.Win32.UI.Xaml.Diagnostics.BaseValueSource = 8
+ImplicitStyleReference: win32more.Windows.Win32.UI.Xaml.Diagnostics.BaseValueSource = 9
+ParentTemplate: win32more.Windows.Win32.UI.Xaml.Diagnostics.BaseValueSource = 10
+ParentTemplateTrigger: win32more.Windows.Win32.UI.Xaml.Diagnostics.BaseValueSource = 11
+Animation: win32more.Windows.Win32.UI.Xaml.Diagnostics.BaseValueSource = 12
+Coercion: win32more.Windows.Win32.UI.Xaml.Diagnostics.BaseValueSource = 13
+BaseValueSourceVisualState: win32more.Windows.Win32.UI.Xaml.Diagnostics.BaseValueSource = 14
 class BitmapDescription(EasyCastStructure):
     Width: UInt32
     Height: UInt32
@@ -129,15 +129,15 @@ class IXamlDiagnostics(ComPtr):
     def RegisterInstance(self, pInstance: win32more.Windows.Win32.System.WinRT.IInspectable, pInstanceHandle: POINTER(UInt64)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def GetInitializationData(self, pInitializationData: POINTER(win32more.Windows.Win32.Foundation.BSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-MetadataBit = Int32
-MetadataBit_None: win32more.Windows.Win32.UI.Xaml.Diagnostics.MetadataBit = 0
-MetadataBit_IsValueHandle: win32more.Windows.Win32.UI.Xaml.Diagnostics.MetadataBit = 1
-MetadataBit_IsPropertyReadOnly: win32more.Windows.Win32.UI.Xaml.Diagnostics.MetadataBit = 2
-MetadataBit_IsValueCollection: win32more.Windows.Win32.UI.Xaml.Diagnostics.MetadataBit = 4
-MetadataBit_IsValueCollectionReadOnly: win32more.Windows.Win32.UI.Xaml.Diagnostics.MetadataBit = 8
-MetadataBit_IsValueBindingExpression: win32more.Windows.Win32.UI.Xaml.Diagnostics.MetadataBit = 16
-MetadataBit_IsValueNull: win32more.Windows.Win32.UI.Xaml.Diagnostics.MetadataBit = 32
-MetadataBit_IsValueHandleAndEvaluatedValue: win32more.Windows.Win32.UI.Xaml.Diagnostics.MetadataBit = 64
+class MetadataBit(Int32):  # enum
+    None_ = 0
+    IsValueHandle = 1
+    IsPropertyReadOnly = 2
+    IsValueCollection = 4
+    IsValueCollectionReadOnly = 8
+    IsValueBindingExpression = 16
+    IsValueNull = 32
+    IsValueHandleAndEvaluatedValue = 64
 class ParentChildRelation(EasyCastStructure):
     Parent: UInt64
     Child: UInt64
@@ -160,11 +160,11 @@ class PropertyChainValue(EasyCastStructure):
     PropertyName: win32more.Windows.Win32.Foundation.BSTR
     PropertyChainIndex: UInt32
 RenderTargetBitmapOptions = Int32
-RenderTargetBitmapOptions_RenderTarget: win32more.Windows.Win32.UI.Xaml.Diagnostics.RenderTargetBitmapOptions = 0
-RenderTargetBitmapOptions_RenderTargetAndChildren: win32more.Windows.Win32.UI.Xaml.Diagnostics.RenderTargetBitmapOptions = 1
+RenderTarget: win32more.Windows.Win32.UI.Xaml.Diagnostics.RenderTargetBitmapOptions = 0
+RenderTargetAndChildren: win32more.Windows.Win32.UI.Xaml.Diagnostics.RenderTargetBitmapOptions = 1
 ResourceType = Int32
-ResourceType_ResourceTypeStatic: win32more.Windows.Win32.UI.Xaml.Diagnostics.ResourceType = 0
-ResourceType_ResourceTypeTheme: win32more.Windows.Win32.UI.Xaml.Diagnostics.ResourceType = 1
+ResourceTypeStatic: win32more.Windows.Win32.UI.Xaml.Diagnostics.ResourceType = 0
+ResourceTypeTheme: win32more.Windows.Win32.UI.Xaml.Diagnostics.ResourceType = 1
 class SourceInfo(EasyCastStructure):
     FileName: win32more.Windows.Win32.Foundation.BSTR
     LineNumber: UInt32
@@ -178,12 +178,12 @@ class VisualElement(EasyCastStructure):
     Name: win32more.Windows.Win32.Foundation.BSTR
     NumChildren: UInt32
 VisualElementState = Int32
-VisualElementState_ErrorResolved: win32more.Windows.Win32.UI.Xaml.Diagnostics.VisualElementState = 0
-VisualElementState_ErrorResourceNotFound: win32more.Windows.Win32.UI.Xaml.Diagnostics.VisualElementState = 1
-VisualElementState_ErrorInvalidResource: win32more.Windows.Win32.UI.Xaml.Diagnostics.VisualElementState = 2
+ErrorResolved: win32more.Windows.Win32.UI.Xaml.Diagnostics.VisualElementState = 0
+ErrorResourceNotFound: win32more.Windows.Win32.UI.Xaml.Diagnostics.VisualElementState = 1
+ErrorInvalidResource: win32more.Windows.Win32.UI.Xaml.Diagnostics.VisualElementState = 2
 VisualMutationType = Int32
-VisualMutationType_Add: win32more.Windows.Win32.UI.Xaml.Diagnostics.VisualMutationType = 0
-VisualMutationType_Remove: win32more.Windows.Win32.UI.Xaml.Diagnostics.VisualMutationType = 1
+Add: win32more.Windows.Win32.UI.Xaml.Diagnostics.VisualMutationType = 0
+Remove: win32more.Windows.Win32.UI.Xaml.Diagnostics.VisualMutationType = 1
 
 
 make_ready(__name__)

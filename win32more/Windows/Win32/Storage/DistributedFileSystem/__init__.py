@@ -252,12 +252,12 @@ class DFS_TARGET_PRIORITY(EasyCastStructure):
     TargetPriorityRank: UInt16
     Reserved: UInt16
 DFS_TARGET_PRIORITY_CLASS = Int32
-DFS_TARGET_PRIORITY_CLASS_DfsInvalidPriorityClass: win32more.Windows.Win32.Storage.DistributedFileSystem.DFS_TARGET_PRIORITY_CLASS = -1
-DFS_TARGET_PRIORITY_CLASS_DfsSiteCostNormalPriorityClass: win32more.Windows.Win32.Storage.DistributedFileSystem.DFS_TARGET_PRIORITY_CLASS = 0
-DFS_TARGET_PRIORITY_CLASS_DfsGlobalHighPriorityClass: win32more.Windows.Win32.Storage.DistributedFileSystem.DFS_TARGET_PRIORITY_CLASS = 1
-DFS_TARGET_PRIORITY_CLASS_DfsSiteCostHighPriorityClass: win32more.Windows.Win32.Storage.DistributedFileSystem.DFS_TARGET_PRIORITY_CLASS = 2
-DFS_TARGET_PRIORITY_CLASS_DfsSiteCostLowPriorityClass: win32more.Windows.Win32.Storage.DistributedFileSystem.DFS_TARGET_PRIORITY_CLASS = 3
-DFS_TARGET_PRIORITY_CLASS_DfsGlobalLowPriorityClass: win32more.Windows.Win32.Storage.DistributedFileSystem.DFS_TARGET_PRIORITY_CLASS = 4
+DfsInvalidPriorityClass: win32more.Windows.Win32.Storage.DistributedFileSystem.DFS_TARGET_PRIORITY_CLASS = -1
+DfsSiteCostNormalPriorityClass: win32more.Windows.Win32.Storage.DistributedFileSystem.DFS_TARGET_PRIORITY_CLASS = 0
+DfsGlobalHighPriorityClass: win32more.Windows.Win32.Storage.DistributedFileSystem.DFS_TARGET_PRIORITY_CLASS = 1
+DfsSiteCostHighPriorityClass: win32more.Windows.Win32.Storage.DistributedFileSystem.DFS_TARGET_PRIORITY_CLASS = 2
+DfsSiteCostLowPriorityClass: win32more.Windows.Win32.Storage.DistributedFileSystem.DFS_TARGET_PRIORITY_CLASS = 3
+DfsGlobalLowPriorityClass: win32more.Windows.Win32.Storage.DistributedFileSystem.DFS_TARGET_PRIORITY_CLASS = 4
 
 
 make_ready(__name__)

@@ -3,9 +3,9 @@ from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoad
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.NetworkManagement.WebDav
 AUTHNEXTSTEP = Int32
-AUTHNEXTSTEP_DefaultBehavior: win32more.Windows.Win32.NetworkManagement.WebDav.AUTHNEXTSTEP = 0
-AUTHNEXTSTEP_RetryRequest: win32more.Windows.Win32.NetworkManagement.WebDav.AUTHNEXTSTEP = 1
-AUTHNEXTSTEP_CancelRequest: win32more.Windows.Win32.NetworkManagement.WebDav.AUTHNEXTSTEP = 2
+DefaultBehavior: win32more.Windows.Win32.NetworkManagement.WebDav.AUTHNEXTSTEP = 0
+RetryRequest: win32more.Windows.Win32.NetworkManagement.WebDav.AUTHNEXTSTEP = 1
+CancelRequest: win32more.Windows.Win32.NetworkManagement.WebDav.AUTHNEXTSTEP = 2
 DAV_AUTHN_SCHEME_BASIC: UInt32 = 1
 DAV_AUTHN_SCHEME_NTLM: UInt32 = 2
 DAV_AUTHN_SCHEME_PASSPORT: UInt32 = 4

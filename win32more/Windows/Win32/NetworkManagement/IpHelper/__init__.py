@@ -925,8 +925,8 @@ class DNS_SERVER_PROPERTY(EasyCastStructure):
     Type: win32more.Windows.Win32.NetworkManagement.IpHelper.DNS_SERVER_PROPERTY_TYPE
     Property: win32more.Windows.Win32.NetworkManagement.IpHelper.DNS_SERVER_PROPERTY_TYPES
 DNS_SERVER_PROPERTY_TYPE = Int32
-DNS_SERVER_PROPERTY_TYPE_DnsServerInvalidProperty: win32more.Windows.Win32.NetworkManagement.IpHelper.DNS_SERVER_PROPERTY_TYPE = 0
-DNS_SERVER_PROPERTY_TYPE_DnsServerDohProperty: win32more.Windows.Win32.NetworkManagement.IpHelper.DNS_SERVER_PROPERTY_TYPE = 1
+DnsServerInvalidProperty: win32more.Windows.Win32.NetworkManagement.IpHelper.DNS_SERVER_PROPERTY_TYPE = 0
+DnsServerDohProperty: win32more.Windows.Win32.NetworkManagement.IpHelper.DNS_SERVER_PROPERTY_TYPE = 1
 class DNS_SERVER_PROPERTY_TYPES(EasyCastUnion):
     DohSettings: POINTER(win32more.Windows.Win32.NetworkManagement.IpHelper.DNS_DOH_SERVER_SETTINGS)
 class DNS_SETTINGS(EasyCastStructure):
@@ -1390,8 +1390,8 @@ class MIB_IFTABLE(EasyCastStructure):
     dwNumEntries: UInt32
     table: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_IFROW * 1
 MIB_IF_ENTRY_LEVEL = Int32
-MIB_IF_ENTRY_LEVEL_MibIfEntryNormal: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_IF_ENTRY_LEVEL = 0
-MIB_IF_ENTRY_LEVEL_MibIfEntryNormalWithoutStatistics: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_IF_ENTRY_LEVEL = 2
+MibIfEntryNormal: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_IF_ENTRY_LEVEL = 0
+MibIfEntryNormalWithoutStatistics: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_IF_ENTRY_LEVEL = 2
 class MIB_IF_ROW2(EasyCastStructure):
     InterfaceLuid: win32more.Windows.Win32.NetworkManagement.Ndis.NET_LUID_LH
     InterfaceIndex: UInt32
@@ -1440,9 +1440,9 @@ class MIB_IF_TABLE2(EasyCastStructure):
     NumEntries: UInt32
     Table: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_IF_ROW2 * 1
 MIB_IF_TABLE_LEVEL = Int32
-MIB_IF_TABLE_LEVEL_MibIfTableNormal: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_IF_TABLE_LEVEL = 0
-MIB_IF_TABLE_LEVEL_MibIfTableRaw: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_IF_TABLE_LEVEL = 1
-MIB_IF_TABLE_LEVEL_MibIfTableNormalWithoutStatistics: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_IF_TABLE_LEVEL = 2
+MibIfTableNormal: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_IF_TABLE_LEVEL = 0
+MibIfTableRaw: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_IF_TABLE_LEVEL = 1
+MibIfTableNormalWithoutStatistics: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_IF_TABLE_LEVEL = 2
 class MIB_INVERTEDIFSTACK_ROW(EasyCastStructure):
     LowerLayerInterfaceIndex: UInt32
     HigherLayerInterfaceIndex: UInt32
@@ -1813,10 +1813,10 @@ class MIB_MULTICASTIPADDRESS_TABLE(EasyCastStructure):
     NumEntries: UInt32
     Table: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_MULTICASTIPADDRESS_ROW * 1
 MIB_NOTIFICATION_TYPE = Int32
-MIB_NOTIFICATION_TYPE_MibParameterNotification: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_NOTIFICATION_TYPE = 0
-MIB_NOTIFICATION_TYPE_MibAddInstance: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_NOTIFICATION_TYPE = 1
-MIB_NOTIFICATION_TYPE_MibDeleteInstance: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_NOTIFICATION_TYPE = 2
-MIB_NOTIFICATION_TYPE_MibInitialNotification: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_NOTIFICATION_TYPE = 3
+MibParameterNotification: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_NOTIFICATION_TYPE = 0
+MibAddInstance: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_NOTIFICATION_TYPE = 1
+MibDeleteInstance: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_NOTIFICATION_TYPE = 2
+MibInitialNotification: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_NOTIFICATION_TYPE = 3
 class MIB_OPAQUE_INFO(EasyCastStructure):
     dwId: UInt32
     Anonymous: _Anonymous_e__Union
@@ -2215,15 +2215,15 @@ class TCPIP_OWNER_MODULE_BASIC_INFO(EasyCastStructure):
 TCPIP_OWNER_MODULE_INFO_CLASS = Int32
 TCPIP_OWNER_MODULE_INFO_BASIC: win32more.Windows.Win32.NetworkManagement.IpHelper.TCPIP_OWNER_MODULE_INFO_CLASS = 0
 TCP_BOOLEAN_OPTIONAL = Int32
-TCP_BOOLEAN_OPTIONAL_TcpBoolOptDisabled: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_BOOLEAN_OPTIONAL = 0
-TCP_BOOLEAN_OPTIONAL_TcpBoolOptEnabled: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_BOOLEAN_OPTIONAL = 1
-TCP_BOOLEAN_OPTIONAL_TcpBoolOptUnchanged: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_BOOLEAN_OPTIONAL = -1
+TcpBoolOptDisabled: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_BOOLEAN_OPTIONAL = 0
+TcpBoolOptEnabled: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_BOOLEAN_OPTIONAL = 1
+TcpBoolOptUnchanged: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_BOOLEAN_OPTIONAL = -1
 TCP_CONNECTION_OFFLOAD_STATE = Int32
-TCP_CONNECTION_OFFLOAD_STATE_TcpConnectionOffloadStateInHost: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_CONNECTION_OFFLOAD_STATE = 0
-TCP_CONNECTION_OFFLOAD_STATE_TcpConnectionOffloadStateOffloading: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_CONNECTION_OFFLOAD_STATE = 1
-TCP_CONNECTION_OFFLOAD_STATE_TcpConnectionOffloadStateOffloaded: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_CONNECTION_OFFLOAD_STATE = 2
-TCP_CONNECTION_OFFLOAD_STATE_TcpConnectionOffloadStateUploading: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_CONNECTION_OFFLOAD_STATE = 3
-TCP_CONNECTION_OFFLOAD_STATE_TcpConnectionOffloadStateMax: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_CONNECTION_OFFLOAD_STATE = 4
+TcpConnectionOffloadStateInHost: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_CONNECTION_OFFLOAD_STATE = 0
+TcpConnectionOffloadStateOffloading: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_CONNECTION_OFFLOAD_STATE = 1
+TcpConnectionOffloadStateOffloaded: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_CONNECTION_OFFLOAD_STATE = 2
+TcpConnectionOffloadStateUploading: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_CONNECTION_OFFLOAD_STATE = 3
+TcpConnectionOffloadStateMax: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_CONNECTION_OFFLOAD_STATE = 4
 class TCP_ESTATS_BANDWIDTH_ROD_v0(EasyCastStructure):
     OutboundBandwidth: UInt64
     InboundBandwidth: UInt64
@@ -2360,39 +2360,39 @@ class TCP_ESTATS_SYN_OPTS_ROS_v0(EasyCastStructure):
     MssRcvd: UInt32
     MssSent: UInt32
 TCP_ESTATS_TYPE = Int32
-TCP_ESTATS_TYPE_TcpConnectionEstatsSynOpts: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_ESTATS_TYPE = 0
-TCP_ESTATS_TYPE_TcpConnectionEstatsData: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_ESTATS_TYPE = 1
-TCP_ESTATS_TYPE_TcpConnectionEstatsSndCong: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_ESTATS_TYPE = 2
-TCP_ESTATS_TYPE_TcpConnectionEstatsPath: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_ESTATS_TYPE = 3
-TCP_ESTATS_TYPE_TcpConnectionEstatsSendBuff: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_ESTATS_TYPE = 4
-TCP_ESTATS_TYPE_TcpConnectionEstatsRec: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_ESTATS_TYPE = 5
-TCP_ESTATS_TYPE_TcpConnectionEstatsObsRec: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_ESTATS_TYPE = 6
-TCP_ESTATS_TYPE_TcpConnectionEstatsBandwidth: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_ESTATS_TYPE = 7
-TCP_ESTATS_TYPE_TcpConnectionEstatsFineRtt: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_ESTATS_TYPE = 8
-TCP_ESTATS_TYPE_TcpConnectionEstatsMaximum: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_ESTATS_TYPE = 9
+TcpConnectionEstatsSynOpts: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_ESTATS_TYPE = 0
+TcpConnectionEstatsData: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_ESTATS_TYPE = 1
+TcpConnectionEstatsSndCong: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_ESTATS_TYPE = 2
+TcpConnectionEstatsPath: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_ESTATS_TYPE = 3
+TcpConnectionEstatsSendBuff: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_ESTATS_TYPE = 4
+TcpConnectionEstatsRec: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_ESTATS_TYPE = 5
+TcpConnectionEstatsObsRec: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_ESTATS_TYPE = 6
+TcpConnectionEstatsBandwidth: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_ESTATS_TYPE = 7
+TcpConnectionEstatsFineRtt: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_ESTATS_TYPE = 8
+TcpConnectionEstatsMaximum: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_ESTATS_TYPE = 9
 class TCP_RESERVE_PORT_RANGE(EasyCastStructure):
     UpperRange: UInt16
     LowerRange: UInt16
 TCP_RTO_ALGORITHM = Int32
-TCP_RTO_ALGORITHM_TcpRtoAlgorithmOther: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_RTO_ALGORITHM = 1
-TCP_RTO_ALGORITHM_TcpRtoAlgorithmConstant: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_RTO_ALGORITHM = 2
-TCP_RTO_ALGORITHM_TcpRtoAlgorithmRsre: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_RTO_ALGORITHM = 3
-TCP_RTO_ALGORITHM_TcpRtoAlgorithmVanj: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_RTO_ALGORITHM = 4
-TCP_RTO_ALGORITHM_MIB_TCP_RTO_OTHER: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_RTO_ALGORITHM = 1
-TCP_RTO_ALGORITHM_MIB_TCP_RTO_CONSTANT: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_RTO_ALGORITHM = 2
-TCP_RTO_ALGORITHM_MIB_TCP_RTO_RSRE: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_RTO_ALGORITHM = 3
-TCP_RTO_ALGORITHM_MIB_TCP_RTO_VANJ: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_RTO_ALGORITHM = 4
+TcpRtoAlgorithmOther: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_RTO_ALGORITHM = 1
+TcpRtoAlgorithmConstant: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_RTO_ALGORITHM = 2
+TcpRtoAlgorithmRsre: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_RTO_ALGORITHM = 3
+TcpRtoAlgorithmVanj: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_RTO_ALGORITHM = 4
+MIB_TCP_RTO_OTHER: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_RTO_ALGORITHM = 1
+MIB_TCP_RTO_CONSTANT: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_RTO_ALGORITHM = 2
+MIB_TCP_RTO_RSRE: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_RTO_ALGORITHM = 3
+MIB_TCP_RTO_VANJ: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_RTO_ALGORITHM = 4
 TCP_SOFT_ERROR = Int32
-TCP_SOFT_ERROR_TcpErrorNone: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_SOFT_ERROR = 0
-TCP_SOFT_ERROR_TcpErrorBelowDataWindow: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_SOFT_ERROR = 1
-TCP_SOFT_ERROR_TcpErrorAboveDataWindow: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_SOFT_ERROR = 2
-TCP_SOFT_ERROR_TcpErrorBelowAckWindow: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_SOFT_ERROR = 3
-TCP_SOFT_ERROR_TcpErrorAboveAckWindow: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_SOFT_ERROR = 4
-TCP_SOFT_ERROR_TcpErrorBelowTsWindow: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_SOFT_ERROR = 5
-TCP_SOFT_ERROR_TcpErrorAboveTsWindow: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_SOFT_ERROR = 6
-TCP_SOFT_ERROR_TcpErrorDataChecksumError: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_SOFT_ERROR = 7
-TCP_SOFT_ERROR_TcpErrorDataLengthError: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_SOFT_ERROR = 8
-TCP_SOFT_ERROR_TcpErrorMaxSoftError: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_SOFT_ERROR = 9
+TcpErrorNone: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_SOFT_ERROR = 0
+TcpErrorBelowDataWindow: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_SOFT_ERROR = 1
+TcpErrorAboveDataWindow: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_SOFT_ERROR = 2
+TcpErrorBelowAckWindow: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_SOFT_ERROR = 3
+TcpErrorAboveAckWindow: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_SOFT_ERROR = 4
+TcpErrorBelowTsWindow: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_SOFT_ERROR = 5
+TcpErrorAboveTsWindow: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_SOFT_ERROR = 6
+TcpErrorDataChecksumError: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_SOFT_ERROR = 7
+TcpErrorDataLengthError: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_SOFT_ERROR = 8
+TcpErrorMaxSoftError: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_SOFT_ERROR = 9
 TCP_TABLE_CLASS = Int32
 TCP_TABLE_BASIC_LISTENER: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_TABLE_CLASS = 0
 TCP_TABLE_BASIC_CONNECTIONS: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_TABLE_CLASS = 1

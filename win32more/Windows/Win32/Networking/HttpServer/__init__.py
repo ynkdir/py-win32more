@@ -198,17 +198,17 @@ class HTTPAPI_VERSION(EasyCastStructure):
     HttpApiMajorVersion: UInt16
     HttpApiMinorVersion: UInt16
 HTTP_503_RESPONSE_VERBOSITY = Int32
-HTTP_503_RESPONSE_VERBOSITY_Http503ResponseVerbosityBasic: win32more.Windows.Win32.Networking.HttpServer.HTTP_503_RESPONSE_VERBOSITY = 0
-HTTP_503_RESPONSE_VERBOSITY_Http503ResponseVerbosityLimited: win32more.Windows.Win32.Networking.HttpServer.HTTP_503_RESPONSE_VERBOSITY = 1
-HTTP_503_RESPONSE_VERBOSITY_Http503ResponseVerbosityFull: win32more.Windows.Win32.Networking.HttpServer.HTTP_503_RESPONSE_VERBOSITY = 2
+Http503ResponseVerbosityBasic: win32more.Windows.Win32.Networking.HttpServer.HTTP_503_RESPONSE_VERBOSITY = 0
+Http503ResponseVerbosityLimited: win32more.Windows.Win32.Networking.HttpServer.HTTP_503_RESPONSE_VERBOSITY = 1
+Http503ResponseVerbosityFull: win32more.Windows.Win32.Networking.HttpServer.HTTP_503_RESPONSE_VERBOSITY = 2
 HTTP_AUTHENTICATION_HARDENING_LEVELS = Int32
-HTTP_AUTHENTICATION_HARDENING_LEVELS_HttpAuthenticationHardeningLegacy: win32more.Windows.Win32.Networking.HttpServer.HTTP_AUTHENTICATION_HARDENING_LEVELS = 0
-HTTP_AUTHENTICATION_HARDENING_LEVELS_HttpAuthenticationHardeningMedium: win32more.Windows.Win32.Networking.HttpServer.HTTP_AUTHENTICATION_HARDENING_LEVELS = 1
-HTTP_AUTHENTICATION_HARDENING_LEVELS_HttpAuthenticationHardeningStrict: win32more.Windows.Win32.Networking.HttpServer.HTTP_AUTHENTICATION_HARDENING_LEVELS = 2
+HttpAuthenticationHardeningLegacy: win32more.Windows.Win32.Networking.HttpServer.HTTP_AUTHENTICATION_HARDENING_LEVELS = 0
+HttpAuthenticationHardeningMedium: win32more.Windows.Win32.Networking.HttpServer.HTTP_AUTHENTICATION_HARDENING_LEVELS = 1
+HttpAuthenticationHardeningStrict: win32more.Windows.Win32.Networking.HttpServer.HTTP_AUTHENTICATION_HARDENING_LEVELS = 2
 HTTP_AUTH_STATUS = Int32
-HTTP_AUTH_STATUS_HttpAuthStatusSuccess: win32more.Windows.Win32.Networking.HttpServer.HTTP_AUTH_STATUS = 0
-HTTP_AUTH_STATUS_HttpAuthStatusNotAuthenticated: win32more.Windows.Win32.Networking.HttpServer.HTTP_AUTH_STATUS = 1
-HTTP_AUTH_STATUS_HttpAuthStatusFailure: win32more.Windows.Win32.Networking.HttpServer.HTTP_AUTH_STATUS = 2
+HttpAuthStatusSuccess: win32more.Windows.Win32.Networking.HttpServer.HTTP_AUTH_STATUS = 0
+HttpAuthStatusNotAuthenticated: win32more.Windows.Win32.Networking.HttpServer.HTTP_AUTH_STATUS = 1
+HttpAuthStatusFailure: win32more.Windows.Win32.Networking.HttpServer.HTTP_AUTH_STATUS = 2
 class HTTP_BANDWIDTH_LIMIT_INFO(EasyCastStructure):
     Flags: win32more.Windows.Win32.Networking.HttpServer.HTTP_PROPERTY_FLAGS
     MaxBandwidth: UInt32
@@ -222,10 +222,10 @@ class HTTP_CACHE_POLICY(EasyCastStructure):
     Policy: win32more.Windows.Win32.Networking.HttpServer.HTTP_CACHE_POLICY_TYPE
     SecondsToLive: UInt32
 HTTP_CACHE_POLICY_TYPE = Int32
-HTTP_CACHE_POLICY_TYPE_HttpCachePolicyNocache: win32more.Windows.Win32.Networking.HttpServer.HTTP_CACHE_POLICY_TYPE = 0
-HTTP_CACHE_POLICY_TYPE_HttpCachePolicyUserInvalidates: win32more.Windows.Win32.Networking.HttpServer.HTTP_CACHE_POLICY_TYPE = 1
-HTTP_CACHE_POLICY_TYPE_HttpCachePolicyTimeToLive: win32more.Windows.Win32.Networking.HttpServer.HTTP_CACHE_POLICY_TYPE = 2
-HTTP_CACHE_POLICY_TYPE_HttpCachePolicyMaximum: win32more.Windows.Win32.Networking.HttpServer.HTTP_CACHE_POLICY_TYPE = 3
+HttpCachePolicyNocache: win32more.Windows.Win32.Networking.HttpServer.HTTP_CACHE_POLICY_TYPE = 0
+HttpCachePolicyUserInvalidates: win32more.Windows.Win32.Networking.HttpServer.HTTP_CACHE_POLICY_TYPE = 1
+HttpCachePolicyTimeToLive: win32more.Windows.Win32.Networking.HttpServer.HTTP_CACHE_POLICY_TYPE = 2
+HttpCachePolicyMaximum: win32more.Windows.Win32.Networking.HttpServer.HTTP_CACHE_POLICY_TYPE = 3
 class HTTP_CHANNEL_BIND_INFO(EasyCastStructure):
     Hardening: win32more.Windows.Win32.Networking.HttpServer.HTTP_AUTHENTICATION_HARDENING_LEVELS
     Flags: UInt32
@@ -244,8 +244,8 @@ class HTTP_COOKED_URL(EasyCastStructure):
     pAbsPath: win32more.Windows.Win32.Foundation.PWSTR
     pQueryString: win32more.Windows.Win32.Foundation.PWSTR
 HTTP_CREATE_REQUEST_QUEUE_PROPERTY_ID = Int32
-HTTP_CREATE_REQUEST_QUEUE_PROPERTY_ID_CreateRequestQueueExternalIdProperty: win32more.Windows.Win32.Networking.HttpServer.HTTP_CREATE_REQUEST_QUEUE_PROPERTY_ID = 1
-HTTP_CREATE_REQUEST_QUEUE_PROPERTY_ID_CreateRequestQueueMax: win32more.Windows.Win32.Networking.HttpServer.HTTP_CREATE_REQUEST_QUEUE_PROPERTY_ID = 2
+CreateRequestQueueExternalIdProperty: win32more.Windows.Win32.Networking.HttpServer.HTTP_CREATE_REQUEST_QUEUE_PROPERTY_ID = 1
+CreateRequestQueueMax: win32more.Windows.Win32.Networking.HttpServer.HTTP_CREATE_REQUEST_QUEUE_PROPERTY_ID = 2
 class HTTP_CREATE_REQUEST_QUEUE_PROPERTY_INFO(EasyCastStructure):
     PropertyId: win32more.Windows.Win32.Networking.HttpServer.HTTP_CREATE_REQUEST_QUEUE_PROPERTY_ID
     PropertyInfoLength: UInt32
@@ -275,94 +275,94 @@ class HTTP_DATA_CHUNK(EasyCastStructure):
             TrailerCount: UInt16
             pTrailers: POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_UNKNOWN_HEADER)
 HTTP_DATA_CHUNK_TYPE = Int32
-HTTP_DATA_CHUNK_TYPE_HttpDataChunkFromMemory: win32more.Windows.Win32.Networking.HttpServer.HTTP_DATA_CHUNK_TYPE = 0
-HTTP_DATA_CHUNK_TYPE_HttpDataChunkFromFileHandle: win32more.Windows.Win32.Networking.HttpServer.HTTP_DATA_CHUNK_TYPE = 1
-HTTP_DATA_CHUNK_TYPE_HttpDataChunkFromFragmentCache: win32more.Windows.Win32.Networking.HttpServer.HTTP_DATA_CHUNK_TYPE = 2
-HTTP_DATA_CHUNK_TYPE_HttpDataChunkFromFragmentCacheEx: win32more.Windows.Win32.Networking.HttpServer.HTTP_DATA_CHUNK_TYPE = 3
-HTTP_DATA_CHUNK_TYPE_HttpDataChunkTrailers: win32more.Windows.Win32.Networking.HttpServer.HTTP_DATA_CHUNK_TYPE = 4
-HTTP_DATA_CHUNK_TYPE_HttpDataChunkMaximum: win32more.Windows.Win32.Networking.HttpServer.HTTP_DATA_CHUNK_TYPE = 5
+HttpDataChunkFromMemory: win32more.Windows.Win32.Networking.HttpServer.HTTP_DATA_CHUNK_TYPE = 0
+HttpDataChunkFromFileHandle: win32more.Windows.Win32.Networking.HttpServer.HTTP_DATA_CHUNK_TYPE = 1
+HttpDataChunkFromFragmentCache: win32more.Windows.Win32.Networking.HttpServer.HTTP_DATA_CHUNK_TYPE = 2
+HttpDataChunkFromFragmentCacheEx: win32more.Windows.Win32.Networking.HttpServer.HTTP_DATA_CHUNK_TYPE = 3
+HttpDataChunkTrailers: win32more.Windows.Win32.Networking.HttpServer.HTTP_DATA_CHUNK_TYPE = 4
+HttpDataChunkMaximum: win32more.Windows.Win32.Networking.HttpServer.HTTP_DATA_CHUNK_TYPE = 5
 HTTP_DELEGATE_REQUEST_PROPERTY_ID = Int32
-HTTP_DELEGATE_REQUEST_PROPERTY_ID_DelegateRequestReservedProperty: win32more.Windows.Win32.Networking.HttpServer.HTTP_DELEGATE_REQUEST_PROPERTY_ID = 0
-HTTP_DELEGATE_REQUEST_PROPERTY_ID_DelegateRequestDelegateUrlProperty: win32more.Windows.Win32.Networking.HttpServer.HTTP_DELEGATE_REQUEST_PROPERTY_ID = 1
+DelegateRequestReservedProperty: win32more.Windows.Win32.Networking.HttpServer.HTTP_DELEGATE_REQUEST_PROPERTY_ID = 0
+DelegateRequestDelegateUrlProperty: win32more.Windows.Win32.Networking.HttpServer.HTTP_DELEGATE_REQUEST_PROPERTY_ID = 1
 class HTTP_DELEGATE_REQUEST_PROPERTY_INFO(EasyCastStructure):
     PropertyId: win32more.Windows.Win32.Networking.HttpServer.HTTP_DELEGATE_REQUEST_PROPERTY_ID
     PropertyInfoLength: UInt32
     PropertyInfo: VoidPtr
 HTTP_ENABLED_STATE = Int32
-HTTP_ENABLED_STATE_HttpEnabledStateActive: win32more.Windows.Win32.Networking.HttpServer.HTTP_ENABLED_STATE = 0
-HTTP_ENABLED_STATE_HttpEnabledStateInactive: win32more.Windows.Win32.Networking.HttpServer.HTTP_ENABLED_STATE = 1
+HttpEnabledStateActive: win32more.Windows.Win32.Networking.HttpServer.HTTP_ENABLED_STATE = 0
+HttpEnabledStateInactive: win32more.Windows.Win32.Networking.HttpServer.HTTP_ENABLED_STATE = 1
 class HTTP_ERROR_HEADERS_PARAM(EasyCastStructure):
     StatusCode: UInt16
     HeaderCount: UInt16
     Headers: POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_UNKNOWN_HEADER)
 HTTP_FEATURE_ID = Int32
-HTTP_FEATURE_ID_HttpFeatureUnknown: win32more.Windows.Win32.Networking.HttpServer.HTTP_FEATURE_ID = 0
-HTTP_FEATURE_ID_HttpFeatureResponseTrailers: win32more.Windows.Win32.Networking.HttpServer.HTTP_FEATURE_ID = 1
-HTTP_FEATURE_ID_HttpFeatureApiTimings: win32more.Windows.Win32.Networking.HttpServer.HTTP_FEATURE_ID = 2
-HTTP_FEATURE_ID_HttpFeatureDelegateEx: win32more.Windows.Win32.Networking.HttpServer.HTTP_FEATURE_ID = 3
-HTTP_FEATURE_ID_HttpFeatureHttp3: win32more.Windows.Win32.Networking.HttpServer.HTTP_FEATURE_ID = 4
-HTTP_FEATURE_ID_HttpFeatureLast: win32more.Windows.Win32.Networking.HttpServer.HTTP_FEATURE_ID = 5
-HTTP_FEATURE_ID_HttpFeaturemax: win32more.Windows.Win32.Networking.HttpServer.HTTP_FEATURE_ID = -1
+HttpFeatureUnknown: win32more.Windows.Win32.Networking.HttpServer.HTTP_FEATURE_ID = 0
+HttpFeatureResponseTrailers: win32more.Windows.Win32.Networking.HttpServer.HTTP_FEATURE_ID = 1
+HttpFeatureApiTimings: win32more.Windows.Win32.Networking.HttpServer.HTTP_FEATURE_ID = 2
+HttpFeatureDelegateEx: win32more.Windows.Win32.Networking.HttpServer.HTTP_FEATURE_ID = 3
+HttpFeatureHttp3: win32more.Windows.Win32.Networking.HttpServer.HTTP_FEATURE_ID = 4
+HttpFeatureLast: win32more.Windows.Win32.Networking.HttpServer.HTTP_FEATURE_ID = 5
+HttpFeaturemax: win32more.Windows.Win32.Networking.HttpServer.HTTP_FEATURE_ID = -1
 class HTTP_FLOWRATE_INFO(EasyCastStructure):
     Flags: win32more.Windows.Win32.Networking.HttpServer.HTTP_PROPERTY_FLAGS
     MaxBandwidth: UInt32
     MaxPeakBandwidth: UInt32
     BurstSize: UInt32
 HTTP_HEADER_ID = Int32
-HTTP_HEADER_ID_HttpHeaderCacheControl: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 0
-HTTP_HEADER_ID_HttpHeaderConnection: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 1
-HTTP_HEADER_ID_HttpHeaderDate: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 2
-HTTP_HEADER_ID_HttpHeaderKeepAlive: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 3
-HTTP_HEADER_ID_HttpHeaderPragma: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 4
-HTTP_HEADER_ID_HttpHeaderTrailer: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 5
-HTTP_HEADER_ID_HttpHeaderTransferEncoding: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 6
-HTTP_HEADER_ID_HttpHeaderUpgrade: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 7
-HTTP_HEADER_ID_HttpHeaderVia: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 8
-HTTP_HEADER_ID_HttpHeaderWarning: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 9
-HTTP_HEADER_ID_HttpHeaderAllow: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 10
-HTTP_HEADER_ID_HttpHeaderContentLength: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 11
-HTTP_HEADER_ID_HttpHeaderContentType: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 12
-HTTP_HEADER_ID_HttpHeaderContentEncoding: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 13
-HTTP_HEADER_ID_HttpHeaderContentLanguage: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 14
-HTTP_HEADER_ID_HttpHeaderContentLocation: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 15
-HTTP_HEADER_ID_HttpHeaderContentMd5: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 16
-HTTP_HEADER_ID_HttpHeaderContentRange: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 17
-HTTP_HEADER_ID_HttpHeaderExpires: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 18
-HTTP_HEADER_ID_HttpHeaderLastModified: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 19
-HTTP_HEADER_ID_HttpHeaderAccept: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 20
-HTTP_HEADER_ID_HttpHeaderAcceptCharset: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 21
-HTTP_HEADER_ID_HttpHeaderAcceptEncoding: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 22
-HTTP_HEADER_ID_HttpHeaderAcceptLanguage: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 23
-HTTP_HEADER_ID_HttpHeaderAuthorization: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 24
-HTTP_HEADER_ID_HttpHeaderCookie: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 25
-HTTP_HEADER_ID_HttpHeaderExpect: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 26
-HTTP_HEADER_ID_HttpHeaderFrom: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 27
-HTTP_HEADER_ID_HttpHeaderHost: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 28
-HTTP_HEADER_ID_HttpHeaderIfMatch: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 29
-HTTP_HEADER_ID_HttpHeaderIfModifiedSince: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 30
-HTTP_HEADER_ID_HttpHeaderIfNoneMatch: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 31
-HTTP_HEADER_ID_HttpHeaderIfRange: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 32
-HTTP_HEADER_ID_HttpHeaderIfUnmodifiedSince: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 33
-HTTP_HEADER_ID_HttpHeaderMaxForwards: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 34
-HTTP_HEADER_ID_HttpHeaderProxyAuthorization: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 35
-HTTP_HEADER_ID_HttpHeaderReferer: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 36
-HTTP_HEADER_ID_HttpHeaderRange: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 37
-HTTP_HEADER_ID_HttpHeaderTe: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 38
-HTTP_HEADER_ID_HttpHeaderTranslate: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 39
-HTTP_HEADER_ID_HttpHeaderUserAgent: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 40
-HTTP_HEADER_ID_HttpHeaderRequestMaximum: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 41
-HTTP_HEADER_ID_HttpHeaderAcceptRanges: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 20
-HTTP_HEADER_ID_HttpHeaderAge: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 21
-HTTP_HEADER_ID_HttpHeaderEtag: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 22
-HTTP_HEADER_ID_HttpHeaderLocation: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 23
-HTTP_HEADER_ID_HttpHeaderProxyAuthenticate: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 24
-HTTP_HEADER_ID_HttpHeaderRetryAfter: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 25
-HTTP_HEADER_ID_HttpHeaderServer: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 26
-HTTP_HEADER_ID_HttpHeaderSetCookie: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 27
-HTTP_HEADER_ID_HttpHeaderVary: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 28
-HTTP_HEADER_ID_HttpHeaderWwwAuthenticate: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 29
-HTTP_HEADER_ID_HttpHeaderResponseMaximum: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 30
-HTTP_HEADER_ID_HttpHeaderMaximum: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 41
+HttpHeaderCacheControl: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 0
+HttpHeaderConnection: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 1
+HttpHeaderDate: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 2
+HttpHeaderKeepAlive: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 3
+HttpHeaderPragma: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 4
+HttpHeaderTrailer: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 5
+HttpHeaderTransferEncoding: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 6
+HttpHeaderUpgrade: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 7
+HttpHeaderVia: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 8
+HttpHeaderWarning: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 9
+HttpHeaderAllow: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 10
+HttpHeaderContentLength: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 11
+HttpHeaderContentType: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 12
+HttpHeaderContentEncoding: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 13
+HttpHeaderContentLanguage: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 14
+HttpHeaderContentLocation: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 15
+HttpHeaderContentMd5: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 16
+HttpHeaderContentRange: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 17
+HttpHeaderExpires: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 18
+HttpHeaderLastModified: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 19
+HttpHeaderAccept: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 20
+HttpHeaderAcceptCharset: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 21
+HttpHeaderAcceptEncoding: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 22
+HttpHeaderAcceptLanguage: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 23
+HttpHeaderAuthorization: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 24
+HttpHeaderCookie: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 25
+HttpHeaderExpect: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 26
+HttpHeaderFrom: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 27
+HttpHeaderHost: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 28
+HttpHeaderIfMatch: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 29
+HttpHeaderIfModifiedSince: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 30
+HttpHeaderIfNoneMatch: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 31
+HttpHeaderIfRange: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 32
+HttpHeaderIfUnmodifiedSince: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 33
+HttpHeaderMaxForwards: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 34
+HttpHeaderProxyAuthorization: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 35
+HttpHeaderReferer: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 36
+HttpHeaderRange: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 37
+HttpHeaderTe: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 38
+HttpHeaderTranslate: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 39
+HttpHeaderUserAgent: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 40
+HttpHeaderRequestMaximum: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 41
+HttpHeaderAcceptRanges: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 20
+HttpHeaderAge: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 21
+HttpHeaderEtag: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 22
+HttpHeaderLocation: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 23
+HttpHeaderProxyAuthenticate: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 24
+HttpHeaderRetryAfter: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 25
+HttpHeaderServer: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 26
+HttpHeaderSetCookie: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 27
+HttpHeaderVary: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 28
+HttpHeaderWwwAuthenticate: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 29
+HttpHeaderResponseMaximum: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 30
+HttpHeaderMaximum: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID = 41
 HTTP_INITIALIZE = UInt32
 HTTP_INITIALIZE_CONFIG: win32more.Windows.Win32.Networking.HttpServer.HTTP_INITIALIZE = 2
 HTTP_INITIALIZE_SERVER: win32more.Windows.Win32.Networking.HttpServer.HTTP_INITIALIZE = 1
@@ -388,20 +388,20 @@ class HTTP_LOGGING_INFO(EasyCastStructure):
     RolloverSize: UInt32
     pSecurityDescriptor: win32more.Windows.Win32.Security.PSECURITY_DESCRIPTOR
 HTTP_LOGGING_ROLLOVER_TYPE = Int32
-HTTP_LOGGING_ROLLOVER_TYPE_HttpLoggingRolloverSize: win32more.Windows.Win32.Networking.HttpServer.HTTP_LOGGING_ROLLOVER_TYPE = 0
-HTTP_LOGGING_ROLLOVER_TYPE_HttpLoggingRolloverDaily: win32more.Windows.Win32.Networking.HttpServer.HTTP_LOGGING_ROLLOVER_TYPE = 1
-HTTP_LOGGING_ROLLOVER_TYPE_HttpLoggingRolloverWeekly: win32more.Windows.Win32.Networking.HttpServer.HTTP_LOGGING_ROLLOVER_TYPE = 2
-HTTP_LOGGING_ROLLOVER_TYPE_HttpLoggingRolloverMonthly: win32more.Windows.Win32.Networking.HttpServer.HTTP_LOGGING_ROLLOVER_TYPE = 3
-HTTP_LOGGING_ROLLOVER_TYPE_HttpLoggingRolloverHourly: win32more.Windows.Win32.Networking.HttpServer.HTTP_LOGGING_ROLLOVER_TYPE = 4
+HttpLoggingRolloverSize: win32more.Windows.Win32.Networking.HttpServer.HTTP_LOGGING_ROLLOVER_TYPE = 0
+HttpLoggingRolloverDaily: win32more.Windows.Win32.Networking.HttpServer.HTTP_LOGGING_ROLLOVER_TYPE = 1
+HttpLoggingRolloverWeekly: win32more.Windows.Win32.Networking.HttpServer.HTTP_LOGGING_ROLLOVER_TYPE = 2
+HttpLoggingRolloverMonthly: win32more.Windows.Win32.Networking.HttpServer.HTTP_LOGGING_ROLLOVER_TYPE = 3
+HttpLoggingRolloverHourly: win32more.Windows.Win32.Networking.HttpServer.HTTP_LOGGING_ROLLOVER_TYPE = 4
 HTTP_LOGGING_TYPE = Int32
-HTTP_LOGGING_TYPE_HttpLoggingTypeW3C: win32more.Windows.Win32.Networking.HttpServer.HTTP_LOGGING_TYPE = 0
-HTTP_LOGGING_TYPE_HttpLoggingTypeIIS: win32more.Windows.Win32.Networking.HttpServer.HTTP_LOGGING_TYPE = 1
-HTTP_LOGGING_TYPE_HttpLoggingTypeNCSA: win32more.Windows.Win32.Networking.HttpServer.HTTP_LOGGING_TYPE = 2
-HTTP_LOGGING_TYPE_HttpLoggingTypeRaw: win32more.Windows.Win32.Networking.HttpServer.HTTP_LOGGING_TYPE = 3
+HttpLoggingTypeW3C: win32more.Windows.Win32.Networking.HttpServer.HTTP_LOGGING_TYPE = 0
+HttpLoggingTypeIIS: win32more.Windows.Win32.Networking.HttpServer.HTTP_LOGGING_TYPE = 1
+HttpLoggingTypeNCSA: win32more.Windows.Win32.Networking.HttpServer.HTTP_LOGGING_TYPE = 2
+HttpLoggingTypeRaw: win32more.Windows.Win32.Networking.HttpServer.HTTP_LOGGING_TYPE = 3
 class HTTP_LOG_DATA(EasyCastStructure):
     Type: win32more.Windows.Win32.Networking.HttpServer.HTTP_LOG_DATA_TYPE
 HTTP_LOG_DATA_TYPE = Int32
-HTTP_LOG_DATA_TYPE_HttpLogDataTypeFields: win32more.Windows.Win32.Networking.HttpServer.HTTP_LOG_DATA_TYPE = 0
+HttpLogDataTypeFields: win32more.Windows.Win32.Networking.HttpServer.HTTP_LOG_DATA_TYPE = 0
 class HTTP_LOG_FIELDS_DATA(EasyCastStructure):
     Base: win32more.Windows.Win32.Networking.HttpServer.HTTP_LOG_DATA
     UserNameLength: UInt16
@@ -443,29 +443,29 @@ class HTTP_PERFORMANCE_PARAM(EasyCastStructure):
     BufferSize: UInt32
     Buffer: VoidPtr
 HTTP_PERFORMANCE_PARAM_TYPE = Int32
-HTTP_PERFORMANCE_PARAM_TYPE_PerformanceParamSendBufferingFlags: win32more.Windows.Win32.Networking.HttpServer.HTTP_PERFORMANCE_PARAM_TYPE = 0
-HTTP_PERFORMANCE_PARAM_TYPE_PerformanceParamAggressiveICW: win32more.Windows.Win32.Networking.HttpServer.HTTP_PERFORMANCE_PARAM_TYPE = 1
-HTTP_PERFORMANCE_PARAM_TYPE_PerformanceParamMaxSendBufferSize: win32more.Windows.Win32.Networking.HttpServer.HTTP_PERFORMANCE_PARAM_TYPE = 2
-HTTP_PERFORMANCE_PARAM_TYPE_PerformanceParamMaxConcurrentClientStreams: win32more.Windows.Win32.Networking.HttpServer.HTTP_PERFORMANCE_PARAM_TYPE = 3
-HTTP_PERFORMANCE_PARAM_TYPE_PerformanceParamMaxReceiveBufferSize: win32more.Windows.Win32.Networking.HttpServer.HTTP_PERFORMANCE_PARAM_TYPE = 4
-HTTP_PERFORMANCE_PARAM_TYPE_PerformanceParamDecryptOnSspiThread: win32more.Windows.Win32.Networking.HttpServer.HTTP_PERFORMANCE_PARAM_TYPE = 5
-HTTP_PERFORMANCE_PARAM_TYPE_PerformanceParamMax: win32more.Windows.Win32.Networking.HttpServer.HTTP_PERFORMANCE_PARAM_TYPE = 6
+PerformanceParamSendBufferingFlags: win32more.Windows.Win32.Networking.HttpServer.HTTP_PERFORMANCE_PARAM_TYPE = 0
+PerformanceParamAggressiveICW: win32more.Windows.Win32.Networking.HttpServer.HTTP_PERFORMANCE_PARAM_TYPE = 1
+PerformanceParamMaxSendBufferSize: win32more.Windows.Win32.Networking.HttpServer.HTTP_PERFORMANCE_PARAM_TYPE = 2
+PerformanceParamMaxConcurrentClientStreams: win32more.Windows.Win32.Networking.HttpServer.HTTP_PERFORMANCE_PARAM_TYPE = 3
+PerformanceParamMaxReceiveBufferSize: win32more.Windows.Win32.Networking.HttpServer.HTTP_PERFORMANCE_PARAM_TYPE = 4
+PerformanceParamDecryptOnSspiThread: win32more.Windows.Win32.Networking.HttpServer.HTTP_PERFORMANCE_PARAM_TYPE = 5
+PerformanceParamMax: win32more.Windows.Win32.Networking.HttpServer.HTTP_PERFORMANCE_PARAM_TYPE = 6
 class HTTP_PROPERTY_FLAGS(EasyCastStructure):
     _bitfield: UInt32
 class HTTP_PROTECTION_LEVEL_INFO(EasyCastStructure):
     Flags: win32more.Windows.Win32.Networking.HttpServer.HTTP_PROPERTY_FLAGS
     Level: win32more.Windows.Win32.Networking.HttpServer.HTTP_PROTECTION_LEVEL_TYPE
 HTTP_PROTECTION_LEVEL_TYPE = Int32
-HTTP_PROTECTION_LEVEL_TYPE_HttpProtectionLevelUnrestricted: win32more.Windows.Win32.Networking.HttpServer.HTTP_PROTECTION_LEVEL_TYPE = 0
-HTTP_PROTECTION_LEVEL_TYPE_HttpProtectionLevelEdgeRestricted: win32more.Windows.Win32.Networking.HttpServer.HTTP_PROTECTION_LEVEL_TYPE = 1
-HTTP_PROTECTION_LEVEL_TYPE_HttpProtectionLevelRestricted: win32more.Windows.Win32.Networking.HttpServer.HTTP_PROTECTION_LEVEL_TYPE = 2
+HttpProtectionLevelUnrestricted: win32more.Windows.Win32.Networking.HttpServer.HTTP_PROTECTION_LEVEL_TYPE = 0
+HttpProtectionLevelEdgeRestricted: win32more.Windows.Win32.Networking.HttpServer.HTTP_PROTECTION_LEVEL_TYPE = 1
+HttpProtectionLevelRestricted: win32more.Windows.Win32.Networking.HttpServer.HTTP_PROTECTION_LEVEL_TYPE = 2
 class HTTP_QOS_SETTING_INFO(EasyCastStructure):
     QosType: win32more.Windows.Win32.Networking.HttpServer.HTTP_QOS_SETTING_TYPE
     QosSetting: VoidPtr
 HTTP_QOS_SETTING_TYPE = Int32
-HTTP_QOS_SETTING_TYPE_HttpQosSettingTypeBandwidth: win32more.Windows.Win32.Networking.HttpServer.HTTP_QOS_SETTING_TYPE = 0
-HTTP_QOS_SETTING_TYPE_HttpQosSettingTypeConnectionLimit: win32more.Windows.Win32.Networking.HttpServer.HTTP_QOS_SETTING_TYPE = 1
-HTTP_QOS_SETTING_TYPE_HttpQosSettingTypeFlowRate: win32more.Windows.Win32.Networking.HttpServer.HTTP_QOS_SETTING_TYPE = 2
+HttpQosSettingTypeBandwidth: win32more.Windows.Win32.Networking.HttpServer.HTTP_QOS_SETTING_TYPE = 0
+HttpQosSettingTypeConnectionLimit: win32more.Windows.Win32.Networking.HttpServer.HTTP_QOS_SETTING_TYPE = 1
+HttpQosSettingTypeFlowRate: win32more.Windows.Win32.Networking.HttpServer.HTTP_QOS_SETTING_TYPE = 2
 class HTTP_QUERY_REQUEST_QUALIFIER_QUIC(EasyCastStructure):
     Freshness: UInt64
 class HTTP_QUERY_REQUEST_QUALIFIER_TCP(EasyCastStructure):
@@ -533,12 +533,12 @@ class HTTP_REQUEST_AUTH_INFO(EasyCastStructure):
     PackageNameLength: UInt16
     pPackageName: win32more.Windows.Win32.Foundation.PWSTR
 HTTP_REQUEST_AUTH_TYPE = Int32
-HTTP_REQUEST_AUTH_TYPE_HttpRequestAuthTypeNone: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_AUTH_TYPE = 0
-HTTP_REQUEST_AUTH_TYPE_HttpRequestAuthTypeBasic: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_AUTH_TYPE = 1
-HTTP_REQUEST_AUTH_TYPE_HttpRequestAuthTypeDigest: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_AUTH_TYPE = 2
-HTTP_REQUEST_AUTH_TYPE_HttpRequestAuthTypeNTLM: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_AUTH_TYPE = 3
-HTTP_REQUEST_AUTH_TYPE_HttpRequestAuthTypeNegotiate: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_AUTH_TYPE = 4
-HTTP_REQUEST_AUTH_TYPE_HttpRequestAuthTypeKerberos: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_AUTH_TYPE = 5
+HttpRequestAuthTypeNone: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_AUTH_TYPE = 0
+HttpRequestAuthTypeBasic: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_AUTH_TYPE = 1
+HttpRequestAuthTypeDigest: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_AUTH_TYPE = 2
+HttpRequestAuthTypeNTLM: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_AUTH_TYPE = 3
+HttpRequestAuthTypeNegotiate: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_AUTH_TYPE = 4
+HttpRequestAuthTypeKerberos: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_AUTH_TYPE = 5
 class HTTP_REQUEST_CHANNEL_BIND_STATUS(EasyCastStructure):
     ServiceName: POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_BINDING_BASE)
     ChannelToken: POINTER(Byte)
@@ -555,25 +555,25 @@ class HTTP_REQUEST_INFO(EasyCastStructure):
     InfoLength: UInt32
     pInfo: VoidPtr
 HTTP_REQUEST_INFO_TYPE = Int32
-HTTP_REQUEST_INFO_TYPE_HttpRequestInfoTypeAuth: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_INFO_TYPE = 0
-HTTP_REQUEST_INFO_TYPE_HttpRequestInfoTypeChannelBind: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_INFO_TYPE = 1
-HTTP_REQUEST_INFO_TYPE_HttpRequestInfoTypeSslProtocol: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_INFO_TYPE = 2
-HTTP_REQUEST_INFO_TYPE_HttpRequestInfoTypeSslTokenBindingDraft: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_INFO_TYPE = 3
-HTTP_REQUEST_INFO_TYPE_HttpRequestInfoTypeSslTokenBinding: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_INFO_TYPE = 4
-HTTP_REQUEST_INFO_TYPE_HttpRequestInfoTypeRequestTiming: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_INFO_TYPE = 5
-HTTP_REQUEST_INFO_TYPE_HttpRequestInfoTypeTcpInfoV0: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_INFO_TYPE = 6
-HTTP_REQUEST_INFO_TYPE_HttpRequestInfoTypeRequestSizing: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_INFO_TYPE = 7
-HTTP_REQUEST_INFO_TYPE_HttpRequestInfoTypeQuicStats: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_INFO_TYPE = 8
-HTTP_REQUEST_INFO_TYPE_HttpRequestInfoTypeTcpInfoV1: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_INFO_TYPE = 9
+HttpRequestInfoTypeAuth: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_INFO_TYPE = 0
+HttpRequestInfoTypeChannelBind: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_INFO_TYPE = 1
+HttpRequestInfoTypeSslProtocol: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_INFO_TYPE = 2
+HttpRequestInfoTypeSslTokenBindingDraft: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_INFO_TYPE = 3
+HttpRequestInfoTypeSslTokenBinding: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_INFO_TYPE = 4
+HttpRequestInfoTypeRequestTiming: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_INFO_TYPE = 5
+HttpRequestInfoTypeTcpInfoV0: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_INFO_TYPE = 6
+HttpRequestInfoTypeRequestSizing: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_INFO_TYPE = 7
+HttpRequestInfoTypeQuicStats: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_INFO_TYPE = 8
+HttpRequestInfoTypeTcpInfoV1: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_INFO_TYPE = 9
 HTTP_REQUEST_PROPERTY = Int32
-HTTP_REQUEST_PROPERTY_HttpRequestPropertyIsb: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_PROPERTY = 0
-HTTP_REQUEST_PROPERTY_HttpRequestPropertyTcpInfoV0: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_PROPERTY = 1
-HTTP_REQUEST_PROPERTY_HttpRequestPropertyQuicStats: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_PROPERTY = 2
-HTTP_REQUEST_PROPERTY_HttpRequestPropertyTcpInfoV1: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_PROPERTY = 3
-HTTP_REQUEST_PROPERTY_HttpRequestPropertySni: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_PROPERTY = 4
-HTTP_REQUEST_PROPERTY_HttpRequestPropertyStreamError: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_PROPERTY = 5
-HTTP_REQUEST_PROPERTY_HttpRequestPropertyWskApiTimings: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_PROPERTY = 6
-HTTP_REQUEST_PROPERTY_HttpRequestPropertyQuicApiTimings: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_PROPERTY = 7
+HttpRequestPropertyIsb: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_PROPERTY = 0
+HttpRequestPropertyTcpInfoV0: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_PROPERTY = 1
+HttpRequestPropertyQuicStats: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_PROPERTY = 2
+HttpRequestPropertyTcpInfoV1: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_PROPERTY = 3
+HttpRequestPropertySni: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_PROPERTY = 4
+HttpRequestPropertyStreamError: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_PROPERTY = 5
+HttpRequestPropertyWskApiTimings: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_PROPERTY = 6
+HttpRequestPropertyQuicApiTimings: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_PROPERTY = 7
 class HTTP_REQUEST_PROPERTY_SNI(EasyCastStructure):
     Hostname: Char * 256
     Flags: UInt32
@@ -585,47 +585,47 @@ class HTTP_REQUEST_SIZING_INFO(EasyCastStructure):
     RequestSizingCount: UInt32
     RequestSizing: UInt64 * 5
 HTTP_REQUEST_SIZING_TYPE = Int32
-HTTP_REQUEST_SIZING_TYPE_HttpRequestSizingTypeTlsHandshakeLeg1ClientData: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_SIZING_TYPE = 0
-HTTP_REQUEST_SIZING_TYPE_HttpRequestSizingTypeTlsHandshakeLeg1ServerData: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_SIZING_TYPE = 1
-HTTP_REQUEST_SIZING_TYPE_HttpRequestSizingTypeTlsHandshakeLeg2ClientData: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_SIZING_TYPE = 2
-HTTP_REQUEST_SIZING_TYPE_HttpRequestSizingTypeTlsHandshakeLeg2ServerData: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_SIZING_TYPE = 3
-HTTP_REQUEST_SIZING_TYPE_HttpRequestSizingTypeHeaders: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_SIZING_TYPE = 4
-HTTP_REQUEST_SIZING_TYPE_HttpRequestSizingTypeMax: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_SIZING_TYPE = 5
+HttpRequestSizingTypeTlsHandshakeLeg1ClientData: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_SIZING_TYPE = 0
+HttpRequestSizingTypeTlsHandshakeLeg1ServerData: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_SIZING_TYPE = 1
+HttpRequestSizingTypeTlsHandshakeLeg2ClientData: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_SIZING_TYPE = 2
+HttpRequestSizingTypeTlsHandshakeLeg2ServerData: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_SIZING_TYPE = 3
+HttpRequestSizingTypeHeaders: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_SIZING_TYPE = 4
+HttpRequestSizingTypeMax: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_SIZING_TYPE = 5
 class HTTP_REQUEST_TIMING_INFO(EasyCastStructure):
     RequestTimingCount: UInt32
     RequestTiming: UInt64 * 30
 HTTP_REQUEST_TIMING_TYPE = Int32
-HTTP_REQUEST_TIMING_TYPE_HttpRequestTimingTypeConnectionStart: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_TIMING_TYPE = 0
-HTTP_REQUEST_TIMING_TYPE_HttpRequestTimingTypeDataStart: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_TIMING_TYPE = 1
-HTTP_REQUEST_TIMING_TYPE_HttpRequestTimingTypeTlsCertificateLoadStart: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_TIMING_TYPE = 2
-HTTP_REQUEST_TIMING_TYPE_HttpRequestTimingTypeTlsCertificateLoadEnd: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_TIMING_TYPE = 3
-HTTP_REQUEST_TIMING_TYPE_HttpRequestTimingTypeTlsHandshakeLeg1Start: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_TIMING_TYPE = 4
-HTTP_REQUEST_TIMING_TYPE_HttpRequestTimingTypeTlsHandshakeLeg1End: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_TIMING_TYPE = 5
-HTTP_REQUEST_TIMING_TYPE_HttpRequestTimingTypeTlsHandshakeLeg2Start: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_TIMING_TYPE = 6
-HTTP_REQUEST_TIMING_TYPE_HttpRequestTimingTypeTlsHandshakeLeg2End: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_TIMING_TYPE = 7
-HTTP_REQUEST_TIMING_TYPE_HttpRequestTimingTypeTlsAttributesQueryStart: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_TIMING_TYPE = 8
-HTTP_REQUEST_TIMING_TYPE_HttpRequestTimingTypeTlsAttributesQueryEnd: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_TIMING_TYPE = 9
-HTTP_REQUEST_TIMING_TYPE_HttpRequestTimingTypeTlsClientCertQueryStart: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_TIMING_TYPE = 10
-HTTP_REQUEST_TIMING_TYPE_HttpRequestTimingTypeTlsClientCertQueryEnd: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_TIMING_TYPE = 11
-HTTP_REQUEST_TIMING_TYPE_HttpRequestTimingTypeHttp2StreamStart: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_TIMING_TYPE = 12
-HTTP_REQUEST_TIMING_TYPE_HttpRequestTimingTypeHttp2HeaderDecodeStart: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_TIMING_TYPE = 13
-HTTP_REQUEST_TIMING_TYPE_HttpRequestTimingTypeHttp2HeaderDecodeEnd: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_TIMING_TYPE = 14
-HTTP_REQUEST_TIMING_TYPE_HttpRequestTimingTypeRequestHeaderParseStart: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_TIMING_TYPE = 15
-HTTP_REQUEST_TIMING_TYPE_HttpRequestTimingTypeRequestHeaderParseEnd: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_TIMING_TYPE = 16
-HTTP_REQUEST_TIMING_TYPE_HttpRequestTimingTypeRequestRoutingStart: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_TIMING_TYPE = 17
-HTTP_REQUEST_TIMING_TYPE_HttpRequestTimingTypeRequestRoutingEnd: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_TIMING_TYPE = 18
-HTTP_REQUEST_TIMING_TYPE_HttpRequestTimingTypeRequestQueuedForInspection: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_TIMING_TYPE = 19
-HTTP_REQUEST_TIMING_TYPE_HttpRequestTimingTypeRequestDeliveredForInspection: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_TIMING_TYPE = 20
-HTTP_REQUEST_TIMING_TYPE_HttpRequestTimingTypeRequestReturnedAfterInspection: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_TIMING_TYPE = 21
-HTTP_REQUEST_TIMING_TYPE_HttpRequestTimingTypeRequestQueuedForDelegation: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_TIMING_TYPE = 22
-HTTP_REQUEST_TIMING_TYPE_HttpRequestTimingTypeRequestDeliveredForDelegation: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_TIMING_TYPE = 23
-HTTP_REQUEST_TIMING_TYPE_HttpRequestTimingTypeRequestReturnedAfterDelegation: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_TIMING_TYPE = 24
-HTTP_REQUEST_TIMING_TYPE_HttpRequestTimingTypeRequestQueuedForIO: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_TIMING_TYPE = 25
-HTTP_REQUEST_TIMING_TYPE_HttpRequestTimingTypeRequestDeliveredForIO: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_TIMING_TYPE = 26
-HTTP_REQUEST_TIMING_TYPE_HttpRequestTimingTypeHttp3StreamStart: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_TIMING_TYPE = 27
-HTTP_REQUEST_TIMING_TYPE_HttpRequestTimingTypeHttp3HeaderDecodeStart: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_TIMING_TYPE = 28
-HTTP_REQUEST_TIMING_TYPE_HttpRequestTimingTypeHttp3HeaderDecodeEnd: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_TIMING_TYPE = 29
-HTTP_REQUEST_TIMING_TYPE_HttpRequestTimingTypeMax: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_TIMING_TYPE = 30
+HttpRequestTimingTypeConnectionStart: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_TIMING_TYPE = 0
+HttpRequestTimingTypeDataStart: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_TIMING_TYPE = 1
+HttpRequestTimingTypeTlsCertificateLoadStart: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_TIMING_TYPE = 2
+HttpRequestTimingTypeTlsCertificateLoadEnd: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_TIMING_TYPE = 3
+HttpRequestTimingTypeTlsHandshakeLeg1Start: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_TIMING_TYPE = 4
+HttpRequestTimingTypeTlsHandshakeLeg1End: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_TIMING_TYPE = 5
+HttpRequestTimingTypeTlsHandshakeLeg2Start: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_TIMING_TYPE = 6
+HttpRequestTimingTypeTlsHandshakeLeg2End: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_TIMING_TYPE = 7
+HttpRequestTimingTypeTlsAttributesQueryStart: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_TIMING_TYPE = 8
+HttpRequestTimingTypeTlsAttributesQueryEnd: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_TIMING_TYPE = 9
+HttpRequestTimingTypeTlsClientCertQueryStart: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_TIMING_TYPE = 10
+HttpRequestTimingTypeTlsClientCertQueryEnd: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_TIMING_TYPE = 11
+HttpRequestTimingTypeHttp2StreamStart: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_TIMING_TYPE = 12
+HttpRequestTimingTypeHttp2HeaderDecodeStart: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_TIMING_TYPE = 13
+HttpRequestTimingTypeHttp2HeaderDecodeEnd: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_TIMING_TYPE = 14
+HttpRequestTimingTypeRequestHeaderParseStart: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_TIMING_TYPE = 15
+HttpRequestTimingTypeRequestHeaderParseEnd: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_TIMING_TYPE = 16
+HttpRequestTimingTypeRequestRoutingStart: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_TIMING_TYPE = 17
+HttpRequestTimingTypeRequestRoutingEnd: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_TIMING_TYPE = 18
+HttpRequestTimingTypeRequestQueuedForInspection: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_TIMING_TYPE = 19
+HttpRequestTimingTypeRequestDeliveredForInspection: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_TIMING_TYPE = 20
+HttpRequestTimingTypeRequestReturnedAfterInspection: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_TIMING_TYPE = 21
+HttpRequestTimingTypeRequestQueuedForDelegation: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_TIMING_TYPE = 22
+HttpRequestTimingTypeRequestDeliveredForDelegation: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_TIMING_TYPE = 23
+HttpRequestTimingTypeRequestReturnedAfterDelegation: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_TIMING_TYPE = 24
+HttpRequestTimingTypeRequestQueuedForIO: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_TIMING_TYPE = 25
+HttpRequestTimingTypeRequestDeliveredForIO: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_TIMING_TYPE = 26
+HttpRequestTimingTypeHttp3StreamStart: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_TIMING_TYPE = 27
+HttpRequestTimingTypeHttp3HeaderDecodeStart: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_TIMING_TYPE = 28
+HttpRequestTimingTypeHttp3HeaderDecodeEnd: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_TIMING_TYPE = 29
+HttpRequestTimingTypeMax: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_TIMING_TYPE = 30
 class HTTP_REQUEST_TOKEN_BINDING_INFO(EasyCastStructure):
     TokenBinding: POINTER(Byte)
     TokenBindingSize: UInt32
@@ -666,10 +666,10 @@ class HTTP_RESPONSE_INFO(EasyCastStructure):
     Length: UInt32
     pInfo: VoidPtr
 HTTP_RESPONSE_INFO_TYPE = Int32
-HTTP_RESPONSE_INFO_TYPE_HttpResponseInfoTypeMultipleKnownHeaders: win32more.Windows.Win32.Networking.HttpServer.HTTP_RESPONSE_INFO_TYPE = 0
-HTTP_RESPONSE_INFO_TYPE_HttpResponseInfoTypeAuthenticationProperty: win32more.Windows.Win32.Networking.HttpServer.HTTP_RESPONSE_INFO_TYPE = 1
-HTTP_RESPONSE_INFO_TYPE_HttpResponseInfoTypeQoSProperty: win32more.Windows.Win32.Networking.HttpServer.HTTP_RESPONSE_INFO_TYPE = 2
-HTTP_RESPONSE_INFO_TYPE_HttpResponseInfoTypeChannelBind: win32more.Windows.Win32.Networking.HttpServer.HTTP_RESPONSE_INFO_TYPE = 3
+HttpResponseInfoTypeMultipleKnownHeaders: win32more.Windows.Win32.Networking.HttpServer.HTTP_RESPONSE_INFO_TYPE = 0
+HttpResponseInfoTypeAuthenticationProperty: win32more.Windows.Win32.Networking.HttpServer.HTTP_RESPONSE_INFO_TYPE = 1
+HttpResponseInfoTypeQoSProperty: win32more.Windows.Win32.Networking.HttpServer.HTTP_RESPONSE_INFO_TYPE = 2
+HttpResponseInfoTypeChannelBind: win32more.Windows.Win32.Networking.HttpServer.HTTP_RESPONSE_INFO_TYPE = 3
 class HTTP_RESPONSE_V1(EasyCastStructure):
     Flags: UInt32
     Version: win32more.Windows.Win32.Networking.HttpServer.HTTP_VERSION
@@ -684,9 +684,9 @@ class HTTP_RESPONSE_V2(EasyCastStructure):
     ResponseInfoCount: UInt16
     pResponseInfo: POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_RESPONSE_INFO)
 HTTP_SCHEME = Int32
-HTTP_SCHEME_HttpSchemeHttp: win32more.Windows.Win32.Networking.HttpServer.HTTP_SCHEME = 0
-HTTP_SCHEME_HttpSchemeHttps: win32more.Windows.Win32.Networking.HttpServer.HTTP_SCHEME = 1
-HTTP_SCHEME_HttpSchemeMaximum: win32more.Windows.Win32.Networking.HttpServer.HTTP_SCHEME = 2
+HttpSchemeHttp: win32more.Windows.Win32.Networking.HttpServer.HTTP_SCHEME = 0
+HttpSchemeHttps: win32more.Windows.Win32.Networking.HttpServer.HTTP_SCHEME = 1
+HttpSchemeMaximum: win32more.Windows.Win32.Networking.HttpServer.HTTP_SCHEME = 2
 class HTTP_SERVER_AUTHENTICATION_BASIC_PARAMS(EasyCastStructure):
     RealmLength: UInt16
     Realm: win32more.Windows.Win32.Foundation.PWSTR
@@ -705,19 +705,19 @@ class HTTP_SERVER_AUTHENTICATION_INFO(EasyCastStructure):
     DigestParams: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVER_AUTHENTICATION_DIGEST_PARAMS
     BasicParams: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVER_AUTHENTICATION_BASIC_PARAMS
 HTTP_SERVER_PROPERTY = Int32
-HTTP_SERVER_PROPERTY_HttpServerAuthenticationProperty: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVER_PROPERTY = 0
-HTTP_SERVER_PROPERTY_HttpServerLoggingProperty: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVER_PROPERTY = 1
-HTTP_SERVER_PROPERTY_HttpServerQosProperty: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVER_PROPERTY = 2
-HTTP_SERVER_PROPERTY_HttpServerTimeoutsProperty: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVER_PROPERTY = 3
-HTTP_SERVER_PROPERTY_HttpServerQueueLengthProperty: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVER_PROPERTY = 4
-HTTP_SERVER_PROPERTY_HttpServerStateProperty: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVER_PROPERTY = 5
-HTTP_SERVER_PROPERTY_HttpServer503VerbosityProperty: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVER_PROPERTY = 6
-HTTP_SERVER_PROPERTY_HttpServerBindingProperty: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVER_PROPERTY = 7
-HTTP_SERVER_PROPERTY_HttpServerExtendedAuthenticationProperty: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVER_PROPERTY = 8
-HTTP_SERVER_PROPERTY_HttpServerListenEndpointProperty: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVER_PROPERTY = 9
-HTTP_SERVER_PROPERTY_HttpServerChannelBindProperty: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVER_PROPERTY = 10
-HTTP_SERVER_PROPERTY_HttpServerProtectionLevelProperty: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVER_PROPERTY = 11
-HTTP_SERVER_PROPERTY_HttpServerDelegationProperty: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVER_PROPERTY = 16
+HttpServerAuthenticationProperty: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVER_PROPERTY = 0
+HttpServerLoggingProperty: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVER_PROPERTY = 1
+HttpServerQosProperty: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVER_PROPERTY = 2
+HttpServerTimeoutsProperty: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVER_PROPERTY = 3
+HttpServerQueueLengthProperty: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVER_PROPERTY = 4
+HttpServerStateProperty: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVER_PROPERTY = 5
+HttpServer503VerbosityProperty: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVER_PROPERTY = 6
+HttpServerBindingProperty: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVER_PROPERTY = 7
+HttpServerExtendedAuthenticationProperty: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVER_PROPERTY = 8
+HttpServerListenEndpointProperty: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVER_PROPERTY = 9
+HttpServerChannelBindProperty: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVER_PROPERTY = 10
+HttpServerProtectionLevelProperty: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVER_PROPERTY = 11
+HttpServerDelegationProperty: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVER_PROPERTY = 16
 class HTTP_SERVICE_BINDING_A(EasyCastStructure):
     Base: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_BINDING_BASE
     Buffer: win32more.Windows.Win32.Foundation.PSTR
@@ -725,34 +725,34 @@ class HTTP_SERVICE_BINDING_A(EasyCastStructure):
 class HTTP_SERVICE_BINDING_BASE(EasyCastStructure):
     Type: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_BINDING_TYPE
 HTTP_SERVICE_BINDING_TYPE = Int32
-HTTP_SERVICE_BINDING_TYPE_HttpServiceBindingTypeNone: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_BINDING_TYPE = 0
-HTTP_SERVICE_BINDING_TYPE_HttpServiceBindingTypeW: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_BINDING_TYPE = 1
-HTTP_SERVICE_BINDING_TYPE_HttpServiceBindingTypeA: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_BINDING_TYPE = 2
+HttpServiceBindingTypeNone: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_BINDING_TYPE = 0
+HttpServiceBindingTypeW: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_BINDING_TYPE = 1
+HttpServiceBindingTypeA: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_BINDING_TYPE = 2
 class HTTP_SERVICE_BINDING_W(EasyCastStructure):
     Base: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_BINDING_BASE
     Buffer: win32more.Windows.Win32.Foundation.PWSTR
     BufferSize: UInt32
 HTTP_SERVICE_CONFIG_CACHE_KEY = Int32
-HTTP_SERVICE_CONFIG_CACHE_KEY_MaxCacheResponseSize: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_CACHE_KEY = 0
-HTTP_SERVICE_CONFIG_CACHE_KEY_CacheRangeChunkSize: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_CACHE_KEY = 1
+MaxCacheResponseSize: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_CACHE_KEY = 0
+CacheRangeChunkSize: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_CACHE_KEY = 1
 class HTTP_SERVICE_CONFIG_CACHE_SET(EasyCastStructure):
     KeyDesc: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_CACHE_KEY
     ParamDesc: UInt32
 HTTP_SERVICE_CONFIG_ID = Int32
-HTTP_SERVICE_CONFIG_ID_HttpServiceConfigIPListenList: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_ID = 0
-HTTP_SERVICE_CONFIG_ID_HttpServiceConfigSSLCertInfo: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_ID = 1
-HTTP_SERVICE_CONFIG_ID_HttpServiceConfigUrlAclInfo: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_ID = 2
-HTTP_SERVICE_CONFIG_ID_HttpServiceConfigTimeout: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_ID = 3
-HTTP_SERVICE_CONFIG_ID_HttpServiceConfigCache: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_ID = 4
-HTTP_SERVICE_CONFIG_ID_HttpServiceConfigSslSniCertInfo: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_ID = 5
-HTTP_SERVICE_CONFIG_ID_HttpServiceConfigSslCcsCertInfo: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_ID = 6
-HTTP_SERVICE_CONFIG_ID_HttpServiceConfigSetting: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_ID = 7
-HTTP_SERVICE_CONFIG_ID_HttpServiceConfigSslCertInfoEx: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_ID = 8
-HTTP_SERVICE_CONFIG_ID_HttpServiceConfigSslSniCertInfoEx: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_ID = 9
-HTTP_SERVICE_CONFIG_ID_HttpServiceConfigSslCcsCertInfoEx: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_ID = 10
-HTTP_SERVICE_CONFIG_ID_HttpServiceConfigSslScopedCcsCertInfo: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_ID = 11
-HTTP_SERVICE_CONFIG_ID_HttpServiceConfigSslScopedCcsCertInfoEx: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_ID = 12
-HTTP_SERVICE_CONFIG_ID_HttpServiceConfigMax: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_ID = 13
+HttpServiceConfigIPListenList: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_ID = 0
+HttpServiceConfigSSLCertInfo: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_ID = 1
+HttpServiceConfigUrlAclInfo: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_ID = 2
+HttpServiceConfigTimeout: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_ID = 3
+HttpServiceConfigCache: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_ID = 4
+HttpServiceConfigSslSniCertInfo: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_ID = 5
+HttpServiceConfigSslCcsCertInfo: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_ID = 6
+HttpServiceConfigSetting: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_ID = 7
+HttpServiceConfigSslCertInfoEx: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_ID = 8
+HttpServiceConfigSslSniCertInfoEx: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_ID = 9
+HttpServiceConfigSslCcsCertInfoEx: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_ID = 10
+HttpServiceConfigSslScopedCcsCertInfo: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_ID = 11
+HttpServiceConfigSslScopedCcsCertInfoEx: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_ID = 12
+HttpServiceConfigMax: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_ID = 13
 class HTTP_SERVICE_CONFIG_IP_LISTEN_PARAM(EasyCastStructure):
     AddrLength: UInt16
     pAddress: POINTER(win32more.Windows.Win32.Networking.WinSock.SOCKADDR)
@@ -760,12 +760,12 @@ class HTTP_SERVICE_CONFIG_IP_LISTEN_QUERY(EasyCastStructure):
     AddrCount: UInt32
     AddrList: win32more.Windows.Win32.Networking.WinSock.SOCKADDR_STORAGE * 1
 HTTP_SERVICE_CONFIG_QUERY_TYPE = Int32
-HTTP_SERVICE_CONFIG_QUERY_TYPE_HttpServiceConfigQueryExact: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_QUERY_TYPE = 0
-HTTP_SERVICE_CONFIG_QUERY_TYPE_HttpServiceConfigQueryNext: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_QUERY_TYPE = 1
-HTTP_SERVICE_CONFIG_QUERY_TYPE_HttpServiceConfigQueryMax: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_QUERY_TYPE = 2
+HttpServiceConfigQueryExact: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_QUERY_TYPE = 0
+HttpServiceConfigQueryNext: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_QUERY_TYPE = 1
+HttpServiceConfigQueryMax: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_QUERY_TYPE = 2
 HTTP_SERVICE_CONFIG_SETTING_KEY = Int32
-HTTP_SERVICE_CONFIG_SETTING_KEY_HttpNone: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_SETTING_KEY = 0
-HTTP_SERVICE_CONFIG_SETTING_KEY_HttpTlsThrottle: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_SETTING_KEY = 1
+HttpNone: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_SETTING_KEY = 0
+HttpTlsThrottle: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_SETTING_KEY = 1
 class HTTP_SERVICE_CONFIG_SETTING_SET(EasyCastStructure):
     KeyDesc: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_SETTING_KEY
     ParamDesc: UInt32
@@ -846,8 +846,8 @@ class HTTP_SERVICE_CONFIG_SSL_SNI_SET_EX(EasyCastStructure):
     KeyDesc: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_SSL_SNI_KEY
     ParamDesc: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_SSL_PARAM_EX
 HTTP_SERVICE_CONFIG_TIMEOUT_KEY = Int32
-HTTP_SERVICE_CONFIG_TIMEOUT_KEY_IdleConnectionTimeout: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_TIMEOUT_KEY = 0
-HTTP_SERVICE_CONFIG_TIMEOUT_KEY_HeaderWaitTimeout: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_TIMEOUT_KEY = 1
+IdleConnectionTimeout: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_TIMEOUT_KEY = 0
+HeaderWaitTimeout: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_TIMEOUT_KEY = 1
 class HTTP_SERVICE_CONFIG_TIMEOUT_SET(EasyCastStructure):
     KeyDesc: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_TIMEOUT_KEY
     ParamDesc: UInt16
@@ -886,13 +886,13 @@ class HTTP_SSL_PROTOCOL_INFO(EasyCastStructure):
     KeyExchangeType: UInt32
     KeyExchangeStrength: UInt32
 HTTP_SSL_SERVICE_CONFIG_EX_PARAM_TYPE = Int32
-HTTP_SSL_SERVICE_CONFIG_EX_PARAM_TYPE_ExParamTypeHttp2Window: win32more.Windows.Win32.Networking.HttpServer.HTTP_SSL_SERVICE_CONFIG_EX_PARAM_TYPE = 0
-HTTP_SSL_SERVICE_CONFIG_EX_PARAM_TYPE_ExParamTypeHttp2SettingsLimits: win32more.Windows.Win32.Networking.HttpServer.HTTP_SSL_SERVICE_CONFIG_EX_PARAM_TYPE = 1
-HTTP_SSL_SERVICE_CONFIG_EX_PARAM_TYPE_ExParamTypeHttpPerformance: win32more.Windows.Win32.Networking.HttpServer.HTTP_SSL_SERVICE_CONFIG_EX_PARAM_TYPE = 2
-HTTP_SSL_SERVICE_CONFIG_EX_PARAM_TYPE_ExParamTypeTlsRestrictions: win32more.Windows.Win32.Networking.HttpServer.HTTP_SSL_SERVICE_CONFIG_EX_PARAM_TYPE = 3
-HTTP_SSL_SERVICE_CONFIG_EX_PARAM_TYPE_ExParamTypeErrorHeaders: win32more.Windows.Win32.Networking.HttpServer.HTTP_SSL_SERVICE_CONFIG_EX_PARAM_TYPE = 4
-HTTP_SSL_SERVICE_CONFIG_EX_PARAM_TYPE_ExParamTypeTlsSessionTicketKeys: win32more.Windows.Win32.Networking.HttpServer.HTTP_SSL_SERVICE_CONFIG_EX_PARAM_TYPE = 5
-HTTP_SSL_SERVICE_CONFIG_EX_PARAM_TYPE_ExParamTypeMax: win32more.Windows.Win32.Networking.HttpServer.HTTP_SSL_SERVICE_CONFIG_EX_PARAM_TYPE = 6
+ExParamTypeHttp2Window: win32more.Windows.Win32.Networking.HttpServer.HTTP_SSL_SERVICE_CONFIG_EX_PARAM_TYPE = 0
+ExParamTypeHttp2SettingsLimits: win32more.Windows.Win32.Networking.HttpServer.HTTP_SSL_SERVICE_CONFIG_EX_PARAM_TYPE = 1
+ExParamTypeHttpPerformance: win32more.Windows.Win32.Networking.HttpServer.HTTP_SSL_SERVICE_CONFIG_EX_PARAM_TYPE = 2
+ExParamTypeTlsRestrictions: win32more.Windows.Win32.Networking.HttpServer.HTTP_SSL_SERVICE_CONFIG_EX_PARAM_TYPE = 3
+ExParamTypeErrorHeaders: win32more.Windows.Win32.Networking.HttpServer.HTTP_SSL_SERVICE_CONFIG_EX_PARAM_TYPE = 4
+ExParamTypeTlsSessionTicketKeys: win32more.Windows.Win32.Networking.HttpServer.HTTP_SSL_SERVICE_CONFIG_EX_PARAM_TYPE = 5
+ExParamTypeMax: win32more.Windows.Win32.Networking.HttpServer.HTTP_SSL_SERVICE_CONFIG_EX_PARAM_TYPE = 6
 class HTTP_STATE_INFO(EasyCastStructure):
     Flags: win32more.Windows.Win32.Networking.HttpServer.HTTP_PROPERTY_FLAGS
     State: win32more.Windows.Win32.Networking.HttpServer.HTTP_ENABLED_STATE
@@ -919,27 +919,27 @@ class HTTP_UNKNOWN_HEADER(EasyCastStructure):
     pName: win32more.Windows.Win32.Foundation.PSTR
     pRawValue: win32more.Windows.Win32.Foundation.PSTR
 HTTP_VERB = Int32
-HTTP_VERB_HttpVerbUnparsed: win32more.Windows.Win32.Networking.HttpServer.HTTP_VERB = 0
-HTTP_VERB_HttpVerbUnknown: win32more.Windows.Win32.Networking.HttpServer.HTTP_VERB = 1
-HTTP_VERB_HttpVerbInvalid: win32more.Windows.Win32.Networking.HttpServer.HTTP_VERB = 2
-HTTP_VERB_HttpVerbOPTIONS: win32more.Windows.Win32.Networking.HttpServer.HTTP_VERB = 3
-HTTP_VERB_HttpVerbGET: win32more.Windows.Win32.Networking.HttpServer.HTTP_VERB = 4
-HTTP_VERB_HttpVerbHEAD: win32more.Windows.Win32.Networking.HttpServer.HTTP_VERB = 5
-HTTP_VERB_HttpVerbPOST: win32more.Windows.Win32.Networking.HttpServer.HTTP_VERB = 6
-HTTP_VERB_HttpVerbPUT: win32more.Windows.Win32.Networking.HttpServer.HTTP_VERB = 7
-HTTP_VERB_HttpVerbDELETE: win32more.Windows.Win32.Networking.HttpServer.HTTP_VERB = 8
-HTTP_VERB_HttpVerbTRACE: win32more.Windows.Win32.Networking.HttpServer.HTTP_VERB = 9
-HTTP_VERB_HttpVerbCONNECT: win32more.Windows.Win32.Networking.HttpServer.HTTP_VERB = 10
-HTTP_VERB_HttpVerbTRACK: win32more.Windows.Win32.Networking.HttpServer.HTTP_VERB = 11
-HTTP_VERB_HttpVerbMOVE: win32more.Windows.Win32.Networking.HttpServer.HTTP_VERB = 12
-HTTP_VERB_HttpVerbCOPY: win32more.Windows.Win32.Networking.HttpServer.HTTP_VERB = 13
-HTTP_VERB_HttpVerbPROPFIND: win32more.Windows.Win32.Networking.HttpServer.HTTP_VERB = 14
-HTTP_VERB_HttpVerbPROPPATCH: win32more.Windows.Win32.Networking.HttpServer.HTTP_VERB = 15
-HTTP_VERB_HttpVerbMKCOL: win32more.Windows.Win32.Networking.HttpServer.HTTP_VERB = 16
-HTTP_VERB_HttpVerbLOCK: win32more.Windows.Win32.Networking.HttpServer.HTTP_VERB = 17
-HTTP_VERB_HttpVerbUNLOCK: win32more.Windows.Win32.Networking.HttpServer.HTTP_VERB = 18
-HTTP_VERB_HttpVerbSEARCH: win32more.Windows.Win32.Networking.HttpServer.HTTP_VERB = 19
-HTTP_VERB_HttpVerbMaximum: win32more.Windows.Win32.Networking.HttpServer.HTTP_VERB = 20
+HttpVerbUnparsed: win32more.Windows.Win32.Networking.HttpServer.HTTP_VERB = 0
+HttpVerbUnknown: win32more.Windows.Win32.Networking.HttpServer.HTTP_VERB = 1
+HttpVerbInvalid: win32more.Windows.Win32.Networking.HttpServer.HTTP_VERB = 2
+HttpVerbOPTIONS: win32more.Windows.Win32.Networking.HttpServer.HTTP_VERB = 3
+HttpVerbGET: win32more.Windows.Win32.Networking.HttpServer.HTTP_VERB = 4
+HttpVerbHEAD: win32more.Windows.Win32.Networking.HttpServer.HTTP_VERB = 5
+HttpVerbPOST: win32more.Windows.Win32.Networking.HttpServer.HTTP_VERB = 6
+HttpVerbPUT: win32more.Windows.Win32.Networking.HttpServer.HTTP_VERB = 7
+HttpVerbDELETE: win32more.Windows.Win32.Networking.HttpServer.HTTP_VERB = 8
+HttpVerbTRACE: win32more.Windows.Win32.Networking.HttpServer.HTTP_VERB = 9
+HttpVerbCONNECT: win32more.Windows.Win32.Networking.HttpServer.HTTP_VERB = 10
+HttpVerbTRACK: win32more.Windows.Win32.Networking.HttpServer.HTTP_VERB = 11
+HttpVerbMOVE: win32more.Windows.Win32.Networking.HttpServer.HTTP_VERB = 12
+HttpVerbCOPY: win32more.Windows.Win32.Networking.HttpServer.HTTP_VERB = 13
+HttpVerbPROPFIND: win32more.Windows.Win32.Networking.HttpServer.HTTP_VERB = 14
+HttpVerbPROPPATCH: win32more.Windows.Win32.Networking.HttpServer.HTTP_VERB = 15
+HttpVerbMKCOL: win32more.Windows.Win32.Networking.HttpServer.HTTP_VERB = 16
+HttpVerbLOCK: win32more.Windows.Win32.Networking.HttpServer.HTTP_VERB = 17
+HttpVerbUNLOCK: win32more.Windows.Win32.Networking.HttpServer.HTTP_VERB = 18
+HttpVerbSEARCH: win32more.Windows.Win32.Networking.HttpServer.HTTP_VERB = 19
+HttpVerbMaximum: win32more.Windows.Win32.Networking.HttpServer.HTTP_VERB = 20
 class HTTP_VERSION(EasyCastStructure):
     MajorVersion: UInt16
     MinorVersion: UInt16

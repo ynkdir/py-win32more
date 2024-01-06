@@ -191,9 +191,9 @@ class FILTER_FULL_INFORMATION(EasyCastStructure):
     FilterNameLength: UInt16
     FilterNameBuffer: Char * 1
 FILTER_INFORMATION_CLASS = Int32
-FILTER_INFORMATION_CLASS_FilterFullInformation: win32more.Windows.Win32.Storage.InstallableFileSystems.FILTER_INFORMATION_CLASS = 0
-FILTER_INFORMATION_CLASS_FilterAggregateBasicInformation: win32more.Windows.Win32.Storage.InstallableFileSystems.FILTER_INFORMATION_CLASS = 1
-FILTER_INFORMATION_CLASS_FilterAggregateStandardInformation: win32more.Windows.Win32.Storage.InstallableFileSystems.FILTER_INFORMATION_CLASS = 2
+FilterFullInformation: win32more.Windows.Win32.Storage.InstallableFileSystems.FILTER_INFORMATION_CLASS = 0
+FilterAggregateBasicInformation: win32more.Windows.Win32.Storage.InstallableFileSystems.FILTER_INFORMATION_CLASS = 1
+FilterAggregateStandardInformation: win32more.Windows.Win32.Storage.InstallableFileSystems.FILTER_INFORMATION_CLASS = 2
 class FILTER_MESSAGE_HEADER(EasyCastStructure):
     ReplyLength: UInt32
     MessageId: UInt64
@@ -204,8 +204,8 @@ class FILTER_VOLUME_BASIC_INFORMATION(EasyCastStructure):
     FilterVolumeNameLength: UInt16
     FilterVolumeName: Char * 1
 FILTER_VOLUME_INFORMATION_CLASS = Int32
-FILTER_VOLUME_INFORMATION_CLASS_FilterVolumeBasicInformation: win32more.Windows.Win32.Storage.InstallableFileSystems.FILTER_VOLUME_INFORMATION_CLASS = 0
-FILTER_VOLUME_INFORMATION_CLASS_FilterVolumeStandardInformation: win32more.Windows.Win32.Storage.InstallableFileSystems.FILTER_VOLUME_INFORMATION_CLASS = 1
+FilterVolumeBasicInformation: win32more.Windows.Win32.Storage.InstallableFileSystems.FILTER_VOLUME_INFORMATION_CLASS = 0
+FilterVolumeStandardInformation: win32more.Windows.Win32.Storage.InstallableFileSystems.FILTER_VOLUME_INFORMATION_CLASS = 1
 class FILTER_VOLUME_STANDARD_INFORMATION(EasyCastStructure):
     NextEntryOffset: UInt32
     Flags: UInt32
@@ -291,10 +291,10 @@ class INSTANCE_FULL_INFORMATION(EasyCastStructure):
     FilterNameLength: UInt16
     FilterNameBufferOffset: UInt16
 INSTANCE_INFORMATION_CLASS = Int32
-INSTANCE_INFORMATION_CLASS_InstanceBasicInformation: win32more.Windows.Win32.Storage.InstallableFileSystems.INSTANCE_INFORMATION_CLASS = 0
-INSTANCE_INFORMATION_CLASS_InstancePartialInformation: win32more.Windows.Win32.Storage.InstallableFileSystems.INSTANCE_INFORMATION_CLASS = 1
-INSTANCE_INFORMATION_CLASS_InstanceFullInformation: win32more.Windows.Win32.Storage.InstallableFileSystems.INSTANCE_INFORMATION_CLASS = 2
-INSTANCE_INFORMATION_CLASS_InstanceAggregateStandardInformation: win32more.Windows.Win32.Storage.InstallableFileSystems.INSTANCE_INFORMATION_CLASS = 3
+InstanceBasicInformation: win32more.Windows.Win32.Storage.InstallableFileSystems.INSTANCE_INFORMATION_CLASS = 0
+InstancePartialInformation: win32more.Windows.Win32.Storage.InstallableFileSystems.INSTANCE_INFORMATION_CLASS = 1
+InstanceFullInformation: win32more.Windows.Win32.Storage.InstallableFileSystems.INSTANCE_INFORMATION_CLASS = 2
+InstanceAggregateStandardInformation: win32more.Windows.Win32.Storage.InstallableFileSystems.INSTANCE_INFORMATION_CLASS = 3
 class INSTANCE_PARTIAL_INFORMATION(EasyCastStructure):
     NextEntryOffset: UInt32
     InstanceNameLength: UInt16

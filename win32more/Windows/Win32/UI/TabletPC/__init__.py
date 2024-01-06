@@ -399,11 +399,11 @@ def GetAllRecognizers(recognizerClsids: POINTER(POINTER(Guid)), count: POINTER(U
 @winfunctype('inkobjcore.dll')
 def LoadCachedAttributes(clsid: Guid, pRecoAttributes: POINTER(win32more.Windows.Win32.UI.TabletPC.RECO_ATTRS)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 AppearanceConstants = Int32
-AppearanceConstants_rtfFlat: win32more.Windows.Win32.UI.TabletPC.AppearanceConstants = 0
-AppearanceConstants_rtfThreeD: win32more.Windows.Win32.UI.TabletPC.AppearanceConstants = 1
+rtfFlat: win32more.Windows.Win32.UI.TabletPC.AppearanceConstants = 0
+rtfThreeD: win32more.Windows.Win32.UI.TabletPC.AppearanceConstants = 1
 BorderStyleConstants = Int32
-BorderStyleConstants_rtfNoBorder: win32more.Windows.Win32.UI.TabletPC.BorderStyleConstants = 0
-BorderStyleConstants_rtfFixedSingle: win32more.Windows.Win32.UI.TabletPC.BorderStyleConstants = 1
+rtfNoBorder: win32more.Windows.Win32.UI.TabletPC.BorderStyleConstants = 0
+rtfFixedSingle: win32more.Windows.Win32.UI.TabletPC.BorderStyleConstants = 1
 class CHARACTER_RANGE(EasyCastStructure):
     wcLow: Char
     cChars: UInt16
@@ -3021,14 +3021,14 @@ class SYSTEM_EVENT_DATA(EasyCastStructure):
     bCursorMode: Byte
     dwButtonState: UInt32
 ScrollBarsConstants = Int32
-ScrollBarsConstants_rtfNone: win32more.Windows.Win32.UI.TabletPC.ScrollBarsConstants = 0
-ScrollBarsConstants_rtfHorizontal: win32more.Windows.Win32.UI.TabletPC.ScrollBarsConstants = 1
-ScrollBarsConstants_rtfVertical: win32more.Windows.Win32.UI.TabletPC.ScrollBarsConstants = 2
-ScrollBarsConstants_rtfBoth: win32more.Windows.Win32.UI.TabletPC.ScrollBarsConstants = 3
+rtfNone: win32more.Windows.Win32.UI.TabletPC.ScrollBarsConstants = 0
+rtfHorizontal: win32more.Windows.Win32.UI.TabletPC.ScrollBarsConstants = 1
+rtfVertical: win32more.Windows.Win32.UI.TabletPC.ScrollBarsConstants = 2
+rtfBoth: win32more.Windows.Win32.UI.TabletPC.ScrollBarsConstants = 3
 SelAlignmentConstants = Int32
-SelAlignmentConstants_rtfLeft: win32more.Windows.Win32.UI.TabletPC.SelAlignmentConstants = 0
-SelAlignmentConstants_rtfRight: win32more.Windows.Win32.UI.TabletPC.SelAlignmentConstants = 1
-SelAlignmentConstants_rtfCenter: win32more.Windows.Win32.UI.TabletPC.SelAlignmentConstants = 2
+rtfLeft: win32more.Windows.Win32.UI.TabletPC.SelAlignmentConstants = 0
+rtfRight: win32more.Windows.Win32.UI.TabletPC.SelAlignmentConstants = 1
+rtfCenter: win32more.Windows.Win32.UI.TabletPC.SelAlignmentConstants = 2
 SelectionHitResult = Int32
 SHR_None: win32more.Windows.Win32.UI.TabletPC.SelectionHitResult = 0
 SHR_NW: win32more.Windows.Win32.UI.TabletPC.SelectionHitResult = 1
@@ -3047,9 +3047,9 @@ class StylusInfo(EasyCastStructure):
     cid: UInt32
     bIsInvertedCursor: win32more.Windows.Win32.Foundation.BOOL
 StylusQueue = Int32
-StylusQueue_SyncStylusQueue: win32more.Windows.Win32.UI.TabletPC.StylusQueue = 1
-StylusQueue_AsyncStylusQueueImmediate: win32more.Windows.Win32.UI.TabletPC.StylusQueue = 2
-StylusQueue_AsyncStylusQueue: win32more.Windows.Win32.UI.TabletPC.StylusQueue = 3
+SyncStylusQueue: win32more.Windows.Win32.UI.TabletPC.StylusQueue = 1
+AsyncStylusQueueImmediate: win32more.Windows.Win32.UI.TabletPC.StylusQueue = 2
+AsyncStylusQueue: win32more.Windows.Win32.UI.TabletPC.StylusQueue = 3
 TabletDeviceKind = Int32
 TDK_Mouse: win32more.Windows.Win32.UI.TabletPC.TabletDeviceKind = 0
 TDK_Pen: win32more.Windows.Win32.UI.TabletPC.TabletDeviceKind = 1
@@ -3071,11 +3071,11 @@ TPMU_Grams: win32more.Windows.Win32.UI.TabletPC.TabletPropertyMetricUnit = 7
 TextInputPanel = Guid('{f9b189d7-228b-4f2b-8650-b97f59e02c8c}')
 TipAutoCompleteClient = Guid('{807c1e6c-1d00-453f-b920-b61bb7cdd997}')
 VisualState = Int32
-VisualState_InPlace: win32more.Windows.Win32.UI.TabletPC.VisualState = 0
-VisualState_Floating: win32more.Windows.Win32.UI.TabletPC.VisualState = 1
-VisualState_DockedTop: win32more.Windows.Win32.UI.TabletPC.VisualState = 2
-VisualState_DockedBottom: win32more.Windows.Win32.UI.TabletPC.VisualState = 3
-VisualState_Closed: win32more.Windows.Win32.UI.TabletPC.VisualState = 4
+InPlace: win32more.Windows.Win32.UI.TabletPC.VisualState = 0
+Floating: win32more.Windows.Win32.UI.TabletPC.VisualState = 1
+DockedTop: win32more.Windows.Win32.UI.TabletPC.VisualState = 2
+DockedBottom: win32more.Windows.Win32.UI.TabletPC.VisualState = 3
+Closed: win32more.Windows.Win32.UI.TabletPC.VisualState = 4
 class _IInkCollectorEvents(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IDispatch
     _iid_ = Guid('{11a583f2-712d-4fea-abcf-ab4af38ea06b}')

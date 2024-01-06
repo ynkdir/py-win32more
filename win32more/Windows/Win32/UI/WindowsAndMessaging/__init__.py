@@ -2977,17 +2977,17 @@ MrmDumpType_Basic: win32more.Windows.Win32.UI.WindowsAndMessaging.MrmDumpType = 
 MrmDumpType_Detailed: win32more.Windows.Win32.UI.WindowsAndMessaging.MrmDumpType = 1
 MrmDumpType_Schema: win32more.Windows.Win32.UI.WindowsAndMessaging.MrmDumpType = 2
 MrmIndexerFlags = Int32
-MrmIndexerFlags_MrmIndexerFlagsNone: win32more.Windows.Win32.UI.WindowsAndMessaging.MrmIndexerFlags = 0
-MrmIndexerFlags_MrmIndexerFlagsAutoMerge: win32more.Windows.Win32.UI.WindowsAndMessaging.MrmIndexerFlags = 1
-MrmIndexerFlags_MrmIndexerFlagsCreateContentChecksum: win32more.Windows.Win32.UI.WindowsAndMessaging.MrmIndexerFlags = 2
+MrmIndexerFlagsNone: win32more.Windows.Win32.UI.WindowsAndMessaging.MrmIndexerFlags = 0
+MrmIndexerFlagsAutoMerge: win32more.Windows.Win32.UI.WindowsAndMessaging.MrmIndexerFlags = 1
+MrmIndexerFlagsCreateContentChecksum: win32more.Windows.Win32.UI.WindowsAndMessaging.MrmIndexerFlags = 2
 MrmPackagingMode = Int32
-MrmPackagingMode_MrmPackagingModeStandaloneFile: win32more.Windows.Win32.UI.WindowsAndMessaging.MrmPackagingMode = 0
-MrmPackagingMode_MrmPackagingModeAutoSplit: win32more.Windows.Win32.UI.WindowsAndMessaging.MrmPackagingMode = 1
-MrmPackagingMode_MrmPackagingModeResourcePack: win32more.Windows.Win32.UI.WindowsAndMessaging.MrmPackagingMode = 2
+MrmPackagingModeStandaloneFile: win32more.Windows.Win32.UI.WindowsAndMessaging.MrmPackagingMode = 0
+MrmPackagingModeAutoSplit: win32more.Windows.Win32.UI.WindowsAndMessaging.MrmPackagingMode = 1
+MrmPackagingModeResourcePack: win32more.Windows.Win32.UI.WindowsAndMessaging.MrmPackagingMode = 2
 MrmPackagingOptions = Int32
-MrmPackagingOptions_MrmPackagingOptionsNone: win32more.Windows.Win32.UI.WindowsAndMessaging.MrmPackagingOptions = 0
-MrmPackagingOptions_MrmPackagingOptionsOmitSchemaFromResourcePacks: win32more.Windows.Win32.UI.WindowsAndMessaging.MrmPackagingOptions = 1
-MrmPackagingOptions_MrmPackagingOptionsSplitLanguageVariants: win32more.Windows.Win32.UI.WindowsAndMessaging.MrmPackagingOptions = 2
+MrmPackagingOptionsNone: win32more.Windows.Win32.UI.WindowsAndMessaging.MrmPackagingOptions = 0
+MrmPackagingOptionsOmitSchemaFromResourcePacks: win32more.Windows.Win32.UI.WindowsAndMessaging.MrmPackagingOptions = 1
+MrmPackagingOptionsSplitLanguageVariants: win32more.Windows.Win32.UI.WindowsAndMessaging.MrmPackagingOptions = 2
 MrmPlatformVersion = Int32
 MrmPlatformVersion_Default: win32more.Windows.Win32.UI.WindowsAndMessaging.MrmPlatformVersion = 0
 MrmPlatformVersion_Windows10_0_0_0: win32more.Windows.Win32.UI.WindowsAndMessaging.MrmPlatformVersion = 17432576
@@ -2999,10 +2999,10 @@ class MrmResourceIndexerMessage(EasyCastStructure):
     id: UInt32
     text: win32more.Windows.Win32.Foundation.PWSTR
 MrmResourceIndexerMessageSeverity = Int32
-MrmResourceIndexerMessageSeverity_MrmResourceIndexerMessageSeverityVerbose: win32more.Windows.Win32.UI.WindowsAndMessaging.MrmResourceIndexerMessageSeverity = 0
-MrmResourceIndexerMessageSeverity_MrmResourceIndexerMessageSeverityInfo: win32more.Windows.Win32.UI.WindowsAndMessaging.MrmResourceIndexerMessageSeverity = 1
-MrmResourceIndexerMessageSeverity_MrmResourceIndexerMessageSeverityWarning: win32more.Windows.Win32.UI.WindowsAndMessaging.MrmResourceIndexerMessageSeverity = 2
-MrmResourceIndexerMessageSeverity_MrmResourceIndexerMessageSeverityError: win32more.Windows.Win32.UI.WindowsAndMessaging.MrmResourceIndexerMessageSeverity = 3
+MrmResourceIndexerMessageSeverityVerbose: win32more.Windows.Win32.UI.WindowsAndMessaging.MrmResourceIndexerMessageSeverity = 0
+MrmResourceIndexerMessageSeverityInfo: win32more.Windows.Win32.UI.WindowsAndMessaging.MrmResourceIndexerMessageSeverity = 1
+MrmResourceIndexerMessageSeverityWarning: win32more.Windows.Win32.UI.WindowsAndMessaging.MrmResourceIndexerMessageSeverity = 2
+MrmResourceIndexerMessageSeverityError: win32more.Windows.Win32.UI.WindowsAndMessaging.MrmResourceIndexerMessageSeverity = 3
 @winfunctype_pointer
 def NAMEENUMPROCA(param0: win32more.Windows.Win32.Foundation.PSTR, param1: win32more.Windows.Win32.Foundation.LPARAM) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer

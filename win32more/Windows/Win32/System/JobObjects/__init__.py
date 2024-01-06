@@ -33,56 +33,56 @@ def OpenJobObjectA(dwDesiredAccess: UInt32, bInheritHandle: win32more.Windows.Wi
 @winfunctype('KERNEL32.dll')
 def CreateJobSet(NumJob: UInt32, UserJobSet: POINTER(win32more.Windows.Win32.System.JobObjects.JOB_SET_ARRAY), Flags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 JOBOBJECTINFOCLASS = Int32
-JOBOBJECTINFOCLASS_JobObjectBasicAccountingInformation: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 1
-JOBOBJECTINFOCLASS_JobObjectBasicLimitInformation: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 2
-JOBOBJECTINFOCLASS_JobObjectBasicProcessIdList: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 3
-JOBOBJECTINFOCLASS_JobObjectBasicUIRestrictions: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 4
-JOBOBJECTINFOCLASS_JobObjectSecurityLimitInformation: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 5
-JOBOBJECTINFOCLASS_JobObjectEndOfJobTimeInformation: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 6
-JOBOBJECTINFOCLASS_JobObjectAssociateCompletionPortInformation: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 7
-JOBOBJECTINFOCLASS_JobObjectBasicAndIoAccountingInformation: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 8
-JOBOBJECTINFOCLASS_JobObjectExtendedLimitInformation: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 9
-JOBOBJECTINFOCLASS_JobObjectJobSetInformation: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 10
-JOBOBJECTINFOCLASS_JobObjectGroupInformation: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 11
-JOBOBJECTINFOCLASS_JobObjectNotificationLimitInformation: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 12
-JOBOBJECTINFOCLASS_JobObjectLimitViolationInformation: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 13
-JOBOBJECTINFOCLASS_JobObjectGroupInformationEx: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 14
-JOBOBJECTINFOCLASS_JobObjectCpuRateControlInformation: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 15
-JOBOBJECTINFOCLASS_JobObjectCompletionFilter: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 16
-JOBOBJECTINFOCLASS_JobObjectCompletionCounter: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 17
-JOBOBJECTINFOCLASS_JobObjectReserved1Information: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 18
-JOBOBJECTINFOCLASS_JobObjectReserved2Information: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 19
-JOBOBJECTINFOCLASS_JobObjectReserved3Information: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 20
-JOBOBJECTINFOCLASS_JobObjectReserved4Information: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 21
-JOBOBJECTINFOCLASS_JobObjectReserved5Information: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 22
-JOBOBJECTINFOCLASS_JobObjectReserved6Information: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 23
-JOBOBJECTINFOCLASS_JobObjectReserved7Information: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 24
-JOBOBJECTINFOCLASS_JobObjectReserved8Information: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 25
-JOBOBJECTINFOCLASS_JobObjectReserved9Information: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 26
-JOBOBJECTINFOCLASS_JobObjectReserved10Information: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 27
-JOBOBJECTINFOCLASS_JobObjectReserved11Information: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 28
-JOBOBJECTINFOCLASS_JobObjectReserved12Information: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 29
-JOBOBJECTINFOCLASS_JobObjectReserved13Information: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 30
-JOBOBJECTINFOCLASS_JobObjectReserved14Information: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 31
-JOBOBJECTINFOCLASS_JobObjectNetRateControlInformation: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 32
-JOBOBJECTINFOCLASS_JobObjectNotificationLimitInformation2: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 33
-JOBOBJECTINFOCLASS_JobObjectLimitViolationInformation2: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 34
-JOBOBJECTINFOCLASS_JobObjectCreateSilo: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 35
-JOBOBJECTINFOCLASS_JobObjectSiloBasicInformation: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 36
-JOBOBJECTINFOCLASS_JobObjectReserved15Information: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 37
-JOBOBJECTINFOCLASS_JobObjectReserved16Information: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 38
-JOBOBJECTINFOCLASS_JobObjectReserved17Information: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 39
-JOBOBJECTINFOCLASS_JobObjectReserved18Information: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 40
-JOBOBJECTINFOCLASS_JobObjectReserved19Information: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 41
-JOBOBJECTINFOCLASS_JobObjectReserved20Information: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 42
-JOBOBJECTINFOCLASS_JobObjectReserved21Information: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 43
-JOBOBJECTINFOCLASS_JobObjectReserved22Information: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 44
-JOBOBJECTINFOCLASS_JobObjectReserved23Information: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 45
-JOBOBJECTINFOCLASS_JobObjectReserved24Information: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 46
-JOBOBJECTINFOCLASS_JobObjectReserved25Information: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 47
-JOBOBJECTINFOCLASS_JobObjectReserved26Information: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 48
-JOBOBJECTINFOCLASS_JobObjectReserved27Information: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 49
-JOBOBJECTINFOCLASS_MaxJobObjectInfoClass: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 50
+JobObjectBasicAccountingInformation: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 1
+JobObjectBasicLimitInformation: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 2
+JobObjectBasicProcessIdList: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 3
+JobObjectBasicUIRestrictions: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 4
+JobObjectSecurityLimitInformation: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 5
+JobObjectEndOfJobTimeInformation: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 6
+JobObjectAssociateCompletionPortInformation: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 7
+JobObjectBasicAndIoAccountingInformation: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 8
+JobObjectExtendedLimitInformation: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 9
+JobObjectJobSetInformation: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 10
+JobObjectGroupInformation: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 11
+JobObjectNotificationLimitInformation: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 12
+JobObjectLimitViolationInformation: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 13
+JobObjectGroupInformationEx: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 14
+JobObjectCpuRateControlInformation: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 15
+JobObjectCompletionFilter: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 16
+JobObjectCompletionCounter: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 17
+JobObjectReserved1Information: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 18
+JobObjectReserved2Information: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 19
+JobObjectReserved3Information: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 20
+JobObjectReserved4Information: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 21
+JobObjectReserved5Information: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 22
+JobObjectReserved6Information: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 23
+JobObjectReserved7Information: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 24
+JobObjectReserved8Information: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 25
+JobObjectReserved9Information: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 26
+JobObjectReserved10Information: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 27
+JobObjectReserved11Information: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 28
+JobObjectReserved12Information: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 29
+JobObjectReserved13Information: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 30
+JobObjectReserved14Information: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 31
+JobObjectNetRateControlInformation: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 32
+JobObjectNotificationLimitInformation2: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 33
+JobObjectLimitViolationInformation2: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 34
+JobObjectCreateSilo: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 35
+JobObjectSiloBasicInformation: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 36
+JobObjectReserved15Information: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 37
+JobObjectReserved16Information: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 38
+JobObjectReserved17Information: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 39
+JobObjectReserved18Information: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 40
+JobObjectReserved19Information: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 41
+JobObjectReserved20Information: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 42
+JobObjectReserved21Information: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 43
+JobObjectReserved22Information: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 44
+JobObjectReserved23Information: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 45
+JobObjectReserved24Information: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 46
+JobObjectReserved25Information: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 47
+JobObjectReserved26Information: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 48
+JobObjectReserved27Information: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 49
+MaxJobObjectInfoClass: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 50
 class JOBOBJECT_ASSOCIATE_COMPLETION_PORT(EasyCastStructure):
     CompletionKey: VoidPtr
     CompletionPort: win32more.Windows.Win32.Foundation.HANDLE
@@ -272,13 +272,13 @@ class JOBOBJECT_NOTIFICATION_LIMIT_INFORMATION_2(EasyCastStructure):
         RateControlToleranceInterval: win32more.Windows.Win32.System.JobObjects.JOBOBJECT_RATE_CONTROL_TOLERANCE_INTERVAL
         CpuRateControlToleranceInterval: win32more.Windows.Win32.System.JobObjects.JOBOBJECT_RATE_CONTROL_TOLERANCE_INTERVAL
 JOBOBJECT_RATE_CONTROL_TOLERANCE = Int32
-JOBOBJECT_RATE_CONTROL_TOLERANCE_ToleranceLow: win32more.Windows.Win32.System.JobObjects.JOBOBJECT_RATE_CONTROL_TOLERANCE = 1
-JOBOBJECT_RATE_CONTROL_TOLERANCE_ToleranceMedium: win32more.Windows.Win32.System.JobObjects.JOBOBJECT_RATE_CONTROL_TOLERANCE = 2
-JOBOBJECT_RATE_CONTROL_TOLERANCE_ToleranceHigh: win32more.Windows.Win32.System.JobObjects.JOBOBJECT_RATE_CONTROL_TOLERANCE = 3
+ToleranceLow: win32more.Windows.Win32.System.JobObjects.JOBOBJECT_RATE_CONTROL_TOLERANCE = 1
+ToleranceMedium: win32more.Windows.Win32.System.JobObjects.JOBOBJECT_RATE_CONTROL_TOLERANCE = 2
+ToleranceHigh: win32more.Windows.Win32.System.JobObjects.JOBOBJECT_RATE_CONTROL_TOLERANCE = 3
 JOBOBJECT_RATE_CONTROL_TOLERANCE_INTERVAL = Int32
-JOBOBJECT_RATE_CONTROL_TOLERANCE_INTERVAL_ToleranceIntervalShort: win32more.Windows.Win32.System.JobObjects.JOBOBJECT_RATE_CONTROL_TOLERANCE_INTERVAL = 1
-JOBOBJECT_RATE_CONTROL_TOLERANCE_INTERVAL_ToleranceIntervalMedium: win32more.Windows.Win32.System.JobObjects.JOBOBJECT_RATE_CONTROL_TOLERANCE_INTERVAL = 2
-JOBOBJECT_RATE_CONTROL_TOLERANCE_INTERVAL_ToleranceIntervalLong: win32more.Windows.Win32.System.JobObjects.JOBOBJECT_RATE_CONTROL_TOLERANCE_INTERVAL = 3
+ToleranceIntervalShort: win32more.Windows.Win32.System.JobObjects.JOBOBJECT_RATE_CONTROL_TOLERANCE_INTERVAL = 1
+ToleranceIntervalMedium: win32more.Windows.Win32.System.JobObjects.JOBOBJECT_RATE_CONTROL_TOLERANCE_INTERVAL = 2
+ToleranceIntervalLong: win32more.Windows.Win32.System.JobObjects.JOBOBJECT_RATE_CONTROL_TOLERANCE_INTERVAL = 3
 class JOBOBJECT_SECURITY_LIMIT_INFORMATION(EasyCastStructure):
     SecurityLimitFlags: win32more.Windows.Win32.System.JobObjects.JOB_OBJECT_SECURITY
     JobToken: win32more.Windows.Win32.Foundation.HANDLE

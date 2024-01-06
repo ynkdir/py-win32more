@@ -2132,21 +2132,21 @@ class NVME_WCS_DEVICE_ERROR_RECOVERY_LOG(EasyCastStructure):
     LogPageGUID: Guid
     _pack_ = 1
 NVME_WCS_DEVICE_RECOVERY_ACTION1 = Int32
-NVME_WCS_DEVICE_RECOVERY_ACTION1_NVMeDeviceRecoveryNoAction: win32more.Windows.Win32.Storage.Nvme.NVME_WCS_DEVICE_RECOVERY_ACTION1 = 0
-NVME_WCS_DEVICE_RECOVERY_ACTION1_NVMeDeviceRecoveryFormatNVM: win32more.Windows.Win32.Storage.Nvme.NVME_WCS_DEVICE_RECOVERY_ACTION1 = 1
-NVME_WCS_DEVICE_RECOVERY_ACTION1_NVMeDeviceRecoveryVendorSpecificCommand: win32more.Windows.Win32.Storage.Nvme.NVME_WCS_DEVICE_RECOVERY_ACTION1 = 2
-NVME_WCS_DEVICE_RECOVERY_ACTION1_NVMeDeviceRecoveryVendorAnalysis: win32more.Windows.Win32.Storage.Nvme.NVME_WCS_DEVICE_RECOVERY_ACTION1 = 3
-NVME_WCS_DEVICE_RECOVERY_ACTION1_NVMeDeviceRecoveryDeviceReplacement: win32more.Windows.Win32.Storage.Nvme.NVME_WCS_DEVICE_RECOVERY_ACTION1 = 4
-NVME_WCS_DEVICE_RECOVERY_ACTION1_NVMeDeviceRecoverySanitize: win32more.Windows.Win32.Storage.Nvme.NVME_WCS_DEVICE_RECOVERY_ACTION1 = 5
-NVME_WCS_DEVICE_RECOVERY_ACTION1_NVMeDeviceRecovery1Max: win32more.Windows.Win32.Storage.Nvme.NVME_WCS_DEVICE_RECOVERY_ACTION1 = 15
+NVMeDeviceRecoveryNoAction: win32more.Windows.Win32.Storage.Nvme.NVME_WCS_DEVICE_RECOVERY_ACTION1 = 0
+NVMeDeviceRecoveryFormatNVM: win32more.Windows.Win32.Storage.Nvme.NVME_WCS_DEVICE_RECOVERY_ACTION1 = 1
+NVMeDeviceRecoveryVendorSpecificCommand: win32more.Windows.Win32.Storage.Nvme.NVME_WCS_DEVICE_RECOVERY_ACTION1 = 2
+NVMeDeviceRecoveryVendorAnalysis: win32more.Windows.Win32.Storage.Nvme.NVME_WCS_DEVICE_RECOVERY_ACTION1 = 3
+NVMeDeviceRecoveryDeviceReplacement: win32more.Windows.Win32.Storage.Nvme.NVME_WCS_DEVICE_RECOVERY_ACTION1 = 4
+NVMeDeviceRecoverySanitize: win32more.Windows.Win32.Storage.Nvme.NVME_WCS_DEVICE_RECOVERY_ACTION1 = 5
+NVMeDeviceRecovery1Max: win32more.Windows.Win32.Storage.Nvme.NVME_WCS_DEVICE_RECOVERY_ACTION1 = 15
 NVME_WCS_DEVICE_RECOVERY_ACTION2 = Int32
-NVME_WCS_DEVICE_RECOVERY_ACTION2_NVMeDeviceRecoveryControllerReset: win32more.Windows.Win32.Storage.Nvme.NVME_WCS_DEVICE_RECOVERY_ACTION2 = 0
-NVME_WCS_DEVICE_RECOVERY_ACTION2_NVMeDeviceRecoverySubsystemReset: win32more.Windows.Win32.Storage.Nvme.NVME_WCS_DEVICE_RECOVERY_ACTION2 = 1
-NVME_WCS_DEVICE_RECOVERY_ACTION2_NVMeDeviceRecoveryPcieFunctionReset: win32more.Windows.Win32.Storage.Nvme.NVME_WCS_DEVICE_RECOVERY_ACTION2 = 2
-NVME_WCS_DEVICE_RECOVERY_ACTION2_NVMeDeviceRecoveryPERST: win32more.Windows.Win32.Storage.Nvme.NVME_WCS_DEVICE_RECOVERY_ACTION2 = 3
-NVME_WCS_DEVICE_RECOVERY_ACTION2_NVMeDeviceRecoveryPowerCycle: win32more.Windows.Win32.Storage.Nvme.NVME_WCS_DEVICE_RECOVERY_ACTION2 = 4
-NVME_WCS_DEVICE_RECOVERY_ACTION2_NVMeDeviceRecoveryPcieHotReset: win32more.Windows.Win32.Storage.Nvme.NVME_WCS_DEVICE_RECOVERY_ACTION2 = 5
-NVME_WCS_DEVICE_RECOVERY_ACTION2_NVMeDeviceRecovery2Max: win32more.Windows.Win32.Storage.Nvme.NVME_WCS_DEVICE_RECOVERY_ACTION2 = 15
+NVMeDeviceRecoveryControllerReset: win32more.Windows.Win32.Storage.Nvme.NVME_WCS_DEVICE_RECOVERY_ACTION2 = 0
+NVMeDeviceRecoverySubsystemReset: win32more.Windows.Win32.Storage.Nvme.NVME_WCS_DEVICE_RECOVERY_ACTION2 = 1
+NVMeDeviceRecoveryPcieFunctionReset: win32more.Windows.Win32.Storage.Nvme.NVME_WCS_DEVICE_RECOVERY_ACTION2 = 2
+NVMeDeviceRecoveryPERST: win32more.Windows.Win32.Storage.Nvme.NVME_WCS_DEVICE_RECOVERY_ACTION2 = 3
+NVMeDeviceRecoveryPowerCycle: win32more.Windows.Win32.Storage.Nvme.NVME_WCS_DEVICE_RECOVERY_ACTION2 = 4
+NVMeDeviceRecoveryPcieHotReset: win32more.Windows.Win32.Storage.Nvme.NVME_WCS_DEVICE_RECOVERY_ACTION2 = 5
+NVMeDeviceRecovery2Max: win32more.Windows.Win32.Storage.Nvme.NVME_WCS_DEVICE_RECOVERY_ACTION2 = 15
 class NVME_WCS_DEVICE_RESET_ACTION(EasyCastStructure):
     Anonymous: _Anonymous_e__Union
     class _Anonymous_e__Union(EasyCastUnion):

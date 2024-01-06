@@ -463,9 +463,9 @@ class ServerInformation(EasyCastStructure):
     dwServerTid: UInt32
     ui64ServerAddress: UInt64
 TrustLevel = Int32
-TrustLevel_BaseTrust: win32more.Windows.Win32.System.WinRT.TrustLevel = 0
-TrustLevel_PartialTrust: win32more.Windows.Win32.System.WinRT.TrustLevel = 1
-TrustLevel_FullTrust: win32more.Windows.Win32.System.WinRT.TrustLevel = 2
+BaseTrust: win32more.Windows.Win32.System.WinRT.TrustLevel = 0
+PartialTrust: win32more.Windows.Win32.System.WinRT.TrustLevel = 1
+FullTrust: win32more.Windows.Win32.System.WinRT.TrustLevel = 2
 
 
 make_ready(__name__)

@@ -393,9 +393,14 @@ class Enum:
     def emit(self) -> str:
         writer = StringIO()
         type_field, *value_fields = self._td.fields
-        writer.write(f"{self._td.name} = {self._formatter.pytype(type_field.signature)}\n")
-        for fd in value_fields:
-            writer.write(f"{fd.name}: {self._formatter.fullname(self._td)} = {fd.default_value.value}\n")
+        if self._td.custom_attributes.has_scoped_enum():
+            writer.write(f"class {self._td.name}({self._formatter.pytype(type_field.signature)}):  # enum\n")
+            for fd in value_fields:
+                writer.write(f"    {fd.name} = {fd.default_value.value}\n")
+        else:
+            writer.write(f"{self._td.name} = {self._formatter.pytype(type_field.signature)}\n")
+            for fd in value_fields:
+                writer.write(f"{fd.name}: {self._formatter.fullname(self._td)} = {fd.default_value.value}\n")
         return writer.getvalue()
 
 

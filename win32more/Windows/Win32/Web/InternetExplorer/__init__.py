@@ -597,13 +597,13 @@ CoDitherToRGB8 = Guid('{a860ce50-3910-11d0-86fc-00a0c913f750}')
 CoMapMIMEToCLSID = Guid('{30c3b080-30fb-11d0-b724-00aa006c1a01}')
 CoSniffStream = Guid('{6a01fda0-30df-11d0-b724-00aa006c1a01}')
 ExtensionValidationContexts = Int32
-ExtensionValidationContexts_ExtensionValidationContextNone: win32more.Windows.Win32.Web.InternetExplorer.ExtensionValidationContexts = 0
-ExtensionValidationContexts_ExtensionValidationContextDynamic: win32more.Windows.Win32.Web.InternetExplorer.ExtensionValidationContexts = 1
-ExtensionValidationContexts_ExtensionValidationContextParsed: win32more.Windows.Win32.Web.InternetExplorer.ExtensionValidationContexts = 2
+ExtensionValidationContextNone: win32more.Windows.Win32.Web.InternetExplorer.ExtensionValidationContexts = 0
+ExtensionValidationContextDynamic: win32more.Windows.Win32.Web.InternetExplorer.ExtensionValidationContexts = 1
+ExtensionValidationContextParsed: win32more.Windows.Win32.Web.InternetExplorer.ExtensionValidationContexts = 2
 ExtensionValidationResults = Int32
-ExtensionValidationResults_ExtensionValidationResultNone: win32more.Windows.Win32.Web.InternetExplorer.ExtensionValidationResults = 0
-ExtensionValidationResults_ExtensionValidationResultDoNotInstantiate: win32more.Windows.Win32.Web.InternetExplorer.ExtensionValidationResults = 1
-ExtensionValidationResults_ExtensionValidationResultArrestPageLoad: win32more.Windows.Win32.Web.InternetExplorer.ExtensionValidationResults = 2
+ExtensionValidationResultNone: win32more.Windows.Win32.Web.InternetExplorer.ExtensionValidationResults = 0
+ExtensionValidationResultDoNotInstantiate: win32more.Windows.Win32.Web.InternetExplorer.ExtensionValidationResults = 1
+ExtensionValidationResultArrestPageLoad: win32more.Windows.Win32.Web.InternetExplorer.ExtensionValidationResults = 2
 FINDFRAME_FLAGS = Int32
 FINDFRAME_NONE: win32more.Windows.Win32.Web.InternetExplorer.FINDFRAME_FLAGS = 0
 FINDFRAME_JUSTTESTEXISTENCE: win32more.Windows.Win32.Web.InternetExplorer.FINDFRAME_FLAGS = 1
@@ -1376,9 +1376,9 @@ class Iwfolders(ComPtr):
     @commethod(9)
     def navigateNoSite(self, bstrUrl: win32more.Windows.Win32.Foundation.BSTR, bstrTargetFrame: win32more.Windows.Win32.Foundation.BSTR, dwhwnd: UInt32, pwb: win32more.Windows.Win32.System.Com.IUnknown) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 MEDIA_ACTIVITY_NOTIFY_TYPE = Int32
-MEDIA_ACTIVITY_NOTIFY_TYPE_MediaPlayback: win32more.Windows.Win32.Web.InternetExplorer.MEDIA_ACTIVITY_NOTIFY_TYPE = 0
-MEDIA_ACTIVITY_NOTIFY_TYPE_MediaRecording: win32more.Windows.Win32.Web.InternetExplorer.MEDIA_ACTIVITY_NOTIFY_TYPE = 1
-MEDIA_ACTIVITY_NOTIFY_TYPE_MediaCasting: win32more.Windows.Win32.Web.InternetExplorer.MEDIA_ACTIVITY_NOTIFY_TYPE = 2
+MediaPlayback: win32more.Windows.Win32.Web.InternetExplorer.MEDIA_ACTIVITY_NOTIFY_TYPE = 0
+MediaRecording: win32more.Windows.Win32.Web.InternetExplorer.MEDIA_ACTIVITY_NOTIFY_TYPE = 1
+MediaCasting: win32more.Windows.Win32.Web.InternetExplorer.MEDIA_ACTIVITY_NOTIFY_TYPE = 2
 class NAVIGATEDATA(EasyCastStructure):
     ulTarget: UInt32
     ulURL: UInt32
@@ -1394,11 +1394,11 @@ NAVIGATEFRAME_FL_AUTH_FAIL_CACHE_OK: win32more.Windows.Win32.Web.InternetExplore
 NAVIGATEFRAME_FL_SENDING_FROM_FORM: win32more.Windows.Win32.Web.InternetExplorer.NAVIGATEFRAME_FLAGS = 32
 NAVIGATEFRAME_FL_REALLY_SENDING_FROM_FORM: win32more.Windows.Win32.Web.InternetExplorer.NAVIGATEFRAME_FLAGS = 64
 OpenServiceActivityContentType = Int32
-OpenServiceActivityContentType_ActivityContentNone: win32more.Windows.Win32.Web.InternetExplorer.OpenServiceActivityContentType = -1
-OpenServiceActivityContentType_ActivityContentDocument: win32more.Windows.Win32.Web.InternetExplorer.OpenServiceActivityContentType = 0
-OpenServiceActivityContentType_ActivityContentSelection: win32more.Windows.Win32.Web.InternetExplorer.OpenServiceActivityContentType = 1
-OpenServiceActivityContentType_ActivityContentLink: win32more.Windows.Win32.Web.InternetExplorer.OpenServiceActivityContentType = 2
-OpenServiceActivityContentType_ActivityContentCount: win32more.Windows.Win32.Web.InternetExplorer.OpenServiceActivityContentType = 3
+ActivityContentNone: win32more.Windows.Win32.Web.InternetExplorer.OpenServiceActivityContentType = -1
+ActivityContentDocument: win32more.Windows.Win32.Web.InternetExplorer.OpenServiceActivityContentType = 0
+ActivityContentSelection: win32more.Windows.Win32.Web.InternetExplorer.OpenServiceActivityContentType = 1
+ActivityContentLink: win32more.Windows.Win32.Web.InternetExplorer.OpenServiceActivityContentType = 2
+ActivityContentCount: win32more.Windows.Win32.Web.InternetExplorer.OpenServiceActivityContentType = 3
 OpenServiceActivityManager = Guid('{c5efd803-50f8-43cd-9ab8-aafc1394c9e0}')
 OpenServiceErrors = Int32
 OS_E_NOTFOUND: win32more.Windows.Win32.Web.InternetExplorer.OpenServiceErrors = -2147287038

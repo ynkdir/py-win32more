@@ -83,34 +83,34 @@ class DEV_OBJECT(EasyCastStructure):
     cPropertyCount: UInt32
     pProperties: POINTER(win32more.Windows.Win32.Devices.Properties.DEVPROPERTY)
 DEV_OBJECT_TYPE = Int32
-DEV_OBJECT_TYPE_DevObjectTypeUnknown: win32more.Windows.Win32.Devices.DeviceQuery.DEV_OBJECT_TYPE = 0
-DEV_OBJECT_TYPE_DevObjectTypeDeviceInterface: win32more.Windows.Win32.Devices.DeviceQuery.DEV_OBJECT_TYPE = 1
-DEV_OBJECT_TYPE_DevObjectTypeDeviceContainer: win32more.Windows.Win32.Devices.DeviceQuery.DEV_OBJECT_TYPE = 2
-DEV_OBJECT_TYPE_DevObjectTypeDevice: win32more.Windows.Win32.Devices.DeviceQuery.DEV_OBJECT_TYPE = 3
-DEV_OBJECT_TYPE_DevObjectTypeDeviceInterfaceClass: win32more.Windows.Win32.Devices.DeviceQuery.DEV_OBJECT_TYPE = 4
-DEV_OBJECT_TYPE_DevObjectTypeAEP: win32more.Windows.Win32.Devices.DeviceQuery.DEV_OBJECT_TYPE = 5
-DEV_OBJECT_TYPE_DevObjectTypeAEPContainer: win32more.Windows.Win32.Devices.DeviceQuery.DEV_OBJECT_TYPE = 6
-DEV_OBJECT_TYPE_DevObjectTypeDeviceInstallerClass: win32more.Windows.Win32.Devices.DeviceQuery.DEV_OBJECT_TYPE = 7
-DEV_OBJECT_TYPE_DevObjectTypeDeviceInterfaceDisplay: win32more.Windows.Win32.Devices.DeviceQuery.DEV_OBJECT_TYPE = 8
-DEV_OBJECT_TYPE_DevObjectTypeDeviceContainerDisplay: win32more.Windows.Win32.Devices.DeviceQuery.DEV_OBJECT_TYPE = 9
-DEV_OBJECT_TYPE_DevObjectTypeAEPService: win32more.Windows.Win32.Devices.DeviceQuery.DEV_OBJECT_TYPE = 10
-DEV_OBJECT_TYPE_DevObjectTypeDevicePanel: win32more.Windows.Win32.Devices.DeviceQuery.DEV_OBJECT_TYPE = 11
+DevObjectTypeUnknown: win32more.Windows.Win32.Devices.DeviceQuery.DEV_OBJECT_TYPE = 0
+DevObjectTypeDeviceInterface: win32more.Windows.Win32.Devices.DeviceQuery.DEV_OBJECT_TYPE = 1
+DevObjectTypeDeviceContainer: win32more.Windows.Win32.Devices.DeviceQuery.DEV_OBJECT_TYPE = 2
+DevObjectTypeDevice: win32more.Windows.Win32.Devices.DeviceQuery.DEV_OBJECT_TYPE = 3
+DevObjectTypeDeviceInterfaceClass: win32more.Windows.Win32.Devices.DeviceQuery.DEV_OBJECT_TYPE = 4
+DevObjectTypeAEP: win32more.Windows.Win32.Devices.DeviceQuery.DEV_OBJECT_TYPE = 5
+DevObjectTypeAEPContainer: win32more.Windows.Win32.Devices.DeviceQuery.DEV_OBJECT_TYPE = 6
+DevObjectTypeDeviceInstallerClass: win32more.Windows.Win32.Devices.DeviceQuery.DEV_OBJECT_TYPE = 7
+DevObjectTypeDeviceInterfaceDisplay: win32more.Windows.Win32.Devices.DeviceQuery.DEV_OBJECT_TYPE = 8
+DevObjectTypeDeviceContainerDisplay: win32more.Windows.Win32.Devices.DeviceQuery.DEV_OBJECT_TYPE = 9
+DevObjectTypeAEPService: win32more.Windows.Win32.Devices.DeviceQuery.DEV_OBJECT_TYPE = 10
+DevObjectTypeDevicePanel: win32more.Windows.Win32.Devices.DeviceQuery.DEV_OBJECT_TYPE = 11
 DEV_QUERY_FLAGS = Int32
-DEV_QUERY_FLAGS_DevQueryFlagNone: win32more.Windows.Win32.Devices.DeviceQuery.DEV_QUERY_FLAGS = 0
-DEV_QUERY_FLAGS_DevQueryFlagUpdateResults: win32more.Windows.Win32.Devices.DeviceQuery.DEV_QUERY_FLAGS = 1
-DEV_QUERY_FLAGS_DevQueryFlagAllProperties: win32more.Windows.Win32.Devices.DeviceQuery.DEV_QUERY_FLAGS = 2
-DEV_QUERY_FLAGS_DevQueryFlagLocalize: win32more.Windows.Win32.Devices.DeviceQuery.DEV_QUERY_FLAGS = 4
-DEV_QUERY_FLAGS_DevQueryFlagAsyncClose: win32more.Windows.Win32.Devices.DeviceQuery.DEV_QUERY_FLAGS = 8
+DevQueryFlagNone: win32more.Windows.Win32.Devices.DeviceQuery.DEV_QUERY_FLAGS = 0
+DevQueryFlagUpdateResults: win32more.Windows.Win32.Devices.DeviceQuery.DEV_QUERY_FLAGS = 1
+DevQueryFlagAllProperties: win32more.Windows.Win32.Devices.DeviceQuery.DEV_QUERY_FLAGS = 2
+DevQueryFlagLocalize: win32more.Windows.Win32.Devices.DeviceQuery.DEV_QUERY_FLAGS = 4
+DevQueryFlagAsyncClose: win32more.Windows.Win32.Devices.DeviceQuery.DEV_QUERY_FLAGS = 8
 class DEV_QUERY_PARAMETER(EasyCastStructure):
     Key: win32more.Windows.Win32.Devices.Properties.DEVPROPKEY
     Type: win32more.Windows.Win32.Devices.Properties.DEVPROPTYPE
     BufferSize: UInt32
     Buffer: VoidPtr
 DEV_QUERY_RESULT_ACTION = Int32
-DEV_QUERY_RESULT_ACTION_DevQueryResultStateChange: win32more.Windows.Win32.Devices.DeviceQuery.DEV_QUERY_RESULT_ACTION = 0
-DEV_QUERY_RESULT_ACTION_DevQueryResultAdd: win32more.Windows.Win32.Devices.DeviceQuery.DEV_QUERY_RESULT_ACTION = 1
-DEV_QUERY_RESULT_ACTION_DevQueryResultUpdate: win32more.Windows.Win32.Devices.DeviceQuery.DEV_QUERY_RESULT_ACTION = 2
-DEV_QUERY_RESULT_ACTION_DevQueryResultRemove: win32more.Windows.Win32.Devices.DeviceQuery.DEV_QUERY_RESULT_ACTION = 3
+DevQueryResultStateChange: win32more.Windows.Win32.Devices.DeviceQuery.DEV_QUERY_RESULT_ACTION = 0
+DevQueryResultAdd: win32more.Windows.Win32.Devices.DeviceQuery.DEV_QUERY_RESULT_ACTION = 1
+DevQueryResultUpdate: win32more.Windows.Win32.Devices.DeviceQuery.DEV_QUERY_RESULT_ACTION = 2
+DevQueryResultRemove: win32more.Windows.Win32.Devices.DeviceQuery.DEV_QUERY_RESULT_ACTION = 3
 class DEV_QUERY_RESULT_ACTION_DATA(EasyCastStructure):
     Action: win32more.Windows.Win32.Devices.DeviceQuery.DEV_QUERY_RESULT_ACTION
     Data: _DEV_QUERY_RESULT_UPDATE_PAYLOAD
@@ -118,10 +118,10 @@ class DEV_QUERY_RESULT_ACTION_DATA(EasyCastStructure):
         State: win32more.Windows.Win32.Devices.DeviceQuery.DEV_QUERY_STATE
         DeviceObject: win32more.Windows.Win32.Devices.DeviceQuery.DEV_OBJECT
 DEV_QUERY_STATE = Int32
-DEV_QUERY_STATE_DevQueryStateInitialized: win32more.Windows.Win32.Devices.DeviceQuery.DEV_QUERY_STATE = 0
-DEV_QUERY_STATE_DevQueryStateEnumCompleted: win32more.Windows.Win32.Devices.DeviceQuery.DEV_QUERY_STATE = 1
-DEV_QUERY_STATE_DevQueryStateAborted: win32more.Windows.Win32.Devices.DeviceQuery.DEV_QUERY_STATE = 2
-DEV_QUERY_STATE_DevQueryStateClosed: win32more.Windows.Win32.Devices.DeviceQuery.DEV_QUERY_STATE = 3
+DevQueryStateInitialized: win32more.Windows.Win32.Devices.DeviceQuery.DEV_QUERY_STATE = 0
+DevQueryStateEnumCompleted: win32more.Windows.Win32.Devices.DeviceQuery.DEV_QUERY_STATE = 1
+DevQueryStateAborted: win32more.Windows.Win32.Devices.DeviceQuery.DEV_QUERY_STATE = 2
+DevQueryStateClosed: win32more.Windows.Win32.Devices.DeviceQuery.DEV_QUERY_STATE = 3
 HDEVQUERY = IntPtr
 @winfunctype_pointer
 def PDEV_QUERY_RESULT_CALLBACK(hDevQuery: win32more.Windows.Win32.Devices.DeviceQuery.HDEVQUERY, pContext: VoidPtr, pActionData: POINTER(win32more.Windows.Win32.Devices.DeviceQuery.DEV_QUERY_RESULT_ACTION_DATA)) -> Void: ...

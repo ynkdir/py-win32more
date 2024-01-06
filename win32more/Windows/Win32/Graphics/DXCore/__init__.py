@@ -18,28 +18,28 @@ class DXCoreAdapterMemoryBudgetNodeSegmentGroup(EasyCastStructure):
     nodeIndex: UInt32
     segmentGroup: win32more.Windows.Win32.Graphics.DXCore.DXCoreSegmentGroup
 DXCoreAdapterPreference = UInt32
-DXCoreAdapterPreference_Hardware: win32more.Windows.Win32.Graphics.DXCore.DXCoreAdapterPreference = 0
-DXCoreAdapterPreference_MinimumPower: win32more.Windows.Win32.Graphics.DXCore.DXCoreAdapterPreference = 1
-DXCoreAdapterPreference_HighPerformance: win32more.Windows.Win32.Graphics.DXCore.DXCoreAdapterPreference = 2
+Hardware: win32more.Windows.Win32.Graphics.DXCore.DXCoreAdapterPreference = 0
+MinimumPower: win32more.Windows.Win32.Graphics.DXCore.DXCoreAdapterPreference = 1
+HighPerformance: win32more.Windows.Win32.Graphics.DXCore.DXCoreAdapterPreference = 2
 DXCoreAdapterProperty = UInt32
-DXCoreAdapterProperty_InstanceLuid: win32more.Windows.Win32.Graphics.DXCore.DXCoreAdapterProperty = 0
-DXCoreAdapterProperty_DriverVersion: win32more.Windows.Win32.Graphics.DXCore.DXCoreAdapterProperty = 1
-DXCoreAdapterProperty_DriverDescription: win32more.Windows.Win32.Graphics.DXCore.DXCoreAdapterProperty = 2
-DXCoreAdapterProperty_HardwareID: win32more.Windows.Win32.Graphics.DXCore.DXCoreAdapterProperty = 3
-DXCoreAdapterProperty_KmdModelVersion: win32more.Windows.Win32.Graphics.DXCore.DXCoreAdapterProperty = 4
-DXCoreAdapterProperty_ComputePreemptionGranularity: win32more.Windows.Win32.Graphics.DXCore.DXCoreAdapterProperty = 5
-DXCoreAdapterProperty_GraphicsPreemptionGranularity: win32more.Windows.Win32.Graphics.DXCore.DXCoreAdapterProperty = 6
-DXCoreAdapterProperty_DedicatedAdapterMemory: win32more.Windows.Win32.Graphics.DXCore.DXCoreAdapterProperty = 7
-DXCoreAdapterProperty_DedicatedSystemMemory: win32more.Windows.Win32.Graphics.DXCore.DXCoreAdapterProperty = 8
-DXCoreAdapterProperty_SharedSystemMemory: win32more.Windows.Win32.Graphics.DXCore.DXCoreAdapterProperty = 9
-DXCoreAdapterProperty_AcgCompatible: win32more.Windows.Win32.Graphics.DXCore.DXCoreAdapterProperty = 10
-DXCoreAdapterProperty_IsHardware: win32more.Windows.Win32.Graphics.DXCore.DXCoreAdapterProperty = 11
-DXCoreAdapterProperty_IsIntegrated: win32more.Windows.Win32.Graphics.DXCore.DXCoreAdapterProperty = 12
-DXCoreAdapterProperty_IsDetachable: win32more.Windows.Win32.Graphics.DXCore.DXCoreAdapterProperty = 13
-DXCoreAdapterProperty_HardwareIDParts: win32more.Windows.Win32.Graphics.DXCore.DXCoreAdapterProperty = 14
+InstanceLuid: win32more.Windows.Win32.Graphics.DXCore.DXCoreAdapterProperty = 0
+DriverVersion: win32more.Windows.Win32.Graphics.DXCore.DXCoreAdapterProperty = 1
+DriverDescription: win32more.Windows.Win32.Graphics.DXCore.DXCoreAdapterProperty = 2
+HardwareID: win32more.Windows.Win32.Graphics.DXCore.DXCoreAdapterProperty = 3
+KmdModelVersion: win32more.Windows.Win32.Graphics.DXCore.DXCoreAdapterProperty = 4
+ComputePreemptionGranularity: win32more.Windows.Win32.Graphics.DXCore.DXCoreAdapterProperty = 5
+GraphicsPreemptionGranularity: win32more.Windows.Win32.Graphics.DXCore.DXCoreAdapterProperty = 6
+DedicatedAdapterMemory: win32more.Windows.Win32.Graphics.DXCore.DXCoreAdapterProperty = 7
+DedicatedSystemMemory: win32more.Windows.Win32.Graphics.DXCore.DXCoreAdapterProperty = 8
+SharedSystemMemory: win32more.Windows.Win32.Graphics.DXCore.DXCoreAdapterProperty = 9
+AcgCompatible: win32more.Windows.Win32.Graphics.DXCore.DXCoreAdapterProperty = 10
+IsHardware: win32more.Windows.Win32.Graphics.DXCore.DXCoreAdapterProperty = 11
+IsIntegrated: win32more.Windows.Win32.Graphics.DXCore.DXCoreAdapterProperty = 12
+IsDetachable: win32more.Windows.Win32.Graphics.DXCore.DXCoreAdapterProperty = 13
+HardwareIDParts: win32more.Windows.Win32.Graphics.DXCore.DXCoreAdapterProperty = 14
 DXCoreAdapterState = UInt32
-DXCoreAdapterState_IsDriverUpdateInProgress: win32more.Windows.Win32.Graphics.DXCore.DXCoreAdapterState = 0
-DXCoreAdapterState_AdapterMemoryBudget: win32more.Windows.Win32.Graphics.DXCore.DXCoreAdapterState = 1
+IsDriverUpdateInProgress: win32more.Windows.Win32.Graphics.DXCore.DXCoreAdapterState = 0
+AdapterMemoryBudget: win32more.Windows.Win32.Graphics.DXCore.DXCoreAdapterState = 1
 class DXCoreHardwareID(EasyCastStructure):
     vendorID: UInt32
     deviceID: UInt32
@@ -52,13 +52,13 @@ class DXCoreHardwareIDParts(EasyCastStructure):
     subVendorID: UInt32
     revisionID: UInt32
 DXCoreNotificationType = UInt32
-DXCoreNotificationType_AdapterListStale: win32more.Windows.Win32.Graphics.DXCore.DXCoreNotificationType = 0
-DXCoreNotificationType_AdapterNoLongerValid: win32more.Windows.Win32.Graphics.DXCore.DXCoreNotificationType = 1
-DXCoreNotificationType_AdapterBudgetChange: win32more.Windows.Win32.Graphics.DXCore.DXCoreNotificationType = 2
-DXCoreNotificationType_AdapterHardwareContentProtectionTeardown: win32more.Windows.Win32.Graphics.DXCore.DXCoreNotificationType = 3
+AdapterListStale: win32more.Windows.Win32.Graphics.DXCore.DXCoreNotificationType = 0
+AdapterNoLongerValid: win32more.Windows.Win32.Graphics.DXCore.DXCoreNotificationType = 1
+AdapterBudgetChange: win32more.Windows.Win32.Graphics.DXCore.DXCoreNotificationType = 2
+AdapterHardwareContentProtectionTeardown: win32more.Windows.Win32.Graphics.DXCore.DXCoreNotificationType = 3
 DXCoreSegmentGroup = UInt32
-DXCoreSegmentGroup_Local: win32more.Windows.Win32.Graphics.DXCore.DXCoreSegmentGroup = 0
-DXCoreSegmentGroup_NonLocal: win32more.Windows.Win32.Graphics.DXCore.DXCoreSegmentGroup = 1
+Local: win32more.Windows.Win32.Graphics.DXCore.DXCoreSegmentGroup = 0
+NonLocal: win32more.Windows.Win32.Graphics.DXCore.DXCoreSegmentGroup = 1
 class IDXCoreAdapter(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{f0db4c7f-fe5a-42a2-bd62-f2a6cf6fc83e}')

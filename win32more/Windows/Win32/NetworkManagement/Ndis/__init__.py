@@ -1878,13 +1878,13 @@ class IF_COUNTED_STRING_LH(EasyCastStructure):
     Length: UInt16
     String: Char * 257
 IF_OPER_STATUS = Int32
-IF_OPER_STATUS_IfOperStatusUp: win32more.Windows.Win32.NetworkManagement.Ndis.IF_OPER_STATUS = 1
-IF_OPER_STATUS_IfOperStatusDown: win32more.Windows.Win32.NetworkManagement.Ndis.IF_OPER_STATUS = 2
-IF_OPER_STATUS_IfOperStatusTesting: win32more.Windows.Win32.NetworkManagement.Ndis.IF_OPER_STATUS = 3
-IF_OPER_STATUS_IfOperStatusUnknown: win32more.Windows.Win32.NetworkManagement.Ndis.IF_OPER_STATUS = 4
-IF_OPER_STATUS_IfOperStatusDormant: win32more.Windows.Win32.NetworkManagement.Ndis.IF_OPER_STATUS = 5
-IF_OPER_STATUS_IfOperStatusNotPresent: win32more.Windows.Win32.NetworkManagement.Ndis.IF_OPER_STATUS = 6
-IF_OPER_STATUS_IfOperStatusLowerLayerDown: win32more.Windows.Win32.NetworkManagement.Ndis.IF_OPER_STATUS = 7
+IfOperStatusUp: win32more.Windows.Win32.NetworkManagement.Ndis.IF_OPER_STATUS = 1
+IfOperStatusDown: win32more.Windows.Win32.NetworkManagement.Ndis.IF_OPER_STATUS = 2
+IfOperStatusTesting: win32more.Windows.Win32.NetworkManagement.Ndis.IF_OPER_STATUS = 3
+IfOperStatusUnknown: win32more.Windows.Win32.NetworkManagement.Ndis.IF_OPER_STATUS = 4
+IfOperStatusDormant: win32more.Windows.Win32.NetworkManagement.Ndis.IF_OPER_STATUS = 5
+IfOperStatusNotPresent: win32more.Windows.Win32.NetworkManagement.Ndis.IF_OPER_STATUS = 6
+IfOperStatusLowerLayerDown: win32more.Windows.Win32.NetworkManagement.Ndis.IF_OPER_STATUS = 7
 class IF_PHYSICAL_ADDRESS_LH(EasyCastStructure):
     Length: UInt16
     Address: Byte * 32
@@ -2079,12 +2079,12 @@ Ndis802_11Encryption2KeyAbsent: win32more.Windows.Win32.NetworkManagement.Ndis.N
 Ndis802_11Encryption3Enabled: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_802_11_WEP_STATUS = 6
 Ndis802_11Encryption3KeyAbsent: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_802_11_WEP_STATUS = 7
 NDIS_802_5_RING_STATE = Int32
-NDIS_802_5_RING_STATE_NdisRingStateOpened: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_802_5_RING_STATE = 1
-NDIS_802_5_RING_STATE_NdisRingStateClosed: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_802_5_RING_STATE = 2
-NDIS_802_5_RING_STATE_NdisRingStateOpening: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_802_5_RING_STATE = 3
-NDIS_802_5_RING_STATE_NdisRingStateClosing: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_802_5_RING_STATE = 4
-NDIS_802_5_RING_STATE_NdisRingStateOpenFailure: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_802_5_RING_STATE = 5
-NDIS_802_5_RING_STATE_NdisRingStateRingFailure: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_802_5_RING_STATE = 6
+NdisRingStateOpened: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_802_5_RING_STATE = 1
+NdisRingStateClosed: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_802_5_RING_STATE = 2
+NdisRingStateOpening: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_802_5_RING_STATE = 3
+NdisRingStateClosing: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_802_5_RING_STATE = 4
+NdisRingStateOpenFailure: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_802_5_RING_STATE = 5
+NdisRingStateRingFailure: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_802_5_RING_STATE = 6
 class NDIS_CO_DEVICE_PROFILE(EasyCastStructure):
     DeviceDescription: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_VAR_DATA_DESC
     DevSpecificInfo: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_VAR_DATA_DESC
@@ -2118,46 +2118,46 @@ class NDIS_CO_LINK_SPEED(EasyCastStructure):
     Outbound: UInt32
     Inbound: UInt32
 NDIS_DEVICE_POWER_STATE = Int32
-NDIS_DEVICE_POWER_STATE_NdisDeviceStateUnspecified: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_DEVICE_POWER_STATE = 0
-NDIS_DEVICE_POWER_STATE_NdisDeviceStateD0: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_DEVICE_POWER_STATE = 1
-NDIS_DEVICE_POWER_STATE_NdisDeviceStateD1: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_DEVICE_POWER_STATE = 2
-NDIS_DEVICE_POWER_STATE_NdisDeviceStateD2: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_DEVICE_POWER_STATE = 3
-NDIS_DEVICE_POWER_STATE_NdisDeviceStateD3: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_DEVICE_POWER_STATE = 4
-NDIS_DEVICE_POWER_STATE_NdisDeviceStateMaximum: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_DEVICE_POWER_STATE = 5
+NdisDeviceStateUnspecified: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_DEVICE_POWER_STATE = 0
+NdisDeviceStateD0: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_DEVICE_POWER_STATE = 1
+NdisDeviceStateD1: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_DEVICE_POWER_STATE = 2
+NdisDeviceStateD2: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_DEVICE_POWER_STATE = 3
+NdisDeviceStateD3: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_DEVICE_POWER_STATE = 4
+NdisDeviceStateMaximum: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_DEVICE_POWER_STATE = 5
 NDIS_FDDI_ATTACHMENT_TYPE = Int32
-NDIS_FDDI_ATTACHMENT_TYPE_NdisFddiTypeIsolated: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_FDDI_ATTACHMENT_TYPE = 1
-NDIS_FDDI_ATTACHMENT_TYPE_NdisFddiTypeLocalA: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_FDDI_ATTACHMENT_TYPE = 2
-NDIS_FDDI_ATTACHMENT_TYPE_NdisFddiTypeLocalB: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_FDDI_ATTACHMENT_TYPE = 3
-NDIS_FDDI_ATTACHMENT_TYPE_NdisFddiTypeLocalAB: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_FDDI_ATTACHMENT_TYPE = 4
-NDIS_FDDI_ATTACHMENT_TYPE_NdisFddiTypeLocalS: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_FDDI_ATTACHMENT_TYPE = 5
-NDIS_FDDI_ATTACHMENT_TYPE_NdisFddiTypeWrapA: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_FDDI_ATTACHMENT_TYPE = 6
-NDIS_FDDI_ATTACHMENT_TYPE_NdisFddiTypeWrapB: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_FDDI_ATTACHMENT_TYPE = 7
-NDIS_FDDI_ATTACHMENT_TYPE_NdisFddiTypeWrapAB: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_FDDI_ATTACHMENT_TYPE = 8
-NDIS_FDDI_ATTACHMENT_TYPE_NdisFddiTypeWrapS: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_FDDI_ATTACHMENT_TYPE = 9
-NDIS_FDDI_ATTACHMENT_TYPE_NdisFddiTypeCWrapA: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_FDDI_ATTACHMENT_TYPE = 10
-NDIS_FDDI_ATTACHMENT_TYPE_NdisFddiTypeCWrapB: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_FDDI_ATTACHMENT_TYPE = 11
-NDIS_FDDI_ATTACHMENT_TYPE_NdisFddiTypeCWrapS: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_FDDI_ATTACHMENT_TYPE = 12
-NDIS_FDDI_ATTACHMENT_TYPE_NdisFddiTypeThrough: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_FDDI_ATTACHMENT_TYPE = 13
+NdisFddiTypeIsolated: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_FDDI_ATTACHMENT_TYPE = 1
+NdisFddiTypeLocalA: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_FDDI_ATTACHMENT_TYPE = 2
+NdisFddiTypeLocalB: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_FDDI_ATTACHMENT_TYPE = 3
+NdisFddiTypeLocalAB: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_FDDI_ATTACHMENT_TYPE = 4
+NdisFddiTypeLocalS: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_FDDI_ATTACHMENT_TYPE = 5
+NdisFddiTypeWrapA: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_FDDI_ATTACHMENT_TYPE = 6
+NdisFddiTypeWrapB: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_FDDI_ATTACHMENT_TYPE = 7
+NdisFddiTypeWrapAB: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_FDDI_ATTACHMENT_TYPE = 8
+NdisFddiTypeWrapS: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_FDDI_ATTACHMENT_TYPE = 9
+NdisFddiTypeCWrapA: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_FDDI_ATTACHMENT_TYPE = 10
+NdisFddiTypeCWrapB: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_FDDI_ATTACHMENT_TYPE = 11
+NdisFddiTypeCWrapS: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_FDDI_ATTACHMENT_TYPE = 12
+NdisFddiTypeThrough: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_FDDI_ATTACHMENT_TYPE = 13
 NDIS_FDDI_LCONNECTION_STATE = Int32
-NDIS_FDDI_LCONNECTION_STATE_NdisFddiStateOff: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_FDDI_LCONNECTION_STATE = 1
-NDIS_FDDI_LCONNECTION_STATE_NdisFddiStateBreak: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_FDDI_LCONNECTION_STATE = 2
-NDIS_FDDI_LCONNECTION_STATE_NdisFddiStateTrace: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_FDDI_LCONNECTION_STATE = 3
-NDIS_FDDI_LCONNECTION_STATE_NdisFddiStateConnect: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_FDDI_LCONNECTION_STATE = 4
-NDIS_FDDI_LCONNECTION_STATE_NdisFddiStateNext: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_FDDI_LCONNECTION_STATE = 5
-NDIS_FDDI_LCONNECTION_STATE_NdisFddiStateSignal: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_FDDI_LCONNECTION_STATE = 6
-NDIS_FDDI_LCONNECTION_STATE_NdisFddiStateJoin: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_FDDI_LCONNECTION_STATE = 7
-NDIS_FDDI_LCONNECTION_STATE_NdisFddiStateVerify: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_FDDI_LCONNECTION_STATE = 8
-NDIS_FDDI_LCONNECTION_STATE_NdisFddiStateActive: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_FDDI_LCONNECTION_STATE = 9
-NDIS_FDDI_LCONNECTION_STATE_NdisFddiStateMaintenance: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_FDDI_LCONNECTION_STATE = 10
+NdisFddiStateOff: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_FDDI_LCONNECTION_STATE = 1
+NdisFddiStateBreak: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_FDDI_LCONNECTION_STATE = 2
+NdisFddiStateTrace: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_FDDI_LCONNECTION_STATE = 3
+NdisFddiStateConnect: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_FDDI_LCONNECTION_STATE = 4
+NdisFddiStateNext: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_FDDI_LCONNECTION_STATE = 5
+NdisFddiStateSignal: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_FDDI_LCONNECTION_STATE = 6
+NdisFddiStateJoin: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_FDDI_LCONNECTION_STATE = 7
+NdisFddiStateVerify: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_FDDI_LCONNECTION_STATE = 8
+NdisFddiStateActive: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_FDDI_LCONNECTION_STATE = 9
+NdisFddiStateMaintenance: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_FDDI_LCONNECTION_STATE = 10
 NDIS_FDDI_RING_MGT_STATE = Int32
-NDIS_FDDI_RING_MGT_STATE_NdisFddiRingIsolated: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_FDDI_RING_MGT_STATE = 1
-NDIS_FDDI_RING_MGT_STATE_NdisFddiRingNonOperational: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_FDDI_RING_MGT_STATE = 2
-NDIS_FDDI_RING_MGT_STATE_NdisFddiRingOperational: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_FDDI_RING_MGT_STATE = 3
-NDIS_FDDI_RING_MGT_STATE_NdisFddiRingDetect: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_FDDI_RING_MGT_STATE = 4
-NDIS_FDDI_RING_MGT_STATE_NdisFddiRingNonOperationalDup: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_FDDI_RING_MGT_STATE = 5
-NDIS_FDDI_RING_MGT_STATE_NdisFddiRingOperationalDup: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_FDDI_RING_MGT_STATE = 6
-NDIS_FDDI_RING_MGT_STATE_NdisFddiRingDirected: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_FDDI_RING_MGT_STATE = 7
-NDIS_FDDI_RING_MGT_STATE_NdisFddiRingTrace: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_FDDI_RING_MGT_STATE = 8
+NdisFddiRingIsolated: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_FDDI_RING_MGT_STATE = 1
+NdisFddiRingNonOperational: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_FDDI_RING_MGT_STATE = 2
+NdisFddiRingOperational: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_FDDI_RING_MGT_STATE = 3
+NdisFddiRingDetect: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_FDDI_RING_MGT_STATE = 4
+NdisFddiRingNonOperationalDup: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_FDDI_RING_MGT_STATE = 5
+NdisFddiRingOperationalDup: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_FDDI_RING_MGT_STATE = 6
+NdisFddiRingDirected: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_FDDI_RING_MGT_STATE = 7
+NdisFddiRingTrace: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_FDDI_RING_MGT_STATE = 8
 class NDIS_GUID(EasyCastStructure):
     Guid: Guid
     Anonymous: _Anonymous_e__Union
@@ -2173,11 +2173,11 @@ class NDIS_HARDWARE_CROSSTIMESTAMP(EasyCastStructure):
     HardwareClockTimestamp: UInt64
     SystemTimestamp2: UInt64
 NDIS_HARDWARE_STATUS = Int32
-NDIS_HARDWARE_STATUS_NdisHardwareStatusReady: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_HARDWARE_STATUS = 0
-NDIS_HARDWARE_STATUS_NdisHardwareStatusInitializing: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_HARDWARE_STATUS = 1
-NDIS_HARDWARE_STATUS_NdisHardwareStatusReset: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_HARDWARE_STATUS = 2
-NDIS_HARDWARE_STATUS_NdisHardwareStatusClosing: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_HARDWARE_STATUS = 3
-NDIS_HARDWARE_STATUS_NdisHardwareStatusNotReady: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_HARDWARE_STATUS = 4
+NdisHardwareStatusReady: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_HARDWARE_STATUS = 0
+NdisHardwareStatusInitializing: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_HARDWARE_STATUS = 1
+NdisHardwareStatusReset: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_HARDWARE_STATUS = 2
+NdisHardwareStatusClosing: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_HARDWARE_STATUS = 3
+NdisHardwareStatusNotReady: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_HARDWARE_STATUS = 4
 class NDIS_INTERFACE_INFORMATION(EasyCastStructure):
     ifOperStatus: win32more.Windows.Win32.NetworkManagement.Ndis.NET_IF_OPER_STATUS
     ifOperStatusFlags: UInt32
@@ -2212,10 +2212,10 @@ class NDIS_INTERFACE_INFORMATION(EasyCastStructure):
     CompartmentId: UInt32
     SupportedStatistics: UInt32
 NDIS_INTERRUPT_MODERATION = Int32
-NDIS_INTERRUPT_MODERATION_NdisInterruptModerationUnknown: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_INTERRUPT_MODERATION = 0
-NDIS_INTERRUPT_MODERATION_NdisInterruptModerationNotSupported: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_INTERRUPT_MODERATION = 1
-NDIS_INTERRUPT_MODERATION_NdisInterruptModerationEnabled: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_INTERRUPT_MODERATION = 2
-NDIS_INTERRUPT_MODERATION_NdisInterruptModerationDisabled: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_INTERRUPT_MODERATION = 3
+NdisInterruptModerationUnknown: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_INTERRUPT_MODERATION = 0
+NdisInterruptModerationNotSupported: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_INTERRUPT_MODERATION = 1
+NdisInterruptModerationEnabled: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_INTERRUPT_MODERATION = 2
+NdisInterruptModerationDisabled: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_INTERRUPT_MODERATION = 3
 class NDIS_INTERRUPT_MODERATION_PARAMETERS(EasyCastStructure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     Flags: UInt32
@@ -2269,35 +2269,35 @@ class NDIS_LINK_STATE(EasyCastStructure):
     PauseFunctions: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_SUPPORTED_PAUSE_FUNCTIONS
     AutoNegotiationFlags: UInt32
 NDIS_MEDIA_STATE = Int32
-NDIS_MEDIA_STATE_NdisMediaStateConnected: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_MEDIA_STATE = 0
-NDIS_MEDIA_STATE_NdisMediaStateDisconnected: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_MEDIA_STATE = 1
+NdisMediaStateConnected: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_MEDIA_STATE = 0
+NdisMediaStateDisconnected: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_MEDIA_STATE = 1
 NDIS_MEDIUM = Int32
-NDIS_MEDIUM_NdisMedium802_3: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_MEDIUM = 0
-NDIS_MEDIUM_NdisMedium802_5: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_MEDIUM = 1
-NDIS_MEDIUM_NdisMediumFddi: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_MEDIUM = 2
-NDIS_MEDIUM_NdisMediumWan: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_MEDIUM = 3
-NDIS_MEDIUM_NdisMediumLocalTalk: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_MEDIUM = 4
-NDIS_MEDIUM_NdisMediumDix: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_MEDIUM = 5
-NDIS_MEDIUM_NdisMediumArcnetRaw: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_MEDIUM = 6
-NDIS_MEDIUM_NdisMediumArcnet878_2: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_MEDIUM = 7
-NDIS_MEDIUM_NdisMediumAtm: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_MEDIUM = 8
-NDIS_MEDIUM_NdisMediumWirelessWan: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_MEDIUM = 9
-NDIS_MEDIUM_NdisMediumIrda: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_MEDIUM = 10
-NDIS_MEDIUM_NdisMediumBpc: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_MEDIUM = 11
-NDIS_MEDIUM_NdisMediumCoWan: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_MEDIUM = 12
-NDIS_MEDIUM_NdisMedium1394: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_MEDIUM = 13
-NDIS_MEDIUM_NdisMediumInfiniBand: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_MEDIUM = 14
-NDIS_MEDIUM_NdisMediumTunnel: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_MEDIUM = 15
-NDIS_MEDIUM_NdisMediumNative802_11: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_MEDIUM = 16
-NDIS_MEDIUM_NdisMediumLoopback: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_MEDIUM = 17
-NDIS_MEDIUM_NdisMediumWiMAX: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_MEDIUM = 18
-NDIS_MEDIUM_NdisMediumIP: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_MEDIUM = 19
-NDIS_MEDIUM_NdisMediumMax: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_MEDIUM = 20
+NdisMedium802_3: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_MEDIUM = 0
+NdisMedium802_5: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_MEDIUM = 1
+NdisMediumFddi: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_MEDIUM = 2
+NdisMediumWan: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_MEDIUM = 3
+NdisMediumLocalTalk: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_MEDIUM = 4
+NdisMediumDix: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_MEDIUM = 5
+NdisMediumArcnetRaw: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_MEDIUM = 6
+NdisMediumArcnet878_2: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_MEDIUM = 7
+NdisMediumAtm: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_MEDIUM = 8
+NdisMediumWirelessWan: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_MEDIUM = 9
+NdisMediumIrda: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_MEDIUM = 10
+NdisMediumBpc: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_MEDIUM = 11
+NdisMediumCoWan: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_MEDIUM = 12
+NdisMedium1394: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_MEDIUM = 13
+NdisMediumInfiniBand: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_MEDIUM = 14
+NdisMediumTunnel: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_MEDIUM = 15
+NdisMediumNative802_11: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_MEDIUM = 16
+NdisMediumLoopback: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_MEDIUM = 17
+NdisMediumWiMAX: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_MEDIUM = 18
+NdisMediumIP: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_MEDIUM = 19
+NdisMediumMax: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_MEDIUM = 20
 NDIS_NETWORK_CHANGE_TYPE = Int32
-NDIS_NETWORK_CHANGE_TYPE_NdisPossibleNetworkChange: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_NETWORK_CHANGE_TYPE = 1
-NDIS_NETWORK_CHANGE_TYPE_NdisDefinitelyNetworkChange: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_NETWORK_CHANGE_TYPE = 2
-NDIS_NETWORK_CHANGE_TYPE_NdisNetworkChangeFromMediaConnect: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_NETWORK_CHANGE_TYPE = 3
-NDIS_NETWORK_CHANGE_TYPE_NdisNetworkChangeMax: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_NETWORK_CHANGE_TYPE = 4
+NdisPossibleNetworkChange: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_NETWORK_CHANGE_TYPE = 1
+NdisDefinitelyNetworkChange: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_NETWORK_CHANGE_TYPE = 2
+NdisNetworkChangeFromMediaConnect: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_NETWORK_CHANGE_TYPE = 3
+NdisNetworkChangeMax: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_NETWORK_CHANGE_TYPE = 4
 class NDIS_OBJECT_HEADER(EasyCastStructure):
     Type: Byte
     Revision: Byte
@@ -2342,28 +2342,28 @@ class NDIS_PCI_DEVICE_CUSTOM_PROPERTIES(EasyCastStructure):
     InterruptType: UInt32
     MaxInterruptMessages: UInt32
 NDIS_PHYSICAL_MEDIUM = Int32
-NDIS_PHYSICAL_MEDIUM_NdisPhysicalMediumUnspecified: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PHYSICAL_MEDIUM = 0
-NDIS_PHYSICAL_MEDIUM_NdisPhysicalMediumWirelessLan: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PHYSICAL_MEDIUM = 1
-NDIS_PHYSICAL_MEDIUM_NdisPhysicalMediumCableModem: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PHYSICAL_MEDIUM = 2
-NDIS_PHYSICAL_MEDIUM_NdisPhysicalMediumPhoneLine: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PHYSICAL_MEDIUM = 3
-NDIS_PHYSICAL_MEDIUM_NdisPhysicalMediumPowerLine: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PHYSICAL_MEDIUM = 4
-NDIS_PHYSICAL_MEDIUM_NdisPhysicalMediumDSL: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PHYSICAL_MEDIUM = 5
-NDIS_PHYSICAL_MEDIUM_NdisPhysicalMediumFibreChannel: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PHYSICAL_MEDIUM = 6
-NDIS_PHYSICAL_MEDIUM_NdisPhysicalMedium1394: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PHYSICAL_MEDIUM = 7
-NDIS_PHYSICAL_MEDIUM_NdisPhysicalMediumWirelessWan: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PHYSICAL_MEDIUM = 8
-NDIS_PHYSICAL_MEDIUM_NdisPhysicalMediumNative802_11: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PHYSICAL_MEDIUM = 9
-NDIS_PHYSICAL_MEDIUM_NdisPhysicalMediumBluetooth: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PHYSICAL_MEDIUM = 10
-NDIS_PHYSICAL_MEDIUM_NdisPhysicalMediumInfiniband: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PHYSICAL_MEDIUM = 11
-NDIS_PHYSICAL_MEDIUM_NdisPhysicalMediumWiMax: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PHYSICAL_MEDIUM = 12
-NDIS_PHYSICAL_MEDIUM_NdisPhysicalMediumUWB: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PHYSICAL_MEDIUM = 13
-NDIS_PHYSICAL_MEDIUM_NdisPhysicalMedium802_3: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PHYSICAL_MEDIUM = 14
-NDIS_PHYSICAL_MEDIUM_NdisPhysicalMedium802_5: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PHYSICAL_MEDIUM = 15
-NDIS_PHYSICAL_MEDIUM_NdisPhysicalMediumIrda: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PHYSICAL_MEDIUM = 16
-NDIS_PHYSICAL_MEDIUM_NdisPhysicalMediumWiredWAN: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PHYSICAL_MEDIUM = 17
-NDIS_PHYSICAL_MEDIUM_NdisPhysicalMediumWiredCoWan: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PHYSICAL_MEDIUM = 18
-NDIS_PHYSICAL_MEDIUM_NdisPhysicalMediumOther: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PHYSICAL_MEDIUM = 19
-NDIS_PHYSICAL_MEDIUM_NdisPhysicalMediumNative802_15_4: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PHYSICAL_MEDIUM = 20
-NDIS_PHYSICAL_MEDIUM_NdisPhysicalMediumMax: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PHYSICAL_MEDIUM = 21
+NdisPhysicalMediumUnspecified: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PHYSICAL_MEDIUM = 0
+NdisPhysicalMediumWirelessLan: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PHYSICAL_MEDIUM = 1
+NdisPhysicalMediumCableModem: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PHYSICAL_MEDIUM = 2
+NdisPhysicalMediumPhoneLine: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PHYSICAL_MEDIUM = 3
+NdisPhysicalMediumPowerLine: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PHYSICAL_MEDIUM = 4
+NdisPhysicalMediumDSL: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PHYSICAL_MEDIUM = 5
+NdisPhysicalMediumFibreChannel: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PHYSICAL_MEDIUM = 6
+NdisPhysicalMedium1394: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PHYSICAL_MEDIUM = 7
+NdisPhysicalMediumWirelessWan: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PHYSICAL_MEDIUM = 8
+NdisPhysicalMediumNative802_11: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PHYSICAL_MEDIUM = 9
+NdisPhysicalMediumBluetooth: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PHYSICAL_MEDIUM = 10
+NdisPhysicalMediumInfiniband: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PHYSICAL_MEDIUM = 11
+NdisPhysicalMediumWiMax: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PHYSICAL_MEDIUM = 12
+NdisPhysicalMediumUWB: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PHYSICAL_MEDIUM = 13
+NdisPhysicalMedium802_3: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PHYSICAL_MEDIUM = 14
+NdisPhysicalMedium802_5: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PHYSICAL_MEDIUM = 15
+NdisPhysicalMediumIrda: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PHYSICAL_MEDIUM = 16
+NdisPhysicalMediumWiredWAN: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PHYSICAL_MEDIUM = 17
+NdisPhysicalMediumWiredCoWan: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PHYSICAL_MEDIUM = 18
+NdisPhysicalMediumOther: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PHYSICAL_MEDIUM = 19
+NdisPhysicalMediumNative802_15_4: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PHYSICAL_MEDIUM = 20
+NdisPhysicalMediumMax: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PHYSICAL_MEDIUM = 21
 class NDIS_PM_PACKET_PATTERN(EasyCastStructure):
     Priority: UInt32
     Reserved: UInt32
@@ -2397,10 +2397,10 @@ class NDIS_PORT_AUTHENTICATION_PARAMETERS(EasyCastStructure):
     SendAuthorizationState: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PORT_AUTHORIZATION_STATE
     RcvAuthorizationState: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PORT_AUTHORIZATION_STATE
 NDIS_PORT_AUTHORIZATION_STATE = Int32
-NDIS_PORT_AUTHORIZATION_STATE_NdisPortAuthorizationUnknown: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PORT_AUTHORIZATION_STATE = 0
-NDIS_PORT_AUTHORIZATION_STATE_NdisPortAuthorized: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PORT_AUTHORIZATION_STATE = 1
-NDIS_PORT_AUTHORIZATION_STATE_NdisPortUnauthorized: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PORT_AUTHORIZATION_STATE = 2
-NDIS_PORT_AUTHORIZATION_STATE_NdisPortReauthorizing: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PORT_AUTHORIZATION_STATE = 3
+NdisPortAuthorizationUnknown: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PORT_AUTHORIZATION_STATE = 0
+NdisPortAuthorized: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PORT_AUTHORIZATION_STATE = 1
+NdisPortUnauthorized: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PORT_AUTHORIZATION_STATE = 2
+NdisPortReauthorizing: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PORT_AUTHORIZATION_STATE = 3
 class NDIS_PORT_CHARACTERISTICS(EasyCastStructure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     PortNumber: UInt32
@@ -2415,9 +2415,9 @@ class NDIS_PORT_CHARACTERISTICS(EasyCastStructure):
     SendAuthorizationState: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PORT_AUTHORIZATION_STATE
     RcvAuthorizationState: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PORT_AUTHORIZATION_STATE
 NDIS_PORT_CONTROL_STATE = Int32
-NDIS_PORT_CONTROL_STATE_NdisPortControlStateUnknown: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PORT_CONTROL_STATE = 0
-NDIS_PORT_CONTROL_STATE_NdisPortControlStateControlled: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PORT_CONTROL_STATE = 1
-NDIS_PORT_CONTROL_STATE_NdisPortControlStateUncontrolled: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PORT_CONTROL_STATE = 2
+NdisPortControlStateUnknown: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PORT_CONTROL_STATE = 0
+NdisPortControlStateControlled: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PORT_CONTROL_STATE = 1
+NdisPortControlStateUncontrolled: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PORT_CONTROL_STATE = 2
 class NDIS_PORT_STATE(EasyCastStructure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     MediaConnectState: win32more.Windows.Win32.NetworkManagement.Ndis.NET_IF_MEDIA_CONNECT_STATE
@@ -2430,16 +2430,16 @@ class NDIS_PORT_STATE(EasyCastStructure):
     RcvAuthorizationState: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PORT_AUTHORIZATION_STATE
     Flags: UInt32
 NDIS_PORT_TYPE = Int32
-NDIS_PORT_TYPE_NdisPortTypeUndefined: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PORT_TYPE = 0
-NDIS_PORT_TYPE_NdisPortTypeBridge: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PORT_TYPE = 1
-NDIS_PORT_TYPE_NdisPortTypeRasConnection: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PORT_TYPE = 2
-NDIS_PORT_TYPE_NdisPortType8021xSupplicant: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PORT_TYPE = 3
-NDIS_PORT_TYPE_NdisPortTypeMax: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PORT_TYPE = 4
+NdisPortTypeUndefined: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PORT_TYPE = 0
+NdisPortTypeBridge: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PORT_TYPE = 1
+NdisPortTypeRasConnection: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PORT_TYPE = 2
+NdisPortType8021xSupplicant: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PORT_TYPE = 3
+NdisPortTypeMax: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PORT_TYPE = 4
 NDIS_PROCESSOR_VENDOR = Int32
-NDIS_PROCESSOR_VENDOR_NdisProcessorVendorUnknown: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PROCESSOR_VENDOR = 0
-NDIS_PROCESSOR_VENDOR_NdisProcessorVendorGenuinIntel: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PROCESSOR_VENDOR = 1
-NDIS_PROCESSOR_VENDOR_NdisProcessorVendorGenuineIntel: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PROCESSOR_VENDOR = 1
-NDIS_PROCESSOR_VENDOR_NdisProcessorVendorAuthenticAMD: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PROCESSOR_VENDOR = 2
+NdisProcessorVendorUnknown: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PROCESSOR_VENDOR = 0
+NdisProcessorVendorGenuinIntel: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PROCESSOR_VENDOR = 1
+NdisProcessorVendorGenuineIntel: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PROCESSOR_VENDOR = 1
+NdisProcessorVendorAuthenticAMD: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PROCESSOR_VENDOR = 2
 class NDIS_RECEIVE_HASH_PARAMETERS(EasyCastStructure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     Flags: UInt32
@@ -2461,18 +2461,18 @@ class NDIS_RECEIVE_SCALE_PARAMETERS(EasyCastStructure):
     HashSecretKeySize: UInt16
     HashSecretKeyOffset: UInt32
 NDIS_REQUEST_TYPE = Int32
-NDIS_REQUEST_TYPE_NdisRequestQueryInformation: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_REQUEST_TYPE = 0
-NDIS_REQUEST_TYPE_NdisRequestSetInformation: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_REQUEST_TYPE = 1
-NDIS_REQUEST_TYPE_NdisRequestQueryStatistics: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_REQUEST_TYPE = 2
-NDIS_REQUEST_TYPE_NdisRequestOpen: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_REQUEST_TYPE = 3
-NDIS_REQUEST_TYPE_NdisRequestClose: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_REQUEST_TYPE = 4
-NDIS_REQUEST_TYPE_NdisRequestSend: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_REQUEST_TYPE = 5
-NDIS_REQUEST_TYPE_NdisRequestTransferData: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_REQUEST_TYPE = 6
-NDIS_REQUEST_TYPE_NdisRequestReset: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_REQUEST_TYPE = 7
-NDIS_REQUEST_TYPE_NdisRequestGeneric1: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_REQUEST_TYPE = 8
-NDIS_REQUEST_TYPE_NdisRequestGeneric2: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_REQUEST_TYPE = 9
-NDIS_REQUEST_TYPE_NdisRequestGeneric3: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_REQUEST_TYPE = 10
-NDIS_REQUEST_TYPE_NdisRequestGeneric4: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_REQUEST_TYPE = 11
+NdisRequestQueryInformation: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_REQUEST_TYPE = 0
+NdisRequestSetInformation: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_REQUEST_TYPE = 1
+NdisRequestQueryStatistics: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_REQUEST_TYPE = 2
+NdisRequestOpen: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_REQUEST_TYPE = 3
+NdisRequestClose: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_REQUEST_TYPE = 4
+NdisRequestSend: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_REQUEST_TYPE = 5
+NdisRequestTransferData: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_REQUEST_TYPE = 6
+NdisRequestReset: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_REQUEST_TYPE = 7
+NdisRequestGeneric1: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_REQUEST_TYPE = 8
+NdisRequestGeneric2: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_REQUEST_TYPE = 9
+NdisRequestGeneric3: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_REQUEST_TYPE = 10
+NdisRequestGeneric4: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_REQUEST_TYPE = 11
 class NDIS_STATISTICS_INFO(EasyCastStructure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     SupportedStatistics: UInt32
@@ -2504,11 +2504,11 @@ class NDIS_STATISTICS_VALUE_EX(EasyCastStructure):
     Length: UInt32
     Data: Byte * 1
 NDIS_SUPPORTED_PAUSE_FUNCTIONS = Int32
-NDIS_SUPPORTED_PAUSE_FUNCTIONS_NdisPauseFunctionsUnsupported: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_SUPPORTED_PAUSE_FUNCTIONS = 0
-NDIS_SUPPORTED_PAUSE_FUNCTIONS_NdisPauseFunctionsSendOnly: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_SUPPORTED_PAUSE_FUNCTIONS = 1
-NDIS_SUPPORTED_PAUSE_FUNCTIONS_NdisPauseFunctionsReceiveOnly: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_SUPPORTED_PAUSE_FUNCTIONS = 2
-NDIS_SUPPORTED_PAUSE_FUNCTIONS_NdisPauseFunctionsSendAndReceive: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_SUPPORTED_PAUSE_FUNCTIONS = 3
-NDIS_SUPPORTED_PAUSE_FUNCTIONS_NdisPauseFunctionsUnknown: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_SUPPORTED_PAUSE_FUNCTIONS = 4
+NdisPauseFunctionsUnsupported: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_SUPPORTED_PAUSE_FUNCTIONS = 0
+NdisPauseFunctionsSendOnly: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_SUPPORTED_PAUSE_FUNCTIONS = 1
+NdisPauseFunctionsReceiveOnly: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_SUPPORTED_PAUSE_FUNCTIONS = 2
+NdisPauseFunctionsSendAndReceive: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_SUPPORTED_PAUSE_FUNCTIONS = 3
+NdisPauseFunctionsUnknown: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_SUPPORTED_PAUSE_FUNCTIONS = 4
 class NDIS_TCP_CONNECTION_OFFLOAD(EasyCastStructure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     Encapsulation: UInt32
@@ -2583,33 +2583,33 @@ class NDIS_VAR_DATA_DESC(EasyCastStructure):
     MaximumLength: UInt16
     Offset: UIntPtr
 NDIS_WAN_HEADER_FORMAT = Int32
-NDIS_WAN_HEADER_FORMAT_NdisWanHeaderNative: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_WAN_HEADER_FORMAT = 0
-NDIS_WAN_HEADER_FORMAT_NdisWanHeaderEthernet: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_WAN_HEADER_FORMAT = 1
+NdisWanHeaderNative: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_WAN_HEADER_FORMAT = 0
+NdisWanHeaderEthernet: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_WAN_HEADER_FORMAT = 1
 NDIS_WAN_MEDIUM_SUBTYPE = Int32
-NDIS_WAN_MEDIUM_SUBTYPE_NdisWanMediumHub: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_WAN_MEDIUM_SUBTYPE = 0
-NDIS_WAN_MEDIUM_SUBTYPE_NdisWanMediumX_25: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_WAN_MEDIUM_SUBTYPE = 1
-NDIS_WAN_MEDIUM_SUBTYPE_NdisWanMediumIsdn: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_WAN_MEDIUM_SUBTYPE = 2
-NDIS_WAN_MEDIUM_SUBTYPE_NdisWanMediumSerial: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_WAN_MEDIUM_SUBTYPE = 3
-NDIS_WAN_MEDIUM_SUBTYPE_NdisWanMediumFrameRelay: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_WAN_MEDIUM_SUBTYPE = 4
-NDIS_WAN_MEDIUM_SUBTYPE_NdisWanMediumAtm: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_WAN_MEDIUM_SUBTYPE = 5
-NDIS_WAN_MEDIUM_SUBTYPE_NdisWanMediumSonet: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_WAN_MEDIUM_SUBTYPE = 6
-NDIS_WAN_MEDIUM_SUBTYPE_NdisWanMediumSW56K: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_WAN_MEDIUM_SUBTYPE = 7
-NDIS_WAN_MEDIUM_SUBTYPE_NdisWanMediumPPTP: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_WAN_MEDIUM_SUBTYPE = 8
-NDIS_WAN_MEDIUM_SUBTYPE_NdisWanMediumL2TP: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_WAN_MEDIUM_SUBTYPE = 9
-NDIS_WAN_MEDIUM_SUBTYPE_NdisWanMediumIrda: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_WAN_MEDIUM_SUBTYPE = 10
-NDIS_WAN_MEDIUM_SUBTYPE_NdisWanMediumParallel: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_WAN_MEDIUM_SUBTYPE = 11
-NDIS_WAN_MEDIUM_SUBTYPE_NdisWanMediumPppoe: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_WAN_MEDIUM_SUBTYPE = 12
-NDIS_WAN_MEDIUM_SUBTYPE_NdisWanMediumSSTP: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_WAN_MEDIUM_SUBTYPE = 13
-NDIS_WAN_MEDIUM_SUBTYPE_NdisWanMediumAgileVPN: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_WAN_MEDIUM_SUBTYPE = 14
-NDIS_WAN_MEDIUM_SUBTYPE_NdisWanMediumGre: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_WAN_MEDIUM_SUBTYPE = 15
-NDIS_WAN_MEDIUM_SUBTYPE_NdisWanMediumSubTypeMax: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_WAN_MEDIUM_SUBTYPE = 16
+NdisWanMediumHub: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_WAN_MEDIUM_SUBTYPE = 0
+NdisWanMediumX_25: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_WAN_MEDIUM_SUBTYPE = 1
+NdisWanMediumIsdn: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_WAN_MEDIUM_SUBTYPE = 2
+NdisWanMediumSerial: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_WAN_MEDIUM_SUBTYPE = 3
+NdisWanMediumFrameRelay: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_WAN_MEDIUM_SUBTYPE = 4
+NdisWanMediumAtm: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_WAN_MEDIUM_SUBTYPE = 5
+NdisWanMediumSonet: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_WAN_MEDIUM_SUBTYPE = 6
+NdisWanMediumSW56K: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_WAN_MEDIUM_SUBTYPE = 7
+NdisWanMediumPPTP: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_WAN_MEDIUM_SUBTYPE = 8
+NdisWanMediumL2TP: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_WAN_MEDIUM_SUBTYPE = 9
+NdisWanMediumIrda: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_WAN_MEDIUM_SUBTYPE = 10
+NdisWanMediumParallel: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_WAN_MEDIUM_SUBTYPE = 11
+NdisWanMediumPppoe: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_WAN_MEDIUM_SUBTYPE = 12
+NdisWanMediumSSTP: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_WAN_MEDIUM_SUBTYPE = 13
+NdisWanMediumAgileVPN: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_WAN_MEDIUM_SUBTYPE = 14
+NdisWanMediumGre: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_WAN_MEDIUM_SUBTYPE = 15
+NdisWanMediumSubTypeMax: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_WAN_MEDIUM_SUBTYPE = 16
 class NDIS_WAN_PROTOCOL_CAPS(EasyCastStructure):
     Flags: UInt32
     Reserved: UInt32
 NDIS_WAN_QUALITY = Int32
-NDIS_WAN_QUALITY_NdisWanRaw: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_WAN_QUALITY = 0
-NDIS_WAN_QUALITY_NdisWanErrorControl: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_WAN_QUALITY = 1
-NDIS_WAN_QUALITY_NdisWanReliable: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_WAN_QUALITY = 2
+NdisWanRaw: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_WAN_QUALITY = 0
+NdisWanErrorControl: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_WAN_QUALITY = 1
+NdisWanReliable: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_WAN_QUALITY = 2
 class NDIS_WLAN_BSSID(EasyCastStructure):
     Length: UInt32
     MacAddress: Byte * 6
@@ -2786,12 +2786,12 @@ class NDK_ADAPTER_INFO(EasyCastStructure):
     AdapterFlags: UInt32
     RdmaTechnology: win32more.Windows.Win32.NetworkManagement.Ndis.NDK_RDMA_TECHNOLOGY
 NDK_RDMA_TECHNOLOGY = Int32
-NDK_RDMA_TECHNOLOGY_NdkUndefined: win32more.Windows.Win32.NetworkManagement.Ndis.NDK_RDMA_TECHNOLOGY = 0
-NDK_RDMA_TECHNOLOGY_NdkiWarp: win32more.Windows.Win32.NetworkManagement.Ndis.NDK_RDMA_TECHNOLOGY = 1
-NDK_RDMA_TECHNOLOGY_NdkInfiniBand: win32more.Windows.Win32.NetworkManagement.Ndis.NDK_RDMA_TECHNOLOGY = 2
-NDK_RDMA_TECHNOLOGY_NdkRoCE: win32more.Windows.Win32.NetworkManagement.Ndis.NDK_RDMA_TECHNOLOGY = 3
-NDK_RDMA_TECHNOLOGY_NdkRoCEv2: win32more.Windows.Win32.NetworkManagement.Ndis.NDK_RDMA_TECHNOLOGY = 4
-NDK_RDMA_TECHNOLOGY_NdkMaxTechnology: win32more.Windows.Win32.NetworkManagement.Ndis.NDK_RDMA_TECHNOLOGY = 5
+NdkUndefined: win32more.Windows.Win32.NetworkManagement.Ndis.NDK_RDMA_TECHNOLOGY = 0
+NdkiWarp: win32more.Windows.Win32.NetworkManagement.Ndis.NDK_RDMA_TECHNOLOGY = 1
+NdkInfiniBand: win32more.Windows.Win32.NetworkManagement.Ndis.NDK_RDMA_TECHNOLOGY = 2
+NdkRoCE: win32more.Windows.Win32.NetworkManagement.Ndis.NDK_RDMA_TECHNOLOGY = 3
+NdkRoCEv2: win32more.Windows.Win32.NetworkManagement.Ndis.NDK_RDMA_TECHNOLOGY = 4
+NdkMaxTechnology: win32more.Windows.Win32.NetworkManagement.Ndis.NDK_RDMA_TECHNOLOGY = 5
 class NDK_VERSION(EasyCastStructure):
     Major: UInt16
     Minor: UInt16
@@ -2840,13 +2840,13 @@ NET_IF_DIRECTION_SENDONLY: win32more.Windows.Win32.NetworkManagement.Ndis.NET_IF
 NET_IF_DIRECTION_RECEIVEONLY: win32more.Windows.Win32.NetworkManagement.Ndis.NET_IF_DIRECTION_TYPE = 2
 NET_IF_DIRECTION_MAXIMUM: win32more.Windows.Win32.NetworkManagement.Ndis.NET_IF_DIRECTION_TYPE = 3
 NET_IF_MEDIA_CONNECT_STATE = Int32
-NET_IF_MEDIA_CONNECT_STATE_MediaConnectStateUnknown: win32more.Windows.Win32.NetworkManagement.Ndis.NET_IF_MEDIA_CONNECT_STATE = 0
-NET_IF_MEDIA_CONNECT_STATE_MediaConnectStateConnected: win32more.Windows.Win32.NetworkManagement.Ndis.NET_IF_MEDIA_CONNECT_STATE = 1
-NET_IF_MEDIA_CONNECT_STATE_MediaConnectStateDisconnected: win32more.Windows.Win32.NetworkManagement.Ndis.NET_IF_MEDIA_CONNECT_STATE = 2
+MediaConnectStateUnknown: win32more.Windows.Win32.NetworkManagement.Ndis.NET_IF_MEDIA_CONNECT_STATE = 0
+MediaConnectStateConnected: win32more.Windows.Win32.NetworkManagement.Ndis.NET_IF_MEDIA_CONNECT_STATE = 1
+MediaConnectStateDisconnected: win32more.Windows.Win32.NetworkManagement.Ndis.NET_IF_MEDIA_CONNECT_STATE = 2
 NET_IF_MEDIA_DUPLEX_STATE = Int32
-NET_IF_MEDIA_DUPLEX_STATE_MediaDuplexStateUnknown: win32more.Windows.Win32.NetworkManagement.Ndis.NET_IF_MEDIA_DUPLEX_STATE = 0
-NET_IF_MEDIA_DUPLEX_STATE_MediaDuplexStateHalf: win32more.Windows.Win32.NetworkManagement.Ndis.NET_IF_MEDIA_DUPLEX_STATE = 1
-NET_IF_MEDIA_DUPLEX_STATE_MediaDuplexStateFull: win32more.Windows.Win32.NetworkManagement.Ndis.NET_IF_MEDIA_DUPLEX_STATE = 2
+MediaDuplexStateUnknown: win32more.Windows.Win32.NetworkManagement.Ndis.NET_IF_MEDIA_DUPLEX_STATE = 0
+MediaDuplexStateHalf: win32more.Windows.Win32.NetworkManagement.Ndis.NET_IF_MEDIA_DUPLEX_STATE = 1
+MediaDuplexStateFull: win32more.Windows.Win32.NetworkManagement.Ndis.NET_IF_MEDIA_DUPLEX_STATE = 2
 NET_IF_OPER_STATUS = Int32
 NET_IF_OPER_STATUS_UP: win32more.Windows.Win32.NetworkManagement.Ndis.NET_IF_OPER_STATUS = 1
 NET_IF_OPER_STATUS_DOWN: win32more.Windows.Win32.NetworkManagement.Ndis.NET_IF_OPER_STATUS = 2

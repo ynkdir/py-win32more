@@ -694,8 +694,8 @@ class RGBCOLOR(EasyCastStructure):
     green: UInt16
     blue: UInt16
 WCS_DEVICE_CAPABILITIES_TYPE = Int32
-WCS_DEVICE_CAPABILITIES_TYPE_VideoCardGammaTable: win32more.Windows.Win32.UI.ColorSystem.WCS_DEVICE_CAPABILITIES_TYPE = 1
-WCS_DEVICE_CAPABILITIES_TYPE_MicrosoftHardwareColorV2: win32more.Windows.Win32.UI.ColorSystem.WCS_DEVICE_CAPABILITIES_TYPE = 2
+VideoCardGammaTable: win32more.Windows.Win32.UI.ColorSystem.WCS_DEVICE_CAPABILITIES_TYPE = 1
+MicrosoftHardwareColorV2: win32more.Windows.Win32.UI.ColorSystem.WCS_DEVICE_CAPABILITIES_TYPE = 2
 class WCS_DEVICE_MHC2_CAPABILITIES(EasyCastStructure):
     Size: UInt32
     SupportsMhc2: win32more.Windows.Win32.Foundation.BOOL

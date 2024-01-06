@@ -1007,11 +1007,11 @@ def GetDisplayAutoRotationPreferences(pOrientation: POINTER(win32more.Windows.Wi
 @winfunctype('USER32.dll')
 def SetDisplayAutoRotationPreferences(orientation: win32more.Windows.Win32.Devices.Display.ORIENTATION_PREFERENCE) -> win32more.Windows.Win32.Foundation.BOOL: ...
 BACKLIGHT_OPTIMIZATION_LEVEL = Int32
-BACKLIGHT_OPTIMIZATION_LEVEL_BacklightOptimizationDisable: win32more.Windows.Win32.Devices.Display.BACKLIGHT_OPTIMIZATION_LEVEL = 0
-BACKLIGHT_OPTIMIZATION_LEVEL_BacklightOptimizationDesktop: win32more.Windows.Win32.Devices.Display.BACKLIGHT_OPTIMIZATION_LEVEL = 1
-BACKLIGHT_OPTIMIZATION_LEVEL_BacklightOptimizationDynamic: win32more.Windows.Win32.Devices.Display.BACKLIGHT_OPTIMIZATION_LEVEL = 2
-BACKLIGHT_OPTIMIZATION_LEVEL_BacklightOptimizationDimmed: win32more.Windows.Win32.Devices.Display.BACKLIGHT_OPTIMIZATION_LEVEL = 3
-BACKLIGHT_OPTIMIZATION_LEVEL_BacklightOptimizationEDR: win32more.Windows.Win32.Devices.Display.BACKLIGHT_OPTIMIZATION_LEVEL = 4
+BacklightOptimizationDisable: win32more.Windows.Win32.Devices.Display.BACKLIGHT_OPTIMIZATION_LEVEL = 0
+BacklightOptimizationDesktop: win32more.Windows.Win32.Devices.Display.BACKLIGHT_OPTIMIZATION_LEVEL = 1
+BacklightOptimizationDynamic: win32more.Windows.Win32.Devices.Display.BACKLIGHT_OPTIMIZATION_LEVEL = 2
+BacklightOptimizationDimmed: win32more.Windows.Win32.Devices.Display.BACKLIGHT_OPTIMIZATION_LEVEL = 3
+BacklightOptimizationEDR: win32more.Windows.Win32.Devices.Display.BACKLIGHT_OPTIMIZATION_LEVEL = 4
 class BACKLIGHT_REDUCTION_GAMMA_RAMP(EasyCastStructure):
     R: UInt16 * 256
     G: UInt16 * 256
@@ -1042,8 +1042,8 @@ class BRUSHOBJ(EasyCastStructure):
     pvRbrush: VoidPtr
     flColorType: UInt32
 BlackScreenDiagnosticsCalloutParam = Int32
-BlackScreenDiagnosticsCalloutParam_BlackScreenDiagnosticsData: win32more.Windows.Win32.Devices.Display.BlackScreenDiagnosticsCalloutParam = 1
-BlackScreenDiagnosticsCalloutParam_BlackScreenDisplayRecovery: win32more.Windows.Win32.Devices.Display.BlackScreenDiagnosticsCalloutParam = 2
+BlackScreenDiagnosticsData: win32more.Windows.Win32.Devices.Display.BlackScreenDiagnosticsCalloutParam = 1
+BlackScreenDisplayRecovery: win32more.Windows.Win32.Devices.Display.BlackScreenDiagnosticsCalloutParam = 2
 class CDDDXGK_REDIRBITMAPPRESENTINFO(EasyCastStructure):
     NumDirtyRects: UInt32
     DirtyRect: POINTER(win32more.Windows.Win32.Foundation.RECT)
@@ -1462,10 +1462,10 @@ class ENG_EVENT(EasyCastStructure):
     pKEvent: VoidPtr
     fFlags: UInt32
 ENG_SYSTEM_ATTRIBUTE = Int32
-ENG_SYSTEM_ATTRIBUTE_EngProcessorFeature: win32more.Windows.Win32.Devices.Display.ENG_SYSTEM_ATTRIBUTE = 1
-ENG_SYSTEM_ATTRIBUTE_EngNumberOfProcessors: win32more.Windows.Win32.Devices.Display.ENG_SYSTEM_ATTRIBUTE = 2
-ENG_SYSTEM_ATTRIBUTE_EngOptimumAvailableUserMemory: win32more.Windows.Win32.Devices.Display.ENG_SYSTEM_ATTRIBUTE = 3
-ENG_SYSTEM_ATTRIBUTE_EngOptimumAvailableSystemMemory: win32more.Windows.Win32.Devices.Display.ENG_SYSTEM_ATTRIBUTE = 4
+EngProcessorFeature: win32more.Windows.Win32.Devices.Display.ENG_SYSTEM_ATTRIBUTE = 1
+EngNumberOfProcessors: win32more.Windows.Win32.Devices.Display.ENG_SYSTEM_ATTRIBUTE = 2
+EngOptimumAvailableUserMemory: win32more.Windows.Win32.Devices.Display.ENG_SYSTEM_ATTRIBUTE = 3
+EngOptimumAvailableSystemMemory: win32more.Windows.Win32.Devices.Display.ENG_SYSTEM_ATTRIBUTE = 4
 class ENG_TIME_FIELDS(EasyCastStructure):
     usYear: UInt16
     usMonth: UInt16
@@ -2404,11 +2404,11 @@ class VIDEO_BANK_SELECT(EasyCastStructure):
     PlanarHCEnableCodeOffset: UInt32
     PlanarHCDisableCodeOffset: UInt32
 VIDEO_BANK_TYPE = Int32
-VIDEO_BANK_TYPE_VideoNotBanked: win32more.Windows.Win32.Devices.Display.VIDEO_BANK_TYPE = 0
-VIDEO_BANK_TYPE_VideoBanked1RW: win32more.Windows.Win32.Devices.Display.VIDEO_BANK_TYPE = 1
-VIDEO_BANK_TYPE_VideoBanked1R1W: win32more.Windows.Win32.Devices.Display.VIDEO_BANK_TYPE = 2
-VIDEO_BANK_TYPE_VideoBanked2RW: win32more.Windows.Win32.Devices.Display.VIDEO_BANK_TYPE = 3
-VIDEO_BANK_TYPE_NumVideoBankTypes: win32more.Windows.Win32.Devices.Display.VIDEO_BANK_TYPE = 4
+VideoNotBanked: win32more.Windows.Win32.Devices.Display.VIDEO_BANK_TYPE = 0
+VideoBanked1RW: win32more.Windows.Win32.Devices.Display.VIDEO_BANK_TYPE = 1
+VideoBanked1R1W: win32more.Windows.Win32.Devices.Display.VIDEO_BANK_TYPE = 2
+VideoBanked2RW: win32more.Windows.Win32.Devices.Display.VIDEO_BANK_TYPE = 3
+NumVideoBankTypes: win32more.Windows.Win32.Devices.Display.VIDEO_BANK_TYPE = 4
 class VIDEO_BRIGHTNESS_POLICY(EasyCastStructure):
     DefaultToBiosPolicy: win32more.Windows.Win32.Foundation.BOOLEAN
     LevelCount: Byte
@@ -2592,14 +2592,14 @@ class VIDEO_POWER_MANAGEMENT(EasyCastStructure):
     DPMSVersion: UInt32
     PowerState: UInt32
 VIDEO_POWER_STATE = Int32
-VIDEO_POWER_STATE_VideoPowerUnspecified: win32more.Windows.Win32.Devices.Display.VIDEO_POWER_STATE = 0
-VIDEO_POWER_STATE_VideoPowerOn: win32more.Windows.Win32.Devices.Display.VIDEO_POWER_STATE = 1
-VIDEO_POWER_STATE_VideoPowerStandBy: win32more.Windows.Win32.Devices.Display.VIDEO_POWER_STATE = 2
-VIDEO_POWER_STATE_VideoPowerSuspend: win32more.Windows.Win32.Devices.Display.VIDEO_POWER_STATE = 3
-VIDEO_POWER_STATE_VideoPowerOff: win32more.Windows.Win32.Devices.Display.VIDEO_POWER_STATE = 4
-VIDEO_POWER_STATE_VideoPowerHibernate: win32more.Windows.Win32.Devices.Display.VIDEO_POWER_STATE = 5
-VIDEO_POWER_STATE_VideoPowerShutdown: win32more.Windows.Win32.Devices.Display.VIDEO_POWER_STATE = 6
-VIDEO_POWER_STATE_VideoPowerMaximum: win32more.Windows.Win32.Devices.Display.VIDEO_POWER_STATE = 7
+VideoPowerUnspecified: win32more.Windows.Win32.Devices.Display.VIDEO_POWER_STATE = 0
+VideoPowerOn: win32more.Windows.Win32.Devices.Display.VIDEO_POWER_STATE = 1
+VideoPowerStandBy: win32more.Windows.Win32.Devices.Display.VIDEO_POWER_STATE = 2
+VideoPowerSuspend: win32more.Windows.Win32.Devices.Display.VIDEO_POWER_STATE = 3
+VideoPowerOff: win32more.Windows.Win32.Devices.Display.VIDEO_POWER_STATE = 4
+VideoPowerHibernate: win32more.Windows.Win32.Devices.Display.VIDEO_POWER_STATE = 5
+VideoPowerShutdown: win32more.Windows.Win32.Devices.Display.VIDEO_POWER_STATE = 6
+VideoPowerMaximum: win32more.Windows.Win32.Devices.Display.VIDEO_POWER_STATE = 7
 class VIDEO_PUBLIC_ACCESS_RANGES(EasyCastStructure):
     InIoSpace: UInt32
     MappedInIoSpace: UInt32
@@ -2636,18 +2636,18 @@ class VIDEO_WIN32K_CALLBACKS_PARAMS(EasyCastStructure):
     SurpriseRemoval: win32more.Windows.Win32.Foundation.BOOLEAN
     WaitForQueueReady: win32more.Windows.Win32.Foundation.BOOLEAN
 VIDEO_WIN32K_CALLBACKS_PARAMS_TYPE = Int32
-VIDEO_WIN32K_CALLBACKS_PARAMS_TYPE_VideoPowerNotifyCallout: win32more.Windows.Win32.Devices.Display.VIDEO_WIN32K_CALLBACKS_PARAMS_TYPE = 1
-VIDEO_WIN32K_CALLBACKS_PARAMS_TYPE_VideoEnumChildPdoNotifyCallout: win32more.Windows.Win32.Devices.Display.VIDEO_WIN32K_CALLBACKS_PARAMS_TYPE = 3
-VIDEO_WIN32K_CALLBACKS_PARAMS_TYPE_VideoFindAdapterCallout: win32more.Windows.Win32.Devices.Display.VIDEO_WIN32K_CALLBACKS_PARAMS_TYPE = 4
-VIDEO_WIN32K_CALLBACKS_PARAMS_TYPE_VideoPnpNotifyCallout: win32more.Windows.Win32.Devices.Display.VIDEO_WIN32K_CALLBACKS_PARAMS_TYPE = 7
-VIDEO_WIN32K_CALLBACKS_PARAMS_TYPE_VideoDxgkDisplaySwitchCallout: win32more.Windows.Win32.Devices.Display.VIDEO_WIN32K_CALLBACKS_PARAMS_TYPE = 8
-VIDEO_WIN32K_CALLBACKS_PARAMS_TYPE_VideoDxgkFindAdapterTdrCallout: win32more.Windows.Win32.Devices.Display.VIDEO_WIN32K_CALLBACKS_PARAMS_TYPE = 10
-VIDEO_WIN32K_CALLBACKS_PARAMS_TYPE_VideoDxgkHardwareProtectionTeardown: win32more.Windows.Win32.Devices.Display.VIDEO_WIN32K_CALLBACKS_PARAMS_TYPE = 11
-VIDEO_WIN32K_CALLBACKS_PARAMS_TYPE_VideoRepaintDesktop: win32more.Windows.Win32.Devices.Display.VIDEO_WIN32K_CALLBACKS_PARAMS_TYPE = 12
-VIDEO_WIN32K_CALLBACKS_PARAMS_TYPE_VideoUpdateCursor: win32more.Windows.Win32.Devices.Display.VIDEO_WIN32K_CALLBACKS_PARAMS_TYPE = 13
-VIDEO_WIN32K_CALLBACKS_PARAMS_TYPE_VideoDisableMultiPlaneOverlay: win32more.Windows.Win32.Devices.Display.VIDEO_WIN32K_CALLBACKS_PARAMS_TYPE = 14
-VIDEO_WIN32K_CALLBACKS_PARAMS_TYPE_VideoDesktopDuplicationChange: win32more.Windows.Win32.Devices.Display.VIDEO_WIN32K_CALLBACKS_PARAMS_TYPE = 15
-VIDEO_WIN32K_CALLBACKS_PARAMS_TYPE_VideoBlackScreenDiagnostics: win32more.Windows.Win32.Devices.Display.VIDEO_WIN32K_CALLBACKS_PARAMS_TYPE = 16
+VideoPowerNotifyCallout: win32more.Windows.Win32.Devices.Display.VIDEO_WIN32K_CALLBACKS_PARAMS_TYPE = 1
+VideoEnumChildPdoNotifyCallout: win32more.Windows.Win32.Devices.Display.VIDEO_WIN32K_CALLBACKS_PARAMS_TYPE = 3
+VideoFindAdapterCallout: win32more.Windows.Win32.Devices.Display.VIDEO_WIN32K_CALLBACKS_PARAMS_TYPE = 4
+VideoPnpNotifyCallout: win32more.Windows.Win32.Devices.Display.VIDEO_WIN32K_CALLBACKS_PARAMS_TYPE = 7
+VideoDxgkDisplaySwitchCallout: win32more.Windows.Win32.Devices.Display.VIDEO_WIN32K_CALLBACKS_PARAMS_TYPE = 8
+VideoDxgkFindAdapterTdrCallout: win32more.Windows.Win32.Devices.Display.VIDEO_WIN32K_CALLBACKS_PARAMS_TYPE = 10
+VideoDxgkHardwareProtectionTeardown: win32more.Windows.Win32.Devices.Display.VIDEO_WIN32K_CALLBACKS_PARAMS_TYPE = 11
+VideoRepaintDesktop: win32more.Windows.Win32.Devices.Display.VIDEO_WIN32K_CALLBACKS_PARAMS_TYPE = 12
+VideoUpdateCursor: win32more.Windows.Win32.Devices.Display.VIDEO_WIN32K_CALLBACKS_PARAMS_TYPE = 13
+VideoDisableMultiPlaneOverlay: win32more.Windows.Win32.Devices.Display.VIDEO_WIN32K_CALLBACKS_PARAMS_TYPE = 14
+VideoDesktopDuplicationChange: win32more.Windows.Win32.Devices.Display.VIDEO_WIN32K_CALLBACKS_PARAMS_TYPE = 15
+VideoBlackScreenDiagnostics: win32more.Windows.Win32.Devices.Display.VIDEO_WIN32K_CALLBACKS_PARAMS_TYPE = 16
 class WCRUN(EasyCastStructure):
     wcLow: Char
     cGlyphs: UInt16

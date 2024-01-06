@@ -254,10 +254,10 @@ HEAP_TAG_SHIFT: win32more.Windows.Win32.System.Memory.HEAP_FLAGS = 18
 HEAP_CREATE_SEGMENT_HEAP: win32more.Windows.Win32.System.Memory.HEAP_FLAGS = 256
 HEAP_CREATE_HARDENED: win32more.Windows.Win32.System.Memory.HEAP_FLAGS = 512
 HEAP_INFORMATION_CLASS = Int32
-HEAP_INFORMATION_CLASS_HeapCompatibilityInformation: win32more.Windows.Win32.System.Memory.HEAP_INFORMATION_CLASS = 0
-HEAP_INFORMATION_CLASS_HeapEnableTerminationOnCorruption: win32more.Windows.Win32.System.Memory.HEAP_INFORMATION_CLASS = 1
-HEAP_INFORMATION_CLASS_HeapOptimizeResources: win32more.Windows.Win32.System.Memory.HEAP_INFORMATION_CLASS = 3
-HEAP_INFORMATION_CLASS_HeapTag: win32more.Windows.Win32.System.Memory.HEAP_INFORMATION_CLASS = 7
+HeapCompatibilityInformation: win32more.Windows.Win32.System.Memory.HEAP_INFORMATION_CLASS = 0
+HeapEnableTerminationOnCorruption: win32more.Windows.Win32.System.Memory.HEAP_INFORMATION_CLASS = 1
+HeapOptimizeResources: win32more.Windows.Win32.System.Memory.HEAP_INFORMATION_CLASS = 3
+HeapTag: win32more.Windows.Win32.System.Memory.HEAP_INFORMATION_CLASS = 7
 class HEAP_SUMMARY(EasyCastStructure):
     cb: UInt32
     cbAllocated: UIntPtr
@@ -324,18 +324,18 @@ class MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATION(EasyCastStructure):
     Reserved: UInt32
     TypeId: UInt64
 MEMORY_RESOURCE_NOTIFICATION_TYPE = Int32
-MEMORY_RESOURCE_NOTIFICATION_TYPE_LowMemoryResourceNotification: win32more.Windows.Win32.System.Memory.MEMORY_RESOURCE_NOTIFICATION_TYPE = 0
-MEMORY_RESOURCE_NOTIFICATION_TYPE_HighMemoryResourceNotification: win32more.Windows.Win32.System.Memory.MEMORY_RESOURCE_NOTIFICATION_TYPE = 1
+LowMemoryResourceNotification: win32more.Windows.Win32.System.Memory.MEMORY_RESOURCE_NOTIFICATION_TYPE = 0
+HighMemoryResourceNotification: win32more.Windows.Win32.System.Memory.MEMORY_RESOURCE_NOTIFICATION_TYPE = 1
 class MEM_ADDRESS_REQUIREMENTS(EasyCastStructure):
     LowestStartingAddress: VoidPtr
     HighestEndingAddress: VoidPtr
     Alignment: UIntPtr
 MEM_DEDICATED_ATTRIBUTE_TYPE = Int32
-MEM_DEDICATED_ATTRIBUTE_TYPE_MemDedicatedAttributeReadBandwidth: win32more.Windows.Win32.System.Memory.MEM_DEDICATED_ATTRIBUTE_TYPE = 0
-MEM_DEDICATED_ATTRIBUTE_TYPE_MemDedicatedAttributeReadLatency: win32more.Windows.Win32.System.Memory.MEM_DEDICATED_ATTRIBUTE_TYPE = 1
-MEM_DEDICATED_ATTRIBUTE_TYPE_MemDedicatedAttributeWriteBandwidth: win32more.Windows.Win32.System.Memory.MEM_DEDICATED_ATTRIBUTE_TYPE = 2
-MEM_DEDICATED_ATTRIBUTE_TYPE_MemDedicatedAttributeWriteLatency: win32more.Windows.Win32.System.Memory.MEM_DEDICATED_ATTRIBUTE_TYPE = 3
-MEM_DEDICATED_ATTRIBUTE_TYPE_MemDedicatedAttributeMax: win32more.Windows.Win32.System.Memory.MEM_DEDICATED_ATTRIBUTE_TYPE = 4
+MemDedicatedAttributeReadBandwidth: win32more.Windows.Win32.System.Memory.MEM_DEDICATED_ATTRIBUTE_TYPE = 0
+MemDedicatedAttributeReadLatency: win32more.Windows.Win32.System.Memory.MEM_DEDICATED_ATTRIBUTE_TYPE = 1
+MemDedicatedAttributeWriteBandwidth: win32more.Windows.Win32.System.Memory.MEM_DEDICATED_ATTRIBUTE_TYPE = 2
+MemDedicatedAttributeWriteLatency: win32more.Windows.Win32.System.Memory.MEM_DEDICATED_ATTRIBUTE_TYPE = 3
+MemDedicatedAttributeMax: win32more.Windows.Win32.System.Memory.MEM_DEDICATED_ATTRIBUTE_TYPE = 4
 class MEM_EXTENDED_PARAMETER(EasyCastStructure):
     Anonymous1: _Anonymous1_e__Struct
     Anonymous2: _Anonymous2_e__Union
@@ -348,25 +348,25 @@ class MEM_EXTENDED_PARAMETER(EasyCastStructure):
         Handle: win32more.Windows.Win32.Foundation.HANDLE
         ULong: UInt32
 MEM_EXTENDED_PARAMETER_TYPE = Int32
-MEM_EXTENDED_PARAMETER_TYPE_MemExtendedParameterInvalidType: win32more.Windows.Win32.System.Memory.MEM_EXTENDED_PARAMETER_TYPE = 0
-MEM_EXTENDED_PARAMETER_TYPE_MemExtendedParameterAddressRequirements: win32more.Windows.Win32.System.Memory.MEM_EXTENDED_PARAMETER_TYPE = 1
-MEM_EXTENDED_PARAMETER_TYPE_MemExtendedParameterNumaNode: win32more.Windows.Win32.System.Memory.MEM_EXTENDED_PARAMETER_TYPE = 2
-MEM_EXTENDED_PARAMETER_TYPE_MemExtendedParameterPartitionHandle: win32more.Windows.Win32.System.Memory.MEM_EXTENDED_PARAMETER_TYPE = 3
-MEM_EXTENDED_PARAMETER_TYPE_MemExtendedParameterUserPhysicalHandle: win32more.Windows.Win32.System.Memory.MEM_EXTENDED_PARAMETER_TYPE = 4
-MEM_EXTENDED_PARAMETER_TYPE_MemExtendedParameterAttributeFlags: win32more.Windows.Win32.System.Memory.MEM_EXTENDED_PARAMETER_TYPE = 5
-MEM_EXTENDED_PARAMETER_TYPE_MemExtendedParameterImageMachine: win32more.Windows.Win32.System.Memory.MEM_EXTENDED_PARAMETER_TYPE = 6
-MEM_EXTENDED_PARAMETER_TYPE_MemExtendedParameterMax: win32more.Windows.Win32.System.Memory.MEM_EXTENDED_PARAMETER_TYPE = 7
+MemExtendedParameterInvalidType: win32more.Windows.Win32.System.Memory.MEM_EXTENDED_PARAMETER_TYPE = 0
+MemExtendedParameterAddressRequirements: win32more.Windows.Win32.System.Memory.MEM_EXTENDED_PARAMETER_TYPE = 1
+MemExtendedParameterNumaNode: win32more.Windows.Win32.System.Memory.MEM_EXTENDED_PARAMETER_TYPE = 2
+MemExtendedParameterPartitionHandle: win32more.Windows.Win32.System.Memory.MEM_EXTENDED_PARAMETER_TYPE = 3
+MemExtendedParameterUserPhysicalHandle: win32more.Windows.Win32.System.Memory.MEM_EXTENDED_PARAMETER_TYPE = 4
+MemExtendedParameterAttributeFlags: win32more.Windows.Win32.System.Memory.MEM_EXTENDED_PARAMETER_TYPE = 5
+MemExtendedParameterImageMachine: win32more.Windows.Win32.System.Memory.MEM_EXTENDED_PARAMETER_TYPE = 6
+MemExtendedParameterMax: win32more.Windows.Win32.System.Memory.MEM_EXTENDED_PARAMETER_TYPE = 7
 MEM_SECTION_EXTENDED_PARAMETER_TYPE = Int32
-MEM_SECTION_EXTENDED_PARAMETER_TYPE_MemSectionExtendedParameterInvalidType: win32more.Windows.Win32.System.Memory.MEM_SECTION_EXTENDED_PARAMETER_TYPE = 0
-MEM_SECTION_EXTENDED_PARAMETER_TYPE_MemSectionExtendedParameterUserPhysicalFlags: win32more.Windows.Win32.System.Memory.MEM_SECTION_EXTENDED_PARAMETER_TYPE = 1
-MEM_SECTION_EXTENDED_PARAMETER_TYPE_MemSectionExtendedParameterNumaNode: win32more.Windows.Win32.System.Memory.MEM_SECTION_EXTENDED_PARAMETER_TYPE = 2
-MEM_SECTION_EXTENDED_PARAMETER_TYPE_MemSectionExtendedParameterSigningLevel: win32more.Windows.Win32.System.Memory.MEM_SECTION_EXTENDED_PARAMETER_TYPE = 3
-MEM_SECTION_EXTENDED_PARAMETER_TYPE_MemSectionExtendedParameterMax: win32more.Windows.Win32.System.Memory.MEM_SECTION_EXTENDED_PARAMETER_TYPE = 4
+MemSectionExtendedParameterInvalidType: win32more.Windows.Win32.System.Memory.MEM_SECTION_EXTENDED_PARAMETER_TYPE = 0
+MemSectionExtendedParameterUserPhysicalFlags: win32more.Windows.Win32.System.Memory.MEM_SECTION_EXTENDED_PARAMETER_TYPE = 1
+MemSectionExtendedParameterNumaNode: win32more.Windows.Win32.System.Memory.MEM_SECTION_EXTENDED_PARAMETER_TYPE = 2
+MemSectionExtendedParameterSigningLevel: win32more.Windows.Win32.System.Memory.MEM_SECTION_EXTENDED_PARAMETER_TYPE = 3
+MemSectionExtendedParameterMax: win32more.Windows.Win32.System.Memory.MEM_SECTION_EXTENDED_PARAMETER_TYPE = 4
 OFFER_PRIORITY = Int32
-OFFER_PRIORITY_VmOfferPriorityVeryLow: win32more.Windows.Win32.System.Memory.OFFER_PRIORITY = 1
-OFFER_PRIORITY_VmOfferPriorityLow: win32more.Windows.Win32.System.Memory.OFFER_PRIORITY = 2
-OFFER_PRIORITY_VmOfferPriorityBelowNormal: win32more.Windows.Win32.System.Memory.OFFER_PRIORITY = 3
-OFFER_PRIORITY_VmOfferPriorityNormal: win32more.Windows.Win32.System.Memory.OFFER_PRIORITY = 4
+VmOfferPriorityVeryLow: win32more.Windows.Win32.System.Memory.OFFER_PRIORITY = 1
+VmOfferPriorityLow: win32more.Windows.Win32.System.Memory.OFFER_PRIORITY = 2
+VmOfferPriorityBelowNormal: win32more.Windows.Win32.System.Memory.OFFER_PRIORITY = 3
+VmOfferPriorityNormal: win32more.Windows.Win32.System.Memory.OFFER_PRIORITY = 4
 PAGE_PROTECTION_FLAGS = UInt32
 PAGE_NOACCESS: win32more.Windows.Win32.System.Memory.PAGE_PROTECTION_FLAGS = 1
 PAGE_READONLY: win32more.Windows.Win32.System.Memory.PAGE_PROTECTION_FLAGS = 2
@@ -463,7 +463,7 @@ VIRTUAL_FREE_TYPE = UInt32
 MEM_DECOMMIT: win32more.Windows.Win32.System.Memory.VIRTUAL_FREE_TYPE = 16384
 MEM_RELEASE: win32more.Windows.Win32.System.Memory.VIRTUAL_FREE_TYPE = 32768
 WIN32_MEMORY_INFORMATION_CLASS = Int32
-WIN32_MEMORY_INFORMATION_CLASS_MemoryRegionInfo: win32more.Windows.Win32.System.Memory.WIN32_MEMORY_INFORMATION_CLASS = 0
+MemoryRegionInfo: win32more.Windows.Win32.System.Memory.WIN32_MEMORY_INFORMATION_CLASS = 0
 class WIN32_MEMORY_PARTITION_INFORMATION(EasyCastStructure):
     Flags: UInt32
     NumaNode: UInt32
@@ -483,8 +483,8 @@ class WIN32_MEMORY_PARTITION_INFORMATION(EasyCastStructure):
     Reserved2: UInt64
     PartitionId: UInt32
 WIN32_MEMORY_PARTITION_INFORMATION_CLASS = Int32
-WIN32_MEMORY_PARTITION_INFORMATION_CLASS_MemoryPartitionInfo: win32more.Windows.Win32.System.Memory.WIN32_MEMORY_PARTITION_INFORMATION_CLASS = 0
-WIN32_MEMORY_PARTITION_INFORMATION_CLASS_MemoryPartitionDedicatedMemoryInfo: win32more.Windows.Win32.System.Memory.WIN32_MEMORY_PARTITION_INFORMATION_CLASS = 1
+MemoryPartitionInfo: win32more.Windows.Win32.System.Memory.WIN32_MEMORY_PARTITION_INFORMATION_CLASS = 0
+MemoryPartitionDedicatedMemoryInfo: win32more.Windows.Win32.System.Memory.WIN32_MEMORY_PARTITION_INFORMATION_CLASS = 1
 class WIN32_MEMORY_RANGE_ENTRY(EasyCastStructure):
     VirtualAddress: VoidPtr
     NumberOfBytes: UIntPtr

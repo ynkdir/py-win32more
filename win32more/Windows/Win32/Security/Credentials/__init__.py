@@ -493,12 +493,12 @@ class CREDENTIAL_TARGET_INFORMATIONW(EasyCastStructure):
     CredTypeCount: UInt32
     CredTypes: POINTER(UInt32)
 CREDSPP_SUBMIT_TYPE = Int32
-CREDSPP_SUBMIT_TYPE_CredsspPasswordCreds: win32more.Windows.Win32.Security.Credentials.CREDSPP_SUBMIT_TYPE = 2
-CREDSPP_SUBMIT_TYPE_CredsspSchannelCreds: win32more.Windows.Win32.Security.Credentials.CREDSPP_SUBMIT_TYPE = 4
-CREDSPP_SUBMIT_TYPE_CredsspCertificateCreds: win32more.Windows.Win32.Security.Credentials.CREDSPP_SUBMIT_TYPE = 13
-CREDSPP_SUBMIT_TYPE_CredsspSubmitBufferBoth: win32more.Windows.Win32.Security.Credentials.CREDSPP_SUBMIT_TYPE = 50
-CREDSPP_SUBMIT_TYPE_CredsspSubmitBufferBothOld: win32more.Windows.Win32.Security.Credentials.CREDSPP_SUBMIT_TYPE = 51
-CREDSPP_SUBMIT_TYPE_CredsspCredEx: win32more.Windows.Win32.Security.Credentials.CREDSPP_SUBMIT_TYPE = 100
+CredsspPasswordCreds: win32more.Windows.Win32.Security.Credentials.CREDSPP_SUBMIT_TYPE = 2
+CredsspSchannelCreds: win32more.Windows.Win32.Security.Credentials.CREDSPP_SUBMIT_TYPE = 4
+CredsspCertificateCreds: win32more.Windows.Win32.Security.Credentials.CREDSPP_SUBMIT_TYPE = 13
+CredsspSubmitBufferBoth: win32more.Windows.Win32.Security.Credentials.CREDSPP_SUBMIT_TYPE = 50
+CredsspSubmitBufferBothOld: win32more.Windows.Win32.Security.Credentials.CREDSPP_SUBMIT_TYPE = 51
+CredsspCredEx: win32more.Windows.Win32.Security.Credentials.CREDSPP_SUBMIT_TYPE = 100
 class CREDSSP_CRED(EasyCastStructure):
     Type: win32more.Windows.Win32.Security.Credentials.CREDSPP_SUBMIT_TYPE
     pSchannelCred: VoidPtr
@@ -563,11 +563,11 @@ CRED_FLAGS_NGC_CERT: win32more.Windows.Win32.Security.Credentials.CRED_FLAGS = 1
 CRED_FLAGS_VALID_FLAGS: win32more.Windows.Win32.Security.Credentials.CRED_FLAGS = 61695
 CRED_FLAGS_VALID_INPUT_FLAGS: win32more.Windows.Win32.Security.Credentials.CRED_FLAGS = 61599
 CRED_MARSHAL_TYPE = Int32
-CRED_MARSHAL_TYPE_CertCredential: win32more.Windows.Win32.Security.Credentials.CRED_MARSHAL_TYPE = 1
-CRED_MARSHAL_TYPE_UsernameTargetCredential: win32more.Windows.Win32.Security.Credentials.CRED_MARSHAL_TYPE = 2
-CRED_MARSHAL_TYPE_BinaryBlobCredential: win32more.Windows.Win32.Security.Credentials.CRED_MARSHAL_TYPE = 3
-CRED_MARSHAL_TYPE_UsernameForPackedCredentials: win32more.Windows.Win32.Security.Credentials.CRED_MARSHAL_TYPE = 4
-CRED_MARSHAL_TYPE_BinaryBlobForSystem: win32more.Windows.Win32.Security.Credentials.CRED_MARSHAL_TYPE = 5
+CertCredential: win32more.Windows.Win32.Security.Credentials.CRED_MARSHAL_TYPE = 1
+UsernameTargetCredential: win32more.Windows.Win32.Security.Credentials.CRED_MARSHAL_TYPE = 2
+BinaryBlobCredential: win32more.Windows.Win32.Security.Credentials.CRED_MARSHAL_TYPE = 3
+UsernameForPackedCredentials: win32more.Windows.Win32.Security.Credentials.CRED_MARSHAL_TYPE = 4
+BinaryBlobForSystem: win32more.Windows.Win32.Security.Credentials.CRED_MARSHAL_TYPE = 5
 CRED_PACK_FLAGS = UInt32
 CRED_PACK_PROTECTED_CREDENTIALS: win32more.Windows.Win32.Security.Credentials.CRED_PACK_FLAGS = 1
 CRED_PACK_WOW_BUFFER: win32more.Windows.Win32.Security.Credentials.CRED_PACK_FLAGS = 2
@@ -579,10 +579,10 @@ CRED_PERSIST_SESSION: win32more.Windows.Win32.Security.Credentials.CRED_PERSIST 
 CRED_PERSIST_LOCAL_MACHINE: win32more.Windows.Win32.Security.Credentials.CRED_PERSIST = 2
 CRED_PERSIST_ENTERPRISE: win32more.Windows.Win32.Security.Credentials.CRED_PERSIST = 3
 CRED_PROTECTION_TYPE = Int32
-CRED_PROTECTION_TYPE_CredUnprotected: win32more.Windows.Win32.Security.Credentials.CRED_PROTECTION_TYPE = 0
-CRED_PROTECTION_TYPE_CredUserProtection: win32more.Windows.Win32.Security.Credentials.CRED_PROTECTION_TYPE = 1
-CRED_PROTECTION_TYPE_CredTrustedProtection: win32more.Windows.Win32.Security.Credentials.CRED_PROTECTION_TYPE = 2
-CRED_PROTECTION_TYPE_CredForSystemProtection: win32more.Windows.Win32.Security.Credentials.CRED_PROTECTION_TYPE = 3
+CredUnprotected: win32more.Windows.Win32.Security.Credentials.CRED_PROTECTION_TYPE = 0
+CredUserProtection: win32more.Windows.Win32.Security.Credentials.CRED_PROTECTION_TYPE = 1
+CredTrustedProtection: win32more.Windows.Win32.Security.Credentials.CRED_PROTECTION_TYPE = 2
+CredForSystemProtection: win32more.Windows.Win32.Security.Credentials.CRED_PROTECTION_TYPE = 3
 CRED_TYPE = UInt32
 CRED_TYPE_GENERIC: win32more.Windows.Win32.Security.Credentials.CRED_TYPE = 1
 CRED_TYPE_DOMAIN_PASSWORD: win32more.Windows.Win32.Security.Credentials.CRED_TYPE = 2
@@ -595,18 +595,18 @@ CRED_TYPE_MAXIMUM_EX: win32more.Windows.Win32.Security.Credentials.CRED_TYPE = 1
 class KeyCredentialManagerInfo(EasyCastStructure):
     containerId: Guid
 KeyCredentialManagerOperationErrorStates = Int32
-KeyCredentialManagerOperationErrorStates_KeyCredentialManagerOperationErrorStateNone: win32more.Windows.Win32.Security.Credentials.KeyCredentialManagerOperationErrorStates = 0
-KeyCredentialManagerOperationErrorStates_KeyCredentialManagerOperationErrorStateDeviceJoinFailure: win32more.Windows.Win32.Security.Credentials.KeyCredentialManagerOperationErrorStates = 1
-KeyCredentialManagerOperationErrorStates_KeyCredentialManagerOperationErrorStateTokenFailure: win32more.Windows.Win32.Security.Credentials.KeyCredentialManagerOperationErrorStates = 2
-KeyCredentialManagerOperationErrorStates_KeyCredentialManagerOperationErrorStateCertificateFailure: win32more.Windows.Win32.Security.Credentials.KeyCredentialManagerOperationErrorStates = 4
-KeyCredentialManagerOperationErrorStates_KeyCredentialManagerOperationErrorStateRemoteSessionFailure: win32more.Windows.Win32.Security.Credentials.KeyCredentialManagerOperationErrorStates = 8
-KeyCredentialManagerOperationErrorStates_KeyCredentialManagerOperationErrorStatePolicyFailure: win32more.Windows.Win32.Security.Credentials.KeyCredentialManagerOperationErrorStates = 16
-KeyCredentialManagerOperationErrorStates_KeyCredentialManagerOperationErrorStateHardwareFailure: win32more.Windows.Win32.Security.Credentials.KeyCredentialManagerOperationErrorStates = 32
-KeyCredentialManagerOperationErrorStates_KeyCredentialManagerOperationErrorStatePinExistsFailure: win32more.Windows.Win32.Security.Credentials.KeyCredentialManagerOperationErrorStates = 64
+KeyCredentialManagerOperationErrorStateNone: win32more.Windows.Win32.Security.Credentials.KeyCredentialManagerOperationErrorStates = 0
+KeyCredentialManagerOperationErrorStateDeviceJoinFailure: win32more.Windows.Win32.Security.Credentials.KeyCredentialManagerOperationErrorStates = 1
+KeyCredentialManagerOperationErrorStateTokenFailure: win32more.Windows.Win32.Security.Credentials.KeyCredentialManagerOperationErrorStates = 2
+KeyCredentialManagerOperationErrorStateCertificateFailure: win32more.Windows.Win32.Security.Credentials.KeyCredentialManagerOperationErrorStates = 4
+KeyCredentialManagerOperationErrorStateRemoteSessionFailure: win32more.Windows.Win32.Security.Credentials.KeyCredentialManagerOperationErrorStates = 8
+KeyCredentialManagerOperationErrorStatePolicyFailure: win32more.Windows.Win32.Security.Credentials.KeyCredentialManagerOperationErrorStates = 16
+KeyCredentialManagerOperationErrorStateHardwareFailure: win32more.Windows.Win32.Security.Credentials.KeyCredentialManagerOperationErrorStates = 32
+KeyCredentialManagerOperationErrorStatePinExistsFailure: win32more.Windows.Win32.Security.Credentials.KeyCredentialManagerOperationErrorStates = 64
 KeyCredentialManagerOperationType = Int32
-KeyCredentialManagerOperationType_KeyCredentialManagerProvisioning: win32more.Windows.Win32.Security.Credentials.KeyCredentialManagerOperationType = 0
-KeyCredentialManagerOperationType_KeyCredentialManagerPinChange: win32more.Windows.Win32.Security.Credentials.KeyCredentialManagerOperationType = 1
-KeyCredentialManagerOperationType_KeyCredentialManagerPinReset: win32more.Windows.Win32.Security.Credentials.KeyCredentialManagerOperationType = 2
+KeyCredentialManagerProvisioning: win32more.Windows.Win32.Security.Credentials.KeyCredentialManagerOperationType = 0
+KeyCredentialManagerPinChange: win32more.Windows.Win32.Security.Credentials.KeyCredentialManagerOperationType = 1
+KeyCredentialManagerPinReset: win32more.Windows.Win32.Security.Credentials.KeyCredentialManagerOperationType = 2
 @winfunctype_pointer
 def LPOCNCHKPROC(param0: UIntPtr, param1: UIntPtr, param2: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer

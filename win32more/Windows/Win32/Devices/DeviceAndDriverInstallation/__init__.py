@@ -4013,12 +4013,12 @@ elif ARCH in 'X86':
         HwProfile: UInt32
         _pack_ = 1
 SetupFileLogInfo = Int32
-SetupFileLogInfo_SetupFileLogSourceFilename: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.SetupFileLogInfo = 0
-SetupFileLogInfo_SetupFileLogChecksum: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.SetupFileLogInfo = 1
-SetupFileLogInfo_SetupFileLogDiskTagfile: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.SetupFileLogInfo = 2
-SetupFileLogInfo_SetupFileLogDiskDescription: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.SetupFileLogInfo = 3
-SetupFileLogInfo_SetupFileLogOtherInfo: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.SetupFileLogInfo = 4
-SetupFileLogInfo_SetupFileLogMax: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.SetupFileLogInfo = 5
+SetupFileLogSourceFilename: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.SetupFileLogInfo = 0
+SetupFileLogChecksum: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.SetupFileLogInfo = 1
+SetupFileLogDiskTagfile: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.SetupFileLogInfo = 2
+SetupFileLogDiskDescription: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.SetupFileLogInfo = 3
+SetupFileLogOtherInfo: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.SetupFileLogInfo = 4
+SetupFileLogMax: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.SetupFileLogInfo = 5
 UPDATEDRIVERFORPLUGANDPLAYDEVICES_FLAGS = UInt32
 INSTALLFLAG_FORCE: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.UPDATEDRIVERFORPLUGANDPLAYDEVICES_FLAGS = 1
 INSTALLFLAG_READONLY: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.UPDATEDRIVERFORPLUGANDPLAYDEVICES_FLAGS = 2

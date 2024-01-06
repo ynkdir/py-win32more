@@ -2065,36 +2065,36 @@ class CLUSCTL_RESOURCE_TYPE_STORAGE_GET_AVAILABLE_DISKS_EX2_INPUT(EasyCastStruct
     dwFlags: UInt32
     guidPoolFilter: Guid
 CLUSGROUP_TYPE = Int32
-CLUSGROUP_TYPE_ClusGroupTypeCoreCluster: win32more.Windows.Win32.Networking.Clustering.CLUSGROUP_TYPE = 1
-CLUSGROUP_TYPE_ClusGroupTypeAvailableStorage: win32more.Windows.Win32.Networking.Clustering.CLUSGROUP_TYPE = 2
-CLUSGROUP_TYPE_ClusGroupTypeTemporary: win32more.Windows.Win32.Networking.Clustering.CLUSGROUP_TYPE = 3
-CLUSGROUP_TYPE_ClusGroupTypeSharedVolume: win32more.Windows.Win32.Networking.Clustering.CLUSGROUP_TYPE = 4
-CLUSGROUP_TYPE_ClusGroupTypeStoragePool: win32more.Windows.Win32.Networking.Clustering.CLUSGROUP_TYPE = 5
-CLUSGROUP_TYPE_ClusGroupTypeFileServer: win32more.Windows.Win32.Networking.Clustering.CLUSGROUP_TYPE = 100
-CLUSGROUP_TYPE_ClusGroupTypePrintServer: win32more.Windows.Win32.Networking.Clustering.CLUSGROUP_TYPE = 101
-CLUSGROUP_TYPE_ClusGroupTypeDhcpServer: win32more.Windows.Win32.Networking.Clustering.CLUSGROUP_TYPE = 102
-CLUSGROUP_TYPE_ClusGroupTypeDtc: win32more.Windows.Win32.Networking.Clustering.CLUSGROUP_TYPE = 103
-CLUSGROUP_TYPE_ClusGroupTypeMsmq: win32more.Windows.Win32.Networking.Clustering.CLUSGROUP_TYPE = 104
-CLUSGROUP_TYPE_ClusGroupTypeWins: win32more.Windows.Win32.Networking.Clustering.CLUSGROUP_TYPE = 105
-CLUSGROUP_TYPE_ClusGroupTypeStandAloneDfs: win32more.Windows.Win32.Networking.Clustering.CLUSGROUP_TYPE = 106
-CLUSGROUP_TYPE_ClusGroupTypeGenericApplication: win32more.Windows.Win32.Networking.Clustering.CLUSGROUP_TYPE = 107
-CLUSGROUP_TYPE_ClusGroupTypeGenericService: win32more.Windows.Win32.Networking.Clustering.CLUSGROUP_TYPE = 108
-CLUSGROUP_TYPE_ClusGroupTypeGenericScript: win32more.Windows.Win32.Networking.Clustering.CLUSGROUP_TYPE = 109
-CLUSGROUP_TYPE_ClusGroupTypeIScsiNameService: win32more.Windows.Win32.Networking.Clustering.CLUSGROUP_TYPE = 110
-CLUSGROUP_TYPE_ClusGroupTypeVirtualMachine: win32more.Windows.Win32.Networking.Clustering.CLUSGROUP_TYPE = 111
-CLUSGROUP_TYPE_ClusGroupTypeTsSessionBroker: win32more.Windows.Win32.Networking.Clustering.CLUSGROUP_TYPE = 112
-CLUSGROUP_TYPE_ClusGroupTypeIScsiTarget: win32more.Windows.Win32.Networking.Clustering.CLUSGROUP_TYPE = 113
-CLUSGROUP_TYPE_ClusGroupTypeScaleoutFileServer: win32more.Windows.Win32.Networking.Clustering.CLUSGROUP_TYPE = 114
-CLUSGROUP_TYPE_ClusGroupTypeVMReplicaBroker: win32more.Windows.Win32.Networking.Clustering.CLUSGROUP_TYPE = 115
-CLUSGROUP_TYPE_ClusGroupTypeTaskScheduler: win32more.Windows.Win32.Networking.Clustering.CLUSGROUP_TYPE = 116
-CLUSGROUP_TYPE_ClusGroupTypeClusterUpdateAgent: win32more.Windows.Win32.Networking.Clustering.CLUSGROUP_TYPE = 117
-CLUSGROUP_TYPE_ClusGroupTypeScaleoutCluster: win32more.Windows.Win32.Networking.Clustering.CLUSGROUP_TYPE = 118
-CLUSGROUP_TYPE_ClusGroupTypeStorageReplica: win32more.Windows.Win32.Networking.Clustering.CLUSGROUP_TYPE = 119
-CLUSGROUP_TYPE_ClusGroupTypeVMReplicaCoordinator: win32more.Windows.Win32.Networking.Clustering.CLUSGROUP_TYPE = 120
-CLUSGROUP_TYPE_ClusGroupTypeCrossClusterOrchestrator: win32more.Windows.Win32.Networking.Clustering.CLUSGROUP_TYPE = 121
-CLUSGROUP_TYPE_ClusGroupTypeInfrastructureFileServer: win32more.Windows.Win32.Networking.Clustering.CLUSGROUP_TYPE = 122
-CLUSGROUP_TYPE_ClusGroupTypeCoreSddc: win32more.Windows.Win32.Networking.Clustering.CLUSGROUP_TYPE = 123
-CLUSGROUP_TYPE_ClusGroupTypeUnknown: win32more.Windows.Win32.Networking.Clustering.CLUSGROUP_TYPE = 9999
+ClusGroupTypeCoreCluster: win32more.Windows.Win32.Networking.Clustering.CLUSGROUP_TYPE = 1
+ClusGroupTypeAvailableStorage: win32more.Windows.Win32.Networking.Clustering.CLUSGROUP_TYPE = 2
+ClusGroupTypeTemporary: win32more.Windows.Win32.Networking.Clustering.CLUSGROUP_TYPE = 3
+ClusGroupTypeSharedVolume: win32more.Windows.Win32.Networking.Clustering.CLUSGROUP_TYPE = 4
+ClusGroupTypeStoragePool: win32more.Windows.Win32.Networking.Clustering.CLUSGROUP_TYPE = 5
+ClusGroupTypeFileServer: win32more.Windows.Win32.Networking.Clustering.CLUSGROUP_TYPE = 100
+ClusGroupTypePrintServer: win32more.Windows.Win32.Networking.Clustering.CLUSGROUP_TYPE = 101
+ClusGroupTypeDhcpServer: win32more.Windows.Win32.Networking.Clustering.CLUSGROUP_TYPE = 102
+ClusGroupTypeDtc: win32more.Windows.Win32.Networking.Clustering.CLUSGROUP_TYPE = 103
+ClusGroupTypeMsmq: win32more.Windows.Win32.Networking.Clustering.CLUSGROUP_TYPE = 104
+ClusGroupTypeWins: win32more.Windows.Win32.Networking.Clustering.CLUSGROUP_TYPE = 105
+ClusGroupTypeStandAloneDfs: win32more.Windows.Win32.Networking.Clustering.CLUSGROUP_TYPE = 106
+ClusGroupTypeGenericApplication: win32more.Windows.Win32.Networking.Clustering.CLUSGROUP_TYPE = 107
+ClusGroupTypeGenericService: win32more.Windows.Win32.Networking.Clustering.CLUSGROUP_TYPE = 108
+ClusGroupTypeGenericScript: win32more.Windows.Win32.Networking.Clustering.CLUSGROUP_TYPE = 109
+ClusGroupTypeIScsiNameService: win32more.Windows.Win32.Networking.Clustering.CLUSGROUP_TYPE = 110
+ClusGroupTypeVirtualMachine: win32more.Windows.Win32.Networking.Clustering.CLUSGROUP_TYPE = 111
+ClusGroupTypeTsSessionBroker: win32more.Windows.Win32.Networking.Clustering.CLUSGROUP_TYPE = 112
+ClusGroupTypeIScsiTarget: win32more.Windows.Win32.Networking.Clustering.CLUSGROUP_TYPE = 113
+ClusGroupTypeScaleoutFileServer: win32more.Windows.Win32.Networking.Clustering.CLUSGROUP_TYPE = 114
+ClusGroupTypeVMReplicaBroker: win32more.Windows.Win32.Networking.Clustering.CLUSGROUP_TYPE = 115
+ClusGroupTypeTaskScheduler: win32more.Windows.Win32.Networking.Clustering.CLUSGROUP_TYPE = 116
+ClusGroupTypeClusterUpdateAgent: win32more.Windows.Win32.Networking.Clustering.CLUSGROUP_TYPE = 117
+ClusGroupTypeScaleoutCluster: win32more.Windows.Win32.Networking.Clustering.CLUSGROUP_TYPE = 118
+ClusGroupTypeStorageReplica: win32more.Windows.Win32.Networking.Clustering.CLUSGROUP_TYPE = 119
+ClusGroupTypeVMReplicaCoordinator: win32more.Windows.Win32.Networking.Clustering.CLUSGROUP_TYPE = 120
+ClusGroupTypeCrossClusterOrchestrator: win32more.Windows.Win32.Networking.Clustering.CLUSGROUP_TYPE = 121
+ClusGroupTypeInfrastructureFileServer: win32more.Windows.Win32.Networking.Clustering.CLUSGROUP_TYPE = 122
+ClusGroupTypeCoreSddc: win32more.Windows.Win32.Networking.Clustering.CLUSGROUP_TYPE = 123
+ClusGroupTypeUnknown: win32more.Windows.Win32.Networking.Clustering.CLUSGROUP_TYPE = 9999
 class CLUSPROP_BINARY(EasyCastStructure):
     Base: win32more.Windows.Win32.Networking.Clustering.CLUSPROP_VALUE
     rgb: Byte * 1
@@ -2398,11 +2398,11 @@ class CLUSTER_CREATE_GROUP_INFO(EasyCastStructure):
     dwVersion: UInt32
     groupType: win32more.Windows.Win32.Networking.Clustering.CLUSGROUP_TYPE
 CLUSTER_CSV_VOLUME_FAULT_STATE = Int32
-CLUSTER_CSV_VOLUME_FAULT_STATE_VolumeStateNoFaults: win32more.Windows.Win32.Networking.Clustering.CLUSTER_CSV_VOLUME_FAULT_STATE = 0
-CLUSTER_CSV_VOLUME_FAULT_STATE_VolumeStateNoDirectIO: win32more.Windows.Win32.Networking.Clustering.CLUSTER_CSV_VOLUME_FAULT_STATE = 1
-CLUSTER_CSV_VOLUME_FAULT_STATE_VolumeStateNoAccess: win32more.Windows.Win32.Networking.Clustering.CLUSTER_CSV_VOLUME_FAULT_STATE = 2
-CLUSTER_CSV_VOLUME_FAULT_STATE_VolumeStateInMaintenance: win32more.Windows.Win32.Networking.Clustering.CLUSTER_CSV_VOLUME_FAULT_STATE = 4
-CLUSTER_CSV_VOLUME_FAULT_STATE_VolumeStateDismounted: win32more.Windows.Win32.Networking.Clustering.CLUSTER_CSV_VOLUME_FAULT_STATE = 8
+VolumeStateNoFaults: win32more.Windows.Win32.Networking.Clustering.CLUSTER_CSV_VOLUME_FAULT_STATE = 0
+VolumeStateNoDirectIO: win32more.Windows.Win32.Networking.Clustering.CLUSTER_CSV_VOLUME_FAULT_STATE = 1
+VolumeStateNoAccess: win32more.Windows.Win32.Networking.Clustering.CLUSTER_CSV_VOLUME_FAULT_STATE = 2
+VolumeStateInMaintenance: win32more.Windows.Win32.Networking.Clustering.CLUSTER_CSV_VOLUME_FAULT_STATE = 4
+VolumeStateDismounted: win32more.Windows.Win32.Networking.Clustering.CLUSTER_CSV_VOLUME_FAULT_STATE = 8
 CLUSTER_ENUM = Int32
 CLUSTER_ENUM_NODE: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ENUM = 1
 CLUSTER_ENUM_RESTYPE: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ENUM = 2
@@ -2422,9 +2422,9 @@ class CLUSTER_ENUM_ITEM(EasyCastStructure):
     cbName: UInt32
     lpszName: win32more.Windows.Win32.Foundation.PWSTR
 CLUSTER_GROUP_AUTOFAILBACK_TYPE = Int32
-CLUSTER_GROUP_AUTOFAILBACK_TYPE_ClusterGroupPreventFailback: win32more.Windows.Win32.Networking.Clustering.CLUSTER_GROUP_AUTOFAILBACK_TYPE = 0
-CLUSTER_GROUP_AUTOFAILBACK_TYPE_ClusterGroupAllowFailback: win32more.Windows.Win32.Networking.Clustering.CLUSTER_GROUP_AUTOFAILBACK_TYPE = 1
-CLUSTER_GROUP_AUTOFAILBACK_TYPE_ClusterGroupFailbackTypeCount: win32more.Windows.Win32.Networking.Clustering.CLUSTER_GROUP_AUTOFAILBACK_TYPE = 2
+ClusterGroupPreventFailback: win32more.Windows.Win32.Networking.Clustering.CLUSTER_GROUP_AUTOFAILBACK_TYPE = 0
+ClusterGroupAllowFailback: win32more.Windows.Win32.Networking.Clustering.CLUSTER_GROUP_AUTOFAILBACK_TYPE = 1
+ClusterGroupFailbackTypeCount: win32more.Windows.Win32.Networking.Clustering.CLUSTER_GROUP_AUTOFAILBACK_TYPE = 2
 CLUSTER_GROUP_ENUM = Int32
 CLUSTER_GROUP_ENUM_CONTAINS: win32more.Windows.Win32.Networking.Clustering.CLUSTER_GROUP_ENUM = 1
 CLUSTER_GROUP_ENUM_NODES: win32more.Windows.Win32.Networking.Clustering.CLUSTER_GROUP_ENUM = 2
@@ -2444,17 +2444,17 @@ class CLUSTER_GROUP_ENUM_ITEM(EasyCastStructure):
     cbRoProperties: UInt32
     pRoProperties: VoidPtr
 CLUSTER_GROUP_PRIORITY = Int32
-CLUSTER_GROUP_PRIORITY_PriorityDisabled: win32more.Windows.Win32.Networking.Clustering.CLUSTER_GROUP_PRIORITY = 0
-CLUSTER_GROUP_PRIORITY_PriorityLow: win32more.Windows.Win32.Networking.Clustering.CLUSTER_GROUP_PRIORITY = 1000
-CLUSTER_GROUP_PRIORITY_PriorityMedium: win32more.Windows.Win32.Networking.Clustering.CLUSTER_GROUP_PRIORITY = 2000
-CLUSTER_GROUP_PRIORITY_PriorityHigh: win32more.Windows.Win32.Networking.Clustering.CLUSTER_GROUP_PRIORITY = 3000
+PriorityDisabled: win32more.Windows.Win32.Networking.Clustering.CLUSTER_GROUP_PRIORITY = 0
+PriorityLow: win32more.Windows.Win32.Networking.Clustering.CLUSTER_GROUP_PRIORITY = 1000
+PriorityMedium: win32more.Windows.Win32.Networking.Clustering.CLUSTER_GROUP_PRIORITY = 2000
+PriorityHigh: win32more.Windows.Win32.Networking.Clustering.CLUSTER_GROUP_PRIORITY = 3000
 CLUSTER_GROUP_STATE = Int32
-CLUSTER_GROUP_STATE_ClusterGroupStateUnknown: win32more.Windows.Win32.Networking.Clustering.CLUSTER_GROUP_STATE = -1
-CLUSTER_GROUP_STATE_ClusterGroupOnline: win32more.Windows.Win32.Networking.Clustering.CLUSTER_GROUP_STATE = 0
-CLUSTER_GROUP_STATE_ClusterGroupOffline: win32more.Windows.Win32.Networking.Clustering.CLUSTER_GROUP_STATE = 1
-CLUSTER_GROUP_STATE_ClusterGroupFailed: win32more.Windows.Win32.Networking.Clustering.CLUSTER_GROUP_STATE = 2
-CLUSTER_GROUP_STATE_ClusterGroupPartialOnline: win32more.Windows.Win32.Networking.Clustering.CLUSTER_GROUP_STATE = 3
-CLUSTER_GROUP_STATE_ClusterGroupPending: win32more.Windows.Win32.Networking.Clustering.CLUSTER_GROUP_STATE = 4
+ClusterGroupStateUnknown: win32more.Windows.Win32.Networking.Clustering.CLUSTER_GROUP_STATE = -1
+ClusterGroupOnline: win32more.Windows.Win32.Networking.Clustering.CLUSTER_GROUP_STATE = 0
+ClusterGroupOffline: win32more.Windows.Win32.Networking.Clustering.CLUSTER_GROUP_STATE = 1
+ClusterGroupFailed: win32more.Windows.Win32.Networking.Clustering.CLUSTER_GROUP_STATE = 2
+ClusterGroupPartialOnline: win32more.Windows.Win32.Networking.Clustering.CLUSTER_GROUP_STATE = 3
+ClusterGroupPending: win32more.Windows.Win32.Networking.Clustering.CLUSTER_GROUP_STATE = 4
 class CLUSTER_HEALTH_FAULT(EasyCastStructure):
     Id: win32more.Windows.Win32.Foundation.PWSTR
     ErrorType: UInt32
@@ -2483,56 +2483,56 @@ CLUSTER_MGMT_POINT_TYPE_CNO: win32more.Windows.Win32.Networking.Clustering.CLUST
 CLUSTER_MGMT_POINT_TYPE_DNS_ONLY: win32more.Windows.Win32.Networking.Clustering.CLUSTER_MGMT_POINT_TYPE = 2
 CLUSTER_MGMT_POINT_TYPE_CNO_ONLY: win32more.Windows.Win32.Networking.Clustering.CLUSTER_MGMT_POINT_TYPE = 3
 CLUSTER_NETINTERFACE_STATE = Int32
-CLUSTER_NETINTERFACE_STATE_ClusterNetInterfaceStateUnknown: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NETINTERFACE_STATE = -1
-CLUSTER_NETINTERFACE_STATE_ClusterNetInterfaceUnavailable: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NETINTERFACE_STATE = 0
-CLUSTER_NETINTERFACE_STATE_ClusterNetInterfaceFailed: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NETINTERFACE_STATE = 1
-CLUSTER_NETINTERFACE_STATE_ClusterNetInterfaceUnreachable: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NETINTERFACE_STATE = 2
-CLUSTER_NETINTERFACE_STATE_ClusterNetInterfaceUp: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NETINTERFACE_STATE = 3
+ClusterNetInterfaceStateUnknown: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NETINTERFACE_STATE = -1
+ClusterNetInterfaceUnavailable: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NETINTERFACE_STATE = 0
+ClusterNetInterfaceFailed: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NETINTERFACE_STATE = 1
+ClusterNetInterfaceUnreachable: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NETINTERFACE_STATE = 2
+ClusterNetInterfaceUp: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NETINTERFACE_STATE = 3
 CLUSTER_NETWORK_ENUM = Int32
 CLUSTER_NETWORK_ENUM_NETINTERFACES: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NETWORK_ENUM = 1
 CLUSTER_NETWORK_ENUM_ALL: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NETWORK_ENUM = 1
 CLUSTER_NETWORK_ROLE = Int32
-CLUSTER_NETWORK_ROLE_ClusterNetworkRoleNone: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NETWORK_ROLE = 0
-CLUSTER_NETWORK_ROLE_ClusterNetworkRoleInternalUse: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NETWORK_ROLE = 1
-CLUSTER_NETWORK_ROLE_ClusterNetworkRoleClientAccess: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NETWORK_ROLE = 2
-CLUSTER_NETWORK_ROLE_ClusterNetworkRoleInternalAndClient: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NETWORK_ROLE = 3
+ClusterNetworkRoleNone: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NETWORK_ROLE = 0
+ClusterNetworkRoleInternalUse: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NETWORK_ROLE = 1
+ClusterNetworkRoleClientAccess: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NETWORK_ROLE = 2
+ClusterNetworkRoleInternalAndClient: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NETWORK_ROLE = 3
 CLUSTER_NETWORK_STATE = Int32
-CLUSTER_NETWORK_STATE_ClusterNetworkStateUnknown: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NETWORK_STATE = -1
-CLUSTER_NETWORK_STATE_ClusterNetworkUnavailable: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NETWORK_STATE = 0
-CLUSTER_NETWORK_STATE_ClusterNetworkDown: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NETWORK_STATE = 1
-CLUSTER_NETWORK_STATE_ClusterNetworkPartitioned: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NETWORK_STATE = 2
-CLUSTER_NETWORK_STATE_ClusterNetworkUp: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NETWORK_STATE = 3
+ClusterNetworkStateUnknown: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NETWORK_STATE = -1
+ClusterNetworkUnavailable: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NETWORK_STATE = 0
+ClusterNetworkDown: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NETWORK_STATE = 1
+ClusterNetworkPartitioned: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NETWORK_STATE = 2
+ClusterNetworkUp: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NETWORK_STATE = 3
 CLUSTER_NODE_DRAIN_STATUS = Int32
-CLUSTER_NODE_DRAIN_STATUS_NodeDrainStatusNotInitiated: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NODE_DRAIN_STATUS = 0
-CLUSTER_NODE_DRAIN_STATUS_NodeDrainStatusInProgress: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NODE_DRAIN_STATUS = 1
-CLUSTER_NODE_DRAIN_STATUS_NodeDrainStatusCompleted: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NODE_DRAIN_STATUS = 2
-CLUSTER_NODE_DRAIN_STATUS_NodeDrainStatusFailed: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NODE_DRAIN_STATUS = 3
-CLUSTER_NODE_DRAIN_STATUS_ClusterNodeDrainStatusCount: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NODE_DRAIN_STATUS = 4
+NodeDrainStatusNotInitiated: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NODE_DRAIN_STATUS = 0
+NodeDrainStatusInProgress: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NODE_DRAIN_STATUS = 1
+NodeDrainStatusCompleted: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NODE_DRAIN_STATUS = 2
+NodeDrainStatusFailed: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NODE_DRAIN_STATUS = 3
+ClusterNodeDrainStatusCount: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NODE_DRAIN_STATUS = 4
 CLUSTER_NODE_ENUM = Int32
 CLUSTER_NODE_ENUM_NETINTERFACES: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NODE_ENUM = 1
 CLUSTER_NODE_ENUM_GROUPS: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NODE_ENUM = 2
 CLUSTER_NODE_ENUM_PREFERRED_GROUPS: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NODE_ENUM = 4
 CLUSTER_NODE_ENUM_ALL: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NODE_ENUM = 3
 CLUSTER_NODE_RESUME_FAILBACK_TYPE = Int32
-CLUSTER_NODE_RESUME_FAILBACK_TYPE_DoNotFailbackGroups: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NODE_RESUME_FAILBACK_TYPE = 0
-CLUSTER_NODE_RESUME_FAILBACK_TYPE_FailbackGroupsImmediately: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NODE_RESUME_FAILBACK_TYPE = 1
-CLUSTER_NODE_RESUME_FAILBACK_TYPE_FailbackGroupsPerPolicy: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NODE_RESUME_FAILBACK_TYPE = 2
-CLUSTER_NODE_RESUME_FAILBACK_TYPE_ClusterNodeResumeFailbackTypeCount: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NODE_RESUME_FAILBACK_TYPE = 3
+DoNotFailbackGroups: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NODE_RESUME_FAILBACK_TYPE = 0
+FailbackGroupsImmediately: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NODE_RESUME_FAILBACK_TYPE = 1
+FailbackGroupsPerPolicy: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NODE_RESUME_FAILBACK_TYPE = 2
+ClusterNodeResumeFailbackTypeCount: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NODE_RESUME_FAILBACK_TYPE = 3
 CLUSTER_NODE_STATE = Int32
-CLUSTER_NODE_STATE_ClusterNodeStateUnknown: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NODE_STATE = -1
-CLUSTER_NODE_STATE_ClusterNodeUp: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NODE_STATE = 0
-CLUSTER_NODE_STATE_ClusterNodeDown: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NODE_STATE = 1
-CLUSTER_NODE_STATE_ClusterNodePaused: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NODE_STATE = 2
-CLUSTER_NODE_STATE_ClusterNodeJoining: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NODE_STATE = 3
+ClusterNodeStateUnknown: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NODE_STATE = -1
+ClusterNodeUp: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NODE_STATE = 0
+ClusterNodeDown: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NODE_STATE = 1
+ClusterNodePaused: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NODE_STATE = 2
+ClusterNodeJoining: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NODE_STATE = 3
 CLUSTER_NODE_STATUS = Int32
-CLUSTER_NODE_STATUS_NodeStatusNormal: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NODE_STATUS = 0
-CLUSTER_NODE_STATUS_NodeStatusIsolated: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NODE_STATUS = 1
-CLUSTER_NODE_STATUS_NodeStatusQuarantined: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NODE_STATUS = 2
-CLUSTER_NODE_STATUS_NodeStatusDrainInProgress: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NODE_STATUS = 4
-CLUSTER_NODE_STATUS_NodeStatusDrainCompleted: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NODE_STATUS = 8
-CLUSTER_NODE_STATUS_NodeStatusDrainFailed: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NODE_STATUS = 16
-CLUSTER_NODE_STATUS_NodeStatusAvoidPlacement: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NODE_STATUS = 32
-CLUSTER_NODE_STATUS_NodeStatusMax: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NODE_STATUS = 51
+NodeStatusNormal: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NODE_STATUS = 0
+NodeStatusIsolated: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NODE_STATUS = 1
+NodeStatusQuarantined: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NODE_STATUS = 2
+NodeStatusDrainInProgress: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NODE_STATUS = 4
+NodeStatusDrainCompleted: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NODE_STATUS = 8
+NodeStatusDrainFailed: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NODE_STATUS = 16
+NodeStatusAvoidPlacement: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NODE_STATUS = 32
+NodeStatusMax: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NODE_STATUS = 51
 CLUSTER_NOTIFICATIONS_VERSION = Int32
 CLUSTER_NOTIFICATIONS_V1: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NOTIFICATIONS_VERSION = 1
 CLUSTER_NOTIFICATIONS_V2: win32more.Windows.Win32.Networking.Clustering.CLUSTER_NOTIFICATIONS_VERSION = 2
@@ -2616,8 +2616,8 @@ CLUSPROP_TYPE_PARTITION_INFO_EX2: win32more.Windows.Win32.Networking.Clustering.
 CLUSPROP_TYPE_STORAGE_DEVICE_ID_DESCRIPTOR: win32more.Windows.Win32.Networking.Clustering.CLUSTER_PROPERTY_TYPE = 15
 CLUSPROP_TYPE_USER: win32more.Windows.Win32.Networking.Clustering.CLUSTER_PROPERTY_TYPE = 32768
 CLUSTER_QUORUM_TYPE = Int32
-CLUSTER_QUORUM_TYPE_OperationalQuorum: win32more.Windows.Win32.Networking.Clustering.CLUSTER_QUORUM_TYPE = 0
-CLUSTER_QUORUM_TYPE_ModifyQuorum: win32more.Windows.Win32.Networking.Clustering.CLUSTER_QUORUM_TYPE = 1
+OperationalQuorum: win32more.Windows.Win32.Networking.Clustering.CLUSTER_QUORUM_TYPE = 0
+ModifyQuorum: win32more.Windows.Win32.Networking.Clustering.CLUSTER_QUORUM_TYPE = 1
 CLUSTER_QUORUM_VALUE = Int32
 CLUSTER_QUORUM_MAINTAINED: win32more.Windows.Win32.Networking.Clustering.CLUSTER_QUORUM_VALUE = 0
 CLUSTER_QUORUM_LOST: win32more.Windows.Win32.Networking.Clustering.CLUSTER_QUORUM_VALUE = 1
@@ -2650,9 +2650,9 @@ CLUSREG_CONDITION_KEY_EXISTS: win32more.Windows.Win32.Networking.Clustering.CLUS
 CLUSREG_CONDITION_KEY_NOT_EXISTS: win32more.Windows.Win32.Networking.Clustering.CLUSTER_REG_COMMAND = 18
 CLUSREG_LAST_COMMAND: win32more.Windows.Win32.Networking.Clustering.CLUSTER_REG_COMMAND = 19
 CLUSTER_RESOURCE_APPLICATION_STATE = Int32
-CLUSTER_RESOURCE_APPLICATION_STATE_ClusterResourceApplicationStateUnknown: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_APPLICATION_STATE = 1
-CLUSTER_RESOURCE_APPLICATION_STATE_ClusterResourceApplicationOSHeartBeat: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_APPLICATION_STATE = 2
-CLUSTER_RESOURCE_APPLICATION_STATE_ClusterResourceApplicationReady: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_APPLICATION_STATE = 3
+ClusterResourceApplicationStateUnknown: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_APPLICATION_STATE = 1
+ClusterResourceApplicationOSHeartBeat: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_APPLICATION_STATE = 2
+ClusterResourceApplicationReady: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_APPLICATION_STATE = 3
 CLUSTER_RESOURCE_CLASS = Int32
 CLUS_RESCLASS_UNKNOWN: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_CLASS = 0
 CLUS_RESCLASS_STORAGE: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_CLASS = 1
@@ -2663,9 +2663,9 @@ CLUSTER_RESOURCE_DEFAULT_MONITOR: win32more.Windows.Win32.Networking.Clustering.
 CLUSTER_RESOURCE_SEPARATE_MONITOR: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_CREATE_FLAGS = 1
 CLUSTER_RESOURCE_VALID_FLAGS: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_CREATE_FLAGS = 1
 CLUSTER_RESOURCE_EMBEDDED_FAILURE_ACTION = Int32
-CLUSTER_RESOURCE_EMBEDDED_FAILURE_ACTION_ClusterResourceEmbeddedFailureActionNone: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_EMBEDDED_FAILURE_ACTION = 0
-CLUSTER_RESOURCE_EMBEDDED_FAILURE_ACTION_ClusterResourceEmbeddedFailureActionLogOnly: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_EMBEDDED_FAILURE_ACTION = 1
-CLUSTER_RESOURCE_EMBEDDED_FAILURE_ACTION_ClusterResourceEmbeddedFailureActionRecover: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_EMBEDDED_FAILURE_ACTION = 2
+ClusterResourceEmbeddedFailureActionNone: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_EMBEDDED_FAILURE_ACTION = 0
+ClusterResourceEmbeddedFailureActionLogOnly: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_EMBEDDED_FAILURE_ACTION = 1
+ClusterResourceEmbeddedFailureActionRecover: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_EMBEDDED_FAILURE_ACTION = 2
 CLUSTER_RESOURCE_ENUM = Int32
 CLUSTER_RESOURCE_ENUM_DEPENDS: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_ENUM = 1
 CLUSTER_RESOURCE_ENUM_PROVIDES: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_ENUM = 2
@@ -2686,113 +2686,113 @@ class CLUSTER_RESOURCE_ENUM_ITEM(EasyCastStructure):
     cbRoProperties: UInt32
     pRoProperties: VoidPtr
 CLUSTER_RESOURCE_RESTART_ACTION = Int32
-CLUSTER_RESOURCE_RESTART_ACTION_ClusterResourceDontRestart: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_RESTART_ACTION = 0
-CLUSTER_RESOURCE_RESTART_ACTION_ClusterResourceRestartNoNotify: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_RESTART_ACTION = 1
-CLUSTER_RESOURCE_RESTART_ACTION_ClusterResourceRestartNotify: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_RESTART_ACTION = 2
-CLUSTER_RESOURCE_RESTART_ACTION_ClusterResourceRestartActionCount: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_RESTART_ACTION = 3
+ClusterResourceDontRestart: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_RESTART_ACTION = 0
+ClusterResourceRestartNoNotify: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_RESTART_ACTION = 1
+ClusterResourceRestartNotify: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_RESTART_ACTION = 2
+ClusterResourceRestartActionCount: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_RESTART_ACTION = 3
 CLUSTER_RESOURCE_STATE = Int32
-CLUSTER_RESOURCE_STATE_ClusterResourceStateUnknown: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_STATE = -1
-CLUSTER_RESOURCE_STATE_ClusterResourceInherited: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_STATE = 0
-CLUSTER_RESOURCE_STATE_ClusterResourceInitializing: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_STATE = 1
-CLUSTER_RESOURCE_STATE_ClusterResourceOnline: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_STATE = 2
-CLUSTER_RESOURCE_STATE_ClusterResourceOffline: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_STATE = 3
-CLUSTER_RESOURCE_STATE_ClusterResourceFailed: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_STATE = 4
-CLUSTER_RESOURCE_STATE_ClusterResourcePending: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_STATE = 128
-CLUSTER_RESOURCE_STATE_ClusterResourceOnlinePending: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_STATE = 129
-CLUSTER_RESOURCE_STATE_ClusterResourceOfflinePending: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_STATE = 130
+ClusterResourceStateUnknown: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_STATE = -1
+ClusterResourceInherited: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_STATE = 0
+ClusterResourceInitializing: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_STATE = 1
+ClusterResourceOnline: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_STATE = 2
+ClusterResourceOffline: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_STATE = 3
+ClusterResourceFailed: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_STATE = 4
+ClusterResourcePending: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_STATE = 128
+ClusterResourceOnlinePending: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_STATE = 129
+ClusterResourceOfflinePending: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_STATE = 130
 CLUSTER_RESOURCE_STATE_CHANGE_REASON = Int32
-CLUSTER_RESOURCE_STATE_CHANGE_REASON_eResourceStateChangeReasonUnknown: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_STATE_CHANGE_REASON = 0
-CLUSTER_RESOURCE_STATE_CHANGE_REASON_eResourceStateChangeReasonMove: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_STATE_CHANGE_REASON = 1
-CLUSTER_RESOURCE_STATE_CHANGE_REASON_eResourceStateChangeReasonFailover: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_STATE_CHANGE_REASON = 2
-CLUSTER_RESOURCE_STATE_CHANGE_REASON_eResourceStateChangeReasonFailedMove: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_STATE_CHANGE_REASON = 3
-CLUSTER_RESOURCE_STATE_CHANGE_REASON_eResourceStateChangeReasonShutdown: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_STATE_CHANGE_REASON = 4
-CLUSTER_RESOURCE_STATE_CHANGE_REASON_eResourceStateChangeReasonRundown: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_STATE_CHANGE_REASON = 5
+eResourceStateChangeReasonUnknown: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_STATE_CHANGE_REASON = 0
+eResourceStateChangeReasonMove: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_STATE_CHANGE_REASON = 1
+eResourceStateChangeReasonFailover: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_STATE_CHANGE_REASON = 2
+eResourceStateChangeReasonFailedMove: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_STATE_CHANGE_REASON = 3
+eResourceStateChangeReasonShutdown: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_STATE_CHANGE_REASON = 4
+eResourceStateChangeReasonRundown: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_STATE_CHANGE_REASON = 5
 CLUSTER_RESOURCE_TYPE_ENUM = Int32
 CLUSTER_RESOURCE_TYPE_ENUM_NODES: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_TYPE_ENUM = 1
 CLUSTER_RESOURCE_TYPE_ENUM_RESOURCES: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_TYPE_ENUM = 2
 CLUSTER_RESOURCE_TYPE_ENUM_ALL: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_TYPE_ENUM = 3
 CLUSTER_ROLE = Int32
-CLUSTER_ROLE_ClusterRoleDHCP: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ROLE = 0
-CLUSTER_ROLE_ClusterRoleDTC: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ROLE = 1
-CLUSTER_ROLE_ClusterRoleFileServer: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ROLE = 2
-CLUSTER_ROLE_ClusterRoleGenericApplication: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ROLE = 3
-CLUSTER_ROLE_ClusterRoleGenericScript: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ROLE = 4
-CLUSTER_ROLE_ClusterRoleGenericService: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ROLE = 5
-CLUSTER_ROLE_ClusterRoleISCSINameServer: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ROLE = 6
-CLUSTER_ROLE_ClusterRoleMSMQ: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ROLE = 7
-CLUSTER_ROLE_ClusterRoleNFS: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ROLE = 8
-CLUSTER_ROLE_ClusterRolePrintServer: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ROLE = 9
-CLUSTER_ROLE_ClusterRoleStandAloneNamespaceServer: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ROLE = 10
-CLUSTER_ROLE_ClusterRoleVolumeShadowCopyServiceTask: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ROLE = 11
-CLUSTER_ROLE_ClusterRoleWINS: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ROLE = 12
-CLUSTER_ROLE_ClusterRoleTaskScheduler: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ROLE = 13
-CLUSTER_ROLE_ClusterRoleNetworkFileSystem: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ROLE = 14
-CLUSTER_ROLE_ClusterRoleDFSReplicatedFolder: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ROLE = 15
-CLUSTER_ROLE_ClusterRoleDistributedFileSystem: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ROLE = 16
-CLUSTER_ROLE_ClusterRoleDistributedNetworkName: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ROLE = 17
-CLUSTER_ROLE_ClusterRoleFileShare: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ROLE = 18
-CLUSTER_ROLE_ClusterRoleFileShareWitness: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ROLE = 19
-CLUSTER_ROLE_ClusterRoleHardDisk: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ROLE = 20
-CLUSTER_ROLE_ClusterRoleIPAddress: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ROLE = 21
-CLUSTER_ROLE_ClusterRoleIPV6Address: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ROLE = 22
-CLUSTER_ROLE_ClusterRoleIPV6TunnelAddress: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ROLE = 23
-CLUSTER_ROLE_ClusterRoleISCSITargetServer: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ROLE = 24
-CLUSTER_ROLE_ClusterRoleNetworkName: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ROLE = 25
-CLUSTER_ROLE_ClusterRolePhysicalDisk: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ROLE = 26
-CLUSTER_ROLE_ClusterRoleSODAFileServer: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ROLE = 27
-CLUSTER_ROLE_ClusterRoleStoragePool: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ROLE = 28
-CLUSTER_ROLE_ClusterRoleVirtualMachine: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ROLE = 29
-CLUSTER_ROLE_ClusterRoleVirtualMachineConfiguration: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ROLE = 30
-CLUSTER_ROLE_ClusterRoleVirtualMachineReplicaBroker: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ROLE = 31
+ClusterRoleDHCP: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ROLE = 0
+ClusterRoleDTC: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ROLE = 1
+ClusterRoleFileServer: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ROLE = 2
+ClusterRoleGenericApplication: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ROLE = 3
+ClusterRoleGenericScript: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ROLE = 4
+ClusterRoleGenericService: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ROLE = 5
+ClusterRoleISCSINameServer: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ROLE = 6
+ClusterRoleMSMQ: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ROLE = 7
+ClusterRoleNFS: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ROLE = 8
+ClusterRolePrintServer: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ROLE = 9
+ClusterRoleStandAloneNamespaceServer: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ROLE = 10
+ClusterRoleVolumeShadowCopyServiceTask: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ROLE = 11
+ClusterRoleWINS: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ROLE = 12
+ClusterRoleTaskScheduler: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ROLE = 13
+ClusterRoleNetworkFileSystem: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ROLE = 14
+ClusterRoleDFSReplicatedFolder: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ROLE = 15
+ClusterRoleDistributedFileSystem: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ROLE = 16
+ClusterRoleDistributedNetworkName: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ROLE = 17
+ClusterRoleFileShare: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ROLE = 18
+ClusterRoleFileShareWitness: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ROLE = 19
+ClusterRoleHardDisk: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ROLE = 20
+ClusterRoleIPAddress: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ROLE = 21
+ClusterRoleIPV6Address: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ROLE = 22
+ClusterRoleIPV6TunnelAddress: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ROLE = 23
+ClusterRoleISCSITargetServer: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ROLE = 24
+ClusterRoleNetworkName: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ROLE = 25
+ClusterRolePhysicalDisk: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ROLE = 26
+ClusterRoleSODAFileServer: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ROLE = 27
+ClusterRoleStoragePool: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ROLE = 28
+ClusterRoleVirtualMachine: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ROLE = 29
+ClusterRoleVirtualMachineConfiguration: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ROLE = 30
+ClusterRoleVirtualMachineReplicaBroker: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ROLE = 31
 CLUSTER_ROLE_STATE = Int32
-CLUSTER_ROLE_STATE_ClusterRoleUnknown: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ROLE_STATE = -1
-CLUSTER_ROLE_STATE_ClusterRoleClustered: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ROLE_STATE = 0
-CLUSTER_ROLE_STATE_ClusterRoleUnclustered: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ROLE_STATE = 1
+ClusterRoleUnknown: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ROLE_STATE = -1
+ClusterRoleClustered: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ROLE_STATE = 0
+ClusterRoleUnclustered: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ROLE_STATE = 1
 CLUSTER_SETUP_PHASE = Int32
-CLUSTER_SETUP_PHASE_ClusterSetupPhaseInitialize: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE = 1
-CLUSTER_SETUP_PHASE_ClusterSetupPhaseValidateNodeState: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE = 100
-CLUSTER_SETUP_PHASE_ClusterSetupPhaseValidateNetft: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE = 102
-CLUSTER_SETUP_PHASE_ClusterSetupPhaseValidateClusDisk: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE = 103
-CLUSTER_SETUP_PHASE_ClusterSetupPhaseConfigureClusSvc: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE = 104
-CLUSTER_SETUP_PHASE_ClusterSetupPhaseStartingClusSvc: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE = 105
-CLUSTER_SETUP_PHASE_ClusterSetupPhaseQueryClusterNameAccount: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE = 106
-CLUSTER_SETUP_PHASE_ClusterSetupPhaseValidateClusterNameAccount: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE = 107
-CLUSTER_SETUP_PHASE_ClusterSetupPhaseCreateClusterAccount: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE = 108
-CLUSTER_SETUP_PHASE_ClusterSetupPhaseConfigureClusterAccount: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE = 109
-CLUSTER_SETUP_PHASE_ClusterSetupPhaseFormingCluster: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE = 200
-CLUSTER_SETUP_PHASE_ClusterSetupPhaseAddClusterProperties: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE = 201
-CLUSTER_SETUP_PHASE_ClusterSetupPhaseCreateResourceTypes: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE = 202
-CLUSTER_SETUP_PHASE_ClusterSetupPhaseCreateGroups: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE = 203
-CLUSTER_SETUP_PHASE_ClusterSetupPhaseCreateIPAddressResources: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE = 204
-CLUSTER_SETUP_PHASE_ClusterSetupPhaseCreateNetworkName: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE = 205
-CLUSTER_SETUP_PHASE_ClusterSetupPhaseClusterGroupOnline: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE = 206
-CLUSTER_SETUP_PHASE_ClusterSetupPhaseGettingCurrentMembership: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE = 300
-CLUSTER_SETUP_PHASE_ClusterSetupPhaseAddNodeToCluster: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE = 301
-CLUSTER_SETUP_PHASE_ClusterSetupPhaseNodeUp: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE = 302
-CLUSTER_SETUP_PHASE_ClusterSetupPhaseMoveGroup: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE = 400
-CLUSTER_SETUP_PHASE_ClusterSetupPhaseDeleteGroup: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE = 401
-CLUSTER_SETUP_PHASE_ClusterSetupPhaseCleanupCOs: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE = 402
-CLUSTER_SETUP_PHASE_ClusterSetupPhaseOfflineGroup: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE = 403
-CLUSTER_SETUP_PHASE_ClusterSetupPhaseEvictNode: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE = 404
-CLUSTER_SETUP_PHASE_ClusterSetupPhaseCleanupNode: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE = 405
-CLUSTER_SETUP_PHASE_ClusterSetupPhaseCoreGroupCleanup: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE = 406
-CLUSTER_SETUP_PHASE_ClusterSetupPhaseFailureCleanup: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE = 999
+ClusterSetupPhaseInitialize: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE = 1
+ClusterSetupPhaseValidateNodeState: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE = 100
+ClusterSetupPhaseValidateNetft: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE = 102
+ClusterSetupPhaseValidateClusDisk: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE = 103
+ClusterSetupPhaseConfigureClusSvc: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE = 104
+ClusterSetupPhaseStartingClusSvc: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE = 105
+ClusterSetupPhaseQueryClusterNameAccount: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE = 106
+ClusterSetupPhaseValidateClusterNameAccount: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE = 107
+ClusterSetupPhaseCreateClusterAccount: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE = 108
+ClusterSetupPhaseConfigureClusterAccount: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE = 109
+ClusterSetupPhaseFormingCluster: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE = 200
+ClusterSetupPhaseAddClusterProperties: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE = 201
+ClusterSetupPhaseCreateResourceTypes: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE = 202
+ClusterSetupPhaseCreateGroups: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE = 203
+ClusterSetupPhaseCreateIPAddressResources: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE = 204
+ClusterSetupPhaseCreateNetworkName: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE = 205
+ClusterSetupPhaseClusterGroupOnline: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE = 206
+ClusterSetupPhaseGettingCurrentMembership: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE = 300
+ClusterSetupPhaseAddNodeToCluster: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE = 301
+ClusterSetupPhaseNodeUp: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE = 302
+ClusterSetupPhaseMoveGroup: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE = 400
+ClusterSetupPhaseDeleteGroup: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE = 401
+ClusterSetupPhaseCleanupCOs: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE = 402
+ClusterSetupPhaseOfflineGroup: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE = 403
+ClusterSetupPhaseEvictNode: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE = 404
+ClusterSetupPhaseCleanupNode: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE = 405
+ClusterSetupPhaseCoreGroupCleanup: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE = 406
+ClusterSetupPhaseFailureCleanup: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE = 999
 CLUSTER_SETUP_PHASE_SEVERITY = Int32
-CLUSTER_SETUP_PHASE_SEVERITY_ClusterSetupPhaseInformational: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE_SEVERITY = 1
-CLUSTER_SETUP_PHASE_SEVERITY_ClusterSetupPhaseWarning: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE_SEVERITY = 2
-CLUSTER_SETUP_PHASE_SEVERITY_ClusterSetupPhaseFatal: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE_SEVERITY = 3
+ClusterSetupPhaseInformational: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE_SEVERITY = 1
+ClusterSetupPhaseWarning: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE_SEVERITY = 2
+ClusterSetupPhaseFatal: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE_SEVERITY = 3
 CLUSTER_SETUP_PHASE_TYPE = Int32
-CLUSTER_SETUP_PHASE_TYPE_ClusterSetupPhaseStart: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE_TYPE = 1
-CLUSTER_SETUP_PHASE_TYPE_ClusterSetupPhaseContinue: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE_TYPE = 2
-CLUSTER_SETUP_PHASE_TYPE_ClusterSetupPhaseEnd: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE_TYPE = 3
-CLUSTER_SETUP_PHASE_TYPE_ClusterSetupPhaseReport: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE_TYPE = 4
+ClusterSetupPhaseStart: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE_TYPE = 1
+ClusterSetupPhaseContinue: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE_TYPE = 2
+ClusterSetupPhaseEnd: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE_TYPE = 3
+ClusterSetupPhaseReport: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE_TYPE = 4
 class CLUSTER_SET_PASSWORD_STATUS(EasyCastStructure):
     NodeId: UInt32
     SetAttempted: win32more.Windows.Win32.Foundation.BOOLEAN
     ReturnStatus: UInt32
 CLUSTER_SHARED_VOLUME_BACKUP_STATE = Int32
-CLUSTER_SHARED_VOLUME_BACKUP_STATE_VolumeBackupNone: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SHARED_VOLUME_BACKUP_STATE = 0
-CLUSTER_SHARED_VOLUME_BACKUP_STATE_VolumeBackupInProgress: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SHARED_VOLUME_BACKUP_STATE = 1
+VolumeBackupNone: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SHARED_VOLUME_BACKUP_STATE = 0
+VolumeBackupInProgress: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SHARED_VOLUME_BACKUP_STATE = 1
 class CLUSTER_SHARED_VOLUME_RENAME_GUID_INPUT(EasyCastStructure):
     Base: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SHARED_VOLUME_RENAME_INPUT_VOLUME
     Base2: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SHARED_VOLUME_RENAME_INPUT_GUID_NAME
@@ -2805,11 +2805,11 @@ class CLUSTER_SHARED_VOLUME_RENAME_INPUT_GUID_NAME(EasyCastStructure):
 class CLUSTER_SHARED_VOLUME_RENAME_INPUT_NAME(EasyCastStructure):
     NewVolumeName: Char * 260
 CLUSTER_SHARED_VOLUME_RENAME_INPUT_TYPE = Int32
-CLUSTER_SHARED_VOLUME_RENAME_INPUT_TYPE_ClusterSharedVolumeRenameInputTypeNone: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SHARED_VOLUME_RENAME_INPUT_TYPE = 0
-CLUSTER_SHARED_VOLUME_RENAME_INPUT_TYPE_ClusterSharedVolumeRenameInputTypeVolumeOffset: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SHARED_VOLUME_RENAME_INPUT_TYPE = 1
-CLUSTER_SHARED_VOLUME_RENAME_INPUT_TYPE_ClusterSharedVolumeRenameInputTypeVolumeId: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SHARED_VOLUME_RENAME_INPUT_TYPE = 2
-CLUSTER_SHARED_VOLUME_RENAME_INPUT_TYPE_ClusterSharedVolumeRenameInputTypeVolumeName: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SHARED_VOLUME_RENAME_INPUT_TYPE = 3
-CLUSTER_SHARED_VOLUME_RENAME_INPUT_TYPE_ClusterSharedVolumeRenameInputTypeVolumeGuid: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SHARED_VOLUME_RENAME_INPUT_TYPE = 4
+ClusterSharedVolumeRenameInputTypeNone: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SHARED_VOLUME_RENAME_INPUT_TYPE = 0
+ClusterSharedVolumeRenameInputTypeVolumeOffset: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SHARED_VOLUME_RENAME_INPUT_TYPE = 1
+ClusterSharedVolumeRenameInputTypeVolumeId: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SHARED_VOLUME_RENAME_INPUT_TYPE = 2
+ClusterSharedVolumeRenameInputTypeVolumeName: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SHARED_VOLUME_RENAME_INPUT_TYPE = 3
+ClusterSharedVolumeRenameInputTypeVolumeGuid: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SHARED_VOLUME_RENAME_INPUT_TYPE = 4
 class CLUSTER_SHARED_VOLUME_RENAME_INPUT_VOLUME(EasyCastStructure):
     InputType: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SHARED_VOLUME_RENAME_INPUT_TYPE
     Anonymous: _Anonymous_e__Union
@@ -2819,16 +2819,16 @@ class CLUSTER_SHARED_VOLUME_RENAME_INPUT_VOLUME(EasyCastStructure):
         VolumeName: Char * 260
         VolumeGuid: Char * 50
 CLUSTER_SHARED_VOLUME_SNAPSHOT_STATE = Int32
-CLUSTER_SHARED_VOLUME_SNAPSHOT_STATE_ClusterSharedVolumeSnapshotStateUnknown: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SHARED_VOLUME_SNAPSHOT_STATE = 0
-CLUSTER_SHARED_VOLUME_SNAPSHOT_STATE_ClusterSharedVolumePrepareForHWSnapshot: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SHARED_VOLUME_SNAPSHOT_STATE = 1
-CLUSTER_SHARED_VOLUME_SNAPSHOT_STATE_ClusterSharedVolumeHWSnapshotCompleted: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SHARED_VOLUME_SNAPSHOT_STATE = 2
-CLUSTER_SHARED_VOLUME_SNAPSHOT_STATE_ClusterSharedVolumePrepareForFreeze: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SHARED_VOLUME_SNAPSHOT_STATE = 3
+ClusterSharedVolumeSnapshotStateUnknown: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SHARED_VOLUME_SNAPSHOT_STATE = 0
+ClusterSharedVolumePrepareForHWSnapshot: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SHARED_VOLUME_SNAPSHOT_STATE = 1
+ClusterSharedVolumeHWSnapshotCompleted: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SHARED_VOLUME_SNAPSHOT_STATE = 2
+ClusterSharedVolumePrepareForFreeze: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SHARED_VOLUME_SNAPSHOT_STATE = 3
 CLUSTER_SHARED_VOLUME_STATE = Int32
-CLUSTER_SHARED_VOLUME_STATE_SharedVolumeStateUnavailable: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SHARED_VOLUME_STATE = 0
-CLUSTER_SHARED_VOLUME_STATE_SharedVolumeStatePaused: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SHARED_VOLUME_STATE = 1
-CLUSTER_SHARED_VOLUME_STATE_SharedVolumeStateActive: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SHARED_VOLUME_STATE = 2
-CLUSTER_SHARED_VOLUME_STATE_SharedVolumeStateActiveRedirected: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SHARED_VOLUME_STATE = 3
-CLUSTER_SHARED_VOLUME_STATE_SharedVolumeStateActiveVolumeRedirected: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SHARED_VOLUME_STATE = 4
+SharedVolumeStateUnavailable: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SHARED_VOLUME_STATE = 0
+SharedVolumeStatePaused: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SHARED_VOLUME_STATE = 1
+SharedVolumeStateActive: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SHARED_VOLUME_STATE = 2
+SharedVolumeStateActiveRedirected: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SHARED_VOLUME_STATE = 3
+SharedVolumeStateActiveVolumeRedirected: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SHARED_VOLUME_STATE = 4
 class CLUSTER_SHARED_VOLUME_STATE_INFO(EasyCastStructure):
     szVolumeName: Char * 260
     szNodeName: Char * 260
@@ -2841,18 +2841,18 @@ class CLUSTER_SHARED_VOLUME_STATE_INFO_EX(EasyCastStructure):
     RedirectedIOReason: UInt64
     VolumeRedirectedIOReason: UInt64
 CLUSTER_STORAGENODE_STATE = Int32
-CLUSTER_STORAGENODE_STATE_ClusterStorageNodeStateUnknown: win32more.Windows.Win32.Networking.Clustering.CLUSTER_STORAGENODE_STATE = 0
-CLUSTER_STORAGENODE_STATE_ClusterStorageNodeUp: win32more.Windows.Win32.Networking.Clustering.CLUSTER_STORAGENODE_STATE = 1
-CLUSTER_STORAGENODE_STATE_ClusterStorageNodeDown: win32more.Windows.Win32.Networking.Clustering.CLUSTER_STORAGENODE_STATE = 2
-CLUSTER_STORAGENODE_STATE_ClusterStorageNodePaused: win32more.Windows.Win32.Networking.Clustering.CLUSTER_STORAGENODE_STATE = 3
-CLUSTER_STORAGENODE_STATE_ClusterStorageNodeStarting: win32more.Windows.Win32.Networking.Clustering.CLUSTER_STORAGENODE_STATE = 4
-CLUSTER_STORAGENODE_STATE_ClusterStorageNodeStopping: win32more.Windows.Win32.Networking.Clustering.CLUSTER_STORAGENODE_STATE = 5
+ClusterStorageNodeStateUnknown: win32more.Windows.Win32.Networking.Clustering.CLUSTER_STORAGENODE_STATE = 0
+ClusterStorageNodeUp: win32more.Windows.Win32.Networking.Clustering.CLUSTER_STORAGENODE_STATE = 1
+ClusterStorageNodeDown: win32more.Windows.Win32.Networking.Clustering.CLUSTER_STORAGENODE_STATE = 2
+ClusterStorageNodePaused: win32more.Windows.Win32.Networking.Clustering.CLUSTER_STORAGENODE_STATE = 3
+ClusterStorageNodeStarting: win32more.Windows.Win32.Networking.Clustering.CLUSTER_STORAGENODE_STATE = 4
+ClusterStorageNodeStopping: win32more.Windows.Win32.Networking.Clustering.CLUSTER_STORAGENODE_STATE = 5
 CLUSTER_UPGRADE_PHASE = Int32
-CLUSTER_UPGRADE_PHASE_ClusterUpgradePhaseInitialize: win32more.Windows.Win32.Networking.Clustering.CLUSTER_UPGRADE_PHASE = 1
-CLUSTER_UPGRADE_PHASE_ClusterUpgradePhaseValidatingUpgrade: win32more.Windows.Win32.Networking.Clustering.CLUSTER_UPGRADE_PHASE = 2
-CLUSTER_UPGRADE_PHASE_ClusterUpgradePhaseUpgradingComponents: win32more.Windows.Win32.Networking.Clustering.CLUSTER_UPGRADE_PHASE = 3
-CLUSTER_UPGRADE_PHASE_ClusterUpgradePhaseInstallingNewComponents: win32more.Windows.Win32.Networking.Clustering.CLUSTER_UPGRADE_PHASE = 4
-CLUSTER_UPGRADE_PHASE_ClusterUpgradePhaseUpgradeComplete: win32more.Windows.Win32.Networking.Clustering.CLUSTER_UPGRADE_PHASE = 5
+ClusterUpgradePhaseInitialize: win32more.Windows.Win32.Networking.Clustering.CLUSTER_UPGRADE_PHASE = 1
+ClusterUpgradePhaseValidatingUpgrade: win32more.Windows.Win32.Networking.Clustering.CLUSTER_UPGRADE_PHASE = 2
+ClusterUpgradePhaseUpgradingComponents: win32more.Windows.Win32.Networking.Clustering.CLUSTER_UPGRADE_PHASE = 3
+ClusterUpgradePhaseInstallingNewComponents: win32more.Windows.Win32.Networking.Clustering.CLUSTER_UPGRADE_PHASE = 4
+ClusterUpgradePhaseUpgradeComplete: win32more.Windows.Win32.Networking.Clustering.CLUSTER_UPGRADE_PHASE = 5
 class CLUSTER_VALIDATE_CSV_FILENAME(EasyCastStructure):
     szFileName: Char * 1
 class CLUSTER_VALIDATE_DIRECTORY(EasyCastStructure):
@@ -4011,19 +4011,19 @@ def LPRESOURCE_CALLBACK(param0: win32more.Windows.Win32.Networking.Clustering.HR
 @winfunctype_pointer
 def LPRESOURCE_CALLBACK_EX(param0: win32more.Windows.Win32.Networking.Clustering.HCLUSTER, param1: win32more.Windows.Win32.Networking.Clustering.HRESOURCE, param2: win32more.Windows.Win32.Networking.Clustering.HRESOURCE, param3: VoidPtr) -> UInt32: ...
 MAINTENANCE_MODE_TYPE_ENUM = Int32
-MAINTENANCE_MODE_TYPE_ENUM_MaintenanceModeTypeDisableIsAliveCheck: win32more.Windows.Win32.Networking.Clustering.MAINTENANCE_MODE_TYPE_ENUM = 1
-MAINTENANCE_MODE_TYPE_ENUM_MaintenanceModeTypeOfflineResource: win32more.Windows.Win32.Networking.Clustering.MAINTENANCE_MODE_TYPE_ENUM = 2
-MAINTENANCE_MODE_TYPE_ENUM_MaintenanceModeTypeUnclusterResource: win32more.Windows.Win32.Networking.Clustering.MAINTENANCE_MODE_TYPE_ENUM = 3
+MaintenanceModeTypeDisableIsAliveCheck: win32more.Windows.Win32.Networking.Clustering.MAINTENANCE_MODE_TYPE_ENUM = 1
+MaintenanceModeTypeOfflineResource: win32more.Windows.Win32.Networking.Clustering.MAINTENANCE_MODE_TYPE_ENUM = 2
+MaintenanceModeTypeUnclusterResource: win32more.Windows.Win32.Networking.Clustering.MAINTENANCE_MODE_TYPE_ENUM = 3
 class MONITOR_STATE(EasyCastStructure):
     LastUpdate: Int64
     State: win32more.Windows.Win32.Networking.Clustering.RESOURCE_MONITOR_STATE
     ActiveResource: win32more.Windows.Win32.Foundation.HANDLE
     ResmonStop: win32more.Windows.Win32.Foundation.BOOL
 NODE_CLUSTER_STATE = Int32
-NODE_CLUSTER_STATE_ClusterStateNotInstalled: win32more.Windows.Win32.Networking.Clustering.NODE_CLUSTER_STATE = 0
-NODE_CLUSTER_STATE_ClusterStateNotConfigured: win32more.Windows.Win32.Networking.Clustering.NODE_CLUSTER_STATE = 1
-NODE_CLUSTER_STATE_ClusterStateNotRunning: win32more.Windows.Win32.Networking.Clustering.NODE_CLUSTER_STATE = 3
-NODE_CLUSTER_STATE_ClusterStateRunning: win32more.Windows.Win32.Networking.Clustering.NODE_CLUSTER_STATE = 19
+ClusterStateNotInstalled: win32more.Windows.Win32.Networking.Clustering.NODE_CLUSTER_STATE = 0
+ClusterStateNotConfigured: win32more.Windows.Win32.Networking.Clustering.NODE_CLUSTER_STATE = 1
+ClusterStateNotRunning: win32more.Windows.Win32.Networking.Clustering.NODE_CLUSTER_STATE = 3
+ClusterStateRunning: win32more.Windows.Win32.Networking.Clustering.NODE_CLUSTER_STATE = 19
 class NOTIFY_FILTER_AND_TYPE(EasyCastStructure):
     dwObjectType: UInt32
     FilterFlags: Int64
@@ -4858,17 +4858,17 @@ class PaxosTagCStruct(EasyCastStructure):
     Sequence: Int32
     __padding__BoundrySequence: UInt32
 RESDLL_CONTEXT_OPERATION_TYPE = Int32
-RESDLL_CONTEXT_OPERATION_TYPE_ResdllContextOperationTypeFailback: win32more.Windows.Win32.Networking.Clustering.RESDLL_CONTEXT_OPERATION_TYPE = 0
-RESDLL_CONTEXT_OPERATION_TYPE_ResdllContextOperationTypeDrain: win32more.Windows.Win32.Networking.Clustering.RESDLL_CONTEXT_OPERATION_TYPE = 1
-RESDLL_CONTEXT_OPERATION_TYPE_ResdllContextOperationTypeDrainFailure: win32more.Windows.Win32.Networking.Clustering.RESDLL_CONTEXT_OPERATION_TYPE = 2
-RESDLL_CONTEXT_OPERATION_TYPE_ResdllContextOperationTypeEmbeddedFailure: win32more.Windows.Win32.Networking.Clustering.RESDLL_CONTEXT_OPERATION_TYPE = 3
-RESDLL_CONTEXT_OPERATION_TYPE_ResdllContextOperationTypePreemption: win32more.Windows.Win32.Networking.Clustering.RESDLL_CONTEXT_OPERATION_TYPE = 4
-RESDLL_CONTEXT_OPERATION_TYPE_ResdllContextOperationTypeNetworkDisconnect: win32more.Windows.Win32.Networking.Clustering.RESDLL_CONTEXT_OPERATION_TYPE = 5
-RESDLL_CONTEXT_OPERATION_TYPE_ResdllContextOperationTypeNetworkDisconnectMoveRetry: win32more.Windows.Win32.Networking.Clustering.RESDLL_CONTEXT_OPERATION_TYPE = 6
+ResdllContextOperationTypeFailback: win32more.Windows.Win32.Networking.Clustering.RESDLL_CONTEXT_OPERATION_TYPE = 0
+ResdllContextOperationTypeDrain: win32more.Windows.Win32.Networking.Clustering.RESDLL_CONTEXT_OPERATION_TYPE = 1
+ResdllContextOperationTypeDrainFailure: win32more.Windows.Win32.Networking.Clustering.RESDLL_CONTEXT_OPERATION_TYPE = 2
+ResdllContextOperationTypeEmbeddedFailure: win32more.Windows.Win32.Networking.Clustering.RESDLL_CONTEXT_OPERATION_TYPE = 3
+ResdllContextOperationTypePreemption: win32more.Windows.Win32.Networking.Clustering.RESDLL_CONTEXT_OPERATION_TYPE = 4
+ResdllContextOperationTypeNetworkDisconnect: win32more.Windows.Win32.Networking.Clustering.RESDLL_CONTEXT_OPERATION_TYPE = 5
+ResdllContextOperationTypeNetworkDisconnectMoveRetry: win32more.Windows.Win32.Networking.Clustering.RESDLL_CONTEXT_OPERATION_TYPE = 6
 RESOURCE_EXIT_STATE = Int32
-RESOURCE_EXIT_STATE_ResourceExitStateContinue: win32more.Windows.Win32.Networking.Clustering.RESOURCE_EXIT_STATE = 0
-RESOURCE_EXIT_STATE_ResourceExitStateTerminate: win32more.Windows.Win32.Networking.Clustering.RESOURCE_EXIT_STATE = 1
-RESOURCE_EXIT_STATE_ResourceExitStateMax: win32more.Windows.Win32.Networking.Clustering.RESOURCE_EXIT_STATE = 2
+ResourceExitStateContinue: win32more.Windows.Win32.Networking.Clustering.RESOURCE_EXIT_STATE = 0
+ResourceExitStateTerminate: win32more.Windows.Win32.Networking.Clustering.RESOURCE_EXIT_STATE = 1
+ResourceExitStateMax: win32more.Windows.Win32.Networking.Clustering.RESOURCE_EXIT_STATE = 2
 class RESOURCE_FAILURE_INFO(EasyCastStructure):
     dwRestartAttemptsRemaining: UInt32
     dwRestartPeriodRemaining: UInt32
@@ -4876,22 +4876,22 @@ class RESOURCE_FAILURE_INFO_BUFFER(EasyCastStructure):
     dwVersion: UInt32
     Info: win32more.Windows.Win32.Networking.Clustering.RESOURCE_FAILURE_INFO
 RESOURCE_MONITOR_STATE = Int32
-RESOURCE_MONITOR_STATE_RmonInitializing: win32more.Windows.Win32.Networking.Clustering.RESOURCE_MONITOR_STATE = 0
-RESOURCE_MONITOR_STATE_RmonIdle: win32more.Windows.Win32.Networking.Clustering.RESOURCE_MONITOR_STATE = 1
-RESOURCE_MONITOR_STATE_RmonStartingResource: win32more.Windows.Win32.Networking.Clustering.RESOURCE_MONITOR_STATE = 2
-RESOURCE_MONITOR_STATE_RmonInitializingResource: win32more.Windows.Win32.Networking.Clustering.RESOURCE_MONITOR_STATE = 3
-RESOURCE_MONITOR_STATE_RmonOnlineResource: win32more.Windows.Win32.Networking.Clustering.RESOURCE_MONITOR_STATE = 4
-RESOURCE_MONITOR_STATE_RmonOfflineResource: win32more.Windows.Win32.Networking.Clustering.RESOURCE_MONITOR_STATE = 5
-RESOURCE_MONITOR_STATE_RmonShutdownResource: win32more.Windows.Win32.Networking.Clustering.RESOURCE_MONITOR_STATE = 6
-RESOURCE_MONITOR_STATE_RmonDeletingResource: win32more.Windows.Win32.Networking.Clustering.RESOURCE_MONITOR_STATE = 7
-RESOURCE_MONITOR_STATE_RmonIsAlivePoll: win32more.Windows.Win32.Networking.Clustering.RESOURCE_MONITOR_STATE = 8
-RESOURCE_MONITOR_STATE_RmonLooksAlivePoll: win32more.Windows.Win32.Networking.Clustering.RESOURCE_MONITOR_STATE = 9
-RESOURCE_MONITOR_STATE_RmonArbitrateResource: win32more.Windows.Win32.Networking.Clustering.RESOURCE_MONITOR_STATE = 10
-RESOURCE_MONITOR_STATE_RmonReleaseResource: win32more.Windows.Win32.Networking.Clustering.RESOURCE_MONITOR_STATE = 11
-RESOURCE_MONITOR_STATE_RmonResourceControl: win32more.Windows.Win32.Networking.Clustering.RESOURCE_MONITOR_STATE = 12
-RESOURCE_MONITOR_STATE_RmonResourceTypeControl: win32more.Windows.Win32.Networking.Clustering.RESOURCE_MONITOR_STATE = 13
-RESOURCE_MONITOR_STATE_RmonTerminateResource: win32more.Windows.Win32.Networking.Clustering.RESOURCE_MONITOR_STATE = 14
-RESOURCE_MONITOR_STATE_RmonDeadlocked: win32more.Windows.Win32.Networking.Clustering.RESOURCE_MONITOR_STATE = 15
+RmonInitializing: win32more.Windows.Win32.Networking.Clustering.RESOURCE_MONITOR_STATE = 0
+RmonIdle: win32more.Windows.Win32.Networking.Clustering.RESOURCE_MONITOR_STATE = 1
+RmonStartingResource: win32more.Windows.Win32.Networking.Clustering.RESOURCE_MONITOR_STATE = 2
+RmonInitializingResource: win32more.Windows.Win32.Networking.Clustering.RESOURCE_MONITOR_STATE = 3
+RmonOnlineResource: win32more.Windows.Win32.Networking.Clustering.RESOURCE_MONITOR_STATE = 4
+RmonOfflineResource: win32more.Windows.Win32.Networking.Clustering.RESOURCE_MONITOR_STATE = 5
+RmonShutdownResource: win32more.Windows.Win32.Networking.Clustering.RESOURCE_MONITOR_STATE = 6
+RmonDeletingResource: win32more.Windows.Win32.Networking.Clustering.RESOURCE_MONITOR_STATE = 7
+RmonIsAlivePoll: win32more.Windows.Win32.Networking.Clustering.RESOURCE_MONITOR_STATE = 8
+RmonLooksAlivePoll: win32more.Windows.Win32.Networking.Clustering.RESOURCE_MONITOR_STATE = 9
+RmonArbitrateResource: win32more.Windows.Win32.Networking.Clustering.RESOURCE_MONITOR_STATE = 10
+RmonReleaseResource: win32more.Windows.Win32.Networking.Clustering.RESOURCE_MONITOR_STATE = 11
+RmonResourceControl: win32more.Windows.Win32.Networking.Clustering.RESOURCE_MONITOR_STATE = 12
+RmonResourceTypeControl: win32more.Windows.Win32.Networking.Clustering.RESOURCE_MONITOR_STATE = 13
+RmonTerminateResource: win32more.Windows.Win32.Networking.Clustering.RESOURCE_MONITOR_STATE = 14
+RmonDeadlocked: win32more.Windows.Win32.Networking.Clustering.RESOURCE_MONITOR_STATE = 15
 class RESOURCE_STATUS(EasyCastStructure):
     ResourceState: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_STATE
     CheckPoint: UInt32
@@ -4941,27 +4941,27 @@ class ResourceUtilizationInfoElement(EasyCastStructure):
 @winfunctype_pointer
 def SET_APP_INSTANCE_CSV_FLAGS(ProcessHandle: win32more.Windows.Win32.Foundation.HANDLE, Mask: UInt32, Flags: UInt32) -> UInt32: ...
 SR_DISK_REPLICATION_ELIGIBLE = Int32
-SR_DISK_REPLICATION_ELIGIBLE_SrDiskReplicationEligibleNone: win32more.Windows.Win32.Networking.Clustering.SR_DISK_REPLICATION_ELIGIBLE = 0
-SR_DISK_REPLICATION_ELIGIBLE_SrDiskReplicationEligibleYes: win32more.Windows.Win32.Networking.Clustering.SR_DISK_REPLICATION_ELIGIBLE = 1
-SR_DISK_REPLICATION_ELIGIBLE_SrDiskReplicationEligibleOffline: win32more.Windows.Win32.Networking.Clustering.SR_DISK_REPLICATION_ELIGIBLE = 2
-SR_DISK_REPLICATION_ELIGIBLE_SrDiskReplicationEligibleNotGpt: win32more.Windows.Win32.Networking.Clustering.SR_DISK_REPLICATION_ELIGIBLE = 3
-SR_DISK_REPLICATION_ELIGIBLE_SrDiskReplicationEligiblePartitionLayoutMismatch: win32more.Windows.Win32.Networking.Clustering.SR_DISK_REPLICATION_ELIGIBLE = 4
-SR_DISK_REPLICATION_ELIGIBLE_SrDiskReplicationEligibleInsufficientFreeSpace: win32more.Windows.Win32.Networking.Clustering.SR_DISK_REPLICATION_ELIGIBLE = 5
-SR_DISK_REPLICATION_ELIGIBLE_SrDiskReplicationEligibleNotInSameSite: win32more.Windows.Win32.Networking.Clustering.SR_DISK_REPLICATION_ELIGIBLE = 6
-SR_DISK_REPLICATION_ELIGIBLE_SrDiskReplicationEligibleInSameSite: win32more.Windows.Win32.Networking.Clustering.SR_DISK_REPLICATION_ELIGIBLE = 7
-SR_DISK_REPLICATION_ELIGIBLE_SrDiskReplicationEligibleFileSystemNotSupported: win32more.Windows.Win32.Networking.Clustering.SR_DISK_REPLICATION_ELIGIBLE = 8
-SR_DISK_REPLICATION_ELIGIBLE_SrDiskReplicationEligibleAlreadyInReplication: win32more.Windows.Win32.Networking.Clustering.SR_DISK_REPLICATION_ELIGIBLE = 9
-SR_DISK_REPLICATION_ELIGIBLE_SrDiskReplicationEligibleSameAsSpecifiedDisk: win32more.Windows.Win32.Networking.Clustering.SR_DISK_REPLICATION_ELIGIBLE = 10
-SR_DISK_REPLICATION_ELIGIBLE_SrDiskReplicationEligibleOther: win32more.Windows.Win32.Networking.Clustering.SR_DISK_REPLICATION_ELIGIBLE = 9999
+SrDiskReplicationEligibleNone: win32more.Windows.Win32.Networking.Clustering.SR_DISK_REPLICATION_ELIGIBLE = 0
+SrDiskReplicationEligibleYes: win32more.Windows.Win32.Networking.Clustering.SR_DISK_REPLICATION_ELIGIBLE = 1
+SrDiskReplicationEligibleOffline: win32more.Windows.Win32.Networking.Clustering.SR_DISK_REPLICATION_ELIGIBLE = 2
+SrDiskReplicationEligibleNotGpt: win32more.Windows.Win32.Networking.Clustering.SR_DISK_REPLICATION_ELIGIBLE = 3
+SrDiskReplicationEligiblePartitionLayoutMismatch: win32more.Windows.Win32.Networking.Clustering.SR_DISK_REPLICATION_ELIGIBLE = 4
+SrDiskReplicationEligibleInsufficientFreeSpace: win32more.Windows.Win32.Networking.Clustering.SR_DISK_REPLICATION_ELIGIBLE = 5
+SrDiskReplicationEligibleNotInSameSite: win32more.Windows.Win32.Networking.Clustering.SR_DISK_REPLICATION_ELIGIBLE = 6
+SrDiskReplicationEligibleInSameSite: win32more.Windows.Win32.Networking.Clustering.SR_DISK_REPLICATION_ELIGIBLE = 7
+SrDiskReplicationEligibleFileSystemNotSupported: win32more.Windows.Win32.Networking.Clustering.SR_DISK_REPLICATION_ELIGIBLE = 8
+SrDiskReplicationEligibleAlreadyInReplication: win32more.Windows.Win32.Networking.Clustering.SR_DISK_REPLICATION_ELIGIBLE = 9
+SrDiskReplicationEligibleSameAsSpecifiedDisk: win32more.Windows.Win32.Networking.Clustering.SR_DISK_REPLICATION_ELIGIBLE = 10
+SrDiskReplicationEligibleOther: win32more.Windows.Win32.Networking.Clustering.SR_DISK_REPLICATION_ELIGIBLE = 9999
 SR_REPLICATED_DISK_TYPE = Int32
-SR_REPLICATED_DISK_TYPE_SrReplicatedDiskTypeNone: win32more.Windows.Win32.Networking.Clustering.SR_REPLICATED_DISK_TYPE = 0
-SR_REPLICATED_DISK_TYPE_SrReplicatedDiskTypeSource: win32more.Windows.Win32.Networking.Clustering.SR_REPLICATED_DISK_TYPE = 1
-SR_REPLICATED_DISK_TYPE_SrReplicatedDiskTypeLogSource: win32more.Windows.Win32.Networking.Clustering.SR_REPLICATED_DISK_TYPE = 2
-SR_REPLICATED_DISK_TYPE_SrReplicatedDiskTypeDestination: win32more.Windows.Win32.Networking.Clustering.SR_REPLICATED_DISK_TYPE = 3
-SR_REPLICATED_DISK_TYPE_SrReplicatedDiskTypeLogDestination: win32more.Windows.Win32.Networking.Clustering.SR_REPLICATED_DISK_TYPE = 4
-SR_REPLICATED_DISK_TYPE_SrReplicatedDiskTypeNotInParthership: win32more.Windows.Win32.Networking.Clustering.SR_REPLICATED_DISK_TYPE = 5
-SR_REPLICATED_DISK_TYPE_SrReplicatedDiskTypeLogNotInParthership: win32more.Windows.Win32.Networking.Clustering.SR_REPLICATED_DISK_TYPE = 6
-SR_REPLICATED_DISK_TYPE_SrReplicatedDiskTypeOther: win32more.Windows.Win32.Networking.Clustering.SR_REPLICATED_DISK_TYPE = 7
+SrReplicatedDiskTypeNone: win32more.Windows.Win32.Networking.Clustering.SR_REPLICATED_DISK_TYPE = 0
+SrReplicatedDiskTypeSource: win32more.Windows.Win32.Networking.Clustering.SR_REPLICATED_DISK_TYPE = 1
+SrReplicatedDiskTypeLogSource: win32more.Windows.Win32.Networking.Clustering.SR_REPLICATED_DISK_TYPE = 2
+SrReplicatedDiskTypeDestination: win32more.Windows.Win32.Networking.Clustering.SR_REPLICATED_DISK_TYPE = 3
+SrReplicatedDiskTypeLogDestination: win32more.Windows.Win32.Networking.Clustering.SR_REPLICATED_DISK_TYPE = 4
+SrReplicatedDiskTypeNotInParthership: win32more.Windows.Win32.Networking.Clustering.SR_REPLICATED_DISK_TYPE = 5
+SrReplicatedDiskTypeLogNotInParthership: win32more.Windows.Win32.Networking.Clustering.SR_REPLICATED_DISK_TYPE = 6
+SrReplicatedDiskTypeOther: win32more.Windows.Win32.Networking.Clustering.SR_REPLICATED_DISK_TYPE = 7
 class SR_RESOURCE_TYPE_ADD_REPLICATION_GROUP(EasyCastStructure):
     ReplicationGroupName: Char * 260
     Description: Char * 260
@@ -5011,11 +5011,11 @@ class SR_RESOURCE_TYPE_REPLICATED_PARTITION_INFO(EasyCastStructure):
     PartitionOffset: UInt64
     Capabilities: UInt32
 VM_RESDLL_CONTEXT = Int32
-VM_RESDLL_CONTEXT_VmResdllContextTurnOff: win32more.Windows.Win32.Networking.Clustering.VM_RESDLL_CONTEXT = 0
-VM_RESDLL_CONTEXT_VmResdllContextSave: win32more.Windows.Win32.Networking.Clustering.VM_RESDLL_CONTEXT = 1
-VM_RESDLL_CONTEXT_VmResdllContextShutdown: win32more.Windows.Win32.Networking.Clustering.VM_RESDLL_CONTEXT = 2
-VM_RESDLL_CONTEXT_VmResdllContextShutdownForce: win32more.Windows.Win32.Networking.Clustering.VM_RESDLL_CONTEXT = 3
-VM_RESDLL_CONTEXT_VmResdllContextLiveMigration: win32more.Windows.Win32.Networking.Clustering.VM_RESDLL_CONTEXT = 4
+VmResdllContextTurnOff: win32more.Windows.Win32.Networking.Clustering.VM_RESDLL_CONTEXT = 0
+VmResdllContextSave: win32more.Windows.Win32.Networking.Clustering.VM_RESDLL_CONTEXT = 1
+VmResdllContextShutdown: win32more.Windows.Win32.Networking.Clustering.VM_RESDLL_CONTEXT = 2
+VmResdllContextShutdownForce: win32more.Windows.Win32.Networking.Clustering.VM_RESDLL_CONTEXT = 3
+VmResdllContextLiveMigration: win32more.Windows.Win32.Networking.Clustering.VM_RESDLL_CONTEXT = 4
 class WitnessTagHelper(EasyCastStructure):
     Version: Int32
     paxosToValidate: win32more.Windows.Win32.Networking.Clustering.PaxosTagCStruct

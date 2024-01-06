@@ -670,11 +670,11 @@ class CONTROLTRACE_HANDLE(EasyCastStructure):
     Value: UInt64
 CTraceRelogger = Guid('{7b40792d-05ff-44c4-9058-f440c71f17d4}')
 DECODING_SOURCE = Int32
-DECODING_SOURCE_DecodingSourceXMLFile: win32more.Windows.Win32.System.Diagnostics.Etw.DECODING_SOURCE = 0
-DECODING_SOURCE_DecodingSourceWbem: win32more.Windows.Win32.System.Diagnostics.Etw.DECODING_SOURCE = 1
-DECODING_SOURCE_DecodingSourceWPP: win32more.Windows.Win32.System.Diagnostics.Etw.DECODING_SOURCE = 2
-DECODING_SOURCE_DecodingSourceTlg: win32more.Windows.Win32.System.Diagnostics.Etw.DECODING_SOURCE = 3
-DECODING_SOURCE_DecodingSourceMax: win32more.Windows.Win32.System.Diagnostics.Etw.DECODING_SOURCE = 4
+DecodingSourceXMLFile: win32more.Windows.Win32.System.Diagnostics.Etw.DECODING_SOURCE = 0
+DecodingSourceWbem: win32more.Windows.Win32.System.Diagnostics.Etw.DECODING_SOURCE = 1
+DecodingSourceWPP: win32more.Windows.Win32.System.Diagnostics.Etw.DECODING_SOURCE = 2
+DecodingSourceTlg: win32more.Windows.Win32.System.Diagnostics.Etw.DECODING_SOURCE = 3
+DecodingSourceMax: win32more.Windows.Win32.System.Diagnostics.Etw.DECODING_SOURCE = 4
 ENABLECALLBACK_ENABLED_STATE = UInt32
 EVENT_CONTROL_CODE_DISABLE_PROVIDER: win32more.Windows.Win32.System.Diagnostics.Etw.ENABLECALLBACK_ENABLED_STATE = 0
 EVENT_CONTROL_CODE_ENABLE_PROVIDER: win32more.Windows.Win32.System.Diagnostics.Etw.ENABLECALLBACK_ENABLED_STATE = 1
@@ -714,9 +714,9 @@ class ETW_BUFFER_HEADER(EasyCastStructure):
     FilledBytes: UInt32
     Reserved4: UInt32 * 5
 ETW_COMPRESSION_RESUMPTION_MODE = Int32
-ETW_COMPRESSION_RESUMPTION_MODE_EtwCompressionModeRestart: win32more.Windows.Win32.System.Diagnostics.Etw.ETW_COMPRESSION_RESUMPTION_MODE = 0
-ETW_COMPRESSION_RESUMPTION_MODE_EtwCompressionModeNoDisable: win32more.Windows.Win32.System.Diagnostics.Etw.ETW_COMPRESSION_RESUMPTION_MODE = 1
-ETW_COMPRESSION_RESUMPTION_MODE_EtwCompressionModeNoRestart: win32more.Windows.Win32.System.Diagnostics.Etw.ETW_COMPRESSION_RESUMPTION_MODE = 2
+EtwCompressionModeRestart: win32more.Windows.Win32.System.Diagnostics.Etw.ETW_COMPRESSION_RESUMPTION_MODE = 0
+EtwCompressionModeNoDisable: win32more.Windows.Win32.System.Diagnostics.Etw.ETW_COMPRESSION_RESUMPTION_MODE = 1
+EtwCompressionModeNoRestart: win32more.Windows.Win32.System.Diagnostics.Etw.ETW_COMPRESSION_RESUMPTION_MODE = 2
 class ETW_OPEN_TRACE_OPTIONS(EasyCastStructure):
     ProcessTraceModes: win32more.Windows.Win32.System.Diagnostics.Etw.ETW_PROCESS_TRACE_MODES
     EventCallback: win32more.Windows.Win32.System.Diagnostics.Etw.PEVENT_RECORD_CALLBACK
@@ -732,10 +732,10 @@ class ETW_PMC_COUNTER_OWNERSHIP_STATUS(EasyCastStructure):
     NumberOfCounters: UInt32
     CounterOwners: win32more.Windows.Win32.System.Diagnostics.Etw.ETW_PMC_COUNTER_OWNER * 1
 ETW_PMC_COUNTER_OWNER_TYPE = Int32
-ETW_PMC_COUNTER_OWNER_TYPE_EtwPmcOwnerFree: win32more.Windows.Win32.System.Diagnostics.Etw.ETW_PMC_COUNTER_OWNER_TYPE = 0
-ETW_PMC_COUNTER_OWNER_TYPE_EtwPmcOwnerUntagged: win32more.Windows.Win32.System.Diagnostics.Etw.ETW_PMC_COUNTER_OWNER_TYPE = 1
-ETW_PMC_COUNTER_OWNER_TYPE_EtwPmcOwnerTagged: win32more.Windows.Win32.System.Diagnostics.Etw.ETW_PMC_COUNTER_OWNER_TYPE = 2
-ETW_PMC_COUNTER_OWNER_TYPE_EtwPmcOwnerTaggedWithSource: win32more.Windows.Win32.System.Diagnostics.Etw.ETW_PMC_COUNTER_OWNER_TYPE = 3
+EtwPmcOwnerFree: win32more.Windows.Win32.System.Diagnostics.Etw.ETW_PMC_COUNTER_OWNER_TYPE = 0
+EtwPmcOwnerUntagged: win32more.Windows.Win32.System.Diagnostics.Etw.ETW_PMC_COUNTER_OWNER_TYPE = 1
+EtwPmcOwnerTagged: win32more.Windows.Win32.System.Diagnostics.Etw.ETW_PMC_COUNTER_OWNER_TYPE = 2
+EtwPmcOwnerTaggedWithSource: win32more.Windows.Win32.System.Diagnostics.Etw.ETW_PMC_COUNTER_OWNER_TYPE = 3
 class ETW_PMC_SESSION_INFO(EasyCastStructure):
     NextEntryOffset: UInt32
     LoggerId: UInt16
@@ -743,18 +743,18 @@ class ETW_PMC_SESSION_INFO(EasyCastStructure):
     ProfileSourceCount: UInt32
     HookIdCount: UInt32
 ETW_PROCESS_HANDLE_INFO_TYPE = Int32
-ETW_PROCESS_HANDLE_INFO_TYPE_EtwQueryPartitionInformation: win32more.Windows.Win32.System.Diagnostics.Etw.ETW_PROCESS_HANDLE_INFO_TYPE = 1
-ETW_PROCESS_HANDLE_INFO_TYPE_EtwQueryPartitionInformationV2: win32more.Windows.Win32.System.Diagnostics.Etw.ETW_PROCESS_HANDLE_INFO_TYPE = 2
-ETW_PROCESS_HANDLE_INFO_TYPE_EtwQueryLastDroppedTimes: win32more.Windows.Win32.System.Diagnostics.Etw.ETW_PROCESS_HANDLE_INFO_TYPE = 3
-ETW_PROCESS_HANDLE_INFO_TYPE_EtwQueryLogFileHeader: win32more.Windows.Win32.System.Diagnostics.Etw.ETW_PROCESS_HANDLE_INFO_TYPE = 4
-ETW_PROCESS_HANDLE_INFO_TYPE_EtwQueryProcessHandleInfoMax: win32more.Windows.Win32.System.Diagnostics.Etw.ETW_PROCESS_HANDLE_INFO_TYPE = 5
+EtwQueryPartitionInformation: win32more.Windows.Win32.System.Diagnostics.Etw.ETW_PROCESS_HANDLE_INFO_TYPE = 1
+EtwQueryPartitionInformationV2: win32more.Windows.Win32.System.Diagnostics.Etw.ETW_PROCESS_HANDLE_INFO_TYPE = 2
+EtwQueryLastDroppedTimes: win32more.Windows.Win32.System.Diagnostics.Etw.ETW_PROCESS_HANDLE_INFO_TYPE = 3
+EtwQueryLogFileHeader: win32more.Windows.Win32.System.Diagnostics.Etw.ETW_PROCESS_HANDLE_INFO_TYPE = 4
+EtwQueryProcessHandleInfoMax: win32more.Windows.Win32.System.Diagnostics.Etw.ETW_PROCESS_HANDLE_INFO_TYPE = 5
 ETW_PROCESS_TRACE_MODES = Int32
 ETW_PROCESS_TRACE_MODE_NONE: win32more.Windows.Win32.System.Diagnostics.Etw.ETW_PROCESS_TRACE_MODES = 0
 ETW_PROCESS_TRACE_MODE_RAW_TIMESTAMP: win32more.Windows.Win32.System.Diagnostics.Etw.ETW_PROCESS_TRACE_MODES = 1
 ETW_PROVIDER_TRAIT_TYPE = Int32
-ETW_PROVIDER_TRAIT_TYPE_EtwProviderTraitTypeGroup: win32more.Windows.Win32.System.Diagnostics.Etw.ETW_PROVIDER_TRAIT_TYPE = 1
-ETW_PROVIDER_TRAIT_TYPE_EtwProviderTraitDecodeGuid: win32more.Windows.Win32.System.Diagnostics.Etw.ETW_PROVIDER_TRAIT_TYPE = 2
-ETW_PROVIDER_TRAIT_TYPE_EtwProviderTraitTypeMax: win32more.Windows.Win32.System.Diagnostics.Etw.ETW_PROVIDER_TRAIT_TYPE = 3
+EtwProviderTraitTypeGroup: win32more.Windows.Win32.System.Diagnostics.Etw.ETW_PROVIDER_TRAIT_TYPE = 1
+EtwProviderTraitDecodeGuid: win32more.Windows.Win32.System.Diagnostics.Etw.ETW_PROVIDER_TRAIT_TYPE = 2
+EtwProviderTraitTypeMax: win32more.Windows.Win32.System.Diagnostics.Etw.ETW_PROVIDER_TRAIT_TYPE = 3
 class ETW_TRACE_PARTITION_INFORMATION(EasyCastStructure):
     PartitionId: Guid
     ParentId: Guid
@@ -766,11 +766,11 @@ class ETW_TRACE_PARTITION_INFORMATION_V2(EasyCastStructure):
     PartitionId: win32more.Windows.Win32.Foundation.PWSTR
     ParentId: win32more.Windows.Win32.Foundation.PWSTR
 EVENTSECURITYOPERATION = Int32
-EVENTSECURITYOPERATION_EventSecuritySetDACL: win32more.Windows.Win32.System.Diagnostics.Etw.EVENTSECURITYOPERATION = 0
-EVENTSECURITYOPERATION_EventSecuritySetSACL: win32more.Windows.Win32.System.Diagnostics.Etw.EVENTSECURITYOPERATION = 1
-EVENTSECURITYOPERATION_EventSecurityAddDACL: win32more.Windows.Win32.System.Diagnostics.Etw.EVENTSECURITYOPERATION = 2
-EVENTSECURITYOPERATION_EventSecurityAddSACL: win32more.Windows.Win32.System.Diagnostics.Etw.EVENTSECURITYOPERATION = 3
-EVENTSECURITYOPERATION_EventSecurityMax: win32more.Windows.Win32.System.Diagnostics.Etw.EVENTSECURITYOPERATION = 4
+EventSecuritySetDACL: win32more.Windows.Win32.System.Diagnostics.Etw.EVENTSECURITYOPERATION = 0
+EventSecuritySetSACL: win32more.Windows.Win32.System.Diagnostics.Etw.EVENTSECURITYOPERATION = 1
+EventSecurityAddDACL: win32more.Windows.Win32.System.Diagnostics.Etw.EVENTSECURITYOPERATION = 2
+EventSecurityAddSACL: win32more.Windows.Win32.System.Diagnostics.Etw.EVENTSECURITYOPERATION = 3
+EventSecurityMax: win32more.Windows.Win32.System.Diagnostics.Etw.EVENTSECURITYOPERATION = 4
 class EVENT_DATA_DESCRIPTOR(EasyCastStructure):
     Ptr: UInt64
     Size: UInt32
@@ -820,12 +820,12 @@ class EVENT_EXTENDED_ITEM_STACK_TRACE64(EasyCastStructure):
 class EVENT_EXTENDED_ITEM_TS_ID(EasyCastStructure):
     SessionId: UInt32
 EVENT_FIELD_TYPE = Int32
-EVENT_FIELD_TYPE_EventKeywordInformation: win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_FIELD_TYPE = 0
-EVENT_FIELD_TYPE_EventLevelInformation: win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_FIELD_TYPE = 1
-EVENT_FIELD_TYPE_EventChannelInformation: win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_FIELD_TYPE = 2
-EVENT_FIELD_TYPE_EventTaskInformation: win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_FIELD_TYPE = 3
-EVENT_FIELD_TYPE_EventOpcodeInformation: win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_FIELD_TYPE = 4
-EVENT_FIELD_TYPE_EventInformationMax: win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_FIELD_TYPE = 5
+EventKeywordInformation: win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_FIELD_TYPE = 0
+EventLevelInformation: win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_FIELD_TYPE = 1
+EventChannelInformation: win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_FIELD_TYPE = 2
+EventTaskInformation: win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_FIELD_TYPE = 3
+EventOpcodeInformation: win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_FIELD_TYPE = 4
+EventInformationMax: win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_FIELD_TYPE = 5
 class EVENT_FILTER_DESCRIPTOR(EasyCastStructure):
     Ptr: UInt64
     Size: UInt32
@@ -881,11 +881,11 @@ class EVENT_HEADER_EXTENDED_DATA_ITEM(EasyCastStructure):
     class _Anonymous_e__Struct(EasyCastStructure):
         _bitfield: UInt16
 EVENT_INFO_CLASS = Int32
-EVENT_INFO_CLASS_EventProviderBinaryTrackInfo: win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_INFO_CLASS = 0
-EVENT_INFO_CLASS_EventProviderSetReserved1: win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_INFO_CLASS = 1
-EVENT_INFO_CLASS_EventProviderSetTraits: win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_INFO_CLASS = 2
-EVENT_INFO_CLASS_EventProviderUseDescriptorType: win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_INFO_CLASS = 3
-EVENT_INFO_CLASS_MaxEventInfo: win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_INFO_CLASS = 4
+EventProviderBinaryTrackInfo: win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_INFO_CLASS = 0
+EventProviderSetReserved1: win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_INFO_CLASS = 1
+EventProviderSetTraits: win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_INFO_CLASS = 2
+EventProviderUseDescriptorType: win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_INFO_CLASS = 3
+MaxEventInfo: win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_INFO_CLASS = 4
 class EVENT_INSTANCE_HEADER(EasyCastStructure):
     Size: UInt16
     Anonymous1: _Anonymous1_e__Union
@@ -1282,14 +1282,14 @@ class PROPERTY_DATA_DESCRIPTOR(EasyCastStructure):
     ArrayIndex: UInt32
     Reserved: UInt32
 PROPERTY_FLAGS = Int32
-PROPERTY_FLAGS_PropertyStruct: win32more.Windows.Win32.System.Diagnostics.Etw.PROPERTY_FLAGS = 1
-PROPERTY_FLAGS_PropertyParamLength: win32more.Windows.Win32.System.Diagnostics.Etw.PROPERTY_FLAGS = 2
-PROPERTY_FLAGS_PropertyParamCount: win32more.Windows.Win32.System.Diagnostics.Etw.PROPERTY_FLAGS = 4
-PROPERTY_FLAGS_PropertyWBEMXmlFragment: win32more.Windows.Win32.System.Diagnostics.Etw.PROPERTY_FLAGS = 8
-PROPERTY_FLAGS_PropertyParamFixedLength: win32more.Windows.Win32.System.Diagnostics.Etw.PROPERTY_FLAGS = 16
-PROPERTY_FLAGS_PropertyParamFixedCount: win32more.Windows.Win32.System.Diagnostics.Etw.PROPERTY_FLAGS = 32
-PROPERTY_FLAGS_PropertyHasTags: win32more.Windows.Win32.System.Diagnostics.Etw.PROPERTY_FLAGS = 64
-PROPERTY_FLAGS_PropertyHasCustomSchema: win32more.Windows.Win32.System.Diagnostics.Etw.PROPERTY_FLAGS = 128
+PropertyStruct: win32more.Windows.Win32.System.Diagnostics.Etw.PROPERTY_FLAGS = 1
+PropertyParamLength: win32more.Windows.Win32.System.Diagnostics.Etw.PROPERTY_FLAGS = 2
+PropertyParamCount: win32more.Windows.Win32.System.Diagnostics.Etw.PROPERTY_FLAGS = 4
+PropertyWBEMXmlFragment: win32more.Windows.Win32.System.Diagnostics.Etw.PROPERTY_FLAGS = 8
+PropertyParamFixedLength: win32more.Windows.Win32.System.Diagnostics.Etw.PROPERTY_FLAGS = 16
+PropertyParamFixedCount: win32more.Windows.Win32.System.Diagnostics.Etw.PROPERTY_FLAGS = 32
+PropertyHasTags: win32more.Windows.Win32.System.Diagnostics.Etw.PROPERTY_FLAGS = 64
+PropertyHasCustomSchema: win32more.Windows.Win32.System.Diagnostics.Etw.PROPERTY_FLAGS = 128
 class PROVIDER_ENUMERATION_INFO(EasyCastStructure):
     NumberOfProviders: UInt32
     Reserved: UInt32
@@ -1513,35 +1513,35 @@ class TRACE_PROVIDER_INSTANCE_INFO(EasyCastStructure):
     Pid: UInt32
     Flags: UInt32
 TRACE_QUERY_INFO_CLASS = Int32
-TRACE_QUERY_INFO_CLASS_TraceGuidQueryList: win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_QUERY_INFO_CLASS = 0
-TRACE_QUERY_INFO_CLASS_TraceGuidQueryInfo: win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_QUERY_INFO_CLASS = 1
-TRACE_QUERY_INFO_CLASS_TraceGuidQueryProcess: win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_QUERY_INFO_CLASS = 2
-TRACE_QUERY_INFO_CLASS_TraceStackTracingInfo: win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_QUERY_INFO_CLASS = 3
-TRACE_QUERY_INFO_CLASS_TraceSystemTraceEnableFlagsInfo: win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_QUERY_INFO_CLASS = 4
-TRACE_QUERY_INFO_CLASS_TraceSampledProfileIntervalInfo: win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_QUERY_INFO_CLASS = 5
-TRACE_QUERY_INFO_CLASS_TraceProfileSourceConfigInfo: win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_QUERY_INFO_CLASS = 6
-TRACE_QUERY_INFO_CLASS_TraceProfileSourceListInfo: win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_QUERY_INFO_CLASS = 7
-TRACE_QUERY_INFO_CLASS_TracePmcEventListInfo: win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_QUERY_INFO_CLASS = 8
-TRACE_QUERY_INFO_CLASS_TracePmcCounterListInfo: win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_QUERY_INFO_CLASS = 9
-TRACE_QUERY_INFO_CLASS_TraceSetDisallowList: win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_QUERY_INFO_CLASS = 10
-TRACE_QUERY_INFO_CLASS_TraceVersionInfo: win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_QUERY_INFO_CLASS = 11
-TRACE_QUERY_INFO_CLASS_TraceGroupQueryList: win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_QUERY_INFO_CLASS = 12
-TRACE_QUERY_INFO_CLASS_TraceGroupQueryInfo: win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_QUERY_INFO_CLASS = 13
-TRACE_QUERY_INFO_CLASS_TraceDisallowListQuery: win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_QUERY_INFO_CLASS = 14
-TRACE_QUERY_INFO_CLASS_TraceInfoReserved15: win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_QUERY_INFO_CLASS = 15
-TRACE_QUERY_INFO_CLASS_TracePeriodicCaptureStateListInfo: win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_QUERY_INFO_CLASS = 16
-TRACE_QUERY_INFO_CLASS_TracePeriodicCaptureStateInfo: win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_QUERY_INFO_CLASS = 17
-TRACE_QUERY_INFO_CLASS_TraceProviderBinaryTracking: win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_QUERY_INFO_CLASS = 18
-TRACE_QUERY_INFO_CLASS_TraceMaxLoggersQuery: win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_QUERY_INFO_CLASS = 19
-TRACE_QUERY_INFO_CLASS_TraceLbrConfigurationInfo: win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_QUERY_INFO_CLASS = 20
-TRACE_QUERY_INFO_CLASS_TraceLbrEventListInfo: win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_QUERY_INFO_CLASS = 21
-TRACE_QUERY_INFO_CLASS_TraceMaxPmcCounterQuery: win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_QUERY_INFO_CLASS = 22
-TRACE_QUERY_INFO_CLASS_TraceStreamCount: win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_QUERY_INFO_CLASS = 23
-TRACE_QUERY_INFO_CLASS_TraceStackCachingInfo: win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_QUERY_INFO_CLASS = 24
-TRACE_QUERY_INFO_CLASS_TracePmcCounterOwners: win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_QUERY_INFO_CLASS = 25
-TRACE_QUERY_INFO_CLASS_TraceUnifiedStackCachingInfo: win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_QUERY_INFO_CLASS = 26
-TRACE_QUERY_INFO_CLASS_TracePmcSessionInformation: win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_QUERY_INFO_CLASS = 27
-TRACE_QUERY_INFO_CLASS_MaxTraceSetInfoClass: win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_QUERY_INFO_CLASS = 28
+TraceGuidQueryList: win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_QUERY_INFO_CLASS = 0
+TraceGuidQueryInfo: win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_QUERY_INFO_CLASS = 1
+TraceGuidQueryProcess: win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_QUERY_INFO_CLASS = 2
+TraceStackTracingInfo: win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_QUERY_INFO_CLASS = 3
+TraceSystemTraceEnableFlagsInfo: win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_QUERY_INFO_CLASS = 4
+TraceSampledProfileIntervalInfo: win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_QUERY_INFO_CLASS = 5
+TraceProfileSourceConfigInfo: win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_QUERY_INFO_CLASS = 6
+TraceProfileSourceListInfo: win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_QUERY_INFO_CLASS = 7
+TracePmcEventListInfo: win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_QUERY_INFO_CLASS = 8
+TracePmcCounterListInfo: win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_QUERY_INFO_CLASS = 9
+TraceSetDisallowList: win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_QUERY_INFO_CLASS = 10
+TraceVersionInfo: win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_QUERY_INFO_CLASS = 11
+TraceGroupQueryList: win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_QUERY_INFO_CLASS = 12
+TraceGroupQueryInfo: win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_QUERY_INFO_CLASS = 13
+TraceDisallowListQuery: win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_QUERY_INFO_CLASS = 14
+TraceInfoReserved15: win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_QUERY_INFO_CLASS = 15
+TracePeriodicCaptureStateListInfo: win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_QUERY_INFO_CLASS = 16
+TracePeriodicCaptureStateInfo: win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_QUERY_INFO_CLASS = 17
+TraceProviderBinaryTracking: win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_QUERY_INFO_CLASS = 18
+TraceMaxLoggersQuery: win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_QUERY_INFO_CLASS = 19
+TraceLbrConfigurationInfo: win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_QUERY_INFO_CLASS = 20
+TraceLbrEventListInfo: win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_QUERY_INFO_CLASS = 21
+TraceMaxPmcCounterQuery: win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_QUERY_INFO_CLASS = 22
+TraceStreamCount: win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_QUERY_INFO_CLASS = 23
+TraceStackCachingInfo: win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_QUERY_INFO_CLASS = 24
+TracePmcCounterOwners: win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_QUERY_INFO_CLASS = 25
+TraceUnifiedStackCachingInfo: win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_QUERY_INFO_CLASS = 26
+TracePmcSessionInformation: win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_QUERY_INFO_CLASS = 27
+MaxTraceSetInfoClass: win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_QUERY_INFO_CLASS = 28
 class TRACE_STACK_CACHING_INFO(EasyCastStructure):
     Enabled: win32more.Windows.Win32.Foundation.BOOLEAN
     CacheSize: UInt32
