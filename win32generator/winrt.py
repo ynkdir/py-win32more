@@ -58,9 +58,9 @@ class Parser:
         formatter = Formatter(self._package)
 
         if td.basetype is None or td.basetype == "System.Object" or td.basetype.startswith(("Windows.", "Microsoft.")):
-            module.add(Com(td, formatter))
+            module.add(Com(td, self._package, formatter))
         elif td.basetype == "System.MulticastDelegate":
-            module.add(Delegate(td, formatter))
+            module.add(Delegate(td, self._package, formatter))
         elif td.basetype == "System.Enum":
             module.add(Enum(td, formatter))
         elif td.basetype == "System.ValueType":
@@ -81,7 +81,7 @@ class Formatter:
     def pytype(self, ttype: TType) -> str:
         if ttype.kind == "Primitive":
             if ttype.name == "Object":
-                return Package.abs_pkg("Windows.Win32.System.WinRT.IInspectable")
+                return self.fullname("Windows.Win32.System.WinRT.IInspectable")
             elif ttype.name == "String":
                 return "WinRT_String"
             else:
@@ -94,9 +94,9 @@ class Formatter:
             if ttype.is_guid:
                 return "Guid"
             else:
-                return f"{Package.abs_pkg(ttype.fullname)}"
+                return f"{self.fullname(ttype)}"
         elif ttype.kind == "Generic":
-            return f"{Package.abs_pkg(self.generic_name_with_arguments(ttype))}"
+            return f"{self.fullname(self.generic_name_with_arguments(ttype))}"
         elif ttype.kind == "GenericParameter":
             return ttype.name
         elif ttype.kind == "Modified" and ttype.modifier_type.fullname == "System.Runtime.CompilerServices.IsConst":
@@ -142,6 +142,22 @@ class Formatter:
                 pytype = self.pytype(type_)
             r.append(f"{pa.name}: {pytype}")
         return r
+
+    @functools.singledispatchmethod
+    def fullname(self, name: str) -> str:
+        return self._package.abs_pkg(name)
+
+    @fullname.register
+    def _(self, ttype: TType) -> str:
+        return self.fullname(ttype.fullname)
+
+    @fullname.register
+    def _(self, td: TypeDefinition) -> str:
+        return self.fullname(td.fullname)
+
+    @fullname.register
+    def _(self, ii: InterfaceImplementation) -> str:
+        return self.fullname(ii.fullname)
 
 
 class WinrtModule(Module):
@@ -256,8 +272,9 @@ class ContractVersion:
 
 
 class Com:
-    def __init__(self, td: TypeDefinition, formatter: Formatter) -> None:
+    def __init__(self, td: TypeDefinition, package: Package, formatter: Formatter) -> None:
         self._td = td
+        self._package = package
         self._formatter = formatter
 
     @property
@@ -297,7 +314,7 @@ class Com:
         for ii in self._td.interface_implementations:
             if ii.custom_attributes.has_default():
                 writer.write(
-                    f"    default_interface: {Package.abs_pkg(self._formatter.generic_name_with_arguments(ii))}\n"
+                    f"    default_interface: {self._formatter.fullname(self._formatter.generic_name_with_arguments(ii))}\n"
                 )
                 break
         writer.write(f"    _classid_ = '{self._td.namespace}.{classname}'\n")
@@ -345,35 +362,35 @@ class Com:
                 writer.write(f"    {name} = property({attrs['get']}, {attrs['put']})\n")
         if f"{self._td.namespace}.{classname}" == "Windows.Foundation.IAsyncOperation":
             writer.write("    def __await__(self):\n")
-            writer.write(f"        from {Package.name}._winrt import IAsyncOperation___await__\n")
+            writer.write(f"        from {self._package.name}._winrt import IAsyncOperation___await__\n")
             writer.write("        return IAsyncOperation___await__(self)\n")
         elif f"{self._td.namespace}.{classname}" == "Windows.Foundation.IAsyncOperationWithProgress":
             writer.write("    def __await__(self):\n")
-            writer.write(f"        from {Package.name}._winrt import IAsyncOperation___await__\n")
+            writer.write(f"        from {self._package.name}._winrt import IAsyncOperation___await__\n")
             writer.write("        return IAsyncOperation___await__(self)\n")
         elif f"{self._td.namespace}.{classname}" == "Windows.Foundation.IAsyncAction":
             writer.write("    def __await__(self):\n")
-            writer.write(f"        from {Package.name}._winrt import IAsyncAction___await__\n")
+            writer.write(f"        from {self._package.name}._winrt import IAsyncAction___await__\n")
             writer.write("        return IAsyncAction___await__(self)\n")
         elif f"{self._td.namespace}.{classname}" == "Windows.Foundation.IAsyncActionWithProgress":
             writer.write("    def __await__(self):\n")
-            writer.write(f"        from {Package.name}._winrt import IAsyncAction___await__\n")
+            writer.write(f"        from {self._package.name}._winrt import IAsyncAction___await__\n")
             writer.write("        return IAsyncAction___await__(self)\n")
         return writer.getvalue()
 
     def _extends(self) -> str:
         if self._td.basetype is None:
             # interface
-            return Package.abs_pkg("Windows.Win32.System.WinRT.IInspectable")
+            return self._formatter.fullname("Windows.Win32.System.WinRT.IInspectable")
         elif self._td.basetype == "System.Object":
             # runtime class
-            return Package.abs_pkg("Windows.Win32.System.WinRT.IInspectable")
+            return self._formatter.fullname("Windows.Win32.System.WinRT.IInspectable")
         else:
-            return Package.abs_pkg(self._td.basetype)
+            return self._formatter.fullname(self._td.basetype)
 
     def com_get_interface_for_method(self, td: TypeDefinition, method_name: str, params: list[str]) -> str:
         for ii in td.interface_implementations:
-            com = Package.current[ii.namespace][ii.name]
+            com = self._package[ii.namespace][ii.name]
             if not isinstance(com, Com):
                 raise TypeError()
             td_interface = com._td
@@ -390,7 +407,7 @@ class Com:
     def com_get_static_for_method(self, td: TypeDefinition, method_name: str, method_nargs: int) -> str:
         for ca in td.custom_attributes.get_static():
             namespace, name = ca.fixed_arguments[0].value.rsplit(".", 1)
-            com = Package.current[namespace][name]
+            com = self._package[namespace][name]
             if not isinstance(com, Com):
                 raise TypeError()
             td_static = com._td
@@ -424,11 +441,11 @@ class Com:
         elif "Static" in md.attributes:
             writer.write("    @winrt_classmethod\n")
             interface = self.com_get_static_for_method(td, method_name, len(md.get_parameter_names()))
-            params[0] = f"cls: {Package.abs_pkg(interface)}"
+            params[0] = f"cls: {self._formatter.fullname(interface)}"
         elif "Abstract" not in td.attributes:
             writer.write("    @winrt_mixinmethod\n")
             interface = self.com_get_interface_for_method(td, method_name, md.get_parameter_names())
-            params[0] = f"self: {Package.abs_pkg(interface)}"
+            params[0] = f"self: {self._formatter.fullname(interface)}"
         else:
             writer.write(f"    @winrt_commethod({p_vtbl_index[0]})\n")
             p_vtbl_index[0] += 1
@@ -442,7 +459,7 @@ class Com:
         elif self._td.basetype == "System.MulticastDelegate":
             return 3  # count of IUnknown
         namespace, name = self._td.basetype.rsplit(".", 1)
-        com = Package.current[namespace][name]
+        com = self._package[namespace][name]
         if not isinstance(com, Com):
             raise TypeError()
         return len(com._td.method_definitions) + com._count_interface_method()
@@ -454,7 +471,7 @@ class Com:
             name = f"{td.generic_fullname}[{generic_parameters}]"
         else:
             name = td.fullname
-        params = [f"cls: {Package.abs_pkg(name)}"] + self._formatter.method_parameters_annotated(md)
+        params = [f"cls: {self._formatter.fullname(name)}"] + self._formatter.method_parameters_annotated(md)
         params_csv = ", ".join(params)
         restype = self._formatter.pytype(md.signature.return_type)
         writer.write("    @winrt_factorymethod\n")
@@ -469,7 +486,7 @@ class Com:
         else:
             name = td.fullname
         writer.write("    @winrt_activatemethod\n")
-        writer.write(f"    def CreateInstance(cls) -> {Package.abs_pkg(name)}: ...\n")
+        writer.write(f"    def CreateInstance(cls) -> {self._formatter.fullname(name)}: ...\n")
         return writer.getvalue()
 
     def winrt_constructor(self, td: TypeDefinition) -> str:
@@ -478,7 +495,7 @@ class Com:
         if td.custom_attributes.has_composable():
             ca = td.custom_attributes.get_composable()
             namespace, name = ca.fixed_arguments[0].value.rsplit(".", 1)
-            com = Package.current[namespace][name]
+            com = self._package[namespace][name]
             if not isinstance(com, Com):
                 raise TypeError()
             factory = com._td
@@ -488,7 +505,7 @@ class Com:
                     Method(
                         name=md.name_overload,
                         nargs=len(md.get_parameter_names()) - 2,
-                        invoke=f"{Package.abs_pkg(td.fullname)}.{md.name_overload}(*args, None, None)",
+                        invoke=f"{self._formatter.fullname(td)}.{md.name_overload}(*args, None, None)",
                         declare=self.winrt_factorymethod(factory, md),
                         default_overload=False,
                     )
@@ -496,7 +513,7 @@ class Com:
         for ca in td.custom_attributes.get_activatable():
             if ca.fixed_arguments[0].type.kind == "Type":
                 namespace, name = ca.fixed_arguments[0].value.rsplit(".", 1)
-                com = Package.current[namespace][name]
+                com = self._package[namespace][name]
                 if not isinstance(com, Com):
                     raise TypeError()
                 factory = com._td
@@ -506,7 +523,7 @@ class Com:
                         Method(
                             name=md.name_overload,
                             nargs=len(md.get_parameter_names()),
-                            invoke=f"{Package.abs_pkg(td.fullname)}.{md.name_overload}(*args)",
+                            invoke=f"{self._formatter.fullname(td)}.{md.name_overload}(*args)",
                             declare=self.winrt_factorymethod(factory, md),
                             default_overload=False,
                         )
@@ -516,7 +533,7 @@ class Com:
                     Method(
                         name="CreateInstance",
                         nargs=0,
-                        invoke=f"{Package.abs_pkg(td.fullname)}.CreateInstance(*args)",
+                        invoke=f"{self._formatter.fullname(td)}.CreateInstance(*args)",
                         declare=self.winrt_activatemethod(td),
                         default_overload=False,
                     )
@@ -594,8 +611,9 @@ class Com:
 
 
 class Delegate:
-    def __init__(self, td: TypeDefinition, formatter: Formatter) -> None:
+    def __init__(self, td: TypeDefinition, package: Package, formatter: Formatter) -> None:
         self._td = td
+        self._package = package
         self._formatter = formatter
 
     @property
@@ -623,11 +641,11 @@ class Delegate:
             name = self._td.name
             base = "MulticastDelegate"
         writer.write(f"class {name}({base}):\n")
-        writer.write(f"    extends: {Package.abs_pkg('Windows.Win32.System.Com.IUnknown')}\n")
+        writer.write(f"    extends: {self._formatter.fullname('Windows.Win32.System.Com.IUnknown')}\n")
         if self._td.custom_attributes.has_winrt_guid():
             guid = self._td.custom_attributes.get_winrt_guid()
             writer.write(f"    _iid_ = Guid('{guid}')\n")
-        com = Com(self._td, self._formatter)  # FIXME
+        com = Com(self._td, self._package, self._formatter)  # FIXME
         p_vtbl_index = [3]  # count of IUnknown
         for md in self._td.method_definitions:
             if md.name == ".ctor":

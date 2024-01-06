@@ -1,11 +1,12 @@
 from __future__ import annotations
 
+import functools
 import logging
 import textwrap
 from collections.abc import Iterable
 from io import StringIO
 
-from .metadata import FieldDefinition, MethodDefinition, TType, TypeDefinition
+from .metadata import FieldDefinition, InterfaceImplementation, MethodDefinition, TType, TypeDefinition
 from .package import ApiItem, Module, Package
 
 logger = logging.getLogger(__name__)
@@ -61,7 +62,7 @@ class Parser:
         formatter = Formatter(self._package)
 
         if td.basetype is None:
-            module.add(Com(td, formatter))
+            module.add(Com(td, self._package, formatter))
         elif td.basetype == "System.Object":
             for fd in td.fields:
                 module.add(Constant(td, fd, formatter))
@@ -112,7 +113,7 @@ class Formatter:
             elif ttype.is_guid:
                 return "Guid"
             else:
-                return f"{Package.abs_pkg(ttype.fullname)}"
+                return f"{self.fullname(ttype)}"
         else:
             raise NotImplementedError()
 
@@ -140,6 +141,22 @@ class Formatter:
         else:
             # FIXME:
             raise NotImplementedError()
+
+    @functools.singledispatchmethod
+    def fullname(self, name: str) -> str:
+        return self._package.abs_pkg(name)
+
+    @fullname.register
+    def _(self, ttype: TType) -> str:
+        return self.fullname(ttype.fullname)
+
+    @fullname.register
+    def _(self, td: TypeDefinition) -> str:
+        return self.fullname(td.fullname)
+
+    @fullname.register
+    def _(self, ii: InterfaceImplementation) -> str:
+        return self.fullname(ii.fullname)
 
 
 class Win32Module(Module):
@@ -369,7 +386,7 @@ class Enum:
         type_field, *value_fields = self._td.fields
         writer.write(f"{self._td.name} = {self._formatter.pytype(type_field.signature)}\n")
         for fd in value_fields:
-            writer.write(f"{fd.name}: {Package.abs_pkg(self._td.fullname)} = {fd.default_value.value}\n")
+            writer.write(f"{fd.name}: {self._formatter.fullname(self._td)} = {fd.default_value.value}\n")
         return writer.getvalue()
 
 
@@ -501,9 +518,10 @@ class StructUnion:
 
 
 class Com:
-    def __init__(self, td: TypeDefinition, formatter: Formatter) -> None:
+    def __init__(self, td: TypeDefinition, package: Package, formatter: Formatter) -> None:
         assert not td.custom_attributes.has_supported_architecture()
         self._td = td
+        self._package = package
         self._formatter = formatter
 
     @property
@@ -544,15 +562,14 @@ class Com:
         if not self._td.interface_implementations:
             # non IUnknown interface
             return "None"
-        base = self._td.interface_implementations[0].interface.type_reference.fullname
-        return Package.abs_pkg(base)
+        return self._formatter.fullname(self._td.interface_implementations[0])
 
     def _count_interface_method(self) -> int:
         return sum(len(com._td.method_definitions) for com in self._enumerate_interfaces())
 
     def _enumerate_interfaces(self) -> Iterable[Com]:
         for ii in self._td.interface_implementations:
-            com = Package.current[ii.namespace][ii.name]
+            com = self._package[ii.namespace][ii.name]
             if not isinstance(com, Com):
                 raise TypeError()
             yield com

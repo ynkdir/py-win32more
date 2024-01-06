@@ -5,14 +5,9 @@ from typing import Protocol
 
 
 class Package:
-    current: Package
-    name: str
-    directory: str
-    is_onefile = False
-
-    def __init__(self) -> None:
-        Package.current = self
-
+    def __init__(self, name, is_onefile=False) -> None:
+        self.name = name
+        self.is_onefile = is_onefile
         self._modules: dict[str, Module] = {}
 
     def __getitem__(self, namespace: str) -> Module:
@@ -27,9 +22,8 @@ class Package:
     def modules(self) -> Iterable[Module]:
         return self._modules.values()
 
-    @staticmethod
-    def abs_pkg(name: str) -> str:
-        return name.split(".")[-1] if Package.is_onefile else f"{Package.name}.{name}"
+    def abs_pkg(self, name: str) -> str:
+        return name.split(".")[-1] if self.is_onefile else f"{self.name}.{name}"
 
 
 class Module:
