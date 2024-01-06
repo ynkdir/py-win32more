@@ -96,7 +96,7 @@ class Formatter:
             else:
                 return f"{self.fullname(ttype)}"
         elif ttype.kind == "Generic":
-            return f"{self.fullname(self.generic_name_with_arguments(ttype))}"
+            return self.generic_name_with_arguments(ttype)
         elif ttype.kind == "GenericParameter":
             return ttype.name
         elif ttype.kind == "Modified" and ttype.modifier_type.fullname == "System.Runtime.CompilerServices.IsConst":
@@ -106,18 +106,17 @@ class Formatter:
 
     @functools.singledispatchmethod
     def generic_name_with_arguments(self, ttype: TType) -> str:
-        fullname = ttype.type.generic_fullname
         arguments = self.generic_arguments(ttype)
-        return f"{fullname}[{arguments}]"
+        return f"{self.fullname(ttype.type)}[{arguments}]"
 
     @generic_name_with_arguments.register
     def _(self, ii: InterfaceImplementation) -> str:
         if ii.interface.kind == "TypeReference":
-            return ii.interface.type_reference.fullname
+            return self.fullname(ii.interface.type_reference.fullname)
         elif ii.interface.kind == "TypeSpecification":
             if ii.interface.type_specification.signature.kind == "Generic":
                 return self.generic_name_with_arguments(ii.interface.type_specification.signature)
-            return ii.interface.type_specification.signature.type.fullname
+            return self.fullname(ii.interface.type_specification.signature.type)
         else:
             raise NotImplementedError()
 
@@ -129,8 +128,8 @@ class Formatter:
 
     def generic_name_with_parameters(self, td: TypeDefinition) -> str:
         if td.is_generic:
-            return f"{td.generic_fullname}[{self.generic_parameters(td)}]"
-        return td.fullname
+            return f"{self.fullname(td)}[{self.generic_parameters(td)}]"
+        return self.fullname(td)
 
     def method_parameters_annotated(self, md: MethodDefinition) -> list[str]:
         r = []
@@ -154,11 +153,11 @@ class Formatter:
 
     @fullname.register
     def _(self, ttype: TType) -> str:
-        return self.fullname(ttype.fullname)
+        return self.fullname(ttype.generic_fullname)
 
     @fullname.register
     def _(self, td: TypeDefinition) -> str:
-        return self.fullname(td.fullname)
+        return self.fullname(td.generic_fullname)
 
     @fullname.register
     def _(self, ii: InterfaceImplementation) -> str:
@@ -302,11 +301,11 @@ class Com:
         if self._has_classproperty():
             writer.write(f"class {self._metaclass_name()}(ComPtr.__class__):\n")
             writer.write("    pass\n")
-        writer.write(f"class {self._generic_name()}({self._basetype()}):\n")
+        writer.write(f"class {self._td.generic_name}({self._basetype()}):\n")
         writer.write(f"    extends: {self._extends()}\n")
         if self._has_default_interface():
             writer.write(f"    default_interface: {self._default_interface()}\n")
-        writer.write(f"    _classid_ = '{self._generic_fullname()}'\n")
+        writer.write(f"    _classid_ = '{self._td.generic_fullname}'\n")
         if self._td.custom_attributes.has_winrt_guid():
             guid = self._td.custom_attributes.get_winrt_guid()
             writer.write(f"    _iid_ = Guid('{guid}')\n")
@@ -316,16 +315,8 @@ class Com:
         writer.write(self._await_method())
         return writer.getvalue()
 
-    def _generic_name(self) -> str:
-        if self._td.is_generic:
-            return self._td.generic_name
-        return self._td.name
-
-    def _generic_fullname(self) -> str:
-        return f"{self.namespace}.{self._generic_name()}"
-
     def _metaclass_name(self) -> str:
-        return f"_{self._generic_name()}_Meta_"
+        return f"_{self._td.generic_name}_Meta_"
 
     def _basetype(self) -> str:
         if self._td.is_generic:
@@ -356,7 +347,7 @@ class Com:
     def _default_interface(self) -> str:
         for ii in self._td.interface_implementations:
             if ii.custom_attributes.has_default():
-                return self._formatter.fullname(self._formatter.generic_name_with_arguments(ii))
+                return self._formatter.generic_name_with_arguments(ii)
         raise ValueError()
 
     def _has_classproperty(self) -> bool:
@@ -515,7 +506,7 @@ class Com:
 
     def _factorymethod(self, td: TypeDefinition, md: MethodDefinition) -> str:
         writer = StringIO()
-        clsname = self._formatter.fullname(self._formatter.generic_name_with_parameters(td))
+        clsname = self._formatter.generic_name_with_parameters(td)
         restype = self._formatter.pytype(md.signature.return_type)
         params = ", ".join([f"cls: {clsname}"] + self._formatter.method_parameters_annotated(md))
         writer.write("    @winrt_factorymethod\n")
@@ -524,7 +515,7 @@ class Com:
 
     def _activatemethod(self) -> str:
         writer = StringIO()
-        clsname = self._formatter.fullname(self._formatter.generic_name_with_parameters(self._td))
+        clsname = self._formatter.generic_name_with_parameters(self._td)
         writer.write("    @winrt_activatemethod\n")
         writer.write(f"    def CreateInstance(cls) -> {clsname}: ...\n")
         return writer.getvalue()
@@ -608,9 +599,7 @@ class Com:
         writer = StringIO()
         restype = self._formatter.pytype(md.signature.return_type)
         interface = self._get_interface_for_method(md.name_overload, md.get_parameter_names())
-        params = ", ".join(
-            [f"self: {self._formatter.fullname(interface)}"] + self._formatter.method_parameters_annotated(md)
-        )
+        params = ", ".join([f"self: {interface}"] + self._formatter.method_parameters_annotated(md))
         writer.write("    @winrt_mixinmethod\n")
         writer.write(f"    def {md.name_overload}({params}) -> {restype}: ...\n")
         return writer.getvalue()
@@ -676,17 +665,12 @@ class Delegate:
 
     def emit(self) -> str:
         writer = StringIO()
-        writer.write(f"class {self._generic_name()}({self._basetype()}):\n")
+        writer.write(f"class {self._td.generic_name}({self._basetype()}):\n")
         writer.write(f"    extends: {self._formatter.fullname('Windows.Win32.System.Com.IUnknown')}\n")
         guid = self._td.custom_attributes.get_winrt_guid()
         writer.write(f"    _iid_ = Guid('{guid}')\n")
         writer.write(self._method(self._td.method_definitions[1]))
         return writer.getvalue()
-
-    def _generic_name(self) -> str:
-        if self._td.is_generic:
-            return self._td.generic_name
-        return self._td.name
 
     def _basetype(self) -> str:
         if self._td.is_generic:
