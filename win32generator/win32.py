@@ -381,11 +381,13 @@ class NativeTypedef:
         yield from self._td.fields[0].enumerate_dependencies()
 
     def emit(self) -> str:
-        pytype = ttype_pytype(self._td.fields[0].signature)
-        if pytype == "POINTER(Byte)":
+        if self._td.name == "PSTR":  # POINTER(Byte)
             pytype = "Bytes"
-        elif pytype == "POINTER(Char)":
+        elif self._td.name in ["PWSTR", "BSTR"]:  # POINTER(Char)
             pytype = "String"
+        else:
+            pytype = ttype_pytype(self._td.fields[0].signature)
+            assert pytype not in ["POINTER(Byte)", "POINTER(Char)"]
         return f"{self._td.name} = {pytype}\n"
 
 
