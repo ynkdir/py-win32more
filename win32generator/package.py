@@ -33,9 +33,9 @@ class Package:
 
 
 class Module:
-    def __init__(self, package: Package, namespace: str) -> None:
-        self._package = package
+    def __init__(self, namespace: str, package: Package) -> None:
         self._namespace = namespace
+        self._package = package
         self._items: dict[str, ApiItem] = {}
 
     @property

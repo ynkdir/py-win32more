@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import functools
 import logging
 from collections import Counter, defaultdict
 from collections.abc import Iterable
@@ -35,85 +36,6 @@ WINRT_EXPORTS = [
 WINRT_EXPORTS_CSV = ", ".join(WINRT_EXPORTS)
 
 
-def ttype_pytype(self: TType) -> str:
-    if self.kind == "Primitive":
-        if self.name == "Object":
-            return Package.abs_pkg("Windows.Win32.System.WinRT.IInspectable")
-        elif self.name == "String":
-            return "WinRT_String"
-        else:
-            return self.name
-    elif self.kind == "Reference":
-        return f"POINTER({ttype_pytype(self.type)})"
-    elif self.kind == "SZArray":
-        return f"SZArray[{ttype_pytype(self.type)}]"
-    elif self.kind == "Type":
-        if self.is_guid:
-            return "Guid"
-        else:
-            return f"{Package.abs_pkg(self.fullname)}"
-    elif self.kind == "Generic":
-        return f"{Package.abs_pkg(ttype_generic_fullname(self))}"
-    elif self.kind == "GenericParameter":
-        return self.name
-    elif self.kind == "Modified" and self.modifier_type.fullname == "System.Runtime.CompilerServices.IsConst":
-        return ttype_pytype(self.unmodified_type)
-    else:
-        raise NotImplementedError()
-
-
-def generic_strip_suffix(name) -> str:
-    return name.split("`")[0]
-
-
-def ttype_generic_fullname(self: TType) -> str:
-    fullname = generic_strip_suffix(self.type.fullname)
-    parameters = ttype_format_generic_parameters(self)
-    return f"{fullname}[{parameters}]"
-
-
-def ttype_format_generic_parameters(self: TType) -> str:
-    return ", ".join(ttype_pytype(ta) for ta in self.type_arguments)
-
-
-def md_parameter_names_annotated(self: MethodDefinition) -> list[str]:
-    r = []
-    for pa, type_ in self.parameters_with_type:
-        if type_.kind == "SZArray":
-            attrs = []
-            if "Out" in pa.attributes:
-                attrs.append("'Out'")
-            if "In" in pa.attributes:
-                attrs.append("'In'")
-            annotated = ", ".join([ttype_pytype(type_)] + attrs)
-            pytype = f"Annotated[{annotated}]"
-        else:
-            pytype = ttype_pytype(type_)
-        r.append(f"{pa.name}: {pytype}")
-    return r
-
-
-def ii_generic_fullname(self: InterfaceImplementation) -> str:
-    if self.interface.kind == "TypeReference":
-        return self.interface.type_reference.fullname
-    elif self.interface.kind == "TypeSpecification":
-        if self.interface.type_specification.signature.kind == "Generic":
-            return ttype_generic_fullname(self.interface.type_specification.signature)
-        return self.interface.type_specification.signature.type.fullname
-    else:
-        raise NotImplementedError()
-
-
-def td_format_generic_parameters(self: TypeDefinition) -> str:
-    return ", ".join(gp.name for gp in self.generic_parameters)
-
-
-def td_generic_fullname(self: TypeDefinition) -> str:
-    fullname = generic_strip_suffix(self.fullname)
-    parameters = td_format_generic_parameters(self)
-    return f"{fullname}[{parameters}]"
-
-
 @dataclass
 class Method:
     name: str
@@ -129,25 +51,97 @@ class Parser:
 
     def parse(self, td: TypeDefinition) -> None:
         if td.namespace not in self._package:
-            self._package[td.namespace] = WinrtModule(self._package, td.namespace)
+            self._package[td.namespace] = WinrtModule(td.namespace, self._package)
 
         module = self._package[td.namespace]
 
+        formatter = Formatter(self._package)
+
         if td.basetype is None or td.basetype == "System.Object" or td.basetype.startswith(("Windows.", "Microsoft.")):
-            module.add(Com(td))
+            module.add(Com(td, formatter))
         elif td.basetype == "System.MulticastDelegate":
-            module.add(Delegate(td))
+            module.add(Delegate(td, formatter))
         elif td.basetype == "System.Enum":
-            module.add(Enum(td))
+            module.add(Enum(td, formatter))
         elif td.basetype == "System.ValueType":
             if td.fields:
-                module.add(Struct(td))
+                module.add(Struct(td, formatter))
             elif td.custom_attributes.has("Windows.Foundation.Metadata.ContractVersionAttribute"):
-                module.add(ContractVersion(td))
+                module.add(ContractVersion(td, formatter))
             else:
                 raise NotImplementedError()
         else:
             raise NotImplementedError()
+
+
+class Formatter:
+    def __init__(self, package: Package) -> None:
+        self._package = package
+
+    def pytype(self, ttype: TType) -> str:
+        if ttype.kind == "Primitive":
+            if ttype.name == "Object":
+                return Package.abs_pkg("Windows.Win32.System.WinRT.IInspectable")
+            elif ttype.name == "String":
+                return "WinRT_String"
+            else:
+                return ttype.name
+        elif ttype.kind == "Reference":
+            return f"POINTER({self.pytype(ttype.type)})"
+        elif ttype.kind == "SZArray":
+            return f"SZArray[{self.pytype(ttype.type)}]"
+        elif ttype.kind == "Type":
+            if ttype.is_guid:
+                return "Guid"
+            else:
+                return f"{Package.abs_pkg(ttype.fullname)}"
+        elif ttype.kind == "Generic":
+            return f"{Package.abs_pkg(self.generic_name_with_arguments(ttype))}"
+        elif ttype.kind == "GenericParameter":
+            return ttype.name
+        elif ttype.kind == "Modified" and ttype.modifier_type.fullname == "System.Runtime.CompilerServices.IsConst":
+            return self.pytype(ttype.unmodified_type)
+        else:
+            raise NotImplementedError()
+
+    @functools.singledispatchmethod
+    def generic_name_with_arguments(self, ttype: TType) -> str:
+        fullname = ttype.type.generic_fullname
+        arguments = self.generic_arguments(ttype)
+        return f"{fullname}[{arguments}]"
+
+    @generic_name_with_arguments.register
+    def _(self, ii: InterfaceImplementation) -> str:
+        if ii.interface.kind == "TypeReference":
+            return ii.interface.type_reference.fullname
+        elif ii.interface.kind == "TypeSpecification":
+            if ii.interface.type_specification.signature.kind == "Generic":
+                return self.generic_name_with_arguments(ii.interface.type_specification.signature)
+            return ii.interface.type_specification.signature.type.fullname
+        else:
+            raise NotImplementedError()
+
+    def generic_arguments(self, ttype: TType) -> str:
+        return ", ".join(self.pytype(ta) for ta in ttype.type_arguments)
+
+    def generic_parameters(self, td: TypeDefinition) -> str:
+        return ", ".join(gp.name for gp in td.generic_parameters)
+
+    def method_parameters_annotated(self, md: MethodDefinition) -> list[str]:
+        r = []
+        for pa, type_ in md.parameters_with_type:
+            if type_.kind == "SZArray":
+                attrs = []
+                if "Out" in pa.attributes:
+                    attrs.append("'Out'")
+                if "In" in pa.attributes:
+                    attrs.append("'In'")
+                annotated = ", ".join([self.pytype(type_)] + attrs)
+                pytype = f"Annotated[{annotated}]"
+            else:
+                pytype = self.pytype(type_)
+            r.append(f"{pa.name}: {pytype}")
+        return r
 
 
 class WinrtModule(Module):
@@ -173,8 +167,9 @@ class WinrtModule(Module):
 
 
 class Enum:
-    def __init__(self, td: TypeDefinition) -> None:
+    def __init__(self, td: TypeDefinition, formatter: Formatter) -> None:
         self._td = td
+        self._formatter = formatter
 
     @property
     def namespace(self) -> str:
@@ -194,14 +189,14 @@ class Enum:
     def emit(self) -> str:
         writer = StringIO()
         type_field, *value_fields = self._td.fields
-        writer.write(f"{self._td.name} = {ttype_pytype(type_field.signature)}\n")
+        writer.write(f"{self._td.name} = {self._formatter.pytype(type_field.signature)}\n")
         for fd in value_fields:
             writer.write(f"{fd.name}: {self._td.name} = {fd.default_value.value}\n")
         return writer.getvalue()
 
 
 class Struct:
-    def __init__(self, td: TypeDefinition) -> None:
+    def __init__(self, td: TypeDefinition, formatter: Formatter) -> None:
         assert td.fields
         assert not td.nested_types
         assert "SequentialLayout" in td.attributes
@@ -209,6 +204,7 @@ class Struct:
         assert not any(fd for fd in td.fields if {"Static", "HasDefault"} <= set(td.attributes))
         assert td.layout.packing_size == 0
         self._td = td
+        self._formatter = formatter
 
     @property
     def namespace(self) -> str:
@@ -230,13 +226,14 @@ class Struct:
         writer = StringIO()
         writer.write(f"class {self._td.name}(EasyCastStructure):\n")
         for fd in self._td.fields:
-            writer.write(f"    {fd.name}: {ttype_pytype(fd.signature)}\n")
+            writer.write(f"    {fd.name}: {self._formatter.pytype(fd.signature)}\n")
         return writer.getvalue()
 
 
 class ContractVersion:
-    def __init__(self, td: TypeDefinition) -> None:
+    def __init__(self, td: TypeDefinition, formatter: Formatter) -> None:
         self._td = td
+        self._formatter = formatter
 
     @property
     def namespace(self) -> str:
@@ -259,8 +256,9 @@ class ContractVersion:
 
 
 class Com:
-    def __init__(self, td: TypeDefinition) -> None:
+    def __init__(self, td: TypeDefinition, formatter: Formatter) -> None:
         self._td = td
+        self._formatter = formatter
 
     @property
     def namespace(self) -> str:
@@ -280,8 +278,8 @@ class Com:
     def emit(self) -> str:
         writer = StringIO()
         if self._td.is_generic:
-            generic_parameters = td_format_generic_parameters(self._td)
-            classname = generic_strip_suffix(self._td.name)
+            generic_parameters = self._formatter.generic_parameters(self._td)
+            classname = self._td.generic_name
             base = f"Generic[{generic_parameters}], ComPtr"
         else:
             classname = self._td.name
@@ -298,7 +296,9 @@ class Com:
         writer.write(f"    extends: {self._extends()}\n")
         for ii in self._td.interface_implementations:
             if ii.custom_attributes.has_default():
-                writer.write(f"    default_interface: {Package.abs_pkg(ii_generic_fullname(ii))}\n")
+                writer.write(
+                    f"    default_interface: {Package.abs_pkg(self._formatter.generic_name_with_arguments(ii))}\n"
+                )
                 break
         writer.write(f"    _classid_ = '{self._td.namespace}.{classname}'\n")
         if self._td.custom_attributes.has_winrt_guid():
@@ -371,8 +371,7 @@ class Com:
         else:
             return Package.abs_pkg(self._td.basetype)
 
-    @classmethod
-    def com_get_interface_for_method(cls, td: TypeDefinition, method_name: str, params: list[str]) -> str:
+    def com_get_interface_for_method(self, td: TypeDefinition, method_name: str, params: list[str]) -> str:
         for ii in td.interface_implementations:
             com = Package.current[ii.namespace][ii.name]
             if not isinstance(com, Com):
@@ -385,11 +384,10 @@ class Com:
                     interface_method_name = md.name
                 if interface_method_name == method_name:
                     if md.get_parameter_names() == params:
-                        return ii_generic_fullname(ii)
+                        return self._formatter.generic_name_with_arguments(ii)
         raise KeyError()
 
-    @classmethod
-    def com_get_static_for_method(cls, td: TypeDefinition, method_name: str, method_nargs: int) -> str:
+    def com_get_static_for_method(self, td: TypeDefinition, method_name: str, method_nargs: int) -> str:
         for ca in td.custom_attributes.get_static():
             namespace, name = ca.fixed_arguments[0].value.rsplit(".", 1)
             com = Package.current[namespace][name]
@@ -416,21 +414,20 @@ class Com:
                 return True
         return False
 
-    @classmethod
-    def winrt_method(cls, td: TypeDefinition, md: MethodDefinition, p_vtbl_index: list[int]) -> str:
+    def winrt_method(self, td: TypeDefinition, md: MethodDefinition, p_vtbl_index: list[int]) -> str:
         writer = StringIO()
         method_name = md.name_overload
-        params = ["self"] + md_parameter_names_annotated(md)
-        restype = ttype_pytype(md.signature.return_type)
+        params = ["self"] + self._formatter.method_parameters_annotated(md)
+        restype = self._formatter.pytype(md.signature.return_type)
         if td.basetype == "System.MulticastDelegate":
             pass
         elif "Static" in md.attributes:
             writer.write("    @winrt_classmethod\n")
-            interface = cls.com_get_static_for_method(td, method_name, len(md.get_parameter_names()))
+            interface = self.com_get_static_for_method(td, method_name, len(md.get_parameter_names()))
             params[0] = f"cls: {Package.abs_pkg(interface)}"
         elif "Abstract" not in td.attributes:
             writer.write("    @winrt_mixinmethod\n")
-            interface = cls.com_get_interface_for_method(td, method_name, md.get_parameter_names())
+            interface = self.com_get_interface_for_method(td, method_name, md.get_parameter_names())
             params[0] = f"self: {Package.abs_pkg(interface)}"
         else:
             writer.write(f"    @winrt_commethod({p_vtbl_index[0]})\n")
@@ -453,12 +450,13 @@ class Com:
     def winrt_factorymethod(self, td: TypeDefinition, md: MethodDefinition) -> str:
         writer = StringIO()
         if td.is_generic:
-            name = td_generic_fullname(td)
+            generic_parameters = self._formatter.generic_parameters(self._td)
+            name = f"{td.generic_fullname}[{generic_parameters}]"
         else:
             name = td.fullname
-        params = [f"cls: {Package.abs_pkg(name)}"] + md_parameter_names_annotated(md)
+        params = [f"cls: {Package.abs_pkg(name)}"] + self._formatter.method_parameters_annotated(md)
         params_csv = ", ".join(params)
-        restype = ttype_pytype(md.signature.return_type)
+        restype = self._formatter.pytype(md.signature.return_type)
         writer.write("    @winrt_factorymethod\n")
         writer.write(f"    def {md.name}({params_csv}) -> {restype}: ...\n")
         return writer.getvalue()
@@ -466,7 +464,8 @@ class Com:
     def winrt_activatemethod(self, td: TypeDefinition) -> str:
         writer = StringIO()
         if td.is_generic:
-            name = td_generic_fullname(td)
+            generic_parameters = self._formatter.generic_parameters(self._td)
+            name = f"{td.generic_fullname}[{generic_parameters}]"
         else:
             name = td.fullname
         writer.write("    @winrt_activatemethod\n")
@@ -595,8 +594,9 @@ class Com:
 
 
 class Delegate:
-    def __init__(self, td: TypeDefinition) -> None:
+    def __init__(self, td: TypeDefinition, formatter: Formatter) -> None:
         self._td = td
+        self._formatter = formatter
 
     @property
     def namespace(self) -> str:
@@ -616,8 +616,8 @@ class Delegate:
     def emit(self) -> str:
         writer = StringIO()
         if self._td.is_generic:
-            generic_parameters = td_format_generic_parameters(self._td)
-            name = generic_strip_suffix(self._td.name)
+            generic_parameters = self._formatter.generic_parameters(self._td)
+            name = self._td.generic_name
             base = f"Generic[{generic_parameters}], MulticastDelegate"
         else:
             name = self._td.name
@@ -627,10 +627,10 @@ class Delegate:
         if self._td.custom_attributes.has_winrt_guid():
             guid = self._td.custom_attributes.get_winrt_guid()
             writer.write(f"    _iid_ = Guid('{guid}')\n")
+        com = Com(self._td, self._formatter)  # FIXME
         p_vtbl_index = [3]  # count of IUnknown
         for md in self._td.method_definitions:
             if md.name == ".ctor":
                 continue
-            # FIXME
-            writer.write(Com.winrt_method(self._td, md, p_vtbl_index))
+            writer.write(com.winrt_method(self._td, md, p_vtbl_index))
         return writer.getvalue()

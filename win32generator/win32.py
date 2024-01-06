@@ -48,93 +48,97 @@ BASE_EXPORTS = [
 BASE_EXPORTS_CSV = ", ".join(BASE_EXPORTS)
 
 
-def ttype_pytype(self: TType) -> str:
-    if self.kind == "Primitive":
-        return self.name
-    elif self.kind == "Pointer":
-        if self.type.kind == "Primitive" and self.type.name == "Void":
-            return "VoidPtr"
-        else:
-            return f"POINTER({ttype_pytype(self.type)})"
-    elif self.kind == "Array":
-        return f"{ttype_pytype(self.type)} * {self.size}"
-    elif self.kind == "Type":
-        if self.is_nested:
-            return self.name
-        elif self.is_guid:
-            return "Guid"
-        else:
-            return f"{Package.abs_pkg(self.fullname)}"
-    else:
-        raise NotImplementedError()
-
-
-def md_parameter_names_annotated(self: MethodDefinition) -> list[str]:
-    return [f"{pa.name}: {ttype_pytype(type_)}" for pa, type_ in self.parameters_with_type]
-
-
-def fd_pyvalue(self: FieldDefinition) -> str:
-    if "HasDefault" in self.attributes:
-        return ascii(self.default_value.value)
-    elif self.signature.kind == "Type" and self.signature.fullname == "System.Guid":
-        guid = self.custom_attributes.get_guid()
-        return f"Guid('{guid}')"
-    elif self.signature.kind == "Type" and self.signature.fullname == "Windows.Win32.Devices.Properties.DEVPROPKEY":
-        guid, pid = self.custom_attributes.get_property_key()
-        return f"ConstantLazyLoader(fmtid=Guid('{guid}'), pid={pid})"
-    elif (
-        self.signature.kind == "Type"
-        and self.signature.fullname == "Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY"
-    ):
-        guid, pid = self.custom_attributes.get_property_key()
-        return f"ConstantLazyLoader(fmtid=Guid('{guid}'), pid={pid})"
-    elif self.signature.kind == "Type" and self.signature.fullname == "Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY":
-        value = self.custom_attributes.get_constant()
-        return f"ConstantLazyLoader({value})"
-    else:
-        # FIXME:
-        raise NotImplementedError()
-
-
 class Parser:
     def __init__(self, package: Package) -> None:
         self._package = package
 
     def parse(self, td: TypeDefinition) -> None:
         if td.namespace not in self._package:
-            self._package[td.namespace] = Win32Module(self._package, td.namespace)
+            self._package[td.namespace] = Win32Module(td.namespace, self._package)
 
         module = self._package[td.namespace]
 
+        formatter = Formatter(self._package)
+
         if td.basetype is None:
-            module.add(Com(td))
+            module.add(Com(td, formatter))
         elif td.basetype == "System.Object":
             for fd in td.fields:
-                module.add(Constant(td, fd))
+                module.add(Constant(td, fd, formatter))
             for md in td.method_definitions:
                 if md.custom_attributes.has_constant():
-                    module.add(InlineFunction(td, md))
+                    module.add(InlineFunction(td, md, formatter))
                 else:
-                    module.add(ExternalFunction(td, md))
+                    module.add(ExternalFunction(td, md, formatter))
         elif td.basetype == "System.MulticastDelegate":
-            module.add(FunctionPointer(td))
+            module.add(FunctionPointer(td, formatter))
         elif td.basetype == "System.Enum":
-            module.add(Enum(td))
+            module.add(Enum(td, formatter))
         elif td.basetype == "System.ValueType":
             if td.custom_attributes.has_native_typedef():
-                module.add(NativeTypedef(td))
+                module.add(NativeTypedef(td, formatter))
             # FIXME: CLSID_ComClass is defined as attribute like [uuid(...)] struct ComClass {}.
             elif td.custom_attributes.has_guid() and not td.fields:
-                module.add(Clsid(td))
+                module.add(Clsid(td, formatter))
             elif "SequentialLayout" in td.attributes:
-                module.add(StructUnion(td))  # struct
+                module.add(StructUnion(td, formatter))  # struct
             elif "ExplicitLayout" in td.attributes:
-                module.add(StructUnion(td))  # union
+                module.add(StructUnion(td, formatter))  # union
             else:
                 raise NotImplementedError()
         elif td.basetype == "System.Attribute":
-            module.add(Attribute(td))
+            module.add(Attribute(td, formatter))
         else:
+            raise NotImplementedError()
+
+
+class Formatter:
+    def __init__(self, package: Package) -> None:
+        self._package = package
+
+    def pytype(self, ttype: TType) -> str:
+        if ttype.kind == "Primitive":
+            return ttype.name
+        elif ttype.kind == "Pointer":
+            if ttype.type.kind == "Primitive" and ttype.type.name == "Void":
+                return "VoidPtr"
+            else:
+                return f"POINTER({self.pytype(ttype.type)})"
+        elif ttype.kind == "Array":
+            return f"{self.pytype(ttype.type)} * {ttype.size}"
+        elif ttype.kind == "Type":
+            if ttype.is_nested:
+                return ttype.name
+            elif ttype.is_guid:
+                return "Guid"
+            else:
+                return f"{Package.abs_pkg(ttype.fullname)}"
+        else:
+            raise NotImplementedError()
+
+    def method_parameters_annotated(self, md: MethodDefinition) -> list[str]:
+        return [f"{pa.name}: {self.pytype(type_)}" for pa, type_ in md.parameters_with_type]
+
+    def pyvalue(self, fd: FieldDefinition) -> str:
+        if "HasDefault" in fd.attributes:
+            return ascii(fd.default_value.value)
+        elif fd.signature.kind == "Type" and fd.signature.fullname == "System.Guid":
+            guid = fd.custom_attributes.get_guid()
+            return f"Guid('{guid}')"
+        elif fd.signature.kind == "Type" and fd.signature.fullname == "Windows.Win32.Devices.Properties.DEVPROPKEY":
+            guid, pid = fd.custom_attributes.get_property_key()
+            return f"ConstantLazyLoader(fmtid=Guid('{guid}'), pid={pid})"
+        elif (
+            fd.signature.kind == "Type"
+            and fd.signature.fullname == "Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY"
+        ):
+            guid, pid = fd.custom_attributes.get_property_key()
+            return f"ConstantLazyLoader(fmtid=Guid('{guid}'), pid={pid})"
+        elif fd.signature.kind == "Type" and fd.signature.fullname == "Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY":
+            value = fd.custom_attributes.get_constant()
+            return f"ConstantLazyLoader({value})"
+        else:
+            # FIXME:
             raise NotImplementedError()
 
 
@@ -166,10 +170,11 @@ class Win32Module(Module):
 
 
 class Constant:
-    def __init__(self, td: TypeDefinition, fd: FieldDefinition) -> None:
+    def __init__(self, td: TypeDefinition, fd: FieldDefinition, formatter: Formatter) -> None:
         assert not td.custom_attributes.has_supported_architecture()
         self._td = td
         self._fd = fd
+        self._formatter = formatter
 
     @property
     def namespace(self) -> str:
@@ -190,20 +195,25 @@ class Constant:
         writer = StringIO()
         if "HasDefault" in self._fd.attributes:
             # primitive
-            writer.write(f"{self._fd.name}: {ttype_pytype(self._fd.signature)} = {fd_pyvalue(self._fd)}\n")
+            writer.write(
+                f"{self._fd.name}: {self._formatter.pytype(self._fd.signature)} = {self._formatter.pyvalue(self._fd)}\n"
+            )
         elif self._fd.signature.is_guid:
-            writer.write(f"{self._fd.name}: Guid = {fd_pyvalue(self._fd)}\n")
+            writer.write(f"{self._fd.name}: Guid = {self._formatter.pyvalue(self._fd)}\n")
         else:
             # composite type
-            writer.write(f"{self._fd.name}: {ttype_pytype(self._fd.signature)} = {fd_pyvalue(self._fd)}\n")
+            writer.write(
+                f"{self._fd.name}: {self._formatter.pytype(self._fd.signature)} = {self._formatter.pyvalue(self._fd)}\n"
+            )
         return writer.getvalue()
 
 
 class InlineFunction:
-    def __init__(self, td: TypeDefinition, md: MethodDefinition) -> None:
+    def __init__(self, td: TypeDefinition, md: MethodDefinition, formatter: Formatter) -> None:
         assert not md.parameters_with_type
         self._td = td
         self._md = md
+        self._formatter = formatter
 
     @property
     def namespace(self) -> str:
@@ -224,7 +234,7 @@ class InlineFunction:
 
     def emit(self) -> str:
         writer = StringIO()
-        restype = ttype_pytype(self._md.signature.return_type)
+        restype = self._formatter.pytype(self._md.signature.return_type)
         value = self._md.custom_attributes.get_constant()
         # FIXME: Should result be python primitive?  (e.g. -4 insted of HANDLE(-4))
         writer.write(f"def {self._md.name}() -> {restype}:\n")
@@ -233,9 +243,10 @@ class InlineFunction:
 
 
 class ExternalFunction:
-    def __init__(self, td: TypeDefinition, md: MethodDefinition) -> None:
+    def __init__(self, td: TypeDefinition, md: MethodDefinition, formatter: Formatter) -> None:
         self._td = td
         self._md = md
+        self._formatter = formatter
 
     @property
     def namespace(self) -> str:
@@ -258,8 +269,8 @@ class ExternalFunction:
         writer = StringIO()
         library = self._md.import_.module.name
         functype = self._functype()
-        restype = ttype_pytype(self._md.signature.return_type)
-        params = md_parameter_names_annotated(self._md)
+        restype = self._formatter.pytype(self._md.signature.return_type)
+        params = self._formatter.method_parameters_annotated(self._md)
         attrs = [f"'{library}'"]
         if self._md.name != self._md.import_.name:
             entry_point = self._entry_point()
@@ -291,9 +302,10 @@ class ExternalFunction:
 
 
 class FunctionPointer:
-    def __init__(self, td: TypeDefinition) -> None:
+    def __init__(self, td: TypeDefinition, formatter: Formatter) -> None:
         self._td = td
         self._md = td.method_definitions[1]  # [0]=.ctor, [1]=Invoke
+        self._formatter = formatter
 
     @property
     def namespace(self) -> str:
@@ -315,8 +327,8 @@ class FunctionPointer:
     def emit(self) -> str:
         writer = StringIO()
         functype = self._functype()
-        restype = ttype_pytype(self._md.signature.return_type)
-        params_csv = ", ".join(md_parameter_names_annotated(self._md))
+        restype = self._formatter.pytype(self._md.signature.return_type)
+        params_csv = ", ".join(self._formatter.method_parameters_annotated(self._md))
         writer.write(f"@{functype}\n")
         writer.write(f"def {self._td.name}({params_csv}) -> {restype}: ...\n")
         return writer.getvalue()
@@ -332,9 +344,10 @@ class FunctionPointer:
 
 
 class Enum:
-    def __init__(self, td: TypeDefinition) -> None:
+    def __init__(self, td: TypeDefinition, formatter: Formatter) -> None:
         assert not td.custom_attributes.has_supported_architecture()
         self._td = td
+        self._formatter = formatter
 
     @property
     def namespace(self) -> str:
@@ -354,16 +367,17 @@ class Enum:
     def emit(self) -> str:
         writer = StringIO()
         type_field, *value_fields = self._td.fields
-        writer.write(f"{self._td.name} = {ttype_pytype(type_field.signature)}\n")
+        writer.write(f"{self._td.name} = {self._formatter.pytype(type_field.signature)}\n")
         for fd in value_fields:
             writer.write(f"{fd.name}: {Package.abs_pkg(self._td.fullname)} = {fd.default_value.value}\n")
         return writer.getvalue()
 
 
 class NativeTypedef:
-    def __init__(self, td: TypeDefinition) -> None:
+    def __init__(self, td: TypeDefinition, formatter: Formatter) -> None:
         assert not td.custom_attributes.has_supported_architecture()
         self._td = td
+        self._formatter = formatter
 
     @property
     def namespace(self) -> str:
@@ -386,15 +400,16 @@ class NativeTypedef:
         elif self._td.name in ["PWSTR", "BSTR"]:  # POINTER(Char)
             pytype = "String"
         else:
-            pytype = ttype_pytype(self._td.fields[0].signature)
+            pytype = self._formatter.pytype(self._td.fields[0].signature)
             assert pytype not in ["POINTER(Byte)", "POINTER(Char)"]
         return f"{self._td.name} = {pytype}\n"
 
 
 class Clsid:
-    def __init__(self, td: TypeDefinition) -> None:
+    def __init__(self, td: TypeDefinition, formatter: Formatter) -> None:
         assert not td.custom_attributes.has_supported_architecture()
         self._td = td
+        self._formatter = formatter
 
     @property
     def namespace(self) -> str:
@@ -417,9 +432,10 @@ class Clsid:
 
 
 class StructUnion:
-    def __init__(self, td: TypeDefinition) -> None:
+    def __init__(self, td: TypeDefinition, formatter: Formatter) -> None:
         assert td.fields or not td.custom_attributes.has_guid()
         self._td = td
+        self._formatter = formatter
 
     @property
     def namespace(self) -> str:
@@ -450,13 +466,13 @@ class StructUnion:
             guid = self._td.custom_attributes.get_guid()
             writer.write(f"    _uuid_ = Guid('{guid}')\n")
         for fd in self._static_fields():
-            writer.write(f"    {fd.name} = {fd_pyvalue(fd)}\n")
+            writer.write(f"    {fd.name} = {self._formatter.pyvalue(fd)}\n")
         for fd in self._member_fields():
-            writer.write(f"    {fd.name}: {ttype_pytype(fd.signature)}\n")
+            writer.write(f"    {fd.name}: {self._formatter.pytype(fd.signature)}\n")
         if self._td.layout.packing_size != 0:
             writer.write(f"    _pack_ = {self._td.layout.packing_size}\n")
         for nested_type in self._td.nested_types:
-            writer.write(textwrap.indent(StructUnion(nested_type).emit(), "    "))
+            writer.write(textwrap.indent(StructUnion(nested_type, self._formatter).emit(), "    "))
         return writer.getvalue()
 
     def _basetype(self) -> str:
@@ -485,9 +501,10 @@ class StructUnion:
 
 
 class Com:
-    def __init__(self, td: TypeDefinition) -> None:
+    def __init__(self, td: TypeDefinition, formatter: Formatter) -> None:
         assert not td.custom_attributes.has_supported_architecture()
         self._td = td
+        self._formatter = formatter
 
     @property
     def namespace(self) -> str:
@@ -514,9 +531,9 @@ class Com:
             writer.write(f"    _iid_ = Guid('{guid}')\n")
         vtbl_index = self._count_interface_method()
         for md in self._td.method_definitions:
-            restype = ttype_pytype(md.signature.return_type)
+            restype = self._formatter.pytype(md.signature.return_type)
             params = ["self"]
-            params.extend(md_parameter_names_annotated(md))
+            params.extend(self._formatter.method_parameters_annotated(md))
             params_csv = ", ".join(params)
             writer.write(f"    @commethod({vtbl_index})\n")
             writer.write(f"    def {md.name}({params_csv}) -> {restype}: ...\n")
@@ -543,9 +560,10 @@ class Com:
 
 
 class Attribute:
-    def __init__(self, td: TypeDefinition) -> None:
+    def __init__(self, td: TypeDefinition, formatter: Formatter) -> None:
         assert not td.custom_attributes.has_supported_architecture()
         self._td = td
+        self._formatter = formatter
 
     @property
     def namespace(self) -> str:
@@ -565,7 +583,7 @@ class Attribute:
     def emit(self) -> str:
         writer = StringIO()
         md = self._td.method_definitions[0]  # [0]=.ctor
-        params = md_parameter_names_annotated(md)
+        params = self._formatter.method_parameters_annotated(md)
         writer.write(f"class {self._td.name}(EasyCastStructure):\n")
         if not params:
             writer.write("    pass\n")

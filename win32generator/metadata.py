@@ -41,6 +41,14 @@ class TType:
         return f"{self.namespace}.{self.name}"
 
     @property
+    def generic_name(self) -> str:
+        return self.name.split("`")[0]
+
+    @property
+    def generic_fullname(self) -> str:
+        return f"{self.namespace}.{self.generic_name}"
+
+    @property
     def type(self) -> TType:
         if self["Type"] is None:
             raise KeyError()
@@ -127,6 +135,14 @@ class TypeDefinition:
     @property
     def fullname(self) -> str:
         return f"{self.namespace}.{self.name}"
+
+    @property
+    def generic_name(self) -> str:
+        return self.name.split("`")[0]
+
+    @property
+    def generic_fullname(self) -> str:
+        return f"{self.namespace}.{self.generic_name}"
 
     @property
     def basetype(self) -> str | None:
