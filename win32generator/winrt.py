@@ -440,6 +440,135 @@ class Com:
             raise TypeError()
         return len(com._td.method_definitions) + com._count_interface_method()
 
+    def _constructor(self) -> str:
+        writer = StringIO()
+        methods = []
+        if self._td.custom_attributes.has_composable():
+            ca = self._td.custom_attributes.get_composable()
+            methods.extend(self._composable_methods(ca.fixed_arguments[0].value))
+        for ca in self._td.custom_attributes.get_activatable():
+            if ca.fixed_arguments[0].type.kind == "Type":
+                methods.extend(self._activatable_methods(ca.fixed_arguments[0].value))
+            else:
+                methods.append(
+                    Method(
+                        name="CreateInstance",
+                        nargs=0,
+                        invoke=f"{self._formatter.fullname(self._td)}.CreateInstance(*args)",
+                        declare=self._activatemethod(),
+                        default_overload=False,
+                    )
+                )
+        if not methods:
+            return ""
+        methods.sort(key=lambda method: method.nargs)
+        writer.write("    def __new__(cls, *args, **kwargs):\n")
+        writer.write("        if kwargs:\n")
+        writer.write("            return super().__new__(cls, **kwargs)\n")
+        for i, method in enumerate(methods):
+            writer.write(f"        elif len(args) == {method.nargs}:\n")
+            writer.write(f"            return {method.invoke}\n")
+        writer.write("        else:\n")
+        writer.write("            raise ValueError('no matched constructor')\n")
+        writer.write(self._methods_overload(methods))
+        return writer.getvalue()
+
+    def _composable_methods(self, fullname: str) -> list[Method]:
+        namespace, name = fullname.rsplit(".", 1)
+        com = self._package[namespace][name]
+        if not isinstance(com, Com):
+            raise TypeError()
+        td = com._td
+        methods = []
+        for md in td.method_definitions:
+            assert md.signature.return_type.fullname == self._td.fullname
+            methods.append(
+                Method(
+                    name=md.name_overload,
+                    nargs=len(md.get_parameter_names()) - 2,
+                    invoke=f"{self._formatter.fullname(self._td)}.{md.name_overload}(*args, None, None)",
+                    declare=self._factorymethod(td, md),
+                    default_overload=False,
+                )
+            )
+        return methods
+
+    def _activatable_methods(self, fullname: str) -> list[Method]:
+        namespace, name = fullname.rsplit(".", 1)
+        com = self._package[namespace][name]
+        if not isinstance(com, Com):
+            raise TypeError()
+        td = com._td
+        methods = []
+        for md in td.method_definitions:
+            assert md.signature.return_type.fullname == self._td.fullname
+            methods.append(
+                Method(
+                    name=md.name_overload,
+                    nargs=len(md.get_parameter_names()),
+                    invoke=f"{self._formatter.fullname(self._td)}.{md.name_overload}(*args)",
+                    declare=self._factorymethod(td, md),
+                    default_overload=False,
+                )
+            )
+        return methods
+
+    def _factorymethod(self, td: TypeDefinition, md: MethodDefinition) -> str:
+        writer = StringIO()
+        clsname = self._formatter.fullname(self._formatter.generic_name_with_parameters(td))
+        restype = self._formatter.pytype(md.signature.return_type)
+        params = ", ".join([f"cls: {clsname}"] + self._formatter.method_parameters_annotated(md))
+        writer.write("    @winrt_factorymethod\n")
+        writer.write(f"    def {md.name}({params}) -> {restype}: ...\n")
+        return writer.getvalue()
+
+    def _activatemethod(self) -> str:
+        writer = StringIO()
+        clsname = self._formatter.fullname(self._formatter.generic_name_with_parameters(self._td))
+        writer.write("    @winrt_activatemethod\n")
+        writer.write(f"    def CreateInstance(cls) -> {clsname}: ...\n")
+        return writer.getvalue()
+
+    def _methods(self) -> str:
+        writer = StringIO()
+        methods = []
+        default_overload = set()
+        vtbl_index = self._count_interface_method()
+        for md in self._td.method_definitions:
+            if md.name == ".ctor":
+                continue
+            if "Static" in md.attributes:
+                method_declare = self._classmethod(md)
+            elif "Abstract" in self._td.attributes:
+                method_declare = self._commethod(md, vtbl_index)
+                vtbl_index += 1
+            else:
+                method_declare = self._mixinmethod(md)
+            method = Method(
+                name=md.name_overload,
+                nargs=len(md.get_parameter_names()),
+                invoke="",
+                declare=method_declare,
+                default_overload=md.custom_attributes.has_default_overload(),
+            )
+            methods.append(method)
+            if method.default_overload:
+                default_overload.add((method.name, method.nargs))
+
+        # Remove colliding method
+        # FIXME: Need strongly typed dispatch?
+        # Windows.Globalization.NumberFormatting.CurrencyFormatter has Format(Int64) (overload_name=FormatInt) and FormatInt(Int64).
+        methods = list(
+            {
+                method.declare: method
+                for method in methods
+                if method.default_overload or ((method.name, method.nargs) not in default_overload)
+            }.values()
+        )
+
+        writer.write(self._methods_overload(methods))
+        return writer.getvalue()
+
     def _classmethod(self, md: MethodDefinition) -> str:
         writer = StringIO()
         restype = self._formatter.pytype(md.signature.return_type)
@@ -502,134 +631,8 @@ class Com:
                         return self._formatter.generic_name_with_arguments(ii)
         raise KeyError()
 
-    def _factorymethod(self, td: TypeDefinition, md: MethodDefinition) -> str:
+    def _methods_overload(self, methods: list[Method]) -> str:
         writer = StringIO()
-        clsname = self._formatter.fullname(self._formatter.generic_name_with_parameters(td))
-        restype = self._formatter.pytype(md.signature.return_type)
-        params = ", ".join([f"cls: {clsname}"] + self._formatter.method_parameters_annotated(md))
-        writer.write("    @winrt_factorymethod\n")
-        writer.write(f"    def {md.name}({params}) -> {restype}: ...\n")
-        return writer.getvalue()
-
-    def _activatemethod(self) -> str:
-        writer = StringIO()
-        clsname = self._formatter.fullname(self._formatter.generic_name_with_parameters(self._td))
-        writer.write("    @winrt_activatemethod\n")
-        writer.write(f"    def CreateInstance(cls) -> {clsname}: ...\n")
-        return writer.getvalue()
-
-    def _constructor(self) -> str:
-        writer = StringIO()
-        methods = []
-        if self._td.custom_attributes.has_composable():
-            ca = self._td.custom_attributes.get_composable()
-            namespace, name = ca.fixed_arguments[0].value.rsplit(".", 1)
-            com = self._package[namespace][name]
-            if not isinstance(com, Com):
-                raise TypeError()
-            factory = com._td
-            for md in factory.method_definitions:
-                assert md.signature.return_type.fullname == self._td.fullname
-                methods.append(
-                    Method(
-                        name=md.name_overload,
-                        nargs=len(md.get_parameter_names()) - 2,
-                        invoke=f"{self._formatter.fullname(self._td)}.{md.name_overload}(*args, None, None)",
-                        declare=self._factorymethod(factory, md),
-                        default_overload=False,
-                    )
-                )
-        for ca in self._td.custom_attributes.get_activatable():
-            if ca.fixed_arguments[0].type.kind == "Type":
-                namespace, name = ca.fixed_arguments[0].value.rsplit(".", 1)
-                com = self._package[namespace][name]
-                if not isinstance(com, Com):
-                    raise TypeError()
-                factory = com._td
-                for md in factory.method_definitions:
-                    assert md.signature.return_type.fullname == self._td.fullname
-                    methods.append(
-                        Method(
-                            name=md.name_overload,
-                            nargs=len(md.get_parameter_names()),
-                            invoke=f"{self._formatter.fullname(self._td)}.{md.name_overload}(*args)",
-                            declare=self._factorymethod(factory, md),
-                            default_overload=False,
-                        )
-                    )
-            else:
-                methods.append(
-                    Method(
-                        name="CreateInstance",
-                        nargs=0,
-                        invoke=f"{self._formatter.fullname(self._td)}.CreateInstance(*args)",
-                        declare=self._activatemethod(),
-                        default_overload=False,
-                    )
-                )
-        if not methods:
-            return ""
-        methods.sort(key=lambda method: method.nargs)
-        writer.write("    def __new__(cls, *args, **kwargs):\n")
-        writer.write("        if kwargs:\n")
-        writer.write("            return super().__new__(cls, **kwargs)\n")
-        for i, method in enumerate(methods):
-            writer.write(f"        elif len(args) == {method.nargs}:\n")
-            writer.write(f"            return {method.invoke}\n")
-        writer.write("        else:\n")
-        writer.write("            raise ValueError('no matched constructor')\n")
-        overload_initialized = set()
-        overload_count = Counter(method.name for method in methods)
-        overload_same_name_and_nargs = set()
-        for method in methods:
-            if overload_count[method.name] > 1:
-                if method.name not in overload_initialized:
-                    overload_initialized.add(method.name)
-                    writer.write("    @winrt_overload\n")
-                else:
-                    writer.write(f"    @{method.name}.register\n")
-            writer.write(method.declare)
-            assert (method.name, method.nargs) not in overload_same_name_and_nargs
-            overload_same_name_and_nargs.add((method.name, method.nargs))
-        return writer.getvalue()
-
-    def _methods(self) -> str:
-        writer = StringIO()
-        methods = []
-        default_overload = set()
-        vtbl_index = self._count_interface_method()
-        for md in self._td.method_definitions:
-            if md.name == ".ctor":
-                continue
-            if "Static" in md.attributes:
-                method_declare = self._classmethod(md)
-            elif "Abstract" in self._td.attributes:
-                method_declare = self._commethod(md, vtbl_index)
-                vtbl_index += 1
-            else:
-                method_declare = self._mixinmethod(md)
-            method = Method(
-                name=md.name_overload,
-                nargs=len(md.get_parameter_names()),
-                invoke="",
-                declare=method_declare,
-                default_overload=md.custom_attributes.has_default_overload(),
-            )
-            methods.append(method)
-            if method.default_overload:
-                default_overload.add((method.name, method.nargs))
-
-        # Remove colliding method
-        # FIXME: Need strongly typed dispatch?
-        # Windows.Globalization.NumberFormatting.CurrencyFormatter has Format(Int64) (overload_name=FormatInt) and FormatInt(Int64).
-        methods = list(
-            {
-                method.declare: method
-                for method in methods
-                if method.default_overload or ((method.name, method.nargs) not in default_overload)
-            }.values()
-        )
-
         overload_initialized = set()
         overload_count = Counter(method.name for method in methods)
         overload_same_name_and_nargs = set()
