@@ -7,7 +7,7 @@ from dataclasses import dataclass
 from io import StringIO
 
 from .backport import removeprefix
-from .metadata import FieldDefinition, InterfaceImplementation, MethodDefinition, TType, TypeDefinition
+from .metadata import InterfaceImplementation, MethodDefinition, TType, TypeDefinition
 from .package import ApiItem, Module, Package
 from .win32 import BASE_EXPORTS_CSV
 
@@ -91,17 +91,6 @@ def md_parameter_names_annotated(self: MethodDefinition) -> list[str]:
             pytype = ttype_pytype(type_)
         r.append(f"{pa.name}: {pytype}")
     return r
-
-
-def fd_pyvalue(self: FieldDefinition) -> str:
-    if "HasDefault" in self.attributes:
-        return ascii(self.default_value.value)
-    elif self.signature.kind == "Type" and self.signature.fullname == "System.Guid":
-        guid = self.custom_attributes.get_winrt_guid()
-        return f"Guid('{guid}')"
-    else:
-        # FIXME:
-        raise NotImplementedError()
 
 
 def ii_generic_fullname(self: InterfaceImplementation) -> str:
