@@ -294,35 +294,81 @@ class Com:
 
     def emit(self) -> str:
         writer = StringIO()
-        if self._td.is_generic:
-            generic_parameters = self._formatter.generic_parameters(self._td)
-            classname = self._td.generic_name
-            base = f"Generic[{generic_parameters}], ComPtr"
-        else:
-            classname = self._td.name
-            base = "ComPtr"
-        if self.com_has_classproperty(self._td):
-            metaclass = f"_{classname}_Meta_"
-            metaclass_args = f", metaclass={metaclass}"
-            writer.write(f"class {metaclass}(ComPtr.__class__):\n")
+        if self._has_classproperty():
+            writer.write(f"class {self._metaclass_name()}(ComPtr.__class__):\n")
             writer.write("    pass\n")
-        else:
-            metaclass = ""
-            metaclass_args = ""
-        writer.write(f"class {classname}({base}{metaclass_args}):\n")
+        writer.write(f"class {self._generic_name}({self._basetype()}):\n")
         writer.write(f"    extends: {self._extends()}\n")
-        for ii in self._td.interface_implementations:
-            if ii.custom_attributes.has_default():
-                writer.write(
-                    f"    default_interface: {self._formatter.fullname(self._formatter.generic_name_with_arguments(ii))}\n"
-                )
-                break
-        writer.write(f"    _classid_ = '{self._td.namespace}.{classname}'\n")
+        if self._has_default_interface():
+            writer.write(f"    default_interface: {self._default_interface()}\n")
+        writer.write(f"    _classid_ = '{self._generic_fullname}'\n")
         if self._td.custom_attributes.has_winrt_guid():
             guid = self._td.custom_attributes.get_winrt_guid()
             writer.write(f"    _iid_ = Guid('{guid}')\n")
         writer.write(self.winrt_constructor(self._td))
         writer.write(self.winrt_method_definitions(self._td))
+        writer.write(self._properties())
+        writer.write(self._await_method())
+        return writer.getvalue()
+
+    @property
+    def _generic_name(self) -> str:
+        if self._td.is_generic:
+            return self._td.generic_name
+        return self._td.name
+
+    @property
+    def _generic_fullname(self) -> str:
+        return f"{self.namespace}.{self._generic_name}"
+
+    def _metaclass_name(self) -> str:
+        return f"_{self._generic_name}_Meta_"
+
+    def _basetype(self) -> str:
+        if self._td.is_generic:
+            generic_parameters = self._formatter.generic_parameters(self._td)
+            base = f"Generic[{generic_parameters}], ComPtr"
+        else:
+            base = "ComPtr"
+        if self._has_classproperty():
+            base = f"{base}, metaclass={self._metaclass_name()}"
+        return base
+
+    def _extends(self) -> str:
+        if self._td.basetype is None:
+            # interface
+            return self._formatter.fullname("Windows.Win32.System.WinRT.IInspectable")
+        elif self._td.basetype == "System.Object":
+            # runtime class
+            return self._formatter.fullname("Windows.Win32.System.WinRT.IInspectable")
+        else:
+            return self._formatter.fullname(self._td.basetype)
+
+    def _has_default_interface(self) -> bool:
+        for ii in self._td.interface_implementations:
+            if ii.custom_attributes.has_default():
+                return True
+        return False
+
+    def _default_interface(self) -> str:
+        for ii in self._td.interface_implementations:
+            if ii.custom_attributes.has_default():
+                return self._formatter.fullname(self._formatter.generic_name_with_arguments(ii))
+        raise ValueError()
+
+    def _has_classproperty(self) -> bool:
+        for md in self._td.method_definitions:
+            if md.name == ".ctor":
+                continue
+            is_static = "Static" in md.attributes
+            is_special = "SpecialName" in md.attributes
+            is_property = md.name.startswith(("get_", "put_"))
+            if is_static and is_special and is_property:
+                return True
+        return False
+
+    def _properties(self) -> str:
+        writer = StringIO()
         properties: dict[str, dict[str, str | bool | None]] = defaultdict(lambda: {"get": None, "put": None})
         for md in self._td.method_definitions:
             if md.name == ".ctor":
@@ -357,36 +403,30 @@ class Com:
                     setter = "None"
                 else:
                     setter = f"{attrs['put']}.__wrapped__"
-                writer.write(f"    {metaclass}.{name} = property({getter}, {setter})\n")
+                writer.write(f"    {self._metaclass_name()}.{name} = property({getter}, {setter})\n")
             else:
                 writer.write(f"    {name} = property({attrs['get']}, {attrs['put']})\n")
-        if f"{self._td.namespace}.{classname}" == "Windows.Foundation.IAsyncOperation":
+        return writer.getvalue()
+
+    def _await_method(self) -> str:
+        writer = StringIO()
+        if self._td.generic_fullname == "Windows.Foundation.IAsyncOperation":
             writer.write("    def __await__(self):\n")
             writer.write(f"        from {self._package.name}._winrt import IAsyncOperation___await__\n")
             writer.write("        return IAsyncOperation___await__(self)\n")
-        elif f"{self._td.namespace}.{classname}" == "Windows.Foundation.IAsyncOperationWithProgress":
+        elif self._td.generic_fullname == "Windows.Foundation.IAsyncOperationWithProgress":
             writer.write("    def __await__(self):\n")
             writer.write(f"        from {self._package.name}._winrt import IAsyncOperation___await__\n")
             writer.write("        return IAsyncOperation___await__(self)\n")
-        elif f"{self._td.namespace}.{classname}" == "Windows.Foundation.IAsyncAction":
+        elif self._td.generic_fullname == "Windows.Foundation.IAsyncAction":
             writer.write("    def __await__(self):\n")
             writer.write(f"        from {self._package.name}._winrt import IAsyncAction___await__\n")
             writer.write("        return IAsyncAction___await__(self)\n")
-        elif f"{self._td.namespace}.{classname}" == "Windows.Foundation.IAsyncActionWithProgress":
+        elif self._td.generic_fullname == "Windows.Foundation.IAsyncActionWithProgress":
             writer.write("    def __await__(self):\n")
             writer.write(f"        from {self._package.name}._winrt import IAsyncAction___await__\n")
             writer.write("        return IAsyncAction___await__(self)\n")
         return writer.getvalue()
-
-    def _extends(self) -> str:
-        if self._td.basetype is None:
-            # interface
-            return self._formatter.fullname("Windows.Win32.System.WinRT.IInspectable")
-        elif self._td.basetype == "System.Object":
-            # runtime class
-            return self._formatter.fullname("Windows.Win32.System.WinRT.IInspectable")
-        else:
-            return self._formatter.fullname(self._td.basetype)
 
     def com_get_interface_for_method(self, td: TypeDefinition, method_name: str, params: list[str]) -> str:
         for ii in td.interface_implementations:
@@ -419,17 +459,6 @@ class Com:
                 if static_method_name == method_name and len(md.get_parameter_names()) == method_nargs:
                     return ca.fixed_arguments[0].value
         raise KeyError()
-
-    def com_has_classproperty(self, td: TypeDefinition) -> bool:
-        for md in td.method_definitions:
-            if md.name == ".ctor":
-                continue
-            is_static = "Static" in md.attributes
-            is_special = "SpecialName" in md.attributes
-            is_property = md.name.startswith(("get_", "put_"))
-            if is_static and is_special and is_property:
-                return True
-        return False
 
     def winrt_method(self, td: TypeDefinition, md: MethodDefinition, p_vtbl_index: list[int]) -> str:
         writer = StringIO()
