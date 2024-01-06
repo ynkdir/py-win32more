@@ -23,10 +23,18 @@ class Preprocessor:
     # FIXME: enum value name? (NAME or ENUM_NAME or ENUM.Name?)
     def patch_enum(self, meta: Metadata) -> None:
         for td in meta:
-            # TODO: currently conflict is VK_F only
-            #   enum Windows.Win32.UI.Input.KeyboardAndMouse.VIRTUAL_KEY.VK_F
-            # struct Windows.Win32.UI.Input.KeyboardAndMouse.VK_F
-            if td.basetype == "System.Enum" and self.enum_need_prefix(td):
+            if td.basetype != "System.Enum":
+                continue
+            if td.fullname == "Windows.Win32.UI.Input.KeyboardAndMouse.VIRTUAL_KEY":
+                for fd in td.fields[1:]:
+                    if fd.name == "VK_F":
+                        # VK_F is manually added by win32metadata/.../enums.json and is conflict with struct VK_F.
+                        #   enum Windows.Win32.UI.Input.KeyboardAndMouse.VIRTUAL_KEY.VK_F
+                        # struct Windows.Win32.UI.Input.KeyboardAndMouse.VK_F
+                        logger.info(f"enum rename '{td.fullname}.{fd.name}'")
+                        fd["Name"] = f"{fd['Name']}_"
+                        break
+            elif self.enum_need_prefix(td):
                 for fd in td.fields[1:]:  # skip [0] which is type field
                     # logger.debug(f"enum rename '{td.fullname}.{fd.name}'")
                     fd["Name"] = f"{td['Name']}_{fd['Name']}"
