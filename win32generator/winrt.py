@@ -431,21 +431,25 @@ class Com:
             writer.write("        return IAsyncAction___await__(self)\n")
         return writer.getvalue()
 
-    def _get_interface_for_method(self, method_name: str, params: list[str]) -> str:
-        for ii in self._td.interface_implementations:
-            com = self._package[ii.namespace][ii.name]
-            if not isinstance(com, Com):
-                raise TypeError()
-            td_interface = com._td
-            for md in td_interface.method_definitions:
-                if md.custom_attributes.has_overload():
-                    interface_method_name = md.custom_attributes.get_overload()
-                else:
-                    interface_method_name = md.name
-                if interface_method_name == method_name:
-                    if md.get_parameter_names() == params:
-                        return self._formatter.generic_name_with_arguments(ii)
-        raise KeyError()
+    def _count_interface_method(self) -> int:
+        if self._td.basetype is None or self._td.basetype == "System.Object":
+            return 6  # count of IInspectable
+        namespace, name = self._td.basetype.rsplit(".", 1)
+        com = self._package[namespace][name]
+        if not isinstance(com, Com):
+            raise TypeError()
+        return len(com._td.method_definitions) + com._count_interface_method()
+
+    def _classmethod(self, md: MethodDefinition) -> str:
+        writer = StringIO()
+        restype = self._formatter.pytype(md.signature.return_type)
+        interface = self._get_static_interface_for_method(md.name_overload, len(md.get_parameter_names()))
+        params = ", ".join(
+            [f"cls: {self._formatter.fullname(interface)}"] + self._formatter.method_parameters_annotated(md)
+        )
+        writer.write("    @winrt_classmethod\n")
+        writer.write(f"    def {md.name_overload}({params}) -> {restype}: ...\n")
+        return writer.getvalue()
 
     def _get_static_interface_for_method(self, method_name: str, method_nargs: int) -> str:
         for ca in self._td.custom_attributes.get_static():
@@ -463,47 +467,48 @@ class Com:
                     return ca.fixed_arguments[0].value
         raise KeyError()
 
-    def winrt_method(self, md: MethodDefinition, p_vtbl_index: list[int]) -> str:
+    def _commethod(self, md: MethodDefinition, vtbl_index: int) -> str:
         writer = StringIO()
-        method_name = md.name_overload
-        params = ["self"] + self._formatter.method_parameters_annotated(md)
         restype = self._formatter.pytype(md.signature.return_type)
-        if self._td.basetype == "System.MulticastDelegate":
-            pass
-        elif "Static" in md.attributes:
-            writer.write("    @winrt_classmethod\n")
-            interface = self._get_static_interface_for_method(method_name, len(md.get_parameter_names()))
-            params[0] = f"cls: {self._formatter.fullname(interface)}"
-        elif "Abstract" not in self._td.attributes:
-            writer.write("    @winrt_mixinmethod\n")
-            interface = self._get_interface_for_method(method_name, md.get_parameter_names())
-            params[0] = f"self: {self._formatter.fullname(interface)}"
-        else:
-            writer.write(f"    @winrt_commethod({p_vtbl_index[0]})\n")
-            p_vtbl_index[0] += 1
-        params_csv = ", ".join(params)
-        writer.write(f"    def {method_name}({params_csv}) -> {restype}: ...\n")
+        params = ", ".join(["self"] + self._formatter.method_parameters_annotated(md))
+        writer.write(f"    @winrt_commethod({vtbl_index})\n")
+        writer.write(f"    def {md.name_overload}({params}) -> {restype}: ...\n")
         return writer.getvalue()
 
-    def _count_interface_method(self) -> int:
-        if self._td.basetype is None or self._td.basetype == "System.Object":
-            return 6  # count of IInspectable
-        elif self._td.basetype == "System.MulticastDelegate":
-            return 3  # count of IUnknown
-        namespace, name = self._td.basetype.rsplit(".", 1)
-        com = self._package[namespace][name]
-        if not isinstance(com, Com):
-            raise TypeError()
-        return len(com._td.method_definitions) + com._count_interface_method()
+    def _mixinmethod(self, md: MethodDefinition) -> str:
+        writer = StringIO()
+        restype = self._formatter.pytype(md.signature.return_type)
+        interface = self._get_interface_for_method(md.name_overload, md.get_parameter_names())
+        params = ", ".join(
+            [f"self: {self._formatter.fullname(interface)}"] + self._formatter.method_parameters_annotated(md)
+        )
+        writer.write("    @winrt_mixinmethod\n")
+        writer.write(f"    def {md.name_overload}({params}) -> {restype}: ...\n")
+        return writer.getvalue()
+
+    def _get_interface_for_method(self, method_name: str, params: list[str]) -> str:
+        for ii in self._td.interface_implementations:
+            com = self._package[ii.namespace][ii.name]
+            if not isinstance(com, Com):
+                raise TypeError()
+            td_interface = com._td
+            for md in td_interface.method_definitions:
+                if md.custom_attributes.has_overload():
+                    interface_method_name = md.custom_attributes.get_overload()
+                else:
+                    interface_method_name = md.name
+                if interface_method_name == method_name:
+                    if md.get_parameter_names() == params:
+                        return self._formatter.generic_name_with_arguments(ii)
+        raise KeyError()
 
     def _factorymethod(self, td: TypeDefinition, md: MethodDefinition) -> str:
         writer = StringIO()
         clsname = self._formatter.fullname(self._formatter.generic_name_with_parameters(td))
-        params = [f"cls: {clsname}"] + self._formatter.method_parameters_annotated(md)
-        params_csv = ", ".join(params)
         restype = self._formatter.pytype(md.signature.return_type)
+        params = ", ".join([f"cls: {clsname}"] + self._formatter.method_parameters_annotated(md))
         writer.write("    @winrt_factorymethod\n")
-        writer.write(f"    def {md.name}({params_csv}) -> {restype}: ...\n")
+        writer.write(f"    def {md.name}({params}) -> {restype}: ...\n")
         return writer.getvalue()
 
     def _activatemethod(self) -> str:
@@ -592,15 +597,22 @@ class Com:
         writer = StringIO()
         methods = []
         default_overload = set()
-        p_vtbl_index = [self._count_interface_method()]
+        vtbl_index = self._count_interface_method()
         for md in self._td.method_definitions:
             if md.name == ".ctor":
                 continue
+            if "Static" in md.attributes:
+                method_declare = self._classmethod(md)
+            elif "Abstract" in self._td.attributes:
+                method_declare = self._commethod(md, vtbl_index)
+                vtbl_index += 1
+            else:
+                method_declare = self._mixinmethod(md)
             method = Method(
                 name=md.name_overload,
                 nargs=len(md.get_parameter_names()),
                 invoke="",
-                declare=self.winrt_method(md, p_vtbl_index),
+                declare=method_declare,
                 default_overload=md.custom_attributes.has_default_overload(),
             )
             methods.append(method)
@@ -682,7 +694,6 @@ class Delegate:
     def _method(self, md: MethodDefinition) -> str:
         writer = StringIO()
         restype = self._formatter.pytype(md.signature.return_type)
-        params = ["self"] + self._formatter.method_parameters_annotated(md)
-        params_csv = ", ".join(params)
-        writer.write(f"    def {md.name}({params_csv}) -> {restype}: ...\n")
+        params = ", ".join(["self"] + self._formatter.method_parameters_annotated(md))
+        writer.write(f"    def {md.name}({params}) -> {restype}: ...\n")
         return writer.getvalue()

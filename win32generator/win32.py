@@ -549,12 +549,7 @@ class Com:
             writer.write(f"    _iid_ = Guid('{guid}')\n")
         vtbl_index = self._count_interface_method()
         for md in self._td.method_definitions:
-            restype = self._formatter.pytype(md.signature.return_type)
-            params = ["self"]
-            params.extend(self._formatter.method_parameters_annotated(md))
-            params_csv = ", ".join(params)
-            writer.write(f"    @commethod({vtbl_index})\n")
-            writer.write(f"    def {md.name}({params_csv}) -> {restype}: ...\n")
+            writer.write(self._method(md, vtbl_index))
             vtbl_index += 1
         return writer.getvalue()
 
@@ -574,6 +569,15 @@ class Com:
                 raise TypeError()
             yield com
             yield from com._enumerate_interfaces()
+
+    def _method(self, md: MethodDefinition, vtbl_index: int) -> str:
+        writer = StringIO()
+        restype = self._formatter.pytype(md.signature.return_type)
+        params = ", ".join(["self"] + self._formatter.method_parameters_annotated(md))
+        writer.write(f"    @commethod({vtbl_index})\n")
+        writer.write(f"    def {md.name}({params}) -> {restype}: ...\n")
+        vtbl_index += 1
+        return writer.getvalue()
 
 
 class Attribute:
