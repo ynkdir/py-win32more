@@ -33,7 +33,8 @@ class Package:
 
 
 class Module:
-    def __init__(self, namespace: str) -> None:
+    def __init__(self, package: Package, namespace: str) -> None:
+        self._package = package
         self._namespace = namespace
         self._items: dict[str, ApiItem] = {}
 

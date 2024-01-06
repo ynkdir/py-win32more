@@ -129,7 +129,7 @@ class Parser:
 
     def parse(self, td: TypeDefinition) -> None:
         if td.namespace not in self._package:
-            self._package[td.namespace] = WinrtModule(td.namespace)
+            self._package[td.namespace] = WinrtModule(self._package, td.namespace)
 
         module = self._package[td.namespace]
 
@@ -161,13 +161,13 @@ class WinrtModule(Module):
 
         writer.write("from __future__ import annotations\n")
 
-        writer.write(f"from {Package.name} import {BASE_EXPORTS_CSV}\n")
+        writer.write(f"from {self._package.name} import {BASE_EXPORTS_CSV}\n")
 
-        writer.write(f"from {Package.name}._winrt import {WINRT_EXPORTS_CSV}\n")
+        writer.write(f"from {self._package.name}._winrt import {WINRT_EXPORTS_CSV}\n")
 
-        if not Package.is_onefile:
+        if not self._package.is_onefile:
             for namespace in sorted(import_namespaces):
-                writer.write(f"import {Package.name}.{namespace}\n")
+                writer.write(f"import {self._package.name}.{namespace}\n")
 
         return writer.getvalue()
 
