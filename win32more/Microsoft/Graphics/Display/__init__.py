@@ -42,13 +42,13 @@ class DisplayAdvancedColorInfo(ComPtr):
     MinLuminanceInNits = property(get_MinLuminanceInNits, None)
     MaxAverageFullFrameLuminanceInNits = property(get_MaxAverageFullFrameLuminanceInNits, None)
     SdrWhiteLevelInNits = property(get_SdrWhiteLevelInNits, None)
-DisplayAdvancedColorKind = Int32
-DisplayAdvancedColorKind_StandardDynamicRange: DisplayAdvancedColorKind = 0
-DisplayAdvancedColorKind_WideColorGamut: DisplayAdvancedColorKind = 1
-DisplayAdvancedColorKind_HighDynamicRange: DisplayAdvancedColorKind = 2
-DisplayHdrMetadataFormat = Int32
-DisplayHdrMetadataFormat_Hdr10: DisplayHdrMetadataFormat = 0
-DisplayHdrMetadataFormat_Hdr10Plus: DisplayHdrMetadataFormat = 1
+class DisplayAdvancedColorKind(Int32):  # enum
+    StandardDynamicRange = 0
+    WideColorGamut = 1
+    HighDynamicRange = 2
+class DisplayHdrMetadataFormat(Int32):  # enum
+    Hdr10 = 0
+    Hdr10Plus = 1
 class DisplayInformation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Graphics.Display.IDisplayInformation

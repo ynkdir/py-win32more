@@ -7,10 +7,10 @@ import win32more.Windows.Foundation.Collections
 import win32more.Windows.Storage.Streams
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.WinRT
-CellularClass = Int32
-CellularClass_None: CellularClass = 0
-CellularClass_Gsm: CellularClass = 1
-CellularClass_Cdma: CellularClass = 2
+class CellularClass(Int32):  # enum
+    None_ = 0
+    Gsm = 1
+    Cdma = 2
 class DeleteSmsMessageOperation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.IAsyncAction
@@ -892,28 +892,28 @@ class SmsBroadcastMessage(ComPtr):
     CellularClass = property(get_CellularClass, None)
     MessageClass = property(get_MessageClass, None)
     SimIccId = property(get_SimIccId, None)
-SmsBroadcastType = Int32
-SmsBroadcastType_Other: SmsBroadcastType = 0
-SmsBroadcastType_CmasPresidential: SmsBroadcastType = 1
-SmsBroadcastType_CmasExtreme: SmsBroadcastType = 2
-SmsBroadcastType_CmasSevere: SmsBroadcastType = 3
-SmsBroadcastType_CmasAmber: SmsBroadcastType = 4
-SmsBroadcastType_CmasTest: SmsBroadcastType = 5
-SmsBroadcastType_EUAlert1: SmsBroadcastType = 6
-SmsBroadcastType_EUAlert2: SmsBroadcastType = 7
-SmsBroadcastType_EUAlert3: SmsBroadcastType = 8
-SmsBroadcastType_EUAlertAmber: SmsBroadcastType = 9
-SmsBroadcastType_EUAlertInfo: SmsBroadcastType = 10
-SmsBroadcastType_EtwsEarthquake: SmsBroadcastType = 11
-SmsBroadcastType_EtwsTsunami: SmsBroadcastType = 12
-SmsBroadcastType_EtwsTsunamiAndEarthquake: SmsBroadcastType = 13
-SmsBroadcastType_LatAlertLocal: SmsBroadcastType = 14
-SmsDataFormat = Int32
-SmsDataFormat_Unknown: SmsDataFormat = 0
-SmsDataFormat_CdmaSubmit: SmsDataFormat = 1
-SmsDataFormat_GsmSubmit: SmsDataFormat = 2
-SmsDataFormat_CdmaDeliver: SmsDataFormat = 3
-SmsDataFormat_GsmDeliver: SmsDataFormat = 4
+class SmsBroadcastType(Int32):  # enum
+    Other = 0
+    CmasPresidential = 1
+    CmasExtreme = 2
+    CmasSevere = 3
+    CmasAmber = 4
+    CmasTest = 5
+    EUAlert1 = 6
+    EUAlert2 = 7
+    EUAlert3 = 8
+    EUAlertAmber = 9
+    EUAlertInfo = 10
+    EtwsEarthquake = 11
+    EtwsTsunami = 12
+    EtwsTsunamiAndEarthquake = 13
+    LatAlertLocal = 14
+class SmsDataFormat(Int32):  # enum
+    Unknown = 0
+    CdmaSubmit = 1
+    GsmSubmit = 2
+    CdmaDeliver = 3
+    GsmDeliver = 4
 class SmsDevice(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Sms.ISmsDevice
@@ -1005,15 +1005,15 @@ class SmsDeviceMessageStore(ComPtr):
     @winrt_mixinmethod
     def get_MaxMessages(self: win32more.Windows.Devices.Sms.ISmsDeviceMessageStore) -> UInt32: ...
     MaxMessages = property(get_MaxMessages, None)
-SmsDeviceStatus = Int32
-SmsDeviceStatus_Off: SmsDeviceStatus = 0
-SmsDeviceStatus_Ready: SmsDeviceStatus = 1
-SmsDeviceStatus_SimNotInserted: SmsDeviceStatus = 2
-SmsDeviceStatus_BadSim: SmsDeviceStatus = 3
-SmsDeviceStatus_DeviceFailure: SmsDeviceStatus = 4
-SmsDeviceStatus_SubscriptionNotActivated: SmsDeviceStatus = 5
-SmsDeviceStatus_DeviceLocked: SmsDeviceStatus = 6
-SmsDeviceStatus_DeviceBlocked: SmsDeviceStatus = 7
+class SmsDeviceStatus(Int32):  # enum
+    Off = 0
+    Ready = 1
+    SimNotInserted = 2
+    BadSim = 3
+    DeviceFailure = 4
+    SubscriptionNotActivated = 5
+    DeviceLocked = 6
+    DeviceBlocked = 7
 class SmsDeviceStatusChangedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{982b1162-3dd7-4618-af89-0c272d5d06d8}')
@@ -1024,23 +1024,23 @@ class SmsEncodedLength(EasyCastStructure):
     CharactersPerSegment: UInt32
     ByteCountLastSegment: UInt32
     BytesPerSegment: UInt32
-SmsEncoding = Int32
-SmsEncoding_Unknown: SmsEncoding = 0
-SmsEncoding_Optimal: SmsEncoding = 1
-SmsEncoding_SevenBitAscii: SmsEncoding = 2
-SmsEncoding_Unicode: SmsEncoding = 3
-SmsEncoding_GsmSevenBit: SmsEncoding = 4
-SmsEncoding_EightBit: SmsEncoding = 5
-SmsEncoding_Latin: SmsEncoding = 6
-SmsEncoding_Korean: SmsEncoding = 7
-SmsEncoding_IA5: SmsEncoding = 8
-SmsEncoding_ShiftJis: SmsEncoding = 9
-SmsEncoding_LatinHebrew: SmsEncoding = 10
-SmsFilterActionType = Int32
-SmsFilterActionType_AcceptImmediately: SmsFilterActionType = 0
-SmsFilterActionType_Drop: SmsFilterActionType = 1
-SmsFilterActionType_Peek: SmsFilterActionType = 2
-SmsFilterActionType_Accept: SmsFilterActionType = 3
+class SmsEncoding(Int32):  # enum
+    Unknown = 0
+    Optimal = 1
+    SevenBitAscii = 2
+    Unicode = 3
+    GsmSevenBit = 4
+    EightBit = 5
+    Latin = 6
+    Korean = 7
+    IA5 = 8
+    ShiftJis = 9
+    LatinHebrew = 10
+class SmsFilterActionType(Int32):  # enum
+    AcceptImmediately = 0
+    Drop = 1
+    Peek = 2
+    Accept = 3
 class SmsFilterRule(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Sms.ISmsFilterRule
@@ -1114,24 +1114,24 @@ class SmsFilterRules(ComPtr):
     def get_Rules(self: win32more.Windows.Devices.Sms.ISmsFilterRules) -> win32more.Windows.Foundation.Collections.IVector[win32more.Windows.Devices.Sms.SmsFilterRule]: ...
     ActionType = property(get_ActionType, None)
     Rules = property(get_Rules, None)
-SmsGeographicalScope = Int32
-SmsGeographicalScope_None: SmsGeographicalScope = 0
-SmsGeographicalScope_CellWithImmediateDisplay: SmsGeographicalScope = 1
-SmsGeographicalScope_LocationArea: SmsGeographicalScope = 2
-SmsGeographicalScope_Plmn: SmsGeographicalScope = 3
-SmsGeographicalScope_Cell: SmsGeographicalScope = 4
-SmsMessageClass = Int32
-SmsMessageClass_None: SmsMessageClass = 0
-SmsMessageClass_Class0: SmsMessageClass = 1
-SmsMessageClass_Class1: SmsMessageClass = 2
-SmsMessageClass_Class2: SmsMessageClass = 3
-SmsMessageClass_Class3: SmsMessageClass = 4
-SmsMessageFilter = Int32
-SmsMessageFilter_All: SmsMessageFilter = 0
-SmsMessageFilter_Unread: SmsMessageFilter = 1
-SmsMessageFilter_Read: SmsMessageFilter = 2
-SmsMessageFilter_Sent: SmsMessageFilter = 3
-SmsMessageFilter_Draft: SmsMessageFilter = 4
+class SmsGeographicalScope(Int32):  # enum
+    None_ = 0
+    CellWithImmediateDisplay = 1
+    LocationArea = 2
+    Plmn = 3
+    Cell = 4
+class SmsMessageClass(Int32):  # enum
+    None_ = 0
+    Class0 = 1
+    Class1 = 2
+    Class2 = 3
+    Class3 = 4
+class SmsMessageFilter(Int32):  # enum
+    All = 0
+    Unread = 1
+    Read = 2
+    Sent = 3
+    Draft = 4
 class SmsMessageReceivedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Sms.ISmsMessageReceivedEventArgs
@@ -1195,27 +1195,27 @@ class SmsMessageRegistration(ComPtr, metaclass=_SmsMessageRegistration_Meta_):
     def Register(cls: win32more.Windows.Devices.Sms.ISmsMessageRegistrationStatics, id: WinRT_String, filterRules: win32more.Windows.Devices.Sms.SmsFilterRules) -> win32more.Windows.Devices.Sms.SmsMessageRegistration: ...
     Id = property(get_Id, None)
     _SmsMessageRegistration_Meta_.AllRegistrations = property(get_AllRegistrations.__wrapped__, None)
-SmsMessageType = Int32
-SmsMessageType_Binary: SmsMessageType = 0
-SmsMessageType_Text: SmsMessageType = 1
-SmsMessageType_Wap: SmsMessageType = 2
-SmsMessageType_App: SmsMessageType = 3
-SmsMessageType_Broadcast: SmsMessageType = 4
-SmsMessageType_Voicemail: SmsMessageType = 5
-SmsMessageType_Status: SmsMessageType = 6
-SmsModemErrorCode = Int32
-SmsModemErrorCode_Other: SmsModemErrorCode = 0
-SmsModemErrorCode_MessagingNetworkError: SmsModemErrorCode = 1
-SmsModemErrorCode_SmsOperationNotSupportedByDevice: SmsModemErrorCode = 2
-SmsModemErrorCode_SmsServiceNotSupportedByNetwork: SmsModemErrorCode = 3
-SmsModemErrorCode_DeviceFailure: SmsModemErrorCode = 4
-SmsModemErrorCode_MessageNotEncodedProperly: SmsModemErrorCode = 5
-SmsModemErrorCode_MessageTooLarge: SmsModemErrorCode = 6
-SmsModemErrorCode_DeviceNotReady: SmsModemErrorCode = 7
-SmsModemErrorCode_NetworkNotReady: SmsModemErrorCode = 8
-SmsModemErrorCode_InvalidSmscAddress: SmsModemErrorCode = 9
-SmsModemErrorCode_NetworkFailure: SmsModemErrorCode = 10
-SmsModemErrorCode_FixedDialingNumberRestricted: SmsModemErrorCode = 11
+class SmsMessageType(Int32):  # enum
+    Binary = 0
+    Text = 1
+    Wap = 2
+    App = 3
+    Broadcast = 4
+    Voicemail = 5
+    Status = 6
+class SmsModemErrorCode(Int32):  # enum
+    Other = 0
+    MessagingNetworkError = 1
+    SmsOperationNotSupportedByDevice = 2
+    SmsServiceNotSupportedByNetwork = 3
+    DeviceFailure = 4
+    MessageNotEncodedProperly = 5
+    MessageTooLarge = 6
+    DeviceNotReady = 7
+    NetworkNotReady = 8
+    InvalidSmscAddress = 9
+    NetworkFailure = 10
+    FixedDialingNumberRestricted = 11
 class SmsReceivedEventDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Sms.ISmsReceivedEventDetails

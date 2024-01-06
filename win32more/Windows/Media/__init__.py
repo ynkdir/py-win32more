@@ -27,10 +27,10 @@ class AudioBuffer(ComPtr):
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
     Capacity = property(get_Capacity, None)
     Length = property(get_Length, put_Length)
-AudioBufferAccessMode = Int32
-AudioBufferAccessMode_Read: AudioBufferAccessMode = 0
-AudioBufferAccessMode_ReadWrite: AudioBufferAccessMode = 1
-AudioBufferAccessMode_Write: AudioBufferAccessMode = 2
+class AudioBufferAccessMode(Int32):  # enum
+    Read = 0
+    ReadWrite = 1
+    Write = 2
 class AudioFrame(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.IAudioFrame
@@ -77,9 +77,9 @@ class AudioFrame(ComPtr):
     Duration = property(get_Duration, put_Duration)
     IsDiscontinuous = property(get_IsDiscontinuous, put_IsDiscontinuous)
     ExtendedProperties = property(get_ExtendedProperties, None)
-AudioProcessing = Int32
-AudioProcessing_Default: AudioProcessing = 0
-AudioProcessing_Raw: AudioProcessing = 1
+class AudioProcessing(Int32):  # enum
+    Default = 0
+    Raw = 1
 class AutoRepeatModeChangeRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.IAutoRepeatModeChangeRequestedEventArgs
@@ -842,21 +842,21 @@ class MediaMarkerTypes(ComPtr, metaclass=_MediaMarkerTypes_Meta_):
     @winrt_classmethod
     def get_Bookmark(cls: win32more.Windows.Media.IMediaMarkerTypesStatics) -> WinRT_String: ...
     _MediaMarkerTypes_Meta_.Bookmark = property(get_Bookmark.__wrapped__, None)
-MediaPlaybackAutoRepeatMode = Int32
-MediaPlaybackAutoRepeatMode_None: MediaPlaybackAutoRepeatMode = 0
-MediaPlaybackAutoRepeatMode_Track: MediaPlaybackAutoRepeatMode = 1
-MediaPlaybackAutoRepeatMode_List: MediaPlaybackAutoRepeatMode = 2
-MediaPlaybackStatus = Int32
-MediaPlaybackStatus_Closed: MediaPlaybackStatus = 0
-MediaPlaybackStatus_Changing: MediaPlaybackStatus = 1
-MediaPlaybackStatus_Stopped: MediaPlaybackStatus = 2
-MediaPlaybackStatus_Playing: MediaPlaybackStatus = 3
-MediaPlaybackStatus_Paused: MediaPlaybackStatus = 4
-MediaPlaybackType = Int32
-MediaPlaybackType_Unknown: MediaPlaybackType = 0
-MediaPlaybackType_Music: MediaPlaybackType = 1
-MediaPlaybackType_Video: MediaPlaybackType = 2
-MediaPlaybackType_Image: MediaPlaybackType = 3
+class MediaPlaybackAutoRepeatMode(Int32):  # enum
+    None_ = 0
+    Track = 1
+    List = 2
+class MediaPlaybackStatus(Int32):  # enum
+    Closed = 0
+    Changing = 1
+    Stopped = 2
+    Playing = 3
+    Paused = 4
+class MediaPlaybackType(Int32):  # enum
+    Unknown = 0
+    Music = 1
+    Video = 2
+    Image = 3
 class MediaProcessingTriggerDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.IMediaProcessingTriggerDetails
@@ -932,11 +932,11 @@ class MediaTimelineControllerFailedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_ExtendedError(self: win32more.Windows.Media.IMediaTimelineControllerFailedEventArgs) -> win32more.Windows.Foundation.HResult: ...
     ExtendedError = property(get_ExtendedError, None)
-MediaTimelineControllerState = Int32
-MediaTimelineControllerState_Paused: MediaTimelineControllerState = 0
-MediaTimelineControllerState_Running: MediaTimelineControllerState = 1
-MediaTimelineControllerState_Stalled: MediaTimelineControllerState = 2
-MediaTimelineControllerState_Error: MediaTimelineControllerState = 3
+class MediaTimelineControllerState(Int32):  # enum
+    Paused = 0
+    Running = 1
+    Stalled = 2
+    Error = 3
 class MusicDisplayProperties(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.IMusicDisplayProperties
@@ -995,10 +995,10 @@ class ShuffleEnabledChangeRequestedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_RequestedShuffleEnabled(self: win32more.Windows.Media.IShuffleEnabledChangeRequestedEventArgs) -> Boolean: ...
     RequestedShuffleEnabled = property(get_RequestedShuffleEnabled, None)
-SoundLevel = Int32
-SoundLevel_Muted: SoundLevel = 0
-SoundLevel_Low: SoundLevel = 1
-SoundLevel_Full: SoundLevel = 2
+class SoundLevel(Int32):  # enum
+    Muted = 0
+    Low = 1
+    Full = 2
 class SystemMediaTransportControls(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.ISystemMediaTransportControls
@@ -1112,17 +1112,17 @@ class SystemMediaTransportControls(ComPtr):
     AutoRepeatMode = property(get_AutoRepeatMode, put_AutoRepeatMode)
     ShuffleEnabled = property(get_ShuffleEnabled, put_ShuffleEnabled)
     PlaybackRate = property(get_PlaybackRate, put_PlaybackRate)
-SystemMediaTransportControlsButton = Int32
-SystemMediaTransportControlsButton_Play: SystemMediaTransportControlsButton = 0
-SystemMediaTransportControlsButton_Pause: SystemMediaTransportControlsButton = 1
-SystemMediaTransportControlsButton_Stop: SystemMediaTransportControlsButton = 2
-SystemMediaTransportControlsButton_Record: SystemMediaTransportControlsButton = 3
-SystemMediaTransportControlsButton_FastForward: SystemMediaTransportControlsButton = 4
-SystemMediaTransportControlsButton_Rewind: SystemMediaTransportControlsButton = 5
-SystemMediaTransportControlsButton_Next: SystemMediaTransportControlsButton = 6
-SystemMediaTransportControlsButton_Previous: SystemMediaTransportControlsButton = 7
-SystemMediaTransportControlsButton_ChannelUp: SystemMediaTransportControlsButton = 8
-SystemMediaTransportControlsButton_ChannelDown: SystemMediaTransportControlsButton = 9
+class SystemMediaTransportControlsButton(Int32):  # enum
+    Play = 0
+    Pause = 1
+    Stop = 2
+    Record = 3
+    FastForward = 4
+    Rewind = 5
+    Next = 6
+    Previous = 7
+    ChannelUp = 8
+    ChannelDown = 9
 class SystemMediaTransportControlsButtonPressedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.ISystemMediaTransportControlsButtonPressedEventArgs
@@ -1164,8 +1164,8 @@ class SystemMediaTransportControlsDisplayUpdater(ComPtr):
     MusicProperties = property(get_MusicProperties, None)
     VideoProperties = property(get_VideoProperties, None)
     ImageProperties = property(get_ImageProperties, None)
-SystemMediaTransportControlsProperty = Int32
-SystemMediaTransportControlsProperty_SoundLevel: SystemMediaTransportControlsProperty = 0
+class SystemMediaTransportControlsProperty(Int32):  # enum
+    SoundLevel = 0
 class SystemMediaTransportControlsPropertyChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.ISystemMediaTransportControlsPropertyChangedEventArgs

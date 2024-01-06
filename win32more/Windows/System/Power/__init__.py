@@ -41,15 +41,15 @@ class BackgroundEnergyManager(ComPtr, metaclass=_BackgroundEnergyManager_Meta_):
     _BackgroundEnergyManager_Meta_.TerminationUsageLevel = property(get_TerminationUsageLevel.__wrapped__, None)
     _BackgroundEnergyManager_Meta_.RecentEnergyUsage = property(get_RecentEnergyUsage.__wrapped__, None)
     _BackgroundEnergyManager_Meta_.RecentEnergyUsageLevel = property(get_RecentEnergyUsageLevel.__wrapped__, None)
-BatteryStatus = Int32
-BatteryStatus_NotPresent: BatteryStatus = 0
-BatteryStatus_Discharging: BatteryStatus = 1
-BatteryStatus_Idle: BatteryStatus = 2
-BatteryStatus_Charging: BatteryStatus = 3
-EnergySaverStatus = Int32
-EnergySaverStatus_Disabled: EnergySaverStatus = 0
-EnergySaverStatus_Off: EnergySaverStatus = 1
-EnergySaverStatus_On: EnergySaverStatus = 2
+class BatteryStatus(Int32):  # enum
+    NotPresent = 0
+    Discharging = 1
+    Idle = 2
+    Charging = 3
+class EnergySaverStatus(Int32):  # enum
+    Disabled = 0
+    Off = 1
+    On = 2
 class _ForegroundEnergyManager_Meta_(ComPtr.__class__):
     pass
 class ForegroundEnergyManager(ComPtr, metaclass=_ForegroundEnergyManager_Meta_):
@@ -226,10 +226,10 @@ class PowerManager(ComPtr, metaclass=_PowerManager_Meta_):
     _PowerManager_Meta_.PowerSupplyStatus = property(get_PowerSupplyStatus.__wrapped__, None)
     _PowerManager_Meta_.RemainingChargePercent = property(get_RemainingChargePercent.__wrapped__, None)
     _PowerManager_Meta_.RemainingDischargeTime = property(get_RemainingDischargeTime.__wrapped__, None)
-PowerSupplyStatus = Int32
-PowerSupplyStatus_NotPresent: PowerSupplyStatus = 0
-PowerSupplyStatus_Inadequate: PowerSupplyStatus = 1
-PowerSupplyStatus_Adequate: PowerSupplyStatus = 2
+class PowerSupplyStatus(Int32):  # enum
+    NotPresent = 0
+    Inadequate = 1
+    Adequate = 2
 
 
 make_ready(__name__)

@@ -66,11 +66,11 @@ class IPhoneNumberInfoStatics(ComPtr):
     def TryParse(self, input: WinRT_String, phoneNumber: POINTER(win32more.Windows.Globalization.PhoneNumberFormatting.PhoneNumberInfo)) -> win32more.Windows.Globalization.PhoneNumberFormatting.PhoneNumberParseResult: ...
     @winrt_commethod(7)
     def TryParseWithRegion(self, input: WinRT_String, regionCode: WinRT_String, phoneNumber: POINTER(win32more.Windows.Globalization.PhoneNumberFormatting.PhoneNumberInfo)) -> win32more.Windows.Globalization.PhoneNumberFormatting.PhoneNumberParseResult: ...
-PhoneNumberFormat = Int32
-PhoneNumberFormat_E164: PhoneNumberFormat = 0
-PhoneNumberFormat_International: PhoneNumberFormat = 1
-PhoneNumberFormat_National: PhoneNumberFormat = 2
-PhoneNumberFormat_Rfc3966: PhoneNumberFormat = 3
+class PhoneNumberFormat(Int32):  # enum
+    E164 = 0
+    International = 1
+    National = 2
+    Rfc3966 = 3
 class PhoneNumberFormatter(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Globalization.PhoneNumberFormatting.IPhoneNumberFormatter
@@ -139,30 +139,30 @@ class PhoneNumberInfo(ComPtr):
     def TryParseWithRegion(cls: win32more.Windows.Globalization.PhoneNumberFormatting.IPhoneNumberInfoStatics, input: WinRT_String, regionCode: WinRT_String, phoneNumber: POINTER(win32more.Windows.Globalization.PhoneNumberFormatting.PhoneNumberInfo)) -> win32more.Windows.Globalization.PhoneNumberFormatting.PhoneNumberParseResult: ...
     CountryCode = property(get_CountryCode, None)
     PhoneNumber = property(get_PhoneNumber, None)
-PhoneNumberMatchResult = Int32
-PhoneNumberMatchResult_NoMatch: PhoneNumberMatchResult = 0
-PhoneNumberMatchResult_ShortNationalSignificantNumberMatch: PhoneNumberMatchResult = 1
-PhoneNumberMatchResult_NationalSignificantNumberMatch: PhoneNumberMatchResult = 2
-PhoneNumberMatchResult_ExactMatch: PhoneNumberMatchResult = 3
-PhoneNumberParseResult = Int32
-PhoneNumberParseResult_Valid: PhoneNumberParseResult = 0
-PhoneNumberParseResult_NotANumber: PhoneNumberParseResult = 1
-PhoneNumberParseResult_InvalidCountryCode: PhoneNumberParseResult = 2
-PhoneNumberParseResult_TooShort: PhoneNumberParseResult = 3
-PhoneNumberParseResult_TooLong: PhoneNumberParseResult = 4
-PredictedPhoneNumberKind = Int32
-PredictedPhoneNumberKind_FixedLine: PredictedPhoneNumberKind = 0
-PredictedPhoneNumberKind_Mobile: PredictedPhoneNumberKind = 1
-PredictedPhoneNumberKind_FixedLineOrMobile: PredictedPhoneNumberKind = 2
-PredictedPhoneNumberKind_TollFree: PredictedPhoneNumberKind = 3
-PredictedPhoneNumberKind_PremiumRate: PredictedPhoneNumberKind = 4
-PredictedPhoneNumberKind_SharedCost: PredictedPhoneNumberKind = 5
-PredictedPhoneNumberKind_Voip: PredictedPhoneNumberKind = 6
-PredictedPhoneNumberKind_PersonalNumber: PredictedPhoneNumberKind = 7
-PredictedPhoneNumberKind_Pager: PredictedPhoneNumberKind = 8
-PredictedPhoneNumberKind_UniversalAccountNumber: PredictedPhoneNumberKind = 9
-PredictedPhoneNumberKind_Voicemail: PredictedPhoneNumberKind = 10
-PredictedPhoneNumberKind_Unknown: PredictedPhoneNumberKind = 11
+class PhoneNumberMatchResult(Int32):  # enum
+    NoMatch = 0
+    ShortNationalSignificantNumberMatch = 1
+    NationalSignificantNumberMatch = 2
+    ExactMatch = 3
+class PhoneNumberParseResult(Int32):  # enum
+    Valid = 0
+    NotANumber = 1
+    InvalidCountryCode = 2
+    TooShort = 3
+    TooLong = 4
+class PredictedPhoneNumberKind(Int32):  # enum
+    FixedLine = 0
+    Mobile = 1
+    FixedLineOrMobile = 2
+    TollFree = 3
+    PremiumRate = 4
+    SharedCost = 5
+    Voip = 6
+    PersonalNumber = 7
+    Pager = 8
+    UniversalAccountNumber = 9
+    Voicemail = 10
+    Unknown = 11
 
 
 make_ready(__name__)

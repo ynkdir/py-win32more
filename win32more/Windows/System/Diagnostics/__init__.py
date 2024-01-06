@@ -17,14 +17,14 @@ class DiagnosticActionResult(ComPtr):
     def get_Results(self: win32more.Windows.System.Diagnostics.IDiagnosticActionResult) -> win32more.Windows.Foundation.Collections.ValueSet: ...
     ExtendedError = property(get_ExtendedError, None)
     Results = property(get_Results, None)
-DiagnosticActionState = Int32
-DiagnosticActionState_Initializing: DiagnosticActionState = 0
-DiagnosticActionState_Downloading: DiagnosticActionState = 1
-DiagnosticActionState_VerifyingTrust: DiagnosticActionState = 2
-DiagnosticActionState_Detecting: DiagnosticActionState = 3
-DiagnosticActionState_Resolving: DiagnosticActionState = 4
-DiagnosticActionState_VerifyingResolution: DiagnosticActionState = 5
-DiagnosticActionState_Executing: DiagnosticActionState = 6
+class DiagnosticActionState(Int32):  # enum
+    Initializing = 0
+    Downloading = 1
+    VerifyingTrust = 2
+    Detecting = 3
+    Resolving = 4
+    VerifyingResolution = 5
+    Executing = 6
 class _DiagnosticInvoker_Meta_(ComPtr.__class__):
     pass
 class DiagnosticInvoker(ComPtr, metaclass=_DiagnosticInvoker_Meta_):

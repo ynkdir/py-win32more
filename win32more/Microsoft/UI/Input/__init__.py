@@ -53,14 +53,14 @@ class CrossSlidingEventArgs(ComPtr):
     PointerDeviceType = property(get_PointerDeviceType, None)
     CrossSlidingState = property(get_CrossSlidingState, None)
     Position = property(get_Position, None)
-CrossSlidingState = Int32
-CrossSlidingState_Started: CrossSlidingState = 0
-CrossSlidingState_Dragging: CrossSlidingState = 1
-CrossSlidingState_Selecting: CrossSlidingState = 2
-CrossSlidingState_SelectSpeedBumping: CrossSlidingState = 3
-CrossSlidingState_SpeedBumping: CrossSlidingState = 4
-CrossSlidingState_Rearranging: CrossSlidingState = 5
-CrossSlidingState_Completed: CrossSlidingState = 6
+class CrossSlidingState(Int32):  # enum
+    Started = 0
+    Dragging = 1
+    Selecting = 2
+    SelectSpeedBumping = 3
+    SpeedBumping = 4
+    Rearranging = 5
+    Completed = 6
 class DraggingEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Input.IDraggingEventArgs
@@ -74,10 +74,10 @@ class DraggingEventArgs(ComPtr):
     PointerDeviceType = property(get_PointerDeviceType, None)
     DraggingState = property(get_DraggingState, None)
     Position = property(get_Position, None)
-DraggingState = Int32
-DraggingState_Started: DraggingState = 0
-DraggingState_Continuing: DraggingState = 1
-DraggingState_Completed: DraggingState = 2
+class DraggingState(Int32):  # enum
+    Started = 0
+    Continuing = 1
+    Completed = 2
 class FocusChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Input.IFocusChangedEventArgs
@@ -234,25 +234,25 @@ class GestureRecognizer(ComPtr):
     ManipulationExact = property(get_ManipulationExact, put_ManipulationExact)
     MouseWheelParameters = property(get_MouseWheelParameters, None)
     ShowGestureFeedback = property(get_ShowGestureFeedback, put_ShowGestureFeedback)
-GestureSettings = UInt32
-GestureSettings_None: GestureSettings = 0
-GestureSettings_Tap: GestureSettings = 1
-GestureSettings_DoubleTap: GestureSettings = 2
-GestureSettings_Hold: GestureSettings = 4
-GestureSettings_HoldWithMouse: GestureSettings = 8
-GestureSettings_RightTap: GestureSettings = 16
-GestureSettings_Drag: GestureSettings = 32
-GestureSettings_ManipulationTranslateX: GestureSettings = 64
-GestureSettings_ManipulationTranslateY: GestureSettings = 128
-GestureSettings_ManipulationTranslateRailsX: GestureSettings = 256
-GestureSettings_ManipulationTranslateRailsY: GestureSettings = 512
-GestureSettings_ManipulationRotate: GestureSettings = 1024
-GestureSettings_ManipulationScale: GestureSettings = 2048
-GestureSettings_ManipulationTranslateInertia: GestureSettings = 4096
-GestureSettings_ManipulationRotateInertia: GestureSettings = 8192
-GestureSettings_ManipulationScaleInertia: GestureSettings = 16384
-GestureSettings_CrossSlide: GestureSettings = 32768
-GestureSettings_ManipulationMultipleFingerPanning: GestureSettings = 65536
+class GestureSettings(UInt32):  # enum
+    None_ = 0
+    Tap = 1
+    DoubleTap = 2
+    Hold = 4
+    HoldWithMouse = 8
+    RightTap = 16
+    Drag = 32
+    ManipulationTranslateX = 64
+    ManipulationTranslateY = 128
+    ManipulationTranslateRailsX = 256
+    ManipulationTranslateRailsY = 512
+    ManipulationRotate = 1024
+    ManipulationScale = 2048
+    ManipulationTranslateInertia = 4096
+    ManipulationRotateInertia = 8192
+    ManipulationScaleInertia = 16384
+    CrossSlide = 32768
+    ManipulationMultipleFingerPanning = 65536
 class HoldingEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Input.IHoldingEventArgs
@@ -266,10 +266,10 @@ class HoldingEventArgs(ComPtr):
     PointerDeviceType = property(get_PointerDeviceType, None)
     HoldingState = property(get_HoldingState, None)
     Position = property(get_Position, None)
-HoldingState = Int32
-HoldingState_Started: HoldingState = 0
-HoldingState_Completed: HoldingState = 1
-HoldingState_Canceled: HoldingState = 2
+class HoldingState(Int32):  # enum
+    Started = 0
+    Completed = 1
+    Canceled = 2
 class ICharacterReceivedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Input.ICharacterReceivedEventArgs'
@@ -1124,10 +1124,10 @@ class InputActivationListenerActivationChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Input.IInputActivationListenerActivationChangedEventArgs
     _classid_ = 'Microsoft.UI.Input.InputActivationListenerActivationChangedEventArgs'
-InputActivationState = Int32
-InputActivationState_None: InputActivationState = 0
-InputActivationState_Deactivated: InputActivationState = 1
-InputActivationState_Activated: InputActivationState = 2
+class InputActivationState(Int32):  # enum
+    None_ = 0
+    Deactivated = 1
+    Activated = 2
 class InputCursor(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Input.IInputCursor
@@ -1347,11 +1347,11 @@ class InputPointerSource(ComPtr):
     def GetForIsland(cls: win32more.Microsoft.UI.Input.IInputPointerSourceStatics, island: win32more.Microsoft.UI.Content.ContentIsland) -> win32more.Microsoft.UI.Input.InputPointerSource: ...
     Cursor = property(get_Cursor, put_Cursor)
     DeviceKinds = property(get_DeviceKinds, None)
-InputPointerSourceDeviceKinds = UInt32
-InputPointerSourceDeviceKinds_None: InputPointerSourceDeviceKinds = 0
-InputPointerSourceDeviceKinds_Touch: InputPointerSourceDeviceKinds = 1
-InputPointerSourceDeviceKinds_Pen: InputPointerSourceDeviceKinds = 2
-InputPointerSourceDeviceKinds_Mouse: InputPointerSourceDeviceKinds = 4
+class InputPointerSourceDeviceKinds(UInt32):  # enum
+    None_ = 0
+    Touch = 1
+    Pen = 2
+    Mouse = 4
 class InputPreTranslateKeyboardSource(ComPtr):
     extends: win32more.Microsoft.UI.Input.InputObject
     default_interface: win32more.Microsoft.UI.Input.IInputPreTranslateKeyboardSource
@@ -1367,23 +1367,23 @@ class InputSystemCursor(ComPtr):
     @winrt_classmethod
     def Create(cls: win32more.Microsoft.UI.Input.IInputSystemCursorStatics, type: win32more.Microsoft.UI.Input.InputSystemCursorShape) -> win32more.Microsoft.UI.Input.InputSystemCursor: ...
     CursorShape = property(get_CursorShape, None)
-InputSystemCursorShape = Int32
-InputSystemCursorShape_Arrow: InputSystemCursorShape = 0
-InputSystemCursorShape_Cross: InputSystemCursorShape = 1
-InputSystemCursorShape_Hand: InputSystemCursorShape = 3
-InputSystemCursorShape_Help: InputSystemCursorShape = 4
-InputSystemCursorShape_IBeam: InputSystemCursorShape = 5
-InputSystemCursorShape_SizeAll: InputSystemCursorShape = 6
-InputSystemCursorShape_SizeNortheastSouthwest: InputSystemCursorShape = 7
-InputSystemCursorShape_SizeNorthSouth: InputSystemCursorShape = 8
-InputSystemCursorShape_SizeNorthwestSoutheast: InputSystemCursorShape = 9
-InputSystemCursorShape_SizeWestEast: InputSystemCursorShape = 10
-InputSystemCursorShape_UniversalNo: InputSystemCursorShape = 11
-InputSystemCursorShape_UpArrow: InputSystemCursorShape = 12
-InputSystemCursorShape_Wait: InputSystemCursorShape = 13
-InputSystemCursorShape_Pin: InputSystemCursorShape = 14
-InputSystemCursorShape_Person: InputSystemCursorShape = 15
-InputSystemCursorShape_AppStarting: InputSystemCursorShape = 16
+class InputSystemCursorShape(Int32):  # enum
+    Arrow = 0
+    Cross = 1
+    Hand = 3
+    Help = 4
+    IBeam = 5
+    SizeAll = 6
+    SizeNortheastSouthwest = 7
+    SizeNorthSouth = 8
+    SizeNorthwestSoutheast = 9
+    SizeWestEast = 10
+    UniversalNo = 11
+    UpArrow = 12
+    Wait = 13
+    Pin = 14
+    Person = 15
+    AppStarting = 16
 class KeyEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Input.IKeyEventArgs
@@ -1528,17 +1528,17 @@ class NonClientPointerEventArgs(ComPtr):
     Point = property(get_Point, None)
     PointerDeviceType = property(get_PointerDeviceType, None)
     IsPointInRegion = property(get_IsPointInRegion, None)
-NonClientRegionKind = Int32
-NonClientRegionKind_Close: NonClientRegionKind = 0
-NonClientRegionKind_Maximize: NonClientRegionKind = 1
-NonClientRegionKind_Minimize: NonClientRegionKind = 2
-NonClientRegionKind_Icon: NonClientRegionKind = 3
-NonClientRegionKind_Caption: NonClientRegionKind = 4
-NonClientRegionKind_TopBorder: NonClientRegionKind = 5
-NonClientRegionKind_LeftBorder: NonClientRegionKind = 6
-NonClientRegionKind_BottomBorder: NonClientRegionKind = 7
-NonClientRegionKind_RightBorder: NonClientRegionKind = 8
-NonClientRegionKind_Passthrough: NonClientRegionKind = 9
+class NonClientRegionKind(Int32):  # enum
+    Close = 0
+    Maximize = 1
+    Minimize = 2
+    Icon = 3
+    Caption = 4
+    TopBorder = 5
+    LeftBorder = 6
+    BottomBorder = 7
+    RightBorder = 8
+    Passthrough = 9
 class NonClientRegionsChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Input.INonClientRegionsChangedEventArgs
@@ -1553,11 +1553,11 @@ class PhysicalKeyStatus(EasyCastStructure):
     IsMenuKeyDown: Boolean
     WasKeyDown: Boolean
     IsKeyReleased: Boolean
-PointerDeviceType = Int32
-PointerDeviceType_Touch: PointerDeviceType = 0
-PointerDeviceType_Pen: PointerDeviceType = 1
-PointerDeviceType_Mouse: PointerDeviceType = 2
-PointerDeviceType_Touchpad: PointerDeviceType = 3
+class PointerDeviceType(Int32):  # enum
+    Touch = 0
+    Pen = 1
+    Mouse = 2
+    Touchpad = 3
 class PointerEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Input.IPointerEventArgs
@@ -1686,18 +1686,18 @@ class PointerPredictor(ComPtr):
     @winrt_classmethod
     def CreateForInputPointerSource(cls: win32more.Microsoft.UI.Input.IPointerPredictorStatics, inputPointerSource: win32more.Microsoft.UI.Input.InputPointerSource) -> win32more.Microsoft.UI.Input.PointerPredictor: ...
     PredictionTime = property(get_PredictionTime, put_PredictionTime)
-PointerUpdateKind = Int32
-PointerUpdateKind_Other: PointerUpdateKind = 0
-PointerUpdateKind_LeftButtonPressed: PointerUpdateKind = 1
-PointerUpdateKind_LeftButtonReleased: PointerUpdateKind = 2
-PointerUpdateKind_RightButtonPressed: PointerUpdateKind = 3
-PointerUpdateKind_RightButtonReleased: PointerUpdateKind = 4
-PointerUpdateKind_MiddleButtonPressed: PointerUpdateKind = 5
-PointerUpdateKind_MiddleButtonReleased: PointerUpdateKind = 6
-PointerUpdateKind_XButton1Pressed: PointerUpdateKind = 7
-PointerUpdateKind_XButton1Released: PointerUpdateKind = 8
-PointerUpdateKind_XButton2Pressed: PointerUpdateKind = 9
-PointerUpdateKind_XButton2Released: PointerUpdateKind = 10
+class PointerUpdateKind(Int32):  # enum
+    Other = 0
+    LeftButtonPressed = 1
+    LeftButtonReleased = 2
+    RightButtonPressed = 3
+    RightButtonReleased = 4
+    MiddleButtonPressed = 5
+    MiddleButtonReleased = 6
+    XButton1Pressed = 7
+    XButton1Released = 8
+    XButton2Pressed = 9
+    XButton2Released = 10
 class RightTappedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Input.IRightTappedEventArgs
@@ -1721,10 +1721,10 @@ class TappedEventArgs(ComPtr):
     Position = property(get_Position, None)
     PointerDeviceType = property(get_PointerDeviceType, None)
     TapCount = property(get_TapCount, None)
-VirtualKeyStates = UInt32
-VirtualKeyStates_None: VirtualKeyStates = 0
-VirtualKeyStates_Down: VirtualKeyStates = 1
-VirtualKeyStates_Locked: VirtualKeyStates = 2
+class VirtualKeyStates(UInt32):  # enum
+    None_ = 0
+    Down = 1
+    Locked = 2
 
 
 make_ready(__name__)

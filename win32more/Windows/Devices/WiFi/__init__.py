@@ -191,11 +191,11 @@ class IWiFiWpsConfigurationResult(ComPtr):
     def get_SupportedWpsKinds(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Devices.WiFi.WiFiWpsKind]: ...
     Status = property(get_Status, None)
     SupportedWpsKinds = property(get_SupportedWpsKinds, None)
-WiFiAccessStatus = Int32
-WiFiAccessStatus_Unspecified: WiFiAccessStatus = 0
-WiFiAccessStatus_Allowed: WiFiAccessStatus = 1
-WiFiAccessStatus_DeniedByUser: WiFiAccessStatus = 2
-WiFiAccessStatus_DeniedBySystem: WiFiAccessStatus = 3
+class WiFiAccessStatus(Int32):  # enum
+    Unspecified = 0
+    Allowed = 1
+    DeniedByUser = 2
+    DeniedBySystem = 3
 class WiFiAdapter(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.WiFi.IWiFiAdapter
@@ -269,10 +269,10 @@ class WiFiAvailableNetwork(ComPtr):
     SecuritySettings = property(get_SecuritySettings, None)
     BeaconInterval = property(get_BeaconInterval, None)
     IsWiFiDirect = property(get_IsWiFiDirect, None)
-WiFiConnectionMethod = Int32
-WiFiConnectionMethod_Default: WiFiConnectionMethod = 0
-WiFiConnectionMethod_WpsPin: WiFiConnectionMethod = 1
-WiFiConnectionMethod_WpsPushButton: WiFiConnectionMethod = 2
+class WiFiConnectionMethod(Int32):  # enum
+    Default = 0
+    WpsPin = 1
+    WpsPushButton = 2
 class WiFiConnectionResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.WiFi.IWiFiConnectionResult
@@ -280,18 +280,18 @@ class WiFiConnectionResult(ComPtr):
     @winrt_mixinmethod
     def get_ConnectionStatus(self: win32more.Windows.Devices.WiFi.IWiFiConnectionResult) -> win32more.Windows.Devices.WiFi.WiFiConnectionStatus: ...
     ConnectionStatus = property(get_ConnectionStatus, None)
-WiFiConnectionStatus = Int32
-WiFiConnectionStatus_UnspecifiedFailure: WiFiConnectionStatus = 0
-WiFiConnectionStatus_Success: WiFiConnectionStatus = 1
-WiFiConnectionStatus_AccessRevoked: WiFiConnectionStatus = 2
-WiFiConnectionStatus_InvalidCredential: WiFiConnectionStatus = 3
-WiFiConnectionStatus_NetworkNotAvailable: WiFiConnectionStatus = 4
-WiFiConnectionStatus_Timeout: WiFiConnectionStatus = 5
-WiFiConnectionStatus_UnsupportedAuthenticationProtocol: WiFiConnectionStatus = 6
-WiFiNetworkKind = Int32
-WiFiNetworkKind_Any: WiFiNetworkKind = 0
-WiFiNetworkKind_Infrastructure: WiFiNetworkKind = 1
-WiFiNetworkKind_Adhoc: WiFiNetworkKind = 2
+class WiFiConnectionStatus(Int32):  # enum
+    UnspecifiedFailure = 0
+    Success = 1
+    AccessRevoked = 2
+    InvalidCredential = 3
+    NetworkNotAvailable = 4
+    Timeout = 5
+    UnsupportedAuthenticationProtocol = 6
+class WiFiNetworkKind(Int32):  # enum
+    Any = 0
+    Infrastructure = 1
+    Adhoc = 2
 class WiFiNetworkReport(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.WiFi.IWiFiNetworkReport
@@ -302,36 +302,36 @@ class WiFiNetworkReport(ComPtr):
     def get_AvailableNetworks(self: win32more.Windows.Devices.WiFi.IWiFiNetworkReport) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Devices.WiFi.WiFiAvailableNetwork]: ...
     Timestamp = property(get_Timestamp, None)
     AvailableNetworks = property(get_AvailableNetworks, None)
-WiFiOnDemandHotspotAvailability = Int32
-WiFiOnDemandHotspotAvailability_Available: WiFiOnDemandHotspotAvailability = 0
-WiFiOnDemandHotspotAvailability_Unavailable: WiFiOnDemandHotspotAvailability = 1
-WiFiOnDemandHotspotCellularBars = Int32
-WiFiOnDemandHotspotCellularBars_ZeroBars: WiFiOnDemandHotspotCellularBars = 0
-WiFiOnDemandHotspotCellularBars_OneBar: WiFiOnDemandHotspotCellularBars = 1
-WiFiOnDemandHotspotCellularBars_TwoBars: WiFiOnDemandHotspotCellularBars = 2
-WiFiOnDemandHotspotCellularBars_ThreeBars: WiFiOnDemandHotspotCellularBars = 3
-WiFiOnDemandHotspotCellularBars_FourBars: WiFiOnDemandHotspotCellularBars = 4
-WiFiOnDemandHotspotCellularBars_FiveBars: WiFiOnDemandHotspotCellularBars = 5
-WiFiOnDemandHotspotConnectStatus = Int32
-WiFiOnDemandHotspotConnectStatus_UnspecifiedFailure: WiFiOnDemandHotspotConnectStatus = 0
-WiFiOnDemandHotspotConnectStatus_Success: WiFiOnDemandHotspotConnectStatus = 1
-WiFiOnDemandHotspotConnectStatus_AppTimedOut: WiFiOnDemandHotspotConnectStatus = 2
-WiFiOnDemandHotspotConnectStatus_InvalidCredential: WiFiOnDemandHotspotConnectStatus = 3
-WiFiOnDemandHotspotConnectStatus_NetworkNotAvailable: WiFiOnDemandHotspotConnectStatus = 4
-WiFiOnDemandHotspotConnectStatus_UnsupportedAuthenticationProtocol: WiFiOnDemandHotspotConnectStatus = 5
-WiFiOnDemandHotspotConnectStatus_BluetoothConnectFailed: WiFiOnDemandHotspotConnectStatus = 6
-WiFiOnDemandHotspotConnectStatus_BluetoothTransmissionError: WiFiOnDemandHotspotConnectStatus = 7
-WiFiOnDemandHotspotConnectStatus_OperationCanceledByUser: WiFiOnDemandHotspotConnectStatus = 8
-WiFiOnDemandHotspotConnectStatus_EntitlementCheckFailed: WiFiOnDemandHotspotConnectStatus = 9
-WiFiOnDemandHotspotConnectStatus_NoCellularSignal: WiFiOnDemandHotspotConnectStatus = 10
-WiFiOnDemandHotspotConnectStatus_CellularDataTurnedOff: WiFiOnDemandHotspotConnectStatus = 11
-WiFiOnDemandHotspotConnectStatus_WlanConnectFailed: WiFiOnDemandHotspotConnectStatus = 12
-WiFiOnDemandHotspotConnectStatus_WlanNotVisible: WiFiOnDemandHotspotConnectStatus = 13
-WiFiOnDemandHotspotConnectStatus_AccessPointCannotConnect: WiFiOnDemandHotspotConnectStatus = 14
-WiFiOnDemandHotspotConnectStatus_CellularConnectTimedOut: WiFiOnDemandHotspotConnectStatus = 15
-WiFiOnDemandHotspotConnectStatus_RoamingNotAllowed: WiFiOnDemandHotspotConnectStatus = 16
-WiFiOnDemandHotspotConnectStatus_PairingRequired: WiFiOnDemandHotspotConnectStatus = 17
-WiFiOnDemandHotspotConnectStatus_DataLimitReached: WiFiOnDemandHotspotConnectStatus = 18
+class WiFiOnDemandHotspotAvailability(Int32):  # enum
+    Available = 0
+    Unavailable = 1
+class WiFiOnDemandHotspotCellularBars(Int32):  # enum
+    ZeroBars = 0
+    OneBar = 1
+    TwoBars = 2
+    ThreeBars = 3
+    FourBars = 4
+    FiveBars = 5
+class WiFiOnDemandHotspotConnectStatus(Int32):  # enum
+    UnspecifiedFailure = 0
+    Success = 1
+    AppTimedOut = 2
+    InvalidCredential = 3
+    NetworkNotAvailable = 4
+    UnsupportedAuthenticationProtocol = 5
+    BluetoothConnectFailed = 6
+    BluetoothTransmissionError = 7
+    OperationCanceledByUser = 8
+    EntitlementCheckFailed = 9
+    NoCellularSignal = 10
+    CellularDataTurnedOff = 11
+    WlanConnectFailed = 12
+    WlanNotVisible = 13
+    AccessPointCannotConnect = 14
+    CellularConnectTimedOut = 15
+    RoamingNotAllowed = 16
+    PairingRequired = 17
+    DataLimitReached = 18
 class WiFiOnDemandHotspotConnectTriggerDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.WiFi.IWiFiOnDemandHotspotConnectTriggerDetails
@@ -404,22 +404,22 @@ class WiFiOnDemandHotspotNetworkProperties(ComPtr):
     IsMetered = property(get_IsMetered, put_IsMetered)
     Ssid = property(get_Ssid, put_Ssid)
     Password = property(get_Password, put_Password)
-WiFiPhyKind = Int32
-WiFiPhyKind_Unknown: WiFiPhyKind = 0
-WiFiPhyKind_Fhss: WiFiPhyKind = 1
-WiFiPhyKind_Dsss: WiFiPhyKind = 2
-WiFiPhyKind_IRBaseband: WiFiPhyKind = 3
-WiFiPhyKind_Ofdm: WiFiPhyKind = 4
-WiFiPhyKind_Hrdsss: WiFiPhyKind = 5
-WiFiPhyKind_Erp: WiFiPhyKind = 6
-WiFiPhyKind_HT: WiFiPhyKind = 7
-WiFiPhyKind_Vht: WiFiPhyKind = 8
-WiFiPhyKind_Dmg: WiFiPhyKind = 9
-WiFiPhyKind_HE: WiFiPhyKind = 10
-WiFiPhyKind_Eht: WiFiPhyKind = 11
-WiFiReconnectionKind = Int32
-WiFiReconnectionKind_Automatic: WiFiReconnectionKind = 0
-WiFiReconnectionKind_Manual: WiFiReconnectionKind = 1
+class WiFiPhyKind(Int32):  # enum
+    Unknown = 0
+    Fhss = 1
+    Dsss = 2
+    IRBaseband = 3
+    Ofdm = 4
+    Hrdsss = 5
+    Erp = 6
+    HT = 7
+    Vht = 8
+    Dmg = 9
+    HE = 10
+    Eht = 11
+class WiFiReconnectionKind(Int32):  # enum
+    Automatic = 0
+    Manual = 1
 class WiFiWpsConfigurationResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.WiFi.IWiFiWpsConfigurationResult
@@ -430,17 +430,17 @@ class WiFiWpsConfigurationResult(ComPtr):
     def get_SupportedWpsKinds(self: win32more.Windows.Devices.WiFi.IWiFiWpsConfigurationResult) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Devices.WiFi.WiFiWpsKind]: ...
     Status = property(get_Status, None)
     SupportedWpsKinds = property(get_SupportedWpsKinds, None)
-WiFiWpsConfigurationStatus = Int32
-WiFiWpsConfigurationStatus_UnspecifiedFailure: WiFiWpsConfigurationStatus = 0
-WiFiWpsConfigurationStatus_Success: WiFiWpsConfigurationStatus = 1
-WiFiWpsConfigurationStatus_Timeout: WiFiWpsConfigurationStatus = 2
-WiFiWpsKind = Int32
-WiFiWpsKind_Unknown: WiFiWpsKind = 0
-WiFiWpsKind_Pin: WiFiWpsKind = 1
-WiFiWpsKind_PushButton: WiFiWpsKind = 2
-WiFiWpsKind_Nfc: WiFiWpsKind = 3
-WiFiWpsKind_Ethernet: WiFiWpsKind = 4
-WiFiWpsKind_Usb: WiFiWpsKind = 5
+class WiFiWpsConfigurationStatus(Int32):  # enum
+    UnspecifiedFailure = 0
+    Success = 1
+    Timeout = 2
+class WiFiWpsKind(Int32):  # enum
+    Unknown = 0
+    Pin = 1
+    PushButton = 2
+    Nfc = 3
+    Ethernet = 4
+    Usb = 5
 
 
 make_ready(__name__)

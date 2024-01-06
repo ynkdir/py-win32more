@@ -10,16 +10,16 @@ import win32more.Windows.Storage.Streams
 import win32more.Windows.System
 import win32more.Windows.UI.Xaml
 import win32more.Windows.Win32.System.WinRT
-DeliveryOptimizationDownloadMode = Int32
-DeliveryOptimizationDownloadMode_Simple: DeliveryOptimizationDownloadMode = 0
-DeliveryOptimizationDownloadMode_HttpOnly: DeliveryOptimizationDownloadMode = 1
-DeliveryOptimizationDownloadMode_Lan: DeliveryOptimizationDownloadMode = 2
-DeliveryOptimizationDownloadMode_Group: DeliveryOptimizationDownloadMode = 3
-DeliveryOptimizationDownloadMode_Internet: DeliveryOptimizationDownloadMode = 4
-DeliveryOptimizationDownloadMode_Bypass: DeliveryOptimizationDownloadMode = 5
-DeliveryOptimizationDownloadModeSource = Int32
-DeliveryOptimizationDownloadModeSource_Default: DeliveryOptimizationDownloadModeSource = 0
-DeliveryOptimizationDownloadModeSource_Policy: DeliveryOptimizationDownloadModeSource = 1
+class DeliveryOptimizationDownloadMode(Int32):  # enum
+    Simple = 0
+    HttpOnly = 1
+    Lan = 2
+    Group = 3
+    Internet = 4
+    Bypass = 5
+class DeliveryOptimizationDownloadModeSource(Int32):  # enum
+    Default = 0
+    Policy = 1
 class DeliveryOptimizationSettings(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Store.Preview.IDeliveryOptimizationSettings
@@ -294,9 +294,9 @@ class StoreHardwareManufacturerInfo(ComPtr):
     StoreContentModifierId = property(get_StoreContentModifierId, None)
     ModelName = property(get_ModelName, None)
     ManufacturerName = property(get_ManufacturerName, None)
-StoreLogOptions = UInt32
-StoreLogOptions_None: StoreLogOptions = 0
-StoreLogOptions_TryElevate: StoreLogOptions = 1
+class StoreLogOptions(UInt32):  # enum
+    None_ = 0
+    TryElevate = 1
 class StorePreview(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Store.Preview.StorePreview'
@@ -323,11 +323,11 @@ class StorePreviewProductInfo(ComPtr):
     Title = property(get_Title, None)
     Description = property(get_Description, None)
     SkuInfoList = property(get_SkuInfoList, None)
-StorePreviewProductPurchaseStatus = Int32
-StorePreviewProductPurchaseStatus_Succeeded: StorePreviewProductPurchaseStatus = 0
-StorePreviewProductPurchaseStatus_AlreadyPurchased: StorePreviewProductPurchaseStatus = 1
-StorePreviewProductPurchaseStatus_NotFulfilled: StorePreviewProductPurchaseStatus = 2
-StorePreviewProductPurchaseStatus_NotPurchased: StorePreviewProductPurchaseStatus = 3
+class StorePreviewProductPurchaseStatus(Int32):  # enum
+    Succeeded = 0
+    AlreadyPurchased = 1
+    NotFulfilled = 2
+    NotPurchased = 3
 class StorePreviewPurchaseResults(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Store.Preview.IStorePreviewPurchaseResults
@@ -366,42 +366,42 @@ class StorePreviewSkuInfo(ComPtr):
     CurrencyCode = property(get_CurrencyCode, None)
     FormattedListPrice = property(get_FormattedListPrice, None)
     ExtendedData = property(get_ExtendedData, None)
-StoreSystemFeature = Int32
-StoreSystemFeature_ArchitectureX86: StoreSystemFeature = 0
-StoreSystemFeature_ArchitectureX64: StoreSystemFeature = 1
-StoreSystemFeature_ArchitectureArm: StoreSystemFeature = 2
-StoreSystemFeature_DirectX9: StoreSystemFeature = 3
-StoreSystemFeature_DirectX10: StoreSystemFeature = 4
-StoreSystemFeature_DirectX11: StoreSystemFeature = 5
-StoreSystemFeature_D3D12HardwareFL11: StoreSystemFeature = 6
-StoreSystemFeature_D3D12HardwareFL12: StoreSystemFeature = 7
-StoreSystemFeature_Memory300MB: StoreSystemFeature = 8
-StoreSystemFeature_Memory750MB: StoreSystemFeature = 9
-StoreSystemFeature_Memory1GB: StoreSystemFeature = 10
-StoreSystemFeature_Memory2GB: StoreSystemFeature = 11
-StoreSystemFeature_CameraFront: StoreSystemFeature = 12
-StoreSystemFeature_CameraRear: StoreSystemFeature = 13
-StoreSystemFeature_Gyroscope: StoreSystemFeature = 14
-StoreSystemFeature_Hover: StoreSystemFeature = 15
-StoreSystemFeature_Magnetometer: StoreSystemFeature = 16
-StoreSystemFeature_Nfc: StoreSystemFeature = 17
-StoreSystemFeature_Resolution720P: StoreSystemFeature = 18
-StoreSystemFeature_ResolutionWvga: StoreSystemFeature = 19
-StoreSystemFeature_ResolutionWvgaOr720P: StoreSystemFeature = 20
-StoreSystemFeature_ResolutionWxga: StoreSystemFeature = 21
-StoreSystemFeature_ResolutionWvgaOrWxga: StoreSystemFeature = 22
-StoreSystemFeature_ResolutionWxgaOr720P: StoreSystemFeature = 23
-StoreSystemFeature_Memory4GB: StoreSystemFeature = 24
-StoreSystemFeature_Memory6GB: StoreSystemFeature = 25
-StoreSystemFeature_Memory8GB: StoreSystemFeature = 26
-StoreSystemFeature_Memory12GB: StoreSystemFeature = 27
-StoreSystemFeature_Memory16GB: StoreSystemFeature = 28
-StoreSystemFeature_Memory20GB: StoreSystemFeature = 29
-StoreSystemFeature_VideoMemory2GB: StoreSystemFeature = 30
-StoreSystemFeature_VideoMemory4GB: StoreSystemFeature = 31
-StoreSystemFeature_VideoMemory6GB: StoreSystemFeature = 32
-StoreSystemFeature_VideoMemory1GB: StoreSystemFeature = 33
-StoreSystemFeature_ArchitectureArm64: StoreSystemFeature = 34
+class StoreSystemFeature(Int32):  # enum
+    ArchitectureX86 = 0
+    ArchitectureX64 = 1
+    ArchitectureArm = 2
+    DirectX9 = 3
+    DirectX10 = 4
+    DirectX11 = 5
+    D3D12HardwareFL11 = 6
+    D3D12HardwareFL12 = 7
+    Memory300MB = 8
+    Memory750MB = 9
+    Memory1GB = 10
+    Memory2GB = 11
+    CameraFront = 12
+    CameraRear = 13
+    Gyroscope = 14
+    Hover = 15
+    Magnetometer = 16
+    Nfc = 17
+    Resolution720P = 18
+    ResolutionWvga = 19
+    ResolutionWvgaOr720P = 20
+    ResolutionWxga = 21
+    ResolutionWvgaOrWxga = 22
+    ResolutionWxgaOr720P = 23
+    Memory4GB = 24
+    Memory6GB = 25
+    Memory8GB = 26
+    Memory12GB = 27
+    Memory16GB = 28
+    Memory20GB = 29
+    VideoMemory2GB = 30
+    VideoMemory4GB = 31
+    VideoMemory6GB = 32
+    VideoMemory1GB = 33
+    ArchitectureArm64 = 34
 class WebAuthenticationCoreManagerHelper(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Store.Preview.WebAuthenticationCoreManagerHelper'

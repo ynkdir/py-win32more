@@ -6,9 +6,9 @@ import win32more.Windows.Devices.I2c.Provider
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Win32.System.WinRT
-I2cBusSpeed = Int32
-I2cBusSpeed_StandardMode: I2cBusSpeed = 0
-I2cBusSpeed_FastMode: I2cBusSpeed = 1
+class I2cBusSpeed(Int32):  # enum
+    StandardMode = 0
+    FastMode = 1
 class I2cConnectionSettings(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.I2c.II2cConnectionSettings
@@ -77,18 +77,18 @@ class I2cDevice(ComPtr):
     def FromIdAsync(cls: win32more.Windows.Devices.I2c.II2cDeviceStatics, deviceId: WinRT_String, settings: win32more.Windows.Devices.I2c.I2cConnectionSettings) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.I2c.I2cDevice]: ...
     DeviceId = property(get_DeviceId, None)
     ConnectionSettings = property(get_ConnectionSettings, None)
-I2cSharingMode = Int32
-I2cSharingMode_Exclusive: I2cSharingMode = 0
-I2cSharingMode_Shared: I2cSharingMode = 1
+class I2cSharingMode(Int32):  # enum
+    Exclusive = 0
+    Shared = 1
 class I2cTransferResult(EasyCastStructure):
     Status: win32more.Windows.Devices.I2c.I2cTransferStatus
     BytesTransferred: UInt32
-I2cTransferStatus = Int32
-I2cTransferStatus_FullTransfer: I2cTransferStatus = 0
-I2cTransferStatus_PartialTransfer: I2cTransferStatus = 1
-I2cTransferStatus_SlaveAddressNotAcknowledged: I2cTransferStatus = 2
-I2cTransferStatus_ClockStretchTimeout: I2cTransferStatus = 3
-I2cTransferStatus_UnknownError: I2cTransferStatus = 4
+class I2cTransferStatus(Int32):  # enum
+    FullTransfer = 0
+    PartialTransfer = 1
+    SlaveAddressNotAcknowledged = 2
+    ClockStretchTimeout = 3
+    UnknownError = 4
 class II2cConnectionSettings(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.I2c.II2cConnectionSettings'

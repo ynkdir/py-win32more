@@ -55,9 +55,9 @@ class IProviderI2cConnectionSettings(ComPtr):
     SlaveAddress = property(get_SlaveAddress, put_SlaveAddress)
     BusSpeed = property(get_BusSpeed, put_BusSpeed)
     SharingMode = property(get_SharingMode, put_SharingMode)
-ProviderI2cBusSpeed = Int32
-ProviderI2cBusSpeed_StandardMode: ProviderI2cBusSpeed = 0
-ProviderI2cBusSpeed_FastMode: ProviderI2cBusSpeed = 1
+class ProviderI2cBusSpeed(Int32):  # enum
+    StandardMode = 0
+    FastMode = 1
 class ProviderI2cConnectionSettings(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.I2c.Provider.IProviderI2cConnectionSettings
@@ -77,16 +77,16 @@ class ProviderI2cConnectionSettings(ComPtr):
     SlaveAddress = property(get_SlaveAddress, put_SlaveAddress)
     BusSpeed = property(get_BusSpeed, put_BusSpeed)
     SharingMode = property(get_SharingMode, put_SharingMode)
-ProviderI2cSharingMode = Int32
-ProviderI2cSharingMode_Exclusive: ProviderI2cSharingMode = 0
-ProviderI2cSharingMode_Shared: ProviderI2cSharingMode = 1
+class ProviderI2cSharingMode(Int32):  # enum
+    Exclusive = 0
+    Shared = 1
 class ProviderI2cTransferResult(EasyCastStructure):
     Status: win32more.Windows.Devices.I2c.Provider.ProviderI2cTransferStatus
     BytesTransferred: UInt32
-ProviderI2cTransferStatus = Int32
-ProviderI2cTransferStatus_FullTransfer: ProviderI2cTransferStatus = 0
-ProviderI2cTransferStatus_PartialTransfer: ProviderI2cTransferStatus = 1
-ProviderI2cTransferStatus_SlaveAddressNotAcknowledged: ProviderI2cTransferStatus = 2
+class ProviderI2cTransferStatus(Int32):  # enum
+    FullTransfer = 0
+    PartialTransfer = 1
+    SlaveAddressNotAcknowledged = 2
 
 
 make_ready(__name__)

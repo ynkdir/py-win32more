@@ -117,12 +117,12 @@ class IVoiceInformation(ComPtr):
     Language = property(get_Language, None)
     Description = property(get_Description, None)
     Gender = property(get_Gender, None)
-SpeechAppendedSilence = Int32
-SpeechAppendedSilence_Default: SpeechAppendedSilence = 0
-SpeechAppendedSilence_Min: SpeechAppendedSilence = 1
-SpeechPunctuationSilence = Int32
-SpeechPunctuationSilence_Default: SpeechPunctuationSilence = 0
-SpeechPunctuationSilence_Min: SpeechPunctuationSilence = 1
+class SpeechAppendedSilence(Int32):  # enum
+    Default = 0
+    Min = 1
+class SpeechPunctuationSilence(Int32):  # enum
+    Default = 0
+    Min = 1
 class SpeechSynthesisStream(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.SpeechSynthesis.ISpeechSynthesisStream
@@ -242,9 +242,9 @@ class SpeechSynthesizerOptions(ComPtr):
     AudioPitch = property(get_AudioPitch, put_AudioPitch)
     AppendedSilence = property(get_AppendedSilence, put_AppendedSilence)
     PunctuationSilence = property(get_PunctuationSilence, put_PunctuationSilence)
-VoiceGender = Int32
-VoiceGender_Male: VoiceGender = 0
-VoiceGender_Female: VoiceGender = 1
+class VoiceGender(Int32):  # enum
+    Male = 0
+    Female = 1
 class VoiceInformation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.SpeechSynthesis.IVoiceInformation

@@ -331,8 +331,8 @@ class IWindowTabThumbnailRequestedEventArgs(ComPtr):
     RequestedSize = property(get_RequestedSize, None)
     Image = property(get_Image, put_Image)
     IsCompositedOnWindow = property(get_IsCompositedOnWindow, None)
-SecurityAppKind = Int32
-SecurityAppKind_WebProtection: SecurityAppKind = 0
+class SecurityAppKind(Int32):  # enum
+    WebProtection = 0
 class SecurityAppManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Shell.ISecurityAppManager
@@ -353,18 +353,18 @@ class SecurityAppManager(ComPtr):
     @winrt_mixinmethod
     def UpdateState(self: win32more.Windows.UI.Shell.ISecurityAppManager, kind: win32more.Windows.UI.Shell.SecurityAppKind, guidRegistration: Guid, state: win32more.Windows.UI.Shell.SecurityAppState, substatus: win32more.Windows.UI.Shell.SecurityAppSubstatus, detailsUri: win32more.Windows.Foundation.Uri) -> Void: ...
 SecurityAppManagerContract: UInt32 = 65536
-SecurityAppState = Int32
-SecurityAppState_Disabled: SecurityAppState = 0
-SecurityAppState_Enabled: SecurityAppState = 1
-SecurityAppSubstatus = Int32
-SecurityAppSubstatus_Undetermined: SecurityAppSubstatus = 0
-SecurityAppSubstatus_NoActionNeeded: SecurityAppSubstatus = 1
-SecurityAppSubstatus_ActionRecommended: SecurityAppSubstatus = 2
-SecurityAppSubstatus_ActionNeeded: SecurityAppSubstatus = 3
-ShareWindowCommand = Int32
-ShareWindowCommand_None: ShareWindowCommand = 0
-ShareWindowCommand_StartSharing: ShareWindowCommand = 1
-ShareWindowCommand_StopSharing: ShareWindowCommand = 2
+class SecurityAppState(Int32):  # enum
+    Disabled = 0
+    Enabled = 1
+class SecurityAppSubstatus(Int32):  # enum
+    Undetermined = 0
+    NoActionNeeded = 1
+    ActionRecommended = 2
+    ActionNeeded = 3
+class ShareWindowCommand(Int32):  # enum
+    None_ = 0
+    StartSharing = 1
+    StopSharing = 2
 class ShareWindowCommandEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Shell.IShareWindowCommandEventArgs

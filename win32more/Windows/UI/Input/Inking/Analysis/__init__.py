@@ -139,22 +139,22 @@ class IInkAnalyzerFactory(ComPtr):
     _iid_ = Guid('{29138686-1963-49d8-9589-e14384c769e3}')
     @winrt_commethod(6)
     def CreateAnalyzer(self) -> win32more.Windows.UI.Input.Inking.Analysis.InkAnalyzer: ...
-InkAnalysisDrawingKind = Int32
-InkAnalysisDrawingKind_Drawing: InkAnalysisDrawingKind = 0
-InkAnalysisDrawingKind_Circle: InkAnalysisDrawingKind = 1
-InkAnalysisDrawingKind_Ellipse: InkAnalysisDrawingKind = 2
-InkAnalysisDrawingKind_Triangle: InkAnalysisDrawingKind = 3
-InkAnalysisDrawingKind_IsoscelesTriangle: InkAnalysisDrawingKind = 4
-InkAnalysisDrawingKind_EquilateralTriangle: InkAnalysisDrawingKind = 5
-InkAnalysisDrawingKind_RightTriangle: InkAnalysisDrawingKind = 6
-InkAnalysisDrawingKind_Quadrilateral: InkAnalysisDrawingKind = 7
-InkAnalysisDrawingKind_Rectangle: InkAnalysisDrawingKind = 8
-InkAnalysisDrawingKind_Square: InkAnalysisDrawingKind = 9
-InkAnalysisDrawingKind_Diamond: InkAnalysisDrawingKind = 10
-InkAnalysisDrawingKind_Trapezoid: InkAnalysisDrawingKind = 11
-InkAnalysisDrawingKind_Parallelogram: InkAnalysisDrawingKind = 12
-InkAnalysisDrawingKind_Pentagon: InkAnalysisDrawingKind = 13
-InkAnalysisDrawingKind_Hexagon: InkAnalysisDrawingKind = 14
+class InkAnalysisDrawingKind(Int32):  # enum
+    Drawing = 0
+    Circle = 1
+    Ellipse = 2
+    Triangle = 3
+    IsoscelesTriangle = 4
+    EquilateralTriangle = 5
+    RightTriangle = 6
+    Quadrilateral = 7
+    Rectangle = 8
+    Square = 9
+    Diamond = 10
+    Trapezoid = 11
+    Parallelogram = 12
+    Pentagon = 13
+    Hexagon = 14
 class InkAnalysisInkBullet(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Input.Inking.Analysis.IInkAnalysisInkBullet
@@ -326,16 +326,16 @@ class InkAnalysisNode(ComPtr):
     RotatedBoundingRect = property(get_RotatedBoundingRect, None)
     Children = property(get_Children, None)
     Parent = property(get_Parent, None)
-InkAnalysisNodeKind = Int32
-InkAnalysisNodeKind_UnclassifiedInk: InkAnalysisNodeKind = 0
-InkAnalysisNodeKind_Root: InkAnalysisNodeKind = 1
-InkAnalysisNodeKind_WritingRegion: InkAnalysisNodeKind = 2
-InkAnalysisNodeKind_Paragraph: InkAnalysisNodeKind = 3
-InkAnalysisNodeKind_Line: InkAnalysisNodeKind = 4
-InkAnalysisNodeKind_InkWord: InkAnalysisNodeKind = 5
-InkAnalysisNodeKind_InkBullet: InkAnalysisNodeKind = 6
-InkAnalysisNodeKind_InkDrawing: InkAnalysisNodeKind = 7
-InkAnalysisNodeKind_ListItem: InkAnalysisNodeKind = 8
+class InkAnalysisNodeKind(Int32):  # enum
+    UnclassifiedInk = 0
+    Root = 1
+    WritingRegion = 2
+    Paragraph = 3
+    Line = 4
+    InkWord = 5
+    InkBullet = 6
+    InkDrawing = 7
+    ListItem = 8
 class InkAnalysisParagraph(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Input.Inking.Analysis.IInkAnalysisParagraph
@@ -399,13 +399,13 @@ class InkAnalysisRoot(ComPtr):
     RotatedBoundingRect = property(get_RotatedBoundingRect, None)
     Children = property(get_Children, None)
     Parent = property(get_Parent, None)
-InkAnalysisStatus = Int32
-InkAnalysisStatus_Updated: InkAnalysisStatus = 0
-InkAnalysisStatus_Unchanged: InkAnalysisStatus = 1
-InkAnalysisStrokeKind = Int32
-InkAnalysisStrokeKind_Auto: InkAnalysisStrokeKind = 0
-InkAnalysisStrokeKind_Writing: InkAnalysisStrokeKind = 1
-InkAnalysisStrokeKind_Drawing: InkAnalysisStrokeKind = 2
+class InkAnalysisStatus(Int32):  # enum
+    Updated = 0
+    Unchanged = 1
+class InkAnalysisStrokeKind(Int32):  # enum
+    Auto = 0
+    Writing = 1
+    Drawing = 2
 class InkAnalysisWritingRegion(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Input.Inking.Analysis.IInkAnalysisWritingRegion

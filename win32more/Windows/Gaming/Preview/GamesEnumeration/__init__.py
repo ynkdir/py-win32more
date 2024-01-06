@@ -31,10 +31,10 @@ class GameList(ComPtr):
     def add_GameUpdated(cls: win32more.Windows.Gaming.Preview.GamesEnumeration.IGameListStatics, handler: win32more.Windows.Gaming.Preview.GamesEnumeration.GameListChangedEventHandler) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod
     def remove_GameUpdated(cls: win32more.Windows.Gaming.Preview.GamesEnumeration.IGameListStatics, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-GameListCategory = Int32
-GameListCategory_Candidate: GameListCategory = 0
-GameListCategory_ConfirmedBySystem: GameListCategory = 1
-GameListCategory_ConfirmedByUser: GameListCategory = 2
+class GameListCategory(Int32):  # enum
+    Candidate = 0
+    ConfirmedBySystem = 1
+    ConfirmedByUser = 2
 class GameListChangedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{25f6a421-d8f5-4d91-b40e-53d5e86fde64}')
@@ -77,11 +77,11 @@ class GameListEntry(ComPtr):
     LaunchParameters = property(get_LaunchParameters, None)
     TitleId = property(get_TitleId, None)
     GameModeConfiguration = property(get_GameModeConfiguration, None)
-GameListEntryLaunchableState = Int32
-GameListEntryLaunchableState_NotLaunchable: GameListEntryLaunchableState = 0
-GameListEntryLaunchableState_ByLastRunningFullPath: GameListEntryLaunchableState = 1
-GameListEntryLaunchableState_ByUserProvidedPath: GameListEntryLaunchableState = 2
-GameListEntryLaunchableState_ByTile: GameListEntryLaunchableState = 3
+class GameListEntryLaunchableState(Int32):  # enum
+    NotLaunchable = 0
+    ByLastRunningFullPath = 1
+    ByUserProvidedPath = 2
+    ByTile = 3
 class GameListRemovedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{10c5648f-6c8f-4712-9b38-474bc22e76d8}')

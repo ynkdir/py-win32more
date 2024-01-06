@@ -1368,9 +1368,9 @@ class LineBreak(ComPtr):
             raise ValueError('no matched constructor')
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Microsoft.UI.Xaml.Documents.LineBreak: ...
-LogicalDirection = Int32
-LogicalDirection_Backward: LogicalDirection = 0
-LogicalDirection_Forward: LogicalDirection = 1
+class LogicalDirection(Int32):  # enum
+    Backward = 0
+    Forward = 1
 class _Paragraph_Meta_(ComPtr.__class__):
     pass
 class Paragraph(ComPtr, metaclass=_Paragraph_Meta_):
@@ -2010,9 +2010,9 @@ class Underline(ComPtr):
             raise ValueError('no matched constructor')
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Microsoft.UI.Xaml.Documents.Underline: ...
-UnderlineStyle = Int32
-UnderlineStyle_None: UnderlineStyle = 0
-UnderlineStyle_Single: UnderlineStyle = 1
+class UnderlineStyle(Int32):  # enum
+    None_ = 0
+    Single = 1
 
 
 make_ready(__name__)

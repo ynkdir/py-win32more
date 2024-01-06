@@ -63,22 +63,22 @@ class Radio(ComPtr):
     State = property(get_State, None)
     Name = property(get_Name, None)
     Kind = property(get_Kind, None)
-RadioAccessStatus = Int32
-RadioAccessStatus_Unspecified: RadioAccessStatus = 0
-RadioAccessStatus_Allowed: RadioAccessStatus = 1
-RadioAccessStatus_DeniedByUser: RadioAccessStatus = 2
-RadioAccessStatus_DeniedBySystem: RadioAccessStatus = 3
-RadioKind = Int32
-RadioKind_Other: RadioKind = 0
-RadioKind_WiFi: RadioKind = 1
-RadioKind_MobileBroadband: RadioKind = 2
-RadioKind_Bluetooth: RadioKind = 3
-RadioKind_FM: RadioKind = 4
-RadioState = Int32
-RadioState_Unknown: RadioState = 0
-RadioState_On: RadioState = 1
-RadioState_Off: RadioState = 2
-RadioState_Disabled: RadioState = 3
+class RadioAccessStatus(Int32):  # enum
+    Unspecified = 0
+    Allowed = 1
+    DeniedByUser = 2
+    DeniedBySystem = 3
+class RadioKind(Int32):  # enum
+    Other = 0
+    WiFi = 1
+    MobileBroadband = 2
+    Bluetooth = 3
+    FM = 4
+class RadioState(Int32):  # enum
+    Unknown = 0
+    On = 1
+    Off = 2
+    Disabled = 3
 
 
 make_ready(__name__)

@@ -104,12 +104,12 @@ class INotifyCollectionChangedEventArgsFactory(ComPtr):
     _iid_ = Guid('{5108eba4-4892-5a20-8374-a96815e0fd27}')
     @winrt_commethod(6)
     def CreateInstanceWithAllParameters(self, action: win32more.Microsoft.UI.Xaml.Interop.NotifyCollectionChangedAction, newItems: win32more.Microsoft.UI.Xaml.Interop.IBindableVector, oldItems: win32more.Microsoft.UI.Xaml.Interop.IBindableVector, newIndex: Int32, oldIndex: Int32, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Interop.NotifyCollectionChangedEventArgs: ...
-NotifyCollectionChangedAction = Int32
-NotifyCollectionChangedAction_Add: NotifyCollectionChangedAction = 0
-NotifyCollectionChangedAction_Remove: NotifyCollectionChangedAction = 1
-NotifyCollectionChangedAction_Replace: NotifyCollectionChangedAction = 2
-NotifyCollectionChangedAction_Move: NotifyCollectionChangedAction = 3
-NotifyCollectionChangedAction_Reset: NotifyCollectionChangedAction = 4
+class NotifyCollectionChangedAction(Int32):  # enum
+    Add = 0
+    Remove = 1
+    Replace = 2
+    Move = 3
+    Reset = 4
 class NotifyCollectionChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Interop.INotifyCollectionChangedEventArgs

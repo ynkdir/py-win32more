@@ -494,15 +494,15 @@ class MediaFrameReader(ComPtr):
     @winrt_mixinmethod
     def get_AcquisitionMode(self: win32more.Windows.Media.Capture.Frames.IMediaFrameReader2) -> win32more.Windows.Media.Capture.Frames.MediaFrameReaderAcquisitionMode: ...
     AcquisitionMode = property(get_AcquisitionMode, put_AcquisitionMode)
-MediaFrameReaderAcquisitionMode = Int32
-MediaFrameReaderAcquisitionMode_Realtime: MediaFrameReaderAcquisitionMode = 0
-MediaFrameReaderAcquisitionMode_Buffered: MediaFrameReaderAcquisitionMode = 1
-MediaFrameReaderStartStatus = Int32
-MediaFrameReaderStartStatus_Success: MediaFrameReaderStartStatus = 0
-MediaFrameReaderStartStatus_UnknownFailure: MediaFrameReaderStartStatus = 1
-MediaFrameReaderStartStatus_DeviceNotAvailable: MediaFrameReaderStartStatus = 2
-MediaFrameReaderStartStatus_OutputFormatNotSupported: MediaFrameReaderStartStatus = 3
-MediaFrameReaderStartStatus_ExclusiveControlNotAvailable: MediaFrameReaderStartStatus = 4
+class MediaFrameReaderAcquisitionMode(Int32):  # enum
+    Realtime = 0
+    Buffered = 1
+class MediaFrameReaderStartStatus(Int32):  # enum
+    Success = 0
+    UnknownFailure = 1
+    DeviceNotAvailable = 2
+    OutputFormatNotSupported = 3
+    ExclusiveControlNotAvailable = 4
 class MediaFrameReference(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Capture.Frames.IMediaFrameReference
@@ -588,13 +588,13 @@ class MediaFrameSourceGetPropertyResult(ComPtr):
     def get_Value(self: win32more.Windows.Media.Capture.Frames.IMediaFrameSourceGetPropertyResult) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     Status = property(get_Status, None)
     Value = property(get_Value, None)
-MediaFrameSourceGetPropertyStatus = Int32
-MediaFrameSourceGetPropertyStatus_Success: MediaFrameSourceGetPropertyStatus = 0
-MediaFrameSourceGetPropertyStatus_UnknownFailure: MediaFrameSourceGetPropertyStatus = 1
-MediaFrameSourceGetPropertyStatus_NotSupported: MediaFrameSourceGetPropertyStatus = 2
-MediaFrameSourceGetPropertyStatus_DeviceNotAvailable: MediaFrameSourceGetPropertyStatus = 3
-MediaFrameSourceGetPropertyStatus_MaxPropertyValueSizeTooSmall: MediaFrameSourceGetPropertyStatus = 4
-MediaFrameSourceGetPropertyStatus_MaxPropertyValueSizeRequired: MediaFrameSourceGetPropertyStatus = 5
+class MediaFrameSourceGetPropertyStatus(Int32):  # enum
+    Success = 0
+    UnknownFailure = 1
+    NotSupported = 2
+    DeviceNotAvailable = 3
+    MaxPropertyValueSizeTooSmall = 4
+    MaxPropertyValueSizeRequired = 5
 class MediaFrameSourceGroup(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Capture.Frames.IMediaFrameSourceGroup
@@ -650,21 +650,21 @@ class MediaFrameSourceInfo(ComPtr):
     ProfileId = property(get_ProfileId, None)
     VideoProfileMediaDescription = property(get_VideoProfileMediaDescription, None)
     IsShareable = property(get_IsShareable, None)
-MediaFrameSourceKind = Int32
-MediaFrameSourceKind_Custom: MediaFrameSourceKind = 0
-MediaFrameSourceKind_Color: MediaFrameSourceKind = 1
-MediaFrameSourceKind_Infrared: MediaFrameSourceKind = 2
-MediaFrameSourceKind_Depth: MediaFrameSourceKind = 3
-MediaFrameSourceKind_Audio: MediaFrameSourceKind = 4
-MediaFrameSourceKind_Image: MediaFrameSourceKind = 5
-MediaFrameSourceKind_Metadata: MediaFrameSourceKind = 6
-MediaFrameSourceSetPropertyStatus = Int32
-MediaFrameSourceSetPropertyStatus_Success: MediaFrameSourceSetPropertyStatus = 0
-MediaFrameSourceSetPropertyStatus_UnknownFailure: MediaFrameSourceSetPropertyStatus = 1
-MediaFrameSourceSetPropertyStatus_NotSupported: MediaFrameSourceSetPropertyStatus = 2
-MediaFrameSourceSetPropertyStatus_InvalidValue: MediaFrameSourceSetPropertyStatus = 3
-MediaFrameSourceSetPropertyStatus_DeviceNotAvailable: MediaFrameSourceSetPropertyStatus = 4
-MediaFrameSourceSetPropertyStatus_NotInControl: MediaFrameSourceSetPropertyStatus = 5
+class MediaFrameSourceKind(Int32):  # enum
+    Custom = 0
+    Color = 1
+    Infrared = 2
+    Depth = 3
+    Audio = 4
+    Image = 5
+    Metadata = 6
+class MediaFrameSourceSetPropertyStatus(Int32):  # enum
+    Success = 0
+    UnknownFailure = 1
+    NotSupported = 2
+    InvalidValue = 3
+    DeviceNotAvailable = 4
+    NotInControl = 5
 class MultiSourceMediaFrameArrivedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Capture.Frames.IMultiSourceMediaFrameArrivedEventArgs
@@ -690,12 +690,12 @@ class MultiSourceMediaFrameReader(ComPtr):
     @winrt_mixinmethod
     def get_AcquisitionMode(self: win32more.Windows.Media.Capture.Frames.IMultiSourceMediaFrameReader2) -> win32more.Windows.Media.Capture.Frames.MediaFrameReaderAcquisitionMode: ...
     AcquisitionMode = property(get_AcquisitionMode, put_AcquisitionMode)
-MultiSourceMediaFrameReaderStartStatus = Int32
-MultiSourceMediaFrameReaderStartStatus_Success: MultiSourceMediaFrameReaderStartStatus = 0
-MultiSourceMediaFrameReaderStartStatus_NotSupported: MultiSourceMediaFrameReaderStartStatus = 1
-MultiSourceMediaFrameReaderStartStatus_InsufficientResources: MultiSourceMediaFrameReaderStartStatus = 2
-MultiSourceMediaFrameReaderStartStatus_DeviceNotAvailable: MultiSourceMediaFrameReaderStartStatus = 3
-MultiSourceMediaFrameReaderStartStatus_UnknownFailure: MultiSourceMediaFrameReaderStartStatus = 4
+class MultiSourceMediaFrameReaderStartStatus(Int32):  # enum
+    Success = 0
+    NotSupported = 1
+    InsufficientResources = 2
+    DeviceNotAvailable = 3
+    UnknownFailure = 4
 class MultiSourceMediaFrameReference(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Capture.Frames.IMultiSourceMediaFrameReference

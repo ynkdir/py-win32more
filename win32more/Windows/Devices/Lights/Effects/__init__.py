@@ -423,9 +423,9 @@ class LampArrayCustomEffect(ComPtr):
     Duration = property(get_Duration, put_Duration)
     UpdateInterval = property(get_UpdateInterval, put_UpdateInterval)
     ZIndex = property(get_ZIndex, put_ZIndex)
-LampArrayEffectCompletionBehavior = Int32
-LampArrayEffectCompletionBehavior_ClearState: LampArrayEffectCompletionBehavior = 0
-LampArrayEffectCompletionBehavior_KeepState: LampArrayEffectCompletionBehavior = 1
+class LampArrayEffectCompletionBehavior(Int32):  # enum
+    ClearState = 0
+    KeepState = 1
 class LampArrayEffectPlaylist(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Lights.Effects.ILampArrayEffectPlaylist
@@ -481,12 +481,12 @@ class LampArrayEffectPlaylist(ComPtr):
     Occurrences = property(get_Occurrences, put_Occurrences)
     RepetitionMode = property(get_RepetitionMode, put_RepetitionMode)
     Size = property(get_Size, None)
-LampArrayEffectStartMode = Int32
-LampArrayEffectStartMode_Sequential: LampArrayEffectStartMode = 0
-LampArrayEffectStartMode_Simultaneous: LampArrayEffectStartMode = 1
-LampArrayRepetitionMode = Int32
-LampArrayRepetitionMode_Occurrences: LampArrayRepetitionMode = 0
-LampArrayRepetitionMode_Forever: LampArrayRepetitionMode = 1
+class LampArrayEffectStartMode(Int32):  # enum
+    Sequential = 0
+    Simultaneous = 1
+class LampArrayRepetitionMode(Int32):  # enum
+    Occurrences = 0
+    Forever = 1
 class LampArraySolidEffect(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Lights.Effects.ILampArraySolidEffect

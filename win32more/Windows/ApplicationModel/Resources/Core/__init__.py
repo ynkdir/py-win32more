@@ -226,10 +226,10 @@ class ResourceCandidate(ComPtr):
     IsDefault = property(get_IsDefault, None)
     ValueAsString = property(get_ValueAsString, None)
     Kind = property(get_Kind, None)
-ResourceCandidateKind = Int32
-ResourceCandidateKind_String: ResourceCandidateKind = 0
-ResourceCandidateKind_File: ResourceCandidateKind = 1
-ResourceCandidateKind_EmbeddedData: ResourceCandidateKind = 2
+class ResourceCandidateKind(Int32):  # enum
+    String = 0
+    File = 1
+    EmbeddedData = 2
 class ResourceCandidateVectorView(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.ApplicationModel.Resources.Core.ResourceCandidate]
@@ -465,9 +465,9 @@ class ResourceQualifierObservableMap(ComPtr):
     @winrt_mixinmethod
     def First(self: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, WinRT_String]]) -> win32more.Windows.Foundation.Collections.IIterator[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, WinRT_String]]: ...
     Size = property(get_Size, None)
-ResourceQualifierPersistence = Int32
-ResourceQualifierPersistence_None: ResourceQualifierPersistence = 0
-ResourceQualifierPersistence_LocalMachine: ResourceQualifierPersistence = 1
+class ResourceQualifierPersistence(Int32):  # enum
+    None_ = 0
+    LocalMachine = 1
 class ResourceQualifierVectorView(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.ApplicationModel.Resources.Core.ResourceQualifier]

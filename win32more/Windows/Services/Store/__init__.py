@@ -778,12 +778,12 @@ class StoreCanAcquireLicenseResult(ComPtr):
     ExtendedError = property(get_ExtendedError, None)
     LicensableSku = property(get_LicensableSku, None)
     Status = property(get_Status, None)
-StoreCanLicenseStatus = Int32
-StoreCanLicenseStatus_NotLicensableToUser: StoreCanLicenseStatus = 0
-StoreCanLicenseStatus_Licensable: StoreCanLicenseStatus = 1
-StoreCanLicenseStatus_LicenseActionNotApplicableToProduct: StoreCanLicenseStatus = 2
-StoreCanLicenseStatus_NetworkError: StoreCanLicenseStatus = 3
-StoreCanLicenseStatus_ServerError: StoreCanLicenseStatus = 4
+class StoreCanLicenseStatus(Int32):  # enum
+    NotLicensableToUser = 0
+    Licensable = 1
+    LicenseActionNotApplicableToProduct = 2
+    NetworkError = 3
+    ServerError = 4
 class StoreCollectionData(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Services.Store.IStoreCollectionData
@@ -828,11 +828,11 @@ class StoreConsumableResult(ComPtr):
     TrackingId = property(get_TrackingId, None)
     BalanceRemaining = property(get_BalanceRemaining, None)
     ExtendedError = property(get_ExtendedError, None)
-StoreConsumableStatus = Int32
-StoreConsumableStatus_Succeeded: StoreConsumableStatus = 0
-StoreConsumableStatus_InsufficentQuantity: StoreConsumableStatus = 1
-StoreConsumableStatus_NetworkError: StoreConsumableStatus = 2
-StoreConsumableStatus_ServerError: StoreConsumableStatus = 3
+class StoreConsumableStatus(Int32):  # enum
+    Succeeded = 0
+    InsufficentQuantity = 1
+    NetworkError = 2
+    ServerError = 3
 class StoreContext(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Services.Store.IStoreContext
@@ -926,13 +926,13 @@ class StoreContext(ComPtr):
     User = property(get_User, None)
     CanSilentlyDownloadStorePackageUpdates = property(get_CanSilentlyDownloadStorePackageUpdates, None)
 StoreContract: UInt32 = 262144
-StoreDurationUnit = Int32
-StoreDurationUnit_Minute: StoreDurationUnit = 0
-StoreDurationUnit_Hour: StoreDurationUnit = 1
-StoreDurationUnit_Day: StoreDurationUnit = 2
-StoreDurationUnit_Week: StoreDurationUnit = 3
-StoreDurationUnit_Month: StoreDurationUnit = 4
-StoreDurationUnit_Year: StoreDurationUnit = 5
+class StoreDurationUnit(Int32):  # enum
+    Minute = 0
+    Hour = 1
+    Day = 2
+    Week = 3
+    Month = 4
+    Year = 5
 class StoreImage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Services.Store.IStoreImage
@@ -1030,16 +1030,16 @@ class StorePackageUpdateResult(ComPtr):
     OverallState = property(get_OverallState, None)
     StorePackageUpdateStatuses = property(get_StorePackageUpdateStatuses, None)
     StoreQueueItems = property(get_StoreQueueItems, None)
-StorePackageUpdateState = Int32
-StorePackageUpdateState_Pending: StorePackageUpdateState = 0
-StorePackageUpdateState_Downloading: StorePackageUpdateState = 1
-StorePackageUpdateState_Deploying: StorePackageUpdateState = 2
-StorePackageUpdateState_Completed: StorePackageUpdateState = 3
-StorePackageUpdateState_Canceled: StorePackageUpdateState = 4
-StorePackageUpdateState_OtherError: StorePackageUpdateState = 5
-StorePackageUpdateState_ErrorLowBattery: StorePackageUpdateState = 6
-StorePackageUpdateState_ErrorWiFiRecommended: StorePackageUpdateState = 7
-StorePackageUpdateState_ErrorWiFiRequired: StorePackageUpdateState = 8
+class StorePackageUpdateState(Int32):  # enum
+    Pending = 0
+    Downloading = 1
+    Deploying = 2
+    Completed = 3
+    Canceled = 4
+    OtherError = 5
+    ErrorLowBattery = 6
+    ErrorWiFiRecommended = 7
+    ErrorWiFiRequired = 8
 class StorePackageUpdateStatus(EasyCastStructure):
     PackageFamilyName: WinRT_String
     PackageDownloadSizeInBytes: UInt64
@@ -1221,12 +1221,12 @@ class StorePurchaseResult(ComPtr):
     def get_ExtendedError(self: win32more.Windows.Services.Store.IStorePurchaseResult) -> win32more.Windows.Foundation.HResult: ...
     Status = property(get_Status, None)
     ExtendedError = property(get_ExtendedError, None)
-StorePurchaseStatus = Int32
-StorePurchaseStatus_Succeeded: StorePurchaseStatus = 0
-StorePurchaseStatus_AlreadyPurchased: StorePurchaseStatus = 1
-StorePurchaseStatus_NotPurchased: StorePurchaseStatus = 2
-StorePurchaseStatus_NetworkError: StorePurchaseStatus = 3
-StorePurchaseStatus_ServerError: StorePurchaseStatus = 4
+class StorePurchaseStatus(Int32):  # enum
+    Succeeded = 0
+    AlreadyPurchased = 1
+    NotPurchased = 2
+    NetworkError = 3
+    ServerError = 4
 class StoreQueueItem(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Services.Store.IStoreQueueItem
@@ -1263,32 +1263,32 @@ class StoreQueueItemCompletedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Status(self: win32more.Windows.Services.Store.IStoreQueueItemCompletedEventArgs) -> win32more.Windows.Services.Store.StoreQueueItemStatus: ...
     Status = property(get_Status, None)
-StoreQueueItemExtendedState = Int32
-StoreQueueItemExtendedState_ActivePending: StoreQueueItemExtendedState = 0
-StoreQueueItemExtendedState_ActiveStarting: StoreQueueItemExtendedState = 1
-StoreQueueItemExtendedState_ActiveAcquiringLicense: StoreQueueItemExtendedState = 2
-StoreQueueItemExtendedState_ActiveDownloading: StoreQueueItemExtendedState = 3
-StoreQueueItemExtendedState_ActiveRestoringData: StoreQueueItemExtendedState = 4
-StoreQueueItemExtendedState_ActiveInstalling: StoreQueueItemExtendedState = 5
-StoreQueueItemExtendedState_Completed: StoreQueueItemExtendedState = 6
-StoreQueueItemExtendedState_Canceled: StoreQueueItemExtendedState = 7
-StoreQueueItemExtendedState_Paused: StoreQueueItemExtendedState = 8
-StoreQueueItemExtendedState_Error: StoreQueueItemExtendedState = 9
-StoreQueueItemExtendedState_PausedPackagesInUse: StoreQueueItemExtendedState = 10
-StoreQueueItemExtendedState_PausedLowBattery: StoreQueueItemExtendedState = 11
-StoreQueueItemExtendedState_PausedWiFiRecommended: StoreQueueItemExtendedState = 12
-StoreQueueItemExtendedState_PausedWiFiRequired: StoreQueueItemExtendedState = 13
-StoreQueueItemExtendedState_PausedReadyToInstall: StoreQueueItemExtendedState = 14
-StoreQueueItemKind = Int32
-StoreQueueItemKind_Install: StoreQueueItemKind = 0
-StoreQueueItemKind_Update: StoreQueueItemKind = 1
-StoreQueueItemKind_Repair: StoreQueueItemKind = 2
-StoreQueueItemState = Int32
-StoreQueueItemState_Active: StoreQueueItemState = 0
-StoreQueueItemState_Completed: StoreQueueItemState = 1
-StoreQueueItemState_Canceled: StoreQueueItemState = 2
-StoreQueueItemState_Error: StoreQueueItemState = 3
-StoreQueueItemState_Paused: StoreQueueItemState = 4
+class StoreQueueItemExtendedState(Int32):  # enum
+    ActivePending = 0
+    ActiveStarting = 1
+    ActiveAcquiringLicense = 2
+    ActiveDownloading = 3
+    ActiveRestoringData = 4
+    ActiveInstalling = 5
+    Completed = 6
+    Canceled = 7
+    Paused = 8
+    Error = 9
+    PausedPackagesInUse = 10
+    PausedLowBattery = 11
+    PausedWiFiRecommended = 12
+    PausedWiFiRequired = 13
+    PausedReadyToInstall = 14
+class StoreQueueItemKind(Int32):  # enum
+    Install = 0
+    Update = 1
+    Repair = 2
+class StoreQueueItemState(Int32):  # enum
+    Active = 0
+    Completed = 1
+    Canceled = 2
+    Error = 3
+    Paused = 4
 class StoreQueueItemStatus(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Services.Store.IStoreQueueItemStatus
@@ -1321,11 +1321,11 @@ class StoreRateAndReviewResult(ComPtr):
     ExtendedJsonData = property(get_ExtendedJsonData, None)
     WasUpdated = property(get_WasUpdated, None)
     Status = property(get_Status, None)
-StoreRateAndReviewStatus = Int32
-StoreRateAndReviewStatus_Succeeded: StoreRateAndReviewStatus = 0
-StoreRateAndReviewStatus_CanceledByUser: StoreRateAndReviewStatus = 1
-StoreRateAndReviewStatus_NetworkError: StoreRateAndReviewStatus = 2
-StoreRateAndReviewStatus_Error: StoreRateAndReviewStatus = 3
+class StoreRateAndReviewStatus(Int32):  # enum
+    Succeeded = 0
+    CanceledByUser = 1
+    NetworkError = 2
+    Error = 3
 class StoreRequestHelper(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Services.Store.StoreRequestHelper'
@@ -1431,12 +1431,12 @@ class StoreUninstallStorePackageResult(ComPtr):
     def get_Status(self: win32more.Windows.Services.Store.IStoreUninstallStorePackageResult) -> win32more.Windows.Services.Store.StoreUninstallStorePackageStatus: ...
     ExtendedError = property(get_ExtendedError, None)
     Status = property(get_Status, None)
-StoreUninstallStorePackageStatus = Int32
-StoreUninstallStorePackageStatus_Succeeded: StoreUninstallStorePackageStatus = 0
-StoreUninstallStorePackageStatus_CanceledByUser: StoreUninstallStorePackageStatus = 1
-StoreUninstallStorePackageStatus_NetworkError: StoreUninstallStorePackageStatus = 2
-StoreUninstallStorePackageStatus_UninstallNotApplicable: StoreUninstallStorePackageStatus = 3
-StoreUninstallStorePackageStatus_Error: StoreUninstallStorePackageStatus = 4
+class StoreUninstallStorePackageStatus(Int32):  # enum
+    Succeeded = 0
+    CanceledByUser = 1
+    NetworkError = 2
+    UninstallNotApplicable = 3
+    Error = 4
 class StoreVideo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Services.Store.IStoreVideo

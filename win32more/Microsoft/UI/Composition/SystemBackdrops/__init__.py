@@ -83,10 +83,10 @@ class DesktopAcrylicController(ComPtr):
     FallbackColor = property(get_FallbackColor, put_FallbackColor)
     LuminosityOpacity = property(get_LuminosityOpacity, put_LuminosityOpacity)
     TintColor = property(get_TintColor, put_TintColor)
-DesktopAcrylicKind = Int32
-DesktopAcrylicKind_Default: DesktopAcrylicKind = 0
-DesktopAcrylicKind_Base: DesktopAcrylicKind = 1
-DesktopAcrylicKind_Thin: DesktopAcrylicKind = 2
+class DesktopAcrylicKind(Int32):  # enum
+    Default = 0
+    Base = 1
+    Thin = 2
 class IDesktopAcrylicController(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Composition.SystemBackdrops.IDesktopAcrylicController'
@@ -298,9 +298,9 @@ class MicaController(ComPtr):
     TintColor = property(get_TintColor, put_TintColor)
     TintOpacity = property(get_TintOpacity, put_TintOpacity)
     Kind = property(get_Kind, put_Kind)
-MicaKind = Int32
-MicaKind_Base: MicaKind = 0
-MicaKind_BaseAlt: MicaKind = 1
+class MicaKind(Int32):  # enum
+    Base = 0
+    BaseAlt = 1
 class SystemBackdropConfiguration(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Composition.SystemBackdrops.ISystemBackdropConfiguration
@@ -334,14 +334,14 @@ class SystemBackdropConfiguration(ComPtr):
     IsHighContrast = property(get_IsHighContrast, put_IsHighContrast)
     IsInputActive = property(get_IsInputActive, put_IsInputActive)
     HighContrastBackgroundColor = property(get_HighContrastBackgroundColor, put_HighContrastBackgroundColor)
-SystemBackdropState = Int32
-SystemBackdropState_Active: SystemBackdropState = 0
-SystemBackdropState_Fallback: SystemBackdropState = 1
-SystemBackdropState_HighContrast: SystemBackdropState = 2
-SystemBackdropTheme = Int32
-SystemBackdropTheme_Default: SystemBackdropTheme = 0
-SystemBackdropTheme_Light: SystemBackdropTheme = 1
-SystemBackdropTheme_Dark: SystemBackdropTheme = 2
+class SystemBackdropState(Int32):  # enum
+    Active = 0
+    Fallback = 1
+    HighContrast = 2
+class SystemBackdropTheme(Int32):  # enum
+    Default = 0
+    Light = 1
+    Dark = 2
 
 
 make_ready(__name__)

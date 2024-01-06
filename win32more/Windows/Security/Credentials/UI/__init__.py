@@ -5,14 +5,14 @@ import win32more.Windows.Foundation
 import win32more.Windows.Security.Credentials.UI
 import win32more.Windows.Storage.Streams
 import win32more.Windows.Win32.System.WinRT
-AuthenticationProtocol = Int32
-AuthenticationProtocol_Basic: AuthenticationProtocol = 0
-AuthenticationProtocol_Digest: AuthenticationProtocol = 1
-AuthenticationProtocol_Ntlm: AuthenticationProtocol = 2
-AuthenticationProtocol_Kerberos: AuthenticationProtocol = 3
-AuthenticationProtocol_Negotiate: AuthenticationProtocol = 4
-AuthenticationProtocol_CredSsp: AuthenticationProtocol = 5
-AuthenticationProtocol_Custom: AuthenticationProtocol = 6
+class AuthenticationProtocol(Int32):  # enum
+    Basic = 0
+    Digest = 1
+    Ntlm = 2
+    Kerberos = 3
+    Negotiate = 4
+    CredSsp = 5
+    Custom = 6
 class CredentialPicker(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.Credentials.UI.CredentialPicker'
@@ -110,10 +110,10 @@ class CredentialPickerResults(ComPtr):
     CredentialDomainName = property(get_CredentialDomainName, None)
     CredentialUserName = property(get_CredentialUserName, None)
     CredentialPassword = property(get_CredentialPassword, None)
-CredentialSaveOption = Int32
-CredentialSaveOption_Unselected: CredentialSaveOption = 0
-CredentialSaveOption_Selected: CredentialSaveOption = 1
-CredentialSaveOption_Hidden: CredentialSaveOption = 2
+class CredentialSaveOption(Int32):  # enum
+    Unselected = 0
+    Selected = 1
+    Hidden = 2
 class ICredentialPickerOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.Credentials.UI.ICredentialPickerOptions'
@@ -211,14 +211,14 @@ class IUserConsentVerifierStatics(ComPtr):
     def CheckAvailabilityAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Security.Credentials.UI.UserConsentVerifierAvailability]: ...
     @winrt_commethod(7)
     def RequestVerificationAsync(self, message: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Security.Credentials.UI.UserConsentVerificationResult]: ...
-UserConsentVerificationResult = Int32
-UserConsentVerificationResult_Verified: UserConsentVerificationResult = 0
-UserConsentVerificationResult_DeviceNotPresent: UserConsentVerificationResult = 1
-UserConsentVerificationResult_NotConfiguredForUser: UserConsentVerificationResult = 2
-UserConsentVerificationResult_DisabledByPolicy: UserConsentVerificationResult = 3
-UserConsentVerificationResult_DeviceBusy: UserConsentVerificationResult = 4
-UserConsentVerificationResult_RetriesExhausted: UserConsentVerificationResult = 5
-UserConsentVerificationResult_Canceled: UserConsentVerificationResult = 6
+class UserConsentVerificationResult(Int32):  # enum
+    Verified = 0
+    DeviceNotPresent = 1
+    NotConfiguredForUser = 2
+    DisabledByPolicy = 3
+    DeviceBusy = 4
+    RetriesExhausted = 5
+    Canceled = 6
 class UserConsentVerifier(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.Credentials.UI.UserConsentVerifier'
@@ -226,12 +226,12 @@ class UserConsentVerifier(ComPtr):
     def CheckAvailabilityAsync(cls: win32more.Windows.Security.Credentials.UI.IUserConsentVerifierStatics) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Security.Credentials.UI.UserConsentVerifierAvailability]: ...
     @winrt_classmethod
     def RequestVerificationAsync(cls: win32more.Windows.Security.Credentials.UI.IUserConsentVerifierStatics, message: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Security.Credentials.UI.UserConsentVerificationResult]: ...
-UserConsentVerifierAvailability = Int32
-UserConsentVerifierAvailability_Available: UserConsentVerifierAvailability = 0
-UserConsentVerifierAvailability_DeviceNotPresent: UserConsentVerifierAvailability = 1
-UserConsentVerifierAvailability_NotConfiguredForUser: UserConsentVerifierAvailability = 2
-UserConsentVerifierAvailability_DisabledByPolicy: UserConsentVerifierAvailability = 3
-UserConsentVerifierAvailability_DeviceBusy: UserConsentVerifierAvailability = 4
+class UserConsentVerifierAvailability(Int32):  # enum
+    Available = 0
+    DeviceNotPresent = 1
+    NotConfiguredForUser = 2
+    DisabledByPolicy = 3
+    DeviceBusy = 4
 
 
 make_ready(__name__)

@@ -5,9 +5,9 @@ import win32more.Windows.Foundation
 import win32more.Windows.Networking
 import win32more.Windows.Networking.Connectivity
 import win32more.Windows.Win32.System.WinRT
-DomainNameType = Int32
-DomainNameType_Suffix: DomainNameType = 0
-DomainNameType_FullyQualified: DomainNameType = 1
+class DomainNameType(Int32):  # enum
+    Suffix = 0
+    FullyQualified = 1
 class EndpointPair(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.IEndpointPair
@@ -75,14 +75,14 @@ class HostName(ComPtr):
     DisplayName = property(get_DisplayName, None)
     CanonicalName = property(get_CanonicalName, None)
     Type = property(get_Type, None)
-HostNameSortOptions = UInt32
-HostNameSortOptions_None: HostNameSortOptions = 0
-HostNameSortOptions_OptimizeForLongConnections: HostNameSortOptions = 2
-HostNameType = Int32
-HostNameType_DomainName: HostNameType = 0
-HostNameType_Ipv4: HostNameType = 1
-HostNameType_Ipv6: HostNameType = 2
-HostNameType_Bluetooth: HostNameType = 3
+class HostNameSortOptions(UInt32):  # enum
+    None_ = 0
+    OptimizeForLongConnections = 2
+class HostNameType(Int32):  # enum
+    DomainName = 0
+    Ipv4 = 1
+    Ipv6 = 2
+    Bluetooth = 3
 class IEndpointPair(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.IEndpointPair'

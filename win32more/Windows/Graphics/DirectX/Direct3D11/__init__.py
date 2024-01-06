@@ -5,17 +5,17 @@ import win32more.Windows.Foundation
 import win32more.Windows.Graphics.DirectX
 import win32more.Windows.Graphics.DirectX.Direct3D11
 import win32more.Windows.Win32.System.WinRT
-Direct3DBindings = UInt32
-Direct3DBindings_VertexBuffer: Direct3DBindings = 1
-Direct3DBindings_IndexBuffer: Direct3DBindings = 2
-Direct3DBindings_ConstantBuffer: Direct3DBindings = 4
-Direct3DBindings_ShaderResource: Direct3DBindings = 8
-Direct3DBindings_StreamOutput: Direct3DBindings = 16
-Direct3DBindings_RenderTarget: Direct3DBindings = 32
-Direct3DBindings_DepthStencil: Direct3DBindings = 64
-Direct3DBindings_UnorderedAccess: Direct3DBindings = 128
-Direct3DBindings_Decoder: Direct3DBindings = 512
-Direct3DBindings_VideoEncoder: Direct3DBindings = 1024
+class Direct3DBindings(UInt32):  # enum
+    VertexBuffer = 1
+    IndexBuffer = 2
+    ConstantBuffer = 4
+    ShaderResource = 8
+    StreamOutput = 16
+    RenderTarget = 32
+    DepthStencil = 64
+    UnorderedAccess = 128
+    Decoder = 512
+    VideoEncoder = 1024
 class Direct3DMultisampleDescription(EasyCastStructure):
     Count: Int32
     Quality: Int32
@@ -24,11 +24,11 @@ class Direct3DSurfaceDescription(EasyCastStructure):
     Height: Int32
     Format: win32more.Windows.Graphics.DirectX.DirectXPixelFormat
     MultisampleDescription: win32more.Windows.Graphics.DirectX.Direct3D11.Direct3DMultisampleDescription
-Direct3DUsage = Int32
-Direct3DUsage_Default: Direct3DUsage = 0
-Direct3DUsage_Immutable: Direct3DUsage = 1
-Direct3DUsage_Dynamic: Direct3DUsage = 2
-Direct3DUsage_Staging: Direct3DUsage = 3
+class Direct3DUsage(Int32):  # enum
+    Default = 0
+    Immutable = 1
+    Dynamic = 2
+    Staging = 3
 class IDirect3DDevice(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.DirectX.Direct3D11.IDirect3DDevice'

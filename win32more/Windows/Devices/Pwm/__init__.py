@@ -126,9 +126,9 @@ class PwmPin(ComPtr):
     Controller = property(get_Controller, None)
     Polarity = property(get_Polarity, put_Polarity)
     IsStarted = property(get_IsStarted, None)
-PwmPulsePolarity = Int32
-PwmPulsePolarity_ActiveHigh: PwmPulsePolarity = 0
-PwmPulsePolarity_ActiveLow: PwmPulsePolarity = 1
+class PwmPulsePolarity(Int32):  # enum
+    ActiveHigh = 0
+    ActiveLow = 1
 
 
 make_ready(__name__)

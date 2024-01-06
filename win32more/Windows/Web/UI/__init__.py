@@ -452,19 +452,19 @@ class WebViewControlPermissionRequestedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_PermissionRequest(self: win32more.Windows.Web.UI.IWebViewControlPermissionRequestedEventArgs) -> win32more.Windows.Web.UI.WebViewControlPermissionRequest: ...
     PermissionRequest = property(get_PermissionRequest, None)
-WebViewControlPermissionState = Int32
-WebViewControlPermissionState_Unknown: WebViewControlPermissionState = 0
-WebViewControlPermissionState_Defer: WebViewControlPermissionState = 1
-WebViewControlPermissionState_Allow: WebViewControlPermissionState = 2
-WebViewControlPermissionState_Deny: WebViewControlPermissionState = 3
-WebViewControlPermissionType = Int32
-WebViewControlPermissionType_Geolocation: WebViewControlPermissionType = 0
-WebViewControlPermissionType_UnlimitedIndexedDBQuota: WebViewControlPermissionType = 1
-WebViewControlPermissionType_Media: WebViewControlPermissionType = 2
-WebViewControlPermissionType_PointerLock: WebViewControlPermissionType = 3
-WebViewControlPermissionType_WebNotifications: WebViewControlPermissionType = 4
-WebViewControlPermissionType_Screen: WebViewControlPermissionType = 5
-WebViewControlPermissionType_ImmersiveView: WebViewControlPermissionType = 6
+class WebViewControlPermissionState(Int32):  # enum
+    Unknown = 0
+    Defer = 1
+    Allow = 2
+    Deny = 3
+class WebViewControlPermissionType(Int32):  # enum
+    Geolocation = 0
+    UnlimitedIndexedDBQuota = 1
+    Media = 2
+    PointerLock = 3
+    WebNotifications = 4
+    Screen = 5
+    ImmersiveView = 6
 class WebViewControlScriptNotifyEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.UI.IWebViewControlScriptNotifyEventArgs

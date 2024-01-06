@@ -152,11 +152,11 @@ class AppWindowPresenter(ComPtr):
     @winrt_mixinmethod
     def get_Kind(self: win32more.Microsoft.UI.Windowing.IAppWindowPresenter) -> win32more.Microsoft.UI.Windowing.AppWindowPresenterKind: ...
     Kind = property(get_Kind, None)
-AppWindowPresenterKind = Int32
-AppWindowPresenterKind_Default: AppWindowPresenterKind = 0
-AppWindowPresenterKind_CompactOverlay: AppWindowPresenterKind = 1
-AppWindowPresenterKind_FullScreen: AppWindowPresenterKind = 2
-AppWindowPresenterKind_Overlapped: AppWindowPresenterKind = 3
+class AppWindowPresenterKind(Int32):  # enum
+    Default = 0
+    CompactOverlay = 1
+    FullScreen = 2
+    Overlapped = 3
 class AppWindowTitleBar(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Windowing.IAppWindowTitleBar
@@ -262,10 +262,10 @@ class CompactOverlayPresenter(ComPtr):
     @winrt_classmethod
     def Create(cls: win32more.Microsoft.UI.Windowing.ICompactOverlayPresenterStatics) -> win32more.Microsoft.UI.Windowing.CompactOverlayPresenter: ...
     InitialSize = property(get_InitialSize, put_InitialSize)
-CompactOverlaySize = Int32
-CompactOverlaySize_Small: CompactOverlaySize = 0
-CompactOverlaySize_Medium: CompactOverlaySize = 1
-CompactOverlaySize_Large: CompactOverlaySize = 2
+class CompactOverlaySize(Int32):  # enum
+    Small = 0
+    Medium = 1
+    Large = 2
 class _DisplayArea_Meta_(ComPtr.__class__):
     pass
 class DisplayArea(ComPtr, metaclass=_DisplayArea_Meta_):
@@ -299,10 +299,10 @@ class DisplayArea(ComPtr, metaclass=_DisplayArea_Meta_):
     OuterBounds = property(get_OuterBounds, None)
     WorkArea = property(get_WorkArea, None)
     _DisplayArea_Meta_.Primary = property(get_Primary.__wrapped__, None)
-DisplayAreaFallback = Int32
-DisplayAreaFallback_None: DisplayAreaFallback = 0
-DisplayAreaFallback_Primary: DisplayAreaFallback = 1
-DisplayAreaFallback_Nearest: DisplayAreaFallback = 2
+class DisplayAreaFallback(Int32):  # enum
+    None_ = 0
+    Primary = 1
+    Nearest = 2
 class DisplayAreaWatcher(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Windowing.IDisplayAreaWatcher
@@ -334,13 +334,13 @@ class DisplayAreaWatcher(ComPtr):
     @winrt_mixinmethod
     def remove_Updated(self: win32more.Microsoft.UI.Windowing.IDisplayAreaWatcher, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Status = property(get_Status, None)
-DisplayAreaWatcherStatus = Int32
-DisplayAreaWatcherStatus_Created: DisplayAreaWatcherStatus = 0
-DisplayAreaWatcherStatus_Started: DisplayAreaWatcherStatus = 1
-DisplayAreaWatcherStatus_EnumerationCompleted: DisplayAreaWatcherStatus = 2
-DisplayAreaWatcherStatus_Stopping: DisplayAreaWatcherStatus = 3
-DisplayAreaWatcherStatus_Stopped: DisplayAreaWatcherStatus = 4
-DisplayAreaWatcherStatus_Aborted: DisplayAreaWatcherStatus = 5
+class DisplayAreaWatcherStatus(Int32):  # enum
+    Created = 0
+    Started = 1
+    EnumerationCompleted = 2
+    Stopping = 3
+    Stopped = 4
+    Aborted = 5
 class FullScreenPresenter(ComPtr):
     extends: win32more.Microsoft.UI.Windowing.AppWindowPresenter
     default_interface: win32more.Microsoft.UI.Windowing.IFullScreenPresenter
@@ -784,9 +784,9 @@ class IOverlappedPresenterStatics2(ComPtr):
     @winrt_commethod(6)
     def get_RequestedStartupState(self) -> win32more.Microsoft.UI.Windowing.OverlappedPresenterState: ...
     RequestedStartupState = property(get_RequestedStartupState, None)
-IconShowOptions = Int32
-IconShowOptions_ShowIconAndSystemMenu: IconShowOptions = 0
-IconShowOptions_HideIconAndSystemMenu: IconShowOptions = 1
+class IconShowOptions(Int32):  # enum
+    ShowIconAndSystemMenu = 0
+    HideIconAndSystemMenu = 1
 class _OverlappedPresenter_Meta_(ComPtr.__class__):
     pass
 class OverlappedPresenter(ComPtr, metaclass=_OverlappedPresenter_Meta_):
@@ -850,14 +850,14 @@ class OverlappedPresenter(ComPtr, metaclass=_OverlappedPresenter_Meta_):
     State = property(get_State, None)
     HasBorder = property(get_HasBorder, None)
     _OverlappedPresenter_Meta_.RequestedStartupState = property(get_RequestedStartupState.__wrapped__, None)
-OverlappedPresenterState = Int32
-OverlappedPresenterState_Maximized: OverlappedPresenterState = 0
-OverlappedPresenterState_Minimized: OverlappedPresenterState = 1
-OverlappedPresenterState_Restored: OverlappedPresenterState = 2
-TitleBarHeightOption = Int32
-TitleBarHeightOption_Standard: TitleBarHeightOption = 0
-TitleBarHeightOption_Tall: TitleBarHeightOption = 1
-TitleBarHeightOption_Collapsed: TitleBarHeightOption = 2
+class OverlappedPresenterState(Int32):  # enum
+    Maximized = 0
+    Minimized = 1
+    Restored = 2
+class TitleBarHeightOption(Int32):  # enum
+    Standard = 0
+    Tall = 1
+    Collapsed = 2
 
 
 make_ready(__name__)

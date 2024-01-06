@@ -5,13 +5,13 @@ import win32more.Windows.Devices.Sensors
 import win32more.Windows.Foundation
 import win32more.Windows.System.Preview
 import win32more.Windows.Win32.System.WinRT
-HingeState = Int32
-HingeState_Unknown: HingeState = 0
-HingeState_Closed: HingeState = 1
-HingeState_Concave: HingeState = 2
-HingeState_Flat: HingeState = 3
-HingeState_Convex: HingeState = 4
-HingeState_Full: HingeState = 5
+class HingeState(Int32):  # enum
+    Unknown = 0
+    Closed = 1
+    Concave = 2
+    Flat = 3
+    Convex = 4
+    Full = 5
 class ITwoPanelHingedDevicePosturePreview(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.System.Preview.ITwoPanelHingedDevicePosturePreview'

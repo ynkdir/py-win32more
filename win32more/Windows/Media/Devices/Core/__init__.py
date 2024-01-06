@@ -219,10 +219,10 @@ class FrameFlashControl(ComPtr):
     Auto = property(get_Auto, put_Auto)
     RedEyeReduction = property(get_RedEyeReduction, put_RedEyeReduction)
     PowerPercent = property(get_PowerPercent, put_PowerPercent)
-FrameFlashMode = Int32
-FrameFlashMode_Disable: FrameFlashMode = 0
-FrameFlashMode_Enable: FrameFlashMode = 1
-FrameFlashMode_Global: FrameFlashMode = 2
+class FrameFlashMode(Int32):  # enum
+    Disable = 0
+    Enable = 1
+    Global = 2
 class FrameFocusCapabilities(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Devices.Core.IFrameFocusCapabilities

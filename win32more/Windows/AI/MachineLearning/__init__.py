@@ -748,12 +748,12 @@ class LearningModelDevice(ComPtr):
     def CreateFromDirect3D11Device(cls: win32more.Windows.AI.MachineLearning.ILearningModelDeviceStatics, device: win32more.Windows.Graphics.DirectX.Direct3D11.IDirect3DDevice) -> win32more.Windows.AI.MachineLearning.LearningModelDevice: ...
     AdapterId = property(get_AdapterId, None)
     Direct3D11Device = property(get_Direct3D11Device, None)
-LearningModelDeviceKind = Int32
-LearningModelDeviceKind_Default: LearningModelDeviceKind = 0
-LearningModelDeviceKind_Cpu: LearningModelDeviceKind = 1
-LearningModelDeviceKind_DirectX: LearningModelDeviceKind = 2
-LearningModelDeviceKind_DirectXHighPerformance: LearningModelDeviceKind = 3
-LearningModelDeviceKind_DirectXMinPower: LearningModelDeviceKind = 4
+class LearningModelDeviceKind(Int32):  # enum
+    Default = 0
+    Cpu = 1
+    DirectX = 2
+    DirectXHighPerformance = 3
+    DirectXMinPower = 4
 class LearningModelEvaluationResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.AI.MachineLearning.ILearningModelEvaluationResult
@@ -770,15 +770,15 @@ class LearningModelEvaluationResult(ComPtr):
     ErrorStatus = property(get_ErrorStatus, None)
     Succeeded = property(get_Succeeded, None)
     Outputs = property(get_Outputs, None)
-LearningModelFeatureKind = Int32
-LearningModelFeatureKind_Tensor: LearningModelFeatureKind = 0
-LearningModelFeatureKind_Sequence: LearningModelFeatureKind = 1
-LearningModelFeatureKind_Map: LearningModelFeatureKind = 2
-LearningModelFeatureKind_Image: LearningModelFeatureKind = 3
-LearningModelPixelRange = Int32
-LearningModelPixelRange_ZeroTo255: LearningModelPixelRange = 0
-LearningModelPixelRange_ZeroToOne: LearningModelPixelRange = 1
-LearningModelPixelRange_MinusOneToOne: LearningModelPixelRange = 2
+class LearningModelFeatureKind(Int32):  # enum
+    Tensor = 0
+    Sequence = 1
+    Map = 2
+    Image = 3
+class LearningModelPixelRange(Int32):  # enum
+    ZeroTo255 = 0
+    ZeroToOne = 1
+    MinusOneToOne = 2
 class LearningModelSession(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.AI.MachineLearning.ILearningModelSession
@@ -1156,23 +1156,23 @@ class TensorInt8Bit(ComPtr):
     TensorKind = property(get_TensorKind, None)
     Shape = property(get_Shape, None)
     Kind = property(get_Kind, None)
-TensorKind = Int32
-TensorKind_Undefined: TensorKind = 0
-TensorKind_Float: TensorKind = 1
-TensorKind_UInt8: TensorKind = 2
-TensorKind_Int8: TensorKind = 3
-TensorKind_UInt16: TensorKind = 4
-TensorKind_Int16: TensorKind = 5
-TensorKind_Int32: TensorKind = 6
-TensorKind_Int64: TensorKind = 7
-TensorKind_String: TensorKind = 8
-TensorKind_Boolean: TensorKind = 9
-TensorKind_Float16: TensorKind = 10
-TensorKind_Double: TensorKind = 11
-TensorKind_UInt32: TensorKind = 12
-TensorKind_UInt64: TensorKind = 13
-TensorKind_Complex64: TensorKind = 14
-TensorKind_Complex128: TensorKind = 15
+class TensorKind(Int32):  # enum
+    Undefined = 0
+    Float = 1
+    UInt8 = 2
+    Int8 = 3
+    UInt16 = 4
+    Int16 = 5
+    Int32 = 6
+    Int64 = 7
+    String = 8
+    Boolean = 9
+    Float16 = 10
+    Double = 11
+    UInt32 = 12
+    UInt64 = 13
+    Complex64 = 14
+    Complex128 = 15
 class TensorString(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.AI.MachineLearning.ITensorString

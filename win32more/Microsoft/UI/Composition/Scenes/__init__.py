@@ -316,18 +316,18 @@ class ISceneVisualStatics(ComPtr):
     _iid_ = Guid('{7b8da6d1-5bd8-5095-9264-e5572653ea07}')
     @winrt_commethod(6)
     def Create(self, compositor: win32more.Microsoft.UI.Composition.Compositor) -> win32more.Microsoft.UI.Composition.Scenes.SceneVisual: ...
-SceneAlphaMode = Int32
-SceneAlphaMode_Opaque: SceneAlphaMode = 0
-SceneAlphaMode_AlphaTest: SceneAlphaMode = 1
-SceneAlphaMode_Blend: SceneAlphaMode = 2
-SceneAttributeSemantic = Int32
-SceneAttributeSemantic_Index: SceneAttributeSemantic = 0
-SceneAttributeSemantic_Vertex: SceneAttributeSemantic = 1
-SceneAttributeSemantic_Normal: SceneAttributeSemantic = 2
-SceneAttributeSemantic_TexCoord0: SceneAttributeSemantic = 3
-SceneAttributeSemantic_TexCoord1: SceneAttributeSemantic = 4
-SceneAttributeSemantic_Color: SceneAttributeSemantic = 5
-SceneAttributeSemantic_Tangent: SceneAttributeSemantic = 6
+class SceneAlphaMode(Int32):  # enum
+    Opaque = 0
+    AlphaTest = 1
+    Blend = 2
+class SceneAttributeSemantic(Int32):  # enum
+    Index = 0
+    Vertex = 1
+    Normal = 2
+    TexCoord0 = 3
+    TexCoord1 = 4
+    Color = 5
+    Tangent = 6
 class SceneBoundingBox(ComPtr):
     extends: win32more.Microsoft.UI.Composition.Scenes.SceneObject
     default_interface: win32more.Microsoft.UI.Composition.Scenes.ISceneBoundingBox
@@ -385,8 +385,8 @@ class SceneComponentCollection(ComPtr):
     @winrt_mixinmethod
     def ReplaceAll(self: win32more.Windows.Foundation.Collections.IVector[win32more.Microsoft.UI.Composition.Scenes.SceneComponent], items: Annotated[SZArray[win32more.Microsoft.UI.Composition.Scenes.SceneComponent], 'In']) -> Void: ...
     Size = property(get_Size, None)
-SceneComponentType = Int32
-SceneComponentType_MeshRendererComponent: SceneComponentType = 0
+class SceneComponentType(Int32):  # enum
+    MeshRendererComponent = 0
 class SceneMaterial(ComPtr):
     extends: win32more.Microsoft.UI.Composition.Scenes.SceneObject
     default_interface: win32more.Microsoft.UI.Composition.Scenes.ISceneMaterial
@@ -661,10 +661,10 @@ class SceneVisual(ComPtr):
     @winrt_classmethod
     def Create(cls: win32more.Microsoft.UI.Composition.Scenes.ISceneVisualStatics, compositor: win32more.Microsoft.UI.Composition.Compositor) -> win32more.Microsoft.UI.Composition.Scenes.SceneVisual: ...
     Root = property(get_Root, put_Root)
-SceneWrappingMode = Int32
-SceneWrappingMode_ClampToEdge: SceneWrappingMode = 0
-SceneWrappingMode_MirroredRepeat: SceneWrappingMode = 1
-SceneWrappingMode_Repeat: SceneWrappingMode = 2
+class SceneWrappingMode(Int32):  # enum
+    ClampToEdge = 0
+    MirroredRepeat = 1
+    Repeat = 2
 
 
 make_ready(__name__)

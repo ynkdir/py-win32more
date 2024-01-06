@@ -80,13 +80,13 @@ class WorkItemHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{1d1a8b8b-fa66-414f-9cbd-b65fc99d17fa}')
     def Invoke(self, operation: win32more.Windows.Foundation.IAsyncAction) -> Void: ...
-WorkItemOptions = UInt32
-WorkItemOptions_None: WorkItemOptions = 0
-WorkItemOptions_TimeSliced: WorkItemOptions = 1
-WorkItemPriority = Int32
-WorkItemPriority_Low: WorkItemPriority = -1
-WorkItemPriority_Normal: WorkItemPriority = 0
-WorkItemPriority_High: WorkItemPriority = 1
+class WorkItemOptions(UInt32):  # enum
+    None_ = 0
+    TimeSliced = 1
+class WorkItemPriority(Int32):  # enum
+    Low = -1
+    Normal = 0
+    High = 1
 
 
 make_ready(__name__)

@@ -77,27 +77,27 @@ class DisplayMonitor(ComPtr):
     MinLuminanceInNits = property(get_MinLuminanceInNits, None)
     MaxAverageFullFrameLuminanceInNits = property(get_MaxAverageFullFrameLuminanceInNits, None)
     IsDolbyVisionSupportedInHdrMode = property(get_IsDolbyVisionSupportedInHdrMode, None)
-DisplayMonitorConnectionKind = Int32
-DisplayMonitorConnectionKind_Internal: DisplayMonitorConnectionKind = 0
-DisplayMonitorConnectionKind_Wired: DisplayMonitorConnectionKind = 1
-DisplayMonitorConnectionKind_Wireless: DisplayMonitorConnectionKind = 2
-DisplayMonitorConnectionKind_Virtual: DisplayMonitorConnectionKind = 3
-DisplayMonitorDescriptorKind = Int32
-DisplayMonitorDescriptorKind_Edid: DisplayMonitorDescriptorKind = 0
-DisplayMonitorDescriptorKind_DisplayId: DisplayMonitorDescriptorKind = 1
-DisplayMonitorPhysicalConnectorKind = Int32
-DisplayMonitorPhysicalConnectorKind_Unknown: DisplayMonitorPhysicalConnectorKind = 0
-DisplayMonitorPhysicalConnectorKind_HD15: DisplayMonitorPhysicalConnectorKind = 1
-DisplayMonitorPhysicalConnectorKind_AnalogTV: DisplayMonitorPhysicalConnectorKind = 2
-DisplayMonitorPhysicalConnectorKind_Dvi: DisplayMonitorPhysicalConnectorKind = 3
-DisplayMonitorPhysicalConnectorKind_Hdmi: DisplayMonitorPhysicalConnectorKind = 4
-DisplayMonitorPhysicalConnectorKind_Lvds: DisplayMonitorPhysicalConnectorKind = 5
-DisplayMonitorPhysicalConnectorKind_Sdi: DisplayMonitorPhysicalConnectorKind = 6
-DisplayMonitorPhysicalConnectorKind_DisplayPort: DisplayMonitorPhysicalConnectorKind = 7
-DisplayMonitorUsageKind = Int32
-DisplayMonitorUsageKind_Standard: DisplayMonitorUsageKind = 0
-DisplayMonitorUsageKind_HeadMounted: DisplayMonitorUsageKind = 1
-DisplayMonitorUsageKind_SpecialPurpose: DisplayMonitorUsageKind = 2
+class DisplayMonitorConnectionKind(Int32):  # enum
+    Internal = 0
+    Wired = 1
+    Wireless = 2
+    Virtual = 3
+class DisplayMonitorDescriptorKind(Int32):  # enum
+    Edid = 0
+    DisplayId = 1
+class DisplayMonitorPhysicalConnectorKind(Int32):  # enum
+    Unknown = 0
+    HD15 = 1
+    AnalogTV = 2
+    Dvi = 3
+    Hdmi = 4
+    Lvds = 5
+    Sdi = 6
+    DisplayPort = 7
+class DisplayMonitorUsageKind(Int32):  # enum
+    Standard = 0
+    HeadMounted = 1
+    SpecialPurpose = 2
 class IDisplayMonitor(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Display.IDisplayMonitor'

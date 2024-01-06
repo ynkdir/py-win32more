@@ -129,9 +129,9 @@ class MicrosoftAccountMultiFactorAuthenticationManager(ComPtr, metaclass=_Micros
     @winrt_classmethod
     def get_Current(cls: win32more.Windows.Security.Authentication.Identity.Core.IMicrosoftAccountMultiFactorAuthenticatorStatics) -> win32more.Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorAuthenticationManager: ...
     _MicrosoftAccountMultiFactorAuthenticationManager_Meta_.Current = property(get_Current.__wrapped__, None)
-MicrosoftAccountMultiFactorAuthenticationType = Int32
-MicrosoftAccountMultiFactorAuthenticationType_User: MicrosoftAccountMultiFactorAuthenticationType = 0
-MicrosoftAccountMultiFactorAuthenticationType_Device: MicrosoftAccountMultiFactorAuthenticationType = 1
+class MicrosoftAccountMultiFactorAuthenticationType(Int32):  # enum
+    User = 0
+    Device = 1
 class MicrosoftAccountMultiFactorGetSessionsResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Authentication.Identity.Core.IMicrosoftAccountMultiFactorGetSessionsResult
@@ -158,36 +158,36 @@ class MicrosoftAccountMultiFactorOneTimeCodedInfo(ComPtr):
     TimeInterval = property(get_TimeInterval, None)
     TimeToLive = property(get_TimeToLive, None)
     ServiceResponse = property(get_ServiceResponse, None)
-MicrosoftAccountMultiFactorServiceResponse = Int32
-MicrosoftAccountMultiFactorServiceResponse_Success: MicrosoftAccountMultiFactorServiceResponse = 0
-MicrosoftAccountMultiFactorServiceResponse_Error: MicrosoftAccountMultiFactorServiceResponse = 1
-MicrosoftAccountMultiFactorServiceResponse_NoNetworkConnection: MicrosoftAccountMultiFactorServiceResponse = 2
-MicrosoftAccountMultiFactorServiceResponse_ServiceUnavailable: MicrosoftAccountMultiFactorServiceResponse = 3
-MicrosoftAccountMultiFactorServiceResponse_TotpSetupDenied: MicrosoftAccountMultiFactorServiceResponse = 4
-MicrosoftAccountMultiFactorServiceResponse_NgcNotSetup: MicrosoftAccountMultiFactorServiceResponse = 5
-MicrosoftAccountMultiFactorServiceResponse_SessionAlreadyDenied: MicrosoftAccountMultiFactorServiceResponse = 6
-MicrosoftAccountMultiFactorServiceResponse_SessionAlreadyApproved: MicrosoftAccountMultiFactorServiceResponse = 7
-MicrosoftAccountMultiFactorServiceResponse_SessionExpired: MicrosoftAccountMultiFactorServiceResponse = 8
-MicrosoftAccountMultiFactorServiceResponse_NgcNonceExpired: MicrosoftAccountMultiFactorServiceResponse = 9
-MicrosoftAccountMultiFactorServiceResponse_InvalidSessionId: MicrosoftAccountMultiFactorServiceResponse = 10
-MicrosoftAccountMultiFactorServiceResponse_InvalidSessionType: MicrosoftAccountMultiFactorServiceResponse = 11
-MicrosoftAccountMultiFactorServiceResponse_InvalidOperation: MicrosoftAccountMultiFactorServiceResponse = 12
-MicrosoftAccountMultiFactorServiceResponse_InvalidStateTransition: MicrosoftAccountMultiFactorServiceResponse = 13
-MicrosoftAccountMultiFactorServiceResponse_DeviceNotFound: MicrosoftAccountMultiFactorServiceResponse = 14
-MicrosoftAccountMultiFactorServiceResponse_FlowDisabled: MicrosoftAccountMultiFactorServiceResponse = 15
-MicrosoftAccountMultiFactorServiceResponse_SessionNotApproved: MicrosoftAccountMultiFactorServiceResponse = 16
-MicrosoftAccountMultiFactorServiceResponse_OperationCanceledByUser: MicrosoftAccountMultiFactorServiceResponse = 17
-MicrosoftAccountMultiFactorServiceResponse_NgcDisabledByServer: MicrosoftAccountMultiFactorServiceResponse = 18
-MicrosoftAccountMultiFactorServiceResponse_NgcKeyNotFoundOnServer: MicrosoftAccountMultiFactorServiceResponse = 19
-MicrosoftAccountMultiFactorServiceResponse_UIRequired: MicrosoftAccountMultiFactorServiceResponse = 20
-MicrosoftAccountMultiFactorServiceResponse_DeviceIdChanged: MicrosoftAccountMultiFactorServiceResponse = 21
-MicrosoftAccountMultiFactorSessionApprovalStatus = Int32
-MicrosoftAccountMultiFactorSessionApprovalStatus_Pending: MicrosoftAccountMultiFactorSessionApprovalStatus = 0
-MicrosoftAccountMultiFactorSessionApprovalStatus_Approved: MicrosoftAccountMultiFactorSessionApprovalStatus = 1
-MicrosoftAccountMultiFactorSessionApprovalStatus_Denied: MicrosoftAccountMultiFactorSessionApprovalStatus = 2
-MicrosoftAccountMultiFactorSessionAuthenticationStatus = Int32
-MicrosoftAccountMultiFactorSessionAuthenticationStatus_Authenticated: MicrosoftAccountMultiFactorSessionAuthenticationStatus = 0
-MicrosoftAccountMultiFactorSessionAuthenticationStatus_Unauthenticated: MicrosoftAccountMultiFactorSessionAuthenticationStatus = 1
+class MicrosoftAccountMultiFactorServiceResponse(Int32):  # enum
+    Success = 0
+    Error = 1
+    NoNetworkConnection = 2
+    ServiceUnavailable = 3
+    TotpSetupDenied = 4
+    NgcNotSetup = 5
+    SessionAlreadyDenied = 6
+    SessionAlreadyApproved = 7
+    SessionExpired = 8
+    NgcNonceExpired = 9
+    InvalidSessionId = 10
+    InvalidSessionType = 11
+    InvalidOperation = 12
+    InvalidStateTransition = 13
+    DeviceNotFound = 14
+    FlowDisabled = 15
+    SessionNotApproved = 16
+    OperationCanceledByUser = 17
+    NgcDisabledByServer = 18
+    NgcKeyNotFoundOnServer = 19
+    UIRequired = 20
+    DeviceIdChanged = 21
+class MicrosoftAccountMultiFactorSessionApprovalStatus(Int32):  # enum
+    Pending = 0
+    Approved = 1
+    Denied = 2
+class MicrosoftAccountMultiFactorSessionAuthenticationStatus(Int32):  # enum
+    Authenticated = 0
+    Unauthenticated = 1
 class MicrosoftAccountMultiFactorSessionInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Authentication.Identity.Core.IMicrosoftAccountMultiFactorSessionInfo

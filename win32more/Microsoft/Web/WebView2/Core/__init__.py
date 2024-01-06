@@ -325,12 +325,12 @@ class CoreWebView2BasicAuthenticationResponse(ComPtr):
     def put_Password(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2BasicAuthenticationResponse, value: WinRT_String) -> Void: ...
     UserName = property(get_UserName, put_UserName)
     Password = property(get_Password, put_Password)
-CoreWebView2BoundsMode = Int32
-CoreWebView2BoundsMode_UseRawPixels: CoreWebView2BoundsMode = 0
-CoreWebView2BoundsMode_UseRasterizationScale: CoreWebView2BoundsMode = 1
-CoreWebView2BrowserProcessExitKind = Int32
-CoreWebView2BrowserProcessExitKind_Normal: CoreWebView2BrowserProcessExitKind = 0
-CoreWebView2BrowserProcessExitKind_Failed: CoreWebView2BrowserProcessExitKind = 1
+class CoreWebView2BoundsMode(Int32):  # enum
+    UseRawPixels = 0
+    UseRasterizationScale = 1
+class CoreWebView2BrowserProcessExitKind(Int32):  # enum
+    Normal = 0
+    Failed = 1
 class CoreWebView2BrowserProcessExitedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2BrowserProcessExitedEventArgs
@@ -341,25 +341,25 @@ class CoreWebView2BrowserProcessExitedEventArgs(ComPtr):
     def get_BrowserProcessId(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2BrowserProcessExitedEventArgs) -> UInt32: ...
     BrowserProcessExitKind = property(get_BrowserProcessExitKind, None)
     BrowserProcessId = property(get_BrowserProcessId, None)
-CoreWebView2BrowsingDataKinds = UInt32
-CoreWebView2BrowsingDataKinds_FileSystems: CoreWebView2BrowsingDataKinds = 1
-CoreWebView2BrowsingDataKinds_IndexedDb: CoreWebView2BrowsingDataKinds = 2
-CoreWebView2BrowsingDataKinds_LocalStorage: CoreWebView2BrowsingDataKinds = 4
-CoreWebView2BrowsingDataKinds_WebSql: CoreWebView2BrowsingDataKinds = 8
-CoreWebView2BrowsingDataKinds_CacheStorage: CoreWebView2BrowsingDataKinds = 16
-CoreWebView2BrowsingDataKinds_AllDomStorage: CoreWebView2BrowsingDataKinds = 32
-CoreWebView2BrowsingDataKinds_Cookies: CoreWebView2BrowsingDataKinds = 64
-CoreWebView2BrowsingDataKinds_AllSite: CoreWebView2BrowsingDataKinds = 128
-CoreWebView2BrowsingDataKinds_DiskCache: CoreWebView2BrowsingDataKinds = 256
-CoreWebView2BrowsingDataKinds_DownloadHistory: CoreWebView2BrowsingDataKinds = 512
-CoreWebView2BrowsingDataKinds_GeneralAutofill: CoreWebView2BrowsingDataKinds = 1024
-CoreWebView2BrowsingDataKinds_PasswordAutosave: CoreWebView2BrowsingDataKinds = 2048
-CoreWebView2BrowsingDataKinds_BrowsingHistory: CoreWebView2BrowsingDataKinds = 4096
-CoreWebView2BrowsingDataKinds_Settings: CoreWebView2BrowsingDataKinds = 8192
-CoreWebView2BrowsingDataKinds_AllProfile: CoreWebView2BrowsingDataKinds = 16384
-CoreWebView2CapturePreviewImageFormat = Int32
-CoreWebView2CapturePreviewImageFormat_Png: CoreWebView2CapturePreviewImageFormat = 0
-CoreWebView2CapturePreviewImageFormat_Jpeg: CoreWebView2CapturePreviewImageFormat = 1
+class CoreWebView2BrowsingDataKinds(UInt32):  # enum
+    FileSystems = 1
+    IndexedDb = 2
+    LocalStorage = 4
+    WebSql = 8
+    CacheStorage = 16
+    AllDomStorage = 32
+    Cookies = 64
+    AllSite = 128
+    DiskCache = 256
+    DownloadHistory = 512
+    GeneralAutofill = 1024
+    PasswordAutosave = 2048
+    BrowsingHistory = 4096
+    Settings = 8192
+    AllProfile = 16384
+class CoreWebView2CapturePreviewImageFormat(Int32):  # enum
+    Png = 0
+    Jpeg = 1
 class CoreWebView2Certificate(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2Certificate
@@ -427,10 +427,10 @@ class CoreWebView2ClientCertificate(ComPtr):
     DisplayName = property(get_DisplayName, None)
     PemEncodedIssuerCertificateChain = property(get_PemEncodedIssuerCertificateChain, None)
     Kind = property(get_Kind, None)
-CoreWebView2ClientCertificateKind = Int32
-CoreWebView2ClientCertificateKind_SmartCard: CoreWebView2ClientCertificateKind = 0
-CoreWebView2ClientCertificateKind_Pin: CoreWebView2ClientCertificateKind = 1
-CoreWebView2ClientCertificateKind_Other: CoreWebView2ClientCertificateKind = 2
+class CoreWebView2ClientCertificateKind(Int32):  # enum
+    SmartCard = 0
+    Pin = 1
+    Other = 2
 class CoreWebView2ClientCertificateRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2ClientCertificateRequestedEventArgs
@@ -550,12 +550,12 @@ class CoreWebView2ContextMenuItem(ComPtr):
     IsEnabled = property(get_IsEnabled, put_IsEnabled)
     IsChecked = property(get_IsChecked, put_IsChecked)
     Children = property(get_Children, None)
-CoreWebView2ContextMenuItemKind = Int32
-CoreWebView2ContextMenuItemKind_Command: CoreWebView2ContextMenuItemKind = 0
-CoreWebView2ContextMenuItemKind_CheckBox: CoreWebView2ContextMenuItemKind = 1
-CoreWebView2ContextMenuItemKind_Radio: CoreWebView2ContextMenuItemKind = 2
-CoreWebView2ContextMenuItemKind_Separator: CoreWebView2ContextMenuItemKind = 3
-CoreWebView2ContextMenuItemKind_Submenu: CoreWebView2ContextMenuItemKind = 4
+class CoreWebView2ContextMenuItemKind(Int32):  # enum
+    Command = 0
+    CheckBox = 1
+    Radio = 2
+    Separator = 3
+    Submenu = 4
 class CoreWebView2ContextMenuRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2ContextMenuRequestedEventArgs
@@ -624,12 +624,12 @@ class CoreWebView2ContextMenuTarget(ComPtr):
     SourceUri = property(get_SourceUri, None)
     HasSelection = property(get_HasSelection, None)
     SelectionText = property(get_SelectionText, None)
-CoreWebView2ContextMenuTargetKind = Int32
-CoreWebView2ContextMenuTargetKind_Page: CoreWebView2ContextMenuTargetKind = 0
-CoreWebView2ContextMenuTargetKind_Image: CoreWebView2ContextMenuTargetKind = 1
-CoreWebView2ContextMenuTargetKind_SelectedText: CoreWebView2ContextMenuTargetKind = 2
-CoreWebView2ContextMenuTargetKind_Audio: CoreWebView2ContextMenuTargetKind = 3
-CoreWebView2ContextMenuTargetKind_Video: CoreWebView2ContextMenuTargetKind = 4
+class CoreWebView2ContextMenuTargetKind(Int32):  # enum
+    Page = 0
+    Image = 1
+    SelectedText = 2
+    Audio = 3
+    Video = 4
 class CoreWebView2Controller(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2Controller
@@ -811,10 +811,10 @@ class CoreWebView2CookieManager(ComPtr):
     def DeleteCookiesWithDomainAndPath(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2CookieManager, name: WinRT_String, Domain: WinRT_String, Path: WinRT_String) -> Void: ...
     @winrt_mixinmethod
     def DeleteAllCookies(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2CookieManager) -> Void: ...
-CoreWebView2CookieSameSiteKind = Int32
-CoreWebView2CookieSameSiteKind_None: CoreWebView2CookieSameSiteKind = 0
-CoreWebView2CookieSameSiteKind_Lax: CoreWebView2CookieSameSiteKind = 1
-CoreWebView2CookieSameSiteKind_Strict: CoreWebView2CookieSameSiteKind = 2
+class CoreWebView2CookieSameSiteKind(Int32):  # enum
+    None_ = 0
+    Lax = 1
+    Strict = 2
 class CoreWebView2CustomSchemeRegistration(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2CustomSchemeRegistration
@@ -836,11 +836,11 @@ class CoreWebView2DOMContentLoadedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_NavigationId(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2DOMContentLoadedEventArgs) -> UInt64: ...
     NavigationId = property(get_NavigationId, None)
-CoreWebView2DefaultDownloadDialogCornerAlignment = Int32
-CoreWebView2DefaultDownloadDialogCornerAlignment_TopLeft: CoreWebView2DefaultDownloadDialogCornerAlignment = 0
-CoreWebView2DefaultDownloadDialogCornerAlignment_TopRight: CoreWebView2DefaultDownloadDialogCornerAlignment = 1
-CoreWebView2DefaultDownloadDialogCornerAlignment_BottomLeft: CoreWebView2DefaultDownloadDialogCornerAlignment = 2
-CoreWebView2DefaultDownloadDialogCornerAlignment_BottomRight: CoreWebView2DefaultDownloadDialogCornerAlignment = 3
+class CoreWebView2DefaultDownloadDialogCornerAlignment(Int32):  # enum
+    TopLeft = 0
+    TopRight = 1
+    BottomLeft = 2
+    BottomRight = 3
 class CoreWebView2DevToolsProtocolEventReceivedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2DevToolsProtocolEventReceivedEventArgs
@@ -859,37 +859,37 @@ class CoreWebView2DevToolsProtocolEventReceiver(ComPtr):
     def add_DevToolsProtocolEventReceived(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2DevToolsProtocolEventReceiver, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.Web.WebView2.Core.CoreWebView2, win32more.Microsoft.Web.WebView2.Core.CoreWebView2DevToolsProtocolEventReceivedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_DevToolsProtocolEventReceived(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2DevToolsProtocolEventReceiver, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-CoreWebView2DownloadInterruptReason = Int32
-CoreWebView2DownloadInterruptReason_None: CoreWebView2DownloadInterruptReason = 0
-CoreWebView2DownloadInterruptReason_FileFailed: CoreWebView2DownloadInterruptReason = 1
-CoreWebView2DownloadInterruptReason_FileAccessDenied: CoreWebView2DownloadInterruptReason = 2
-CoreWebView2DownloadInterruptReason_FileNoSpace: CoreWebView2DownloadInterruptReason = 3
-CoreWebView2DownloadInterruptReason_FileNameTooLong: CoreWebView2DownloadInterruptReason = 4
-CoreWebView2DownloadInterruptReason_FileTooLarge: CoreWebView2DownloadInterruptReason = 5
-CoreWebView2DownloadInterruptReason_FileMalicious: CoreWebView2DownloadInterruptReason = 6
-CoreWebView2DownloadInterruptReason_FileTransientError: CoreWebView2DownloadInterruptReason = 7
-CoreWebView2DownloadInterruptReason_FileBlockedByPolicy: CoreWebView2DownloadInterruptReason = 8
-CoreWebView2DownloadInterruptReason_FileSecurityCheckFailed: CoreWebView2DownloadInterruptReason = 9
-CoreWebView2DownloadInterruptReason_FileTooShort: CoreWebView2DownloadInterruptReason = 10
-CoreWebView2DownloadInterruptReason_FileHashMismatch: CoreWebView2DownloadInterruptReason = 11
-CoreWebView2DownloadInterruptReason_NetworkFailed: CoreWebView2DownloadInterruptReason = 12
-CoreWebView2DownloadInterruptReason_NetworkTimeout: CoreWebView2DownloadInterruptReason = 13
-CoreWebView2DownloadInterruptReason_NetworkDisconnected: CoreWebView2DownloadInterruptReason = 14
-CoreWebView2DownloadInterruptReason_NetworkServerDown: CoreWebView2DownloadInterruptReason = 15
-CoreWebView2DownloadInterruptReason_NetworkInvalidRequest: CoreWebView2DownloadInterruptReason = 16
-CoreWebView2DownloadInterruptReason_ServerFailed: CoreWebView2DownloadInterruptReason = 17
-CoreWebView2DownloadInterruptReason_ServerNoRange: CoreWebView2DownloadInterruptReason = 18
-CoreWebView2DownloadInterruptReason_ServerBadContent: CoreWebView2DownloadInterruptReason = 19
-CoreWebView2DownloadInterruptReason_ServerUnauthorized: CoreWebView2DownloadInterruptReason = 20
-CoreWebView2DownloadInterruptReason_ServerCertificateProblem: CoreWebView2DownloadInterruptReason = 21
-CoreWebView2DownloadInterruptReason_ServerForbidden: CoreWebView2DownloadInterruptReason = 22
-CoreWebView2DownloadInterruptReason_ServerUnexpectedResponse: CoreWebView2DownloadInterruptReason = 23
-CoreWebView2DownloadInterruptReason_ServerContentLengthMismatch: CoreWebView2DownloadInterruptReason = 24
-CoreWebView2DownloadInterruptReason_ServerCrossOriginRedirect: CoreWebView2DownloadInterruptReason = 25
-CoreWebView2DownloadInterruptReason_UserCanceled: CoreWebView2DownloadInterruptReason = 26
-CoreWebView2DownloadInterruptReason_UserShutdown: CoreWebView2DownloadInterruptReason = 27
-CoreWebView2DownloadInterruptReason_UserPaused: CoreWebView2DownloadInterruptReason = 28
-CoreWebView2DownloadInterruptReason_DownloadProcessCrashed: CoreWebView2DownloadInterruptReason = 29
+class CoreWebView2DownloadInterruptReason(Int32):  # enum
+    None_ = 0
+    FileFailed = 1
+    FileAccessDenied = 2
+    FileNoSpace = 3
+    FileNameTooLong = 4
+    FileTooLarge = 5
+    FileMalicious = 6
+    FileTransientError = 7
+    FileBlockedByPolicy = 8
+    FileSecurityCheckFailed = 9
+    FileTooShort = 10
+    FileHashMismatch = 11
+    NetworkFailed = 12
+    NetworkTimeout = 13
+    NetworkDisconnected = 14
+    NetworkServerDown = 15
+    NetworkInvalidRequest = 16
+    ServerFailed = 17
+    ServerNoRange = 18
+    ServerBadContent = 19
+    ServerUnauthorized = 20
+    ServerCertificateProblem = 21
+    ServerForbidden = 22
+    ServerUnexpectedResponse = 23
+    ServerContentLengthMismatch = 24
+    ServerCrossOriginRedirect = 25
+    UserCanceled = 26
+    UserShutdown = 27
+    UserPaused = 28
+    DownloadProcessCrashed = 29
 class CoreWebView2DownloadOperation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2DownloadOperation
@@ -966,10 +966,10 @@ class CoreWebView2DownloadStartingEventArgs(ComPtr):
     Cancel = property(get_Cancel, put_Cancel)
     ResultFilePath = property(get_ResultFilePath, put_ResultFilePath)
     Handled = property(get_Handled, put_Handled)
-CoreWebView2DownloadState = Int32
-CoreWebView2DownloadState_InProgress: CoreWebView2DownloadState = 0
-CoreWebView2DownloadState_Interrupted: CoreWebView2DownloadState = 1
-CoreWebView2DownloadState_Completed: CoreWebView2DownloadState = 2
+class CoreWebView2DownloadState(Int32):  # enum
+    InProgress = 0
+    Interrupted = 1
+    Completed = 2
 class CoreWebView2Environment(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2Environment
@@ -1081,9 +1081,9 @@ class CoreWebView2EnvironmentOptions(ComPtr):
     Language = property(get_Language, put_Language)
     TargetCompatibleBrowserVersion = property(get_TargetCompatibleBrowserVersion, put_TargetCompatibleBrowserVersion)
     AllowSingleSignOnUsingOSPrimaryAccount = property(get_AllowSingleSignOnUsingOSPrimaryAccount, put_AllowSingleSignOnUsingOSPrimaryAccount)
-CoreWebView2FaviconImageFormat = Int32
-CoreWebView2FaviconImageFormat_Png: CoreWebView2FaviconImageFormat = 0
-CoreWebView2FaviconImageFormat_Jpeg: CoreWebView2FaviconImageFormat = 1
+class CoreWebView2FaviconImageFormat(Int32):  # enum
+    Png = 0
+    Jpeg = 1
 class CoreWebView2File(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2File
@@ -1159,10 +1159,10 @@ class CoreWebView2FrameInfo(ComPtr):
     def get_Source(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2FrameInfo) -> WinRT_String: ...
     Name = property(get_Name, None)
     Source = property(get_Source, None)
-CoreWebView2HostResourceAccessKind = Int32
-CoreWebView2HostResourceAccessKind_Deny: CoreWebView2HostResourceAccessKind = 0
-CoreWebView2HostResourceAccessKind_Allow: CoreWebView2HostResourceAccessKind = 1
-CoreWebView2HostResourceAccessKind_DenyCors: CoreWebView2HostResourceAccessKind = 2
+class CoreWebView2HostResourceAccessKind(Int32):  # enum
+    Deny = 0
+    Allow = 1
+    DenyCors = 2
 class CoreWebView2HttpHeadersCollectionIterator(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2HttpHeadersCollectionIterator
@@ -1207,11 +1207,11 @@ class CoreWebView2HttpResponseHeaders(ComPtr):
     def GetHeaders(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2HttpResponseHeaders, name: WinRT_String) -> win32more.Microsoft.Web.WebView2.Core.CoreWebView2HttpHeadersCollectionIterator: ...
     @winrt_mixinmethod
     def First(self: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, WinRT_String]]) -> win32more.Windows.Foundation.Collections.IIterator[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, WinRT_String]]: ...
-CoreWebView2KeyEventKind = Int32
-CoreWebView2KeyEventKind_KeyDown: CoreWebView2KeyEventKind = 0
-CoreWebView2KeyEventKind_KeyUp: CoreWebView2KeyEventKind = 1
-CoreWebView2KeyEventKind_SystemKeyDown: CoreWebView2KeyEventKind = 2
-CoreWebView2KeyEventKind_SystemKeyUp: CoreWebView2KeyEventKind = 3
+class CoreWebView2KeyEventKind(Int32):  # enum
+    KeyDown = 0
+    KeyUp = 1
+    SystemKeyDown = 2
+    SystemKeyUp = 3
 class CoreWebView2LaunchingExternalUriSchemeEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2LaunchingExternalUriSchemeEventArgs
@@ -1232,39 +1232,39 @@ class CoreWebView2LaunchingExternalUriSchemeEventArgs(ComPtr):
     InitiatingOrigin = property(get_InitiatingOrigin, None)
     IsUserInitiated = property(get_IsUserInitiated, None)
     Cancel = property(get_Cancel, put_Cancel)
-CoreWebView2MemoryUsageTargetLevel = Int32
-CoreWebView2MemoryUsageTargetLevel_Normal: CoreWebView2MemoryUsageTargetLevel = 0
-CoreWebView2MemoryUsageTargetLevel_Low: CoreWebView2MemoryUsageTargetLevel = 1
-CoreWebView2MouseEventKind = Int32
-CoreWebView2MouseEventKind_HorizontalWheel: CoreWebView2MouseEventKind = 526
-CoreWebView2MouseEventKind_LeftButtonDoubleClick: CoreWebView2MouseEventKind = 515
-CoreWebView2MouseEventKind_LeftButtonDown: CoreWebView2MouseEventKind = 513
-CoreWebView2MouseEventKind_LeftButtonUp: CoreWebView2MouseEventKind = 514
-CoreWebView2MouseEventKind_Leave: CoreWebView2MouseEventKind = 675
-CoreWebView2MouseEventKind_MiddleButtonDoubleClick: CoreWebView2MouseEventKind = 521
-CoreWebView2MouseEventKind_MiddleButtonDown: CoreWebView2MouseEventKind = 519
-CoreWebView2MouseEventKind_MiddleButtonUp: CoreWebView2MouseEventKind = 520
-CoreWebView2MouseEventKind_Move: CoreWebView2MouseEventKind = 512
-CoreWebView2MouseEventKind_RightButtonDoubleClick: CoreWebView2MouseEventKind = 518
-CoreWebView2MouseEventKind_RightButtonDown: CoreWebView2MouseEventKind = 516
-CoreWebView2MouseEventKind_RightButtonUp: CoreWebView2MouseEventKind = 517
-CoreWebView2MouseEventKind_Wheel: CoreWebView2MouseEventKind = 522
-CoreWebView2MouseEventKind_XButtonDoubleClick: CoreWebView2MouseEventKind = 525
-CoreWebView2MouseEventKind_XButtonDown: CoreWebView2MouseEventKind = 523
-CoreWebView2MouseEventKind_XButtonUp: CoreWebView2MouseEventKind = 524
-CoreWebView2MouseEventVirtualKeys = UInt32
-CoreWebView2MouseEventVirtualKeys_None: CoreWebView2MouseEventVirtualKeys = 0
-CoreWebView2MouseEventVirtualKeys_LeftButton: CoreWebView2MouseEventVirtualKeys = 1
-CoreWebView2MouseEventVirtualKeys_RightButton: CoreWebView2MouseEventVirtualKeys = 2
-CoreWebView2MouseEventVirtualKeys_Shift: CoreWebView2MouseEventVirtualKeys = 4
-CoreWebView2MouseEventVirtualKeys_Control: CoreWebView2MouseEventVirtualKeys = 8
-CoreWebView2MouseEventVirtualKeys_MiddleButton: CoreWebView2MouseEventVirtualKeys = 16
-CoreWebView2MouseEventVirtualKeys_XButton1: CoreWebView2MouseEventVirtualKeys = 32
-CoreWebView2MouseEventVirtualKeys_XButton2: CoreWebView2MouseEventVirtualKeys = 64
-CoreWebView2MoveFocusReason = Int32
-CoreWebView2MoveFocusReason_Programmatic: CoreWebView2MoveFocusReason = 0
-CoreWebView2MoveFocusReason_Next: CoreWebView2MoveFocusReason = 1
-CoreWebView2MoveFocusReason_Previous: CoreWebView2MoveFocusReason = 2
+class CoreWebView2MemoryUsageTargetLevel(Int32):  # enum
+    Normal = 0
+    Low = 1
+class CoreWebView2MouseEventKind(Int32):  # enum
+    HorizontalWheel = 526
+    LeftButtonDoubleClick = 515
+    LeftButtonDown = 513
+    LeftButtonUp = 514
+    Leave = 675
+    MiddleButtonDoubleClick = 521
+    MiddleButtonDown = 519
+    MiddleButtonUp = 520
+    Move = 512
+    RightButtonDoubleClick = 518
+    RightButtonDown = 516
+    RightButtonUp = 517
+    Wheel = 522
+    XButtonDoubleClick = 525
+    XButtonDown = 523
+    XButtonUp = 524
+class CoreWebView2MouseEventVirtualKeys(UInt32):  # enum
+    None_ = 0
+    LeftButton = 1
+    RightButton = 2
+    Shift = 4
+    Control = 8
+    MiddleButton = 16
+    XButton1 = 32
+    XButton2 = 64
+class CoreWebView2MoveFocusReason(Int32):  # enum
+    Programmatic = 0
+    Next = 1
+    Previous = 2
 class CoreWebView2MoveFocusRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2MoveFocusRequestedEventArgs
@@ -1350,35 +1350,35 @@ class CoreWebView2NewWindowRequestedEventArgs(ComPtr):
     Handled = property(get_Handled, put_Handled)
     IsUserInitiated = property(get_IsUserInitiated, None)
     WindowFeatures = property(get_WindowFeatures, None)
-CoreWebView2PdfToolbarItems = UInt32
-CoreWebView2PdfToolbarItems_None: CoreWebView2PdfToolbarItems = 0
-CoreWebView2PdfToolbarItems_Save: CoreWebView2PdfToolbarItems = 1
-CoreWebView2PdfToolbarItems_Print: CoreWebView2PdfToolbarItems = 2
-CoreWebView2PdfToolbarItems_SaveAs: CoreWebView2PdfToolbarItems = 4
-CoreWebView2PdfToolbarItems_ZoomIn: CoreWebView2PdfToolbarItems = 8
-CoreWebView2PdfToolbarItems_ZoomOut: CoreWebView2PdfToolbarItems = 16
-CoreWebView2PdfToolbarItems_Rotate: CoreWebView2PdfToolbarItems = 32
-CoreWebView2PdfToolbarItems_FitPage: CoreWebView2PdfToolbarItems = 64
-CoreWebView2PdfToolbarItems_PageLayout: CoreWebView2PdfToolbarItems = 128
-CoreWebView2PdfToolbarItems_Bookmarks: CoreWebView2PdfToolbarItems = 256
-CoreWebView2PdfToolbarItems_PageSelector: CoreWebView2PdfToolbarItems = 512
-CoreWebView2PdfToolbarItems_Search: CoreWebView2PdfToolbarItems = 1024
-CoreWebView2PdfToolbarItems_FullScreen: CoreWebView2PdfToolbarItems = 2048
-CoreWebView2PdfToolbarItems_MoreSettings: CoreWebView2PdfToolbarItems = 4096
-CoreWebView2PermissionKind = Int32
-CoreWebView2PermissionKind_UnknownPermission: CoreWebView2PermissionKind = 0
-CoreWebView2PermissionKind_Microphone: CoreWebView2PermissionKind = 1
-CoreWebView2PermissionKind_Camera: CoreWebView2PermissionKind = 2
-CoreWebView2PermissionKind_Geolocation: CoreWebView2PermissionKind = 3
-CoreWebView2PermissionKind_Notifications: CoreWebView2PermissionKind = 4
-CoreWebView2PermissionKind_OtherSensors: CoreWebView2PermissionKind = 5
-CoreWebView2PermissionKind_ClipboardRead: CoreWebView2PermissionKind = 6
-CoreWebView2PermissionKind_MultipleAutomaticDownloads: CoreWebView2PermissionKind = 7
-CoreWebView2PermissionKind_FileReadWrite: CoreWebView2PermissionKind = 8
-CoreWebView2PermissionKind_Autoplay: CoreWebView2PermissionKind = 9
-CoreWebView2PermissionKind_LocalFonts: CoreWebView2PermissionKind = 10
-CoreWebView2PermissionKind_MidiSystemExclusiveMessages: CoreWebView2PermissionKind = 11
-CoreWebView2PermissionKind_WindowManagement: CoreWebView2PermissionKind = 12
+class CoreWebView2PdfToolbarItems(UInt32):  # enum
+    None_ = 0
+    Save = 1
+    Print = 2
+    SaveAs = 4
+    ZoomIn = 8
+    ZoomOut = 16
+    Rotate = 32
+    FitPage = 64
+    PageLayout = 128
+    Bookmarks = 256
+    PageSelector = 512
+    Search = 1024
+    FullScreen = 2048
+    MoreSettings = 4096
+class CoreWebView2PermissionKind(Int32):  # enum
+    UnknownPermission = 0
+    Microphone = 1
+    Camera = 2
+    Geolocation = 3
+    Notifications = 4
+    OtherSensors = 5
+    ClipboardRead = 6
+    MultipleAutomaticDownloads = 7
+    FileReadWrite = 8
+    Autoplay = 9
+    LocalFonts = 10
+    MidiSystemExclusiveMessages = 11
+    WindowManagement = 12
 class CoreWebView2PermissionRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2PermissionRequestedEventArgs
@@ -1422,10 +1422,10 @@ class CoreWebView2PermissionSetting(ComPtr):
     PermissionKind = property(get_PermissionKind, None)
     PermissionOrigin = property(get_PermissionOrigin, None)
     PermissionState = property(get_PermissionState, None)
-CoreWebView2PermissionState = Int32
-CoreWebView2PermissionState_Default: CoreWebView2PermissionState = 0
-CoreWebView2PermissionState_Allow: CoreWebView2PermissionState = 1
-CoreWebView2PermissionState_Deny: CoreWebView2PermissionState = 2
+class CoreWebView2PermissionState(Int32):  # enum
+    Default = 0
+    Allow = 1
+    Deny = 2
 class CoreWebView2PhysicalKeyStatus(EasyCastStructure):
     RepeatCount: UInt32
     ScanCode: UInt32
@@ -1433,13 +1433,13 @@ class CoreWebView2PhysicalKeyStatus(EasyCastStructure):
     IsMenuKeyDown: Int32
     WasKeyDown: Int32
     IsKeyReleased: Int32
-CoreWebView2PointerEventKind = Int32
-CoreWebView2PointerEventKind_Activate: CoreWebView2PointerEventKind = 587
-CoreWebView2PointerEventKind_Down: CoreWebView2PointerEventKind = 582
-CoreWebView2PointerEventKind_Enter: CoreWebView2PointerEventKind = 585
-CoreWebView2PointerEventKind_Leave: CoreWebView2PointerEventKind = 586
-CoreWebView2PointerEventKind_Up: CoreWebView2PointerEventKind = 583
-CoreWebView2PointerEventKind_Update: CoreWebView2PointerEventKind = 581
+class CoreWebView2PointerEventKind(Int32):  # enum
+    Activate = 587
+    Down = 582
+    Enter = 585
+    Leave = 586
+    Up = 583
+    Update = 581
 class CoreWebView2PointerInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2PointerInfo
@@ -1584,32 +1584,32 @@ class CoreWebView2PointerInfo(ComPtr):
     TouchContactRaw = property(get_TouchContactRaw, put_TouchContactRaw)
     TouchOrientation = property(get_TouchOrientation, put_TouchOrientation)
     TouchPressure = property(get_TouchPressure, put_TouchPressure)
-CoreWebView2PreferredColorScheme = Int32
-CoreWebView2PreferredColorScheme_Auto: CoreWebView2PreferredColorScheme = 0
-CoreWebView2PreferredColorScheme_Light: CoreWebView2PreferredColorScheme = 1
-CoreWebView2PreferredColorScheme_Dark: CoreWebView2PreferredColorScheme = 2
-CoreWebView2PrintCollation = Int32
-CoreWebView2PrintCollation_Default: CoreWebView2PrintCollation = 0
-CoreWebView2PrintCollation_Collated: CoreWebView2PrintCollation = 1
-CoreWebView2PrintCollation_Uncollated: CoreWebView2PrintCollation = 2
-CoreWebView2PrintColorMode = Int32
-CoreWebView2PrintColorMode_Default: CoreWebView2PrintColorMode = 0
-CoreWebView2PrintColorMode_Color: CoreWebView2PrintColorMode = 1
-CoreWebView2PrintColorMode_Grayscale: CoreWebView2PrintColorMode = 2
-CoreWebView2PrintDialogKind = Int32
-CoreWebView2PrintDialogKind_Browser: CoreWebView2PrintDialogKind = 0
-CoreWebView2PrintDialogKind_System: CoreWebView2PrintDialogKind = 1
-CoreWebView2PrintDuplex = Int32
-CoreWebView2PrintDuplex_Default: CoreWebView2PrintDuplex = 0
-CoreWebView2PrintDuplex_OneSided: CoreWebView2PrintDuplex = 1
-CoreWebView2PrintDuplex_TwoSidedLongEdge: CoreWebView2PrintDuplex = 2
-CoreWebView2PrintDuplex_TwoSidedShortEdge: CoreWebView2PrintDuplex = 3
-CoreWebView2PrintMediaSize = Int32
-CoreWebView2PrintMediaSize_Default: CoreWebView2PrintMediaSize = 0
-CoreWebView2PrintMediaSize_Custom: CoreWebView2PrintMediaSize = 1
-CoreWebView2PrintOrientation = Int32
-CoreWebView2PrintOrientation_Portrait: CoreWebView2PrintOrientation = 0
-CoreWebView2PrintOrientation_Landscape: CoreWebView2PrintOrientation = 1
+class CoreWebView2PreferredColorScheme(Int32):  # enum
+    Auto = 0
+    Light = 1
+    Dark = 2
+class CoreWebView2PrintCollation(Int32):  # enum
+    Default = 0
+    Collated = 1
+    Uncollated = 2
+class CoreWebView2PrintColorMode(Int32):  # enum
+    Default = 0
+    Color = 1
+    Grayscale = 2
+class CoreWebView2PrintDialogKind(Int32):  # enum
+    Browser = 0
+    System = 1
+class CoreWebView2PrintDuplex(Int32):  # enum
+    Default = 0
+    OneSided = 1
+    TwoSidedLongEdge = 2
+    TwoSidedShortEdge = 3
+class CoreWebView2PrintMediaSize(Int32):  # enum
+    Default = 0
+    Custom = 1
+class CoreWebView2PrintOrientation(Int32):  # enum
+    Portrait = 0
+    Landscape = 1
 class CoreWebView2PrintSettings(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2PrintSettings
@@ -1719,10 +1719,10 @@ class CoreWebView2PrintSettings(ComPtr):
     ShouldPrintHeaderAndFooter = property(get_ShouldPrintHeaderAndFooter, put_ShouldPrintHeaderAndFooter)
     HeaderTitle = property(get_HeaderTitle, put_HeaderTitle)
     FooterUri = property(get_FooterUri, put_FooterUri)
-CoreWebView2PrintStatus = Int32
-CoreWebView2PrintStatus_Succeeded: CoreWebView2PrintStatus = 0
-CoreWebView2PrintStatus_PrinterUnavailable: CoreWebView2PrintStatus = 1
-CoreWebView2PrintStatus_OtherError: CoreWebView2PrintStatus = 2
+class CoreWebView2PrintStatus(Int32):  # enum
+    Succeeded = 0
+    PrinterUnavailable = 1
+    OtherError = 2
 class CoreWebView2ProcessFailedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2ProcessFailedEventArgs
@@ -1742,25 +1742,25 @@ class CoreWebView2ProcessFailedEventArgs(ComPtr):
     ProcessDescription = property(get_ProcessDescription, None)
     FrameInfosForFailedProcess = property(get_FrameInfosForFailedProcess, None)
     ProcessFailedKind = property(get_ProcessFailedKind, None)
-CoreWebView2ProcessFailedKind = Int32
-CoreWebView2ProcessFailedKind_BrowserProcessExited: CoreWebView2ProcessFailedKind = 0
-CoreWebView2ProcessFailedKind_RenderProcessExited: CoreWebView2ProcessFailedKind = 1
-CoreWebView2ProcessFailedKind_RenderProcessUnresponsive: CoreWebView2ProcessFailedKind = 2
-CoreWebView2ProcessFailedKind_FrameRenderProcessExited: CoreWebView2ProcessFailedKind = 3
-CoreWebView2ProcessFailedKind_UtilityProcessExited: CoreWebView2ProcessFailedKind = 4
-CoreWebView2ProcessFailedKind_SandboxHelperProcessExited: CoreWebView2ProcessFailedKind = 5
-CoreWebView2ProcessFailedKind_GpuProcessExited: CoreWebView2ProcessFailedKind = 6
-CoreWebView2ProcessFailedKind_PpapiPluginProcessExited: CoreWebView2ProcessFailedKind = 7
-CoreWebView2ProcessFailedKind_PpapiBrokerProcessExited: CoreWebView2ProcessFailedKind = 8
-CoreWebView2ProcessFailedKind_UnknownProcessExited: CoreWebView2ProcessFailedKind = 9
-CoreWebView2ProcessFailedReason = Int32
-CoreWebView2ProcessFailedReason_Unexpected: CoreWebView2ProcessFailedReason = 0
-CoreWebView2ProcessFailedReason_Unresponsive: CoreWebView2ProcessFailedReason = 1
-CoreWebView2ProcessFailedReason_Terminated: CoreWebView2ProcessFailedReason = 2
-CoreWebView2ProcessFailedReason_Crashed: CoreWebView2ProcessFailedReason = 3
-CoreWebView2ProcessFailedReason_LaunchFailed: CoreWebView2ProcessFailedReason = 4
-CoreWebView2ProcessFailedReason_OutOfMemory: CoreWebView2ProcessFailedReason = 5
-CoreWebView2ProcessFailedReason_ProfileDeleted: CoreWebView2ProcessFailedReason = 6
+class CoreWebView2ProcessFailedKind(Int32):  # enum
+    BrowserProcessExited = 0
+    RenderProcessExited = 1
+    RenderProcessUnresponsive = 2
+    FrameRenderProcessExited = 3
+    UtilityProcessExited = 4
+    SandboxHelperProcessExited = 5
+    GpuProcessExited = 6
+    PpapiPluginProcessExited = 7
+    PpapiBrokerProcessExited = 8
+    UnknownProcessExited = 9
+class CoreWebView2ProcessFailedReason(Int32):  # enum
+    Unexpected = 0
+    Unresponsive = 1
+    Terminated = 2
+    Crashed = 3
+    LaunchFailed = 4
+    OutOfMemory = 5
+    ProfileDeleted = 6
 class CoreWebView2ProcessInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2ProcessInfo
@@ -1771,14 +1771,14 @@ class CoreWebView2ProcessInfo(ComPtr):
     def get_Kind(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2ProcessInfo) -> win32more.Microsoft.Web.WebView2.Core.CoreWebView2ProcessKind: ...
     ProcessId = property(get_ProcessId, None)
     Kind = property(get_Kind, None)
-CoreWebView2ProcessKind = Int32
-CoreWebView2ProcessKind_Browser: CoreWebView2ProcessKind = 0
-CoreWebView2ProcessKind_Renderer: CoreWebView2ProcessKind = 1
-CoreWebView2ProcessKind_Utility: CoreWebView2ProcessKind = 2
-CoreWebView2ProcessKind_SandboxHelper: CoreWebView2ProcessKind = 3
-CoreWebView2ProcessKind_Gpu: CoreWebView2ProcessKind = 4
-CoreWebView2ProcessKind_PpapiPlugin: CoreWebView2ProcessKind = 5
-CoreWebView2ProcessKind_PpapiBroker: CoreWebView2ProcessKind = 6
+class CoreWebView2ProcessKind(Int32):  # enum
+    Browser = 0
+    Renderer = 1
+    Utility = 2
+    SandboxHelper = 3
+    Gpu = 4
+    PpapiPlugin = 5
+    PpapiBroker = 6
 class CoreWebView2Profile(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2Profile
@@ -1846,11 +1846,11 @@ class CoreWebView2Profile_Manual2(ComPtr):
     _iid_ = Guid('{6e62815a-6269-5756-92c3-f08afe17649c}')
     @winrt_commethod(6)
     def GetNonDefaultPermissionSettingsAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IVectorView[win32more.Microsoft.Web.WebView2.Core.CoreWebView2PermissionSetting]]: ...
-CoreWebView2ScriptDialogKind = Int32
-CoreWebView2ScriptDialogKind_Alert: CoreWebView2ScriptDialogKind = 0
-CoreWebView2ScriptDialogKind_Confirm: CoreWebView2ScriptDialogKind = 1
-CoreWebView2ScriptDialogKind_Prompt: CoreWebView2ScriptDialogKind = 2
-CoreWebView2ScriptDialogKind_Beforeunload: CoreWebView2ScriptDialogKind = 3
+class CoreWebView2ScriptDialogKind(Int32):  # enum
+    Alert = 0
+    Confirm = 1
+    Prompt = 2
+    Beforeunload = 3
 class CoreWebView2ScriptDialogOpeningEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2ScriptDialogOpeningEventArgs
@@ -1876,10 +1876,10 @@ class CoreWebView2ScriptDialogOpeningEventArgs(ComPtr):
     Message = property(get_Message, None)
     DefaultText = property(get_DefaultText, None)
     ResultText = property(get_ResultText, put_ResultText)
-CoreWebView2ServerCertificateErrorAction = Int32
-CoreWebView2ServerCertificateErrorAction_AlwaysAllow: CoreWebView2ServerCertificateErrorAction = 0
-CoreWebView2ServerCertificateErrorAction_Cancel: CoreWebView2ServerCertificateErrorAction = 1
-CoreWebView2ServerCertificateErrorAction_Default: CoreWebView2ServerCertificateErrorAction = 2
+class CoreWebView2ServerCertificateErrorAction(Int32):  # enum
+    AlwaysAllow = 0
+    Cancel = 1
+    Default = 2
 class CoreWebView2ServerCertificateErrorDetectedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2ServerCertificateErrorDetectedEventArgs
@@ -2008,9 +2008,9 @@ class CoreWebView2SharedBuffer(ComPtr):
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
     Buffer = property(get_Buffer, None)
     Size = property(get_Size, None)
-CoreWebView2SharedBufferAccess = Int32
-CoreWebView2SharedBufferAccess_ReadOnly: CoreWebView2SharedBufferAccess = 0
-CoreWebView2SharedBufferAccess_ReadWrite: CoreWebView2SharedBufferAccess = 1
+class CoreWebView2SharedBufferAccess(Int32):  # enum
+    ReadOnly = 0
+    ReadWrite = 1
 class CoreWebView2SourceChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2SourceChangedEventArgs
@@ -2018,31 +2018,31 @@ class CoreWebView2SourceChangedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_IsNewDocument(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2SourceChangedEventArgs) -> Boolean: ...
     IsNewDocument = property(get_IsNewDocument, None)
-CoreWebView2TrackingPreventionLevel = Int32
-CoreWebView2TrackingPreventionLevel_None: CoreWebView2TrackingPreventionLevel = 0
-CoreWebView2TrackingPreventionLevel_Basic: CoreWebView2TrackingPreventionLevel = 1
-CoreWebView2TrackingPreventionLevel_Balanced: CoreWebView2TrackingPreventionLevel = 2
-CoreWebView2TrackingPreventionLevel_Strict: CoreWebView2TrackingPreventionLevel = 3
-CoreWebView2WebErrorStatus = Int32
-CoreWebView2WebErrorStatus_Unknown: CoreWebView2WebErrorStatus = 0
-CoreWebView2WebErrorStatus_CertificateCommonNameIsIncorrect: CoreWebView2WebErrorStatus = 1
-CoreWebView2WebErrorStatus_CertificateExpired: CoreWebView2WebErrorStatus = 2
-CoreWebView2WebErrorStatus_ClientCertificateContainsErrors: CoreWebView2WebErrorStatus = 3
-CoreWebView2WebErrorStatus_CertificateRevoked: CoreWebView2WebErrorStatus = 4
-CoreWebView2WebErrorStatus_CertificateIsInvalid: CoreWebView2WebErrorStatus = 5
-CoreWebView2WebErrorStatus_ServerUnreachable: CoreWebView2WebErrorStatus = 6
-CoreWebView2WebErrorStatus_Timeout: CoreWebView2WebErrorStatus = 7
-CoreWebView2WebErrorStatus_ErrorHttpInvalidServerResponse: CoreWebView2WebErrorStatus = 8
-CoreWebView2WebErrorStatus_ConnectionAborted: CoreWebView2WebErrorStatus = 9
-CoreWebView2WebErrorStatus_ConnectionReset: CoreWebView2WebErrorStatus = 10
-CoreWebView2WebErrorStatus_Disconnected: CoreWebView2WebErrorStatus = 11
-CoreWebView2WebErrorStatus_CannotConnect: CoreWebView2WebErrorStatus = 12
-CoreWebView2WebErrorStatus_HostNameNotResolved: CoreWebView2WebErrorStatus = 13
-CoreWebView2WebErrorStatus_OperationCanceled: CoreWebView2WebErrorStatus = 14
-CoreWebView2WebErrorStatus_RedirectFailed: CoreWebView2WebErrorStatus = 15
-CoreWebView2WebErrorStatus_UnexpectedError: CoreWebView2WebErrorStatus = 16
-CoreWebView2WebErrorStatus_ValidAuthenticationCredentialsRequired: CoreWebView2WebErrorStatus = 17
-CoreWebView2WebErrorStatus_ValidProxyAuthenticationRequired: CoreWebView2WebErrorStatus = 18
+class CoreWebView2TrackingPreventionLevel(Int32):  # enum
+    None_ = 0
+    Basic = 1
+    Balanced = 2
+    Strict = 3
+class CoreWebView2WebErrorStatus(Int32):  # enum
+    Unknown = 0
+    CertificateCommonNameIsIncorrect = 1
+    CertificateExpired = 2
+    ClientCertificateContainsErrors = 3
+    CertificateRevoked = 4
+    CertificateIsInvalid = 5
+    ServerUnreachable = 6
+    Timeout = 7
+    ErrorHttpInvalidServerResponse = 8
+    ConnectionAborted = 9
+    ConnectionReset = 10
+    Disconnected = 11
+    CannotConnect = 12
+    HostNameNotResolved = 13
+    OperationCanceled = 14
+    RedirectFailed = 15
+    UnexpectedError = 16
+    ValidAuthenticationCredentialsRequired = 17
+    ValidProxyAuthenticationRequired = 18
 class CoreWebView2WebMessageReceivedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2WebMessageReceivedEventArgs
@@ -2058,24 +2058,24 @@ class CoreWebView2WebMessageReceivedEventArgs(ComPtr):
     AdditionalObjects = property(get_AdditionalObjects, None)
     Source = property(get_Source, None)
     WebMessageAsJson = property(get_WebMessageAsJson, None)
-CoreWebView2WebResourceContext = Int32
-CoreWebView2WebResourceContext_All: CoreWebView2WebResourceContext = 0
-CoreWebView2WebResourceContext_Document: CoreWebView2WebResourceContext = 1
-CoreWebView2WebResourceContext_Stylesheet: CoreWebView2WebResourceContext = 2
-CoreWebView2WebResourceContext_Image: CoreWebView2WebResourceContext = 3
-CoreWebView2WebResourceContext_Media: CoreWebView2WebResourceContext = 4
-CoreWebView2WebResourceContext_Font: CoreWebView2WebResourceContext = 5
-CoreWebView2WebResourceContext_Script: CoreWebView2WebResourceContext = 6
-CoreWebView2WebResourceContext_XmlHttpRequest: CoreWebView2WebResourceContext = 7
-CoreWebView2WebResourceContext_Fetch: CoreWebView2WebResourceContext = 8
-CoreWebView2WebResourceContext_TextTrack: CoreWebView2WebResourceContext = 9
-CoreWebView2WebResourceContext_EventSource: CoreWebView2WebResourceContext = 10
-CoreWebView2WebResourceContext_Websocket: CoreWebView2WebResourceContext = 11
-CoreWebView2WebResourceContext_Manifest: CoreWebView2WebResourceContext = 12
-CoreWebView2WebResourceContext_SignedExchange: CoreWebView2WebResourceContext = 13
-CoreWebView2WebResourceContext_Ping: CoreWebView2WebResourceContext = 14
-CoreWebView2WebResourceContext_CspViolationReport: CoreWebView2WebResourceContext = 15
-CoreWebView2WebResourceContext_Other: CoreWebView2WebResourceContext = 16
+class CoreWebView2WebResourceContext(Int32):  # enum
+    All = 0
+    Document = 1
+    Stylesheet = 2
+    Image = 3
+    Media = 4
+    Font = 5
+    Script = 6
+    XmlHttpRequest = 7
+    Fetch = 8
+    TextTrack = 9
+    EventSource = 10
+    Websocket = 11
+    Manifest = 12
+    SignedExchange = 13
+    Ping = 14
+    CspViolationReport = 15
+    Other = 16
 class CoreWebView2WebResourceRequest(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2WebResourceRequest

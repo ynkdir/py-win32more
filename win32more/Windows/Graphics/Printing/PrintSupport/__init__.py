@@ -329,13 +329,13 @@ class PrintSupportSettingsUISession(ComPtr):
     DocumentTitle = property(get_DocumentTitle, None)
     LaunchKind = property(get_LaunchKind, None)
     SessionInfo = property(get_SessionInfo, None)
-SettingsLaunchKind = Int32
-SettingsLaunchKind_JobPrintTicket: SettingsLaunchKind = 0
-SettingsLaunchKind_UserDefaultPrintTicket: SettingsLaunchKind = 1
-WorkflowPrintTicketValidationStatus = Int32
-WorkflowPrintTicketValidationStatus_Resolved: WorkflowPrintTicketValidationStatus = 0
-WorkflowPrintTicketValidationStatus_Conflicting: WorkflowPrintTicketValidationStatus = 1
-WorkflowPrintTicketValidationStatus_Invalid: WorkflowPrintTicketValidationStatus = 2
+class SettingsLaunchKind(Int32):  # enum
+    JobPrintTicket = 0
+    UserDefaultPrintTicket = 1
+class WorkflowPrintTicketValidationStatus(Int32):  # enum
+    Resolved = 0
+    Conflicting = 1
+    Invalid = 2
 
 
 make_ready(__name__)

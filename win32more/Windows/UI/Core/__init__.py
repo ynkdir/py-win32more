@@ -32,10 +32,10 @@ class AcceleratorKeyEventArgs(ComPtr):
     KeyStatus = property(get_KeyStatus, None)
     Handled = property(get_Handled, put_Handled)
     DeviceId = property(get_DeviceId, None)
-AppViewBackButtonVisibility = Int32
-AppViewBackButtonVisibility_Visible: AppViewBackButtonVisibility = 0
-AppViewBackButtonVisibility_Collapsed: AppViewBackButtonVisibility = 1
-AppViewBackButtonVisibility_Disabled: AppViewBackButtonVisibility = 2
+class AppViewBackButtonVisibility(Int32):  # enum
+    Visible = 0
+    Collapsed = 1
+    Disabled = 2
 class AutomationProviderRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Core.IAutomationProviderRequestedEventArgs
@@ -89,16 +89,16 @@ class ClosestInteractiveBoundsRequestedEventArgs(ComPtr):
     PointerPosition = property(get_PointerPosition, None)
     SearchBounds = property(get_SearchBounds, None)
     ClosestInteractiveBounds = property(get_ClosestInteractiveBounds, put_ClosestInteractiveBounds)
-CoreAcceleratorKeyEventType = Int32
-CoreAcceleratorKeyEventType_Character: CoreAcceleratorKeyEventType = 2
-CoreAcceleratorKeyEventType_DeadCharacter: CoreAcceleratorKeyEventType = 3
-CoreAcceleratorKeyEventType_KeyDown: CoreAcceleratorKeyEventType = 0
-CoreAcceleratorKeyEventType_KeyUp: CoreAcceleratorKeyEventType = 1
-CoreAcceleratorKeyEventType_SystemCharacter: CoreAcceleratorKeyEventType = 6
-CoreAcceleratorKeyEventType_SystemDeadCharacter: CoreAcceleratorKeyEventType = 7
-CoreAcceleratorKeyEventType_SystemKeyDown: CoreAcceleratorKeyEventType = 4
-CoreAcceleratorKeyEventType_SystemKeyUp: CoreAcceleratorKeyEventType = 5
-CoreAcceleratorKeyEventType_UnicodeCharacter: CoreAcceleratorKeyEventType = 8
+class CoreAcceleratorKeyEventType(Int32):  # enum
+    Character = 2
+    DeadCharacter = 3
+    KeyDown = 0
+    KeyUp = 1
+    SystemCharacter = 6
+    SystemDeadCharacter = 7
+    SystemKeyDown = 4
+    SystemKeyUp = 5
+    UnicodeCharacter = 8
 class CoreAcceleratorKeys(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Core.ICoreAcceleratorKeys
@@ -223,23 +223,23 @@ class CoreCursor(ComPtr):
     def get_Type(self: win32more.Windows.UI.Core.ICoreCursor) -> win32more.Windows.UI.Core.CoreCursorType: ...
     Id = property(get_Id, None)
     Type = property(get_Type, None)
-CoreCursorType = Int32
-CoreCursorType_Arrow: CoreCursorType = 0
-CoreCursorType_Cross: CoreCursorType = 1
-CoreCursorType_Custom: CoreCursorType = 2
-CoreCursorType_Hand: CoreCursorType = 3
-CoreCursorType_Help: CoreCursorType = 4
-CoreCursorType_IBeam: CoreCursorType = 5
-CoreCursorType_SizeAll: CoreCursorType = 6
-CoreCursorType_SizeNortheastSouthwest: CoreCursorType = 7
-CoreCursorType_SizeNorthSouth: CoreCursorType = 8
-CoreCursorType_SizeNorthwestSoutheast: CoreCursorType = 9
-CoreCursorType_SizeWestEast: CoreCursorType = 10
-CoreCursorType_UniversalNo: CoreCursorType = 11
-CoreCursorType_UpArrow: CoreCursorType = 12
-CoreCursorType_Wait: CoreCursorType = 13
-CoreCursorType_Pin: CoreCursorType = 14
-CoreCursorType_Person: CoreCursorType = 15
+class CoreCursorType(Int32):  # enum
+    Arrow = 0
+    Cross = 1
+    Custom = 2
+    Hand = 3
+    Help = 4
+    IBeam = 5
+    SizeAll = 6
+    SizeNortheastSouthwest = 7
+    SizeNorthSouth = 8
+    SizeNorthwestSoutheast = 9
+    SizeWestEast = 10
+    UniversalNo = 11
+    UpArrow = 12
+    Wait = 13
+    Pin = 14
+    Person = 15
 class CoreDispatcher(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Core.ICoreDispatcher
@@ -272,18 +272,18 @@ class CoreDispatcher(ComPtr):
     def TryRunIdleAsync(self: win32more.Windows.UI.Core.ICoreDispatcher2, agileCallback: win32more.Windows.UI.Core.IdleDispatchedHandler) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
     HasThreadAccess = property(get_HasThreadAccess, None)
     CurrentPriority = property(get_CurrentPriority, put_CurrentPriority)
-CoreDispatcherPriority = Int32
-CoreDispatcherPriority_Idle: CoreDispatcherPriority = -2
-CoreDispatcherPriority_Low: CoreDispatcherPriority = -1
-CoreDispatcherPriority_Normal: CoreDispatcherPriority = 0
-CoreDispatcherPriority_High: CoreDispatcherPriority = 1
-CoreIndependentInputFilters = UInt32
-CoreIndependentInputFilters_None: CoreIndependentInputFilters = 0
-CoreIndependentInputFilters_MouseButton: CoreIndependentInputFilters = 1
-CoreIndependentInputFilters_MouseWheel: CoreIndependentInputFilters = 2
-CoreIndependentInputFilters_MouseHover: CoreIndependentInputFilters = 4
-CoreIndependentInputFilters_PenWithBarrel: CoreIndependentInputFilters = 8
-CoreIndependentInputFilters_PenInverted: CoreIndependentInputFilters = 16
+class CoreDispatcherPriority(Int32):  # enum
+    Idle = -2
+    Low = -1
+    Normal = 0
+    High = 1
+class CoreIndependentInputFilters(UInt32):  # enum
+    None_ = 0
+    MouseButton = 1
+    MouseWheel = 2
+    MouseHover = 4
+    PenWithBarrel = 8
+    PenInverted = 16
 class CoreIndependentInputSource(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Core.ICoreInputSourceBase
@@ -385,11 +385,11 @@ class CoreIndependentInputSourceController(ComPtr):
     IsTransparentForUncontrolledInput = property(get_IsTransparentForUncontrolledInput, put_IsTransparentForUncontrolledInput)
     IsPalmRejectionEnabled = property(get_IsPalmRejectionEnabled, put_IsPalmRejectionEnabled)
     Source = property(get_Source, None)
-CoreInputDeviceTypes = UInt32
-CoreInputDeviceTypes_None: CoreInputDeviceTypes = 0
-CoreInputDeviceTypes_Touch: CoreInputDeviceTypes = 1
-CoreInputDeviceTypes_Pen: CoreInputDeviceTypes = 2
-CoreInputDeviceTypes_Mouse: CoreInputDeviceTypes = 4
+class CoreInputDeviceTypes(UInt32):  # enum
+    None_ = 0
+    Touch = 1
+    Pen = 2
+    Mouse = 4
 class CorePhysicalKeyStatus(EasyCastStructure):
     RepeatCount: UInt32
     ScanCode: UInt32
@@ -397,21 +397,21 @@ class CorePhysicalKeyStatus(EasyCastStructure):
     IsMenuKeyDown: Boolean
     WasKeyDown: Boolean
     IsKeyReleased: Boolean
-CoreProcessEventsOption = Int32
-CoreProcessEventsOption_ProcessOneAndAllPending: CoreProcessEventsOption = 0
-CoreProcessEventsOption_ProcessOneIfPresent: CoreProcessEventsOption = 1
-CoreProcessEventsOption_ProcessUntilQuit: CoreProcessEventsOption = 2
-CoreProcessEventsOption_ProcessAllIfPresent: CoreProcessEventsOption = 3
+class CoreProcessEventsOption(Int32):  # enum
+    ProcessOneAndAllPending = 0
+    ProcessOneIfPresent = 1
+    ProcessUntilQuit = 2
+    ProcessAllIfPresent = 3
 class CoreProximityEvaluation(EasyCastStructure):
     Score: Int32
     AdjustedPoint: win32more.Windows.Foundation.Point
-CoreProximityEvaluationScore = Int32
-CoreProximityEvaluationScore_Closest: CoreProximityEvaluationScore = 0
-CoreProximityEvaluationScore_Farthest: CoreProximityEvaluationScore = 2147483647
-CoreVirtualKeyStates = UInt32
-CoreVirtualKeyStates_None: CoreVirtualKeyStates = 0
-CoreVirtualKeyStates_Down: CoreVirtualKeyStates = 1
-CoreVirtualKeyStates_Locked: CoreVirtualKeyStates = 2
+class CoreProximityEvaluationScore(Int32):  # enum
+    Closest = 0
+    Farthest = 2147483647
+class CoreVirtualKeyStates(UInt32):  # enum
+    None_ = 0
+    Down = 1
+    Locked = 2
 class CoreWindow(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Core.ICoreWindow
@@ -568,15 +568,15 @@ class CoreWindow(ComPtr):
     DispatcherQueue = property(get_DispatcherQueue, None)
     ActivationMode = property(get_ActivationMode, None)
     UIContext = property(get_UIContext, None)
-CoreWindowActivationMode = Int32
-CoreWindowActivationMode_None: CoreWindowActivationMode = 0
-CoreWindowActivationMode_Deactivated: CoreWindowActivationMode = 1
-CoreWindowActivationMode_ActivatedNotForeground: CoreWindowActivationMode = 2
-CoreWindowActivationMode_ActivatedInForeground: CoreWindowActivationMode = 3
-CoreWindowActivationState = Int32
-CoreWindowActivationState_CodeActivated: CoreWindowActivationState = 0
-CoreWindowActivationState_Deactivated: CoreWindowActivationState = 1
-CoreWindowActivationState_PointerActivated: CoreWindowActivationState = 2
+class CoreWindowActivationMode(Int32):  # enum
+    None_ = 0
+    Deactivated = 1
+    ActivatedNotForeground = 2
+    ActivatedInForeground = 3
+class CoreWindowActivationState(Int32):  # enum
+    CodeActivated = 0
+    Deactivated = 1
+    PointerActivated = 2
 class CoreWindowDialog(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Core.ICoreWindowDialog
@@ -644,9 +644,9 @@ class CoreWindowEventArgs(ComPtr):
     @winrt_mixinmethod
     def put_Handled(self: win32more.Windows.UI.Core.ICoreWindowEventArgs, value: Boolean) -> Void: ...
     Handled = property(get_Handled, put_Handled)
-CoreWindowFlowDirection = Int32
-CoreWindowFlowDirection_LeftToRight: CoreWindowFlowDirection = 0
-CoreWindowFlowDirection_RightToLeft: CoreWindowFlowDirection = 1
+class CoreWindowFlowDirection(Int32):  # enum
+    LeftToRight = 0
+    RightToLeft = 1
 class CoreWindowFlyout(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Core.ICoreWindowFlyout

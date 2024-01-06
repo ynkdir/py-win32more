@@ -10,10 +10,10 @@ import win32more.Windows.Storage
 import win32more.Windows.Storage.Streams
 import win32more.Windows.System
 import win32more.Windows.Win32.System.WinRT
-AddResourcePackageOptions = UInt32
-AddResourcePackageOptions_None: AddResourcePackageOptions = 0
-AddResourcePackageOptions_ForceTargetAppShutdown: AddResourcePackageOptions = 1
-AddResourcePackageOptions_ApplyUpdateIfAvailable: AddResourcePackageOptions = 2
+class AddResourcePackageOptions(UInt32):  # enum
+    None_ = 0
+    ForceTargetAppShutdown = 1
+    ApplyUpdateIfAvailable = 2
 class AppDisplayInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.IAppDisplayInfo
@@ -26,10 +26,10 @@ class AppDisplayInfo(ComPtr):
     def GetLogo(self: win32more.Windows.ApplicationModel.IAppDisplayInfo, size: win32more.Windows.Foundation.Size) -> win32more.Windows.Storage.Streams.RandomAccessStreamReference: ...
     DisplayName = property(get_DisplayName, None)
     Description = property(get_Description, None)
-AppExecutionContext = Int32
-AppExecutionContext_Unknown: AppExecutionContext = 0
-AppExecutionContext_Host: AppExecutionContext = 1
-AppExecutionContext_Guest: AppExecutionContext = 2
+class AppExecutionContext(Int32):  # enum
+    Unknown = 0
+    Host = 1
+    Guest = 2
 class _AppInfo_Meta_(ComPtr.__class__):
     pass
 class AppInfo(ComPtr, metaclass=_AppInfo_Meta_):
@@ -116,9 +116,9 @@ class AppInstallerInfo(ComPtr):
     DependencyPackageUris = property(get_DependencyPackageUris, None)
     OptionalPackageUris = property(get_OptionalPackageUris, None)
     PolicySource = property(get_PolicySource, None)
-AppInstallerPolicySource = Int32
-AppInstallerPolicySource_Default: AppInstallerPolicySource = 0
-AppInstallerPolicySource_System: AppInstallerPolicySource = 1
+class AppInstallerPolicySource(Int32):  # enum
+    Default = 0
+    System = 1
 class _AppInstance_Meta_(ComPtr.__class__):
     pass
 class AppInstance(ComPtr, metaclass=_AppInstance_Meta_):
@@ -205,11 +205,11 @@ class FindRelatedPackagesOptions(ComPtr):
     IncludeOptionals = property(get_IncludeOptionals, put_IncludeOptionals)
     IncludeResources = property(get_IncludeResources, put_IncludeResources)
 FullTrustAppContract: UInt32 = 131072
-FullTrustLaunchResult = Int32
-FullTrustLaunchResult_Success: FullTrustLaunchResult = 0
-FullTrustLaunchResult_AccessDenied: FullTrustLaunchResult = 1
-FullTrustLaunchResult_FileNotFound: FullTrustLaunchResult = 2
-FullTrustLaunchResult_Unknown: FullTrustLaunchResult = 3
+class FullTrustLaunchResult(Int32):  # enum
+    Success = 0
+    AccessDenied = 1
+    FileNotFound = 2
+    Unknown = 3
 class FullTrustProcessLaunchResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.IFullTrustProcessLaunchResult
@@ -1052,11 +1052,11 @@ class LimitedAccessFeatureRequestResult(ComPtr):
     FeatureId = property(get_FeatureId, None)
     Status = property(get_Status, None)
     EstimatedRemovalDate = property(get_EstimatedRemovalDate, None)
-LimitedAccessFeatureStatus = Int32
-LimitedAccessFeatureStatus_Unavailable: LimitedAccessFeatureStatus = 0
-LimitedAccessFeatureStatus_Available: LimitedAccessFeatureStatus = 1
-LimitedAccessFeatureStatus_AvailableWithoutToken: LimitedAccessFeatureStatus = 2
-LimitedAccessFeatureStatus_Unknown: LimitedAccessFeatureStatus = 3
+class LimitedAccessFeatureStatus(Int32):  # enum
+    Unavailable = 0
+    Available = 1
+    AvailableWithoutToken = 2
+    Unknown = 3
 class LimitedAccessFeatures(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.LimitedAccessFeatures'
@@ -1317,11 +1317,11 @@ class PackageContentGroupStagingEventArgs(ComPtr):
     ErrorCode = property(get_ErrorCode, None)
     ContentGroupName = property(get_ContentGroupName, None)
     IsContentGroupRequired = property(get_IsContentGroupRequired, None)
-PackageContentGroupState = Int32
-PackageContentGroupState_NotStaged: PackageContentGroupState = 0
-PackageContentGroupState_Queued: PackageContentGroupState = 1
-PackageContentGroupState_Staging: PackageContentGroupState = 2
-PackageContentGroupState_Staged: PackageContentGroupState = 3
+class PackageContentGroupState(Int32):  # enum
+    NotStaged = 0
+    Queued = 1
+    Staging = 2
+    Staged = 3
 class PackageId(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.IPackageId
@@ -1377,16 +1377,16 @@ class PackageInstallingEventArgs(ComPtr):
     Progress = property(get_Progress, None)
     IsComplete = property(get_IsComplete, None)
     ErrorCode = property(get_ErrorCode, None)
-PackageRelationship = Int32
-PackageRelationship_Dependencies: PackageRelationship = 0
-PackageRelationship_Dependents: PackageRelationship = 1
-PackageRelationship_All: PackageRelationship = 2
-PackageSignatureKind = Int32
-PackageSignatureKind_None: PackageSignatureKind = 0
-PackageSignatureKind_Developer: PackageSignatureKind = 1
-PackageSignatureKind_Enterprise: PackageSignatureKind = 2
-PackageSignatureKind_Store: PackageSignatureKind = 3
-PackageSignatureKind_System: PackageSignatureKind = 4
+class PackageRelationship(Int32):  # enum
+    Dependencies = 0
+    Dependents = 1
+    All = 2
+class PackageSignatureKind(Int32):  # enum
+    None_ = 0
+    Developer = 1
+    Enterprise = 2
+    Store = 3
+    System = 4
 class PackageStagingEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.IPackageStagingEventArgs
@@ -1474,12 +1474,12 @@ class PackageUninstallingEventArgs(ComPtr):
     Progress = property(get_Progress, None)
     IsComplete = property(get_IsComplete, None)
     ErrorCode = property(get_ErrorCode, None)
-PackageUpdateAvailability = Int32
-PackageUpdateAvailability_Unknown: PackageUpdateAvailability = 0
-PackageUpdateAvailability_NoUpdates: PackageUpdateAvailability = 1
-PackageUpdateAvailability_Available: PackageUpdateAvailability = 2
-PackageUpdateAvailability_Required: PackageUpdateAvailability = 3
-PackageUpdateAvailability_Error: PackageUpdateAvailability = 4
+class PackageUpdateAvailability(Int32):  # enum
+    Unknown = 0
+    NoUpdates = 1
+    Available = 2
+    Required = 3
+    Error = 4
 class PackageUpdateAvailabilityResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.IPackageUpdateAvailabilityResult
@@ -1536,12 +1536,12 @@ class StartupTask(ComPtr):
     State = property(get_State, None)
     TaskId = property(get_TaskId, None)
 StartupTaskContract: UInt32 = 196608
-StartupTaskState = Int32
-StartupTaskState_Disabled: StartupTaskState = 0
-StartupTaskState_DisabledByUser: StartupTaskState = 1
-StartupTaskState_Enabled: StartupTaskState = 2
-StartupTaskState_DisabledByPolicy: StartupTaskState = 3
-StartupTaskState_EnabledByPolicy: StartupTaskState = 4
+class StartupTaskState(Int32):  # enum
+    Disabled = 0
+    DisabledByUser = 1
+    Enabled = 2
+    DisabledByPolicy = 3
+    EnabledByPolicy = 4
 class SuspendingDeferral(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.ISuspendingDeferral

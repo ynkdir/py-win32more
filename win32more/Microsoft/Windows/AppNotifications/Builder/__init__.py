@@ -6,9 +6,9 @@ import win32more.Microsoft.Windows.AppNotifications.Builder
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Win32.System.WinRT
-AppNotificationAudioLooping = Int32
-AppNotificationAudioLooping_None: AppNotificationAudioLooping = 0
-AppNotificationAudioLooping_Loop: AppNotificationAudioLooping = 1
+class AppNotificationAudioLooping(Int32):  # enum
+    None_ = 0
+    Loop = 1
 class AppNotificationBuilder(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Windows.AppNotifications.Builder.IAppNotificationBuilder
@@ -167,10 +167,10 @@ class AppNotificationButton(ComPtr):
     InputId = property(get_InputId, put_InputId)
     InvokeUri = property(get_InvokeUri, put_InvokeUri)
     TargetAppId = property(get_TargetAppId, put_TargetAppId)
-AppNotificationButtonStyle = Int32
-AppNotificationButtonStyle_Default: AppNotificationButtonStyle = 0
-AppNotificationButtonStyle_Success: AppNotificationButtonStyle = 1
-AppNotificationButtonStyle_Critical: AppNotificationButtonStyle = 2
+class AppNotificationButtonStyle(Int32):  # enum
+    Default = 0
+    Success = 1
+    Critical = 2
 class AppNotificationComboBox(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Windows.AppNotifications.Builder.IAppNotificationComboBox
@@ -205,12 +205,12 @@ class AppNotificationComboBox(ComPtr):
     Items = property(get_Items, put_Items)
     Title = property(get_Title, put_Title)
     SelectedItem = property(get_SelectedItem, put_SelectedItem)
-AppNotificationDuration = Int32
-AppNotificationDuration_Default: AppNotificationDuration = 0
-AppNotificationDuration_Long: AppNotificationDuration = 1
-AppNotificationImageCrop = Int32
-AppNotificationImageCrop_Default: AppNotificationImageCrop = 0
-AppNotificationImageCrop_Circle: AppNotificationImageCrop = 1
+class AppNotificationDuration(Int32):  # enum
+    Default = 0
+    Long = 1
+class AppNotificationImageCrop(Int32):  # enum
+    Default = 0
+    Circle = 1
 class AppNotificationProgressBar(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Windows.AppNotifications.Builder.IAppNotificationProgressBar
@@ -260,38 +260,38 @@ class AppNotificationProgressBar(ComPtr):
     Status = property(get_Status, put_Status)
     Value = property(get_Value, put_Value)
     ValueStringOverride = property(get_ValueStringOverride, put_ValueStringOverride)
-AppNotificationScenario = Int32
-AppNotificationScenario_Default: AppNotificationScenario = 0
-AppNotificationScenario_Reminder: AppNotificationScenario = 1
-AppNotificationScenario_Alarm: AppNotificationScenario = 2
-AppNotificationScenario_IncomingCall: AppNotificationScenario = 3
-AppNotificationScenario_Urgent: AppNotificationScenario = 4
-AppNotificationSoundEvent = Int32
-AppNotificationSoundEvent_Default: AppNotificationSoundEvent = 0
-AppNotificationSoundEvent_IM: AppNotificationSoundEvent = 1
-AppNotificationSoundEvent_Mail: AppNotificationSoundEvent = 2
-AppNotificationSoundEvent_Reminder: AppNotificationSoundEvent = 3
-AppNotificationSoundEvent_SMS: AppNotificationSoundEvent = 4
-AppNotificationSoundEvent_Alarm: AppNotificationSoundEvent = 5
-AppNotificationSoundEvent_Alarm2: AppNotificationSoundEvent = 6
-AppNotificationSoundEvent_Alarm3: AppNotificationSoundEvent = 7
-AppNotificationSoundEvent_Alarm4: AppNotificationSoundEvent = 8
-AppNotificationSoundEvent_Alarm5: AppNotificationSoundEvent = 9
-AppNotificationSoundEvent_Alarm6: AppNotificationSoundEvent = 10
-AppNotificationSoundEvent_Alarm7: AppNotificationSoundEvent = 11
-AppNotificationSoundEvent_Alarm8: AppNotificationSoundEvent = 12
-AppNotificationSoundEvent_Alarm9: AppNotificationSoundEvent = 13
-AppNotificationSoundEvent_Alarm10: AppNotificationSoundEvent = 14
-AppNotificationSoundEvent_Call: AppNotificationSoundEvent = 15
-AppNotificationSoundEvent_Call2: AppNotificationSoundEvent = 16
-AppNotificationSoundEvent_Call3: AppNotificationSoundEvent = 17
-AppNotificationSoundEvent_Call4: AppNotificationSoundEvent = 18
-AppNotificationSoundEvent_Call5: AppNotificationSoundEvent = 19
-AppNotificationSoundEvent_Call6: AppNotificationSoundEvent = 20
-AppNotificationSoundEvent_Call7: AppNotificationSoundEvent = 21
-AppNotificationSoundEvent_Call8: AppNotificationSoundEvent = 22
-AppNotificationSoundEvent_Call9: AppNotificationSoundEvent = 23
-AppNotificationSoundEvent_Call10: AppNotificationSoundEvent = 24
+class AppNotificationScenario(Int32):  # enum
+    Default = 0
+    Reminder = 1
+    Alarm = 2
+    IncomingCall = 3
+    Urgent = 4
+class AppNotificationSoundEvent(Int32):  # enum
+    Default = 0
+    IM = 1
+    Mail = 2
+    Reminder = 3
+    SMS = 4
+    Alarm = 5
+    Alarm2 = 6
+    Alarm3 = 7
+    Alarm4 = 8
+    Alarm5 = 9
+    Alarm6 = 10
+    Alarm7 = 11
+    Alarm8 = 12
+    Alarm9 = 13
+    Alarm10 = 14
+    Call = 15
+    Call2 = 16
+    Call3 = 17
+    Call4 = 18
+    Call5 = 19
+    Call6 = 20
+    Call7 = 21
+    Call8 = 22
+    Call9 = 23
+    Call10 = 24
 class AppNotificationTextProperties(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Windows.AppNotifications.Builder.IAppNotificationTextProperties

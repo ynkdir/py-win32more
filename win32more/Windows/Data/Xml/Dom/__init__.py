@@ -542,20 +542,20 @@ class IXmlText(ComPtr):
     _iid_ = Guid('{f931a4cb-308d-4760-a1d5-43b67450ac7e}')
     @winrt_commethod(6)
     def SplitText(self, offset: UInt32) -> win32more.Windows.Data.Xml.Dom.IXmlText: ...
-NodeType = Int32
-NodeType_Invalid: NodeType = 0
-NodeType_ElementNode: NodeType = 1
-NodeType_AttributeNode: NodeType = 2
-NodeType_TextNode: NodeType = 3
-NodeType_DataSectionNode: NodeType = 4
-NodeType_EntityReferenceNode: NodeType = 5
-NodeType_EntityNode: NodeType = 6
-NodeType_ProcessingInstructionNode: NodeType = 7
-NodeType_CommentNode: NodeType = 8
-NodeType_DocumentNode: NodeType = 9
-NodeType_DocumentTypeNode: NodeType = 10
-NodeType_DocumentFragmentNode: NodeType = 11
-NodeType_NotationNode: NodeType = 12
+class NodeType(Int32):  # enum
+    Invalid = 0
+    ElementNode = 1
+    AttributeNode = 2
+    TextNode = 3
+    DataSectionNode = 4
+    EntityReferenceNode = 5
+    EntityNode = 6
+    ProcessingInstructionNode = 7
+    CommentNode = 8
+    DocumentNode = 9
+    DocumentTypeNode = 10
+    DocumentFragmentNode = 11
+    NotationNode = 12
 class XmlAttribute(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Data.Xml.Dom.IXmlAttribute

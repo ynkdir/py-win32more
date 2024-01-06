@@ -67,14 +67,14 @@ class AcrylicBrush(ComPtr, metaclass=_AcrylicBrush_Meta_):
     _AcrylicBrush_Meta_.TintOpacityProperty = property(get_TintOpacityProperty.__wrapped__, None)
     _AcrylicBrush_Meta_.TintTransitionDurationProperty = property(get_TintTransitionDurationProperty.__wrapped__, None)
     _AcrylicBrush_Meta_.AlwaysUseFallbackProperty = property(get_AlwaysUseFallbackProperty.__wrapped__, None)
-AlignmentX = Int32
-AlignmentX_Left: AlignmentX = 0
-AlignmentX_Center: AlignmentX = 1
-AlignmentX_Right: AlignmentX = 2
-AlignmentY = Int32
-AlignmentY_Top: AlignmentY = 0
-AlignmentY_Center: AlignmentY = 1
-AlignmentY_Bottom: AlignmentY = 2
+class AlignmentX(Int32):  # enum
+    Left = 0
+    Center = 1
+    Right = 2
+class AlignmentY(Int32):  # enum
+    Top = 0
+    Center = 1
+    Bottom = 2
 class _ArcSegment_Meta_(ComPtr.__class__):
     pass
 class ArcSegment(ComPtr, metaclass=_ArcSegment_Meta_):
@@ -265,9 +265,9 @@ class BrushCollection(ComPtr):
     @winrt_mixinmethod
     def First(self: win32more.Windows.Foundation.Collections.IIterable[win32more.Microsoft.UI.Xaml.Media.Brush]) -> win32more.Windows.Foundation.Collections.IIterator[win32more.Microsoft.UI.Xaml.Media.Brush]: ...
     Size = property(get_Size, None)
-BrushMappingMode = Int32
-BrushMappingMode_Absolute: BrushMappingMode = 0
-BrushMappingMode_RelativeToBoundingBox: BrushMappingMode = 1
+class BrushMappingMode(Int32):  # enum
+    Absolute = 0
+    RelativeToBoundingBox = 1
 class CacheMode(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.DependencyObject
     default_interface: win32more.Microsoft.UI.Xaml.Media.ICacheMode
@@ -281,9 +281,9 @@ class CacheMode(ComPtr):
             raise ValueError('no matched constructor')
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Microsoft.UI.Xaml.Media.ICacheModeFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Media.CacheMode: ...
-ColorInterpolationMode = Int32
-ColorInterpolationMode_ScRgbLinearInterpolation: ColorInterpolationMode = 0
-ColorInterpolationMode_SRgbLinearInterpolation: ColorInterpolationMode = 1
+class ColorInterpolationMode(Int32):  # enum
+    ScRgbLinearInterpolation = 0
+    SRgbLinearInterpolation = 1
 class _CompositeTransform_Meta_(ComPtr.__class__):
     pass
 class CompositeTransform(ComPtr, metaclass=_CompositeTransform_Meta_):
@@ -442,10 +442,10 @@ class DoubleCollection(ComPtr):
     @winrt_mixinmethod
     def First(self: win32more.Windows.Foundation.Collections.IIterable[Double]) -> win32more.Windows.Foundation.Collections.IIterator[Double]: ...
     Size = property(get_Size, None)
-ElementCompositeMode = Int32
-ElementCompositeMode_Inherit: ElementCompositeMode = 0
-ElementCompositeMode_SourceOver: ElementCompositeMode = 1
-ElementCompositeMode_MinBlend: ElementCompositeMode = 2
+class ElementCompositeMode(Int32):  # enum
+    Inherit = 0
+    SourceOver = 1
+    MinBlend = 2
 class _EllipseGeometry_Meta_(ComPtr.__class__):
     pass
 class EllipseGeometry(ComPtr, metaclass=_EllipseGeometry_Meta_):
@@ -485,13 +485,13 @@ class EllipseGeometry(ComPtr, metaclass=_EllipseGeometry_Meta_):
     _EllipseGeometry_Meta_.CenterProperty = property(get_CenterProperty.__wrapped__, None)
     _EllipseGeometry_Meta_.RadiusXProperty = property(get_RadiusXProperty.__wrapped__, None)
     _EllipseGeometry_Meta_.RadiusYProperty = property(get_RadiusYProperty.__wrapped__, None)
-FastPlayFallbackBehaviour = Int32
-FastPlayFallbackBehaviour_Skip: FastPlayFallbackBehaviour = 0
-FastPlayFallbackBehaviour_Hide: FastPlayFallbackBehaviour = 1
-FastPlayFallbackBehaviour_Disable: FastPlayFallbackBehaviour = 2
-FillRule = Int32
-FillRule_EvenOdd: FillRule = 0
-FillRule_Nonzero: FillRule = 1
+class FastPlayFallbackBehaviour(Int32):  # enum
+    Skip = 0
+    Hide = 1
+    Disable = 2
+class FillRule(Int32):  # enum
+    EvenOdd = 0
+    Nonzero = 1
 class _FontFamily_Meta_(ComPtr.__class__):
     pass
 class FontFamily(ComPtr, metaclass=_FontFamily_Meta_):
@@ -683,10 +683,10 @@ class GradientBrush(ComPtr, metaclass=_GradientBrush_Meta_):
     _GradientBrush_Meta_.MappingModeProperty = property(get_MappingModeProperty.__wrapped__, None)
     _GradientBrush_Meta_.ColorInterpolationModeProperty = property(get_ColorInterpolationModeProperty.__wrapped__, None)
     _GradientBrush_Meta_.GradientStopsProperty = property(get_GradientStopsProperty.__wrapped__, None)
-GradientSpreadMethod = Int32
-GradientSpreadMethod_Pad: GradientSpreadMethod = 0
-GradientSpreadMethod_Reflect: GradientSpreadMethod = 1
-GradientSpreadMethod_Repeat: GradientSpreadMethod = 2
+class GradientSpreadMethod(Int32):  # enum
+    Pad = 0
+    Reflect = 1
+    Repeat = 2
 class _GradientStop_Meta_(ComPtr.__class__):
     pass
 class GradientStop(ComPtr, metaclass=_GradientStop_Meta_):
@@ -2364,11 +2364,11 @@ class LoadedImageSourceLoadCompletedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Status(self: win32more.Microsoft.UI.Xaml.Media.ILoadedImageSourceLoadCompletedEventArgs) -> win32more.Microsoft.UI.Xaml.Media.LoadedImageSourceLoadStatus: ...
     Status = property(get_Status, None)
-LoadedImageSourceLoadStatus = Int32
-LoadedImageSourceLoadStatus_Success: LoadedImageSourceLoadStatus = 0
-LoadedImageSourceLoadStatus_NetworkError: LoadedImageSourceLoadStatus = 1
-LoadedImageSourceLoadStatus_InvalidFormat: LoadedImageSourceLoadStatus = 2
-LoadedImageSourceLoadStatus_Other: LoadedImageSourceLoadStatus = 3
+class LoadedImageSourceLoadStatus(Int32):  # enum
+    Success = 0
+    NetworkError = 1
+    InvalidFormat = 2
+    Other = 3
 class LoadedImageSurface(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Media.ILoadedImageSurface
@@ -2657,15 +2657,15 @@ class PathSegmentCollection(ComPtr):
     @winrt_mixinmethod
     def First(self: win32more.Windows.Foundation.Collections.IIterable[win32more.Microsoft.UI.Xaml.Media.PathSegment]) -> win32more.Windows.Foundation.Collections.IIterator[win32more.Microsoft.UI.Xaml.Media.PathSegment]: ...
     Size = property(get_Size, None)
-PenLineCap = Int32
-PenLineCap_Flat: PenLineCap = 0
-PenLineCap_Square: PenLineCap = 1
-PenLineCap_Round: PenLineCap = 2
-PenLineCap_Triangle: PenLineCap = 3
-PenLineJoin = Int32
-PenLineJoin_Miter: PenLineJoin = 0
-PenLineJoin_Bevel: PenLineJoin = 1
-PenLineJoin_Round: PenLineJoin = 2
+class PenLineCap(Int32):  # enum
+    Flat = 0
+    Square = 1
+    Round = 2
+    Triangle = 3
+class PenLineJoin(Int32):  # enum
+    Miter = 0
+    Bevel = 1
+    Round = 2
 class _PlaneProjection_Meta_(ComPtr.__class__):
     pass
 class PlaneProjection(ComPtr, metaclass=_PlaneProjection_Meta_):
@@ -3211,19 +3211,19 @@ class SolidColorBrush(ComPtr, metaclass=_SolidColorBrush_Meta_):
     def get_ColorProperty(cls: win32more.Microsoft.UI.Xaml.Media.ISolidColorBrushStatics) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
     Color = property(get_Color, put_Color)
     _SolidColorBrush_Meta_.ColorProperty = property(get_ColorProperty.__wrapped__, None)
-Stretch = Int32
-Stretch_None: Stretch = 0
-Stretch_Fill: Stretch = 1
-Stretch_Uniform: Stretch = 2
-Stretch_UniformToFill: Stretch = 3
-StyleSimulations = Int32
-StyleSimulations_None: StyleSimulations = 0
-StyleSimulations_BoldSimulation: StyleSimulations = 1
-StyleSimulations_ItalicSimulation: StyleSimulations = 2
-StyleSimulations_BoldItalicSimulation: StyleSimulations = 3
-SweepDirection = Int32
-SweepDirection_Counterclockwise: SweepDirection = 0
-SweepDirection_Clockwise: SweepDirection = 1
+class Stretch(Int32):  # enum
+    None_ = 0
+    Fill = 1
+    Uniform = 2
+    UniformToFill = 3
+class StyleSimulations(Int32):  # enum
+    None_ = 0
+    BoldSimulation = 1
+    ItalicSimulation = 2
+    BoldItalicSimulation = 3
+class SweepDirection(Int32):  # enum
+    Counterclockwise = 0
+    Clockwise = 1
 class SystemBackdrop(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.DependencyObject
     default_interface: win32more.Microsoft.UI.Xaml.Media.ISystemBackdrop

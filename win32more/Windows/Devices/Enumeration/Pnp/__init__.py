@@ -119,16 +119,16 @@ class PnpObjectCollection(ComPtr):
     @winrt_mixinmethod
     def First(self: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Devices.Enumeration.Pnp.PnpObject]) -> win32more.Windows.Foundation.Collections.IIterator[win32more.Windows.Devices.Enumeration.Pnp.PnpObject]: ...
     Size = property(get_Size, None)
-PnpObjectType = Int32
-PnpObjectType_Unknown: PnpObjectType = 0
-PnpObjectType_DeviceInterface: PnpObjectType = 1
-PnpObjectType_DeviceContainer: PnpObjectType = 2
-PnpObjectType_Device: PnpObjectType = 3
-PnpObjectType_DeviceInterfaceClass: PnpObjectType = 4
-PnpObjectType_AssociationEndpoint: PnpObjectType = 5
-PnpObjectType_AssociationEndpointContainer: PnpObjectType = 6
-PnpObjectType_AssociationEndpointService: PnpObjectType = 7
-PnpObjectType_DevicePanel: PnpObjectType = 8
+class PnpObjectType(Int32):  # enum
+    Unknown = 0
+    DeviceInterface = 1
+    DeviceContainer = 2
+    Device = 3
+    DeviceInterfaceClass = 4
+    AssociationEndpoint = 5
+    AssociationEndpointContainer = 6
+    AssociationEndpointService = 7
+    DevicePanel = 8
 class PnpObjectUpdate(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Enumeration.Pnp.IPnpObjectUpdate

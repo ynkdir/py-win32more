@@ -115,10 +115,10 @@ class SearchSuggestion(ComPtr):
     DetailText = property(get_DetailText, None)
     Image = property(get_Image, None)
     ImageAlternateText = property(get_ImageAlternateText, None)
-SearchSuggestionKind = Int32
-SearchSuggestionKind_Query: SearchSuggestionKind = 0
-SearchSuggestionKind_Result: SearchSuggestionKind = 1
-SearchSuggestionKind_Separator: SearchSuggestionKind = 2
+class SearchSuggestionKind(Int32):  # enum
+    Query = 0
+    Result = 1
+    Separator = 2
 class SearchSuggestionManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Search.Core.ISearchSuggestionManager

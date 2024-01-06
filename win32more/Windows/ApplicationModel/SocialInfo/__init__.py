@@ -309,13 +309,13 @@ class SocialFeedItem(ComPtr):
     RemoteId = property(get_RemoteId, put_RemoteId)
     ChildItem = property(get_ChildItem, put_ChildItem)
     Style = property(get_Style, put_Style)
-SocialFeedItemStyle = Int32
-SocialFeedItemStyle_Default: SocialFeedItemStyle = 0
-SocialFeedItemStyle_Photo: SocialFeedItemStyle = 1
-SocialFeedKind = Int32
-SocialFeedKind_HomeFeed: SocialFeedKind = 0
-SocialFeedKind_ContactFeed: SocialFeedKind = 1
-SocialFeedKind_Dashboard: SocialFeedKind = 2
+class SocialFeedItemStyle(Int32):  # enum
+    Default = 0
+    Photo = 1
+class SocialFeedKind(Int32):  # enum
+    HomeFeed = 0
+    ContactFeed = 1
+    Dashboard = 2
 class SocialFeedSharedItem(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.SocialInfo.ISocialFeedSharedItem
@@ -352,14 +352,14 @@ class SocialFeedSharedItem(ComPtr):
     Timestamp = property(get_Timestamp, put_Timestamp)
     TargetUri = property(get_TargetUri, put_TargetUri)
     Thumbnail = property(get_Thumbnail, put_Thumbnail)
-SocialFeedUpdateMode = Int32
-SocialFeedUpdateMode_Append: SocialFeedUpdateMode = 0
-SocialFeedUpdateMode_Replace: SocialFeedUpdateMode = 1
+class SocialFeedUpdateMode(Int32):  # enum
+    Append = 0
+    Replace = 1
 SocialInfoContract: UInt32 = 131072
-SocialItemBadgeStyle = Int32
-SocialItemBadgeStyle_Hidden: SocialItemBadgeStyle = 0
-SocialItemBadgeStyle_Visible: SocialItemBadgeStyle = 1
-SocialItemBadgeStyle_VisibleWithCount: SocialItemBadgeStyle = 2
+class SocialItemBadgeStyle(Int32):  # enum
+    Hidden = 0
+    Visible = 1
+    VisibleWithCount = 2
 class SocialItemThumbnail(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.SocialInfo.ISocialItemThumbnail

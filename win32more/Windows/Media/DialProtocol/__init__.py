@@ -21,16 +21,16 @@ class DialApp(ComPtr):
     @winrt_mixinmethod
     def GetAppStateAsync(self: win32more.Windows.Media.DialProtocol.IDialApp) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Media.DialProtocol.DialAppStateDetails]: ...
     AppName = property(get_AppName, None)
-DialAppLaunchResult = Int32
-DialAppLaunchResult_Launched: DialAppLaunchResult = 0
-DialAppLaunchResult_FailedToLaunch: DialAppLaunchResult = 1
-DialAppLaunchResult_NotFound: DialAppLaunchResult = 2
-DialAppLaunchResult_NetworkFailure: DialAppLaunchResult = 3
-DialAppState = Int32
-DialAppState_Unknown: DialAppState = 0
-DialAppState_Stopped: DialAppState = 1
-DialAppState_Running: DialAppState = 2
-DialAppState_NetworkFailure: DialAppState = 3
+class DialAppLaunchResult(Int32):  # enum
+    Launched = 0
+    FailedToLaunch = 1
+    NotFound = 2
+    NetworkFailure = 3
+class DialAppState(Int32):  # enum
+    Unknown = 0
+    Stopped = 1
+    Running = 2
+    NetworkFailure = 3
 class DialAppStateDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.DialProtocol.IDialAppStateDetails
@@ -41,11 +41,11 @@ class DialAppStateDetails(ComPtr):
     def get_FullXml(self: win32more.Windows.Media.DialProtocol.IDialAppStateDetails) -> WinRT_String: ...
     State = property(get_State, None)
     FullXml = property(get_FullXml, None)
-DialAppStopResult = Int32
-DialAppStopResult_Stopped: DialAppStopResult = 0
-DialAppStopResult_StopFailed: DialAppStopResult = 1
-DialAppStopResult_OperationNotSupported: DialAppStopResult = 2
-DialAppStopResult_NetworkFailure: DialAppStopResult = 3
+class DialAppStopResult(Int32):  # enum
+    Stopped = 0
+    StopFailed = 1
+    OperationNotSupported = 2
+    NetworkFailure = 3
 class DialDevice(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.DialProtocol.IDialDevice
@@ -67,13 +67,13 @@ class DialDevice(ComPtr):
     Id = property(get_Id, None)
     FriendlyName = property(get_FriendlyName, None)
     Thumbnail = property(get_Thumbnail, None)
-DialDeviceDisplayStatus = Int32
-DialDeviceDisplayStatus_None: DialDeviceDisplayStatus = 0
-DialDeviceDisplayStatus_Connecting: DialDeviceDisplayStatus = 1
-DialDeviceDisplayStatus_Connected: DialDeviceDisplayStatus = 2
-DialDeviceDisplayStatus_Disconnecting: DialDeviceDisplayStatus = 3
-DialDeviceDisplayStatus_Disconnected: DialDeviceDisplayStatus = 4
-DialDeviceDisplayStatus_Error: DialDeviceDisplayStatus = 5
+class DialDeviceDisplayStatus(Int32):  # enum
+    None_ = 0
+    Connecting = 1
+    Connected = 2
+    Disconnecting = 3
+    Disconnected = 4
+    Error = 5
 class DialDevicePicker(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.DialProtocol.IDialDevicePicker

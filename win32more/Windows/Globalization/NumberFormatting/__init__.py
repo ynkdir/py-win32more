@@ -98,9 +98,9 @@ class CurrencyFormatter(ComPtr):
     SignificantDigits = property(get_SignificantDigits, put_SignificantDigits)
     NumberRounder = property(get_NumberRounder, put_NumberRounder)
     IsZeroSigned = property(get_IsZeroSigned, put_IsZeroSigned)
-CurrencyFormatterMode = Int32
-CurrencyFormatterMode_UseSymbol: CurrencyFormatterMode = 0
-CurrencyFormatterMode_UseCurrencyCode: CurrencyFormatterMode = 1
+class CurrencyFormatterMode(Int32):  # enum
+    UseSymbol = 0
+    UseCurrencyCode = 1
 class DecimalFormatter(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Globalization.NumberFormatting.INumberFormatter
@@ -620,18 +620,18 @@ class PermilleFormatter(ComPtr):
     SignificantDigits = property(get_SignificantDigits, put_SignificantDigits)
     NumberRounder = property(get_NumberRounder, put_NumberRounder)
     IsZeroSigned = property(get_IsZeroSigned, put_IsZeroSigned)
-RoundingAlgorithm = Int32
-RoundingAlgorithm_None: RoundingAlgorithm = 0
-RoundingAlgorithm_RoundDown: RoundingAlgorithm = 1
-RoundingAlgorithm_RoundUp: RoundingAlgorithm = 2
-RoundingAlgorithm_RoundTowardsZero: RoundingAlgorithm = 3
-RoundingAlgorithm_RoundAwayFromZero: RoundingAlgorithm = 4
-RoundingAlgorithm_RoundHalfDown: RoundingAlgorithm = 5
-RoundingAlgorithm_RoundHalfUp: RoundingAlgorithm = 6
-RoundingAlgorithm_RoundHalfTowardsZero: RoundingAlgorithm = 7
-RoundingAlgorithm_RoundHalfAwayFromZero: RoundingAlgorithm = 8
-RoundingAlgorithm_RoundHalfToEven: RoundingAlgorithm = 9
-RoundingAlgorithm_RoundHalfToOdd: RoundingAlgorithm = 10
+class RoundingAlgorithm(Int32):  # enum
+    None_ = 0
+    RoundDown = 1
+    RoundUp = 2
+    RoundTowardsZero = 3
+    RoundAwayFromZero = 4
+    RoundHalfDown = 5
+    RoundHalfUp = 6
+    RoundHalfTowardsZero = 7
+    RoundHalfAwayFromZero = 8
+    RoundHalfToEven = 9
+    RoundHalfToOdd = 10
 class SignificantDigitsNumberRounder(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Globalization.NumberFormatting.INumberRounder

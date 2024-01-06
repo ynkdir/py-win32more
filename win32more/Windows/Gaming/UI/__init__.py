@@ -25,9 +25,9 @@ class GameBar(ComPtr, metaclass=_GameBar_Meta_):
     def get_IsInputRedirected(cls: win32more.Windows.Gaming.UI.IGameBarStatics) -> Boolean: ...
     _GameBar_Meta_.Visible = property(get_Visible.__wrapped__, None)
     _GameBar_Meta_.IsInputRedirected = property(get_IsInputRedirected.__wrapped__, None)
-GameChatMessageOrigin = Int32
-GameChatMessageOrigin_Voice: GameChatMessageOrigin = 0
-GameChatMessageOrigin_Text: GameChatMessageOrigin = 1
+class GameChatMessageOrigin(Int32):  # enum
+    Voice = 0
+    Text = 1
 class GameChatMessageReceivedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Gaming.UI.IGameChatMessageReceivedEventArgs
@@ -80,15 +80,15 @@ class GameChatOverlayMessageSource(ComPtr):
     def remove_MessageReceived(self: win32more.Windows.Gaming.UI.IGameChatOverlayMessageSource, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
     def SetDelayBeforeClosingAfterMessageReceived(self: win32more.Windows.Gaming.UI.IGameChatOverlayMessageSource, value: win32more.Windows.Foundation.TimeSpan) -> Void: ...
-GameChatOverlayPosition = Int32
-GameChatOverlayPosition_BottomCenter: GameChatOverlayPosition = 0
-GameChatOverlayPosition_BottomLeft: GameChatOverlayPosition = 1
-GameChatOverlayPosition_BottomRight: GameChatOverlayPosition = 2
-GameChatOverlayPosition_MiddleRight: GameChatOverlayPosition = 3
-GameChatOverlayPosition_MiddleLeft: GameChatOverlayPosition = 4
-GameChatOverlayPosition_TopCenter: GameChatOverlayPosition = 5
-GameChatOverlayPosition_TopLeft: GameChatOverlayPosition = 6
-GameChatOverlayPosition_TopRight: GameChatOverlayPosition = 7
+class GameChatOverlayPosition(Int32):  # enum
+    BottomCenter = 0
+    BottomLeft = 1
+    BottomRight = 2
+    MiddleRight = 3
+    MiddleLeft = 4
+    TopCenter = 5
+    TopLeft = 6
+    TopRight = 7
 class GameUIProviderActivatedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Gaming.UI.IGameUIProviderActivatedEventArgs

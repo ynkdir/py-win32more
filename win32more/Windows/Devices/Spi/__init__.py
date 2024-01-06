@@ -193,14 +193,14 @@ class SpiDevice(ComPtr):
     def FromIdAsync(cls: win32more.Windows.Devices.Spi.ISpiDeviceStatics, busId: WinRT_String, settings: win32more.Windows.Devices.Spi.SpiConnectionSettings) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Spi.SpiDevice]: ...
     DeviceId = property(get_DeviceId, None)
     ConnectionSettings = property(get_ConnectionSettings, None)
-SpiMode = Int32
-SpiMode_Mode0: SpiMode = 0
-SpiMode_Mode1: SpiMode = 1
-SpiMode_Mode2: SpiMode = 2
-SpiMode_Mode3: SpiMode = 3
-SpiSharingMode = Int32
-SpiSharingMode_Exclusive: SpiSharingMode = 0
-SpiSharingMode_Shared: SpiSharingMode = 1
+class SpiMode(Int32):  # enum
+    Mode0 = 0
+    Mode1 = 1
+    Mode2 = 2
+    Mode3 = 3
+class SpiSharingMode(Int32):  # enum
+    Exclusive = 0
+    Shared = 1
 
 
 make_ready(__name__)

@@ -137,15 +137,15 @@ class MessageDialog(ComPtr):
     CancelCommandIndex = property(get_CancelCommandIndex, put_CancelCommandIndex)
     Content = property(get_Content, put_Content)
     Options = property(get_Options, put_Options)
-MessageDialogOptions = UInt32
-MessageDialogOptions_None: MessageDialogOptions = 0
-MessageDialogOptions_AcceptUserInputAfterDelay: MessageDialogOptions = 1
-Placement = Int32
-Placement_Default: Placement = 0
-Placement_Above: Placement = 1
-Placement_Below: Placement = 2
-Placement_Left: Placement = 3
-Placement_Right: Placement = 4
+class MessageDialogOptions(UInt32):  # enum
+    None_ = 0
+    AcceptUserInputAfterDelay = 1
+class Placement(Int32):  # enum
+    Default = 0
+    Above = 1
+    Below = 2
+    Left = 3
+    Right = 4
 class PopupMenu(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Popups.IPopupMenu

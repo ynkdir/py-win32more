@@ -261,11 +261,11 @@ class WiFiDirectService(ComPtr):
     PreferGroupOwnerMode = property(get_PreferGroupOwnerMode, put_PreferGroupOwnerMode)
     SessionInfo = property(get_SessionInfo, put_SessionInfo)
     ServiceError = property(get_ServiceError, None)
-WiFiDirectServiceAdvertisementStatus = Int32
-WiFiDirectServiceAdvertisementStatus_Created: WiFiDirectServiceAdvertisementStatus = 0
-WiFiDirectServiceAdvertisementStatus_Started: WiFiDirectServiceAdvertisementStatus = 1
-WiFiDirectServiceAdvertisementStatus_Stopped: WiFiDirectServiceAdvertisementStatus = 2
-WiFiDirectServiceAdvertisementStatus_Aborted: WiFiDirectServiceAdvertisementStatus = 3
+class WiFiDirectServiceAdvertisementStatus(Int32):  # enum
+    Created = 0
+    Started = 1
+    Stopped = 2
+    Aborted = 3
 class WiFiDirectServiceAdvertiser(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.WiFiDirect.Services.IWiFiDirectServiceAdvertiser
@@ -354,19 +354,19 @@ class WiFiDirectServiceAutoAcceptSessionConnectedEventArgs(ComPtr):
     def get_SessionInfo(self: win32more.Windows.Devices.WiFiDirect.Services.IWiFiDirectServiceAutoAcceptSessionConnectedEventArgs) -> win32more.Windows.Storage.Streams.IBuffer: ...
     Session = property(get_Session, None)
     SessionInfo = property(get_SessionInfo, None)
-WiFiDirectServiceConfigurationMethod = Int32
-WiFiDirectServiceConfigurationMethod_Default: WiFiDirectServiceConfigurationMethod = 0
-WiFiDirectServiceConfigurationMethod_PinDisplay: WiFiDirectServiceConfigurationMethod = 1
-WiFiDirectServiceConfigurationMethod_PinEntry: WiFiDirectServiceConfigurationMethod = 2
-WiFiDirectServiceError = Int32
-WiFiDirectServiceError_Success: WiFiDirectServiceError = 0
-WiFiDirectServiceError_RadioNotAvailable: WiFiDirectServiceError = 1
-WiFiDirectServiceError_ResourceInUse: WiFiDirectServiceError = 2
-WiFiDirectServiceError_UnsupportedHardware: WiFiDirectServiceError = 3
-WiFiDirectServiceError_NoHardware: WiFiDirectServiceError = 4
-WiFiDirectServiceIPProtocol = Int32
-WiFiDirectServiceIPProtocol_Tcp: WiFiDirectServiceIPProtocol = 6
-WiFiDirectServiceIPProtocol_Udp: WiFiDirectServiceIPProtocol = 17
+class WiFiDirectServiceConfigurationMethod(Int32):  # enum
+    Default = 0
+    PinDisplay = 1
+    PinEntry = 2
+class WiFiDirectServiceError(Int32):  # enum
+    Success = 0
+    RadioNotAvailable = 1
+    ResourceInUse = 2
+    UnsupportedHardware = 3
+    NoHardware = 4
+class WiFiDirectServiceIPProtocol(Int32):  # enum
+    Tcp = 6
+    Udp = 17
 class WiFiDirectServiceProvisioningInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.WiFiDirect.Services.IWiFiDirectServiceProvisioningInfo
@@ -435,13 +435,13 @@ class WiFiDirectServiceSessionDeferredEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_DeferredSessionInfo(self: win32more.Windows.Devices.WiFiDirect.Services.IWiFiDirectServiceSessionDeferredEventArgs) -> win32more.Windows.Storage.Streams.IBuffer: ...
     DeferredSessionInfo = property(get_DeferredSessionInfo, None)
-WiFiDirectServiceSessionErrorStatus = Int32
-WiFiDirectServiceSessionErrorStatus_Ok: WiFiDirectServiceSessionErrorStatus = 0
-WiFiDirectServiceSessionErrorStatus_Disassociated: WiFiDirectServiceSessionErrorStatus = 1
-WiFiDirectServiceSessionErrorStatus_LocalClose: WiFiDirectServiceSessionErrorStatus = 2
-WiFiDirectServiceSessionErrorStatus_RemoteClose: WiFiDirectServiceSessionErrorStatus = 3
-WiFiDirectServiceSessionErrorStatus_SystemFailure: WiFiDirectServiceSessionErrorStatus = 4
-WiFiDirectServiceSessionErrorStatus_NoResponseFromRemote: WiFiDirectServiceSessionErrorStatus = 5
+class WiFiDirectServiceSessionErrorStatus(Int32):  # enum
+    Ok = 0
+    Disassociated = 1
+    LocalClose = 2
+    RemoteClose = 3
+    SystemFailure = 4
+    NoResponseFromRemote = 5
 class WiFiDirectServiceSessionRequest(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.WiFiDirect.Services.IWiFiDirectServiceSessionRequest
@@ -463,15 +463,15 @@ class WiFiDirectServiceSessionRequestedEventArgs(ComPtr):
     _classid_ = 'Windows.Devices.WiFiDirect.Services.WiFiDirectServiceSessionRequestedEventArgs'
     @winrt_mixinmethod
     def GetSessionRequest(self: win32more.Windows.Devices.WiFiDirect.Services.IWiFiDirectServiceSessionRequestedEventArgs) -> win32more.Windows.Devices.WiFiDirect.Services.WiFiDirectServiceSessionRequest: ...
-WiFiDirectServiceSessionStatus = Int32
-WiFiDirectServiceSessionStatus_Closed: WiFiDirectServiceSessionStatus = 0
-WiFiDirectServiceSessionStatus_Initiated: WiFiDirectServiceSessionStatus = 1
-WiFiDirectServiceSessionStatus_Requested: WiFiDirectServiceSessionStatus = 2
-WiFiDirectServiceSessionStatus_Open: WiFiDirectServiceSessionStatus = 3
-WiFiDirectServiceStatus = Int32
-WiFiDirectServiceStatus_Available: WiFiDirectServiceStatus = 0
-WiFiDirectServiceStatus_Busy: WiFiDirectServiceStatus = 1
-WiFiDirectServiceStatus_Custom: WiFiDirectServiceStatus = 2
+class WiFiDirectServiceSessionStatus(Int32):  # enum
+    Closed = 0
+    Initiated = 1
+    Requested = 2
+    Open = 3
+class WiFiDirectServiceStatus(Int32):  # enum
+    Available = 0
+    Busy = 1
+    Custom = 2
 
 
 make_ready(__name__)

@@ -110,17 +110,17 @@ class DateTimeFormatter(ComPtr, metaclass=_DateTimeFormatter_Meta_):
     _DateTimeFormatter_Meta_.LongTime = property(get_LongTime.__wrapped__, None)
     _DateTimeFormatter_Meta_.ShortDate = property(get_ShortDate.__wrapped__, None)
     _DateTimeFormatter_Meta_.ShortTime = property(get_ShortTime.__wrapped__, None)
-DayFormat = Int32
-DayFormat_None: DayFormat = 0
-DayFormat_Default: DayFormat = 1
-DayOfWeekFormat = Int32
-DayOfWeekFormat_None: DayOfWeekFormat = 0
-DayOfWeekFormat_Default: DayOfWeekFormat = 1
-DayOfWeekFormat_Abbreviated: DayOfWeekFormat = 2
-DayOfWeekFormat_Full: DayOfWeekFormat = 3
-HourFormat = Int32
-HourFormat_None: HourFormat = 0
-HourFormat_Default: HourFormat = 1
+class DayFormat(Int32):  # enum
+    None_ = 0
+    Default = 1
+class DayOfWeekFormat(Int32):  # enum
+    None_ = 0
+    Default = 1
+    Abbreviated = 2
+    Full = 3
+class HourFormat(Int32):  # enum
+    None_ = 0
+    Default = 1
 class IDateTimeFormatter(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Globalization.DateTimeFormatting.IDateTimeFormatter'
@@ -217,23 +217,23 @@ class IDateTimeFormatterStatics(ComPtr):
     LongTime = property(get_LongTime, None)
     ShortDate = property(get_ShortDate, None)
     ShortTime = property(get_ShortTime, None)
-MinuteFormat = Int32
-MinuteFormat_None: MinuteFormat = 0
-MinuteFormat_Default: MinuteFormat = 1
-MonthFormat = Int32
-MonthFormat_None: MonthFormat = 0
-MonthFormat_Default: MonthFormat = 1
-MonthFormat_Abbreviated: MonthFormat = 2
-MonthFormat_Full: MonthFormat = 3
-MonthFormat_Numeric: MonthFormat = 4
-SecondFormat = Int32
-SecondFormat_None: SecondFormat = 0
-SecondFormat_Default: SecondFormat = 1
-YearFormat = Int32
-YearFormat_None: YearFormat = 0
-YearFormat_Default: YearFormat = 1
-YearFormat_Abbreviated: YearFormat = 2
-YearFormat_Full: YearFormat = 3
+class MinuteFormat(Int32):  # enum
+    None_ = 0
+    Default = 1
+class MonthFormat(Int32):  # enum
+    None_ = 0
+    Default = 1
+    Abbreviated = 2
+    Full = 3
+    Numeric = 4
+class SecondFormat(Int32):  # enum
+    None_ = 0
+    Default = 1
+class YearFormat(Int32):  # enum
+    None_ = 0
+    Default = 1
+    Abbreviated = 2
+    Full = 3
 
 
 make_ready(__name__)

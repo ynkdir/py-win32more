@@ -56,13 +56,13 @@ class BluetoothAdapter(ComPtr):
     AreLowEnergySecureConnectionsSupported = property(get_AreLowEnergySecureConnectionsSupported, None)
     IsExtendedAdvertisingSupported = property(get_IsExtendedAdvertisingSupported, None)
     MaxAdvertisementDataLength = property(get_MaxAdvertisementDataLength, None)
-BluetoothAddressType = Int32
-BluetoothAddressType_Public: BluetoothAddressType = 0
-BluetoothAddressType_Random: BluetoothAddressType = 1
-BluetoothAddressType_Unspecified: BluetoothAddressType = 2
-BluetoothCacheMode = Int32
-BluetoothCacheMode_Cached: BluetoothCacheMode = 0
-BluetoothCacheMode_Uncached: BluetoothCacheMode = 1
+class BluetoothAddressType(Int32):  # enum
+    Public = 0
+    Random = 1
+    Unspecified = 2
+class BluetoothCacheMode(Int32):  # enum
+    Cached = 0
+    Uncached = 1
 class BluetoothClassOfDevice(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Bluetooth.IBluetoothClassOfDevice
@@ -83,9 +83,9 @@ class BluetoothClassOfDevice(ComPtr):
     MajorClass = property(get_MajorClass, None)
     MinorClass = property(get_MinorClass, None)
     ServiceCapabilities = property(get_ServiceCapabilities, None)
-BluetoothConnectionStatus = Int32
-BluetoothConnectionStatus_Disconnected: BluetoothConnectionStatus = 0
-BluetoothConnectionStatus_Connected: BluetoothConnectionStatus = 1
+class BluetoothConnectionStatus(Int32):  # enum
+    Disconnected = 0
+    Connected = 1
 class BluetoothDevice(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Bluetooth.IBluetoothDevice
@@ -183,17 +183,17 @@ class BluetoothDeviceId(ComPtr):
     Id = property(get_Id, None)
     IsClassicDevice = property(get_IsClassicDevice, None)
     IsLowEnergyDevice = property(get_IsLowEnergyDevice, None)
-BluetoothError = Int32
-BluetoothError_Success: BluetoothError = 0
-BluetoothError_RadioNotAvailable: BluetoothError = 1
-BluetoothError_ResourceInUse: BluetoothError = 2
-BluetoothError_DeviceNotConnected: BluetoothError = 3
-BluetoothError_OtherError: BluetoothError = 4
-BluetoothError_DisabledByPolicy: BluetoothError = 5
-BluetoothError_NotSupported: BluetoothError = 6
-BluetoothError_DisabledByUser: BluetoothError = 7
-BluetoothError_ConsentRequired: BluetoothError = 8
-BluetoothError_TransportNotSupported: BluetoothError = 9
+class BluetoothError(Int32):  # enum
+    Success = 0
+    RadioNotAvailable = 1
+    ResourceInUse = 2
+    DeviceNotConnected = 3
+    OtherError = 4
+    DisabledByPolicy = 5
+    NotSupported = 6
+    DisabledByUser = 7
+    ConsentRequired = 8
+    TransportNotSupported = 9
 class BluetoothLEAppearance(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Bluetooth.IBluetoothLEAppearance
@@ -540,105 +540,105 @@ class BluetoothLEPreferredConnectionParametersRequest(ComPtr):
     @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
     Status = property(get_Status, None)
-BluetoothLEPreferredConnectionParametersRequestStatus = Int32
-BluetoothLEPreferredConnectionParametersRequestStatus_Unspecified: BluetoothLEPreferredConnectionParametersRequestStatus = 0
-BluetoothLEPreferredConnectionParametersRequestStatus_Success: BluetoothLEPreferredConnectionParametersRequestStatus = 1
-BluetoothLEPreferredConnectionParametersRequestStatus_DeviceNotAvailable: BluetoothLEPreferredConnectionParametersRequestStatus = 2
-BluetoothLEPreferredConnectionParametersRequestStatus_AccessDenied: BluetoothLEPreferredConnectionParametersRequestStatus = 3
-BluetoothMajorClass = Int32
-BluetoothMajorClass_Miscellaneous: BluetoothMajorClass = 0
-BluetoothMajorClass_Computer: BluetoothMajorClass = 1
-BluetoothMajorClass_Phone: BluetoothMajorClass = 2
-BluetoothMajorClass_NetworkAccessPoint: BluetoothMajorClass = 3
-BluetoothMajorClass_AudioVideo: BluetoothMajorClass = 4
-BluetoothMajorClass_Peripheral: BluetoothMajorClass = 5
-BluetoothMajorClass_Imaging: BluetoothMajorClass = 6
-BluetoothMajorClass_Wearable: BluetoothMajorClass = 7
-BluetoothMajorClass_Toy: BluetoothMajorClass = 8
-BluetoothMajorClass_Health: BluetoothMajorClass = 9
-BluetoothMinorClass = Int32
-BluetoothMinorClass_Uncategorized: BluetoothMinorClass = 0
-BluetoothMinorClass_ComputerDesktop: BluetoothMinorClass = 1
-BluetoothMinorClass_ComputerServer: BluetoothMinorClass = 2
-BluetoothMinorClass_ComputerLaptop: BluetoothMinorClass = 3
-BluetoothMinorClass_ComputerHandheld: BluetoothMinorClass = 4
-BluetoothMinorClass_ComputerPalmSize: BluetoothMinorClass = 5
-BluetoothMinorClass_ComputerWearable: BluetoothMinorClass = 6
-BluetoothMinorClass_ComputerTablet: BluetoothMinorClass = 7
-BluetoothMinorClass_PhoneCellular: BluetoothMinorClass = 1
-BluetoothMinorClass_PhoneCordless: BluetoothMinorClass = 2
-BluetoothMinorClass_PhoneSmartPhone: BluetoothMinorClass = 3
-BluetoothMinorClass_PhoneWired: BluetoothMinorClass = 4
-BluetoothMinorClass_PhoneIsdn: BluetoothMinorClass = 5
-BluetoothMinorClass_NetworkFullyAvailable: BluetoothMinorClass = 0
-BluetoothMinorClass_NetworkUsed01To17Percent: BluetoothMinorClass = 8
-BluetoothMinorClass_NetworkUsed17To33Percent: BluetoothMinorClass = 16
-BluetoothMinorClass_NetworkUsed33To50Percent: BluetoothMinorClass = 24
-BluetoothMinorClass_NetworkUsed50To67Percent: BluetoothMinorClass = 32
-BluetoothMinorClass_NetworkUsed67To83Percent: BluetoothMinorClass = 40
-BluetoothMinorClass_NetworkUsed83To99Percent: BluetoothMinorClass = 48
-BluetoothMinorClass_NetworkNoServiceAvailable: BluetoothMinorClass = 56
-BluetoothMinorClass_AudioVideoWearableHeadset: BluetoothMinorClass = 1
-BluetoothMinorClass_AudioVideoHandsFree: BluetoothMinorClass = 2
-BluetoothMinorClass_AudioVideoMicrophone: BluetoothMinorClass = 4
-BluetoothMinorClass_AudioVideoLoudspeaker: BluetoothMinorClass = 5
-BluetoothMinorClass_AudioVideoHeadphones: BluetoothMinorClass = 6
-BluetoothMinorClass_AudioVideoPortableAudio: BluetoothMinorClass = 7
-BluetoothMinorClass_AudioVideoCarAudio: BluetoothMinorClass = 8
-BluetoothMinorClass_AudioVideoSetTopBox: BluetoothMinorClass = 9
-BluetoothMinorClass_AudioVideoHifiAudioDevice: BluetoothMinorClass = 10
-BluetoothMinorClass_AudioVideoVcr: BluetoothMinorClass = 11
-BluetoothMinorClass_AudioVideoVideoCamera: BluetoothMinorClass = 12
-BluetoothMinorClass_AudioVideoCamcorder: BluetoothMinorClass = 13
-BluetoothMinorClass_AudioVideoVideoMonitor: BluetoothMinorClass = 14
-BluetoothMinorClass_AudioVideoVideoDisplayAndLoudspeaker: BluetoothMinorClass = 15
-BluetoothMinorClass_AudioVideoVideoConferencing: BluetoothMinorClass = 16
-BluetoothMinorClass_AudioVideoGamingOrToy: BluetoothMinorClass = 18
-BluetoothMinorClass_PeripheralJoystick: BluetoothMinorClass = 1
-BluetoothMinorClass_PeripheralGamepad: BluetoothMinorClass = 2
-BluetoothMinorClass_PeripheralRemoteControl: BluetoothMinorClass = 3
-BluetoothMinorClass_PeripheralSensing: BluetoothMinorClass = 4
-BluetoothMinorClass_PeripheralDigitizerTablet: BluetoothMinorClass = 5
-BluetoothMinorClass_PeripheralCardReader: BluetoothMinorClass = 6
-BluetoothMinorClass_PeripheralDigitalPen: BluetoothMinorClass = 7
-BluetoothMinorClass_PeripheralHandheldScanner: BluetoothMinorClass = 8
-BluetoothMinorClass_PeripheralHandheldGesture: BluetoothMinorClass = 9
-BluetoothMinorClass_WearableWristwatch: BluetoothMinorClass = 1
-BluetoothMinorClass_WearablePager: BluetoothMinorClass = 2
-BluetoothMinorClass_WearableJacket: BluetoothMinorClass = 3
-BluetoothMinorClass_WearableHelmet: BluetoothMinorClass = 4
-BluetoothMinorClass_WearableGlasses: BluetoothMinorClass = 5
-BluetoothMinorClass_ToyRobot: BluetoothMinorClass = 1
-BluetoothMinorClass_ToyVehicle: BluetoothMinorClass = 2
-BluetoothMinorClass_ToyDoll: BluetoothMinorClass = 3
-BluetoothMinorClass_ToyController: BluetoothMinorClass = 4
-BluetoothMinorClass_ToyGame: BluetoothMinorClass = 5
-BluetoothMinorClass_HealthBloodPressureMonitor: BluetoothMinorClass = 1
-BluetoothMinorClass_HealthThermometer: BluetoothMinorClass = 2
-BluetoothMinorClass_HealthWeighingScale: BluetoothMinorClass = 3
-BluetoothMinorClass_HealthGlucoseMeter: BluetoothMinorClass = 4
-BluetoothMinorClass_HealthPulseOximeter: BluetoothMinorClass = 5
-BluetoothMinorClass_HealthHeartRateMonitor: BluetoothMinorClass = 6
-BluetoothMinorClass_HealthHealthDataDisplay: BluetoothMinorClass = 7
-BluetoothMinorClass_HealthStepCounter: BluetoothMinorClass = 8
-BluetoothMinorClass_HealthBodyCompositionAnalyzer: BluetoothMinorClass = 9
-BluetoothMinorClass_HealthPeakFlowMonitor: BluetoothMinorClass = 10
-BluetoothMinorClass_HealthMedicationMonitor: BluetoothMinorClass = 11
-BluetoothMinorClass_HealthKneeProsthesis: BluetoothMinorClass = 12
-BluetoothMinorClass_HealthAnkleProsthesis: BluetoothMinorClass = 13
-BluetoothMinorClass_HealthGenericHealthManager: BluetoothMinorClass = 14
-BluetoothMinorClass_HealthPersonalMobilityDevice: BluetoothMinorClass = 15
-BluetoothServiceCapabilities = UInt32
-BluetoothServiceCapabilities_None: BluetoothServiceCapabilities = 0
-BluetoothServiceCapabilities_LimitedDiscoverableMode: BluetoothServiceCapabilities = 1
-BluetoothServiceCapabilities_PositioningService: BluetoothServiceCapabilities = 8
-BluetoothServiceCapabilities_NetworkingService: BluetoothServiceCapabilities = 16
-BluetoothServiceCapabilities_RenderingService: BluetoothServiceCapabilities = 32
-BluetoothServiceCapabilities_CapturingService: BluetoothServiceCapabilities = 64
-BluetoothServiceCapabilities_ObjectTransferService: BluetoothServiceCapabilities = 128
-BluetoothServiceCapabilities_AudioService: BluetoothServiceCapabilities = 256
-BluetoothServiceCapabilities_TelephoneService: BluetoothServiceCapabilities = 512
-BluetoothServiceCapabilities_InformationService: BluetoothServiceCapabilities = 1024
+class BluetoothLEPreferredConnectionParametersRequestStatus(Int32):  # enum
+    Unspecified = 0
+    Success = 1
+    DeviceNotAvailable = 2
+    AccessDenied = 3
+class BluetoothMajorClass(Int32):  # enum
+    Miscellaneous = 0
+    Computer = 1
+    Phone = 2
+    NetworkAccessPoint = 3
+    AudioVideo = 4
+    Peripheral = 5
+    Imaging = 6
+    Wearable = 7
+    Toy = 8
+    Health = 9
+class BluetoothMinorClass(Int32):  # enum
+    Uncategorized = 0
+    ComputerDesktop = 1
+    ComputerServer = 2
+    ComputerLaptop = 3
+    ComputerHandheld = 4
+    ComputerPalmSize = 5
+    ComputerWearable = 6
+    ComputerTablet = 7
+    PhoneCellular = 1
+    PhoneCordless = 2
+    PhoneSmartPhone = 3
+    PhoneWired = 4
+    PhoneIsdn = 5
+    NetworkFullyAvailable = 0
+    NetworkUsed01To17Percent = 8
+    NetworkUsed17To33Percent = 16
+    NetworkUsed33To50Percent = 24
+    NetworkUsed50To67Percent = 32
+    NetworkUsed67To83Percent = 40
+    NetworkUsed83To99Percent = 48
+    NetworkNoServiceAvailable = 56
+    AudioVideoWearableHeadset = 1
+    AudioVideoHandsFree = 2
+    AudioVideoMicrophone = 4
+    AudioVideoLoudspeaker = 5
+    AudioVideoHeadphones = 6
+    AudioVideoPortableAudio = 7
+    AudioVideoCarAudio = 8
+    AudioVideoSetTopBox = 9
+    AudioVideoHifiAudioDevice = 10
+    AudioVideoVcr = 11
+    AudioVideoVideoCamera = 12
+    AudioVideoCamcorder = 13
+    AudioVideoVideoMonitor = 14
+    AudioVideoVideoDisplayAndLoudspeaker = 15
+    AudioVideoVideoConferencing = 16
+    AudioVideoGamingOrToy = 18
+    PeripheralJoystick = 1
+    PeripheralGamepad = 2
+    PeripheralRemoteControl = 3
+    PeripheralSensing = 4
+    PeripheralDigitizerTablet = 5
+    PeripheralCardReader = 6
+    PeripheralDigitalPen = 7
+    PeripheralHandheldScanner = 8
+    PeripheralHandheldGesture = 9
+    WearableWristwatch = 1
+    WearablePager = 2
+    WearableJacket = 3
+    WearableHelmet = 4
+    WearableGlasses = 5
+    ToyRobot = 1
+    ToyVehicle = 2
+    ToyDoll = 3
+    ToyController = 4
+    ToyGame = 5
+    HealthBloodPressureMonitor = 1
+    HealthThermometer = 2
+    HealthWeighingScale = 3
+    HealthGlucoseMeter = 4
+    HealthPulseOximeter = 5
+    HealthHeartRateMonitor = 6
+    HealthHealthDataDisplay = 7
+    HealthStepCounter = 8
+    HealthBodyCompositionAnalyzer = 9
+    HealthPeakFlowMonitor = 10
+    HealthMedicationMonitor = 11
+    HealthKneeProsthesis = 12
+    HealthAnkleProsthesis = 13
+    HealthGenericHealthManager = 14
+    HealthPersonalMobilityDevice = 15
+class BluetoothServiceCapabilities(UInt32):  # enum
+    None_ = 0
+    LimitedDiscoverableMode = 1
+    PositioningService = 8
+    NetworkingService = 16
+    RenderingService = 32
+    CapturingService = 64
+    ObjectTransferService = 128
+    AudioService = 256
+    TelephoneService = 512
+    InformationService = 1024
 class BluetoothSignalStrengthFilter(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Bluetooth.IBluetoothSignalStrengthFilter

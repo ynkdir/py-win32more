@@ -470,12 +470,12 @@ class MediaOverlayLayer(ComPtr):
     def get_CustomCompositorDefinition(self: win32more.Windows.Media.Editing.IMediaOverlayLayer) -> win32more.Windows.Media.Effects.IVideoCompositorDefinition: ...
     Overlays = property(get_Overlays, None)
     CustomCompositorDefinition = property(get_CustomCompositorDefinition, None)
-MediaTrimmingPreference = Int32
-MediaTrimmingPreference_Fast: MediaTrimmingPreference = 0
-MediaTrimmingPreference_Precise: MediaTrimmingPreference = 1
-VideoFramePrecision = Int32
-VideoFramePrecision_NearestFrame: VideoFramePrecision = 0
-VideoFramePrecision_NearestKeyFrame: VideoFramePrecision = 1
+class MediaTrimmingPreference(Int32):  # enum
+    Fast = 0
+    Precise = 1
+class VideoFramePrecision(Int32):  # enum
+    NearestFrame = 0
+    NearestKeyFrame = 1
 
 
 make_ready(__name__)

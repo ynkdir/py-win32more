@@ -43,10 +43,10 @@ class AdvancedColorInfo(ComPtr):
     MinLuminanceInNits = property(get_MinLuminanceInNits, None)
     MaxAverageFullFrameLuminanceInNits = property(get_MaxAverageFullFrameLuminanceInNits, None)
     SdrWhiteLevelInNits = property(get_SdrWhiteLevelInNits, None)
-AdvancedColorKind = Int32
-AdvancedColorKind_StandardDynamicRange: AdvancedColorKind = 0
-AdvancedColorKind_WideColorGamut: AdvancedColorKind = 1
-AdvancedColorKind_HighDynamicRange: AdvancedColorKind = 2
+class AdvancedColorKind(Int32):  # enum
+    StandardDynamicRange = 0
+    WideColorGamut = 1
+    HighDynamicRange = 2
 class BrightnessOverride(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Display.IBrightnessOverride
@@ -113,20 +113,20 @@ class ColorOverrideSettings(ComPtr):
     @winrt_classmethod
     def CreateFromDisplayColorOverrideScenario(cls: win32more.Windows.Graphics.Display.IColorOverrideSettingsStatics, overrideScenario: win32more.Windows.Graphics.Display.DisplayColorOverrideScenario) -> win32more.Windows.Graphics.Display.ColorOverrideSettings: ...
     DesiredDisplayColorOverrideScenario = property(get_DesiredDisplayColorOverrideScenario, None)
-DisplayBrightnessOverrideOptions = UInt32
-DisplayBrightnessOverrideOptions_None: DisplayBrightnessOverrideOptions = 0
-DisplayBrightnessOverrideOptions_UseDimmedPolicyWhenBatteryIsLow: DisplayBrightnessOverrideOptions = 1
-DisplayBrightnessOverrideScenario = Int32
-DisplayBrightnessOverrideScenario_IdleBrightness: DisplayBrightnessOverrideScenario = 0
-DisplayBrightnessOverrideScenario_BarcodeReadingBrightness: DisplayBrightnessOverrideScenario = 1
-DisplayBrightnessOverrideScenario_FullBrightness: DisplayBrightnessOverrideScenario = 2
-DisplayBrightnessScenario = Int32
-DisplayBrightnessScenario_DefaultBrightness: DisplayBrightnessScenario = 0
-DisplayBrightnessScenario_IdleBrightness: DisplayBrightnessScenario = 1
-DisplayBrightnessScenario_BarcodeReadingBrightness: DisplayBrightnessScenario = 2
-DisplayBrightnessScenario_FullBrightness: DisplayBrightnessScenario = 3
-DisplayColorOverrideScenario = Int32
-DisplayColorOverrideScenario_Accurate: DisplayColorOverrideScenario = 0
+class DisplayBrightnessOverrideOptions(UInt32):  # enum
+    None_ = 0
+    UseDimmedPolicyWhenBatteryIsLow = 1
+class DisplayBrightnessOverrideScenario(Int32):  # enum
+    IdleBrightness = 0
+    BarcodeReadingBrightness = 1
+    FullBrightness = 2
+class DisplayBrightnessScenario(Int32):  # enum
+    DefaultBrightness = 0
+    IdleBrightness = 1
+    BarcodeReadingBrightness = 2
+    FullBrightness = 3
+class DisplayColorOverrideScenario(Int32):  # enum
+    Accurate = 0
 class DisplayEnhancementOverride(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Display.IDisplayEnhancementOverride
@@ -260,12 +260,12 @@ class DisplayInformation(ComPtr, metaclass=_DisplayInformation_Meta_):
     ScreenWidthInRawPixels = property(get_ScreenWidthInRawPixels, None)
     ScreenHeightInRawPixels = property(get_ScreenHeightInRawPixels, None)
     _DisplayInformation_Meta_.AutoRotationPreferences = property(get_AutoRotationPreferences.__wrapped__, put_AutoRotationPreferences.__wrapped__)
-DisplayOrientations = UInt32
-DisplayOrientations_None: DisplayOrientations = 0
-DisplayOrientations_Landscape: DisplayOrientations = 1
-DisplayOrientations_Portrait: DisplayOrientations = 2
-DisplayOrientations_LandscapeFlipped: DisplayOrientations = 4
-DisplayOrientations_PortraitFlipped: DisplayOrientations = 8
+class DisplayOrientations(UInt32):  # enum
+    None_ = 0
+    Landscape = 1
+    Portrait = 2
+    LandscapeFlipped = 4
+    PortraitFlipped = 8
 class _DisplayProperties_Meta_(ComPtr.__class__):
     pass
 class DisplayProperties(ComPtr, metaclass=_DisplayProperties_Meta_):
@@ -323,9 +323,9 @@ class DisplayServices(ComPtr):
     _classid_ = 'Windows.Graphics.Display.DisplayServices'
     @winrt_classmethod
     def FindAll(cls: win32more.Windows.Graphics.Display.IDisplayServicesStatics) -> SZArray[win32more.Windows.Graphics.DisplayId]: ...
-HdrMetadataFormat = Int32
-HdrMetadataFormat_Hdr10: HdrMetadataFormat = 0
-HdrMetadataFormat_Hdr10Plus: HdrMetadataFormat = 1
+class HdrMetadataFormat(Int32):  # enum
+    Hdr10 = 0
+    Hdr10Plus = 1
 class IAdvancedColorInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Display.IAdvancedColorInfo'
@@ -654,24 +654,24 @@ class NitRange(EasyCastStructure):
     MinNits: Single
     MaxNits: Single
     StepSizeNits: Single
-ResolutionScale = Int32
-ResolutionScale_Invalid: ResolutionScale = 0
-ResolutionScale_Scale100Percent: ResolutionScale = 100
-ResolutionScale_Scale120Percent: ResolutionScale = 120
-ResolutionScale_Scale125Percent: ResolutionScale = 125
-ResolutionScale_Scale140Percent: ResolutionScale = 140
-ResolutionScale_Scale150Percent: ResolutionScale = 150
-ResolutionScale_Scale160Percent: ResolutionScale = 160
-ResolutionScale_Scale175Percent: ResolutionScale = 175
-ResolutionScale_Scale180Percent: ResolutionScale = 180
-ResolutionScale_Scale200Percent: ResolutionScale = 200
-ResolutionScale_Scale225Percent: ResolutionScale = 225
-ResolutionScale_Scale250Percent: ResolutionScale = 250
-ResolutionScale_Scale300Percent: ResolutionScale = 300
-ResolutionScale_Scale350Percent: ResolutionScale = 350
-ResolutionScale_Scale400Percent: ResolutionScale = 400
-ResolutionScale_Scale450Percent: ResolutionScale = 450
-ResolutionScale_Scale500Percent: ResolutionScale = 500
+class ResolutionScale(Int32):  # enum
+    Invalid = 0
+    Scale100Percent = 100
+    Scale120Percent = 120
+    Scale125Percent = 125
+    Scale140Percent = 140
+    Scale150Percent = 150
+    Scale160Percent = 160
+    Scale175Percent = 175
+    Scale180Percent = 180
+    Scale200Percent = 200
+    Scale225Percent = 225
+    Scale250Percent = 250
+    Scale300Percent = 300
+    Scale350Percent = 350
+    Scale400Percent = 400
+    Scale450Percent = 450
+    Scale500Percent = 500
 
 
 make_ready(__name__)

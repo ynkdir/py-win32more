@@ -377,11 +377,11 @@ class KnownRetailInfoProperties(ComPtr, metaclass=_KnownRetailInfoProperties_Met
     _KnownRetailInfoProperties_Meta_.HasOpticalDrive = property(get_HasOpticalDrive.__wrapped__, None)
     _KnownRetailInfoProperties_Meta_.IsOfficeInstalled = property(get_IsOfficeInstalled.__wrapped__, None)
     _KnownRetailInfoProperties_Meta_.WindowsEdition = property(get_WindowsEdition.__wrapped__, None)
-PlatformDataCollectionLevel = Int32
-PlatformDataCollectionLevel_Security: PlatformDataCollectionLevel = 0
-PlatformDataCollectionLevel_Basic: PlatformDataCollectionLevel = 1
-PlatformDataCollectionLevel_Enhanced: PlatformDataCollectionLevel = 2
-PlatformDataCollectionLevel_Full: PlatformDataCollectionLevel = 3
+class PlatformDataCollectionLevel(Int32):  # enum
+    Security = 0
+    Basic = 1
+    Enhanced = 2
+    Full = 3
 class _PlatformDiagnosticsAndUsageDataSettings_Meta_(ComPtr.__class__):
     pass
 class PlatformDiagnosticsAndUsageDataSettings(ComPtr, metaclass=_PlatformDiagnosticsAndUsageDataSettings_Meta_):
@@ -450,15 +450,15 @@ class SystemIdentificationInfo(ComPtr):
     def get_Source(self: win32more.Windows.System.Profile.ISystemIdentificationInfo) -> win32more.Windows.System.Profile.SystemIdentificationSource: ...
     Id = property(get_Id, None)
     Source = property(get_Source, None)
-SystemIdentificationSource = Int32
-SystemIdentificationSource_None: SystemIdentificationSource = 0
-SystemIdentificationSource_Tpm: SystemIdentificationSource = 1
-SystemIdentificationSource_Uefi: SystemIdentificationSource = 2
-SystemIdentificationSource_Registry: SystemIdentificationSource = 3
-SystemOutOfBoxExperienceState = Int32
-SystemOutOfBoxExperienceState_NotStarted: SystemOutOfBoxExperienceState = 0
-SystemOutOfBoxExperienceState_InProgress: SystemOutOfBoxExperienceState = 1
-SystemOutOfBoxExperienceState_Completed: SystemOutOfBoxExperienceState = 2
+class SystemIdentificationSource(Int32):  # enum
+    None_ = 0
+    Tpm = 1
+    Uefi = 2
+    Registry = 3
+class SystemOutOfBoxExperienceState(Int32):  # enum
+    NotStarted = 0
+    InProgress = 1
+    Completed = 2
 class _SystemSetupInfo_Meta_(ComPtr.__class__):
     pass
 class SystemSetupInfo(ComPtr, metaclass=_SystemSetupInfo_Meta_):
@@ -481,9 +481,9 @@ class UnsupportedAppRequirement(ComPtr):
     def get_Reasons(self: win32more.Windows.System.Profile.IUnsupportedAppRequirement) -> win32more.Windows.System.Profile.UnsupportedAppRequirementReasons: ...
     Requirement = property(get_Requirement, None)
     Reasons = property(get_Reasons, None)
-UnsupportedAppRequirementReasons = UInt32
-UnsupportedAppRequirementReasons_Unknown: UnsupportedAppRequirementReasons = 0
-UnsupportedAppRequirementReasons_DeniedBySystem: UnsupportedAppRequirementReasons = 1
+class UnsupportedAppRequirementReasons(UInt32):  # enum
+    Unknown = 0
+    DeniedBySystem = 1
 class _WindowsIntegrityPolicy_Meta_(ComPtr.__class__):
     pass
 class WindowsIntegrityPolicy(ComPtr, metaclass=_WindowsIntegrityPolicy_Meta_):

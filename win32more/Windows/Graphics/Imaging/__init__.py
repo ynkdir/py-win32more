@@ -7,10 +7,10 @@ import win32more.Windows.Graphics.DirectX.Direct3D11
 import win32more.Windows.Graphics.Imaging
 import win32more.Windows.Storage.Streams
 import win32more.Windows.Win32.System.WinRT
-BitmapAlphaMode = Int32
-BitmapAlphaMode_Premultiplied: BitmapAlphaMode = 0
-BitmapAlphaMode_Straight: BitmapAlphaMode = 1
-BitmapAlphaMode_Ignore: BitmapAlphaMode = 2
+class BitmapAlphaMode(Int32):  # enum
+    Premultiplied = 0
+    Straight = 1
+    Ignore = 2
 class BitmapBounds(EasyCastStructure):
     X: UInt32
     Y: UInt32
@@ -28,10 +28,10 @@ class BitmapBuffer(ComPtr):
     def CreateReference(self: win32more.Windows.Foundation.IMemoryBuffer) -> win32more.Windows.Foundation.IMemoryBufferReference: ...
     @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
-BitmapBufferAccessMode = Int32
-BitmapBufferAccessMode_Read: BitmapBufferAccessMode = 0
-BitmapBufferAccessMode_ReadWrite: BitmapBufferAccessMode = 1
-BitmapBufferAccessMode_Write: BitmapBufferAccessMode = 2
+class BitmapBufferAccessMode(Int32):  # enum
+    Read = 0
+    ReadWrite = 1
+    Write = 2
 class BitmapCodecInformation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Imaging.IBitmapCodecInformation
@@ -213,10 +213,10 @@ class BitmapEncoder(ComPtr, metaclass=_BitmapEncoder_Meta_):
     _BitmapEncoder_Meta_.TiffEncoderId = property(get_TiffEncoderId.__wrapped__, None)
     _BitmapEncoder_Meta_.GifEncoderId = property(get_GifEncoderId.__wrapped__, None)
     _BitmapEncoder_Meta_.JpegXREncoderId = property(get_JpegXREncoderId.__wrapped__, None)
-BitmapFlip = Int32
-BitmapFlip_None: BitmapFlip = 0
-BitmapFlip_Horizontal: BitmapFlip = 1
-BitmapFlip_Vertical: BitmapFlip = 2
+class BitmapFlip(Int32):  # enum
+    None_ = 0
+    Horizontal = 1
+    Vertical = 2
 class BitmapFrame(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Imaging.IBitmapFrame
@@ -260,21 +260,21 @@ class BitmapFrame(ComPtr):
     PixelHeight = property(get_PixelHeight, None)
     OrientedPixelWidth = property(get_OrientedPixelWidth, None)
     OrientedPixelHeight = property(get_OrientedPixelHeight, None)
-BitmapInterpolationMode = Int32
-BitmapInterpolationMode_NearestNeighbor: BitmapInterpolationMode = 0
-BitmapInterpolationMode_Linear: BitmapInterpolationMode = 1
-BitmapInterpolationMode_Cubic: BitmapInterpolationMode = 2
-BitmapInterpolationMode_Fant: BitmapInterpolationMode = 3
-BitmapPixelFormat = Int32
-BitmapPixelFormat_Unknown: BitmapPixelFormat = 0
-BitmapPixelFormat_Rgba16: BitmapPixelFormat = 12
-BitmapPixelFormat_Rgba8: BitmapPixelFormat = 30
-BitmapPixelFormat_Gray16: BitmapPixelFormat = 57
-BitmapPixelFormat_Gray8: BitmapPixelFormat = 62
-BitmapPixelFormat_Bgra8: BitmapPixelFormat = 87
-BitmapPixelFormat_Nv12: BitmapPixelFormat = 103
-BitmapPixelFormat_P010: BitmapPixelFormat = 104
-BitmapPixelFormat_Yuy2: BitmapPixelFormat = 107
+class BitmapInterpolationMode(Int32):  # enum
+    NearestNeighbor = 0
+    Linear = 1
+    Cubic = 2
+    Fant = 3
+class BitmapPixelFormat(Int32):  # enum
+    Unknown = 0
+    Rgba16 = 12
+    Rgba8 = 30
+    Gray16 = 57
+    Gray8 = 62
+    Bgra8 = 87
+    Nv12 = 103
+    P010 = 104
+    Yuy2 = 107
 class BitmapPlaneDescription(EasyCastStructure):
     StartIndex: Int32
     Width: Int32
@@ -324,11 +324,11 @@ class BitmapPropertySet(ComPtr):
     @winrt_mixinmethod
     def First(self: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, win32more.Windows.Graphics.Imaging.BitmapTypedValue]]) -> win32more.Windows.Foundation.Collections.IIterator[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, win32more.Windows.Graphics.Imaging.BitmapTypedValue]]: ...
     Size = property(get_Size, None)
-BitmapRotation = Int32
-BitmapRotation_None: BitmapRotation = 0
-BitmapRotation_Clockwise90Degrees: BitmapRotation = 1
-BitmapRotation_Clockwise180Degrees: BitmapRotation = 2
-BitmapRotation_Clockwise270Degrees: BitmapRotation = 3
+class BitmapRotation(Int32):  # enum
+    None_ = 0
+    Clockwise90Degrees = 1
+    Clockwise180Degrees = 2
+    Clockwise270Degrees = 3
 class BitmapSize(EasyCastStructure):
     Width: UInt32
     Height: UInt32
@@ -394,12 +394,12 @@ class BitmapTypedValue(ComPtr):
     def get_Type(self: win32more.Windows.Graphics.Imaging.IBitmapTypedValue) -> win32more.Windows.Foundation.PropertyType: ...
     Value = property(get_Value, None)
     Type = property(get_Type, None)
-ColorManagementMode = Int32
-ColorManagementMode_DoNotColorManage: ColorManagementMode = 0
-ColorManagementMode_ColorManageToSRgb: ColorManagementMode = 1
-ExifOrientationMode = Int32
-ExifOrientationMode_IgnoreExifOrientation: ExifOrientationMode = 0
-ExifOrientationMode_RespectExifOrientation: ExifOrientationMode = 1
+class ColorManagementMode(Int32):  # enum
+    DoNotColorManage = 0
+    ColorManageToSRgb = 1
+class ExifOrientationMode(Int32):  # enum
+    IgnoreExifOrientation = 0
+    RespectExifOrientation = 1
 class IBitmapBuffer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Imaging.IBitmapBuffer'
@@ -783,25 +783,25 @@ class ImageStream(ComPtr):
     CanRead = property(get_CanRead, None)
     CanWrite = property(get_CanWrite, None)
     ContentType = property(get_ContentType, None)
-JpegSubsamplingMode = Int32
-JpegSubsamplingMode_Default: JpegSubsamplingMode = 0
-JpegSubsamplingMode_Y4Cb2Cr0: JpegSubsamplingMode = 1
-JpegSubsamplingMode_Y4Cb2Cr2: JpegSubsamplingMode = 2
-JpegSubsamplingMode_Y4Cb4Cr4: JpegSubsamplingMode = 3
+class JpegSubsamplingMode(Int32):  # enum
+    Default = 0
+    Y4Cb2Cr0 = 1
+    Y4Cb2Cr2 = 2
+    Y4Cb4Cr4 = 3
 class PixelDataProvider(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Imaging.IPixelDataProvider
     _classid_ = 'Windows.Graphics.Imaging.PixelDataProvider'
     @winrt_mixinmethod
     def DetachPixelData(self: win32more.Windows.Graphics.Imaging.IPixelDataProvider) -> SZArray[Byte]: ...
-PngFilterMode = Int32
-PngFilterMode_Automatic: PngFilterMode = 0
-PngFilterMode_None: PngFilterMode = 1
-PngFilterMode_Sub: PngFilterMode = 2
-PngFilterMode_Up: PngFilterMode = 3
-PngFilterMode_Average: PngFilterMode = 4
-PngFilterMode_Paeth: PngFilterMode = 5
-PngFilterMode_Adaptive: PngFilterMode = 6
+class PngFilterMode(Int32):  # enum
+    Automatic = 0
+    None_ = 1
+    Sub = 2
+    Up = 3
+    Average = 4
+    Paeth = 5
+    Adaptive = 6
 class SoftwareBitmap(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Imaging.ISoftwareBitmap
@@ -870,15 +870,15 @@ class SoftwareBitmap(ComPtr):
     IsReadOnly = property(get_IsReadOnly, None)
     DpiX = property(get_DpiX, put_DpiX)
     DpiY = property(get_DpiY, put_DpiY)
-TiffCompressionMode = Int32
-TiffCompressionMode_Automatic: TiffCompressionMode = 0
-TiffCompressionMode_None: TiffCompressionMode = 1
-TiffCompressionMode_Ccitt3: TiffCompressionMode = 2
-TiffCompressionMode_Ccitt4: TiffCompressionMode = 3
-TiffCompressionMode_Lzw: TiffCompressionMode = 4
-TiffCompressionMode_Rle: TiffCompressionMode = 5
-TiffCompressionMode_Zip: TiffCompressionMode = 6
-TiffCompressionMode_LzwhDifferencing: TiffCompressionMode = 7
+class TiffCompressionMode(Int32):  # enum
+    Automatic = 0
+    None_ = 1
+    Ccitt3 = 2
+    Ccitt4 = 3
+    Lzw = 4
+    Rle = 5
+    Zip = 6
+    LzwhDifferencing = 7
 
 
 make_ready(__name__)

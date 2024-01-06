@@ -69,10 +69,10 @@ class PlatformTelemetryRegistrationSettings(ComPtr):
     def put_UploadQuotaSize(self: win32more.Windows.System.Diagnostics.Telemetry.IPlatformTelemetryRegistrationSettings, value: UInt32) -> Void: ...
     StorageSize = property(get_StorageSize, put_StorageSize)
     UploadQuotaSize = property(get_UploadQuotaSize, put_UploadQuotaSize)
-PlatformTelemetryRegistrationStatus = Int32
-PlatformTelemetryRegistrationStatus_Success: PlatformTelemetryRegistrationStatus = 0
-PlatformTelemetryRegistrationStatus_SettingsOutOfRange: PlatformTelemetryRegistrationStatus = 1
-PlatformTelemetryRegistrationStatus_UnknownFailure: PlatformTelemetryRegistrationStatus = 2
+class PlatformTelemetryRegistrationStatus(Int32):  # enum
+    Success = 0
+    SettingsOutOfRange = 1
+    UnknownFailure = 2
 
 
 make_ready(__name__)

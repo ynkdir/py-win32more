@@ -111,11 +111,11 @@ class RemoteDesktopConnectionRemoteInfo(ComPtr):
     def IsSwitchSupported(cls: win32more.Windows.System.RemoteDesktop.Provider.IRemoteDesktopConnectionRemoteInfoStatics) -> Boolean: ...
     @winrt_classmethod
     def GetForLaunchUri(cls: win32more.Windows.System.RemoteDesktop.Provider.IRemoteDesktopConnectionRemoteInfoStatics, launchUri: win32more.Windows.Foundation.Uri) -> win32more.Windows.System.RemoteDesktop.Provider.RemoteDesktopConnectionRemoteInfo: ...
-RemoteDesktopConnectionStatus = Int32
-RemoteDesktopConnectionStatus_Connecting: RemoteDesktopConnectionStatus = 0
-RemoteDesktopConnectionStatus_Connected: RemoteDesktopConnectionStatus = 1
-RemoteDesktopConnectionStatus_UserInputNeeded: RemoteDesktopConnectionStatus = 2
-RemoteDesktopConnectionStatus_Disconnected: RemoteDesktopConnectionStatus = 3
+class RemoteDesktopConnectionStatus(Int32):  # enum
+    Connecting = 0
+    Connected = 1
+    UserInputNeeded = 2
+    Disconnected = 3
 class RemoteDesktopInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.System.RemoteDesktop.Provider.IRemoteDesktopInfo
@@ -135,8 +135,8 @@ class RemoteDesktopInfo(ComPtr):
     def get_Id(self: win32more.Windows.System.RemoteDesktop.Provider.IRemoteDesktopInfo) -> WinRT_String: ...
     DisplayName = property(get_DisplayName, None)
     Id = property(get_Id, None)
-RemoteDesktopLocalAction = Int32
-RemoteDesktopLocalAction_ShowBluetoothSettings: RemoteDesktopLocalAction = 0
+class RemoteDesktopLocalAction(Int32):  # enum
+    ShowBluetoothSettings = 0
 class _RemoteDesktopRegistrar_Meta_(ComPtr.__class__):
     pass
 class RemoteDesktopRegistrar(ComPtr, metaclass=_RemoteDesktopRegistrar_Meta_):

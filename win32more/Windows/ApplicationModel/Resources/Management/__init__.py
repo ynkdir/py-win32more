@@ -87,10 +87,10 @@ class IndexedResourceQualifier(ComPtr):
     def get_QualifierValue(self: win32more.Windows.ApplicationModel.Resources.Management.IIndexedResourceQualifier) -> WinRT_String: ...
     QualifierName = property(get_QualifierName, None)
     QualifierValue = property(get_QualifierValue, None)
-IndexedResourceType = Int32
-IndexedResourceType_String: IndexedResourceType = 0
-IndexedResourceType_Path: IndexedResourceType = 1
-IndexedResourceType_EmbeddedData: IndexedResourceType = 2
+class IndexedResourceType(Int32):  # enum
+    String = 0
+    Path = 1
+    EmbeddedData = 2
 class ResourceIndexer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Resources.Management.IResourceIndexer

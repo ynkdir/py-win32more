@@ -348,9 +348,9 @@ class PrintTicketFeature(ComPtr):
     DisplayName = property(get_DisplayName, None)
     Options = property(get_Options, None)
     SelectionType = property(get_SelectionType, None)
-PrintTicketFeatureSelectionType = Int32
-PrintTicketFeatureSelectionType_PickOne: PrintTicketFeatureSelectionType = 0
-PrintTicketFeatureSelectionType_PickMany: PrintTicketFeatureSelectionType = 1
+class PrintTicketFeatureSelectionType(Int32):  # enum
+    PickOne = 0
+    PickMany = 1
 class PrintTicketOption(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing.PrintTicket.IPrintTicketOption
@@ -375,10 +375,10 @@ class PrintTicketOption(ComPtr):
     XmlNamespace = property(get_XmlNamespace, None)
     XmlNode = property(get_XmlNode, None)
     DisplayName = property(get_DisplayName, None)
-PrintTicketParameterDataType = Int32
-PrintTicketParameterDataType_Integer: PrintTicketParameterDataType = 0
-PrintTicketParameterDataType_NumericString: PrintTicketParameterDataType = 1
-PrintTicketParameterDataType_String: PrintTicketParameterDataType = 2
+class PrintTicketParameterDataType(Int32):  # enum
+    Integer = 0
+    NumericString = 1
+    String = 2
 class PrintTicketParameterDefinition(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing.PrintTicket.IPrintTicketParameterDefinition
@@ -433,10 +433,10 @@ class PrintTicketValue(ComPtr):
     @winrt_mixinmethod
     def GetValueAsString(self: win32more.Windows.Graphics.Printing.PrintTicket.IPrintTicketValue) -> WinRT_String: ...
     Type = property(get_Type, None)
-PrintTicketValueType = Int32
-PrintTicketValueType_Integer: PrintTicketValueType = 0
-PrintTicketValueType_String: PrintTicketValueType = 1
-PrintTicketValueType_Unknown: PrintTicketValueType = 2
+class PrintTicketValueType(Int32):  # enum
+    Integer = 0
+    String = 1
+    Unknown = 2
 class WorkflowPrintTicket(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing.PrintTicket.IWorkflowPrintTicket

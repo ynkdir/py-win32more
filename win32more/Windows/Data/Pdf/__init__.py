@@ -218,11 +218,11 @@ class PdfPageRenderOptions(ComPtr):
     BackgroundColor = property(get_BackgroundColor, put_BackgroundColor)
     IsIgnoringHighContrast = property(get_IsIgnoringHighContrast, put_IsIgnoringHighContrast)
     BitmapEncoderId = property(get_BitmapEncoderId, put_BitmapEncoderId)
-PdfPageRotation = Int32
-PdfPageRotation_Normal: PdfPageRotation = 0
-PdfPageRotation_Rotate90: PdfPageRotation = 1
-PdfPageRotation_Rotate180: PdfPageRotation = 2
-PdfPageRotation_Rotate270: PdfPageRotation = 3
+class PdfPageRotation(Int32):  # enum
+    Normal = 0
+    Rotate90 = 1
+    Rotate180 = 2
+    Rotate270 = 3
 
 
 make_ready(__name__)

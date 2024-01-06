@@ -83,13 +83,13 @@ class AppDiagnosticInfoWatcherEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_AppDiagnosticInfo(self: win32more.Windows.System.IAppDiagnosticInfoWatcherEventArgs) -> win32more.Windows.System.AppDiagnosticInfo: ...
     AppDiagnosticInfo = property(get_AppDiagnosticInfo, None)
-AppDiagnosticInfoWatcherStatus = Int32
-AppDiagnosticInfoWatcherStatus_Created: AppDiagnosticInfoWatcherStatus = 0
-AppDiagnosticInfoWatcherStatus_Started: AppDiagnosticInfoWatcherStatus = 1
-AppDiagnosticInfoWatcherStatus_EnumerationCompleted: AppDiagnosticInfoWatcherStatus = 2
-AppDiagnosticInfoWatcherStatus_Stopping: AppDiagnosticInfoWatcherStatus = 3
-AppDiagnosticInfoWatcherStatus_Stopped: AppDiagnosticInfoWatcherStatus = 4
-AppDiagnosticInfoWatcherStatus_Aborted: AppDiagnosticInfoWatcherStatus = 5
+class AppDiagnosticInfoWatcherStatus(Int32):  # enum
+    Created = 0
+    Started = 1
+    EnumerationCompleted = 2
+    Stopping = 3
+    Stopped = 4
+    Aborted = 5
 class AppExecutionStateChangeResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.System.IAppExecutionStateChangeResult
@@ -116,11 +116,11 @@ class AppMemoryReport(ComPtr):
     TotalCommitUsage = property(get_TotalCommitUsage, None)
     TotalCommitLimit = property(get_TotalCommitLimit, None)
     ExpectedTotalCommitLimit = property(get_ExpectedTotalCommitLimit, None)
-AppMemoryUsageLevel = Int32
-AppMemoryUsageLevel_Low: AppMemoryUsageLevel = 0
-AppMemoryUsageLevel_Medium: AppMemoryUsageLevel = 1
-AppMemoryUsageLevel_High: AppMemoryUsageLevel = 2
-AppMemoryUsageLevel_OverLimit: AppMemoryUsageLevel = 3
+class AppMemoryUsageLevel(Int32):  # enum
+    Low = 0
+    Medium = 1
+    High = 2
+    OverLimit = 3
 class AppMemoryUsageLimitChangingEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.System.IAppMemoryUsageLimitChangingEventArgs
@@ -147,16 +147,16 @@ class AppResourceGroupBackgroundTaskReport(ComPtr):
     Name = property(get_Name, None)
     Trigger = property(get_Trigger, None)
     EntryPoint = property(get_EntryPoint, None)
-AppResourceGroupEnergyQuotaState = Int32
-AppResourceGroupEnergyQuotaState_Unknown: AppResourceGroupEnergyQuotaState = 0
-AppResourceGroupEnergyQuotaState_Over: AppResourceGroupEnergyQuotaState = 1
-AppResourceGroupEnergyQuotaState_Under: AppResourceGroupEnergyQuotaState = 2
-AppResourceGroupExecutionState = Int32
-AppResourceGroupExecutionState_Unknown: AppResourceGroupExecutionState = 0
-AppResourceGroupExecutionState_Running: AppResourceGroupExecutionState = 1
-AppResourceGroupExecutionState_Suspending: AppResourceGroupExecutionState = 2
-AppResourceGroupExecutionState_Suspended: AppResourceGroupExecutionState = 3
-AppResourceGroupExecutionState_NotRunning: AppResourceGroupExecutionState = 4
+class AppResourceGroupEnergyQuotaState(Int32):  # enum
+    Unknown = 0
+    Over = 1
+    Under = 2
+class AppResourceGroupExecutionState(Int32):  # enum
+    Unknown = 0
+    Running = 1
+    Suspending = 2
+    Suspended = 3
+    NotRunning = 4
 class AppResourceGroupInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.System.IAppResourceGroupInfo
@@ -232,13 +232,13 @@ class AppResourceGroupInfoWatcherExecutionStateChangedEventArgs(ComPtr):
     def get_AppResourceGroupInfo(self: win32more.Windows.System.IAppResourceGroupInfoWatcherExecutionStateChangedEventArgs) -> win32more.Windows.System.AppResourceGroupInfo: ...
     AppDiagnosticInfos = property(get_AppDiagnosticInfos, None)
     AppResourceGroupInfo = property(get_AppResourceGroupInfo, None)
-AppResourceGroupInfoWatcherStatus = Int32
-AppResourceGroupInfoWatcherStatus_Created: AppResourceGroupInfoWatcherStatus = 0
-AppResourceGroupInfoWatcherStatus_Started: AppResourceGroupInfoWatcherStatus = 1
-AppResourceGroupInfoWatcherStatus_EnumerationCompleted: AppResourceGroupInfoWatcherStatus = 2
-AppResourceGroupInfoWatcherStatus_Stopping: AppResourceGroupInfoWatcherStatus = 3
-AppResourceGroupInfoWatcherStatus_Stopped: AppResourceGroupInfoWatcherStatus = 4
-AppResourceGroupInfoWatcherStatus_Aborted: AppResourceGroupInfoWatcherStatus = 5
+class AppResourceGroupInfoWatcherStatus(Int32):  # enum
+    Created = 0
+    Started = 1
+    EnumerationCompleted = 2
+    Stopping = 3
+    Stopped = 4
+    Aborted = 5
 class AppResourceGroupMemoryReport(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.System.IAppResourceGroupMemoryReport
@@ -335,20 +335,20 @@ class AppUriHandlerRegistrationManager(ComPtr):
     def GetForUser(cls: win32more.Windows.System.IAppUriHandlerRegistrationManagerStatics, user: win32more.Windows.System.User) -> win32more.Windows.System.AppUriHandlerRegistrationManager: ...
     User = property(get_User, None)
     PackageFamilyName = property(get_PackageFamilyName, None)
-AutoUpdateTimeZoneStatus = Int32
-AutoUpdateTimeZoneStatus_Attempted: AutoUpdateTimeZoneStatus = 0
-AutoUpdateTimeZoneStatus_TimedOut: AutoUpdateTimeZoneStatus = 1
-AutoUpdateTimeZoneStatus_Failed: AutoUpdateTimeZoneStatus = 2
+class AutoUpdateTimeZoneStatus(Int32):  # enum
+    Attempted = 0
+    TimedOut = 1
+    Failed = 2
 class DateTimeSettings(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.System.DateTimeSettings'
     @winrt_classmethod
     def SetSystemDateTime(cls: win32more.Windows.System.IDateTimeSettingsStatics, utcDateTime: win32more.Windows.Foundation.DateTime) -> Void: ...
-DiagnosticAccessStatus = Int32
-DiagnosticAccessStatus_Unspecified: DiagnosticAccessStatus = 0
-DiagnosticAccessStatus_Denied: DiagnosticAccessStatus = 1
-DiagnosticAccessStatus_Limited: DiagnosticAccessStatus = 2
-DiagnosticAccessStatus_Allowed: DiagnosticAccessStatus = 3
+class DiagnosticAccessStatus(Int32):  # enum
+    Unspecified = 0
+    Denied = 1
+    Limited = 2
+    Allowed = 3
 class DispatcherQueue(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.System.IDispatcherQueue
@@ -387,10 +387,10 @@ class DispatcherQueueHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{dfa2dc9c-1a2d-4917-98f2-939af1d6e0c8}')
     def Invoke(self) -> Void: ...
-DispatcherQueuePriority = Int32
-DispatcherQueuePriority_Low: DispatcherQueuePriority = -10
-DispatcherQueuePriority_Normal: DispatcherQueuePriority = 0
-DispatcherQueuePriority_High: DispatcherQueuePriority = 10
+class DispatcherQueuePriority(Int32):  # enum
+    Low = -10
+    Normal = 0
+    High = 10
 class DispatcherQueueShutdownStartingEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.System.IDispatcherQueueShutdownStartingEventArgs
@@ -1442,21 +1442,21 @@ class KnownUserProperties(ComPtr, metaclass=_KnownUserProperties_Meta_):
     _KnownUserProperties_Meta_.PrincipalName = property(get_PrincipalName.__wrapped__, None)
     _KnownUserProperties_Meta_.DomainName = property(get_DomainName.__wrapped__, None)
     _KnownUserProperties_Meta_.SessionInitiationProtocolUri = property(get_SessionInitiationProtocolUri.__wrapped__, None)
-LaunchFileStatus = Int32
-LaunchFileStatus_Success: LaunchFileStatus = 0
-LaunchFileStatus_AppUnavailable: LaunchFileStatus = 1
-LaunchFileStatus_DeniedByPolicy: LaunchFileStatus = 2
-LaunchFileStatus_FileTypeNotSupported: LaunchFileStatus = 3
-LaunchFileStatus_Unknown: LaunchFileStatus = 4
-LaunchQuerySupportStatus = Int32
-LaunchQuerySupportStatus_Available: LaunchQuerySupportStatus = 0
-LaunchQuerySupportStatus_AppNotInstalled: LaunchQuerySupportStatus = 1
-LaunchQuerySupportStatus_AppUnavailable: LaunchQuerySupportStatus = 2
-LaunchQuerySupportStatus_NotSupported: LaunchQuerySupportStatus = 3
-LaunchQuerySupportStatus_Unknown: LaunchQuerySupportStatus = 4
-LaunchQuerySupportType = Int32
-LaunchQuerySupportType_Uri: LaunchQuerySupportType = 0
-LaunchQuerySupportType_UriForResults: LaunchQuerySupportType = 1
+class LaunchFileStatus(Int32):  # enum
+    Success = 0
+    AppUnavailable = 1
+    DeniedByPolicy = 2
+    FileTypeNotSupported = 3
+    Unknown = 4
+class LaunchQuerySupportStatus(Int32):  # enum
+    Available = 0
+    AppNotInstalled = 1
+    AppUnavailable = 2
+    NotSupported = 3
+    Unknown = 4
+class LaunchQuerySupportType(Int32):  # enum
+    Uri = 0
+    UriForResults = 1
 class LaunchUriResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.System.ILaunchUriResult
@@ -1467,11 +1467,11 @@ class LaunchUriResult(ComPtr):
     def get_Result(self: win32more.Windows.System.ILaunchUriResult) -> win32more.Windows.Foundation.Collections.ValueSet: ...
     Status = property(get_Status, None)
     Result = property(get_Result, None)
-LaunchUriStatus = Int32
-LaunchUriStatus_Success: LaunchUriStatus = 0
-LaunchUriStatus_AppUnavailable: LaunchUriStatus = 1
-LaunchUriStatus_ProtocolUnavailable: LaunchUriStatus = 2
-LaunchUriStatus_Unknown: LaunchUriStatus = 3
+class LaunchUriStatus(Int32):  # enum
+    Success = 0
+    AppUnavailable = 1
+    ProtocolUnavailable = 2
+    Unknown = 3
 class Launcher(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.System.Launcher'
@@ -1656,9 +1656,9 @@ class MemoryManager(ComPtr, metaclass=_MemoryManager_Meta_):
     _MemoryManager_Meta_.AppMemoryUsage = property(get_AppMemoryUsage.__wrapped__, None)
     _MemoryManager_Meta_.AppMemoryUsageLimit = property(get_AppMemoryUsageLimit.__wrapped__, None)
     _MemoryManager_Meta_.AppMemoryUsageLevel = property(get_AppMemoryUsageLevel.__wrapped__, None)
-PowerState = Int32
-PowerState_ConnectedStandby: PowerState = 0
-PowerState_SleepS3: PowerState = 1
+class PowerState(Int32):  # enum
+    ConnectedStandby = 0
+    SleepS3 = 1
 class ProcessLauncher(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.System.ProcessLauncher'
@@ -1716,29 +1716,29 @@ class ProcessMemoryReport(ComPtr):
     def get_TotalWorkingSetUsage(self: win32more.Windows.System.IProcessMemoryReport) -> UInt64: ...
     PrivateWorkingSetUsage = property(get_PrivateWorkingSetUsage, None)
     TotalWorkingSetUsage = property(get_TotalWorkingSetUsage, None)
-ProcessorArchitecture = Int32
-ProcessorArchitecture_X86: ProcessorArchitecture = 0
-ProcessorArchitecture_Arm: ProcessorArchitecture = 5
-ProcessorArchitecture_X64: ProcessorArchitecture = 9
-ProcessorArchitecture_Neutral: ProcessorArchitecture = 11
-ProcessorArchitecture_Arm64: ProcessorArchitecture = 12
-ProcessorArchitecture_X86OnArm64: ProcessorArchitecture = 14
-ProcessorArchitecture_Unknown: ProcessorArchitecture = 65535
+class ProcessorArchitecture(Int32):  # enum
+    X86 = 0
+    Arm = 5
+    X64 = 9
+    Neutral = 11
+    Arm64 = 12
+    X86OnArm64 = 14
+    Unknown = 65535
 class ProtocolForResultsOperation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.System.IProtocolForResultsOperation
     _classid_ = 'Windows.System.ProtocolForResultsOperation'
     @winrt_mixinmethod
     def ReportCompleted(self: win32more.Windows.System.IProtocolForResultsOperation, data: win32more.Windows.Foundation.Collections.ValueSet) -> Void: ...
-RemoteLaunchUriStatus = Int32
-RemoteLaunchUriStatus_Unknown: RemoteLaunchUriStatus = 0
-RemoteLaunchUriStatus_Success: RemoteLaunchUriStatus = 1
-RemoteLaunchUriStatus_AppUnavailable: RemoteLaunchUriStatus = 2
-RemoteLaunchUriStatus_ProtocolUnavailable: RemoteLaunchUriStatus = 3
-RemoteLaunchUriStatus_RemoteSystemUnavailable: RemoteLaunchUriStatus = 4
-RemoteLaunchUriStatus_ValueSetTooLarge: RemoteLaunchUriStatus = 5
-RemoteLaunchUriStatus_DeniedByLocalSystem: RemoteLaunchUriStatus = 6
-RemoteLaunchUriStatus_DeniedByRemoteSystem: RemoteLaunchUriStatus = 7
+class RemoteLaunchUriStatus(Int32):  # enum
+    Unknown = 0
+    Success = 1
+    AppUnavailable = 2
+    ProtocolUnavailable = 3
+    RemoteSystemUnavailable = 4
+    ValueSetTooLarge = 5
+    DeniedByLocalSystem = 6
+    DeniedByRemoteSystem = 7
 class RemoteLauncher(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.System.RemoteLauncher'
@@ -1769,9 +1769,9 @@ class RemoteLauncherOptions(ComPtr):
     def get_PreferredAppIds(self: win32more.Windows.System.IRemoteLauncherOptions) -> win32more.Windows.Foundation.Collections.IVector[WinRT_String]: ...
     FallbackUri = property(get_FallbackUri, put_FallbackUri)
     PreferredAppIds = property(get_PreferredAppIds, None)
-ShutdownKind = Int32
-ShutdownKind_Shutdown: ShutdownKind = 0
-ShutdownKind_Restart: ShutdownKind = 1
+class ShutdownKind(Int32):  # enum
+    Shutdown = 0
+    Restart = 1
 class ShutdownManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.System.ShutdownManager'
@@ -1837,20 +1837,20 @@ class User(ComPtr):
     NonRoamableId = property(get_NonRoamableId, None)
     AuthenticationStatus = property(get_AuthenticationStatus, None)
     Type = property(get_Type, None)
-UserAgeConsentGroup = Int32
-UserAgeConsentGroup_Child: UserAgeConsentGroup = 0
-UserAgeConsentGroup_Minor: UserAgeConsentGroup = 1
-UserAgeConsentGroup_Adult: UserAgeConsentGroup = 2
-UserAgeConsentResult = Int32
-UserAgeConsentResult_NotEnforced: UserAgeConsentResult = 0
-UserAgeConsentResult_Included: UserAgeConsentResult = 1
-UserAgeConsentResult_NotIncluded: UserAgeConsentResult = 2
-UserAgeConsentResult_Unknown: UserAgeConsentResult = 3
-UserAgeConsentResult_Ambiguous: UserAgeConsentResult = 4
-UserAuthenticationStatus = Int32
-UserAuthenticationStatus_Unauthenticated: UserAuthenticationStatus = 0
-UserAuthenticationStatus_LocallyAuthenticated: UserAuthenticationStatus = 1
-UserAuthenticationStatus_RemotelyAuthenticated: UserAuthenticationStatus = 2
+class UserAgeConsentGroup(Int32):  # enum
+    Child = 0
+    Minor = 1
+    Adult = 2
+class UserAgeConsentResult(Int32):  # enum
+    NotEnforced = 0
+    Included = 1
+    NotIncluded = 2
+    Unknown = 3
+    Ambiguous = 4
+class UserAuthenticationStatus(Int32):  # enum
+    Unauthenticated = 0
+    LocallyAuthenticated = 1
+    RemotelyAuthenticated = 2
 class UserAuthenticationStatusChangeDeferral(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.System.IUserAuthenticationStatusChangeDeferral
@@ -1931,17 +1931,17 @@ class UserPicker(ComPtr):
     def IsSupported(cls: win32more.Windows.System.IUserPickerStatics) -> Boolean: ...
     AllowGuestAccounts = property(get_AllowGuestAccounts, put_AllowGuestAccounts)
     SuggestedSelectedUser = property(get_SuggestedSelectedUser, put_SuggestedSelectedUser)
-UserPictureSize = Int32
-UserPictureSize_Size64x64: UserPictureSize = 0
-UserPictureSize_Size208x208: UserPictureSize = 1
-UserPictureSize_Size424x424: UserPictureSize = 2
-UserPictureSize_Size1080x1080: UserPictureSize = 3
-UserType = Int32
-UserType_LocalUser: UserType = 0
-UserType_RemoteUser: UserType = 1
-UserType_LocalGuest: UserType = 2
-UserType_RemoteGuest: UserType = 3
-UserType_SystemManaged: UserType = 4
+class UserPictureSize(Int32):  # enum
+    Size64x64 = 0
+    Size208x208 = 1
+    Size424x424 = 2
+    Size1080x1080 = 3
+class UserType(Int32):  # enum
+    LocalUser = 0
+    RemoteUser = 1
+    LocalGuest = 2
+    RemoteGuest = 3
+    SystemManaged = 4
 class UserWatcher(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.System.IUserWatcher
@@ -1981,195 +1981,195 @@ class UserWatcher(ComPtr):
     @winrt_mixinmethod
     def remove_Stopped(self: win32more.Windows.System.IUserWatcher, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Status = property(get_Status, None)
-UserWatcherStatus = Int32
-UserWatcherStatus_Created: UserWatcherStatus = 0
-UserWatcherStatus_Started: UserWatcherStatus = 1
-UserWatcherStatus_EnumerationCompleted: UserWatcherStatus = 2
-UserWatcherStatus_Stopping: UserWatcherStatus = 3
-UserWatcherStatus_Stopped: UserWatcherStatus = 4
-UserWatcherStatus_Aborted: UserWatcherStatus = 5
-UserWatcherUpdateKind = Int32
-UserWatcherUpdateKind_Properties: UserWatcherUpdateKind = 0
-UserWatcherUpdateKind_Picture: UserWatcherUpdateKind = 1
-VirtualKey = Int32
-VirtualKey_None: VirtualKey = 0
-VirtualKey_LeftButton: VirtualKey = 1
-VirtualKey_RightButton: VirtualKey = 2
-VirtualKey_Cancel: VirtualKey = 3
-VirtualKey_MiddleButton: VirtualKey = 4
-VirtualKey_XButton1: VirtualKey = 5
-VirtualKey_XButton2: VirtualKey = 6
-VirtualKey_Back: VirtualKey = 8
-VirtualKey_Tab: VirtualKey = 9
-VirtualKey_Clear: VirtualKey = 12
-VirtualKey_Enter: VirtualKey = 13
-VirtualKey_Shift: VirtualKey = 16
-VirtualKey_Control: VirtualKey = 17
-VirtualKey_Menu: VirtualKey = 18
-VirtualKey_Pause: VirtualKey = 19
-VirtualKey_CapitalLock: VirtualKey = 20
-VirtualKey_Kana: VirtualKey = 21
-VirtualKey_Hangul: VirtualKey = 21
-VirtualKey_ImeOn: VirtualKey = 22
-VirtualKey_Junja: VirtualKey = 23
-VirtualKey_Final: VirtualKey = 24
-VirtualKey_Hanja: VirtualKey = 25
-VirtualKey_Kanji: VirtualKey = 25
-VirtualKey_ImeOff: VirtualKey = 26
-VirtualKey_Escape: VirtualKey = 27
-VirtualKey_Convert: VirtualKey = 28
-VirtualKey_NonConvert: VirtualKey = 29
-VirtualKey_Accept: VirtualKey = 30
-VirtualKey_ModeChange: VirtualKey = 31
-VirtualKey_Space: VirtualKey = 32
-VirtualKey_PageUp: VirtualKey = 33
-VirtualKey_PageDown: VirtualKey = 34
-VirtualKey_End: VirtualKey = 35
-VirtualKey_Home: VirtualKey = 36
-VirtualKey_Left: VirtualKey = 37
-VirtualKey_Up: VirtualKey = 38
-VirtualKey_Right: VirtualKey = 39
-VirtualKey_Down: VirtualKey = 40
-VirtualKey_Select: VirtualKey = 41
-VirtualKey_Print: VirtualKey = 42
-VirtualKey_Execute: VirtualKey = 43
-VirtualKey_Snapshot: VirtualKey = 44
-VirtualKey_Insert: VirtualKey = 45
-VirtualKey_Delete: VirtualKey = 46
-VirtualKey_Help: VirtualKey = 47
-VirtualKey_Number0: VirtualKey = 48
-VirtualKey_Number1: VirtualKey = 49
-VirtualKey_Number2: VirtualKey = 50
-VirtualKey_Number3: VirtualKey = 51
-VirtualKey_Number4: VirtualKey = 52
-VirtualKey_Number5: VirtualKey = 53
-VirtualKey_Number6: VirtualKey = 54
-VirtualKey_Number7: VirtualKey = 55
-VirtualKey_Number8: VirtualKey = 56
-VirtualKey_Number9: VirtualKey = 57
-VirtualKey_A: VirtualKey = 65
-VirtualKey_B: VirtualKey = 66
-VirtualKey_C: VirtualKey = 67
-VirtualKey_D: VirtualKey = 68
-VirtualKey_E: VirtualKey = 69
-VirtualKey_F: VirtualKey = 70
-VirtualKey_G: VirtualKey = 71
-VirtualKey_H: VirtualKey = 72
-VirtualKey_I: VirtualKey = 73
-VirtualKey_J: VirtualKey = 74
-VirtualKey_K: VirtualKey = 75
-VirtualKey_L: VirtualKey = 76
-VirtualKey_M: VirtualKey = 77
-VirtualKey_N: VirtualKey = 78
-VirtualKey_O: VirtualKey = 79
-VirtualKey_P: VirtualKey = 80
-VirtualKey_Q: VirtualKey = 81
-VirtualKey_R: VirtualKey = 82
-VirtualKey_S: VirtualKey = 83
-VirtualKey_T: VirtualKey = 84
-VirtualKey_U: VirtualKey = 85
-VirtualKey_V: VirtualKey = 86
-VirtualKey_W: VirtualKey = 87
-VirtualKey_X: VirtualKey = 88
-VirtualKey_Y: VirtualKey = 89
-VirtualKey_Z: VirtualKey = 90
-VirtualKey_LeftWindows: VirtualKey = 91
-VirtualKey_RightWindows: VirtualKey = 92
-VirtualKey_Application: VirtualKey = 93
-VirtualKey_Sleep: VirtualKey = 95
-VirtualKey_NumberPad0: VirtualKey = 96
-VirtualKey_NumberPad1: VirtualKey = 97
-VirtualKey_NumberPad2: VirtualKey = 98
-VirtualKey_NumberPad3: VirtualKey = 99
-VirtualKey_NumberPad4: VirtualKey = 100
-VirtualKey_NumberPad5: VirtualKey = 101
-VirtualKey_NumberPad6: VirtualKey = 102
-VirtualKey_NumberPad7: VirtualKey = 103
-VirtualKey_NumberPad8: VirtualKey = 104
-VirtualKey_NumberPad9: VirtualKey = 105
-VirtualKey_Multiply: VirtualKey = 106
-VirtualKey_Add: VirtualKey = 107
-VirtualKey_Separator: VirtualKey = 108
-VirtualKey_Subtract: VirtualKey = 109
-VirtualKey_Decimal: VirtualKey = 110
-VirtualKey_Divide: VirtualKey = 111
-VirtualKey_F1: VirtualKey = 112
-VirtualKey_F2: VirtualKey = 113
-VirtualKey_F3: VirtualKey = 114
-VirtualKey_F4: VirtualKey = 115
-VirtualKey_F5: VirtualKey = 116
-VirtualKey_F6: VirtualKey = 117
-VirtualKey_F7: VirtualKey = 118
-VirtualKey_F8: VirtualKey = 119
-VirtualKey_F9: VirtualKey = 120
-VirtualKey_F10: VirtualKey = 121
-VirtualKey_F11: VirtualKey = 122
-VirtualKey_F12: VirtualKey = 123
-VirtualKey_F13: VirtualKey = 124
-VirtualKey_F14: VirtualKey = 125
-VirtualKey_F15: VirtualKey = 126
-VirtualKey_F16: VirtualKey = 127
-VirtualKey_F17: VirtualKey = 128
-VirtualKey_F18: VirtualKey = 129
-VirtualKey_F19: VirtualKey = 130
-VirtualKey_F20: VirtualKey = 131
-VirtualKey_F21: VirtualKey = 132
-VirtualKey_F22: VirtualKey = 133
-VirtualKey_F23: VirtualKey = 134
-VirtualKey_F24: VirtualKey = 135
-VirtualKey_NavigationView: VirtualKey = 136
-VirtualKey_NavigationMenu: VirtualKey = 137
-VirtualKey_NavigationUp: VirtualKey = 138
-VirtualKey_NavigationDown: VirtualKey = 139
-VirtualKey_NavigationLeft: VirtualKey = 140
-VirtualKey_NavigationRight: VirtualKey = 141
-VirtualKey_NavigationAccept: VirtualKey = 142
-VirtualKey_NavigationCancel: VirtualKey = 143
-VirtualKey_NumberKeyLock: VirtualKey = 144
-VirtualKey_Scroll: VirtualKey = 145
-VirtualKey_LeftShift: VirtualKey = 160
-VirtualKey_RightShift: VirtualKey = 161
-VirtualKey_LeftControl: VirtualKey = 162
-VirtualKey_RightControl: VirtualKey = 163
-VirtualKey_LeftMenu: VirtualKey = 164
-VirtualKey_RightMenu: VirtualKey = 165
-VirtualKey_GoBack: VirtualKey = 166
-VirtualKey_GoForward: VirtualKey = 167
-VirtualKey_Refresh: VirtualKey = 168
-VirtualKey_Stop: VirtualKey = 169
-VirtualKey_Search: VirtualKey = 170
-VirtualKey_Favorites: VirtualKey = 171
-VirtualKey_GoHome: VirtualKey = 172
-VirtualKey_GamepadA: VirtualKey = 195
-VirtualKey_GamepadB: VirtualKey = 196
-VirtualKey_GamepadX: VirtualKey = 197
-VirtualKey_GamepadY: VirtualKey = 198
-VirtualKey_GamepadRightShoulder: VirtualKey = 199
-VirtualKey_GamepadLeftShoulder: VirtualKey = 200
-VirtualKey_GamepadLeftTrigger: VirtualKey = 201
-VirtualKey_GamepadRightTrigger: VirtualKey = 202
-VirtualKey_GamepadDPadUp: VirtualKey = 203
-VirtualKey_GamepadDPadDown: VirtualKey = 204
-VirtualKey_GamepadDPadLeft: VirtualKey = 205
-VirtualKey_GamepadDPadRight: VirtualKey = 206
-VirtualKey_GamepadMenu: VirtualKey = 207
-VirtualKey_GamepadView: VirtualKey = 208
-VirtualKey_GamepadLeftThumbstickButton: VirtualKey = 209
-VirtualKey_GamepadRightThumbstickButton: VirtualKey = 210
-VirtualKey_GamepadLeftThumbstickUp: VirtualKey = 211
-VirtualKey_GamepadLeftThumbstickDown: VirtualKey = 212
-VirtualKey_GamepadLeftThumbstickRight: VirtualKey = 213
-VirtualKey_GamepadLeftThumbstickLeft: VirtualKey = 214
-VirtualKey_GamepadRightThumbstickUp: VirtualKey = 215
-VirtualKey_GamepadRightThumbstickDown: VirtualKey = 216
-VirtualKey_GamepadRightThumbstickRight: VirtualKey = 217
-VirtualKey_GamepadRightThumbstickLeft: VirtualKey = 218
-VirtualKeyModifiers = UInt32
-VirtualKeyModifiers_None: VirtualKeyModifiers = 0
-VirtualKeyModifiers_Control: VirtualKeyModifiers = 1
-VirtualKeyModifiers_Menu: VirtualKeyModifiers = 2
-VirtualKeyModifiers_Shift: VirtualKeyModifiers = 4
-VirtualKeyModifiers_Windows: VirtualKeyModifiers = 8
+class UserWatcherStatus(Int32):  # enum
+    Created = 0
+    Started = 1
+    EnumerationCompleted = 2
+    Stopping = 3
+    Stopped = 4
+    Aborted = 5
+class UserWatcherUpdateKind(Int32):  # enum
+    Properties = 0
+    Picture = 1
+class VirtualKey(Int32):  # enum
+    None_ = 0
+    LeftButton = 1
+    RightButton = 2
+    Cancel = 3
+    MiddleButton = 4
+    XButton1 = 5
+    XButton2 = 6
+    Back = 8
+    Tab = 9
+    Clear = 12
+    Enter = 13
+    Shift = 16
+    Control = 17
+    Menu = 18
+    Pause = 19
+    CapitalLock = 20
+    Kana = 21
+    Hangul = 21
+    ImeOn = 22
+    Junja = 23
+    Final = 24
+    Hanja = 25
+    Kanji = 25
+    ImeOff = 26
+    Escape = 27
+    Convert = 28
+    NonConvert = 29
+    Accept = 30
+    ModeChange = 31
+    Space = 32
+    PageUp = 33
+    PageDown = 34
+    End = 35
+    Home = 36
+    Left = 37
+    Up = 38
+    Right = 39
+    Down = 40
+    Select = 41
+    Print = 42
+    Execute = 43
+    Snapshot = 44
+    Insert = 45
+    Delete = 46
+    Help = 47
+    Number0 = 48
+    Number1 = 49
+    Number2 = 50
+    Number3 = 51
+    Number4 = 52
+    Number5 = 53
+    Number6 = 54
+    Number7 = 55
+    Number8 = 56
+    Number9 = 57
+    A = 65
+    B = 66
+    C = 67
+    D = 68
+    E = 69
+    F = 70
+    G = 71
+    H = 72
+    I = 73
+    J = 74
+    K = 75
+    L = 76
+    M = 77
+    N = 78
+    O = 79
+    P = 80
+    Q = 81
+    R = 82
+    S = 83
+    T = 84
+    U = 85
+    V = 86
+    W = 87
+    X = 88
+    Y = 89
+    Z = 90
+    LeftWindows = 91
+    RightWindows = 92
+    Application = 93
+    Sleep = 95
+    NumberPad0 = 96
+    NumberPad1 = 97
+    NumberPad2 = 98
+    NumberPad3 = 99
+    NumberPad4 = 100
+    NumberPad5 = 101
+    NumberPad6 = 102
+    NumberPad7 = 103
+    NumberPad8 = 104
+    NumberPad9 = 105
+    Multiply = 106
+    Add = 107
+    Separator = 108
+    Subtract = 109
+    Decimal = 110
+    Divide = 111
+    F1 = 112
+    F2 = 113
+    F3 = 114
+    F4 = 115
+    F5 = 116
+    F6 = 117
+    F7 = 118
+    F8 = 119
+    F9 = 120
+    F10 = 121
+    F11 = 122
+    F12 = 123
+    F13 = 124
+    F14 = 125
+    F15 = 126
+    F16 = 127
+    F17 = 128
+    F18 = 129
+    F19 = 130
+    F20 = 131
+    F21 = 132
+    F22 = 133
+    F23 = 134
+    F24 = 135
+    NavigationView = 136
+    NavigationMenu = 137
+    NavigationUp = 138
+    NavigationDown = 139
+    NavigationLeft = 140
+    NavigationRight = 141
+    NavigationAccept = 142
+    NavigationCancel = 143
+    NumberKeyLock = 144
+    Scroll = 145
+    LeftShift = 160
+    RightShift = 161
+    LeftControl = 162
+    RightControl = 163
+    LeftMenu = 164
+    RightMenu = 165
+    GoBack = 166
+    GoForward = 167
+    Refresh = 168
+    Stop = 169
+    Search = 170
+    Favorites = 171
+    GoHome = 172
+    GamepadA = 195
+    GamepadB = 196
+    GamepadX = 197
+    GamepadY = 198
+    GamepadRightShoulder = 199
+    GamepadLeftShoulder = 200
+    GamepadLeftTrigger = 201
+    GamepadRightTrigger = 202
+    GamepadDPadUp = 203
+    GamepadDPadDown = 204
+    GamepadDPadLeft = 205
+    GamepadDPadRight = 206
+    GamepadMenu = 207
+    GamepadView = 208
+    GamepadLeftThumbstickButton = 209
+    GamepadRightThumbstickButton = 210
+    GamepadLeftThumbstickUp = 211
+    GamepadLeftThumbstickDown = 212
+    GamepadLeftThumbstickRight = 213
+    GamepadLeftThumbstickLeft = 214
+    GamepadRightThumbstickUp = 215
+    GamepadRightThumbstickDown = 216
+    GamepadRightThumbstickRight = 217
+    GamepadRightThumbstickLeft = 218
+class VirtualKeyModifiers(UInt32):  # enum
+    None_ = 0
+    Control = 1
+    Menu = 2
+    Shift = 4
+    Windows = 8
 
 
 make_ready(__name__)

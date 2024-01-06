@@ -250,15 +250,15 @@ class ImageScannerAutoConfiguration(ComPtr):
     def IsFormatSupported(self: win32more.Windows.Devices.Scanners.IImageScannerFormatConfiguration, value: win32more.Windows.Devices.Scanners.ImageScannerFormat) -> Boolean: ...
     DefaultFormat = property(get_DefaultFormat, None)
     Format = property(get_Format, put_Format)
-ImageScannerAutoCroppingMode = Int32
-ImageScannerAutoCroppingMode_Disabled: ImageScannerAutoCroppingMode = 0
-ImageScannerAutoCroppingMode_SingleRegion: ImageScannerAutoCroppingMode = 1
-ImageScannerAutoCroppingMode_MultipleRegion: ImageScannerAutoCroppingMode = 2
-ImageScannerColorMode = Int32
-ImageScannerColorMode_Color: ImageScannerColorMode = 0
-ImageScannerColorMode_Grayscale: ImageScannerColorMode = 1
-ImageScannerColorMode_Monochrome: ImageScannerColorMode = 2
-ImageScannerColorMode_AutoColor: ImageScannerColorMode = 3
+class ImageScannerAutoCroppingMode(Int32):  # enum
+    Disabled = 0
+    SingleRegion = 1
+    MultipleRegion = 2
+class ImageScannerColorMode(Int32):  # enum
+    Color = 0
+    Grayscale = 1
+    Monochrome = 2
+    AutoColor = 3
 class ImageScannerFeederConfiguration(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Scanners.IImageScannerFormatConfiguration
@@ -489,14 +489,14 @@ class ImageScannerFlatbedConfiguration(ComPtr):
     ContrastStep = property(get_ContrastStep, None)
     DefaultContrast = property(get_DefaultContrast, None)
     Contrast = property(get_Contrast, put_Contrast)
-ImageScannerFormat = Int32
-ImageScannerFormat_Jpeg: ImageScannerFormat = 0
-ImageScannerFormat_Png: ImageScannerFormat = 1
-ImageScannerFormat_DeviceIndependentBitmap: ImageScannerFormat = 2
-ImageScannerFormat_Tiff: ImageScannerFormat = 3
-ImageScannerFormat_Xps: ImageScannerFormat = 4
-ImageScannerFormat_OpenXps: ImageScannerFormat = 5
-ImageScannerFormat_Pdf: ImageScannerFormat = 6
+class ImageScannerFormat(Int32):  # enum
+    Jpeg = 0
+    Png = 1
+    DeviceIndependentBitmap = 2
+    Tiff = 3
+    Xps = 4
+    OpenXps = 5
+    Pdf = 6
 class ImageScannerPreviewResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Scanners.IImageScannerPreviewResult
@@ -517,11 +517,11 @@ class ImageScannerScanResult(ComPtr):
     @winrt_mixinmethod
     def get_ScannedFiles(self: win32more.Windows.Devices.Scanners.IImageScannerScanResult) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Storage.StorageFile]: ...
     ScannedFiles = property(get_ScannedFiles, None)
-ImageScannerScanSource = Int32
-ImageScannerScanSource_Default: ImageScannerScanSource = 0
-ImageScannerScanSource_Flatbed: ImageScannerScanSource = 1
-ImageScannerScanSource_Feeder: ImageScannerScanSource = 2
-ImageScannerScanSource_AutoConfigured: ImageScannerScanSource = 3
+class ImageScannerScanSource(Int32):  # enum
+    Default = 0
+    Flatbed = 1
+    Feeder = 2
+    AutoConfigured = 3
 ScannerDeviceContract: UInt32 = 65536
 
 

@@ -41,12 +41,12 @@ class AppCapabilityAccessChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Authorization.AppCapabilityAccess.IAppCapabilityAccessChangedEventArgs
     _classid_ = 'Windows.Security.Authorization.AppCapabilityAccess.AppCapabilityAccessChangedEventArgs'
-AppCapabilityAccessStatus = Int32
-AppCapabilityAccessStatus_DeniedBySystem: AppCapabilityAccessStatus = 0
-AppCapabilityAccessStatus_NotDeclaredByApp: AppCapabilityAccessStatus = 1
-AppCapabilityAccessStatus_DeniedByUser: AppCapabilityAccessStatus = 2
-AppCapabilityAccessStatus_UserPromptRequired: AppCapabilityAccessStatus = 3
-AppCapabilityAccessStatus_Allowed: AppCapabilityAccessStatus = 4
+class AppCapabilityAccessStatus(Int32):  # enum
+    DeniedBySystem = 0
+    NotDeclaredByApp = 1
+    DeniedByUser = 2
+    UserPromptRequired = 3
+    Allowed = 4
 class IAppCapability(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.Authorization.AppCapabilityAccess.IAppCapability'

@@ -7,7 +7,7 @@ from ctypes import (
 from win32more import FAILED
 from win32more.Windows.Graphics.Imaging import BitmapDecoder
 from win32more.Windows.Media.Ocr import OcrEngine
-from win32more.Windows.Storage import FileAccessMode_Read
+from win32more.Windows.Storage import FileAccessMode
 from win32more.Windows.Storage.Pickers import FileOpenPicker
 from win32more.Windows.UI.Popups import MessageDialog
 from win32more.Windows.Win32.System.WinRT import (
@@ -44,7 +44,7 @@ async def open_file(filter):
 
 async def read_image(storage_file):
     bitmap = await BitmapDecoder.CreateWithIdAsync(
-        BitmapDecoder.PngDecoderId, await storage_file.OpenAsync(FileAccessMode_Read)
+        BitmapDecoder.PngDecoderId, await storage_file.OpenAsync(FileAccessMode.Read)
     )
     return await bitmap.GetSoftwareBitmapAsync()
 

@@ -290,21 +290,21 @@ class AppInstallOptions(ComPtr):
     StageButDoNotInstall = property(get_StageButDoNotInstall, put_StageButDoNotInstall)
     CampaignId = property(get_CampaignId, put_CampaignId)
     ExtendedCampaignId = property(get_ExtendedCampaignId, put_ExtendedCampaignId)
-AppInstallState = Int32
-AppInstallState_Pending: AppInstallState = 0
-AppInstallState_Starting: AppInstallState = 1
-AppInstallState_AcquiringLicense: AppInstallState = 2
-AppInstallState_Downloading: AppInstallState = 3
-AppInstallState_RestoringData: AppInstallState = 4
-AppInstallState_Installing: AppInstallState = 5
-AppInstallState_Completed: AppInstallState = 6
-AppInstallState_Canceled: AppInstallState = 7
-AppInstallState_Paused: AppInstallState = 8
-AppInstallState_Error: AppInstallState = 9
-AppInstallState_PausedLowBattery: AppInstallState = 10
-AppInstallState_PausedWiFiRecommended: AppInstallState = 11
-AppInstallState_PausedWiFiRequired: AppInstallState = 12
-AppInstallState_ReadyToDownload: AppInstallState = 13
+class AppInstallState(Int32):  # enum
+    Pending = 0
+    Starting = 1
+    AcquiringLicense = 2
+    Downloading = 3
+    RestoringData = 4
+    Installing = 5
+    Completed = 6
+    Canceled = 7
+    Paused = 8
+    Error = 9
+    PausedLowBattery = 10
+    PausedWiFiRecommended = 11
+    PausedWiFiRequired = 12
+    ReadyToDownload = 13
 class AppInstallStatus(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Store.Preview.InstallControl.IAppInstallStatus
@@ -333,15 +333,15 @@ class AppInstallStatus(ComPtr):
     User = property(get_User, None)
     ReadyForLaunch = property(get_ReadyForLaunch, None)
     IsStaged = property(get_IsStaged, None)
-AppInstallType = Int32
-AppInstallType_Install: AppInstallType = 0
-AppInstallType_Update: AppInstallType = 1
-AppInstallType_Repair: AppInstallType = 2
-AppInstallationToastNotificationMode = Int32
-AppInstallationToastNotificationMode_Default: AppInstallationToastNotificationMode = 0
-AppInstallationToastNotificationMode_Toast: AppInstallationToastNotificationMode = 1
-AppInstallationToastNotificationMode_ToastWithoutPopup: AppInstallationToastNotificationMode = 2
-AppInstallationToastNotificationMode_NoToast: AppInstallationToastNotificationMode = 3
+class AppInstallType(Int32):  # enum
+    Install = 0
+    Update = 1
+    Repair = 2
+class AppInstallationToastNotificationMode(Int32):  # enum
+    Default = 0
+    Toast = 1
+    ToastWithoutPopup = 2
+    NoToast = 3
 class AppUpdateOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Store.Preview.InstallControl.IAppUpdateOptions
@@ -370,11 +370,11 @@ class AppUpdateOptions(ComPtr):
     CatalogId = property(get_CatalogId, put_CatalogId)
     AllowForcedAppRestart = property(get_AllowForcedAppRestart, put_AllowForcedAppRestart)
     AutomaticallyDownloadAndInstallUpdateIfFound = property(get_AutomaticallyDownloadAndInstallUpdateIfFound, put_AutomaticallyDownloadAndInstallUpdateIfFound)
-AutoUpdateSetting = Int32
-AutoUpdateSetting_Disabled: AutoUpdateSetting = 0
-AutoUpdateSetting_Enabled: AutoUpdateSetting = 1
-AutoUpdateSetting_DisabledByPolicy: AutoUpdateSetting = 2
-AutoUpdateSetting_EnabledByPolicy: AutoUpdateSetting = 3
+class AutoUpdateSetting(Int32):  # enum
+    Disabled = 0
+    Enabled = 1
+    DisabledByPolicy = 2
+    EnabledByPolicy = 3
 class GetEntitlementResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Store.Preview.InstallControl.IGetEntitlementResult
@@ -382,11 +382,11 @@ class GetEntitlementResult(ComPtr):
     @winrt_mixinmethod
     def get_Status(self: win32more.Windows.ApplicationModel.Store.Preview.InstallControl.IGetEntitlementResult) -> win32more.Windows.ApplicationModel.Store.Preview.InstallControl.GetEntitlementStatus: ...
     Status = property(get_Status, None)
-GetEntitlementStatus = Int32
-GetEntitlementStatus_Succeeded: GetEntitlementStatus = 0
-GetEntitlementStatus_NoStoreAccount: GetEntitlementStatus = 1
-GetEntitlementStatus_NetworkError: GetEntitlementStatus = 2
-GetEntitlementStatus_ServerError: GetEntitlementStatus = 3
+class GetEntitlementStatus(Int32):  # enum
+    Succeeded = 0
+    NoStoreAccount = 1
+    NetworkError = 2
+    ServerError = 3
 class IAppInstallItem(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Store.Preview.InstallControl.IAppInstallItem'

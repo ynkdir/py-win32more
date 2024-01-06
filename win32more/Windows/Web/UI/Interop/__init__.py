@@ -317,13 +317,13 @@ class WebViewControlAcceleratorKeyPressedEventArgs(ComPtr):
     KeyStatus = property(get_KeyStatus, None)
     RoutingStage = property(get_RoutingStage, None)
     Handled = property(get_Handled, put_Handled)
-WebViewControlAcceleratorKeyRoutingStage = Int32
-WebViewControlAcceleratorKeyRoutingStage_Tunneling: WebViewControlAcceleratorKeyRoutingStage = 0
-WebViewControlAcceleratorKeyRoutingStage_Bubbling: WebViewControlAcceleratorKeyRoutingStage = 1
-WebViewControlMoveFocusReason = Int32
-WebViewControlMoveFocusReason_Programmatic: WebViewControlMoveFocusReason = 0
-WebViewControlMoveFocusReason_Next: WebViewControlMoveFocusReason = 1
-WebViewControlMoveFocusReason_Previous: WebViewControlMoveFocusReason = 2
+class WebViewControlAcceleratorKeyRoutingStage(Int32):  # enum
+    Tunneling = 0
+    Bubbling = 1
+class WebViewControlMoveFocusReason(Int32):  # enum
+    Programmatic = 0
+    Next = 1
+    Previous = 2
 class WebViewControlMoveFocusRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.UI.Interop.IWebViewControlMoveFocusRequestedEventArgs
@@ -367,10 +367,10 @@ class WebViewControlProcess(ComPtr):
     ProcessId = property(get_ProcessId, None)
     EnterpriseId = property(get_EnterpriseId, None)
     IsPrivateNetworkClientServerCapabilityEnabled = property(get_IsPrivateNetworkClientServerCapabilityEnabled, None)
-WebViewControlProcessCapabilityState = Int32
-WebViewControlProcessCapabilityState_Default: WebViewControlProcessCapabilityState = 0
-WebViewControlProcessCapabilityState_Disabled: WebViewControlProcessCapabilityState = 1
-WebViewControlProcessCapabilityState_Enabled: WebViewControlProcessCapabilityState = 2
+class WebViewControlProcessCapabilityState(Int32):  # enum
+    Default = 0
+    Disabled = 1
+    Enabled = 2
 class WebViewControlProcessOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.UI.Interop.IWebViewControlProcessOptions

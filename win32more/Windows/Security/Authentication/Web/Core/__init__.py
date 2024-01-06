@@ -20,11 +20,11 @@ class FindAllAccountsResult(ComPtr):
     Accounts = property(get_Accounts, None)
     Status = property(get_Status, None)
     ProviderError = property(get_ProviderError, None)
-FindAllWebAccountsStatus = Int32
-FindAllWebAccountsStatus_Success: FindAllWebAccountsStatus = 0
-FindAllWebAccountsStatus_NotAllowedByProvider: FindAllWebAccountsStatus = 1
-FindAllWebAccountsStatus_NotSupportedByProvider: FindAllWebAccountsStatus = 2
-FindAllWebAccountsStatus_ProviderError: FindAllWebAccountsStatus = 3
+class FindAllWebAccountsStatus(Int32):  # enum
+    Success = 0
+    NotAllowedByProvider = 1
+    NotSupportedByProvider = 2
+    ProviderError = 3
 class IFindAllAccountsResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.Authentication.Web.Core.IFindAllAccountsResult'
@@ -348,9 +348,9 @@ class WebTokenRequest(ComPtr):
     Properties = property(get_Properties, None)
     AppProperties = property(get_AppProperties, None)
     CorrelationId = property(get_CorrelationId, put_CorrelationId)
-WebTokenRequestPromptType = Int32
-WebTokenRequestPromptType_Default: WebTokenRequestPromptType = 0
-WebTokenRequestPromptType_ForceAuthentication: WebTokenRequestPromptType = 1
+class WebTokenRequestPromptType(Int32):  # enum
+    Default = 0
+    ForceAuthentication = 1
 class WebTokenRequestResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Authentication.Web.Core.IWebTokenRequestResult
@@ -366,13 +366,13 @@ class WebTokenRequestResult(ComPtr):
     ResponseData = property(get_ResponseData, None)
     ResponseStatus = property(get_ResponseStatus, None)
     ResponseError = property(get_ResponseError, None)
-WebTokenRequestStatus = Int32
-WebTokenRequestStatus_Success: WebTokenRequestStatus = 0
-WebTokenRequestStatus_UserCancel: WebTokenRequestStatus = 1
-WebTokenRequestStatus_AccountSwitch: WebTokenRequestStatus = 2
-WebTokenRequestStatus_UserInteractionRequired: WebTokenRequestStatus = 3
-WebTokenRequestStatus_AccountProviderNotAvailable: WebTokenRequestStatus = 4
-WebTokenRequestStatus_ProviderError: WebTokenRequestStatus = 5
+class WebTokenRequestStatus(Int32):  # enum
+    Success = 0
+    UserCancel = 1
+    AccountSwitch = 2
+    UserInteractionRequired = 3
+    AccountProviderNotAvailable = 4
+    ProviderError = 5
 class WebTokenResponse(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Authentication.Web.Core.IWebTokenResponse

@@ -60,10 +60,10 @@ class ContactChangeRecord(ComPtr):
     RevisionNumber = property(get_RevisionNumber, None)
     Id = property(get_Id, None)
     RemoteId = property(get_RemoteId, None)
-ContactChangeType = Int32
-ContactChangeType_Created: ContactChangeType = 0
-ContactChangeType_Modified: ContactChangeType = 1
-ContactChangeType_Deleted: ContactChangeType = 2
+class ContactChangeType(Int32):  # enum
+    Created = 0
+    Modified = 1
+    Deleted = 2
 class ContactInformation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Phone.PersonalInformation.IContactInformation
@@ -150,10 +150,10 @@ class ContactQueryResult(ComPtr):
     def GetContactsAsyncInRange(self: win32more.Windows.Phone.PersonalInformation.IContactQueryResult, startIndex: UInt32, maxNumberOfItems: UInt32) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Phone.PersonalInformation.StoredContact]]: ...
     @winrt_mixinmethod
     def GetCurrentQueryOptions(self: win32more.Windows.Phone.PersonalInformation.IContactQueryResult) -> win32more.Windows.Phone.PersonalInformation.ContactQueryOptions: ...
-ContactQueryResultOrdering = Int32
-ContactQueryResultOrdering_SystemDefault: ContactQueryResultOrdering = 0
-ContactQueryResultOrdering_GivenNameFamilyName: ContactQueryResultOrdering = 1
-ContactQueryResultOrdering_FamilyNameGivenName: ContactQueryResultOrdering = 2
+class ContactQueryResultOrdering(Int32):  # enum
+    SystemDefault = 0
+    GivenNameFamilyName = 1
+    FamilyNameGivenName = 2
 class ContactStore(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Phone.PersonalInformation.IContactStore
@@ -185,12 +185,12 @@ class ContactStore(ComPtr):
     @winrt_classmethod
     def CreateOrOpenWithOptionsAsync(cls: win32more.Windows.Phone.PersonalInformation.IContactStoreStatics, access: win32more.Windows.Phone.PersonalInformation.ContactStoreSystemAccessMode, sharing: win32more.Windows.Phone.PersonalInformation.ContactStoreApplicationAccessMode) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Phone.PersonalInformation.ContactStore]: ...
     RevisionNumber = property(get_RevisionNumber, None)
-ContactStoreApplicationAccessMode = Int32
-ContactStoreApplicationAccessMode_LimitedReadOnly: ContactStoreApplicationAccessMode = 0
-ContactStoreApplicationAccessMode_ReadOnly: ContactStoreApplicationAccessMode = 1
-ContactStoreSystemAccessMode = Int32
-ContactStoreSystemAccessMode_ReadOnly: ContactStoreSystemAccessMode = 0
-ContactStoreSystemAccessMode_ReadWrite: ContactStoreSystemAccessMode = 1
+class ContactStoreApplicationAccessMode(Int32):  # enum
+    LimitedReadOnly = 0
+    ReadOnly = 1
+class ContactStoreSystemAccessMode(Int32):  # enum
+    ReadOnly = 0
+    ReadWrite = 1
 class IContactAddress(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Phone.PersonalInformation.IContactAddress'
@@ -681,9 +681,9 @@ class StoredContact(ComPtr):
     HonorificSuffix = property(get_HonorificSuffix, put_HonorificSuffix)
     DisplayPicture = property(get_DisplayPicture, None)
     DisplayPictureDate = property(get_DisplayPictureDate, put_DisplayPictureDate)
-VCardFormat = Int32
-VCardFormat_Version2_1: VCardFormat = 0
-VCardFormat_Version3: VCardFormat = 1
+class VCardFormat(Int32):  # enum
+    Version2_1 = 0
+    Version3 = 1
 
 
 make_ready(__name__)

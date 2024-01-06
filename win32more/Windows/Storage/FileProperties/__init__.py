@@ -457,23 +457,23 @@ class MusicProperties(ComPtr):
     Publisher = property(get_Publisher, put_Publisher)
     Writers = property(get_Writers, None)
     Year = property(get_Year, put_Year)
-PhotoOrientation = Int32
-PhotoOrientation_Unspecified: PhotoOrientation = 0
-PhotoOrientation_Normal: PhotoOrientation = 1
-PhotoOrientation_FlipHorizontal: PhotoOrientation = 2
-PhotoOrientation_Rotate180: PhotoOrientation = 3
-PhotoOrientation_FlipVertical: PhotoOrientation = 4
-PhotoOrientation_Transpose: PhotoOrientation = 5
-PhotoOrientation_Rotate270: PhotoOrientation = 6
-PhotoOrientation_Transverse: PhotoOrientation = 7
-PhotoOrientation_Rotate90: PhotoOrientation = 8
-PropertyPrefetchOptions = UInt32
-PropertyPrefetchOptions_None: PropertyPrefetchOptions = 0
-PropertyPrefetchOptions_MusicProperties: PropertyPrefetchOptions = 1
-PropertyPrefetchOptions_VideoProperties: PropertyPrefetchOptions = 2
-PropertyPrefetchOptions_ImageProperties: PropertyPrefetchOptions = 4
-PropertyPrefetchOptions_DocumentProperties: PropertyPrefetchOptions = 8
-PropertyPrefetchOptions_BasicProperties: PropertyPrefetchOptions = 16
+class PhotoOrientation(Int32):  # enum
+    Unspecified = 0
+    Normal = 1
+    FlipHorizontal = 2
+    Rotate180 = 3
+    FlipVertical = 4
+    Transpose = 5
+    Rotate270 = 6
+    Transverse = 7
+    Rotate90 = 8
+class PropertyPrefetchOptions(UInt32):  # enum
+    None_ = 0
+    MusicProperties = 1
+    VideoProperties = 2
+    ImageProperties = 4
+    DocumentProperties = 8
+    BasicProperties = 16
 class StorageItemContentProperties(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Storage.FileProperties.IStorageItemContentProperties
@@ -541,26 +541,26 @@ class StorageItemThumbnail(ComPtr):
     OriginalHeight = property(get_OriginalHeight, None)
     ReturnedSmallerCachedSize = property(get_ReturnedSmallerCachedSize, None)
     Type = property(get_Type, None)
-ThumbnailMode = Int32
-ThumbnailMode_PicturesView: ThumbnailMode = 0
-ThumbnailMode_VideosView: ThumbnailMode = 1
-ThumbnailMode_MusicView: ThumbnailMode = 2
-ThumbnailMode_DocumentsView: ThumbnailMode = 3
-ThumbnailMode_ListView: ThumbnailMode = 4
-ThumbnailMode_SingleItem: ThumbnailMode = 5
-ThumbnailOptions = UInt32
-ThumbnailOptions_None: ThumbnailOptions = 0
-ThumbnailOptions_ReturnOnlyIfCached: ThumbnailOptions = 1
-ThumbnailOptions_ResizeThumbnail: ThumbnailOptions = 2
-ThumbnailOptions_UseCurrentScale: ThumbnailOptions = 4
-ThumbnailType = Int32
-ThumbnailType_Image: ThumbnailType = 0
-ThumbnailType_Icon: ThumbnailType = 1
-VideoOrientation = Int32
-VideoOrientation_Normal: VideoOrientation = 0
-VideoOrientation_Rotate90: VideoOrientation = 90
-VideoOrientation_Rotate180: VideoOrientation = 180
-VideoOrientation_Rotate270: VideoOrientation = 270
+class ThumbnailMode(Int32):  # enum
+    PicturesView = 0
+    VideosView = 1
+    MusicView = 2
+    DocumentsView = 3
+    ListView = 4
+    SingleItem = 5
+class ThumbnailOptions(UInt32):  # enum
+    None_ = 0
+    ReturnOnlyIfCached = 1
+    ResizeThumbnail = 2
+    UseCurrentScale = 4
+class ThumbnailType(Int32):  # enum
+    Image = 0
+    Icon = 1
+class VideoOrientation(Int32):  # enum
+    Normal = 0
+    Rotate90 = 90
+    Rotate180 = 180
+    Rotate270 = 270
 class VideoProperties(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Storage.FileProperties.IVideoProperties

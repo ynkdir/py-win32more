@@ -173,9 +173,9 @@ class ApplicationView(ComPtr, metaclass=_ApplicationView_Meta_):
     _ApplicationView_Meta_.PreferredLaunchViewSize = property(get_PreferredLaunchViewSize.__wrapped__, put_PreferredLaunchViewSize.__wrapped__)
     _ApplicationView_Meta_.TerminateAppOnFinalViewClose = property(get_TerminateAppOnFinalViewClose.__wrapped__, put_TerminateAppOnFinalViewClose.__wrapped__)
     _ApplicationView_Meta_.Value = property(get_Value.__wrapped__, None)
-ApplicationViewBoundsMode = Int32
-ApplicationViewBoundsMode_UseVisible: ApplicationViewBoundsMode = 0
-ApplicationViewBoundsMode_UseCoreWindow: ApplicationViewBoundsMode = 1
+class ApplicationViewBoundsMode(Int32):  # enum
+    UseVisible = 0
+    UseCoreWindow = 1
 class ApplicationViewConsolidatedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.ViewManagement.IApplicationViewConsolidatedEventArgs
@@ -186,12 +186,12 @@ class ApplicationViewConsolidatedEventArgs(ComPtr):
     def get_IsAppInitiated(self: win32more.Windows.UI.ViewManagement.IApplicationViewConsolidatedEventArgs2) -> Boolean: ...
     IsUserInitiated = property(get_IsUserInitiated, None)
     IsAppInitiated = property(get_IsAppInitiated, None)
-ApplicationViewMode = Int32
-ApplicationViewMode_Default: ApplicationViewMode = 0
-ApplicationViewMode_CompactOverlay: ApplicationViewMode = 1
-ApplicationViewOrientation = Int32
-ApplicationViewOrientation_Landscape: ApplicationViewOrientation = 0
-ApplicationViewOrientation_Portrait: ApplicationViewOrientation = 1
+class ApplicationViewMode(Int32):  # enum
+    Default = 0
+    CompactOverlay = 1
+class ApplicationViewOrientation(Int32):  # enum
+    Landscape = 0
+    Portrait = 1
 class _ApplicationViewScaling_Meta_(ComPtr.__class__):
     pass
 class ApplicationViewScaling(ComPtr, metaclass=_ApplicationViewScaling_Meta_):
@@ -203,11 +203,11 @@ class ApplicationViewScaling(ComPtr, metaclass=_ApplicationViewScaling_Meta_):
     @winrt_classmethod
     def TrySetDisableLayoutScaling(cls: win32more.Windows.UI.ViewManagement.IApplicationViewScalingStatics, disableLayoutScaling: Boolean) -> Boolean: ...
     _ApplicationViewScaling_Meta_.DisableLayoutScaling = property(get_DisableLayoutScaling.__wrapped__, None)
-ApplicationViewState = Int32
-ApplicationViewState_FullScreenLandscape: ApplicationViewState = 0
-ApplicationViewState_Filled: ApplicationViewState = 1
-ApplicationViewState_Snapped: ApplicationViewState = 2
-ApplicationViewState_FullScreenPortrait: ApplicationViewState = 3
+class ApplicationViewState(Int32):  # enum
+    FullScreenLandscape = 0
+    Filled = 1
+    Snapped = 2
+    FullScreenPortrait = 3
 class ApplicationViewSwitcher(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.ViewManagement.ApplicationViewSwitcher'
@@ -233,10 +233,10 @@ class ApplicationViewSwitcher(ComPtr):
     def SwitchFromViewWithOptionsAsync(cls: win32more.Windows.UI.ViewManagement.IApplicationViewSwitcherStatics, toViewId: Int32, fromViewId: Int32, options: win32more.Windows.UI.ViewManagement.ApplicationViewSwitchingOptions) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_classmethod
     def PrepareForCustomAnimatedSwitchAsync(cls: win32more.Windows.UI.ViewManagement.IApplicationViewSwitcherStatics, toViewId: Int32, fromViewId: Int32, options: win32more.Windows.UI.ViewManagement.ApplicationViewSwitchingOptions) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
-ApplicationViewSwitchingOptions = UInt32
-ApplicationViewSwitchingOptions_Default: ApplicationViewSwitchingOptions = 0
-ApplicationViewSwitchingOptions_SkipAnimation: ApplicationViewSwitchingOptions = 1
-ApplicationViewSwitchingOptions_ConsolidateViews: ApplicationViewSwitchingOptions = 2
+class ApplicationViewSwitchingOptions(UInt32):  # enum
+    Default = 0
+    SkipAnimation = 1
+    ConsolidateViews = 2
 class ApplicationViewTitleBar(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.ViewManagement.IApplicationViewTitleBar
@@ -324,18 +324,18 @@ class ApplicationViewTransferContext(ComPtr, metaclass=_ApplicationViewTransferC
     def get_DataPackageFormatId(cls: win32more.Windows.UI.ViewManagement.IApplicationViewTransferContextStatics) -> WinRT_String: ...
     ViewId = property(get_ViewId, put_ViewId)
     _ApplicationViewTransferContext_Meta_.DataPackageFormatId = property(get_DataPackageFormatId.__wrapped__, None)
-ApplicationViewWindowingMode = Int32
-ApplicationViewWindowingMode_Auto: ApplicationViewWindowingMode = 0
-ApplicationViewWindowingMode_PreferredLaunchViewSize: ApplicationViewWindowingMode = 1
-ApplicationViewWindowingMode_FullScreen: ApplicationViewWindowingMode = 2
-ApplicationViewWindowingMode_CompactOverlay: ApplicationViewWindowingMode = 3
-ApplicationViewWindowingMode_Maximized: ApplicationViewWindowingMode = 4
-FullScreenSystemOverlayMode = Int32
-FullScreenSystemOverlayMode_Standard: FullScreenSystemOverlayMode = 0
-FullScreenSystemOverlayMode_Minimal: FullScreenSystemOverlayMode = 1
-HandPreference = Int32
-HandPreference_LeftHanded: HandPreference = 0
-HandPreference_RightHanded: HandPreference = 1
+class ApplicationViewWindowingMode(Int32):  # enum
+    Auto = 0
+    PreferredLaunchViewSize = 1
+    FullScreen = 2
+    CompactOverlay = 3
+    Maximized = 4
+class FullScreenSystemOverlayMode(Int32):  # enum
+    Standard = 0
+    Minimal = 1
+class HandPreference(Int32):  # enum
+    LeftHanded = 0
+    RightHanded = 1
 class IAccessibilitySettings(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.ViewManagement.IAccessibilitySettings'
@@ -1031,9 +1031,9 @@ class ProjectionManager(ComPtr, metaclass=_ProjectionManager_Meta_):
     @winrt_classmethod
     def remove_ProjectionDisplayAvailableChanged(cls: win32more.Windows.UI.ViewManagement.IProjectionManagerStatics, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     _ProjectionManager_Meta_.ProjectionDisplayAvailable = property(get_ProjectionDisplayAvailable.__wrapped__, None)
-ScreenCaptureDisabledBehavior = Int32
-ScreenCaptureDisabledBehavior_DrawAsBlack: ScreenCaptureDisabledBehavior = 0
-ScreenCaptureDisabledBehavior_ExcludeFromCapture: ScreenCaptureDisabledBehavior = 1
+class ScreenCaptureDisabledBehavior(Int32):  # enum
+    DrawAsBlack = 0
+    ExcludeFromCapture = 1
 class StatusBar(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.ViewManagement.IStatusBar
@@ -1091,44 +1091,44 @@ class StatusBarProgressIndicator(ComPtr):
     def put_ProgressValue(self: win32more.Windows.UI.ViewManagement.IStatusBarProgressIndicator, value: win32more.Windows.Foundation.IReference[Double]) -> Void: ...
     Text = property(get_Text, put_Text)
     ProgressValue = property(get_ProgressValue, put_ProgressValue)
-UIColorType = Int32
-UIColorType_Background: UIColorType = 0
-UIColorType_Foreground: UIColorType = 1
-UIColorType_AccentDark3: UIColorType = 2
-UIColorType_AccentDark2: UIColorType = 3
-UIColorType_AccentDark1: UIColorType = 4
-UIColorType_Accent: UIColorType = 5
-UIColorType_AccentLight1: UIColorType = 6
-UIColorType_AccentLight2: UIColorType = 7
-UIColorType_AccentLight3: UIColorType = 8
-UIColorType_Complement: UIColorType = 9
-UIElementType = Int32
-UIElementType_ActiveCaption: UIElementType = 0
-UIElementType_Background: UIElementType = 1
-UIElementType_ButtonFace: UIElementType = 2
-UIElementType_ButtonText: UIElementType = 3
-UIElementType_CaptionText: UIElementType = 4
-UIElementType_GrayText: UIElementType = 5
-UIElementType_Highlight: UIElementType = 6
-UIElementType_HighlightText: UIElementType = 7
-UIElementType_Hotlight: UIElementType = 8
-UIElementType_InactiveCaption: UIElementType = 9
-UIElementType_InactiveCaptionText: UIElementType = 10
-UIElementType_Window: UIElementType = 11
-UIElementType_WindowText: UIElementType = 12
-UIElementType_AccentColor: UIElementType = 1000
-UIElementType_TextHigh: UIElementType = 1001
-UIElementType_TextMedium: UIElementType = 1002
-UIElementType_TextLow: UIElementType = 1003
-UIElementType_TextContrastWithHigh: UIElementType = 1004
-UIElementType_NonTextHigh: UIElementType = 1005
-UIElementType_NonTextMediumHigh: UIElementType = 1006
-UIElementType_NonTextMedium: UIElementType = 1007
-UIElementType_NonTextMediumLow: UIElementType = 1008
-UIElementType_NonTextLow: UIElementType = 1009
-UIElementType_PageBackground: UIElementType = 1010
-UIElementType_PopupBackground: UIElementType = 1011
-UIElementType_OverlayOutsidePopup: UIElementType = 1012
+class UIColorType(Int32):  # enum
+    Background = 0
+    Foreground = 1
+    AccentDark3 = 2
+    AccentDark2 = 3
+    AccentDark1 = 4
+    Accent = 5
+    AccentLight1 = 6
+    AccentLight2 = 7
+    AccentLight3 = 8
+    Complement = 9
+class UIElementType(Int32):  # enum
+    ActiveCaption = 0
+    Background = 1
+    ButtonFace = 2
+    ButtonText = 3
+    CaptionText = 4
+    GrayText = 5
+    Highlight = 6
+    HighlightText = 7
+    Hotlight = 8
+    InactiveCaption = 9
+    InactiveCaptionText = 10
+    Window = 11
+    WindowText = 12
+    AccentColor = 1000
+    TextHigh = 1001
+    TextMedium = 1002
+    TextLow = 1003
+    TextContrastWithHigh = 1004
+    NonTextHigh = 1005
+    NonTextMediumHigh = 1006
+    NonTextMedium = 1007
+    NonTextMediumLow = 1008
+    NonTextLow = 1009
+    PageBackground = 1010
+    PopupBackground = 1011
+    OverlayOutsidePopup = 1012
 class UISettings(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.ViewManagement.IUISettings
@@ -1236,9 +1236,9 @@ class UIViewSettings(ComPtr):
     @winrt_classmethod
     def GetForCurrentView(cls: win32more.Windows.UI.ViewManagement.IUIViewSettingsStatics) -> win32more.Windows.UI.ViewManagement.UIViewSettings: ...
     UserInteractionMode = property(get_UserInteractionMode, None)
-UserInteractionMode = Int32
-UserInteractionMode_Mouse: UserInteractionMode = 0
-UserInteractionMode_Touch: UserInteractionMode = 1
+class UserInteractionMode(Int32):  # enum
+    Mouse = 0
+    Touch = 1
 ViewManagementViewScalingContract: UInt32 = 65536
 class ViewModePreferences(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -1256,14 +1256,14 @@ class ViewModePreferences(ComPtr):
     def CreateDefault(cls: win32more.Windows.UI.ViewManagement.IViewModePreferencesStatics, mode: win32more.Windows.UI.ViewManagement.ApplicationViewMode) -> win32more.Windows.UI.ViewManagement.ViewModePreferences: ...
     ViewSizePreference = property(get_ViewSizePreference, put_ViewSizePreference)
     CustomSize = property(get_CustomSize, put_CustomSize)
-ViewSizePreference = Int32
-ViewSizePreference_Default: ViewSizePreference = 0
-ViewSizePreference_UseLess: ViewSizePreference = 1
-ViewSizePreference_UseHalf: ViewSizePreference = 2
-ViewSizePreference_UseMore: ViewSizePreference = 3
-ViewSizePreference_UseMinimum: ViewSizePreference = 4
-ViewSizePreference_UseNone: ViewSizePreference = 5
-ViewSizePreference_Custom: ViewSizePreference = 6
+class ViewSizePreference(Int32):  # enum
+    Default = 0
+    UseLess = 1
+    UseHalf = 2
+    UseMore = 3
+    UseMinimum = 4
+    UseNone = 5
+    Custom = 6
 
 
 make_ready(__name__)

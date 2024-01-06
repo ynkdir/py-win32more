@@ -6,12 +6,12 @@ import win32more.Windows.Devices.Input.Preview
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Win32.System.WinRT
-GazeDeviceConfigurationStatePreview = Int32
-GazeDeviceConfigurationStatePreview_Unknown: GazeDeviceConfigurationStatePreview = 0
-GazeDeviceConfigurationStatePreview_Ready: GazeDeviceConfigurationStatePreview = 1
-GazeDeviceConfigurationStatePreview_Configuring: GazeDeviceConfigurationStatePreview = 2
-GazeDeviceConfigurationStatePreview_ScreenSetupNeeded: GazeDeviceConfigurationStatePreview = 3
-GazeDeviceConfigurationStatePreview_UserCalibrationNeeded: GazeDeviceConfigurationStatePreview = 4
+class GazeDeviceConfigurationStatePreview(Int32):  # enum
+    Unknown = 0
+    Ready = 1
+    Configuring = 2
+    ScreenSetupNeeded = 3
+    UserCalibrationNeeded = 4
 class GazeDevicePreview(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Input.Preview.IGazeDevicePreview

@@ -106,10 +106,10 @@ class AccelerometerReadingChangedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Reading(self: win32more.Windows.Devices.Sensors.IAccelerometerReadingChangedEventArgs) -> win32more.Windows.Devices.Sensors.AccelerometerReading: ...
     Reading = property(get_Reading, None)
-AccelerometerReadingType = Int32
-AccelerometerReadingType_Standard: AccelerometerReadingType = 0
-AccelerometerReadingType_Linear: AccelerometerReadingType = 1
-AccelerometerReadingType_Gravity: AccelerometerReadingType = 2
+class AccelerometerReadingType(Int32):  # enum
+    Standard = 0
+    Linear = 1
+    Gravity = 2
 class AccelerometerShakenEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Sensors.IAccelerometerShakenEventArgs
@@ -179,24 +179,24 @@ class ActivitySensorReadingChangedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Reading(self: win32more.Windows.Devices.Sensors.IActivitySensorReadingChangedEventArgs) -> win32more.Windows.Devices.Sensors.ActivitySensorReading: ...
     Reading = property(get_Reading, None)
-ActivitySensorReadingConfidence = Int32
-ActivitySensorReadingConfidence_High: ActivitySensorReadingConfidence = 0
-ActivitySensorReadingConfidence_Low: ActivitySensorReadingConfidence = 1
+class ActivitySensorReadingConfidence(Int32):  # enum
+    High = 0
+    Low = 1
 class ActivitySensorTriggerDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Sensors.IActivitySensorTriggerDetails
     _classid_ = 'Windows.Devices.Sensors.ActivitySensorTriggerDetails'
     @winrt_mixinmethod
     def ReadReports(self: win32more.Windows.Devices.Sensors.IActivitySensorTriggerDetails) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Devices.Sensors.ActivitySensorReadingChangeReport]: ...
-ActivityType = Int32
-ActivityType_Unknown: ActivityType = 0
-ActivityType_Idle: ActivityType = 1
-ActivityType_Stationary: ActivityType = 2
-ActivityType_Fidgeting: ActivityType = 3
-ActivityType_Walking: ActivityType = 4
-ActivityType_Running: ActivityType = 5
-ActivityType_InVehicle: ActivityType = 6
-ActivityType_Biking: ActivityType = 7
+class ActivityType(Int32):  # enum
+    Unknown = 0
+    Idle = 1
+    Stationary = 2
+    Fidgeting = 3
+    Walking = 4
+    Running = 5
+    InVehicle = 6
+    Biking = 7
 class AdaptiveDimmingOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Sensors.IAdaptiveDimmingOptions
@@ -551,14 +551,14 @@ class HingeAngleSensorReadingChangedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Reading(self: win32more.Windows.Devices.Sensors.IHingeAngleSensorReadingChangedEventArgs) -> win32more.Windows.Devices.Sensors.HingeAngleReading: ...
     Reading = property(get_Reading, None)
-HumanEngagement = Int32
-HumanEngagement_Unknown: HumanEngagement = 0
-HumanEngagement_Engaged: HumanEngagement = 1
-HumanEngagement_Unengaged: HumanEngagement = 2
-HumanPresence = Int32
-HumanPresence_Unknown: HumanPresence = 0
-HumanPresence_Present: HumanPresence = 1
-HumanPresence_NotPresent: HumanPresence = 2
+class HumanEngagement(Int32):  # enum
+    Unknown = 0
+    Engaged = 1
+    Unengaged = 2
+class HumanPresence(Int32):  # enum
+    Unknown = 0
+    Present = 1
+    NotPresent = 2
 class HumanPresenceFeatures(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Sensors.IHumanPresenceFeatures
@@ -2613,11 +2613,11 @@ class Magnetometer(ComPtr):
     ReportLatency = property(get_ReportLatency, put_ReportLatency)
     MaxBatchSize = property(get_MaxBatchSize, None)
     ReportThreshold = property(get_ReportThreshold, None)
-MagnetometerAccuracy = Int32
-MagnetometerAccuracy_Unknown: MagnetometerAccuracy = 0
-MagnetometerAccuracy_Unreliable: MagnetometerAccuracy = 1
-MagnetometerAccuracy_Approximate: MagnetometerAccuracy = 2
-MagnetometerAccuracy_High: MagnetometerAccuracy = 3
+class MagnetometerAccuracy(Int32):  # enum
+    Unknown = 0
+    Unreliable = 1
+    Approximate = 2
+    High = 3
 class MagnetometerDataThreshold(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Sensors.IMagnetometerDataThreshold
@@ -2821,10 +2821,10 @@ class PedometerReadingChangedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Reading(self: win32more.Windows.Devices.Sensors.IPedometerReadingChangedEventArgs) -> win32more.Windows.Devices.Sensors.PedometerReading: ...
     Reading = property(get_Reading, None)
-PedometerStepKind = Int32
-PedometerStepKind_Unknown: PedometerStepKind = 0
-PedometerStepKind_Walking: PedometerStepKind = 1
-PedometerStepKind_Running: PedometerStepKind = 2
+class PedometerStepKind(Int32):  # enum
+    Unknown = 0
+    Walking = 1
+    Running = 2
 class ProximitySensor(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Sensors.IProximitySensor
@@ -2901,9 +2901,9 @@ class SensorDataThresholdTriggerDetails(ComPtr):
     def get_SensorType(self: win32more.Windows.Devices.Sensors.ISensorDataThresholdTriggerDetails) -> win32more.Windows.Devices.Sensors.SensorType: ...
     DeviceId = property(get_DeviceId, None)
     SensorType = property(get_SensorType, None)
-SensorOptimizationGoal = Int32
-SensorOptimizationGoal_Precision: SensorOptimizationGoal = 0
-SensorOptimizationGoal_PowerEfficiency: SensorOptimizationGoal = 1
+class SensorOptimizationGoal(Int32):  # enum
+    Precision = 0
+    PowerEfficiency = 1
 class SensorQuaternion(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Sensors.ISensorQuaternion
@@ -2920,9 +2920,9 @@ class SensorQuaternion(ComPtr):
     X = property(get_X, None)
     Y = property(get_Y, None)
     Z = property(get_Z, None)
-SensorReadingType = Int32
-SensorReadingType_Absolute: SensorReadingType = 0
-SensorReadingType_Relative: SensorReadingType = 1
+class SensorReadingType(Int32):  # enum
+    Absolute = 0
+    Relative = 1
 class SensorRotationMatrix(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Sensors.ISensorRotationMatrix
@@ -2954,28 +2954,28 @@ class SensorRotationMatrix(ComPtr):
     M31 = property(get_M31, None)
     M32 = property(get_M32, None)
     M33 = property(get_M33, None)
-SensorType = Int32
-SensorType_Accelerometer: SensorType = 0
-SensorType_ActivitySensor: SensorType = 1
-SensorType_Barometer: SensorType = 2
-SensorType_Compass: SensorType = 3
-SensorType_CustomSensor: SensorType = 4
-SensorType_Gyroscope: SensorType = 5
-SensorType_ProximitySensor: SensorType = 6
-SensorType_Inclinometer: SensorType = 7
-SensorType_LightSensor: SensorType = 8
-SensorType_OrientationSensor: SensorType = 9
-SensorType_Pedometer: SensorType = 10
-SensorType_RelativeInclinometer: SensorType = 11
-SensorType_RelativeOrientationSensor: SensorType = 12
-SensorType_SimpleOrientationSensor: SensorType = 13
-SimpleOrientation = Int32
-SimpleOrientation_NotRotated: SimpleOrientation = 0
-SimpleOrientation_Rotated90DegreesCounterclockwise: SimpleOrientation = 1
-SimpleOrientation_Rotated180DegreesCounterclockwise: SimpleOrientation = 2
-SimpleOrientation_Rotated270DegreesCounterclockwise: SimpleOrientation = 3
-SimpleOrientation_Faceup: SimpleOrientation = 4
-SimpleOrientation_Facedown: SimpleOrientation = 5
+class SensorType(Int32):  # enum
+    Accelerometer = 0
+    ActivitySensor = 1
+    Barometer = 2
+    Compass = 3
+    CustomSensor = 4
+    Gyroscope = 5
+    ProximitySensor = 6
+    Inclinometer = 7
+    LightSensor = 8
+    OrientationSensor = 9
+    Pedometer = 10
+    RelativeInclinometer = 11
+    RelativeOrientationSensor = 12
+    SimpleOrientationSensor = 13
+class SimpleOrientation(Int32):  # enum
+    NotRotated = 0
+    Rotated90DegreesCounterclockwise = 1
+    Rotated180DegreesCounterclockwise = 2
+    Rotated270DegreesCounterclockwise = 3
+    Faceup = 4
+    Facedown = 5
 class SimpleOrientationSensor(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Sensors.ISimpleOrientationSensor

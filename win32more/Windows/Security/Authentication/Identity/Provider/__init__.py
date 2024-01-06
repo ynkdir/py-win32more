@@ -170,36 +170,36 @@ class SecondaryAuthenticationFactorAuthentication(ComPtr):
     SessionNonce = property(get_SessionNonce, None)
     DeviceNonce = property(get_DeviceNonce, None)
     DeviceConfigurationData = property(get_DeviceConfigurationData, None)
-SecondaryAuthenticationFactorAuthenticationMessage = Int32
-SecondaryAuthenticationFactorAuthenticationMessage_Invalid: SecondaryAuthenticationFactorAuthenticationMessage = 0
-SecondaryAuthenticationFactorAuthenticationMessage_SwipeUpWelcome: SecondaryAuthenticationFactorAuthenticationMessage = 1
-SecondaryAuthenticationFactorAuthenticationMessage_TapWelcome: SecondaryAuthenticationFactorAuthenticationMessage = 2
-SecondaryAuthenticationFactorAuthenticationMessage_DeviceNeedsAttention: SecondaryAuthenticationFactorAuthenticationMessage = 3
-SecondaryAuthenticationFactorAuthenticationMessage_LookingForDevice: SecondaryAuthenticationFactorAuthenticationMessage = 4
-SecondaryAuthenticationFactorAuthenticationMessage_LookingForDevicePluggedin: SecondaryAuthenticationFactorAuthenticationMessage = 5
-SecondaryAuthenticationFactorAuthenticationMessage_BluetoothIsDisabled: SecondaryAuthenticationFactorAuthenticationMessage = 6
-SecondaryAuthenticationFactorAuthenticationMessage_NfcIsDisabled: SecondaryAuthenticationFactorAuthenticationMessage = 7
-SecondaryAuthenticationFactorAuthenticationMessage_WiFiIsDisabled: SecondaryAuthenticationFactorAuthenticationMessage = 8
-SecondaryAuthenticationFactorAuthenticationMessage_ExtraTapIsRequired: SecondaryAuthenticationFactorAuthenticationMessage = 9
-SecondaryAuthenticationFactorAuthenticationMessage_DisabledByPolicy: SecondaryAuthenticationFactorAuthenticationMessage = 10
-SecondaryAuthenticationFactorAuthenticationMessage_TapOnDeviceRequired: SecondaryAuthenticationFactorAuthenticationMessage = 11
-SecondaryAuthenticationFactorAuthenticationMessage_HoldFinger: SecondaryAuthenticationFactorAuthenticationMessage = 12
-SecondaryAuthenticationFactorAuthenticationMessage_ScanFinger: SecondaryAuthenticationFactorAuthenticationMessage = 13
-SecondaryAuthenticationFactorAuthenticationMessage_UnauthorizedUser: SecondaryAuthenticationFactorAuthenticationMessage = 14
-SecondaryAuthenticationFactorAuthenticationMessage_ReregisterRequired: SecondaryAuthenticationFactorAuthenticationMessage = 15
-SecondaryAuthenticationFactorAuthenticationMessage_TryAgain: SecondaryAuthenticationFactorAuthenticationMessage = 16
-SecondaryAuthenticationFactorAuthenticationMessage_SayPassphrase: SecondaryAuthenticationFactorAuthenticationMessage = 17
-SecondaryAuthenticationFactorAuthenticationMessage_ReadyToSignIn: SecondaryAuthenticationFactorAuthenticationMessage = 18
-SecondaryAuthenticationFactorAuthenticationMessage_UseAnotherSignInOption: SecondaryAuthenticationFactorAuthenticationMessage = 19
-SecondaryAuthenticationFactorAuthenticationMessage_ConnectionRequired: SecondaryAuthenticationFactorAuthenticationMessage = 20
-SecondaryAuthenticationFactorAuthenticationMessage_TimeLimitExceeded: SecondaryAuthenticationFactorAuthenticationMessage = 21
-SecondaryAuthenticationFactorAuthenticationMessage_CanceledByUser: SecondaryAuthenticationFactorAuthenticationMessage = 22
-SecondaryAuthenticationFactorAuthenticationMessage_CenterHand: SecondaryAuthenticationFactorAuthenticationMessage = 23
-SecondaryAuthenticationFactorAuthenticationMessage_MoveHandCloser: SecondaryAuthenticationFactorAuthenticationMessage = 24
-SecondaryAuthenticationFactorAuthenticationMessage_MoveHandFarther: SecondaryAuthenticationFactorAuthenticationMessage = 25
-SecondaryAuthenticationFactorAuthenticationMessage_PlaceHandAbove: SecondaryAuthenticationFactorAuthenticationMessage = 26
-SecondaryAuthenticationFactorAuthenticationMessage_RecognitionFailed: SecondaryAuthenticationFactorAuthenticationMessage = 27
-SecondaryAuthenticationFactorAuthenticationMessage_DeviceUnavailable: SecondaryAuthenticationFactorAuthenticationMessage = 28
+class SecondaryAuthenticationFactorAuthenticationMessage(Int32):  # enum
+    Invalid = 0
+    SwipeUpWelcome = 1
+    TapWelcome = 2
+    DeviceNeedsAttention = 3
+    LookingForDevice = 4
+    LookingForDevicePluggedin = 5
+    BluetoothIsDisabled = 6
+    NfcIsDisabled = 7
+    WiFiIsDisabled = 8
+    ExtraTapIsRequired = 9
+    DisabledByPolicy = 10
+    TapOnDeviceRequired = 11
+    HoldFinger = 12
+    ScanFinger = 13
+    UnauthorizedUser = 14
+    ReregisterRequired = 15
+    TryAgain = 16
+    SayPassphrase = 17
+    ReadyToSignIn = 18
+    UseAnotherSignInOption = 19
+    ConnectionRequired = 20
+    TimeLimitExceeded = 21
+    CanceledByUser = 22
+    CenterHand = 23
+    MoveHandCloser = 24
+    MoveHandFarther = 25
+    PlaceHandAbove = 26
+    RecognitionFailed = 27
+    DeviceUnavailable = 28
 class SecondaryAuthenticationFactorAuthenticationResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Authentication.Identity.Provider.ISecondaryAuthenticationFactorAuthenticationResult
@@ -210,19 +210,19 @@ class SecondaryAuthenticationFactorAuthenticationResult(ComPtr):
     def get_Authentication(self: win32more.Windows.Security.Authentication.Identity.Provider.ISecondaryAuthenticationFactorAuthenticationResult) -> win32more.Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorAuthentication: ...
     Status = property(get_Status, None)
     Authentication = property(get_Authentication, None)
-SecondaryAuthenticationFactorAuthenticationScenario = Int32
-SecondaryAuthenticationFactorAuthenticationScenario_SignIn: SecondaryAuthenticationFactorAuthenticationScenario = 0
-SecondaryAuthenticationFactorAuthenticationScenario_CredentialPrompt: SecondaryAuthenticationFactorAuthenticationScenario = 1
-SecondaryAuthenticationFactorAuthenticationStage = Int32
-SecondaryAuthenticationFactorAuthenticationStage_NotStarted: SecondaryAuthenticationFactorAuthenticationStage = 0
-SecondaryAuthenticationFactorAuthenticationStage_WaitingForUserConfirmation: SecondaryAuthenticationFactorAuthenticationStage = 1
-SecondaryAuthenticationFactorAuthenticationStage_CollectingCredential: SecondaryAuthenticationFactorAuthenticationStage = 2
-SecondaryAuthenticationFactorAuthenticationStage_SuspendingAuthentication: SecondaryAuthenticationFactorAuthenticationStage = 3
-SecondaryAuthenticationFactorAuthenticationStage_CredentialCollected: SecondaryAuthenticationFactorAuthenticationStage = 4
-SecondaryAuthenticationFactorAuthenticationStage_CredentialAuthenticated: SecondaryAuthenticationFactorAuthenticationStage = 5
-SecondaryAuthenticationFactorAuthenticationStage_StoppingAuthentication: SecondaryAuthenticationFactorAuthenticationStage = 6
-SecondaryAuthenticationFactorAuthenticationStage_ReadyForLock: SecondaryAuthenticationFactorAuthenticationStage = 7
-SecondaryAuthenticationFactorAuthenticationStage_CheckingDevicePresence: SecondaryAuthenticationFactorAuthenticationStage = 8
+class SecondaryAuthenticationFactorAuthenticationScenario(Int32):  # enum
+    SignIn = 0
+    CredentialPrompt = 1
+class SecondaryAuthenticationFactorAuthenticationStage(Int32):  # enum
+    NotStarted = 0
+    WaitingForUserConfirmation = 1
+    CollectingCredential = 2
+    SuspendingAuthentication = 3
+    CredentialCollected = 4
+    CredentialAuthenticated = 5
+    StoppingAuthentication = 6
+    ReadyForLock = 7
+    CheckingDevicePresence = 8
 class SecondaryAuthenticationFactorAuthenticationStageChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Authentication.Identity.Provider.ISecondaryAuthenticationFactorAuthenticationStageChangedEventArgs
@@ -243,39 +243,39 @@ class SecondaryAuthenticationFactorAuthenticationStageInfo(ComPtr):
     Stage = property(get_Stage, None)
     Scenario = property(get_Scenario, None)
     DeviceId = property(get_DeviceId, None)
-SecondaryAuthenticationFactorAuthenticationStatus = Int32
-SecondaryAuthenticationFactorAuthenticationStatus_Failed: SecondaryAuthenticationFactorAuthenticationStatus = 0
-SecondaryAuthenticationFactorAuthenticationStatus_Started: SecondaryAuthenticationFactorAuthenticationStatus = 1
-SecondaryAuthenticationFactorAuthenticationStatus_UnknownDevice: SecondaryAuthenticationFactorAuthenticationStatus = 2
-SecondaryAuthenticationFactorAuthenticationStatus_DisabledByPolicy: SecondaryAuthenticationFactorAuthenticationStatus = 3
-SecondaryAuthenticationFactorAuthenticationStatus_InvalidAuthenticationStage: SecondaryAuthenticationFactorAuthenticationStatus = 4
-SecondaryAuthenticationFactorDeviceCapabilities = UInt32
-SecondaryAuthenticationFactorDeviceCapabilities_None: SecondaryAuthenticationFactorDeviceCapabilities = 0
-SecondaryAuthenticationFactorDeviceCapabilities_SecureStorage: SecondaryAuthenticationFactorDeviceCapabilities = 1
-SecondaryAuthenticationFactorDeviceCapabilities_StoreKeys: SecondaryAuthenticationFactorDeviceCapabilities = 2
-SecondaryAuthenticationFactorDeviceCapabilities_ConfirmUserIntentToAuthenticate: SecondaryAuthenticationFactorDeviceCapabilities = 4
-SecondaryAuthenticationFactorDeviceCapabilities_SupportSecureUserPresenceCheck: SecondaryAuthenticationFactorDeviceCapabilities = 8
-SecondaryAuthenticationFactorDeviceCapabilities_TransmittedDataIsEncrypted: SecondaryAuthenticationFactorDeviceCapabilities = 16
-SecondaryAuthenticationFactorDeviceCapabilities_HMacSha256: SecondaryAuthenticationFactorDeviceCapabilities = 32
-SecondaryAuthenticationFactorDeviceCapabilities_CloseRangeDataTransmission: SecondaryAuthenticationFactorDeviceCapabilities = 64
-SecondaryAuthenticationFactorDeviceFindScope = Int32
-SecondaryAuthenticationFactorDeviceFindScope_User: SecondaryAuthenticationFactorDeviceFindScope = 0
-SecondaryAuthenticationFactorDeviceFindScope_AllUsers: SecondaryAuthenticationFactorDeviceFindScope = 1
-SecondaryAuthenticationFactorDevicePresence = Int32
-SecondaryAuthenticationFactorDevicePresence_Absent: SecondaryAuthenticationFactorDevicePresence = 0
-SecondaryAuthenticationFactorDevicePresence_Present: SecondaryAuthenticationFactorDevicePresence = 1
-SecondaryAuthenticationFactorDevicePresenceMonitoringMode = Int32
-SecondaryAuthenticationFactorDevicePresenceMonitoringMode_Unsupported: SecondaryAuthenticationFactorDevicePresenceMonitoringMode = 0
-SecondaryAuthenticationFactorDevicePresenceMonitoringMode_AppManaged: SecondaryAuthenticationFactorDevicePresenceMonitoringMode = 1
-SecondaryAuthenticationFactorDevicePresenceMonitoringMode_SystemManaged: SecondaryAuthenticationFactorDevicePresenceMonitoringMode = 2
-SecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatus = Int32
-SecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatus_Unsupported: SecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatus = 0
-SecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatus_Succeeded: SecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatus = 1
-SecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatus_DisabledByPolicy: SecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatus = 2
-SecondaryAuthenticationFactorFinishAuthenticationStatus = Int32
-SecondaryAuthenticationFactorFinishAuthenticationStatus_Failed: SecondaryAuthenticationFactorFinishAuthenticationStatus = 0
-SecondaryAuthenticationFactorFinishAuthenticationStatus_Completed: SecondaryAuthenticationFactorFinishAuthenticationStatus = 1
-SecondaryAuthenticationFactorFinishAuthenticationStatus_NonceExpired: SecondaryAuthenticationFactorFinishAuthenticationStatus = 2
+class SecondaryAuthenticationFactorAuthenticationStatus(Int32):  # enum
+    Failed = 0
+    Started = 1
+    UnknownDevice = 2
+    DisabledByPolicy = 3
+    InvalidAuthenticationStage = 4
+class SecondaryAuthenticationFactorDeviceCapabilities(UInt32):  # enum
+    None_ = 0
+    SecureStorage = 1
+    StoreKeys = 2
+    ConfirmUserIntentToAuthenticate = 4
+    SupportSecureUserPresenceCheck = 8
+    TransmittedDataIsEncrypted = 16
+    HMacSha256 = 32
+    CloseRangeDataTransmission = 64
+class SecondaryAuthenticationFactorDeviceFindScope(Int32):  # enum
+    User = 0
+    AllUsers = 1
+class SecondaryAuthenticationFactorDevicePresence(Int32):  # enum
+    Absent = 0
+    Present = 1
+class SecondaryAuthenticationFactorDevicePresenceMonitoringMode(Int32):  # enum
+    Unsupported = 0
+    AppManaged = 1
+    SystemManaged = 2
+class SecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatus(Int32):  # enum
+    Unsupported = 0
+    Succeeded = 1
+    DisabledByPolicy = 2
+class SecondaryAuthenticationFactorFinishAuthenticationStatus(Int32):  # enum
+    Failed = 0
+    Completed = 1
+    NonceExpired = 2
 class SecondaryAuthenticationFactorInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Authentication.Identity.Provider.ISecondaryAuthenticationFactorInfo
@@ -334,12 +334,12 @@ class SecondaryAuthenticationFactorRegistrationResult(ComPtr):
     def get_Registration(self: win32more.Windows.Security.Authentication.Identity.Provider.ISecondaryAuthenticationFactorRegistrationResult) -> win32more.Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorRegistration: ...
     Status = property(get_Status, None)
     Registration = property(get_Registration, None)
-SecondaryAuthenticationFactorRegistrationStatus = Int32
-SecondaryAuthenticationFactorRegistrationStatus_Failed: SecondaryAuthenticationFactorRegistrationStatus = 0
-SecondaryAuthenticationFactorRegistrationStatus_Started: SecondaryAuthenticationFactorRegistrationStatus = 1
-SecondaryAuthenticationFactorRegistrationStatus_CanceledByUser: SecondaryAuthenticationFactorRegistrationStatus = 2
-SecondaryAuthenticationFactorRegistrationStatus_PinSetupRequired: SecondaryAuthenticationFactorRegistrationStatus = 3
-SecondaryAuthenticationFactorRegistrationStatus_DisabledByPolicy: SecondaryAuthenticationFactorRegistrationStatus = 4
+class SecondaryAuthenticationFactorRegistrationStatus(Int32):  # enum
+    Failed = 0
+    Started = 1
+    CanceledByUser = 2
+    PinSetupRequired = 3
+    DisabledByPolicy = 4
 
 
 make_ready(__name__)

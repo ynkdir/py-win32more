@@ -109,12 +109,12 @@ class ISystemUpdateManagerStatics(ComPtr):
     LastErrorInfo = property(get_LastErrorInfo, None)
     ExtendedError = property(get_ExtendedError, None)
     AttentionRequiredReason = property(get_AttentionRequiredReason, None)
-SystemUpdateAttentionRequiredReason = Int32
-SystemUpdateAttentionRequiredReason_None: SystemUpdateAttentionRequiredReason = 0
-SystemUpdateAttentionRequiredReason_NetworkRequired: SystemUpdateAttentionRequiredReason = 1
-SystemUpdateAttentionRequiredReason_InsufficientDiskSpace: SystemUpdateAttentionRequiredReason = 2
-SystemUpdateAttentionRequiredReason_InsufficientBattery: SystemUpdateAttentionRequiredReason = 3
-SystemUpdateAttentionRequiredReason_UpdateBlocked: SystemUpdateAttentionRequiredReason = 4
+class SystemUpdateAttentionRequiredReason(Int32):  # enum
+    None_ = 0
+    NetworkRequired = 1
+    InsufficientDiskSpace = 2
+    InsufficientBattery = 3
+    UpdateBlocked = 4
 class SystemUpdateItem(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.System.Update.ISystemUpdateItem
@@ -143,16 +143,16 @@ class SystemUpdateItem(ComPtr):
     DownloadProgress = property(get_DownloadProgress, None)
     InstallProgress = property(get_InstallProgress, None)
     ExtendedError = property(get_ExtendedError, None)
-SystemUpdateItemState = Int32
-SystemUpdateItemState_NotStarted: SystemUpdateItemState = 0
-SystemUpdateItemState_Initializing: SystemUpdateItemState = 1
-SystemUpdateItemState_Preparing: SystemUpdateItemState = 2
-SystemUpdateItemState_Calculating: SystemUpdateItemState = 3
-SystemUpdateItemState_Downloading: SystemUpdateItemState = 4
-SystemUpdateItemState_Installing: SystemUpdateItemState = 5
-SystemUpdateItemState_Completed: SystemUpdateItemState = 6
-SystemUpdateItemState_RebootRequired: SystemUpdateItemState = 7
-SystemUpdateItemState_Error: SystemUpdateItemState = 8
+class SystemUpdateItemState(Int32):  # enum
+    NotStarted = 0
+    Initializing = 1
+    Preparing = 2
+    Calculating = 3
+    Downloading = 4
+    Installing = 5
+    Completed = 6
+    RebootRequired = 7
+    Error = 8
 class SystemUpdateLastErrorInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.System.Update.ISystemUpdateLastErrorInfo
@@ -230,22 +230,22 @@ class SystemUpdateManager(ComPtr, metaclass=_SystemUpdateManager_Meta_):
     _SystemUpdateManager_Meta_.LastErrorInfo = property(get_LastErrorInfo.__wrapped__, None)
     _SystemUpdateManager_Meta_.ExtendedError = property(get_ExtendedError.__wrapped__, None)
     _SystemUpdateManager_Meta_.AttentionRequiredReason = property(get_AttentionRequiredReason.__wrapped__, None)
-SystemUpdateManagerState = Int32
-SystemUpdateManagerState_Idle: SystemUpdateManagerState = 0
-SystemUpdateManagerState_Detecting: SystemUpdateManagerState = 1
-SystemUpdateManagerState_ReadyToDownload: SystemUpdateManagerState = 2
-SystemUpdateManagerState_Downloading: SystemUpdateManagerState = 3
-SystemUpdateManagerState_ReadyToInstall: SystemUpdateManagerState = 4
-SystemUpdateManagerState_Installing: SystemUpdateManagerState = 5
-SystemUpdateManagerState_RebootRequired: SystemUpdateManagerState = 6
-SystemUpdateManagerState_ReadyToFinalize: SystemUpdateManagerState = 7
-SystemUpdateManagerState_Finalizing: SystemUpdateManagerState = 8
-SystemUpdateManagerState_Completed: SystemUpdateManagerState = 9
-SystemUpdateManagerState_AttentionRequired: SystemUpdateManagerState = 10
-SystemUpdateManagerState_Error: SystemUpdateManagerState = 11
-SystemUpdateStartInstallAction = Int32
-SystemUpdateStartInstallAction_UpToReboot: SystemUpdateStartInstallAction = 0
-SystemUpdateStartInstallAction_AllowReboot: SystemUpdateStartInstallAction = 1
+class SystemUpdateManagerState(Int32):  # enum
+    Idle = 0
+    Detecting = 1
+    ReadyToDownload = 2
+    Downloading = 3
+    ReadyToInstall = 4
+    Installing = 5
+    RebootRequired = 6
+    ReadyToFinalize = 7
+    Finalizing = 8
+    Completed = 9
+    AttentionRequired = 10
+    Error = 11
+class SystemUpdateStartInstallAction(Int32):  # enum
+    UpToReboot = 0
+    AllowReboot = 1
 
 
 make_ready(__name__)

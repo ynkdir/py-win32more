@@ -1207,11 +1207,11 @@ class PerceptionDepthFrameSourceWatcher(ComPtr):
     @winrt_mixinmethod
     def Stop(self: win32more.Windows.Devices.Perception.IPerceptionDepthFrameSourceWatcher) -> Void: ...
     Status = property(get_Status, None)
-PerceptionFrameSourceAccessStatus = Int32
-PerceptionFrameSourceAccessStatus_Unspecified: PerceptionFrameSourceAccessStatus = 0
-PerceptionFrameSourceAccessStatus_Allowed: PerceptionFrameSourceAccessStatus = 1
-PerceptionFrameSourceAccessStatus_DeniedByUser: PerceptionFrameSourceAccessStatus = 2
-PerceptionFrameSourceAccessStatus_DeniedBySystem: PerceptionFrameSourceAccessStatus = 3
+class PerceptionFrameSourceAccessStatus(Int32):  # enum
+    Unspecified = 0
+    Allowed = 1
+    DeniedByUser = 2
+    DeniedBySystem = 3
 class PerceptionFrameSourcePropertiesChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Perception.IPerceptionFrameSourcePropertiesChangedEventArgs
@@ -1232,13 +1232,13 @@ class PerceptionFrameSourcePropertyChangeResult(ComPtr):
     def get_NewValue(self: win32more.Windows.Devices.Perception.IPerceptionFrameSourcePropertyChangeResult) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     Status = property(get_Status, None)
     NewValue = property(get_NewValue, None)
-PerceptionFrameSourcePropertyChangeStatus = Int32
-PerceptionFrameSourcePropertyChangeStatus_Unknown: PerceptionFrameSourcePropertyChangeStatus = 0
-PerceptionFrameSourcePropertyChangeStatus_Accepted: PerceptionFrameSourcePropertyChangeStatus = 1
-PerceptionFrameSourcePropertyChangeStatus_LostControl: PerceptionFrameSourcePropertyChangeStatus = 2
-PerceptionFrameSourcePropertyChangeStatus_PropertyNotSupported: PerceptionFrameSourcePropertyChangeStatus = 3
-PerceptionFrameSourcePropertyChangeStatus_PropertyReadOnly: PerceptionFrameSourcePropertyChangeStatus = 4
-PerceptionFrameSourcePropertyChangeStatus_ValueOutOfRange: PerceptionFrameSourcePropertyChangeStatus = 5
+class PerceptionFrameSourcePropertyChangeStatus(Int32):  # enum
+    Unknown = 0
+    Accepted = 1
+    LostControl = 2
+    PropertyNotSupported = 3
+    PropertyReadOnly = 4
+    ValueOutOfRange = 5
 class PerceptionInfraredFrame(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Perception.IPerceptionInfraredFrame

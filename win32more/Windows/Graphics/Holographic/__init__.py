@@ -144,9 +144,9 @@ class HolographicCameraViewportParameters(ComPtr):
     def get_VisibleAreaMesh(self: win32more.Windows.Graphics.Holographic.IHolographicCameraViewportParameters) -> SZArray[win32more.Windows.Foundation.Numerics.Vector2]: ...
     HiddenAreaMesh = property(get_HiddenAreaMesh, None)
     VisibleAreaMesh = property(get_VisibleAreaMesh, None)
-HolographicDepthReprojectionMethod = Int32
-HolographicDepthReprojectionMethod_DepthReprojection: HolographicDepthReprojectionMethod = 0
-HolographicDepthReprojectionMethod_AutoPlanar: HolographicDepthReprojectionMethod = 1
+class HolographicDepthReprojectionMethod(Int32):  # enum
+    DepthReprojection = 0
+    AutoPlanar = 1
 class HolographicDisplay(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Holographic.IHolographicDisplay
@@ -219,12 +219,12 @@ class HolographicFramePrediction(ComPtr):
     def get_Timestamp(self: win32more.Windows.Graphics.Holographic.IHolographicFramePrediction) -> win32more.Windows.Perception.PerceptionTimestamp: ...
     CameraPoses = property(get_CameraPoses, None)
     Timestamp = property(get_Timestamp, None)
-HolographicFramePresentResult = Int32
-HolographicFramePresentResult_Success: HolographicFramePresentResult = 0
-HolographicFramePresentResult_DeviceRemoved: HolographicFramePresentResult = 1
-HolographicFramePresentWaitBehavior = Int32
-HolographicFramePresentWaitBehavior_WaitForFrameToFinish: HolographicFramePresentWaitBehavior = 0
-HolographicFramePresentWaitBehavior_DoNotWaitForFrameToFinish: HolographicFramePresentWaitBehavior = 1
+class HolographicFramePresentResult(Int32):  # enum
+    Success = 0
+    DeviceRemoved = 1
+class HolographicFramePresentWaitBehavior(Int32):  # enum
+    WaitForFrameToFinish = 0
+    DoNotWaitForFrameToFinish = 1
 class HolographicFramePresentationMonitor(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Holographic.IHolographicFramePresentationMonitor
@@ -344,10 +344,10 @@ class HolographicQuadLayerUpdateParameters(ComPtr):
     @winrt_mixinmethod
     def AcquireBufferToUpdateContentWithHardwareProtection(self: win32more.Windows.Graphics.Holographic.IHolographicQuadLayerUpdateParameters2) -> win32more.Windows.Graphics.DirectX.Direct3D11.IDirect3DSurface: ...
     CanAcquireWithHardwareProtection = property(get_CanAcquireWithHardwareProtection, None)
-HolographicReprojectionMode = Int32
-HolographicReprojectionMode_PositionAndOrientation: HolographicReprojectionMode = 0
-HolographicReprojectionMode_OrientationOnly: HolographicReprojectionMode = 1
-HolographicReprojectionMode_Disabled: HolographicReprojectionMode = 2
+class HolographicReprojectionMode(Int32):  # enum
+    PositionAndOrientation = 0
+    OrientationOnly = 1
+    Disabled = 2
 class _HolographicSpace_Meta_(ComPtr.__class__):
     pass
 class HolographicSpace(ComPtr, metaclass=_HolographicSpace_Meta_):
@@ -415,10 +415,10 @@ class HolographicSpaceCameraRemovedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Camera(self: win32more.Windows.Graphics.Holographic.IHolographicSpaceCameraRemovedEventArgs) -> win32more.Windows.Graphics.Holographic.HolographicCamera: ...
     Camera = property(get_Camera, None)
-HolographicSpaceUserPresence = Int32
-HolographicSpaceUserPresence_Absent: HolographicSpaceUserPresence = 0
-HolographicSpaceUserPresence_PresentPassive: HolographicSpaceUserPresence = 1
-HolographicSpaceUserPresence_PresentActive: HolographicSpaceUserPresence = 2
+class HolographicSpaceUserPresence(Int32):  # enum
+    Absent = 0
+    PresentPassive = 1
+    PresentActive = 2
 class HolographicStereoTransform(EasyCastStructure):
     Left: win32more.Windows.Foundation.Numerics.Matrix4x4
     Right: win32more.Windows.Foundation.Numerics.Matrix4x4
@@ -462,9 +462,9 @@ class HolographicViewConfiguration(ComPtr):
     Display = property(get_Display, None)
     IsEnabled = property(get_IsEnabled, put_IsEnabled)
     SupportedDepthReprojectionMethods = property(get_SupportedDepthReprojectionMethods, None)
-HolographicViewConfigurationKind = Int32
-HolographicViewConfigurationKind_Display: HolographicViewConfigurationKind = 0
-HolographicViewConfigurationKind_PhotoVideoCamera: HolographicViewConfigurationKind = 1
+class HolographicViewConfigurationKind(Int32):  # enum
+    Display = 0
+    PhotoVideoCamera = 1
 class IHolographicCamera(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Holographic.IHolographicCamera'

@@ -9,10 +9,10 @@ import win32more.Windows.Storage.Streams
 import win32more.Windows.System
 import win32more.Windows.System.UserProfile
 import win32more.Windows.Win32.System.WinRT
-AccountPictureKind = Int32
-AccountPictureKind_SmallImage: AccountPictureKind = 0
-AccountPictureKind_LargeImage: AccountPictureKind = 1
-AccountPictureKind_Video: AccountPictureKind = 2
+class AccountPictureKind(Int32):  # enum
+    SmallImage = 0
+    LargeImage = 1
+    Video = 2
 class _AdvertisingManager_Meta_(ComPtr.__class__):
     pass
 class AdvertisingManager(ComPtr, metaclass=_AdvertisingManager_Meta_):
@@ -360,17 +360,17 @@ class LockScreen(ComPtr, metaclass=_LockScreen_Meta_):
     @winrt_classmethod
     def SetImageStreamAsync(cls: win32more.Windows.System.UserProfile.ILockScreenStatics, value: win32more.Windows.Storage.Streams.IRandomAccessStream) -> win32more.Windows.Foundation.IAsyncAction: ...
     _LockScreen_Meta_.OriginalImageFile = property(get_OriginalImageFile.__wrapped__, None)
-SetAccountPictureResult = Int32
-SetAccountPictureResult_Success: SetAccountPictureResult = 0
-SetAccountPictureResult_ChangeDisabled: SetAccountPictureResult = 1
-SetAccountPictureResult_LargeOrDynamicError: SetAccountPictureResult = 2
-SetAccountPictureResult_VideoFrameSizeError: SetAccountPictureResult = 3
-SetAccountPictureResult_FileSizeError: SetAccountPictureResult = 4
-SetAccountPictureResult_Failure: SetAccountPictureResult = 5
-SetImageFeedResult = Int32
-SetImageFeedResult_Success: SetImageFeedResult = 0
-SetImageFeedResult_ChangeDisabled: SetImageFeedResult = 1
-SetImageFeedResult_UserCanceled: SetImageFeedResult = 2
+class SetAccountPictureResult(Int32):  # enum
+    Success = 0
+    ChangeDisabled = 1
+    LargeOrDynamicError = 2
+    VideoFrameSizeError = 3
+    FileSizeError = 4
+    Failure = 5
+class SetImageFeedResult(Int32):  # enum
+    Success = 0
+    ChangeDisabled = 1
+    UserCanceled = 2
 class _UserInformation_Meta_(ComPtr.__class__):
     pass
 class UserInformation(ComPtr, metaclass=_UserInformation_Meta_):

@@ -213,11 +213,11 @@ class ResourceCandidate(ComPtr):
     ValueAsBytes = property(get_ValueAsBytes, None)
     Kind = property(get_Kind, None)
     QualifierValues = property(get_QualifierValues, None)
-ResourceCandidateKind = Int32
-ResourceCandidateKind_Unknown: ResourceCandidateKind = 0
-ResourceCandidateKind_String: ResourceCandidateKind = 1
-ResourceCandidateKind_FilePath: ResourceCandidateKind = 2
-ResourceCandidateKind_EmbeddedData: ResourceCandidateKind = 3
+class ResourceCandidateKind(Int32):  # enum
+    Unknown = 0
+    String = 1
+    FilePath = 2
+    EmbeddedData = 3
 class ResourceContext(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Windows.ApplicationModel.Resources.IResourceContext

@@ -10,10 +10,10 @@ import win32more.Microsoft.UI.Xaml.Controls.Primitives
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Win32.System.WinRT
-AccessibilityView = Int32
-AccessibilityView_Raw: AccessibilityView = 0
-AccessibilityView_Control: AccessibilityView = 1
-AccessibilityView_Content: AccessibilityView = 2
+class AccessibilityView(Int32):  # enum
+    Raw = 0
+    Control = 1
+    Content = 2
 class AnimatedVisualPlayerAutomationPeer(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Microsoft.UI.Xaml.Automation.Peers.IAnimatedVisualPlayerAutomationPeer
@@ -124,124 +124,124 @@ class AutoSuggestBoxAutomationPeer(ComPtr):
     def CreateInstanceWithOwner(cls: win32more.Microsoft.UI.Xaml.Automation.Peers.IAutoSuggestBoxAutomationPeerFactory, owner: win32more.Microsoft.UI.Xaml.Controls.AutoSuggestBox) -> win32more.Microsoft.UI.Xaml.Automation.Peers.AutoSuggestBoxAutomationPeer: ...
     @winrt_mixinmethod
     def Invoke(self: win32more.Microsoft.UI.Xaml.Automation.Provider.IInvokeProvider) -> Void: ...
-AutomationControlType = Int32
-AutomationControlType_Button: AutomationControlType = 0
-AutomationControlType_Calendar: AutomationControlType = 1
-AutomationControlType_CheckBox: AutomationControlType = 2
-AutomationControlType_ComboBox: AutomationControlType = 3
-AutomationControlType_Edit: AutomationControlType = 4
-AutomationControlType_Hyperlink: AutomationControlType = 5
-AutomationControlType_Image: AutomationControlType = 6
-AutomationControlType_ListItem: AutomationControlType = 7
-AutomationControlType_List: AutomationControlType = 8
-AutomationControlType_Menu: AutomationControlType = 9
-AutomationControlType_MenuBar: AutomationControlType = 10
-AutomationControlType_MenuItem: AutomationControlType = 11
-AutomationControlType_ProgressBar: AutomationControlType = 12
-AutomationControlType_RadioButton: AutomationControlType = 13
-AutomationControlType_ScrollBar: AutomationControlType = 14
-AutomationControlType_Slider: AutomationControlType = 15
-AutomationControlType_Spinner: AutomationControlType = 16
-AutomationControlType_StatusBar: AutomationControlType = 17
-AutomationControlType_Tab: AutomationControlType = 18
-AutomationControlType_TabItem: AutomationControlType = 19
-AutomationControlType_Text: AutomationControlType = 20
-AutomationControlType_ToolBar: AutomationControlType = 21
-AutomationControlType_ToolTip: AutomationControlType = 22
-AutomationControlType_Tree: AutomationControlType = 23
-AutomationControlType_TreeItem: AutomationControlType = 24
-AutomationControlType_Custom: AutomationControlType = 25
-AutomationControlType_Group: AutomationControlType = 26
-AutomationControlType_Thumb: AutomationControlType = 27
-AutomationControlType_DataGrid: AutomationControlType = 28
-AutomationControlType_DataItem: AutomationControlType = 29
-AutomationControlType_Document: AutomationControlType = 30
-AutomationControlType_SplitButton: AutomationControlType = 31
-AutomationControlType_Window: AutomationControlType = 32
-AutomationControlType_Pane: AutomationControlType = 33
-AutomationControlType_Header: AutomationControlType = 34
-AutomationControlType_HeaderItem: AutomationControlType = 35
-AutomationControlType_Table: AutomationControlType = 36
-AutomationControlType_TitleBar: AutomationControlType = 37
-AutomationControlType_Separator: AutomationControlType = 38
-AutomationControlType_SemanticZoom: AutomationControlType = 39
-AutomationControlType_AppBar: AutomationControlType = 40
-AutomationControlType_FlipView: AutomationControlType = 41
-AutomationEvents = Int32
-AutomationEvents_ToolTipOpened: AutomationEvents = 0
-AutomationEvents_ToolTipClosed: AutomationEvents = 1
-AutomationEvents_MenuOpened: AutomationEvents = 2
-AutomationEvents_MenuClosed: AutomationEvents = 3
-AutomationEvents_AutomationFocusChanged: AutomationEvents = 4
-AutomationEvents_InvokePatternOnInvoked: AutomationEvents = 5
-AutomationEvents_SelectionItemPatternOnElementAddedToSelection: AutomationEvents = 6
-AutomationEvents_SelectionItemPatternOnElementRemovedFromSelection: AutomationEvents = 7
-AutomationEvents_SelectionItemPatternOnElementSelected: AutomationEvents = 8
-AutomationEvents_SelectionPatternOnInvalidated: AutomationEvents = 9
-AutomationEvents_TextPatternOnTextSelectionChanged: AutomationEvents = 10
-AutomationEvents_TextPatternOnTextChanged: AutomationEvents = 11
-AutomationEvents_AsyncContentLoaded: AutomationEvents = 12
-AutomationEvents_PropertyChanged: AutomationEvents = 13
-AutomationEvents_StructureChanged: AutomationEvents = 14
-AutomationEvents_DragStart: AutomationEvents = 15
-AutomationEvents_DragCancel: AutomationEvents = 16
-AutomationEvents_DragComplete: AutomationEvents = 17
-AutomationEvents_DragEnter: AutomationEvents = 18
-AutomationEvents_DragLeave: AutomationEvents = 19
-AutomationEvents_Dropped: AutomationEvents = 20
-AutomationEvents_LiveRegionChanged: AutomationEvents = 21
-AutomationEvents_InputReachedTarget: AutomationEvents = 22
-AutomationEvents_InputReachedOtherElement: AutomationEvents = 23
-AutomationEvents_InputDiscarded: AutomationEvents = 24
-AutomationEvents_WindowClosed: AutomationEvents = 25
-AutomationEvents_WindowOpened: AutomationEvents = 26
-AutomationEvents_ConversionTargetChanged: AutomationEvents = 27
-AutomationEvents_TextEditTextChanged: AutomationEvents = 28
-AutomationEvents_LayoutInvalidated: AutomationEvents = 29
-AutomationHeadingLevel = Int32
-AutomationHeadingLevel_None: AutomationHeadingLevel = 0
-AutomationHeadingLevel_Level1: AutomationHeadingLevel = 1
-AutomationHeadingLevel_Level2: AutomationHeadingLevel = 2
-AutomationHeadingLevel_Level3: AutomationHeadingLevel = 3
-AutomationHeadingLevel_Level4: AutomationHeadingLevel = 4
-AutomationHeadingLevel_Level5: AutomationHeadingLevel = 5
-AutomationHeadingLevel_Level6: AutomationHeadingLevel = 6
-AutomationHeadingLevel_Level7: AutomationHeadingLevel = 7
-AutomationHeadingLevel_Level8: AutomationHeadingLevel = 8
-AutomationHeadingLevel_Level9: AutomationHeadingLevel = 9
-AutomationLandmarkType = Int32
-AutomationLandmarkType_None: AutomationLandmarkType = 0
-AutomationLandmarkType_Custom: AutomationLandmarkType = 1
-AutomationLandmarkType_Form: AutomationLandmarkType = 2
-AutomationLandmarkType_Main: AutomationLandmarkType = 3
-AutomationLandmarkType_Navigation: AutomationLandmarkType = 4
-AutomationLandmarkType_Search: AutomationLandmarkType = 5
-AutomationLiveSetting = Int32
-AutomationLiveSetting_Off: AutomationLiveSetting = 0
-AutomationLiveSetting_Polite: AutomationLiveSetting = 1
-AutomationLiveSetting_Assertive: AutomationLiveSetting = 2
-AutomationNavigationDirection = Int32
-AutomationNavigationDirection_Parent: AutomationNavigationDirection = 0
-AutomationNavigationDirection_NextSibling: AutomationNavigationDirection = 1
-AutomationNavigationDirection_PreviousSibling: AutomationNavigationDirection = 2
-AutomationNavigationDirection_FirstChild: AutomationNavigationDirection = 3
-AutomationNavigationDirection_LastChild: AutomationNavigationDirection = 4
-AutomationNotificationKind = Int32
-AutomationNotificationKind_ItemAdded: AutomationNotificationKind = 0
-AutomationNotificationKind_ItemRemoved: AutomationNotificationKind = 1
-AutomationNotificationKind_ActionCompleted: AutomationNotificationKind = 2
-AutomationNotificationKind_ActionAborted: AutomationNotificationKind = 3
-AutomationNotificationKind_Other: AutomationNotificationKind = 4
-AutomationNotificationProcessing = Int32
-AutomationNotificationProcessing_ImportantAll: AutomationNotificationProcessing = 0
-AutomationNotificationProcessing_ImportantMostRecent: AutomationNotificationProcessing = 1
-AutomationNotificationProcessing_All: AutomationNotificationProcessing = 2
-AutomationNotificationProcessing_MostRecent: AutomationNotificationProcessing = 3
-AutomationNotificationProcessing_CurrentThenMostRecent: AutomationNotificationProcessing = 4
-AutomationOrientation = Int32
-AutomationOrientation_None: AutomationOrientation = 0
-AutomationOrientation_Horizontal: AutomationOrientation = 1
-AutomationOrientation_Vertical: AutomationOrientation = 2
+class AutomationControlType(Int32):  # enum
+    Button = 0
+    Calendar = 1
+    CheckBox = 2
+    ComboBox = 3
+    Edit = 4
+    Hyperlink = 5
+    Image = 6
+    ListItem = 7
+    List = 8
+    Menu = 9
+    MenuBar = 10
+    MenuItem = 11
+    ProgressBar = 12
+    RadioButton = 13
+    ScrollBar = 14
+    Slider = 15
+    Spinner = 16
+    StatusBar = 17
+    Tab = 18
+    TabItem = 19
+    Text = 20
+    ToolBar = 21
+    ToolTip = 22
+    Tree = 23
+    TreeItem = 24
+    Custom = 25
+    Group = 26
+    Thumb = 27
+    DataGrid = 28
+    DataItem = 29
+    Document = 30
+    SplitButton = 31
+    Window = 32
+    Pane = 33
+    Header = 34
+    HeaderItem = 35
+    Table = 36
+    TitleBar = 37
+    Separator = 38
+    SemanticZoom = 39
+    AppBar = 40
+    FlipView = 41
+class AutomationEvents(Int32):  # enum
+    ToolTipOpened = 0
+    ToolTipClosed = 1
+    MenuOpened = 2
+    MenuClosed = 3
+    AutomationFocusChanged = 4
+    InvokePatternOnInvoked = 5
+    SelectionItemPatternOnElementAddedToSelection = 6
+    SelectionItemPatternOnElementRemovedFromSelection = 7
+    SelectionItemPatternOnElementSelected = 8
+    SelectionPatternOnInvalidated = 9
+    TextPatternOnTextSelectionChanged = 10
+    TextPatternOnTextChanged = 11
+    AsyncContentLoaded = 12
+    PropertyChanged = 13
+    StructureChanged = 14
+    DragStart = 15
+    DragCancel = 16
+    DragComplete = 17
+    DragEnter = 18
+    DragLeave = 19
+    Dropped = 20
+    LiveRegionChanged = 21
+    InputReachedTarget = 22
+    InputReachedOtherElement = 23
+    InputDiscarded = 24
+    WindowClosed = 25
+    WindowOpened = 26
+    ConversionTargetChanged = 27
+    TextEditTextChanged = 28
+    LayoutInvalidated = 29
+class AutomationHeadingLevel(Int32):  # enum
+    None_ = 0
+    Level1 = 1
+    Level2 = 2
+    Level3 = 3
+    Level4 = 4
+    Level5 = 5
+    Level6 = 6
+    Level7 = 7
+    Level8 = 8
+    Level9 = 9
+class AutomationLandmarkType(Int32):  # enum
+    None_ = 0
+    Custom = 1
+    Form = 2
+    Main = 3
+    Navigation = 4
+    Search = 5
+class AutomationLiveSetting(Int32):  # enum
+    Off = 0
+    Polite = 1
+    Assertive = 2
+class AutomationNavigationDirection(Int32):  # enum
+    Parent = 0
+    NextSibling = 1
+    PreviousSibling = 2
+    FirstChild = 3
+    LastChild = 4
+class AutomationNotificationKind(Int32):  # enum
+    ItemAdded = 0
+    ItemRemoved = 1
+    ActionCompleted = 2
+    ActionAborted = 3
+    Other = 4
+class AutomationNotificationProcessing(Int32):  # enum
+    ImportantAll = 0
+    ImportantMostRecent = 1
+    All = 2
+    MostRecent = 3
+    CurrentThenMostRecent = 4
+class AutomationOrientation(Int32):  # enum
+    None_ = 0
+    Horizontal = 1
+    Vertical = 2
 class AutomationPeer(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.DependencyObject
     default_interface: win32more.Microsoft.UI.Xaml.Automation.Peers.IAutomationPeer
@@ -507,13 +507,13 @@ class AutomationPeerAnnotation(ComPtr, metaclass=_AutomationPeerAnnotation_Meta_
     Peer = property(get_Peer, put_Peer)
     _AutomationPeerAnnotation_Meta_.TypeProperty = property(get_TypeProperty.__wrapped__, None)
     _AutomationPeerAnnotation_Meta_.PeerProperty = property(get_PeerProperty.__wrapped__, None)
-AutomationStructureChangeType = Int32
-AutomationStructureChangeType_ChildAdded: AutomationStructureChangeType = 0
-AutomationStructureChangeType_ChildRemoved: AutomationStructureChangeType = 1
-AutomationStructureChangeType_ChildrenInvalidated: AutomationStructureChangeType = 2
-AutomationStructureChangeType_ChildrenBulkAdded: AutomationStructureChangeType = 3
-AutomationStructureChangeType_ChildrenBulkRemoved: AutomationStructureChangeType = 4
-AutomationStructureChangeType_ChildrenReordered: AutomationStructureChangeType = 5
+class AutomationStructureChangeType(Int32):  # enum
+    ChildAdded = 0
+    ChildRemoved = 1
+    ChildrenInvalidated = 2
+    ChildrenBulkAdded = 3
+    ChildrenBulkRemoved = 4
+    ChildrenReordered = 5
 class BreadcrumbBarItemAutomationPeer(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Microsoft.UI.Xaml.Automation.Peers.IBreadcrumbBarItemAutomationPeer
@@ -2651,41 +2651,41 @@ class PasswordBoxAutomationPeer(ComPtr):
             raise ValueError('no matched constructor')
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Microsoft.UI.Xaml.Automation.Peers.IPasswordBoxAutomationPeerFactory, owner: win32more.Microsoft.UI.Xaml.Controls.PasswordBox, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Automation.Peers.PasswordBoxAutomationPeer: ...
-PatternInterface = Int32
-PatternInterface_Invoke: PatternInterface = 0
-PatternInterface_Selection: PatternInterface = 1
-PatternInterface_Value: PatternInterface = 2
-PatternInterface_RangeValue: PatternInterface = 3
-PatternInterface_Scroll: PatternInterface = 4
-PatternInterface_ScrollItem: PatternInterface = 5
-PatternInterface_ExpandCollapse: PatternInterface = 6
-PatternInterface_Grid: PatternInterface = 7
-PatternInterface_GridItem: PatternInterface = 8
-PatternInterface_MultipleView: PatternInterface = 9
-PatternInterface_Window: PatternInterface = 10
-PatternInterface_SelectionItem: PatternInterface = 11
-PatternInterface_Dock: PatternInterface = 12
-PatternInterface_Table: PatternInterface = 13
-PatternInterface_TableItem: PatternInterface = 14
-PatternInterface_Toggle: PatternInterface = 15
-PatternInterface_Transform: PatternInterface = 16
-PatternInterface_Text: PatternInterface = 17
-PatternInterface_ItemContainer: PatternInterface = 18
-PatternInterface_VirtualizedItem: PatternInterface = 19
-PatternInterface_Text2: PatternInterface = 20
-PatternInterface_TextChild: PatternInterface = 21
-PatternInterface_TextRange: PatternInterface = 22
-PatternInterface_Annotation: PatternInterface = 23
-PatternInterface_Drag: PatternInterface = 24
-PatternInterface_DropTarget: PatternInterface = 25
-PatternInterface_ObjectModel: PatternInterface = 26
-PatternInterface_Spreadsheet: PatternInterface = 27
-PatternInterface_SpreadsheetItem: PatternInterface = 28
-PatternInterface_Styles: PatternInterface = 29
-PatternInterface_Transform2: PatternInterface = 30
-PatternInterface_SynchronizedInput: PatternInterface = 31
-PatternInterface_TextEdit: PatternInterface = 32
-PatternInterface_CustomNavigation: PatternInterface = 33
+class PatternInterface(Int32):  # enum
+    Invoke = 0
+    Selection = 1
+    Value = 2
+    RangeValue = 3
+    Scroll = 4
+    ScrollItem = 5
+    ExpandCollapse = 6
+    Grid = 7
+    GridItem = 8
+    MultipleView = 9
+    Window = 10
+    SelectionItem = 11
+    Dock = 12
+    Table = 13
+    TableItem = 14
+    Toggle = 15
+    Transform = 16
+    Text = 17
+    ItemContainer = 18
+    VirtualizedItem = 19
+    Text2 = 20
+    TextChild = 21
+    TextRange = 22
+    Annotation = 23
+    Drag = 24
+    DropTarget = 25
+    ObjectModel = 26
+    Spreadsheet = 27
+    SpreadsheetItem = 28
+    Styles = 29
+    Transform2 = 30
+    SynchronizedInput = 31
+    TextEdit = 32
+    CustomNavigation = 33
 class PersonPictureAutomationPeer(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Microsoft.UI.Xaml.Automation.Peers.IPersonPictureAutomationPeer

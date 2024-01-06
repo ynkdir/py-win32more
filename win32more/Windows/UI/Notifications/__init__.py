@@ -8,8 +8,8 @@ import win32more.Windows.Foundation.Collections
 import win32more.Windows.System
 import win32more.Windows.UI.Notifications
 import win32more.Windows.Win32.System.WinRT
-AdaptiveNotificationContentKind = Int32
-AdaptiveNotificationContentKind_Text: AdaptiveNotificationContentKind = 0
+class AdaptiveNotificationContentKind(Int32):  # enum
+    Text = 0
 class AdaptiveNotificationText(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Notifications.IAdaptiveNotificationText
@@ -60,9 +60,9 @@ class BadgeNotification(ComPtr):
     def get_ExpirationTime(self: win32more.Windows.UI.Notifications.IBadgeNotification) -> win32more.Windows.Foundation.IReference[win32more.Windows.Foundation.DateTime]: ...
     Content = property(get_Content, None)
     ExpirationTime = property(get_ExpirationTime, put_ExpirationTime)
-BadgeTemplateType = Int32
-BadgeTemplateType_BadgeGlyph: BadgeTemplateType = 0
-BadgeTemplateType_BadgeNumber: BadgeTemplateType = 1
+class BadgeTemplateType(Int32):  # enum
+    BadgeGlyph = 0
+    BadgeNumber = 1
 class BadgeUpdateManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Notifications.BadgeUpdateManager'
@@ -1113,22 +1113,22 @@ class NotificationData(ComPtr):
     def put_SequenceNumber(self: win32more.Windows.UI.Notifications.INotificationData, value: UInt32) -> Void: ...
     Values = property(get_Values, None)
     SequenceNumber = property(get_SequenceNumber, put_SequenceNumber)
-NotificationKinds = UInt32
-NotificationKinds_Unknown: NotificationKinds = 0
-NotificationKinds_Toast: NotificationKinds = 1
-NotificationMirroring = Int32
-NotificationMirroring_Allowed: NotificationMirroring = 0
-NotificationMirroring_Disabled: NotificationMirroring = 1
-NotificationSetting = Int32
-NotificationSetting_Enabled: NotificationSetting = 0
-NotificationSetting_DisabledForApplication: NotificationSetting = 1
-NotificationSetting_DisabledForUser: NotificationSetting = 2
-NotificationSetting_DisabledByGroupPolicy: NotificationSetting = 3
-NotificationSetting_DisabledByManifest: NotificationSetting = 4
-NotificationUpdateResult = Int32
-NotificationUpdateResult_Succeeded: NotificationUpdateResult = 0
-NotificationUpdateResult_Failed: NotificationUpdateResult = 1
-NotificationUpdateResult_NotificationNotFound: NotificationUpdateResult = 2
+class NotificationKinds(UInt32):  # enum
+    Unknown = 0
+    Toast = 1
+class NotificationMirroring(Int32):  # enum
+    Allowed = 0
+    Disabled = 1
+class NotificationSetting(Int32):  # enum
+    Enabled = 0
+    DisabledForApplication = 1
+    DisabledForUser = 2
+    DisabledByGroupPolicy = 3
+    DisabledByManifest = 4
+class NotificationUpdateResult(Int32):  # enum
+    Succeeded = 0
+    Failed = 1
+    NotificationNotFound = 2
 class NotificationVisual(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Notifications.INotificationVisual
@@ -1143,12 +1143,12 @@ class NotificationVisual(ComPtr):
     def GetBinding(self: win32more.Windows.UI.Notifications.INotificationVisual, templateName: WinRT_String) -> win32more.Windows.UI.Notifications.NotificationBinding: ...
     Language = property(get_Language, put_Language)
     Bindings = property(get_Bindings, None)
-PeriodicUpdateRecurrence = Int32
-PeriodicUpdateRecurrence_HalfHour: PeriodicUpdateRecurrence = 0
-PeriodicUpdateRecurrence_Hour: PeriodicUpdateRecurrence = 1
-PeriodicUpdateRecurrence_SixHours: PeriodicUpdateRecurrence = 2
-PeriodicUpdateRecurrence_TwelveHours: PeriodicUpdateRecurrence = 3
-PeriodicUpdateRecurrence_Daily: PeriodicUpdateRecurrence = 4
+class PeriodicUpdateRecurrence(Int32):  # enum
+    HalfHour = 0
+    Hour = 1
+    SixHours = 2
+    TwelveHours = 3
+    Daily = 4
 class ScheduledTileNotification(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Notifications.IScheduledTileNotification
@@ -1289,8 +1289,8 @@ class TileFlyoutNotification(ComPtr):
     def get_ExpirationTime(self: win32more.Windows.UI.Notifications.ITileFlyoutNotification) -> win32more.Windows.Foundation.IReference[win32more.Windows.Foundation.DateTime]: ...
     Content = property(get_Content, None)
     ExpirationTime = property(get_ExpirationTime, put_ExpirationTime)
-TileFlyoutTemplateType = Int32
-TileFlyoutTemplateType_TileFlyoutTemplate01: TileFlyoutTemplateType = 0
+class TileFlyoutTemplateType(Int32):  # enum
+    TileFlyoutTemplate01 = 0
 class TileFlyoutUpdateManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Notifications.TileFlyoutUpdateManager'
@@ -1345,133 +1345,133 @@ class TileNotification(ComPtr):
     Content = property(get_Content, None)
     ExpirationTime = property(get_ExpirationTime, put_ExpirationTime)
     Tag = property(get_Tag, put_Tag)
-TileTemplateType = Int32
-TileTemplateType_TileSquareImage: TileTemplateType = 0
-TileTemplateType_TileSquareBlock: TileTemplateType = 1
-TileTemplateType_TileSquareText01: TileTemplateType = 2
-TileTemplateType_TileSquareText02: TileTemplateType = 3
-TileTemplateType_TileSquareText03: TileTemplateType = 4
-TileTemplateType_TileSquareText04: TileTemplateType = 5
-TileTemplateType_TileSquarePeekImageAndText01: TileTemplateType = 6
-TileTemplateType_TileSquarePeekImageAndText02: TileTemplateType = 7
-TileTemplateType_TileSquarePeekImageAndText03: TileTemplateType = 8
-TileTemplateType_TileSquarePeekImageAndText04: TileTemplateType = 9
-TileTemplateType_TileWideImage: TileTemplateType = 10
-TileTemplateType_TileWideImageCollection: TileTemplateType = 11
-TileTemplateType_TileWideImageAndText01: TileTemplateType = 12
-TileTemplateType_TileWideImageAndText02: TileTemplateType = 13
-TileTemplateType_TileWideBlockAndText01: TileTemplateType = 14
-TileTemplateType_TileWideBlockAndText02: TileTemplateType = 15
-TileTemplateType_TileWidePeekImageCollection01: TileTemplateType = 16
-TileTemplateType_TileWidePeekImageCollection02: TileTemplateType = 17
-TileTemplateType_TileWidePeekImageCollection03: TileTemplateType = 18
-TileTemplateType_TileWidePeekImageCollection04: TileTemplateType = 19
-TileTemplateType_TileWidePeekImageCollection05: TileTemplateType = 20
-TileTemplateType_TileWidePeekImageCollection06: TileTemplateType = 21
-TileTemplateType_TileWidePeekImageAndText01: TileTemplateType = 22
-TileTemplateType_TileWidePeekImageAndText02: TileTemplateType = 23
-TileTemplateType_TileWidePeekImage01: TileTemplateType = 24
-TileTemplateType_TileWidePeekImage02: TileTemplateType = 25
-TileTemplateType_TileWidePeekImage03: TileTemplateType = 26
-TileTemplateType_TileWidePeekImage04: TileTemplateType = 27
-TileTemplateType_TileWidePeekImage05: TileTemplateType = 28
-TileTemplateType_TileWidePeekImage06: TileTemplateType = 29
-TileTemplateType_TileWideSmallImageAndText01: TileTemplateType = 30
-TileTemplateType_TileWideSmallImageAndText02: TileTemplateType = 31
-TileTemplateType_TileWideSmallImageAndText03: TileTemplateType = 32
-TileTemplateType_TileWideSmallImageAndText04: TileTemplateType = 33
-TileTemplateType_TileWideSmallImageAndText05: TileTemplateType = 34
-TileTemplateType_TileWideText01: TileTemplateType = 35
-TileTemplateType_TileWideText02: TileTemplateType = 36
-TileTemplateType_TileWideText03: TileTemplateType = 37
-TileTemplateType_TileWideText04: TileTemplateType = 38
-TileTemplateType_TileWideText05: TileTemplateType = 39
-TileTemplateType_TileWideText06: TileTemplateType = 40
-TileTemplateType_TileWideText07: TileTemplateType = 41
-TileTemplateType_TileWideText08: TileTemplateType = 42
-TileTemplateType_TileWideText09: TileTemplateType = 43
-TileTemplateType_TileWideText10: TileTemplateType = 44
-TileTemplateType_TileWideText11: TileTemplateType = 45
-TileTemplateType_TileSquare150x150Image: TileTemplateType = 0
-TileTemplateType_TileSquare150x150Block: TileTemplateType = 1
-TileTemplateType_TileSquare150x150Text01: TileTemplateType = 2
-TileTemplateType_TileSquare150x150Text02: TileTemplateType = 3
-TileTemplateType_TileSquare150x150Text03: TileTemplateType = 4
-TileTemplateType_TileSquare150x150Text04: TileTemplateType = 5
-TileTemplateType_TileSquare150x150PeekImageAndText01: TileTemplateType = 6
-TileTemplateType_TileSquare150x150PeekImageAndText02: TileTemplateType = 7
-TileTemplateType_TileSquare150x150PeekImageAndText03: TileTemplateType = 8
-TileTemplateType_TileSquare150x150PeekImageAndText04: TileTemplateType = 9
-TileTemplateType_TileWide310x150Image: TileTemplateType = 10
-TileTemplateType_TileWide310x150ImageCollection: TileTemplateType = 11
-TileTemplateType_TileWide310x150ImageAndText01: TileTemplateType = 12
-TileTemplateType_TileWide310x150ImageAndText02: TileTemplateType = 13
-TileTemplateType_TileWide310x150BlockAndText01: TileTemplateType = 14
-TileTemplateType_TileWide310x150BlockAndText02: TileTemplateType = 15
-TileTemplateType_TileWide310x150PeekImageCollection01: TileTemplateType = 16
-TileTemplateType_TileWide310x150PeekImageCollection02: TileTemplateType = 17
-TileTemplateType_TileWide310x150PeekImageCollection03: TileTemplateType = 18
-TileTemplateType_TileWide310x150PeekImageCollection04: TileTemplateType = 19
-TileTemplateType_TileWide310x150PeekImageCollection05: TileTemplateType = 20
-TileTemplateType_TileWide310x150PeekImageCollection06: TileTemplateType = 21
-TileTemplateType_TileWide310x150PeekImageAndText01: TileTemplateType = 22
-TileTemplateType_TileWide310x150PeekImageAndText02: TileTemplateType = 23
-TileTemplateType_TileWide310x150PeekImage01: TileTemplateType = 24
-TileTemplateType_TileWide310x150PeekImage02: TileTemplateType = 25
-TileTemplateType_TileWide310x150PeekImage03: TileTemplateType = 26
-TileTemplateType_TileWide310x150PeekImage04: TileTemplateType = 27
-TileTemplateType_TileWide310x150PeekImage05: TileTemplateType = 28
-TileTemplateType_TileWide310x150PeekImage06: TileTemplateType = 29
-TileTemplateType_TileWide310x150SmallImageAndText01: TileTemplateType = 30
-TileTemplateType_TileWide310x150SmallImageAndText02: TileTemplateType = 31
-TileTemplateType_TileWide310x150SmallImageAndText03: TileTemplateType = 32
-TileTemplateType_TileWide310x150SmallImageAndText04: TileTemplateType = 33
-TileTemplateType_TileWide310x150SmallImageAndText05: TileTemplateType = 34
-TileTemplateType_TileWide310x150Text01: TileTemplateType = 35
-TileTemplateType_TileWide310x150Text02: TileTemplateType = 36
-TileTemplateType_TileWide310x150Text03: TileTemplateType = 37
-TileTemplateType_TileWide310x150Text04: TileTemplateType = 38
-TileTemplateType_TileWide310x150Text05: TileTemplateType = 39
-TileTemplateType_TileWide310x150Text06: TileTemplateType = 40
-TileTemplateType_TileWide310x150Text07: TileTemplateType = 41
-TileTemplateType_TileWide310x150Text08: TileTemplateType = 42
-TileTemplateType_TileWide310x150Text09: TileTemplateType = 43
-TileTemplateType_TileWide310x150Text10: TileTemplateType = 44
-TileTemplateType_TileWide310x150Text11: TileTemplateType = 45
-TileTemplateType_TileSquare310x310BlockAndText01: TileTemplateType = 46
-TileTemplateType_TileSquare310x310BlockAndText02: TileTemplateType = 47
-TileTemplateType_TileSquare310x310Image: TileTemplateType = 48
-TileTemplateType_TileSquare310x310ImageAndText01: TileTemplateType = 49
-TileTemplateType_TileSquare310x310ImageAndText02: TileTemplateType = 50
-TileTemplateType_TileSquare310x310ImageAndTextOverlay01: TileTemplateType = 51
-TileTemplateType_TileSquare310x310ImageAndTextOverlay02: TileTemplateType = 52
-TileTemplateType_TileSquare310x310ImageAndTextOverlay03: TileTemplateType = 53
-TileTemplateType_TileSquare310x310ImageCollectionAndText01: TileTemplateType = 54
-TileTemplateType_TileSquare310x310ImageCollectionAndText02: TileTemplateType = 55
-TileTemplateType_TileSquare310x310ImageCollection: TileTemplateType = 56
-TileTemplateType_TileSquare310x310SmallImagesAndTextList01: TileTemplateType = 57
-TileTemplateType_TileSquare310x310SmallImagesAndTextList02: TileTemplateType = 58
-TileTemplateType_TileSquare310x310SmallImagesAndTextList03: TileTemplateType = 59
-TileTemplateType_TileSquare310x310SmallImagesAndTextList04: TileTemplateType = 60
-TileTemplateType_TileSquare310x310Text01: TileTemplateType = 61
-TileTemplateType_TileSquare310x310Text02: TileTemplateType = 62
-TileTemplateType_TileSquare310x310Text03: TileTemplateType = 63
-TileTemplateType_TileSquare310x310Text04: TileTemplateType = 64
-TileTemplateType_TileSquare310x310Text05: TileTemplateType = 65
-TileTemplateType_TileSquare310x310Text06: TileTemplateType = 66
-TileTemplateType_TileSquare310x310Text07: TileTemplateType = 67
-TileTemplateType_TileSquare310x310Text08: TileTemplateType = 68
-TileTemplateType_TileSquare310x310TextList01: TileTemplateType = 69
-TileTemplateType_TileSquare310x310TextList02: TileTemplateType = 70
-TileTemplateType_TileSquare310x310TextList03: TileTemplateType = 71
-TileTemplateType_TileSquare310x310SmallImageAndText01: TileTemplateType = 72
-TileTemplateType_TileSquare310x310SmallImagesAndTextList05: TileTemplateType = 73
-TileTemplateType_TileSquare310x310Text09: TileTemplateType = 74
-TileTemplateType_TileSquare71x71IconWithBadge: TileTemplateType = 75
-TileTemplateType_TileSquare150x150IconWithBadge: TileTemplateType = 76
-TileTemplateType_TileWide310x150IconWithBadgeAndText: TileTemplateType = 77
-TileTemplateType_TileSquare71x71Image: TileTemplateType = 78
-TileTemplateType_TileTall150x310Image: TileTemplateType = 79
+class TileTemplateType(Int32):  # enum
+    TileSquareImage = 0
+    TileSquareBlock = 1
+    TileSquareText01 = 2
+    TileSquareText02 = 3
+    TileSquareText03 = 4
+    TileSquareText04 = 5
+    TileSquarePeekImageAndText01 = 6
+    TileSquarePeekImageAndText02 = 7
+    TileSquarePeekImageAndText03 = 8
+    TileSquarePeekImageAndText04 = 9
+    TileWideImage = 10
+    TileWideImageCollection = 11
+    TileWideImageAndText01 = 12
+    TileWideImageAndText02 = 13
+    TileWideBlockAndText01 = 14
+    TileWideBlockAndText02 = 15
+    TileWidePeekImageCollection01 = 16
+    TileWidePeekImageCollection02 = 17
+    TileWidePeekImageCollection03 = 18
+    TileWidePeekImageCollection04 = 19
+    TileWidePeekImageCollection05 = 20
+    TileWidePeekImageCollection06 = 21
+    TileWidePeekImageAndText01 = 22
+    TileWidePeekImageAndText02 = 23
+    TileWidePeekImage01 = 24
+    TileWidePeekImage02 = 25
+    TileWidePeekImage03 = 26
+    TileWidePeekImage04 = 27
+    TileWidePeekImage05 = 28
+    TileWidePeekImage06 = 29
+    TileWideSmallImageAndText01 = 30
+    TileWideSmallImageAndText02 = 31
+    TileWideSmallImageAndText03 = 32
+    TileWideSmallImageAndText04 = 33
+    TileWideSmallImageAndText05 = 34
+    TileWideText01 = 35
+    TileWideText02 = 36
+    TileWideText03 = 37
+    TileWideText04 = 38
+    TileWideText05 = 39
+    TileWideText06 = 40
+    TileWideText07 = 41
+    TileWideText08 = 42
+    TileWideText09 = 43
+    TileWideText10 = 44
+    TileWideText11 = 45
+    TileSquare150x150Image = 0
+    TileSquare150x150Block = 1
+    TileSquare150x150Text01 = 2
+    TileSquare150x150Text02 = 3
+    TileSquare150x150Text03 = 4
+    TileSquare150x150Text04 = 5
+    TileSquare150x150PeekImageAndText01 = 6
+    TileSquare150x150PeekImageAndText02 = 7
+    TileSquare150x150PeekImageAndText03 = 8
+    TileSquare150x150PeekImageAndText04 = 9
+    TileWide310x150Image = 10
+    TileWide310x150ImageCollection = 11
+    TileWide310x150ImageAndText01 = 12
+    TileWide310x150ImageAndText02 = 13
+    TileWide310x150BlockAndText01 = 14
+    TileWide310x150BlockAndText02 = 15
+    TileWide310x150PeekImageCollection01 = 16
+    TileWide310x150PeekImageCollection02 = 17
+    TileWide310x150PeekImageCollection03 = 18
+    TileWide310x150PeekImageCollection04 = 19
+    TileWide310x150PeekImageCollection05 = 20
+    TileWide310x150PeekImageCollection06 = 21
+    TileWide310x150PeekImageAndText01 = 22
+    TileWide310x150PeekImageAndText02 = 23
+    TileWide310x150PeekImage01 = 24
+    TileWide310x150PeekImage02 = 25
+    TileWide310x150PeekImage03 = 26
+    TileWide310x150PeekImage04 = 27
+    TileWide310x150PeekImage05 = 28
+    TileWide310x150PeekImage06 = 29
+    TileWide310x150SmallImageAndText01 = 30
+    TileWide310x150SmallImageAndText02 = 31
+    TileWide310x150SmallImageAndText03 = 32
+    TileWide310x150SmallImageAndText04 = 33
+    TileWide310x150SmallImageAndText05 = 34
+    TileWide310x150Text01 = 35
+    TileWide310x150Text02 = 36
+    TileWide310x150Text03 = 37
+    TileWide310x150Text04 = 38
+    TileWide310x150Text05 = 39
+    TileWide310x150Text06 = 40
+    TileWide310x150Text07 = 41
+    TileWide310x150Text08 = 42
+    TileWide310x150Text09 = 43
+    TileWide310x150Text10 = 44
+    TileWide310x150Text11 = 45
+    TileSquare310x310BlockAndText01 = 46
+    TileSquare310x310BlockAndText02 = 47
+    TileSquare310x310Image = 48
+    TileSquare310x310ImageAndText01 = 49
+    TileSquare310x310ImageAndText02 = 50
+    TileSquare310x310ImageAndTextOverlay01 = 51
+    TileSquare310x310ImageAndTextOverlay02 = 52
+    TileSquare310x310ImageAndTextOverlay03 = 53
+    TileSquare310x310ImageCollectionAndText01 = 54
+    TileSquare310x310ImageCollectionAndText02 = 55
+    TileSquare310x310ImageCollection = 56
+    TileSquare310x310SmallImagesAndTextList01 = 57
+    TileSquare310x310SmallImagesAndTextList02 = 58
+    TileSquare310x310SmallImagesAndTextList03 = 59
+    TileSquare310x310SmallImagesAndTextList04 = 60
+    TileSquare310x310Text01 = 61
+    TileSquare310x310Text02 = 62
+    TileSquare310x310Text03 = 63
+    TileSquare310x310Text04 = 64
+    TileSquare310x310Text05 = 65
+    TileSquare310x310Text06 = 66
+    TileSquare310x310Text07 = 67
+    TileSquare310x310Text08 = 68
+    TileSquare310x310TextList01 = 69
+    TileSquare310x310TextList02 = 70
+    TileSquare310x310TextList03 = 71
+    TileSquare310x310SmallImageAndText01 = 72
+    TileSquare310x310SmallImagesAndTextList05 = 73
+    TileSquare310x310Text09 = 74
+    TileSquare71x71IconWithBadge = 75
+    TileSquare150x150IconWithBadge = 76
+    TileWide310x150IconWithBadgeAndText = 77
+    TileSquare71x71Image = 78
+    TileTall150x310Image = 79
 class TileUpdateManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Notifications.TileUpdateManager'
@@ -1594,10 +1594,10 @@ class ToastCollectionManager(ComPtr):
     def get_AppId(self: win32more.Windows.UI.Notifications.IToastCollectionManager) -> WinRT_String: ...
     User = property(get_User, None)
     AppId = property(get_AppId, None)
-ToastDismissalReason = Int32
-ToastDismissalReason_UserCanceled: ToastDismissalReason = 0
-ToastDismissalReason_ApplicationHidden: ToastDismissalReason = 1
-ToastDismissalReason_TimedOut: ToastDismissalReason = 2
+class ToastDismissalReason(Int32):  # enum
+    UserCanceled = 0
+    ApplicationHidden = 1
+    TimedOut = 2
 class ToastDismissedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Notifications.IToastDismissedEventArgs
@@ -1612,11 +1612,11 @@ class ToastFailedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_ErrorCode(self: win32more.Windows.UI.Notifications.IToastFailedEventArgs) -> win32more.Windows.Foundation.HResult: ...
     ErrorCode = property(get_ErrorCode, None)
-ToastHistoryChangedType = Int32
-ToastHistoryChangedType_Cleared: ToastHistoryChangedType = 0
-ToastHistoryChangedType_Removed: ToastHistoryChangedType = 1
-ToastHistoryChangedType_Expired: ToastHistoryChangedType = 2
-ToastHistoryChangedType_Added: ToastHistoryChangedType = 3
+class ToastHistoryChangedType(Int32):  # enum
+    Cleared = 0
+    Removed = 1
+    Expired = 2
+    Added = 3
 class ToastNotification(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Notifications.IToastNotification
@@ -1781,13 +1781,13 @@ class ToastNotificationManagerForUser(ComPtr):
     History = property(get_History, None)
     User = property(get_User, None)
     NotificationMode = property(get_NotificationMode, None)
-ToastNotificationMode = Int32
-ToastNotificationMode_Unrestricted: ToastNotificationMode = 0
-ToastNotificationMode_PriorityOnly: ToastNotificationMode = 1
-ToastNotificationMode_AlarmsOnly: ToastNotificationMode = 2
-ToastNotificationPriority = Int32
-ToastNotificationPriority_Default: ToastNotificationPriority = 0
-ToastNotificationPriority_High: ToastNotificationPriority = 1
+class ToastNotificationMode(Int32):  # enum
+    Unrestricted = 0
+    PriorityOnly = 1
+    AlarmsOnly = 2
+class ToastNotificationPriority(Int32):  # enum
+    Default = 0
+    High = 1
 class ToastNotifier(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Notifications.IToastNotifier
@@ -1813,15 +1813,15 @@ class ToastNotifier(ComPtr):
     @winrt_mixinmethod
     def remove_ScheduledToastNotificationShowing(self: win32more.Windows.UI.Notifications.IToastNotifier3, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Setting = property(get_Setting, None)
-ToastTemplateType = Int32
-ToastTemplateType_ToastImageAndText01: ToastTemplateType = 0
-ToastTemplateType_ToastImageAndText02: ToastTemplateType = 1
-ToastTemplateType_ToastImageAndText03: ToastTemplateType = 2
-ToastTemplateType_ToastImageAndText04: ToastTemplateType = 3
-ToastTemplateType_ToastText01: ToastTemplateType = 4
-ToastTemplateType_ToastText02: ToastTemplateType = 5
-ToastTemplateType_ToastText03: ToastTemplateType = 6
-ToastTemplateType_ToastText04: ToastTemplateType = 7
+class ToastTemplateType(Int32):  # enum
+    ToastImageAndText01 = 0
+    ToastImageAndText02 = 1
+    ToastImageAndText03 = 2
+    ToastImageAndText04 = 3
+    ToastText01 = 4
+    ToastText02 = 5
+    ToastText03 = 6
+    ToastText04 = 7
 class UserNotification(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Notifications.IUserNotification
@@ -1848,9 +1848,9 @@ class UserNotificationChangedEventArgs(ComPtr):
     def get_UserNotificationId(self: win32more.Windows.UI.Notifications.IUserNotificationChangedEventArgs) -> UInt32: ...
     ChangeKind = property(get_ChangeKind, None)
     UserNotificationId = property(get_UserNotificationId, None)
-UserNotificationChangedKind = Int32
-UserNotificationChangedKind_Added: UserNotificationChangedKind = 0
-UserNotificationChangedKind_Removed: UserNotificationChangedKind = 1
+class UserNotificationChangedKind(Int32):  # enum
+    Added = 0
+    Removed = 1
 
 
 make_ready(__name__)

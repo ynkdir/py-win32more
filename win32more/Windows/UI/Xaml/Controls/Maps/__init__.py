@@ -2093,11 +2093,11 @@ class MapActualCameraChangingEventArgs(ComPtr):
     def get_ChangeReason(self: win32more.Windows.UI.Xaml.Controls.Maps.IMapActualCameraChangingEventArgs2) -> win32more.Windows.UI.Xaml.Controls.Maps.MapCameraChangeReason: ...
     Camera = property(get_Camera, None)
     ChangeReason = property(get_ChangeReason, None)
-MapAnimationKind = Int32
-MapAnimationKind_Default: MapAnimationKind = 0
-MapAnimationKind_None: MapAnimationKind = 1
-MapAnimationKind_Linear: MapAnimationKind = 2
-MapAnimationKind_Bow: MapAnimationKind = 3
+class MapAnimationKind(Int32):  # enum
+    Default = 0
+    None_ = 1
+    Linear = 2
+    Bow = 3
 class _MapBillboard_Meta_(ComPtr.__class__):
     pass
 class MapBillboard(ComPtr, metaclass=_MapBillboard_Meta_):
@@ -2195,13 +2195,13 @@ class MapCamera(ComPtr):
     Pitch = property(get_Pitch, put_Pitch)
     Roll = property(get_Roll, put_Roll)
     FieldOfView = property(get_FieldOfView, put_FieldOfView)
-MapCameraChangeReason = Int32
-MapCameraChangeReason_System: MapCameraChangeReason = 0
-MapCameraChangeReason_UserInteraction: MapCameraChangeReason = 1
-MapCameraChangeReason_Programmatic: MapCameraChangeReason = 2
-MapColorScheme = Int32
-MapColorScheme_Light: MapColorScheme = 0
-MapColorScheme_Dark: MapColorScheme = 1
+class MapCameraChangeReason(Int32):  # enum
+    System = 0
+    UserInteraction = 1
+    Programmatic = 2
+class MapColorScheme(Int32):  # enum
+    Light = 0
+    Dark = 1
 class MapContextRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Controls.Maps.IMapContextRequestedEventArgs
@@ -3066,9 +3066,9 @@ class MapElementClickEventArgs(ComPtr):
     Position = property(get_Position, None)
     Location = property(get_Location, None)
     MapElements = property(get_MapElements, None)
-MapElementCollisionBehavior = Int32
-MapElementCollisionBehavior_Hide: MapElementCollisionBehavior = 0
-MapElementCollisionBehavior_RemainVisible: MapElementCollisionBehavior = 1
+class MapElementCollisionBehavior(Int32):  # enum
+    Hide = 0
+    RemainVisible = 1
 class MapElementPointerEnteredEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Controls.Maps.IMapElementPointerEnteredEventArgs
@@ -3311,15 +3311,15 @@ class MapInputEventArgs(ComPtr):
     def get_Location(self: win32more.Windows.UI.Xaml.Controls.Maps.IMapInputEventArgs) -> win32more.Windows.Devices.Geolocation.Geopoint: ...
     Position = property(get_Position, None)
     Location = property(get_Location, None)
-MapInteractionMode = Int32
-MapInteractionMode_Auto: MapInteractionMode = 0
-MapInteractionMode_Disabled: MapInteractionMode = 1
-MapInteractionMode_GestureOnly: MapInteractionMode = 2
-MapInteractionMode_PointerAndKeyboard: MapInteractionMode = 2
-MapInteractionMode_ControlOnly: MapInteractionMode = 3
-MapInteractionMode_GestureAndControl: MapInteractionMode = 4
-MapInteractionMode_PointerKeyboardAndControl: MapInteractionMode = 4
-MapInteractionMode_PointerOnly: MapInteractionMode = 5
+class MapInteractionMode(Int32):  # enum
+    Auto = 0
+    Disabled = 1
+    GestureOnly = 2
+    PointerAndKeyboard = 2
+    ControlOnly = 3
+    GestureAndControl = 4
+    PointerKeyboardAndControl = 4
+    PointerOnly = 5
 class _MapItemsControl_Meta_(ComPtr.__class__):
     pass
 class MapItemsControl(ComPtr, metaclass=_MapItemsControl_Meta_):
@@ -3396,11 +3396,11 @@ class MapLayer(ComPtr, metaclass=_MapLayer_Meta_):
     _MapLayer_Meta_.MapTabIndexProperty = property(get_MapTabIndexProperty.__wrapped__, None)
     _MapLayer_Meta_.VisibleProperty = property(get_VisibleProperty.__wrapped__, None)
     _MapLayer_Meta_.ZIndexProperty = property(get_ZIndexProperty.__wrapped__, None)
-MapLoadingStatus = Int32
-MapLoadingStatus_Loading: MapLoadingStatus = 0
-MapLoadingStatus_Loaded: MapLoadingStatus = 1
-MapLoadingStatus_DataUnavailable: MapLoadingStatus = 2
-MapLoadingStatus_DownloadedMapsManagerUnavailable: MapLoadingStatus = 3
+class MapLoadingStatus(Int32):  # enum
+    Loading = 0
+    Loaded = 1
+    DataUnavailable = 2
+    DownloadedMapsManagerUnavailable = 3
 class MapModel3D(ComPtr):
     extends: win32more.Windows.UI.Xaml.DependencyObject
     default_interface: win32more.Windows.UI.Xaml.Controls.Maps.IMapModel3D
@@ -3418,13 +3418,13 @@ class MapModel3D(ComPtr):
     def CreateFrom3MFAsync(cls: win32more.Windows.UI.Xaml.Controls.Maps.IMapModel3DStatics, source: win32more.Windows.Storage.Streams.IRandomAccessStreamReference) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.UI.Xaml.Controls.Maps.MapModel3D]: ...
     @winrt_classmethod
     def CreateFrom3MFWithShadingOptionAsync(cls: win32more.Windows.UI.Xaml.Controls.Maps.IMapModel3DStatics, source: win32more.Windows.Storage.Streams.IRandomAccessStreamReference, shadingOption: win32more.Windows.UI.Xaml.Controls.Maps.MapModel3DShadingOption) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.UI.Xaml.Controls.Maps.MapModel3D]: ...
-MapModel3DShadingOption = Int32
-MapModel3DShadingOption_Default: MapModel3DShadingOption = 0
-MapModel3DShadingOption_Flat: MapModel3DShadingOption = 1
-MapModel3DShadingOption_Smooth: MapModel3DShadingOption = 2
-MapPanInteractionMode = Int32
-MapPanInteractionMode_Auto: MapPanInteractionMode = 0
-MapPanInteractionMode_Disabled: MapPanInteractionMode = 1
+class MapModel3DShadingOption(Int32):  # enum
+    Default = 0
+    Flat = 1
+    Smooth = 2
+class MapPanInteractionMode(Int32):  # enum
+    Auto = 0
+    Disabled = 1
 class _MapPolygon_Meta_(ComPtr.__class__):
     pass
 class MapPolygon(ComPtr, metaclass=_MapPolygon_Meta_):
@@ -3518,9 +3518,9 @@ class MapPolyline(ComPtr, metaclass=_MapPolyline_Meta_):
     StrokeDashed = property(get_StrokeDashed, put_StrokeDashed)
     _MapPolyline_Meta_.PathProperty = property(get_PathProperty.__wrapped__, None)
     _MapPolyline_Meta_.StrokeDashedProperty = property(get_StrokeDashedProperty.__wrapped__, None)
-MapProjection = Int32
-MapProjection_WebMercator: MapProjection = 0
-MapProjection_Globe: MapProjection = 1
+class MapProjection(Int32):  # enum
+    WebMercator = 0
+    Globe = 1
 class MapRightTappedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Controls.Maps.IMapRightTappedEventArgs
@@ -3595,15 +3595,15 @@ class MapScene(ComPtr):
     @winrt_classmethod
     def CreateFromLocationsWithHeadingAndPitch(cls: win32more.Windows.UI.Xaml.Controls.Maps.IMapSceneStatics, locations: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Devices.Geolocation.Geopoint], headingInDegrees: Double, pitchInDegrees: Double) -> win32more.Windows.UI.Xaml.Controls.Maps.MapScene: ...
     TargetCamera = property(get_TargetCamera, None)
-MapStyle = Int32
-MapStyle_None: MapStyle = 0
-MapStyle_Road: MapStyle = 1
-MapStyle_Aerial: MapStyle = 2
-MapStyle_AerialWithRoads: MapStyle = 3
-MapStyle_Terrain: MapStyle = 4
-MapStyle_Aerial3D: MapStyle = 5
-MapStyle_Aerial3DWithRoads: MapStyle = 6
-MapStyle_Custom: MapStyle = 7
+class MapStyle(Int32):  # enum
+    None_ = 0
+    Road = 1
+    Aerial = 2
+    AerialWithRoads = 3
+    Terrain = 4
+    Aerial3D = 5
+    Aerial3DWithRoads = 6
+    Custom = 7
 class MapStyleSheet(ComPtr):
     extends: win32more.Windows.UI.Xaml.DependencyObject
     default_interface: win32more.Windows.UI.Xaml.Controls.Maps.IMapStyleSheet
@@ -3856,10 +3856,10 @@ class MapTargetCameraChangedEventArgs(ComPtr):
     def get_ChangeReason(self: win32more.Windows.UI.Xaml.Controls.Maps.IMapTargetCameraChangedEventArgs2) -> win32more.Windows.UI.Xaml.Controls.Maps.MapCameraChangeReason: ...
     Camera = property(get_Camera, None)
     ChangeReason = property(get_ChangeReason, None)
-MapTileAnimationState = Int32
-MapTileAnimationState_Stopped: MapTileAnimationState = 0
-MapTileAnimationState_Paused: MapTileAnimationState = 1
-MapTileAnimationState_Playing: MapTileAnimationState = 2
+class MapTileAnimationState(Int32):  # enum
+    Stopped = 0
+    Paused = 1
+    Playing = 2
 class MapTileBitmapRequest(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Controls.Maps.IMapTileBitmapRequest
@@ -3936,12 +3936,12 @@ class MapTileDataSource(ComPtr):
             raise ValueError('no matched constructor')
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.Maps.IMapTileDataSourceFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Maps.MapTileDataSource: ...
-MapTileLayer = Int32
-MapTileLayer_LabelOverlay: MapTileLayer = 0
-MapTileLayer_RoadOverlay: MapTileLayer = 1
-MapTileLayer_AreaOverlay: MapTileLayer = 2
-MapTileLayer_BackgroundOverlay: MapTileLayer = 3
-MapTileLayer_BackgroundReplacement: MapTileLayer = 4
+class MapTileLayer(Int32):  # enum
+    LabelOverlay = 0
+    RoadOverlay = 1
+    AreaOverlay = 2
+    BackgroundOverlay = 3
+    BackgroundReplacement = 4
 class _MapTileSource_Meta_(ComPtr.__class__):
     pass
 class MapTileSource(ComPtr, metaclass=_MapTileSource_Meta_):
@@ -4160,12 +4160,12 @@ class MapTileUriRequestedEventArgs(ComPtr):
     ZoomLevel = property(get_ZoomLevel, None)
     Request = property(get_Request, None)
     FrameIndex = property(get_FrameIndex, None)
-MapVisibleRegionKind = Int32
-MapVisibleRegionKind_Near: MapVisibleRegionKind = 0
-MapVisibleRegionKind_Full: MapVisibleRegionKind = 1
-MapWatermarkMode = Int32
-MapWatermarkMode_Automatic: MapWatermarkMode = 0
-MapWatermarkMode_On: MapWatermarkMode = 1
+class MapVisibleRegionKind(Int32):  # enum
+    Near = 0
+    Full = 1
+class MapWatermarkMode(Int32):  # enum
+    Automatic = 0
+    On = 1
 class MapZoomLevelRange(EasyCastStructure):
     Min: Double
     Max: Double

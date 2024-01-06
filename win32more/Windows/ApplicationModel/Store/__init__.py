@@ -91,12 +91,12 @@ class CurrentAppSimulator(ComPtr, metaclass=_CurrentAppSimulator_Meta_):
     _CurrentAppSimulator_Meta_.LicenseInformation = property(get_LicenseInformation.__wrapped__, None)
     _CurrentAppSimulator_Meta_.LinkUri = property(get_LinkUri.__wrapped__, None)
     _CurrentAppSimulator_Meta_.AppId = property(get_AppId.__wrapped__, None)
-FulfillmentResult = Int32
-FulfillmentResult_Succeeded: FulfillmentResult = 0
-FulfillmentResult_NothingToFulfill: FulfillmentResult = 1
-FulfillmentResult_PurchasePending: FulfillmentResult = 2
-FulfillmentResult_PurchaseReverted: FulfillmentResult = 3
-FulfillmentResult_ServerError: FulfillmentResult = 4
+class FulfillmentResult(Int32):  # enum
+    Succeeded = 0
+    NothingToFulfill = 1
+    PurchasePending = 2
+    PurchaseReverted = 3
+    ServerError = 4
 class ICurrentApp(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Store.ICurrentApp'
@@ -540,15 +540,15 @@ class ProductPurchaseDisplayProperties(ComPtr):
     Name = property(get_Name, put_Name)
     Description = property(get_Description, put_Description)
     Image = property(get_Image, put_Image)
-ProductPurchaseStatus = Int32
-ProductPurchaseStatus_Succeeded: ProductPurchaseStatus = 0
-ProductPurchaseStatus_AlreadyPurchased: ProductPurchaseStatus = 1
-ProductPurchaseStatus_NotFulfilled: ProductPurchaseStatus = 2
-ProductPurchaseStatus_NotPurchased: ProductPurchaseStatus = 3
-ProductType = Int32
-ProductType_Unknown: ProductType = 0
-ProductType_Durable: ProductType = 1
-ProductType_Consumable: ProductType = 2
+class ProductPurchaseStatus(Int32):  # enum
+    Succeeded = 0
+    AlreadyPurchased = 1
+    NotFulfilled = 2
+    NotPurchased = 3
+class ProductType(Int32):  # enum
+    Unknown = 0
+    Durable = 1
+    Consumable = 2
 class PurchaseResults(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Store.IPurchaseResults

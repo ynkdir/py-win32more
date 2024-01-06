@@ -5,12 +5,12 @@ import win32more.Windows.Devices.Geolocation
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Win32.System.WinRT
-AltitudeReferenceSystem = Int32
-AltitudeReferenceSystem_Unspecified: AltitudeReferenceSystem = 0
-AltitudeReferenceSystem_Terrain: AltitudeReferenceSystem = 1
-AltitudeReferenceSystem_Ellipsoid: AltitudeReferenceSystem = 2
-AltitudeReferenceSystem_Geoid: AltitudeReferenceSystem = 3
-AltitudeReferenceSystem_Surface: AltitudeReferenceSystem = 4
+class AltitudeReferenceSystem(Int32):  # enum
+    Unspecified = 0
+    Terrain = 1
+    Ellipsoid = 2
+    Geoid = 3
+    Surface = 4
 class BasicGeoposition(EasyCastStructure):
     Latitude: Double
     Longitude: Double
@@ -183,10 +183,10 @@ class GeocoordinateSatelliteData(ComPtr):
     VerticalDilutionOfPrecision = property(get_VerticalDilutionOfPrecision, None)
     GeometricDilutionOfPrecision = property(get_GeometricDilutionOfPrecision, None)
     TimeDilutionOfPrecision = property(get_TimeDilutionOfPrecision, None)
-GeolocationAccessStatus = Int32
-GeolocationAccessStatus_Unspecified: GeolocationAccessStatus = 0
-GeolocationAccessStatus_Allowed: GeolocationAccessStatus = 1
-GeolocationAccessStatus_Denied: GeolocationAccessStatus = 2
+class GeolocationAccessStatus(Int32):  # enum
+    Unspecified = 0
+    Allowed = 1
+    Denied = 2
 class _Geolocator_Meta_(ComPtr.__class__):
     pass
 class Geolocator(ComPtr, metaclass=_Geolocator_Meta_):
@@ -332,11 +332,11 @@ class Geoposition(ComPtr):
     Coordinate = property(get_Coordinate, None)
     CivicAddress = property(get_CivicAddress, None)
     VenueData = property(get_VenueData, None)
-GeoshapeType = Int32
-GeoshapeType_Geopoint: GeoshapeType = 0
-GeoshapeType_Geocircle: GeoshapeType = 1
-GeoshapeType_Geopath: GeoshapeType = 2
-GeoshapeType_GeoboundingBox: GeoshapeType = 3
+class GeoshapeType(Int32):  # enum
+    Geopoint = 0
+    Geocircle = 1
+    Geopath = 2
+    GeoboundingBox = 3
 class Geovisit(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Geolocation.IGeovisit
@@ -755,9 +755,9 @@ class IVenueData(ComPtr):
     def get_Level(self) -> WinRT_String: ...
     Id = property(get_Id, None)
     Level = property(get_Level, None)
-PositionAccuracy = Int32
-PositionAccuracy_Default: PositionAccuracy = 0
-PositionAccuracy_High: PositionAccuracy = 1
+class PositionAccuracy(Int32):  # enum
+    Default = 0
+    High = 1
 class PositionChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Geolocation.IPositionChangedEventArgs
@@ -765,21 +765,21 @@ class PositionChangedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Position(self: win32more.Windows.Devices.Geolocation.IPositionChangedEventArgs) -> win32more.Windows.Devices.Geolocation.Geoposition: ...
     Position = property(get_Position, None)
-PositionSource = Int32
-PositionSource_Cellular: PositionSource = 0
-PositionSource_Satellite: PositionSource = 1
-PositionSource_WiFi: PositionSource = 2
-PositionSource_IPAddress: PositionSource = 3
-PositionSource_Unknown: PositionSource = 4
-PositionSource_Default: PositionSource = 5
-PositionSource_Obfuscated: PositionSource = 6
-PositionStatus = Int32
-PositionStatus_Ready: PositionStatus = 0
-PositionStatus_Initializing: PositionStatus = 1
-PositionStatus_NoData: PositionStatus = 2
-PositionStatus_Disabled: PositionStatus = 3
-PositionStatus_NotInitialized: PositionStatus = 4
-PositionStatus_NotAvailable: PositionStatus = 5
+class PositionSource(Int32):  # enum
+    Cellular = 0
+    Satellite = 1
+    WiFi = 2
+    IPAddress = 3
+    Unknown = 4
+    Default = 5
+    Obfuscated = 6
+class PositionStatus(Int32):  # enum
+    Ready = 0
+    Initializing = 1
+    NoData = 2
+    Disabled = 3
+    NotInitialized = 4
+    NotAvailable = 5
 class StatusChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Geolocation.IStatusChangedEventArgs
@@ -797,14 +797,14 @@ class VenueData(ComPtr):
     def get_Level(self: win32more.Windows.Devices.Geolocation.IVenueData) -> WinRT_String: ...
     Id = property(get_Id, None)
     Level = property(get_Level, None)
-VisitMonitoringScope = Int32
-VisitMonitoringScope_Venue: VisitMonitoringScope = 0
-VisitMonitoringScope_City: VisitMonitoringScope = 1
-VisitStateChange = Int32
-VisitStateChange_TrackingLost: VisitStateChange = 0
-VisitStateChange_Arrived: VisitStateChange = 1
-VisitStateChange_Departed: VisitStateChange = 2
-VisitStateChange_OtherMovement: VisitStateChange = 3
+class VisitMonitoringScope(Int32):  # enum
+    Venue = 0
+    City = 1
+class VisitStateChange(Int32):  # enum
+    TrackingLost = 0
+    Arrived = 1
+    Departed = 2
+    OtherMovement = 3
 
 
 make_ready(__name__)

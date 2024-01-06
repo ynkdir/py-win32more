@@ -44,11 +44,11 @@ class IGeolocationProvider(ComPtr):
     @winrt_commethod(10)
     def remove_IsOverriddenChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     IsOverridden = property(get_IsOverridden, None)
-LocationOverrideStatus = Int32
-LocationOverrideStatus_Success: LocationOverrideStatus = 0
-LocationOverrideStatus_AccessDenied: LocationOverrideStatus = 1
-LocationOverrideStatus_AlreadyStarted: LocationOverrideStatus = 2
-LocationOverrideStatus_Other: LocationOverrideStatus = 3
+class LocationOverrideStatus(Int32):  # enum
+    Success = 0
+    AccessDenied = 1
+    AlreadyStarted = 2
+    Other = 3
 
 
 make_ready(__name__)

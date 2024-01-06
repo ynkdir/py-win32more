@@ -214,9 +214,9 @@ class Enum:
     def emit(self) -> str:
         writer = StringIO()
         type_field, *value_fields = self._td.fields
-        writer.write(f"{self._td.name} = {self._formatter.pytype(type_field.signature)}\n")
+        writer.write(f"class {self._td.name}({self._formatter.pytype(type_field.signature)}):  # enum\n")
         for fd in value_fields:
-            writer.write(f"{fd.name}: {self._td.name} = {fd.default_value.value}\n")
+            writer.write(f"    {fd.name} = {fd.default_value.value}\n")
         return writer.getvalue()
 
 

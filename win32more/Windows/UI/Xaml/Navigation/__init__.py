@@ -178,10 +178,10 @@ class NavigatingCancelEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{75d6a78f-a302-4489-9898-24ea49182910}')
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.UI.Xaml.Navigation.NavigatingCancelEventArgs) -> Void: ...
-NavigationCacheMode = Int32
-NavigationCacheMode_Disabled: NavigationCacheMode = 0
-NavigationCacheMode_Required: NavigationCacheMode = 1
-NavigationCacheMode_Enabled: NavigationCacheMode = 2
+class NavigationCacheMode(Int32):  # enum
+    Disabled = 0
+    Required = 1
+    Enabled = 2
 class NavigationEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Navigation.INavigationEventArgs
@@ -225,11 +225,11 @@ class NavigationFailedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{4dab4671-12b2-43c7-b892-9be2dcd3e88d}')
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.UI.Xaml.Navigation.NavigationFailedEventArgs) -> Void: ...
-NavigationMode = Int32
-NavigationMode_New: NavigationMode = 0
-NavigationMode_Back: NavigationMode = 1
-NavigationMode_Forward: NavigationMode = 2
-NavigationMode_Refresh: NavigationMode = 3
+class NavigationMode(Int32):  # enum
+    New = 0
+    Back = 1
+    Forward = 2
+    Refresh = 3
 class NavigationStoppedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{f0117ddb-12fa-4d8d-8b26-b383d09c2b3c}')

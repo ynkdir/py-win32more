@@ -98,10 +98,10 @@ class CoreInkPresenterHost(ComPtr):
     def put_RootVisual(self: win32more.Windows.UI.Input.Inking.Core.ICoreInkPresenterHost, value: win32more.Windows.UI.Composition.ContainerVisual) -> Void: ...
     InkPresenter = property(get_InkPresenter, None)
     RootVisual = property(get_RootVisual, put_RootVisual)
-CoreWetStrokeDisposition = Int32
-CoreWetStrokeDisposition_Inking: CoreWetStrokeDisposition = 0
-CoreWetStrokeDisposition_Completed: CoreWetStrokeDisposition = 1
-CoreWetStrokeDisposition_Canceled: CoreWetStrokeDisposition = 2
+class CoreWetStrokeDisposition(Int32):  # enum
+    Inking = 0
+    Completed = 1
+    Canceled = 2
 class CoreWetStrokeUpdateEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Input.Inking.Core.ICoreWetStrokeUpdateEventArgs

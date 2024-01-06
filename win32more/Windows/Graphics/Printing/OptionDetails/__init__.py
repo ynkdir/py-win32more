@@ -851,16 +851,16 @@ class PrintMediaTypeOptionDetails(ComPtr):
     Items = property(get_Items, None)
     WarningText = property(get_WarningText, put_WarningText)
     Description = property(get_Description, put_Description)
-PrintOptionStates = UInt32
-PrintOptionStates_None: PrintOptionStates = 0
-PrintOptionStates_Enabled: PrintOptionStates = 1
-PrintOptionStates_Constrained: PrintOptionStates = 2
-PrintOptionType = Int32
-PrintOptionType_Unknown: PrintOptionType = 0
-PrintOptionType_Number: PrintOptionType = 1
-PrintOptionType_Text: PrintOptionType = 2
-PrintOptionType_ItemList: PrintOptionType = 3
-PrintOptionType_Toggle: PrintOptionType = 4
+class PrintOptionStates(UInt32):  # enum
+    None_ = 0
+    Enabled = 1
+    Constrained = 2
+class PrintOptionType(Int32):  # enum
+    Unknown = 0
+    Number = 1
+    Text = 2
+    ItemList = 3
+    Toggle = 4
 class PrintOrientationOptionDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails

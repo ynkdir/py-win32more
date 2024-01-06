@@ -108,14 +108,14 @@ class ProviderSpiConnectionSettings(ComPtr):
     DataBitLength = property(get_DataBitLength, put_DataBitLength)
     ClockFrequency = property(get_ClockFrequency, put_ClockFrequency)
     SharingMode = property(get_SharingMode, put_SharingMode)
-ProviderSpiMode = Int32
-ProviderSpiMode_Mode0: ProviderSpiMode = 0
-ProviderSpiMode_Mode1: ProviderSpiMode = 1
-ProviderSpiMode_Mode2: ProviderSpiMode = 2
-ProviderSpiMode_Mode3: ProviderSpiMode = 3
-ProviderSpiSharingMode = Int32
-ProviderSpiSharingMode_Exclusive: ProviderSpiSharingMode = 0
-ProviderSpiSharingMode_Shared: ProviderSpiSharingMode = 1
+class ProviderSpiMode(Int32):  # enum
+    Mode0 = 0
+    Mode1 = 1
+    Mode2 = 2
+    Mode3 = 3
+class ProviderSpiSharingMode(Int32):  # enum
+    Exclusive = 0
+    Shared = 1
 
 
 make_ready(__name__)

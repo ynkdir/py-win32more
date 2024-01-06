@@ -217,15 +217,15 @@ class WindowsXamlManager(ComPtr):
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
     @winrt_classmethod
     def InitializeForCurrentThread(cls: win32more.Microsoft.UI.Xaml.Hosting.IWindowsXamlManagerStatics) -> win32more.Microsoft.UI.Xaml.Hosting.WindowsXamlManager: ...
-XamlSourceFocusNavigationReason = Int32
-XamlSourceFocusNavigationReason_Programmatic: XamlSourceFocusNavigationReason = 0
-XamlSourceFocusNavigationReason_Restore: XamlSourceFocusNavigationReason = 1
-XamlSourceFocusNavigationReason_First: XamlSourceFocusNavigationReason = 3
-XamlSourceFocusNavigationReason_Last: XamlSourceFocusNavigationReason = 4
-XamlSourceFocusNavigationReason_Left: XamlSourceFocusNavigationReason = 7
-XamlSourceFocusNavigationReason_Up: XamlSourceFocusNavigationReason = 8
-XamlSourceFocusNavigationReason_Right: XamlSourceFocusNavigationReason = 9
-XamlSourceFocusNavigationReason_Down: XamlSourceFocusNavigationReason = 10
+class XamlSourceFocusNavigationReason(Int32):  # enum
+    Programmatic = 0
+    Restore = 1
+    First = 3
+    Last = 4
+    Left = 7
+    Up = 8
+    Right = 9
+    Down = 10
 class XamlSourceFocusNavigationRequest(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Hosting.IXamlSourceFocusNavigationRequest

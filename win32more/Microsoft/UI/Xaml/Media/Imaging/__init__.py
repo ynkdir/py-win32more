@@ -10,9 +10,9 @@ import win32more.Windows.Graphics.Imaging
 import win32more.Windows.Storage.Streams
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.WinRT
-BitmapCreateOptions = UInt32
-BitmapCreateOptions_None: BitmapCreateOptions = 0
-BitmapCreateOptions_IgnoreImageCache: BitmapCreateOptions = 8
+class BitmapCreateOptions(UInt32):  # enum
+    None_ = 0
+    IgnoreImageCache = 8
 class _BitmapImage_Meta_(ComPtr.__class__):
     pass
 class BitmapImage(ComPtr, metaclass=_BitmapImage_Meta_):
@@ -139,9 +139,9 @@ class BitmapSource(ComPtr, metaclass=_BitmapSource_Meta_):
     PixelHeight = property(get_PixelHeight, None)
     _BitmapSource_Meta_.PixelWidthProperty = property(get_PixelWidthProperty.__wrapped__, None)
     _BitmapSource_Meta_.PixelHeightProperty = property(get_PixelHeightProperty.__wrapped__, None)
-DecodePixelType = Int32
-DecodePixelType_Physical: DecodePixelType = 0
-DecodePixelType_Logical: DecodePixelType = 1
+class DecodePixelType(Int32):  # enum
+    Physical = 0
+    Logical = 1
 class DownloadProgressEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Media.Imaging.IDownloadProgressEventArgs
@@ -559,11 +559,11 @@ class SvgImageSourceFailedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Status(self: win32more.Microsoft.UI.Xaml.Media.Imaging.ISvgImageSourceFailedEventArgs) -> win32more.Microsoft.UI.Xaml.Media.Imaging.SvgImageSourceLoadStatus: ...
     Status = property(get_Status, None)
-SvgImageSourceLoadStatus = Int32
-SvgImageSourceLoadStatus_Success: SvgImageSourceLoadStatus = 0
-SvgImageSourceLoadStatus_NetworkError: SvgImageSourceLoadStatus = 1
-SvgImageSourceLoadStatus_InvalidFormat: SvgImageSourceLoadStatus = 2
-SvgImageSourceLoadStatus_Other: SvgImageSourceLoadStatus = 3
+class SvgImageSourceLoadStatus(Int32):  # enum
+    Success = 0
+    NetworkError = 1
+    InvalidFormat = 2
+    Other = 3
 class SvgImageSourceOpenedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Media.Imaging.ISvgImageSourceOpenedEventArgs

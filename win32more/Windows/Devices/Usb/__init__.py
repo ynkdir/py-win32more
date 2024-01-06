@@ -569,12 +569,12 @@ class UsbConfigurationDescriptor(ComPtr):
     MaxPowerMilliamps = property(get_MaxPowerMilliamps, None)
     SelfPowered = property(get_SelfPowered, None)
     RemoteWakeup = property(get_RemoteWakeup, None)
-UsbControlRecipient = Int32
-UsbControlRecipient_Device: UsbControlRecipient = 0
-UsbControlRecipient_SpecifiedInterface: UsbControlRecipient = 1
-UsbControlRecipient_Endpoint: UsbControlRecipient = 2
-UsbControlRecipient_Other: UsbControlRecipient = 3
-UsbControlRecipient_DefaultInterface: UsbControlRecipient = 4
+class UsbControlRecipient(Int32):  # enum
+    Device = 0
+    SpecifiedInterface = 1
+    Endpoint = 2
+    Other = 3
+    DefaultInterface = 4
 class UsbControlRequestType(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Usb.IUsbControlRequestType
@@ -608,10 +608,10 @@ class UsbControlRequestType(ComPtr):
     ControlTransferType = property(get_ControlTransferType, put_ControlTransferType)
     Recipient = property(get_Recipient, put_Recipient)
     AsByte = property(get_AsByte, put_AsByte)
-UsbControlTransferType = Int32
-UsbControlTransferType_Standard: UsbControlTransferType = 0
-UsbControlTransferType_Class: UsbControlTransferType = 1
-UsbControlTransferType_Vendor: UsbControlTransferType = 2
+class UsbControlTransferType(Int32):  # enum
+    Standard = 0
+    Class = 1
+    Vendor = 2
 class UsbDescriptor(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Usb.IUsbDescriptor
@@ -769,11 +769,11 @@ class UsbEndpointDescriptor(ComPtr):
     AsInterruptInEndpointDescriptor = property(get_AsInterruptInEndpointDescriptor, None)
     AsBulkOutEndpointDescriptor = property(get_AsBulkOutEndpointDescriptor, None)
     AsInterruptOutEndpointDescriptor = property(get_AsInterruptOutEndpointDescriptor, None)
-UsbEndpointType = Int32
-UsbEndpointType_Control: UsbEndpointType = 0
-UsbEndpointType_Isochronous: UsbEndpointType = 1
-UsbEndpointType_Bulk: UsbEndpointType = 2
-UsbEndpointType_Interrupt: UsbEndpointType = 3
+class UsbEndpointType(Int32):  # enum
+    Control = 0
+    Isochronous = 1
+    Bulk = 2
+    Interrupt = 3
 class UsbInterface(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Usb.IUsbInterface
@@ -918,12 +918,12 @@ class UsbInterruptOutPipe(ComPtr):
     EndpointDescriptor = property(get_EndpointDescriptor, None)
     WriteOptions = property(get_WriteOptions, put_WriteOptions)
     OutputStream = property(get_OutputStream, None)
-UsbReadOptions = UInt32
-UsbReadOptions_None: UsbReadOptions = 0
-UsbReadOptions_AutoClearStall: UsbReadOptions = 1
-UsbReadOptions_OverrideAutomaticBufferManagement: UsbReadOptions = 2
-UsbReadOptions_IgnoreShortPacket: UsbReadOptions = 4
-UsbReadOptions_AllowPartialReads: UsbReadOptions = 8
+class UsbReadOptions(UInt32):  # enum
+    None_ = 0
+    AutoClearStall = 1
+    OverrideAutomaticBufferManagement = 2
+    IgnoreShortPacket = 4
+    AllowPartialReads = 8
 class UsbSetupPacket(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Usb.IUsbSetupPacket
@@ -966,13 +966,13 @@ class UsbSetupPacket(ComPtr):
     Value = property(get_Value, put_Value)
     Index = property(get_Index, put_Index)
     Length = property(get_Length, put_Length)
-UsbTransferDirection = Int32
-UsbTransferDirection_Out: UsbTransferDirection = 0
-UsbTransferDirection_In: UsbTransferDirection = 1
-UsbWriteOptions = UInt32
-UsbWriteOptions_None: UsbWriteOptions = 0
-UsbWriteOptions_AutoClearStall: UsbWriteOptions = 1
-UsbWriteOptions_ShortPacketTerminate: UsbWriteOptions = 2
+class UsbTransferDirection(Int32):  # enum
+    Out = 0
+    In = 1
+class UsbWriteOptions(UInt32):  # enum
+    None_ = 0
+    AutoClearStall = 1
+    ShortPacketTerminate = 2
 
 
 make_ready(__name__)

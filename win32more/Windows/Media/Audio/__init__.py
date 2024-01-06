@@ -63,12 +63,12 @@ class AudioDeviceInputNode(ComPtr):
     EncodingProperties = property(get_EncodingProperties, None)
     ConsumeInput = property(get_ConsumeInput, put_ConsumeInput)
     Emitter = property(get_Emitter, None)
-AudioDeviceNodeCreationStatus = Int32
-AudioDeviceNodeCreationStatus_Success: AudioDeviceNodeCreationStatus = 0
-AudioDeviceNodeCreationStatus_DeviceNotAvailable: AudioDeviceNodeCreationStatus = 1
-AudioDeviceNodeCreationStatus_FormatNotSupported: AudioDeviceNodeCreationStatus = 2
-AudioDeviceNodeCreationStatus_UnknownFailure: AudioDeviceNodeCreationStatus = 3
-AudioDeviceNodeCreationStatus_AccessDenied: AudioDeviceNodeCreationStatus = 4
+class AudioDeviceNodeCreationStatus(Int32):  # enum
+    Success = 0
+    DeviceNotAvailable = 1
+    FormatNotSupported = 2
+    UnknownFailure = 3
+    AccessDenied = 4
 class AudioDeviceOutputNode(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Audio.IAudioDeviceOutputNode
@@ -188,12 +188,12 @@ class AudioFileInputNode(ComPtr):
     EncodingProperties = property(get_EncodingProperties, None)
     ConsumeInput = property(get_ConsumeInput, put_ConsumeInput)
     Emitter = property(get_Emitter, None)
-AudioFileNodeCreationStatus = Int32
-AudioFileNodeCreationStatus_Success: AudioFileNodeCreationStatus = 0
-AudioFileNodeCreationStatus_FileNotFound: AudioFileNodeCreationStatus = 1
-AudioFileNodeCreationStatus_InvalidFileType: AudioFileNodeCreationStatus = 2
-AudioFileNodeCreationStatus_FormatNotSupported: AudioFileNodeCreationStatus = 3
-AudioFileNodeCreationStatus_UnknownFailure: AudioFileNodeCreationStatus = 4
+class AudioFileNodeCreationStatus(Int32):  # enum
+    Success = 0
+    FileNotFound = 1
+    InvalidFileType = 2
+    FormatNotSupported = 3
+    UnknownFailure = 4
 class AudioFileOutputNode(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Audio.IAudioFileOutputNode
@@ -441,11 +441,11 @@ class AudioGraphConnection(ComPtr):
     def get_Gain(self: win32more.Windows.Media.Audio.IAudioGraphConnection) -> Double: ...
     Destination = property(get_Destination, None)
     Gain = property(get_Gain, put_Gain)
-AudioGraphCreationStatus = Int32
-AudioGraphCreationStatus_Success: AudioGraphCreationStatus = 0
-AudioGraphCreationStatus_DeviceNotAvailable: AudioGraphCreationStatus = 1
-AudioGraphCreationStatus_FormatNotSupported: AudioGraphCreationStatus = 2
-AudioGraphCreationStatus_UnknownFailure: AudioGraphCreationStatus = 3
+class AudioGraphCreationStatus(Int32):  # enum
+    Success = 0
+    DeviceNotAvailable = 1
+    FormatNotSupported = 2
+    UnknownFailure = 3
 class AudioGraphSettings(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Audio.IAudioGraphSettings
@@ -494,11 +494,11 @@ class AudioGraphSettings(ComPtr):
     AudioRenderCategory = property(get_AudioRenderCategory, put_AudioRenderCategory)
     DesiredRenderDeviceAudioProcessing = property(get_DesiredRenderDeviceAudioProcessing, put_DesiredRenderDeviceAudioProcessing)
     MaxPlaybackSpeedFactor = property(get_MaxPlaybackSpeedFactor, put_MaxPlaybackSpeedFactor)
-AudioGraphUnrecoverableError = Int32
-AudioGraphUnrecoverableError_None: AudioGraphUnrecoverableError = 0
-AudioGraphUnrecoverableError_AudioDeviceLost: AudioGraphUnrecoverableError = 1
-AudioGraphUnrecoverableError_AudioSessionDisconnected: AudioGraphUnrecoverableError = 2
-AudioGraphUnrecoverableError_UnknownFailure: AudioGraphUnrecoverableError = 3
+class AudioGraphUnrecoverableError(Int32):  # enum
+    None_ = 0
+    AudioDeviceLost = 1
+    AudioSessionDisconnected = 2
+    UnknownFailure = 3
 class AudioGraphUnrecoverableErrorOccurredEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Audio.IAudioGraphUnrecoverableErrorOccurredEventArgs
@@ -580,9 +580,9 @@ class AudioNodeEmitterConeProperties(ComPtr):
     InnerAngle = property(get_InnerAngle, None)
     OuterAngle = property(get_OuterAngle, None)
     OuterAngleGain = property(get_OuterAngleGain, None)
-AudioNodeEmitterDecayKind = Int32
-AudioNodeEmitterDecayKind_Natural: AudioNodeEmitterDecayKind = 0
-AudioNodeEmitterDecayKind_Custom: AudioNodeEmitterDecayKind = 1
+class AudioNodeEmitterDecayKind(Int32):  # enum
+    Natural = 0
+    Custom = 1
 class AudioNodeEmitterDecayModel(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Audio.IAudioNodeEmitterDecayModel
@@ -613,9 +613,9 @@ class AudioNodeEmitterNaturalDecayModelProperties(ComPtr):
     def get_CutoffDistance(self: win32more.Windows.Media.Audio.IAudioNodeEmitterNaturalDecayModelProperties) -> Double: ...
     UnityGainDistance = property(get_UnityGainDistance, None)
     CutoffDistance = property(get_CutoffDistance, None)
-AudioNodeEmitterSettings = UInt32
-AudioNodeEmitterSettings_None: AudioNodeEmitterSettings = 0
-AudioNodeEmitterSettings_DisableDoppler: AudioNodeEmitterSettings = 1
+class AudioNodeEmitterSettings(UInt32):  # enum
+    None_ = 0
+    DisableDoppler = 1
 class AudioNodeEmitterShape(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Audio.IAudioNodeEmitterShape
@@ -630,9 +630,9 @@ class AudioNodeEmitterShape(ComPtr):
     def CreateOmnidirectional(cls: win32more.Windows.Media.Audio.IAudioNodeEmitterShapeStatics) -> win32more.Windows.Media.Audio.AudioNodeEmitterShape: ...
     Kind = property(get_Kind, None)
     ConeProperties = property(get_ConeProperties, None)
-AudioNodeEmitterShapeKind = Int32
-AudioNodeEmitterShapeKind_Omnidirectional: AudioNodeEmitterShapeKind = 0
-AudioNodeEmitterShapeKind_Cone: AudioNodeEmitterShapeKind = 1
+class AudioNodeEmitterShapeKind(Int32):  # enum
+    Omnidirectional = 0
+    Cone = 1
 class AudioNodeListener(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Audio.IAudioNodeListener
@@ -704,14 +704,14 @@ class AudioPlaybackConnectionOpenResult(ComPtr):
     def get_ExtendedError(self: win32more.Windows.Media.Audio.IAudioPlaybackConnectionOpenResult) -> win32more.Windows.Foundation.HResult: ...
     Status = property(get_Status, None)
     ExtendedError = property(get_ExtendedError, None)
-AudioPlaybackConnectionOpenResultStatus = Int32
-AudioPlaybackConnectionOpenResultStatus_Success: AudioPlaybackConnectionOpenResultStatus = 0
-AudioPlaybackConnectionOpenResultStatus_RequestTimedOut: AudioPlaybackConnectionOpenResultStatus = 1
-AudioPlaybackConnectionOpenResultStatus_DeniedBySystem: AudioPlaybackConnectionOpenResultStatus = 2
-AudioPlaybackConnectionOpenResultStatus_UnknownFailure: AudioPlaybackConnectionOpenResultStatus = 3
-AudioPlaybackConnectionState = Int32
-AudioPlaybackConnectionState_Closed: AudioPlaybackConnectionState = 0
-AudioPlaybackConnectionState_Opened: AudioPlaybackConnectionState = 1
+class AudioPlaybackConnectionOpenResultStatus(Int32):  # enum
+    Success = 0
+    RequestTimedOut = 1
+    DeniedBySystem = 2
+    UnknownFailure = 3
+class AudioPlaybackConnectionState(Int32):  # enum
+    Closed = 0
+    Opened = 1
 class AudioStateMonitor(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Audio.IAudioStateMonitor
@@ -2027,18 +2027,18 @@ class MediaSourceAudioInputNode(ComPtr):
     EncodingProperties = property(get_EncodingProperties, None)
     ConsumeInput = property(get_ConsumeInput, put_ConsumeInput)
     Emitter = property(get_Emitter, None)
-MediaSourceAudioInputNodeCreationStatus = Int32
-MediaSourceAudioInputNodeCreationStatus_Success: MediaSourceAudioInputNodeCreationStatus = 0
-MediaSourceAudioInputNodeCreationStatus_FormatNotSupported: MediaSourceAudioInputNodeCreationStatus = 1
-MediaSourceAudioInputNodeCreationStatus_NetworkError: MediaSourceAudioInputNodeCreationStatus = 2
-MediaSourceAudioInputNodeCreationStatus_UnknownFailure: MediaSourceAudioInputNodeCreationStatus = 3
-MixedRealitySpatialAudioFormatPolicy = Int32
-MixedRealitySpatialAudioFormatPolicy_UseMixedRealityDefaultSpatialAudioFormat: MixedRealitySpatialAudioFormatPolicy = 0
-MixedRealitySpatialAudioFormatPolicy_UseDeviceConfigurationDefaultSpatialAudioFormat: MixedRealitySpatialAudioFormatPolicy = 1
-QuantumSizeSelectionMode = Int32
-QuantumSizeSelectionMode_SystemDefault: QuantumSizeSelectionMode = 0
-QuantumSizeSelectionMode_LowestLatency: QuantumSizeSelectionMode = 1
-QuantumSizeSelectionMode_ClosestToDesired: QuantumSizeSelectionMode = 2
+class MediaSourceAudioInputNodeCreationStatus(Int32):  # enum
+    Success = 0
+    FormatNotSupported = 1
+    NetworkError = 2
+    UnknownFailure = 3
+class MixedRealitySpatialAudioFormatPolicy(Int32):  # enum
+    UseMixedRealityDefaultSpatialAudioFormat = 0
+    UseDeviceConfigurationDefaultSpatialAudioFormat = 1
+class QuantumSizeSelectionMode(Int32):  # enum
+    SystemDefault = 0
+    LowestLatency = 1
+    ClosestToDesired = 2
 class ReverbEffectDefinition(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Audio.IReverbEffectDefinition
@@ -2180,13 +2180,13 @@ class SetDefaultSpatialAudioFormatResult(ComPtr):
     @winrt_mixinmethod
     def get_Status(self: win32more.Windows.Media.Audio.ISetDefaultSpatialAudioFormatResult) -> win32more.Windows.Media.Audio.SetDefaultSpatialAudioFormatStatus: ...
     Status = property(get_Status, None)
-SetDefaultSpatialAudioFormatStatus = Int32
-SetDefaultSpatialAudioFormatStatus_Succeeded: SetDefaultSpatialAudioFormatStatus = 0
-SetDefaultSpatialAudioFormatStatus_AccessDenied: SetDefaultSpatialAudioFormatStatus = 1
-SetDefaultSpatialAudioFormatStatus_LicenseExpired: SetDefaultSpatialAudioFormatStatus = 2
-SetDefaultSpatialAudioFormatStatus_LicenseNotValidForAudioEndpoint: SetDefaultSpatialAudioFormatStatus = 3
-SetDefaultSpatialAudioFormatStatus_NotSupportedOnAudioEndpoint: SetDefaultSpatialAudioFormatStatus = 4
-SetDefaultSpatialAudioFormatStatus_UnknownError: SetDefaultSpatialAudioFormatStatus = 5
+class SetDefaultSpatialAudioFormatStatus(Int32):  # enum
+    Succeeded = 0
+    AccessDenied = 1
+    LicenseExpired = 2
+    LicenseNotValidForAudioEndpoint = 3
+    NotSupportedOnAudioEndpoint = 4
+    UnknownError = 5
 class SpatialAudioDeviceConfiguration(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Audio.ISpatialAudioDeviceConfiguration
@@ -2254,9 +2254,9 @@ class SpatialAudioFormatSubtype(ComPtr, metaclass=_SpatialAudioFormatSubtype_Met
     _SpatialAudioFormatSubtype_Meta_.DolbyAtmosForSpeakers = property(get_DolbyAtmosForSpeakers.__wrapped__, None)
     _SpatialAudioFormatSubtype_Meta_.DTSHeadphoneX = property(get_DTSHeadphoneX.__wrapped__, None)
     _SpatialAudioFormatSubtype_Meta_.DTSXUltra = property(get_DTSXUltra.__wrapped__, None)
-SpatialAudioModel = Int32
-SpatialAudioModel_ObjectBased: SpatialAudioModel = 0
-SpatialAudioModel_FoldDown: SpatialAudioModel = 1
+class SpatialAudioModel(Int32):  # enum
+    ObjectBased = 0
+    FoldDown = 1
 
 
 make_ready(__name__)

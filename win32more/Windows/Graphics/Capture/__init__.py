@@ -54,9 +54,9 @@ class GraphicsCaptureAccess(ComPtr):
     _classid_ = 'Windows.Graphics.Capture.GraphicsCaptureAccess'
     @winrt_classmethod
     def RequestAccessAsync(cls: win32more.Windows.Graphics.Capture.IGraphicsCaptureAccessStatics, request: win32more.Windows.Graphics.Capture.GraphicsCaptureAccessKind) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Security.Authorization.AppCapabilityAccess.AppCapabilityAccessStatus]: ...
-GraphicsCaptureAccessKind = Int32
-GraphicsCaptureAccessKind_Borderless: GraphicsCaptureAccessKind = 0
-GraphicsCaptureAccessKind_Programmatic: GraphicsCaptureAccessKind = 1
+class GraphicsCaptureAccessKind(Int32):  # enum
+    Borderless = 0
+    Programmatic = 1
 class GraphicsCaptureItem(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Capture.IGraphicsCaptureItem

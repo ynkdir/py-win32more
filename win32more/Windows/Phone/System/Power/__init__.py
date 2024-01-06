@@ -37,9 +37,9 @@ class PowerManager(ComPtr, metaclass=_PowerManager_Meta_):
     def get_PowerSavingModeEnabled(cls: win32more.Windows.Phone.System.Power.IPowerManagerStatics2) -> Boolean: ...
     _PowerManager_Meta_.PowerSavingMode = property(get_PowerSavingMode.__wrapped__, None)
     _PowerManager_Meta_.PowerSavingModeEnabled = property(get_PowerSavingModeEnabled.__wrapped__, None)
-PowerSavingMode = Int32
-PowerSavingMode_Off: PowerSavingMode = 0
-PowerSavingMode_On: PowerSavingMode = 1
+class PowerSavingMode(Int32):  # enum
+    Off = 0
+    On = 1
 
 
 make_ready(__name__)

@@ -132,10 +132,10 @@ class AppWindowClosedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Reason(self: win32more.Windows.UI.WindowManagement.IAppWindowClosedEventArgs) -> win32more.Windows.UI.WindowManagement.AppWindowClosedReason: ...
     Reason = property(get_Reason, None)
-AppWindowClosedReason = Int32
-AppWindowClosedReason_Other: AppWindowClosedReason = 0
-AppWindowClosedReason_AppInitiated: AppWindowClosedReason = 1
-AppWindowClosedReason_UserInitiated: AppWindowClosedReason = 2
+class AppWindowClosedReason(Int32):  # enum
+    Other = 0
+    AppInitiated = 1
+    UserInitiated = 2
 class AppWindowFrame(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.WindowManagement.IAppWindowFrame
@@ -147,9 +147,9 @@ class AppWindowFrame(ComPtr):
     @winrt_mixinmethod
     def get_DragRegionVisuals(self: win32more.Windows.UI.WindowManagement.IAppWindowFrame) -> win32more.Windows.Foundation.Collections.IVector[win32more.Windows.UI.Composition.IVisualElement]: ...
     DragRegionVisuals = property(get_DragRegionVisuals, None)
-AppWindowFrameStyle = Int32
-AppWindowFrameStyle_Default: AppWindowFrameStyle = 0
-AppWindowFrameStyle_NoFrame: AppWindowFrameStyle = 1
+class AppWindowFrameStyle(Int32):  # enum
+    Default = 0
+    NoFrame = 1
 class AppWindowPlacement(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.WindowManagement.IAppWindowPlacement
@@ -170,10 +170,10 @@ class AppWindowPresentationConfiguration(ComPtr):
     @winrt_mixinmethod
     def get_Kind(self: win32more.Windows.UI.WindowManagement.IAppWindowPresentationConfiguration) -> win32more.Windows.UI.WindowManagement.AppWindowPresentationKind: ...
     Kind = property(get_Kind, None)
-AppWindowPresentationKind = Int32
-AppWindowPresentationKind_Default: AppWindowPresentationKind = 0
-AppWindowPresentationKind_CompactOverlay: AppWindowPresentationKind = 1
-AppWindowPresentationKind_FullScreen: AppWindowPresentationKind = 2
+class AppWindowPresentationKind(Int32):  # enum
+    Default = 0
+    CompactOverlay = 1
+    FullScreen = 2
 class AppWindowPresenter(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.WindowManagement.IAppWindowPresenter
@@ -271,9 +271,9 @@ class AppWindowTitleBarOcclusion(ComPtr):
     @winrt_mixinmethod
     def get_OccludingRect(self: win32more.Windows.UI.WindowManagement.IAppWindowTitleBarOcclusion) -> win32more.Windows.Foundation.Rect: ...
     OccludingRect = property(get_OccludingRect, None)
-AppWindowTitleBarVisibility = Int32
-AppWindowTitleBarVisibility_Default: AppWindowTitleBarVisibility = 0
-AppWindowTitleBarVisibility_AlwaysHidden: AppWindowTitleBarVisibility = 1
+class AppWindowTitleBarVisibility(Int32):  # enum
+    Default = 0
+    AlwaysHidden = 1
 class CompactOverlayPresentationConfiguration(ComPtr):
     extends: win32more.Windows.UI.WindowManagement.AppWindowPresentationConfiguration
     default_interface: win32more.Windows.UI.WindowManagement.ICompactOverlayPresentationConfiguration
@@ -733,10 +733,10 @@ class WindowingEnvironmentChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.WindowManagement.IWindowingEnvironmentChangedEventArgs
     _classid_ = 'Windows.UI.WindowManagement.WindowingEnvironmentChangedEventArgs'
-WindowingEnvironmentKind = Int32
-WindowingEnvironmentKind_Unknown: WindowingEnvironmentKind = 0
-WindowingEnvironmentKind_Overlapped: WindowingEnvironmentKind = 1
-WindowingEnvironmentKind_Tiled: WindowingEnvironmentKind = 2
+class WindowingEnvironmentKind(Int32):  # enum
+    Unknown = 0
+    Overlapped = 1
+    Tiled = 2
 class WindowingEnvironmentRemovedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.WindowManagement.IWindowingEnvironmentRemovedEventArgs

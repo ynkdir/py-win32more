@@ -42,10 +42,10 @@ class IWebAuthenticationResult(ComPtr):
     ResponseData = property(get_ResponseData, None)
     ResponseStatus = property(get_ResponseStatus, None)
     ResponseErrorDetail = property(get_ResponseErrorDetail, None)
-TokenBindingKeyType = Int32
-TokenBindingKeyType_Rsa2048: TokenBindingKeyType = 0
-TokenBindingKeyType_EcdsaP256: TokenBindingKeyType = 1
-TokenBindingKeyType_AnyExisting: TokenBindingKeyType = 2
+class TokenBindingKeyType(Int32):  # enum
+    Rsa2048 = 0
+    EcdsaP256 = 1
+    AnyExisting = 2
 class WebAuthenticationBroker(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.Authentication.Web.WebAuthenticationBroker'
@@ -65,12 +65,12 @@ class WebAuthenticationBroker(ComPtr):
     def AuthenticateWithoutCallbackUriAsync(cls: win32more.Windows.Security.Authentication.Web.IWebAuthenticationBrokerStatics, options: win32more.Windows.Security.Authentication.Web.WebAuthenticationOptions, requestUri: win32more.Windows.Foundation.Uri) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Security.Authentication.Web.WebAuthenticationResult]: ...
     @winrt_classmethod
     def GetCurrentApplicationCallbackUri(cls: win32more.Windows.Security.Authentication.Web.IWebAuthenticationBrokerStatics) -> win32more.Windows.Foundation.Uri: ...
-WebAuthenticationOptions = UInt32
-WebAuthenticationOptions_None: WebAuthenticationOptions = 0
-WebAuthenticationOptions_SilentMode: WebAuthenticationOptions = 1
-WebAuthenticationOptions_UseTitle: WebAuthenticationOptions = 2
-WebAuthenticationOptions_UseHttpPost: WebAuthenticationOptions = 4
-WebAuthenticationOptions_UseCorporateNetwork: WebAuthenticationOptions = 8
+class WebAuthenticationOptions(UInt32):  # enum
+    None_ = 0
+    SilentMode = 1
+    UseTitle = 2
+    UseHttpPost = 4
+    UseCorporateNetwork = 8
 class WebAuthenticationResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Authentication.Web.IWebAuthenticationResult
@@ -84,10 +84,10 @@ class WebAuthenticationResult(ComPtr):
     ResponseData = property(get_ResponseData, None)
     ResponseStatus = property(get_ResponseStatus, None)
     ResponseErrorDetail = property(get_ResponseErrorDetail, None)
-WebAuthenticationStatus = Int32
-WebAuthenticationStatus_Success: WebAuthenticationStatus = 0
-WebAuthenticationStatus_UserCancel: WebAuthenticationStatus = 1
-WebAuthenticationStatus_ErrorHttp: WebAuthenticationStatus = 2
+class WebAuthenticationStatus(Int32):  # enum
+    Success = 0
+    UserCancel = 1
+    ErrorHttp = 2
 
 
 make_ready(__name__)

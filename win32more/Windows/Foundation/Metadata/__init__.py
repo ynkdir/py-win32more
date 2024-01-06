@@ -26,35 +26,35 @@ class ApiInformation(ComPtr):
     def IsApiContractPresentByMajor(cls: win32more.Windows.Foundation.Metadata.IApiInformationStatics, contractName: WinRT_String, majorVersion: UInt16) -> Boolean: ...
     @winrt_classmethod
     def IsApiContractPresentByMajorAndMinor(cls: win32more.Windows.Foundation.Metadata.IApiInformationStatics, contractName: WinRT_String, majorVersion: UInt16, minorVersion: UInt16) -> Boolean: ...
-AttributeTargets = UInt32
-AttributeTargets_All: AttributeTargets = 4294967295
-AttributeTargets_Delegate: AttributeTargets = 1
-AttributeTargets_Enum: AttributeTargets = 2
-AttributeTargets_Event: AttributeTargets = 4
-AttributeTargets_Field: AttributeTargets = 8
-AttributeTargets_Interface: AttributeTargets = 16
-AttributeTargets_Method: AttributeTargets = 64
-AttributeTargets_Parameter: AttributeTargets = 128
-AttributeTargets_Property: AttributeTargets = 256
-AttributeTargets_RuntimeClass: AttributeTargets = 512
-AttributeTargets_Struct: AttributeTargets = 1024
-AttributeTargets_InterfaceImpl: AttributeTargets = 2048
-AttributeTargets_ApiContract: AttributeTargets = 8192
-CompositionType = Int32
-CompositionType_Protected: CompositionType = 1
-CompositionType_Public: CompositionType = 2
-DeprecationType = Int32
-DeprecationType_Deprecate: DeprecationType = 0
-DeprecationType_Remove: DeprecationType = 1
-FeatureStage = Int32
-FeatureStage_AlwaysDisabled: FeatureStage = 0
-FeatureStage_DisabledByDefault: FeatureStage = 1
-FeatureStage_EnabledByDefault: FeatureStage = 2
-FeatureStage_AlwaysEnabled: FeatureStage = 3
-GCPressureAmount = Int32
-GCPressureAmount_Low: GCPressureAmount = 0
-GCPressureAmount_Medium: GCPressureAmount = 1
-GCPressureAmount_High: GCPressureAmount = 2
+class AttributeTargets(UInt32):  # enum
+    All = 4294967295
+    Delegate = 1
+    Enum = 2
+    Event = 4
+    Field = 8
+    Interface = 16
+    Method = 64
+    Parameter = 128
+    Property = 256
+    RuntimeClass = 512
+    Struct = 1024
+    InterfaceImpl = 2048
+    ApiContract = 8192
+class CompositionType(Int32):  # enum
+    Protected = 1
+    Public = 2
+class DeprecationType(Int32):  # enum
+    Deprecate = 0
+    Remove = 1
+class FeatureStage(Int32):  # enum
+    AlwaysDisabled = 0
+    DisabledByDefault = 1
+    EnabledByDefault = 2
+    AlwaysEnabled = 3
+class GCPressureAmount(Int32):  # enum
+    Low = 0
+    Medium = 1
+    High = 2
 class IApiInformationStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Foundation.Metadata.IApiInformationStatics'
@@ -79,19 +79,19 @@ class IApiInformationStatics(ComPtr):
     def IsApiContractPresentByMajor(self, contractName: WinRT_String, majorVersion: UInt16) -> Boolean: ...
     @winrt_commethod(15)
     def IsApiContractPresentByMajorAndMinor(self, contractName: WinRT_String, majorVersion: UInt16, minorVersion: UInt16) -> Boolean: ...
-MarshalingType = Int32
-MarshalingType_None: MarshalingType = 1
-MarshalingType_Agile: MarshalingType = 2
-MarshalingType_Standard: MarshalingType = 3
-MarshalingType_InvalidMarshaling: MarshalingType = 0
-Platform = Int32
-Platform_Windows: Platform = 0
-Platform_WindowsPhone: Platform = 1
-ThreadingModel = Int32
-ThreadingModel_STA: ThreadingModel = 1
-ThreadingModel_MTA: ThreadingModel = 2
-ThreadingModel_Both: ThreadingModel = 3
-ThreadingModel_InvalidThreading: ThreadingModel = 0
+class MarshalingType(Int32):  # enum
+    None_ = 1
+    Agile = 2
+    Standard = 3
+    InvalidMarshaling = 0
+class Platform(Int32):  # enum
+    Windows = 0
+    WindowsPhone = 1
+class ThreadingModel(Int32):  # enum
+    STA = 1
+    MTA = 2
+    Both = 3
+    InvalidThreading = 0
 
 
 make_ready(__name__)

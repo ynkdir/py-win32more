@@ -681,13 +681,13 @@ class SyndicationError(ComPtr):
     _classid_ = 'Windows.Web.Syndication.SyndicationError'
     @winrt_classmethod
     def GetStatus(cls: win32more.Windows.Web.Syndication.ISyndicationErrorStatics, hresult: Int32) -> win32more.Windows.Web.Syndication.SyndicationErrorStatus: ...
-SyndicationErrorStatus = Int32
-SyndicationErrorStatus_Unknown: SyndicationErrorStatus = 0
-SyndicationErrorStatus_MissingRequiredElement: SyndicationErrorStatus = 1
-SyndicationErrorStatus_MissingRequiredAttribute: SyndicationErrorStatus = 2
-SyndicationErrorStatus_InvalidXml: SyndicationErrorStatus = 3
-SyndicationErrorStatus_UnexpectedContent: SyndicationErrorStatus = 4
-SyndicationErrorStatus_UnsupportedFormat: SyndicationErrorStatus = 5
+class SyndicationErrorStatus(Int32):  # enum
+    Unknown = 0
+    MissingRequiredElement = 1
+    MissingRequiredAttribute = 2
+    InvalidXml = 3
+    UnexpectedContent = 4
+    UnsupportedFormat = 5
 class SyndicationFeed(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Syndication.ISyndicationFeed
@@ -812,13 +812,13 @@ class SyndicationFeed(ComPtr):
     BaseUri = property(get_BaseUri, put_BaseUri)
     AttributeExtensions = property(get_AttributeExtensions, None)
     ElementExtensions = property(get_ElementExtensions, None)
-SyndicationFormat = Int32
-SyndicationFormat_Atom10: SyndicationFormat = 0
-SyndicationFormat_Rss20: SyndicationFormat = 1
-SyndicationFormat_Rss10: SyndicationFormat = 2
-SyndicationFormat_Rss092: SyndicationFormat = 3
-SyndicationFormat_Rss091: SyndicationFormat = 4
-SyndicationFormat_Atom03: SyndicationFormat = 5
+class SyndicationFormat(Int32):  # enum
+    Atom10 = 0
+    Rss20 = 1
+    Rss10 = 2
+    Rss092 = 3
+    Rss091 = 4
+    Atom03 = 5
 class SyndicationGenerator(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Syndication.ISyndicationGenerator
@@ -1279,10 +1279,10 @@ class SyndicationText(ComPtr):
     BaseUri = property(get_BaseUri, put_BaseUri)
     AttributeExtensions = property(get_AttributeExtensions, None)
     ElementExtensions = property(get_ElementExtensions, None)
-SyndicationTextType = Int32
-SyndicationTextType_Text: SyndicationTextType = 0
-SyndicationTextType_Html: SyndicationTextType = 1
-SyndicationTextType_Xhtml: SyndicationTextType = 2
+class SyndicationTextType(Int32):  # enum
+    Text = 0
+    Html = 1
+    Xhtml = 2
 class TransferProgress(EasyCastStructure):
     BytesSent: UInt32
     TotalBytesToSend: UInt32

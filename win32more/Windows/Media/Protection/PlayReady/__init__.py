@@ -657,41 +657,41 @@ class IPlayReadyStatics5(ComPtr):
     def ResetHardwareDRMDisabled(self) -> Void: ...
     HardwareDRMDisabledAtTime = property(get_HardwareDRMDisabledAtTime, None)
     HardwareDRMDisabledUntilTime = property(get_HardwareDRMDisabledUntilTime, None)
-NDCertificateFeature = Int32
-NDCertificateFeature_Transmitter: NDCertificateFeature = 1
-NDCertificateFeature_Receiver: NDCertificateFeature = 2
-NDCertificateFeature_SharedCertificate: NDCertificateFeature = 3
-NDCertificateFeature_SecureClock: NDCertificateFeature = 4
-NDCertificateFeature_AntiRollBackClock: NDCertificateFeature = 5
-NDCertificateFeature_CRLS: NDCertificateFeature = 9
-NDCertificateFeature_PlayReady3Features: NDCertificateFeature = 13
-NDCertificatePlatformID = Int32
-NDCertificatePlatformID_Windows: NDCertificatePlatformID = 0
-NDCertificatePlatformID_OSX: NDCertificatePlatformID = 1
-NDCertificatePlatformID_WindowsOnARM: NDCertificatePlatformID = 2
-NDCertificatePlatformID_WindowsMobile7: NDCertificatePlatformID = 5
-NDCertificatePlatformID_iOSOnARM: NDCertificatePlatformID = 6
-NDCertificatePlatformID_XBoxOnPPC: NDCertificatePlatformID = 7
-NDCertificatePlatformID_WindowsPhone8OnARM: NDCertificatePlatformID = 8
-NDCertificatePlatformID_WindowsPhone8OnX86: NDCertificatePlatformID = 9
-NDCertificatePlatformID_XboxOne: NDCertificatePlatformID = 10
-NDCertificatePlatformID_AndroidOnARM: NDCertificatePlatformID = 11
-NDCertificatePlatformID_WindowsPhone81OnARM: NDCertificatePlatformID = 12
-NDCertificatePlatformID_WindowsPhone81OnX86: NDCertificatePlatformID = 13
-NDCertificateType = Int32
-NDCertificateType_Unknown: NDCertificateType = 0
-NDCertificateType_PC: NDCertificateType = 1
-NDCertificateType_Device: NDCertificateType = 2
-NDCertificateType_Domain: NDCertificateType = 3
-NDCertificateType_Issuer: NDCertificateType = 4
-NDCertificateType_CrlSigner: NDCertificateType = 5
-NDCertificateType_Service: NDCertificateType = 6
-NDCertificateType_Silverlight: NDCertificateType = 7
-NDCertificateType_Application: NDCertificateType = 8
-NDCertificateType_Metering: NDCertificateType = 9
-NDCertificateType_KeyFileSigner: NDCertificateType = 10
-NDCertificateType_Server: NDCertificateType = 11
-NDCertificateType_LicenseSigner: NDCertificateType = 12
+class NDCertificateFeature(Int32):  # enum
+    Transmitter = 1
+    Receiver = 2
+    SharedCertificate = 3
+    SecureClock = 4
+    AntiRollBackClock = 5
+    CRLS = 9
+    PlayReady3Features = 13
+class NDCertificatePlatformID(Int32):  # enum
+    Windows = 0
+    OSX = 1
+    WindowsOnARM = 2
+    WindowsMobile7 = 5
+    iOSOnARM = 6
+    XBoxOnPPC = 7
+    WindowsPhone8OnARM = 8
+    WindowsPhone8OnX86 = 9
+    XboxOne = 10
+    AndroidOnARM = 11
+    WindowsPhone81OnARM = 12
+    WindowsPhone81OnX86 = 13
+class NDCertificateType(Int32):  # enum
+    Unknown = 0
+    PC = 1
+    Device = 2
+    Domain = 3
+    Issuer = 4
+    CrlSigner = 5
+    Service = 6
+    Silverlight = 7
+    Application = 8
+    Metering = 9
+    KeyFileSigner = 10
+    Server = 11
+    LicenseSigner = 12
 class NDClient(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Protection.PlayReady.INDClient
@@ -733,14 +733,14 @@ class NDClient(ComPtr):
     def ReRegistrationAsync(self: win32more.Windows.Media.Protection.PlayReady.INDClient, registrationCustomData: win32more.Windows.Media.Protection.PlayReady.INDCustomData) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_mixinmethod
     def Close(self: win32more.Windows.Media.Protection.PlayReady.INDClient) -> Void: ...
-NDClosedCaptionFormat = Int32
-NDClosedCaptionFormat_ATSC: NDClosedCaptionFormat = 0
-NDClosedCaptionFormat_SCTE20: NDClosedCaptionFormat = 1
-NDClosedCaptionFormat_Unknown: NDClosedCaptionFormat = 2
-NDContentIDType = Int32
-NDContentIDType_KeyID: NDContentIDType = 1
-NDContentIDType_PlayReadyObject: NDContentIDType = 2
-NDContentIDType_Custom: NDContentIDType = 3
+class NDClosedCaptionFormat(Int32):  # enum
+    ATSC = 0
+    SCTE20 = 1
+    Unknown = 2
+class NDContentIDType(Int32):  # enum
+    KeyID = 1
+    PlayReadyObject = 2
+    Custom = 3
 class NDCustomData(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Protection.PlayReady.INDCustomData
@@ -809,16 +809,16 @@ class NDLicenseFetchDescriptor(ComPtr):
     ContentIDType = property(get_ContentIDType, None)
     ContentID = property(get_ContentID, None)
     LicenseFetchChallengeCustomData = property(get_LicenseFetchChallengeCustomData, put_LicenseFetchChallengeCustomData)
-NDMediaStreamType = Int32
-NDMediaStreamType_Audio: NDMediaStreamType = 1
-NDMediaStreamType_Video: NDMediaStreamType = 2
-NDProximityDetectionType = Int32
-NDProximityDetectionType_UDP: NDProximityDetectionType = 1
-NDProximityDetectionType_TCP: NDProximityDetectionType = 2
-NDProximityDetectionType_TransportAgnostic: NDProximityDetectionType = 4
-NDStartAsyncOptions = Int32
-NDStartAsyncOptions_MutualAuthentication: NDStartAsyncOptions = 1
-NDStartAsyncOptions_WaitForLicenseDescriptor: NDStartAsyncOptions = 2
+class NDMediaStreamType(Int32):  # enum
+    Audio = 1
+    Video = 2
+class NDProximityDetectionType(Int32):  # enum
+    UDP = 1
+    TCP = 2
+    TransportAgnostic = 4
+class NDStartAsyncOptions(Int32):  # enum
+    MutualAuthentication = 1
+    WaitForLicenseDescriptor = 2
 class NDStorageFileHelper(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Protection.PlayReady.INDStorageFileHelper
@@ -941,9 +941,9 @@ class PlayReadyContentResolver(ComPtr):
     _classid_ = 'Windows.Media.Protection.PlayReady.PlayReadyContentResolver'
     @winrt_classmethod
     def ServiceRequest(cls: win32more.Windows.Media.Protection.PlayReady.IPlayReadyContentResolver, contentHeader: win32more.Windows.Media.Protection.PlayReady.PlayReadyContentHeader) -> win32more.Windows.Media.Protection.PlayReady.IPlayReadyServiceRequest: ...
-PlayReadyDecryptorSetup = Int32
-PlayReadyDecryptorSetup_Uninitialized: PlayReadyDecryptorSetup = 0
-PlayReadyDecryptorSetup_OnDemand: PlayReadyDecryptorSetup = 1
+class PlayReadyDecryptorSetup(Int32):  # enum
+    Uninitialized = 0
+    OnDemand = 1
 class PlayReadyDomain(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Protection.PlayReady.IPlayReadyDomain
@@ -1097,20 +1097,20 @@ class PlayReadyDomainLeaveServiceRequest(ComPtr):
     ChallengeCustomData = property(get_ChallengeCustomData, put_ChallengeCustomData)
     ProtectionSystem = property(get_ProtectionSystem, None)
     Type = property(get_Type, None)
-PlayReadyEncryptionAlgorithm = Int32
-PlayReadyEncryptionAlgorithm_Unprotected: PlayReadyEncryptionAlgorithm = 0
-PlayReadyEncryptionAlgorithm_Aes128Ctr: PlayReadyEncryptionAlgorithm = 1
-PlayReadyEncryptionAlgorithm_Cocktail: PlayReadyEncryptionAlgorithm = 4
-PlayReadyEncryptionAlgorithm_Aes128Cbc: PlayReadyEncryptionAlgorithm = 5
-PlayReadyEncryptionAlgorithm_Unspecified: PlayReadyEncryptionAlgorithm = 65535
-PlayReadyEncryptionAlgorithm_Uninitialized: PlayReadyEncryptionAlgorithm = 2147483647
-PlayReadyHardwareDRMFeatures = Int32
-PlayReadyHardwareDRMFeatures_HardwareDRM: PlayReadyHardwareDRMFeatures = 1
-PlayReadyHardwareDRMFeatures_HEVC: PlayReadyHardwareDRMFeatures = 2
-PlayReadyHardwareDRMFeatures_Aes128Cbc: PlayReadyHardwareDRMFeatures = 3
-PlayReadyITADataFormat = Int32
-PlayReadyITADataFormat_SerializedProperties: PlayReadyITADataFormat = 0
-PlayReadyITADataFormat_SerializedProperties_WithContentProtectionWrapper: PlayReadyITADataFormat = 1
+class PlayReadyEncryptionAlgorithm(Int32):  # enum
+    Unprotected = 0
+    Aes128Ctr = 1
+    Cocktail = 4
+    Aes128Cbc = 5
+    Unspecified = 65535
+    Uninitialized = 2147483647
+class PlayReadyHardwareDRMFeatures(Int32):  # enum
+    HardwareDRM = 1
+    HEVC = 2
+    Aes128Cbc = 3
+class PlayReadyITADataFormat(Int32):  # enum
+    SerializedProperties = 0
+    SerializedProperties_WithContentProtectionWrapper = 1
 class PlayReadyITADataGenerator(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Protection.PlayReady.IPlayReadyITADataGenerator

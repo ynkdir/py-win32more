@@ -330,11 +330,11 @@ class AnnotatedScrollBarScrollingEventArgs(ComPtr):
     ScrollOffset = property(get_ScrollOffset, None)
     ScrollingEventKind = property(get_ScrollingEventKind, None)
     Cancel = property(get_Cancel, put_Cancel)
-AnnotatedScrollBarScrollingEventKind = Int32
-AnnotatedScrollBarScrollingEventKind_Click: AnnotatedScrollBarScrollingEventKind = 0
-AnnotatedScrollBarScrollingEventKind_Drag: AnnotatedScrollBarScrollingEventKind = 1
-AnnotatedScrollBarScrollingEventKind_IncrementButton: AnnotatedScrollBarScrollingEventKind = 2
-AnnotatedScrollBarScrollingEventKind_DecrementButton: AnnotatedScrollBarScrollingEventKind = 3
+class AnnotatedScrollBarScrollingEventKind(Int32):  # enum
+    Click = 0
+    Drag = 1
+    IncrementButton = 2
+    DecrementButton = 3
 class _AppBar_Meta_(ComPtr.__class__):
     pass
 class AppBar(ComPtr, metaclass=_AppBar_Meta_):
@@ -481,10 +481,10 @@ class AppBarButton(ComPtr, metaclass=_AppBarButton_Meta_):
     _AppBarButton_Meta_.IsCompactProperty = property(get_IsCompactProperty.__wrapped__, None)
     _AppBarButton_Meta_.IsInOverflowProperty = property(get_IsInOverflowProperty.__wrapped__, None)
     _AppBarButton_Meta_.DynamicOverflowOrderProperty = property(get_DynamicOverflowOrderProperty.__wrapped__, None)
-AppBarClosedDisplayMode = Int32
-AppBarClosedDisplayMode_Compact: AppBarClosedDisplayMode = 0
-AppBarClosedDisplayMode_Minimal: AppBarClosedDisplayMode = 1
-AppBarClosedDisplayMode_Hidden: AppBarClosedDisplayMode = 2
+class AppBarClosedDisplayMode(Int32):  # enum
+    Compact = 0
+    Minimal = 1
+    Hidden = 2
 class _AppBarElementContainer_Meta_(ComPtr.__class__):
     pass
 class AppBarElementContainer(ComPtr, metaclass=_AppBarElementContainer_Meta_):
@@ -814,13 +814,13 @@ class AutoSuggestBoxTextChangedEventArgs(ComPtr, metaclass=_AutoSuggestBoxTextCh
     def get_ReasonProperty(cls: win32more.Microsoft.UI.Xaml.Controls.IAutoSuggestBoxTextChangedEventArgsStatics) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
     Reason = property(get_Reason, put_Reason)
     _AutoSuggestBoxTextChangedEventArgs_Meta_.ReasonProperty = property(get_ReasonProperty.__wrapped__, None)
-AutoSuggestionBoxTextChangeReason = Int32
-AutoSuggestionBoxTextChangeReason_UserInput: AutoSuggestionBoxTextChangeReason = 0
-AutoSuggestionBoxTextChangeReason_ProgrammaticChange: AutoSuggestionBoxTextChangeReason = 1
-AutoSuggestionBoxTextChangeReason_SuggestionChosen: AutoSuggestionBoxTextChangeReason = 2
-BackgroundSizing = Int32
-BackgroundSizing_InnerBorderEdge: BackgroundSizing = 0
-BackgroundSizing_OuterBorderEdge: BackgroundSizing = 1
+class AutoSuggestionBoxTextChangeReason(Int32):  # enum
+    UserInput = 0
+    ProgrammaticChange = 1
+    SuggestionChosen = 2
+class BackgroundSizing(Int32):  # enum
+    InnerBorderEdge = 0
+    OuterBorderEdge = 1
 class _BitmapIcon_Meta_(ComPtr.__class__):
     pass
 class BitmapIcon(ComPtr, metaclass=_BitmapIcon_Meta_):
@@ -1909,10 +1909,10 @@ class CalendarViewDayItemChangingEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{ab8075fd-7a4b-504e-8a63-d7f35570bd86}')
     def Invoke(self, sender: win32more.Microsoft.UI.Xaml.Controls.CalendarView, e: win32more.Microsoft.UI.Xaml.Controls.CalendarViewDayItemChangingEventArgs) -> Void: ...
-CalendarViewDisplayMode = Int32
-CalendarViewDisplayMode_Month: CalendarViewDisplayMode = 0
-CalendarViewDisplayMode_Year: CalendarViewDisplayMode = 1
-CalendarViewDisplayMode_Decade: CalendarViewDisplayMode = 2
+class CalendarViewDisplayMode(Int32):  # enum
+    Month = 0
+    Year = 1
+    Decade = 2
 class CalendarViewSelectedDatesChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Controls.ICalendarViewSelectedDatesChangedEventArgs
@@ -1923,13 +1923,13 @@ class CalendarViewSelectedDatesChangedEventArgs(ComPtr):
     def get_RemovedDates(self: win32more.Microsoft.UI.Xaml.Controls.ICalendarViewSelectedDatesChangedEventArgs) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Foundation.DateTime]: ...
     AddedDates = property(get_AddedDates, None)
     RemovedDates = property(get_RemovedDates, None)
-CalendarViewSelectionMode = Int32
-CalendarViewSelectionMode_None: CalendarViewSelectionMode = 0
-CalendarViewSelectionMode_Single: CalendarViewSelectionMode = 1
-CalendarViewSelectionMode_Multiple: CalendarViewSelectionMode = 2
-CandidateWindowAlignment = Int32
-CandidateWindowAlignment_Default: CandidateWindowAlignment = 0
-CandidateWindowAlignment_BottomEdge: CandidateWindowAlignment = 1
+class CalendarViewSelectionMode(Int32):  # enum
+    None_ = 0
+    Single = 1
+    Multiple = 2
+class CandidateWindowAlignment(Int32):  # enum
+    Default = 0
+    BottomEdge = 1
 class CandidateWindowBoundsChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Controls.ICandidateWindowBoundsChangedEventArgs
@@ -1973,10 +1973,10 @@ class Canvas(ComPtr, metaclass=_Canvas_Meta_):
     _Canvas_Meta_.LeftProperty = property(get_LeftProperty.__wrapped__, None)
     _Canvas_Meta_.TopProperty = property(get_TopProperty.__wrapped__, None)
     _Canvas_Meta_.ZIndexProperty = property(get_ZIndexProperty.__wrapped__, None)
-CharacterCasing = Int32
-CharacterCasing_Normal: CharacterCasing = 0
-CharacterCasing_Lower: CharacterCasing = 1
-CharacterCasing_Upper: CharacterCasing = 2
+class CharacterCasing(Int32):  # enum
+    Normal = 0
+    Lower = 1
+    Upper = 2
 class CheckBox(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.Controls.Primitives.ToggleButton
     default_interface: win32more.Microsoft.UI.Xaml.Controls.ICheckBox
@@ -2062,10 +2062,10 @@ class CleanUpVirtualizedItemEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{da6960de-89ff-575f-932f-023f6fc1f992}')
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Microsoft.UI.Xaml.Controls.CleanUpVirtualizedItemEventArgs) -> Void: ...
-ClickMode = Int32
-ClickMode_Release: ClickMode = 0
-ClickMode_Press: ClickMode = 1
-ClickMode_Hover: ClickMode = 2
+class ClickMode(Int32):  # enum
+    Release = 0
+    Press = 1
+    Hover = 2
 class ColorChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Controls.IColorChangedEventArgs
@@ -2255,21 +2255,21 @@ class ColorPicker(ComPtr, metaclass=_ColorPicker_Meta_):
     _ColorPicker_Meta_.MaxValueProperty = property(get_MaxValueProperty.__wrapped__, None)
     _ColorPicker_Meta_.ColorSpectrumShapeProperty = property(get_ColorSpectrumShapeProperty.__wrapped__, None)
     _ColorPicker_Meta_.ColorSpectrumComponentsProperty = property(get_ColorSpectrumComponentsProperty.__wrapped__, None)
-ColorPickerHsvChannel = Int32
-ColorPickerHsvChannel_Hue: ColorPickerHsvChannel = 0
-ColorPickerHsvChannel_Saturation: ColorPickerHsvChannel = 1
-ColorPickerHsvChannel_Value: ColorPickerHsvChannel = 2
-ColorPickerHsvChannel_Alpha: ColorPickerHsvChannel = 3
-ColorSpectrumComponents = Int32
-ColorSpectrumComponents_HueValue: ColorSpectrumComponents = 0
-ColorSpectrumComponents_ValueHue: ColorSpectrumComponents = 1
-ColorSpectrumComponents_HueSaturation: ColorSpectrumComponents = 2
-ColorSpectrumComponents_SaturationHue: ColorSpectrumComponents = 3
-ColorSpectrumComponents_SaturationValue: ColorSpectrumComponents = 4
-ColorSpectrumComponents_ValueSaturation: ColorSpectrumComponents = 5
-ColorSpectrumShape = Int32
-ColorSpectrumShape_Box: ColorSpectrumShape = 0
-ColorSpectrumShape_Ring: ColorSpectrumShape = 1
+class ColorPickerHsvChannel(Int32):  # enum
+    Hue = 0
+    Saturation = 1
+    Value = 2
+    Alpha = 3
+class ColorSpectrumComponents(Int32):  # enum
+    HueValue = 0
+    ValueHue = 1
+    HueSaturation = 2
+    SaturationHue = 3
+    SaturationValue = 4
+    ValueSaturation = 5
+class ColorSpectrumShape(Int32):  # enum
+    Box = 0
+    Ring = 1
 class _ColumnDefinition_Meta_(ComPtr.__class__):
     pass
 class ColumnDefinition(ComPtr, metaclass=_ColumnDefinition_Meta_):
@@ -2503,9 +2503,9 @@ class ComboBoxItem(ComPtr):
             raise ValueError('no matched constructor')
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Microsoft.UI.Xaml.Controls.IComboBoxItemFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Controls.ComboBoxItem: ...
-ComboBoxSelectionChangedTrigger = Int32
-ComboBoxSelectionChangedTrigger_Committed: ComboBoxSelectionChangedTrigger = 0
-ComboBoxSelectionChangedTrigger_Always: ComboBoxSelectionChangedTrigger = 1
+class ComboBoxSelectionChangedTrigger(Int32):  # enum
+    Committed = 0
+    Always = 1
 class ComboBoxTextSubmittedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Controls.IComboBoxTextSubmittedEventArgs
@@ -2584,13 +2584,13 @@ class CommandBar(ComPtr, metaclass=_CommandBar_Meta_):
     _CommandBar_Meta_.DefaultLabelPositionProperty = property(get_DefaultLabelPositionProperty.__wrapped__, None)
     _CommandBar_Meta_.OverflowButtonVisibilityProperty = property(get_OverflowButtonVisibilityProperty.__wrapped__, None)
     _CommandBar_Meta_.IsDynamicOverflowEnabledProperty = property(get_IsDynamicOverflowEnabledProperty.__wrapped__, None)
-CommandBarDefaultLabelPosition = Int32
-CommandBarDefaultLabelPosition_Bottom: CommandBarDefaultLabelPosition = 0
-CommandBarDefaultLabelPosition_Right: CommandBarDefaultLabelPosition = 1
-CommandBarDefaultLabelPosition_Collapsed: CommandBarDefaultLabelPosition = 2
-CommandBarDynamicOverflowAction = Int32
-CommandBarDynamicOverflowAction_AddingToOverflow: CommandBarDynamicOverflowAction = 0
-CommandBarDynamicOverflowAction_RemovingFromOverflow: CommandBarDynamicOverflowAction = 1
+class CommandBarDefaultLabelPosition(Int32):  # enum
+    Bottom = 0
+    Right = 1
+    Collapsed = 2
+class CommandBarDynamicOverflowAction(Int32):  # enum
+    AddingToOverflow = 0
+    RemovingFromOverflow = 1
 class CommandBarFlyout(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.Controls.Primitives.FlyoutBase
     default_interface: win32more.Microsoft.UI.Xaml.Controls.ICommandBarFlyout
@@ -2615,13 +2615,13 @@ class CommandBarFlyout(ComPtr):
     PrimaryCommands = property(get_PrimaryCommands, None)
     SecondaryCommands = property(get_SecondaryCommands, None)
     AlwaysExpanded = property(get_AlwaysExpanded, put_AlwaysExpanded)
-CommandBarLabelPosition = Int32
-CommandBarLabelPosition_Default: CommandBarLabelPosition = 0
-CommandBarLabelPosition_Collapsed: CommandBarLabelPosition = 1
-CommandBarOverflowButtonVisibility = Int32
-CommandBarOverflowButtonVisibility_Auto: CommandBarOverflowButtonVisibility = 0
-CommandBarOverflowButtonVisibility_Visible: CommandBarOverflowButtonVisibility = 1
-CommandBarOverflowButtonVisibility_Collapsed: CommandBarOverflowButtonVisibility = 2
+class CommandBarLabelPosition(Int32):  # enum
+    Default = 0
+    Collapsed = 1
+class CommandBarOverflowButtonVisibility(Int32):  # enum
+    Auto = 0
+    Visible = 1
+    Collapsed = 2
 class CommandBarOverflowPresenter(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.Controls.ItemsControl
     default_interface: win32more.Microsoft.UI.Xaml.Controls.ICommandBarOverflowPresenter
@@ -2917,11 +2917,11 @@ class ContentDialog(ComPtr, metaclass=_ContentDialog_Meta_):
     _ContentDialog_Meta_.SecondaryButtonStyleProperty = property(get_SecondaryButtonStyleProperty.__wrapped__, None)
     _ContentDialog_Meta_.CloseButtonStyleProperty = property(get_CloseButtonStyleProperty.__wrapped__, None)
     _ContentDialog_Meta_.DefaultButtonProperty = property(get_DefaultButtonProperty.__wrapped__, None)
-ContentDialogButton = Int32
-ContentDialogButton_None: ContentDialogButton = 0
-ContentDialogButton_Primary: ContentDialogButton = 1
-ContentDialogButton_Secondary: ContentDialogButton = 2
-ContentDialogButton_Close: ContentDialogButton = 3
+class ContentDialogButton(Int32):  # enum
+    None_ = 0
+    Primary = 1
+    Secondary = 2
+    Close = 3
 class ContentDialogButtonClickDeferral(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Controls.IContentDialogButtonClickDeferral
@@ -2970,13 +2970,13 @@ class ContentDialogOpenedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Controls.IContentDialogOpenedEventArgs
     _classid_ = 'Microsoft.UI.Xaml.Controls.ContentDialogOpenedEventArgs'
-ContentDialogPlacement = Int32
-ContentDialogPlacement_Popup: ContentDialogPlacement = 0
-ContentDialogPlacement_InPlace: ContentDialogPlacement = 1
-ContentDialogResult = Int32
-ContentDialogResult_None: ContentDialogResult = 0
-ContentDialogResult_Primary: ContentDialogResult = 1
-ContentDialogResult_Secondary: ContentDialogResult = 2
+class ContentDialogPlacement(Int32):  # enum
+    Popup = 0
+    InPlace = 1
+class ContentDialogResult(Int32):  # enum
+    None_ = 0
+    Primary = 1
+    Secondary = 2
 class _ContentPresenter_Meta_(ComPtr.__class__):
     pass
 class ContentPresenter(ComPtr, metaclass=_ContentPresenter_Meta_):
@@ -3909,12 +3909,12 @@ class DatePickerValueChangedEventArgs(ComPtr):
     def get_NewDate(self: win32more.Microsoft.UI.Xaml.Controls.IDatePickerValueChangedEventArgs) -> win32more.Windows.Foundation.DateTime: ...
     OldDate = property(get_OldDate, None)
     NewDate = property(get_NewDate, None)
-DisabledFormattingAccelerators = UInt32
-DisabledFormattingAccelerators_None: DisabledFormattingAccelerators = 0
-DisabledFormattingAccelerators_Bold: DisabledFormattingAccelerators = 1
-DisabledFormattingAccelerators_Italic: DisabledFormattingAccelerators = 2
-DisabledFormattingAccelerators_Underline: DisabledFormattingAccelerators = 4
-DisabledFormattingAccelerators_All: DisabledFormattingAccelerators = 4294967295
+class DisabledFormattingAccelerators(UInt32):  # enum
+    None_ = 0
+    Bold = 1
+    Italic = 2
+    Underline = 4
+    All = 4294967295
 class DragItemsCompletedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Controls.IDragItemsCompletedEventArgs
@@ -3982,13 +3982,13 @@ class DynamicOverflowItemsChangingEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Action(self: win32more.Microsoft.UI.Xaml.Controls.IDynamicOverflowItemsChangingEventArgs) -> win32more.Microsoft.UI.Xaml.Controls.CommandBarDynamicOverflowAction: ...
     Action = property(get_Action, None)
-ElementRealizationOptions = UInt32
-ElementRealizationOptions_None: ElementRealizationOptions = 0
-ElementRealizationOptions_ForceCreate: ElementRealizationOptions = 1
-ElementRealizationOptions_SuppressAutoRecycle: ElementRealizationOptions = 2
-ExpandDirection = Int32
-ExpandDirection_Down: ExpandDirection = 0
-ExpandDirection_Up: ExpandDirection = 1
+class ElementRealizationOptions(UInt32):  # enum
+    None_ = 0
+    ForceCreate = 1
+    SuppressAutoRecycle = 2
+class ExpandDirection(Int32):  # enum
+    Down = 0
+    Up = 1
 class _Expander_Meta_(ComPtr.__class__):
     pass
 class Expander(ComPtr, metaclass=_Expander_Meta_):
@@ -19605,13 +19605,13 @@ class ImageIconSource(ComPtr, metaclass=_ImageIconSource_Meta_):
     def get_ImageSourceProperty(cls: win32more.Microsoft.UI.Xaml.Controls.IImageIconSourceStatics) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
     ImageSource = property(get_ImageSource, put_ImageSource)
     _ImageIconSource_Meta_.ImageSourceProperty = property(get_ImageSourceProperty.__wrapped__, None)
-IncrementalLoadingTrigger = Int32
-IncrementalLoadingTrigger_None: IncrementalLoadingTrigger = 0
-IncrementalLoadingTrigger_Edge: IncrementalLoadingTrigger = 1
-IndexBasedLayoutOrientation = Int32
-IndexBasedLayoutOrientation_None: IndexBasedLayoutOrientation = 0
-IndexBasedLayoutOrientation_TopToBottom: IndexBasedLayoutOrientation = 1
-IndexBasedLayoutOrientation_LeftToRight: IndexBasedLayoutOrientation = 2
+class IncrementalLoadingTrigger(Int32):  # enum
+    None_ = 0
+    Edge = 1
+class IndexBasedLayoutOrientation(Int32):  # enum
+    None_ = 0
+    TopToBottom = 1
+    LeftToRight = 2
 class _InfoBadge_Meta_(ComPtr.__class__):
     pass
 class InfoBadge(ComPtr, metaclass=_InfoBadge_Meta_):
@@ -19817,9 +19817,9 @@ class InfoBar(ComPtr, metaclass=_InfoBar_Meta_):
     _InfoBar_Meta_.ContentProperty = property(get_ContentProperty.__wrapped__, None)
     _InfoBar_Meta_.ContentTemplateProperty = property(get_ContentTemplateProperty.__wrapped__, None)
     _InfoBar_Meta_.TemplateSettingsProperty = property(get_TemplateSettingsProperty.__wrapped__, None)
-InfoBarCloseReason = Int32
-InfoBarCloseReason_CloseButton: InfoBarCloseReason = 0
-InfoBarCloseReason_Programmatic: InfoBarCloseReason = 1
+class InfoBarCloseReason(Int32):  # enum
+    CloseButton = 0
+    Programmatic = 1
 class InfoBarClosedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Controls.IInfoBarClosedEventArgs
@@ -19839,11 +19839,11 @@ class InfoBarClosingEventArgs(ComPtr):
     def put_Cancel(self: win32more.Microsoft.UI.Xaml.Controls.IInfoBarClosingEventArgs, value: Boolean) -> Void: ...
     Reason = property(get_Reason, None)
     Cancel = property(get_Cancel, put_Cancel)
-InfoBarSeverity = Int32
-InfoBarSeverity_Informational: InfoBarSeverity = 0
-InfoBarSeverity_Success: InfoBarSeverity = 1
-InfoBarSeverity_Warning: InfoBarSeverity = 2
-InfoBarSeverity_Error: InfoBarSeverity = 3
+class InfoBarSeverity(Int32):  # enum
+    Informational = 0
+    Success = 1
+    Warning = 2
+    Error = 3
 class _InfoBarTemplateSettings_Meta_(ComPtr.__class__):
     pass
 class InfoBarTemplateSettings(ComPtr, metaclass=_InfoBarTemplateSettings_Meta_):
@@ -19957,10 +19957,10 @@ class ItemCollectionTransitionCompletedEventArgs(ComPtr):
     def get_Element(self: win32more.Microsoft.UI.Xaml.Controls.IItemCollectionTransitionCompletedEventArgs) -> win32more.Microsoft.UI.Xaml.UIElement: ...
     Transition = property(get_Transition, None)
     Element = property(get_Element, None)
-ItemCollectionTransitionOperation = Int32
-ItemCollectionTransitionOperation_Add: ItemCollectionTransitionOperation = 0
-ItemCollectionTransitionOperation_Remove: ItemCollectionTransitionOperation = 1
-ItemCollectionTransitionOperation_Move: ItemCollectionTransitionOperation = 2
+class ItemCollectionTransitionOperation(Int32):  # enum
+    Add = 0
+    Remove = 1
+    Move = 2
 class ItemCollectionTransitionProgress(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Controls.IItemCollectionTransitionProgress
@@ -19998,11 +19998,11 @@ class ItemCollectionTransitionProvider(ComPtr):
     def ShouldAnimateCore(self: win32more.Microsoft.UI.Xaml.Controls.IItemCollectionTransitionProviderOverrides, transition: win32more.Microsoft.UI.Xaml.Controls.ItemCollectionTransition) -> Boolean: ...
     @winrt_mixinmethod
     def StartTransitions(self: win32more.Microsoft.UI.Xaml.Controls.IItemCollectionTransitionProviderOverrides, transitions: win32more.Windows.Foundation.Collections.IVector[win32more.Microsoft.UI.Xaml.Controls.ItemCollectionTransition]) -> Void: ...
-ItemCollectionTransitionTriggers = UInt32
-ItemCollectionTransitionTriggers_CollectionChangeAdd: ItemCollectionTransitionTriggers = 1
-ItemCollectionTransitionTriggers_CollectionChangeRemove: ItemCollectionTransitionTriggers = 2
-ItemCollectionTransitionTriggers_CollectionChangeReset: ItemCollectionTransitionTriggers = 4
-ItemCollectionTransitionTriggers_LayoutTransition: ItemCollectionTransitionTriggers = 8
+class ItemCollectionTransitionTriggers(UInt32):  # enum
+    CollectionChangeAdd = 1
+    CollectionChangeRemove = 2
+    CollectionChangeReset = 4
+    LayoutTransition = 8
 class _ItemContainer_Meta_(ComPtr.__class__):
     pass
 class ItemContainer(ComPtr, metaclass=_ItemContainer_Meta_):
@@ -20589,10 +20589,10 @@ class ItemsStackPanel(ComPtr, metaclass=_ItemsStackPanel_Meta_):
     _ItemsStackPanel_Meta_.GroupHeaderPlacementProperty = property(get_GroupHeaderPlacementProperty.__wrapped__, None)
     _ItemsStackPanel_Meta_.CacheLengthProperty = property(get_CacheLengthProperty.__wrapped__, None)
     _ItemsStackPanel_Meta_.AreStickyGroupHeadersEnabledProperty = property(get_AreStickyGroupHeadersEnabledProperty.__wrapped__, None)
-ItemsUpdatingScrollMode = Int32
-ItemsUpdatingScrollMode_KeepItemsInView: ItemsUpdatingScrollMode = 0
-ItemsUpdatingScrollMode_KeepScrollOffset: ItemsUpdatingScrollMode = 1
-ItemsUpdatingScrollMode_KeepLastItemInView: ItemsUpdatingScrollMode = 2
+class ItemsUpdatingScrollMode(Int32):  # enum
+    KeepItemsInView = 0
+    KeepScrollOffset = 1
+    KeepLastItemInView = 2
 class _ItemsView_Meta_(ComPtr.__class__):
     pass
 class ItemsView(ComPtr, metaclass=_ItemsView_Meta_):
@@ -20720,11 +20720,11 @@ class ItemsViewSelectionChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Controls.IItemsViewSelectionChangedEventArgs
     _classid_ = 'Microsoft.UI.Xaml.Controls.ItemsViewSelectionChangedEventArgs'
-ItemsViewSelectionMode = Int32
-ItemsViewSelectionMode_None: ItemsViewSelectionMode = 0
-ItemsViewSelectionMode_Single: ItemsViewSelectionMode = 1
-ItemsViewSelectionMode_Multiple: ItemsViewSelectionMode = 2
-ItemsViewSelectionMode_Extended: ItemsViewSelectionMode = 3
+class ItemsViewSelectionMode(Int32):  # enum
+    None_ = 0
+    Single = 1
+    Multiple = 2
+    Extended = 3
 class _ItemsWrapGrid_Meta_(ComPtr.__class__):
     pass
 class ItemsWrapGrid(ComPtr, metaclass=_ItemsWrapGrid_Meta_):
@@ -20864,10 +20864,10 @@ class LayoutContext(ComPtr):
     def put_LayoutStateCore(self: win32more.Microsoft.UI.Xaml.Controls.ILayoutContextOverrides, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
     LayoutState = property(get_LayoutState, put_LayoutState)
     LayoutStateCore = property(get_LayoutStateCore, put_LayoutStateCore)
-LightDismissOverlayMode = Int32
-LightDismissOverlayMode_Auto: LightDismissOverlayMode = 0
-LightDismissOverlayMode_On: LightDismissOverlayMode = 1
-LightDismissOverlayMode_Off: LightDismissOverlayMode = 2
+class LightDismissOverlayMode(Int32):  # enum
+    Auto = 0
+    On = 1
+    Off = 2
 class _LinedFlowLayout_Meta_(ComPtr.__class__):
     pass
 class LinedFlowLayout(ComPtr, metaclass=_LinedFlowLayout_Meta_):
@@ -20988,16 +20988,16 @@ class LinedFlowLayoutItemsInfoRequestedEventArgs(ComPtr):
     ItemsRangeRequestedLength = property(get_ItemsRangeRequestedLength, None)
     MinWidth = property(get_MinWidth, put_MinWidth)
     MaxWidth = property(get_MaxWidth, put_MaxWidth)
-LinedFlowLayoutItemsJustification = Int32
-LinedFlowLayoutItemsJustification_Start: LinedFlowLayoutItemsJustification = 0
-LinedFlowLayoutItemsJustification_Center: LinedFlowLayoutItemsJustification = 1
-LinedFlowLayoutItemsJustification_End: LinedFlowLayoutItemsJustification = 2
-LinedFlowLayoutItemsJustification_SpaceAround: LinedFlowLayoutItemsJustification = 3
-LinedFlowLayoutItemsJustification_SpaceBetween: LinedFlowLayoutItemsJustification = 4
-LinedFlowLayoutItemsJustification_SpaceEvenly: LinedFlowLayoutItemsJustification = 5
-LinedFlowLayoutItemsStretch = Int32
-LinedFlowLayoutItemsStretch_None: LinedFlowLayoutItemsStretch = 0
-LinedFlowLayoutItemsStretch_Fill: LinedFlowLayoutItemsStretch = 1
+class LinedFlowLayoutItemsJustification(Int32):  # enum
+    Start = 0
+    Center = 1
+    End = 2
+    SpaceAround = 3
+    SpaceBetween = 4
+    SpaceEvenly = 5
+class LinedFlowLayoutItemsStretch(Int32):  # enum
+    None_ = 0
+    Fill = 1
 class _ListBox_Meta_(ComPtr.__class__):
     pass
 class ListBox(ComPtr, metaclass=_ListBox_Meta_):
@@ -21141,9 +21141,9 @@ class ListPickerFlyoutPresenter(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.Controls.Control
     default_interface: win32more.Microsoft.UI.Xaml.Controls.IListPickerFlyoutPresenter
     _classid_ = 'Microsoft.UI.Xaml.Controls.ListPickerFlyoutPresenter'
-ListPickerFlyoutSelectionMode = Int32
-ListPickerFlyoutSelectionMode_Single: ListPickerFlyoutSelectionMode = 0
-ListPickerFlyoutSelectionMode_Multiple: ListPickerFlyoutSelectionMode = 1
+class ListPickerFlyoutSelectionMode(Int32):  # enum
+    Single = 0
+    Multiple = 1
 class ListView(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.Controls.ListViewBase
     default_interface: win32more.Microsoft.UI.Xaml.Controls.IListView
@@ -21453,14 +21453,14 @@ class ListViewPersistenceHelper(ComPtr):
     def GetRelativeScrollPosition(cls: win32more.Microsoft.UI.Xaml.Controls.IListViewPersistenceHelperStatics, listViewBase: win32more.Microsoft.UI.Xaml.Controls.ListViewBase, itemToKeyHandler: win32more.Microsoft.UI.Xaml.Controls.ListViewItemToKeyHandler) -> WinRT_String: ...
     @winrt_classmethod
     def SetRelativeScrollPositionAsync(cls: win32more.Microsoft.UI.Xaml.Controls.IListViewPersistenceHelperStatics, listViewBase: win32more.Microsoft.UI.Xaml.Controls.ListViewBase, relativeScrollPosition: WinRT_String, keyToItemHandler: win32more.Microsoft.UI.Xaml.Controls.ListViewKeyToItemHandler) -> win32more.Windows.Foundation.IAsyncAction: ...
-ListViewReorderMode = Int32
-ListViewReorderMode_Disabled: ListViewReorderMode = 0
-ListViewReorderMode_Enabled: ListViewReorderMode = 1
-ListViewSelectionMode = Int32
-ListViewSelectionMode_None: ListViewSelectionMode = 0
-ListViewSelectionMode_Single: ListViewSelectionMode = 1
-ListViewSelectionMode_Multiple: ListViewSelectionMode = 2
-ListViewSelectionMode_Extended: ListViewSelectionMode = 3
+class ListViewReorderMode(Int32):  # enum
+    Disabled = 0
+    Enabled = 1
+class ListViewSelectionMode(Int32):  # enum
+    None_ = 0
+    Single = 1
+    Multiple = 2
+    Extended = 3
 class _MediaPlayerElement_Meta_(ComPtr.__class__):
     pass
 class MediaPlayerElement(ComPtr, metaclass=_MediaPlayerElement_Meta_):
@@ -22399,18 +22399,18 @@ class NavigationView(ComPtr, metaclass=_NavigationView_Meta_):
     _NavigationView_Meta_.MenuItemContainerStyleProperty = property(get_MenuItemContainerStyleProperty.__wrapped__, None)
     _NavigationView_Meta_.MenuItemContainerStyleSelectorProperty = property(get_MenuItemContainerStyleSelectorProperty.__wrapped__, None)
     _NavigationView_Meta_.IsTitleBarAutoPaddingEnabledProperty = property(get_IsTitleBarAutoPaddingEnabledProperty.__wrapped__, None)
-NavigationViewBackButtonVisible = Int32
-NavigationViewBackButtonVisible_Collapsed: NavigationViewBackButtonVisible = 0
-NavigationViewBackButtonVisible_Visible: NavigationViewBackButtonVisible = 1
-NavigationViewBackButtonVisible_Auto: NavigationViewBackButtonVisible = 2
+class NavigationViewBackButtonVisible(Int32):  # enum
+    Collapsed = 0
+    Visible = 1
+    Auto = 2
 class NavigationViewBackRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Controls.INavigationViewBackRequestedEventArgs
     _classid_ = 'Microsoft.UI.Xaml.Controls.NavigationViewBackRequestedEventArgs'
-NavigationViewDisplayMode = Int32
-NavigationViewDisplayMode_Minimal: NavigationViewDisplayMode = 0
-NavigationViewDisplayMode_Compact: NavigationViewDisplayMode = 1
-NavigationViewDisplayMode_Expanded: NavigationViewDisplayMode = 2
+class NavigationViewDisplayMode(Int32):  # enum
+    Minimal = 0
+    Compact = 1
+    Expanded = 2
 class NavigationViewDisplayModeChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Controls.INavigationViewDisplayModeChangedEventArgs
@@ -22586,9 +22586,9 @@ class NavigationViewItemSeparator(ComPtr):
             raise ValueError('no matched constructor')
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Microsoft.UI.Xaml.Controls.INavigationViewItemSeparatorFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Controls.NavigationViewItemSeparator: ...
-NavigationViewOverflowLabelMode = Int32
-NavigationViewOverflowLabelMode_MoreLabel: NavigationViewOverflowLabelMode = 0
-NavigationViewOverflowLabelMode_NoLabel: NavigationViewOverflowLabelMode = 1
+class NavigationViewOverflowLabelMode(Int32):  # enum
+    MoreLabel = 0
+    NoLabel = 1
 class NavigationViewPaneClosingEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Controls.INavigationViewPaneClosingEventArgs
@@ -22598,12 +22598,12 @@ class NavigationViewPaneClosingEventArgs(ComPtr):
     @winrt_mixinmethod
     def put_Cancel(self: win32more.Microsoft.UI.Xaml.Controls.INavigationViewPaneClosingEventArgs, value: Boolean) -> Void: ...
     Cancel = property(get_Cancel, put_Cancel)
-NavigationViewPaneDisplayMode = Int32
-NavigationViewPaneDisplayMode_Auto: NavigationViewPaneDisplayMode = 0
-NavigationViewPaneDisplayMode_Left: NavigationViewPaneDisplayMode = 1
-NavigationViewPaneDisplayMode_Top: NavigationViewPaneDisplayMode = 2
-NavigationViewPaneDisplayMode_LeftCompact: NavigationViewPaneDisplayMode = 3
-NavigationViewPaneDisplayMode_LeftMinimal: NavigationViewPaneDisplayMode = 4
+class NavigationViewPaneDisplayMode(Int32):  # enum
+    Auto = 0
+    Left = 1
+    Top = 2
+    LeftCompact = 3
+    LeftMinimal = 4
 class NavigationViewSelectionChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Controls.INavigationViewSelectionChangedEventArgs
@@ -22620,13 +22620,13 @@ class NavigationViewSelectionChangedEventArgs(ComPtr):
     IsSettingsSelected = property(get_IsSettingsSelected, None)
     SelectedItemContainer = property(get_SelectedItemContainer, None)
     RecommendedNavigationTransitionInfo = property(get_RecommendedNavigationTransitionInfo, None)
-NavigationViewSelectionFollowsFocus = Int32
-NavigationViewSelectionFollowsFocus_Disabled: NavigationViewSelectionFollowsFocus = 0
-NavigationViewSelectionFollowsFocus_Enabled: NavigationViewSelectionFollowsFocus = 1
-NavigationViewShoulderNavigationEnabled = Int32
-NavigationViewShoulderNavigationEnabled_WhenSelectionFollowsFocus: NavigationViewShoulderNavigationEnabled = 0
-NavigationViewShoulderNavigationEnabled_Always: NavigationViewShoulderNavigationEnabled = 1
-NavigationViewShoulderNavigationEnabled_Never: NavigationViewShoulderNavigationEnabled = 2
+class NavigationViewSelectionFollowsFocus(Int32):  # enum
+    Disabled = 0
+    Enabled = 1
+class NavigationViewShoulderNavigationEnabled(Int32):  # enum
+    WhenSelectionFollowsFocus = 0
+    Always = 1
+    Never = 2
 class _NavigationViewTemplateSettings_Meta_(ComPtr.__class__):
     pass
 class NavigationViewTemplateSettings(ComPtr, metaclass=_NavigationViewTemplateSettings_Meta_):
@@ -22913,13 +22913,13 @@ class NumberBox(ComPtr, metaclass=_NumberBox_Meta_):
     _NumberBox_Meta_.IsWrapEnabledProperty = property(get_IsWrapEnabledProperty.__wrapped__, None)
     _NumberBox_Meta_.AcceptsExpressionProperty = property(get_AcceptsExpressionProperty.__wrapped__, None)
     _NumberBox_Meta_.NumberFormatterProperty = property(get_NumberFormatterProperty.__wrapped__, None)
-NumberBoxSpinButtonPlacementMode = Int32
-NumberBoxSpinButtonPlacementMode_Hidden: NumberBoxSpinButtonPlacementMode = 0
-NumberBoxSpinButtonPlacementMode_Compact: NumberBoxSpinButtonPlacementMode = 1
-NumberBoxSpinButtonPlacementMode_Inline: NumberBoxSpinButtonPlacementMode = 2
-NumberBoxValidationMode = Int32
-NumberBoxValidationMode_InvalidInputOverwritten: NumberBoxValidationMode = 0
-NumberBoxValidationMode_Disabled: NumberBoxValidationMode = 1
+class NumberBoxSpinButtonPlacementMode(Int32):  # enum
+    Hidden = 0
+    Compact = 1
+    Inline = 2
+class NumberBoxValidationMode(Int32):  # enum
+    InvalidInputOverwritten = 0
+    Disabled = 1
 class NumberBoxValueChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Controls.INumberBoxValueChangedEventArgs
@@ -22930,9 +22930,9 @@ class NumberBoxValueChangedEventArgs(ComPtr):
     def get_NewValue(self: win32more.Microsoft.UI.Xaml.Controls.INumberBoxValueChangedEventArgs) -> Double: ...
     OldValue = property(get_OldValue, None)
     NewValue = property(get_NewValue, None)
-Orientation = Int32
-Orientation_Vertical: Orientation = 0
-Orientation_Horizontal: Orientation = 1
+class Orientation(Int32):  # enum
+    Vertical = 0
+    Horizontal = 1
 class _Page_Meta_(ComPtr.__class__):
     pass
 class Page(ComPtr, metaclass=_Page_Meta_):
@@ -23026,13 +23026,13 @@ class Panel(ComPtr, metaclass=_Panel_Meta_):
     _Panel_Meta_.BackgroundProperty = property(get_BackgroundProperty.__wrapped__, None)
     _Panel_Meta_.IsItemsHostProperty = property(get_IsItemsHostProperty.__wrapped__, None)
     _Panel_Meta_.ChildrenTransitionsProperty = property(get_ChildrenTransitionsProperty.__wrapped__, None)
-PanelScrollingDirection = Int32
-PanelScrollingDirection_None: PanelScrollingDirection = 0
-PanelScrollingDirection_Forward: PanelScrollingDirection = 1
-PanelScrollingDirection_Backward: PanelScrollingDirection = 2
-ParallaxSourceOffsetKind = Int32
-ParallaxSourceOffsetKind_Absolute: ParallaxSourceOffsetKind = 0
-ParallaxSourceOffsetKind_Relative: ParallaxSourceOffsetKind = 1
+class PanelScrollingDirection(Int32):  # enum
+    None_ = 0
+    Forward = 1
+    Backward = 2
+class ParallaxSourceOffsetKind(Int32):  # enum
+    Absolute = 0
+    Relative = 1
 class _ParallaxView_Meta_(ComPtr.__class__):
     pass
 class ParallaxView(ComPtr, metaclass=_ParallaxView_Meta_):
@@ -23324,10 +23324,10 @@ class PasswordBoxPasswordChangingEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_IsContentChanging(self: win32more.Microsoft.UI.Xaml.Controls.IPasswordBoxPasswordChangingEventArgs) -> Boolean: ...
     IsContentChanging = property(get_IsContentChanging, None)
-PasswordRevealMode = Int32
-PasswordRevealMode_Peek: PasswordRevealMode = 0
-PasswordRevealMode_Hidden: PasswordRevealMode = 1
-PasswordRevealMode_Visible: PasswordRevealMode = 2
+class PasswordRevealMode(Int32):  # enum
+    Peek = 0
+    Hidden = 1
+    Visible = 2
 class _PathIcon_Meta_(ComPtr.__class__):
     pass
 class PathIcon(ComPtr, metaclass=_PathIcon_Meta_):
@@ -23638,10 +23638,10 @@ class PipsPager(ComPtr, metaclass=_PipsPager_Meta_):
     _PipsPager_Meta_.NextButtonStyleProperty = property(get_NextButtonStyleProperty.__wrapped__, None)
     _PipsPager_Meta_.SelectedPipStyleProperty = property(get_SelectedPipStyleProperty.__wrapped__, None)
     _PipsPager_Meta_.NormalPipStyleProperty = property(get_NormalPipStyleProperty.__wrapped__, None)
-PipsPagerButtonVisibility = Int32
-PipsPagerButtonVisibility_Visible: PipsPagerButtonVisibility = 0
-PipsPagerButtonVisibility_VisibleOnPointerOver: PipsPagerButtonVisibility = 1
-PipsPagerButtonVisibility_Collapsed: PipsPagerButtonVisibility = 2
+class PipsPagerButtonVisibility(Int32):  # enum
+    Visible = 0
+    VisibleOnPointerOver = 1
+    Collapsed = 2
 class PipsPagerSelectedIndexChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Controls.IPipsPagerSelectedIndexChangedEventArgs
@@ -23791,9 +23791,9 @@ class Pivot(ComPtr, metaclass=_Pivot_Meta_):
     _Pivot_Meta_.HeaderFocusVisualPlacementProperty = property(get_HeaderFocusVisualPlacementProperty.__wrapped__, None)
     _Pivot_Meta_.IsHeaderItemsCarouselEnabledProperty = property(get_IsHeaderItemsCarouselEnabledProperty.__wrapped__, None)
     _Pivot_Meta_.SlideInAnimationGroupProperty = property(get_SlideInAnimationGroupProperty.__wrapped__, None)
-PivotHeaderFocusVisualPlacement = Int32
-PivotHeaderFocusVisualPlacement_ItemHeaders: PivotHeaderFocusVisualPlacement = 0
-PivotHeaderFocusVisualPlacement_SelectedItemHeader: PivotHeaderFocusVisualPlacement = 1
+class PivotHeaderFocusVisualPlacement(Int32):  # enum
+    ItemHeaders = 0
+    SelectedItemHeader = 1
 class _PivotItem_Meta_(ComPtr.__class__):
     pass
 class PivotItem(ComPtr, metaclass=_PivotItem_Meta_):
@@ -23835,14 +23835,14 @@ class PivotItemEventArgs(ComPtr):
     @winrt_mixinmethod
     def put_Item(self: win32more.Microsoft.UI.Xaml.Controls.IPivotItemEventArgs, value: win32more.Microsoft.UI.Xaml.Controls.PivotItem) -> Void: ...
     Item = property(get_Item, put_Item)
-PivotSlideInAnimationGroup = Int32
-PivotSlideInAnimationGroup_Default: PivotSlideInAnimationGroup = 0
-PivotSlideInAnimationGroup_GroupOne: PivotSlideInAnimationGroup = 1
-PivotSlideInAnimationGroup_GroupTwo: PivotSlideInAnimationGroup = 2
-PivotSlideInAnimationGroup_GroupThree: PivotSlideInAnimationGroup = 3
-PlayerAnimationOptimization = Int32
-PlayerAnimationOptimization_Latency: PlayerAnimationOptimization = 0
-PlayerAnimationOptimization_Resources: PlayerAnimationOptimization = 1
+class PivotSlideInAnimationGroup(Int32):  # enum
+    Default = 0
+    GroupOne = 1
+    GroupTwo = 2
+    GroupThree = 3
+class PlayerAnimationOptimization(Int32):  # enum
+    Latency = 0
+    Resources = 1
 class _ProgressBar_Meta_(ComPtr.__class__):
     pass
 class ProgressBar(ComPtr, metaclass=_ProgressBar_Meta_):
@@ -24403,11 +24403,11 @@ class RefreshInteractionRatioChangedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_InteractionRatio(self: win32more.Microsoft.UI.Xaml.Controls.IRefreshInteractionRatioChangedEventArgs) -> Double: ...
     InteractionRatio = property(get_InteractionRatio, None)
-RefreshPullDirection = Int32
-RefreshPullDirection_LeftToRight: RefreshPullDirection = 0
-RefreshPullDirection_TopToBottom: RefreshPullDirection = 1
-RefreshPullDirection_RightToLeft: RefreshPullDirection = 2
-RefreshPullDirection_BottomToTop: RefreshPullDirection = 3
+class RefreshPullDirection(Int32):  # enum
+    LeftToRight = 0
+    TopToBottom = 1
+    RightToLeft = 2
+    BottomToTop = 3
 class RefreshRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Controls.IRefreshRequestedEventArgs
@@ -24474,17 +24474,17 @@ class RefreshVisualizer(ComPtr, metaclass=_RefreshVisualizer_Meta_):
     _RefreshVisualizer_Meta_.OrientationProperty = property(get_OrientationProperty.__wrapped__, None)
     _RefreshVisualizer_Meta_.ContentProperty = property(get_ContentProperty.__wrapped__, None)
     _RefreshVisualizer_Meta_.StateProperty = property(get_StateProperty.__wrapped__, None)
-RefreshVisualizerOrientation = Int32
-RefreshVisualizerOrientation_Auto: RefreshVisualizerOrientation = 0
-RefreshVisualizerOrientation_Normal: RefreshVisualizerOrientation = 1
-RefreshVisualizerOrientation_Rotate90DegreesCounterclockwise: RefreshVisualizerOrientation = 2
-RefreshVisualizerOrientation_Rotate270DegreesCounterclockwise: RefreshVisualizerOrientation = 3
-RefreshVisualizerState = Int32
-RefreshVisualizerState_Idle: RefreshVisualizerState = 0
-RefreshVisualizerState_Peeking: RefreshVisualizerState = 1
-RefreshVisualizerState_Interacting: RefreshVisualizerState = 2
-RefreshVisualizerState_Pending: RefreshVisualizerState = 3
-RefreshVisualizerState_Refreshing: RefreshVisualizerState = 4
+class RefreshVisualizerOrientation(Int32):  # enum
+    Auto = 0
+    Normal = 1
+    Rotate90DegreesCounterclockwise = 2
+    Rotate270DegreesCounterclockwise = 3
+class RefreshVisualizerState(Int32):  # enum
+    Idle = 0
+    Peeking = 1
+    Interacting = 2
+    Pending = 3
+    Refreshing = 4
 class _RelativePanel_Meta_(ComPtr.__class__):
     pass
 class RelativePanel(ComPtr, metaclass=_RelativePanel_Meta_):
@@ -24652,10 +24652,10 @@ class RelativePanel(ComPtr, metaclass=_RelativePanel_Meta_):
     _RelativePanel_Meta_.BorderThicknessProperty = property(get_BorderThicknessProperty.__wrapped__, None)
     _RelativePanel_Meta_.CornerRadiusProperty = property(get_CornerRadiusProperty.__wrapped__, None)
     _RelativePanel_Meta_.PaddingProperty = property(get_PaddingProperty.__wrapped__, None)
-RequiresPointer = Int32
-RequiresPointer_Never: RequiresPointer = 0
-RequiresPointer_WhenEngaged: RequiresPointer = 1
-RequiresPointer_WhenFocused: RequiresPointer = 2
+class RequiresPointer(Int32):  # enum
+    Never = 0
+    WhenEngaged = 1
+    WhenFocused = 2
 class RevealListViewItemPresenter(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.Controls.Primitives.ListViewItemPresenter
     default_interface: win32more.Microsoft.UI.Xaml.Controls.IRevealListViewItemPresenter
@@ -24952,9 +24952,9 @@ class RichEditBoxTextChangingEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_IsContentChanging(self: win32more.Microsoft.UI.Xaml.Controls.IRichEditBoxTextChangingEventArgs) -> Boolean: ...
     IsContentChanging = property(get_IsContentChanging, None)
-RichEditClipboardFormat = Int32
-RichEditClipboardFormat_AllFormats: RichEditClipboardFormat = 0
-RichEditClipboardFormat_PlainText: RichEditClipboardFormat = 1
+class RichEditClipboardFormat(Int32):  # enum
+    AllFormats = 0
+    PlainText = 1
 class _RichTextBlock_Meta_(ComPtr.__class__):
     pass
 class RichTextBlock(ComPtr, metaclass=_RichTextBlock_Meta_):
@@ -25379,11 +25379,11 @@ class RowDefinitionCollection(ComPtr):
     @winrt_mixinmethod
     def First(self: win32more.Windows.Foundation.Collections.IIterable[win32more.Microsoft.UI.Xaml.Controls.RowDefinition]) -> win32more.Windows.Foundation.Collections.IIterator[win32more.Microsoft.UI.Xaml.Controls.RowDefinition]: ...
     Size = property(get_Size, None)
-ScrollBarVisibility = Int32
-ScrollBarVisibility_Disabled: ScrollBarVisibility = 0
-ScrollBarVisibility_Auto: ScrollBarVisibility = 1
-ScrollBarVisibility_Hidden: ScrollBarVisibility = 2
-ScrollBarVisibility_Visible: ScrollBarVisibility = 3
+class ScrollBarVisibility(Int32):  # enum
+    Disabled = 0
+    Auto = 1
+    Hidden = 2
+    Visible = 3
 class _ScrollContentPresenter_Meta_(ComPtr.__class__):
     pass
 class ScrollContentPresenter(ComPtr, metaclass=_ScrollContentPresenter_Meta_):
@@ -25478,13 +25478,13 @@ class ScrollContentPresenter(ComPtr, metaclass=_ScrollContentPresenter_Meta_):
     SizesContentToTemplatedParent = property(get_SizesContentToTemplatedParent, put_SizesContentToTemplatedParent)
     _ScrollContentPresenter_Meta_.CanContentRenderOutsideBoundsProperty = property(get_CanContentRenderOutsideBoundsProperty.__wrapped__, None)
     _ScrollContentPresenter_Meta_.SizesContentToTemplatedParentProperty = property(get_SizesContentToTemplatedParentProperty.__wrapped__, None)
-ScrollIntoViewAlignment = Int32
-ScrollIntoViewAlignment_Default: ScrollIntoViewAlignment = 0
-ScrollIntoViewAlignment_Leading: ScrollIntoViewAlignment = 1
-ScrollMode = Int32
-ScrollMode_Disabled: ScrollMode = 0
-ScrollMode_Enabled: ScrollMode = 1
-ScrollMode_Auto: ScrollMode = 2
+class ScrollIntoViewAlignment(Int32):  # enum
+    Default = 0
+    Leading = 1
+class ScrollMode(Int32):  # enum
+    Disabled = 0
+    Enabled = 1
+    Auto = 2
 class _ScrollView_Meta_(ComPtr.__class__):
     pass
 class ScrollView(ComPtr, metaclass=_ScrollView_Meta_):
@@ -26226,10 +26226,10 @@ class ScrollingAnchorRequestedEventArgs(ComPtr):
     def put_AnchorElement(self: win32more.Microsoft.UI.Xaml.Controls.IScrollingAnchorRequestedEventArgs, value: win32more.Microsoft.UI.Xaml.UIElement) -> Void: ...
     AnchorCandidates = property(get_AnchorCandidates, None)
     AnchorElement = property(get_AnchorElement, put_AnchorElement)
-ScrollingAnimationMode = Int32
-ScrollingAnimationMode_Disabled: ScrollingAnimationMode = 0
-ScrollingAnimationMode_Enabled: ScrollingAnimationMode = 1
-ScrollingAnimationMode_Auto: ScrollingAnimationMode = 2
+class ScrollingAnimationMode(Int32):  # enum
+    Disabled = 0
+    Enabled = 1
+    Auto = 2
 class ScrollingBringingIntoViewEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Controls.IScrollingBringingIntoViewEventArgs
@@ -26256,31 +26256,31 @@ class ScrollingBringingIntoViewEventArgs(ComPtr):
     TargetVerticalOffset = property(get_TargetVerticalOffset, None)
     CorrelationId = property(get_CorrelationId, None)
     Cancel = property(get_Cancel, put_Cancel)
-ScrollingChainMode = Int32
-ScrollingChainMode_Auto: ScrollingChainMode = 0
-ScrollingChainMode_Always: ScrollingChainMode = 1
-ScrollingChainMode_Never: ScrollingChainMode = 2
-ScrollingContentOrientation = Int32
-ScrollingContentOrientation_Vertical: ScrollingContentOrientation = 0
-ScrollingContentOrientation_Horizontal: ScrollingContentOrientation = 1
-ScrollingContentOrientation_None: ScrollingContentOrientation = 2
-ScrollingContentOrientation_Both: ScrollingContentOrientation = 3
-ScrollingInputKinds = UInt32
-ScrollingInputKinds_None: ScrollingInputKinds = 0
-ScrollingInputKinds_Touch: ScrollingInputKinds = 1
-ScrollingInputKinds_Pen: ScrollingInputKinds = 2
-ScrollingInputKinds_MouseWheel: ScrollingInputKinds = 4
-ScrollingInputKinds_Keyboard: ScrollingInputKinds = 8
-ScrollingInputKinds_Gamepad: ScrollingInputKinds = 16
-ScrollingInputKinds_All: ScrollingInputKinds = 255
-ScrollingInteractionState = Int32
-ScrollingInteractionState_Idle: ScrollingInteractionState = 0
-ScrollingInteractionState_Interaction: ScrollingInteractionState = 1
-ScrollingInteractionState_Inertia: ScrollingInteractionState = 2
-ScrollingInteractionState_Animation: ScrollingInteractionState = 3
-ScrollingRailMode = Int32
-ScrollingRailMode_Enabled: ScrollingRailMode = 0
-ScrollingRailMode_Disabled: ScrollingRailMode = 1
+class ScrollingChainMode(Int32):  # enum
+    Auto = 0
+    Always = 1
+    Never = 2
+class ScrollingContentOrientation(Int32):  # enum
+    Vertical = 0
+    Horizontal = 1
+    None_ = 2
+    Both = 3
+class ScrollingInputKinds(UInt32):  # enum
+    None_ = 0
+    Touch = 1
+    Pen = 2
+    MouseWheel = 4
+    Keyboard = 8
+    Gamepad = 16
+    All = 255
+class ScrollingInteractionState(Int32):  # enum
+    Idle = 0
+    Interaction = 1
+    Inertia = 2
+    Animation = 3
+class ScrollingRailMode(Int32):  # enum
+    Enabled = 0
+    Disabled = 1
 class ScrollingScrollAnimationStartingEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Controls.IScrollingScrollAnimationStartingEventArgs
@@ -26299,10 +26299,10 @@ class ScrollingScrollAnimationStartingEventArgs(ComPtr):
     StartPosition = property(get_StartPosition, None)
     EndPosition = property(get_EndPosition, None)
     CorrelationId = property(get_CorrelationId, None)
-ScrollingScrollBarVisibility = Int32
-ScrollingScrollBarVisibility_Auto: ScrollingScrollBarVisibility = 0
-ScrollingScrollBarVisibility_Visible: ScrollingScrollBarVisibility = 1
-ScrollingScrollBarVisibility_Hidden: ScrollingScrollBarVisibility = 2
+class ScrollingScrollBarVisibility(Int32):  # enum
+    Auto = 0
+    Visible = 1
+    Hidden = 2
 class ScrollingScrollCompletedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Controls.IScrollingScrollCompletedEventArgs
@@ -26310,10 +26310,10 @@ class ScrollingScrollCompletedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_CorrelationId(self: win32more.Microsoft.UI.Xaml.Controls.IScrollingScrollCompletedEventArgs) -> Int32: ...
     CorrelationId = property(get_CorrelationId, None)
-ScrollingScrollMode = Int32
-ScrollingScrollMode_Enabled: ScrollingScrollMode = 0
-ScrollingScrollMode_Disabled: ScrollingScrollMode = 1
-ScrollingScrollMode_Auto: ScrollingScrollMode = 2
+class ScrollingScrollMode(Int32):  # enum
+    Enabled = 0
+    Disabled = 1
+    Auto = 2
 class ScrollingScrollOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Controls.IScrollingScrollOptions
@@ -26341,9 +26341,9 @@ class ScrollingScrollOptions(ComPtr):
     def put_SnapPointsMode(self: win32more.Microsoft.UI.Xaml.Controls.IScrollingScrollOptions, value: win32more.Microsoft.UI.Xaml.Controls.ScrollingSnapPointsMode) -> Void: ...
     AnimationMode = property(get_AnimationMode, put_AnimationMode)
     SnapPointsMode = property(get_SnapPointsMode, put_SnapPointsMode)
-ScrollingSnapPointsMode = Int32
-ScrollingSnapPointsMode_Default: ScrollingSnapPointsMode = 0
-ScrollingSnapPointsMode_Ignore: ScrollingSnapPointsMode = 1
+class ScrollingSnapPointsMode(Int32):  # enum
+    Default = 0
+    Ignore = 1
 class ScrollingZoomAnimationStartingEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Controls.IScrollingZoomAnimationStartingEventArgs
@@ -26372,9 +26372,9 @@ class ScrollingZoomCompletedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_CorrelationId(self: win32more.Microsoft.UI.Xaml.Controls.IScrollingZoomCompletedEventArgs) -> Int32: ...
     CorrelationId = property(get_CorrelationId, None)
-ScrollingZoomMode = Int32
-ScrollingZoomMode_Enabled: ScrollingZoomMode = 0
-ScrollingZoomMode_Disabled: ScrollingZoomMode = 1
+class ScrollingZoomMode(Int32):  # enum
+    Enabled = 0
+    Disabled = 1
 class ScrollingZoomOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Controls.IScrollingZoomOptions
@@ -26439,10 +26439,10 @@ class SelectionChangedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{a232390d-0e34-595e-8931-fa928a9909f4}')
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Microsoft.UI.Xaml.Controls.SelectionChangedEventArgs) -> Void: ...
-SelectionMode = Int32
-SelectionMode_Single: SelectionMode = 0
-SelectionMode_Multiple: SelectionMode = 1
-SelectionMode_Extended: SelectionMode = 2
+class SelectionMode(Int32):  # enum
+    Single = 0
+    Multiple = 1
+    Extended = 2
 class _SemanticZoom_Meta_(ComPtr.__class__):
     pass
 class SemanticZoom(ComPtr, metaclass=_SemanticZoom_Meta_):
@@ -26666,12 +26666,12 @@ class Slider(ComPtr, metaclass=_Slider_Meta_):
     _Slider_Meta_.ThumbToolTipValueConverterProperty = property(get_ThumbToolTipValueConverterProperty.__wrapped__, None)
     _Slider_Meta_.HeaderProperty = property(get_HeaderProperty.__wrapped__, None)
     _Slider_Meta_.HeaderTemplateProperty = property(get_HeaderTemplateProperty.__wrapped__, None)
-SnapPointsType = Int32
-SnapPointsType_None: SnapPointsType = 0
-SnapPointsType_Optional: SnapPointsType = 1
-SnapPointsType_Mandatory: SnapPointsType = 2
-SnapPointsType_OptionalSingle: SnapPointsType = 3
-SnapPointsType_MandatorySingle: SnapPointsType = 4
+class SnapPointsType(Int32):  # enum
+    None_ = 0
+    Optional = 1
+    Mandatory = 2
+    OptionalSingle = 3
+    MandatorySingle = 4
 class _SplitButton_Meta_(ComPtr.__class__):
     pass
 class SplitButton(ComPtr, metaclass=_SplitButton_Meta_):
@@ -26828,11 +26828,11 @@ class SplitView(ComPtr, metaclass=_SplitView_Meta_):
     _SplitView_Meta_.TemplateSettingsProperty = property(get_TemplateSettingsProperty.__wrapped__, None)
     _SplitView_Meta_.PaneBackgroundProperty = property(get_PaneBackgroundProperty.__wrapped__, None)
     _SplitView_Meta_.LightDismissOverlayModeProperty = property(get_LightDismissOverlayModeProperty.__wrapped__, None)
-SplitViewDisplayMode = Int32
-SplitViewDisplayMode_Overlay: SplitViewDisplayMode = 0
-SplitViewDisplayMode_Inline: SplitViewDisplayMode = 1
-SplitViewDisplayMode_CompactOverlay: SplitViewDisplayMode = 2
-SplitViewDisplayMode_CompactInline: SplitViewDisplayMode = 3
+class SplitViewDisplayMode(Int32):  # enum
+    Overlay = 0
+    Inline = 1
+    CompactOverlay = 2
+    CompactInline = 3
 class SplitViewPaneClosingEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Controls.ISplitViewPaneClosingEventArgs
@@ -26842,9 +26842,9 @@ class SplitViewPaneClosingEventArgs(ComPtr):
     @winrt_mixinmethod
     def put_Cancel(self: win32more.Microsoft.UI.Xaml.Controls.ISplitViewPaneClosingEventArgs, value: Boolean) -> Void: ...
     Cancel = property(get_Cancel, put_Cancel)
-SplitViewPanePlacement = Int32
-SplitViewPanePlacement_Left: SplitViewPanePlacement = 0
-SplitViewPanePlacement_Right: SplitViewPanePlacement = 1
+class SplitViewPanePlacement(Int32):  # enum
+    Left = 0
+    Right = 1
 class _StackLayout_Meta_(ComPtr.__class__):
     pass
 class StackLayout(ComPtr, metaclass=_StackLayout_Meta_):
@@ -26975,10 +26975,10 @@ class StackPanel(ComPtr, metaclass=_StackPanel_Meta_):
     _StackPanel_Meta_.CornerRadiusProperty = property(get_CornerRadiusProperty.__wrapped__, None)
     _StackPanel_Meta_.PaddingProperty = property(get_PaddingProperty.__wrapped__, None)
     _StackPanel_Meta_.SpacingProperty = property(get_SpacingProperty.__wrapped__, None)
-StretchDirection = Int32
-StretchDirection_UpOnly: StretchDirection = 0
-StretchDirection_DownOnly: StretchDirection = 1
-StretchDirection_Both: StretchDirection = 2
+class StretchDirection(Int32):  # enum
+    UpOnly = 0
+    DownOnly = 1
+    Both = 2
 class StyleSelector(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Controls.IStyleSelector
@@ -27042,10 +27042,10 @@ class SwapChainPanel(ComPtr, metaclass=_SwapChainPanel_Meta_):
     CompositionScaleY = property(get_CompositionScaleY, None)
     _SwapChainPanel_Meta_.CompositionScaleXProperty = property(get_CompositionScaleXProperty.__wrapped__, None)
     _SwapChainPanel_Meta_.CompositionScaleYProperty = property(get_CompositionScaleYProperty.__wrapped__, None)
-SwipeBehaviorOnInvoked = Int32
-SwipeBehaviorOnInvoked_Auto: SwipeBehaviorOnInvoked = 0
-SwipeBehaviorOnInvoked_Close: SwipeBehaviorOnInvoked = 1
-SwipeBehaviorOnInvoked_RemainOpen: SwipeBehaviorOnInvoked = 2
+class SwipeBehaviorOnInvoked(Int32):  # enum
+    Auto = 0
+    Close = 1
+    RemainOpen = 2
 class _SwipeControl_Meta_(ComPtr.__class__):
     pass
 class SwipeControl(ComPtr, metaclass=_SwipeControl_Meta_):
@@ -27227,207 +27227,207 @@ class SwipeItems(ComPtr, metaclass=_SwipeItems_Meta_):
     Mode = property(get_Mode, put_Mode)
     Size = property(get_Size, None)
     _SwipeItems_Meta_.ModeProperty = property(get_ModeProperty.__wrapped__, None)
-SwipeMode = Int32
-SwipeMode_Reveal: SwipeMode = 0
-SwipeMode_Execute: SwipeMode = 1
-Symbol = Int32
-Symbol_Previous: Symbol = 57600
-Symbol_Next: Symbol = 57601
-Symbol_Play: Symbol = 57602
-Symbol_Pause: Symbol = 57603
-Symbol_Edit: Symbol = 57604
-Symbol_Save: Symbol = 57605
-Symbol_Clear: Symbol = 57606
-Symbol_Delete: Symbol = 57607
-Symbol_Remove: Symbol = 57608
-Symbol_Add: Symbol = 57609
-Symbol_Cancel: Symbol = 57610
-Symbol_Accept: Symbol = 57611
-Symbol_More: Symbol = 57612
-Symbol_Redo: Symbol = 57613
-Symbol_Undo: Symbol = 57614
-Symbol_Home: Symbol = 57615
-Symbol_Up: Symbol = 57616
-Symbol_Forward: Symbol = 57617
-Symbol_Back: Symbol = 57618
-Symbol_Favorite: Symbol = 57619
-Symbol_Camera: Symbol = 57620
-Symbol_Setting: Symbol = 57621
-Symbol_Video: Symbol = 57622
-Symbol_Sync: Symbol = 57623
-Symbol_Download: Symbol = 57624
-Symbol_Mail: Symbol = 57625
-Symbol_Find: Symbol = 57626
-Symbol_Help: Symbol = 57627
-Symbol_Upload: Symbol = 57628
-Symbol_Emoji: Symbol = 57629
-Symbol_TwoPage: Symbol = 57630
-Symbol_LeaveChat: Symbol = 57631
-Symbol_MailForward: Symbol = 57632
-Symbol_Clock: Symbol = 57633
-Symbol_Send: Symbol = 57634
-Symbol_Crop: Symbol = 57635
-Symbol_RotateCamera: Symbol = 57636
-Symbol_People: Symbol = 57637
-Symbol_OpenPane: Symbol = 57638
-Symbol_ClosePane: Symbol = 57639
-Symbol_World: Symbol = 57640
-Symbol_Flag: Symbol = 57641
-Symbol_PreviewLink: Symbol = 57642
-Symbol_Globe: Symbol = 57643
-Symbol_Trim: Symbol = 57644
-Symbol_AttachCamera: Symbol = 57645
-Symbol_ZoomIn: Symbol = 57646
-Symbol_Bookmarks: Symbol = 57647
-Symbol_Document: Symbol = 57648
-Symbol_ProtectedDocument: Symbol = 57649
-Symbol_Page: Symbol = 57650
-Symbol_Bullets: Symbol = 57651
-Symbol_Comment: Symbol = 57652
-Symbol_MailFilled: Symbol = 57653
-Symbol_ContactInfo: Symbol = 57654
-Symbol_HangUp: Symbol = 57655
-Symbol_ViewAll: Symbol = 57656
-Symbol_MapPin: Symbol = 57657
-Symbol_Phone: Symbol = 57658
-Symbol_VideoChat: Symbol = 57659
-Symbol_Switch: Symbol = 57660
-Symbol_Contact: Symbol = 57661
-Symbol_Rename: Symbol = 57662
-Symbol_Pin: Symbol = 57665
-Symbol_MusicInfo: Symbol = 57666
-Symbol_Go: Symbol = 57667
-Symbol_Keyboard: Symbol = 57668
-Symbol_DockLeft: Symbol = 57669
-Symbol_DockRight: Symbol = 57670
-Symbol_DockBottom: Symbol = 57671
-Symbol_Remote: Symbol = 57672
-Symbol_Refresh: Symbol = 57673
-Symbol_Rotate: Symbol = 57674
-Symbol_Shuffle: Symbol = 57675
-Symbol_List: Symbol = 57676
-Symbol_Shop: Symbol = 57677
-Symbol_SelectAll: Symbol = 57678
-Symbol_Orientation: Symbol = 57679
-Symbol_Import: Symbol = 57680
-Symbol_ImportAll: Symbol = 57681
-Symbol_BrowsePhotos: Symbol = 57685
-Symbol_WebCam: Symbol = 57686
-Symbol_Pictures: Symbol = 57688
-Symbol_SaveLocal: Symbol = 57689
-Symbol_Caption: Symbol = 57690
-Symbol_Stop: Symbol = 57691
-Symbol_ShowResults: Symbol = 57692
-Symbol_Volume: Symbol = 57693
-Symbol_Repair: Symbol = 57694
-Symbol_Message: Symbol = 57695
-Symbol_Page2: Symbol = 57696
-Symbol_CalendarDay: Symbol = 57697
-Symbol_CalendarWeek: Symbol = 57698
-Symbol_Calendar: Symbol = 57699
-Symbol_Character: Symbol = 57700
-Symbol_MailReplyAll: Symbol = 57701
-Symbol_Read: Symbol = 57702
-Symbol_Link: Symbol = 57703
-Symbol_Account: Symbol = 57704
-Symbol_ShowBcc: Symbol = 57705
-Symbol_HideBcc: Symbol = 57706
-Symbol_Cut: Symbol = 57707
-Symbol_Attach: Symbol = 57708
-Symbol_Paste: Symbol = 57709
-Symbol_Filter: Symbol = 57710
-Symbol_Copy: Symbol = 57711
-Symbol_Emoji2: Symbol = 57712
-Symbol_Important: Symbol = 57713
-Symbol_MailReply: Symbol = 57714
-Symbol_SlideShow: Symbol = 57715
-Symbol_Sort: Symbol = 57716
-Symbol_Manage: Symbol = 57720
-Symbol_AllApps: Symbol = 57721
-Symbol_DisconnectDrive: Symbol = 57722
-Symbol_MapDrive: Symbol = 57723
-Symbol_NewWindow: Symbol = 57724
-Symbol_OpenWith: Symbol = 57725
-Symbol_ContactPresence: Symbol = 57729
-Symbol_Priority: Symbol = 57730
-Symbol_GoToToday: Symbol = 57732
-Symbol_Font: Symbol = 57733
-Symbol_FontColor: Symbol = 57734
-Symbol_Contact2: Symbol = 57735
-Symbol_Folder: Symbol = 57736
-Symbol_Audio: Symbol = 57737
-Symbol_Placeholder: Symbol = 57738
-Symbol_View: Symbol = 57739
-Symbol_SetLockScreen: Symbol = 57740
-Symbol_SetTile: Symbol = 57741
-Symbol_ClosedCaption: Symbol = 57744
-Symbol_StopSlideShow: Symbol = 57745
-Symbol_Permissions: Symbol = 57746
-Symbol_Highlight: Symbol = 57747
-Symbol_DisableUpdates: Symbol = 57748
-Symbol_UnFavorite: Symbol = 57749
-Symbol_UnPin: Symbol = 57750
-Symbol_OpenLocal: Symbol = 57751
-Symbol_Mute: Symbol = 57752
-Symbol_Italic: Symbol = 57753
-Symbol_Underline: Symbol = 57754
-Symbol_Bold: Symbol = 57755
-Symbol_MoveToFolder: Symbol = 57756
-Symbol_LikeDislike: Symbol = 57757
-Symbol_Dislike: Symbol = 57758
-Symbol_Like: Symbol = 57759
-Symbol_AlignRight: Symbol = 57760
-Symbol_AlignCenter: Symbol = 57761
-Symbol_AlignLeft: Symbol = 57762
-Symbol_Zoom: Symbol = 57763
-Symbol_ZoomOut: Symbol = 57764
-Symbol_OpenFile: Symbol = 57765
-Symbol_OtherUser: Symbol = 57766
-Symbol_Admin: Symbol = 57767
-Symbol_Street: Symbol = 57795
-Symbol_Map: Symbol = 57796
-Symbol_ClearSelection: Symbol = 57797
-Symbol_FontDecrease: Symbol = 57798
-Symbol_FontIncrease: Symbol = 57799
-Symbol_FontSize: Symbol = 57800
-Symbol_CellPhone: Symbol = 57801
-Symbol_ReShare: Symbol = 57802
-Symbol_Tag: Symbol = 57803
-Symbol_RepeatOne: Symbol = 57804
-Symbol_RepeatAll: Symbol = 57805
-Symbol_OutlineStar: Symbol = 57806
-Symbol_SolidStar: Symbol = 57807
-Symbol_Calculator: Symbol = 57808
-Symbol_Directions: Symbol = 57809
-Symbol_Target: Symbol = 57810
-Symbol_Library: Symbol = 57811
-Symbol_PhoneBook: Symbol = 57812
-Symbol_Memo: Symbol = 57813
-Symbol_Microphone: Symbol = 57814
-Symbol_PostUpdate: Symbol = 57815
-Symbol_BackToWindow: Symbol = 57816
-Symbol_FullScreen: Symbol = 57817
-Symbol_NewFolder: Symbol = 57818
-Symbol_CalendarReply: Symbol = 57819
-Symbol_UnSyncFolder: Symbol = 57821
-Symbol_ReportHacked: Symbol = 57822
-Symbol_SyncFolder: Symbol = 57823
-Symbol_BlockContact: Symbol = 57824
-Symbol_SwitchApps: Symbol = 57825
-Symbol_AddFriend: Symbol = 57826
-Symbol_TouchPointer: Symbol = 57827
-Symbol_GoToStart: Symbol = 57828
-Symbol_ZeroBars: Symbol = 57829
-Symbol_OneBar: Symbol = 57830
-Symbol_TwoBars: Symbol = 57831
-Symbol_ThreeBars: Symbol = 57832
-Symbol_FourBars: Symbol = 57833
-Symbol_Scan: Symbol = 58004
-Symbol_Preview: Symbol = 58005
-Symbol_GlobalNavigationButton: Symbol = 59136
-Symbol_Share: Symbol = 59181
-Symbol_Print: Symbol = 59209
-Symbol_XboxOneConsole: Symbol = 59792
+class SwipeMode(Int32):  # enum
+    Reveal = 0
+    Execute = 1
+class Symbol(Int32):  # enum
+    Previous = 57600
+    Next = 57601
+    Play = 57602
+    Pause = 57603
+    Edit = 57604
+    Save = 57605
+    Clear = 57606
+    Delete = 57607
+    Remove = 57608
+    Add = 57609
+    Cancel = 57610
+    Accept = 57611
+    More = 57612
+    Redo = 57613
+    Undo = 57614
+    Home = 57615
+    Up = 57616
+    Forward = 57617
+    Back = 57618
+    Favorite = 57619
+    Camera = 57620
+    Setting = 57621
+    Video = 57622
+    Sync = 57623
+    Download = 57624
+    Mail = 57625
+    Find = 57626
+    Help = 57627
+    Upload = 57628
+    Emoji = 57629
+    TwoPage = 57630
+    LeaveChat = 57631
+    MailForward = 57632
+    Clock = 57633
+    Send = 57634
+    Crop = 57635
+    RotateCamera = 57636
+    People = 57637
+    OpenPane = 57638
+    ClosePane = 57639
+    World = 57640
+    Flag = 57641
+    PreviewLink = 57642
+    Globe = 57643
+    Trim = 57644
+    AttachCamera = 57645
+    ZoomIn = 57646
+    Bookmarks = 57647
+    Document = 57648
+    ProtectedDocument = 57649
+    Page = 57650
+    Bullets = 57651
+    Comment = 57652
+    MailFilled = 57653
+    ContactInfo = 57654
+    HangUp = 57655
+    ViewAll = 57656
+    MapPin = 57657
+    Phone = 57658
+    VideoChat = 57659
+    Switch = 57660
+    Contact = 57661
+    Rename = 57662
+    Pin = 57665
+    MusicInfo = 57666
+    Go = 57667
+    Keyboard = 57668
+    DockLeft = 57669
+    DockRight = 57670
+    DockBottom = 57671
+    Remote = 57672
+    Refresh = 57673
+    Rotate = 57674
+    Shuffle = 57675
+    List = 57676
+    Shop = 57677
+    SelectAll = 57678
+    Orientation = 57679
+    Import = 57680
+    ImportAll = 57681
+    BrowsePhotos = 57685
+    WebCam = 57686
+    Pictures = 57688
+    SaveLocal = 57689
+    Caption = 57690
+    Stop = 57691
+    ShowResults = 57692
+    Volume = 57693
+    Repair = 57694
+    Message = 57695
+    Page2 = 57696
+    CalendarDay = 57697
+    CalendarWeek = 57698
+    Calendar = 57699
+    Character = 57700
+    MailReplyAll = 57701
+    Read = 57702
+    Link = 57703
+    Account = 57704
+    ShowBcc = 57705
+    HideBcc = 57706
+    Cut = 57707
+    Attach = 57708
+    Paste = 57709
+    Filter = 57710
+    Copy = 57711
+    Emoji2 = 57712
+    Important = 57713
+    MailReply = 57714
+    SlideShow = 57715
+    Sort = 57716
+    Manage = 57720
+    AllApps = 57721
+    DisconnectDrive = 57722
+    MapDrive = 57723
+    NewWindow = 57724
+    OpenWith = 57725
+    ContactPresence = 57729
+    Priority = 57730
+    GoToToday = 57732
+    Font = 57733
+    FontColor = 57734
+    Contact2 = 57735
+    Folder = 57736
+    Audio = 57737
+    Placeholder = 57738
+    View = 57739
+    SetLockScreen = 57740
+    SetTile = 57741
+    ClosedCaption = 57744
+    StopSlideShow = 57745
+    Permissions = 57746
+    Highlight = 57747
+    DisableUpdates = 57748
+    UnFavorite = 57749
+    UnPin = 57750
+    OpenLocal = 57751
+    Mute = 57752
+    Italic = 57753
+    Underline = 57754
+    Bold = 57755
+    MoveToFolder = 57756
+    LikeDislike = 57757
+    Dislike = 57758
+    Like = 57759
+    AlignRight = 57760
+    AlignCenter = 57761
+    AlignLeft = 57762
+    Zoom = 57763
+    ZoomOut = 57764
+    OpenFile = 57765
+    OtherUser = 57766
+    Admin = 57767
+    Street = 57795
+    Map = 57796
+    ClearSelection = 57797
+    FontDecrease = 57798
+    FontIncrease = 57799
+    FontSize = 57800
+    CellPhone = 57801
+    ReShare = 57802
+    Tag = 57803
+    RepeatOne = 57804
+    RepeatAll = 57805
+    OutlineStar = 57806
+    SolidStar = 57807
+    Calculator = 57808
+    Directions = 57809
+    Target = 57810
+    Library = 57811
+    PhoneBook = 57812
+    Memo = 57813
+    Microphone = 57814
+    PostUpdate = 57815
+    BackToWindow = 57816
+    FullScreen = 57817
+    NewFolder = 57818
+    CalendarReply = 57819
+    UnSyncFolder = 57821
+    ReportHacked = 57822
+    SyncFolder = 57823
+    BlockContact = 57824
+    SwitchApps = 57825
+    AddFriend = 57826
+    TouchPointer = 57827
+    GoToStart = 57828
+    ZeroBars = 57829
+    OneBar = 57830
+    TwoBars = 57831
+    ThreeBars = 57832
+    FourBars = 57833
+    Scan = 58004
+    Preview = 58005
+    GlobalNavigationButton = 59136
+    Share = 59181
+    Print = 59209
+    XboxOneConsole = 59792
 class _SymbolIcon_Meta_(ComPtr.__class__):
     pass
 class SymbolIcon(ComPtr, metaclass=_SymbolIcon_Meta_):
@@ -27675,10 +27675,10 @@ class TabView(ComPtr, metaclass=_TabView_Meta_):
     _TabView_Meta_.AllowDropTabsProperty = property(get_AllowDropTabsProperty.__wrapped__, None)
     _TabView_Meta_.SelectedIndexProperty = property(get_SelectedIndexProperty.__wrapped__, None)
     _TabView_Meta_.SelectedItemProperty = property(get_SelectedItemProperty.__wrapped__, None)
-TabViewCloseButtonOverlayMode = Int32
-TabViewCloseButtonOverlayMode_Auto: TabViewCloseButtonOverlayMode = 0
-TabViewCloseButtonOverlayMode_OnPointerOver: TabViewCloseButtonOverlayMode = 1
-TabViewCloseButtonOverlayMode_Always: TabViewCloseButtonOverlayMode = 2
+class TabViewCloseButtonOverlayMode(Int32):  # enum
+    Auto = 0
+    OnPointerOver = 1
+    Always = 2
 class _TabViewItem_Meta_(ComPtr.__class__):
     pass
 class TabViewItem(ComPtr, metaclass=_TabViewItem_Meta_):
@@ -27818,10 +27818,10 @@ class TabViewTabDroppedOutsideEventArgs(ComPtr):
     def get_Tab(self: win32more.Microsoft.UI.Xaml.Controls.ITabViewTabDroppedOutsideEventArgs) -> win32more.Microsoft.UI.Xaml.Controls.TabViewItem: ...
     Item = property(get_Item, None)
     Tab = property(get_Tab, None)
-TabViewWidthMode = Int32
-TabViewWidthMode_Equal: TabViewWidthMode = 0
-TabViewWidthMode_SizeToContent: TabViewWidthMode = 1
-TabViewWidthMode_Compact: TabViewWidthMode = 2
+class TabViewWidthMode(Int32):  # enum
+    Equal = 0
+    SizeToContent = 1
+    Compact = 2
 class _TeachingTip_Meta_(ComPtr.__class__):
     pass
 class TeachingTip(ComPtr, metaclass=_TeachingTip_Meta_):
@@ -28019,10 +28019,10 @@ class TeachingTip(ComPtr, metaclass=_TeachingTip_Meta_):
     _TeachingTip_Meta_.HeroContentProperty = property(get_HeroContentProperty.__wrapped__, None)
     _TeachingTip_Meta_.IconSourceProperty = property(get_IconSourceProperty.__wrapped__, None)
     _TeachingTip_Meta_.TemplateSettingsProperty = property(get_TemplateSettingsProperty.__wrapped__, None)
-TeachingTipCloseReason = Int32
-TeachingTipCloseReason_CloseButton: TeachingTipCloseReason = 0
-TeachingTipCloseReason_LightDismiss: TeachingTipCloseReason = 1
-TeachingTipCloseReason_Programmatic: TeachingTipCloseReason = 2
+class TeachingTipCloseReason(Int32):  # enum
+    CloseButton = 0
+    LightDismiss = 1
+    Programmatic = 2
 class TeachingTipClosedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Controls.ITeachingTipClosedEventArgs
@@ -28044,29 +28044,29 @@ class TeachingTipClosingEventArgs(ComPtr):
     def GetDeferral(self: win32more.Microsoft.UI.Xaml.Controls.ITeachingTipClosingEventArgs) -> win32more.Windows.Foundation.Deferral: ...
     Reason = property(get_Reason, None)
     Cancel = property(get_Cancel, put_Cancel)
-TeachingTipHeroContentPlacementMode = Int32
-TeachingTipHeroContentPlacementMode_Auto: TeachingTipHeroContentPlacementMode = 0
-TeachingTipHeroContentPlacementMode_Top: TeachingTipHeroContentPlacementMode = 1
-TeachingTipHeroContentPlacementMode_Bottom: TeachingTipHeroContentPlacementMode = 2
-TeachingTipPlacementMode = Int32
-TeachingTipPlacementMode_Auto: TeachingTipPlacementMode = 0
-TeachingTipPlacementMode_Top: TeachingTipPlacementMode = 1
-TeachingTipPlacementMode_Bottom: TeachingTipPlacementMode = 2
-TeachingTipPlacementMode_Left: TeachingTipPlacementMode = 3
-TeachingTipPlacementMode_Right: TeachingTipPlacementMode = 4
-TeachingTipPlacementMode_TopRight: TeachingTipPlacementMode = 5
-TeachingTipPlacementMode_TopLeft: TeachingTipPlacementMode = 6
-TeachingTipPlacementMode_BottomRight: TeachingTipPlacementMode = 7
-TeachingTipPlacementMode_BottomLeft: TeachingTipPlacementMode = 8
-TeachingTipPlacementMode_LeftTop: TeachingTipPlacementMode = 9
-TeachingTipPlacementMode_LeftBottom: TeachingTipPlacementMode = 10
-TeachingTipPlacementMode_RightTop: TeachingTipPlacementMode = 11
-TeachingTipPlacementMode_RightBottom: TeachingTipPlacementMode = 12
-TeachingTipPlacementMode_Center: TeachingTipPlacementMode = 13
-TeachingTipTailVisibility = Int32
-TeachingTipTailVisibility_Auto: TeachingTipTailVisibility = 0
-TeachingTipTailVisibility_Visible: TeachingTipTailVisibility = 1
-TeachingTipTailVisibility_Collapsed: TeachingTipTailVisibility = 2
+class TeachingTipHeroContentPlacementMode(Int32):  # enum
+    Auto = 0
+    Top = 1
+    Bottom = 2
+class TeachingTipPlacementMode(Int32):  # enum
+    Auto = 0
+    Top = 1
+    Bottom = 2
+    Left = 3
+    Right = 4
+    TopRight = 5
+    TopLeft = 6
+    BottomRight = 7
+    BottomLeft = 8
+    LeftTop = 9
+    LeftBottom = 10
+    RightTop = 11
+    RightBottom = 12
+    Center = 13
+class TeachingTipTailVisibility(Int32):  # enum
+    Auto = 0
+    Visible = 1
+    Collapsed = 2
 class _TeachingTipTemplateSettings_Meta_(ComPtr.__class__):
     pass
 class TeachingTipTemplateSettings(ComPtr, metaclass=_TeachingTipTemplateSettings_Meta_):
@@ -29626,10 +29626,10 @@ class TreeViewSelectionChangedEventArgs(ComPtr):
     def get_RemovedItems(self: win32more.Microsoft.UI.Xaml.Controls.ITreeViewSelectionChangedEventArgs) -> win32more.Windows.Foundation.Collections.IVector[win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     AddedItems = property(get_AddedItems, None)
     RemovedItems = property(get_RemovedItems, None)
-TreeViewSelectionMode = Int32
-TreeViewSelectionMode_None: TreeViewSelectionMode = 0
-TreeViewSelectionMode_Single: TreeViewSelectionMode = 1
-TreeViewSelectionMode_Multiple: TreeViewSelectionMode = 2
+class TreeViewSelectionMode(Int32):  # enum
+    None_ = 0
+    Single = 1
+    Multiple = 2
 class _TwoPaneView_Meta_(ComPtr.__class__):
     pass
 class TwoPaneView(ComPtr, metaclass=_TwoPaneView_Meta_):
@@ -29727,21 +29727,21 @@ class TwoPaneView(ComPtr, metaclass=_TwoPaneView_Meta_):
     _TwoPaneView_Meta_.TallModeConfigurationProperty = property(get_TallModeConfigurationProperty.__wrapped__, None)
     _TwoPaneView_Meta_.MinWideModeWidthProperty = property(get_MinWideModeWidthProperty.__wrapped__, None)
     _TwoPaneView_Meta_.MinTallModeHeightProperty = property(get_MinTallModeHeightProperty.__wrapped__, None)
-TwoPaneViewMode = Int32
-TwoPaneViewMode_SinglePane: TwoPaneViewMode = 0
-TwoPaneViewMode_Wide: TwoPaneViewMode = 1
-TwoPaneViewMode_Tall: TwoPaneViewMode = 2
-TwoPaneViewPriority = Int32
-TwoPaneViewPriority_Pane1: TwoPaneViewPriority = 0
-TwoPaneViewPriority_Pane2: TwoPaneViewPriority = 1
-TwoPaneViewTallModeConfiguration = Int32
-TwoPaneViewTallModeConfiguration_SinglePane: TwoPaneViewTallModeConfiguration = 0
-TwoPaneViewTallModeConfiguration_TopBottom: TwoPaneViewTallModeConfiguration = 1
-TwoPaneViewTallModeConfiguration_BottomTop: TwoPaneViewTallModeConfiguration = 2
-TwoPaneViewWideModeConfiguration = Int32
-TwoPaneViewWideModeConfiguration_SinglePane: TwoPaneViewWideModeConfiguration = 0
-TwoPaneViewWideModeConfiguration_LeftRight: TwoPaneViewWideModeConfiguration = 1
-TwoPaneViewWideModeConfiguration_RightLeft: TwoPaneViewWideModeConfiguration = 2
+class TwoPaneViewMode(Int32):  # enum
+    SinglePane = 0
+    Wide = 1
+    Tall = 2
+class TwoPaneViewPriority(Int32):  # enum
+    Pane1 = 0
+    Pane2 = 1
+class TwoPaneViewTallModeConfiguration(Int32):  # enum
+    SinglePane = 0
+    TopBottom = 1
+    BottomTop = 2
+class TwoPaneViewWideModeConfiguration(Int32):  # enum
+    SinglePane = 0
+    LeftRight = 1
+    RightLeft = 2
 class UIElementCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.Collections.IVector[win32more.Microsoft.UI.Xaml.UIElement]
@@ -29854,17 +29854,17 @@ class UniformGridLayout(ComPtr, metaclass=_UniformGridLayout_Meta_):
     _UniformGridLayout_Meta_.ItemsJustificationProperty = property(get_ItemsJustificationProperty.__wrapped__, None)
     _UniformGridLayout_Meta_.ItemsStretchProperty = property(get_ItemsStretchProperty.__wrapped__, None)
     _UniformGridLayout_Meta_.MaximumRowsOrColumnsProperty = property(get_MaximumRowsOrColumnsProperty.__wrapped__, None)
-UniformGridLayoutItemsJustification = Int32
-UniformGridLayoutItemsJustification_Start: UniformGridLayoutItemsJustification = 0
-UniformGridLayoutItemsJustification_Center: UniformGridLayoutItemsJustification = 1
-UniformGridLayoutItemsJustification_End: UniformGridLayoutItemsJustification = 2
-UniformGridLayoutItemsJustification_SpaceAround: UniformGridLayoutItemsJustification = 3
-UniformGridLayoutItemsJustification_SpaceBetween: UniformGridLayoutItemsJustification = 4
-UniformGridLayoutItemsJustification_SpaceEvenly: UniformGridLayoutItemsJustification = 5
-UniformGridLayoutItemsStretch = Int32
-UniformGridLayoutItemsStretch_None: UniformGridLayoutItemsStretch = 0
-UniformGridLayoutItemsStretch_Fill: UniformGridLayoutItemsStretch = 1
-UniformGridLayoutItemsStretch_Uniform: UniformGridLayoutItemsStretch = 2
+class UniformGridLayoutItemsJustification(Int32):  # enum
+    Start = 0
+    Center = 1
+    End = 2
+    SpaceAround = 3
+    SpaceBetween = 4
+    SpaceEvenly = 5
+class UniformGridLayoutItemsStretch(Int32):  # enum
+    None_ = 0
+    Fill = 1
+    Uniform = 2
 class _UserControl_Meta_(ComPtr.__class__):
     pass
 class UserControl(ComPtr, metaclass=_UserControl_Meta_):
@@ -30001,9 +30001,9 @@ class Viewbox(ComPtr, metaclass=_Viewbox_Meta_):
     StretchDirection = property(get_StretchDirection, put_StretchDirection)
     _Viewbox_Meta_.StretchProperty = property(get_StretchProperty.__wrapped__, None)
     _Viewbox_Meta_.StretchDirectionProperty = property(get_StretchDirectionProperty.__wrapped__, None)
-VirtualizationMode = Int32
-VirtualizationMode_Standard: VirtualizationMode = 0
-VirtualizationMode_Recycling: VirtualizationMode = 1
+class VirtualizationMode(Int32):  # enum
+    Standard = 0
+    Recycling = 1
 class VirtualizingLayout(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.Controls.Layout
     default_interface: win32more.Microsoft.UI.Xaml.Controls.IVirtualizingLayout
@@ -30325,9 +30325,9 @@ class XamlControlsResources(ComPtr, metaclass=_XamlControlsResources_Meta_):
     def get_UseCompactResourcesProperty(cls: win32more.Microsoft.UI.Xaml.Controls.IXamlControlsResourcesStatics) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
     UseCompactResources = property(get_UseCompactResources, put_UseCompactResources)
     _XamlControlsResources_Meta_.UseCompactResourcesProperty = property(get_UseCompactResourcesProperty.__wrapped__, None)
-ZoomMode = Int32
-ZoomMode_Disabled: ZoomMode = 0
-ZoomMode_Enabled: ZoomMode = 1
+class ZoomMode(Int32):  # enum
+    Disabled = 0
+    Enabled = 1
 
 
 make_ready(__name__)

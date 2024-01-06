@@ -216,11 +216,11 @@ class SimpleHapticsControllerFeedback(ComPtr):
     def get_Duration(self: win32more.Windows.Devices.Haptics.ISimpleHapticsControllerFeedback) -> win32more.Windows.Foundation.TimeSpan: ...
     Waveform = property(get_Waveform, None)
     Duration = property(get_Duration, None)
-VibrationAccessStatus = Int32
-VibrationAccessStatus_Allowed: VibrationAccessStatus = 0
-VibrationAccessStatus_DeniedByUser: VibrationAccessStatus = 1
-VibrationAccessStatus_DeniedBySystem: VibrationAccessStatus = 2
-VibrationAccessStatus_DeniedByEnergySaver: VibrationAccessStatus = 3
+class VibrationAccessStatus(Int32):  # enum
+    Allowed = 0
+    DeniedByUser = 1
+    DeniedBySystem = 2
+    DeniedByEnergySaver = 3
 class VibrationDevice(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Haptics.IVibrationDevice

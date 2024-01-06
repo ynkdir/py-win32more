@@ -96,11 +96,11 @@ class CertificateChain(ComPtr):
     def ValidateWithParameters(self: win32more.Windows.Security.Cryptography.Certificates.ICertificateChain, parameter: win32more.Windows.Security.Cryptography.Certificates.ChainValidationParameters) -> win32more.Windows.Security.Cryptography.Certificates.ChainValidationResult: ...
     @winrt_mixinmethod
     def GetCertificates(self: win32more.Windows.Security.Cryptography.Certificates.ICertificateChain, includeRoot: Boolean) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Security.Cryptography.Certificates.Certificate]: ...
-CertificateChainPolicy = Int32
-CertificateChainPolicy_Base: CertificateChainPolicy = 0
-CertificateChainPolicy_Ssl: CertificateChainPolicy = 1
-CertificateChainPolicy_NTAuthentication: CertificateChainPolicy = 2
-CertificateChainPolicy_MicrosoftRoot: CertificateChainPolicy = 3
+class CertificateChainPolicy(Int32):  # enum
+    Base = 0
+    Ssl = 1
+    NTAuthentication = 2
+    MicrosoftRoot = 3
 class _CertificateEnrollmentManager_Meta_(ComPtr.__class__):
     pass
 class CertificateEnrollmentManager(ComPtr, metaclass=_CertificateEnrollmentManager_Meta_):
@@ -457,21 +457,21 @@ class ChainValidationParameters(ComPtr):
     def put_ServerDnsName(self: win32more.Windows.Security.Cryptography.Certificates.IChainValidationParameters, value: win32more.Windows.Networking.HostName) -> Void: ...
     CertificateChainPolicy = property(get_CertificateChainPolicy, put_CertificateChainPolicy)
     ServerDnsName = property(get_ServerDnsName, put_ServerDnsName)
-ChainValidationResult = Int32
-ChainValidationResult_Success: ChainValidationResult = 0
-ChainValidationResult_Untrusted: ChainValidationResult = 1
-ChainValidationResult_Revoked: ChainValidationResult = 2
-ChainValidationResult_Expired: ChainValidationResult = 3
-ChainValidationResult_IncompleteChain: ChainValidationResult = 4
-ChainValidationResult_InvalidSignature: ChainValidationResult = 5
-ChainValidationResult_WrongUsage: ChainValidationResult = 6
-ChainValidationResult_InvalidName: ChainValidationResult = 7
-ChainValidationResult_InvalidCertificateAuthorityPolicy: ChainValidationResult = 8
-ChainValidationResult_BasicConstraintsError: ChainValidationResult = 9
-ChainValidationResult_UnknownCriticalExtension: ChainValidationResult = 10
-ChainValidationResult_RevocationInformationMissing: ChainValidationResult = 11
-ChainValidationResult_RevocationFailure: ChainValidationResult = 12
-ChainValidationResult_OtherErrors: ChainValidationResult = 13
+class ChainValidationResult(Int32):  # enum
+    Success = 0
+    Untrusted = 1
+    Revoked = 2
+    Expired = 3
+    IncompleteChain = 4
+    InvalidSignature = 5
+    WrongUsage = 6
+    InvalidName = 7
+    InvalidCertificateAuthorityPolicy = 8
+    BasicConstraintsError = 9
+    UnknownCriticalExtension = 10
+    RevocationInformationMissing = 11
+    RevocationFailure = 12
+    OtherErrors = 13
 class CmsAttachedSignature(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Cryptography.Certificates.ICmsAttachedSignature
@@ -560,15 +560,15 @@ class CmsTimestampInfo(ComPtr):
     SigningCertificate = property(get_SigningCertificate, None)
     Certificates = property(get_Certificates, None)
     Timestamp = property(get_Timestamp, None)
-EnrollKeyUsages = UInt32
-EnrollKeyUsages_None: EnrollKeyUsages = 0
-EnrollKeyUsages_Decryption: EnrollKeyUsages = 1
-EnrollKeyUsages_Signing: EnrollKeyUsages = 2
-EnrollKeyUsages_KeyAgreement: EnrollKeyUsages = 4
-EnrollKeyUsages_All: EnrollKeyUsages = 16777215
-ExportOption = Int32
-ExportOption_NotExportable: ExportOption = 0
-ExportOption_Exportable: ExportOption = 1
+class EnrollKeyUsages(UInt32):  # enum
+    None_ = 0
+    Decryption = 1
+    Signing = 2
+    KeyAgreement = 4
+    All = 16777215
+class ExportOption(Int32):  # enum
+    NotExportable = 0
+    Exportable = 1
 class ICertificate(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.Cryptography.Certificates.ICertificate'
@@ -1276,9 +1276,9 @@ class IUserCertificateStore(ComPtr):
     @winrt_commethod(8)
     def get_Name(self) -> WinRT_String: ...
     Name = property(get_Name, None)
-InstallOptions = UInt32
-InstallOptions_None: InstallOptions = 0
-InstallOptions_DeleteExpired: InstallOptions = 1
+class InstallOptions(UInt32):  # enum
+    None_ = 0
+    DeleteExpired = 1
 class _KeyAlgorithmNames_Meta_(ComPtr.__class__):
     pass
 class KeyAlgorithmNames(ComPtr, metaclass=_KeyAlgorithmNames_Meta_):
@@ -1323,15 +1323,15 @@ class KeyAttestationHelper(ComPtr):
     def DecryptTpmAttestationCredentialAsync(cls: win32more.Windows.Security.Cryptography.Certificates.IKeyAttestationHelperStatics, credential: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[WinRT_String]: ...
     @winrt_classmethod
     def GetTpmAttestationCredentialId(cls: win32more.Windows.Security.Cryptography.Certificates.IKeyAttestationHelperStatics, credential: WinRT_String) -> WinRT_String: ...
-KeyProtectionLevel = Int32
-KeyProtectionLevel_NoConsent: KeyProtectionLevel = 0
-KeyProtectionLevel_ConsentOnly: KeyProtectionLevel = 1
-KeyProtectionLevel_ConsentWithPassword: KeyProtectionLevel = 2
-KeyProtectionLevel_ConsentWithFingerprint: KeyProtectionLevel = 3
-KeySize = Int32
-KeySize_Invalid: KeySize = 0
-KeySize_Rsa2048: KeySize = 2048
-KeySize_Rsa4096: KeySize = 4096
+class KeyProtectionLevel(Int32):  # enum
+    NoConsent = 0
+    ConsentOnly = 1
+    ConsentWithPassword = 2
+    ConsentWithFingerprint = 3
+class KeySize(Int32):  # enum
+    Invalid = 0
+    Rsa2048 = 2048
+    Rsa4096 = 4096
 class _KeyStorageProviderNames_Meta_(ComPtr.__class__):
     pass
 class KeyStorageProviderNames(ComPtr, metaclass=_KeyStorageProviderNames_Meta_):
@@ -1397,12 +1397,12 @@ class PfxImportParameters(ComPtr):
     KeyStorageProviderName = property(get_KeyStorageProviderName, put_KeyStorageProviderName)
     ContainerNamePrefix = property(get_ContainerNamePrefix, put_ContainerNamePrefix)
     ReaderName = property(get_ReaderName, put_ReaderName)
-SignatureValidationResult = Int32
-SignatureValidationResult_Success: SignatureValidationResult = 0
-SignatureValidationResult_InvalidParameter: SignatureValidationResult = 1
-SignatureValidationResult_BadMessage: SignatureValidationResult = 2
-SignatureValidationResult_InvalidSignature: SignatureValidationResult = 3
-SignatureValidationResult_OtherErrors: SignatureValidationResult = 4
+class SignatureValidationResult(Int32):  # enum
+    Success = 0
+    InvalidParameter = 1
+    BadMessage = 2
+    InvalidSignature = 3
+    OtherErrors = 4
 class _StandardCertificateStoreNames_Meta_(ComPtr.__class__):
     pass
 class StandardCertificateStoreNames(ComPtr, metaclass=_StandardCertificateStoreNames_Meta_):

@@ -167,14 +167,14 @@ class AllJoynAuthenticationCompleteEventArgs(ComPtr):
     AuthenticationMechanism = property(get_AuthenticationMechanism, None)
     PeerUniqueName = property(get_PeerUniqueName, None)
     Succeeded = property(get_Succeeded, None)
-AllJoynAuthenticationMechanism = Int32
-AllJoynAuthenticationMechanism_None: AllJoynAuthenticationMechanism = 0
-AllJoynAuthenticationMechanism_SrpAnonymous: AllJoynAuthenticationMechanism = 1
-AllJoynAuthenticationMechanism_SrpLogon: AllJoynAuthenticationMechanism = 2
-AllJoynAuthenticationMechanism_EcdheNull: AllJoynAuthenticationMechanism = 3
-AllJoynAuthenticationMechanism_EcdhePsk: AllJoynAuthenticationMechanism = 4
-AllJoynAuthenticationMechanism_EcdheEcdsa: AllJoynAuthenticationMechanism = 5
-AllJoynAuthenticationMechanism_EcdheSpeke: AllJoynAuthenticationMechanism = 6
+class AllJoynAuthenticationMechanism(Int32):  # enum
+    None_ = 0
+    SrpAnonymous = 1
+    SrpLogon = 2
+    EcdheNull = 3
+    EcdhePsk = 4
+    EcdheEcdsa = 5
+    EcdheSpeke = 6
 class AllJoynBusAttachment(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.AllJoyn.IAllJoynBusAttachment
@@ -245,11 +245,11 @@ class AllJoynBusAttachment(ComPtr):
     State = property(get_State, None)
     UniqueName = property(get_UniqueName, None)
     AuthenticationMechanisms = property(get_AuthenticationMechanisms, None)
-AllJoynBusAttachmentState = Int32
-AllJoynBusAttachmentState_Disconnected: AllJoynBusAttachmentState = 0
-AllJoynBusAttachmentState_Connecting: AllJoynBusAttachmentState = 1
-AllJoynBusAttachmentState_Connected: AllJoynBusAttachmentState = 2
-AllJoynBusAttachmentState_Disconnecting: AllJoynBusAttachmentState = 3
+class AllJoynBusAttachmentState(Int32):  # enum
+    Disconnected = 0
+    Connecting = 1
+    Connected = 2
+    Disconnecting = 3
 class AllJoynBusAttachmentStateChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.AllJoyn.IAllJoynBusAttachmentStateChangedEventArgs
@@ -511,13 +511,13 @@ class AllJoynSessionLostEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Reason(self: win32more.Windows.Devices.AllJoyn.IAllJoynSessionLostEventArgs) -> win32more.Windows.Devices.AllJoyn.AllJoynSessionLostReason: ...
     Reason = property(get_Reason, None)
-AllJoynSessionLostReason = Int32
-AllJoynSessionLostReason_None: AllJoynSessionLostReason = 0
-AllJoynSessionLostReason_ProducerLeftSession: AllJoynSessionLostReason = 1
-AllJoynSessionLostReason_ProducerClosedAbruptly: AllJoynSessionLostReason = 2
-AllJoynSessionLostReason_RemovedByProducer: AllJoynSessionLostReason = 3
-AllJoynSessionLostReason_LinkTimeout: AllJoynSessionLostReason = 4
-AllJoynSessionLostReason_Other: AllJoynSessionLostReason = 5
+class AllJoynSessionLostReason(Int32):  # enum
+    None_ = 0
+    ProducerLeftSession = 1
+    ProducerClosedAbruptly = 2
+    RemovedByProducer = 3
+    LinkTimeout = 4
+    Other = 5
 class AllJoynSessionMemberAddedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.AllJoyn.IAllJoynSessionMemberAddedEventArgs
@@ -609,11 +609,11 @@ class AllJoynStatus(ComPtr, metaclass=_AllJoynStatus_Meta_):
     _AllJoynStatus_Meta_.InvalidArgument6 = property(get_InvalidArgument6.__wrapped__, None)
     _AllJoynStatus_Meta_.InvalidArgument7 = property(get_InvalidArgument7.__wrapped__, None)
     _AllJoynStatus_Meta_.InvalidArgument8 = property(get_InvalidArgument8.__wrapped__, None)
-AllJoynTrafficType = Int32
-AllJoynTrafficType_Unknown: AllJoynTrafficType = 0
-AllJoynTrafficType_Messages: AllJoynTrafficType = 1
-AllJoynTrafficType_RawUnreliable: AllJoynTrafficType = 2
-AllJoynTrafficType_RawReliable: AllJoynTrafficType = 4
+class AllJoynTrafficType(Int32):  # enum
+    Unknown = 0
+    Messages = 1
+    RawUnreliable = 2
+    RawReliable = 4
 class AllJoynWatcherStoppedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.AllJoyn.IAllJoynWatcherStoppedEventArgs

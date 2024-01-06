@@ -150,23 +150,23 @@ class AccessoryManager(ComPtr, metaclass=_AccessoryManager_Meta_):
     _AccessoryManager_Meta_.DoNotDisturbEnabled = property(get_DoNotDisturbEnabled.__wrapped__, None)
     _AccessoryManager_Meta_.DrivingModeEnabled = property(get_DrivingModeEnabled.__wrapped__, None)
     _AccessoryManager_Meta_.BatterySaverState = property(get_BatterySaverState.__wrapped__, None)
-AccessoryNotificationType = UInt32
-AccessoryNotificationType_None: AccessoryNotificationType = 0
-AccessoryNotificationType_Phone: AccessoryNotificationType = 1
-AccessoryNotificationType_Email: AccessoryNotificationType = 2
-AccessoryNotificationType_Reminder: AccessoryNotificationType = 4
-AccessoryNotificationType_Alarm: AccessoryNotificationType = 8
-AccessoryNotificationType_Toast: AccessoryNotificationType = 16
-AccessoryNotificationType_AppUninstalled: AccessoryNotificationType = 32
-AccessoryNotificationType_Dnd: AccessoryNotificationType = 64
-AccessoryNotificationType_DrivingMode: AccessoryNotificationType = 128
-AccessoryNotificationType_BatterySaver: AccessoryNotificationType = 256
-AccessoryNotificationType_Media: AccessoryNotificationType = 512
-AccessoryNotificationType_CortanaTile: AccessoryNotificationType = 1024
-AccessoryNotificationType_ToastCleared: AccessoryNotificationType = 2048
-AccessoryNotificationType_CalendarChanged: AccessoryNotificationType = 4096
-AccessoryNotificationType_VolumeChanged: AccessoryNotificationType = 8192
-AccessoryNotificationType_EmailReadStatusChanged: AccessoryNotificationType = 16384
+class AccessoryNotificationType(UInt32):  # enum
+    None_ = 0
+    Phone = 1
+    Email = 2
+    Reminder = 4
+    Alarm = 8
+    Toast = 16
+    AppUninstalled = 32
+    Dnd = 64
+    DrivingMode = 128
+    BatterySaver = 256
+    Media = 512
+    CortanaTile = 1024
+    ToastCleared = 2048
+    CalendarChanged = 4096
+    VolumeChanged = 8192
+    EmailReadStatusChanged = 16384
 class AlarmNotificationTriggerDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Phone.Notification.Management.IAlarmNotificationTriggerDetails
@@ -223,14 +223,14 @@ class BinaryId(ComPtr):
     def get_Length(self: win32more.Windows.Phone.Notification.Management.IBinaryId) -> UInt32: ...
     Id = property(get_Id, None)
     Length = property(get_Length, None)
-CalendarChangedEvent = Int32
-CalendarChangedEvent_LostEvents: CalendarChangedEvent = 0
-CalendarChangedEvent_AppointmentAdded: CalendarChangedEvent = 1
-CalendarChangedEvent_AppointmentChanged: CalendarChangedEvent = 2
-CalendarChangedEvent_AppointmentDeleted: CalendarChangedEvent = 3
-CalendarChangedEvent_CalendarAdded: CalendarChangedEvent = 4
-CalendarChangedEvent_CalendarChanged: CalendarChangedEvent = 5
-CalendarChangedEvent_CalendarDeleted: CalendarChangedEvent = 6
+class CalendarChangedEvent(Int32):  # enum
+    LostEvents = 0
+    AppointmentAdded = 1
+    AppointmentChanged = 2
+    AppointmentDeleted = 3
+    CalendarAdded = 4
+    CalendarChanged = 5
+    CalendarDeleted = 6
 class CalendarChangedNotificationTriggerDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Phone.Notification.Management.ICalendarChangedNotificationTriggerDetails
@@ -995,10 +995,10 @@ class MediaMetadata(ComPtr):
     Track = property(get_Track, None)
     Duration = property(get_Duration, None)
     Thumbnail = property(get_Thumbnail, None)
-PhoneCallAudioEndpoint = Int32
-PhoneCallAudioEndpoint_Default: PhoneCallAudioEndpoint = 0
-PhoneCallAudioEndpoint_Speaker: PhoneCallAudioEndpoint = 1
-PhoneCallAudioEndpoint_Handsfree: PhoneCallAudioEndpoint = 2
+class PhoneCallAudioEndpoint(Int32):  # enum
+    Default = 0
+    Speaker = 1
+    Handsfree = 2
 class PhoneCallDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Phone.Notification.Management.IPhoneCallDetails
@@ -1039,18 +1039,18 @@ class PhoneCallDetails(ComPtr):
     PhoneNumber = property(get_PhoneNumber, None)
     ContactName = property(get_ContactName, None)
     PresetTextResponses = property(get_PresetTextResponses, None)
-PhoneCallDirection = Int32
-PhoneCallDirection_Incoming: PhoneCallDirection = 0
-PhoneCallDirection_Outgoing: PhoneCallDirection = 1
-PhoneCallState = Int32
-PhoneCallState_Unknown: PhoneCallState = 0
-PhoneCallState_Ringing: PhoneCallState = 1
-PhoneCallState_Talking: PhoneCallState = 2
-PhoneCallState_Held: PhoneCallState = 3
-PhoneCallState_Ended: PhoneCallState = 4
-PhoneCallTransport = Int32
-PhoneCallTransport_Cellular: PhoneCallTransport = 0
-PhoneCallTransport_Voip: PhoneCallTransport = 1
+class PhoneCallDirection(Int32):  # enum
+    Incoming = 0
+    Outgoing = 1
+class PhoneCallState(Int32):  # enum
+    Unknown = 0
+    Ringing = 1
+    Talking = 2
+    Held = 3
+    Ended = 4
+class PhoneCallTransport(Int32):  # enum
+    Cellular = 0
+    Voip = 1
 class PhoneLineDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Phone.Notification.Management.IPhoneLineDetails
@@ -1076,13 +1076,13 @@ class PhoneLineDetails(ComPtr):
     VoicemailCount = property(get_VoicemailCount, None)
     RegistrationState = property(get_RegistrationState, None)
     MissedCallCount = property(get_MissedCallCount, None)
-PhoneLineRegistrationState = Int32
-PhoneLineRegistrationState_Disconnected: PhoneLineRegistrationState = 0
-PhoneLineRegistrationState_Home: PhoneLineRegistrationState = 1
-PhoneLineRegistrationState_Roaming: PhoneLineRegistrationState = 2
-PhoneMediaType = Int32
-PhoneMediaType_AudioOnly: PhoneMediaType = 0
-PhoneMediaType_AudioVideo: PhoneMediaType = 1
+class PhoneLineRegistrationState(Int32):  # enum
+    Disconnected = 0
+    Home = 1
+    Roaming = 2
+class PhoneMediaType(Int32):  # enum
+    AudioOnly = 0
+    AudioVideo = 1
 class PhoneNotificationTriggerDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Phone.Notification.Management.IPhoneNotificationTriggerDetails
@@ -1113,41 +1113,41 @@ class PhoneNotificationTriggerDetails(ComPtr):
     AppId = property(get_AppId, None)
     AccessoryNotificationType = property(get_AccessoryNotificationType, None)
     StartedProcessing = property(get_StartedProcessing, put_StartedProcessing)
-PhoneNotificationType = Int32
-PhoneNotificationType_NewCall: PhoneNotificationType = 0
-PhoneNotificationType_CallChanged: PhoneNotificationType = 1
-PhoneNotificationType_LineChanged: PhoneNotificationType = 2
-PhoneNotificationType_PhoneCallAudioEndpointChanged: PhoneNotificationType = 3
-PhoneNotificationType_PhoneMuteChanged: PhoneNotificationType = 4
-PlaybackCapability = UInt32
-PlaybackCapability_None: PlaybackCapability = 0
-PlaybackCapability_Play: PlaybackCapability = 1
-PlaybackCapability_Pause: PlaybackCapability = 2
-PlaybackCapability_Stop: PlaybackCapability = 4
-PlaybackCapability_Record: PlaybackCapability = 8
-PlaybackCapability_FastForward: PlaybackCapability = 16
-PlaybackCapability_Rewind: PlaybackCapability = 32
-PlaybackCapability_Next: PlaybackCapability = 64
-PlaybackCapability_Previous: PlaybackCapability = 128
-PlaybackCapability_ChannelUp: PlaybackCapability = 256
-PlaybackCapability_ChannelDown: PlaybackCapability = 512
-PlaybackCommand = Int32
-PlaybackCommand_Play: PlaybackCommand = 0
-PlaybackCommand_Pause: PlaybackCommand = 1
-PlaybackCommand_Stop: PlaybackCommand = 2
-PlaybackCommand_Record: PlaybackCommand = 3
-PlaybackCommand_FastForward: PlaybackCommand = 4
-PlaybackCommand_Rewind: PlaybackCommand = 5
-PlaybackCommand_Next: PlaybackCommand = 6
-PlaybackCommand_Previous: PlaybackCommand = 7
-PlaybackCommand_ChannelUp: PlaybackCommand = 8
-PlaybackCommand_ChannelDown: PlaybackCommand = 9
-PlaybackStatus = Int32
-PlaybackStatus_None: PlaybackStatus = 0
-PlaybackStatus_TrackChanged: PlaybackStatus = 1
-PlaybackStatus_Stopped: PlaybackStatus = 2
-PlaybackStatus_Playing: PlaybackStatus = 3
-PlaybackStatus_Paused: PlaybackStatus = 4
+class PhoneNotificationType(Int32):  # enum
+    NewCall = 0
+    CallChanged = 1
+    LineChanged = 2
+    PhoneCallAudioEndpointChanged = 3
+    PhoneMuteChanged = 4
+class PlaybackCapability(UInt32):  # enum
+    None_ = 0
+    Play = 1
+    Pause = 2
+    Stop = 4
+    Record = 8
+    FastForward = 16
+    Rewind = 32
+    Next = 64
+    Previous = 128
+    ChannelUp = 256
+    ChannelDown = 512
+class PlaybackCommand(Int32):  # enum
+    Play = 0
+    Pause = 1
+    Stop = 2
+    Record = 3
+    FastForward = 4
+    Rewind = 5
+    Next = 6
+    Previous = 7
+    ChannelUp = 8
+    ChannelDown = 9
+class PlaybackStatus(Int32):  # enum
+    None_ = 0
+    TrackChanged = 1
+    Stopped = 2
+    Playing = 3
+    Paused = 4
 class ReminderNotificationTriggerDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Phone.Notification.Management.IReminderNotificationTriggerDetails
@@ -1193,10 +1193,10 @@ class ReminderNotificationTriggerDetails(ComPtr):
     AccessoryNotificationType = property(get_AccessoryNotificationType, None)
     StartedProcessing = property(get_StartedProcessing, put_StartedProcessing)
     InstanceId = property(get_InstanceId, None)
-ReminderState = Int32
-ReminderState_Active: ReminderState = 0
-ReminderState_Snoozed: ReminderState = 1
-ReminderState_Dismissed: ReminderState = 2
+class ReminderState(Int32):  # enum
+    Active = 0
+    Snoozed = 1
+    Dismissed = 2
 class SpeedDialEntry(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Phone.Notification.Management.ISpeedDialEntry
@@ -1259,11 +1259,11 @@ class ToastNotificationTriggerDetails(ComPtr):
     AccessoryNotificationType = property(get_AccessoryNotificationType, None)
     StartedProcessing = property(get_StartedProcessing, put_StartedProcessing)
     InstanceId = property(get_InstanceId, None)
-VibrateState = Int32
-VibrateState_RingerOffVibrateOff: VibrateState = 0
-VibrateState_RingerOffVibrateOn: VibrateState = 1
-VibrateState_RingerOnVibrateOff: VibrateState = 2
-VibrateState_RingerOnVibrateOn: VibrateState = 3
+class VibrateState(Int32):  # enum
+    RingerOffVibrateOff = 0
+    RingerOffVibrateOn = 1
+    RingerOnVibrateOff = 2
+    RingerOnVibrateOn = 3
 class VolumeInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Phone.Notification.Management.IVolumeInfo

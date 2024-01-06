@@ -808,15 +808,15 @@ class VpnAppId(ComPtr):
     def put_Value(self: win32more.Windows.Networking.Vpn.IVpnAppId, value: WinRT_String) -> Void: ...
     Type = property(get_Type, put_Type)
     Value = property(get_Value, put_Value)
-VpnAppIdType = Int32
-VpnAppIdType_PackageFamilyName: VpnAppIdType = 0
-VpnAppIdType_FullyQualifiedBinaryName: VpnAppIdType = 1
-VpnAppIdType_FilePath: VpnAppIdType = 2
-VpnAuthenticationMethod = Int32
-VpnAuthenticationMethod_Mschapv2: VpnAuthenticationMethod = 0
-VpnAuthenticationMethod_Eap: VpnAuthenticationMethod = 1
-VpnAuthenticationMethod_Certificate: VpnAuthenticationMethod = 2
-VpnAuthenticationMethod_PresharedKey: VpnAuthenticationMethod = 3
+class VpnAppIdType(Int32):  # enum
+    PackageFamilyName = 0
+    FullyQualifiedBinaryName = 1
+    FilePath = 2
+class VpnAuthenticationMethod(Int32):  # enum
+    Mschapv2 = 0
+    Eap = 1
+    Certificate = 2
+    PresharedKey = 3
 class VpnChannel(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Vpn.IVpnChannel
@@ -913,9 +913,9 @@ class VpnChannelActivityEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Type(self: win32more.Windows.Networking.Vpn.IVpnChannelActivityEventArgs) -> win32more.Windows.Networking.Vpn.VpnChannelActivityEventType: ...
     Type = property(get_Type, None)
-VpnChannelActivityEventType = Int32
-VpnChannelActivityEventType_Idle: VpnChannelActivityEventType = 0
-VpnChannelActivityEventType_Active: VpnChannelActivityEventType = 1
+class VpnChannelActivityEventType(Int32):  # enum
+    Idle = 0
+    Active = 1
 class VpnChannelActivityStateChangedArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Vpn.IVpnChannelActivityStateChangedArgs
@@ -939,10 +939,10 @@ class VpnChannelConfiguration(ComPtr):
     ServerHostNameList = property(get_ServerHostNameList, None)
     CustomField = property(get_CustomField, None)
     ServerUris = property(get_ServerUris, None)
-VpnChannelRequestCredentialsOptions = UInt32
-VpnChannelRequestCredentialsOptions_None: VpnChannelRequestCredentialsOptions = 0
-VpnChannelRequestCredentialsOptions_Retrying: VpnChannelRequestCredentialsOptions = 1
-VpnChannelRequestCredentialsOptions_UseForSingleSignIn: VpnChannelRequestCredentialsOptions = 2
+class VpnChannelRequestCredentialsOptions(UInt32):  # enum
+    None_ = 0
+    Retrying = 1
+    UseForSingleSignIn = 2
 class VpnCredential(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Vpn.IVpnCredential
@@ -959,14 +959,14 @@ class VpnCredential(ComPtr):
     CertificateCredential = property(get_CertificateCredential, None)
     AdditionalPin = property(get_AdditionalPin, None)
     OldPasswordCredential = property(get_OldPasswordCredential, None)
-VpnCredentialType = Int32
-VpnCredentialType_UsernamePassword: VpnCredentialType = 0
-VpnCredentialType_UsernameOtpPin: VpnCredentialType = 1
-VpnCredentialType_UsernamePasswordAndPin: VpnCredentialType = 2
-VpnCredentialType_UsernamePasswordChange: VpnCredentialType = 3
-VpnCredentialType_SmartCard: VpnCredentialType = 4
-VpnCredentialType_ProtectedCertificate: VpnCredentialType = 5
-VpnCredentialType_UnProtectedCertificate: VpnCredentialType = 6
+class VpnCredentialType(Int32):  # enum
+    UsernamePassword = 0
+    UsernameOtpPin = 1
+    UsernamePasswordAndPin = 2
+    UsernamePasswordChange = 3
+    SmartCard = 4
+    ProtectedCertificate = 5
+    UnProtectedCertificate = 6
 class VpnCustomCheckBox(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Vpn.IVpnCustomCheckBox
@@ -1285,9 +1285,9 @@ class VpnCustomTextBox(ComPtr):
     Label = property(get_Label, put_Label)
     Compulsory = property(get_Compulsory, put_Compulsory)
     Bordered = property(get_Bordered, put_Bordered)
-VpnDataPathType = Int32
-VpnDataPathType_Send: VpnDataPathType = 0
-VpnDataPathType_Receive: VpnDataPathType = 1
+class VpnDataPathType(Int32):  # enum
+    Send = 0
+    Receive = 1
 class VpnDomainNameAssignment(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Vpn.IVpnDomainNameAssignment
@@ -1341,10 +1341,10 @@ class VpnDomainNameInfo(ComPtr):
     DnsServers = property(get_DnsServers, None)
     WebProxyServers = property(get_WebProxyServers, None)
     WebProxyUris = property(get_WebProxyUris, None)
-VpnDomainNameType = Int32
-VpnDomainNameType_Suffix: VpnDomainNameType = 0
-VpnDomainNameType_FullyQualified: VpnDomainNameType = 1
-VpnDomainNameType_Reserved: VpnDomainNameType = 65535
+class VpnDomainNameType(Int32):  # enum
+    Suffix = 0
+    FullyQualified = 1
+    Reserved = 65535
 class VpnForegroundActivatedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Vpn.IVpnForegroundActivatedEventArgs
@@ -1376,14 +1376,14 @@ class VpnForegroundActivationOperation(ComPtr):
     _classid_ = 'Windows.Networking.Vpn.VpnForegroundActivationOperation'
     @winrt_mixinmethod
     def Complete(self: win32more.Windows.Networking.Vpn.IVpnForegroundActivationOperation, result: win32more.Windows.Foundation.Collections.ValueSet) -> Void: ...
-VpnIPProtocol = Int32
-VpnIPProtocol_None: VpnIPProtocol = 0
-VpnIPProtocol_Tcp: VpnIPProtocol = 6
-VpnIPProtocol_Udp: VpnIPProtocol = 17
-VpnIPProtocol_Icmp: VpnIPProtocol = 1
-VpnIPProtocol_Ipv6Icmp: VpnIPProtocol = 58
-VpnIPProtocol_Igmp: VpnIPProtocol = 2
-VpnIPProtocol_Pgm: VpnIPProtocol = 113
+class VpnIPProtocol(Int32):  # enum
+    None_ = 0
+    Tcp = 6
+    Udp = 17
+    Icmp = 1
+    Ipv6Icmp = 58
+    Igmp = 2
+    Pgm = 113
 class VpnInterfaceId(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Vpn.IVpnInterfaceId
@@ -1430,31 +1430,31 @@ class VpnManagementAgent(ComPtr):
     def ConnectProfileWithPasswordCredentialAsync(self: win32more.Windows.Networking.Vpn.IVpnManagementAgent, profile: win32more.Windows.Networking.Vpn.IVpnProfile, passwordCredential: win32more.Windows.Security.Credentials.PasswordCredential) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Networking.Vpn.VpnManagementErrorStatus]: ...
     @winrt_mixinmethod
     def DisconnectProfileAsync(self: win32more.Windows.Networking.Vpn.IVpnManagementAgent, profile: win32more.Windows.Networking.Vpn.IVpnProfile) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Networking.Vpn.VpnManagementErrorStatus]: ...
-VpnManagementConnectionStatus = Int32
-VpnManagementConnectionStatus_Disconnected: VpnManagementConnectionStatus = 0
-VpnManagementConnectionStatus_Disconnecting: VpnManagementConnectionStatus = 1
-VpnManagementConnectionStatus_Connected: VpnManagementConnectionStatus = 2
-VpnManagementConnectionStatus_Connecting: VpnManagementConnectionStatus = 3
-VpnManagementErrorStatus = Int32
-VpnManagementErrorStatus_Ok: VpnManagementErrorStatus = 0
-VpnManagementErrorStatus_Other: VpnManagementErrorStatus = 1
-VpnManagementErrorStatus_InvalidXmlSyntax: VpnManagementErrorStatus = 2
-VpnManagementErrorStatus_ProfileNameTooLong: VpnManagementErrorStatus = 3
-VpnManagementErrorStatus_ProfileInvalidAppId: VpnManagementErrorStatus = 4
-VpnManagementErrorStatus_AccessDenied: VpnManagementErrorStatus = 5
-VpnManagementErrorStatus_CannotFindProfile: VpnManagementErrorStatus = 6
-VpnManagementErrorStatus_AlreadyDisconnecting: VpnManagementErrorStatus = 7
-VpnManagementErrorStatus_AlreadyConnected: VpnManagementErrorStatus = 8
-VpnManagementErrorStatus_GeneralAuthenticationFailure: VpnManagementErrorStatus = 9
-VpnManagementErrorStatus_EapFailure: VpnManagementErrorStatus = 10
-VpnManagementErrorStatus_SmartCardFailure: VpnManagementErrorStatus = 11
-VpnManagementErrorStatus_CertificateFailure: VpnManagementErrorStatus = 12
-VpnManagementErrorStatus_ServerConfiguration: VpnManagementErrorStatus = 13
-VpnManagementErrorStatus_NoConnection: VpnManagementErrorStatus = 14
-VpnManagementErrorStatus_ServerConnection: VpnManagementErrorStatus = 15
-VpnManagementErrorStatus_UserNamePassword: VpnManagementErrorStatus = 16
-VpnManagementErrorStatus_DnsNotResolvable: VpnManagementErrorStatus = 17
-VpnManagementErrorStatus_InvalidIP: VpnManagementErrorStatus = 18
+class VpnManagementConnectionStatus(Int32):  # enum
+    Disconnected = 0
+    Disconnecting = 1
+    Connected = 2
+    Connecting = 3
+class VpnManagementErrorStatus(Int32):  # enum
+    Ok = 0
+    Other = 1
+    InvalidXmlSyntax = 2
+    ProfileNameTooLong = 3
+    ProfileInvalidAppId = 4
+    AccessDenied = 5
+    CannotFindProfile = 6
+    AlreadyDisconnecting = 7
+    AlreadyConnected = 8
+    GeneralAuthenticationFailure = 9
+    EapFailure = 10
+    SmartCardFailure = 11
+    CertificateFailure = 12
+    ServerConfiguration = 13
+    NoConnection = 14
+    ServerConnection = 15
+    UserNamePassword = 16
+    DnsNotResolvable = 17
+    InvalidIP = 18
 class VpnNamespaceAssignment(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Vpn.IVpnNamespaceAssignment
@@ -1582,10 +1582,10 @@ class VpnNativeProfile(ComPtr):
     AlwaysOn = property(get_AlwaysOn, put_AlwaysOn)
     RequireVpnClientAppUI = property(get_RequireVpnClientAppUI, put_RequireVpnClientAppUI)
     ConnectionStatus = property(get_ConnectionStatus, None)
-VpnNativeProtocolType = Int32
-VpnNativeProtocolType_Pptp: VpnNativeProtocolType = 0
-VpnNativeProtocolType_L2tp: VpnNativeProtocolType = 1
-VpnNativeProtocolType_IpsecIkev2: VpnNativeProtocolType = 2
+class VpnNativeProtocolType(Int32):  # enum
+    Pptp = 0
+    L2tp = 1
+    IpsecIkev2 = 2
 class VpnPacketBuffer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Vpn.IVpnPacketBuffer
@@ -1644,9 +1644,9 @@ class VpnPacketBufferList(ComPtr):
     def First(self: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Networking.Vpn.VpnPacketBuffer]) -> win32more.Windows.Foundation.Collections.IIterator[win32more.Windows.Networking.Vpn.VpnPacketBuffer]: ...
     Status = property(get_Status, put_Status)
     Size = property(get_Size, None)
-VpnPacketBufferStatus = Int32
-VpnPacketBufferStatus_Ok: VpnPacketBufferStatus = 0
-VpnPacketBufferStatus_InvalidBufferSize: VpnPacketBufferStatus = 1
+class VpnPacketBufferStatus(Int32):  # enum
+    Ok = 0
+    InvalidBufferSize = 1
 class VpnPickedCredential(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Vpn.IVpnPickedCredential
@@ -1782,9 +1782,9 @@ class VpnRouteAssignment(ComPtr):
     Ipv4ExclusionRoutes = property(get_Ipv4ExclusionRoutes, put_Ipv4ExclusionRoutes)
     Ipv6ExclusionRoutes = property(get_Ipv6ExclusionRoutes, put_Ipv6ExclusionRoutes)
     ExcludeLocalSubnets = property(get_ExcludeLocalSubnets, put_ExcludeLocalSubnets)
-VpnRoutingPolicyType = Int32
-VpnRoutingPolicyType_SplitRouting: VpnRoutingPolicyType = 0
-VpnRoutingPolicyType_ForceAllTrafficOverVpn: VpnRoutingPolicyType = 1
+class VpnRoutingPolicyType(Int32):  # enum
+    SplitRouting = 0
+    ForceAllTrafficOverVpn = 1
 class VpnSystemHealth(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Vpn.IVpnSystemHealth

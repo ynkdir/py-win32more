@@ -345,9 +345,9 @@ class SpeechContinuousRecognitionCompletedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Status(self: win32more.Windows.Media.SpeechRecognition.ISpeechContinuousRecognitionCompletedEventArgs) -> win32more.Windows.Media.SpeechRecognition.SpeechRecognitionResultStatus: ...
     Status = property(get_Status, None)
-SpeechContinuousRecognitionMode = Int32
-SpeechContinuousRecognitionMode_Default: SpeechContinuousRecognitionMode = 0
-SpeechContinuousRecognitionMode_PauseOnRecognition: SpeechContinuousRecognitionMode = 1
+class SpeechContinuousRecognitionMode(Int32):  # enum
+    Default = 0
+    PauseOnRecognition = 1
 class SpeechContinuousRecognitionResultGeneratedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.SpeechRecognition.ISpeechContinuousRecognitionResultGeneratedEventArgs
@@ -384,14 +384,14 @@ class SpeechContinuousRecognitionSession(ComPtr):
     @winrt_mixinmethod
     def remove_ResultGenerated(self: win32more.Windows.Media.SpeechRecognition.ISpeechContinuousRecognitionSession, value: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     AutoStopSilenceTimeout = property(get_AutoStopSilenceTimeout, put_AutoStopSilenceTimeout)
-SpeechRecognitionAudioProblem = Int32
-SpeechRecognitionAudioProblem_None: SpeechRecognitionAudioProblem = 0
-SpeechRecognitionAudioProblem_TooNoisy: SpeechRecognitionAudioProblem = 1
-SpeechRecognitionAudioProblem_NoSignal: SpeechRecognitionAudioProblem = 2
-SpeechRecognitionAudioProblem_TooLoud: SpeechRecognitionAudioProblem = 3
-SpeechRecognitionAudioProblem_TooQuiet: SpeechRecognitionAudioProblem = 4
-SpeechRecognitionAudioProblem_TooFast: SpeechRecognitionAudioProblem = 5
-SpeechRecognitionAudioProblem_TooSlow: SpeechRecognitionAudioProblem = 6
+class SpeechRecognitionAudioProblem(Int32):  # enum
+    None_ = 0
+    TooNoisy = 1
+    NoSignal = 2
+    TooLoud = 3
+    TooQuiet = 4
+    TooFast = 5
+    TooSlow = 6
 class SpeechRecognitionCompilationResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.SpeechRecognition.ISpeechRecognitionCompilationResult
@@ -399,20 +399,20 @@ class SpeechRecognitionCompilationResult(ComPtr):
     @winrt_mixinmethod
     def get_Status(self: win32more.Windows.Media.SpeechRecognition.ISpeechRecognitionCompilationResult) -> win32more.Windows.Media.SpeechRecognition.SpeechRecognitionResultStatus: ...
     Status = property(get_Status, None)
-SpeechRecognitionConfidence = Int32
-SpeechRecognitionConfidence_High: SpeechRecognitionConfidence = 0
-SpeechRecognitionConfidence_Medium: SpeechRecognitionConfidence = 1
-SpeechRecognitionConfidence_Low: SpeechRecognitionConfidence = 2
-SpeechRecognitionConfidence_Rejected: SpeechRecognitionConfidence = 3
-SpeechRecognitionConstraintProbability = Int32
-SpeechRecognitionConstraintProbability_Default: SpeechRecognitionConstraintProbability = 0
-SpeechRecognitionConstraintProbability_Min: SpeechRecognitionConstraintProbability = 1
-SpeechRecognitionConstraintProbability_Max: SpeechRecognitionConstraintProbability = 2
-SpeechRecognitionConstraintType = Int32
-SpeechRecognitionConstraintType_Topic: SpeechRecognitionConstraintType = 0
-SpeechRecognitionConstraintType_List: SpeechRecognitionConstraintType = 1
-SpeechRecognitionConstraintType_Grammar: SpeechRecognitionConstraintType = 2
-SpeechRecognitionConstraintType_VoiceCommandDefinition: SpeechRecognitionConstraintType = 3
+class SpeechRecognitionConfidence(Int32):  # enum
+    High = 0
+    Medium = 1
+    Low = 2
+    Rejected = 3
+class SpeechRecognitionConstraintProbability(Int32):  # enum
+    Default = 0
+    Min = 1
+    Max = 2
+class SpeechRecognitionConstraintType(Int32):  # enum
+    Topic = 0
+    List = 1
+    Grammar = 2
+    VoiceCommandDefinition = 3
 class SpeechRecognitionGrammarFileConstraint(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.SpeechRecognition.ISpeechRecognitionGrammarFileConstraint
@@ -543,22 +543,22 @@ class SpeechRecognitionResult(ComPtr):
     RawConfidence = property(get_RawConfidence, None)
     PhraseStartTime = property(get_PhraseStartTime, None)
     PhraseDuration = property(get_PhraseDuration, None)
-SpeechRecognitionResultStatus = Int32
-SpeechRecognitionResultStatus_Success: SpeechRecognitionResultStatus = 0
-SpeechRecognitionResultStatus_TopicLanguageNotSupported: SpeechRecognitionResultStatus = 1
-SpeechRecognitionResultStatus_GrammarLanguageMismatch: SpeechRecognitionResultStatus = 2
-SpeechRecognitionResultStatus_GrammarCompilationFailure: SpeechRecognitionResultStatus = 3
-SpeechRecognitionResultStatus_AudioQualityFailure: SpeechRecognitionResultStatus = 4
-SpeechRecognitionResultStatus_UserCanceled: SpeechRecognitionResultStatus = 5
-SpeechRecognitionResultStatus_Unknown: SpeechRecognitionResultStatus = 6
-SpeechRecognitionResultStatus_TimeoutExceeded: SpeechRecognitionResultStatus = 7
-SpeechRecognitionResultStatus_PauseLimitExceeded: SpeechRecognitionResultStatus = 8
-SpeechRecognitionResultStatus_NetworkFailure: SpeechRecognitionResultStatus = 9
-SpeechRecognitionResultStatus_MicrophoneUnavailable: SpeechRecognitionResultStatus = 10
-SpeechRecognitionScenario = Int32
-SpeechRecognitionScenario_WebSearch: SpeechRecognitionScenario = 0
-SpeechRecognitionScenario_Dictation: SpeechRecognitionScenario = 1
-SpeechRecognitionScenario_FormFilling: SpeechRecognitionScenario = 2
+class SpeechRecognitionResultStatus(Int32):  # enum
+    Success = 0
+    TopicLanguageNotSupported = 1
+    GrammarLanguageMismatch = 2
+    GrammarCompilationFailure = 3
+    AudioQualityFailure = 4
+    UserCanceled = 5
+    Unknown = 6
+    TimeoutExceeded = 7
+    PauseLimitExceeded = 8
+    NetworkFailure = 9
+    MicrophoneUnavailable = 10
+class SpeechRecognitionScenario(Int32):  # enum
+    WebSearch = 0
+    Dictation = 1
+    FormFilling = 2
 class SpeechRecognitionSemanticInterpretation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.SpeechRecognition.ISpeechRecognitionSemanticInterpretation
@@ -699,14 +699,14 @@ class SpeechRecognizer(ComPtr, metaclass=_SpeechRecognizer_Meta_):
     _SpeechRecognizer_Meta_.SystemSpeechLanguage = property(get_SystemSpeechLanguage.__wrapped__, None)
     _SpeechRecognizer_Meta_.SupportedTopicLanguages = property(get_SupportedTopicLanguages.__wrapped__, None)
     _SpeechRecognizer_Meta_.SupportedGrammarLanguages = property(get_SupportedGrammarLanguages.__wrapped__, None)
-SpeechRecognizerState = Int32
-SpeechRecognizerState_Idle: SpeechRecognizerState = 0
-SpeechRecognizerState_Capturing: SpeechRecognizerState = 1
-SpeechRecognizerState_Processing: SpeechRecognizerState = 2
-SpeechRecognizerState_SoundStarted: SpeechRecognizerState = 3
-SpeechRecognizerState_SoundEnded: SpeechRecognizerState = 4
-SpeechRecognizerState_SpeechDetected: SpeechRecognizerState = 5
-SpeechRecognizerState_Paused: SpeechRecognizerState = 6
+class SpeechRecognizerState(Int32):  # enum
+    Idle = 0
+    Capturing = 1
+    Processing = 2
+    SoundStarted = 3
+    SoundEnded = 4
+    SpeechDetected = 5
+    Paused = 6
 class SpeechRecognizerStateChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.SpeechRecognition.ISpeechRecognizerStateChangedEventArgs

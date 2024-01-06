@@ -43,18 +43,18 @@ class DataProtectionManager(ComPtr):
     def GetProtectionInfoAsync(cls: win32more.Windows.Security.EnterpriseData.IDataProtectionManagerStatics, protectedData: win32more.Windows.Storage.Streams.IBuffer) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Security.EnterpriseData.DataProtectionInfo]: ...
     @winrt_classmethod
     def GetStreamProtectionInfoAsync(cls: win32more.Windows.Security.EnterpriseData.IDataProtectionManagerStatics, protectedStream: win32more.Windows.Storage.Streams.IInputStream) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Security.EnterpriseData.DataProtectionInfo]: ...
-DataProtectionStatus = Int32
-DataProtectionStatus_ProtectedToOtherIdentity: DataProtectionStatus = 0
-DataProtectionStatus_Protected: DataProtectionStatus = 1
-DataProtectionStatus_Revoked: DataProtectionStatus = 2
-DataProtectionStatus_Unprotected: DataProtectionStatus = 3
-DataProtectionStatus_LicenseExpired: DataProtectionStatus = 4
-DataProtectionStatus_AccessSuspended: DataProtectionStatus = 5
-EnforcementLevel = Int32
-EnforcementLevel_NoProtection: EnforcementLevel = 0
-EnforcementLevel_Silent: EnforcementLevel = 1
-EnforcementLevel_Override: EnforcementLevel = 2
-EnforcementLevel_Block: EnforcementLevel = 3
+class DataProtectionStatus(Int32):  # enum
+    ProtectedToOtherIdentity = 0
+    Protected = 1
+    Revoked = 2
+    Unprotected = 3
+    LicenseExpired = 4
+    AccessSuspended = 5
+class EnforcementLevel(Int32):  # enum
+    NoProtection = 0
+    Silent = 1
+    Override = 2
+    Block = 3
 EnterpriseDataContract: UInt32 = 327680
 class FileProtectionInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -99,19 +99,19 @@ class FileProtectionManager(ComPtr):
     def LoadFileFromContainerWithTargetAsync(cls: win32more.Windows.Security.EnterpriseData.IFileProtectionManagerStatics, containerFile: win32more.Windows.Storage.IStorageFile, target: win32more.Windows.Storage.IStorageItem) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Security.EnterpriseData.ProtectedContainerImportResult]: ...
     @winrt_classmethod
     def CreateProtectedAndOpenAsync(cls: win32more.Windows.Security.EnterpriseData.IFileProtectionManagerStatics, parentFolder: win32more.Windows.Storage.IStorageFolder, desiredName: WinRT_String, identity: WinRT_String, collisionOption: win32more.Windows.Storage.CreationCollisionOption) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Security.EnterpriseData.ProtectedFileCreateResult]: ...
-FileProtectionStatus = Int32
-FileProtectionStatus_Undetermined: FileProtectionStatus = 0
-FileProtectionStatus_Unknown: FileProtectionStatus = 0
-FileProtectionStatus_Unprotected: FileProtectionStatus = 1
-FileProtectionStatus_Revoked: FileProtectionStatus = 2
-FileProtectionStatus_Protected: FileProtectionStatus = 3
-FileProtectionStatus_ProtectedByOtherUser: FileProtectionStatus = 4
-FileProtectionStatus_ProtectedToOtherEnterprise: FileProtectionStatus = 5
-FileProtectionStatus_NotProtectable: FileProtectionStatus = 6
-FileProtectionStatus_ProtectedToOtherIdentity: FileProtectionStatus = 7
-FileProtectionStatus_LicenseExpired: FileProtectionStatus = 8
-FileProtectionStatus_AccessSuspended: FileProtectionStatus = 9
-FileProtectionStatus_FileInUse: FileProtectionStatus = 10
+class FileProtectionStatus(Int32):  # enum
+    Undetermined = 0
+    Unknown = 0
+    Unprotected = 1
+    Revoked = 2
+    Protected = 3
+    ProtectedByOtherUser = 4
+    ProtectedToOtherEnterprise = 5
+    NotProtectable = 6
+    ProtectedToOtherIdentity = 7
+    LicenseExpired = 8
+    AccessSuspended = 9
+    FileInUse = 10
 class FileRevocationManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.EnterpriseData.FileRevocationManager'
@@ -530,20 +530,20 @@ class ProtectedFileCreateResult(ComPtr):
     File = property(get_File, None)
     Stream = property(get_Stream, None)
     ProtectionInfo = property(get_ProtectionInfo, None)
-ProtectedImportExportStatus = Int32
-ProtectedImportExportStatus_Ok: ProtectedImportExportStatus = 0
-ProtectedImportExportStatus_Undetermined: ProtectedImportExportStatus = 1
-ProtectedImportExportStatus_Unprotected: ProtectedImportExportStatus = 2
-ProtectedImportExportStatus_Revoked: ProtectedImportExportStatus = 3
-ProtectedImportExportStatus_NotRoamable: ProtectedImportExportStatus = 4
-ProtectedImportExportStatus_ProtectedToOtherIdentity: ProtectedImportExportStatus = 5
-ProtectedImportExportStatus_LicenseExpired: ProtectedImportExportStatus = 6
-ProtectedImportExportStatus_AccessSuspended: ProtectedImportExportStatus = 7
-ProtectionPolicyAuditAction = Int32
-ProtectionPolicyAuditAction_Decrypt: ProtectionPolicyAuditAction = 0
-ProtectionPolicyAuditAction_CopyToLocation: ProtectionPolicyAuditAction = 1
-ProtectionPolicyAuditAction_SendToRecipient: ProtectionPolicyAuditAction = 2
-ProtectionPolicyAuditAction_Other: ProtectionPolicyAuditAction = 3
+class ProtectedImportExportStatus(Int32):  # enum
+    Ok = 0
+    Undetermined = 1
+    Unprotected = 2
+    Revoked = 3
+    NotRoamable = 4
+    ProtectedToOtherIdentity = 5
+    LicenseExpired = 6
+    AccessSuspended = 7
+class ProtectionPolicyAuditAction(Int32):  # enum
+    Decrypt = 0
+    CopyToLocation = 1
+    SendToRecipient = 2
+    Other = 3
 class ProtectionPolicyAuditInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.EnterpriseData.IProtectionPolicyAuditInfo
@@ -581,10 +581,10 @@ class ProtectionPolicyAuditInfo(ComPtr):
     DataDescription = property(get_DataDescription, put_DataDescription)
     SourceDescription = property(get_SourceDescription, put_SourceDescription)
     TargetDescription = property(get_TargetDescription, put_TargetDescription)
-ProtectionPolicyEvaluationResult = Int32
-ProtectionPolicyEvaluationResult_Allowed: ProtectionPolicyEvaluationResult = 0
-ProtectionPolicyEvaluationResult_Blocked: ProtectionPolicyEvaluationResult = 1
-ProtectionPolicyEvaluationResult_ConsentRequired: ProtectionPolicyEvaluationResult = 2
+class ProtectionPolicyEvaluationResult(Int32):  # enum
+    Allowed = 0
+    Blocked = 1
+    ConsentRequired = 2
 class _ProtectionPolicyManager_Meta_(ComPtr.__class__):
     pass
 class ProtectionPolicyManager(ComPtr, metaclass=_ProtectionPolicyManager_Meta_):
@@ -683,9 +683,9 @@ class ProtectionPolicyManager(ComPtr, metaclass=_ProtectionPolicyManager_Meta_):
     ShowEnterpriseIndicator = property(get_ShowEnterpriseIndicator, put_ShowEnterpriseIndicator)
     _ProtectionPolicyManager_Meta_.PrimaryManagedIdentity = property(get_PrimaryManagedIdentity.__wrapped__, None)
     _ProtectionPolicyManager_Meta_.IsProtectionEnabled = property(get_IsProtectionEnabled.__wrapped__, None)
-ProtectionPolicyRequestAccessBehavior = Int32
-ProtectionPolicyRequestAccessBehavior_Decrypt: ProtectionPolicyRequestAccessBehavior = 0
-ProtectionPolicyRequestAccessBehavior_TreatOverridePolicyAsBlock: ProtectionPolicyRequestAccessBehavior = 1
+class ProtectionPolicyRequestAccessBehavior(Int32):  # enum
+    Decrypt = 0
+    TreatOverridePolicyAsBlock = 1
 class ThreadNetworkContext(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.EnterpriseData.IThreadNetworkContext

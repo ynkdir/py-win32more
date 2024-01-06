@@ -26,12 +26,12 @@ class AutomationRemoteOperationResult(ComPtr):
     Status = property(get_Status, None)
     ExtendedError = property(get_ExtendedError, None)
     ErrorLocation = property(get_ErrorLocation, None)
-AutomationRemoteOperationStatus = Int32
-AutomationRemoteOperationStatus_Success: AutomationRemoteOperationStatus = 0
-AutomationRemoteOperationStatus_MalformedBytecode: AutomationRemoteOperationStatus = 1
-AutomationRemoteOperationStatus_InstructionLimitExceeded: AutomationRemoteOperationStatus = 2
-AutomationRemoteOperationStatus_UnhandledException: AutomationRemoteOperationStatus = 3
-AutomationRemoteOperationStatus_ExecutionFailure: AutomationRemoteOperationStatus = 4
+class AutomationRemoteOperationStatus(Int32):  # enum
+    Success = 0
+    MalformedBytecode = 1
+    InstructionLimitExceeded = 2
+    UnhandledException = 3
+    ExecutionFailure = 4
 class CoreAutomationRegistrar(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.UIAutomation.Core.CoreAutomationRegistrar'

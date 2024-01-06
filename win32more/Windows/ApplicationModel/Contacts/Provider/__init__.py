@@ -6,10 +6,10 @@ import win32more.Windows.ApplicationModel.Contacts.Provider
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Win32.System.WinRT
-AddContactResult = Int32
-AddContactResult_Added: AddContactResult = 0
-AddContactResult_AlreadyAdded: AddContactResult = 1
-AddContactResult_Unavailable: AddContactResult = 2
+class AddContactResult(Int32):  # enum
+    Added = 0
+    AlreadyAdded = 1
+    Unavailable = 2
 class ContactPickerUI(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Contacts.Provider.IContactPickerUI

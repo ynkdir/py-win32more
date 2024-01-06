@@ -31,11 +31,11 @@ class ContentCoordinateConverter(ComPtr):
     def ConvertScreenToLocalWithRect(self: win32more.Microsoft.UI.Content.IContentCoordinateConverter, screenRect: win32more.Windows.Graphics.RectInt32) -> win32more.Windows.Foundation.Rect: ...
     @winrt_classmethod
     def CreateForWindowId(cls: win32more.Microsoft.UI.Content.IContentCoordinateConverterStatics, windowId: win32more.Microsoft.UI.WindowId) -> win32more.Microsoft.UI.Content.ContentCoordinateConverter: ...
-ContentCoordinateRoundingMode = Int32
-ContentCoordinateRoundingMode_Auto: ContentCoordinateRoundingMode = 0
-ContentCoordinateRoundingMode_Floor: ContentCoordinateRoundingMode = 1
-ContentCoordinateRoundingMode_Round: ContentCoordinateRoundingMode = 2
-ContentCoordinateRoundingMode_Ceiling: ContentCoordinateRoundingMode = 3
+class ContentCoordinateRoundingMode(Int32):  # enum
+    Auto = 0
+    Floor = 1
+    Round = 2
+    Ceiling = 3
 class ContentDeferral(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Content.IContentDeferral
@@ -209,9 +209,9 @@ class ContentIslandStateChangedEventArgs(ComPtr):
     DidSiteVisibleChange = property(get_DidSiteVisibleChange, None)
     DidLayoutDirectionChange = property(get_DidLayoutDirectionChange, None)
     DidRasterizationScaleChange = property(get_DidRasterizationScaleChange, None)
-ContentLayoutDirection = Int32
-ContentLayoutDirection_LeftToRight: ContentLayoutDirection = 0
-ContentLayoutDirection_RightToLeft: ContentLayoutDirection = 1
+class ContentLayoutDirection(Int32):  # enum
+    LeftToRight = 0
+    RightToLeft = 1
 class ContentSite(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Content.IContentSite
@@ -378,10 +378,10 @@ class ContentSiteView(ComPtr):
     RasterizationScale = property(get_RasterizationScale, None)
     RequestedSize = property(get_RequestedSize, None)
     ShouldApplyRasterizationScale = property(get_ShouldApplyRasterizationScale, None)
-ContentSizePolicy = Int32
-ContentSizePolicy_None: ContentSizePolicy = 0
-ContentSizePolicy_ResizeContentToParentWindow: ContentSizePolicy = 1
-ContentSizePolicy_ResizeParentWindowToContent: ContentSizePolicy = 2
+class ContentSizePolicy(Int32):  # enum
+    None_ = 0
+    ResizeContentToParentWindow = 1
+    ResizeParentWindowToContent = 2
 class DesktopChildSiteBridge(ComPtr):
     extends: win32more.Microsoft.UI.Content.DesktopSiteBridge
     default_interface: win32more.Microsoft.UI.Content.IDesktopChildSiteBridge

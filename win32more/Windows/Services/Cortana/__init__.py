@@ -56,22 +56,22 @@ class CortanaActionableInsightsOptions(ComPtr):
     def put_SurroundingText(self: win32more.Windows.Services.Cortana.ICortanaActionableInsightsOptions, value: WinRT_String) -> Void: ...
     ContentSourceWebLink = property(get_ContentSourceWebLink, put_ContentSourceWebLink)
     SurroundingText = property(get_SurroundingText, put_SurroundingText)
-CortanaPermission = Int32
-CortanaPermission_BrowsingHistory: CortanaPermission = 0
-CortanaPermission_Calendar: CortanaPermission = 1
-CortanaPermission_CallHistory: CortanaPermission = 2
-CortanaPermission_Contacts: CortanaPermission = 3
-CortanaPermission_Email: CortanaPermission = 4
-CortanaPermission_InputPersonalization: CortanaPermission = 5
-CortanaPermission_Location: CortanaPermission = 6
-CortanaPermission_Messaging: CortanaPermission = 7
-CortanaPermission_Microphone: CortanaPermission = 8
-CortanaPermission_Personalization: CortanaPermission = 9
-CortanaPermission_PhoneCall: CortanaPermission = 10
-CortanaPermissionsChangeResult = Int32
-CortanaPermissionsChangeResult_Success: CortanaPermissionsChangeResult = 0
-CortanaPermissionsChangeResult_Unavailable: CortanaPermissionsChangeResult = 1
-CortanaPermissionsChangeResult_DisabledByPolicy: CortanaPermissionsChangeResult = 2
+class CortanaPermission(Int32):  # enum
+    BrowsingHistory = 0
+    Calendar = 1
+    CallHistory = 2
+    Contacts = 3
+    Email = 4
+    InputPersonalization = 5
+    Location = 6
+    Messaging = 7
+    Microphone = 8
+    Personalization = 9
+    PhoneCall = 10
+class CortanaPermissionsChangeResult(Int32):  # enum
+    Success = 0
+    Unavailable = 1
+    DisabledByPolicy = 2
 class CortanaPermissionsManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Services.Cortana.ICortanaPermissionsManager

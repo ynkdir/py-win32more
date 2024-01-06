@@ -8,17 +8,17 @@ import win32more.Windows.Services.Maps
 import win32more.Windows.Services.Maps.Guidance
 import win32more.Windows.UI
 import win32more.Windows.Win32.System.WinRT
-GuidanceAudioMeasurementSystem = Int32
-GuidanceAudioMeasurementSystem_Meters: GuidanceAudioMeasurementSystem = 0
-GuidanceAudioMeasurementSystem_MilesAndYards: GuidanceAudioMeasurementSystem = 1
-GuidanceAudioMeasurementSystem_MilesAndFeet: GuidanceAudioMeasurementSystem = 2
-GuidanceAudioNotificationKind = Int32
-GuidanceAudioNotificationKind_Maneuver: GuidanceAudioNotificationKind = 0
-GuidanceAudioNotificationKind_Route: GuidanceAudioNotificationKind = 1
-GuidanceAudioNotificationKind_Gps: GuidanceAudioNotificationKind = 2
-GuidanceAudioNotificationKind_SpeedLimit: GuidanceAudioNotificationKind = 3
-GuidanceAudioNotificationKind_Traffic: GuidanceAudioNotificationKind = 4
-GuidanceAudioNotificationKind_TrafficCamera: GuidanceAudioNotificationKind = 5
+class GuidanceAudioMeasurementSystem(Int32):  # enum
+    Meters = 0
+    MilesAndYards = 1
+    MilesAndFeet = 2
+class GuidanceAudioNotificationKind(Int32):  # enum
+    Maneuver = 0
+    Route = 1
+    Gps = 2
+    SpeedLimit = 3
+    Traffic = 4
+    TrafficCamera = 5
 class GuidanceAudioNotificationRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Services.Maps.Guidance.IGuidanceAudioNotificationRequestedEventArgs
@@ -32,14 +32,14 @@ class GuidanceAudioNotificationRequestedEventArgs(ComPtr):
     AudioNotification = property(get_AudioNotification, None)
     AudioFilePaths = property(get_AudioFilePaths, None)
     AudioText = property(get_AudioText, None)
-GuidanceAudioNotifications = UInt32
-GuidanceAudioNotifications_None: GuidanceAudioNotifications = 0
-GuidanceAudioNotifications_Maneuver: GuidanceAudioNotifications = 1
-GuidanceAudioNotifications_Route: GuidanceAudioNotifications = 2
-GuidanceAudioNotifications_Gps: GuidanceAudioNotifications = 4
-GuidanceAudioNotifications_SpeedLimit: GuidanceAudioNotifications = 8
-GuidanceAudioNotifications_Traffic: GuidanceAudioNotifications = 16
-GuidanceAudioNotifications_TrafficCamera: GuidanceAudioNotifications = 32
+class GuidanceAudioNotifications(UInt32):  # enum
+    None_ = 0
+    Maneuver = 1
+    Route = 2
+    Gps = 4
+    SpeedLimit = 8
+    Traffic = 16
+    TrafficCamera = 32
 class GuidanceLaneInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Services.Maps.Guidance.IGuidanceLaneInfo
@@ -50,18 +50,18 @@ class GuidanceLaneInfo(ComPtr):
     def get_IsOnRoute(self: win32more.Windows.Services.Maps.Guidance.IGuidanceLaneInfo) -> Boolean: ...
     LaneMarkers = property(get_LaneMarkers, None)
     IsOnRoute = property(get_IsOnRoute, None)
-GuidanceLaneMarkers = UInt32
-GuidanceLaneMarkers_None: GuidanceLaneMarkers = 0
-GuidanceLaneMarkers_LightRight: GuidanceLaneMarkers = 1
-GuidanceLaneMarkers_Right: GuidanceLaneMarkers = 2
-GuidanceLaneMarkers_HardRight: GuidanceLaneMarkers = 4
-GuidanceLaneMarkers_Straight: GuidanceLaneMarkers = 8
-GuidanceLaneMarkers_UTurnLeft: GuidanceLaneMarkers = 16
-GuidanceLaneMarkers_HardLeft: GuidanceLaneMarkers = 32
-GuidanceLaneMarkers_Left: GuidanceLaneMarkers = 64
-GuidanceLaneMarkers_LightLeft: GuidanceLaneMarkers = 128
-GuidanceLaneMarkers_UTurnRight: GuidanceLaneMarkers = 256
-GuidanceLaneMarkers_Unknown: GuidanceLaneMarkers = 4294967295
+class GuidanceLaneMarkers(UInt32):  # enum
+    None_ = 0
+    LightRight = 1
+    Right = 2
+    HardRight = 4
+    Straight = 8
+    UTurnLeft = 16
+    HardLeft = 32
+    Left = 64
+    LightLeft = 128
+    UTurnRight = 256
+    Unknown = 4294967295
 class GuidanceManeuver(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Services.Maps.Guidance.IGuidanceManeuver
@@ -102,55 +102,55 @@ class GuidanceManeuver(ComPtr):
     EndAngle = property(get_EndAngle, None)
     RoadSignpost = property(get_RoadSignpost, None)
     InstructionText = property(get_InstructionText, None)
-GuidanceManeuverKind = Int32
-GuidanceManeuverKind_None: GuidanceManeuverKind = 0
-GuidanceManeuverKind_GoStraight: GuidanceManeuverKind = 1
-GuidanceManeuverKind_UTurnRight: GuidanceManeuverKind = 2
-GuidanceManeuverKind_UTurnLeft: GuidanceManeuverKind = 3
-GuidanceManeuverKind_TurnKeepRight: GuidanceManeuverKind = 4
-GuidanceManeuverKind_TurnLightRight: GuidanceManeuverKind = 5
-GuidanceManeuverKind_TurnRight: GuidanceManeuverKind = 6
-GuidanceManeuverKind_TurnHardRight: GuidanceManeuverKind = 7
-GuidanceManeuverKind_KeepMiddle: GuidanceManeuverKind = 8
-GuidanceManeuverKind_TurnKeepLeft: GuidanceManeuverKind = 9
-GuidanceManeuverKind_TurnLightLeft: GuidanceManeuverKind = 10
-GuidanceManeuverKind_TurnLeft: GuidanceManeuverKind = 11
-GuidanceManeuverKind_TurnHardLeft: GuidanceManeuverKind = 12
-GuidanceManeuverKind_FreewayEnterRight: GuidanceManeuverKind = 13
-GuidanceManeuverKind_FreewayEnterLeft: GuidanceManeuverKind = 14
-GuidanceManeuverKind_FreewayLeaveRight: GuidanceManeuverKind = 15
-GuidanceManeuverKind_FreewayLeaveLeft: GuidanceManeuverKind = 16
-GuidanceManeuverKind_FreewayKeepRight: GuidanceManeuverKind = 17
-GuidanceManeuverKind_FreewayKeepLeft: GuidanceManeuverKind = 18
-GuidanceManeuverKind_TrafficCircleRight1: GuidanceManeuverKind = 19
-GuidanceManeuverKind_TrafficCircleRight2: GuidanceManeuverKind = 20
-GuidanceManeuverKind_TrafficCircleRight3: GuidanceManeuverKind = 21
-GuidanceManeuverKind_TrafficCircleRight4: GuidanceManeuverKind = 22
-GuidanceManeuverKind_TrafficCircleRight5: GuidanceManeuverKind = 23
-GuidanceManeuverKind_TrafficCircleRight6: GuidanceManeuverKind = 24
-GuidanceManeuverKind_TrafficCircleRight7: GuidanceManeuverKind = 25
-GuidanceManeuverKind_TrafficCircleRight8: GuidanceManeuverKind = 26
-GuidanceManeuverKind_TrafficCircleRight9: GuidanceManeuverKind = 27
-GuidanceManeuverKind_TrafficCircleRight10: GuidanceManeuverKind = 28
-GuidanceManeuverKind_TrafficCircleRight11: GuidanceManeuverKind = 29
-GuidanceManeuverKind_TrafficCircleRight12: GuidanceManeuverKind = 30
-GuidanceManeuverKind_TrafficCircleLeft1: GuidanceManeuverKind = 31
-GuidanceManeuverKind_TrafficCircleLeft2: GuidanceManeuverKind = 32
-GuidanceManeuverKind_TrafficCircleLeft3: GuidanceManeuverKind = 33
-GuidanceManeuverKind_TrafficCircleLeft4: GuidanceManeuverKind = 34
-GuidanceManeuverKind_TrafficCircleLeft5: GuidanceManeuverKind = 35
-GuidanceManeuverKind_TrafficCircleLeft6: GuidanceManeuverKind = 36
-GuidanceManeuverKind_TrafficCircleLeft7: GuidanceManeuverKind = 37
-GuidanceManeuverKind_TrafficCircleLeft8: GuidanceManeuverKind = 38
-GuidanceManeuverKind_TrafficCircleLeft9: GuidanceManeuverKind = 39
-GuidanceManeuverKind_TrafficCircleLeft10: GuidanceManeuverKind = 40
-GuidanceManeuverKind_TrafficCircleLeft11: GuidanceManeuverKind = 41
-GuidanceManeuverKind_TrafficCircleLeft12: GuidanceManeuverKind = 42
-GuidanceManeuverKind_Start: GuidanceManeuverKind = 43
-GuidanceManeuverKind_End: GuidanceManeuverKind = 44
-GuidanceManeuverKind_TakeFerry: GuidanceManeuverKind = 45
-GuidanceManeuverKind_PassTransitStation: GuidanceManeuverKind = 46
-GuidanceManeuverKind_LeaveTransitStation: GuidanceManeuverKind = 47
+class GuidanceManeuverKind(Int32):  # enum
+    None_ = 0
+    GoStraight = 1
+    UTurnRight = 2
+    UTurnLeft = 3
+    TurnKeepRight = 4
+    TurnLightRight = 5
+    TurnRight = 6
+    TurnHardRight = 7
+    KeepMiddle = 8
+    TurnKeepLeft = 9
+    TurnLightLeft = 10
+    TurnLeft = 11
+    TurnHardLeft = 12
+    FreewayEnterRight = 13
+    FreewayEnterLeft = 14
+    FreewayLeaveRight = 15
+    FreewayLeaveLeft = 16
+    FreewayKeepRight = 17
+    FreewayKeepLeft = 18
+    TrafficCircleRight1 = 19
+    TrafficCircleRight2 = 20
+    TrafficCircleRight3 = 21
+    TrafficCircleRight4 = 22
+    TrafficCircleRight5 = 23
+    TrafficCircleRight6 = 24
+    TrafficCircleRight7 = 25
+    TrafficCircleRight8 = 26
+    TrafficCircleRight9 = 27
+    TrafficCircleRight10 = 28
+    TrafficCircleRight11 = 29
+    TrafficCircleRight12 = 30
+    TrafficCircleLeft1 = 31
+    TrafficCircleLeft2 = 32
+    TrafficCircleLeft3 = 33
+    TrafficCircleLeft4 = 34
+    TrafficCircleLeft5 = 35
+    TrafficCircleLeft6 = 36
+    TrafficCircleLeft7 = 37
+    TrafficCircleLeft8 = 38
+    TrafficCircleLeft9 = 39
+    TrafficCircleLeft10 = 40
+    TrafficCircleLeft11 = 41
+    TrafficCircleLeft12 = 42
+    Start = 43
+    End = 44
+    TakeFerry = 45
+    PassTransitStation = 46
+    LeaveTransitStation = 47
 class GuidanceMapMatchedCoordinate(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Services.Maps.Guidance.IGuidanceMapMatchedCoordinate
@@ -170,11 +170,11 @@ class GuidanceMapMatchedCoordinate(ComPtr):
     CurrentSpeed = property(get_CurrentSpeed, None)
     IsOnStreet = property(get_IsOnStreet, None)
     Road = property(get_Road, None)
-GuidanceMode = Int32
-GuidanceMode_None: GuidanceMode = 0
-GuidanceMode_Simulation: GuidanceMode = 1
-GuidanceMode_Navigation: GuidanceMode = 2
-GuidanceMode_Tracking: GuidanceMode = 3
+class GuidanceMode(Int32):  # enum
+    None_ = 0
+    Simulation = 1
+    Navigation = 2
+    Tracking = 3
 class _GuidanceNavigator_Meta_(ComPtr.__class__):
     pass
 class GuidanceNavigator(ComPtr, metaclass=_GuidanceNavigator_Meta_):

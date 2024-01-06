@@ -320,12 +320,12 @@ class IppAttributeError(ComPtr):
     def GetUnsupportedValues(self: win32more.Windows.Devices.Printers.IIppAttributeError) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Devices.Printers.IppAttributeValue]: ...
     Reason = property(get_Reason, None)
     ExtendedError = property(get_ExtendedError, None)
-IppAttributeErrorReason = Int32
-IppAttributeErrorReason_RequestEntityTooLarge: IppAttributeErrorReason = 0
-IppAttributeErrorReason_AttributeNotSupported: IppAttributeErrorReason = 1
-IppAttributeErrorReason_AttributeValuesNotSupported: IppAttributeErrorReason = 2
-IppAttributeErrorReason_AttributeNotSettable: IppAttributeErrorReason = 3
-IppAttributeErrorReason_ConflictingAttributes: IppAttributeErrorReason = 4
+class IppAttributeErrorReason(Int32):  # enum
+    RequestEntityTooLarge = 0
+    AttributeNotSupported = 1
+    AttributeValuesNotSupported = 2
+    AttributeNotSettable = 3
+    ConflictingAttributes = 4
 class IppAttributeValue(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Printers.IIppAttributeValue
@@ -447,28 +447,28 @@ class IppAttributeValue(ComPtr):
     @winrt_classmethod
     def CreateMimeMediaArray(cls: win32more.Windows.Devices.Printers.IIppAttributeValueStatics, values: win32more.Windows.Foundation.Collections.IIterable[WinRT_String]) -> win32more.Windows.Devices.Printers.IppAttributeValue: ...
     Kind = property(get_Kind, None)
-IppAttributeValueKind = Int32
-IppAttributeValueKind_Unsupported: IppAttributeValueKind = 0
-IppAttributeValueKind_Unknown: IppAttributeValueKind = 1
-IppAttributeValueKind_NoValue: IppAttributeValueKind = 2
-IppAttributeValueKind_Integer: IppAttributeValueKind = 3
-IppAttributeValueKind_Boolean: IppAttributeValueKind = 4
-IppAttributeValueKind_Enum: IppAttributeValueKind = 5
-IppAttributeValueKind_OctetString: IppAttributeValueKind = 6
-IppAttributeValueKind_DateTime: IppAttributeValueKind = 7
-IppAttributeValueKind_Resolution: IppAttributeValueKind = 8
-IppAttributeValueKind_RangeOfInteger: IppAttributeValueKind = 9
-IppAttributeValueKind_Collection: IppAttributeValueKind = 10
-IppAttributeValueKind_TextWithLanguage: IppAttributeValueKind = 11
-IppAttributeValueKind_NameWithLanguage: IppAttributeValueKind = 12
-IppAttributeValueKind_TextWithoutLanguage: IppAttributeValueKind = 13
-IppAttributeValueKind_NameWithoutLanguage: IppAttributeValueKind = 14
-IppAttributeValueKind_Keyword: IppAttributeValueKind = 15
-IppAttributeValueKind_Uri: IppAttributeValueKind = 16
-IppAttributeValueKind_UriSchema: IppAttributeValueKind = 17
-IppAttributeValueKind_Charset: IppAttributeValueKind = 18
-IppAttributeValueKind_NaturalLanguage: IppAttributeValueKind = 19
-IppAttributeValueKind_MimeMediaType: IppAttributeValueKind = 20
+class IppAttributeValueKind(Int32):  # enum
+    Unsupported = 0
+    Unknown = 1
+    NoValue = 2
+    Integer = 3
+    Boolean = 4
+    Enum = 5
+    OctetString = 6
+    DateTime = 7
+    Resolution = 8
+    RangeOfInteger = 9
+    Collection = 10
+    TextWithLanguage = 11
+    NameWithLanguage = 12
+    TextWithoutLanguage = 13
+    NameWithoutLanguage = 14
+    Keyword = 15
+    Uri = 16
+    UriSchema = 17
+    Charset = 18
+    NaturalLanguage = 19
+    MimeMediaType = 20
 class IppIntegerRange(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Printers.IIppIntegerRange
@@ -544,9 +544,9 @@ class IppResolution(ComPtr):
     Width = property(get_Width, None)
     Height = property(get_Height, None)
     Unit = property(get_Unit, None)
-IppResolutionUnit = Int32
-IppResolutionUnit_DotsPerInch: IppResolutionUnit = 0
-IppResolutionUnit_DotsPerCentimeter: IppResolutionUnit = 1
+class IppResolutionUnit(Int32):  # enum
+    DotsPerInch = 0
+    DotsPerCentimeter = 1
 class IppSetAttributesResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Printers.IIppSetAttributesResult
@@ -599,9 +599,9 @@ class PageConfigurationSettings(ComPtr):
     def put_SizeSource(self: win32more.Windows.Devices.Printers.IPageConfigurationSettings, value: win32more.Windows.Devices.Printers.PageConfigurationSource) -> Void: ...
     OrientationSource = property(get_OrientationSource, put_OrientationSource)
     SizeSource = property(get_SizeSource, put_SizeSource)
-PageConfigurationSource = Int32
-PageConfigurationSource_PrintJobConfiguration: PageConfigurationSource = 0
-PageConfigurationSource_PdlContent: PageConfigurationSource = 1
+class PageConfigurationSource(Int32):  # enum
+    PrintJobConfiguration = 0
+    PdlContent = 1
 class PdlPassthroughProvider(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Printers.IPdlPassthroughProvider

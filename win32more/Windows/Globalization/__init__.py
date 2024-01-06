@@ -862,14 +862,14 @@ class CurrencyIdentifiers(ComPtr, metaclass=_CurrencyIdentifiers_Meta_):
     _CurrencyIdentifiers_Meta_.ZAR = property(get_ZAR.__wrapped__, None)
     _CurrencyIdentifiers_Meta_.ZMW = property(get_ZMW.__wrapped__, None)
     _CurrencyIdentifiers_Meta_.ZWL = property(get_ZWL.__wrapped__, None)
-DayOfWeek = Int32
-DayOfWeek_Sunday: DayOfWeek = 0
-DayOfWeek_Monday: DayOfWeek = 1
-DayOfWeek_Tuesday: DayOfWeek = 2
-DayOfWeek_Wednesday: DayOfWeek = 3
-DayOfWeek_Thursday: DayOfWeek = 4
-DayOfWeek_Friday: DayOfWeek = 5
-DayOfWeek_Saturday: DayOfWeek = 6
+class DayOfWeek(Int32):  # enum
+    Sunday = 0
+    Monday = 1
+    Tuesday = 2
+    Wednesday = 3
+    Thursday = 4
+    Friday = 5
+    Saturday = 6
 class GeographicRegion(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Globalization.IGeographicRegion
@@ -2114,11 +2114,11 @@ class Language(ComPtr, metaclass=_Language_Meta_):
     LayoutDirection = property(get_LayoutDirection, None)
     AbbreviatedName = property(get_AbbreviatedName, None)
     _Language_Meta_.CurrentInputMethodLanguageTag = property(get_CurrentInputMethodLanguageTag.__wrapped__, None)
-LanguageLayoutDirection = Int32
-LanguageLayoutDirection_Ltr: LanguageLayoutDirection = 0
-LanguageLayoutDirection_Rtl: LanguageLayoutDirection = 1
-LanguageLayoutDirection_TtbLtr: LanguageLayoutDirection = 2
-LanguageLayoutDirection_TtbRtl: LanguageLayoutDirection = 3
+class LanguageLayoutDirection(Int32):  # enum
+    Ltr = 0
+    Rtl = 1
+    TtbLtr = 2
+    TtbRtl = 3
 class _NumeralSystemIdentifiers_Meta_(ComPtr.__class__):
     pass
 class NumeralSystemIdentifiers(ComPtr, metaclass=_NumeralSystemIdentifiers_Meta_):

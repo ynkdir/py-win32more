@@ -58,11 +58,11 @@ class DeploymentResult(ComPtr):
     def get_ExtendedError(self: win32more.Microsoft.Windows.ApplicationModel.WindowsAppRuntime.IDeploymentResult) -> win32more.Windows.Foundation.HResult: ...
     Status = property(get_Status, None)
     ExtendedError = property(get_ExtendedError, None)
-DeploymentStatus = Int32
-DeploymentStatus_Unknown: DeploymentStatus = 0
-DeploymentStatus_Ok: DeploymentStatus = 1
-DeploymentStatus_PackageInstallRequired: DeploymentStatus = 2
-DeploymentStatus_PackageInstallFailed: DeploymentStatus = 3
+class DeploymentStatus(Int32):  # enum
+    Unknown = 0
+    Ok = 1
+    PackageInstallRequired = 2
+    PackageInstallFailed = 3
 class IDeploymentInitializeOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Windows.ApplicationModel.WindowsAppRuntime.IDeploymentInitializeOptions'

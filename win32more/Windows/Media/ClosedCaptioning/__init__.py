@@ -5,29 +5,29 @@ import win32more.Windows.Foundation
 import win32more.Windows.Media.ClosedCaptioning
 import win32more.Windows.UI
 import win32more.Windows.Win32.System.WinRT
-ClosedCaptionColor = Int32
-ClosedCaptionColor_Default: ClosedCaptionColor = 0
-ClosedCaptionColor_White: ClosedCaptionColor = 1
-ClosedCaptionColor_Black: ClosedCaptionColor = 2
-ClosedCaptionColor_Red: ClosedCaptionColor = 3
-ClosedCaptionColor_Green: ClosedCaptionColor = 4
-ClosedCaptionColor_Blue: ClosedCaptionColor = 5
-ClosedCaptionColor_Yellow: ClosedCaptionColor = 6
-ClosedCaptionColor_Magenta: ClosedCaptionColor = 7
-ClosedCaptionColor_Cyan: ClosedCaptionColor = 8
-ClosedCaptionEdgeEffect = Int32
-ClosedCaptionEdgeEffect_Default: ClosedCaptionEdgeEffect = 0
-ClosedCaptionEdgeEffect_None: ClosedCaptionEdgeEffect = 1
-ClosedCaptionEdgeEffect_Raised: ClosedCaptionEdgeEffect = 2
-ClosedCaptionEdgeEffect_Depressed: ClosedCaptionEdgeEffect = 3
-ClosedCaptionEdgeEffect_Uniform: ClosedCaptionEdgeEffect = 4
-ClosedCaptionEdgeEffect_DropShadow: ClosedCaptionEdgeEffect = 5
-ClosedCaptionOpacity = Int32
-ClosedCaptionOpacity_Default: ClosedCaptionOpacity = 0
-ClosedCaptionOpacity_OneHundredPercent: ClosedCaptionOpacity = 1
-ClosedCaptionOpacity_SeventyFivePercent: ClosedCaptionOpacity = 2
-ClosedCaptionOpacity_TwentyFivePercent: ClosedCaptionOpacity = 3
-ClosedCaptionOpacity_ZeroPercent: ClosedCaptionOpacity = 4
+class ClosedCaptionColor(Int32):  # enum
+    Default = 0
+    White = 1
+    Black = 2
+    Red = 3
+    Green = 4
+    Blue = 5
+    Yellow = 6
+    Magenta = 7
+    Cyan = 8
+class ClosedCaptionEdgeEffect(Int32):  # enum
+    Default = 0
+    None_ = 1
+    Raised = 2
+    Depressed = 3
+    Uniform = 4
+    DropShadow = 5
+class ClosedCaptionOpacity(Int32):  # enum
+    Default = 0
+    OneHundredPercent = 1
+    SeventyFivePercent = 2
+    TwentyFivePercent = 3
+    ZeroPercent = 4
 class _ClosedCaptionProperties_Meta_(ComPtr.__class__):
     pass
 class ClosedCaptionProperties(ComPtr, metaclass=_ClosedCaptionProperties_Meta_):
@@ -73,21 +73,21 @@ class ClosedCaptionProperties(ComPtr, metaclass=_ClosedCaptionProperties_Meta_):
     _ClosedCaptionProperties_Meta_.RegionColor = property(get_RegionColor.__wrapped__, None)
     _ClosedCaptionProperties_Meta_.ComputedRegionColor = property(get_ComputedRegionColor.__wrapped__, None)
     _ClosedCaptionProperties_Meta_.RegionOpacity = property(get_RegionOpacity.__wrapped__, None)
-ClosedCaptionSize = Int32
-ClosedCaptionSize_Default: ClosedCaptionSize = 0
-ClosedCaptionSize_FiftyPercent: ClosedCaptionSize = 1
-ClosedCaptionSize_OneHundredPercent: ClosedCaptionSize = 2
-ClosedCaptionSize_OneHundredFiftyPercent: ClosedCaptionSize = 3
-ClosedCaptionSize_TwoHundredPercent: ClosedCaptionSize = 4
-ClosedCaptionStyle = Int32
-ClosedCaptionStyle_Default: ClosedCaptionStyle = 0
-ClosedCaptionStyle_MonospacedWithSerifs: ClosedCaptionStyle = 1
-ClosedCaptionStyle_ProportionalWithSerifs: ClosedCaptionStyle = 2
-ClosedCaptionStyle_MonospacedWithoutSerifs: ClosedCaptionStyle = 3
-ClosedCaptionStyle_ProportionalWithoutSerifs: ClosedCaptionStyle = 4
-ClosedCaptionStyle_Casual: ClosedCaptionStyle = 5
-ClosedCaptionStyle_Cursive: ClosedCaptionStyle = 6
-ClosedCaptionStyle_SmallCapitals: ClosedCaptionStyle = 7
+class ClosedCaptionSize(Int32):  # enum
+    Default = 0
+    FiftyPercent = 1
+    OneHundredPercent = 2
+    OneHundredFiftyPercent = 3
+    TwoHundredPercent = 4
+class ClosedCaptionStyle(Int32):  # enum
+    Default = 0
+    MonospacedWithSerifs = 1
+    ProportionalWithSerifs = 2
+    MonospacedWithoutSerifs = 3
+    ProportionalWithoutSerifs = 4
+    Casual = 5
+    Cursive = 6
+    SmallCapitals = 7
 class IClosedCaptionPropertiesStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.ClosedCaptioning.IClosedCaptionPropertiesStatics'

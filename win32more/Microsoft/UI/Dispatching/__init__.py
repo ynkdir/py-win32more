@@ -78,10 +78,10 @@ class DispatcherQueueHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{2e0872a9-4e29-5f14-b688-fb96d5f9d5f8}')
     def Invoke(self) -> Void: ...
-DispatcherQueuePriority = Int32
-DispatcherQueuePriority_Low: DispatcherQueuePriority = -10
-DispatcherQueuePriority_Normal: DispatcherQueuePriority = 0
-DispatcherQueuePriority_High: DispatcherQueuePriority = 10
+class DispatcherQueuePriority(Int32):  # enum
+    Low = -10
+    Normal = 0
+    High = 10
 class DispatcherQueueShutdownStartingEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Dispatching.IDispatcherQueueShutdownStartingEventArgs
@@ -113,10 +113,10 @@ class DispatcherQueueTimer(ComPtr):
     Interval = property(get_Interval, put_Interval)
     IsRepeating = property(get_IsRepeating, put_IsRepeating)
     IsRunning = property(get_IsRunning, None)
-DispatcherRunOptions = UInt32
-DispatcherRunOptions_None: DispatcherRunOptions = 0
-DispatcherRunOptions_ContinueOnQuit: DispatcherRunOptions = 1
-DispatcherRunOptions_QuitOnlyLocalLoop: DispatcherRunOptions = 2
+class DispatcherRunOptions(UInt32):  # enum
+    None_ = 0
+    ContinueOnQuit = 1
+    QuitOnlyLocalLoop = 2
 class IDispatcherExitDeferral(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Dispatching.IDispatcherExitDeferral'

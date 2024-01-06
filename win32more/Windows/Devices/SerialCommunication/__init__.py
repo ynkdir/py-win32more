@@ -233,33 +233,33 @@ class SerialDevice(ComPtr):
     WriteTimeout = property(get_WriteTimeout, put_WriteTimeout)
     InputStream = property(get_InputStream, None)
     OutputStream = property(get_OutputStream, None)
-SerialError = Int32
-SerialError_Frame: SerialError = 0
-SerialError_BufferOverrun: SerialError = 1
-SerialError_ReceiveFull: SerialError = 2
-SerialError_ReceiveParity: SerialError = 3
-SerialError_TransmitFull: SerialError = 4
-SerialHandshake = Int32
-SerialHandshake_None: SerialHandshake = 0
-SerialHandshake_RequestToSend: SerialHandshake = 1
-SerialHandshake_XOnXOff: SerialHandshake = 2
-SerialHandshake_RequestToSendXOnXOff: SerialHandshake = 3
-SerialParity = Int32
-SerialParity_None: SerialParity = 0
-SerialParity_Odd: SerialParity = 1
-SerialParity_Even: SerialParity = 2
-SerialParity_Mark: SerialParity = 3
-SerialParity_Space: SerialParity = 4
-SerialPinChange = Int32
-SerialPinChange_BreakSignal: SerialPinChange = 0
-SerialPinChange_CarrierDetect: SerialPinChange = 1
-SerialPinChange_ClearToSend: SerialPinChange = 2
-SerialPinChange_DataSetReady: SerialPinChange = 3
-SerialPinChange_RingIndicator: SerialPinChange = 4
-SerialStopBitCount = Int32
-SerialStopBitCount_One: SerialStopBitCount = 0
-SerialStopBitCount_OnePointFive: SerialStopBitCount = 1
-SerialStopBitCount_Two: SerialStopBitCount = 2
+class SerialError(Int32):  # enum
+    Frame = 0
+    BufferOverrun = 1
+    ReceiveFull = 2
+    ReceiveParity = 3
+    TransmitFull = 4
+class SerialHandshake(Int32):  # enum
+    None_ = 0
+    RequestToSend = 1
+    XOnXOff = 2
+    RequestToSendXOnXOff = 3
+class SerialParity(Int32):  # enum
+    None_ = 0
+    Odd = 1
+    Even = 2
+    Mark = 3
+    Space = 4
+class SerialPinChange(Int32):  # enum
+    BreakSignal = 0
+    CarrierDetect = 1
+    ClearToSend = 2
+    DataSetReady = 3
+    RingIndicator = 4
+class SerialStopBitCount(Int32):  # enum
+    One = 0
+    OnePointFive = 1
+    Two = 2
 
 
 make_ready(__name__)

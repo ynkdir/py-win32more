@@ -123,20 +123,20 @@ class HttpDiagnosticProviderResponseReceivedEventArgs(ComPtr):
     Timestamp = property(get_Timestamp, None)
     ActivityId = property(get_ActivityId, None)
     Message = property(get_Message, None)
-HttpDiagnosticRequestInitiator = Int32
-HttpDiagnosticRequestInitiator_ParsedElement: HttpDiagnosticRequestInitiator = 0
-HttpDiagnosticRequestInitiator_Script: HttpDiagnosticRequestInitiator = 1
-HttpDiagnosticRequestInitiator_Image: HttpDiagnosticRequestInitiator = 2
-HttpDiagnosticRequestInitiator_Link: HttpDiagnosticRequestInitiator = 3
-HttpDiagnosticRequestInitiator_Style: HttpDiagnosticRequestInitiator = 4
-HttpDiagnosticRequestInitiator_XmlHttpRequest: HttpDiagnosticRequestInitiator = 5
-HttpDiagnosticRequestInitiator_Media: HttpDiagnosticRequestInitiator = 6
-HttpDiagnosticRequestInitiator_HtmlDownload: HttpDiagnosticRequestInitiator = 7
-HttpDiagnosticRequestInitiator_Prefetch: HttpDiagnosticRequestInitiator = 8
-HttpDiagnosticRequestInitiator_Other: HttpDiagnosticRequestInitiator = 9
-HttpDiagnosticRequestInitiator_CrossOriginPreFlight: HttpDiagnosticRequestInitiator = 10
-HttpDiagnosticRequestInitiator_Fetch: HttpDiagnosticRequestInitiator = 11
-HttpDiagnosticRequestInitiator_Beacon: HttpDiagnosticRequestInitiator = 12
+class HttpDiagnosticRequestInitiator(Int32):  # enum
+    ParsedElement = 0
+    Script = 1
+    Image = 2
+    Link = 3
+    Style = 4
+    XmlHttpRequest = 5
+    Media = 6
+    HtmlDownload = 7
+    Prefetch = 8
+    Other = 9
+    CrossOriginPreFlight = 10
+    Fetch = 11
+    Beacon = 12
 class HttpDiagnosticSourceLocation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Http.Diagnostics.IHttpDiagnosticSourceLocation

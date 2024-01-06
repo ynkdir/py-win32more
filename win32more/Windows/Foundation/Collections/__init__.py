@@ -5,11 +5,11 @@ import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.WinRT
-CollectionChange = Int32
-CollectionChange_Reset: CollectionChange = 0
-CollectionChange_ItemInserted: CollectionChange = 1
-CollectionChange_ItemRemoved: CollectionChange = 2
-CollectionChange_ItemChanged: CollectionChange = 3
+class CollectionChange(Int32):  # enum
+    Reset = 0
+    ItemInserted = 1
+    ItemRemoved = 2
+    ItemChanged = 3
 class IIterable(Generic[T], ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Foundation.Collections.IIterable'

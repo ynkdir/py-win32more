@@ -25,6 +25,9 @@ class Preprocessor:
         for td in meta:
             if td.basetype != "System.Enum":
                 continue
+            if td.is_winrt:
+                # emit as ENUM.Name
+                continue
             if td.fullname == "Windows.Win32.UI.Input.KeyboardAndMouse.VIRTUAL_KEY":
                 for fd in td.fields[1:]:
                     if fd.name == "VK_F":
@@ -54,6 +57,8 @@ class Preprocessor:
                         logger.warning(f"name conflict '{td.namespace}.{fd.name}'")
                         fd["Name"] = f"{fd['Name']}_CONSTANT"
             elif td.basetype == "System.Enum":
+                if td.is_winrt:
+                    continue
                 for fd in td.fields[1:]:
                     if f"{td.namespace}.{fd.name}" in meta_group_by_fullname:
                         logger.warning(f"enum name conflict '{td.namespace}.{td.name}.{fd.name}'")

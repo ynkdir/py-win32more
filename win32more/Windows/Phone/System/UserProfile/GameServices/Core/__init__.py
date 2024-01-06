@@ -31,20 +31,20 @@ class GameService(ComPtr, metaclass=_GameService_Meta_):
     @winrt_classmethod
     def PostResult(cls: win32more.Windows.Phone.System.UserProfile.GameServices.Core.IGameService, gameVariant: UInt32, scoreKind: win32more.Windows.Phone.System.UserProfile.GameServices.Core.GameServiceScoreKind, scoreValue: Int64, gameOutcome: win32more.Windows.Phone.System.UserProfile.GameServices.Core.GameServiceGameOutcome, buffer: win32more.Windows.Storage.Streams.IBuffer) -> Void: ...
     _GameService_Meta_.ServiceUri = property(get_ServiceUri.__wrapped__, None)
-GameServiceGameOutcome = Int32
-GameServiceGameOutcome_None: GameServiceGameOutcome = 0
-GameServiceGameOutcome_Win: GameServiceGameOutcome = 1
-GameServiceGameOutcome_Loss: GameServiceGameOutcome = 2
-GameServiceGameOutcome_Tie: GameServiceGameOutcome = 3
+class GameServiceGameOutcome(Int32):  # enum
+    None_ = 0
+    Win = 1
+    Loss = 2
+    Tie = 3
 class GameServicePropertyCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Phone.System.UserProfile.GameServices.Core.IGameServicePropertyCollection
     _classid_ = 'Windows.Phone.System.UserProfile.GameServices.Core.GameServicePropertyCollection'
     @winrt_mixinmethod
     def GetPropertyAsync(self: win32more.Windows.Phone.System.UserProfile.GameServices.Core.IGameServicePropertyCollection, propertyName: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Win32.System.WinRT.IInspectable]: ...
-GameServiceScoreKind = Int32
-GameServiceScoreKind_Number: GameServiceScoreKind = 0
-GameServiceScoreKind_Time: GameServiceScoreKind = 1
+class GameServiceScoreKind(Int32):  # enum
+    Number = 0
+    Time = 1
 class IGameService(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Phone.System.UserProfile.GameServices.Core.IGameService'

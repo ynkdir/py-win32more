@@ -56,10 +56,10 @@ class IUserDataStorageItemProtectionInfo(ComPtr):
     @winrt_commethod(6)
     def get_Availability(self) -> win32more.Windows.Security.DataProtection.UserDataAvailability: ...
     Availability = property(get_Availability, None)
-UserDataAvailability = Int32
-UserDataAvailability_Always: UserDataAvailability = 0
-UserDataAvailability_AfterFirstUnlock: UserDataAvailability = 1
-UserDataAvailability_WhileUnlocked: UserDataAvailability = 2
+class UserDataAvailability(Int32):  # enum
+    Always = 0
+    AfterFirstUnlock = 1
+    WhileUnlocked = 2
 class UserDataAvailabilityStateChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.DataProtection.IUserDataAvailabilityStateChangedEventArgs
@@ -76,9 +76,9 @@ class UserDataBufferUnprotectResult(ComPtr):
     def get_UnprotectedBuffer(self: win32more.Windows.Security.DataProtection.IUserDataBufferUnprotectResult) -> win32more.Windows.Storage.Streams.IBuffer: ...
     Status = property(get_Status, None)
     UnprotectedBuffer = property(get_UnprotectedBuffer, None)
-UserDataBufferUnprotectStatus = Int32
-UserDataBufferUnprotectStatus_Succeeded: UserDataBufferUnprotectStatus = 0
-UserDataBufferUnprotectStatus_Unavailable: UserDataBufferUnprotectStatus = 1
+class UserDataBufferUnprotectStatus(Int32):  # enum
+    Succeeded = 0
+    Unavailable = 1
 class UserDataProtectionManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.DataProtection.IUserDataProtectionManager
@@ -108,10 +108,10 @@ class UserDataStorageItemProtectionInfo(ComPtr):
     @winrt_mixinmethod
     def get_Availability(self: win32more.Windows.Security.DataProtection.IUserDataStorageItemProtectionInfo) -> win32more.Windows.Security.DataProtection.UserDataAvailability: ...
     Availability = property(get_Availability, None)
-UserDataStorageItemProtectionStatus = Int32
-UserDataStorageItemProtectionStatus_Succeeded: UserDataStorageItemProtectionStatus = 0
-UserDataStorageItemProtectionStatus_NotProtectable: UserDataStorageItemProtectionStatus = 1
-UserDataStorageItemProtectionStatus_DataUnavailable: UserDataStorageItemProtectionStatus = 2
+class UserDataStorageItemProtectionStatus(Int32):  # enum
+    Succeeded = 0
+    NotProtectable = 1
+    DataUnavailable = 2
 
 
 make_ready(__name__)

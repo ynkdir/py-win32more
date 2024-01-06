@@ -78,24 +78,24 @@ class IGpioProvider(ComPtr):
     _iid_ = Guid('{44e82707-08ca-434a-afe0-d61580446f7e}')
     @winrt_commethod(6)
     def GetControllers(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Devices.Gpio.Provider.IGpioControllerProvider]: ...
-ProviderGpioPinDriveMode = Int32
-ProviderGpioPinDriveMode_Input: ProviderGpioPinDriveMode = 0
-ProviderGpioPinDriveMode_Output: ProviderGpioPinDriveMode = 1
-ProviderGpioPinDriveMode_InputPullUp: ProviderGpioPinDriveMode = 2
-ProviderGpioPinDriveMode_InputPullDown: ProviderGpioPinDriveMode = 3
-ProviderGpioPinDriveMode_OutputOpenDrain: ProviderGpioPinDriveMode = 4
-ProviderGpioPinDriveMode_OutputOpenDrainPullUp: ProviderGpioPinDriveMode = 5
-ProviderGpioPinDriveMode_OutputOpenSource: ProviderGpioPinDriveMode = 6
-ProviderGpioPinDriveMode_OutputOpenSourcePullDown: ProviderGpioPinDriveMode = 7
-ProviderGpioPinEdge = Int32
-ProviderGpioPinEdge_FallingEdge: ProviderGpioPinEdge = 0
-ProviderGpioPinEdge_RisingEdge: ProviderGpioPinEdge = 1
-ProviderGpioPinValue = Int32
-ProviderGpioPinValue_Low: ProviderGpioPinValue = 0
-ProviderGpioPinValue_High: ProviderGpioPinValue = 1
-ProviderGpioSharingMode = Int32
-ProviderGpioSharingMode_Exclusive: ProviderGpioSharingMode = 0
-ProviderGpioSharingMode_SharedReadOnly: ProviderGpioSharingMode = 1
+class ProviderGpioPinDriveMode(Int32):  # enum
+    Input = 0
+    Output = 1
+    InputPullUp = 2
+    InputPullDown = 3
+    OutputOpenDrain = 4
+    OutputOpenDrainPullUp = 5
+    OutputOpenSource = 6
+    OutputOpenSourcePullDown = 7
+class ProviderGpioPinEdge(Int32):  # enum
+    FallingEdge = 0
+    RisingEdge = 1
+class ProviderGpioPinValue(Int32):  # enum
+    Low = 0
+    High = 1
+class ProviderGpioSharingMode(Int32):  # enum
+    Exclusive = 0
+    SharedReadOnly = 1
 
 
 make_ready(__name__)

@@ -118,14 +118,14 @@ class CoreInputViewHidingEventArgs(ComPtr):
     _classid_ = 'Windows.UI.ViewManagement.Core.CoreInputViewHidingEventArgs'
     @winrt_mixinmethod
     def TryCancel(self: win32more.Windows.UI.ViewManagement.Core.ICoreInputViewHidingEventArgs) -> Boolean: ...
-CoreInputViewKind = Int32
-CoreInputViewKind_Default: CoreInputViewKind = 0
-CoreInputViewKind_Keyboard: CoreInputViewKind = 1
-CoreInputViewKind_Handwriting: CoreInputViewKind = 2
-CoreInputViewKind_Emoji: CoreInputViewKind = 3
-CoreInputViewKind_Symbols: CoreInputViewKind = 4
-CoreInputViewKind_Clipboard: CoreInputViewKind = 5
-CoreInputViewKind_Dictation: CoreInputViewKind = 6
+class CoreInputViewKind(Int32):  # enum
+    Default = 0
+    Keyboard = 1
+    Handwriting = 2
+    Emoji = 3
+    Symbols = 4
+    Clipboard = 5
+    Dictation = 6
 class CoreInputViewOcclusion(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.ViewManagement.Core.ICoreInputViewOcclusion
@@ -136,10 +136,10 @@ class CoreInputViewOcclusion(ComPtr):
     def get_OcclusionKind(self: win32more.Windows.UI.ViewManagement.Core.ICoreInputViewOcclusion) -> win32more.Windows.UI.ViewManagement.Core.CoreInputViewOcclusionKind: ...
     OccludingRect = property(get_OccludingRect, None)
     OcclusionKind = property(get_OcclusionKind, None)
-CoreInputViewOcclusionKind = Int32
-CoreInputViewOcclusionKind_Docked: CoreInputViewOcclusionKind = 0
-CoreInputViewOcclusionKind_Floating: CoreInputViewOcclusionKind = 1
-CoreInputViewOcclusionKind_Overlay: CoreInputViewOcclusionKind = 2
+class CoreInputViewOcclusionKind(Int32):  # enum
+    Docked = 0
+    Floating = 1
+    Overlay = 2
 class CoreInputViewOcclusionsChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.ViewManagement.Core.ICoreInputViewOcclusionsChangedEventArgs
@@ -178,11 +178,11 @@ class CoreInputViewTransferringXYFocusEventArgs(ComPtr):
     Direction = property(get_Direction, None)
     TransferHandled = property(get_TransferHandled, put_TransferHandled)
     KeepPrimaryViewVisible = property(get_KeepPrimaryViewVisible, put_KeepPrimaryViewVisible)
-CoreInputViewXYFocusTransferDirection = Int32
-CoreInputViewXYFocusTransferDirection_Up: CoreInputViewXYFocusTransferDirection = 0
-CoreInputViewXYFocusTransferDirection_Right: CoreInputViewXYFocusTransferDirection = 1
-CoreInputViewXYFocusTransferDirection_Down: CoreInputViewXYFocusTransferDirection = 2
-CoreInputViewXYFocusTransferDirection_Left: CoreInputViewXYFocusTransferDirection = 3
+class CoreInputViewXYFocusTransferDirection(Int32):  # enum
+    Up = 0
+    Right = 1
+    Down = 2
+    Left = 3
 class ICoreFrameworkInputView(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.ViewManagement.Core.ICoreFrameworkInputView'

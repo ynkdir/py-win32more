@@ -4,28 +4,28 @@ from win32more._winrt import Annotated, Generic, K, MulticastDelegate, SZArray, 
 import win32more.Microsoft.Windows.System.Power
 import win32more.Windows.Foundation
 import win32more.Windows.Win32.System.WinRT
-BatteryStatus = Int32
-BatteryStatus_NotPresent: BatteryStatus = 0
-BatteryStatus_Discharging: BatteryStatus = 1
-BatteryStatus_Idle: BatteryStatus = 2
-BatteryStatus_Charging: BatteryStatus = 3
-DisplayStatus = Int32
-DisplayStatus_Off: DisplayStatus = 0
-DisplayStatus_On: DisplayStatus = 1
-DisplayStatus_Dimmed: DisplayStatus = 2
-EffectivePowerMode = Int32
-EffectivePowerMode_BatterySaver: EffectivePowerMode = 0
-EffectivePowerMode_BetterBattery: EffectivePowerMode = 1
-EffectivePowerMode_Balanced: EffectivePowerMode = 2
-EffectivePowerMode_HighPerformance: EffectivePowerMode = 3
-EffectivePowerMode_MaxPerformance: EffectivePowerMode = 4
-EffectivePowerMode_GameMode: EffectivePowerMode = 5
-EffectivePowerMode_MixedReality: EffectivePowerMode = 6
-EnergySaverStatus = Int32
-EnergySaverStatus_Uninitialized: EnergySaverStatus = 0
-EnergySaverStatus_Disabled: EnergySaverStatus = 1
-EnergySaverStatus_Off: EnergySaverStatus = 2
-EnergySaverStatus_On: EnergySaverStatus = 3
+class BatteryStatus(Int32):  # enum
+    NotPresent = 0
+    Discharging = 1
+    Idle = 2
+    Charging = 3
+class DisplayStatus(Int32):  # enum
+    Off = 0
+    On = 1
+    Dimmed = 2
+class EffectivePowerMode(Int32):  # enum
+    BatterySaver = 0
+    BetterBattery = 1
+    Balanced = 2
+    HighPerformance = 3
+    MaxPerformance = 4
+    GameMode = 5
+    MixedReality = 6
+class EnergySaverStatus(Int32):  # enum
+    Uninitialized = 0
+    Disabled = 1
+    Off = 2
+    On = 3
 class IPowerManagerStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Windows.System.Power.IPowerManagerStatics'
@@ -194,21 +194,21 @@ class PowerManager(ComPtr, metaclass=_PowerManager_Meta_):
     _PowerManager_Meta_.UserPresenceStatus = property(get_UserPresenceStatus.__wrapped__, None)
     _PowerManager_Meta_.SystemSuspendStatus = property(get_SystemSuspendStatus.__wrapped__, None)
 PowerNotificationsContract: UInt32 = 131072
-PowerSourceKind = Int32
-AC: PowerSourceKind = 0
-DC: PowerSourceKind = 1
-PowerSupplyStatus = Int32
-PowerSupplyStatus_NotPresent: PowerSupplyStatus = 0
-PowerSupplyStatus_Inadequate: PowerSupplyStatus = 1
-PowerSupplyStatus_Adequate: PowerSupplyStatus = 2
-SystemSuspendStatus = Int32
-SystemSuspendStatus_Uninitialized: SystemSuspendStatus = 0
-SystemSuspendStatus_Entering: SystemSuspendStatus = 1
-SystemSuspendStatus_AutoResume: SystemSuspendStatus = 2
-SystemSuspendStatus_ManualResume: SystemSuspendStatus = 3
-UserPresenceStatus = Int32
-UserPresenceStatus_Present: UserPresenceStatus = 0
-UserPresenceStatus_Absent: UserPresenceStatus = 1
+class PowerSourceKind(Int32):  # enum
+    AC = 0
+    DC = 1
+class PowerSupplyStatus(Int32):  # enum
+    NotPresent = 0
+    Inadequate = 1
+    Adequate = 2
+class SystemSuspendStatus(Int32):  # enum
+    Uninitialized = 0
+    Entering = 1
+    AutoResume = 2
+    ManualResume = 3
+class UserPresenceStatus(Int32):  # enum
+    Present = 0
+    Absent = 1
 
 
 make_ready(__name__)

@@ -83,13 +83,13 @@ class UserDataAccountProviderAddAccountOperation(ComPtr):
     ContentKinds = property(get_ContentKinds, None)
     PartnerAccountInfos = property(get_PartnerAccountInfos, None)
     Kind = property(get_Kind, None)
-UserDataAccountProviderOperationKind = Int32
-UserDataAccountProviderOperationKind_AddAccount: UserDataAccountProviderOperationKind = 0
-UserDataAccountProviderOperationKind_Settings: UserDataAccountProviderOperationKind = 1
-UserDataAccountProviderOperationKind_ResolveErrors: UserDataAccountProviderOperationKind = 2
-UserDataAccountProviderPartnerAccountKind = Int32
-UserDataAccountProviderPartnerAccountKind_Exchange: UserDataAccountProviderPartnerAccountKind = 0
-UserDataAccountProviderPartnerAccountKind_PopOrImap: UserDataAccountProviderPartnerAccountKind = 1
+class UserDataAccountProviderOperationKind(Int32):  # enum
+    AddAccount = 0
+    Settings = 1
+    ResolveErrors = 2
+class UserDataAccountProviderPartnerAccountKind(Int32):  # enum
+    Exchange = 0
+    PopOrImap = 1
 class UserDataAccountProviderResolveErrorsOperation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.UserDataAccounts.Provider.IUserDataAccountProviderResolveErrorsOperation

@@ -80,21 +80,21 @@ class GeofenceMonitor(ComPtr, metaclass=_GeofenceMonitor_Meta_):
     Geofences = property(get_Geofences, None)
     LastKnownGeoposition = property(get_LastKnownGeoposition, None)
     _GeofenceMonitor_Meta_.Current = property(get_Current.__wrapped__, None)
-GeofenceMonitorStatus = Int32
-GeofenceMonitorStatus_Ready: GeofenceMonitorStatus = 0
-GeofenceMonitorStatus_Initializing: GeofenceMonitorStatus = 1
-GeofenceMonitorStatus_NoData: GeofenceMonitorStatus = 2
-GeofenceMonitorStatus_Disabled: GeofenceMonitorStatus = 3
-GeofenceMonitorStatus_NotInitialized: GeofenceMonitorStatus = 4
-GeofenceMonitorStatus_NotAvailable: GeofenceMonitorStatus = 5
-GeofenceRemovalReason = Int32
-GeofenceRemovalReason_Used: GeofenceRemovalReason = 0
-GeofenceRemovalReason_Expired: GeofenceRemovalReason = 1
-GeofenceState = UInt32
-GeofenceState_None: GeofenceState = 0
-GeofenceState_Entered: GeofenceState = 1
-GeofenceState_Exited: GeofenceState = 2
-GeofenceState_Removed: GeofenceState = 4
+class GeofenceMonitorStatus(Int32):  # enum
+    Ready = 0
+    Initializing = 1
+    NoData = 2
+    Disabled = 3
+    NotInitialized = 4
+    NotAvailable = 5
+class GeofenceRemovalReason(Int32):  # enum
+    Used = 0
+    Expired = 1
+class GeofenceState(UInt32):  # enum
+    None_ = 0
+    Entered = 1
+    Exited = 2
+    Removed = 4
 class GeofenceStateChangeReport(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Geolocation.Geofencing.IGeofenceStateChangeReport
@@ -194,11 +194,11 @@ class IGeofenceStateChangeReport(ComPtr):
     Geofence = property(get_Geofence, None)
     Geoposition = property(get_Geoposition, None)
     RemovalReason = property(get_RemovalReason, None)
-MonitoredGeofenceStates = UInt32
-MonitoredGeofenceStates_None: MonitoredGeofenceStates = 0
-MonitoredGeofenceStates_Entered: MonitoredGeofenceStates = 1
-MonitoredGeofenceStates_Exited: MonitoredGeofenceStates = 2
-MonitoredGeofenceStates_Removed: MonitoredGeofenceStates = 4
+class MonitoredGeofenceStates(UInt32):  # enum
+    None_ = 0
+    Entered = 1
+    Exited = 2
+    Removed = 4
 
 
 make_ready(__name__)

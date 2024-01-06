@@ -9,27 +9,27 @@ import win32more.Windows.Storage.FileProperties
 import win32more.Windows.Storage.Search
 import win32more.Windows.Storage.Streams
 import win32more.Windows.Win32.System.WinRT
-CommonFileQuery = Int32
-CommonFileQuery_DefaultQuery: CommonFileQuery = 0
-CommonFileQuery_OrderByName: CommonFileQuery = 1
-CommonFileQuery_OrderByTitle: CommonFileQuery = 2
-CommonFileQuery_OrderByMusicProperties: CommonFileQuery = 3
-CommonFileQuery_OrderBySearchRank: CommonFileQuery = 4
-CommonFileQuery_OrderByDate: CommonFileQuery = 5
-CommonFolderQuery = Int32
-CommonFolderQuery_DefaultQuery: CommonFolderQuery = 0
-CommonFolderQuery_GroupByYear: CommonFolderQuery = 100
-CommonFolderQuery_GroupByMonth: CommonFolderQuery = 101
-CommonFolderQuery_GroupByArtist: CommonFolderQuery = 102
-CommonFolderQuery_GroupByAlbum: CommonFolderQuery = 103
-CommonFolderQuery_GroupByAlbumArtist: CommonFolderQuery = 104
-CommonFolderQuery_GroupByComposer: CommonFolderQuery = 105
-CommonFolderQuery_GroupByGenre: CommonFolderQuery = 106
-CommonFolderQuery_GroupByPublishedYear: CommonFolderQuery = 107
-CommonFolderQuery_GroupByRating: CommonFolderQuery = 108
-CommonFolderQuery_GroupByTag: CommonFolderQuery = 109
-CommonFolderQuery_GroupByAuthor: CommonFolderQuery = 110
-CommonFolderQuery_GroupByType: CommonFolderQuery = 111
+class CommonFileQuery(Int32):  # enum
+    DefaultQuery = 0
+    OrderByName = 1
+    OrderByTitle = 2
+    OrderByMusicProperties = 3
+    OrderBySearchRank = 4
+    OrderByDate = 5
+class CommonFolderQuery(Int32):  # enum
+    DefaultQuery = 0
+    GroupByYear = 100
+    GroupByMonth = 101
+    GroupByArtist = 102
+    GroupByAlbum = 103
+    GroupByAlbumArtist = 104
+    GroupByComposer = 105
+    GroupByGenre = 106
+    GroupByPublishedYear = 107
+    GroupByRating = 108
+    GroupByTag = 109
+    GroupByAuthor = 110
+    GroupByType = 111
 class ContentIndexer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Storage.Search.IContentIndexer
@@ -76,13 +76,13 @@ class ContentIndexerQuery(ComPtr):
     @winrt_mixinmethod
     def get_QueryFolder(self: win32more.Windows.Storage.Search.IContentIndexerQuery) -> win32more.Windows.Storage.StorageFolder: ...
     QueryFolder = property(get_QueryFolder, None)
-DateStackOption = Int32
-DateStackOption_None: DateStackOption = 0
-DateStackOption_Year: DateStackOption = 1
-DateStackOption_Month: DateStackOption = 2
-FolderDepth = Int32
-FolderDepth_Shallow: FolderDepth = 0
-FolderDepth_Deep: FolderDepth = 1
+class DateStackOption(Int32):  # enum
+    None_ = 0
+    Year = 1
+    Month = 2
+class FolderDepth(Int32):  # enum
+    Shallow = 0
+    Deep = 1
 class IContentIndexer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Storage.Search.IContentIndexer'
@@ -378,16 +378,16 @@ class IndexableContent(ComPtr):
     Properties = property(get_Properties, None)
     Stream = property(get_Stream, put_Stream)
     StreamContentType = property(get_StreamContentType, put_StreamContentType)
-IndexedState = Int32
-IndexedState_Unknown: IndexedState = 0
-IndexedState_NotIndexed: IndexedState = 1
-IndexedState_PartiallyIndexed: IndexedState = 2
-IndexedState_FullyIndexed: IndexedState = 3
-IndexerOption = Int32
-IndexerOption_UseIndexerWhenAvailable: IndexerOption = 0
-IndexerOption_OnlyUseIndexer: IndexerOption = 1
-IndexerOption_DoNotUseIndexer: IndexerOption = 2
-IndexerOption_OnlyUseIndexerAndOptimizeForIndexedProperties: IndexerOption = 3
+class IndexedState(Int32):  # enum
+    Unknown = 0
+    NotIndexed = 1
+    PartiallyIndexed = 2
+    FullyIndexed = 3
+class IndexerOption(Int32):  # enum
+    UseIndexerWhenAvailable = 0
+    OnlyUseIndexer = 1
+    DoNotUseIndexer = 2
+    OnlyUseIndexerAndOptimizeForIndexedProperties = 3
 class QueryOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Storage.Search.IQueryOptions

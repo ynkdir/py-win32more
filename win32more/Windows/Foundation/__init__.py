@@ -29,11 +29,11 @@ class AsyncOperationWithProgressCompletedHandler(Generic[TResult, TProgress], Mu
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{e85df41d-6aa7-46e3-a8e2-f009d840c627}')
     def Invoke(self, asyncInfo: win32more.Windows.Foundation.IAsyncOperationWithProgress[TResult, TProgress], asyncStatus: win32more.Windows.Foundation.AsyncStatus) -> Void: ...
-AsyncStatus = Int32
-AsyncStatus_Canceled: AsyncStatus = 2
-AsyncStatus_Completed: AsyncStatus = 1
-AsyncStatus_Error: AsyncStatus = 3
-AsyncStatus_Started: AsyncStatus = 0
+class AsyncStatus(Int32):  # enum
+    Canceled = 2
+    Completed = 1
+    Error = 3
+    Started = 0
 class DateTime(EasyCastStructure):
     UniversalTime: Int64
 class Deferral(ComPtr):
@@ -526,48 +526,48 @@ class MemoryBuffer(ComPtr):
 class Point(EasyCastStructure):
     X: Single
     Y: Single
-PropertyType = Int32
-PropertyType_Empty: PropertyType = 0
-PropertyType_UInt8: PropertyType = 1
-PropertyType_Int16: PropertyType = 2
-PropertyType_UInt16: PropertyType = 3
-PropertyType_Int32: PropertyType = 4
-PropertyType_UInt32: PropertyType = 5
-PropertyType_Int64: PropertyType = 6
-PropertyType_UInt64: PropertyType = 7
-PropertyType_Single: PropertyType = 8
-PropertyType_Double: PropertyType = 9
-PropertyType_Char16: PropertyType = 10
-PropertyType_Boolean: PropertyType = 11
-PropertyType_String: PropertyType = 12
-PropertyType_Inspectable: PropertyType = 13
-PropertyType_DateTime: PropertyType = 14
-PropertyType_TimeSpan: PropertyType = 15
-PropertyType_Guid: PropertyType = 16
-PropertyType_Point: PropertyType = 17
-PropertyType_Size: PropertyType = 18
-PropertyType_Rect: PropertyType = 19
-PropertyType_OtherType: PropertyType = 20
-PropertyType_UInt8Array: PropertyType = 1025
-PropertyType_Int16Array: PropertyType = 1026
-PropertyType_UInt16Array: PropertyType = 1027
-PropertyType_Int32Array: PropertyType = 1028
-PropertyType_UInt32Array: PropertyType = 1029
-PropertyType_Int64Array: PropertyType = 1030
-PropertyType_UInt64Array: PropertyType = 1031
-PropertyType_SingleArray: PropertyType = 1032
-PropertyType_DoubleArray: PropertyType = 1033
-PropertyType_Char16Array: PropertyType = 1034
-PropertyType_BooleanArray: PropertyType = 1035
-PropertyType_StringArray: PropertyType = 1036
-PropertyType_InspectableArray: PropertyType = 1037
-PropertyType_DateTimeArray: PropertyType = 1038
-PropertyType_TimeSpanArray: PropertyType = 1039
-PropertyType_GuidArray: PropertyType = 1040
-PropertyType_PointArray: PropertyType = 1041
-PropertyType_SizeArray: PropertyType = 1042
-PropertyType_RectArray: PropertyType = 1043
-PropertyType_OtherTypeArray: PropertyType = 1044
+class PropertyType(Int32):  # enum
+    Empty = 0
+    UInt8 = 1
+    Int16 = 2
+    UInt16 = 3
+    Int32 = 4
+    UInt32 = 5
+    Int64 = 6
+    UInt64 = 7
+    Single = 8
+    Double = 9
+    Char16 = 10
+    Boolean = 11
+    String = 12
+    Inspectable = 13
+    DateTime = 14
+    TimeSpan = 15
+    Guid = 16
+    Point = 17
+    Size = 18
+    Rect = 19
+    OtherType = 20
+    UInt8Array = 1025
+    Int16Array = 1026
+    UInt16Array = 1027
+    Int32Array = 1028
+    UInt32Array = 1029
+    Int64Array = 1030
+    UInt64Array = 1031
+    SingleArray = 1032
+    DoubleArray = 1033
+    Char16Array = 1034
+    BooleanArray = 1035
+    StringArray = 1036
+    InspectableArray = 1037
+    DateTimeArray = 1038
+    TimeSpanArray = 1039
+    GuidArray = 1040
+    PointArray = 1041
+    SizeArray = 1042
+    RectArray = 1043
+    OtherTypeArray = 1044
 class PropertyValue(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Foundation.PropertyValue'

@@ -352,11 +352,11 @@ class NewWebUIViewCreatedEventArgs(ComPtr):
     WebUIView = property(get_WebUIView, None)
     ActivatedEventArgs = property(get_ActivatedEventArgs, None)
     HasPendingNavigate = property(get_HasPendingNavigate, None)
-PrintContent = Int32
-PrintContent_AllPages: PrintContent = 0
-PrintContent_CurrentPage: PrintContent = 1
-PrintContent_CustomPageRange: PrintContent = 2
-PrintContent_CurrentSelection: PrintContent = 3
+class PrintContent(Int32):  # enum
+    AllPages = 0
+    CurrentPage = 1
+    CustomPageRange = 2
+    CurrentSelection = 3
 class ResumingEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{26599ba9-a22d-4806-a728-acadc1d075fa}')

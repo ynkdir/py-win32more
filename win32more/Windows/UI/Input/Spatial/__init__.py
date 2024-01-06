@@ -627,18 +627,18 @@ class SpatialGestureRecognizer(ComPtr):
     @winrt_mixinmethod
     def get_GestureSettings(self: win32more.Windows.UI.Input.Spatial.ISpatialGestureRecognizer) -> win32more.Windows.UI.Input.Spatial.SpatialGestureSettings: ...
     GestureSettings = property(get_GestureSettings, None)
-SpatialGestureSettings = UInt32
-SpatialGestureSettings_None: SpatialGestureSettings = 0
-SpatialGestureSettings_Tap: SpatialGestureSettings = 1
-SpatialGestureSettings_DoubleTap: SpatialGestureSettings = 2
-SpatialGestureSettings_Hold: SpatialGestureSettings = 4
-SpatialGestureSettings_ManipulationTranslate: SpatialGestureSettings = 8
-SpatialGestureSettings_NavigationX: SpatialGestureSettings = 16
-SpatialGestureSettings_NavigationY: SpatialGestureSettings = 32
-SpatialGestureSettings_NavigationZ: SpatialGestureSettings = 64
-SpatialGestureSettings_NavigationRailsX: SpatialGestureSettings = 128
-SpatialGestureSettings_NavigationRailsY: SpatialGestureSettings = 256
-SpatialGestureSettings_NavigationRailsZ: SpatialGestureSettings = 512
+class SpatialGestureSettings(UInt32):  # enum
+    None_ = 0
+    Tap = 1
+    DoubleTap = 2
+    Hold = 4
+    ManipulationTranslate = 8
+    NavigationX = 16
+    NavigationY = 32
+    NavigationZ = 64
+    NavigationRailsX = 128
+    NavigationRailsY = 256
+    NavigationRailsZ = 512
 class SpatialHoldCanceledEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Input.Spatial.ISpatialHoldCanceledEventArgs
@@ -769,13 +769,13 @@ class SpatialInteractionManager(ComPtr):
     def IsSourceKindSupported(cls: win32more.Windows.UI.Input.Spatial.ISpatialInteractionManagerStatics2, kind: win32more.Windows.UI.Input.Spatial.SpatialInteractionSourceKind) -> Boolean: ...
     @winrt_classmethod
     def GetForCurrentView(cls: win32more.Windows.UI.Input.Spatial.ISpatialInteractionManagerStatics) -> win32more.Windows.UI.Input.Spatial.SpatialInteractionManager: ...
-SpatialInteractionPressKind = Int32
-SpatialInteractionPressKind_None: SpatialInteractionPressKind = 0
-SpatialInteractionPressKind_Select: SpatialInteractionPressKind = 1
-SpatialInteractionPressKind_Menu: SpatialInteractionPressKind = 2
-SpatialInteractionPressKind_Grasp: SpatialInteractionPressKind = 3
-SpatialInteractionPressKind_Touchpad: SpatialInteractionPressKind = 4
-SpatialInteractionPressKind_Thumbstick: SpatialInteractionPressKind = 5
+class SpatialInteractionPressKind(Int32):  # enum
+    None_ = 0
+    Select = 1
+    Menu = 2
+    Grasp = 3
+    Touchpad = 4
+    Thumbstick = 5
 class SpatialInteractionSource(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Input.Spatial.ISpatialInteractionSource
@@ -817,15 +817,15 @@ class SpatialInteractionSourceEventArgs(ComPtr):
     def get_PressKind(self: win32more.Windows.UI.Input.Spatial.ISpatialInteractionSourceEventArgs2) -> win32more.Windows.UI.Input.Spatial.SpatialInteractionPressKind: ...
     State = property(get_State, None)
     PressKind = property(get_PressKind, None)
-SpatialInteractionSourceHandedness = Int32
-SpatialInteractionSourceHandedness_Unspecified: SpatialInteractionSourceHandedness = 0
-SpatialInteractionSourceHandedness_Left: SpatialInteractionSourceHandedness = 1
-SpatialInteractionSourceHandedness_Right: SpatialInteractionSourceHandedness = 2
-SpatialInteractionSourceKind = Int32
-SpatialInteractionSourceKind_Other: SpatialInteractionSourceKind = 0
-SpatialInteractionSourceKind_Hand: SpatialInteractionSourceKind = 1
-SpatialInteractionSourceKind_Voice: SpatialInteractionSourceKind = 2
-SpatialInteractionSourceKind_Controller: SpatialInteractionSourceKind = 3
+class SpatialInteractionSourceHandedness(Int32):  # enum
+    Unspecified = 0
+    Left = 1
+    Right = 2
+class SpatialInteractionSourceKind(Int32):  # enum
+    Other = 0
+    Hand = 1
+    Voice = 2
+    Controller = 3
 class SpatialInteractionSourceLocation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Input.Spatial.ISpatialInteractionSourceLocation
@@ -848,9 +848,9 @@ class SpatialInteractionSourceLocation(ComPtr):
     PositionAccuracy = property(get_PositionAccuracy, None)
     AngularVelocity = property(get_AngularVelocity, None)
     SourcePointerPose = property(get_SourcePointerPose, None)
-SpatialInteractionSourcePositionAccuracy = Int32
-SpatialInteractionSourcePositionAccuracy_High: SpatialInteractionSourcePositionAccuracy = 0
-SpatialInteractionSourcePositionAccuracy_Approximate: SpatialInteractionSourcePositionAccuracy = 1
+class SpatialInteractionSourcePositionAccuracy(Int32):  # enum
+    High = 0
+    Approximate = 1
 class SpatialInteractionSourceProperties(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Input.Spatial.ISpatialInteractionSourceProperties

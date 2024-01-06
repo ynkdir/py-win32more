@@ -4,14 +4,14 @@ from win32more._winrt import Annotated, Generic, K, MulticastDelegate, SZArray, 
 import win32more.Windows.ApplicationModel.ExtendedExecution.Foreground
 import win32more.Windows.Foundation
 import win32more.Windows.Win32.System.WinRT
-ExtendedExecutionForegroundReason = Int32
-ExtendedExecutionForegroundReason_Unspecified: ExtendedExecutionForegroundReason = 0
-ExtendedExecutionForegroundReason_SavingData: ExtendedExecutionForegroundReason = 1
-ExtendedExecutionForegroundReason_BackgroundAudio: ExtendedExecutionForegroundReason = 2
-ExtendedExecutionForegroundReason_Unconstrained: ExtendedExecutionForegroundReason = 3
-ExtendedExecutionForegroundResult = Int32
-ExtendedExecutionForegroundResult_Allowed: ExtendedExecutionForegroundResult = 0
-ExtendedExecutionForegroundResult_Denied: ExtendedExecutionForegroundResult = 1
+class ExtendedExecutionForegroundReason(Int32):  # enum
+    Unspecified = 0
+    SavingData = 1
+    BackgroundAudio = 2
+    Unconstrained = 3
+class ExtendedExecutionForegroundResult(Int32):  # enum
+    Allowed = 0
+    Denied = 1
 class ExtendedExecutionForegroundRevokedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.ExtendedExecution.Foreground.IExtendedExecutionForegroundRevokedEventArgs
@@ -19,9 +19,9 @@ class ExtendedExecutionForegroundRevokedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Reason(self: win32more.Windows.ApplicationModel.ExtendedExecution.Foreground.IExtendedExecutionForegroundRevokedEventArgs) -> win32more.Windows.ApplicationModel.ExtendedExecution.Foreground.ExtendedExecutionForegroundRevokedReason: ...
     Reason = property(get_Reason, None)
-ExtendedExecutionForegroundRevokedReason = Int32
-ExtendedExecutionForegroundRevokedReason_Resumed: ExtendedExecutionForegroundRevokedReason = 0
-ExtendedExecutionForegroundRevokedReason_SystemPolicy: ExtendedExecutionForegroundRevokedReason = 1
+class ExtendedExecutionForegroundRevokedReason(Int32):  # enum
+    Resumed = 0
+    SystemPolicy = 1
 class ExtendedExecutionForegroundSession(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.ExtendedExecution.Foreground.IExtendedExecutionForegroundSession

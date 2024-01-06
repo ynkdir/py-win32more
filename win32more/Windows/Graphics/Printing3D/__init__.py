@@ -590,20 +590,20 @@ class Print3DTaskCompletedEventArgs(ComPtr):
     def get_ExtendedStatus(self: win32more.Windows.Graphics.Printing3D.IPrint3DTaskCompletedEventArgs) -> win32more.Windows.Graphics.Printing3D.Print3DTaskDetail: ...
     Completion = property(get_Completion, None)
     ExtendedStatus = property(get_ExtendedStatus, None)
-Print3DTaskCompletion = Int32
-Print3DTaskCompletion_Abandoned: Print3DTaskCompletion = 0
-Print3DTaskCompletion_Canceled: Print3DTaskCompletion = 1
-Print3DTaskCompletion_Failed: Print3DTaskCompletion = 2
-Print3DTaskCompletion_Slicing: Print3DTaskCompletion = 3
-Print3DTaskCompletion_Submitted: Print3DTaskCompletion = 4
-Print3DTaskDetail = Int32
-Print3DTaskDetail_Unknown: Print3DTaskDetail = 0
-Print3DTaskDetail_ModelExceedsPrintBed: Print3DTaskDetail = 1
-Print3DTaskDetail_UploadFailed: Print3DTaskDetail = 2
-Print3DTaskDetail_InvalidMaterialSelection: Print3DTaskDetail = 3
-Print3DTaskDetail_InvalidModel: Print3DTaskDetail = 4
-Print3DTaskDetail_ModelNotManifold: Print3DTaskDetail = 5
-Print3DTaskDetail_InvalidPrintTicket: Print3DTaskDetail = 6
+class Print3DTaskCompletion(Int32):  # enum
+    Abandoned = 0
+    Canceled = 1
+    Failed = 2
+    Slicing = 3
+    Submitted = 4
+class Print3DTaskDetail(Int32):  # enum
+    Unknown = 0
+    ModelExceedsPrintBed = 1
+    UploadFailed = 2
+    InvalidMaterialSelection = 3
+    InvalidModel = 4
+    ModelNotManifold = 5
+    InvalidPrintTicket = 6
 class Print3DTaskRequest(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing3D.IPrint3DTaskRequest
@@ -731,14 +731,14 @@ class Printing3DBaseMaterialGroup(ComPtr):
 class Printing3DBufferDescription(EasyCastStructure):
     Format: win32more.Windows.Graphics.Printing3D.Printing3DBufferFormat
     Stride: UInt32
-Printing3DBufferFormat = Int32
-Printing3DBufferFormat_Unknown: Printing3DBufferFormat = 0
-Printing3DBufferFormat_R32G32B32A32Float: Printing3DBufferFormat = 2
-Printing3DBufferFormat_R32G32B32A32UInt: Printing3DBufferFormat = 3
-Printing3DBufferFormat_R32G32B32Float: Printing3DBufferFormat = 6
-Printing3DBufferFormat_R32G32B32UInt: Printing3DBufferFormat = 7
-Printing3DBufferFormat_Printing3DDouble: Printing3DBufferFormat = 500
-Printing3DBufferFormat_Printing3DUInt: Printing3DBufferFormat = 501
+class Printing3DBufferFormat(Int32):  # enum
+    Unknown = 0
+    R32G32B32A32Float = 2
+    R32G32B32A32UInt = 3
+    R32G32B32Float = 6
+    R32G32B32UInt = 7
+    Printing3DDouble = 500
+    Printing3DUInt = 501
 class Printing3DColorMaterial(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing3D.IPrinting3DColorMaterial
@@ -1012,9 +1012,9 @@ class Printing3DMesh(ComPtr):
     TriangleMaterialIndicesDescription = property(get_TriangleMaterialIndicesDescription, put_TriangleMaterialIndicesDescription)
     BufferDescriptionSet = property(get_BufferDescriptionSet, None)
     BufferSet = property(get_BufferSet, None)
-Printing3DMeshVerificationMode = Int32
-Printing3DMeshVerificationMode_FindFirstError: Printing3DMeshVerificationMode = 0
-Printing3DMeshVerificationMode_FindAllErrors: Printing3DMeshVerificationMode = 1
+class Printing3DMeshVerificationMode(Int32):  # enum
+    FindFirstError = 0
+    FindAllErrors = 1
 class Printing3DMeshVerificationResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing3D.IPrinting3DMeshVerificationResult
@@ -1120,13 +1120,13 @@ class Printing3DModelTexture(ComPtr):
     TextureResource = property(get_TextureResource, put_TextureResource)
     TileStyleU = property(get_TileStyleU, put_TileStyleU)
     TileStyleV = property(get_TileStyleV, put_TileStyleV)
-Printing3DModelUnit = Int32
-Printing3DModelUnit_Meter: Printing3DModelUnit = 0
-Printing3DModelUnit_Micron: Printing3DModelUnit = 1
-Printing3DModelUnit_Millimeter: Printing3DModelUnit = 2
-Printing3DModelUnit_Centimeter: Printing3DModelUnit = 3
-Printing3DModelUnit_Inch: Printing3DModelUnit = 4
-Printing3DModelUnit_Foot: Printing3DModelUnit = 5
+class Printing3DModelUnit(Int32):  # enum
+    Meter = 0
+    Micron = 1
+    Millimeter = 2
+    Centimeter = 3
+    Inch = 4
+    Foot = 5
 class Printing3DMultiplePropertyMaterial(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing3D.IPrinting3DMultiplePropertyMaterial
@@ -1165,14 +1165,14 @@ class Printing3DMultiplePropertyMaterialGroup(ComPtr):
     MultipleProperties = property(get_MultipleProperties, None)
     MaterialGroupIndices = property(get_MaterialGroupIndices, None)
     MaterialGroupId = property(get_MaterialGroupId, None)
-Printing3DObjectType = Int32
-Printing3DObjectType_Model: Printing3DObjectType = 0
-Printing3DObjectType_Support: Printing3DObjectType = 1
-Printing3DObjectType_Others: Printing3DObjectType = 2
-Printing3DPackageCompression = Int32
-Printing3DPackageCompression_Low: Printing3DPackageCompression = 0
-Printing3DPackageCompression_Medium: Printing3DPackageCompression = 1
-Printing3DPackageCompression_High: Printing3DPackageCompression = 2
+class Printing3DObjectType(Int32):  # enum
+    Model = 0
+    Support = 1
+    Others = 2
+class Printing3DPackageCompression(Int32):  # enum
+    Low = 0
+    Medium = 1
+    High = 2
 class Printing3DTexture2CoordMaterial(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing3D.IPrinting3DTexture2CoordMaterial
@@ -1225,11 +1225,11 @@ class Printing3DTexture2CoordMaterialGroup(ComPtr):
     Texture2Coords = property(get_Texture2Coords, None)
     MaterialGroupId = property(get_MaterialGroupId, None)
     Texture = property(get_Texture, put_Texture)
-Printing3DTextureEdgeBehavior = Int32
-Printing3DTextureEdgeBehavior_None: Printing3DTextureEdgeBehavior = 0
-Printing3DTextureEdgeBehavior_Wrap: Printing3DTextureEdgeBehavior = 1
-Printing3DTextureEdgeBehavior_Mirror: Printing3DTextureEdgeBehavior = 2
-Printing3DTextureEdgeBehavior_Clamp: Printing3DTextureEdgeBehavior = 3
+class Printing3DTextureEdgeBehavior(Int32):  # enum
+    None_ = 0
+    Wrap = 1
+    Mirror = 2
+    Clamp = 3
 class Printing3DTextureResource(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing3D.IPrinting3DTextureResource

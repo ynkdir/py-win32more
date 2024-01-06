@@ -90,45 +90,45 @@ class ActivationSignalDetectionConfigurationCreationResult(ComPtr):
     def get_Configuration(self: win32more.Windows.ApplicationModel.ConversationalAgent.IActivationSignalDetectionConfigurationCreationResult) -> win32more.Windows.ApplicationModel.ConversationalAgent.ActivationSignalDetectionConfiguration: ...
     Status = property(get_Status, None)
     Configuration = property(get_Configuration, None)
-ActivationSignalDetectionConfigurationCreationStatus = Int32
-ActivationSignalDetectionConfigurationCreationStatus_Success: ActivationSignalDetectionConfigurationCreationStatus = 0
-ActivationSignalDetectionConfigurationCreationStatus_SignalIdNotAvailable: ActivationSignalDetectionConfigurationCreationStatus = 1
-ActivationSignalDetectionConfigurationCreationStatus_ModelIdNotSupported: ActivationSignalDetectionConfigurationCreationStatus = 2
-ActivationSignalDetectionConfigurationCreationStatus_InvalidSignalId: ActivationSignalDetectionConfigurationCreationStatus = 3
-ActivationSignalDetectionConfigurationCreationStatus_InvalidModelId: ActivationSignalDetectionConfigurationCreationStatus = 4
-ActivationSignalDetectionConfigurationCreationStatus_InvalidDisplayName: ActivationSignalDetectionConfigurationCreationStatus = 5
-ActivationSignalDetectionConfigurationCreationStatus_ConfigurationAlreadyExists: ActivationSignalDetectionConfigurationCreationStatus = 6
-ActivationSignalDetectionConfigurationCreationStatus_CreationNotSupported: ActivationSignalDetectionConfigurationCreationStatus = 7
-ActivationSignalDetectionConfigurationRemovalResult = Int32
-ActivationSignalDetectionConfigurationRemovalResult_Success: ActivationSignalDetectionConfigurationRemovalResult = 0
-ActivationSignalDetectionConfigurationRemovalResult_NotFound: ActivationSignalDetectionConfigurationRemovalResult = 1
-ActivationSignalDetectionConfigurationRemovalResult_CurrentlyEnabled: ActivationSignalDetectionConfigurationRemovalResult = 2
-ActivationSignalDetectionConfigurationRemovalResult_RemovalNotSupported: ActivationSignalDetectionConfigurationRemovalResult = 3
-ActivationSignalDetectionConfigurationSetModelDataResult = Int32
-ActivationSignalDetectionConfigurationSetModelDataResult_Success: ActivationSignalDetectionConfigurationSetModelDataResult = 0
-ActivationSignalDetectionConfigurationSetModelDataResult_EmptyModelData: ActivationSignalDetectionConfigurationSetModelDataResult = 1
-ActivationSignalDetectionConfigurationSetModelDataResult_UnsupportedFormat: ActivationSignalDetectionConfigurationSetModelDataResult = 2
-ActivationSignalDetectionConfigurationSetModelDataResult_ConfigurationCurrentlyEnabled: ActivationSignalDetectionConfigurationSetModelDataResult = 3
-ActivationSignalDetectionConfigurationSetModelDataResult_InvalidData: ActivationSignalDetectionConfigurationSetModelDataResult = 4
-ActivationSignalDetectionConfigurationSetModelDataResult_SetModelDataNotSupported: ActivationSignalDetectionConfigurationSetModelDataResult = 5
-ActivationSignalDetectionConfigurationSetModelDataResult_ConfigurationNotFound: ActivationSignalDetectionConfigurationSetModelDataResult = 6
-ActivationSignalDetectionConfigurationSetModelDataResult_UnknownError: ActivationSignalDetectionConfigurationSetModelDataResult = 7
-ActivationSignalDetectionConfigurationStateChangeResult = Int32
-ActivationSignalDetectionConfigurationStateChangeResult_Success: ActivationSignalDetectionConfigurationStateChangeResult = 0
-ActivationSignalDetectionConfigurationStateChangeResult_NoModelData: ActivationSignalDetectionConfigurationStateChangeResult = 1
-ActivationSignalDetectionConfigurationStateChangeResult_ConfigurationNotFound: ActivationSignalDetectionConfigurationStateChangeResult = 2
-ActivationSignalDetectionTrainingDataFormat = Int32
-ActivationSignalDetectionTrainingDataFormat_Voice8kHz8BitMono: ActivationSignalDetectionTrainingDataFormat = 0
-ActivationSignalDetectionTrainingDataFormat_Voice8kHz16BitMono: ActivationSignalDetectionTrainingDataFormat = 1
-ActivationSignalDetectionTrainingDataFormat_Voice16kHz8BitMono: ActivationSignalDetectionTrainingDataFormat = 2
-ActivationSignalDetectionTrainingDataFormat_Voice16kHz16BitMono: ActivationSignalDetectionTrainingDataFormat = 3
-ActivationSignalDetectionTrainingDataFormat_VoiceOEMDefined: ActivationSignalDetectionTrainingDataFormat = 4
-ActivationSignalDetectionTrainingDataFormat_Audio44kHz8BitMono: ActivationSignalDetectionTrainingDataFormat = 5
-ActivationSignalDetectionTrainingDataFormat_Audio44kHz16BitMono: ActivationSignalDetectionTrainingDataFormat = 6
-ActivationSignalDetectionTrainingDataFormat_Audio48kHz8BitMono: ActivationSignalDetectionTrainingDataFormat = 7
-ActivationSignalDetectionTrainingDataFormat_Audio48kHz16BitMono: ActivationSignalDetectionTrainingDataFormat = 8
-ActivationSignalDetectionTrainingDataFormat_AudioOEMDefined: ActivationSignalDetectionTrainingDataFormat = 9
-ActivationSignalDetectionTrainingDataFormat_OtherOEMDefined: ActivationSignalDetectionTrainingDataFormat = 10
+class ActivationSignalDetectionConfigurationCreationStatus(Int32):  # enum
+    Success = 0
+    SignalIdNotAvailable = 1
+    ModelIdNotSupported = 2
+    InvalidSignalId = 3
+    InvalidModelId = 4
+    InvalidDisplayName = 5
+    ConfigurationAlreadyExists = 6
+    CreationNotSupported = 7
+class ActivationSignalDetectionConfigurationRemovalResult(Int32):  # enum
+    Success = 0
+    NotFound = 1
+    CurrentlyEnabled = 2
+    RemovalNotSupported = 3
+class ActivationSignalDetectionConfigurationSetModelDataResult(Int32):  # enum
+    Success = 0
+    EmptyModelData = 1
+    UnsupportedFormat = 2
+    ConfigurationCurrentlyEnabled = 3
+    InvalidData = 4
+    SetModelDataNotSupported = 5
+    ConfigurationNotFound = 6
+    UnknownError = 7
+class ActivationSignalDetectionConfigurationStateChangeResult(Int32):  # enum
+    Success = 0
+    NoModelData = 1
+    ConfigurationNotFound = 2
+class ActivationSignalDetectionTrainingDataFormat(Int32):  # enum
+    Voice8kHz8BitMono = 0
+    Voice8kHz16BitMono = 1
+    Voice16kHz8BitMono = 2
+    Voice16kHz16BitMono = 3
+    VoiceOEMDefined = 4
+    Audio44kHz8BitMono = 5
+    Audio44kHz16BitMono = 6
+    Audio48kHz8BitMono = 7
+    Audio48kHz16BitMono = 8
+    AudioOEMDefined = 9
+    OtherOEMDefined = 10
 class ActivationSignalDetector(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.ConversationalAgent.IActivationSignalDetector
@@ -186,22 +186,22 @@ class ActivationSignalDetector(ComPtr):
     SupportedTrainingDataFormats = property(get_SupportedTrainingDataFormats, None)
     SupportedPowerStates = property(get_SupportedPowerStates, None)
     DetectorId = property(get_DetectorId, None)
-ActivationSignalDetectorKind = Int32
-ActivationSignalDetectorKind_AudioPattern: ActivationSignalDetectorKind = 0
-ActivationSignalDetectorKind_AudioImpulse: ActivationSignalDetectorKind = 1
-ActivationSignalDetectorKind_HardwareEvent: ActivationSignalDetectorKind = 2
-ActivationSignalDetectorPowerState = Int32
-ActivationSignalDetectorPowerState_HighPower: ActivationSignalDetectorPowerState = 0
-ActivationSignalDetectorPowerState_ConnectedLowPower: ActivationSignalDetectorPowerState = 1
-ActivationSignalDetectorPowerState_DisconnectedLowPower: ActivationSignalDetectorPowerState = 2
-ConversationalAgentActivationKind = Int32
-ConversationalAgentActivationKind_VoiceActivationPreview: ConversationalAgentActivationKind = 0
-ConversationalAgentActivationKind_Foreground: ConversationalAgentActivationKind = 1
-ConversationalAgentActivationResult = Int32
-ConversationalAgentActivationResult_Success: ConversationalAgentActivationResult = 0
-ConversationalAgentActivationResult_AgentInactive: ConversationalAgentActivationResult = 1
-ConversationalAgentActivationResult_ScreenNotAvailable: ConversationalAgentActivationResult = 2
-ConversationalAgentActivationResult_AgentInterrupted: ConversationalAgentActivationResult = 3
+class ActivationSignalDetectorKind(Int32):  # enum
+    AudioPattern = 0
+    AudioImpulse = 1
+    HardwareEvent = 2
+class ActivationSignalDetectorPowerState(Int32):  # enum
+    HighPower = 0
+    ConnectedLowPower = 1
+    DisconnectedLowPower = 2
+class ConversationalAgentActivationKind(Int32):  # enum
+    VoiceActivationPreview = 0
+    Foreground = 1
+class ConversationalAgentActivationResult(Int32):  # enum
+    Success = 0
+    AgentInactive = 1
+    ScreenNotAvailable = 2
+    AgentInterrupted = 3
 class _ConversationalAgentDetectorManager_Meta_(ComPtr.__class__):
     pass
 class ConversationalAgentDetectorManager(ComPtr, metaclass=_ConversationalAgentDetectorManager_Meta_):
@@ -325,9 +325,9 @@ class ConversationalAgentSessionInterruptedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.ConversationalAgent.IConversationalAgentSessionInterruptedEventArgs
     _classid_ = 'Windows.ApplicationModel.ConversationalAgent.ConversationalAgentSessionInterruptedEventArgs'
-ConversationalAgentSessionUpdateResponse = Int32
-ConversationalAgentSessionUpdateResponse_Success: ConversationalAgentSessionUpdateResponse = 0
-ConversationalAgentSessionUpdateResponse_Failed: ConversationalAgentSessionUpdateResponse = 1
+class ConversationalAgentSessionUpdateResponse(Int32):  # enum
+    Success = 0
+    Failed = 1
 class ConversationalAgentSignal(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.ConversationalAgent.IConversationalAgentSignal
@@ -372,18 +372,18 @@ class ConversationalAgentSignalDetectedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.ConversationalAgent.IConversationalAgentSignalDetectedEventArgs
     _classid_ = 'Windows.ApplicationModel.ConversationalAgent.ConversationalAgentSignalDetectedEventArgs'
-ConversationalAgentState = Int32
-ConversationalAgentState_Inactive: ConversationalAgentState = 0
-ConversationalAgentState_Detecting: ConversationalAgentState = 1
-ConversationalAgentState_Listening: ConversationalAgentState = 2
-ConversationalAgentState_Working: ConversationalAgentState = 3
-ConversationalAgentState_Speaking: ConversationalAgentState = 4
-ConversationalAgentState_ListeningAndSpeaking: ConversationalAgentState = 5
-ConversationalAgentSystemStateChangeType = Int32
-ConversationalAgentSystemStateChangeType_UserAuthentication: ConversationalAgentSystemStateChangeType = 0
-ConversationalAgentSystemStateChangeType_ScreenAvailability: ConversationalAgentSystemStateChangeType = 1
-ConversationalAgentSystemStateChangeType_IndicatorLightAvailability: ConversationalAgentSystemStateChangeType = 2
-ConversationalAgentSystemStateChangeType_VoiceActivationAvailability: ConversationalAgentSystemStateChangeType = 3
+class ConversationalAgentState(Int32):  # enum
+    Inactive = 0
+    Detecting = 1
+    Listening = 2
+    Working = 3
+    Speaking = 4
+    ListeningAndSpeaking = 5
+class ConversationalAgentSystemStateChangeType(Int32):  # enum
+    UserAuthentication = 0
+    ScreenAvailability = 1
+    IndicatorLightAvailability = 2
+    VoiceActivationAvailability = 3
 class ConversationalAgentSystemStateChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.ConversationalAgent.IConversationalAgentSystemStateChangedEventArgs
@@ -391,17 +391,17 @@ class ConversationalAgentSystemStateChangedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_SystemStateChangeType(self: win32more.Windows.ApplicationModel.ConversationalAgent.IConversationalAgentSystemStateChangedEventArgs) -> win32more.Windows.ApplicationModel.ConversationalAgent.ConversationalAgentSystemStateChangeType: ...
     SystemStateChangeType = property(get_SystemStateChangeType, None)
-ConversationalAgentVoiceActivationPrerequisiteKind = Int32
-ConversationalAgentVoiceActivationPrerequisiteKind_MicrophonePermission: ConversationalAgentVoiceActivationPrerequisiteKind = 0
-ConversationalAgentVoiceActivationPrerequisiteKind_KnownAgents: ConversationalAgentVoiceActivationPrerequisiteKind = 1
-ConversationalAgentVoiceActivationPrerequisiteKind_AgentAllowed: ConversationalAgentVoiceActivationPrerequisiteKind = 2
-ConversationalAgentVoiceActivationPrerequisiteKind_AppCapability: ConversationalAgentVoiceActivationPrerequisiteKind = 3
-ConversationalAgentVoiceActivationPrerequisiteKind_BackgroundTaskRegistration: ConversationalAgentVoiceActivationPrerequisiteKind = 4
-ConversationalAgentVoiceActivationPrerequisiteKind_PolicyPermission: ConversationalAgentVoiceActivationPrerequisiteKind = 5
-DetectionConfigurationAvailabilityChangeKind = Int32
-DetectionConfigurationAvailabilityChangeKind_SystemResourceAccess: DetectionConfigurationAvailabilityChangeKind = 0
-DetectionConfigurationAvailabilityChangeKind_Permission: DetectionConfigurationAvailabilityChangeKind = 1
-DetectionConfigurationAvailabilityChangeKind_LockScreenPermission: DetectionConfigurationAvailabilityChangeKind = 2
+class ConversationalAgentVoiceActivationPrerequisiteKind(Int32):  # enum
+    MicrophonePermission = 0
+    KnownAgents = 1
+    AgentAllowed = 2
+    AppCapability = 3
+    BackgroundTaskRegistration = 4
+    PolicyPermission = 5
+class DetectionConfigurationAvailabilityChangeKind(Int32):  # enum
+    SystemResourceAccess = 0
+    Permission = 1
+    LockScreenPermission = 2
 class DetectionConfigurationAvailabilityChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.ConversationalAgent.IDetectionConfigurationAvailabilityChangedEventArgs
@@ -428,17 +428,17 @@ class DetectionConfigurationAvailabilityInfo(ComPtr):
     HasPermission = property(get_HasPermission, None)
     HasLockScreenPermission = property(get_HasLockScreenPermission, None)
     UnavailableSystemResources = property(get_UnavailableSystemResources, None)
-DetectionConfigurationTrainingStatus = Int32
-DetectionConfigurationTrainingStatus_Success: DetectionConfigurationTrainingStatus = 0
-DetectionConfigurationTrainingStatus_FormatNotSupported: DetectionConfigurationTrainingStatus = 1
-DetectionConfigurationTrainingStatus_VoiceTooQuiet: DetectionConfigurationTrainingStatus = 2
-DetectionConfigurationTrainingStatus_VoiceTooLoud: DetectionConfigurationTrainingStatus = 3
-DetectionConfigurationTrainingStatus_VoiceTooFast: DetectionConfigurationTrainingStatus = 4
-DetectionConfigurationTrainingStatus_VoiceTooSlow: DetectionConfigurationTrainingStatus = 5
-DetectionConfigurationTrainingStatus_VoiceQualityProblem: DetectionConfigurationTrainingStatus = 6
-DetectionConfigurationTrainingStatus_TrainingSystemInternalError: DetectionConfigurationTrainingStatus = 7
-DetectionConfigurationTrainingStatus_TrainingTimedOut: DetectionConfigurationTrainingStatus = 8
-DetectionConfigurationTrainingStatus_ConfigurationNotFound: DetectionConfigurationTrainingStatus = 9
+class DetectionConfigurationTrainingStatus(Int32):  # enum
+    Success = 0
+    FormatNotSupported = 1
+    VoiceTooQuiet = 2
+    VoiceTooLoud = 3
+    VoiceTooFast = 4
+    VoiceTooSlow = 5
+    VoiceQualityProblem = 6
+    TrainingSystemInternalError = 7
+    TrainingTimedOut = 8
+    ConfigurationNotFound = 9
 class IActivationSignalDetectionConfiguration(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.ConversationalAgent.IActivationSignalDetectionConfiguration'
@@ -805,21 +805,21 @@ class IDetectionConfigurationAvailabilityInfo2(ComPtr):
     @winrt_commethod(6)
     def get_UnavailableSystemResources(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.ApplicationModel.ConversationalAgent.SignalDetectorResourceKind]: ...
     UnavailableSystemResources = property(get_UnavailableSystemResources, None)
-SignalDetectorResourceKind = Int32
-SignalDetectorResourceKind_ParallelModelSupport: SignalDetectorResourceKind = 0
-SignalDetectorResourceKind_ParallelModelSupportForAgent: SignalDetectorResourceKind = 1
-SignalDetectorResourceKind_ParallelSignalSupport: SignalDetectorResourceKind = 2
-SignalDetectorResourceKind_ParallelSignalSupportForAgent: SignalDetectorResourceKind = 3
-SignalDetectorResourceKind_DisplayOffSupport: SignalDetectorResourceKind = 4
-SignalDetectorResourceKind_PluggedInPower: SignalDetectorResourceKind = 5
-SignalDetectorResourceKind_Detector: SignalDetectorResourceKind = 6
-SignalDetectorResourceKind_SupportedSleepState: SignalDetectorResourceKind = 7
-SignalDetectorResourceKind_SupportedBatterySaverState: SignalDetectorResourceKind = 8
-SignalDetectorResourceKind_ScreenAvailability: SignalDetectorResourceKind = 9
-SignalDetectorResourceKind_InputHardware: SignalDetectorResourceKind = 10
-SignalDetectorResourceKind_AcousticEchoCancellation: SignalDetectorResourceKind = 11
-SignalDetectorResourceKind_ModelIdSupport: SignalDetectorResourceKind = 12
-SignalDetectorResourceKind_DataChannel: SignalDetectorResourceKind = 13
+class SignalDetectorResourceKind(Int32):  # enum
+    ParallelModelSupport = 0
+    ParallelModelSupportForAgent = 1
+    ParallelSignalSupport = 2
+    ParallelSignalSupportForAgent = 3
+    DisplayOffSupport = 4
+    PluggedInPower = 5
+    Detector = 6
+    SupportedSleepState = 7
+    SupportedBatterySaverState = 8
+    ScreenAvailability = 9
+    InputHardware = 10
+    AcousticEchoCancellation = 11
+    ModelIdSupport = 12
+    DataChannel = 13
 
 
 make_ready(__name__)

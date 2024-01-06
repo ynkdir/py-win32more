@@ -210,18 +210,18 @@ class IInputInjectorStatics2(ComPtr):
     _iid_ = Guid('{a4db38fb-dd8c-414f-95ea-f87ef4c0ae6c}')
     @winrt_commethod(6)
     def TryCreateForAppBroadcastOnly(self) -> win32more.Windows.UI.Input.Preview.Injection.InputInjector: ...
-InjectedInputButtonChangeKind = Int32
-InjectedInputButtonChangeKind_None: InjectedInputButtonChangeKind = 0
-InjectedInputButtonChangeKind_FirstButtonDown: InjectedInputButtonChangeKind = 1
-InjectedInputButtonChangeKind_FirstButtonUp: InjectedInputButtonChangeKind = 2
-InjectedInputButtonChangeKind_SecondButtonDown: InjectedInputButtonChangeKind = 3
-InjectedInputButtonChangeKind_SecondButtonUp: InjectedInputButtonChangeKind = 4
-InjectedInputButtonChangeKind_ThirdButtonDown: InjectedInputButtonChangeKind = 5
-InjectedInputButtonChangeKind_ThirdButtonUp: InjectedInputButtonChangeKind = 6
-InjectedInputButtonChangeKind_FourthButtonDown: InjectedInputButtonChangeKind = 7
-InjectedInputButtonChangeKind_FourthButtonUp: InjectedInputButtonChangeKind = 8
-InjectedInputButtonChangeKind_FifthButtonDown: InjectedInputButtonChangeKind = 9
-InjectedInputButtonChangeKind_FifthButtonUp: InjectedInputButtonChangeKind = 10
+class InjectedInputButtonChangeKind(Int32):  # enum
+    None_ = 0
+    FirstButtonDown = 1
+    FirstButtonUp = 2
+    SecondButtonDown = 3
+    SecondButtonUp = 4
+    ThirdButtonDown = 5
+    ThirdButtonUp = 6
+    FourthButtonDown = 7
+    FourthButtonUp = 8
+    FifthButtonDown = 9
+    FifthButtonUp = 10
 class InjectedInputGamepadInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Input.Preview.Injection.IInjectedInputGamepadInfo
@@ -274,12 +274,12 @@ class InjectedInputGamepadInfo(ComPtr):
     RightThumbstickX = property(get_RightThumbstickX, put_RightThumbstickX)
     RightThumbstickY = property(get_RightThumbstickY, put_RightThumbstickY)
     RightTrigger = property(get_RightTrigger, put_RightTrigger)
-InjectedInputKeyOptions = UInt32
-InjectedInputKeyOptions_None: InjectedInputKeyOptions = 0
-InjectedInputKeyOptions_ExtendedKey: InjectedInputKeyOptions = 1
-InjectedInputKeyOptions_KeyUp: InjectedInputKeyOptions = 2
-InjectedInputKeyOptions_ScanCode: InjectedInputKeyOptions = 8
-InjectedInputKeyOptions_Unicode: InjectedInputKeyOptions = 4
+class InjectedInputKeyOptions(UInt32):  # enum
+    None_ = 0
+    ExtendedKey = 1
+    KeyUp = 2
+    ScanCode = 8
+    Unicode = 4
 class InjectedInputKeyboardInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Input.Preview.Injection.IInjectedInputKeyboardInfo
@@ -346,27 +346,27 @@ class InjectedInputMouseInfo(ComPtr):
     DeltaY = property(get_DeltaY, put_DeltaY)
     DeltaX = property(get_DeltaX, put_DeltaX)
     TimeOffsetInMilliseconds = property(get_TimeOffsetInMilliseconds, put_TimeOffsetInMilliseconds)
-InjectedInputMouseOptions = UInt32
-InjectedInputMouseOptions_None: InjectedInputMouseOptions = 0
-InjectedInputMouseOptions_Move: InjectedInputMouseOptions = 1
-InjectedInputMouseOptions_LeftDown: InjectedInputMouseOptions = 2
-InjectedInputMouseOptions_LeftUp: InjectedInputMouseOptions = 4
-InjectedInputMouseOptions_RightDown: InjectedInputMouseOptions = 8
-InjectedInputMouseOptions_RightUp: InjectedInputMouseOptions = 16
-InjectedInputMouseOptions_MiddleDown: InjectedInputMouseOptions = 32
-InjectedInputMouseOptions_MiddleUp: InjectedInputMouseOptions = 64
-InjectedInputMouseOptions_XDown: InjectedInputMouseOptions = 128
-InjectedInputMouseOptions_XUp: InjectedInputMouseOptions = 256
-InjectedInputMouseOptions_Wheel: InjectedInputMouseOptions = 2048
-InjectedInputMouseOptions_HWheel: InjectedInputMouseOptions = 4096
-InjectedInputMouseOptions_MoveNoCoalesce: InjectedInputMouseOptions = 8192
-InjectedInputMouseOptions_VirtualDesk: InjectedInputMouseOptions = 16384
-InjectedInputMouseOptions_Absolute: InjectedInputMouseOptions = 32768
-InjectedInputPenButtons = UInt32
-InjectedInputPenButtons_None: InjectedInputPenButtons = 0
-InjectedInputPenButtons_Barrel: InjectedInputPenButtons = 1
-InjectedInputPenButtons_Inverted: InjectedInputPenButtons = 2
-InjectedInputPenButtons_Eraser: InjectedInputPenButtons = 4
+class InjectedInputMouseOptions(UInt32):  # enum
+    None_ = 0
+    Move = 1
+    LeftDown = 2
+    LeftUp = 4
+    RightDown = 8
+    RightUp = 16
+    MiddleDown = 32
+    MiddleUp = 64
+    XDown = 128
+    XUp = 256
+    Wheel = 2048
+    HWheel = 4096
+    MoveNoCoalesce = 8192
+    VirtualDesk = 16384
+    Absolute = 32768
+class InjectedInputPenButtons(UInt32):  # enum
+    None_ = 0
+    Barrel = 1
+    Inverted = 2
+    Eraser = 4
 class InjectedInputPenInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Input.Preview.Injection.IInjectedInputPenInfo
@@ -415,12 +415,12 @@ class InjectedInputPenInfo(ComPtr):
     Rotation = property(get_Rotation, put_Rotation)
     TiltX = property(get_TiltX, put_TiltX)
     TiltY = property(get_TiltY, put_TiltY)
-InjectedInputPenParameters = UInt32
-InjectedInputPenParameters_None: InjectedInputPenParameters = 0
-InjectedInputPenParameters_Pressure: InjectedInputPenParameters = 1
-InjectedInputPenParameters_Rotation: InjectedInputPenParameters = 2
-InjectedInputPenParameters_TiltX: InjectedInputPenParameters = 4
-InjectedInputPenParameters_TiltY: InjectedInputPenParameters = 8
+class InjectedInputPenParameters(UInt32):  # enum
+    None_ = 0
+    Pressure = 1
+    Rotation = 2
+    TiltX = 4
+    TiltY = 8
 class InjectedInputPoint(EasyCastStructure):
     PositionX: Int32
     PositionY: Int32
@@ -430,29 +430,29 @@ class InjectedInputPointerInfo(EasyCastStructure):
     PixelLocation: win32more.Windows.UI.Input.Preview.Injection.InjectedInputPoint
     TimeOffsetInMilliseconds: UInt32
     PerformanceCount: UInt64
-InjectedInputPointerOptions = UInt32
-InjectedInputPointerOptions_None: InjectedInputPointerOptions = 0
-InjectedInputPointerOptions_New: InjectedInputPointerOptions = 1
-InjectedInputPointerOptions_InRange: InjectedInputPointerOptions = 2
-InjectedInputPointerOptions_InContact: InjectedInputPointerOptions = 4
-InjectedInputPointerOptions_FirstButton: InjectedInputPointerOptions = 16
-InjectedInputPointerOptions_SecondButton: InjectedInputPointerOptions = 32
-InjectedInputPointerOptions_Primary: InjectedInputPointerOptions = 8192
-InjectedInputPointerOptions_Confidence: InjectedInputPointerOptions = 16384
-InjectedInputPointerOptions_Canceled: InjectedInputPointerOptions = 32768
-InjectedInputPointerOptions_PointerDown: InjectedInputPointerOptions = 65536
-InjectedInputPointerOptions_Update: InjectedInputPointerOptions = 131072
-InjectedInputPointerOptions_PointerUp: InjectedInputPointerOptions = 262144
-InjectedInputPointerOptions_CaptureChanged: InjectedInputPointerOptions = 2097152
+class InjectedInputPointerOptions(UInt32):  # enum
+    None_ = 0
+    New = 1
+    InRange = 2
+    InContact = 4
+    FirstButton = 16
+    SecondButton = 32
+    Primary = 8192
+    Confidence = 16384
+    Canceled = 32768
+    PointerDown = 65536
+    Update = 131072
+    PointerUp = 262144
+    CaptureChanged = 2097152
 class InjectedInputRectangle(EasyCastStructure):
     Left: Int32
     Top: Int32
     Bottom: Int32
     Right: Int32
-InjectedInputShortcut = Int32
-InjectedInputShortcut_Back: InjectedInputShortcut = 0
-InjectedInputShortcut_Start: InjectedInputShortcut = 1
-InjectedInputShortcut_Search: InjectedInputShortcut = 2
+class InjectedInputShortcut(Int32):  # enum
+    Back = 0
+    Start = 1
+    Search = 2
 class InjectedInputTouchInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Input.Preview.Injection.IInjectedInputTouchInfo
@@ -491,15 +491,15 @@ class InjectedInputTouchInfo(ComPtr):
     PointerInfo = property(get_PointerInfo, put_PointerInfo)
     Pressure = property(get_Pressure, put_Pressure)
     TouchParameters = property(get_TouchParameters, put_TouchParameters)
-InjectedInputTouchParameters = UInt32
-InjectedInputTouchParameters_None: InjectedInputTouchParameters = 0
-InjectedInputTouchParameters_Contact: InjectedInputTouchParameters = 1
-InjectedInputTouchParameters_Orientation: InjectedInputTouchParameters = 2
-InjectedInputTouchParameters_Pressure: InjectedInputTouchParameters = 4
-InjectedInputVisualizationMode = Int32
-InjectedInputVisualizationMode_None: InjectedInputVisualizationMode = 0
-InjectedInputVisualizationMode_Default: InjectedInputVisualizationMode = 1
-InjectedInputVisualizationMode_Indirect: InjectedInputVisualizationMode = 2
+class InjectedInputTouchParameters(UInt32):  # enum
+    None_ = 0
+    Contact = 1
+    Orientation = 2
+    Pressure = 4
+class InjectedInputVisualizationMode(Int32):  # enum
+    None_ = 0
+    Default = 1
+    Indirect = 2
 class InputInjector(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Input.Preview.Injection.IInputInjector

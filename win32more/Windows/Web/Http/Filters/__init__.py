@@ -111,17 +111,17 @@ class HttpCacheControl(ComPtr):
     def put_WriteBehavior(self: win32more.Windows.Web.Http.Filters.IHttpCacheControl, value: win32more.Windows.Web.Http.Filters.HttpCacheWriteBehavior) -> Void: ...
     ReadBehavior = property(get_ReadBehavior, put_ReadBehavior)
     WriteBehavior = property(get_WriteBehavior, put_WriteBehavior)
-HttpCacheReadBehavior = Int32
-HttpCacheReadBehavior_Default: HttpCacheReadBehavior = 0
-HttpCacheReadBehavior_MostRecent: HttpCacheReadBehavior = 1
-HttpCacheReadBehavior_OnlyFromCache: HttpCacheReadBehavior = 2
-HttpCacheReadBehavior_NoCache: HttpCacheReadBehavior = 3
-HttpCacheWriteBehavior = Int32
-HttpCacheWriteBehavior_Default: HttpCacheWriteBehavior = 0
-HttpCacheWriteBehavior_NoCache: HttpCacheWriteBehavior = 1
-HttpCookieUsageBehavior = Int32
-HttpCookieUsageBehavior_Default: HttpCookieUsageBehavior = 0
-HttpCookieUsageBehavior_NoCookies: HttpCookieUsageBehavior = 1
+class HttpCacheReadBehavior(Int32):  # enum
+    Default = 0
+    MostRecent = 1
+    OnlyFromCache = 2
+    NoCache = 3
+class HttpCacheWriteBehavior(Int32):  # enum
+    Default = 0
+    NoCache = 1
+class HttpCookieUsageBehavior(Int32):  # enum
+    Default = 0
+    NoCookies = 1
 class HttpServerCustomValidationRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Http.Filters.IHttpServerCustomValidationRequestedEventArgs

@@ -431,20 +431,20 @@ class IFolderPickerStatics(ComPtr):
     _iid_ = Guid('{9be34740-7ca1-5942-a3c8-46f2551ecff3}')
     @winrt_commethod(6)
     def CreateForUser(self, user: win32more.Windows.System.User) -> win32more.Windows.Storage.Pickers.FolderPicker: ...
-PickerLocationId = Int32
-PickerLocationId_DocumentsLibrary: PickerLocationId = 0
-PickerLocationId_ComputerFolder: PickerLocationId = 1
-PickerLocationId_Desktop: PickerLocationId = 2
-PickerLocationId_Downloads: PickerLocationId = 3
-PickerLocationId_HomeGroup: PickerLocationId = 4
-PickerLocationId_MusicLibrary: PickerLocationId = 5
-PickerLocationId_PicturesLibrary: PickerLocationId = 6
-PickerLocationId_VideosLibrary: PickerLocationId = 7
-PickerLocationId_Objects3D: PickerLocationId = 8
-PickerLocationId_Unspecified: PickerLocationId = 9
-PickerViewMode = Int32
-PickerViewMode_List: PickerViewMode = 0
-PickerViewMode_Thumbnail: PickerViewMode = 1
+class PickerLocationId(Int32):  # enum
+    DocumentsLibrary = 0
+    ComputerFolder = 1
+    Desktop = 2
+    Downloads = 3
+    HomeGroup = 4
+    MusicLibrary = 5
+    PicturesLibrary = 6
+    VideosLibrary = 7
+    Objects3D = 8
+    Unspecified = 9
+class PickerViewMode(Int32):  # enum
+    List = 0
+    Thumbnail = 1
 
 
 make_ready(__name__)

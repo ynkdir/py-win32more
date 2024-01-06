@@ -19,9 +19,9 @@ class AdcChannel(ComPtr):
     @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
     Controller = property(get_Controller, None)
-AdcChannelMode = Int32
-AdcChannelMode_SingleEnded: AdcChannelMode = 0
-AdcChannelMode_Differential: AdcChannelMode = 1
+class AdcChannelMode(Int32):  # enum
+    SingleEnded = 0
+    Differential = 1
 class AdcController(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Adc.IAdcController

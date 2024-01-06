@@ -39,9 +39,9 @@ class IAdcProvider(ComPtr):
     _iid_ = Guid('{28953668-9359-4c57-bc88-e275e81638c9}')
     @winrt_commethod(6)
     def GetControllers(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Devices.Adc.Provider.IAdcControllerProvider]: ...
-ProviderAdcChannelMode = Int32
-ProviderAdcChannelMode_SingleEnded: ProviderAdcChannelMode = 0
-ProviderAdcChannelMode_Differential: ProviderAdcChannelMode = 1
+class ProviderAdcChannelMode(Int32):  # enum
+    SingleEnded = 0
+    Differential = 1
 
 
 make_ready(__name__)

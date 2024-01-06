@@ -454,24 +454,24 @@ class IPhotoImportVideoSegment(ComPtr):
     Date = property(get_Date, None)
     Sibling = property(get_Sibling, None)
     Sidecars = property(get_Sidecars, None)
-PhotoImportAccessMode = Int32
-PhotoImportAccessMode_ReadWrite: PhotoImportAccessMode = 0
-PhotoImportAccessMode_ReadOnly: PhotoImportAccessMode = 1
-PhotoImportAccessMode_ReadAndDelete: PhotoImportAccessMode = 2
-PhotoImportConnectionTransport = Int32
-PhotoImportConnectionTransport_Unknown: PhotoImportConnectionTransport = 0
-PhotoImportConnectionTransport_Usb: PhotoImportConnectionTransport = 1
-PhotoImportConnectionTransport_IP: PhotoImportConnectionTransport = 2
-PhotoImportConnectionTransport_Bluetooth: PhotoImportConnectionTransport = 3
-PhotoImportContentType = Int32
-PhotoImportContentType_Unknown: PhotoImportContentType = 0
-PhotoImportContentType_Image: PhotoImportContentType = 1
-PhotoImportContentType_Video: PhotoImportContentType = 2
-PhotoImportContentTypeFilter = Int32
-PhotoImportContentTypeFilter_OnlyImages: PhotoImportContentTypeFilter = 0
-PhotoImportContentTypeFilter_OnlyVideos: PhotoImportContentTypeFilter = 1
-PhotoImportContentTypeFilter_ImagesAndVideos: PhotoImportContentTypeFilter = 2
-PhotoImportContentTypeFilter_ImagesAndVideosFromCameraRoll: PhotoImportContentTypeFilter = 3
+class PhotoImportAccessMode(Int32):  # enum
+    ReadWrite = 0
+    ReadOnly = 1
+    ReadAndDelete = 2
+class PhotoImportConnectionTransport(Int32):  # enum
+    Unknown = 0
+    Usb = 1
+    IP = 2
+    Bluetooth = 3
+class PhotoImportContentType(Int32):  # enum
+    Unknown = 0
+    Image = 1
+    Video = 2
+class PhotoImportContentTypeFilter(Int32):  # enum
+    OnlyImages = 0
+    OnlyVideos = 1
+    ImagesAndVideos = 2
+    ImagesAndVideosFromCameraRoll = 3
 class PhotoImportDeleteImportedItemsFromSourceResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Import.IPhotoImportDeleteImportedItemsFromSourceResult
@@ -656,11 +656,11 @@ class PhotoImportImportItemsResult(ComPtr):
     SiblingsSizeInBytes = property(get_SiblingsSizeInBytes, None)
     TotalCount = property(get_TotalCount, None)
     TotalSizeInBytes = property(get_TotalSizeInBytes, None)
-PhotoImportImportMode = Int32
-PhotoImportImportMode_ImportEverything: PhotoImportImportMode = 0
-PhotoImportImportMode_IgnoreSidecars: PhotoImportImportMode = 1
-PhotoImportImportMode_IgnoreSiblings: PhotoImportImportMode = 2
-PhotoImportImportMode_IgnoreSidecarsAndSiblings: PhotoImportImportMode = 3
+class PhotoImportImportMode(Int32):  # enum
+    ImportEverything = 0
+    IgnoreSidecars = 1
+    IgnoreSiblings = 2
+    IgnoreSidecarsAndSiblings = 3
 class PhotoImportItem(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Import.IPhotoImportItem
@@ -713,10 +713,10 @@ class PhotoImportItemImportedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_ImportedItem(self: win32more.Windows.Media.Import.IPhotoImportItemImportedEventArgs) -> win32more.Windows.Media.Import.PhotoImportItem: ...
     ImportedItem = property(get_ImportedItem, None)
-PhotoImportItemSelectionMode = Int32
-PhotoImportItemSelectionMode_SelectAll: PhotoImportItemSelectionMode = 0
-PhotoImportItemSelectionMode_SelectNone: PhotoImportItemSelectionMode = 1
-PhotoImportItemSelectionMode_SelectNew: PhotoImportItemSelectionMode = 2
+class PhotoImportItemSelectionMode(Int32):  # enum
+    SelectAll = 0
+    SelectNone = 1
+    SelectNew = 2
 class PhotoImportManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Import.PhotoImportManager'
@@ -745,10 +745,10 @@ class PhotoImportOperation(ComPtr):
     ContinueFindingItemsAsync = property(get_ContinueFindingItemsAsync, None)
     ContinueImportingItemsAsync = property(get_ContinueImportingItemsAsync, None)
     ContinueDeletingImportedItemsFromSourceAsync = property(get_ContinueDeletingImportedItemsFromSourceAsync, None)
-PhotoImportPowerSource = Int32
-PhotoImportPowerSource_Unknown: PhotoImportPowerSource = 0
-PhotoImportPowerSource_Battery: PhotoImportPowerSource = 1
-PhotoImportPowerSource_External: PhotoImportPowerSource = 2
+class PhotoImportPowerSource(Int32):  # enum
+    Unknown = 0
+    Battery = 1
+    External = 2
 class PhotoImportProgress(EasyCastStructure):
     ItemsImported: UInt32
     TotalItemsToImport: UInt32
@@ -877,19 +877,19 @@ class PhotoImportSource(ComPtr):
     IsLocked = property(get_IsLocked, None)
     IsMassStorage = property(get_IsMassStorage, None)
     Thumbnail = property(get_Thumbnail, None)
-PhotoImportSourceType = Int32
-PhotoImportSourceType_Generic: PhotoImportSourceType = 0
-PhotoImportSourceType_Camera: PhotoImportSourceType = 1
-PhotoImportSourceType_MediaPlayer: PhotoImportSourceType = 2
-PhotoImportSourceType_Phone: PhotoImportSourceType = 3
-PhotoImportSourceType_Video: PhotoImportSourceType = 4
-PhotoImportSourceType_PersonalInfoManager: PhotoImportSourceType = 5
-PhotoImportSourceType_AudioRecorder: PhotoImportSourceType = 6
-PhotoImportStage = Int32
-PhotoImportStage_NotStarted: PhotoImportStage = 0
-PhotoImportStage_FindingItems: PhotoImportStage = 1
-PhotoImportStage_ImportingItems: PhotoImportStage = 2
-PhotoImportStage_DeletingImportedItemsFromSource: PhotoImportStage = 3
+class PhotoImportSourceType(Int32):  # enum
+    Generic = 0
+    Camera = 1
+    MediaPlayer = 2
+    Phone = 3
+    Video = 4
+    PersonalInfoManager = 5
+    AudioRecorder = 6
+class PhotoImportStage(Int32):  # enum
+    NotStarted = 0
+    FindingItems = 1
+    ImportingItems = 2
+    DeletingImportedItemsFromSource = 3
 class PhotoImportStorageMedium(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Import.IPhotoImportStorageMedium
@@ -917,19 +917,19 @@ class PhotoImportStorageMedium(ComPtr):
     SupportedAccessMode = property(get_SupportedAccessMode, None)
     CapacityInBytes = property(get_CapacityInBytes, None)
     AvailableSpaceInBytes = property(get_AvailableSpaceInBytes, None)
-PhotoImportStorageMediumType = Int32
-PhotoImportStorageMediumType_Undefined: PhotoImportStorageMediumType = 0
-PhotoImportStorageMediumType_Fixed: PhotoImportStorageMediumType = 1
-PhotoImportStorageMediumType_Removable: PhotoImportStorageMediumType = 2
-PhotoImportSubfolderCreationMode = Int32
-PhotoImportSubfolderCreationMode_DoNotCreateSubfolders: PhotoImportSubfolderCreationMode = 0
-PhotoImportSubfolderCreationMode_CreateSubfoldersFromFileDate: PhotoImportSubfolderCreationMode = 1
-PhotoImportSubfolderCreationMode_CreateSubfoldersFromExifDate: PhotoImportSubfolderCreationMode = 2
-PhotoImportSubfolderCreationMode_KeepOriginalFolderStructure: PhotoImportSubfolderCreationMode = 3
-PhotoImportSubfolderDateFormat = Int32
-PhotoImportSubfolderDateFormat_Year: PhotoImportSubfolderDateFormat = 0
-PhotoImportSubfolderDateFormat_YearMonth: PhotoImportSubfolderDateFormat = 1
-PhotoImportSubfolderDateFormat_YearMonthDay: PhotoImportSubfolderDateFormat = 2
+class PhotoImportStorageMediumType(Int32):  # enum
+    Undefined = 0
+    Fixed = 1
+    Removable = 2
+class PhotoImportSubfolderCreationMode(Int32):  # enum
+    DoNotCreateSubfolders = 0
+    CreateSubfoldersFromFileDate = 1
+    CreateSubfoldersFromExifDate = 2
+    KeepOriginalFolderStructure = 3
+class PhotoImportSubfolderDateFormat(Int32):  # enum
+    Year = 0
+    YearMonth = 1
+    YearMonthDay = 2
 class PhotoImportVideoSegment(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Import.IPhotoImportVideoSegment

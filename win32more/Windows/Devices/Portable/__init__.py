@@ -28,14 +28,14 @@ class ServiceDevice(ComPtr):
     def GetDeviceSelector(cls: win32more.Windows.Devices.Portable.IServiceDeviceStatics, serviceType: win32more.Windows.Devices.Portable.ServiceDeviceType) -> WinRT_String: ...
     @winrt_classmethod
     def GetDeviceSelectorFromServiceId(cls: win32more.Windows.Devices.Portable.IServiceDeviceStatics, serviceId: Guid) -> WinRT_String: ...
-ServiceDeviceType = Int32
-ServiceDeviceType_CalendarService: ServiceDeviceType = 0
-ServiceDeviceType_ContactsService: ServiceDeviceType = 1
-ServiceDeviceType_DeviceStatusService: ServiceDeviceType = 2
-ServiceDeviceType_NotesService: ServiceDeviceType = 3
-ServiceDeviceType_RingtonesService: ServiceDeviceType = 4
-ServiceDeviceType_SmsService: ServiceDeviceType = 5
-ServiceDeviceType_TasksService: ServiceDeviceType = 6
+class ServiceDeviceType(Int32):  # enum
+    CalendarService = 0
+    ContactsService = 1
+    DeviceStatusService = 2
+    NotesService = 3
+    RingtonesService = 4
+    SmsService = 5
+    TasksService = 6
 class StorageDevice(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Portable.StorageDevice'

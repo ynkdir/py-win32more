@@ -291,9 +291,9 @@ class WebAccountClientView(ComPtr):
     ApplicationCallbackUri = property(get_ApplicationCallbackUri, None)
     Type = property(get_Type, None)
     AccountPairwiseId = property(get_AccountPairwiseId, None)
-WebAccountClientViewType = Int32
-WebAccountClientViewType_IdOnly: WebAccountClientViewType = 0
-WebAccountClientViewType_IdAndProperties: WebAccountClientViewType = 1
+class WebAccountClientViewType(Int32):  # enum
+    IdOnly = 0
+    IdAndProperties = 1
 class WebAccountManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.Authentication.Web.Provider.WebAccountManager'
@@ -406,14 +406,14 @@ class WebAccountProviderManageAccountOperation(ComPtr):
     def get_Kind(self: win32more.Windows.Security.Authentication.Web.Provider.IWebAccountProviderOperation) -> win32more.Windows.Security.Authentication.Web.Provider.WebAccountProviderOperationKind: ...
     WebAccount = property(get_WebAccount, None)
     Kind = property(get_Kind, None)
-WebAccountProviderOperationKind = Int32
-WebAccountProviderOperationKind_RequestToken: WebAccountProviderOperationKind = 0
-WebAccountProviderOperationKind_GetTokenSilently: WebAccountProviderOperationKind = 1
-WebAccountProviderOperationKind_AddAccount: WebAccountProviderOperationKind = 2
-WebAccountProviderOperationKind_ManageAccount: WebAccountProviderOperationKind = 3
-WebAccountProviderOperationKind_DeleteAccount: WebAccountProviderOperationKind = 4
-WebAccountProviderOperationKind_RetrieveCookies: WebAccountProviderOperationKind = 5
-WebAccountProviderOperationKind_SignOutAccount: WebAccountProviderOperationKind = 6
+class WebAccountProviderOperationKind(Int32):  # enum
+    RequestToken = 0
+    GetTokenSilently = 1
+    AddAccount = 2
+    ManageAccount = 3
+    DeleteAccount = 4
+    RetrieveCookies = 5
+    SignOutAccount = 6
 class WebAccountProviderRequestTokenOperation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Authentication.Web.Provider.IWebAccountProviderTokenOperation
@@ -493,12 +493,12 @@ class WebAccountProviderTriggerDetails(ComPtr):
     def get_User(self: win32more.Windows.Security.Authentication.Web.Provider.IWebAccountProviderTokenObjects2) -> win32more.Windows.System.User: ...
     Operation = property(get_Operation, None)
     User = property(get_User, None)
-WebAccountScope = Int32
-WebAccountScope_PerUser: WebAccountScope = 0
-WebAccountScope_PerApplication: WebAccountScope = 1
-WebAccountSelectionOptions = UInt32
-WebAccountSelectionOptions_Default: WebAccountSelectionOptions = 0
-WebAccountSelectionOptions_New: WebAccountSelectionOptions = 1
+class WebAccountScope(Int32):  # enum
+    PerUser = 0
+    PerApplication = 1
+class WebAccountSelectionOptions(UInt32):  # enum
+    Default = 0
+    New = 1
 class WebProviderTokenRequest(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Authentication.Web.Provider.IWebProviderTokenRequest

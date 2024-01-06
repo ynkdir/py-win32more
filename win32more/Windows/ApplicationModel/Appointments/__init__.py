@@ -149,12 +149,12 @@ class Appointment(ComPtr):
     ChangeNumber = property(get_ChangeNumber, None)
     RemoteChangeNumber = property(get_RemoteChangeNumber, put_RemoteChangeNumber)
     DetailsKind = property(get_DetailsKind, put_DetailsKind)
-AppointmentBusyStatus = Int32
-AppointmentBusyStatus_Busy: AppointmentBusyStatus = 0
-AppointmentBusyStatus_Tentative: AppointmentBusyStatus = 1
-AppointmentBusyStatus_Free: AppointmentBusyStatus = 2
-AppointmentBusyStatus_OutOfOffice: AppointmentBusyStatus = 3
-AppointmentBusyStatus_WorkingElsewhere: AppointmentBusyStatus = 4
+class AppointmentBusyStatus(Int32):  # enum
+    Busy = 0
+    Tentative = 1
+    Free = 2
+    OutOfOffice = 3
+    WorkingElsewhere = 4
 class AppointmentCalendar(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Appointments.IAppointmentCalendar
@@ -281,15 +281,15 @@ class AppointmentCalendar(ComPtr):
     CanUpdateMeetingResponses = property(get_CanUpdateMeetingResponses, put_CanUpdateMeetingResponses)
     CanNotifyInvitees = property(get_CanNotifyInvitees, put_CanNotifyInvitees)
     MustNofityInvitees = property(get_MustNofityInvitees, put_MustNofityInvitees)
-AppointmentCalendarOtherAppReadAccess = Int32
-AppointmentCalendarOtherAppReadAccess_SystemOnly: AppointmentCalendarOtherAppReadAccess = 0
-AppointmentCalendarOtherAppReadAccess_Limited: AppointmentCalendarOtherAppReadAccess = 1
-AppointmentCalendarOtherAppReadAccess_Full: AppointmentCalendarOtherAppReadAccess = 2
-AppointmentCalendarOtherAppReadAccess_None: AppointmentCalendarOtherAppReadAccess = 3
-AppointmentCalendarOtherAppWriteAccess = Int32
-AppointmentCalendarOtherAppWriteAccess_None: AppointmentCalendarOtherAppWriteAccess = 0
-AppointmentCalendarOtherAppWriteAccess_SystemOnly: AppointmentCalendarOtherAppWriteAccess = 1
-AppointmentCalendarOtherAppWriteAccess_Limited: AppointmentCalendarOtherAppWriteAccess = 2
+class AppointmentCalendarOtherAppReadAccess(Int32):  # enum
+    SystemOnly = 0
+    Limited = 1
+    Full = 2
+    None_ = 3
+class AppointmentCalendarOtherAppWriteAccess(Int32):  # enum
+    None_ = 0
+    SystemOnly = 1
+    Limited = 2
 class AppointmentCalendarSyncManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Appointments.IAppointmentCalendarSyncManager
@@ -315,14 +315,14 @@ class AppointmentCalendarSyncManager(ComPtr):
     Status = property(get_Status, put_Status)
     LastSuccessfulSyncTime = property(get_LastSuccessfulSyncTime, put_LastSuccessfulSyncTime)
     LastAttemptedSyncTime = property(get_LastAttemptedSyncTime, put_LastAttemptedSyncTime)
-AppointmentCalendarSyncStatus = Int32
-AppointmentCalendarSyncStatus_Idle: AppointmentCalendarSyncStatus = 0
-AppointmentCalendarSyncStatus_Syncing: AppointmentCalendarSyncStatus = 1
-AppointmentCalendarSyncStatus_UpToDate: AppointmentCalendarSyncStatus = 2
-AppointmentCalendarSyncStatus_AuthenticationError: AppointmentCalendarSyncStatus = 3
-AppointmentCalendarSyncStatus_PolicyError: AppointmentCalendarSyncStatus = 4
-AppointmentCalendarSyncStatus_UnknownError: AppointmentCalendarSyncStatus = 5
-AppointmentCalendarSyncStatus_ManualAccountRemovalRequired: AppointmentCalendarSyncStatus = 6
+class AppointmentCalendarSyncStatus(Int32):  # enum
+    Idle = 0
+    Syncing = 1
+    UpToDate = 2
+    AuthenticationError = 3
+    PolicyError = 4
+    UnknownError = 5
+    ManualAccountRemovalRequired = 6
 class AppointmentConflictResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Appointments.IAppointmentConflictResult
@@ -333,22 +333,22 @@ class AppointmentConflictResult(ComPtr):
     def get_Date(self: win32more.Windows.ApplicationModel.Appointments.IAppointmentConflictResult) -> win32more.Windows.Foundation.DateTime: ...
     Type = property(get_Type, None)
     Date = property(get_Date, None)
-AppointmentConflictType = Int32
-AppointmentConflictType_None: AppointmentConflictType = 0
-AppointmentConflictType_Adjacent: AppointmentConflictType = 1
-AppointmentConflictType_Overlap: AppointmentConflictType = 2
-AppointmentDaysOfWeek = UInt32
-AppointmentDaysOfWeek_None: AppointmentDaysOfWeek = 0
-AppointmentDaysOfWeek_Sunday: AppointmentDaysOfWeek = 1
-AppointmentDaysOfWeek_Monday: AppointmentDaysOfWeek = 2
-AppointmentDaysOfWeek_Tuesday: AppointmentDaysOfWeek = 4
-AppointmentDaysOfWeek_Wednesday: AppointmentDaysOfWeek = 8
-AppointmentDaysOfWeek_Thursday: AppointmentDaysOfWeek = 16
-AppointmentDaysOfWeek_Friday: AppointmentDaysOfWeek = 32
-AppointmentDaysOfWeek_Saturday: AppointmentDaysOfWeek = 64
-AppointmentDetailsKind = Int32
-AppointmentDetailsKind_PlainText: AppointmentDetailsKind = 0
-AppointmentDetailsKind_Html: AppointmentDetailsKind = 1
+class AppointmentConflictType(Int32):  # enum
+    None_ = 0
+    Adjacent = 1
+    Overlap = 2
+class AppointmentDaysOfWeek(UInt32):  # enum
+    None_ = 0
+    Sunday = 1
+    Monday = 2
+    Tuesday = 4
+    Wednesday = 8
+    Thursday = 16
+    Friday = 32
+    Saturday = 64
+class AppointmentDetailsKind(Int32):  # enum
+    PlainText = 0
+    Html = 1
 class AppointmentException(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Appointments.IAppointmentException
@@ -482,16 +482,16 @@ class AppointmentOrganizer(ComPtr):
     def put_Address(self: win32more.Windows.ApplicationModel.Appointments.IAppointmentParticipant, value: WinRT_String) -> Void: ...
     DisplayName = property(get_DisplayName, put_DisplayName)
     Address = property(get_Address, put_Address)
-AppointmentParticipantResponse = Int32
-AppointmentParticipantResponse_None: AppointmentParticipantResponse = 0
-AppointmentParticipantResponse_Tentative: AppointmentParticipantResponse = 1
-AppointmentParticipantResponse_Accepted: AppointmentParticipantResponse = 2
-AppointmentParticipantResponse_Declined: AppointmentParticipantResponse = 3
-AppointmentParticipantResponse_Unknown: AppointmentParticipantResponse = 4
-AppointmentParticipantRole = Int32
-AppointmentParticipantRole_RequiredAttendee: AppointmentParticipantRole = 0
-AppointmentParticipantRole_OptionalAttendee: AppointmentParticipantRole = 1
-AppointmentParticipantRole_Resource: AppointmentParticipantRole = 2
+class AppointmentParticipantResponse(Int32):  # enum
+    None_ = 0
+    Tentative = 1
+    Accepted = 2
+    Declined = 3
+    Unknown = 4
+class AppointmentParticipantRole(Int32):  # enum
+    RequiredAttendee = 0
+    OptionalAttendee = 1
+    Resource = 2
 class _AppointmentProperties_Meta_(ComPtr.__class__):
     pass
 class AppointmentProperties(ComPtr, metaclass=_AppointmentProperties_Meta_):
@@ -639,16 +639,16 @@ class AppointmentRecurrence(ComPtr):
     RecurrenceType = property(get_RecurrenceType, None)
     TimeZone = property(get_TimeZone, put_TimeZone)
     CalendarIdentifier = property(get_CalendarIdentifier, None)
-AppointmentRecurrenceUnit = Int32
-AppointmentRecurrenceUnit_Daily: AppointmentRecurrenceUnit = 0
-AppointmentRecurrenceUnit_Weekly: AppointmentRecurrenceUnit = 1
-AppointmentRecurrenceUnit_Monthly: AppointmentRecurrenceUnit = 2
-AppointmentRecurrenceUnit_MonthlyOnDay: AppointmentRecurrenceUnit = 3
-AppointmentRecurrenceUnit_Yearly: AppointmentRecurrenceUnit = 4
-AppointmentRecurrenceUnit_YearlyOnDay: AppointmentRecurrenceUnit = 5
-AppointmentSensitivity = Int32
-AppointmentSensitivity_Public: AppointmentSensitivity = 0
-AppointmentSensitivity_Private: AppointmentSensitivity = 1
+class AppointmentRecurrenceUnit(Int32):  # enum
+    Daily = 0
+    Weekly = 1
+    Monthly = 2
+    MonthlyOnDay = 3
+    Yearly = 4
+    YearlyOnDay = 5
+class AppointmentSensitivity(Int32):  # enum
+    Public = 0
+    Private = 1
 class AppointmentStore(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Appointments.IAppointmentStore
@@ -704,10 +704,10 @@ class AppointmentStore(ComPtr):
     @winrt_mixinmethod
     def GetChangeTracker(self: win32more.Windows.ApplicationModel.Appointments.IAppointmentStore3, identity: WinRT_String) -> win32more.Windows.ApplicationModel.Appointments.AppointmentStoreChangeTracker: ...
     ChangeTracker = property(get_ChangeTracker, None)
-AppointmentStoreAccessType = Int32
-AppointmentStoreAccessType_AppCalendarsReadWrite: AppointmentStoreAccessType = 0
-AppointmentStoreAccessType_AllCalendarsReadOnly: AppointmentStoreAccessType = 1
-AppointmentStoreAccessType_AllCalendarsReadWrite: AppointmentStoreAccessType = 2
+class AppointmentStoreAccessType(Int32):  # enum
+    AppCalendarsReadWrite = 0
+    AllCalendarsReadOnly = 1
+    AllCalendarsReadWrite = 2
 class AppointmentStoreChange(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Appointments.IAppointmentStoreChange
@@ -744,14 +744,14 @@ class AppointmentStoreChangeTracker(ComPtr):
     @winrt_mixinmethod
     def get_IsTracking(self: win32more.Windows.ApplicationModel.Appointments.IAppointmentStoreChangeTracker2) -> Boolean: ...
     IsTracking = property(get_IsTracking, None)
-AppointmentStoreChangeType = Int32
-AppointmentStoreChangeType_AppointmentCreated: AppointmentStoreChangeType = 0
-AppointmentStoreChangeType_AppointmentModified: AppointmentStoreChangeType = 1
-AppointmentStoreChangeType_AppointmentDeleted: AppointmentStoreChangeType = 2
-AppointmentStoreChangeType_ChangeTrackingLost: AppointmentStoreChangeType = 3
-AppointmentStoreChangeType_CalendarCreated: AppointmentStoreChangeType = 4
-AppointmentStoreChangeType_CalendarModified: AppointmentStoreChangeType = 5
-AppointmentStoreChangeType_CalendarDeleted: AppointmentStoreChangeType = 6
+class AppointmentStoreChangeType(Int32):  # enum
+    AppointmentCreated = 0
+    AppointmentModified = 1
+    AppointmentDeleted = 2
+    ChangeTrackingLost = 3
+    CalendarCreated = 4
+    CalendarModified = 5
+    CalendarDeleted = 6
 class AppointmentStoreChangedDeferral(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Appointments.IAppointmentStoreChangedDeferral
@@ -768,18 +768,18 @@ class AppointmentStoreNotificationTriggerDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Appointments.IAppointmentStoreNotificationTriggerDetails
     _classid_ = 'Windows.ApplicationModel.Appointments.AppointmentStoreNotificationTriggerDetails'
-AppointmentSummaryCardView = Int32
-AppointmentSummaryCardView_System: AppointmentSummaryCardView = 0
-AppointmentSummaryCardView_App: AppointmentSummaryCardView = 1
-AppointmentWeekOfMonth = Int32
-AppointmentWeekOfMonth_First: AppointmentWeekOfMonth = 0
-AppointmentWeekOfMonth_Second: AppointmentWeekOfMonth = 1
-AppointmentWeekOfMonth_Third: AppointmentWeekOfMonth = 2
-AppointmentWeekOfMonth_Fourth: AppointmentWeekOfMonth = 3
-AppointmentWeekOfMonth_Last: AppointmentWeekOfMonth = 4
-FindAppointmentCalendarsOptions = UInt32
-FindAppointmentCalendarsOptions_None: FindAppointmentCalendarsOptions = 0
-FindAppointmentCalendarsOptions_IncludeHidden: FindAppointmentCalendarsOptions = 1
+class AppointmentSummaryCardView(Int32):  # enum
+    System = 0
+    App = 1
+class AppointmentWeekOfMonth(Int32):  # enum
+    First = 0
+    Second = 1
+    Third = 2
+    Fourth = 3
+    Last = 4
+class FindAppointmentCalendarsOptions(UInt32):  # enum
+    None_ = 0
+    IncludeHidden = 1
 class FindAppointmentsOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Appointments.IFindAppointmentsOptions
@@ -1533,10 +1533,10 @@ class IFindAppointmentsOptions(ComPtr):
     FetchProperties = property(get_FetchProperties, None)
     IncludeHidden = property(get_IncludeHidden, put_IncludeHidden)
     MaxCount = property(get_MaxCount, put_MaxCount)
-RecurrenceType = Int32
-RecurrenceType_Master: RecurrenceType = 0
-RecurrenceType_Instance: RecurrenceType = 1
-RecurrenceType_ExceptionInstance: RecurrenceType = 2
+class RecurrenceType(Int32):  # enum
+    Master = 0
+    Instance = 1
+    ExceptionInstance = 2
 
 
 make_ready(__name__)

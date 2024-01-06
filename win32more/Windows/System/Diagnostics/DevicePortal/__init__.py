@@ -39,13 +39,13 @@ class DevicePortalConnectionClosedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Reason(self: win32more.Windows.System.Diagnostics.DevicePortal.IDevicePortalConnectionClosedEventArgs) -> win32more.Windows.System.Diagnostics.DevicePortal.DevicePortalConnectionClosedReason: ...
     Reason = property(get_Reason, None)
-DevicePortalConnectionClosedReason = Int32
-DevicePortalConnectionClosedReason_Unknown: DevicePortalConnectionClosedReason = 0
-DevicePortalConnectionClosedReason_ResourceLimitsExceeded: DevicePortalConnectionClosedReason = 1
-DevicePortalConnectionClosedReason_ProtocolError: DevicePortalConnectionClosedReason = 2
-DevicePortalConnectionClosedReason_NotAuthorized: DevicePortalConnectionClosedReason = 3
-DevicePortalConnectionClosedReason_UserNotPresent: DevicePortalConnectionClosedReason = 4
-DevicePortalConnectionClosedReason_ServiceTerminated: DevicePortalConnectionClosedReason = 5
+class DevicePortalConnectionClosedReason(Int32):  # enum
+    Unknown = 0
+    ResourceLimitsExceeded = 1
+    ProtocolError = 2
+    NotAuthorized = 3
+    UserNotPresent = 4
+    ServiceTerminated = 5
 class DevicePortalConnectionRequestReceivedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.System.Diagnostics.DevicePortal.IDevicePortalConnectionRequestReceivedEventArgs

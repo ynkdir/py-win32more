@@ -26,11 +26,11 @@ class AppListEntry(ComPtr):
     DisplayInfo = property(get_DisplayInfo, None)
     AppUserModelId = property(get_AppUserModelId, None)
     AppInfo = property(get_AppInfo, None)
-AppRestartFailureReason = Int32
-AppRestartFailureReason_RestartPending: AppRestartFailureReason = 0
-AppRestartFailureReason_NotInForeground: AppRestartFailureReason = 1
-AppRestartFailureReason_InvalidUser: AppRestartFailureReason = 2
-AppRestartFailureReason_Other: AppRestartFailureReason = 3
+class AppRestartFailureReason(Int32):  # enum
+    RestartPending = 0
+    NotInForeground = 1
+    InvalidUser = 2
+    Other = 3
 class _CoreApplication_Meta_(ComPtr.__class__):
     pass
 class CoreApplication(ComPtr, metaclass=_CoreApplication_Meta_):

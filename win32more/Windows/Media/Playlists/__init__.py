@@ -49,10 +49,10 @@ class Playlist(ComPtr):
     @winrt_classmethod
     def LoadAsync(cls: win32more.Windows.Media.Playlists.IPlaylistStatics, file: win32more.Windows.Storage.IStorageFile) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Media.Playlists.Playlist]: ...
     Files = property(get_Files, None)
-PlaylistFormat = Int32
-PlaylistFormat_WindowsMedia: PlaylistFormat = 0
-PlaylistFormat_Zune: PlaylistFormat = 1
-PlaylistFormat_M3u: PlaylistFormat = 2
+class PlaylistFormat(Int32):  # enum
+    WindowsMedia = 0
+    Zune = 1
+    M3u = 2
 PlaylistsContract: UInt32 = 65536
 
 

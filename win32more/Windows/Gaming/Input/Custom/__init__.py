@@ -38,10 +38,10 @@ class GipFirmwareUpdateResult(ComPtr):
     ExtendedErrorCode = property(get_ExtendedErrorCode, None)
     FinalComponentId = property(get_FinalComponentId, None)
     Status = property(get_Status, None)
-GipFirmwareUpdateStatus = Int32
-GipFirmwareUpdateStatus_Completed: GipFirmwareUpdateStatus = 0
-GipFirmwareUpdateStatus_UpToDate: GipFirmwareUpdateStatus = 1
-GipFirmwareUpdateStatus_Failed: GipFirmwareUpdateStatus = 2
+class GipFirmwareUpdateStatus(Int32):  # enum
+    Completed = 0
+    UpToDate = 1
+    Failed = 2
 class GipGameControllerProvider(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Gaming.Input.Custom.IGipGameControllerProvider
@@ -67,10 +67,10 @@ class GipGameControllerProvider(ComPtr):
     HardwareVendorId = property(get_HardwareVendorId, None)
     HardwareVersionInfo = property(get_HardwareVersionInfo, None)
     IsConnected = property(get_IsConnected, None)
-GipMessageClass = Int32
-GipMessageClass_Command: GipMessageClass = 0
-GipMessageClass_LowLatency: GipMessageClass = 1
-GipMessageClass_StandardLatency: GipMessageClass = 2
+class GipMessageClass(Int32):  # enum
+    Command = 0
+    LowLatency = 1
+    StandardLatency = 2
 class HidGameControllerProvider(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Gaming.Input.Custom.IHidGameControllerProvider
@@ -220,21 +220,21 @@ class IXusbGameControllerProvider(ComPtr):
     _iid_ = Guid('{6e2971eb-0efb-48b4-808b-837643b2f216}')
     @winrt_commethod(6)
     def SetVibration(self, lowFrequencyMotorSpeed: Double, highFrequencyMotorSpeed: Double) -> Void: ...
-XusbDeviceSubtype = Int32
-XusbDeviceSubtype_Unknown: XusbDeviceSubtype = 0
-XusbDeviceSubtype_Gamepad: XusbDeviceSubtype = 1
-XusbDeviceSubtype_ArcadePad: XusbDeviceSubtype = 2
-XusbDeviceSubtype_ArcadeStick: XusbDeviceSubtype = 3
-XusbDeviceSubtype_FlightStick: XusbDeviceSubtype = 4
-XusbDeviceSubtype_Wheel: XusbDeviceSubtype = 5
-XusbDeviceSubtype_Guitar: XusbDeviceSubtype = 6
-XusbDeviceSubtype_GuitarAlternate: XusbDeviceSubtype = 7
-XusbDeviceSubtype_GuitarBass: XusbDeviceSubtype = 8
-XusbDeviceSubtype_DrumKit: XusbDeviceSubtype = 9
-XusbDeviceSubtype_DancePad: XusbDeviceSubtype = 10
-XusbDeviceType = Int32
-XusbDeviceType_Unknown: XusbDeviceType = 0
-XusbDeviceType_Gamepad: XusbDeviceType = 1
+class XusbDeviceSubtype(Int32):  # enum
+    Unknown = 0
+    Gamepad = 1
+    ArcadePad = 2
+    ArcadeStick = 3
+    FlightStick = 4
+    Wheel = 5
+    Guitar = 6
+    GuitarAlternate = 7
+    GuitarBass = 8
+    DrumKit = 9
+    DancePad = 10
+class XusbDeviceType(Int32):  # enum
+    Unknown = 0
+    Gamepad = 1
 class XusbGameControllerProvider(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Gaming.Input.Custom.IXusbGameControllerProvider

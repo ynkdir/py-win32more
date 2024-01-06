@@ -80,11 +80,11 @@ class PushNotificationChannel(ComPtr):
     def Close(self: win32more.Microsoft.Windows.PushNotifications.IPushNotificationChannel) -> Void: ...
     Uri = property(get_Uri, None)
     ExpirationTime = property(get_ExpirationTime, None)
-PushNotificationChannelStatus = Int32
-PushNotificationChannelStatus_InProgress: PushNotificationChannelStatus = 0
-PushNotificationChannelStatus_InProgressRetry: PushNotificationChannelStatus = 1
-PushNotificationChannelStatus_CompletedSuccess: PushNotificationChannelStatus = 2
-PushNotificationChannelStatus_CompletedFailure: PushNotificationChannelStatus = 3
+class PushNotificationChannelStatus(Int32):  # enum
+    InProgress = 0
+    InProgressRetry = 1
+    CompletedSuccess = 2
+    CompletedFailure = 3
 class PushNotificationCreateChannelResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Windows.PushNotifications.IPushNotificationCreateChannelResult

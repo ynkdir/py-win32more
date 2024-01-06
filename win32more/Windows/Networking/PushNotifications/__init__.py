@@ -205,12 +205,12 @@ class PushNotificationReceivedEventArgs(ComPtr):
     TileNotification = property(get_TileNotification, None)
     BadgeNotification = property(get_BadgeNotification, None)
     RawNotification = property(get_RawNotification, None)
-PushNotificationType = Int32
-PushNotificationType_Toast: PushNotificationType = 0
-PushNotificationType_Tile: PushNotificationType = 1
-PushNotificationType_Badge: PushNotificationType = 2
-PushNotificationType_Raw: PushNotificationType = 3
-PushNotificationType_TileFlyout: PushNotificationType = 4
+class PushNotificationType(Int32):  # enum
+    Toast = 0
+    Tile = 1
+    Badge = 2
+    Raw = 3
+    TileFlyout = 4
 class RawNotification(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.PushNotifications.IRawNotification

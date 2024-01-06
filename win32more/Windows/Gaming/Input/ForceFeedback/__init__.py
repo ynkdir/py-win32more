@@ -35,11 +35,11 @@ class ConditionForceEffect(ComPtr):
     Gain = property(get_Gain, put_Gain)
     State = property(get_State, None)
     Kind = property(get_Kind, None)
-ConditionForceEffectKind = Int32
-ConditionForceEffectKind_Spring: ConditionForceEffectKind = 0
-ConditionForceEffectKind_Damper: ConditionForceEffectKind = 1
-ConditionForceEffectKind_Inertia: ConditionForceEffectKind = 2
-ConditionForceEffectKind_Friction: ConditionForceEffectKind = 3
+class ConditionForceEffectKind(Int32):  # enum
+    Spring = 0
+    Damper = 1
+    Inertia = 2
+    Friction = 3
 class ConstantForceEffect(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Gaming.Input.ForceFeedback.IForceFeedbackEffect
@@ -69,20 +69,20 @@ class ConstantForceEffect(ComPtr):
     def SetParametersWithEnvelope(self: win32more.Windows.Gaming.Input.ForceFeedback.IConstantForceEffect, vector: win32more.Windows.Foundation.Numerics.Vector3, attackGain: Single, sustainGain: Single, releaseGain: Single, startDelay: win32more.Windows.Foundation.TimeSpan, attackDuration: win32more.Windows.Foundation.TimeSpan, sustainDuration: win32more.Windows.Foundation.TimeSpan, releaseDuration: win32more.Windows.Foundation.TimeSpan, repeatCount: UInt32) -> Void: ...
     Gain = property(get_Gain, put_Gain)
     State = property(get_State, None)
-ForceFeedbackEffectAxes = UInt32
-ForceFeedbackEffectAxes_None: ForceFeedbackEffectAxes = 0
-ForceFeedbackEffectAxes_X: ForceFeedbackEffectAxes = 1
-ForceFeedbackEffectAxes_Y: ForceFeedbackEffectAxes = 2
-ForceFeedbackEffectAxes_Z: ForceFeedbackEffectAxes = 4
-ForceFeedbackEffectState = Int32
-ForceFeedbackEffectState_Stopped: ForceFeedbackEffectState = 0
-ForceFeedbackEffectState_Running: ForceFeedbackEffectState = 1
-ForceFeedbackEffectState_Paused: ForceFeedbackEffectState = 2
-ForceFeedbackEffectState_Faulted: ForceFeedbackEffectState = 3
-ForceFeedbackLoadEffectResult = Int32
-ForceFeedbackLoadEffectResult_Succeeded: ForceFeedbackLoadEffectResult = 0
-ForceFeedbackLoadEffectResult_EffectStorageFull: ForceFeedbackLoadEffectResult = 1
-ForceFeedbackLoadEffectResult_EffectNotSupported: ForceFeedbackLoadEffectResult = 2
+class ForceFeedbackEffectAxes(UInt32):  # enum
+    None_ = 0
+    X = 1
+    Y = 2
+    Z = 4
+class ForceFeedbackEffectState(Int32):  # enum
+    Stopped = 0
+    Running = 1
+    Paused = 2
+    Faulted = 3
+class ForceFeedbackLoadEffectResult(Int32):  # enum
+    Succeeded = 0
+    EffectStorageFull = 1
+    EffectNotSupported = 2
 class ForceFeedbackMotor(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Gaming.Input.ForceFeedback.IForceFeedbackMotor
@@ -247,12 +247,12 @@ class PeriodicForceEffect(ComPtr):
     Gain = property(get_Gain, put_Gain)
     State = property(get_State, None)
     Kind = property(get_Kind, None)
-PeriodicForceEffectKind = Int32
-PeriodicForceEffectKind_SquareWave: PeriodicForceEffectKind = 0
-PeriodicForceEffectKind_SineWave: PeriodicForceEffectKind = 1
-PeriodicForceEffectKind_TriangleWave: PeriodicForceEffectKind = 2
-PeriodicForceEffectKind_SawtoothWaveUp: PeriodicForceEffectKind = 3
-PeriodicForceEffectKind_SawtoothWaveDown: PeriodicForceEffectKind = 4
+class PeriodicForceEffectKind(Int32):  # enum
+    SquareWave = 0
+    SineWave = 1
+    TriangleWave = 2
+    SawtoothWaveUp = 3
+    SawtoothWaveDown = 4
 class RampForceEffect(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Gaming.Input.ForceFeedback.IForceFeedbackEffect

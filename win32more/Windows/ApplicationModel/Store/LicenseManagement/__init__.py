@@ -64,9 +64,9 @@ class LicenseManager(ComPtr):
     def AddLicenseAsync(cls: win32more.Windows.ApplicationModel.Store.LicenseManagement.ILicenseManagerStatics, license: win32more.Windows.Storage.Streams.IBuffer) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_classmethod
     def GetSatisfactionInfosAsync(cls: win32more.Windows.ApplicationModel.Store.LicenseManagement.ILicenseManagerStatics, contentIds: win32more.Windows.Foundation.Collections.IIterable[WinRT_String], keyIds: win32more.Windows.Foundation.Collections.IIterable[WinRT_String]) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.ApplicationModel.Store.LicenseManagement.LicenseSatisfactionResult]: ...
-LicenseRefreshOption = Int32
-LicenseRefreshOption_RunningLicenses: LicenseRefreshOption = 0
-LicenseRefreshOption_AllLicenses: LicenseRefreshOption = 1
+class LicenseRefreshOption(Int32):  # enum
+    RunningLicenses = 0
+    AllLicenses = 1
 class LicenseSatisfactionInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Store.LicenseManagement.ILicenseSatisfactionInfo

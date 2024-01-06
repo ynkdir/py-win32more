@@ -416,24 +416,24 @@ class IsolatedWindowsEnvironment(ComPtr):
     @winrt_classmethod
     def FindByOwnerId(cls: win32more.Windows.Security.Isolation.IIsolatedWindowsEnvironmentFactory, environmentOwnerId: WinRT_String) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Security.Isolation.IsolatedWindowsEnvironment]: ...
     Id = property(get_Id, None)
-IsolatedWindowsEnvironmentActivator = Int32
-IsolatedWindowsEnvironmentActivator_System: IsolatedWindowsEnvironmentActivator = 0
-IsolatedWindowsEnvironmentActivator_User: IsolatedWindowsEnvironmentActivator = 1
-IsolatedWindowsEnvironmentAllowedClipboardFormats = UInt32
-IsolatedWindowsEnvironmentAllowedClipboardFormats_None: IsolatedWindowsEnvironmentAllowedClipboardFormats = 0
-IsolatedWindowsEnvironmentAllowedClipboardFormats_Text: IsolatedWindowsEnvironmentAllowedClipboardFormats = 1
-IsolatedWindowsEnvironmentAllowedClipboardFormats_Image: IsolatedWindowsEnvironmentAllowedClipboardFormats = 2
-IsolatedWindowsEnvironmentAllowedClipboardFormats_Rtf: IsolatedWindowsEnvironmentAllowedClipboardFormats = 4
-IsolatedWindowsEnvironmentAvailablePrinters = UInt32
-IsolatedWindowsEnvironmentAvailablePrinters_None: IsolatedWindowsEnvironmentAvailablePrinters = 0
-IsolatedWindowsEnvironmentAvailablePrinters_Local: IsolatedWindowsEnvironmentAvailablePrinters = 1
-IsolatedWindowsEnvironmentAvailablePrinters_Network: IsolatedWindowsEnvironmentAvailablePrinters = 2
-IsolatedWindowsEnvironmentAvailablePrinters_SystemPrintToPdf: IsolatedWindowsEnvironmentAvailablePrinters = 4
-IsolatedWindowsEnvironmentAvailablePrinters_SystemPrintToXps: IsolatedWindowsEnvironmentAvailablePrinters = 8
-IsolatedWindowsEnvironmentClipboardCopyPasteDirections = UInt32
-IsolatedWindowsEnvironmentClipboardCopyPasteDirections_None: IsolatedWindowsEnvironmentClipboardCopyPasteDirections = 0
-IsolatedWindowsEnvironmentClipboardCopyPasteDirections_HostToIsolatedWindowsEnvironment: IsolatedWindowsEnvironmentClipboardCopyPasteDirections = 1
-IsolatedWindowsEnvironmentClipboardCopyPasteDirections_IsolatedWindowsEnvironmentToHost: IsolatedWindowsEnvironmentClipboardCopyPasteDirections = 2
+class IsolatedWindowsEnvironmentActivator(Int32):  # enum
+    System = 0
+    User = 1
+class IsolatedWindowsEnvironmentAllowedClipboardFormats(UInt32):  # enum
+    None_ = 0
+    Text = 1
+    Image = 2
+    Rtf = 4
+class IsolatedWindowsEnvironmentAvailablePrinters(UInt32):  # enum
+    None_ = 0
+    Local = 1
+    Network = 2
+    SystemPrintToPdf = 4
+    SystemPrintToXps = 8
+class IsolatedWindowsEnvironmentClipboardCopyPasteDirections(UInt32):  # enum
+    None_ = 0
+    HostToIsolatedWindowsEnvironment = 1
+    IsolatedWindowsEnvironmentToHost = 2
 IsolatedWindowsEnvironmentContract: UInt32 = 262144
 class IsolatedWindowsEnvironmentCreateProgress(EasyCastStructure):
     State: win32more.Windows.Security.Isolation.IsolatedWindowsEnvironmentProgressState
@@ -453,13 +453,13 @@ class IsolatedWindowsEnvironmentCreateResult(ComPtr):
     Status = property(get_Status, None)
     ExtendedError = property(get_ExtendedError, None)
     Environment = property(get_Environment, None)
-IsolatedWindowsEnvironmentCreateStatus = Int32
-IsolatedWindowsEnvironmentCreateStatus_Success: IsolatedWindowsEnvironmentCreateStatus = 0
-IsolatedWindowsEnvironmentCreateStatus_FailureByPolicy: IsolatedWindowsEnvironmentCreateStatus = 1
-IsolatedWindowsEnvironmentCreateStatus_UnknownFailure: IsolatedWindowsEnvironmentCreateStatus = 2
-IsolatedWindowsEnvironmentCreationPriority = Int32
-IsolatedWindowsEnvironmentCreationPriority_Low: IsolatedWindowsEnvironmentCreationPriority = 0
-IsolatedWindowsEnvironmentCreationPriority_Normal: IsolatedWindowsEnvironmentCreationPriority = 1
+class IsolatedWindowsEnvironmentCreateStatus(Int32):  # enum
+    Success = 0
+    FailureByPolicy = 1
+    UnknownFailure = 2
+class IsolatedWindowsEnvironmentCreationPriority(Int32):  # enum
+    Low = 0
+    Normal = 1
 class IsolatedWindowsEnvironmentFile(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Isolation.IIsolatedWindowsEnvironmentFile
@@ -489,12 +489,12 @@ class IsolatedWindowsEnvironmentHost(ComPtr, metaclass=_IsolatedWindowsEnvironme
     def get_HostErrors(cls: win32more.Windows.Security.Isolation.IIsolatedWindowsEnvironmentHostStatics) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Security.Isolation.IsolatedWindowsEnvironmentHostError]: ...
     _IsolatedWindowsEnvironmentHost_Meta_.IsReady = property(get_IsReady.__wrapped__, None)
     _IsolatedWindowsEnvironmentHost_Meta_.HostErrors = property(get_HostErrors.__wrapped__, None)
-IsolatedWindowsEnvironmentHostError = Int32
-IsolatedWindowsEnvironmentHostError_AdminPolicyIsDisabledOrNotPresent: IsolatedWindowsEnvironmentHostError = 0
-IsolatedWindowsEnvironmentHostError_FeatureNotInstalled: IsolatedWindowsEnvironmentHostError = 1
-IsolatedWindowsEnvironmentHostError_HardwareRequirementsNotMet: IsolatedWindowsEnvironmentHostError = 2
-IsolatedWindowsEnvironmentHostError_RebootRequired: IsolatedWindowsEnvironmentHostError = 3
-IsolatedWindowsEnvironmentHostError_UnknownError: IsolatedWindowsEnvironmentHostError = 4
+class IsolatedWindowsEnvironmentHostError(Int32):  # enum
+    AdminPolicyIsDisabledOrNotPresent = 0
+    FeatureNotInstalled = 1
+    HardwareRequirementsNotMet = 2
+    RebootRequired = 3
+    UnknownError = 4
 class IsolatedWindowsEnvironmentLaunchFileResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Isolation.IIsolatedWindowsEnvironmentLaunchFileResult
@@ -508,13 +508,13 @@ class IsolatedWindowsEnvironmentLaunchFileResult(ComPtr):
     Status = property(get_Status, None)
     ExtendedError = property(get_ExtendedError, None)
     File = property(get_File, None)
-IsolatedWindowsEnvironmentLaunchFileStatus = Int32
-IsolatedWindowsEnvironmentLaunchFileStatus_Success: IsolatedWindowsEnvironmentLaunchFileStatus = 0
-IsolatedWindowsEnvironmentLaunchFileStatus_UnknownFailure: IsolatedWindowsEnvironmentLaunchFileStatus = 1
-IsolatedWindowsEnvironmentLaunchFileStatus_EnvironmentUnavailable: IsolatedWindowsEnvironmentLaunchFileStatus = 2
-IsolatedWindowsEnvironmentLaunchFileStatus_FileNotFound: IsolatedWindowsEnvironmentLaunchFileStatus = 3
-IsolatedWindowsEnvironmentLaunchFileStatus_TimedOut: IsolatedWindowsEnvironmentLaunchFileStatus = 4
-IsolatedWindowsEnvironmentLaunchFileStatus_AlreadySharedWithConflictingOptions: IsolatedWindowsEnvironmentLaunchFileStatus = 5
+class IsolatedWindowsEnvironmentLaunchFileStatus(Int32):  # enum
+    Success = 0
+    UnknownFailure = 1
+    EnvironmentUnavailable = 2
+    FileNotFound = 3
+    TimedOut = 4
+    AlreadySharedWithConflictingOptions = 5
 class IsolatedWindowsEnvironmentOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Isolation.IIsolatedWindowsEnvironmentOptions
@@ -633,12 +633,12 @@ class IsolatedWindowsEnvironmentOwnerRegistrationResult(ComPtr):
     def get_ExtendedError(self: win32more.Windows.Security.Isolation.IIsolatedWindowsEnvironmentOwnerRegistrationResult) -> win32more.Windows.Foundation.HResult: ...
     Status = property(get_Status, None)
     ExtendedError = property(get_ExtendedError, None)
-IsolatedWindowsEnvironmentOwnerRegistrationStatus = Int32
-IsolatedWindowsEnvironmentOwnerRegistrationStatus_Success: IsolatedWindowsEnvironmentOwnerRegistrationStatus = 0
-IsolatedWindowsEnvironmentOwnerRegistrationStatus_InvalidArgument: IsolatedWindowsEnvironmentOwnerRegistrationStatus = 1
-IsolatedWindowsEnvironmentOwnerRegistrationStatus_AccessDenied: IsolatedWindowsEnvironmentOwnerRegistrationStatus = 2
-IsolatedWindowsEnvironmentOwnerRegistrationStatus_InsufficientMemory: IsolatedWindowsEnvironmentOwnerRegistrationStatus = 3
-IsolatedWindowsEnvironmentOwnerRegistrationStatus_UnknownFailure: IsolatedWindowsEnvironmentOwnerRegistrationStatus = 4
+class IsolatedWindowsEnvironmentOwnerRegistrationStatus(Int32):  # enum
+    Success = 0
+    InvalidArgument = 1
+    AccessDenied = 2
+    InsufficientMemory = 3
+    UnknownFailure = 4
 class IsolatedWindowsEnvironmentPostMessageResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Isolation.IIsolatedWindowsEnvironmentPostMessageResult
@@ -649,10 +649,10 @@ class IsolatedWindowsEnvironmentPostMessageResult(ComPtr):
     def get_ExtendedError(self: win32more.Windows.Security.Isolation.IIsolatedWindowsEnvironmentPostMessageResult) -> win32more.Windows.Foundation.HResult: ...
     Status = property(get_Status, None)
     ExtendedError = property(get_ExtendedError, None)
-IsolatedWindowsEnvironmentPostMessageStatus = Int32
-IsolatedWindowsEnvironmentPostMessageStatus_Success: IsolatedWindowsEnvironmentPostMessageStatus = 0
-IsolatedWindowsEnvironmentPostMessageStatus_UnknownFailure: IsolatedWindowsEnvironmentPostMessageStatus = 1
-IsolatedWindowsEnvironmentPostMessageStatus_EnvironmentUnavailable: IsolatedWindowsEnvironmentPostMessageStatus = 2
+class IsolatedWindowsEnvironmentPostMessageStatus(Int32):  # enum
+    Success = 0
+    UnknownFailure = 1
+    EnvironmentUnavailable = 2
 class IsolatedWindowsEnvironmentProcess(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Isolation.IIsolatedWindowsEnvironmentProcess
@@ -669,18 +669,18 @@ class IsolatedWindowsEnvironmentProcess(ComPtr):
     def WaitForExitAsync(self: win32more.Windows.Security.Isolation.IIsolatedWindowsEnvironmentProcess) -> win32more.Windows.Foundation.IAsyncAction: ...
     State = property(get_State, None)
     ExitCode = property(get_ExitCode, None)
-IsolatedWindowsEnvironmentProcessState = Int32
-IsolatedWindowsEnvironmentProcessState_Running: IsolatedWindowsEnvironmentProcessState = 1
-IsolatedWindowsEnvironmentProcessState_Aborted: IsolatedWindowsEnvironmentProcessState = 2
-IsolatedWindowsEnvironmentProcessState_Completed: IsolatedWindowsEnvironmentProcessState = 3
-IsolatedWindowsEnvironmentProgressState = Int32
-IsolatedWindowsEnvironmentProgressState_Queued: IsolatedWindowsEnvironmentProgressState = 0
-IsolatedWindowsEnvironmentProgressState_Processing: IsolatedWindowsEnvironmentProgressState = 1
-IsolatedWindowsEnvironmentProgressState_Completed: IsolatedWindowsEnvironmentProgressState = 2
-IsolatedWindowsEnvironmentProgressState_Creating: IsolatedWindowsEnvironmentProgressState = 3
-IsolatedWindowsEnvironmentProgressState_Retrying: IsolatedWindowsEnvironmentProgressState = 4
-IsolatedWindowsEnvironmentProgressState_Starting: IsolatedWindowsEnvironmentProgressState = 5
-IsolatedWindowsEnvironmentProgressState_Finalizing: IsolatedWindowsEnvironmentProgressState = 6
+class IsolatedWindowsEnvironmentProcessState(Int32):  # enum
+    Running = 1
+    Aborted = 2
+    Completed = 3
+class IsolatedWindowsEnvironmentProgressState(Int32):  # enum
+    Queued = 0
+    Processing = 1
+    Completed = 2
+    Creating = 3
+    Retrying = 4
+    Starting = 5
+    Finalizing = 6
 class IsolatedWindowsEnvironmentShareFileRequestOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Isolation.IIsolatedWindowsEnvironmentShareFileRequestOptions
@@ -712,13 +712,13 @@ class IsolatedWindowsEnvironmentShareFileResult(ComPtr):
     Status = property(get_Status, None)
     ExtendedError = property(get_ExtendedError, None)
     File = property(get_File, None)
-IsolatedWindowsEnvironmentShareFileStatus = Int32
-IsolatedWindowsEnvironmentShareFileStatus_Success: IsolatedWindowsEnvironmentShareFileStatus = 0
-IsolatedWindowsEnvironmentShareFileStatus_UnknownFailure: IsolatedWindowsEnvironmentShareFileStatus = 1
-IsolatedWindowsEnvironmentShareFileStatus_EnvironmentUnavailable: IsolatedWindowsEnvironmentShareFileStatus = 2
-IsolatedWindowsEnvironmentShareFileStatus_AlreadySharedWithConflictingOptions: IsolatedWindowsEnvironmentShareFileStatus = 3
-IsolatedWindowsEnvironmentShareFileStatus_FileNotFound: IsolatedWindowsEnvironmentShareFileStatus = 4
-IsolatedWindowsEnvironmentShareFileStatus_AccessDenied: IsolatedWindowsEnvironmentShareFileStatus = 5
+class IsolatedWindowsEnvironmentShareFileStatus(Int32):  # enum
+    Success = 0
+    UnknownFailure = 1
+    EnvironmentUnavailable = 2
+    AlreadySharedWithConflictingOptions = 3
+    FileNotFound = 4
+    AccessDenied = 5
 class IsolatedWindowsEnvironmentShareFolderRequestOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Isolation.IIsolatedWindowsEnvironmentShareFolderRequestOptions
@@ -747,19 +747,19 @@ class IsolatedWindowsEnvironmentShareFolderResult(ComPtr):
     def get_ExtendedError(self: win32more.Windows.Security.Isolation.IIsolatedWindowsEnvironmentShareFolderResult) -> win32more.Windows.Foundation.HResult: ...
     Status = property(get_Status, None)
     ExtendedError = property(get_ExtendedError, None)
-IsolatedWindowsEnvironmentShareFolderStatus = Int32
-IsolatedWindowsEnvironmentShareFolderStatus_Success: IsolatedWindowsEnvironmentShareFolderStatus = 0
-IsolatedWindowsEnvironmentShareFolderStatus_UnknownFailure: IsolatedWindowsEnvironmentShareFolderStatus = 1
-IsolatedWindowsEnvironmentShareFolderStatus_EnvironmentUnavailable: IsolatedWindowsEnvironmentShareFolderStatus = 2
-IsolatedWindowsEnvironmentShareFolderStatus_FolderNotFound: IsolatedWindowsEnvironmentShareFolderStatus = 3
-IsolatedWindowsEnvironmentShareFolderStatus_AccessDenied: IsolatedWindowsEnvironmentShareFolderStatus = 4
-IsolatedWindowsEnvironmentSignInProgress = Int32
-IsolatedWindowsEnvironmentSignInProgress_Connecting: IsolatedWindowsEnvironmentSignInProgress = 0
-IsolatedWindowsEnvironmentSignInProgress_Connected: IsolatedWindowsEnvironmentSignInProgress = 1
-IsolatedWindowsEnvironmentSignInProgress_Authenticating: IsolatedWindowsEnvironmentSignInProgress = 2
-IsolatedWindowsEnvironmentSignInProgress_SettingUpAccount: IsolatedWindowsEnvironmentSignInProgress = 3
-IsolatedWindowsEnvironmentSignInProgress_Finalizing: IsolatedWindowsEnvironmentSignInProgress = 4
-IsolatedWindowsEnvironmentSignInProgress_Completed: IsolatedWindowsEnvironmentSignInProgress = 5
+class IsolatedWindowsEnvironmentShareFolderStatus(Int32):  # enum
+    Success = 0
+    UnknownFailure = 1
+    EnvironmentUnavailable = 2
+    FolderNotFound = 3
+    AccessDenied = 4
+class IsolatedWindowsEnvironmentSignInProgress(Int32):  # enum
+    Connecting = 0
+    Connected = 1
+    Authenticating = 2
+    SettingUpAccount = 3
+    Finalizing = 4
+    Completed = 5
 class IsolatedWindowsEnvironmentStartProcessResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Isolation.IIsolatedWindowsEnvironmentStartProcessResult
@@ -773,12 +773,12 @@ class IsolatedWindowsEnvironmentStartProcessResult(ComPtr):
     Status = property(get_Status, None)
     ExtendedError = property(get_ExtendedError, None)
     Process = property(get_Process, None)
-IsolatedWindowsEnvironmentStartProcessStatus = Int32
-IsolatedWindowsEnvironmentStartProcessStatus_Success: IsolatedWindowsEnvironmentStartProcessStatus = 0
-IsolatedWindowsEnvironmentStartProcessStatus_UnknownFailure: IsolatedWindowsEnvironmentStartProcessStatus = 1
-IsolatedWindowsEnvironmentStartProcessStatus_EnvironmentUnavailable: IsolatedWindowsEnvironmentStartProcessStatus = 2
-IsolatedWindowsEnvironmentStartProcessStatus_FileNotFound: IsolatedWindowsEnvironmentStartProcessStatus = 3
-IsolatedWindowsEnvironmentStartProcessStatus_AppNotRegistered: IsolatedWindowsEnvironmentStartProcessStatus = 4
+class IsolatedWindowsEnvironmentStartProcessStatus(Int32):  # enum
+    Success = 0
+    UnknownFailure = 1
+    EnvironmentUnavailable = 2
+    FileNotFound = 3
+    AppNotRegistered = 4
 class IsolatedWindowsEnvironmentTelemetryParameters(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Isolation.IIsolatedWindowsEnvironmentTelemetryParameters

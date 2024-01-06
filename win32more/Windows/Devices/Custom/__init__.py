@@ -24,13 +24,13 @@ class CustomDevice(ComPtr):
     InputStream = property(get_InputStream, None)
     OutputStream = property(get_OutputStream, None)
 CustomDeviceContract: UInt32 = 65536
-DeviceAccessMode = Int32
-DeviceAccessMode_Read: DeviceAccessMode = 0
-DeviceAccessMode_Write: DeviceAccessMode = 1
-DeviceAccessMode_ReadWrite: DeviceAccessMode = 2
-DeviceSharingMode = Int32
-DeviceSharingMode_Shared: DeviceSharingMode = 0
-DeviceSharingMode_Exclusive: DeviceSharingMode = 1
+class DeviceAccessMode(Int32):  # enum
+    Read = 0
+    Write = 1
+    ReadWrite = 2
+class DeviceSharingMode(Int32):  # enum
+    Shared = 0
+    Exclusive = 1
 class ICustomDevice(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Custom.ICustomDevice'
@@ -85,16 +85,16 @@ class IKnownDeviceTypesStatics(ComPtr):
     @winrt_commethod(6)
     def get_Unknown(self) -> UInt16: ...
     Unknown = property(get_Unknown, None)
-IOControlAccessMode = Int32
-IOControlAccessMode_Any: IOControlAccessMode = 0
-IOControlAccessMode_Read: IOControlAccessMode = 1
-IOControlAccessMode_Write: IOControlAccessMode = 2
-IOControlAccessMode_ReadWrite: IOControlAccessMode = 3
-IOControlBufferingMethod = Int32
-IOControlBufferingMethod_Buffered: IOControlBufferingMethod = 0
-IOControlBufferingMethod_DirectInput: IOControlBufferingMethod = 1
-IOControlBufferingMethod_DirectOutput: IOControlBufferingMethod = 2
-IOControlBufferingMethod_Neither: IOControlBufferingMethod = 3
+class IOControlAccessMode(Int32):  # enum
+    Any = 0
+    Read = 1
+    Write = 2
+    ReadWrite = 3
+class IOControlBufferingMethod(Int32):  # enum
+    Buffered = 0
+    DirectInput = 1
+    DirectOutput = 2
+    Neither = 3
 class IOControlCode(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Custom.IIOControlCode

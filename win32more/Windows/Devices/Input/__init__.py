@@ -361,10 +361,10 @@ class PointerDevice(ComPtr):
     ScreenRect = property(get_ScreenRect, None)
     SupportedUsages = property(get_SupportedUsages, None)
     MaxPointersWithZDistance = property(get_MaxPointersWithZDistance, None)
-PointerDeviceType = Int32
-PointerDeviceType_Touch: PointerDeviceType = 0
-PointerDeviceType_Pen: PointerDeviceType = 1
-PointerDeviceType_Mouse: PointerDeviceType = 2
+class PointerDeviceType(Int32):  # enum
+    Touch = 0
+    Pen = 1
+    Mouse = 2
 class PointerDeviceUsage(EasyCastStructure):
     UsagePage: UInt32
     Usage: UInt32

@@ -72,9 +72,9 @@ class CoreDragOperation(ComPtr):
     Data = property(get_Data, None)
     DragUIContentMode = property(get_DragUIContentMode, put_DragUIContentMode)
     AllowedOperations = property(get_AllowedOperations, put_AllowedOperations)
-CoreDragUIContentMode = UInt32
-CoreDragUIContentMode_Auto: CoreDragUIContentMode = 0
-CoreDragUIContentMode_Deferred: CoreDragUIContentMode = 1
+class CoreDragUIContentMode(UInt32):  # enum
+    Auto = 0
+    Deferred = 1
 class CoreDragUIOverride(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.DataTransfer.DragDrop.Core.ICoreDragUIOverride

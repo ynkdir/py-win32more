@@ -32,11 +32,11 @@ class DnssdRegistrationResult(ComPtr):
     Status = property(get_Status, None)
     IPAddress = property(get_IPAddress, None)
     HasInstanceNameChanged = property(get_HasInstanceNameChanged, None)
-DnssdRegistrationStatus = Int32
-DnssdRegistrationStatus_Success: DnssdRegistrationStatus = 0
-DnssdRegistrationStatus_InvalidServiceName: DnssdRegistrationStatus = 1
-DnssdRegistrationStatus_ServerError: DnssdRegistrationStatus = 2
-DnssdRegistrationStatus_SecurityError: DnssdRegistrationStatus = 3
+class DnssdRegistrationStatus(Int32):  # enum
+    Success = 0
+    InvalidServiceName = 1
+    ServerError = 2
+    SecurityError = 3
 class DnssdServiceInstance(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.ServiceDiscovery.Dnssd.IDnssdServiceInstance
@@ -126,13 +126,13 @@ class DnssdServiceWatcher(ComPtr):
     @winrt_mixinmethod
     def Stop(self: win32more.Windows.Networking.ServiceDiscovery.Dnssd.IDnssdServiceWatcher) -> Void: ...
     Status = property(get_Status, None)
-DnssdServiceWatcherStatus = Int32
-DnssdServiceWatcherStatus_Created: DnssdServiceWatcherStatus = 0
-DnssdServiceWatcherStatus_Started: DnssdServiceWatcherStatus = 1
-DnssdServiceWatcherStatus_EnumerationCompleted: DnssdServiceWatcherStatus = 2
-DnssdServiceWatcherStatus_Stopping: DnssdServiceWatcherStatus = 3
-DnssdServiceWatcherStatus_Stopped: DnssdServiceWatcherStatus = 4
-DnssdServiceWatcherStatus_Aborted: DnssdServiceWatcherStatus = 5
+class DnssdServiceWatcherStatus(Int32):  # enum
+    Created = 0
+    Started = 1
+    EnumerationCompleted = 2
+    Stopping = 3
+    Stopped = 4
+    Aborted = 5
 class IDnssdRegistrationResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.ServiceDiscovery.Dnssd.IDnssdRegistrationResult'

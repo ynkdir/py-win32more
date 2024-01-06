@@ -26,17 +26,17 @@ class ComponentRenewal(ComPtr):
     _classid_ = 'Windows.Media.Protection.ComponentRenewal'
     @winrt_classmethod
     def RenewSystemComponentsAsync(cls: win32more.Windows.Media.Protection.IComponentRenewalStatics, information: win32more.Windows.Media.Protection.RevocationAndRenewalInformation) -> win32more.Windows.Foundation.IAsyncOperationWithProgress[win32more.Windows.Media.Protection.RenewalStatus, UInt32]: ...
-GraphicsTrustStatus = Int32
-GraphicsTrustStatus_TrustNotRequired: GraphicsTrustStatus = 0
-GraphicsTrustStatus_TrustEstablished: GraphicsTrustStatus = 1
-GraphicsTrustStatus_EnvironmentNotSupported: GraphicsTrustStatus = 2
-GraphicsTrustStatus_DriverNotSupported: GraphicsTrustStatus = 3
-GraphicsTrustStatus_DriverSigningFailure: GraphicsTrustStatus = 4
-GraphicsTrustStatus_UnknownFailure: GraphicsTrustStatus = 5
-HdcpProtection = Int32
-HdcpProtection_Off: HdcpProtection = 0
-HdcpProtection_On: HdcpProtection = 1
-HdcpProtection_OnWithTypeEnforcement: HdcpProtection = 2
+class GraphicsTrustStatus(Int32):  # enum
+    TrustNotRequired = 0
+    TrustEstablished = 1
+    EnvironmentNotSupported = 2
+    DriverNotSupported = 3
+    DriverSigningFailure = 4
+    UnknownFailure = 5
+class HdcpProtection(Int32):  # enum
+    Off = 0
+    On = 1
+    OnWithTypeEnforcement = 2
 class HdcpSession(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Protection.IHdcpSession
@@ -62,11 +62,11 @@ class HdcpSession(ComPtr):
     def remove_ProtectionChanged(self: win32more.Windows.Media.Protection.IHdcpSession, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
-HdcpSetProtectionResult = Int32
-HdcpSetProtectionResult_Success: HdcpSetProtectionResult = 0
-HdcpSetProtectionResult_TimedOut: HdcpSetProtectionResult = 1
-HdcpSetProtectionResult_NotSupported: HdcpSetProtectionResult = 2
-HdcpSetProtectionResult_UnknownFailure: HdcpSetProtectionResult = 3
+class HdcpSetProtectionResult(Int32):  # enum
+    Success = 0
+    TimedOut = 1
+    NotSupported = 2
+    UnknownFailure = 3
 class IComponentLoadFailedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Protection.IComponentLoadFailedEventArgs'
@@ -259,21 +259,21 @@ class ProtectionCapabilities(ComPtr):
     def CreateInstance(cls) -> win32more.Windows.Media.Protection.ProtectionCapabilities: ...
     @winrt_mixinmethod
     def IsTypeSupported(self: win32more.Windows.Media.Protection.IProtectionCapabilities, type: WinRT_String, keySystem: WinRT_String) -> win32more.Windows.Media.Protection.ProtectionCapabilityResult: ...
-ProtectionCapabilityResult = Int32
-ProtectionCapabilityResult_NotSupported: ProtectionCapabilityResult = 0
-ProtectionCapabilityResult_Maybe: ProtectionCapabilityResult = 1
-ProtectionCapabilityResult_Probably: ProtectionCapabilityResult = 2
+class ProtectionCapabilityResult(Int32):  # enum
+    NotSupported = 0
+    Maybe = 1
+    Probably = 2
 ProtectionRenewalContract: UInt32 = 65536
 class RebootNeededEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{64e12a45-973b-4a3a-b260-91898a49a82c}')
     def Invoke(self, sender: win32more.Windows.Media.Protection.MediaProtectionManager) -> Void: ...
-RenewalStatus = Int32
-RenewalStatus_NotStarted: RenewalStatus = 0
-RenewalStatus_UpdatesInProgress: RenewalStatus = 1
-RenewalStatus_UserCancelled: RenewalStatus = 2
-RenewalStatus_AppComponentsMayNeedUpdating: RenewalStatus = 3
-RenewalStatus_NoComponentsFound: RenewalStatus = 4
+class RenewalStatus(Int32):  # enum
+    NotStarted = 0
+    UpdatesInProgress = 1
+    UserCancelled = 2
+    AppComponentsMayNeedUpdating = 3
+    NoComponentsFound = 4
 class RevocationAndRenewalInformation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Protection.IRevocationAndRenewalInformation
@@ -300,22 +300,22 @@ class RevocationAndRenewalItem(ComPtr):
     PublicKeyHash = property(get_PublicKeyHash, None)
     Name = property(get_Name, None)
     RenewalId = property(get_RenewalId, None)
-RevocationAndRenewalReasons = UInt32
-RevocationAndRenewalReasons_UserModeComponentLoad: RevocationAndRenewalReasons = 1
-RevocationAndRenewalReasons_KernelModeComponentLoad: RevocationAndRenewalReasons = 2
-RevocationAndRenewalReasons_AppComponent: RevocationAndRenewalReasons = 4
-RevocationAndRenewalReasons_GlobalRevocationListLoadFailed: RevocationAndRenewalReasons = 16
-RevocationAndRenewalReasons_InvalidGlobalRevocationListSignature: RevocationAndRenewalReasons = 32
-RevocationAndRenewalReasons_GlobalRevocationListAbsent: RevocationAndRenewalReasons = 4096
-RevocationAndRenewalReasons_ComponentRevoked: RevocationAndRenewalReasons = 8192
-RevocationAndRenewalReasons_InvalidComponentCertificateExtendedKeyUse: RevocationAndRenewalReasons = 16384
-RevocationAndRenewalReasons_ComponentCertificateRevoked: RevocationAndRenewalReasons = 32768
-RevocationAndRenewalReasons_InvalidComponentCertificateRoot: RevocationAndRenewalReasons = 65536
-RevocationAndRenewalReasons_ComponentHighSecurityCertificateRevoked: RevocationAndRenewalReasons = 131072
-RevocationAndRenewalReasons_ComponentLowSecurityCertificateRevoked: RevocationAndRenewalReasons = 262144
-RevocationAndRenewalReasons_BootDriverVerificationFailed: RevocationAndRenewalReasons = 1048576
-RevocationAndRenewalReasons_ComponentSignedWithTestCertificate: RevocationAndRenewalReasons = 16777216
-RevocationAndRenewalReasons_EncryptionFailure: RevocationAndRenewalReasons = 268435456
+class RevocationAndRenewalReasons(UInt32):  # enum
+    UserModeComponentLoad = 1
+    KernelModeComponentLoad = 2
+    AppComponent = 4
+    GlobalRevocationListLoadFailed = 16
+    InvalidGlobalRevocationListSignature = 32
+    GlobalRevocationListAbsent = 4096
+    ComponentRevoked = 8192
+    InvalidComponentCertificateExtendedKeyUse = 16384
+    ComponentCertificateRevoked = 32768
+    InvalidComponentCertificateRoot = 65536
+    ComponentHighSecurityCertificateRevoked = 131072
+    ComponentLowSecurityCertificateRevoked = 262144
+    BootDriverVerificationFailed = 1048576
+    ComponentSignedWithTestCertificate = 16777216
+    EncryptionFailure = 268435456
 class ServiceRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Protection.IServiceRequestedEventArgs

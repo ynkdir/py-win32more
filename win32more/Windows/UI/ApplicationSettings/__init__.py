@@ -296,9 +296,9 @@ class SettingsCommand(ComPtr, metaclass=_SettingsCommand_Meta_):
     Invoked = property(get_Invoked, put_Invoked)
     Id = property(get_Id, put_Id)
     _SettingsCommand_Meta_.AccountsCommand = property(get_AccountsCommand.__wrapped__, None)
-SettingsEdgeLocation = Int32
-SettingsEdgeLocation_Right: SettingsEdgeLocation = 0
-SettingsEdgeLocation_Left: SettingsEdgeLocation = 1
+class SettingsEdgeLocation(Int32):  # enum
+    Right = 0
+    Left = 1
 class _SettingsPane_Meta_(ComPtr.__class__):
     pass
 class SettingsPane(ComPtr, metaclass=_SettingsPane_Meta_):
@@ -330,19 +330,19 @@ class SettingsPaneCommandsRequestedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Request(self: win32more.Windows.UI.ApplicationSettings.ISettingsPaneCommandsRequestedEventArgs) -> win32more.Windows.UI.ApplicationSettings.SettingsPaneCommandsRequest: ...
     Request = property(get_Request, None)
-SupportedWebAccountActions = UInt32
-SupportedWebAccountActions_None: SupportedWebAccountActions = 0
-SupportedWebAccountActions_Reconnect: SupportedWebAccountActions = 1
-SupportedWebAccountActions_Remove: SupportedWebAccountActions = 2
-SupportedWebAccountActions_ViewDetails: SupportedWebAccountActions = 4
-SupportedWebAccountActions_Manage: SupportedWebAccountActions = 8
-SupportedWebAccountActions_More: SupportedWebAccountActions = 16
-WebAccountAction = Int32
-WebAccountAction_Reconnect: WebAccountAction = 0
-WebAccountAction_Remove: WebAccountAction = 1
-WebAccountAction_ViewDetails: WebAccountAction = 2
-WebAccountAction_Manage: WebAccountAction = 3
-WebAccountAction_More: WebAccountAction = 4
+class SupportedWebAccountActions(UInt32):  # enum
+    None_ = 0
+    Reconnect = 1
+    Remove = 2
+    ViewDetails = 4
+    Manage = 8
+    More = 16
+class WebAccountAction(Int32):  # enum
+    Reconnect = 0
+    Remove = 1
+    ViewDetails = 2
+    Manage = 3
+    More = 4
 class WebAccountCommand(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.ApplicationSettings.IWebAccountCommand

@@ -58,10 +58,10 @@ class UserNotificationListener(ComPtr, metaclass=_UserNotificationListener_Meta_
     @winrt_classmethod
     def get_Current(cls: win32more.Windows.UI.Notifications.Management.IUserNotificationListenerStatics) -> win32more.Windows.UI.Notifications.Management.UserNotificationListener: ...
     _UserNotificationListener_Meta_.Current = property(get_Current.__wrapped__, None)
-UserNotificationListenerAccessStatus = Int32
-UserNotificationListenerAccessStatus_Unspecified: UserNotificationListenerAccessStatus = 0
-UserNotificationListenerAccessStatus_Allowed: UserNotificationListenerAccessStatus = 1
-UserNotificationListenerAccessStatus_Denied: UserNotificationListenerAccessStatus = 2
+class UserNotificationListenerAccessStatus(Int32):  # enum
+    Unspecified = 0
+    Allowed = 1
+    Denied = 2
 
 
 make_ready(__name__)

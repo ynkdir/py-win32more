@@ -104,12 +104,12 @@ class INotifyCollectionChangedEventArgsFactory(ComPtr):
     _iid_ = Guid('{b30c3e3a-df8d-44a5-9a38-7ac0d08ce63d}')
     @winrt_commethod(6)
     def CreateInstanceWithAllParameters(self, action: win32more.Windows.UI.Xaml.Interop.NotifyCollectionChangedAction, newItems: win32more.Windows.UI.Xaml.Interop.IBindableVector, oldItems: win32more.Windows.UI.Xaml.Interop.IBindableVector, newIndex: Int32, oldIndex: Int32, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Interop.NotifyCollectionChangedEventArgs: ...
-NotifyCollectionChangedAction = Int32
-NotifyCollectionChangedAction_Add: NotifyCollectionChangedAction = 0
-NotifyCollectionChangedAction_Remove: NotifyCollectionChangedAction = 1
-NotifyCollectionChangedAction_Replace: NotifyCollectionChangedAction = 2
-NotifyCollectionChangedAction_Move: NotifyCollectionChangedAction = 3
-NotifyCollectionChangedAction_Reset: NotifyCollectionChangedAction = 4
+class NotifyCollectionChangedAction(Int32):  # enum
+    Add = 0
+    Remove = 1
+    Replace = 2
+    Move = 3
+    Reset = 4
 class NotifyCollectionChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Interop.INotifyCollectionChangedEventArgs
@@ -142,10 +142,10 @@ class NotifyCollectionChangedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{ca10b37c-f382-4591-8557-5e24965279b0}')
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.UI.Xaml.Interop.NotifyCollectionChangedEventArgs) -> Void: ...
-TypeKind = Int32
-TypeKind_Primitive: TypeKind = 0
-TypeKind_Metadata: TypeKind = 1
-TypeKind_Custom: TypeKind = 2
+class TypeKind(Int32):  # enum
+    Primitive = 0
+    Metadata = 1
+    Custom = 2
 class TypeName(EasyCastStructure):
     Name: WinRT_String
     Kind: win32more.Windows.UI.Xaml.Interop.TypeKind

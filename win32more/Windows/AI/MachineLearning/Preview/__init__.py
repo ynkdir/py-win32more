@@ -8,23 +8,23 @@ import win32more.Windows.Graphics.Imaging
 import win32more.Windows.Storage
 import win32more.Windows.Storage.Streams
 import win32more.Windows.Win32.System.WinRT
-FeatureElementKindPreview = Int32
-FeatureElementKindPreview_Undefined: FeatureElementKindPreview = 0
-FeatureElementKindPreview_Float: FeatureElementKindPreview = 1
-FeatureElementKindPreview_UInt8: FeatureElementKindPreview = 2
-FeatureElementKindPreview_Int8: FeatureElementKindPreview = 3
-FeatureElementKindPreview_UInt16: FeatureElementKindPreview = 4
-FeatureElementKindPreview_Int16: FeatureElementKindPreview = 5
-FeatureElementKindPreview_Int32: FeatureElementKindPreview = 6
-FeatureElementKindPreview_Int64: FeatureElementKindPreview = 7
-FeatureElementKindPreview_String: FeatureElementKindPreview = 8
-FeatureElementKindPreview_Boolean: FeatureElementKindPreview = 9
-FeatureElementKindPreview_Float16: FeatureElementKindPreview = 10
-FeatureElementKindPreview_Double: FeatureElementKindPreview = 11
-FeatureElementKindPreview_UInt32: FeatureElementKindPreview = 12
-FeatureElementKindPreview_UInt64: FeatureElementKindPreview = 13
-FeatureElementKindPreview_Complex64: FeatureElementKindPreview = 14
-FeatureElementKindPreview_Complex128: FeatureElementKindPreview = 15
+class FeatureElementKindPreview(Int32):  # enum
+    Undefined = 0
+    Float = 1
+    UInt8 = 2
+    Int8 = 3
+    UInt16 = 4
+    Int16 = 5
+    Int32 = 6
+    Int64 = 7
+    String = 8
+    Boolean = 9
+    Float16 = 10
+    Double = 11
+    UInt32 = 12
+    UInt64 = 13
+    Complex64 = 14
+    Complex128 = 15
 class IImageVariableDescriptorPreview(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.AI.MachineLearning.Preview.IImageVariableDescriptorPreview'
@@ -306,13 +306,13 @@ class LearningModelDescriptionPreview(ComPtr):
     Metadata = property(get_Metadata, None)
     InputFeatures = property(get_InputFeatures, None)
     OutputFeatures = property(get_OutputFeatures, None)
-LearningModelDeviceKindPreview = Int32
-LearningModelDeviceKindPreview_LearningDeviceAny: LearningModelDeviceKindPreview = 0
-LearningModelDeviceKindPreview_LearningDeviceCpu: LearningModelDeviceKindPreview = 1
-LearningModelDeviceKindPreview_LearningDeviceGpu: LearningModelDeviceKindPreview = 2
-LearningModelDeviceKindPreview_LearningDeviceNpu: LearningModelDeviceKindPreview = 3
-LearningModelDeviceKindPreview_LearningDeviceDsp: LearningModelDeviceKindPreview = 4
-LearningModelDeviceKindPreview_LearningDeviceFpga: LearningModelDeviceKindPreview = 5
+class LearningModelDeviceKindPreview(Int32):  # enum
+    LearningDeviceAny = 0
+    LearningDeviceCpu = 1
+    LearningDeviceGpu = 2
+    LearningDeviceNpu = 3
+    LearningDeviceDsp = 4
+    LearningDeviceFpga = 5
 class LearningModelEvaluationResultPreview(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.AI.MachineLearning.Preview.ILearningModelEvaluationResultPreview
@@ -323,12 +323,12 @@ class LearningModelEvaluationResultPreview(ComPtr):
     def get_Outputs(self: win32more.Windows.AI.MachineLearning.Preview.ILearningModelEvaluationResultPreview) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     CorrelationId = property(get_CorrelationId, None)
     Outputs = property(get_Outputs, None)
-LearningModelFeatureKindPreview = Int32
-LearningModelFeatureKindPreview_Undefined: LearningModelFeatureKindPreview = 0
-LearningModelFeatureKindPreview_Tensor: LearningModelFeatureKindPreview = 1
-LearningModelFeatureKindPreview_Sequence: LearningModelFeatureKindPreview = 2
-LearningModelFeatureKindPreview_Map: LearningModelFeatureKindPreview = 3
-LearningModelFeatureKindPreview_Image: LearningModelFeatureKindPreview = 4
+class LearningModelFeatureKindPreview(Int32):  # enum
+    Undefined = 0
+    Tensor = 1
+    Sequence = 2
+    Map = 3
+    Image = 4
 class LearningModelPreview(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.AI.MachineLearning.Preview.ILearningModelPreview

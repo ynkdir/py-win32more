@@ -290,19 +290,19 @@ class LampArray(ComPtr):
     IsConnected = property(get_IsConnected, None)
     SupportsVirtualKeys = property(get_SupportsVirtualKeys, None)
     IsAvailable = property(get_IsAvailable, None)
-LampArrayKind = Int32
-LampArrayKind_Undefined: LampArrayKind = 0
-LampArrayKind_Keyboard: LampArrayKind = 1
-LampArrayKind_Mouse: LampArrayKind = 2
-LampArrayKind_GameController: LampArrayKind = 3
-LampArrayKind_Peripheral: LampArrayKind = 4
-LampArrayKind_Scene: LampArrayKind = 5
-LampArrayKind_Notification: LampArrayKind = 6
-LampArrayKind_Chassis: LampArrayKind = 7
-LampArrayKind_Wearable: LampArrayKind = 8
-LampArrayKind_Furniture: LampArrayKind = 9
-LampArrayKind_Art: LampArrayKind = 10
-LampArrayKind_Headset: LampArrayKind = 11
+class LampArrayKind(Int32):  # enum
+    Undefined = 0
+    Keyboard = 1
+    Mouse = 2
+    GameController = 3
+    Peripheral = 4
+    Scene = 5
+    Notification = 6
+    Chassis = 7
+    Wearable = 8
+    Furniture = 9
+    Art = 10
+    Headset = 11
 class LampAvailabilityChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Lights.ILampAvailabilityChangedEventArgs
@@ -343,14 +343,14 @@ class LampInfo(ComPtr):
     GainLevelCount = property(get_GainLevelCount, None)
     FixedColor = property(get_FixedColor, None)
     UpdateLatency = property(get_UpdateLatency, None)
-LampPurposes = UInt32
-LampPurposes_Undefined: LampPurposes = 0
-LampPurposes_Control: LampPurposes = 1
-LampPurposes_Accent: LampPurposes = 2
-LampPurposes_Branding: LampPurposes = 4
-LampPurposes_Status: LampPurposes = 8
-LampPurposes_Illumination: LampPurposes = 16
-LampPurposes_Presentation: LampPurposes = 32
+class LampPurposes(UInt32):  # enum
+    Undefined = 0
+    Control = 1
+    Accent = 2
+    Branding = 4
+    Status = 8
+    Illumination = 16
+    Presentation = 32
 
 
 make_ready(__name__)

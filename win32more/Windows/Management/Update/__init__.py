@@ -558,15 +558,15 @@ class WindowsUpdateAdministrator(ComPtr):
     def RequestRestart(cls: win32more.Windows.Management.Update.IWindowsUpdateAdministratorStatics, restartOptions: win32more.Windows.Management.Update.WindowsUpdateRestartRequestOptions) -> WinRT_String: ...
     @winrt_classmethod
     def CancelRestartRequest(cls: win32more.Windows.Management.Update.IWindowsUpdateAdministratorStatics, requestRestartToken: WinRT_String) -> Void: ...
-WindowsUpdateAdministratorOptions = UInt32
-WindowsUpdateAdministratorOptions_None: WindowsUpdateAdministratorOptions = 0
-WindowsUpdateAdministratorOptions_RequireAdministratorApprovalForScans: WindowsUpdateAdministratorOptions = 1
-WindowsUpdateAdministratorOptions_RequireAdministratorApprovalForUpdates: WindowsUpdateAdministratorOptions = 2
-WindowsUpdateAdministratorOptions_RequireAdministratorApprovalForActions: WindowsUpdateAdministratorOptions = 4
-WindowsUpdateAdministratorStatus = Int32
-WindowsUpdateAdministratorStatus_Succeeded: WindowsUpdateAdministratorStatus = 0
-WindowsUpdateAdministratorStatus_NoAdministratorRegistered: WindowsUpdateAdministratorStatus = 1
-WindowsUpdateAdministratorStatus_OtherAdministratorIsRegistered: WindowsUpdateAdministratorStatus = 2
+class WindowsUpdateAdministratorOptions(UInt32):  # enum
+    None_ = 0
+    RequireAdministratorApprovalForScans = 1
+    RequireAdministratorApprovalForUpdates = 2
+    RequireAdministratorApprovalForActions = 4
+class WindowsUpdateAdministratorStatus(Int32):  # enum
+    Succeeded = 0
+    NoAdministratorRegistered = 1
+    OtherAdministratorIsRegistered = 2
 class WindowsUpdateApprovalData(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Management.Update.IWindowsUpdateApprovalData
@@ -615,40 +615,40 @@ class WindowsUpdateAttentionRequiredInfo(ComPtr):
     def get_Timestamp(self: win32more.Windows.Management.Update.IWindowsUpdateAttentionRequiredInfo) -> win32more.Windows.Foundation.IReference[win32more.Windows.Foundation.DateTime]: ...
     Reason = property(get_Reason, None)
     Timestamp = property(get_Timestamp, None)
-WindowsUpdateAttentionRequiredReason = Int32
-WindowsUpdateAttentionRequiredReason_None: WindowsUpdateAttentionRequiredReason = 0
-WindowsUpdateAttentionRequiredReason_SeekerUpdate: WindowsUpdateAttentionRequiredReason = 1
-WindowsUpdateAttentionRequiredReason_ReadyToReboot: WindowsUpdateAttentionRequiredReason = 2
-WindowsUpdateAttentionRequiredReason_NeedNonMeteredNetwork: WindowsUpdateAttentionRequiredReason = 3
-WindowsUpdateAttentionRequiredReason_NeedUserAgreementForMeteredNetwork: WindowsUpdateAttentionRequiredReason = 4
-WindowsUpdateAttentionRequiredReason_NeedNetwork: WindowsUpdateAttentionRequiredReason = 5
-WindowsUpdateAttentionRequiredReason_NeedMoreSpace: WindowsUpdateAttentionRequiredReason = 6
-WindowsUpdateAttentionRequiredReason_BatterySaverEnabled: WindowsUpdateAttentionRequiredReason = 7
-WindowsUpdateAttentionRequiredReason_NeedUserInteraction: WindowsUpdateAttentionRequiredReason = 8
-WindowsUpdateAttentionRequiredReason_NeedUserAgreementForPolicy: WindowsUpdateAttentionRequiredReason = 9
-WindowsUpdateAttentionRequiredReason_CompatibilityError: WindowsUpdateAttentionRequiredReason = 10
-WindowsUpdateAttentionRequiredReason_NeedUserInteractionForEula: WindowsUpdateAttentionRequiredReason = 11
-WindowsUpdateAttentionRequiredReason_NeedUserInteractionForCta: WindowsUpdateAttentionRequiredReason = 12
-WindowsUpdateAttentionRequiredReason_Regulated: WindowsUpdateAttentionRequiredReason = 13
-WindowsUpdateAttentionRequiredReason_ExternalReboot: WindowsUpdateAttentionRequiredReason = 14
-WindowsUpdateAttentionRequiredReason_OtherUpdate: WindowsUpdateAttentionRequiredReason = 15
-WindowsUpdateAttentionRequiredReason_BlockedByProvider: WindowsUpdateAttentionRequiredReason = 16
-WindowsUpdateAttentionRequiredReason_BlockedByPostRebootFailure: WindowsUpdateAttentionRequiredReason = 17
-WindowsUpdateAttentionRequiredReason_UserEngaged: WindowsUpdateAttentionRequiredReason = 18
-WindowsUpdateAttentionRequiredReason_BlockedByBattery: WindowsUpdateAttentionRequiredReason = 19
-WindowsUpdateAttentionRequiredReason_Exclusivity: WindowsUpdateAttentionRequiredReason = 20
-WindowsUpdateAttentionRequiredReason_BlockedBySerialization: WindowsUpdateAttentionRequiredReason = 21
-WindowsUpdateAttentionRequiredReason_ConflictClass: WindowsUpdateAttentionRequiredReason = 22
-WindowsUpdateAttentionRequiredReason_BlockedByAdminApproval: WindowsUpdateAttentionRequiredReason = 23
-WindowsUpdateAttentionRequiredReason_BlockedByTooManyAttempts: WindowsUpdateAttentionRequiredReason = 24
-WindowsUpdateAttentionRequiredReason_BlockedByFailure: WindowsUpdateAttentionRequiredReason = 25
-WindowsUpdateAttentionRequiredReason_Demotion: WindowsUpdateAttentionRequiredReason = 26
-WindowsUpdateAttentionRequiredReason_BlockedByActiveHours: WindowsUpdateAttentionRequiredReason = 27
-WindowsUpdateAttentionRequiredReason_ScheduledForMaintenance: WindowsUpdateAttentionRequiredReason = 28
-WindowsUpdateAttentionRequiredReason_PolicyScheduledInstallTime: WindowsUpdateAttentionRequiredReason = 29
-WindowsUpdateAttentionRequiredReason_BlockedByOobe: WindowsUpdateAttentionRequiredReason = 30
-WindowsUpdateAttentionRequiredReason_DeferredDuringOobe: WindowsUpdateAttentionRequiredReason = 31
-WindowsUpdateAttentionRequiredReason_DeferredForSustainableTime: WindowsUpdateAttentionRequiredReason = 32
+class WindowsUpdateAttentionRequiredReason(Int32):  # enum
+    None_ = 0
+    SeekerUpdate = 1
+    ReadyToReboot = 2
+    NeedNonMeteredNetwork = 3
+    NeedUserAgreementForMeteredNetwork = 4
+    NeedNetwork = 5
+    NeedMoreSpace = 6
+    BatterySaverEnabled = 7
+    NeedUserInteraction = 8
+    NeedUserAgreementForPolicy = 9
+    CompatibilityError = 10
+    NeedUserInteractionForEula = 11
+    NeedUserInteractionForCta = 12
+    Regulated = 13
+    ExternalReboot = 14
+    OtherUpdate = 15
+    BlockedByProvider = 16
+    BlockedByPostRebootFailure = 17
+    UserEngaged = 18
+    BlockedByBattery = 19
+    Exclusivity = 20
+    BlockedBySerialization = 21
+    ConflictClass = 22
+    BlockedByAdminApproval = 23
+    BlockedByTooManyAttempts = 24
+    BlockedByFailure = 25
+    Demotion = 26
+    BlockedByActiveHours = 27
+    ScheduledForMaintenance = 28
+    PolicyScheduledInstallTime = 29
+    BlockedByOobe = 30
+    DeferredDuringOobe = 31
+    DeferredForSustainableTime = 32
 class WindowsUpdateAttentionRequiredReasonChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Management.Update.IWindowsUpdateAttentionRequiredReasonChangedEventArgs

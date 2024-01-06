@@ -6,11 +6,11 @@ import win32more.Windows.Foundation.Collections
 import win32more.Windows.Media.ContentRestrictions
 import win32more.Windows.Storage.Streams
 import win32more.Windows.Win32.System.WinRT
-ContentAccessRestrictionLevel = Int32
-ContentAccessRestrictionLevel_Allow: ContentAccessRestrictionLevel = 0
-ContentAccessRestrictionLevel_Warn: ContentAccessRestrictionLevel = 1
-ContentAccessRestrictionLevel_Block: ContentAccessRestrictionLevel = 2
-ContentAccessRestrictionLevel_Hide: ContentAccessRestrictionLevel = 3
+class ContentAccessRestrictionLevel(Int32):  # enum
+    Allow = 0
+    Warn = 1
+    Block = 2
+    Hide = 3
 class ContentRestrictionsBrowsePolicy(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.ContentRestrictions.IContentRestrictionsBrowsePolicy
@@ -92,13 +92,13 @@ class IRatedContentRestrictionsFactory(ComPtr):
     _iid_ = Guid('{fb4b2996-c3bd-4910-9619-97cfd0694d56}')
     @winrt_commethod(6)
     def CreateWithMaxAgeRating(self, maxAgeRating: UInt32) -> win32more.Windows.Media.ContentRestrictions.RatedContentRestrictions: ...
-RatedContentCategory = Int32
-RatedContentCategory_General: RatedContentCategory = 0
-RatedContentCategory_Application: RatedContentCategory = 1
-RatedContentCategory_Game: RatedContentCategory = 2
-RatedContentCategory_Movie: RatedContentCategory = 3
-RatedContentCategory_Television: RatedContentCategory = 4
-RatedContentCategory_Music: RatedContentCategory = 5
+class RatedContentCategory(Int32):  # enum
+    General = 0
+    Application = 1
+    Game = 2
+    Movie = 3
+    Television = 4
+    Music = 5
 class RatedContentDescription(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.ContentRestrictions.IRatedContentDescription

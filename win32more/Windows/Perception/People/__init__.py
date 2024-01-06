@@ -26,33 +26,33 @@ class EyesPose(ComPtr):
     IsCalibrationValid = property(get_IsCalibrationValid, None)
     Gaze = property(get_Gaze, None)
     UpdateTimestamp = property(get_UpdateTimestamp, None)
-HandJointKind = Int32
-HandJointKind_Palm: HandJointKind = 0
-HandJointKind_Wrist: HandJointKind = 1
-HandJointKind_ThumbMetacarpal: HandJointKind = 2
-HandJointKind_ThumbProximal: HandJointKind = 3
-HandJointKind_ThumbDistal: HandJointKind = 4
-HandJointKind_ThumbTip: HandJointKind = 5
-HandJointKind_IndexMetacarpal: HandJointKind = 6
-HandJointKind_IndexProximal: HandJointKind = 7
-HandJointKind_IndexIntermediate: HandJointKind = 8
-HandJointKind_IndexDistal: HandJointKind = 9
-HandJointKind_IndexTip: HandJointKind = 10
-HandJointKind_MiddleMetacarpal: HandJointKind = 11
-HandJointKind_MiddleProximal: HandJointKind = 12
-HandJointKind_MiddleIntermediate: HandJointKind = 13
-HandJointKind_MiddleDistal: HandJointKind = 14
-HandJointKind_MiddleTip: HandJointKind = 15
-HandJointKind_RingMetacarpal: HandJointKind = 16
-HandJointKind_RingProximal: HandJointKind = 17
-HandJointKind_RingIntermediate: HandJointKind = 18
-HandJointKind_RingDistal: HandJointKind = 19
-HandJointKind_RingTip: HandJointKind = 20
-HandJointKind_LittleMetacarpal: HandJointKind = 21
-HandJointKind_LittleProximal: HandJointKind = 22
-HandJointKind_LittleIntermediate: HandJointKind = 23
-HandJointKind_LittleDistal: HandJointKind = 24
-HandJointKind_LittleTip: HandJointKind = 25
+class HandJointKind(Int32):  # enum
+    Palm = 0
+    Wrist = 1
+    ThumbMetacarpal = 2
+    ThumbProximal = 3
+    ThumbDistal = 4
+    ThumbTip = 5
+    IndexMetacarpal = 6
+    IndexProximal = 7
+    IndexIntermediate = 8
+    IndexDistal = 9
+    IndexTip = 10
+    MiddleMetacarpal = 11
+    MiddleProximal = 12
+    MiddleIntermediate = 13
+    MiddleDistal = 14
+    MiddleTip = 15
+    RingMetacarpal = 16
+    RingProximal = 17
+    RingIntermediate = 18
+    RingDistal = 19
+    RingTip = 20
+    LittleMetacarpal = 21
+    LittleProximal = 22
+    LittleIntermediate = 23
+    LittleDistal = 24
+    LittleTip = 25
 class HandMeshObserver(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Perception.People.IHandMeshObserver
@@ -208,9 +208,9 @@ class JointPose(EasyCastStructure):
     Position: win32more.Windows.Foundation.Numerics.Vector3
     Radius: Single
     Accuracy: win32more.Windows.Perception.People.JointPoseAccuracy
-JointPoseAccuracy = Int32
-JointPoseAccuracy_High: JointPoseAccuracy = 0
-JointPoseAccuracy_Approximate: JointPoseAccuracy = 1
+class JointPoseAccuracy(Int32):  # enum
+    High = 0
+    Approximate = 1
 
 
 make_ready(__name__)

@@ -11,10 +11,10 @@ import win32more.Windows.Foundation.Collections
 import win32more.Windows.Networking.Sockets
 import win32more.Windows.Storage.Streams
 import win32more.Windows.Win32.System.WinRT
-BluetoothEventTriggeringMode = Int32
-BluetoothEventTriggeringMode_Serial: BluetoothEventTriggeringMode = 0
-BluetoothEventTriggeringMode_Batch: BluetoothEventTriggeringMode = 1
-BluetoothEventTriggeringMode_KeepLatest: BluetoothEventTriggeringMode = 2
+class BluetoothEventTriggeringMode(Int32):  # enum
+    Serial = 0
+    Batch = 1
+    KeepLatest = 2
 class BluetoothLEAdvertisementPublisherTriggerDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Bluetooth.Background.IBluetoothLEAdvertisementPublisherTriggerDetails

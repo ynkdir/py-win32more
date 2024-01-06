@@ -125,17 +125,17 @@ class MdmAlert(ComPtr):
     Status = property(get_Status, None)
     Target = property(get_Target, put_Target)
     Type = property(get_Type, put_Type)
-MdmAlertDataType = Int32
-MdmAlertDataType_String: MdmAlertDataType = 0
-MdmAlertDataType_Base64: MdmAlertDataType = 1
-MdmAlertDataType_Boolean: MdmAlertDataType = 2
-MdmAlertDataType_Integer: MdmAlertDataType = 3
-MdmAlertMark = Int32
-MdmAlertMark_None: MdmAlertMark = 0
-MdmAlertMark_Fatal: MdmAlertMark = 1
-MdmAlertMark_Critical: MdmAlertMark = 2
-MdmAlertMark_Warning: MdmAlertMark = 3
-MdmAlertMark_Informational: MdmAlertMark = 4
+class MdmAlertDataType(Int32):  # enum
+    String = 0
+    Base64 = 1
+    Boolean = 2
+    Integer = 3
+class MdmAlertMark(Int32):  # enum
+    None_ = 0
+    Fatal = 1
+    Critical = 2
+    Warning = 3
+    Informational = 4
 class MdmSession(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Management.IMdmSession
@@ -174,14 +174,14 @@ class MdmSessionManager(ComPtr, metaclass=_MdmSessionManager_Meta_):
     @winrt_classmethod
     def GetSessionById(cls: win32more.Windows.Management.IMdmSessionManagerStatics, sessionId: WinRT_String) -> win32more.Windows.Management.MdmSession: ...
     _MdmSessionManager_Meta_.SessionIds = property(get_SessionIds.__wrapped__, None)
-MdmSessionState = Int32
-MdmSessionState_NotStarted: MdmSessionState = 0
-MdmSessionState_Starting: MdmSessionState = 1
-MdmSessionState_Connecting: MdmSessionState = 2
-MdmSessionState_Communicating: MdmSessionState = 3
-MdmSessionState_AlertStatusAvailable: MdmSessionState = 4
-MdmSessionState_Retrying: MdmSessionState = 5
-MdmSessionState_Completed: MdmSessionState = 6
+class MdmSessionState(Int32):  # enum
+    NotStarted = 0
+    Starting = 1
+    Connecting = 2
+    Communicating = 3
+    AlertStatusAvailable = 4
+    Retrying = 5
+    Completed = 6
 
 
 make_ready(__name__)

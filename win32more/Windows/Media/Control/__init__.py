@@ -189,13 +189,13 @@ class GlobalSystemMediaTransportControlsSessionPlaybackInfo(ComPtr):
     AutoRepeatMode = property(get_AutoRepeatMode, None)
     PlaybackRate = property(get_PlaybackRate, None)
     IsShuffleActive = property(get_IsShuffleActive, None)
-GlobalSystemMediaTransportControlsSessionPlaybackStatus = Int32
-GlobalSystemMediaTransportControlsSessionPlaybackStatus_Closed: GlobalSystemMediaTransportControlsSessionPlaybackStatus = 0
-GlobalSystemMediaTransportControlsSessionPlaybackStatus_Opened: GlobalSystemMediaTransportControlsSessionPlaybackStatus = 1
-GlobalSystemMediaTransportControlsSessionPlaybackStatus_Changing: GlobalSystemMediaTransportControlsSessionPlaybackStatus = 2
-GlobalSystemMediaTransportControlsSessionPlaybackStatus_Stopped: GlobalSystemMediaTransportControlsSessionPlaybackStatus = 3
-GlobalSystemMediaTransportControlsSessionPlaybackStatus_Playing: GlobalSystemMediaTransportControlsSessionPlaybackStatus = 4
-GlobalSystemMediaTransportControlsSessionPlaybackStatus_Paused: GlobalSystemMediaTransportControlsSessionPlaybackStatus = 5
+class GlobalSystemMediaTransportControlsSessionPlaybackStatus(Int32):  # enum
+    Closed = 0
+    Opened = 1
+    Changing = 2
+    Stopped = 3
+    Playing = 4
+    Paused = 5
 class GlobalSystemMediaTransportControlsSessionTimelineProperties(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Control.IGlobalSystemMediaTransportControlsSessionTimelineProperties

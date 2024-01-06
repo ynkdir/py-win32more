@@ -6,12 +6,12 @@ import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Management.Deployment
 import win32more.Windows.Win32.System.WinRT
-AddPackageByAppInstallerOptions = UInt32
-AddPackageByAppInstallerOptions_None: AddPackageByAppInstallerOptions = 0
-AddPackageByAppInstallerOptions_InstallAllResources: AddPackageByAppInstallerOptions = 32
-AddPackageByAppInstallerOptions_ForceTargetAppShutdown: AddPackageByAppInstallerOptions = 64
-AddPackageByAppInstallerOptions_RequiredContentGroupOnly: AddPackageByAppInstallerOptions = 256
-AddPackageByAppInstallerOptions_LimitToExistingPackages: AddPackageByAppInstallerOptions = 512
+class AddPackageByAppInstallerOptions(UInt32):  # enum
+    None_ = 0
+    InstallAllResources = 32
+    ForceTargetAppShutdown = 64
+    RequiredContentGroupOnly = 256
+    LimitToExistingPackages = 512
 class AddPackageOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Management.Deployment.IAddPackageOptions
@@ -268,22 +268,22 @@ class DeleteSharedPackageContainerResult(ComPtr):
     def get_ExtendedError(self: win32more.Windows.Management.Deployment.IDeleteSharedPackageContainerResult) -> win32more.Windows.Foundation.HResult: ...
     Status = property(get_Status, None)
     ExtendedError = property(get_ExtendedError, None)
-DeploymentOptions = UInt32
-DeploymentOptions_None: DeploymentOptions = 0
-DeploymentOptions_ForceApplicationShutdown: DeploymentOptions = 1
-DeploymentOptions_DevelopmentMode: DeploymentOptions = 2
-DeploymentOptions_InstallAllResources: DeploymentOptions = 32
-DeploymentOptions_ForceTargetApplicationShutdown: DeploymentOptions = 64
-DeploymentOptions_RequiredContentGroupOnly: DeploymentOptions = 256
-DeploymentOptions_ForceUpdateFromAnyVersion: DeploymentOptions = 262144
-DeploymentOptions_RetainFilesOnFailure: DeploymentOptions = 2097152
-DeploymentOptions_StageInPlace: DeploymentOptions = 4194304
+class DeploymentOptions(UInt32):  # enum
+    None_ = 0
+    ForceApplicationShutdown = 1
+    DevelopmentMode = 2
+    InstallAllResources = 32
+    ForceTargetApplicationShutdown = 64
+    RequiredContentGroupOnly = 256
+    ForceUpdateFromAnyVersion = 262144
+    RetainFilesOnFailure = 2097152
+    StageInPlace = 4194304
 class DeploymentProgress(EasyCastStructure):
     state: win32more.Windows.Management.Deployment.DeploymentProgressState
     percentage: UInt32
-DeploymentProgressState = Int32
-DeploymentProgressState_Queued: DeploymentProgressState = 0
-DeploymentProgressState_Processing: DeploymentProgressState = 1
+class DeploymentProgressState(Int32):  # enum
+    Queued = 0
+    Processing = 1
 class DeploymentResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Management.Deployment.IDeploymentResult
@@ -1075,11 +1075,11 @@ class PackageAllUserProvisioningOptions(ComPtr):
     def get_ProjectionOrderPackageFamilyNames(self: win32more.Windows.Management.Deployment.IPackageAllUserProvisioningOptions) -> win32more.Windows.Foundation.Collections.IVector[WinRT_String]: ...
     OptionalPackageFamilyNames = property(get_OptionalPackageFamilyNames, None)
     ProjectionOrderPackageFamilyNames = property(get_ProjectionOrderPackageFamilyNames, None)
-PackageInstallState = Int32
-PackageInstallState_NotInstalled: PackageInstallState = 0
-PackageInstallState_Staged: PackageInstallState = 1
-PackageInstallState_Installed: PackageInstallState = 2
-PackageInstallState_Paused: PackageInstallState = 6
+class PackageInstallState(Int32):  # enum
+    NotInstalled = 0
+    Staged = 1
+    Installed = 2
+    Paused = 6
 class PackageManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Management.Deployment.IPackageManager
@@ -1226,29 +1226,29 @@ class PackageManagerDebugSettings(ComPtr):
     def SetContentGroupStateAsync(self: win32more.Windows.Management.Deployment.IPackageManagerDebugSettings, package: win32more.Windows.ApplicationModel.Package, contentGroupName: WinRT_String, state: win32more.Windows.ApplicationModel.PackageContentGroupState) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_mixinmethod
     def SetContentGroupStateWithPercentageAsync(self: win32more.Windows.Management.Deployment.IPackageManagerDebugSettings, package: win32more.Windows.ApplicationModel.Package, contentGroupName: WinRT_String, state: win32more.Windows.ApplicationModel.PackageContentGroupState, completionPercentage: Double) -> win32more.Windows.Foundation.IAsyncAction: ...
-PackageState = Int32
-PackageState_Normal: PackageState = 0
-PackageState_LicenseInvalid: PackageState = 1
-PackageState_Modified: PackageState = 2
-PackageState_Tampered: PackageState = 3
-PackageStatus = UInt32
-PackageStatus_OK: PackageStatus = 0
-PackageStatus_LicenseIssue: PackageStatus = 1
-PackageStatus_Modified: PackageStatus = 2
-PackageStatus_Tampered: PackageStatus = 4
-PackageStatus_Disabled: PackageStatus = 8
-PackageStubPreference = Int32
-PackageStubPreference_Full: PackageStubPreference = 0
-PackageStubPreference_Stub: PackageStubPreference = 1
-PackageTypes = UInt32
-PackageTypes_None: PackageTypes = 0
-PackageTypes_Main: PackageTypes = 1
-PackageTypes_Framework: PackageTypes = 2
-PackageTypes_Resource: PackageTypes = 4
-PackageTypes_Bundle: PackageTypes = 8
-PackageTypes_Xap: PackageTypes = 16
-PackageTypes_Optional: PackageTypes = 32
-PackageTypes_All: PackageTypes = 4294967295
+class PackageState(Int32):  # enum
+    Normal = 0
+    LicenseInvalid = 1
+    Modified = 2
+    Tampered = 3
+class PackageStatus(UInt32):  # enum
+    OK = 0
+    LicenseIssue = 1
+    Modified = 2
+    Tampered = 4
+    Disabled = 8
+class PackageStubPreference(Int32):  # enum
+    Full = 0
+    Stub = 1
+class PackageTypes(UInt32):  # enum
+    None_ = 0
+    Main = 1
+    Framework = 2
+    Resource = 4
+    Bundle = 8
+    Xap = 16
+    Optional = 32
+    All = 4294967295
 class PackageUserInformation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Management.Deployment.IPackageUserInformation
@@ -1389,11 +1389,11 @@ class RegisterPackageOptions(ComPtr):
     AllowUnsigned = property(get_AllowUnsigned, put_AllowUnsigned)
     DeferRegistrationWhenPackagesAreInUse = property(get_DeferRegistrationWhenPackagesAreInUse, put_DeferRegistrationWhenPackagesAreInUse)
     ExpectedDigests = property(get_ExpectedDigests, None)
-RemovalOptions = UInt32
-RemovalOptions_None: RemovalOptions = 0
-RemovalOptions_PreserveApplicationData: RemovalOptions = 4096
-RemovalOptions_PreserveRoamableApplicationData: RemovalOptions = 128
-RemovalOptions_RemoveForAllUsers: RemovalOptions = 524288
+class RemovalOptions(UInt32):  # enum
+    None_ = 0
+    PreserveApplicationData = 4096
+    PreserveRoamableApplicationData = 128
+    RemoveForAllUsers = 524288
 class SharedPackageContainer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Management.Deployment.ISharedPackageContainer
@@ -1411,10 +1411,10 @@ class SharedPackageContainer(ComPtr):
     Name = property(get_Name, None)
     Id = property(get_Id, None)
 SharedPackageContainerContract: UInt32 = 65536
-SharedPackageContainerCreationCollisionOptions = Int32
-SharedPackageContainerCreationCollisionOptions_FailIfExists: SharedPackageContainerCreationCollisionOptions = 0
-SharedPackageContainerCreationCollisionOptions_MergeWithExisting: SharedPackageContainerCreationCollisionOptions = 1
-SharedPackageContainerCreationCollisionOptions_ReplaceExisting: SharedPackageContainerCreationCollisionOptions = 2
+class SharedPackageContainerCreationCollisionOptions(Int32):  # enum
+    FailIfExists = 0
+    MergeWithExisting = 1
+    ReplaceExisting = 2
 class SharedPackageContainerManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Management.Deployment.ISharedPackageContainerManager
@@ -1451,13 +1451,13 @@ class SharedPackageContainerMember(ComPtr):
     @winrt_mixinmethod
     def get_PackageFamilyName(self: win32more.Windows.Management.Deployment.ISharedPackageContainerMember) -> WinRT_String: ...
     PackageFamilyName = property(get_PackageFamilyName, None)
-SharedPackageContainerOperationStatus = Int32
-SharedPackageContainerOperationStatus_Success: SharedPackageContainerOperationStatus = 0
-SharedPackageContainerOperationStatus_BlockedByPolicy: SharedPackageContainerOperationStatus = 1
-SharedPackageContainerOperationStatus_AlreadyExists: SharedPackageContainerOperationStatus = 2
-SharedPackageContainerOperationStatus_PackageFamilyExistsInAnotherContainer: SharedPackageContainerOperationStatus = 3
-SharedPackageContainerOperationStatus_NotFound: SharedPackageContainerOperationStatus = 4
-SharedPackageContainerOperationStatus_UnknownFailure: SharedPackageContainerOperationStatus = 5
+class SharedPackageContainerOperationStatus(Int32):  # enum
+    Success = 0
+    BlockedByPolicy = 1
+    AlreadyExists = 2
+    PackageFamilyExistsInAnotherContainer = 3
+    NotFound = 4
+    UnknownFailure = 5
 class StagePackageOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Management.Deployment.IStagePackageOptions
@@ -1531,11 +1531,11 @@ class StagePackageOptions(ComPtr):
     StageInPlace = property(get_StageInPlace, put_StageInPlace)
     AllowUnsigned = property(get_AllowUnsigned, put_AllowUnsigned)
     ExpectedDigests = property(get_ExpectedDigests, None)
-StubPackageOption = Int32
-StubPackageOption_Default: StubPackageOption = 0
-StubPackageOption_InstallFull: StubPackageOption = 1
-StubPackageOption_InstallStub: StubPackageOption = 2
-StubPackageOption_UsePreference: StubPackageOption = 3
+class StubPackageOption(Int32):  # enum
+    Default = 0
+    InstallFull = 1
+    InstallStub = 2
+    UsePreference = 3
 class UpdateSharedPackageContainerOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Management.Deployment.IUpdateSharedPackageContainerOptions

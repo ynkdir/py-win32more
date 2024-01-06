@@ -224,10 +224,10 @@ class UserDataAccount(ComPtr):
     DisplayName = property(get_DisplayName, put_DisplayName)
     CanShowCreateContactGroup = property(get_CanShowCreateContactGroup, put_CanShowCreateContactGroup)
     ProviderProperties = property(get_ProviderProperties, None)
-UserDataAccountContentKinds = UInt32
-UserDataAccountContentKinds_Email: UserDataAccountContentKinds = 1
-UserDataAccountContentKinds_Contact: UserDataAccountContentKinds = 2
-UserDataAccountContentKinds_Appointment: UserDataAccountContentKinds = 4
+class UserDataAccountContentKinds(UInt32):  # enum
+    Email = 1
+    Contact = 2
+    Appointment = 4
 class UserDataAccountManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.UserDataAccounts.UserDataAccountManager'
@@ -250,10 +250,10 @@ class UserDataAccountManagerForUser(ComPtr):
     @winrt_mixinmethod
     def get_User(self: win32more.Windows.ApplicationModel.UserDataAccounts.IUserDataAccountManagerForUser) -> win32more.Windows.System.User: ...
     User = property(get_User, None)
-UserDataAccountOtherAppReadAccess = Int32
-UserDataAccountOtherAppReadAccess_SystemOnly: UserDataAccountOtherAppReadAccess = 0
-UserDataAccountOtherAppReadAccess_Full: UserDataAccountOtherAppReadAccess = 1
-UserDataAccountOtherAppReadAccess_None: UserDataAccountOtherAppReadAccess = 2
+class UserDataAccountOtherAppReadAccess(Int32):  # enum
+    SystemOnly = 0
+    Full = 1
+    None_ = 2
 class UserDataAccountStore(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.UserDataAccounts.IUserDataAccountStore
@@ -272,9 +272,9 @@ class UserDataAccountStore(ComPtr):
     def remove_StoreChanged(self: win32more.Windows.ApplicationModel.UserDataAccounts.IUserDataAccountStore2, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
     def CreateAccountWithPackageRelativeAppIdAndEnterpriseIdAsync(self: win32more.Windows.ApplicationModel.UserDataAccounts.IUserDataAccountStore3, userDisplayName: WinRT_String, packageRelativeAppId: WinRT_String, enterpriseId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.ApplicationModel.UserDataAccounts.UserDataAccount]: ...
-UserDataAccountStoreAccessType = Int32
-UserDataAccountStoreAccessType_AllAccountsReadOnly: UserDataAccountStoreAccessType = 0
-UserDataAccountStoreAccessType_AppAccountsReadWrite: UserDataAccountStoreAccessType = 1
+class UserDataAccountStoreAccessType(Int32):  # enum
+    AllAccountsReadOnly = 0
+    AppAccountsReadWrite = 1
 class UserDataAccountStoreChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.UserDataAccounts.IUserDataAccountStoreChangedEventArgs

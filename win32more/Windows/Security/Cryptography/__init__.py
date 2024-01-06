@@ -4,10 +4,10 @@ from win32more._winrt import Annotated, Generic, K, MulticastDelegate, SZArray, 
 import win32more.Windows.Security.Cryptography
 import win32more.Windows.Storage.Streams
 import win32more.Windows.Win32.System.WinRT
-BinaryStringEncoding = Int32
-BinaryStringEncoding_Utf8: BinaryStringEncoding = 0
-BinaryStringEncoding_Utf16LE: BinaryStringEncoding = 1
-BinaryStringEncoding_Utf16BE: BinaryStringEncoding = 2
+class BinaryStringEncoding(Int32):  # enum
+    Utf8 = 0
+    Utf16LE = 1
+    Utf16BE = 2
 class CryptographicBuffer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.Cryptography.CryptographicBuffer'

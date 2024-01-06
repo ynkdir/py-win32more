@@ -5,11 +5,11 @@ import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Graphics.Display.Core
 import win32more.Windows.Win32.System.WinRT
-HdmiDisplayColorSpace = Int32
-HdmiDisplayColorSpace_RgbLimited: HdmiDisplayColorSpace = 0
-HdmiDisplayColorSpace_RgbFull: HdmiDisplayColorSpace = 1
-HdmiDisplayColorSpace_BT2020: HdmiDisplayColorSpace = 2
-HdmiDisplayColorSpace_BT709: HdmiDisplayColorSpace = 3
+class HdmiDisplayColorSpace(Int32):  # enum
+    RgbLimited = 0
+    RgbFull = 1
+    BT2020 = 2
+    BT709 = 3
 class HdmiDisplayHdr2086Metadata(EasyCastStructure):
     RedPrimaryX: UInt16
     RedPrimaryY: UInt16
@@ -23,11 +23,11 @@ class HdmiDisplayHdr2086Metadata(EasyCastStructure):
     MinMasteringLuminance: UInt16
     MaxContentLightLevel: UInt16
     MaxFrameAverageLightLevel: UInt16
-HdmiDisplayHdrOption = Int32
-HdmiDisplayHdrOption_None: HdmiDisplayHdrOption = 0
-HdmiDisplayHdrOption_EotfSdr: HdmiDisplayHdrOption = 1
-HdmiDisplayHdrOption_Eotf2084: HdmiDisplayHdrOption = 2
-HdmiDisplayHdrOption_DolbyVisionLowLatency: HdmiDisplayHdrOption = 3
+class HdmiDisplayHdrOption(Int32):  # enum
+    None_ = 0
+    EotfSdr = 1
+    Eotf2084 = 2
+    DolbyVisionLowLatency = 3
 class HdmiDisplayInformation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Display.Core.IHdmiDisplayInformation
@@ -89,11 +89,11 @@ class HdmiDisplayMode(ComPtr):
     IsSmpte2084Supported = property(get_IsSmpte2084Supported, None)
     Is2086MetadataSupported = property(get_Is2086MetadataSupported, None)
     IsDolbyVisionLowLatencySupported = property(get_IsDolbyVisionLowLatencySupported, None)
-HdmiDisplayPixelEncoding = Int32
-HdmiDisplayPixelEncoding_Rgb444: HdmiDisplayPixelEncoding = 0
-HdmiDisplayPixelEncoding_Ycc444: HdmiDisplayPixelEncoding = 1
-HdmiDisplayPixelEncoding_Ycc422: HdmiDisplayPixelEncoding = 2
-HdmiDisplayPixelEncoding_Ycc420: HdmiDisplayPixelEncoding = 3
+class HdmiDisplayPixelEncoding(Int32):  # enum
+    Rgb444 = 0
+    Ycc444 = 1
+    Ycc422 = 2
+    Ycc420 = 3
 class IHdmiDisplayInformation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Display.Core.IHdmiDisplayInformation'

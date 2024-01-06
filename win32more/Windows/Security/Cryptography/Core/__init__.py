@@ -98,9 +98,9 @@ class AsymmetricKeyAlgorithmProvider(ComPtr):
     @winrt_classmethod
     def OpenAlgorithm(cls: win32more.Windows.Security.Cryptography.Core.IAsymmetricKeyAlgorithmProviderStatics, algorithm: WinRT_String) -> win32more.Windows.Security.Cryptography.Core.AsymmetricKeyAlgorithmProvider: ...
     AlgorithmName = property(get_AlgorithmName, None)
-Capi1KdfTargetAlgorithm = Int32
-Capi1KdfTargetAlgorithm_NotAes: Capi1KdfTargetAlgorithm = 0
-Capi1KdfTargetAlgorithm_Aes: Capi1KdfTargetAlgorithm = 1
+class Capi1KdfTargetAlgorithm(Int32):  # enum
+    NotAes = 0
+    Aes = 1
 class CryptographicEngine(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.Cryptography.Core.CryptographicEngine'
@@ -151,23 +151,23 @@ class CryptographicKey(ComPtr):
     @winrt_mixinmethod
     def ExportPublicKeyWithBlobType(self: win32more.Windows.Security.Cryptography.Core.ICryptographicKey, BlobType: win32more.Windows.Security.Cryptography.Core.CryptographicPublicKeyBlobType) -> win32more.Windows.Storage.Streams.IBuffer: ...
     KeySize = property(get_KeySize, None)
-CryptographicPadding = Int32
-CryptographicPadding_None: CryptographicPadding = 0
-CryptographicPadding_RsaOaep: CryptographicPadding = 1
-CryptographicPadding_RsaPkcs1V15: CryptographicPadding = 2
-CryptographicPadding_RsaPss: CryptographicPadding = 3
-CryptographicPrivateKeyBlobType = Int32
-CryptographicPrivateKeyBlobType_Pkcs8RawPrivateKeyInfo: CryptographicPrivateKeyBlobType = 0
-CryptographicPrivateKeyBlobType_Pkcs1RsaPrivateKey: CryptographicPrivateKeyBlobType = 1
-CryptographicPrivateKeyBlobType_BCryptPrivateKey: CryptographicPrivateKeyBlobType = 2
-CryptographicPrivateKeyBlobType_Capi1PrivateKey: CryptographicPrivateKeyBlobType = 3
-CryptographicPrivateKeyBlobType_BCryptEccFullPrivateKey: CryptographicPrivateKeyBlobType = 4
-CryptographicPublicKeyBlobType = Int32
-CryptographicPublicKeyBlobType_X509SubjectPublicKeyInfo: CryptographicPublicKeyBlobType = 0
-CryptographicPublicKeyBlobType_Pkcs1RsaPublicKey: CryptographicPublicKeyBlobType = 1
-CryptographicPublicKeyBlobType_BCryptPublicKey: CryptographicPublicKeyBlobType = 2
-CryptographicPublicKeyBlobType_Capi1PublicKey: CryptographicPublicKeyBlobType = 3
-CryptographicPublicKeyBlobType_BCryptEccFullPublicKey: CryptographicPublicKeyBlobType = 4
+class CryptographicPadding(Int32):  # enum
+    None_ = 0
+    RsaOaep = 1
+    RsaPkcs1V15 = 2
+    RsaPss = 3
+class CryptographicPrivateKeyBlobType(Int32):  # enum
+    Pkcs8RawPrivateKeyInfo = 0
+    Pkcs1RsaPrivateKey = 1
+    BCryptPrivateKey = 2
+    Capi1PrivateKey = 3
+    BCryptEccFullPrivateKey = 4
+class CryptographicPublicKeyBlobType(Int32):  # enum
+    X509SubjectPublicKeyInfo = 0
+    Pkcs1RsaPublicKey = 1
+    BCryptPublicKey = 2
+    Capi1PublicKey = 3
+    BCryptEccFullPublicKey = 4
 class _EccCurveNames_Meta_(ComPtr.__class__):
     pass
 class EccCurveNames(ComPtr, metaclass=_EccCurveNames_Meta_):

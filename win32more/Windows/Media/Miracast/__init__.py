@@ -392,20 +392,20 @@ class MiracastReceiverApplySettingsResult(ComPtr):
     def get_ExtendedError(self: win32more.Windows.Media.Miracast.IMiracastReceiverApplySettingsResult) -> win32more.Windows.Foundation.HResult: ...
     Status = property(get_Status, None)
     ExtendedError = property(get_ExtendedError, None)
-MiracastReceiverApplySettingsStatus = Int32
-MiracastReceiverApplySettingsStatus_Success: MiracastReceiverApplySettingsStatus = 0
-MiracastReceiverApplySettingsStatus_UnknownFailure: MiracastReceiverApplySettingsStatus = 1
-MiracastReceiverApplySettingsStatus_MiracastNotSupported: MiracastReceiverApplySettingsStatus = 2
-MiracastReceiverApplySettingsStatus_AccessDenied: MiracastReceiverApplySettingsStatus = 3
-MiracastReceiverApplySettingsStatus_FriendlyNameTooLong: MiracastReceiverApplySettingsStatus = 4
-MiracastReceiverApplySettingsStatus_ModelNameTooLong: MiracastReceiverApplySettingsStatus = 5
-MiracastReceiverApplySettingsStatus_ModelNumberTooLong: MiracastReceiverApplySettingsStatus = 6
-MiracastReceiverApplySettingsStatus_InvalidSettings: MiracastReceiverApplySettingsStatus = 7
-MiracastReceiverAuthorizationMethod = Int32
-MiracastReceiverAuthorizationMethod_None: MiracastReceiverAuthorizationMethod = 0
-MiracastReceiverAuthorizationMethod_ConfirmConnection: MiracastReceiverAuthorizationMethod = 1
-MiracastReceiverAuthorizationMethod_PinDisplayIfRequested: MiracastReceiverAuthorizationMethod = 2
-MiracastReceiverAuthorizationMethod_PinDisplayRequired: MiracastReceiverAuthorizationMethod = 3
+class MiracastReceiverApplySettingsStatus(Int32):  # enum
+    Success = 0
+    UnknownFailure = 1
+    MiracastNotSupported = 2
+    AccessDenied = 3
+    FriendlyNameTooLong = 4
+    ModelNameTooLong = 5
+    ModelNumberTooLong = 6
+    InvalidSettings = 7
+class MiracastReceiverAuthorizationMethod(Int32):  # enum
+    None_ = 0
+    ConfirmConnection = 1
+    PinDisplayIfRequested = 2
+    PinDisplayRequired = 3
 class MiracastReceiverConnection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Miracast.IMiracastReceiverConnection
@@ -486,15 +486,15 @@ class MiracastReceiverCursorImageChannelSettings(ComPtr):
     def put_MaxImageSize(self: win32more.Windows.Media.Miracast.IMiracastReceiverCursorImageChannelSettings, value: win32more.Windows.Graphics.SizeInt32) -> Void: ...
     IsEnabled = property(get_IsEnabled, put_IsEnabled)
     MaxImageSize = property(get_MaxImageSize, put_MaxImageSize)
-MiracastReceiverDisconnectReason = Int32
-MiracastReceiverDisconnectReason_Finished: MiracastReceiverDisconnectReason = 0
-MiracastReceiverDisconnectReason_AppSpecificError: MiracastReceiverDisconnectReason = 1
-MiracastReceiverDisconnectReason_ConnectionNotAccepted: MiracastReceiverDisconnectReason = 2
-MiracastReceiverDisconnectReason_DisconnectedByUser: MiracastReceiverDisconnectReason = 3
-MiracastReceiverDisconnectReason_FailedToStartStreaming: MiracastReceiverDisconnectReason = 4
-MiracastReceiverDisconnectReason_MediaDecodingError: MiracastReceiverDisconnectReason = 5
-MiracastReceiverDisconnectReason_MediaStreamingError: MiracastReceiverDisconnectReason = 6
-MiracastReceiverDisconnectReason_MediaDecryptionError: MiracastReceiverDisconnectReason = 7
+class MiracastReceiverDisconnectReason(Int32):  # enum
+    Finished = 0
+    AppSpecificError = 1
+    ConnectionNotAccepted = 2
+    DisconnectedByUser = 3
+    FailedToStartStreaming = 4
+    MediaDecodingError = 5
+    MediaStreamingError = 6
+    MediaDecryptionError = 7
 class MiracastReceiverDisconnectedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Miracast.IMiracastReceiverDisconnectedEventArgs
@@ -526,9 +526,9 @@ class MiracastReceiverGameControllerDevice(ComPtr):
     IsRequestedByTransmitter = property(get_IsRequestedByTransmitter, None)
     IsTransmittingInput = property(get_IsTransmittingInput, None)
     Mode = property(get_Mode, put_Mode)
-MiracastReceiverGameControllerDeviceUsageMode = Int32
-MiracastReceiverGameControllerDeviceUsageMode_AsGameController: MiracastReceiverGameControllerDeviceUsageMode = 0
-MiracastReceiverGameControllerDeviceUsageMode_AsMouseAndKeyboard: MiracastReceiverGameControllerDeviceUsageMode = 1
+class MiracastReceiverGameControllerDeviceUsageMode(Int32):  # enum
+    AsGameController = 0
+    AsMouseAndKeyboard = 1
 class MiracastReceiverInputDevices(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Miracast.IMiracastReceiverInputDevices
@@ -558,13 +558,13 @@ class MiracastReceiverKeyboardDevice(ComPtr):
     TransmitInput = property(get_TransmitInput, put_TransmitInput)
     IsRequestedByTransmitter = property(get_IsRequestedByTransmitter, None)
     IsTransmittingInput = property(get_IsTransmittingInput, None)
-MiracastReceiverListeningStatus = Int32
-MiracastReceiverListeningStatus_NotListening: MiracastReceiverListeningStatus = 0
-MiracastReceiverListeningStatus_Listening: MiracastReceiverListeningStatus = 1
-MiracastReceiverListeningStatus_ConnectionPending: MiracastReceiverListeningStatus = 2
-MiracastReceiverListeningStatus_Connected: MiracastReceiverListeningStatus = 3
-MiracastReceiverListeningStatus_DisabledByPolicy: MiracastReceiverListeningStatus = 4
-MiracastReceiverListeningStatus_TemporarilyDisabled: MiracastReceiverListeningStatus = 5
+class MiracastReceiverListeningStatus(Int32):  # enum
+    NotListening = 0
+    Listening = 1
+    ConnectionPending = 2
+    Connected = 3
+    DisabledByPolicy = 4
+    TemporarilyDisabled = 5
 class MiracastReceiverMediaSourceCreatedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Miracast.IMiracastReceiverMediaSourceCreatedEventArgs
@@ -622,11 +622,11 @@ class MiracastReceiverSessionStartResult(ComPtr):
     def get_ExtendedError(self: win32more.Windows.Media.Miracast.IMiracastReceiverSessionStartResult) -> win32more.Windows.Foundation.HResult: ...
     Status = property(get_Status, None)
     ExtendedError = property(get_ExtendedError, None)
-MiracastReceiverSessionStartStatus = Int32
-MiracastReceiverSessionStartStatus_Success: MiracastReceiverSessionStartStatus = 0
-MiracastReceiverSessionStartStatus_UnknownFailure: MiracastReceiverSessionStartStatus = 1
-MiracastReceiverSessionStartStatus_MiracastNotSupported: MiracastReceiverSessionStartStatus = 2
-MiracastReceiverSessionStartStatus_AccessDenied: MiracastReceiverSessionStartStatus = 3
+class MiracastReceiverSessionStartStatus(Int32):  # enum
+    Success = 0
+    UnknownFailure = 1
+    MiracastNotSupported = 2
+    AccessDenied = 3
 class MiracastReceiverSettings(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Miracast.IMiracastReceiverSettings
@@ -706,11 +706,11 @@ class MiracastReceiverVideoStreamSettings(ComPtr):
     def put_Bitrate(self: win32more.Windows.Media.Miracast.IMiracastReceiverVideoStreamSettings, value: Int32) -> Void: ...
     Size = property(get_Size, put_Size)
     Bitrate = property(get_Bitrate, put_Bitrate)
-MiracastReceiverWiFiStatus = Int32
-MiracastReceiverWiFiStatus_MiracastSupportUndetermined: MiracastReceiverWiFiStatus = 0
-MiracastReceiverWiFiStatus_MiracastNotSupported: MiracastReceiverWiFiStatus = 1
-MiracastReceiverWiFiStatus_MiracastSupportNotOptimized: MiracastReceiverWiFiStatus = 2
-MiracastReceiverWiFiStatus_MiracastSupported: MiracastReceiverWiFiStatus = 3
+class MiracastReceiverWiFiStatus(Int32):  # enum
+    MiracastSupportUndetermined = 0
+    MiracastNotSupported = 1
+    MiracastSupportNotOptimized = 2
+    MiracastSupported = 3
 class MiracastTransmitter(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Miracast.IMiracastTransmitter
@@ -733,11 +733,11 @@ class MiracastTransmitter(ComPtr):
     AuthorizationStatus = property(get_AuthorizationStatus, put_AuthorizationStatus)
     MacAddress = property(get_MacAddress, None)
     LastConnectionTime = property(get_LastConnectionTime, None)
-MiracastTransmitterAuthorizationStatus = Int32
-MiracastTransmitterAuthorizationStatus_Undecided: MiracastTransmitterAuthorizationStatus = 0
-MiracastTransmitterAuthorizationStatus_Allowed: MiracastTransmitterAuthorizationStatus = 1
-MiracastTransmitterAuthorizationStatus_AlwaysPrompt: MiracastTransmitterAuthorizationStatus = 2
-MiracastTransmitterAuthorizationStatus_Blocked: MiracastTransmitterAuthorizationStatus = 3
+class MiracastTransmitterAuthorizationStatus(Int32):  # enum
+    Undecided = 0
+    Allowed = 1
+    AlwaysPrompt = 2
+    Blocked = 3
 
 
 make_ready(__name__)

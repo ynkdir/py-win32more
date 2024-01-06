@@ -16,16 +16,16 @@ class CompositionDebugHeatMaps(ComPtr):
     def ShowOverdraw(self: win32more.Windows.UI.Composition.Diagnostics.ICompositionDebugHeatMaps, subtree: win32more.Windows.UI.Composition.Visual, contentKinds: win32more.Windows.UI.Composition.Diagnostics.CompositionDebugOverdrawContentKinds) -> Void: ...
     @winrt_mixinmethod
     def ShowRedraw(self: win32more.Windows.UI.Composition.Diagnostics.ICompositionDebugHeatMaps, subtree: win32more.Windows.UI.Composition.Visual) -> Void: ...
-CompositionDebugOverdrawContentKinds = UInt32
-CompositionDebugOverdrawContentKinds_None: CompositionDebugOverdrawContentKinds = 0
-CompositionDebugOverdrawContentKinds_OffscreenRendered: CompositionDebugOverdrawContentKinds = 1
-CompositionDebugOverdrawContentKinds_Colors: CompositionDebugOverdrawContentKinds = 2
-CompositionDebugOverdrawContentKinds_Effects: CompositionDebugOverdrawContentKinds = 4
-CompositionDebugOverdrawContentKinds_Shadows: CompositionDebugOverdrawContentKinds = 8
-CompositionDebugOverdrawContentKinds_Lights: CompositionDebugOverdrawContentKinds = 16
-CompositionDebugOverdrawContentKinds_Surfaces: CompositionDebugOverdrawContentKinds = 32
-CompositionDebugOverdrawContentKinds_SwapChains: CompositionDebugOverdrawContentKinds = 64
-CompositionDebugOverdrawContentKinds_All: CompositionDebugOverdrawContentKinds = 4294967295
+class CompositionDebugOverdrawContentKinds(UInt32):  # enum
+    None_ = 0
+    OffscreenRendered = 1
+    Colors = 2
+    Effects = 4
+    Shadows = 8
+    Lights = 16
+    Surfaces = 32
+    SwapChains = 64
+    All = 4294967295
 class CompositionDebugSettings(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Composition.Diagnostics.ICompositionDebugSettings

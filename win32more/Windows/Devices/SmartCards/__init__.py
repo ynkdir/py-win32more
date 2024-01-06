@@ -757,9 +757,9 @@ class SmartCard(ComPtr):
     @winrt_mixinmethod
     def ConnectAsync(self: win32more.Windows.Devices.SmartCards.ISmartCardConnect) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.SmartCards.SmartCardConnection]: ...
     Reader = property(get_Reader, None)
-SmartCardActivationPolicyChangeResult = Int32
-SmartCardActivationPolicyChangeResult_Denied: SmartCardActivationPolicyChangeResult = 0
-SmartCardActivationPolicyChangeResult_Allowed: SmartCardActivationPolicyChangeResult = 1
+class SmartCardActivationPolicyChangeResult(Int32):  # enum
+    Denied = 0
+    Allowed = 1
 class _SmartCardAppletIdGroup_Meta_(ComPtr.__class__):
     pass
 class SmartCardAppletIdGroup(ComPtr, metaclass=_SmartCardAppletIdGroup_Meta_):
@@ -823,10 +823,10 @@ class SmartCardAppletIdGroup(ComPtr, metaclass=_SmartCardAppletIdGroup_Meta_):
     Properties = property(get_Properties, None)
     SecureUserAuthenticationRequired = property(get_SecureUserAuthenticationRequired, put_SecureUserAuthenticationRequired)
     _SmartCardAppletIdGroup_Meta_.MaxAppletIds = property(get_MaxAppletIds.__wrapped__, None)
-SmartCardAppletIdGroupActivationPolicy = Int32
-SmartCardAppletIdGroupActivationPolicy_Disabled: SmartCardAppletIdGroupActivationPolicy = 0
-SmartCardAppletIdGroupActivationPolicy_ForegroundOverride: SmartCardAppletIdGroupActivationPolicy = 1
-SmartCardAppletIdGroupActivationPolicy_Enabled: SmartCardAppletIdGroupActivationPolicy = 2
+class SmartCardAppletIdGroupActivationPolicy(Int32):  # enum
+    Disabled = 0
+    ForegroundOverride = 1
+    Enabled = 2
 class SmartCardAppletIdGroupRegistration(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.SmartCards.ISmartCardAppletIdGroupRegistration
@@ -902,10 +902,10 @@ class SmartCardAutomaticResponseApdu(ComPtr):
     InputState = property(get_InputState, put_InputState)
     OutputState = property(get_OutputState, put_OutputState)
     AllowWhenCryptogramGeneratorNotPrepared = property(get_AllowWhenCryptogramGeneratorNotPrepared, put_AllowWhenCryptogramGeneratorNotPrepared)
-SmartCardAutomaticResponseStatus = Int32
-SmartCardAutomaticResponseStatus_None: SmartCardAutomaticResponseStatus = 0
-SmartCardAutomaticResponseStatus_Success: SmartCardAutomaticResponseStatus = 1
-SmartCardAutomaticResponseStatus_UnknownError: SmartCardAutomaticResponseStatus = 2
+class SmartCardAutomaticResponseStatus(Int32):  # enum
+    None_ = 0
+    Success = 1
+    UnknownError = 2
 SmartCardBackgroundTriggerContract: UInt32 = 196608
 class SmartCardChallengeContext(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -932,16 +932,16 @@ class SmartCardConnection(ComPtr):
     def TransmitAsync(self: win32more.Windows.Devices.SmartCards.ISmartCardConnection, command: win32more.Windows.Storage.Streams.IBuffer) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Storage.Streams.IBuffer]: ...
     @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
-SmartCardCryptogramAlgorithm = Int32
-SmartCardCryptogramAlgorithm_None: SmartCardCryptogramAlgorithm = 0
-SmartCardCryptogramAlgorithm_CbcMac: SmartCardCryptogramAlgorithm = 1
-SmartCardCryptogramAlgorithm_Cvc3Umd: SmartCardCryptogramAlgorithm = 2
-SmartCardCryptogramAlgorithm_DecimalizedMsd: SmartCardCryptogramAlgorithm = 3
-SmartCardCryptogramAlgorithm_Cvc3MD: SmartCardCryptogramAlgorithm = 4
-SmartCardCryptogramAlgorithm_Sha1: SmartCardCryptogramAlgorithm = 5
-SmartCardCryptogramAlgorithm_SignedDynamicApplicationData: SmartCardCryptogramAlgorithm = 6
-SmartCardCryptogramAlgorithm_RsaPkcs1: SmartCardCryptogramAlgorithm = 7
-SmartCardCryptogramAlgorithm_Sha256Hmac: SmartCardCryptogramAlgorithm = 8
+class SmartCardCryptogramAlgorithm(Int32):  # enum
+    None_ = 0
+    CbcMac = 1
+    Cvc3Umd = 2
+    DecimalizedMsd = 3
+    Cvc3MD = 4
+    Sha1 = 5
+    SignedDynamicApplicationData = 6
+    RsaPkcs1 = 7
+    Sha256Hmac = 8
 class SmartCardCryptogramGenerator(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.SmartCards.ISmartCardCryptogramGenerator
@@ -989,21 +989,21 @@ class SmartCardCryptogramGenerator(ComPtr):
     SupportedCryptogramMaterialPackageFormats = property(get_SupportedCryptogramMaterialPackageFormats, None)
     SupportedCryptogramMaterialPackageConfirmationResponseFormats = property(get_SupportedCryptogramMaterialPackageConfirmationResponseFormats, None)
     SupportedSmartCardCryptogramStorageKeyCapabilities = property(get_SupportedSmartCardCryptogramStorageKeyCapabilities, None)
-SmartCardCryptogramGeneratorOperationStatus = Int32
-SmartCardCryptogramGeneratorOperationStatus_Success: SmartCardCryptogramGeneratorOperationStatus = 0
-SmartCardCryptogramGeneratorOperationStatus_AuthorizationFailed: SmartCardCryptogramGeneratorOperationStatus = 1
-SmartCardCryptogramGeneratorOperationStatus_AuthorizationCanceled: SmartCardCryptogramGeneratorOperationStatus = 2
-SmartCardCryptogramGeneratorOperationStatus_AuthorizationRequired: SmartCardCryptogramGeneratorOperationStatus = 3
-SmartCardCryptogramGeneratorOperationStatus_CryptogramMaterialPackageStorageKeyExists: SmartCardCryptogramGeneratorOperationStatus = 4
-SmartCardCryptogramGeneratorOperationStatus_NoCryptogramMaterialPackageStorageKey: SmartCardCryptogramGeneratorOperationStatus = 5
-SmartCardCryptogramGeneratorOperationStatus_NoCryptogramMaterialPackage: SmartCardCryptogramGeneratorOperationStatus = 6
-SmartCardCryptogramGeneratorOperationStatus_UnsupportedCryptogramMaterialPackage: SmartCardCryptogramGeneratorOperationStatus = 7
-SmartCardCryptogramGeneratorOperationStatus_UnknownCryptogramMaterialName: SmartCardCryptogramGeneratorOperationStatus = 8
-SmartCardCryptogramGeneratorOperationStatus_InvalidCryptogramMaterialUsage: SmartCardCryptogramGeneratorOperationStatus = 9
-SmartCardCryptogramGeneratorOperationStatus_ApduResponseNotSent: SmartCardCryptogramGeneratorOperationStatus = 10
-SmartCardCryptogramGeneratorOperationStatus_OtherError: SmartCardCryptogramGeneratorOperationStatus = 11
-SmartCardCryptogramGeneratorOperationStatus_ValidationFailed: SmartCardCryptogramGeneratorOperationStatus = 12
-SmartCardCryptogramGeneratorOperationStatus_NotSupported: SmartCardCryptogramGeneratorOperationStatus = 13
+class SmartCardCryptogramGeneratorOperationStatus(Int32):  # enum
+    Success = 0
+    AuthorizationFailed = 1
+    AuthorizationCanceled = 2
+    AuthorizationRequired = 3
+    CryptogramMaterialPackageStorageKeyExists = 4
+    NoCryptogramMaterialPackageStorageKey = 5
+    NoCryptogramMaterialPackage = 6
+    UnsupportedCryptogramMaterialPackage = 7
+    UnknownCryptogramMaterialName = 8
+    InvalidCryptogramMaterialUsage = 9
+    ApduResponseNotSent = 10
+    OtherError = 11
+    ValidationFailed = 12
+    NotSupported = 13
 class SmartCardCryptogramGetAllCryptogramMaterialCharacteristicsResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.SmartCards.ISmartCardCryptogramGetAllCryptogramMaterialCharacteristicsResult
@@ -1123,12 +1123,12 @@ class SmartCardCryptogramMaterialPackageCharacteristics(ComPtr):
     StorageKeyName = property(get_StorageKeyName, None)
     DateImported = property(get_DateImported, None)
     PackageFormat = property(get_PackageFormat, None)
-SmartCardCryptogramMaterialPackageConfirmationResponseFormat = Int32
-SmartCardCryptogramMaterialPackageConfirmationResponseFormat_None: SmartCardCryptogramMaterialPackageConfirmationResponseFormat = 0
-SmartCardCryptogramMaterialPackageConfirmationResponseFormat_VisaHmac: SmartCardCryptogramMaterialPackageConfirmationResponseFormat = 1
-SmartCardCryptogramMaterialPackageFormat = Int32
-SmartCardCryptogramMaterialPackageFormat_None: SmartCardCryptogramMaterialPackageFormat = 0
-SmartCardCryptogramMaterialPackageFormat_JweRsaPki: SmartCardCryptogramMaterialPackageFormat = 1
+class SmartCardCryptogramMaterialPackageConfirmationResponseFormat(Int32):  # enum
+    None_ = 0
+    VisaHmac = 1
+class SmartCardCryptogramMaterialPackageFormat(Int32):  # enum
+    None_ = 0
+    JweRsaPki = 1
 class SmartCardCryptogramMaterialPossessionProof(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.SmartCards.ISmartCardCryptogramMaterialPossessionProof
@@ -1139,19 +1139,19 @@ class SmartCardCryptogramMaterialPossessionProof(ComPtr):
     def get_Proof(self: win32more.Windows.Devices.SmartCards.ISmartCardCryptogramMaterialPossessionProof) -> win32more.Windows.Storage.Streams.IBuffer: ...
     OperationStatus = property(get_OperationStatus, None)
     Proof = property(get_Proof, None)
-SmartCardCryptogramMaterialProtectionMethod = Int32
-SmartCardCryptogramMaterialProtectionMethod_None: SmartCardCryptogramMaterialProtectionMethod = 0
-SmartCardCryptogramMaterialProtectionMethod_WhiteBoxing: SmartCardCryptogramMaterialProtectionMethod = 1
-SmartCardCryptogramMaterialType = Int32
-SmartCardCryptogramMaterialType_None: SmartCardCryptogramMaterialType = 0
-SmartCardCryptogramMaterialType_StaticDataAuthentication: SmartCardCryptogramMaterialType = 1
-SmartCardCryptogramMaterialType_TripleDes112: SmartCardCryptogramMaterialType = 2
-SmartCardCryptogramMaterialType_Aes: SmartCardCryptogramMaterialType = 3
-SmartCardCryptogramMaterialType_RsaPkcs1: SmartCardCryptogramMaterialType = 4
-SmartCardCryptogramPlacementOptions = UInt32
-SmartCardCryptogramPlacementOptions_None: SmartCardCryptogramPlacementOptions = 0
-SmartCardCryptogramPlacementOptions_UnitsAreInNibbles: SmartCardCryptogramPlacementOptions = 1
-SmartCardCryptogramPlacementOptions_ChainOutput: SmartCardCryptogramPlacementOptions = 2
+class SmartCardCryptogramMaterialProtectionMethod(Int32):  # enum
+    None_ = 0
+    WhiteBoxing = 1
+class SmartCardCryptogramMaterialType(Int32):  # enum
+    None_ = 0
+    StaticDataAuthentication = 1
+    TripleDes112 = 2
+    Aes = 3
+    RsaPkcs1 = 4
+class SmartCardCryptogramPlacementOptions(UInt32):  # enum
+    None_ = 0
+    UnitsAreInNibbles = 1
+    ChainOutput = 2
 class SmartCardCryptogramPlacementStep(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.SmartCards.ISmartCardCryptogramPlacementStep
@@ -1210,13 +1210,13 @@ class SmartCardCryptogramPlacementStep(ComPtr):
     CryptogramLength = property(get_CryptogramLength, put_CryptogramLength)
     CryptogramPlacementOptions = property(get_CryptogramPlacementOptions, put_CryptogramPlacementOptions)
     ChainedOutputStep = property(get_ChainedOutputStep, put_ChainedOutputStep)
-SmartCardCryptogramStorageKeyAlgorithm = Int32
-SmartCardCryptogramStorageKeyAlgorithm_None: SmartCardCryptogramStorageKeyAlgorithm = 0
-SmartCardCryptogramStorageKeyAlgorithm_Rsa2048: SmartCardCryptogramStorageKeyAlgorithm = 1
-SmartCardCryptogramStorageKeyCapabilities = UInt32
-SmartCardCryptogramStorageKeyCapabilities_None: SmartCardCryptogramStorageKeyCapabilities = 0
-SmartCardCryptogramStorageKeyCapabilities_HardwareProtection: SmartCardCryptogramStorageKeyCapabilities = 1
-SmartCardCryptogramStorageKeyCapabilities_UnlockPrompt: SmartCardCryptogramStorageKeyCapabilities = 2
+class SmartCardCryptogramStorageKeyAlgorithm(Int32):  # enum
+    None_ = 0
+    Rsa2048 = 1
+class SmartCardCryptogramStorageKeyCapabilities(UInt32):  # enum
+    None_ = 0
+    HardwareProtection = 1
+    UnlockPrompt = 2
 class SmartCardCryptogramStorageKeyCharacteristics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.SmartCards.ISmartCardCryptogramStorageKeyCharacteristics
@@ -1270,22 +1270,22 @@ class SmartCardCryptogramStorageKeyInfo(ComPtr):
     AttestationCertificateChain = property(get_AttestationCertificateChain, None)
     Capabilities = property(get_Capabilities, None)
     OperationalRequirements = property(get_OperationalRequirements, None)
-SmartCardCryptographicKeyAttestationStatus = Int32
-SmartCardCryptographicKeyAttestationStatus_NoAttestation: SmartCardCryptographicKeyAttestationStatus = 0
-SmartCardCryptographicKeyAttestationStatus_SoftwareKeyWithoutTpm: SmartCardCryptographicKeyAttestationStatus = 1
-SmartCardCryptographicKeyAttestationStatus_SoftwareKeyWithTpm: SmartCardCryptographicKeyAttestationStatus = 2
-SmartCardCryptographicKeyAttestationStatus_TpmKeyUnknownAttestationStatus: SmartCardCryptographicKeyAttestationStatus = 3
-SmartCardCryptographicKeyAttestationStatus_TpmKeyWithoutAttestationCapability: SmartCardCryptographicKeyAttestationStatus = 4
-SmartCardCryptographicKeyAttestationStatus_TpmKeyWithTemporaryAttestationFailure: SmartCardCryptographicKeyAttestationStatus = 5
-SmartCardCryptographicKeyAttestationStatus_TpmKeyWithLongTermAttestationFailure: SmartCardCryptographicKeyAttestationStatus = 6
-SmartCardCryptographicKeyAttestationStatus_TpmKeyWithAttestation: SmartCardCryptographicKeyAttestationStatus = 7
-SmartCardEmulationCategory = Int32
-SmartCardEmulationCategory_Other: SmartCardEmulationCategory = 0
-SmartCardEmulationCategory_Payment: SmartCardEmulationCategory = 1
-SmartCardEmulationType = Int32
-SmartCardEmulationType_Host: SmartCardEmulationType = 0
-SmartCardEmulationType_Uicc: SmartCardEmulationType = 1
-SmartCardEmulationType_EmbeddedSE: SmartCardEmulationType = 2
+class SmartCardCryptographicKeyAttestationStatus(Int32):  # enum
+    NoAttestation = 0
+    SoftwareKeyWithoutTpm = 1
+    SoftwareKeyWithTpm = 2
+    TpmKeyUnknownAttestationStatus = 3
+    TpmKeyWithoutAttestationCapability = 4
+    TpmKeyWithTemporaryAttestationFailure = 5
+    TpmKeyWithLongTermAttestationFailure = 6
+    TpmKeyWithAttestation = 7
+class SmartCardEmulationCategory(Int32):  # enum
+    Other = 0
+    Payment = 1
+class SmartCardEmulationType(Int32):  # enum
+    Host = 0
+    Uicc = 1
+    EmbeddedSE = 2
 class _SmartCardEmulator_Meta_(ComPtr.__class__):
     pass
 class SmartCardEmulator(ComPtr, metaclass=_SmartCardEmulator_Meta_):
@@ -1354,9 +1354,9 @@ class SmartCardEmulatorConnectionDeactivatedEventArgs(ComPtr):
     def get_Reason(self: win32more.Windows.Devices.SmartCards.ISmartCardEmulatorConnectionDeactivatedEventArgs) -> win32more.Windows.Devices.SmartCards.SmartCardEmulatorConnectionDeactivatedReason: ...
     ConnectionProperties = property(get_ConnectionProperties, None)
     Reason = property(get_Reason, None)
-SmartCardEmulatorConnectionDeactivatedReason = Int32
-SmartCardEmulatorConnectionDeactivatedReason_ConnectionLost: SmartCardEmulatorConnectionDeactivatedReason = 0
-SmartCardEmulatorConnectionDeactivatedReason_ConnectionRedirected: SmartCardEmulatorConnectionDeactivatedReason = 1
+class SmartCardEmulatorConnectionDeactivatedReason(Int32):  # enum
+    ConnectionLost = 0
+    ConnectionRedirected = 1
 class SmartCardEmulatorConnectionProperties(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.SmartCards.ISmartCardEmulatorConnectionProperties
@@ -1367,22 +1367,22 @@ class SmartCardEmulatorConnectionProperties(ComPtr):
     def get_Source(self: win32more.Windows.Devices.SmartCards.ISmartCardEmulatorConnectionProperties) -> win32more.Windows.Devices.SmartCards.SmartCardEmulatorConnectionSource: ...
     Id = property(get_Id, None)
     Source = property(get_Source, None)
-SmartCardEmulatorConnectionSource = Int32
-SmartCardEmulatorConnectionSource_Unknown: SmartCardEmulatorConnectionSource = 0
-SmartCardEmulatorConnectionSource_NfcReader: SmartCardEmulatorConnectionSource = 1
+class SmartCardEmulatorConnectionSource(Int32):  # enum
+    Unknown = 0
+    NfcReader = 1
 SmartCardEmulatorContract: UInt32 = 393216
-SmartCardEmulatorEnablementPolicy = Int32
-SmartCardEmulatorEnablementPolicy_Never: SmartCardEmulatorEnablementPolicy = 0
-SmartCardEmulatorEnablementPolicy_Always: SmartCardEmulatorEnablementPolicy = 1
-SmartCardEmulatorEnablementPolicy_ScreenOn: SmartCardEmulatorEnablementPolicy = 2
-SmartCardEmulatorEnablementPolicy_ScreenUnlocked: SmartCardEmulatorEnablementPolicy = 3
-SmartCardLaunchBehavior = Int32
-SmartCardLaunchBehavior_Default: SmartCardLaunchBehavior = 0
-SmartCardLaunchBehavior_AboveLock: SmartCardLaunchBehavior = 1
-SmartCardPinCharacterPolicyOption = Int32
-SmartCardPinCharacterPolicyOption_Allow: SmartCardPinCharacterPolicyOption = 0
-SmartCardPinCharacterPolicyOption_RequireAtLeastOne: SmartCardPinCharacterPolicyOption = 1
-SmartCardPinCharacterPolicyOption_Disallow: SmartCardPinCharacterPolicyOption = 2
+class SmartCardEmulatorEnablementPolicy(Int32):  # enum
+    Never = 0
+    Always = 1
+    ScreenOn = 2
+    ScreenUnlocked = 3
+class SmartCardLaunchBehavior(Int32):  # enum
+    Default = 0
+    AboveLock = 1
+class SmartCardPinCharacterPolicyOption(Int32):  # enum
+    Allow = 0
+    RequireAtLeastOne = 1
+    Disallow = 2
 class SmartCardPinPolicy(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.SmartCards.ISmartCardPinPolicy
@@ -1512,23 +1512,23 @@ class SmartCardReader(ComPtr):
     DeviceId = property(get_DeviceId, None)
     Name = property(get_Name, None)
     Kind = property(get_Kind, None)
-SmartCardReaderKind = Int32
-SmartCardReaderKind_Any: SmartCardReaderKind = 0
-SmartCardReaderKind_Generic: SmartCardReaderKind = 1
-SmartCardReaderKind_Tpm: SmartCardReaderKind = 2
-SmartCardReaderKind_Nfc: SmartCardReaderKind = 3
-SmartCardReaderKind_Uicc: SmartCardReaderKind = 4
-SmartCardReaderKind_EmbeddedSE: SmartCardReaderKind = 5
-SmartCardReaderStatus = Int32
-SmartCardReaderStatus_Disconnected: SmartCardReaderStatus = 0
-SmartCardReaderStatus_Ready: SmartCardReaderStatus = 1
-SmartCardReaderStatus_Exclusive: SmartCardReaderStatus = 2
-SmartCardStatus = Int32
-SmartCardStatus_Disconnected: SmartCardStatus = 0
-SmartCardStatus_Ready: SmartCardStatus = 1
-SmartCardStatus_Shared: SmartCardStatus = 2
-SmartCardStatus_Exclusive: SmartCardStatus = 3
-SmartCardStatus_Unresponsive: SmartCardStatus = 4
+class SmartCardReaderKind(Int32):  # enum
+    Any = 0
+    Generic = 1
+    Tpm = 2
+    Nfc = 3
+    Uicc = 4
+    EmbeddedSE = 5
+class SmartCardReaderStatus(Int32):  # enum
+    Disconnected = 0
+    Ready = 1
+    Exclusive = 2
+class SmartCardStatus(Int32):  # enum
+    Disconnected = 0
+    Ready = 1
+    Shared = 2
+    Exclusive = 3
+    Unresponsive = 4
 class SmartCardTriggerDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.SmartCards.ISmartCardTriggerDetails
@@ -1552,17 +1552,17 @@ class SmartCardTriggerDetails(ComPtr):
     TriggerData = property(get_TriggerData, None)
     Emulator = property(get_Emulator, None)
     SmartCard = property(get_SmartCard, None)
-SmartCardTriggerType = Int32
-SmartCardTriggerType_EmulatorTransaction: SmartCardTriggerType = 0
-SmartCardTriggerType_EmulatorNearFieldEntry: SmartCardTriggerType = 1
-SmartCardTriggerType_EmulatorNearFieldExit: SmartCardTriggerType = 2
-SmartCardTriggerType_EmulatorHostApplicationActivated: SmartCardTriggerType = 3
-SmartCardTriggerType_EmulatorAppletIdGroupRegistrationChanged: SmartCardTriggerType = 4
-SmartCardTriggerType_ReaderCardAdded: SmartCardTriggerType = 5
-SmartCardUnlockPromptingBehavior = Int32
-SmartCardUnlockPromptingBehavior_AllowUnlockPrompt: SmartCardUnlockPromptingBehavior = 0
-SmartCardUnlockPromptingBehavior_RequireUnlockPrompt: SmartCardUnlockPromptingBehavior = 1
-SmartCardUnlockPromptingBehavior_PreventUnlockPrompt: SmartCardUnlockPromptingBehavior = 2
+class SmartCardTriggerType(Int32):  # enum
+    EmulatorTransaction = 0
+    EmulatorNearFieldEntry = 1
+    EmulatorNearFieldExit = 2
+    EmulatorHostApplicationActivated = 3
+    EmulatorAppletIdGroupRegistrationChanged = 4
+    ReaderCardAdded = 5
+class SmartCardUnlockPromptingBehavior(Int32):  # enum
+    AllowUnlockPrompt = 0
+    RequireUnlockPrompt = 1
+    PreventUnlockPrompt = 2
 
 
 make_ready(__name__)

@@ -75,11 +75,11 @@ class AudioEncodingProperties(ComPtr):
     Type = property(get_Type, None)
     Subtype = property(get_Subtype, put_Subtype)
     IsSpatial = property(get_IsSpatial, None)
-AudioEncodingQuality = Int32
-AudioEncodingQuality_Auto: AudioEncodingQuality = 0
-AudioEncodingQuality_High: AudioEncodingQuality = 1
-AudioEncodingQuality_Medium: AudioEncodingQuality = 2
-AudioEncodingQuality_Low: AudioEncodingQuality = 3
+class AudioEncodingQuality(Int32):  # enum
+    Auto = 0
+    High = 1
+    Medium = 2
+    Low = 3
 class _Av1ProfileIds_Meta_(ComPtr.__class__):
     pass
 class Av1ProfileIds(ComPtr, metaclass=_Av1ProfileIds_Meta_):
@@ -1233,14 +1233,14 @@ class MediaEncodingSubtypes(ComPtr, metaclass=_MediaEncodingSubtypes_Meta_):
     _MediaEncodingSubtypes_Meta_.Wvc1 = property(get_Wvc1.__wrapped__, None)
     _MediaEncodingSubtypes_Meta_.Yuy2 = property(get_Yuy2.__wrapped__, None)
     _MediaEncodingSubtypes_Meta_.Yv12 = property(get_Yv12.__wrapped__, None)
-MediaMirroringOptions = UInt32
-MediaMirroringOptions_None: MediaMirroringOptions = 0
-MediaMirroringOptions_Horizontal: MediaMirroringOptions = 1
-MediaMirroringOptions_Vertical: MediaMirroringOptions = 2
-MediaPixelFormat = Int32
-MediaPixelFormat_Nv12: MediaPixelFormat = 0
-MediaPixelFormat_Bgra8: MediaPixelFormat = 1
-MediaPixelFormat_P010: MediaPixelFormat = 2
+class MediaMirroringOptions(UInt32):  # enum
+    None_ = 0
+    Horizontal = 1
+    Vertical = 2
+class MediaPixelFormat(Int32):  # enum
+    Nv12 = 0
+    Bgra8 = 1
+    P010 = 2
 class MediaPropertySet(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.Collections.IMap[Guid, win32more.Windows.Win32.System.WinRT.IInspectable]
@@ -1285,14 +1285,14 @@ class MediaRatio(ComPtr):
     def get_Denominator(self: win32more.Windows.Media.MediaProperties.IMediaRatio) -> UInt32: ...
     Numerator = property(get_Numerator, put_Numerator)
     Denominator = property(get_Denominator, put_Denominator)
-MediaRotation = Int32
-MediaRotation_None: MediaRotation = 0
-MediaRotation_Clockwise90Degrees: MediaRotation = 1
-MediaRotation_Clockwise180Degrees: MediaRotation = 2
-MediaRotation_Clockwise270Degrees: MediaRotation = 3
-MediaThumbnailFormat = Int32
-MediaThumbnailFormat_Bmp: MediaThumbnailFormat = 0
-MediaThumbnailFormat_Bgra8: MediaThumbnailFormat = 1
+class MediaRotation(Int32):  # enum
+    None_ = 0
+    Clockwise90Degrees = 1
+    Clockwise180Degrees = 2
+    Clockwise270Degrees = 3
+class MediaThumbnailFormat(Int32):  # enum
+    Bmp = 0
+    Bgra8 = 1
 class _Mpeg2ProfileIds_Meta_(ComPtr.__class__):
     pass
 class Mpeg2ProfileIds(ComPtr, metaclass=_Mpeg2ProfileIds_Meta_):
@@ -1313,14 +1313,14 @@ class Mpeg2ProfileIds(ComPtr, metaclass=_Mpeg2ProfileIds_Meta_):
     _Mpeg2ProfileIds_Meta_.SignalNoiseRatioScalable = property(get_SignalNoiseRatioScalable.__wrapped__, None)
     _Mpeg2ProfileIds_Meta_.SpatiallyScalable = property(get_SpatiallyScalable.__wrapped__, None)
     _Mpeg2ProfileIds_Meta_.High = property(get_High.__wrapped__, None)
-SphericalVideoFrameFormat = Int32
-SphericalVideoFrameFormat_None: SphericalVideoFrameFormat = 0
-SphericalVideoFrameFormat_Unsupported: SphericalVideoFrameFormat = 1
-SphericalVideoFrameFormat_Equirectangular: SphericalVideoFrameFormat = 2
-StereoscopicVideoPackingMode = Int32
-StereoscopicVideoPackingMode_None: StereoscopicVideoPackingMode = 0
-StereoscopicVideoPackingMode_SideBySide: StereoscopicVideoPackingMode = 1
-StereoscopicVideoPackingMode_TopBottom: StereoscopicVideoPackingMode = 2
+class SphericalVideoFrameFormat(Int32):  # enum
+    None_ = 0
+    Unsupported = 1
+    Equirectangular = 2
+class StereoscopicVideoPackingMode(Int32):  # enum
+    None_ = 0
+    SideBySide = 1
+    TopBottom = 2
 class TimedMetadataEncodingProperties(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.MediaProperties.IMediaEncodingProperties
@@ -1433,17 +1433,17 @@ class VideoEncodingProperties(ComPtr):
     ProfileId = property(get_ProfileId, put_ProfileId)
     StereoscopicVideoPackingMode = property(get_StereoscopicVideoPackingMode, None)
     SphericalVideoFrameFormat = property(get_SphericalVideoFrameFormat, None)
-VideoEncodingQuality = Int32
-VideoEncodingQuality_Auto: VideoEncodingQuality = 0
-VideoEncodingQuality_HD1080p: VideoEncodingQuality = 1
-VideoEncodingQuality_HD720p: VideoEncodingQuality = 2
-VideoEncodingQuality_Wvga: VideoEncodingQuality = 3
-VideoEncodingQuality_Ntsc: VideoEncodingQuality = 4
-VideoEncodingQuality_Pal: VideoEncodingQuality = 5
-VideoEncodingQuality_Vga: VideoEncodingQuality = 6
-VideoEncodingQuality_Qvga: VideoEncodingQuality = 7
-VideoEncodingQuality_Uhd2160p: VideoEncodingQuality = 8
-VideoEncodingQuality_Uhd4320p: VideoEncodingQuality = 9
+class VideoEncodingQuality(Int32):  # enum
+    Auto = 0
+    HD1080p = 1
+    HD720p = 2
+    Wvga = 3
+    Ntsc = 4
+    Pal = 5
+    Vga = 6
+    Qvga = 7
+    Uhd2160p = 8
+    Uhd4320p = 9
 class _Vp9ProfileIds_Meta_(ComPtr.__class__):
     pass
 class Vp9ProfileIds(ComPtr, metaclass=_Vp9ProfileIds_Meta_):

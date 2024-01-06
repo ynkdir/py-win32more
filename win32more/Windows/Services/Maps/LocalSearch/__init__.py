@@ -200,15 +200,15 @@ class LocalLocationFinderResult(ComPtr):
     def get_Status(self: win32more.Windows.Services.Maps.LocalSearch.ILocalLocationFinderResult) -> win32more.Windows.Services.Maps.LocalSearch.LocalLocationFinderStatus: ...
     LocalLocations = property(get_LocalLocations, None)
     Status = property(get_Status, None)
-LocalLocationFinderStatus = Int32
-LocalLocationFinderStatus_Success: LocalLocationFinderStatus = 0
-LocalLocationFinderStatus_UnknownError: LocalLocationFinderStatus = 1
-LocalLocationFinderStatus_InvalidCredentials: LocalLocationFinderStatus = 2
-LocalLocationFinderStatus_InvalidCategory: LocalLocationFinderStatus = 3
-LocalLocationFinderStatus_InvalidSearchTerm: LocalLocationFinderStatus = 4
-LocalLocationFinderStatus_InvalidSearchArea: LocalLocationFinderStatus = 5
-LocalLocationFinderStatus_NetworkFailure: LocalLocationFinderStatus = 6
-LocalLocationFinderStatus_NotSupported: LocalLocationFinderStatus = 7
+class LocalLocationFinderStatus(Int32):  # enum
+    Success = 0
+    UnknownError = 1
+    InvalidCredentials = 2
+    InvalidCategory = 3
+    InvalidSearchTerm = 4
+    InvalidSearchArea = 5
+    NetworkFailure = 6
+    NotSupported = 7
 class LocalLocationHoursOfOperationItem(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Services.Maps.LocalSearch.ILocalLocationHoursOfOperationItem

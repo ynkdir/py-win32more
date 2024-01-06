@@ -69,15 +69,15 @@ class HidCollection(ComPtr):
     Type = property(get_Type, None)
     UsagePage = property(get_UsagePage, None)
     UsageId = property(get_UsageId, None)
-HidCollectionType = Int32
-HidCollectionType_Physical: HidCollectionType = 0
-HidCollectionType_Application: HidCollectionType = 1
-HidCollectionType_Logical: HidCollectionType = 2
-HidCollectionType_Report: HidCollectionType = 3
-HidCollectionType_NamedArray: HidCollectionType = 4
-HidCollectionType_UsageSwitch: HidCollectionType = 5
-HidCollectionType_UsageModifier: HidCollectionType = 6
-HidCollectionType_Other: HidCollectionType = 7
+class HidCollectionType(Int32):  # enum
+    Physical = 0
+    Application = 1
+    Logical = 2
+    Report = 3
+    NamedArray = 4
+    UsageSwitch = 5
+    UsageModifier = 6
+    Other = 7
 class HidDevice(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.HumanInterfaceDevice.IHidDevice
@@ -285,10 +285,10 @@ class HidOutputReport(ComPtr):
     def GetNumericControlByDescription(self: win32more.Windows.Devices.HumanInterfaceDevice.IHidOutputReport, controlDescription: win32more.Windows.Devices.HumanInterfaceDevice.HidNumericControlDescription) -> win32more.Windows.Devices.HumanInterfaceDevice.HidNumericControl: ...
     Id = property(get_Id, None)
     Data = property(get_Data, put_Data)
-HidReportType = Int32
-HidReportType_Input: HidReportType = 0
-HidReportType_Output: HidReportType = 1
-HidReportType_Feature: HidReportType = 2
+class HidReportType(Int32):  # enum
+    Input = 0
+    Output = 1
+    Feature = 2
 class IHidBooleanControl(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.HumanInterfaceDevice.IHidBooleanControl'

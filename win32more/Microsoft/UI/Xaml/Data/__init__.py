@@ -105,10 +105,10 @@ class BindingExpressionBase(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Data.IBindingExpressionBase
     _classid_ = 'Microsoft.UI.Xaml.Data.BindingExpressionBase'
-BindingMode = Int32
-BindingMode_OneWay: BindingMode = 1
-BindingMode_OneTime: BindingMode = 2
-BindingMode_TwoWay: BindingMode = 3
+class BindingMode(Int32):  # enum
+    OneWay = 1
+    OneTime = 2
+    TwoWay = 3
 class BindingOperations(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Data.IBindingOperations
@@ -651,15 +651,15 @@ class RelativeSource(ComPtr):
     @winrt_mixinmethod
     def put_Mode(self: win32more.Microsoft.UI.Xaml.Data.IRelativeSource, value: win32more.Microsoft.UI.Xaml.Data.RelativeSourceMode) -> Void: ...
     Mode = property(get_Mode, put_Mode)
-RelativeSourceMode = Int32
-RelativeSourceMode_None: RelativeSourceMode = 0
-RelativeSourceMode_TemplatedParent: RelativeSourceMode = 1
-RelativeSourceMode_Self: RelativeSourceMode = 2
-UpdateSourceTrigger = Int32
-UpdateSourceTrigger_Default: UpdateSourceTrigger = 0
-UpdateSourceTrigger_PropertyChanged: UpdateSourceTrigger = 1
-UpdateSourceTrigger_Explicit: UpdateSourceTrigger = 2
-UpdateSourceTrigger_LostFocus: UpdateSourceTrigger = 3
+class RelativeSourceMode(Int32):  # enum
+    None_ = 0
+    TemplatedParent = 1
+    Self = 2
+class UpdateSourceTrigger(Int32):  # enum
+    Default = 0
+    PropertyChanged = 1
+    Explicit = 2
+    LostFocus = 3
 
 
 make_ready(__name__)

@@ -6,10 +6,10 @@ import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Security.Credentials
 import win32more.Windows.Win32.System.WinRT
-DeviceAccountAuthenticationType = Int32
-DeviceAccountAuthenticationType_Basic: DeviceAccountAuthenticationType = 0
-DeviceAccountAuthenticationType_OAuth: DeviceAccountAuthenticationType = 1
-DeviceAccountAuthenticationType_SingleSignOn: DeviceAccountAuthenticationType = 2
+class DeviceAccountAuthenticationType(Int32):  # enum
+    Basic = 0
+    OAuth = 1
+    SingleSignOn = 2
 class DeviceAccountConfiguration(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.UserDataAccounts.SystemAccess.IDeviceAccountConfiguration
@@ -244,31 +244,31 @@ class DeviceAccountConfiguration(ComPtr):
     WasOutgoingServerCertificateHashConfirmed = property(get_WasOutgoingServerCertificateHashConfirmed, put_WasOutgoingServerCertificateHashConfirmed)
     OutgoingServerCertificateHash = property(get_OutgoingServerCertificateHash, put_OutgoingServerCertificateHash)
     IsSyncScheduleManagedBySystem = property(get_IsSyncScheduleManagedBySystem, put_IsSyncScheduleManagedBySystem)
-DeviceAccountIconId = Int32
-DeviceAccountIconId_Exchange: DeviceAccountIconId = 0
-DeviceAccountIconId_Msa: DeviceAccountIconId = 1
-DeviceAccountIconId_Outlook: DeviceAccountIconId = 2
-DeviceAccountIconId_Generic: DeviceAccountIconId = 3
-DeviceAccountMailAgeFilter = Int32
-DeviceAccountMailAgeFilter_All: DeviceAccountMailAgeFilter = 0
-DeviceAccountMailAgeFilter_Last1Day: DeviceAccountMailAgeFilter = 1
-DeviceAccountMailAgeFilter_Last3Days: DeviceAccountMailAgeFilter = 2
-DeviceAccountMailAgeFilter_Last7Days: DeviceAccountMailAgeFilter = 3
-DeviceAccountMailAgeFilter_Last14Days: DeviceAccountMailAgeFilter = 4
-DeviceAccountMailAgeFilter_Last30Days: DeviceAccountMailAgeFilter = 5
-DeviceAccountMailAgeFilter_Last90Days: DeviceAccountMailAgeFilter = 6
-DeviceAccountServerType = Int32
-DeviceAccountServerType_Exchange: DeviceAccountServerType = 0
-DeviceAccountServerType_Pop: DeviceAccountServerType = 1
-DeviceAccountServerType_Imap: DeviceAccountServerType = 2
-DeviceAccountSyncScheduleKind = Int32
-DeviceAccountSyncScheduleKind_Manual: DeviceAccountSyncScheduleKind = 0
-DeviceAccountSyncScheduleKind_Every15Minutes: DeviceAccountSyncScheduleKind = 1
-DeviceAccountSyncScheduleKind_Every30Minutes: DeviceAccountSyncScheduleKind = 2
-DeviceAccountSyncScheduleKind_Every60Minutes: DeviceAccountSyncScheduleKind = 3
-DeviceAccountSyncScheduleKind_Every2Hours: DeviceAccountSyncScheduleKind = 4
-DeviceAccountSyncScheduleKind_Daily: DeviceAccountSyncScheduleKind = 5
-DeviceAccountSyncScheduleKind_AsItemsArrive: DeviceAccountSyncScheduleKind = 6
+class DeviceAccountIconId(Int32):  # enum
+    Exchange = 0
+    Msa = 1
+    Outlook = 2
+    Generic = 3
+class DeviceAccountMailAgeFilter(Int32):  # enum
+    All = 0
+    Last1Day = 1
+    Last3Days = 2
+    Last7Days = 3
+    Last14Days = 4
+    Last30Days = 5
+    Last90Days = 6
+class DeviceAccountServerType(Int32):  # enum
+    Exchange = 0
+    Pop = 1
+    Imap = 2
+class DeviceAccountSyncScheduleKind(Int32):  # enum
+    Manual = 0
+    Every15Minutes = 1
+    Every30Minutes = 2
+    Every60Minutes = 3
+    Every2Hours = 4
+    Daily = 5
+    AsItemsArrive = 6
 class IDeviceAccountConfiguration(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.UserDataAccounts.SystemAccess.IDeviceAccountConfiguration'

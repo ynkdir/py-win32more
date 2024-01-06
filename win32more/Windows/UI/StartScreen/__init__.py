@@ -10,9 +10,9 @@ import win32more.Windows.UI
 import win32more.Windows.UI.Popups
 import win32more.Windows.UI.StartScreen
 import win32more.Windows.Win32.System.WinRT
-ForegroundText = Int32
-ForegroundText_Dark: ForegroundText = 0
-ForegroundText_Light: ForegroundText = 1
+class ForegroundText(Int32):  # enum
+    Dark = 0
+    Light = 1
 class IJumpList(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.StartScreen.IJumpList'
@@ -421,13 +421,13 @@ class JumpListItem(ComPtr):
     DisplayName = property(get_DisplayName, put_DisplayName)
     GroupName = property(get_GroupName, put_GroupName)
     Logo = property(get_Logo, put_Logo)
-JumpListItemKind = Int32
-JumpListItemKind_Arguments: JumpListItemKind = 0
-JumpListItemKind_Separator: JumpListItemKind = 1
-JumpListSystemGroupKind = Int32
-JumpListSystemGroupKind_None: JumpListSystemGroupKind = 0
-JumpListSystemGroupKind_Frequent: JumpListSystemGroupKind = 1
-JumpListSystemGroupKind_Recent: JumpListSystemGroupKind = 2
+class JumpListItemKind(Int32):  # enum
+    Arguments = 0
+    Separator = 1
+class JumpListSystemGroupKind(Int32):  # enum
+    None_ = 0
+    Frequent = 1
+    Recent = 2
 class SecondaryTile(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.StartScreen.ISecondaryTile
@@ -667,23 +667,23 @@ class TileMixedRealityModel(ComPtr):
     Uri = property(get_Uri, put_Uri)
     BoundingBox = property(get_BoundingBox, put_BoundingBox)
     ActivationBehavior = property(get_ActivationBehavior, put_ActivationBehavior)
-TileMixedRealityModelActivationBehavior = Int32
-TileMixedRealityModelActivationBehavior_Default: TileMixedRealityModelActivationBehavior = 0
-TileMixedRealityModelActivationBehavior_None: TileMixedRealityModelActivationBehavior = 1
-TileOptions = UInt32
-TileOptions_None: TileOptions = 0
-TileOptions_ShowNameOnLogo: TileOptions = 1
-TileOptions_ShowNameOnWideLogo: TileOptions = 2
-TileOptions_CopyOnDeployment: TileOptions = 4
-TileSize = Int32
-TileSize_Default: TileSize = 0
-TileSize_Square30x30: TileSize = 1
-TileSize_Square70x70: TileSize = 2
-TileSize_Square150x150: TileSize = 3
-TileSize_Wide310x150: TileSize = 4
-TileSize_Square310x310: TileSize = 5
-TileSize_Square71x71: TileSize = 6
-TileSize_Square44x44: TileSize = 7
+class TileMixedRealityModelActivationBehavior(Int32):  # enum
+    Default = 0
+    None_ = 1
+class TileOptions(UInt32):  # enum
+    None_ = 0
+    ShowNameOnLogo = 1
+    ShowNameOnWideLogo = 2
+    CopyOnDeployment = 4
+class TileSize(Int32):  # enum
+    Default = 0
+    Square30x30 = 1
+    Square70x70 = 2
+    Square150x150 = 3
+    Wide310x150 = 4
+    Square310x310 = 5
+    Square71x71 = 6
+    Square44x44 = 7
 class VisualElementsRequest(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.StartScreen.IVisualElementsRequest

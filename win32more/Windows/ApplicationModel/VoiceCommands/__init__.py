@@ -210,14 +210,14 @@ class VoiceCommandCompletedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Reason(self: win32more.Windows.ApplicationModel.VoiceCommands.IVoiceCommandCompletedEventArgs) -> win32more.Windows.ApplicationModel.VoiceCommands.VoiceCommandCompletionReason: ...
     Reason = property(get_Reason, None)
-VoiceCommandCompletionReason = Int32
-VoiceCommandCompletionReason_Unknown: VoiceCommandCompletionReason = 0
-VoiceCommandCompletionReason_CommunicationFailed: VoiceCommandCompletionReason = 1
-VoiceCommandCompletionReason_ResourceLimitsExceeded: VoiceCommandCompletionReason = 2
-VoiceCommandCompletionReason_Canceled: VoiceCommandCompletionReason = 3
-VoiceCommandCompletionReason_TimeoutExceeded: VoiceCommandCompletionReason = 4
-VoiceCommandCompletionReason_AppLaunched: VoiceCommandCompletionReason = 5
-VoiceCommandCompletionReason_Completed: VoiceCommandCompletionReason = 6
+class VoiceCommandCompletionReason(Int32):  # enum
+    Unknown = 0
+    CommunicationFailed = 1
+    ResourceLimitsExceeded = 2
+    Canceled = 3
+    TimeoutExceeded = 4
+    AppLaunched = 5
+    Completed = 6
 class VoiceCommandConfirmationResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.VoiceCommands.IVoiceCommandConfirmationResult
@@ -278,15 +278,15 @@ class VoiceCommandContentTile(ComPtr):
     AppContext = property(get_AppContext, put_AppContext)
     AppLaunchArgument = property(get_AppLaunchArgument, put_AppLaunchArgument)
     ContentTileType = property(get_ContentTileType, put_ContentTileType)
-VoiceCommandContentTileType = Int32
-VoiceCommandContentTileType_TitleOnly: VoiceCommandContentTileType = 0
-VoiceCommandContentTileType_TitleWithText: VoiceCommandContentTileType = 1
-VoiceCommandContentTileType_TitleWith68x68Icon: VoiceCommandContentTileType = 2
-VoiceCommandContentTileType_TitleWith68x68IconAndText: VoiceCommandContentTileType = 3
-VoiceCommandContentTileType_TitleWith68x92Icon: VoiceCommandContentTileType = 4
-VoiceCommandContentTileType_TitleWith68x92IconAndText: VoiceCommandContentTileType = 5
-VoiceCommandContentTileType_TitleWith280x140Icon: VoiceCommandContentTileType = 6
-VoiceCommandContentTileType_TitleWith280x140IconAndText: VoiceCommandContentTileType = 7
+class VoiceCommandContentTileType(Int32):  # enum
+    TitleOnly = 0
+    TitleWithText = 1
+    TitleWith68x68Icon = 2
+    TitleWith68x68IconAndText = 3
+    TitleWith68x92Icon = 4
+    TitleWith68x92IconAndText = 5
+    TitleWith280x140Icon = 6
+    TitleWith280x140IconAndText = 7
 class VoiceCommandDefinition(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.VoiceCommands.IVoiceCommandDefinition

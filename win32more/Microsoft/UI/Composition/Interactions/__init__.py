@@ -549,15 +549,15 @@ class IVisualInteractionSourceStatics2(ComPtr):
     _iid_ = Guid('{a6b494fe-12a1-5a73-b87e-4c4ef58eac6c}')
     @winrt_commethod(6)
     def CreateFromIVisualElement(self, source: win32more.Microsoft.UI.Composition.IVisualElement) -> win32more.Microsoft.UI.Composition.Interactions.VisualInteractionSource: ...
-InteractionBindingAxisModes = UInt32
-InteractionBindingAxisModes_None: InteractionBindingAxisModes = 0
-InteractionBindingAxisModes_PositionX: InteractionBindingAxisModes = 1
-InteractionBindingAxisModes_PositionY: InteractionBindingAxisModes = 2
-InteractionBindingAxisModes_Scale: InteractionBindingAxisModes = 4
-InteractionChainingMode = Int32
-InteractionChainingMode_Auto: InteractionChainingMode = 0
-InteractionChainingMode_Always: InteractionChainingMode = 1
-InteractionChainingMode_Never: InteractionChainingMode = 2
+class InteractionBindingAxisModes(UInt32):  # enum
+    None_ = 0
+    PositionX = 1
+    PositionY = 2
+    Scale = 4
+class InteractionChainingMode(Int32):  # enum
+    Auto = 0
+    Always = 1
+    Never = 2
 class InteractionSourceConfiguration(ComPtr):
     extends: win32more.Microsoft.UI.Composition.CompositionObject
     default_interface: win32more.Microsoft.UI.Composition.Interactions.IInteractionSourceConfiguration
@@ -577,13 +577,13 @@ class InteractionSourceConfiguration(ComPtr):
     ScaleSourceMode = property(get_ScaleSourceMode, put_ScaleSourceMode)
     PositionYSourceMode = property(get_PositionYSourceMode, put_PositionYSourceMode)
     PositionXSourceMode = property(get_PositionXSourceMode, put_PositionXSourceMode)
-InteractionSourceMode = Int32
-InteractionSourceMode_Disabled: InteractionSourceMode = 0
-InteractionSourceMode_EnabledWithInertia: InteractionSourceMode = 1
-InteractionSourceMode_EnabledWithoutInertia: InteractionSourceMode = 2
-InteractionSourceRedirectionMode = Int32
-InteractionSourceRedirectionMode_Disabled: InteractionSourceRedirectionMode = 0
-InteractionSourceRedirectionMode_Enabled: InteractionSourceRedirectionMode = 1
+class InteractionSourceMode(Int32):  # enum
+    Disabled = 0
+    EnabledWithInertia = 1
+    EnabledWithoutInertia = 2
+class InteractionSourceRedirectionMode(Int32):  # enum
+    Disabled = 0
+    Enabled = 1
 class InteractionTracker(ComPtr):
     extends: win32more.Microsoft.UI.Composition.CompositionObject
     default_interface: win32more.Microsoft.UI.Composition.Interactions.IInteractionTracker
@@ -694,9 +694,9 @@ class InteractionTracker(ComPtr):
     MaxPosition = property(get_MaxPosition, put_MaxPosition)
     MaxScale = property(get_MaxScale, put_MaxScale)
     MinPosition = property(get_MinPosition, put_MinPosition)
-InteractionTrackerClampingOption = Int32
-InteractionTrackerClampingOption_Auto: InteractionTrackerClampingOption = 0
-InteractionTrackerClampingOption_Disabled: InteractionTrackerClampingOption = 1
+class InteractionTrackerClampingOption(Int32):  # enum
+    Auto = 0
+    Disabled = 1
 class InteractionTrackerCustomAnimationStateEnteredArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Composition.Interactions.IInteractionTrackerCustomAnimationStateEnteredArgs
@@ -810,9 +810,9 @@ class InteractionTrackerInteractingStateEnteredArgs(ComPtr):
     def get_RequestId(self: win32more.Microsoft.UI.Composition.Interactions.IInteractionTrackerInteractingStateEnteredArgs) -> Int32: ...
     IsFromBinding = property(get_IsFromBinding, None)
     RequestId = property(get_RequestId, None)
-InteractionTrackerPositionUpdateOption = Int32
-InteractionTrackerPositionUpdateOption_Default: InteractionTrackerPositionUpdateOption = 0
-InteractionTrackerPositionUpdateOption_AllowActiveCustomScaleAnimation: InteractionTrackerPositionUpdateOption = 1
+class InteractionTrackerPositionUpdateOption(Int32):  # enum
+    Default = 0
+    AllowActiveCustomScaleAnimation = 1
 class InteractionTrackerRequestIgnoredArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Composition.Interactions.IInteractionTrackerRequestIgnoredArgs
@@ -942,11 +942,11 @@ class VisualInteractionSource(ComPtr):
     DeltaPosition = property(get_DeltaPosition, None)
     DeltaScale = property(get_DeltaScale, None)
     Position = property(get_Position, None)
-VisualInteractionSourceRedirectionMode = Int32
-VisualInteractionSourceRedirectionMode_Off: VisualInteractionSourceRedirectionMode = 0
-VisualInteractionSourceRedirectionMode_CapableTouchpadOnly: VisualInteractionSourceRedirectionMode = 1
-VisualInteractionSourceRedirectionMode_PointerWheelOnly: VisualInteractionSourceRedirectionMode = 2
-VisualInteractionSourceRedirectionMode_CapableTouchpadAndPointerWheel: VisualInteractionSourceRedirectionMode = 3
+class VisualInteractionSourceRedirectionMode(Int32):  # enum
+    Off = 0
+    CapableTouchpadOnly = 1
+    PointerWheelOnly = 2
+    CapableTouchpadAndPointerWheel = 3
 
 
 make_ready(__name__)

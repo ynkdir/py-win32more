@@ -334,12 +334,12 @@ class PlayToConnection(ComPtr):
     @winrt_mixinmethod
     def remove_Error(self: win32more.Windows.Media.PlayTo.IPlayToConnection, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     State = property(get_State, None)
-PlayToConnectionError = Int32
-PlayToConnectionError_None: PlayToConnectionError = 0
-PlayToConnectionError_DeviceNotResponding: PlayToConnectionError = 1
-PlayToConnectionError_DeviceError: PlayToConnectionError = 2
-PlayToConnectionError_DeviceLocked: PlayToConnectionError = 3
-PlayToConnectionError_ProtectedPlaybackFailed: PlayToConnectionError = 4
+class PlayToConnectionError(Int32):  # enum
+    None_ = 0
+    DeviceNotResponding = 1
+    DeviceError = 2
+    DeviceLocked = 3
+    ProtectedPlaybackFailed = 4
 class PlayToConnectionErrorEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.PlayTo.IPlayToConnectionErrorEventArgs
@@ -350,10 +350,10 @@ class PlayToConnectionErrorEventArgs(ComPtr):
     def get_Message(self: win32more.Windows.Media.PlayTo.IPlayToConnectionErrorEventArgs) -> WinRT_String: ...
     Code = property(get_Code, None)
     Message = property(get_Message, None)
-PlayToConnectionState = Int32
-PlayToConnectionState_Disconnected: PlayToConnectionState = 0
-PlayToConnectionState_Connected: PlayToConnectionState = 1
-PlayToConnectionState_Rendering: PlayToConnectionState = 2
+class PlayToConnectionState(Int32):  # enum
+    Disconnected = 0
+    Connected = 1
+    Rendering = 2
 class PlayToConnectionStateChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.PlayTo.IPlayToConnectionStateChangedEventArgs

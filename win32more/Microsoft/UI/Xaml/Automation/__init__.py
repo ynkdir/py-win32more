@@ -27,43 +27,43 @@ class AnnotationPatternIdentifiers(ComPtr, metaclass=_AnnotationPatternIdentifie
     _AnnotationPatternIdentifiers_Meta_.AuthorProperty = property(get_AuthorProperty.__wrapped__, None)
     _AnnotationPatternIdentifiers_Meta_.DateTimeProperty = property(get_DateTimeProperty.__wrapped__, None)
     _AnnotationPatternIdentifiers_Meta_.TargetProperty = property(get_TargetProperty.__wrapped__, None)
-AnnotationType = Int32
-AnnotationType_Unknown: AnnotationType = 60000
-AnnotationType_SpellingError: AnnotationType = 60001
-AnnotationType_GrammarError: AnnotationType = 60002
-AnnotationType_Comment: AnnotationType = 60003
-AnnotationType_FormulaError: AnnotationType = 60004
-AnnotationType_TrackChanges: AnnotationType = 60005
-AnnotationType_Header: AnnotationType = 60006
-AnnotationType_Footer: AnnotationType = 60007
-AnnotationType_Highlighted: AnnotationType = 60008
-AnnotationType_Endnote: AnnotationType = 60009
-AnnotationType_Footnote: AnnotationType = 60010
-AnnotationType_InsertionChange: AnnotationType = 60011
-AnnotationType_DeletionChange: AnnotationType = 60012
-AnnotationType_MoveChange: AnnotationType = 60013
-AnnotationType_FormatChange: AnnotationType = 60014
-AnnotationType_UnsyncedChange: AnnotationType = 60015
-AnnotationType_EditingLockedChange: AnnotationType = 60016
-AnnotationType_ExternalChange: AnnotationType = 60017
-AnnotationType_ConflictingChange: AnnotationType = 60018
-AnnotationType_Author: AnnotationType = 60019
-AnnotationType_AdvancedProofingIssue: AnnotationType = 60020
-AnnotationType_DataValidationError: AnnotationType = 60021
-AnnotationType_CircularReferenceError: AnnotationType = 60022
-AutomationActiveEnd = Int32
-AutomationActiveEnd_None: AutomationActiveEnd = 0
-AutomationActiveEnd_Start: AutomationActiveEnd = 1
-AutomationActiveEnd_End: AutomationActiveEnd = 2
-AutomationAnimationStyle = Int32
-AutomationAnimationStyle_None: AutomationAnimationStyle = 0
-AutomationAnimationStyle_LasVegasLights: AutomationAnimationStyle = 1
-AutomationAnimationStyle_BlinkingBackground: AutomationAnimationStyle = 2
-AutomationAnimationStyle_SparkleText: AutomationAnimationStyle = 3
-AutomationAnimationStyle_MarchingBlackAnts: AutomationAnimationStyle = 4
-AutomationAnimationStyle_MarchingRedAnts: AutomationAnimationStyle = 5
-AutomationAnimationStyle_Shimmer: AutomationAnimationStyle = 6
-AutomationAnimationStyle_Other: AutomationAnimationStyle = 7
+class AnnotationType(Int32):  # enum
+    Unknown = 60000
+    SpellingError = 60001
+    GrammarError = 60002
+    Comment = 60003
+    FormulaError = 60004
+    TrackChanges = 60005
+    Header = 60006
+    Footer = 60007
+    Highlighted = 60008
+    Endnote = 60009
+    Footnote = 60010
+    InsertionChange = 60011
+    DeletionChange = 60012
+    MoveChange = 60013
+    FormatChange = 60014
+    UnsyncedChange = 60015
+    EditingLockedChange = 60016
+    ExternalChange = 60017
+    ConflictingChange = 60018
+    Author = 60019
+    AdvancedProofingIssue = 60020
+    DataValidationError = 60021
+    CircularReferenceError = 60022
+class AutomationActiveEnd(Int32):  # enum
+    None_ = 0
+    Start = 1
+    End = 2
+class AutomationAnimationStyle(Int32):  # enum
+    None_ = 0
+    LasVegasLights = 1
+    BlinkingBackground = 2
+    SparkleText = 3
+    MarchingBlackAnts = 4
+    MarchingRedAnts = 5
+    Shimmer = 6
+    Other = 7
 class _AutomationAnnotation_Meta_(ComPtr.__class__):
     pass
 class AutomationAnnotation(ComPtr, metaclass=_AutomationAnnotation_Meta_):
@@ -105,21 +105,21 @@ class AutomationAnnotation(ComPtr, metaclass=_AutomationAnnotation_Meta_):
     Element = property(get_Element, put_Element)
     _AutomationAnnotation_Meta_.TypeProperty = property(get_TypeProperty.__wrapped__, None)
     _AutomationAnnotation_Meta_.ElementProperty = property(get_ElementProperty.__wrapped__, None)
-AutomationBulletStyle = Int32
-AutomationBulletStyle_None: AutomationBulletStyle = 0
-AutomationBulletStyle_HollowRoundBullet: AutomationBulletStyle = 1
-AutomationBulletStyle_FilledRoundBullet: AutomationBulletStyle = 2
-AutomationBulletStyle_HollowSquareBullet: AutomationBulletStyle = 3
-AutomationBulletStyle_FilledSquareBullet: AutomationBulletStyle = 4
-AutomationBulletStyle_DashBullet: AutomationBulletStyle = 5
-AutomationBulletStyle_Other: AutomationBulletStyle = 6
-AutomationCaretBidiMode = Int32
-LTR: AutomationCaretBidiMode = 0
-RTL: AutomationCaretBidiMode = 1
-AutomationCaretPosition = Int32
-AutomationCaretPosition_Unknown: AutomationCaretPosition = 0
-AutomationCaretPosition_EndOfLine: AutomationCaretPosition = 1
-AutomationCaretPosition_BeginningOfLine: AutomationCaretPosition = 2
+class AutomationBulletStyle(Int32):  # enum
+    None_ = 0
+    HollowRoundBullet = 1
+    FilledRoundBullet = 2
+    HollowSquareBullet = 3
+    FilledSquareBullet = 4
+    DashBullet = 5
+    Other = 6
+class AutomationCaretBidiMode(Int32):  # enum
+    LTR = 0
+    RTL = 1
+class AutomationCaretPosition(Int32):  # enum
+    Unknown = 0
+    EndOfLine = 1
+    BeginningOfLine = 2
 class _AutomationElementIdentifiers_Meta_(ComPtr.__class__):
     pass
 class AutomationElementIdentifiers(ComPtr, metaclass=_AutomationElementIdentifiers_Meta_):
@@ -243,17 +243,17 @@ class AutomationElementIdentifiers(ComPtr, metaclass=_AutomationElementIdentifie
     _AutomationElementIdentifiers_Meta_.CultureProperty = property(get_CultureProperty.__wrapped__, None)
     _AutomationElementIdentifiers_Meta_.HeadingLevelProperty = property(get_HeadingLevelProperty.__wrapped__, None)
     _AutomationElementIdentifiers_Meta_.IsDialogProperty = property(get_IsDialogProperty.__wrapped__, None)
-AutomationFlowDirections = Int32
-AutomationFlowDirections_Default: AutomationFlowDirections = 0
-AutomationFlowDirections_RightToLeft: AutomationFlowDirections = 1
-AutomationFlowDirections_BottomToTop: AutomationFlowDirections = 2
-AutomationFlowDirections_Vertical: AutomationFlowDirections = 3
-AutomationOutlineStyles = Int32
-AutomationOutlineStyles_None: AutomationOutlineStyles = 0
-AutomationOutlineStyles_Outline: AutomationOutlineStyles = 1
-AutomationOutlineStyles_Shadow: AutomationOutlineStyles = 2
-AutomationOutlineStyles_Engraved: AutomationOutlineStyles = 3
-AutomationOutlineStyles_Embossed: AutomationOutlineStyles = 4
+class AutomationFlowDirections(Int32):  # enum
+    Default = 0
+    RightToLeft = 1
+    BottomToTop = 2
+    Vertical = 3
+class AutomationOutlineStyles(Int32):  # enum
+    None_ = 0
+    Outline = 1
+    Shadow = 2
+    Engraved = 3
+    Embossed = 4
 class _AutomationProperties_Meta_(ComPtr.__class__):
     pass
 class AutomationProperties(ComPtr, metaclass=_AutomationProperties_Meta_):
@@ -457,47 +457,47 @@ class AutomationProperty(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Automation.IAutomationProperty
     _classid_ = 'Microsoft.UI.Xaml.Automation.AutomationProperty'
-AutomationStyleId = Int32
-AutomationStyleId_Heading1: AutomationStyleId = 70001
-AutomationStyleId_Heading2: AutomationStyleId = 70002
-AutomationStyleId_Heading3: AutomationStyleId = 70003
-AutomationStyleId_Heading4: AutomationStyleId = 70004
-AutomationStyleId_Heading5: AutomationStyleId = 70005
-AutomationStyleId_Heading6: AutomationStyleId = 70006
-AutomationStyleId_Heading7: AutomationStyleId = 70007
-AutomationStyleId_Heading8: AutomationStyleId = 70008
-AutomationStyleId_Heading9: AutomationStyleId = 70009
-AutomationStyleId_Title: AutomationStyleId = 70010
-AutomationStyleId_Subtitle: AutomationStyleId = 70011
-AutomationStyleId_Normal: AutomationStyleId = 70012
-AutomationStyleId_Emphasis: AutomationStyleId = 70013
-AutomationStyleId_Quote: AutomationStyleId = 70014
-AutomationStyleId_BulletedList: AutomationStyleId = 70015
-AutomationTextDecorationLineStyle = Int32
-AutomationTextDecorationLineStyle_None: AutomationTextDecorationLineStyle = 0
-AutomationTextDecorationLineStyle_Single: AutomationTextDecorationLineStyle = 1
-AutomationTextDecorationLineStyle_WordsOnly: AutomationTextDecorationLineStyle = 2
-AutomationTextDecorationLineStyle_Double: AutomationTextDecorationLineStyle = 3
-AutomationTextDecorationLineStyle_Dot: AutomationTextDecorationLineStyle = 4
-AutomationTextDecorationLineStyle_Dash: AutomationTextDecorationLineStyle = 5
-AutomationTextDecorationLineStyle_DashDot: AutomationTextDecorationLineStyle = 6
-AutomationTextDecorationLineStyle_DashDotDot: AutomationTextDecorationLineStyle = 7
-AutomationTextDecorationLineStyle_Wavy: AutomationTextDecorationLineStyle = 8
-AutomationTextDecorationLineStyle_ThickSingle: AutomationTextDecorationLineStyle = 9
-AutomationTextDecorationLineStyle_DoubleWavy: AutomationTextDecorationLineStyle = 10
-AutomationTextDecorationLineStyle_ThickWavy: AutomationTextDecorationLineStyle = 11
-AutomationTextDecorationLineStyle_LongDash: AutomationTextDecorationLineStyle = 12
-AutomationTextDecorationLineStyle_ThickDash: AutomationTextDecorationLineStyle = 13
-AutomationTextDecorationLineStyle_ThickDashDot: AutomationTextDecorationLineStyle = 14
-AutomationTextDecorationLineStyle_ThickDashDotDot: AutomationTextDecorationLineStyle = 15
-AutomationTextDecorationLineStyle_ThickDot: AutomationTextDecorationLineStyle = 16
-AutomationTextDecorationLineStyle_ThickLongDash: AutomationTextDecorationLineStyle = 17
-AutomationTextDecorationLineStyle_Other: AutomationTextDecorationLineStyle = 18
-AutomationTextEditChangeType = Int32
-AutomationTextEditChangeType_None: AutomationTextEditChangeType = 0
-AutomationTextEditChangeType_AutoCorrect: AutomationTextEditChangeType = 1
-AutomationTextEditChangeType_Composition: AutomationTextEditChangeType = 2
-AutomationTextEditChangeType_CompositionFinalized: AutomationTextEditChangeType = 3
+class AutomationStyleId(Int32):  # enum
+    Heading1 = 70001
+    Heading2 = 70002
+    Heading3 = 70003
+    Heading4 = 70004
+    Heading5 = 70005
+    Heading6 = 70006
+    Heading7 = 70007
+    Heading8 = 70008
+    Heading9 = 70009
+    Title = 70010
+    Subtitle = 70011
+    Normal = 70012
+    Emphasis = 70013
+    Quote = 70014
+    BulletedList = 70015
+class AutomationTextDecorationLineStyle(Int32):  # enum
+    None_ = 0
+    Single = 1
+    WordsOnly = 2
+    Double = 3
+    Dot = 4
+    Dash = 5
+    DashDot = 6
+    DashDotDot = 7
+    Wavy = 8
+    ThickSingle = 9
+    DoubleWavy = 10
+    ThickWavy = 11
+    LongDash = 12
+    ThickDash = 13
+    ThickDashDot = 14
+    ThickDashDotDot = 15
+    ThickDot = 16
+    ThickLongDash = 17
+    Other = 18
+class AutomationTextEditChangeType(Int32):  # enum
+    None_ = 0
+    AutoCorrect = 1
+    Composition = 2
+    CompositionFinalized = 3
 class _DockPatternIdentifiers_Meta_(ComPtr.__class__):
     pass
 class DockPatternIdentifiers(ComPtr, metaclass=_DockPatternIdentifiers_Meta_):
@@ -507,13 +507,13 @@ class DockPatternIdentifiers(ComPtr, metaclass=_DockPatternIdentifiers_Meta_):
     @winrt_classmethod
     def get_DockPositionProperty(cls: win32more.Microsoft.UI.Xaml.Automation.IDockPatternIdentifiersStatics) -> win32more.Microsoft.UI.Xaml.Automation.AutomationProperty: ...
     _DockPatternIdentifiers_Meta_.DockPositionProperty = property(get_DockPositionProperty.__wrapped__, None)
-DockPosition = Int32
-DockPosition_Top: DockPosition = 0
-DockPosition_Left: DockPosition = 1
-DockPosition_Bottom: DockPosition = 2
-DockPosition_Right: DockPosition = 3
-DockPosition_Fill: DockPosition = 4
-DockPosition_None: DockPosition = 5
+class DockPosition(Int32):  # enum
+    Top = 0
+    Left = 1
+    Bottom = 2
+    Right = 3
+    Fill = 4
+    None_ = 5
 class _DragPatternIdentifiers_Meta_(ComPtr.__class__):
     pass
 class DragPatternIdentifiers(ComPtr, metaclass=_DragPatternIdentifiers_Meta_):
@@ -553,11 +553,11 @@ class ExpandCollapsePatternIdentifiers(ComPtr, metaclass=_ExpandCollapsePatternI
     @winrt_classmethod
     def get_ExpandCollapseStateProperty(cls: win32more.Microsoft.UI.Xaml.Automation.IExpandCollapsePatternIdentifiersStatics) -> win32more.Microsoft.UI.Xaml.Automation.AutomationProperty: ...
     _ExpandCollapsePatternIdentifiers_Meta_.ExpandCollapseStateProperty = property(get_ExpandCollapseStateProperty.__wrapped__, None)
-ExpandCollapseState = Int32
-ExpandCollapseState_Collapsed: ExpandCollapseState = 0
-ExpandCollapseState_Expanded: ExpandCollapseState = 1
-ExpandCollapseState_PartiallyExpanded: ExpandCollapseState = 2
-ExpandCollapseState_LeafNode: ExpandCollapseState = 3
+class ExpandCollapseState(Int32):  # enum
+    Collapsed = 0
+    Expanded = 1
+    PartiallyExpanded = 2
+    LeafNode = 3
 class _GridItemPatternIdentifiers_Meta_(ComPtr.__class__):
     pass
 class GridItemPatternIdentifiers(ComPtr, metaclass=_GridItemPatternIdentifiers_Meta_):
@@ -1368,16 +1368,16 @@ class RangeValuePatternIdentifiers(ComPtr, metaclass=_RangeValuePatternIdentifie
     _RangeValuePatternIdentifiers_Meta_.MinimumProperty = property(get_MinimumProperty.__wrapped__, None)
     _RangeValuePatternIdentifiers_Meta_.SmallChangeProperty = property(get_SmallChangeProperty.__wrapped__, None)
     _RangeValuePatternIdentifiers_Meta_.ValueProperty = property(get_ValueProperty.__wrapped__, None)
-RowOrColumnMajor = Int32
-RowOrColumnMajor_RowMajor: RowOrColumnMajor = 0
-RowOrColumnMajor_ColumnMajor: RowOrColumnMajor = 1
-RowOrColumnMajor_Indeterminate: RowOrColumnMajor = 2
-ScrollAmount = Int32
-ScrollAmount_LargeDecrement: ScrollAmount = 0
-ScrollAmount_SmallDecrement: ScrollAmount = 1
-ScrollAmount_NoAmount: ScrollAmount = 2
-ScrollAmount_LargeIncrement: ScrollAmount = 3
-ScrollAmount_SmallIncrement: ScrollAmount = 4
+class RowOrColumnMajor(Int32):  # enum
+    RowMajor = 0
+    ColumnMajor = 1
+    Indeterminate = 2
+class ScrollAmount(Int32):  # enum
+    LargeDecrement = 0
+    SmallDecrement = 1
+    NoAmount = 2
+    LargeIncrement = 3
+    SmallIncrement = 4
 class _ScrollPatternIdentifiers_Meta_(ComPtr.__class__):
     pass
 class ScrollPatternIdentifiers(ComPtr, metaclass=_ScrollPatternIdentifiers_Meta_):
@@ -1468,17 +1468,17 @@ class StylesPatternIdentifiers(ComPtr, metaclass=_StylesPatternIdentifiers_Meta_
     _StylesPatternIdentifiers_Meta_.ShapeProperty = property(get_ShapeProperty.__wrapped__, None)
     _StylesPatternIdentifiers_Meta_.StyleIdProperty = property(get_StyleIdProperty.__wrapped__, None)
     _StylesPatternIdentifiers_Meta_.StyleNameProperty = property(get_StyleNameProperty.__wrapped__, None)
-SupportedTextSelection = Int32
-SupportedTextSelection_None: SupportedTextSelection = 0
-SupportedTextSelection_Single: SupportedTextSelection = 1
-SupportedTextSelection_Multiple: SupportedTextSelection = 2
-SynchronizedInputType = Int32
-SynchronizedInputType_KeyUp: SynchronizedInputType = 1
-SynchronizedInputType_KeyDown: SynchronizedInputType = 2
-SynchronizedInputType_LeftMouseUp: SynchronizedInputType = 4
-SynchronizedInputType_LeftMouseDown: SynchronizedInputType = 8
-SynchronizedInputType_RightMouseUp: SynchronizedInputType = 16
-SynchronizedInputType_RightMouseDown: SynchronizedInputType = 32
+class SupportedTextSelection(Int32):  # enum
+    None_ = 0
+    Single = 1
+    Multiple = 2
+class SynchronizedInputType(Int32):  # enum
+    KeyUp = 1
+    KeyDown = 2
+    LeftMouseUp = 4
+    LeftMouseDown = 8
+    RightMouseUp = 16
+    RightMouseDown = 32
 class _TableItemPatternIdentifiers_Meta_(ComPtr.__class__):
     pass
 class TableItemPatternIdentifiers(ComPtr, metaclass=_TableItemPatternIdentifiers_Meta_):
@@ -1515,10 +1515,10 @@ class TogglePatternIdentifiers(ComPtr, metaclass=_TogglePatternIdentifiers_Meta_
     @winrt_classmethod
     def get_ToggleStateProperty(cls: win32more.Microsoft.UI.Xaml.Automation.ITogglePatternIdentifiersStatics) -> win32more.Microsoft.UI.Xaml.Automation.AutomationProperty: ...
     _TogglePatternIdentifiers_Meta_.ToggleStateProperty = property(get_ToggleStateProperty.__wrapped__, None)
-ToggleState = Int32
-ToggleState_Off: ToggleState = 0
-ToggleState_On: ToggleState = 1
-ToggleState_Indeterminate: ToggleState = 2
+class ToggleState(Int32):  # enum
+    Off = 0
+    On = 1
+    Indeterminate = 2
 class _TransformPattern2Identifiers_Meta_(ComPtr.__class__):
     pass
 class TransformPattern2Identifiers(ComPtr, metaclass=_TransformPattern2Identifiers_Meta_):
@@ -1564,12 +1564,12 @@ class ValuePatternIdentifiers(ComPtr, metaclass=_ValuePatternIdentifiers_Meta_):
     def get_ValueProperty(cls: win32more.Microsoft.UI.Xaml.Automation.IValuePatternIdentifiersStatics) -> win32more.Microsoft.UI.Xaml.Automation.AutomationProperty: ...
     _ValuePatternIdentifiers_Meta_.IsReadOnlyProperty = property(get_IsReadOnlyProperty.__wrapped__, None)
     _ValuePatternIdentifiers_Meta_.ValueProperty = property(get_ValueProperty.__wrapped__, None)
-WindowInteractionState = Int32
-WindowInteractionState_Running: WindowInteractionState = 0
-WindowInteractionState_Closing: WindowInteractionState = 1
-WindowInteractionState_ReadyForUserInteraction: WindowInteractionState = 2
-WindowInteractionState_BlockedByModalWindow: WindowInteractionState = 3
-WindowInteractionState_NotResponding: WindowInteractionState = 4
+class WindowInteractionState(Int32):  # enum
+    Running = 0
+    Closing = 1
+    ReadyForUserInteraction = 2
+    BlockedByModalWindow = 3
+    NotResponding = 4
 class _WindowPatternIdentifiers_Meta_(ComPtr.__class__):
     pass
 class WindowPatternIdentifiers(ComPtr, metaclass=_WindowPatternIdentifiers_Meta_):
@@ -1594,16 +1594,16 @@ class WindowPatternIdentifiers(ComPtr, metaclass=_WindowPatternIdentifiers_Meta_
     _WindowPatternIdentifiers_Meta_.IsTopmostProperty = property(get_IsTopmostProperty.__wrapped__, None)
     _WindowPatternIdentifiers_Meta_.WindowInteractionStateProperty = property(get_WindowInteractionStateProperty.__wrapped__, None)
     _WindowPatternIdentifiers_Meta_.WindowVisualStateProperty = property(get_WindowVisualStateProperty.__wrapped__, None)
-WindowVisualState = Int32
-WindowVisualState_Normal: WindowVisualState = 0
-WindowVisualState_Maximized: WindowVisualState = 1
-WindowVisualState_Minimized: WindowVisualState = 2
-ZoomUnit = Int32
-ZoomUnit_NoAmount: ZoomUnit = 0
-ZoomUnit_LargeDecrement: ZoomUnit = 1
-ZoomUnit_SmallDecrement: ZoomUnit = 2
-ZoomUnit_LargeIncrement: ZoomUnit = 3
-ZoomUnit_SmallIncrement: ZoomUnit = 4
+class WindowVisualState(Int32):  # enum
+    Normal = 0
+    Maximized = 1
+    Minimized = 2
+class ZoomUnit(Int32):  # enum
+    NoAmount = 0
+    LargeDecrement = 1
+    SmallDecrement = 2
+    LargeIncrement = 3
+    SmallIncrement = 4
 
 
 make_ready(__name__)

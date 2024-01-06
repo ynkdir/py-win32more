@@ -350,9 +350,9 @@ class XboxLiveEndpointPair(ComPtr):
     RemotePort = property(get_RemotePort, None)
     LocalHostName = property(get_LocalHostName, None)
     LocalPort = property(get_LocalPort, None)
-XboxLiveEndpointPairCreationBehaviors = UInt32
-XboxLiveEndpointPairCreationBehaviors_None: XboxLiveEndpointPairCreationBehaviors = 0
-XboxLiveEndpointPairCreationBehaviors_ReevaluatePath: XboxLiveEndpointPairCreationBehaviors = 1
+class XboxLiveEndpointPairCreationBehaviors(UInt32):  # enum
+    None_ = 0
+    ReevaluatePath = 1
 class XboxLiveEndpointPairCreationResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.XboxLive.IXboxLiveEndpointPairCreationResult
@@ -369,24 +369,24 @@ class XboxLiveEndpointPairCreationResult(ComPtr):
     Status = property(get_Status, None)
     IsExistingPathEvaluation = property(get_IsExistingPathEvaluation, None)
     EndpointPair = property(get_EndpointPair, None)
-XboxLiveEndpointPairCreationStatus = Int32
-XboxLiveEndpointPairCreationStatus_Succeeded: XboxLiveEndpointPairCreationStatus = 0
-XboxLiveEndpointPairCreationStatus_NoLocalNetworks: XboxLiveEndpointPairCreationStatus = 1
-XboxLiveEndpointPairCreationStatus_NoCompatibleNetworkPaths: XboxLiveEndpointPairCreationStatus = 2
-XboxLiveEndpointPairCreationStatus_LocalSystemNotAuthorized: XboxLiveEndpointPairCreationStatus = 3
-XboxLiveEndpointPairCreationStatus_Canceled: XboxLiveEndpointPairCreationStatus = 4
-XboxLiveEndpointPairCreationStatus_TimedOut: XboxLiveEndpointPairCreationStatus = 5
-XboxLiveEndpointPairCreationStatus_RemoteSystemNotAuthorized: XboxLiveEndpointPairCreationStatus = 6
-XboxLiveEndpointPairCreationStatus_RefusedDueToConfiguration: XboxLiveEndpointPairCreationStatus = 7
-XboxLiveEndpointPairCreationStatus_UnexpectedInternalError: XboxLiveEndpointPairCreationStatus = 8
-XboxLiveEndpointPairState = Int32
-XboxLiveEndpointPairState_Invalid: XboxLiveEndpointPairState = 0
-XboxLiveEndpointPairState_CreatingOutbound: XboxLiveEndpointPairState = 1
-XboxLiveEndpointPairState_CreatingInbound: XboxLiveEndpointPairState = 2
-XboxLiveEndpointPairState_Ready: XboxLiveEndpointPairState = 3
-XboxLiveEndpointPairState_DeletingLocally: XboxLiveEndpointPairState = 4
-XboxLiveEndpointPairState_RemoteEndpointTerminating: XboxLiveEndpointPairState = 5
-XboxLiveEndpointPairState_Deleted: XboxLiveEndpointPairState = 6
+class XboxLiveEndpointPairCreationStatus(Int32):  # enum
+    Succeeded = 0
+    NoLocalNetworks = 1
+    NoCompatibleNetworkPaths = 2
+    LocalSystemNotAuthorized = 3
+    Canceled = 4
+    TimedOut = 5
+    RemoteSystemNotAuthorized = 6
+    RefusedDueToConfiguration = 7
+    UnexpectedInternalError = 8
+class XboxLiveEndpointPairState(Int32):  # enum
+    Invalid = 0
+    CreatingOutbound = 1
+    CreatingInbound = 2
+    Ready = 3
+    DeletingLocally = 4
+    RemoteEndpointTerminating = 5
+    Deleted = 6
 class XboxLiveEndpointPairStateChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.XboxLive.IXboxLiveEndpointPairStateChangedEventArgs
@@ -448,10 +448,10 @@ class XboxLiveInboundEndpointPairCreatedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_EndpointPair(self: win32more.Windows.Networking.XboxLive.IXboxLiveInboundEndpointPairCreatedEventArgs) -> win32more.Windows.Networking.XboxLive.XboxLiveEndpointPair: ...
     EndpointPair = property(get_EndpointPair, None)
-XboxLiveNetworkAccessKind = Int32
-XboxLiveNetworkAccessKind_Open: XboxLiveNetworkAccessKind = 0
-XboxLiveNetworkAccessKind_Moderate: XboxLiveNetworkAccessKind = 1
-XboxLiveNetworkAccessKind_Strict: XboxLiveNetworkAccessKind = 2
+class XboxLiveNetworkAccessKind(Int32):  # enum
+    Open = 0
+    Moderate = 1
+    Strict = 2
 class _XboxLiveQualityOfServiceMeasurement_Meta_(ComPtr.__class__):
     pass
 class XboxLiveQualityOfServiceMeasurement(ComPtr, metaclass=_XboxLiveQualityOfServiceMeasurement_Meta_):
@@ -534,29 +534,29 @@ class XboxLiveQualityOfServiceMeasurement(ComPtr, metaclass=_XboxLiveQualityOfSe
     _XboxLiveQualityOfServiceMeasurement_Meta_.IsSystemInboundBandwidthConstrained = property(get_IsSystemInboundBandwidthConstrained.__wrapped__, put_IsSystemInboundBandwidthConstrained.__wrapped__)
     _XboxLiveQualityOfServiceMeasurement_Meta_.PublishedPrivatePayload = property(get_PublishedPrivatePayload.__wrapped__, put_PublishedPrivatePayload.__wrapped__)
     _XboxLiveQualityOfServiceMeasurement_Meta_.MaxPrivatePayloadSize = property(get_MaxPrivatePayloadSize.__wrapped__, None)
-XboxLiveQualityOfServiceMeasurementStatus = Int32
-XboxLiveQualityOfServiceMeasurementStatus_NotStarted: XboxLiveQualityOfServiceMeasurementStatus = 0
-XboxLiveQualityOfServiceMeasurementStatus_InProgress: XboxLiveQualityOfServiceMeasurementStatus = 1
-XboxLiveQualityOfServiceMeasurementStatus_InProgressWithProvisionalResults: XboxLiveQualityOfServiceMeasurementStatus = 2
-XboxLiveQualityOfServiceMeasurementStatus_Succeeded: XboxLiveQualityOfServiceMeasurementStatus = 3
-XboxLiveQualityOfServiceMeasurementStatus_NoLocalNetworks: XboxLiveQualityOfServiceMeasurementStatus = 4
-XboxLiveQualityOfServiceMeasurementStatus_NoCompatibleNetworkPaths: XboxLiveQualityOfServiceMeasurementStatus = 5
-XboxLiveQualityOfServiceMeasurementStatus_LocalSystemNotAuthorized: XboxLiveQualityOfServiceMeasurementStatus = 6
-XboxLiveQualityOfServiceMeasurementStatus_Canceled: XboxLiveQualityOfServiceMeasurementStatus = 7
-XboxLiveQualityOfServiceMeasurementStatus_TimedOut: XboxLiveQualityOfServiceMeasurementStatus = 8
-XboxLiveQualityOfServiceMeasurementStatus_RemoteSystemNotAuthorized: XboxLiveQualityOfServiceMeasurementStatus = 9
-XboxLiveQualityOfServiceMeasurementStatus_RefusedDueToConfiguration: XboxLiveQualityOfServiceMeasurementStatus = 10
-XboxLiveQualityOfServiceMeasurementStatus_UnexpectedInternalError: XboxLiveQualityOfServiceMeasurementStatus = 11
-XboxLiveQualityOfServiceMetric = Int32
-XboxLiveQualityOfServiceMetric_AverageLatencyInMilliseconds: XboxLiveQualityOfServiceMetric = 0
-XboxLiveQualityOfServiceMetric_MinLatencyInMilliseconds: XboxLiveQualityOfServiceMetric = 1
-XboxLiveQualityOfServiceMetric_MaxLatencyInMilliseconds: XboxLiveQualityOfServiceMetric = 2
-XboxLiveQualityOfServiceMetric_AverageOutboundBitsPerSecond: XboxLiveQualityOfServiceMetric = 3
-XboxLiveQualityOfServiceMetric_MinOutboundBitsPerSecond: XboxLiveQualityOfServiceMetric = 4
-XboxLiveQualityOfServiceMetric_MaxOutboundBitsPerSecond: XboxLiveQualityOfServiceMetric = 5
-XboxLiveQualityOfServiceMetric_AverageInboundBitsPerSecond: XboxLiveQualityOfServiceMetric = 6
-XboxLiveQualityOfServiceMetric_MinInboundBitsPerSecond: XboxLiveQualityOfServiceMetric = 7
-XboxLiveQualityOfServiceMetric_MaxInboundBitsPerSecond: XboxLiveQualityOfServiceMetric = 8
+class XboxLiveQualityOfServiceMeasurementStatus(Int32):  # enum
+    NotStarted = 0
+    InProgress = 1
+    InProgressWithProvisionalResults = 2
+    Succeeded = 3
+    NoLocalNetworks = 4
+    NoCompatibleNetworkPaths = 5
+    LocalSystemNotAuthorized = 6
+    Canceled = 7
+    TimedOut = 8
+    RemoteSystemNotAuthorized = 9
+    RefusedDueToConfiguration = 10
+    UnexpectedInternalError = 11
+class XboxLiveQualityOfServiceMetric(Int32):  # enum
+    AverageLatencyInMilliseconds = 0
+    MinLatencyInMilliseconds = 1
+    MaxLatencyInMilliseconds = 2
+    AverageOutboundBitsPerSecond = 3
+    MinOutboundBitsPerSecond = 4
+    MaxOutboundBitsPerSecond = 5
+    AverageInboundBitsPerSecond = 6
+    MinInboundBitsPerSecond = 7
+    MaxInboundBitsPerSecond = 8
 class XboxLiveQualityOfServiceMetricResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.XboxLive.IXboxLiveQualityOfServiceMetricResult
@@ -587,10 +587,10 @@ class XboxLiveQualityOfServicePrivatePayloadResult(ComPtr):
     DeviceAddress = property(get_DeviceAddress, None)
     Value = property(get_Value, None)
 XboxLiveSecureSocketsContract: UInt32 = 65536
-XboxLiveSocketKind = Int32
-XboxLiveSocketKind_None: XboxLiveSocketKind = 0
-XboxLiveSocketKind_Datagram: XboxLiveSocketKind = 1
-XboxLiveSocketKind_Stream: XboxLiveSocketKind = 2
+class XboxLiveSocketKind(Int32):  # enum
+    None_ = 0
+    Datagram = 1
+    Stream = 2
 
 
 make_ready(__name__)

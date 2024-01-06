@@ -524,14 +524,14 @@ class PaymentCanMakePaymentResult(ComPtr):
     @winrt_mixinmethod
     def get_Status(self: win32more.Windows.ApplicationModel.Payments.IPaymentCanMakePaymentResult) -> win32more.Windows.ApplicationModel.Payments.PaymentCanMakePaymentResultStatus: ...
     Status = property(get_Status, None)
-PaymentCanMakePaymentResultStatus = Int32
-PaymentCanMakePaymentResultStatus_Unknown: PaymentCanMakePaymentResultStatus = 0
-PaymentCanMakePaymentResultStatus_Yes: PaymentCanMakePaymentResultStatus = 1
-PaymentCanMakePaymentResultStatus_No: PaymentCanMakePaymentResultStatus = 2
-PaymentCanMakePaymentResultStatus_NotAllowed: PaymentCanMakePaymentResultStatus = 3
-PaymentCanMakePaymentResultStatus_UserNotSignedIn: PaymentCanMakePaymentResultStatus = 4
-PaymentCanMakePaymentResultStatus_SpecifiedPaymentMethodIdsNotSupported: PaymentCanMakePaymentResultStatus = 5
-PaymentCanMakePaymentResultStatus_NoQualifyingCardOnFile: PaymentCanMakePaymentResultStatus = 6
+class PaymentCanMakePaymentResultStatus(Int32):  # enum
+    Unknown = 0
+    Yes = 1
+    No = 2
+    NotAllowed = 3
+    UserNotSignedIn = 4
+    SpecifiedPaymentMethodIdsNotSupported = 5
+    NoQualifyingCardOnFile = 6
 class PaymentCurrencyAmount(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Payments.IPaymentCurrencyAmount
@@ -733,10 +733,10 @@ class PaymentMethodData(ComPtr):
     def get_JsonData(self: win32more.Windows.ApplicationModel.Payments.IPaymentMethodData) -> WinRT_String: ...
     SupportedMethodIds = property(get_SupportedMethodIds, None)
     JsonData = property(get_JsonData, None)
-PaymentOptionPresence = Int32
-PaymentOptionPresence_None: PaymentOptionPresence = 0
-PaymentOptionPresence_Optional: PaymentOptionPresence = 1
-PaymentOptionPresence_Required: PaymentOptionPresence = 2
+class PaymentOptionPresence(Int32):  # enum
+    None_ = 0
+    Optional = 1
+    Required = 2
 class PaymentOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Payments.IPaymentOptions
@@ -815,9 +815,9 @@ class PaymentRequest(ComPtr):
     MethodData = property(get_MethodData, None)
     Options = property(get_Options, None)
     Id = property(get_Id, None)
-PaymentRequestChangeKind = Int32
-PaymentRequestChangeKind_ShippingOption: PaymentRequestChangeKind = 0
-PaymentRequestChangeKind_ShippingAddress: PaymentRequestChangeKind = 1
+class PaymentRequestChangeKind(Int32):  # enum
+    ShippingOption = 0
+    ShippingAddress = 1
 class PaymentRequestChangedArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Payments.IPaymentRequestChangedArgs
@@ -869,14 +869,14 @@ class PaymentRequestChangedResult(ComPtr):
     ChangeAcceptedByMerchant = property(get_ChangeAcceptedByMerchant, put_ChangeAcceptedByMerchant)
     Message = property(get_Message, put_Message)
     UpdatedPaymentDetails = property(get_UpdatedPaymentDetails, put_UpdatedPaymentDetails)
-PaymentRequestCompletionStatus = Int32
-PaymentRequestCompletionStatus_Succeeded: PaymentRequestCompletionStatus = 0
-PaymentRequestCompletionStatus_Failed: PaymentRequestCompletionStatus = 1
-PaymentRequestCompletionStatus_Unknown: PaymentRequestCompletionStatus = 2
-PaymentRequestStatus = Int32
-PaymentRequestStatus_Succeeded: PaymentRequestStatus = 0
-PaymentRequestStatus_Failed: PaymentRequestStatus = 1
-PaymentRequestStatus_Canceled: PaymentRequestStatus = 2
+class PaymentRequestCompletionStatus(Int32):  # enum
+    Succeeded = 0
+    Failed = 1
+    Unknown = 2
+class PaymentRequestStatus(Int32):  # enum
+    Succeeded = 0
+    Failed = 1
+    Canceled = 2
 class PaymentRequestSubmitResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Payments.IPaymentRequestSubmitResult
@@ -952,10 +952,10 @@ class PaymentShippingOption(ComPtr):
     Amount = property(get_Amount, put_Amount)
     Tag = property(get_Tag, put_Tag)
     IsSelected = property(get_IsSelected, put_IsSelected)
-PaymentShippingType = Int32
-PaymentShippingType_Shipping: PaymentShippingType = 0
-PaymentShippingType_Delivery: PaymentShippingType = 1
-PaymentShippingType_Pickup: PaymentShippingType = 2
+class PaymentShippingType(Int32):  # enum
+    Shipping = 0
+    Delivery = 1
+    Pickup = 2
 class PaymentToken(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Payments.IPaymentToken

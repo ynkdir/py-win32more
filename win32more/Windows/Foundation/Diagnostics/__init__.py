@@ -22,24 +22,24 @@ class AsyncCausalityTracer(ComPtr):
     def add_TracingStatusChanged(cls: win32more.Windows.Foundation.Diagnostics.IAsyncCausalityTracerStatics, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Foundation.Diagnostics.TracingStatusChangedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod
     def remove_TracingStatusChanged(cls: win32more.Windows.Foundation.Diagnostics.IAsyncCausalityTracerStatics, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-CausalityRelation = Int32
-CausalityRelation_AssignDelegate: CausalityRelation = 0
-CausalityRelation_Join: CausalityRelation = 1
-CausalityRelation_Choice: CausalityRelation = 2
-CausalityRelation_Cancel: CausalityRelation = 3
-CausalityRelation_Error: CausalityRelation = 4
-CausalitySource = Int32
-CausalitySource_Application: CausalitySource = 0
-CausalitySource_Library: CausalitySource = 1
-CausalitySource_System: CausalitySource = 2
-CausalitySynchronousWork = Int32
-CausalitySynchronousWork_CompletionNotification: CausalitySynchronousWork = 0
-CausalitySynchronousWork_ProgressNotification: CausalitySynchronousWork = 1
-CausalitySynchronousWork_Execution: CausalitySynchronousWork = 2
-CausalityTraceLevel = Int32
-CausalityTraceLevel_Required: CausalityTraceLevel = 0
-CausalityTraceLevel_Important: CausalityTraceLevel = 1
-CausalityTraceLevel_Verbose: CausalityTraceLevel = 2
+class CausalityRelation(Int32):  # enum
+    AssignDelegate = 0
+    Join = 1
+    Choice = 2
+    Cancel = 3
+    Error = 4
+class CausalitySource(Int32):  # enum
+    Application = 0
+    Library = 1
+    System = 2
+class CausalitySynchronousWork(Int32):  # enum
+    CompletionNotification = 0
+    ProgressNotification = 1
+    Execution = 2
+class CausalityTraceLevel(Int32):  # enum
+    Required = 0
+    Important = 1
+    Verbose = 2
 class ErrorDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.Diagnostics.IErrorDetails
@@ -55,12 +55,12 @@ class ErrorDetails(ComPtr):
     Description = property(get_Description, None)
     LongDescription = property(get_LongDescription, None)
     HelpUri = property(get_HelpUri, None)
-ErrorOptions = UInt32
-ErrorOptions_None: ErrorOptions = 0
-ErrorOptions_SuppressExceptions: ErrorOptions = 1
-ErrorOptions_ForceExceptions: ErrorOptions = 2
-ErrorOptions_UseSetErrorInfo: ErrorOptions = 4
-ErrorOptions_SuppressSetErrorInfo: ErrorOptions = 8
+class ErrorOptions(UInt32):  # enum
+    None_ = 0
+    SuppressExceptions = 1
+    ForceExceptions = 2
+    UseSetErrorInfo = 4
+    SuppressSetErrorInfo = 8
 class FileLoggingSession(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.Diagnostics.IFileLoggingSession
@@ -745,26 +745,26 @@ class LoggingChannelOptions(ComPtr):
     @winrt_mixinmethod
     def put_Group(self: win32more.Windows.Foundation.Diagnostics.ILoggingChannelOptions, value: Guid) -> Void: ...
     Group = property(get_Group, put_Group)
-LoggingFieldFormat = Int32
-LoggingFieldFormat_Default: LoggingFieldFormat = 0
-LoggingFieldFormat_Hidden: LoggingFieldFormat = 1
-LoggingFieldFormat_String: LoggingFieldFormat = 2
-LoggingFieldFormat_Boolean: LoggingFieldFormat = 3
-LoggingFieldFormat_Hexadecimal: LoggingFieldFormat = 4
-LoggingFieldFormat_ProcessId: LoggingFieldFormat = 5
-LoggingFieldFormat_ThreadId: LoggingFieldFormat = 6
-LoggingFieldFormat_Port: LoggingFieldFormat = 7
-LoggingFieldFormat_Ipv4Address: LoggingFieldFormat = 8
-LoggingFieldFormat_Ipv6Address: LoggingFieldFormat = 9
-LoggingFieldFormat_SocketAddress: LoggingFieldFormat = 10
-LoggingFieldFormat_Xml: LoggingFieldFormat = 11
-LoggingFieldFormat_Json: LoggingFieldFormat = 12
-LoggingFieldFormat_Win32Error: LoggingFieldFormat = 13
-LoggingFieldFormat_NTStatus: LoggingFieldFormat = 14
-LoggingFieldFormat_HResult: LoggingFieldFormat = 15
-LoggingFieldFormat_FileTime: LoggingFieldFormat = 16
-LoggingFieldFormat_Signed: LoggingFieldFormat = 17
-LoggingFieldFormat_Unsigned: LoggingFieldFormat = 18
+class LoggingFieldFormat(Int32):  # enum
+    Default = 0
+    Hidden = 1
+    String = 2
+    Boolean = 3
+    Hexadecimal = 4
+    ProcessId = 5
+    ThreadId = 6
+    Port = 7
+    Ipv4Address = 8
+    Ipv6Address = 9
+    SocketAddress = 10
+    Xml = 11
+    Json = 12
+    Win32Error = 13
+    NTStatus = 14
+    HResult = 15
+    FileTime = 16
+    Signed = 17
+    Unsigned = 18
 class LoggingFields(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.Diagnostics.ILoggingFields
@@ -1008,20 +1008,20 @@ class LoggingFields(ComPtr):
     def AddRectArrayWithFormat(self: win32more.Windows.Foundation.Diagnostics.ILoggingFields, name: WinRT_String, value: Annotated[SZArray[win32more.Windows.Foundation.Rect], 'In'], format: win32more.Windows.Foundation.Diagnostics.LoggingFieldFormat) -> Void: ...
     @winrt_mixinmethod
     def AddRectArrayWithFormatAndTags(self: win32more.Windows.Foundation.Diagnostics.ILoggingFields, name: WinRT_String, value: Annotated[SZArray[win32more.Windows.Foundation.Rect], 'In'], format: win32more.Windows.Foundation.Diagnostics.LoggingFieldFormat, tags: Int32) -> Void: ...
-LoggingLevel = Int32
-LoggingLevel_Verbose: LoggingLevel = 0
-LoggingLevel_Information: LoggingLevel = 1
-LoggingLevel_Warning: LoggingLevel = 2
-LoggingLevel_Error: LoggingLevel = 3
-LoggingLevel_Critical: LoggingLevel = 4
-LoggingOpcode = Int32
-LoggingOpcode_Info: LoggingOpcode = 0
-LoggingOpcode_Start: LoggingOpcode = 1
-LoggingOpcode_Stop: LoggingOpcode = 2
-LoggingOpcode_Reply: LoggingOpcode = 6
-LoggingOpcode_Resume: LoggingOpcode = 7
-LoggingOpcode_Suspend: LoggingOpcode = 8
-LoggingOpcode_Send: LoggingOpcode = 9
+class LoggingLevel(Int32):  # enum
+    Verbose = 0
+    Information = 1
+    Warning = 2
+    Error = 3
+    Critical = 4
+class LoggingOpcode(Int32):  # enum
+    Info = 0
+    Start = 1
+    Stop = 2
+    Reply = 6
+    Resume = 7
+    Suspend = 8
+    Send = 9
 class LoggingOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.Diagnostics.ILoggingOptions

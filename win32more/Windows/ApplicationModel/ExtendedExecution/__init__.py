@@ -4,13 +4,13 @@ from win32more._winrt import Annotated, Generic, K, MulticastDelegate, SZArray, 
 import win32more.Windows.ApplicationModel.ExtendedExecution
 import win32more.Windows.Foundation
 import win32more.Windows.Win32.System.WinRT
-ExtendedExecutionReason = Int32
-ExtendedExecutionReason_Unspecified: ExtendedExecutionReason = 0
-ExtendedExecutionReason_LocationTracking: ExtendedExecutionReason = 1
-ExtendedExecutionReason_SavingData: ExtendedExecutionReason = 2
-ExtendedExecutionResult = Int32
-ExtendedExecutionResult_Allowed: ExtendedExecutionResult = 0
-ExtendedExecutionResult_Denied: ExtendedExecutionResult = 1
+class ExtendedExecutionReason(Int32):  # enum
+    Unspecified = 0
+    LocationTracking = 1
+    SavingData = 2
+class ExtendedExecutionResult(Int32):  # enum
+    Allowed = 0
+    Denied = 1
 class ExtendedExecutionRevokedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.ExtendedExecution.IExtendedExecutionRevokedEventArgs
@@ -18,9 +18,9 @@ class ExtendedExecutionRevokedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Reason(self: win32more.Windows.ApplicationModel.ExtendedExecution.IExtendedExecutionRevokedEventArgs) -> win32more.Windows.ApplicationModel.ExtendedExecution.ExtendedExecutionRevokedReason: ...
     Reason = property(get_Reason, None)
-ExtendedExecutionRevokedReason = Int32
-ExtendedExecutionRevokedReason_Resumed: ExtendedExecutionRevokedReason = 0
-ExtendedExecutionRevokedReason_SystemPolicy: ExtendedExecutionRevokedReason = 1
+class ExtendedExecutionRevokedReason(Int32):  # enum
+    Resumed = 0
+    SystemPolicy = 1
 class ExtendedExecutionSession(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.ExtendedExecution.IExtendedExecutionSession

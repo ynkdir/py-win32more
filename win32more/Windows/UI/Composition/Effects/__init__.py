@@ -90,9 +90,9 @@ class SceneLightingEffect(ComPtr):
     SpecularShine = property(get_SpecularShine, put_SpecularShine)
     ReflectanceModel = property(get_ReflectanceModel, put_ReflectanceModel)
     Name = property(get_Name, put_Name)
-SceneLightingEffectReflectanceModel = Int32
-SceneLightingEffectReflectanceModel_BlinnPhong: SceneLightingEffectReflectanceModel = 0
-SceneLightingEffectReflectanceModel_PhysicallyBasedBlinnPhong: SceneLightingEffectReflectanceModel = 1
+class SceneLightingEffectReflectanceModel(Int32):  # enum
+    BlinnPhong = 0
+    PhysicallyBasedBlinnPhong = 1
 
 
 make_ready(__name__)

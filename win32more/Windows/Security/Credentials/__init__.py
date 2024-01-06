@@ -222,14 +222,14 @@ class KeyCredentialAttestationResult(ComPtr):
     CertificateChainBuffer = property(get_CertificateChainBuffer, None)
     AttestationBuffer = property(get_AttestationBuffer, None)
     Status = property(get_Status, None)
-KeyCredentialAttestationStatus = Int32
-KeyCredentialAttestationStatus_Success: KeyCredentialAttestationStatus = 0
-KeyCredentialAttestationStatus_UnknownError: KeyCredentialAttestationStatus = 1
-KeyCredentialAttestationStatus_NotSupported: KeyCredentialAttestationStatus = 2
-KeyCredentialAttestationStatus_TemporaryFailure: KeyCredentialAttestationStatus = 3
-KeyCredentialCreationOption = Int32
-KeyCredentialCreationOption_ReplaceExisting: KeyCredentialCreationOption = 0
-KeyCredentialCreationOption_FailIfExists: KeyCredentialCreationOption = 1
+class KeyCredentialAttestationStatus(Int32):  # enum
+    Success = 0
+    UnknownError = 1
+    NotSupported = 2
+    TemporaryFailure = 3
+class KeyCredentialCreationOption(Int32):  # enum
+    ReplaceExisting = 0
+    FailIfExists = 1
 class KeyCredentialManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.Credentials.KeyCredentialManager'
@@ -263,14 +263,14 @@ class KeyCredentialRetrievalResult(ComPtr):
     def get_Status(self: win32more.Windows.Security.Credentials.IKeyCredentialRetrievalResult) -> win32more.Windows.Security.Credentials.KeyCredentialStatus: ...
     Credential = property(get_Credential, None)
     Status = property(get_Status, None)
-KeyCredentialStatus = Int32
-KeyCredentialStatus_Success: KeyCredentialStatus = 0
-KeyCredentialStatus_UnknownError: KeyCredentialStatus = 1
-KeyCredentialStatus_NotFound: KeyCredentialStatus = 2
-KeyCredentialStatus_UserCanceled: KeyCredentialStatus = 3
-KeyCredentialStatus_UserPrefersPassword: KeyCredentialStatus = 4
-KeyCredentialStatus_CredentialAlreadyExists: KeyCredentialStatus = 5
-KeyCredentialStatus_SecurityDeviceLocked: KeyCredentialStatus = 6
+class KeyCredentialStatus(Int32):  # enum
+    Success = 0
+    UnknownError = 1
+    NotFound = 2
+    UserCanceled = 3
+    UserPrefersPassword = 4
+    CredentialAlreadyExists = 5
+    SecurityDeviceLocked = 6
 class PasswordCredential(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Credentials.IPasswordCredential
@@ -401,11 +401,11 @@ class WebAccount(ComPtr):
     State = property(get_State, None)
     Id = property(get_Id, None)
     Properties = property(get_Properties, None)
-WebAccountPictureSize = Int32
-WebAccountPictureSize_Size64x64: WebAccountPictureSize = 64
-WebAccountPictureSize_Size208x208: WebAccountPictureSize = 208
-WebAccountPictureSize_Size424x424: WebAccountPictureSize = 424
-WebAccountPictureSize_Size1080x1080: WebAccountPictureSize = 1080
+class WebAccountPictureSize(Int32):  # enum
+    Size64x64 = 64
+    Size208x208 = 208
+    Size424x424 = 424
+    Size1080x1080 = 1080
 class WebAccountProvider(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Credentials.IWebAccountProvider
@@ -440,10 +440,10 @@ class WebAccountProvider(ComPtr):
     Authority = property(get_Authority, None)
     User = property(get_User, None)
     IsSystemProvider = property(get_IsSystemProvider, None)
-WebAccountState = Int32
-WebAccountState_None: WebAccountState = 0
-WebAccountState_Connected: WebAccountState = 1
-WebAccountState_Error: WebAccountState = 2
+class WebAccountState(Int32):  # enum
+    None_ = 0
+    Connected = 1
+    Error = 2
 
 
 make_ready(__name__)

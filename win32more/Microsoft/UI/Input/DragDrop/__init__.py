@@ -25,14 +25,14 @@ class DragDropManager(ComPtr):
     @winrt_classmethod
     def GetForIsland(cls: win32more.Microsoft.UI.Input.DragDrop.IDragDropManagerStatics, content: win32more.Microsoft.UI.Content.ContentIsland) -> win32more.Microsoft.UI.Input.DragDrop.DragDropManager: ...
     AreConcurrentOperationsEnabled = property(get_AreConcurrentOperationsEnabled, put_AreConcurrentOperationsEnabled)
-DragDropModifiers = UInt32
-DragDropModifiers_None: DragDropModifiers = 0
-DragDropModifiers_Shift: DragDropModifiers = 1
-DragDropModifiers_Control: DragDropModifiers = 2
-DragDropModifiers_Alt: DragDropModifiers = 4
-DragDropModifiers_LeftButton: DragDropModifiers = 8
-DragDropModifiers_MiddleButton: DragDropModifiers = 16
-DragDropModifiers_RightButton: DragDropModifiers = 32
+class DragDropModifiers(UInt32):  # enum
+    None_ = 0
+    Shift = 1
+    Control = 2
+    Alt = 4
+    LeftButton = 8
+    MiddleButton = 16
+    RightButton = 32
 class DragInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Input.DragDrop.IDragInfo
@@ -83,9 +83,9 @@ class DragOperation(ComPtr):
     AllowedOperations = property(get_AllowedOperations, put_AllowedOperations)
     Data = property(get_Data, None)
     DragUIContentMode = property(get_DragUIContentMode, put_DragUIContentMode)
-DragUIContentMode = Int32
-DragUIContentMode_Auto: DragUIContentMode = 0
-DragUIContentMode_Deferred: DragUIContentMode = 1
+class DragUIContentMode(Int32):  # enum
+    Auto = 0
+    Deferred = 1
 class DragUIOverride(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Input.DragDrop.IDragUIOverride

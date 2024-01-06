@@ -41,10 +41,10 @@ class MdmPolicy(ComPtr):
     def IsMicrosoftAccountAllowed(cls: win32more.Windows.Management.Workplace.IMdmAllowPolicyStatics) -> Boolean: ...
     @winrt_classmethod
     def IsStoreAllowed(cls: win32more.Windows.Management.Workplace.IMdmAllowPolicyStatics) -> Boolean: ...
-MessagingSyncPolicy = Int32
-MessagingSyncPolicy_Disallowed: MessagingSyncPolicy = 0
-MessagingSyncPolicy_Allowed: MessagingSyncPolicy = 1
-MessagingSyncPolicy_Required: MessagingSyncPolicy = 2
+class MessagingSyncPolicy(Int32):  # enum
+    Disallowed = 0
+    Allowed = 1
+    Required = 2
 class _WorkplaceSettings_Meta_(ComPtr.__class__):
     pass
 class WorkplaceSettings(ComPtr, metaclass=_WorkplaceSettings_Meta_):

@@ -243,14 +243,14 @@ class TargetedContentAction(ComPtr):
     _classid_ = 'Windows.Services.TargetedContent.TargetedContentAction'
     @winrt_mixinmethod
     def InvokeAsync(self: win32more.Windows.Services.TargetedContent.ITargetedContentAction) -> win32more.Windows.Foundation.IAsyncAction: ...
-TargetedContentAppInstallationState = Int32
-TargetedContentAppInstallationState_NotApplicable: TargetedContentAppInstallationState = 0
-TargetedContentAppInstallationState_NotInstalled: TargetedContentAppInstallationState = 1
-TargetedContentAppInstallationState_Installed: TargetedContentAppInstallationState = 2
-TargetedContentAvailability = Int32
-TargetedContentAvailability_None: TargetedContentAvailability = 0
-TargetedContentAvailability_Partial: TargetedContentAvailability = 1
-TargetedContentAvailability_All: TargetedContentAvailability = 2
+class TargetedContentAppInstallationState(Int32):  # enum
+    NotApplicable = 0
+    NotInstalled = 1
+    Installed = 2
+class TargetedContentAvailability(Int32):  # enum
+    None_ = 0
+    Partial = 1
+    All = 2
 class TargetedContentAvailabilityChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Services.TargetedContent.ITargetedContentAvailabilityChangedEventArgs
@@ -328,20 +328,20 @@ class TargetedContentImage(ComPtr):
     def OpenReadAsync(self: win32more.Windows.Storage.Streams.IRandomAccessStreamReference) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Storage.Streams.IRandomAccessStreamWithContentType]: ...
     Height = property(get_Height, None)
     Width = property(get_Width, None)
-TargetedContentInteraction = Int32
-TargetedContentInteraction_Impression: TargetedContentInteraction = 0
-TargetedContentInteraction_ClickThrough: TargetedContentInteraction = 1
-TargetedContentInteraction_Hover: TargetedContentInteraction = 2
-TargetedContentInteraction_Like: TargetedContentInteraction = 3
-TargetedContentInteraction_Dislike: TargetedContentInteraction = 4
-TargetedContentInteraction_Dismiss: TargetedContentInteraction = 5
-TargetedContentInteraction_Ineligible: TargetedContentInteraction = 6
-TargetedContentInteraction_Accept: TargetedContentInteraction = 7
-TargetedContentInteraction_Decline: TargetedContentInteraction = 8
-TargetedContentInteraction_Defer: TargetedContentInteraction = 9
-TargetedContentInteraction_Canceled: TargetedContentInteraction = 10
-TargetedContentInteraction_Conversion: TargetedContentInteraction = 11
-TargetedContentInteraction_Opportunity: TargetedContentInteraction = 12
+class TargetedContentInteraction(Int32):  # enum
+    Impression = 0
+    ClickThrough = 1
+    Hover = 2
+    Like = 3
+    Dislike = 4
+    Dismiss = 5
+    Ineligible = 6
+    Accept = 7
+    Decline = 8
+    Defer = 9
+    Canceled = 10
+    Conversion = 11
+    Opportunity = 12
 class TargetedContentItem(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Services.TargetedContent.ITargetedContentItem
@@ -388,10 +388,10 @@ class TargetedContentObject(ComPtr):
     Collection = property(get_Collection, None)
     Item = property(get_Item, None)
     Value = property(get_Value, None)
-TargetedContentObjectKind = Int32
-TargetedContentObjectKind_Collection: TargetedContentObjectKind = 0
-TargetedContentObjectKind_Item: TargetedContentObjectKind = 1
-TargetedContentObjectKind_Value: TargetedContentObjectKind = 2
+class TargetedContentObjectKind(Int32):  # enum
+    Collection = 0
+    Item = 1
+    Value = 2
 class TargetedContentStateChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Services.TargetedContent.ITargetedContentStateChangedEventArgs
@@ -495,21 +495,21 @@ class TargetedContentValue(ComPtr):
     Files = property(get_Files, None)
     ImageFiles = property(get_ImageFiles, None)
     Actions = property(get_Actions, None)
-TargetedContentValueKind = Int32
-TargetedContentValueKind_String: TargetedContentValueKind = 0
-TargetedContentValueKind_Uri: TargetedContentValueKind = 1
-TargetedContentValueKind_Number: TargetedContentValueKind = 2
-TargetedContentValueKind_Boolean: TargetedContentValueKind = 3
-TargetedContentValueKind_File: TargetedContentValueKind = 4
-TargetedContentValueKind_ImageFile: TargetedContentValueKind = 5
-TargetedContentValueKind_Action: TargetedContentValueKind = 6
-TargetedContentValueKind_Strings: TargetedContentValueKind = 7
-TargetedContentValueKind_Uris: TargetedContentValueKind = 8
-TargetedContentValueKind_Numbers: TargetedContentValueKind = 9
-TargetedContentValueKind_Booleans: TargetedContentValueKind = 10
-TargetedContentValueKind_Files: TargetedContentValueKind = 11
-TargetedContentValueKind_ImageFiles: TargetedContentValueKind = 12
-TargetedContentValueKind_Actions: TargetedContentValueKind = 13
+class TargetedContentValueKind(Int32):  # enum
+    String = 0
+    Uri = 1
+    Number = 2
+    Boolean = 3
+    File = 4
+    ImageFile = 5
+    Action = 6
+    Strings = 7
+    Uris = 8
+    Numbers = 9
+    Booleans = 10
+    Files = 11
+    ImageFiles = 12
+    Actions = 13
 
 
 make_ready(__name__)

@@ -307,12 +307,12 @@ class IWalletVerbFactory(ComPtr):
     _iid_ = Guid('{76012771-be58-4d5e-83ed-58b1669c7ad9}')
     @winrt_commethod(6)
     def CreateWalletVerb(self, name: WinRT_String) -> win32more.Windows.ApplicationModel.Wallet.WalletVerb: ...
-WalletActionKind = Int32
-WalletActionKind_OpenItem: WalletActionKind = 0
-WalletActionKind_Transaction: WalletActionKind = 1
-WalletActionKind_MoreTransactions: WalletActionKind = 2
-WalletActionKind_Message: WalletActionKind = 3
-WalletActionKind_Verb: WalletActionKind = 4
+class WalletActionKind(Int32):  # enum
+    OpenItem = 0
+    Transaction = 1
+    MoreTransactions = 2
+    Message = 3
+    Verb = 4
 class WalletBarcode(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Wallet.IWalletBarcode
@@ -338,36 +338,36 @@ class WalletBarcode(ComPtr):
     def GetImageAsync(self: win32more.Windows.ApplicationModel.Wallet.IWalletBarcode) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Storage.Streams.IRandomAccessStreamReference]: ...
     Symbology = property(get_Symbology, None)
     Value = property(get_Value, None)
-WalletBarcodeSymbology = Int32
-WalletBarcodeSymbology_Invalid: WalletBarcodeSymbology = 0
-WalletBarcodeSymbology_Upca: WalletBarcodeSymbology = 1
-WalletBarcodeSymbology_Upce: WalletBarcodeSymbology = 2
-WalletBarcodeSymbology_Ean13: WalletBarcodeSymbology = 3
-WalletBarcodeSymbology_Ean8: WalletBarcodeSymbology = 4
-WalletBarcodeSymbology_Itf: WalletBarcodeSymbology = 5
-WalletBarcodeSymbology_Code39: WalletBarcodeSymbology = 6
-WalletBarcodeSymbology_Code128: WalletBarcodeSymbology = 7
-WalletBarcodeSymbology_Qr: WalletBarcodeSymbology = 8
-WalletBarcodeSymbology_Pdf417: WalletBarcodeSymbology = 9
-WalletBarcodeSymbology_Aztec: WalletBarcodeSymbology = 10
-WalletBarcodeSymbology_Custom: WalletBarcodeSymbology = 100000
+class WalletBarcodeSymbology(Int32):  # enum
+    Invalid = 0
+    Upca = 1
+    Upce = 2
+    Ean13 = 3
+    Ean8 = 4
+    Itf = 5
+    Code39 = 6
+    Code128 = 7
+    Qr = 8
+    Pdf417 = 9
+    Aztec = 10
+    Custom = 100000
 WalletContract: UInt32 = 131072
-WalletDetailViewPosition = Int32
-WalletDetailViewPosition_Hidden: WalletDetailViewPosition = 0
-WalletDetailViewPosition_HeaderField1: WalletDetailViewPosition = 1
-WalletDetailViewPosition_HeaderField2: WalletDetailViewPosition = 2
-WalletDetailViewPosition_PrimaryField1: WalletDetailViewPosition = 3
-WalletDetailViewPosition_PrimaryField2: WalletDetailViewPosition = 4
-WalletDetailViewPosition_SecondaryField1: WalletDetailViewPosition = 5
-WalletDetailViewPosition_SecondaryField2: WalletDetailViewPosition = 6
-WalletDetailViewPosition_SecondaryField3: WalletDetailViewPosition = 7
-WalletDetailViewPosition_SecondaryField4: WalletDetailViewPosition = 8
-WalletDetailViewPosition_SecondaryField5: WalletDetailViewPosition = 9
-WalletDetailViewPosition_CenterField1: WalletDetailViewPosition = 10
-WalletDetailViewPosition_FooterField1: WalletDetailViewPosition = 11
-WalletDetailViewPosition_FooterField2: WalletDetailViewPosition = 12
-WalletDetailViewPosition_FooterField3: WalletDetailViewPosition = 13
-WalletDetailViewPosition_FooterField4: WalletDetailViewPosition = 14
+class WalletDetailViewPosition(Int32):  # enum
+    Hidden = 0
+    HeaderField1 = 1
+    HeaderField2 = 2
+    PrimaryField1 = 3
+    PrimaryField2 = 4
+    SecondaryField1 = 5
+    SecondaryField2 = 6
+    SecondaryField3 = 7
+    SecondaryField4 = 8
+    SecondaryField5 = 9
+    CenterField1 = 10
+    FooterField1 = 11
+    FooterField2 = 12
+    FooterField3 = 13
+    FooterField4 = 14
 class WalletItem(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Wallet.IWalletItem
@@ -552,14 +552,14 @@ class WalletItemCustomProperty(ComPtr):
     AutoDetectLinks = property(get_AutoDetectLinks, put_AutoDetectLinks)
     DetailViewPosition = property(get_DetailViewPosition, put_DetailViewPosition)
     SummaryViewPosition = property(get_SummaryViewPosition, put_SummaryViewPosition)
-WalletItemKind = Int32
-WalletItemKind_Invalid: WalletItemKind = 0
-WalletItemKind_Deal: WalletItemKind = 1
-WalletItemKind_General: WalletItemKind = 2
-WalletItemKind_PaymentInstrument: WalletItemKind = 3
-WalletItemKind_Ticket: WalletItemKind = 4
-WalletItemKind_BoardingPass: WalletItemKind = 5
-WalletItemKind_MembershipCard: WalletItemKind = 6
+class WalletItemKind(Int32):  # enum
+    Invalid = 0
+    Deal = 1
+    General = 2
+    PaymentInstrument = 3
+    Ticket = 4
+    BoardingPass = 5
+    MembershipCard = 6
 class WalletItemStore(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Wallet.IWalletItemStore
@@ -612,10 +612,10 @@ class WalletRelevantLocation(ComPtr):
     def put_DisplayMessage(self: win32more.Windows.ApplicationModel.Wallet.IWalletRelevantLocation, value: WinRT_String) -> Void: ...
     Position = property(get_Position, put_Position)
     DisplayMessage = property(get_DisplayMessage, put_DisplayMessage)
-WalletSummaryViewPosition = Int32
-WalletSummaryViewPosition_Hidden: WalletSummaryViewPosition = 0
-WalletSummaryViewPosition_Field1: WalletSummaryViewPosition = 1
-WalletSummaryViewPosition_Field2: WalletSummaryViewPosition = 2
+class WalletSummaryViewPosition(Int32):  # enum
+    Hidden = 0
+    Field1 = 1
+    Field2 = 2
 class WalletTransaction(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Wallet.IWalletTransaction

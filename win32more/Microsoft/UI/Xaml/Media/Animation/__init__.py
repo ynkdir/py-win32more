@@ -126,10 +126,10 @@ class CircleEase(ComPtr):
             raise ValueError('no matched constructor')
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Microsoft.UI.Xaml.Media.Animation.CircleEase: ...
-ClockState = Int32
-ClockState_Active: ClockState = 0
-ClockState_Filling: ClockState = 1
-ClockState_Stopped: ClockState = 2
+class ClockState(Int32):  # enum
+    Active = 0
+    Filling = 1
+    Stopped = 2
 class _ColorAnimation_Meta_(ComPtr.__class__):
     pass
 class ColorAnimation(ComPtr, metaclass=_ColorAnimation_Meta_):
@@ -338,11 +338,11 @@ class ConnectedAnimation(ComPtr):
     def SetAnimationComponent(self: win32more.Microsoft.UI.Xaml.Media.Animation.IConnectedAnimation, component: win32more.Microsoft.UI.Xaml.Media.Animation.ConnectedAnimationComponent, animation: win32more.Microsoft.UI.Composition.ICompositionAnimationBase) -> Void: ...
     IsScaleAnimationEnabled = property(get_IsScaleAnimationEnabled, put_IsScaleAnimationEnabled)
     Configuration = property(get_Configuration, put_Configuration)
-ConnectedAnimationComponent = Int32
-ConnectedAnimationComponent_OffsetX: ConnectedAnimationComponent = 0
-ConnectedAnimationComponent_OffsetY: ConnectedAnimationComponent = 1
-ConnectedAnimationComponent_CrossFade: ConnectedAnimationComponent = 2
-ConnectedAnimationComponent_Scale: ConnectedAnimationComponent = 3
+class ConnectedAnimationComponent(Int32):  # enum
+    OffsetX = 0
+    OffsetY = 1
+    CrossFade = 2
+    Scale = 3
 class ConnectedAnimationConfiguration(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.IConnectedAnimationConfiguration
@@ -926,10 +926,10 @@ class EasingFunctionBase(ComPtr, metaclass=_EasingFunctionBase_Meta_):
     def get_EasingModeProperty(cls: win32more.Microsoft.UI.Xaml.Media.Animation.IEasingFunctionBaseStatics) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
     EasingMode = property(get_EasingMode, put_EasingMode)
     _EasingFunctionBase_Meta_.EasingModeProperty = property(get_EasingModeProperty.__wrapped__, None)
-EasingMode = Int32
-EasingMode_EaseOut: EasingMode = 0
-EasingMode_EaseIn: EasingMode = 1
-EasingMode_EaseInOut: EasingMode = 2
+class EasingMode(Int32):  # enum
+    EaseOut = 0
+    EaseIn = 1
+    EaseInOut = 2
 class _EasingPointKeyFrame_Meta_(ComPtr.__class__):
     pass
 class EasingPointKeyFrame(ComPtr, metaclass=_EasingPointKeyFrame_Meta_):
@@ -1137,9 +1137,9 @@ class FadeOutThemeAnimation(ComPtr, metaclass=_FadeOutThemeAnimation_Meta_):
     def get_TargetNameProperty(cls: win32more.Microsoft.UI.Xaml.Media.Animation.IFadeOutThemeAnimationStatics) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
     TargetName = property(get_TargetName, put_TargetName)
     _FadeOutThemeAnimation_Meta_.TargetNameProperty = property(get_TargetNameProperty.__wrapped__, None)
-FillBehavior = Int32
-FillBehavior_HoldEnd: FillBehavior = 0
-FillBehavior_Stop: FillBehavior = 1
+class FillBehavior(Int32):  # enum
+    HoldEnd = 0
+    Stop = 1
 class GravityConnectedAnimationConfiguration(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.Media.Animation.ConnectedAnimationConfiguration
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.IGravityConnectedAnimationConfiguration
@@ -3474,10 +3474,10 @@ class RepeatBehaviorHelper(ComPtr, metaclass=_RepeatBehaviorHelper_Meta_):
     @winrt_classmethod
     def Equals(cls: win32more.Microsoft.UI.Xaml.Media.Animation.IRepeatBehaviorHelperStatics, target: win32more.Microsoft.UI.Xaml.Media.Animation.RepeatBehavior, value: win32more.Microsoft.UI.Xaml.Media.Animation.RepeatBehavior) -> Boolean: ...
     _RepeatBehaviorHelper_Meta_.Forever = property(get_Forever.__wrapped__, None)
-RepeatBehaviorType = Int32
-RepeatBehaviorType_Count: RepeatBehaviorType = 0
-RepeatBehaviorType_Duration: RepeatBehaviorType = 1
-RepeatBehaviorType_Forever: RepeatBehaviorType = 2
+class RepeatBehaviorType(Int32):  # enum
+    Count = 0
+    Duration = 1
+    Forever = 2
 class _RepositionThemeAnimation_Meta_(ComPtr.__class__):
     pass
 class RepositionThemeAnimation(ComPtr, metaclass=_RepositionThemeAnimation_Meta_):
@@ -3553,10 +3553,10 @@ class SineEase(ComPtr):
             raise ValueError('no matched constructor')
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Microsoft.UI.Xaml.Media.Animation.SineEase: ...
-SlideNavigationTransitionEffect = Int32
-SlideNavigationTransitionEffect_FromBottom: SlideNavigationTransitionEffect = 0
-SlideNavigationTransitionEffect_FromLeft: SlideNavigationTransitionEffect = 1
-SlideNavigationTransitionEffect_FromRight: SlideNavigationTransitionEffect = 2
+class SlideNavigationTransitionEffect(Int32):  # enum
+    FromBottom = 0
+    FromLeft = 1
+    FromRight = 2
 class _SlideNavigationTransitionInfo_Meta_(ComPtr.__class__):
     pass
 class SlideNavigationTransitionInfo(ComPtr, metaclass=_SlideNavigationTransitionInfo_Meta_):

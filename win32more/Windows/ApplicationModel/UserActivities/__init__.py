@@ -417,9 +417,9 @@ class UserActivitySessionHistoryItem(ComPtr):
     UserActivity = property(get_UserActivity, None)
     StartTime = property(get_StartTime, None)
     EndTime = property(get_EndTime, None)
-UserActivityState = Int32
-UserActivityState_New: UserActivityState = 0
-UserActivityState_Published: UserActivityState = 1
+class UserActivityState(Int32):  # enum
+    New = 0
+    Published = 1
 class UserActivityVisualElements(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.UserActivities.IUserActivityVisualElements

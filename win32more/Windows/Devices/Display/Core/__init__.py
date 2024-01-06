@@ -41,14 +41,14 @@ class DisplayAdapter(ComPtr):
     PciSubSystemId = property(get_PciSubSystemId, None)
     PciRevision = property(get_PciRevision, None)
     Properties = property(get_Properties, None)
-DisplayBitsPerChannel = UInt32
-DisplayBitsPerChannel_None: DisplayBitsPerChannel = 0
-DisplayBitsPerChannel_Bpc6: DisplayBitsPerChannel = 1
-DisplayBitsPerChannel_Bpc8: DisplayBitsPerChannel = 2
-DisplayBitsPerChannel_Bpc10: DisplayBitsPerChannel = 4
-DisplayBitsPerChannel_Bpc12: DisplayBitsPerChannel = 8
-DisplayBitsPerChannel_Bpc14: DisplayBitsPerChannel = 16
-DisplayBitsPerChannel_Bpc16: DisplayBitsPerChannel = 32
+class DisplayBitsPerChannel(UInt32):  # enum
+    None_ = 0
+    Bpc6 = 1
+    Bpc8 = 2
+    Bpc10 = 4
+    Bpc12 = 8
+    Bpc14 = 16
+    Bpc16 = 32
 class DisplayDevice(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Display.Core.IDisplayDevice
@@ -69,8 +69,8 @@ class DisplayDevice(ComPtr):
     def IsCapabilitySupported(self: win32more.Windows.Devices.Display.Core.IDisplayDevice, capability: win32more.Windows.Devices.Display.Core.DisplayDeviceCapability) -> Boolean: ...
     @winrt_mixinmethod
     def CreateSimpleScanoutWithDirtyRectsAndOptions(self: win32more.Windows.Devices.Display.Core.IDisplayDevice2, source: win32more.Windows.Devices.Display.Core.DisplaySource, surface: win32more.Windows.Devices.Display.Core.DisplaySurface, subresourceIndex: UInt32, syncInterval: UInt32, dirtyRects: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Graphics.RectInt32], options: win32more.Windows.Devices.Display.Core.DisplayScanoutOptions) -> win32more.Windows.Devices.Display.Core.DisplayScanout: ...
-DisplayDeviceCapability = Int32
-DisplayDeviceCapability_FlipOverride: DisplayDeviceCapability = 0
+class DisplayDeviceCapability(Int32):  # enum
+    FlipOverride = 0
 class DisplayFence(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Display.Core.IDisplayFence
@@ -154,10 +154,10 @@ class DisplayManagerEnabledEventArgs(ComPtr):
     @winrt_mixinmethod
     def GetDeferral(self: win32more.Windows.Devices.Display.Core.IDisplayManagerEnabledEventArgs) -> win32more.Windows.Foundation.Deferral: ...
     Handled = property(get_Handled, put_Handled)
-DisplayManagerOptions = UInt32
-DisplayManagerOptions_None: DisplayManagerOptions = 0
-DisplayManagerOptions_EnforceSourceOwnership: DisplayManagerOptions = 1
-DisplayManagerOptions_VirtualRefreshRateAware: DisplayManagerOptions = 2
+class DisplayManagerOptions(UInt32):  # enum
+    None_ = 0
+    EnforceSourceOwnership = 1
+    VirtualRefreshRateAware = 2
 class DisplayManagerPathsFailedOrInvalidatedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Display.Core.IDisplayManagerPathsFailedOrInvalidatedEventArgs
@@ -169,12 +169,12 @@ class DisplayManagerPathsFailedOrInvalidatedEventArgs(ComPtr):
     @winrt_mixinmethod
     def GetDeferral(self: win32more.Windows.Devices.Display.Core.IDisplayManagerPathsFailedOrInvalidatedEventArgs) -> win32more.Windows.Foundation.Deferral: ...
     Handled = property(get_Handled, put_Handled)
-DisplayManagerResult = Int32
-DisplayManagerResult_Success: DisplayManagerResult = 0
-DisplayManagerResult_UnknownFailure: DisplayManagerResult = 1
-DisplayManagerResult_TargetAccessDenied: DisplayManagerResult = 2
-DisplayManagerResult_TargetStale: DisplayManagerResult = 3
-DisplayManagerResult_RemoteSessionNotSupported: DisplayManagerResult = 4
+class DisplayManagerResult(Int32):  # enum
+    Success = 0
+    UnknownFailure = 1
+    TargetAccessDenied = 2
+    TargetStale = 3
+    RemoteSessionNotSupported = 4
 class DisplayManagerResultWithState(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Display.Core.IDisplayManagerResultWithState
@@ -220,9 +220,9 @@ class DisplayModeInfo(ComPtr):
     IsInterlaced = property(get_IsInterlaced, None)
     Properties = property(get_Properties, None)
     PhysicalPresentationRate = property(get_PhysicalPresentationRate, None)
-DisplayModeQueryOptions = UInt32
-DisplayModeQueryOptions_None: DisplayModeQueryOptions = 0
-DisplayModeQueryOptions_OnlyPreferredResolution: DisplayModeQueryOptions = 1
+class DisplayModeQueryOptions(UInt32):  # enum
+    None_ = 0
+    OnlyPreferredResolution = 1
 class DisplayPath(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Display.Core.IDisplayPath
@@ -293,27 +293,27 @@ class DisplayPath(ComPtr):
     Scaling = property(get_Scaling, put_Scaling)
     Properties = property(get_Properties, None)
     PhysicalPresentationRate = property(get_PhysicalPresentationRate, put_PhysicalPresentationRate)
-DisplayPathScaling = Int32
-DisplayPathScaling_Identity: DisplayPathScaling = 0
-DisplayPathScaling_Centered: DisplayPathScaling = 1
-DisplayPathScaling_Stretched: DisplayPathScaling = 2
-DisplayPathScaling_AspectRatioStretched: DisplayPathScaling = 3
-DisplayPathScaling_Custom: DisplayPathScaling = 4
-DisplayPathScaling_DriverPreferred: DisplayPathScaling = 5
-DisplayPathStatus = Int32
-DisplayPathStatus_Unknown: DisplayPathStatus = 0
-DisplayPathStatus_Succeeded: DisplayPathStatus = 1
-DisplayPathStatus_Pending: DisplayPathStatus = 2
-DisplayPathStatus_Failed: DisplayPathStatus = 3
-DisplayPathStatus_FailedAsync: DisplayPathStatus = 4
-DisplayPathStatus_InvalidatedAsync: DisplayPathStatus = 5
-DisplayPresentStatus = Int32
-DisplayPresentStatus_Success: DisplayPresentStatus = 0
-DisplayPresentStatus_SourceStatusPreventedPresent: DisplayPresentStatus = 1
-DisplayPresentStatus_ScanoutInvalid: DisplayPresentStatus = 2
-DisplayPresentStatus_SourceInvalid: DisplayPresentStatus = 3
-DisplayPresentStatus_DeviceInvalid: DisplayPresentStatus = 4
-DisplayPresentStatus_UnknownFailure: DisplayPresentStatus = 5
+class DisplayPathScaling(Int32):  # enum
+    Identity = 0
+    Centered = 1
+    Stretched = 2
+    AspectRatioStretched = 3
+    Custom = 4
+    DriverPreferred = 5
+class DisplayPathStatus(Int32):  # enum
+    Unknown = 0
+    Succeeded = 1
+    Pending = 2
+    Failed = 3
+    FailedAsync = 4
+    InvalidatedAsync = 5
+class DisplayPresentStatus(Int32):  # enum
+    Success = 0
+    SourceStatusPreventedPresent = 1
+    ScanoutInvalid = 2
+    SourceInvalid = 3
+    DeviceInvalid = 4
+    UnknownFailure = 5
 class DisplayPresentationRate(EasyCastStructure):
     VerticalSyncRate: win32more.Windows.Foundation.Numerics.Rational
     VerticalSyncsPerPresentation: Int32
@@ -353,18 +353,18 @@ class DisplayPrimaryDescription(ComPtr):
     IsStereo = property(get_IsStereo, None)
     MultisampleDescription = property(get_MultisampleDescription, None)
     Properties = property(get_Properties, None)
-DisplayRotation = Int32
-DisplayRotation_None: DisplayRotation = 0
-DisplayRotation_Clockwise90Degrees: DisplayRotation = 1
-DisplayRotation_Clockwise180Degrees: DisplayRotation = 2
-DisplayRotation_Clockwise270Degrees: DisplayRotation = 3
+class DisplayRotation(Int32):  # enum
+    None_ = 0
+    Clockwise90Degrees = 1
+    Clockwise180Degrees = 2
+    Clockwise270Degrees = 3
 class DisplayScanout(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Display.Core.IDisplayScanout
     _classid_ = 'Windows.Devices.Display.Core.DisplayScanout'
-DisplayScanoutOptions = UInt32
-DisplayScanoutOptions_None: DisplayScanoutOptions = 0
-DisplayScanoutOptions_AllowTearing: DisplayScanoutOptions = 2
+class DisplayScanoutOptions(UInt32):  # enum
+    None_ = 0
+    AllowTearing = 2
 class DisplaySource(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Display.Core.IDisplaySource
@@ -384,12 +384,12 @@ class DisplaySource(ComPtr):
     AdapterId = property(get_AdapterId, None)
     SourceId = property(get_SourceId, None)
     Status = property(get_Status, None)
-DisplaySourceStatus = Int32
-DisplaySourceStatus_Active: DisplaySourceStatus = 0
-DisplaySourceStatus_PoweredOff: DisplaySourceStatus = 1
-DisplaySourceStatus_Invalid: DisplaySourceStatus = 2
-DisplaySourceStatus_OwnedByAnotherDevice: DisplaySourceStatus = 3
-DisplaySourceStatus_Unowned: DisplaySourceStatus = 4
+class DisplaySourceStatus(Int32):  # enum
+    Active = 0
+    PoweredOff = 1
+    Invalid = 2
+    OwnedByAnotherDevice = 3
+    Unowned = 4
 class DisplayState(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Display.Core.IDisplayState
@@ -427,15 +427,15 @@ class DisplayState(ComPtr):
     Targets = property(get_Targets, None)
     Views = property(get_Views, None)
     Properties = property(get_Properties, None)
-DisplayStateApplyOptions = UInt32
-DisplayStateApplyOptions_None: DisplayStateApplyOptions = 0
-DisplayStateApplyOptions_FailIfStateChanged: DisplayStateApplyOptions = 1
-DisplayStateApplyOptions_ForceReapply: DisplayStateApplyOptions = 2
-DisplayStateApplyOptions_ForceModeEnumeration: DisplayStateApplyOptions = 4
-DisplayStateFunctionalizeOptions = UInt32
-DisplayStateFunctionalizeOptions_None: DisplayStateFunctionalizeOptions = 0
-DisplayStateFunctionalizeOptions_FailIfStateChanged: DisplayStateFunctionalizeOptions = 1
-DisplayStateFunctionalizeOptions_ValidateTopologyOnly: DisplayStateFunctionalizeOptions = 2
+class DisplayStateApplyOptions(UInt32):  # enum
+    None_ = 0
+    FailIfStateChanged = 1
+    ForceReapply = 2
+    ForceModeEnumeration = 4
+class DisplayStateFunctionalizeOptions(UInt32):  # enum
+    None_ = 0
+    FailIfStateChanged = 1
+    ValidateTopologyOnly = 2
 class DisplayStateOperationResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Display.Core.IDisplayStateOperationResult
@@ -446,15 +446,15 @@ class DisplayStateOperationResult(ComPtr):
     def get_ExtendedErrorCode(self: win32more.Windows.Devices.Display.Core.IDisplayStateOperationResult) -> win32more.Windows.Foundation.HResult: ...
     Status = property(get_Status, None)
     ExtendedErrorCode = property(get_ExtendedErrorCode, None)
-DisplayStateOperationStatus = Int32
-DisplayStateOperationStatus_Success: DisplayStateOperationStatus = 0
-DisplayStateOperationStatus_PartialFailure: DisplayStateOperationStatus = 1
-DisplayStateOperationStatus_UnknownFailure: DisplayStateOperationStatus = 2
-DisplayStateOperationStatus_TargetOwnershipLost: DisplayStateOperationStatus = 3
-DisplayStateOperationStatus_SystemStateChanged: DisplayStateOperationStatus = 4
-DisplayStateOperationStatus_TooManyPathsForAdapter: DisplayStateOperationStatus = 5
-DisplayStateOperationStatus_ModesNotSupported: DisplayStateOperationStatus = 6
-DisplayStateOperationStatus_RemoteSessionNotSupported: DisplayStateOperationStatus = 7
+class DisplayStateOperationStatus(Int32):  # enum
+    Success = 0
+    PartialFailure = 1
+    UnknownFailure = 2
+    TargetOwnershipLost = 3
+    SystemStateChanged = 4
+    TooManyPathsForAdapter = 5
+    ModesNotSupported = 6
+    RemoteSessionNotSupported = 7
 class DisplaySurface(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Display.Core.IDisplaySurface
@@ -502,11 +502,11 @@ class DisplayTarget(ComPtr):
     StableMonitorId = property(get_StableMonitorId, None)
     Properties = property(get_Properties, None)
     IsStale = property(get_IsStale, None)
-DisplayTargetPersistence = Int32
-DisplayTargetPersistence_None: DisplayTargetPersistence = 0
-DisplayTargetPersistence_BootPersisted: DisplayTargetPersistence = 1
-DisplayTargetPersistence_TemporaryPersisted: DisplayTargetPersistence = 2
-DisplayTargetPersistence_PathPersisted: DisplayTargetPersistence = 3
+class DisplayTargetPersistence(Int32):  # enum
+    None_ = 0
+    BootPersisted = 1
+    TemporaryPersisted = 2
+    PathPersisted = 3
 class DisplayTask(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Display.Core.IDisplayTask
@@ -540,9 +540,9 @@ class DisplayTaskResult(ComPtr):
     PresentStatus = property(get_PresentStatus, None)
     PresentId = property(get_PresentId, None)
     SourceStatus = property(get_SourceStatus, None)
-DisplayTaskSignalKind = Int32
-DisplayTaskSignalKind_OnPresentFlipAway: DisplayTaskSignalKind = 0
-DisplayTaskSignalKind_OnPresentFlipTo: DisplayTaskSignalKind = 1
+class DisplayTaskSignalKind(Int32):  # enum
+    OnPresentFlipAway = 0
+    OnPresentFlipTo = 1
 class DisplayView(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Display.Core.IDisplayView
@@ -593,24 +593,24 @@ class DisplayWireFormat(ComPtr):
     Eotf = property(get_Eotf, None)
     HdrMetadata = property(get_HdrMetadata, None)
     Properties = property(get_Properties, None)
-DisplayWireFormatColorSpace = Int32
-DisplayWireFormatColorSpace_BT709: DisplayWireFormatColorSpace = 0
-DisplayWireFormatColorSpace_BT2020: DisplayWireFormatColorSpace = 1
-DisplayWireFormatColorSpace_ProfileDefinedWideColorGamut: DisplayWireFormatColorSpace = 2
-DisplayWireFormatEotf = Int32
-DisplayWireFormatEotf_Sdr: DisplayWireFormatEotf = 0
-DisplayWireFormatEotf_HdrSmpte2084: DisplayWireFormatEotf = 1
-DisplayWireFormatHdrMetadata = Int32
-DisplayWireFormatHdrMetadata_None: DisplayWireFormatHdrMetadata = 0
-DisplayWireFormatHdrMetadata_Hdr10: DisplayWireFormatHdrMetadata = 1
-DisplayWireFormatHdrMetadata_Hdr10Plus: DisplayWireFormatHdrMetadata = 2
-DisplayWireFormatHdrMetadata_DolbyVisionLowLatency: DisplayWireFormatHdrMetadata = 3
-DisplayWireFormatPixelEncoding = Int32
-DisplayWireFormatPixelEncoding_Rgb444: DisplayWireFormatPixelEncoding = 0
-DisplayWireFormatPixelEncoding_Ycc444: DisplayWireFormatPixelEncoding = 1
-DisplayWireFormatPixelEncoding_Ycc422: DisplayWireFormatPixelEncoding = 2
-DisplayWireFormatPixelEncoding_Ycc420: DisplayWireFormatPixelEncoding = 3
-DisplayWireFormatPixelEncoding_Intensity: DisplayWireFormatPixelEncoding = 4
+class DisplayWireFormatColorSpace(Int32):  # enum
+    BT709 = 0
+    BT2020 = 1
+    ProfileDefinedWideColorGamut = 2
+class DisplayWireFormatEotf(Int32):  # enum
+    Sdr = 0
+    HdrSmpte2084 = 1
+class DisplayWireFormatHdrMetadata(Int32):  # enum
+    None_ = 0
+    Hdr10 = 1
+    Hdr10Plus = 2
+    DolbyVisionLowLatency = 3
+class DisplayWireFormatPixelEncoding(Int32):  # enum
+    Rgb444 = 0
+    Ycc444 = 1
+    Ycc422 = 2
+    Ycc420 = 3
+    Intensity = 4
 class IDisplayAdapter(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Display.Core.IDisplayAdapter'

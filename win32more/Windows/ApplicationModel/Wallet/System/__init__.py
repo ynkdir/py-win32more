@@ -35,10 +35,10 @@ class IWalletManagerSystemStatics(ComPtr):
     _iid_ = Guid('{bee8eb89-2634-4b9a-8b23-ee8903c91fe0}')
     @winrt_commethod(6)
     def RequestStoreAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.ApplicationModel.Wallet.System.WalletItemSystemStore]: ...
-WalletItemAppAssociation = Int32
-WalletItemAppAssociation_None: WalletItemAppAssociation = 0
-WalletItemAppAssociation_AppInstalled: WalletItemAppAssociation = 1
-WalletItemAppAssociation_AppNotInstalled: WalletItemAppAssociation = 2
+class WalletItemAppAssociation(Int32):  # enum
+    None_ = 0
+    AppInstalled = 1
+    AppNotInstalled = 2
 class WalletItemSystemStore(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Wallet.System.IWalletItemSystemStore

@@ -6,10 +6,10 @@ import win32more.Windows.Foundation.Collections
 import win32more.Windows.Security.Authentication.OnlineId
 import win32more.Windows.System
 import win32more.Windows.Win32.System.WinRT
-CredentialPromptType = Int32
-CredentialPromptType_PromptIfNeeded: CredentialPromptType = 0
-CredentialPromptType_RetypeCredentials: CredentialPromptType = 1
-CredentialPromptType_DoNotPrompt: CredentialPromptType = 2
+class CredentialPromptType(Int32):  # enum
+    PromptIfNeeded = 0
+    RetypeCredentials = 1
+    DoNotPrompt = 2
 class IOnlineIdAuthenticator(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.Authentication.OnlineId.IOnlineIdAuthenticator'
@@ -249,10 +249,10 @@ class OnlineIdSystemTicketResult(ComPtr):
     Identity = property(get_Identity, None)
     Status = property(get_Status, None)
     ExtendedError = property(get_ExtendedError, None)
-OnlineIdSystemTicketStatus = Int32
-OnlineIdSystemTicketStatus_Success: OnlineIdSystemTicketStatus = 0
-OnlineIdSystemTicketStatus_Error: OnlineIdSystemTicketStatus = 1
-OnlineIdSystemTicketStatus_ServiceConnectionError: OnlineIdSystemTicketStatus = 2
+class OnlineIdSystemTicketStatus(Int32):  # enum
+    Success = 0
+    Error = 1
+    ServiceConnectionError = 2
 class SignOutUserOperation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.IAsyncAction

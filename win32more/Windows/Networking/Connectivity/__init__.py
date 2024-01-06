@@ -27,11 +27,11 @@ class AttributedNetworkUsage(ComPtr):
     AttributionId = property(get_AttributionId, None)
     AttributionName = property(get_AttributionName, None)
     AttributionThumbnail = property(get_AttributionThumbnail, None)
-CellularApnAuthenticationType = Int32
-CellularApnAuthenticationType_None: CellularApnAuthenticationType = 0
-CellularApnAuthenticationType_Pap: CellularApnAuthenticationType = 1
-CellularApnAuthenticationType_Chap: CellularApnAuthenticationType = 2
-CellularApnAuthenticationType_Mschapv2: CellularApnAuthenticationType = 3
+class CellularApnAuthenticationType(Int32):  # enum
+    None_ = 0
+    Pap = 1
+    Chap = 2
+    Mschapv2 = 3
 class CellularApnContext(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Connectivity.ICellularApnContext
@@ -158,11 +158,11 @@ class ConnectionProfile(ComPtr):
     WlanConnectionProfileDetails = property(get_WlanConnectionProfileDetails, None)
     ServiceProviderGuid = property(get_ServiceProviderGuid, None)
     CanDelete = property(get_CanDelete, None)
-ConnectionProfileDeleteStatus = Int32
-ConnectionProfileDeleteStatus_Success: ConnectionProfileDeleteStatus = 0
-ConnectionProfileDeleteStatus_DeniedByUser: ConnectionProfileDeleteStatus = 1
-ConnectionProfileDeleteStatus_DeniedBySystem: ConnectionProfileDeleteStatus = 2
-ConnectionProfileDeleteStatus_UnknownError: ConnectionProfileDeleteStatus = 3
+class ConnectionProfileDeleteStatus(Int32):  # enum
+    Success = 0
+    DeniedByUser = 1
+    DeniedBySystem = 2
+    UnknownError = 3
 class ConnectionProfileFilter(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Connectivity.IConnectionProfileFilter
@@ -294,19 +294,19 @@ class DataUsage(ComPtr):
     def get_BytesReceived(self: win32more.Windows.Networking.Connectivity.IDataUsage) -> UInt64: ...
     BytesSent = property(get_BytesSent, None)
     BytesReceived = property(get_BytesReceived, None)
-DataUsageGranularity = Int32
-DataUsageGranularity_PerMinute: DataUsageGranularity = 0
-DataUsageGranularity_PerHour: DataUsageGranularity = 1
-DataUsageGranularity_PerDay: DataUsageGranularity = 2
-DataUsageGranularity_Total: DataUsageGranularity = 3
-DomainAuthenticationKind = Int32
-DomainAuthenticationKind_None: DomainAuthenticationKind = 0
-DomainAuthenticationKind_Ldap: DomainAuthenticationKind = 1
-DomainAuthenticationKind_Tls: DomainAuthenticationKind = 2
-DomainConnectivityLevel = Int32
-DomainConnectivityLevel_None: DomainConnectivityLevel = 0
-DomainConnectivityLevel_Unauthenticated: DomainConnectivityLevel = 1
-DomainConnectivityLevel_Authenticated: DomainConnectivityLevel = 2
+class DataUsageGranularity(Int32):  # enum
+    PerMinute = 0
+    PerHour = 1
+    PerDay = 2
+    Total = 3
+class DomainAuthenticationKind(Int32):  # enum
+    None_ = 0
+    Ldap = 1
+    Tls = 2
+class DomainConnectivityLevel(Int32):  # enum
+    None_ = 0
+    Unauthenticated = 1
+    Authenticated = 2
 class IAttributedNetworkUsage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.Connectivity.IAttributedNetworkUsage'
@@ -870,45 +870,45 @@ class NetworkAdapter(ComPtr):
     IanaInterfaceType = property(get_IanaInterfaceType, None)
     NetworkItem = property(get_NetworkItem, None)
     NetworkAdapterId = property(get_NetworkAdapterId, None)
-NetworkAuthenticationType = Int32
-NetworkAuthenticationType_None: NetworkAuthenticationType = 0
-NetworkAuthenticationType_Unknown: NetworkAuthenticationType = 1
-NetworkAuthenticationType_Open80211: NetworkAuthenticationType = 2
-NetworkAuthenticationType_SharedKey80211: NetworkAuthenticationType = 3
-NetworkAuthenticationType_Wpa: NetworkAuthenticationType = 4
-NetworkAuthenticationType_WpaPsk: NetworkAuthenticationType = 5
-NetworkAuthenticationType_WpaNone: NetworkAuthenticationType = 6
-NetworkAuthenticationType_Rsna: NetworkAuthenticationType = 7
-NetworkAuthenticationType_RsnaPsk: NetworkAuthenticationType = 8
-NetworkAuthenticationType_Ihv: NetworkAuthenticationType = 9
-NetworkAuthenticationType_Wpa3: NetworkAuthenticationType = 10
-NetworkAuthenticationType_Wpa3Enterprise192Bits: NetworkAuthenticationType = 10
-NetworkAuthenticationType_Wpa3Sae: NetworkAuthenticationType = 11
-NetworkAuthenticationType_Owe: NetworkAuthenticationType = 12
-NetworkAuthenticationType_Wpa3Enterprise: NetworkAuthenticationType = 13
-NetworkConnectivityLevel = Int32
-NetworkConnectivityLevel_None: NetworkConnectivityLevel = 0
-NetworkConnectivityLevel_LocalAccess: NetworkConnectivityLevel = 1
-NetworkConnectivityLevel_ConstrainedInternetAccess: NetworkConnectivityLevel = 2
-NetworkConnectivityLevel_InternetAccess: NetworkConnectivityLevel = 3
-NetworkCostType = Int32
-NetworkCostType_Unknown: NetworkCostType = 0
-NetworkCostType_Unrestricted: NetworkCostType = 1
-NetworkCostType_Fixed: NetworkCostType = 2
-NetworkCostType_Variable: NetworkCostType = 3
-NetworkEncryptionType = Int32
-NetworkEncryptionType_None: NetworkEncryptionType = 0
-NetworkEncryptionType_Unknown: NetworkEncryptionType = 1
-NetworkEncryptionType_Wep: NetworkEncryptionType = 2
-NetworkEncryptionType_Wep40: NetworkEncryptionType = 3
-NetworkEncryptionType_Wep104: NetworkEncryptionType = 4
-NetworkEncryptionType_Tkip: NetworkEncryptionType = 5
-NetworkEncryptionType_Ccmp: NetworkEncryptionType = 6
-NetworkEncryptionType_WpaUseGroup: NetworkEncryptionType = 7
-NetworkEncryptionType_RsnUseGroup: NetworkEncryptionType = 8
-NetworkEncryptionType_Ihv: NetworkEncryptionType = 9
-NetworkEncryptionType_Gcmp: NetworkEncryptionType = 10
-NetworkEncryptionType_Gcmp256: NetworkEncryptionType = 11
+class NetworkAuthenticationType(Int32):  # enum
+    None_ = 0
+    Unknown = 1
+    Open80211 = 2
+    SharedKey80211 = 3
+    Wpa = 4
+    WpaPsk = 5
+    WpaNone = 6
+    Rsna = 7
+    RsnaPsk = 8
+    Ihv = 9
+    Wpa3 = 10
+    Wpa3Enterprise192Bits = 10
+    Wpa3Sae = 11
+    Owe = 12
+    Wpa3Enterprise = 13
+class NetworkConnectivityLevel(Int32):  # enum
+    None_ = 0
+    LocalAccess = 1
+    ConstrainedInternetAccess = 2
+    InternetAccess = 3
+class NetworkCostType(Int32):  # enum
+    Unknown = 0
+    Unrestricted = 1
+    Fixed = 2
+    Variable = 3
+class NetworkEncryptionType(Int32):  # enum
+    None_ = 0
+    Unknown = 1
+    Wep = 2
+    Wep40 = 3
+    Wep104 = 4
+    Tkip = 5
+    Ccmp = 6
+    WpaUseGroup = 7
+    RsnUseGroup = 8
+    Ihv = 9
+    Gcmp = 10
+    Gcmp256 = 11
 class NetworkInformation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.Connectivity.NetworkInformation'
@@ -981,10 +981,10 @@ class NetworkStatusChangedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{71ba143f-598e-49d0-84eb-8febaedcc195}')
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
-NetworkTypes = UInt32
-NetworkTypes_None: NetworkTypes = 0
-NetworkTypes_Internet: NetworkTypes = 1
-NetworkTypes_PrivateNetwork: NetworkTypes = 2
+class NetworkTypes(UInt32):  # enum
+    None_ = 0
+    Internet = 1
+    PrivateNetwork = 2
 class NetworkUsage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Connectivity.INetworkUsage
@@ -1024,10 +1024,10 @@ class ProxyConfiguration(ComPtr):
     def get_CanConnectDirectly(self: win32more.Windows.Networking.Connectivity.IProxyConfiguration) -> Boolean: ...
     ProxyUris = property(get_ProxyUris, None)
     CanConnectDirectly = property(get_CanConnectDirectly, None)
-RoamingStates = UInt32
-RoamingStates_None: RoamingStates = 0
-RoamingStates_NotRoaming: RoamingStates = 1
-RoamingStates_Roaming: RoamingStates = 2
+class RoamingStates(UInt32):  # enum
+    None_ = 0
+    NotRoaming = 1
+    Roaming = 2
 class RoutePolicy(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Connectivity.IRoutePolicy
@@ -1050,10 +1050,10 @@ class RoutePolicy(ComPtr):
     ConnectionProfile = property(get_ConnectionProfile, None)
     HostName = property(get_HostName, None)
     HostNameType = property(get_HostNameType, None)
-TriStates = Int32
-TriStates_DoNotCare: TriStates = 0
-TriStates_No: TriStates = 1
-TriStates_Yes: TriStates = 2
+class TriStates(Int32):  # enum
+    DoNotCare = 0
+    No = 1
+    Yes = 2
 class WlanConnectionProfileDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Connectivity.IWlanConnectionProfileDetails
@@ -1081,36 +1081,36 @@ class WwanConnectionProfileDetails(ComPtr):
     IPKind = property(get_IPKind, None)
     PurposeGuids = property(get_PurposeGuids, None)
 WwanContract: UInt32 = 131072
-WwanDataClass = UInt32
-WwanDataClass_None: WwanDataClass = 0
-WwanDataClass_Gprs: WwanDataClass = 1
-WwanDataClass_Edge: WwanDataClass = 2
-WwanDataClass_Umts: WwanDataClass = 4
-WwanDataClass_Hsdpa: WwanDataClass = 8
-WwanDataClass_Hsupa: WwanDataClass = 16
-WwanDataClass_LteAdvanced: WwanDataClass = 32
-WwanDataClass_Cdma1xRtt: WwanDataClass = 65536
-WwanDataClass_Cdma1xEvdo: WwanDataClass = 131072
-WwanDataClass_Cdma1xEvdoRevA: WwanDataClass = 262144
-WwanDataClass_Cdma1xEvdv: WwanDataClass = 524288
-WwanDataClass_Cdma3xRtt: WwanDataClass = 1048576
-WwanDataClass_Cdma1xEvdoRevB: WwanDataClass = 2097152
-WwanDataClass_CdmaUmb: WwanDataClass = 4194304
-WwanDataClass_Custom: WwanDataClass = 2147483648
-WwanNetworkIPKind = Int32
-WwanNetworkIPKind_None: WwanNetworkIPKind = 0
-WwanNetworkIPKind_Ipv4: WwanNetworkIPKind = 1
-WwanNetworkIPKind_Ipv6: WwanNetworkIPKind = 2
-WwanNetworkIPKind_Ipv4v6: WwanNetworkIPKind = 3
-WwanNetworkIPKind_Ipv4v6v4Xlat: WwanNetworkIPKind = 4
-WwanNetworkRegistrationState = Int32
-WwanNetworkRegistrationState_None: WwanNetworkRegistrationState = 0
-WwanNetworkRegistrationState_Deregistered: WwanNetworkRegistrationState = 1
-WwanNetworkRegistrationState_Searching: WwanNetworkRegistrationState = 2
-WwanNetworkRegistrationState_Home: WwanNetworkRegistrationState = 3
-WwanNetworkRegistrationState_Roaming: WwanNetworkRegistrationState = 4
-WwanNetworkRegistrationState_Partner: WwanNetworkRegistrationState = 5
-WwanNetworkRegistrationState_Denied: WwanNetworkRegistrationState = 6
+class WwanDataClass(UInt32):  # enum
+    None_ = 0
+    Gprs = 1
+    Edge = 2
+    Umts = 4
+    Hsdpa = 8
+    Hsupa = 16
+    LteAdvanced = 32
+    Cdma1xRtt = 65536
+    Cdma1xEvdo = 131072
+    Cdma1xEvdoRevA = 262144
+    Cdma1xEvdv = 524288
+    Cdma3xRtt = 1048576
+    Cdma1xEvdoRevB = 2097152
+    CdmaUmb = 4194304
+    Custom = 2147483648
+class WwanNetworkIPKind(Int32):  # enum
+    None_ = 0
+    Ipv4 = 1
+    Ipv6 = 2
+    Ipv4v6 = 3
+    Ipv4v6v4Xlat = 4
+class WwanNetworkRegistrationState(Int32):  # enum
+    None_ = 0
+    Deregistered = 1
+    Searching = 2
+    Home = 3
+    Roaming = 4
+    Partner = 5
+    Denied = 6
 
 
 make_ready(__name__)

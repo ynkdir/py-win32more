@@ -93,13 +93,13 @@ class NamedPolicyData(ComPtr):
     IsManaged = property(get_IsManaged, None)
     IsUserPolicy = property(get_IsUserPolicy, None)
     User = property(get_User, None)
-NamedPolicyKind = Int32
-NamedPolicyKind_Invalid: NamedPolicyKind = 0
-NamedPolicyKind_Binary: NamedPolicyKind = 1
-NamedPolicyKind_Boolean: NamedPolicyKind = 2
-NamedPolicyKind_Int32: NamedPolicyKind = 3
-NamedPolicyKind_Int64: NamedPolicyKind = 4
-NamedPolicyKind_String: NamedPolicyKind = 5
+class NamedPolicyKind(Int32):  # enum
+    Invalid = 0
+    Binary = 1
+    Boolean = 2
+    Int32 = 3
+    Int64 = 4
+    String = 5
 
 
 make_ready(__name__)

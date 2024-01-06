@@ -103,9 +103,9 @@ class BackgroundDownloader(ComPtr):
     SuccessTileNotification = property(get_SuccessTileNotification, put_SuccessTileNotification)
     FailureTileNotification = property(get_FailureTileNotification, put_FailureTileNotification)
     CompletionGroup = property(get_CompletionGroup, None)
-BackgroundTransferBehavior = Int32
-BackgroundTransferBehavior_Parallel: BackgroundTransferBehavior = 0
-BackgroundTransferBehavior_Serialized: BackgroundTransferBehavior = 1
+class BackgroundTransferBehavior(Int32):  # enum
+    Parallel = 0
+    Serialized = 1
 class BackgroundTransferCompletionGroup(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.BackgroundTransfer.IBackgroundTransferCompletionGroup
@@ -164,10 +164,10 @@ class BackgroundTransferContentPart(ComPtr):
     def SetText(self: win32more.Windows.Networking.BackgroundTransfer.IBackgroundTransferContentPart, value: WinRT_String) -> Void: ...
     @winrt_mixinmethod
     def SetFile(self: win32more.Windows.Networking.BackgroundTransfer.IBackgroundTransferContentPart, value: win32more.Windows.Storage.IStorageFile) -> Void: ...
-BackgroundTransferCostPolicy = Int32
-BackgroundTransferCostPolicy_Default: BackgroundTransferCostPolicy = 0
-BackgroundTransferCostPolicy_UnrestrictedOnly: BackgroundTransferCostPolicy = 1
-BackgroundTransferCostPolicy_Always: BackgroundTransferCostPolicy = 2
+class BackgroundTransferCostPolicy(Int32):  # enum
+    Default = 0
+    UnrestrictedOnly = 1
+    Always = 2
 class BackgroundTransferError(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.BackgroundTransfer.BackgroundTransferError'
@@ -190,10 +190,10 @@ class BackgroundTransferGroup(ComPtr):
     def CreateGroup(cls: win32more.Windows.Networking.BackgroundTransfer.IBackgroundTransferGroupStatics, name: WinRT_String) -> win32more.Windows.Networking.BackgroundTransfer.BackgroundTransferGroup: ...
     Name = property(get_Name, None)
     TransferBehavior = property(get_TransferBehavior, put_TransferBehavior)
-BackgroundTransferPriority = Int32
-BackgroundTransferPriority_Default: BackgroundTransferPriority = 0
-BackgroundTransferPriority_High: BackgroundTransferPriority = 1
-BackgroundTransferPriority_Low: BackgroundTransferPriority = 2
+class BackgroundTransferPriority(Int32):  # enum
+    Default = 0
+    High = 1
+    Low = 2
 class BackgroundTransferRangesDownloadedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.BackgroundTransfer.IBackgroundTransferRangesDownloadedEventArgs
@@ -206,17 +206,17 @@ class BackgroundTransferRangesDownloadedEventArgs(ComPtr):
     def GetDeferral(self: win32more.Windows.Networking.BackgroundTransfer.IBackgroundTransferRangesDownloadedEventArgs) -> win32more.Windows.Foundation.Deferral: ...
     WasDownloadRestarted = property(get_WasDownloadRestarted, None)
     AddedRanges = property(get_AddedRanges, None)
-BackgroundTransferStatus = Int32
-BackgroundTransferStatus_Idle: BackgroundTransferStatus = 0
-BackgroundTransferStatus_Running: BackgroundTransferStatus = 1
-BackgroundTransferStatus_PausedByApplication: BackgroundTransferStatus = 2
-BackgroundTransferStatus_PausedCostedNetwork: BackgroundTransferStatus = 3
-BackgroundTransferStatus_PausedNoNetwork: BackgroundTransferStatus = 4
-BackgroundTransferStatus_Completed: BackgroundTransferStatus = 5
-BackgroundTransferStatus_Canceled: BackgroundTransferStatus = 6
-BackgroundTransferStatus_Error: BackgroundTransferStatus = 7
-BackgroundTransferStatus_PausedRecoverableWebErrorStatus: BackgroundTransferStatus = 8
-BackgroundTransferStatus_PausedSystemPolicy: BackgroundTransferStatus = 32
+class BackgroundTransferStatus(Int32):  # enum
+    Idle = 0
+    Running = 1
+    PausedByApplication = 2
+    PausedCostedNetwork = 3
+    PausedNoNetwork = 4
+    Completed = 5
+    Canceled = 6
+    Error = 7
+    PausedRecoverableWebErrorStatus = 8
+    PausedSystemPolicy = 32
 class BackgroundUploadProgress(EasyCastStructure):
     BytesReceived: UInt64
     BytesSent: UInt64

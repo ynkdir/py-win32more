@@ -56,15 +56,15 @@ class EnterpriseEnrollmentResult(ComPtr):
     def get_Status(self: win32more.Windows.Phone.Management.Deployment.IEnterpriseEnrollmentResult) -> win32more.Windows.Phone.Management.Deployment.EnterpriseEnrollmentStatus: ...
     EnrolledEnterprise = property(get_EnrolledEnterprise, None)
     Status = property(get_Status, None)
-EnterpriseEnrollmentStatus = Int32
-EnterpriseEnrollmentStatus_Success: EnterpriseEnrollmentStatus = 0
-EnterpriseEnrollmentStatus_CancelledByUser: EnterpriseEnrollmentStatus = 1
-EnterpriseEnrollmentStatus_UnknownFailure: EnterpriseEnrollmentStatus = 2
-EnterpriseStatus = Int32
-EnterpriseStatus_Enrolled: EnterpriseStatus = 0
-EnterpriseStatus_Disabled: EnterpriseStatus = 1
-EnterpriseStatus_Revoked: EnterpriseStatus = 2
-EnterpriseStatus_Expired: EnterpriseStatus = 3
+class EnterpriseEnrollmentStatus(Int32):  # enum
+    Success = 0
+    CancelledByUser = 1
+    UnknownFailure = 2
+class EnterpriseStatus(Int32):  # enum
+    Enrolled = 0
+    Disabled = 1
+    Revoked = 2
+    Expired = 3
 class IEnterprise(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Phone.Management.Deployment.IEnterprise'

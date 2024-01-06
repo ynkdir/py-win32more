@@ -5,13 +5,13 @@ import win32more.Windows.Foundation
 import win32more.Windows.Storage.Compression
 import win32more.Windows.Storage.Streams
 import win32more.Windows.Win32.System.WinRT
-CompressAlgorithm = Int32
-CompressAlgorithm_InvalidAlgorithm: CompressAlgorithm = 0
-CompressAlgorithm_NullAlgorithm: CompressAlgorithm = 1
-CompressAlgorithm_Mszip: CompressAlgorithm = 2
-CompressAlgorithm_Xpress: CompressAlgorithm = 3
-CompressAlgorithm_XpressHuff: CompressAlgorithm = 4
-CompressAlgorithm_Lzms: CompressAlgorithm = 5
+class CompressAlgorithm(Int32):  # enum
+    InvalidAlgorithm = 0
+    NullAlgorithm = 1
+    Mszip = 2
+    Xpress = 3
+    XpressHuff = 4
+    Lzms = 5
 class Compressor(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Storage.Compression.ICompressor

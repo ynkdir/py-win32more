@@ -6,11 +6,11 @@ import win32more.Windows.Foundation.Collections
 import win32more.Windows.Storage
 import win32more.Windows.Storage.Pickers.Provider
 import win32more.Windows.Win32.System.WinRT
-AddFileResult = Int32
-AddFileResult_Added: AddFileResult = 0
-AddFileResult_AlreadyAdded: AddFileResult = 1
-AddFileResult_NotAllowed: AddFileResult = 2
-AddFileResult_Unavailable: AddFileResult = 3
+class AddFileResult(Int32):  # enum
+    Added = 0
+    AlreadyAdded = 1
+    NotAllowed = 2
+    Unavailable = 3
 class FileOpenPickerUI(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Storage.Pickers.Provider.IFileOpenPickerUI
@@ -80,9 +80,9 @@ class FileSavePickerUI(ComPtr):
     AllowedFileTypes = property(get_AllowedFileTypes, None)
     SettingsIdentifier = property(get_SettingsIdentifier, None)
     FileName = property(get_FileName, None)
-FileSelectionMode = Int32
-FileSelectionMode_Single: FileSelectionMode = 0
-FileSelectionMode_Multiple: FileSelectionMode = 1
+class FileSelectionMode(Int32):  # enum
+    Single = 0
+    Multiple = 1
 class IFileOpenPickerUI(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Storage.Pickers.Provider.IFileOpenPickerUI'
@@ -226,10 +226,10 @@ class PickerClosingOperation(ComPtr):
     @winrt_mixinmethod
     def get_Deadline(self: win32more.Windows.Storage.Pickers.Provider.IPickerClosingOperation) -> win32more.Windows.Foundation.DateTime: ...
     Deadline = property(get_Deadline, None)
-SetFileNameResult = Int32
-SetFileNameResult_Succeeded: SetFileNameResult = 0
-SetFileNameResult_NotAllowed: SetFileNameResult = 1
-SetFileNameResult_Unavailable: SetFileNameResult = 2
+class SetFileNameResult(Int32):  # enum
+    Succeeded = 0
+    NotAllowed = 1
+    Unavailable = 2
 class TargetFileRequest(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Storage.Pickers.Provider.ITargetFileRequest

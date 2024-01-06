@@ -40,9 +40,9 @@ class AppRecordingResult(ComPtr):
     ExtendedError = property(get_ExtendedError, None)
     Duration = property(get_Duration, None)
     IsFileTruncated = property(get_IsFileTruncated, None)
-AppRecordingSaveScreenshotOption = Int32
-AppRecordingSaveScreenshotOption_None: AppRecordingSaveScreenshotOption = 0
-AppRecordingSaveScreenshotOption_HdrContentVisible: AppRecordingSaveScreenshotOption = 1
+class AppRecordingSaveScreenshotOption(Int32):  # enum
+    None_ = 0
+    HdrContentVisible = 1
 class AppRecordingSaveScreenshotResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.AppRecording.IAppRecordingSaveScreenshotResult

@@ -190,12 +190,12 @@ class JsonError(ComPtr):
     _classid_ = 'Windows.Data.Json.JsonError'
     @winrt_classmethod
     def GetJsonStatus(cls: win32more.Windows.Data.Json.IJsonErrorStatics2, hresult: Int32) -> win32more.Windows.Data.Json.JsonErrorStatus: ...
-JsonErrorStatus = Int32
-JsonErrorStatus_Unknown: JsonErrorStatus = 0
-JsonErrorStatus_InvalidJsonString: JsonErrorStatus = 1
-JsonErrorStatus_InvalidJsonNumber: JsonErrorStatus = 2
-JsonErrorStatus_JsonValueNotFound: JsonErrorStatus = 3
-JsonErrorStatus_ImplementationLimit: JsonErrorStatus = 4
+class JsonErrorStatus(Int32):  # enum
+    Unknown = 0
+    InvalidJsonString = 1
+    InvalidJsonNumber = 2
+    JsonValueNotFound = 3
+    ImplementationLimit = 4
 class JsonObject(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Data.Json.IJsonObject
@@ -306,13 +306,13 @@ class JsonValue(ComPtr):
     @winrt_classmethod
     def CreateStringValue(cls: win32more.Windows.Data.Json.IJsonValueStatics, input: WinRT_String) -> win32more.Windows.Data.Json.JsonValue: ...
     ValueType = property(get_ValueType, None)
-JsonValueType = Int32
-JsonValueType_Null: JsonValueType = 0
-JsonValueType_Boolean: JsonValueType = 1
-JsonValueType_Number: JsonValueType = 2
-JsonValueType_String: JsonValueType = 3
-JsonValueType_Array: JsonValueType = 4
-JsonValueType_Object: JsonValueType = 5
+class JsonValueType(Int32):  # enum
+    Null = 0
+    Boolean = 1
+    Number = 2
+    String = 3
+    Array = 4
+    Object = 5
 
 
 make_ready(__name__)

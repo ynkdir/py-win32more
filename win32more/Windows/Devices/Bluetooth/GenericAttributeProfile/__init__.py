@@ -71,18 +71,18 @@ class GattCharacteristic(ComPtr):
     AttributeHandle = property(get_AttributeHandle, None)
     PresentationFormats = property(get_PresentationFormats, None)
     Service = property(get_Service, None)
-GattCharacteristicProperties = UInt32
-GattCharacteristicProperties_None: GattCharacteristicProperties = 0
-GattCharacteristicProperties_Broadcast: GattCharacteristicProperties = 1
-GattCharacteristicProperties_Read: GattCharacteristicProperties = 2
-GattCharacteristicProperties_WriteWithoutResponse: GattCharacteristicProperties = 4
-GattCharacteristicProperties_Write: GattCharacteristicProperties = 8
-GattCharacteristicProperties_Notify: GattCharacteristicProperties = 16
-GattCharacteristicProperties_Indicate: GattCharacteristicProperties = 32
-GattCharacteristicProperties_AuthenticatedSignedWrites: GattCharacteristicProperties = 64
-GattCharacteristicProperties_ExtendedProperties: GattCharacteristicProperties = 128
-GattCharacteristicProperties_ReliableWrites: GattCharacteristicProperties = 256
-GattCharacteristicProperties_WritableAuxiliaries: GattCharacteristicProperties = 512
+class GattCharacteristicProperties(UInt32):  # enum
+    None_ = 0
+    Broadcast = 1
+    Read = 2
+    WriteWithoutResponse = 4
+    Write = 8
+    Notify = 16
+    Indicate = 32
+    AuthenticatedSignedWrites = 64
+    ExtendedProperties = 128
+    ReliableWrites = 256
+    WritableAuxiliaries = 512
 class _GattCharacteristicUuids_Meta_(ComPtr.__class__):
     pass
 class GattCharacteristicUuids(ComPtr, metaclass=_GattCharacteristicUuids_Meta_):
@@ -344,10 +344,10 @@ class GattCharacteristicsResult(ComPtr):
     Status = property(get_Status, None)
     ProtocolError = property(get_ProtocolError, None)
     Characteristics = property(get_Characteristics, None)
-GattClientCharacteristicConfigurationDescriptorValue = Int32
-GattClientCharacteristicConfigurationDescriptorValue_None: GattClientCharacteristicConfigurationDescriptorValue = 0
-GattClientCharacteristicConfigurationDescriptorValue_Notify: GattClientCharacteristicConfigurationDescriptorValue = 1
-GattClientCharacteristicConfigurationDescriptorValue_Indicate: GattClientCharacteristicConfigurationDescriptorValue = 2
+class GattClientCharacteristicConfigurationDescriptorValue(Int32):  # enum
+    None_ = 0
+    Notify = 1
+    Indicate = 2
 class GattClientNotificationResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattClientNotificationResult
@@ -364,11 +364,11 @@ class GattClientNotificationResult(ComPtr):
     Status = property(get_Status, None)
     ProtocolError = property(get_ProtocolError, None)
     BytesSent = property(get_BytesSent, None)
-GattCommunicationStatus = Int32
-GattCommunicationStatus_Success: GattCommunicationStatus = 0
-GattCommunicationStatus_Unreachable: GattCommunicationStatus = 1
-GattCommunicationStatus_ProtocolError: GattCommunicationStatus = 2
-GattCommunicationStatus_AccessDenied: GattCommunicationStatus = 3
+class GattCommunicationStatus(Int32):  # enum
+    Success = 0
+    Unreachable = 1
+    ProtocolError = 2
+    AccessDenied = 3
 class GattDescriptor(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattDescriptor
@@ -693,13 +693,13 @@ class GattLocalService(ComPtr):
     def get_Characteristics(self: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattLocalService) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalCharacteristic]: ...
     Uuid = property(get_Uuid, None)
     Characteristics = property(get_Characteristics, None)
-GattOpenStatus = Int32
-GattOpenStatus_Unspecified: GattOpenStatus = 0
-GattOpenStatus_Success: GattOpenStatus = 1
-GattOpenStatus_AlreadyOpened: GattOpenStatus = 2
-GattOpenStatus_NotFound: GattOpenStatus = 3
-GattOpenStatus_SharingViolation: GattOpenStatus = 4
-GattOpenStatus_AccessDenied: GattOpenStatus = 5
+class GattOpenStatus(Int32):  # enum
+    Unspecified = 0
+    Success = 1
+    AlreadyOpened = 2
+    NotFound = 3
+    SharingViolation = 4
+    AccessDenied = 5
 class _GattPresentationFormat_Meta_(ComPtr.__class__):
     pass
 class GattPresentationFormat(ComPtr, metaclass=_GattPresentationFormat_Meta_):
@@ -812,11 +812,11 @@ class GattPresentationFormatTypes(ComPtr, metaclass=_GattPresentationFormatTypes
     _GattPresentationFormatTypes_Meta_.Utf8 = property(get_Utf8.__wrapped__, None)
     _GattPresentationFormatTypes_Meta_.Utf16 = property(get_Utf16.__wrapped__, None)
     _GattPresentationFormatTypes_Meta_.Struct = property(get_Struct.__wrapped__, None)
-GattProtectionLevel = Int32
-GattProtectionLevel_Plain: GattProtectionLevel = 0
-GattProtectionLevel_AuthenticationRequired: GattProtectionLevel = 1
-GattProtectionLevel_EncryptionRequired: GattProtectionLevel = 2
-GattProtectionLevel_EncryptionAndAuthenticationRequired: GattProtectionLevel = 3
+class GattProtectionLevel(Int32):  # enum
+    Plain = 0
+    AuthenticationRequired = 1
+    EncryptionRequired = 2
+    EncryptionAndAuthenticationRequired = 3
 class _GattProtocolError_Meta_(ComPtr.__class__):
     pass
 class GattProtocolError(ComPtr, metaclass=_GattProtocolError_Meta_):
@@ -950,10 +950,10 @@ class GattReliableWriteTransaction(ComPtr):
     def CommitAsync(self: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattReliableWriteTransaction) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattCommunicationStatus]: ...
     @winrt_mixinmethod
     def CommitWithResultAsync(self: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattReliableWriteTransaction2) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattWriteResult]: ...
-GattRequestState = Int32
-GattRequestState_Pending: GattRequestState = 0
-GattRequestState_Completed: GattRequestState = 1
-GattRequestState_Canceled: GattRequestState = 2
+class GattRequestState(Int32):  # enum
+    Pending = 0
+    Completed = 1
+    Canceled = 2
 class GattRequestStateChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattRequestStateChangedEventArgs
@@ -986,12 +986,12 @@ class GattServiceProvider(ComPtr):
     def CreateAsync(cls: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattServiceProviderStatics, serviceUuid: Guid) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattServiceProviderResult]: ...
     Service = property(get_Service, None)
     AdvertisementStatus = property(get_AdvertisementStatus, None)
-GattServiceProviderAdvertisementStatus = Int32
-GattServiceProviderAdvertisementStatus_Created: GattServiceProviderAdvertisementStatus = 0
-GattServiceProviderAdvertisementStatus_Stopped: GattServiceProviderAdvertisementStatus = 1
-GattServiceProviderAdvertisementStatus_Started: GattServiceProviderAdvertisementStatus = 2
-GattServiceProviderAdvertisementStatus_Aborted: GattServiceProviderAdvertisementStatus = 3
-GattServiceProviderAdvertisementStatus_StartedWithoutAllAdvertisementData: GattServiceProviderAdvertisementStatus = 4
+class GattServiceProviderAdvertisementStatus(Int32):  # enum
+    Created = 0
+    Stopped = 1
+    Started = 2
+    Aborted = 3
+    StartedWithoutAllAdvertisementData = 4
 class GattServiceProviderAdvertisementStatusChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattServiceProviderAdvertisementStatusChangedEventArgs
@@ -1144,9 +1144,9 @@ class GattSession(ComPtr):
     MaintainConnection = property(get_MaintainConnection, put_MaintainConnection)
     MaxPduSize = property(get_MaxPduSize, None)
     SessionStatus = property(get_SessionStatus, None)
-GattSessionStatus = Int32
-GattSessionStatus_Closed: GattSessionStatus = 0
-GattSessionStatus_Active: GattSessionStatus = 1
+class GattSessionStatus(Int32):  # enum
+    Closed = 0
+    Active = 1
 class GattSessionStatusChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattSessionStatusChangedEventArgs
@@ -1157,11 +1157,11 @@ class GattSessionStatusChangedEventArgs(ComPtr):
     def get_Status(self: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattSessionStatusChangedEventArgs) -> win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattSessionStatus: ...
     Error = property(get_Error, None)
     Status = property(get_Status, None)
-GattSharingMode = Int32
-GattSharingMode_Unspecified: GattSharingMode = 0
-GattSharingMode_Exclusive: GattSharingMode = 1
-GattSharingMode_SharedReadOnly: GattSharingMode = 2
-GattSharingMode_SharedReadAndWrite: GattSharingMode = 3
+class GattSharingMode(Int32):  # enum
+    Unspecified = 0
+    Exclusive = 1
+    SharedReadOnly = 2
+    SharedReadAndWrite = 3
 class GattSubscribedClient(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattSubscribedClient
@@ -1186,9 +1186,9 @@ class GattValueChangedEventArgs(ComPtr):
     def get_Timestamp(self: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattValueChangedEventArgs) -> win32more.Windows.Foundation.DateTime: ...
     CharacteristicValue = property(get_CharacteristicValue, None)
     Timestamp = property(get_Timestamp, None)
-GattWriteOption = Int32
-GattWriteOption_WriteWithResponse: GattWriteOption = 0
-GattWriteOption_WriteWithoutResponse: GattWriteOption = 1
+class GattWriteOption(Int32):  # enum
+    WriteWithResponse = 0
+    WriteWithoutResponse = 1
 class GattWriteRequest(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattWriteRequest

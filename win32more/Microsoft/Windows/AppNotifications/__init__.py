@@ -118,9 +118,9 @@ class AppNotificationManager(ComPtr, metaclass=_AppNotificationManager_Meta_):
     def get_Default(cls: win32more.Microsoft.Windows.AppNotifications.IAppNotificationManagerStatics) -> win32more.Microsoft.Windows.AppNotifications.AppNotificationManager: ...
     Setting = property(get_Setting, None)
     _AppNotificationManager_Meta_.Default = property(get_Default.__wrapped__, None)
-AppNotificationPriority = Int32
-AppNotificationPriority_Default: AppNotificationPriority = 0
-AppNotificationPriority_High: AppNotificationPriority = 1
+class AppNotificationPriority(Int32):  # enum
+    Default = 0
+    High = 1
 class AppNotificationProgressData(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Windows.AppNotifications.IAppNotificationProgressData
@@ -159,17 +159,17 @@ class AppNotificationProgressData(ComPtr):
     Value = property(get_Value, put_Value)
     ValueStringOverride = property(get_ValueStringOverride, put_ValueStringOverride)
     Status = property(get_Status, put_Status)
-AppNotificationProgressResult = Int32
-AppNotificationProgressResult_Succeeded: AppNotificationProgressResult = 0
-AppNotificationProgressResult_AppNotificationNotFound: AppNotificationProgressResult = 1
-AppNotificationProgressResult_Unsupported: AppNotificationProgressResult = 2
-AppNotificationSetting = Int32
-AppNotificationSetting_Enabled: AppNotificationSetting = 0
-AppNotificationSetting_DisabledForApplication: AppNotificationSetting = 1
-AppNotificationSetting_DisabledForUser: AppNotificationSetting = 2
-AppNotificationSetting_DisabledByGroupPolicy: AppNotificationSetting = 3
-AppNotificationSetting_DisabledByManifest: AppNotificationSetting = 4
-AppNotificationSetting_Unsupported: AppNotificationSetting = 5
+class AppNotificationProgressResult(Int32):  # enum
+    Succeeded = 0
+    AppNotificationNotFound = 1
+    Unsupported = 2
+class AppNotificationSetting(Int32):  # enum
+    Enabled = 0
+    DisabledForApplication = 1
+    DisabledForUser = 2
+    DisabledByGroupPolicy = 3
+    DisabledByManifest = 4
+    Unsupported = 5
 AppNotificationsContract: UInt32 = 196608
 class IAppNotification(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable

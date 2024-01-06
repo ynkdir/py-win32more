@@ -239,10 +239,10 @@ class MessageTransmittedHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{efaa0b4a-f6e2-4d7d-856c-78fc8efc021e}')
     def Invoke(self, sender: win32more.Windows.Networking.Proximity.ProximityDevice, messageId: Int64) -> Void: ...
-PeerDiscoveryTypes = UInt32
-PeerDiscoveryTypes_None: PeerDiscoveryTypes = 0
-PeerDiscoveryTypes_Browse: PeerDiscoveryTypes = 1
-PeerDiscoveryTypes_Triggered: PeerDiscoveryTypes = 2
+class PeerDiscoveryTypes(UInt32):  # enum
+    None_ = 0
+    Browse = 1
+    Triggered = 2
 class _PeerFinder_Meta_(ComPtr.__class__):
     pass
 class PeerFinder(ComPtr, metaclass=_PeerFinder_Meta_):
@@ -323,10 +323,10 @@ class PeerInformation(ComPtr):
     DiscoveryData = property(get_DiscoveryData, None)
     HostName = property(get_HostName, None)
     ServiceName = property(get_ServiceName, None)
-PeerRole = Int32
-PeerRole_Peer: PeerRole = 0
-PeerRole_Host: PeerRole = 1
-PeerRole_Client: PeerRole = 2
+class PeerRole(Int32):  # enum
+    Peer = 0
+    Host = 1
+    Client = 2
 class PeerWatcher(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Proximity.IPeerWatcher
@@ -358,13 +358,13 @@ class PeerWatcher(ComPtr):
     @winrt_mixinmethod
     def Stop(self: win32more.Windows.Networking.Proximity.IPeerWatcher) -> Void: ...
     Status = property(get_Status, None)
-PeerWatcherStatus = Int32
-PeerWatcherStatus_Created: PeerWatcherStatus = 0
-PeerWatcherStatus_Started: PeerWatcherStatus = 1
-PeerWatcherStatus_EnumerationCompleted: PeerWatcherStatus = 2
-PeerWatcherStatus_Stopping: PeerWatcherStatus = 3
-PeerWatcherStatus_Stopped: PeerWatcherStatus = 4
-PeerWatcherStatus_Aborted: PeerWatcherStatus = 5
+class PeerWatcherStatus(Int32):  # enum
+    Created = 0
+    Started = 1
+    EnumerationCompleted = 2
+    Stopping = 3
+    Stopped = 4
+    Aborted = 5
 class ProximityDevice(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Proximity.IProximityDevice
@@ -426,13 +426,13 @@ class ProximityMessage(ComPtr):
     SubscriptionId = property(get_SubscriptionId, None)
     Data = property(get_Data, None)
     DataAsString = property(get_DataAsString, None)
-TriggeredConnectState = Int32
-TriggeredConnectState_PeerFound: TriggeredConnectState = 0
-TriggeredConnectState_Listening: TriggeredConnectState = 1
-TriggeredConnectState_Connecting: TriggeredConnectState = 2
-TriggeredConnectState_Completed: TriggeredConnectState = 3
-TriggeredConnectState_Canceled: TriggeredConnectState = 4
-TriggeredConnectState_Failed: TriggeredConnectState = 5
+class TriggeredConnectState(Int32):  # enum
+    PeerFound = 0
+    Listening = 1
+    Connecting = 2
+    Completed = 3
+    Canceled = 4
+    Failed = 5
 class TriggeredConnectionStateChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Proximity.ITriggeredConnectionStateChangedEventArgs

@@ -124,9 +124,9 @@ class MediaTranscoder(ComPtr):
     AlwaysReencode = property(get_AlwaysReencode, put_AlwaysReencode)
     HardwareAccelerationEnabled = property(get_HardwareAccelerationEnabled, put_HardwareAccelerationEnabled)
     VideoProcessingAlgorithm = property(get_VideoProcessingAlgorithm, put_VideoProcessingAlgorithm)
-MediaVideoProcessingAlgorithm = Int32
-MediaVideoProcessingAlgorithm_Default: MediaVideoProcessingAlgorithm = 0
-MediaVideoProcessingAlgorithm_MrfCrf444: MediaVideoProcessingAlgorithm = 1
+class MediaVideoProcessingAlgorithm(Int32):  # enum
+    Default = 0
+    MrfCrf444 = 1
 class PrepareTranscodeResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Transcoding.IPrepareTranscodeResult
@@ -139,11 +139,11 @@ class PrepareTranscodeResult(ComPtr):
     def TranscodeAsync(self: win32more.Windows.Media.Transcoding.IPrepareTranscodeResult) -> win32more.Windows.Foundation.IAsyncActionWithProgress[Double]: ...
     CanTranscode = property(get_CanTranscode, None)
     FailureReason = property(get_FailureReason, None)
-TranscodeFailureReason = Int32
-TranscodeFailureReason_None: TranscodeFailureReason = 0
-TranscodeFailureReason_Unknown: TranscodeFailureReason = 1
-TranscodeFailureReason_InvalidProfile: TranscodeFailureReason = 2
-TranscodeFailureReason_CodecNotFound: TranscodeFailureReason = 3
+class TranscodeFailureReason(Int32):  # enum
+    None_ = 0
+    Unknown = 1
+    InvalidProfile = 2
+    CodecNotFound = 3
 
 
 make_ready(__name__)

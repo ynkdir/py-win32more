@@ -56,10 +56,10 @@ class IPlatformDiagnosticTraceRuntimeInfo(ComPtr):
     def get_EtwRuntimeFileTime(self) -> Int64: ...
     RuntimeFileTime = property(get_RuntimeFileTime, None)
     EtwRuntimeFileTime = property(get_EtwRuntimeFileTime, None)
-PlatformDiagnosticActionState = Int32
-PlatformDiagnosticActionState_Success: PlatformDiagnosticActionState = 0
-PlatformDiagnosticActionState_FreeNetworkNotAvailable: PlatformDiagnosticActionState = 1
-PlatformDiagnosticActionState_ACPowerNotAvailable: PlatformDiagnosticActionState = 2
+class PlatformDiagnosticActionState(Int32):  # enum
+    Success = 0
+    FreeNetworkNotAvailable = 1
+    ACPowerNotAvailable = 2
 class PlatformDiagnosticActions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticActions'
@@ -79,13 +79,13 @@ class PlatformDiagnosticActions(ComPtr):
     def GetActiveTraceRuntime(cls: win32more.Windows.System.Diagnostics.TraceReporting.IPlatformDiagnosticActionsStatics, slotType: win32more.Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticTraceSlotType) -> win32more.Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticTraceRuntimeInfo: ...
     @winrt_classmethod
     def GetKnownTraceList(cls: win32more.Windows.System.Diagnostics.TraceReporting.IPlatformDiagnosticActionsStatics, slotType: win32more.Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticTraceSlotType) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticTraceInfo]: ...
-PlatformDiagnosticEscalationType = Int32
-PlatformDiagnosticEscalationType_OnCompletion: PlatformDiagnosticEscalationType = 0
-PlatformDiagnosticEscalationType_OnFailure: PlatformDiagnosticEscalationType = 1
-PlatformDiagnosticEventBufferLatencies = UInt32
-PlatformDiagnosticEventBufferLatencies_Normal: PlatformDiagnosticEventBufferLatencies = 1
-PlatformDiagnosticEventBufferLatencies_CostDeferred: PlatformDiagnosticEventBufferLatencies = 2
-PlatformDiagnosticEventBufferLatencies_Realtime: PlatformDiagnosticEventBufferLatencies = 4
+class PlatformDiagnosticEscalationType(Int32):  # enum
+    OnCompletion = 0
+    OnFailure = 1
+class PlatformDiagnosticEventBufferLatencies(UInt32):  # enum
+    Normal = 1
+    CostDeferred = 2
+    Realtime = 4
 class PlatformDiagnosticTraceInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.System.Diagnostics.TraceReporting.IPlatformDiagnosticTraceInfo
@@ -108,9 +108,9 @@ class PlatformDiagnosticTraceInfo(ComPtr):
     IsAutoLogger = property(get_IsAutoLogger, None)
     MaxTraceDurationFileTime = property(get_MaxTraceDurationFileTime, None)
     Priority = property(get_Priority, None)
-PlatformDiagnosticTracePriority = Int32
-PlatformDiagnosticTracePriority_Normal: PlatformDiagnosticTracePriority = 0
-PlatformDiagnosticTracePriority_UserElevated: PlatformDiagnosticTracePriority = 1
+class PlatformDiagnosticTracePriority(Int32):  # enum
+    Normal = 0
+    UserElevated = 1
 class PlatformDiagnosticTraceRuntimeInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.System.Diagnostics.TraceReporting.IPlatformDiagnosticTraceRuntimeInfo
@@ -121,14 +121,14 @@ class PlatformDiagnosticTraceRuntimeInfo(ComPtr):
     def get_EtwRuntimeFileTime(self: win32more.Windows.System.Diagnostics.TraceReporting.IPlatformDiagnosticTraceRuntimeInfo) -> Int64: ...
     RuntimeFileTime = property(get_RuntimeFileTime, None)
     EtwRuntimeFileTime = property(get_EtwRuntimeFileTime, None)
-PlatformDiagnosticTraceSlotState = Int32
-PlatformDiagnosticTraceSlotState_NotRunning: PlatformDiagnosticTraceSlotState = 0
-PlatformDiagnosticTraceSlotState_Running: PlatformDiagnosticTraceSlotState = 1
-PlatformDiagnosticTraceSlotState_Throttled: PlatformDiagnosticTraceSlotState = 2
-PlatformDiagnosticTraceSlotType = Int32
-PlatformDiagnosticTraceSlotType_Alternative: PlatformDiagnosticTraceSlotType = 0
-PlatformDiagnosticTraceSlotType_AlwaysOn: PlatformDiagnosticTraceSlotType = 1
-PlatformDiagnosticTraceSlotType_Mini: PlatformDiagnosticTraceSlotType = 2
+class PlatformDiagnosticTraceSlotState(Int32):  # enum
+    NotRunning = 0
+    Running = 1
+    Throttled = 2
+class PlatformDiagnosticTraceSlotType(Int32):  # enum
+    Alternative = 0
+    AlwaysOn = 1
+    Mini = 2
 
 
 make_ready(__name__)

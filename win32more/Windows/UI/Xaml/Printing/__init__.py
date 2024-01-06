@@ -136,9 +136,9 @@ class PaginateEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{0cc05b61-811b-4a32-9965-13eb78dbb01b}')
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.UI.Xaml.Printing.PaginateEventArgs) -> Void: ...
-PreviewPageCountType = Int32
-PreviewPageCountType_Final: PreviewPageCountType = 0
-PreviewPageCountType_Intermediate: PreviewPageCountType = 1
+class PreviewPageCountType(Int32):  # enum
+    Final = 0
+    Intermediate = 1
 class _PrintDocument_Meta_(ComPtr.__class__):
     pass
 class PrintDocument(ComPtr, metaclass=_PrintDocument_Meta_):

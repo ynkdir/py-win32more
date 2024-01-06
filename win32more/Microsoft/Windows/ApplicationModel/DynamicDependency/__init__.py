@@ -221,18 +221,18 @@ class PackageDependencyContext(ComPtr):
     PackageFullName = property(get_PackageFullName, None)
 class PackageDependencyContextId(EasyCastStructure):
     Id: UInt64
-PackageDependencyLifetimeArtifactKind = Int32
-PackageDependencyLifetimeArtifactKind_Process: PackageDependencyLifetimeArtifactKind = 0
-PackageDependencyLifetimeArtifactKind_FilePath: PackageDependencyLifetimeArtifactKind = 1
-PackageDependencyLifetimeArtifactKind_RegistryKey: PackageDependencyLifetimeArtifactKind = 2
-PackageDependencyProcessorArchitectures = UInt32
-PackageDependencyProcessorArchitectures_None: PackageDependencyProcessorArchitectures = 0
-PackageDependencyProcessorArchitectures_Neutral: PackageDependencyProcessorArchitectures = 1
-PackageDependencyProcessorArchitectures_X86: PackageDependencyProcessorArchitectures = 2
-PackageDependencyProcessorArchitectures_X64: PackageDependencyProcessorArchitectures = 4
-PackageDependencyProcessorArchitectures_Arm: PackageDependencyProcessorArchitectures = 8
-PackageDependencyProcessorArchitectures_Arm64: PackageDependencyProcessorArchitectures = 16
-PackageDependencyProcessorArchitectures_X86OnArm64: PackageDependencyProcessorArchitectures = 32
+class PackageDependencyLifetimeArtifactKind(Int32):  # enum
+    Process = 0
+    FilePath = 1
+    RegistryKey = 2
+class PackageDependencyProcessorArchitectures(UInt32):  # enum
+    None_ = 0
+    Neutral = 1
+    X86 = 2
+    X64 = 4
+    Arm = 8
+    Arm64 = 16
+    X86OnArm64 = 32
 class _PackageDependencyRank_Meta_(ComPtr.__class__):
     pass
 class PackageDependencyRank(ComPtr, metaclass=_PackageDependencyRank_Meta_):

@@ -257,10 +257,10 @@ class WebUICommandBarBitmapIcon(ComPtr):
     @winrt_mixinmethod
     def put_Uri(self: win32more.Windows.UI.WebUI.Core.IWebUICommandBarBitmapIcon, value: win32more.Windows.Foundation.Uri) -> Void: ...
     Uri = property(get_Uri, put_Uri)
-WebUICommandBarClosedDisplayMode = Int32
-WebUICommandBarClosedDisplayMode_Default: WebUICommandBarClosedDisplayMode = 0
-WebUICommandBarClosedDisplayMode_Minimal: WebUICommandBarClosedDisplayMode = 1
-WebUICommandBarClosedDisplayMode_Compact: WebUICommandBarClosedDisplayMode = 2
+class WebUICommandBarClosedDisplayMode(Int32):  # enum
+    Default = 0
+    Minimal = 1
+    Compact = 2
 class WebUICommandBarConfirmationButton(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.WebUI.Core.IWebUICommandBarConfirmationButton

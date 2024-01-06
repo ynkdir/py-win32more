@@ -47,20 +47,20 @@ class CastingConnectionErrorOccurredEventArgs(ComPtr):
     def get_Message(self: win32more.Windows.Media.Casting.ICastingConnectionErrorOccurredEventArgs) -> WinRT_String: ...
     ErrorStatus = property(get_ErrorStatus, None)
     Message = property(get_Message, None)
-CastingConnectionErrorStatus = Int32
-CastingConnectionErrorStatus_Succeeded: CastingConnectionErrorStatus = 0
-CastingConnectionErrorStatus_DeviceDidNotRespond: CastingConnectionErrorStatus = 1
-CastingConnectionErrorStatus_DeviceError: CastingConnectionErrorStatus = 2
-CastingConnectionErrorStatus_DeviceLocked: CastingConnectionErrorStatus = 3
-CastingConnectionErrorStatus_ProtectedPlaybackFailed: CastingConnectionErrorStatus = 4
-CastingConnectionErrorStatus_InvalidCastingSource: CastingConnectionErrorStatus = 5
-CastingConnectionErrorStatus_Unknown: CastingConnectionErrorStatus = 6
-CastingConnectionState = Int32
-CastingConnectionState_Disconnected: CastingConnectionState = 0
-CastingConnectionState_Connected: CastingConnectionState = 1
-CastingConnectionState_Rendering: CastingConnectionState = 2
-CastingConnectionState_Disconnecting: CastingConnectionState = 3
-CastingConnectionState_Connecting: CastingConnectionState = 4
+class CastingConnectionErrorStatus(Int32):  # enum
+    Succeeded = 0
+    DeviceDidNotRespond = 1
+    DeviceError = 2
+    DeviceLocked = 3
+    ProtectedPlaybackFailed = 4
+    InvalidCastingSource = 5
+    Unknown = 6
+class CastingConnectionState(Int32):  # enum
+    Disconnected = 0
+    Connected = 1
+    Rendering = 2
+    Disconnecting = 3
+    Connecting = 4
 class CastingDevice(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Casting.ICastingDevice
@@ -148,11 +148,11 @@ class CastingDeviceSelectedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_SelectedCastingDevice(self: win32more.Windows.Media.Casting.ICastingDeviceSelectedEventArgs) -> win32more.Windows.Media.Casting.CastingDevice: ...
     SelectedCastingDevice = property(get_SelectedCastingDevice, None)
-CastingPlaybackTypes = UInt32
-CastingPlaybackTypes_None: CastingPlaybackTypes = 0
-CastingPlaybackTypes_Audio: CastingPlaybackTypes = 1
-CastingPlaybackTypes_Video: CastingPlaybackTypes = 2
-CastingPlaybackTypes_Picture: CastingPlaybackTypes = 4
+class CastingPlaybackTypes(UInt32):  # enum
+    None_ = 0
+    Audio = 1
+    Video = 2
+    Picture = 4
 class CastingSource(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Casting.ICastingSource

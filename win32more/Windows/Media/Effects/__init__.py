@@ -56,27 +56,27 @@ class AudioEffectDefinition(ComPtr):
     def get_Properties(self: win32more.Windows.Media.Effects.IAudioEffectDefinition) -> win32more.Windows.Foundation.Collections.IPropertySet: ...
     ActivatableClassId = property(get_ActivatableClassId, None)
     Properties = property(get_Properties, None)
-AudioEffectType = Int32
-AudioEffectType_Other: AudioEffectType = 0
-AudioEffectType_AcousticEchoCancellation: AudioEffectType = 1
-AudioEffectType_NoiseSuppression: AudioEffectType = 2
-AudioEffectType_AutomaticGainControl: AudioEffectType = 3
-AudioEffectType_BeamForming: AudioEffectType = 4
-AudioEffectType_ConstantToneRemoval: AudioEffectType = 5
-AudioEffectType_Equalizer: AudioEffectType = 6
-AudioEffectType_LoudnessEqualizer: AudioEffectType = 7
-AudioEffectType_BassBoost: AudioEffectType = 8
-AudioEffectType_VirtualSurround: AudioEffectType = 9
-AudioEffectType_VirtualHeadphones: AudioEffectType = 10
-AudioEffectType_SpeakerFill: AudioEffectType = 11
-AudioEffectType_RoomCorrection: AudioEffectType = 12
-AudioEffectType_BassManagement: AudioEffectType = 13
-AudioEffectType_EnvironmentalEffects: AudioEffectType = 14
-AudioEffectType_SpeakerProtection: AudioEffectType = 15
-AudioEffectType_SpeakerCompensation: AudioEffectType = 16
-AudioEffectType_DynamicRangeCompression: AudioEffectType = 17
-AudioEffectType_FarFieldBeamForming: AudioEffectType = 18
-AudioEffectType_DeepNoiseSuppression: AudioEffectType = 19
+class AudioEffectType(Int32):  # enum
+    Other = 0
+    AcousticEchoCancellation = 1
+    NoiseSuppression = 2
+    AutomaticGainControl = 3
+    BeamForming = 4
+    ConstantToneRemoval = 5
+    Equalizer = 6
+    LoudnessEqualizer = 7
+    BassBoost = 8
+    VirtualSurround = 9
+    VirtualHeadphones = 10
+    SpeakerFill = 11
+    RoomCorrection = 12
+    BassManagement = 13
+    EnvironmentalEffects = 14
+    SpeakerProtection = 15
+    SpeakerCompensation = 16
+    DynamicRangeCompression = 17
+    FarFieldBeamForming = 18
+    DeepNoiseSuppression = 19
 class AudioEffectsManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Effects.AudioEffectsManager'
@@ -397,15 +397,15 @@ class IVideoTransformSphericalProjection(ComPtr):
     ProjectionMode = property(get_ProjectionMode, put_ProjectionMode)
     HorizontalFieldOfViewInDegrees = property(get_HorizontalFieldOfViewInDegrees, put_HorizontalFieldOfViewInDegrees)
     ViewOrientation = property(get_ViewOrientation, put_ViewOrientation)
-MediaEffectClosedReason = Int32
-MediaEffectClosedReason_Done: MediaEffectClosedReason = 0
-MediaEffectClosedReason_UnknownError: MediaEffectClosedReason = 1
-MediaEffectClosedReason_UnsupportedEncodingFormat: MediaEffectClosedReason = 2
-MediaEffectClosedReason_EffectCurrentlyUnloaded: MediaEffectClosedReason = 3
-MediaMemoryTypes = Int32
-MediaMemoryTypes_Gpu: MediaMemoryTypes = 0
-MediaMemoryTypes_Cpu: MediaMemoryTypes = 1
-MediaMemoryTypes_GpuAndCpu: MediaMemoryTypes = 2
+class MediaEffectClosedReason(Int32):  # enum
+    Done = 0
+    UnknownError = 1
+    UnsupportedEncodingFormat = 2
+    EffectCurrentlyUnloaded = 3
+class MediaMemoryTypes(Int32):  # enum
+    Gpu = 0
+    Cpu = 1
+    GpuAndCpu = 2
 class ProcessAudioFrameContext(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Effects.IProcessAudioFrameContext

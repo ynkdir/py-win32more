@@ -152,9 +152,9 @@ class Application(ComPtr, metaclass=_Application_Meta_):
     RequiresPointerMode = property(get_RequiresPointerMode, put_RequiresPointerMode)
     HighContrastAdjustment = property(get_HighContrastAdjustment, put_HighContrastAdjustment)
     _Application_Meta_.Current = property(get_Current.__wrapped__, None)
-ApplicationHighContrastAdjustment = UInt32
-ApplicationHighContrastAdjustment_None: ApplicationHighContrastAdjustment = 0
-ApplicationHighContrastAdjustment_Auto: ApplicationHighContrastAdjustment = 4294967295
+class ApplicationHighContrastAdjustment(UInt32):  # enum
+    None_ = 0
+    Auto = 4294967295
 class ApplicationInitializationCallback(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{b6351c55-c284-46e4-8310-fb0967fab76f}')
@@ -163,53 +163,53 @@ class ApplicationInitializationCallbackParams(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.IApplicationInitializationCallbackParams
     _classid_ = 'Windows.UI.Xaml.ApplicationInitializationCallbackParams'
-ApplicationRequiresPointerMode = Int32
-ApplicationRequiresPointerMode_Auto: ApplicationRequiresPointerMode = 0
-ApplicationRequiresPointerMode_WhenRequested: ApplicationRequiresPointerMode = 1
-ApplicationTheme = Int32
-ApplicationTheme_Light: ApplicationTheme = 0
-ApplicationTheme_Dark: ApplicationTheme = 1
-AutomationTextAttributesEnum = Int32
-AutomationTextAttributesEnum_AnimationStyleAttribute: AutomationTextAttributesEnum = 40000
-AutomationTextAttributesEnum_BackgroundColorAttribute: AutomationTextAttributesEnum = 40001
-AutomationTextAttributesEnum_BulletStyleAttribute: AutomationTextAttributesEnum = 40002
-AutomationTextAttributesEnum_CapStyleAttribute: AutomationTextAttributesEnum = 40003
-AutomationTextAttributesEnum_CultureAttribute: AutomationTextAttributesEnum = 40004
-AutomationTextAttributesEnum_FontNameAttribute: AutomationTextAttributesEnum = 40005
-AutomationTextAttributesEnum_FontSizeAttribute: AutomationTextAttributesEnum = 40006
-AutomationTextAttributesEnum_FontWeightAttribute: AutomationTextAttributesEnum = 40007
-AutomationTextAttributesEnum_ForegroundColorAttribute: AutomationTextAttributesEnum = 40008
-AutomationTextAttributesEnum_HorizontalTextAlignmentAttribute: AutomationTextAttributesEnum = 40009
-AutomationTextAttributesEnum_IndentationFirstLineAttribute: AutomationTextAttributesEnum = 40010
-AutomationTextAttributesEnum_IndentationLeadingAttribute: AutomationTextAttributesEnum = 40011
-AutomationTextAttributesEnum_IndentationTrailingAttribute: AutomationTextAttributesEnum = 40012
-AutomationTextAttributesEnum_IsHiddenAttribute: AutomationTextAttributesEnum = 40013
-AutomationTextAttributesEnum_IsItalicAttribute: AutomationTextAttributesEnum = 40014
-AutomationTextAttributesEnum_IsReadOnlyAttribute: AutomationTextAttributesEnum = 40015
-AutomationTextAttributesEnum_IsSubscriptAttribute: AutomationTextAttributesEnum = 40016
-AutomationTextAttributesEnum_IsSuperscriptAttribute: AutomationTextAttributesEnum = 40017
-AutomationTextAttributesEnum_MarginBottomAttribute: AutomationTextAttributesEnum = 40018
-AutomationTextAttributesEnum_MarginLeadingAttribute: AutomationTextAttributesEnum = 40019
-AutomationTextAttributesEnum_MarginTopAttribute: AutomationTextAttributesEnum = 40020
-AutomationTextAttributesEnum_MarginTrailingAttribute: AutomationTextAttributesEnum = 40021
-AutomationTextAttributesEnum_OutlineStylesAttribute: AutomationTextAttributesEnum = 40022
-AutomationTextAttributesEnum_OverlineColorAttribute: AutomationTextAttributesEnum = 40023
-AutomationTextAttributesEnum_OverlineStyleAttribute: AutomationTextAttributesEnum = 40024
-AutomationTextAttributesEnum_StrikethroughColorAttribute: AutomationTextAttributesEnum = 40025
-AutomationTextAttributesEnum_StrikethroughStyleAttribute: AutomationTextAttributesEnum = 40026
-AutomationTextAttributesEnum_TabsAttribute: AutomationTextAttributesEnum = 40027
-AutomationTextAttributesEnum_TextFlowDirectionsAttribute: AutomationTextAttributesEnum = 40028
-AutomationTextAttributesEnum_UnderlineColorAttribute: AutomationTextAttributesEnum = 40029
-AutomationTextAttributesEnum_UnderlineStyleAttribute: AutomationTextAttributesEnum = 40030
-AutomationTextAttributesEnum_AnnotationTypesAttribute: AutomationTextAttributesEnum = 40031
-AutomationTextAttributesEnum_AnnotationObjectsAttribute: AutomationTextAttributesEnum = 40032
-AutomationTextAttributesEnum_StyleNameAttribute: AutomationTextAttributesEnum = 40033
-AutomationTextAttributesEnum_StyleIdAttribute: AutomationTextAttributesEnum = 40034
-AutomationTextAttributesEnum_LinkAttribute: AutomationTextAttributesEnum = 40035
-AutomationTextAttributesEnum_IsActiveAttribute: AutomationTextAttributesEnum = 40036
-AutomationTextAttributesEnum_SelectionActiveEndAttribute: AutomationTextAttributesEnum = 40037
-AutomationTextAttributesEnum_CaretPositionAttribute: AutomationTextAttributesEnum = 40038
-AutomationTextAttributesEnum_CaretBidiModeAttribute: AutomationTextAttributesEnum = 40039
+class ApplicationRequiresPointerMode(Int32):  # enum
+    Auto = 0
+    WhenRequested = 1
+class ApplicationTheme(Int32):  # enum
+    Light = 0
+    Dark = 1
+class AutomationTextAttributesEnum(Int32):  # enum
+    AnimationStyleAttribute = 40000
+    BackgroundColorAttribute = 40001
+    BulletStyleAttribute = 40002
+    CapStyleAttribute = 40003
+    CultureAttribute = 40004
+    FontNameAttribute = 40005
+    FontSizeAttribute = 40006
+    FontWeightAttribute = 40007
+    ForegroundColorAttribute = 40008
+    HorizontalTextAlignmentAttribute = 40009
+    IndentationFirstLineAttribute = 40010
+    IndentationLeadingAttribute = 40011
+    IndentationTrailingAttribute = 40012
+    IsHiddenAttribute = 40013
+    IsItalicAttribute = 40014
+    IsReadOnlyAttribute = 40015
+    IsSubscriptAttribute = 40016
+    IsSuperscriptAttribute = 40017
+    MarginBottomAttribute = 40018
+    MarginLeadingAttribute = 40019
+    MarginTopAttribute = 40020
+    MarginTrailingAttribute = 40021
+    OutlineStylesAttribute = 40022
+    OverlineColorAttribute = 40023
+    OverlineStyleAttribute = 40024
+    StrikethroughColorAttribute = 40025
+    StrikethroughStyleAttribute = 40026
+    TabsAttribute = 40027
+    TextFlowDirectionsAttribute = 40028
+    UnderlineColorAttribute = 40029
+    UnderlineStyleAttribute = 40030
+    AnnotationTypesAttribute = 40031
+    AnnotationObjectsAttribute = 40032
+    StyleNameAttribute = 40033
+    StyleIdAttribute = 40034
+    LinkAttribute = 40035
+    IsActiveAttribute = 40036
+    SelectionActiveEndAttribute = 40037
+    CaretPositionAttribute = 40038
+    CaretBidiModeAttribute = 40039
 class BindingFailedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.IBindingFailedEventArgs
@@ -877,10 +877,10 @@ class DurationHelper(ComPtr, metaclass=_DurationHelper_Meta_):
     def Subtract(cls: win32more.Windows.UI.Xaml.IDurationHelperStatics, target: win32more.Windows.UI.Xaml.Duration, duration: win32more.Windows.UI.Xaml.Duration) -> win32more.Windows.UI.Xaml.Duration: ...
     _DurationHelper_Meta_.Automatic = property(get_Automatic.__wrapped__, None)
     _DurationHelper_Meta_.Forever = property(get_Forever.__wrapped__, None)
-DurationType = Int32
-DurationType_Automatic: DurationType = 0
-DurationType_TimeSpan: DurationType = 1
-DurationType_Forever: DurationType = 2
+class DurationType(Int32):  # enum
+    Automatic = 0
+    TimeSpan = 1
+    Forever = 2
 class EffectiveViewportChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.IEffectiveViewportChangedEventArgs
@@ -943,22 +943,22 @@ class ElementFactoryRecycleArgs(ComPtr):
     def put_Parent(self: win32more.Windows.UI.Xaml.IElementFactoryRecycleArgs, value: win32more.Windows.UI.Xaml.UIElement) -> Void: ...
     Element = property(get_Element, put_Element)
     Parent = property(get_Parent, put_Parent)
-ElementHighContrastAdjustment = UInt32
-ElementHighContrastAdjustment_None: ElementHighContrastAdjustment = 0
-ElementHighContrastAdjustment_Application: ElementHighContrastAdjustment = 2147483648
-ElementHighContrastAdjustment_Auto: ElementHighContrastAdjustment = 4294967295
-ElementSoundKind = Int32
-ElementSoundKind_Focus: ElementSoundKind = 0
-ElementSoundKind_Invoke: ElementSoundKind = 1
-ElementSoundKind_Show: ElementSoundKind = 2
-ElementSoundKind_Hide: ElementSoundKind = 3
-ElementSoundKind_MovePrevious: ElementSoundKind = 4
-ElementSoundKind_MoveNext: ElementSoundKind = 5
-ElementSoundKind_GoBack: ElementSoundKind = 6
-ElementSoundMode = Int32
-ElementSoundMode_Default: ElementSoundMode = 0
-ElementSoundMode_FocusOnly: ElementSoundMode = 1
-ElementSoundMode_Off: ElementSoundMode = 2
+class ElementHighContrastAdjustment(UInt32):  # enum
+    None_ = 0
+    Application = 2147483648
+    Auto = 4294967295
+class ElementSoundKind(Int32):  # enum
+    Focus = 0
+    Invoke = 1
+    Show = 2
+    Hide = 3
+    MovePrevious = 4
+    MoveNext = 5
+    GoBack = 6
+class ElementSoundMode(Int32):  # enum
+    Default = 0
+    FocusOnly = 1
+    Off = 2
 class _ElementSoundPlayer_Meta_(ComPtr.__class__):
     pass
 class ElementSoundPlayer(ComPtr, metaclass=_ElementSoundPlayer_Meta_):
@@ -982,18 +982,18 @@ class ElementSoundPlayer(ComPtr, metaclass=_ElementSoundPlayer_Meta_):
     _ElementSoundPlayer_Meta_.SpatialAudioMode = property(get_SpatialAudioMode.__wrapped__, put_SpatialAudioMode.__wrapped__)
     _ElementSoundPlayer_Meta_.Volume = property(get_Volume.__wrapped__, put_Volume.__wrapped__)
     _ElementSoundPlayer_Meta_.State = property(get_State.__wrapped__, put_State.__wrapped__)
-ElementSoundPlayerState = Int32
-ElementSoundPlayerState_Auto: ElementSoundPlayerState = 0
-ElementSoundPlayerState_Off: ElementSoundPlayerState = 1
-ElementSoundPlayerState_On: ElementSoundPlayerState = 2
-ElementSpatialAudioMode = Int32
-ElementSpatialAudioMode_Auto: ElementSpatialAudioMode = 0
-ElementSpatialAudioMode_Off: ElementSpatialAudioMode = 1
-ElementSpatialAudioMode_On: ElementSpatialAudioMode = 2
-ElementTheme = Int32
-ElementTheme_Default: ElementTheme = 0
-ElementTheme_Light: ElementTheme = 1
-ElementTheme_Dark: ElementTheme = 2
+class ElementSoundPlayerState(Int32):  # enum
+    Auto = 0
+    Off = 1
+    On = 2
+class ElementSpatialAudioMode(Int32):  # enum
+    Auto = 0
+    Off = 1
+    On = 2
+class ElementTheme(Int32):  # enum
+    Default = 0
+    Light = 1
+    Dark = 2
 class EnteredBackgroundEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{93a956ae-1d7f-438b-b7b8-227d96b609c0}')
@@ -1030,63 +1030,63 @@ class ExceptionRoutedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{68e0e810-f6ea-42bc-855b-5d9b67e6a262}')
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.UI.Xaml.ExceptionRoutedEventArgs) -> Void: ...
-FlowDirection = Int32
-FlowDirection_LeftToRight: FlowDirection = 0
-FlowDirection_RightToLeft: FlowDirection = 1
-FocusState = Int32
-FocusState_Unfocused: FocusState = 0
-FocusState_Pointer: FocusState = 1
-FocusState_Keyboard: FocusState = 2
-FocusState_Programmatic: FocusState = 3
-FocusVisualKind = Int32
-FocusVisualKind_DottedLine: FocusVisualKind = 0
-FocusVisualKind_HighVisibility: FocusVisualKind = 1
-FocusVisualKind_Reveal: FocusVisualKind = 2
-FontCapitals = Int32
-FontCapitals_Normal: FontCapitals = 0
-FontCapitals_AllSmallCaps: FontCapitals = 1
-FontCapitals_SmallCaps: FontCapitals = 2
-FontCapitals_AllPetiteCaps: FontCapitals = 3
-FontCapitals_PetiteCaps: FontCapitals = 4
-FontCapitals_Unicase: FontCapitals = 5
-FontCapitals_Titling: FontCapitals = 6
-FontEastAsianLanguage = Int32
-FontEastAsianLanguage_Normal: FontEastAsianLanguage = 0
-FontEastAsianLanguage_HojoKanji: FontEastAsianLanguage = 1
-FontEastAsianLanguage_Jis04: FontEastAsianLanguage = 2
-FontEastAsianLanguage_Jis78: FontEastAsianLanguage = 3
-FontEastAsianLanguage_Jis83: FontEastAsianLanguage = 4
-FontEastAsianLanguage_Jis90: FontEastAsianLanguage = 5
-FontEastAsianLanguage_NlcKanji: FontEastAsianLanguage = 6
-FontEastAsianLanguage_Simplified: FontEastAsianLanguage = 7
-FontEastAsianLanguage_Traditional: FontEastAsianLanguage = 8
-FontEastAsianLanguage_TraditionalNames: FontEastAsianLanguage = 9
-FontEastAsianWidths = Int32
-FontEastAsianWidths_Normal: FontEastAsianWidths = 0
-FontEastAsianWidths_Full: FontEastAsianWidths = 1
-FontEastAsianWidths_Half: FontEastAsianWidths = 2
-FontEastAsianWidths_Proportional: FontEastAsianWidths = 3
-FontEastAsianWidths_Quarter: FontEastAsianWidths = 4
-FontEastAsianWidths_Third: FontEastAsianWidths = 5
-FontFraction = Int32
-FontFraction_Normal: FontFraction = 0
-FontFraction_Stacked: FontFraction = 1
-FontFraction_Slashed: FontFraction = 2
-FontNumeralAlignment = Int32
-FontNumeralAlignment_Normal: FontNumeralAlignment = 0
-FontNumeralAlignment_Proportional: FontNumeralAlignment = 1
-FontNumeralAlignment_Tabular: FontNumeralAlignment = 2
-FontNumeralStyle = Int32
-FontNumeralStyle_Normal: FontNumeralStyle = 0
-FontNumeralStyle_Lining: FontNumeralStyle = 1
-FontNumeralStyle_OldStyle: FontNumeralStyle = 2
-FontVariants = Int32
-FontVariants_Normal: FontVariants = 0
-FontVariants_Superscript: FontVariants = 1
-FontVariants_Subscript: FontVariants = 2
-FontVariants_Ordinal: FontVariants = 3
-FontVariants_Inferior: FontVariants = 4
-FontVariants_Ruby: FontVariants = 5
+class FlowDirection(Int32):  # enum
+    LeftToRight = 0
+    RightToLeft = 1
+class FocusState(Int32):  # enum
+    Unfocused = 0
+    Pointer = 1
+    Keyboard = 2
+    Programmatic = 3
+class FocusVisualKind(Int32):  # enum
+    DottedLine = 0
+    HighVisibility = 1
+    Reveal = 2
+class FontCapitals(Int32):  # enum
+    Normal = 0
+    AllSmallCaps = 1
+    SmallCaps = 2
+    AllPetiteCaps = 3
+    PetiteCaps = 4
+    Unicase = 5
+    Titling = 6
+class FontEastAsianLanguage(Int32):  # enum
+    Normal = 0
+    HojoKanji = 1
+    Jis04 = 2
+    Jis78 = 3
+    Jis83 = 4
+    Jis90 = 5
+    NlcKanji = 6
+    Simplified = 7
+    Traditional = 8
+    TraditionalNames = 9
+class FontEastAsianWidths(Int32):  # enum
+    Normal = 0
+    Full = 1
+    Half = 2
+    Proportional = 3
+    Quarter = 4
+    Third = 5
+class FontFraction(Int32):  # enum
+    Normal = 0
+    Stacked = 1
+    Slashed = 2
+class FontNumeralAlignment(Int32):  # enum
+    Normal = 0
+    Proportional = 1
+    Tabular = 2
+class FontNumeralStyle(Int32):  # enum
+    Normal = 0
+    Lining = 1
+    OldStyle = 2
+class FontVariants(Int32):  # enum
+    Normal = 0
+    Superscript = 1
+    Subscript = 2
+    Ordinal = 3
+    Inferior = 4
+    Ruby = 5
 class _FrameworkElement_Meta_(ComPtr.__class__):
     pass
 class FrameworkElement(ComPtr, metaclass=_FrameworkElement_Meta_):
@@ -1446,15 +1446,15 @@ class GridLengthHelper(ComPtr, metaclass=_GridLengthHelper_Meta_):
     @winrt_classmethod
     def Equals(cls: win32more.Windows.UI.Xaml.IGridLengthHelperStatics, target: win32more.Windows.UI.Xaml.GridLength, value: win32more.Windows.UI.Xaml.GridLength) -> Boolean: ...
     _GridLengthHelper_Meta_.Auto = property(get_Auto.__wrapped__, None)
-GridUnitType = Int32
-GridUnitType_Auto: GridUnitType = 0
-GridUnitType_Pixel: GridUnitType = 1
-GridUnitType_Star: GridUnitType = 2
-HorizontalAlignment = Int32
-HorizontalAlignment_Left: HorizontalAlignment = 0
-HorizontalAlignment_Center: HorizontalAlignment = 1
-HorizontalAlignment_Right: HorizontalAlignment = 2
-HorizontalAlignment_Stretch: HorizontalAlignment = 3
+class GridUnitType(Int32):  # enum
+    Auto = 0
+    Pixel = 1
+    Star = 2
+class HorizontalAlignment(Int32):  # enum
+    Left = 0
+    Center = 1
+    Right = 2
+    Stretch = 3
 class IAdaptiveTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.IAdaptiveTrigger'
@@ -4130,10 +4130,10 @@ class LeavingBackgroundEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{aaad5dad-4fc6-4aa4-b7cf-877e36ada4f6}')
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.ApplicationModel.LeavingBackgroundEventArgs) -> Void: ...
-LineStackingStrategy = Int32
-LineStackingStrategy_MaxHeight: LineStackingStrategy = 0
-LineStackingStrategy_BlockLineHeight: LineStackingStrategy = 1
-LineStackingStrategy_BaselineToBaseline: LineStackingStrategy = 2
+class LineStackingStrategy(Int32):  # enum
+    MaxHeight = 0
+    BlockLineHeight = 1
+    BaselineToBaseline = 2
 class MediaFailedRoutedEventArgs(ComPtr):
     extends: win32more.Windows.UI.Xaml.ExceptionRoutedEventArgs
     default_interface: win32more.Windows.UI.Xaml.IMediaFailedRoutedEventArgs
@@ -4141,9 +4141,9 @@ class MediaFailedRoutedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_ErrorTrace(self: win32more.Windows.UI.Xaml.IMediaFailedRoutedEventArgs) -> WinRT_String: ...
     ErrorTrace = property(get_ErrorTrace, None)
-OpticalMarginAlignment = Int32
-OpticalMarginAlignment_None: OpticalMarginAlignment = 0
-OpticalMarginAlignment_TrimSideBearings: OpticalMarginAlignment = 1
+class OpticalMarginAlignment(Int32):  # enum
+    None_ = 0
+    TrimSideBearings = 1
 class PointHelper(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.IPointHelper
@@ -4540,32 +4540,32 @@ class TargetPropertyPath(ComPtr):
     def put_Target(self: win32more.Windows.UI.Xaml.ITargetPropertyPath, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
     Path = property(get_Path, put_Path)
     Target = property(get_Target, put_Target)
-TextAlignment = Int32
-TextAlignment_Center: TextAlignment = 0
-TextAlignment_Left: TextAlignment = 1
-TextAlignment_Start: TextAlignment = 1
-TextAlignment_Right: TextAlignment = 2
-TextAlignment_End: TextAlignment = 2
-TextAlignment_Justify: TextAlignment = 3
-TextAlignment_DetectFromContent: TextAlignment = 4
-TextLineBounds = Int32
-TextLineBounds_Full: TextLineBounds = 0
-TextLineBounds_TrimToCapHeight: TextLineBounds = 1
-TextLineBounds_TrimToBaseline: TextLineBounds = 2
-TextLineBounds_Tight: TextLineBounds = 3
-TextReadingOrder = Int32
-TextReadingOrder_Default: TextReadingOrder = 0
-TextReadingOrder_UseFlowDirection: TextReadingOrder = 0
-TextReadingOrder_DetectFromContent: TextReadingOrder = 1
-TextTrimming = Int32
-TextTrimming_None: TextTrimming = 0
-TextTrimming_CharacterEllipsis: TextTrimming = 1
-TextTrimming_WordEllipsis: TextTrimming = 2
-TextTrimming_Clip: TextTrimming = 3
-TextWrapping = Int32
-TextWrapping_NoWrap: TextWrapping = 1
-TextWrapping_Wrap: TextWrapping = 2
-TextWrapping_WrapWholeWords: TextWrapping = 3
+class TextAlignment(Int32):  # enum
+    Center = 0
+    Left = 1
+    Start = 1
+    Right = 2
+    End = 2
+    Justify = 3
+    DetectFromContent = 4
+class TextLineBounds(Int32):  # enum
+    Full = 0
+    TrimToCapHeight = 1
+    TrimToBaseline = 2
+    Tight = 3
+class TextReadingOrder(Int32):  # enum
+    Default = 0
+    UseFlowDirection = 0
+    DetectFromContent = 1
+class TextTrimming(Int32):  # enum
+    None_ = 0
+    CharacterEllipsis = 1
+    WordEllipsis = 2
+    Clip = 3
+class TextWrapping(Int32):  # enum
+    NoWrap = 1
+    Wrap = 2
+    WrapWholeWords = 3
 class Thickness(EasyCastStructure):
     Left: Double
     Top: Double
@@ -5454,18 +5454,18 @@ class Vector3Transition(ComPtr):
     def put_Components(self: win32more.Windows.UI.Xaml.IVector3Transition, value: win32more.Windows.UI.Xaml.Vector3TransitionComponents) -> Void: ...
     Duration = property(get_Duration, put_Duration)
     Components = property(get_Components, put_Components)
-Vector3TransitionComponents = UInt32
-X: Vector3TransitionComponents = 1
-Y: Vector3TransitionComponents = 2
-Z: Vector3TransitionComponents = 4
-VerticalAlignment = Int32
-VerticalAlignment_Top: VerticalAlignment = 0
-VerticalAlignment_Center: VerticalAlignment = 1
-VerticalAlignment_Bottom: VerticalAlignment = 2
-VerticalAlignment_Stretch: VerticalAlignment = 3
-Visibility = Int32
-Visibility_Visible: Visibility = 0
-Visibility_Collapsed: Visibility = 1
+class Vector3TransitionComponents(UInt32):  # enum
+    X = 1
+    Y = 2
+    Z = 4
+class VerticalAlignment(Int32):  # enum
+    Top = 0
+    Center = 1
+    Bottom = 2
+    Stretch = 3
+class Visibility(Int32):  # enum
+    Visible = 0
+    Collapsed = 1
 class VisualState(ComPtr):
     extends: win32more.Windows.UI.Xaml.DependencyObject
     default_interface: win32more.Windows.UI.Xaml.IVisualState

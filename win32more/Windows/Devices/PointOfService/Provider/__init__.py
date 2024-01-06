@@ -298,9 +298,9 @@ class BarcodeScannerStopSoftwareTriggerRequestEventArgs(ComPtr):
     @winrt_mixinmethod
     def GetDeferral(self: win32more.Windows.Devices.PointOfService.Provider.IBarcodeScannerStopSoftwareTriggerRequestEventArgs) -> win32more.Windows.Foundation.Deferral: ...
     Request = property(get_Request, None)
-BarcodeScannerTriggerState = Int32
-BarcodeScannerTriggerState_Released: BarcodeScannerTriggerState = 0
-BarcodeScannerTriggerState_Pressed: BarcodeScannerTriggerState = 1
+class BarcodeScannerTriggerState(Int32):  # enum
+    Released = 0
+    Pressed = 1
 class BarcodeScannerVideoFrame(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.PointOfService.Provider.IBarcodeScannerVideoFrame

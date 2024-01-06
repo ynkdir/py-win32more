@@ -37,14 +37,14 @@ class CrossSlidingEventArgs(ComPtr):
     Position = property(get_Position, None)
     CrossSlidingState = property(get_CrossSlidingState, None)
     ContactCount = property(get_ContactCount, None)
-CrossSlidingState = Int32
-CrossSlidingState_Started: CrossSlidingState = 0
-CrossSlidingState_Dragging: CrossSlidingState = 1
-CrossSlidingState_Selecting: CrossSlidingState = 2
-CrossSlidingState_SelectSpeedBumping: CrossSlidingState = 3
-CrossSlidingState_SpeedBumping: CrossSlidingState = 4
-CrossSlidingState_Rearranging: CrossSlidingState = 5
-CrossSlidingState_Completed: CrossSlidingState = 6
+class CrossSlidingState(Int32):  # enum
+    Started = 0
+    Dragging = 1
+    Selecting = 2
+    SelectSpeedBumping = 3
+    SpeedBumping = 4
+    Rearranging = 5
+    Completed = 6
 class DraggingEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Input.IDraggingEventArgs
@@ -61,10 +61,10 @@ class DraggingEventArgs(ComPtr):
     Position = property(get_Position, None)
     DraggingState = property(get_DraggingState, None)
     ContactCount = property(get_ContactCount, None)
-DraggingState = Int32
-DraggingState_Started: DraggingState = 0
-DraggingState_Continuing: DraggingState = 1
-DraggingState_Completed: DraggingState = 2
+class DraggingState(Int32):  # enum
+    Started = 0
+    Continuing = 1
+    Completed = 2
 class EdgeGesture(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Input.IEdgeGesture
@@ -90,15 +90,15 @@ class EdgeGestureEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Kind(self: win32more.Windows.UI.Input.IEdgeGestureEventArgs) -> win32more.Windows.UI.Input.EdgeGestureKind: ...
     Kind = property(get_Kind, None)
-EdgeGestureKind = Int32
-EdgeGestureKind_Touch: EdgeGestureKind = 0
-EdgeGestureKind_Keyboard: EdgeGestureKind = 1
-EdgeGestureKind_Mouse: EdgeGestureKind = 2
-GazeInputAccessStatus = Int32
-GazeInputAccessStatus_Unspecified: GazeInputAccessStatus = 0
-GazeInputAccessStatus_Allowed: GazeInputAccessStatus = 1
-GazeInputAccessStatus_DeniedByUser: GazeInputAccessStatus = 2
-GazeInputAccessStatus_DeniedBySystem: GazeInputAccessStatus = 3
+class EdgeGestureKind(Int32):  # enum
+    Touch = 0
+    Keyboard = 1
+    Mouse = 2
+class GazeInputAccessStatus(Int32):  # enum
+    Unspecified = 0
+    Allowed = 1
+    DeniedByUser = 2
+    DeniedBySystem = 3
 class GestureRecognizer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Input.IGestureRecognizer
@@ -286,25 +286,25 @@ class GestureRecognizer(ComPtr):
     HoldStartDelay = property(get_HoldStartDelay, put_HoldStartDelay)
     TranslationMinContactCount = property(get_TranslationMinContactCount, put_TranslationMinContactCount)
     TranslationMaxContactCount = property(get_TranslationMaxContactCount, put_TranslationMaxContactCount)
-GestureSettings = UInt32
-GestureSettings_None: GestureSettings = 0
-GestureSettings_Tap: GestureSettings = 1
-GestureSettings_DoubleTap: GestureSettings = 2
-GestureSettings_Hold: GestureSettings = 4
-GestureSettings_HoldWithMouse: GestureSettings = 8
-GestureSettings_RightTap: GestureSettings = 16
-GestureSettings_Drag: GestureSettings = 32
-GestureSettings_ManipulationTranslateX: GestureSettings = 64
-GestureSettings_ManipulationTranslateY: GestureSettings = 128
-GestureSettings_ManipulationTranslateRailsX: GestureSettings = 256
-GestureSettings_ManipulationTranslateRailsY: GestureSettings = 512
-GestureSettings_ManipulationRotate: GestureSettings = 1024
-GestureSettings_ManipulationScale: GestureSettings = 2048
-GestureSettings_ManipulationTranslateInertia: GestureSettings = 4096
-GestureSettings_ManipulationRotateInertia: GestureSettings = 8192
-GestureSettings_ManipulationScaleInertia: GestureSettings = 16384
-GestureSettings_CrossSlide: GestureSettings = 32768
-GestureSettings_ManipulationMultipleFingerPanning: GestureSettings = 65536
+class GestureSettings(UInt32):  # enum
+    None_ = 0
+    Tap = 1
+    DoubleTap = 2
+    Hold = 4
+    HoldWithMouse = 8
+    RightTap = 16
+    Drag = 32
+    ManipulationTranslateX = 64
+    ManipulationTranslateY = 128
+    ManipulationTranslateRailsX = 256
+    ManipulationTranslateRailsY = 512
+    ManipulationRotate = 1024
+    ManipulationScale = 2048
+    ManipulationTranslateInertia = 4096
+    ManipulationRotateInertia = 8192
+    ManipulationScaleInertia = 16384
+    CrossSlide = 32768
+    ManipulationMultipleFingerPanning = 65536
 class HoldingEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Input.IHoldingEventArgs
@@ -324,10 +324,10 @@ class HoldingEventArgs(ComPtr):
     HoldingState = property(get_HoldingState, None)
     ContactCount = property(get_ContactCount, None)
     CurrentContactCount = property(get_CurrentContactCount, None)
-HoldingState = Int32
-HoldingState_Started: HoldingState = 0
-HoldingState_Completed: HoldingState = 1
-HoldingState_Canceled: HoldingState = 2
+class HoldingState(Int32):  # enum
+    Started = 0
+    Completed = 1
+    Canceled = 2
 class IAttachableInputObject(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Input.IAttachableInputObject'
@@ -1349,11 +1349,11 @@ class InputActivationListenerActivationChangedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_State(self: win32more.Windows.UI.Input.IInputActivationListenerActivationChangedEventArgs) -> win32more.Windows.UI.Input.InputActivationState: ...
     State = property(get_State, None)
-InputActivationState = Int32
-InputActivationState_None: InputActivationState = 0
-InputActivationState_Deactivated: InputActivationState = 1
-InputActivationState_ActivatedNotForeground: InputActivationState = 2
-InputActivationState_ActivatedInForeground: InputActivationState = 3
+class InputActivationState(Int32):  # enum
+    None_ = 0
+    Deactivated = 1
+    ActivatedNotForeground = 2
+    ActivatedInForeground = 3
 class KeyboardDeliveryInterceptor(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Input.IKeyboardDeliveryInterceptor
@@ -1604,18 +1604,18 @@ class PointerPointProperties(ComPtr):
     IsXButton2Pressed = property(get_IsXButton2Pressed, None)
     PointerUpdateKind = property(get_PointerUpdateKind, None)
     ZDistance = property(get_ZDistance, None)
-PointerUpdateKind = Int32
-PointerUpdateKind_Other: PointerUpdateKind = 0
-PointerUpdateKind_LeftButtonPressed: PointerUpdateKind = 1
-PointerUpdateKind_LeftButtonReleased: PointerUpdateKind = 2
-PointerUpdateKind_RightButtonPressed: PointerUpdateKind = 3
-PointerUpdateKind_RightButtonReleased: PointerUpdateKind = 4
-PointerUpdateKind_MiddleButtonPressed: PointerUpdateKind = 5
-PointerUpdateKind_MiddleButtonReleased: PointerUpdateKind = 6
-PointerUpdateKind_XButton1Pressed: PointerUpdateKind = 7
-PointerUpdateKind_XButton1Released: PointerUpdateKind = 8
-PointerUpdateKind_XButton2Pressed: PointerUpdateKind = 9
-PointerUpdateKind_XButton2Released: PointerUpdateKind = 10
+class PointerUpdateKind(Int32):  # enum
+    Other = 0
+    LeftButtonPressed = 1
+    LeftButtonReleased = 2
+    RightButtonPressed = 3
+    RightButtonReleased = 4
+    MiddleButtonPressed = 5
+    MiddleButtonReleased = 6
+    XButton1Pressed = 7
+    XButton1Released = 8
+    XButton2Pressed = 9
+    XButton2Released = 10
 class PointerVisualizationSettings(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Input.IPointerVisualizationSettings
@@ -1822,16 +1822,16 @@ class RadialControllerMenuItem(ComPtr):
     def CreateFromKnownIcon(cls: win32more.Windows.UI.Input.IRadialControllerMenuItemStatics, displayText: WinRT_String, value: win32more.Windows.UI.Input.RadialControllerMenuKnownIcon) -> win32more.Windows.UI.Input.RadialControllerMenuItem: ...
     DisplayText = property(get_DisplayText, None)
     Tag = property(get_Tag, put_Tag)
-RadialControllerMenuKnownIcon = Int32
-RadialControllerMenuKnownIcon_Scroll: RadialControllerMenuKnownIcon = 0
-RadialControllerMenuKnownIcon_Zoom: RadialControllerMenuKnownIcon = 1
-RadialControllerMenuKnownIcon_UndoRedo: RadialControllerMenuKnownIcon = 2
-RadialControllerMenuKnownIcon_Volume: RadialControllerMenuKnownIcon = 3
-RadialControllerMenuKnownIcon_NextPreviousTrack: RadialControllerMenuKnownIcon = 4
-RadialControllerMenuKnownIcon_Ruler: RadialControllerMenuKnownIcon = 5
-RadialControllerMenuKnownIcon_InkColor: RadialControllerMenuKnownIcon = 6
-RadialControllerMenuKnownIcon_InkThickness: RadialControllerMenuKnownIcon = 7
-RadialControllerMenuKnownIcon_PenType: RadialControllerMenuKnownIcon = 8
+class RadialControllerMenuKnownIcon(Int32):  # enum
+    Scroll = 0
+    Zoom = 1
+    UndoRedo = 2
+    Volume = 3
+    NextPreviousTrack = 4
+    Ruler = 5
+    InkColor = 6
+    InkThickness = 7
+    PenType = 8
 class RadialControllerRotationChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Input.IRadialControllerRotationChangedEventArgs
@@ -1894,12 +1894,12 @@ class RadialControllerScreenContactStartedEventArgs(ComPtr):
     Contact = property(get_Contact, None)
     IsButtonPressed = property(get_IsButtonPressed, None)
     SimpleHapticsController = property(get_SimpleHapticsController, None)
-RadialControllerSystemMenuItemKind = Int32
-RadialControllerSystemMenuItemKind_Scroll: RadialControllerSystemMenuItemKind = 0
-RadialControllerSystemMenuItemKind_Zoom: RadialControllerSystemMenuItemKind = 1
-RadialControllerSystemMenuItemKind_UndoRedo: RadialControllerSystemMenuItemKind = 2
-RadialControllerSystemMenuItemKind_Volume: RadialControllerSystemMenuItemKind = 3
-RadialControllerSystemMenuItemKind_NextPreviousTrack: RadialControllerSystemMenuItemKind = 4
+class RadialControllerSystemMenuItemKind(Int32):  # enum
+    Scroll = 0
+    Zoom = 1
+    UndoRedo = 2
+    Volume = 3
+    NextPreviousTrack = 4
 class RightTappedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Input.IRightTappedEventArgs

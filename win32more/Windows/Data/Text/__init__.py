@@ -7,12 +7,12 @@ import win32more.Windows.Foundation.Collections
 import win32more.Windows.UI.Text.Core
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.WinRT
-AlternateNormalizationFormat = Int32
-AlternateNormalizationFormat_NotNormalized: AlternateNormalizationFormat = 0
-AlternateNormalizationFormat_Number: AlternateNormalizationFormat = 1
-AlternateNormalizationFormat_Currency: AlternateNormalizationFormat = 3
-AlternateNormalizationFormat_Date: AlternateNormalizationFormat = 4
-AlternateNormalizationFormat_Time: AlternateNormalizationFormat = 5
+class AlternateNormalizationFormat(Int32):  # enum
+    NotNormalized = 0
+    Number = 1
+    Currency = 3
+    Date = 4
+    Time = 5
 class AlternateWordForm(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Data.Text.IAlternateWordForm
@@ -363,10 +363,10 @@ class TextPredictionGenerator(ComPtr):
     ResolvedLanguage = property(get_ResolvedLanguage, None)
     LanguageAvailableButNotInstalled = property(get_LanguageAvailableButNotInstalled, None)
     InputScope = property(get_InputScope, put_InputScope)
-TextPredictionOptions = UInt32
-TextPredictionOptions_None: TextPredictionOptions = 0
-TextPredictionOptions_Predictions: TextPredictionOptions = 1
-TextPredictionOptions_Corrections: TextPredictionOptions = 2
+class TextPredictionOptions(UInt32):  # enum
+    None_ = 0
+    Predictions = 1
+    Corrections = 2
 class TextReverseConversionGenerator(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Data.Text.ITextReverseConversionGenerator
@@ -430,42 +430,42 @@ class UnicodeCharacters(ComPtr):
     def GetNumericType(cls: win32more.Windows.Data.Text.IUnicodeCharactersStatics, codepoint: UInt32) -> win32more.Windows.Data.Text.UnicodeNumericType: ...
     @winrt_classmethod
     def GetGeneralCategory(cls: win32more.Windows.Data.Text.IUnicodeCharactersStatics, codepoint: UInt32) -> win32more.Windows.Data.Text.UnicodeGeneralCategory: ...
-UnicodeGeneralCategory = Int32
-UnicodeGeneralCategory_UppercaseLetter: UnicodeGeneralCategory = 0
-UnicodeGeneralCategory_LowercaseLetter: UnicodeGeneralCategory = 1
-UnicodeGeneralCategory_TitlecaseLetter: UnicodeGeneralCategory = 2
-UnicodeGeneralCategory_ModifierLetter: UnicodeGeneralCategory = 3
-UnicodeGeneralCategory_OtherLetter: UnicodeGeneralCategory = 4
-UnicodeGeneralCategory_NonspacingMark: UnicodeGeneralCategory = 5
-UnicodeGeneralCategory_SpacingCombiningMark: UnicodeGeneralCategory = 6
-UnicodeGeneralCategory_EnclosingMark: UnicodeGeneralCategory = 7
-UnicodeGeneralCategory_DecimalDigitNumber: UnicodeGeneralCategory = 8
-UnicodeGeneralCategory_LetterNumber: UnicodeGeneralCategory = 9
-UnicodeGeneralCategory_OtherNumber: UnicodeGeneralCategory = 10
-UnicodeGeneralCategory_SpaceSeparator: UnicodeGeneralCategory = 11
-UnicodeGeneralCategory_LineSeparator: UnicodeGeneralCategory = 12
-UnicodeGeneralCategory_ParagraphSeparator: UnicodeGeneralCategory = 13
-UnicodeGeneralCategory_Control: UnicodeGeneralCategory = 14
-UnicodeGeneralCategory_Format: UnicodeGeneralCategory = 15
-UnicodeGeneralCategory_Surrogate: UnicodeGeneralCategory = 16
-UnicodeGeneralCategory_PrivateUse: UnicodeGeneralCategory = 17
-UnicodeGeneralCategory_ConnectorPunctuation: UnicodeGeneralCategory = 18
-UnicodeGeneralCategory_DashPunctuation: UnicodeGeneralCategory = 19
-UnicodeGeneralCategory_OpenPunctuation: UnicodeGeneralCategory = 20
-UnicodeGeneralCategory_ClosePunctuation: UnicodeGeneralCategory = 21
-UnicodeGeneralCategory_InitialQuotePunctuation: UnicodeGeneralCategory = 22
-UnicodeGeneralCategory_FinalQuotePunctuation: UnicodeGeneralCategory = 23
-UnicodeGeneralCategory_OtherPunctuation: UnicodeGeneralCategory = 24
-UnicodeGeneralCategory_MathSymbol: UnicodeGeneralCategory = 25
-UnicodeGeneralCategory_CurrencySymbol: UnicodeGeneralCategory = 26
-UnicodeGeneralCategory_ModifierSymbol: UnicodeGeneralCategory = 27
-UnicodeGeneralCategory_OtherSymbol: UnicodeGeneralCategory = 28
-UnicodeGeneralCategory_NotAssigned: UnicodeGeneralCategory = 29
-UnicodeNumericType = Int32
-UnicodeNumericType_None: UnicodeNumericType = 0
-UnicodeNumericType_Decimal: UnicodeNumericType = 1
-UnicodeNumericType_Digit: UnicodeNumericType = 2
-UnicodeNumericType_Numeric: UnicodeNumericType = 3
+class UnicodeGeneralCategory(Int32):  # enum
+    UppercaseLetter = 0
+    LowercaseLetter = 1
+    TitlecaseLetter = 2
+    ModifierLetter = 3
+    OtherLetter = 4
+    NonspacingMark = 5
+    SpacingCombiningMark = 6
+    EnclosingMark = 7
+    DecimalDigitNumber = 8
+    LetterNumber = 9
+    OtherNumber = 10
+    SpaceSeparator = 11
+    LineSeparator = 12
+    ParagraphSeparator = 13
+    Control = 14
+    Format = 15
+    Surrogate = 16
+    PrivateUse = 17
+    ConnectorPunctuation = 18
+    DashPunctuation = 19
+    OpenPunctuation = 20
+    ClosePunctuation = 21
+    InitialQuotePunctuation = 22
+    FinalQuotePunctuation = 23
+    OtherPunctuation = 24
+    MathSymbol = 25
+    CurrencySymbol = 26
+    ModifierSymbol = 27
+    OtherSymbol = 28
+    NotAssigned = 29
+class UnicodeNumericType(Int32):  # enum
+    None_ = 0
+    Decimal = 1
+    Digit = 2
+    Numeric = 3
 class WordSegment(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Data.Text.IWordSegment

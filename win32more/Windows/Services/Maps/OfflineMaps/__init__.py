@@ -93,11 +93,11 @@ class OfflineMapPackageQueryResult(ComPtr):
     def get_Packages(self: win32more.Windows.Services.Maps.OfflineMaps.IOfflineMapPackageQueryResult) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Services.Maps.OfflineMaps.OfflineMapPackage]: ...
     Status = property(get_Status, None)
     Packages = property(get_Packages, None)
-OfflineMapPackageQueryStatus = Int32
-OfflineMapPackageQueryStatus_Success: OfflineMapPackageQueryStatus = 0
-OfflineMapPackageQueryStatus_UnknownError: OfflineMapPackageQueryStatus = 1
-OfflineMapPackageQueryStatus_InvalidCredentials: OfflineMapPackageQueryStatus = 2
-OfflineMapPackageQueryStatus_NetworkFailure: OfflineMapPackageQueryStatus = 3
+class OfflineMapPackageQueryStatus(Int32):  # enum
+    Success = 0
+    UnknownError = 1
+    InvalidCredentials = 2
+    NetworkFailure = 3
 class OfflineMapPackageStartDownloadResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Services.Maps.OfflineMaps.IOfflineMapPackageStartDownloadResult
@@ -105,16 +105,16 @@ class OfflineMapPackageStartDownloadResult(ComPtr):
     @winrt_mixinmethod
     def get_Status(self: win32more.Windows.Services.Maps.OfflineMaps.IOfflineMapPackageStartDownloadResult) -> win32more.Windows.Services.Maps.OfflineMaps.OfflineMapPackageStartDownloadStatus: ...
     Status = property(get_Status, None)
-OfflineMapPackageStartDownloadStatus = Int32
-OfflineMapPackageStartDownloadStatus_Success: OfflineMapPackageStartDownloadStatus = 0
-OfflineMapPackageStartDownloadStatus_UnknownError: OfflineMapPackageStartDownloadStatus = 1
-OfflineMapPackageStartDownloadStatus_InvalidCredentials: OfflineMapPackageStartDownloadStatus = 2
-OfflineMapPackageStartDownloadStatus_DeniedWithoutCapability: OfflineMapPackageStartDownloadStatus = 3
-OfflineMapPackageStatus = Int32
-OfflineMapPackageStatus_NotDownloaded: OfflineMapPackageStatus = 0
-OfflineMapPackageStatus_Downloading: OfflineMapPackageStatus = 1
-OfflineMapPackageStatus_Downloaded: OfflineMapPackageStatus = 2
-OfflineMapPackageStatus_Deleting: OfflineMapPackageStatus = 3
+class OfflineMapPackageStartDownloadStatus(Int32):  # enum
+    Success = 0
+    UnknownError = 1
+    InvalidCredentials = 2
+    DeniedWithoutCapability = 3
+class OfflineMapPackageStatus(Int32):  # enum
+    NotDownloaded = 0
+    Downloading = 1
+    Downloaded = 2
+    Deleting = 3
 
 
 make_ready(__name__)

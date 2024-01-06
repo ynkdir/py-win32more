@@ -154,14 +154,14 @@ class AdaptiveMediaSourceCreationResult(ComPtr):
     MediaSource = property(get_MediaSource, None)
     HttpResponseMessage = property(get_HttpResponseMessage, None)
     ExtendedError = property(get_ExtendedError, None)
-AdaptiveMediaSourceCreationStatus = Int32
-AdaptiveMediaSourceCreationStatus_Success: AdaptiveMediaSourceCreationStatus = 0
-AdaptiveMediaSourceCreationStatus_ManifestDownloadFailure: AdaptiveMediaSourceCreationStatus = 1
-AdaptiveMediaSourceCreationStatus_ManifestParseFailure: AdaptiveMediaSourceCreationStatus = 2
-AdaptiveMediaSourceCreationStatus_UnsupportedManifestContentType: AdaptiveMediaSourceCreationStatus = 3
-AdaptiveMediaSourceCreationStatus_UnsupportedManifestVersion: AdaptiveMediaSourceCreationStatus = 4
-AdaptiveMediaSourceCreationStatus_UnsupportedManifestProfile: AdaptiveMediaSourceCreationStatus = 5
-AdaptiveMediaSourceCreationStatus_UnknownFailure: AdaptiveMediaSourceCreationStatus = 6
+class AdaptiveMediaSourceCreationStatus(Int32):  # enum
+    Success = 0
+    ManifestDownloadFailure = 1
+    ManifestParseFailure = 2
+    UnsupportedManifestContentType = 3
+    UnsupportedManifestVersion = 4
+    UnsupportedManifestProfile = 5
+    UnknownFailure = 6
 class AdaptiveMediaSourceDiagnosticAvailableEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Streaming.Adaptive.IAdaptiveMediaSourceDiagnosticAvailableEventArgs
@@ -202,16 +202,16 @@ class AdaptiveMediaSourceDiagnosticAvailableEventArgs(ComPtr):
     ExtendedError = property(get_ExtendedError, None)
     ResourceDuration = property(get_ResourceDuration, None)
     ResourceContentType = property(get_ResourceContentType, None)
-AdaptiveMediaSourceDiagnosticType = Int32
-AdaptiveMediaSourceDiagnosticType_ManifestUnchangedUponReload: AdaptiveMediaSourceDiagnosticType = 0
-AdaptiveMediaSourceDiagnosticType_ManifestMismatchUponReload: AdaptiveMediaSourceDiagnosticType = 1
-AdaptiveMediaSourceDiagnosticType_ManifestSignaledEndOfLiveEventUponReload: AdaptiveMediaSourceDiagnosticType = 2
-AdaptiveMediaSourceDiagnosticType_MediaSegmentSkipped: AdaptiveMediaSourceDiagnosticType = 3
-AdaptiveMediaSourceDiagnosticType_ResourceNotFound: AdaptiveMediaSourceDiagnosticType = 4
-AdaptiveMediaSourceDiagnosticType_ResourceTimedOut: AdaptiveMediaSourceDiagnosticType = 5
-AdaptiveMediaSourceDiagnosticType_ResourceParsingError: AdaptiveMediaSourceDiagnosticType = 6
-AdaptiveMediaSourceDiagnosticType_BitrateDisabled: AdaptiveMediaSourceDiagnosticType = 7
-AdaptiveMediaSourceDiagnosticType_FatalMediaSourceError: AdaptiveMediaSourceDiagnosticType = 8
+class AdaptiveMediaSourceDiagnosticType(Int32):  # enum
+    ManifestUnchangedUponReload = 0
+    ManifestMismatchUponReload = 1
+    ManifestSignaledEndOfLiveEventUponReload = 2
+    MediaSegmentSkipped = 3
+    ResourceNotFound = 4
+    ResourceTimedOut = 5
+    ResourceParsingError = 6
+    BitrateDisabled = 7
+    FatalMediaSourceError = 8
 class AdaptiveMediaSourceDiagnostics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Streaming.Adaptive.IAdaptiveMediaSourceDiagnostics
@@ -233,14 +233,14 @@ class AdaptiveMediaSourceDownloadBitrateChangedEventArgs(ComPtr):
     OldValue = property(get_OldValue, None)
     NewValue = property(get_NewValue, None)
     Reason = property(get_Reason, None)
-AdaptiveMediaSourceDownloadBitrateChangedReason = Int32
-AdaptiveMediaSourceDownloadBitrateChangedReason_SufficientInboundBitsPerSecond: AdaptiveMediaSourceDownloadBitrateChangedReason = 0
-AdaptiveMediaSourceDownloadBitrateChangedReason_InsufficientInboundBitsPerSecond: AdaptiveMediaSourceDownloadBitrateChangedReason = 1
-AdaptiveMediaSourceDownloadBitrateChangedReason_LowBufferLevel: AdaptiveMediaSourceDownloadBitrateChangedReason = 2
-AdaptiveMediaSourceDownloadBitrateChangedReason_PositionChanged: AdaptiveMediaSourceDownloadBitrateChangedReason = 3
-AdaptiveMediaSourceDownloadBitrateChangedReason_TrackSelectionChanged: AdaptiveMediaSourceDownloadBitrateChangedReason = 4
-AdaptiveMediaSourceDownloadBitrateChangedReason_DesiredBitratesChanged: AdaptiveMediaSourceDownloadBitrateChangedReason = 5
-AdaptiveMediaSourceDownloadBitrateChangedReason_ErrorInPreviousBitrate: AdaptiveMediaSourceDownloadBitrateChangedReason = 6
+class AdaptiveMediaSourceDownloadBitrateChangedReason(Int32):  # enum
+    SufficientInboundBitsPerSecond = 0
+    InsufficientInboundBitsPerSecond = 1
+    LowBufferLevel = 2
+    PositionChanged = 3
+    TrackSelectionChanged = 4
+    DesiredBitratesChanged = 5
+    ErrorInPreviousBitrate = 6
 class AdaptiveMediaSourceDownloadCompletedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Streaming.Adaptive.IAdaptiveMediaSourceDownloadCompletedEventArgs
@@ -419,13 +419,13 @@ class AdaptiveMediaSourcePlaybackBitrateChangedEventArgs(ComPtr):
     OldValue = property(get_OldValue, None)
     NewValue = property(get_NewValue, None)
     AudioOnly = property(get_AudioOnly, None)
-AdaptiveMediaSourceResourceType = Int32
-AdaptiveMediaSourceResourceType_Manifest: AdaptiveMediaSourceResourceType = 0
-AdaptiveMediaSourceResourceType_InitializationSegment: AdaptiveMediaSourceResourceType = 1
-AdaptiveMediaSourceResourceType_MediaSegment: AdaptiveMediaSourceResourceType = 2
-AdaptiveMediaSourceResourceType_Key: AdaptiveMediaSourceResourceType = 3
-AdaptiveMediaSourceResourceType_InitializationVector: AdaptiveMediaSourceResourceType = 4
-AdaptiveMediaSourceResourceType_MediaSegmentIndex: AdaptiveMediaSourceResourceType = 5
+class AdaptiveMediaSourceResourceType(Int32):  # enum
+    Manifest = 0
+    InitializationSegment = 1
+    MediaSegment = 2
+    Key = 3
+    InitializationVector = 4
+    MediaSegmentIndex = 5
 class IAdaptiveMediaSource(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Streaming.Adaptive.IAdaptiveMediaSource'

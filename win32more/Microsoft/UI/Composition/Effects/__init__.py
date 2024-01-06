@@ -90,9 +90,9 @@ class SceneLightingEffect(ComPtr):
     AmbientAmount = property(get_AmbientAmount, put_AmbientAmount)
     DiffuseAmount = property(get_DiffuseAmount, put_DiffuseAmount)
     NormalMapSource = property(get_NormalMapSource, put_NormalMapSource)
-SceneLightingEffectReflectanceModel = Int32
-SceneLightingEffectReflectanceModel_BlinnPhong: SceneLightingEffectReflectanceModel = 0
-SceneLightingEffectReflectanceModel_PhysicallyBasedBlinnPhong: SceneLightingEffectReflectanceModel = 1
+class SceneLightingEffectReflectanceModel(Int32):  # enum
+    BlinnPhong = 0
+    PhysicallyBasedBlinnPhong = 1
 
 
 make_ready(__name__)

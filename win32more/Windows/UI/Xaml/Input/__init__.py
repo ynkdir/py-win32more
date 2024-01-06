@@ -193,13 +193,13 @@ class FindNextElementOptions(ComPtr):
     ExclusionRect = property(get_ExclusionRect, put_ExclusionRect)
     HintRect = property(get_HintRect, put_HintRect)
     XYFocusNavigationStrategyOverride = property(get_XYFocusNavigationStrategyOverride, put_XYFocusNavigationStrategyOverride)
-FocusInputDeviceKind = Int32
-FocusInputDeviceKind_None: FocusInputDeviceKind = 0
-FocusInputDeviceKind_Mouse: FocusInputDeviceKind = 1
-FocusInputDeviceKind_Touch: FocusInputDeviceKind = 2
-FocusInputDeviceKind_Pen: FocusInputDeviceKind = 3
-FocusInputDeviceKind_Keyboard: FocusInputDeviceKind = 4
-FocusInputDeviceKind_GameController: FocusInputDeviceKind = 5
+class FocusInputDeviceKind(Int32):  # enum
+    None_ = 0
+    Mouse = 1
+    Touch = 2
+    Pen = 3
+    Keyboard = 4
+    GameController = 5
 class FocusManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Input.IFocusManager
@@ -275,14 +275,14 @@ class FocusMovementResult(ComPtr):
     @winrt_mixinmethod
     def get_Succeeded(self: win32more.Windows.UI.Xaml.Input.IFocusMovementResult) -> Boolean: ...
     Succeeded = property(get_Succeeded, None)
-FocusNavigationDirection = Int32
-FocusNavigationDirection_Next: FocusNavigationDirection = 0
-FocusNavigationDirection_Previous: FocusNavigationDirection = 1
-FocusNavigationDirection_Up: FocusNavigationDirection = 2
-FocusNavigationDirection_Down: FocusNavigationDirection = 3
-FocusNavigationDirection_Left: FocusNavigationDirection = 4
-FocusNavigationDirection_Right: FocusNavigationDirection = 5
-FocusNavigationDirection_None: FocusNavigationDirection = 6
+class FocusNavigationDirection(Int32):  # enum
+    Next = 0
+    Previous = 1
+    Up = 2
+    Down = 3
+    Left = 4
+    Right = 5
+    None_ = 6
 class GettingFocusEventArgs(ComPtr):
     extends: win32more.Windows.UI.Xaml.RoutedEventArgs
     default_interface: win32more.Windows.UI.Xaml.Input.IGettingFocusEventArgs
@@ -1316,51 +1316,51 @@ class InputScopeName(ComPtr):
     @winrt_mixinmethod
     def put_NameValue(self: win32more.Windows.UI.Xaml.Input.IInputScopeName, value: win32more.Windows.UI.Xaml.Input.InputScopeNameValue) -> Void: ...
     NameValue = property(get_NameValue, put_NameValue)
-InputScopeNameValue = Int32
-InputScopeNameValue_Default: InputScopeNameValue = 0
-InputScopeNameValue_Url: InputScopeNameValue = 1
-InputScopeNameValue_EmailSmtpAddress: InputScopeNameValue = 5
-InputScopeNameValue_PersonalFullName: InputScopeNameValue = 7
-InputScopeNameValue_CurrencyAmountAndSymbol: InputScopeNameValue = 20
-InputScopeNameValue_CurrencyAmount: InputScopeNameValue = 21
-InputScopeNameValue_DateMonthNumber: InputScopeNameValue = 23
-InputScopeNameValue_DateDayNumber: InputScopeNameValue = 24
-InputScopeNameValue_DateYear: InputScopeNameValue = 25
-InputScopeNameValue_Digits: InputScopeNameValue = 28
-InputScopeNameValue_Number: InputScopeNameValue = 29
-InputScopeNameValue_Password: InputScopeNameValue = 31
-InputScopeNameValue_TelephoneNumber: InputScopeNameValue = 32
-InputScopeNameValue_TelephoneCountryCode: InputScopeNameValue = 33
-InputScopeNameValue_TelephoneAreaCode: InputScopeNameValue = 34
-InputScopeNameValue_TelephoneLocalNumber: InputScopeNameValue = 35
-InputScopeNameValue_TimeHour: InputScopeNameValue = 37
-InputScopeNameValue_TimeMinutesOrSeconds: InputScopeNameValue = 38
-InputScopeNameValue_NumberFullWidth: InputScopeNameValue = 39
-InputScopeNameValue_AlphanumericHalfWidth: InputScopeNameValue = 40
-InputScopeNameValue_AlphanumericFullWidth: InputScopeNameValue = 41
-InputScopeNameValue_Hiragana: InputScopeNameValue = 44
-InputScopeNameValue_KatakanaHalfWidth: InputScopeNameValue = 45
-InputScopeNameValue_KatakanaFullWidth: InputScopeNameValue = 46
-InputScopeNameValue_Hanja: InputScopeNameValue = 47
-InputScopeNameValue_HangulHalfWidth: InputScopeNameValue = 48
-InputScopeNameValue_HangulFullWidth: InputScopeNameValue = 49
-InputScopeNameValue_Search: InputScopeNameValue = 50
-InputScopeNameValue_Formula: InputScopeNameValue = 51
-InputScopeNameValue_SearchIncremental: InputScopeNameValue = 52
-InputScopeNameValue_ChineseHalfWidth: InputScopeNameValue = 53
-InputScopeNameValue_ChineseFullWidth: InputScopeNameValue = 54
-InputScopeNameValue_NativeScript: InputScopeNameValue = 55
-InputScopeNameValue_Text: InputScopeNameValue = 57
-InputScopeNameValue_Chat: InputScopeNameValue = 58
-InputScopeNameValue_NameOrPhoneNumber: InputScopeNameValue = 59
-InputScopeNameValue_EmailNameOrAddress: InputScopeNameValue = 60
-InputScopeNameValue_Private: InputScopeNameValue = 61
-InputScopeNameValue_Maps: InputScopeNameValue = 62
-InputScopeNameValue_NumericPassword: InputScopeNameValue = 63
-InputScopeNameValue_NumericPin: InputScopeNameValue = 64
-InputScopeNameValue_AlphanumericPin: InputScopeNameValue = 65
-InputScopeNameValue_FormulaNumber: InputScopeNameValue = 67
-InputScopeNameValue_ChatWithoutEmoji: InputScopeNameValue = 68
+class InputScopeNameValue(Int32):  # enum
+    Default = 0
+    Url = 1
+    EmailSmtpAddress = 5
+    PersonalFullName = 7
+    CurrencyAmountAndSymbol = 20
+    CurrencyAmount = 21
+    DateMonthNumber = 23
+    DateDayNumber = 24
+    DateYear = 25
+    Digits = 28
+    Number = 29
+    Password = 31
+    TelephoneNumber = 32
+    TelephoneCountryCode = 33
+    TelephoneAreaCode = 34
+    TelephoneLocalNumber = 35
+    TimeHour = 37
+    TimeMinutesOrSeconds = 38
+    NumberFullWidth = 39
+    AlphanumericHalfWidth = 40
+    AlphanumericFullWidth = 41
+    Hiragana = 44
+    KatakanaHalfWidth = 45
+    KatakanaFullWidth = 46
+    Hanja = 47
+    HangulHalfWidth = 48
+    HangulFullWidth = 49
+    Search = 50
+    Formula = 51
+    SearchIncremental = 52
+    ChineseHalfWidth = 53
+    ChineseFullWidth = 54
+    NativeScript = 55
+    Text = 57
+    Chat = 58
+    NameOrPhoneNumber = 59
+    EmailNameOrAddress = 60
+    Private = 61
+    Maps = 62
+    NumericPassword = 63
+    NumericPin = 64
+    AlphanumericPin = 65
+    FormulaNumber = 67
+    ChatWithoutEmoji = 68
 class KeyEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{7c63d2e5-7a0e-4e12-b96a-7715aa6ff1c8}')
@@ -1386,14 +1386,14 @@ class KeyRoutedEventArgs(ComPtr):
     Handled = property(get_Handled, put_Handled)
     OriginalKey = property(get_OriginalKey, None)
     DeviceId = property(get_DeviceId, None)
-KeyTipPlacementMode = Int32
-KeyTipPlacementMode_Auto: KeyTipPlacementMode = 0
-KeyTipPlacementMode_Bottom: KeyTipPlacementMode = 1
-KeyTipPlacementMode_Top: KeyTipPlacementMode = 2
-KeyTipPlacementMode_Left: KeyTipPlacementMode = 3
-KeyTipPlacementMode_Right: KeyTipPlacementMode = 4
-KeyTipPlacementMode_Center: KeyTipPlacementMode = 5
-KeyTipPlacementMode_Hidden: KeyTipPlacementMode = 6
+class KeyTipPlacementMode(Int32):  # enum
+    Auto = 0
+    Bottom = 1
+    Top = 2
+    Left = 3
+    Right = 4
+    Center = 5
+    Hidden = 6
 class _KeyboardAccelerator_Meta_(ComPtr.__class__):
     pass
 class KeyboardAccelerator(ComPtr, metaclass=_KeyboardAccelerator_Meta_):
@@ -1460,13 +1460,13 @@ class KeyboardAcceleratorInvokedEventArgs(ComPtr):
     Handled = property(get_Handled, put_Handled)
     Element = property(get_Element, None)
     KeyboardAccelerator = property(get_KeyboardAccelerator, None)
-KeyboardAcceleratorPlacementMode = Int32
-KeyboardAcceleratorPlacementMode_Auto: KeyboardAcceleratorPlacementMode = 0
-KeyboardAcceleratorPlacementMode_Hidden: KeyboardAcceleratorPlacementMode = 1
-KeyboardNavigationMode = Int32
-KeyboardNavigationMode_Local: KeyboardNavigationMode = 0
-KeyboardNavigationMode_Cycle: KeyboardNavigationMode = 1
-KeyboardNavigationMode_Once: KeyboardNavigationMode = 2
+class KeyboardAcceleratorPlacementMode(Int32):  # enum
+    Auto = 0
+    Hidden = 1
+class KeyboardNavigationMode(Int32):  # enum
+    Local = 0
+    Cycle = 1
+    Once = 2
 class LosingFocusEventArgs(ComPtr):
     extends: win32more.Windows.UI.Xaml.RoutedEventArgs
     default_interface: win32more.Windows.UI.Xaml.Input.ILosingFocusEventArgs
@@ -1642,19 +1642,19 @@ class ManipulationInertiaStartingRoutedEventArgs(ComPtr):
     Delta = property(get_Delta, None)
     Cumulative = property(get_Cumulative, None)
     Velocities = property(get_Velocities, None)
-ManipulationModes = UInt32
-ManipulationModes_None: ManipulationModes = 0
-ManipulationModes_TranslateX: ManipulationModes = 1
-ManipulationModes_TranslateY: ManipulationModes = 2
-ManipulationModes_TranslateRailsX: ManipulationModes = 4
-ManipulationModes_TranslateRailsY: ManipulationModes = 8
-ManipulationModes_Rotate: ManipulationModes = 16
-ManipulationModes_Scale: ManipulationModes = 32
-ManipulationModes_TranslateInertia: ManipulationModes = 64
-ManipulationModes_RotateInertia: ManipulationModes = 128
-ManipulationModes_ScaleInertia: ManipulationModes = 256
-ManipulationModes_All: ManipulationModes = 65535
-ManipulationModes_System: ManipulationModes = 65536
+class ManipulationModes(UInt32):  # enum
+    None_ = 0
+    TranslateX = 1
+    TranslateY = 2
+    TranslateRailsX = 4
+    TranslateRailsY = 8
+    Rotate = 16
+    Scale = 32
+    TranslateInertia = 64
+    RotateInertia = 128
+    ScaleInertia = 256
+    All = 65535
+    System = 65536
 class ManipulationPivot(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Input.IManipulationPivot
@@ -1881,24 +1881,24 @@ class StandardUICommand(ComPtr, metaclass=_StandardUICommand_Meta_):
     def get_KindProperty(cls: win32more.Windows.UI.Xaml.Input.IStandardUICommandStatics) -> win32more.Windows.UI.Xaml.DependencyProperty: ...
     Kind = property(get_Kind, put_Kind)
     _StandardUICommand_Meta_.KindProperty = property(get_KindProperty.__wrapped__, None)
-StandardUICommandKind = Int32
-StandardUICommandKind_None: StandardUICommandKind = 0
-StandardUICommandKind_Cut: StandardUICommandKind = 1
-StandardUICommandKind_Copy: StandardUICommandKind = 2
-StandardUICommandKind_Paste: StandardUICommandKind = 3
-StandardUICommandKind_SelectAll: StandardUICommandKind = 4
-StandardUICommandKind_Delete: StandardUICommandKind = 5
-StandardUICommandKind_Share: StandardUICommandKind = 6
-StandardUICommandKind_Save: StandardUICommandKind = 7
-StandardUICommandKind_Open: StandardUICommandKind = 8
-StandardUICommandKind_Close: StandardUICommandKind = 9
-StandardUICommandKind_Pause: StandardUICommandKind = 10
-StandardUICommandKind_Play: StandardUICommandKind = 11
-StandardUICommandKind_Stop: StandardUICommandKind = 12
-StandardUICommandKind_Forward: StandardUICommandKind = 13
-StandardUICommandKind_Backward: StandardUICommandKind = 14
-StandardUICommandKind_Undo: StandardUICommandKind = 15
-StandardUICommandKind_Redo: StandardUICommandKind = 16
+class StandardUICommandKind(Int32):  # enum
+    None_ = 0
+    Cut = 1
+    Copy = 2
+    Paste = 3
+    SelectAll = 4
+    Delete = 5
+    Share = 6
+    Save = 7
+    Open = 8
+    Close = 9
+    Pause = 10
+    Play = 11
+    Stop = 12
+    Forward = 13
+    Backward = 14
+    Undo = 15
+    Redo = 16
 class TappedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{68d940cc-9ff0-49ce-b141-3f07ec477b97}')
@@ -1926,21 +1926,21 @@ class TappedRoutedEventArgs(ComPtr):
     def GetPosition(self: win32more.Windows.UI.Xaml.Input.ITappedRoutedEventArgs, relativeTo: win32more.Windows.UI.Xaml.UIElement) -> win32more.Windows.Foundation.Point: ...
     PointerDeviceType = property(get_PointerDeviceType, None)
     Handled = property(get_Handled, put_Handled)
-XYFocusKeyboardNavigationMode = Int32
-XYFocusKeyboardNavigationMode_Auto: XYFocusKeyboardNavigationMode = 0
-XYFocusKeyboardNavigationMode_Enabled: XYFocusKeyboardNavigationMode = 1
-XYFocusKeyboardNavigationMode_Disabled: XYFocusKeyboardNavigationMode = 2
-XYFocusNavigationStrategy = Int32
-XYFocusNavigationStrategy_Auto: XYFocusNavigationStrategy = 0
-XYFocusNavigationStrategy_Projection: XYFocusNavigationStrategy = 1
-XYFocusNavigationStrategy_NavigationDirectionDistance: XYFocusNavigationStrategy = 2
-XYFocusNavigationStrategy_RectilinearDistance: XYFocusNavigationStrategy = 3
-XYFocusNavigationStrategyOverride = Int32
-XYFocusNavigationStrategyOverride_None: XYFocusNavigationStrategyOverride = 0
-XYFocusNavigationStrategyOverride_Auto: XYFocusNavigationStrategyOverride = 1
-XYFocusNavigationStrategyOverride_Projection: XYFocusNavigationStrategyOverride = 2
-XYFocusNavigationStrategyOverride_NavigationDirectionDistance: XYFocusNavigationStrategyOverride = 3
-XYFocusNavigationStrategyOverride_RectilinearDistance: XYFocusNavigationStrategyOverride = 4
+class XYFocusKeyboardNavigationMode(Int32):  # enum
+    Auto = 0
+    Enabled = 1
+    Disabled = 2
+class XYFocusNavigationStrategy(Int32):  # enum
+    Auto = 0
+    Projection = 1
+    NavigationDirectionDistance = 2
+    RectilinearDistance = 3
+class XYFocusNavigationStrategyOverride(Int32):  # enum
+    None_ = 0
+    Auto = 1
+    Projection = 2
+    NavigationDirectionDistance = 3
+    RectilinearDistance = 4
 class _XamlUICommand_Meta_(ComPtr.__class__):
     pass
 class XamlUICommand(ComPtr, metaclass=_XamlUICommand_Meta_):

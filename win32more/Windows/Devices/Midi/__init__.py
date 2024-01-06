@@ -385,27 +385,27 @@ class MidiMessageReceivedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Message(self: win32more.Windows.Devices.Midi.IMidiMessageReceivedEventArgs) -> win32more.Windows.Devices.Midi.IMidiMessage: ...
     Message = property(get_Message, None)
-MidiMessageType = Int32
-MidiMessageType_None: MidiMessageType = 0
-MidiMessageType_NoteOff: MidiMessageType = 128
-MidiMessageType_NoteOn: MidiMessageType = 144
-MidiMessageType_PolyphonicKeyPressure: MidiMessageType = 160
-MidiMessageType_ControlChange: MidiMessageType = 176
-MidiMessageType_ProgramChange: MidiMessageType = 192
-MidiMessageType_ChannelPressure: MidiMessageType = 208
-MidiMessageType_PitchBendChange: MidiMessageType = 224
-MidiMessageType_SystemExclusive: MidiMessageType = 240
-MidiMessageType_MidiTimeCode: MidiMessageType = 241
-MidiMessageType_SongPositionPointer: MidiMessageType = 242
-MidiMessageType_SongSelect: MidiMessageType = 243
-MidiMessageType_TuneRequest: MidiMessageType = 246
-MidiMessageType_EndSystemExclusive: MidiMessageType = 247
-MidiMessageType_TimingClock: MidiMessageType = 248
-MidiMessageType_Start: MidiMessageType = 250
-MidiMessageType_Continue: MidiMessageType = 251
-MidiMessageType_Stop: MidiMessageType = 252
-MidiMessageType_ActiveSensing: MidiMessageType = 254
-MidiMessageType_SystemReset: MidiMessageType = 255
+class MidiMessageType(Int32):  # enum
+    None_ = 0
+    NoteOff = 128
+    NoteOn = 144
+    PolyphonicKeyPressure = 160
+    ControlChange = 176
+    ProgramChange = 192
+    ChannelPressure = 208
+    PitchBendChange = 224
+    SystemExclusive = 240
+    MidiTimeCode = 241
+    SongPositionPointer = 242
+    SongSelect = 243
+    TuneRequest = 246
+    EndSystemExclusive = 247
+    TimingClock = 248
+    Start = 250
+    Continue = 251
+    Stop = 252
+    ActiveSensing = 254
+    SystemReset = 255
 class MidiNoteOffMessage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Midi.IMidiNoteOffMessage

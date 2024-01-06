@@ -70,22 +70,22 @@ class ControlChannelTrigger(ComPtr):
     PushNotificationTrigger = property(get_PushNotificationTrigger, None)
     IsWakeFromLowPowerSupported = property(get_IsWakeFromLowPowerSupported, None)
 ControlChannelTriggerContract: UInt32 = 196608
-ControlChannelTriggerResetReason = Int32
-ControlChannelTriggerResetReason_FastUserSwitched: ControlChannelTriggerResetReason = 0
-ControlChannelTriggerResetReason_LowPowerExit: ControlChannelTriggerResetReason = 1
-ControlChannelTriggerResetReason_QuietHoursExit: ControlChannelTriggerResetReason = 2
-ControlChannelTriggerResetReason_ApplicationRestart: ControlChannelTriggerResetReason = 3
-ControlChannelTriggerResourceType = Int32
-ControlChannelTriggerResourceType_RequestSoftwareSlot: ControlChannelTriggerResourceType = 0
-ControlChannelTriggerResourceType_RequestHardwareSlot: ControlChannelTriggerResourceType = 1
-ControlChannelTriggerStatus = Int32
-ControlChannelTriggerStatus_HardwareSlotRequested: ControlChannelTriggerStatus = 0
-ControlChannelTriggerStatus_SoftwareSlotAllocated: ControlChannelTriggerStatus = 1
-ControlChannelTriggerStatus_HardwareSlotAllocated: ControlChannelTriggerStatus = 2
-ControlChannelTriggerStatus_PolicyError: ControlChannelTriggerStatus = 3
-ControlChannelTriggerStatus_SystemError: ControlChannelTriggerStatus = 4
-ControlChannelTriggerStatus_TransportDisconnected: ControlChannelTriggerStatus = 5
-ControlChannelTriggerStatus_ServiceUnavailable: ControlChannelTriggerStatus = 6
+class ControlChannelTriggerResetReason(Int32):  # enum
+    FastUserSwitched = 0
+    LowPowerExit = 1
+    QuietHoursExit = 2
+    ApplicationRestart = 3
+class ControlChannelTriggerResourceType(Int32):  # enum
+    RequestSoftwareSlot = 0
+    RequestHardwareSlot = 1
+class ControlChannelTriggerStatus(Int32):  # enum
+    HardwareSlotRequested = 0
+    SoftwareSlotAllocated = 1
+    HardwareSlotAllocated = 2
+    PolicyError = 3
+    SystemError = 4
+    TransportDisconnected = 5
+    ServiceUnavailable = 6
 class DatagramSocket(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Sockets.IDatagramSocket
@@ -1176,9 +1176,9 @@ class MessageWebSocketMessageReceivedEventArgs(ComPtr):
     def get_IsMessageComplete(self: win32more.Windows.Networking.Sockets.IMessageWebSocketMessageReceivedEventArgs2) -> Boolean: ...
     MessageType = property(get_MessageType, None)
     IsMessageComplete = property(get_IsMessageComplete, None)
-MessageWebSocketReceiveMode = Int32
-MessageWebSocketReceiveMode_FullMessage: MessageWebSocketReceiveMode = 0
-MessageWebSocketReceiveMode_PartialMessage: MessageWebSocketReceiveMode = 1
+class MessageWebSocketReceiveMode(Int32):  # enum
+    FullMessage = 0
+    PartialMessage = 1
 class RoundTripTimeStatistics(EasyCastStructure):
     Variance: UInt32
     Max: UInt32
@@ -1265,9 +1265,9 @@ class ServerStreamWebSocketInformation(ComPtr):
     BandwidthStatistics = property(get_BandwidthStatistics, None)
     Protocol = property(get_Protocol, None)
     LocalAddress = property(get_LocalAddress, None)
-SocketActivityConnectedStandbyAction = Int32
-SocketActivityConnectedStandbyAction_DoNotWake: SocketActivityConnectedStandbyAction = 0
-SocketActivityConnectedStandbyAction_Wake: SocketActivityConnectedStandbyAction = 1
+class SocketActivityConnectedStandbyAction(Int32):  # enum
+    DoNotWake = 0
+    Wake = 1
 class SocketActivityContext(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Sockets.ISocketActivityContext
@@ -1314,11 +1314,11 @@ class SocketActivityInformation(ComPtr, metaclass=_SocketActivityInformation_Met
     StreamSocket = property(get_StreamSocket, None)
     StreamSocketListener = property(get_StreamSocketListener, None)
     _SocketActivityInformation_Meta_.AllSockets = property(get_AllSockets.__wrapped__, None)
-SocketActivityKind = Int32
-SocketActivityKind_None: SocketActivityKind = 0
-SocketActivityKind_StreamSocketListener: SocketActivityKind = 1
-SocketActivityKind_DatagramSocket: SocketActivityKind = 2
-SocketActivityKind_StreamSocket: SocketActivityKind = 3
+class SocketActivityKind(Int32):  # enum
+    None_ = 0
+    StreamSocketListener = 1
+    DatagramSocket = 2
+    StreamSocket = 3
 class SocketActivityTriggerDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Sockets.ISocketActivityTriggerDetails
@@ -1329,70 +1329,70 @@ class SocketActivityTriggerDetails(ComPtr):
     def get_SocketInformation(self: win32more.Windows.Networking.Sockets.ISocketActivityTriggerDetails) -> win32more.Windows.Networking.Sockets.SocketActivityInformation: ...
     Reason = property(get_Reason, None)
     SocketInformation = property(get_SocketInformation, None)
-SocketActivityTriggerReason = Int32
-SocketActivityTriggerReason_None: SocketActivityTriggerReason = 0
-SocketActivityTriggerReason_SocketActivity: SocketActivityTriggerReason = 1
-SocketActivityTriggerReason_ConnectionAccepted: SocketActivityTriggerReason = 2
-SocketActivityTriggerReason_KeepAliveTimerExpired: SocketActivityTriggerReason = 3
-SocketActivityTriggerReason_SocketClosed: SocketActivityTriggerReason = 4
+class SocketActivityTriggerReason(Int32):  # enum
+    None_ = 0
+    SocketActivity = 1
+    ConnectionAccepted = 2
+    KeepAliveTimerExpired = 3
+    SocketClosed = 4
 class SocketError(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.Sockets.SocketError'
     @winrt_classmethod
     def GetStatus(cls: win32more.Windows.Networking.Sockets.ISocketErrorStatics, hresult: Int32) -> win32more.Windows.Networking.Sockets.SocketErrorStatus: ...
-SocketErrorStatus = Int32
-SocketErrorStatus_Unknown: SocketErrorStatus = 0
-SocketErrorStatus_OperationAborted: SocketErrorStatus = 1
-SocketErrorStatus_HttpInvalidServerResponse: SocketErrorStatus = 2
-SocketErrorStatus_ConnectionTimedOut: SocketErrorStatus = 3
-SocketErrorStatus_AddressFamilyNotSupported: SocketErrorStatus = 4
-SocketErrorStatus_SocketTypeNotSupported: SocketErrorStatus = 5
-SocketErrorStatus_HostNotFound: SocketErrorStatus = 6
-SocketErrorStatus_NoDataRecordOfRequestedType: SocketErrorStatus = 7
-SocketErrorStatus_NonAuthoritativeHostNotFound: SocketErrorStatus = 8
-SocketErrorStatus_ClassTypeNotFound: SocketErrorStatus = 9
-SocketErrorStatus_AddressAlreadyInUse: SocketErrorStatus = 10
-SocketErrorStatus_CannotAssignRequestedAddress: SocketErrorStatus = 11
-SocketErrorStatus_ConnectionRefused: SocketErrorStatus = 12
-SocketErrorStatus_NetworkIsUnreachable: SocketErrorStatus = 13
-SocketErrorStatus_UnreachableHost: SocketErrorStatus = 14
-SocketErrorStatus_NetworkIsDown: SocketErrorStatus = 15
-SocketErrorStatus_NetworkDroppedConnectionOnReset: SocketErrorStatus = 16
-SocketErrorStatus_SoftwareCausedConnectionAbort: SocketErrorStatus = 17
-SocketErrorStatus_ConnectionResetByPeer: SocketErrorStatus = 18
-SocketErrorStatus_HostIsDown: SocketErrorStatus = 19
-SocketErrorStatus_NoAddressesFound: SocketErrorStatus = 20
-SocketErrorStatus_TooManyOpenFiles: SocketErrorStatus = 21
-SocketErrorStatus_MessageTooLong: SocketErrorStatus = 22
-SocketErrorStatus_CertificateExpired: SocketErrorStatus = 23
-SocketErrorStatus_CertificateUntrustedRoot: SocketErrorStatus = 24
-SocketErrorStatus_CertificateCommonNameIsIncorrect: SocketErrorStatus = 25
-SocketErrorStatus_CertificateWrongUsage: SocketErrorStatus = 26
-SocketErrorStatus_CertificateRevoked: SocketErrorStatus = 27
-SocketErrorStatus_CertificateNoRevocationCheck: SocketErrorStatus = 28
-SocketErrorStatus_CertificateRevocationServerOffline: SocketErrorStatus = 29
-SocketErrorStatus_CertificateIsInvalid: SocketErrorStatus = 30
-SocketMessageType = Int32
-SocketMessageType_Binary: SocketMessageType = 0
-SocketMessageType_Utf8: SocketMessageType = 1
-SocketProtectionLevel = Int32
-SocketProtectionLevel_PlainSocket: SocketProtectionLevel = 0
-SocketProtectionLevel_Ssl: SocketProtectionLevel = 1
-SocketProtectionLevel_SslAllowNullEncryption: SocketProtectionLevel = 2
-SocketProtectionLevel_BluetoothEncryptionAllowNullAuthentication: SocketProtectionLevel = 3
-SocketProtectionLevel_BluetoothEncryptionWithAuthentication: SocketProtectionLevel = 4
-SocketProtectionLevel_Ssl3AllowWeakEncryption: SocketProtectionLevel = 5
-SocketProtectionLevel_Tls10: SocketProtectionLevel = 6
-SocketProtectionLevel_Tls11: SocketProtectionLevel = 7
-SocketProtectionLevel_Tls12: SocketProtectionLevel = 8
-SocketProtectionLevel_Unspecified: SocketProtectionLevel = 9
-SocketQualityOfService = Int32
-SocketQualityOfService_Normal: SocketQualityOfService = 0
-SocketQualityOfService_LowLatency: SocketQualityOfService = 1
-SocketSslErrorSeverity = Int32
-SocketSslErrorSeverity_None: SocketSslErrorSeverity = 0
-SocketSslErrorSeverity_Ignorable: SocketSslErrorSeverity = 1
-SocketSslErrorSeverity_Fatal: SocketSslErrorSeverity = 2
+class SocketErrorStatus(Int32):  # enum
+    Unknown = 0
+    OperationAborted = 1
+    HttpInvalidServerResponse = 2
+    ConnectionTimedOut = 3
+    AddressFamilyNotSupported = 4
+    SocketTypeNotSupported = 5
+    HostNotFound = 6
+    NoDataRecordOfRequestedType = 7
+    NonAuthoritativeHostNotFound = 8
+    ClassTypeNotFound = 9
+    AddressAlreadyInUse = 10
+    CannotAssignRequestedAddress = 11
+    ConnectionRefused = 12
+    NetworkIsUnreachable = 13
+    UnreachableHost = 14
+    NetworkIsDown = 15
+    NetworkDroppedConnectionOnReset = 16
+    SoftwareCausedConnectionAbort = 17
+    ConnectionResetByPeer = 18
+    HostIsDown = 19
+    NoAddressesFound = 20
+    TooManyOpenFiles = 21
+    MessageTooLong = 22
+    CertificateExpired = 23
+    CertificateUntrustedRoot = 24
+    CertificateCommonNameIsIncorrect = 25
+    CertificateWrongUsage = 26
+    CertificateRevoked = 27
+    CertificateNoRevocationCheck = 28
+    CertificateRevocationServerOffline = 29
+    CertificateIsInvalid = 30
+class SocketMessageType(Int32):  # enum
+    Binary = 0
+    Utf8 = 1
+class SocketProtectionLevel(Int32):  # enum
+    PlainSocket = 0
+    Ssl = 1
+    SslAllowNullEncryption = 2
+    BluetoothEncryptionAllowNullAuthentication = 3
+    BluetoothEncryptionWithAuthentication = 4
+    Ssl3AllowWeakEncryption = 5
+    Tls10 = 6
+    Tls11 = 7
+    Tls12 = 8
+    Unspecified = 9
+class SocketQualityOfService(Int32):  # enum
+    Normal = 0
+    LowLatency = 1
+class SocketSslErrorSeverity(Int32):  # enum
+    None_ = 0
+    Ignorable = 1
+    Fatal = 2
 class StreamSocket(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Sockets.IStreamSocket

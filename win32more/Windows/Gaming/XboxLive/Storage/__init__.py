@@ -106,22 +106,22 @@ class GameSaveContainerInfoQuery(ComPtr):
     def GetContainerInfoWithIndexAndMaxAsync(self: win32more.Windows.Gaming.XboxLive.Storage.IGameSaveContainerInfoQuery, startIndex: UInt32, maxNumberOfItems: UInt32) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Gaming.XboxLive.Storage.GameSaveContainerInfoGetResult]: ...
     @winrt_mixinmethod
     def GetItemCountAsync(self: win32more.Windows.Gaming.XboxLive.Storage.IGameSaveContainerInfoQuery) -> win32more.Windows.Foundation.IAsyncOperation[UInt32]: ...
-GameSaveErrorStatus = Int32
-GameSaveErrorStatus_Ok: GameSaveErrorStatus = 0
-GameSaveErrorStatus_Abort: GameSaveErrorStatus = -2147467260
-GameSaveErrorStatus_InvalidContainerName: GameSaveErrorStatus = -2138898431
-GameSaveErrorStatus_NoAccess: GameSaveErrorStatus = -2138898430
-GameSaveErrorStatus_OutOfLocalStorage: GameSaveErrorStatus = -2138898429
-GameSaveErrorStatus_UserCanceled: GameSaveErrorStatus = -2138898428
-GameSaveErrorStatus_UpdateTooBig: GameSaveErrorStatus = -2138898427
-GameSaveErrorStatus_QuotaExceeded: GameSaveErrorStatus = -2138898426
-GameSaveErrorStatus_ProvidedBufferTooSmall: GameSaveErrorStatus = -2138898425
-GameSaveErrorStatus_BlobNotFound: GameSaveErrorStatus = -2138898424
-GameSaveErrorStatus_NoXboxLiveInfo: GameSaveErrorStatus = -2138898423
-GameSaveErrorStatus_ContainerNotInSync: GameSaveErrorStatus = -2138898422
-GameSaveErrorStatus_ContainerSyncFailed: GameSaveErrorStatus = -2138898421
-GameSaveErrorStatus_UserHasNoXboxLiveInfo: GameSaveErrorStatus = -2138898420
-GameSaveErrorStatus_ObjectExpired: GameSaveErrorStatus = -2138898419
+class GameSaveErrorStatus(Int32):  # enum
+    Ok = 0
+    Abort = -2147467260
+    InvalidContainerName = -2138898431
+    NoAccess = -2138898430
+    OutOfLocalStorage = -2138898429
+    UserCanceled = -2138898428
+    UpdateTooBig = -2138898427
+    QuotaExceeded = -2138898426
+    ProvidedBufferTooSmall = -2138898425
+    BlobNotFound = -2138898424
+    NoXboxLiveInfo = -2138898423
+    ContainerNotInSync = -2138898422
+    ContainerSyncFailed = -2138898421
+    UserHasNoXboxLiveInfo = -2138898420
+    ObjectExpired = -2138898419
 class GameSaveOperationResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Gaming.XboxLive.Storage.IGameSaveOperationResult

@@ -7,12 +7,12 @@ import win32more.Windows.Storage
 import win32more.Windows.Storage.AccessCache
 import win32more.Windows.System
 import win32more.Windows.Win32.System.WinRT
-AccessCacheOptions = UInt32
-AccessCacheOptions_None: AccessCacheOptions = 0
-AccessCacheOptions_DisallowUserInput: AccessCacheOptions = 1
-AccessCacheOptions_FastLocationsOnly: AccessCacheOptions = 2
-AccessCacheOptions_UseReadOnlyCachedCopy: AccessCacheOptions = 4
-AccessCacheOptions_SuppressAccessTimeUpdate: AccessCacheOptions = 8
+class AccessCacheOptions(UInt32):  # enum
+    None_ = 0
+    DisallowUserInput = 1
+    FastLocationsOnly = 2
+    UseReadOnlyCachedCopy = 4
+    SuppressAccessTimeUpdate = 8
 class AccessListEntry(EasyCastStructure):
     Token: WinRT_String
     Metadata: WinRT_String
@@ -117,9 +117,9 @@ class ItemRemovedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_RemovedEntry(self: win32more.Windows.Storage.AccessCache.IItemRemovedEventArgs) -> win32more.Windows.Storage.AccessCache.AccessListEntry: ...
     RemovedEntry = property(get_RemovedEntry, None)
-RecentStorageItemVisibility = Int32
-RecentStorageItemVisibility_AppOnly: RecentStorageItemVisibility = 0
-RecentStorageItemVisibility_AppAndSystem: RecentStorageItemVisibility = 1
+class RecentStorageItemVisibility(Int32):  # enum
+    AppOnly = 0
+    AppAndSystem = 1
 class _StorageApplicationPermissions_Meta_(ComPtr.__class__):
     pass
 class StorageApplicationPermissions(ComPtr, metaclass=_StorageApplicationPermissions_Meta_):

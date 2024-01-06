@@ -128,14 +128,14 @@ class Print3DWorkflow(ComPtr):
     def remove_PrinterChanged(self: win32more.Windows.Devices.Printers.Extensions.IPrint3DWorkflow2, eventCookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     DeviceID = property(get_DeviceID, None)
     IsPrintReady = property(get_IsPrintReady, put_IsPrintReady)
-Print3DWorkflowDetail = Int32
-Print3DWorkflowDetail_Unknown: Print3DWorkflowDetail = 0
-Print3DWorkflowDetail_ModelExceedsPrintBed: Print3DWorkflowDetail = 1
-Print3DWorkflowDetail_UploadFailed: Print3DWorkflowDetail = 2
-Print3DWorkflowDetail_InvalidMaterialSelection: Print3DWorkflowDetail = 3
-Print3DWorkflowDetail_InvalidModel: Print3DWorkflowDetail = 4
-Print3DWorkflowDetail_ModelNotManifold: Print3DWorkflowDetail = 5
-Print3DWorkflowDetail_InvalidPrintTicket: Print3DWorkflowDetail = 6
+class Print3DWorkflowDetail(Int32):  # enum
+    Unknown = 0
+    ModelExceedsPrintBed = 1
+    UploadFailed = 2
+    InvalidMaterialSelection = 3
+    InvalidModel = 4
+    ModelNotManifold = 5
+    InvalidPrintTicket = 6
 class Print3DWorkflowPrintRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Printers.Extensions.IPrint3DWorkflowPrintRequestedEventArgs
@@ -156,12 +156,12 @@ class Print3DWorkflowPrinterChangedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_NewDeviceId(self: win32more.Windows.Devices.Printers.Extensions.IPrint3DWorkflowPrinterChangedEventArgs) -> WinRT_String: ...
     NewDeviceId = property(get_NewDeviceId, None)
-Print3DWorkflowStatus = Int32
-Print3DWorkflowStatus_Abandoned: Print3DWorkflowStatus = 0
-Print3DWorkflowStatus_Canceled: Print3DWorkflowStatus = 1
-Print3DWorkflowStatus_Failed: Print3DWorkflowStatus = 2
-Print3DWorkflowStatus_Slicing: Print3DWorkflowStatus = 3
-Print3DWorkflowStatus_Submitted: Print3DWorkflowStatus = 4
+class Print3DWorkflowStatus(Int32):  # enum
+    Abandoned = 0
+    Canceled = 1
+    Failed = 2
+    Slicing = 3
+    Submitted = 4
 class PrintExtensionContext(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Printers.Extensions.PrintExtensionContext'

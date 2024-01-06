@@ -183,15 +183,15 @@ class ApplicationDataContainerSettings(ComPtr):
     @winrt_mixinmethod
     def First(self: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]]) -> win32more.Windows.Foundation.Collections.IIterator[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]]: ...
     Size = property(get_Size, None)
-ApplicationDataCreateDisposition = Int32
-ApplicationDataCreateDisposition_Always: ApplicationDataCreateDisposition = 0
-ApplicationDataCreateDisposition_Existing: ApplicationDataCreateDisposition = 1
-ApplicationDataLocality = Int32
-ApplicationDataLocality_Local: ApplicationDataLocality = 0
-ApplicationDataLocality_Roaming: ApplicationDataLocality = 1
-ApplicationDataLocality_Temporary: ApplicationDataLocality = 2
-ApplicationDataLocality_LocalCache: ApplicationDataLocality = 3
-ApplicationDataLocality_SharedLocal: ApplicationDataLocality = 4
+class ApplicationDataCreateDisposition(Int32):  # enum
+    Always = 0
+    Existing = 1
+class ApplicationDataLocality(Int32):  # enum
+    Local = 0
+    Roaming = 1
+    Temporary = 2
+    LocalCache = 3
+    SharedLocal = 4
 class ApplicationDataSetVersionHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{a05791e6-cc9f-4687-acab-a364fd785463}')
@@ -203,11 +203,11 @@ class CachedFileManager(ComPtr):
     def DeferUpdates(cls: win32more.Windows.Storage.ICachedFileManagerStatics, file: win32more.Windows.Storage.IStorageFile) -> Void: ...
     @winrt_classmethod
     def CompleteUpdatesAsync(cls: win32more.Windows.Storage.ICachedFileManagerStatics, file: win32more.Windows.Storage.IStorageFile) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Storage.Provider.FileUpdateStatus]: ...
-CreationCollisionOption = Int32
-CreationCollisionOption_GenerateUniqueName: CreationCollisionOption = 0
-CreationCollisionOption_ReplaceExisting: CreationCollisionOption = 1
-CreationCollisionOption_FailIfExists: CreationCollisionOption = 2
-CreationCollisionOption_OpenIfExists: CreationCollisionOption = 3
+class CreationCollisionOption(Int32):  # enum
+    GenerateUniqueName = 0
+    ReplaceExisting = 1
+    FailIfExists = 2
+    OpenIfExists = 3
 class DownloadsFolder(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Storage.DownloadsFolder'
@@ -227,16 +227,16 @@ class DownloadsFolder(ComPtr):
     def CreateFileWithCollisionOptionAsync(cls: win32more.Windows.Storage.IDownloadsFolderStatics, desiredName: WinRT_String, option: win32more.Windows.Storage.CreationCollisionOption) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Storage.StorageFile]: ...
     @winrt_classmethod
     def CreateFolderWithCollisionOptionAsync(cls: win32more.Windows.Storage.IDownloadsFolderStatics, desiredName: WinRT_String, option: win32more.Windows.Storage.CreationCollisionOption) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Storage.StorageFolder]: ...
-FileAccessMode = Int32
-FileAccessMode_Read: FileAccessMode = 0
-FileAccessMode_ReadWrite: FileAccessMode = 1
-FileAttributes = UInt32
-FileAttributes_Normal: FileAttributes = 0
-FileAttributes_ReadOnly: FileAttributes = 1
-FileAttributes_Directory: FileAttributes = 16
-FileAttributes_Archive: FileAttributes = 32
-FileAttributes_Temporary: FileAttributes = 256
-FileAttributes_LocallyIncomplete: FileAttributes = 512
+class FileAccessMode(Int32):  # enum
+    Read = 0
+    ReadWrite = 1
+class FileAttributes(UInt32):  # enum
+    Normal = 0
+    ReadOnly = 1
+    Directory = 16
+    Archive = 32
+    Temporary = 256
+    LocallyIncomplete = 512
 class FileIO(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Storage.FileIO'
@@ -1208,24 +1208,24 @@ class IUserDataPathsStatics(ComPtr):
     def GetForUser(self, user: win32more.Windows.System.User) -> win32more.Windows.Storage.UserDataPaths: ...
     @winrt_commethod(7)
     def GetDefault(self) -> win32more.Windows.Storage.UserDataPaths: ...
-KnownFolderId = Int32
-KnownFolderId_AppCaptures: KnownFolderId = 0
-KnownFolderId_CameraRoll: KnownFolderId = 1
-KnownFolderId_DocumentsLibrary: KnownFolderId = 2
-KnownFolderId_HomeGroup: KnownFolderId = 3
-KnownFolderId_MediaServerDevices: KnownFolderId = 4
-KnownFolderId_MusicLibrary: KnownFolderId = 5
-KnownFolderId_Objects3D: KnownFolderId = 6
-KnownFolderId_PicturesLibrary: KnownFolderId = 7
-KnownFolderId_Playlists: KnownFolderId = 8
-KnownFolderId_RecordedCalls: KnownFolderId = 9
-KnownFolderId_RemovableDevices: KnownFolderId = 10
-KnownFolderId_SavedPictures: KnownFolderId = 11
-KnownFolderId_Screenshots: KnownFolderId = 12
-KnownFolderId_VideosLibrary: KnownFolderId = 13
-KnownFolderId_AllAppMods: KnownFolderId = 14
-KnownFolderId_CurrentAppMods: KnownFolderId = 15
-KnownFolderId_DownloadsFolder: KnownFolderId = 16
+class KnownFolderId(Int32):  # enum
+    AppCaptures = 0
+    CameraRoll = 1
+    DocumentsLibrary = 2
+    HomeGroup = 3
+    MediaServerDevices = 4
+    MusicLibrary = 5
+    Objects3D = 6
+    PicturesLibrary = 7
+    Playlists = 8
+    RecordedCalls = 9
+    RemovableDevices = 10
+    SavedPictures = 11
+    Screenshots = 12
+    VideosLibrary = 13
+    AllAppMods = 14
+    CurrentAppMods = 15
+    DownloadsFolder = 16
 class _KnownFolders_Meta_(ComPtr.__class__):
     pass
 class KnownFolders(ComPtr, metaclass=_KnownFolders_Meta_):
@@ -1278,22 +1278,22 @@ class KnownFolders(ComPtr, metaclass=_KnownFolders_Meta_):
     _KnownFolders_Meta_.HomeGroup = property(get_HomeGroup.__wrapped__, None)
     _KnownFolders_Meta_.RemovableDevices = property(get_RemovableDevices.__wrapped__, None)
     _KnownFolders_Meta_.MediaServerDevices = property(get_MediaServerDevices.__wrapped__, None)
-KnownFoldersAccessStatus = Int32
-KnownFoldersAccessStatus_DeniedBySystem: KnownFoldersAccessStatus = 0
-KnownFoldersAccessStatus_NotDeclaredByApp: KnownFoldersAccessStatus = 1
-KnownFoldersAccessStatus_DeniedByUser: KnownFoldersAccessStatus = 2
-KnownFoldersAccessStatus_UserPromptRequired: KnownFoldersAccessStatus = 3
-KnownFoldersAccessStatus_Allowed: KnownFoldersAccessStatus = 4
-KnownFoldersAccessStatus_AllowedPerAppFolder: KnownFoldersAccessStatus = 5
-KnownLibraryId = Int32
-KnownLibraryId_Music: KnownLibraryId = 0
-KnownLibraryId_Pictures: KnownLibraryId = 1
-KnownLibraryId_Videos: KnownLibraryId = 2
-KnownLibraryId_Documents: KnownLibraryId = 3
-NameCollisionOption = Int32
-NameCollisionOption_GenerateUniqueName: NameCollisionOption = 0
-NameCollisionOption_ReplaceExisting: NameCollisionOption = 1
-NameCollisionOption_FailIfExists: NameCollisionOption = 2
+class KnownFoldersAccessStatus(Int32):  # enum
+    DeniedBySystem = 0
+    NotDeclaredByApp = 1
+    DeniedByUser = 2
+    UserPromptRequired = 3
+    Allowed = 4
+    AllowedPerAppFolder = 5
+class KnownLibraryId(Int32):  # enum
+    Music = 0
+    Pictures = 1
+    Videos = 2
+    Documents = 3
+class NameCollisionOption(Int32):  # enum
+    GenerateUniqueName = 0
+    ReplaceExisting = 1
+    FailIfExists = 2
 class PathIO(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Storage.PathIO'
@@ -1345,9 +1345,9 @@ class SetVersionRequest(ComPtr):
     def GetDeferral(self: win32more.Windows.Storage.ISetVersionRequest) -> win32more.Windows.Storage.SetVersionDeferral: ...
     CurrentVersion = property(get_CurrentVersion, None)
     DesiredVersion = property(get_DesiredVersion, None)
-StorageDeleteOption = Int32
-StorageDeleteOption_Default: StorageDeleteOption = 0
-StorageDeleteOption_PermanentDelete: StorageDeleteOption = 1
+class StorageDeleteOption(Int32):  # enum
+    Default = 0
+    PermanentDelete = 1
 class StorageFile(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Storage.IStorageFile
@@ -1579,10 +1579,10 @@ class StorageFolder(ComPtr):
     FolderRelativeId = property(get_FolderRelativeId, None)
     Properties = property(get_Properties, None)
     Provider = property(get_Provider, None)
-StorageItemTypes = UInt32
-StorageItemTypes_None: StorageItemTypes = 0
-StorageItemTypes_File: StorageItemTypes = 1
-StorageItemTypes_Folder: StorageItemTypes = 2
+class StorageItemTypes(UInt32):  # enum
+    None_ = 0
+    File = 1
+    Folder = 2
 class StorageLibrary(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Storage.IStorageLibrary
@@ -1669,17 +1669,17 @@ class StorageLibraryChangeTrackerOptions(ComPtr):
     @winrt_mixinmethod
     def put_TrackChangeDetails(self: win32more.Windows.Storage.IStorageLibraryChangeTrackerOptions, value: Boolean) -> Void: ...
     TrackChangeDetails = property(get_TrackChangeDetails, put_TrackChangeDetails)
-StorageLibraryChangeType = Int32
-StorageLibraryChangeType_Created: StorageLibraryChangeType = 0
-StorageLibraryChangeType_Deleted: StorageLibraryChangeType = 1
-StorageLibraryChangeType_MovedOrRenamed: StorageLibraryChangeType = 2
-StorageLibraryChangeType_ContentsChanged: StorageLibraryChangeType = 3
-StorageLibraryChangeType_MovedOutOfLibrary: StorageLibraryChangeType = 4
-StorageLibraryChangeType_MovedIntoLibrary: StorageLibraryChangeType = 5
-StorageLibraryChangeType_ContentsReplaced: StorageLibraryChangeType = 6
-StorageLibraryChangeType_IndexingStatusChanged: StorageLibraryChangeType = 7
-StorageLibraryChangeType_EncryptionChanged: StorageLibraryChangeType = 8
-StorageLibraryChangeType_ChangeTrackingLost: StorageLibraryChangeType = 9
+class StorageLibraryChangeType(Int32):  # enum
+    Created = 0
+    Deleted = 1
+    MovedOrRenamed = 2
+    ContentsChanged = 3
+    MovedOutOfLibrary = 4
+    MovedIntoLibrary = 5
+    ContentsReplaced = 6
+    IndexingStatusChanged = 7
+    EncryptionChanged = 8
+    ChangeTrackingLost = 9
 class _StorageLibraryLastChangeId_Meta_(ComPtr.__class__):
     pass
 class StorageLibraryLastChangeId(ComPtr, metaclass=_StorageLibraryLastChangeId_Meta_):
@@ -1689,10 +1689,10 @@ class StorageLibraryLastChangeId(ComPtr, metaclass=_StorageLibraryLastChangeId_M
     @winrt_classmethod
     def get_Unknown(cls: win32more.Windows.Storage.IStorageLibraryLastChangeIdStatics) -> UInt64: ...
     _StorageLibraryLastChangeId_Meta_.Unknown = property(get_Unknown.__wrapped__, None)
-StorageOpenOptions = UInt32
-StorageOpenOptions_None: StorageOpenOptions = 0
-StorageOpenOptions_AllowOnlyReaders: StorageOpenOptions = 1
-StorageOpenOptions_AllowReadersAndWriters: StorageOpenOptions = 2
+class StorageOpenOptions(UInt32):  # enum
+    None_ = 0
+    AllowOnlyReaders = 1
+    AllowReadersAndWriters = 2
 class StorageProvider(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Storage.IStorageProvider
@@ -1732,10 +1732,10 @@ class StreamedFileDataRequestedHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{fef6a824-2fe1-4d07-a35b-b77c50b5f4cc}')
     def Invoke(self, stream: win32more.Windows.Storage.StreamedFileDataRequest) -> Void: ...
-StreamedFileFailureMode = Int32
-StreamedFileFailureMode_Failed: StreamedFileFailureMode = 0
-StreamedFileFailureMode_CurrentlyUnavailable: StreamedFileFailureMode = 1
-StreamedFileFailureMode_Incomplete: StreamedFileFailureMode = 2
+class StreamedFileFailureMode(Int32):  # enum
+    Failed = 0
+    CurrentlyUnavailable = 1
+    Incomplete = 2
 class SystemAudioProperties(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Storage.ISystemAudioProperties
