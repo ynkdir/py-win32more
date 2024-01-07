@@ -60,7 +60,7 @@ class Parser:
         if td.basetype is None or td.basetype == "System.Object" or td.basetype.startswith(("Windows.", "Microsoft.")):
             module.add(Com(td, self._package, formatter))
         elif td.basetype == "System.MulticastDelegate":
-            module.add(Delegate(td, self._package, formatter))
+            module.add(Delegate(td, formatter))
         elif td.basetype == "System.Enum":
             module.add(Enum(td, formatter))
         elif td.basetype == "System.ValueType":
@@ -430,10 +430,7 @@ class Com:
     def _count_interface_method(self) -> int:
         if self._td.basetype is None or self._td.basetype == "System.Object":
             return 6  # count of IInspectable
-        namespace, name = self._td.basetype.rsplit(".", 1)
-        com = self._package[namespace][name]
-        if not isinstance(com, Com):
-            raise TypeError()
+        com = self._get_com(self._td.basetype)
         return len(com._td.method_definitions) + com._count_interface_method()
 
     def _constructor(self) -> str:
@@ -470,40 +467,32 @@ class Com:
         return writer.getvalue()
 
     def _composable_methods(self, fullname: str) -> list[Method]:
-        namespace, name = fullname.rsplit(".", 1)
-        com = self._package[namespace][name]
-        if not isinstance(com, Com):
-            raise TypeError()
-        td = com._td
         methods = []
-        for md in td.method_definitions:
+        com = self._get_com(fullname)
+        for md in com._td.method_definitions:
             assert md.signature.return_type.fullname == self._td.fullname
             methods.append(
                 Method(
                     name=md.name_overload,
                     nargs=len(md.get_parameter_names()) - 2,
                     invoke=f"{self._formatter.fullname(self._td)}.{md.name_overload}(*args, None, None)",
-                    declare=self._factorymethod(td, md),
+                    declare=self._factorymethod(com._td, md),
                     default_overload=False,
                 )
             )
         return methods
 
     def _activatable_methods(self, fullname: str) -> list[Method]:
-        namespace, name = fullname.rsplit(".", 1)
-        com = self._package[namespace][name]
-        if not isinstance(com, Com):
-            raise TypeError()
-        td = com._td
         methods = []
-        for md in td.method_definitions:
+        com = self._get_com(fullname)
+        for md in com._td.method_definitions:
             assert md.signature.return_type.fullname == self._td.fullname
             methods.append(
                 Method(
                     name=md.name_overload,
                     nargs=len(md.get_parameter_names()),
                     invoke=f"{self._formatter.fullname(self._td)}.{md.name_overload}(*args)",
-                    declare=self._factorymethod(td, md),
+                    declare=self._factorymethod(com._td, md),
                     default_overload=False,
                 )
             )
@@ -576,12 +565,8 @@ class Com:
 
     def _get_static_interface_for_method(self, method_name: str, method_nargs: int) -> str:
         for ca in self._td.custom_attributes.get_static():
-            namespace, name = ca.fixed_arguments[0].value.rsplit(".", 1)
-            com = self._package[namespace][name]
-            if not isinstance(com, Com):
-                raise TypeError()
-            td_static = com._td
-            for md in td_static.method_definitions:
+            com = self._get_com(ca.fixed_arguments[0].value)
+            for md in com._td.method_definitions:
                 if md.custom_attributes.has_overload():
                     static_method_name = md.custom_attributes.get_overload()
                 else:
@@ -609,11 +594,8 @@ class Com:
 
     def _get_interface_for_method(self, method_name: str, params: list[str]) -> str:
         for ii in self._td.interface_implementations:
-            com = self._package[ii.namespace][ii.name]
-            if not isinstance(com, Com):
-                raise TypeError()
-            td_interface = com._td
-            for md in td_interface.method_definitions:
+            com = self._get_com(ii.fullname)
+            for md in com._td.method_definitions:
                 if md.custom_attributes.has_overload():
                     interface_method_name = md.custom_attributes.get_overload()
                 else:
@@ -640,15 +622,21 @@ class Com:
             overload_same_name_and_nargs.add((method.name, method.nargs))
         return writer.getvalue()
 
+    def _get_com(self, fullname: str) -> Com:
+        namespace, name = fullname.rsplit(".", 1)
+        com = self._package[namespace][name]
+        if not isinstance(com, Com):
+            raise TypeError()
+        return com
+
 
 class Delegate:
-    def __init__(self, td: TypeDefinition, package: Package, formatter: Formatter) -> None:
+    def __init__(self, td: TypeDefinition, formatter: Formatter) -> None:
         assert len(td.method_definitions) == 2
         assert td.method_definitions[0].name == ".ctor"
         assert td.method_definitions[1].name == "Invoke"
         assert td.custom_attributes.has_winrt_guid()
         self._td = td
-        self._package = package
         self._formatter = formatter
 
     @property
