@@ -5,7 +5,7 @@ import lzma
 from pathlib import Path
 from typing import TextIO
 
-from . import win32, winrt
+from . import resources, win32, winrt
 from .metadata import Metadata, TypeDefinition
 from .package import Package
 from .preprocessor import Preprocessor
@@ -20,11 +20,18 @@ def xopen(path: str) -> TextIO | lzma.LZMAFile:
     return open(path)
 
 
-def load(metadata_files: list[str]) -> Metadata:
+def load_files(metadata_files: list[str]) -> Metadata:
     js = []
     for file in metadata_files:
         with xopen(file) as f:
             js.extend(json.load(f))
+    return Metadata(TypeDefinition(typedef) for typedef in js)
+
+
+def load_resources(metadata_files: list[str]) -> Metadata:
+    js = []
+    for file in metadata_files:
+        js.extend(json.loads(resources.read_text(file)))
     return Metadata(TypeDefinition(typedef) for typedef in js)
 
 
@@ -112,7 +119,7 @@ def main() -> None:
     parser.add_argument("-s", "--selector", help="selector.txt")
     parser.add_argument("--package-name", default="win32more")
     parser.add_argument("--output-directory", default=".")
-    parser.add_argument("metadata", nargs="+", help="metadata.json")
+    parser.add_argument("metadata", nargs="*", help="metadata.json")
     args = parser.parse_args()
 
     logging.basicConfig(level=args.loglevel)
@@ -122,7 +129,12 @@ def main() -> None:
     if not output_directory.is_dir():
         raise RuntimeError(f"{output_directory} is not directory")
 
-    meta = load(args.metadata)
+    if args.metadata:
+        meta = load_files(args.metadata)
+    else:
+        meta = load_resources(
+            ["metadata/Windows.Win32.json.xz", "metadata/WindowsSDK.json.xz", "metadata/WindowsAppSDK.json.xz"]
+        )
 
     meta = preprocess(meta)
 

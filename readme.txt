@@ -4,10 +4,10 @@ https://github.com/microsoft/win32metadata
 
 Usage:
 
-> py -m win32generator json/Windows.Win32.json.xz
+> py -m win32generator
 
 # Generate one file module for specific api set.
-> py -m win32generator -s selector.txt -o win32.py json/Windows.Win32.json.xz
+> py -m win32generator -s selector.txt -o win32.py
 
 selector.txt format is:
 
