@@ -45,8 +45,7 @@ def preprocess(meta: Metadata) -> Metadata:
 
 
 def select(meta: Metadata, selector_file: str) -> Metadata:
-    selector = Selector()
-    selector.read_selector(Path(selector_file))
+    selector = Selector(Path(selector_file))
     return Metadata(selector.select(meta))
 
 

@@ -1,4 +1,5 @@
 import re
+from collections import defaultdict
 from collections.abc import Iterable, Mapping
 from pathlib import Path
 
@@ -6,96 +7,78 @@ from .metadata import Metadata, TypeDefinition
 
 
 class Selector:
-    def __init__(self) -> None:
-        self.selectors: set[str] = set()
+    def __init__(self, path: Path) -> None:
+        self._selectors = self._read_selector(path)
+        self._selected: set[str] = set()
+        self._ns: Mapping[str, list[TypeDefinition]] = defaultdict(list)
 
-    def read_selector(self, path: Path) -> None:
+    def _read_selector(self, path: Path) -> set[str]:
+        selectors = set()
         for line in path.read_text().splitlines():
             line = re.sub(r"#.*", "", line).strip()
             if line != "":
-                self.selectors.add(line)
+                selectors.add(line)
+        return selectors
 
-    def is_match(self, name) -> bool:
-        return name in self.selectors
-
-    def is_match_any_fields(self, td: TypeDefinition) -> bool:
-        for fd in td.fields:
-            if self.is_match(fd.name):
-                return True
-            elif self.is_match(f"{td.namespace}.{fd.name}"):
-                return True
-        return False
-
-    def is_match_any_method_definitions(self, td: TypeDefinition) -> bool:
-        for md in td.method_definitions:
-            if self.is_match(md.name):
-                return True
-            elif self.is_match(f"{td.namespace}.{md.name}"):
-                return True
-        return False
+    def _is_match(self, name) -> bool:
+        return name in self._selectors
 
     def select(self, meta: Metadata) -> Iterable[TypeDefinition]:
-        meta_group_by_fullname = self._group_by_fullname(meta)
-        selected = set()
-        for td in self.find_match(meta):
-            if id(td) in selected:
-                continue
-            selected.add(id(td))
+        self._init_namespace(meta)
+        for td in meta:
+            self._select_match_and_dependencies(td)
+        return [td for td in meta if self._is_selected(td)]
+
+    def _init_namespace(self, meta: Metadata) -> None:
+        self._ns = defaultdict(list)
+        for td in meta:
             if td.name == "Apis":
-                self.select_object_members_inplace(td)
-            yield td
-            yield from self.select_dependencies(td, meta_group_by_fullname, selected)
-
-    def _group_by_fullname(self, meta: Metadata) -> Mapping[str, Metadata]:
-        meta_group_by_fullname = {}
-        for td in meta:
-            if td.fullname not in meta_group_by_fullname:
-                meta_group_by_fullname[td.fullname] = Metadata()
-            meta_group_by_fullname[td.fullname].append(td)
-        return meta_group_by_fullname
-
-    def select_dependencies(
-        self, td: TypeDefinition, meta_group_by_fullname: Mapping[str, Metadata], selected: set[int]
-    ) -> Iterable[TypeDefinition]:
-        for fullname_depended in td.enumerate_dependencies():
-            if fullname_depended not in meta_group_by_fullname:
                 continue
-            for td_depended in meta_group_by_fullname[fullname_depended]:
-                if id(td_depended) in selected:
-                    continue
-                selected.add(id(td_depended))
-                yield td_depended
-                yield from self.select_dependencies(td_depended, meta_group_by_fullname, selected)
+            self._ns[td.fullname].append(td)
 
-    def select_object_members_inplace(self, td: TypeDefinition) -> None:
-        fields = []
-        for fd in td["Fields"]:
-            if self.is_match(fd["Name"]):
-                fields.append(fd)
-            elif self.is_match(f"{td.namespace}.{fd['Name']}"):
-                fields.append(fd)
-        td["Fields"] = fields
-        method_definitions = []
-        for md in td["MethodDefinitions"]:
-            if self.is_match(md["Name"]):
-                method_definitions.append(md)
-            elif self.is_match(f"{td.namespace}.{md['Name']}"):
-                method_definitions.append(md)
-        td["MethodDefinitions"] = method_definitions
+    def _select_match_and_dependencies(self, td: TypeDefinition) -> None:
+        if self._is_match(td.namespace):
+            self._selected.add(td.namespace)
+        elif self._is_match(td.name) or self._is_match(td.fullname):
+            self._selected.add(td.fullname)
+            self._select_dependencies(list(td.enumerate_dependencies()))
+        elif td.name == "Apis":
+            for fd in td.fields:
+                if self._is_match(fd.name) or self._is_match(f"{td.namespace}.{fd.name}"):
+                    self._selected.add(f"{td.namespace}.{fd.name}")
+                    self._select_dependencies(list(fd.enumerate_dependencies()))
+            for md in td.method_definitions:
+                if self._is_match(md.name) or self._is_match(f"{td.namespace}.{md.name}"):
+                    self._selected.add(f"{td.namespace}.{md.name}")
+                    self._select_dependencies(list(md.enumerate_dependencies()))
+        elif td.basetype == "System.Enum":
+            if td.is_winrt or not td.custom_attributes.has_scoped_enum():
+                return
+            for fd in td.fields[1:]:
+                if self._is_match(fd.name) or self._is_match(f"{td.fullname}.{fd.name}"):
+                    self._selected.add(td.fullname)
+                    break
 
-    def find_match(self, meta: Metadata) -> Iterable[TypeDefinition]:
-        for td in meta:
-            if self.is_match(td.namespace):
-                yield td
-            elif self.is_match(td.name):
-                yield td
-            elif self.is_match(td.fullname):
-                yield td
-            elif td.name == "Apis":
-                if self.is_match_any_fields(td):  # constants
-                    yield td
-                elif self.is_match_any_method_definitions(td):  # functions
-                    yield td
-            elif td.basetype == "System.Enum":
-                if self.is_match_any_fields(td):
-                    yield td
+    def _select_dependencies(self, dependencies: list[str]) -> None:
+        for fullname in dependencies:
+            if fullname in self._selected:
+                continue
+            if fullname not in self._ns:
+                continue
+            self._selected.add(fullname)
+            for td in self._ns[fullname]:
+                self._select_dependencies(list(td.enumerate_dependencies()))
+
+    def _is_selected(self, td: TypeDefinition) -> bool:
+        if td.namespace in self._selected:
+            return True
+        elif td.fullname in self._selected:
+            return True
+        elif td.name == "Apis":
+            td["Fields"] = [fd for fd in td["Fields"] if f"{td['Namespace']}.{fd['Name']}" in self._selected]
+            td["MethodDefinitions"] = [
+                md for md in td["MethodDefinitions"] if f"{td['Namespace']}.{md['Name']}" in self._selected
+            ]
+            if td["Fields"] or td["MethodDefinitions"]:
+                return True
+        return False
