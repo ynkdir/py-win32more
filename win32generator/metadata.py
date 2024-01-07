@@ -1,8 +1,7 @@
 from __future__ import annotations
 
 import re
-from collections import defaultdict
-from collections.abc import Iterable, Iterator, Mapping
+from collections.abc import Iterable, Iterator
 from typing import Any, Collection, MutableSequence, overload
 
 from .backport import TypeAlias
@@ -922,9 +921,3 @@ class Metadata(MutableSequence[TypeDefinition]):
 
     def insert(self, i: int, value: TypeDefinition) -> None:
         self.typedefs.insert(i, value)
-
-    def group_by_fullname(self) -> Mapping[str, Metadata]:
-        meta_group_by_fullname: Mapping[str, Metadata] = defaultdict(Metadata)
-        for td in self:
-            meta_group_by_fullname[td.fullname].append(td)
-        return meta_group_by_fullname

@@ -35,7 +35,7 @@ class Selector:
         return False
 
     def select(self, meta: Metadata) -> Iterable[TypeDefinition]:
-        meta_group_by_fullname = meta.group_by_fullname()
+        meta_group_by_fullname = self._group_by_fullname(meta)
         selected = set()
         for td in self.find_match(meta):
             if id(td) in selected:
@@ -45,6 +45,14 @@ class Selector:
                 self.select_object_members_inplace(td)
             yield td
             yield from self.select_dependencies(td, meta_group_by_fullname, selected)
+
+    def _group_by_fullname(self, meta: Metadata) -> Mapping[str, Metadata]:
+        meta_group_by_fullname = {}
+        for td in meta:
+            if td.fullname not in meta_group_by_fullname:
+                meta_group_by_fullname[td.fullname] = Metadata()
+            meta_group_by_fullname[td.fullname].append(td)
+        return meta_group_by_fullname
 
     def select_dependencies(
         self, td: TypeDefinition, meta_group_by_fullname: Mapping[str, Metadata], selected: set[int]
