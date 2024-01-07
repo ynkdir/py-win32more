@@ -39,7 +39,6 @@ def preprocess(meta: Metadata) -> Metadata:
     pp = Preprocessor()
     meta = pp.filter_public(meta)
     meta = pp.sort(meta)
-    pp.patch_enum(meta)
     pp.patch_name_conflict(meta)
     pp.patch_keyword_name(meta)
     return meta
