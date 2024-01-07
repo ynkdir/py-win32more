@@ -25,7 +25,6 @@ class Preprocessor:
             if td.basetype != "System.Enum":
                 continue
             if td.is_winrt:
-                # emit as ENUM.Name
                 continue
             if td.fullname == "Windows.Win32.UI.Input.KeyboardAndMouse.VIRTUAL_KEY":
                 for fd in td.fields[1:]:
