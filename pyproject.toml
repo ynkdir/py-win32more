@@ -10,7 +10,7 @@ dependencies = [
 ]
 
 [tool.hatch.build]
-include = ["win32more", "win32generator"]
+only-include = ["win32more", "win32generator"]
 
 [tool.hatch.envs.default]
 dependencies = [
