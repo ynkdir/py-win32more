@@ -29,9 +29,7 @@ class Preprocessor:
                         logger.warning(f"constant name conflict '{td.namespace}.{fd.name}'")
                         fd["Name"] = f"{fd['Name']}_CONSTANT"
             elif td.basetype == "System.Enum":
-                if td.is_winrt:
-                    continue
-                if td.custom_attributes.has_scoped_enum():
+                if td.is_winrt or td.custom_attributes.has_scoped_enum():
                     continue
                 if td.fullname == "Windows.Win32.UI.Input.KeyboardAndMouse.VIRTUAL_KEY":
                     for fd in td.fields[1:]:

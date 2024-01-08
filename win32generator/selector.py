@@ -50,7 +50,7 @@ class Selector:
                     self._selected.add(f"{td.namespace}.{md.name}")
                     self._select_dependencies(md.enumerate_dependencies())
         elif td.basetype == "System.Enum":
-            if td.is_winrt or not td.custom_attributes.has_scoped_enum():
+            if td.is_winrt or td.custom_attributes.has_scoped_enum():
                 return
             for fd in td.fields[1:]:
                 if self._is_match(fd.name) or self._is_match(f"{td.fullname}.{fd.name}"):
