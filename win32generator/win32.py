@@ -590,7 +590,6 @@ class Com:
         params = ", ".join(["self"] + self._formatter.method_parameters_annotated(md))
         writer.write(f"    @commethod({vtbl_index})\n")
         writer.write(f"    def {md.name}({params}) -> {restype}: ...\n")
-        vtbl_index += 1
         return writer.getvalue()
 
 
