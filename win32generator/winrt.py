@@ -48,6 +48,7 @@ class Method:
 class Parser:
     def __init__(self, package: Package) -> None:
         self._package = package
+        self._formatter = Formatter(self._package)
 
     def parse(self, td: TypeDefinition) -> None:
         if td.namespace not in self._package:
@@ -55,19 +56,17 @@ class Parser:
 
         module = self._package[td.namespace]
 
-        formatter = Formatter(self._package)
-
         if td.basetype is None or td.basetype == "System.Object" or td.basetype.startswith(("Windows.", "Microsoft.")):
-            module.add(Com(td, self._package, formatter))
+            module.add(Com(td, self._package, self._formatter))
         elif td.basetype == "System.MulticastDelegate":
-            module.add(Delegate(td, formatter))
+            module.add(Delegate(td, self._formatter))
         elif td.basetype == "System.Enum":
-            module.add(Enum(td, formatter))
+            module.add(Enum(td, self._formatter))
         elif td.basetype == "System.ValueType":
             if td.fields:
-                module.add(Struct(td, formatter))
+                module.add(Struct(td, self._formatter))
             elif td.custom_attributes.has("Windows.Foundation.Metadata.ContractVersionAttribute"):
-                module.add(ContractVersion(td, formatter))
+                module.add(ContractVersion(td, self._formatter))
             else:
                 raise NotImplementedError()
         else:

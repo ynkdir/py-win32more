@@ -52,6 +52,7 @@ BASE_EXPORTS_CSV = ", ".join(BASE_EXPORTS)
 class Parser:
     def __init__(self, package: Package) -> None:
         self._package = package
+        self._formatter = Formatter(self._package)
 
     def parse(self, td: TypeDefinition) -> None:
         if td.namespace not in self._package:
@@ -59,36 +60,34 @@ class Parser:
 
         module = self._package[td.namespace]
 
-        formatter = Formatter(self._package)
-
         if td.basetype is None:
-            module.add(Com(td, self._package, formatter))
+            module.add(Com(td, self._package, self._formatter))
         elif td.basetype == "System.Object":
             for fd in td.fields:
-                module.add(Constant(td, fd, formatter))
+                module.add(Constant(td, fd, self._formatter))
             for md in td.method_definitions:
                 if md.custom_attributes.has_constant():
-                    module.add(InlineFunction(td, md, formatter))
+                    module.add(InlineFunction(td, md, self._formatter))
                 else:
-                    module.add(ExternalFunction(td, md, formatter))
+                    module.add(ExternalFunction(td, md, self._formatter))
         elif td.basetype == "System.MulticastDelegate":
-            module.add(FunctionPointer(td, formatter))
+            module.add(FunctionPointer(td, self._formatter))
         elif td.basetype == "System.Enum":
-            module.add(Enum(td, formatter))
+            module.add(Enum(td, self._formatter))
         elif td.basetype == "System.ValueType":
             if td.custom_attributes.has_native_typedef():
-                module.add(NativeTypedef(td, formatter))
+                module.add(NativeTypedef(td, self._formatter))
             # FIXME: CLSID_ComClass is defined as attribute like [uuid(...)] struct ComClass {}.
             elif td.custom_attributes.has_guid() and not td.fields:
-                module.add(Clsid(td, formatter))
+                module.add(Clsid(td, self._formatter))
             elif "SequentialLayout" in td.attributes:
-                module.add(StructUnion(td, formatter))  # struct
+                module.add(StructUnion(td, self._formatter))  # struct
             elif "ExplicitLayout" in td.attributes:
-                module.add(StructUnion(td, formatter))  # union
+                module.add(StructUnion(td, self._formatter))  # union
             else:
                 raise NotImplementedError()
         elif td.basetype == "System.Attribute":
-            module.add(Attribute(td, formatter))
+            module.add(Attribute(td, self._formatter))
         else:
             raise NotImplementedError()
 
