@@ -14,17 +14,16 @@ from .selector import Selector
 logger = logging.getLogger(__name__)
 
 
-def xopen(path: str) -> TextIO | lzma.LZMAFile:
+def xread_text(path: str) -> str:
     if path.endswith(".xz"):
-        return lzma.open(path)
-    return open(path)
+        return lzma.decompress(Path(path).read_bytes()).decode()
+    return Path(path).read_text()
 
 
 def load_files(metadata_files: list[str]) -> Metadata:
     js = []
     for file in metadata_files:
-        with xopen(file) as f:
-            js.extend(json.load(f))
+        js.extend(json.loads(xread_text(file)))
     return Metadata(js)
 
 
