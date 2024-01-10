@@ -23,15 +23,15 @@ class Selector:
     def _is_match(self, name) -> bool:
         return name in self._selectors
 
-    def select(self, meta: Metadata) -> Iterable[TypeDefinition]:
+    def select(self, meta: Metadata) -> Metadata:
         self._init_namespace(meta)
-        for td in meta:
+        for td in meta.type_definitions:
             self._select_match_and_dependencies(td)
-        return [td for td in meta if self._is_selected(td)]
+        return Metadata([td.js for td in meta.type_definitions if self._is_selected(td)])
 
     def _init_namespace(self, meta: Metadata) -> None:
         self._ns = defaultdict(list)
-        for td in meta:
+        for td in meta.type_definitions:
             if td.name == "Apis":
                 continue
             self._ns[td.fullname].append(td)

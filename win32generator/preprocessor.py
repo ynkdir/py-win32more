@@ -9,7 +9,7 @@ logger = logging.getLogger(__name__)
 
 class Preprocessor:
     def filter_public(self, meta: Metadata) -> Metadata:
-        return Metadata(td for td in meta if self.is_public(td))
+        return Metadata([td.js for td in meta.type_definitions if self.is_public(td)])
 
     def is_public(self, td: TypeDefinition) -> bool:
         if td.is_winrt:
@@ -18,11 +18,11 @@ class Preprocessor:
             return td.namespace != "" and "Public" in td.attributes
 
     def sort(self, meta: Metadata) -> Metadata:
-        return Metadata(sorted(meta, key=lambda td: (td.namespace, td.name)))
+        return Metadata(sorted(meta.js, key=lambda td: (td["Namespace"], td["Name"])))
 
     def patch_name_conflict(self, meta: Metadata) -> None:
         names = self._names_without_constant_and_non_scoped_enum(meta)
-        for td in meta:
+        for td in meta.type_definitions:
             if td.name == "Apis":
                 for fd in td.fields:
                     if f"{td.namespace}.{fd.name}" in names:
@@ -48,7 +48,7 @@ class Preprocessor:
 
     def _names_without_constant_and_non_scoped_enum(self, meta: Metadata) -> set[str]:
         names = set()
-        for td in meta:
+        for td in meta.type_definitions:
             if td.name == "Apis":
                 for md in td.method_definitions:
                     names.add(f"{td.namespace}.{md.name}")
@@ -57,7 +57,7 @@ class Preprocessor:
         return names
 
     def patch_keyword_name(self, meta: Metadata) -> None:
-        for td in meta:
+        for td in meta.type_definitions:
             self.patch_keyword_name_td(td, td.fullname)
 
     def patch_keyword_name_td(self, td: TypeDefinition, namespace: str) -> None:

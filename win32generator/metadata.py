@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import re
 from collections.abc import Iterable, Iterator
-from typing import Any, Collection, MutableSequence, overload
+from typing import Any, Collection
 
 from .backport import TypeAlias
 
@@ -101,7 +101,13 @@ class TType:
         else:
             raise NotImplementedError()
 
-    def enumerate_dependencies(self) -> Iterable[str]:
+    def enumerate_dependencies(self, exclude_pointer=False) -> Iterable[str]:
+        if exclude_pointer:
+            if self.kind in ["Pointer", "Reference"]:
+                return
+            elif self.kind in ["Array", "SZArray"]:
+                yield from self.type.enumerate_dependencies(exclude_pointer)
+                return
         t = self.get_element_type()
         if t.kind == "Type" and t.namespace not in ["", "System"]:
             yield t.fullname
@@ -110,7 +116,7 @@ class TType:
         elif t.kind == "Generic":
             yield t.type.fullname
             for t in t.type_arguments:
-                yield from t.enumerate_dependencies()
+                yield from t.enumerate_dependencies(exclude_pointer)
 
 
 class TypeDefinition:
@@ -183,7 +189,7 @@ class TypeDefinition:
     def generic_parameters(self) -> list[GenericParameter]:
         return [GenericParameter(gp) for gp in self["GenericParameters"]]
 
-    def enumerate_dependencies(self) -> Iterable[str]:
+    def enumerate_dependencies(self, exclude_pointer=False) -> Iterable[str]:
         if self.is_winrt:
             if self.basetype is None:
                 yield "Windows.Win32.System.WinRT.IInspectable"
@@ -197,14 +203,14 @@ class TypeDefinition:
             if self.basetype is None:
                 yield "Windows.Win32.System.Com.IUnknown"
         for ii in self.interface_implementations:
-            yield from ii.enumerate_dependencies()
+            yield from ii.enumerate_dependencies(exclude_pointer)
         for fd in self.fields:
-            yield from fd.enumerate_dependencies()
+            yield from fd.enumerate_dependencies(exclude_pointer)
         for md in self.method_definitions:
-            yield from md.enumerate_dependencies()
+            yield from md.enumerate_dependencies(exclude_pointer)
         for nested_type in self.nested_types:
-            yield from nested_type.enumerate_dependencies()
-        yield from self.custom_attributes.enumerate_dependencies()
+            yield from nested_type.enumerate_dependencies(exclude_pointer)
+        yield from self.custom_attributes.enumerate_dependencies(exclude_pointer)
 
     @property
     def is_winrt(self) -> bool:
@@ -410,7 +416,7 @@ class CustomAttributeCollection(Collection[CustomAttribute]):
     def has_scoped_enum(self) -> bool:
         return self.has("Windows.Win32.Foundation.Metadata.ScopedEnumAttribute")
 
-    def enumerate_dependencies(self) -> Iterable[str]:
+    def enumerate_dependencies(self, exclude_pointer=False) -> Iterable[str]:
         if self.has_activatable():
             for ca in self.get_activatable():
                 if ca.fixed_arguments[0].type.kind == "Type":
@@ -505,8 +511,8 @@ class FieldDefinition:
     def offset(self) -> int:
         return self["Offset"]
 
-    def enumerate_dependencies(self) -> Iterable[str]:
-        yield from self.signature.enumerate_dependencies()
+    def enumerate_dependencies(self, exclude_pointer=False) -> Iterable[str]:
+        yield from self.signature.enumerate_dependencies(exclude_pointer)
 
 
 class Constant:
@@ -573,11 +579,11 @@ class InterfaceImplementation:
         else:
             raise NotImplementedError()
 
-    def enumerate_dependencies(self) -> Iterable[str]:
+    def enumerate_dependencies(self, exclude_pointer=False) -> Iterable[str]:
         if self.interface.kind == "TypeReference":
             yield self.interface.type_reference.fullname
         elif self.interface.kind == "TypeSpecification":
-            yield from self.interface.type_specification.signature.enumerate_dependencies()
+            yield from self.interface.type_specification.signature.enumerate_dependencies(exclude_pointer)
         else:
             raise NotImplementedError()
 
@@ -729,8 +735,8 @@ class MethodDefinition:
             return self.custom_attributes.get_overload()
         return self.name
 
-    def enumerate_dependencies(self) -> Iterable[str]:
-        yield from self.signature.enumerate_dependencies()
+    def enumerate_dependencies(self, exclude_pointer=False) -> Iterable[str]:
+        yield from self.signature.enumerate_dependencies(exclude_pointer)
 
 
 class MethodSignature:
@@ -763,10 +769,10 @@ class MethodSignature:
     def return_type(self) -> TType:
         return TType(self["ReturnType"])
 
-    def enumerate_dependencies(self) -> Iterable[str]:
-        yield from self.return_type.enumerate_dependencies()
+    def enumerate_dependencies(self, exclude_pointer=False) -> Iterable[str]:
+        yield from self.return_type.enumerate_dependencies(exclude_pointer)
         for t in self.parameter_types:
-            yield from t.enumerate_dependencies()
+            yield from t.enumerate_dependencies(exclude_pointer)
 
 
 class SignatureHeader:
@@ -879,45 +885,16 @@ class ModuleReference:
         return CustomAttributeCollection(self["CustomAttributes"])
 
 
-class Metadata(MutableSequence[TypeDefinition]):
-    def __init__(self, typedefs: Iterable[TypeDefinition] = []) -> None:
-        self.typedefs = list(typedefs)
+class Metadata:
+    def __init__(self, js: JsonType) -> None:
+        self.js = js
 
-    def __len__(self) -> int:
-        return len(self.typedefs)
+    def __getitem__(self, key: int) -> JsonType:
+        return self.js[key]
 
-    @overload
-    def __getitem__(self, key: int) -> TypeDefinition:
-        ...
+    def __setitem__(self, key: int, value: JsonType) -> None:
+        self.js[key] = value
 
-    @overload
-    def __getitem__(self, key: slice) -> MutableSequence[TypeDefinition]:
-        ...
-
-    def __getitem__(self, key):
-        return self.typedefs[key]
-
-    @overload
-    def __setitem__(self, key: int, value: TypeDefinition) -> None:
-        ...
-
-    @overload
-    def __setitem__(self, key: slice, value: Iterable[TypeDefinition]) -> None:
-        ...
-
-    def __setitem__(self, key, value) -> None:
-        self.typedefs[key] = value
-
-    @overload
-    def __delitem__(self, key: int) -> None:
-        ...
-
-    @overload
-    def __delitem__(self, key: slice) -> None:
-        ...
-
-    def __delitem__(self, key) -> None:
-        del self.typedefs[key]
-
-    def insert(self, i: int, value: TypeDefinition) -> None:
-        self.typedefs.insert(i, value)
+    @property
+    def type_definitions(self) -> list[TypeDefinition]:
+        return [TypeDefinition(td) for td in self.js]

@@ -6,7 +6,7 @@ from pathlib import Path
 from typing import TextIO
 
 from . import resources, win32, winrt
-from .metadata import Metadata, TypeDefinition
+from .metadata import Metadata
 from .package import Package
 from .preprocessor import Preprocessor
 from .selector import Selector
@@ -25,14 +25,14 @@ def load_files(metadata_files: list[str]) -> Metadata:
     for file in metadata_files:
         with xopen(file) as f:
             js.extend(json.load(f))
-    return Metadata(TypeDefinition(typedef) for typedef in js)
+    return Metadata(js)
 
 
 def load_resources(metadata_files: list[str]) -> Metadata:
     js = []
     for file in metadata_files:
         js.extend(json.loads(resources.read_text(file)))
-    return Metadata(TypeDefinition(typedef) for typedef in js)
+    return Metadata(js)
 
 
 def preprocess(meta: Metadata) -> Metadata:
@@ -46,13 +46,13 @@ def preprocess(meta: Metadata) -> Metadata:
 
 def select(meta: Metadata, selector_file: str) -> Metadata:
     selector = Selector(Path(selector_file))
-    return Metadata(selector.select(meta))
+    return selector.select(meta)
 
 
 def parse(meta: Metadata, package: Package) -> None:
     win32_parser = win32.Parser(package)
     winrt_parser = winrt.Parser(package)
-    for td in meta:
+    for td in meta.type_definitions:
         if td.is_win32:
             win32_parser.parse(td)
         else:
