@@ -7,14 +7,14 @@ from .metadata import Metadata, TypeDefinition
 
 
 class Selector:
-    def __init__(self, path: Path) -> None:
+    def __init__(self, path: str) -> None:
         self._selectors = self._read_selector(path)
         self._selected: set[str] = set()
         self._ns: Mapping[str, list[TypeDefinition]] = defaultdict(list)
 
-    def _read_selector(self, path: Path) -> set[str]:
+    def _read_selector(self, path: str) -> set[str]:
         selectors = set()
-        for line in path.read_text().splitlines():
+        for line in Path(path).read_text().splitlines():
             line = re.sub(r"#.*", "", line).strip()
             if line != "":
                 selectors.add(line)

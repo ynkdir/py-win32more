@@ -26,34 +26,28 @@ class Package:
         return name.split(".")[-1] if self.is_onefile else f"{self.name}.{name}"
 
 
-class Module:
-    def __init__(self, namespace: str, package: Package) -> None:
-        self._namespace = namespace
-        self._package = package
-        self._items: dict[str, ApiItem] = {}
-
+class Module(Protocol):
     @property
     def namespace(self) -> str:
-        return self._namespace
+        ...
 
     def __getitem__(self, name: str) -> ApiItem:
-        return self._items[name]
+        ...
 
     def __contains__(self, name: str) -> bool:
-        return name in self._items
+        ...
 
     def items(self) -> Iterable[ApiItem]:
-        return self._items.values()
+        ...
 
     def add(self, item: ApiItem) -> None:
-        raise NotImplementedError()
+        ...
 
     def emit_header(self) -> str:
-        raise NotImplementedError()
+        ...
 
     def enumerate_dependencies(self) -> Iterable[str]:
-        for item in self._items.values():
-            yield from item.enumerate_dependencies()
+        ...
 
 
 class ApiItem(Protocol):

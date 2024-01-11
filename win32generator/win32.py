@@ -159,6 +159,24 @@ class Formatter:
 
 
 class Win32Module(Module):
+    def __init__(self, namespace: str, package: Package) -> None:
+        self._namespace = namespace
+        self._package = package
+        self._items: dict[str, ApiItem] = {}
+
+    @property
+    def namespace(self) -> str:
+        return self._namespace
+
+    def __getitem__(self, name: str) -> ApiItem:
+        return self._items[name]
+
+    def __contains__(self, name: str) -> bool:
+        return name in self._items
+
+    def items(self) -> Iterable[ApiItem]:
+        return self._items.values()
+
     def add(self, item: ApiItem) -> None:
         assert self.namespace == item.namespace
         if item.name in self._items:
@@ -172,9 +190,6 @@ class Win32Module(Module):
         else:
             self._items[item.name] = item
 
-    def imported_namespaces(self) -> set[str]:
-        return {fullname.rsplit(".", 1)[0] for fullname in self.enumerate_dependencies()}
-
     def emit_header(self) -> str:
         writer = StringIO()
         writer.write("from __future__ import annotations\n")
@@ -185,6 +200,13 @@ class Win32Module(Module):
                 continue
             writer.write(f"import {self._package.name}.{namespace}\n")
         return writer.getvalue()
+
+    def enumerate_dependencies(self) -> Iterable[str]:
+        for item in self._items.values():
+            yield from item.enumerate_dependencies()
+
+    def imported_namespaces(self) -> set[str]:
+        return {fullname.rsplit(".", 1)[0] for fullname in self.enumerate_dependencies()}
 
     @classmethod
     def emit_header_one(cls, package_name: str) -> str:
