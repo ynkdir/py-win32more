@@ -5,7 +5,7 @@ import lzma
 from pathlib import Path
 from typing import TextIO
 
-from . import resources, win32, winrt
+from . import resources, win32, win32raw, winrt
 from .metadata import Metadata
 from .package import Package
 from .preprocessor import Preprocessor
@@ -91,6 +91,14 @@ def generate_one(package: Package, writer: TextIO) -> None:
     writer.write("\n\nmake_ready(__name__)\n")
 
 
+def generate_raw(meta: Metadata, writer: TextIO) -> None:
+    module = win32raw.Win32RawModule()
+    parser = win32raw.Parser(module)
+    for td in meta.type_definitions:
+        parser.parse(td)
+    writer.write(module.emit())
+
+
 def has_winrt(package: Package) -> bool:
     for module in package.modules():
         if isinstance(module, winrt.WinrtModule):
@@ -114,6 +122,7 @@ def main() -> None:
     parser.add_argument("--loglevel", default="WARNING")
     parser.add_argument("-o", "--one", help="out to one file")
     parser.add_argument("-s", "--selector", help="selector.txt")
+    parser.add_argument("--raw", action="store_true", help="generate raw bindings")
     parser.add_argument("--package-name", default="win32more")
     parser.add_argument("--output-directory", default=".")
     parser.add_argument("metadata", nargs="*", help="metadata.json")
@@ -126,6 +135,12 @@ def main() -> None:
     if not output_directory.is_dir():
         raise RuntimeError(f"{output_directory} is not directory")
 
+    if args.raw and args.one is None:
+        raise RuntimeError("--raw requires --one option")
+
+    if args.raw and args.selector is None:
+        raise RuntimeError("--raw requires --selector option")
+
     if args.metadata:
         meta = load_files(args.metadata)
     else:
@@ -137,6 +152,11 @@ def main() -> None:
 
     if args.selector is not None:
         meta = select(meta, args.selector)
+
+    if args.raw:
+        with open(args.one, "w") as writer:
+            generate_raw(meta, writer)
+        return
 
     package = Package(args.package_name, bool(args.one))
 
