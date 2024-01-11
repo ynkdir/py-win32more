@@ -91,32 +91,33 @@ class TType:
     def is_guid(self) -> bool:
         return self.kind == "Type" and self.fullname == "System.Guid"
 
-    def get_element_type(self) -> TType:
-        if self.kind in ["Pointer", "Array", "Reference", "SZArray"]:
-            return self.type.get_element_type()
-        elif self.kind in ["Primitive", "Type", "Generic", "GenericParameter"]:
-            return self
-        elif self.kind == "Modified" and self.modifier_type.fullname == "System.Runtime.CompilerServices.IsConst":
-            return self.unmodified_type
+    def enumerate_dependencies(self, exclude_pointer=False) -> Iterable[str]:
+        if self.kind in ["Pointer", "Reference"]:
+            if exclude_pointer:
+                return
+            yield from self.type.enumerate_dependencies(exclude_pointer)
+        elif self.kind in ["Array", "SZArray"]:
+            yield from self.type.enumerate_dependencies(exclude_pointer)
+        elif self.kind == "Primitive":
+            if self.name == "Object":
+                yield "Windows.Win32.System.WinRT.IInspectable"
+        elif self.kind == "Type":
+            if self.namespace in ["", "System"]:
+                return
+            yield self.fullname
+        elif self.kind == "Modified":
+            if self.modifier_type.fullname == "System.Runtime.CompilerServices.IsConst":
+                yield from self.unmodified_type.enumerate_dependencies(exclude_pointer)
+            else:
+                raise NotImplementedError()
+        elif self.kind == "Generic":
+            yield self.type.fullname
+            for t in self.type_arguments:
+                yield from t.enumerate_dependencies(exclude_pointer)
+        elif self.kind == "GenericParameter":
+            pass
         else:
             raise NotImplementedError()
-
-    def enumerate_dependencies(self, exclude_pointer=False) -> Iterable[str]:
-        if exclude_pointer:
-            if self.kind in ["Pointer", "Reference"]:
-                return
-            elif self.kind in ["Array", "SZArray"]:
-                yield from self.type.enumerate_dependencies(exclude_pointer)
-                return
-        t = self.get_element_type()
-        if t.kind == "Type" and t.namespace not in ["", "System"]:
-            yield t.fullname
-        elif t.kind == "Primitive" and t.name == "Object":
-            yield "Windows.Win32.System.WinRT.IInspectable"
-        elif t.kind == "Generic":
-            yield t.type.fullname
-            for t in t.type_arguments:
-                yield from t.enumerate_dependencies(exclude_pointer)
 
 
 class TypeDefinition:
