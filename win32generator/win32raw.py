@@ -162,18 +162,58 @@ class Win32RawModule:
         writer.write(
             "    _fields_ = [('Data1', c_uint32), ('Data2', c_uint16), ('Data3', c_uint16), ('Data4', c_ubyte * 8)]\n"
         )
-        writer.write("COMMETHOD = lambda f: lambda *args: f(*args)\n")
+        writer.write("def redefine(cls):\n")
+        writer.write("    def decorator(clsdef):\n")
+        writer.write("        for key, attr in clsdef.__dict__.items():\n")
+        writer.write("            if key not in cls.__dict__:\n")
+        writer.write("                setattr(cls, key, attr)\n")
+        writer.write("        return cls\n")
+        writer.write("    return decorator\n")
+        writer.write("def COMMETHOD(vtbl_index, name, *types):\n")
+        writer.write("    f = WINFUNCTYPE(*types)(vtbl_index, name)\n")
+        writer.write("    return lambda this, *args: f(this, *args)\n")
         return writer.getvalue()
 
     @no_type_check
     def emit(self) -> str:
         writer = StringIO()
         writer.write(self.emit_header())
-        for item in self._sort((item for item in self._items.values()), head=True):
+        for item in self._head_items():
             writer.write(item.emit_head())
-        for item in self._sort((item for item in self._items.values()), head=False):
+        for item in self._body_items():
             writer.write(item.emit())
         return writer.getvalue()
+
+    def _head_items(self) -> Iterable[ApiItem]:
+        order = {StructUnion: 0, Com: 1}
+        head_items = []
+        for item in self._sort((item for item in self._items.values()), head=True):
+            if self._item_type(item) in order:
+                head_items.append(item)
+        return sorted(head_items, key=lambda item: order[self._item_type(item)])
+
+    def _body_items(self) -> Iterable[ApiItem]:
+        order = {
+            NativeTypedef: 0,
+            Enum: 1,
+            FunctionPointer: 2,
+            Attribute: 3,
+            StructUnion: 4,
+            Com: 5,
+            Clsid: 6,
+            ExternalFunction: 7,
+            InlineFunction: 8,
+            Constant: 9,
+        }
+        return sorted(
+            self._sort((item for item in self._items.values()), head=False),
+            key=lambda item: order[self._item_type(item)],
+        )
+
+    def _item_type(self, item) -> type:
+        if isinstance(item, ArchitectureVariant):
+            return type(item._items[0])
+        return type(item)
 
     def _sort(self, items: Iterable[ApiItem], head: bool) -> Iterable[ApiItem]:
         added: set[str] = set()
@@ -222,9 +262,6 @@ class Constant:
     def enumerate_dependencies(self) -> Iterable[str]:
         yield from self._fd.enumerate_dependencies(exclude_pointer=True)
 
-    def emit_head(self) -> str:
-        return ""
-
     def emit(self) -> str:
         return f"{self._fd.name} = {self._formatter.pyvalue(self._fd)}\n"
 
@@ -252,9 +289,6 @@ class InlineFunction:
 
     def enumerate_dependencies(self) -> Iterable[str]:
         yield from self._md.enumerate_dependencies(exclude_pointer=True)
-
-    def emit_head(self) -> str:
-        return ""
 
     def emit(self) -> str:
         writer = StringIO()
@@ -287,9 +321,6 @@ class ExternalFunction:
 
     def enumerate_dependencies(self) -> Iterable[str]:
         yield from self._md.enumerate_dependencies(exclude_pointer=True)
-
-    def emit_head(self) -> str:
-        return ""
 
     def emit(self) -> str:
         name = self._md.name
@@ -349,9 +380,6 @@ class FunctionPointer:
     def enumerate_dependencies(self) -> Iterable[str]:
         yield from self._md.enumerate_dependencies(exclude_pointer=True)
 
-    def emit_head(self) -> str:
-        return ""
-
     def emit(self) -> str:
         functype = self._functype()
         restype = self._md.signature.return_type
@@ -390,23 +418,15 @@ class Enum:
     def enumerate_dependencies(self) -> Iterable[str]:
         yield from self._td.fields[0].enumerate_dependencies(exclude_pointer=True)
 
-    def emit_head(self) -> str:
-        writer = StringIO()
-        type_field, *value_fields = self._td.fields
-        if self._td.custom_attributes.has_scoped_enum():
-            writer.write(f"class {self._td.name}({self._formatter.pytype(type_field.signature)}):  # enum\n")
-            writer.write("    pass\n")
-        else:
-            writer.write(f"{self._td.name} = {self._formatter.pytype(type_field.signature)}\n")
-        return writer.getvalue()
-
     def emit(self) -> str:
         writer = StringIO()
         type_field, *value_fields = self._td.fields
+        writer.write(f"class {self._td.name}({self._formatter.pytype(type_field.signature)}):\n")
         if self._td.custom_attributes.has_scoped_enum():
             for fd in value_fields:
-                writer.write(f"{self._td.name}.{fd.name} = {fd.default_value.value}\n")
+                writer.write(f"    {self._td.name}.{fd.name} = {fd.default_value.value}\n")
         else:
+            writer.write("    pass\n")
             for fd in value_fields:
                 writer.write(f"{fd.name}: {self._td.name} = {fd.default_value.value}\n")
         return writer.getvalue()
@@ -432,9 +452,6 @@ class NativeTypedef:
 
     def enumerate_dependencies(self) -> Iterable[str]:
         yield from self._td.fields[0].enumerate_dependencies(exclude_pointer=True)
-
-    def emit_head(self) -> str:
-        return ""
 
     def emit(self) -> str:
         if self._td.name == "PSTR":  # POINTER(Byte)
@@ -467,9 +484,6 @@ class Clsid:
 
     def enumerate_dependencies(self) -> Iterable[str]:
         return []
-
-    def emit_head(self) -> str:
-        return ""
 
     def emit(self) -> str:
         guid = self._formatter.guid(self._td.custom_attributes.get_guid())
@@ -505,42 +519,42 @@ class StructUnion:
     def _emit_head_td(self, td: TypeDefinition) -> str:
         writer = StringIO()
         writer.write(f"class {td.name}({self._basetype(td)}):\n")
-        if not td.nested_types:
-            writer.write("    pass\n")
-        else:
-            for nested_type in td.nested_types:
-                writer.write(textwrap.indent(self._emit_head_td(nested_type), "    "))
+        writer.write("    pass\n")
         return writer.getvalue()
 
     def emit(self) -> str:
-        return self._emit_td(self._td, "")
+        return self._emit_td(self._td)
 
-    def _emit_td(self, td: TypeDefinition, parent) -> str:
+    def _emit_td(self, td: TypeDefinition) -> str:
         writer = StringIO()
 
+        if td is self._td:
+            writer.write(f"@redefine({td.name})\n")
+        writer.write(f"class {td.name}({self._basetype(td)}):\n")
+
         for nested_type in td.nested_types:
-            writer.write(self._emit_td(nested_type, f"{parent}{td.name}."))
+            writer.write(textwrap.indent(self._emit_td(nested_type), "    "))
 
         if td.custom_attributes.has_guid():
             guid = self._formatter.guid(td.custom_attributes.get_guid())
-            writer.write(f"{parent}{td.name}._uuid_ = {guid}\n")
+            writer.write(f"    _uuid_ = {guid}\n")
 
         for fd in td.fields:
             if self._is_static(fd):
-                writer.write(f"{parent}{td.name}.{fd.name} = {self._formatter.pyvalue(fd)}\n")
+                writer.write(f"    {fd.name} = {self._formatter.pyvalue(fd)}\n")
 
         anonymous = ", ".join(f"'{fd.name}'" for fd in td.fields if re.match(r"^Anonymous\d*$", fd.name))
         if anonymous:
-            writer.write(f"{parent}{td.name}._anonymous_ = [{anonymous}]\n")
+            writer.write(f"    _anonymous_ = [{anonymous}]\n")
 
         if td.layout.packing_size != 0:
-            writer.write(f"{parent}{td.name}._pack_ = {td.layout.packing_size}\n")
+            writer.write(f"    _pack_ = {td.layout.packing_size}\n")
 
-        writer.write(f"{parent}{td.name}._fields_ = [\n")
+        writer.write("    _fields_ = [\n")
         for fd in td.fields:
             if not self._is_static(fd):
-                writer.write(f"    ('{fd.name}', {self._formatter.pytype(fd.signature)}),\n")
-        writer.write("]\n")
+                writer.write(f"        ('{fd.name}', {self._formatter.pytype(fd.signature)}),\n")
+        writer.write("    ]\n")
 
         return writer.getvalue()
 
@@ -587,9 +601,11 @@ class Com:
     def emit(self) -> str:
         assert len(self._td.interface_implementations) <= 1
         writer = StringIO()
+        writer.write(f"@redefine({self._td.name})\n")
+        writer.write(f"class {self._td.name}({self._extends()}):\n")
         if self._td.custom_attributes.has_guid():
             guid = self._formatter.guid(self._td.custom_attributes.get_guid())
-            writer.write(f"{self._td.name}._iid_ = {guid}\n")
+            writer.write(f"    _iid_ = {guid}\n")
         vtbl_index = self._count_interface_method()
         for md in self._td.method_definitions:
             writer.write(self._method(md, vtbl_index))
@@ -616,7 +632,7 @@ class Com:
         restype = md.signature.return_type
         paramtypes = md.signature.parameter_types
         types = ", ".join(self._formatter.pytype(t) for t in [restype] + paramtypes)
-        return f"{self._td.name}.{md.name} = COMMETHOD(WINFUNCTYPE({types})({vtbl_index}, '{md.name}'))\n"
+        return f"    {md.name} = COMMETHOD({vtbl_index}, '{md.name}', {types})\n"
 
 
 class Attribute:
@@ -640,19 +656,14 @@ class Attribute:
     def enumerate_dependencies(self) -> Iterable[str]:
         return []
 
-    def emit_head(self) -> str:
-        writer = StringIO()
-        writer.write(f"class {self._td.name}(Structure):\n")
-        writer.write("    pass\n")
-        return writer.getvalue()
-
     def emit(self) -> str:
         writer = StringIO()
         md = self._td.method_definitions[0]  # [0]=.ctor
-        writer.write(f"{self._td.name}(Structure)._fields_ = [")
+        writer.write(f"class {self._td.name}(Structure):\n")
+        writer.write("    _fields_ = [")
         for name, type_ in md.parameters_with_type:
-            writer.write(f"    ('{name}', {self._formatter.pytype(type_)}),\n")
-        writer.write("]")
+            writer.write(f"        ('{name}', {self._formatter.pytype(type_)}),\n")
+        writer.write("    ]")
         return writer.getvalue()
 
 
