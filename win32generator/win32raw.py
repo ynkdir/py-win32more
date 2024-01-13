@@ -242,7 +242,7 @@ class Win32RawModule:
     def _is_native_struct(self, item: ApiItem) -> bool:
         for fullname in item.enumerate_dependencies():
             namespace, name = fullname.rsplit(".", 1)
-            if isinstance(self._items[name], NativeTypedef) or name.startswith("_Anonymous"):
+            if isinstance(self._items[name], NativeTypedef):
                 continue
             return False
         return True
