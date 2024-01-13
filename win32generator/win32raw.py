@@ -162,7 +162,7 @@ class Win32RawModule:
         writer.write(
             "    _fields_ = [('Data1', c_uint32), ('Data2', c_uint16), ('Data3', c_uint16), ('Data4', c_ubyte * 8)]\n"
         )
-        writer.write("def redefine(cls):\n")
+        writer.write("def define(cls):\n")
         writer.write("    def decorator(clsdef):\n")
         writer.write("        for key, attr in clsdef.__dict__.items():\n")
         writer.write("            if key not in cls.__dict__:\n")
@@ -537,7 +537,7 @@ class StructUnion:
         writer = StringIO()
 
         if td is self._td:
-            writer.write(f"@redefine({td.name})\n")
+            writer.write(f"@define({td.name})\n")
         writer.write(f"class {td.name}({self._basetype(td)}):\n")
 
         for nested_type in td.nested_types:
@@ -609,7 +609,7 @@ class Com:
     def emit(self) -> str:
         assert len(self._td.interface_implementations) <= 1
         writer = StringIO()
-        writer.write(f"@redefine({self._td.name})\n")
+        writer.write(f"@define({self._td.name})\n")
         writer.write(f"class {self._td.name}({self._extends()}):\n")
         if self._td.custom_attributes.has_guid():
             guid = self._formatter.guid(self._td.custom_attributes.get_guid())
