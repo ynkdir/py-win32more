@@ -178,54 +178,28 @@ class Win32RawModule:
     def emit(self) -> str:
         writer = StringIO()
         writer.write(self.emit_header())
-        for item in self._head_items():
-            writer.write(item.emit_head())
-        for item in self._body_items():
+        items = list(self._sort())
+        for item in items:
+            if isinstance(item, (StructUnion, Com)):
+                writer.write(item.emit_head())
+        for item in items:
             writer.write(item.emit())
         return writer.getvalue()
 
-    def _head_items(self) -> Iterable[ApiItem]:
-        order = {StructUnion: 0, Com: 1}
-        head_items = []
-        for item in self._sort((item for item in self._items.values()), head=True):
-            if self._item_type(item) in order:
-                head_items.append(item)
-        return sorted(head_items, key=lambda item: order[self._item_type(item)])
+    def _sort(self) -> Iterable[ApiItem]:
+        return self._sort_by_type(self._sort_by_dependencies())
 
-    def _body_items(self) -> Iterable[ApiItem]:
-        order = {
-            NativeTypedef: 0,
-            Enum: 1,
-            FunctionPointer: 2,
-            Attribute: 3,
-            StructUnion: 4,
-            Com: 5,
-            Clsid: 6,
-            ExternalFunction: 7,
-            InlineFunction: 8,
-            Constant: 9,
-        }
-        return sorted(
-            self._sort((item for item in self._items.values()), head=False),
-            key=lambda item: order[self._item_type(item)],
-        )
-
-    def _item_type(self, item) -> type:
-        if isinstance(item, ArchitectureVariant):
-            return type(item._items[0])
-        return type(item)
-
-    def _sort(self, items: Iterable[ApiItem], head: bool) -> Iterable[ApiItem]:
+    def _sort_by_dependencies(self) -> Iterable[ApiItem]:
         added: set[str] = set()
-        for item in items:
+        for item in self._items.values():
             if item.name in added:
                 continue
-            yield from self._sort_dependencies(item, added, head)
+            yield from self._sort_by_dependencies_sub(item, added)
             yield item
             added.add(item.name)
 
-    def _sort_dependencies(self, item: ApiItem, added: set[str], head: bool) -> Iterable[ApiItem]:
-        if head and isinstance(item, Com):
+    def _sort_by_dependencies_sub(self, item: ApiItem, added: set[str]) -> Iterable[ApiItem]:
+        if isinstance(item, Com):
             name = item._extends()
             if name == "c_void_p":
                 return
@@ -233,11 +207,45 @@ class Win32RawModule:
         else:
             dependencies = [fullname.rsplit(".", 1)[1] for fullname in item.enumerate_dependencies()]
         for name in dependencies:
-            if name in added or (not head and isinstance(self._items[name], Com)):
+            if name in added:
                 continue
-            yield from self._sort_dependencies(self._items[name], added, head)
+            yield from self._sort_by_dependencies_sub(self._items[name], added)
             yield self._items[name]
             added.add(name)
+
+    def _sort_by_type(self, items: Iterable[ApiItem]) -> Iterable[ApiItem]:
+        return sorted(items, key=self._type_order)
+
+    def _type_order(self, item: ApiItem) -> int:
+        order = {
+            NativeTypedef: 0,
+            Enum: 1,
+            FunctionPointer: 2,
+            Attribute: 3,
+            StructUnion: 5,
+            Com: 6,
+            Clsid: 7,
+            ExternalFunction: 8,
+            InlineFunction: 9,
+            Constant: 10,
+        }
+        type_ = self._item_type(item)
+        if type_ is StructUnion and self._is_native_struct(item):
+            return 4
+        return order[type_]
+
+    def _item_type(self, item) -> type:
+        if isinstance(item, ArchitectureVariant):
+            return type(item._items[0])
+        return type(item)
+
+    def _is_native_struct(self, item: ApiItem) -> bool:
+        for fullname in item.enumerate_dependencies():
+            namespace, name = fullname.rsplit(".", 1)
+            if isinstance(self._items[name], NativeTypedef) or name.startswith("_Anonymous"):
+                continue
+            return False
+        return True
 
 
 class Constant:
