@@ -19,9 +19,6 @@ class Parser:
         self._formatter = Formatter()
 
     def parse(self, td: TypeDefinition) -> None:
-        if td.is_winrt:
-            raise NotImplementedError("Winrt is not supported")
-
         if td.basetype is None:
             self._module.add(Com(td, self._module, self._formatter))
         elif td.basetype == "System.Object":
@@ -114,11 +111,8 @@ class Formatter:
             raise NotImplementedError()
 
     def guid(self, guid_str: str) -> str:
-        return f"Guid({self.guid_args(guid_str)})"
-
-    def guid_args(self, guid_str: str) -> str:
         s = guid_str.replace("{", "").replace("}", "").replace("-", "")
-        return f"0x{s[0:8]}, 0x{s[8:12]}, 0x{s[12:16]}, (0x{s[16:18]}, 0x{s[18:20]}, 0x{s[20:22]}, 0x{s[22:24]}, 0x{s[24:26]}, 0x{s[26:28]}, 0x{s[28:30]}, 0x{s[30:32]})"
+        return f"Guid(0x{s[0:8]}, 0x{s[8:12]}, 0x{s[12:16]}, (0x{s[16:18]}, 0x{s[18:20]}, 0x{s[20:22]}, 0x{s[22:24]}, 0x{s[24:26]}, 0x{s[26:28]}, 0x{s[28:30]}, 0x{s[30:32]}))"
 
 
 class Win32RawModule:
@@ -174,7 +168,6 @@ class Win32RawModule:
         writer.write("    return lambda this, *args: f(this, *args)\n")
         return writer.getvalue()
 
-    @no_type_check
     def emit(self) -> str:
         writer = StringIO()
         writer.write(self.emit_header())
@@ -194,9 +187,9 @@ class Win32RawModule:
         for item in self._items.values():
             if item.name in added:
                 continue
+            added.add(item.name)
             yield from self._sort_by_dependencies_sub(item, added)
             yield item
-            added.add(item.name)
 
     def _sort_by_dependencies_sub(self, item: ApiItem, added: set[str]) -> Iterable[ApiItem]:
         if isinstance(item, Com):
@@ -204,14 +197,18 @@ class Win32RawModule:
             if name == "c_void_p":
                 return
             dependencies = [name]
+        elif isinstance(item, StructUnion):
+            dependencies = [
+                fullname.rsplit(".", 1)[1] for fullname in item._td.enumerate_dependencies(exclude_pointer=True)
+            ]
         else:
             dependencies = [fullname.rsplit(".", 1)[1] for fullname in item.enumerate_dependencies()]
         for name in dependencies:
             if name in added:
                 continue
+            added.add(name)
             yield from self._sort_by_dependencies_sub(self._items[name], added)
             yield self._items[name]
-            added.add(name)
 
     def _sort_by_type(self, items: Iterable[ApiItem]) -> Iterable[ApiItem]:
         return sorted(items, key=self._type_order)
@@ -230,7 +227,7 @@ class Win32RawModule:
             Constant: 10,
         }
         type_ = self._item_type(item)
-        if type_ is StructUnion and self._is_native_struct(item):
+        if type_ is StructUnion and not list(item.enumerate_dependencies()):
             return 4
         return order[type_]
 
@@ -238,14 +235,6 @@ class Win32RawModule:
         if isinstance(item, ArchitectureVariant):
             return type(item._items[0])
         return type(item)
-
-    def _is_native_struct(self, item: ApiItem) -> bool:
-        for fullname in item.enumerate_dependencies():
-            namespace, name = fullname.rsplit(".", 1)
-            if isinstance(self._items[name], NativeTypedef):
-                continue
-            return False
-        return True
 
 
 class Constant:
@@ -268,7 +257,7 @@ class Constant:
         return []
 
     def enumerate_dependencies(self) -> Iterable[str]:
-        yield from self._fd.enumerate_dependencies(exclude_pointer=True)
+        yield from self._fd.enumerate_dependencies()
 
     def emit(self) -> str:
         return f"{self._fd.name} = {self._formatter.pyvalue(self._fd)}\n"
@@ -296,7 +285,7 @@ class InlineFunction:
         return []
 
     def enumerate_dependencies(self) -> Iterable[str]:
-        yield from self._md.enumerate_dependencies(exclude_pointer=True)
+        yield from self._md.enumerate_dependencies()
 
     def emit(self) -> str:
         writer = StringIO()
@@ -328,7 +317,7 @@ class ExternalFunction:
         return []
 
     def enumerate_dependencies(self) -> Iterable[str]:
-        yield from self._md.enumerate_dependencies(exclude_pointer=True)
+        yield from self._md.enumerate_dependencies()
 
     def emit(self) -> str:
         name = self._md.name
@@ -386,7 +375,7 @@ class FunctionPointer:
         return []
 
     def enumerate_dependencies(self) -> Iterable[str]:
-        yield from self._md.enumerate_dependencies(exclude_pointer=True)
+        yield from self._md.enumerate_dependencies()
 
     def emit(self) -> str:
         functype = self._functype()
@@ -424,7 +413,7 @@ class Enum:
         return []
 
     def enumerate_dependencies(self) -> Iterable[str]:
-        yield from self._td.fields[0].enumerate_dependencies(exclude_pointer=True)
+        yield from self._td.fields[0].enumerate_dependencies()
 
     def emit(self) -> str:
         writer = StringIO()
@@ -459,7 +448,7 @@ class NativeTypedef:
         return []
 
     def enumerate_dependencies(self) -> Iterable[str]:
-        yield from self._td.fields[0].enumerate_dependencies(exclude_pointer=True)
+        yield from self._td.fields[0].enumerate_dependencies()
 
     def emit(self) -> str:
         if self._td.name == "PSTR":  # POINTER(Byte)
@@ -519,7 +508,7 @@ class StructUnion:
         return []
 
     def enumerate_dependencies(self) -> Iterable[str]:
-        yield from self._td.enumerate_dependencies(exclude_pointer=True)
+        yield from self._td.enumerate_dependencies()
 
     def emit_head(self) -> str:
         return self._emit_head_td(self._td)
@@ -598,7 +587,7 @@ class Com:
         return []
 
     def enumerate_dependencies(self) -> Iterable[str]:
-        yield from self._td.enumerate_dependencies(exclude_pointer=True)
+        yield from self._td.enumerate_dependencies()
 
     def emit_head(self) -> str:
         writer = StringIO()

@@ -95,6 +95,8 @@ def generate_raw(meta: Metadata, writer: TextIO) -> None:
     module = win32raw.Win32RawModule()
     parser = win32raw.Parser(module)
     for td in meta.type_definitions:
+        if td.is_winrt:
+            raise NotImplementedError("Winrt is not supported")
         parser.parse(td)
     writer.write(module.emit())
 
