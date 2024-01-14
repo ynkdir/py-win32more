@@ -83,8 +83,13 @@ class Formatter:
         elif ttype.kind == "Array":
             return f"{self.pytype(ttype.type)} * {ttype.size}"
         elif ttype.kind == "Type":
-            if ttype.is_guid:
+            if ttype.is_nested:
+                return ttype.name
+            elif ttype.is_guid:
                 return "Guid"
+            elif not ttype.namespace.startswith("Windows.Win32."):
+                # Some win32 api depends on winrt namespace.  Ignore it.
+                return "c_void_p"
             return ttype.name
         else:
             raise NotImplementedError()
@@ -173,7 +178,7 @@ class Win32RawModule:
         writer.write(self.emit_header())
         items = list(self._sort())
         for item in items:
-            if isinstance(item, (StructUnion, Com)):
+            if isinstance(item, (StructUnion, Com, ArchitectureVariant)):
                 writer.write(item.emit_head())
         for item in items:
             writer.write(item.emit())
@@ -421,7 +426,7 @@ class Enum:
         writer.write(f"class {self._td.name}({self._formatter.pytype(type_field.signature)}):\n")
         if self._td.custom_attributes.has_scoped_enum():
             for fd in value_fields:
-                writer.write(f"    {self._td.name}.{fd.name} = {fd.default_value.value}\n")
+                writer.write(f"    {fd.name} = {fd.default_value.value}\n")
         else:
             writer.write("    pass\n")
             for fd in value_fields:
@@ -600,6 +605,9 @@ class Com:
         writer = StringIO()
         writer.write(f"@define({self._td.name})\n")
         writer.write(f"class {self._td.name}({self._extends()}):\n")
+        if not self._td.custom_attributes.has_guid() or not self._td.method_definitions:
+            writer.write("    pass\n")
+            return writer.getvalue()
         if self._td.custom_attributes.has_guid():
             guid = self._formatter.guid(self._td.custom_attributes.get_guid())
             writer.write(f"    _iid_ = {guid}\n")
@@ -657,10 +665,10 @@ class Attribute:
         writer = StringIO()
         md = self._td.method_definitions[0]  # [0]=.ctor
         writer.write(f"class {self._td.name}(Structure):\n")
-        writer.write("    _fields_ = [")
+        writer.write("    _fields_ = [\n")
         for name, type_ in md.parameters_with_type:
             writer.write(f"        ('{name}', {self._formatter.pytype(type_)}),\n")
-        writer.write("    ]")
+        writer.write("    ]\n")
         return writer.getvalue()
 
 
@@ -686,10 +694,11 @@ class ArchitectureVariant:
         for item in self._items:
             yield from item.enumerate_dependencies()
 
-    @no_type_check
     def emit_head(self) -> str:
+        if not isinstance(self._items[0], (StructUnion, Com)):
+            return ""
         writer = StringIO()
-        for i, item in enumerate(item for item in self._items if item.emit_head() != ""):
+        for i, item in self._emit_head_no_type_check_enumerate():
             if i == 0:
                 ifelif = "if"
             else:
@@ -698,6 +707,10 @@ class ArchitectureVariant:
             writer.write(f"{ifelif} ARCH in '{arch}':\n")
             writer.write(textwrap.indent(item.emit_head(), "    "))
         return writer.getvalue()
+
+    @no_type_check
+    def _emit_head_no_type_check_enumerate(self):
+        return enumerate(item for item in self._items if item.emit_head() != "")
 
     def emit(self) -> str:
         writer = StringIO()
