@@ -1,0 +1,8 @@
+COINIT
+CoCreateInstance
+CoInitializeEx
+CoTaskMemFree
+CoUninitialize
+FileOpenDialog
+IFileOpenDialog
+MessageBoxW

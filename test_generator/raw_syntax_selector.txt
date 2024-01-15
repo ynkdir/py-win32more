@@ -1,0 +1,33 @@
+# native typedef
+Windows.Win32.Foundation.HANDLE
+# constant
+Windows.Win32.Foundation.MAX_PATH
+# enum
+Windows.Win32.Foundation.BOOL
+# scoped enum
+Windows.Win32.Media.Audio.ConnectorType
+# struct
+Windows.Win32.Foundation.RECT
+# anonymous
+Windows.Win32.Foundation.DECIMAL
+# com
+Windows.Win32.UI.shell.IFileDialog
+# empty com class
+Windows.Win32.System.Threading.RTWQASYNCRESULT
+# function pointer
+Windows.Win32.UI.WindowsAndMessaging.WNDPROC
+# external function
+Windows.Win32.UI.WindowsAndMessaging.MessageBoxW
+# attribute
+Windows.Win32.Foundation.Metadata.AgileAttribute
+Windows.Win32.Foundation.Metadata.AlsoUsableForAttribute
+# inline function
+Windows.Win32.System.Threading.GetCurrentProcessToken
+# clsid
+Windows.Win32.UI.Shell.FileOpenDialog
+# architecture
+Windows.Win32.UI.Shell.APPBARDATA
+# self pointer contained struct
+Windows.Win32.System.Kernel.SLIST_ENTRY
+# variant
+Windows.Win32.System.Variant.VARIANT
