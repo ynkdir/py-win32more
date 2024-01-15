@@ -2,6 +2,7 @@ import argparse
 import json
 import logging
 import lzma
+from io import StringIO
 from pathlib import Path
 from typing import TextIO
 
@@ -43,7 +44,7 @@ def preprocess(meta: Metadata) -> Metadata:
     return meta
 
 
-def select(meta: Metadata, selector_file: str) -> Metadata:
+def select(meta: Metadata, selector_file: Path) -> Metadata:
     selector = Selector(selector_file)
     return selector.select(meta)
 
@@ -78,7 +79,8 @@ def generate(package: Package, package_directory: Path) -> None:
             writer.write("\n\nmake_ready(__name__)\n")
 
 
-def generate_one(package: Package, writer: TextIO) -> None:
+def generate_one(package: Package, out: Path) -> None:
+    writer = StringIO()
     if has_winrt(package):
         # NOTE: winrt one module will not work mostly due to name conflict.
         writer.write(winrt.WinrtModule.emit_header_one(package.name))
@@ -89,16 +91,17 @@ def generate_one(package: Package, writer: TextIO) -> None:
         for item in module.items():
             writer.write(item.emit())
     writer.write("\n\nmake_ready(__name__)\n")
+    out.write_text(writer.getvalue())
 
 
-def generate_raw(meta: Metadata, writer: TextIO) -> None:
+def generate_raw(meta: Metadata, out: Path) -> None:
     module = win32raw.Win32RawModule()
     parser = win32raw.Parser(module)
     for td in meta.type_definitions:
         if td.is_winrt:
             raise NotImplementedError("Winrt is not supported")
         parser.parse(td)
-    writer.write(module.emit())
+    out.write_text(module.emit())
 
 
 def has_winrt(package: Package) -> bool:
@@ -122,20 +125,18 @@ def warn_missing_type(package: Package):
 def main() -> None:
     parser = argparse.ArgumentParser(description="Metadata to Python generator")
     parser.add_argument("--loglevel", default="WARNING")
-    parser.add_argument("-o", "--one", help="out to one file")
-    parser.add_argument("-s", "--selector", help="selector.txt")
+    parser.add_argument("-o", "--one", type=Path, help="out to one file")
+    parser.add_argument("-s", "--selector", type=Path, help="selector.txt")
     parser.add_argument("--raw", action="store_true", help="generate raw bindings")
     parser.add_argument("--package-name", default="win32more")
-    parser.add_argument("--output-directory", default=".")
+    parser.add_argument("--output-directory", type=Path, default=".")
     parser.add_argument("metadata", nargs="*", help="metadata.json")
     args = parser.parse_args()
 
     logging.basicConfig(level=args.loglevel)
 
-    output_directory = Path(args.output_directory)
-
-    if not output_directory.is_dir():
-        raise RuntimeError(f"{output_directory} is not directory")
+    if not args.output_directory.is_dir():
+        raise RuntimeError(f"{args.output_directory} is not directory")
 
     if args.raw and args.one is None:
         raise RuntimeError("--raw requires --one option")
@@ -156,8 +157,7 @@ def main() -> None:
         meta = select(meta, args.selector)
 
     if args.raw:
-        with open(args.one, "w") as writer:
-            generate_raw(meta, writer)
+        generate_raw(meta, args.one)
         return
 
     package = Package(args.package_name, bool(args.one))
@@ -165,10 +165,9 @@ def main() -> None:
     parse(meta, package)
 
     if args.one is None:
-        generate(package, output_directory / package.name)
+        generate(package, args.output_directory / package.name)
     else:
-        with open(args.one, "w") as writer:
-            generate_one(package, writer)
+        generate_one(package, args.one)
 
     warn_missing_type(package)
 
