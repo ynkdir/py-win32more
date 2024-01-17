@@ -610,7 +610,7 @@ class Com:
         writer = StringIO()
         writer.write(f"@define({self._td.name})\n")
         writer.write(f"class {self._td.name}({self._extends()}):\n")
-        if not self._td.custom_attributes.has_guid() or not self._td.method_definitions:
+        if not self._td.custom_attributes.has_guid() and not self._td.method_definitions:
             writer.write("    pass\n")
             return writer.getvalue()
         if self._td.custom_attributes.has_guid():
