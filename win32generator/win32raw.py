@@ -671,8 +671,8 @@ class Attribute:
         md = self._td.method_definitions[0]  # [0]=.ctor
         writer.write(f"class {self._td.name}(Structure):\n")
         writer.write("    _fields_ = [\n")
-        for name, type_ in md.parameters_with_type:
-            writer.write(f"        ('{name}', {self._formatter.pytype(type_)}),\n")
+        for pa, type_ in md.parameters_with_type:
+            writer.write(f"        ('{pa.name}', {self._formatter.pytype(type_)}),\n")
         writer.write("    ]\n")
         return writer.getvalue()
 
