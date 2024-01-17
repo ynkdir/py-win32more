@@ -150,6 +150,7 @@ class Win32RawModule:
         writer.write(
             "from ctypes import CFUNCTYPE, WINFUNCTYPE, POINTER, Structure, Union, c_ubyte, c_byte, c_wchar, c_int16, c_uint16, c_int32, c_uint32, c_int64, c_uint64, c_ssize_t, c_size_t, c_float, c_double, c_char_p, c_wchar_p, c_bool, c_void_p, cdll, windll\n"
         )
+        writer.write("import types\n")
         writer.write("import sys\n")
         writer.write("if '(arm64)' in sys.version.lower():\n")
         writer.write("    ARCH = 'ARM64'\n")
@@ -168,9 +169,13 @@ class Win32RawModule:
         writer.write("                setattr(cls, key, attr)\n")
         writer.write("        return cls\n")
         writer.write("    return decorator\n")
-        writer.write("def COMMETHOD(vtbl_index, name, *types):\n")
-        writer.write("    f = WINFUNCTYPE(*types)(vtbl_index, name)\n")
-        writer.write("    return lambda this, *args: f(this, *args)\n")
+        writer.write("class COMMETHOD:\n")
+        writer.write("    def __init__(self, vtbl_index, name, *types):\n")
+        writer.write("        self._proc = WINFUNCTYPE(*types)(vtbl_index, name)\n")
+        writer.write("    def __get__(self, instance, owner=None):\n")
+        writer.write("        if instance is None:\n")
+        writer.write("            return self._proc\n")
+        writer.write("        return types.MethodType(self._proc, instance)\n")
         return writer.getvalue()
 
     def emit(self) -> str:
