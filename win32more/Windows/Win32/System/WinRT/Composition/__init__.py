@@ -37,6 +37,11 @@ class ICompositionGraphicsDeviceInterop(ComPtr):
     def GetRenderingDevice(self, value: POINTER(win32more.Windows.Win32.System.Com.IUnknown)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def SetRenderingDevice(self, value: win32more.Windows.Win32.System.Com.IUnknown) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+class ICompositionTextureInterop(ComPtr):
+    extends: win32more.Windows.Win32.System.Com.IUnknown
+    _iid_ = Guid('{d528a265-f0a5-422f-a39d-ef62d7cd1cc4}')
+    @commethod(3)
+    def GetAvailableFence(self, fenceValue: POINTER(UInt64), iid: POINTER(Guid), availableFence: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ICompositorDesktopInterop(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{29e691fa-4567-4dca-b319-d0f207eb6807}')
@@ -53,6 +58,13 @@ class ICompositorInterop(ComPtr):
     def CreateCompositionSurfaceForSwapChain(self, swapChain: win32more.Windows.Win32.System.Com.IUnknown, result: POINTER(win32more.Windows.UI.Composition.ICompositionSurface)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def CreateGraphicsDevice(self, renderingDevice: win32more.Windows.Win32.System.Com.IUnknown, result: POINTER(win32more.Windows.UI.Composition.CompositionGraphicsDevice)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+class ICompositorInterop2(ComPtr):
+    extends: win32more.Windows.Win32.System.Com.IUnknown
+    _iid_ = Guid('{d3eef34c-0667-4afc-8d13-867607b0fe91}')
+    @commethod(3)
+    def CheckCompositionTextureSupport(self, renderingDevice: win32more.Windows.Win32.System.Com.IUnknown, supportsCompositionTextures: POINTER(win32more.Windows.Win32.Foundation.BOOL)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    @commethod(4)
+    def CreateCompositionTexture(self, d3dTexture: win32more.Windows.Win32.System.Com.IUnknown, compositionTexture: POINTER(win32more.Windows.UI.Composition.ICompositionTexture)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IDesktopWindowTargetInterop(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{35dbf59e-e3f9-45b0-81e7-fe75f4145dc9}')

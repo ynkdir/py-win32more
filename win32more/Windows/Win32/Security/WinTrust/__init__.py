@@ -236,11 +236,20 @@ class CONFIG_CI_PROV_INFO(EasyCastStructure):
     pPolicies: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB)
     result: win32more.Windows.Win32.Security.WinTrust.CONFIG_CI_PROV_INFO_RESULT
     dwScenario: UInt32
+    result2: POINTER(win32more.Windows.Win32.Security.WinTrust.CONFIG_CI_PROV_INFO_RESULT2)
 class CONFIG_CI_PROV_INFO_RESULT(EasyCastStructure):
     hr: win32more.Windows.Win32.Foundation.HRESULT
     dwResult: UInt32
     dwPolicyIndex: UInt32
     fIsExplicitDeny: win32more.Windows.Win32.Foundation.BOOLEAN
+class CONFIG_CI_PROV_INFO_RESULT2(EasyCastStructure):
+    cbSize: UInt32
+    hr: win32more.Windows.Win32.Foundation.HRESULT
+    dwResult: UInt32
+    dwPolicyIndex: UInt32
+    fIsExplicitDeny: win32more.Windows.Win32.Foundation.BOOLEAN
+    cbCalculatedFileHash: UInt32
+    pbCalculatedFileHash: POINTER(Byte)
 class CRYPT_PROVIDER_CERT(EasyCastStructure):
     cbStruct: UInt32
     pCert: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT)

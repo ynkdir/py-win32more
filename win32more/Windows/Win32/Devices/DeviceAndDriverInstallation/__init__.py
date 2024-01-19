@@ -1628,13 +1628,13 @@ def SetupDiSetDeviceInterfaceDefault(DeviceInfoSet: win32more.Windows.Win32.Devi
 @winfunctype('SETUPAPI.dll')
 def SetupDiRegisterDeviceInfo(DeviceInfoSet: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.HDEVINFO, DeviceInfoData: POINTER(win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.SP_DEVINFO_DATA), Flags: UInt32, CompareProc: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.PSP_DETSIG_CMPPROC, CompareContext: VoidPtr, DupDeviceInfoData: POINTER(win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.SP_DEVINFO_DATA)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('SETUPAPI.dll')
-def SetupDiBuildDriverInfoList(DeviceInfoSet: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.HDEVINFO, DeviceInfoData: POINTER(win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.SP_DEVINFO_DATA), DriverType: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.SETUP_DI_BUILD_DRIVER_DRIVER_TYPE) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def SetupDiBuildDriverInfoList(DeviceInfoSet: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.HDEVINFO, DeviceInfoData: POINTER(win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.SP_DEVINFO_DATA), DriverType: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.SETUP_DI_DRIVER_TYPE) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('SETUPAPI.dll')
 def SetupDiCancelDriverInfoSearch(DeviceInfoSet: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.HDEVINFO) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('SETUPAPI.dll')
-def SetupDiEnumDriverInfoA(DeviceInfoSet: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.HDEVINFO, DeviceInfoData: POINTER(win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.SP_DEVINFO_DATA), DriverType: UInt32, MemberIndex: UInt32, DriverInfoData: POINTER(win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.SP_DRVINFO_DATA_V2_A)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def SetupDiEnumDriverInfoA(DeviceInfoSet: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.HDEVINFO, DeviceInfoData: POINTER(win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.SP_DEVINFO_DATA), DriverType: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.SETUP_DI_DRIVER_TYPE, MemberIndex: UInt32, DriverInfoData: POINTER(win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.SP_DRVINFO_DATA_V2_A)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('SETUPAPI.dll')
-def SetupDiEnumDriverInfoW(DeviceInfoSet: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.HDEVINFO, DeviceInfoData: POINTER(win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.SP_DEVINFO_DATA), DriverType: UInt32, MemberIndex: UInt32, DriverInfoData: POINTER(win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.SP_DRVINFO_DATA_V2_W)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def SetupDiEnumDriverInfoW(DeviceInfoSet: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.HDEVINFO, DeviceInfoData: POINTER(win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.SP_DEVINFO_DATA), DriverType: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.SETUP_DI_DRIVER_TYPE, MemberIndex: UInt32, DriverInfoData: POINTER(win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.SP_DRVINFO_DATA_V2_W)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('SETUPAPI.dll')
 def SetupDiGetSelectedDriverA(DeviceInfoSet: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.HDEVINFO, DeviceInfoData: POINTER(win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.SP_DEVINFO_DATA), DriverInfoData: POINTER(win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.SP_DRVINFO_DATA_V2_A)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('SETUPAPI.dll')
@@ -1648,7 +1648,7 @@ def SetupDiGetDriverInfoDetailA(DeviceInfoSet: win32more.Windows.Win32.Devices.D
 @winfunctype('SETUPAPI.dll')
 def SetupDiGetDriverInfoDetailW(DeviceInfoSet: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.HDEVINFO, DeviceInfoData: POINTER(win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.SP_DEVINFO_DATA), DriverInfoData: POINTER(win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.SP_DRVINFO_DATA_V2_W), DriverInfoDetailData: POINTER(win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.SP_DRVINFO_DETAIL_DATA_W), DriverInfoDetailDataSize: UInt32, RequiredSize: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('SETUPAPI.dll')
-def SetupDiDestroyDriverInfoList(DeviceInfoSet: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.HDEVINFO, DeviceInfoData: POINTER(win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.SP_DEVINFO_DATA), DriverType: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def SetupDiDestroyDriverInfoList(DeviceInfoSet: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.HDEVINFO, DeviceInfoData: POINTER(win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.SP_DEVINFO_DATA), DriverType: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.SETUP_DI_DRIVER_TYPE) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('SETUPAPI.dll')
 def SetupDiGetClassDevsA(ClassGuid: POINTER(Guid), Enumerator: win32more.Windows.Win32.Foundation.PSTR, hwndParent: win32more.Windows.Win32.Foundation.HWND, Flags: UInt32) -> win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.HDEVINFO: ...
 @winfunctype('SETUPAPI.dll')
@@ -2812,7 +2812,7 @@ class DMA_DES(EasyCastStructure):
 class DMA_RANGE(EasyCastStructure):
     DR_Min: UInt32
     DR_Max: UInt32
-    DR_Flags: UInt32
+    DR_Flags: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.DD_FLAGS
     _pack_ = 1
 class DMA_RESOURCE(EasyCastStructure):
     DMA_Header: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.DMA_DES
@@ -2976,7 +2976,7 @@ class IO_RANGE(EasyCastStructure):
     IOR_nPorts: UInt32
     IOR_Min: UInt64
     IOR_Max: UInt64
-    IOR_RangeFlags: UInt32
+    IOR_RangeFlags: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.IOD_DESFLAGS
     IOR_Alias: UInt64
     _pack_ = 1
 class IO_RESOURCE(EasyCastStructure):
@@ -3008,7 +3008,7 @@ class IRQ_DES_64(EasyCastStructure):
 class IRQ_RANGE(EasyCastStructure):
     IRQR_Min: UInt32
     IRQR_Max: UInt32
-    IRQR_Flags: UInt32
+    IRQR_Flags: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.IRQD_FLAGS
     _pack_ = 1
 class IRQ_RESOURCE_32(EasyCastStructure):
     IRQ_Header: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.IRQ_DES_32
@@ -3078,7 +3078,7 @@ class MEM_RANGE(EasyCastStructure):
     MR_nBytes: UInt32
     MR_Min: UInt64
     MR_Max: UInt64
-    MR_Flags: UInt32
+    MR_Flags: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.MD_FLAGS
     MR_Reserved: UInt32
     _pack_ = 1
 class MEM_RESOURCE(EasyCastStructure):
@@ -3192,9 +3192,9 @@ SPQ_SCAN_PRUNE_DELREN: win32more.Windows.Win32.Devices.DeviceAndDriverInstallati
 SPQ_SCAN_FILE_PRESENCE_WITHOUT_SOURCE: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.SETUPSCANFILEQUEUE_FLAGS = 256
 SPQ_SCAN_FILE_COMPARISON: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.SETUPSCANFILEQUEUE_FLAGS = 512
 SPQ_SCAN_ACTIVATE_DRP: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.SETUPSCANFILEQUEUE_FLAGS = 1024
-SETUP_DI_BUILD_DRIVER_DRIVER_TYPE = UInt32
-SPDIT_CLASSDRIVER: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.SETUP_DI_BUILD_DRIVER_DRIVER_TYPE = 1
-SPDIT_COMPATDRIVER: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.SETUP_DI_BUILD_DRIVER_DRIVER_TYPE = 2
+SETUP_DI_DRIVER_TYPE = UInt32
+SPDIT_CLASSDRIVER: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.SETUP_DI_DRIVER_TYPE = 1
+SPDIT_COMPATDRIVER: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.SETUP_DI_DRIVER_TYPE = 2
 SETUP_FILE_OPERATION = UInt32
 FILEOP_DELETE: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.SETUP_FILE_OPERATION = 2
 FILEOP_COPY: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.SETUP_FILE_OPERATION = 0

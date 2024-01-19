@@ -1668,6 +1668,7 @@ KASAN_ILLEGAL_ACCESS: win32more.Windows.Win32.System.Diagnostics.Debug.BUGCHECK_
 IORING: win32more.Windows.Win32.System.Diagnostics.Debug.BUGCHECK_ERROR = 499
 MDL_CACHE: win32more.Windows.Win32.System.Diagnostics.Debug.BUGCHECK_ERROR = 500
 MISALIGNED_POINTER_PARAMETER: win32more.Windows.Win32.System.Diagnostics.Debug.BUGCHECK_ERROR = 502
+MSSECCORE_ASSERTION_FAILURE: win32more.Windows.Win32.System.Diagnostics.Debug.BUGCHECK_ERROR = 503
 XBOX_VMCTRL_CS_TIMEOUT: win32more.Windows.Win32.System.Diagnostics.Debug.BUGCHECK_ERROR = 854
 XBOX_CORRUPTED_IMAGE: win32more.Windows.Win32.System.Diagnostics.Debug.BUGCHECK_ERROR = 855
 XBOX_INVERTED_FUNCTION_TABLE_OVERFLOW: win32more.Windows.Win32.System.Diagnostics.Debug.BUGCHECK_ERROR = 856

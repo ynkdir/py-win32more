@@ -81,6 +81,9 @@ D2D1_FIGURE_END_CLOSED: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D1_FI
 D2D1_FILL_MODE = Int32
 D2D1_FILL_MODE_ALTERNATE: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D1_FILL_MODE = 0
 D2D1_FILL_MODE_WINDING: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D1_FILL_MODE = 1
+class D2D1_GRADIENT_STOP(EasyCastStructure):
+    position: Single
+    color: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D1_COLOR_F
 D2D1_PATH_SEGMENT = Int32
 D2D1_PATH_SEGMENT_NONE: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D1_PATH_SEGMENT = 0
 D2D1_PATH_SEGMENT_FORCE_UNSTROKED: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D1_PATH_SEGMENT = 1

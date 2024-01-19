@@ -521,10 +521,6 @@ SPTLAUDCLNT_E_STREAM_NOT_STOPPED: win32more.Windows.Win32.Foundation.HRESULT = -
 SPTLAUDCLNT_E_STATIC_OBJECT_NOT_AVAILABLE: win32more.Windows.Win32.Foundation.HRESULT = -2004287221
 SPTLAUDCLNT_E_OBJECT_ALREADY_ACTIVE: win32more.Windows.Win32.Foundation.HRESULT = -2004287220
 SPTLAUDCLNT_E_INTERNAL: win32more.Windows.Win32.Foundation.HRESULT = -2004287219
-DEVICE_STATE_ACTIVE: UInt32 = 1
-DEVICE_STATE_DISABLED: UInt32 = 2
-DEVICE_STATE_NOTPRESENT: UInt32 = 4
-DEVICE_STATE_UNPLUGGED: UInt32 = 8
 DEVICE_STATEMASK_ALL: UInt32 = 15
 PKEY_AudioEndpoint_FormFactor: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{1da5d803-d492-4edd-8c23-e0c0ffee7f0e}'), pid=0)
 PKEY_AudioEndpoint_ControlPanelPageProvider: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{1da5d803-d492-4edd-8c23-e0c0ffee7f0e}'), pid=1)
@@ -1265,6 +1261,11 @@ class ConnectorType(Int32):  # enum
     Software_IO = 3
     Software_Fixed = 4
     Network = 5
+DEVICE_STATE = UInt32
+DEVICE_STATE_ACTIVE: win32more.Windows.Win32.Media.Audio.DEVICE_STATE = 1
+DEVICE_STATE_DISABLED: win32more.Windows.Win32.Media.Audio.DEVICE_STATE = 2
+DEVICE_STATE_NOTPRESENT: win32more.Windows.Win32.Media.Audio.DEVICE_STATE = 4
+DEVICE_STATE_UNPLUGGED: win32more.Windows.Win32.Media.Audio.DEVICE_STATE = 8
 class DIRECTX_AUDIO_ACTIVATION_PARAMS(EasyCastStructure):
     cbDirectXAudioActivationParams: UInt32
     guidAudioSession: Guid
@@ -1730,7 +1731,7 @@ class IMMDevice(ComPtr):
     @commethod(5)
     def GetId(self, ppstrId: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
-    def GetState(self, pdwState: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetState(self, pdwState: POINTER(UInt32)) -> win32more.Windows.Win32.Media.Audio.DEVICE_STATE: ...
 class IMMDeviceActivator(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{3b0d0ea4-d0a9-4b0e-935b-09516746fac0}')
@@ -1747,7 +1748,7 @@ class IMMDeviceEnumerator(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{a95664d2-9614-4f35-a746-de8db63617e6}')
     @commethod(3)
-    def EnumAudioEndpoints(self, dataFlow: win32more.Windows.Win32.Media.Audio.EDataFlow, dwStateMask: UInt32, ppDevices: POINTER(win32more.Windows.Win32.Media.Audio.IMMDeviceCollection)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def EnumAudioEndpoints(self, dataFlow: win32more.Windows.Win32.Media.Audio.EDataFlow, dwStateMask: win32more.Windows.Win32.Media.Audio.DEVICE_STATE, ppDevices: POINTER(win32more.Windows.Win32.Media.Audio.IMMDeviceCollection)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetDefaultAudioEndpoint(self, dataFlow: win32more.Windows.Win32.Media.Audio.EDataFlow, role: win32more.Windows.Win32.Media.Audio.ERole, ppEndpoint: POINTER(win32more.Windows.Win32.Media.Audio.IMMDevice)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
@@ -1765,7 +1766,7 @@ class IMMNotificationClient(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{7991eec9-7e89-4d85-8390-6c703cec60c0}')
     @commethod(3)
-    def OnDeviceStateChanged(self, pwstrDeviceId: win32more.Windows.Win32.Foundation.PWSTR, dwNewState: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def OnDeviceStateChanged(self, pwstrDeviceId: win32more.Windows.Win32.Foundation.PWSTR, dwNewState: win32more.Windows.Win32.Media.Audio.DEVICE_STATE) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def OnDeviceAdded(self, pwstrDeviceId: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)

@@ -824,6 +824,8 @@ MEMORY_PRIORITY_BELOW_NORMAL: win32more.Windows.Win32.System.Threading.MEMORY_PR
 MEMORY_PRIORITY_NORMAL: win32more.Windows.Win32.System.Threading.MEMORY_PRIORITY = 5
 class MEMORY_PRIORITY_INFORMATION(EasyCastStructure):
     MemoryPriority: win32more.Windows.Win32.System.Threading.MEMORY_PRIORITY
+class OVERRIDE_PREFETCH_PARAMETER(EasyCastStructure):
+    Value: UInt32
 class PEB(EasyCastStructure):
     Reserved1: Byte * 2
     BeingDebugged: Byte
@@ -1005,7 +1007,9 @@ ProcessTelemetryCoverageInfo: win32more.Windows.Win32.System.Threading.PROCESS_I
 ProcessProtectionLevelInfo: win32more.Windows.Win32.System.Threading.PROCESS_INFORMATION_CLASS = 7
 ProcessLeapSecondInfo: win32more.Windows.Win32.System.Threading.PROCESS_INFORMATION_CLASS = 8
 ProcessMachineTypeInfo: win32more.Windows.Win32.System.Threading.PROCESS_INFORMATION_CLASS = 9
-ProcessInformationClassMax: win32more.Windows.Win32.System.Threading.PROCESS_INFORMATION_CLASS = 10
+ProcessOverrideSubsequentPrefetchParameter: win32more.Windows.Win32.System.Threading.PROCESS_INFORMATION_CLASS = 10
+ProcessMaxOverridePrefetchParameter: win32more.Windows.Win32.System.Threading.PROCESS_INFORMATION_CLASS = 11
+ProcessInformationClassMax: win32more.Windows.Win32.System.Threading.PROCESS_INFORMATION_CLASS = 12
 class PROCESS_LEAP_SECOND_INFO(EasyCastStructure):
     Flags: UInt32
     Reserved: UInt32
@@ -1041,7 +1045,8 @@ ProcessUserShadowStackPolicy: win32more.Windows.Win32.System.Threading.PROCESS_M
 ProcessRedirectionTrustPolicy: win32more.Windows.Win32.System.Threading.PROCESS_MITIGATION_POLICY = 16
 ProcessUserPointerAuthPolicy: win32more.Windows.Win32.System.Threading.PROCESS_MITIGATION_POLICY = 17
 ProcessSEHOPPolicy: win32more.Windows.Win32.System.Threading.PROCESS_MITIGATION_POLICY = 18
-MaxProcessMitigationPolicy: win32more.Windows.Win32.System.Threading.PROCESS_MITIGATION_POLICY = 19
+ProcessActivationContextTrustPolicy: win32more.Windows.Win32.System.Threading.PROCESS_MITIGATION_POLICY = 19
+MaxProcessMitigationPolicy: win32more.Windows.Win32.System.Threading.PROCESS_MITIGATION_POLICY = 20
 PROCESS_NAME_FORMAT = UInt32
 PROCESS_NAME_WIN32: win32more.Windows.Win32.System.Threading.PROCESS_NAME_FORMAT = 0
 PROCESS_NAME_NATIVE: win32more.Windows.Win32.System.Threading.PROCESS_NAME_FORMAT = 1

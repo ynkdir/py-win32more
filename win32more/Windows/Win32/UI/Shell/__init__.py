@@ -494,7 +494,6 @@ VID_ThumbStrip: Guid = Guid('{8eefa624-d1e9-445b-94b7-74fbce2ea11a}')
 SID_SInPlaceBrowser: Guid = Guid('{1d2ae02b-3655-46cc-b63a-285988153bca}')
 SID_SSearchBoxInfo: Guid = Guid('{142daa61-516b-4713-b49c-fb985ef82998}')
 SID_CommandsPropertyBag: Guid = Guid('{6e043250-4416-485c-b143-e62a760d9fe5}')
-CLSID_CUrlHistory: Guid = Guid('{3c374a40-bae4-11cf-bf7d-00aa006946ee}')
 CLSID_CURLSearchHook: Guid = Guid('{cfbfae00-17a6-11d0-99cb-00c04fd64497}')
 CLSID_AutoComplete: Guid = Guid('{00bb2763-6a77-11d0-a535-00c04fd7d062}')
 CLSID_ACLHistory: Guid = Guid('{00bb2764-6a77-11d0-a535-00c04fd7d062}')
@@ -1761,6 +1760,7 @@ COPYENGINE_S_KEEP_BOTH: win32more.Windows.Win32.Foundation.HRESULT = 2555916
 COPYENGINE_S_CLOSE_PROGRAM: win32more.Windows.Win32.Foundation.HRESULT = 2555917
 COPYENGINE_S_COLLISIONRESOLVED: win32more.Windows.Win32.Foundation.HRESULT = 2555918
 COPYENGINE_S_PROGRESS_PAUSE: win32more.Windows.Win32.Foundation.HRESULT = 2555919
+COPYENGINE_S_PENDING_DELETE: win32more.Windows.Win32.Foundation.HRESULT = 2555920
 COPYENGINE_E_USER_CANCELLED: win32more.Windows.Win32.Foundation.HRESULT = -2144927744
 COPYENGINE_E_CANCELLED: win32more.Windows.Win32.Foundation.HRESULT = -2144927743
 COPYENGINE_E_REQUIRES_ELEVATION: win32more.Windows.Win32.Foundation.HRESULT = -2144927742
@@ -1867,6 +1867,8 @@ SHC_E_SHELL_COMPONENT_STARTUP_FAILURE: win32more.Windows.Win32.Foundation.HRESUL
 E_TILE_NOTIFICATIONS_PLATFORM_FAILURE: win32more.Windows.Win32.Foundation.HRESULT = -2144927159
 E_SHELL_EXTENSION_BLOCKED: win32more.Windows.Win32.Foundation.HRESULT = -2144926975
 E_IMAGEFEED_CHANGEDISABLED: win32more.Windows.Win32.Foundation.HRESULT = -2144926960
+CLSID_CUrlHistory: Guid = Guid('{3c374a40-bae4-11cf-bf7d-00aa006946ee}')
+CLSID_CUrlHistoryBoth: Guid = Guid('{6659983c-8476-4eb4-b78c-e5968f326ba0}')
 ISHCUTCMDID_DOWNLOADICON: Int32 = 0
 ISHCUTCMDID_INTSHORTCUTCREATE: Int32 = 1
 ISHCUTCMDID_COMMITHISTORY: Int32 = 2
@@ -9519,7 +9521,7 @@ if ARCH in 'X64,ARM64':
         hIcon: win32more.Windows.Win32.UI.WindowsAndMessaging.HICON
         szTip: win32more.Windows.Win32.Foundation.CHAR * 128
         dwState: win32more.Windows.Win32.UI.Shell.NOTIFY_ICON_STATE
-        dwStateMask: UInt32
+        dwStateMask: win32more.Windows.Win32.UI.Shell.NOTIFY_ICON_STATE
         szInfo: win32more.Windows.Win32.Foundation.CHAR * 256
         Anonymous: _Anonymous_e__Union
         szInfoTitle: win32more.Windows.Win32.Foundation.CHAR * 64
@@ -9539,7 +9541,7 @@ elif ARCH in 'X86':
         hIcon: win32more.Windows.Win32.UI.WindowsAndMessaging.HICON
         szTip: win32more.Windows.Win32.Foundation.CHAR * 128
         dwState: win32more.Windows.Win32.UI.Shell.NOTIFY_ICON_STATE
-        dwStateMask: UInt32
+        dwStateMask: win32more.Windows.Win32.UI.Shell.NOTIFY_ICON_STATE
         szInfo: win32more.Windows.Win32.Foundation.CHAR * 256
         Anonymous: _Anonymous_e__Union
         szInfoTitle: win32more.Windows.Win32.Foundation.CHAR * 64
@@ -9561,7 +9563,7 @@ if ARCH in 'X64,ARM64':
         hIcon: win32more.Windows.Win32.UI.WindowsAndMessaging.HICON
         szTip: Char * 128
         dwState: win32more.Windows.Win32.UI.Shell.NOTIFY_ICON_STATE
-        dwStateMask: UInt32
+        dwStateMask: win32more.Windows.Win32.UI.Shell.NOTIFY_ICON_STATE
         szInfo: Char * 256
         Anonymous: _Anonymous_e__Union
         szInfoTitle: Char * 64
@@ -9581,7 +9583,7 @@ elif ARCH in 'X86':
         hIcon: win32more.Windows.Win32.UI.WindowsAndMessaging.HICON
         szTip: Char * 128
         dwState: win32more.Windows.Win32.UI.Shell.NOTIFY_ICON_STATE
-        dwStateMask: UInt32
+        dwStateMask: win32more.Windows.Win32.UI.Shell.NOTIFY_ICON_STATE
         szInfo: Char * 256
         Anonymous: _Anonymous_e__Union
         szInfoTitle: Char * 64

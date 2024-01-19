@@ -129,10 +129,20 @@ SECBUFFER_SUBSCRIBE_GENERIC_TLS_EXTENSION: UInt32 = 26
 SECBUFFER_FLAGS: UInt32 = 27
 SECBUFFER_TRAFFIC_SECRETS: UInt32 = 28
 SECBUFFER_CERTIFICATE_REQUEST_CONTEXT: UInt32 = 29
+SECBUFFER_CHANNEL_BINDINGS_RESULT: UInt32 = 30
 SECBUFFER_ATTRMASK: UInt32 = 4026531840
 SECBUFFER_READONLY: UInt32 = 2147483648
 SECBUFFER_READONLY_WITH_CHECKSUM: UInt32 = 268435456
 SECBUFFER_RESERVED: UInt32 = 1610612736
+SEC_CHANNEL_BINDINGS_AUDIT_BINDINGS: UInt32 = 1
+SEC_CHANNEL_BINDINGS_VALID_FLAGS: UInt32 = 1
+SEC_CHANNEL_BINDINGS_RESULT_CLIENT_SUPPORT: UInt32 = 1
+SEC_CHANNEL_BINDINGS_RESULT_ABSENT: UInt32 = 2
+SEC_CHANNEL_BINDINGS_RESULT_NOTVALID_MISMATCH: UInt32 = 4
+SEC_CHANNEL_BINDINGS_RESULT_NOTVALID_MISSING: UInt32 = 8
+SEC_CHANNEL_BINDINGS_RESULT_VALID_MATCHED: UInt32 = 16
+SEC_CHANNEL_BINDINGS_RESULT_VALID_PROXY: UInt32 = 32
+SEC_CHANNEL_BINDINGS_RESULT_VALID_MISSING: UInt32 = 64
 SZ_ALG_MAX_SIZE: UInt32 = 64
 SECURITY_NATIVE_DREP: UInt32 = 16
 SECURITY_NETWORK_DREP: UInt32 = 0
@@ -377,6 +387,7 @@ LSAD_AES_CRYPT_SHA512_HASH_SIZE: UInt32 = 64
 LSAD_AES_KEY_SIZE: UInt32 = 16
 LSAD_AES_SALT_SIZE: UInt32 = 16
 LSAD_AES_BLOCK_SIZE: UInt32 = 16
+TRUST_TYPE_AAD: UInt32 = 5
 TRUST_ATTRIBUTE_TREE_PARENT: UInt32 = 4194304
 TRUST_ATTRIBUTE_TREE_ROOT: UInt32 = 8388608
 TRUST_ATTRIBUTES_VALID: UInt32 = 4278386687
@@ -752,6 +763,7 @@ PRIMARY_CRED_INTERACTIVE_NGC_LOGON: UInt32 = 524288
 PRIMARY_CRED_INTERACTIVE_FIDO_LOGON: UInt32 = 1048576
 PRIMARY_CRED_ARSO_LOGON: UInt32 = 2097152
 PRIMARY_CRED_SUPPLEMENTAL: UInt32 = 4194304
+PRIMARY_CRED_FOR_PASSWORD_CHANGE: UInt32 = 8388608
 PRIMARY_CRED_LOGON_PACKAGE_SHIFT: UInt32 = 24
 PRIMARY_CRED_PACKAGE_MASK: UInt32 = 4278190080
 SECPKG_PRIMARY_CRED_EX_FLAGS_EX_DELEGATION_TOKEN: UInt32 = 1
@@ -1750,6 +1762,8 @@ def SspiIsPromptingNeeded(ErrorOrNtStatus: UInt32) -> win32more.Windows.Win32.Fo
 def SspiGetTargetHostName(pszTargetName: win32more.Windows.Win32.Foundation.PWSTR, pszHostName: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('SECUR32.dll')
 def SspiExcludePackage(AuthIdentity: VoidPtr, pszPackageName: win32more.Windows.Win32.Foundation.PWSTR, ppNewAuthIdentity: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('SspiCli.dll')
+def SspiSetChannelBindingFlags(pBindings: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SecPkgContext_Bindings), flags: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('SECUR32.dll')
 def AddSecurityPackageA(pszPackageName: win32more.Windows.Win32.Foundation.PSTR, pOptions: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SECURITY_PACKAGE_OPTIONS)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('SECUR32.dll')
@@ -3301,7 +3315,8 @@ PolicyDnsDomainInformation: win32more.Windows.Win32.Security.Authentication.Iden
 PolicyDnsDomainInformationInt: win32more.Windows.Win32.Security.Authentication.Identity.POLICY_INFORMATION_CLASS = 13
 PolicyLocalAccountDomainInformation: win32more.Windows.Win32.Security.Authentication.Identity.POLICY_INFORMATION_CLASS = 14
 PolicyMachineAccountInformation: win32more.Windows.Win32.Security.Authentication.Identity.POLICY_INFORMATION_CLASS = 15
-PolicyLastEntry: win32more.Windows.Win32.Security.Authentication.Identity.POLICY_INFORMATION_CLASS = 16
+PolicyMachineAccountInformation2: win32more.Windows.Win32.Security.Authentication.Identity.POLICY_INFORMATION_CLASS = 16
+PolicyLastEntry: win32more.Windows.Win32.Security.Authentication.Identity.POLICY_INFORMATION_CLASS = 17
 POLICY_LSA_SERVER_ROLE = Int32
 PolicyServerRoleBackup: win32more.Windows.Win32.Security.Authentication.Identity.POLICY_LSA_SERVER_ROLE = 2
 PolicyServerRolePrimary: win32more.Windows.Win32.Security.Authentication.Identity.POLICY_LSA_SERVER_ROLE = 3
@@ -3310,6 +3325,10 @@ class POLICY_LSA_SERVER_ROLE_INFO(EasyCastStructure):
 class POLICY_MACHINE_ACCT_INFO(EasyCastStructure):
     Rid: UInt32
     Sid: win32more.Windows.Win32.Foundation.PSID
+class POLICY_MACHINE_ACCT_INFO2(EasyCastStructure):
+    Rid: UInt32
+    Sid: win32more.Windows.Win32.Foundation.PSID
+    ObjectGuid: Guid
 class POLICY_MODIFICATION_INFO(EasyCastStructure):
     ModifiedId: Int64
     DatabaseCreationTime: Int64
@@ -3941,6 +3960,21 @@ class SEC_CHANNEL_BINDINGS(EasyCastStructure):
     dwAcceptorOffset: UInt32
     cbApplicationDataLength: UInt32
     dwApplicationDataOffset: UInt32
+class SEC_CHANNEL_BINDINGS_EX(EasyCastStructure):
+    magicNumber: UInt32
+    flags: UInt32
+    cbHeaderLength: UInt32
+    cbStructureLength: UInt32
+    dwInitiatorAddrType: UInt32
+    cbInitiatorLength: UInt32
+    dwInitiatorOffset: UInt32
+    dwAcceptorAddrType: UInt32
+    cbAcceptorLength: UInt32
+    dwAcceptorOffset: UInt32
+    cbApplicationDataLength: UInt32
+    dwApplicationDataOffset: UInt32
+class SEC_CHANNEL_BINDINGS_RESULT(EasyCastStructure):
+    flags: UInt32
 class SEC_DTLS_MTU(EasyCastStructure):
     PathMTU: UInt16
 class SEC_FLAGS(EasyCastStructure):

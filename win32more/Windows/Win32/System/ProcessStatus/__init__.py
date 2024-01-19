@@ -168,6 +168,20 @@ class PROCESS_MEMORY_COUNTERS_EX(EasyCastStructure):
     PagefileUsage: UIntPtr
     PeakPagefileUsage: UIntPtr
     PrivateUsage: UIntPtr
+class PROCESS_MEMORY_COUNTERS_EX2(EasyCastStructure):
+    cb: UInt32
+    PageFaultCount: UInt32
+    PeakWorkingSetSize: UIntPtr
+    WorkingSetSize: UIntPtr
+    QuotaPeakPagedPoolUsage: UIntPtr
+    QuotaPagedPoolUsage: UIntPtr
+    QuotaPeakNonPagedPoolUsage: UIntPtr
+    QuotaNonPagedPoolUsage: UIntPtr
+    PagefileUsage: UIntPtr
+    PeakPagefileUsage: UIntPtr
+    PrivateUsage: UIntPtr
+    PrivateWorkingSetSize: UIntPtr
+    SharedCommitUsage: UInt64
 class PSAPI_WORKING_SET_BLOCK(EasyCastUnion):
     Flags: UIntPtr
     Anonymous: _Anonymous_e__Struct

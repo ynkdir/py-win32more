@@ -206,6 +206,8 @@ def SetComputerNameA(lpComputerName: win32more.Windows.Win32.Foundation.PSTR) ->
 def SetComputerNameW(lpComputerName: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
 def SetComputerNameExA(NameType: win32more.Windows.Win32.System.SystemInformation.COMPUTER_NAME_FORMAT, lpBuffer: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
+@winfunctype('api-ms-win-core-sysinfo-l1-2-6.dll')
+def GetDeveloperDriveEnablementState() -> win32more.Windows.Win32.System.SystemInformation.DEVELOPER_DRIVE_ENABLEMENT_STATE: ...
 @winfunctype('KERNEL32.dll')
 def GetSystemCpuSetInformation(Information: POINTER(win32more.Windows.Win32.System.SystemInformation.SYSTEM_CPU_SET_INFORMATION), BufferLength: UInt32, ReturnedLength: POINTER(UInt32), Process: win32more.Windows.Win32.Foundation.HANDLE, Flags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
@@ -276,6 +278,11 @@ DEPPolicyAlwaysOn: win32more.Windows.Win32.System.SystemInformation.DEP_SYSTEM_P
 DEPPolicyOptIn: win32more.Windows.Win32.System.SystemInformation.DEP_SYSTEM_POLICY_TYPE = 2
 DEPPolicyOptOut: win32more.Windows.Win32.System.SystemInformation.DEP_SYSTEM_POLICY_TYPE = 3
 DEPTotalPolicyCount: win32more.Windows.Win32.System.SystemInformation.DEP_SYSTEM_POLICY_TYPE = 4
+DEVELOPER_DRIVE_ENABLEMENT_STATE = Int32
+DeveloperDriveEnablementStateError: win32more.Windows.Win32.System.SystemInformation.DEVELOPER_DRIVE_ENABLEMENT_STATE = 0
+DeveloperDriveEnabled: win32more.Windows.Win32.System.SystemInformation.DEVELOPER_DRIVE_ENABLEMENT_STATE = 1
+DeveloperDriveDisabledBySystemPolicy: win32more.Windows.Win32.System.SystemInformation.DEVELOPER_DRIVE_ENABLEMENT_STATE = 2
+DeveloperDriveDisabledByGroupPolicy: win32more.Windows.Win32.System.SystemInformation.DEVELOPER_DRIVE_ENABLEMENT_STATE = 3
 DEVICEFAMILYDEVICEFORM = UInt32
 DEVICEFAMILYDEVICEFORM_UNKNOWN: win32more.Windows.Win32.System.SystemInformation.DEVICEFAMILYDEVICEFORM = 0
 DEVICEFAMILYDEVICEFORM_PHONE: win32more.Windows.Win32.System.SystemInformation.DEVICEFAMILYDEVICEFORM = 1

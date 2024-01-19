@@ -250,9 +250,9 @@ HHACT_TOC_NEXT: Int32 = 20
 HHACT_TOC_PREV: Int32 = 21
 HHACT_NOTES: Int32 = 22
 HHACT_LAST_ENUM: Int32 = 23
-@winfunctype('htmlhelp.dll')
+@winfunctype('hhctrl.ocx')
 def HtmlHelpA(hwndCaller: win32more.Windows.Win32.Foundation.HWND, pszFile: win32more.Windows.Win32.Foundation.PSTR, uCommand: UInt32, dwData: UIntPtr) -> win32more.Windows.Win32.Foundation.HWND: ...
-@winfunctype('htmlhelp.dll')
+@winfunctype('hhctrl.ocx')
 def HtmlHelpW(hwndCaller: win32more.Windows.Win32.Foundation.HWND, pszFile: win32more.Windows.Win32.Foundation.PWSTR, uCommand: UInt32, dwData: UIntPtr) -> win32more.Windows.Win32.Foundation.HWND: ...
 class COLUMNSTATUS(EasyCastStructure):
     cPropCount: Int32

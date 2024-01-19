@@ -3279,6 +3279,20 @@ def GetDistanceOfClosestLanguageInList(pszLanguage: win32more.Windows.Win32.Foun
 @winfunctype('bcp47mrm.dll')
 def IsWellFormedTag(pszTag: win32more.Windows.Win32.Foundation.PWSTR) -> Byte: ...
 @winfunctype('KERNEL32.dll')
+def GetCalendarSupportedDateRange(Calendar: UInt32, lpCalMinDateTime: POINTER(win32more.Windows.Win32.Globalization.CALDATETIME), lpCalMaxDateTime: POINTER(win32more.Windows.Win32.Globalization.CALDATETIME)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def GetCalendarDateFormatEx(lpszLocale: win32more.Windows.Win32.Foundation.PWSTR, dwFlags: UInt32, lpCalDateTime: POINTER(win32more.Windows.Win32.Globalization.CALDATETIME), lpFormat: win32more.Windows.Win32.Foundation.PWSTR, lpDateStr: win32more.Windows.Win32.Foundation.PWSTR, cchDate: Int32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def ConvertSystemTimeToCalDateTime(lpSysTime: POINTER(win32more.Windows.Win32.Foundation.SYSTEMTIME), calId: UInt32, lpCalDateTime: POINTER(win32more.Windows.Win32.Globalization.CALDATETIME)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def UpdateCalendarDayOfWeek(lpCalDateTime: POINTER(win32more.Windows.Win32.Globalization.CALDATETIME)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def AdjustCalendarDate(lpCalDateTime: POINTER(win32more.Windows.Win32.Globalization.CALDATETIME), calUnit: win32more.Windows.Win32.Globalization.CALDATETIME_DATEUNIT, amount: Int32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def ConvertCalDateTimeToSystemTime(lpCalDateTime: POINTER(win32more.Windows.Win32.Globalization.CALDATETIME), lpSysTime: POINTER(win32more.Windows.Win32.Foundation.SYSTEMTIME)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
+def IsCalendarLeapYear(calId: UInt32, year: UInt32, era: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+@winfunctype('KERNEL32.dll')
 def FindStringOrdinal(dwFindStringOrdinalFlags: UInt32, lpStringSource: win32more.Windows.Win32.Foundation.PWSTR, cchSource: Int32, lpStringValue: win32more.Windows.Win32.Foundation.PWSTR, cchValue: Int32, bIgnoreCase: win32more.Windows.Win32.Foundation.BOOL) -> Int32: ...
 @winfunctype('KERNEL32.dll')
 def lstrcmpA(lpString1: win32more.Windows.Win32.Foundation.PSTR, lpString2: win32more.Windows.Win32.Foundation.PSTR) -> Int32: ...
@@ -3306,6 +3320,27 @@ def lstrlenA(lpString: win32more.Windows.Win32.Foundation.PSTR) -> Int32: ...
 def lstrlenW(lpString: win32more.Windows.Win32.Foundation.PWSTR) -> Int32: ...
 @winfunctype('ADVAPI32.dll')
 def IsTextUnicode(lpv: VoidPtr, iSize: Int32, lpiResult: POINTER(win32more.Windows.Win32.Globalization.IS_TEXT_UNICODE_RESULT)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+class CALDATETIME(EasyCastStructure):
+    CalId: UInt32
+    Era: UInt32
+    Year: UInt32
+    Month: UInt32
+    Day: UInt32
+    DayOfWeek: UInt32
+    Hour: UInt32
+    Minute: UInt32
+    Second: UInt32
+    Tick: UInt32
+CALDATETIME_DATEUNIT = Int32
+EraUnit: win32more.Windows.Win32.Globalization.CALDATETIME_DATEUNIT = 0
+YearUnit: win32more.Windows.Win32.Globalization.CALDATETIME_DATEUNIT = 1
+MonthUnit: win32more.Windows.Win32.Globalization.CALDATETIME_DATEUNIT = 2
+WeekUnit: win32more.Windows.Win32.Globalization.CALDATETIME_DATEUNIT = 3
+DayUnit: win32more.Windows.Win32.Globalization.CALDATETIME_DATEUNIT = 4
+HourUnit: win32more.Windows.Win32.Globalization.CALDATETIME_DATEUNIT = 5
+MinuteUnit: win32more.Windows.Win32.Globalization.CALDATETIME_DATEUNIT = 6
+SecondUnit: win32more.Windows.Win32.Globalization.CALDATETIME_DATEUNIT = 7
+TickUnit: win32more.Windows.Win32.Globalization.CALDATETIME_DATEUNIT = 8
 @winfunctype_pointer
 def CALINFO_ENUMPROCA(param0: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer

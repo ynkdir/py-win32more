@@ -206,6 +206,11 @@ DNS_CUSTOM_SERVER_TYPE_DOH: UInt32 = 2
 DNS_CUSTOM_SERVER_UDP_FALLBACK: UInt32 = 1
 DNS_APP_SETTINGS_VERSION1: UInt32 = 1
 DNS_APP_SETTINGS_EXCLUSIVE_SERVERS: UInt32 = 1
+DNS_PROTOCOL_UNSPECIFIED: UInt32 = 0
+DNS_PROTOCOL_UDP: UInt32 = 1
+DNS_PROTOCOL_TCP: UInt32 = 2
+DNS_PROTOCOL_DOH: UInt32 = 3
+DNS_PROTOCOL_NO_WIRE: UInt32 = 5
 DNS_UPDATE_SECURITY_USE_DEFAULT: UInt32 = 0
 DNS_UPDATE_SECURITY_OFF: UInt32 = 16
 DNS_UPDATE_SECURITY_ON: UInt32 = 32
@@ -257,15 +262,21 @@ def DnsQuery_UTF8(pszName: win32more.Windows.Win32.Foundation.PSTR, wType: win32
 @winfunctype('DNSAPI.dll')
 def DnsQuery_W(pszName: win32more.Windows.Win32.Foundation.PWSTR, wType: win32more.Windows.Win32.NetworkManagement.Dns.DNS_TYPE, Options: win32more.Windows.Win32.NetworkManagement.Dns.DNS_QUERY_OPTIONS, pExtra: VoidPtr, ppQueryResults: POINTER(POINTER(win32more.Windows.Win32.NetworkManagement.Dns.DNS_RECORDA)), pReserved: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('DNSAPI.dll')
-def DnsQueryEx(pQueryRequest: POINTER(win32more.Windows.Win32.NetworkManagement.Dns.DNS_QUERY_REQUEST), pQueryResults: POINTER(win32more.Windows.Win32.NetworkManagement.Dns.DNS_QUERY_RESULT), pCancelHandle: POINTER(win32more.Windows.Win32.NetworkManagement.Dns.DNS_QUERY_CANCEL)) -> Int32: ...
-@winfunctype('DNSAPI.dll')
-def DnsCancelQuery(pCancelHandle: POINTER(win32more.Windows.Win32.NetworkManagement.Dns.DNS_QUERY_CANCEL)) -> Int32: ...
-@winfunctype('DNSAPI.dll')
 def DnsFreeCustomServers(pcServers: POINTER(UInt32), ppServers: POINTER(POINTER(win32more.Windows.Win32.NetworkManagement.Dns.DNS_CUSTOM_SERVER))) -> Void: ...
 @winfunctype('DNSAPI.dll')
 def DnsGetApplicationSettings(pcServers: POINTER(UInt32), ppDefaultServers: POINTER(POINTER(win32more.Windows.Win32.NetworkManagement.Dns.DNS_CUSTOM_SERVER)), pSettings: POINTER(win32more.Windows.Win32.NetworkManagement.Dns.DNS_APPLICATION_SETTINGS)) -> UInt32: ...
 @winfunctype('DNSAPI.dll')
 def DnsSetApplicationSettings(cServers: UInt32, pServers: POINTER(win32more.Windows.Win32.NetworkManagement.Dns.DNS_CUSTOM_SERVER), pSettings: POINTER(win32more.Windows.Win32.NetworkManagement.Dns.DNS_APPLICATION_SETTINGS)) -> UInt32: ...
+@winfunctype('DNSAPI.dll')
+def DnsQueryEx(pQueryRequest: POINTER(win32more.Windows.Win32.NetworkManagement.Dns.DNS_QUERY_REQUEST), pQueryResults: POINTER(win32more.Windows.Win32.NetworkManagement.Dns.DNS_QUERY_RESULT), pCancelHandle: POINTER(win32more.Windows.Win32.NetworkManagement.Dns.DNS_QUERY_CANCEL)) -> Int32: ...
+@winfunctype('DNSAPI.dll')
+def DnsCancelQuery(pCancelHandle: POINTER(win32more.Windows.Win32.NetworkManagement.Dns.DNS_QUERY_CANCEL)) -> Int32: ...
+@winfunctype('DNSAPI.dll')
+def DnsQueryRawResultFree(queryResults: POINTER(win32more.Windows.Win32.NetworkManagement.Dns.DNS_QUERY_RAW_RESULT)) -> Void: ...
+@winfunctype('DNSAPI.dll')
+def DnsQueryRaw(queryRequest: POINTER(win32more.Windows.Win32.NetworkManagement.Dns.DNS_QUERY_RAW_REQUEST), cancelHandle: POINTER(win32more.Windows.Win32.NetworkManagement.Dns.DNS_QUERY_RAW_CANCEL)) -> Int32: ...
+@winfunctype('DNSAPI.dll')
+def DnsCancelQueryRaw(cancelHandle: POINTER(win32more.Windows.Win32.NetworkManagement.Dns.DNS_QUERY_RAW_CANCEL)) -> Int32: ...
 @winfunctype('DNSAPI.dll')
 def DnsAcquireContextHandle_W(CredentialFlags: UInt32, Credentials: VoidPtr, pContext: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> Int32: ...
 @winfunctype('DNSAPI.dll')
@@ -655,6 +666,44 @@ DNS_QUERY_REQUEST_VERSION1: win32more.Windows.Win32.NetworkManagement.Dns.DNS_QU
 DNS_QUERY_REQUEST_VERSION2: win32more.Windows.Win32.NetworkManagement.Dns.DNS_QUERY_OPTIONS = 2
 DNS_QUERY_RESULTS_VERSION1: win32more.Windows.Win32.NetworkManagement.Dns.DNS_QUERY_OPTIONS = 1
 DNS_QUERY_REQUEST_VERSION3: win32more.Windows.Win32.NetworkManagement.Dns.DNS_QUERY_OPTIONS = 3
+DNS_QUERY_RAW_RESULTS_VERSION1: win32more.Windows.Win32.NetworkManagement.Dns.DNS_QUERY_OPTIONS = 1
+DNS_QUERY_RAW_REQUEST_VERSION1: win32more.Windows.Win32.NetworkManagement.Dns.DNS_QUERY_OPTIONS = 1
+DNS_QUERY_RAW_OPTION_BEST_EFFORT_PARSE: win32more.Windows.Win32.NetworkManagement.Dns.DNS_QUERY_OPTIONS = 1
+class DNS_QUERY_RAW_CANCEL(EasyCastStructure):
+    reserved: win32more.Windows.Win32.Foundation.CHAR * 32
+@winfunctype_pointer
+def DNS_QUERY_RAW_COMPLETION_ROUTINE(queryContext: VoidPtr, queryResults: POINTER(win32more.Windows.Win32.NetworkManagement.Dns.DNS_QUERY_RAW_RESULT)) -> Void: ...
+class DNS_QUERY_RAW_REQUEST(EasyCastStructure):
+    version: UInt32
+    resultsVersion: UInt32
+    dnsQueryRawSize: UInt32
+    dnsQueryRaw: POINTER(Byte)
+    dnsQueryName: win32more.Windows.Win32.Foundation.PWSTR
+    dnsQueryType: UInt16
+    queryOptions: UInt64
+    interfaceIndex: UInt32
+    queryCompletionCallback: win32more.Windows.Win32.NetworkManagement.Dns.DNS_QUERY_RAW_COMPLETION_ROUTINE
+    queryContext: VoidPtr
+    queryRawOptions: UInt64
+    customServersSize: UInt32
+    customServers: POINTER(win32more.Windows.Win32.NetworkManagement.Dns.DNS_CUSTOM_SERVER)
+    protocol: UInt32
+    Anonymous: _Anonymous_e__Union
+    class _Anonymous_e__Union(EasyCastUnion):
+        maxSa: win32more.Windows.Win32.Foundation.CHAR * 32
+class DNS_QUERY_RAW_RESULT(EasyCastStructure):
+    version: UInt32
+    queryStatus: Int32
+    queryOptions: UInt64
+    queryRawOptions: UInt64
+    responseFlags: UInt64
+    queryRawResponseSize: UInt32
+    queryRawResponse: POINTER(Byte)
+    queryRecords: POINTER(win32more.Windows.Win32.NetworkManagement.Dns.DNS_RECORDA)
+    protocol: UInt32
+    Anonymous: _Anonymous_e__Union
+    class _Anonymous_e__Union(EasyCastUnion):
+        maxSa: win32more.Windows.Win32.Foundation.CHAR * 32
 class DNS_QUERY_REQUEST(EasyCastStructure):
     Version: UInt32
     QueryName: win32more.Windows.Win32.Foundation.PWSTR

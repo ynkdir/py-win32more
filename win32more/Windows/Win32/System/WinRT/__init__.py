@@ -258,6 +258,13 @@ class ICoreInputInterop(ComPtr):
     def SetInputSource(self, value: win32more.Windows.Win32.System.Com.IUnknown) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def put_MessageHandled(self, value: Byte) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+class ICoreInputInterop2(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('{b8a2acd7-a0f0-40ee-8ee7-c82f59cc5cd4}')
+    @commethod(6)
+    def get_WindowHandle(self, window: POINTER(win32more.Windows.Win32.Foundation.HWND)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    @commethod(7)
+    def ChangeHostingContext(self, newParentWindow: win32more.Windows.Win32.Foundation.HWND, newViewInstanceId: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ICoreWindowAdapterInterop(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _iid_ = Guid('{7a5b6fd1-cd73-4b6c-9cf4-2e869eaf470a}')

@@ -928,6 +928,7 @@ ROUTER_UNKNOWN: UInt32 = 0
 ROUTER_SUCCESS: UInt32 = 1
 ROUTER_STOP_ROUTING: UInt32 = 2
 DOC_INFO_INTERNAL_LEVEL: UInt32 = 100
+SPLCLIENT_INFO_INTERNAL_LEVEL: UInt32 = 100
 FILL_WITH_DEFAULTS: UInt32 = 1
 PRINTER_NOTIFY_INFO_DATA_COMPACT: UInt32 = 1
 COPYFILE_EVENT_SET_PRINTER_DATAEX: UInt32 = 1
@@ -4504,6 +4505,19 @@ class SPLCLIENT_INFO_3_VISTA(EasyCastStructure):
     dwMinorVersion: UInt32
     wProcessorArchitecture: UInt16
     hSplPrinter: UInt64
+class SPLCLIENT_INFO_INTERNAL(EasyCastStructure):
+    cbSize: UInt32
+    dwFlags: UInt32
+    dwSize: UInt32
+    pMachineName: win32more.Windows.Win32.Foundation.PWSTR
+    pUserName: win32more.Windows.Win32.Foundation.PWSTR
+    dwBuildNum: UInt32
+    dwMajorVersion: UInt32
+    dwMinorVersion: UInt32
+    wProcessorArchitecture: UInt16
+    hSplPrinter: UInt64
+    dwProcessId: UInt32
+    dwSessionId: UInt32
 class TRANSDATA(EasyCastStructure):
     ubCodePageID: Byte
     ubType: Byte

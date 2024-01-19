@@ -1223,6 +1223,7 @@ IO_REPARSE_TAG_RESERVED_ZERO: UInt32 = 0
 IO_REPARSE_TAG_RESERVED_ONE: UInt32 = 1
 IO_REPARSE_TAG_RESERVED_TWO: UInt32 = 2
 IO_REPARSE_TAG_RESERVED_RANGE: UInt32 = 2
+IO_REPARSE_TAG_RESERVED_INVALID: Int32 = -1073709056
 IO_REPARSE_TAG_MOUNT_POINT: UInt32 = 2684354563
 IO_REPARSE_TAG_HSM: UInt32 = 3221225476
 IO_REPARSE_TAG_HSM2: UInt32 = 2147483654
@@ -1335,8 +1336,10 @@ GUID_STANDBY_BUDGET_PERCENT: Guid = Guid('{9fe527be-1b70-48da-930d-7bcf17b44990}
 GUID_STANDBY_RESERVE_GRACE_PERIOD: Guid = Guid('{c763ee92-71e8-4127-84eb-f6ed043a3e3d}')
 GUID_STANDBY_RESERVE_TIME: Guid = Guid('{468fe7e5-1158-46ec-88bc-5b96c9e44fd0}')
 GUID_STANDBY_RESET_PERCENT: Guid = Guid('{49cb11a5-56e2-4afb-9d38-3df47872e21b}')
-GUID_HUPR_ADAPTIVE_DISPLAY_TIMEOUT: Guid = Guid('{0a7d6ab6-ac83-4ad1-8282-eca5b58308f3}')
-GUID_HUPR_ADAPTIVE_DIM_TIMEOUT: Guid = Guid('{cf8c6097-12b8-4279-bbdd-44601ee5209d}')
+GUID_HUPR_ADAPTIVE_AWAY_DISPLAY_TIMEOUT: Guid = Guid('{0a7d6ab6-ac83-4ad1-8282-eca5b58308f3}')
+GUID_HUPR_ADAPTIVE_INATTENTIVE_DIM_TIMEOUT: Guid = Guid('{cf8c6097-12b8-4279-bbdd-44601ee5209d}')
+GUID_HUPR_ADAPTIVE_INATTENTIVE_DISPLAY_TIMEOUT: Guid = Guid('{ee16691e-6ab3-4619-bb48-1c77c9357e5a}')
+GUID_HUPR_ADAPTIVE_AWAY_DIM_TIMEOUT: Guid = Guid('{a79c8e0e-f271-482d-8f8a-5db9a18312de}')
 GUID_ALLOW_STANDBY_STATES: Guid = Guid('{abfc2519-3608-4c2a-94ea-171b0ed546ab}')
 GUID_ALLOW_RTC_WAKE: Guid = Guid('{bd3b718a-0680-4d9d-8ab2-e1d2b4ac806d}')
 GUID_LEGACY_RTC_MITIGATION: Guid = Guid('{1a34bdc3-7e6b-442e-a9d0-64b6ef378e84}')
@@ -3151,6 +3154,13 @@ class PROCESSOR_PERFSTATE_POLICY(EasyCastStructure):
             Anonymous: _Anonymous_e__Struct
             class _Anonymous_e__Struct(EasyCastStructure):
                 _bitfield: Byte
+class PROCESS_MITIGATION_ACTIVATION_CONTEXT_TRUST_POLICY(EasyCastStructure):
+    Anonymous: _Anonymous_e__Union
+    class _Anonymous_e__Union(EasyCastUnion):
+        Flags: UInt32
+        Anonymous: _Anonymous_e__Struct
+        class _Anonymous_e__Struct(EasyCastStructure):
+            _bitfield: UInt32
 class PROCESS_MITIGATION_ASLR_POLICY(EasyCastStructure):
     Anonymous: _Anonymous_e__Union
     class _Anonymous_e__Union(EasyCastUnion):

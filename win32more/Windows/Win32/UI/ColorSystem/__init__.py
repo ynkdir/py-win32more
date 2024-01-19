@@ -609,11 +609,15 @@ class JabColorF(EasyCastStructure):
     J: Single
     a: Single
     b: Single
+LCSCSTYPE = Int32
+LCS_CALIBRATED_RGB: win32more.Windows.Win32.UI.ColorSystem.LCSCSTYPE = 0
+LCS_sRGB: win32more.Windows.Win32.UI.ColorSystem.LCSCSTYPE = 1934772034
+LCS_WINDOWS_COLOR_SPACE: win32more.Windows.Win32.UI.ColorSystem.LCSCSTYPE = 1466527264
 class LOGCOLORSPACEA(EasyCastStructure):
     lcsSignature: UInt32
     lcsVersion: UInt32
     lcsSize: UInt32
-    lcsCSType: Int32
+    lcsCSType: win32more.Windows.Win32.UI.ColorSystem.LCSCSTYPE
     lcsIntent: Int32
     lcsEndpoints: win32more.Windows.Win32.Graphics.Gdi.CIEXYZTRIPLE
     lcsGammaRed: UInt32
@@ -624,7 +628,7 @@ class LOGCOLORSPACEW(EasyCastStructure):
     lcsSignature: UInt32
     lcsVersion: UInt32
     lcsSize: UInt32
-    lcsCSType: Int32
+    lcsCSType: win32more.Windows.Win32.UI.ColorSystem.LCSCSTYPE
     lcsIntent: Int32
     lcsEndpoints: win32more.Windows.Win32.Graphics.Gdi.CIEXYZTRIPLE
     lcsGammaRed: UInt32

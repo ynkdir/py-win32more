@@ -224,6 +224,8 @@ OF_SET: UInt32 = 1
 OF_GET: UInt32 = 2
 OF_HANDLER: UInt32 = 4
 WIN32: UInt32 = 100
+OLESTREAM_CONVERSION_DEFAULT: Int32 = 0
+OLESTREAM_CONVERSION_DISABLEOLELINK: Int32 = 1
 IDC_OLEUIHELP: UInt32 = 99
 IDC_IO_CREATENEW: UInt32 = 2100
 IDC_IO_CREATEFROMFILE: UInt32 = 2101
@@ -1296,11 +1298,15 @@ def OleRegEnumFormatEtc(clsid: POINTER(Guid), dwDirection: UInt32, ppenum: POINT
 @winfunctype('OLE32.dll')
 def OleRegEnumVerbs(clsid: POINTER(Guid), ppenum: POINTER(win32more.Windows.Win32.System.Ole.IEnumOLEVERB)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('ole32.dll')
+def OleConvertOLESTREAMToIStorage2(lpolestream: POINTER(win32more.Windows.Win32.System.Com.StructuredStorage.OLESTREAM), pstg: win32more.Windows.Win32.System.Com.StructuredStorage.IStorage, ptd: POINTER(win32more.Windows.Win32.System.Com.DVTARGETDEVICE), opt: UInt32, pvCallbackContext: VoidPtr, pQueryConvertOLELinkCallback: win32more.Windows.Win32.System.Ole.OLESTREAMQUERYCONVERTOLELINKCALLBACK) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('ole32.dll')
 def OleDoAutoConvert(pStg: win32more.Windows.Win32.System.Com.StructuredStorage.IStorage, pClsidNew: POINTER(Guid)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('OLE32.dll')
 def OleGetAutoConvert(clsidOld: POINTER(Guid), pClsidNew: POINTER(Guid)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('ole32.dll')
 def OleSetAutoConvert(clsidOld: POINTER(Guid), clsidNew: POINTER(Guid)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('ole32.dll')
+def OleConvertOLESTREAMToIStorageEx2(polestm: POINTER(win32more.Windows.Win32.System.Com.StructuredStorage.OLESTREAM), pstg: win32more.Windows.Win32.System.Com.StructuredStorage.IStorage, pcfFormat: POINTER(UInt16), plwWidth: POINTER(Int32), plHeight: POINTER(Int32), pdwSize: POINTER(UInt32), pmedium: POINTER(win32more.Windows.Win32.System.Com.STGMEDIUM), opt: UInt32, pvCallbackContext: VoidPtr, pQueryConvertOLELinkCallback: win32more.Windows.Win32.System.Ole.OLESTREAMQUERYCONVERTOLELINKCALLBACK) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('OLE32.dll')
 def HRGN_UserSize(param0: POINTER(UInt32), param1: UInt32, param2: POINTER(win32more.Windows.Win32.Graphics.Gdi.HRGN)) -> UInt32: ...
 @winfunctype('OLE32.dll')
@@ -3056,6 +3062,8 @@ OLERENDER_NONE: win32more.Windows.Win32.System.Ole.OLERENDER = 0
 OLERENDER_DRAW: win32more.Windows.Win32.System.Ole.OLERENDER = 1
 OLERENDER_FORMAT: win32more.Windows.Win32.System.Ole.OLERENDER = 2
 OLERENDER_ASIS: win32more.Windows.Win32.System.Ole.OLERENDER = 3
+@winfunctype_pointer
+def OLESTREAMQUERYCONVERTOLELINKCALLBACK(pClsid: POINTER(Guid), szClass: win32more.Windows.Win32.Foundation.PWSTR, szTopicName: win32more.Windows.Win32.Foundation.PWSTR, szItemName: win32more.Windows.Win32.Foundation.PWSTR, szUNCName: win32more.Windows.Win32.Foundation.PWSTR, linkUpdatingOption: UInt32, pvContext: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class OLEUIBUSYA(EasyCastStructure):
     cbStruct: UInt32
     dwFlags: win32more.Windows.Win32.System.Ole.BUSY_DIALOG_FLAGS

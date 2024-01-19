@@ -14,6 +14,7 @@ DWRITE_E_DOWNLOADCANCELLED: win32more.Windows.Win32.Foundation.HRESULT = -200328
 DWRITE_E_DOWNLOADFAILED: win32more.Windows.Win32.Foundation.HRESULT = -2003283953
 DWRITE_E_TOOMANYDOWNLOADS: win32more.Windows.Win32.Foundation.HRESULT = -2003283952
 DWRITE_STANDARD_FONT_AXIS_COUNT: UInt32 = 5
+DWRITE_NO_PALETTE_INDEX: UInt32 = 65535
 @winfunctype('DWrite.dll')
 def DWriteCreateFactory(factoryType: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_FACTORY_TYPE, iid: POINTER(Guid), factory: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 DWRITE_AUTOMATIC_FONT_AXES = Int32
@@ -29,6 +30,10 @@ DWRITE_BASELINE_IDEOGRAPHIC_BOTTOM: win32more.Windows.Win32.Graphics.DirectWrite
 DWRITE_BASELINE_IDEOGRAPHIC_TOP: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_BASELINE = 6
 DWRITE_BASELINE_MINIMUM: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_BASELINE = 7
 DWRITE_BASELINE_MAXIMUM: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_BASELINE = 8
+class DWRITE_BITMAP_DATA_BGRA32(EasyCastStructure):
+    width: UInt32
+    height: UInt32
+    pixels: POINTER(UInt32)
 DWRITE_BREAK_CONDITION = Int32
 DWRITE_BREAK_CONDITION_NEUTRAL: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_BREAK_CONDITION = 0
 DWRITE_BREAK_CONDITION_CAN_BREAK: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_BREAK_CONDITION = 1
@@ -42,6 +47,35 @@ class DWRITE_CLUSTER_METRICS(EasyCastStructure):
     width: Single
     length: UInt16
     _bitfield: UInt16
+DWRITE_COLOR_COMPOSITE_MODE = Int32
+DWRITE_COLOR_COMPOSITE_CLEAR: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_COLOR_COMPOSITE_MODE = 0
+DWRITE_COLOR_COMPOSITE_SRC: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_COLOR_COMPOSITE_MODE = 1
+DWRITE_COLOR_COMPOSITE_DEST: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_COLOR_COMPOSITE_MODE = 2
+DWRITE_COLOR_COMPOSITE_SRC_OVER: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_COLOR_COMPOSITE_MODE = 3
+DWRITE_COLOR_COMPOSITE_DEST_OVER: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_COLOR_COMPOSITE_MODE = 4
+DWRITE_COLOR_COMPOSITE_SRC_IN: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_COLOR_COMPOSITE_MODE = 5
+DWRITE_COLOR_COMPOSITE_DEST_IN: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_COLOR_COMPOSITE_MODE = 6
+DWRITE_COLOR_COMPOSITE_SRC_OUT: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_COLOR_COMPOSITE_MODE = 7
+DWRITE_COLOR_COMPOSITE_DEST_OUT: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_COLOR_COMPOSITE_MODE = 8
+DWRITE_COLOR_COMPOSITE_SRC_ATOP: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_COLOR_COMPOSITE_MODE = 9
+DWRITE_COLOR_COMPOSITE_DEST_ATOP: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_COLOR_COMPOSITE_MODE = 10
+DWRITE_COLOR_COMPOSITE_XOR: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_COLOR_COMPOSITE_MODE = 11
+DWRITE_COLOR_COMPOSITE_PLUS: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_COLOR_COMPOSITE_MODE = 12
+DWRITE_COLOR_COMPOSITE_SCREEN: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_COLOR_COMPOSITE_MODE = 13
+DWRITE_COLOR_COMPOSITE_OVERLAY: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_COLOR_COMPOSITE_MODE = 14
+DWRITE_COLOR_COMPOSITE_DARKEN: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_COLOR_COMPOSITE_MODE = 15
+DWRITE_COLOR_COMPOSITE_LIGHTEN: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_COLOR_COMPOSITE_MODE = 16
+DWRITE_COLOR_COMPOSITE_COLOR_DODGE: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_COLOR_COMPOSITE_MODE = 17
+DWRITE_COLOR_COMPOSITE_COLOR_BURN: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_COLOR_COMPOSITE_MODE = 18
+DWRITE_COLOR_COMPOSITE_HARD_LIGHT: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_COLOR_COMPOSITE_MODE = 19
+DWRITE_COLOR_COMPOSITE_SOFT_LIGHT: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_COLOR_COMPOSITE_MODE = 20
+DWRITE_COLOR_COMPOSITE_DIFFERENCE: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_COLOR_COMPOSITE_MODE = 21
+DWRITE_COLOR_COMPOSITE_EXCLUSION: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_COLOR_COMPOSITE_MODE = 22
+DWRITE_COLOR_COMPOSITE_MULTIPLY: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_COLOR_COMPOSITE_MODE = 23
+DWRITE_COLOR_COMPOSITE_HSL_HUE: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_COLOR_COMPOSITE_MODE = 24
+DWRITE_COLOR_COMPOSITE_HSL_SATURATION: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_COLOR_COMPOSITE_MODE = 25
+DWRITE_COLOR_COMPOSITE_HSL_COLOR: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_COLOR_COMPOSITE_MODE = 26
+DWRITE_COLOR_COMPOSITE_HSL_LUMINOSITY: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_COLOR_COMPOSITE_MODE = 27
 class DWRITE_COLOR_F(EasyCastStructure):
     r: Single
     g: Single
@@ -316,6 +350,7 @@ DWRITE_GLYPH_IMAGE_FORMATS_PNG: win32more.Windows.Win32.Graphics.DirectWrite.DWR
 DWRITE_GLYPH_IMAGE_FORMATS_JPEG: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_GLYPH_IMAGE_FORMATS = 32
 DWRITE_GLYPH_IMAGE_FORMATS_TIFF: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_GLYPH_IMAGE_FORMATS = 64
 DWRITE_GLYPH_IMAGE_FORMATS_PREMULTIPLIED_B8G8R8A8: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_GLYPH_IMAGE_FORMATS = 128
+DWRITE_GLYPH_IMAGE_FORMATS_COLR_PAINT_TREE: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_GLYPH_IMAGE_FORMATS = 256
 class DWRITE_GLYPH_METRICS(EasyCastStructure):
     leftSideBearing: Int32
     advanceWidth: UInt32
@@ -452,6 +487,82 @@ class DWRITE_OVERHANG_METRICS(EasyCastStructure):
     top: Single
     right: Single
     bottom: Single
+DWRITE_PAINT_ATTRIBUTES = Int32
+DWRITE_PAINT_ATTRIBUTES_NONE: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_PAINT_ATTRIBUTES = 0
+DWRITE_PAINT_ATTRIBUTES_USES_PALETTE: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_PAINT_ATTRIBUTES = 1
+DWRITE_PAINT_ATTRIBUTES_USES_TEXT_COLOR: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_PAINT_ATTRIBUTES = 2
+class DWRITE_PAINT_COLOR(EasyCastStructure):
+    value: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_COLOR_F
+    paletteEntryIndex: UInt16
+    alphaMultiplier: Single
+    colorAttributes: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_PAINT_ATTRIBUTES
+class DWRITE_PAINT_ELEMENT(EasyCastStructure):
+    paintType: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_PAINT_TYPE
+    paint: PAINT_UNION
+    class PAINT_UNION(EasyCastUnion):
+        layers: PAINT_LAYERS
+        solidGlyph: PAINT_SOLID_GLYPH
+        solid: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_PAINT_COLOR
+        linearGradient: PAINT_LINEAR_GRADIENT
+        radialGradient: PAINT_RADIAL_GRADIENT
+        sweepGradient: PAINT_SWEEP_GRADIENT
+        glyph: PAINT_GLYPH
+        colorGlyph: PAINT_COLOR_GLYPH
+        transform: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_MATRIX
+        composite: PAINT_COMPOSITE
+        class PAINT_LAYERS(EasyCastStructure):
+            childCount: UInt32
+        class PAINT_SOLID_GLYPH(EasyCastStructure):
+            glyphIndex: UInt32
+            color: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_PAINT_COLOR
+        class PAINT_LINEAR_GRADIENT(EasyCastStructure):
+            extendMode: UInt32
+            gradientStopCount: UInt32
+            x0: Single
+            y0: Single
+            x1: Single
+            y1: Single
+            x2: Single
+            y2: Single
+        class PAINT_RADIAL_GRADIENT(EasyCastStructure):
+            extendMode: UInt32
+            gradientStopCount: UInt32
+            x0: Single
+            y0: Single
+            radius0: Single
+            x1: Single
+            y1: Single
+            radius1: Single
+        class PAINT_SWEEP_GRADIENT(EasyCastStructure):
+            extendMode: UInt32
+            gradientStopCount: UInt32
+            centerX: Single
+            centerY: Single
+            startAngle: Single
+            endAngle: Single
+        class PAINT_GLYPH(EasyCastStructure):
+            glyphIndex: UInt32
+        class PAINT_COLOR_GLYPH(EasyCastStructure):
+            glyphIndex: UInt32
+            clipBox: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D_RECT_F
+        class PAINT_COMPOSITE(EasyCastStructure):
+            mode: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_COLOR_COMPOSITE_MODE
+DWRITE_PAINT_FEATURE_LEVEL = Int32
+DWRITE_PAINT_FEATURE_LEVEL_NONE: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_PAINT_FEATURE_LEVEL = 0
+DWRITE_PAINT_FEATURE_LEVEL_COLR_V0: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_PAINT_FEATURE_LEVEL = 1
+DWRITE_PAINT_FEATURE_LEVEL_COLR_V1: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_PAINT_FEATURE_LEVEL = 2
+DWRITE_PAINT_TYPE = Int32
+DWRITE_PAINT_TYPE_NONE: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_PAINT_TYPE = 0
+DWRITE_PAINT_TYPE_LAYERS: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_PAINT_TYPE = 1
+DWRITE_PAINT_TYPE_SOLID_GLYPH: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_PAINT_TYPE = 2
+DWRITE_PAINT_TYPE_SOLID: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_PAINT_TYPE = 3
+DWRITE_PAINT_TYPE_LINEAR_GRADIENT: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_PAINT_TYPE = 4
+DWRITE_PAINT_TYPE_RADIAL_GRADIENT: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_PAINT_TYPE = 5
+DWRITE_PAINT_TYPE_SWEEP_GRADIENT: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_PAINT_TYPE = 6
+DWRITE_PAINT_TYPE_GLYPH: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_PAINT_TYPE = 7
+DWRITE_PAINT_TYPE_COLOR_GLYPH: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_PAINT_TYPE = 8
+DWRITE_PAINT_TYPE_TRANSFORM: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_PAINT_TYPE = 9
+DWRITE_PAINT_TYPE_COMPOSITE: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_PAINT_TYPE = 10
 class DWRITE_PANOSE(EasyCastUnion):
     values: Byte * 10
     familyKind: Byte
@@ -963,6 +1074,20 @@ class IDWriteBitmapRenderTarget1(ComPtr):
     def GetTextAntialiasMode(self) -> win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_TEXT_ANTIALIAS_MODE: ...
     @commethod(12)
     def SetTextAntialiasMode(self, antialiasMode: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_TEXT_ANTIALIAS_MODE) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+class IDWriteBitmapRenderTarget2(ComPtr):
+    extends: win32more.Windows.Win32.Graphics.DirectWrite.IDWriteBitmapRenderTarget1
+    _iid_ = Guid('{c553a742-fc01-44da-a66e-b8b9ed6c3995}')
+    @commethod(13)
+    def GetBitmapData(self, bitmapData: POINTER(win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_BITMAP_DATA_BGRA32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+class IDWriteBitmapRenderTarget3(ComPtr):
+    extends: win32more.Windows.Win32.Graphics.DirectWrite.IDWriteBitmapRenderTarget2
+    _iid_ = Guid('{aeec37db-c337-40f1-8e2a-9a41b167b238}')
+    @commethod(14)
+    def GetPaintFeatureLevel(self) -> win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_PAINT_FEATURE_LEVEL: ...
+    @commethod(15)
+    def DrawPaintGlyphRun(self, baselineOriginX: Single, baselineOriginY: Single, measuringMode: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_MEASURING_MODE, glyphRun: POINTER(win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_GLYPH_RUN), glyphImageFormat: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_GLYPH_IMAGE_FORMATS, textColor: win32more.Windows.Win32.Foundation.COLORREF, colorPaletteIndex: UInt32, blackBoxRect: POINTER(win32more.Windows.Win32.Foundation.RECT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    @commethod(16)
+    def DrawGlyphRunWithColorSupport(self, baselineOriginX: Single, baselineOriginY: Single, measuringMode: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_MEASURING_MODE, glyphRun: POINTER(win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_GLYPH_RUN), renderingParams: win32more.Windows.Win32.Graphics.DirectWrite.IDWriteRenderingParams, textColor: win32more.Windows.Win32.Foundation.COLORREF, colorPaletteIndex: UInt32, blackBoxRect: POINTER(win32more.Windows.Win32.Foundation.RECT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IDWriteColorGlyphRunEnumerator(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{d31fbe17-f157-41a2-8d24-cb779e0560e8}')
@@ -1107,6 +1232,11 @@ class IDWriteFactory7(ComPtr):
     def GetSystemFontSet(self, includeDownloadableFonts: win32more.Windows.Win32.Foundation.BOOL, fontSet: POINTER(win32more.Windows.Win32.Graphics.DirectWrite.IDWriteFontSet2)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(56)
     def GetSystemFontCollection(self, includeDownloadableFonts: win32more.Windows.Win32.Foundation.BOOL, fontFamilyModel: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_FONT_FAMILY_MODEL, fontCollection: POINTER(win32more.Windows.Win32.Graphics.DirectWrite.IDWriteFontCollection3)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+class IDWriteFactory8(ComPtr):
+    extends: win32more.Windows.Win32.Graphics.DirectWrite.IDWriteFactory7
+    _iid_ = Guid('{ee0a7fb5-def4-4c23-a454-c9c7dc878398}')
+    @commethod(57)
+    def TranslateColorGlyphRun(self, baselineOrigin: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D_POINT_2F, glyphRun: POINTER(win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_GLYPH_RUN), glyphRunDescription: POINTER(win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_GLYPH_RUN_DESCRIPTION), desiredGlyphImageFormats: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_GLYPH_IMAGE_FORMATS, paintFeatureLevel: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_PAINT_FEATURE_LEVEL, measuringMode: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_MEASURING_MODE, worldAndDpiTransform: POINTER(win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_MATRIX), colorPaletteIndex: UInt32, colorEnumerator: POINTER(win32more.Windows.Win32.Graphics.DirectWrite.IDWriteColorGlyphRunEnumerator1)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IDWriteFont(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{acd16696-8c14-4f5d-877e-fe3fc1d32737}')
@@ -1355,6 +1485,13 @@ class IDWriteFontFace6(ComPtr):
     def GetFamilyNames(self, fontFamilyModel: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_FONT_FAMILY_MODEL, names: POINTER(win32more.Windows.Win32.Graphics.DirectWrite.IDWriteLocalizedStrings)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(59)
     def GetFaceNames(self, fontFamilyModel: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_FONT_FAMILY_MODEL, names: POINTER(win32more.Windows.Win32.Graphics.DirectWrite.IDWriteLocalizedStrings)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+class IDWriteFontFace7(ComPtr):
+    extends: win32more.Windows.Win32.Graphics.DirectWrite.IDWriteFontFace6
+    _iid_ = Guid('{3945b85b-bc95-40f7-b72c-8b73bfc7e13b}')
+    @commethod(60)
+    def GetPaintFeatureLevel(self, glyphImageFormat: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_GLYPH_IMAGE_FORMATS) -> win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_PAINT_FEATURE_LEVEL: ...
+    @commethod(61)
+    def CreatePaintReader(self, glyphImageFormat: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_GLYPH_IMAGE_FORMATS, paintFeatureLevel: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_PAINT_FEATURE_LEVEL, paintReader: POINTER(win32more.Windows.Win32.Graphics.DirectWrite.IDWritePaintReader)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IDWriteFontFaceReference(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{5e7fa7ca-dde3-424c-89f0-9fcd6fed58cd}')
@@ -1695,6 +1832,27 @@ class IDWriteLocalizedStrings(ComPtr):
 class IDWriteNumberSubstitution(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{14885cc9-bab0-4f90-b6ed-5c366a2cd03d}')
+class IDWritePaintReader(ComPtr):
+    extends: win32more.Windows.Win32.System.Com.IUnknown
+    _iid_ = Guid('{8128e912-3b97-42a5-ab6c-24aad3a86e54}')
+    @commethod(3)
+    def SetCurrentGlyph(self, glyphIndex: UInt32, paintElement: POINTER(win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_PAINT_ELEMENT), structSize: UInt32, clipBox: POINTER(win32more.Windows.Win32.Graphics.Direct2D.Common.D2D_RECT_F), glyphAttributes: POINTER(win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_PAINT_ATTRIBUTES)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    @commethod(4)
+    def SetTextColor(self, textColor: POINTER(win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_COLOR_F)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    @commethod(5)
+    def SetColorPaletteIndex(self, colorPaletteIndex: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    @commethod(6)
+    def SetCustomColorPalette(self, paletteEntries: POINTER(win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_COLOR_F), paletteEntryCount: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    @commethod(7)
+    def MoveToFirstChild(self, paintElement: POINTER(win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_PAINT_ELEMENT), structSize: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    @commethod(8)
+    def MoveToNextSibling(self, paintElement: POINTER(win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_PAINT_ELEMENT), structSize: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    @commethod(9)
+    def MoveToParent(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    @commethod(10)
+    def GetGradientStops(self, firstGradientStopIndex: UInt32, gradientStopCount: UInt32, gradientStops: POINTER(win32more.Windows.Win32.Graphics.Direct2D.Common.D2D1_GRADIENT_STOP)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    @commethod(11)
+    def GetGradientStopColors(self, firstGradientStopIndex: UInt32, gradientStopCount: UInt32, gradientStopColors: POINTER(win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_PAINT_COLOR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IDWritePixelSnapping(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{eaf3a2da-ecf4-4d24-b644-b34f6842024b}')

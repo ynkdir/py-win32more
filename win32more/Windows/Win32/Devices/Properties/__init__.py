@@ -64,6 +64,8 @@ DEVPKEY_Device_PresenceNotForDevice: win32more.Windows.Win32.Devices.Properties.
 DEVPKEY_Device_SignalStrength: win32more.Windows.Win32.Devices.Properties.DEVPROPKEY = ConstantLazyLoader(fmtid=Guid('{80d81ea6-7473-4b0c-8216-efc11a2c4c8b}'), pid=6)
 DEVPKEY_Device_IsAssociateableByUserAction: win32more.Windows.Win32.Devices.Properties.DEVPROPKEY = ConstantLazyLoader(fmtid=Guid('{80d81ea6-7473-4b0c-8216-efc11a2c4c8b}'), pid=7)
 DEVPKEY_Device_ShowInUninstallUI: win32more.Windows.Win32.Devices.Properties.DEVPROPKEY = ConstantLazyLoader(fmtid=Guid('{80d81ea6-7473-4b0c-8216-efc11a2c4c8b}'), pid=8)
+DEVPKEY_Device_CompanionApps: win32more.Windows.Win32.Devices.Properties.DEVPROPKEY = ConstantLazyLoader(fmtid=Guid('{6a742654-d0b2-4420-a523-e068352ac1df}'), pid=2)
+DEVPKEY_Device_PrimaryCompanionApp: win32more.Windows.Win32.Devices.Properties.DEVPROPKEY = ConstantLazyLoader(fmtid=Guid('{6a742654-d0b2-4420-a523-e068352ac1df}'), pid=3)
 DEVPKEY_Device_Numa_Proximity_Domain: win32more.Windows.Win32.Devices.Properties.DEVPROPKEY = ConstantLazyLoader(fmtid=Guid('{540b947e-8b40-45bc-a8a2-6a0b894cbda2}'), pid=1)
 DEVPKEY_Device_DHP_Rebalance_Policy: win32more.Windows.Win32.Devices.Properties.DEVPROPKEY = ConstantLazyLoader(fmtid=Guid('{540b947e-8b40-45bc-a8a2-6a0b894cbda2}'), pid=2)
 DEVPKEY_Device_Numa_Node: win32more.Windows.Win32.Devices.Properties.DEVPROPKEY = ConstantLazyLoader(fmtid=Guid('{540b947e-8b40-45bc-a8a2-6a0b894cbda2}'), pid=3)

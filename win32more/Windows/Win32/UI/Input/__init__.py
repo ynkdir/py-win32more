@@ -38,6 +38,12 @@ IMO_SYSTEM: win32more.Windows.Win32.UI.Input.INPUT_MESSAGE_ORIGIN_ID = 4
 class INPUT_MESSAGE_SOURCE(EasyCastStructure):
     deviceType: win32more.Windows.Win32.UI.Input.INPUT_MESSAGE_DEVICE_TYPE
     originId: win32more.Windows.Win32.UI.Input.INPUT_MESSAGE_ORIGIN_ID
+MOUSE_STATE = UInt16
+MOUSE_MOVE_RELATIVE: win32more.Windows.Win32.UI.Input.MOUSE_STATE = 0
+MOUSE_MOVE_ABSOLUTE: win32more.Windows.Win32.UI.Input.MOUSE_STATE = 1
+MOUSE_VIRTUAL_DESKTOP: win32more.Windows.Win32.UI.Input.MOUSE_STATE = 2
+MOUSE_ATTRIBUTES_CHANGED: win32more.Windows.Win32.UI.Input.MOUSE_STATE = 4
+MOUSE_MOVE_NOCOALESCE: win32more.Windows.Win32.UI.Input.MOUSE_STATE = 8
 class RAWHID(EasyCastStructure):
     dwSizeHid: UInt32
     dwCount: UInt32
@@ -81,7 +87,7 @@ class RAWKEYBOARD(EasyCastStructure):
     Message: UInt32
     ExtraInformation: UInt32
 class RAWMOUSE(EasyCastStructure):
-    usFlags: UInt16
+    usFlags: win32more.Windows.Win32.UI.Input.MOUSE_STATE
     Anonymous: _Anonymous_e__Union
     ulRawButtons: UInt32
     lLastX: Int32

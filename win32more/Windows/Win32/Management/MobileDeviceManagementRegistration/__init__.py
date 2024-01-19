@@ -42,6 +42,7 @@ MENROLL_E_CERTAUTH_FAILED_TO_FIND_CERT: win32more.Windows.Win32.Foundation.HRESU
 MENROLL_E_EMPTY_MESSAGE: win32more.Windows.Win32.Foundation.HRESULT = -2145910743
 MENROLL_E_USER_CANCELLED: win32more.Windows.Win32.Foundation.HRESULT = -2145910736
 MENROLL_E_MDM_NOT_CONFIGURED: win32more.Windows.Win32.Foundation.HRESULT = -2145910735
+MENROLL_E_CUSTOMSERVERERROR: win32more.Windows.Win32.Foundation.HRESULT = -2145910734
 MDM_REGISTRATION_FACILITY_CODE: UInt32 = 25
 DEVICE_ENROLLER_FACILITY_CODE: UInt32 = 24
 MREGISTER_E_DEVICE_MESSAGE_FORMAT_ERROR: win32more.Windows.Win32.Foundation.HRESULT = -2145845247
@@ -85,8 +86,6 @@ def RegisterDeviceWithManagementUsingAADCredentials(UserToken: win32more.Windows
 def RegisterDeviceWithManagementUsingAADDeviceCredentials() -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('MDMRegistration.dll')
 def RegisterDeviceWithManagementUsingAADDeviceCredentials2(MDMApplicationID: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-@winfunctype('MDMRegistration.DLL')
-def RegisterDeviceDualEnrollMmpcUsingAADDeviceCredentials(cchEnrollmentId: UInt32, pszEnrollmentId: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('MDMRegistration.dll')
 def RegisterDeviceWithManagement(pszUPN: win32more.Windows.Win32.Foundation.PWSTR, ppszMDMServiceUri: win32more.Windows.Win32.Foundation.PWSTR, ppzsAccessToken: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('MDMRegistration.dll')

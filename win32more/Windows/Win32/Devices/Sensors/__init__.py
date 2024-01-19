@@ -390,6 +390,7 @@ ElevationChangeMode_Stepping: win32more.Windows.Win32.Devices.Sensors.ELEVATION_
 ElevationChangeMode_Max: win32more.Windows.Win32.Devices.Sensors.ELEVATION_CHANGE_MODE = 3
 ElevationChangeMode_Force_Dword: win32more.Windows.Win32.Devices.Sensors.ELEVATION_CHANGE_MODE = -1
 HUMAN_PRESENCE_DETECTION_TYPE = Int32
+HumanPresenceDetectionType_Undefined: win32more.Windows.Win32.Devices.Sensors.HUMAN_PRESENCE_DETECTION_TYPE = 0
 HumanPresenceDetectionType_VendorDefinedNonBiometric: win32more.Windows.Win32.Devices.Sensors.HUMAN_PRESENCE_DETECTION_TYPE = 1
 HumanPresenceDetectionType_VendorDefinedBiometric: win32more.Windows.Win32.Devices.Sensors.HUMAN_PRESENCE_DETECTION_TYPE = 2
 HumanPresenceDetectionType_FacialBiometric: win32more.Windows.Win32.Devices.Sensors.HUMAN_PRESENCE_DETECTION_TYPE = 4

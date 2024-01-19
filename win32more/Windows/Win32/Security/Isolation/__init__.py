@@ -33,6 +33,24 @@ class IIsolatedAppLauncher(ComPtr):
     _iid_ = Guid('{f686878f-7b42-4cc4-96fb-f4f3b6e3d24d}')
     @commethod(3)
     def Launch(self, appUserModelId: win32more.Windows.Win32.Foundation.PWSTR, arguments: win32more.Windows.Win32.Foundation.PWSTR, telemetryParameters: POINTER(win32more.Windows.Win32.Security.Isolation.IsolatedAppLauncherTelemetryParameters)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+class IIsolatedProcessLauncher(ComPtr):
+    extends: win32more.Windows.Win32.System.Com.IUnknown
+    _iid_ = Guid('{1aa24232-9a91-4201-88cb-122f9d6522e0}')
+    @commethod(3)
+    def LaunchProcess(self, process: win32more.Windows.Win32.Foundation.PWSTR, arguments: win32more.Windows.Win32.Foundation.PWSTR, workingDirectory: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    @commethod(4)
+    def ShareDirectory(self, hostPath: win32more.Windows.Win32.Foundation.PWSTR, containerPath: win32more.Windows.Win32.Foundation.PWSTR, readOnly: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetContainerGuid(self, guid: POINTER(Guid)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    @commethod(6)
+    def AllowSetForegroundAccess(self, pid: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    @commethod(7)
+    def IsContainerRunning(self, running: POINTER(win32more.Windows.Win32.Foundation.BOOL)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+class IIsolatedProcessLauncher2(ComPtr):
+    extends: win32more.Windows.Win32.Security.Isolation.IIsolatedProcessLauncher
+    _iid_ = Guid('{780e4416-5e72-4123-808e-66dc6479feef}')
+    @commethod(8)
+    def LaunchProcess2(self, process: win32more.Windows.Win32.Foundation.PWSTR, arguments: win32more.Windows.Win32.Foundation.PWSTR, workingDirectory: win32more.Windows.Win32.Foundation.PWSTR, correlationGuid: POINTER(Guid)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 IsolatedAppLauncher = Guid('{bc812430-e75e-4fd1-9641-1f9f1e2d9a1f}')
 class IsolatedAppLauncherTelemetryParameters(EasyCastStructure):
     EnableForLaunch: win32more.Windows.Win32.Foundation.BOOL

@@ -103,6 +103,13 @@ APPX_PACKAGING_CONTEXT_CHANGE_TYPE_END: win32more.Windows.Win32.Storage.Packagin
 AddPackageDependencyOptions = Int32
 AddPackageDependencyOptions_None: win32more.Windows.Win32.Storage.Packaging.Appx.AddPackageDependencyOptions = 0
 AddPackageDependencyOptions_PrependIfRankCollision: win32more.Windows.Win32.Storage.Packaging.Appx.AddPackageDependencyOptions = 1
+PACKAGE_FULL_NAME_MIN_LENGTH: UInt32 = 30
+PACKAGE_FULL_NAME_MAX_LENGTH: UInt32 = 127
+PACKAGE_FAMILY_NAME_MIN_LENGTH: UInt32 = 17
+PACKAGE_FAMILY_NAME_MAX_LENGTH: UInt32 = 64
+PACKAGE_GRAPH_MAX_SIZE: UInt32 = 641
+APPLICATION_USER_MODEL_ID_MIN_LENGTH: UInt32 = 20
+APPLICATION_USER_MODEL_ID_MAX_LENGTH: UInt32 = 130
 PACKAGE_PROPERTY_FRAMEWORK: UInt32 = 1
 PACKAGE_PROPERTY_RESOURCE: UInt32 = 2
 PACKAGE_PROPERTY_BUNDLE: UInt32 = 4
@@ -125,6 +132,27 @@ PACKAGE_PROPERTY_HOSTRUNTIME: UInt32 = 2097152
 PACKAGE_FILTER_HOSTRUNTIME: UInt32 = 2097152
 PACKAGE_FILTER_ALL_LOADED: UInt32 = 0
 PACKAGE_DEPENDENCY_RANK_DEFAULT: UInt32 = 0
+PACKAGE_ARCHITECTURE_MIN_LENGTH: UInt32 = 3
+PACKAGE_ARCHITECTURE_MAX_LENGTH: UInt32 = 7
+PACKAGE_VERSION_MIN_LENGTH: UInt32 = 7
+PACKAGE_VERSION_MAX_LENGTH: UInt32 = 23
+PACKAGE_NAME_MIN_LENGTH: UInt32 = 3
+PACKAGE_NAME_MAX_LENGTH: UInt32 = 50
+PACKAGE_PUBLISHER_MIN_LENGTH: UInt32 = 3
+PACKAGE_PUBLISHER_MAX_LENGTH: UInt32 = 8192
+PACKAGE_PUBLISHERID_MIN_LENGTH: UInt32 = 13
+PACKAGE_PUBLISHERID_MAX_LENGTH: UInt32 = 13
+PACKAGE_RESOURCEID_MIN_LENGTH: UInt32 = 0
+PACKAGE_RESOURCEID_MAX_LENGTH: UInt32 = 30
+PACKAGE_MIN_DEPENDENCIES: UInt32 = 0
+PACKAGE_MAX_DEPENDENCIES: UInt32 = 128
+PACKAGE_FAMILY_MIN_RESOURCE_PACKAGES: UInt32 = 0
+PACKAGE_FAMILY_MAX_RESOURCE_PACKAGES: UInt32 = 512
+PACKAGE_GRAPH_MIN_SIZE: UInt32 = 1
+PACKAGE_APPLICATIONS_MIN_COUNT: UInt32 = 0
+PACKAGE_APPLICATIONS_MAX_COUNT: UInt32 = 100
+PACKAGE_RELATIVE_APPLICATION_ID_MIN_LENGTH: UInt32 = 2
+PACKAGE_RELATIVE_APPLICATION_ID_MAX_LENGTH: UInt32 = 65
 @winfunctype('KERNEL32.dll')
 def GetCurrentPackageId(bufferLength: POINTER(UInt32), buffer: POINTER(Byte)) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('KERNEL32.dll')
@@ -253,6 +281,8 @@ def DuplicatePackageVirtualizationContext(sourceContext: win32more.Windows.Win32
 def GetCurrentPackageVirtualizationContext() -> win32more.Windows.Win32.Storage.Packaging.Appx.PACKAGE_VIRTUALIZATION_CONTEXT_HANDLE: ...
 @winfunctype('KERNEL32.dll')
 def GetProcessesInVirtualizationContext(packageFamilyName: win32more.Windows.Win32.Foundation.PWSTR, count: POINTER(UInt32), processes: POINTER(POINTER(win32more.Windows.Win32.Foundation.HANDLE))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('KERNEL32.dll')
+def GetCurrentPackageInfo3(flags: UInt32, packageInfoType: win32more.Windows.Win32.Storage.Packaging.Appx.PackageInfo3Type, bufferLength: POINTER(UInt32), buffer: VoidPtr, count: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 AppPolicyClrCompat = Int32
 AppPolicyClrCompat_Other: win32more.Windows.Win32.Storage.Packaging.Appx.AppPolicyClrCompat = 0
 AppPolicyClrCompat_ClassicDesktop: win32more.Windows.Win32.Storage.Packaging.Appx.AppPolicyClrCompat = 1
@@ -1072,6 +1102,8 @@ PackageDependencyProcessorArchitectures_X64: win32more.Windows.Win32.Storage.Pac
 PackageDependencyProcessorArchitectures_Arm: win32more.Windows.Win32.Storage.Packaging.Appx.PackageDependencyProcessorArchitectures = 8
 PackageDependencyProcessorArchitectures_Arm64: win32more.Windows.Win32.Storage.Packaging.Appx.PackageDependencyProcessorArchitectures = 16
 PackageDependencyProcessorArchitectures_X86A64: win32more.Windows.Win32.Storage.Packaging.Appx.PackageDependencyProcessorArchitectures = 32
+PackageInfo3Type = Int32
+PackageInfo3Type_PackageInfoGeneration: win32more.Windows.Win32.Storage.Packaging.Appx.PackageInfo3Type = 16
 PackageOrigin = Int32
 PackageOrigin_Unknown: win32more.Windows.Win32.Storage.Packaging.Appx.PackageOrigin = 0
 PackageOrigin_Unsigned: win32more.Windows.Win32.Storage.Packaging.Appx.PackageOrigin = 1

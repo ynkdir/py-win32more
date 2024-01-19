@@ -163,6 +163,9 @@ wszFCSAPARM_DSCACERTATTRIBUTE: String = '%11'
 wszFCSAPARM_DSUSERCERTATTRIBUTE: String = '%12'
 wszFCSAPARM_DSKRACERTATTRIBUTE: String = '%13'
 wszFCSAPARM_DSCROSSCERTPAIRATTRIBUTE: String = '%14'
+SIGNING_LEVEL_FILE_CACHE_FLAG_NOT_VALIDATED: UInt32 = 1
+SIGNING_LEVEL_FILE_CACHE_FLAG_VALIDATE_ONLY: UInt32 = 4
+SIGNING_LEVEL_MICROSOFT: UInt32 = 8
 @winfunctype('ADVAPI32.dll')
 def AccessCheck(pSecurityDescriptor: win32more.Windows.Win32.Security.PSECURITY_DESCRIPTOR, ClientToken: win32more.Windows.Win32.Foundation.HANDLE, DesiredAccess: UInt32, GenericMapping: POINTER(win32more.Windows.Win32.Security.GENERIC_MAPPING), PrivilegeSet: POINTER(win32more.Windows.Win32.Security.PRIVILEGE_SET), PrivilegeSetLength: POINTER(UInt32), GrantedAccess: POINTER(UInt32), AccessStatus: POINTER(win32more.Windows.Win32.Foundation.BOOL)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')

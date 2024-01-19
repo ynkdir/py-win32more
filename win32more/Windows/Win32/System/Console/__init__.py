@@ -234,6 +234,8 @@ def GetConsoleCommandHistoryA(Commands: win32more.Windows.Win32.Foundation.PSTR,
 def GetConsoleCommandHistoryW(Commands: win32more.Windows.Win32.Foundation.PWSTR, CommandBufferLength: UInt32, ExeName: win32more.Windows.Win32.Foundation.PWSTR) -> UInt32: ...
 @winfunctype('KERNEL32.dll')
 def GetConsoleProcessList(lpdwProcessList: POINTER(UInt32), dwProcessCount: UInt32) -> UInt32: ...
+@winfunctype('USER32.dll')
+def ConsoleControl(Command: win32more.Windows.Win32.System.Console.CONSOLECONTROL, ConsoleInformation: VoidPtr, ConsoleInformationLength: UInt32) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('KERNEL32.dll')
 def GetStdHandle(nStdHandle: win32more.Windows.Win32.System.Console.STD_HANDLE) -> win32more.Windows.Win32.Foundation.HANDLE: ...
 @winfunctype('KERNEL32.dll')
@@ -246,6 +248,30 @@ class CHAR_INFO(EasyCastStructure):
     class _Char_e__Union(EasyCastUnion):
         UnicodeChar: Char
         AsciiChar: win32more.Windows.Win32.Foundation.CHAR
+CONSOLECONTROL = Int32
+Reserved1: win32more.Windows.Win32.System.Console.CONSOLECONTROL = 0
+ConsoleNotifyConsoleApplication: win32more.Windows.Win32.System.Console.CONSOLECONTROL = 1
+Reserved2: win32more.Windows.Win32.System.Console.CONSOLECONTROL = 2
+ConsoleSetCaretInfo: win32more.Windows.Win32.System.Console.CONSOLECONTROL = 3
+Reserved3: win32more.Windows.Win32.System.Console.CONSOLECONTROL = 4
+ConsoleSetForeground: win32more.Windows.Win32.System.Console.CONSOLECONTROL = 5
+ConsoleSetWindowOwner: win32more.Windows.Win32.System.Console.CONSOLECONTROL = 6
+ConsoleEndTask: win32more.Windows.Win32.System.Console.CONSOLECONTROL = 7
+class CONSOLEENDTASK(EasyCastStructure):
+    ProcessId: win32more.Windows.Win32.Foundation.HANDLE
+    hwnd: win32more.Windows.Win32.Foundation.HWND
+    ConsoleEventCode: UInt32
+    ConsoleFlags: UInt32
+class CONSOLESETFOREGROUND(EasyCastStructure):
+    hProcess: win32more.Windows.Win32.Foundation.HANDLE
+    bForeground: win32more.Windows.Win32.Foundation.BOOL
+class CONSOLEWINDOWOWNER(EasyCastStructure):
+    hwnd: win32more.Windows.Win32.Foundation.HWND
+    ProcessId: UInt32
+    ThreadId: UInt32
+class CONSOLE_CARET_INFO(EasyCastStructure):
+    hwnd: win32more.Windows.Win32.Foundation.HWND
+    rc: win32more.Windows.Win32.Foundation.RECT
 CONSOLE_CHARACTER_ATTRIBUTES = UInt16
 FOREGROUND_BLUE: win32more.Windows.Win32.System.Console.CONSOLE_CHARACTER_ATTRIBUTES = 1
 FOREGROUND_GREEN: win32more.Windows.Win32.System.Console.CONSOLE_CHARACTER_ATTRIBUTES = 2
@@ -297,6 +323,9 @@ ENABLE_WRAP_AT_EOL_OUTPUT: win32more.Windows.Win32.System.Console.CONSOLE_MODE =
 ENABLE_VIRTUAL_TERMINAL_PROCESSING: win32more.Windows.Win32.System.Console.CONSOLE_MODE = 4
 DISABLE_NEWLINE_AUTO_RETURN: win32more.Windows.Win32.System.Console.CONSOLE_MODE = 8
 ENABLE_LVB_GRID_WORLDWIDE: win32more.Windows.Win32.System.Console.CONSOLE_MODE = 16
+class CONSOLE_PROCESS_INFO(EasyCastStructure):
+    dwProcessID: UInt32
+    dwFlags: UInt32
 class CONSOLE_READCONSOLE_CONTROL(EasyCastStructure):
     nLength: UInt32
     nInitialChars: UInt32

@@ -344,6 +344,13 @@ class IDCompositionDevice3(ComPtr):
     def CreateArithmeticCompositeEffect(self, arithmeticCompositeEffect: POINTER(win32more.Windows.Win32.Graphics.DirectComposition.IDCompositionArithmeticCompositeEffect)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(36)
     def CreateAffineTransform2DEffect(self, affineTransform2dEffect: POINTER(win32more.Windows.Win32.Graphics.DirectComposition.IDCompositionAffineTransform2DEffect)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+class IDCompositionDevice4(ComPtr):
+    extends: win32more.Windows.Win32.Graphics.DirectComposition.IDCompositionDevice3
+    _iid_ = Guid('{85fc5cca-2da6-494c-86b6-4a775c049b8a}')
+    @commethod(37)
+    def CheckCompositionTextureSupport(self, renderingDevice: win32more.Windows.Win32.System.Com.IUnknown, supportsCompositionTextures: POINTER(win32more.Windows.Win32.Foundation.BOOL)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    @commethod(38)
+    def CreateCompositionTexture(self, d3dTexture: win32more.Windows.Win32.System.Com.IUnknown, compositionTexture: POINTER(win32more.Windows.Win32.Graphics.DirectComposition.IDCompositionTexture)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IDCompositionDeviceDebug(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{a1a3c64a-224f-4a81-9773-4f03a89d3c6c}')
@@ -710,6 +717,17 @@ class IDCompositionTarget(ComPtr):
     _iid_ = Guid('{eacdd04c-117e-4e17-88f4-d1b12b0e3d89}')
     @commethod(3)
     def SetRoot(self, visual: win32more.Windows.Win32.Graphics.DirectComposition.IDCompositionVisual) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+class IDCompositionTexture(ComPtr):
+    extends: win32more.Windows.Win32.System.Com.IUnknown
+    _iid_ = Guid('{929bb1aa-725f-433b-abd7-273075a835f2}')
+    @commethod(3)
+    def SetSourceRect(self, sourceRect: POINTER(win32more.Windows.Win32.Graphics.Direct2D.Common.D2D_RECT_U)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    @commethod(4)
+    def SetColorSpace(self, colorSpace: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_COLOR_SPACE_TYPE) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    @commethod(5)
+    def SetAlphaMode(self, alphaMode: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_ALPHA_MODE) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    @commethod(6)
+    def GetAvailableFence(self, fenceValue: POINTER(UInt64), iid: POINTER(Guid), availableFence: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IDCompositionTransform(ComPtr):
     extends: win32more.Windows.Win32.Graphics.DirectComposition.IDCompositionTransform3D
     _iid_ = Guid('{fd55faa7-37e0-4c20-95d2-9be45bc33f55}')

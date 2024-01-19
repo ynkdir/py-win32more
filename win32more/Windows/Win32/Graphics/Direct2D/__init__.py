@@ -588,9 +588,6 @@ class D2D1_GRADIENT_MESH_PATCH(EasyCastStructure):
     leftEdgeMode: win32more.Windows.Win32.Graphics.Direct2D.D2D1_PATCH_EDGE_MODE
     bottomEdgeMode: win32more.Windows.Win32.Graphics.Direct2D.D2D1_PATCH_EDGE_MODE
     rightEdgeMode: win32more.Windows.Win32.Graphics.Direct2D.D2D1_PATCH_EDGE_MODE
-class D2D1_GRADIENT_STOP(EasyCastStructure):
-    position: Single
-    color: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D1_COLOR_F
 D2D1_HDRTONEMAP_DISPLAY_MODE = Int32
 D2D1_HDRTONEMAP_DISPLAY_MODE_SDR: win32more.Windows.Win32.Graphics.Direct2D.D2D1_HDRTONEMAP_DISPLAY_MODE = 0
 D2D1_HDRTONEMAP_DISPLAY_MODE_HDR: win32more.Windows.Win32.Graphics.Direct2D.D2D1_HDRTONEMAP_DISPLAY_MODE = 1
@@ -1200,6 +1197,7 @@ D2D1_YCBCR_PROP = Int32
 D2D1_YCBCR_PROP_CHROMA_SUBSAMPLING: win32more.Windows.Win32.Graphics.Direct2D.D2D1_YCBCR_PROP = 0
 D2D1_YCBCR_PROP_TRANSFORM_MATRIX: win32more.Windows.Win32.Graphics.Direct2D.D2D1_YCBCR_PROP = 1
 D2D1_YCBCR_PROP_INTERPOLATION_MODE: win32more.Windows.Win32.Graphics.Direct2D.D2D1_YCBCR_PROP = 2
+DWRITE_PAINT_FEATURE_LEVEL = Int32
 class ID2D1AnalysisTransform(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{0359dc30-95e6-4568-9055-27720d130e93}')
@@ -1492,6 +1490,11 @@ class ID2D1Device6(ComPtr):
     _iid_ = Guid('{7bfef914-2d75-4bad-be87-e18ddb077b6d}')
     @commethod(20)
     def CreateDeviceContext(self, options: win32more.Windows.Win32.Graphics.Direct2D.D2D1_DEVICE_CONTEXT_OPTIONS, deviceContext6: POINTER(win32more.Windows.Win32.Graphics.Direct2D.ID2D1DeviceContext6)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+class ID2D1Device7(ComPtr):
+    extends: win32more.Windows.Win32.Graphics.Direct2D.ID2D1Device6
+    _iid_ = Guid('{f07c8968-dd4e-4ba6-9cbd-eb6d3752dcbb}')
+    @commethod(21)
+    def CreateDeviceContext(self, options: win32more.Windows.Win32.Graphics.Direct2D.D2D1_DEVICE_CONTEXT_OPTIONS, deviceContext: POINTER(win32more.Windows.Win32.Graphics.Direct2D.ID2D1DeviceContext7)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ID2D1DeviceContext(ComPtr):
     extends: win32more.Windows.Win32.Graphics.Direct2D.ID2D1RenderTarget
     _iid_ = Guid('{e8f7fe7a-191c-466d-ad95-975678bda998}')
@@ -1510,7 +1513,7 @@ class ID2D1DeviceContext(ComPtr):
     @commethod(63)
     def CreateEffect(self, effectId: POINTER(Guid), effect: POINTER(win32more.Windows.Win32.Graphics.Direct2D.ID2D1Effect)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(64)
-    def CreateGradientStopCollection(self, straightAlphaGradientStops: POINTER(win32more.Windows.Win32.Graphics.Direct2D.D2D1_GRADIENT_STOP), straightAlphaGradientStopsCount: UInt32, preInterpolationSpace: win32more.Windows.Win32.Graphics.Direct2D.D2D1_COLOR_SPACE, postInterpolationSpace: win32more.Windows.Win32.Graphics.Direct2D.D2D1_COLOR_SPACE, bufferPrecision: win32more.Windows.Win32.Graphics.Direct2D.D2D1_BUFFER_PRECISION, extendMode: win32more.Windows.Win32.Graphics.Direct2D.D2D1_EXTEND_MODE, colorInterpolationMode: win32more.Windows.Win32.Graphics.Direct2D.D2D1_COLOR_INTERPOLATION_MODE, gradientStopCollection1: POINTER(win32more.Windows.Win32.Graphics.Direct2D.ID2D1GradientStopCollection1)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CreateGradientStopCollection(self, straightAlphaGradientStops: POINTER(win32more.Windows.Win32.Graphics.Direct2D.Common.D2D1_GRADIENT_STOP), straightAlphaGradientStopsCount: UInt32, preInterpolationSpace: win32more.Windows.Win32.Graphics.Direct2D.D2D1_COLOR_SPACE, postInterpolationSpace: win32more.Windows.Win32.Graphics.Direct2D.D2D1_COLOR_SPACE, bufferPrecision: win32more.Windows.Win32.Graphics.Direct2D.D2D1_BUFFER_PRECISION, extendMode: win32more.Windows.Win32.Graphics.Direct2D.D2D1_EXTEND_MODE, colorInterpolationMode: win32more.Windows.Win32.Graphics.Direct2D.D2D1_COLOR_INTERPOLATION_MODE, gradientStopCollection1: POINTER(win32more.Windows.Win32.Graphics.Direct2D.ID2D1GradientStopCollection1)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(65)
     def CreateImageBrush(self, image: win32more.Windows.Win32.Graphics.Direct2D.ID2D1Image, imageBrushProperties: POINTER(win32more.Windows.Win32.Graphics.Direct2D.D2D1_IMAGE_BRUSH_PROPERTIES), brushProperties: POINTER(win32more.Windows.Win32.Graphics.Direct2D.D2D1_BRUSH_PROPERTIES), imageBrush: POINTER(win32more.Windows.Win32.Graphics.Direct2D.ID2D1ImageBrush)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(66)
@@ -1639,6 +1642,15 @@ class ID2D1DeviceContext6(ComPtr):
     _iid_ = Guid('{985f7e37-4ed0-4a19-98a3-15b0edfde306}')
     @commethod(119)
     def BlendImage(self, image: win32more.Windows.Win32.Graphics.Direct2D.ID2D1Image, blendMode: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D1_BLEND_MODE, targetOffset: POINTER(win32more.Windows.Win32.Graphics.Direct2D.Common.D2D_POINT_2F), imageRectangle: POINTER(win32more.Windows.Win32.Graphics.Direct2D.Common.D2D_RECT_F), interpolationMode: win32more.Windows.Win32.Graphics.Direct2D.D2D1_INTERPOLATION_MODE) -> Void: ...
+class ID2D1DeviceContext7(ComPtr):
+    extends: win32more.Windows.Win32.Graphics.Direct2D.ID2D1DeviceContext6
+    _iid_ = Guid('{ec891cf7-9b69-4851-9def-4e0915771e62}')
+    @commethod(120)
+    def GetPaintFeatureLevel(self) -> win32more.Windows.Win32.Graphics.Direct2D.DWRITE_PAINT_FEATURE_LEVEL: ...
+    @commethod(121)
+    def DrawPaintGlyphRun(self, baselineOrigin: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D_POINT_2F, glyphRun: POINTER(win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_GLYPH_RUN), defaultFillBrush: win32more.Windows.Win32.Graphics.Direct2D.ID2D1Brush, colorPaletteIndex: UInt32, measuringMode: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_MEASURING_MODE) -> Void: ...
+    @commethod(122)
+    def DrawGlyphRunWithColorSupport(self, baselineOrigin: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D_POINT_2F, glyphRun: POINTER(win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_GLYPH_RUN), glyphRunDescription: POINTER(win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_GLYPH_RUN_DESCRIPTION), foregroundBrush: win32more.Windows.Win32.Graphics.Direct2D.ID2D1Brush, svgGlyphStyle: win32more.Windows.Win32.Graphics.Direct2D.ID2D1SvgGlyphStyle, colorPaletteIndex: UInt32, measuringMode: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_MEASURING_MODE, bitmapSnapOption: win32more.Windows.Win32.Graphics.Direct2D.D2D1_COLOR_BITMAP_GLYPH_SNAP_OPTION) -> Void: ...
 class ID2D1DrawInfo(ComPtr):
     extends: win32more.Windows.Win32.Graphics.Direct2D.ID2D1RenderInfo
     _iid_ = Guid('{693ce632-7f2f-45de-93fe-18d88b37aa21}')
@@ -1843,6 +1855,11 @@ class ID2D1Factory7(ComPtr):
     _iid_ = Guid('{bdc2bdd3-b96c-4de6-bdf7-99d4745454de}')
     @commethod(32)
     def CreateDevice(self, dxgiDevice: win32more.Windows.Win32.Graphics.Dxgi.IDXGIDevice, d2dDevice6: POINTER(win32more.Windows.Win32.Graphics.Direct2D.ID2D1Device6)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+class ID2D1Factory8(ComPtr):
+    extends: win32more.Windows.Win32.Graphics.Direct2D.ID2D1Factory7
+    _iid_ = Guid('{677c9311-f36d-4b1f-ae86-86d1223ffd3a}')
+    @commethod(33)
+    def CreateDevice(self, dxgiDevice: win32more.Windows.Win32.Graphics.Dxgi.IDXGIDevice, d2dDevice6: POINTER(win32more.Windows.Win32.Graphics.Direct2D.ID2D1Device7)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ID2D1GdiInteropRenderTarget(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{e0db51c3-6f77-4bae-b3d5-e47509b35838}')
@@ -1941,7 +1958,7 @@ class ID2D1GradientStopCollection(ComPtr):
     @commethod(4)
     def GetGradientStopCount(self) -> UInt32: ...
     @commethod(5)
-    def GetGradientStops(self, gradientStops: POINTER(win32more.Windows.Win32.Graphics.Direct2D.D2D1_GRADIENT_STOP), gradientStopsCount: UInt32) -> Void: ...
+    def GetGradientStops(self, gradientStops: POINTER(win32more.Windows.Win32.Graphics.Direct2D.Common.D2D1_GRADIENT_STOP), gradientStopsCount: UInt32) -> Void: ...
     @commethod(6)
     def GetColorInterpolationGamma(self) -> win32more.Windows.Win32.Graphics.Direct2D.D2D1_GAMMA: ...
     @commethod(7)
@@ -1950,7 +1967,7 @@ class ID2D1GradientStopCollection1(ComPtr):
     extends: win32more.Windows.Win32.Graphics.Direct2D.ID2D1GradientStopCollection
     _iid_ = Guid('{ae1572f4-5dd0-4777-998b-9279472ae63b}')
     @commethod(8)
-    def GetGradientStops1(self, gradientStops: POINTER(win32more.Windows.Win32.Graphics.Direct2D.D2D1_GRADIENT_STOP), gradientStopsCount: UInt32) -> Void: ...
+    def GetGradientStops1(self, gradientStops: POINTER(win32more.Windows.Win32.Graphics.Direct2D.Common.D2D1_GRADIENT_STOP), gradientStopsCount: UInt32) -> Void: ...
     @commethod(9)
     def GetPreInterpolationSpace(self) -> win32more.Windows.Win32.Graphics.Direct2D.D2D1_COLOR_SPACE: ...
     @commethod(10)
@@ -2185,7 +2202,7 @@ class ID2D1RenderTarget(ComPtr):
     @commethod(8)
     def CreateSolidColorBrush(self, color: POINTER(win32more.Windows.Win32.Graphics.Direct2D.Common.D2D1_COLOR_F), brushProperties: POINTER(win32more.Windows.Win32.Graphics.Direct2D.D2D1_BRUSH_PROPERTIES), solidColorBrush: POINTER(win32more.Windows.Win32.Graphics.Direct2D.ID2D1SolidColorBrush)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
-    def CreateGradientStopCollection(self, gradientStops: POINTER(win32more.Windows.Win32.Graphics.Direct2D.D2D1_GRADIENT_STOP), gradientStopsCount: UInt32, colorInterpolationGamma: win32more.Windows.Win32.Graphics.Direct2D.D2D1_GAMMA, extendMode: win32more.Windows.Win32.Graphics.Direct2D.D2D1_EXTEND_MODE, gradientStopCollection: POINTER(win32more.Windows.Win32.Graphics.Direct2D.ID2D1GradientStopCollection)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def CreateGradientStopCollection(self, gradientStops: POINTER(win32more.Windows.Win32.Graphics.Direct2D.Common.D2D1_GRADIENT_STOP), gradientStopsCount: UInt32, colorInterpolationGamma: win32more.Windows.Win32.Graphics.Direct2D.D2D1_GAMMA, extendMode: win32more.Windows.Win32.Graphics.Direct2D.D2D1_EXTEND_MODE, gradientStopCollection: POINTER(win32more.Windows.Win32.Graphics.Direct2D.ID2D1GradientStopCollection)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def CreateLinearGradientBrush(self, linearGradientBrushProperties: POINTER(win32more.Windows.Win32.Graphics.Direct2D.D2D1_LINEAR_GRADIENT_BRUSH_PROPERTIES), brushProperties: POINTER(win32more.Windows.Win32.Graphics.Direct2D.D2D1_BRUSH_PROPERTIES), gradientStopCollection: win32more.Windows.Win32.Graphics.Direct2D.ID2D1GradientStopCollection, linearGradientBrush: POINTER(win32more.Windows.Win32.Graphics.Direct2D.ID2D1LinearGradientBrush)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
