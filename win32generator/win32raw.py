@@ -190,35 +190,33 @@ class Win32RawModule:
         return writer.getvalue()
 
     def _sort(self) -> Iterable[ApiItem]:
-        return self._sort_by_type(self._sort_by_dependencies())
+        return self._sort_by_type(self._topological_sort(self._items.values()))
 
-    def _sort_by_dependencies(self) -> Iterable[ApiItem]:
-        added: set[str] = set()
-        for item in self._items.values():
-            if item.name in added:
-                continue
-            added.add(item.name)
-            yield from self._sort_by_dependencies_sub(item, added)
-            yield item
+    def _topological_sort(self, items: Iterable[ApiItem]) -> Iterable[ApiItem]:
+        ns = {item.name: item for item in items}
+        visited: set[str] = set()
+        for item in ns.values():
+            yield from self._topological_sort_visit(item, visited, ns)
 
-    def _sort_by_dependencies_sub(self, item: ApiItem, added: set[str]) -> Iterable[ApiItem]:
+    def _topological_sort_visit(self, item: ApiItem, visited: set[str], ns: dict[str, ApiItem]) -> Iterable[ApiItem]:
+        if item.name in visited:
+            return
+        visited.add(item.name)
+        for name in self._topological_sort_dependencies(item):
+            yield from self._topological_sort_visit(ns[name], visited, ns)
+        yield item
+
+    def _topological_sort_dependencies(self, item: ApiItem) -> Iterable[str]:
         if isinstance(item, Com):
             name = item._extends()
             if name == "c_void_p":
-                return
-            dependencies = [name]
-        elif isinstance(item, StructUnion):
-            dependencies = [
-                fullname.rsplit(".", 1)[1] for fullname in item._td.enumerate_dependencies(exclude_pointer=True)
-            ]
+                return []
+            else:
+                return [name]
+        elif self._item_type(item) is StructUnion and isinstance(item, (StructUnion, ArchitectureVariant)):
+            return [fullname.rsplit(".", 1)[1] for fullname in item.enumerate_dependencies_exclude_pointer()]
         else:
-            dependencies = [fullname.rsplit(".", 1)[1] for fullname in item.enumerate_dependencies()]
-        for name in dependencies:
-            if name in added:
-                continue
-            added.add(name)
-            yield from self._sort_by_dependencies_sub(self._items[name], added)
-            yield self._items[name]
+            return [fullname.rsplit(".", 1)[1] for fullname in item.enumerate_dependencies()]
 
     def _sort_by_type(self, items: Iterable[ApiItem]) -> Iterable[ApiItem]:
         return sorted(items, key=self._type_order)
@@ -229,17 +227,14 @@ class Win32RawModule:
             Enum: 1,
             FunctionPointer: 2,
             Attribute: 3,
-            StructUnion: 5,
-            Com: 6,
-            Clsid: 7,
-            ExternalFunction: 8,
-            InlineFunction: 9,
-            Constant: 10,
+            StructUnion: 4,
+            Com: 5,
+            Clsid: 6,
+            ExternalFunction: 7,
+            InlineFunction: 8,
+            Constant: 9,
         }
-        type_ = self._item_type(item)
-        if type_ is StructUnion and not list(item.enumerate_dependencies()):
-            return 4
-        return order[type_]
+        return order[self._item_type(item)]
 
     def _item_type(self, item) -> type:
         if isinstance(item, ArchitectureVariant):
@@ -520,6 +515,9 @@ class StructUnion:
     def enumerate_dependencies(self) -> Iterable[str]:
         yield from self._td.enumerate_dependencies()
 
+    def enumerate_dependencies_exclude_pointer(self) -> Iterable[str]:
+        yield from self._td.enumerate_dependencies(exclude_pointer=True)
+
     def emit_head(self) -> str:
         return self._emit_head_td(self._td)
 
@@ -698,6 +696,11 @@ class ArchitectureVariant:
     def enumerate_dependencies(self) -> Iterable[str]:
         for item in self._items:
             yield from item.enumerate_dependencies()
+
+    @no_type_check
+    def enumerate_dependencies_exclude_pointer(self) -> Iterable[str]:
+        for item in self._items:
+            yield from item.enumerate_dependencies_exclude_pointer()
 
     def emit_head(self) -> str:
         if not isinstance(self._items[0], (StructUnion, Com)):
