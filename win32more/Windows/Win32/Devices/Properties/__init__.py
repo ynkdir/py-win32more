@@ -202,8 +202,6 @@ DEVPKEY_DeviceContainer_ModelName: win32more.Windows.Win32.Devices.Properties.DE
 DEVPKEY_DeviceContainer_ModelNumber: win32more.Windows.Win32.Devices.Properties.DEVPROPKEY = ConstantLazyLoader(fmtid=Guid('{656a3bb3-ecc0-43fd-8477-4ae0404a96cd}'), pid=8195)
 DEVPKEY_DeviceContainer_InstallInProgress: win32more.Windows.Win32.Devices.Properties.DEVPROPKEY = ConstantLazyLoader(fmtid=Guid('{83da6326-97a6-4088-9453-a1923f573b29}'), pid=9)
 DEVPKEY_DevQuery_ObjectType: win32more.Windows.Win32.Devices.Properties.DEVPROPKEY = ConstantLazyLoader(fmtid=Guid('{13673f42-a3d6-49f6-b4da-ae46e0c5237c}'), pid=2)
-DEVPROP_TYPEMOD_ARRAY: UInt32 = 4096
-DEVPROP_TYPEMOD_LIST: UInt32 = 8192
 MAX_DEVPROP_TYPE: UInt32 = 25
 MAX_DEVPROP_TYPEMOD: UInt32 = 8192
 DEVPROP_MASK_TYPE: UInt32 = 4095
@@ -225,6 +223,8 @@ DEVPROPSTORE = Int32
 DEVPROP_STORE_SYSTEM: win32more.Windows.Win32.Devices.Properties.DEVPROPSTORE = 0
 DEVPROP_STORE_USER: win32more.Windows.Win32.Devices.Properties.DEVPROPSTORE = 1
 DEVPROPTYPE = UInt32
+DEVPROP_TYPEMOD_ARRAY: win32more.Windows.Win32.Devices.Properties.DEVPROPTYPE = 4096
+DEVPROP_TYPEMOD_LIST: win32more.Windows.Win32.Devices.Properties.DEVPROPTYPE = 8192
 DEVPROP_TYPE_EMPTY: win32more.Windows.Win32.Devices.Properties.DEVPROPTYPE = 0
 DEVPROP_TYPE_NULL: win32more.Windows.Win32.Devices.Properties.DEVPROPTYPE = 1
 DEVPROP_TYPE_SBYTE: win32more.Windows.Win32.Devices.Properties.DEVPROPTYPE = 2

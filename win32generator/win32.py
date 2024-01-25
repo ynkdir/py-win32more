@@ -137,6 +137,17 @@ class Formatter:
         elif fd.signature.kind == "Type" and fd.signature.fullname == "Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY":
             value = fd.custom_attributes.get_constant()
             return f"ConstantLazyLoader({value})"
+        elif (
+            fd.signature.kind == "Type" and fd.signature.fullname == "Windows.Win32.System.Threading.CONDITION_VARIABLE"
+        ):
+            value = fd.custom_attributes.get_constant()
+            return f"ConstantLazyLoader({value})"
+        elif fd.signature.kind == "Type" and fd.signature.fullname == "Windows.Win32.System.Threading.SRWLOCK":
+            value = fd.custom_attributes.get_constant()
+            return f"ConstantLazyLoader({value})"
+        elif fd.signature.kind == "Type" and fd.signature.fullname == "Windows.Win32.System.Threading.INIT_ONCE":
+            value = fd.custom_attributes.get_constant()
+            return f"ConstantLazyLoader({value})"
         else:
             # FIXME:
             raise NotImplementedError()

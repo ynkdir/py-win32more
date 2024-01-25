@@ -3,6 +3,7 @@ from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoad
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Direct3D.Dxc
 import win32more.Windows.Win32.System.Com
+CLSID_DxcUtils: Guid = Guid('{6245d6af-66e0-48fd-80b4-4d271796748c}')
 DXC_HASHFLAG_INCLUDES_SOURCE: UInt32 = 1
 DXC_ARG_DEBUG: String = '-Zi'
 DXC_ARG_SKIP_VALIDATION: String = '-Vd'
