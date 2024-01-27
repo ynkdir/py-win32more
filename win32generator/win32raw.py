@@ -173,13 +173,6 @@ class Win32RawModule:
         writer.write(
             "    _fields_ = [('Data1', c_uint32), ('Data2', c_uint16), ('Data3', c_uint16), ('Data4', c_ubyte * 8)]\n"
         )
-        writer.write("def define(cls):\n")
-        writer.write("    def decorator(clsdef):\n")
-        writer.write("        for key, attr in clsdef.__dict__.items():\n")
-        writer.write("            if key not in cls.__dict__:\n")
-        writer.write("                setattr(cls, key, attr)\n")
-        writer.write("        return cls\n")
-        writer.write("    return decorator\n")
         writer.write("class COMMETHOD:\n")
         writer.write("    def __init__(self, vtbl_index, name, *types):\n")
         writer.write("        self._proc = WINFUNCTYPE(*types)(vtbl_index, name)\n")
@@ -535,41 +528,44 @@ class StructUnion:
     def _emit_head_td(self, td: TypeDefinition) -> str:
         writer = StringIO()
         writer.write(f"class {td.name}({self._basetype(td)}):\n")
-        writer.write("    pass\n")
+        if not td.nested_types:
+            writer.write("    pass\n")
+        for nested_type in td.nested_types:
+            writer.write(textwrap.indent(self._emit_head_td(nested_type), "    "))
         return writer.getvalue()
 
     def emit(self) -> str:
-        return self._emit_td(self._td)
+        return self._emit_td(self._td, "")
 
-    def _emit_td(self, td: TypeDefinition) -> str:
+    def _emit_td(self, td: TypeDefinition, parent) -> str:
         writer = StringIO()
 
-        if td is self._td:
-            writer.write(f"@define({td.name})\n")
-        writer.write(f"class {td.name}({self._basetype(td)}):\n")
-
         for nested_type in td.nested_types:
-            writer.write(textwrap.indent(self._emit_td(nested_type), "    "))
+            writer.write(self._emit_td(nested_type, f"{parent}{td.name}."))
 
         if td.custom_attributes.has_guid():
             guid = self._formatter.guid(td.custom_attributes.get_guid())
-            writer.write(f"    _uuid_ = {guid}\n")
+            writer.write(f"{parent}{td.name}._uuid_ = {guid}\n")
 
         for fd in td.fields:
             if self._is_static(fd):
-                writer.write(f"    {fd.name} = {self._formatter.pyvalue(fd)}\n")
+                writer.write(f"{parent}{td.name}.{fd.name} = {self._formatter.pyvalue(fd)}\n")
 
-        anonymous = ", ".join(f"'{fd.name}'" for fd in td.fields if re.match(r"^Anonymous\d*$", fd.name))
+        anonymous = [fd.name for fd in td.fields if re.match(r"^Anonymous\d*$", fd.name)]
         if anonymous:
-            writer.write(f"    _anonymous_ = [{anonymous}]\n")
+            anonymous_csv = ", ".join(f"'{name}'" for name in anonymous)
+            writer.write(f"{parent}{td.name}._anonymous_ = [{anonymous_csv}]\n")
 
         if td.layout.packing_size != 0:
-            writer.write(f"    _pack_ = {td.layout.packing_size}\n")
+            writer.write(f"{parent}{td.name}._pack_ = {td.layout.packing_size}\n")
 
-        writer.write("    _fields_ = [\n")
+        writer.write(f"{parent}{td.name}._fields_ = [\n")
         for fd in td.fields:
             if not self._is_static(fd):
-                writer.write(f"        ('{fd.name}', {self._formatter.pytype(fd.signature)}),\n")
+                pytype = self._formatter.pytype(fd.signature)
+                if fd.name in anonymous:
+                    pytype = f"{parent}{td.name}.{pytype}"
+                writer.write(f"        ('{fd.name}', {pytype}),\n")
         writer.write("    ]\n")
 
         return writer.getvalue()
@@ -617,14 +613,9 @@ class Com:
     def emit(self) -> str:
         assert len(self._td.interface_implementations) <= 1
         writer = StringIO()
-        writer.write(f"@define({self._td.name})\n")
-        writer.write(f"class {self._td.name}({self._extends()}):\n")
-        if not self._td.custom_attributes.has_guid() and not self._td.method_definitions:
-            writer.write("    pass\n")
-            return writer.getvalue()
         if self._td.custom_attributes.has_guid():
             guid = self._formatter.guid(self._td.custom_attributes.get_guid())
-            writer.write(f"    _iid_ = {guid}\n")
+            writer.write(f"{self._td.name}._iid_ = {guid}\n")
         vtbl_index = self._count_interface_method()
         for md in self._td.method_definitions:
             writer.write(self._method(md, vtbl_index))
@@ -651,7 +642,7 @@ class Com:
         restype = md.signature.return_type
         paramtypes = md.signature.parameter_types
         types = ", ".join(self._formatter.pytype(t) for t in [restype] + paramtypes)
-        return f"    {md.name} = COMMETHOD({vtbl_index}, '{md.name}', {types})\n"
+        return f"{self._td.name}.{md.name} = COMMETHOD({vtbl_index}, '{md.name}', {types})\n"
 
 
 class Attribute:

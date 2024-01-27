@@ -31,3 +31,13 @@ Windows.Win32.UI.Shell.APPBARDATA
 Windows.Win32.System.Kernel.SLIST_ENTRY
 # variant
 Windows.Win32.System.Variant.VARIANT
+# Dunder name is mangled.
+# class SPropValue:
+#   _fields_ = [("Value", __UPV)]
+# => NameError: _SPropValue__UPV is not defined
+Windows.Win32.System.AddressBook.SPropValue
+# IXFeedItem have "Guid" method and it causes error.
+# class IXFeedItem:
+#   Guid = COMMETHOD(...)
+#   Enclosure = COMMETHOD(..., POINTER(Guid), ...)  <- 'Guid' referes Guid defined above.
+Windows.Win32.Media.MediaPlayer.IXFeedItem
