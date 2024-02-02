@@ -40,8 +40,8 @@ class IWebAuthenticationResult(ComPtr):
     @winrt_commethod(8)
     def get_ResponseErrorDetail(self) -> UInt32: ...
     ResponseData = property(get_ResponseData, None)
-    ResponseStatus = property(get_ResponseStatus, None)
     ResponseErrorDetail = property(get_ResponseErrorDetail, None)
+    ResponseStatus = property(get_ResponseStatus, None)
 class TokenBindingKeyType(Int32):  # enum
     Rsa2048 = 0
     EcdsaP256 = 1
@@ -82,8 +82,8 @@ class WebAuthenticationResult(ComPtr):
     @winrt_mixinmethod
     def get_ResponseErrorDetail(self: win32more.Windows.Security.Authentication.Web.IWebAuthenticationResult) -> UInt32: ...
     ResponseData = property(get_ResponseData, None)
-    ResponseStatus = property(get_ResponseStatus, None)
     ResponseErrorDetail = property(get_ResponseErrorDetail, None)
+    ResponseStatus = property(get_ResponseStatus, None)
 class WebAuthenticationStatus(Int32):  # enum
     Success = 0
     UserCancel = 1

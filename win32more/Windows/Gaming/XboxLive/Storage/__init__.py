@@ -81,11 +81,11 @@ class GameSaveContainerInfo(ComPtr):
     def get_LastModifiedTime(self: win32more.Windows.Gaming.XboxLive.Storage.IGameSaveContainerInfo) -> win32more.Windows.Foundation.DateTime: ...
     @winrt_mixinmethod
     def get_NeedsSync(self: win32more.Windows.Gaming.XboxLive.Storage.IGameSaveContainerInfo) -> Boolean: ...
-    Name = property(get_Name, None)
-    TotalSize = property(get_TotalSize, None)
     DisplayName = property(get_DisplayName, None)
     LastModifiedTime = property(get_LastModifiedTime, None)
+    Name = property(get_Name, None)
     NeedsSync = property(get_NeedsSync, None)
+    TotalSize = property(get_TotalSize, None)
 class GameSaveContainerInfoGetResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Gaming.XboxLive.Storage.IGameSaveContainerInfoGetResult
@@ -151,8 +151,8 @@ class GameSaveProvider(ComPtr):
     def GetForUserAsync(cls: win32more.Windows.Gaming.XboxLive.Storage.IGameSaveProviderStatics, user: win32more.Windows.System.User, serviceConfigId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Gaming.XboxLive.Storage.GameSaveProviderGetResult]: ...
     @winrt_classmethod
     def GetSyncOnDemandForUserAsync(cls: win32more.Windows.Gaming.XboxLive.Storage.IGameSaveProviderStatics, user: win32more.Windows.System.User, serviceConfigId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Gaming.XboxLive.Storage.GameSaveProviderGetResult]: ...
-    User = property(get_User, None)
     ContainersChangedSinceLastSync = property(get_ContainersChangedSinceLastSync, None)
+    User = property(get_User, None)
 class GameSaveProviderGetResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Gaming.XboxLive.Storage.IGameSaveProviderGetResult
@@ -237,11 +237,11 @@ class IGameSaveContainerInfo(ComPtr):
     def get_LastModifiedTime(self) -> win32more.Windows.Foundation.DateTime: ...
     @winrt_commethod(10)
     def get_NeedsSync(self) -> Boolean: ...
-    Name = property(get_Name, None)
-    TotalSize = property(get_TotalSize, None)
     DisplayName = property(get_DisplayName, None)
     LastModifiedTime = property(get_LastModifiedTime, None)
+    Name = property(get_Name, None)
     NeedsSync = property(get_NeedsSync, None)
+    TotalSize = property(get_TotalSize, None)
 class IGameSaveContainerInfoGetResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Gaming.XboxLive.Storage.IGameSaveContainerInfoGetResult'
@@ -287,8 +287,8 @@ class IGameSaveProvider(ComPtr):
     def GetRemainingBytesInQuotaAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[Int64]: ...
     @winrt_commethod(12)
     def get_ContainersChangedSinceLastSync(self) -> win32more.Windows.Foundation.Collections.IVectorView[WinRT_String]: ...
-    User = property(get_User, None)
     ContainersChangedSinceLastSync = property(get_ContainersChangedSinceLastSync, None)
+    User = property(get_User, None)
 class IGameSaveProviderGetResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Gaming.XboxLive.Storage.IGameSaveProviderGetResult'

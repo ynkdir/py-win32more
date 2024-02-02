@@ -15,9 +15,9 @@ class IPhoneCallBlockedTriggerDetails(ComPtr):
     def get_LineId(self) -> Guid: ...
     @winrt_commethod(8)
     def get_CallBlockedReason(self) -> win32more.Windows.ApplicationModel.Calls.Background.PhoneCallBlockedReason: ...
-    PhoneNumber = property(get_PhoneNumber, None)
-    LineId = property(get_LineId, None)
     CallBlockedReason = property(get_CallBlockedReason, None)
+    LineId = property(get_LineId, None)
+    PhoneNumber = property(get_PhoneNumber, None)
 class IPhoneCallOriginDataRequestTriggerDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Calls.Background.IPhoneCallOriginDataRequestTriggerDetails'
@@ -26,8 +26,8 @@ class IPhoneCallOriginDataRequestTriggerDetails(ComPtr):
     def get_RequestId(self) -> Guid: ...
     @winrt_commethod(7)
     def get_PhoneNumber(self) -> WinRT_String: ...
-    RequestId = property(get_RequestId, None)
     PhoneNumber = property(get_PhoneNumber, None)
+    RequestId = property(get_RequestId, None)
 class IPhoneIncomingCallDismissedTriggerDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Calls.Background.IPhoneIncomingCallDismissedTriggerDetails'
@@ -44,12 +44,12 @@ class IPhoneIncomingCallDismissedTriggerDetails(ComPtr):
     def get_TextReplyMessage(self) -> WinRT_String: ...
     @winrt_commethod(11)
     def get_Reason(self) -> win32more.Windows.ApplicationModel.Calls.Background.PhoneIncomingCallDismissedReason: ...
+    DismissalTime = property(get_DismissalTime, None)
+    DisplayName = property(get_DisplayName, None)
     LineId = property(get_LineId, None)
     PhoneNumber = property(get_PhoneNumber, None)
-    DisplayName = property(get_DisplayName, None)
-    DismissalTime = property(get_DismissalTime, None)
-    TextReplyMessage = property(get_TextReplyMessage, None)
     Reason = property(get_Reason, None)
+    TextReplyMessage = property(get_TextReplyMessage, None)
 class IPhoneIncomingCallNotificationTriggerDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Calls.Background.IPhoneIncomingCallNotificationTriggerDetails'
@@ -58,8 +58,8 @@ class IPhoneIncomingCallNotificationTriggerDetails(ComPtr):
     def get_LineId(self) -> Guid: ...
     @winrt_commethod(7)
     def get_CallId(self) -> WinRT_String: ...
-    LineId = property(get_LineId, None)
     CallId = property(get_CallId, None)
+    LineId = property(get_LineId, None)
 class IPhoneLineChangedTriggerDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Calls.Background.IPhoneLineChangedTriggerDetails'
@@ -70,8 +70,8 @@ class IPhoneLineChangedTriggerDetails(ComPtr):
     def get_ChangeType(self) -> win32more.Windows.ApplicationModel.Calls.Background.PhoneLineChangeKind: ...
     @winrt_commethod(8)
     def HasLinePropertyChanged(self, lineProperty: win32more.Windows.ApplicationModel.Calls.Background.PhoneLineProperties) -> Boolean: ...
-    LineId = property(get_LineId, None)
     ChangeType = property(get_ChangeType, None)
+    LineId = property(get_LineId, None)
 class IPhoneNewVoicemailMessageTriggerDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Calls.Background.IPhoneNewVoicemailMessageTriggerDetails'
@@ -83,8 +83,8 @@ class IPhoneNewVoicemailMessageTriggerDetails(ComPtr):
     @winrt_commethod(8)
     def get_OperatorMessage(self) -> WinRT_String: ...
     LineId = property(get_LineId, None)
-    VoicemailCount = property(get_VoicemailCount, None)
     OperatorMessage = property(get_OperatorMessage, None)
+    VoicemailCount = property(get_VoicemailCount, None)
 class PhoneCallBlockedReason(Int32):  # enum
     InCallBlockingList = 0
     PrivateNumber = 1
@@ -99,9 +99,9 @@ class PhoneCallBlockedTriggerDetails(ComPtr):
     def get_LineId(self: win32more.Windows.ApplicationModel.Calls.Background.IPhoneCallBlockedTriggerDetails) -> Guid: ...
     @winrt_mixinmethod
     def get_CallBlockedReason(self: win32more.Windows.ApplicationModel.Calls.Background.IPhoneCallBlockedTriggerDetails) -> win32more.Windows.ApplicationModel.Calls.Background.PhoneCallBlockedReason: ...
-    PhoneNumber = property(get_PhoneNumber, None)
-    LineId = property(get_LineId, None)
     CallBlockedReason = property(get_CallBlockedReason, None)
+    LineId = property(get_LineId, None)
+    PhoneNumber = property(get_PhoneNumber, None)
 class PhoneCallOriginDataRequestTriggerDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Calls.Background.IPhoneCallOriginDataRequestTriggerDetails
@@ -110,8 +110,8 @@ class PhoneCallOriginDataRequestTriggerDetails(ComPtr):
     def get_RequestId(self: win32more.Windows.ApplicationModel.Calls.Background.IPhoneCallOriginDataRequestTriggerDetails) -> Guid: ...
     @winrt_mixinmethod
     def get_PhoneNumber(self: win32more.Windows.ApplicationModel.Calls.Background.IPhoneCallOriginDataRequestTriggerDetails) -> WinRT_String: ...
-    RequestId = property(get_RequestId, None)
     PhoneNumber = property(get_PhoneNumber, None)
+    RequestId = property(get_RequestId, None)
 class PhoneIncomingCallDismissedReason(Int32):  # enum
     Unknown = 0
     CallRejected = 1
@@ -133,12 +133,12 @@ class PhoneIncomingCallDismissedTriggerDetails(ComPtr):
     def get_TextReplyMessage(self: win32more.Windows.ApplicationModel.Calls.Background.IPhoneIncomingCallDismissedTriggerDetails) -> WinRT_String: ...
     @winrt_mixinmethod
     def get_Reason(self: win32more.Windows.ApplicationModel.Calls.Background.IPhoneIncomingCallDismissedTriggerDetails) -> win32more.Windows.ApplicationModel.Calls.Background.PhoneIncomingCallDismissedReason: ...
+    DismissalTime = property(get_DismissalTime, None)
+    DisplayName = property(get_DisplayName, None)
     LineId = property(get_LineId, None)
     PhoneNumber = property(get_PhoneNumber, None)
-    DisplayName = property(get_DisplayName, None)
-    DismissalTime = property(get_DismissalTime, None)
-    TextReplyMessage = property(get_TextReplyMessage, None)
     Reason = property(get_Reason, None)
+    TextReplyMessage = property(get_TextReplyMessage, None)
 class PhoneIncomingCallNotificationTriggerDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Calls.Background.IPhoneIncomingCallNotificationTriggerDetails
@@ -147,8 +147,8 @@ class PhoneIncomingCallNotificationTriggerDetails(ComPtr):
     def get_LineId(self: win32more.Windows.ApplicationModel.Calls.Background.IPhoneIncomingCallNotificationTriggerDetails) -> Guid: ...
     @winrt_mixinmethod
     def get_CallId(self: win32more.Windows.ApplicationModel.Calls.Background.IPhoneIncomingCallNotificationTriggerDetails) -> WinRT_String: ...
-    LineId = property(get_LineId, None)
     CallId = property(get_CallId, None)
+    LineId = property(get_LineId, None)
 class PhoneLineChangeKind(Int32):  # enum
     Added = 0
     Removed = 1
@@ -163,8 +163,8 @@ class PhoneLineChangedTriggerDetails(ComPtr):
     def get_ChangeType(self: win32more.Windows.ApplicationModel.Calls.Background.IPhoneLineChangedTriggerDetails) -> win32more.Windows.ApplicationModel.Calls.Background.PhoneLineChangeKind: ...
     @winrt_mixinmethod
     def HasLinePropertyChanged(self: win32more.Windows.ApplicationModel.Calls.Background.IPhoneLineChangedTriggerDetails, lineProperty: win32more.Windows.ApplicationModel.Calls.Background.PhoneLineProperties) -> Boolean: ...
-    LineId = property(get_LineId, None)
     ChangeType = property(get_ChangeType, None)
+    LineId = property(get_LineId, None)
 class PhoneLineProperties(UInt32):  # enum
     None_ = 0
     BrandingOptions = 1
@@ -187,8 +187,8 @@ class PhoneNewVoicemailMessageTriggerDetails(ComPtr):
     @winrt_mixinmethod
     def get_OperatorMessage(self: win32more.Windows.ApplicationModel.Calls.Background.IPhoneNewVoicemailMessageTriggerDetails) -> WinRT_String: ...
     LineId = property(get_LineId, None)
-    VoicemailCount = property(get_VoicemailCount, None)
     OperatorMessage = property(get_OperatorMessage, None)
+    VoicemailCount = property(get_VoicemailCount, None)
 class PhoneTriggerType(Int32):  # enum
     NewVoicemailMessage = 0
     CallHistoryChanged = 1

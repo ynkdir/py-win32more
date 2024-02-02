@@ -104,10 +104,10 @@ class IPrinting3D3MFPackage(ComPtr):
     def LoadModelFromPackageAsync(self, value: win32more.Windows.Storage.Streams.IRandomAccessStream) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Graphics.Printing3D.Printing3DModel]: ...
     @winrt_commethod(15)
     def SaveModelToPackageAsync(self, value: win32more.Windows.Graphics.Printing3D.Printing3DModel) -> win32more.Windows.Foundation.IAsyncAction: ...
-    PrintTicket = property(get_PrintTicket, put_PrintTicket)
     ModelPart = property(get_ModelPart, put_ModelPart)
-    Thumbnail = property(get_Thumbnail, put_Thumbnail)
+    PrintTicket = property(get_PrintTicket, put_PrintTicket)
     Textures = property(get_Textures, None)
+    Thumbnail = property(get_Thumbnail, put_Thumbnail)
 class IPrinting3D3MFPackage2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Printing3D.IPrinting3D3MFPackage2'
@@ -135,8 +135,8 @@ class IPrinting3DBaseMaterial(ComPtr):
     def get_Color(self) -> win32more.Windows.Graphics.Printing3D.Printing3DColorMaterial: ...
     @winrt_commethod(9)
     def put_Color(self, value: win32more.Windows.Graphics.Printing3D.Printing3DColorMaterial) -> Void: ...
-    Name = property(get_Name, put_Name)
     Color = property(get_Color, put_Color)
+    Name = property(get_Name, put_Name)
 class IPrinting3DBaseMaterialGroup(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Printing3D.IPrinting3DBaseMaterialGroup'
@@ -223,12 +223,12 @@ class IPrinting3DComponent(ComPtr):
     def get_PartNumber(self) -> WinRT_String: ...
     @winrt_commethod(16)
     def put_PartNumber(self, value: WinRT_String) -> Void: ...
-    Mesh = property(get_Mesh, put_Mesh)
     Components = property(get_Components, None)
-    Thumbnail = property(get_Thumbnail, put_Thumbnail)
-    Type = property(get_Type, put_Type)
+    Mesh = property(get_Mesh, put_Mesh)
     Name = property(get_Name, put_Name)
     PartNumber = property(get_PartNumber, put_PartNumber)
+    Thumbnail = property(get_Thumbnail, put_Thumbnail)
+    Type = property(get_Type, put_Type)
 class IPrinting3DComponentWithMatrix(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Printing3D.IPrinting3DComponentWithMatrix'
@@ -294,9 +294,9 @@ class IPrinting3DFaceReductionOptions(ComPtr):
     def get_MaxEdgeLength(self) -> Double: ...
     @winrt_commethod(11)
     def put_MaxEdgeLength(self, value: Double) -> Void: ...
+    MaxEdgeLength = property(get_MaxEdgeLength, put_MaxEdgeLength)
     MaxReductionArea = property(get_MaxReductionArea, put_MaxReductionArea)
     TargetTriangleCount = property(get_TargetTriangleCount, put_TargetTriangleCount)
-    MaxEdgeLength = property(get_MaxEdgeLength, put_MaxEdgeLength)
 class IPrinting3DMaterial(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Printing3D.IPrinting3DMaterial'
@@ -313,9 +313,9 @@ class IPrinting3DMaterial(ComPtr):
     def get_MultiplePropertyGroups(self) -> win32more.Windows.Foundation.Collections.IVector[win32more.Windows.Graphics.Printing3D.Printing3DMultiplePropertyMaterialGroup]: ...
     BaseGroups = property(get_BaseGroups, None)
     ColorGroups = property(get_ColorGroups, None)
-    Texture2CoordGroups = property(get_Texture2CoordGroups, None)
     CompositeGroups = property(get_CompositeGroups, None)
     MultiplePropertyGroups = property(get_MultiplePropertyGroups, None)
+    Texture2CoordGroups = property(get_Texture2CoordGroups, None)
 class IPrinting3DMesh(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Printing3D.IPrinting3DMesh'
@@ -366,14 +366,14 @@ class IPrinting3DMesh(ComPtr):
     def get_BufferSet(self) -> win32more.Windows.Foundation.Collections.IPropertySet: ...
     @winrt_commethod(28)
     def VerifyAsync(self, value: win32more.Windows.Graphics.Printing3D.Printing3DMeshVerificationMode) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Graphics.Printing3D.Printing3DMeshVerificationResult]: ...
-    VertexCount = property(get_VertexCount, put_VertexCount)
-    IndexCount = property(get_IndexCount, put_IndexCount)
-    VertexPositionsDescription = property(get_VertexPositionsDescription, put_VertexPositionsDescription)
-    VertexNormalsDescription = property(get_VertexNormalsDescription, put_VertexNormalsDescription)
-    TriangleIndicesDescription = property(get_TriangleIndicesDescription, put_TriangleIndicesDescription)
-    TriangleMaterialIndicesDescription = property(get_TriangleMaterialIndicesDescription, put_TriangleMaterialIndicesDescription)
     BufferDescriptionSet = property(get_BufferDescriptionSet, None)
     BufferSet = property(get_BufferSet, None)
+    IndexCount = property(get_IndexCount, put_IndexCount)
+    TriangleIndicesDescription = property(get_TriangleIndicesDescription, put_TriangleIndicesDescription)
+    TriangleMaterialIndicesDescription = property(get_TriangleMaterialIndicesDescription, put_TriangleMaterialIndicesDescription)
+    VertexCount = property(get_VertexCount, put_VertexCount)
+    VertexNormalsDescription = property(get_VertexNormalsDescription, put_VertexNormalsDescription)
+    VertexPositionsDescription = property(get_VertexPositionsDescription, put_VertexPositionsDescription)
 class IPrinting3DMeshVerificationResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Printing3D.IPrinting3DMeshVerificationResult'
@@ -421,15 +421,15 @@ class IPrinting3DModel(ComPtr):
     def RepairAsync(self) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(20)
     def Clone(self) -> win32more.Windows.Graphics.Printing3D.Printing3DModel: ...
-    Unit = property(get_Unit, put_Unit)
-    Textures = property(get_Textures, None)
-    Meshes = property(get_Meshes, None)
+    Build = property(get_Build, put_Build)
     Components = property(get_Components, None)
     Material = property(get_Material, put_Material)
-    Build = property(get_Build, put_Build)
-    Version = property(get_Version, put_Version)
-    RequiredExtensions = property(get_RequiredExtensions, None)
+    Meshes = property(get_Meshes, None)
     Metadata = property(get_Metadata, None)
+    RequiredExtensions = property(get_RequiredExtensions, None)
+    Textures = property(get_Textures, None)
+    Unit = property(get_Unit, put_Unit)
+    Version = property(get_Version, put_Version)
 class IPrinting3DModel2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Printing3D.IPrinting3DModel2'
@@ -482,9 +482,9 @@ class IPrinting3DMultiplePropertyMaterialGroup(ComPtr):
     def get_MaterialGroupIndices(self) -> win32more.Windows.Foundation.Collections.IVector[UInt32]: ...
     @winrt_commethod(8)
     def get_MaterialGroupId(self) -> UInt32: ...
-    MultipleProperties = property(get_MultipleProperties, None)
-    MaterialGroupIndices = property(get_MaterialGroupIndices, None)
     MaterialGroupId = property(get_MaterialGroupId, None)
+    MaterialGroupIndices = property(get_MaterialGroupIndices, None)
+    MultipleProperties = property(get_MultipleProperties, None)
 class IPrinting3DMultiplePropertyMaterialGroupFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Printing3D.IPrinting3DMultiplePropertyMaterialGroupFactory'
@@ -518,8 +518,8 @@ class IPrinting3DTexture2CoordMaterialGroup(ComPtr):
     def get_Texture2Coords(self) -> win32more.Windows.Foundation.Collections.IVector[win32more.Windows.Graphics.Printing3D.Printing3DTexture2CoordMaterial]: ...
     @winrt_commethod(7)
     def get_MaterialGroupId(self) -> UInt32: ...
-    Texture2Coords = property(get_Texture2Coords, None)
     MaterialGroupId = property(get_MaterialGroupId, None)
+    Texture2Coords = property(get_Texture2Coords, None)
 class IPrinting3DTexture2CoordMaterialGroup2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Printing3D.IPrinting3DTexture2CoordMaterialGroup2'
@@ -547,8 +547,8 @@ class IPrinting3DTextureResource(ComPtr):
     def get_Name(self) -> WinRT_String: ...
     @winrt_commethod(9)
     def put_Name(self, value: WinRT_String) -> Void: ...
-    TextureData = property(get_TextureData, put_TextureData)
     Name = property(get_Name, put_Name)
+    TextureData = property(get_TextureData, put_TextureData)
 class Print3DManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing3D.IPrint3DManager
@@ -673,11 +673,11 @@ class Printing3D3MFPackage(ComPtr):
     def put_Compression(self: win32more.Windows.Graphics.Printing3D.IPrinting3D3MFPackage2, value: win32more.Windows.Graphics.Printing3D.Printing3DPackageCompression) -> Void: ...
     @winrt_classmethod
     def LoadAsync(cls: win32more.Windows.Graphics.Printing3D.IPrinting3D3MFPackageStatics, value: win32more.Windows.Storage.Streams.IRandomAccessStream) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Graphics.Printing3D.Printing3D3MFPackage]: ...
-    PrintTicket = property(get_PrintTicket, put_PrintTicket)
-    ModelPart = property(get_ModelPart, put_ModelPart)
-    Thumbnail = property(get_Thumbnail, put_Thumbnail)
-    Textures = property(get_Textures, None)
     Compression = property(get_Compression, put_Compression)
+    ModelPart = property(get_ModelPart, put_ModelPart)
+    PrintTicket = property(get_PrintTicket, put_PrintTicket)
+    Textures = property(get_Textures, None)
+    Thumbnail = property(get_Thumbnail, put_Thumbnail)
 class _Printing3DBaseMaterial_Meta_(ComPtr.__class__):
     pass
 class Printing3DBaseMaterial(ComPtr, metaclass=_Printing3DBaseMaterial_Meta_):
@@ -705,8 +705,8 @@ class Printing3DBaseMaterial(ComPtr, metaclass=_Printing3DBaseMaterial_Meta_):
     def get_Abs(cls: win32more.Windows.Graphics.Printing3D.IPrinting3DBaseMaterialStatics) -> WinRT_String: ...
     @winrt_classmethod
     def get_Pla(cls: win32more.Windows.Graphics.Printing3D.IPrinting3DBaseMaterialStatics) -> WinRT_String: ...
-    Name = property(get_Name, put_Name)
     Color = property(get_Color, put_Color)
+    Name = property(get_Name, put_Name)
     _Printing3DBaseMaterial_Meta_.Abs = property(get_Abs.__wrapped__, None)
     _Printing3DBaseMaterial_Meta_.Pla = property(get_Pla.__wrapped__, None)
 class Printing3DBaseMaterialGroup(ComPtr):
@@ -760,8 +760,8 @@ class Printing3DColorMaterial(ComPtr):
     def get_Color(self: win32more.Windows.Graphics.Printing3D.IPrinting3DColorMaterial2) -> win32more.Windows.UI.Color: ...
     @winrt_mixinmethod
     def put_Color(self: win32more.Windows.Graphics.Printing3D.IPrinting3DColorMaterial2, value: win32more.Windows.UI.Color) -> Void: ...
-    Value = property(get_Value, put_Value)
     Color = property(get_Color, put_Color)
+    Value = property(get_Value, put_Value)
 class Printing3DColorMaterialGroup(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing3D.IPrinting3DColorMaterialGroup
@@ -816,12 +816,12 @@ class Printing3DComponent(ComPtr):
     def get_PartNumber(self: win32more.Windows.Graphics.Printing3D.IPrinting3DComponent) -> WinRT_String: ...
     @winrt_mixinmethod
     def put_PartNumber(self: win32more.Windows.Graphics.Printing3D.IPrinting3DComponent, value: WinRT_String) -> Void: ...
-    Mesh = property(get_Mesh, put_Mesh)
     Components = property(get_Components, None)
-    Thumbnail = property(get_Thumbnail, put_Thumbnail)
-    Type = property(get_Type, put_Type)
+    Mesh = property(get_Mesh, put_Mesh)
     Name = property(get_Name, put_Name)
     PartNumber = property(get_PartNumber, put_PartNumber)
+    Thumbnail = property(get_Thumbnail, put_Thumbnail)
+    Type = property(get_Type, put_Type)
 class Printing3DComponentWithMatrix(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing3D.IPrinting3DComponentWithMatrix
@@ -884,10 +884,10 @@ class Printing3DCompositeMaterialGroup(ComPtr):
     def get_BaseMaterialGroup(self: win32more.Windows.Graphics.Printing3D.IPrinting3DCompositeMaterialGroup2) -> win32more.Windows.Graphics.Printing3D.Printing3DBaseMaterialGroup: ...
     @winrt_mixinmethod
     def put_BaseMaterialGroup(self: win32more.Windows.Graphics.Printing3D.IPrinting3DCompositeMaterialGroup2, value: win32more.Windows.Graphics.Printing3D.Printing3DBaseMaterialGroup) -> Void: ...
+    BaseMaterialGroup = property(get_BaseMaterialGroup, put_BaseMaterialGroup)
     Composites = property(get_Composites, None)
     MaterialGroupId = property(get_MaterialGroupId, None)
     MaterialIndices = property(get_MaterialIndices, None)
-    BaseMaterialGroup = property(get_BaseMaterialGroup, put_BaseMaterialGroup)
 Printing3DContract: UInt32 = 262144
 class Printing3DFaceReductionOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -914,9 +914,9 @@ class Printing3DFaceReductionOptions(ComPtr):
     def get_MaxEdgeLength(self: win32more.Windows.Graphics.Printing3D.IPrinting3DFaceReductionOptions) -> Double: ...
     @winrt_mixinmethod
     def put_MaxEdgeLength(self: win32more.Windows.Graphics.Printing3D.IPrinting3DFaceReductionOptions, value: Double) -> Void: ...
+    MaxEdgeLength = property(get_MaxEdgeLength, put_MaxEdgeLength)
     MaxReductionArea = property(get_MaxReductionArea, put_MaxReductionArea)
     TargetTriangleCount = property(get_TargetTriangleCount, put_TargetTriangleCount)
-    MaxEdgeLength = property(get_MaxEdgeLength, put_MaxEdgeLength)
 class Printing3DMaterial(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing3D.IPrinting3DMaterial
@@ -942,9 +942,9 @@ class Printing3DMaterial(ComPtr):
     def get_MultiplePropertyGroups(self: win32more.Windows.Graphics.Printing3D.IPrinting3DMaterial) -> win32more.Windows.Foundation.Collections.IVector[win32more.Windows.Graphics.Printing3D.Printing3DMultiplePropertyMaterialGroup]: ...
     BaseGroups = property(get_BaseGroups, None)
     ColorGroups = property(get_ColorGroups, None)
-    Texture2CoordGroups = property(get_Texture2CoordGroups, None)
     CompositeGroups = property(get_CompositeGroups, None)
     MultiplePropertyGroups = property(get_MultiplePropertyGroups, None)
+    Texture2CoordGroups = property(get_Texture2CoordGroups, None)
 class Printing3DMesh(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing3D.IPrinting3DMesh
@@ -1004,14 +1004,14 @@ class Printing3DMesh(ComPtr):
     def get_BufferSet(self: win32more.Windows.Graphics.Printing3D.IPrinting3DMesh) -> win32more.Windows.Foundation.Collections.IPropertySet: ...
     @winrt_mixinmethod
     def VerifyAsync(self: win32more.Windows.Graphics.Printing3D.IPrinting3DMesh, value: win32more.Windows.Graphics.Printing3D.Printing3DMeshVerificationMode) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Graphics.Printing3D.Printing3DMeshVerificationResult]: ...
-    VertexCount = property(get_VertexCount, put_VertexCount)
-    IndexCount = property(get_IndexCount, put_IndexCount)
-    VertexPositionsDescription = property(get_VertexPositionsDescription, put_VertexPositionsDescription)
-    VertexNormalsDescription = property(get_VertexNormalsDescription, put_VertexNormalsDescription)
-    TriangleIndicesDescription = property(get_TriangleIndicesDescription, put_TriangleIndicesDescription)
-    TriangleMaterialIndicesDescription = property(get_TriangleMaterialIndicesDescription, put_TriangleMaterialIndicesDescription)
     BufferDescriptionSet = property(get_BufferDescriptionSet, None)
     BufferSet = property(get_BufferSet, None)
+    IndexCount = property(get_IndexCount, put_IndexCount)
+    TriangleIndicesDescription = property(get_TriangleIndicesDescription, put_TriangleIndicesDescription)
+    TriangleMaterialIndicesDescription = property(get_TriangleMaterialIndicesDescription, put_TriangleMaterialIndicesDescription)
+    VertexCount = property(get_VertexCount, put_VertexCount)
+    VertexNormalsDescription = property(get_VertexNormalsDescription, put_VertexNormalsDescription)
+    VertexPositionsDescription = property(get_VertexPositionsDescription, put_VertexPositionsDescription)
 class Printing3DMeshVerificationMode(Int32):  # enum
     FindFirstError = 0
     FindAllErrors = 1
@@ -1083,15 +1083,15 @@ class Printing3DModel(ComPtr):
     def TryReduceFacesWithOptionsAndTimeAsync(self: win32more.Windows.Graphics.Printing3D.IPrinting3DModel2, printing3DFaceReductionOptions: win32more.Windows.Graphics.Printing3D.Printing3DFaceReductionOptions, maxWait: win32more.Windows.Foundation.TimeSpan) -> win32more.Windows.Foundation.IAsyncOperationWithProgress[Boolean, Double]: ...
     @winrt_mixinmethod
     def RepairWithProgressAsync(self: win32more.Windows.Graphics.Printing3D.IPrinting3DModel2) -> win32more.Windows.Foundation.IAsyncOperationWithProgress[Boolean, Double]: ...
-    Unit = property(get_Unit, put_Unit)
-    Textures = property(get_Textures, None)
-    Meshes = property(get_Meshes, None)
+    Build = property(get_Build, put_Build)
     Components = property(get_Components, None)
     Material = property(get_Material, put_Material)
-    Build = property(get_Build, put_Build)
-    Version = property(get_Version, put_Version)
-    RequiredExtensions = property(get_RequiredExtensions, None)
+    Meshes = property(get_Meshes, None)
     Metadata = property(get_Metadata, None)
+    RequiredExtensions = property(get_RequiredExtensions, None)
+    Textures = property(get_Textures, None)
+    Unit = property(get_Unit, put_Unit)
+    Version = property(get_Version, put_Version)
 class Printing3DModelTexture(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing3D.IPrinting3DModelTexture
@@ -1162,9 +1162,9 @@ class Printing3DMultiplePropertyMaterialGroup(ComPtr):
     def get_MaterialGroupIndices(self: win32more.Windows.Graphics.Printing3D.IPrinting3DMultiplePropertyMaterialGroup) -> win32more.Windows.Foundation.Collections.IVector[UInt32]: ...
     @winrt_mixinmethod
     def get_MaterialGroupId(self: win32more.Windows.Graphics.Printing3D.IPrinting3DMultiplePropertyMaterialGroup) -> UInt32: ...
-    MultipleProperties = property(get_MultipleProperties, None)
-    MaterialGroupIndices = property(get_MaterialGroupIndices, None)
     MaterialGroupId = property(get_MaterialGroupId, None)
+    MaterialGroupIndices = property(get_MaterialGroupIndices, None)
+    MultipleProperties = property(get_MultipleProperties, None)
 class Printing3DObjectType(Int32):  # enum
     Model = 0
     Support = 1
@@ -1222,9 +1222,9 @@ class Printing3DTexture2CoordMaterialGroup(ComPtr):
     def get_Texture(self: win32more.Windows.Graphics.Printing3D.IPrinting3DTexture2CoordMaterialGroup2) -> win32more.Windows.Graphics.Printing3D.Printing3DModelTexture: ...
     @winrt_mixinmethod
     def put_Texture(self: win32more.Windows.Graphics.Printing3D.IPrinting3DTexture2CoordMaterialGroup2, value: win32more.Windows.Graphics.Printing3D.Printing3DModelTexture) -> Void: ...
-    Texture2Coords = property(get_Texture2Coords, None)
     MaterialGroupId = property(get_MaterialGroupId, None)
     Texture = property(get_Texture, put_Texture)
+    Texture2Coords = property(get_Texture2Coords, None)
 class Printing3DTextureEdgeBehavior(Int32):  # enum
     None_ = 0
     Wrap = 1
@@ -1251,8 +1251,8 @@ class Printing3DTextureResource(ComPtr):
     def get_Name(self: win32more.Windows.Graphics.Printing3D.IPrinting3DTextureResource) -> WinRT_String: ...
     @winrt_mixinmethod
     def put_Name(self: win32more.Windows.Graphics.Printing3D.IPrinting3DTextureResource, value: WinRT_String) -> Void: ...
-    TextureData = property(get_TextureData, put_TextureData)
     Name = property(get_Name, put_Name)
+    TextureData = property(get_TextureData, put_TextureData)
 
 
 make_ready(__name__)

@@ -14,8 +14,8 @@ class DeviceServicingDetails(ComPtr):
     def get_Arguments(self: win32more.Windows.Devices.Background.IDeviceServicingDetails) -> WinRT_String: ...
     @winrt_mixinmethod
     def get_ExpectedDuration(self: win32more.Windows.Devices.Background.IDeviceServicingDetails) -> win32more.Windows.Foundation.TimeSpan: ...
-    DeviceId = property(get_DeviceId, None)
     Arguments = property(get_Arguments, None)
+    DeviceId = property(get_DeviceId, None)
     ExpectedDuration = property(get_ExpectedDuration, None)
 class DeviceUseDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -25,8 +25,8 @@ class DeviceUseDetails(ComPtr):
     def get_DeviceId(self: win32more.Windows.Devices.Background.IDeviceUseDetails) -> WinRT_String: ...
     @winrt_mixinmethod
     def get_Arguments(self: win32more.Windows.Devices.Background.IDeviceUseDetails) -> WinRT_String: ...
-    DeviceId = property(get_DeviceId, None)
     Arguments = property(get_Arguments, None)
+    DeviceId = property(get_DeviceId, None)
 class IDeviceServicingDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Background.IDeviceServicingDetails'
@@ -37,8 +37,8 @@ class IDeviceServicingDetails(ComPtr):
     def get_Arguments(self) -> WinRT_String: ...
     @winrt_commethod(8)
     def get_ExpectedDuration(self) -> win32more.Windows.Foundation.TimeSpan: ...
-    DeviceId = property(get_DeviceId, None)
     Arguments = property(get_Arguments, None)
+    DeviceId = property(get_DeviceId, None)
     ExpectedDuration = property(get_ExpectedDuration, None)
 class IDeviceUseDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -48,8 +48,8 @@ class IDeviceUseDetails(ComPtr):
     def get_DeviceId(self) -> WinRT_String: ...
     @winrt_commethod(7)
     def get_Arguments(self) -> WinRT_String: ...
-    DeviceId = property(get_DeviceId, None)
     Arguments = property(get_Arguments, None)
+    DeviceId = property(get_DeviceId, None)
 
 
 make_ready(__name__)

@@ -49,12 +49,12 @@ class AccountsSettingsPaneCommandsRequestedEventArgs(ComPtr):
     def GetDeferral(self: win32more.Windows.UI.ApplicationSettings.IAccountsSettingsPaneCommandsRequestedEventArgs) -> win32more.Windows.UI.ApplicationSettings.AccountsSettingsPaneEventDeferral: ...
     @winrt_mixinmethod
     def get_User(self: win32more.Windows.UI.ApplicationSettings.IAccountsSettingsPaneCommandsRequestedEventArgs2) -> win32more.Windows.System.User: ...
-    WebAccountProviderCommands = property(get_WebAccountProviderCommands, None)
-    WebAccountCommands = property(get_WebAccountCommands, None)
-    CredentialCommands = property(get_CredentialCommands, None)
     Commands = property(get_Commands, None)
+    CredentialCommands = property(get_CredentialCommands, None)
     HeaderText = property(get_HeaderText, put_HeaderText)
     User = property(get_User, None)
+    WebAccountCommands = property(get_WebAccountCommands, None)
+    WebAccountProviderCommands = property(get_WebAccountProviderCommands, None)
 class AccountsSettingsPaneEventDeferral(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.ApplicationSettings.IAccountsSettingsPaneEventDeferral
@@ -83,8 +83,8 @@ class CredentialCommand(ComPtr):
     def get_PasswordCredential(self: win32more.Windows.UI.ApplicationSettings.ICredentialCommand) -> win32more.Windows.Security.Credentials.PasswordCredential: ...
     @winrt_mixinmethod
     def get_CredentialDeleted(self: win32more.Windows.UI.ApplicationSettings.ICredentialCommand) -> win32more.Windows.UI.ApplicationSettings.CredentialCommandCredentialDeletedHandler: ...
-    PasswordCredential = property(get_PasswordCredential, None)
     CredentialDeleted = property(get_CredentialDeleted, None)
+    PasswordCredential = property(get_PasswordCredential, None)
 class CredentialCommandCredentialDeletedHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{61c0e185-0977-4678-b4e2-98727afbeed9}')
@@ -115,11 +115,11 @@ class IAccountsSettingsPaneCommandsRequestedEventArgs(ComPtr):
     def put_HeaderText(self, value: WinRT_String) -> Void: ...
     @winrt_commethod(12)
     def GetDeferral(self) -> win32more.Windows.UI.ApplicationSettings.AccountsSettingsPaneEventDeferral: ...
-    WebAccountProviderCommands = property(get_WebAccountProviderCommands, None)
-    WebAccountCommands = property(get_WebAccountCommands, None)
-    CredentialCommands = property(get_CredentialCommands, None)
     Commands = property(get_Commands, None)
+    CredentialCommands = property(get_CredentialCommands, None)
     HeaderText = property(get_HeaderText, put_HeaderText)
+    WebAccountCommands = property(get_WebAccountCommands, None)
+    WebAccountProviderCommands = property(get_WebAccountProviderCommands, None)
 class IAccountsSettingsPaneCommandsRequestedEventArgs2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.ApplicationSettings.IAccountsSettingsPaneCommandsRequestedEventArgs2'
@@ -165,8 +165,8 @@ class ICredentialCommand(ComPtr):
     def get_PasswordCredential(self) -> win32more.Windows.Security.Credentials.PasswordCredential: ...
     @winrt_commethod(7)
     def get_CredentialDeleted(self) -> win32more.Windows.UI.ApplicationSettings.CredentialCommandCredentialDeletedHandler: ...
-    PasswordCredential = property(get_PasswordCredential, None)
     CredentialDeleted = property(get_CredentialDeleted, None)
+    PasswordCredential = property(get_PasswordCredential, None)
 class ICredentialCommandFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.ApplicationSettings.ICredentialCommandFactory'
@@ -231,9 +231,9 @@ class IWebAccountCommand(ComPtr):
     def get_Invoked(self) -> win32more.Windows.UI.ApplicationSettings.WebAccountCommandInvokedHandler: ...
     @winrt_commethod(8)
     def get_Actions(self) -> win32more.Windows.UI.ApplicationSettings.SupportedWebAccountActions: ...
-    WebAccount = property(get_WebAccount, None)
-    Invoked = property(get_Invoked, None)
     Actions = property(get_Actions, None)
+    Invoked = property(get_Invoked, None)
+    WebAccount = property(get_WebAccount, None)
 class IWebAccountCommandFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.ApplicationSettings.IWebAccountCommandFactory'
@@ -255,8 +255,8 @@ class IWebAccountProviderCommand(ComPtr):
     def get_WebAccountProvider(self) -> win32more.Windows.Security.Credentials.WebAccountProvider: ...
     @winrt_commethod(7)
     def get_Invoked(self) -> win32more.Windows.UI.ApplicationSettings.WebAccountProviderCommandInvokedHandler: ...
-    WebAccountProvider = property(get_WebAccountProvider, None)
     Invoked = property(get_Invoked, None)
+    WebAccountProvider = property(get_WebAccountProvider, None)
 class IWebAccountProviderCommandFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.ApplicationSettings.IWebAccountProviderCommandFactory'
@@ -292,9 +292,9 @@ class SettingsCommand(ComPtr, metaclass=_SettingsCommand_Meta_):
     def put_Id(self: win32more.Windows.UI.Popups.IUICommand, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
     @winrt_classmethod
     def get_AccountsCommand(cls: win32more.Windows.UI.ApplicationSettings.ISettingsCommandStatics) -> win32more.Windows.UI.ApplicationSettings.SettingsCommand: ...
-    Label = property(get_Label, put_Label)
-    Invoked = property(get_Invoked, put_Invoked)
     Id = property(get_Id, put_Id)
+    Invoked = property(get_Invoked, put_Invoked)
+    Label = property(get_Label, put_Label)
     _SettingsCommand_Meta_.AccountsCommand = property(get_AccountsCommand.__wrapped__, None)
 class SettingsEdgeLocation(Int32):  # enum
     Right = 0
@@ -362,9 +362,9 @@ class WebAccountCommand(ComPtr):
     def get_Invoked(self: win32more.Windows.UI.ApplicationSettings.IWebAccountCommand) -> win32more.Windows.UI.ApplicationSettings.WebAccountCommandInvokedHandler: ...
     @winrt_mixinmethod
     def get_Actions(self: win32more.Windows.UI.ApplicationSettings.IWebAccountCommand) -> win32more.Windows.UI.ApplicationSettings.SupportedWebAccountActions: ...
-    WebAccount = property(get_WebAccount, None)
-    Invoked = property(get_Invoked, None)
     Actions = property(get_Actions, None)
+    Invoked = property(get_Invoked, None)
+    WebAccount = property(get_WebAccount, None)
 class WebAccountCommandInvokedHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{1ee6e459-1705-4a9a-b599-a0c3d6921973}')
@@ -393,8 +393,8 @@ class WebAccountProviderCommand(ComPtr):
     def get_WebAccountProvider(self: win32more.Windows.UI.ApplicationSettings.IWebAccountProviderCommand) -> win32more.Windows.Security.Credentials.WebAccountProvider: ...
     @winrt_mixinmethod
     def get_Invoked(self: win32more.Windows.UI.ApplicationSettings.IWebAccountProviderCommand) -> win32more.Windows.UI.ApplicationSettings.WebAccountProviderCommandInvokedHandler: ...
-    WebAccountProvider = property(get_WebAccountProvider, None)
     Invoked = property(get_Invoked, None)
+    WebAccountProvider = property(get_WebAccountProvider, None)
 class WebAccountProviderCommandInvokedHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{b7de5527-4c8f-42dd-84da-5ec493abdb9a}')

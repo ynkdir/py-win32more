@@ -23,8 +23,8 @@ class GameBar(ComPtr, metaclass=_GameBar_Meta_):
     def get_Visible(cls: win32more.Windows.Gaming.UI.IGameBarStatics) -> Boolean: ...
     @winrt_classmethod
     def get_IsInputRedirected(cls: win32more.Windows.Gaming.UI.IGameBarStatics) -> Boolean: ...
-    _GameBar_Meta_.Visible = property(get_Visible.__wrapped__, None)
     _GameBar_Meta_.IsInputRedirected = property(get_IsInputRedirected.__wrapped__, None)
+    _GameBar_Meta_.Visible = property(get_Visible.__wrapped__, None)
 class GameChatMessageOrigin(Int32):  # enum
     Voice = 0
     Text = 1
@@ -42,11 +42,11 @@ class GameChatMessageReceivedEventArgs(ComPtr):
     def get_Message(self: win32more.Windows.Gaming.UI.IGameChatMessageReceivedEventArgs) -> WinRT_String: ...
     @winrt_mixinmethod
     def get_Origin(self: win32more.Windows.Gaming.UI.IGameChatMessageReceivedEventArgs) -> win32more.Windows.Gaming.UI.GameChatMessageOrigin: ...
-    AppId = property(get_AppId, None)
     AppDisplayName = property(get_AppDisplayName, None)
-    SenderName = property(get_SenderName, None)
+    AppId = property(get_AppId, None)
     Message = property(get_Message, None)
     Origin = property(get_Origin, None)
+    SenderName = property(get_SenderName, None)
 class GameChatOverlay(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Gaming.UI.IGameChatOverlay
@@ -124,8 +124,8 @@ class IGameBarStatics(ComPtr):
     def get_Visible(self) -> Boolean: ...
     @winrt_commethod(11)
     def get_IsInputRedirected(self) -> Boolean: ...
-    Visible = property(get_Visible, None)
     IsInputRedirected = property(get_IsInputRedirected, None)
+    Visible = property(get_Visible, None)
 class IGameChatMessageReceivedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Gaming.UI.IGameChatMessageReceivedEventArgs'
@@ -140,11 +140,11 @@ class IGameChatMessageReceivedEventArgs(ComPtr):
     def get_Message(self) -> WinRT_String: ...
     @winrt_commethod(10)
     def get_Origin(self) -> win32more.Windows.Gaming.UI.GameChatMessageOrigin: ...
-    AppId = property(get_AppId, None)
     AppDisplayName = property(get_AppDisplayName, None)
-    SenderName = property(get_SenderName, None)
+    AppId = property(get_AppId, None)
     Message = property(get_Message, None)
     Origin = property(get_Origin, None)
+    SenderName = property(get_SenderName, None)
 class IGameChatOverlay(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Gaming.UI.IGameChatOverlay'

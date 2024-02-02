@@ -36,10 +36,10 @@ class AppRecordingResult(ComPtr):
     def get_Duration(self: win32more.Windows.Media.AppRecording.IAppRecordingResult) -> win32more.Windows.Foundation.TimeSpan: ...
     @winrt_mixinmethod
     def get_IsFileTruncated(self: win32more.Windows.Media.AppRecording.IAppRecordingResult) -> Boolean: ...
-    Succeeded = property(get_Succeeded, None)
-    ExtendedError = property(get_ExtendedError, None)
     Duration = property(get_Duration, None)
+    ExtendedError = property(get_ExtendedError, None)
     IsFileTruncated = property(get_IsFileTruncated, None)
+    Succeeded = property(get_Succeeded, None)
 class AppRecordingSaveScreenshotOption(Int32):  # enum
     None_ = 0
     HdrContentVisible = 1
@@ -53,9 +53,9 @@ class AppRecordingSaveScreenshotResult(ComPtr):
     def get_ExtendedError(self: win32more.Windows.Media.AppRecording.IAppRecordingSaveScreenshotResult) -> win32more.Windows.Foundation.HResult: ...
     @winrt_mixinmethod
     def get_SavedScreenshotInfos(self: win32more.Windows.Media.AppRecording.IAppRecordingSaveScreenshotResult) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Media.AppRecording.AppRecordingSavedScreenshotInfo]: ...
-    Succeeded = property(get_Succeeded, None)
     ExtendedError = property(get_ExtendedError, None)
     SavedScreenshotInfos = property(get_SavedScreenshotInfos, None)
+    Succeeded = property(get_Succeeded, None)
 class AppRecordingSavedScreenshotInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.AppRecording.IAppRecordingSavedScreenshotInfo
@@ -80,8 +80,8 @@ class AppRecordingStatus(ComPtr):
     def get_Details(self: win32more.Windows.Media.AppRecording.IAppRecordingStatus) -> win32more.Windows.Media.AppRecording.AppRecordingStatusDetails: ...
     CanRecord = property(get_CanRecord, None)
     CanRecordTimeSpan = property(get_CanRecordTimeSpan, None)
-    HistoricalBufferDuration = property(get_HistoricalBufferDuration, None)
     Details = property(get_Details, None)
+    HistoricalBufferDuration = property(get_HistoricalBufferDuration, None)
 class AppRecordingStatusDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.AppRecording.IAppRecordingStatusDetails
@@ -105,14 +105,14 @@ class AppRecordingStatusDetails(ComPtr):
     @winrt_mixinmethod
     def get_IsDisabledBySystem(self: win32more.Windows.Media.AppRecording.IAppRecordingStatusDetails) -> Boolean: ...
     IsAnyAppBroadcasting = property(get_IsAnyAppBroadcasting, None)
-    IsCaptureResourceUnavailable = property(get_IsCaptureResourceUnavailable, None)
-    IsGameStreamInProgress = property(get_IsGameStreamInProgress, None)
-    IsTimeSpanRecordingDisabled = property(get_IsTimeSpanRecordingDisabled, None)
-    IsGpuConstrained = property(get_IsGpuConstrained, None)
     IsAppInactive = property(get_IsAppInactive, None)
     IsBlockedForApp = property(get_IsBlockedForApp, None)
-    IsDisabledByUser = property(get_IsDisabledByUser, None)
+    IsCaptureResourceUnavailable = property(get_IsCaptureResourceUnavailable, None)
     IsDisabledBySystem = property(get_IsDisabledBySystem, None)
+    IsDisabledByUser = property(get_IsDisabledByUser, None)
+    IsGameStreamInProgress = property(get_IsGameStreamInProgress, None)
+    IsGpuConstrained = property(get_IsGpuConstrained, None)
+    IsTimeSpanRecordingDisabled = property(get_IsTimeSpanRecordingDisabled, None)
 class IAppRecordingManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.AppRecording.IAppRecordingManager'
@@ -146,10 +146,10 @@ class IAppRecordingResult(ComPtr):
     def get_Duration(self) -> win32more.Windows.Foundation.TimeSpan: ...
     @winrt_commethod(9)
     def get_IsFileTruncated(self) -> Boolean: ...
-    Succeeded = property(get_Succeeded, None)
-    ExtendedError = property(get_ExtendedError, None)
     Duration = property(get_Duration, None)
+    ExtendedError = property(get_ExtendedError, None)
     IsFileTruncated = property(get_IsFileTruncated, None)
+    Succeeded = property(get_Succeeded, None)
 class IAppRecordingSaveScreenshotResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.AppRecording.IAppRecordingSaveScreenshotResult'
@@ -160,9 +160,9 @@ class IAppRecordingSaveScreenshotResult(ComPtr):
     def get_ExtendedError(self) -> win32more.Windows.Foundation.HResult: ...
     @winrt_commethod(8)
     def get_SavedScreenshotInfos(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Media.AppRecording.AppRecordingSavedScreenshotInfo]: ...
-    Succeeded = property(get_Succeeded, None)
     ExtendedError = property(get_ExtendedError, None)
     SavedScreenshotInfos = property(get_SavedScreenshotInfos, None)
+    Succeeded = property(get_Succeeded, None)
 class IAppRecordingSavedScreenshotInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.AppRecording.IAppRecordingSavedScreenshotInfo'
@@ -187,8 +187,8 @@ class IAppRecordingStatus(ComPtr):
     def get_Details(self) -> win32more.Windows.Media.AppRecording.AppRecordingStatusDetails: ...
     CanRecord = property(get_CanRecord, None)
     CanRecordTimeSpan = property(get_CanRecordTimeSpan, None)
-    HistoricalBufferDuration = property(get_HistoricalBufferDuration, None)
     Details = property(get_Details, None)
+    HistoricalBufferDuration = property(get_HistoricalBufferDuration, None)
 class IAppRecordingStatusDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.AppRecording.IAppRecordingStatusDetails'
@@ -212,14 +212,14 @@ class IAppRecordingStatusDetails(ComPtr):
     @winrt_commethod(14)
     def get_IsDisabledBySystem(self) -> Boolean: ...
     IsAnyAppBroadcasting = property(get_IsAnyAppBroadcasting, None)
-    IsCaptureResourceUnavailable = property(get_IsCaptureResourceUnavailable, None)
-    IsGameStreamInProgress = property(get_IsGameStreamInProgress, None)
-    IsTimeSpanRecordingDisabled = property(get_IsTimeSpanRecordingDisabled, None)
-    IsGpuConstrained = property(get_IsGpuConstrained, None)
     IsAppInactive = property(get_IsAppInactive, None)
     IsBlockedForApp = property(get_IsBlockedForApp, None)
-    IsDisabledByUser = property(get_IsDisabledByUser, None)
+    IsCaptureResourceUnavailable = property(get_IsCaptureResourceUnavailable, None)
     IsDisabledBySystem = property(get_IsDisabledBySystem, None)
+    IsDisabledByUser = property(get_IsDisabledByUser, None)
+    IsGameStreamInProgress = property(get_IsGameStreamInProgress, None)
+    IsGpuConstrained = property(get_IsGpuConstrained, None)
+    IsTimeSpanRecordingDisabled = property(get_IsTimeSpanRecordingDisabled, None)
 
 
 make_ready(__name__)

@@ -89,13 +89,13 @@ class FileOpenPicker(ComPtr):
     def CreateForUser(cls: win32more.Windows.Storage.Pickers.IFileOpenPickerStatics2, user: win32more.Windows.System.User) -> win32more.Windows.Storage.Pickers.FileOpenPicker: ...
     @winrt_classmethod
     def ResumePickSingleFileAsync(cls: win32more.Windows.Storage.Pickers.IFileOpenPickerStatics) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Storage.StorageFile]: ...
+    CommitButtonText = property(get_CommitButtonText, put_CommitButtonText)
     ContinuationData = property(get_ContinuationData, None)
-    ViewMode = property(get_ViewMode, put_ViewMode)
+    FileTypeFilter = property(get_FileTypeFilter, None)
     SettingsIdentifier = property(get_SettingsIdentifier, put_SettingsIdentifier)
     SuggestedStartLocation = property(get_SuggestedStartLocation, put_SuggestedStartLocation)
-    CommitButtonText = property(get_CommitButtonText, put_CommitButtonText)
-    FileTypeFilter = property(get_FileTypeFilter, None)
     User = property(get_User, None)
+    ViewMode = property(get_ViewMode, put_ViewMode)
 class FilePickerFileTypesOrderedMap(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Foundation.Collections.IVector[WinRT_String]]
@@ -185,15 +185,15 @@ class FileSavePicker(ComPtr):
     def get_User(self: win32more.Windows.Storage.Pickers.IFileSavePicker4) -> win32more.Windows.System.User: ...
     @winrt_classmethod
     def CreateForUser(cls: win32more.Windows.Storage.Pickers.IFileSavePickerStatics, user: win32more.Windows.System.User) -> win32more.Windows.Storage.Pickers.FileSavePicker: ...
-    ContinuationData = property(get_ContinuationData, None)
-    EnterpriseId = property(get_EnterpriseId, put_EnterpriseId)
-    SettingsIdentifier = property(get_SettingsIdentifier, put_SettingsIdentifier)
-    SuggestedStartLocation = property(get_SuggestedStartLocation, put_SuggestedStartLocation)
     CommitButtonText = property(get_CommitButtonText, put_CommitButtonText)
-    FileTypeChoices = property(get_FileTypeChoices, None)
+    ContinuationData = property(get_ContinuationData, None)
     DefaultFileExtension = property(get_DefaultFileExtension, put_DefaultFileExtension)
-    SuggestedSaveFile = property(get_SuggestedSaveFile, put_SuggestedSaveFile)
+    EnterpriseId = property(get_EnterpriseId, put_EnterpriseId)
+    FileTypeChoices = property(get_FileTypeChoices, None)
+    SettingsIdentifier = property(get_SettingsIdentifier, put_SettingsIdentifier)
     SuggestedFileName = property(get_SuggestedFileName, put_SuggestedFileName)
+    SuggestedSaveFile = property(get_SuggestedSaveFile, put_SuggestedSaveFile)
+    SuggestedStartLocation = property(get_SuggestedStartLocation, put_SuggestedStartLocation)
     User = property(get_User, None)
 class FolderPicker(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -236,13 +236,13 @@ class FolderPicker(ComPtr):
     def get_User(self: win32more.Windows.Storage.Pickers.IFolderPicker3) -> win32more.Windows.System.User: ...
     @winrt_classmethod
     def CreateForUser(cls: win32more.Windows.Storage.Pickers.IFolderPickerStatics, user: win32more.Windows.System.User) -> win32more.Windows.Storage.Pickers.FolderPicker: ...
+    CommitButtonText = property(get_CommitButtonText, put_CommitButtonText)
     ContinuationData = property(get_ContinuationData, None)
-    ViewMode = property(get_ViewMode, put_ViewMode)
+    FileTypeFilter = property(get_FileTypeFilter, None)
     SettingsIdentifier = property(get_SettingsIdentifier, put_SettingsIdentifier)
     SuggestedStartLocation = property(get_SuggestedStartLocation, put_SuggestedStartLocation)
-    CommitButtonText = property(get_CommitButtonText, put_CommitButtonText)
-    FileTypeFilter = property(get_FileTypeFilter, None)
     User = property(get_User, None)
+    ViewMode = property(get_ViewMode, put_ViewMode)
 class IFileOpenPicker(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Storage.Pickers.IFileOpenPicker'
@@ -269,11 +269,11 @@ class IFileOpenPicker(ComPtr):
     def PickSingleFileAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Storage.StorageFile]: ...
     @winrt_commethod(16)
     def PickMultipleFilesAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Storage.StorageFile]]: ...
-    ViewMode = property(get_ViewMode, put_ViewMode)
-    SettingsIdentifier = property(get_SettingsIdentifier, put_SettingsIdentifier)
-    SuggestedStartLocation = property(get_SuggestedStartLocation, put_SuggestedStartLocation)
     CommitButtonText = property(get_CommitButtonText, put_CommitButtonText)
     FileTypeFilter = property(get_FileTypeFilter, None)
+    SettingsIdentifier = property(get_SettingsIdentifier, put_SettingsIdentifier)
+    SuggestedStartLocation = property(get_SuggestedStartLocation, put_SuggestedStartLocation)
+    ViewMode = property(get_ViewMode, put_ViewMode)
 class IFileOpenPicker2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Storage.Pickers.IFileOpenPicker2'
@@ -342,13 +342,13 @@ class IFileSavePicker(ComPtr):
     def put_SuggestedFileName(self, value: WinRT_String) -> Void: ...
     @winrt_commethod(19)
     def PickSaveFileAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Storage.StorageFile]: ...
-    SettingsIdentifier = property(get_SettingsIdentifier, put_SettingsIdentifier)
-    SuggestedStartLocation = property(get_SuggestedStartLocation, put_SuggestedStartLocation)
     CommitButtonText = property(get_CommitButtonText, put_CommitButtonText)
-    FileTypeChoices = property(get_FileTypeChoices, None)
     DefaultFileExtension = property(get_DefaultFileExtension, put_DefaultFileExtension)
-    SuggestedSaveFile = property(get_SuggestedSaveFile, put_SuggestedSaveFile)
+    FileTypeChoices = property(get_FileTypeChoices, None)
+    SettingsIdentifier = property(get_SettingsIdentifier, put_SettingsIdentifier)
     SuggestedFileName = property(get_SuggestedFileName, put_SuggestedFileName)
+    SuggestedSaveFile = property(get_SuggestedSaveFile, put_SuggestedSaveFile)
+    SuggestedStartLocation = property(get_SuggestedStartLocation, put_SuggestedStartLocation)
 class IFileSavePicker2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Storage.Pickers.IFileSavePicker2'
@@ -404,11 +404,11 @@ class IFolderPicker(ComPtr):
     def get_FileTypeFilter(self) -> win32more.Windows.Foundation.Collections.IVector[WinRT_String]: ...
     @winrt_commethod(15)
     def PickSingleFolderAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Storage.StorageFolder]: ...
-    ViewMode = property(get_ViewMode, put_ViewMode)
-    SettingsIdentifier = property(get_SettingsIdentifier, put_SettingsIdentifier)
-    SuggestedStartLocation = property(get_SuggestedStartLocation, put_SuggestedStartLocation)
     CommitButtonText = property(get_CommitButtonText, put_CommitButtonText)
     FileTypeFilter = property(get_FileTypeFilter, None)
+    SettingsIdentifier = property(get_SettingsIdentifier, put_SettingsIdentifier)
+    SuggestedStartLocation = property(get_SuggestedStartLocation, put_SuggestedStartLocation)
+    ViewMode = property(get_ViewMode, put_ViewMode)
 class IFolderPicker2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Storage.Pickers.IFolderPicker2'

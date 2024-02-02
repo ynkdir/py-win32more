@@ -54,9 +54,9 @@ class ExtendedExecutionSession(ComPtr):
     def RequestExtensionAsync(self: win32more.Windows.ApplicationModel.ExtendedExecution.IExtendedExecutionSession) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.ApplicationModel.ExtendedExecution.ExtendedExecutionResult]: ...
     @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
-    Reason = property(get_Reason, put_Reason)
     Description = property(get_Description, put_Description)
     PercentProgress = property(get_PercentProgress, put_PercentProgress)
+    Reason = property(get_Reason, put_Reason)
 class IExtendedExecutionRevokedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.ExtendedExecution.IExtendedExecutionRevokedEventArgs'
@@ -86,9 +86,9 @@ class IExtendedExecutionSession(ComPtr):
     def remove_Revoked(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(14)
     def RequestExtensionAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.ApplicationModel.ExtendedExecution.ExtendedExecutionResult]: ...
-    Reason = property(get_Reason, put_Reason)
     Description = property(get_Description, put_Description)
     PercentProgress = property(get_PercentProgress, put_PercentProgress)
+    Reason = property(get_Reason, put_Reason)
 
 
 make_ready(__name__)

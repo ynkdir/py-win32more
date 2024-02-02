@@ -40,12 +40,12 @@ class IPlatformDiagnosticTraceInfo(ComPtr):
     def get_MaxTraceDurationFileTime(self) -> Int64: ...
     @winrt_commethod(11)
     def get_Priority(self) -> win32more.Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticTracePriority: ...
-    ScenarioId = property(get_ScenarioId, None)
-    ProfileHash = property(get_ProfileHash, None)
-    IsExclusive = property(get_IsExclusive, None)
     IsAutoLogger = property(get_IsAutoLogger, None)
+    IsExclusive = property(get_IsExclusive, None)
     MaxTraceDurationFileTime = property(get_MaxTraceDurationFileTime, None)
     Priority = property(get_Priority, None)
+    ProfileHash = property(get_ProfileHash, None)
+    ScenarioId = property(get_ScenarioId, None)
 class IPlatformDiagnosticTraceRuntimeInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.System.Diagnostics.TraceReporting.IPlatformDiagnosticTraceRuntimeInfo'
@@ -54,8 +54,8 @@ class IPlatformDiagnosticTraceRuntimeInfo(ComPtr):
     def get_RuntimeFileTime(self) -> Int64: ...
     @winrt_commethod(7)
     def get_EtwRuntimeFileTime(self) -> Int64: ...
-    RuntimeFileTime = property(get_RuntimeFileTime, None)
     EtwRuntimeFileTime = property(get_EtwRuntimeFileTime, None)
+    RuntimeFileTime = property(get_RuntimeFileTime, None)
 class PlatformDiagnosticActionState(Int32):  # enum
     Success = 0
     FreeNetworkNotAvailable = 1
@@ -102,12 +102,12 @@ class PlatformDiagnosticTraceInfo(ComPtr):
     def get_MaxTraceDurationFileTime(self: win32more.Windows.System.Diagnostics.TraceReporting.IPlatformDiagnosticTraceInfo) -> Int64: ...
     @winrt_mixinmethod
     def get_Priority(self: win32more.Windows.System.Diagnostics.TraceReporting.IPlatformDiagnosticTraceInfo) -> win32more.Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticTracePriority: ...
-    ScenarioId = property(get_ScenarioId, None)
-    ProfileHash = property(get_ProfileHash, None)
-    IsExclusive = property(get_IsExclusive, None)
     IsAutoLogger = property(get_IsAutoLogger, None)
+    IsExclusive = property(get_IsExclusive, None)
     MaxTraceDurationFileTime = property(get_MaxTraceDurationFileTime, None)
     Priority = property(get_Priority, None)
+    ProfileHash = property(get_ProfileHash, None)
+    ScenarioId = property(get_ScenarioId, None)
 class PlatformDiagnosticTracePriority(Int32):  # enum
     Normal = 0
     UserElevated = 1
@@ -119,8 +119,8 @@ class PlatformDiagnosticTraceRuntimeInfo(ComPtr):
     def get_RuntimeFileTime(self: win32more.Windows.System.Diagnostics.TraceReporting.IPlatformDiagnosticTraceRuntimeInfo) -> Int64: ...
     @winrt_mixinmethod
     def get_EtwRuntimeFileTime(self: win32more.Windows.System.Diagnostics.TraceReporting.IPlatformDiagnosticTraceRuntimeInfo) -> Int64: ...
-    RuntimeFileTime = property(get_RuntimeFileTime, None)
     EtwRuntimeFileTime = property(get_EtwRuntimeFileTime, None)
+    RuntimeFileTime = property(get_RuntimeFileTime, None)
 class PlatformDiagnosticTraceSlotState(Int32):  # enum
     NotRunning = 0
     Running = 1

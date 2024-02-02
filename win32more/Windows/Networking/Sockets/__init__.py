@@ -63,12 +63,12 @@ class ControlChannelTrigger(ComPtr):
     @winrt_mixinmethod
     def get_IsWakeFromLowPowerSupported(self: win32more.Windows.Networking.Sockets.IControlChannelTrigger2) -> Boolean: ...
     ControlChannelTriggerId = property(get_ControlChannelTriggerId, None)
-    ServerKeepAliveIntervalInMinutes = property(get_ServerKeepAliveIntervalInMinutes, put_ServerKeepAliveIntervalInMinutes)
     CurrentKeepAliveIntervalInMinutes = property(get_CurrentKeepAliveIntervalInMinutes, None)
-    TransportObject = property(get_TransportObject, None)
+    IsWakeFromLowPowerSupported = property(get_IsWakeFromLowPowerSupported, None)
     KeepAliveTrigger = property(get_KeepAliveTrigger, None)
     PushNotificationTrigger = property(get_PushNotificationTrigger, None)
-    IsWakeFromLowPowerSupported = property(get_IsWakeFromLowPowerSupported, None)
+    ServerKeepAliveIntervalInMinutes = property(get_ServerKeepAliveIntervalInMinutes, put_ServerKeepAliveIntervalInMinutes)
+    TransportObject = property(get_TransportObject, None)
 ControlChannelTriggerContract: UInt32 = 196608
 class ControlChannelTriggerResetReason(Int32):  # enum
     FastUserSwitched = 0
@@ -170,11 +170,11 @@ class DatagramSocketControl(ComPtr):
     def get_MulticastOnly(self: win32more.Windows.Networking.Sockets.IDatagramSocketControl3) -> Boolean: ...
     @winrt_mixinmethod
     def put_MulticastOnly(self: win32more.Windows.Networking.Sockets.IDatagramSocketControl3, value: Boolean) -> Void: ...
-    QualityOfService = property(get_QualityOfService, put_QualityOfService)
-    OutboundUnicastHopLimit = property(get_OutboundUnicastHopLimit, put_OutboundUnicastHopLimit)
-    InboundBufferSizeInBytes = property(get_InboundBufferSizeInBytes, put_InboundBufferSizeInBytes)
     DontFragment = property(get_DontFragment, put_DontFragment)
+    InboundBufferSizeInBytes = property(get_InboundBufferSizeInBytes, put_InboundBufferSizeInBytes)
     MulticastOnly = property(get_MulticastOnly, put_MulticastOnly)
+    OutboundUnicastHopLimit = property(get_OutboundUnicastHopLimit, put_OutboundUnicastHopLimit)
+    QualityOfService = property(get_QualityOfService, put_QualityOfService)
 class DatagramSocketInformation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Sockets.IDatagramSocketInformation
@@ -205,9 +205,9 @@ class DatagramSocketMessageReceivedEventArgs(ComPtr):
     def GetDataReader(self: win32more.Windows.Networking.Sockets.IDatagramSocketMessageReceivedEventArgs) -> win32more.Windows.Storage.Streams.DataReader: ...
     @winrt_mixinmethod
     def GetDataStream(self: win32more.Windows.Networking.Sockets.IDatagramSocketMessageReceivedEventArgs) -> win32more.Windows.Storage.Streams.IInputStream: ...
+    LocalAddress = property(get_LocalAddress, None)
     RemoteAddress = property(get_RemoteAddress, None)
     RemotePort = property(get_RemotePort, None)
-    LocalAddress = property(get_LocalAddress, None)
 class IControlChannelTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.Sockets.IControlChannelTrigger'
@@ -235,11 +235,11 @@ class IControlChannelTrigger(ComPtr):
     @winrt_commethod(16)
     def FlushTransport(self) -> Void: ...
     ControlChannelTriggerId = property(get_ControlChannelTriggerId, None)
-    ServerKeepAliveIntervalInMinutes = property(get_ServerKeepAliveIntervalInMinutes, put_ServerKeepAliveIntervalInMinutes)
     CurrentKeepAliveIntervalInMinutes = property(get_CurrentKeepAliveIntervalInMinutes, None)
-    TransportObject = property(get_TransportObject, None)
     KeepAliveTrigger = property(get_KeepAliveTrigger, None)
     PushNotificationTrigger = property(get_PushNotificationTrigger, None)
+    ServerKeepAliveIntervalInMinutes = property(get_ServerKeepAliveIntervalInMinutes, put_ServerKeepAliveIntervalInMinutes)
+    TransportObject = property(get_TransportObject, None)
 class IControlChannelTrigger2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.Sockets.IControlChannelTrigger2'
@@ -272,8 +272,8 @@ class IControlChannelTriggerResetEventDetails(ComPtr):
     def get_HardwareSlotReset(self) -> Boolean: ...
     @winrt_commethod(8)
     def get_SoftwareSlotReset(self) -> Boolean: ...
-    ResetReason = property(get_ResetReason, None)
     HardwareSlotReset = property(get_HardwareSlotReset, None)
+    ResetReason = property(get_ResetReason, None)
     SoftwareSlotReset = property(get_SoftwareSlotReset, None)
 class IDatagramSocket(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -340,8 +340,8 @@ class IDatagramSocketControl(ComPtr):
     def get_OutboundUnicastHopLimit(self) -> Byte: ...
     @winrt_commethod(9)
     def put_OutboundUnicastHopLimit(self, value: Byte) -> Void: ...
-    QualityOfService = property(get_QualityOfService, put_QualityOfService)
     OutboundUnicastHopLimit = property(get_OutboundUnicastHopLimit, put_OutboundUnicastHopLimit)
+    QualityOfService = property(get_QualityOfService, put_QualityOfService)
 class IDatagramSocketControl2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.Sockets.IDatagramSocketControl2'
@@ -354,8 +354,8 @@ class IDatagramSocketControl2(ComPtr):
     def get_DontFragment(self) -> Boolean: ...
     @winrt_commethod(9)
     def put_DontFragment(self, value: Boolean) -> Void: ...
-    InboundBufferSizeInBytes = property(get_InboundBufferSizeInBytes, put_InboundBufferSizeInBytes)
     DontFragment = property(get_DontFragment, put_DontFragment)
+    InboundBufferSizeInBytes = property(get_InboundBufferSizeInBytes, put_InboundBufferSizeInBytes)
 class IDatagramSocketControl3(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.Sockets.IDatagramSocketControl3'
@@ -395,9 +395,9 @@ class IDatagramSocketMessageReceivedEventArgs(ComPtr):
     def GetDataReader(self) -> win32more.Windows.Storage.Streams.DataReader: ...
     @winrt_commethod(10)
     def GetDataStream(self) -> win32more.Windows.Storage.Streams.IInputStream: ...
+    LocalAddress = property(get_LocalAddress, None)
     RemoteAddress = property(get_RemoteAddress, None)
     RemotePort = property(get_RemotePort, None)
-    LocalAddress = property(get_LocalAddress, None)
 class IDatagramSocketStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.Sockets.IDatagramSocketStatics'
@@ -468,10 +468,10 @@ class IMessageWebSocketControl2(ComPtr):
     def get_ClientCertificate(self) -> win32more.Windows.Security.Cryptography.Certificates.Certificate: ...
     @winrt_commethod(12)
     def put_ClientCertificate(self, value: win32more.Windows.Security.Cryptography.Certificates.Certificate) -> Void: ...
-    DesiredUnsolicitedPongInterval = property(get_DesiredUnsolicitedPongInterval, put_DesiredUnsolicitedPongInterval)
     ActualUnsolicitedPongInterval = property(get_ActualUnsolicitedPongInterval, None)
-    ReceiveMode = property(get_ReceiveMode, put_ReceiveMode)
     ClientCertificate = property(get_ClientCertificate, put_ClientCertificate)
+    DesiredUnsolicitedPongInterval = property(get_DesiredUnsolicitedPongInterval, put_DesiredUnsolicitedPongInterval)
+    ReceiveMode = property(get_ReceiveMode, put_ReceiveMode)
 class IMessageWebSocketMessageReceivedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.Sockets.IMessageWebSocketMessageReceivedEventArgs'
@@ -533,8 +533,8 @@ class IServerMessageWebSocketInformation(ComPtr):
     @winrt_commethod(8)
     def get_LocalAddress(self) -> win32more.Windows.Networking.HostName: ...
     BandwidthStatistics = property(get_BandwidthStatistics, None)
-    Protocol = property(get_Protocol, None)
     LocalAddress = property(get_LocalAddress, None)
+    Protocol = property(get_Protocol, None)
 class IServerStreamWebSocket(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.Sockets.IServerStreamWebSocket'
@@ -565,8 +565,8 @@ class IServerStreamWebSocketInformation(ComPtr):
     @winrt_commethod(8)
     def get_LocalAddress(self) -> win32more.Windows.Networking.HostName: ...
     BandwidthStatistics = property(get_BandwidthStatistics, None)
-    Protocol = property(get_Protocol, None)
     LocalAddress = property(get_LocalAddress, None)
+    Protocol = property(get_Protocol, None)
 class ISocketActivityContext(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.Sockets.ISocketActivityContext'
@@ -598,13 +598,13 @@ class ISocketActivityInformation(ComPtr):
     def get_StreamSocket(self) -> win32more.Windows.Networking.Sockets.StreamSocket: ...
     @winrt_commethod(12)
     def get_StreamSocketListener(self) -> win32more.Windows.Networking.Sockets.StreamSocketListener: ...
-    TaskId = property(get_TaskId, None)
-    Id = property(get_Id, None)
-    SocketKind = property(get_SocketKind, None)
     Context = property(get_Context, None)
     DatagramSocket = property(get_DatagramSocket, None)
+    Id = property(get_Id, None)
+    SocketKind = property(get_SocketKind, None)
     StreamSocket = property(get_StreamSocket, None)
     StreamSocketListener = property(get_StreamSocketListener, None)
+    TaskId = property(get_TaskId, None)
 class ISocketActivityInformationStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.Sockets.ISocketActivityInformationStatics'
@@ -700,11 +700,11 @@ class IStreamSocketControl(ComPtr):
     def get_OutboundUnicastHopLimit(self) -> Byte: ...
     @winrt_commethod(15)
     def put_OutboundUnicastHopLimit(self, value: Byte) -> Void: ...
-    NoDelay = property(get_NoDelay, put_NoDelay)
     KeepAlive = property(get_KeepAlive, put_KeepAlive)
+    NoDelay = property(get_NoDelay, put_NoDelay)
     OutboundBufferSizeInBytes = property(get_OutboundBufferSizeInBytes, put_OutboundBufferSizeInBytes)
-    QualityOfService = property(get_QualityOfService, put_QualityOfService)
     OutboundUnicastHopLimit = property(get_OutboundUnicastHopLimit, put_OutboundUnicastHopLimit)
+    QualityOfService = property(get_QualityOfService, put_QualityOfService)
 class IStreamSocketControl2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.Sockets.IStreamSocketControl2'
@@ -724,8 +724,8 @@ class IStreamSocketControl3(ComPtr):
     def get_ClientCertificate(self) -> win32more.Windows.Security.Cryptography.Certificates.Certificate: ...
     @winrt_commethod(9)
     def put_ClientCertificate(self, value: win32more.Windows.Security.Cryptography.Certificates.Certificate) -> Void: ...
-    SerializeConnectionAttempts = property(get_SerializeConnectionAttempts, put_SerializeConnectionAttempts)
     ClientCertificate = property(get_ClientCertificate, put_ClientCertificate)
+    SerializeConnectionAttempts = property(get_SerializeConnectionAttempts, put_SerializeConnectionAttempts)
 class IStreamSocketControl4(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.Sockets.IStreamSocketControl4'
@@ -759,15 +759,15 @@ class IStreamSocketInformation(ComPtr):
     def get_ProtectionLevel(self) -> win32more.Windows.Networking.Sockets.SocketProtectionLevel: ...
     @winrt_commethod(15)
     def get_SessionKey(self) -> win32more.Windows.Storage.Streams.IBuffer: ...
+    BandwidthStatistics = property(get_BandwidthStatistics, None)
     LocalAddress = property(get_LocalAddress, None)
     LocalPort = property(get_LocalPort, None)
-    RemoteHostName = property(get_RemoteHostName, None)
-    RemoteAddress = property(get_RemoteAddress, None)
-    RemoteServiceName = property(get_RemoteServiceName, None)
-    RemotePort = property(get_RemotePort, None)
-    RoundTripTimeStatistics = property(get_RoundTripTimeStatistics, None)
-    BandwidthStatistics = property(get_BandwidthStatistics, None)
     ProtectionLevel = property(get_ProtectionLevel, None)
+    RemoteAddress = property(get_RemoteAddress, None)
+    RemoteHostName = property(get_RemoteHostName, None)
+    RemotePort = property(get_RemotePort, None)
+    RemoteServiceName = property(get_RemoteServiceName, None)
+    RoundTripTimeStatistics = property(get_RoundTripTimeStatistics, None)
     SessionKey = property(get_SessionKey, None)
 class IStreamSocketInformation2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -781,9 +781,9 @@ class IStreamSocketInformation2(ComPtr):
     def get_ServerCertificate(self) -> win32more.Windows.Security.Cryptography.Certificates.Certificate: ...
     @winrt_commethod(9)
     def get_ServerIntermediateCertificates(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Security.Cryptography.Certificates.Certificate]: ...
+    ServerCertificate = property(get_ServerCertificate, None)
     ServerCertificateErrorSeverity = property(get_ServerCertificateErrorSeverity, None)
     ServerCertificateErrors = property(get_ServerCertificateErrors, None)
-    ServerCertificate = property(get_ServerCertificate, None)
     ServerIntermediateCertificates = property(get_ServerIntermediateCertificates, None)
 class IStreamSocketListener(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -861,8 +861,8 @@ class IStreamSocketListenerControl2(ComPtr):
     def get_OutboundUnicastHopLimit(self) -> Byte: ...
     @winrt_commethod(13)
     def put_OutboundUnicastHopLimit(self, value: Byte) -> Void: ...
-    NoDelay = property(get_NoDelay, put_NoDelay)
     KeepAlive = property(get_KeepAlive, put_KeepAlive)
+    NoDelay = property(get_NoDelay, put_NoDelay)
     OutboundBufferSizeInBytes = property(get_OutboundBufferSizeInBytes, put_OutboundBufferSizeInBytes)
     OutboundUnicastHopLimit = property(get_OutboundUnicastHopLimit, put_OutboundUnicastHopLimit)
 class IStreamSocketListenerInformation(ComPtr):
@@ -924,9 +924,9 @@ class IStreamWebSocketControl2(ComPtr):
     def get_ClientCertificate(self) -> win32more.Windows.Security.Cryptography.Certificates.Certificate: ...
     @winrt_commethod(10)
     def put_ClientCertificate(self, value: win32more.Windows.Security.Cryptography.Certificates.Certificate) -> Void: ...
-    DesiredUnsolicitedPongInterval = property(get_DesiredUnsolicitedPongInterval, put_DesiredUnsolicitedPongInterval)
     ActualUnsolicitedPongInterval = property(get_ActualUnsolicitedPongInterval, None)
     ClientCertificate = property(get_ClientCertificate, put_ClientCertificate)
+    DesiredUnsolicitedPongInterval = property(get_DesiredUnsolicitedPongInterval, put_DesiredUnsolicitedPongInterval)
 class IWebSocket(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.Sockets.IWebSocket'
@@ -973,8 +973,8 @@ class IWebSocketControl(ComPtr):
     @winrt_commethod(12)
     def get_SupportedProtocols(self) -> win32more.Windows.Foundation.Collections.IVector[WinRT_String]: ...
     OutboundBufferSizeInBytes = property(get_OutboundBufferSizeInBytes, put_OutboundBufferSizeInBytes)
-    ServerCredential = property(get_ServerCredential, put_ServerCredential)
     ProxyCredential = property(get_ProxyCredential, put_ProxyCredential)
+    ServerCredential = property(get_ServerCredential, put_ServerCredential)
     SupportedProtocols = property(get_SupportedProtocols, None)
 class IWebSocketControl2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -999,8 +999,8 @@ class IWebSocketInformation(ComPtr):
     def get_BandwidthStatistics(self) -> win32more.Windows.Networking.Sockets.BandwidthStatistics: ...
     @winrt_commethod(8)
     def get_Protocol(self) -> WinRT_String: ...
-    LocalAddress = property(get_LocalAddress, None)
     BandwidthStatistics = property(get_BandwidthStatistics, None)
+    LocalAddress = property(get_LocalAddress, None)
     Protocol = property(get_Protocol, None)
 class IWebSocketInformation2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -1126,17 +1126,17 @@ class MessageWebSocketControl(ComPtr):
     def get_ClientCertificate(self: win32more.Windows.Networking.Sockets.IMessageWebSocketControl2) -> win32more.Windows.Security.Cryptography.Certificates.Certificate: ...
     @winrt_mixinmethod
     def put_ClientCertificate(self: win32more.Windows.Networking.Sockets.IMessageWebSocketControl2, value: win32more.Windows.Security.Cryptography.Certificates.Certificate) -> Void: ...
+    ActualUnsolicitedPongInterval = property(get_ActualUnsolicitedPongInterval, None)
+    ClientCertificate = property(get_ClientCertificate, put_ClientCertificate)
+    DesiredUnsolicitedPongInterval = property(get_DesiredUnsolicitedPongInterval, put_DesiredUnsolicitedPongInterval)
+    IgnorableServerCertificateErrors = property(get_IgnorableServerCertificateErrors, None)
     MaxMessageSize = property(get_MaxMessageSize, put_MaxMessageSize)
     MessageType = property(get_MessageType, put_MessageType)
     OutboundBufferSizeInBytes = property(get_OutboundBufferSizeInBytes, put_OutboundBufferSizeInBytes)
-    ServerCredential = property(get_ServerCredential, put_ServerCredential)
     ProxyCredential = property(get_ProxyCredential, put_ProxyCredential)
-    SupportedProtocols = property(get_SupportedProtocols, None)
-    IgnorableServerCertificateErrors = property(get_IgnorableServerCertificateErrors, None)
-    DesiredUnsolicitedPongInterval = property(get_DesiredUnsolicitedPongInterval, put_DesiredUnsolicitedPongInterval)
-    ActualUnsolicitedPongInterval = property(get_ActualUnsolicitedPongInterval, None)
     ReceiveMode = property(get_ReceiveMode, put_ReceiveMode)
-    ClientCertificate = property(get_ClientCertificate, put_ClientCertificate)
+    ServerCredential = property(get_ServerCredential, put_ServerCredential)
+    SupportedProtocols = property(get_SupportedProtocols, None)
 class MessageWebSocketInformation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Sockets.IWebSocketInformation
@@ -1155,8 +1155,8 @@ class MessageWebSocketInformation(ComPtr):
     def get_ServerCertificateErrors(self: win32more.Windows.Networking.Sockets.IWebSocketInformation2) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Security.Cryptography.Certificates.ChainValidationResult]: ...
     @winrt_mixinmethod
     def get_ServerIntermediateCertificates(self: win32more.Windows.Networking.Sockets.IWebSocketInformation2) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Security.Cryptography.Certificates.Certificate]: ...
-    LocalAddress = property(get_LocalAddress, None)
     BandwidthStatistics = property(get_BandwidthStatistics, None)
+    LocalAddress = property(get_LocalAddress, None)
     Protocol = property(get_Protocol, None)
     ServerCertificate = property(get_ServerCertificate, None)
     ServerCertificateErrorSeverity = property(get_ServerCertificateErrorSeverity, None)
@@ -1174,8 +1174,8 @@ class MessageWebSocketMessageReceivedEventArgs(ComPtr):
     def GetDataStream(self: win32more.Windows.Networking.Sockets.IMessageWebSocketMessageReceivedEventArgs) -> win32more.Windows.Storage.Streams.IInputStream: ...
     @winrt_mixinmethod
     def get_IsMessageComplete(self: win32more.Windows.Networking.Sockets.IMessageWebSocketMessageReceivedEventArgs2) -> Boolean: ...
-    MessageType = property(get_MessageType, None)
     IsMessageComplete = property(get_IsMessageComplete, None)
+    MessageType = property(get_MessageType, None)
 class MessageWebSocketReceiveMode(Int32):  # enum
     FullMessage = 0
     PartialMessage = 1
@@ -1229,8 +1229,8 @@ class ServerMessageWebSocketInformation(ComPtr):
     @winrt_mixinmethod
     def get_LocalAddress(self: win32more.Windows.Networking.Sockets.IServerMessageWebSocketInformation) -> win32more.Windows.Networking.HostName: ...
     BandwidthStatistics = property(get_BandwidthStatistics, None)
-    Protocol = property(get_Protocol, None)
     LocalAddress = property(get_LocalAddress, None)
+    Protocol = property(get_Protocol, None)
 class ServerStreamWebSocket(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Sockets.IServerStreamWebSocket
@@ -1263,8 +1263,8 @@ class ServerStreamWebSocketInformation(ComPtr):
     @winrt_mixinmethod
     def get_LocalAddress(self: win32more.Windows.Networking.Sockets.IServerStreamWebSocketInformation) -> win32more.Windows.Networking.HostName: ...
     BandwidthStatistics = property(get_BandwidthStatistics, None)
-    Protocol = property(get_Protocol, None)
     LocalAddress = property(get_LocalAddress, None)
+    Protocol = property(get_Protocol, None)
 class SocketActivityConnectedStandbyAction(Int32):  # enum
     DoNotWake = 0
     Wake = 1
@@ -1306,13 +1306,13 @@ class SocketActivityInformation(ComPtr, metaclass=_SocketActivityInformation_Met
     def get_StreamSocketListener(self: win32more.Windows.Networking.Sockets.ISocketActivityInformation) -> win32more.Windows.Networking.Sockets.StreamSocketListener: ...
     @winrt_classmethod
     def get_AllSockets(cls: win32more.Windows.Networking.Sockets.ISocketActivityInformationStatics) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Networking.Sockets.SocketActivityInformation]: ...
-    TaskId = property(get_TaskId, None)
-    Id = property(get_Id, None)
-    SocketKind = property(get_SocketKind, None)
     Context = property(get_Context, None)
     DatagramSocket = property(get_DatagramSocket, None)
+    Id = property(get_Id, None)
+    SocketKind = property(get_SocketKind, None)
     StreamSocket = property(get_StreamSocket, None)
     StreamSocketListener = property(get_StreamSocketListener, None)
+    TaskId = property(get_TaskId, None)
     _SocketActivityInformation_Meta_.AllSockets = property(get_AllSockets.__wrapped__, None)
 class SocketActivityKind(Int32):  # enum
     None_ = 0
@@ -1486,15 +1486,15 @@ class StreamSocketControl(ComPtr):
     def get_MinProtectionLevel(self: win32more.Windows.Networking.Sockets.IStreamSocketControl4) -> win32more.Windows.Networking.Sockets.SocketProtectionLevel: ...
     @winrt_mixinmethod
     def put_MinProtectionLevel(self: win32more.Windows.Networking.Sockets.IStreamSocketControl4, value: win32more.Windows.Networking.Sockets.SocketProtectionLevel) -> Void: ...
-    NoDelay = property(get_NoDelay, put_NoDelay)
-    KeepAlive = property(get_KeepAlive, put_KeepAlive)
-    OutboundBufferSizeInBytes = property(get_OutboundBufferSizeInBytes, put_OutboundBufferSizeInBytes)
-    QualityOfService = property(get_QualityOfService, put_QualityOfService)
-    OutboundUnicastHopLimit = property(get_OutboundUnicastHopLimit, put_OutboundUnicastHopLimit)
-    IgnorableServerCertificateErrors = property(get_IgnorableServerCertificateErrors, None)
-    SerializeConnectionAttempts = property(get_SerializeConnectionAttempts, put_SerializeConnectionAttempts)
     ClientCertificate = property(get_ClientCertificate, put_ClientCertificate)
+    IgnorableServerCertificateErrors = property(get_IgnorableServerCertificateErrors, None)
+    KeepAlive = property(get_KeepAlive, put_KeepAlive)
     MinProtectionLevel = property(get_MinProtectionLevel, put_MinProtectionLevel)
+    NoDelay = property(get_NoDelay, put_NoDelay)
+    OutboundBufferSizeInBytes = property(get_OutboundBufferSizeInBytes, put_OutboundBufferSizeInBytes)
+    OutboundUnicastHopLimit = property(get_OutboundUnicastHopLimit, put_OutboundUnicastHopLimit)
+    QualityOfService = property(get_QualityOfService, put_QualityOfService)
+    SerializeConnectionAttempts = property(get_SerializeConnectionAttempts, put_SerializeConnectionAttempts)
 class StreamSocketInformation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Sockets.IStreamSocketInformation
@@ -1527,20 +1527,20 @@ class StreamSocketInformation(ComPtr):
     def get_ServerCertificate(self: win32more.Windows.Networking.Sockets.IStreamSocketInformation2) -> win32more.Windows.Security.Cryptography.Certificates.Certificate: ...
     @winrt_mixinmethod
     def get_ServerIntermediateCertificates(self: win32more.Windows.Networking.Sockets.IStreamSocketInformation2) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Security.Cryptography.Certificates.Certificate]: ...
+    BandwidthStatistics = property(get_BandwidthStatistics, None)
     LocalAddress = property(get_LocalAddress, None)
     LocalPort = property(get_LocalPort, None)
-    RemoteHostName = property(get_RemoteHostName, None)
-    RemoteAddress = property(get_RemoteAddress, None)
-    RemoteServiceName = property(get_RemoteServiceName, None)
-    RemotePort = property(get_RemotePort, None)
-    RoundTripTimeStatistics = property(get_RoundTripTimeStatistics, None)
-    BandwidthStatistics = property(get_BandwidthStatistics, None)
     ProtectionLevel = property(get_ProtectionLevel, None)
-    SessionKey = property(get_SessionKey, None)
+    RemoteAddress = property(get_RemoteAddress, None)
+    RemoteHostName = property(get_RemoteHostName, None)
+    RemotePort = property(get_RemotePort, None)
+    RemoteServiceName = property(get_RemoteServiceName, None)
+    RoundTripTimeStatistics = property(get_RoundTripTimeStatistics, None)
+    ServerCertificate = property(get_ServerCertificate, None)
     ServerCertificateErrorSeverity = property(get_ServerCertificateErrorSeverity, None)
     ServerCertificateErrors = property(get_ServerCertificateErrors, None)
-    ServerCertificate = property(get_ServerCertificate, None)
     ServerIntermediateCertificates = property(get_ServerIntermediateCertificates, None)
+    SessionKey = property(get_SessionKey, None)
 class StreamSocketListener(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Sockets.IStreamSocketListener
@@ -1615,11 +1615,11 @@ class StreamSocketListenerControl(ComPtr):
     def get_OutboundUnicastHopLimit(self: win32more.Windows.Networking.Sockets.IStreamSocketListenerControl2) -> Byte: ...
     @winrt_mixinmethod
     def put_OutboundUnicastHopLimit(self: win32more.Windows.Networking.Sockets.IStreamSocketListenerControl2, value: Byte) -> Void: ...
-    QualityOfService = property(get_QualityOfService, put_QualityOfService)
-    NoDelay = property(get_NoDelay, put_NoDelay)
     KeepAlive = property(get_KeepAlive, put_KeepAlive)
+    NoDelay = property(get_NoDelay, put_NoDelay)
     OutboundBufferSizeInBytes = property(get_OutboundBufferSizeInBytes, put_OutboundBufferSizeInBytes)
     OutboundUnicastHopLimit = property(get_OutboundUnicastHopLimit, put_OutboundUnicastHopLimit)
+    QualityOfService = property(get_QualityOfService, put_QualityOfService)
 class StreamSocketListenerInformation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Sockets.IStreamSocketListenerInformation
@@ -1702,15 +1702,15 @@ class StreamWebSocketControl(ComPtr):
     def get_ClientCertificate(self: win32more.Windows.Networking.Sockets.IStreamWebSocketControl2) -> win32more.Windows.Security.Cryptography.Certificates.Certificate: ...
     @winrt_mixinmethod
     def put_ClientCertificate(self: win32more.Windows.Networking.Sockets.IStreamWebSocketControl2, value: win32more.Windows.Security.Cryptography.Certificates.Certificate) -> Void: ...
-    NoDelay = property(get_NoDelay, put_NoDelay)
-    OutboundBufferSizeInBytes = property(get_OutboundBufferSizeInBytes, put_OutboundBufferSizeInBytes)
-    ServerCredential = property(get_ServerCredential, put_ServerCredential)
-    ProxyCredential = property(get_ProxyCredential, put_ProxyCredential)
-    SupportedProtocols = property(get_SupportedProtocols, None)
-    IgnorableServerCertificateErrors = property(get_IgnorableServerCertificateErrors, None)
-    DesiredUnsolicitedPongInterval = property(get_DesiredUnsolicitedPongInterval, put_DesiredUnsolicitedPongInterval)
     ActualUnsolicitedPongInterval = property(get_ActualUnsolicitedPongInterval, None)
     ClientCertificate = property(get_ClientCertificate, put_ClientCertificate)
+    DesiredUnsolicitedPongInterval = property(get_DesiredUnsolicitedPongInterval, put_DesiredUnsolicitedPongInterval)
+    IgnorableServerCertificateErrors = property(get_IgnorableServerCertificateErrors, None)
+    NoDelay = property(get_NoDelay, put_NoDelay)
+    OutboundBufferSizeInBytes = property(get_OutboundBufferSizeInBytes, put_OutboundBufferSizeInBytes)
+    ProxyCredential = property(get_ProxyCredential, put_ProxyCredential)
+    ServerCredential = property(get_ServerCredential, put_ServerCredential)
+    SupportedProtocols = property(get_SupportedProtocols, None)
 class StreamWebSocketInformation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Sockets.IWebSocketInformation
@@ -1729,8 +1729,8 @@ class StreamWebSocketInformation(ComPtr):
     def get_ServerCertificateErrors(self: win32more.Windows.Networking.Sockets.IWebSocketInformation2) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Security.Cryptography.Certificates.ChainValidationResult]: ...
     @winrt_mixinmethod
     def get_ServerIntermediateCertificates(self: win32more.Windows.Networking.Sockets.IWebSocketInformation2) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Security.Cryptography.Certificates.Certificate]: ...
-    LocalAddress = property(get_LocalAddress, None)
     BandwidthStatistics = property(get_BandwidthStatistics, None)
+    LocalAddress = property(get_LocalAddress, None)
     Protocol = property(get_Protocol, None)
     ServerCertificate = property(get_ServerCertificate, None)
     ServerCertificateErrorSeverity = property(get_ServerCertificateErrorSeverity, None)

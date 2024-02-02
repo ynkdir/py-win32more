@@ -19,11 +19,11 @@ class EnterpriseKeyCredentialRegistrationInfo(ComPtr):
     def get_KeyId(self: win32more.Windows.Security.Authentication.Identity.IEnterpriseKeyCredentialRegistrationInfo) -> WinRT_String: ...
     @winrt_mixinmethod
     def get_KeyName(self: win32more.Windows.Security.Authentication.Identity.IEnterpriseKeyCredentialRegistrationInfo) -> WinRT_String: ...
-    TenantId = property(get_TenantId, None)
-    TenantName = property(get_TenantName, None)
-    Subject = property(get_Subject, None)
     KeyId = property(get_KeyId, None)
     KeyName = property(get_KeyName, None)
+    Subject = property(get_Subject, None)
+    TenantId = property(get_TenantId, None)
+    TenantName = property(get_TenantName, None)
 class _EnterpriseKeyCredentialRegistrationManager_Meta_(ComPtr.__class__):
     pass
 class EnterpriseKeyCredentialRegistrationManager(ComPtr, metaclass=_EnterpriseKeyCredentialRegistrationManager_Meta_):
@@ -49,11 +49,11 @@ class IEnterpriseKeyCredentialRegistrationInfo(ComPtr):
     def get_KeyId(self) -> WinRT_String: ...
     @winrt_commethod(10)
     def get_KeyName(self) -> WinRT_String: ...
-    TenantId = property(get_TenantId, None)
-    TenantName = property(get_TenantName, None)
-    Subject = property(get_Subject, None)
     KeyId = property(get_KeyId, None)
     KeyName = property(get_KeyName, None)
+    Subject = property(get_Subject, None)
+    TenantId = property(get_TenantId, None)
+    TenantName = property(get_TenantName, None)
 class IEnterpriseKeyCredentialRegistrationManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.Authentication.Identity.IEnterpriseKeyCredentialRegistrationManager'

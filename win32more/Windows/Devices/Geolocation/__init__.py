@@ -29,10 +29,10 @@ class CivicAddress(ComPtr):
     def get_PostalCode(self: win32more.Windows.Devices.Geolocation.ICivicAddress) -> WinRT_String: ...
     @winrt_mixinmethod
     def get_Timestamp(self: win32more.Windows.Devices.Geolocation.ICivicAddress) -> win32more.Windows.Foundation.DateTime: ...
-    Country = property(get_Country, None)
-    State = property(get_State, None)
     City = property(get_City, None)
+    Country = property(get_Country, None)
     PostalCode = property(get_PostalCode, None)
+    State = property(get_State, None)
     Timestamp = property(get_Timestamp, None)
 class GeoboundingBox(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -77,14 +77,14 @@ class GeoboundingBox(ComPtr):
     def TryComputeWithAltitudeReference(cls: win32more.Windows.Devices.Geolocation.IGeoboundingBoxStatics, positions: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Devices.Geolocation.BasicGeoposition], altitudeRefSystem: win32more.Windows.Devices.Geolocation.AltitudeReferenceSystem) -> win32more.Windows.Devices.Geolocation.GeoboundingBox: ...
     @winrt_classmethod
     def TryComputeWithAltitudeReferenceAndSpatialReference(cls: win32more.Windows.Devices.Geolocation.IGeoboundingBoxStatics, positions: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Devices.Geolocation.BasicGeoposition], altitudeRefSystem: win32more.Windows.Devices.Geolocation.AltitudeReferenceSystem, spatialReferenceId: UInt32) -> win32more.Windows.Devices.Geolocation.GeoboundingBox: ...
+    AltitudeReferenceSystem = property(get_AltitudeReferenceSystem, None)
+    Center = property(get_Center, None)
+    GeoshapeType = property(get_GeoshapeType, None)
+    MaxAltitude = property(get_MaxAltitude, None)
+    MinAltitude = property(get_MinAltitude, None)
     NorthwestCorner = property(get_NorthwestCorner, None)
     SoutheastCorner = property(get_SoutheastCorner, None)
-    Center = property(get_Center, None)
-    MinAltitude = property(get_MinAltitude, None)
-    MaxAltitude = property(get_MaxAltitude, None)
-    GeoshapeType = property(get_GeoshapeType, None)
     SpatialReferenceId = property(get_SpatialReferenceId, None)
-    AltitudeReferenceSystem = property(get_AltitudeReferenceSystem, None)
 class Geocircle(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Geolocation.IGeocircle
@@ -116,11 +116,11 @@ class Geocircle(ComPtr):
     def get_SpatialReferenceId(self: win32more.Windows.Devices.Geolocation.IGeoshape) -> UInt32: ...
     @winrt_mixinmethod
     def get_AltitudeReferenceSystem(self: win32more.Windows.Devices.Geolocation.IGeoshape) -> win32more.Windows.Devices.Geolocation.AltitudeReferenceSystem: ...
-    Center = property(get_Center, None)
-    Radius = property(get_Radius, None)
-    GeoshapeType = property(get_GeoshapeType, None)
-    SpatialReferenceId = property(get_SpatialReferenceId, None)
     AltitudeReferenceSystem = property(get_AltitudeReferenceSystem, None)
+    Center = property(get_Center, None)
+    GeoshapeType = property(get_GeoshapeType, None)
+    Radius = property(get_Radius, None)
+    SpatialReferenceId = property(get_SpatialReferenceId, None)
 class Geocoordinate(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Geolocation.IGeocoordinate
@@ -151,19 +151,19 @@ class Geocoordinate(ComPtr):
     def get_PositionSourceTimestamp(self: win32more.Windows.Devices.Geolocation.IGeocoordinateWithPositionSourceTimestamp) -> win32more.Windows.Foundation.IReference[win32more.Windows.Foundation.DateTime]: ...
     @winrt_mixinmethod
     def get_IsRemoteSource(self: win32more.Windows.Devices.Geolocation.IGeocoordinateWithRemoteSource) -> Boolean: ...
-    Latitude = property(get_Latitude, None)
-    Longitude = property(get_Longitude, None)
-    Altitude = property(get_Altitude, None)
     Accuracy = property(get_Accuracy, None)
+    Altitude = property(get_Altitude, None)
     AltitudeAccuracy = property(get_AltitudeAccuracy, None)
     Heading = property(get_Heading, None)
+    IsRemoteSource = property(get_IsRemoteSource, None)
+    Latitude = property(get_Latitude, None)
+    Longitude = property(get_Longitude, None)
+    Point = property(get_Point, None)
+    PositionSource = property(get_PositionSource, None)
+    PositionSourceTimestamp = property(get_PositionSourceTimestamp, None)
+    SatelliteData = property(get_SatelliteData, None)
     Speed = property(get_Speed, None)
     Timestamp = property(get_Timestamp, None)
-    PositionSource = property(get_PositionSource, None)
-    SatelliteData = property(get_SatelliteData, None)
-    Point = property(get_Point, None)
-    PositionSourceTimestamp = property(get_PositionSourceTimestamp, None)
-    IsRemoteSource = property(get_IsRemoteSource, None)
 class GeocoordinateSatelliteData(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Geolocation.IGeocoordinateSatelliteData
@@ -178,11 +178,11 @@ class GeocoordinateSatelliteData(ComPtr):
     def get_GeometricDilutionOfPrecision(self: win32more.Windows.Devices.Geolocation.IGeocoordinateSatelliteData2) -> win32more.Windows.Foundation.IReference[Double]: ...
     @winrt_mixinmethod
     def get_TimeDilutionOfPrecision(self: win32more.Windows.Devices.Geolocation.IGeocoordinateSatelliteData2) -> win32more.Windows.Foundation.IReference[Double]: ...
-    PositionDilutionOfPrecision = property(get_PositionDilutionOfPrecision, None)
-    HorizontalDilutionOfPrecision = property(get_HorizontalDilutionOfPrecision, None)
-    VerticalDilutionOfPrecision = property(get_VerticalDilutionOfPrecision, None)
     GeometricDilutionOfPrecision = property(get_GeometricDilutionOfPrecision, None)
+    HorizontalDilutionOfPrecision = property(get_HorizontalDilutionOfPrecision, None)
+    PositionDilutionOfPrecision = property(get_PositionDilutionOfPrecision, None)
     TimeDilutionOfPrecision = property(get_TimeDilutionOfPrecision, None)
+    VerticalDilutionOfPrecision = property(get_VerticalDilutionOfPrecision, None)
 class GeolocationAccessStatus(Int32):  # enum
     Unspecified = 0
     Allowed = 1
@@ -247,12 +247,12 @@ class Geolocator(ComPtr, metaclass=_Geolocator_Meta_):
     @winrt_classmethod
     def GetGeopositionHistoryWithDurationAsync(cls: win32more.Windows.Devices.Geolocation.IGeolocatorStatics, startTime: win32more.Windows.Foundation.DateTime, duration: win32more.Windows.Foundation.TimeSpan) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Devices.Geolocation.Geoposition]]: ...
     DesiredAccuracy = property(get_DesiredAccuracy, put_DesiredAccuracy)
+    DesiredAccuracyInMeters = property(get_DesiredAccuracyInMeters, put_DesiredAccuracyInMeters)
+    LocationStatus = property(get_LocationStatus, None)
     MovementThreshold = property(get_MovementThreshold, put_MovementThreshold)
     ReportInterval = property(get_ReportInterval, put_ReportInterval)
-    LocationStatus = property(get_LocationStatus, None)
-    DesiredAccuracyInMeters = property(get_DesiredAccuracyInMeters, put_DesiredAccuracyInMeters)
-    _Geolocator_Meta_.IsDefaultGeopositionRecommended = property(get_IsDefaultGeopositionRecommended.__wrapped__, None)
     _Geolocator_Meta_.DefaultGeoposition = property(get_DefaultGeoposition.__wrapped__, put_DefaultGeoposition.__wrapped__)
+    _Geolocator_Meta_.IsDefaultGeopositionRecommended = property(get_IsDefaultGeopositionRecommended.__wrapped__, None)
 class Geopath(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Geolocation.IGeopath
@@ -282,10 +282,10 @@ class Geopath(ComPtr):
     def get_SpatialReferenceId(self: win32more.Windows.Devices.Geolocation.IGeoshape) -> UInt32: ...
     @winrt_mixinmethod
     def get_AltitudeReferenceSystem(self: win32more.Windows.Devices.Geolocation.IGeoshape) -> win32more.Windows.Devices.Geolocation.AltitudeReferenceSystem: ...
-    Positions = property(get_Positions, None)
-    GeoshapeType = property(get_GeoshapeType, None)
-    SpatialReferenceId = property(get_SpatialReferenceId, None)
     AltitudeReferenceSystem = property(get_AltitudeReferenceSystem, None)
+    GeoshapeType = property(get_GeoshapeType, None)
+    Positions = property(get_Positions, None)
+    SpatialReferenceId = property(get_SpatialReferenceId, None)
 class Geopoint(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Geolocation.IGeopoint
@@ -315,10 +315,10 @@ class Geopoint(ComPtr):
     def get_SpatialReferenceId(self: win32more.Windows.Devices.Geolocation.IGeoshape) -> UInt32: ...
     @winrt_mixinmethod
     def get_AltitudeReferenceSystem(self: win32more.Windows.Devices.Geolocation.IGeoshape) -> win32more.Windows.Devices.Geolocation.AltitudeReferenceSystem: ...
-    Position = property(get_Position, None)
-    GeoshapeType = property(get_GeoshapeType, None)
-    SpatialReferenceId = property(get_SpatialReferenceId, None)
     AltitudeReferenceSystem = property(get_AltitudeReferenceSystem, None)
+    GeoshapeType = property(get_GeoshapeType, None)
+    Position = property(get_Position, None)
+    SpatialReferenceId = property(get_SpatialReferenceId, None)
 class Geoposition(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Geolocation.IGeoposition
@@ -329,8 +329,8 @@ class Geoposition(ComPtr):
     def get_CivicAddress(self: win32more.Windows.Devices.Geolocation.IGeoposition) -> win32more.Windows.Devices.Geolocation.CivicAddress: ...
     @winrt_mixinmethod
     def get_VenueData(self: win32more.Windows.Devices.Geolocation.IGeoposition2) -> win32more.Windows.Devices.Geolocation.VenueData: ...
-    Coordinate = property(get_Coordinate, None)
     CivicAddress = property(get_CivicAddress, None)
+    Coordinate = property(get_Coordinate, None)
     VenueData = property(get_VenueData, None)
 class GeoshapeType(Int32):  # enum
     Geopoint = 0
@@ -403,10 +403,10 @@ class ICivicAddress(ComPtr):
     def get_PostalCode(self) -> WinRT_String: ...
     @winrt_commethod(10)
     def get_Timestamp(self) -> win32more.Windows.Foundation.DateTime: ...
-    Country = property(get_Country, None)
-    State = property(get_State, None)
     City = property(get_City, None)
+    Country = property(get_Country, None)
     PostalCode = property(get_PostalCode, None)
+    State = property(get_State, None)
     Timestamp = property(get_Timestamp, None)
 class IGeoboundingBox(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -422,11 +422,11 @@ class IGeoboundingBox(ComPtr):
     def get_MinAltitude(self) -> Double: ...
     @winrt_commethod(10)
     def get_MaxAltitude(self) -> Double: ...
+    Center = property(get_Center, None)
+    MaxAltitude = property(get_MaxAltitude, None)
+    MinAltitude = property(get_MinAltitude, None)
     NorthwestCorner = property(get_NorthwestCorner, None)
     SoutheastCorner = property(get_SoutheastCorner, None)
-    Center = property(get_Center, None)
-    MinAltitude = property(get_MinAltitude, None)
-    MaxAltitude = property(get_MaxAltitude, None)
 class IGeoboundingBoxFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Geolocation.IGeoboundingBoxFactory'
@@ -487,12 +487,12 @@ class IGeocoordinate(ComPtr):
     def get_Speed(self) -> win32more.Windows.Foundation.IReference[Double]: ...
     @winrt_commethod(13)
     def get_Timestamp(self) -> win32more.Windows.Foundation.DateTime: ...
-    Latitude = property(get_Latitude, None)
-    Longitude = property(get_Longitude, None)
-    Altitude = property(get_Altitude, None)
     Accuracy = property(get_Accuracy, None)
+    Altitude = property(get_Altitude, None)
     AltitudeAccuracy = property(get_AltitudeAccuracy, None)
     Heading = property(get_Heading, None)
+    Latitude = property(get_Latitude, None)
+    Longitude = property(get_Longitude, None)
     Speed = property(get_Speed, None)
     Timestamp = property(get_Timestamp, None)
 class IGeocoordinateSatelliteData(ComPtr):
@@ -505,8 +505,8 @@ class IGeocoordinateSatelliteData(ComPtr):
     def get_HorizontalDilutionOfPrecision(self) -> win32more.Windows.Foundation.IReference[Double]: ...
     @winrt_commethod(8)
     def get_VerticalDilutionOfPrecision(self) -> win32more.Windows.Foundation.IReference[Double]: ...
-    PositionDilutionOfPrecision = property(get_PositionDilutionOfPrecision, None)
     HorizontalDilutionOfPrecision = property(get_HorizontalDilutionOfPrecision, None)
+    PositionDilutionOfPrecision = property(get_PositionDilutionOfPrecision, None)
     VerticalDilutionOfPrecision = property(get_VerticalDilutionOfPrecision, None)
 class IGeocoordinateSatelliteData2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -580,9 +580,9 @@ class IGeolocator(ComPtr):
     @winrt_commethod(18)
     def remove_StatusChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     DesiredAccuracy = property(get_DesiredAccuracy, put_DesiredAccuracy)
+    LocationStatus = property(get_LocationStatus, None)
     MovementThreshold = property(get_MovementThreshold, put_MovementThreshold)
     ReportInterval = property(get_ReportInterval, put_ReportInterval)
-    LocationStatus = property(get_LocationStatus, None)
 class IGeolocator2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Geolocation.IGeolocator2'
@@ -609,8 +609,8 @@ class IGeolocatorStatics2(ComPtr):
     def put_DefaultGeoposition(self, value: win32more.Windows.Foundation.IReference[win32more.Windows.Devices.Geolocation.BasicGeoposition]) -> Void: ...
     @winrt_commethod(8)
     def get_DefaultGeoposition(self) -> win32more.Windows.Foundation.IReference[win32more.Windows.Devices.Geolocation.BasicGeoposition]: ...
-    IsDefaultGeopositionRecommended = property(get_IsDefaultGeopositionRecommended, None)
     DefaultGeoposition = property(get_DefaultGeoposition, put_DefaultGeoposition)
+    IsDefaultGeopositionRecommended = property(get_IsDefaultGeopositionRecommended, None)
 class IGeolocatorWithScalarAccuracy(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Geolocation.IGeolocatorWithScalarAccuracy'
@@ -662,8 +662,8 @@ class IGeoposition(ComPtr):
     def get_Coordinate(self) -> win32more.Windows.Devices.Geolocation.Geocoordinate: ...
     @winrt_commethod(7)
     def get_CivicAddress(self) -> win32more.Windows.Devices.Geolocation.CivicAddress: ...
-    Coordinate = property(get_Coordinate, None)
     CivicAddress = property(get_CivicAddress, None)
+    Coordinate = property(get_Coordinate, None)
 class IGeoposition2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Geolocation.IGeoposition2'
@@ -681,9 +681,9 @@ class IGeoshape(ComPtr):
     def get_SpatialReferenceId(self) -> UInt32: ...
     @winrt_commethod(8)
     def get_AltitudeReferenceSystem(self) -> win32more.Windows.Devices.Geolocation.AltitudeReferenceSystem: ...
+    AltitudeReferenceSystem = property(get_AltitudeReferenceSystem, None)
     GeoshapeType = property(get_GeoshapeType, None)
     SpatialReferenceId = property(get_SpatialReferenceId, None)
-    AltitudeReferenceSystem = property(get_AltitudeReferenceSystem, None)
 class IGeovisit(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Geolocation.IGeovisit'

@@ -53,8 +53,8 @@ class ErrorDetails(ComPtr):
     @winrt_classmethod
     def CreateFromHResultAsync(cls: win32more.Windows.Foundation.Diagnostics.IErrorDetailsStatics, errorCode: Int32) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Diagnostics.ErrorDetails]: ...
     Description = property(get_Description, None)
-    LongDescription = property(get_LongDescription, None)
     HelpUri = property(get_HelpUri, None)
+    LongDescription = property(get_LongDescription, None)
 class ErrorOptions(UInt32):  # enum
     None_ = 0
     SuppressExceptions = 1
@@ -120,8 +120,8 @@ class IErrorDetails(ComPtr):
     @winrt_commethod(8)
     def get_HelpUri(self) -> win32more.Windows.Foundation.Uri: ...
     Description = property(get_Description, None)
-    LongDescription = property(get_LongDescription, None)
     HelpUri = property(get_HelpUri, None)
+    LongDescription = property(get_LongDescription, None)
 class IErrorDetailsStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Foundation.Diagnostics.IErrorDetailsStatics'
@@ -176,8 +176,8 @@ class ILoggingActivity(ComPtr):
     def get_Name(self) -> WinRT_String: ...
     @winrt_commethod(7)
     def get_Id(self) -> Guid: ...
-    Name = property(get_Name, None)
     Id = property(get_Id, None)
+    Name = property(get_Name, None)
 class ILoggingActivity2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Foundation.Diagnostics.ILoggingActivity2'
@@ -221,9 +221,9 @@ class ILoggingChannel(ComPtr):
     def add_LoggingEnabled(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Foundation.Diagnostics.ILoggingChannel, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(14)
     def remove_LoggingEnabled(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    Name = property(get_Name, None)
     Enabled = property(get_Enabled, None)
     Level = property(get_Level, None)
+    Name = property(get_Name, None)
 class ILoggingChannel2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Foundation.Diagnostics.ILoggingChannel2'
@@ -522,12 +522,12 @@ class ILoggingOptions(ComPtr):
     def get_RelatedActivityId(self) -> Guid: ...
     @winrt_commethod(17)
     def put_RelatedActivityId(self, value: Guid) -> Void: ...
+    ActivityId = property(get_ActivityId, put_ActivityId)
     Keywords = property(get_Keywords, put_Keywords)
+    Opcode = property(get_Opcode, put_Opcode)
+    RelatedActivityId = property(get_RelatedActivityId, put_RelatedActivityId)
     Tags = property(get_Tags, put_Tags)
     Task = property(get_Task, put_Task)
-    Opcode = property(get_Opcode, put_Opcode)
-    ActivityId = property(get_ActivityId, put_ActivityId)
-    RelatedActivityId = property(get_RelatedActivityId, put_RelatedActivityId)
 class ILoggingOptionsFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Foundation.Diagnostics.ILoggingOptionsFactory'
@@ -651,9 +651,9 @@ class LoggingActivity(ComPtr):
     def StartActivityWithFieldsAndLevel(self: win32more.Windows.Foundation.Diagnostics.ILoggingTarget, startEventName: WinRT_String, fields: win32more.Windows.Foundation.Diagnostics.LoggingFields, level: win32more.Windows.Foundation.Diagnostics.LoggingLevel) -> win32more.Windows.Foundation.Diagnostics.LoggingActivity: ...
     @winrt_mixinmethod
     def StartActivityWithFieldsAndOptions(self: win32more.Windows.Foundation.Diagnostics.ILoggingTarget, startEventName: WinRT_String, fields: win32more.Windows.Foundation.Diagnostics.LoggingFields, level: win32more.Windows.Foundation.Diagnostics.LoggingLevel, options: win32more.Windows.Foundation.Diagnostics.LoggingOptions) -> win32more.Windows.Foundation.Diagnostics.LoggingActivity: ...
-    Name = property(get_Name, None)
-    Id = property(get_Id, None)
     Channel = property(get_Channel, None)
+    Id = property(get_Id, None)
+    Name = property(get_Name, None)
 class LoggingChannel(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.Diagnostics.ILoggingChannel
@@ -719,10 +719,10 @@ class LoggingChannel(ComPtr):
     def StartActivityWithFieldsAndLevel(self: win32more.Windows.Foundation.Diagnostics.ILoggingTarget, startEventName: WinRT_String, fields: win32more.Windows.Foundation.Diagnostics.LoggingFields, level: win32more.Windows.Foundation.Diagnostics.LoggingLevel) -> win32more.Windows.Foundation.Diagnostics.LoggingActivity: ...
     @winrt_mixinmethod
     def StartActivityWithFieldsAndOptions(self: win32more.Windows.Foundation.Diagnostics.ILoggingTarget, startEventName: WinRT_String, fields: win32more.Windows.Foundation.Diagnostics.LoggingFields, level: win32more.Windows.Foundation.Diagnostics.LoggingLevel, options: win32more.Windows.Foundation.Diagnostics.LoggingOptions) -> win32more.Windows.Foundation.Diagnostics.LoggingActivity: ...
-    Name = property(get_Name, None)
     Enabled = property(get_Enabled, None)
-    Level = property(get_Level, None)
     Id = property(get_Id, None)
+    Level = property(get_Level, None)
+    Name = property(get_Name, None)
 class LoggingChannelOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.Diagnostics.ILoggingChannelOptions
@@ -1063,12 +1063,12 @@ class LoggingOptions(ComPtr):
     def get_RelatedActivityId(self: win32more.Windows.Foundation.Diagnostics.ILoggingOptions) -> Guid: ...
     @winrt_mixinmethod
     def put_RelatedActivityId(self: win32more.Windows.Foundation.Diagnostics.ILoggingOptions, value: Guid) -> Void: ...
+    ActivityId = property(get_ActivityId, put_ActivityId)
     Keywords = property(get_Keywords, put_Keywords)
+    Opcode = property(get_Opcode, put_Opcode)
+    RelatedActivityId = property(get_RelatedActivityId, put_RelatedActivityId)
     Tags = property(get_Tags, put_Tags)
     Task = property(get_Task, put_Task)
-    Opcode = property(get_Opcode, put_Opcode)
-    ActivityId = property(get_ActivityId, put_ActivityId)
-    RelatedActivityId = property(get_RelatedActivityId, put_RelatedActivityId)
 class LoggingSession(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.Diagnostics.ILoggingSession

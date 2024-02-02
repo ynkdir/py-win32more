@@ -16,8 +16,8 @@ class ISpatialGraphInteropFrameOfReferencePreview(ComPtr):
     @winrt_commethod(8)
     def get_CoordinateSystemToNodeTransform(self) -> win32more.Windows.Foundation.Numerics.Matrix4x4: ...
     CoordinateSystem = property(get_CoordinateSystem, None)
-    NodeId = property(get_NodeId, None)
     CoordinateSystemToNodeTransform = property(get_CoordinateSystemToNodeTransform, None)
+    NodeId = property(get_NodeId, None)
 class ISpatialGraphInteropPreviewStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Perception.Spatial.Preview.ISpatialGraphInteropPreviewStatics'
@@ -51,8 +51,8 @@ class SpatialGraphInteropFrameOfReferencePreview(ComPtr):
     @winrt_mixinmethod
     def get_CoordinateSystemToNodeTransform(self: win32more.Windows.Perception.Spatial.Preview.ISpatialGraphInteropFrameOfReferencePreview) -> win32more.Windows.Foundation.Numerics.Matrix4x4: ...
     CoordinateSystem = property(get_CoordinateSystem, None)
-    NodeId = property(get_NodeId, None)
     CoordinateSystemToNodeTransform = property(get_CoordinateSystemToNodeTransform, None)
+    NodeId = property(get_NodeId, None)
 class SpatialGraphInteropPreview(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Perception.Spatial.Preview.SpatialGraphInteropPreview'

@@ -74,11 +74,11 @@ class AudioStreamDescriptor(ComPtr):
     def Copy(self: win32more.Windows.Media.Core.IAudioStreamDescriptor3) -> win32more.Windows.Media.Core.AudioStreamDescriptor: ...
     EncodingProperties = property(get_EncodingProperties, None)
     IsSelected = property(get_IsSelected, None)
-    Name = property(get_Name, put_Name)
+    Label = property(get_Label, put_Label)
     Language = property(get_Language, put_Language)
     LeadingEncoderPadding = property(get_LeadingEncoderPadding, put_LeadingEncoderPadding)
+    Name = property(get_Name, put_Name)
     TrailingEncoderPadding = property(get_TrailingEncoderPadding, put_TrailingEncoderPadding)
-    Label = property(get_Label, put_Label)
 class AudioTrack(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Core.IMediaTrack
@@ -106,12 +106,12 @@ class AudioTrack(ComPtr):
     @winrt_mixinmethod
     def get_SupportInfo(self: win32more.Windows.Media.Core.IAudioTrack) -> win32more.Windows.Media.Core.AudioTrackSupportInfo: ...
     Id = property(get_Id, None)
-    Language = property(get_Language, None)
-    TrackKind = property(get_TrackKind, None)
     Label = property(get_Label, put_Label)
-    PlaybackItem = property(get_PlaybackItem, None)
+    Language = property(get_Language, None)
     Name = property(get_Name, None)
+    PlaybackItem = property(get_PlaybackItem, None)
     SupportInfo = property(get_SupportInfo, None)
+    TrackKind = property(get_TrackKind, None)
 class AudioTrackOpenFailedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Core.IAudioTrackOpenFailedEventArgs
@@ -164,10 +164,10 @@ class ChapterCue(ComPtr):
     def put_Id(self: win32more.Windows.Media.Core.IMediaCue, value: WinRT_String) -> Void: ...
     @winrt_mixinmethod
     def get_Id(self: win32more.Windows.Media.Core.IMediaCue) -> WinRT_String: ...
-    Title = property(get_Title, put_Title)
-    StartTime = property(get_StartTime, put_StartTime)
     Duration = property(get_Duration, put_Duration)
     Id = property(get_Id, put_Id)
+    StartTime = property(get_StartTime, put_StartTime)
+    Title = property(get_Title, put_Title)
 class CodecCategory(Int32):  # enum
     Encoder = 0
     Decoder = 1
@@ -185,11 +185,11 @@ class CodecInfo(ComPtr):
     def get_DisplayName(self: win32more.Windows.Media.Core.ICodecInfo) -> WinRT_String: ...
     @winrt_mixinmethod
     def get_IsTrusted(self: win32more.Windows.Media.Core.ICodecInfo) -> Boolean: ...
-    Kind = property(get_Kind, None)
     Category = property(get_Category, None)
-    Subtypes = property(get_Subtypes, None)
     DisplayName = property(get_DisplayName, None)
     IsTrusted = property(get_IsTrusted, None)
+    Kind = property(get_Kind, None)
+    Subtypes = property(get_Subtypes, None)
 class CodecKind(Int32):  # enum
     Audio = 0
     Video = 1
@@ -315,35 +315,6 @@ class CodecSubtypes(ComPtr, metaclass=_CodecSubtypes_Meta_):
     def get_AudioFormatWMAudioV8(cls: win32more.Windows.Media.Core.ICodecSubtypesStatics) -> WinRT_String: ...
     @winrt_classmethod
     def get_AudioFormatWMAudioV9(cls: win32more.Windows.Media.Core.ICodecSubtypesStatics) -> WinRT_String: ...
-    _CodecSubtypes_Meta_.VideoFormatDV25 = property(get_VideoFormatDV25.__wrapped__, None)
-    _CodecSubtypes_Meta_.VideoFormatDV50 = property(get_VideoFormatDV50.__wrapped__, None)
-    _CodecSubtypes_Meta_.VideoFormatDvc = property(get_VideoFormatDvc.__wrapped__, None)
-    _CodecSubtypes_Meta_.VideoFormatDvh1 = property(get_VideoFormatDvh1.__wrapped__, None)
-    _CodecSubtypes_Meta_.VideoFormatDvhD = property(get_VideoFormatDvhD.__wrapped__, None)
-    _CodecSubtypes_Meta_.VideoFormatDvsd = property(get_VideoFormatDvsd.__wrapped__, None)
-    _CodecSubtypes_Meta_.VideoFormatDvsl = property(get_VideoFormatDvsl.__wrapped__, None)
-    _CodecSubtypes_Meta_.VideoFormatH263 = property(get_VideoFormatH263.__wrapped__, None)
-    _CodecSubtypes_Meta_.VideoFormatH264 = property(get_VideoFormatH264.__wrapped__, None)
-    _CodecSubtypes_Meta_.VideoFormatH265 = property(get_VideoFormatH265.__wrapped__, None)
-    _CodecSubtypes_Meta_.VideoFormatH264ES = property(get_VideoFormatH264ES.__wrapped__, None)
-    _CodecSubtypes_Meta_.VideoFormatHevc = property(get_VideoFormatHevc.__wrapped__, None)
-    _CodecSubtypes_Meta_.VideoFormatHevcES = property(get_VideoFormatHevcES.__wrapped__, None)
-    _CodecSubtypes_Meta_.VideoFormatM4S2 = property(get_VideoFormatM4S2.__wrapped__, None)
-    _CodecSubtypes_Meta_.VideoFormatMjpg = property(get_VideoFormatMjpg.__wrapped__, None)
-    _CodecSubtypes_Meta_.VideoFormatMP43 = property(get_VideoFormatMP43.__wrapped__, None)
-    _CodecSubtypes_Meta_.VideoFormatMP4S = property(get_VideoFormatMP4S.__wrapped__, None)
-    _CodecSubtypes_Meta_.VideoFormatMP4V = property(get_VideoFormatMP4V.__wrapped__, None)
-    _CodecSubtypes_Meta_.VideoFormatMpeg2 = property(get_VideoFormatMpeg2.__wrapped__, None)
-    _CodecSubtypes_Meta_.VideoFormatVP80 = property(get_VideoFormatVP80.__wrapped__, None)
-    _CodecSubtypes_Meta_.VideoFormatVP90 = property(get_VideoFormatVP90.__wrapped__, None)
-    _CodecSubtypes_Meta_.VideoFormatMpg1 = property(get_VideoFormatMpg1.__wrapped__, None)
-    _CodecSubtypes_Meta_.VideoFormatMss1 = property(get_VideoFormatMss1.__wrapped__, None)
-    _CodecSubtypes_Meta_.VideoFormatMss2 = property(get_VideoFormatMss2.__wrapped__, None)
-    _CodecSubtypes_Meta_.VideoFormatWmv1 = property(get_VideoFormatWmv1.__wrapped__, None)
-    _CodecSubtypes_Meta_.VideoFormatWmv2 = property(get_VideoFormatWmv2.__wrapped__, None)
-    _CodecSubtypes_Meta_.VideoFormatWmv3 = property(get_VideoFormatWmv3.__wrapped__, None)
-    _CodecSubtypes_Meta_.VideoFormatWvc1 = property(get_VideoFormatWvc1.__wrapped__, None)
-    _CodecSubtypes_Meta_.VideoFormat420O = property(get_VideoFormat420O.__wrapped__, None)
     _CodecSubtypes_Meta_.AudioFormatAac = property(get_AudioFormatAac.__wrapped__, None)
     _CodecSubtypes_Meta_.AudioFormatAdts = property(get_AudioFormatAdts.__wrapped__, None)
     _CodecSubtypes_Meta_.AudioFormatAlac = property(get_AudioFormatAlac.__wrapped__, None)
@@ -362,10 +333,39 @@ class CodecSubtypes(ComPtr, metaclass=_CodecSubtypes_Meta_):
     _CodecSubtypes_Meta_.AudioFormatMsp1 = property(get_AudioFormatMsp1.__wrapped__, None)
     _CodecSubtypes_Meta_.AudioFormatOpus = property(get_AudioFormatOpus.__wrapped__, None)
     _CodecSubtypes_Meta_.AudioFormatPcm = property(get_AudioFormatPcm.__wrapped__, None)
-    _CodecSubtypes_Meta_.AudioFormatWmaSpdif = property(get_AudioFormatWmaSpdif.__wrapped__, None)
     _CodecSubtypes_Meta_.AudioFormatWMAudioLossless = property(get_AudioFormatWMAudioLossless.__wrapped__, None)
     _CodecSubtypes_Meta_.AudioFormatWMAudioV8 = property(get_AudioFormatWMAudioV8.__wrapped__, None)
     _CodecSubtypes_Meta_.AudioFormatWMAudioV9 = property(get_AudioFormatWMAudioV9.__wrapped__, None)
+    _CodecSubtypes_Meta_.AudioFormatWmaSpdif = property(get_AudioFormatWmaSpdif.__wrapped__, None)
+    _CodecSubtypes_Meta_.VideoFormat420O = property(get_VideoFormat420O.__wrapped__, None)
+    _CodecSubtypes_Meta_.VideoFormatDV25 = property(get_VideoFormatDV25.__wrapped__, None)
+    _CodecSubtypes_Meta_.VideoFormatDV50 = property(get_VideoFormatDV50.__wrapped__, None)
+    _CodecSubtypes_Meta_.VideoFormatDvc = property(get_VideoFormatDvc.__wrapped__, None)
+    _CodecSubtypes_Meta_.VideoFormatDvh1 = property(get_VideoFormatDvh1.__wrapped__, None)
+    _CodecSubtypes_Meta_.VideoFormatDvhD = property(get_VideoFormatDvhD.__wrapped__, None)
+    _CodecSubtypes_Meta_.VideoFormatDvsd = property(get_VideoFormatDvsd.__wrapped__, None)
+    _CodecSubtypes_Meta_.VideoFormatDvsl = property(get_VideoFormatDvsl.__wrapped__, None)
+    _CodecSubtypes_Meta_.VideoFormatH263 = property(get_VideoFormatH263.__wrapped__, None)
+    _CodecSubtypes_Meta_.VideoFormatH264 = property(get_VideoFormatH264.__wrapped__, None)
+    _CodecSubtypes_Meta_.VideoFormatH264ES = property(get_VideoFormatH264ES.__wrapped__, None)
+    _CodecSubtypes_Meta_.VideoFormatH265 = property(get_VideoFormatH265.__wrapped__, None)
+    _CodecSubtypes_Meta_.VideoFormatHevc = property(get_VideoFormatHevc.__wrapped__, None)
+    _CodecSubtypes_Meta_.VideoFormatHevcES = property(get_VideoFormatHevcES.__wrapped__, None)
+    _CodecSubtypes_Meta_.VideoFormatM4S2 = property(get_VideoFormatM4S2.__wrapped__, None)
+    _CodecSubtypes_Meta_.VideoFormatMP43 = property(get_VideoFormatMP43.__wrapped__, None)
+    _CodecSubtypes_Meta_.VideoFormatMP4S = property(get_VideoFormatMP4S.__wrapped__, None)
+    _CodecSubtypes_Meta_.VideoFormatMP4V = property(get_VideoFormatMP4V.__wrapped__, None)
+    _CodecSubtypes_Meta_.VideoFormatMjpg = property(get_VideoFormatMjpg.__wrapped__, None)
+    _CodecSubtypes_Meta_.VideoFormatMpeg2 = property(get_VideoFormatMpeg2.__wrapped__, None)
+    _CodecSubtypes_Meta_.VideoFormatMpg1 = property(get_VideoFormatMpg1.__wrapped__, None)
+    _CodecSubtypes_Meta_.VideoFormatMss1 = property(get_VideoFormatMss1.__wrapped__, None)
+    _CodecSubtypes_Meta_.VideoFormatMss2 = property(get_VideoFormatMss2.__wrapped__, None)
+    _CodecSubtypes_Meta_.VideoFormatVP80 = property(get_VideoFormatVP80.__wrapped__, None)
+    _CodecSubtypes_Meta_.VideoFormatVP90 = property(get_VideoFormatVP90.__wrapped__, None)
+    _CodecSubtypes_Meta_.VideoFormatWmv1 = property(get_VideoFormatWmv1.__wrapped__, None)
+    _CodecSubtypes_Meta_.VideoFormatWmv2 = property(get_VideoFormatWmv2.__wrapped__, None)
+    _CodecSubtypes_Meta_.VideoFormatWmv3 = property(get_VideoFormatWmv3.__wrapped__, None)
+    _CodecSubtypes_Meta_.VideoFormatWvc1 = property(get_VideoFormatWvc1.__wrapped__, None)
 class DataCue(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Core.IDataCue
@@ -398,10 +398,10 @@ class DataCue(ComPtr):
     @winrt_mixinmethod
     def get_Properties(self: win32more.Windows.Media.Core.IDataCue2) -> win32more.Windows.Foundation.Collections.PropertySet: ...
     Data = property(get_Data, put_Data)
-    StartTime = property(get_StartTime, put_StartTime)
     Duration = property(get_Duration, put_Duration)
     Id = property(get_Id, put_Id)
     Properties = property(get_Properties, None)
+    StartTime = property(get_StartTime, put_StartTime)
 class FaceDetectedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Core.IFaceDetectedEventArgs
@@ -427,8 +427,8 @@ class FaceDetectionEffect(ComPtr):
     def remove_FaceDetected(self: win32more.Windows.Media.Core.IFaceDetectionEffect, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
     def SetProperties(self: win32more.Windows.Media.IMediaExtension, configuration: win32more.Windows.Foundation.Collections.IPropertySet) -> Void: ...
-    Enabled = property(get_Enabled, put_Enabled)
     DesiredDetectionInterval = property(get_DesiredDetectionInterval, put_DesiredDetectionInterval)
+    Enabled = property(get_Enabled, put_Enabled)
 class FaceDetectionEffectDefinition(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Effects.IVideoEffectDefinition
@@ -455,8 +455,8 @@ class FaceDetectionEffectDefinition(ComPtr):
     @winrt_mixinmethod
     def get_SynchronousDetectionEnabled(self: win32more.Windows.Media.Core.IFaceDetectionEffectDefinition) -> Boolean: ...
     ActivatableClassId = property(get_ActivatableClassId, None)
-    Properties = property(get_Properties, None)
     DetectionMode = property(get_DetectionMode, put_DetectionMode)
+    Properties = property(get_Properties, None)
     SynchronousDetectionEnabled = property(get_SynchronousDetectionEnabled, put_SynchronousDetectionEnabled)
 class FaceDetectionEffectFrame(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -489,13 +489,13 @@ class FaceDetectionEffectFrame(ComPtr):
     @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
     DetectedFaces = property(get_DetectedFaces, None)
-    Type = property(get_Type, None)
+    Duration = property(get_Duration, put_Duration)
+    ExtendedProperties = property(get_ExtendedProperties, None)
+    IsDiscontinuous = property(get_IsDiscontinuous, put_IsDiscontinuous)
     IsReadOnly = property(get_IsReadOnly, None)
     RelativeTime = property(get_RelativeTime, put_RelativeTime)
     SystemRelativeTime = property(get_SystemRelativeTime, put_SystemRelativeTime)
-    Duration = property(get_Duration, put_Duration)
-    IsDiscontinuous = property(get_IsDiscontinuous, put_IsDiscontinuous)
-    ExtendedProperties = property(get_ExtendedProperties, None)
+    Type = property(get_Type, None)
 class FaceDetectionMode(Int32):  # enum
     HighPerformance = 0
     Balanced = 1
@@ -568,8 +568,8 @@ class IAudioTrack(ComPtr):
     def get_Name(self) -> WinRT_String: ...
     @winrt_commethod(11)
     def get_SupportInfo(self) -> win32more.Windows.Media.Core.AudioTrackSupportInfo: ...
-    PlaybackItem = property(get_PlaybackItem, None)
     Name = property(get_Name, None)
+    PlaybackItem = property(get_PlaybackItem, None)
     SupportInfo = property(get_SupportInfo, None)
 class IAudioTrackOpenFailedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -617,11 +617,11 @@ class ICodecInfo(ComPtr):
     def get_DisplayName(self) -> WinRT_String: ...
     @winrt_commethod(10)
     def get_IsTrusted(self) -> Boolean: ...
-    Kind = property(get_Kind, None)
     Category = property(get_Category, None)
-    Subtypes = property(get_Subtypes, None)
     DisplayName = property(get_DisplayName, None)
     IsTrusted = property(get_IsTrusted, None)
+    Kind = property(get_Kind, None)
+    Subtypes = property(get_Subtypes, None)
 class ICodecQuery(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Core.ICodecQuery'
@@ -734,35 +734,6 @@ class ICodecSubtypesStatics(ComPtr):
     def get_AudioFormatWMAudioV8(self) -> WinRT_String: ...
     @winrt_commethod(56)
     def get_AudioFormatWMAudioV9(self) -> WinRT_String: ...
-    VideoFormatDV25 = property(get_VideoFormatDV25, None)
-    VideoFormatDV50 = property(get_VideoFormatDV50, None)
-    VideoFormatDvc = property(get_VideoFormatDvc, None)
-    VideoFormatDvh1 = property(get_VideoFormatDvh1, None)
-    VideoFormatDvhD = property(get_VideoFormatDvhD, None)
-    VideoFormatDvsd = property(get_VideoFormatDvsd, None)
-    VideoFormatDvsl = property(get_VideoFormatDvsl, None)
-    VideoFormatH263 = property(get_VideoFormatH263, None)
-    VideoFormatH264 = property(get_VideoFormatH264, None)
-    VideoFormatH265 = property(get_VideoFormatH265, None)
-    VideoFormatH264ES = property(get_VideoFormatH264ES, None)
-    VideoFormatHevc = property(get_VideoFormatHevc, None)
-    VideoFormatHevcES = property(get_VideoFormatHevcES, None)
-    VideoFormatM4S2 = property(get_VideoFormatM4S2, None)
-    VideoFormatMjpg = property(get_VideoFormatMjpg, None)
-    VideoFormatMP43 = property(get_VideoFormatMP43, None)
-    VideoFormatMP4S = property(get_VideoFormatMP4S, None)
-    VideoFormatMP4V = property(get_VideoFormatMP4V, None)
-    VideoFormatMpeg2 = property(get_VideoFormatMpeg2, None)
-    VideoFormatVP80 = property(get_VideoFormatVP80, None)
-    VideoFormatVP90 = property(get_VideoFormatVP90, None)
-    VideoFormatMpg1 = property(get_VideoFormatMpg1, None)
-    VideoFormatMss1 = property(get_VideoFormatMss1, None)
-    VideoFormatMss2 = property(get_VideoFormatMss2, None)
-    VideoFormatWmv1 = property(get_VideoFormatWmv1, None)
-    VideoFormatWmv2 = property(get_VideoFormatWmv2, None)
-    VideoFormatWmv3 = property(get_VideoFormatWmv3, None)
-    VideoFormatWvc1 = property(get_VideoFormatWvc1, None)
-    VideoFormat420O = property(get_VideoFormat420O, None)
     AudioFormatAac = property(get_AudioFormatAac, None)
     AudioFormatAdts = property(get_AudioFormatAdts, None)
     AudioFormatAlac = property(get_AudioFormatAlac, None)
@@ -781,10 +752,39 @@ class ICodecSubtypesStatics(ComPtr):
     AudioFormatMsp1 = property(get_AudioFormatMsp1, None)
     AudioFormatOpus = property(get_AudioFormatOpus, None)
     AudioFormatPcm = property(get_AudioFormatPcm, None)
-    AudioFormatWmaSpdif = property(get_AudioFormatWmaSpdif, None)
     AudioFormatWMAudioLossless = property(get_AudioFormatWMAudioLossless, None)
     AudioFormatWMAudioV8 = property(get_AudioFormatWMAudioV8, None)
     AudioFormatWMAudioV9 = property(get_AudioFormatWMAudioV9, None)
+    AudioFormatWmaSpdif = property(get_AudioFormatWmaSpdif, None)
+    VideoFormat420O = property(get_VideoFormat420O, None)
+    VideoFormatDV25 = property(get_VideoFormatDV25, None)
+    VideoFormatDV50 = property(get_VideoFormatDV50, None)
+    VideoFormatDvc = property(get_VideoFormatDvc, None)
+    VideoFormatDvh1 = property(get_VideoFormatDvh1, None)
+    VideoFormatDvhD = property(get_VideoFormatDvhD, None)
+    VideoFormatDvsd = property(get_VideoFormatDvsd, None)
+    VideoFormatDvsl = property(get_VideoFormatDvsl, None)
+    VideoFormatH263 = property(get_VideoFormatH263, None)
+    VideoFormatH264 = property(get_VideoFormatH264, None)
+    VideoFormatH264ES = property(get_VideoFormatH264ES, None)
+    VideoFormatH265 = property(get_VideoFormatH265, None)
+    VideoFormatHevc = property(get_VideoFormatHevc, None)
+    VideoFormatHevcES = property(get_VideoFormatHevcES, None)
+    VideoFormatM4S2 = property(get_VideoFormatM4S2, None)
+    VideoFormatMP43 = property(get_VideoFormatMP43, None)
+    VideoFormatMP4S = property(get_VideoFormatMP4S, None)
+    VideoFormatMP4V = property(get_VideoFormatMP4V, None)
+    VideoFormatMjpg = property(get_VideoFormatMjpg, None)
+    VideoFormatMpeg2 = property(get_VideoFormatMpeg2, None)
+    VideoFormatMpg1 = property(get_VideoFormatMpg1, None)
+    VideoFormatMss1 = property(get_VideoFormatMss1, None)
+    VideoFormatMss2 = property(get_VideoFormatMss2, None)
+    VideoFormatVP80 = property(get_VideoFormatVP80, None)
+    VideoFormatVP90 = property(get_VideoFormatVP90, None)
+    VideoFormatWmv1 = property(get_VideoFormatWmv1, None)
+    VideoFormatWmv2 = property(get_VideoFormatWmv2, None)
+    VideoFormatWmv3 = property(get_VideoFormatWmv3, None)
+    VideoFormatWvc1 = property(get_VideoFormatWvc1, None)
 class IDataCue(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Core.IDataCue'
@@ -824,8 +824,8 @@ class IFaceDetectionEffect(ComPtr):
     def add_FaceDetected(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Core.FaceDetectionEffect, win32more.Windows.Media.Core.FaceDetectedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(11)
     def remove_FaceDetected(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    Enabled = property(get_Enabled, put_Enabled)
     DesiredDetectionInterval = property(get_DesiredDetectionInterval, put_DesiredDetectionInterval)
+    Enabled = property(get_Enabled, put_Enabled)
 class IFaceDetectionEffectDefinition(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Core.IFaceDetectionEffectDefinition'
@@ -882,8 +882,8 @@ class IImageCue(ComPtr):
     def put_SoftwareBitmap(self, value: win32more.Windows.Graphics.Imaging.SoftwareBitmap) -> Void: ...
     @winrt_commethod(11)
     def get_SoftwareBitmap(self) -> win32more.Windows.Graphics.Imaging.SoftwareBitmap: ...
-    Position = property(get_Position, put_Position)
     Extent = property(get_Extent, put_Extent)
+    Position = property(get_Position, put_Position)
     SoftwareBitmap = property(get_SoftwareBitmap, put_SoftwareBitmap)
 class IInitializeMediaStreamSourceRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -895,8 +895,8 @@ class IInitializeMediaStreamSourceRequestedEventArgs(ComPtr):
     def get_RandomAccessStream(self) -> win32more.Windows.Storage.Streams.IRandomAccessStream: ...
     @winrt_commethod(8)
     def GetDeferral(self) -> win32more.Windows.Foundation.Deferral: ...
-    Source = property(get_Source, None)
     RandomAccessStream = property(get_RandomAccessStream, None)
+    Source = property(get_Source, None)
 class ILowLightFusionResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Core.ILowLightFusionResult'
@@ -914,8 +914,8 @@ class ILowLightFusionStatics(ComPtr):
     def get_MaxSupportedFrameCount(self) -> Int32: ...
     @winrt_commethod(8)
     def FuseAsync(self, frameSet: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Graphics.Imaging.SoftwareBitmap]) -> win32more.Windows.Foundation.IAsyncOperationWithProgress[win32more.Windows.Media.Core.LowLightFusionResult, Double]: ...
-    SupportedBitmapPixelFormats = property(get_SupportedBitmapPixelFormats, None)
     MaxSupportedFrameCount = property(get_MaxSupportedFrameCount, None)
+    SupportedBitmapPixelFormats = property(get_SupportedBitmapPixelFormats, None)
 class IMediaBinder(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Core.IMediaBinder'
@@ -930,8 +930,8 @@ class IMediaBinder(ComPtr):
     def put_Token(self, value: WinRT_String) -> Void: ...
     @winrt_commethod(10)
     def get_Source(self) -> win32more.Windows.Media.Core.MediaSource: ...
-    Token = property(get_Token, put_Token)
     Source = property(get_Source, None)
+    Token = property(get_Token, put_Token)
 class IMediaBindingEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Core.IMediaBindingEventArgs'
@@ -981,9 +981,9 @@ class IMediaCue(ComPtr):
     def put_Id(self, value: WinRT_String) -> Void: ...
     @winrt_commethod(11)
     def get_Id(self) -> WinRT_String: ...
-    StartTime = property(get_StartTime, put_StartTime)
     Duration = property(get_Duration, put_Duration)
     Id = property(get_Id, put_Id)
+    StartTime = property(get_StartTime, put_StartTime)
 class IMediaCueEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Core.IMediaCueEventArgs'
@@ -1015,9 +1015,9 @@ class IMediaSource2(ComPtr):
     def get_ExternalTimedMetadataTracks(self) -> win32more.Windows.Foundation.Collections.IObservableVector[win32more.Windows.Media.Core.TimedMetadataTrack]: ...
     CustomProperties = property(get_CustomProperties, None)
     Duration = property(get_Duration, None)
-    IsOpen = property(get_IsOpen, None)
-    ExternalTimedTextSources = property(get_ExternalTimedTextSources, None)
     ExternalTimedMetadataTracks = property(get_ExternalTimedMetadataTracks, None)
+    ExternalTimedTextSources = property(get_ExternalTimedTextSources, None)
+    IsOpen = property(get_IsOpen, None)
 class IMediaSource3(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Core.IMediaSource3'
@@ -1094,8 +1094,8 @@ class IMediaSourceStateChangedEventArgs(ComPtr):
     def get_OldState(self) -> win32more.Windows.Media.Core.MediaSourceState: ...
     @winrt_commethod(7)
     def get_NewState(self) -> win32more.Windows.Media.Core.MediaSourceState: ...
-    OldState = property(get_OldState, None)
     NewState = property(get_NewState, None)
+    OldState = property(get_OldState, None)
 class IMediaSourceStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Core.IMediaSourceStatics'
@@ -1149,8 +1149,8 @@ class IMediaStreamDescriptor(ComPtr):
     @winrt_commethod(10)
     def get_Language(self) -> WinRT_String: ...
     IsSelected = property(get_IsSelected, None)
-    Name = property(get_Name, put_Name)
     Language = property(get_Language, put_Language)
+    Name = property(get_Name, put_Name)
 class IMediaStreamDescriptor2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Core.IMediaStreamDescriptor2'
@@ -1193,13 +1193,13 @@ class IMediaStreamSample(ComPtr):
     @winrt_commethod(19)
     def get_Discontinuous(self) -> Boolean: ...
     Buffer = property(get_Buffer, None)
-    Timestamp = property(get_Timestamp, None)
-    ExtendedProperties = property(get_ExtendedProperties, None)
-    Protection = property(get_Protection, None)
     DecodeTimestamp = property(get_DecodeTimestamp, put_DecodeTimestamp)
-    Duration = property(get_Duration, put_Duration)
-    KeyFrame = property(get_KeyFrame, put_KeyFrame)
     Discontinuous = property(get_Discontinuous, put_Discontinuous)
+    Duration = property(get_Duration, put_Duration)
+    ExtendedProperties = property(get_ExtendedProperties, None)
+    KeyFrame = property(get_KeyFrame, put_KeyFrame)
+    Protection = property(get_Protection, None)
+    Timestamp = property(get_Timestamp, None)
 class IMediaStreamSample2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Core.IMediaStreamSample2'
@@ -1293,13 +1293,13 @@ class IMediaStreamSource(ComPtr):
     def get_Thumbnail(self) -> win32more.Windows.Storage.Streams.IRandomAccessStreamReference: ...
     @winrt_commethod(31)
     def AddProtectionKey(self, streamDescriptor: win32more.Windows.Media.Core.IMediaStreamDescriptor, keyIdentifier: Annotated[SZArray[Byte], 'In'], licenseData: Annotated[SZArray[Byte], 'In']) -> Void: ...
-    MediaProtectionManager = property(get_MediaProtectionManager, put_MediaProtectionManager)
-    Duration = property(get_Duration, put_Duration)
-    CanSeek = property(get_CanSeek, put_CanSeek)
     BufferTime = property(get_BufferTime, put_BufferTime)
+    CanSeek = property(get_CanSeek, put_CanSeek)
+    Duration = property(get_Duration, put_Duration)
+    MediaProtectionManager = property(get_MediaProtectionManager, put_MediaProtectionManager)
     MusicProperties = property(get_MusicProperties, None)
-    VideoProperties = property(get_VideoProperties, None)
     Thumbnail = property(get_Thumbnail, put_Thumbnail)
+    VideoProperties = property(get_VideoProperties, None)
 class IMediaStreamSource2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Core.IMediaStreamSource2'
@@ -1369,8 +1369,8 @@ class IMediaStreamSourceSampleRequest(ComPtr):
     def get_Sample(self) -> win32more.Windows.Media.Core.MediaStreamSample: ...
     @winrt_commethod(10)
     def ReportSampleProgress(self, progress: UInt32) -> Void: ...
-    StreamDescriptor = property(get_StreamDescriptor, None)
     Sample = property(get_Sample, put_Sample)
+    StreamDescriptor = property(get_StreamDescriptor, None)
 class IMediaStreamSourceSampleRequestDeferral(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Core.IMediaStreamSourceSampleRequestDeferral'
@@ -1418,8 +1418,8 @@ class IMediaStreamSourceSwitchStreamsRequest(ComPtr):
     def get_NewStreamDescriptor(self) -> win32more.Windows.Media.Core.IMediaStreamDescriptor: ...
     @winrt_commethod(8)
     def GetDeferral(self) -> win32more.Windows.Media.Core.MediaStreamSourceSwitchStreamsRequestDeferral: ...
-    OldStreamDescriptor = property(get_OldStreamDescriptor, None)
     NewStreamDescriptor = property(get_NewStreamDescriptor, None)
+    OldStreamDescriptor = property(get_OldStreamDescriptor, None)
 class IMediaStreamSourceSwitchStreamsRequestDeferral(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Core.IMediaStreamSourceSwitchStreamsRequestDeferral'
@@ -1448,9 +1448,9 @@ class IMediaTrack(ComPtr):
     @winrt_commethod(10)
     def get_Label(self) -> WinRT_String: ...
     Id = property(get_Id, None)
+    Label = property(get_Label, put_Label)
     Language = property(get_Language, None)
     TrackKind = property(get_TrackKind, None)
-    Label = property(get_Label, put_Label)
 class IMseSourceBuffer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Core.IMseSourceBuffer'
@@ -1505,12 +1505,12 @@ class IMseSourceBuffer(ComPtr):
     def Abort(self) -> Void: ...
     @winrt_commethod(30)
     def Remove(self, start: win32more.Windows.Foundation.TimeSpan, end: win32more.Windows.Foundation.IReference[win32more.Windows.Foundation.TimeSpan]) -> Void: ...
-    Mode = property(get_Mode, put_Mode)
-    IsUpdating = property(get_IsUpdating, None)
-    Buffered = property(get_Buffered, None)
-    TimestampOffset = property(get_TimestampOffset, put_TimestampOffset)
-    AppendWindowStart = property(get_AppendWindowStart, put_AppendWindowStart)
     AppendWindowEnd = property(get_AppendWindowEnd, put_AppendWindowEnd)
+    AppendWindowStart = property(get_AppendWindowStart, put_AppendWindowStart)
+    Buffered = property(get_Buffered, None)
+    IsUpdating = property(get_IsUpdating, None)
+    Mode = property(get_Mode, put_Mode)
+    TimestampOffset = property(get_TimestampOffset, put_TimestampOffset)
 class IMseSourceBufferList(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Core.IMseSourceBufferList'
@@ -1558,10 +1558,10 @@ class IMseStreamSource(ComPtr):
     def RemoveSourceBuffer(self, buffer: win32more.Windows.Media.Core.MseSourceBuffer) -> Void: ...
     @winrt_commethod(19)
     def EndOfStream(self, status: win32more.Windows.Media.Core.MseEndOfStreamStatus) -> Void: ...
-    SourceBuffers = property(get_SourceBuffers, None)
     ActiveSourceBuffers = property(get_ActiveSourceBuffers, None)
-    ReadyState = property(get_ReadyState, None)
     Duration = property(get_Duration, put_Duration)
+    ReadyState = property(get_ReadyState, None)
+    SourceBuffers = property(get_SourceBuffers, None)
 class IMseStreamSource2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Core.IMseStreamSource2'
@@ -1591,8 +1591,8 @@ class ISceneAnalysisEffect(ComPtr):
     def add_SceneAnalyzed(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Core.SceneAnalysisEffect, win32more.Windows.Media.Core.SceneAnalyzedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(10)
     def remove_SceneAnalyzed(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    HighDynamicRangeAnalyzer = property(get_HighDynamicRangeAnalyzer, None)
     DesiredAnalysisInterval = property(get_DesiredAnalysisInterval, put_DesiredAnalysisInterval)
+    HighDynamicRangeAnalyzer = property(get_HighDynamicRangeAnalyzer, None)
 class ISceneAnalysisEffectFrame(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Core.ISceneAnalysisEffectFrame'
@@ -1646,9 +1646,9 @@ class ISpeechCue(ComPtr):
     def get_EndPositionInInput(self) -> win32more.Windows.Foundation.IReference[Int32]: ...
     @winrt_commethod(11)
     def put_EndPositionInInput(self, value: win32more.Windows.Foundation.IReference[Int32]) -> Void: ...
-    Text = property(get_Text, put_Text)
-    StartPositionInInput = property(get_StartPositionInInput, put_StartPositionInInput)
     EndPositionInInput = property(get_EndPositionInInput, put_EndPositionInInput)
+    StartPositionInInput = property(get_StartPositionInInput, put_StartPositionInInput)
+    Text = property(get_Text, put_Text)
 class ITimedMetadataStreamDescriptor(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Core.ITimedMetadataStreamDescriptor'
@@ -1692,10 +1692,10 @@ class ITimedMetadataTrack(ComPtr):
     def AddCue(self, cue: win32more.Windows.Media.Core.IMediaCue) -> Void: ...
     @winrt_commethod(17)
     def RemoveCue(self, cue: win32more.Windows.Media.Core.IMediaCue) -> Void: ...
-    Cues = property(get_Cues, None)
     ActiveCues = property(get_ActiveCues, None)
-    TimedMetadataKind = property(get_TimedMetadataKind, None)
+    Cues = property(get_Cues, None)
     DispatchType = property(get_DispatchType, None)
+    TimedMetadataKind = property(get_TimedMetadataKind, None)
 class ITimedMetadataTrack2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Core.ITimedMetadataTrack2'
@@ -1704,8 +1704,8 @@ class ITimedMetadataTrack2(ComPtr):
     def get_PlaybackItem(self) -> win32more.Windows.Media.Playback.MediaPlaybackItem: ...
     @winrt_commethod(7)
     def get_Name(self) -> WinRT_String: ...
-    PlaybackItem = property(get_PlaybackItem, None)
     Name = property(get_Name, None)
+    PlaybackItem = property(get_PlaybackItem, None)
 class ITimedMetadataTrackError(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Core.ITimedMetadataTrackError'
@@ -1752,9 +1752,9 @@ class ITimedTextBouten(ComPtr):
     def get_Position(self) -> win32more.Windows.Media.Core.TimedTextBoutenPosition: ...
     @winrt_commethod(11)
     def put_Position(self, value: win32more.Windows.Media.Core.TimedTextBoutenPosition) -> Void: ...
-    Type = property(get_Type, put_Type)
     Color = property(get_Color, put_Color)
     Position = property(get_Position, put_Position)
+    Type = property(get_Type, put_Type)
 class ITimedTextCue(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Core.ITimedTextCue'
@@ -1782,8 +1782,8 @@ class ITimedTextLine(ComPtr):
     def put_Text(self, value: WinRT_String) -> Void: ...
     @winrt_commethod(8)
     def get_Subformats(self) -> win32more.Windows.Foundation.Collections.IVector[win32more.Windows.Media.Core.TimedTextSubformat]: ...
-    Text = property(get_Text, put_Text)
     Subformats = property(get_Subformats, None)
+    Text = property(get_Text, put_Text)
 class ITimedTextRegion(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Core.ITimedTextRegion'
@@ -1836,18 +1836,18 @@ class ITimedTextRegion(ComPtr):
     def get_ScrollMode(self) -> win32more.Windows.Media.Core.TimedTextScrollMode: ...
     @winrt_commethod(29)
     def put_ScrollMode(self, value: win32more.Windows.Media.Core.TimedTextScrollMode) -> Void: ...
-    Name = property(get_Name, put_Name)
-    Position = property(get_Position, put_Position)
-    Extent = property(get_Extent, put_Extent)
     Background = property(get_Background, put_Background)
-    WritingMode = property(get_WritingMode, put_WritingMode)
     DisplayAlignment = property(get_DisplayAlignment, put_DisplayAlignment)
-    LineHeight = property(get_LineHeight, put_LineHeight)
+    Extent = property(get_Extent, put_Extent)
     IsOverflowClipped = property(get_IsOverflowClipped, put_IsOverflowClipped)
+    LineHeight = property(get_LineHeight, put_LineHeight)
+    Name = property(get_Name, put_Name)
     Padding = property(get_Padding, put_Padding)
-    TextWrapping = property(get_TextWrapping, put_TextWrapping)
-    ZIndex = property(get_ZIndex, put_ZIndex)
+    Position = property(get_Position, put_Position)
     ScrollMode = property(get_ScrollMode, put_ScrollMode)
+    TextWrapping = property(get_TextWrapping, put_TextWrapping)
+    WritingMode = property(get_WritingMode, put_WritingMode)
+    ZIndex = property(get_ZIndex, put_ZIndex)
 class ITimedTextRuby(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Core.ITimedTextRuby'
@@ -1868,10 +1868,10 @@ class ITimedTextRuby(ComPtr):
     def get_Reserve(self) -> win32more.Windows.Media.Core.TimedTextRubyReserve: ...
     @winrt_commethod(13)
     def put_Reserve(self, value: win32more.Windows.Media.Core.TimedTextRubyReserve) -> Void: ...
-    Text = property(get_Text, put_Text)
-    Position = property(get_Position, put_Position)
     Align = property(get_Align, put_Align)
+    Position = property(get_Position, put_Position)
     Reserve = property(get_Reserve, put_Reserve)
+    Text = property(get_Text, put_Text)
 class ITimedTextSource(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Core.ITimedTextSource'
@@ -1966,18 +1966,18 @@ class ITimedTextStyle(ComPtr):
     def get_OutlineRadius(self) -> win32more.Windows.Media.Core.TimedTextDouble: ...
     @winrt_commethod(29)
     def put_OutlineRadius(self, value: win32more.Windows.Media.Core.TimedTextDouble) -> Void: ...
-    Name = property(get_Name, put_Name)
+    Background = property(get_Background, put_Background)
+    FlowDirection = property(get_FlowDirection, put_FlowDirection)
     FontFamily = property(get_FontFamily, put_FontFamily)
     FontSize = property(get_FontSize, put_FontSize)
     FontWeight = property(get_FontWeight, put_FontWeight)
     Foreground = property(get_Foreground, put_Foreground)
-    Background = property(get_Background, put_Background)
     IsBackgroundAlwaysShown = property(get_IsBackgroundAlwaysShown, put_IsBackgroundAlwaysShown)
-    FlowDirection = property(get_FlowDirection, put_FlowDirection)
     LineAlignment = property(get_LineAlignment, put_LineAlignment)
+    Name = property(get_Name, put_Name)
     OutlineColor = property(get_OutlineColor, put_OutlineColor)
-    OutlineThickness = property(get_OutlineThickness, put_OutlineThickness)
     OutlineRadius = property(get_OutlineRadius, put_OutlineRadius)
+    OutlineThickness = property(get_OutlineThickness, put_OutlineThickness)
 class ITimedTextStyle2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Core.ITimedTextStyle2'
@@ -1999,9 +1999,9 @@ class ITimedTextStyle2(ComPtr):
     @winrt_commethod(13)
     def put_IsOverlineEnabled(self, value: Boolean) -> Void: ...
     FontStyle = property(get_FontStyle, put_FontStyle)
-    IsUnderlineEnabled = property(get_IsUnderlineEnabled, put_IsUnderlineEnabled)
     IsLineThroughEnabled = property(get_IsLineThroughEnabled, put_IsLineThroughEnabled)
     IsOverlineEnabled = property(get_IsOverlineEnabled, put_IsOverlineEnabled)
+    IsUnderlineEnabled = property(get_IsUnderlineEnabled, put_IsUnderlineEnabled)
 class ITimedTextStyle3(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Core.ITimedTextStyle3'
@@ -2018,10 +2018,10 @@ class ITimedTextStyle3(ComPtr):
     def get_FontAngleInDegrees(self) -> Double: ...
     @winrt_commethod(11)
     def put_FontAngleInDegrees(self, value: Double) -> Void: ...
-    Ruby = property(get_Ruby, None)
     Bouten = property(get_Bouten, None)
-    IsTextCombined = property(get_IsTextCombined, put_IsTextCombined)
     FontAngleInDegrees = property(get_FontAngleInDegrees, put_FontAngleInDegrees)
+    IsTextCombined = property(get_IsTextCombined, put_IsTextCombined)
+    Ruby = property(get_Ruby, None)
 class ITimedTextSubformat(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Core.ITimedTextSubformat'
@@ -2038,8 +2038,8 @@ class ITimedTextSubformat(ComPtr):
     def get_SubformatStyle(self) -> win32more.Windows.Media.Core.TimedTextStyle: ...
     @winrt_commethod(11)
     def put_SubformatStyle(self, value: win32more.Windows.Media.Core.TimedTextStyle) -> Void: ...
-    StartIndex = property(get_StartIndex, put_StartIndex)
     Length = property(get_Length, put_Length)
+    StartIndex = property(get_StartIndex, put_StartIndex)
     SubformatStyle = property(get_SubformatStyle, put_SubformatStyle)
 class IVideoStabilizationEffect(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -2098,8 +2098,8 @@ class IVideoTrack(ComPtr):
     def get_Name(self) -> WinRT_String: ...
     @winrt_commethod(11)
     def get_SupportInfo(self) -> win32more.Windows.Media.Core.VideoTrackSupportInfo: ...
-    PlaybackItem = property(get_PlaybackItem, None)
     Name = property(get_Name, None)
+    PlaybackItem = property(get_PlaybackItem, None)
     SupportInfo = property(get_SupportInfo, None)
 class IVideoTrackOpenFailedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -2155,12 +2155,12 @@ class ImageCue(ComPtr):
     def put_Id(self: win32more.Windows.Media.Core.IMediaCue, value: WinRT_String) -> Void: ...
     @winrt_mixinmethod
     def get_Id(self: win32more.Windows.Media.Core.IMediaCue) -> WinRT_String: ...
-    Position = property(get_Position, put_Position)
+    Duration = property(get_Duration, put_Duration)
     Extent = property(get_Extent, put_Extent)
+    Id = property(get_Id, put_Id)
+    Position = property(get_Position, put_Position)
     SoftwareBitmap = property(get_SoftwareBitmap, put_SoftwareBitmap)
     StartTime = property(get_StartTime, put_StartTime)
-    Duration = property(get_Duration, put_Duration)
-    Id = property(get_Id, put_Id)
 class InitializeMediaStreamSourceRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Core.IInitializeMediaStreamSourceRequestedEventArgs
@@ -2171,8 +2171,8 @@ class InitializeMediaStreamSourceRequestedEventArgs(ComPtr):
     def get_RandomAccessStream(self: win32more.Windows.Media.Core.IInitializeMediaStreamSourceRequestedEventArgs) -> win32more.Windows.Storage.Streams.IRandomAccessStream: ...
     @winrt_mixinmethod
     def GetDeferral(self: win32more.Windows.Media.Core.IInitializeMediaStreamSourceRequestedEventArgs) -> win32more.Windows.Foundation.Deferral: ...
-    Source = property(get_Source, None)
     RandomAccessStream = property(get_RandomAccessStream, None)
+    Source = property(get_Source, None)
 class _LowLightFusion_Meta_(ComPtr.__class__):
     pass
 class LowLightFusion(ComPtr, metaclass=_LowLightFusion_Meta_):
@@ -2184,8 +2184,8 @@ class LowLightFusion(ComPtr, metaclass=_LowLightFusion_Meta_):
     def get_MaxSupportedFrameCount(cls: win32more.Windows.Media.Core.ILowLightFusionStatics) -> Int32: ...
     @winrt_classmethod
     def FuseAsync(cls: win32more.Windows.Media.Core.ILowLightFusionStatics, frameSet: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Graphics.Imaging.SoftwareBitmap]) -> win32more.Windows.Foundation.IAsyncOperationWithProgress[win32more.Windows.Media.Core.LowLightFusionResult, Double]: ...
-    _LowLightFusion_Meta_.SupportedBitmapPixelFormats = property(get_SupportedBitmapPixelFormats.__wrapped__, None)
     _LowLightFusion_Meta_.MaxSupportedFrameCount = property(get_MaxSupportedFrameCount.__wrapped__, None)
+    _LowLightFusion_Meta_.SupportedBitmapPixelFormats = property(get_SupportedBitmapPixelFormats.__wrapped__, None)
 class LowLightFusionResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Core.ILowLightFusionResult
@@ -2218,8 +2218,8 @@ class MediaBinder(ComPtr):
     def put_Token(self: win32more.Windows.Media.Core.IMediaBinder, value: WinRT_String) -> Void: ...
     @winrt_mixinmethod
     def get_Source(self: win32more.Windows.Media.Core.IMediaBinder) -> win32more.Windows.Media.Core.MediaSource: ...
-    Token = property(get_Token, put_Token)
     Source = property(get_Source, None)
+    Token = property(get_Token, put_Token)
 class MediaBindingEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Core.IMediaBindingEventArgs
@@ -2319,17 +2319,17 @@ class MediaSource(ComPtr):
     def CreateFromStreamReference(cls: win32more.Windows.Media.Core.IMediaSourceStatics, stream: win32more.Windows.Storage.Streams.IRandomAccessStreamReference, contentType: WinRT_String) -> win32more.Windows.Media.Core.MediaSource: ...
     @winrt_classmethod
     def CreateFromUri(cls: win32more.Windows.Media.Core.IMediaSourceStatics, uri: win32more.Windows.Foundation.Uri) -> win32more.Windows.Media.Core.MediaSource: ...
-    CustomProperties = property(get_CustomProperties, None)
-    Duration = property(get_Duration, None)
-    IsOpen = property(get_IsOpen, None)
-    ExternalTimedTextSources = property(get_ExternalTimedTextSources, None)
-    ExternalTimedMetadataTracks = property(get_ExternalTimedMetadataTracks, None)
-    State = property(get_State, None)
     AdaptiveMediaSource = property(get_AdaptiveMediaSource, None)
+    CustomProperties = property(get_CustomProperties, None)
+    DownloadOperation = property(get_DownloadOperation, None)
+    Duration = property(get_Duration, None)
+    ExternalTimedMetadataTracks = property(get_ExternalTimedMetadataTracks, None)
+    ExternalTimedTextSources = property(get_ExternalTimedTextSources, None)
+    IsOpen = property(get_IsOpen, None)
     MediaStreamSource = property(get_MediaStreamSource, None)
     MseStreamSource = property(get_MseStreamSource, None)
+    State = property(get_State, None)
     Uri = property(get_Uri, None)
-    DownloadOperation = property(get_DownloadOperation, None)
 class MediaSourceAppServiceConnection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Core.IMediaSourceAppServiceConnection
@@ -2377,8 +2377,8 @@ class MediaSourceStateChangedEventArgs(ComPtr):
     def get_OldState(self: win32more.Windows.Media.Core.IMediaSourceStateChangedEventArgs) -> win32more.Windows.Media.Core.MediaSourceState: ...
     @winrt_mixinmethod
     def get_NewState(self: win32more.Windows.Media.Core.IMediaSourceStateChangedEventArgs) -> win32more.Windows.Media.Core.MediaSourceState: ...
-    OldState = property(get_OldState, None)
     NewState = property(get_NewState, None)
+    OldState = property(get_OldState, None)
 class MediaSourceStatus(Int32):  # enum
     FullySupported = 0
     Unknown = 1
@@ -2423,14 +2423,14 @@ class MediaStreamSample(ComPtr):
     @winrt_classmethod
     def CreateFromStreamAsync(cls: win32more.Windows.Media.Core.IMediaStreamSampleStatics, stream: win32more.Windows.Storage.Streams.IInputStream, count: UInt32, timestamp: win32more.Windows.Foundation.TimeSpan) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Media.Core.MediaStreamSample]: ...
     Buffer = property(get_Buffer, None)
-    Timestamp = property(get_Timestamp, None)
-    ExtendedProperties = property(get_ExtendedProperties, None)
-    Protection = property(get_Protection, None)
     DecodeTimestamp = property(get_DecodeTimestamp, put_DecodeTimestamp)
-    Duration = property(get_Duration, put_Duration)
-    KeyFrame = property(get_KeyFrame, put_KeyFrame)
-    Discontinuous = property(get_Discontinuous, put_Discontinuous)
     Direct3D11Surface = property(get_Direct3D11Surface, None)
+    Discontinuous = property(get_Discontinuous, put_Discontinuous)
+    Duration = property(get_Duration, put_Duration)
+    ExtendedProperties = property(get_ExtendedProperties, None)
+    KeyFrame = property(get_KeyFrame, put_KeyFrame)
+    Protection = property(get_Protection, None)
+    Timestamp = property(get_Timestamp, None)
 class MediaStreamSamplePropertySet(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.Collections.IMap[Guid, win32more.Windows.Win32.System.WinRT.IInspectable]
@@ -2549,15 +2549,15 @@ class MediaStreamSource(ComPtr):
     def put_IsLive(self: win32more.Windows.Media.Core.IMediaStreamSource4, value: Boolean) -> Void: ...
     @winrt_mixinmethod
     def get_IsLive(self: win32more.Windows.Media.Core.IMediaStreamSource4) -> Boolean: ...
-    MediaProtectionManager = property(get_MediaProtectionManager, put_MediaProtectionManager)
-    Duration = property(get_Duration, put_Duration)
-    CanSeek = property(get_CanSeek, put_CanSeek)
     BufferTime = property(get_BufferTime, put_BufferTime)
-    MusicProperties = property(get_MusicProperties, None)
-    VideoProperties = property(get_VideoProperties, None)
-    Thumbnail = property(get_Thumbnail, put_Thumbnail)
-    MaxSupportedPlaybackRate = property(get_MaxSupportedPlaybackRate, put_MaxSupportedPlaybackRate)
+    CanSeek = property(get_CanSeek, put_CanSeek)
+    Duration = property(get_Duration, put_Duration)
     IsLive = property(get_IsLive, put_IsLive)
+    MaxSupportedPlaybackRate = property(get_MaxSupportedPlaybackRate, put_MaxSupportedPlaybackRate)
+    MediaProtectionManager = property(get_MediaProtectionManager, put_MediaProtectionManager)
+    MusicProperties = property(get_MusicProperties, None)
+    Thumbnail = property(get_Thumbnail, put_Thumbnail)
+    VideoProperties = property(get_VideoProperties, None)
 class MediaStreamSourceClosedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Core.IMediaStreamSourceClosedEventArgs
@@ -2610,8 +2610,8 @@ class MediaStreamSourceSampleRequest(ComPtr):
     def get_Sample(self: win32more.Windows.Media.Core.IMediaStreamSourceSampleRequest) -> win32more.Windows.Media.Core.MediaStreamSample: ...
     @winrt_mixinmethod
     def ReportSampleProgress(self: win32more.Windows.Media.Core.IMediaStreamSourceSampleRequest, progress: UInt32) -> Void: ...
-    StreamDescriptor = property(get_StreamDescriptor, None)
     Sample = property(get_Sample, put_Sample)
+    StreamDescriptor = property(get_StreamDescriptor, None)
 class MediaStreamSourceSampleRequestDeferral(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Core.IMediaStreamSourceSampleRequestDeferral
@@ -2659,8 +2659,8 @@ class MediaStreamSourceSwitchStreamsRequest(ComPtr):
     def get_NewStreamDescriptor(self: win32more.Windows.Media.Core.IMediaStreamSourceSwitchStreamsRequest) -> win32more.Windows.Media.Core.IMediaStreamDescriptor: ...
     @winrt_mixinmethod
     def GetDeferral(self: win32more.Windows.Media.Core.IMediaStreamSourceSwitchStreamsRequest) -> win32more.Windows.Media.Core.MediaStreamSourceSwitchStreamsRequestDeferral: ...
-    OldStreamDescriptor = property(get_OldStreamDescriptor, None)
     NewStreamDescriptor = property(get_NewStreamDescriptor, None)
+    OldStreamDescriptor = property(get_OldStreamDescriptor, None)
 class MediaStreamSourceSwitchStreamsRequestDeferral(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Core.IMediaStreamSourceSwitchStreamsRequestDeferral
@@ -2744,12 +2744,12 @@ class MseSourceBuffer(ComPtr):
     def Abort(self: win32more.Windows.Media.Core.IMseSourceBuffer) -> Void: ...
     @winrt_mixinmethod
     def Remove(self: win32more.Windows.Media.Core.IMseSourceBuffer, start: win32more.Windows.Foundation.TimeSpan, end: win32more.Windows.Foundation.IReference[win32more.Windows.Foundation.TimeSpan]) -> Void: ...
-    Mode = property(get_Mode, put_Mode)
-    IsUpdating = property(get_IsUpdating, None)
-    Buffered = property(get_Buffered, None)
-    TimestampOffset = property(get_TimestampOffset, put_TimestampOffset)
-    AppendWindowStart = property(get_AppendWindowStart, put_AppendWindowStart)
     AppendWindowEnd = property(get_AppendWindowEnd, put_AppendWindowEnd)
+    AppendWindowStart = property(get_AppendWindowStart, put_AppendWindowStart)
+    Buffered = property(get_Buffered, None)
+    IsUpdating = property(get_IsUpdating, None)
+    Mode = property(get_Mode, put_Mode)
+    TimestampOffset = property(get_TimestampOffset, put_TimestampOffset)
 class MseSourceBufferList(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Core.IMseSourceBufferList
@@ -2812,11 +2812,11 @@ class MseStreamSource(ComPtr):
     def put_LiveSeekableRange(self: win32more.Windows.Media.Core.IMseStreamSource2, value: win32more.Windows.Foundation.IReference[win32more.Windows.Media.Core.MseTimeRange]) -> Void: ...
     @winrt_classmethod
     def IsContentTypeSupported(cls: win32more.Windows.Media.Core.IMseStreamSourceStatics, contentType: WinRT_String) -> Boolean: ...
-    SourceBuffers = property(get_SourceBuffers, None)
     ActiveSourceBuffers = property(get_ActiveSourceBuffers, None)
-    ReadyState = property(get_ReadyState, None)
     Duration = property(get_Duration, put_Duration)
     LiveSeekableRange = property(get_LiveSeekableRange, put_LiveSeekableRange)
+    ReadyState = property(get_ReadyState, None)
+    SourceBuffers = property(get_SourceBuffers, None)
 class MseTimeRange(EasyCastStructure):
     Start: win32more.Windows.Foundation.TimeSpan
     End: win32more.Windows.Foundation.TimeSpan
@@ -2836,8 +2836,8 @@ class SceneAnalysisEffect(ComPtr):
     def remove_SceneAnalyzed(self: win32more.Windows.Media.Core.ISceneAnalysisEffect, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
     def SetProperties(self: win32more.Windows.Media.IMediaExtension, configuration: win32more.Windows.Foundation.Collections.IPropertySet) -> Void: ...
-    HighDynamicRangeAnalyzer = property(get_HighDynamicRangeAnalyzer, None)
     DesiredAnalysisInterval = property(get_DesiredAnalysisInterval, put_DesiredAnalysisInterval)
+    HighDynamicRangeAnalyzer = property(get_HighDynamicRangeAnalyzer, None)
 class SceneAnalysisEffectDefinition(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Effects.IVideoEffectDefinition
@@ -2891,16 +2891,16 @@ class SceneAnalysisEffectFrame(ComPtr):
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
     @winrt_mixinmethod
     def get_AnalysisRecommendation(self: win32more.Windows.Media.Core.ISceneAnalysisEffectFrame2) -> win32more.Windows.Media.Core.SceneAnalysisRecommendation: ...
+    AnalysisRecommendation = property(get_AnalysisRecommendation, None)
+    Duration = property(get_Duration, put_Duration)
+    ExtendedProperties = property(get_ExtendedProperties, None)
     FrameControlValues = property(get_FrameControlValues, None)
     HighDynamicRange = property(get_HighDynamicRange, None)
-    Type = property(get_Type, None)
+    IsDiscontinuous = property(get_IsDiscontinuous, put_IsDiscontinuous)
     IsReadOnly = property(get_IsReadOnly, None)
     RelativeTime = property(get_RelativeTime, put_RelativeTime)
     SystemRelativeTime = property(get_SystemRelativeTime, put_SystemRelativeTime)
-    Duration = property(get_Duration, put_Duration)
-    IsDiscontinuous = property(get_IsDiscontinuous, put_IsDiscontinuous)
-    ExtendedProperties = property(get_ExtendedProperties, None)
-    AnalysisRecommendation = property(get_AnalysisRecommendation, None)
+    Type = property(get_Type, None)
 class SceneAnalysisRecommendation(Int32):  # enum
     Standard = 0
     Hdr = 1
@@ -2949,12 +2949,12 @@ class SpeechCue(ComPtr):
     def put_Id(self: win32more.Windows.Media.Core.IMediaCue, value: WinRT_String) -> Void: ...
     @winrt_mixinmethod
     def get_Id(self: win32more.Windows.Media.Core.IMediaCue) -> WinRT_String: ...
-    Text = property(get_Text, put_Text)
-    StartPositionInInput = property(get_StartPositionInInput, put_StartPositionInInput)
-    EndPositionInInput = property(get_EndPositionInInput, put_EndPositionInInput)
-    StartTime = property(get_StartTime, put_StartTime)
     Duration = property(get_Duration, put_Duration)
+    EndPositionInInput = property(get_EndPositionInInput, put_EndPositionInInput)
     Id = property(get_Id, put_Id)
+    StartPositionInInput = property(get_StartPositionInInput, put_StartPositionInInput)
+    StartTime = property(get_StartTime, put_StartTime)
+    Text = property(get_Text, put_Text)
 class TimedMetadataKind(Int32):  # enum
     Caption = 0
     Chapter = 1
@@ -2996,10 +2996,10 @@ class TimedMetadataStreamDescriptor(ComPtr):
     @winrt_mixinmethod
     def get_Language(self: win32more.Windows.Media.Core.IMediaStreamDescriptor) -> WinRT_String: ...
     EncodingProperties = property(get_EncodingProperties, None)
-    Label = property(get_Label, put_Label)
     IsSelected = property(get_IsSelected, None)
-    Name = property(get_Name, put_Name)
+    Label = property(get_Label, put_Label)
     Language = property(get_Language, put_Language)
+    Name = property(get_Name, put_Name)
 class TimedMetadataTrack(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Core.ITimedMetadataTrack
@@ -3051,16 +3051,16 @@ class TimedMetadataTrack(ComPtr):
     def get_PlaybackItem(self: win32more.Windows.Media.Core.ITimedMetadataTrack2) -> win32more.Windows.Media.Playback.MediaPlaybackItem: ...
     @winrt_mixinmethod
     def get_Name(self: win32more.Windows.Media.Core.ITimedMetadataTrack2) -> WinRT_String: ...
-    Cues = property(get_Cues, None)
     ActiveCues = property(get_ActiveCues, None)
-    TimedMetadataKind = property(get_TimedMetadataKind, None)
+    Cues = property(get_Cues, None)
     DispatchType = property(get_DispatchType, None)
     Id = property(get_Id, None)
-    Language = property(get_Language, None)
-    TrackKind = property(get_TrackKind, None)
     Label = property(get_Label, put_Label)
-    PlaybackItem = property(get_PlaybackItem, None)
+    Language = property(get_Language, None)
     Name = property(get_Name, None)
+    PlaybackItem = property(get_PlaybackItem, None)
+    TimedMetadataKind = property(get_TimedMetadataKind, None)
+    TrackKind = property(get_TrackKind, None)
 class TimedMetadataTrackError(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Core.ITimedMetadataTrackError
@@ -3099,9 +3099,9 @@ class TimedTextBouten(ComPtr):
     def get_Position(self: win32more.Windows.Media.Core.ITimedTextBouten) -> win32more.Windows.Media.Core.TimedTextBoutenPosition: ...
     @winrt_mixinmethod
     def put_Position(self: win32more.Windows.Media.Core.ITimedTextBouten, value: win32more.Windows.Media.Core.TimedTextBoutenPosition) -> Void: ...
-    Type = property(get_Type, put_Type)
     Color = property(get_Color, put_Color)
     Position = property(get_Position, put_Position)
+    Type = property(get_Type, put_Type)
 class TimedTextBoutenPosition(Int32):  # enum
     Before = 0
     After = 1
@@ -3152,10 +3152,10 @@ class TimedTextCue(ComPtr):
     def get_Id(self: win32more.Windows.Media.Core.IMediaCue) -> WinRT_String: ...
     CueRegion = property(get_CueRegion, put_CueRegion)
     CueStyle = property(get_CueStyle, put_CueStyle)
-    Lines = property(get_Lines, None)
-    StartTime = property(get_StartTime, put_StartTime)
     Duration = property(get_Duration, put_Duration)
     Id = property(get_Id, put_Id)
+    Lines = property(get_Lines, None)
+    StartTime = property(get_StartTime, put_StartTime)
 class TimedTextDisplayAlignment(Int32):  # enum
     Before = 0
     After = 1
@@ -3189,8 +3189,8 @@ class TimedTextLine(ComPtr):
     def put_Text(self: win32more.Windows.Media.Core.ITimedTextLine, value: WinRT_String) -> Void: ...
     @winrt_mixinmethod
     def get_Subformats(self: win32more.Windows.Media.Core.ITimedTextLine) -> win32more.Windows.Foundation.Collections.IVector[win32more.Windows.Media.Core.TimedTextSubformat]: ...
-    Text = property(get_Text, put_Text)
     Subformats = property(get_Subformats, None)
+    Text = property(get_Text, put_Text)
 class TimedTextLineAlignment(Int32):  # enum
     Start = 0
     End = 1
@@ -3266,18 +3266,18 @@ class TimedTextRegion(ComPtr):
     def get_ScrollMode(self: win32more.Windows.Media.Core.ITimedTextRegion) -> win32more.Windows.Media.Core.TimedTextScrollMode: ...
     @winrt_mixinmethod
     def put_ScrollMode(self: win32more.Windows.Media.Core.ITimedTextRegion, value: win32more.Windows.Media.Core.TimedTextScrollMode) -> Void: ...
-    Name = property(get_Name, put_Name)
-    Position = property(get_Position, put_Position)
-    Extent = property(get_Extent, put_Extent)
     Background = property(get_Background, put_Background)
-    WritingMode = property(get_WritingMode, put_WritingMode)
     DisplayAlignment = property(get_DisplayAlignment, put_DisplayAlignment)
-    LineHeight = property(get_LineHeight, put_LineHeight)
+    Extent = property(get_Extent, put_Extent)
     IsOverflowClipped = property(get_IsOverflowClipped, put_IsOverflowClipped)
+    LineHeight = property(get_LineHeight, put_LineHeight)
+    Name = property(get_Name, put_Name)
     Padding = property(get_Padding, put_Padding)
-    TextWrapping = property(get_TextWrapping, put_TextWrapping)
-    ZIndex = property(get_ZIndex, put_ZIndex)
+    Position = property(get_Position, put_Position)
     ScrollMode = property(get_ScrollMode, put_ScrollMode)
+    TextWrapping = property(get_TextWrapping, put_TextWrapping)
+    WritingMode = property(get_WritingMode, put_WritingMode)
+    ZIndex = property(get_ZIndex, put_ZIndex)
 class TimedTextRuby(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Core.ITimedTextRuby
@@ -3298,10 +3298,10 @@ class TimedTextRuby(ComPtr):
     def get_Reserve(self: win32more.Windows.Media.Core.ITimedTextRuby) -> win32more.Windows.Media.Core.TimedTextRubyReserve: ...
     @winrt_mixinmethod
     def put_Reserve(self: win32more.Windows.Media.Core.ITimedTextRuby, value: win32more.Windows.Media.Core.TimedTextRubyReserve) -> Void: ...
-    Text = property(get_Text, put_Text)
-    Position = property(get_Position, put_Position)
     Align = property(get_Align, put_Align)
+    Position = property(get_Position, put_Position)
     Reserve = property(get_Reserve, put_Reserve)
+    Text = property(get_Text, put_Text)
 class TimedTextRubyAlign(Int32):  # enum
     Center = 0
     Start = 1
@@ -3449,26 +3449,26 @@ class TimedTextStyle(ComPtr):
     def get_FontAngleInDegrees(self: win32more.Windows.Media.Core.ITimedTextStyle3) -> Double: ...
     @winrt_mixinmethod
     def put_FontAngleInDegrees(self: win32more.Windows.Media.Core.ITimedTextStyle3, value: Double) -> Void: ...
-    Name = property(get_Name, put_Name)
+    Background = property(get_Background, put_Background)
+    Bouten = property(get_Bouten, None)
+    FlowDirection = property(get_FlowDirection, put_FlowDirection)
+    FontAngleInDegrees = property(get_FontAngleInDegrees, put_FontAngleInDegrees)
     FontFamily = property(get_FontFamily, put_FontFamily)
     FontSize = property(get_FontSize, put_FontSize)
+    FontStyle = property(get_FontStyle, put_FontStyle)
     FontWeight = property(get_FontWeight, put_FontWeight)
     Foreground = property(get_Foreground, put_Foreground)
-    Background = property(get_Background, put_Background)
     IsBackgroundAlwaysShown = property(get_IsBackgroundAlwaysShown, put_IsBackgroundAlwaysShown)
-    FlowDirection = property(get_FlowDirection, put_FlowDirection)
-    LineAlignment = property(get_LineAlignment, put_LineAlignment)
-    OutlineColor = property(get_OutlineColor, put_OutlineColor)
-    OutlineThickness = property(get_OutlineThickness, put_OutlineThickness)
-    OutlineRadius = property(get_OutlineRadius, put_OutlineRadius)
-    FontStyle = property(get_FontStyle, put_FontStyle)
-    IsUnderlineEnabled = property(get_IsUnderlineEnabled, put_IsUnderlineEnabled)
     IsLineThroughEnabled = property(get_IsLineThroughEnabled, put_IsLineThroughEnabled)
     IsOverlineEnabled = property(get_IsOverlineEnabled, put_IsOverlineEnabled)
-    Ruby = property(get_Ruby, None)
-    Bouten = property(get_Bouten, None)
     IsTextCombined = property(get_IsTextCombined, put_IsTextCombined)
-    FontAngleInDegrees = property(get_FontAngleInDegrees, put_FontAngleInDegrees)
+    IsUnderlineEnabled = property(get_IsUnderlineEnabled, put_IsUnderlineEnabled)
+    LineAlignment = property(get_LineAlignment, put_LineAlignment)
+    Name = property(get_Name, put_Name)
+    OutlineColor = property(get_OutlineColor, put_OutlineColor)
+    OutlineRadius = property(get_OutlineRadius, put_OutlineRadius)
+    OutlineThickness = property(get_OutlineThickness, put_OutlineThickness)
+    Ruby = property(get_Ruby, None)
 class TimedTextSubformat(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Core.ITimedTextSubformat
@@ -3494,8 +3494,8 @@ class TimedTextSubformat(ComPtr):
     def get_SubformatStyle(self: win32more.Windows.Media.Core.ITimedTextSubformat) -> win32more.Windows.Media.Core.TimedTextStyle: ...
     @winrt_mixinmethod
     def put_SubformatStyle(self: win32more.Windows.Media.Core.ITimedTextSubformat, value: win32more.Windows.Media.Core.TimedTextStyle) -> Void: ...
-    StartIndex = property(get_StartIndex, put_StartIndex)
     Length = property(get_Length, put_Length)
+    StartIndex = property(get_StartIndex, put_StartIndex)
     SubformatStyle = property(get_SubformatStyle, put_SubformatStyle)
 class TimedTextUnit(Int32):  # enum
     Pixels = 0
@@ -3594,9 +3594,9 @@ class VideoStreamDescriptor(ComPtr):
     def Copy(self: win32more.Windows.Media.Core.IVideoStreamDescriptor2) -> win32more.Windows.Media.Core.VideoStreamDescriptor: ...
     EncodingProperties = property(get_EncodingProperties, None)
     IsSelected = property(get_IsSelected, None)
-    Name = property(get_Name, put_Name)
-    Language = property(get_Language, put_Language)
     Label = property(get_Label, put_Label)
+    Language = property(get_Language, put_Language)
+    Name = property(get_Name, put_Name)
 class VideoTrack(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Core.IMediaTrack
@@ -3624,12 +3624,12 @@ class VideoTrack(ComPtr):
     @winrt_mixinmethod
     def get_SupportInfo(self: win32more.Windows.Media.Core.IVideoTrack) -> win32more.Windows.Media.Core.VideoTrackSupportInfo: ...
     Id = property(get_Id, None)
-    Language = property(get_Language, None)
-    TrackKind = property(get_TrackKind, None)
     Label = property(get_Label, put_Label)
-    PlaybackItem = property(get_PlaybackItem, None)
+    Language = property(get_Language, None)
     Name = property(get_Name, None)
+    PlaybackItem = property(get_PlaybackItem, None)
     SupportInfo = property(get_SupportInfo, None)
+    TrackKind = property(get_TrackKind, None)
 class VideoTrackOpenFailedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Core.IVideoTrackOpenFailedEventArgs

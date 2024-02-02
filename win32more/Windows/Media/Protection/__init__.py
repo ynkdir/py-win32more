@@ -15,8 +15,8 @@ class ComponentLoadFailedEventArgs(ComPtr):
     def get_Information(self: win32more.Windows.Media.Protection.IComponentLoadFailedEventArgs) -> win32more.Windows.Media.Protection.RevocationAndRenewalInformation: ...
     @winrt_mixinmethod
     def get_Completion(self: win32more.Windows.Media.Protection.IComponentLoadFailedEventArgs) -> win32more.Windows.Media.Protection.MediaProtectionServiceCompletion: ...
-    Information = property(get_Information, None)
     Completion = property(get_Completion, None)
+    Information = property(get_Information, None)
 class ComponentLoadFailedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{95da643c-6db9-424b-86ca-091af432081c}')
@@ -75,8 +75,8 @@ class IComponentLoadFailedEventArgs(ComPtr):
     def get_Information(self) -> win32more.Windows.Media.Protection.RevocationAndRenewalInformation: ...
     @winrt_commethod(7)
     def get_Completion(self) -> win32more.Windows.Media.Protection.MediaProtectionServiceCompletion: ...
-    Information = property(get_Information, None)
     Completion = property(get_Completion, None)
+    Information = property(get_Information, None)
 class IComponentRenewalStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Protection.IComponentRenewalStatics'
@@ -172,10 +172,10 @@ class IRevocationAndRenewalItem(ComPtr):
     def get_Name(self) -> WinRT_String: ...
     @winrt_commethod(10)
     def get_RenewalId(self) -> WinRT_String: ...
-    Reasons = property(get_Reasons, None)
     HeaderHash = property(get_HeaderHash, None)
-    PublicKeyHash = property(get_PublicKeyHash, None)
     Name = property(get_Name, None)
+    PublicKeyHash = property(get_PublicKeyHash, None)
+    Reasons = property(get_Reasons, None)
     RenewalId = property(get_RenewalId, None)
 class IServiceRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -185,8 +185,8 @@ class IServiceRequestedEventArgs(ComPtr):
     def get_Request(self) -> win32more.Windows.Media.Protection.IMediaProtectionServiceRequest: ...
     @winrt_commethod(7)
     def get_Completion(self) -> win32more.Windows.Media.Protection.MediaProtectionServiceCompletion: ...
-    Request = property(get_Request, None)
     Completion = property(get_Completion, None)
+    Request = property(get_Request, None)
 class IServiceRequestedEventArgs2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Protection.IServiceRequestedEventArgs2'
@@ -295,10 +295,10 @@ class RevocationAndRenewalItem(ComPtr):
     def get_Name(self: win32more.Windows.Media.Protection.IRevocationAndRenewalItem) -> WinRT_String: ...
     @winrt_mixinmethod
     def get_RenewalId(self: win32more.Windows.Media.Protection.IRevocationAndRenewalItem) -> WinRT_String: ...
-    Reasons = property(get_Reasons, None)
     HeaderHash = property(get_HeaderHash, None)
-    PublicKeyHash = property(get_PublicKeyHash, None)
     Name = property(get_Name, None)
+    PublicKeyHash = property(get_PublicKeyHash, None)
+    Reasons = property(get_Reasons, None)
     RenewalId = property(get_RenewalId, None)
 class RevocationAndRenewalReasons(UInt32):  # enum
     UserModeComponentLoad = 1
@@ -326,9 +326,9 @@ class ServiceRequestedEventArgs(ComPtr):
     def get_Completion(self: win32more.Windows.Media.Protection.IServiceRequestedEventArgs) -> win32more.Windows.Media.Protection.MediaProtectionServiceCompletion: ...
     @winrt_mixinmethod
     def get_MediaPlaybackItem(self: win32more.Windows.Media.Protection.IServiceRequestedEventArgs2) -> win32more.Windows.Media.Playback.MediaPlaybackItem: ...
-    Request = property(get_Request, None)
     Completion = property(get_Completion, None)
     MediaPlaybackItem = property(get_MediaPlaybackItem, None)
+    Request = property(get_Request, None)
 class ServiceRequestedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{d2d690ba-cac9-48e1-95c0-d38495a84055}')

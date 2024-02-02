@@ -52,9 +52,9 @@ class AnimationController(ComPtr, metaclass=_AnimationController_Meta_):
     def get_MaxPlaybackRate(cls: win32more.Microsoft.UI.Composition.IAnimationControllerStatics) -> Single: ...
     @winrt_classmethod
     def get_MinPlaybackRate(cls: win32more.Microsoft.UI.Composition.IAnimationControllerStatics) -> Single: ...
-    ProgressBehavior = property(get_ProgressBehavior, put_ProgressBehavior)
-    Progress = property(get_Progress, put_Progress)
     PlaybackRate = property(get_PlaybackRate, put_PlaybackRate)
+    Progress = property(get_Progress, put_Progress)
+    ProgressBehavior = property(get_ProgressBehavior, put_ProgressBehavior)
     _AnimationController_Meta_.MaxPlaybackRate = property(get_MaxPlaybackRate.__wrapped__, None)
     _AnimationController_Meta_.MinPlaybackRate = property(get_MinPlaybackRate.__wrapped__, None)
 class AnimationControllerProgressBehavior(Int32):  # enum
@@ -119,9 +119,9 @@ class BounceEasingFunction(ComPtr):
     def get_Mode(self: win32more.Microsoft.UI.Composition.IBounceEasingFunction) -> win32more.Microsoft.UI.Composition.CompositionEasingFunctionMode: ...
     @winrt_mixinmethod
     def get_Bounces(self: win32more.Microsoft.UI.Composition.IBounceEasingFunction) -> Int32: ...
+    Bounces = property(get_Bounces, None)
     Bounciness = property(get_Bounciness, None)
     Mode = property(get_Mode, None)
-    Bounces = property(get_Bounces, None)
 class BounceScalarNaturalMotionAnimation(ComPtr):
     extends: win32more.Microsoft.UI.Composition.ScalarNaturalMotionAnimation
     default_interface: win32more.Microsoft.UI.Composition.IBounceScalarNaturalMotionAnimation
@@ -220,8 +220,8 @@ class CompositionAnimation(ComPtr):
     def SetVector3Parameter(self: win32more.Microsoft.UI.Composition.ICompositionAnimation, key: WinRT_String, value: win32more.Windows.Foundation.Numerics.Vector3) -> Void: ...
     @winrt_mixinmethod
     def ClearAllParameters(self: win32more.Microsoft.UI.Composition.ICompositionAnimation) -> Void: ...
-    Target = property(get_Target, put_Target)
     InitialValueExpressions = property(get_InitialValueExpressions, None)
+    Target = property(get_Target, put_Target)
 class CompositionAnimationGroup(ComPtr):
     extends: win32more.Microsoft.UI.Composition.CompositionObject
     default_interface: win32more.Microsoft.UI.Composition.ICompositionAnimationGroup
@@ -336,12 +336,12 @@ class CompositionClip(ComPtr):
     @winrt_mixinmethod
     def get_AnchorPoint(self: win32more.Microsoft.UI.Composition.ICompositionClip2) -> win32more.Windows.Foundation.Numerics.Vector2: ...
     AnchorPoint = property(get_AnchorPoint, put_AnchorPoint)
-    TransformMatrix = property(get_TransformMatrix, put_TransformMatrix)
-    RotationAngle = property(get_RotationAngle, put_RotationAngle)
-    Scale = property(get_Scale, put_Scale)
     CenterPoint = property(get_CenterPoint, put_CenterPoint)
     Offset = property(get_Offset, put_Offset)
+    RotationAngle = property(get_RotationAngle, put_RotationAngle)
     RotationAngleInDegrees = property(get_RotationAngleInDegrees, put_RotationAngleInDegrees)
+    Scale = property(get_Scale, put_Scale)
+    TransformMatrix = property(get_TransformMatrix, put_TransformMatrix)
 class CompositionColorBrush(ComPtr):
     extends: win32more.Microsoft.UI.Composition.CompositionBrush
     default_interface: win32more.Microsoft.UI.Composition.ICompositionColorBrush
@@ -450,10 +450,10 @@ class CompositionDrawingSurface(ComPtr):
     def ScrollRectWithClip(self: win32more.Microsoft.UI.Composition.ICompositionDrawingSurface2, offset: win32more.Windows.Graphics.PointInt32, clipRect: win32more.Windows.Graphics.RectInt32, scrollRect: win32more.Windows.Graphics.RectInt32) -> Void: ...
     @winrt_mixinmethod
     def ScrollWithClip(self: win32more.Microsoft.UI.Composition.ICompositionDrawingSurface2, offset: win32more.Windows.Graphics.PointInt32, clipRect: win32more.Windows.Graphics.RectInt32) -> Void: ...
-    Size = property(get_Size, None)
     AlphaMode = property(get_AlphaMode, None)
-    SizeInt32 = property(get_SizeInt32, None)
     PixelFormat = property(get_PixelFormat, None)
+    Size = property(get_Size, None)
+    SizeInt32 = property(get_SizeInt32, None)
 class CompositionDropShadowSourcePolicy(Int32):  # enum
     Default = 0
     InheritFromVisualContent = 1
@@ -505,8 +505,8 @@ class CompositionEffectFactory(ComPtr):
     def get_LoadStatus(self: win32more.Microsoft.UI.Composition.ICompositionEffectFactory) -> win32more.Microsoft.UI.Composition.CompositionEffectFactoryLoadStatus: ...
     @winrt_mixinmethod
     def get_ExtendedError(self: win32more.Microsoft.UI.Composition.ICompositionEffectFactory) -> win32more.Windows.Foundation.HResult: ...
-    LoadStatus = property(get_LoadStatus, None)
     ExtendedError = property(get_ExtendedError, None)
+    LoadStatus = property(get_LoadStatus, None)
 class CompositionEffectFactoryLoadStatus(Int32):  # enum
     Success = 0
     EffectTooComplex = 1
@@ -540,8 +540,8 @@ class CompositionEllipseGeometry(ComPtr):
     def get_Radius(self: win32more.Microsoft.UI.Composition.ICompositionEllipseGeometry) -> win32more.Windows.Foundation.Numerics.Vector2: ...
     @winrt_mixinmethod
     def put_Center(self: win32more.Microsoft.UI.Composition.ICompositionEllipseGeometry, value: win32more.Windows.Foundation.Numerics.Vector2) -> Void: ...
-    Radius = property(get_Radius, put_Radius)
     Center = property(get_Center, put_Center)
+    Radius = property(get_Radius, put_Radius)
 class CompositionGeometricClip(ComPtr):
     extends: win32more.Microsoft.UI.Composition.CompositionClip
     default_interface: win32more.Microsoft.UI.Composition.ICompositionGeometricClip
@@ -572,8 +572,8 @@ class CompositionGeometry(ComPtr):
     def get_TrimEnd(self: win32more.Microsoft.UI.Composition.ICompositionGeometry) -> Single: ...
     @winrt_mixinmethod
     def get_TrimStart(self: win32more.Microsoft.UI.Composition.ICompositionGeometry) -> Single: ...
-    TrimOffset = property(get_TrimOffset, put_TrimOffset)
     TrimEnd = property(get_TrimEnd, put_TrimEnd)
+    TrimOffset = property(get_TrimOffset, put_TrimOffset)
     TrimStart = property(get_TrimStart, put_TrimStart)
 class CompositionGetValueStatus(Int32):  # enum
     Succeeded = 0
@@ -625,17 +625,17 @@ class CompositionGradientBrush(ComPtr):
     def get_Offset(self: win32more.Microsoft.UI.Composition.ICompositionGradientBrush) -> win32more.Windows.Foundation.Numerics.Vector2: ...
     @winrt_mixinmethod
     def put_Offset(self: win32more.Microsoft.UI.Composition.ICompositionGradientBrush, value: win32more.Windows.Foundation.Numerics.Vector2) -> Void: ...
-    RotationAngleInDegrees = property(get_RotationAngleInDegrees, put_RotationAngleInDegrees)
-    RotationAngle = property(get_RotationAngle, put_RotationAngle)
-    TransformMatrix = property(get_TransformMatrix, put_TransformMatrix)
-    Scale = property(get_Scale, put_Scale)
     AnchorPoint = property(get_AnchorPoint, put_AnchorPoint)
-    MappingMode = property(get_MappingMode, put_MappingMode)
     CenterPoint = property(get_CenterPoint, put_CenterPoint)
     ColorStops = property(get_ColorStops, None)
     ExtendMode = property(get_ExtendMode, put_ExtendMode)
     InterpolationSpace = property(get_InterpolationSpace, put_InterpolationSpace)
+    MappingMode = property(get_MappingMode, put_MappingMode)
     Offset = property(get_Offset, put_Offset)
+    RotationAngle = property(get_RotationAngle, put_RotationAngle)
+    RotationAngleInDegrees = property(get_RotationAngleInDegrees, put_RotationAngleInDegrees)
+    Scale = property(get_Scale, put_Scale)
+    TransformMatrix = property(get_TransformMatrix, put_TransformMatrix)
 class CompositionGradientExtendMode(Int32):  # enum
     Clamp = 0
     Wrap = 1
@@ -672,9 +672,9 @@ class CompositionLight(ComPtr):
     def get_Targets(self: win32more.Microsoft.UI.Composition.ICompositionLight) -> win32more.Microsoft.UI.Composition.VisualUnorderedCollection: ...
     @winrt_mixinmethod
     def get_ExclusionsFromTargets(self: win32more.Microsoft.UI.Composition.ICompositionLight2) -> win32more.Microsoft.UI.Composition.VisualUnorderedCollection: ...
+    ExclusionsFromTargets = property(get_ExclusionsFromTargets, None)
     IsEnabled = property(get_IsEnabled, put_IsEnabled)
     Targets = property(get_Targets, None)
-    ExclusionsFromTargets = property(get_ExclusionsFromTargets, None)
 class CompositionLineGeometry(ComPtr):
     extends: win32more.Microsoft.UI.Composition.CompositionGeometry
     default_interface: win32more.Microsoft.UI.Composition.ICompositionLineGeometry
@@ -687,8 +687,8 @@ class CompositionLineGeometry(ComPtr):
     def put_End(self: win32more.Microsoft.UI.Composition.ICompositionLineGeometry, value: win32more.Windows.Foundation.Numerics.Vector2) -> Void: ...
     @winrt_mixinmethod
     def get_End(self: win32more.Microsoft.UI.Composition.ICompositionLineGeometry) -> win32more.Windows.Foundation.Numerics.Vector2: ...
-    Start = property(get_Start, put_Start)
     End = property(get_End, put_End)
+    Start = property(get_Start, put_Start)
 class CompositionLinearGradientBrush(ComPtr):
     extends: win32more.Microsoft.UI.Composition.CompositionGradientBrush
     default_interface: win32more.Microsoft.UI.Composition.ICompositionLinearGradientBrush
@@ -701,8 +701,8 @@ class CompositionLinearGradientBrush(ComPtr):
     def put_EndPoint(self: win32more.Microsoft.UI.Composition.ICompositionLinearGradientBrush, value: win32more.Windows.Foundation.Numerics.Vector2) -> Void: ...
     @winrt_mixinmethod
     def put_StartPoint(self: win32more.Microsoft.UI.Composition.ICompositionLinearGradientBrush, value: win32more.Windows.Foundation.Numerics.Vector2) -> Void: ...
-    StartPoint = property(get_StartPoint, put_StartPoint)
     EndPoint = property(get_EndPoint, put_EndPoint)
+    StartPoint = property(get_StartPoint, put_StartPoint)
 class CompositionMappingMode(Int32):  # enum
     Absolute = 0
     Relative = 1
@@ -718,8 +718,8 @@ class CompositionMaskBrush(ComPtr):
     def put_Mask(self: win32more.Microsoft.UI.Composition.ICompositionMaskBrush, value: win32more.Microsoft.UI.Composition.CompositionBrush) -> Void: ...
     @winrt_mixinmethod
     def get_Mask(self: win32more.Microsoft.UI.Composition.ICompositionMaskBrush) -> win32more.Microsoft.UI.Composition.CompositionBrush: ...
-    Source = property(get_Source, put_Source)
     Mask = property(get_Mask, put_Mask)
+    Source = property(get_Source, put_Source)
 class CompositionMipmapSurface(ComPtr):
     extends: win32more.Microsoft.UI.Composition.CompositionObject
     default_interface: win32more.Microsoft.UI.Composition.ICompositionMipmapSurface
@@ -734,10 +734,10 @@ class CompositionMipmapSurface(ComPtr):
     def GetDrawingSurfaceForLevel(self: win32more.Microsoft.UI.Composition.ICompositionMipmapSurface, level: UInt32) -> win32more.Microsoft.UI.Composition.CompositionDrawingSurface: ...
     @winrt_mixinmethod
     def get_AlphaMode(self: win32more.Microsoft.UI.Composition.ICompositionMipmapSurface) -> win32more.Microsoft.Graphics.DirectX.DirectXAlphaMode: ...
+    AlphaMode = property(get_AlphaMode, None)
     LevelCount = property(get_LevelCount, None)
     PixelFormat = property(get_PixelFormat, None)
     SizeInt32 = property(get_SizeInt32, None)
-    AlphaMode = property(get_AlphaMode, None)
 class CompositionNineGridBrush(ComPtr):
     extends: win32more.Microsoft.UI.Composition.CompositionBrush
     default_interface: win32more.Microsoft.UI.Composition.ICompositionNineGridBrush
@@ -790,16 +790,16 @@ class CompositionNineGridBrush(ComPtr):
     def put_RightInsetScale(self: win32more.Microsoft.UI.Composition.ICompositionNineGridBrush, value: Single) -> Void: ...
     @winrt_mixinmethod
     def get_Source(self: win32more.Microsoft.UI.Composition.ICompositionNineGridBrush) -> win32more.Microsoft.UI.Composition.CompositionBrush: ...
+    BottomInset = property(get_BottomInset, put_BottomInset)
+    BottomInsetScale = property(get_BottomInsetScale, put_BottomInsetScale)
     IsCenterHollow = property(get_IsCenterHollow, put_IsCenterHollow)
+    LeftInset = property(get_LeftInset, put_LeftInset)
+    LeftInsetScale = property(get_LeftInsetScale, put_LeftInsetScale)
+    RightInset = property(get_RightInset, put_RightInset)
+    RightInsetScale = property(get_RightInsetScale, put_RightInsetScale)
     Source = property(get_Source, put_Source)
     TopInset = property(get_TopInset, put_TopInset)
     TopInsetScale = property(get_TopInsetScale, put_TopInsetScale)
-    LeftInsetScale = property(get_LeftInsetScale, put_LeftInsetScale)
-    BottomInset = property(get_BottomInset, put_BottomInset)
-    BottomInsetScale = property(get_BottomInsetScale, put_BottomInsetScale)
-    LeftInset = property(get_LeftInset, put_LeftInset)
-    RightInset = property(get_RightInset, put_RightInset)
-    RightInsetScale = property(get_RightInsetScale, put_RightInsetScale)
 class CompositionObject(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Composition.ICompositionObject
@@ -839,10 +839,10 @@ class CompositionObject(ComPtr):
     @winrt_classmethod
     def StartAnimationGroupWithIAnimationObject(cls: win32more.Microsoft.UI.Composition.ICompositionObjectStatics, target: win32more.Microsoft.UI.Composition.IAnimationObject, animation: win32more.Microsoft.UI.Composition.ICompositionAnimationBase) -> Void: ...
     Comment = property(get_Comment, put_Comment)
-    Properties = property(get_Properties, None)
     Compositor = property(get_Compositor, None)
-    ImplicitAnimations = property(get_ImplicitAnimations, put_ImplicitAnimations)
     DispatcherQueue = property(get_DispatcherQueue, None)
+    ImplicitAnimations = property(get_ImplicitAnimations, put_ImplicitAnimations)
+    Properties = property(get_Properties, None)
 class CompositionPath(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Composition.ICompositionPath
@@ -889,12 +889,12 @@ class CompositionProjectedShadow(ComPtr):
     def get_MinBlurRadius(self: win32more.Microsoft.UI.Composition.ICompositionProjectedShadow) -> Single: ...
     @winrt_mixinmethod
     def put_MinBlurRadius(self: win32more.Microsoft.UI.Composition.ICompositionProjectedShadow, value: Single) -> Void: ...
-    MaxBlurRadius = property(get_MaxBlurRadius, put_MaxBlurRadius)
-    Receivers = property(get_Receivers, None)
     BlurRadiusMultiplier = property(get_BlurRadiusMultiplier, put_BlurRadiusMultiplier)
     Casters = property(get_Casters, None)
     LightSource = property(get_LightSource, put_LightSource)
+    MaxBlurRadius = property(get_MaxBlurRadius, put_MaxBlurRadius)
     MinBlurRadius = property(get_MinBlurRadius, put_MinBlurRadius)
+    Receivers = property(get_Receivers, None)
 class CompositionProjectedShadowCaster(ComPtr):
     extends: win32more.Microsoft.UI.Composition.CompositionObject
     default_interface: win32more.Microsoft.UI.Composition.ICompositionProjectedShadowCaster
@@ -907,8 +907,8 @@ class CompositionProjectedShadowCaster(ComPtr):
     def put_Brush(self: win32more.Microsoft.UI.Composition.ICompositionProjectedShadowCaster, value: win32more.Microsoft.UI.Composition.CompositionBrush) -> Void: ...
     @winrt_mixinmethod
     def get_CastingVisual(self: win32more.Microsoft.UI.Composition.ICompositionProjectedShadowCaster) -> win32more.Microsoft.UI.Composition.Visual: ...
-    CastingVisual = property(get_CastingVisual, put_CastingVisual)
     Brush = property(get_Brush, put_Brush)
+    CastingVisual = property(get_CastingVisual, put_CastingVisual)
 class _CompositionProjectedShadowCasterCollection_Meta_(ComPtr.__class__):
     pass
 class CompositionProjectedShadowCasterCollection(ComPtr, metaclass=_CompositionProjectedShadowCasterCollection_Meta_):
@@ -1015,9 +1015,9 @@ class CompositionRadialGradientBrush(ComPtr):
     def get_GradientOriginOffset(self: win32more.Microsoft.UI.Composition.ICompositionRadialGradientBrush) -> win32more.Windows.Foundation.Numerics.Vector2: ...
     @winrt_mixinmethod
     def put_EllipseRadius(self: win32more.Microsoft.UI.Composition.ICompositionRadialGradientBrush, value: win32more.Windows.Foundation.Numerics.Vector2) -> Void: ...
-    GradientOriginOffset = property(get_GradientOriginOffset, put_GradientOriginOffset)
     EllipseCenter = property(get_EllipseCenter, put_EllipseCenter)
     EllipseRadius = property(get_EllipseRadius, put_EllipseRadius)
+    GradientOriginOffset = property(get_GradientOriginOffset, put_GradientOriginOffset)
 class CompositionRectangleGeometry(ComPtr):
     extends: win32more.Microsoft.UI.Composition.CompositionGeometry
     default_interface: win32more.Microsoft.UI.Composition.ICompositionRectangleGeometry
@@ -1049,8 +1049,8 @@ class CompositionRoundedRectangleGeometry(ComPtr):
     @winrt_mixinmethod
     def put_Offset(self: win32more.Microsoft.UI.Composition.ICompositionRoundedRectangleGeometry, value: win32more.Windows.Foundation.Numerics.Vector2) -> Void: ...
     CornerRadius = property(get_CornerRadius, put_CornerRadius)
-    Size = property(get_Size, put_Size)
     Offset = property(get_Offset, put_Offset)
+    Size = property(get_Size, put_Size)
 class CompositionScopedBatch(ComPtr):
     extends: win32more.Microsoft.UI.Composition.CompositionObject
     default_interface: win32more.Microsoft.UI.Composition.ICompositionScopedBatch
@@ -1069,8 +1069,8 @@ class CompositionScopedBatch(ComPtr):
     def get_IsActive(self: win32more.Microsoft.UI.Composition.ICompositionScopedBatch) -> Boolean: ...
     @winrt_mixinmethod
     def Suspend(self: win32more.Microsoft.UI.Composition.ICompositionScopedBatch) -> Void: ...
-    IsEnded = property(get_IsEnded, None)
     IsActive = property(get_IsActive, None)
+    IsEnded = property(get_IsEnded, None)
 class CompositionShadow(ComPtr):
     extends: win32more.Microsoft.UI.Composition.CompositionObject
     default_interface: win32more.Microsoft.UI.Composition.ICompositionShadow
@@ -1190,18 +1190,18 @@ class CompositionSpriteShape(ComPtr):
     def put_IsStrokeNonScaling(self: win32more.Microsoft.UI.Composition.ICompositionSpriteShape, value: Boolean) -> Void: ...
     @winrt_mixinmethod
     def get_StrokeBrush(self: win32more.Microsoft.UI.Composition.ICompositionSpriteShape) -> win32more.Microsoft.UI.Composition.CompositionBrush: ...
-    StrokeDashOffset = property(get_StrokeDashOffset, put_StrokeDashOffset)
+    FillBrush = property(get_FillBrush, put_FillBrush)
+    Geometry = property(get_Geometry, put_Geometry)
+    IsStrokeNonScaling = property(get_IsStrokeNonScaling, put_IsStrokeNonScaling)
     StrokeBrush = property(get_StrokeBrush, put_StrokeBrush)
     StrokeDashArray = property(get_StrokeDashArray, None)
     StrokeDashCap = property(get_StrokeDashCap, put_StrokeDashCap)
-    FillBrush = property(get_FillBrush, put_FillBrush)
+    StrokeDashOffset = property(get_StrokeDashOffset, put_StrokeDashOffset)
     StrokeEndCap = property(get_StrokeEndCap, put_StrokeEndCap)
     StrokeLineJoin = property(get_StrokeLineJoin, put_StrokeLineJoin)
     StrokeMiterLimit = property(get_StrokeMiterLimit, put_StrokeMiterLimit)
     StrokeStartCap = property(get_StrokeStartCap, put_StrokeStartCap)
     StrokeThickness = property(get_StrokeThickness, put_StrokeThickness)
-    Geometry = property(get_Geometry, put_Geometry)
-    IsStrokeNonScaling = property(get_IsStrokeNonScaling, put_IsStrokeNonScaling)
 class CompositionStretch(Int32):  # enum
     None_ = 0
     Fill = 1
@@ -1304,19 +1304,19 @@ class CompositionSurfaceBrush(ComPtr):
     def get_SnapToPixels(self: win32more.Microsoft.UI.Composition.ICompositionSurfaceBrush3) -> Boolean: ...
     @winrt_mixinmethod
     def put_SnapToPixels(self: win32more.Microsoft.UI.Composition.ICompositionSurfaceBrush3, value: Boolean) -> Void: ...
-    RotationAngle = property(get_RotationAngle, put_RotationAngle)
-    Scale = property(get_Scale, put_Scale)
+    AnchorPoint = property(get_AnchorPoint, put_AnchorPoint)
     BitmapInterpolationMode = property(get_BitmapInterpolationMode, put_BitmapInterpolationMode)
+    CenterPoint = property(get_CenterPoint, put_CenterPoint)
     HorizontalAlignmentRatio = property(get_HorizontalAlignmentRatio, put_HorizontalAlignmentRatio)
+    Offset = property(get_Offset, put_Offset)
+    RotationAngle = property(get_RotationAngle, put_RotationAngle)
+    RotationAngleInDegrees = property(get_RotationAngleInDegrees, put_RotationAngleInDegrees)
+    Scale = property(get_Scale, put_Scale)
+    SnapToPixels = property(get_SnapToPixels, put_SnapToPixels)
     Stretch = property(get_Stretch, put_Stretch)
     Surface = property(get_Surface, put_Surface)
-    VerticalAlignmentRatio = property(get_VerticalAlignmentRatio, put_VerticalAlignmentRatio)
-    AnchorPoint = property(get_AnchorPoint, put_AnchorPoint)
-    CenterPoint = property(get_CenterPoint, put_CenterPoint)
-    Offset = property(get_Offset, put_Offset)
-    RotationAngleInDegrees = property(get_RotationAngleInDegrees, put_RotationAngleInDegrees)
     TransformMatrix = property(get_TransformMatrix, put_TransformMatrix)
-    SnapToPixels = property(get_SnapToPixels, put_SnapToPixels)
+    VerticalAlignmentRatio = property(get_VerticalAlignmentRatio, put_VerticalAlignmentRatio)
 class CompositionTransform(ComPtr):
     extends: win32more.Microsoft.UI.Composition.CompositionObject
     default_interface: win32more.Microsoft.UI.Composition.ICompositionTransform
@@ -1345,11 +1345,11 @@ class CompositionViewBox(ComPtr):
     def get_HorizontalAlignmentRatio(self: win32more.Microsoft.UI.Composition.ICompositionViewBox) -> Single: ...
     @winrt_mixinmethod
     def put_VerticalAlignmentRatio(self: win32more.Microsoft.UI.Composition.ICompositionViewBox, value: Single) -> Void: ...
-    VerticalAlignmentRatio = property(get_VerticalAlignmentRatio, put_VerticalAlignmentRatio)
-    Stretch = property(get_Stretch, put_Stretch)
     HorizontalAlignmentRatio = property(get_HorizontalAlignmentRatio, put_HorizontalAlignmentRatio)
     Offset = property(get_Offset, put_Offset)
     Size = property(get_Size, put_Size)
+    Stretch = property(get_Stretch, put_Stretch)
+    VerticalAlignmentRatio = property(get_VerticalAlignmentRatio, put_VerticalAlignmentRatio)
 class CompositionVirtualDrawingSurface(ComPtr):
     extends: win32more.Microsoft.UI.Composition.CompositionDrawingSurface
     default_interface: win32more.Microsoft.UI.Composition.ICompositionVirtualDrawingSurface
@@ -1372,9 +1372,9 @@ class CompositionVisualSurface(ComPtr):
     def put_SourceOffset(self: win32more.Microsoft.UI.Composition.ICompositionVisualSurface, value: win32more.Windows.Foundation.Numerics.Vector2) -> Void: ...
     @winrt_mixinmethod
     def get_SourceSize(self: win32more.Microsoft.UI.Composition.ICompositionVisualSurface) -> win32more.Windows.Foundation.Numerics.Vector2: ...
+    SourceOffset = property(get_SourceOffset, put_SourceOffset)
     SourceSize = property(get_SourceSize, put_SourceSize)
     SourceVisual = property(get_SourceVisual, put_SourceVisual)
-    SourceOffset = property(get_SourceOffset, put_SourceOffset)
 class _Compositor_Meta_(ComPtr.__class__):
     pass
 class Compositor(ComPtr, metaclass=_Compositor_Meta_):
@@ -1553,8 +1553,8 @@ class Compositor(ComPtr, metaclass=_Compositor_Meta_):
     @winrt_classmethod
     def get_MinGlobalPlaybackRate(cls: win32more.Microsoft.UI.Composition.ICompositorStatics) -> Single: ...
     Comment = property(get_Comment, put_Comment)
-    GlobalPlaybackRate = property(get_GlobalPlaybackRate, put_GlobalPlaybackRate)
     DispatcherQueue = property(get_DispatcherQueue, None)
+    GlobalPlaybackRate = property(get_GlobalPlaybackRate, put_GlobalPlaybackRate)
     _Compositor_Meta_.MaxGlobalPlaybackRate = property(get_MaxGlobalPlaybackRate.__wrapped__, None)
     _Compositor_Meta_.MinGlobalPlaybackRate = property(get_MinGlobalPlaybackRate.__wrapped__, None)
 class ContainerVisual(ComPtr):
@@ -1594,8 +1594,8 @@ class DistantLight(ComPtr):
     def put_Direction(self: win32more.Microsoft.UI.Composition.IDistantLight, value: win32more.Windows.Foundation.Numerics.Vector3) -> Void: ...
     @winrt_mixinmethod
     def get_Intensity(self: win32more.Microsoft.UI.Composition.IDistantLight2) -> Single: ...
-    CoordinateSpace = property(get_CoordinateSpace, put_CoordinateSpace)
     Color = property(get_Color, put_Color)
+    CoordinateSpace = property(get_CoordinateSpace, put_CoordinateSpace)
     Direction = property(get_Direction, put_Direction)
     Intensity = property(get_Intensity, put_Intensity)
 class DropShadow(ComPtr):
@@ -1626,11 +1626,11 @@ class DropShadow(ComPtr):
     def put_BlurRadius(self: win32more.Microsoft.UI.Composition.IDropShadow, value: Single) -> Void: ...
     @winrt_mixinmethod
     def get_Color(self: win32more.Microsoft.UI.Composition.IDropShadow) -> win32more.Windows.UI.Color: ...
-    Opacity = property(get_Opacity, put_Opacity)
+    BlurRadius = property(get_BlurRadius, put_BlurRadius)
     Color = property(get_Color, put_Color)
     Mask = property(get_Mask, put_Mask)
-    BlurRadius = property(get_BlurRadius, put_BlurRadius)
     Offset = property(get_Offset, put_Offset)
+    Opacity = property(get_Opacity, put_Opacity)
     SourcePolicy = property(get_SourcePolicy, put_SourcePolicy)
 class ElasticEasingFunction(ComPtr):
     extends: win32more.Microsoft.UI.Composition.CompositionEasingFunction
@@ -1642,8 +1642,8 @@ class ElasticEasingFunction(ComPtr):
     def get_Mode(self: win32more.Microsoft.UI.Composition.IElasticEasingFunction) -> win32more.Microsoft.UI.Composition.CompositionEasingFunctionMode: ...
     @winrt_mixinmethod
     def get_Springiness(self: win32more.Microsoft.UI.Composition.IElasticEasingFunction) -> Single: ...
-    Oscillations = property(get_Oscillations, None)
     Mode = property(get_Mode, None)
+    Oscillations = property(get_Oscillations, None)
     Springiness = property(get_Springiness, None)
 class ExponentialEasingFunction(ComPtr):
     extends: win32more.Microsoft.UI.Composition.CompositionEasingFunction
@@ -1653,8 +1653,8 @@ class ExponentialEasingFunction(ComPtr):
     def get_Mode(self: win32more.Microsoft.UI.Composition.IExponentialEasingFunction) -> win32more.Microsoft.UI.Composition.CompositionEasingFunctionMode: ...
     @winrt_mixinmethod
     def get_Exponent(self: win32more.Microsoft.UI.Composition.IExponentialEasingFunction) -> Single: ...
-    Mode = property(get_Mode, None)
     Exponent = property(get_Exponent, None)
+    Mode = property(get_Mode, None)
 class ExpressionAnimation(ComPtr):
     extends: win32more.Microsoft.UI.Composition.CompositionAnimation
     default_interface: win32more.Microsoft.UI.Composition.IExpressionAnimation
@@ -1746,8 +1746,8 @@ class IBackEasingFunction(ComPtr):
     def get_Mode(self) -> win32more.Microsoft.UI.Composition.CompositionEasingFunctionMode: ...
     @winrt_commethod(7)
     def get_Amplitude(self) -> Single: ...
-    Mode = property(get_Mode, None)
     Amplitude = property(get_Amplitude, None)
+    Mode = property(get_Mode, None)
 class IBooleanKeyFrameAnimation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Composition.IBooleanKeyFrameAnimation'
@@ -1764,9 +1764,9 @@ class IBounceEasingFunction(ComPtr):
     def get_Bounces(self) -> Int32: ...
     @winrt_commethod(8)
     def get_Bounciness(self) -> Single: ...
-    Mode = property(get_Mode, None)
     Bounces = property(get_Bounces, None)
     Bounciness = property(get_Bounciness, None)
+    Mode = property(get_Mode, None)
 class IBounceScalarNaturalMotionAnimation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Composition.IBounceScalarNaturalMotionAnimation'
@@ -2318,8 +2318,8 @@ class ICompositionLineGeometry(ComPtr):
     def get_End(self) -> win32more.Windows.Foundation.Numerics.Vector2: ...
     @winrt_commethod(9)
     def put_End(self, value: win32more.Windows.Foundation.Numerics.Vector2) -> Void: ...
-    Start = property(get_Start, put_Start)
     End = property(get_End, put_End)
+    Start = property(get_Start, put_Start)
 class ICompositionLinearGradientBrush(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Composition.ICompositionLinearGradientBrush'
@@ -2362,8 +2362,8 @@ class ICompositionMipmapSurface(ComPtr):
     def get_SizeInt32(self) -> win32more.Windows.Graphics.SizeInt32: ...
     @winrt_commethod(10)
     def GetDrawingSurfaceForLevel(self, level: UInt32) -> win32more.Microsoft.UI.Composition.CompositionDrawingSurface: ...
-    LevelCount = property(get_LevelCount, None)
     AlphaMode = property(get_AlphaMode, None)
+    LevelCount = property(get_LevelCount, None)
     PixelFormat = property(get_PixelFormat, None)
     SizeInt32 = property(get_SizeInt32, None)
 class ICompositionNineGridBrush(ComPtr):
@@ -2985,9 +2985,9 @@ class ICompositionVisualSurface(ComPtr):
     def get_SourceSize(self) -> win32more.Windows.Foundation.Numerics.Vector2: ...
     @winrt_commethod(11)
     def put_SourceSize(self, value: win32more.Windows.Foundation.Numerics.Vector2) -> Void: ...
-    SourceVisual = property(get_SourceVisual, put_SourceVisual)
     SourceOffset = property(get_SourceOffset, put_SourceOffset)
     SourceSize = property(get_SourceSize, put_SourceSize)
+    SourceVisual = property(get_SourceVisual, put_SourceVisual)
 class ICompositor(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Composition.ICompositor'
@@ -3305,8 +3305,8 @@ class IExponentialEasingFunction(ComPtr):
     def get_Mode(self) -> win32more.Microsoft.UI.Composition.CompositionEasingFunctionMode: ...
     @winrt_commethod(7)
     def get_Exponent(self) -> Single: ...
-    Mode = property(get_Mode, None)
     Exponent = property(get_Exponent, None)
+    Mode = property(get_Mode, None)
 class IExpressionAnimation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Composition.IExpressionAnimation'
@@ -3510,8 +3510,8 @@ class IPointLight3(ComPtr):
     def get_MaxAttenuationCutoff(self) -> Single: ...
     @winrt_commethod(9)
     def put_MaxAttenuationCutoff(self, value: Single) -> Void: ...
-    MinAttenuationCutoff = property(get_MinAttenuationCutoff, put_MinAttenuationCutoff)
     MaxAttenuationCutoff = property(get_MaxAttenuationCutoff, put_MaxAttenuationCutoff)
+    MinAttenuationCutoff = property(get_MinAttenuationCutoff, put_MinAttenuationCutoff)
 class IPowerEasingFunction(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Composition.IPowerEasingFunction'
@@ -3730,8 +3730,8 @@ class ISpotLight3(ComPtr):
     def get_MaxAttenuationCutoff(self) -> Single: ...
     @winrt_commethod(9)
     def put_MaxAttenuationCutoff(self, value: Single) -> Void: ...
-    MinAttenuationCutoff = property(get_MinAttenuationCutoff, put_MinAttenuationCutoff)
     MaxAttenuationCutoff = property(get_MaxAttenuationCutoff, put_MaxAttenuationCutoff)
+    MinAttenuationCutoff = property(get_MinAttenuationCutoff, put_MinAttenuationCutoff)
 class ISpringScalarNaturalMotionAnimation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Composition.ISpringScalarNaturalMotionAnimation'
@@ -4124,9 +4124,9 @@ class InsetClip(ComPtr):
     @winrt_mixinmethod
     def get_RightInset(self: win32more.Microsoft.UI.Composition.IInsetClip) -> Single: ...
     BottomInset = property(get_BottomInset, put_BottomInset)
+    LeftInset = property(get_LeftInset, put_LeftInset)
     RightInset = property(get_RightInset, put_RightInset)
     TopInset = property(get_TopInset, put_TopInset)
-    LeftInset = property(get_LeftInset, put_LeftInset)
 class KeyFrameAnimation(ComPtr):
     extends: win32more.Microsoft.UI.Composition.CompositionAnimation
     default_interface: win32more.Microsoft.UI.Composition.IKeyFrameAnimation
@@ -4165,14 +4165,14 @@ class KeyFrameAnimation(ComPtr):
     def put_Direction(self: win32more.Microsoft.UI.Composition.IKeyFrameAnimation2, value: win32more.Microsoft.UI.Composition.AnimationDirection) -> Void: ...
     @winrt_mixinmethod
     def get_DelayBehavior(self: win32more.Microsoft.UI.Composition.IKeyFrameAnimation3) -> win32more.Microsoft.UI.Composition.AnimationDelayBehavior: ...
-    StopBehavior = property(get_StopBehavior, put_StopBehavior)
     DelayBehavior = property(get_DelayBehavior, put_DelayBehavior)
     DelayTime = property(get_DelayTime, put_DelayTime)
+    Direction = property(get_Direction, put_Direction)
     Duration = property(get_Duration, put_Duration)
     IterationBehavior = property(get_IterationBehavior, put_IterationBehavior)
     IterationCount = property(get_IterationCount, put_IterationCount)
     KeyFrameCount = property(get_KeyFrameCount, None)
-    Direction = property(get_Direction, put_Direction)
+    StopBehavior = property(get_StopBehavior, put_StopBehavior)
 class LayerVisual(ComPtr):
     extends: win32more.Microsoft.UI.Composition.ContainerVisual
     default_interface: win32more.Microsoft.UI.Composition.ILayerVisual
@@ -4207,8 +4207,8 @@ class NaturalMotionAnimation(ComPtr):
     def put_DelayBehavior(self: win32more.Microsoft.UI.Composition.INaturalMotionAnimation, value: win32more.Microsoft.UI.Composition.AnimationDelayBehavior) -> Void: ...
     @winrt_mixinmethod
     def put_DelayTime(self: win32more.Microsoft.UI.Composition.INaturalMotionAnimation, value: win32more.Windows.Foundation.TimeSpan) -> Void: ...
-    DelayTime = property(get_DelayTime, put_DelayTime)
     DelayBehavior = property(get_DelayBehavior, put_DelayBehavior)
+    DelayTime = property(get_DelayTime, put_DelayTime)
     StopBehavior = property(get_StopBehavior, put_StopBehavior)
 class PathKeyFrameAnimation(ComPtr):
     extends: win32more.Microsoft.UI.Composition.KeyFrameAnimation
@@ -4258,15 +4258,15 @@ class PointLight(ComPtr):
     def get_MaxAttenuationCutoff(self: win32more.Microsoft.UI.Composition.IPointLight3) -> Single: ...
     @winrt_mixinmethod
     def put_MaxAttenuationCutoff(self: win32more.Microsoft.UI.Composition.IPointLight3, value: Single) -> Void: ...
-    LinearAttenuation = property(get_LinearAttenuation, put_LinearAttenuation)
-    Offset = property(get_Offset, put_Offset)
     Color = property(get_Color, put_Color)
     ConstantAttenuation = property(get_ConstantAttenuation, put_ConstantAttenuation)
     CoordinateSpace = property(get_CoordinateSpace, put_CoordinateSpace)
     Intensity = property(get_Intensity, put_Intensity)
-    QuadraticAttenuation = property(get_QuadraticAttenuation, put_QuadraticAttenuation)
-    MinAttenuationCutoff = property(get_MinAttenuationCutoff, put_MinAttenuationCutoff)
+    LinearAttenuation = property(get_LinearAttenuation, put_LinearAttenuation)
     MaxAttenuationCutoff = property(get_MaxAttenuationCutoff, put_MaxAttenuationCutoff)
+    MinAttenuationCutoff = property(get_MinAttenuationCutoff, put_MinAttenuationCutoff)
+    Offset = property(get_Offset, put_Offset)
+    QuadraticAttenuation = property(get_QuadraticAttenuation, put_QuadraticAttenuation)
 class PowerEasingFunction(ComPtr):
     extends: win32more.Microsoft.UI.Composition.CompositionEasingFunction
     default_interface: win32more.Microsoft.UI.Composition.IPowerEasingFunction
@@ -4275,8 +4275,8 @@ class PowerEasingFunction(ComPtr):
     def get_Power(self: win32more.Microsoft.UI.Composition.IPowerEasingFunction) -> Single: ...
     @winrt_mixinmethod
     def get_Mode(self: win32more.Microsoft.UI.Composition.IPowerEasingFunction) -> win32more.Microsoft.UI.Composition.CompositionEasingFunctionMode: ...
-    Power = property(get_Power, None)
     Mode = property(get_Mode, None)
+    Power = property(get_Power, None)
 class QuaternionKeyFrameAnimation(ComPtr):
     extends: win32more.Microsoft.UI.Composition.KeyFrameAnimation
     default_interface: win32more.Microsoft.UI.Composition.IQuaternionKeyFrameAnimation
@@ -4321,14 +4321,14 @@ class RectangleClip(ComPtr):
     def put_TopLeftRadius(self: win32more.Microsoft.UI.Composition.IRectangleClip, value: win32more.Windows.Foundation.Numerics.Vector2) -> Void: ...
     @winrt_mixinmethod
     def get_TopRightRadius(self: win32more.Microsoft.UI.Composition.IRectangleClip) -> win32more.Windows.Foundation.Numerics.Vector2: ...
+    Bottom = property(get_Bottom, put_Bottom)
     BottomLeftRadius = property(get_BottomLeftRadius, put_BottomLeftRadius)
-    TopRightRadius = property(get_TopRightRadius, put_TopRightRadius)
     BottomRightRadius = property(get_BottomRightRadius, put_BottomRightRadius)
     Left = property(get_Left, put_Left)
     Right = property(get_Right, put_Right)
-    Bottom = property(get_Bottom, put_Bottom)
     Top = property(get_Top, put_Top)
     TopLeftRadius = property(get_TopLeftRadius, put_TopLeftRadius)
+    TopRightRadius = property(get_TopRightRadius, put_TopRightRadius)
 class RedirectVisual(ComPtr):
     extends: win32more.Microsoft.UI.Composition.ContainerVisual
     default_interface: win32more.Microsoft.UI.Composition.IRedirectVisual
@@ -4370,8 +4370,8 @@ class ScalarNaturalMotionAnimation(ComPtr):
     @winrt_mixinmethod
     def get_InitialVelocity(self: win32more.Microsoft.UI.Composition.IScalarNaturalMotionAnimation) -> Single: ...
     FinalValue = property(get_FinalValue, put_FinalValue)
-    InitialVelocity = property(get_InitialVelocity, put_InitialVelocity)
     InitialValue = property(get_InitialValue, put_InitialValue)
+    InitialVelocity = property(get_InitialVelocity, put_InitialVelocity)
 class ShapeVisual(ComPtr):
     extends: win32more.Microsoft.UI.Composition.ContainerVisual
     default_interface: win32more.Microsoft.UI.Composition.IShapeVisual
@@ -4382,8 +4382,8 @@ class ShapeVisual(ComPtr):
     def get_Shapes(self: win32more.Microsoft.UI.Composition.IShapeVisual) -> win32more.Microsoft.UI.Composition.CompositionShapeCollection: ...
     @winrt_mixinmethod
     def get_ViewBox(self: win32more.Microsoft.UI.Composition.IShapeVisual) -> win32more.Microsoft.UI.Composition.CompositionViewBox: ...
-    ViewBox = property(get_ViewBox, put_ViewBox)
     Shapes = property(get_Shapes, None)
+    ViewBox = property(get_ViewBox, put_ViewBox)
 class SineEasingFunction(ComPtr):
     extends: win32more.Microsoft.UI.Composition.CompositionEasingFunction
     default_interface: win32more.Microsoft.UI.Composition.ISineEasingFunction
@@ -4459,22 +4459,22 @@ class SpotLight(ComPtr):
     def get_InnerConeAngle(self: win32more.Microsoft.UI.Composition.ISpotLight) -> Single: ...
     @winrt_mixinmethod
     def get_ConstantAttenuation(self: win32more.Microsoft.UI.Composition.ISpotLight) -> Single: ...
-    MaxAttenuationCutoff = property(get_MaxAttenuationCutoff, put_MaxAttenuationCutoff)
-    OuterConeIntensity = property(get_OuterConeIntensity, put_OuterConeIntensity)
+    ConstantAttenuation = property(get_ConstantAttenuation, put_ConstantAttenuation)
+    CoordinateSpace = property(get_CoordinateSpace, put_CoordinateSpace)
+    Direction = property(get_Direction, put_Direction)
+    InnerConeAngle = property(get_InnerConeAngle, put_InnerConeAngle)
     InnerConeAngleInDegrees = property(get_InnerConeAngleInDegrees, put_InnerConeAngleInDegrees)
     InnerConeColor = property(get_InnerConeColor, put_InnerConeColor)
-    LinearAttenuation = property(get_LinearAttenuation, put_LinearAttenuation)
-    QuadraticAttenuation = property(get_QuadraticAttenuation, put_QuadraticAttenuation)
     InnerConeIntensity = property(get_InnerConeIntensity, put_InnerConeIntensity)
+    LinearAttenuation = property(get_LinearAttenuation, put_LinearAttenuation)
+    MaxAttenuationCutoff = property(get_MaxAttenuationCutoff, put_MaxAttenuationCutoff)
     MinAttenuationCutoff = property(get_MinAttenuationCutoff, put_MinAttenuationCutoff)
     Offset = property(get_Offset, put_Offset)
     OuterConeAngle = property(get_OuterConeAngle, put_OuterConeAngle)
     OuterConeAngleInDegrees = property(get_OuterConeAngleInDegrees, put_OuterConeAngleInDegrees)
     OuterConeColor = property(get_OuterConeColor, put_OuterConeColor)
-    InnerConeAngle = property(get_InnerConeAngle, put_InnerConeAngle)
-    ConstantAttenuation = property(get_ConstantAttenuation, put_ConstantAttenuation)
-    CoordinateSpace = property(get_CoordinateSpace, put_CoordinateSpace)
-    Direction = property(get_Direction, put_Direction)
+    OuterConeIntensity = property(get_OuterConeIntensity, put_OuterConeIntensity)
+    QuadraticAttenuation = property(get_QuadraticAttenuation, put_QuadraticAttenuation)
 class SpringScalarNaturalMotionAnimation(ComPtr):
     extends: win32more.Microsoft.UI.Composition.ScalarNaturalMotionAnimation
     default_interface: win32more.Microsoft.UI.Composition.ISpringScalarNaturalMotionAnimation
@@ -4487,8 +4487,8 @@ class SpringScalarNaturalMotionAnimation(ComPtr):
     def get_DampingRatio(self: win32more.Microsoft.UI.Composition.ISpringScalarNaturalMotionAnimation) -> Single: ...
     @winrt_mixinmethod
     def put_DampingRatio(self: win32more.Microsoft.UI.Composition.ISpringScalarNaturalMotionAnimation, value: Single) -> Void: ...
-    Period = property(get_Period, put_Period)
     DampingRatio = property(get_DampingRatio, put_DampingRatio)
+    Period = property(get_Period, put_Period)
 class SpringVector2NaturalMotionAnimation(ComPtr):
     extends: win32more.Microsoft.UI.Composition.Vector2NaturalMotionAnimation
     default_interface: win32more.Microsoft.UI.Composition.ISpringVector2NaturalMotionAnimation
@@ -4501,8 +4501,8 @@ class SpringVector2NaturalMotionAnimation(ComPtr):
     def put_DampingRatio(self: win32more.Microsoft.UI.Composition.ISpringVector2NaturalMotionAnimation, value: Single) -> Void: ...
     @winrt_mixinmethod
     def put_Period(self: win32more.Microsoft.UI.Composition.ISpringVector2NaturalMotionAnimation, value: win32more.Windows.Foundation.TimeSpan) -> Void: ...
-    Period = property(get_Period, put_Period)
     DampingRatio = property(get_DampingRatio, put_DampingRatio)
+    Period = property(get_Period, put_Period)
 class SpringVector3NaturalMotionAnimation(ComPtr):
     extends: win32more.Microsoft.UI.Composition.Vector3NaturalMotionAnimation
     default_interface: win32more.Microsoft.UI.Composition.ISpringVector3NaturalMotionAnimation
@@ -4529,8 +4529,8 @@ class SpriteVisual(ComPtr):
     def put_Brush(self: win32more.Microsoft.UI.Composition.ISpriteVisual, value: win32more.Microsoft.UI.Composition.CompositionBrush) -> Void: ...
     @winrt_mixinmethod
     def put_Shadow(self: win32more.Microsoft.UI.Composition.ISpriteVisual2, value: win32more.Microsoft.UI.Composition.CompositionShadow) -> Void: ...
-    Shadow = property(get_Shadow, put_Shadow)
     Brush = property(get_Brush, put_Brush)
+    Shadow = property(get_Shadow, put_Shadow)
 class StepEasingFunction(ComPtr):
     extends: win32more.Microsoft.UI.Composition.CompositionEasingFunction
     default_interface: win32more.Microsoft.UI.Composition.IStepEasingFunction
@@ -4555,11 +4555,11 @@ class StepEasingFunction(ComPtr):
     def put_IsInitialStepSingleFrame(self: win32more.Microsoft.UI.Composition.IStepEasingFunction, value: Boolean) -> Void: ...
     @winrt_mixinmethod
     def get_StepCount(self: win32more.Microsoft.UI.Composition.IStepEasingFunction) -> Int32: ...
-    StepCount = property(get_StepCount, put_StepCount)
-    InitialStep = property(get_InitialStep, put_InitialStep)
     FinalStep = property(get_FinalStep, put_FinalStep)
+    InitialStep = property(get_InitialStep, put_InitialStep)
     IsFinalStepSingleFrame = property(get_IsFinalStepSingleFrame, put_IsFinalStepSingleFrame)
     IsInitialStepSingleFrame = property(get_IsInitialStepSingleFrame, put_IsInitialStepSingleFrame)
+    StepCount = property(get_StepCount, put_StepCount)
 class Vector2KeyFrameAnimation(ComPtr):
     extends: win32more.Microsoft.UI.Composition.KeyFrameAnimation
     default_interface: win32more.Microsoft.UI.Composition.IVector2KeyFrameAnimation
@@ -4584,9 +4584,9 @@ class Vector2NaturalMotionAnimation(ComPtr):
     def get_InitialValue(self: win32more.Microsoft.UI.Composition.IVector2NaturalMotionAnimation) -> win32more.Windows.Foundation.IReference[win32more.Windows.Foundation.Numerics.Vector2]: ...
     @winrt_mixinmethod
     def put_InitialValue(self: win32more.Microsoft.UI.Composition.IVector2NaturalMotionAnimation, value: win32more.Windows.Foundation.IReference[win32more.Windows.Foundation.Numerics.Vector2]) -> Void: ...
-    InitialVelocity = property(get_InitialVelocity, put_InitialVelocity)
     FinalValue = property(get_FinalValue, put_FinalValue)
     InitialValue = property(get_InitialValue, put_InitialValue)
+    InitialVelocity = property(get_InitialVelocity, put_InitialVelocity)
 class Vector3KeyFrameAnimation(ComPtr):
     extends: win32more.Microsoft.UI.Composition.KeyFrameAnimation
     default_interface: win32more.Microsoft.UI.Composition.IVector3KeyFrameAnimation
@@ -4611,9 +4611,9 @@ class Vector3NaturalMotionAnimation(ComPtr):
     def get_FinalValue(self: win32more.Microsoft.UI.Composition.IVector3NaturalMotionAnimation) -> win32more.Windows.Foundation.IReference[win32more.Windows.Foundation.Numerics.Vector3]: ...
     @winrt_mixinmethod
     def get_InitialVelocity(self: win32more.Microsoft.UI.Composition.IVector3NaturalMotionAnimation) -> win32more.Windows.Foundation.Numerics.Vector3: ...
-    InitialVelocity = property(get_InitialVelocity, put_InitialVelocity)
     FinalValue = property(get_FinalValue, put_FinalValue)
     InitialValue = property(get_InitialValue, put_InitialValue)
+    InitialVelocity = property(get_InitialVelocity, put_InitialVelocity)
 class Vector4KeyFrameAnimation(ComPtr):
     extends: win32more.Microsoft.UI.Composition.KeyFrameAnimation
     default_interface: win32more.Microsoft.UI.Composition.IVector4KeyFrameAnimation
@@ -4712,22 +4712,22 @@ class Visual(ComPtr):
     def put_TransformMatrix(self: win32more.Microsoft.UI.Composition.IVisual, value: win32more.Windows.Foundation.Numerics.Matrix4x4) -> Void: ...
     @winrt_mixinmethod
     def get_ParentForTransform(self: win32more.Microsoft.UI.Composition.IVisual2) -> win32more.Microsoft.UI.Composition.Visual: ...
-    RelativeOffsetAdjustment = property(get_RelativeOffsetAdjustment, put_RelativeOffsetAdjustment)
-    RelativeSizeAdjustment = property(get_RelativeSizeAdjustment, put_RelativeSizeAdjustment)
-    IsHitTestVisible = property(get_IsHitTestVisible, put_IsHitTestVisible)
-    IsPixelSnappingEnabled = property(get_IsPixelSnappingEnabled, put_IsPixelSnappingEnabled)
-    Opacity = property(get_Opacity, put_Opacity)
-    ParentForTransform = property(get_ParentForTransform, put_ParentForTransform)
-    BackfaceVisibility = property(get_BackfaceVisibility, put_BackfaceVisibility)
     AnchorPoint = property(get_AnchorPoint, put_AnchorPoint)
+    BackfaceVisibility = property(get_BackfaceVisibility, put_BackfaceVisibility)
     BorderMode = property(get_BorderMode, put_BorderMode)
     CenterPoint = property(get_CenterPoint, put_CenterPoint)
     Clip = property(get_Clip, put_Clip)
     CompositeMode = property(get_CompositeMode, put_CompositeMode)
+    IsHitTestVisible = property(get_IsHitTestVisible, put_IsHitTestVisible)
+    IsPixelSnappingEnabled = property(get_IsPixelSnappingEnabled, put_IsPixelSnappingEnabled)
     IsVisible = property(get_IsVisible, put_IsVisible)
     Offset = property(get_Offset, put_Offset)
+    Opacity = property(get_Opacity, put_Opacity)
     Orientation = property(get_Orientation, put_Orientation)
     Parent = property(get_Parent, None)
+    ParentForTransform = property(get_ParentForTransform, put_ParentForTransform)
+    RelativeOffsetAdjustment = property(get_RelativeOffsetAdjustment, put_RelativeOffsetAdjustment)
+    RelativeSizeAdjustment = property(get_RelativeSizeAdjustment, put_RelativeSizeAdjustment)
     RotationAngle = property(get_RotationAngle, put_RotationAngle)
     RotationAngleInDegrees = property(get_RotationAngleInDegrees, put_RotationAngleInDegrees)
     RotationAxis = property(get_RotationAxis, put_RotationAxis)

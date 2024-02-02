@@ -62,9 +62,9 @@ class IProvideValueTargetProperty(ComPtr):
     def get_Type(self) -> win32more.Windows.UI.Xaml.Interop.TypeName: ...
     @winrt_commethod(8)
     def get_DeclaringType(self) -> win32more.Windows.UI.Xaml.Interop.TypeName: ...
+    DeclaringType = property(get_DeclaringType, None)
     Name = property(get_Name, None)
     Type = property(get_Type, None)
-    DeclaringType = property(get_DeclaringType, None)
 class IRootObjectProvider(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Markup.IRootObjectProvider'
@@ -251,17 +251,17 @@ class IXamlType(ComPtr):
     @winrt_commethod(24)
     def RunInitializer(self) -> Void: ...
     BaseType = property(get_BaseType, None)
+    BoxedType = property(get_BoxedType, None)
     ContentProperty = property(get_ContentProperty, None)
     FullName = property(get_FullName, None)
     IsArray = property(get_IsArray, None)
+    IsBindable = property(get_IsBindable, None)
     IsCollection = property(get_IsCollection, None)
     IsConstructible = property(get_IsConstructible, None)
     IsDictionary = property(get_IsDictionary, None)
     IsMarkupExtension = property(get_IsMarkupExtension, None)
-    IsBindable = property(get_IsBindable, None)
     ItemType = property(get_ItemType, None)
     KeyType = property(get_KeyType, None)
-    BoxedType = property(get_BoxedType, None)
     UnderlyingType = property(get_UnderlyingType, None)
 class IXamlTypeResolver(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -305,9 +305,9 @@ class ProvideValueTargetProperty(ComPtr):
     def get_Type(self: win32more.Microsoft.UI.Xaml.Markup.IProvideValueTargetProperty) -> win32more.Windows.UI.Xaml.Interop.TypeName: ...
     @winrt_mixinmethod
     def get_DeclaringType(self: win32more.Microsoft.UI.Xaml.Markup.IProvideValueTargetProperty) -> win32more.Windows.UI.Xaml.Interop.TypeName: ...
+    DeclaringType = property(get_DeclaringType, None)
     Name = property(get_Name, None)
     Type = property(get_Type, None)
-    DeclaringType = property(get_DeclaringType, None)
 class XamlBinaryWriter(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Markup.IXamlBinaryWriter

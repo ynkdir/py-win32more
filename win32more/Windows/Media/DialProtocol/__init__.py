@@ -39,8 +39,8 @@ class DialAppStateDetails(ComPtr):
     def get_State(self: win32more.Windows.Media.DialProtocol.IDialAppStateDetails) -> win32more.Windows.Media.DialProtocol.DialAppState: ...
     @winrt_mixinmethod
     def get_FullXml(self: win32more.Windows.Media.DialProtocol.IDialAppStateDetails) -> WinRT_String: ...
-    State = property(get_State, None)
     FullXml = property(get_FullXml, None)
+    State = property(get_State, None)
 class DialAppStopResult(Int32):  # enum
     Stopped = 0
     StopFailed = 1
@@ -64,8 +64,8 @@ class DialDevice(ComPtr):
     def FromIdAsync(cls: win32more.Windows.Media.DialProtocol.IDialDeviceStatics, value: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Media.DialProtocol.DialDevice]: ...
     @winrt_classmethod
     def DeviceInfoSupportsDialAsync(cls: win32more.Windows.Media.DialProtocol.IDialDeviceStatics, device: win32more.Windows.Devices.Enumeration.DeviceInformation) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
-    Id = property(get_Id, None)
     FriendlyName = property(get_FriendlyName, None)
+    Id = property(get_Id, None)
     Thumbnail = property(get_Thumbnail, None)
 class DialDeviceDisplayStatus(Int32):  # enum
     None_ = 0
@@ -115,8 +115,8 @@ class DialDevicePicker(ComPtr):
     def Hide(self: win32more.Windows.Media.DialProtocol.IDialDevicePicker) -> Void: ...
     @winrt_mixinmethod
     def SetDisplayStatus(self: win32more.Windows.Media.DialProtocol.IDialDevicePicker, device: win32more.Windows.Media.DialProtocol.DialDevice, status: win32more.Windows.Media.DialProtocol.DialDeviceDisplayStatus) -> Void: ...
-    Filter = property(get_Filter, None)
     Appearance = property(get_Appearance, None)
+    Filter = property(get_Filter, None)
 class DialDevicePickerFilter(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.DialProtocol.IDialDevicePickerFilter
@@ -174,8 +174,8 @@ class IDialAppStateDetails(ComPtr):
     def get_State(self) -> win32more.Windows.Media.DialProtocol.DialAppState: ...
     @winrt_commethod(7)
     def get_FullXml(self) -> WinRT_String: ...
-    State = property(get_State, None)
     FullXml = property(get_FullXml, None)
+    State = property(get_State, None)
 class IDialDevice(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.DialProtocol.IDialDevice'
@@ -227,8 +227,8 @@ class IDialDevicePicker(ComPtr):
     def Hide(self) -> Void: ...
     @winrt_commethod(19)
     def SetDisplayStatus(self, device: win32more.Windows.Media.DialProtocol.DialDevice, status: win32more.Windows.Media.DialProtocol.DialDeviceDisplayStatus) -> Void: ...
-    Filter = property(get_Filter, None)
     Appearance = property(get_Appearance, None)
+    Filter = property(get_Filter, None)
 class IDialDevicePickerFilter(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.DialProtocol.IDialDevicePickerFilter'

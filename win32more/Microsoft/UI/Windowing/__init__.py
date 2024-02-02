@@ -97,6 +97,9 @@ class AppWindow(ComPtr):
     def CreateWithPresenterAndOwner(cls: win32more.Microsoft.UI.Windowing.IAppWindowStatics, appWindowPresenter: win32more.Microsoft.UI.Windowing.AppWindowPresenter, ownerWindowId: win32more.Microsoft.UI.WindowId) -> win32more.Microsoft.UI.Windowing.AppWindow: ...
     @winrt_classmethod
     def GetFromWindowId(cls: win32more.Microsoft.UI.Windowing.IAppWindowStatics, windowId: win32more.Microsoft.UI.WindowId) -> win32more.Microsoft.UI.Windowing.AppWindow: ...
+    ClientSize = property(get_ClientSize, None)
+    DispatcherQueue = property(get_DispatcherQueue, None)
+    Id = property(get_Id, None)
     IsShownInSwitchers = property(get_IsShownInSwitchers, put_IsShownInSwitchers)
     IsVisible = property(get_IsVisible, None)
     OwnerWindowId = property(get_OwnerWindowId, None)
@@ -104,10 +107,7 @@ class AppWindow(ComPtr):
     Presenter = property(get_Presenter, None)
     Size = property(get_Size, None)
     Title = property(get_Title, put_Title)
-    Id = property(get_Id, None)
     TitleBar = property(get_TitleBar, None)
-    ClientSize = property(get_ClientSize, None)
-    DispatcherQueue = property(get_DispatcherQueue, None)
 class AppWindowChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Windowing.IAppWindowChangedEventArgs
@@ -233,13 +233,13 @@ class AppWindowTitleBar(ComPtr):
     def put_PreferredHeightOption(self: win32more.Microsoft.UI.Windowing.IAppWindowTitleBar2, value: win32more.Microsoft.UI.Windowing.TitleBarHeightOption) -> Void: ...
     @winrt_classmethod
     def IsCustomizationSupported(cls: win32more.Microsoft.UI.Windowing.IAppWindowTitleBarStatics) -> Boolean: ...
-    ButtonInactiveForegroundColor = property(get_ButtonInactiveForegroundColor, put_ButtonInactiveForegroundColor)
     BackgroundColor = property(get_BackgroundColor, put_BackgroundColor)
     ButtonBackgroundColor = property(get_ButtonBackgroundColor, put_ButtonBackgroundColor)
     ButtonForegroundColor = property(get_ButtonForegroundColor, put_ButtonForegroundColor)
     ButtonHoverBackgroundColor = property(get_ButtonHoverBackgroundColor, put_ButtonHoverBackgroundColor)
     ButtonHoverForegroundColor = property(get_ButtonHoverForegroundColor, put_ButtonHoverForegroundColor)
     ButtonInactiveBackgroundColor = property(get_ButtonInactiveBackgroundColor, put_ButtonInactiveBackgroundColor)
+    ButtonInactiveForegroundColor = property(get_ButtonInactiveForegroundColor, put_ButtonInactiveForegroundColor)
     ButtonPressedBackgroundColor = property(get_ButtonPressedBackgroundColor, put_ButtonPressedBackgroundColor)
     ButtonPressedForegroundColor = property(get_ButtonPressedForegroundColor, put_ButtonPressedForegroundColor)
     ExtendsContentIntoTitleBar = property(get_ExtendsContentIntoTitleBar, put_ExtendsContentIntoTitleBar)
@@ -249,8 +249,8 @@ class AppWindowTitleBar(ComPtr):
     InactiveBackgroundColor = property(get_InactiveBackgroundColor, put_InactiveBackgroundColor)
     InactiveForegroundColor = property(get_InactiveForegroundColor, put_InactiveForegroundColor)
     LeftInset = property(get_LeftInset, None)
-    RightInset = property(get_RightInset, None)
     PreferredHeightOption = property(get_PreferredHeightOption, put_PreferredHeightOption)
+    RightInset = property(get_RightInset, None)
 class CompactOverlayPresenter(ComPtr):
     extends: win32more.Microsoft.UI.Windowing.AppWindowPresenter
     default_interface: win32more.Microsoft.UI.Windowing.ICompactOverlayPresenter
@@ -294,8 +294,8 @@ class DisplayArea(ComPtr, metaclass=_DisplayArea_Meta_):
     def GetFromPoint(cls: win32more.Microsoft.UI.Windowing.IDisplayAreaStatics, point: win32more.Windows.Graphics.PointInt32, displayAreaFallback: win32more.Microsoft.UI.Windowing.DisplayAreaFallback) -> win32more.Microsoft.UI.Windowing.DisplayArea: ...
     @winrt_classmethod
     def GetFromRect(cls: win32more.Microsoft.UI.Windowing.IDisplayAreaStatics, rect: win32more.Windows.Graphics.RectInt32, displayAreaFallback: win32more.Microsoft.UI.Windowing.DisplayAreaFallback) -> win32more.Microsoft.UI.Windowing.DisplayArea: ...
-    IsPrimary = property(get_IsPrimary, None)
     DisplayId = property(get_DisplayId, None)
+    IsPrimary = property(get_IsPrimary, None)
     OuterBounds = property(get_OuterBounds, None)
     WorkArea = property(get_WorkArea, None)
     _DisplayArea_Meta_.Primary = property(get_Primary.__wrapped__, None)
@@ -841,6 +841,7 @@ class OverlappedPresenter(ComPtr, metaclass=_OverlappedPresenter_Meta_):
     def CreateForDialog(cls: win32more.Microsoft.UI.Windowing.IOverlappedPresenterStatics) -> win32more.Microsoft.UI.Windowing.OverlappedPresenter: ...
     @winrt_classmethod
     def CreateForToolWindow(cls: win32more.Microsoft.UI.Windowing.IOverlappedPresenterStatics) -> win32more.Microsoft.UI.Windowing.OverlappedPresenter: ...
+    HasBorder = property(get_HasBorder, None)
     HasTitleBar = property(get_HasTitleBar, None)
     IsAlwaysOnTop = property(get_IsAlwaysOnTop, put_IsAlwaysOnTop)
     IsMaximizable = property(get_IsMaximizable, put_IsMaximizable)
@@ -848,7 +849,6 @@ class OverlappedPresenter(ComPtr, metaclass=_OverlappedPresenter_Meta_):
     IsModal = property(get_IsModal, put_IsModal)
     IsResizable = property(get_IsResizable, put_IsResizable)
     State = property(get_State, None)
-    HasBorder = property(get_HasBorder, None)
     _OverlappedPresenter_Meta_.RequestedStartupState = property(get_RequestedStartupState.__wrapped__, None)
 class OverlappedPresenterState(Int32):  # enum
     Maximized = 0

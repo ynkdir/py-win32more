@@ -30,9 +30,9 @@ class IProviderSpiConnectionSettings(ComPtr):
     @winrt_commethod(15)
     def put_SharingMode(self, value: win32more.Windows.Devices.Spi.Provider.ProviderSpiSharingMode) -> Void: ...
     ChipSelectLine = property(get_ChipSelectLine, put_ChipSelectLine)
-    Mode = property(get_Mode, put_Mode)
-    DataBitLength = property(get_DataBitLength, put_DataBitLength)
     ClockFrequency = property(get_ClockFrequency, put_ClockFrequency)
+    DataBitLength = property(get_DataBitLength, put_DataBitLength)
+    Mode = property(get_Mode, put_Mode)
     SharingMode = property(get_SharingMode, put_SharingMode)
 class IProviderSpiConnectionSettingsFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -62,8 +62,8 @@ class ISpiDeviceProvider(ComPtr):
     def TransferSequential(self, writeBuffer: Annotated[SZArray[Byte], 'In'], readBuffer: Annotated[SZArray[Byte], 'Out']) -> Void: ...
     @winrt_commethod(11)
     def TransferFullDuplex(self, writeBuffer: Annotated[SZArray[Byte], 'In'], readBuffer: Annotated[SZArray[Byte], 'Out']) -> Void: ...
-    DeviceId = property(get_DeviceId, None)
     ConnectionSettings = property(get_ConnectionSettings, None)
+    DeviceId = property(get_DeviceId, None)
 class ISpiProvider(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Spi.Provider.ISpiProvider'
@@ -104,9 +104,9 @@ class ProviderSpiConnectionSettings(ComPtr):
     @winrt_mixinmethod
     def put_SharingMode(self: win32more.Windows.Devices.Spi.Provider.IProviderSpiConnectionSettings, value: win32more.Windows.Devices.Spi.Provider.ProviderSpiSharingMode) -> Void: ...
     ChipSelectLine = property(get_ChipSelectLine, put_ChipSelectLine)
-    Mode = property(get_Mode, put_Mode)
-    DataBitLength = property(get_DataBitLength, put_DataBitLength)
     ClockFrequency = property(get_ClockFrequency, put_ClockFrequency)
+    DataBitLength = property(get_DataBitLength, put_DataBitLength)
+    Mode = property(get_Mode, put_Mode)
     SharingMode = property(get_SharingMode, put_SharingMode)
 class ProviderSpiMode(Int32):  # enum
     Mode0 = 0

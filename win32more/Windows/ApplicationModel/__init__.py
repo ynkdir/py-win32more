@@ -24,8 +24,8 @@ class AppDisplayInfo(ComPtr):
     def get_Description(self: win32more.Windows.ApplicationModel.IAppDisplayInfo) -> WinRT_String: ...
     @winrt_mixinmethod
     def GetLogo(self: win32more.Windows.ApplicationModel.IAppDisplayInfo, size: win32more.Windows.Foundation.Size) -> win32more.Windows.Storage.Streams.RandomAccessStreamReference: ...
-    DisplayName = property(get_DisplayName, None)
     Description = property(get_Description, None)
+    DisplayName = property(get_DisplayName, None)
 class AppExecutionContext(Int32):  # enum
     Unknown = 0
     Host = 1
@@ -56,12 +56,12 @@ class AppInfo(ComPtr, metaclass=_AppInfo_Meta_):
     def GetFromAppUserModelId(cls: win32more.Windows.ApplicationModel.IAppInfoStatics, appUserModelId: WinRT_String) -> win32more.Windows.ApplicationModel.AppInfo: ...
     @winrt_classmethod
     def GetFromAppUserModelIdForUser(cls: win32more.Windows.ApplicationModel.IAppInfoStatics, user: win32more.Windows.System.User, appUserModelId: WinRT_String) -> win32more.Windows.ApplicationModel.AppInfo: ...
-    Id = property(get_Id, None)
     AppUserModelId = property(get_AppUserModelId, None)
     DisplayInfo = property(get_DisplayInfo, None)
-    PackageFamilyName = property(get_PackageFamilyName, None)
-    Package = property(get_Package, None)
     ExecutionContext = property(get_ExecutionContext, None)
+    Id = property(get_Id, None)
+    Package = property(get_Package, None)
+    PackageFamilyName = property(get_PackageFamilyName, None)
     SupportedFileExtensions = property(get_SupportedFileExtensions, None)
     _AppInfo_Meta_.Current = property(get_Current.__wrapped__, None)
 class AppInstallerInfo(ComPtr):
@@ -100,22 +100,22 @@ class AppInstallerInfo(ComPtr):
     def get_OptionalPackageUris(self: win32more.Windows.ApplicationModel.IAppInstallerInfo2) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Foundation.Uri]: ...
     @winrt_mixinmethod
     def get_PolicySource(self: win32more.Windows.ApplicationModel.IAppInstallerInfo2) -> win32more.Windows.ApplicationModel.AppInstallerPolicySource: ...
-    Uri = property(get_Uri, None)
-    OnLaunch = property(get_OnLaunch, None)
+    AutomaticBackgroundTask = property(get_AutomaticBackgroundTask, None)
+    DependencyPackageUris = property(get_DependencyPackageUris, None)
+    ForceUpdateFromAnyVersion = property(get_ForceUpdateFromAnyVersion, None)
     HoursBetweenUpdateChecks = property(get_HoursBetweenUpdateChecks, None)
+    IsAutoRepairEnabled = property(get_IsAutoRepairEnabled, None)
+    LastChecked = property(get_LastChecked, None)
+    OnLaunch = property(get_OnLaunch, None)
+    OptionalPackageUris = property(get_OptionalPackageUris, None)
+    PausedUntil = property(get_PausedUntil, None)
+    PolicySource = property(get_PolicySource, None)
+    RepairUris = property(get_RepairUris, None)
     ShowPrompt = property(get_ShowPrompt, None)
     UpdateBlocksActivation = property(get_UpdateBlocksActivation, None)
-    AutomaticBackgroundTask = property(get_AutomaticBackgroundTask, None)
-    ForceUpdateFromAnyVersion = property(get_ForceUpdateFromAnyVersion, None)
-    IsAutoRepairEnabled = property(get_IsAutoRepairEnabled, None)
-    Version = property(get_Version, None)
-    LastChecked = property(get_LastChecked, None)
-    PausedUntil = property(get_PausedUntil, None)
     UpdateUris = property(get_UpdateUris, None)
-    RepairUris = property(get_RepairUris, None)
-    DependencyPackageUris = property(get_DependencyPackageUris, None)
-    OptionalPackageUris = property(get_OptionalPackageUris, None)
-    PolicySource = property(get_PolicySource, None)
+    Uri = property(get_Uri, None)
+    Version = property(get_Version, None)
 class AppInstallerPolicySource(Int32):  # enum
     Default = 0
     System = 1
@@ -141,8 +141,8 @@ class AppInstance(ComPtr, metaclass=_AppInstance_Meta_):
     def Unregister(cls: win32more.Windows.ApplicationModel.IAppInstanceStatics) -> Void: ...
     @winrt_classmethod
     def GetInstances(cls: win32more.Windows.ApplicationModel.IAppInstanceStatics) -> win32more.Windows.Foundation.Collections.IVector[win32more.Windows.ApplicationModel.AppInstance]: ...
-    Key = property(get_Key, None)
     IsCurrentInstance = property(get_IsCurrentInstance, None)
+    Key = property(get_Key, None)
     _AppInstance_Meta_.RecommendedInstance = property(get_RecommendedInstance.__wrapped__, None)
 class CameraApplicationManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -199,11 +199,11 @@ class FindRelatedPackagesOptions(ComPtr):
     def get_IncludeResources(self: win32more.Windows.ApplicationModel.IFindRelatedPackagesOptions) -> Boolean: ...
     @winrt_mixinmethod
     def put_IncludeResources(self: win32more.Windows.ApplicationModel.IFindRelatedPackagesOptions, value: Boolean) -> Void: ...
-    Relationship = property(get_Relationship, put_Relationship)
     IncludeFrameworks = property(get_IncludeFrameworks, put_IncludeFrameworks)
     IncludeHostRuntimes = property(get_IncludeHostRuntimes, put_IncludeHostRuntimes)
     IncludeOptionals = property(get_IncludeOptionals, put_IncludeOptionals)
     IncludeResources = property(get_IncludeResources, put_IncludeResources)
+    Relationship = property(get_Relationship, put_Relationship)
 FullTrustAppContract: UInt32 = 131072
 class FullTrustLaunchResult(Int32):  # enum
     Success = 0
@@ -218,8 +218,8 @@ class FullTrustProcessLaunchResult(ComPtr):
     def get_LaunchResult(self: win32more.Windows.ApplicationModel.IFullTrustProcessLaunchResult) -> win32more.Windows.ApplicationModel.FullTrustLaunchResult: ...
     @winrt_mixinmethod
     def get_ExtendedError(self: win32more.Windows.ApplicationModel.IFullTrustProcessLaunchResult) -> win32more.Windows.Foundation.HResult: ...
-    LaunchResult = property(get_LaunchResult, None)
     ExtendedError = property(get_ExtendedError, None)
+    LaunchResult = property(get_LaunchResult, None)
 class FullTrustProcessLauncher(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.FullTrustProcessLauncher'
@@ -245,8 +245,8 @@ class IAppDisplayInfo(ComPtr):
     def get_Description(self) -> WinRT_String: ...
     @winrt_commethod(8)
     def GetLogo(self, size: win32more.Windows.Foundation.Size) -> win32more.Windows.Storage.Streams.RandomAccessStreamReference: ...
-    DisplayName = property(get_DisplayName, None)
     Description = property(get_Description, None)
+    DisplayName = property(get_DisplayName, None)
 class IAppInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.IAppInfo'
@@ -259,9 +259,9 @@ class IAppInfo(ComPtr):
     def get_DisplayInfo(self) -> win32more.Windows.ApplicationModel.AppDisplayInfo: ...
     @winrt_commethod(9)
     def get_PackageFamilyName(self) -> WinRT_String: ...
-    Id = property(get_Id, None)
     AppUserModelId = property(get_AppUserModelId, None)
     DisplayInfo = property(get_DisplayInfo, None)
+    Id = property(get_Id, None)
     PackageFamilyName = property(get_PackageFamilyName, None)
 class IAppInfo2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -336,21 +336,21 @@ class IAppInstallerInfo2(ComPtr):
     def get_OptionalPackageUris(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Foundation.Uri]: ...
     @winrt_commethod(20)
     def get_PolicySource(self) -> win32more.Windows.ApplicationModel.AppInstallerPolicySource: ...
-    OnLaunch = property(get_OnLaunch, None)
+    AutomaticBackgroundTask = property(get_AutomaticBackgroundTask, None)
+    DependencyPackageUris = property(get_DependencyPackageUris, None)
+    ForceUpdateFromAnyVersion = property(get_ForceUpdateFromAnyVersion, None)
     HoursBetweenUpdateChecks = property(get_HoursBetweenUpdateChecks, None)
+    IsAutoRepairEnabled = property(get_IsAutoRepairEnabled, None)
+    LastChecked = property(get_LastChecked, None)
+    OnLaunch = property(get_OnLaunch, None)
+    OptionalPackageUris = property(get_OptionalPackageUris, None)
+    PausedUntil = property(get_PausedUntil, None)
+    PolicySource = property(get_PolicySource, None)
+    RepairUris = property(get_RepairUris, None)
     ShowPrompt = property(get_ShowPrompt, None)
     UpdateBlocksActivation = property(get_UpdateBlocksActivation, None)
-    AutomaticBackgroundTask = property(get_AutomaticBackgroundTask, None)
-    ForceUpdateFromAnyVersion = property(get_ForceUpdateFromAnyVersion, None)
-    IsAutoRepairEnabled = property(get_IsAutoRepairEnabled, None)
-    Version = property(get_Version, None)
-    LastChecked = property(get_LastChecked, None)
-    PausedUntil = property(get_PausedUntil, None)
     UpdateUris = property(get_UpdateUris, None)
-    RepairUris = property(get_RepairUris, None)
-    DependencyPackageUris = property(get_DependencyPackageUris, None)
-    OptionalPackageUris = property(get_OptionalPackageUris, None)
-    PolicySource = property(get_PolicySource, None)
+    Version = property(get_Version, None)
 class IAppInstance(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.IAppInstance'
@@ -361,8 +361,8 @@ class IAppInstance(ComPtr):
     def get_IsCurrentInstance(self) -> Boolean: ...
     @winrt_commethod(8)
     def RedirectActivationTo(self) -> Void: ...
-    Key = property(get_Key, None)
     IsCurrentInstance = property(get_IsCurrentInstance, None)
+    Key = property(get_Key, None)
 class IAppInstanceStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.IAppInstanceStatics'
@@ -428,11 +428,11 @@ class IFindRelatedPackagesOptions(ComPtr):
     def get_IncludeResources(self) -> Boolean: ...
     @winrt_commethod(15)
     def put_IncludeResources(self, value: Boolean) -> Void: ...
-    Relationship = property(get_Relationship, put_Relationship)
     IncludeFrameworks = property(get_IncludeFrameworks, put_IncludeFrameworks)
     IncludeHostRuntimes = property(get_IncludeHostRuntimes, put_IncludeHostRuntimes)
     IncludeOptionals = property(get_IncludeOptionals, put_IncludeOptionals)
     IncludeResources = property(get_IncludeResources, put_IncludeResources)
+    Relationship = property(get_Relationship, put_Relationship)
 class IFindRelatedPackagesOptionsFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.IFindRelatedPackagesOptionsFactory'
@@ -447,8 +447,8 @@ class IFullTrustProcessLaunchResult(ComPtr):
     def get_LaunchResult(self) -> win32more.Windows.ApplicationModel.FullTrustLaunchResult: ...
     @winrt_commethod(7)
     def get_ExtendedError(self) -> win32more.Windows.Foundation.HResult: ...
-    LaunchResult = property(get_LaunchResult, None)
     ExtendedError = property(get_ExtendedError, None)
+    LaunchResult = property(get_LaunchResult, None)
 class IFullTrustProcessLauncherStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.IFullTrustProcessLauncherStatics'
@@ -485,9 +485,9 @@ class ILimitedAccessFeatureRequestResult(ComPtr):
     def get_Status(self) -> win32more.Windows.ApplicationModel.LimitedAccessFeatureStatus: ...
     @winrt_commethod(8)
     def get_EstimatedRemovalDate(self) -> win32more.Windows.Foundation.IReference[win32more.Windows.Foundation.DateTime]: ...
+    EstimatedRemovalDate = property(get_EstimatedRemovalDate, None)
     FeatureId = property(get_FeatureId, None)
     Status = property(get_Status, None)
-    EstimatedRemovalDate = property(get_EstimatedRemovalDate, None)
 class ILimitedAccessFeaturesStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.ILimitedAccessFeaturesStatics'
@@ -506,10 +506,10 @@ class IPackage(ComPtr):
     def get_IsFramework(self) -> Boolean: ...
     @winrt_commethod(9)
     def get_Dependencies(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.ApplicationModel.Package]: ...
+    Dependencies = property(get_Dependencies, None)
     Id = property(get_Id, None)
     InstalledLocation = property(get_InstalledLocation, None)
     IsFramework = property(get_IsFramework, None)
-    Dependencies = property(get_Dependencies, None)
 class IPackage2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.IPackage2'
@@ -528,13 +528,13 @@ class IPackage2(ComPtr):
     def get_IsBundle(self) -> Boolean: ...
     @winrt_commethod(12)
     def get_IsDevelopmentMode(self) -> Boolean: ...
-    DisplayName = property(get_DisplayName, None)
-    PublisherDisplayName = property(get_PublisherDisplayName, None)
     Description = property(get_Description, None)
-    Logo = property(get_Logo, None)
-    IsResourcePackage = property(get_IsResourcePackage, None)
+    DisplayName = property(get_DisplayName, None)
     IsBundle = property(get_IsBundle, None)
     IsDevelopmentMode = property(get_IsDevelopmentMode, None)
+    IsResourcePackage = property(get_IsResourcePackage, None)
+    Logo = property(get_Logo, None)
+    PublisherDisplayName = property(get_PublisherDisplayName, None)
 class IPackage3(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.IPackage3'
@@ -545,8 +545,8 @@ class IPackage3(ComPtr):
     def get_InstalledDate(self) -> win32more.Windows.Foundation.DateTime: ...
     @winrt_commethod(8)
     def GetAppListEntriesAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.ApplicationModel.Core.AppListEntry]]: ...
-    Status = property(get_Status, None)
     InstalledDate = property(get_InstalledDate, None)
+    Status = property(get_Status, None)
 class IPackage4(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.IPackage4'
@@ -557,8 +557,8 @@ class IPackage4(ComPtr):
     def get_IsOptional(self) -> Boolean: ...
     @winrt_commethod(8)
     def VerifyContentIntegrityAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
-    SignatureKind = property(get_SignatureKind, None)
     IsOptional = property(get_IsOptional, None)
+    SignatureKind = property(get_SignatureKind, None)
 class IPackage5(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.IPackage5'
@@ -589,8 +589,8 @@ class IPackage7(ComPtr):
     def get_MutableLocation(self) -> win32more.Windows.Storage.StorageFolder: ...
     @winrt_commethod(7)
     def get_EffectiveLocation(self) -> win32more.Windows.Storage.StorageFolder: ...
-    MutableLocation = property(get_MutableLocation, None)
     EffectiveLocation = property(get_EffectiveLocation, None)
+    MutableLocation = property(get_MutableLocation, None)
 class IPackage8(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.IPackage8'
@@ -620,15 +620,15 @@ class IPackage8(ComPtr):
     @winrt_commethod(17)
     def get_IsStub(self) -> Boolean: ...
     EffectiveExternalLocation = property(get_EffectiveExternalLocation, None)
-    MachineExternalLocation = property(get_MachineExternalLocation, None)
-    UserExternalLocation = property(get_UserExternalLocation, None)
-    InstalledPath = property(get_InstalledPath, None)
-    MutablePath = property(get_MutablePath, None)
-    EffectivePath = property(get_EffectivePath, None)
     EffectiveExternalPath = property(get_EffectiveExternalPath, None)
-    MachineExternalPath = property(get_MachineExternalPath, None)
-    UserExternalPath = property(get_UserExternalPath, None)
+    EffectivePath = property(get_EffectivePath, None)
+    InstalledPath = property(get_InstalledPath, None)
     IsStub = property(get_IsStub, None)
+    MachineExternalLocation = property(get_MachineExternalLocation, None)
+    MachineExternalPath = property(get_MachineExternalPath, None)
+    MutablePath = property(get_MutablePath, None)
+    UserExternalLocation = property(get_UserExternalLocation, None)
+    UserExternalPath = property(get_UserExternalPath, None)
 class IPackage9(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.IPackage9'
@@ -694,8 +694,8 @@ class IPackageCatalogAddOptionalPackageResult(ComPtr):
     def get_Package(self) -> win32more.Windows.ApplicationModel.Package: ...
     @winrt_commethod(7)
     def get_ExtendedError(self) -> win32more.Windows.Foundation.HResult: ...
-    Package = property(get_Package, None)
     ExtendedError = property(get_ExtendedError, None)
+    Package = property(get_Package, None)
 class IPackageCatalogAddResourcePackageResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.IPackageCatalogAddResourcePackageResult'
@@ -706,9 +706,9 @@ class IPackageCatalogAddResourcePackageResult(ComPtr):
     def get_IsComplete(self) -> Boolean: ...
     @winrt_commethod(8)
     def get_ExtendedError(self) -> win32more.Windows.Foundation.HResult: ...
-    Package = property(get_Package, None)
-    IsComplete = property(get_IsComplete, None)
     ExtendedError = property(get_ExtendedError, None)
+    IsComplete = property(get_IsComplete, None)
+    Package = property(get_Package, None)
 class IPackageCatalogRemoveOptionalPackagesResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.IPackageCatalogRemoveOptionalPackagesResult'
@@ -717,8 +717,8 @@ class IPackageCatalogRemoveOptionalPackagesResult(ComPtr):
     def get_PackagesRemoved(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.ApplicationModel.Package]: ...
     @winrt_commethod(7)
     def get_ExtendedError(self) -> win32more.Windows.Foundation.HResult: ...
-    PackagesRemoved = property(get_PackagesRemoved, None)
     ExtendedError = property(get_ExtendedError, None)
+    PackagesRemoved = property(get_PackagesRemoved, None)
 class IPackageCatalogRemoveResourcePackagesResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.IPackageCatalogRemoveResourcePackagesResult'
@@ -727,8 +727,8 @@ class IPackageCatalogRemoveResourcePackagesResult(ComPtr):
     def get_PackagesRemoved(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.ApplicationModel.Package]: ...
     @winrt_commethod(7)
     def get_ExtendedError(self) -> win32more.Windows.Foundation.HResult: ...
-    PackagesRemoved = property(get_PackagesRemoved, None)
     ExtendedError = property(get_ExtendedError, None)
+    PackagesRemoved = property(get_PackagesRemoved, None)
 class IPackageCatalogStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.IPackageCatalogStatics'
@@ -755,10 +755,10 @@ class IPackageContentGroup(ComPtr):
     def get_State(self) -> win32more.Windows.ApplicationModel.PackageContentGroupState: ...
     @winrt_commethod(9)
     def get_IsRequired(self) -> Boolean: ...
-    Package = property(get_Package, None)
-    Name = property(get_Name, None)
-    State = property(get_State, None)
     IsRequired = property(get_IsRequired, None)
+    Name = property(get_Name, None)
+    Package = property(get_Package, None)
+    State = property(get_State, None)
 class IPackageContentGroupStagingEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.IPackageContentGroupStagingEventArgs'
@@ -778,12 +778,12 @@ class IPackageContentGroupStagingEventArgs(ComPtr):
     @winrt_commethod(12)
     def get_IsContentGroupRequired(self) -> Boolean: ...
     ActivityId = property(get_ActivityId, None)
+    ContentGroupName = property(get_ContentGroupName, None)
+    ErrorCode = property(get_ErrorCode, None)
+    IsComplete = property(get_IsComplete, None)
+    IsContentGroupRequired = property(get_IsContentGroupRequired, None)
     Package = property(get_Package, None)
     Progress = property(get_Progress, None)
-    IsComplete = property(get_IsComplete, None)
-    ErrorCode = property(get_ErrorCode, None)
-    ContentGroupName = property(get_ContentGroupName, None)
-    IsContentGroupRequired = property(get_IsContentGroupRequired, None)
 class IPackageContentGroupStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.IPackageContentGroupStatics'
@@ -811,14 +811,14 @@ class IPackageId(ComPtr):
     def get_FullName(self) -> WinRT_String: ...
     @winrt_commethod(13)
     def get_FamilyName(self) -> WinRT_String: ...
-    Name = property(get_Name, None)
-    Version = property(get_Version, None)
     Architecture = property(get_Architecture, None)
-    ResourceId = property(get_ResourceId, None)
+    FamilyName = property(get_FamilyName, None)
+    FullName = property(get_FullName, None)
+    Name = property(get_Name, None)
     Publisher = property(get_Publisher, None)
     PublisherId = property(get_PublisherId, None)
-    FullName = property(get_FullName, None)
-    FamilyName = property(get_FamilyName, None)
+    ResourceId = property(get_ResourceId, None)
+    Version = property(get_Version, None)
 class IPackageIdWithMetadata(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.IPackageIdWithMetadata'
@@ -827,8 +827,8 @@ class IPackageIdWithMetadata(ComPtr):
     def get_ProductId(self) -> WinRT_String: ...
     @winrt_commethod(7)
     def get_Author(self) -> WinRT_String: ...
-    ProductId = property(get_ProductId, None)
     Author = property(get_Author, None)
+    ProductId = property(get_ProductId, None)
 class IPackageInstallingEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.IPackageInstallingEventArgs'
@@ -844,10 +844,10 @@ class IPackageInstallingEventArgs(ComPtr):
     @winrt_commethod(10)
     def get_ErrorCode(self) -> win32more.Windows.Foundation.HResult: ...
     ActivityId = property(get_ActivityId, None)
+    ErrorCode = property(get_ErrorCode, None)
+    IsComplete = property(get_IsComplete, None)
     Package = property(get_Package, None)
     Progress = property(get_Progress, None)
-    IsComplete = property(get_IsComplete, None)
-    ErrorCode = property(get_ErrorCode, None)
 class IPackageStagingEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.IPackageStagingEventArgs'
@@ -863,10 +863,10 @@ class IPackageStagingEventArgs(ComPtr):
     @winrt_commethod(10)
     def get_ErrorCode(self) -> win32more.Windows.Foundation.HResult: ...
     ActivityId = property(get_ActivityId, None)
+    ErrorCode = property(get_ErrorCode, None)
+    IsComplete = property(get_IsComplete, None)
     Package = property(get_Package, None)
     Progress = property(get_Progress, None)
-    IsComplete = property(get_IsComplete, None)
-    ErrorCode = property(get_ErrorCode, None)
 class IPackageStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.IPackageStatics'
@@ -902,17 +902,17 @@ class IPackageStatus(ComPtr):
     def get_Servicing(self) -> Boolean: ...
     @winrt_commethod(17)
     def get_DeploymentInProgress(self) -> Boolean: ...
-    NotAvailable = property(get_NotAvailable, None)
-    PackageOffline = property(get_PackageOffline, None)
     DataOffline = property(get_DataOffline, None)
+    DependencyIssue = property(get_DependencyIssue, None)
+    DeploymentInProgress = property(get_DeploymentInProgress, None)
     Disabled = property(get_Disabled, None)
-    NeedsRemediation = property(get_NeedsRemediation, None)
     LicenseIssue = property(get_LicenseIssue, None)
     Modified = property(get_Modified, None)
-    Tampered = property(get_Tampered, None)
-    DependencyIssue = property(get_DependencyIssue, None)
+    NeedsRemediation = property(get_NeedsRemediation, None)
+    NotAvailable = property(get_NotAvailable, None)
+    PackageOffline = property(get_PackageOffline, None)
     Servicing = property(get_Servicing, None)
-    DeploymentInProgress = property(get_DeploymentInProgress, None)
+    Tampered = property(get_Tampered, None)
 class IPackageStatus2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.IPackageStatus2'
@@ -942,10 +942,10 @@ class IPackageUninstallingEventArgs(ComPtr):
     @winrt_commethod(10)
     def get_ErrorCode(self) -> win32more.Windows.Foundation.HResult: ...
     ActivityId = property(get_ActivityId, None)
+    ErrorCode = property(get_ErrorCode, None)
+    IsComplete = property(get_IsComplete, None)
     Package = property(get_Package, None)
     Progress = property(get_Progress, None)
-    IsComplete = property(get_IsComplete, None)
-    ErrorCode = property(get_ErrorCode, None)
 class IPackageUpdateAvailabilityResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.IPackageUpdateAvailabilityResult'
@@ -973,11 +973,11 @@ class IPackageUpdatingEventArgs(ComPtr):
     @winrt_commethod(11)
     def get_ErrorCode(self) -> win32more.Windows.Foundation.HResult: ...
     ActivityId = property(get_ActivityId, None)
+    ErrorCode = property(get_ErrorCode, None)
+    IsComplete = property(get_IsComplete, None)
+    Progress = property(get_Progress, None)
     SourcePackage = property(get_SourcePackage, None)
     TargetPackage = property(get_TargetPackage, None)
-    Progress = property(get_Progress, None)
-    IsComplete = property(get_IsComplete, None)
-    ErrorCode = property(get_ErrorCode, None)
 class IPackageWithMetadata(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.IPackageWithMetadata'
@@ -1049,9 +1049,9 @@ class LimitedAccessFeatureRequestResult(ComPtr):
     def get_Status(self: win32more.Windows.ApplicationModel.ILimitedAccessFeatureRequestResult) -> win32more.Windows.ApplicationModel.LimitedAccessFeatureStatus: ...
     @winrt_mixinmethod
     def get_EstimatedRemovalDate(self: win32more.Windows.ApplicationModel.ILimitedAccessFeatureRequestResult) -> win32more.Windows.Foundation.IReference[win32more.Windows.Foundation.DateTime]: ...
+    EstimatedRemovalDate = property(get_EstimatedRemovalDate, None)
     FeatureId = property(get_FeatureId, None)
     Status = property(get_Status, None)
-    EstimatedRemovalDate = property(get_EstimatedRemovalDate, None)
 class LimitedAccessFeatureStatus(Int32):  # enum
     Unavailable = 0
     Available = 1
@@ -1156,35 +1156,35 @@ class Package(ComPtr, metaclass=_Package_Meta_):
     def get_SourceUriSchemeName(self: win32more.Windows.ApplicationModel.IPackage9) -> WinRT_String: ...
     @winrt_classmethod
     def get_Current(cls: win32more.Windows.ApplicationModel.IPackageStatics) -> win32more.Windows.ApplicationModel.Package: ...
-    Id = property(get_Id, None)
-    InstalledLocation = property(get_InstalledLocation, None)
-    IsFramework = property(get_IsFramework, None)
     Dependencies = property(get_Dependencies, None)
-    DisplayName = property(get_DisplayName, None)
-    PublisherDisplayName = property(get_PublisherDisplayName, None)
     Description = property(get_Description, None)
-    Logo = property(get_Logo, None)
-    IsResourcePackage = property(get_IsResourcePackage, None)
+    DisplayName = property(get_DisplayName, None)
+    EffectiveExternalLocation = property(get_EffectiveExternalLocation, None)
+    EffectiveExternalPath = property(get_EffectiveExternalPath, None)
+    EffectiveLocation = property(get_EffectiveLocation, None)
+    EffectivePath = property(get_EffectivePath, None)
+    Id = property(get_Id, None)
+    InstallDate = property(get_InstallDate, None)
+    InstalledDate = property(get_InstalledDate, None)
+    InstalledLocation = property(get_InstalledLocation, None)
+    InstalledPath = property(get_InstalledPath, None)
     IsBundle = property(get_IsBundle, None)
     IsDevelopmentMode = property(get_IsDevelopmentMode, None)
-    Status = property(get_Status, None)
-    InstalledDate = property(get_InstalledDate, None)
-    InstallDate = property(get_InstallDate, None)
-    SignatureKind = property(get_SignatureKind, None)
+    IsFramework = property(get_IsFramework, None)
     IsOptional = property(get_IsOptional, None)
-    MutableLocation = property(get_MutableLocation, None)
-    EffectiveLocation = property(get_EffectiveLocation, None)
-    EffectiveExternalLocation = property(get_EffectiveExternalLocation, None)
-    MachineExternalLocation = property(get_MachineExternalLocation, None)
-    UserExternalLocation = property(get_UserExternalLocation, None)
-    InstalledPath = property(get_InstalledPath, None)
-    MutablePath = property(get_MutablePath, None)
-    EffectivePath = property(get_EffectivePath, None)
-    EffectiveExternalPath = property(get_EffectiveExternalPath, None)
-    MachineExternalPath = property(get_MachineExternalPath, None)
-    UserExternalPath = property(get_UserExternalPath, None)
+    IsResourcePackage = property(get_IsResourcePackage, None)
     IsStub = property(get_IsStub, None)
+    Logo = property(get_Logo, None)
+    MachineExternalLocation = property(get_MachineExternalLocation, None)
+    MachineExternalPath = property(get_MachineExternalPath, None)
+    MutableLocation = property(get_MutableLocation, None)
+    MutablePath = property(get_MutablePath, None)
+    PublisherDisplayName = property(get_PublisherDisplayName, None)
+    SignatureKind = property(get_SignatureKind, None)
     SourceUriSchemeName = property(get_SourceUriSchemeName, None)
+    Status = property(get_Status, None)
+    UserExternalLocation = property(get_UserExternalLocation, None)
+    UserExternalPath = property(get_UserExternalPath, None)
     _Package_Meta_.Current = property(get_Current.__wrapped__, None)
 class PackageCatalog(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -1236,8 +1236,8 @@ class PackageCatalogAddOptionalPackageResult(ComPtr):
     def get_Package(self: win32more.Windows.ApplicationModel.IPackageCatalogAddOptionalPackageResult) -> win32more.Windows.ApplicationModel.Package: ...
     @winrt_mixinmethod
     def get_ExtendedError(self: win32more.Windows.ApplicationModel.IPackageCatalogAddOptionalPackageResult) -> win32more.Windows.Foundation.HResult: ...
-    Package = property(get_Package, None)
     ExtendedError = property(get_ExtendedError, None)
+    Package = property(get_Package, None)
 class PackageCatalogAddResourcePackageResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.IPackageCatalogAddResourcePackageResult
@@ -1248,9 +1248,9 @@ class PackageCatalogAddResourcePackageResult(ComPtr):
     def get_IsComplete(self: win32more.Windows.ApplicationModel.IPackageCatalogAddResourcePackageResult) -> Boolean: ...
     @winrt_mixinmethod
     def get_ExtendedError(self: win32more.Windows.ApplicationModel.IPackageCatalogAddResourcePackageResult) -> win32more.Windows.Foundation.HResult: ...
-    Package = property(get_Package, None)
-    IsComplete = property(get_IsComplete, None)
     ExtendedError = property(get_ExtendedError, None)
+    IsComplete = property(get_IsComplete, None)
+    Package = property(get_Package, None)
 class PackageCatalogRemoveOptionalPackagesResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.IPackageCatalogRemoveOptionalPackagesResult
@@ -1259,8 +1259,8 @@ class PackageCatalogRemoveOptionalPackagesResult(ComPtr):
     def get_PackagesRemoved(self: win32more.Windows.ApplicationModel.IPackageCatalogRemoveOptionalPackagesResult) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.ApplicationModel.Package]: ...
     @winrt_mixinmethod
     def get_ExtendedError(self: win32more.Windows.ApplicationModel.IPackageCatalogRemoveOptionalPackagesResult) -> win32more.Windows.Foundation.HResult: ...
-    PackagesRemoved = property(get_PackagesRemoved, None)
     ExtendedError = property(get_ExtendedError, None)
+    PackagesRemoved = property(get_PackagesRemoved, None)
 class PackageCatalogRemoveResourcePackagesResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.IPackageCatalogRemoveResourcePackagesResult
@@ -1269,8 +1269,8 @@ class PackageCatalogRemoveResourcePackagesResult(ComPtr):
     def get_PackagesRemoved(self: win32more.Windows.ApplicationModel.IPackageCatalogRemoveResourcePackagesResult) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.ApplicationModel.Package]: ...
     @winrt_mixinmethod
     def get_ExtendedError(self: win32more.Windows.ApplicationModel.IPackageCatalogRemoveResourcePackagesResult) -> win32more.Windows.Foundation.HResult: ...
-    PackagesRemoved = property(get_PackagesRemoved, None)
     ExtendedError = property(get_ExtendedError, None)
+    PackagesRemoved = property(get_PackagesRemoved, None)
 class _PackageContentGroup_Meta_(ComPtr.__class__):
     pass
 class PackageContentGroup(ComPtr, metaclass=_PackageContentGroup_Meta_):
@@ -1287,10 +1287,10 @@ class PackageContentGroup(ComPtr, metaclass=_PackageContentGroup_Meta_):
     def get_IsRequired(self: win32more.Windows.ApplicationModel.IPackageContentGroup) -> Boolean: ...
     @winrt_classmethod
     def get_RequiredGroupName(cls: win32more.Windows.ApplicationModel.IPackageContentGroupStatics) -> WinRT_String: ...
-    Package = property(get_Package, None)
-    Name = property(get_Name, None)
-    State = property(get_State, None)
     IsRequired = property(get_IsRequired, None)
+    Name = property(get_Name, None)
+    Package = property(get_Package, None)
+    State = property(get_State, None)
     _PackageContentGroup_Meta_.RequiredGroupName = property(get_RequiredGroupName.__wrapped__, None)
 class PackageContentGroupStagingEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -1311,12 +1311,12 @@ class PackageContentGroupStagingEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_IsContentGroupRequired(self: win32more.Windows.ApplicationModel.IPackageContentGroupStagingEventArgs) -> Boolean: ...
     ActivityId = property(get_ActivityId, None)
+    ContentGroupName = property(get_ContentGroupName, None)
+    ErrorCode = property(get_ErrorCode, None)
+    IsComplete = property(get_IsComplete, None)
+    IsContentGroupRequired = property(get_IsContentGroupRequired, None)
     Package = property(get_Package, None)
     Progress = property(get_Progress, None)
-    IsComplete = property(get_IsComplete, None)
-    ErrorCode = property(get_ErrorCode, None)
-    ContentGroupName = property(get_ContentGroupName, None)
-    IsContentGroupRequired = property(get_IsContentGroupRequired, None)
 class PackageContentGroupState(Int32):  # enum
     NotStaged = 0
     Queued = 1
@@ -1346,16 +1346,16 @@ class PackageId(ComPtr):
     def get_ProductId(self: win32more.Windows.ApplicationModel.IPackageIdWithMetadata) -> WinRT_String: ...
     @winrt_mixinmethod
     def get_Author(self: win32more.Windows.ApplicationModel.IPackageIdWithMetadata) -> WinRT_String: ...
-    Name = property(get_Name, None)
-    Version = property(get_Version, None)
     Architecture = property(get_Architecture, None)
-    ResourceId = property(get_ResourceId, None)
+    Author = property(get_Author, None)
+    FamilyName = property(get_FamilyName, None)
+    FullName = property(get_FullName, None)
+    Name = property(get_Name, None)
+    ProductId = property(get_ProductId, None)
     Publisher = property(get_Publisher, None)
     PublisherId = property(get_PublisherId, None)
-    FullName = property(get_FullName, None)
-    FamilyName = property(get_FamilyName, None)
-    ProductId = property(get_ProductId, None)
-    Author = property(get_Author, None)
+    ResourceId = property(get_ResourceId, None)
+    Version = property(get_Version, None)
 class PackageInstallProgress(EasyCastStructure):
     PercentComplete: UInt32
 class PackageInstallingEventArgs(ComPtr):
@@ -1373,10 +1373,10 @@ class PackageInstallingEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_ErrorCode(self: win32more.Windows.ApplicationModel.IPackageInstallingEventArgs) -> win32more.Windows.Foundation.HResult: ...
     ActivityId = property(get_ActivityId, None)
+    ErrorCode = property(get_ErrorCode, None)
+    IsComplete = property(get_IsComplete, None)
     Package = property(get_Package, None)
     Progress = property(get_Progress, None)
-    IsComplete = property(get_IsComplete, None)
-    ErrorCode = property(get_ErrorCode, None)
 class PackageRelationship(Int32):  # enum
     Dependencies = 0
     Dependents = 1
@@ -1402,10 +1402,10 @@ class PackageStagingEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_ErrorCode(self: win32more.Windows.ApplicationModel.IPackageStagingEventArgs) -> win32more.Windows.Foundation.HResult: ...
     ActivityId = property(get_ActivityId, None)
+    ErrorCode = property(get_ErrorCode, None)
+    IsComplete = property(get_IsComplete, None)
     Package = property(get_Package, None)
     Progress = property(get_Progress, None)
-    IsComplete = property(get_IsComplete, None)
-    ErrorCode = property(get_ErrorCode, None)
 class PackageStatus(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.IPackageStatus
@@ -1436,18 +1436,18 @@ class PackageStatus(ComPtr):
     def get_DeploymentInProgress(self: win32more.Windows.ApplicationModel.IPackageStatus) -> Boolean: ...
     @winrt_mixinmethod
     def get_IsPartiallyStaged(self: win32more.Windows.ApplicationModel.IPackageStatus2) -> Boolean: ...
-    NotAvailable = property(get_NotAvailable, None)
-    PackageOffline = property(get_PackageOffline, None)
     DataOffline = property(get_DataOffline, None)
+    DependencyIssue = property(get_DependencyIssue, None)
+    DeploymentInProgress = property(get_DeploymentInProgress, None)
     Disabled = property(get_Disabled, None)
-    NeedsRemediation = property(get_NeedsRemediation, None)
+    IsPartiallyStaged = property(get_IsPartiallyStaged, None)
     LicenseIssue = property(get_LicenseIssue, None)
     Modified = property(get_Modified, None)
-    Tampered = property(get_Tampered, None)
-    DependencyIssue = property(get_DependencyIssue, None)
+    NeedsRemediation = property(get_NeedsRemediation, None)
+    NotAvailable = property(get_NotAvailable, None)
+    PackageOffline = property(get_PackageOffline, None)
     Servicing = property(get_Servicing, None)
-    DeploymentInProgress = property(get_DeploymentInProgress, None)
-    IsPartiallyStaged = property(get_IsPartiallyStaged, None)
+    Tampered = property(get_Tampered, None)
 class PackageStatusChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.IPackageStatusChangedEventArgs
@@ -1470,10 +1470,10 @@ class PackageUninstallingEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_ErrorCode(self: win32more.Windows.ApplicationModel.IPackageUninstallingEventArgs) -> win32more.Windows.Foundation.HResult: ...
     ActivityId = property(get_ActivityId, None)
+    ErrorCode = property(get_ErrorCode, None)
+    IsComplete = property(get_IsComplete, None)
     Package = property(get_Package, None)
     Progress = property(get_Progress, None)
-    IsComplete = property(get_IsComplete, None)
-    ErrorCode = property(get_ErrorCode, None)
 class PackageUpdateAvailability(Int32):  # enum
     Unknown = 0
     NoUpdates = 1
@@ -1507,11 +1507,11 @@ class PackageUpdatingEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_ErrorCode(self: win32more.Windows.ApplicationModel.IPackageUpdatingEventArgs) -> win32more.Windows.Foundation.HResult: ...
     ActivityId = property(get_ActivityId, None)
+    ErrorCode = property(get_ErrorCode, None)
+    IsComplete = property(get_IsComplete, None)
+    Progress = property(get_Progress, None)
     SourcePackage = property(get_SourcePackage, None)
     TargetPackage = property(get_TargetPackage, None)
-    Progress = property(get_Progress, None)
-    IsComplete = property(get_IsComplete, None)
-    ErrorCode = property(get_ErrorCode, None)
 class PackageVersion(EasyCastStructure):
     Major: UInt16
     Minor: UInt16

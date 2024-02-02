@@ -72,14 +72,14 @@ class IVoiceCommandContentTile(ComPtr):
     def get_ContentTileType(self) -> win32more.Windows.ApplicationModel.VoiceCommands.VoiceCommandContentTileType: ...
     @winrt_commethod(21)
     def put_ContentTileType(self, value: win32more.Windows.ApplicationModel.VoiceCommands.VoiceCommandContentTileType) -> Void: ...
-    Title = property(get_Title, put_Title)
-    TextLine1 = property(get_TextLine1, put_TextLine1)
-    TextLine2 = property(get_TextLine2, put_TextLine2)
-    TextLine3 = property(get_TextLine3, put_TextLine3)
-    Image = property(get_Image, put_Image)
     AppContext = property(get_AppContext, put_AppContext)
     AppLaunchArgument = property(get_AppLaunchArgument, put_AppLaunchArgument)
     ContentTileType = property(get_ContentTileType, put_ContentTileType)
+    Image = property(get_Image, put_Image)
+    TextLine1 = property(get_TextLine1, put_TextLine1)
+    TextLine2 = property(get_TextLine2, put_TextLine2)
+    TextLine3 = property(get_TextLine3, put_TextLine3)
+    Title = property(get_Title, put_Title)
 class IVoiceCommandDefinition(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.VoiceCommands.IVoiceCommandDefinition'
@@ -126,9 +126,9 @@ class IVoiceCommandResponse(ComPtr):
     def put_AppLaunchArgument(self, value: WinRT_String) -> Void: ...
     @winrt_commethod(12)
     def get_VoiceCommandContentTiles(self) -> win32more.Windows.Foundation.Collections.IVector[win32more.Windows.ApplicationModel.VoiceCommands.VoiceCommandContentTile]: ...
+    AppLaunchArgument = property(get_AppLaunchArgument, put_AppLaunchArgument)
     Message = property(get_Message, put_Message)
     RepeatMessage = property(get_RepeatMessage, put_RepeatMessage)
-    AppLaunchArgument = property(get_AppLaunchArgument, put_AppLaunchArgument)
     VoiceCommandContentTiles = property(get_VoiceCommandContentTiles, None)
 class IVoiceCommandResponseStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -270,14 +270,14 @@ class VoiceCommandContentTile(ComPtr):
     def get_ContentTileType(self: win32more.Windows.ApplicationModel.VoiceCommands.IVoiceCommandContentTile) -> win32more.Windows.ApplicationModel.VoiceCommands.VoiceCommandContentTileType: ...
     @winrt_mixinmethod
     def put_ContentTileType(self: win32more.Windows.ApplicationModel.VoiceCommands.IVoiceCommandContentTile, value: win32more.Windows.ApplicationModel.VoiceCommands.VoiceCommandContentTileType) -> Void: ...
-    Title = property(get_Title, put_Title)
-    TextLine1 = property(get_TextLine1, put_TextLine1)
-    TextLine2 = property(get_TextLine2, put_TextLine2)
-    TextLine3 = property(get_TextLine3, put_TextLine3)
-    Image = property(get_Image, put_Image)
     AppContext = property(get_AppContext, put_AppContext)
     AppLaunchArgument = property(get_AppLaunchArgument, put_AppLaunchArgument)
     ContentTileType = property(get_ContentTileType, put_ContentTileType)
+    Image = property(get_Image, put_Image)
+    TextLine1 = property(get_TextLine1, put_TextLine1)
+    TextLine2 = property(get_TextLine2, put_TextLine2)
+    TextLine3 = property(get_TextLine3, put_TextLine3)
+    Title = property(get_Title, put_Title)
 class VoiceCommandContentTileType(Int32):  # enum
     TitleOnly = 0
     TitleWithText = 1
@@ -346,9 +346,9 @@ class VoiceCommandResponse(ComPtr, metaclass=_VoiceCommandResponse_Meta_):
     def CreateResponseForPrompt(cls: win32more.Windows.ApplicationModel.VoiceCommands.IVoiceCommandResponseStatics, message: win32more.Windows.ApplicationModel.VoiceCommands.VoiceCommandUserMessage, repeatMessage: win32more.Windows.ApplicationModel.VoiceCommands.VoiceCommandUserMessage) -> win32more.Windows.ApplicationModel.VoiceCommands.VoiceCommandResponse: ...
     @winrt_classmethod
     def CreateResponseForPromptWithTiles(cls: win32more.Windows.ApplicationModel.VoiceCommands.IVoiceCommandResponseStatics, message: win32more.Windows.ApplicationModel.VoiceCommands.VoiceCommandUserMessage, repeatMessage: win32more.Windows.ApplicationModel.VoiceCommands.VoiceCommandUserMessage, contentTiles: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.ApplicationModel.VoiceCommands.VoiceCommandContentTile]) -> win32more.Windows.ApplicationModel.VoiceCommands.VoiceCommandResponse: ...
+    AppLaunchArgument = property(get_AppLaunchArgument, put_AppLaunchArgument)
     Message = property(get_Message, put_Message)
     RepeatMessage = property(get_RepeatMessage, put_RepeatMessage)
-    AppLaunchArgument = property(get_AppLaunchArgument, put_AppLaunchArgument)
     VoiceCommandContentTiles = property(get_VoiceCommandContentTiles, None)
     _VoiceCommandResponse_Meta_.MaxSupportedVoiceCommandContentTiles = property(get_MaxSupportedVoiceCommandContentTiles.__wrapped__, None)
 class VoiceCommandServiceConnection(ComPtr):

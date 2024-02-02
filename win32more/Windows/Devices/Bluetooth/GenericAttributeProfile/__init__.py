@@ -64,13 +64,13 @@ class GattCharacteristic(ComPtr):
     def WriteClientCharacteristicConfigurationDescriptorWithResultAsync(self: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristic3, clientCharacteristicConfigurationDescriptorValue: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattClientCharacteristicConfigurationDescriptorValue) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattWriteResult]: ...
     @winrt_classmethod
     def ConvertShortIdToUuid(cls: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicStatics, shortId: UInt16) -> Guid: ...
+    AttributeHandle = property(get_AttributeHandle, None)
     CharacteristicProperties = property(get_CharacteristicProperties, None)
+    PresentationFormats = property(get_PresentationFormats, None)
     ProtectionLevel = property(get_ProtectionLevel, put_ProtectionLevel)
+    Service = property(get_Service, None)
     UserDescription = property(get_UserDescription, None)
     Uuid = property(get_Uuid, None)
-    AttributeHandle = property(get_AttributeHandle, None)
-    PresentationFormats = property(get_PresentationFormats, None)
-    Service = property(get_Service, None)
 class GattCharacteristicProperties(UInt32):  # enum
     None_ = 0
     Broadcast = 1
@@ -255,10 +255,15 @@ class GattCharacteristicUuids(ComPtr, metaclass=_GattCharacteristicUuids_Meta_):
     _GattCharacteristicUuids_Meta_.AlertLevel = property(get_AlertLevel.__wrapped__, None)
     _GattCharacteristicUuids_Meta_.AlertNotificationControlPoint = property(get_AlertNotificationControlPoint.__wrapped__, None)
     _GattCharacteristicUuids_Meta_.AlertStatus = property(get_AlertStatus.__wrapped__, None)
-    _GattCharacteristicUuids_Meta_.GapAppearance = property(get_GapAppearance.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.BatteryLevel = property(get_BatteryLevel.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.BloodPressureFeature = property(get_BloodPressureFeature.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.BloodPressureMeasurement = property(get_BloodPressureMeasurement.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.BodySensorLocation = property(get_BodySensorLocation.__wrapped__, None)
     _GattCharacteristicUuids_Meta_.BootKeyboardInputReport = property(get_BootKeyboardInputReport.__wrapped__, None)
     _GattCharacteristicUuids_Meta_.BootKeyboardOutputReport = property(get_BootKeyboardOutputReport.__wrapped__, None)
     _GattCharacteristicUuids_Meta_.BootMouseInputReport = property(get_BootMouseInputReport.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.CscFeature = property(get_CscFeature.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.CscMeasurement = property(get_CscMeasurement.__wrapped__, None)
     _GattCharacteristicUuids_Meta_.CurrentTime = property(get_CurrentTime.__wrapped__, None)
     _GattCharacteristicUuids_Meta_.CyclingPowerControlPoint = property(get_CyclingPowerControlPoint.__wrapped__, None)
     _GattCharacteristicUuids_Meta_.CyclingPowerFeature = property(get_CyclingPowerFeature.__wrapped__, None)
@@ -267,41 +272,57 @@ class GattCharacteristicUuids(ComPtr, metaclass=_GattCharacteristicUuids_Meta_):
     _GattCharacteristicUuids_Meta_.DateTime = property(get_DateTime.__wrapped__, None)
     _GattCharacteristicUuids_Meta_.DayDateTime = property(get_DayDateTime.__wrapped__, None)
     _GattCharacteristicUuids_Meta_.DayOfWeek = property(get_DayOfWeek.__wrapped__, None)
-    _GattCharacteristicUuids_Meta_.GapDeviceName = property(get_GapDeviceName.__wrapped__, None)
     _GattCharacteristicUuids_Meta_.DstOffset = property(get_DstOffset.__wrapped__, None)
     _GattCharacteristicUuids_Meta_.ExactTime256 = property(get_ExactTime256.__wrapped__, None)
     _GattCharacteristicUuids_Meta_.FirmwareRevisionString = property(get_FirmwareRevisionString.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.GapAppearance = property(get_GapAppearance.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.GapDeviceName = property(get_GapDeviceName.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.GapPeripheralPreferredConnectionParameters = property(get_GapPeripheralPreferredConnectionParameters.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.GapPeripheralPrivacyFlag = property(get_GapPeripheralPrivacyFlag.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.GapReconnectionAddress = property(get_GapReconnectionAddress.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.GattServiceChanged = property(get_GattServiceChanged.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.GlucoseFeature = property(get_GlucoseFeature.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.GlucoseMeasurement = property(get_GlucoseMeasurement.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.GlucoseMeasurementContext = property(get_GlucoseMeasurementContext.__wrapped__, None)
     _GattCharacteristicUuids_Meta_.HardwareRevisionString = property(get_HardwareRevisionString.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.HeartRateControlPoint = property(get_HeartRateControlPoint.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.HeartRateMeasurement = property(get_HeartRateMeasurement.__wrapped__, None)
     _GattCharacteristicUuids_Meta_.HidControlPoint = property(get_HidControlPoint.__wrapped__, None)
     _GattCharacteristicUuids_Meta_.HidInformation = property(get_HidInformation.__wrapped__, None)
     _GattCharacteristicUuids_Meta_.Ieee1107320601RegulatoryCertificationDataList = property(get_Ieee1107320601RegulatoryCertificationDataList.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.IntermediateCuffPressure = property(get_IntermediateCuffPressure.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.IntermediateTemperature = property(get_IntermediateTemperature.__wrapped__, None)
     _GattCharacteristicUuids_Meta_.LnControlPoint = property(get_LnControlPoint.__wrapped__, None)
     _GattCharacteristicUuids_Meta_.LnFeature = property(get_LnFeature.__wrapped__, None)
     _GattCharacteristicUuids_Meta_.LocalTimeInformation = property(get_LocalTimeInformation.__wrapped__, None)
     _GattCharacteristicUuids_Meta_.LocationAndSpeed = property(get_LocationAndSpeed.__wrapped__, None)
     _GattCharacteristicUuids_Meta_.ManufacturerNameString = property(get_ManufacturerNameString.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.MeasurementInterval = property(get_MeasurementInterval.__wrapped__, None)
     _GattCharacteristicUuids_Meta_.ModelNumberString = property(get_ModelNumberString.__wrapped__, None)
     _GattCharacteristicUuids_Meta_.Navigation = property(get_Navigation.__wrapped__, None)
     _GattCharacteristicUuids_Meta_.NewAlert = property(get_NewAlert.__wrapped__, None)
-    _GattCharacteristicUuids_Meta_.GapPeripheralPreferredConnectionParameters = property(get_GapPeripheralPreferredConnectionParameters.__wrapped__, None)
-    _GattCharacteristicUuids_Meta_.GapPeripheralPrivacyFlag = property(get_GapPeripheralPrivacyFlag.__wrapped__, None)
     _GattCharacteristicUuids_Meta_.PnpId = property(get_PnpId.__wrapped__, None)
     _GattCharacteristicUuids_Meta_.PositionQuality = property(get_PositionQuality.__wrapped__, None)
     _GattCharacteristicUuids_Meta_.ProtocolMode = property(get_ProtocolMode.__wrapped__, None)
-    _GattCharacteristicUuids_Meta_.GapReconnectionAddress = property(get_GapReconnectionAddress.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.RecordAccessControlPoint = property(get_RecordAccessControlPoint.__wrapped__, None)
     _GattCharacteristicUuids_Meta_.ReferenceTimeInformation = property(get_ReferenceTimeInformation.__wrapped__, None)
     _GattCharacteristicUuids_Meta_.Report = property(get_Report.__wrapped__, None)
     _GattCharacteristicUuids_Meta_.ReportMap = property(get_ReportMap.__wrapped__, None)
     _GattCharacteristicUuids_Meta_.RingerControlPoint = property(get_RingerControlPoint.__wrapped__, None)
     _GattCharacteristicUuids_Meta_.RingerSetting = property(get_RingerSetting.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.RscFeature = property(get_RscFeature.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.RscMeasurement = property(get_RscMeasurement.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.SCControlPoint = property(get_SCControlPoint.__wrapped__, None)
     _GattCharacteristicUuids_Meta_.ScanIntervalWindow = property(get_ScanIntervalWindow.__wrapped__, None)
     _GattCharacteristicUuids_Meta_.ScanRefresh = property(get_ScanRefresh.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.SensorLocation = property(get_SensorLocation.__wrapped__, None)
     _GattCharacteristicUuids_Meta_.SerialNumberString = property(get_SerialNumberString.__wrapped__, None)
-    _GattCharacteristicUuids_Meta_.GattServiceChanged = property(get_GattServiceChanged.__wrapped__, None)
     _GattCharacteristicUuids_Meta_.SoftwareRevisionString = property(get_SoftwareRevisionString.__wrapped__, None)
-    _GattCharacteristicUuids_Meta_.SupportedNewAlertCategory = property(get_SupportedNewAlertCategory.__wrapped__, None)
     _GattCharacteristicUuids_Meta_.SupportUnreadAlertCategory = property(get_SupportUnreadAlertCategory.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.SupportedNewAlertCategory = property(get_SupportedNewAlertCategory.__wrapped__, None)
     _GattCharacteristicUuids_Meta_.SystemId = property(get_SystemId.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.TemperatureMeasurement = property(get_TemperatureMeasurement.__wrapped__, None)
+    _GattCharacteristicUuids_Meta_.TemperatureType = property(get_TemperatureType.__wrapped__, None)
     _GattCharacteristicUuids_Meta_.TimeAccuracy = property(get_TimeAccuracy.__wrapped__, None)
     _GattCharacteristicUuids_Meta_.TimeSource = property(get_TimeSource.__wrapped__, None)
     _GattCharacteristicUuids_Meta_.TimeUpdateControlPoint = property(get_TimeUpdateControlPoint.__wrapped__, None)
@@ -310,27 +331,6 @@ class GattCharacteristicUuids(ComPtr, metaclass=_GattCharacteristicUuids_Meta_):
     _GattCharacteristicUuids_Meta_.TimeZone = property(get_TimeZone.__wrapped__, None)
     _GattCharacteristicUuids_Meta_.TxPowerLevel = property(get_TxPowerLevel.__wrapped__, None)
     _GattCharacteristicUuids_Meta_.UnreadAlertStatus = property(get_UnreadAlertStatus.__wrapped__, None)
-    _GattCharacteristicUuids_Meta_.BatteryLevel = property(get_BatteryLevel.__wrapped__, None)
-    _GattCharacteristicUuids_Meta_.BloodPressureFeature = property(get_BloodPressureFeature.__wrapped__, None)
-    _GattCharacteristicUuids_Meta_.BloodPressureMeasurement = property(get_BloodPressureMeasurement.__wrapped__, None)
-    _GattCharacteristicUuids_Meta_.BodySensorLocation = property(get_BodySensorLocation.__wrapped__, None)
-    _GattCharacteristicUuids_Meta_.CscFeature = property(get_CscFeature.__wrapped__, None)
-    _GattCharacteristicUuids_Meta_.CscMeasurement = property(get_CscMeasurement.__wrapped__, None)
-    _GattCharacteristicUuids_Meta_.GlucoseFeature = property(get_GlucoseFeature.__wrapped__, None)
-    _GattCharacteristicUuids_Meta_.GlucoseMeasurement = property(get_GlucoseMeasurement.__wrapped__, None)
-    _GattCharacteristicUuids_Meta_.GlucoseMeasurementContext = property(get_GlucoseMeasurementContext.__wrapped__, None)
-    _GattCharacteristicUuids_Meta_.HeartRateControlPoint = property(get_HeartRateControlPoint.__wrapped__, None)
-    _GattCharacteristicUuids_Meta_.HeartRateMeasurement = property(get_HeartRateMeasurement.__wrapped__, None)
-    _GattCharacteristicUuids_Meta_.IntermediateCuffPressure = property(get_IntermediateCuffPressure.__wrapped__, None)
-    _GattCharacteristicUuids_Meta_.IntermediateTemperature = property(get_IntermediateTemperature.__wrapped__, None)
-    _GattCharacteristicUuids_Meta_.MeasurementInterval = property(get_MeasurementInterval.__wrapped__, None)
-    _GattCharacteristicUuids_Meta_.RecordAccessControlPoint = property(get_RecordAccessControlPoint.__wrapped__, None)
-    _GattCharacteristicUuids_Meta_.RscFeature = property(get_RscFeature.__wrapped__, None)
-    _GattCharacteristicUuids_Meta_.RscMeasurement = property(get_RscMeasurement.__wrapped__, None)
-    _GattCharacteristicUuids_Meta_.SCControlPoint = property(get_SCControlPoint.__wrapped__, None)
-    _GattCharacteristicUuids_Meta_.SensorLocation = property(get_SensorLocation.__wrapped__, None)
-    _GattCharacteristicUuids_Meta_.TemperatureMeasurement = property(get_TemperatureMeasurement.__wrapped__, None)
-    _GattCharacteristicUuids_Meta_.TemperatureType = property(get_TemperatureType.__wrapped__, None)
 class GattCharacteristicsResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicsResult
@@ -341,9 +341,9 @@ class GattCharacteristicsResult(ComPtr):
     def get_ProtocolError(self: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicsResult) -> win32more.Windows.Foundation.IReference[Byte]: ...
     @winrt_mixinmethod
     def get_Characteristics(self: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristicsResult) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristic]: ...
-    Status = property(get_Status, None)
-    ProtocolError = property(get_ProtocolError, None)
     Characteristics = property(get_Characteristics, None)
+    ProtocolError = property(get_ProtocolError, None)
+    Status = property(get_Status, None)
 class GattClientCharacteristicConfigurationDescriptorValue(Int32):  # enum
     None_ = 0
     Notify = 1
@@ -360,10 +360,10 @@ class GattClientNotificationResult(ComPtr):
     def get_ProtocolError(self: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattClientNotificationResult) -> win32more.Windows.Foundation.IReference[Byte]: ...
     @winrt_mixinmethod
     def get_BytesSent(self: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattClientNotificationResult2) -> UInt16: ...
-    SubscribedClient = property(get_SubscribedClient, None)
-    Status = property(get_Status, None)
-    ProtocolError = property(get_ProtocolError, None)
     BytesSent = property(get_BytesSent, None)
+    ProtocolError = property(get_ProtocolError, None)
+    Status = property(get_Status, None)
+    SubscribedClient = property(get_SubscribedClient, None)
 class GattCommunicationStatus(Int32):  # enum
     Success = 0
     Unreachable = 1
@@ -391,9 +391,9 @@ class GattDescriptor(ComPtr):
     def WriteValueWithResultAsync(self: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattDescriptor2, value: win32more.Windows.Storage.Streams.IBuffer) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattWriteResult]: ...
     @winrt_classmethod
     def ConvertShortIdToUuid(cls: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattDescriptorStatics, shortId: UInt16) -> Guid: ...
+    AttributeHandle = property(get_AttributeHandle, None)
     ProtectionLevel = property(get_ProtectionLevel, put_ProtectionLevel)
     Uuid = property(get_Uuid, None)
-    AttributeHandle = property(get_AttributeHandle, None)
 class _GattDescriptorUuids_Meta_(ComPtr.__class__):
     pass
 class GattDescriptorUuids(ComPtr, metaclass=_GattDescriptorUuids_Meta_):
@@ -427,9 +427,9 @@ class GattDescriptorsResult(ComPtr):
     def get_ProtocolError(self: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattDescriptorsResult) -> win32more.Windows.Foundation.IReference[Byte]: ...
     @winrt_mixinmethod
     def get_Descriptors(self: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattDescriptorsResult) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattDescriptor]: ...
-    Status = property(get_Status, None)
-    ProtocolError = property(get_ProtocolError, None)
     Descriptors = property(get_Descriptors, None)
+    ProtocolError = property(get_ProtocolError, None)
+    Status = property(get_Status, None)
 class GattDeviceService(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattDeviceService
@@ -498,14 +498,14 @@ class GattDeviceService(ComPtr):
     def GetDeviceSelectorFromShortId(cls: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattDeviceServiceStatics, serviceShortId: UInt16) -> WinRT_String: ...
     @winrt_classmethod
     def ConvertShortIdToUuid(cls: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattDeviceServiceStatics, shortId: UInt16) -> Guid: ...
-    DeviceId = property(get_DeviceId, None)
-    Uuid = property(get_Uuid, None)
     AttributeHandle = property(get_AttributeHandle, None)
     Device = property(get_Device, None)
-    ParentServices = property(get_ParentServices, None)
     DeviceAccessInformation = property(get_DeviceAccessInformation, None)
+    DeviceId = property(get_DeviceId, None)
+    ParentServices = property(get_ParentServices, None)
     Session = property(get_Session, None)
     SharingMode = property(get_SharingMode, None)
+    Uuid = property(get_Uuid, None)
 class GattDeviceServicesResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattDeviceServicesResult
@@ -516,9 +516,9 @@ class GattDeviceServicesResult(ComPtr):
     def get_ProtocolError(self: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattDeviceServicesResult) -> win32more.Windows.Foundation.IReference[Byte]: ...
     @winrt_mixinmethod
     def get_Services(self: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattDeviceServicesResult) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService]: ...
-    Status = property(get_Status, None)
     ProtocolError = property(get_ProtocolError, None)
     Services = property(get_Services, None)
+    Status = property(get_Status, None)
 class GattLocalCharacteristic(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattLocalCharacteristic
@@ -559,15 +559,15 @@ class GattLocalCharacteristic(ComPtr):
     def NotifyValueAsync(self: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattLocalCharacteristic, value: win32more.Windows.Storage.Streams.IBuffer) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattClientNotificationResult]]: ...
     @winrt_mixinmethod
     def NotifyValueForSubscribedClientAsync(self: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattLocalCharacteristic, value: win32more.Windows.Storage.Streams.IBuffer, subscribedClient: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattSubscribedClient) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattClientNotificationResult]: ...
-    Uuid = property(get_Uuid, None)
-    StaticValue = property(get_StaticValue, None)
     CharacteristicProperties = property(get_CharacteristicProperties, None)
-    ReadProtectionLevel = property(get_ReadProtectionLevel, None)
-    WriteProtectionLevel = property(get_WriteProtectionLevel, None)
     Descriptors = property(get_Descriptors, None)
-    UserDescription = property(get_UserDescription, None)
     PresentationFormats = property(get_PresentationFormats, None)
+    ReadProtectionLevel = property(get_ReadProtectionLevel, None)
+    StaticValue = property(get_StaticValue, None)
     SubscribedClients = property(get_SubscribedClients, None)
+    UserDescription = property(get_UserDescription, None)
+    Uuid = property(get_Uuid, None)
+    WriteProtectionLevel = property(get_WriteProtectionLevel, None)
 class GattLocalCharacteristicParameters(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattLocalCharacteristicParameters
@@ -603,12 +603,12 @@ class GattLocalCharacteristicParameters(ComPtr):
     def get_UserDescription(self: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattLocalCharacteristicParameters) -> WinRT_String: ...
     @winrt_mixinmethod
     def get_PresentationFormats(self: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattLocalCharacteristicParameters) -> win32more.Windows.Foundation.Collections.IVector[win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattPresentationFormat]: ...
-    StaticValue = property(get_StaticValue, put_StaticValue)
     CharacteristicProperties = property(get_CharacteristicProperties, put_CharacteristicProperties)
-    ReadProtectionLevel = property(get_ReadProtectionLevel, put_ReadProtectionLevel)
-    WriteProtectionLevel = property(get_WriteProtectionLevel, put_WriteProtectionLevel)
-    UserDescription = property(get_UserDescription, put_UserDescription)
     PresentationFormats = property(get_PresentationFormats, None)
+    ReadProtectionLevel = property(get_ReadProtectionLevel, put_ReadProtectionLevel)
+    StaticValue = property(get_StaticValue, put_StaticValue)
+    UserDescription = property(get_UserDescription, put_UserDescription)
+    WriteProtectionLevel = property(get_WriteProtectionLevel, put_WriteProtectionLevel)
 class GattLocalCharacteristicResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattLocalCharacteristicResult
@@ -639,9 +639,9 @@ class GattLocalDescriptor(ComPtr):
     def add_WriteRequested(self: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattLocalDescriptor, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalDescriptor, win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattWriteRequestedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_WriteRequested(self: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattLocalDescriptor, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    Uuid = property(get_Uuid, None)
-    StaticValue = property(get_StaticValue, None)
     ReadProtectionLevel = property(get_ReadProtectionLevel, None)
+    StaticValue = property(get_StaticValue, None)
+    Uuid = property(get_Uuid, None)
     WriteProtectionLevel = property(get_WriteProtectionLevel, None)
 class GattLocalDescriptorParameters(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -668,8 +668,8 @@ class GattLocalDescriptorParameters(ComPtr):
     def put_WriteProtectionLevel(self: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattLocalDescriptorParameters, value: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattProtectionLevel) -> Void: ...
     @winrt_mixinmethod
     def get_WriteProtectionLevel(self: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattLocalDescriptorParameters) -> win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattProtectionLevel: ...
-    StaticValue = property(get_StaticValue, put_StaticValue)
     ReadProtectionLevel = property(get_ReadProtectionLevel, put_ReadProtectionLevel)
+    StaticValue = property(get_StaticValue, put_StaticValue)
     WriteProtectionLevel = property(get_WriteProtectionLevel, put_WriteProtectionLevel)
 class GattLocalDescriptorResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -691,8 +691,8 @@ class GattLocalService(ComPtr):
     def CreateCharacteristicAsync(self: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattLocalService, characteristicUuid: Guid, parameters: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalCharacteristicParameters) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalCharacteristicResult]: ...
     @winrt_mixinmethod
     def get_Characteristics(self: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattLocalService) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalCharacteristic]: ...
-    Uuid = property(get_Uuid, None)
     Characteristics = property(get_Characteristics, None)
+    Uuid = property(get_Uuid, None)
 class GattOpenStatus(Int32):  # enum
     Unspecified = 0
     Success = 1
@@ -720,11 +720,11 @@ class GattPresentationFormat(ComPtr, metaclass=_GattPresentationFormat_Meta_):
     def FromParts(cls: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattPresentationFormatStatics2, formatType: Byte, exponent: Int32, unit: UInt16, namespaceId: Byte, description: UInt16) -> win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattPresentationFormat: ...
     @winrt_classmethod
     def get_BluetoothSigAssignedNumbers(cls: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattPresentationFormatStatics) -> Byte: ...
-    FormatType = property(get_FormatType, None)
-    Exponent = property(get_Exponent, None)
-    Unit = property(get_Unit, None)
-    Namespace = property(get_Namespace, None)
     Description = property(get_Description, None)
+    Exponent = property(get_Exponent, None)
+    FormatType = property(get_FormatType, None)
+    Namespace = property(get_Namespace, None)
+    Unit = property(get_Unit, None)
     _GattPresentationFormat_Meta_.BluetoothSigAssignedNumbers = property(get_BluetoothSigAssignedNumbers.__wrapped__, None)
 class _GattPresentationFormatTypes_Meta_(ComPtr.__class__):
     pass
@@ -785,33 +785,33 @@ class GattPresentationFormatTypes(ComPtr, metaclass=_GattPresentationFormatTypes
     def get_Utf16(cls: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattPresentationFormatTypesStatics) -> Byte: ...
     @winrt_classmethod
     def get_Struct(cls: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattPresentationFormatTypesStatics) -> Byte: ...
-    _GattPresentationFormatTypes_Meta_.Boolean = property(get_Boolean.__wrapped__, None)
     _GattPresentationFormatTypes_Meta_.Bit2 = property(get_Bit2.__wrapped__, None)
+    _GattPresentationFormatTypes_Meta_.Boolean = property(get_Boolean.__wrapped__, None)
+    _GattPresentationFormatTypes_Meta_.DUInt16 = property(get_DUInt16.__wrapped__, None)
+    _GattPresentationFormatTypes_Meta_.Float = property(get_Float.__wrapped__, None)
+    _GattPresentationFormatTypes_Meta_.Float32 = property(get_Float32.__wrapped__, None)
+    _GattPresentationFormatTypes_Meta_.Float64 = property(get_Float64.__wrapped__, None)
     _GattPresentationFormatTypes_Meta_.Nibble = property(get_Nibble.__wrapped__, None)
-    _GattPresentationFormatTypes_Meta_.UInt8 = property(get_UInt8.__wrapped__, None)
-    _GattPresentationFormatTypes_Meta_.UInt12 = property(get_UInt12.__wrapped__, None)
-    _GattPresentationFormatTypes_Meta_.UInt16 = property(get_UInt16.__wrapped__, None)
-    _GattPresentationFormatTypes_Meta_.UInt24 = property(get_UInt24.__wrapped__, None)
-    _GattPresentationFormatTypes_Meta_.UInt32 = property(get_UInt32.__wrapped__, None)
-    _GattPresentationFormatTypes_Meta_.UInt48 = property(get_UInt48.__wrapped__, None)
-    _GattPresentationFormatTypes_Meta_.UInt64 = property(get_UInt64.__wrapped__, None)
-    _GattPresentationFormatTypes_Meta_.UInt128 = property(get_UInt128.__wrapped__, None)
-    _GattPresentationFormatTypes_Meta_.SInt8 = property(get_SInt8.__wrapped__, None)
+    _GattPresentationFormatTypes_Meta_.SFloat = property(get_SFloat.__wrapped__, None)
     _GattPresentationFormatTypes_Meta_.SInt12 = property(get_SInt12.__wrapped__, None)
+    _GattPresentationFormatTypes_Meta_.SInt128 = property(get_SInt128.__wrapped__, None)
     _GattPresentationFormatTypes_Meta_.SInt16 = property(get_SInt16.__wrapped__, None)
     _GattPresentationFormatTypes_Meta_.SInt24 = property(get_SInt24.__wrapped__, None)
     _GattPresentationFormatTypes_Meta_.SInt32 = property(get_SInt32.__wrapped__, None)
     _GattPresentationFormatTypes_Meta_.SInt48 = property(get_SInt48.__wrapped__, None)
     _GattPresentationFormatTypes_Meta_.SInt64 = property(get_SInt64.__wrapped__, None)
-    _GattPresentationFormatTypes_Meta_.SInt128 = property(get_SInt128.__wrapped__, None)
-    _GattPresentationFormatTypes_Meta_.Float32 = property(get_Float32.__wrapped__, None)
-    _GattPresentationFormatTypes_Meta_.Float64 = property(get_Float64.__wrapped__, None)
-    _GattPresentationFormatTypes_Meta_.SFloat = property(get_SFloat.__wrapped__, None)
-    _GattPresentationFormatTypes_Meta_.Float = property(get_Float.__wrapped__, None)
-    _GattPresentationFormatTypes_Meta_.DUInt16 = property(get_DUInt16.__wrapped__, None)
-    _GattPresentationFormatTypes_Meta_.Utf8 = property(get_Utf8.__wrapped__, None)
-    _GattPresentationFormatTypes_Meta_.Utf16 = property(get_Utf16.__wrapped__, None)
+    _GattPresentationFormatTypes_Meta_.SInt8 = property(get_SInt8.__wrapped__, None)
     _GattPresentationFormatTypes_Meta_.Struct = property(get_Struct.__wrapped__, None)
+    _GattPresentationFormatTypes_Meta_.UInt12 = property(get_UInt12.__wrapped__, None)
+    _GattPresentationFormatTypes_Meta_.UInt128 = property(get_UInt128.__wrapped__, None)
+    _GattPresentationFormatTypes_Meta_.UInt16 = property(get_UInt16.__wrapped__, None)
+    _GattPresentationFormatTypes_Meta_.UInt24 = property(get_UInt24.__wrapped__, None)
+    _GattPresentationFormatTypes_Meta_.UInt32 = property(get_UInt32.__wrapped__, None)
+    _GattPresentationFormatTypes_Meta_.UInt48 = property(get_UInt48.__wrapped__, None)
+    _GattPresentationFormatTypes_Meta_.UInt64 = property(get_UInt64.__wrapped__, None)
+    _GattPresentationFormatTypes_Meta_.UInt8 = property(get_UInt8.__wrapped__, None)
+    _GattPresentationFormatTypes_Meta_.Utf16 = property(get_Utf16.__wrapped__, None)
+    _GattPresentationFormatTypes_Meta_.Utf8 = property(get_Utf8.__wrapped__, None)
 class GattProtectionLevel(Int32):  # enum
     Plain = 0
     AuthenticationRequired = 1
@@ -856,23 +856,23 @@ class GattProtocolError(ComPtr, metaclass=_GattProtocolError_Meta_):
     def get_UnsupportedGroupType(cls: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattProtocolErrorStatics) -> Byte: ...
     @winrt_classmethod
     def get_InsufficientResources(cls: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattProtocolErrorStatics) -> Byte: ...
-    _GattProtocolError_Meta_.InvalidHandle = property(get_InvalidHandle.__wrapped__, None)
-    _GattProtocolError_Meta_.ReadNotPermitted = property(get_ReadNotPermitted.__wrapped__, None)
-    _GattProtocolError_Meta_.WriteNotPermitted = property(get_WriteNotPermitted.__wrapped__, None)
-    _GattProtocolError_Meta_.InvalidPdu = property(get_InvalidPdu.__wrapped__, None)
-    _GattProtocolError_Meta_.InsufficientAuthentication = property(get_InsufficientAuthentication.__wrapped__, None)
-    _GattProtocolError_Meta_.RequestNotSupported = property(get_RequestNotSupported.__wrapped__, None)
-    _GattProtocolError_Meta_.InvalidOffset = property(get_InvalidOffset.__wrapped__, None)
-    _GattProtocolError_Meta_.InsufficientAuthorization = property(get_InsufficientAuthorization.__wrapped__, None)
-    _GattProtocolError_Meta_.PrepareQueueFull = property(get_PrepareQueueFull.__wrapped__, None)
     _GattProtocolError_Meta_.AttributeNotFound = property(get_AttributeNotFound.__wrapped__, None)
     _GattProtocolError_Meta_.AttributeNotLong = property(get_AttributeNotLong.__wrapped__, None)
-    _GattProtocolError_Meta_.InsufficientEncryptionKeySize = property(get_InsufficientEncryptionKeySize.__wrapped__, None)
-    _GattProtocolError_Meta_.InvalidAttributeValueLength = property(get_InvalidAttributeValueLength.__wrapped__, None)
-    _GattProtocolError_Meta_.UnlikelyError = property(get_UnlikelyError.__wrapped__, None)
+    _GattProtocolError_Meta_.InsufficientAuthentication = property(get_InsufficientAuthentication.__wrapped__, None)
+    _GattProtocolError_Meta_.InsufficientAuthorization = property(get_InsufficientAuthorization.__wrapped__, None)
     _GattProtocolError_Meta_.InsufficientEncryption = property(get_InsufficientEncryption.__wrapped__, None)
-    _GattProtocolError_Meta_.UnsupportedGroupType = property(get_UnsupportedGroupType.__wrapped__, None)
+    _GattProtocolError_Meta_.InsufficientEncryptionKeySize = property(get_InsufficientEncryptionKeySize.__wrapped__, None)
     _GattProtocolError_Meta_.InsufficientResources = property(get_InsufficientResources.__wrapped__, None)
+    _GattProtocolError_Meta_.InvalidAttributeValueLength = property(get_InvalidAttributeValueLength.__wrapped__, None)
+    _GattProtocolError_Meta_.InvalidHandle = property(get_InvalidHandle.__wrapped__, None)
+    _GattProtocolError_Meta_.InvalidOffset = property(get_InvalidOffset.__wrapped__, None)
+    _GattProtocolError_Meta_.InvalidPdu = property(get_InvalidPdu.__wrapped__, None)
+    _GattProtocolError_Meta_.PrepareQueueFull = property(get_PrepareQueueFull.__wrapped__, None)
+    _GattProtocolError_Meta_.ReadNotPermitted = property(get_ReadNotPermitted.__wrapped__, None)
+    _GattProtocolError_Meta_.RequestNotSupported = property(get_RequestNotSupported.__wrapped__, None)
+    _GattProtocolError_Meta_.UnlikelyError = property(get_UnlikelyError.__wrapped__, None)
+    _GattProtocolError_Meta_.UnsupportedGroupType = property(get_UnsupportedGroupType.__wrapped__, None)
+    _GattProtocolError_Meta_.WriteNotPermitted = property(get_WriteNotPermitted.__wrapped__, None)
 class GattReadClientCharacteristicConfigurationDescriptorResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattReadClientCharacteristicConfigurationDescriptorResult
@@ -883,9 +883,9 @@ class GattReadClientCharacteristicConfigurationDescriptorResult(ComPtr):
     def get_ClientCharacteristicConfigurationDescriptor(self: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattReadClientCharacteristicConfigurationDescriptorResult) -> win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattClientCharacteristicConfigurationDescriptorValue: ...
     @winrt_mixinmethod
     def get_ProtocolError(self: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattReadClientCharacteristicConfigurationDescriptorResult2) -> win32more.Windows.Foundation.IReference[Byte]: ...
-    Status = property(get_Status, None)
     ClientCharacteristicConfigurationDescriptor = property(get_ClientCharacteristicConfigurationDescriptor, None)
     ProtocolError = property(get_ProtocolError, None)
+    Status = property(get_Status, None)
 class GattReadRequest(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattReadRequest
@@ -904,8 +904,8 @@ class GattReadRequest(ComPtr):
     def RespondWithValue(self: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattReadRequest, value: win32more.Windows.Storage.Streams.IBuffer) -> Void: ...
     @winrt_mixinmethod
     def RespondWithProtocolError(self: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattReadRequest, protocolError: Byte) -> Void: ...
-    Offset = property(get_Offset, None)
     Length = property(get_Length, None)
+    Offset = property(get_Offset, None)
     State = property(get_State, None)
 class GattReadRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -928,9 +928,9 @@ class GattReadResult(ComPtr):
     def get_Value(self: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattReadResult) -> win32more.Windows.Storage.Streams.IBuffer: ...
     @winrt_mixinmethod
     def get_ProtocolError(self: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattReadResult2) -> win32more.Windows.Foundation.IReference[Byte]: ...
+    ProtocolError = property(get_ProtocolError, None)
     Status = property(get_Status, None)
     Value = property(get_Value, None)
-    ProtocolError = property(get_ProtocolError, None)
 class GattReliableWriteTransaction(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattReliableWriteTransaction
@@ -962,8 +962,8 @@ class GattRequestStateChangedEventArgs(ComPtr):
     def get_State(self: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattRequestStateChangedEventArgs) -> win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattRequestState: ...
     @winrt_mixinmethod
     def get_Error(self: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattRequestStateChangedEventArgs) -> win32more.Windows.Devices.Bluetooth.BluetoothError: ...
-    State = property(get_State, None)
     Error = property(get_Error, None)
+    State = property(get_State, None)
 class GattServiceProvider(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattServiceProvider
@@ -984,8 +984,8 @@ class GattServiceProvider(ComPtr):
     def StopAdvertising(self: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattServiceProvider) -> Void: ...
     @winrt_classmethod
     def CreateAsync(cls: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattServiceProviderStatics, serviceUuid: Guid) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattServiceProviderResult]: ...
-    Service = property(get_Service, None)
     AdvertisementStatus = property(get_AdvertisementStatus, None)
+    Service = property(get_Service, None)
 class GattServiceProviderAdvertisementStatus(Int32):  # enum
     Created = 0
     Stopped = 1
@@ -1090,9 +1090,17 @@ class GattServiceUuids(ComPtr, metaclass=_GattServiceUuids_Meta_):
     @winrt_classmethod
     def get_RunningSpeedAndCadence(cls: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattServiceUuidsStatics) -> Guid: ...
     _GattServiceUuids_Meta_.AlertNotification = property(get_AlertNotification.__wrapped__, None)
+    _GattServiceUuids_Meta_.Battery = property(get_Battery.__wrapped__, None)
+    _GattServiceUuids_Meta_.BloodPressure = property(get_BloodPressure.__wrapped__, None)
     _GattServiceUuids_Meta_.CurrentTime = property(get_CurrentTime.__wrapped__, None)
     _GattServiceUuids_Meta_.CyclingPower = property(get_CyclingPower.__wrapped__, None)
+    _GattServiceUuids_Meta_.CyclingSpeedAndCadence = property(get_CyclingSpeedAndCadence.__wrapped__, None)
     _GattServiceUuids_Meta_.DeviceInformation = property(get_DeviceInformation.__wrapped__, None)
+    _GattServiceUuids_Meta_.GenericAccess = property(get_GenericAccess.__wrapped__, None)
+    _GattServiceUuids_Meta_.GenericAttribute = property(get_GenericAttribute.__wrapped__, None)
+    _GattServiceUuids_Meta_.Glucose = property(get_Glucose.__wrapped__, None)
+    _GattServiceUuids_Meta_.HealthThermometer = property(get_HealthThermometer.__wrapped__, None)
+    _GattServiceUuids_Meta_.HeartRate = property(get_HeartRate.__wrapped__, None)
     _GattServiceUuids_Meta_.HumanInterfaceDevice = property(get_HumanInterfaceDevice.__wrapped__, None)
     _GattServiceUuids_Meta_.ImmediateAlert = property(get_ImmediateAlert.__wrapped__, None)
     _GattServiceUuids_Meta_.LinkLoss = property(get_LinkLoss.__wrapped__, None)
@@ -1100,17 +1108,9 @@ class GattServiceUuids(ComPtr, metaclass=_GattServiceUuids_Meta_):
     _GattServiceUuids_Meta_.NextDstChange = property(get_NextDstChange.__wrapped__, None)
     _GattServiceUuids_Meta_.PhoneAlertStatus = property(get_PhoneAlertStatus.__wrapped__, None)
     _GattServiceUuids_Meta_.ReferenceTimeUpdate = property(get_ReferenceTimeUpdate.__wrapped__, None)
+    _GattServiceUuids_Meta_.RunningSpeedAndCadence = property(get_RunningSpeedAndCadence.__wrapped__, None)
     _GattServiceUuids_Meta_.ScanParameters = property(get_ScanParameters.__wrapped__, None)
     _GattServiceUuids_Meta_.TxPower = property(get_TxPower.__wrapped__, None)
-    _GattServiceUuids_Meta_.Battery = property(get_Battery.__wrapped__, None)
-    _GattServiceUuids_Meta_.BloodPressure = property(get_BloodPressure.__wrapped__, None)
-    _GattServiceUuids_Meta_.CyclingSpeedAndCadence = property(get_CyclingSpeedAndCadence.__wrapped__, None)
-    _GattServiceUuids_Meta_.GenericAccess = property(get_GenericAccess.__wrapped__, None)
-    _GattServiceUuids_Meta_.GenericAttribute = property(get_GenericAttribute.__wrapped__, None)
-    _GattServiceUuids_Meta_.Glucose = property(get_Glucose.__wrapped__, None)
-    _GattServiceUuids_Meta_.HealthThermometer = property(get_HealthThermometer.__wrapped__, None)
-    _GattServiceUuids_Meta_.HeartRate = property(get_HeartRate.__wrapped__, None)
-    _GattServiceUuids_Meta_.RunningSpeedAndCadence = property(get_RunningSpeedAndCadence.__wrapped__, None)
 class GattSession(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattSession
@@ -1139,8 +1139,8 @@ class GattSession(ComPtr):
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
     @winrt_classmethod
     def FromDeviceIdAsync(cls: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattSessionStatics, deviceId: win32more.Windows.Devices.Bluetooth.BluetoothDeviceId) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattSession]: ...
-    DeviceId = property(get_DeviceId, None)
     CanMaintainConnection = property(get_CanMaintainConnection, None)
+    DeviceId = property(get_DeviceId, None)
     MaintainConnection = property(get_MaintainConnection, put_MaintainConnection)
     MaxPduSize = property(get_MaxPduSize, None)
     SessionStatus = property(get_SessionStatus, None)
@@ -1174,8 +1174,8 @@ class GattSubscribedClient(ComPtr):
     def add_MaxNotificationSizeChanged(self: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattSubscribedClient, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattSubscribedClient, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_MaxNotificationSizeChanged(self: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattSubscribedClient, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    Session = property(get_Session, None)
     MaxNotificationSize = property(get_MaxNotificationSize, None)
+    Session = property(get_Session, None)
 class GattValueChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattValueChangedEventArgs
@@ -1209,10 +1209,10 @@ class GattWriteRequest(ComPtr):
     def Respond(self: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattWriteRequest) -> Void: ...
     @winrt_mixinmethod
     def RespondWithProtocolError(self: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattWriteRequest, protocolError: Byte) -> Void: ...
-    Value = property(get_Value, None)
     Offset = property(get_Offset, None)
     Option = property(get_Option, None)
     State = property(get_State, None)
+    Value = property(get_Value, None)
 class GattWriteRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattWriteRequestedEventArgs
@@ -1232,8 +1232,8 @@ class GattWriteResult(ComPtr):
     def get_Status(self: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattWriteResult) -> win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattCommunicationStatus: ...
     @winrt_mixinmethod
     def get_ProtocolError(self: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattWriteResult) -> win32more.Windows.Foundation.IReference[Byte]: ...
-    Status = property(get_Status, None)
     ProtocolError = property(get_ProtocolError, None)
+    Status = property(get_Status, None)
 class IGattCharacteristic(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristic'
@@ -1270,12 +1270,12 @@ class IGattCharacteristic(ComPtr):
     def add_ValueChanged(self, valueChangedHandler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristic, win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattValueChangedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(21)
     def remove_ValueChanged(self, valueChangedEventCookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    AttributeHandle = property(get_AttributeHandle, None)
     CharacteristicProperties = property(get_CharacteristicProperties, None)
+    PresentationFormats = property(get_PresentationFormats, None)
     ProtectionLevel = property(get_ProtectionLevel, put_ProtectionLevel)
     UserDescription = property(get_UserDescription, None)
     Uuid = property(get_Uuid, None)
-    AttributeHandle = property(get_AttributeHandle, None)
-    PresentationFormats = property(get_PresentationFormats, None)
 class IGattCharacteristic2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristic2'
@@ -1505,7 +1505,6 @@ class IGattCharacteristicUuidsStatics2(ComPtr):
     AlertLevel = property(get_AlertLevel, None)
     AlertNotificationControlPoint = property(get_AlertNotificationControlPoint, None)
     AlertStatus = property(get_AlertStatus, None)
-    GapAppearance = property(get_GapAppearance, None)
     BootKeyboardInputReport = property(get_BootKeyboardInputReport, None)
     BootKeyboardOutputReport = property(get_BootKeyboardOutputReport, None)
     BootMouseInputReport = property(get_BootMouseInputReport, None)
@@ -1517,10 +1516,15 @@ class IGattCharacteristicUuidsStatics2(ComPtr):
     DateTime = property(get_DateTime, None)
     DayDateTime = property(get_DayDateTime, None)
     DayOfWeek = property(get_DayOfWeek, None)
-    GapDeviceName = property(get_GapDeviceName, None)
     DstOffset = property(get_DstOffset, None)
     ExactTime256 = property(get_ExactTime256, None)
     FirmwareRevisionString = property(get_FirmwareRevisionString, None)
+    GapAppearance = property(get_GapAppearance, None)
+    GapDeviceName = property(get_GapDeviceName, None)
+    GapPeripheralPreferredConnectionParameters = property(get_GapPeripheralPreferredConnectionParameters, None)
+    GapPeripheralPrivacyFlag = property(get_GapPeripheralPrivacyFlag, None)
+    GapReconnectionAddress = property(get_GapReconnectionAddress, None)
+    GattServiceChanged = property(get_GattServiceChanged, None)
     HardwareRevisionString = property(get_HardwareRevisionString, None)
     HidControlPoint = property(get_HidControlPoint, None)
     HidInformation = property(get_HidInformation, None)
@@ -1533,12 +1537,9 @@ class IGattCharacteristicUuidsStatics2(ComPtr):
     ModelNumberString = property(get_ModelNumberString, None)
     Navigation = property(get_Navigation, None)
     NewAlert = property(get_NewAlert, None)
-    GapPeripheralPreferredConnectionParameters = property(get_GapPeripheralPreferredConnectionParameters, None)
-    GapPeripheralPrivacyFlag = property(get_GapPeripheralPrivacyFlag, None)
     PnpId = property(get_PnpId, None)
     PositionQuality = property(get_PositionQuality, None)
     ProtocolMode = property(get_ProtocolMode, None)
-    GapReconnectionAddress = property(get_GapReconnectionAddress, None)
     ReferenceTimeInformation = property(get_ReferenceTimeInformation, None)
     Report = property(get_Report, None)
     ReportMap = property(get_ReportMap, None)
@@ -1547,10 +1548,9 @@ class IGattCharacteristicUuidsStatics2(ComPtr):
     ScanIntervalWindow = property(get_ScanIntervalWindow, None)
     ScanRefresh = property(get_ScanRefresh, None)
     SerialNumberString = property(get_SerialNumberString, None)
-    GattServiceChanged = property(get_GattServiceChanged, None)
     SoftwareRevisionString = property(get_SoftwareRevisionString, None)
-    SupportedNewAlertCategory = property(get_SupportedNewAlertCategory, None)
     SupportUnreadAlertCategory = property(get_SupportUnreadAlertCategory, None)
+    SupportedNewAlertCategory = property(get_SupportedNewAlertCategory, None)
     SystemId = property(get_SystemId, None)
     TimeAccuracy = property(get_TimeAccuracy, None)
     TimeSource = property(get_TimeSource, None)
@@ -1570,9 +1570,9 @@ class IGattCharacteristicsResult(ComPtr):
     def get_ProtocolError(self) -> win32more.Windows.Foundation.IReference[Byte]: ...
     @winrt_commethod(8)
     def get_Characteristics(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristic]: ...
-    Status = property(get_Status, None)
-    ProtocolError = property(get_ProtocolError, None)
     Characteristics = property(get_Characteristics, None)
+    ProtocolError = property(get_ProtocolError, None)
+    Status = property(get_Status, None)
 class IGattClientNotificationResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.IGattClientNotificationResult'
@@ -1583,9 +1583,9 @@ class IGattClientNotificationResult(ComPtr):
     def get_Status(self) -> win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattCommunicationStatus: ...
     @winrt_commethod(8)
     def get_ProtocolError(self) -> win32more.Windows.Foundation.IReference[Byte]: ...
-    SubscribedClient = property(get_SubscribedClient, None)
-    Status = property(get_Status, None)
     ProtocolError = property(get_ProtocolError, None)
+    Status = property(get_Status, None)
+    SubscribedClient = property(get_SubscribedClient, None)
 class IGattClientNotificationResult2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.IGattClientNotificationResult2'
@@ -1611,9 +1611,9 @@ class IGattDescriptor(ComPtr):
     def ReadValueWithCacheModeAsync(self, cacheMode: win32more.Windows.Devices.Bluetooth.BluetoothCacheMode) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattReadResult]: ...
     @winrt_commethod(12)
     def WriteValueAsync(self, value: win32more.Windows.Storage.Streams.IBuffer) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattCommunicationStatus]: ...
+    AttributeHandle = property(get_AttributeHandle, None)
     ProtectionLevel = property(get_ProtectionLevel, put_ProtectionLevel)
     Uuid = property(get_Uuid, None)
-    AttributeHandle = property(get_AttributeHandle, None)
 class IGattDescriptor2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.IGattDescriptor2'
@@ -1658,9 +1658,9 @@ class IGattDescriptorsResult(ComPtr):
     def get_ProtocolError(self) -> win32more.Windows.Foundation.IReference[Byte]: ...
     @winrt_commethod(8)
     def get_Descriptors(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattDescriptor]: ...
-    Status = property(get_Status, None)
-    ProtocolError = property(get_ProtocolError, None)
     Descriptors = property(get_Descriptors, None)
+    ProtocolError = property(get_ProtocolError, None)
+    Status = property(get_Status, None)
 class IGattDeviceService(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.IGattDeviceService'
@@ -1675,9 +1675,9 @@ class IGattDeviceService(ComPtr):
     def get_Uuid(self) -> Guid: ...
     @winrt_commethod(10)
     def get_AttributeHandle(self) -> UInt16: ...
+    AttributeHandle = property(get_AttributeHandle, None)
     DeviceId = property(get_DeviceId, None)
     Uuid = property(get_Uuid, None)
-    AttributeHandle = property(get_AttributeHandle, None)
 class IGattDeviceService2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.IGattDeviceService2'
@@ -1761,9 +1761,9 @@ class IGattDeviceServicesResult(ComPtr):
     def get_ProtocolError(self) -> win32more.Windows.Foundation.IReference[Byte]: ...
     @winrt_commethod(8)
     def get_Services(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService]: ...
-    Status = property(get_Status, None)
     ProtocolError = property(get_ProtocolError, None)
     Services = property(get_Services, None)
+    Status = property(get_Status, None)
 class IGattLocalCharacteristic(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.IGattLocalCharacteristic'
@@ -1804,15 +1804,15 @@ class IGattLocalCharacteristic(ComPtr):
     def NotifyValueAsync(self, value: win32more.Windows.Storage.Streams.IBuffer) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattClientNotificationResult]]: ...
     @winrt_commethod(23)
     def NotifyValueForSubscribedClientAsync(self, value: win32more.Windows.Storage.Streams.IBuffer, subscribedClient: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattSubscribedClient) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattClientNotificationResult]: ...
-    Uuid = property(get_Uuid, None)
-    StaticValue = property(get_StaticValue, None)
     CharacteristicProperties = property(get_CharacteristicProperties, None)
-    ReadProtectionLevel = property(get_ReadProtectionLevel, None)
-    WriteProtectionLevel = property(get_WriteProtectionLevel, None)
     Descriptors = property(get_Descriptors, None)
-    UserDescription = property(get_UserDescription, None)
     PresentationFormats = property(get_PresentationFormats, None)
+    ReadProtectionLevel = property(get_ReadProtectionLevel, None)
+    StaticValue = property(get_StaticValue, None)
     SubscribedClients = property(get_SubscribedClients, None)
+    UserDescription = property(get_UserDescription, None)
+    Uuid = property(get_Uuid, None)
+    WriteProtectionLevel = property(get_WriteProtectionLevel, None)
 class IGattLocalCharacteristicParameters(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.IGattLocalCharacteristicParameters'
@@ -1839,12 +1839,12 @@ class IGattLocalCharacteristicParameters(ComPtr):
     def get_UserDescription(self) -> WinRT_String: ...
     @winrt_commethod(16)
     def get_PresentationFormats(self) -> win32more.Windows.Foundation.Collections.IVector[win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattPresentationFormat]: ...
-    StaticValue = property(get_StaticValue, put_StaticValue)
     CharacteristicProperties = property(get_CharacteristicProperties, put_CharacteristicProperties)
-    ReadProtectionLevel = property(get_ReadProtectionLevel, put_ReadProtectionLevel)
-    WriteProtectionLevel = property(get_WriteProtectionLevel, put_WriteProtectionLevel)
-    UserDescription = property(get_UserDescription, put_UserDescription)
     PresentationFormats = property(get_PresentationFormats, None)
+    ReadProtectionLevel = property(get_ReadProtectionLevel, put_ReadProtectionLevel)
+    StaticValue = property(get_StaticValue, put_StaticValue)
+    UserDescription = property(get_UserDescription, put_UserDescription)
+    WriteProtectionLevel = property(get_WriteProtectionLevel, put_WriteProtectionLevel)
 class IGattLocalCharacteristicResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.IGattLocalCharacteristicResult'
@@ -1875,9 +1875,9 @@ class IGattLocalDescriptor(ComPtr):
     def add_WriteRequested(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalDescriptor, win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattWriteRequestedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(13)
     def remove_WriteRequested(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    Uuid = property(get_Uuid, None)
-    StaticValue = property(get_StaticValue, None)
     ReadProtectionLevel = property(get_ReadProtectionLevel, None)
+    StaticValue = property(get_StaticValue, None)
+    Uuid = property(get_Uuid, None)
     WriteProtectionLevel = property(get_WriteProtectionLevel, None)
 class IGattLocalDescriptorParameters(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -1895,8 +1895,8 @@ class IGattLocalDescriptorParameters(ComPtr):
     def put_WriteProtectionLevel(self, value: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattProtectionLevel) -> Void: ...
     @winrt_commethod(11)
     def get_WriteProtectionLevel(self) -> win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattProtectionLevel: ...
-    StaticValue = property(get_StaticValue, put_StaticValue)
     ReadProtectionLevel = property(get_ReadProtectionLevel, put_ReadProtectionLevel)
+    StaticValue = property(get_StaticValue, put_StaticValue)
     WriteProtectionLevel = property(get_WriteProtectionLevel, put_WriteProtectionLevel)
 class IGattLocalDescriptorResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -1918,8 +1918,8 @@ class IGattLocalService(ComPtr):
     def CreateCharacteristicAsync(self, characteristicUuid: Guid, parameters: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalCharacteristicParameters) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalCharacteristicResult]: ...
     @winrt_commethod(8)
     def get_Characteristics(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalCharacteristic]: ...
-    Uuid = property(get_Uuid, None)
     Characteristics = property(get_Characteristics, None)
+    Uuid = property(get_Uuid, None)
 class IGattPresentationFormat(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.IGattPresentationFormat'
@@ -1934,11 +1934,11 @@ class IGattPresentationFormat(ComPtr):
     def get_Namespace(self) -> Byte: ...
     @winrt_commethod(10)
     def get_Description(self) -> UInt16: ...
-    FormatType = property(get_FormatType, None)
-    Exponent = property(get_Exponent, None)
-    Unit = property(get_Unit, None)
-    Namespace = property(get_Namespace, None)
     Description = property(get_Description, None)
+    Exponent = property(get_Exponent, None)
+    FormatType = property(get_FormatType, None)
+    Namespace = property(get_Namespace, None)
+    Unit = property(get_Unit, None)
 class IGattPresentationFormatStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.IGattPresentationFormatStatics'
@@ -2010,33 +2010,33 @@ class IGattPresentationFormatTypesStatics(ComPtr):
     def get_Utf16(self) -> Byte: ...
     @winrt_commethod(32)
     def get_Struct(self) -> Byte: ...
-    Boolean = property(get_Boolean, None)
     Bit2 = property(get_Bit2, None)
+    Boolean = property(get_Boolean, None)
+    DUInt16 = property(get_DUInt16, None)
+    Float = property(get_Float, None)
+    Float32 = property(get_Float32, None)
+    Float64 = property(get_Float64, None)
     Nibble = property(get_Nibble, None)
-    UInt8 = property(get_UInt8, None)
-    UInt12 = property(get_UInt12, None)
-    UInt16 = property(get_UInt16, None)
-    UInt24 = property(get_UInt24, None)
-    UInt32 = property(get_UInt32, None)
-    UInt48 = property(get_UInt48, None)
-    UInt64 = property(get_UInt64, None)
-    UInt128 = property(get_UInt128, None)
-    SInt8 = property(get_SInt8, None)
+    SFloat = property(get_SFloat, None)
     SInt12 = property(get_SInt12, None)
+    SInt128 = property(get_SInt128, None)
     SInt16 = property(get_SInt16, None)
     SInt24 = property(get_SInt24, None)
     SInt32 = property(get_SInt32, None)
     SInt48 = property(get_SInt48, None)
     SInt64 = property(get_SInt64, None)
-    SInt128 = property(get_SInt128, None)
-    Float32 = property(get_Float32, None)
-    Float64 = property(get_Float64, None)
-    SFloat = property(get_SFloat, None)
-    Float = property(get_Float, None)
-    DUInt16 = property(get_DUInt16, None)
-    Utf8 = property(get_Utf8, None)
-    Utf16 = property(get_Utf16, None)
+    SInt8 = property(get_SInt8, None)
     Struct = property(get_Struct, None)
+    UInt12 = property(get_UInt12, None)
+    UInt128 = property(get_UInt128, None)
+    UInt16 = property(get_UInt16, None)
+    UInt24 = property(get_UInt24, None)
+    UInt32 = property(get_UInt32, None)
+    UInt48 = property(get_UInt48, None)
+    UInt64 = property(get_UInt64, None)
+    UInt8 = property(get_UInt8, None)
+    Utf16 = property(get_Utf16, None)
+    Utf8 = property(get_Utf8, None)
 class IGattProtocolErrorStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.IGattProtocolErrorStatics'
@@ -2075,23 +2075,23 @@ class IGattProtocolErrorStatics(ComPtr):
     def get_UnsupportedGroupType(self) -> Byte: ...
     @winrt_commethod(22)
     def get_InsufficientResources(self) -> Byte: ...
-    InvalidHandle = property(get_InvalidHandle, None)
-    ReadNotPermitted = property(get_ReadNotPermitted, None)
-    WriteNotPermitted = property(get_WriteNotPermitted, None)
-    InvalidPdu = property(get_InvalidPdu, None)
-    InsufficientAuthentication = property(get_InsufficientAuthentication, None)
-    RequestNotSupported = property(get_RequestNotSupported, None)
-    InvalidOffset = property(get_InvalidOffset, None)
-    InsufficientAuthorization = property(get_InsufficientAuthorization, None)
-    PrepareQueueFull = property(get_PrepareQueueFull, None)
     AttributeNotFound = property(get_AttributeNotFound, None)
     AttributeNotLong = property(get_AttributeNotLong, None)
-    InsufficientEncryptionKeySize = property(get_InsufficientEncryptionKeySize, None)
-    InvalidAttributeValueLength = property(get_InvalidAttributeValueLength, None)
-    UnlikelyError = property(get_UnlikelyError, None)
+    InsufficientAuthentication = property(get_InsufficientAuthentication, None)
+    InsufficientAuthorization = property(get_InsufficientAuthorization, None)
     InsufficientEncryption = property(get_InsufficientEncryption, None)
-    UnsupportedGroupType = property(get_UnsupportedGroupType, None)
+    InsufficientEncryptionKeySize = property(get_InsufficientEncryptionKeySize, None)
     InsufficientResources = property(get_InsufficientResources, None)
+    InvalidAttributeValueLength = property(get_InvalidAttributeValueLength, None)
+    InvalidHandle = property(get_InvalidHandle, None)
+    InvalidOffset = property(get_InvalidOffset, None)
+    InvalidPdu = property(get_InvalidPdu, None)
+    PrepareQueueFull = property(get_PrepareQueueFull, None)
+    ReadNotPermitted = property(get_ReadNotPermitted, None)
+    RequestNotSupported = property(get_RequestNotSupported, None)
+    UnlikelyError = property(get_UnlikelyError, None)
+    UnsupportedGroupType = property(get_UnsupportedGroupType, None)
+    WriteNotPermitted = property(get_WriteNotPermitted, None)
 class IGattReadClientCharacteristicConfigurationDescriptorResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.IGattReadClientCharacteristicConfigurationDescriptorResult'
@@ -2100,8 +2100,8 @@ class IGattReadClientCharacteristicConfigurationDescriptorResult(ComPtr):
     def get_Status(self) -> win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattCommunicationStatus: ...
     @winrt_commethod(7)
     def get_ClientCharacteristicConfigurationDescriptor(self) -> win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattClientCharacteristicConfigurationDescriptorValue: ...
-    Status = property(get_Status, None)
     ClientCharacteristicConfigurationDescriptor = property(get_ClientCharacteristicConfigurationDescriptor, None)
+    Status = property(get_Status, None)
 class IGattReadClientCharacteristicConfigurationDescriptorResult2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.IGattReadClientCharacteristicConfigurationDescriptorResult2'
@@ -2127,8 +2127,8 @@ class IGattReadRequest(ComPtr):
     def RespondWithValue(self, value: win32more.Windows.Storage.Streams.IBuffer) -> Void: ...
     @winrt_commethod(12)
     def RespondWithProtocolError(self, protocolError: Byte) -> Void: ...
-    Offset = property(get_Offset, None)
     Length = property(get_Length, None)
+    Offset = property(get_Offset, None)
     State = property(get_State, None)
 class IGattReadRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -2180,8 +2180,8 @@ class IGattRequestStateChangedEventArgs(ComPtr):
     def get_State(self) -> win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattRequestState: ...
     @winrt_commethod(7)
     def get_Error(self) -> win32more.Windows.Devices.Bluetooth.BluetoothError: ...
-    State = property(get_State, None)
     Error = property(get_Error, None)
+    State = property(get_State, None)
 class IGattServiceProvider(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.IGattServiceProvider'
@@ -2200,8 +2200,8 @@ class IGattServiceProvider(ComPtr):
     def StartAdvertisingWithParameters(self, parameters: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattServiceProviderAdvertisingParameters) -> Void: ...
     @winrt_commethod(12)
     def StopAdvertising(self) -> Void: ...
-    Service = property(get_Service, None)
     AdvertisementStatus = property(get_AdvertisementStatus, None)
+    Service = property(get_Service, None)
 class IGattServiceProviderAdvertisementStatusChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.IGattServiceProviderAdvertisementStatusChangedEventArgs'
@@ -2349,8 +2349,8 @@ class IGattSession(ComPtr):
     def add_SessionStatusChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattSession, win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattSessionStatusChangedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(15)
     def remove_SessionStatusChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    DeviceId = property(get_DeviceId, None)
     CanMaintainConnection = property(get_CanMaintainConnection, None)
+    DeviceId = property(get_DeviceId, None)
     MaintainConnection = property(get_MaintainConnection, put_MaintainConnection)
     MaxPduSize = property(get_MaxPduSize, None)
     SessionStatus = property(get_SessionStatus, None)
@@ -2382,8 +2382,8 @@ class IGattSubscribedClient(ComPtr):
     def add_MaxNotificationSizeChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattSubscribedClient, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(9)
     def remove_MaxNotificationSizeChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    Session = property(get_Session, None)
     MaxNotificationSize = property(get_MaxNotificationSize, None)
+    Session = property(get_Session, None)
 class IGattValueChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.IGattValueChangedEventArgs'
@@ -2414,10 +2414,10 @@ class IGattWriteRequest(ComPtr):
     def Respond(self) -> Void: ...
     @winrt_commethod(13)
     def RespondWithProtocolError(self, protocolError: Byte) -> Void: ...
-    Value = property(get_Value, None)
     Offset = property(get_Offset, None)
     Option = property(get_Option, None)
     State = property(get_State, None)
+    Value = property(get_Value, None)
 class IGattWriteRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.IGattWriteRequestedEventArgs'
@@ -2437,8 +2437,8 @@ class IGattWriteResult(ComPtr):
     def get_Status(self) -> win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattCommunicationStatus: ...
     @winrt_commethod(7)
     def get_ProtocolError(self) -> win32more.Windows.Foundation.IReference[Byte]: ...
-    Status = property(get_Status, None)
     ProtocolError = property(get_ProtocolError, None)
+    Status = property(get_Status, None)
 
 
 make_ready(__name__)

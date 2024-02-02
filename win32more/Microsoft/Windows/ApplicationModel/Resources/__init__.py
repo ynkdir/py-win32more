@@ -48,10 +48,10 @@ class IResourceCandidate(ComPtr):
     def get_Kind(self) -> win32more.Microsoft.Windows.ApplicationModel.Resources.ResourceCandidateKind: ...
     @winrt_commethod(9)
     def get_QualifierValues(self) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, WinRT_String]: ...
-    ValueAsString = property(get_ValueAsString, None)
-    ValueAsBytes = property(get_ValueAsBytes, None)
     Kind = property(get_Kind, None)
     QualifierValues = property(get_QualifierValues, None)
+    ValueAsBytes = property(get_ValueAsBytes, None)
+    ValueAsString = property(get_ValueAsString, None)
 class IResourceCandidateFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Windows.ApplicationModel.Resources.IResourceCandidateFactory'
@@ -209,10 +209,10 @@ class ResourceCandidate(ComPtr):
     def get_Kind(self: win32more.Microsoft.Windows.ApplicationModel.Resources.IResourceCandidate) -> win32more.Microsoft.Windows.ApplicationModel.Resources.ResourceCandidateKind: ...
     @winrt_mixinmethod
     def get_QualifierValues(self: win32more.Microsoft.Windows.ApplicationModel.Resources.IResourceCandidate) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, WinRT_String]: ...
-    ValueAsString = property(get_ValueAsString, None)
-    ValueAsBytes = property(get_ValueAsBytes, None)
     Kind = property(get_Kind, None)
     QualifierValues = property(get_QualifierValues, None)
+    ValueAsBytes = property(get_ValueAsBytes, None)
+    ValueAsString = property(get_ValueAsString, None)
 class ResourceCandidateKind(Int32):  # enum
     Unknown = 0
     String = 1

@@ -129,8 +129,8 @@ class ISceneMetallicRoughnessMaterial(ComPtr):
     def get_RoughnessFactor(self) -> Single: ...
     @winrt_commethod(15)
     def put_RoughnessFactor(self, value: Single) -> Void: ...
-    BaseColorInput = property(get_BaseColorInput, put_BaseColorInput)
     BaseColorFactor = property(get_BaseColorFactor, put_BaseColorFactor)
+    BaseColorInput = property(get_BaseColorInput, put_BaseColorInput)
     MetallicFactor = property(get_MetallicFactor, put_MetallicFactor)
     MetallicRoughnessInput = property(get_MetallicRoughnessInput, put_MetallicRoughnessInput)
     RoughnessFactor = property(get_RoughnessFactor, put_RoughnessFactor)
@@ -252,8 +252,8 @@ class IScenePbrMaterial(ComPtr):
     def put_OcclusionStrength(self, value: Single) -> Void: ...
     AlphaCutoff = property(get_AlphaCutoff, put_AlphaCutoff)
     AlphaMode = property(get_AlphaMode, put_AlphaMode)
-    EmissiveInput = property(get_EmissiveInput, put_EmissiveInput)
     EmissiveFactor = property(get_EmissiveFactor, put_EmissiveFactor)
+    EmissiveInput = property(get_EmissiveInput, put_EmissiveInput)
     IsDoubleSided = property(get_IsDoubleSided, put_IsDoubleSided)
     NormalInput = property(get_NormalInput, put_NormalInput)
     NormalScale = property(get_NormalScale, put_NormalScale)
@@ -342,11 +342,11 @@ class SceneBoundingBox(ComPtr):
     def get_Min(self: win32more.Microsoft.UI.Composition.Scenes.ISceneBoundingBox) -> win32more.Windows.Foundation.Numerics.Vector3: ...
     @winrt_mixinmethod
     def get_Center(self: win32more.Microsoft.UI.Composition.Scenes.ISceneBoundingBox) -> win32more.Windows.Foundation.Numerics.Vector3: ...
-    Size = property(get_Size, None)
-    Max = property(get_Max, None)
-    Extents = property(get_Extents, None)
-    Min = property(get_Min, None)
     Center = property(get_Center, None)
+    Extents = property(get_Extents, None)
+    Max = property(get_Max, None)
+    Min = property(get_Min, None)
+    Size = property(get_Size, None)
 class SceneComponent(ComPtr):
     extends: win32more.Microsoft.UI.Composition.Scenes.SceneObject
     default_interface: win32more.Microsoft.UI.Composition.Scenes.ISceneComponent
@@ -448,9 +448,9 @@ class SceneMeshRendererComponent(ComPtr):
     def put_Mesh(self: win32more.Microsoft.UI.Composition.Scenes.ISceneMeshRendererComponent, value: win32more.Microsoft.UI.Composition.Scenes.SceneMesh) -> Void: ...
     @winrt_classmethod
     def Create(cls: win32more.Microsoft.UI.Composition.Scenes.ISceneMeshRendererComponentStatics, compositor: win32more.Microsoft.UI.Composition.Compositor) -> win32more.Microsoft.UI.Composition.Scenes.SceneMeshRendererComponent: ...
+    Material = property(get_Material, put_Material)
     Mesh = property(get_Mesh, put_Mesh)
     UVMappings = property(get_UVMappings, None)
-    Material = property(get_Material, put_Material)
 class SceneMetallicRoughnessMaterial(ComPtr):
     extends: win32more.Microsoft.UI.Composition.Scenes.ScenePbrMaterial
     default_interface: win32more.Microsoft.UI.Composition.Scenes.ISceneMetallicRoughnessMaterial
@@ -511,11 +511,11 @@ class SceneModelTransform(ComPtr):
     @winrt_mixinmethod
     def get_Translation(self: win32more.Microsoft.UI.Composition.Scenes.ISceneModelTransform) -> win32more.Windows.Foundation.Numerics.Vector3: ...
     Orientation = property(get_Orientation, put_Orientation)
-    RotationAxis = property(get_RotationAxis, put_RotationAxis)
     RotationAngle = property(get_RotationAngle, put_RotationAngle)
     RotationAngleInDegrees = property(get_RotationAngleInDegrees, put_RotationAngleInDegrees)
-    Translation = property(get_Translation, put_Translation)
+    RotationAxis = property(get_RotationAxis, put_RotationAxis)
     Scale = property(get_Scale, put_Scale)
+    Translation = property(get_Translation, put_Translation)
 class SceneNode(ComPtr):
     extends: win32more.Microsoft.UI.Composition.Scenes.SceneObject
     default_interface: win32more.Microsoft.UI.Composition.Scenes.ISceneNode
@@ -532,10 +532,10 @@ class SceneNode(ComPtr):
     def get_Children(self: win32more.Microsoft.UI.Composition.Scenes.ISceneNode) -> win32more.Microsoft.UI.Composition.Scenes.SceneNodeCollection: ...
     @winrt_classmethod
     def Create(cls: win32more.Microsoft.UI.Composition.Scenes.ISceneNodeStatics, compositor: win32more.Microsoft.UI.Composition.Compositor) -> win32more.Microsoft.UI.Composition.Scenes.SceneNode: ...
-    Transform = property(get_Transform, None)
+    Children = property(get_Children, None)
     Components = property(get_Components, None)
     Parent = property(get_Parent, None)
-    Children = property(get_Children, None)
+    Transform = property(get_Transform, None)
 class SceneNodeCollection(ComPtr):
     extends: win32more.Microsoft.UI.Composition.Scenes.SceneObject
     default_interface: win32more.Windows.Foundation.Collections.IVector[win32more.Microsoft.UI.Composition.Scenes.SceneNode]
@@ -611,15 +611,15 @@ class ScenePbrMaterial(ComPtr):
     def put_OcclusionInput(self: win32more.Microsoft.UI.Composition.Scenes.IScenePbrMaterial, value: win32more.Microsoft.UI.Composition.Scenes.SceneMaterialInput) -> Void: ...
     @winrt_mixinmethod
     def get_OcclusionStrength(self: win32more.Microsoft.UI.Composition.Scenes.IScenePbrMaterial) -> Single: ...
-    EmissiveInput = property(get_EmissiveInput, put_EmissiveInput)
     AlphaCutoff = property(get_AlphaCutoff, put_AlphaCutoff)
-    OcclusionStrength = property(get_OcclusionStrength, put_OcclusionStrength)
     AlphaMode = property(get_AlphaMode, put_AlphaMode)
     EmissiveFactor = property(get_EmissiveFactor, put_EmissiveFactor)
+    EmissiveInput = property(get_EmissiveInput, put_EmissiveInput)
     IsDoubleSided = property(get_IsDoubleSided, put_IsDoubleSided)
     NormalInput = property(get_NormalInput, put_NormalInput)
     NormalScale = property(get_NormalScale, put_NormalScale)
     OcclusionInput = property(get_OcclusionInput, put_OcclusionInput)
+    OcclusionStrength = property(get_OcclusionStrength, put_OcclusionStrength)
 class SceneRendererComponent(ComPtr):
     extends: win32more.Microsoft.UI.Composition.Scenes.SceneComponent
     default_interface: win32more.Microsoft.UI.Composition.Scenes.ISceneRendererComponent
@@ -646,10 +646,10 @@ class SceneSurfaceMaterialInput(ComPtr):
     def get_BitmapInterpolationMode(self: win32more.Microsoft.UI.Composition.Scenes.ISceneSurfaceMaterialInput) -> win32more.Microsoft.UI.Composition.CompositionBitmapInterpolationMode: ...
     @winrt_classmethod
     def Create(cls: win32more.Microsoft.UI.Composition.Scenes.ISceneSurfaceMaterialInputStatics, compositor: win32more.Microsoft.UI.Composition.Compositor) -> win32more.Microsoft.UI.Composition.Scenes.SceneSurfaceMaterialInput: ...
-    Surface = property(get_Surface, put_Surface)
-    WrappingVMode = property(get_WrappingVMode, put_WrappingVMode)
     BitmapInterpolationMode = property(get_BitmapInterpolationMode, put_BitmapInterpolationMode)
+    Surface = property(get_Surface, put_Surface)
     WrappingUMode = property(get_WrappingUMode, put_WrappingUMode)
+    WrappingVMode = property(get_WrappingVMode, put_WrappingVMode)
 class SceneVisual(ComPtr):
     extends: win32more.Microsoft.UI.Composition.ContainerVisual
     default_interface: win32more.Microsoft.UI.Composition.Scenes.ISceneVisual

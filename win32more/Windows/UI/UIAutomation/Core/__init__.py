@@ -23,9 +23,9 @@ class AutomationRemoteOperationResult(ComPtr):
     def HasOperand(self: win32more.Windows.UI.UIAutomation.Core.IAutomationRemoteOperationResult, operandId: win32more.Windows.UI.UIAutomation.Core.AutomationRemoteOperationOperandId) -> Boolean: ...
     @winrt_mixinmethod
     def GetOperand(self: win32more.Windows.UI.UIAutomation.Core.IAutomationRemoteOperationResult, operandId: win32more.Windows.UI.UIAutomation.Core.AutomationRemoteOperationOperandId) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
-    Status = property(get_Status, None)
-    ExtendedError = property(get_ExtendedError, None)
     ErrorLocation = property(get_ErrorLocation, None)
+    ExtendedError = property(get_ExtendedError, None)
+    Status = property(get_Status, None)
 class AutomationRemoteOperationStatus(Int32):  # enum
     Success = 0
     MalformedBytecode = 1
@@ -88,9 +88,9 @@ class IAutomationRemoteOperationResult(ComPtr):
     def HasOperand(self, operandId: win32more.Windows.UI.UIAutomation.Core.AutomationRemoteOperationOperandId) -> Boolean: ...
     @winrt_commethod(10)
     def GetOperand(self, operandId: win32more.Windows.UI.UIAutomation.Core.AutomationRemoteOperationOperandId) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
-    Status = property(get_Status, None)
-    ExtendedError = property(get_ExtendedError, None)
     ErrorLocation = property(get_ErrorLocation, None)
+    ExtendedError = property(get_ExtendedError, None)
+    Status = property(get_Status, None)
 class ICoreAutomationConnectionBoundObjectProvider(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.UIAutomation.Core.ICoreAutomationConnectionBoundObjectProvider'

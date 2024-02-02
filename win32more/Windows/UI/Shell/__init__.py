@@ -119,8 +119,8 @@ class IShareWindowCommandEventArgs(ComPtr):
     def get_Command(self) -> win32more.Windows.UI.Shell.ShareWindowCommand: ...
     @winrt_commethod(8)
     def put_Command(self, value: win32more.Windows.UI.Shell.ShareWindowCommand) -> Void: ...
-    WindowId = property(get_WindowId, None)
     Command = property(get_Command, put_Command)
+    WindowId = property(get_WindowId, None)
 class IShareWindowCommandSource(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Shell.IShareWindowCommandSource'
@@ -161,8 +161,8 @@ class ITaskbarManager(ComPtr):
     def RequestPinCurrentAppAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
     @winrt_commethod(11)
     def RequestPinAppListEntryAsync(self, appListEntry: win32more.Windows.ApplicationModel.Core.AppListEntry) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
-    IsSupported = property(get_IsSupported, None)
     IsPinningAllowed = property(get_IsPinningAllowed, None)
+    IsSupported = property(get_IsSupported, None)
 class ITaskbarManager2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Shell.ITaskbarManager2'
@@ -209,11 +209,11 @@ class IWindowTab(ComPtr):
     def put_Group(self, value: win32more.Windows.UI.Shell.WindowTabGroup) -> Void: ...
     @winrt_commethod(16)
     def ReportThumbnailAvailable(self) -> Void: ...
+    Group = property(get_Group, put_Group)
+    Icon = property(get_Icon, put_Icon)
     Tag = property(get_Tag, put_Tag)
     Title = property(get_Title, put_Title)
-    Icon = property(get_Icon, put_Icon)
     TreatAsSecondaryTileId = property(get_TreatAsSecondaryTileId, put_TreatAsSecondaryTileId)
-    Group = property(get_Group, put_Group)
 class IWindowTabCloseRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Shell.IWindowTabCloseRequestedEventArgs'
@@ -239,8 +239,8 @@ class IWindowTabGroup(ComPtr):
     def get_Icon(self) -> win32more.Windows.UI.Shell.WindowTabIcon: ...
     @winrt_commethod(9)
     def put_Icon(self, value: win32more.Windows.UI.Shell.WindowTabIcon) -> Void: ...
-    Title = property(get_Title, put_Title)
     Icon = property(get_Icon, put_Icon)
+    Title = property(get_Title, put_Title)
 class IWindowTabIcon(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Shell.IWindowTabIcon'
@@ -327,10 +327,10 @@ class IWindowTabThumbnailRequestedEventArgs(ComPtr):
     def GetDeferral(self) -> win32more.Windows.Foundation.Deferral: ...
     @winrt_commethod(11)
     def get_IsCompositedOnWindow(self) -> Boolean: ...
-    Tab = property(get_Tab, None)
-    RequestedSize = property(get_RequestedSize, None)
     Image = property(get_Image, put_Image)
     IsCompositedOnWindow = property(get_IsCompositedOnWindow, None)
+    RequestedSize = property(get_RequestedSize, None)
+    Tab = property(get_Tab, None)
 class SecurityAppKind(Int32):  # enum
     WebProtection = 0
 class SecurityAppManager(ComPtr):
@@ -375,8 +375,8 @@ class ShareWindowCommandEventArgs(ComPtr):
     def get_Command(self: win32more.Windows.UI.Shell.IShareWindowCommandEventArgs) -> win32more.Windows.UI.Shell.ShareWindowCommand: ...
     @winrt_mixinmethod
     def put_Command(self: win32more.Windows.UI.Shell.IShareWindowCommandEventArgs, value: win32more.Windows.UI.Shell.ShareWindowCommand) -> Void: ...
-    WindowId = property(get_WindowId, None)
     Command = property(get_Command, put_Command)
+    WindowId = property(get_WindowId, None)
 class ShareWindowCommandSource(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Shell.IShareWindowCommandSource
@@ -421,8 +421,8 @@ class TaskbarManager(ComPtr):
     def TryUnpinSecondaryTileAsync(self: win32more.Windows.UI.Shell.ITaskbarManager2, tileId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
     @winrt_classmethod
     def GetDefault(cls: win32more.Windows.UI.Shell.ITaskbarManagerStatics) -> win32more.Windows.UI.Shell.TaskbarManager: ...
-    IsSupported = property(get_IsSupported, None)
     IsPinningAllowed = property(get_IsPinningAllowed, None)
+    IsSupported = property(get_IsSupported, None)
 class WindowTab(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Shell.IWindowTab
@@ -458,11 +458,11 @@ class WindowTab(ComPtr):
     def put_Group(self: win32more.Windows.UI.Shell.IWindowTab, value: win32more.Windows.UI.Shell.WindowTabGroup) -> Void: ...
     @winrt_mixinmethod
     def ReportThumbnailAvailable(self: win32more.Windows.UI.Shell.IWindowTab) -> Void: ...
+    Group = property(get_Group, put_Group)
+    Icon = property(get_Icon, put_Icon)
     Tag = property(get_Tag, put_Tag)
     Title = property(get_Title, put_Title)
-    Icon = property(get_Icon, put_Icon)
     TreatAsSecondaryTileId = property(get_TreatAsSecondaryTileId, put_TreatAsSecondaryTileId)
-    Group = property(get_Group, put_Group)
 class WindowTabCloseRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Shell.IWindowTabCloseRequestedEventArgs
@@ -524,8 +524,8 @@ class WindowTabGroup(ComPtr):
     def get_Icon(self: win32more.Windows.UI.Shell.IWindowTabGroup) -> win32more.Windows.UI.Shell.WindowTabIcon: ...
     @winrt_mixinmethod
     def put_Icon(self: win32more.Windows.UI.Shell.IWindowTabGroup, value: win32more.Windows.UI.Shell.WindowTabIcon) -> Void: ...
-    Title = property(get_Title, put_Title)
     Icon = property(get_Icon, put_Icon)
+    Title = property(get_Title, put_Title)
 class WindowTabIcon(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Shell.IWindowTabIcon
@@ -605,10 +605,10 @@ class WindowTabThumbnailRequestedEventArgs(ComPtr):
     def GetDeferral(self: win32more.Windows.UI.Shell.IWindowTabThumbnailRequestedEventArgs) -> win32more.Windows.Foundation.Deferral: ...
     @winrt_mixinmethod
     def get_IsCompositedOnWindow(self: win32more.Windows.UI.Shell.IWindowTabThumbnailRequestedEventArgs) -> Boolean: ...
-    Tab = property(get_Tab, None)
-    RequestedSize = property(get_RequestedSize, None)
     Image = property(get_Image, put_Image)
     IsCompositedOnWindow = property(get_IsCompositedOnWindow, None)
+    RequestedSize = property(get_RequestedSize, None)
+    Tab = property(get_Tab, None)
 
 
 make_ready(__name__)

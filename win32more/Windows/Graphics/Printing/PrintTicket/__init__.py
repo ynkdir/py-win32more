@@ -50,9 +50,6 @@ class IPrintTicketCapabilities(ComPtr):
     def GetFeature(self, name: WinRT_String, xmlNamespace: WinRT_String) -> win32more.Windows.Graphics.Printing.PrintTicket.PrintTicketFeature: ...
     @winrt_commethod(25)
     def GetParameterDefinition(self, name: WinRT_String, xmlNamespace: WinRT_String) -> win32more.Windows.Graphics.Printing.PrintTicket.PrintTicketParameterDefinition: ...
-    Name = property(get_Name, None)
-    XmlNamespace = property(get_XmlNamespace, None)
-    XmlNode = property(get_XmlNode, None)
     DocumentBindingFeature = property(get_DocumentBindingFeature, None)
     DocumentCollateFeature = property(get_DocumentCollateFeature, None)
     DocumentDuplexFeature = property(get_DocumentDuplexFeature, None)
@@ -61,6 +58,7 @@ class IPrintTicketCapabilities(ComPtr):
     DocumentNUpFeature = property(get_DocumentNUpFeature, None)
     DocumentStapleFeature = property(get_DocumentStapleFeature, None)
     JobPasscodeFeature = property(get_JobPasscodeFeature, None)
+    Name = property(get_Name, None)
     PageBorderlessFeature = property(get_PageBorderlessFeature, None)
     PageMediaSizeFeature = property(get_PageMediaSizeFeature, None)
     PageMediaTypeFeature = property(get_PageMediaTypeFeature, None)
@@ -68,6 +66,8 @@ class IPrintTicketCapabilities(ComPtr):
     PageOutputColorFeature = property(get_PageOutputColorFeature, None)
     PageOutputQualityFeature = property(get_PageOutputQualityFeature, None)
     PageResolutionFeature = property(get_PageResolutionFeature, None)
+    XmlNamespace = property(get_XmlNamespace, None)
+    XmlNode = property(get_XmlNode, None)
 class IPrintTicketFeature(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Printing.PrintTicket.IPrintTicketFeature'
@@ -90,12 +90,12 @@ class IPrintTicketFeature(ComPtr):
     def SetSelectedOption(self, value: win32more.Windows.Graphics.Printing.PrintTicket.PrintTicketOption) -> Void: ...
     @winrt_commethod(14)
     def get_SelectionType(self) -> win32more.Windows.Graphics.Printing.PrintTicket.PrintTicketFeatureSelectionType: ...
-    Name = property(get_Name, None)
-    XmlNamespace = property(get_XmlNamespace, None)
-    XmlNode = property(get_XmlNode, None)
     DisplayName = property(get_DisplayName, None)
+    Name = property(get_Name, None)
     Options = property(get_Options, None)
     SelectionType = property(get_SelectionType, None)
+    XmlNamespace = property(get_XmlNamespace, None)
+    XmlNode = property(get_XmlNode, None)
 class IPrintTicketOption(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Printing.PrintTicket.IPrintTicketOption'
@@ -116,10 +116,10 @@ class IPrintTicketOption(ComPtr):
     def GetPropertyValue(self, name: WinRT_String, xmlNamespace: WinRT_String) -> win32more.Windows.Graphics.Printing.PrintTicket.PrintTicketValue: ...
     @winrt_commethod(13)
     def GetScoredPropertyValue(self, name: WinRT_String, xmlNamespace: WinRT_String) -> win32more.Windows.Graphics.Printing.PrintTicket.PrintTicketValue: ...
+    DisplayName = property(get_DisplayName, None)
     Name = property(get_Name, None)
     XmlNamespace = property(get_XmlNamespace, None)
     XmlNode = property(get_XmlNode, None)
-    DisplayName = property(get_DisplayName, None)
 class IPrintTicketParameterDefinition(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Printing.PrintTicket.IPrintTicketParameterDefinition'
@@ -138,13 +138,13 @@ class IPrintTicketParameterDefinition(ComPtr):
     def get_RangeMin(self) -> Int32: ...
     @winrt_commethod(12)
     def get_RangeMax(self) -> Int32: ...
+    DataType = property(get_DataType, None)
     Name = property(get_Name, None)
+    RangeMax = property(get_RangeMax, None)
+    RangeMin = property(get_RangeMin, None)
+    UnitType = property(get_UnitType, None)
     XmlNamespace = property(get_XmlNamespace, None)
     XmlNode = property(get_XmlNode, None)
-    DataType = property(get_DataType, None)
-    UnitType = property(get_UnitType, None)
-    RangeMin = property(get_RangeMin, None)
-    RangeMax = property(get_RangeMax, None)
 class IPrintTicketParameterInitializer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Printing.PrintTicket.IPrintTicketParameterInitializer'
@@ -160,9 +160,9 @@ class IPrintTicketParameterInitializer(ComPtr):
     @winrt_commethod(10)
     def get_Value(self) -> win32more.Windows.Graphics.Printing.PrintTicket.PrintTicketValue: ...
     Name = property(get_Name, None)
+    Value = property(get_Value, put_Value)
     XmlNamespace = property(get_XmlNamespace, None)
     XmlNode = property(get_XmlNode, None)
-    Value = property(get_Value, put_Value)
 class IPrintTicketValue(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Printing.PrintTicket.IPrintTicketValue'
@@ -230,9 +230,6 @@ class IWorkflowPrintTicket(ComPtr):
     def SetParameterInitializerAsString(self, name: WinRT_String, xmlNamespace: WinRT_String, stringValue: WinRT_String) -> win32more.Windows.Graphics.Printing.PrintTicket.PrintTicketParameterInitializer: ...
     @winrt_commethod(31)
     def MergeAndValidateTicket(self, deltaShemaTicket: win32more.Windows.Graphics.Printing.PrintTicket.WorkflowPrintTicket) -> win32more.Windows.Graphics.Printing.PrintTicket.WorkflowPrintTicket: ...
-    Name = property(get_Name, None)
-    XmlNamespace = property(get_XmlNamespace, None)
-    XmlNode = property(get_XmlNode, None)
     DocumentBindingFeature = property(get_DocumentBindingFeature, None)
     DocumentCollateFeature = property(get_DocumentCollateFeature, None)
     DocumentDuplexFeature = property(get_DocumentDuplexFeature, None)
@@ -241,6 +238,7 @@ class IWorkflowPrintTicket(ComPtr):
     DocumentNUpFeature = property(get_DocumentNUpFeature, None)
     DocumentStapleFeature = property(get_DocumentStapleFeature, None)
     JobPasscodeFeature = property(get_JobPasscodeFeature, None)
+    Name = property(get_Name, None)
     PageBorderlessFeature = property(get_PageBorderlessFeature, None)
     PageMediaSizeFeature = property(get_PageMediaSizeFeature, None)
     PageMediaTypeFeature = property(get_PageMediaTypeFeature, None)
@@ -248,6 +246,8 @@ class IWorkflowPrintTicket(ComPtr):
     PageOutputColorFeature = property(get_PageOutputColorFeature, None)
     PageOutputQualityFeature = property(get_PageOutputQualityFeature, None)
     PageResolutionFeature = property(get_PageResolutionFeature, None)
+    XmlNamespace = property(get_XmlNamespace, None)
+    XmlNode = property(get_XmlNode, None)
 class IWorkflowPrintTicketValidationResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Printing.PrintTicket.IWorkflowPrintTicketValidationResult'
@@ -256,8 +256,8 @@ class IWorkflowPrintTicketValidationResult(ComPtr):
     def get_Validated(self) -> Boolean: ...
     @winrt_commethod(7)
     def get_ExtendedError(self) -> win32more.Windows.Foundation.HResult: ...
-    Validated = property(get_Validated, None)
     ExtendedError = property(get_ExtendedError, None)
+    Validated = property(get_Validated, None)
 class PrintTicketCapabilities(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing.PrintTicket.IPrintTicketCapabilities
@@ -302,9 +302,6 @@ class PrintTicketCapabilities(ComPtr):
     def GetFeature(self: win32more.Windows.Graphics.Printing.PrintTicket.IPrintTicketCapabilities, name: WinRT_String, xmlNamespace: WinRT_String) -> win32more.Windows.Graphics.Printing.PrintTicket.PrintTicketFeature: ...
     @winrt_mixinmethod
     def GetParameterDefinition(self: win32more.Windows.Graphics.Printing.PrintTicket.IPrintTicketCapabilities, name: WinRT_String, xmlNamespace: WinRT_String) -> win32more.Windows.Graphics.Printing.PrintTicket.PrintTicketParameterDefinition: ...
-    Name = property(get_Name, None)
-    XmlNamespace = property(get_XmlNamespace, None)
-    XmlNode = property(get_XmlNode, None)
     DocumentBindingFeature = property(get_DocumentBindingFeature, None)
     DocumentCollateFeature = property(get_DocumentCollateFeature, None)
     DocumentDuplexFeature = property(get_DocumentDuplexFeature, None)
@@ -313,6 +310,7 @@ class PrintTicketCapabilities(ComPtr):
     DocumentNUpFeature = property(get_DocumentNUpFeature, None)
     DocumentStapleFeature = property(get_DocumentStapleFeature, None)
     JobPasscodeFeature = property(get_JobPasscodeFeature, None)
+    Name = property(get_Name, None)
     PageBorderlessFeature = property(get_PageBorderlessFeature, None)
     PageMediaSizeFeature = property(get_PageMediaSizeFeature, None)
     PageMediaTypeFeature = property(get_PageMediaTypeFeature, None)
@@ -320,6 +318,8 @@ class PrintTicketCapabilities(ComPtr):
     PageOutputColorFeature = property(get_PageOutputColorFeature, None)
     PageOutputQualityFeature = property(get_PageOutputQualityFeature, None)
     PageResolutionFeature = property(get_PageResolutionFeature, None)
+    XmlNamespace = property(get_XmlNamespace, None)
+    XmlNode = property(get_XmlNode, None)
 class PrintTicketFeature(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing.PrintTicket.IPrintTicketFeature
@@ -342,12 +342,12 @@ class PrintTicketFeature(ComPtr):
     def SetSelectedOption(self: win32more.Windows.Graphics.Printing.PrintTicket.IPrintTicketFeature, value: win32more.Windows.Graphics.Printing.PrintTicket.PrintTicketOption) -> Void: ...
     @winrt_mixinmethod
     def get_SelectionType(self: win32more.Windows.Graphics.Printing.PrintTicket.IPrintTicketFeature) -> win32more.Windows.Graphics.Printing.PrintTicket.PrintTicketFeatureSelectionType: ...
-    Name = property(get_Name, None)
-    XmlNamespace = property(get_XmlNamespace, None)
-    XmlNode = property(get_XmlNode, None)
     DisplayName = property(get_DisplayName, None)
+    Name = property(get_Name, None)
     Options = property(get_Options, None)
     SelectionType = property(get_SelectionType, None)
+    XmlNamespace = property(get_XmlNamespace, None)
+    XmlNode = property(get_XmlNode, None)
 class PrintTicketFeatureSelectionType(Int32):  # enum
     PickOne = 0
     PickMany = 1
@@ -371,10 +371,10 @@ class PrintTicketOption(ComPtr):
     def GetPropertyValue(self: win32more.Windows.Graphics.Printing.PrintTicket.IPrintTicketOption, name: WinRT_String, xmlNamespace: WinRT_String) -> win32more.Windows.Graphics.Printing.PrintTicket.PrintTicketValue: ...
     @winrt_mixinmethod
     def GetScoredPropertyValue(self: win32more.Windows.Graphics.Printing.PrintTicket.IPrintTicketOption, name: WinRT_String, xmlNamespace: WinRT_String) -> win32more.Windows.Graphics.Printing.PrintTicket.PrintTicketValue: ...
+    DisplayName = property(get_DisplayName, None)
     Name = property(get_Name, None)
     XmlNamespace = property(get_XmlNamespace, None)
     XmlNode = property(get_XmlNode, None)
-    DisplayName = property(get_DisplayName, None)
 class PrintTicketParameterDataType(Int32):  # enum
     Integer = 0
     NumericString = 1
@@ -397,13 +397,13 @@ class PrintTicketParameterDefinition(ComPtr):
     def get_RangeMin(self: win32more.Windows.Graphics.Printing.PrintTicket.IPrintTicketParameterDefinition) -> Int32: ...
     @winrt_mixinmethod
     def get_RangeMax(self: win32more.Windows.Graphics.Printing.PrintTicket.IPrintTicketParameterDefinition) -> Int32: ...
+    DataType = property(get_DataType, None)
     Name = property(get_Name, None)
+    RangeMax = property(get_RangeMax, None)
+    RangeMin = property(get_RangeMin, None)
+    UnitType = property(get_UnitType, None)
     XmlNamespace = property(get_XmlNamespace, None)
     XmlNode = property(get_XmlNode, None)
-    DataType = property(get_DataType, None)
-    UnitType = property(get_UnitType, None)
-    RangeMin = property(get_RangeMin, None)
-    RangeMax = property(get_RangeMax, None)
 class PrintTicketParameterInitializer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing.PrintTicket.IPrintTicketParameterInitializer
@@ -419,9 +419,9 @@ class PrintTicketParameterInitializer(ComPtr):
     @winrt_mixinmethod
     def get_Value(self: win32more.Windows.Graphics.Printing.PrintTicket.IPrintTicketParameterInitializer) -> win32more.Windows.Graphics.Printing.PrintTicket.PrintTicketValue: ...
     Name = property(get_Name, None)
+    Value = property(get_Value, put_Value)
     XmlNamespace = property(get_XmlNamespace, None)
     XmlNode = property(get_XmlNode, None)
-    Value = property(get_Value, put_Value)
 class PrintTicketValue(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing.PrintTicket.IPrintTicketValue
@@ -493,9 +493,6 @@ class WorkflowPrintTicket(ComPtr):
     def SetParameterInitializerAsString(self: win32more.Windows.Graphics.Printing.PrintTicket.IWorkflowPrintTicket, name: WinRT_String, xmlNamespace: WinRT_String, stringValue: WinRT_String) -> win32more.Windows.Graphics.Printing.PrintTicket.PrintTicketParameterInitializer: ...
     @winrt_mixinmethod
     def MergeAndValidateTicket(self: win32more.Windows.Graphics.Printing.PrintTicket.IWorkflowPrintTicket, deltaShemaTicket: win32more.Windows.Graphics.Printing.PrintTicket.WorkflowPrintTicket) -> win32more.Windows.Graphics.Printing.PrintTicket.WorkflowPrintTicket: ...
-    Name = property(get_Name, None)
-    XmlNamespace = property(get_XmlNamespace, None)
-    XmlNode = property(get_XmlNode, None)
     DocumentBindingFeature = property(get_DocumentBindingFeature, None)
     DocumentCollateFeature = property(get_DocumentCollateFeature, None)
     DocumentDuplexFeature = property(get_DocumentDuplexFeature, None)
@@ -504,6 +501,7 @@ class WorkflowPrintTicket(ComPtr):
     DocumentNUpFeature = property(get_DocumentNUpFeature, None)
     DocumentStapleFeature = property(get_DocumentStapleFeature, None)
     JobPasscodeFeature = property(get_JobPasscodeFeature, None)
+    Name = property(get_Name, None)
     PageBorderlessFeature = property(get_PageBorderlessFeature, None)
     PageMediaSizeFeature = property(get_PageMediaSizeFeature, None)
     PageMediaTypeFeature = property(get_PageMediaTypeFeature, None)
@@ -511,6 +509,8 @@ class WorkflowPrintTicket(ComPtr):
     PageOutputColorFeature = property(get_PageOutputColorFeature, None)
     PageOutputQualityFeature = property(get_PageOutputQualityFeature, None)
     PageResolutionFeature = property(get_PageResolutionFeature, None)
+    XmlNamespace = property(get_XmlNamespace, None)
+    XmlNode = property(get_XmlNode, None)
 class WorkflowPrintTicketValidationResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing.PrintTicket.IWorkflowPrintTicketValidationResult
@@ -519,8 +519,8 @@ class WorkflowPrintTicketValidationResult(ComPtr):
     def get_Validated(self: win32more.Windows.Graphics.Printing.PrintTicket.IWorkflowPrintTicketValidationResult) -> Boolean: ...
     @winrt_mixinmethod
     def get_ExtendedError(self: win32more.Windows.Graphics.Printing.PrintTicket.IWorkflowPrintTicketValidationResult) -> win32more.Windows.Foundation.HResult: ...
-    Validated = property(get_Validated, None)
     ExtendedError = property(get_ExtendedError, None)
+    Validated = property(get_Validated, None)
 
 
 make_ready(__name__)

@@ -24,8 +24,8 @@ class EnhancedWaypoint(ComPtr):
     def get_Point(self: win32more.Windows.Services.Maps.IEnhancedWaypoint) -> win32more.Windows.Devices.Geolocation.Geopoint: ...
     @winrt_mixinmethod
     def get_Kind(self: win32more.Windows.Services.Maps.IEnhancedWaypoint) -> win32more.Windows.Services.Maps.WaypointKind: ...
-    Point = property(get_Point, None)
     Kind = property(get_Kind, None)
+    Point = property(get_Point, None)
 GuidanceContract: UInt32 = 196608
 class IEnhancedWaypoint(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -35,8 +35,8 @@ class IEnhancedWaypoint(ComPtr):
     def get_Point(self) -> win32more.Windows.Devices.Geolocation.Geopoint: ...
     @winrt_commethod(7)
     def get_Kind(self) -> win32more.Windows.Services.Maps.WaypointKind: ...
-    Point = property(get_Point, None)
     Kind = property(get_Kind, None)
+    Point = property(get_Point, None)
 class IEnhancedWaypointFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Services.Maps.IEnhancedWaypointFactory'
@@ -87,21 +87,21 @@ class IMapAddress(ComPtr):
     def get_PostCode(self) -> WinRT_String: ...
     @winrt_commethod(20)
     def get_Continent(self) -> WinRT_String: ...
-    BuildingName = property(get_BuildingName, None)
     BuildingFloor = property(get_BuildingFloor, None)
+    BuildingName = property(get_BuildingName, None)
     BuildingRoom = property(get_BuildingRoom, None)
     BuildingWing = property(get_BuildingWing, None)
-    StreetNumber = property(get_StreetNumber, None)
-    Street = property(get_Street, None)
-    Neighborhood = property(get_Neighborhood, None)
-    District = property(get_District, None)
-    Town = property(get_Town, None)
-    Region = property(get_Region, None)
-    RegionCode = property(get_RegionCode, None)
+    Continent = property(get_Continent, None)
     Country = property(get_Country, None)
     CountryCode = property(get_CountryCode, None)
+    District = property(get_District, None)
+    Neighborhood = property(get_Neighborhood, None)
     PostCode = property(get_PostCode, None)
-    Continent = property(get_Continent, None)
+    Region = property(get_Region, None)
+    RegionCode = property(get_RegionCode, None)
+    Street = property(get_Street, None)
+    StreetNumber = property(get_StreetNumber, None)
+    Town = property(get_Town, None)
 class IMapAddress2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Services.Maps.IMapAddress2'
@@ -121,10 +121,10 @@ class IMapLocation(ComPtr):
     def get_Description(self) -> WinRT_String: ...
     @winrt_commethod(9)
     def get_Address(self) -> win32more.Windows.Services.Maps.MapAddress: ...
-    Point = property(get_Point, None)
-    DisplayName = property(get_DisplayName, None)
-    Description = property(get_Description, None)
     Address = property(get_Address, None)
+    Description = property(get_Description, None)
+    DisplayName = property(get_DisplayName, None)
+    Point = property(get_Point, None)
 class IMapLocationFinderResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Services.Maps.IMapLocationFinderResult'
@@ -176,11 +176,11 @@ class IMapRoute(ComPtr):
     @winrt_commethod(11)
     def get_IsTrafficBased(self) -> Boolean: ...
     BoundingBox = property(get_BoundingBox, None)
-    LengthInMeters = property(get_LengthInMeters, None)
     EstimatedDuration = property(get_EstimatedDuration, None)
-    Path = property(get_Path, None)
-    Legs = property(get_Legs, None)
     IsTrafficBased = property(get_IsTrafficBased, None)
+    Legs = property(get_Legs, None)
+    LengthInMeters = property(get_LengthInMeters, None)
+    Path = property(get_Path, None)
 class IMapRoute2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Services.Maps.IMapRoute2'
@@ -189,8 +189,8 @@ class IMapRoute2(ComPtr):
     def get_ViolatedRestrictions(self) -> win32more.Windows.Services.Maps.MapRouteRestrictions: ...
     @winrt_commethod(7)
     def get_HasBlockedRoads(self) -> Boolean: ...
-    ViolatedRestrictions = property(get_ViolatedRestrictions, None)
     HasBlockedRoads = property(get_HasBlockedRoads, None)
+    ViolatedRestrictions = property(get_ViolatedRestrictions, None)
 class IMapRoute3(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Services.Maps.IMapRoute3'
@@ -228,8 +228,8 @@ class IMapRouteDrivingOptions(ComPtr):
     def get_RouteRestrictions(self) -> win32more.Windows.Services.Maps.MapRouteRestrictions: ...
     @winrt_commethod(13)
     def put_RouteRestrictions(self, value: win32more.Windows.Services.Maps.MapRouteRestrictions) -> Void: ...
-    MaxAlternateRouteCount = property(get_MaxAlternateRouteCount, put_MaxAlternateRouteCount)
     InitialHeading = property(get_InitialHeading, put_InitialHeading)
+    MaxAlternateRouteCount = property(get_MaxAlternateRouteCount, put_MaxAlternateRouteCount)
     RouteOptimization = property(get_RouteOptimization, put_RouteOptimization)
     RouteRestrictions = property(get_RouteRestrictions, put_RouteRestrictions)
 class IMapRouteDrivingOptions2(ComPtr):
@@ -311,10 +311,10 @@ class IMapRouteLeg(ComPtr):
     @winrt_commethod(10)
     def get_Maneuvers(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Services.Maps.MapRouteManeuver]: ...
     BoundingBox = property(get_BoundingBox, None)
-    Path = property(get_Path, None)
-    LengthInMeters = property(get_LengthInMeters, None)
     EstimatedDuration = property(get_EstimatedDuration, None)
+    LengthInMeters = property(get_LengthInMeters, None)
     Maneuvers = property(get_Maneuvers, None)
+    Path = property(get_Path, None)
 class IMapRouteLeg2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Services.Maps.IMapRouteLeg2'
@@ -341,12 +341,12 @@ class IMapRouteManeuver(ComPtr):
     def get_ExitNumber(self) -> WinRT_String: ...
     @winrt_commethod(11)
     def get_ManeuverNotices(self) -> win32more.Windows.Services.Maps.MapManeuverNotices: ...
-    StartingPoint = property(get_StartingPoint, None)
-    LengthInMeters = property(get_LengthInMeters, None)
+    ExitNumber = property(get_ExitNumber, None)
     InstructionText = property(get_InstructionText, None)
     Kind = property(get_Kind, None)
-    ExitNumber = property(get_ExitNumber, None)
+    LengthInMeters = property(get_LengthInMeters, None)
     ManeuverNotices = property(get_ManeuverNotices, None)
+    StartingPoint = property(get_StartingPoint, None)
 class IMapRouteManeuver2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Services.Maps.IMapRouteManeuver2'
@@ -357,8 +357,8 @@ class IMapRouteManeuver2(ComPtr):
     def get_EndHeading(self) -> Double: ...
     @winrt_commethod(8)
     def get_StreetName(self) -> WinRT_String: ...
-    StartHeading = property(get_StartHeading, None)
     EndHeading = property(get_EndHeading, None)
+    StartHeading = property(get_StartHeading, None)
     StreetName = property(get_StreetName, None)
 class IMapRouteManeuver3(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -415,10 +415,10 @@ class IPlaceInfo(ComPtr):
     def get_DisplayAddress(self) -> WinRT_String: ...
     @winrt_commethod(11)
     def get_Geoshape(self) -> win32more.Windows.Devices.Geolocation.IGeoshape: ...
-    Identifier = property(get_Identifier, None)
-    DisplayName = property(get_DisplayName, None)
     DisplayAddress = property(get_DisplayAddress, None)
+    DisplayName = property(get_DisplayName, None)
     Geoshape = property(get_Geoshape, None)
+    Identifier = property(get_Identifier, None)
 class IPlaceInfoCreateOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Services.Maps.IPlaceInfoCreateOptions'
@@ -431,8 +431,8 @@ class IPlaceInfoCreateOptions(ComPtr):
     def put_DisplayAddress(self, value: WinRT_String) -> Void: ...
     @winrt_commethod(9)
     def get_DisplayAddress(self) -> WinRT_String: ...
-    DisplayName = property(get_DisplayName, put_DisplayName)
     DisplayAddress = property(get_DisplayAddress, put_DisplayAddress)
+    DisplayName = property(get_DisplayName, put_DisplayName)
 class IPlaceInfoStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Services.Maps.IPlaceInfoStatics'
@@ -548,22 +548,22 @@ class MapAddress(ComPtr):
     def get_Continent(self: win32more.Windows.Services.Maps.IMapAddress) -> WinRT_String: ...
     @winrt_mixinmethod
     def get_FormattedAddress(self: win32more.Windows.Services.Maps.IMapAddress2) -> WinRT_String: ...
-    BuildingName = property(get_BuildingName, None)
     BuildingFloor = property(get_BuildingFloor, None)
+    BuildingName = property(get_BuildingName, None)
     BuildingRoom = property(get_BuildingRoom, None)
     BuildingWing = property(get_BuildingWing, None)
-    StreetNumber = property(get_StreetNumber, None)
-    Street = property(get_Street, None)
-    Neighborhood = property(get_Neighborhood, None)
-    District = property(get_District, None)
-    Town = property(get_Town, None)
-    Region = property(get_Region, None)
-    RegionCode = property(get_RegionCode, None)
+    Continent = property(get_Continent, None)
     Country = property(get_Country, None)
     CountryCode = property(get_CountryCode, None)
-    PostCode = property(get_PostCode, None)
-    Continent = property(get_Continent, None)
+    District = property(get_District, None)
     FormattedAddress = property(get_FormattedAddress, None)
+    Neighborhood = property(get_Neighborhood, None)
+    PostCode = property(get_PostCode, None)
+    Region = property(get_Region, None)
+    RegionCode = property(get_RegionCode, None)
+    Street = property(get_Street, None)
+    StreetNumber = property(get_StreetNumber, None)
+    Town = property(get_Town, None)
 class MapLocation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Services.Maps.IMapLocation
@@ -576,10 +576,10 @@ class MapLocation(ComPtr):
     def get_Description(self: win32more.Windows.Services.Maps.IMapLocation) -> WinRT_String: ...
     @winrt_mixinmethod
     def get_Address(self: win32more.Windows.Services.Maps.IMapLocation) -> win32more.Windows.Services.Maps.MapAddress: ...
-    Point = property(get_Point, None)
-    DisplayName = property(get_DisplayName, None)
-    Description = property(get_Description, None)
     Address = property(get_Address, None)
+    Description = property(get_Description, None)
+    DisplayName = property(get_DisplayName, None)
+    Point = property(get_Point, None)
 class MapLocationDesiredAccuracy(Int32):  # enum
     High = 0
     Low = 1
@@ -650,16 +650,16 @@ class MapRoute(ComPtr):
     @winrt_mixinmethod
     def get_IsScenic(self: win32more.Windows.Services.Maps.IMapRoute4) -> Boolean: ...
     BoundingBox = property(get_BoundingBox, None)
-    LengthInMeters = property(get_LengthInMeters, None)
-    EstimatedDuration = property(get_EstimatedDuration, None)
-    Path = property(get_Path, None)
-    Legs = property(get_Legs, None)
-    IsTrafficBased = property(get_IsTrafficBased, None)
-    ViolatedRestrictions = property(get_ViolatedRestrictions, None)
-    HasBlockedRoads = property(get_HasBlockedRoads, None)
     DurationWithoutTraffic = property(get_DurationWithoutTraffic, None)
-    TrafficCongestion = property(get_TrafficCongestion, None)
+    EstimatedDuration = property(get_EstimatedDuration, None)
+    HasBlockedRoads = property(get_HasBlockedRoads, None)
     IsScenic = property(get_IsScenic, None)
+    IsTrafficBased = property(get_IsTrafficBased, None)
+    Legs = property(get_Legs, None)
+    LengthInMeters = property(get_LengthInMeters, None)
+    Path = property(get_Path, None)
+    TrafficCongestion = property(get_TrafficCongestion, None)
+    ViolatedRestrictions = property(get_ViolatedRestrictions, None)
 class MapRouteDrivingOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Services.Maps.IMapRouteDrivingOptions
@@ -693,11 +693,11 @@ class MapRouteDrivingOptions(ComPtr):
     def get_DepartureTime(self: win32more.Windows.Services.Maps.IMapRouteDrivingOptions2) -> win32more.Windows.Foundation.IReference[win32more.Windows.Foundation.DateTime]: ...
     @winrt_mixinmethod
     def put_DepartureTime(self: win32more.Windows.Services.Maps.IMapRouteDrivingOptions2, value: win32more.Windows.Foundation.IReference[win32more.Windows.Foundation.DateTime]) -> Void: ...
-    MaxAlternateRouteCount = property(get_MaxAlternateRouteCount, put_MaxAlternateRouteCount)
+    DepartureTime = property(get_DepartureTime, put_DepartureTime)
     InitialHeading = property(get_InitialHeading, put_InitialHeading)
+    MaxAlternateRouteCount = property(get_MaxAlternateRouteCount, put_MaxAlternateRouteCount)
     RouteOptimization = property(get_RouteOptimization, put_RouteOptimization)
     RouteRestrictions = property(get_RouteRestrictions, put_RouteRestrictions)
-    DepartureTime = property(get_DepartureTime, put_DepartureTime)
 class MapRouteFinder(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Services.Maps.MapRouteFinder'
@@ -737,9 +737,9 @@ class MapRouteFinderResult(ComPtr):
     def get_Status(self: win32more.Windows.Services.Maps.IMapRouteFinderResult) -> win32more.Windows.Services.Maps.MapRouteFinderStatus: ...
     @winrt_mixinmethod
     def get_AlternateRoutes(self: win32more.Windows.Services.Maps.IMapRouteFinderResult2) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Services.Maps.MapRoute]: ...
+    AlternateRoutes = property(get_AlternateRoutes, None)
     Route = property(get_Route, None)
     Status = property(get_Status, None)
-    AlternateRoutes = property(get_AlternateRoutes, None)
 class MapRouteFinderStatus(Int32):  # enum
     Success = 0
     UnknownError = 1
@@ -770,11 +770,11 @@ class MapRouteLeg(ComPtr):
     @winrt_mixinmethod
     def get_TrafficCongestion(self: win32more.Windows.Services.Maps.IMapRouteLeg2) -> win32more.Windows.Services.Maps.TrafficCongestion: ...
     BoundingBox = property(get_BoundingBox, None)
-    Path = property(get_Path, None)
-    LengthInMeters = property(get_LengthInMeters, None)
-    EstimatedDuration = property(get_EstimatedDuration, None)
-    Maneuvers = property(get_Maneuvers, None)
     DurationWithoutTraffic = property(get_DurationWithoutTraffic, None)
+    EstimatedDuration = property(get_EstimatedDuration, None)
+    LengthInMeters = property(get_LengthInMeters, None)
+    Maneuvers = property(get_Maneuvers, None)
+    Path = property(get_Path, None)
     TrafficCongestion = property(get_TrafficCongestion, None)
 class MapRouteManeuver(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -800,14 +800,14 @@ class MapRouteManeuver(ComPtr):
     def get_StreetName(self: win32more.Windows.Services.Maps.IMapRouteManeuver2) -> WinRT_String: ...
     @winrt_mixinmethod
     def get_Warnings(self: win32more.Windows.Services.Maps.IMapRouteManeuver3) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Services.Maps.ManeuverWarning]: ...
-    StartingPoint = property(get_StartingPoint, None)
-    LengthInMeters = property(get_LengthInMeters, None)
+    EndHeading = property(get_EndHeading, None)
+    ExitNumber = property(get_ExitNumber, None)
     InstructionText = property(get_InstructionText, None)
     Kind = property(get_Kind, None)
-    ExitNumber = property(get_ExitNumber, None)
+    LengthInMeters = property(get_LengthInMeters, None)
     ManeuverNotices = property(get_ManeuverNotices, None)
     StartHeading = property(get_StartHeading, None)
-    EndHeading = property(get_EndHeading, None)
+    StartingPoint = property(get_StartingPoint, None)
     StreetName = property(get_StreetName, None)
     Warnings = property(get_Warnings, None)
 class MapRouteManeuverKind(Int32):  # enum
@@ -866,10 +866,10 @@ class MapService(ComPtr, metaclass=_MapService_Meta_):
     def put_ServiceToken(cls: win32more.Windows.Services.Maps.IMapServiceStatics, value: WinRT_String) -> Void: ...
     @winrt_classmethod
     def get_ServiceToken(cls: win32more.Windows.Services.Maps.IMapServiceStatics) -> WinRT_String: ...
-    _MapService_Meta_.DataUsagePreference = property(get_DataUsagePreference.__wrapped__, put_DataUsagePreference.__wrapped__)
     _MapService_Meta_.DataAttributions = property(get_DataAttributions.__wrapped__, None)
-    _MapService_Meta_.WorldViewRegionCode = property(get_WorldViewRegionCode.__wrapped__, None)
+    _MapService_Meta_.DataUsagePreference = property(get_DataUsagePreference.__wrapped__, put_DataUsagePreference.__wrapped__)
     _MapService_Meta_.ServiceToken = property(get_ServiceToken.__wrapped__, put_ServiceToken.__wrapped__)
+    _MapService_Meta_.WorldViewRegionCode = property(get_WorldViewRegionCode.__wrapped__, None)
 class MapServiceDataUsagePreference(Int32):  # enum
     Default = 0
     OfflineMapDataOnly = 1
@@ -907,10 +907,10 @@ class PlaceInfo(ComPtr, metaclass=_PlaceInfo_Meta_):
     def CreateFromMapLocation(cls: win32more.Windows.Services.Maps.IPlaceInfoStatics, location: win32more.Windows.Services.Maps.MapLocation) -> win32more.Windows.Services.Maps.PlaceInfo: ...
     @winrt_classmethod
     def get_IsShowSupported(cls: win32more.Windows.Services.Maps.IPlaceInfoStatics) -> Boolean: ...
-    Identifier = property(get_Identifier, None)
-    DisplayName = property(get_DisplayName, None)
     DisplayAddress = property(get_DisplayAddress, None)
+    DisplayName = property(get_DisplayName, None)
     Geoshape = property(get_Geoshape, None)
+    Identifier = property(get_Identifier, None)
     _PlaceInfo_Meta_.IsShowSupported = property(get_IsShowSupported.__wrapped__, None)
 class PlaceInfoCreateOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -933,8 +933,8 @@ class PlaceInfoCreateOptions(ComPtr):
     def put_DisplayAddress(self: win32more.Windows.Services.Maps.IPlaceInfoCreateOptions, value: WinRT_String) -> Void: ...
     @winrt_mixinmethod
     def get_DisplayAddress(self: win32more.Windows.Services.Maps.IPlaceInfoCreateOptions) -> WinRT_String: ...
-    DisplayName = property(get_DisplayName, put_DisplayName)
     DisplayAddress = property(get_DisplayAddress, put_DisplayAddress)
+    DisplayName = property(get_DisplayName, put_DisplayName)
 class TrafficCongestion(Int32):  # enum
     Unknown = 0
     Light = 1

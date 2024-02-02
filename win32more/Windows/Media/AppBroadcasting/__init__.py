@@ -57,13 +57,13 @@ class AppBroadcastingStatusDetails(ComPtr):
     @winrt_mixinmethod
     def get_IsDisabledBySystem(self: win32more.Windows.Media.AppBroadcasting.IAppBroadcastingStatusDetails) -> Boolean: ...
     IsAnyAppBroadcasting = property(get_IsAnyAppBroadcasting, None)
-    IsCaptureResourceUnavailable = property(get_IsCaptureResourceUnavailable, None)
-    IsGameStreamInProgress = property(get_IsGameStreamInProgress, None)
-    IsGpuConstrained = property(get_IsGpuConstrained, None)
     IsAppInactive = property(get_IsAppInactive, None)
     IsBlockedForApp = property(get_IsBlockedForApp, None)
-    IsDisabledByUser = property(get_IsDisabledByUser, None)
+    IsCaptureResourceUnavailable = property(get_IsCaptureResourceUnavailable, None)
     IsDisabledBySystem = property(get_IsDisabledBySystem, None)
+    IsDisabledByUser = property(get_IsDisabledByUser, None)
+    IsGameStreamInProgress = property(get_IsGameStreamInProgress, None)
+    IsGpuConstrained = property(get_IsGpuConstrained, None)
 class AppBroadcastingUI(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.AppBroadcasting.IAppBroadcastingUI
@@ -118,13 +118,13 @@ class IAppBroadcastingStatusDetails(ComPtr):
     @winrt_commethod(13)
     def get_IsDisabledBySystem(self) -> Boolean: ...
     IsAnyAppBroadcasting = property(get_IsAnyAppBroadcasting, None)
-    IsCaptureResourceUnavailable = property(get_IsCaptureResourceUnavailable, None)
-    IsGameStreamInProgress = property(get_IsGameStreamInProgress, None)
-    IsGpuConstrained = property(get_IsGpuConstrained, None)
     IsAppInactive = property(get_IsAppInactive, None)
     IsBlockedForApp = property(get_IsBlockedForApp, None)
-    IsDisabledByUser = property(get_IsDisabledByUser, None)
+    IsCaptureResourceUnavailable = property(get_IsCaptureResourceUnavailable, None)
     IsDisabledBySystem = property(get_IsDisabledBySystem, None)
+    IsDisabledByUser = property(get_IsDisabledByUser, None)
+    IsGameStreamInProgress = property(get_IsGameStreamInProgress, None)
+    IsGpuConstrained = property(get_IsGpuConstrained, None)
 class IAppBroadcastingUI(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.AppBroadcasting.IAppBroadcastingUI'

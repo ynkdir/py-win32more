@@ -43,10 +43,10 @@ class ActivitySensorTrigger(ComPtr):
     def get_SupportedActivities(self: win32more.Windows.ApplicationModel.Background.IActivitySensorTrigger) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Devices.Sensors.ActivityType]: ...
     @winrt_mixinmethod
     def get_MinimumReportInterval(self: win32more.Windows.ApplicationModel.Background.IActivitySensorTrigger) -> UInt32: ...
-    SubscribedActivities = property(get_SubscribedActivities, None)
-    ReportInterval = property(get_ReportInterval, None)
-    SupportedActivities = property(get_SupportedActivities, None)
     MinimumReportInterval = property(get_MinimumReportInterval, None)
+    ReportInterval = property(get_ReportInterval, None)
+    SubscribedActivities = property(get_SubscribedActivities, None)
+    SupportedActivities = property(get_SupportedActivities, None)
 class AlarmAccessStatus(Int32):  # enum
     Unspecified = 0
     AllowedWithWakeupCapability = 1
@@ -107,10 +107,10 @@ class AppBroadcastTriggerProviderInfo(ComPtr):
     def get_MaxVideoHeight(self: win32more.Windows.ApplicationModel.Background.IAppBroadcastTriggerProviderInfo) -> UInt32: ...
     DisplayNameResource = property(get_DisplayNameResource, put_DisplayNameResource)
     LogoResource = property(get_LogoResource, put_LogoResource)
-    VideoKeyFrameInterval = property(get_VideoKeyFrameInterval, put_VideoKeyFrameInterval)
     MaxVideoBitrate = property(get_MaxVideoBitrate, put_MaxVideoBitrate)
-    MaxVideoWidth = property(get_MaxVideoWidth, put_MaxVideoWidth)
     MaxVideoHeight = property(get_MaxVideoHeight, put_MaxVideoHeight)
+    MaxVideoWidth = property(get_MaxVideoWidth, put_MaxVideoWidth)
+    VideoKeyFrameInterval = property(get_VideoKeyFrameInterval, put_VideoKeyFrameInterval)
 class ApplicationTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.IApplicationTrigger
@@ -230,10 +230,10 @@ class BackgroundTaskBuilder(ComPtr):
     def put_TaskGroup(self: win32more.Windows.ApplicationModel.Background.IBackgroundTaskBuilder4, value: win32more.Windows.ApplicationModel.Background.BackgroundTaskRegistrationGroup) -> Void: ...
     @winrt_mixinmethod
     def SetTaskEntryPointClsid(self: win32more.Windows.ApplicationModel.Background.IBackgroundTaskBuilder5, TaskEntryPoint: Guid) -> Void: ...
-    TaskEntryPoint = property(get_TaskEntryPoint, put_TaskEntryPoint)
-    Name = property(get_Name, put_Name)
     CancelOnConditionLoss = property(get_CancelOnConditionLoss, put_CancelOnConditionLoss)
     IsNetworkRequested = property(get_IsNetworkRequested, put_IsNetworkRequested)
+    Name = property(get_Name, put_Name)
+    TaskEntryPoint = property(get_TaskEntryPoint, put_TaskEntryPoint)
     TaskGroup = property(get_TaskGroup, put_TaskGroup)
 class BackgroundTaskCanceledEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
@@ -315,10 +315,10 @@ class BackgroundTaskRegistration(ComPtr, metaclass=_BackgroundTaskRegistration_M
     def GetTaskGroup(cls: win32more.Windows.ApplicationModel.Background.IBackgroundTaskRegistrationStatics2, groupId: WinRT_String) -> win32more.Windows.ApplicationModel.Background.BackgroundTaskRegistrationGroup: ...
     @winrt_classmethod
     def get_AllTasks(cls: win32more.Windows.ApplicationModel.Background.IBackgroundTaskRegistrationStatics) -> win32more.Windows.Foundation.Collections.IMapView[Guid, win32more.Windows.ApplicationModel.Background.IBackgroundTaskRegistration]: ...
-    TaskId = property(get_TaskId, None)
     Name = property(get_Name, None)
-    Trigger = property(get_Trigger, None)
     TaskGroup = property(get_TaskGroup, None)
+    TaskId = property(get_TaskId, None)
+    Trigger = property(get_Trigger, None)
     _BackgroundTaskRegistration_Meta_.AllTaskGroups = property(get_AllTaskGroups.__wrapped__, None)
     _BackgroundTaskRegistration_Meta_.AllTasks = property(get_AllTasks.__wrapped__, None)
 class BackgroundTaskRegistrationGroup(ComPtr):
@@ -348,9 +348,9 @@ class BackgroundTaskRegistrationGroup(ComPtr):
     def remove_BackgroundActivated(self: win32more.Windows.ApplicationModel.Background.IBackgroundTaskRegistrationGroup, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
     def get_AllTasks(self: win32more.Windows.ApplicationModel.Background.IBackgroundTaskRegistrationGroup) -> win32more.Windows.Foundation.Collections.IMapView[Guid, win32more.Windows.ApplicationModel.Background.BackgroundTaskRegistration]: ...
+    AllTasks = property(get_AllTasks, None)
     Id = property(get_Id, None)
     Name = property(get_Name, None)
-    AllTasks = property(get_AllTasks, None)
 class BackgroundTaskThrottleCounter(Int32):  # enum
     All = 0
     Cpu = 1
@@ -399,10 +399,10 @@ class BluetoothLEAdvertisementPublisherTrigger(ComPtr):
     @winrt_mixinmethod
     def put_IncludeTransmitPowerLevel(self: win32more.Windows.ApplicationModel.Background.IBluetoothLEAdvertisementPublisherTrigger2, value: Boolean) -> Void: ...
     Advertisement = property(get_Advertisement, None)
+    IncludeTransmitPowerLevel = property(get_IncludeTransmitPowerLevel, put_IncludeTransmitPowerLevel)
+    IsAnonymous = property(get_IsAnonymous, put_IsAnonymous)
     PreferredTransmitPowerLevelInDBm = property(get_PreferredTransmitPowerLevelInDBm, put_PreferredTransmitPowerLevelInDBm)
     UseExtendedFormat = property(get_UseExtendedFormat, put_UseExtendedFormat)
-    IsAnonymous = property(get_IsAnonymous, put_IsAnonymous)
-    IncludeTransmitPowerLevel = property(get_IncludeTransmitPowerLevel, put_IncludeTransmitPowerLevel)
 class BluetoothLEAdvertisementWatcherTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.IBluetoothLEAdvertisementWatcherTrigger
@@ -436,13 +436,13 @@ class BluetoothLEAdvertisementWatcherTrigger(ComPtr):
     def get_AllowExtendedAdvertisements(self: win32more.Windows.ApplicationModel.Background.IBluetoothLEAdvertisementWatcherTrigger2) -> Boolean: ...
     @winrt_mixinmethod
     def put_AllowExtendedAdvertisements(self: win32more.Windows.ApplicationModel.Background.IBluetoothLEAdvertisementWatcherTrigger2, value: Boolean) -> Void: ...
-    MinSamplingInterval = property(get_MinSamplingInterval, None)
-    MaxSamplingInterval = property(get_MaxSamplingInterval, None)
-    MinOutOfRangeTimeout = property(get_MinOutOfRangeTimeout, None)
-    MaxOutOfRangeTimeout = property(get_MaxOutOfRangeTimeout, None)
-    SignalStrengthFilter = property(get_SignalStrengthFilter, put_SignalStrengthFilter)
     AdvertisementFilter = property(get_AdvertisementFilter, put_AdvertisementFilter)
     AllowExtendedAdvertisements = property(get_AllowExtendedAdvertisements, put_AllowExtendedAdvertisements)
+    MaxOutOfRangeTimeout = property(get_MaxOutOfRangeTimeout, None)
+    MaxSamplingInterval = property(get_MaxSamplingInterval, None)
+    MinOutOfRangeTimeout = property(get_MinOutOfRangeTimeout, None)
+    MinSamplingInterval = property(get_MinSamplingInterval, None)
+    SignalStrengthFilter = property(get_SignalStrengthFilter, put_SignalStrengthFilter)
 class CachedFileUpdaterTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.ICachedFileUpdaterTrigger
@@ -466,9 +466,9 @@ class CachedFileUpdaterTriggerDetails(ComPtr):
     def get_UpdateRequest(self: win32more.Windows.ApplicationModel.Background.ICachedFileUpdaterTriggerDetails) -> win32more.Windows.Storage.Provider.FileUpdateRequest: ...
     @winrt_mixinmethod
     def get_CanRequestUserInput(self: win32more.Windows.ApplicationModel.Background.ICachedFileUpdaterTriggerDetails) -> Boolean: ...
-    UpdateTarget = property(get_UpdateTarget, None)
-    UpdateRequest = property(get_UpdateRequest, None)
     CanRequestUserInput = property(get_CanRequestUserInput, None)
+    UpdateRequest = property(get_UpdateRequest, None)
+    UpdateTarget = property(get_UpdateTarget, None)
 class ChatMessageNotificationTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.IChatMessageNotificationTrigger
@@ -571,8 +571,8 @@ class CustomSystemEventTrigger(ComPtr):
     def get_TriggerId(self: win32more.Windows.ApplicationModel.Background.ICustomSystemEventTrigger) -> WinRT_String: ...
     @winrt_mixinmethod
     def get_Recurrence(self: win32more.Windows.ApplicationModel.Background.ICustomSystemEventTrigger) -> win32more.Windows.ApplicationModel.Background.CustomSystemEventTriggerRecurrence: ...
-    TriggerId = property(get_TriggerId, None)
     Recurrence = property(get_Recurrence, None)
+    TriggerId = property(get_TriggerId, None)
 class CustomSystemEventTriggerRecurrence(Int32):  # enum
     Once = 0
     Always = 1
@@ -590,8 +590,8 @@ class DeviceConnectionChangeTrigger(ComPtr):
     def put_MaintainConnection(self: win32more.Windows.ApplicationModel.Background.IDeviceConnectionChangeTrigger, value: Boolean) -> Void: ...
     @winrt_classmethod
     def FromIdAsync(cls: win32more.Windows.ApplicationModel.Background.IDeviceConnectionChangeTriggerStatics, deviceId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.ApplicationModel.Background.DeviceConnectionChangeTrigger]: ...
-    DeviceId = property(get_DeviceId, None)
     CanMaintainConnection = property(get_CanMaintainConnection, None)
+    DeviceId = property(get_DeviceId, None)
     MaintainConnection = property(get_MaintainConnection, put_MaintainConnection)
 class DeviceManufacturerNotificationTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -610,8 +610,8 @@ class DeviceManufacturerNotificationTrigger(ComPtr):
     def get_TriggerQualifier(self: win32more.Windows.ApplicationModel.Background.IDeviceManufacturerNotificationTrigger) -> WinRT_String: ...
     @winrt_mixinmethod
     def get_OneShot(self: win32more.Windows.ApplicationModel.Background.IDeviceManufacturerNotificationTrigger) -> Boolean: ...
-    TriggerQualifier = property(get_TriggerQualifier, None)
     OneShot = property(get_OneShot, None)
+    TriggerQualifier = property(get_TriggerQualifier, None)
 class DeviceServicingTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.IDeviceServicingTrigger
@@ -684,7 +684,7 @@ class GattCharacteristicNotificationTrigger(ComPtr):
     @winrt_factorymethod
     def Create(cls: win32more.Windows.ApplicationModel.Background.IGattCharacteristicNotificationTriggerFactory, characteristic: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristic) -> win32more.Windows.ApplicationModel.Background.GattCharacteristicNotificationTrigger: ...
     @winrt_factorymethod
-    def Create(cls: win32more.Windows.ApplicationModel.Background.IGattCharacteristicNotificationTriggerFactory2, characteristic: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristic, eventTriggeringMode: win32more.Windows.Devices.Bluetooth.Background.BluetoothEventTriggeringMode) -> win32more.Windows.ApplicationModel.Background.GattCharacteristicNotificationTrigger: ...
+    def CreateWithEventTriggeringMode(cls: win32more.Windows.ApplicationModel.Background.IGattCharacteristicNotificationTriggerFactory2, characteristic: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristic, eventTriggeringMode: win32more.Windows.Devices.Bluetooth.Background.BluetoothEventTriggeringMode) -> win32more.Windows.ApplicationModel.Background.GattCharacteristicNotificationTrigger: ...
     @winrt_mixinmethod
     def get_Characteristic(self: win32more.Windows.ApplicationModel.Background.IGattCharacteristicNotificationTrigger) -> win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristic: ...
     @winrt_mixinmethod
@@ -705,9 +705,9 @@ class GattServiceProviderTrigger(ComPtr):
     def get_AdvertisingParameters(self: win32more.Windows.ApplicationModel.Background.IGattServiceProviderTrigger) -> win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattServiceProviderAdvertisingParameters: ...
     @winrt_classmethod
     def CreateAsync(cls: win32more.Windows.ApplicationModel.Background.IGattServiceProviderTriggerStatics, triggerId: WinRT_String, serviceUuid: Guid) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.ApplicationModel.Background.GattServiceProviderTriggerResult]: ...
-    TriggerId = property(get_TriggerId, None)
-    Service = property(get_Service, None)
     AdvertisingParameters = property(get_AdvertisingParameters, put_AdvertisingParameters)
+    Service = property(get_Service, None)
+    TriggerId = property(get_TriggerId, None)
 class GattServiceProviderTriggerResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.IGattServiceProviderTriggerResult
@@ -716,8 +716,8 @@ class GattServiceProviderTriggerResult(ComPtr):
     def get_Trigger(self: win32more.Windows.ApplicationModel.Background.IGattServiceProviderTriggerResult) -> win32more.Windows.ApplicationModel.Background.GattServiceProviderTrigger: ...
     @winrt_mixinmethod
     def get_Error(self: win32more.Windows.ApplicationModel.Background.IGattServiceProviderTriggerResult) -> win32more.Windows.Devices.Bluetooth.BluetoothError: ...
-    Trigger = property(get_Trigger, None)
     Error = property(get_Error, None)
+    Trigger = property(get_Trigger, None)
 class GeovisitTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.IGeovisitTrigger
@@ -748,10 +748,10 @@ class IActivitySensorTrigger(ComPtr):
     def get_SupportedActivities(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Devices.Sensors.ActivityType]: ...
     @winrt_commethod(9)
     def get_MinimumReportInterval(self) -> UInt32: ...
-    SubscribedActivities = property(get_SubscribedActivities, None)
-    ReportInterval = property(get_ReportInterval, None)
-    SupportedActivities = property(get_SupportedActivities, None)
     MinimumReportInterval = property(get_MinimumReportInterval, None)
+    ReportInterval = property(get_ReportInterval, None)
+    SubscribedActivities = property(get_SubscribedActivities, None)
+    SupportedActivities = property(get_SupportedActivities, None)
 class IActivitySensorTriggerFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Background.IActivitySensorTriggerFactory'
@@ -811,10 +811,10 @@ class IAppBroadcastTriggerProviderInfo(ComPtr):
     def get_MaxVideoHeight(self) -> UInt32: ...
     DisplayNameResource = property(get_DisplayNameResource, put_DisplayNameResource)
     LogoResource = property(get_LogoResource, put_LogoResource)
-    VideoKeyFrameInterval = property(get_VideoKeyFrameInterval, put_VideoKeyFrameInterval)
     MaxVideoBitrate = property(get_MaxVideoBitrate, put_MaxVideoBitrate)
-    MaxVideoWidth = property(get_MaxVideoWidth, put_MaxVideoWidth)
     MaxVideoHeight = property(get_MaxVideoHeight, put_MaxVideoHeight)
+    MaxVideoWidth = property(get_MaxVideoWidth, put_MaxVideoWidth)
+    VideoKeyFrameInterval = property(get_VideoKeyFrameInterval, put_VideoKeyFrameInterval)
 class IApplicationTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Background.IApplicationTrigger'
@@ -894,8 +894,8 @@ class IBackgroundTaskBuilder(ComPtr):
     def get_Name(self) -> WinRT_String: ...
     @winrt_commethod(12)
     def Register(self) -> win32more.Windows.ApplicationModel.Background.BackgroundTaskRegistration: ...
-    TaskEntryPoint = property(get_TaskEntryPoint, put_TaskEntryPoint)
     Name = property(get_Name, put_Name)
+    TaskEntryPoint = property(get_TaskEntryPoint, put_TaskEntryPoint)
 class IBackgroundTaskBuilder2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Background.IBackgroundTaskBuilder2'
@@ -967,10 +967,10 @@ class IBackgroundTaskInstance(ComPtr):
     @winrt_commethod(14)
     def GetDeferral(self) -> win32more.Windows.ApplicationModel.Background.BackgroundTaskDeferral: ...
     InstanceId = property(get_InstanceId, None)
-    Task = property(get_Task, None)
     Progress = property(get_Progress, put_Progress)
-    TriggerDetails = property(get_TriggerDetails, None)
     SuspendedCount = property(get_SuspendedCount, None)
+    Task = property(get_Task, None)
+    TriggerDetails = property(get_TriggerDetails, None)
 class IBackgroundTaskInstance2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Background.IBackgroundTaskInstance2'
@@ -1012,8 +1012,8 @@ class IBackgroundTaskRegistration(ComPtr):
     def remove_Completed(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(12)
     def Unregister(self, cancelTask: Boolean) -> Void: ...
-    TaskId = property(get_TaskId, None)
     Name = property(get_Name, None)
+    TaskId = property(get_TaskId, None)
 class IBackgroundTaskRegistration2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Background.IBackgroundTaskRegistration2'
@@ -1042,9 +1042,9 @@ class IBackgroundTaskRegistrationGroup(ComPtr):
     def remove_BackgroundActivated(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(10)
     def get_AllTasks(self) -> win32more.Windows.Foundation.Collections.IMapView[Guid, win32more.Windows.ApplicationModel.Background.BackgroundTaskRegistration]: ...
+    AllTasks = property(get_AllTasks, None)
     Id = property(get_Id, None)
     Name = property(get_Name, None)
-    AllTasks = property(get_AllTasks, None)
 class IBackgroundTaskRegistrationGroupFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Background.IBackgroundTaskRegistrationGroupFactory'
@@ -1107,10 +1107,10 @@ class IBluetoothLEAdvertisementPublisherTrigger2(ComPtr):
     def get_IncludeTransmitPowerLevel(self) -> Boolean: ...
     @winrt_commethod(13)
     def put_IncludeTransmitPowerLevel(self, value: Boolean) -> Void: ...
+    IncludeTransmitPowerLevel = property(get_IncludeTransmitPowerLevel, put_IncludeTransmitPowerLevel)
+    IsAnonymous = property(get_IsAnonymous, put_IsAnonymous)
     PreferredTransmitPowerLevelInDBm = property(get_PreferredTransmitPowerLevelInDBm, put_PreferredTransmitPowerLevelInDBm)
     UseExtendedFormat = property(get_UseExtendedFormat, put_UseExtendedFormat)
-    IsAnonymous = property(get_IsAnonymous, put_IsAnonymous)
-    IncludeTransmitPowerLevel = property(get_IncludeTransmitPowerLevel, put_IncludeTransmitPowerLevel)
 class IBluetoothLEAdvertisementWatcherTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Background.IBluetoothLEAdvertisementWatcherTrigger'
@@ -1131,12 +1131,12 @@ class IBluetoothLEAdvertisementWatcherTrigger(ComPtr):
     def get_AdvertisementFilter(self) -> win32more.Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementFilter: ...
     @winrt_commethod(13)
     def put_AdvertisementFilter(self, value: win32more.Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementFilter) -> Void: ...
-    MinSamplingInterval = property(get_MinSamplingInterval, None)
+    AdvertisementFilter = property(get_AdvertisementFilter, put_AdvertisementFilter)
+    MaxOutOfRangeTimeout = property(get_MaxOutOfRangeTimeout, None)
     MaxSamplingInterval = property(get_MaxSamplingInterval, None)
     MinOutOfRangeTimeout = property(get_MinOutOfRangeTimeout, None)
-    MaxOutOfRangeTimeout = property(get_MaxOutOfRangeTimeout, None)
+    MinSamplingInterval = property(get_MinSamplingInterval, None)
     SignalStrengthFilter = property(get_SignalStrengthFilter, put_SignalStrengthFilter)
-    AdvertisementFilter = property(get_AdvertisementFilter, put_AdvertisementFilter)
 class IBluetoothLEAdvertisementWatcherTrigger2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Background.IBluetoothLEAdvertisementWatcherTrigger2'
@@ -1160,9 +1160,9 @@ class ICachedFileUpdaterTriggerDetails(ComPtr):
     def get_UpdateRequest(self) -> win32more.Windows.Storage.Provider.FileUpdateRequest: ...
     @winrt_commethod(8)
     def get_CanRequestUserInput(self) -> Boolean: ...
-    UpdateTarget = property(get_UpdateTarget, None)
-    UpdateRequest = property(get_UpdateRequest, None)
     CanRequestUserInput = property(get_CanRequestUserInput, None)
+    UpdateRequest = property(get_UpdateRequest, None)
+    UpdateTarget = property(get_UpdateTarget, None)
 class IChatMessageNotificationTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Background.IChatMessageNotificationTrigger'
@@ -1200,8 +1200,8 @@ class ICustomSystemEventTrigger(ComPtr):
     def get_TriggerId(self) -> WinRT_String: ...
     @winrt_commethod(7)
     def get_Recurrence(self) -> win32more.Windows.ApplicationModel.Background.CustomSystemEventTriggerRecurrence: ...
-    TriggerId = property(get_TriggerId, None)
     Recurrence = property(get_Recurrence, None)
+    TriggerId = property(get_TriggerId, None)
 class ICustomSystemEventTriggerFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Background.ICustomSystemEventTriggerFactory'
@@ -1220,8 +1220,8 @@ class IDeviceConnectionChangeTrigger(ComPtr):
     def get_MaintainConnection(self) -> Boolean: ...
     @winrt_commethod(9)
     def put_MaintainConnection(self, value: Boolean) -> Void: ...
-    DeviceId = property(get_DeviceId, None)
     CanMaintainConnection = property(get_CanMaintainConnection, None)
+    DeviceId = property(get_DeviceId, None)
     MaintainConnection = property(get_MaintainConnection, put_MaintainConnection)
 class IDeviceConnectionChangeTriggerStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -1237,8 +1237,8 @@ class IDeviceManufacturerNotificationTrigger(ComPtr):
     def get_TriggerQualifier(self) -> WinRT_String: ...
     @winrt_commethod(7)
     def get_OneShot(self) -> Boolean: ...
-    TriggerQualifier = property(get_TriggerQualifier, None)
     OneShot = property(get_OneShot, None)
+    TriggerQualifier = property(get_TriggerQualifier, None)
 class IDeviceManufacturerNotificationTriggerFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Background.IDeviceManufacturerNotificationTriggerFactory'
@@ -1307,9 +1307,9 @@ class IGattServiceProviderTrigger(ComPtr):
     def put_AdvertisingParameters(self, value: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattServiceProviderAdvertisingParameters) -> Void: ...
     @winrt_commethod(9)
     def get_AdvertisingParameters(self) -> win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattServiceProviderAdvertisingParameters: ...
-    TriggerId = property(get_TriggerId, None)
-    Service = property(get_Service, None)
     AdvertisingParameters = property(get_AdvertisingParameters, put_AdvertisingParameters)
+    Service = property(get_Service, None)
+    TriggerId = property(get_TriggerId, None)
 class IGattServiceProviderTriggerResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Background.IGattServiceProviderTriggerResult'
@@ -1318,8 +1318,8 @@ class IGattServiceProviderTriggerResult(ComPtr):
     def get_Trigger(self) -> win32more.Windows.ApplicationModel.Background.GattServiceProviderTrigger: ...
     @winrt_commethod(7)
     def get_Error(self) -> win32more.Windows.Devices.Bluetooth.BluetoothError: ...
-    Trigger = property(get_Trigger, None)
     Error = property(get_Error, None)
+    Trigger = property(get_Trigger, None)
 class IGattServiceProviderTriggerStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Background.IGattServiceProviderTriggerStatics'
@@ -1435,9 +1435,9 @@ class IRfcommConnectionTrigger(ComPtr):
     def get_RemoteHostName(self) -> win32more.Windows.Networking.HostName: ...
     @winrt_commethod(13)
     def put_RemoteHostName(self, value: win32more.Windows.Networking.HostName) -> Void: ...
+    AllowMultipleConnections = property(get_AllowMultipleConnections, put_AllowMultipleConnections)
     InboundConnection = property(get_InboundConnection, None)
     OutboundConnection = property(get_OutboundConnection, None)
-    AllowMultipleConnections = property(get_AllowMultipleConnections, put_AllowMultipleConnections)
     ProtectionLevel = property(get_ProtectionLevel, put_ProtectionLevel)
     RemoteHostName = property(get_RemoteHostName, put_RemoteHostName)
 class ISecondaryAuthenticationFactorAuthenticationTrigger(ComPtr):
@@ -1818,9 +1818,9 @@ class RfcommConnectionTrigger(ComPtr):
     def get_RemoteHostName(self: win32more.Windows.ApplicationModel.Background.IRfcommConnectionTrigger) -> win32more.Windows.Networking.HostName: ...
     @winrt_mixinmethod
     def put_RemoteHostName(self: win32more.Windows.ApplicationModel.Background.IRfcommConnectionTrigger, value: win32more.Windows.Networking.HostName) -> Void: ...
+    AllowMultipleConnections = property(get_AllowMultipleConnections, put_AllowMultipleConnections)
     InboundConnection = property(get_InboundConnection, None)
     OutboundConnection = property(get_OutboundConnection, None)
-    AllowMultipleConnections = property(get_AllowMultipleConnections, put_AllowMultipleConnections)
     ProtectionLevel = property(get_ProtectionLevel, put_ProtectionLevel)
     RemoteHostName = property(get_RemoteHostName, put_RemoteHostName)
 class SecondaryAuthenticationFactorAuthenticationTrigger(ComPtr):

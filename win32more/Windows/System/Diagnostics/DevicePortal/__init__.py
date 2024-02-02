@@ -60,9 +60,9 @@ class DevicePortalConnectionRequestReceivedEventArgs(ComPtr):
     def get_WebSocketProtocolsRequested(self: win32more.Windows.System.Diagnostics.DevicePortal.IDevicePortalWebSocketConnectionRequestReceivedEventArgs) -> win32more.Windows.Foundation.Collections.IVectorView[WinRT_String]: ...
     @winrt_mixinmethod
     def GetDeferral(self: win32more.Windows.System.Diagnostics.DevicePortal.IDevicePortalWebSocketConnectionRequestReceivedEventArgs) -> win32more.Windows.Foundation.Deferral: ...
+    IsWebSocketUpgradeRequest = property(get_IsWebSocketUpgradeRequest, None)
     RequestMessage = property(get_RequestMessage, None)
     ResponseMessage = property(get_ResponseMessage, None)
-    IsWebSocketUpgradeRequest = property(get_IsWebSocketUpgradeRequest, None)
     WebSocketProtocolsRequested = property(get_WebSocketProtocolsRequested, None)
 class IDevicePortalConnection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable

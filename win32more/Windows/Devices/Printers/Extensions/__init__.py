@@ -67,8 +67,8 @@ class IPrintNotificationEventDetails(ComPtr):
     def get_EventData(self) -> WinRT_String: ...
     @winrt_commethod(8)
     def put_EventData(self, value: WinRT_String) -> Void: ...
-    PrinterName = property(get_PrinterName, None)
     EventData = property(get_EventData, put_EventData)
+    PrinterName = property(get_PrinterName, None)
 class IPrintTaskConfiguration(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Printers.Extensions.IPrintTaskConfiguration'
@@ -177,8 +177,8 @@ class PrintNotificationEventDetails(ComPtr):
     def get_EventData(self: win32more.Windows.Devices.Printers.Extensions.IPrintNotificationEventDetails) -> WinRT_String: ...
     @winrt_mixinmethod
     def put_EventData(self: win32more.Windows.Devices.Printers.Extensions.IPrintNotificationEventDetails, value: WinRT_String) -> Void: ...
-    PrinterName = property(get_PrinterName, None)
     EventData = property(get_EventData, put_EventData)
+    PrinterName = property(get_PrinterName, None)
 class PrintTaskConfiguration(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Printers.Extensions.IPrintTaskConfiguration

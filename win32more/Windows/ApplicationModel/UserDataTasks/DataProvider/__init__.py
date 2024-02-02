@@ -50,8 +50,8 @@ class IUserDataTaskListCompleteTaskRequest(ComPtr):
     def ReportCompletedAsync(self, completedTaskId: WinRT_String) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(9)
     def ReportFailedAsync(self) -> win32more.Windows.Foundation.IAsyncAction: ...
-    TaskListId = property(get_TaskListId, None)
     TaskId = property(get_TaskId, None)
+    TaskListId = property(get_TaskListId, None)
 class IUserDataTaskListCompleteTaskRequestEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.UserDataTasks.DataProvider.IUserDataTaskListCompleteTaskRequestEventArgs'
@@ -73,8 +73,8 @@ class IUserDataTaskListCreateOrUpdateTaskRequest(ComPtr):
     def ReportCompletedAsync(self, createdOrUpdatedUserDataTask: win32more.Windows.ApplicationModel.UserDataTasks.UserDataTask) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(9)
     def ReportFailedAsync(self) -> win32more.Windows.Foundation.IAsyncAction: ...
-    TaskListId = property(get_TaskListId, None)
     Task = property(get_Task, None)
+    TaskListId = property(get_TaskListId, None)
 class IUserDataTaskListCreateOrUpdateTaskRequestEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.UserDataTasks.DataProvider.IUserDataTaskListCreateOrUpdateTaskRequestEventArgs'
@@ -96,8 +96,8 @@ class IUserDataTaskListDeleteTaskRequest(ComPtr):
     def ReportCompletedAsync(self) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(9)
     def ReportFailedAsync(self) -> win32more.Windows.Foundation.IAsyncAction: ...
-    TaskListId = property(get_TaskListId, None)
     TaskId = property(get_TaskId, None)
+    TaskListId = property(get_TaskListId, None)
 class IUserDataTaskListDeleteTaskRequestEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.UserDataTasks.DataProvider.IUserDataTaskListDeleteTaskRequestEventArgs'
@@ -119,8 +119,8 @@ class IUserDataTaskListSkipOccurrenceRequest(ComPtr):
     def ReportCompletedAsync(self) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(9)
     def ReportFailedAsync(self) -> win32more.Windows.Foundation.IAsyncAction: ...
-    TaskListId = property(get_TaskListId, None)
     TaskId = property(get_TaskId, None)
+    TaskListId = property(get_TaskListId, None)
 class IUserDataTaskListSkipOccurrenceRequestEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.UserDataTasks.DataProvider.IUserDataTaskListSkipOccurrenceRequestEventArgs'
@@ -195,8 +195,8 @@ class UserDataTaskListCompleteTaskRequest(ComPtr):
     def ReportCompletedAsync(self: win32more.Windows.ApplicationModel.UserDataTasks.DataProvider.IUserDataTaskListCompleteTaskRequest, completedTaskId: WinRT_String) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_mixinmethod
     def ReportFailedAsync(self: win32more.Windows.ApplicationModel.UserDataTasks.DataProvider.IUserDataTaskListCompleteTaskRequest) -> win32more.Windows.Foundation.IAsyncAction: ...
-    TaskListId = property(get_TaskListId, None)
     TaskId = property(get_TaskId, None)
+    TaskListId = property(get_TaskListId, None)
 class UserDataTaskListCompleteTaskRequestEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.UserDataTasks.DataProvider.IUserDataTaskListCompleteTaskRequestEventArgs
@@ -218,8 +218,8 @@ class UserDataTaskListCreateOrUpdateTaskRequest(ComPtr):
     def ReportCompletedAsync(self: win32more.Windows.ApplicationModel.UserDataTasks.DataProvider.IUserDataTaskListCreateOrUpdateTaskRequest, createdOrUpdatedUserDataTask: win32more.Windows.ApplicationModel.UserDataTasks.UserDataTask) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_mixinmethod
     def ReportFailedAsync(self: win32more.Windows.ApplicationModel.UserDataTasks.DataProvider.IUserDataTaskListCreateOrUpdateTaskRequest) -> win32more.Windows.Foundation.IAsyncAction: ...
-    TaskListId = property(get_TaskListId, None)
     Task = property(get_Task, None)
+    TaskListId = property(get_TaskListId, None)
 class UserDataTaskListCreateOrUpdateTaskRequestEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.UserDataTasks.DataProvider.IUserDataTaskListCreateOrUpdateTaskRequestEventArgs
@@ -241,8 +241,8 @@ class UserDataTaskListDeleteTaskRequest(ComPtr):
     def ReportCompletedAsync(self: win32more.Windows.ApplicationModel.UserDataTasks.DataProvider.IUserDataTaskListDeleteTaskRequest) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_mixinmethod
     def ReportFailedAsync(self: win32more.Windows.ApplicationModel.UserDataTasks.DataProvider.IUserDataTaskListDeleteTaskRequest) -> win32more.Windows.Foundation.IAsyncAction: ...
-    TaskListId = property(get_TaskListId, None)
     TaskId = property(get_TaskId, None)
+    TaskListId = property(get_TaskListId, None)
 class UserDataTaskListDeleteTaskRequestEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.UserDataTasks.DataProvider.IUserDataTaskListDeleteTaskRequestEventArgs
@@ -264,8 +264,8 @@ class UserDataTaskListSkipOccurrenceRequest(ComPtr):
     def ReportCompletedAsync(self: win32more.Windows.ApplicationModel.UserDataTasks.DataProvider.IUserDataTaskListSkipOccurrenceRequest) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_mixinmethod
     def ReportFailedAsync(self: win32more.Windows.ApplicationModel.UserDataTasks.DataProvider.IUserDataTaskListSkipOccurrenceRequest) -> win32more.Windows.Foundation.IAsyncAction: ...
-    TaskListId = property(get_TaskListId, None)
     TaskId = property(get_TaskId, None)
+    TaskListId = property(get_TaskListId, None)
 class UserDataTaskListSkipOccurrenceRequestEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.UserDataTasks.DataProvider.IUserDataTaskListSkipOccurrenceRequestEventArgs

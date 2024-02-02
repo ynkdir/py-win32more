@@ -41,8 +41,8 @@ class ContactAddress(ComPtr):
     def put_StreetAddress(self: win32more.Windows.Phone.PersonalInformation.IContactAddress, value: WinRT_String) -> Void: ...
     Country = property(get_Country, put_Country)
     Locality = property(get_Locality, put_Locality)
-    Region = property(get_Region, put_Region)
     PostalCode = property(get_PostalCode, put_PostalCode)
+    Region = property(get_Region, put_Region)
     StreetAddress = property(get_StreetAddress, put_StreetAddress)
 class ContactChangeRecord(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -57,9 +57,9 @@ class ContactChangeRecord(ComPtr):
     @winrt_mixinmethod
     def get_RemoteId(self: win32more.Windows.Phone.PersonalInformation.IContactChangeRecord) -> WinRT_String: ...
     ChangeType = property(get_ChangeType, None)
-    RevisionNumber = property(get_RevisionNumber, None)
     Id = property(get_Id, None)
     RemoteId = property(get_RemoteId, None)
+    RevisionNumber = property(get_RevisionNumber, None)
 class ContactChangeType(Int32):  # enum
     Created = 0
     Modified = 1
@@ -112,11 +112,11 @@ class ContactInformation(ComPtr):
     @winrt_classmethod
     def ParseVcardAsync(cls: win32more.Windows.Phone.PersonalInformation.IContactInformationStatics, vcard: win32more.Windows.Storage.Streams.IInputStream) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Phone.PersonalInformation.ContactInformation]: ...
     DisplayName = property(get_DisplayName, put_DisplayName)
+    DisplayPicture = property(get_DisplayPicture, None)
     FamilyName = property(get_FamilyName, put_FamilyName)
     GivenName = property(get_GivenName, put_GivenName)
     HonorificPrefix = property(get_HonorificPrefix, put_HonorificPrefix)
     HonorificSuffix = property(get_HonorificSuffix, put_HonorificSuffix)
-    DisplayPicture = property(get_DisplayPicture, None)
 class ContactQueryOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Phone.PersonalInformation.IContactQueryOptions
@@ -217,8 +217,8 @@ class IContactAddress(ComPtr):
     def put_StreetAddress(self, value: WinRT_String) -> Void: ...
     Country = property(get_Country, put_Country)
     Locality = property(get_Locality, put_Locality)
-    Region = property(get_Region, put_Region)
     PostalCode = property(get_PostalCode, put_PostalCode)
+    Region = property(get_Region, put_Region)
     StreetAddress = property(get_StreetAddress, put_StreetAddress)
 class IContactChangeRecord(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -233,9 +233,9 @@ class IContactChangeRecord(ComPtr):
     @winrt_commethod(9)
     def get_RemoteId(self) -> WinRT_String: ...
     ChangeType = property(get_ChangeType, None)
-    RevisionNumber = property(get_RevisionNumber, None)
     Id = property(get_Id, None)
     RemoteId = property(get_RemoteId, None)
+    RevisionNumber = property(get_RevisionNumber, None)
 class IContactInformation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Phone.PersonalInformation.IContactInformation'
@@ -273,11 +273,11 @@ class IContactInformation(ComPtr):
     @winrt_commethod(21)
     def ToVcardWithOptionsAsync(self, format: win32more.Windows.Phone.PersonalInformation.VCardFormat) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Storage.Streams.IRandomAccessStream]: ...
     DisplayName = property(get_DisplayName, put_DisplayName)
+    DisplayPicture = property(get_DisplayPicture, None)
     FamilyName = property(get_FamilyName, put_FamilyName)
     GivenName = property(get_GivenName, put_GivenName)
     HonorificPrefix = property(get_HonorificPrefix, put_HonorificPrefix)
     HonorificSuffix = property(get_HonorificSuffix, put_HonorificSuffix)
-    DisplayPicture = property(get_DisplayPicture, None)
 class IContactInformation2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Phone.PersonalInformation.IContactInformation2'
@@ -430,41 +430,41 @@ class IKnownContactPropertiesStatics(ComPtr):
     def get_AlternateMobileTelephone(self) -> WinRT_String: ...
     @winrt_commethod(40)
     def get_AlternateWorkTelephone(self) -> WinRT_String: ...
-    DisplayName = property(get_DisplayName, None)
-    FamilyName = property(get_FamilyName, None)
-    GivenName = property(get_GivenName, None)
-    HonorificPrefix = property(get_HonorificPrefix, None)
-    HonorificSuffix = property(get_HonorificSuffix, None)
     AdditionalName = property(get_AdditionalName, None)
     Address = property(get_Address, None)
-    OtherAddress = property(get_OtherAddress, None)
-    Email = property(get_Email, None)
-    WorkAddress = property(get_WorkAddress, None)
-    WorkTelephone = property(get_WorkTelephone, None)
-    JobTitle = property(get_JobTitle, None)
-    Birthdate = property(get_Birthdate, None)
+    AlternateMobileTelephone = property(get_AlternateMobileTelephone, None)
+    AlternateTelephone = property(get_AlternateTelephone, None)
+    AlternateWorkTelephone = property(get_AlternateWorkTelephone, None)
     Anniversary = property(get_Anniversary, None)
-    Telephone = property(get_Telephone, None)
-    MobileTelephone = property(get_MobileTelephone, None)
-    Url = property(get_Url, None)
-    Notes = property(get_Notes, None)
-    WorkFax = property(get_WorkFax, None)
+    Birthdate = property(get_Birthdate, None)
     Children = property(get_Children, None)
-    SignificantOther = property(get_SignificantOther, None)
     CompanyName = property(get_CompanyName, None)
     CompanyTelephone = property(get_CompanyTelephone, None)
+    DisplayName = property(get_DisplayName, None)
+    Email = property(get_Email, None)
+    FamilyName = property(get_FamilyName, None)
+    GivenName = property(get_GivenName, None)
     HomeFax = property(get_HomeFax, None)
-    AlternateTelephone = property(get_AlternateTelephone, None)
+    HonorificPrefix = property(get_HonorificPrefix, None)
+    HonorificSuffix = property(get_HonorificSuffix, None)
+    JobTitle = property(get_JobTitle, None)
     Manager = property(get_Manager, None)
+    MobileTelephone = property(get_MobileTelephone, None)
     Nickname = property(get_Nickname, None)
+    Notes = property(get_Notes, None)
     OfficeLocation = property(get_OfficeLocation, None)
-    WorkEmail = property(get_WorkEmail, None)
-    YomiGivenName = property(get_YomiGivenName, None)
-    YomiFamilyName = property(get_YomiFamilyName, None)
-    YomiCompanyName = property(get_YomiCompanyName, None)
+    OtherAddress = property(get_OtherAddress, None)
     OtherEmail = property(get_OtherEmail, None)
-    AlternateMobileTelephone = property(get_AlternateMobileTelephone, None)
-    AlternateWorkTelephone = property(get_AlternateWorkTelephone, None)
+    SignificantOther = property(get_SignificantOther, None)
+    Telephone = property(get_Telephone, None)
+    Url = property(get_Url, None)
+    WorkAddress = property(get_WorkAddress, None)
+    WorkEmail = property(get_WorkEmail, None)
+    WorkFax = property(get_WorkFax, None)
+    WorkTelephone = property(get_WorkTelephone, None)
+    YomiCompanyName = property(get_YomiCompanyName, None)
+    YomiFamilyName = property(get_YomiFamilyName, None)
+    YomiGivenName = property(get_YomiGivenName, None)
 class IStoredContact(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Phone.PersonalInformation.IStoredContact'
@@ -483,9 +483,9 @@ class IStoredContact(ComPtr):
     def SaveAsync(self) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(12)
     def ReplaceExistingContactAsync(self, id: WinRT_String) -> win32more.Windows.Foundation.IAsyncAction: ...
-    Store = property(get_Store, None)
     Id = property(get_Id, None)
     RemoteId = property(get_RemoteId, put_RemoteId)
+    Store = property(get_Store, None)
 class IStoredContactFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Phone.PersonalInformation.IStoredContactFactory'
@@ -569,41 +569,41 @@ class KnownContactProperties(ComPtr, metaclass=_KnownContactProperties_Meta_):
     def get_AlternateMobileTelephone(cls: win32more.Windows.Phone.PersonalInformation.IKnownContactPropertiesStatics) -> WinRT_String: ...
     @winrt_classmethod
     def get_AlternateWorkTelephone(cls: win32more.Windows.Phone.PersonalInformation.IKnownContactPropertiesStatics) -> WinRT_String: ...
-    _KnownContactProperties_Meta_.DisplayName = property(get_DisplayName.__wrapped__, None)
-    _KnownContactProperties_Meta_.FamilyName = property(get_FamilyName.__wrapped__, None)
-    _KnownContactProperties_Meta_.GivenName = property(get_GivenName.__wrapped__, None)
-    _KnownContactProperties_Meta_.HonorificPrefix = property(get_HonorificPrefix.__wrapped__, None)
-    _KnownContactProperties_Meta_.HonorificSuffix = property(get_HonorificSuffix.__wrapped__, None)
     _KnownContactProperties_Meta_.AdditionalName = property(get_AdditionalName.__wrapped__, None)
     _KnownContactProperties_Meta_.Address = property(get_Address.__wrapped__, None)
-    _KnownContactProperties_Meta_.OtherAddress = property(get_OtherAddress.__wrapped__, None)
-    _KnownContactProperties_Meta_.Email = property(get_Email.__wrapped__, None)
-    _KnownContactProperties_Meta_.WorkAddress = property(get_WorkAddress.__wrapped__, None)
-    _KnownContactProperties_Meta_.WorkTelephone = property(get_WorkTelephone.__wrapped__, None)
-    _KnownContactProperties_Meta_.JobTitle = property(get_JobTitle.__wrapped__, None)
-    _KnownContactProperties_Meta_.Birthdate = property(get_Birthdate.__wrapped__, None)
+    _KnownContactProperties_Meta_.AlternateMobileTelephone = property(get_AlternateMobileTelephone.__wrapped__, None)
+    _KnownContactProperties_Meta_.AlternateTelephone = property(get_AlternateTelephone.__wrapped__, None)
+    _KnownContactProperties_Meta_.AlternateWorkTelephone = property(get_AlternateWorkTelephone.__wrapped__, None)
     _KnownContactProperties_Meta_.Anniversary = property(get_Anniversary.__wrapped__, None)
-    _KnownContactProperties_Meta_.Telephone = property(get_Telephone.__wrapped__, None)
-    _KnownContactProperties_Meta_.MobileTelephone = property(get_MobileTelephone.__wrapped__, None)
-    _KnownContactProperties_Meta_.Url = property(get_Url.__wrapped__, None)
-    _KnownContactProperties_Meta_.Notes = property(get_Notes.__wrapped__, None)
-    _KnownContactProperties_Meta_.WorkFax = property(get_WorkFax.__wrapped__, None)
+    _KnownContactProperties_Meta_.Birthdate = property(get_Birthdate.__wrapped__, None)
     _KnownContactProperties_Meta_.Children = property(get_Children.__wrapped__, None)
-    _KnownContactProperties_Meta_.SignificantOther = property(get_SignificantOther.__wrapped__, None)
     _KnownContactProperties_Meta_.CompanyName = property(get_CompanyName.__wrapped__, None)
     _KnownContactProperties_Meta_.CompanyTelephone = property(get_CompanyTelephone.__wrapped__, None)
+    _KnownContactProperties_Meta_.DisplayName = property(get_DisplayName.__wrapped__, None)
+    _KnownContactProperties_Meta_.Email = property(get_Email.__wrapped__, None)
+    _KnownContactProperties_Meta_.FamilyName = property(get_FamilyName.__wrapped__, None)
+    _KnownContactProperties_Meta_.GivenName = property(get_GivenName.__wrapped__, None)
     _KnownContactProperties_Meta_.HomeFax = property(get_HomeFax.__wrapped__, None)
-    _KnownContactProperties_Meta_.AlternateTelephone = property(get_AlternateTelephone.__wrapped__, None)
+    _KnownContactProperties_Meta_.HonorificPrefix = property(get_HonorificPrefix.__wrapped__, None)
+    _KnownContactProperties_Meta_.HonorificSuffix = property(get_HonorificSuffix.__wrapped__, None)
+    _KnownContactProperties_Meta_.JobTitle = property(get_JobTitle.__wrapped__, None)
     _KnownContactProperties_Meta_.Manager = property(get_Manager.__wrapped__, None)
+    _KnownContactProperties_Meta_.MobileTelephone = property(get_MobileTelephone.__wrapped__, None)
     _KnownContactProperties_Meta_.Nickname = property(get_Nickname.__wrapped__, None)
+    _KnownContactProperties_Meta_.Notes = property(get_Notes.__wrapped__, None)
     _KnownContactProperties_Meta_.OfficeLocation = property(get_OfficeLocation.__wrapped__, None)
-    _KnownContactProperties_Meta_.WorkEmail = property(get_WorkEmail.__wrapped__, None)
-    _KnownContactProperties_Meta_.YomiGivenName = property(get_YomiGivenName.__wrapped__, None)
-    _KnownContactProperties_Meta_.YomiFamilyName = property(get_YomiFamilyName.__wrapped__, None)
-    _KnownContactProperties_Meta_.YomiCompanyName = property(get_YomiCompanyName.__wrapped__, None)
+    _KnownContactProperties_Meta_.OtherAddress = property(get_OtherAddress.__wrapped__, None)
     _KnownContactProperties_Meta_.OtherEmail = property(get_OtherEmail.__wrapped__, None)
-    _KnownContactProperties_Meta_.AlternateMobileTelephone = property(get_AlternateMobileTelephone.__wrapped__, None)
-    _KnownContactProperties_Meta_.AlternateWorkTelephone = property(get_AlternateWorkTelephone.__wrapped__, None)
+    _KnownContactProperties_Meta_.SignificantOther = property(get_SignificantOther.__wrapped__, None)
+    _KnownContactProperties_Meta_.Telephone = property(get_Telephone.__wrapped__, None)
+    _KnownContactProperties_Meta_.Url = property(get_Url.__wrapped__, None)
+    _KnownContactProperties_Meta_.WorkAddress = property(get_WorkAddress.__wrapped__, None)
+    _KnownContactProperties_Meta_.WorkEmail = property(get_WorkEmail.__wrapped__, None)
+    _KnownContactProperties_Meta_.WorkFax = property(get_WorkFax.__wrapped__, None)
+    _KnownContactProperties_Meta_.WorkTelephone = property(get_WorkTelephone.__wrapped__, None)
+    _KnownContactProperties_Meta_.YomiCompanyName = property(get_YomiCompanyName.__wrapped__, None)
+    _KnownContactProperties_Meta_.YomiFamilyName = property(get_YomiFamilyName.__wrapped__, None)
+    _KnownContactProperties_Meta_.YomiGivenName = property(get_YomiGivenName.__wrapped__, None)
 class StoredContact(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Phone.PersonalInformation.IStoredContact
@@ -671,16 +671,16 @@ class StoredContact(ComPtr):
     def get_DisplayPictureDate(self: win32more.Windows.Phone.PersonalInformation.IContactInformation2) -> win32more.Windows.Foundation.DateTime: ...
     @winrt_mixinmethod
     def put_DisplayPictureDate(self: win32more.Windows.Phone.PersonalInformation.IContactInformation2, returnValue: win32more.Windows.Foundation.DateTime) -> Void: ...
-    Store = property(get_Store, None)
-    Id = property(get_Id, None)
-    RemoteId = property(get_RemoteId, put_RemoteId)
     DisplayName = property(get_DisplayName, put_DisplayName)
+    DisplayPicture = property(get_DisplayPicture, None)
+    DisplayPictureDate = property(get_DisplayPictureDate, put_DisplayPictureDate)
     FamilyName = property(get_FamilyName, put_FamilyName)
     GivenName = property(get_GivenName, put_GivenName)
     HonorificPrefix = property(get_HonorificPrefix, put_HonorificPrefix)
     HonorificSuffix = property(get_HonorificSuffix, put_HonorificSuffix)
-    DisplayPicture = property(get_DisplayPicture, None)
-    DisplayPictureDate = property(get_DisplayPictureDate, put_DisplayPictureDate)
+    Id = property(get_Id, None)
+    RemoteId = property(get_RemoteId, put_RemoteId)
+    Store = property(get_Store, None)
 class VCardFormat(Int32):  # enum
     Version2_1 = 0
     Version3 = 1

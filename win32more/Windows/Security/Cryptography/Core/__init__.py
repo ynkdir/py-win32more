@@ -54,19 +54,19 @@ class AsymmetricAlgorithmNames(ComPtr, metaclass=_AsymmetricAlgorithmNames_Meta_
     def get_RsaSignPssSha384(cls: win32more.Windows.Security.Cryptography.Core.IAsymmetricAlgorithmNamesStatics) -> WinRT_String: ...
     @winrt_classmethod
     def get_RsaSignPssSha512(cls: win32more.Windows.Security.Cryptography.Core.IAsymmetricAlgorithmNamesStatics) -> WinRT_String: ...
+    _AsymmetricAlgorithmNames_Meta_.DsaSha1 = property(get_DsaSha1.__wrapped__, None)
+    _AsymmetricAlgorithmNames_Meta_.DsaSha256 = property(get_DsaSha256.__wrapped__, None)
+    _AsymmetricAlgorithmNames_Meta_.EcdsaP256Sha256 = property(get_EcdsaP256Sha256.__wrapped__, None)
+    _AsymmetricAlgorithmNames_Meta_.EcdsaP384Sha384 = property(get_EcdsaP384Sha384.__wrapped__, None)
+    _AsymmetricAlgorithmNames_Meta_.EcdsaP521Sha512 = property(get_EcdsaP521Sha512.__wrapped__, None)
     _AsymmetricAlgorithmNames_Meta_.EcdsaSha256 = property(get_EcdsaSha256.__wrapped__, None)
     _AsymmetricAlgorithmNames_Meta_.EcdsaSha384 = property(get_EcdsaSha384.__wrapped__, None)
     _AsymmetricAlgorithmNames_Meta_.EcdsaSha512 = property(get_EcdsaSha512.__wrapped__, None)
-    _AsymmetricAlgorithmNames_Meta_.RsaPkcs1 = property(get_RsaPkcs1.__wrapped__, None)
     _AsymmetricAlgorithmNames_Meta_.RsaOaepSha1 = property(get_RsaOaepSha1.__wrapped__, None)
     _AsymmetricAlgorithmNames_Meta_.RsaOaepSha256 = property(get_RsaOaepSha256.__wrapped__, None)
     _AsymmetricAlgorithmNames_Meta_.RsaOaepSha384 = property(get_RsaOaepSha384.__wrapped__, None)
     _AsymmetricAlgorithmNames_Meta_.RsaOaepSha512 = property(get_RsaOaepSha512.__wrapped__, None)
-    _AsymmetricAlgorithmNames_Meta_.EcdsaP256Sha256 = property(get_EcdsaP256Sha256.__wrapped__, None)
-    _AsymmetricAlgorithmNames_Meta_.EcdsaP384Sha384 = property(get_EcdsaP384Sha384.__wrapped__, None)
-    _AsymmetricAlgorithmNames_Meta_.EcdsaP521Sha512 = property(get_EcdsaP521Sha512.__wrapped__, None)
-    _AsymmetricAlgorithmNames_Meta_.DsaSha1 = property(get_DsaSha1.__wrapped__, None)
-    _AsymmetricAlgorithmNames_Meta_.DsaSha256 = property(get_DsaSha256.__wrapped__, None)
+    _AsymmetricAlgorithmNames_Meta_.RsaPkcs1 = property(get_RsaPkcs1.__wrapped__, None)
     _AsymmetricAlgorithmNames_Meta_.RsaSignPkcs1Sha1 = property(get_RsaSignPkcs1Sha1.__wrapped__, None)
     _AsymmetricAlgorithmNames_Meta_.RsaSignPkcs1Sha256 = property(get_RsaSignPkcs1Sha256.__wrapped__, None)
     _AsymmetricAlgorithmNames_Meta_.RsaSignPkcs1Sha384 = property(get_RsaSignPkcs1Sha384.__wrapped__, None)
@@ -265,6 +265,7 @@ class EccCurveNames(ComPtr, metaclass=_EccCurveNames_Meta_):
     def get_X962P256v1(cls: win32more.Windows.Security.Cryptography.Core.IEccCurveNamesStatics) -> WinRT_String: ...
     @winrt_classmethod
     def get_AllEccCurveNames(cls: win32more.Windows.Security.Cryptography.Core.IEccCurveNamesStatics) -> win32more.Windows.Foundation.Collections.IVectorView[WinRT_String]: ...
+    _EccCurveNames_Meta_.AllEccCurveNames = property(get_AllEccCurveNames.__wrapped__, None)
     _EccCurveNames_Meta_.BrainpoolP160r1 = property(get_BrainpoolP160r1.__wrapped__, None)
     _EccCurveNames_Meta_.BrainpoolP160t1 = property(get_BrainpoolP160t1.__wrapped__, None)
     _EccCurveNames_Meta_.BrainpoolP192r1 = property(get_BrainpoolP192r1.__wrapped__, None)
@@ -300,9 +301,9 @@ class EccCurveNames(ComPtr, metaclass=_EccCurveNames_Meta_):
     _EccCurveNames_Meta_.SecP256r1 = property(get_SecP256r1.__wrapped__, None)
     _EccCurveNames_Meta_.SecP384r1 = property(get_SecP384r1.__wrapped__, None)
     _EccCurveNames_Meta_.SecP521r1 = property(get_SecP521r1.__wrapped__, None)
+    _EccCurveNames_Meta_.Wtls12 = property(get_Wtls12.__wrapped__, None)
     _EccCurveNames_Meta_.Wtls7 = property(get_Wtls7.__wrapped__, None)
     _EccCurveNames_Meta_.Wtls9 = property(get_Wtls9.__wrapped__, None)
-    _EccCurveNames_Meta_.Wtls12 = property(get_Wtls12.__wrapped__, None)
     _EccCurveNames_Meta_.X962P192v1 = property(get_X962P192v1.__wrapped__, None)
     _EccCurveNames_Meta_.X962P192v2 = property(get_X962P192v2.__wrapped__, None)
     _EccCurveNames_Meta_.X962P192v3 = property(get_X962P192v3.__wrapped__, None)
@@ -310,7 +311,6 @@ class EccCurveNames(ComPtr, metaclass=_EccCurveNames_Meta_):
     _EccCurveNames_Meta_.X962P239v2 = property(get_X962P239v2.__wrapped__, None)
     _EccCurveNames_Meta_.X962P239v3 = property(get_X962P239v3.__wrapped__, None)
     _EccCurveNames_Meta_.X962P256v1 = property(get_X962P256v1.__wrapped__, None)
-    _EccCurveNames_Meta_.AllEccCurveNames = property(get_AllEccCurveNames.__wrapped__, None)
 class EncryptedAndAuthenticatedData(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Cryptography.Core.IEncryptedAndAuthenticatedData
@@ -319,8 +319,8 @@ class EncryptedAndAuthenticatedData(ComPtr):
     def get_EncryptedData(self: win32more.Windows.Security.Cryptography.Core.IEncryptedAndAuthenticatedData) -> win32more.Windows.Storage.Streams.IBuffer: ...
     @winrt_mixinmethod
     def get_AuthenticationTag(self: win32more.Windows.Security.Cryptography.Core.IEncryptedAndAuthenticatedData) -> win32more.Windows.Storage.Streams.IBuffer: ...
-    EncryptedData = property(get_EncryptedData, None)
     AuthenticationTag = property(get_AuthenticationTag, None)
+    EncryptedData = property(get_EncryptedData, None)
 class _HashAlgorithmNames_Meta_(ComPtr.__class__):
     pass
 class HashAlgorithmNames(ComPtr, metaclass=_HashAlgorithmNames_Meta_):
@@ -397,16 +397,16 @@ class IAsymmetricAlgorithmNamesStatics(ComPtr):
     def get_RsaSignPssSha384(self) -> WinRT_String: ...
     @winrt_commethod(23)
     def get_RsaSignPssSha512(self) -> WinRT_String: ...
-    RsaPkcs1 = property(get_RsaPkcs1, None)
+    DsaSha1 = property(get_DsaSha1, None)
+    DsaSha256 = property(get_DsaSha256, None)
+    EcdsaP256Sha256 = property(get_EcdsaP256Sha256, None)
+    EcdsaP384Sha384 = property(get_EcdsaP384Sha384, None)
+    EcdsaP521Sha512 = property(get_EcdsaP521Sha512, None)
     RsaOaepSha1 = property(get_RsaOaepSha1, None)
     RsaOaepSha256 = property(get_RsaOaepSha256, None)
     RsaOaepSha384 = property(get_RsaOaepSha384, None)
     RsaOaepSha512 = property(get_RsaOaepSha512, None)
-    EcdsaP256Sha256 = property(get_EcdsaP256Sha256, None)
-    EcdsaP384Sha384 = property(get_EcdsaP384Sha384, None)
-    EcdsaP521Sha512 = property(get_EcdsaP521Sha512, None)
-    DsaSha1 = property(get_DsaSha1, None)
-    DsaSha256 = property(get_DsaSha256, None)
+    RsaPkcs1 = property(get_RsaPkcs1, None)
     RsaSignPkcs1Sha1 = property(get_RsaSignPkcs1Sha1, None)
     RsaSignPkcs1Sha256 = property(get_RsaSignPkcs1Sha256, None)
     RsaSignPkcs1Sha384 = property(get_RsaSignPkcs1Sha384, None)
@@ -602,6 +602,7 @@ class IEccCurveNamesStatics(ComPtr):
     def get_X962P256v1(self) -> WinRT_String: ...
     @winrt_commethod(51)
     def get_AllEccCurveNames(self) -> win32more.Windows.Foundation.Collections.IVectorView[WinRT_String]: ...
+    AllEccCurveNames = property(get_AllEccCurveNames, None)
     BrainpoolP160r1 = property(get_BrainpoolP160r1, None)
     BrainpoolP160t1 = property(get_BrainpoolP160t1, None)
     BrainpoolP192r1 = property(get_BrainpoolP192r1, None)
@@ -637,9 +638,9 @@ class IEccCurveNamesStatics(ComPtr):
     SecP256r1 = property(get_SecP256r1, None)
     SecP384r1 = property(get_SecP384r1, None)
     SecP521r1 = property(get_SecP521r1, None)
+    Wtls12 = property(get_Wtls12, None)
     Wtls7 = property(get_Wtls7, None)
     Wtls9 = property(get_Wtls9, None)
-    Wtls12 = property(get_Wtls12, None)
     X962P192v1 = property(get_X962P192v1, None)
     X962P192v2 = property(get_X962P192v2, None)
     X962P192v3 = property(get_X962P192v3, None)
@@ -647,7 +648,6 @@ class IEccCurveNamesStatics(ComPtr):
     X962P239v2 = property(get_X962P239v2, None)
     X962P239v3 = property(get_X962P239v3, None)
     X962P256v1 = property(get_X962P256v1, None)
-    AllEccCurveNames = property(get_AllEccCurveNames, None)
 class IEncryptedAndAuthenticatedData(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.Cryptography.Core.IEncryptedAndAuthenticatedData'
@@ -656,8 +656,8 @@ class IEncryptedAndAuthenticatedData(ComPtr):
     def get_EncryptedData(self) -> win32more.Windows.Storage.Streams.IBuffer: ...
     @winrt_commethod(7)
     def get_AuthenticationTag(self) -> win32more.Windows.Storage.Streams.IBuffer: ...
-    EncryptedData = property(get_EncryptedData, None)
     AuthenticationTag = property(get_AuthenticationTag, None)
+    EncryptedData = property(get_EncryptedData, None)
 class IHashAlgorithmNamesStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.Cryptography.Core.IHashAlgorithmNamesStatics'
@@ -798,8 +798,8 @@ class IKeyDerivationParameters(ComPtr):
     def put_KdfGenericBinary(self, value: win32more.Windows.Storage.Streams.IBuffer) -> Void: ...
     @winrt_commethod(8)
     def get_IterationCount(self) -> UInt32: ...
-    KdfGenericBinary = property(get_KdfGenericBinary, put_KdfGenericBinary)
     IterationCount = property(get_IterationCount, None)
+    KdfGenericBinary = property(get_KdfGenericBinary, put_KdfGenericBinary)
 class IKeyDerivationParameters2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.Cryptography.Core.IKeyDerivationParameters2'
@@ -841,12 +841,12 @@ class IMacAlgorithmNamesStatics(ComPtr):
     def get_HmacSha512(self) -> WinRT_String: ...
     @winrt_commethod(11)
     def get_AesCmac(self) -> WinRT_String: ...
+    AesCmac = property(get_AesCmac, None)
     HmacMd5 = property(get_HmacMd5, None)
     HmacSha1 = property(get_HmacSha1, None)
     HmacSha256 = property(get_HmacSha256, None)
     HmacSha384 = property(get_HmacSha384, None)
     HmacSha512 = property(get_HmacSha512, None)
-    AesCmac = property(get_AesCmac, None)
 class IMacAlgorithmProvider(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.Cryptography.Core.IMacAlgorithmProvider'
@@ -921,25 +921,25 @@ class ISymmetricAlgorithmNamesStatics(ComPtr):
     def get_Rc2EcbPkcs7(self) -> WinRT_String: ...
     @winrt_commethod(24)
     def get_Rc4(self) -> WinRT_String: ...
-    DesCbc = property(get_DesCbc, None)
-    DesEcb = property(get_DesEcb, None)
-    TripleDesCbc = property(get_TripleDesCbc, None)
-    TripleDesEcb = property(get_TripleDesEcb, None)
-    Rc2Cbc = property(get_Rc2Cbc, None)
-    Rc2Ecb = property(get_Rc2Ecb, None)
     AesCbc = property(get_AesCbc, None)
-    AesEcb = property(get_AesEcb, None)
-    AesGcm = property(get_AesGcm, None)
-    AesCcm = property(get_AesCcm, None)
     AesCbcPkcs7 = property(get_AesCbcPkcs7, None)
+    AesCcm = property(get_AesCcm, None)
+    AesEcb = property(get_AesEcb, None)
     AesEcbPkcs7 = property(get_AesEcbPkcs7, None)
+    AesGcm = property(get_AesGcm, None)
+    DesCbc = property(get_DesCbc, None)
     DesCbcPkcs7 = property(get_DesCbcPkcs7, None)
+    DesEcb = property(get_DesEcb, None)
     DesEcbPkcs7 = property(get_DesEcbPkcs7, None)
-    TripleDesCbcPkcs7 = property(get_TripleDesCbcPkcs7, None)
-    TripleDesEcbPkcs7 = property(get_TripleDesEcbPkcs7, None)
+    Rc2Cbc = property(get_Rc2Cbc, None)
     Rc2CbcPkcs7 = property(get_Rc2CbcPkcs7, None)
+    Rc2Ecb = property(get_Rc2Ecb, None)
     Rc2EcbPkcs7 = property(get_Rc2EcbPkcs7, None)
     Rc4 = property(get_Rc4, None)
+    TripleDesCbc = property(get_TripleDesCbc, None)
+    TripleDesCbcPkcs7 = property(get_TripleDesCbcPkcs7, None)
+    TripleDesEcb = property(get_TripleDesEcb, None)
+    TripleDesEcbPkcs7 = property(get_TripleDesEcbPkcs7, None)
 class ISymmetricKeyAlgorithmProvider(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.Cryptography.Core.ISymmetricKeyAlgorithmProvider'
@@ -1056,9 +1056,9 @@ class KeyDerivationParameters(ComPtr):
     def BuildForSP800108(cls: win32more.Windows.Security.Cryptography.Core.IKeyDerivationParametersStatics, label: win32more.Windows.Storage.Streams.IBuffer, context: win32more.Windows.Storage.Streams.IBuffer) -> win32more.Windows.Security.Cryptography.Core.KeyDerivationParameters: ...
     @winrt_classmethod
     def BuildForSP80056a(cls: win32more.Windows.Security.Cryptography.Core.IKeyDerivationParametersStatics, algorithmId: win32more.Windows.Storage.Streams.IBuffer, partyUInfo: win32more.Windows.Storage.Streams.IBuffer, partyVInfo: win32more.Windows.Storage.Streams.IBuffer, suppPubInfo: win32more.Windows.Storage.Streams.IBuffer, suppPrivInfo: win32more.Windows.Storage.Streams.IBuffer) -> win32more.Windows.Security.Cryptography.Core.KeyDerivationParameters: ...
-    KdfGenericBinary = property(get_KdfGenericBinary, put_KdfGenericBinary)
-    IterationCount = property(get_IterationCount, None)
     Capi1KdfTargetAlgorithm = property(get_Capi1KdfTargetAlgorithm, put_Capi1KdfTargetAlgorithm)
+    IterationCount = property(get_IterationCount, None)
+    KdfGenericBinary = property(get_KdfGenericBinary, put_KdfGenericBinary)
 class _MacAlgorithmNames_Meta_(ComPtr.__class__):
     pass
 class MacAlgorithmNames(ComPtr, metaclass=_MacAlgorithmNames_Meta_):
@@ -1076,12 +1076,12 @@ class MacAlgorithmNames(ComPtr, metaclass=_MacAlgorithmNames_Meta_):
     def get_HmacSha512(cls: win32more.Windows.Security.Cryptography.Core.IMacAlgorithmNamesStatics) -> WinRT_String: ...
     @winrt_classmethod
     def get_AesCmac(cls: win32more.Windows.Security.Cryptography.Core.IMacAlgorithmNamesStatics) -> WinRT_String: ...
+    _MacAlgorithmNames_Meta_.AesCmac = property(get_AesCmac.__wrapped__, None)
     _MacAlgorithmNames_Meta_.HmacMd5 = property(get_HmacMd5.__wrapped__, None)
     _MacAlgorithmNames_Meta_.HmacSha1 = property(get_HmacSha1.__wrapped__, None)
     _MacAlgorithmNames_Meta_.HmacSha256 = property(get_HmacSha256.__wrapped__, None)
     _MacAlgorithmNames_Meta_.HmacSha384 = property(get_HmacSha384.__wrapped__, None)
     _MacAlgorithmNames_Meta_.HmacSha512 = property(get_HmacSha512.__wrapped__, None)
-    _MacAlgorithmNames_Meta_.AesCmac = property(get_AesCmac.__wrapped__, None)
 class MacAlgorithmProvider(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Cryptography.Core.IMacAlgorithmProvider
@@ -1148,25 +1148,25 @@ class SymmetricAlgorithmNames(ComPtr, metaclass=_SymmetricAlgorithmNames_Meta_):
     def get_Rc2EcbPkcs7(cls: win32more.Windows.Security.Cryptography.Core.ISymmetricAlgorithmNamesStatics) -> WinRT_String: ...
     @winrt_classmethod
     def get_Rc4(cls: win32more.Windows.Security.Cryptography.Core.ISymmetricAlgorithmNamesStatics) -> WinRT_String: ...
-    _SymmetricAlgorithmNames_Meta_.DesCbc = property(get_DesCbc.__wrapped__, None)
-    _SymmetricAlgorithmNames_Meta_.DesEcb = property(get_DesEcb.__wrapped__, None)
-    _SymmetricAlgorithmNames_Meta_.TripleDesCbc = property(get_TripleDesCbc.__wrapped__, None)
-    _SymmetricAlgorithmNames_Meta_.TripleDesEcb = property(get_TripleDesEcb.__wrapped__, None)
-    _SymmetricAlgorithmNames_Meta_.Rc2Cbc = property(get_Rc2Cbc.__wrapped__, None)
-    _SymmetricAlgorithmNames_Meta_.Rc2Ecb = property(get_Rc2Ecb.__wrapped__, None)
     _SymmetricAlgorithmNames_Meta_.AesCbc = property(get_AesCbc.__wrapped__, None)
-    _SymmetricAlgorithmNames_Meta_.AesEcb = property(get_AesEcb.__wrapped__, None)
-    _SymmetricAlgorithmNames_Meta_.AesGcm = property(get_AesGcm.__wrapped__, None)
-    _SymmetricAlgorithmNames_Meta_.AesCcm = property(get_AesCcm.__wrapped__, None)
     _SymmetricAlgorithmNames_Meta_.AesCbcPkcs7 = property(get_AesCbcPkcs7.__wrapped__, None)
+    _SymmetricAlgorithmNames_Meta_.AesCcm = property(get_AesCcm.__wrapped__, None)
+    _SymmetricAlgorithmNames_Meta_.AesEcb = property(get_AesEcb.__wrapped__, None)
     _SymmetricAlgorithmNames_Meta_.AesEcbPkcs7 = property(get_AesEcbPkcs7.__wrapped__, None)
+    _SymmetricAlgorithmNames_Meta_.AesGcm = property(get_AesGcm.__wrapped__, None)
+    _SymmetricAlgorithmNames_Meta_.DesCbc = property(get_DesCbc.__wrapped__, None)
     _SymmetricAlgorithmNames_Meta_.DesCbcPkcs7 = property(get_DesCbcPkcs7.__wrapped__, None)
+    _SymmetricAlgorithmNames_Meta_.DesEcb = property(get_DesEcb.__wrapped__, None)
     _SymmetricAlgorithmNames_Meta_.DesEcbPkcs7 = property(get_DesEcbPkcs7.__wrapped__, None)
-    _SymmetricAlgorithmNames_Meta_.TripleDesCbcPkcs7 = property(get_TripleDesCbcPkcs7.__wrapped__, None)
-    _SymmetricAlgorithmNames_Meta_.TripleDesEcbPkcs7 = property(get_TripleDesEcbPkcs7.__wrapped__, None)
+    _SymmetricAlgorithmNames_Meta_.Rc2Cbc = property(get_Rc2Cbc.__wrapped__, None)
     _SymmetricAlgorithmNames_Meta_.Rc2CbcPkcs7 = property(get_Rc2CbcPkcs7.__wrapped__, None)
+    _SymmetricAlgorithmNames_Meta_.Rc2Ecb = property(get_Rc2Ecb.__wrapped__, None)
     _SymmetricAlgorithmNames_Meta_.Rc2EcbPkcs7 = property(get_Rc2EcbPkcs7.__wrapped__, None)
     _SymmetricAlgorithmNames_Meta_.Rc4 = property(get_Rc4.__wrapped__, None)
+    _SymmetricAlgorithmNames_Meta_.TripleDesCbc = property(get_TripleDesCbc.__wrapped__, None)
+    _SymmetricAlgorithmNames_Meta_.TripleDesCbcPkcs7 = property(get_TripleDesCbcPkcs7.__wrapped__, None)
+    _SymmetricAlgorithmNames_Meta_.TripleDesEcb = property(get_TripleDesEcb.__wrapped__, None)
+    _SymmetricAlgorithmNames_Meta_.TripleDesEcbPkcs7 = property(get_TripleDesEcbPkcs7.__wrapped__, None)
 class SymmetricKeyAlgorithmProvider(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Cryptography.Core.ISymmetricKeyAlgorithmProvider

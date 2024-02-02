@@ -106,8 +106,8 @@ class IAsyncActionWithProgress(Generic[TProgress], ComPtr):
     def get_Completed(self) -> win32more.Windows.Foundation.AsyncActionWithProgressCompletedHandler[TProgress]: ...
     @winrt_commethod(10)
     def GetResults(self) -> Void: ...
-    Progress = property(get_Progress, put_Progress)
     Completed = property(get_Completed, put_Completed)
+    Progress = property(get_Progress, put_Progress)
     def __await__(self):
         from win32more._winrt import IAsyncAction___await__
         return IAsyncAction___await__(self)
@@ -125,9 +125,9 @@ class IAsyncInfo(ComPtr):
     def Cancel(self) -> Void: ...
     @winrt_commethod(10)
     def Close(self) -> Void: ...
+    ErrorCode = property(get_ErrorCode, None)
     Id = property(get_Id, None)
     Status = property(get_Status, None)
-    ErrorCode = property(get_ErrorCode, None)
 class IAsyncOperationWithProgress(Generic[TResult, TProgress], ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Foundation.IAsyncOperationWithProgress'
@@ -142,8 +142,8 @@ class IAsyncOperationWithProgress(Generic[TResult, TProgress], ComPtr):
     def get_Completed(self) -> win32more.Windows.Foundation.AsyncOperationWithProgressCompletedHandler[TResult, TProgress]: ...
     @winrt_commethod(10)
     def GetResults(self) -> TResult: ...
-    Progress = property(get_Progress, put_Progress)
     Completed = property(get_Completed, put_Completed)
+    Progress = property(get_Progress, put_Progress)
     def __await__(self):
         from win32more._winrt import IAsyncOperation___await__
         return IAsyncOperation___await__(self)
@@ -301,8 +301,8 @@ class IPropertyValue(ComPtr):
     def GetSizeArray(self, value: POINTER(SZArray[win32more.Windows.Foundation.Size])) -> Void: ...
     @winrt_commethod(44)
     def GetRectArray(self, value: POINTER(SZArray[win32more.Windows.Foundation.Rect])) -> Void: ...
-    Type = property(get_Type, None)
     IsNumericScalar = property(get_IsNumericScalar, None)
+    Type = property(get_Type, None)
 class IPropertyValueStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Foundation.IPropertyValueStatics'
@@ -459,13 +459,13 @@ class IUriRuntimeClass(ComPtr):
     Host = property(get_Host, None)
     Password = property(get_Password, None)
     Path = property(get_Path, None)
+    Port = property(get_Port, None)
     Query = property(get_Query, None)
     QueryParsed = property(get_QueryParsed, None)
     RawUri = property(get_RawUri, None)
     SchemeName = property(get_SchemeName, None)
-    UserName = property(get_UserName, None)
-    Port = property(get_Port, None)
     Suspicious = property(get_Suspicious, None)
+    UserName = property(get_UserName, None)
 class IUriRuntimeClassFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Foundation.IUriRuntimeClassFactory'
@@ -725,7 +725,9 @@ class Uri(ComPtr):
     def UnescapeComponent(cls: win32more.Windows.Foundation.IUriEscapeStatics, toUnescape: WinRT_String) -> WinRT_String: ...
     @winrt_classmethod
     def EscapeComponent(cls: win32more.Windows.Foundation.IUriEscapeStatics, toEscape: WinRT_String) -> WinRT_String: ...
+    AbsoluteCanonicalUri = property(get_AbsoluteCanonicalUri, None)
     AbsoluteUri = property(get_AbsoluteUri, None)
+    DisplayIri = property(get_DisplayIri, None)
     DisplayUri = property(get_DisplayUri, None)
     Domain = property(get_Domain, None)
     Extension = property(get_Extension, None)
@@ -733,15 +735,13 @@ class Uri(ComPtr):
     Host = property(get_Host, None)
     Password = property(get_Password, None)
     Path = property(get_Path, None)
+    Port = property(get_Port, None)
     Query = property(get_Query, None)
     QueryParsed = property(get_QueryParsed, None)
     RawUri = property(get_RawUri, None)
     SchemeName = property(get_SchemeName, None)
-    UserName = property(get_UserName, None)
-    Port = property(get_Port, None)
     Suspicious = property(get_Suspicious, None)
-    AbsoluteCanonicalUri = property(get_AbsoluteCanonicalUri, None)
-    DisplayIri = property(get_DisplayIri, None)
+    UserName = property(get_UserName, None)
 class WwwFormUrlDecoder(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.IWwwFormUrlDecoderRuntimeClass

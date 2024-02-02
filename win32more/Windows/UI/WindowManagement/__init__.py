@@ -112,8 +112,8 @@ class AppWindowChangedEventArgs(ComPtr):
     DidSizeChange = property(get_DidSizeChange, None)
     DidTitleBarChange = property(get_DidTitleBarChange, None)
     DidVisibilityChange = property(get_DidVisibilityChange, None)
-    DidWindowingEnvironmentChange = property(get_DidWindowingEnvironmentChange, None)
     DidWindowPresentationChange = property(get_DidWindowPresentationChange, None)
+    DidWindowingEnvironmentChange = property(get_DidWindowingEnvironmentChange, None)
 class AppWindowCloseRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.WindowManagement.IAppWindowCloseRequestedEventArgs
@@ -320,9 +320,9 @@ class DisplayRegion(ComPtr):
     def remove_Changed(self: win32more.Windows.UI.WindowManagement.IDisplayRegion, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     DisplayMonitorDeviceId = property(get_DisplayMonitorDeviceId, None)
     IsVisible = property(get_IsVisible, None)
+    WindowingEnvironment = property(get_WindowingEnvironment, None)
     WorkAreaOffset = property(get_WorkAreaOffset, None)
     WorkAreaSize = property(get_WorkAreaSize, None)
-    WindowingEnvironment = property(get_WindowingEnvironment, None)
 class FullScreenPresentationConfiguration(ComPtr):
     extends: win32more.Windows.UI.WindowManagement.AppWindowPresentationConfiguration
     default_interface: win32more.Windows.UI.WindowManagement.IFullScreenPresentationConfiguration
@@ -439,8 +439,8 @@ class IAppWindowChangedEventArgs(ComPtr):
     DidSizeChange = property(get_DidSizeChange, None)
     DidTitleBarChange = property(get_DidTitleBarChange, None)
     DidVisibilityChange = property(get_DidVisibilityChange, None)
-    DidWindowingEnvironmentChange = property(get_DidWindowingEnvironmentChange, None)
     DidWindowPresentationChange = property(get_DidWindowPresentationChange, None)
+    DidWindowingEnvironmentChange = property(get_DidWindowingEnvironmentChange, None)
 class IAppWindowCloseRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.WindowManagement.IAppWindowCloseRequestedEventArgs'
@@ -637,9 +637,9 @@ class IDisplayRegion(ComPtr):
     def remove_Changed(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     DisplayMonitorDeviceId = property(get_DisplayMonitorDeviceId, None)
     IsVisible = property(get_IsVisible, None)
+    WindowingEnvironment = property(get_WindowingEnvironment, None)
     WorkAreaOffset = property(get_WorkAreaOffset, None)
     WorkAreaSize = property(get_WorkAreaSize, None)
-    WindowingEnvironment = property(get_WindowingEnvironment, None)
 class IFullScreenPresentationConfiguration(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.WindowManagement.IFullScreenPresentationConfiguration'

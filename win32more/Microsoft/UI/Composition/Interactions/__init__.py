@@ -574,9 +574,9 @@ class InteractionSourceConfiguration(ComPtr):
     def put_PositionYSourceMode(self: win32more.Microsoft.UI.Composition.Interactions.IInteractionSourceConfiguration, value: win32more.Microsoft.UI.Composition.Interactions.InteractionSourceRedirectionMode) -> Void: ...
     @winrt_mixinmethod
     def get_ScaleSourceMode(self: win32more.Microsoft.UI.Composition.Interactions.IInteractionSourceConfiguration) -> win32more.Microsoft.UI.Composition.Interactions.InteractionSourceRedirectionMode: ...
-    ScaleSourceMode = property(get_ScaleSourceMode, put_ScaleSourceMode)
-    PositionYSourceMode = property(get_PositionYSourceMode, put_PositionYSourceMode)
     PositionXSourceMode = property(get_PositionXSourceMode, put_PositionXSourceMode)
+    PositionYSourceMode = property(get_PositionYSourceMode, put_PositionYSourceMode)
+    ScaleSourceMode = property(get_ScaleSourceMode, put_ScaleSourceMode)
 class InteractionSourceMode(Int32):  # enum
     Disabled = 0
     EnabledWithInertia = 1
@@ -678,22 +678,22 @@ class InteractionTracker(ComPtr):
     def Create(cls: win32more.Microsoft.UI.Composition.Interactions.IInteractionTrackerStatics, compositor: win32more.Microsoft.UI.Composition.Compositor) -> win32more.Microsoft.UI.Composition.Interactions.InteractionTracker: ...
     @winrt_classmethod
     def CreateWithOwner(cls: win32more.Microsoft.UI.Composition.Interactions.IInteractionTrackerStatics, compositor: win32more.Microsoft.UI.Composition.Compositor, owner: win32more.Microsoft.UI.Composition.Interactions.IInteractionTrackerOwner) -> win32more.Microsoft.UI.Composition.Interactions.InteractionTracker: ...
-    Position = property(get_Position, None)
-    NaturalRestingPosition = property(get_NaturalRestingPosition, None)
-    Owner = property(get_Owner, None)
     InteractionSources = property(get_InteractionSources, None)
+    IsInertiaFromImpulse = property(get_IsInertiaFromImpulse, None)
+    IsPositionRoundingSuggested = property(get_IsPositionRoundingSuggested, None)
+    MaxPosition = property(get_MaxPosition, put_MaxPosition)
+    MaxScale = property(get_MaxScale, put_MaxScale)
+    MinPosition = property(get_MinPosition, put_MinPosition)
+    MinScale = property(get_MinScale, put_MinScale)
+    NaturalRestingPosition = property(get_NaturalRestingPosition, None)
+    NaturalRestingScale = property(get_NaturalRestingScale, None)
+    Owner = property(get_Owner, None)
+    Position = property(get_Position, None)
     PositionInertiaDecayRate = property(get_PositionInertiaDecayRate, put_PositionInertiaDecayRate)
     PositionVelocityInPixelsPerSecond = property(get_PositionVelocityInPixelsPerSecond, None)
     Scale = property(get_Scale, None)
     ScaleInertiaDecayRate = property(get_ScaleInertiaDecayRate, put_ScaleInertiaDecayRate)
     ScaleVelocityInPercentPerSecond = property(get_ScaleVelocityInPercentPerSecond, None)
-    MinScale = property(get_MinScale, put_MinScale)
-    IsInertiaFromImpulse = property(get_IsInertiaFromImpulse, None)
-    NaturalRestingScale = property(get_NaturalRestingScale, None)
-    IsPositionRoundingSuggested = property(get_IsPositionRoundingSuggested, None)
-    MaxPosition = property(get_MaxPosition, put_MaxPosition)
-    MaxScale = property(get_MaxScale, put_MaxScale)
-    MinPosition = property(get_MinPosition, put_MinPosition)
 class InteractionTrackerClampingOption(Int32):  # enum
     Auto = 0
     Disabled = 1
@@ -705,8 +705,8 @@ class InteractionTrackerCustomAnimationStateEnteredArgs(ComPtr):
     def get_RequestId(self: win32more.Microsoft.UI.Composition.Interactions.IInteractionTrackerCustomAnimationStateEnteredArgs) -> Int32: ...
     @winrt_mixinmethod
     def get_IsFromBinding(self: win32more.Microsoft.UI.Composition.Interactions.IInteractionTrackerCustomAnimationStateEnteredArgs2) -> Boolean: ...
-    RequestId = property(get_RequestId, None)
     IsFromBinding = property(get_IsFromBinding, None)
+    RequestId = property(get_RequestId, None)
 class InteractionTrackerIdleStateEnteredArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Composition.Interactions.IInteractionTrackerIdleStateEnteredArgs
@@ -715,8 +715,8 @@ class InteractionTrackerIdleStateEnteredArgs(ComPtr):
     def get_RequestId(self: win32more.Microsoft.UI.Composition.Interactions.IInteractionTrackerIdleStateEnteredArgs) -> Int32: ...
     @winrt_mixinmethod
     def get_IsFromBinding(self: win32more.Microsoft.UI.Composition.Interactions.IInteractionTrackerIdleStateEnteredArgs2) -> Boolean: ...
-    RequestId = property(get_RequestId, None)
     IsFromBinding = property(get_IsFromBinding, None)
+    RequestId = property(get_RequestId, None)
 class InteractionTrackerInertiaModifier(ComPtr):
     extends: win32more.Microsoft.UI.Composition.CompositionObject
     default_interface: win32more.Microsoft.UI.Composition.Interactions.IInteractionTrackerInertiaModifier
@@ -751,8 +751,8 @@ class InteractionTrackerInertiaNaturalMotion(ComPtr):
     def get_Condition(self: win32more.Microsoft.UI.Composition.Interactions.IInteractionTrackerInertiaNaturalMotion) -> win32more.Microsoft.UI.Composition.ExpressionAnimation: ...
     @winrt_classmethod
     def Create(cls: win32more.Microsoft.UI.Composition.Interactions.IInteractionTrackerInertiaNaturalMotionStatics, compositor: win32more.Microsoft.UI.Composition.Compositor) -> win32more.Microsoft.UI.Composition.Interactions.InteractionTrackerInertiaNaturalMotion: ...
-    NaturalMotion = property(get_NaturalMotion, put_NaturalMotion)
     Condition = property(get_Condition, put_Condition)
+    NaturalMotion = property(get_NaturalMotion, put_NaturalMotion)
 class InteractionTrackerInertiaRestingValue(ComPtr):
     extends: win32more.Microsoft.UI.Composition.Interactions.InteractionTrackerInertiaModifier
     default_interface: win32more.Microsoft.UI.Composition.Interactions.IInteractionTrackerInertiaRestingValue
@@ -792,14 +792,14 @@ class InteractionTrackerInertiaStateEnteredArgs(ComPtr):
     @winrt_mixinmethod
     def get_NaturalRestingPosition(self: win32more.Microsoft.UI.Composition.Interactions.IInteractionTrackerInertiaStateEnteredArgs) -> win32more.Windows.Foundation.Numerics.Vector3: ...
     IsFromBinding = property(get_IsFromBinding, None)
-    NaturalRestingScale = property(get_NaturalRestingScale, None)
-    PositionVelocityInPixelsPerSecond = property(get_PositionVelocityInPixelsPerSecond, None)
-    ModifiedRestingPosition = property(get_ModifiedRestingPosition, None)
-    ScaleVelocityInPercentPerSecond = property(get_ScaleVelocityInPercentPerSecond, None)
     IsInertiaFromImpulse = property(get_IsInertiaFromImpulse, None)
-    RequestId = property(get_RequestId, None)
+    ModifiedRestingPosition = property(get_ModifiedRestingPosition, None)
     ModifiedRestingScale = property(get_ModifiedRestingScale, None)
     NaturalRestingPosition = property(get_NaturalRestingPosition, None)
+    NaturalRestingScale = property(get_NaturalRestingScale, None)
+    PositionVelocityInPixelsPerSecond = property(get_PositionVelocityInPixelsPerSecond, None)
+    RequestId = property(get_RequestId, None)
+    ScaleVelocityInPercentPerSecond = property(get_ScaleVelocityInPercentPerSecond, None)
 class InteractionTrackerInteractingStateEnteredArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Composition.Interactions.IInteractionTrackerInteractingStateEnteredArgs
@@ -830,8 +830,8 @@ class InteractionTrackerValuesChangedArgs(ComPtr):
     def get_Position(self: win32more.Microsoft.UI.Composition.Interactions.IInteractionTrackerValuesChangedArgs) -> win32more.Windows.Foundation.Numerics.Vector3: ...
     @winrt_mixinmethod
     def get_Scale(self: win32more.Microsoft.UI.Composition.Interactions.IInteractionTrackerValuesChangedArgs) -> Single: ...
-    RequestId = property(get_RequestId, None)
     Position = property(get_Position, None)
+    RequestId = property(get_RequestId, None)
     Scale = property(get_Scale, None)
 class InteractionTrackerVector2InertiaModifier(ComPtr):
     extends: win32more.Microsoft.UI.Composition.CompositionObject
@@ -851,8 +851,8 @@ class InteractionTrackerVector2InertiaNaturalMotion(ComPtr):
     def put_Condition(self: win32more.Microsoft.UI.Composition.Interactions.IInteractionTrackerVector2InertiaNaturalMotion, value: win32more.Microsoft.UI.Composition.ExpressionAnimation) -> Void: ...
     @winrt_classmethod
     def Create(cls: win32more.Microsoft.UI.Composition.Interactions.IInteractionTrackerVector2InertiaNaturalMotionStatics, compositor: win32more.Microsoft.UI.Composition.Compositor) -> win32more.Microsoft.UI.Composition.Interactions.InteractionTrackerVector2InertiaNaturalMotion: ...
-    NaturalMotion = property(get_NaturalMotion, put_NaturalMotion)
     Condition = property(get_Condition, put_Condition)
+    NaturalMotion = property(get_NaturalMotion, put_NaturalMotion)
 class VisualInteractionSource(ComPtr):
     extends: win32more.Microsoft.UI.Composition.CompositionObject
     default_interface: win32more.Microsoft.UI.Composition.Interactions.IVisualInteractionSource
@@ -925,23 +925,23 @@ class VisualInteractionSource(ComPtr):
     def CreateFromIVisualElement(cls: win32more.Microsoft.UI.Composition.Interactions.IVisualInteractionSourceStatics2, source: win32more.Microsoft.UI.Composition.IVisualElement) -> win32more.Microsoft.UI.Composition.Interactions.VisualInteractionSource: ...
     @winrt_classmethod
     def Create(cls: win32more.Microsoft.UI.Composition.Interactions.IVisualInteractionSourceStatics, source: win32more.Microsoft.UI.Composition.Visual) -> win32more.Microsoft.UI.Composition.Interactions.VisualInteractionSource: ...
-    PositionYChainingMode = property(get_PositionYChainingMode, put_PositionYChainingMode)
-    PositionVelocity = property(get_PositionVelocity, None)
-    Scale = property(get_Scale, None)
-    ScaleVelocity = property(get_ScaleVelocity, None)
-    PointerWheelConfig = property(get_PointerWheelConfig, None)
+    DeltaPosition = property(get_DeltaPosition, None)
+    DeltaScale = property(get_DeltaScale, None)
     IsPositionXRailsEnabled = property(get_IsPositionXRailsEnabled, put_IsPositionXRailsEnabled)
     IsPositionYRailsEnabled = property(get_IsPositionYRailsEnabled, put_IsPositionYRailsEnabled)
     ManipulationRedirectionMode = property(get_ManipulationRedirectionMode, put_ManipulationRedirectionMode)
+    PointerWheelConfig = property(get_PointerWheelConfig, None)
+    Position = property(get_Position, None)
+    PositionVelocity = property(get_PositionVelocity, None)
     PositionXChainingMode = property(get_PositionXChainingMode, put_PositionXChainingMode)
     PositionXSourceMode = property(get_PositionXSourceMode, put_PositionXSourceMode)
+    PositionYChainingMode = property(get_PositionYChainingMode, put_PositionYChainingMode)
     PositionYSourceMode = property(get_PositionYSourceMode, put_PositionYSourceMode)
+    Scale = property(get_Scale, None)
     ScaleChainingMode = property(get_ScaleChainingMode, put_ScaleChainingMode)
     ScaleSourceMode = property(get_ScaleSourceMode, put_ScaleSourceMode)
+    ScaleVelocity = property(get_ScaleVelocity, None)
     Source = property(get_Source, None)
-    DeltaPosition = property(get_DeltaPosition, None)
-    DeltaScale = property(get_DeltaScale, None)
-    Position = property(get_Position, None)
 class VisualInteractionSourceRedirectionMode(Int32):  # enum
     Off = 0
     CapableTouchpadOnly = 1

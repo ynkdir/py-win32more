@@ -29,8 +29,8 @@ class IXboxLiveDeviceAddress(ComPtr):
     def get_IsLocal(self) -> Boolean: ...
     @winrt_commethod(14)
     def get_NetworkAccessKind(self) -> win32more.Windows.Networking.XboxLive.XboxLiveNetworkAccessKind: ...
-    IsValid = property(get_IsValid, None)
     IsLocal = property(get_IsLocal, None)
+    IsValid = property(get_IsValid, None)
     NetworkAccessKind = property(get_NetworkAccessKind, None)
 class IXboxLiveDeviceAddressStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -75,13 +75,13 @@ class IXboxLiveEndpointPair(ComPtr):
     def get_LocalHostName(self) -> win32more.Windows.Networking.HostName: ...
     @winrt_commethod(17)
     def get_LocalPort(self) -> WinRT_String: ...
-    State = property(get_State, None)
-    Template = property(get_Template, None)
+    LocalHostName = property(get_LocalHostName, None)
+    LocalPort = property(get_LocalPort, None)
     RemoteDeviceAddress = property(get_RemoteDeviceAddress, None)
     RemoteHostName = property(get_RemoteHostName, None)
     RemotePort = property(get_RemotePort, None)
-    LocalHostName = property(get_LocalHostName, None)
-    LocalPort = property(get_LocalPort, None)
+    State = property(get_State, None)
+    Template = property(get_Template, None)
 class IXboxLiveEndpointPairCreationResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.XboxLive.IXboxLiveEndpointPairCreationResult'
@@ -95,9 +95,9 @@ class IXboxLiveEndpointPairCreationResult(ComPtr):
     @winrt_commethod(9)
     def get_EndpointPair(self) -> win32more.Windows.Networking.XboxLive.XboxLiveEndpointPair: ...
     DeviceAddress = property(get_DeviceAddress, None)
-    Status = property(get_Status, None)
-    IsExistingPathEvaluation = property(get_IsExistingPathEvaluation, None)
     EndpointPair = property(get_EndpointPair, None)
+    IsExistingPathEvaluation = property(get_IsExistingPathEvaluation, None)
+    Status = property(get_Status, None)
 class IXboxLiveEndpointPairStateChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.XboxLive.IXboxLiveEndpointPairStateChangedEventArgs'
@@ -106,8 +106,8 @@ class IXboxLiveEndpointPairStateChangedEventArgs(ComPtr):
     def get_OldState(self) -> win32more.Windows.Networking.XboxLive.XboxLiveEndpointPairState: ...
     @winrt_commethod(7)
     def get_NewState(self) -> win32more.Windows.Networking.XboxLive.XboxLiveEndpointPairState: ...
-    OldState = property(get_OldState, None)
     NewState = property(get_NewState, None)
+    OldState = property(get_OldState, None)
 class IXboxLiveEndpointPairStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.XboxLive.IXboxLiveEndpointPairStatics'
@@ -146,13 +146,13 @@ class IXboxLiveEndpointPairTemplate(ComPtr):
     def get_AcceptorBoundPortRangeUpper(self) -> UInt16: ...
     @winrt_commethod(18)
     def get_EndpointPairs(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Networking.XboxLive.XboxLiveEndpointPair]: ...
-    Name = property(get_Name, None)
-    SocketKind = property(get_SocketKind, None)
-    InitiatorBoundPortRangeLower = property(get_InitiatorBoundPortRangeLower, None)
-    InitiatorBoundPortRangeUpper = property(get_InitiatorBoundPortRangeUpper, None)
     AcceptorBoundPortRangeLower = property(get_AcceptorBoundPortRangeLower, None)
     AcceptorBoundPortRangeUpper = property(get_AcceptorBoundPortRangeUpper, None)
     EndpointPairs = property(get_EndpointPairs, None)
+    InitiatorBoundPortRangeLower = property(get_InitiatorBoundPortRangeLower, None)
+    InitiatorBoundPortRangeUpper = property(get_InitiatorBoundPortRangeUpper, None)
+    Name = property(get_Name, None)
+    SocketKind = property(get_SocketKind, None)
 class IXboxLiveEndpointPairTemplateStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.XboxLive.IXboxLiveEndpointPairTemplateStatics'
@@ -205,14 +205,14 @@ class IXboxLiveQualityOfServiceMeasurement(ComPtr):
     def get_MetricResults(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Networking.XboxLive.XboxLiveQualityOfServiceMetricResult]: ...
     @winrt_commethod(21)
     def get_PrivatePayloadResults(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Networking.XboxLive.XboxLiveQualityOfServicePrivatePayloadResult]: ...
-    Metrics = property(get_Metrics, None)
     DeviceAddresses = property(get_DeviceAddresses, None)
-    ShouldRequestPrivatePayloads = property(get_ShouldRequestPrivatePayloads, put_ShouldRequestPrivatePayloads)
-    TimeoutInMilliseconds = property(get_TimeoutInMilliseconds, put_TimeoutInMilliseconds)
+    MetricResults = property(get_MetricResults, None)
+    Metrics = property(get_Metrics, None)
     NumberOfProbesToAttempt = property(get_NumberOfProbesToAttempt, put_NumberOfProbesToAttempt)
     NumberOfResultsPending = property(get_NumberOfResultsPending, None)
-    MetricResults = property(get_MetricResults, None)
     PrivatePayloadResults = property(get_PrivatePayloadResults, None)
+    ShouldRequestPrivatePayloads = property(get_ShouldRequestPrivatePayloads, put_ShouldRequestPrivatePayloads)
+    TimeoutInMilliseconds = property(get_TimeoutInMilliseconds, put_TimeoutInMilliseconds)
 class IXboxLiveQualityOfServiceMeasurementStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.XboxLive.IXboxLiveQualityOfServiceMeasurementStatics'
@@ -239,11 +239,11 @@ class IXboxLiveQualityOfServiceMeasurementStatics(ComPtr):
     def put_PublishedPrivatePayload(self, value: win32more.Windows.Storage.Streams.IBuffer) -> Void: ...
     @winrt_commethod(16)
     def get_MaxPrivatePayloadSize(self) -> UInt32: ...
-    MaxSimultaneousProbeConnections = property(get_MaxSimultaneousProbeConnections, put_MaxSimultaneousProbeConnections)
-    IsSystemOutboundBandwidthConstrained = property(get_IsSystemOutboundBandwidthConstrained, put_IsSystemOutboundBandwidthConstrained)
     IsSystemInboundBandwidthConstrained = property(get_IsSystemInboundBandwidthConstrained, put_IsSystemInboundBandwidthConstrained)
-    PublishedPrivatePayload = property(get_PublishedPrivatePayload, put_PublishedPrivatePayload)
+    IsSystemOutboundBandwidthConstrained = property(get_IsSystemOutboundBandwidthConstrained, put_IsSystemOutboundBandwidthConstrained)
     MaxPrivatePayloadSize = property(get_MaxPrivatePayloadSize, None)
+    MaxSimultaneousProbeConnections = property(get_MaxSimultaneousProbeConnections, put_MaxSimultaneousProbeConnections)
+    PublishedPrivatePayload = property(get_PublishedPrivatePayload, put_PublishedPrivatePayload)
 class IXboxLiveQualityOfServiceMetricResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.XboxLive.IXboxLiveQualityOfServiceMetricResult'
@@ -256,9 +256,9 @@ class IXboxLiveQualityOfServiceMetricResult(ComPtr):
     def get_Metric(self) -> win32more.Windows.Networking.XboxLive.XboxLiveQualityOfServiceMetric: ...
     @winrt_commethod(9)
     def get_Value(self) -> UInt64: ...
-    Status = property(get_Status, None)
     DeviceAddress = property(get_DeviceAddress, None)
     Metric = property(get_Metric, None)
+    Status = property(get_Status, None)
     Value = property(get_Value, None)
 class IXboxLiveQualityOfServicePrivatePayloadResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -270,8 +270,8 @@ class IXboxLiveQualityOfServicePrivatePayloadResult(ComPtr):
     def get_DeviceAddress(self) -> win32more.Windows.Networking.XboxLive.XboxLiveDeviceAddress: ...
     @winrt_commethod(8)
     def get_Value(self) -> win32more.Windows.Storage.Streams.IBuffer: ...
-    Status = property(get_Status, None)
     DeviceAddress = property(get_DeviceAddress, None)
+    Status = property(get_Status, None)
     Value = property(get_Value, None)
 class _XboxLiveDeviceAddress_Meta_(ComPtr.__class__):
     pass
@@ -307,8 +307,8 @@ class XboxLiveDeviceAddress(ComPtr, metaclass=_XboxLiveDeviceAddress_Meta_):
     def GetLocal(cls: win32more.Windows.Networking.XboxLive.IXboxLiveDeviceAddressStatics) -> win32more.Windows.Networking.XboxLive.XboxLiveDeviceAddress: ...
     @winrt_classmethod
     def get_MaxSnapshotBytesSize(cls: win32more.Windows.Networking.XboxLive.IXboxLiveDeviceAddressStatics) -> UInt32: ...
-    IsValid = property(get_IsValid, None)
     IsLocal = property(get_IsLocal, None)
+    IsValid = property(get_IsValid, None)
     NetworkAccessKind = property(get_NetworkAccessKind, None)
     _XboxLiveDeviceAddress_Meta_.MaxSnapshotBytesSize = property(get_MaxSnapshotBytesSize.__wrapped__, None)
 class XboxLiveEndpointPair(ComPtr):
@@ -343,13 +343,13 @@ class XboxLiveEndpointPair(ComPtr):
     def FindEndpointPairBySocketAddressBytes(cls: win32more.Windows.Networking.XboxLive.IXboxLiveEndpointPairStatics, localSocketAddress: Annotated[SZArray[Byte], 'In'], remoteSocketAddress: Annotated[SZArray[Byte], 'In']) -> win32more.Windows.Networking.XboxLive.XboxLiveEndpointPair: ...
     @winrt_classmethod
     def FindEndpointPairByHostNamesAndPorts(cls: win32more.Windows.Networking.XboxLive.IXboxLiveEndpointPairStatics, localHostName: win32more.Windows.Networking.HostName, localPort: WinRT_String, remoteHostName: win32more.Windows.Networking.HostName, remotePort: WinRT_String) -> win32more.Windows.Networking.XboxLive.XboxLiveEndpointPair: ...
-    State = property(get_State, None)
-    Template = property(get_Template, None)
+    LocalHostName = property(get_LocalHostName, None)
+    LocalPort = property(get_LocalPort, None)
     RemoteDeviceAddress = property(get_RemoteDeviceAddress, None)
     RemoteHostName = property(get_RemoteHostName, None)
     RemotePort = property(get_RemotePort, None)
-    LocalHostName = property(get_LocalHostName, None)
-    LocalPort = property(get_LocalPort, None)
+    State = property(get_State, None)
+    Template = property(get_Template, None)
 class XboxLiveEndpointPairCreationBehaviors(UInt32):  # enum
     None_ = 0
     ReevaluatePath = 1
@@ -366,9 +366,9 @@ class XboxLiveEndpointPairCreationResult(ComPtr):
     @winrt_mixinmethod
     def get_EndpointPair(self: win32more.Windows.Networking.XboxLive.IXboxLiveEndpointPairCreationResult) -> win32more.Windows.Networking.XboxLive.XboxLiveEndpointPair: ...
     DeviceAddress = property(get_DeviceAddress, None)
-    Status = property(get_Status, None)
-    IsExistingPathEvaluation = property(get_IsExistingPathEvaluation, None)
     EndpointPair = property(get_EndpointPair, None)
+    IsExistingPathEvaluation = property(get_IsExistingPathEvaluation, None)
+    Status = property(get_Status, None)
 class XboxLiveEndpointPairCreationStatus(Int32):  # enum
     Succeeded = 0
     NoLocalNetworks = 1
@@ -395,8 +395,8 @@ class XboxLiveEndpointPairStateChangedEventArgs(ComPtr):
     def get_OldState(self: win32more.Windows.Networking.XboxLive.IXboxLiveEndpointPairStateChangedEventArgs) -> win32more.Windows.Networking.XboxLive.XboxLiveEndpointPairState: ...
     @winrt_mixinmethod
     def get_NewState(self: win32more.Windows.Networking.XboxLive.IXboxLiveEndpointPairStateChangedEventArgs) -> win32more.Windows.Networking.XboxLive.XboxLiveEndpointPairState: ...
-    OldState = property(get_OldState, None)
     NewState = property(get_NewState, None)
+    OldState = property(get_OldState, None)
 class _XboxLiveEndpointPairTemplate_Meta_(ComPtr.__class__):
     pass
 class XboxLiveEndpointPairTemplate(ComPtr, metaclass=_XboxLiveEndpointPairTemplate_Meta_):
@@ -433,13 +433,13 @@ class XboxLiveEndpointPairTemplate(ComPtr, metaclass=_XboxLiveEndpointPairTempla
     def GetTemplateByName(cls: win32more.Windows.Networking.XboxLive.IXboxLiveEndpointPairTemplateStatics, name: WinRT_String) -> win32more.Windows.Networking.XboxLive.XboxLiveEndpointPairTemplate: ...
     @winrt_classmethod
     def get_Templates(cls: win32more.Windows.Networking.XboxLive.IXboxLiveEndpointPairTemplateStatics) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Networking.XboxLive.XboxLiveEndpointPairTemplate]: ...
-    Name = property(get_Name, None)
-    SocketKind = property(get_SocketKind, None)
-    InitiatorBoundPortRangeLower = property(get_InitiatorBoundPortRangeLower, None)
-    InitiatorBoundPortRangeUpper = property(get_InitiatorBoundPortRangeUpper, None)
     AcceptorBoundPortRangeLower = property(get_AcceptorBoundPortRangeLower, None)
     AcceptorBoundPortRangeUpper = property(get_AcceptorBoundPortRangeUpper, None)
     EndpointPairs = property(get_EndpointPairs, None)
+    InitiatorBoundPortRangeLower = property(get_InitiatorBoundPortRangeLower, None)
+    InitiatorBoundPortRangeUpper = property(get_InitiatorBoundPortRangeUpper, None)
+    Name = property(get_Name, None)
+    SocketKind = property(get_SocketKind, None)
     _XboxLiveEndpointPairTemplate_Meta_.Templates = property(get_Templates.__wrapped__, None)
 class XboxLiveInboundEndpointPairCreatedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -521,19 +521,19 @@ class XboxLiveQualityOfServiceMeasurement(ComPtr, metaclass=_XboxLiveQualityOfSe
     def put_PublishedPrivatePayload(cls: win32more.Windows.Networking.XboxLive.IXboxLiveQualityOfServiceMeasurementStatics, value: win32more.Windows.Storage.Streams.IBuffer) -> Void: ...
     @winrt_classmethod
     def get_MaxPrivatePayloadSize(cls: win32more.Windows.Networking.XboxLive.IXboxLiveQualityOfServiceMeasurementStatics) -> UInt32: ...
-    Metrics = property(get_Metrics, None)
     DeviceAddresses = property(get_DeviceAddresses, None)
-    ShouldRequestPrivatePayloads = property(get_ShouldRequestPrivatePayloads, put_ShouldRequestPrivatePayloads)
-    TimeoutInMilliseconds = property(get_TimeoutInMilliseconds, put_TimeoutInMilliseconds)
+    MetricResults = property(get_MetricResults, None)
+    Metrics = property(get_Metrics, None)
     NumberOfProbesToAttempt = property(get_NumberOfProbesToAttempt, put_NumberOfProbesToAttempt)
     NumberOfResultsPending = property(get_NumberOfResultsPending, None)
-    MetricResults = property(get_MetricResults, None)
     PrivatePayloadResults = property(get_PrivatePayloadResults, None)
-    _XboxLiveQualityOfServiceMeasurement_Meta_.MaxSimultaneousProbeConnections = property(get_MaxSimultaneousProbeConnections.__wrapped__, put_MaxSimultaneousProbeConnections.__wrapped__)
-    _XboxLiveQualityOfServiceMeasurement_Meta_.IsSystemOutboundBandwidthConstrained = property(get_IsSystemOutboundBandwidthConstrained.__wrapped__, put_IsSystemOutboundBandwidthConstrained.__wrapped__)
+    ShouldRequestPrivatePayloads = property(get_ShouldRequestPrivatePayloads, put_ShouldRequestPrivatePayloads)
+    TimeoutInMilliseconds = property(get_TimeoutInMilliseconds, put_TimeoutInMilliseconds)
     _XboxLiveQualityOfServiceMeasurement_Meta_.IsSystemInboundBandwidthConstrained = property(get_IsSystemInboundBandwidthConstrained.__wrapped__, put_IsSystemInboundBandwidthConstrained.__wrapped__)
-    _XboxLiveQualityOfServiceMeasurement_Meta_.PublishedPrivatePayload = property(get_PublishedPrivatePayload.__wrapped__, put_PublishedPrivatePayload.__wrapped__)
+    _XboxLiveQualityOfServiceMeasurement_Meta_.IsSystemOutboundBandwidthConstrained = property(get_IsSystemOutboundBandwidthConstrained.__wrapped__, put_IsSystemOutboundBandwidthConstrained.__wrapped__)
     _XboxLiveQualityOfServiceMeasurement_Meta_.MaxPrivatePayloadSize = property(get_MaxPrivatePayloadSize.__wrapped__, None)
+    _XboxLiveQualityOfServiceMeasurement_Meta_.MaxSimultaneousProbeConnections = property(get_MaxSimultaneousProbeConnections.__wrapped__, put_MaxSimultaneousProbeConnections.__wrapped__)
+    _XboxLiveQualityOfServiceMeasurement_Meta_.PublishedPrivatePayload = property(get_PublishedPrivatePayload.__wrapped__, put_PublishedPrivatePayload.__wrapped__)
 class XboxLiveQualityOfServiceMeasurementStatus(Int32):  # enum
     NotStarted = 0
     InProgress = 1
@@ -569,9 +569,9 @@ class XboxLiveQualityOfServiceMetricResult(ComPtr):
     def get_Metric(self: win32more.Windows.Networking.XboxLive.IXboxLiveQualityOfServiceMetricResult) -> win32more.Windows.Networking.XboxLive.XboxLiveQualityOfServiceMetric: ...
     @winrt_mixinmethod
     def get_Value(self: win32more.Windows.Networking.XboxLive.IXboxLiveQualityOfServiceMetricResult) -> UInt64: ...
-    Status = property(get_Status, None)
     DeviceAddress = property(get_DeviceAddress, None)
     Metric = property(get_Metric, None)
+    Status = property(get_Status, None)
     Value = property(get_Value, None)
 class XboxLiveQualityOfServicePrivatePayloadResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -583,8 +583,8 @@ class XboxLiveQualityOfServicePrivatePayloadResult(ComPtr):
     def get_DeviceAddress(self: win32more.Windows.Networking.XboxLive.IXboxLiveQualityOfServicePrivatePayloadResult) -> win32more.Windows.Networking.XboxLive.XboxLiveDeviceAddress: ...
     @winrt_mixinmethod
     def get_Value(self: win32more.Windows.Networking.XboxLive.IXboxLiveQualityOfServicePrivatePayloadResult) -> win32more.Windows.Storage.Streams.IBuffer: ...
-    Status = property(get_Status, None)
     DeviceAddress = property(get_DeviceAddress, None)
+    Status = property(get_Status, None)
     Value = property(get_Value, None)
 XboxLiveSecureSocketsContract: UInt32 = 65536
 class XboxLiveSocketKind(Int32):  # enum

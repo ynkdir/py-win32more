@@ -22,10 +22,10 @@ class IPwmController(ComPtr):
     def get_MaxFrequency(self) -> Double: ...
     @winrt_commethod(11)
     def OpenPin(self, pinNumber: Int32) -> win32more.Windows.Devices.Pwm.PwmPin: ...
-    PinCount = property(get_PinCount, None)
     ActualFrequency = property(get_ActualFrequency, None)
-    MinFrequency = property(get_MinFrequency, None)
     MaxFrequency = property(get_MaxFrequency, None)
+    MinFrequency = property(get_MinFrequency, None)
+    PinCount = property(get_PinCount, None)
 class IPwmControllerStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Pwm.IPwmControllerStatics'
@@ -69,8 +69,8 @@ class IPwmPin(ComPtr):
     @winrt_commethod(13)
     def get_IsStarted(self) -> Boolean: ...
     Controller = property(get_Controller, None)
-    Polarity = property(get_Polarity, put_Polarity)
     IsStarted = property(get_IsStarted, None)
+    Polarity = property(get_Polarity, put_Polarity)
 class PwmController(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Pwm.IPwmController
@@ -97,10 +97,10 @@ class PwmController(ComPtr):
     def GetDefaultAsync(cls: win32more.Windows.Devices.Pwm.IPwmControllerStatics2) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Pwm.PwmController]: ...
     @winrt_classmethod
     def GetControllersAsync(cls: win32more.Windows.Devices.Pwm.IPwmControllerStatics, provider: win32more.Windows.Devices.Pwm.Provider.IPwmProvider) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Devices.Pwm.PwmController]]: ...
-    PinCount = property(get_PinCount, None)
     ActualFrequency = property(get_ActualFrequency, None)
-    MinFrequency = property(get_MinFrequency, None)
     MaxFrequency = property(get_MaxFrequency, None)
+    MinFrequency = property(get_MinFrequency, None)
+    PinCount = property(get_PinCount, None)
 class PwmPin(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Pwm.IPwmPin
@@ -124,8 +124,8 @@ class PwmPin(ComPtr):
     @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
     Controller = property(get_Controller, None)
-    Polarity = property(get_Polarity, put_Polarity)
     IsStarted = property(get_IsStarted, None)
+    Polarity = property(get_Polarity, put_Polarity)
 class PwmPulsePolarity(Int32):  # enum
     ActiveHigh = 0
     ActiveLow = 1

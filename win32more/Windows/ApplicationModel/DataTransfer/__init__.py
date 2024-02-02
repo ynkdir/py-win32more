@@ -76,10 +76,10 @@ class ClipboardContentOptions(ComPtr):
     def get_RoamingFormats(self: win32more.Windows.ApplicationModel.DataTransfer.IClipboardContentOptions) -> win32more.Windows.Foundation.Collections.IVector[WinRT_String]: ...
     @winrt_mixinmethod
     def get_HistoryFormats(self: win32more.Windows.ApplicationModel.DataTransfer.IClipboardContentOptions) -> win32more.Windows.Foundation.Collections.IVector[WinRT_String]: ...
-    IsRoamable = property(get_IsRoamable, put_IsRoamable)
-    IsAllowedInHistory = property(get_IsAllowedInHistory, put_IsAllowedInHistory)
-    RoamingFormats = property(get_RoamingFormats, None)
     HistoryFormats = property(get_HistoryFormats, None)
+    IsAllowedInHistory = property(get_IsAllowedInHistory, put_IsAllowedInHistory)
+    IsRoamable = property(get_IsRoamable, put_IsRoamable)
+    RoamingFormats = property(get_RoamingFormats, None)
 class ClipboardHistoryChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.DataTransfer.IClipboardHistoryChangedEventArgs
@@ -94,9 +94,9 @@ class ClipboardHistoryItem(ComPtr):
     def get_Timestamp(self: win32more.Windows.ApplicationModel.DataTransfer.IClipboardHistoryItem) -> win32more.Windows.Foundation.DateTime: ...
     @winrt_mixinmethod
     def get_Content(self: win32more.Windows.ApplicationModel.DataTransfer.IClipboardHistoryItem) -> win32more.Windows.ApplicationModel.DataTransfer.DataPackageView: ...
+    Content = property(get_Content, None)
     Id = property(get_Id, None)
     Timestamp = property(get_Timestamp, None)
-    Content = property(get_Content, None)
 class ClipboardHistoryItemsResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.DataTransfer.IClipboardHistoryItemsResult
@@ -105,8 +105,8 @@ class ClipboardHistoryItemsResult(ComPtr):
     def get_Status(self: win32more.Windows.ApplicationModel.DataTransfer.IClipboardHistoryItemsResult) -> win32more.Windows.ApplicationModel.DataTransfer.ClipboardHistoryItemsResultStatus: ...
     @winrt_mixinmethod
     def get_Items(self: win32more.Windows.ApplicationModel.DataTransfer.IClipboardHistoryItemsResult) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.ApplicationModel.DataTransfer.ClipboardHistoryItem]: ...
-    Status = property(get_Status, None)
     Items = property(get_Items, None)
+    Status = property(get_Status, None)
 class ClipboardHistoryItemsResultStatus(Int32):  # enum
     Success = 0
     AccessDenied = 1
@@ -250,20 +250,20 @@ class DataPackagePropertySet(ComPtr):
     def get_ContentSourceUserActivityJson(self: win32more.Windows.ApplicationModel.DataTransfer.IDataPackagePropertySet4) -> WinRT_String: ...
     @winrt_mixinmethod
     def put_ContentSourceUserActivityJson(self: win32more.Windows.ApplicationModel.DataTransfer.IDataPackagePropertySet4, value: WinRT_String) -> Void: ...
-    Title = property(get_Title, put_Title)
-    Description = property(get_Description, put_Description)
-    Thumbnail = property(get_Thumbnail, put_Thumbnail)
-    FileTypes = property(get_FileTypes, None)
-    ApplicationName = property(get_ApplicationName, put_ApplicationName)
     ApplicationListingUri = property(get_ApplicationListingUri, put_ApplicationListingUri)
-    Size = property(get_Size, None)
-    ContentSourceWebLink = property(get_ContentSourceWebLink, put_ContentSourceWebLink)
+    ApplicationName = property(get_ApplicationName, put_ApplicationName)
     ContentSourceApplicationLink = property(get_ContentSourceApplicationLink, put_ContentSourceApplicationLink)
-    PackageFamilyName = property(get_PackageFamilyName, put_PackageFamilyName)
-    Square30x30Logo = property(get_Square30x30Logo, put_Square30x30Logo)
-    LogoBackgroundColor = property(get_LogoBackgroundColor, put_LogoBackgroundColor)
-    EnterpriseId = property(get_EnterpriseId, put_EnterpriseId)
     ContentSourceUserActivityJson = property(get_ContentSourceUserActivityJson, put_ContentSourceUserActivityJson)
+    ContentSourceWebLink = property(get_ContentSourceWebLink, put_ContentSourceWebLink)
+    Description = property(get_Description, put_Description)
+    EnterpriseId = property(get_EnterpriseId, put_EnterpriseId)
+    FileTypes = property(get_FileTypes, None)
+    LogoBackgroundColor = property(get_LogoBackgroundColor, put_LogoBackgroundColor)
+    PackageFamilyName = property(get_PackageFamilyName, put_PackageFamilyName)
+    Size = property(get_Size, None)
+    Square30x30Logo = property(get_Square30x30Logo, put_Square30x30Logo)
+    Thumbnail = property(get_Thumbnail, put_Thumbnail)
+    Title = property(get_Title, put_Title)
 class DataPackagePropertySetView(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.DataTransfer.IDataPackagePropertySetView
@@ -306,21 +306,21 @@ class DataPackagePropertySetView(ComPtr):
     def Split(self: win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable], first: POINTER(win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]), second: POINTER(win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable])) -> Void: ...
     @winrt_mixinmethod
     def First(self: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]]) -> win32more.Windows.Foundation.Collections.IIterator[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]]: ...
-    Title = property(get_Title, None)
-    Description = property(get_Description, None)
-    Thumbnail = property(get_Thumbnail, None)
-    FileTypes = property(get_FileTypes, None)
-    ApplicationName = property(get_ApplicationName, None)
     ApplicationListingUri = property(get_ApplicationListingUri, None)
-    PackageFamilyName = property(get_PackageFamilyName, None)
-    ContentSourceWebLink = property(get_ContentSourceWebLink, None)
+    ApplicationName = property(get_ApplicationName, None)
     ContentSourceApplicationLink = property(get_ContentSourceApplicationLink, None)
-    Square30x30Logo = property(get_Square30x30Logo, None)
-    LogoBackgroundColor = property(get_LogoBackgroundColor, None)
-    EnterpriseId = property(get_EnterpriseId, None)
     ContentSourceUserActivityJson = property(get_ContentSourceUserActivityJson, None)
+    ContentSourceWebLink = property(get_ContentSourceWebLink, None)
+    Description = property(get_Description, None)
+    EnterpriseId = property(get_EnterpriseId, None)
+    FileTypes = property(get_FileTypes, None)
     IsFromRoamingClipboard = property(get_IsFromRoamingClipboard, None)
+    LogoBackgroundColor = property(get_LogoBackgroundColor, None)
+    PackageFamilyName = property(get_PackageFamilyName, None)
     Size = property(get_Size, None)
+    Square30x30Logo = property(get_Square30x30Logo, None)
+    Thumbnail = property(get_Thumbnail, None)
+    Title = property(get_Title, None)
 class DataPackageView(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.DataTransfer.IDataPackageView
@@ -365,9 +365,9 @@ class DataPackageView(ComPtr):
     def UnlockAndAssumeEnterpriseIdentity(self: win32more.Windows.ApplicationModel.DataTransfer.IDataPackageView3) -> win32more.Windows.Security.EnterpriseData.ProtectionPolicyEvaluationResult: ...
     @winrt_mixinmethod
     def SetAcceptedFormatId(self: win32more.Windows.ApplicationModel.DataTransfer.IDataPackageView4, formatId: WinRT_String) -> Void: ...
+    AvailableFormats = property(get_AvailableFormats, None)
     Properties = property(get_Properties, None)
     RequestedOperation = property(get_RequestedOperation, None)
-    AvailableFormats = property(get_AvailableFormats, None)
 class DataProviderDeferral(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.DataTransfer.IDataProviderDeferral
@@ -390,8 +390,8 @@ class DataProviderRequest(ComPtr):
     def GetDeferral(self: win32more.Windows.ApplicationModel.DataTransfer.IDataProviderRequest) -> win32more.Windows.ApplicationModel.DataTransfer.DataProviderDeferral: ...
     @winrt_mixinmethod
     def SetData(self: win32more.Windows.ApplicationModel.DataTransfer.IDataProviderRequest, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
-    FormatId = property(get_FormatId, None)
     Deadline = property(get_Deadline, None)
+    FormatId = property(get_FormatId, None)
 class DataRequest(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.DataTransfer.IDataRequest
@@ -468,10 +468,10 @@ class IClipboardContentOptions(ComPtr):
     def get_RoamingFormats(self) -> win32more.Windows.Foundation.Collections.IVector[WinRT_String]: ...
     @winrt_commethod(11)
     def get_HistoryFormats(self) -> win32more.Windows.Foundation.Collections.IVector[WinRT_String]: ...
-    IsRoamable = property(get_IsRoamable, put_IsRoamable)
-    IsAllowedInHistory = property(get_IsAllowedInHistory, put_IsAllowedInHistory)
-    RoamingFormats = property(get_RoamingFormats, None)
     HistoryFormats = property(get_HistoryFormats, None)
+    IsAllowedInHistory = property(get_IsAllowedInHistory, put_IsAllowedInHistory)
+    IsRoamable = property(get_IsRoamable, put_IsRoamable)
+    RoamingFormats = property(get_RoamingFormats, None)
 class IClipboardHistoryChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.DataTransfer.IClipboardHistoryChangedEventArgs'
@@ -486,9 +486,9 @@ class IClipboardHistoryItem(ComPtr):
     def get_Timestamp(self) -> win32more.Windows.Foundation.DateTime: ...
     @winrt_commethod(8)
     def get_Content(self) -> win32more.Windows.ApplicationModel.DataTransfer.DataPackageView: ...
+    Content = property(get_Content, None)
     Id = property(get_Id, None)
     Timestamp = property(get_Timestamp, None)
-    Content = property(get_Content, None)
 class IClipboardHistoryItemsResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.DataTransfer.IClipboardHistoryItemsResult'
@@ -497,8 +497,8 @@ class IClipboardHistoryItemsResult(ComPtr):
     def get_Status(self) -> win32more.Windows.ApplicationModel.DataTransfer.ClipboardHistoryItemsResultStatus: ...
     @winrt_commethod(7)
     def get_Items(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.ApplicationModel.DataTransfer.ClipboardHistoryItem]: ...
-    Status = property(get_Status, None)
     Items = property(get_Items, None)
+    Status = property(get_Status, None)
 class IClipboardStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.DataTransfer.IClipboardStatics'
@@ -638,12 +638,12 @@ class IDataPackagePropertySet(ComPtr):
     def get_ApplicationListingUri(self) -> win32more.Windows.Foundation.Uri: ...
     @winrt_commethod(16)
     def put_ApplicationListingUri(self, value: win32more.Windows.Foundation.Uri) -> Void: ...
-    Title = property(get_Title, put_Title)
-    Description = property(get_Description, put_Description)
-    Thumbnail = property(get_Thumbnail, put_Thumbnail)
-    FileTypes = property(get_FileTypes, None)
-    ApplicationName = property(get_ApplicationName, put_ApplicationName)
     ApplicationListingUri = property(get_ApplicationListingUri, put_ApplicationListingUri)
+    ApplicationName = property(get_ApplicationName, put_ApplicationName)
+    Description = property(get_Description, put_Description)
+    FileTypes = property(get_FileTypes, None)
+    Thumbnail = property(get_Thumbnail, put_Thumbnail)
+    Title = property(get_Title, put_Title)
 class IDataPackagePropertySet2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.DataTransfer.IDataPackagePropertySet2'
@@ -668,11 +668,11 @@ class IDataPackagePropertySet2(ComPtr):
     def get_LogoBackgroundColor(self) -> win32more.Windows.UI.Color: ...
     @winrt_commethod(15)
     def put_LogoBackgroundColor(self, value: win32more.Windows.UI.Color) -> Void: ...
-    ContentSourceWebLink = property(get_ContentSourceWebLink, put_ContentSourceWebLink)
     ContentSourceApplicationLink = property(get_ContentSourceApplicationLink, put_ContentSourceApplicationLink)
+    ContentSourceWebLink = property(get_ContentSourceWebLink, put_ContentSourceWebLink)
+    LogoBackgroundColor = property(get_LogoBackgroundColor, put_LogoBackgroundColor)
     PackageFamilyName = property(get_PackageFamilyName, put_PackageFamilyName)
     Square30x30Logo = property(get_Square30x30Logo, put_Square30x30Logo)
-    LogoBackgroundColor = property(get_LogoBackgroundColor, put_LogoBackgroundColor)
 class IDataPackagePropertySet3(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.DataTransfer.IDataPackagePropertySet3'
@@ -707,12 +707,12 @@ class IDataPackagePropertySetView(ComPtr):
     def get_ApplicationName(self) -> WinRT_String: ...
     @winrt_commethod(11)
     def get_ApplicationListingUri(self) -> win32more.Windows.Foundation.Uri: ...
-    Title = property(get_Title, None)
-    Description = property(get_Description, None)
-    Thumbnail = property(get_Thumbnail, None)
-    FileTypes = property(get_FileTypes, None)
-    ApplicationName = property(get_ApplicationName, None)
     ApplicationListingUri = property(get_ApplicationListingUri, None)
+    ApplicationName = property(get_ApplicationName, None)
+    Description = property(get_Description, None)
+    FileTypes = property(get_FileTypes, None)
+    Thumbnail = property(get_Thumbnail, None)
+    Title = property(get_Title, None)
 class IDataPackagePropertySetView2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.DataTransfer.IDataPackagePropertySetView2'
@@ -727,11 +727,11 @@ class IDataPackagePropertySetView2(ComPtr):
     def get_Square30x30Logo(self) -> win32more.Windows.Storage.Streams.IRandomAccessStreamReference: ...
     @winrt_commethod(10)
     def get_LogoBackgroundColor(self) -> win32more.Windows.UI.Color: ...
-    PackageFamilyName = property(get_PackageFamilyName, None)
-    ContentSourceWebLink = property(get_ContentSourceWebLink, None)
     ContentSourceApplicationLink = property(get_ContentSourceApplicationLink, None)
-    Square30x30Logo = property(get_Square30x30Logo, None)
+    ContentSourceWebLink = property(get_ContentSourceWebLink, None)
     LogoBackgroundColor = property(get_LogoBackgroundColor, None)
+    PackageFamilyName = property(get_PackageFamilyName, None)
+    Square30x30Logo = property(get_Square30x30Logo, None)
 class IDataPackagePropertySetView3(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.DataTransfer.IDataPackagePropertySetView3'
@@ -785,9 +785,9 @@ class IDataPackageView(ComPtr):
     def GetBitmapAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Storage.Streams.RandomAccessStreamReference]: ...
     @winrt_commethod(19)
     def GetStorageItemsAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Storage.IStorageItem]]: ...
+    AvailableFormats = property(get_AvailableFormats, None)
     Properties = property(get_Properties, None)
     RequestedOperation = property(get_RequestedOperation, None)
-    AvailableFormats = property(get_AvailableFormats, None)
 class IDataPackageView2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.DataTransfer.IDataPackageView2'
@@ -830,8 +830,8 @@ class IDataProviderRequest(ComPtr):
     def GetDeferral(self) -> win32more.Windows.ApplicationModel.DataTransfer.DataProviderDeferral: ...
     @winrt_commethod(9)
     def SetData(self, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
-    FormatId = property(get_FormatId, None)
     Deadline = property(get_Deadline, None)
+    FormatId = property(get_FormatId, None)
 class IDataRequest(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.DataTransfer.IDataRequest'
@@ -944,10 +944,10 @@ class IShareProvider(ComPtr):
     def get_Tag(self) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_commethod(10)
     def put_Tag(self, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
-    Title = property(get_Title, None)
-    DisplayIcon = property(get_DisplayIcon, None)
     BackgroundColor = property(get_BackgroundColor, None)
+    DisplayIcon = property(get_DisplayIcon, None)
     Tag = property(get_Tag, put_Tag)
+    Title = property(get_Title, None)
 class IShareProviderFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.DataTransfer.IShareProviderFactory'
@@ -976,8 +976,8 @@ class IShareProvidersRequestedEventArgs(ComPtr):
     def get_Data(self) -> win32more.Windows.ApplicationModel.DataTransfer.DataPackageView: ...
     @winrt_commethod(8)
     def GetDeferral(self) -> win32more.Windows.Foundation.Deferral: ...
-    Providers = property(get_Providers, None)
     Data = property(get_Data, None)
+    Providers = property(get_Providers, None)
 class IShareTargetInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.DataTransfer.IShareTargetInfo'
@@ -1000,8 +1000,8 @@ class IShareUIOptions(ComPtr):
     def get_SelectionRect(self) -> win32more.Windows.Foundation.IReference[win32more.Windows.Foundation.Rect]: ...
     @winrt_commethod(9)
     def put_SelectionRect(self, value: win32more.Windows.Foundation.IReference[win32more.Windows.Foundation.Rect]) -> Void: ...
-    Theme = property(get_Theme, put_Theme)
     SelectionRect = property(get_SelectionRect, put_SelectionRect)
+    Theme = property(get_Theme, put_Theme)
 class ISharedStorageAccessManagerStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.DataTransfer.ISharedStorageAccessManagerStatics'
@@ -1028,12 +1028,12 @@ class IStandardDataFormatsStatics(ComPtr):
     def get_Bitmap(self) -> WinRT_String: ...
     @winrt_commethod(11)
     def get_StorageItems(self) -> WinRT_String: ...
-    Text = property(get_Text, None)
-    Uri = property(get_Uri, None)
+    Bitmap = property(get_Bitmap, None)
     Html = property(get_Html, None)
     Rtf = property(get_Rtf, None)
-    Bitmap = property(get_Bitmap, None)
     StorageItems = property(get_StorageItems, None)
+    Text = property(get_Text, None)
+    Uri = property(get_Uri, None)
 class IStandardDataFormatsStatics2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.DataTransfer.IStandardDataFormatsStatics2'
@@ -1042,8 +1042,8 @@ class IStandardDataFormatsStatics2(ComPtr):
     def get_WebLink(self) -> WinRT_String: ...
     @winrt_commethod(7)
     def get_ApplicationLink(self) -> WinRT_String: ...
-    WebLink = property(get_WebLink, None)
     ApplicationLink = property(get_ApplicationLink, None)
+    WebLink = property(get_WebLink, None)
 class IStandardDataFormatsStatics3(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.DataTransfer.IStandardDataFormatsStatics3'
@@ -1066,8 +1066,8 @@ class OperationCompletedEventArgs(ComPtr):
     def get_Operation(self: win32more.Windows.ApplicationModel.DataTransfer.IOperationCompletedEventArgs) -> win32more.Windows.ApplicationModel.DataTransfer.DataPackageOperation: ...
     @winrt_mixinmethod
     def get_AcceptedFormatId(self: win32more.Windows.ApplicationModel.DataTransfer.IOperationCompletedEventArgs2) -> WinRT_String: ...
-    Operation = property(get_Operation, None)
     AcceptedFormatId = property(get_AcceptedFormatId, None)
+    Operation = property(get_Operation, None)
 class SetHistoryItemAsContentStatus(Int32):  # enum
     Success = 0
     AccessDenied = 1
@@ -1102,10 +1102,10 @@ class ShareProvider(ComPtr):
     def get_Tag(self: win32more.Windows.ApplicationModel.DataTransfer.IShareProvider) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_mixinmethod
     def put_Tag(self: win32more.Windows.ApplicationModel.DataTransfer.IShareProvider, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
-    Title = property(get_Title, None)
-    DisplayIcon = property(get_DisplayIcon, None)
     BackgroundColor = property(get_BackgroundColor, None)
+    DisplayIcon = property(get_DisplayIcon, None)
     Tag = property(get_Tag, put_Tag)
+    Title = property(get_Title, None)
 class ShareProviderHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{e7f9d9ba-e1ba-4e4d-bd65-d43845d3212f}')
@@ -1132,8 +1132,8 @@ class ShareProvidersRequestedEventArgs(ComPtr):
     def get_Data(self: win32more.Windows.ApplicationModel.DataTransfer.IShareProvidersRequestedEventArgs) -> win32more.Windows.ApplicationModel.DataTransfer.DataPackageView: ...
     @winrt_mixinmethod
     def GetDeferral(self: win32more.Windows.ApplicationModel.DataTransfer.IShareProvidersRequestedEventArgs) -> win32more.Windows.Foundation.Deferral: ...
-    Providers = property(get_Providers, None)
     Data = property(get_Data, None)
+    Providers = property(get_Providers, None)
 class ShareTargetInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.DataTransfer.IShareTargetInfo
@@ -1165,8 +1165,8 @@ class ShareUIOptions(ComPtr):
     def get_SelectionRect(self: win32more.Windows.ApplicationModel.DataTransfer.IShareUIOptions) -> win32more.Windows.Foundation.IReference[win32more.Windows.Foundation.Rect]: ...
     @winrt_mixinmethod
     def put_SelectionRect(self: win32more.Windows.ApplicationModel.DataTransfer.IShareUIOptions, value: win32more.Windows.Foundation.IReference[win32more.Windows.Foundation.Rect]) -> Void: ...
-    Theme = property(get_Theme, put_Theme)
     SelectionRect = property(get_SelectionRect, put_SelectionRect)
+    Theme = property(get_Theme, put_Theme)
 class ShareUITheme(Int32):  # enum
     Default = 0
     Light = 1
@@ -1203,15 +1203,15 @@ class StandardDataFormats(ComPtr, metaclass=_StandardDataFormats_Meta_):
     def get_Bitmap(cls: win32more.Windows.ApplicationModel.DataTransfer.IStandardDataFormatsStatics) -> WinRT_String: ...
     @winrt_classmethod
     def get_StorageItems(cls: win32more.Windows.ApplicationModel.DataTransfer.IStandardDataFormatsStatics) -> WinRT_String: ...
-    _StandardDataFormats_Meta_.UserActivityJsonArray = property(get_UserActivityJsonArray.__wrapped__, None)
-    _StandardDataFormats_Meta_.WebLink = property(get_WebLink.__wrapped__, None)
     _StandardDataFormats_Meta_.ApplicationLink = property(get_ApplicationLink.__wrapped__, None)
-    _StandardDataFormats_Meta_.Text = property(get_Text.__wrapped__, None)
-    _StandardDataFormats_Meta_.Uri = property(get_Uri.__wrapped__, None)
+    _StandardDataFormats_Meta_.Bitmap = property(get_Bitmap.__wrapped__, None)
     _StandardDataFormats_Meta_.Html = property(get_Html.__wrapped__, None)
     _StandardDataFormats_Meta_.Rtf = property(get_Rtf.__wrapped__, None)
-    _StandardDataFormats_Meta_.Bitmap = property(get_Bitmap.__wrapped__, None)
     _StandardDataFormats_Meta_.StorageItems = property(get_StorageItems.__wrapped__, None)
+    _StandardDataFormats_Meta_.Text = property(get_Text.__wrapped__, None)
+    _StandardDataFormats_Meta_.Uri = property(get_Uri.__wrapped__, None)
+    _StandardDataFormats_Meta_.UserActivityJsonArray = property(get_UserActivityJsonArray.__wrapped__, None)
+    _StandardDataFormats_Meta_.WebLink = property(get_WebLink.__wrapped__, None)
 class TargetApplicationChosenEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.DataTransfer.ITargetApplicationChosenEventArgs

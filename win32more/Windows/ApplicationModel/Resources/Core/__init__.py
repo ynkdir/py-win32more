@@ -24,8 +24,8 @@ class INamedResource(ComPtr):
     def ResolveAll(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.ApplicationModel.Resources.Core.ResourceCandidate]: ...
     @winrt_commethod(11)
     def ResolveAllForContext(self, resourceContext: win32more.Windows.ApplicationModel.Resources.Core.ResourceContext) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.ApplicationModel.Resources.Core.ResourceCandidate]: ...
-    Uri = property(get_Uri, None)
     Candidates = property(get_Candidates, None)
+    Uri = property(get_Uri, None)
 class IResourceCandidate(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Resources.Core.IResourceCandidate'
@@ -44,10 +44,10 @@ class IResourceCandidate(ComPtr):
     def GetValueAsFileAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Storage.StorageFile]: ...
     @winrt_commethod(12)
     def GetQualifierValue(self, qualifierName: WinRT_String) -> WinRT_String: ...
-    Qualifiers = property(get_Qualifiers, None)
+    IsDefault = property(get_IsDefault, None)
     IsMatch = property(get_IsMatch, None)
     IsMatchAsDefault = property(get_IsMatchAsDefault, None)
-    IsDefault = property(get_IsDefault, None)
+    Qualifiers = property(get_Qualifiers, None)
     ValueAsString = property(get_ValueAsString, None)
 class IResourceCandidate2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -80,8 +80,8 @@ class IResourceContext(ComPtr):
     def get_Languages(self) -> win32more.Windows.Foundation.Collections.IVectorView[WinRT_String]: ...
     @winrt_commethod(12)
     def put_Languages(self, languages: win32more.Windows.Foundation.Collections.IVectorView[WinRT_String]) -> Void: ...
-    QualifierValues = property(get_QualifierValues, None)
     Languages = property(get_Languages, put_Languages)
+    QualifierValues = property(get_QualifierValues, None)
 class IResourceContextStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Resources.Core.IResourceContextStatics'
@@ -128,9 +128,9 @@ class IResourceManager(ComPtr):
     def LoadPriFiles(self, files: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Storage.IStorageFile]) -> Void: ...
     @winrt_commethod(10)
     def UnloadPriFiles(self, files: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Storage.IStorageFile]) -> Void: ...
-    MainResourceMap = property(get_MainResourceMap, None)
     AllResourceMaps = property(get_AllResourceMaps, None)
     DefaultContext = property(get_DefaultContext, None)
+    MainResourceMap = property(get_MainResourceMap, None)
 class IResourceManager2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Resources.Core.IResourceManager2'
@@ -175,10 +175,10 @@ class IResourceQualifier(ComPtr):
     def get_IsMatch(self) -> Boolean: ...
     @winrt_commethod(10)
     def get_Score(self) -> Double: ...
-    QualifierName = property(get_QualifierName, None)
-    QualifierValue = property(get_QualifierValue, None)
     IsDefault = property(get_IsDefault, None)
     IsMatch = property(get_IsMatch, None)
+    QualifierName = property(get_QualifierName, None)
+    QualifierValue = property(get_QualifierValue, None)
     Score = property(get_Score, None)
 class NamedResource(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -196,8 +196,8 @@ class NamedResource(ComPtr):
     def ResolveAll(self: win32more.Windows.ApplicationModel.Resources.Core.INamedResource) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.ApplicationModel.Resources.Core.ResourceCandidate]: ...
     @winrt_mixinmethod
     def ResolveAllForContext(self: win32more.Windows.ApplicationModel.Resources.Core.INamedResource, resourceContext: win32more.Windows.ApplicationModel.Resources.Core.ResourceContext) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.ApplicationModel.Resources.Core.ResourceCandidate]: ...
-    Uri = property(get_Uri, None)
     Candidates = property(get_Candidates, None)
+    Uri = property(get_Uri, None)
 class ResourceCandidate(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Resources.Core.IResourceCandidate
@@ -220,12 +220,12 @@ class ResourceCandidate(ComPtr):
     def GetValueAsStreamAsync(self: win32more.Windows.ApplicationModel.Resources.Core.IResourceCandidate2) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Storage.Streams.IRandomAccessStream]: ...
     @winrt_mixinmethod
     def get_Kind(self: win32more.Windows.ApplicationModel.Resources.Core.IResourceCandidate3) -> win32more.Windows.ApplicationModel.Resources.Core.ResourceCandidateKind: ...
-    Qualifiers = property(get_Qualifiers, None)
+    IsDefault = property(get_IsDefault, None)
     IsMatch = property(get_IsMatch, None)
     IsMatchAsDefault = property(get_IsMatchAsDefault, None)
-    IsDefault = property(get_IsDefault, None)
-    ValueAsString = property(get_ValueAsString, None)
     Kind = property(get_Kind, None)
+    Qualifiers = property(get_Qualifiers, None)
+    ValueAsString = property(get_ValueAsString, None)
 class ResourceCandidateKind(Int32):  # enum
     String = 0
     File = 1
@@ -288,8 +288,8 @@ class ResourceContext(ComPtr):
     def GetForViewIndependentUse(cls: win32more.Windows.ApplicationModel.Resources.Core.IResourceContextStatics2) -> win32more.Windows.ApplicationModel.Resources.Core.ResourceContext: ...
     @winrt_classmethod
     def CreateMatchingContext(cls: win32more.Windows.ApplicationModel.Resources.Core.IResourceContextStatics, result: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.ApplicationModel.Resources.Core.ResourceQualifier]) -> win32more.Windows.ApplicationModel.Resources.Core.ResourceContext: ...
-    QualifierValues = property(get_QualifierValues, None)
     Languages = property(get_Languages, put_Languages)
+    QualifierValues = property(get_QualifierValues, None)
 class ResourceContextLanguagesVectorView(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.Collections.IVectorView[WinRT_String]
@@ -335,9 +335,9 @@ class ResourceManager(ComPtr, metaclass=_ResourceManager_Meta_):
     def get_Current(cls: win32more.Windows.ApplicationModel.Resources.Core.IResourceManagerStatics) -> win32more.Windows.ApplicationModel.Resources.Core.ResourceManager: ...
     @winrt_classmethod
     def IsResourceReference(cls: win32more.Windows.ApplicationModel.Resources.Core.IResourceManagerStatics, resourceReference: WinRT_String) -> Boolean: ...
-    MainResourceMap = property(get_MainResourceMap, None)
     AllResourceMaps = property(get_AllResourceMaps, None)
     DefaultContext = property(get_DefaultContext, None)
+    MainResourceMap = property(get_MainResourceMap, None)
     _ResourceManager_Meta_.Current = property(get_Current.__wrapped__, None)
 class ResourceMap(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -361,8 +361,8 @@ class ResourceMap(ComPtr):
     def Split(self: win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.ApplicationModel.Resources.Core.NamedResource], first: POINTER(win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.ApplicationModel.Resources.Core.NamedResource]), second: POINTER(win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.ApplicationModel.Resources.Core.NamedResource])) -> Void: ...
     @winrt_mixinmethod
     def First(self: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, win32more.Windows.ApplicationModel.Resources.Core.NamedResource]]) -> win32more.Windows.Foundation.Collections.IIterator[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, win32more.Windows.ApplicationModel.Resources.Core.NamedResource]]: ...
-    Uri = property(get_Uri, None)
     Size = property(get_Size, None)
+    Uri = property(get_Uri, None)
 class ResourceMapIterator(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.Collections.IIterator[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, win32more.Windows.ApplicationModel.Resources.Core.NamedResource]]
@@ -420,10 +420,10 @@ class ResourceQualifier(ComPtr):
     def get_IsMatch(self: win32more.Windows.ApplicationModel.Resources.Core.IResourceQualifier) -> Boolean: ...
     @winrt_mixinmethod
     def get_Score(self: win32more.Windows.ApplicationModel.Resources.Core.IResourceQualifier) -> Double: ...
-    QualifierName = property(get_QualifierName, None)
-    QualifierValue = property(get_QualifierValue, None)
     IsDefault = property(get_IsDefault, None)
     IsMatch = property(get_IsMatch, None)
+    QualifierName = property(get_QualifierName, None)
+    QualifierValue = property(get_QualifierValue, None)
     Score = property(get_Score, None)
 class ResourceQualifierMapView(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable

@@ -96,11 +96,11 @@ class AppointmentsProviderAddAppointmentActivatedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_User(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgsWithUser) -> win32more.Windows.System.User: ...
     AddAppointmentOperation = property(get_AddAppointmentOperation, None)
-    Verb = property(get_Verb, None)
     Kind = property(get_Kind, None)
     PreviousExecutionState = property(get_PreviousExecutionState, None)
     SplashScreen = property(get_SplashScreen, None)
     User = property(get_User, None)
+    Verb = property(get_Verb, None)
 class AppointmentsProviderRemoveAppointmentActivatedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Activation.IAppointmentsProviderRemoveAppointmentActivatedEventArgs
@@ -117,12 +117,12 @@ class AppointmentsProviderRemoveAppointmentActivatedEventArgs(ComPtr):
     def get_SplashScreen(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgs) -> win32more.Windows.ApplicationModel.Activation.SplashScreen: ...
     @winrt_mixinmethod
     def get_User(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgsWithUser) -> win32more.Windows.System.User: ...
-    RemoveAppointmentOperation = property(get_RemoveAppointmentOperation, None)
-    Verb = property(get_Verb, None)
     Kind = property(get_Kind, None)
     PreviousExecutionState = property(get_PreviousExecutionState, None)
+    RemoveAppointmentOperation = property(get_RemoveAppointmentOperation, None)
     SplashScreen = property(get_SplashScreen, None)
     User = property(get_User, None)
+    Verb = property(get_Verb, None)
 class AppointmentsProviderReplaceAppointmentActivatedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Activation.IAppointmentsProviderReplaceAppointmentActivatedEventArgs
@@ -139,12 +139,12 @@ class AppointmentsProviderReplaceAppointmentActivatedEventArgs(ComPtr):
     def get_SplashScreen(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgs) -> win32more.Windows.ApplicationModel.Activation.SplashScreen: ...
     @winrt_mixinmethod
     def get_User(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgsWithUser) -> win32more.Windows.System.User: ...
-    ReplaceAppointmentOperation = property(get_ReplaceAppointmentOperation, None)
-    Verb = property(get_Verb, None)
     Kind = property(get_Kind, None)
     PreviousExecutionState = property(get_PreviousExecutionState, None)
+    ReplaceAppointmentOperation = property(get_ReplaceAppointmentOperation, None)
     SplashScreen = property(get_SplashScreen, None)
     User = property(get_User, None)
+    Verb = property(get_Verb, None)
 class AppointmentsProviderShowAppointmentDetailsActivatedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Activation.IAppointmentsProviderShowAppointmentDetailsActivatedEventArgs
@@ -166,13 +166,13 @@ class AppointmentsProviderShowAppointmentDetailsActivatedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_User(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgsWithUser) -> win32more.Windows.System.User: ...
     InstanceStartDate = property(get_InstanceStartDate, None)
-    LocalId = property(get_LocalId, None)
-    RoamingId = property(get_RoamingId, None)
-    Verb = property(get_Verb, None)
     Kind = property(get_Kind, None)
+    LocalId = property(get_LocalId, None)
     PreviousExecutionState = property(get_PreviousExecutionState, None)
+    RoamingId = property(get_RoamingId, None)
     SplashScreen = property(get_SplashScreen, None)
     User = property(get_User, None)
+    Verb = property(get_Verb, None)
 class AppointmentsProviderShowTimeFrameActivatedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Activation.IAppointmentsProviderShowTimeFrameActivatedEventArgs
@@ -191,13 +191,13 @@ class AppointmentsProviderShowTimeFrameActivatedEventArgs(ComPtr):
     def get_SplashScreen(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgs) -> win32more.Windows.ApplicationModel.Activation.SplashScreen: ...
     @winrt_mixinmethod
     def get_User(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgsWithUser) -> win32more.Windows.System.User: ...
-    TimeToShow = property(get_TimeToShow, None)
     Duration = property(get_Duration, None)
-    Verb = property(get_Verb, None)
     Kind = property(get_Kind, None)
     PreviousExecutionState = property(get_PreviousExecutionState, None)
     SplashScreen = property(get_SplashScreen, None)
+    TimeToShow = property(get_TimeToShow, None)
     User = property(get_User, None)
+    Verb = property(get_Verb, None)
 class BackgroundActivatedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Activation.IBackgroundActivatedEventArgs
@@ -257,11 +257,11 @@ class CameraSettingsActivatedEventArgs(ComPtr):
     def get_PreviousExecutionState(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgs) -> win32more.Windows.ApplicationModel.Activation.ApplicationExecutionState: ...
     @winrt_mixinmethod
     def get_SplashScreen(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgs) -> win32more.Windows.ApplicationModel.Activation.SplashScreen: ...
-    VideoDeviceController = property(get_VideoDeviceController, None)
-    VideoDeviceExtension = property(get_VideoDeviceExtension, None)
     Kind = property(get_Kind, None)
     PreviousExecutionState = property(get_PreviousExecutionState, None)
     SplashScreen = property(get_SplashScreen, None)
+    VideoDeviceController = property(get_VideoDeviceController, None)
+    VideoDeviceExtension = property(get_VideoDeviceExtension, None)
 class CommandLineActivatedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Activation.ICommandLineActivatedEventArgs
@@ -276,8 +276,8 @@ class CommandLineActivatedEventArgs(ComPtr):
     def get_SplashScreen(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgs) -> win32more.Windows.ApplicationModel.Activation.SplashScreen: ...
     @winrt_mixinmethod
     def get_User(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgsWithUser) -> win32more.Windows.System.User: ...
-    Operation = property(get_Operation, None)
     Kind = property(get_Kind, None)
+    Operation = property(get_Operation, None)
     PreviousExecutionState = property(get_PreviousExecutionState, None)
     SplashScreen = property(get_SplashScreen, None)
     User = property(get_User, None)
@@ -317,13 +317,13 @@ class ContactCallActivatedEventArgs(ComPtr):
     def get_PreviousExecutionState(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgs) -> win32more.Windows.ApplicationModel.Activation.ApplicationExecutionState: ...
     @winrt_mixinmethod
     def get_SplashScreen(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgs) -> win32more.Windows.ApplicationModel.Activation.SplashScreen: ...
-    ServiceId = property(get_ServiceId, None)
-    ServiceUserId = property(get_ServiceUserId, None)
     Contact = property(get_Contact, None)
-    Verb = property(get_Verb, None)
     Kind = property(get_Kind, None)
     PreviousExecutionState = property(get_PreviousExecutionState, None)
+    ServiceId = property(get_ServiceId, None)
+    ServiceUserId = property(get_ServiceUserId, None)
     SplashScreen = property(get_SplashScreen, None)
+    Verb = property(get_Verb, None)
 class ContactMapActivatedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Activation.IContactMapActivatedEventArgs
@@ -342,10 +342,10 @@ class ContactMapActivatedEventArgs(ComPtr):
     def get_SplashScreen(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgs) -> win32more.Windows.ApplicationModel.Activation.SplashScreen: ...
     Address = property(get_Address, None)
     Contact = property(get_Contact, None)
-    Verb = property(get_Verb, None)
     Kind = property(get_Kind, None)
     PreviousExecutionState = property(get_PreviousExecutionState, None)
     SplashScreen = property(get_SplashScreen, None)
+    Verb = property(get_Verb, None)
 class ContactMessageActivatedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Activation.IContactMessageActivatedEventArgs
@@ -364,13 +364,13 @@ class ContactMessageActivatedEventArgs(ComPtr):
     def get_PreviousExecutionState(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgs) -> win32more.Windows.ApplicationModel.Activation.ApplicationExecutionState: ...
     @winrt_mixinmethod
     def get_SplashScreen(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgs) -> win32more.Windows.ApplicationModel.Activation.SplashScreen: ...
-    ServiceId = property(get_ServiceId, None)
-    ServiceUserId = property(get_ServiceUserId, None)
     Contact = property(get_Contact, None)
-    Verb = property(get_Verb, None)
     Kind = property(get_Kind, None)
     PreviousExecutionState = property(get_PreviousExecutionState, None)
+    ServiceId = property(get_ServiceId, None)
+    ServiceUserId = property(get_ServiceUserId, None)
     SplashScreen = property(get_SplashScreen, None)
+    Verb = property(get_Verb, None)
 class ContactPanelActivatedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Activation.IContactPanelActivatedEventArgs
@@ -387,8 +387,8 @@ class ContactPanelActivatedEventArgs(ComPtr):
     def get_SplashScreen(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgs) -> win32more.Windows.ApplicationModel.Activation.SplashScreen: ...
     @winrt_mixinmethod
     def get_User(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgsWithUser) -> win32more.Windows.System.User: ...
-    ContactPanel = property(get_ContactPanel, None)
     Contact = property(get_Contact, None)
+    ContactPanel = property(get_ContactPanel, None)
     Kind = property(get_Kind, None)
     PreviousExecutionState = property(get_PreviousExecutionState, None)
     SplashScreen = property(get_SplashScreen, None)
@@ -427,13 +427,13 @@ class ContactPostActivatedEventArgs(ComPtr):
     def get_PreviousExecutionState(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgs) -> win32more.Windows.ApplicationModel.Activation.ApplicationExecutionState: ...
     @winrt_mixinmethod
     def get_SplashScreen(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgs) -> win32more.Windows.ApplicationModel.Activation.SplashScreen: ...
-    ServiceId = property(get_ServiceId, None)
-    ServiceUserId = property(get_ServiceUserId, None)
     Contact = property(get_Contact, None)
-    Verb = property(get_Verb, None)
     Kind = property(get_Kind, None)
     PreviousExecutionState = property(get_PreviousExecutionState, None)
+    ServiceId = property(get_ServiceId, None)
+    ServiceUserId = property(get_ServiceUserId, None)
     SplashScreen = property(get_SplashScreen, None)
+    Verb = property(get_Verb, None)
 class ContactVideoCallActivatedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Activation.IContactVideoCallActivatedEventArgs
@@ -452,13 +452,13 @@ class ContactVideoCallActivatedEventArgs(ComPtr):
     def get_PreviousExecutionState(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgs) -> win32more.Windows.ApplicationModel.Activation.ApplicationExecutionState: ...
     @winrt_mixinmethod
     def get_SplashScreen(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgs) -> win32more.Windows.ApplicationModel.Activation.SplashScreen: ...
-    ServiceId = property(get_ServiceId, None)
-    ServiceUserId = property(get_ServiceUserId, None)
     Contact = property(get_Contact, None)
-    Verb = property(get_Verb, None)
     Kind = property(get_Kind, None)
     PreviousExecutionState = property(get_PreviousExecutionState, None)
+    ServiceId = property(get_ServiceId, None)
+    ServiceUserId = property(get_ServiceUserId, None)
     SplashScreen = property(get_SplashScreen, None)
+    Verb = property(get_Verb, None)
 class DeviceActivatedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Activation.IDeviceActivatedEventArgs
@@ -479,14 +479,14 @@ class DeviceActivatedEventArgs(ComPtr):
     def get_ViewSwitcher(self: win32more.Windows.ApplicationModel.Activation.IViewSwitcherProvider) -> win32more.Windows.UI.ViewManagement.ActivationViewSwitcher: ...
     @winrt_mixinmethod
     def get_User(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgsWithUser) -> win32more.Windows.System.User: ...
+    CurrentlyShownApplicationViewId = property(get_CurrentlyShownApplicationViewId, None)
     DeviceInformationId = property(get_DeviceInformationId, None)
-    Verb = property(get_Verb, None)
     Kind = property(get_Kind, None)
     PreviousExecutionState = property(get_PreviousExecutionState, None)
     SplashScreen = property(get_SplashScreen, None)
-    CurrentlyShownApplicationViewId = property(get_CurrentlyShownApplicationViewId, None)
-    ViewSwitcher = property(get_ViewSwitcher, None)
     User = property(get_User, None)
+    Verb = property(get_Verb, None)
+    ViewSwitcher = property(get_ViewSwitcher, None)
 class DevicePairingActivatedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Activation.IDevicePairingActivatedEventArgs
@@ -530,13 +530,13 @@ class DialReceiverActivatedEventArgs(ComPtr):
     def get_User(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgsWithUser) -> win32more.Windows.System.User: ...
     AppName = property(get_AppName, None)
     Arguments = property(get_Arguments, None)
-    TileId = property(get_TileId, None)
+    CurrentlyShownApplicationViewId = property(get_CurrentlyShownApplicationViewId, None)
     Kind = property(get_Kind, None)
     PreviousExecutionState = property(get_PreviousExecutionState, None)
     SplashScreen = property(get_SplashScreen, None)
-    CurrentlyShownApplicationViewId = property(get_CurrentlyShownApplicationViewId, None)
-    ViewSwitcher = property(get_ViewSwitcher, None)
+    TileId = property(get_TileId, None)
     User = property(get_User, None)
+    ViewSwitcher = property(get_ViewSwitcher, None)
 class FileActivatedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Activation.IFileActivatedEventArgs
@@ -561,16 +561,16 @@ class FileActivatedEventArgs(ComPtr):
     def get_ViewSwitcher(self: win32more.Windows.ApplicationModel.Activation.IViewSwitcherProvider) -> win32more.Windows.UI.ViewManagement.ActivationViewSwitcher: ...
     @winrt_mixinmethod
     def get_User(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgsWithUser) -> win32more.Windows.System.User: ...
-    Files = property(get_Files, None)
-    Verb = property(get_Verb, None)
-    Kind = property(get_Kind, None)
-    PreviousExecutionState = property(get_PreviousExecutionState, None)
-    SplashScreen = property(get_SplashScreen, None)
-    NeighboringFilesQuery = property(get_NeighboringFilesQuery, None)
     CallerPackageFamilyName = property(get_CallerPackageFamilyName, None)
     CurrentlyShownApplicationViewId = property(get_CurrentlyShownApplicationViewId, None)
-    ViewSwitcher = property(get_ViewSwitcher, None)
+    Files = property(get_Files, None)
+    Kind = property(get_Kind, None)
+    NeighboringFilesQuery = property(get_NeighboringFilesQuery, None)
+    PreviousExecutionState = property(get_PreviousExecutionState, None)
+    SplashScreen = property(get_SplashScreen, None)
     User = property(get_User, None)
+    Verb = property(get_Verb, None)
+    ViewSwitcher = property(get_ViewSwitcher, None)
 class FileOpenPickerActivatedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Activation.IFileOpenPickerActivatedEventArgs
@@ -587,11 +587,11 @@ class FileOpenPickerActivatedEventArgs(ComPtr):
     def get_CallerPackageFamilyName(self: win32more.Windows.ApplicationModel.Activation.IFileOpenPickerActivatedEventArgs2) -> WinRT_String: ...
     @winrt_mixinmethod
     def get_User(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgsWithUser) -> win32more.Windows.System.User: ...
+    CallerPackageFamilyName = property(get_CallerPackageFamilyName, None)
     FileOpenPickerUI = property(get_FileOpenPickerUI, None)
     Kind = property(get_Kind, None)
     PreviousExecutionState = property(get_PreviousExecutionState, None)
     SplashScreen = property(get_SplashScreen, None)
-    CallerPackageFamilyName = property(get_CallerPackageFamilyName, None)
     User = property(get_User, None)
 class FileOpenPickerContinuationEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -609,8 +609,8 @@ class FileOpenPickerContinuationEventArgs(ComPtr):
     def get_SplashScreen(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgs) -> win32more.Windows.ApplicationModel.Activation.SplashScreen: ...
     @winrt_mixinmethod
     def get_User(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgsWithUser) -> win32more.Windows.System.User: ...
-    Files = property(get_Files, None)
     ContinuationData = property(get_ContinuationData, None)
+    Files = property(get_Files, None)
     Kind = property(get_Kind, None)
     PreviousExecutionState = property(get_PreviousExecutionState, None)
     SplashScreen = property(get_SplashScreen, None)
@@ -633,12 +633,12 @@ class FileSavePickerActivatedEventArgs(ComPtr):
     def get_EnterpriseId(self: win32more.Windows.ApplicationModel.Activation.IFileSavePickerActivatedEventArgs2) -> WinRT_String: ...
     @winrt_mixinmethod
     def get_User(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgsWithUser) -> win32more.Windows.System.User: ...
+    CallerPackageFamilyName = property(get_CallerPackageFamilyName, None)
+    EnterpriseId = property(get_EnterpriseId, None)
     FileSavePickerUI = property(get_FileSavePickerUI, None)
     Kind = property(get_Kind, None)
     PreviousExecutionState = property(get_PreviousExecutionState, None)
     SplashScreen = property(get_SplashScreen, None)
-    CallerPackageFamilyName = property(get_CallerPackageFamilyName, None)
-    EnterpriseId = property(get_EnterpriseId, None)
     User = property(get_User, None)
 class FileSavePickerContinuationEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -656,8 +656,8 @@ class FileSavePickerContinuationEventArgs(ComPtr):
     def get_SplashScreen(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgs) -> win32more.Windows.ApplicationModel.Activation.SplashScreen: ...
     @winrt_mixinmethod
     def get_User(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgsWithUser) -> win32more.Windows.System.User: ...
-    File = property(get_File, None)
     ContinuationData = property(get_ContinuationData, None)
+    File = property(get_File, None)
     Kind = property(get_Kind, None)
     PreviousExecutionState = property(get_PreviousExecutionState, None)
     SplashScreen = property(get_SplashScreen, None)
@@ -678,8 +678,8 @@ class FolderPickerContinuationEventArgs(ComPtr):
     def get_SplashScreen(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgs) -> win32more.Windows.ApplicationModel.Activation.SplashScreen: ...
     @winrt_mixinmethod
     def get_User(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgsWithUser) -> win32more.Windows.System.User: ...
-    Folder = property(get_Folder, None)
     ContinuationData = property(get_ContinuationData, None)
+    Folder = property(get_Folder, None)
     Kind = property(get_Kind, None)
     PreviousExecutionState = property(get_PreviousExecutionState, None)
     SplashScreen = property(get_SplashScreen, None)
@@ -760,8 +760,8 @@ class IAppointmentsProviderShowTimeFrameActivatedEventArgs(ComPtr):
     def get_TimeToShow(self) -> win32more.Windows.Foundation.DateTime: ...
     @winrt_commethod(7)
     def get_Duration(self) -> win32more.Windows.Foundation.TimeSpan: ...
-    TimeToShow = property(get_TimeToShow, None)
     Duration = property(get_Duration, None)
+    TimeToShow = property(get_TimeToShow, None)
 class IBackgroundActivatedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Activation.IBackgroundActivatedEventArgs'
@@ -834,9 +834,9 @@ class IContactCallActivatedEventArgs(ComPtr):
     def get_ServiceUserId(self) -> WinRT_String: ...
     @winrt_commethod(8)
     def get_Contact(self) -> win32more.Windows.ApplicationModel.Contacts.Contact: ...
+    Contact = property(get_Contact, None)
     ServiceId = property(get_ServiceId, None)
     ServiceUserId = property(get_ServiceUserId, None)
-    Contact = property(get_Contact, None)
 class IContactMapActivatedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Activation.IContactMapActivatedEventArgs'
@@ -857,9 +857,9 @@ class IContactMessageActivatedEventArgs(ComPtr):
     def get_ServiceUserId(self) -> WinRT_String: ...
     @winrt_commethod(8)
     def get_Contact(self) -> win32more.Windows.ApplicationModel.Contacts.Contact: ...
+    Contact = property(get_Contact, None)
     ServiceId = property(get_ServiceId, None)
     ServiceUserId = property(get_ServiceUserId, None)
-    Contact = property(get_Contact, None)
 class IContactPanelActivatedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Activation.IContactPanelActivatedEventArgs'
@@ -868,8 +868,8 @@ class IContactPanelActivatedEventArgs(ComPtr):
     def get_ContactPanel(self) -> win32more.Windows.ApplicationModel.Contacts.ContactPanel: ...
     @winrt_commethod(7)
     def get_Contact(self) -> win32more.Windows.ApplicationModel.Contacts.Contact: ...
-    ContactPanel = property(get_ContactPanel, None)
     Contact = property(get_Contact, None)
+    ContactPanel = property(get_ContactPanel, None)
 class IContactPickerActivatedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Activation.IContactPickerActivatedEventArgs'
@@ -887,9 +887,9 @@ class IContactPostActivatedEventArgs(ComPtr):
     def get_ServiceUserId(self) -> WinRT_String: ...
     @winrt_commethod(8)
     def get_Contact(self) -> win32more.Windows.ApplicationModel.Contacts.Contact: ...
+    Contact = property(get_Contact, None)
     ServiceId = property(get_ServiceId, None)
     ServiceUserId = property(get_ServiceUserId, None)
-    Contact = property(get_Contact, None)
 class IContactVideoCallActivatedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Activation.IContactVideoCallActivatedEventArgs'
@@ -900,9 +900,9 @@ class IContactVideoCallActivatedEventArgs(ComPtr):
     def get_ServiceUserId(self) -> WinRT_String: ...
     @winrt_commethod(8)
     def get_Contact(self) -> win32more.Windows.ApplicationModel.Contacts.Contact: ...
+    Contact = property(get_Contact, None)
     ServiceId = property(get_ServiceId, None)
     ServiceUserId = property(get_ServiceUserId, None)
-    Contact = property(get_Contact, None)
 class IContactsProviderActivatedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Activation.IContactsProviderActivatedEventArgs'
@@ -1122,8 +1122,8 @@ class ISearchActivatedEventArgs(ComPtr):
     def get_QueryText(self) -> WinRT_String: ...
     @winrt_commethod(7)
     def get_Language(self) -> WinRT_String: ...
-    QueryText = property(get_QueryText, None)
     Language = property(get_Language, None)
+    QueryText = property(get_QueryText, None)
 class ISearchActivatedEventArgsWithLinguisticDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Activation.ISearchActivatedEventArgsWithLinguisticDetails'
@@ -1204,9 +1204,9 @@ class IWalletActionActivatedEventArgs(ComPtr):
     def get_ActionKind(self) -> win32more.Windows.ApplicationModel.Wallet.WalletActionKind: ...
     @winrt_commethod(8)
     def get_ActionId(self) -> WinRT_String: ...
-    ItemId = property(get_ItemId, None)
-    ActionKind = property(get_ActionKind, None)
     ActionId = property(get_ActionId, None)
+    ActionKind = property(get_ActionKind, None)
+    ItemId = property(get_ItemId, None)
 class IWebAccountProviderActivatedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Activation.IWebAccountProviderActivatedEventArgs'
@@ -1246,15 +1246,15 @@ class LaunchActivatedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_User(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgsWithUser) -> win32more.Windows.System.User: ...
     Arguments = property(get_Arguments, None)
-    TileId = property(get_TileId, None)
+    CurrentlyShownApplicationViewId = property(get_CurrentlyShownApplicationViewId, None)
     Kind = property(get_Kind, None)
+    PrelaunchActivated = property(get_PrelaunchActivated, None)
     PreviousExecutionState = property(get_PreviousExecutionState, None)
     SplashScreen = property(get_SplashScreen, None)
-    CurrentlyShownApplicationViewId = property(get_CurrentlyShownApplicationViewId, None)
-    PrelaunchActivated = property(get_PrelaunchActivated, None)
-    ViewSwitcher = property(get_ViewSwitcher, None)
     TileActivatedInfo = property(get_TileActivatedInfo, None)
+    TileId = property(get_TileId, None)
     User = property(get_User, None)
+    ViewSwitcher = property(get_ViewSwitcher, None)
 class LockScreenActivatedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Activation.ILockScreenActivatedEventArgs
@@ -1294,13 +1294,13 @@ class LockScreenCallActivatedEventArgs(ComPtr):
     def get_CurrentlyShownApplicationViewId(self: win32more.Windows.ApplicationModel.Activation.IApplicationViewActivatedEventArgs) -> Int32: ...
     @winrt_mixinmethod
     def get_ViewSwitcher(self: win32more.Windows.ApplicationModel.Activation.IViewSwitcherProvider) -> win32more.Windows.UI.ViewManagement.ActivationViewSwitcher: ...
-    CallUI = property(get_CallUI, None)
     Arguments = property(get_Arguments, None)
-    TileId = property(get_TileId, None)
+    CallUI = property(get_CallUI, None)
+    CurrentlyShownApplicationViewId = property(get_CurrentlyShownApplicationViewId, None)
     Kind = property(get_Kind, None)
     PreviousExecutionState = property(get_PreviousExecutionState, None)
     SplashScreen = property(get_SplashScreen, None)
-    CurrentlyShownApplicationViewId = property(get_CurrentlyShownApplicationViewId, None)
+    TileId = property(get_TileId, None)
     ViewSwitcher = property(get_ViewSwitcher, None)
 class LockScreenComponentActivatedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -1329,8 +1329,8 @@ class PhoneCallActivatedEventArgs(ComPtr):
     def get_SplashScreen(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgs) -> win32more.Windows.ApplicationModel.Activation.SplashScreen: ...
     @winrt_mixinmethod
     def get_User(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgsWithUser) -> win32more.Windows.System.User: ...
-    LineId = property(get_LineId, None)
     Kind = property(get_Kind, None)
+    LineId = property(get_LineId, None)
     PreviousExecutionState = property(get_PreviousExecutionState, None)
     SplashScreen = property(get_SplashScreen, None)
     User = property(get_User, None)
@@ -1346,8 +1346,8 @@ class PickerReturnedActivatedEventArgs(ComPtr):
     def get_PreviousExecutionState(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgs) -> win32more.Windows.ApplicationModel.Activation.ApplicationExecutionState: ...
     @winrt_mixinmethod
     def get_SplashScreen(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgs) -> win32more.Windows.ApplicationModel.Activation.SplashScreen: ...
-    PickerOperationId = property(get_PickerOperationId, None)
     Kind = property(get_Kind, None)
+    PickerOperationId = property(get_PickerOperationId, None)
     PreviousExecutionState = property(get_PreviousExecutionState, None)
     SplashScreen = property(get_SplashScreen, None)
 class Print3DWorkflowActivatedEventArgs(ComPtr):
@@ -1362,10 +1362,10 @@ class Print3DWorkflowActivatedEventArgs(ComPtr):
     def get_PreviousExecutionState(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgs) -> win32more.Windows.ApplicationModel.Activation.ApplicationExecutionState: ...
     @winrt_mixinmethod
     def get_SplashScreen(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgs) -> win32more.Windows.ApplicationModel.Activation.SplashScreen: ...
-    Workflow = property(get_Workflow, None)
     Kind = property(get_Kind, None)
     PreviousExecutionState = property(get_PreviousExecutionState, None)
     SplashScreen = property(get_SplashScreen, None)
+    Workflow = property(get_Workflow, None)
 class PrintTaskSettingsActivatedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Activation.IPrintTaskSettingsActivatedEventArgs
@@ -1404,15 +1404,15 @@ class ProtocolActivatedEventArgs(ComPtr):
     def get_ViewSwitcher(self: win32more.Windows.ApplicationModel.Activation.IViewSwitcherProvider) -> win32more.Windows.UI.ViewManagement.ActivationViewSwitcher: ...
     @winrt_mixinmethod
     def get_User(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgsWithUser) -> win32more.Windows.System.User: ...
-    Uri = property(get_Uri, None)
+    CallerPackageFamilyName = property(get_CallerPackageFamilyName, None)
+    CurrentlyShownApplicationViewId = property(get_CurrentlyShownApplicationViewId, None)
+    Data = property(get_Data, None)
     Kind = property(get_Kind, None)
     PreviousExecutionState = property(get_PreviousExecutionState, None)
     SplashScreen = property(get_SplashScreen, None)
-    CallerPackageFamilyName = property(get_CallerPackageFamilyName, None)
-    Data = property(get_Data, None)
-    CurrentlyShownApplicationViewId = property(get_CurrentlyShownApplicationViewId, None)
-    ViewSwitcher = property(get_ViewSwitcher, None)
+    Uri = property(get_Uri, None)
     User = property(get_User, None)
+    ViewSwitcher = property(get_ViewSwitcher, None)
 class ProtocolForResultsActivatedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Activation.IProtocolForResultsActivatedEventArgs
@@ -1437,16 +1437,16 @@ class ProtocolForResultsActivatedEventArgs(ComPtr):
     def get_ViewSwitcher(self: win32more.Windows.ApplicationModel.Activation.IViewSwitcherProvider) -> win32more.Windows.UI.ViewManagement.ActivationViewSwitcher: ...
     @winrt_mixinmethod
     def get_User(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgsWithUser) -> win32more.Windows.System.User: ...
-    ProtocolForResultsOperation = property(get_ProtocolForResultsOperation, None)
+    CallerPackageFamilyName = property(get_CallerPackageFamilyName, None)
+    CurrentlyShownApplicationViewId = property(get_CurrentlyShownApplicationViewId, None)
+    Data = property(get_Data, None)
     Kind = property(get_Kind, None)
     PreviousExecutionState = property(get_PreviousExecutionState, None)
+    ProtocolForResultsOperation = property(get_ProtocolForResultsOperation, None)
     SplashScreen = property(get_SplashScreen, None)
     Uri = property(get_Uri, None)
-    CallerPackageFamilyName = property(get_CallerPackageFamilyName, None)
-    Data = property(get_Data, None)
-    CurrentlyShownApplicationViewId = property(get_CurrentlyShownApplicationViewId, None)
-    ViewSwitcher = property(get_ViewSwitcher, None)
     User = property(get_User, None)
+    ViewSwitcher = property(get_ViewSwitcher, None)
 class RestrictedLaunchActivatedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Activation.IRestrictedLaunchActivatedEventArgs
@@ -1461,9 +1461,9 @@ class RestrictedLaunchActivatedEventArgs(ComPtr):
     def get_SplashScreen(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgs) -> win32more.Windows.ApplicationModel.Activation.SplashScreen: ...
     @winrt_mixinmethod
     def get_User(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgsWithUser) -> win32more.Windows.System.User: ...
-    SharedContext = property(get_SharedContext, None)
     Kind = property(get_Kind, None)
     PreviousExecutionState = property(get_PreviousExecutionState, None)
+    SharedContext = property(get_SharedContext, None)
     SplashScreen = property(get_SplashScreen, None)
     User = property(get_User, None)
 class SearchActivatedEventArgs(ComPtr):
@@ -1488,15 +1488,15 @@ class SearchActivatedEventArgs(ComPtr):
     def get_ViewSwitcher(self: win32more.Windows.ApplicationModel.Activation.IViewSwitcherProvider) -> win32more.Windows.UI.ViewManagement.ActivationViewSwitcher: ...
     @winrt_mixinmethod
     def get_User(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgsWithUser) -> win32more.Windows.System.User: ...
-    QueryText = property(get_QueryText, None)
-    Language = property(get_Language, None)
-    Kind = property(get_Kind, None)
-    PreviousExecutionState = property(get_PreviousExecutionState, None)
-    SplashScreen = property(get_SplashScreen, None)
     CurrentlyShownApplicationViewId = property(get_CurrentlyShownApplicationViewId, None)
+    Kind = property(get_Kind, None)
+    Language = property(get_Language, None)
     LinguisticDetails = property(get_LinguisticDetails, None)
-    ViewSwitcher = property(get_ViewSwitcher, None)
+    PreviousExecutionState = property(get_PreviousExecutionState, None)
+    QueryText = property(get_QueryText, None)
+    SplashScreen = property(get_SplashScreen, None)
     User = property(get_User, None)
+    ViewSwitcher = property(get_ViewSwitcher, None)
 class ShareTargetActivatedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Activation.IShareTargetActivatedEventArgs
@@ -1511,9 +1511,9 @@ class ShareTargetActivatedEventArgs(ComPtr):
     def get_SplashScreen(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgs) -> win32more.Windows.ApplicationModel.Activation.SplashScreen: ...
     @winrt_mixinmethod
     def get_User(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgsWithUser) -> win32more.Windows.System.User: ...
-    ShareOperation = property(get_ShareOperation, None)
     Kind = property(get_Kind, None)
     PreviousExecutionState = property(get_PreviousExecutionState, None)
+    ShareOperation = property(get_ShareOperation, None)
     SplashScreen = property(get_SplashScreen, None)
     User = property(get_User, None)
 class SplashScreen(ComPtr):
@@ -1541,10 +1541,10 @@ class StartupTaskActivatedEventArgs(ComPtr):
     def get_SplashScreen(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgs) -> win32more.Windows.ApplicationModel.Activation.SplashScreen: ...
     @winrt_mixinmethod
     def get_User(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgsWithUser) -> win32more.Windows.System.User: ...
-    TaskId = property(get_TaskId, None)
     Kind = property(get_Kind, None)
     PreviousExecutionState = property(get_PreviousExecutionState, None)
     SplashScreen = property(get_SplashScreen, None)
+    TaskId = property(get_TaskId, None)
     User = property(get_User, None)
 class TileActivatedInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -1572,12 +1572,12 @@ class ToastNotificationActivatedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_CurrentlyShownApplicationViewId(self: win32more.Windows.ApplicationModel.Activation.IApplicationViewActivatedEventArgs) -> Int32: ...
     Argument = property(get_Argument, None)
-    UserInput = property(get_UserInput, None)
+    CurrentlyShownApplicationViewId = property(get_CurrentlyShownApplicationViewId, None)
     Kind = property(get_Kind, None)
     PreviousExecutionState = property(get_PreviousExecutionState, None)
     SplashScreen = property(get_SplashScreen, None)
     User = property(get_User, None)
-    CurrentlyShownApplicationViewId = property(get_CurrentlyShownApplicationViewId, None)
+    UserInput = property(get_UserInput, None)
 class UserDataAccountProviderActivatedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Activation.IUserDataAccountProviderActivatedEventArgs
@@ -1590,8 +1590,8 @@ class UserDataAccountProviderActivatedEventArgs(ComPtr):
     def get_PreviousExecutionState(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgs) -> win32more.Windows.ApplicationModel.Activation.ApplicationExecutionState: ...
     @winrt_mixinmethod
     def get_SplashScreen(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgs) -> win32more.Windows.ApplicationModel.Activation.SplashScreen: ...
-    Operation = property(get_Operation, None)
     Kind = property(get_Kind, None)
+    Operation = property(get_Operation, None)
     PreviousExecutionState = property(get_PreviousExecutionState, None)
     SplashScreen = property(get_SplashScreen, None)
 class VoiceCommandActivatedEventArgs(ComPtr):
@@ -1608,9 +1608,9 @@ class VoiceCommandActivatedEventArgs(ComPtr):
     def get_SplashScreen(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgs) -> win32more.Windows.ApplicationModel.Activation.SplashScreen: ...
     @winrt_mixinmethod
     def get_User(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgsWithUser) -> win32more.Windows.System.User: ...
-    Result = property(get_Result, None)
     Kind = property(get_Kind, None)
     PreviousExecutionState = property(get_PreviousExecutionState, None)
+    Result = property(get_Result, None)
     SplashScreen = property(get_SplashScreen, None)
     User = property(get_User, None)
 class WalletActionActivatedEventArgs(ComPtr):
@@ -1629,9 +1629,9 @@ class WalletActionActivatedEventArgs(ComPtr):
     def get_PreviousExecutionState(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgs) -> win32more.Windows.ApplicationModel.Activation.ApplicationExecutionState: ...
     @winrt_mixinmethod
     def get_SplashScreen(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgs) -> win32more.Windows.ApplicationModel.Activation.SplashScreen: ...
-    ItemId = property(get_ItemId, None)
-    ActionKind = property(get_ActionKind, None)
     ActionId = property(get_ActionId, None)
+    ActionKind = property(get_ActionKind, None)
+    ItemId = property(get_ItemId, None)
     Kind = property(get_Kind, None)
     PreviousExecutionState = property(get_PreviousExecutionState, None)
     SplashScreen = property(get_SplashScreen, None)
@@ -1649,8 +1649,8 @@ class WebAccountProviderActivatedEventArgs(ComPtr):
     def get_SplashScreen(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgs) -> win32more.Windows.ApplicationModel.Activation.SplashScreen: ...
     @winrt_mixinmethod
     def get_User(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgsWithUser) -> win32more.Windows.System.User: ...
-    Operation = property(get_Operation, None)
     Kind = property(get_Kind, None)
+    Operation = property(get_Operation, None)
     PreviousExecutionState = property(get_PreviousExecutionState, None)
     SplashScreen = property(get_SplashScreen, None)
     User = property(get_User, None)
@@ -1668,11 +1668,11 @@ class WebAuthenticationBrokerContinuationEventArgs(ComPtr):
     def get_PreviousExecutionState(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgs) -> win32more.Windows.ApplicationModel.Activation.ApplicationExecutionState: ...
     @winrt_mixinmethod
     def get_SplashScreen(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgs) -> win32more.Windows.ApplicationModel.Activation.SplashScreen: ...
-    WebAuthenticationResult = property(get_WebAuthenticationResult, None)
     ContinuationData = property(get_ContinuationData, None)
     Kind = property(get_Kind, None)
     PreviousExecutionState = property(get_PreviousExecutionState, None)
     SplashScreen = property(get_SplashScreen, None)
+    WebAuthenticationResult = property(get_WebAuthenticationResult, None)
 WebUISearchActivatedEventsContract: UInt32 = 65536
 
 

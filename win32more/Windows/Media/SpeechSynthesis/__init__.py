@@ -63,8 +63,8 @@ class ISpeechSynthesizerOptions(ComPtr):
     def get_IncludeSentenceBoundaryMetadata(self) -> Boolean: ...
     @winrt_commethod(9)
     def put_IncludeSentenceBoundaryMetadata(self, value: Boolean) -> Void: ...
-    IncludeWordBoundaryMetadata = property(get_IncludeWordBoundaryMetadata, put_IncludeWordBoundaryMetadata)
     IncludeSentenceBoundaryMetadata = property(get_IncludeSentenceBoundaryMetadata, put_IncludeSentenceBoundaryMetadata)
+    IncludeWordBoundaryMetadata = property(get_IncludeWordBoundaryMetadata, put_IncludeWordBoundaryMetadata)
 class ISpeechSynthesizerOptions2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.SpeechSynthesis.ISpeechSynthesizerOptions2'
@@ -81,9 +81,9 @@ class ISpeechSynthesizerOptions2(ComPtr):
     def get_AudioPitch(self) -> Double: ...
     @winrt_commethod(11)
     def put_AudioPitch(self, value: Double) -> Void: ...
+    AudioPitch = property(get_AudioPitch, put_AudioPitch)
     AudioVolume = property(get_AudioVolume, put_AudioVolume)
     SpeakingRate = property(get_SpeakingRate, put_SpeakingRate)
-    AudioPitch = property(get_AudioPitch, put_AudioPitch)
 class ISpeechSynthesizerOptions3(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.SpeechSynthesis.ISpeechSynthesizerOptions3'
@@ -112,11 +112,11 @@ class IVoiceInformation(ComPtr):
     def get_Description(self) -> WinRT_String: ...
     @winrt_commethod(10)
     def get_Gender(self) -> win32more.Windows.Media.SpeechSynthesis.VoiceGender: ...
+    Description = property(get_Description, None)
     DisplayName = property(get_DisplayName, None)
+    Gender = property(get_Gender, None)
     Id = property(get_Id, None)
     Language = property(get_Language, None)
-    Description = property(get_Description, None)
-    Gender = property(get_Gender, None)
 class SpeechAppendedSilence(Int32):  # enum
     Default = 0
     Min = 1
@@ -159,12 +159,12 @@ class SpeechSynthesisStream(ComPtr):
     def get_ContentType(self: win32more.Windows.Storage.Streams.IContentTypeProvider) -> WinRT_String: ...
     @winrt_mixinmethod
     def get_TimedMetadataTracks(self: win32more.Windows.Media.Core.ITimedMetadataTrackProvider) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Media.Core.TimedMetadataTrack]: ...
-    Markers = property(get_Markers, None)
-    Size = property(get_Size, put_Size)
-    Position = property(get_Position, None)
     CanRead = property(get_CanRead, None)
     CanWrite = property(get_CanWrite, None)
     ContentType = property(get_ContentType, None)
+    Markers = property(get_Markers, None)
+    Position = property(get_Position, None)
+    Size = property(get_Size, put_Size)
     TimedMetadataTracks = property(get_TimedMetadataTracks, None)
 class _SpeechSynthesizer_Meta_(ComPtr.__class__):
     pass
@@ -199,8 +199,8 @@ class SpeechSynthesizer(ComPtr, metaclass=_SpeechSynthesizer_Meta_):
     def get_AllVoices(cls: win32more.Windows.Media.SpeechSynthesis.IInstalledVoicesStatic) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Media.SpeechSynthesis.VoiceInformation]: ...
     @winrt_classmethod
     def get_DefaultVoice(cls: win32more.Windows.Media.SpeechSynthesis.IInstalledVoicesStatic) -> win32more.Windows.Media.SpeechSynthesis.VoiceInformation: ...
-    Voice = property(get_Voice, put_Voice)
     Options = property(get_Options, None)
+    Voice = property(get_Voice, put_Voice)
     _SpeechSynthesizer_Meta_.AllVoices = property(get_AllVoices.__wrapped__, None)
     _SpeechSynthesizer_Meta_.DefaultVoice = property(get_DefaultVoice.__wrapped__, None)
 class SpeechSynthesizerOptions(ComPtr):
@@ -235,13 +235,13 @@ class SpeechSynthesizerOptions(ComPtr):
     def get_PunctuationSilence(self: win32more.Windows.Media.SpeechSynthesis.ISpeechSynthesizerOptions3) -> win32more.Windows.Media.SpeechSynthesis.SpeechPunctuationSilence: ...
     @winrt_mixinmethod
     def put_PunctuationSilence(self: win32more.Windows.Media.SpeechSynthesis.ISpeechSynthesizerOptions3, value: win32more.Windows.Media.SpeechSynthesis.SpeechPunctuationSilence) -> Void: ...
-    IncludeWordBoundaryMetadata = property(get_IncludeWordBoundaryMetadata, put_IncludeWordBoundaryMetadata)
-    IncludeSentenceBoundaryMetadata = property(get_IncludeSentenceBoundaryMetadata, put_IncludeSentenceBoundaryMetadata)
-    AudioVolume = property(get_AudioVolume, put_AudioVolume)
-    SpeakingRate = property(get_SpeakingRate, put_SpeakingRate)
-    AudioPitch = property(get_AudioPitch, put_AudioPitch)
     AppendedSilence = property(get_AppendedSilence, put_AppendedSilence)
+    AudioPitch = property(get_AudioPitch, put_AudioPitch)
+    AudioVolume = property(get_AudioVolume, put_AudioVolume)
+    IncludeSentenceBoundaryMetadata = property(get_IncludeSentenceBoundaryMetadata, put_IncludeSentenceBoundaryMetadata)
+    IncludeWordBoundaryMetadata = property(get_IncludeWordBoundaryMetadata, put_IncludeWordBoundaryMetadata)
     PunctuationSilence = property(get_PunctuationSilence, put_PunctuationSilence)
+    SpeakingRate = property(get_SpeakingRate, put_SpeakingRate)
 class VoiceGender(Int32):  # enum
     Male = 0
     Female = 1
@@ -259,11 +259,11 @@ class VoiceInformation(ComPtr):
     def get_Description(self: win32more.Windows.Media.SpeechSynthesis.IVoiceInformation) -> WinRT_String: ...
     @winrt_mixinmethod
     def get_Gender(self: win32more.Windows.Media.SpeechSynthesis.IVoiceInformation) -> win32more.Windows.Media.SpeechSynthesis.VoiceGender: ...
+    Description = property(get_Description, None)
     DisplayName = property(get_DisplayName, None)
+    Gender = property(get_Gender, None)
     Id = property(get_Id, None)
     Language = property(get_Language, None)
-    Description = property(get_Description, None)
-    Gender = property(get_Gender, None)
 
 
 make_ready(__name__)

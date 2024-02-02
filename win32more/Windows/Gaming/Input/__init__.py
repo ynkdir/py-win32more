@@ -263,10 +263,10 @@ class Gamepad(ComPtr, metaclass=_Gamepad_Meta_):
     def remove_GamepadRemoved(cls: win32more.Windows.Gaming.Input.IGamepadStatics, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
     def get_Gamepads(cls: win32more.Windows.Gaming.Input.IGamepadStatics) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Gaming.Input.Gamepad]: ...
-    Vibration = property(get_Vibration, put_Vibration)
     Headset = property(get_Headset, None)
     IsWireless = property(get_IsWireless, None)
     User = property(get_User, None)
+    Vibration = property(get_Vibration, put_Vibration)
     _Gamepad_Meta_.Gamepads = property(get_Gamepads.__wrapped__, None)
 class GamepadButtons(UInt32):  # enum
     None_ = 0
@@ -536,9 +536,9 @@ class IRawGameController2(ComPtr):
     def get_NonRoamableId(self) -> WinRT_String: ...
     @winrt_commethod(8)
     def get_DisplayName(self) -> WinRT_String: ...
-    SimpleHapticsControllers = property(get_SimpleHapticsControllers, None)
-    NonRoamableId = property(get_NonRoamableId, None)
     DisplayName = property(get_DisplayName, None)
+    NonRoamableId = property(get_NonRoamableId, None)
+    SimpleHapticsControllers = property(get_SimpleHapticsControllers, None)
 class IRawGameControllerStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Gaming.Input.IRawGameControllerStatics'
@@ -658,12 +658,12 @@ class RacingWheel(ComPtr, metaclass=_RacingWheel_Meta_):
     HasClutch = property(get_HasClutch, None)
     HasHandbrake = property(get_HasHandbrake, None)
     HasPatternShifter = property(get_HasPatternShifter, None)
-    MaxPatternShifterGear = property(get_MaxPatternShifterGear, None)
-    MaxWheelAngle = property(get_MaxWheelAngle, None)
-    WheelMotor = property(get_WheelMotor, None)
     Headset = property(get_Headset, None)
     IsWireless = property(get_IsWireless, None)
+    MaxPatternShifterGear = property(get_MaxPatternShifterGear, None)
+    MaxWheelAngle = property(get_MaxWheelAngle, None)
     User = property(get_User, None)
+    WheelMotor = property(get_WheelMotor, None)
     _RacingWheel_Meta_.RacingWheels = property(get_RacingWheels.__wrapped__, None)
 class RacingWheelButtons(UInt32):  # enum
     None_ = 0
@@ -762,16 +762,16 @@ class RawGameController(ComPtr, metaclass=_RawGameController_Meta_):
     def FromGameController(cls: win32more.Windows.Gaming.Input.IRawGameControllerStatics, gameController: win32more.Windows.Gaming.Input.IGameController) -> win32more.Windows.Gaming.Input.RawGameController: ...
     AxisCount = property(get_AxisCount, None)
     ButtonCount = property(get_ButtonCount, None)
+    DisplayName = property(get_DisplayName, None)
     ForceFeedbackMotors = property(get_ForceFeedbackMotors, None)
     HardwareProductId = property(get_HardwareProductId, None)
     HardwareVendorId = property(get_HardwareVendorId, None)
-    SwitchCount = property(get_SwitchCount, None)
     Headset = property(get_Headset, None)
     IsWireless = property(get_IsWireless, None)
-    User = property(get_User, None)
-    SimpleHapticsControllers = property(get_SimpleHapticsControllers, None)
     NonRoamableId = property(get_NonRoamableId, None)
-    DisplayName = property(get_DisplayName, None)
+    SimpleHapticsControllers = property(get_SimpleHapticsControllers, None)
+    SwitchCount = property(get_SwitchCount, None)
+    User = property(get_User, None)
     _RawGameController_Meta_.RawGameControllers = property(get_RawGameControllers.__wrapped__, None)
 class RequiredUINavigationButtons(UInt32):  # enum
     None_ = 0

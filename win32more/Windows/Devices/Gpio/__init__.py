@@ -38,8 +38,8 @@ class GpioChangeCounter(ComPtr):
     def Reset(self: win32more.Windows.Devices.Gpio.IGpioChangeCounter) -> win32more.Windows.Devices.Gpio.GpioChangeCount: ...
     @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
-    Polarity = property(get_Polarity, put_Polarity)
     IsStarted = property(get_IsStarted, None)
+    Polarity = property(get_Polarity, put_Polarity)
 class GpioChangePolarity(Int32):  # enum
     Falling = 0
     Rising = 1
@@ -92,11 +92,11 @@ class GpioChangeReader(ComPtr):
     @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
     Capacity = property(get_Capacity, None)
-    Length = property(get_Length, None)
     IsEmpty = property(get_IsEmpty, None)
     IsOverflowed = property(get_IsOverflowed, None)
-    Polarity = property(get_Polarity, put_Polarity)
     IsStarted = property(get_IsStarted, None)
+    Length = property(get_Length, None)
+    Polarity = property(get_Polarity, put_Polarity)
 class GpioChangeRecord(EasyCastStructure):
     RelativeTime: win32more.Windows.Foundation.TimeSpan
     Edge: win32more.Windows.Devices.Gpio.GpioPinEdge
@@ -199,8 +199,8 @@ class IGpioChangeCounter(ComPtr):
     def Read(self) -> win32more.Windows.Devices.Gpio.GpioChangeCount: ...
     @winrt_commethod(12)
     def Reset(self) -> win32more.Windows.Devices.Gpio.GpioChangeCount: ...
-    Polarity = property(get_Polarity, put_Polarity)
     IsStarted = property(get_IsStarted, None)
+    Polarity = property(get_Polarity, put_Polarity)
 class IGpioChangeCounterFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Gpio.IGpioChangeCounterFactory'
@@ -240,11 +240,11 @@ class IGpioChangeReader(ComPtr):
     @winrt_commethod(19)
     def WaitForItemsAsync(self, count: Int32) -> win32more.Windows.Foundation.IAsyncAction: ...
     Capacity = property(get_Capacity, None)
-    Length = property(get_Length, None)
     IsEmpty = property(get_IsEmpty, None)
     IsOverflowed = property(get_IsOverflowed, None)
-    Polarity = property(get_Polarity, put_Polarity)
     IsStarted = property(get_IsStarted, None)
+    Length = property(get_Length, None)
+    Polarity = property(get_Polarity, put_Polarity)
 class IGpioChangeReaderFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Gpio.IGpioChangeReaderFactory'

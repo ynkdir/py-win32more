@@ -51,8 +51,8 @@ class DesktopWindowXamlSource(ComPtr):
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
     Content = property(get_Content, put_Content)
     HasFocus = property(get_HasFocus, None)
-    SystemBackdrop = property(get_SystemBackdrop, put_SystemBackdrop)
     SiteBridge = property(get_SiteBridge, None)
+    SystemBackdrop = property(get_SystemBackdrop, put_SystemBackdrop)
 class DesktopWindowXamlSourceGotFocusEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Hosting.IDesktopWindowXamlSourceGotFocusEventArgs
@@ -117,8 +117,8 @@ class IDesktopWindowXamlSource(ComPtr):
     def Initialize(self, parentWindowId: win32more.Microsoft.UI.WindowId) -> Void: ...
     Content = property(get_Content, put_Content)
     HasFocus = property(get_HasFocus, None)
-    SystemBackdrop = property(get_SystemBackdrop, put_SystemBackdrop)
     SiteBridge = property(get_SiteBridge, None)
+    SystemBackdrop = property(get_SystemBackdrop, put_SystemBackdrop)
 class IDesktopWindowXamlSourceFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Hosting.IDesktopWindowXamlSourceFactory'
@@ -183,9 +183,9 @@ class IXamlSourceFocusNavigationRequest(ComPtr):
     def get_HintRect(self) -> win32more.Windows.Foundation.Rect: ...
     @winrt_commethod(8)
     def get_CorrelationId(self) -> Guid: ...
-    Reason = property(get_Reason, None)
-    HintRect = property(get_HintRect, None)
     CorrelationId = property(get_CorrelationId, None)
+    HintRect = property(get_HintRect, None)
+    Reason = property(get_Reason, None)
 class IXamlSourceFocusNavigationRequestFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Hosting.IXamlSourceFocusNavigationRequestFactory'
@@ -253,9 +253,9 @@ class XamlSourceFocusNavigationRequest(ComPtr):
     def get_HintRect(self: win32more.Microsoft.UI.Xaml.Hosting.IXamlSourceFocusNavigationRequest) -> win32more.Windows.Foundation.Rect: ...
     @winrt_mixinmethod
     def get_CorrelationId(self: win32more.Microsoft.UI.Xaml.Hosting.IXamlSourceFocusNavigationRequest) -> Guid: ...
-    Reason = property(get_Reason, None)
-    HintRect = property(get_HintRect, None)
     CorrelationId = property(get_CorrelationId, None)
+    HintRect = property(get_HintRect, None)
+    Reason = property(get_Reason, None)
 class XamlSourceFocusNavigationResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Hosting.IXamlSourceFocusNavigationResult

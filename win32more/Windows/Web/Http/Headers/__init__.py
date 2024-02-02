@@ -637,8 +637,8 @@ class HttpExpectationHeaderValue(ComPtr):
     @winrt_classmethod
     def TryParse(cls: win32more.Windows.Web.Http.Headers.IHttpExpectationHeaderValueStatics, input: WinRT_String, expectationHeaderValue: POINTER(win32more.Windows.Web.Http.Headers.HttpExpectationHeaderValue)) -> Boolean: ...
     Name = property(get_Name, None)
-    Value = property(get_Value, put_Value)
     Parameters = property(get_Parameters, None)
+    Value = property(get_Value, put_Value)
 class HttpExpectationHeaderValueCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Http.Headers.IHttpExpectationHeaderValueCollection
@@ -1013,8 +1013,8 @@ class HttpProductInfoHeaderValue(ComPtr):
     def Parse(cls: win32more.Windows.Web.Http.Headers.IHttpProductInfoHeaderValueStatics, input: WinRT_String) -> win32more.Windows.Web.Http.Headers.HttpProductInfoHeaderValue: ...
     @winrt_classmethod
     def TryParse(cls: win32more.Windows.Web.Http.Headers.IHttpProductInfoHeaderValueStatics, input: WinRT_String, productInfoHeaderValue: POINTER(win32more.Windows.Web.Http.Headers.HttpProductInfoHeaderValue)) -> Boolean: ...
-    Product = property(get_Product, None)
     Comment = property(get_Comment, None)
+    Product = property(get_Product, None)
 class HttpProductInfoHeaderValueCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Http.Headers.IHttpProductInfoHeaderValueCollection
@@ -1148,9 +1148,9 @@ class HttpRequestHeaderCollection(ComPtr):
     MaxForwards = property(get_MaxForwards, put_MaxForwards)
     ProxyAuthorization = property(get_ProxyAuthorization, put_ProxyAuthorization)
     Referer = property(get_Referer, put_Referer)
+    Size = property(get_Size, None)
     TransferEncoding = property(get_TransferEncoding, None)
     UserAgent = property(get_UserAgent, None)
-    Size = property(get_Size, None)
 class HttpResponseHeaderCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Http.Headers.IHttpResponseHeaderCollection
@@ -1213,9 +1213,9 @@ class HttpResponseHeaderCollection(ComPtr):
     Location = property(get_Location, put_Location)
     ProxyAuthenticate = property(get_ProxyAuthenticate, None)
     RetryAfter = property(get_RetryAfter, put_RetryAfter)
+    Size = property(get_Size, None)
     TransferEncoding = property(get_TransferEncoding, None)
     WwwAuthenticate = property(get_WwwAuthenticate, None)
-    Size = property(get_Size, None)
 class HttpTransferCodingHeaderValue(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Http.Headers.IHttpTransferCodingHeaderValue
@@ -1667,8 +1667,8 @@ class IHttpExpectationHeaderValue(ComPtr):
     @winrt_commethod(9)
     def get_Parameters(self) -> win32more.Windows.Foundation.Collections.IVector[win32more.Windows.Web.Http.Headers.HttpNameValueHeaderValue]: ...
     Name = property(get_Name, None)
-    Value = property(get_Value, put_Value)
     Parameters = property(get_Parameters, None)
+    Value = property(get_Value, put_Value)
 class IHttpExpectationHeaderValueCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Web.Http.Headers.IHttpExpectationHeaderValueCollection'
@@ -1882,8 +1882,8 @@ class IHttpProductInfoHeaderValue(ComPtr):
     def get_Product(self) -> win32more.Windows.Web.Http.Headers.HttpProductHeaderValue: ...
     @winrt_commethod(7)
     def get_Comment(self) -> WinRT_String: ...
-    Product = property(get_Product, None)
     Comment = property(get_Comment, None)
+    Product = property(get_Product, None)
 class IHttpProductInfoHeaderValueCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Web.Http.Headers.IHttpProductInfoHeaderValueCollection'

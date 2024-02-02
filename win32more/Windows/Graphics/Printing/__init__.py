@@ -58,11 +58,11 @@ class IPrintPageInfo(ComPtr):
     def put_Orientation(self, value: win32more.Windows.Graphics.Printing.PrintOrientation) -> Void: ...
     @winrt_commethod(15)
     def get_Orientation(self) -> win32more.Windows.Graphics.Printing.PrintOrientation: ...
-    MediaSize = property(get_MediaSize, put_MediaSize)
-    PageSize = property(get_PageSize, put_PageSize)
     DpiX = property(get_DpiX, put_DpiX)
     DpiY = property(get_DpiY, put_DpiY)
+    MediaSize = property(get_MediaSize, put_MediaSize)
     Orientation = property(get_Orientation, put_Orientation)
+    PageSize = property(get_PageSize, put_PageSize)
 class IPrintPageRange(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Printing.IPrintPageRange'
@@ -126,9 +126,9 @@ class IPrintTask(ComPtr):
     def add_Completed(self, eventHandler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Graphics.Printing.PrintTask, win32more.Windows.Graphics.Printing.PrintTaskCompletedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(16)
     def remove_Completed(self, eventCookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    Options = property(get_Options, None)
     Properties = property(get_Properties, None)
     Source = property(get_Source, None)
-    Options = property(get_Options, None)
 class IPrintTask2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Printing.IPrintTask2'
@@ -164,8 +164,8 @@ class IPrintTaskOptions2(ComPtr):
     def get_PageRangeOptions(self) -> win32more.Windows.Graphics.Printing.PrintPageRangeOptions: ...
     @winrt_commethod(7)
     def get_CustomPageRanges(self) -> win32more.Windows.Foundation.Collections.IVector[win32more.Windows.Graphics.Printing.PrintPageRange]: ...
-    PageRangeOptions = property(get_PageRangeOptions, None)
     CustomPageRanges = property(get_CustomPageRanges, None)
+    PageRangeOptions = property(get_PageRangeOptions, None)
 class IPrintTaskOptionsCore(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Printing.IPrintTaskOptionsCore'
@@ -224,19 +224,19 @@ class IPrintTaskOptionsCoreProperties(ComPtr):
     def put_NumberOfCopies(self, value: UInt32) -> Void: ...
     @winrt_commethod(29)
     def get_NumberOfCopies(self) -> UInt32: ...
-    MediaSize = property(get_MediaSize, put_MediaSize)
-    MediaType = property(get_MediaType, put_MediaType)
-    Orientation = property(get_Orientation, put_Orientation)
-    PrintQuality = property(get_PrintQuality, put_PrintQuality)
+    Binding = property(get_Binding, put_Binding)
+    Collation = property(get_Collation, put_Collation)
     ColorMode = property(get_ColorMode, put_ColorMode)
     Duplex = property(get_Duplex, put_Duplex)
-    Collation = property(get_Collation, put_Collation)
-    Staple = property(get_Staple, put_Staple)
     HolePunch = property(get_HolePunch, put_HolePunch)
-    Binding = property(get_Binding, put_Binding)
-    MinCopies = property(get_MinCopies, None)
     MaxCopies = property(get_MaxCopies, None)
+    MediaSize = property(get_MediaSize, put_MediaSize)
+    MediaType = property(get_MediaType, put_MediaType)
+    MinCopies = property(get_MinCopies, None)
     NumberOfCopies = property(get_NumberOfCopies, put_NumberOfCopies)
+    Orientation = property(get_Orientation, put_Orientation)
+    PrintQuality = property(get_PrintQuality, put_PrintQuality)
+    Staple = property(get_Staple, put_Staple)
 class IPrintTaskOptionsCoreUIConfiguration(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Printing.IPrintTaskOptionsCoreUIConfiguration'
@@ -304,8 +304,8 @@ class IPrintTaskTargetDeviceSupport(ComPtr):
     def put_Is3DManufacturingTargetEnabled(self, value: Boolean) -> Void: ...
     @winrt_commethod(9)
     def get_Is3DManufacturingTargetEnabled(self) -> Boolean: ...
-    IsPrinterTargetEnabled = property(get_IsPrinterTargetEnabled, put_IsPrinterTargetEnabled)
     Is3DManufacturingTargetEnabled = property(get_Is3DManufacturingTargetEnabled, put_Is3DManufacturingTargetEnabled)
+    IsPrinterTargetEnabled = property(get_IsPrinterTargetEnabled, put_IsPrinterTargetEnabled)
 class IStandardPrintTaskOptionsStatic(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Printing.IStandardPrintTaskOptionsStatic'
@@ -336,19 +336,19 @@ class IStandardPrintTaskOptionsStatic(ComPtr):
     def get_NUp(self) -> WinRT_String: ...
     @winrt_commethod(18)
     def get_InputBin(self) -> WinRT_String: ...
+    Binding = property(get_Binding, None)
+    Collation = property(get_Collation, None)
+    ColorMode = property(get_ColorMode, None)
+    Copies = property(get_Copies, None)
+    Duplex = property(get_Duplex, None)
+    HolePunch = property(get_HolePunch, None)
+    InputBin = property(get_InputBin, None)
     MediaSize = property(get_MediaSize, None)
     MediaType = property(get_MediaType, None)
+    NUp = property(get_NUp, None)
     Orientation = property(get_Orientation, None)
     PrintQuality = property(get_PrintQuality, None)
-    ColorMode = property(get_ColorMode, None)
-    Duplex = property(get_Duplex, None)
-    Collation = property(get_Collation, None)
     Staple = property(get_Staple, None)
-    HolePunch = property(get_HolePunch, None)
-    Binding = property(get_Binding, None)
-    Copies = property(get_Copies, None)
-    NUp = property(get_NUp, None)
-    InputBin = property(get_InputBin, None)
 class IStandardPrintTaskOptionsStatic2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Printing.IStandardPrintTaskOptionsStatic2'
@@ -683,11 +683,11 @@ class PrintPageInfo(ComPtr):
     def put_Orientation(self: win32more.Windows.Graphics.Printing.IPrintPageInfo, value: win32more.Windows.Graphics.Printing.PrintOrientation) -> Void: ...
     @winrt_mixinmethod
     def get_Orientation(self: win32more.Windows.Graphics.Printing.IPrintPageInfo) -> win32more.Windows.Graphics.Printing.PrintOrientation: ...
-    MediaSize = property(get_MediaSize, put_MediaSize)
-    PageSize = property(get_PageSize, put_PageSize)
     DpiX = property(get_DpiX, put_DpiX)
     DpiY = property(get_DpiY, put_DpiY)
+    MediaSize = property(get_MediaSize, put_MediaSize)
     Orientation = property(get_Orientation, put_Orientation)
+    PageSize = property(get_PageSize, put_PageSize)
 class PrintPageRange(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing.IPrintPageRange
@@ -793,12 +793,12 @@ class PrintTask(ComPtr):
     def put_IsPreviewEnabled(self: win32more.Windows.Graphics.Printing.IPrintTask2, value: Boolean) -> Void: ...
     @winrt_mixinmethod
     def get_IsPreviewEnabled(self: win32more.Windows.Graphics.Printing.IPrintTask2) -> Boolean: ...
-    Properties = property(get_Properties, None)
-    Source = property(get_Source, None)
-    Options = property(get_Options, None)
-    IsPrinterTargetEnabled = property(get_IsPrinterTargetEnabled, put_IsPrinterTargetEnabled)
     Is3DManufacturingTargetEnabled = property(get_Is3DManufacturingTargetEnabled, put_Is3DManufacturingTargetEnabled)
     IsPreviewEnabled = property(get_IsPreviewEnabled, put_IsPreviewEnabled)
+    IsPrinterTargetEnabled = property(get_IsPrinterTargetEnabled, put_IsPrinterTargetEnabled)
+    Options = property(get_Options, None)
+    Properties = property(get_Properties, None)
+    Source = property(get_Source, None)
 class PrintTaskCompletedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing.IPrintTaskCompletedEventArgs
@@ -877,23 +877,23 @@ class PrintTaskOptions(ComPtr):
     def get_PageRangeOptions(self: win32more.Windows.Graphics.Printing.IPrintTaskOptions2) -> win32more.Windows.Graphics.Printing.PrintPageRangeOptions: ...
     @winrt_mixinmethod
     def get_CustomPageRanges(self: win32more.Windows.Graphics.Printing.IPrintTaskOptions2) -> win32more.Windows.Foundation.Collections.IVector[win32more.Windows.Graphics.Printing.PrintPageRange]: ...
+    Binding = property(get_Binding, put_Binding)
+    Bordering = property(get_Bordering, put_Bordering)
+    Collation = property(get_Collation, put_Collation)
+    ColorMode = property(get_ColorMode, put_ColorMode)
+    CustomPageRanges = property(get_CustomPageRanges, None)
+    DisplayedOptions = property(get_DisplayedOptions, None)
+    Duplex = property(get_Duplex, put_Duplex)
+    HolePunch = property(get_HolePunch, put_HolePunch)
+    MaxCopies = property(get_MaxCopies, None)
     MediaSize = property(get_MediaSize, put_MediaSize)
     MediaType = property(get_MediaType, put_MediaType)
-    Orientation = property(get_Orientation, put_Orientation)
-    PrintQuality = property(get_PrintQuality, put_PrintQuality)
-    ColorMode = property(get_ColorMode, put_ColorMode)
-    Duplex = property(get_Duplex, put_Duplex)
-    Collation = property(get_Collation, put_Collation)
-    Staple = property(get_Staple, put_Staple)
-    HolePunch = property(get_HolePunch, put_HolePunch)
-    Binding = property(get_Binding, put_Binding)
     MinCopies = property(get_MinCopies, None)
-    MaxCopies = property(get_MaxCopies, None)
     NumberOfCopies = property(get_NumberOfCopies, put_NumberOfCopies)
-    DisplayedOptions = property(get_DisplayedOptions, None)
-    Bordering = property(get_Bordering, put_Bordering)
+    Orientation = property(get_Orientation, put_Orientation)
     PageRangeOptions = property(get_PageRangeOptions, None)
-    CustomPageRanges = property(get_CustomPageRanges, None)
+    PrintQuality = property(get_PrintQuality, put_PrintQuality)
+    Staple = property(get_Staple, put_Staple)
 class PrintTaskProgressingEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing.IPrintTaskProgressingEventArgs
@@ -981,21 +981,21 @@ class StandardPrintTaskOptions(ComPtr, metaclass=_StandardPrintTaskOptions_Meta_
     def get_NUp(cls: win32more.Windows.Graphics.Printing.IStandardPrintTaskOptionsStatic) -> WinRT_String: ...
     @winrt_classmethod
     def get_InputBin(cls: win32more.Windows.Graphics.Printing.IStandardPrintTaskOptionsStatic) -> WinRT_String: ...
-    _StandardPrintTaskOptions_Meta_.CustomPageRanges = property(get_CustomPageRanges.__wrapped__, None)
+    _StandardPrintTaskOptions_Meta_.Binding = property(get_Binding.__wrapped__, None)
     _StandardPrintTaskOptions_Meta_.Bordering = property(get_Bordering.__wrapped__, None)
+    _StandardPrintTaskOptions_Meta_.Collation = property(get_Collation.__wrapped__, None)
+    _StandardPrintTaskOptions_Meta_.ColorMode = property(get_ColorMode.__wrapped__, None)
+    _StandardPrintTaskOptions_Meta_.Copies = property(get_Copies.__wrapped__, None)
+    _StandardPrintTaskOptions_Meta_.CustomPageRanges = property(get_CustomPageRanges.__wrapped__, None)
+    _StandardPrintTaskOptions_Meta_.Duplex = property(get_Duplex.__wrapped__, None)
+    _StandardPrintTaskOptions_Meta_.HolePunch = property(get_HolePunch.__wrapped__, None)
+    _StandardPrintTaskOptions_Meta_.InputBin = property(get_InputBin.__wrapped__, None)
     _StandardPrintTaskOptions_Meta_.MediaSize = property(get_MediaSize.__wrapped__, None)
     _StandardPrintTaskOptions_Meta_.MediaType = property(get_MediaType.__wrapped__, None)
+    _StandardPrintTaskOptions_Meta_.NUp = property(get_NUp.__wrapped__, None)
     _StandardPrintTaskOptions_Meta_.Orientation = property(get_Orientation.__wrapped__, None)
     _StandardPrintTaskOptions_Meta_.PrintQuality = property(get_PrintQuality.__wrapped__, None)
-    _StandardPrintTaskOptions_Meta_.ColorMode = property(get_ColorMode.__wrapped__, None)
-    _StandardPrintTaskOptions_Meta_.Duplex = property(get_Duplex.__wrapped__, None)
-    _StandardPrintTaskOptions_Meta_.Collation = property(get_Collation.__wrapped__, None)
     _StandardPrintTaskOptions_Meta_.Staple = property(get_Staple.__wrapped__, None)
-    _StandardPrintTaskOptions_Meta_.HolePunch = property(get_HolePunch.__wrapped__, None)
-    _StandardPrintTaskOptions_Meta_.Binding = property(get_Binding.__wrapped__, None)
-    _StandardPrintTaskOptions_Meta_.Copies = property(get_Copies.__wrapped__, None)
-    _StandardPrintTaskOptions_Meta_.NUp = property(get_NUp.__wrapped__, None)
-    _StandardPrintTaskOptions_Meta_.InputBin = property(get_InputBin.__wrapped__, None)
 
 
 make_ready(__name__)

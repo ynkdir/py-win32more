@@ -136,34 +136,34 @@ class IWalletItem(ComPtr):
     def get_DisplayProperties(self) -> win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.ApplicationModel.Wallet.WalletItemCustomProperty]: ...
     @winrt_commethod(57)
     def get_Verbs(self) -> win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.ApplicationModel.Wallet.WalletVerb]: ...
+    Barcode = property(get_Barcode, put_Barcode)
+    BodyBackgroundImage = property(get_BodyBackgroundImage, put_BodyBackgroundImage)
+    BodyColor = property(get_BodyColor, put_BodyColor)
+    BodyFontColor = property(get_BodyFontColor, put_BodyFontColor)
+    DisplayMessage = property(get_DisplayMessage, put_DisplayMessage)
     DisplayName = property(get_DisplayName, put_DisplayName)
+    DisplayProperties = property(get_DisplayProperties, None)
+    ExpirationDate = property(get_ExpirationDate, put_ExpirationDate)
+    HeaderBackgroundImage = property(get_HeaderBackgroundImage, put_HeaderBackgroundImage)
+    HeaderColor = property(get_HeaderColor, put_HeaderColor)
+    HeaderFontColor = property(get_HeaderFontColor, put_HeaderFontColor)
     Id = property(get_Id, None)
     IsAcknowledged = property(get_IsAcknowledged, put_IsAcknowledged)
+    IsDisplayMessageLaunchable = property(get_IsDisplayMessageLaunchable, put_IsDisplayMessageLaunchable)
+    IsMoreTransactionHistoryLaunchable = property(get_IsMoreTransactionHistoryLaunchable, put_IsMoreTransactionHistoryLaunchable)
     IssuerDisplayName = property(get_IssuerDisplayName, put_IssuerDisplayName)
-    LastUpdated = property(get_LastUpdated, put_LastUpdated)
     Kind = property(get_Kind, None)
-    Barcode = property(get_Barcode, put_Barcode)
-    ExpirationDate = property(get_ExpirationDate, put_ExpirationDate)
+    LastUpdated = property(get_LastUpdated, put_LastUpdated)
     Logo159x159 = property(get_Logo159x159, put_Logo159x159)
     Logo336x336 = property(get_Logo336x336, put_Logo336x336)
     Logo99x99 = property(get_Logo99x99, put_Logo99x99)
-    DisplayMessage = property(get_DisplayMessage, put_DisplayMessage)
-    IsDisplayMessageLaunchable = property(get_IsDisplayMessageLaunchable, put_IsDisplayMessageLaunchable)
-    LogoText = property(get_LogoText, put_LogoText)
-    HeaderColor = property(get_HeaderColor, put_HeaderColor)
-    BodyColor = property(get_BodyColor, put_BodyColor)
-    HeaderFontColor = property(get_HeaderFontColor, put_HeaderFontColor)
-    BodyFontColor = property(get_BodyFontColor, put_BodyFontColor)
-    HeaderBackgroundImage = property(get_HeaderBackgroundImage, put_HeaderBackgroundImage)
-    BodyBackgroundImage = property(get_BodyBackgroundImage, put_BodyBackgroundImage)
     LogoImage = property(get_LogoImage, put_LogoImage)
+    LogoText = property(get_LogoText, put_LogoText)
     PromotionalImage = property(get_PromotionalImage, put_PromotionalImage)
     RelevantDate = property(get_RelevantDate, put_RelevantDate)
     RelevantDateDisplayMessage = property(get_RelevantDateDisplayMessage, put_RelevantDateDisplayMessage)
-    TransactionHistory = property(get_TransactionHistory, None)
     RelevantLocations = property(get_RelevantLocations, None)
-    IsMoreTransactionHistoryLaunchable = property(get_IsMoreTransactionHistoryLaunchable, put_IsMoreTransactionHistoryLaunchable)
-    DisplayProperties = property(get_DisplayProperties, None)
+    TransactionHistory = property(get_TransactionHistory, None)
     Verbs = property(get_Verbs, None)
 class IWalletItemCustomProperty(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -189,11 +189,11 @@ class IWalletItemCustomProperty(ComPtr):
     def get_SummaryViewPosition(self) -> win32more.Windows.ApplicationModel.Wallet.WalletSummaryViewPosition: ...
     @winrt_commethod(15)
     def put_SummaryViewPosition(self, value: win32more.Windows.ApplicationModel.Wallet.WalletSummaryViewPosition) -> Void: ...
-    Name = property(get_Name, put_Name)
-    Value = property(get_Value, put_Value)
     AutoDetectLinks = property(get_AutoDetectLinks, put_AutoDetectLinks)
     DetailViewPosition = property(get_DetailViewPosition, put_DetailViewPosition)
+    Name = property(get_Name, put_Name)
     SummaryViewPosition = property(get_SummaryViewPosition, put_SummaryViewPosition)
+    Value = property(get_Value, put_Value)
 class IWalletItemCustomPropertyFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Wallet.IWalletItemCustomPropertyFactory'
@@ -256,8 +256,8 @@ class IWalletRelevantLocation(ComPtr):
     def get_DisplayMessage(self) -> WinRT_String: ...
     @winrt_commethod(9)
     def put_DisplayMessage(self, value: WinRT_String) -> Void: ...
-    Position = property(get_Position, put_Position)
     DisplayMessage = property(get_DisplayMessage, put_DisplayMessage)
+    Position = property(get_Position, put_Position)
 class IWalletTransaction(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Wallet.IWalletTransaction'
@@ -288,10 +288,10 @@ class IWalletTransaction(ComPtr):
     def put_IsLaunchable(self, value: Boolean) -> Void: ...
     Description = property(get_Description, put_Description)
     DisplayAmount = property(get_DisplayAmount, put_DisplayAmount)
-    IgnoreTimeOfDay = property(get_IgnoreTimeOfDay, put_IgnoreTimeOfDay)
     DisplayLocation = property(get_DisplayLocation, put_DisplayLocation)
-    TransactionDate = property(get_TransactionDate, put_TransactionDate)
+    IgnoreTimeOfDay = property(get_IgnoreTimeOfDay, put_IgnoreTimeOfDay)
     IsLaunchable = property(get_IsLaunchable, put_IsLaunchable)
+    TransactionDate = property(get_TransactionDate, put_TransactionDate)
 class IWalletVerb(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Wallet.IWalletVerb'
@@ -485,34 +485,34 @@ class WalletItem(ComPtr):
     def get_DisplayProperties(self: win32more.Windows.ApplicationModel.Wallet.IWalletItem) -> win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.ApplicationModel.Wallet.WalletItemCustomProperty]: ...
     @winrt_mixinmethod
     def get_Verbs(self: win32more.Windows.ApplicationModel.Wallet.IWalletItem) -> win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.ApplicationModel.Wallet.WalletVerb]: ...
+    Barcode = property(get_Barcode, put_Barcode)
+    BodyBackgroundImage = property(get_BodyBackgroundImage, put_BodyBackgroundImage)
+    BodyColor = property(get_BodyColor, put_BodyColor)
+    BodyFontColor = property(get_BodyFontColor, put_BodyFontColor)
+    DisplayMessage = property(get_DisplayMessage, put_DisplayMessage)
     DisplayName = property(get_DisplayName, put_DisplayName)
+    DisplayProperties = property(get_DisplayProperties, None)
+    ExpirationDate = property(get_ExpirationDate, put_ExpirationDate)
+    HeaderBackgroundImage = property(get_HeaderBackgroundImage, put_HeaderBackgroundImage)
+    HeaderColor = property(get_HeaderColor, put_HeaderColor)
+    HeaderFontColor = property(get_HeaderFontColor, put_HeaderFontColor)
     Id = property(get_Id, None)
     IsAcknowledged = property(get_IsAcknowledged, put_IsAcknowledged)
+    IsDisplayMessageLaunchable = property(get_IsDisplayMessageLaunchable, put_IsDisplayMessageLaunchable)
+    IsMoreTransactionHistoryLaunchable = property(get_IsMoreTransactionHistoryLaunchable, put_IsMoreTransactionHistoryLaunchable)
     IssuerDisplayName = property(get_IssuerDisplayName, put_IssuerDisplayName)
-    LastUpdated = property(get_LastUpdated, put_LastUpdated)
     Kind = property(get_Kind, None)
-    Barcode = property(get_Barcode, put_Barcode)
-    ExpirationDate = property(get_ExpirationDate, put_ExpirationDate)
+    LastUpdated = property(get_LastUpdated, put_LastUpdated)
     Logo159x159 = property(get_Logo159x159, put_Logo159x159)
     Logo336x336 = property(get_Logo336x336, put_Logo336x336)
     Logo99x99 = property(get_Logo99x99, put_Logo99x99)
-    DisplayMessage = property(get_DisplayMessage, put_DisplayMessage)
-    IsDisplayMessageLaunchable = property(get_IsDisplayMessageLaunchable, put_IsDisplayMessageLaunchable)
-    LogoText = property(get_LogoText, put_LogoText)
-    HeaderColor = property(get_HeaderColor, put_HeaderColor)
-    BodyColor = property(get_BodyColor, put_BodyColor)
-    HeaderFontColor = property(get_HeaderFontColor, put_HeaderFontColor)
-    BodyFontColor = property(get_BodyFontColor, put_BodyFontColor)
-    HeaderBackgroundImage = property(get_HeaderBackgroundImage, put_HeaderBackgroundImage)
-    BodyBackgroundImage = property(get_BodyBackgroundImage, put_BodyBackgroundImage)
     LogoImage = property(get_LogoImage, put_LogoImage)
+    LogoText = property(get_LogoText, put_LogoText)
     PromotionalImage = property(get_PromotionalImage, put_PromotionalImage)
     RelevantDate = property(get_RelevantDate, put_RelevantDate)
     RelevantDateDisplayMessage = property(get_RelevantDateDisplayMessage, put_RelevantDateDisplayMessage)
-    TransactionHistory = property(get_TransactionHistory, None)
     RelevantLocations = property(get_RelevantLocations, None)
-    IsMoreTransactionHistoryLaunchable = property(get_IsMoreTransactionHistoryLaunchable, put_IsMoreTransactionHistoryLaunchable)
-    DisplayProperties = property(get_DisplayProperties, None)
+    TransactionHistory = property(get_TransactionHistory, None)
     Verbs = property(get_Verbs, None)
 class WalletItemCustomProperty(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -547,11 +547,11 @@ class WalletItemCustomProperty(ComPtr):
     def get_SummaryViewPosition(self: win32more.Windows.ApplicationModel.Wallet.IWalletItemCustomProperty) -> win32more.Windows.ApplicationModel.Wallet.WalletSummaryViewPosition: ...
     @winrt_mixinmethod
     def put_SummaryViewPosition(self: win32more.Windows.ApplicationModel.Wallet.IWalletItemCustomProperty, value: win32more.Windows.ApplicationModel.Wallet.WalletSummaryViewPosition) -> Void: ...
-    Name = property(get_Name, put_Name)
-    Value = property(get_Value, put_Value)
     AutoDetectLinks = property(get_AutoDetectLinks, put_AutoDetectLinks)
     DetailViewPosition = property(get_DetailViewPosition, put_DetailViewPosition)
+    Name = property(get_Name, put_Name)
     SummaryViewPosition = property(get_SummaryViewPosition, put_SummaryViewPosition)
+    Value = property(get_Value, put_Value)
 class WalletItemKind(Int32):  # enum
     Invalid = 0
     Deal = 1
@@ -610,8 +610,8 @@ class WalletRelevantLocation(ComPtr):
     def get_DisplayMessage(self: win32more.Windows.ApplicationModel.Wallet.IWalletRelevantLocation) -> WinRT_String: ...
     @winrt_mixinmethod
     def put_DisplayMessage(self: win32more.Windows.ApplicationModel.Wallet.IWalletRelevantLocation, value: WinRT_String) -> Void: ...
-    Position = property(get_Position, put_Position)
     DisplayMessage = property(get_DisplayMessage, put_DisplayMessage)
+    Position = property(get_Position, put_Position)
 class WalletSummaryViewPosition(Int32):  # enum
     Hidden = 0
     Field1 = 1
@@ -655,10 +655,10 @@ class WalletTransaction(ComPtr):
     def put_IsLaunchable(self: win32more.Windows.ApplicationModel.Wallet.IWalletTransaction, value: Boolean) -> Void: ...
     Description = property(get_Description, put_Description)
     DisplayAmount = property(get_DisplayAmount, put_DisplayAmount)
-    IgnoreTimeOfDay = property(get_IgnoreTimeOfDay, put_IgnoreTimeOfDay)
     DisplayLocation = property(get_DisplayLocation, put_DisplayLocation)
-    TransactionDate = property(get_TransactionDate, put_TransactionDate)
+    IgnoreTimeOfDay = property(get_IgnoreTimeOfDay, put_IgnoreTimeOfDay)
     IsLaunchable = property(get_IsLaunchable, put_IsLaunchable)
+    TransactionDate = property(get_TransactionDate, put_TransactionDate)
 class WalletVerb(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Wallet.IWalletVerb

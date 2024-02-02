@@ -30,9 +30,9 @@ class IRfcommDeviceService(ComPtr):
     def GetSdpRawAttributesWithCacheModeAsync(self, cacheMode: win32more.Windows.Devices.Bluetooth.BluetoothCacheMode) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IMapView[UInt32, win32more.Windows.Storage.Streams.IBuffer]]: ...
     ConnectionHostName = property(get_ConnectionHostName, None)
     ConnectionServiceName = property(get_ConnectionServiceName, None)
-    ServiceId = property(get_ServiceId, None)
-    ProtectionLevel = property(get_ProtectionLevel, None)
     MaxProtectionLevel = property(get_MaxProtectionLevel, None)
+    ProtectionLevel = property(get_ProtectionLevel, None)
+    ServiceId = property(get_ServiceId, None)
 class IRfcommDeviceService2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Bluetooth.Rfcomm.IRfcommDeviceService2'
@@ -110,12 +110,12 @@ class IRfcommServiceIdStatics(ComPtr):
     def get_PhoneBookAccessPse(self) -> win32more.Windows.Devices.Bluetooth.Rfcomm.RfcommServiceId: ...
     @winrt_commethod(13)
     def get_GenericFileTransfer(self) -> win32more.Windows.Devices.Bluetooth.Rfcomm.RfcommServiceId: ...
-    SerialPort = property(get_SerialPort, None)
-    ObexObjectPush = property(get_ObexObjectPush, None)
+    GenericFileTransfer = property(get_GenericFileTransfer, None)
     ObexFileTransfer = property(get_ObexFileTransfer, None)
+    ObexObjectPush = property(get_ObexObjectPush, None)
     PhoneBookAccessPce = property(get_PhoneBookAccessPce, None)
     PhoneBookAccessPse = property(get_PhoneBookAccessPse, None)
-    GenericFileTransfer = property(get_GenericFileTransfer, None)
+    SerialPort = property(get_SerialPort, None)
 class IRfcommServiceProvider(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Bluetooth.Rfcomm.IRfcommServiceProvider'
@@ -128,8 +128,8 @@ class IRfcommServiceProvider(ComPtr):
     def StartAdvertising(self, listener: win32more.Windows.Networking.Sockets.StreamSocketListener) -> Void: ...
     @winrt_commethod(9)
     def StopAdvertising(self) -> Void: ...
-    ServiceId = property(get_ServiceId, None)
     SdpRawAttributes = property(get_SdpRawAttributes, None)
+    ServiceId = property(get_ServiceId, None)
 class IRfcommServiceProvider2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Bluetooth.Rfcomm.IRfcommServiceProvider2'
@@ -182,11 +182,11 @@ class RfcommDeviceService(ComPtr):
     def GetDeviceSelector(cls: win32more.Windows.Devices.Bluetooth.Rfcomm.IRfcommDeviceServiceStatics, serviceId: win32more.Windows.Devices.Bluetooth.Rfcomm.RfcommServiceId) -> WinRT_String: ...
     ConnectionHostName = property(get_ConnectionHostName, None)
     ConnectionServiceName = property(get_ConnectionServiceName, None)
-    ServiceId = property(get_ServiceId, None)
-    ProtectionLevel = property(get_ProtectionLevel, None)
-    MaxProtectionLevel = property(get_MaxProtectionLevel, None)
     Device = property(get_Device, None)
     DeviceAccessInformation = property(get_DeviceAccessInformation, None)
+    MaxProtectionLevel = property(get_MaxProtectionLevel, None)
+    ProtectionLevel = property(get_ProtectionLevel, None)
+    ServiceId = property(get_ServiceId, None)
 class RfcommDeviceServicesResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Bluetooth.Rfcomm.IRfcommDeviceServicesResult
@@ -226,12 +226,12 @@ class RfcommServiceId(ComPtr, metaclass=_RfcommServiceId_Meta_):
     @winrt_classmethod
     def get_GenericFileTransfer(cls: win32more.Windows.Devices.Bluetooth.Rfcomm.IRfcommServiceIdStatics) -> win32more.Windows.Devices.Bluetooth.Rfcomm.RfcommServiceId: ...
     Uuid = property(get_Uuid, None)
-    _RfcommServiceId_Meta_.SerialPort = property(get_SerialPort.__wrapped__, None)
-    _RfcommServiceId_Meta_.ObexObjectPush = property(get_ObexObjectPush.__wrapped__, None)
+    _RfcommServiceId_Meta_.GenericFileTransfer = property(get_GenericFileTransfer.__wrapped__, None)
     _RfcommServiceId_Meta_.ObexFileTransfer = property(get_ObexFileTransfer.__wrapped__, None)
+    _RfcommServiceId_Meta_.ObexObjectPush = property(get_ObexObjectPush.__wrapped__, None)
     _RfcommServiceId_Meta_.PhoneBookAccessPce = property(get_PhoneBookAccessPce.__wrapped__, None)
     _RfcommServiceId_Meta_.PhoneBookAccessPse = property(get_PhoneBookAccessPse.__wrapped__, None)
-    _RfcommServiceId_Meta_.GenericFileTransfer = property(get_GenericFileTransfer.__wrapped__, None)
+    _RfcommServiceId_Meta_.SerialPort = property(get_SerialPort.__wrapped__, None)
 class RfcommServiceProvider(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Bluetooth.Rfcomm.IRfcommServiceProvider
@@ -248,8 +248,8 @@ class RfcommServiceProvider(ComPtr):
     def StartAdvertisingWithRadioDiscoverability(self: win32more.Windows.Devices.Bluetooth.Rfcomm.IRfcommServiceProvider2, listener: win32more.Windows.Networking.Sockets.StreamSocketListener, radioDiscoverable: Boolean) -> Void: ...
     @winrt_classmethod
     def CreateAsync(cls: win32more.Windows.Devices.Bluetooth.Rfcomm.IRfcommServiceProviderStatics, serviceId: win32more.Windows.Devices.Bluetooth.Rfcomm.RfcommServiceId) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Bluetooth.Rfcomm.RfcommServiceProvider]: ...
-    ServiceId = property(get_ServiceId, None)
     SdpRawAttributes = property(get_SdpRawAttributes, None)
+    ServiceId = property(get_ServiceId, None)
 
 
 make_ready(__name__)

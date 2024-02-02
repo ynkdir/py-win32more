@@ -21,9 +21,9 @@ class ApplicationLanguages(ComPtr, metaclass=_ApplicationLanguages_Meta_):
     def get_Languages(cls: win32more.Windows.Globalization.IApplicationLanguagesStatics) -> win32more.Windows.Foundation.Collections.IVectorView[WinRT_String]: ...
     @winrt_classmethod
     def get_ManifestLanguages(cls: win32more.Windows.Globalization.IApplicationLanguagesStatics) -> win32more.Windows.Foundation.Collections.IVectorView[WinRT_String]: ...
-    _ApplicationLanguages_Meta_.PrimaryLanguageOverride = property(get_PrimaryLanguageOverride.__wrapped__, put_PrimaryLanguageOverride.__wrapped__)
     _ApplicationLanguages_Meta_.Languages = property(get_Languages.__wrapped__, None)
     _ApplicationLanguages_Meta_.ManifestLanguages = property(get_ManifestLanguages.__wrapped__, None)
+    _ApplicationLanguages_Meta_.PrimaryLanguageOverride = property(get_PrimaryLanguageOverride.__wrapped__, put_PrimaryLanguageOverride.__wrapped__)
 class Calendar(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Globalization.ICalendar
@@ -253,44 +253,44 @@ class Calendar(ComPtr):
     def TimeZoneAsFullString(self: win32more.Windows.Globalization.ITimeZoneOnCalendar) -> WinRT_String: ...
     @winrt_mixinmethod
     def TimeZoneAsString(self: win32more.Windows.Globalization.ITimeZoneOnCalendar, idealLength: Int32) -> WinRT_String: ...
-    Languages = property(get_Languages, None)
-    NumeralSystem = property(get_NumeralSystem, put_NumeralSystem)
-    FirstEra = property(get_FirstEra, None)
-    LastEra = property(get_LastEra, None)
-    NumberOfEras = property(get_NumberOfEras, None)
-    Era = property(get_Era, put_Era)
-    FirstYearInThisEra = property(get_FirstYearInThisEra, None)
-    LastYearInThisEra = property(get_LastYearInThisEra, None)
-    NumberOfYearsInThisEra = property(get_NumberOfYearsInThisEra, None)
-    Year = property(get_Year, put_Year)
-    FirstMonthInThisYear = property(get_FirstMonthInThisYear, None)
-    LastMonthInThisYear = property(get_LastMonthInThisYear, None)
-    NumberOfMonthsInThisYear = property(get_NumberOfMonthsInThisYear, None)
-    Month = property(get_Month, put_Month)
-    FirstDayInThisMonth = property(get_FirstDayInThisMonth, None)
-    LastDayInThisMonth = property(get_LastDayInThisMonth, None)
-    NumberOfDaysInThisMonth = property(get_NumberOfDaysInThisMonth, None)
     Day = property(get_Day, put_Day)
     DayOfWeek = property(get_DayOfWeek, None)
-    FirstPeriodInThisDay = property(get_FirstPeriodInThisDay, None)
-    LastPeriodInThisDay = property(get_LastPeriodInThisDay, None)
-    NumberOfPeriodsInThisDay = property(get_NumberOfPeriodsInThisDay, None)
-    Period = property(get_Period, put_Period)
+    Era = property(get_Era, put_Era)
+    FirstDayInThisMonth = property(get_FirstDayInThisMonth, None)
+    FirstEra = property(get_FirstEra, None)
     FirstHourInThisPeriod = property(get_FirstHourInThisPeriod, None)
-    LastHourInThisPeriod = property(get_LastHourInThisPeriod, None)
-    NumberOfHoursInThisPeriod = property(get_NumberOfHoursInThisPeriod, None)
-    Hour = property(get_Hour, put_Hour)
-    Minute = property(get_Minute, put_Minute)
-    Second = property(get_Second, put_Second)
-    Nanosecond = property(get_Nanosecond, put_Nanosecond)
     FirstMinuteInThisHour = property(get_FirstMinuteInThisHour, None)
-    LastMinuteInThisHour = property(get_LastMinuteInThisHour, None)
-    NumberOfMinutesInThisHour = property(get_NumberOfMinutesInThisHour, None)
+    FirstMonthInThisYear = property(get_FirstMonthInThisYear, None)
+    FirstPeriodInThisDay = property(get_FirstPeriodInThisDay, None)
     FirstSecondInThisMinute = property(get_FirstSecondInThisMinute, None)
-    LastSecondInThisMinute = property(get_LastSecondInThisMinute, None)
-    NumberOfSecondsInThisMinute = property(get_NumberOfSecondsInThisMinute, None)
-    ResolvedLanguage = property(get_ResolvedLanguage, None)
+    FirstYearInThisEra = property(get_FirstYearInThisEra, None)
+    Hour = property(get_Hour, put_Hour)
     IsDaylightSavingTime = property(get_IsDaylightSavingTime, None)
+    Languages = property(get_Languages, None)
+    LastDayInThisMonth = property(get_LastDayInThisMonth, None)
+    LastEra = property(get_LastEra, None)
+    LastHourInThisPeriod = property(get_LastHourInThisPeriod, None)
+    LastMinuteInThisHour = property(get_LastMinuteInThisHour, None)
+    LastMonthInThisYear = property(get_LastMonthInThisYear, None)
+    LastPeriodInThisDay = property(get_LastPeriodInThisDay, None)
+    LastSecondInThisMinute = property(get_LastSecondInThisMinute, None)
+    LastYearInThisEra = property(get_LastYearInThisEra, None)
+    Minute = property(get_Minute, put_Minute)
+    Month = property(get_Month, put_Month)
+    Nanosecond = property(get_Nanosecond, put_Nanosecond)
+    NumberOfDaysInThisMonth = property(get_NumberOfDaysInThisMonth, None)
+    NumberOfEras = property(get_NumberOfEras, None)
+    NumberOfHoursInThisPeriod = property(get_NumberOfHoursInThisPeriod, None)
+    NumberOfMinutesInThisHour = property(get_NumberOfMinutesInThisHour, None)
+    NumberOfMonthsInThisYear = property(get_NumberOfMonthsInThisYear, None)
+    NumberOfPeriodsInThisDay = property(get_NumberOfPeriodsInThisDay, None)
+    NumberOfSecondsInThisMinute = property(get_NumberOfSecondsInThisMinute, None)
+    NumberOfYearsInThisEra = property(get_NumberOfYearsInThisEra, None)
+    NumeralSystem = property(get_NumeralSystem, put_NumeralSystem)
+    Period = property(get_Period, put_Period)
+    ResolvedLanguage = property(get_ResolvedLanguage, None)
+    Second = property(get_Second, put_Second)
+    Year = property(get_Year, put_Year)
 class _CalendarIdentifiers_Meta_(ComPtr.__class__):
     pass
 class CalendarIdentifiers(ComPtr, metaclass=_CalendarIdentifiers_Meta_):
@@ -327,20 +327,20 @@ class CalendarIdentifiers(ComPtr, metaclass=_CalendarIdentifiers_Meta_):
     @winrt_classmethod
     def get_UmAlQura(cls: win32more.Windows.Globalization.ICalendarIdentifiersStatics) -> WinRT_String: ...
     _CalendarIdentifiers_Meta_.ChineseLunar = property(get_ChineseLunar.__wrapped__, None)
-    _CalendarIdentifiers_Meta_.JapaneseLunar = property(get_JapaneseLunar.__wrapped__, None)
-    _CalendarIdentifiers_Meta_.KoreanLunar = property(get_KoreanLunar.__wrapped__, None)
-    _CalendarIdentifiers_Meta_.TaiwanLunar = property(get_TaiwanLunar.__wrapped__, None)
-    _CalendarIdentifiers_Meta_.VietnameseLunar = property(get_VietnameseLunar.__wrapped__, None)
-    _CalendarIdentifiers_Meta_.Persian = property(get_Persian.__wrapped__, None)
     _CalendarIdentifiers_Meta_.Gregorian = property(get_Gregorian.__wrapped__, None)
     _CalendarIdentifiers_Meta_.Hebrew = property(get_Hebrew.__wrapped__, None)
     _CalendarIdentifiers_Meta_.Hijri = property(get_Hijri.__wrapped__, None)
     _CalendarIdentifiers_Meta_.Japanese = property(get_Japanese.__wrapped__, None)
+    _CalendarIdentifiers_Meta_.JapaneseLunar = property(get_JapaneseLunar.__wrapped__, None)
     _CalendarIdentifiers_Meta_.Julian = property(get_Julian.__wrapped__, None)
     _CalendarIdentifiers_Meta_.Korean = property(get_Korean.__wrapped__, None)
+    _CalendarIdentifiers_Meta_.KoreanLunar = property(get_KoreanLunar.__wrapped__, None)
+    _CalendarIdentifiers_Meta_.Persian = property(get_Persian.__wrapped__, None)
     _CalendarIdentifiers_Meta_.Taiwan = property(get_Taiwan.__wrapped__, None)
+    _CalendarIdentifiers_Meta_.TaiwanLunar = property(get_TaiwanLunar.__wrapped__, None)
     _CalendarIdentifiers_Meta_.Thai = property(get_Thai.__wrapped__, None)
     _CalendarIdentifiers_Meta_.UmAlQura = property(get_UmAlQura.__wrapped__, None)
+    _CalendarIdentifiers_Meta_.VietnameseLunar = property(get_VietnameseLunar.__wrapped__, None)
 class _ClockIdentifiers_Meta_(ComPtr.__class__):
     pass
 class ClockIdentifiers(ComPtr, metaclass=_ClockIdentifiers_Meta_):
@@ -700,11 +700,6 @@ class CurrencyIdentifiers(ComPtr, metaclass=_CurrencyIdentifiers_Meta_):
     def get_ZMW(cls: win32more.Windows.Globalization.ICurrencyIdentifiersStatics) -> WinRT_String: ...
     @winrt_classmethod
     def get_ZWL(cls: win32more.Windows.Globalization.ICurrencyIdentifiersStatics) -> WinRT_String: ...
-    _CurrencyIdentifiers_Meta_.MRU = property(get_MRU.__wrapped__, None)
-    _CurrencyIdentifiers_Meta_.SSP = property(get_SSP.__wrapped__, None)
-    _CurrencyIdentifiers_Meta_.STN = property(get_STN.__wrapped__, None)
-    _CurrencyIdentifiers_Meta_.VES = property(get_VES.__wrapped__, None)
-    _CurrencyIdentifiers_Meta_.BYN = property(get_BYN.__wrapped__, None)
     _CurrencyIdentifiers_Meta_.AED = property(get_AED.__wrapped__, None)
     _CurrencyIdentifiers_Meta_.AFN = property(get_AFN.__wrapped__, None)
     _CurrencyIdentifiers_Meta_.ALL = property(get_ALL.__wrapped__, None)
@@ -728,6 +723,7 @@ class CurrencyIdentifiers(ComPtr, metaclass=_CurrencyIdentifiers_Meta_):
     _CurrencyIdentifiers_Meta_.BSD = property(get_BSD.__wrapped__, None)
     _CurrencyIdentifiers_Meta_.BTN = property(get_BTN.__wrapped__, None)
     _CurrencyIdentifiers_Meta_.BWP = property(get_BWP.__wrapped__, None)
+    _CurrencyIdentifiers_Meta_.BYN = property(get_BYN.__wrapped__, None)
     _CurrencyIdentifiers_Meta_.BYR = property(get_BYR.__wrapped__, None)
     _CurrencyIdentifiers_Meta_.BZD = property(get_BZD.__wrapped__, None)
     _CurrencyIdentifiers_Meta_.CAD = property(get_CAD.__wrapped__, None)
@@ -797,6 +793,7 @@ class CurrencyIdentifiers(ComPtr, metaclass=_CurrencyIdentifiers_Meta_):
     _CurrencyIdentifiers_Meta_.MNT = property(get_MNT.__wrapped__, None)
     _CurrencyIdentifiers_Meta_.MOP = property(get_MOP.__wrapped__, None)
     _CurrencyIdentifiers_Meta_.MRO = property(get_MRO.__wrapped__, None)
+    _CurrencyIdentifiers_Meta_.MRU = property(get_MRU.__wrapped__, None)
     _CurrencyIdentifiers_Meta_.MUR = property(get_MUR.__wrapped__, None)
     _CurrencyIdentifiers_Meta_.MVR = property(get_MVR.__wrapped__, None)
     _CurrencyIdentifiers_Meta_.MWK = property(get_MWK.__wrapped__, None)
@@ -832,7 +829,9 @@ class CurrencyIdentifiers(ComPtr, metaclass=_CurrencyIdentifiers_Meta_):
     _CurrencyIdentifiers_Meta_.SLL = property(get_SLL.__wrapped__, None)
     _CurrencyIdentifiers_Meta_.SOS = property(get_SOS.__wrapped__, None)
     _CurrencyIdentifiers_Meta_.SRD = property(get_SRD.__wrapped__, None)
+    _CurrencyIdentifiers_Meta_.SSP = property(get_SSP.__wrapped__, None)
     _CurrencyIdentifiers_Meta_.STD = property(get_STD.__wrapped__, None)
+    _CurrencyIdentifiers_Meta_.STN = property(get_STN.__wrapped__, None)
     _CurrencyIdentifiers_Meta_.SYP = property(get_SYP.__wrapped__, None)
     _CurrencyIdentifiers_Meta_.SZL = property(get_SZL.__wrapped__, None)
     _CurrencyIdentifiers_Meta_.THB = property(get_THB.__wrapped__, None)
@@ -850,6 +849,7 @@ class CurrencyIdentifiers(ComPtr, metaclass=_CurrencyIdentifiers_Meta_):
     _CurrencyIdentifiers_Meta_.UYU = property(get_UYU.__wrapped__, None)
     _CurrencyIdentifiers_Meta_.UZS = property(get_UZS.__wrapped__, None)
     _CurrencyIdentifiers_Meta_.VEF = property(get_VEF.__wrapped__, None)
+    _CurrencyIdentifiers_Meta_.VES = property(get_VES.__wrapped__, None)
     _CurrencyIdentifiers_Meta_.VND = property(get_VND.__wrapped__, None)
     _CurrencyIdentifiers_Meta_.VUV = property(get_VUV.__wrapped__, None)
     _CurrencyIdentifiers_Meta_.WST = property(get_WST.__wrapped__, None)
@@ -904,12 +904,12 @@ class GeographicRegion(ComPtr):
     @winrt_classmethod
     def IsSupported(cls: win32more.Windows.Globalization.IGeographicRegionStatics, geographicRegionCode: WinRT_String) -> Boolean: ...
     Code = property(get_Code, None)
-    CodeTwoLetter = property(get_CodeTwoLetter, None)
-    CodeThreeLetter = property(get_CodeThreeLetter, None)
     CodeThreeDigit = property(get_CodeThreeDigit, None)
+    CodeThreeLetter = property(get_CodeThreeLetter, None)
+    CodeTwoLetter = property(get_CodeTwoLetter, None)
+    CurrenciesInUse = property(get_CurrenciesInUse, None)
     DisplayName = property(get_DisplayName, None)
     NativeName = property(get_NativeName, None)
-    CurrenciesInUse = property(get_CurrenciesInUse, None)
 GlobalizationJapanesePhoneticAnalyzerContract: UInt32 = 65536
 class IApplicationLanguagesStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -923,9 +923,9 @@ class IApplicationLanguagesStatics(ComPtr):
     def get_Languages(self) -> win32more.Windows.Foundation.Collections.IVectorView[WinRT_String]: ...
     @winrt_commethod(9)
     def get_ManifestLanguages(self) -> win32more.Windows.Foundation.Collections.IVectorView[WinRT_String]: ...
-    PrimaryLanguageOverride = property(get_PrimaryLanguageOverride, put_PrimaryLanguageOverride)
     Languages = property(get_Languages, None)
     ManifestLanguages = property(get_ManifestLanguages, None)
+    PrimaryLanguageOverride = property(get_PrimaryLanguageOverride, put_PrimaryLanguageOverride)
 class IApplicationLanguagesStatics2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Globalization.IApplicationLanguagesStatics2'
@@ -1132,44 +1132,44 @@ class ICalendar(ComPtr):
     def get_ResolvedLanguage(self) -> WinRT_String: ...
     @winrt_commethod(103)
     def get_IsDaylightSavingTime(self) -> Boolean: ...
-    Languages = property(get_Languages, None)
-    NumeralSystem = property(get_NumeralSystem, put_NumeralSystem)
-    FirstEra = property(get_FirstEra, None)
-    LastEra = property(get_LastEra, None)
-    NumberOfEras = property(get_NumberOfEras, None)
-    Era = property(get_Era, put_Era)
-    FirstYearInThisEra = property(get_FirstYearInThisEra, None)
-    LastYearInThisEra = property(get_LastYearInThisEra, None)
-    NumberOfYearsInThisEra = property(get_NumberOfYearsInThisEra, None)
-    Year = property(get_Year, put_Year)
-    FirstMonthInThisYear = property(get_FirstMonthInThisYear, None)
-    LastMonthInThisYear = property(get_LastMonthInThisYear, None)
-    NumberOfMonthsInThisYear = property(get_NumberOfMonthsInThisYear, None)
-    Month = property(get_Month, put_Month)
-    FirstDayInThisMonth = property(get_FirstDayInThisMonth, None)
-    LastDayInThisMonth = property(get_LastDayInThisMonth, None)
-    NumberOfDaysInThisMonth = property(get_NumberOfDaysInThisMonth, None)
     Day = property(get_Day, put_Day)
     DayOfWeek = property(get_DayOfWeek, None)
-    FirstPeriodInThisDay = property(get_FirstPeriodInThisDay, None)
-    LastPeriodInThisDay = property(get_LastPeriodInThisDay, None)
-    NumberOfPeriodsInThisDay = property(get_NumberOfPeriodsInThisDay, None)
-    Period = property(get_Period, put_Period)
+    Era = property(get_Era, put_Era)
+    FirstDayInThisMonth = property(get_FirstDayInThisMonth, None)
+    FirstEra = property(get_FirstEra, None)
     FirstHourInThisPeriod = property(get_FirstHourInThisPeriod, None)
-    LastHourInThisPeriod = property(get_LastHourInThisPeriod, None)
-    NumberOfHoursInThisPeriod = property(get_NumberOfHoursInThisPeriod, None)
-    Hour = property(get_Hour, put_Hour)
-    Minute = property(get_Minute, put_Minute)
-    Second = property(get_Second, put_Second)
-    Nanosecond = property(get_Nanosecond, put_Nanosecond)
     FirstMinuteInThisHour = property(get_FirstMinuteInThisHour, None)
-    LastMinuteInThisHour = property(get_LastMinuteInThisHour, None)
-    NumberOfMinutesInThisHour = property(get_NumberOfMinutesInThisHour, None)
+    FirstMonthInThisYear = property(get_FirstMonthInThisYear, None)
+    FirstPeriodInThisDay = property(get_FirstPeriodInThisDay, None)
     FirstSecondInThisMinute = property(get_FirstSecondInThisMinute, None)
-    LastSecondInThisMinute = property(get_LastSecondInThisMinute, None)
-    NumberOfSecondsInThisMinute = property(get_NumberOfSecondsInThisMinute, None)
-    ResolvedLanguage = property(get_ResolvedLanguage, None)
+    FirstYearInThisEra = property(get_FirstYearInThisEra, None)
+    Hour = property(get_Hour, put_Hour)
     IsDaylightSavingTime = property(get_IsDaylightSavingTime, None)
+    Languages = property(get_Languages, None)
+    LastDayInThisMonth = property(get_LastDayInThisMonth, None)
+    LastEra = property(get_LastEra, None)
+    LastHourInThisPeriod = property(get_LastHourInThisPeriod, None)
+    LastMinuteInThisHour = property(get_LastMinuteInThisHour, None)
+    LastMonthInThisYear = property(get_LastMonthInThisYear, None)
+    LastPeriodInThisDay = property(get_LastPeriodInThisDay, None)
+    LastSecondInThisMinute = property(get_LastSecondInThisMinute, None)
+    LastYearInThisEra = property(get_LastYearInThisEra, None)
+    Minute = property(get_Minute, put_Minute)
+    Month = property(get_Month, put_Month)
+    Nanosecond = property(get_Nanosecond, put_Nanosecond)
+    NumberOfDaysInThisMonth = property(get_NumberOfDaysInThisMonth, None)
+    NumberOfEras = property(get_NumberOfEras, None)
+    NumberOfHoursInThisPeriod = property(get_NumberOfHoursInThisPeriod, None)
+    NumberOfMinutesInThisHour = property(get_NumberOfMinutesInThisHour, None)
+    NumberOfMonthsInThisYear = property(get_NumberOfMonthsInThisYear, None)
+    NumberOfPeriodsInThisDay = property(get_NumberOfPeriodsInThisDay, None)
+    NumberOfSecondsInThisMinute = property(get_NumberOfSecondsInThisMinute, None)
+    NumberOfYearsInThisEra = property(get_NumberOfYearsInThisEra, None)
+    NumeralSystem = property(get_NumeralSystem, put_NumeralSystem)
+    Period = property(get_Period, put_Period)
+    ResolvedLanguage = property(get_ResolvedLanguage, None)
+    Second = property(get_Second, put_Second)
+    Year = property(get_Year, put_Year)
 class ICalendarFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Globalization.ICalendarFactory'
@@ -1784,12 +1784,12 @@ class IGeographicRegion(ComPtr):
     @winrt_commethod(12)
     def get_CurrenciesInUse(self) -> win32more.Windows.Foundation.Collections.IVectorView[WinRT_String]: ...
     Code = property(get_Code, None)
-    CodeTwoLetter = property(get_CodeTwoLetter, None)
-    CodeThreeLetter = property(get_CodeThreeLetter, None)
     CodeThreeDigit = property(get_CodeThreeDigit, None)
+    CodeThreeLetter = property(get_CodeThreeLetter, None)
+    CodeTwoLetter = property(get_CodeTwoLetter, None)
+    CurrenciesInUse = property(get_CurrenciesInUse, None)
     DisplayName = property(get_DisplayName, None)
     NativeName = property(get_NativeName, None)
-    CurrenciesInUse = property(get_CurrenciesInUse, None)
 class IGeographicRegionFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Globalization.IGeographicRegionFactory'
@@ -1813,8 +1813,8 @@ class IJapanesePhoneme(ComPtr):
     @winrt_commethod(8)
     def get_IsPhraseStart(self) -> Boolean: ...
     DisplayText = property(get_DisplayText, None)
-    YomiText = property(get_YomiText, None)
     IsPhraseStart = property(get_IsPhraseStart, None)
+    YomiText = property(get_YomiText, None)
 class IJapanesePhoneticAnalyzerStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Globalization.IJapanesePhoneticAnalyzerStatics'
@@ -1835,8 +1835,8 @@ class ILanguage(ComPtr):
     def get_NativeName(self) -> WinRT_String: ...
     @winrt_commethod(9)
     def get_Script(self) -> WinRT_String: ...
-    LanguageTag = property(get_LanguageTag, None)
     DisplayName = property(get_DisplayName, None)
+    LanguageTag = property(get_LanguageTag, None)
     NativeName = property(get_NativeName, None)
     Script = property(get_Script, None)
 class ILanguage2(ComPtr):
@@ -2027,17 +2027,17 @@ class INumeralSystemIdentifiersStatics2(ComPtr):
     @winrt_commethod(17)
     def get_ZmthMono(self) -> WinRT_String: ...
     Brah = property(get_Brah, None)
-    Osma = property(get_Osma, None)
     MathBold = property(get_MathBold, None)
     MathDbl = property(get_MathDbl, None)
-    MathSans = property(get_MathSans, None)
-    MathSanb = property(get_MathSanb, None)
     MathMono = property(get_MathMono, None)
+    MathSanb = property(get_MathSanb, None)
+    MathSans = property(get_MathSans, None)
+    Osma = property(get_Osma, None)
     ZmthBold = property(get_ZmthBold, None)
     ZmthDbl = property(get_ZmthDbl, None)
-    ZmthSans = property(get_ZmthSans, None)
-    ZmthSanb = property(get_ZmthSanb, None)
     ZmthMono = property(get_ZmthMono, None)
+    ZmthSanb = property(get_ZmthSanb, None)
+    ZmthSans = property(get_ZmthSans, None)
 class ITimeZoneOnCalendar(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Globalization.ITimeZoneOnCalendar'
@@ -2061,8 +2061,8 @@ class JapanesePhoneme(ComPtr):
     @winrt_mixinmethod
     def get_IsPhraseStart(self: win32more.Windows.Globalization.IJapanesePhoneme) -> Boolean: ...
     DisplayText = property(get_DisplayText, None)
-    YomiText = property(get_YomiText, None)
     IsPhraseStart = property(get_IsPhraseStart, None)
+    YomiText = property(get_YomiText, None)
 class JapanesePhoneticAnalyzer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Globalization.JapanesePhoneticAnalyzer'
@@ -2107,12 +2107,12 @@ class Language(ComPtr, metaclass=_Language_Meta_):
     def IsWellFormed(cls: win32more.Windows.Globalization.ILanguageStatics, languageTag: WinRT_String) -> Boolean: ...
     @winrt_classmethod
     def get_CurrentInputMethodLanguageTag(cls: win32more.Windows.Globalization.ILanguageStatics) -> WinRT_String: ...
-    LanguageTag = property(get_LanguageTag, None)
+    AbbreviatedName = property(get_AbbreviatedName, None)
     DisplayName = property(get_DisplayName, None)
+    LanguageTag = property(get_LanguageTag, None)
+    LayoutDirection = property(get_LayoutDirection, None)
     NativeName = property(get_NativeName, None)
     Script = property(get_Script, None)
-    LayoutDirection = property(get_LayoutDirection, None)
-    AbbreviatedName = property(get_AbbreviatedName, None)
     _Language_Meta_.CurrentInputMethodLanguageTag = property(get_CurrentInputMethodLanguageTag.__wrapped__, None)
 class LanguageLayoutDirection(Int32):  # enum
     Ltr = 0
@@ -2220,22 +2220,11 @@ class NumeralSystemIdentifiers(ComPtr, metaclass=_NumeralSystemIdentifiers_Meta_
     def get_Tibt(cls: win32more.Windows.Globalization.INumeralSystemIdentifiersStatics) -> WinRT_String: ...
     @winrt_classmethod
     def get_Vaii(cls: win32more.Windows.Globalization.INumeralSystemIdentifiersStatics) -> WinRT_String: ...
-    _NumeralSystemIdentifiers_Meta_.Brah = property(get_Brah.__wrapped__, None)
-    _NumeralSystemIdentifiers_Meta_.Osma = property(get_Osma.__wrapped__, None)
-    _NumeralSystemIdentifiers_Meta_.MathBold = property(get_MathBold.__wrapped__, None)
-    _NumeralSystemIdentifiers_Meta_.MathDbl = property(get_MathDbl.__wrapped__, None)
-    _NumeralSystemIdentifiers_Meta_.MathSans = property(get_MathSans.__wrapped__, None)
-    _NumeralSystemIdentifiers_Meta_.MathSanb = property(get_MathSanb.__wrapped__, None)
-    _NumeralSystemIdentifiers_Meta_.MathMono = property(get_MathMono.__wrapped__, None)
-    _NumeralSystemIdentifiers_Meta_.ZmthBold = property(get_ZmthBold.__wrapped__, None)
-    _NumeralSystemIdentifiers_Meta_.ZmthDbl = property(get_ZmthDbl.__wrapped__, None)
-    _NumeralSystemIdentifiers_Meta_.ZmthSans = property(get_ZmthSans.__wrapped__, None)
-    _NumeralSystemIdentifiers_Meta_.ZmthSanb = property(get_ZmthSanb.__wrapped__, None)
-    _NumeralSystemIdentifiers_Meta_.ZmthMono = property(get_ZmthMono.__wrapped__, None)
     _NumeralSystemIdentifiers_Meta_.Arab = property(get_Arab.__wrapped__, None)
     _NumeralSystemIdentifiers_Meta_.ArabExt = property(get_ArabExt.__wrapped__, None)
     _NumeralSystemIdentifiers_Meta_.Bali = property(get_Bali.__wrapped__, None)
     _NumeralSystemIdentifiers_Meta_.Beng = property(get_Beng.__wrapped__, None)
+    _NumeralSystemIdentifiers_Meta_.Brah = property(get_Brah.__wrapped__, None)
     _NumeralSystemIdentifiers_Meta_.Cham = property(get_Cham.__wrapped__, None)
     _NumeralSystemIdentifiers_Meta_.Deva = property(get_Deva.__wrapped__, None)
     _NumeralSystemIdentifiers_Meta_.FullWide = property(get_FullWide.__wrapped__, None)
@@ -2252,6 +2241,11 @@ class NumeralSystemIdentifiers(ComPtr, metaclass=_NumeralSystemIdentifiers_Meta_
     _NumeralSystemIdentifiers_Meta_.Latn = property(get_Latn.__wrapped__, None)
     _NumeralSystemIdentifiers_Meta_.Lepc = property(get_Lepc.__wrapped__, None)
     _NumeralSystemIdentifiers_Meta_.Limb = property(get_Limb.__wrapped__, None)
+    _NumeralSystemIdentifiers_Meta_.MathBold = property(get_MathBold.__wrapped__, None)
+    _NumeralSystemIdentifiers_Meta_.MathDbl = property(get_MathDbl.__wrapped__, None)
+    _NumeralSystemIdentifiers_Meta_.MathMono = property(get_MathMono.__wrapped__, None)
+    _NumeralSystemIdentifiers_Meta_.MathSanb = property(get_MathSanb.__wrapped__, None)
+    _NumeralSystemIdentifiers_Meta_.MathSans = property(get_MathSans.__wrapped__, None)
     _NumeralSystemIdentifiers_Meta_.Mlym = property(get_Mlym.__wrapped__, None)
     _NumeralSystemIdentifiers_Meta_.Mong = property(get_Mong.__wrapped__, None)
     _NumeralSystemIdentifiers_Meta_.Mtei = property(get_Mtei.__wrapped__, None)
@@ -2260,6 +2254,7 @@ class NumeralSystemIdentifiers(ComPtr, metaclass=_NumeralSystemIdentifiers_Meta_
     _NumeralSystemIdentifiers_Meta_.Nkoo = property(get_Nkoo.__wrapped__, None)
     _NumeralSystemIdentifiers_Meta_.Olck = property(get_Olck.__wrapped__, None)
     _NumeralSystemIdentifiers_Meta_.Orya = property(get_Orya.__wrapped__, None)
+    _NumeralSystemIdentifiers_Meta_.Osma = property(get_Osma.__wrapped__, None)
     _NumeralSystemIdentifiers_Meta_.Saur = property(get_Saur.__wrapped__, None)
     _NumeralSystemIdentifiers_Meta_.Sund = property(get_Sund.__wrapped__, None)
     _NumeralSystemIdentifiers_Meta_.Talu = property(get_Talu.__wrapped__, None)
@@ -2268,6 +2263,11 @@ class NumeralSystemIdentifiers(ComPtr, metaclass=_NumeralSystemIdentifiers_Meta_
     _NumeralSystemIdentifiers_Meta_.Thai = property(get_Thai.__wrapped__, None)
     _NumeralSystemIdentifiers_Meta_.Tibt = property(get_Tibt.__wrapped__, None)
     _NumeralSystemIdentifiers_Meta_.Vaii = property(get_Vaii.__wrapped__, None)
+    _NumeralSystemIdentifiers_Meta_.ZmthBold = property(get_ZmthBold.__wrapped__, None)
+    _NumeralSystemIdentifiers_Meta_.ZmthDbl = property(get_ZmthDbl.__wrapped__, None)
+    _NumeralSystemIdentifiers_Meta_.ZmthMono = property(get_ZmthMono.__wrapped__, None)
+    _NumeralSystemIdentifiers_Meta_.ZmthSanb = property(get_ZmthSanb.__wrapped__, None)
+    _NumeralSystemIdentifiers_Meta_.ZmthSans = property(get_ZmthSans.__wrapped__, None)
 
 
 make_ready(__name__)

@@ -23,8 +23,8 @@ class CharacterReceivedEventArgs(ComPtr):
     def put_Handled(self: win32more.Microsoft.UI.Input.ICharacterReceivedEventArgs, value: Boolean) -> Void: ...
     @winrt_mixinmethod
     def get_KeyStatus(self: win32more.Microsoft.UI.Input.ICharacterReceivedEventArgs) -> win32more.Microsoft.UI.Input.PhysicalKeyStatus: ...
-    KeyCode = property(get_KeyCode, None)
     Handled = property(get_Handled, put_Handled)
+    KeyCode = property(get_KeyCode, None)
     KeyStatus = property(get_KeyStatus, None)
 class ContextMenuKeyEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -50,8 +50,8 @@ class CrossSlidingEventArgs(ComPtr):
     def get_CrossSlidingState(self: win32more.Microsoft.UI.Input.ICrossSlidingEventArgs) -> win32more.Microsoft.UI.Input.CrossSlidingState: ...
     @winrt_mixinmethod
     def get_Position(self: win32more.Microsoft.UI.Input.ICrossSlidingEventArgs) -> win32more.Windows.Foundation.Point: ...
-    PointerDeviceType = property(get_PointerDeviceType, None)
     CrossSlidingState = property(get_CrossSlidingState, None)
+    PointerDeviceType = property(get_PointerDeviceType, None)
     Position = property(get_Position, None)
 class CrossSlidingState(Int32):  # enum
     Started = 0
@@ -71,8 +71,8 @@ class DraggingEventArgs(ComPtr):
     def get_DraggingState(self: win32more.Microsoft.UI.Input.IDraggingEventArgs) -> win32more.Microsoft.UI.Input.DraggingState: ...
     @winrt_mixinmethod
     def get_Position(self: win32more.Microsoft.UI.Input.IDraggingEventArgs) -> win32more.Windows.Foundation.Point: ...
-    PointerDeviceType = property(get_PointerDeviceType, None)
     DraggingState = property(get_DraggingState, None)
+    PointerDeviceType = property(get_PointerDeviceType, None)
     Position = property(get_Position, None)
 class DraggingState(Int32):  # enum
     Started = 0
@@ -216,23 +216,23 @@ class GestureRecognizer(ComPtr):
     def add_CrossSliding(self: win32more.Microsoft.UI.Input.IGestureRecognizer, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.UI.Input.GestureRecognizer, win32more.Microsoft.UI.Input.CrossSlidingEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_CrossSliding(self: win32more.Microsoft.UI.Input.IGestureRecognizer, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    InertiaExpansionDeceleration = property(get_InertiaExpansionDeceleration, put_InertiaExpansionDeceleration)
     AutoProcessInertia = property(get_AutoProcessInertia, put_AutoProcessInertia)
     CrossSlideExact = property(get_CrossSlideExact, put_CrossSlideExact)
     CrossSlideHorizontally = property(get_CrossSlideHorizontally, put_CrossSlideHorizontally)
     CrossSlideThresholds = property(get_CrossSlideThresholds, put_CrossSlideThresholds)
     GestureSettings = property(get_GestureSettings, put_GestureSettings)
-    IsActive = property(get_IsActive, None)
-    IsInertial = property(get_IsInertial, None)
-    PivotCenter = property(get_PivotCenter, put_PivotCenter)
-    PivotRadius = property(get_PivotRadius, put_PivotRadius)
     InertiaExpansion = property(get_InertiaExpansion, put_InertiaExpansion)
+    InertiaExpansionDeceleration = property(get_InertiaExpansionDeceleration, put_InertiaExpansionDeceleration)
     InertiaRotationAngle = property(get_InertiaRotationAngle, put_InertiaRotationAngle)
     InertiaRotationDeceleration = property(get_InertiaRotationDeceleration, put_InertiaRotationDeceleration)
     InertiaTranslationDeceleration = property(get_InertiaTranslationDeceleration, put_InertiaTranslationDeceleration)
     InertiaTranslationDisplacement = property(get_InertiaTranslationDisplacement, put_InertiaTranslationDisplacement)
+    IsActive = property(get_IsActive, None)
+    IsInertial = property(get_IsInertial, None)
     ManipulationExact = property(get_ManipulationExact, put_ManipulationExact)
     MouseWheelParameters = property(get_MouseWheelParameters, None)
+    PivotCenter = property(get_PivotCenter, put_PivotCenter)
+    PivotRadius = property(get_PivotRadius, put_PivotRadius)
     ShowGestureFeedback = property(get_ShowGestureFeedback, put_ShowGestureFeedback)
 class GestureSettings(UInt32):  # enum
     None_ = 0
@@ -263,8 +263,8 @@ class HoldingEventArgs(ComPtr):
     def get_HoldingState(self: win32more.Microsoft.UI.Input.IHoldingEventArgs) -> win32more.Microsoft.UI.Input.HoldingState: ...
     @winrt_mixinmethod
     def get_Position(self: win32more.Microsoft.UI.Input.IHoldingEventArgs) -> win32more.Windows.Foundation.Point: ...
-    PointerDeviceType = property(get_PointerDeviceType, None)
     HoldingState = property(get_HoldingState, None)
+    PointerDeviceType = property(get_PointerDeviceType, None)
     Position = property(get_Position, None)
 class HoldingState(Int32):  # enum
     Started = 0
@@ -454,18 +454,18 @@ class IGestureRecognizer(ComPtr):
     CrossSlideHorizontally = property(get_CrossSlideHorizontally, put_CrossSlideHorizontally)
     CrossSlideThresholds = property(get_CrossSlideThresholds, put_CrossSlideThresholds)
     GestureSettings = property(get_GestureSettings, put_GestureSettings)
-    IsActive = property(get_IsActive, None)
-    IsInertial = property(get_IsInertial, None)
-    PivotCenter = property(get_PivotCenter, put_PivotCenter)
-    PivotRadius = property(get_PivotRadius, put_PivotRadius)
-    InertiaExpansionDeceleration = property(get_InertiaExpansionDeceleration, put_InertiaExpansionDeceleration)
     InertiaExpansion = property(get_InertiaExpansion, put_InertiaExpansion)
+    InertiaExpansionDeceleration = property(get_InertiaExpansionDeceleration, put_InertiaExpansionDeceleration)
     InertiaRotationAngle = property(get_InertiaRotationAngle, put_InertiaRotationAngle)
     InertiaRotationDeceleration = property(get_InertiaRotationDeceleration, put_InertiaRotationDeceleration)
     InertiaTranslationDeceleration = property(get_InertiaTranslationDeceleration, put_InertiaTranslationDeceleration)
     InertiaTranslationDisplacement = property(get_InertiaTranslationDisplacement, put_InertiaTranslationDisplacement)
+    IsActive = property(get_IsActive, None)
+    IsInertial = property(get_IsInertial, None)
     ManipulationExact = property(get_ManipulationExact, put_ManipulationExact)
     MouseWheelParameters = property(get_MouseWheelParameters, None)
+    PivotCenter = property(get_PivotCenter, put_PivotCenter)
+    PivotRadius = property(get_PivotRadius, put_PivotRadius)
     ShowGestureFeedback = property(get_ShowGestureFeedback, put_ShowGestureFeedback)
 class IHoldingEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -905,8 +905,8 @@ class IMouseWheelParameters(ComPtr):
     @winrt_commethod(13)
     def put_PageTranslation(self, value: win32more.Windows.Foundation.Point) -> Void: ...
     CharTranslation = property(get_CharTranslation, put_CharTranslation)
-    DeltaScale = property(get_DeltaScale, put_DeltaScale)
     DeltaRotationAngle = property(get_DeltaRotationAngle, put_DeltaRotationAngle)
+    DeltaScale = property(get_DeltaScale, put_DeltaScale)
     PageTranslation = property(get_PageTranslation, put_PageTranslation)
 class INonClientCaptionTappedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -930,10 +930,10 @@ class INonClientPointerEventArgs(ComPtr):
     def get_RegionKind(self) -> win32more.Microsoft.UI.Input.NonClientRegionKind: ...
     @winrt_commethod(9)
     def get_IsPointInRegion(self) -> Boolean: ...
+    IsPointInRegion = property(get_IsPointInRegion, None)
     Point = property(get_Point, None)
     PointerDeviceType = property(get_PointerDeviceType, None)
     RegionKind = property(get_RegionKind, None)
-    IsPointInRegion = property(get_IsPointInRegion, None)
 class INonClientRegionsChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Input.INonClientRegionsChangedEventArgs'
@@ -1152,8 +1152,8 @@ class InputDesktopNamedResourceCursor(ComPtr):
     def Create(cls: win32more.Microsoft.UI.Input.IInputDesktopNamedResourceCursorStatics, resourceName: WinRT_String) -> win32more.Microsoft.UI.Input.InputDesktopNamedResourceCursor: ...
     @winrt_classmethod
     def CreateFromModule(cls: win32more.Microsoft.UI.Input.IInputDesktopNamedResourceCursorStatics, moduleName: WinRT_String, resourceName: WinRT_String) -> win32more.Microsoft.UI.Input.InputDesktopNamedResourceCursor: ...
-    ResourceName = property(get_ResourceName, None)
     ModuleName = property(get_ModuleName, None)
+    ResourceName = property(get_ResourceName, None)
 class InputDesktopResourceCursor(ComPtr):
     extends: win32more.Microsoft.UI.Input.InputCursor
     default_interface: win32more.Microsoft.UI.Input.IInputDesktopResourceCursor
@@ -1398,10 +1398,10 @@ class KeyEventArgs(ComPtr):
     def get_Timestamp(self: win32more.Microsoft.UI.Input.IKeyEventArgs) -> UInt64: ...
     @winrt_mixinmethod
     def get_Handled(self: win32more.Microsoft.UI.Input.IKeyEventArgs) -> Boolean: ...
-    VirtualKey = property(get_VirtualKey, None)
     Handled = property(get_Handled, put_Handled)
     KeyStatus = property(get_KeyStatus, None)
     Timestamp = property(get_Timestamp, None)
+    VirtualKey = property(get_VirtualKey, None)
 class ManipulationCompletedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Input.IManipulationCompletedEventArgs
@@ -1414,10 +1414,10 @@ class ManipulationCompletedEventArgs(ComPtr):
     def get_Cumulative(self: win32more.Microsoft.UI.Input.IManipulationCompletedEventArgs) -> win32more.Microsoft.UI.Input.ManipulationDelta: ...
     @winrt_mixinmethod
     def get_Position(self: win32more.Microsoft.UI.Input.IManipulationCompletedEventArgs) -> win32more.Windows.Foundation.Point: ...
-    Velocities = property(get_Velocities, None)
-    PointerDeviceType = property(get_PointerDeviceType, None)
     Cumulative = property(get_Cumulative, None)
+    PointerDeviceType = property(get_PointerDeviceType, None)
     Position = property(get_Position, None)
+    Velocities = property(get_Velocities, None)
 class ManipulationDelta(EasyCastStructure):
     Translation: win32more.Windows.Foundation.Point
     Scale: Single
@@ -1437,9 +1437,9 @@ class ManipulationInertiaStartingEventArgs(ComPtr):
     def get_Position(self: win32more.Microsoft.UI.Input.IManipulationInertiaStartingEventArgs) -> win32more.Windows.Foundation.Point: ...
     @winrt_mixinmethod
     def get_Velocities(self: win32more.Microsoft.UI.Input.IManipulationInertiaStartingEventArgs) -> win32more.Microsoft.UI.Input.ManipulationVelocities: ...
-    PointerDeviceType = property(get_PointerDeviceType, None)
-    Delta = property(get_Delta, None)
     Cumulative = property(get_Cumulative, None)
+    Delta = property(get_Delta, None)
+    PointerDeviceType = property(get_PointerDeviceType, None)
     Position = property(get_Position, None)
     Velocities = property(get_Velocities, None)
 class ManipulationStartedEventArgs(ComPtr):
@@ -1469,11 +1469,11 @@ class ManipulationUpdatedEventArgs(ComPtr):
     def get_Velocities(self: win32more.Microsoft.UI.Input.IManipulationUpdatedEventArgs) -> win32more.Microsoft.UI.Input.ManipulationVelocities: ...
     @winrt_mixinmethod
     def get_Cumulative(self: win32more.Microsoft.UI.Input.IManipulationUpdatedEventArgs) -> win32more.Microsoft.UI.Input.ManipulationDelta: ...
-    Position = property(get_Position, None)
+    Cumulative = property(get_Cumulative, None)
     Delta = property(get_Delta, None)
     PointerDeviceType = property(get_PointerDeviceType, None)
+    Position = property(get_Position, None)
     Velocities = property(get_Velocities, None)
-    Cumulative = property(get_Cumulative, None)
 class ManipulationVelocities(EasyCastStructure):
     Linear: win32more.Windows.Foundation.Point
     Angular: Single
@@ -1498,9 +1498,9 @@ class MouseWheelParameters(ComPtr):
     def get_PageTranslation(self: win32more.Microsoft.UI.Input.IMouseWheelParameters) -> win32more.Windows.Foundation.Point: ...
     @winrt_mixinmethod
     def put_PageTranslation(self: win32more.Microsoft.UI.Input.IMouseWheelParameters, value: win32more.Windows.Foundation.Point) -> Void: ...
-    DeltaScale = property(get_DeltaScale, put_DeltaScale)
     CharTranslation = property(get_CharTranslation, put_CharTranslation)
     DeltaRotationAngle = property(get_DeltaRotationAngle, put_DeltaRotationAngle)
+    DeltaScale = property(get_DeltaScale, put_DeltaScale)
     PageTranslation = property(get_PageTranslation, put_PageTranslation)
 class NonClientCaptionTappedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -1524,10 +1524,10 @@ class NonClientPointerEventArgs(ComPtr):
     def get_PointerDeviceType(self: win32more.Microsoft.UI.Input.INonClientPointerEventArgs) -> win32more.Microsoft.UI.Input.PointerDeviceType: ...
     @winrt_mixinmethod
     def get_IsPointInRegion(self: win32more.Microsoft.UI.Input.INonClientPointerEventArgs) -> Boolean: ...
-    RegionKind = property(get_RegionKind, None)
+    IsPointInRegion = property(get_IsPointInRegion, None)
     Point = property(get_Point, None)
     PointerDeviceType = property(get_PointerDeviceType, None)
-    IsPointInRegion = property(get_IsPointInRegion, None)
+    RegionKind = property(get_RegionKind, None)
 class NonClientRegionKind(Int32):  # enum
     Close = 0
     Maximize = 1
@@ -1597,8 +1597,8 @@ class PointerPoint(ComPtr):
     def get_Timestamp(self: win32more.Microsoft.UI.Input.IPointerPoint) -> UInt64: ...
     @winrt_mixinmethod
     def GetTransformedPoint(self: win32more.Microsoft.UI.Input.IPointerPoint, transform: win32more.Microsoft.UI.Input.IPointerPointTransform) -> win32more.Microsoft.UI.Input.PointerPoint: ...
-    IsInContact = property(get_IsInContact, None)
     FrameId = property(get_FrameId, None)
+    IsInContact = property(get_IsInContact, None)
     PointerDeviceType = property(get_PointerDeviceType, None)
     PointerId = property(get_PointerId, None)
     Position = property(get_Position, None)
@@ -1718,8 +1718,8 @@ class TappedEventArgs(ComPtr):
     def get_PointerDeviceType(self: win32more.Microsoft.UI.Input.ITappedEventArgs) -> win32more.Microsoft.UI.Input.PointerDeviceType: ...
     @winrt_mixinmethod
     def get_TapCount(self: win32more.Microsoft.UI.Input.ITappedEventArgs) -> UInt32: ...
-    Position = property(get_Position, None)
     PointerDeviceType = property(get_PointerDeviceType, None)
+    Position = property(get_Position, None)
     TapCount = property(get_TapCount, None)
 class VirtualKeyStates(UInt32):  # enum
     None_ = 0

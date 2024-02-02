@@ -85,19 +85,19 @@ class CurrencyFormatter(ComPtr):
     @winrt_mixinmethod
     def put_IsZeroSigned(self: win32more.Windows.Globalization.NumberFormatting.ISignedZeroOption, value: Boolean) -> Void: ...
     Currency = property(get_Currency, put_Currency)
-    Languages = property(get_Languages, None)
+    FractionDigits = property(get_FractionDigits, put_FractionDigits)
     GeographicRegion = property(get_GeographicRegion, None)
     IntegerDigits = property(get_IntegerDigits, put_IntegerDigits)
-    FractionDigits = property(get_FractionDigits, put_FractionDigits)
-    IsGrouped = property(get_IsGrouped, put_IsGrouped)
     IsDecimalPointAlwaysDisplayed = property(get_IsDecimalPointAlwaysDisplayed, put_IsDecimalPointAlwaysDisplayed)
-    NumeralSystem = property(get_NumeralSystem, put_NumeralSystem)
-    ResolvedLanguage = property(get_ResolvedLanguage, None)
-    ResolvedGeographicRegion = property(get_ResolvedGeographicRegion, None)
-    Mode = property(get_Mode, put_Mode)
-    SignificantDigits = property(get_SignificantDigits, put_SignificantDigits)
-    NumberRounder = property(get_NumberRounder, put_NumberRounder)
+    IsGrouped = property(get_IsGrouped, put_IsGrouped)
     IsZeroSigned = property(get_IsZeroSigned, put_IsZeroSigned)
+    Languages = property(get_Languages, None)
+    Mode = property(get_Mode, put_Mode)
+    NumberRounder = property(get_NumberRounder, put_NumberRounder)
+    NumeralSystem = property(get_NumeralSystem, put_NumeralSystem)
+    ResolvedGeographicRegion = property(get_ResolvedGeographicRegion, None)
+    ResolvedLanguage = property(get_ResolvedLanguage, None)
+    SignificantDigits = property(get_SignificantDigits, put_SignificantDigits)
 class CurrencyFormatterMode(Int32):  # enum
     UseSymbol = 0
     UseCurrencyCode = 1
@@ -170,18 +170,18 @@ class DecimalFormatter(ComPtr):
     def get_IsZeroSigned(self: win32more.Windows.Globalization.NumberFormatting.ISignedZeroOption) -> Boolean: ...
     @winrt_mixinmethod
     def put_IsZeroSigned(self: win32more.Windows.Globalization.NumberFormatting.ISignedZeroOption, value: Boolean) -> Void: ...
-    Languages = property(get_Languages, None)
+    FractionDigits = property(get_FractionDigits, put_FractionDigits)
     GeographicRegion = property(get_GeographicRegion, None)
     IntegerDigits = property(get_IntegerDigits, put_IntegerDigits)
-    FractionDigits = property(get_FractionDigits, put_FractionDigits)
-    IsGrouped = property(get_IsGrouped, put_IsGrouped)
     IsDecimalPointAlwaysDisplayed = property(get_IsDecimalPointAlwaysDisplayed, put_IsDecimalPointAlwaysDisplayed)
-    NumeralSystem = property(get_NumeralSystem, put_NumeralSystem)
-    ResolvedLanguage = property(get_ResolvedLanguage, None)
-    ResolvedGeographicRegion = property(get_ResolvedGeographicRegion, None)
-    SignificantDigits = property(get_SignificantDigits, put_SignificantDigits)
-    NumberRounder = property(get_NumberRounder, put_NumberRounder)
+    IsGrouped = property(get_IsGrouped, put_IsGrouped)
     IsZeroSigned = property(get_IsZeroSigned, put_IsZeroSigned)
+    Languages = property(get_Languages, None)
+    NumberRounder = property(get_NumberRounder, put_NumberRounder)
+    NumeralSystem = property(get_NumeralSystem, put_NumeralSystem)
+    ResolvedGeographicRegion = property(get_ResolvedGeographicRegion, None)
+    ResolvedLanguage = property(get_ResolvedLanguage, None)
+    SignificantDigits = property(get_SignificantDigits, put_SignificantDigits)
 class ICurrencyFormatter(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Globalization.NumberFormatting.ICurrencyFormatter'
@@ -228,8 +228,8 @@ class IIncrementNumberRounder(ComPtr):
     def get_Increment(self) -> Double: ...
     @winrt_commethod(9)
     def put_Increment(self, value: Double) -> Void: ...
-    RoundingAlgorithm = property(get_RoundingAlgorithm, put_RoundingAlgorithm)
     Increment = property(get_Increment, put_Increment)
+    RoundingAlgorithm = property(get_RoundingAlgorithm, put_RoundingAlgorithm)
 class INumberFormatter(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Globalization.NumberFormatting.INumberFormatter'
@@ -282,15 +282,15 @@ class INumberFormatterOptions(ComPtr):
     def get_ResolvedLanguage(self) -> WinRT_String: ...
     @winrt_commethod(19)
     def get_ResolvedGeographicRegion(self) -> WinRT_String: ...
-    Languages = property(get_Languages, None)
+    FractionDigits = property(get_FractionDigits, put_FractionDigits)
     GeographicRegion = property(get_GeographicRegion, None)
     IntegerDigits = property(get_IntegerDigits, put_IntegerDigits)
-    FractionDigits = property(get_FractionDigits, put_FractionDigits)
-    IsGrouped = property(get_IsGrouped, put_IsGrouped)
     IsDecimalPointAlwaysDisplayed = property(get_IsDecimalPointAlwaysDisplayed, put_IsDecimalPointAlwaysDisplayed)
+    IsGrouped = property(get_IsGrouped, put_IsGrouped)
+    Languages = property(get_Languages, None)
     NumeralSystem = property(get_NumeralSystem, put_NumeralSystem)
-    ResolvedLanguage = property(get_ResolvedLanguage, None)
     ResolvedGeographicRegion = property(get_ResolvedGeographicRegion, None)
+    ResolvedLanguage = property(get_ResolvedLanguage, None)
 class INumberParser(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Globalization.NumberFormatting.INumberParser'
@@ -341,8 +341,8 @@ class INumeralSystemTranslator(ComPtr):
     @winrt_commethod(10)
     def TranslateNumerals(self, value: WinRT_String) -> WinRT_String: ...
     Languages = property(get_Languages, None)
-    ResolvedLanguage = property(get_ResolvedLanguage, None)
     NumeralSystem = property(get_NumeralSystem, put_NumeralSystem)
+    ResolvedLanguage = property(get_ResolvedLanguage, None)
 class INumeralSystemTranslatorFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Globalization.NumberFormatting.INumeralSystemTranslatorFactory'
@@ -426,8 +426,8 @@ class IncrementNumberRounder(ComPtr):
     def get_Increment(self: win32more.Windows.Globalization.NumberFormatting.IIncrementNumberRounder) -> Double: ...
     @winrt_mixinmethod
     def put_Increment(self: win32more.Windows.Globalization.NumberFormatting.IIncrementNumberRounder, value: Double) -> Void: ...
-    RoundingAlgorithm = property(get_RoundingAlgorithm, put_RoundingAlgorithm)
     Increment = property(get_Increment, put_Increment)
+    RoundingAlgorithm = property(get_RoundingAlgorithm, put_RoundingAlgorithm)
 class NumeralSystemTranslator(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Globalization.NumberFormatting.INumeralSystemTranslator
@@ -456,8 +456,8 @@ class NumeralSystemTranslator(ComPtr):
     @winrt_mixinmethod
     def TranslateNumerals(self: win32more.Windows.Globalization.NumberFormatting.INumeralSystemTranslator, value: WinRT_String) -> WinRT_String: ...
     Languages = property(get_Languages, None)
-    ResolvedLanguage = property(get_ResolvedLanguage, None)
     NumeralSystem = property(get_NumeralSystem, put_NumeralSystem)
+    ResolvedLanguage = property(get_ResolvedLanguage, None)
 class PercentFormatter(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Globalization.NumberFormatting.INumberFormatter
@@ -527,18 +527,18 @@ class PercentFormatter(ComPtr):
     def get_IsZeroSigned(self: win32more.Windows.Globalization.NumberFormatting.ISignedZeroOption) -> Boolean: ...
     @winrt_mixinmethod
     def put_IsZeroSigned(self: win32more.Windows.Globalization.NumberFormatting.ISignedZeroOption, value: Boolean) -> Void: ...
-    Languages = property(get_Languages, None)
+    FractionDigits = property(get_FractionDigits, put_FractionDigits)
     GeographicRegion = property(get_GeographicRegion, None)
     IntegerDigits = property(get_IntegerDigits, put_IntegerDigits)
-    FractionDigits = property(get_FractionDigits, put_FractionDigits)
-    IsGrouped = property(get_IsGrouped, put_IsGrouped)
     IsDecimalPointAlwaysDisplayed = property(get_IsDecimalPointAlwaysDisplayed, put_IsDecimalPointAlwaysDisplayed)
-    NumeralSystem = property(get_NumeralSystem, put_NumeralSystem)
-    ResolvedLanguage = property(get_ResolvedLanguage, None)
-    ResolvedGeographicRegion = property(get_ResolvedGeographicRegion, None)
-    SignificantDigits = property(get_SignificantDigits, put_SignificantDigits)
-    NumberRounder = property(get_NumberRounder, put_NumberRounder)
+    IsGrouped = property(get_IsGrouped, put_IsGrouped)
     IsZeroSigned = property(get_IsZeroSigned, put_IsZeroSigned)
+    Languages = property(get_Languages, None)
+    NumberRounder = property(get_NumberRounder, put_NumberRounder)
+    NumeralSystem = property(get_NumeralSystem, put_NumeralSystem)
+    ResolvedGeographicRegion = property(get_ResolvedGeographicRegion, None)
+    ResolvedLanguage = property(get_ResolvedLanguage, None)
+    SignificantDigits = property(get_SignificantDigits, put_SignificantDigits)
 class PermilleFormatter(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Globalization.NumberFormatting.INumberFormatter
@@ -608,18 +608,18 @@ class PermilleFormatter(ComPtr):
     def get_IsZeroSigned(self: win32more.Windows.Globalization.NumberFormatting.ISignedZeroOption) -> Boolean: ...
     @winrt_mixinmethod
     def put_IsZeroSigned(self: win32more.Windows.Globalization.NumberFormatting.ISignedZeroOption, value: Boolean) -> Void: ...
-    Languages = property(get_Languages, None)
+    FractionDigits = property(get_FractionDigits, put_FractionDigits)
     GeographicRegion = property(get_GeographicRegion, None)
     IntegerDigits = property(get_IntegerDigits, put_IntegerDigits)
-    FractionDigits = property(get_FractionDigits, put_FractionDigits)
-    IsGrouped = property(get_IsGrouped, put_IsGrouped)
     IsDecimalPointAlwaysDisplayed = property(get_IsDecimalPointAlwaysDisplayed, put_IsDecimalPointAlwaysDisplayed)
-    NumeralSystem = property(get_NumeralSystem, put_NumeralSystem)
-    ResolvedLanguage = property(get_ResolvedLanguage, None)
-    ResolvedGeographicRegion = property(get_ResolvedGeographicRegion, None)
-    SignificantDigits = property(get_SignificantDigits, put_SignificantDigits)
-    NumberRounder = property(get_NumberRounder, put_NumberRounder)
+    IsGrouped = property(get_IsGrouped, put_IsGrouped)
     IsZeroSigned = property(get_IsZeroSigned, put_IsZeroSigned)
+    Languages = property(get_Languages, None)
+    NumberRounder = property(get_NumberRounder, put_NumberRounder)
+    NumeralSystem = property(get_NumeralSystem, put_NumeralSystem)
+    ResolvedGeographicRegion = property(get_ResolvedGeographicRegion, None)
+    ResolvedLanguage = property(get_ResolvedLanguage, None)
+    SignificantDigits = property(get_SignificantDigits, put_SignificantDigits)
 class RoundingAlgorithm(Int32):  # enum
     None_ = 0
     RoundDown = 1

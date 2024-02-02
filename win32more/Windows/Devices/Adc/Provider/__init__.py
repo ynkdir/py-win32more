@@ -29,10 +29,10 @@ class IAdcControllerProvider(ComPtr):
     @winrt_commethod(15)
     def ReadValue(self, channelNumber: Int32) -> Int32: ...
     ChannelCount = property(get_ChannelCount, None)
-    ResolutionInBits = property(get_ResolutionInBits, None)
-    MinValue = property(get_MinValue, None)
-    MaxValue = property(get_MaxValue, None)
     ChannelMode = property(get_ChannelMode, put_ChannelMode)
+    MaxValue = property(get_MaxValue, None)
+    MinValue = property(get_MinValue, None)
+    ResolutionInBits = property(get_ResolutionInBits, None)
 class IAdcProvider(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Adc.Provider.IAdcProvider'

@@ -17,8 +17,8 @@ class IIppAttributeError(ComPtr):
     def get_ExtendedError(self) -> win32more.Windows.Foundation.HResult: ...
     @winrt_commethod(8)
     def GetUnsupportedValues(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Devices.Printers.IppAttributeValue]: ...
-    Reason = property(get_Reason, None)
     ExtendedError = property(get_ExtendedError, None)
+    Reason = property(get_Reason, None)
 class IIppAttributeValue(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Printers.IIppAttributeValue'
@@ -152,8 +152,8 @@ class IIppIntegerRange(ComPtr):
     def get_Start(self) -> Int32: ...
     @winrt_commethod(7)
     def get_End(self) -> Int32: ...
-    Start = property(get_Start, None)
     End = property(get_End, None)
+    Start = property(get_Start, None)
 class IIppIntegerRangeFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Printers.IIppIntegerRangeFactory'
@@ -212,9 +212,9 @@ class IIppResolution(ComPtr):
     def get_Height(self) -> Int32: ...
     @winrt_commethod(8)
     def get_Unit(self) -> win32more.Windows.Devices.Printers.IppResolutionUnit: ...
-    Width = property(get_Width, None)
     Height = property(get_Height, None)
     Unit = property(get_Unit, None)
+    Width = property(get_Width, None)
 class IIppResolutionFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Printers.IIppResolutionFactory'
@@ -229,8 +229,8 @@ class IIppSetAttributesResult(ComPtr):
     def get_Succeeded(self) -> Boolean: ...
     @winrt_commethod(7)
     def get_AttributeErrors(self) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Devices.Printers.IppAttributeError]: ...
-    Succeeded = property(get_Succeeded, None)
     AttributeErrors = property(get_AttributeErrors, None)
+    Succeeded = property(get_Succeeded, None)
 class IIppTextWithLanguage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Printers.IIppTextWithLanguage'
@@ -318,8 +318,8 @@ class IppAttributeError(ComPtr):
     def get_ExtendedError(self: win32more.Windows.Devices.Printers.IIppAttributeError) -> win32more.Windows.Foundation.HResult: ...
     @winrt_mixinmethod
     def GetUnsupportedValues(self: win32more.Windows.Devices.Printers.IIppAttributeError) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Devices.Printers.IppAttributeValue]: ...
-    Reason = property(get_Reason, None)
     ExtendedError = property(get_ExtendedError, None)
+    Reason = property(get_Reason, None)
 class IppAttributeErrorReason(Int32):  # enum
     RequestEntityTooLarge = 0
     AttributeNotSupported = 1
@@ -486,8 +486,8 @@ class IppIntegerRange(ComPtr):
     def get_Start(self: win32more.Windows.Devices.Printers.IIppIntegerRange) -> Int32: ...
     @winrt_mixinmethod
     def get_End(self: win32more.Windows.Devices.Printers.IIppIntegerRange) -> Int32: ...
-    Start = property(get_Start, None)
     End = property(get_End, None)
+    Start = property(get_Start, None)
 class IppPrintDevice(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Printers.IIppPrintDevice
@@ -541,9 +541,9 @@ class IppResolution(ComPtr):
     def get_Height(self: win32more.Windows.Devices.Printers.IIppResolution) -> Int32: ...
     @winrt_mixinmethod
     def get_Unit(self: win32more.Windows.Devices.Printers.IIppResolution) -> win32more.Windows.Devices.Printers.IppResolutionUnit: ...
-    Width = property(get_Width, None)
     Height = property(get_Height, None)
     Unit = property(get_Unit, None)
+    Width = property(get_Width, None)
 class IppResolutionUnit(Int32):  # enum
     DotsPerInch = 0
     DotsPerCentimeter = 1
@@ -555,8 +555,8 @@ class IppSetAttributesResult(ComPtr):
     def get_Succeeded(self: win32more.Windows.Devices.Printers.IIppSetAttributesResult) -> Boolean: ...
     @winrt_mixinmethod
     def get_AttributeErrors(self: win32more.Windows.Devices.Printers.IIppSetAttributesResult) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Devices.Printers.IppAttributeError]: ...
-    Succeeded = property(get_Succeeded, None)
     AttributeErrors = property(get_AttributeErrors, None)
+    Succeeded = property(get_Succeeded, None)
 class IppTextWithLanguage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Printers.IIppTextWithLanguage

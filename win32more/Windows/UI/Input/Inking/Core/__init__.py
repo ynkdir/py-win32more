@@ -32,9 +32,9 @@ class CoreIncrementalInkStroke(ComPtr):
     def get_PointTransform(self: win32more.Windows.UI.Input.Inking.Core.ICoreIncrementalInkStroke) -> win32more.Windows.Foundation.Numerics.Matrix3x2: ...
     @winrt_mixinmethod
     def get_BoundingRect(self: win32more.Windows.UI.Input.Inking.Core.ICoreIncrementalInkStroke) -> win32more.Windows.Foundation.Rect: ...
+    BoundingRect = property(get_BoundingRect, None)
     DrawingAttributes = property(get_DrawingAttributes, None)
     PointTransform = property(get_PointTransform, None)
-    BoundingRect = property(get_BoundingRect, None)
 class CoreInkIndependentInputSource(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Input.Inking.Core.ICoreInkIndependentInputSource
@@ -114,9 +114,9 @@ class CoreWetStrokeUpdateEventArgs(ComPtr):
     def get_Disposition(self: win32more.Windows.UI.Input.Inking.Core.ICoreWetStrokeUpdateEventArgs) -> win32more.Windows.UI.Input.Inking.Core.CoreWetStrokeDisposition: ...
     @winrt_mixinmethod
     def put_Disposition(self: win32more.Windows.UI.Input.Inking.Core.ICoreWetStrokeUpdateEventArgs, value: win32more.Windows.UI.Input.Inking.Core.CoreWetStrokeDisposition) -> Void: ...
+    Disposition = property(get_Disposition, put_Disposition)
     NewInkPoints = property(get_NewInkPoints, None)
     PointerId = property(get_PointerId, None)
-    Disposition = property(get_Disposition, put_Disposition)
 class CoreWetStrokeUpdateSource(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Input.Inking.Core.ICoreWetStrokeUpdateSource
@@ -160,9 +160,9 @@ class ICoreIncrementalInkStroke(ComPtr):
     def get_PointTransform(self) -> win32more.Windows.Foundation.Numerics.Matrix3x2: ...
     @winrt_commethod(10)
     def get_BoundingRect(self) -> win32more.Windows.Foundation.Rect: ...
+    BoundingRect = property(get_BoundingRect, None)
     DrawingAttributes = property(get_DrawingAttributes, None)
     PointTransform = property(get_PointTransform, None)
-    BoundingRect = property(get_BoundingRect, None)
 class ICoreIncrementalInkStrokeFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Input.Inking.Core.ICoreIncrementalInkStrokeFactory'
@@ -243,9 +243,9 @@ class ICoreWetStrokeUpdateEventArgs(ComPtr):
     def get_Disposition(self) -> win32more.Windows.UI.Input.Inking.Core.CoreWetStrokeDisposition: ...
     @winrt_commethod(9)
     def put_Disposition(self, value: win32more.Windows.UI.Input.Inking.Core.CoreWetStrokeDisposition) -> Void: ...
+    Disposition = property(get_Disposition, put_Disposition)
     NewInkPoints = property(get_NewInkPoints, None)
     PointerId = property(get_PointerId, None)
-    Disposition = property(get_Disposition, put_Disposition)
 class ICoreWetStrokeUpdateSource(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Input.Inking.Core.ICoreWetStrokeUpdateSource'

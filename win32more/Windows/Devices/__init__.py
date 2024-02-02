@@ -24,9 +24,9 @@ class ILowLevelDevicesAggregateProvider(ComPtr):
     @winrt_commethod(10)
     def get_SpiControllerProvider(self) -> win32more.Windows.Devices.Spi.Provider.ISpiControllerProvider: ...
     AdcControllerProvider = property(get_AdcControllerProvider, None)
-    PwmControllerProvider = property(get_PwmControllerProvider, None)
     GpioControllerProvider = property(get_GpioControllerProvider, None)
     I2cControllerProvider = property(get_I2cControllerProvider, None)
+    PwmControllerProvider = property(get_PwmControllerProvider, None)
     SpiControllerProvider = property(get_SpiControllerProvider, None)
 class ILowLevelDevicesAggregateProviderFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -71,9 +71,9 @@ class LowLevelDevicesAggregateProvider(ComPtr):
     @winrt_mixinmethod
     def get_SpiControllerProvider(self: win32more.Windows.Devices.ILowLevelDevicesAggregateProvider) -> win32more.Windows.Devices.Spi.Provider.ISpiControllerProvider: ...
     AdcControllerProvider = property(get_AdcControllerProvider, None)
-    PwmControllerProvider = property(get_PwmControllerProvider, None)
     GpioControllerProvider = property(get_GpioControllerProvider, None)
     I2cControllerProvider = property(get_I2cControllerProvider, None)
+    PwmControllerProvider = property(get_PwmControllerProvider, None)
     SpiControllerProvider = property(get_SpiControllerProvider, None)
 class _LowLevelDevicesController_Meta_(ComPtr.__class__):
     pass

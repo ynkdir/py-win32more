@@ -28,9 +28,9 @@ class IWiFiDirectAdvertisement(ComPtr):
     @winrt_commethod(12)
     def get_LegacySettings(self) -> win32more.Windows.Devices.WiFiDirect.WiFiDirectLegacySettings: ...
     InformationElements = property(get_InformationElements, put_InformationElements)
-    ListenStateDiscoverability = property(get_ListenStateDiscoverability, put_ListenStateDiscoverability)
     IsAutonomousGroupOwnerEnabled = property(get_IsAutonomousGroupOwnerEnabled, put_IsAutonomousGroupOwnerEnabled)
     LegacySettings = property(get_LegacySettings, None)
+    ListenStateDiscoverability = property(get_ListenStateDiscoverability, put_ListenStateDiscoverability)
 class IWiFiDirectAdvertisement2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.WiFiDirect.IWiFiDirectAdvertisement2'
@@ -64,8 +64,8 @@ class IWiFiDirectAdvertisementPublisherStatusChangedEventArgs(ComPtr):
     def get_Status(self) -> win32more.Windows.Devices.WiFiDirect.WiFiDirectAdvertisementPublisherStatus: ...
     @winrt_commethod(7)
     def get_Error(self) -> win32more.Windows.Devices.WiFiDirect.WiFiDirectError: ...
-    Status = property(get_Status, None)
     Error = property(get_Error, None)
+    Status = property(get_Status, None)
 class IWiFiDirectConnectionListener(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.WiFiDirect.IWiFiDirectConnectionListener'
@@ -190,8 +190,8 @@ class IWiFiDirectLegacySettings(ComPtr):
     @winrt_commethod(11)
     def put_Passphrase(self, value: win32more.Windows.Security.Credentials.PasswordCredential) -> Void: ...
     IsEnabled = property(get_IsEnabled, put_IsEnabled)
-    Ssid = property(get_Ssid, put_Ssid)
     Passphrase = property(get_Passphrase, put_Passphrase)
+    Ssid = property(get_Ssid, put_Ssid)
 class WiFiDirectAdvertisement(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.WiFiDirect.IWiFiDirectAdvertisement
@@ -213,9 +213,9 @@ class WiFiDirectAdvertisement(ComPtr):
     @winrt_mixinmethod
     def get_SupportedConfigurationMethods(self: win32more.Windows.Devices.WiFiDirect.IWiFiDirectAdvertisement2) -> win32more.Windows.Foundation.Collections.IVector[win32more.Windows.Devices.WiFiDirect.WiFiDirectConfigurationMethod]: ...
     InformationElements = property(get_InformationElements, put_InformationElements)
-    ListenStateDiscoverability = property(get_ListenStateDiscoverability, put_ListenStateDiscoverability)
     IsAutonomousGroupOwnerEnabled = property(get_IsAutonomousGroupOwnerEnabled, put_IsAutonomousGroupOwnerEnabled)
     LegacySettings = property(get_LegacySettings, None)
+    ListenStateDiscoverability = property(get_ListenStateDiscoverability, put_ListenStateDiscoverability)
     SupportedConfigurationMethods = property(get_SupportedConfigurationMethods, None)
 class WiFiDirectAdvertisementListenStateDiscoverability(Int32):  # enum
     None_ = 0
@@ -261,8 +261,8 @@ class WiFiDirectAdvertisementPublisherStatusChangedEventArgs(ComPtr):
     def get_Status(self: win32more.Windows.Devices.WiFiDirect.IWiFiDirectAdvertisementPublisherStatusChangedEventArgs) -> win32more.Windows.Devices.WiFiDirect.WiFiDirectAdvertisementPublisherStatus: ...
     @winrt_mixinmethod
     def get_Error(self: win32more.Windows.Devices.WiFiDirect.IWiFiDirectAdvertisementPublisherStatusChangedEventArgs) -> win32more.Windows.Devices.WiFiDirect.WiFiDirectError: ...
-    Status = property(get_Status, None)
     Error = property(get_Error, None)
+    Status = property(get_Status, None)
 class WiFiDirectConfigurationMethod(Int32):  # enum
     ProvidePin = 0
     DisplayPin = 1
@@ -416,8 +416,8 @@ class WiFiDirectLegacySettings(ComPtr):
     @winrt_mixinmethod
     def put_Passphrase(self: win32more.Windows.Devices.WiFiDirect.IWiFiDirectLegacySettings, value: win32more.Windows.Security.Credentials.PasswordCredential) -> Void: ...
     IsEnabled = property(get_IsEnabled, put_IsEnabled)
-    Ssid = property(get_Ssid, put_Ssid)
     Passphrase = property(get_Passphrase, put_Passphrase)
+    Ssid = property(get_Ssid, put_Ssid)
 class WiFiDirectPairingProcedure(Int32):  # enum
     GroupOwnerNegotiation = 0
     Invitation = 1

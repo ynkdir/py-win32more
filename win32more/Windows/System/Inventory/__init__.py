@@ -17,10 +17,10 @@ class IInstalledDesktopApp(ComPtr):
     def get_Publisher(self) -> WinRT_String: ...
     @winrt_commethod(9)
     def get_DisplayVersion(self) -> WinRT_String: ...
-    Id = property(get_Id, None)
     DisplayName = property(get_DisplayName, None)
-    Publisher = property(get_Publisher, None)
     DisplayVersion = property(get_DisplayVersion, None)
+    Id = property(get_Id, None)
+    Publisher = property(get_Publisher, None)
 class IInstalledDesktopAppStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.System.Inventory.IInstalledDesktopAppStatics'
@@ -43,10 +43,10 @@ class InstalledDesktopApp(ComPtr):
     def ToString(self: win32more.Windows.Foundation.IStringable) -> WinRT_String: ...
     @winrt_classmethod
     def GetInventoryAsync(cls: win32more.Windows.System.Inventory.IInstalledDesktopAppStatics) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.System.Inventory.InstalledDesktopApp]]: ...
-    Id = property(get_Id, None)
     DisplayName = property(get_DisplayName, None)
-    Publisher = property(get_Publisher, None)
     DisplayVersion = property(get_DisplayVersion, None)
+    Id = property(get_Id, None)
+    Publisher = property(get_Publisher, None)
 
 
 make_ready(__name__)

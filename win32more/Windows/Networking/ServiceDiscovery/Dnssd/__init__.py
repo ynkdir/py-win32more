@@ -29,9 +29,9 @@ class DnssdRegistrationResult(ComPtr):
     def get_HasInstanceNameChanged(self: win32more.Windows.Networking.ServiceDiscovery.Dnssd.IDnssdRegistrationResult) -> Boolean: ...
     @winrt_mixinmethod
     def ToString(self: win32more.Windows.Foundation.IStringable) -> WinRT_String: ...
-    Status = property(get_Status, None)
-    IPAddress = property(get_IPAddress, None)
     HasInstanceNameChanged = property(get_HasInstanceNameChanged, None)
+    IPAddress = property(get_IPAddress, None)
+    Status = property(get_Status, None)
 class DnssdRegistrationStatus(Int32):  # enum
     Success = 0
     InvalidServiceName = 1
@@ -86,8 +86,8 @@ class DnssdServiceInstance(ComPtr):
     HostName = property(get_HostName, put_HostName)
     Port = property(get_Port, put_Port)
     Priority = property(get_Priority, put_Priority)
-    Weight = property(get_Weight, put_Weight)
     TextAttributes = property(get_TextAttributes, None)
+    Weight = property(get_Weight, put_Weight)
 class DnssdServiceInstanceCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Networking.ServiceDiscovery.Dnssd.DnssdServiceInstance]
@@ -143,9 +143,9 @@ class IDnssdRegistrationResult(ComPtr):
     def get_IPAddress(self) -> win32more.Windows.Networking.HostName: ...
     @winrt_commethod(8)
     def get_HasInstanceNameChanged(self) -> Boolean: ...
-    Status = property(get_Status, None)
-    IPAddress = property(get_IPAddress, None)
     HasInstanceNameChanged = property(get_HasInstanceNameChanged, None)
+    IPAddress = property(get_IPAddress, None)
+    Status = property(get_Status, None)
 class IDnssdServiceInstance(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.ServiceDiscovery.Dnssd.IDnssdServiceInstance'
@@ -184,8 +184,8 @@ class IDnssdServiceInstance(ComPtr):
     HostName = property(get_HostName, put_HostName)
     Port = property(get_Port, put_Port)
     Priority = property(get_Priority, put_Priority)
-    Weight = property(get_Weight, put_Weight)
     TextAttributes = property(get_TextAttributes, None)
+    Weight = property(get_Weight, put_Weight)
 class IDnssdServiceInstanceFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.ServiceDiscovery.Dnssd.IDnssdServiceInstanceFactory'

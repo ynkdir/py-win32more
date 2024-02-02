@@ -21,10 +21,10 @@ class IIndexedResourceCandidate(ComPtr):
     def get_ValueAsString(self) -> WinRT_String: ...
     @winrt_commethod(11)
     def GetQualifierValue(self, qualifierName: WinRT_String) -> WinRT_String: ...
-    Type = property(get_Type, None)
-    Uri = property(get_Uri, None)
     Metadata = property(get_Metadata, None)
     Qualifiers = property(get_Qualifiers, None)
+    Type = property(get_Type, None)
+    Uri = property(get_Uri, None)
     ValueAsString = property(get_ValueAsString, None)
 class IIndexedResourceQualifier(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -72,10 +72,10 @@ class IndexedResourceCandidate(ComPtr):
     def get_ValueAsString(self: win32more.Windows.ApplicationModel.Resources.Management.IIndexedResourceCandidate) -> WinRT_String: ...
     @winrt_mixinmethod
     def GetQualifierValue(self: win32more.Windows.ApplicationModel.Resources.Management.IIndexedResourceCandidate, qualifierName: WinRT_String) -> WinRT_String: ...
-    Type = property(get_Type, None)
-    Uri = property(get_Uri, None)
     Metadata = property(get_Metadata, None)
     Qualifiers = property(get_Qualifiers, None)
+    Type = property(get_Type, None)
+    Uri = property(get_Uri, None)
     ValueAsString = property(get_ValueAsString, None)
 class IndexedResourceQualifier(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable

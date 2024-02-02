@@ -38,12 +38,12 @@ class ITwoPanelHingedDevicePosturePreviewReading(ComPtr):
     def get_Panel2Orientation(self) -> win32more.Windows.Devices.Sensors.SimpleOrientation: ...
     @winrt_commethod(11)
     def get_Panel2Id(self) -> WinRT_String: ...
-    Timestamp = property(get_Timestamp, None)
     HingeState = property(get_HingeState, None)
-    Panel1Orientation = property(get_Panel1Orientation, None)
     Panel1Id = property(get_Panel1Id, None)
-    Panel2Orientation = property(get_Panel2Orientation, None)
+    Panel1Orientation = property(get_Panel1Orientation, None)
     Panel2Id = property(get_Panel2Id, None)
+    Panel2Orientation = property(get_Panel2Orientation, None)
+    Timestamp = property(get_Timestamp, None)
 class ITwoPanelHingedDevicePosturePreviewReadingChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.System.Preview.ITwoPanelHingedDevicePosturePreviewReadingChangedEventArgs'
@@ -85,12 +85,12 @@ class TwoPanelHingedDevicePosturePreviewReading(ComPtr):
     def get_Panel2Orientation(self: win32more.Windows.System.Preview.ITwoPanelHingedDevicePosturePreviewReading) -> win32more.Windows.Devices.Sensors.SimpleOrientation: ...
     @winrt_mixinmethod
     def get_Panel2Id(self: win32more.Windows.System.Preview.ITwoPanelHingedDevicePosturePreviewReading) -> WinRT_String: ...
-    Timestamp = property(get_Timestamp, None)
     HingeState = property(get_HingeState, None)
-    Panel1Orientation = property(get_Panel1Orientation, None)
     Panel1Id = property(get_Panel1Id, None)
-    Panel2Orientation = property(get_Panel2Orientation, None)
+    Panel1Orientation = property(get_Panel1Orientation, None)
     Panel2Id = property(get_Panel2Id, None)
+    Panel2Orientation = property(get_Panel2Orientation, None)
+    Timestamp = property(get_Timestamp, None)
 class TwoPanelHingedDevicePosturePreviewReadingChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.System.Preview.ITwoPanelHingedDevicePosturePreviewReadingChangedEventArgs

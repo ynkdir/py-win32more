@@ -27,11 +27,11 @@ class IMouseCapabilities(ComPtr):
     def get_SwapButtons(self) -> Int32: ...
     @winrt_commethod(10)
     def get_NumberOfButtons(self) -> UInt32: ...
-    MousePresent = property(get_MousePresent, None)
-    VerticalWheelPresent = property(get_VerticalWheelPresent, None)
     HorizontalWheelPresent = property(get_HorizontalWheelPresent, None)
-    SwapButtons = property(get_SwapButtons, None)
+    MousePresent = property(get_MousePresent, None)
     NumberOfButtons = property(get_NumberOfButtons, None)
+    SwapButtons = property(get_SwapButtons, None)
+    VerticalWheelPresent = property(get_VerticalWheelPresent, None)
 class IMouseDevice(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Input.IMouseDevice'
@@ -161,10 +161,10 @@ class IPointerDevice(ComPtr):
     def get_ScreenRect(self) -> win32more.Windows.Foundation.Rect: ...
     @winrt_commethod(11)
     def get_SupportedUsages(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Devices.Input.PointerDeviceUsage]: ...
-    PointerDeviceType = property(get_PointerDeviceType, None)
     IsIntegrated = property(get_IsIntegrated, None)
     MaxContacts = property(get_MaxContacts, None)
     PhysicalDeviceRect = property(get_PhysicalDeviceRect, None)
+    PointerDeviceType = property(get_PointerDeviceType, None)
     ScreenRect = property(get_ScreenRect, None)
     SupportedUsages = property(get_SupportedUsages, None)
 class IPointerDevice2(ComPtr):
@@ -190,8 +190,8 @@ class ITouchCapabilities(ComPtr):
     def get_TouchPresent(self) -> Int32: ...
     @winrt_commethod(7)
     def get_Contacts(self) -> UInt32: ...
-    TouchPresent = property(get_TouchPresent, None)
     Contacts = property(get_Contacts, None)
+    TouchPresent = property(get_TouchPresent, None)
 class KeyboardCapabilities(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Input.IKeyboardCapabilities
@@ -231,11 +231,11 @@ class MouseCapabilities(ComPtr):
     def get_SwapButtons(self: win32more.Windows.Devices.Input.IMouseCapabilities) -> Int32: ...
     @winrt_mixinmethod
     def get_NumberOfButtons(self: win32more.Windows.Devices.Input.IMouseCapabilities) -> UInt32: ...
-    MousePresent = property(get_MousePresent, None)
-    VerticalWheelPresent = property(get_VerticalWheelPresent, None)
     HorizontalWheelPresent = property(get_HorizontalWheelPresent, None)
-    SwapButtons = property(get_SwapButtons, None)
+    MousePresent = property(get_MousePresent, None)
     NumberOfButtons = property(get_NumberOfButtons, None)
+    SwapButtons = property(get_SwapButtons, None)
+    VerticalWheelPresent = property(get_VerticalWheelPresent, None)
 class MouseDelta(EasyCastStructure):
     X: Int32
     Y: Int32
@@ -354,13 +354,13 @@ class PointerDevice(ComPtr):
     def GetPointerDevice(cls: win32more.Windows.Devices.Input.IPointerDeviceStatics, pointerId: UInt32) -> win32more.Windows.Devices.Input.PointerDevice: ...
     @winrt_classmethod
     def GetPointerDevices(cls: win32more.Windows.Devices.Input.IPointerDeviceStatics) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Devices.Input.PointerDevice]: ...
-    PointerDeviceType = property(get_PointerDeviceType, None)
     IsIntegrated = property(get_IsIntegrated, None)
     MaxContacts = property(get_MaxContacts, None)
+    MaxPointersWithZDistance = property(get_MaxPointersWithZDistance, None)
     PhysicalDeviceRect = property(get_PhysicalDeviceRect, None)
+    PointerDeviceType = property(get_PointerDeviceType, None)
     ScreenRect = property(get_ScreenRect, None)
     SupportedUsages = property(get_SupportedUsages, None)
-    MaxPointersWithZDistance = property(get_MaxPointersWithZDistance, None)
 class PointerDeviceType(Int32):  # enum
     Touch = 0
     Pen = 1
@@ -391,8 +391,8 @@ class TouchCapabilities(ComPtr):
     def get_TouchPresent(self: win32more.Windows.Devices.Input.ITouchCapabilities) -> Int32: ...
     @winrt_mixinmethod
     def get_Contacts(self: win32more.Windows.Devices.Input.ITouchCapabilities) -> UInt32: ...
-    TouchPresent = property(get_TouchPresent, None)
     Contacts = property(get_Contacts, None)
+    TouchPresent = property(get_TouchPresent, None)
 
 
 make_ready(__name__)

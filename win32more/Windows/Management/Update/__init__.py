@@ -85,28 +85,28 @@ class IWindowsUpdate(ComPtr):
     def GetPropertyValue(self, propertyName: WinRT_String) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_commethod(29)
     def AcceptEula(self) -> Void: ...
-    ProviderId = property(get_ProviderId, None)
-    UpdateId = property(get_UpdateId, None)
-    Title = property(get_Title, None)
+    ActionProgress = property(get_ActionProgress, None)
+    ActionResult = property(get_ActionResult, None)
+    AttentionRequiredInfo = property(get_AttentionRequiredInfo, None)
+    CurrentAction = property(get_CurrentAction, None)
+    Deadline = property(get_Deadline, None)
     Description = property(get_Description, None)
+    EulaText = property(get_EulaText, None)
+    IsCritical = property(get_IsCritical, None)
+    IsDriver = property(get_IsDriver, None)
+    IsEulaAccepted = property(get_IsEulaAccepted, None)
     IsFeatureUpdate = property(get_IsFeatureUpdate, None)
+    IsForOS = property(get_IsForOS, None)
+    IsMandatory = property(get_IsMandatory, None)
     IsMinorImpact = property(get_IsMinorImpact, None)
     IsSecurity = property(get_IsSecurity, None)
-    IsCritical = property(get_IsCritical, None)
-    IsForOS = property(get_IsForOS, None)
-    IsDriver = property(get_IsDriver, None)
-    IsMandatory = property(get_IsMandatory, None)
-    IsUrgent = property(get_IsUrgent, None)
     IsSeeker = property(get_IsSeeker, None)
+    IsUrgent = property(get_IsUrgent, None)
     MoreInfoUrl = property(get_MoreInfoUrl, None)
+    ProviderId = property(get_ProviderId, None)
     SupportUrl = property(get_SupportUrl, None)
-    IsEulaAccepted = property(get_IsEulaAccepted, None)
-    EulaText = property(get_EulaText, None)
-    Deadline = property(get_Deadline, None)
-    AttentionRequiredInfo = property(get_AttentionRequiredInfo, None)
-    ActionResult = property(get_ActionResult, None)
-    CurrentAction = property(get_CurrentAction, None)
-    ActionProgress = property(get_ActionProgress, None)
+    Title = property(get_Title, None)
+    UpdateId = property(get_UpdateId, None)
 class IWindowsUpdateActionCompletedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Management.Update.IWindowsUpdateActionCompletedEventArgs'
@@ -119,10 +119,10 @@ class IWindowsUpdateActionCompletedEventArgs(ComPtr):
     def get_Succeeded(self) -> Boolean: ...
     @winrt_commethod(9)
     def get_ExtendedError(self) -> win32more.Windows.Foundation.HResult: ...
-    Update = property(get_Update, None)
     Action = property(get_Action, None)
-    Succeeded = property(get_Succeeded, None)
     ExtendedError = property(get_ExtendedError, None)
+    Succeeded = property(get_Succeeded, None)
+    Update = property(get_Update, None)
 class IWindowsUpdateActionProgress(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Management.Update.IWindowsUpdateActionProgress'
@@ -145,10 +145,10 @@ class IWindowsUpdateActionResult(ComPtr):
     def get_ExtendedError(self) -> win32more.Windows.Foundation.HResult: ...
     @winrt_commethod(9)
     def get_Action(self) -> WinRT_String: ...
-    Timestamp = property(get_Timestamp, None)
-    Succeeded = property(get_Succeeded, None)
-    ExtendedError = property(get_ExtendedError, None)
     Action = property(get_Action, None)
+    ExtendedError = property(get_ExtendedError, None)
+    Succeeded = property(get_Succeeded, None)
+    Timestamp = property(get_Timestamp, None)
 class IWindowsUpdateAdministrator(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Management.Update.IWindowsUpdateAdministrator'
@@ -205,11 +205,11 @@ class IWindowsUpdateApprovalData(ComPtr):
     def get_OptOutOfAutoReboot(self) -> win32more.Windows.Foundation.IReference[Boolean]: ...
     @winrt_commethod(15)
     def put_OptOutOfAutoReboot(self, value: win32more.Windows.Foundation.IReference[Boolean]) -> Void: ...
-    Seeker = property(get_Seeker, put_Seeker)
     AllowDownloadOnMetered = property(get_AllowDownloadOnMetered, put_AllowDownloadOnMetered)
     ComplianceDeadlineInDays = property(get_ComplianceDeadlineInDays, put_ComplianceDeadlineInDays)
     ComplianceGracePeriodInDays = property(get_ComplianceGracePeriodInDays, put_ComplianceGracePeriodInDays)
     OptOutOfAutoReboot = property(get_OptOutOfAutoReboot, put_OptOutOfAutoReboot)
+    Seeker = property(get_Seeker, put_Seeker)
 class IWindowsUpdateAttentionRequiredInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Management.Update.IWindowsUpdateAttentionRequiredInfo'
@@ -228,8 +228,8 @@ class IWindowsUpdateAttentionRequiredReasonChangedEventArgs(ComPtr):
     def get_Update(self) -> win32more.Windows.Management.Update.WindowsUpdate: ...
     @winrt_commethod(7)
     def get_Reason(self) -> win32more.Windows.Management.Update.WindowsUpdateAttentionRequiredReason: ...
-    Update = property(get_Update, None)
     Reason = property(get_Reason, None)
+    Update = property(get_Update, None)
 class IWindowsUpdateGetAdministratorResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Management.Update.IWindowsUpdateGetAdministratorResult'
@@ -260,14 +260,14 @@ class IWindowsUpdateItem(ComPtr):
     def get_Category(self) -> WinRT_String: ...
     @winrt_commethod(13)
     def get_Operation(self) -> WinRT_String: ...
-    ProviderId = property(get_ProviderId, None)
-    UpdateId = property(get_UpdateId, None)
-    Timestamp = property(get_Timestamp, None)
-    Title = property(get_Title, None)
+    Category = property(get_Category, None)
     Description = property(get_Description, None)
     MoreInfoUrl = property(get_MoreInfoUrl, None)
-    Category = property(get_Category, None)
     Operation = property(get_Operation, None)
+    ProviderId = property(get_ProviderId, None)
+    Timestamp = property(get_Timestamp, None)
+    Title = property(get_Title, None)
+    UpdateId = property(get_UpdateId, None)
 class IWindowsUpdateManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Management.Update.IWindowsUpdateManager'
@@ -327,8 +327,8 @@ class IWindowsUpdateProgressChangedEventArgs(ComPtr):
     def get_Update(self) -> win32more.Windows.Management.Update.WindowsUpdate: ...
     @winrt_commethod(7)
     def get_ActionProgress(self) -> win32more.Windows.Management.Update.WindowsUpdateActionProgress: ...
-    Update = property(get_Update, None)
     ActionProgress = property(get_ActionProgress, None)
+    Update = property(get_Update, None)
 class IWindowsUpdateRestartRequestOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Management.Update.IWindowsUpdateRestartRequestOptions'
@@ -361,13 +361,13 @@ class IWindowsUpdateRestartRequestOptions(ComPtr):
     def get_OptOutOfAutoReboot(self) -> Boolean: ...
     @winrt_commethod(19)
     def put_OptOutOfAutoReboot(self, value: Boolean) -> Void: ...
-    Title = property(get_Title, put_Title)
-    Description = property(get_Description, put_Description)
-    MoreInfoUrl = property(get_MoreInfoUrl, put_MoreInfoUrl)
     ComplianceDeadlineInDays = property(get_ComplianceDeadlineInDays, put_ComplianceDeadlineInDays)
     ComplianceGracePeriodInDays = property(get_ComplianceGracePeriodInDays, put_ComplianceGracePeriodInDays)
-    OrganizationName = property(get_OrganizationName, put_OrganizationName)
+    Description = property(get_Description, put_Description)
+    MoreInfoUrl = property(get_MoreInfoUrl, put_MoreInfoUrl)
     OptOutOfAutoReboot = property(get_OptOutOfAutoReboot, put_OptOutOfAutoReboot)
+    OrganizationName = property(get_OrganizationName, put_OrganizationName)
+    Title = property(get_Title, put_Title)
 class IWindowsUpdateRestartRequestOptionsFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Management.Update.IWindowsUpdateRestartRequestOptionsFactory'
@@ -386,9 +386,9 @@ class IWindowsUpdateScanCompletedEventArgs(ComPtr):
     def get_ExtendedError(self) -> win32more.Windows.Foundation.HResult: ...
     @winrt_commethod(9)
     def get_Updates(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Management.Update.WindowsUpdate]: ...
+    ExtendedError = property(get_ExtendedError, None)
     ProviderId = property(get_ProviderId, None)
     Succeeded = property(get_Succeeded, None)
-    ExtendedError = property(get_ExtendedError, None)
     Updates = property(get_Updates, None)
 class PreviewBuildsManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -466,28 +466,28 @@ class WindowsUpdate(ComPtr):
     def GetPropertyValue(self: win32more.Windows.Management.Update.IWindowsUpdate, propertyName: WinRT_String) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_mixinmethod
     def AcceptEula(self: win32more.Windows.Management.Update.IWindowsUpdate) -> Void: ...
-    ProviderId = property(get_ProviderId, None)
-    UpdateId = property(get_UpdateId, None)
-    Title = property(get_Title, None)
+    ActionProgress = property(get_ActionProgress, None)
+    ActionResult = property(get_ActionResult, None)
+    AttentionRequiredInfo = property(get_AttentionRequiredInfo, None)
+    CurrentAction = property(get_CurrentAction, None)
+    Deadline = property(get_Deadline, None)
     Description = property(get_Description, None)
+    EulaText = property(get_EulaText, None)
+    IsCritical = property(get_IsCritical, None)
+    IsDriver = property(get_IsDriver, None)
+    IsEulaAccepted = property(get_IsEulaAccepted, None)
     IsFeatureUpdate = property(get_IsFeatureUpdate, None)
+    IsForOS = property(get_IsForOS, None)
+    IsMandatory = property(get_IsMandatory, None)
     IsMinorImpact = property(get_IsMinorImpact, None)
     IsSecurity = property(get_IsSecurity, None)
-    IsCritical = property(get_IsCritical, None)
-    IsForOS = property(get_IsForOS, None)
-    IsDriver = property(get_IsDriver, None)
-    IsMandatory = property(get_IsMandatory, None)
-    IsUrgent = property(get_IsUrgent, None)
     IsSeeker = property(get_IsSeeker, None)
+    IsUrgent = property(get_IsUrgent, None)
     MoreInfoUrl = property(get_MoreInfoUrl, None)
+    ProviderId = property(get_ProviderId, None)
     SupportUrl = property(get_SupportUrl, None)
-    IsEulaAccepted = property(get_IsEulaAccepted, None)
-    EulaText = property(get_EulaText, None)
-    Deadline = property(get_Deadline, None)
-    AttentionRequiredInfo = property(get_AttentionRequiredInfo, None)
-    ActionResult = property(get_ActionResult, None)
-    CurrentAction = property(get_CurrentAction, None)
-    ActionProgress = property(get_ActionProgress, None)
+    Title = property(get_Title, None)
+    UpdateId = property(get_UpdateId, None)
 class WindowsUpdateActionCompletedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Management.Update.IWindowsUpdateActionCompletedEventArgs
@@ -500,10 +500,10 @@ class WindowsUpdateActionCompletedEventArgs(ComPtr):
     def get_Succeeded(self: win32more.Windows.Management.Update.IWindowsUpdateActionCompletedEventArgs) -> Boolean: ...
     @winrt_mixinmethod
     def get_ExtendedError(self: win32more.Windows.Management.Update.IWindowsUpdateActionCompletedEventArgs) -> win32more.Windows.Foundation.HResult: ...
-    Update = property(get_Update, None)
     Action = property(get_Action, None)
-    Succeeded = property(get_Succeeded, None)
     ExtendedError = property(get_ExtendedError, None)
+    Succeeded = property(get_Succeeded, None)
+    Update = property(get_Update, None)
 class WindowsUpdateActionProgress(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Management.Update.IWindowsUpdateActionProgress
@@ -526,10 +526,10 @@ class WindowsUpdateActionResult(ComPtr):
     def get_ExtendedError(self: win32more.Windows.Management.Update.IWindowsUpdateActionResult) -> win32more.Windows.Foundation.HResult: ...
     @winrt_mixinmethod
     def get_Action(self: win32more.Windows.Management.Update.IWindowsUpdateActionResult) -> WinRT_String: ...
-    Timestamp = property(get_Timestamp, None)
-    Succeeded = property(get_Succeeded, None)
-    ExtendedError = property(get_ExtendedError, None)
     Action = property(get_Action, None)
+    ExtendedError = property(get_ExtendedError, None)
+    Succeeded = property(get_Succeeded, None)
+    Timestamp = property(get_Timestamp, None)
 class WindowsUpdateAdministrator(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Management.Update.IWindowsUpdateAdministrator
@@ -600,11 +600,11 @@ class WindowsUpdateApprovalData(ComPtr):
     def get_OptOutOfAutoReboot(self: win32more.Windows.Management.Update.IWindowsUpdateApprovalData) -> win32more.Windows.Foundation.IReference[Boolean]: ...
     @winrt_mixinmethod
     def put_OptOutOfAutoReboot(self: win32more.Windows.Management.Update.IWindowsUpdateApprovalData, value: win32more.Windows.Foundation.IReference[Boolean]) -> Void: ...
-    Seeker = property(get_Seeker, put_Seeker)
     AllowDownloadOnMetered = property(get_AllowDownloadOnMetered, put_AllowDownloadOnMetered)
     ComplianceDeadlineInDays = property(get_ComplianceDeadlineInDays, put_ComplianceDeadlineInDays)
     ComplianceGracePeriodInDays = property(get_ComplianceGracePeriodInDays, put_ComplianceGracePeriodInDays)
     OptOutOfAutoReboot = property(get_OptOutOfAutoReboot, put_OptOutOfAutoReboot)
+    Seeker = property(get_Seeker, put_Seeker)
 class WindowsUpdateAttentionRequiredInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Management.Update.IWindowsUpdateAttentionRequiredInfo
@@ -657,8 +657,8 @@ class WindowsUpdateAttentionRequiredReasonChangedEventArgs(ComPtr):
     def get_Update(self: win32more.Windows.Management.Update.IWindowsUpdateAttentionRequiredReasonChangedEventArgs) -> win32more.Windows.Management.Update.WindowsUpdate: ...
     @winrt_mixinmethod
     def get_Reason(self: win32more.Windows.Management.Update.IWindowsUpdateAttentionRequiredReasonChangedEventArgs) -> win32more.Windows.Management.Update.WindowsUpdateAttentionRequiredReason: ...
-    Update = property(get_Update, None)
     Reason = property(get_Reason, None)
+    Update = property(get_Update, None)
 WindowsUpdateContract: UInt32 = 65536
 class WindowsUpdateGetAdministratorResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -690,14 +690,14 @@ class WindowsUpdateItem(ComPtr):
     def get_Category(self: win32more.Windows.Management.Update.IWindowsUpdateItem) -> WinRT_String: ...
     @winrt_mixinmethod
     def get_Operation(self: win32more.Windows.Management.Update.IWindowsUpdateItem) -> WinRT_String: ...
-    ProviderId = property(get_ProviderId, None)
-    UpdateId = property(get_UpdateId, None)
-    Timestamp = property(get_Timestamp, None)
-    Title = property(get_Title, None)
+    Category = property(get_Category, None)
     Description = property(get_Description, None)
     MoreInfoUrl = property(get_MoreInfoUrl, None)
-    Category = property(get_Category, None)
     Operation = property(get_Operation, None)
+    ProviderId = property(get_ProviderId, None)
+    Timestamp = property(get_Timestamp, None)
+    Title = property(get_Title, None)
+    UpdateId = property(get_UpdateId, None)
 class WindowsUpdateManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Management.Update.IWindowsUpdateManager
@@ -760,8 +760,8 @@ class WindowsUpdateProgressChangedEventArgs(ComPtr):
     def get_Update(self: win32more.Windows.Management.Update.IWindowsUpdateProgressChangedEventArgs) -> win32more.Windows.Management.Update.WindowsUpdate: ...
     @winrt_mixinmethod
     def get_ActionProgress(self: win32more.Windows.Management.Update.IWindowsUpdateProgressChangedEventArgs) -> win32more.Windows.Management.Update.WindowsUpdateActionProgress: ...
-    Update = property(get_Update, None)
     ActionProgress = property(get_ActionProgress, None)
+    Update = property(get_Update, None)
 class WindowsUpdateRestartRequestOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Management.Update.IWindowsUpdateRestartRequestOptions
@@ -809,13 +809,13 @@ class WindowsUpdateRestartRequestOptions(ComPtr):
     def get_OptOutOfAutoReboot(self: win32more.Windows.Management.Update.IWindowsUpdateRestartRequestOptions) -> Boolean: ...
     @winrt_mixinmethod
     def put_OptOutOfAutoReboot(self: win32more.Windows.Management.Update.IWindowsUpdateRestartRequestOptions, value: Boolean) -> Void: ...
-    Title = property(get_Title, put_Title)
-    Description = property(get_Description, put_Description)
-    MoreInfoUrl = property(get_MoreInfoUrl, put_MoreInfoUrl)
     ComplianceDeadlineInDays = property(get_ComplianceDeadlineInDays, put_ComplianceDeadlineInDays)
     ComplianceGracePeriodInDays = property(get_ComplianceGracePeriodInDays, put_ComplianceGracePeriodInDays)
-    OrganizationName = property(get_OrganizationName, put_OrganizationName)
+    Description = property(get_Description, put_Description)
+    MoreInfoUrl = property(get_MoreInfoUrl, put_MoreInfoUrl)
     OptOutOfAutoReboot = property(get_OptOutOfAutoReboot, put_OptOutOfAutoReboot)
+    OrganizationName = property(get_OrganizationName, put_OrganizationName)
+    Title = property(get_Title, put_Title)
 class WindowsUpdateScanCompletedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Management.Update.IWindowsUpdateScanCompletedEventArgs
@@ -828,9 +828,9 @@ class WindowsUpdateScanCompletedEventArgs(ComPtr):
     def get_ExtendedError(self: win32more.Windows.Management.Update.IWindowsUpdateScanCompletedEventArgs) -> win32more.Windows.Foundation.HResult: ...
     @winrt_mixinmethod
     def get_Updates(self: win32more.Windows.Management.Update.IWindowsUpdateScanCompletedEventArgs) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Management.Update.WindowsUpdate]: ...
+    ExtendedError = property(get_ExtendedError, None)
     ProviderId = property(get_ProviderId, None)
     Succeeded = property(get_Succeeded, None)
-    ExtendedError = property(get_ExtendedError, None)
     Updates = property(get_Updates, None)
 
 

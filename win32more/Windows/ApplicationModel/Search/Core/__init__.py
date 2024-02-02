@@ -27,12 +27,12 @@ class ISearchSuggestion(ComPtr):
     def get_Image(self) -> win32more.Windows.Storage.Streams.IRandomAccessStreamReference: ...
     @winrt_commethod(11)
     def get_ImageAlternateText(self) -> WinRT_String: ...
-    Kind = property(get_Kind, None)
-    Text = property(get_Text, None)
-    Tag = property(get_Tag, None)
     DetailText = property(get_DetailText, None)
     Image = property(get_Image, None)
     ImageAlternateText = property(get_ImageAlternateText, None)
+    Kind = property(get_Kind, None)
+    Tag = property(get_Tag, None)
+    Text = property(get_Text, None)
 class ISearchSuggestionManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Search.Core.ISearchSuggestionManager'
@@ -69,8 +69,8 @@ class ISearchSuggestionManager(ComPtr):
     def add_RequestingFocusOnKeyboardInput(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Search.Core.SearchSuggestionManager, win32more.Windows.ApplicationModel.Search.Core.RequestingFocusOnKeyboardInputEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(21)
     def remove_RequestingFocusOnKeyboardInput(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    SearchHistoryEnabled = property(get_SearchHistoryEnabled, put_SearchHistoryEnabled)
     SearchHistoryContext = property(get_SearchHistoryContext, put_SearchHistoryContext)
+    SearchHistoryEnabled = property(get_SearchHistoryEnabled, put_SearchHistoryEnabled)
     Suggestions = property(get_Suggestions, None)
 class ISearchSuggestionsRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -84,9 +84,9 @@ class ISearchSuggestionsRequestedEventArgs(ComPtr):
     def get_LinguisticDetails(self) -> win32more.Windows.ApplicationModel.Search.SearchQueryLinguisticDetails: ...
     @winrt_commethod(9)
     def get_Request(self) -> win32more.Windows.ApplicationModel.Search.SearchSuggestionsRequest: ...
-    QueryText = property(get_QueryText, None)
     Language = property(get_Language, None)
     LinguisticDetails = property(get_LinguisticDetails, None)
+    QueryText = property(get_QueryText, None)
     Request = property(get_Request, None)
 class RequestingFocusOnKeyboardInputEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -109,12 +109,12 @@ class SearchSuggestion(ComPtr):
     def get_Image(self: win32more.Windows.ApplicationModel.Search.Core.ISearchSuggestion) -> win32more.Windows.Storage.Streams.IRandomAccessStreamReference: ...
     @winrt_mixinmethod
     def get_ImageAlternateText(self: win32more.Windows.ApplicationModel.Search.Core.ISearchSuggestion) -> WinRT_String: ...
-    Kind = property(get_Kind, None)
-    Text = property(get_Text, None)
-    Tag = property(get_Tag, None)
     DetailText = property(get_DetailText, None)
     Image = property(get_Image, None)
     ImageAlternateText = property(get_ImageAlternateText, None)
+    Kind = property(get_Kind, None)
+    Tag = property(get_Tag, None)
+    Text = property(get_Text, None)
 class SearchSuggestionKind(Int32):  # enum
     Query = 0
     Result = 1
@@ -164,8 +164,8 @@ class SearchSuggestionManager(ComPtr):
     def add_RequestingFocusOnKeyboardInput(self: win32more.Windows.ApplicationModel.Search.Core.ISearchSuggestionManager, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Search.Core.SearchSuggestionManager, win32more.Windows.ApplicationModel.Search.Core.RequestingFocusOnKeyboardInputEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_RequestingFocusOnKeyboardInput(self: win32more.Windows.ApplicationModel.Search.Core.ISearchSuggestionManager, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    SearchHistoryEnabled = property(get_SearchHistoryEnabled, put_SearchHistoryEnabled)
     SearchHistoryContext = property(get_SearchHistoryContext, put_SearchHistoryContext)
+    SearchHistoryEnabled = property(get_SearchHistoryEnabled, put_SearchHistoryEnabled)
     Suggestions = property(get_Suggestions, None)
 class SearchSuggestionsRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -179,9 +179,9 @@ class SearchSuggestionsRequestedEventArgs(ComPtr):
     def get_LinguisticDetails(self: win32more.Windows.ApplicationModel.Search.Core.ISearchSuggestionsRequestedEventArgs) -> win32more.Windows.ApplicationModel.Search.SearchQueryLinguisticDetails: ...
     @winrt_mixinmethod
     def get_Request(self: win32more.Windows.ApplicationModel.Search.Core.ISearchSuggestionsRequestedEventArgs) -> win32more.Windows.ApplicationModel.Search.SearchSuggestionsRequest: ...
-    QueryText = property(get_QueryText, None)
     Language = property(get_Language, None)
     LinguisticDetails = property(get_LinguisticDetails, None)
+    QueryText = property(get_QueryText, None)
     Request = property(get_Request, None)
 
 

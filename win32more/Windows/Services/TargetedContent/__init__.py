@@ -45,11 +45,11 @@ class ITargetedContentCollection(ComPtr):
     def get_Collections(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Services.TargetedContent.TargetedContentCollection]: ...
     @winrt_commethod(12)
     def get_Items(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Services.TargetedContent.TargetedContentItem]: ...
+    Collections = property(get_Collections, None)
     Id = property(get_Id, None)
+    Items = property(get_Items, None)
     Path = property(get_Path, None)
     Properties = property(get_Properties, None)
-    Collections = property(get_Collections, None)
-    Items = property(get_Items, None)
 class ITargetedContentContainer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Services.TargetedContent.ITargetedContentContainer'
@@ -64,10 +64,10 @@ class ITargetedContentContainer(ComPtr):
     def get_Content(self) -> win32more.Windows.Services.TargetedContent.TargetedContentCollection: ...
     @winrt_commethod(10)
     def SelectSingleObject(self, path: WinRT_String) -> win32more.Windows.Services.TargetedContent.TargetedContentObject: ...
-    Id = property(get_Id, None)
-    Timestamp = property(get_Timestamp, None)
     Availability = property(get_Availability, None)
     Content = property(get_Content, None)
+    Id = property(get_Id, None)
+    Timestamp = property(get_Timestamp, None)
 class ITargetedContentContainerStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Services.TargetedContent.ITargetedContentContainerStatics'
@@ -100,10 +100,10 @@ class ITargetedContentItem(ComPtr):
     def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Services.TargetedContent.TargetedContentValue]: ...
     @winrt_commethod(11)
     def get_Collections(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Services.TargetedContent.TargetedContentCollection]: ...
-    Path = property(get_Path, None)
-    State = property(get_State, None)
-    Properties = property(get_Properties, None)
     Collections = property(get_Collections, None)
+    Path = property(get_Path, None)
+    Properties = property(get_Properties, None)
+    State = property(get_State, None)
 class ITargetedContentItemState(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Services.TargetedContent.ITargetedContentItemState'
@@ -112,8 +112,8 @@ class ITargetedContentItemState(ComPtr):
     def get_ShouldDisplay(self) -> Boolean: ...
     @winrt_commethod(7)
     def get_AppInstallationState(self) -> win32more.Windows.Services.TargetedContent.TargetedContentAppInstallationState: ...
-    ShouldDisplay = property(get_ShouldDisplay, None)
     AppInstallationState = property(get_AppInstallationState, None)
+    ShouldDisplay = property(get_ShouldDisplay, None)
 class ITargetedContentObject(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Services.TargetedContent.ITargetedContentObject'
@@ -126,9 +126,9 @@ class ITargetedContentObject(ComPtr):
     def get_Item(self) -> win32more.Windows.Services.TargetedContent.TargetedContentItem: ...
     @winrt_commethod(9)
     def get_Value(self) -> win32more.Windows.Services.TargetedContent.TargetedContentValue: ...
-    ObjectKind = property(get_ObjectKind, None)
     Collection = property(get_Collection, None)
     Item = property(get_Item, None)
+    ObjectKind = property(get_ObjectKind, None)
     Value = property(get_Value, None)
 class ITargetedContentStateChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -173,10 +173,10 @@ class ITargetedContentSubscriptionOptions(ComPtr):
     def get_LocalFilters(self) -> win32more.Windows.Foundation.Collections.IVector[WinRT_String]: ...
     @winrt_commethod(11)
     def Update(self) -> Void: ...
-    SubscriptionId = property(get_SubscriptionId, None)
     AllowPartialContentAvailability = property(get_AllowPartialContentAvailability, put_AllowPartialContentAvailability)
     CloudQueryParameters = property(get_CloudQueryParameters, None)
     LocalFilters = property(get_LocalFilters, None)
+    SubscriptionId = property(get_SubscriptionId, None)
 class ITargetedContentSubscriptionStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Services.TargetedContent.ITargetedContentSubscriptionStatics'
@@ -221,22 +221,22 @@ class ITargetedContentValue(ComPtr):
     def get_ImageFiles(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Services.TargetedContent.TargetedContentImage]: ...
     @winrt_commethod(21)
     def get_Actions(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Services.TargetedContent.TargetedContentAction]: ...
-    ValueKind = property(get_ValueKind, None)
+    Action = property(get_Action, None)
+    Actions = property(get_Actions, None)
+    Boolean = property(get_Boolean, None)
+    Booleans = property(get_Booleans, None)
+    File = property(get_File, None)
+    Files = property(get_Files, None)
+    ImageFile = property(get_ImageFile, None)
+    ImageFiles = property(get_ImageFiles, None)
+    Number = property(get_Number, None)
+    Numbers = property(get_Numbers, None)
     Path = property(get_Path, None)
     String = property(get_String, None)
-    Uri = property(get_Uri, None)
-    Number = property(get_Number, None)
-    Boolean = property(get_Boolean, None)
-    File = property(get_File, None)
-    ImageFile = property(get_ImageFile, None)
-    Action = property(get_Action, None)
     Strings = property(get_Strings, None)
+    Uri = property(get_Uri, None)
     Uris = property(get_Uris, None)
-    Numbers = property(get_Numbers, None)
-    Booleans = property(get_Booleans, None)
-    Files = property(get_Files, None)
-    ImageFiles = property(get_ImageFiles, None)
-    Actions = property(get_Actions, None)
+    ValueKind = property(get_ValueKind, None)
 class TargetedContentAction(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Services.TargetedContent.ITargetedContentAction
@@ -284,11 +284,11 @@ class TargetedContentCollection(ComPtr):
     def get_Collections(self: win32more.Windows.Services.TargetedContent.ITargetedContentCollection) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Services.TargetedContent.TargetedContentCollection]: ...
     @winrt_mixinmethod
     def get_Items(self: win32more.Windows.Services.TargetedContent.ITargetedContentCollection) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Services.TargetedContent.TargetedContentItem]: ...
+    Collections = property(get_Collections, None)
     Id = property(get_Id, None)
+    Items = property(get_Items, None)
     Path = property(get_Path, None)
     Properties = property(get_Properties, None)
-    Collections = property(get_Collections, None)
-    Items = property(get_Items, None)
 class TargetedContentContainer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Services.TargetedContent.ITargetedContentContainer
@@ -305,10 +305,10 @@ class TargetedContentContainer(ComPtr):
     def SelectSingleObject(self: win32more.Windows.Services.TargetedContent.ITargetedContentContainer, path: WinRT_String) -> win32more.Windows.Services.TargetedContent.TargetedContentObject: ...
     @winrt_classmethod
     def GetAsync(cls: win32more.Windows.Services.TargetedContent.ITargetedContentContainerStatics, contentId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Services.TargetedContent.TargetedContentContainer]: ...
-    Id = property(get_Id, None)
-    Timestamp = property(get_Timestamp, None)
     Availability = property(get_Availability, None)
     Content = property(get_Content, None)
+    Id = property(get_Id, None)
+    Timestamp = property(get_Timestamp, None)
 TargetedContentContract: UInt32 = 65536
 class TargetedContentFile(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -358,10 +358,10 @@ class TargetedContentItem(ComPtr):
     def get_Properties(self: win32more.Windows.Services.TargetedContent.ITargetedContentItem) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Services.TargetedContent.TargetedContentValue]: ...
     @winrt_mixinmethod
     def get_Collections(self: win32more.Windows.Services.TargetedContent.ITargetedContentItem) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Services.TargetedContent.TargetedContentCollection]: ...
-    Path = property(get_Path, None)
-    State = property(get_State, None)
-    Properties = property(get_Properties, None)
     Collections = property(get_Collections, None)
+    Path = property(get_Path, None)
+    Properties = property(get_Properties, None)
+    State = property(get_State, None)
 class TargetedContentItemState(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Services.TargetedContent.ITargetedContentItemState
@@ -370,8 +370,8 @@ class TargetedContentItemState(ComPtr):
     def get_ShouldDisplay(self: win32more.Windows.Services.TargetedContent.ITargetedContentItemState) -> Boolean: ...
     @winrt_mixinmethod
     def get_AppInstallationState(self: win32more.Windows.Services.TargetedContent.ITargetedContentItemState) -> win32more.Windows.Services.TargetedContent.TargetedContentAppInstallationState: ...
-    ShouldDisplay = property(get_ShouldDisplay, None)
     AppInstallationState = property(get_AppInstallationState, None)
+    ShouldDisplay = property(get_ShouldDisplay, None)
 class TargetedContentObject(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Services.TargetedContent.ITargetedContentObject
@@ -384,9 +384,9 @@ class TargetedContentObject(ComPtr):
     def get_Item(self: win32more.Windows.Services.TargetedContent.ITargetedContentObject) -> win32more.Windows.Services.TargetedContent.TargetedContentItem: ...
     @winrt_mixinmethod
     def get_Value(self: win32more.Windows.Services.TargetedContent.ITargetedContentObject) -> win32more.Windows.Services.TargetedContent.TargetedContentValue: ...
-    ObjectKind = property(get_ObjectKind, None)
     Collection = property(get_Collection, None)
     Item = property(get_Item, None)
+    ObjectKind = property(get_ObjectKind, None)
     Value = property(get_Value, None)
 class TargetedContentObjectKind(Int32):  # enum
     Collection = 0
@@ -439,10 +439,10 @@ class TargetedContentSubscriptionOptions(ComPtr):
     def get_LocalFilters(self: win32more.Windows.Services.TargetedContent.ITargetedContentSubscriptionOptions) -> win32more.Windows.Foundation.Collections.IVector[WinRT_String]: ...
     @winrt_mixinmethod
     def Update(self: win32more.Windows.Services.TargetedContent.ITargetedContentSubscriptionOptions) -> Void: ...
-    SubscriptionId = property(get_SubscriptionId, None)
     AllowPartialContentAvailability = property(get_AllowPartialContentAvailability, put_AllowPartialContentAvailability)
     CloudQueryParameters = property(get_CloudQueryParameters, None)
     LocalFilters = property(get_LocalFilters, None)
+    SubscriptionId = property(get_SubscriptionId, None)
 class TargetedContentValue(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Services.TargetedContent.ITargetedContentValue
@@ -479,22 +479,22 @@ class TargetedContentValue(ComPtr):
     def get_ImageFiles(self: win32more.Windows.Services.TargetedContent.ITargetedContentValue) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Services.TargetedContent.TargetedContentImage]: ...
     @winrt_mixinmethod
     def get_Actions(self: win32more.Windows.Services.TargetedContent.ITargetedContentValue) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Services.TargetedContent.TargetedContentAction]: ...
-    ValueKind = property(get_ValueKind, None)
+    Action = property(get_Action, None)
+    Actions = property(get_Actions, None)
+    Boolean = property(get_Boolean, None)
+    Booleans = property(get_Booleans, None)
+    File = property(get_File, None)
+    Files = property(get_Files, None)
+    ImageFile = property(get_ImageFile, None)
+    ImageFiles = property(get_ImageFiles, None)
+    Number = property(get_Number, None)
+    Numbers = property(get_Numbers, None)
     Path = property(get_Path, None)
     String = property(get_String, None)
-    Uri = property(get_Uri, None)
-    Number = property(get_Number, None)
-    Boolean = property(get_Boolean, None)
-    File = property(get_File, None)
-    ImageFile = property(get_ImageFile, None)
-    Action = property(get_Action, None)
     Strings = property(get_Strings, None)
+    Uri = property(get_Uri, None)
     Uris = property(get_Uris, None)
-    Numbers = property(get_Numbers, None)
-    Booleans = property(get_Booleans, None)
-    Files = property(get_Files, None)
-    ImageFiles = property(get_ImageFiles, None)
-    Actions = property(get_Actions, None)
+    ValueKind = property(get_ValueKind, None)
 class TargetedContentValueKind(Int32):  # enum
     String = 0
     Uri = 1

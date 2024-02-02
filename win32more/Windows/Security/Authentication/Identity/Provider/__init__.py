@@ -22,10 +22,10 @@ class ISecondaryAuthenticationFactorAuthentication(ComPtr):
     def FinishAuthenticationAsync(self, deviceHmac: win32more.Windows.Storage.Streams.IBuffer, sessionHmac: win32more.Windows.Storage.Streams.IBuffer) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorFinishAuthenticationStatus]: ...
     @winrt_commethod(11)
     def AbortAuthenticationAsync(self, errorLogMessage: WinRT_String) -> win32more.Windows.Foundation.IAsyncAction: ...
+    DeviceConfigurationData = property(get_DeviceConfigurationData, None)
+    DeviceNonce = property(get_DeviceNonce, None)
     ServiceAuthenticationHmac = property(get_ServiceAuthenticationHmac, None)
     SessionNonce = property(get_SessionNonce, None)
-    DeviceNonce = property(get_DeviceNonce, None)
-    DeviceConfigurationData = property(get_DeviceConfigurationData, None)
 class ISecondaryAuthenticationFactorAuthenticationResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.Authentication.Identity.Provider.ISecondaryAuthenticationFactorAuthenticationResult'
@@ -34,8 +34,8 @@ class ISecondaryAuthenticationFactorAuthenticationResult(ComPtr):
     def get_Status(self) -> win32more.Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorAuthenticationStatus: ...
     @winrt_commethod(7)
     def get_Authentication(self) -> win32more.Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorAuthentication: ...
-    Status = property(get_Status, None)
     Authentication = property(get_Authentication, None)
+    Status = property(get_Status, None)
 class ISecondaryAuthenticationFactorAuthenticationStageChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.Authentication.Identity.Provider.ISecondaryAuthenticationFactorAuthenticationStageChangedEventArgs'
@@ -53,9 +53,9 @@ class ISecondaryAuthenticationFactorAuthenticationStageInfo(ComPtr):
     def get_Scenario(self) -> win32more.Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorAuthenticationScenario: ...
     @winrt_commethod(8)
     def get_DeviceId(self) -> WinRT_String: ...
-    Stage = property(get_Stage, None)
-    Scenario = property(get_Scenario, None)
     DeviceId = property(get_DeviceId, None)
+    Scenario = property(get_Scenario, None)
+    Stage = property(get_Stage, None)
 class ISecondaryAuthenticationFactorAuthenticationStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.Authentication.Identity.Provider.ISecondaryAuthenticationFactorAuthenticationStatics'
@@ -94,10 +94,10 @@ class ISecondaryAuthenticationFactorInfo(ComPtr):
     def get_DeviceModelNumber(self) -> WinRT_String: ...
     @winrt_commethod(9)
     def get_DeviceConfigurationData(self) -> win32more.Windows.Storage.Streams.IBuffer: ...
-    DeviceId = property(get_DeviceId, None)
-    DeviceFriendlyName = property(get_DeviceFriendlyName, None)
-    DeviceModelNumber = property(get_DeviceModelNumber, None)
     DeviceConfigurationData = property(get_DeviceConfigurationData, None)
+    DeviceFriendlyName = property(get_DeviceFriendlyName, None)
+    DeviceId = property(get_DeviceId, None)
+    DeviceModelNumber = property(get_DeviceModelNumber, None)
 class ISecondaryAuthenticationFactorInfo2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.Authentication.Identity.Provider.ISecondaryAuthenticationFactorInfo2'
@@ -108,8 +108,8 @@ class ISecondaryAuthenticationFactorInfo2(ComPtr):
     def UpdateDevicePresenceAsync(self, presenceState: win32more.Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorDevicePresence) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(8)
     def get_IsAuthenticationSupported(self) -> Boolean: ...
-    PresenceMonitoringMode = property(get_PresenceMonitoringMode, None)
     IsAuthenticationSupported = property(get_IsAuthenticationSupported, None)
+    PresenceMonitoringMode = property(get_PresenceMonitoringMode, None)
 class ISecondaryAuthenticationFactorRegistration(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.Authentication.Identity.Provider.ISecondaryAuthenticationFactorRegistration'
@@ -126,8 +126,8 @@ class ISecondaryAuthenticationFactorRegistrationResult(ComPtr):
     def get_Status(self) -> win32more.Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorRegistrationStatus: ...
     @winrt_commethod(7)
     def get_Registration(self) -> win32more.Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorRegistration: ...
-    Status = property(get_Status, None)
     Registration = property(get_Registration, None)
+    Status = property(get_Status, None)
 class ISecondaryAuthenticationFactorRegistrationStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.Authentication.Identity.Provider.ISecondaryAuthenticationFactorRegistrationStatics'
@@ -166,10 +166,10 @@ class SecondaryAuthenticationFactorAuthentication(ComPtr):
     def remove_AuthenticationStageChanged(cls: win32more.Windows.Security.Authentication.Identity.Provider.ISecondaryAuthenticationFactorAuthenticationStatics, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
     def GetAuthenticationStageInfoAsync(cls: win32more.Windows.Security.Authentication.Identity.Provider.ISecondaryAuthenticationFactorAuthenticationStatics) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorAuthenticationStageInfo]: ...
+    DeviceConfigurationData = property(get_DeviceConfigurationData, None)
+    DeviceNonce = property(get_DeviceNonce, None)
     ServiceAuthenticationHmac = property(get_ServiceAuthenticationHmac, None)
     SessionNonce = property(get_SessionNonce, None)
-    DeviceNonce = property(get_DeviceNonce, None)
-    DeviceConfigurationData = property(get_DeviceConfigurationData, None)
 class SecondaryAuthenticationFactorAuthenticationMessage(Int32):  # enum
     Invalid = 0
     SwipeUpWelcome = 1
@@ -208,8 +208,8 @@ class SecondaryAuthenticationFactorAuthenticationResult(ComPtr):
     def get_Status(self: win32more.Windows.Security.Authentication.Identity.Provider.ISecondaryAuthenticationFactorAuthenticationResult) -> win32more.Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorAuthenticationStatus: ...
     @winrt_mixinmethod
     def get_Authentication(self: win32more.Windows.Security.Authentication.Identity.Provider.ISecondaryAuthenticationFactorAuthenticationResult) -> win32more.Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorAuthentication: ...
-    Status = property(get_Status, None)
     Authentication = property(get_Authentication, None)
+    Status = property(get_Status, None)
 class SecondaryAuthenticationFactorAuthenticationScenario(Int32):  # enum
     SignIn = 0
     CredentialPrompt = 1
@@ -240,9 +240,9 @@ class SecondaryAuthenticationFactorAuthenticationStageInfo(ComPtr):
     def get_Scenario(self: win32more.Windows.Security.Authentication.Identity.Provider.ISecondaryAuthenticationFactorAuthenticationStageInfo) -> win32more.Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorAuthenticationScenario: ...
     @winrt_mixinmethod
     def get_DeviceId(self: win32more.Windows.Security.Authentication.Identity.Provider.ISecondaryAuthenticationFactorAuthenticationStageInfo) -> WinRT_String: ...
-    Stage = property(get_Stage, None)
-    Scenario = property(get_Scenario, None)
     DeviceId = property(get_DeviceId, None)
+    Scenario = property(get_Scenario, None)
+    Stage = property(get_Stage, None)
 class SecondaryAuthenticationFactorAuthenticationStatus(Int32):  # enum
     Failed = 0
     Started = 1
@@ -294,12 +294,12 @@ class SecondaryAuthenticationFactorInfo(ComPtr):
     def UpdateDevicePresenceAsync(self: win32more.Windows.Security.Authentication.Identity.Provider.ISecondaryAuthenticationFactorInfo2, presenceState: win32more.Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorDevicePresence) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_mixinmethod
     def get_IsAuthenticationSupported(self: win32more.Windows.Security.Authentication.Identity.Provider.ISecondaryAuthenticationFactorInfo2) -> Boolean: ...
-    DeviceId = property(get_DeviceId, None)
-    DeviceFriendlyName = property(get_DeviceFriendlyName, None)
-    DeviceModelNumber = property(get_DeviceModelNumber, None)
     DeviceConfigurationData = property(get_DeviceConfigurationData, None)
-    PresenceMonitoringMode = property(get_PresenceMonitoringMode, None)
+    DeviceFriendlyName = property(get_DeviceFriendlyName, None)
+    DeviceId = property(get_DeviceId, None)
+    DeviceModelNumber = property(get_DeviceModelNumber, None)
     IsAuthenticationSupported = property(get_IsAuthenticationSupported, None)
+    PresenceMonitoringMode = property(get_PresenceMonitoringMode, None)
 class SecondaryAuthenticationFactorRegistration(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Authentication.Identity.Provider.ISecondaryAuthenticationFactorRegistration
@@ -332,8 +332,8 @@ class SecondaryAuthenticationFactorRegistrationResult(ComPtr):
     def get_Status(self: win32more.Windows.Security.Authentication.Identity.Provider.ISecondaryAuthenticationFactorRegistrationResult) -> win32more.Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorRegistrationStatus: ...
     @winrt_mixinmethod
     def get_Registration(self: win32more.Windows.Security.Authentication.Identity.Provider.ISecondaryAuthenticationFactorRegistrationResult) -> win32more.Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorRegistration: ...
-    Status = property(get_Status, None)
     Registration = property(get_Registration, None)
+    Status = property(get_Status, None)
 class SecondaryAuthenticationFactorRegistrationStatus(Int32):  # enum
     Failed = 0
     Started = 1

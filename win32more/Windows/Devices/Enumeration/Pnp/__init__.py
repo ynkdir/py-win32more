@@ -18,9 +18,9 @@ class IPnpObject(ComPtr):
     def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     @winrt_commethod(9)
     def Update(self, updateInfo: win32more.Windows.Devices.Enumeration.Pnp.PnpObjectUpdate) -> Void: ...
-    Type = property(get_Type, None)
     Id = property(get_Id, None)
     Properties = property(get_Properties, None)
+    Type = property(get_Type, None)
 class IPnpObjectStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Enumeration.Pnp.IPnpObjectStatics'
@@ -45,9 +45,9 @@ class IPnpObjectUpdate(ComPtr):
     def get_Id(self) -> WinRT_String: ...
     @winrt_commethod(8)
     def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
-    Type = property(get_Type, None)
     Id = property(get_Id, None)
     Properties = property(get_Properties, None)
+    Type = property(get_Type, None)
 class IPnpObjectWatcher(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Enumeration.Pnp.IPnpObjectWatcher'
@@ -101,9 +101,9 @@ class PnpObject(ComPtr):
     def CreateWatcher(cls: win32more.Windows.Devices.Enumeration.Pnp.IPnpObjectStatics, type: win32more.Windows.Devices.Enumeration.Pnp.PnpObjectType, requestedProperties: win32more.Windows.Foundation.Collections.IIterable[WinRT_String]) -> win32more.Windows.Devices.Enumeration.Pnp.PnpObjectWatcher: ...
     @winrt_classmethod
     def CreateWatcherAqsFilter(cls: win32more.Windows.Devices.Enumeration.Pnp.IPnpObjectStatics, type: win32more.Windows.Devices.Enumeration.Pnp.PnpObjectType, requestedProperties: win32more.Windows.Foundation.Collections.IIterable[WinRT_String], aqsFilter: WinRT_String) -> win32more.Windows.Devices.Enumeration.Pnp.PnpObjectWatcher: ...
-    Type = property(get_Type, None)
     Id = property(get_Id, None)
     Properties = property(get_Properties, None)
+    Type = property(get_Type, None)
 class PnpObjectCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Devices.Enumeration.Pnp.PnpObject]
@@ -139,9 +139,9 @@ class PnpObjectUpdate(ComPtr):
     def get_Id(self: win32more.Windows.Devices.Enumeration.Pnp.IPnpObjectUpdate) -> WinRT_String: ...
     @winrt_mixinmethod
     def get_Properties(self: win32more.Windows.Devices.Enumeration.Pnp.IPnpObjectUpdate) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
-    Type = property(get_Type, None)
     Id = property(get_Id, None)
     Properties = property(get_Properties, None)
+    Type = property(get_Type, None)
 class PnpObjectWatcher(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Enumeration.Pnp.IPnpObjectWatcher

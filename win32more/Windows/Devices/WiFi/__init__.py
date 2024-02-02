@@ -77,17 +77,17 @@ class IWiFiAvailableNetwork(ComPtr):
     def get_BeaconInterval(self) -> win32more.Windows.Foundation.TimeSpan: ...
     @winrt_commethod(16)
     def get_IsWiFiDirect(self) -> Boolean: ...
-    Uptime = property(get_Uptime, None)
-    Ssid = property(get_Ssid, None)
+    BeaconInterval = property(get_BeaconInterval, None)
     Bssid = property(get_Bssid, None)
     ChannelCenterFrequencyInKilohertz = property(get_ChannelCenterFrequencyInKilohertz, None)
-    NetworkRssiInDecibelMilliwatts = property(get_NetworkRssiInDecibelMilliwatts, None)
-    SignalBars = property(get_SignalBars, None)
+    IsWiFiDirect = property(get_IsWiFiDirect, None)
     NetworkKind = property(get_NetworkKind, None)
+    NetworkRssiInDecibelMilliwatts = property(get_NetworkRssiInDecibelMilliwatts, None)
     PhyKind = property(get_PhyKind, None)
     SecuritySettings = property(get_SecuritySettings, None)
-    BeaconInterval = property(get_BeaconInterval, None)
-    IsWiFiDirect = property(get_IsWiFiDirect, None)
+    SignalBars = property(get_SignalBars, None)
+    Ssid = property(get_Ssid, None)
+    Uptime = property(get_Uptime, None)
 class IWiFiConnectionResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.WiFi.IWiFiConnectionResult'
@@ -103,8 +103,8 @@ class IWiFiNetworkReport(ComPtr):
     def get_Timestamp(self) -> win32more.Windows.Foundation.DateTime: ...
     @winrt_commethod(7)
     def get_AvailableNetworks(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Devices.WiFi.WiFiAvailableNetwork]: ...
-    Timestamp = property(get_Timestamp, None)
     AvailableNetworks = property(get_AvailableNetworks, None)
+    Timestamp = property(get_Timestamp, None)
 class IWiFiOnDemandHotspotConnectTriggerDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.WiFi.IWiFiOnDemandHotspotConnectTriggerDetails'
@@ -168,13 +168,13 @@ class IWiFiOnDemandHotspotNetworkProperties(ComPtr):
     def get_Password(self) -> win32more.Windows.Security.Credentials.PasswordCredential: ...
     @winrt_commethod(19)
     def put_Password(self, value: win32more.Windows.Security.Credentials.PasswordCredential) -> Void: ...
-    DisplayName = property(get_DisplayName, put_DisplayName)
     Availability = property(get_Availability, put_Availability)
-    RemainingBatteryPercent = property(get_RemainingBatteryPercent, put_RemainingBatteryPercent)
     CellularBars = property(get_CellularBars, put_CellularBars)
+    DisplayName = property(get_DisplayName, put_DisplayName)
     IsMetered = property(get_IsMetered, put_IsMetered)
-    Ssid = property(get_Ssid, put_Ssid)
     Password = property(get_Password, put_Password)
+    RemainingBatteryPercent = property(get_RemainingBatteryPercent, put_RemainingBatteryPercent)
+    Ssid = property(get_Ssid, put_Ssid)
 class IWiFiOnDemandHotspotNetworkStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.WiFi.IWiFiOnDemandHotspotNetworkStatics'
@@ -258,17 +258,17 @@ class WiFiAvailableNetwork(ComPtr):
     def get_BeaconInterval(self: win32more.Windows.Devices.WiFi.IWiFiAvailableNetwork) -> win32more.Windows.Foundation.TimeSpan: ...
     @winrt_mixinmethod
     def get_IsWiFiDirect(self: win32more.Windows.Devices.WiFi.IWiFiAvailableNetwork) -> Boolean: ...
-    Uptime = property(get_Uptime, None)
-    Ssid = property(get_Ssid, None)
+    BeaconInterval = property(get_BeaconInterval, None)
     Bssid = property(get_Bssid, None)
     ChannelCenterFrequencyInKilohertz = property(get_ChannelCenterFrequencyInKilohertz, None)
-    NetworkRssiInDecibelMilliwatts = property(get_NetworkRssiInDecibelMilliwatts, None)
-    SignalBars = property(get_SignalBars, None)
+    IsWiFiDirect = property(get_IsWiFiDirect, None)
     NetworkKind = property(get_NetworkKind, None)
+    NetworkRssiInDecibelMilliwatts = property(get_NetworkRssiInDecibelMilliwatts, None)
     PhyKind = property(get_PhyKind, None)
     SecuritySettings = property(get_SecuritySettings, None)
-    BeaconInterval = property(get_BeaconInterval, None)
-    IsWiFiDirect = property(get_IsWiFiDirect, None)
+    SignalBars = property(get_SignalBars, None)
+    Ssid = property(get_Ssid, None)
+    Uptime = property(get_Uptime, None)
 class WiFiConnectionMethod(Int32):  # enum
     Default = 0
     WpsPin = 1
@@ -300,8 +300,8 @@ class WiFiNetworkReport(ComPtr):
     def get_Timestamp(self: win32more.Windows.Devices.WiFi.IWiFiNetworkReport) -> win32more.Windows.Foundation.DateTime: ...
     @winrt_mixinmethod
     def get_AvailableNetworks(self: win32more.Windows.Devices.WiFi.IWiFiNetworkReport) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Devices.WiFi.WiFiAvailableNetwork]: ...
-    Timestamp = property(get_Timestamp, None)
     AvailableNetworks = property(get_AvailableNetworks, None)
+    Timestamp = property(get_Timestamp, None)
 class WiFiOnDemandHotspotAvailability(Int32):  # enum
     Available = 0
     Unavailable = 1
@@ -397,13 +397,13 @@ class WiFiOnDemandHotspotNetworkProperties(ComPtr):
     def get_Password(self: win32more.Windows.Devices.WiFi.IWiFiOnDemandHotspotNetworkProperties) -> win32more.Windows.Security.Credentials.PasswordCredential: ...
     @winrt_mixinmethod
     def put_Password(self: win32more.Windows.Devices.WiFi.IWiFiOnDemandHotspotNetworkProperties, value: win32more.Windows.Security.Credentials.PasswordCredential) -> Void: ...
-    DisplayName = property(get_DisplayName, put_DisplayName)
     Availability = property(get_Availability, put_Availability)
-    RemainingBatteryPercent = property(get_RemainingBatteryPercent, put_RemainingBatteryPercent)
     CellularBars = property(get_CellularBars, put_CellularBars)
+    DisplayName = property(get_DisplayName, put_DisplayName)
     IsMetered = property(get_IsMetered, put_IsMetered)
-    Ssid = property(get_Ssid, put_Ssid)
     Password = property(get_Password, put_Password)
+    RemainingBatteryPercent = property(get_RemainingBatteryPercent, put_RemainingBatteryPercent)
+    Ssid = property(get_Ssid, put_Ssid)
 class WiFiPhyKind(Int32):  # enum
     Unknown = 0
     Fhss = 1

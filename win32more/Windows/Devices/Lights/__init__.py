@@ -32,11 +32,11 @@ class ILamp(ComPtr):
     def add_AvailabilityChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Lights.Lamp, win32more.Windows.Devices.Lights.LampAvailabilityChangedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(15)
     def remove_AvailabilityChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    DeviceId = property(get_DeviceId, None)
-    IsEnabled = property(get_IsEnabled, put_IsEnabled)
     BrightnessLevel = property(get_BrightnessLevel, put_BrightnessLevel)
-    IsColorSettable = property(get_IsColorSettable, None)
     Color = property(get_Color, put_Color)
+    DeviceId = property(get_DeviceId, None)
+    IsColorSettable = property(get_IsColorSettable, None)
+    IsEnabled = property(get_IsEnabled, put_IsEnabled)
 class ILampArray(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Lights.ILampArray'
@@ -93,17 +93,17 @@ class ILampArray(ComPtr):
     def SendMessageAsync(self, messageId: Int32, message: win32more.Windows.Storage.Streams.IBuffer) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(31)
     def RequestMessageAsync(self, messageId: Int32) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Storage.Streams.IBuffer]: ...
+    BoundingBox = property(get_BoundingBox, None)
+    BrightnessLevel = property(get_BrightnessLevel, put_BrightnessLevel)
     DeviceId = property(get_DeviceId, None)
-    HardwareVendorId = property(get_HardwareVendorId, None)
     HardwareProductId = property(get_HardwareProductId, None)
+    HardwareVendorId = property(get_HardwareVendorId, None)
     HardwareVersion = property(get_HardwareVersion, None)
+    IsConnected = property(get_IsConnected, None)
+    IsEnabled = property(get_IsEnabled, put_IsEnabled)
     LampArrayKind = property(get_LampArrayKind, None)
     LampCount = property(get_LampCount, None)
     MinUpdateInterval = property(get_MinUpdateInterval, None)
-    BoundingBox = property(get_BoundingBox, None)
-    IsEnabled = property(get_IsEnabled, put_IsEnabled)
-    BrightnessLevel = property(get_BrightnessLevel, put_BrightnessLevel)
-    IsConnected = property(get_IsConnected, None)
     SupportsVirtualKeys = property(get_SupportsVirtualKeys, None)
 class ILampArray2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -155,14 +155,14 @@ class ILampInfo(ComPtr):
     def GetNearestSupportedColor(self, desiredColor: win32more.Windows.UI.Color) -> win32more.Windows.UI.Color: ...
     @winrt_commethod(15)
     def get_UpdateLatency(self) -> win32more.Windows.Foundation.TimeSpan: ...
-    Index = property(get_Index, None)
-    Purposes = property(get_Purposes, None)
-    Position = property(get_Position, None)
-    RedLevelCount = property(get_RedLevelCount, None)
-    GreenLevelCount = property(get_GreenLevelCount, None)
     BlueLevelCount = property(get_BlueLevelCount, None)
-    GainLevelCount = property(get_GainLevelCount, None)
     FixedColor = property(get_FixedColor, None)
+    GainLevelCount = property(get_GainLevelCount, None)
+    GreenLevelCount = property(get_GreenLevelCount, None)
+    Index = property(get_Index, None)
+    Position = property(get_Position, None)
+    Purposes = property(get_Purposes, None)
+    RedLevelCount = property(get_RedLevelCount, None)
     UpdateLatency = property(get_UpdateLatency, None)
 class ILampStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -206,11 +206,11 @@ class Lamp(ComPtr):
     def FromIdAsync(cls: win32more.Windows.Devices.Lights.ILampStatics, deviceId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Lights.Lamp]: ...
     @winrt_classmethod
     def GetDefaultAsync(cls: win32more.Windows.Devices.Lights.ILampStatics) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Lights.Lamp]: ...
-    DeviceId = property(get_DeviceId, None)
-    IsEnabled = property(get_IsEnabled, put_IsEnabled)
     BrightnessLevel = property(get_BrightnessLevel, put_BrightnessLevel)
-    IsColorSettable = property(get_IsColorSettable, None)
     Color = property(get_Color, put_Color)
+    DeviceId = property(get_DeviceId, None)
+    IsColorSettable = property(get_IsColorSettable, None)
+    IsEnabled = property(get_IsEnabled, put_IsEnabled)
 class LampArray(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Lights.ILampArray
@@ -277,19 +277,19 @@ class LampArray(ComPtr):
     def GetDeviceSelector(cls: win32more.Windows.Devices.Lights.ILampArrayStatics) -> WinRT_String: ...
     @winrt_classmethod
     def FromIdAsync(cls: win32more.Windows.Devices.Lights.ILampArrayStatics, deviceId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Lights.LampArray]: ...
+    BoundingBox = property(get_BoundingBox, None)
+    BrightnessLevel = property(get_BrightnessLevel, put_BrightnessLevel)
     DeviceId = property(get_DeviceId, None)
-    HardwareVendorId = property(get_HardwareVendorId, None)
     HardwareProductId = property(get_HardwareProductId, None)
+    HardwareVendorId = property(get_HardwareVendorId, None)
     HardwareVersion = property(get_HardwareVersion, None)
+    IsAvailable = property(get_IsAvailable, None)
+    IsConnected = property(get_IsConnected, None)
+    IsEnabled = property(get_IsEnabled, put_IsEnabled)
     LampArrayKind = property(get_LampArrayKind, None)
     LampCount = property(get_LampCount, None)
     MinUpdateInterval = property(get_MinUpdateInterval, None)
-    BoundingBox = property(get_BoundingBox, None)
-    IsEnabled = property(get_IsEnabled, put_IsEnabled)
-    BrightnessLevel = property(get_BrightnessLevel, put_BrightnessLevel)
-    IsConnected = property(get_IsConnected, None)
     SupportsVirtualKeys = property(get_SupportsVirtualKeys, None)
-    IsAvailable = property(get_IsAvailable, None)
 class LampArrayKind(Int32):  # enum
     Undefined = 0
     Keyboard = 1
@@ -334,14 +334,14 @@ class LampInfo(ComPtr):
     def GetNearestSupportedColor(self: win32more.Windows.Devices.Lights.ILampInfo, desiredColor: win32more.Windows.UI.Color) -> win32more.Windows.UI.Color: ...
     @winrt_mixinmethod
     def get_UpdateLatency(self: win32more.Windows.Devices.Lights.ILampInfo) -> win32more.Windows.Foundation.TimeSpan: ...
-    Index = property(get_Index, None)
-    Purposes = property(get_Purposes, None)
-    Position = property(get_Position, None)
-    RedLevelCount = property(get_RedLevelCount, None)
-    GreenLevelCount = property(get_GreenLevelCount, None)
     BlueLevelCount = property(get_BlueLevelCount, None)
-    GainLevelCount = property(get_GainLevelCount, None)
     FixedColor = property(get_FixedColor, None)
+    GainLevelCount = property(get_GainLevelCount, None)
+    GreenLevelCount = property(get_GreenLevelCount, None)
+    Index = property(get_Index, None)
+    Position = property(get_Position, None)
+    Purposes = property(get_Purposes, None)
+    RedLevelCount = property(get_RedLevelCount, None)
     UpdateLatency = property(get_UpdateLatency, None)
 class LampPurposes(UInt32):  # enum
     Undefined = 0

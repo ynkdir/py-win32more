@@ -33,14 +33,14 @@ class EasClientDeviceInformation(ComPtr):
     def get_SystemHardwareVersion(self: win32more.Windows.Security.ExchangeActiveSyncProvisioning.IEasClientDeviceInformation2) -> WinRT_String: ...
     @winrt_mixinmethod
     def get_SystemFirmwareVersion(self: win32more.Windows.Security.ExchangeActiveSyncProvisioning.IEasClientDeviceInformation2) -> WinRT_String: ...
+    FriendlyName = property(get_FriendlyName, None)
     Id = property(get_Id, None)
     OperatingSystem = property(get_OperatingSystem, None)
-    FriendlyName = property(get_FriendlyName, None)
+    SystemFirmwareVersion = property(get_SystemFirmwareVersion, None)
+    SystemHardwareVersion = property(get_SystemHardwareVersion, None)
     SystemManufacturer = property(get_SystemManufacturer, None)
     SystemProductName = property(get_SystemProductName, None)
     SystemSku = property(get_SystemSku, None)
-    SystemHardwareVersion = property(get_SystemHardwareVersion, None)
-    SystemFirmwareVersion = property(get_SystemFirmwareVersion, None)
 class EasClientSecurityPolicy(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.ExchangeActiveSyncProvisioning.IEasClientSecurityPolicy
@@ -90,14 +90,14 @@ class EasClientSecurityPolicy(ComPtr):
     def CheckCompliance(self: win32more.Windows.Security.ExchangeActiveSyncProvisioning.IEasClientSecurityPolicy) -> win32more.Windows.Security.ExchangeActiveSyncProvisioning.EasComplianceResults: ...
     @winrt_mixinmethod
     def ApplyAsync(self: win32more.Windows.Security.ExchangeActiveSyncProvisioning.IEasClientSecurityPolicy) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Security.ExchangeActiveSyncProvisioning.EasComplianceResults]: ...
-    RequireEncryption = property(get_RequireEncryption, put_RequireEncryption)
-    MinPasswordLength = property(get_MinPasswordLength, put_MinPasswordLength)
     DisallowConvenienceLogon = property(get_DisallowConvenienceLogon, put_DisallowConvenienceLogon)
+    MaxInactivityTimeLock = property(get_MaxInactivityTimeLock, put_MaxInactivityTimeLock)
+    MaxPasswordFailedAttempts = property(get_MaxPasswordFailedAttempts, put_MaxPasswordFailedAttempts)
     MinPasswordComplexCharacters = property(get_MinPasswordComplexCharacters, put_MinPasswordComplexCharacters)
+    MinPasswordLength = property(get_MinPasswordLength, put_MinPasswordLength)
     PasswordExpiration = property(get_PasswordExpiration, put_PasswordExpiration)
     PasswordHistory = property(get_PasswordHistory, put_PasswordHistory)
-    MaxPasswordFailedAttempts = property(get_MaxPasswordFailedAttempts, put_MaxPasswordFailedAttempts)
-    MaxInactivityTimeLock = property(get_MaxInactivityTimeLock, put_MaxInactivityTimeLock)
+    RequireEncryption = property(get_RequireEncryption, put_RequireEncryption)
 class EasComplianceResults(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.ExchangeActiveSyncProvisioning.IEasComplianceResults
@@ -123,15 +123,15 @@ class EasComplianceResults(ComPtr):
     @winrt_mixinmethod
     def get_EncryptionProviderType(self: win32more.Windows.Security.ExchangeActiveSyncProvisioning.IEasComplianceResults2) -> win32more.Windows.Security.ExchangeActiveSyncProvisioning.EasEncryptionProviderType: ...
     Compliant = property(get_Compliant, None)
-    RequireEncryptionResult = property(get_RequireEncryptionResult, None)
-    MinPasswordLengthResult = property(get_MinPasswordLengthResult, None)
     DisallowConvenienceLogonResult = property(get_DisallowConvenienceLogonResult, None)
+    EncryptionProviderType = property(get_EncryptionProviderType, None)
+    MaxInactivityTimeLockResult = property(get_MaxInactivityTimeLockResult, None)
+    MaxPasswordFailedAttemptsResult = property(get_MaxPasswordFailedAttemptsResult, None)
     MinPasswordComplexCharactersResult = property(get_MinPasswordComplexCharactersResult, None)
+    MinPasswordLengthResult = property(get_MinPasswordLengthResult, None)
     PasswordExpirationResult = property(get_PasswordExpirationResult, None)
     PasswordHistoryResult = property(get_PasswordHistoryResult, None)
-    MaxPasswordFailedAttemptsResult = property(get_MaxPasswordFailedAttemptsResult, None)
-    MaxInactivityTimeLockResult = property(get_MaxInactivityTimeLockResult, None)
-    EncryptionProviderType = property(get_EncryptionProviderType, None)
+    RequireEncryptionResult = property(get_RequireEncryptionResult, None)
 EasContract: UInt32 = 65536
 class EasDisallowConvenienceLogonResult(Int32):  # enum
     NotEvaluated = 0
@@ -238,9 +238,9 @@ class IEasClientDeviceInformation(ComPtr):
     def get_SystemProductName(self) -> WinRT_String: ...
     @winrt_commethod(11)
     def get_SystemSku(self) -> WinRT_String: ...
+    FriendlyName = property(get_FriendlyName, None)
     Id = property(get_Id, None)
     OperatingSystem = property(get_OperatingSystem, None)
-    FriendlyName = property(get_FriendlyName, None)
     SystemManufacturer = property(get_SystemManufacturer, None)
     SystemProductName = property(get_SystemProductName, None)
     SystemSku = property(get_SystemSku, None)
@@ -252,8 +252,8 @@ class IEasClientDeviceInformation2(ComPtr):
     def get_SystemHardwareVersion(self) -> WinRT_String: ...
     @winrt_commethod(7)
     def get_SystemFirmwareVersion(self) -> WinRT_String: ...
-    SystemHardwareVersion = property(get_SystemHardwareVersion, None)
     SystemFirmwareVersion = property(get_SystemFirmwareVersion, None)
+    SystemHardwareVersion = property(get_SystemHardwareVersion, None)
 class IEasClientSecurityPolicy(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.ExchangeActiveSyncProvisioning.IEasClientSecurityPolicy'
@@ -294,14 +294,14 @@ class IEasClientSecurityPolicy(ComPtr):
     def CheckCompliance(self) -> win32more.Windows.Security.ExchangeActiveSyncProvisioning.EasComplianceResults: ...
     @winrt_commethod(23)
     def ApplyAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Security.ExchangeActiveSyncProvisioning.EasComplianceResults]: ...
-    RequireEncryption = property(get_RequireEncryption, put_RequireEncryption)
-    MinPasswordLength = property(get_MinPasswordLength, put_MinPasswordLength)
     DisallowConvenienceLogon = property(get_DisallowConvenienceLogon, put_DisallowConvenienceLogon)
+    MaxInactivityTimeLock = property(get_MaxInactivityTimeLock, put_MaxInactivityTimeLock)
+    MaxPasswordFailedAttempts = property(get_MaxPasswordFailedAttempts, put_MaxPasswordFailedAttempts)
     MinPasswordComplexCharacters = property(get_MinPasswordComplexCharacters, put_MinPasswordComplexCharacters)
+    MinPasswordLength = property(get_MinPasswordLength, put_MinPasswordLength)
     PasswordExpiration = property(get_PasswordExpiration, put_PasswordExpiration)
     PasswordHistory = property(get_PasswordHistory, put_PasswordHistory)
-    MaxPasswordFailedAttempts = property(get_MaxPasswordFailedAttempts, put_MaxPasswordFailedAttempts)
-    MaxInactivityTimeLock = property(get_MaxInactivityTimeLock, put_MaxInactivityTimeLock)
+    RequireEncryption = property(get_RequireEncryption, put_RequireEncryption)
 class IEasComplianceResults(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.ExchangeActiveSyncProvisioning.IEasComplianceResults'
@@ -325,14 +325,14 @@ class IEasComplianceResults(ComPtr):
     @winrt_commethod(14)
     def get_MaxInactivityTimeLockResult(self) -> win32more.Windows.Security.ExchangeActiveSyncProvisioning.EasMaxInactivityTimeLockResult: ...
     Compliant = property(get_Compliant, None)
-    RequireEncryptionResult = property(get_RequireEncryptionResult, None)
-    MinPasswordLengthResult = property(get_MinPasswordLengthResult, None)
     DisallowConvenienceLogonResult = property(get_DisallowConvenienceLogonResult, None)
+    MaxInactivityTimeLockResult = property(get_MaxInactivityTimeLockResult, None)
+    MaxPasswordFailedAttemptsResult = property(get_MaxPasswordFailedAttemptsResult, None)
     MinPasswordComplexCharactersResult = property(get_MinPasswordComplexCharactersResult, None)
+    MinPasswordLengthResult = property(get_MinPasswordLengthResult, None)
     PasswordExpirationResult = property(get_PasswordExpirationResult, None)
     PasswordHistoryResult = property(get_PasswordHistoryResult, None)
-    MaxPasswordFailedAttemptsResult = property(get_MaxPasswordFailedAttemptsResult, None)
-    MaxInactivityTimeLockResult = property(get_MaxInactivityTimeLockResult, None)
+    RequireEncryptionResult = property(get_RequireEncryptionResult, None)
 class IEasComplianceResults2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.ExchangeActiveSyncProvisioning.IEasComplianceResults2'

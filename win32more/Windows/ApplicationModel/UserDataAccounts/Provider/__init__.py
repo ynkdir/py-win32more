@@ -15,9 +15,9 @@ class IUserDataAccountPartnerAccountInfo(ComPtr):
     def get_Priority(self) -> UInt32: ...
     @winrt_commethod(8)
     def get_AccountKind(self) -> win32more.Windows.ApplicationModel.UserDataAccounts.Provider.UserDataAccountProviderPartnerAccountKind: ...
+    AccountKind = property(get_AccountKind, None)
     DisplayName = property(get_DisplayName, None)
     Priority = property(get_Priority, None)
-    AccountKind = property(get_AccountKind, None)
 class IUserDataAccountProviderAddAccountOperation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.UserDataAccounts.Provider.IUserDataAccountProviderAddAccountOperation'
@@ -65,9 +65,9 @@ class UserDataAccountPartnerAccountInfo(ComPtr):
     def get_Priority(self: win32more.Windows.ApplicationModel.UserDataAccounts.Provider.IUserDataAccountPartnerAccountInfo) -> UInt32: ...
     @winrt_mixinmethod
     def get_AccountKind(self: win32more.Windows.ApplicationModel.UserDataAccounts.Provider.IUserDataAccountPartnerAccountInfo) -> win32more.Windows.ApplicationModel.UserDataAccounts.Provider.UserDataAccountProviderPartnerAccountKind: ...
+    AccountKind = property(get_AccountKind, None)
     DisplayName = property(get_DisplayName, None)
     Priority = property(get_Priority, None)
-    AccountKind = property(get_AccountKind, None)
 class UserDataAccountProviderAddAccountOperation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.UserDataAccounts.Provider.IUserDataAccountProviderAddAccountOperation
@@ -81,8 +81,8 @@ class UserDataAccountProviderAddAccountOperation(ComPtr):
     @winrt_mixinmethod
     def get_Kind(self: win32more.Windows.ApplicationModel.UserDataAccounts.Provider.IUserDataAccountProviderOperation) -> win32more.Windows.ApplicationModel.UserDataAccounts.Provider.UserDataAccountProviderOperationKind: ...
     ContentKinds = property(get_ContentKinds, None)
-    PartnerAccountInfos = property(get_PartnerAccountInfos, None)
     Kind = property(get_Kind, None)
+    PartnerAccountInfos = property(get_PartnerAccountInfos, None)
 class UserDataAccountProviderOperationKind(Int32):  # enum
     AddAccount = 0
     Settings = 1
@@ -100,8 +100,8 @@ class UserDataAccountProviderResolveErrorsOperation(ComPtr):
     def ReportCompleted(self: win32more.Windows.ApplicationModel.UserDataAccounts.Provider.IUserDataAccountProviderResolveErrorsOperation) -> Void: ...
     @winrt_mixinmethod
     def get_Kind(self: win32more.Windows.ApplicationModel.UserDataAccounts.Provider.IUserDataAccountProviderOperation) -> win32more.Windows.ApplicationModel.UserDataAccounts.Provider.UserDataAccountProviderOperationKind: ...
-    UserDataAccountId = property(get_UserDataAccountId, None)
     Kind = property(get_Kind, None)
+    UserDataAccountId = property(get_UserDataAccountId, None)
 class UserDataAccountProviderSettingsOperation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.UserDataAccounts.Provider.IUserDataAccountProviderSettingsOperation
@@ -112,8 +112,8 @@ class UserDataAccountProviderSettingsOperation(ComPtr):
     def ReportCompleted(self: win32more.Windows.ApplicationModel.UserDataAccounts.Provider.IUserDataAccountProviderSettingsOperation) -> Void: ...
     @winrt_mixinmethod
     def get_Kind(self: win32more.Windows.ApplicationModel.UserDataAccounts.Provider.IUserDataAccountProviderOperation) -> win32more.Windows.ApplicationModel.UserDataAccounts.Provider.UserDataAccountProviderOperationKind: ...
-    UserDataAccountId = property(get_UserDataAccountId, None)
     Kind = property(get_Kind, None)
+    UserDataAccountId = property(get_UserDataAccountId, None)
 
 
 make_ready(__name__)

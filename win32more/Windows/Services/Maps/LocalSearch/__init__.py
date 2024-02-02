@@ -28,11 +28,11 @@ class ILocalCategoriesStatics(ComPtr):
     def get_SeeDo(self) -> WinRT_String: ...
     @winrt_commethod(13)
     def get_Shop(self) -> WinRT_String: ...
+    All = property(get_All, None)
     BankAndCreditUnions = property(get_BankAndCreditUnions, None)
     EatDrink = property(get_EatDrink, None)
     Hospitals = property(get_Hospitals, None)
     HotelsAndMotels = property(get_HotelsAndMotels, None)
-    All = property(get_All, None)
     Parking = property(get_Parking, None)
     SeeDo = property(get_SeeDo, None)
     Shop = property(get_Shop, None)
@@ -55,12 +55,12 @@ class ILocalLocation(ComPtr):
     @winrt_commethod(12)
     def get_DataAttribution(self) -> WinRT_String: ...
     Address = property(get_Address, None)
-    Identifier = property(get_Identifier, None)
+    DataAttribution = property(get_DataAttribution, None)
     Description = property(get_Description, None)
     DisplayName = property(get_DisplayName, None)
-    Point = property(get_Point, None)
+    Identifier = property(get_Identifier, None)
     PhoneNumber = property(get_PhoneNumber, None)
-    DataAttribution = property(get_DataAttribution, None)
+    Point = property(get_Point, None)
 class ILocalLocation2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Services.Maps.LocalSearch.ILocalLocation2'
@@ -72,8 +72,8 @@ class ILocalLocation2(ComPtr):
     @winrt_commethod(8)
     def get_HoursOfOperation(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Services.Maps.LocalSearch.LocalLocationHoursOfOperationItem]: ...
     Category = property(get_Category, None)
-    RatingInfo = property(get_RatingInfo, None)
     HoursOfOperation = property(get_HoursOfOperation, None)
+    RatingInfo = property(get_RatingInfo, None)
 class ILocalLocationFinderResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Services.Maps.LocalSearch.ILocalLocationFinderResult'
@@ -101,8 +101,8 @@ class ILocalLocationHoursOfOperationItem(ComPtr):
     @winrt_commethod(8)
     def get_Span(self) -> win32more.Windows.Foundation.TimeSpan: ...
     Day = property(get_Day, None)
-    Start = property(get_Start, None)
     Span = property(get_Span, None)
+    Start = property(get_Start, None)
 class ILocalLocationRatingInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Services.Maps.LocalSearch.ILocalLocationRatingInfo'
@@ -114,8 +114,8 @@ class ILocalLocationRatingInfo(ComPtr):
     @winrt_commethod(8)
     def get_ProviderIdentifier(self) -> WinRT_String: ...
     AggregateRating = property(get_AggregateRating, None)
-    RatingCount = property(get_RatingCount, None)
     ProviderIdentifier = property(get_ProviderIdentifier, None)
+    RatingCount = property(get_RatingCount, None)
 class IPlaceInfoHelperStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Services.Maps.LocalSearch.IPlaceInfoHelperStatics'
@@ -143,11 +143,11 @@ class LocalCategories(ComPtr, metaclass=_LocalCategories_Meta_):
     def get_SeeDo(cls: win32more.Windows.Services.Maps.LocalSearch.ILocalCategoriesStatics) -> WinRT_String: ...
     @winrt_classmethod
     def get_Shop(cls: win32more.Windows.Services.Maps.LocalSearch.ILocalCategoriesStatics) -> WinRT_String: ...
+    _LocalCategories_Meta_.All = property(get_All.__wrapped__, None)
     _LocalCategories_Meta_.BankAndCreditUnions = property(get_BankAndCreditUnions.__wrapped__, None)
     _LocalCategories_Meta_.EatDrink = property(get_EatDrink.__wrapped__, None)
     _LocalCategories_Meta_.Hospitals = property(get_Hospitals.__wrapped__, None)
     _LocalCategories_Meta_.HotelsAndMotels = property(get_HotelsAndMotels.__wrapped__, None)
-    _LocalCategories_Meta_.All = property(get_All.__wrapped__, None)
     _LocalCategories_Meta_.Parking = property(get_Parking.__wrapped__, None)
     _LocalCategories_Meta_.SeeDo = property(get_SeeDo.__wrapped__, None)
     _LocalCategories_Meta_.Shop = property(get_Shop.__wrapped__, None)
@@ -176,15 +176,15 @@ class LocalLocation(ComPtr):
     @winrt_mixinmethod
     def get_HoursOfOperation(self: win32more.Windows.Services.Maps.LocalSearch.ILocalLocation2) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Services.Maps.LocalSearch.LocalLocationHoursOfOperationItem]: ...
     Address = property(get_Address, None)
-    Identifier = property(get_Identifier, None)
+    Category = property(get_Category, None)
+    DataAttribution = property(get_DataAttribution, None)
     Description = property(get_Description, None)
     DisplayName = property(get_DisplayName, None)
-    Point = property(get_Point, None)
-    PhoneNumber = property(get_PhoneNumber, None)
-    DataAttribution = property(get_DataAttribution, None)
-    Category = property(get_Category, None)
-    RatingInfo = property(get_RatingInfo, None)
     HoursOfOperation = property(get_HoursOfOperation, None)
+    Identifier = property(get_Identifier, None)
+    PhoneNumber = property(get_PhoneNumber, None)
+    Point = property(get_Point, None)
+    RatingInfo = property(get_RatingInfo, None)
 class LocalLocationFinder(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Services.Maps.LocalSearch.LocalLocationFinder'
@@ -220,8 +220,8 @@ class LocalLocationHoursOfOperationItem(ComPtr):
     @winrt_mixinmethod
     def get_Span(self: win32more.Windows.Services.Maps.LocalSearch.ILocalLocationHoursOfOperationItem) -> win32more.Windows.Foundation.TimeSpan: ...
     Day = property(get_Day, None)
-    Start = property(get_Start, None)
     Span = property(get_Span, None)
+    Start = property(get_Start, None)
 class LocalLocationRatingInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Services.Maps.LocalSearch.ILocalLocationRatingInfo
@@ -233,8 +233,8 @@ class LocalLocationRatingInfo(ComPtr):
     @winrt_mixinmethod
     def get_ProviderIdentifier(self: win32more.Windows.Services.Maps.LocalSearch.ILocalLocationRatingInfo) -> WinRT_String: ...
     AggregateRating = property(get_AggregateRating, None)
-    RatingCount = property(get_RatingCount, None)
     ProviderIdentifier = property(get_ProviderIdentifier, None)
+    RatingCount = property(get_RatingCount, None)
 class PlaceInfoHelper(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Services.Maps.LocalSearch.PlaceInfoHelper'

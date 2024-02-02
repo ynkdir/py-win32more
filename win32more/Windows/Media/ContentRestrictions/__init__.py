@@ -61,11 +61,11 @@ class IRatedContentDescription(ComPtr):
     def get_Ratings(self) -> win32more.Windows.Foundation.Collections.IVector[WinRT_String]: ...
     @winrt_commethod(15)
     def put_Ratings(self, value: win32more.Windows.Foundation.Collections.IVector[WinRT_String]) -> Void: ...
-    Id = property(get_Id, put_Id)
-    Title = property(get_Title, put_Title)
-    Image = property(get_Image, put_Image)
     Category = property(get_Category, put_Category)
+    Id = property(get_Id, put_Id)
+    Image = property(get_Image, put_Image)
     Ratings = property(get_Ratings, put_Ratings)
+    Title = property(get_Title, put_Title)
 class IRatedContentDescriptionFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.ContentRestrictions.IRatedContentDescriptionFactory'
@@ -132,11 +132,11 @@ class RatedContentDescription(ComPtr):
     def get_Ratings(self: win32more.Windows.Media.ContentRestrictions.IRatedContentDescription) -> win32more.Windows.Foundation.Collections.IVector[WinRT_String]: ...
     @winrt_mixinmethod
     def put_Ratings(self: win32more.Windows.Media.ContentRestrictions.IRatedContentDescription, value: win32more.Windows.Foundation.Collections.IVector[WinRT_String]) -> Void: ...
-    Id = property(get_Id, put_Id)
-    Title = property(get_Title, put_Title)
-    Image = property(get_Image, put_Image)
     Category = property(get_Category, put_Category)
+    Id = property(get_Id, put_Id)
+    Image = property(get_Image, put_Image)
     Ratings = property(get_Ratings, put_Ratings)
+    Title = property(get_Title, put_Title)
 class RatedContentRestrictions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.ContentRestrictions.IRatedContentRestrictions

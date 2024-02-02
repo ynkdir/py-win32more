@@ -38,13 +38,13 @@ class ILicenseSatisfactionInfo(ComPtr):
     def get_SatisfiedBySignedInUser(self) -> Boolean: ...
     @winrt_commethod(12)
     def get_IsSatisfied(self) -> Boolean: ...
-    SatisfiedByDevice = property(get_SatisfiedByDevice, None)
-    SatisfiedByOpenLicense = property(get_SatisfiedByOpenLicense, None)
-    SatisfiedByTrial = property(get_SatisfiedByTrial, None)
-    SatisfiedByPass = property(get_SatisfiedByPass, None)
-    SatisfiedByInstallMedia = property(get_SatisfiedByInstallMedia, None)
-    SatisfiedBySignedInUser = property(get_SatisfiedBySignedInUser, None)
     IsSatisfied = property(get_IsSatisfied, None)
+    SatisfiedByDevice = property(get_SatisfiedByDevice, None)
+    SatisfiedByInstallMedia = property(get_SatisfiedByInstallMedia, None)
+    SatisfiedByOpenLicense = property(get_SatisfiedByOpenLicense, None)
+    SatisfiedByPass = property(get_SatisfiedByPass, None)
+    SatisfiedBySignedInUser = property(get_SatisfiedBySignedInUser, None)
+    SatisfiedByTrial = property(get_SatisfiedByTrial, None)
 class ILicenseSatisfactionResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Store.LicenseManagement.ILicenseSatisfactionResult'
@@ -53,8 +53,8 @@ class ILicenseSatisfactionResult(ComPtr):
     def get_LicenseSatisfactionInfos(self) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.ApplicationModel.Store.LicenseManagement.LicenseSatisfactionInfo]: ...
     @winrt_commethod(7)
     def get_ExtendedError(self) -> win32more.Windows.Foundation.HResult: ...
-    LicenseSatisfactionInfos = property(get_LicenseSatisfactionInfos, None)
     ExtendedError = property(get_ExtendedError, None)
+    LicenseSatisfactionInfos = property(get_LicenseSatisfactionInfos, None)
 class LicenseManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Store.LicenseManagement.LicenseManager'
@@ -85,13 +85,13 @@ class LicenseSatisfactionInfo(ComPtr):
     def get_SatisfiedBySignedInUser(self: win32more.Windows.ApplicationModel.Store.LicenseManagement.ILicenseSatisfactionInfo) -> Boolean: ...
     @winrt_mixinmethod
     def get_IsSatisfied(self: win32more.Windows.ApplicationModel.Store.LicenseManagement.ILicenseSatisfactionInfo) -> Boolean: ...
-    SatisfiedByDevice = property(get_SatisfiedByDevice, None)
-    SatisfiedByOpenLicense = property(get_SatisfiedByOpenLicense, None)
-    SatisfiedByTrial = property(get_SatisfiedByTrial, None)
-    SatisfiedByPass = property(get_SatisfiedByPass, None)
-    SatisfiedByInstallMedia = property(get_SatisfiedByInstallMedia, None)
-    SatisfiedBySignedInUser = property(get_SatisfiedBySignedInUser, None)
     IsSatisfied = property(get_IsSatisfied, None)
+    SatisfiedByDevice = property(get_SatisfiedByDevice, None)
+    SatisfiedByInstallMedia = property(get_SatisfiedByInstallMedia, None)
+    SatisfiedByOpenLicense = property(get_SatisfiedByOpenLicense, None)
+    SatisfiedByPass = property(get_SatisfiedByPass, None)
+    SatisfiedBySignedInUser = property(get_SatisfiedBySignedInUser, None)
+    SatisfiedByTrial = property(get_SatisfiedByTrial, None)
 class LicenseSatisfactionResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Store.LicenseManagement.ILicenseSatisfactionResult
@@ -100,8 +100,8 @@ class LicenseSatisfactionResult(ComPtr):
     def get_LicenseSatisfactionInfos(self: win32more.Windows.ApplicationModel.Store.LicenseManagement.ILicenseSatisfactionResult) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.ApplicationModel.Store.LicenseManagement.LicenseSatisfactionInfo]: ...
     @winrt_mixinmethod
     def get_ExtendedError(self: win32more.Windows.ApplicationModel.Store.LicenseManagement.ILicenseSatisfactionResult) -> win32more.Windows.Foundation.HResult: ...
-    LicenseSatisfactionInfos = property(get_LicenseSatisfactionInfos, None)
     ExtendedError = property(get_ExtendedError, None)
+    LicenseSatisfactionInfos = property(get_LicenseSatisfactionInfos, None)
 
 
 make_ready(__name__)

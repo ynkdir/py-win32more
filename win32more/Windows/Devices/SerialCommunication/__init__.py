@@ -104,17 +104,17 @@ class ISerialDevice(ComPtr):
     DataBits = property(get_DataBits, put_DataBits)
     DataSetReadyState = property(get_DataSetReadyState, None)
     Handshake = property(get_Handshake, put_Handshake)
+    InputStream = property(get_InputStream, None)
     IsDataTerminalReadyEnabled = property(get_IsDataTerminalReadyEnabled, put_IsDataTerminalReadyEnabled)
     IsRequestToSendEnabled = property(get_IsRequestToSendEnabled, put_IsRequestToSendEnabled)
+    OutputStream = property(get_OutputStream, None)
     Parity = property(get_Parity, put_Parity)
     PortName = property(get_PortName, None)
     ReadTimeout = property(get_ReadTimeout, put_ReadTimeout)
     StopBits = property(get_StopBits, put_StopBits)
-    UsbVendorId = property(get_UsbVendorId, None)
     UsbProductId = property(get_UsbProductId, None)
+    UsbVendorId = property(get_UsbVendorId, None)
     WriteTimeout = property(get_WriteTimeout, put_WriteTimeout)
-    InputStream = property(get_InputStream, None)
-    OutputStream = property(get_OutputStream, None)
 class ISerialDeviceStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.SerialCommunication.ISerialDeviceStatics'
@@ -222,17 +222,17 @@ class SerialDevice(ComPtr):
     DataBits = property(get_DataBits, put_DataBits)
     DataSetReadyState = property(get_DataSetReadyState, None)
     Handshake = property(get_Handshake, put_Handshake)
+    InputStream = property(get_InputStream, None)
     IsDataTerminalReadyEnabled = property(get_IsDataTerminalReadyEnabled, put_IsDataTerminalReadyEnabled)
     IsRequestToSendEnabled = property(get_IsRequestToSendEnabled, put_IsRequestToSendEnabled)
+    OutputStream = property(get_OutputStream, None)
     Parity = property(get_Parity, put_Parity)
     PortName = property(get_PortName, None)
     ReadTimeout = property(get_ReadTimeout, put_ReadTimeout)
     StopBits = property(get_StopBits, put_StopBits)
-    UsbVendorId = property(get_UsbVendorId, None)
     UsbProductId = property(get_UsbProductId, None)
+    UsbVendorId = property(get_UsbVendorId, None)
     WriteTimeout = property(get_WriteTimeout, put_WriteTimeout)
-    InputStream = property(get_InputStream, None)
-    OutputStream = property(get_OutputStream, None)
 class SerialError(Int32):  # enum
     Frame = 0
     BufferOverrun = 1

@@ -23,12 +23,12 @@ class Enterprise(ComPtr):
     def get_EnrollmentValidTo(self: win32more.Windows.Phone.Management.Deployment.IEnterprise) -> win32more.Windows.Foundation.DateTime: ...
     @winrt_mixinmethod
     def get_Status(self: win32more.Windows.Phone.Management.Deployment.IEnterprise) -> win32more.Windows.Phone.Management.Deployment.EnterpriseStatus: ...
-    Id = property(get_Id, None)
-    Name = property(get_Name, None)
-    WorkplaceId = property(get_WorkplaceId, None)
     EnrollmentValidFrom = property(get_EnrollmentValidFrom, None)
     EnrollmentValidTo = property(get_EnrollmentValidTo, None)
+    Id = property(get_Id, None)
+    Name = property(get_Name, None)
     Status = property(get_Status, None)
+    WorkplaceId = property(get_WorkplaceId, None)
 class _EnterpriseEnrollmentManager_Meta_(ComPtr.__class__):
     pass
 class EnterpriseEnrollmentManager(ComPtr, metaclass=_EnterpriseEnrollmentManager_Meta_):
@@ -44,8 +44,8 @@ class EnterpriseEnrollmentManager(ComPtr, metaclass=_EnterpriseEnrollmentManager
     def RequestEnrollmentAsync(cls: win32more.Windows.Phone.Management.Deployment.IEnterpriseEnrollmentManager, enrollmentToken: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Phone.Management.Deployment.EnterpriseEnrollmentResult]: ...
     @winrt_classmethod
     def RequestUnenrollmentAsync(cls: win32more.Windows.Phone.Management.Deployment.IEnterpriseEnrollmentManager, enterprise: win32more.Windows.Phone.Management.Deployment.Enterprise) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
-    _EnterpriseEnrollmentManager_Meta_.EnrolledEnterprises = property(get_EnrolledEnterprises.__wrapped__, None)
     _EnterpriseEnrollmentManager_Meta_.CurrentEnterprise = property(get_CurrentEnterprise.__wrapped__, None)
+    _EnterpriseEnrollmentManager_Meta_.EnrolledEnterprises = property(get_EnrolledEnterprises.__wrapped__, None)
 class EnterpriseEnrollmentResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Phone.Management.Deployment.IEnterpriseEnrollmentResult
@@ -81,12 +81,12 @@ class IEnterprise(ComPtr):
     def get_EnrollmentValidTo(self) -> win32more.Windows.Foundation.DateTime: ...
     @winrt_commethod(11)
     def get_Status(self) -> win32more.Windows.Phone.Management.Deployment.EnterpriseStatus: ...
-    Id = property(get_Id, None)
-    Name = property(get_Name, None)
-    WorkplaceId = property(get_WorkplaceId, None)
     EnrollmentValidFrom = property(get_EnrollmentValidFrom, None)
     EnrollmentValidTo = property(get_EnrollmentValidTo, None)
+    Id = property(get_Id, None)
+    Name = property(get_Name, None)
     Status = property(get_Status, None)
+    WorkplaceId = property(get_WorkplaceId, None)
 class IEnterpriseEnrollmentManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Phone.Management.Deployment.IEnterpriseEnrollmentManager'
@@ -101,8 +101,8 @@ class IEnterpriseEnrollmentManager(ComPtr):
     def RequestEnrollmentAsync(self, enrollmentToken: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Phone.Management.Deployment.EnterpriseEnrollmentResult]: ...
     @winrt_commethod(10)
     def RequestUnenrollmentAsync(self, enterprise: win32more.Windows.Phone.Management.Deployment.Enterprise) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
-    EnrolledEnterprises = property(get_EnrolledEnterprises, None)
     CurrentEnterprise = property(get_CurrentEnterprise, None)
+    EnrolledEnterprises = property(get_EnrolledEnterprises, None)
 class IEnterpriseEnrollmentResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Phone.Management.Deployment.IEnterpriseEnrollmentResult'
@@ -145,8 +145,8 @@ class IPackageInstallResult(ComPtr):
     def get_ProductId(self) -> WinRT_String: ...
     @winrt_commethod(7)
     def get_InstallState(self) -> win32more.Windows.Management.Deployment.PackageInstallState: ...
-    ProductId = property(get_ProductId, None)
     InstallState = property(get_InstallState, None)
+    ProductId = property(get_ProductId, None)
 class IPackageInstallResult2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Phone.Management.Deployment.IPackageInstallResult2'
@@ -183,9 +183,9 @@ class PackageInstallResult(ComPtr):
     def get_InstallState(self: win32more.Windows.Phone.Management.Deployment.IPackageInstallResult) -> win32more.Windows.Management.Deployment.PackageInstallState: ...
     @winrt_mixinmethod
     def get_ErrorText(self: win32more.Windows.Phone.Management.Deployment.IPackageInstallResult2) -> WinRT_String: ...
-    ProductId = property(get_ProductId, None)
-    InstallState = property(get_InstallState, None)
     ErrorText = property(get_ErrorText, None)
+    InstallState = property(get_InstallState, None)
+    ProductId = property(get_ProductId, None)
 
 
 make_ready(__name__)

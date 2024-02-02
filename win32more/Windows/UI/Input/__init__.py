@@ -33,10 +33,10 @@ class CrossSlidingEventArgs(ComPtr):
     def get_CrossSlidingState(self: win32more.Windows.UI.Input.ICrossSlidingEventArgs) -> win32more.Windows.UI.Input.CrossSlidingState: ...
     @winrt_mixinmethod
     def get_ContactCount(self: win32more.Windows.UI.Input.ICrossSlidingEventArgs2) -> UInt32: ...
+    ContactCount = property(get_ContactCount, None)
+    CrossSlidingState = property(get_CrossSlidingState, None)
     PointerDeviceType = property(get_PointerDeviceType, None)
     Position = property(get_Position, None)
-    CrossSlidingState = property(get_CrossSlidingState, None)
-    ContactCount = property(get_ContactCount, None)
 class CrossSlidingState(Int32):  # enum
     Started = 0
     Dragging = 1
@@ -57,10 +57,10 @@ class DraggingEventArgs(ComPtr):
     def get_DraggingState(self: win32more.Windows.UI.Input.IDraggingEventArgs) -> win32more.Windows.UI.Input.DraggingState: ...
     @winrt_mixinmethod
     def get_ContactCount(self: win32more.Windows.UI.Input.IDraggingEventArgs2) -> UInt32: ...
+    ContactCount = property(get_ContactCount, None)
+    DraggingState = property(get_DraggingState, None)
     PointerDeviceType = property(get_PointerDeviceType, None)
     Position = property(get_Position, None)
-    DraggingState = property(get_DraggingState, None)
-    ContactCount = property(get_ContactCount, None)
 class DraggingState(Int32):  # enum
     Started = 0
     Continuing = 1
@@ -260,32 +260,32 @@ class GestureRecognizer(ComPtr):
     def get_TranslationMaxContactCount(self: win32more.Windows.UI.Input.IGestureRecognizer2) -> UInt32: ...
     @winrt_mixinmethod
     def put_TranslationMaxContactCount(self: win32more.Windows.UI.Input.IGestureRecognizer2, value: UInt32) -> Void: ...
-    GestureSettings = property(get_GestureSettings, put_GestureSettings)
-    IsInertial = property(get_IsInertial, None)
-    IsActive = property(get_IsActive, None)
-    ShowGestureFeedback = property(get_ShowGestureFeedback, put_ShowGestureFeedback)
-    PivotCenter = property(get_PivotCenter, put_PivotCenter)
-    PivotRadius = property(get_PivotRadius, put_PivotRadius)
-    InertiaTranslationDeceleration = property(get_InertiaTranslationDeceleration, put_InertiaTranslationDeceleration)
-    InertiaRotationDeceleration = property(get_InertiaRotationDeceleration, put_InertiaRotationDeceleration)
-    InertiaExpansionDeceleration = property(get_InertiaExpansionDeceleration, put_InertiaExpansionDeceleration)
-    InertiaTranslationDisplacement = property(get_InertiaTranslationDisplacement, put_InertiaTranslationDisplacement)
-    InertiaRotationAngle = property(get_InertiaRotationAngle, put_InertiaRotationAngle)
-    InertiaExpansion = property(get_InertiaExpansion, put_InertiaExpansion)
-    ManipulationExact = property(get_ManipulationExact, put_ManipulationExact)
-    CrossSlideThresholds = property(get_CrossSlideThresholds, put_CrossSlideThresholds)
-    CrossSlideHorizontally = property(get_CrossSlideHorizontally, put_CrossSlideHorizontally)
-    CrossSlideExact = property(get_CrossSlideExact, put_CrossSlideExact)
     AutoProcessInertia = property(get_AutoProcessInertia, put_AutoProcessInertia)
-    MouseWheelParameters = property(get_MouseWheelParameters, None)
-    TapMinContactCount = property(get_TapMinContactCount, put_TapMinContactCount)
-    TapMaxContactCount = property(get_TapMaxContactCount, put_TapMaxContactCount)
-    HoldMinContactCount = property(get_HoldMinContactCount, put_HoldMinContactCount)
+    CrossSlideExact = property(get_CrossSlideExact, put_CrossSlideExact)
+    CrossSlideHorizontally = property(get_CrossSlideHorizontally, put_CrossSlideHorizontally)
+    CrossSlideThresholds = property(get_CrossSlideThresholds, put_CrossSlideThresholds)
+    GestureSettings = property(get_GestureSettings, put_GestureSettings)
     HoldMaxContactCount = property(get_HoldMaxContactCount, put_HoldMaxContactCount)
+    HoldMinContactCount = property(get_HoldMinContactCount, put_HoldMinContactCount)
     HoldRadius = property(get_HoldRadius, put_HoldRadius)
     HoldStartDelay = property(get_HoldStartDelay, put_HoldStartDelay)
-    TranslationMinContactCount = property(get_TranslationMinContactCount, put_TranslationMinContactCount)
+    InertiaExpansion = property(get_InertiaExpansion, put_InertiaExpansion)
+    InertiaExpansionDeceleration = property(get_InertiaExpansionDeceleration, put_InertiaExpansionDeceleration)
+    InertiaRotationAngle = property(get_InertiaRotationAngle, put_InertiaRotationAngle)
+    InertiaRotationDeceleration = property(get_InertiaRotationDeceleration, put_InertiaRotationDeceleration)
+    InertiaTranslationDeceleration = property(get_InertiaTranslationDeceleration, put_InertiaTranslationDeceleration)
+    InertiaTranslationDisplacement = property(get_InertiaTranslationDisplacement, put_InertiaTranslationDisplacement)
+    IsActive = property(get_IsActive, None)
+    IsInertial = property(get_IsInertial, None)
+    ManipulationExact = property(get_ManipulationExact, put_ManipulationExact)
+    MouseWheelParameters = property(get_MouseWheelParameters, None)
+    PivotCenter = property(get_PivotCenter, put_PivotCenter)
+    PivotRadius = property(get_PivotRadius, put_PivotRadius)
+    ShowGestureFeedback = property(get_ShowGestureFeedback, put_ShowGestureFeedback)
+    TapMaxContactCount = property(get_TapMaxContactCount, put_TapMaxContactCount)
+    TapMinContactCount = property(get_TapMinContactCount, put_TapMinContactCount)
     TranslationMaxContactCount = property(get_TranslationMaxContactCount, put_TranslationMaxContactCount)
+    TranslationMinContactCount = property(get_TranslationMinContactCount, put_TranslationMinContactCount)
 class GestureSettings(UInt32):  # enum
     None_ = 0
     Tap = 1
@@ -319,11 +319,11 @@ class HoldingEventArgs(ComPtr):
     def get_ContactCount(self: win32more.Windows.UI.Input.IHoldingEventArgs2) -> UInt32: ...
     @winrt_mixinmethod
     def get_CurrentContactCount(self: win32more.Windows.UI.Input.IHoldingEventArgs2) -> UInt32: ...
-    PointerDeviceType = property(get_PointerDeviceType, None)
-    Position = property(get_Position, None)
-    HoldingState = property(get_HoldingState, None)
     ContactCount = property(get_ContactCount, None)
     CurrentContactCount = property(get_CurrentContactCount, None)
+    HoldingState = property(get_HoldingState, None)
+    PointerDeviceType = property(get_PointerDeviceType, None)
+    Position = property(get_Position, None)
 class HoldingState(Int32):  # enum
     Started = 0
     Completed = 1
@@ -346,9 +346,9 @@ class ICrossSlidingEventArgs(ComPtr):
     def get_Position(self) -> win32more.Windows.Foundation.Point: ...
     @winrt_commethod(8)
     def get_CrossSlidingState(self) -> win32more.Windows.UI.Input.CrossSlidingState: ...
+    CrossSlidingState = property(get_CrossSlidingState, None)
     PointerDeviceType = property(get_PointerDeviceType, None)
     Position = property(get_Position, None)
-    CrossSlidingState = property(get_CrossSlidingState, None)
 class ICrossSlidingEventArgs2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Input.ICrossSlidingEventArgs2'
@@ -366,9 +366,9 @@ class IDraggingEventArgs(ComPtr):
     def get_Position(self) -> win32more.Windows.Foundation.Point: ...
     @winrt_commethod(8)
     def get_DraggingState(self) -> win32more.Windows.UI.Input.DraggingState: ...
+    DraggingState = property(get_DraggingState, None)
     PointerDeviceType = property(get_PointerDeviceType, None)
     Position = property(get_Position, None)
-    DraggingState = property(get_DraggingState, None)
 class IDraggingEventArgs2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Input.IDraggingEventArgs2'
@@ -525,24 +525,24 @@ class IGestureRecognizer(ComPtr):
     def add_CrossSliding(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Input.GestureRecognizer, win32more.Windows.UI.Input.CrossSlidingEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(63)
     def remove_CrossSliding(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    AutoProcessInertia = property(get_AutoProcessInertia, put_AutoProcessInertia)
+    CrossSlideExact = property(get_CrossSlideExact, put_CrossSlideExact)
+    CrossSlideHorizontally = property(get_CrossSlideHorizontally, put_CrossSlideHorizontally)
+    CrossSlideThresholds = property(get_CrossSlideThresholds, put_CrossSlideThresholds)
     GestureSettings = property(get_GestureSettings, put_GestureSettings)
-    IsInertial = property(get_IsInertial, None)
+    InertiaExpansion = property(get_InertiaExpansion, put_InertiaExpansion)
+    InertiaExpansionDeceleration = property(get_InertiaExpansionDeceleration, put_InertiaExpansionDeceleration)
+    InertiaRotationAngle = property(get_InertiaRotationAngle, put_InertiaRotationAngle)
+    InertiaRotationDeceleration = property(get_InertiaRotationDeceleration, put_InertiaRotationDeceleration)
+    InertiaTranslationDeceleration = property(get_InertiaTranslationDeceleration, put_InertiaTranslationDeceleration)
+    InertiaTranslationDisplacement = property(get_InertiaTranslationDisplacement, put_InertiaTranslationDisplacement)
     IsActive = property(get_IsActive, None)
-    ShowGestureFeedback = property(get_ShowGestureFeedback, put_ShowGestureFeedback)
+    IsInertial = property(get_IsInertial, None)
+    ManipulationExact = property(get_ManipulationExact, put_ManipulationExact)
+    MouseWheelParameters = property(get_MouseWheelParameters, None)
     PivotCenter = property(get_PivotCenter, put_PivotCenter)
     PivotRadius = property(get_PivotRadius, put_PivotRadius)
-    InertiaTranslationDeceleration = property(get_InertiaTranslationDeceleration, put_InertiaTranslationDeceleration)
-    InertiaRotationDeceleration = property(get_InertiaRotationDeceleration, put_InertiaRotationDeceleration)
-    InertiaExpansionDeceleration = property(get_InertiaExpansionDeceleration, put_InertiaExpansionDeceleration)
-    InertiaTranslationDisplacement = property(get_InertiaTranslationDisplacement, put_InertiaTranslationDisplacement)
-    InertiaRotationAngle = property(get_InertiaRotationAngle, put_InertiaRotationAngle)
-    InertiaExpansion = property(get_InertiaExpansion, put_InertiaExpansion)
-    ManipulationExact = property(get_ManipulationExact, put_ManipulationExact)
-    CrossSlideThresholds = property(get_CrossSlideThresholds, put_CrossSlideThresholds)
-    CrossSlideHorizontally = property(get_CrossSlideHorizontally, put_CrossSlideHorizontally)
-    CrossSlideExact = property(get_CrossSlideExact, put_CrossSlideExact)
-    AutoProcessInertia = property(get_AutoProcessInertia, put_AutoProcessInertia)
-    MouseWheelParameters = property(get_MouseWheelParameters, None)
+    ShowGestureFeedback = property(get_ShowGestureFeedback, put_ShowGestureFeedback)
 class IGestureRecognizer2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Input.IGestureRecognizer2'
@@ -579,14 +579,14 @@ class IGestureRecognizer2(ComPtr):
     def get_TranslationMaxContactCount(self) -> UInt32: ...
     @winrt_commethod(21)
     def put_TranslationMaxContactCount(self, value: UInt32) -> Void: ...
-    TapMinContactCount = property(get_TapMinContactCount, put_TapMinContactCount)
-    TapMaxContactCount = property(get_TapMaxContactCount, put_TapMaxContactCount)
-    HoldMinContactCount = property(get_HoldMinContactCount, put_HoldMinContactCount)
     HoldMaxContactCount = property(get_HoldMaxContactCount, put_HoldMaxContactCount)
+    HoldMinContactCount = property(get_HoldMinContactCount, put_HoldMinContactCount)
     HoldRadius = property(get_HoldRadius, put_HoldRadius)
     HoldStartDelay = property(get_HoldStartDelay, put_HoldStartDelay)
-    TranslationMinContactCount = property(get_TranslationMinContactCount, put_TranslationMinContactCount)
+    TapMaxContactCount = property(get_TapMaxContactCount, put_TapMaxContactCount)
+    TapMinContactCount = property(get_TapMinContactCount, put_TapMinContactCount)
     TranslationMaxContactCount = property(get_TranslationMaxContactCount, put_TranslationMaxContactCount)
+    TranslationMinContactCount = property(get_TranslationMinContactCount, put_TranslationMinContactCount)
 class IHoldingEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Input.IHoldingEventArgs'
@@ -597,9 +597,9 @@ class IHoldingEventArgs(ComPtr):
     def get_Position(self) -> win32more.Windows.Foundation.Point: ...
     @winrt_commethod(8)
     def get_HoldingState(self) -> win32more.Windows.UI.Input.HoldingState: ...
+    HoldingState = property(get_HoldingState, None)
     PointerDeviceType = property(get_PointerDeviceType, None)
     Position = property(get_Position, None)
-    HoldingState = property(get_HoldingState, None)
 class IHoldingEventArgs2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Input.IHoldingEventArgs2'
@@ -663,9 +663,9 @@ class IManipulationCompletedEventArgs(ComPtr):
     def get_Cumulative(self) -> win32more.Windows.UI.Input.ManipulationDelta: ...
     @winrt_commethod(9)
     def get_Velocities(self) -> win32more.Windows.UI.Input.ManipulationVelocities: ...
+    Cumulative = property(get_Cumulative, None)
     PointerDeviceType = property(get_PointerDeviceType, None)
     Position = property(get_Position, None)
-    Cumulative = property(get_Cumulative, None)
     Velocities = property(get_Velocities, None)
 class IManipulationCompletedEventArgs2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -691,10 +691,10 @@ class IManipulationInertiaStartingEventArgs(ComPtr):
     def get_Cumulative(self) -> win32more.Windows.UI.Input.ManipulationDelta: ...
     @winrt_commethod(10)
     def get_Velocities(self) -> win32more.Windows.UI.Input.ManipulationVelocities: ...
+    Cumulative = property(get_Cumulative, None)
+    Delta = property(get_Delta, None)
     PointerDeviceType = property(get_PointerDeviceType, None)
     Position = property(get_Position, None)
-    Delta = property(get_Delta, None)
-    Cumulative = property(get_Cumulative, None)
     Velocities = property(get_Velocities, None)
 class IManipulationInertiaStartingEventArgs2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -713,9 +713,9 @@ class IManipulationStartedEventArgs(ComPtr):
     def get_Position(self) -> win32more.Windows.Foundation.Point: ...
     @winrt_commethod(8)
     def get_Cumulative(self) -> win32more.Windows.UI.Input.ManipulationDelta: ...
+    Cumulative = property(get_Cumulative, None)
     PointerDeviceType = property(get_PointerDeviceType, None)
     Position = property(get_Position, None)
-    Cumulative = property(get_Cumulative, None)
 class IManipulationStartedEventArgs2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Input.IManipulationStartedEventArgs2'
@@ -737,10 +737,10 @@ class IManipulationUpdatedEventArgs(ComPtr):
     def get_Cumulative(self) -> win32more.Windows.UI.Input.ManipulationDelta: ...
     @winrt_commethod(10)
     def get_Velocities(self) -> win32more.Windows.UI.Input.ManipulationVelocities: ...
+    Cumulative = property(get_Cumulative, None)
+    Delta = property(get_Delta, None)
     PointerDeviceType = property(get_PointerDeviceType, None)
     Position = property(get_Position, None)
-    Delta = property(get_Delta, None)
-    Cumulative = property(get_Cumulative, None)
     Velocities = property(get_Velocities, None)
 class IManipulationUpdatedEventArgs2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -773,8 +773,8 @@ class IMouseWheelParameters(ComPtr):
     @winrt_commethod(13)
     def put_PageTranslation(self, value: win32more.Windows.Foundation.Point) -> Void: ...
     CharTranslation = property(get_CharTranslation, put_CharTranslation)
-    DeltaScale = property(get_DeltaScale, put_DeltaScale)
     DeltaRotationAngle = property(get_DeltaRotationAngle, put_DeltaRotationAngle)
+    DeltaScale = property(get_DeltaScale, put_DeltaScale)
     PageTranslation = property(get_PageTranslation, put_PageTranslation)
 class IPointerPoint(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -796,14 +796,14 @@ class IPointerPoint(ComPtr):
     def get_IsInContact(self) -> Boolean: ...
     @winrt_commethod(13)
     def get_Properties(self) -> win32more.Windows.UI.Input.PointerPointProperties: ...
-    PointerDevice = property(get_PointerDevice, None)
-    Position = property(get_Position, None)
-    RawPosition = property(get_RawPosition, None)
-    PointerId = property(get_PointerId, None)
     FrameId = property(get_FrameId, None)
-    Timestamp = property(get_Timestamp, None)
     IsInContact = property(get_IsInContact, None)
+    PointerDevice = property(get_PointerDevice, None)
+    PointerId = property(get_PointerId, None)
+    Position = property(get_Position, None)
     Properties = property(get_Properties, None)
+    RawPosition = property(get_RawPosition, None)
+    Timestamp = property(get_Timestamp, None)
 class IPointerPointProperties(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Input.IPointerPointProperties'
@@ -856,28 +856,28 @@ class IPointerPointProperties(ComPtr):
     def HasUsage(self, usagePage: UInt32, usageId: UInt32) -> Boolean: ...
     @winrt_commethod(29)
     def GetUsageValue(self, usagePage: UInt32, usageId: UInt32) -> Int32: ...
-    Pressure = property(get_Pressure, None)
-    IsInverted = property(get_IsInverted, None)
-    IsEraser = property(get_IsEraser, None)
-    Orientation = property(get_Orientation, None)
-    XTilt = property(get_XTilt, None)
-    YTilt = property(get_YTilt, None)
-    Twist = property(get_Twist, None)
     ContactRect = property(get_ContactRect, None)
     ContactRectRaw = property(get_ContactRectRaw, None)
-    TouchConfidence = property(get_TouchConfidence, None)
-    IsLeftButtonPressed = property(get_IsLeftButtonPressed, None)
-    IsRightButtonPressed = property(get_IsRightButtonPressed, None)
-    IsMiddleButtonPressed = property(get_IsMiddleButtonPressed, None)
-    MouseWheelDelta = property(get_MouseWheelDelta, None)
-    IsHorizontalMouseWheel = property(get_IsHorizontalMouseWheel, None)
-    IsPrimary = property(get_IsPrimary, None)
-    IsInRange = property(get_IsInRange, None)
-    IsCanceled = property(get_IsCanceled, None)
     IsBarrelButtonPressed = property(get_IsBarrelButtonPressed, None)
+    IsCanceled = property(get_IsCanceled, None)
+    IsEraser = property(get_IsEraser, None)
+    IsHorizontalMouseWheel = property(get_IsHorizontalMouseWheel, None)
+    IsInRange = property(get_IsInRange, None)
+    IsInverted = property(get_IsInverted, None)
+    IsLeftButtonPressed = property(get_IsLeftButtonPressed, None)
+    IsMiddleButtonPressed = property(get_IsMiddleButtonPressed, None)
+    IsPrimary = property(get_IsPrimary, None)
+    IsRightButtonPressed = property(get_IsRightButtonPressed, None)
     IsXButton1Pressed = property(get_IsXButton1Pressed, None)
     IsXButton2Pressed = property(get_IsXButton2Pressed, None)
+    MouseWheelDelta = property(get_MouseWheelDelta, None)
+    Orientation = property(get_Orientation, None)
     PointerUpdateKind = property(get_PointerUpdateKind, None)
+    Pressure = property(get_Pressure, None)
+    TouchConfidence = property(get_TouchConfidence, None)
+    Twist = property(get_Twist, None)
+    XTilt = property(get_XTilt, None)
+    YTilt = property(get_YTilt, None)
 class IPointerPointProperties2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Input.IPointerPointProperties2'
@@ -920,8 +920,8 @@ class IPointerVisualizationSettings(ComPtr):
     def put_IsBarrelButtonFeedbackEnabled(self, value: Boolean) -> Void: ...
     @winrt_commethod(9)
     def get_IsBarrelButtonFeedbackEnabled(self) -> Boolean: ...
-    IsContactFeedbackEnabled = property(get_IsContactFeedbackEnabled, put_IsContactFeedbackEnabled)
     IsBarrelButtonFeedbackEnabled = property(get_IsBarrelButtonFeedbackEnabled, put_IsBarrelButtonFeedbackEnabled)
+    IsContactFeedbackEnabled = property(get_IsContactFeedbackEnabled, put_IsContactFeedbackEnabled)
 class IPointerVisualizationSettingsStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Input.IPointerVisualizationSettingsStatics'
@@ -1110,8 +1110,8 @@ class IRadialControllerMenu(ComPtr):
     def SelectMenuItem(self, menuItem: win32more.Windows.UI.Input.RadialControllerMenuItem) -> Void: ...
     @winrt_commethod(11)
     def TrySelectPreviouslySelectedMenuItem(self) -> Boolean: ...
-    Items = property(get_Items, None)
     IsEnabled = property(get_IsEnabled, put_IsEnabled)
+    Items = property(get_Items, None)
 class IRadialControllerMenuItem(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Input.IRadialControllerMenuItem'
@@ -1152,8 +1152,8 @@ class IRadialControllerRotationChangedEventArgs(ComPtr):
     def get_RotationDeltaInDegrees(self) -> Double: ...
     @winrt_commethod(7)
     def get_Contact(self) -> win32more.Windows.UI.Input.RadialControllerScreenContact: ...
-    RotationDeltaInDegrees = property(get_RotationDeltaInDegrees, None)
     Contact = property(get_Contact, None)
+    RotationDeltaInDegrees = property(get_RotationDeltaInDegrees, None)
 class IRadialControllerRotationChangedEventArgs2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Input.IRadialControllerRotationChangedEventArgs2'
@@ -1279,8 +1279,8 @@ class ISystemFunctionButtonEventArgs(ComPtr):
     def get_Handled(self) -> Boolean: ...
     @winrt_commethod(8)
     def put_Handled(self, value: Boolean) -> Void: ...
-    Timestamp = property(get_Timestamp, None)
     Handled = property(get_Handled, put_Handled)
+    Timestamp = property(get_Timestamp, None)
 class ISystemFunctionLockChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Input.ISystemFunctionLockChangedEventArgs'
@@ -1293,9 +1293,9 @@ class ISystemFunctionLockChangedEventArgs(ComPtr):
     def get_Handled(self) -> Boolean: ...
     @winrt_commethod(9)
     def put_Handled(self, value: Boolean) -> Void: ...
-    Timestamp = property(get_Timestamp, None)
-    IsLocked = property(get_IsLocked, None)
     Handled = property(get_Handled, put_Handled)
+    IsLocked = property(get_IsLocked, None)
+    Timestamp = property(get_Timestamp, None)
 class ISystemFunctionLockIndicatorChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Input.ISystemFunctionLockIndicatorChangedEventArgs'
@@ -1308,9 +1308,9 @@ class ISystemFunctionLockIndicatorChangedEventArgs(ComPtr):
     def get_Handled(self) -> Boolean: ...
     @winrt_commethod(9)
     def put_Handled(self, value: Boolean) -> Void: ...
-    Timestamp = property(get_Timestamp, None)
-    IsIndicatorOn = property(get_IsIndicatorOn, None)
     Handled = property(get_Handled, put_Handled)
+    IsIndicatorOn = property(get_IsIndicatorOn, None)
+    Timestamp = property(get_Timestamp, None)
 class ITappedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Input.ITappedEventArgs'
@@ -1389,12 +1389,12 @@ class ManipulationCompletedEventArgs(ComPtr):
     def get_ContactCount(self: win32more.Windows.UI.Input.IManipulationCompletedEventArgs2) -> UInt32: ...
     @winrt_mixinmethod
     def get_CurrentContactCount(self: win32more.Windows.UI.Input.IManipulationCompletedEventArgs2) -> UInt32: ...
+    ContactCount = property(get_ContactCount, None)
+    Cumulative = property(get_Cumulative, None)
+    CurrentContactCount = property(get_CurrentContactCount, None)
     PointerDeviceType = property(get_PointerDeviceType, None)
     Position = property(get_Position, None)
-    Cumulative = property(get_Cumulative, None)
     Velocities = property(get_Velocities, None)
-    ContactCount = property(get_ContactCount, None)
-    CurrentContactCount = property(get_CurrentContactCount, None)
 class ManipulationDelta(EasyCastStructure):
     Translation: win32more.Windows.Foundation.Point
     Scale: Single
@@ -1416,12 +1416,12 @@ class ManipulationInertiaStartingEventArgs(ComPtr):
     def get_Velocities(self: win32more.Windows.UI.Input.IManipulationInertiaStartingEventArgs) -> win32more.Windows.UI.Input.ManipulationVelocities: ...
     @winrt_mixinmethod
     def get_ContactCount(self: win32more.Windows.UI.Input.IManipulationInertiaStartingEventArgs2) -> UInt32: ...
+    ContactCount = property(get_ContactCount, None)
+    Cumulative = property(get_Cumulative, None)
+    Delta = property(get_Delta, None)
     PointerDeviceType = property(get_PointerDeviceType, None)
     Position = property(get_Position, None)
-    Delta = property(get_Delta, None)
-    Cumulative = property(get_Cumulative, None)
     Velocities = property(get_Velocities, None)
-    ContactCount = property(get_ContactCount, None)
 class ManipulationStartedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Input.IManipulationStartedEventArgs
@@ -1434,10 +1434,10 @@ class ManipulationStartedEventArgs(ComPtr):
     def get_Cumulative(self: win32more.Windows.UI.Input.IManipulationStartedEventArgs) -> win32more.Windows.UI.Input.ManipulationDelta: ...
     @winrt_mixinmethod
     def get_ContactCount(self: win32more.Windows.UI.Input.IManipulationStartedEventArgs2) -> UInt32: ...
+    ContactCount = property(get_ContactCount, None)
+    Cumulative = property(get_Cumulative, None)
     PointerDeviceType = property(get_PointerDeviceType, None)
     Position = property(get_Position, None)
-    Cumulative = property(get_Cumulative, None)
-    ContactCount = property(get_ContactCount, None)
 class ManipulationUpdatedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Input.IManipulationUpdatedEventArgs
@@ -1456,13 +1456,13 @@ class ManipulationUpdatedEventArgs(ComPtr):
     def get_ContactCount(self: win32more.Windows.UI.Input.IManipulationUpdatedEventArgs2) -> UInt32: ...
     @winrt_mixinmethod
     def get_CurrentContactCount(self: win32more.Windows.UI.Input.IManipulationUpdatedEventArgs2) -> UInt32: ...
+    ContactCount = property(get_ContactCount, None)
+    Cumulative = property(get_Cumulative, None)
+    CurrentContactCount = property(get_CurrentContactCount, None)
+    Delta = property(get_Delta, None)
     PointerDeviceType = property(get_PointerDeviceType, None)
     Position = property(get_Position, None)
-    Delta = property(get_Delta, None)
-    Cumulative = property(get_Cumulative, None)
     Velocities = property(get_Velocities, None)
-    ContactCount = property(get_ContactCount, None)
-    CurrentContactCount = property(get_CurrentContactCount, None)
 class ManipulationVelocities(EasyCastStructure):
     Linear: win32more.Windows.Foundation.Point
     Angular: Single
@@ -1488,8 +1488,8 @@ class MouseWheelParameters(ComPtr):
     @winrt_mixinmethod
     def put_PageTranslation(self: win32more.Windows.UI.Input.IMouseWheelParameters, value: win32more.Windows.Foundation.Point) -> Void: ...
     CharTranslation = property(get_CharTranslation, put_CharTranslation)
-    DeltaScale = property(get_DeltaScale, put_DeltaScale)
     DeltaRotationAngle = property(get_DeltaRotationAngle, put_DeltaRotationAngle)
+    DeltaScale = property(get_DeltaScale, put_DeltaScale)
     PageTranslation = property(get_PageTranslation, put_PageTranslation)
 class PointerPoint(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -1519,14 +1519,14 @@ class PointerPoint(ComPtr):
     def GetCurrentPointTransformed(cls: win32more.Windows.UI.Input.IPointerPointStatics, pointerId: UInt32, transform: win32more.Windows.UI.Input.IPointerPointTransform) -> win32more.Windows.UI.Input.PointerPoint: ...
     @winrt_classmethod
     def GetIntermediatePointsTransformed(cls: win32more.Windows.UI.Input.IPointerPointStatics, pointerId: UInt32, transform: win32more.Windows.UI.Input.IPointerPointTransform) -> win32more.Windows.Foundation.Collections.IVector[win32more.Windows.UI.Input.PointerPoint]: ...
-    PointerDevice = property(get_PointerDevice, None)
-    Position = property(get_Position, None)
-    RawPosition = property(get_RawPosition, None)
-    PointerId = property(get_PointerId, None)
     FrameId = property(get_FrameId, None)
-    Timestamp = property(get_Timestamp, None)
     IsInContact = property(get_IsInContact, None)
+    PointerDevice = property(get_PointerDevice, None)
+    PointerId = property(get_PointerId, None)
+    Position = property(get_Position, None)
     Properties = property(get_Properties, None)
+    RawPosition = property(get_RawPosition, None)
+    Timestamp = property(get_Timestamp, None)
 class PointerPointProperties(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Input.IPointerPointProperties
@@ -1581,28 +1581,28 @@ class PointerPointProperties(ComPtr):
     def GetUsageValue(self: win32more.Windows.UI.Input.IPointerPointProperties, usagePage: UInt32, usageId: UInt32) -> Int32: ...
     @winrt_mixinmethod
     def get_ZDistance(self: win32more.Windows.UI.Input.IPointerPointProperties2) -> win32more.Windows.Foundation.IReference[Single]: ...
-    Pressure = property(get_Pressure, None)
-    IsInverted = property(get_IsInverted, None)
-    IsEraser = property(get_IsEraser, None)
-    Orientation = property(get_Orientation, None)
-    XTilt = property(get_XTilt, None)
-    YTilt = property(get_YTilt, None)
-    Twist = property(get_Twist, None)
     ContactRect = property(get_ContactRect, None)
     ContactRectRaw = property(get_ContactRectRaw, None)
-    TouchConfidence = property(get_TouchConfidence, None)
-    IsLeftButtonPressed = property(get_IsLeftButtonPressed, None)
-    IsRightButtonPressed = property(get_IsRightButtonPressed, None)
-    IsMiddleButtonPressed = property(get_IsMiddleButtonPressed, None)
-    MouseWheelDelta = property(get_MouseWheelDelta, None)
-    IsHorizontalMouseWheel = property(get_IsHorizontalMouseWheel, None)
-    IsPrimary = property(get_IsPrimary, None)
-    IsInRange = property(get_IsInRange, None)
-    IsCanceled = property(get_IsCanceled, None)
     IsBarrelButtonPressed = property(get_IsBarrelButtonPressed, None)
+    IsCanceled = property(get_IsCanceled, None)
+    IsEraser = property(get_IsEraser, None)
+    IsHorizontalMouseWheel = property(get_IsHorizontalMouseWheel, None)
+    IsInRange = property(get_IsInRange, None)
+    IsInverted = property(get_IsInverted, None)
+    IsLeftButtonPressed = property(get_IsLeftButtonPressed, None)
+    IsMiddleButtonPressed = property(get_IsMiddleButtonPressed, None)
+    IsPrimary = property(get_IsPrimary, None)
+    IsRightButtonPressed = property(get_IsRightButtonPressed, None)
     IsXButton1Pressed = property(get_IsXButton1Pressed, None)
     IsXButton2Pressed = property(get_IsXButton2Pressed, None)
+    MouseWheelDelta = property(get_MouseWheelDelta, None)
+    Orientation = property(get_Orientation, None)
     PointerUpdateKind = property(get_PointerUpdateKind, None)
+    Pressure = property(get_Pressure, None)
+    TouchConfidence = property(get_TouchConfidence, None)
+    Twist = property(get_Twist, None)
+    XTilt = property(get_XTilt, None)
+    YTilt = property(get_YTilt, None)
     ZDistance = property(get_ZDistance, None)
 class PointerUpdateKind(Int32):  # enum
     Other = 0
@@ -1630,8 +1630,8 @@ class PointerVisualizationSettings(ComPtr):
     def get_IsBarrelButtonFeedbackEnabled(self: win32more.Windows.UI.Input.IPointerVisualizationSettings) -> Boolean: ...
     @winrt_classmethod
     def GetForCurrentView(cls: win32more.Windows.UI.Input.IPointerVisualizationSettingsStatics) -> win32more.Windows.UI.Input.PointerVisualizationSettings: ...
-    IsContactFeedbackEnabled = property(get_IsContactFeedbackEnabled, put_IsContactFeedbackEnabled)
     IsBarrelButtonFeedbackEnabled = property(get_IsBarrelButtonFeedbackEnabled, put_IsBarrelButtonFeedbackEnabled)
+    IsContactFeedbackEnabled = property(get_IsContactFeedbackEnabled, put_IsContactFeedbackEnabled)
 class RadialController(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Input.IRadialController
@@ -1796,8 +1796,8 @@ class RadialControllerMenu(ComPtr):
     def SelectMenuItem(self: win32more.Windows.UI.Input.IRadialControllerMenu, menuItem: win32more.Windows.UI.Input.RadialControllerMenuItem) -> Void: ...
     @winrt_mixinmethod
     def TrySelectPreviouslySelectedMenuItem(self: win32more.Windows.UI.Input.IRadialControllerMenu) -> Boolean: ...
-    Items = property(get_Items, None)
     IsEnabled = property(get_IsEnabled, put_IsEnabled)
+    Items = property(get_Items, None)
 class RadialControllerMenuItem(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Input.IRadialControllerMenuItem
@@ -1844,9 +1844,9 @@ class RadialControllerRotationChangedEventArgs(ComPtr):
     def get_IsButtonPressed(self: win32more.Windows.UI.Input.IRadialControllerRotationChangedEventArgs2) -> Boolean: ...
     @winrt_mixinmethod
     def get_SimpleHapticsController(self: win32more.Windows.UI.Input.IRadialControllerRotationChangedEventArgs2) -> win32more.Windows.Devices.Haptics.SimpleHapticsController: ...
-    RotationDeltaInDegrees = property(get_RotationDeltaInDegrees, None)
     Contact = property(get_Contact, None)
     IsButtonPressed = property(get_IsButtonPressed, None)
+    RotationDeltaInDegrees = property(get_RotationDeltaInDegrees, None)
     SimpleHapticsController = property(get_SimpleHapticsController, None)
 class RadialControllerScreenContact(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -1910,9 +1910,9 @@ class RightTappedEventArgs(ComPtr):
     def get_Position(self: win32more.Windows.UI.Input.IRightTappedEventArgs) -> win32more.Windows.Foundation.Point: ...
     @winrt_mixinmethod
     def get_ContactCount(self: win32more.Windows.UI.Input.IRightTappedEventArgs2) -> UInt32: ...
+    ContactCount = property(get_ContactCount, None)
     PointerDeviceType = property(get_PointerDeviceType, None)
     Position = property(get_Position, None)
-    ContactCount = property(get_ContactCount, None)
 class SystemButtonEventController(ComPtr):
     extends: win32more.Windows.UI.Input.AttachableInputObject
     default_interface: win32more.Windows.UI.Input.ISystemButtonEventController
@@ -1945,8 +1945,8 @@ class SystemFunctionButtonEventArgs(ComPtr):
     def get_Handled(self: win32more.Windows.UI.Input.ISystemFunctionButtonEventArgs) -> Boolean: ...
     @winrt_mixinmethod
     def put_Handled(self: win32more.Windows.UI.Input.ISystemFunctionButtonEventArgs, value: Boolean) -> Void: ...
-    Timestamp = property(get_Timestamp, None)
     Handled = property(get_Handled, put_Handled)
+    Timestamp = property(get_Timestamp, None)
 class SystemFunctionLockChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Input.ISystemFunctionLockChangedEventArgs
@@ -1959,9 +1959,9 @@ class SystemFunctionLockChangedEventArgs(ComPtr):
     def get_Handled(self: win32more.Windows.UI.Input.ISystemFunctionLockChangedEventArgs) -> Boolean: ...
     @winrt_mixinmethod
     def put_Handled(self: win32more.Windows.UI.Input.ISystemFunctionLockChangedEventArgs, value: Boolean) -> Void: ...
-    Timestamp = property(get_Timestamp, None)
-    IsLocked = property(get_IsLocked, None)
     Handled = property(get_Handled, put_Handled)
+    IsLocked = property(get_IsLocked, None)
+    Timestamp = property(get_Timestamp, None)
 class SystemFunctionLockIndicatorChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Input.ISystemFunctionLockIndicatorChangedEventArgs
@@ -1974,9 +1974,9 @@ class SystemFunctionLockIndicatorChangedEventArgs(ComPtr):
     def get_Handled(self: win32more.Windows.UI.Input.ISystemFunctionLockIndicatorChangedEventArgs) -> Boolean: ...
     @winrt_mixinmethod
     def put_Handled(self: win32more.Windows.UI.Input.ISystemFunctionLockIndicatorChangedEventArgs, value: Boolean) -> Void: ...
-    Timestamp = property(get_Timestamp, None)
-    IsIndicatorOn = property(get_IsIndicatorOn, None)
     Handled = property(get_Handled, put_Handled)
+    IsIndicatorOn = property(get_IsIndicatorOn, None)
+    Timestamp = property(get_Timestamp, None)
 class TappedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Input.ITappedEventArgs
@@ -1989,10 +1989,10 @@ class TappedEventArgs(ComPtr):
     def get_TapCount(self: win32more.Windows.UI.Input.ITappedEventArgs) -> UInt32: ...
     @winrt_mixinmethod
     def get_ContactCount(self: win32more.Windows.UI.Input.ITappedEventArgs2) -> UInt32: ...
+    ContactCount = property(get_ContactCount, None)
     PointerDeviceType = property(get_PointerDeviceType, None)
     Position = property(get_Position, None)
     TapCount = property(get_TapCount, None)
-    ContactCount = property(get_ContactCount, None)
 
 
 make_ready(__name__)

@@ -21,8 +21,8 @@ class INoteVisibilityChangedPreviewEventArgs(ComPtr):
     def get_ViewId(self) -> Int32: ...
     @winrt_commethod(7)
     def get_IsVisible(self) -> Boolean: ...
-    ViewId = property(get_ViewId, None)
     IsVisible = property(get_IsVisible, None)
+    ViewId = property(get_ViewId, None)
 class INotesWindowManagerPreview(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Preview.Notes.INotesWindowManagerPreview'
@@ -100,8 +100,8 @@ class NoteVisibilityChangedPreviewEventArgs(ComPtr):
     def get_ViewId(self: win32more.Windows.ApplicationModel.Preview.Notes.INoteVisibilityChangedPreviewEventArgs) -> Int32: ...
     @winrt_mixinmethod
     def get_IsVisible(self: win32more.Windows.ApplicationModel.Preview.Notes.INoteVisibilityChangedPreviewEventArgs) -> Boolean: ...
-    ViewId = property(get_ViewId, None)
     IsVisible = property(get_IsVisible, None)
+    ViewId = property(get_ViewId, None)
 class NotesWindowManagerPreview(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Preview.Notes.INotesWindowManagerPreview

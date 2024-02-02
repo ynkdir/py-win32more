@@ -56,10 +56,10 @@ class IPaymentTransaction(ComPtr):
     def AcceptAsync(self, paymentToken: win32more.Windows.ApplicationModel.Payments.PaymentToken) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.ApplicationModel.Payments.Provider.PaymentTransactionAcceptResult]: ...
     @winrt_commethod(16)
     def Reject(self) -> Void: ...
-    PaymentRequest = property(get_PaymentRequest, None)
     PayerEmail = property(get_PayerEmail, put_PayerEmail)
     PayerName = property(get_PayerName, put_PayerName)
     PayerPhoneNumber = property(get_PayerPhoneNumber, put_PayerPhoneNumber)
+    PaymentRequest = property(get_PaymentRequest, None)
 class IPaymentTransactionAcceptResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Payments.Provider.IPaymentTransactionAcceptResult'
@@ -123,10 +123,10 @@ class PaymentTransaction(ComPtr):
     def Reject(self: win32more.Windows.ApplicationModel.Payments.Provider.IPaymentTransaction) -> Void: ...
     @winrt_classmethod
     def FromIdAsync(cls: win32more.Windows.ApplicationModel.Payments.Provider.IPaymentTransactionStatics, id: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.ApplicationModel.Payments.Provider.PaymentTransaction]: ...
-    PaymentRequest = property(get_PaymentRequest, None)
     PayerEmail = property(get_PayerEmail, put_PayerEmail)
     PayerName = property(get_PayerName, put_PayerName)
     PayerPhoneNumber = property(get_PayerPhoneNumber, put_PayerPhoneNumber)
+    PaymentRequest = property(get_PaymentRequest, None)
 class PaymentTransactionAcceptResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Payments.Provider.IPaymentTransactionAcceptResult

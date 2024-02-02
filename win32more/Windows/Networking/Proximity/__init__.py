@@ -76,9 +76,9 @@ class IPeerFinderStatics(ComPtr):
     AllowBluetooth = property(get_AllowBluetooth, put_AllowBluetooth)
     AllowInfrastructure = property(get_AllowInfrastructure, put_AllowInfrastructure)
     AllowWiFiDirect = property(get_AllowWiFiDirect, put_AllowWiFiDirect)
+    AlternateIdentities = property(get_AlternateIdentities, None)
     DisplayName = property(get_DisplayName, put_DisplayName)
     SupportedDiscoveryTypes = property(get_SupportedDiscoveryTypes, None)
-    AlternateIdentities = property(get_AlternateIdentities, None)
 class IPeerFinderStatics2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.Proximity.IPeerFinderStatics2'
@@ -93,8 +93,8 @@ class IPeerFinderStatics2(ComPtr):
     def put_DiscoveryData(self, value: win32more.Windows.Storage.Streams.IBuffer) -> Void: ...
     @winrt_commethod(10)
     def CreateWatcher(self) -> win32more.Windows.Networking.Proximity.PeerWatcher: ...
-    Role = property(get_Role, put_Role)
     DiscoveryData = property(get_DiscoveryData, put_DiscoveryData)
+    Role = property(get_Role, put_Role)
 class IPeerInformation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.Proximity.IPeerInformation'
@@ -110,8 +110,8 @@ class IPeerInformation3(ComPtr):
     def get_Id(self) -> WinRT_String: ...
     @winrt_commethod(7)
     def get_DiscoveryData(self) -> win32more.Windows.Storage.Streams.IBuffer: ...
-    Id = property(get_Id, None)
     DiscoveryData = property(get_DiscoveryData, None)
+    Id = property(get_Id, None)
 class IPeerInformationWithHostAndService(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.Proximity.IPeerInformationWithHostAndService'
@@ -189,9 +189,9 @@ class IProximityDevice(ComPtr):
     def get_BitsPerSecond(self) -> UInt64: ...
     @winrt_commethod(21)
     def get_DeviceId(self) -> WinRT_String: ...
-    MaxMessageBytes = property(get_MaxMessageBytes, None)
     BitsPerSecond = property(get_BitsPerSecond, None)
     DeviceId = property(get_DeviceId, None)
+    MaxMessageBytes = property(get_MaxMessageBytes, None)
 class IProximityDeviceStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.Proximity.IProximityDeviceStatics'
@@ -214,10 +214,10 @@ class IProximityMessage(ComPtr):
     def get_Data(self) -> win32more.Windows.Storage.Streams.IBuffer: ...
     @winrt_commethod(9)
     def get_DataAsString(self) -> WinRT_String: ...
-    MessageType = property(get_MessageType, None)
-    SubscriptionId = property(get_SubscriptionId, None)
     Data = property(get_Data, None)
     DataAsString = property(get_DataAsString, None)
+    MessageType = property(get_MessageType, None)
+    SubscriptionId = property(get_SubscriptionId, None)
 class ITriggeredConnectionStateChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.Proximity.ITriggeredConnectionStateChangedEventArgs'
@@ -228,9 +228,9 @@ class ITriggeredConnectionStateChangedEventArgs(ComPtr):
     def get_Id(self) -> UInt32: ...
     @winrt_commethod(8)
     def get_Socket(self) -> win32more.Windows.Networking.Sockets.StreamSocket: ...
-    State = property(get_State, None)
     Id = property(get_Id, None)
     Socket = property(get_Socket, None)
+    State = property(get_State, None)
 class MessageReceivedHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{efab0782-f6e2-4675-a045-d8e320c24808}')
@@ -296,14 +296,14 @@ class PeerFinder(ComPtr, metaclass=_PeerFinder_Meta_):
     def FindAllPeersAsync(cls: win32more.Windows.Networking.Proximity.IPeerFinderStatics) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Networking.Proximity.PeerInformation]]: ...
     @winrt_classmethod
     def ConnectAsync(cls: win32more.Windows.Networking.Proximity.IPeerFinderStatics, peerInformation: win32more.Windows.Networking.Proximity.PeerInformation) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Networking.Sockets.StreamSocket]: ...
-    _PeerFinder_Meta_.Role = property(get_Role.__wrapped__, put_Role.__wrapped__)
-    _PeerFinder_Meta_.DiscoveryData = property(get_DiscoveryData.__wrapped__, put_DiscoveryData.__wrapped__)
     _PeerFinder_Meta_.AllowBluetooth = property(get_AllowBluetooth.__wrapped__, put_AllowBluetooth.__wrapped__)
     _PeerFinder_Meta_.AllowInfrastructure = property(get_AllowInfrastructure.__wrapped__, put_AllowInfrastructure.__wrapped__)
     _PeerFinder_Meta_.AllowWiFiDirect = property(get_AllowWiFiDirect.__wrapped__, put_AllowWiFiDirect.__wrapped__)
-    _PeerFinder_Meta_.DisplayName = property(get_DisplayName.__wrapped__, put_DisplayName.__wrapped__)
-    _PeerFinder_Meta_.SupportedDiscoveryTypes = property(get_SupportedDiscoveryTypes.__wrapped__, None)
     _PeerFinder_Meta_.AlternateIdentities = property(get_AlternateIdentities.__wrapped__, None)
+    _PeerFinder_Meta_.DiscoveryData = property(get_DiscoveryData.__wrapped__, put_DiscoveryData.__wrapped__)
+    _PeerFinder_Meta_.DisplayName = property(get_DisplayName.__wrapped__, put_DisplayName.__wrapped__)
+    _PeerFinder_Meta_.Role = property(get_Role.__wrapped__, put_Role.__wrapped__)
+    _PeerFinder_Meta_.SupportedDiscoveryTypes = property(get_SupportedDiscoveryTypes.__wrapped__, None)
 class PeerInformation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Proximity.IPeerInformation
@@ -318,10 +318,10 @@ class PeerInformation(ComPtr):
     def get_HostName(self: win32more.Windows.Networking.Proximity.IPeerInformationWithHostAndService) -> win32more.Windows.Networking.HostName: ...
     @winrt_mixinmethod
     def get_ServiceName(self: win32more.Windows.Networking.Proximity.IPeerInformationWithHostAndService) -> WinRT_String: ...
-    DisplayName = property(get_DisplayName, None)
-    Id = property(get_Id, None)
     DiscoveryData = property(get_DiscoveryData, None)
+    DisplayName = property(get_DisplayName, None)
     HostName = property(get_HostName, None)
+    Id = property(get_Id, None)
     ServiceName = property(get_ServiceName, None)
 class PeerRole(Int32):  # enum
     Peer = 0
@@ -407,9 +407,9 @@ class ProximityDevice(ComPtr):
     def GetDefault(cls: win32more.Windows.Networking.Proximity.IProximityDeviceStatics) -> win32more.Windows.Networking.Proximity.ProximityDevice: ...
     @winrt_classmethod
     def FromId(cls: win32more.Windows.Networking.Proximity.IProximityDeviceStatics, deviceId: WinRT_String) -> win32more.Windows.Networking.Proximity.ProximityDevice: ...
-    MaxMessageBytes = property(get_MaxMessageBytes, None)
     BitsPerSecond = property(get_BitsPerSecond, None)
     DeviceId = property(get_DeviceId, None)
+    MaxMessageBytes = property(get_MaxMessageBytes, None)
 class ProximityMessage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Proximity.IProximityMessage
@@ -422,10 +422,10 @@ class ProximityMessage(ComPtr):
     def get_Data(self: win32more.Windows.Networking.Proximity.IProximityMessage) -> win32more.Windows.Storage.Streams.IBuffer: ...
     @winrt_mixinmethod
     def get_DataAsString(self: win32more.Windows.Networking.Proximity.IProximityMessage) -> WinRT_String: ...
-    MessageType = property(get_MessageType, None)
-    SubscriptionId = property(get_SubscriptionId, None)
     Data = property(get_Data, None)
     DataAsString = property(get_DataAsString, None)
+    MessageType = property(get_MessageType, None)
+    SubscriptionId = property(get_SubscriptionId, None)
 class TriggeredConnectState(Int32):  # enum
     PeerFound = 0
     Listening = 1
@@ -443,9 +443,9 @@ class TriggeredConnectionStateChangedEventArgs(ComPtr):
     def get_Id(self: win32more.Windows.Networking.Proximity.ITriggeredConnectionStateChangedEventArgs) -> UInt32: ...
     @winrt_mixinmethod
     def get_Socket(self: win32more.Windows.Networking.Proximity.ITriggeredConnectionStateChangedEventArgs) -> win32more.Windows.Networking.Sockets.StreamSocket: ...
-    State = property(get_State, None)
     Id = property(get_Id, None)
     Socket = property(get_Socket, None)
+    State = property(get_State, None)
 
 
 make_ready(__name__)

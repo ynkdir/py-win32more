@@ -35,10 +35,10 @@ class AdaptiveNotificationText(ComPtr):
     def get_Kind(self: win32more.Windows.UI.Notifications.IAdaptiveNotificationContent) -> win32more.Windows.UI.Notifications.AdaptiveNotificationContentKind: ...
     @winrt_mixinmethod
     def get_Hints(self: win32more.Windows.UI.Notifications.IAdaptiveNotificationContent) -> win32more.Windows.Foundation.Collections.IMap[WinRT_String, WinRT_String]: ...
-    Text = property(get_Text, put_Text)
-    Language = property(get_Language, put_Language)
-    Kind = property(get_Kind, None)
     Hints = property(get_Hints, None)
+    Kind = property(get_Kind, None)
+    Language = property(get_Language, put_Language)
+    Text = property(get_Text, put_Text)
 class BadgeNotification(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Notifications.IBadgeNotification
@@ -111,8 +111,8 @@ class IAdaptiveNotificationContent(ComPtr):
     def get_Kind(self) -> win32more.Windows.UI.Notifications.AdaptiveNotificationContentKind: ...
     @winrt_commethod(7)
     def get_Hints(self) -> win32more.Windows.Foundation.Collections.IMap[WinRT_String, WinRT_String]: ...
-    Kind = property(get_Kind, None)
     Hints = property(get_Hints, None)
+    Kind = property(get_Kind, None)
 class IAdaptiveNotificationText(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Notifications.IAdaptiveNotificationText'
@@ -125,8 +125,8 @@ class IAdaptiveNotificationText(ComPtr):
     def get_Language(self) -> WinRT_String: ...
     @winrt_commethod(9)
     def put_Language(self, value: WinRT_String) -> Void: ...
-    Text = property(get_Text, put_Text)
     Language = property(get_Language, put_Language)
+    Text = property(get_Text, put_Text)
 class IBadgeNotification(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Notifications.IBadgeNotification'
@@ -206,12 +206,12 @@ class IKnownAdaptiveNotificationHintsStatics(ComPtr):
     def get_TextStacking(self) -> WinRT_String: ...
     @winrt_commethod(11)
     def get_Align(self) -> WinRT_String: ...
-    Style = property(get_Style, None)
-    Wrap = property(get_Wrap, None)
+    Align = property(get_Align, None)
     MaxLines = property(get_MaxLines, None)
     MinLines = property(get_MinLines, None)
+    Style = property(get_Style, None)
     TextStacking = property(get_TextStacking, None)
-    Align = property(get_Align, None)
+    Wrap = property(get_Wrap, None)
 class IKnownAdaptiveNotificationTextStylesStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Notifications.IKnownAdaptiveNotificationTextStylesStatics'
@@ -254,25 +254,25 @@ class IKnownAdaptiveNotificationTextStylesStatics(ComPtr):
     def get_HeaderSubtle(self) -> WinRT_String: ...
     @winrt_commethod(24)
     def get_HeaderNumeralSubtle(self) -> WinRT_String: ...
-    Caption = property(get_Caption, None)
-    Body = property(get_Body, None)
     Base = property(get_Base, None)
-    Subtitle = property(get_Subtitle, None)
-    Title = property(get_Title, None)
-    Subheader = property(get_Subheader, None)
-    Header = property(get_Header, None)
-    TitleNumeral = property(get_TitleNumeral, None)
-    SubheaderNumeral = property(get_SubheaderNumeral, None)
-    HeaderNumeral = property(get_HeaderNumeral, None)
-    CaptionSubtle = property(get_CaptionSubtle, None)
-    BodySubtle = property(get_BodySubtle, None)
     BaseSubtle = property(get_BaseSubtle, None)
-    SubtitleSubtle = property(get_SubtitleSubtle, None)
-    TitleSubtle = property(get_TitleSubtle, None)
-    SubheaderSubtle = property(get_SubheaderSubtle, None)
-    SubheaderNumeralSubtle = property(get_SubheaderNumeralSubtle, None)
-    HeaderSubtle = property(get_HeaderSubtle, None)
+    Body = property(get_Body, None)
+    BodySubtle = property(get_BodySubtle, None)
+    Caption = property(get_Caption, None)
+    CaptionSubtle = property(get_CaptionSubtle, None)
+    Header = property(get_Header, None)
+    HeaderNumeral = property(get_HeaderNumeral, None)
     HeaderNumeralSubtle = property(get_HeaderNumeralSubtle, None)
+    HeaderSubtle = property(get_HeaderSubtle, None)
+    Subheader = property(get_Subheader, None)
+    SubheaderNumeral = property(get_SubheaderNumeral, None)
+    SubheaderNumeralSubtle = property(get_SubheaderNumeralSubtle, None)
+    SubheaderSubtle = property(get_SubheaderSubtle, None)
+    Subtitle = property(get_Subtitle, None)
+    SubtitleSubtle = property(get_SubtitleSubtle, None)
+    Title = property(get_Title, None)
+    TitleNumeral = property(get_TitleNumeral, None)
+    TitleSubtle = property(get_TitleSubtle, None)
 class IKnownNotificationBindingsStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Notifications.IKnownNotificationBindingsStatics'
@@ -310,9 +310,9 @@ class INotificationBinding(ComPtr):
     def get_Hints(self) -> win32more.Windows.Foundation.Collections.IMap[WinRT_String, WinRT_String]: ...
     @winrt_commethod(11)
     def GetTextElements(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.UI.Notifications.AdaptiveNotificationText]: ...
-    Template = property(get_Template, put_Template)
-    Language = property(get_Language, put_Language)
     Hints = property(get_Hints, None)
+    Language = property(get_Language, put_Language)
+    Template = property(get_Template, put_Template)
 class INotificationData(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Notifications.INotificationData'
@@ -323,8 +323,8 @@ class INotificationData(ComPtr):
     def get_SequenceNumber(self) -> UInt32: ...
     @winrt_commethod(8)
     def put_SequenceNumber(self, value: UInt32) -> Void: ...
-    Values = property(get_Values, None)
     SequenceNumber = property(get_SequenceNumber, put_SequenceNumber)
+    Values = property(get_Values, None)
 class INotificationDataFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Notifications.INotificationDataFactory'
@@ -345,8 +345,8 @@ class INotificationVisual(ComPtr):
     def get_Bindings(self) -> win32more.Windows.Foundation.Collections.IVector[win32more.Windows.UI.Notifications.NotificationBinding]: ...
     @winrt_commethod(9)
     def GetBinding(self, templateName: WinRT_String) -> win32more.Windows.UI.Notifications.NotificationBinding: ...
-    Language = property(get_Language, put_Language)
     Bindings = property(get_Bindings, None)
+    Language = property(get_Language, put_Language)
 class IScheduledTileNotification(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Notifications.IScheduledTileNotification'
@@ -370,8 +370,8 @@ class IScheduledTileNotification(ComPtr):
     Content = property(get_Content, None)
     DeliveryTime = property(get_DeliveryTime, None)
     ExpirationTime = property(get_ExpirationTime, put_ExpirationTime)
-    Tag = property(get_Tag, put_Tag)
     Id = property(get_Id, put_Id)
+    Tag = property(get_Tag, put_Tag)
 class IScheduledTileNotificationFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Notifications.IScheduledTileNotificationFactory'
@@ -396,9 +396,9 @@ class IScheduledToastNotification(ComPtr):
     def get_Id(self) -> WinRT_String: ...
     Content = property(get_Content, None)
     DeliveryTime = property(get_DeliveryTime, None)
-    SnoozeInterval = property(get_SnoozeInterval, None)
-    MaximumSnoozeCount = property(get_MaximumSnoozeCount, None)
     Id = property(get_Id, put_Id)
+    MaximumSnoozeCount = property(get_MaximumSnoozeCount, None)
+    SnoozeInterval = property(get_SnoozeInterval, None)
 class IScheduledToastNotification2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Notifications.IScheduledToastNotification2'
@@ -415,9 +415,9 @@ class IScheduledToastNotification2(ComPtr):
     def put_SuppressPopup(self, value: Boolean) -> Void: ...
     @winrt_commethod(11)
     def get_SuppressPopup(self) -> Boolean: ...
-    Tag = property(get_Tag, put_Tag)
     Group = property(get_Group, put_Group)
     SuppressPopup = property(get_SuppressPopup, put_SuppressPopup)
+    Tag = property(get_Tag, put_Tag)
 class IScheduledToastNotification3(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Notifications.IScheduledToastNotification3'
@@ -642,10 +642,10 @@ class IToastCollection(ComPtr):
     def get_Icon(self) -> win32more.Windows.Foundation.Uri: ...
     @winrt_commethod(12)
     def put_Icon(self, value: win32more.Windows.Foundation.Uri) -> Void: ...
-    Id = property(get_Id, None)
     DisplayName = property(get_DisplayName, put_DisplayName)
-    LaunchArgs = property(get_LaunchArgs, put_LaunchArgs)
     Icon = property(get_Icon, put_Icon)
+    Id = property(get_Id, None)
+    LaunchArgs = property(get_LaunchArgs, put_LaunchArgs)
 class IToastCollectionFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Notifications.IToastCollectionFactory'
@@ -670,8 +670,8 @@ class IToastCollectionManager(ComPtr):
     def get_User(self) -> win32more.Windows.System.User: ...
     @winrt_commethod(12)
     def get_AppId(self) -> WinRT_String: ...
-    User = property(get_User, None)
     AppId = property(get_AppId, None)
+    User = property(get_User, None)
 class IToastDismissedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Notifications.IToastDismissedEventArgs'
@@ -726,9 +726,9 @@ class IToastNotification2(ComPtr):
     def put_SuppressPopup(self, value: Boolean) -> Void: ...
     @winrt_commethod(11)
     def get_SuppressPopup(self) -> Boolean: ...
-    Tag = property(get_Tag, put_Tag)
     Group = property(get_Group, put_Group)
     SuppressPopup = property(get_SuppressPopup, put_SuppressPopup)
+    Tag = property(get_Tag, put_Tag)
 class IToastNotification3(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Notifications.IToastNotification3'
@@ -935,10 +935,10 @@ class IUserNotification(ComPtr):
     def get_Id(self) -> UInt32: ...
     @winrt_commethod(9)
     def get_CreationTime(self) -> win32more.Windows.Foundation.DateTime: ...
-    Notification = property(get_Notification, None)
     AppInfo = property(get_AppInfo, None)
-    Id = property(get_Id, None)
     CreationTime = property(get_CreationTime, None)
+    Id = property(get_Id, None)
+    Notification = property(get_Notification, None)
 class IUserNotificationChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Notifications.IUserNotificationChangedEventArgs'
@@ -966,12 +966,12 @@ class KnownAdaptiveNotificationHints(ComPtr, metaclass=_KnownAdaptiveNotificatio
     def get_TextStacking(cls: win32more.Windows.UI.Notifications.IKnownAdaptiveNotificationHintsStatics) -> WinRT_String: ...
     @winrt_classmethod
     def get_Align(cls: win32more.Windows.UI.Notifications.IKnownAdaptiveNotificationHintsStatics) -> WinRT_String: ...
-    _KnownAdaptiveNotificationHints_Meta_.Style = property(get_Style.__wrapped__, None)
-    _KnownAdaptiveNotificationHints_Meta_.Wrap = property(get_Wrap.__wrapped__, None)
+    _KnownAdaptiveNotificationHints_Meta_.Align = property(get_Align.__wrapped__, None)
     _KnownAdaptiveNotificationHints_Meta_.MaxLines = property(get_MaxLines.__wrapped__, None)
     _KnownAdaptiveNotificationHints_Meta_.MinLines = property(get_MinLines.__wrapped__, None)
+    _KnownAdaptiveNotificationHints_Meta_.Style = property(get_Style.__wrapped__, None)
     _KnownAdaptiveNotificationHints_Meta_.TextStacking = property(get_TextStacking.__wrapped__, None)
-    _KnownAdaptiveNotificationHints_Meta_.Align = property(get_Align.__wrapped__, None)
+    _KnownAdaptiveNotificationHints_Meta_.Wrap = property(get_Wrap.__wrapped__, None)
 class _KnownAdaptiveNotificationTextStyles_Meta_(ComPtr.__class__):
     pass
 class KnownAdaptiveNotificationTextStyles(ComPtr, metaclass=_KnownAdaptiveNotificationTextStyles_Meta_):
@@ -1015,25 +1015,25 @@ class KnownAdaptiveNotificationTextStyles(ComPtr, metaclass=_KnownAdaptiveNotifi
     def get_HeaderSubtle(cls: win32more.Windows.UI.Notifications.IKnownAdaptiveNotificationTextStylesStatics) -> WinRT_String: ...
     @winrt_classmethod
     def get_HeaderNumeralSubtle(cls: win32more.Windows.UI.Notifications.IKnownAdaptiveNotificationTextStylesStatics) -> WinRT_String: ...
-    _KnownAdaptiveNotificationTextStyles_Meta_.Caption = property(get_Caption.__wrapped__, None)
-    _KnownAdaptiveNotificationTextStyles_Meta_.Body = property(get_Body.__wrapped__, None)
     _KnownAdaptiveNotificationTextStyles_Meta_.Base = property(get_Base.__wrapped__, None)
-    _KnownAdaptiveNotificationTextStyles_Meta_.Subtitle = property(get_Subtitle.__wrapped__, None)
-    _KnownAdaptiveNotificationTextStyles_Meta_.Title = property(get_Title.__wrapped__, None)
-    _KnownAdaptiveNotificationTextStyles_Meta_.Subheader = property(get_Subheader.__wrapped__, None)
-    _KnownAdaptiveNotificationTextStyles_Meta_.Header = property(get_Header.__wrapped__, None)
-    _KnownAdaptiveNotificationTextStyles_Meta_.TitleNumeral = property(get_TitleNumeral.__wrapped__, None)
-    _KnownAdaptiveNotificationTextStyles_Meta_.SubheaderNumeral = property(get_SubheaderNumeral.__wrapped__, None)
-    _KnownAdaptiveNotificationTextStyles_Meta_.HeaderNumeral = property(get_HeaderNumeral.__wrapped__, None)
-    _KnownAdaptiveNotificationTextStyles_Meta_.CaptionSubtle = property(get_CaptionSubtle.__wrapped__, None)
-    _KnownAdaptiveNotificationTextStyles_Meta_.BodySubtle = property(get_BodySubtle.__wrapped__, None)
     _KnownAdaptiveNotificationTextStyles_Meta_.BaseSubtle = property(get_BaseSubtle.__wrapped__, None)
-    _KnownAdaptiveNotificationTextStyles_Meta_.SubtitleSubtle = property(get_SubtitleSubtle.__wrapped__, None)
-    _KnownAdaptiveNotificationTextStyles_Meta_.TitleSubtle = property(get_TitleSubtle.__wrapped__, None)
-    _KnownAdaptiveNotificationTextStyles_Meta_.SubheaderSubtle = property(get_SubheaderSubtle.__wrapped__, None)
-    _KnownAdaptiveNotificationTextStyles_Meta_.SubheaderNumeralSubtle = property(get_SubheaderNumeralSubtle.__wrapped__, None)
-    _KnownAdaptiveNotificationTextStyles_Meta_.HeaderSubtle = property(get_HeaderSubtle.__wrapped__, None)
+    _KnownAdaptiveNotificationTextStyles_Meta_.Body = property(get_Body.__wrapped__, None)
+    _KnownAdaptiveNotificationTextStyles_Meta_.BodySubtle = property(get_BodySubtle.__wrapped__, None)
+    _KnownAdaptiveNotificationTextStyles_Meta_.Caption = property(get_Caption.__wrapped__, None)
+    _KnownAdaptiveNotificationTextStyles_Meta_.CaptionSubtle = property(get_CaptionSubtle.__wrapped__, None)
+    _KnownAdaptiveNotificationTextStyles_Meta_.Header = property(get_Header.__wrapped__, None)
+    _KnownAdaptiveNotificationTextStyles_Meta_.HeaderNumeral = property(get_HeaderNumeral.__wrapped__, None)
     _KnownAdaptiveNotificationTextStyles_Meta_.HeaderNumeralSubtle = property(get_HeaderNumeralSubtle.__wrapped__, None)
+    _KnownAdaptiveNotificationTextStyles_Meta_.HeaderSubtle = property(get_HeaderSubtle.__wrapped__, None)
+    _KnownAdaptiveNotificationTextStyles_Meta_.Subheader = property(get_Subheader.__wrapped__, None)
+    _KnownAdaptiveNotificationTextStyles_Meta_.SubheaderNumeral = property(get_SubheaderNumeral.__wrapped__, None)
+    _KnownAdaptiveNotificationTextStyles_Meta_.SubheaderNumeralSubtle = property(get_SubheaderNumeralSubtle.__wrapped__, None)
+    _KnownAdaptiveNotificationTextStyles_Meta_.SubheaderSubtle = property(get_SubheaderSubtle.__wrapped__, None)
+    _KnownAdaptiveNotificationTextStyles_Meta_.Subtitle = property(get_Subtitle.__wrapped__, None)
+    _KnownAdaptiveNotificationTextStyles_Meta_.SubtitleSubtle = property(get_SubtitleSubtle.__wrapped__, None)
+    _KnownAdaptiveNotificationTextStyles_Meta_.Title = property(get_Title.__wrapped__, None)
+    _KnownAdaptiveNotificationTextStyles_Meta_.TitleNumeral = property(get_TitleNumeral.__wrapped__, None)
+    _KnownAdaptiveNotificationTextStyles_Meta_.TitleSubtle = property(get_TitleSubtle.__wrapped__, None)
 class _KnownNotificationBindings_Meta_(ComPtr.__class__):
     pass
 class KnownNotificationBindings(ComPtr, metaclass=_KnownNotificationBindings_Meta_):
@@ -1081,9 +1081,9 @@ class NotificationBinding(ComPtr):
     def get_Hints(self: win32more.Windows.UI.Notifications.INotificationBinding) -> win32more.Windows.Foundation.Collections.IMap[WinRT_String, WinRT_String]: ...
     @winrt_mixinmethod
     def GetTextElements(self: win32more.Windows.UI.Notifications.INotificationBinding) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.UI.Notifications.AdaptiveNotificationText]: ...
-    Template = property(get_Template, put_Template)
-    Language = property(get_Language, put_Language)
     Hints = property(get_Hints, None)
+    Language = property(get_Language, put_Language)
+    Template = property(get_Template, put_Template)
 class NotificationData(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Notifications.INotificationData
@@ -1102,17 +1102,17 @@ class NotificationData(ComPtr):
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Notifications.NotificationData: ...
     @winrt_factorymethod
-    def CreateNotificationData(cls: win32more.Windows.UI.Notifications.INotificationDataFactory, initialValues: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, WinRT_String]]) -> win32more.Windows.UI.Notifications.NotificationData: ...
+    def CreateNotificationDataWithValues(cls: win32more.Windows.UI.Notifications.INotificationDataFactory, initialValues: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, WinRT_String]]) -> win32more.Windows.UI.Notifications.NotificationData: ...
     @winrt_factorymethod
-    def CreateNotificationData(cls: win32more.Windows.UI.Notifications.INotificationDataFactory, initialValues: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, WinRT_String]], sequenceNumber: UInt32) -> win32more.Windows.UI.Notifications.NotificationData: ...
+    def CreateNotificationDataWithValuesAndSequenceNumber(cls: win32more.Windows.UI.Notifications.INotificationDataFactory, initialValues: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, WinRT_String]], sequenceNumber: UInt32) -> win32more.Windows.UI.Notifications.NotificationData: ...
     @winrt_mixinmethod
     def get_Values(self: win32more.Windows.UI.Notifications.INotificationData) -> win32more.Windows.Foundation.Collections.IMap[WinRT_String, WinRT_String]: ...
     @winrt_mixinmethod
     def get_SequenceNumber(self: win32more.Windows.UI.Notifications.INotificationData) -> UInt32: ...
     @winrt_mixinmethod
     def put_SequenceNumber(self: win32more.Windows.UI.Notifications.INotificationData, value: UInt32) -> Void: ...
-    Values = property(get_Values, None)
     SequenceNumber = property(get_SequenceNumber, put_SequenceNumber)
+    Values = property(get_Values, None)
 class NotificationKinds(UInt32):  # enum
     Unknown = 0
     Toast = 1
@@ -1141,8 +1141,8 @@ class NotificationVisual(ComPtr):
     def get_Bindings(self: win32more.Windows.UI.Notifications.INotificationVisual) -> win32more.Windows.Foundation.Collections.IVector[win32more.Windows.UI.Notifications.NotificationBinding]: ...
     @winrt_mixinmethod
     def GetBinding(self: win32more.Windows.UI.Notifications.INotificationVisual, templateName: WinRT_String) -> win32more.Windows.UI.Notifications.NotificationBinding: ...
-    Language = property(get_Language, put_Language)
     Bindings = property(get_Bindings, None)
+    Language = property(get_Language, put_Language)
 class PeriodicUpdateRecurrence(Int32):  # enum
     HalfHour = 0
     Hour = 1
@@ -1181,8 +1181,8 @@ class ScheduledTileNotification(ComPtr):
     Content = property(get_Content, None)
     DeliveryTime = property(get_DeliveryTime, None)
     ExpirationTime = property(get_ExpirationTime, put_ExpirationTime)
-    Tag = property(get_Tag, put_Tag)
     Id = property(get_Id, put_Id)
+    Tag = property(get_Tag, put_Tag)
 class ScheduledToastNotification(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Notifications.IScheduledToastNotification
@@ -1238,15 +1238,15 @@ class ScheduledToastNotification(ComPtr):
     def put_ExpirationTime(self: win32more.Windows.UI.Notifications.IScheduledToastNotification4, value: win32more.Windows.Foundation.IReference[win32more.Windows.Foundation.DateTime]) -> Void: ...
     Content = property(get_Content, None)
     DeliveryTime = property(get_DeliveryTime, None)
-    SnoozeInterval = property(get_SnoozeInterval, None)
-    MaximumSnoozeCount = property(get_MaximumSnoozeCount, None)
-    Id = property(get_Id, put_Id)
-    Tag = property(get_Tag, put_Tag)
+    ExpirationTime = property(get_ExpirationTime, put_ExpirationTime)
     Group = property(get_Group, put_Group)
-    SuppressPopup = property(get_SuppressPopup, put_SuppressPopup)
+    Id = property(get_Id, put_Id)
+    MaximumSnoozeCount = property(get_MaximumSnoozeCount, None)
     NotificationMirroring = property(get_NotificationMirroring, put_NotificationMirroring)
     RemoteId = property(get_RemoteId, put_RemoteId)
-    ExpirationTime = property(get_ExpirationTime, put_ExpirationTime)
+    SnoozeInterval = property(get_SnoozeInterval, None)
+    SuppressPopup = property(get_SuppressPopup, put_SuppressPopup)
+    Tag = property(get_Tag, put_Tag)
 class ScheduledToastNotificationShowingEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Notifications.IScheduledToastNotificationShowingEventArgs
@@ -1570,10 +1570,10 @@ class ToastCollection(ComPtr):
     def get_Icon(self: win32more.Windows.UI.Notifications.IToastCollection) -> win32more.Windows.Foundation.Uri: ...
     @winrt_mixinmethod
     def put_Icon(self: win32more.Windows.UI.Notifications.IToastCollection, value: win32more.Windows.Foundation.Uri) -> Void: ...
-    Id = property(get_Id, None)
     DisplayName = property(get_DisplayName, put_DisplayName)
-    LaunchArgs = property(get_LaunchArgs, put_LaunchArgs)
     Icon = property(get_Icon, put_Icon)
+    Id = property(get_Id, None)
+    LaunchArgs = property(get_LaunchArgs, put_LaunchArgs)
 class ToastCollectionManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Notifications.IToastCollectionManager
@@ -1592,8 +1592,8 @@ class ToastCollectionManager(ComPtr):
     def get_User(self: win32more.Windows.UI.Notifications.IToastCollectionManager) -> win32more.Windows.System.User: ...
     @winrt_mixinmethod
     def get_AppId(self: win32more.Windows.UI.Notifications.IToastCollectionManager) -> WinRT_String: ...
-    User = property(get_User, None)
     AppId = property(get_AppId, None)
+    User = property(get_User, None)
 class ToastDismissalReason(Int32):  # enum
     UserCanceled = 0
     ApplicationHidden = 1
@@ -1681,15 +1681,15 @@ class ToastNotification(ComPtr):
     @winrt_mixinmethod
     def put_ExpiresOnReboot(self: win32more.Windows.UI.Notifications.IToastNotification6, value: Boolean) -> Void: ...
     Content = property(get_Content, None)
-    ExpirationTime = property(get_ExpirationTime, put_ExpirationTime)
-    Tag = property(get_Tag, put_Tag)
-    Group = property(get_Group, put_Group)
-    SuppressPopup = property(get_SuppressPopup, put_SuppressPopup)
-    NotificationMirroring = property(get_NotificationMirroring, put_NotificationMirroring)
-    RemoteId = property(get_RemoteId, put_RemoteId)
     Data = property(get_Data, put_Data)
-    Priority = property(get_Priority, put_Priority)
+    ExpirationTime = property(get_ExpirationTime, put_ExpirationTime)
     ExpiresOnReboot = property(get_ExpiresOnReboot, put_ExpiresOnReboot)
+    Group = property(get_Group, put_Group)
+    NotificationMirroring = property(get_NotificationMirroring, put_NotificationMirroring)
+    Priority = property(get_Priority, put_Priority)
+    RemoteId = property(get_RemoteId, put_RemoteId)
+    SuppressPopup = property(get_SuppressPopup, put_SuppressPopup)
+    Tag = property(get_Tag, put_Tag)
 class ToastNotificationActionTriggerDetail(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Notifications.IToastNotificationActionTriggerDetail
@@ -1779,8 +1779,8 @@ class ToastNotificationManagerForUser(ComPtr):
     @winrt_mixinmethod
     def remove_NotificationModeChanged(self: win32more.Windows.UI.Notifications.IToastNotificationManagerForUser3, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     History = property(get_History, None)
-    User = property(get_User, None)
     NotificationMode = property(get_NotificationMode, None)
+    User = property(get_User, None)
 class ToastNotificationMode(Int32):  # enum
     Unrestricted = 0
     PriorityOnly = 1
@@ -1834,10 +1834,10 @@ class UserNotification(ComPtr):
     def get_Id(self: win32more.Windows.UI.Notifications.IUserNotification) -> UInt32: ...
     @winrt_mixinmethod
     def get_CreationTime(self: win32more.Windows.UI.Notifications.IUserNotification) -> win32more.Windows.Foundation.DateTime: ...
-    Notification = property(get_Notification, None)
     AppInfo = property(get_AppInfo, None)
-    Id = property(get_Id, None)
     CreationTime = property(get_CreationTime, None)
+    Id = property(get_Id, None)
+    Notification = property(get_Notification, None)
 class UserNotificationChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Notifications.IUserNotificationChangedEventArgs

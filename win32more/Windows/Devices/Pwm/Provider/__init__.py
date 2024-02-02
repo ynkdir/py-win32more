@@ -28,10 +28,10 @@ class IPwmControllerProvider(ComPtr):
     def DisablePin(self, pin: Int32) -> Void: ...
     @winrt_commethod(15)
     def SetPulseParameters(self, pin: Int32, dutyCycle: Double, invertPolarity: Boolean) -> Void: ...
-    PinCount = property(get_PinCount, None)
     ActualFrequency = property(get_ActualFrequency, None)
     MaxFrequency = property(get_MaxFrequency, None)
     MinFrequency = property(get_MinFrequency, None)
+    PinCount = property(get_PinCount, None)
 class IPwmProvider(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Pwm.Provider.IPwmProvider'

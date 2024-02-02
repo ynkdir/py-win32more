@@ -133,11 +133,11 @@ class ISpatialInteractionController(ComPtr):
     def get_ProductId(self) -> UInt16: ...
     @winrt_commethod(11)
     def get_Version(self) -> UInt16: ...
-    HasTouchpad = property(get_HasTouchpad, None)
     HasThumbstick = property(get_HasThumbstick, None)
+    HasTouchpad = property(get_HasTouchpad, None)
+    ProductId = property(get_ProductId, None)
     SimpleHapticsController = property(get_SimpleHapticsController, None)
     VendorId = property(get_VendorId, None)
-    ProductId = property(get_ProductId, None)
     Version = property(get_Version, None)
 class ISpatialInteractionController2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -169,9 +169,9 @@ class ISpatialInteractionControllerProperties(ComPtr):
     def get_TouchpadX(self) -> Double: ...
     @winrt_commethod(12)
     def get_TouchpadY(self) -> Double: ...
-    IsTouchpadTouched = property(get_IsTouchpadTouched, None)
-    IsTouchpadPressed = property(get_IsTouchpadPressed, None)
     IsThumbstickPressed = property(get_IsThumbstickPressed, None)
+    IsTouchpadPressed = property(get_IsTouchpadPressed, None)
+    IsTouchpadTouched = property(get_IsTouchpadTouched, None)
     ThumbstickX = property(get_ThumbstickX, None)
     ThumbstickY = property(get_ThumbstickY, None)
     TouchpadX = property(get_TouchpadX, None)
@@ -186,8 +186,8 @@ class ISpatialInteractionDetectedEventArgs(ComPtr):
     def TryGetPointerPose(self, coordinateSystem: win32more.Windows.Perception.Spatial.SpatialCoordinateSystem) -> win32more.Windows.UI.Input.Spatial.SpatialPointerPose: ...
     @winrt_commethod(8)
     def get_Interaction(self) -> win32more.Windows.UI.Input.Spatial.SpatialInteraction: ...
-    InteractionSourceKind = property(get_InteractionSourceKind, None)
     Interaction = property(get_Interaction, None)
+    InteractionSourceKind = property(get_InteractionSourceKind, None)
 class ISpatialInteractionDetectedEventArgs2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Input.Spatial.ISpatialInteractionDetectedEventArgs2'
@@ -261,10 +261,10 @@ class ISpatialInteractionSource2(ComPtr):
     def get_Controller(self) -> win32more.Windows.UI.Input.Spatial.SpatialInteractionController: ...
     @winrt_commethod(10)
     def TryGetStateAtTimestamp(self, timestamp: win32more.Windows.Perception.PerceptionTimestamp) -> win32more.Windows.UI.Input.Spatial.SpatialInteractionSourceState: ...
-    IsPointingSupported = property(get_IsPointingSupported, None)
-    IsMenuSupported = property(get_IsMenuSupported, None)
-    IsGraspSupported = property(get_IsGraspSupported, None)
     Controller = property(get_Controller, None)
+    IsGraspSupported = property(get_IsGraspSupported, None)
+    IsMenuSupported = property(get_IsMenuSupported, None)
+    IsPointingSupported = property(get_IsPointingSupported, None)
 class ISpatialInteractionSource3(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Input.Spatial.ISpatialInteractionSource3'
@@ -321,8 +321,8 @@ class ISpatialInteractionSourceLocation3(ComPtr):
     def get_AngularVelocity(self) -> win32more.Windows.Foundation.IReference[win32more.Windows.Foundation.Numerics.Vector3]: ...
     @winrt_commethod(8)
     def get_SourcePointerPose(self) -> win32more.Windows.UI.Input.Spatial.SpatialPointerInteractionSourcePose: ...
-    PositionAccuracy = property(get_PositionAccuracy, None)
     AngularVelocity = property(get_AngularVelocity, None)
+    PositionAccuracy = property(get_PositionAccuracy, None)
     SourcePointerPose = property(get_SourcePointerPose, None)
 class ISpatialInteractionSourceProperties(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -349,9 +349,9 @@ class ISpatialInteractionSourceState(ComPtr):
     def get_Timestamp(self) -> win32more.Windows.Perception.PerceptionTimestamp: ...
     @winrt_commethod(10)
     def TryGetPointerPose(self, coordinateSystem: win32more.Windows.Perception.Spatial.SpatialCoordinateSystem) -> win32more.Windows.UI.Input.Spatial.SpatialPointerPose: ...
-    Source = property(get_Source, None)
-    Properties = property(get_Properties, None)
     IsPressed = property(get_IsPressed, None)
+    Properties = property(get_Properties, None)
+    Source = property(get_Source, None)
     Timestamp = property(get_Timestamp, None)
 class ISpatialInteractionSourceState2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -367,11 +367,11 @@ class ISpatialInteractionSourceState2(ComPtr):
     def get_SelectPressedValue(self) -> Double: ...
     @winrt_commethod(10)
     def get_ControllerProperties(self) -> win32more.Windows.UI.Input.Spatial.SpatialInteractionControllerProperties: ...
-    IsSelectPressed = property(get_IsSelectPressed, None)
-    IsMenuPressed = property(get_IsMenuPressed, None)
-    IsGrasped = property(get_IsGrasped, None)
-    SelectPressedValue = property(get_SelectPressedValue, None)
     ControllerProperties = property(get_ControllerProperties, None)
+    IsGrasped = property(get_IsGrasped, None)
+    IsMenuPressed = property(get_IsMenuPressed, None)
+    IsSelectPressed = property(get_IsSelectPressed, None)
+    SelectPressedValue = property(get_SelectPressedValue, None)
 class ISpatialInteractionSourceState3(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Input.Spatial.ISpatialInteractionSourceState3'
@@ -474,8 +474,8 @@ class ISpatialPointerInteractionSourcePose(ComPtr):
     def get_ForwardDirection(self) -> win32more.Windows.Foundation.Numerics.Vector3: ...
     @winrt_commethod(8)
     def get_UpDirection(self) -> win32more.Windows.Foundation.Numerics.Vector3: ...
-    Position = property(get_Position, None)
     ForwardDirection = property(get_ForwardDirection, None)
+    Position = property(get_Position, None)
     UpDirection = property(get_UpDirection, None)
 class ISpatialPointerInteractionSourcePose2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -495,8 +495,8 @@ class ISpatialPointerPose(ComPtr):
     def get_Timestamp(self) -> win32more.Windows.Perception.PerceptionTimestamp: ...
     @winrt_commethod(7)
     def get_Head(self) -> win32more.Windows.Perception.People.HeadPose: ...
-    Timestamp = property(get_Timestamp, None)
     Head = property(get_Head, None)
+    Timestamp = property(get_Timestamp, None)
 class ISpatialPointerPose2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Input.Spatial.ISpatialPointerPose2'
@@ -689,11 +689,11 @@ class SpatialInteractionController(ComPtr):
     def TryGetRenderableModelAsync(self: win32more.Windows.UI.Input.Spatial.ISpatialInteractionController2) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Storage.Streams.IRandomAccessStreamWithContentType]: ...
     @winrt_mixinmethod
     def TryGetBatteryReport(self: win32more.Windows.UI.Input.Spatial.ISpatialInteractionController3) -> win32more.Windows.Devices.Power.BatteryReport: ...
-    HasTouchpad = property(get_HasTouchpad, None)
     HasThumbstick = property(get_HasThumbstick, None)
+    HasTouchpad = property(get_HasTouchpad, None)
+    ProductId = property(get_ProductId, None)
     SimpleHapticsController = property(get_SimpleHapticsController, None)
     VendorId = property(get_VendorId, None)
-    ProductId = property(get_ProductId, None)
     Version = property(get_Version, None)
 class SpatialInteractionControllerProperties(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -713,9 +713,9 @@ class SpatialInteractionControllerProperties(ComPtr):
     def get_TouchpadX(self: win32more.Windows.UI.Input.Spatial.ISpatialInteractionControllerProperties) -> Double: ...
     @winrt_mixinmethod
     def get_TouchpadY(self: win32more.Windows.UI.Input.Spatial.ISpatialInteractionControllerProperties) -> Double: ...
-    IsTouchpadTouched = property(get_IsTouchpadTouched, None)
-    IsTouchpadPressed = property(get_IsTouchpadPressed, None)
     IsThumbstickPressed = property(get_IsThumbstickPressed, None)
+    IsTouchpadPressed = property(get_IsTouchpadPressed, None)
+    IsTouchpadTouched = property(get_IsTouchpadTouched, None)
     ThumbstickX = property(get_ThumbstickX, None)
     ThumbstickY = property(get_ThumbstickY, None)
     TouchpadX = property(get_TouchpadX, None)
@@ -732,9 +732,9 @@ class SpatialInteractionDetectedEventArgs(ComPtr):
     def get_Interaction(self: win32more.Windows.UI.Input.Spatial.ISpatialInteractionDetectedEventArgs) -> win32more.Windows.UI.Input.Spatial.SpatialInteraction: ...
     @winrt_mixinmethod
     def get_InteractionSource(self: win32more.Windows.UI.Input.Spatial.ISpatialInteractionDetectedEventArgs2) -> win32more.Windows.UI.Input.Spatial.SpatialInteractionSource: ...
-    InteractionSourceKind = property(get_InteractionSourceKind, None)
     Interaction = property(get_Interaction, None)
     InteractionSource = property(get_InteractionSource, None)
+    InteractionSourceKind = property(get_InteractionSourceKind, None)
 class SpatialInteractionManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Input.Spatial.ISpatialInteractionManager
@@ -800,13 +800,13 @@ class SpatialInteractionSource(ComPtr):
     def TryCreateHandMeshObserver(self: win32more.Windows.UI.Input.Spatial.ISpatialInteractionSource4) -> win32more.Windows.Perception.People.HandMeshObserver: ...
     @winrt_mixinmethod
     def TryCreateHandMeshObserverAsync(self: win32more.Windows.UI.Input.Spatial.ISpatialInteractionSource4) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Perception.People.HandMeshObserver]: ...
-    Id = property(get_Id, None)
-    Kind = property(get_Kind, None)
-    IsPointingSupported = property(get_IsPointingSupported, None)
-    IsMenuSupported = property(get_IsMenuSupported, None)
-    IsGraspSupported = property(get_IsGraspSupported, None)
     Controller = property(get_Controller, None)
     Handedness = property(get_Handedness, None)
+    Id = property(get_Id, None)
+    IsGraspSupported = property(get_IsGraspSupported, None)
+    IsMenuSupported = property(get_IsMenuSupported, None)
+    IsPointingSupported = property(get_IsPointingSupported, None)
+    Kind = property(get_Kind, None)
 class SpatialInteractionSourceEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Input.Spatial.ISpatialInteractionSourceEventArgs
@@ -815,8 +815,8 @@ class SpatialInteractionSourceEventArgs(ComPtr):
     def get_State(self: win32more.Windows.UI.Input.Spatial.ISpatialInteractionSourceEventArgs) -> win32more.Windows.UI.Input.Spatial.SpatialInteractionSourceState: ...
     @winrt_mixinmethod
     def get_PressKind(self: win32more.Windows.UI.Input.Spatial.ISpatialInteractionSourceEventArgs2) -> win32more.Windows.UI.Input.Spatial.SpatialInteractionPressKind: ...
-    State = property(get_State, None)
     PressKind = property(get_PressKind, None)
+    State = property(get_State, None)
 class SpatialInteractionSourceHandedness(Int32):  # enum
     Unspecified = 0
     Left = 1
@@ -842,12 +842,12 @@ class SpatialInteractionSourceLocation(ComPtr):
     def get_AngularVelocity(self: win32more.Windows.UI.Input.Spatial.ISpatialInteractionSourceLocation3) -> win32more.Windows.Foundation.IReference[win32more.Windows.Foundation.Numerics.Vector3]: ...
     @winrt_mixinmethod
     def get_SourcePointerPose(self: win32more.Windows.UI.Input.Spatial.ISpatialInteractionSourceLocation3) -> win32more.Windows.UI.Input.Spatial.SpatialPointerInteractionSourcePose: ...
-    Position = property(get_Position, None)
-    Velocity = property(get_Velocity, None)
-    Orientation = property(get_Orientation, None)
-    PositionAccuracy = property(get_PositionAccuracy, None)
     AngularVelocity = property(get_AngularVelocity, None)
+    Orientation = property(get_Orientation, None)
+    Position = property(get_Position, None)
+    PositionAccuracy = property(get_PositionAccuracy, None)
     SourcePointerPose = property(get_SourcePointerPose, None)
+    Velocity = property(get_Velocity, None)
 class SpatialInteractionSourcePositionAccuracy(Int32):  # enum
     High = 0
     Approximate = 1
@@ -888,15 +888,15 @@ class SpatialInteractionSourceState(ComPtr):
     def get_ControllerProperties(self: win32more.Windows.UI.Input.Spatial.ISpatialInteractionSourceState2) -> win32more.Windows.UI.Input.Spatial.SpatialInteractionControllerProperties: ...
     @winrt_mixinmethod
     def TryGetHandPose(self: win32more.Windows.UI.Input.Spatial.ISpatialInteractionSourceState3) -> win32more.Windows.Perception.People.HandPose: ...
-    Source = property(get_Source, None)
-    Properties = property(get_Properties, None)
-    IsPressed = property(get_IsPressed, None)
-    Timestamp = property(get_Timestamp, None)
-    IsSelectPressed = property(get_IsSelectPressed, None)
-    IsMenuPressed = property(get_IsMenuPressed, None)
-    IsGrasped = property(get_IsGrasped, None)
-    SelectPressedValue = property(get_SelectPressedValue, None)
     ControllerProperties = property(get_ControllerProperties, None)
+    IsGrasped = property(get_IsGrasped, None)
+    IsMenuPressed = property(get_IsMenuPressed, None)
+    IsPressed = property(get_IsPressed, None)
+    IsSelectPressed = property(get_IsSelectPressed, None)
+    Properties = property(get_Properties, None)
+    SelectPressedValue = property(get_SelectPressedValue, None)
+    Source = property(get_Source, None)
+    Timestamp = property(get_Timestamp, None)
 class SpatialManipulationCanceledEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Input.Spatial.ISpatialManipulationCanceledEventArgs
@@ -997,11 +997,11 @@ class SpatialPointerInteractionSourcePose(ComPtr):
     def get_Orientation(self: win32more.Windows.UI.Input.Spatial.ISpatialPointerInteractionSourcePose2) -> win32more.Windows.Foundation.Numerics.Quaternion: ...
     @winrt_mixinmethod
     def get_PositionAccuracy(self: win32more.Windows.UI.Input.Spatial.ISpatialPointerInteractionSourcePose2) -> win32more.Windows.UI.Input.Spatial.SpatialInteractionSourcePositionAccuracy: ...
-    Position = property(get_Position, None)
     ForwardDirection = property(get_ForwardDirection, None)
-    UpDirection = property(get_UpDirection, None)
     Orientation = property(get_Orientation, None)
+    Position = property(get_Position, None)
     PositionAccuracy = property(get_PositionAccuracy, None)
+    UpDirection = property(get_UpDirection, None)
 class SpatialPointerPose(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Input.Spatial.ISpatialPointerPose
@@ -1018,10 +1018,10 @@ class SpatialPointerPose(ComPtr):
     def get_IsHeadCapturedBySystem(self: win32more.Windows.UI.Input.Spatial.ISpatialPointerPose3) -> Boolean: ...
     @winrt_classmethod
     def TryGetAtTimestamp(cls: win32more.Windows.UI.Input.Spatial.ISpatialPointerPoseStatics, coordinateSystem: win32more.Windows.Perception.Spatial.SpatialCoordinateSystem, timestamp: win32more.Windows.Perception.PerceptionTimestamp) -> win32more.Windows.UI.Input.Spatial.SpatialPointerPose: ...
-    Timestamp = property(get_Timestamp, None)
-    Head = property(get_Head, None)
     Eyes = property(get_Eyes, None)
+    Head = property(get_Head, None)
     IsHeadCapturedBySystem = property(get_IsHeadCapturedBySystem, None)
+    Timestamp = property(get_Timestamp, None)
 class SpatialRecognitionEndedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Input.Spatial.ISpatialRecognitionEndedEventArgs

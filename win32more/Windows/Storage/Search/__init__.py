@@ -199,15 +199,15 @@ class IQueryOptions(ComPtr):
     def SetThumbnailPrefetch(self, mode: win32more.Windows.Storage.FileProperties.ThumbnailMode, requestedSize: UInt32, options: win32more.Windows.Storage.FileProperties.ThumbnailOptions) -> Void: ...
     @winrt_commethod(23)
     def SetPropertyPrefetch(self, options: win32more.Windows.Storage.FileProperties.PropertyPrefetchOptions, propertiesToRetrieve: win32more.Windows.Foundation.Collections.IIterable[WinRT_String]) -> Void: ...
+    ApplicationSearchFilter = property(get_ApplicationSearchFilter, put_ApplicationSearchFilter)
+    DateStackOption = property(get_DateStackOption, None)
     FileTypeFilter = property(get_FileTypeFilter, None)
     FolderDepth = property(get_FolderDepth, put_FolderDepth)
-    ApplicationSearchFilter = property(get_ApplicationSearchFilter, put_ApplicationSearchFilter)
-    UserSearchFilter = property(get_UserSearchFilter, put_UserSearchFilter)
-    Language = property(get_Language, put_Language)
-    IndexerOption = property(get_IndexerOption, put_IndexerOption)
-    SortOrder = property(get_SortOrder, None)
     GroupPropertyName = property(get_GroupPropertyName, None)
-    DateStackOption = property(get_DateStackOption, None)
+    IndexerOption = property(get_IndexerOption, put_IndexerOption)
+    Language = property(get_Language, put_Language)
+    SortOrder = property(get_SortOrder, None)
+    UserSearchFilter = property(get_UserSearchFilter, put_UserSearchFilter)
 class IQueryOptionsFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Storage.Search.IQueryOptionsFactory'
@@ -299,8 +299,8 @@ class IStorageLibraryChangeTrackerTriggerDetails(ComPtr):
     def get_Folder(self) -> win32more.Windows.Storage.StorageFolder: ...
     @winrt_commethod(7)
     def get_ChangeTracker(self) -> win32more.Windows.Storage.StorageLibraryChangeTracker: ...
-    Folder = property(get_Folder, None)
     ChangeTracker = property(get_ChangeTracker, None)
+    Folder = property(get_Folder, None)
 class IStorageLibraryContentChangedTriggerDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Storage.Search.IStorageLibraryContentChangedTriggerDetails'
@@ -447,16 +447,16 @@ class QueryOptions(ComPtr):
     def SetPropertyPrefetch(self: win32more.Windows.Storage.Search.IQueryOptions, options: win32more.Windows.Storage.FileProperties.PropertyPrefetchOptions, propertiesToRetrieve: win32more.Windows.Foundation.Collections.IIterable[WinRT_String]) -> Void: ...
     @winrt_mixinmethod
     def get_StorageProviderIdFilter(self: win32more.Windows.Storage.Search.IQueryOptionsWithProviderFilter) -> win32more.Windows.Foundation.Collections.IVector[WinRT_String]: ...
+    ApplicationSearchFilter = property(get_ApplicationSearchFilter, put_ApplicationSearchFilter)
+    DateStackOption = property(get_DateStackOption, None)
     FileTypeFilter = property(get_FileTypeFilter, None)
     FolderDepth = property(get_FolderDepth, put_FolderDepth)
-    ApplicationSearchFilter = property(get_ApplicationSearchFilter, put_ApplicationSearchFilter)
-    UserSearchFilter = property(get_UserSearchFilter, put_UserSearchFilter)
-    Language = property(get_Language, put_Language)
-    IndexerOption = property(get_IndexerOption, put_IndexerOption)
-    SortOrder = property(get_SortOrder, None)
     GroupPropertyName = property(get_GroupPropertyName, None)
-    DateStackOption = property(get_DateStackOption, None)
+    IndexerOption = property(get_IndexerOption, put_IndexerOption)
+    Language = property(get_Language, put_Language)
+    SortOrder = property(get_SortOrder, None)
     StorageProviderIdFilter = property(get_StorageProviderIdFilter, None)
+    UserSearchFilter = property(get_UserSearchFilter, put_UserSearchFilter)
 class SortEntry(EasyCastStructure):
     PropertyName: WinRT_String
     AscendingOrder: Boolean
@@ -582,8 +582,8 @@ class StorageLibraryChangeTrackerTriggerDetails(ComPtr):
     def get_Folder(self: win32more.Windows.Storage.Search.IStorageLibraryChangeTrackerTriggerDetails) -> win32more.Windows.Storage.StorageFolder: ...
     @winrt_mixinmethod
     def get_ChangeTracker(self: win32more.Windows.Storage.Search.IStorageLibraryChangeTrackerTriggerDetails) -> win32more.Windows.Storage.StorageLibraryChangeTracker: ...
-    Folder = property(get_Folder, None)
     ChangeTracker = property(get_ChangeTracker, None)
+    Folder = property(get_Folder, None)
 class StorageLibraryContentChangedTriggerDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Storage.Search.IStorageLibraryContentChangedTriggerDetails

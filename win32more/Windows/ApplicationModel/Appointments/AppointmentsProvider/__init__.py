@@ -38,10 +38,10 @@ class AppointmentsProviderLaunchActionVerbs(ComPtr, metaclass=_AppointmentsProvi
     def get_RemoveAppointment(cls: win32more.Windows.ApplicationModel.Appointments.AppointmentsProvider.IAppointmentsProviderLaunchActionVerbsStatics) -> WinRT_String: ...
     @winrt_classmethod
     def get_ShowTimeFrame(cls: win32more.Windows.ApplicationModel.Appointments.AppointmentsProvider.IAppointmentsProviderLaunchActionVerbsStatics) -> WinRT_String: ...
-    _AppointmentsProviderLaunchActionVerbs_Meta_.ShowAppointmentDetails = property(get_ShowAppointmentDetails.__wrapped__, None)
     _AppointmentsProviderLaunchActionVerbs_Meta_.AddAppointment = property(get_AddAppointment.__wrapped__, None)
-    _AppointmentsProviderLaunchActionVerbs_Meta_.ReplaceAppointment = property(get_ReplaceAppointment.__wrapped__, None)
     _AppointmentsProviderLaunchActionVerbs_Meta_.RemoveAppointment = property(get_RemoveAppointment.__wrapped__, None)
+    _AppointmentsProviderLaunchActionVerbs_Meta_.ReplaceAppointment = property(get_ReplaceAppointment.__wrapped__, None)
+    _AppointmentsProviderLaunchActionVerbs_Meta_.ShowAppointmentDetails = property(get_ShowAppointmentDetails.__wrapped__, None)
     _AppointmentsProviderLaunchActionVerbs_Meta_.ShowTimeFrame = property(get_ShowTimeFrame.__wrapped__, None)
 class IAddAppointmentOperation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -74,8 +74,8 @@ class IAppointmentsProviderLaunchActionVerbsStatics(ComPtr):
     @winrt_commethod(9)
     def get_ShowTimeFrame(self) -> WinRT_String: ...
     AddAppointment = property(get_AddAppointment, None)
-    ReplaceAppointment = property(get_ReplaceAppointment, None)
     RemoveAppointment = property(get_RemoveAppointment, None)
+    ReplaceAppointment = property(get_ReplaceAppointment, None)
     ShowTimeFrame = property(get_ShowTimeFrame, None)
 class IAppointmentsProviderLaunchActionVerbsStatics2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable

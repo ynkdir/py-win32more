@@ -43,10 +43,10 @@ class IMediaTranscoder(ComPtr):
     def PrepareFileTranscodeAsync(self, source: win32more.Windows.Storage.IStorageFile, destination: win32more.Windows.Storage.IStorageFile, profile: win32more.Windows.Media.MediaProperties.MediaEncodingProfile) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Media.Transcoding.PrepareTranscodeResult]: ...
     @winrt_commethod(20)
     def PrepareStreamTranscodeAsync(self, source: win32more.Windows.Storage.Streams.IRandomAccessStream, destination: win32more.Windows.Storage.Streams.IRandomAccessStream, profile: win32more.Windows.Media.MediaProperties.MediaEncodingProfile) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Media.Transcoding.PrepareTranscodeResult]: ...
-    TrimStartTime = property(get_TrimStartTime, put_TrimStartTime)
-    TrimStopTime = property(get_TrimStopTime, put_TrimStopTime)
     AlwaysReencode = property(get_AlwaysReencode, put_AlwaysReencode)
     HardwareAccelerationEnabled = property(get_HardwareAccelerationEnabled, put_HardwareAccelerationEnabled)
+    TrimStartTime = property(get_TrimStartTime, put_TrimStartTime)
+    TrimStopTime = property(get_TrimStopTime, put_TrimStopTime)
 class IMediaTranscoder2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Transcoding.IMediaTranscoder2'
@@ -119,10 +119,10 @@ class MediaTranscoder(ComPtr):
     def put_VideoProcessingAlgorithm(self: win32more.Windows.Media.Transcoding.IMediaTranscoder2, value: win32more.Windows.Media.Transcoding.MediaVideoProcessingAlgorithm) -> Void: ...
     @winrt_mixinmethod
     def get_VideoProcessingAlgorithm(self: win32more.Windows.Media.Transcoding.IMediaTranscoder2) -> win32more.Windows.Media.Transcoding.MediaVideoProcessingAlgorithm: ...
-    TrimStartTime = property(get_TrimStartTime, put_TrimStartTime)
-    TrimStopTime = property(get_TrimStopTime, put_TrimStopTime)
     AlwaysReencode = property(get_AlwaysReencode, put_AlwaysReencode)
     HardwareAccelerationEnabled = property(get_HardwareAccelerationEnabled, put_HardwareAccelerationEnabled)
+    TrimStartTime = property(get_TrimStartTime, put_TrimStartTime)
+    TrimStopTime = property(get_TrimStopTime, put_TrimStopTime)
     VideoProcessingAlgorithm = property(get_VideoProcessingAlgorithm, put_VideoProcessingAlgorithm)
 class MediaVideoProcessingAlgorithm(Int32):  # enum
     Default = 0

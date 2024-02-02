@@ -19,9 +19,9 @@ class ILanguageFont(ComPtr):
     @winrt_commethod(10)
     def get_ScaleFactor(self) -> Double: ...
     FontFamily = property(get_FontFamily, None)
-    FontWeight = property(get_FontWeight, None)
     FontStretch = property(get_FontStretch, None)
     FontStyle = property(get_FontStyle, None)
+    FontWeight = property(get_FontWeight, None)
     ScaleFactor = property(get_ScaleFactor, None)
 class ILanguageFontGroup(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -49,17 +49,17 @@ class ILanguageFontGroup(ComPtr):
     def get_DocumentAlternate1Font(self) -> win32more.Windows.Globalization.Fonts.LanguageFont: ...
     @winrt_commethod(16)
     def get_DocumentAlternate2Font(self) -> win32more.Windows.Globalization.Fonts.LanguageFont: ...
-    UITextFont = property(get_UITextFont, None)
-    UIHeadingFont = property(get_UIHeadingFont, None)
-    UITitleFont = property(get_UITitleFont, None)
-    UICaptionFont = property(get_UICaptionFont, None)
-    UINotificationHeadingFont = property(get_UINotificationHeadingFont, None)
-    TraditionalDocumentFont = property(get_TraditionalDocumentFont, None)
-    ModernDocumentFont = property(get_ModernDocumentFont, None)
-    DocumentHeadingFont = property(get_DocumentHeadingFont, None)
-    FixedWidthTextFont = property(get_FixedWidthTextFont, None)
     DocumentAlternate1Font = property(get_DocumentAlternate1Font, None)
     DocumentAlternate2Font = property(get_DocumentAlternate2Font, None)
+    DocumentHeadingFont = property(get_DocumentHeadingFont, None)
+    FixedWidthTextFont = property(get_FixedWidthTextFont, None)
+    ModernDocumentFont = property(get_ModernDocumentFont, None)
+    TraditionalDocumentFont = property(get_TraditionalDocumentFont, None)
+    UICaptionFont = property(get_UICaptionFont, None)
+    UIHeadingFont = property(get_UIHeadingFont, None)
+    UINotificationHeadingFont = property(get_UINotificationHeadingFont, None)
+    UITextFont = property(get_UITextFont, None)
+    UITitleFont = property(get_UITitleFont, None)
 class ILanguageFontGroupFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Globalization.Fonts.ILanguageFontGroupFactory'
@@ -81,9 +81,9 @@ class LanguageFont(ComPtr):
     @winrt_mixinmethod
     def get_ScaleFactor(self: win32more.Windows.Globalization.Fonts.ILanguageFont) -> Double: ...
     FontFamily = property(get_FontFamily, None)
-    FontWeight = property(get_FontWeight, None)
     FontStretch = property(get_FontStretch, None)
     FontStyle = property(get_FontStyle, None)
+    FontWeight = property(get_FontWeight, None)
     ScaleFactor = property(get_ScaleFactor, None)
 class LanguageFontGroup(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -120,17 +120,17 @@ class LanguageFontGroup(ComPtr):
     def get_DocumentAlternate1Font(self: win32more.Windows.Globalization.Fonts.ILanguageFontGroup) -> win32more.Windows.Globalization.Fonts.LanguageFont: ...
     @winrt_mixinmethod
     def get_DocumentAlternate2Font(self: win32more.Windows.Globalization.Fonts.ILanguageFontGroup) -> win32more.Windows.Globalization.Fonts.LanguageFont: ...
-    UITextFont = property(get_UITextFont, None)
-    UIHeadingFont = property(get_UIHeadingFont, None)
-    UITitleFont = property(get_UITitleFont, None)
-    UICaptionFont = property(get_UICaptionFont, None)
-    UINotificationHeadingFont = property(get_UINotificationHeadingFont, None)
-    TraditionalDocumentFont = property(get_TraditionalDocumentFont, None)
-    ModernDocumentFont = property(get_ModernDocumentFont, None)
-    DocumentHeadingFont = property(get_DocumentHeadingFont, None)
-    FixedWidthTextFont = property(get_FixedWidthTextFont, None)
     DocumentAlternate1Font = property(get_DocumentAlternate1Font, None)
     DocumentAlternate2Font = property(get_DocumentAlternate2Font, None)
+    DocumentHeadingFont = property(get_DocumentHeadingFont, None)
+    FixedWidthTextFont = property(get_FixedWidthTextFont, None)
+    ModernDocumentFont = property(get_ModernDocumentFont, None)
+    TraditionalDocumentFont = property(get_TraditionalDocumentFont, None)
+    UICaptionFont = property(get_UICaptionFont, None)
+    UIHeadingFont = property(get_UIHeadingFont, None)
+    UINotificationHeadingFont = property(get_UINotificationHeadingFont, None)
+    UITextFont = property(get_UITextFont, None)
+    UITitleFont = property(get_UITitleFont, None)
 
 
 make_ready(__name__)

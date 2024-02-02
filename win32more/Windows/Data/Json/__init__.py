@@ -183,8 +183,8 @@ class JsonArray(ComPtr):
     def Parse(cls: win32more.Windows.Data.Json.IJsonArrayStatics, input: WinRT_String) -> win32more.Windows.Data.Json.JsonArray: ...
     @winrt_classmethod
     def TryParse(cls: win32more.Windows.Data.Json.IJsonArrayStatics, input: WinRT_String, result: POINTER(win32more.Windows.Data.Json.JsonArray)) -> Boolean: ...
-    ValueType = property(get_ValueType, None)
     Size = property(get_Size, None)
+    ValueType = property(get_ValueType, None)
 class JsonError(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Data.Json.JsonError'
@@ -271,8 +271,8 @@ class JsonObject(ComPtr):
     def Parse(cls: win32more.Windows.Data.Json.IJsonObjectStatics, input: WinRT_String) -> win32more.Windows.Data.Json.JsonObject: ...
     @winrt_classmethod
     def TryParse(cls: win32more.Windows.Data.Json.IJsonObjectStatics, input: WinRT_String, result: POINTER(win32more.Windows.Data.Json.JsonObject)) -> Boolean: ...
-    ValueType = property(get_ValueType, None)
     Size = property(get_Size, None)
+    ValueType = property(get_ValueType, None)
 class JsonValue(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Data.Json.IJsonValue

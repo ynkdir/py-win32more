@@ -19,8 +19,8 @@ class IPrintBindingOptionDetails(ComPtr):
     def put_Description(self, value: WinRT_String) -> Void: ...
     @winrt_commethod(9)
     def get_Description(self) -> WinRT_String: ...
-    WarningText = property(get_WarningText, put_WarningText)
     Description = property(get_Description, put_Description)
+    WarningText = property(get_WarningText, put_WarningText)
 class IPrintBorderingOptionDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintBorderingOptionDetails'
@@ -33,8 +33,8 @@ class IPrintBorderingOptionDetails(ComPtr):
     def put_Description(self, value: WinRT_String) -> Void: ...
     @winrt_commethod(9)
     def get_Description(self) -> WinRT_String: ...
-    WarningText = property(get_WarningText, put_WarningText)
     Description = property(get_Description, put_Description)
+    WarningText = property(get_WarningText, put_WarningText)
 class IPrintCollationOptionDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintCollationOptionDetails'
@@ -47,8 +47,8 @@ class IPrintCollationOptionDetails(ComPtr):
     def put_Description(self, value: WinRT_String) -> Void: ...
     @winrt_commethod(9)
     def get_Description(self) -> WinRT_String: ...
-    WarningText = property(get_WarningText, put_WarningText)
     Description = property(get_Description, put_Description)
+    WarningText = property(get_WarningText, put_WarningText)
 class IPrintColorModeOptionDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintColorModeOptionDetails'
@@ -61,8 +61,8 @@ class IPrintColorModeOptionDetails(ComPtr):
     def put_Description(self, value: WinRT_String) -> Void: ...
     @winrt_commethod(9)
     def get_Description(self) -> WinRT_String: ...
-    WarningText = property(get_WarningText, put_WarningText)
     Description = property(get_Description, put_Description)
+    WarningText = property(get_WarningText, put_WarningText)
 class IPrintCopiesOptionDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintCopiesOptionDetails'
@@ -75,8 +75,8 @@ class IPrintCopiesOptionDetails(ComPtr):
     def put_Description(self, value: WinRT_String) -> Void: ...
     @winrt_commethod(9)
     def get_Description(self) -> WinRT_String: ...
-    WarningText = property(get_WarningText, put_WarningText)
     Description = property(get_Description, put_Description)
+    WarningText = property(get_WarningText, put_WarningText)
 class IPrintCustomItemDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintCustomItemDetails'
@@ -87,8 +87,8 @@ class IPrintCustomItemDetails(ComPtr):
     def put_ItemDisplayName(self, value: WinRT_String) -> Void: ...
     @winrt_commethod(8)
     def get_ItemDisplayName(self) -> WinRT_String: ...
-    ItemId = property(get_ItemId, None)
     ItemDisplayName = property(get_ItemDisplayName, put_ItemDisplayName)
+    ItemId = property(get_ItemId, None)
 class IPrintCustomItemListOptionDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintCustomItemListOptionDetails'
@@ -113,8 +113,8 @@ class IPrintCustomItemListOptionDetails3(ComPtr):
     def put_Description(self, value: WinRT_String) -> Void: ...
     @winrt_commethod(9)
     def get_Description(self) -> WinRT_String: ...
-    WarningText = property(get_WarningText, put_WarningText)
     Description = property(get_Description, put_Description)
+    WarningText = property(get_WarningText, put_WarningText)
 class IPrintCustomOptionDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintCustomOptionDetails'
@@ -145,8 +145,8 @@ class IPrintCustomTextOptionDetails2(ComPtr):
     def put_Description(self, value: WinRT_String) -> Void: ...
     @winrt_commethod(9)
     def get_Description(self) -> WinRT_String: ...
-    WarningText = property(get_WarningText, put_WarningText)
     Description = property(get_Description, put_Description)
+    WarningText = property(get_WarningText, put_WarningText)
 class IPrintCustomToggleOptionDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintCustomToggleOptionDetails'
@@ -159,8 +159,8 @@ class IPrintCustomToggleOptionDetails(ComPtr):
     def put_Description(self, value: WinRT_String) -> Void: ...
     @winrt_commethod(9)
     def get_Description(self) -> WinRT_String: ...
-    WarningText = property(get_WarningText, put_WarningText)
     Description = property(get_Description, put_Description)
+    WarningText = property(get_WarningText, put_WarningText)
 class IPrintDuplexOptionDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintDuplexOptionDetails'
@@ -173,8 +173,8 @@ class IPrintDuplexOptionDetails(ComPtr):
     def put_Description(self, value: WinRT_String) -> Void: ...
     @winrt_commethod(9)
     def get_Description(self) -> WinRT_String: ...
-    WarningText = property(get_WarningText, put_WarningText)
     Description = property(get_Description, put_Description)
+    WarningText = property(get_WarningText, put_WarningText)
 class IPrintHolePunchOptionDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintHolePunchOptionDetails'
@@ -187,8 +187,8 @@ class IPrintHolePunchOptionDetails(ComPtr):
     def put_Description(self, value: WinRT_String) -> Void: ...
     @winrt_commethod(9)
     def get_Description(self) -> WinRT_String: ...
-    WarningText = property(get_WarningText, put_WarningText)
     Description = property(get_Description, put_Description)
+    WarningText = property(get_WarningText, put_WarningText)
 class IPrintItemListOptionDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintItemListOptionDetails'
@@ -208,8 +208,8 @@ class IPrintMediaSizeOptionDetails(ComPtr):
     def put_Description(self, value: WinRT_String) -> Void: ...
     @winrt_commethod(9)
     def get_Description(self) -> WinRT_String: ...
-    WarningText = property(get_WarningText, put_WarningText)
     Description = property(get_Description, put_Description)
+    WarningText = property(get_WarningText, put_WarningText)
 class IPrintMediaTypeOptionDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintMediaTypeOptionDetails'
@@ -222,8 +222,8 @@ class IPrintMediaTypeOptionDetails(ComPtr):
     def put_Description(self, value: WinRT_String) -> Void: ...
     @winrt_commethod(9)
     def get_Description(self) -> WinRT_String: ...
-    WarningText = property(get_WarningText, put_WarningText)
     Description = property(get_Description, put_Description)
+    WarningText = property(get_WarningText, put_WarningText)
 class IPrintNumberOptionDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintNumberOptionDetails'
@@ -232,8 +232,8 @@ class IPrintNumberOptionDetails(ComPtr):
     def get_MinValue(self) -> UInt32: ...
     @winrt_commethod(7)
     def get_MaxValue(self) -> UInt32: ...
-    MinValue = property(get_MinValue, None)
     MaxValue = property(get_MaxValue, None)
+    MinValue = property(get_MinValue, None)
 class IPrintOptionDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails'
@@ -254,9 +254,9 @@ class IPrintOptionDetails(ComPtr):
     def get_Value(self) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_commethod(13)
     def TrySetValue(self, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Boolean: ...
+    ErrorText = property(get_ErrorText, put_ErrorText)
     OptionId = property(get_OptionId, None)
     OptionType = property(get_OptionType, None)
-    ErrorText = property(get_ErrorText, put_ErrorText)
     State = property(get_State, put_State)
     Value = property(get_Value, None)
 class IPrintOrientationOptionDetails(ComPtr):
@@ -271,8 +271,8 @@ class IPrintOrientationOptionDetails(ComPtr):
     def put_Description(self, value: WinRT_String) -> Void: ...
     @winrt_commethod(9)
     def get_Description(self) -> WinRT_String: ...
-    WarningText = property(get_WarningText, put_WarningText)
     Description = property(get_Description, put_Description)
+    WarningText = property(get_WarningText, put_WarningText)
 class IPrintPageRangeOptionDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintPageRangeOptionDetails'
@@ -285,8 +285,8 @@ class IPrintPageRangeOptionDetails(ComPtr):
     def put_Description(self, value: WinRT_String) -> Void: ...
     @winrt_commethod(9)
     def get_Description(self) -> WinRT_String: ...
-    WarningText = property(get_WarningText, put_WarningText)
     Description = property(get_Description, put_Description)
+    WarningText = property(get_WarningText, put_WarningText)
 class IPrintQualityOptionDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintQualityOptionDetails'
@@ -299,8 +299,8 @@ class IPrintQualityOptionDetails(ComPtr):
     def put_Description(self, value: WinRT_String) -> Void: ...
     @winrt_commethod(9)
     def get_Description(self) -> WinRT_String: ...
-    WarningText = property(get_WarningText, put_WarningText)
     Description = property(get_Description, put_Description)
+    WarningText = property(get_WarningText, put_WarningText)
 class IPrintStapleOptionDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintStapleOptionDetails'
@@ -313,8 +313,8 @@ class IPrintStapleOptionDetails(ComPtr):
     def put_Description(self, value: WinRT_String) -> Void: ...
     @winrt_commethod(9)
     def get_Description(self) -> WinRT_String: ...
-    WarningText = property(get_WarningText, put_WarningText)
     Description = property(get_Description, put_Description)
+    WarningText = property(get_WarningText, put_WarningText)
 class IPrintTaskOptionChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintTaskOptionChangedEventArgs'
@@ -390,14 +390,14 @@ class PrintBindingOptionDetails(ComPtr):
     def put_Description(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintBindingOptionDetails, value: WinRT_String) -> Void: ...
     @winrt_mixinmethod
     def get_Description(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintBindingOptionDetails) -> WinRT_String: ...
+    Description = property(get_Description, put_Description)
+    ErrorText = property(get_ErrorText, put_ErrorText)
+    Items = property(get_Items, None)
     OptionId = property(get_OptionId, None)
     OptionType = property(get_OptionType, None)
-    ErrorText = property(get_ErrorText, put_ErrorText)
     State = property(get_State, put_State)
     Value = property(get_Value, None)
-    Items = property(get_Items, None)
     WarningText = property(get_WarningText, put_WarningText)
-    Description = property(get_Description, put_Description)
 class PrintBorderingOptionDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails
@@ -428,14 +428,14 @@ class PrintBorderingOptionDetails(ComPtr):
     def put_Description(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintBorderingOptionDetails, value: WinRT_String) -> Void: ...
     @winrt_mixinmethod
     def get_Description(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintBorderingOptionDetails) -> WinRT_String: ...
+    Description = property(get_Description, put_Description)
+    ErrorText = property(get_ErrorText, put_ErrorText)
+    Items = property(get_Items, None)
     OptionId = property(get_OptionId, None)
     OptionType = property(get_OptionType, None)
-    ErrorText = property(get_ErrorText, put_ErrorText)
     State = property(get_State, put_State)
     Value = property(get_Value, None)
-    Items = property(get_Items, None)
     WarningText = property(get_WarningText, put_WarningText)
-    Description = property(get_Description, put_Description)
 class PrintCollationOptionDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails
@@ -466,14 +466,14 @@ class PrintCollationOptionDetails(ComPtr):
     def put_Description(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintCollationOptionDetails, value: WinRT_String) -> Void: ...
     @winrt_mixinmethod
     def get_Description(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintCollationOptionDetails) -> WinRT_String: ...
+    Description = property(get_Description, put_Description)
+    ErrorText = property(get_ErrorText, put_ErrorText)
+    Items = property(get_Items, None)
     OptionId = property(get_OptionId, None)
     OptionType = property(get_OptionType, None)
-    ErrorText = property(get_ErrorText, put_ErrorText)
     State = property(get_State, put_State)
     Value = property(get_Value, None)
-    Items = property(get_Items, None)
     WarningText = property(get_WarningText, put_WarningText)
-    Description = property(get_Description, put_Description)
 class PrintColorModeOptionDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails
@@ -504,14 +504,14 @@ class PrintColorModeOptionDetails(ComPtr):
     def put_Description(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintColorModeOptionDetails, value: WinRT_String) -> Void: ...
     @winrt_mixinmethod
     def get_Description(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintColorModeOptionDetails) -> WinRT_String: ...
+    Description = property(get_Description, put_Description)
+    ErrorText = property(get_ErrorText, put_ErrorText)
+    Items = property(get_Items, None)
     OptionId = property(get_OptionId, None)
     OptionType = property(get_OptionType, None)
-    ErrorText = property(get_ErrorText, put_ErrorText)
     State = property(get_State, put_State)
     Value = property(get_Value, None)
-    Items = property(get_Items, None)
     WarningText = property(get_WarningText, put_WarningText)
-    Description = property(get_Description, put_Description)
 class PrintCopiesOptionDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails
@@ -544,15 +544,15 @@ class PrintCopiesOptionDetails(ComPtr):
     def put_Description(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintCopiesOptionDetails, value: WinRT_String) -> Void: ...
     @winrt_mixinmethod
     def get_Description(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintCopiesOptionDetails) -> WinRT_String: ...
+    Description = property(get_Description, put_Description)
+    ErrorText = property(get_ErrorText, put_ErrorText)
+    MaxValue = property(get_MaxValue, None)
+    MinValue = property(get_MinValue, None)
     OptionId = property(get_OptionId, None)
     OptionType = property(get_OptionType, None)
-    ErrorText = property(get_ErrorText, put_ErrorText)
     State = property(get_State, put_State)
     Value = property(get_Value, None)
-    MinValue = property(get_MinValue, None)
-    MaxValue = property(get_MaxValue, None)
     WarningText = property(get_WarningText, put_WarningText)
-    Description = property(get_Description, put_Description)
 class PrintCustomItemDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing.OptionDetails.IPrintCustomItemDetails
@@ -563,8 +563,8 @@ class PrintCustomItemDetails(ComPtr):
     def put_ItemDisplayName(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintCustomItemDetails, value: WinRT_String) -> Void: ...
     @winrt_mixinmethod
     def get_ItemDisplayName(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintCustomItemDetails) -> WinRT_String: ...
-    ItemId = property(get_ItemId, None)
     ItemDisplayName = property(get_ItemDisplayName, put_ItemDisplayName)
+    ItemId = property(get_ItemId, None)
 class PrintCustomItemListOptionDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails
@@ -605,15 +605,15 @@ class PrintCustomItemListOptionDetails(ComPtr):
     def put_Description(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintCustomItemListOptionDetails3, value: WinRT_String) -> Void: ...
     @winrt_mixinmethod
     def get_Description(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintCustomItemListOptionDetails3) -> WinRT_String: ...
+    Description = property(get_Description, put_Description)
+    DisplayName = property(get_DisplayName, put_DisplayName)
+    ErrorText = property(get_ErrorText, put_ErrorText)
+    Items = property(get_Items, None)
     OptionId = property(get_OptionId, None)
     OptionType = property(get_OptionType, None)
-    ErrorText = property(get_ErrorText, put_ErrorText)
     State = property(get_State, put_State)
     Value = property(get_Value, None)
-    DisplayName = property(get_DisplayName, put_DisplayName)
-    Items = property(get_Items, None)
     WarningText = property(get_WarningText, put_WarningText)
-    Description = property(get_Description, put_Description)
 class PrintCustomTextOptionDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails
@@ -650,15 +650,15 @@ class PrintCustomTextOptionDetails(ComPtr):
     def put_Description(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintCustomTextOptionDetails2, value: WinRT_String) -> Void: ...
     @winrt_mixinmethod
     def get_Description(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintCustomTextOptionDetails2) -> WinRT_String: ...
+    Description = property(get_Description, put_Description)
+    DisplayName = property(get_DisplayName, put_DisplayName)
+    ErrorText = property(get_ErrorText, put_ErrorText)
+    MaxCharacters = property(get_MaxCharacters, put_MaxCharacters)
     OptionId = property(get_OptionId, None)
     OptionType = property(get_OptionType, None)
-    ErrorText = property(get_ErrorText, put_ErrorText)
     State = property(get_State, put_State)
     Value = property(get_Value, None)
-    DisplayName = property(get_DisplayName, put_DisplayName)
-    MaxCharacters = property(get_MaxCharacters, put_MaxCharacters)
     WarningText = property(get_WarningText, put_WarningText)
-    Description = property(get_Description, put_Description)
 class PrintCustomToggleOptionDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails
@@ -691,14 +691,14 @@ class PrintCustomToggleOptionDetails(ComPtr):
     def put_Description(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintCustomToggleOptionDetails, value: WinRT_String) -> Void: ...
     @winrt_mixinmethod
     def get_Description(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintCustomToggleOptionDetails) -> WinRT_String: ...
+    Description = property(get_Description, put_Description)
+    DisplayName = property(get_DisplayName, put_DisplayName)
+    ErrorText = property(get_ErrorText, put_ErrorText)
     OptionId = property(get_OptionId, None)
     OptionType = property(get_OptionType, None)
-    ErrorText = property(get_ErrorText, put_ErrorText)
     State = property(get_State, put_State)
     Value = property(get_Value, None)
-    DisplayName = property(get_DisplayName, put_DisplayName)
     WarningText = property(get_WarningText, put_WarningText)
-    Description = property(get_Description, put_Description)
 class PrintDuplexOptionDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails
@@ -729,14 +729,14 @@ class PrintDuplexOptionDetails(ComPtr):
     def put_Description(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintDuplexOptionDetails, value: WinRT_String) -> Void: ...
     @winrt_mixinmethod
     def get_Description(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintDuplexOptionDetails) -> WinRT_String: ...
+    Description = property(get_Description, put_Description)
+    ErrorText = property(get_ErrorText, put_ErrorText)
+    Items = property(get_Items, None)
     OptionId = property(get_OptionId, None)
     OptionType = property(get_OptionType, None)
-    ErrorText = property(get_ErrorText, put_ErrorText)
     State = property(get_State, put_State)
     Value = property(get_Value, None)
-    Items = property(get_Items, None)
     WarningText = property(get_WarningText, put_WarningText)
-    Description = property(get_Description, put_Description)
 class PrintHolePunchOptionDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails
@@ -767,14 +767,14 @@ class PrintHolePunchOptionDetails(ComPtr):
     def put_Description(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintHolePunchOptionDetails, value: WinRT_String) -> Void: ...
     @winrt_mixinmethod
     def get_Description(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintHolePunchOptionDetails) -> WinRT_String: ...
+    Description = property(get_Description, put_Description)
+    ErrorText = property(get_ErrorText, put_ErrorText)
+    Items = property(get_Items, None)
     OptionId = property(get_OptionId, None)
     OptionType = property(get_OptionType, None)
-    ErrorText = property(get_ErrorText, put_ErrorText)
     State = property(get_State, put_State)
     Value = property(get_Value, None)
-    Items = property(get_Items, None)
     WarningText = property(get_WarningText, put_WarningText)
-    Description = property(get_Description, put_Description)
 class PrintMediaSizeOptionDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails
@@ -805,14 +805,14 @@ class PrintMediaSizeOptionDetails(ComPtr):
     def put_Description(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintMediaSizeOptionDetails, value: WinRT_String) -> Void: ...
     @winrt_mixinmethod
     def get_Description(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintMediaSizeOptionDetails) -> WinRT_String: ...
+    Description = property(get_Description, put_Description)
+    ErrorText = property(get_ErrorText, put_ErrorText)
+    Items = property(get_Items, None)
     OptionId = property(get_OptionId, None)
     OptionType = property(get_OptionType, None)
-    ErrorText = property(get_ErrorText, put_ErrorText)
     State = property(get_State, put_State)
     Value = property(get_Value, None)
-    Items = property(get_Items, None)
     WarningText = property(get_WarningText, put_WarningText)
-    Description = property(get_Description, put_Description)
 class PrintMediaTypeOptionDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails
@@ -843,14 +843,14 @@ class PrintMediaTypeOptionDetails(ComPtr):
     def put_Description(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintMediaTypeOptionDetails, value: WinRT_String) -> Void: ...
     @winrt_mixinmethod
     def get_Description(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintMediaTypeOptionDetails) -> WinRT_String: ...
+    Description = property(get_Description, put_Description)
+    ErrorText = property(get_ErrorText, put_ErrorText)
+    Items = property(get_Items, None)
     OptionId = property(get_OptionId, None)
     OptionType = property(get_OptionType, None)
-    ErrorText = property(get_ErrorText, put_ErrorText)
     State = property(get_State, put_State)
     Value = property(get_Value, None)
-    Items = property(get_Items, None)
     WarningText = property(get_WarningText, put_WarningText)
-    Description = property(get_Description, put_Description)
 class PrintOptionStates(UInt32):  # enum
     None_ = 0
     Enabled = 1
@@ -891,14 +891,14 @@ class PrintOrientationOptionDetails(ComPtr):
     def put_Description(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOrientationOptionDetails, value: WinRT_String) -> Void: ...
     @winrt_mixinmethod
     def get_Description(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOrientationOptionDetails) -> WinRT_String: ...
+    Description = property(get_Description, put_Description)
+    ErrorText = property(get_ErrorText, put_ErrorText)
+    Items = property(get_Items, None)
     OptionId = property(get_OptionId, None)
     OptionType = property(get_OptionType, None)
-    ErrorText = property(get_ErrorText, put_ErrorText)
     State = property(get_State, put_State)
     Value = property(get_Value, None)
-    Items = property(get_Items, None)
     WarningText = property(get_WarningText, put_WarningText)
-    Description = property(get_Description, put_Description)
 class PrintPageRangeOptionDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails
@@ -927,13 +927,13 @@ class PrintPageRangeOptionDetails(ComPtr):
     def put_Description(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintPageRangeOptionDetails, value: WinRT_String) -> Void: ...
     @winrt_mixinmethod
     def get_Description(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintPageRangeOptionDetails) -> WinRT_String: ...
+    Description = property(get_Description, put_Description)
+    ErrorText = property(get_ErrorText, put_ErrorText)
     OptionId = property(get_OptionId, None)
     OptionType = property(get_OptionType, None)
-    ErrorText = property(get_ErrorText, put_ErrorText)
     State = property(get_State, put_State)
     Value = property(get_Value, None)
     WarningText = property(get_WarningText, put_WarningText)
-    Description = property(get_Description, put_Description)
 class PrintQualityOptionDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails
@@ -964,14 +964,14 @@ class PrintQualityOptionDetails(ComPtr):
     def put_Description(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintQualityOptionDetails, value: WinRT_String) -> Void: ...
     @winrt_mixinmethod
     def get_Description(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintQualityOptionDetails) -> WinRT_String: ...
+    Description = property(get_Description, put_Description)
+    ErrorText = property(get_ErrorText, put_ErrorText)
+    Items = property(get_Items, None)
     OptionId = property(get_OptionId, None)
     OptionType = property(get_OptionType, None)
-    ErrorText = property(get_ErrorText, put_ErrorText)
     State = property(get_State, put_State)
     Value = property(get_Value, None)
-    Items = property(get_Items, None)
     WarningText = property(get_WarningText, put_WarningText)
-    Description = property(get_Description, put_Description)
 class PrintStapleOptionDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails
@@ -1002,14 +1002,14 @@ class PrintStapleOptionDetails(ComPtr):
     def put_Description(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintStapleOptionDetails, value: WinRT_String) -> Void: ...
     @winrt_mixinmethod
     def get_Description(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintStapleOptionDetails) -> WinRT_String: ...
+    Description = property(get_Description, put_Description)
+    ErrorText = property(get_ErrorText, put_ErrorText)
+    Items = property(get_Items, None)
     OptionId = property(get_OptionId, None)
     OptionType = property(get_OptionType, None)
-    ErrorText = property(get_ErrorText, put_ErrorText)
     State = property(get_State, put_State)
     Value = property(get_Value, None)
-    Items = property(get_Items, None)
     WarningText = property(get_WarningText, put_WarningText)
-    Description = property(get_Description, put_Description)
 class PrintTaskOptionChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing.OptionDetails.IPrintTaskOptionChangedEventArgs
@@ -1043,8 +1043,8 @@ class PrintTaskOptionDetails(ComPtr):
     def CreateToggleOption(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintTaskOptionDetails2, optionId: WinRT_String, displayName: WinRT_String) -> win32more.Windows.Graphics.Printing.OptionDetails.PrintCustomToggleOptionDetails: ...
     @winrt_classmethod
     def GetFromPrintTaskOptions(cls: win32more.Windows.Graphics.Printing.OptionDetails.IPrintTaskOptionDetailsStatic, printTaskOptions: win32more.Windows.Graphics.Printing.PrintTaskOptions) -> win32more.Windows.Graphics.Printing.OptionDetails.PrintTaskOptionDetails: ...
-    Options = property(get_Options, None)
     DisplayedOptions = property(get_DisplayedOptions, None)
+    Options = property(get_Options, None)
 
 
 make_ready(__name__)

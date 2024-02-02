@@ -30,8 +30,8 @@ class IOcrEngineStatics(ComPtr):
     def TryCreateFromLanguage(self, language: win32more.Windows.Globalization.Language) -> win32more.Windows.Media.Ocr.OcrEngine: ...
     @winrt_commethod(10)
     def TryCreateFromUserProfileLanguages(self) -> win32more.Windows.Media.Ocr.OcrEngine: ...
-    MaxImageDimension = property(get_MaxImageDimension, None)
     AvailableRecognizerLanguages = property(get_AvailableRecognizerLanguages, None)
+    MaxImageDimension = property(get_MaxImageDimension, None)
 class IOcrLine(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Ocr.IOcrLine'
@@ -40,8 +40,8 @@ class IOcrLine(ComPtr):
     def get_Words(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Media.Ocr.OcrWord]: ...
     @winrt_commethod(7)
     def get_Text(self) -> WinRT_String: ...
-    Words = property(get_Words, None)
     Text = property(get_Text, None)
+    Words = property(get_Words, None)
 class IOcrResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Ocr.IOcrResult'
@@ -53,8 +53,8 @@ class IOcrResult(ComPtr):
     @winrt_commethod(8)
     def get_Text(self) -> WinRT_String: ...
     Lines = property(get_Lines, None)
-    TextAngle = property(get_TextAngle, None)
     Text = property(get_Text, None)
+    TextAngle = property(get_TextAngle, None)
 class IOcrWord(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Ocr.IOcrWord'
@@ -86,8 +86,8 @@ class OcrEngine(ComPtr, metaclass=_OcrEngine_Meta_):
     @winrt_classmethod
     def TryCreateFromUserProfileLanguages(cls: win32more.Windows.Media.Ocr.IOcrEngineStatics) -> win32more.Windows.Media.Ocr.OcrEngine: ...
     RecognizerLanguage = property(get_RecognizerLanguage, None)
-    _OcrEngine_Meta_.MaxImageDimension = property(get_MaxImageDimension.__wrapped__, None)
     _OcrEngine_Meta_.AvailableRecognizerLanguages = property(get_AvailableRecognizerLanguages.__wrapped__, None)
+    _OcrEngine_Meta_.MaxImageDimension = property(get_MaxImageDimension.__wrapped__, None)
 class OcrLine(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Ocr.IOcrLine
@@ -96,8 +96,8 @@ class OcrLine(ComPtr):
     def get_Words(self: win32more.Windows.Media.Ocr.IOcrLine) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Media.Ocr.OcrWord]: ...
     @winrt_mixinmethod
     def get_Text(self: win32more.Windows.Media.Ocr.IOcrLine) -> WinRT_String: ...
-    Words = property(get_Words, None)
     Text = property(get_Text, None)
+    Words = property(get_Words, None)
 class OcrResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Ocr.IOcrResult
@@ -109,8 +109,8 @@ class OcrResult(ComPtr):
     @winrt_mixinmethod
     def get_Text(self: win32more.Windows.Media.Ocr.IOcrResult) -> WinRT_String: ...
     Lines = property(get_Lines, None)
-    TextAngle = property(get_TextAngle, None)
     Text = property(get_Text, None)
+    TextAngle = property(get_TextAngle, None)
 class OcrWord(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Ocr.IOcrWord

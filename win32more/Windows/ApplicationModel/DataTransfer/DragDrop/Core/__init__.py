@@ -34,10 +34,10 @@ class CoreDragInfo(ComPtr):
     def get_Position(self: win32more.Windows.ApplicationModel.DataTransfer.DragDrop.Core.ICoreDragInfo) -> win32more.Windows.Foundation.Point: ...
     @winrt_mixinmethod
     def get_AllowedOperations(self: win32more.Windows.ApplicationModel.DataTransfer.DragDrop.Core.ICoreDragInfo2) -> win32more.Windows.ApplicationModel.DataTransfer.DataPackageOperation: ...
+    AllowedOperations = property(get_AllowedOperations, None)
     Data = property(get_Data, None)
     Modifiers = property(get_Modifiers, None)
     Position = property(get_Position, None)
-    AllowedOperations = property(get_AllowedOperations, None)
 class CoreDragOperation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.DataTransfer.DragDrop.Core.ICoreDragOperation
@@ -69,9 +69,9 @@ class CoreDragOperation(ComPtr):
     def get_AllowedOperations(self: win32more.Windows.ApplicationModel.DataTransfer.DragDrop.Core.ICoreDragOperation2) -> win32more.Windows.ApplicationModel.DataTransfer.DataPackageOperation: ...
     @winrt_mixinmethod
     def put_AllowedOperations(self: win32more.Windows.ApplicationModel.DataTransfer.DragDrop.Core.ICoreDragOperation2, value: win32more.Windows.ApplicationModel.DataTransfer.DataPackageOperation) -> Void: ...
+    AllowedOperations = property(get_AllowedOperations, put_AllowedOperations)
     Data = property(get_Data, None)
     DragUIContentMode = property(get_DragUIContentMode, put_DragUIContentMode)
-    AllowedOperations = property(get_AllowedOperations, put_AllowedOperations)
 class CoreDragUIContentMode(UInt32):  # enum
     Auto = 0
     Deferred = 1
@@ -101,9 +101,9 @@ class CoreDragUIOverride(ComPtr):
     def put_IsGlyphVisible(self: win32more.Windows.ApplicationModel.DataTransfer.DragDrop.Core.ICoreDragUIOverride, value: Boolean) -> Void: ...
     @winrt_mixinmethod
     def Clear(self: win32more.Windows.ApplicationModel.DataTransfer.DragDrop.Core.ICoreDragUIOverride) -> Void: ...
-    IsContentVisible = property(get_IsContentVisible, put_IsContentVisible)
     Caption = property(get_Caption, put_Caption)
     IsCaptionVisible = property(get_IsCaptionVisible, put_IsCaptionVisible)
+    IsContentVisible = property(get_IsContentVisible, put_IsContentVisible)
     IsGlyphVisible = property(get_IsGlyphVisible, put_IsGlyphVisible)
 class CoreDropOperationTargetRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -205,9 +205,9 @@ class ICoreDragUIOverride(ComPtr):
     def put_IsGlyphVisible(self, value: Boolean) -> Void: ...
     @winrt_commethod(16)
     def Clear(self) -> Void: ...
-    IsContentVisible = property(get_IsContentVisible, put_IsContentVisible)
     Caption = property(get_Caption, put_Caption)
     IsCaptionVisible = property(get_IsCaptionVisible, put_IsCaptionVisible)
+    IsContentVisible = property(get_IsContentVisible, put_IsContentVisible)
     IsGlyphVisible = property(get_IsGlyphVisible, put_IsGlyphVisible)
 class ICoreDropOperationTarget(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable

@@ -58,10 +58,10 @@ class DesignerAppView(ComPtr):
     def UpdateViewAsync(self: win32more.Windows.UI.Xaml.Hosting.IDesignerAppView, viewState: win32more.Windows.UI.Xaml.Hosting.DesignerAppViewState, viewSize: win32more.Windows.Foundation.Size) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
-    ApplicationViewId = property(get_ApplicationViewId, None)
     AppUserModelId = property(get_AppUserModelId, None)
-    ViewState = property(get_ViewState, None)
+    ApplicationViewId = property(get_ApplicationViewId, None)
     ViewSize = property(get_ViewSize, None)
+    ViewState = property(get_ViewState, None)
 class DesignerAppViewState(Int32):  # enum
     Visible = 0
     Hidden = 1
@@ -179,10 +179,10 @@ class IDesignerAppView(ComPtr):
     def get_ViewSize(self) -> win32more.Windows.Foundation.Size: ...
     @winrt_commethod(10)
     def UpdateViewAsync(self, viewState: win32more.Windows.UI.Xaml.Hosting.DesignerAppViewState, viewSize: win32more.Windows.Foundation.Size) -> win32more.Windows.Foundation.IAsyncAction: ...
-    ApplicationViewId = property(get_ApplicationViewId, None)
     AppUserModelId = property(get_AppUserModelId, None)
-    ViewState = property(get_ViewState, None)
+    ApplicationViewId = property(get_ApplicationViewId, None)
     ViewSize = property(get_ViewSize, None)
+    ViewState = property(get_ViewState, None)
 class IDesktopWindowXamlSource(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Hosting.IDesktopWindowXamlSource'
@@ -281,9 +281,9 @@ class IXamlSourceFocusNavigationRequest(ComPtr):
     def get_HintRect(self) -> win32more.Windows.Foundation.Rect: ...
     @winrt_commethod(8)
     def get_CorrelationId(self) -> Guid: ...
-    Reason = property(get_Reason, None)
-    HintRect = property(get_HintRect, None)
     CorrelationId = property(get_CorrelationId, None)
+    HintRect = property(get_HintRect, None)
+    Reason = property(get_Reason, None)
 class IXamlSourceFocusNavigationRequestFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Hosting.IXamlSourceFocusNavigationRequestFactory'
@@ -415,9 +415,9 @@ class XamlSourceFocusNavigationRequest(ComPtr):
     def get_HintRect(self: win32more.Windows.UI.Xaml.Hosting.IXamlSourceFocusNavigationRequest) -> win32more.Windows.Foundation.Rect: ...
     @winrt_mixinmethod
     def get_CorrelationId(self: win32more.Windows.UI.Xaml.Hosting.IXamlSourceFocusNavigationRequest) -> Guid: ...
-    Reason = property(get_Reason, None)
-    HintRect = property(get_HintRect, None)
     CorrelationId = property(get_CorrelationId, None)
+    HintRect = property(get_HintRect, None)
+    Reason = property(get_Reason, None)
 class XamlSourceFocusNavigationResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Hosting.IXamlSourceFocusNavigationResult

@@ -29,9 +29,9 @@ class AnimationDescription(ComPtr):
     @winrt_mixinmethod
     def get_ZOrder(self: win32more.Windows.UI.Core.AnimationMetrics.IAnimationDescription) -> Int32: ...
     Animations = property(get_Animations, None)
+    DelayLimit = property(get_DelayLimit, None)
     StaggerDelay = property(get_StaggerDelay, None)
     StaggerDelayFactor = property(get_StaggerDelayFactor, None)
-    DelayLimit = property(get_DelayLimit, None)
     ZOrder = property(get_ZOrder, None)
 class AnimationEffect(Int32):  # enum
     Expand = 0
@@ -107,9 +107,9 @@ class IAnimationDescription(ComPtr):
     @winrt_commethod(10)
     def get_ZOrder(self) -> Int32: ...
     Animations = property(get_Animations, None)
+    DelayLimit = property(get_DelayLimit, None)
     StaggerDelay = property(get_StaggerDelay, None)
     StaggerDelayFactor = property(get_StaggerDelayFactor, None)
-    DelayLimit = property(get_DelayLimit, None)
     ZOrder = property(get_ZOrder, None)
 class IAnimationDescriptionFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -125,8 +125,8 @@ class IOpacityAnimation(ComPtr):
     def get_InitialOpacity(self) -> win32more.Windows.Foundation.IReference[Single]: ...
     @winrt_commethod(7)
     def get_FinalOpacity(self) -> Single: ...
-    InitialOpacity = property(get_InitialOpacity, None)
     FinalOpacity = property(get_FinalOpacity, None)
+    InitialOpacity = property(get_InitialOpacity, None)
 class IPropertyAnimation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Core.AnimationMetrics.IPropertyAnimation'
@@ -141,11 +141,11 @@ class IPropertyAnimation(ComPtr):
     def get_Control1(self) -> win32more.Windows.Foundation.Point: ...
     @winrt_commethod(10)
     def get_Control2(self) -> win32more.Windows.Foundation.Point: ...
-    Type = property(get_Type, None)
-    Delay = property(get_Delay, None)
-    Duration = property(get_Duration, None)
     Control1 = property(get_Control1, None)
     Control2 = property(get_Control2, None)
+    Delay = property(get_Delay, None)
+    Duration = property(get_Duration, None)
+    Type = property(get_Type, None)
 class IScaleAnimation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Core.AnimationMetrics.IScaleAnimation'
@@ -160,10 +160,10 @@ class IScaleAnimation(ComPtr):
     def get_FinalScaleY(self) -> Single: ...
     @winrt_commethod(10)
     def get_NormalizedOrigin(self) -> win32more.Windows.Foundation.Point: ...
-    InitialScaleX = property(get_InitialScaleX, None)
-    InitialScaleY = property(get_InitialScaleY, None)
     FinalScaleX = property(get_FinalScaleX, None)
     FinalScaleY = property(get_FinalScaleY, None)
+    InitialScaleX = property(get_InitialScaleX, None)
+    InitialScaleY = property(get_InitialScaleY, None)
     NormalizedOrigin = property(get_NormalizedOrigin, None)
 class OpacityAnimation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -183,13 +183,13 @@ class OpacityAnimation(ComPtr):
     def get_Control1(self: win32more.Windows.UI.Core.AnimationMetrics.IPropertyAnimation) -> win32more.Windows.Foundation.Point: ...
     @winrt_mixinmethod
     def get_Control2(self: win32more.Windows.UI.Core.AnimationMetrics.IPropertyAnimation) -> win32more.Windows.Foundation.Point: ...
-    InitialOpacity = property(get_InitialOpacity, None)
-    FinalOpacity = property(get_FinalOpacity, None)
-    Type = property(get_Type, None)
-    Delay = property(get_Delay, None)
-    Duration = property(get_Duration, None)
     Control1 = property(get_Control1, None)
     Control2 = property(get_Control2, None)
+    Delay = property(get_Delay, None)
+    Duration = property(get_Duration, None)
+    FinalOpacity = property(get_FinalOpacity, None)
+    InitialOpacity = property(get_InitialOpacity, None)
+    Type = property(get_Type, None)
 class PropertyAnimation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Core.AnimationMetrics.IPropertyAnimation
@@ -204,11 +204,11 @@ class PropertyAnimation(ComPtr):
     def get_Control1(self: win32more.Windows.UI.Core.AnimationMetrics.IPropertyAnimation) -> win32more.Windows.Foundation.Point: ...
     @winrt_mixinmethod
     def get_Control2(self: win32more.Windows.UI.Core.AnimationMetrics.IPropertyAnimation) -> win32more.Windows.Foundation.Point: ...
-    Type = property(get_Type, None)
-    Delay = property(get_Delay, None)
-    Duration = property(get_Duration, None)
     Control1 = property(get_Control1, None)
     Control2 = property(get_Control2, None)
+    Delay = property(get_Delay, None)
+    Duration = property(get_Duration, None)
+    Type = property(get_Type, None)
 class PropertyAnimationType(Int32):  # enum
     Scale = 0
     Translation = 1
@@ -237,16 +237,16 @@ class ScaleAnimation(ComPtr):
     def get_Control1(self: win32more.Windows.UI.Core.AnimationMetrics.IPropertyAnimation) -> win32more.Windows.Foundation.Point: ...
     @winrt_mixinmethod
     def get_Control2(self: win32more.Windows.UI.Core.AnimationMetrics.IPropertyAnimation) -> win32more.Windows.Foundation.Point: ...
-    InitialScaleX = property(get_InitialScaleX, None)
-    InitialScaleY = property(get_InitialScaleY, None)
-    FinalScaleX = property(get_FinalScaleX, None)
-    FinalScaleY = property(get_FinalScaleY, None)
-    NormalizedOrigin = property(get_NormalizedOrigin, None)
-    Type = property(get_Type, None)
-    Delay = property(get_Delay, None)
-    Duration = property(get_Duration, None)
     Control1 = property(get_Control1, None)
     Control2 = property(get_Control2, None)
+    Delay = property(get_Delay, None)
+    Duration = property(get_Duration, None)
+    FinalScaleX = property(get_FinalScaleX, None)
+    FinalScaleY = property(get_FinalScaleY, None)
+    InitialScaleX = property(get_InitialScaleX, None)
+    InitialScaleY = property(get_InitialScaleY, None)
+    NormalizedOrigin = property(get_NormalizedOrigin, None)
+    Type = property(get_Type, None)
 class TranslationAnimation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Core.AnimationMetrics.IPropertyAnimation
@@ -261,11 +261,11 @@ class TranslationAnimation(ComPtr):
     def get_Control1(self: win32more.Windows.UI.Core.AnimationMetrics.IPropertyAnimation) -> win32more.Windows.Foundation.Point: ...
     @winrt_mixinmethod
     def get_Control2(self: win32more.Windows.UI.Core.AnimationMetrics.IPropertyAnimation) -> win32more.Windows.Foundation.Point: ...
-    Type = property(get_Type, None)
-    Delay = property(get_Delay, None)
-    Duration = property(get_Duration, None)
     Control1 = property(get_Control1, None)
     Control2 = property(get_Control2, None)
+    Delay = property(get_Delay, None)
+    Duration = property(get_Duration, None)
+    Type = property(get_Type, None)
 
 
 make_ready(__name__)

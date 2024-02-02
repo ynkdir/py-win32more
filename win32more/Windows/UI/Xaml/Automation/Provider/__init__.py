@@ -55,9 +55,9 @@ class IDragProvider(ComPtr):
     def get_DropEffects(self) -> SZArray[WinRT_String]: ...
     @winrt_commethod(9)
     def GetGrabbedItems(self) -> SZArray[win32more.Windows.UI.Xaml.Automation.Provider.IRawElementProviderSimple]: ...
-    IsGrabbed = property(get_IsGrabbed, None)
     DropEffect = property(get_DropEffect, None)
     DropEffects = property(get_DropEffects, None)
+    IsGrabbed = property(get_IsGrabbed, None)
 class IDropTargetProvider(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Automation.Provider.IDropTargetProvider'
@@ -199,12 +199,12 @@ class IScrollProvider(ComPtr):
     def Scroll(self, horizontalAmount: win32more.Windows.UI.Xaml.Automation.ScrollAmount, verticalAmount: win32more.Windows.UI.Xaml.Automation.ScrollAmount) -> Void: ...
     @winrt_commethod(13)
     def SetScrollPercent(self, horizontalPercent: Double, verticalPercent: Double) -> Void: ...
-    HorizontallyScrollable = property(get_HorizontallyScrollable, None)
     HorizontalScrollPercent = property(get_HorizontalScrollPercent, None)
     HorizontalViewSize = property(get_HorizontalViewSize, None)
-    VerticallyScrollable = property(get_VerticallyScrollable, None)
+    HorizontallyScrollable = property(get_HorizontallyScrollable, None)
     VerticalScrollPercent = property(get_VerticalScrollPercent, None)
     VerticalViewSize = property(get_VerticalViewSize, None)
+    VerticallyScrollable = property(get_VerticallyScrollable, None)
 class ISelectionItemProvider(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Automation.Provider.ISelectionItemProvider'
@@ -437,9 +437,9 @@ class ITransformProvider2(ComPtr):
     @winrt_commethod(11)
     def ZoomByUnit(self, zoomUnit: win32more.Windows.UI.Xaml.Automation.ZoomUnit) -> Void: ...
     CanZoom = property(get_CanZoom, None)
-    ZoomLevel = property(get_ZoomLevel, None)
     MaxZoom = property(get_MaxZoom, None)
     MinZoom = property(get_MinZoom, None)
+    ZoomLevel = property(get_ZoomLevel, None)
 class IValueProvider(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Automation.Provider.IValueProvider'
@@ -480,11 +480,11 @@ class IWindowProvider(ComPtr):
     def SetVisualState(self, state: win32more.Windows.UI.Xaml.Automation.WindowVisualState) -> Void: ...
     @winrt_commethod(14)
     def WaitForInputIdle(self, milliseconds: Int32) -> Boolean: ...
+    InteractionState = property(get_InteractionState, None)
     IsModal = property(get_IsModal, None)
     IsTopmost = property(get_IsTopmost, None)
     Maximizable = property(get_Maximizable, None)
     Minimizable = property(get_Minimizable, None)
-    InteractionState = property(get_InteractionState, None)
     VisualState = property(get_VisualState, None)
 
 

@@ -76,10 +76,10 @@ class FileSavePickerUI(ComPtr):
     def add_TargetFileRequested(self: win32more.Windows.Storage.Pickers.Provider.IFileSavePickerUI, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Storage.Pickers.Provider.FileSavePickerUI, win32more.Windows.Storage.Pickers.Provider.TargetFileRequestedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_TargetFileRequested(self: win32more.Windows.Storage.Pickers.Provider.IFileSavePickerUI, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    Title = property(get_Title, put_Title)
     AllowedFileTypes = property(get_AllowedFileTypes, None)
-    SettingsIdentifier = property(get_SettingsIdentifier, None)
     FileName = property(get_FileName, None)
+    SettingsIdentifier = property(get_SettingsIdentifier, None)
+    Title = property(get_Title, put_Title)
 class FileSelectionMode(Int32):  # enum
     Single = 0
     Multiple = 1
@@ -148,10 +148,10 @@ class IFileSavePickerUI(ComPtr):
     def add_TargetFileRequested(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Storage.Pickers.Provider.FileSavePickerUI, win32more.Windows.Storage.Pickers.Provider.TargetFileRequestedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(15)
     def remove_TargetFileRequested(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    Title = property(get_Title, put_Title)
     AllowedFileTypes = property(get_AllowedFileTypes, None)
-    SettingsIdentifier = property(get_SettingsIdentifier, None)
     FileName = property(get_FileName, None)
+    SettingsIdentifier = property(get_SettingsIdentifier, None)
+    Title = property(get_Title, put_Title)
 class IPickerClosingDeferral(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Storage.Pickers.Provider.IPickerClosingDeferral'

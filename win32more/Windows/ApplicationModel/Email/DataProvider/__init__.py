@@ -95,8 +95,8 @@ class EmailMailboxCreateFolderRequest(ComPtr):
     @winrt_mixinmethod
     def ReportFailedAsync(self: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxCreateFolderRequest, status: win32more.Windows.ApplicationModel.Email.EmailMailboxCreateFolderStatus) -> win32more.Windows.Foundation.IAsyncAction: ...
     EmailMailboxId = property(get_EmailMailboxId, None)
-    ParentFolderId = property(get_ParentFolderId, None)
     Name = property(get_Name, None)
+    ParentFolderId = property(get_ParentFolderId, None)
 class EmailMailboxCreateFolderRequestEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxCreateFolderRequestEventArgs
@@ -118,8 +118,8 @@ class EmailMailboxDeleteFolderRequest(ComPtr):
     def ReportCompletedAsync(self: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxDeleteFolderRequest) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_mixinmethod
     def ReportFailedAsync(self: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxDeleteFolderRequest, status: win32more.Windows.ApplicationModel.Email.EmailMailboxDeleteFolderStatus) -> win32more.Windows.Foundation.IAsyncAction: ...
-    EmailMailboxId = property(get_EmailMailboxId, None)
     EmailFolderId = property(get_EmailFolderId, None)
+    EmailMailboxId = property(get_EmailMailboxId, None)
 class EmailMailboxDeleteFolderRequestEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxDeleteFolderRequestEventArgs
@@ -143,9 +143,9 @@ class EmailMailboxDownloadAttachmentRequest(ComPtr):
     def ReportCompletedAsync(self: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxDownloadAttachmentRequest) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_mixinmethod
     def ReportFailedAsync(self: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxDownloadAttachmentRequest) -> win32more.Windows.Foundation.IAsyncAction: ...
+    EmailAttachmentId = property(get_EmailAttachmentId, None)
     EmailMailboxId = property(get_EmailMailboxId, None)
     EmailMessageId = property(get_EmailMessageId, None)
-    EmailAttachmentId = property(get_EmailAttachmentId, None)
 class EmailMailboxDownloadAttachmentRequestEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxDownloadAttachmentRequestEventArgs
@@ -190,8 +190,8 @@ class EmailMailboxEmptyFolderRequest(ComPtr):
     def ReportCompletedAsync(self: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxEmptyFolderRequest) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_mixinmethod
     def ReportFailedAsync(self: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxEmptyFolderRequest, status: win32more.Windows.ApplicationModel.Email.EmailMailboxEmptyFolderStatus) -> win32more.Windows.Foundation.IAsyncAction: ...
-    EmailMailboxId = property(get_EmailMailboxId, None)
     EmailFolderId = property(get_EmailFolderId, None)
+    EmailMailboxId = property(get_EmailMailboxId, None)
 class EmailMailboxEmptyFolderRequestEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxEmptyFolderRequestEventArgs
@@ -223,13 +223,13 @@ class EmailMailboxForwardMeetingRequest(ComPtr):
     def ReportCompletedAsync(self: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxForwardMeetingRequest) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_mixinmethod
     def ReportFailedAsync(self: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxForwardMeetingRequest) -> win32more.Windows.Foundation.IAsyncAction: ...
+    Comment = property(get_Comment, None)
     EmailMailboxId = property(get_EmailMailboxId, None)
     EmailMessageId = property(get_EmailMessageId, None)
+    ForwardHeader = property(get_ForwardHeader, None)
+    ForwardHeaderType = property(get_ForwardHeaderType, None)
     Recipients = property(get_Recipients, None)
     Subject = property(get_Subject, None)
-    ForwardHeaderType = property(get_ForwardHeaderType, None)
-    ForwardHeader = property(get_ForwardHeader, None)
-    Comment = property(get_Comment, None)
 class EmailMailboxForwardMeetingRequestEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxForwardMeetingRequestEventArgs
@@ -278,10 +278,10 @@ class EmailMailboxMoveFolderRequest(ComPtr):
     def ReportCompletedAsync(self: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxMoveFolderRequest) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_mixinmethod
     def ReportFailedAsync(self: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxMoveFolderRequest) -> win32more.Windows.Foundation.IAsyncAction: ...
-    EmailMailboxId = property(get_EmailMailboxId, None)
     EmailFolderId = property(get_EmailFolderId, None)
-    NewParentFolderId = property(get_NewParentFolderId, None)
+    EmailMailboxId = property(get_EmailMailboxId, None)
     NewFolderName = property(get_NewFolderName, None)
+    NewParentFolderId = property(get_NewParentFolderId, None)
 class EmailMailboxMoveFolderRequestEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxMoveFolderRequestEventArgs
@@ -311,12 +311,12 @@ class EmailMailboxProposeNewTimeForMeetingRequest(ComPtr):
     def ReportCompletedAsync(self: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxProposeNewTimeForMeetingRequest) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_mixinmethod
     def ReportFailedAsync(self: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxProposeNewTimeForMeetingRequest) -> win32more.Windows.Foundation.IAsyncAction: ...
+    Comment = property(get_Comment, None)
     EmailMailboxId = property(get_EmailMailboxId, None)
     EmailMessageId = property(get_EmailMessageId, None)
-    NewStartTime = property(get_NewStartTime, None)
     NewDuration = property(get_NewDuration, None)
+    NewStartTime = property(get_NewStartTime, None)
     Subject = property(get_Subject, None)
-    Comment = property(get_Comment, None)
 class EmailMailboxProposeNewTimeForMeetingRequestEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxProposeNewTimeForMeetingRequestEventArgs
@@ -369,10 +369,10 @@ class EmailMailboxServerSearchReadBatchRequest(ComPtr):
     def ReportCompletedAsync(self: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxServerSearchReadBatchRequest) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_mixinmethod
     def ReportFailedAsync(self: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxServerSearchReadBatchRequest, batchStatus: win32more.Windows.ApplicationModel.Email.EmailBatchStatus) -> win32more.Windows.Foundation.IAsyncAction: ...
-    SessionId = property(get_SessionId, None)
-    EmailMailboxId = property(get_EmailMailboxId, None)
     EmailFolderId = property(get_EmailFolderId, None)
+    EmailMailboxId = property(get_EmailMailboxId, None)
     Options = property(get_Options, None)
+    SessionId = property(get_SessionId, None)
     SuggestedBatchSize = property(get_SuggestedBatchSize, None)
 class EmailMailboxServerSearchReadBatchRequestEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -395,8 +395,8 @@ class EmailMailboxSetAutoReplySettingsRequest(ComPtr):
     def ReportCompletedAsync(self: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxSetAutoReplySettingsRequest) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_mixinmethod
     def ReportFailedAsync(self: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxSetAutoReplySettingsRequest) -> win32more.Windows.Foundation.IAsyncAction: ...
-    EmailMailboxId = property(get_EmailMailboxId, None)
     AutoReplySettings = property(get_AutoReplySettings, None)
+    EmailMailboxId = property(get_EmailMailboxId, None)
 class EmailMailboxSetAutoReplySettingsRequestEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxSetAutoReplySettingsRequestEventArgs
@@ -446,12 +446,12 @@ class EmailMailboxUpdateMeetingResponseRequest(ComPtr):
     def ReportCompletedAsync(self: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxUpdateMeetingResponseRequest) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_mixinmethod
     def ReportFailedAsync(self: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxUpdateMeetingResponseRequest) -> win32more.Windows.Foundation.IAsyncAction: ...
+    Comment = property(get_Comment, None)
     EmailMailboxId = property(get_EmailMailboxId, None)
     EmailMessageId = property(get_EmailMessageId, None)
     Response = property(get_Response, None)
-    Subject = property(get_Subject, None)
-    Comment = property(get_Comment, None)
     SendUpdate = property(get_SendUpdate, None)
+    Subject = property(get_Subject, None)
 class EmailMailboxUpdateMeetingResponseRequestEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxUpdateMeetingResponseRequestEventArgs
@@ -473,8 +473,8 @@ class EmailMailboxValidateCertificatesRequest(ComPtr):
     def ReportCompletedAsync(self: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxValidateCertificatesRequest, validationStatuses: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.ApplicationModel.Email.EmailCertificateValidationStatus]) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_mixinmethod
     def ReportFailedAsync(self: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxValidateCertificatesRequest) -> win32more.Windows.Foundation.IAsyncAction: ...
-    EmailMailboxId = property(get_EmailMailboxId, None)
     Certificates = property(get_Certificates, None)
+    EmailMailboxId = property(get_EmailMailboxId, None)
 class EmailMailboxValidateCertificatesRequestEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxValidateCertificatesRequestEventArgs
@@ -572,8 +572,8 @@ class IEmailMailboxCreateFolderRequest(ComPtr):
     @winrt_commethod(10)
     def ReportFailedAsync(self, status: win32more.Windows.ApplicationModel.Email.EmailMailboxCreateFolderStatus) -> win32more.Windows.Foundation.IAsyncAction: ...
     EmailMailboxId = property(get_EmailMailboxId, None)
-    ParentFolderId = property(get_ParentFolderId, None)
     Name = property(get_Name, None)
+    ParentFolderId = property(get_ParentFolderId, None)
 class IEmailMailboxCreateFolderRequestEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.IEmailMailboxCreateFolderRequestEventArgs'
@@ -595,8 +595,8 @@ class IEmailMailboxDeleteFolderRequest(ComPtr):
     def ReportCompletedAsync(self) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(9)
     def ReportFailedAsync(self, status: win32more.Windows.ApplicationModel.Email.EmailMailboxDeleteFolderStatus) -> win32more.Windows.Foundation.IAsyncAction: ...
-    EmailMailboxId = property(get_EmailMailboxId, None)
     EmailFolderId = property(get_EmailFolderId, None)
+    EmailMailboxId = property(get_EmailMailboxId, None)
 class IEmailMailboxDeleteFolderRequestEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.IEmailMailboxDeleteFolderRequestEventArgs'
@@ -620,9 +620,9 @@ class IEmailMailboxDownloadAttachmentRequest(ComPtr):
     def ReportCompletedAsync(self) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(10)
     def ReportFailedAsync(self) -> win32more.Windows.Foundation.IAsyncAction: ...
+    EmailAttachmentId = property(get_EmailAttachmentId, None)
     EmailMailboxId = property(get_EmailMailboxId, None)
     EmailMessageId = property(get_EmailMessageId, None)
-    EmailAttachmentId = property(get_EmailAttachmentId, None)
 class IEmailMailboxDownloadAttachmentRequestEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.IEmailMailboxDownloadAttachmentRequestEventArgs'
@@ -667,8 +667,8 @@ class IEmailMailboxEmptyFolderRequest(ComPtr):
     def ReportCompletedAsync(self) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(9)
     def ReportFailedAsync(self, status: win32more.Windows.ApplicationModel.Email.EmailMailboxEmptyFolderStatus) -> win32more.Windows.Foundation.IAsyncAction: ...
-    EmailMailboxId = property(get_EmailMailboxId, None)
     EmailFolderId = property(get_EmailFolderId, None)
+    EmailMailboxId = property(get_EmailMailboxId, None)
 class IEmailMailboxEmptyFolderRequestEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.IEmailMailboxEmptyFolderRequestEventArgs'
@@ -700,13 +700,13 @@ class IEmailMailboxForwardMeetingRequest(ComPtr):
     def ReportCompletedAsync(self) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(14)
     def ReportFailedAsync(self) -> win32more.Windows.Foundation.IAsyncAction: ...
+    Comment = property(get_Comment, None)
     EmailMailboxId = property(get_EmailMailboxId, None)
     EmailMessageId = property(get_EmailMessageId, None)
+    ForwardHeader = property(get_ForwardHeader, None)
+    ForwardHeaderType = property(get_ForwardHeaderType, None)
     Recipients = property(get_Recipients, None)
     Subject = property(get_Subject, None)
-    ForwardHeaderType = property(get_ForwardHeaderType, None)
-    ForwardHeader = property(get_ForwardHeader, None)
-    Comment = property(get_Comment, None)
 class IEmailMailboxForwardMeetingRequestEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.IEmailMailboxForwardMeetingRequestEventArgs'
@@ -755,10 +755,10 @@ class IEmailMailboxMoveFolderRequest(ComPtr):
     def ReportCompletedAsync(self) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(11)
     def ReportFailedAsync(self) -> win32more.Windows.Foundation.IAsyncAction: ...
-    EmailMailboxId = property(get_EmailMailboxId, None)
     EmailFolderId = property(get_EmailFolderId, None)
-    NewParentFolderId = property(get_NewParentFolderId, None)
+    EmailMailboxId = property(get_EmailMailboxId, None)
     NewFolderName = property(get_NewFolderName, None)
+    NewParentFolderId = property(get_NewParentFolderId, None)
 class IEmailMailboxMoveFolderRequestEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.IEmailMailboxMoveFolderRequestEventArgs'
@@ -788,12 +788,12 @@ class IEmailMailboxProposeNewTimeForMeetingRequest(ComPtr):
     def ReportCompletedAsync(self) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(13)
     def ReportFailedAsync(self) -> win32more.Windows.Foundation.IAsyncAction: ...
+    Comment = property(get_Comment, None)
     EmailMailboxId = property(get_EmailMailboxId, None)
     EmailMessageId = property(get_EmailMessageId, None)
-    NewStartTime = property(get_NewStartTime, None)
     NewDuration = property(get_NewDuration, None)
+    NewStartTime = property(get_NewStartTime, None)
     Subject = property(get_Subject, None)
-    Comment = property(get_Comment, None)
 class IEmailMailboxProposeNewTimeForMeetingRequestEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.IEmailMailboxProposeNewTimeForMeetingRequestEventArgs'
@@ -846,10 +846,10 @@ class IEmailMailboxServerSearchReadBatchRequest(ComPtr):
     def ReportCompletedAsync(self) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(13)
     def ReportFailedAsync(self, batchStatus: win32more.Windows.ApplicationModel.Email.EmailBatchStatus) -> win32more.Windows.Foundation.IAsyncAction: ...
-    SessionId = property(get_SessionId, None)
-    EmailMailboxId = property(get_EmailMailboxId, None)
     EmailFolderId = property(get_EmailFolderId, None)
+    EmailMailboxId = property(get_EmailMailboxId, None)
     Options = property(get_Options, None)
+    SessionId = property(get_SessionId, None)
     SuggestedBatchSize = property(get_SuggestedBatchSize, None)
 class IEmailMailboxServerSearchReadBatchRequestEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -872,8 +872,8 @@ class IEmailMailboxSetAutoReplySettingsRequest(ComPtr):
     def ReportCompletedAsync(self) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(9)
     def ReportFailedAsync(self) -> win32more.Windows.Foundation.IAsyncAction: ...
-    EmailMailboxId = property(get_EmailMailboxId, None)
     AutoReplySettings = property(get_AutoReplySettings, None)
+    EmailMailboxId = property(get_EmailMailboxId, None)
 class IEmailMailboxSetAutoReplySettingsRequestEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.IEmailMailboxSetAutoReplySettingsRequestEventArgs'
@@ -923,12 +923,12 @@ class IEmailMailboxUpdateMeetingResponseRequest(ComPtr):
     def ReportCompletedAsync(self) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(13)
     def ReportFailedAsync(self) -> win32more.Windows.Foundation.IAsyncAction: ...
+    Comment = property(get_Comment, None)
     EmailMailboxId = property(get_EmailMailboxId, None)
     EmailMessageId = property(get_EmailMessageId, None)
     Response = property(get_Response, None)
-    Subject = property(get_Subject, None)
-    Comment = property(get_Comment, None)
     SendUpdate = property(get_SendUpdate, None)
+    Subject = property(get_Subject, None)
 class IEmailMailboxUpdateMeetingResponseRequestEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.IEmailMailboxUpdateMeetingResponseRequestEventArgs'
@@ -950,8 +950,8 @@ class IEmailMailboxValidateCertificatesRequest(ComPtr):
     def ReportCompletedAsync(self, validationStatuses: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.ApplicationModel.Email.EmailCertificateValidationStatus]) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(9)
     def ReportFailedAsync(self) -> win32more.Windows.Foundation.IAsyncAction: ...
-    EmailMailboxId = property(get_EmailMailboxId, None)
     Certificates = property(get_Certificates, None)
+    EmailMailboxId = property(get_EmailMailboxId, None)
 class IEmailMailboxValidateCertificatesRequestEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.IEmailMailboxValidateCertificatesRequestEventArgs'

@@ -27,11 +27,11 @@ class IQuickLink(ComPtr):
     def get_SupportedDataFormats(self) -> win32more.Windows.Foundation.Collections.IVector[WinRT_String]: ...
     @winrt_commethod(13)
     def get_SupportedFileTypes(self) -> win32more.Windows.Foundation.Collections.IVector[WinRT_String]: ...
-    Title = property(get_Title, put_Title)
-    Thumbnail = property(get_Thumbnail, put_Thumbnail)
     Id = property(get_Id, put_Id)
     SupportedDataFormats = property(get_SupportedDataFormats, None)
     SupportedFileTypes = property(get_SupportedFileTypes, None)
+    Thumbnail = property(get_Thumbnail, put_Thumbnail)
+    Title = property(get_Title, put_Title)
 class IShareOperation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.DataTransfer.ShareTarget.IShareOperation'
@@ -98,11 +98,11 @@ class QuickLink(ComPtr):
     def get_SupportedDataFormats(self: win32more.Windows.ApplicationModel.DataTransfer.ShareTarget.IQuickLink) -> win32more.Windows.Foundation.Collections.IVector[WinRT_String]: ...
     @winrt_mixinmethod
     def get_SupportedFileTypes(self: win32more.Windows.ApplicationModel.DataTransfer.ShareTarget.IQuickLink) -> win32more.Windows.Foundation.Collections.IVector[WinRT_String]: ...
-    Title = property(get_Title, put_Title)
-    Thumbnail = property(get_Thumbnail, put_Thumbnail)
     Id = property(get_Id, put_Id)
     SupportedDataFormats = property(get_SupportedDataFormats, None)
     SupportedFileTypes = property(get_SupportedFileTypes, None)
+    Thumbnail = property(get_Thumbnail, put_Thumbnail)
+    Title = property(get_Title, put_Title)
 class ShareOperation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.DataTransfer.ShareTarget.IShareOperation
@@ -129,9 +129,9 @@ class ShareOperation(ComPtr):
     def DismissUI(self: win32more.Windows.ApplicationModel.DataTransfer.ShareTarget.IShareOperation2) -> Void: ...
     @winrt_mixinmethod
     def get_Contacts(self: win32more.Windows.ApplicationModel.DataTransfer.ShareTarget.IShareOperation3) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.ApplicationModel.Contacts.Contact]: ...
+    Contacts = property(get_Contacts, None)
     Data = property(get_Data, None)
     QuickLinkId = property(get_QuickLinkId, None)
-    Contacts = property(get_Contacts, None)
 
 
 make_ready(__name__)

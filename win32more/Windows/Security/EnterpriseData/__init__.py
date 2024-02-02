@@ -26,8 +26,8 @@ class DataProtectionInfo(ComPtr):
     def get_Status(self: win32more.Windows.Security.EnterpriseData.IDataProtectionInfo) -> win32more.Windows.Security.EnterpriseData.DataProtectionStatus: ...
     @winrt_mixinmethod
     def get_Identity(self: win32more.Windows.Security.EnterpriseData.IDataProtectionInfo) -> WinRT_String: ...
-    Status = property(get_Status, None)
     Identity = property(get_Identity, None)
+    Status = property(get_Status, None)
 class DataProtectionManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.EnterpriseData.DataProtectionManager'
@@ -68,10 +68,10 @@ class FileProtectionInfo(ComPtr):
     def get_Identity(self: win32more.Windows.Security.EnterpriseData.IFileProtectionInfo) -> WinRT_String: ...
     @winrt_mixinmethod
     def get_IsProtectWhileOpenSupported(self: win32more.Windows.Security.EnterpriseData.IFileProtectionInfo2) -> Boolean: ...
-    Status = property(get_Status, None)
-    IsRoamable = property(get_IsRoamable, None)
     Identity = property(get_Identity, None)
     IsProtectWhileOpenSupported = property(get_IsProtectWhileOpenSupported, None)
+    IsRoamable = property(get_IsRoamable, None)
+    Status = property(get_Status, None)
 class FileProtectionManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.EnterpriseData.FileProtectionManager'
@@ -159,8 +159,8 @@ class IDataProtectionInfo(ComPtr):
     def get_Status(self) -> win32more.Windows.Security.EnterpriseData.DataProtectionStatus: ...
     @winrt_commethod(7)
     def get_Identity(self) -> WinRT_String: ...
-    Status = property(get_Status, None)
     Identity = property(get_Identity, None)
+    Status = property(get_Status, None)
 class IDataProtectionManagerStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.EnterpriseData.IDataProtectionManagerStatics'
@@ -187,9 +187,9 @@ class IFileProtectionInfo(ComPtr):
     def get_IsRoamable(self) -> Boolean: ...
     @winrt_commethod(8)
     def get_Identity(self) -> WinRT_String: ...
-    Status = property(get_Status, None)
-    IsRoamable = property(get_IsRoamable, None)
     Identity = property(get_Identity, None)
+    IsRoamable = property(get_IsRoamable, None)
+    Status = property(get_Status, None)
 class IFileProtectionInfo2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.EnterpriseData.IFileProtectionInfo2'
@@ -277,8 +277,8 @@ class IProtectedAccessSuspendingEventArgs(ComPtr):
     def get_Deadline(self) -> win32more.Windows.Foundation.DateTime: ...
     @winrt_commethod(8)
     def GetDeferral(self) -> win32more.Windows.Foundation.Deferral: ...
-    Identities = property(get_Identities, None)
     Deadline = property(get_Deadline, None)
+    Identities = property(get_Identities, None)
 class IProtectedContainerExportResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.EnterpriseData.IProtectedContainerExportResult'
@@ -287,8 +287,8 @@ class IProtectedContainerExportResult(ComPtr):
     def get_Status(self) -> win32more.Windows.Security.EnterpriseData.ProtectedImportExportStatus: ...
     @winrt_commethod(7)
     def get_File(self) -> win32more.Windows.Storage.StorageFile: ...
-    Status = property(get_Status, None)
     File = property(get_File, None)
+    Status = property(get_Status, None)
 class IProtectedContainerImportResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.EnterpriseData.IProtectedContainerImportResult'
@@ -297,8 +297,8 @@ class IProtectedContainerImportResult(ComPtr):
     def get_Status(self) -> win32more.Windows.Security.EnterpriseData.ProtectedImportExportStatus: ...
     @winrt_commethod(7)
     def get_File(self) -> win32more.Windows.Storage.StorageFile: ...
-    Status = property(get_Status, None)
     File = property(get_File, None)
+    Status = property(get_Status, None)
 class IProtectedContentRevokedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.EnterpriseData.IProtectedContentRevokedEventArgs'
@@ -317,8 +317,8 @@ class IProtectedFileCreateResult(ComPtr):
     @winrt_commethod(8)
     def get_ProtectionInfo(self) -> win32more.Windows.Security.EnterpriseData.FileProtectionInfo: ...
     File = property(get_File, None)
-    Stream = property(get_Stream, None)
     ProtectionInfo = property(get_ProtectionInfo, None)
+    Stream = property(get_Stream, None)
 class IProtectionPolicyAuditInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.EnterpriseData.IProtectionPolicyAuditInfo'
@@ -488,8 +488,8 @@ class ProtectedAccessSuspendingEventArgs(ComPtr):
     def get_Deadline(self: win32more.Windows.Security.EnterpriseData.IProtectedAccessSuspendingEventArgs) -> win32more.Windows.Foundation.DateTime: ...
     @winrt_mixinmethod
     def GetDeferral(self: win32more.Windows.Security.EnterpriseData.IProtectedAccessSuspendingEventArgs) -> win32more.Windows.Foundation.Deferral: ...
-    Identities = property(get_Identities, None)
     Deadline = property(get_Deadline, None)
+    Identities = property(get_Identities, None)
 class ProtectedContainerExportResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.EnterpriseData.IProtectedContainerExportResult
@@ -498,8 +498,8 @@ class ProtectedContainerExportResult(ComPtr):
     def get_Status(self: win32more.Windows.Security.EnterpriseData.IProtectedContainerExportResult) -> win32more.Windows.Security.EnterpriseData.ProtectedImportExportStatus: ...
     @winrt_mixinmethod
     def get_File(self: win32more.Windows.Security.EnterpriseData.IProtectedContainerExportResult) -> win32more.Windows.Storage.StorageFile: ...
-    Status = property(get_Status, None)
     File = property(get_File, None)
+    Status = property(get_Status, None)
 class ProtectedContainerImportResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.EnterpriseData.IProtectedContainerImportResult
@@ -508,8 +508,8 @@ class ProtectedContainerImportResult(ComPtr):
     def get_Status(self: win32more.Windows.Security.EnterpriseData.IProtectedContainerImportResult) -> win32more.Windows.Security.EnterpriseData.ProtectedImportExportStatus: ...
     @winrt_mixinmethod
     def get_File(self: win32more.Windows.Security.EnterpriseData.IProtectedContainerImportResult) -> win32more.Windows.Storage.StorageFile: ...
-    Status = property(get_Status, None)
     File = property(get_File, None)
+    Status = property(get_Status, None)
 class ProtectedContentRevokedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.EnterpriseData.IProtectedContentRevokedEventArgs
@@ -528,8 +528,8 @@ class ProtectedFileCreateResult(ComPtr):
     @winrt_mixinmethod
     def get_ProtectionInfo(self: win32more.Windows.Security.EnterpriseData.IProtectedFileCreateResult) -> win32more.Windows.Security.EnterpriseData.FileProtectionInfo: ...
     File = property(get_File, None)
-    Stream = property(get_Stream, None)
     ProtectionInfo = property(get_ProtectionInfo, None)
+    Stream = property(get_Stream, None)
 class ProtectedImportExportStatus(Int32):  # enum
     Ok = 0
     Undetermined = 1
@@ -681,8 +681,8 @@ class ProtectionPolicyManager(ComPtr, metaclass=_ProtectionPolicyManager_Meta_):
     def RequestAccessAsync(cls: win32more.Windows.Security.EnterpriseData.IProtectionPolicyManagerStatics, sourceIdentity: WinRT_String, targetIdentity: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Security.EnterpriseData.ProtectionPolicyEvaluationResult]: ...
     Identity = property(get_Identity, put_Identity)
     ShowEnterpriseIndicator = property(get_ShowEnterpriseIndicator, put_ShowEnterpriseIndicator)
-    _ProtectionPolicyManager_Meta_.PrimaryManagedIdentity = property(get_PrimaryManagedIdentity.__wrapped__, None)
     _ProtectionPolicyManager_Meta_.IsProtectionEnabled = property(get_IsProtectionEnabled.__wrapped__, None)
+    _ProtectionPolicyManager_Meta_.PrimaryManagedIdentity = property(get_PrimaryManagedIdentity.__wrapped__, None)
 class ProtectionPolicyRequestAccessBehavior(Int32):  # enum
     Decrypt = 0
     TreatOverridePolicyAsBlock = 1

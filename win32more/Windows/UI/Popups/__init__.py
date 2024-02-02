@@ -34,12 +34,12 @@ class IMessageDialog(ComPtr):
     def get_Options(self) -> win32more.Windows.UI.Popups.MessageDialogOptions: ...
     @winrt_commethod(17)
     def put_Options(self, value: win32more.Windows.UI.Popups.MessageDialogOptions) -> Void: ...
-    Title = property(get_Title, put_Title)
-    Commands = property(get_Commands, None)
-    DefaultCommandIndex = property(get_DefaultCommandIndex, put_DefaultCommandIndex)
     CancelCommandIndex = property(get_CancelCommandIndex, put_CancelCommandIndex)
+    Commands = property(get_Commands, None)
     Content = property(get_Content, put_Content)
+    DefaultCommandIndex = property(get_DefaultCommandIndex, put_DefaultCommandIndex)
     Options = property(get_Options, put_Options)
+    Title = property(get_Title, put_Title)
 class IMessageDialogFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Popups.IMessageDialogFactory'
@@ -77,9 +77,9 @@ class IUICommand(ComPtr):
     def get_Id(self) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_commethod(11)
     def put_Id(self, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
-    Label = property(get_Label, put_Label)
-    Invoked = property(get_Invoked, put_Invoked)
     Id = property(get_Id, put_Id)
+    Invoked = property(get_Invoked, put_Invoked)
+    Label = property(get_Label, put_Label)
 class IUICommandFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Popups.IUICommandFactory'
@@ -131,12 +131,12 @@ class MessageDialog(ComPtr):
     def get_Options(self: win32more.Windows.UI.Popups.IMessageDialog) -> win32more.Windows.UI.Popups.MessageDialogOptions: ...
     @winrt_mixinmethod
     def put_Options(self: win32more.Windows.UI.Popups.IMessageDialog, value: win32more.Windows.UI.Popups.MessageDialogOptions) -> Void: ...
-    Title = property(get_Title, put_Title)
-    Commands = property(get_Commands, None)
-    DefaultCommandIndex = property(get_DefaultCommandIndex, put_DefaultCommandIndex)
     CancelCommandIndex = property(get_CancelCommandIndex, put_CancelCommandIndex)
+    Commands = property(get_Commands, None)
     Content = property(get_Content, put_Content)
+    DefaultCommandIndex = property(get_DefaultCommandIndex, put_DefaultCommandIndex)
     Options = property(get_Options, put_Options)
+    Title = property(get_Title, put_Title)
 class MessageDialogOptions(UInt32):  # enum
     None_ = 0
     AcceptUserInputAfterDelay = 1
@@ -205,9 +205,9 @@ class UICommand(ComPtr):
     def get_Id(self: win32more.Windows.UI.Popups.IUICommand) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_mixinmethod
     def put_Id(self: win32more.Windows.UI.Popups.IUICommand, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
-    Label = property(get_Label, put_Label)
-    Invoked = property(get_Invoked, put_Invoked)
     Id = property(get_Id, put_Id)
+    Invoked = property(get_Invoked, put_Invoked)
+    Label = property(get_Label, put_Label)
 class UICommandInvokedHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{daf77a4f-c27a-4298-9ac6-2922c45e7da6}')
@@ -237,9 +237,9 @@ class UICommandSeparator(ComPtr):
     def get_Id(self: win32more.Windows.UI.Popups.IUICommand) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_mixinmethod
     def put_Id(self: win32more.Windows.UI.Popups.IUICommand, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
-    Label = property(get_Label, put_Label)
-    Invoked = property(get_Invoked, put_Invoked)
     Id = property(get_Id, put_Id)
+    Invoked = property(get_Invoked, put_Invoked)
+    Label = property(get_Label, put_Label)
 
 
 make_ready(__name__)

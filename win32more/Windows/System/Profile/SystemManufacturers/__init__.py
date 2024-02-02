@@ -14,8 +14,8 @@ class IOemSupportInfo(ComPtr):
     def get_SupportAppLink(self) -> win32more.Windows.Foundation.Uri: ...
     @winrt_commethod(8)
     def get_SupportProvider(self) -> WinRT_String: ...
-    SupportLink = property(get_SupportLink, None)
     SupportAppLink = property(get_SupportAppLink, None)
+    SupportLink = property(get_SupportLink, None)
     SupportProvider = property(get_SupportProvider, None)
 class ISmbiosInformationStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -42,13 +42,13 @@ class ISystemSupportDeviceInfo(ComPtr):
     def get_SystemHardwareVersion(self) -> WinRT_String: ...
     @winrt_commethod(12)
     def get_SystemFirmwareVersion(self) -> WinRT_String: ...
-    OperatingSystem = property(get_OperatingSystem, None)
     FriendlyName = property(get_FriendlyName, None)
+    OperatingSystem = property(get_OperatingSystem, None)
+    SystemFirmwareVersion = property(get_SystemFirmwareVersion, None)
+    SystemHardwareVersion = property(get_SystemHardwareVersion, None)
     SystemManufacturer = property(get_SystemManufacturer, None)
     SystemProductName = property(get_SystemProductName, None)
     SystemSku = property(get_SystemSku, None)
-    SystemHardwareVersion = property(get_SystemHardwareVersion, None)
-    SystemFirmwareVersion = property(get_SystemFirmwareVersion, None)
 class ISystemSupportInfoStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.System.Profile.SystemManufacturers.ISystemSupportInfoStatics'
@@ -76,8 +76,8 @@ class OemSupportInfo(ComPtr):
     def get_SupportAppLink(self: win32more.Windows.System.Profile.SystemManufacturers.IOemSupportInfo) -> win32more.Windows.Foundation.Uri: ...
     @winrt_mixinmethod
     def get_SupportProvider(self: win32more.Windows.System.Profile.SystemManufacturers.IOemSupportInfo) -> WinRT_String: ...
-    SupportLink = property(get_SupportLink, None)
     SupportAppLink = property(get_SupportAppLink, None)
+    SupportLink = property(get_SupportLink, None)
     SupportProvider = property(get_SupportProvider, None)
 class _SmbiosInformation_Meta_(ComPtr.__class__):
     pass
@@ -106,13 +106,13 @@ class SystemSupportDeviceInfo(ComPtr):
     def get_SystemHardwareVersion(self: win32more.Windows.System.Profile.SystemManufacturers.ISystemSupportDeviceInfo) -> WinRT_String: ...
     @winrt_mixinmethod
     def get_SystemFirmwareVersion(self: win32more.Windows.System.Profile.SystemManufacturers.ISystemSupportDeviceInfo) -> WinRT_String: ...
-    OperatingSystem = property(get_OperatingSystem, None)
     FriendlyName = property(get_FriendlyName, None)
+    OperatingSystem = property(get_OperatingSystem, None)
+    SystemFirmwareVersion = property(get_SystemFirmwareVersion, None)
+    SystemHardwareVersion = property(get_SystemHardwareVersion, None)
     SystemManufacturer = property(get_SystemManufacturer, None)
     SystemProductName = property(get_SystemProductName, None)
     SystemSku = property(get_SystemSku, None)
-    SystemHardwareVersion = property(get_SystemHardwareVersion, None)
-    SystemFirmwareVersion = property(get_SystemFirmwareVersion, None)
 class _SystemSupportInfo_Meta_(ComPtr.__class__):
     pass
 class SystemSupportInfo(ComPtr, metaclass=_SystemSupportInfo_Meta_):

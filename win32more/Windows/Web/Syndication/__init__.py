@@ -87,11 +87,11 @@ class ISyndicationClient(ComPtr):
     def SetRequestHeader(self, name: WinRT_String, value: WinRT_String) -> Void: ...
     @winrt_commethod(17)
     def RetrieveFeedAsync(self, uri: win32more.Windows.Foundation.Uri) -> win32more.Windows.Foundation.IAsyncOperationWithProgress[win32more.Windows.Web.Syndication.SyndicationFeed, win32more.Windows.Web.Syndication.RetrievalProgress]: ...
-    ServerCredential = property(get_ServerCredential, put_ServerCredential)
-    ProxyCredential = property(get_ProxyCredential, put_ProxyCredential)
-    MaxResponseBufferSize = property(get_MaxResponseBufferSize, put_MaxResponseBufferSize)
-    Timeout = property(get_Timeout, put_Timeout)
     BypassCacheOnRetrieve = property(get_BypassCacheOnRetrieve, put_BypassCacheOnRetrieve)
+    MaxResponseBufferSize = property(get_MaxResponseBufferSize, put_MaxResponseBufferSize)
+    ProxyCredential = property(get_ProxyCredential, put_ProxyCredential)
+    ServerCredential = property(get_ServerCredential, put_ServerCredential)
+    Timeout = property(get_Timeout, put_Timeout)
 class ISyndicationClientFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Web.Syndication.ISyndicationClientFactory'
@@ -184,21 +184,21 @@ class ISyndicationFeed(ComPtr):
     Authors = property(get_Authors, None)
     Categories = property(get_Categories, None)
     Contributors = property(get_Contributors, None)
+    FirstUri = property(get_FirstUri, None)
     Generator = property(get_Generator, put_Generator)
     IconUri = property(get_IconUri, put_IconUri)
     Id = property(get_Id, put_Id)
+    ImageUri = property(get_ImageUri, put_ImageUri)
     Items = property(get_Items, None)
     LastUpdatedTime = property(get_LastUpdatedTime, put_LastUpdatedTime)
-    Links = property(get_Links, None)
-    ImageUri = property(get_ImageUri, put_ImageUri)
-    Rights = property(get_Rights, put_Rights)
-    Subtitle = property(get_Subtitle, put_Subtitle)
-    Title = property(get_Title, put_Title)
-    FirstUri = property(get_FirstUri, None)
     LastUri = property(get_LastUri, None)
+    Links = property(get_Links, None)
     NextUri = property(get_NextUri, None)
     PreviousUri = property(get_PreviousUri, None)
+    Rights = property(get_Rights, put_Rights)
     SourceFormat = property(get_SourceFormat, None)
+    Subtitle = property(get_Subtitle, put_Subtitle)
+    Title = property(get_Title, put_Title)
 class ISyndicationFeedFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Web.Syndication.ISyndicationFeedFactory'
@@ -292,9 +292,14 @@ class ISyndicationItem(ComPtr):
     def LoadFromXml(self, itemDocument: win32more.Windows.Data.Xml.Dom.XmlDocument) -> Void: ...
     Authors = property(get_Authors, None)
     Categories = property(get_Categories, None)
-    Contributors = property(get_Contributors, None)
+    CommentsUri = property(get_CommentsUri, put_CommentsUri)
     Content = property(get_Content, put_Content)
+    Contributors = property(get_Contributors, None)
+    ETag = property(get_ETag, None)
+    EditMediaUri = property(get_EditMediaUri, None)
+    EditUri = property(get_EditUri, None)
     Id = property(get_Id, put_Id)
+    ItemUri = property(get_ItemUri, None)
     LastUpdatedTime = property(get_LastUpdatedTime, put_LastUpdatedTime)
     Links = property(get_Links, None)
     PublishedDate = property(get_PublishedDate, put_PublishedDate)
@@ -302,11 +307,6 @@ class ISyndicationItem(ComPtr):
     Source = property(get_Source, put_Source)
     Summary = property(get_Summary, put_Summary)
     Title = property(get_Title, put_Title)
-    CommentsUri = property(get_CommentsUri, put_CommentsUri)
-    EditUri = property(get_EditUri, None)
-    EditMediaUri = property(get_EditMediaUri, None)
-    ETag = property(get_ETag, None)
-    ItemUri = property(get_ItemUri, None)
 class ISyndicationItemFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Web.Syndication.ISyndicationItemFactory'
@@ -344,9 +344,9 @@ class ISyndicationLink(ComPtr):
     Length = property(get_Length, put_Length)
     MediaType = property(get_MediaType, put_MediaType)
     Relationship = property(get_Relationship, put_Relationship)
+    ResourceLanguage = property(get_ResourceLanguage, put_ResourceLanguage)
     Title = property(get_Title, put_Title)
     Uri = property(get_Uri, put_Uri)
-    ResourceLanguage = property(get_ResourceLanguage, put_ResourceLanguage)
 class ISyndicationLinkFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Web.Syndication.ISyndicationLinkFactory'
@@ -385,13 +385,13 @@ class ISyndicationNode(ComPtr):
     def get_ElementExtensions(self) -> win32more.Windows.Foundation.Collections.IVector[win32more.Windows.Web.Syndication.ISyndicationNode]: ...
     @winrt_commethod(18)
     def GetXmlDocument(self, format: win32more.Windows.Web.Syndication.SyndicationFormat) -> win32more.Windows.Data.Xml.Dom.XmlDocument: ...
+    AttributeExtensions = property(get_AttributeExtensions, None)
+    BaseUri = property(get_BaseUri, put_BaseUri)
+    ElementExtensions = property(get_ElementExtensions, None)
+    Language = property(get_Language, put_Language)
     NodeName = property(get_NodeName, put_NodeName)
     NodeNamespace = property(get_NodeNamespace, put_NodeNamespace)
     NodeValue = property(get_NodeValue, put_NodeValue)
-    Language = property(get_Language, put_Language)
-    BaseUri = property(get_BaseUri, put_BaseUri)
-    AttributeExtensions = property(get_AttributeExtensions, None)
-    ElementExtensions = property(get_ElementExtensions, None)
 class ISyndicationNodeFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Web.Syndication.ISyndicationNodeFactory'
@@ -546,16 +546,16 @@ class SyndicationCategory(ComPtr):
     def get_ElementExtensions(self: win32more.Windows.Web.Syndication.ISyndicationNode) -> win32more.Windows.Foundation.Collections.IVector[win32more.Windows.Web.Syndication.ISyndicationNode]: ...
     @winrt_mixinmethod
     def GetXmlDocument(self: win32more.Windows.Web.Syndication.ISyndicationNode, format: win32more.Windows.Web.Syndication.SyndicationFormat) -> win32more.Windows.Data.Xml.Dom.XmlDocument: ...
+    AttributeExtensions = property(get_AttributeExtensions, None)
+    BaseUri = property(get_BaseUri, put_BaseUri)
+    ElementExtensions = property(get_ElementExtensions, None)
     Label = property(get_Label, put_Label)
-    Scheme = property(get_Scheme, put_Scheme)
-    Term = property(get_Term, put_Term)
+    Language = property(get_Language, put_Language)
     NodeName = property(get_NodeName, put_NodeName)
     NodeNamespace = property(get_NodeNamespace, put_NodeNamespace)
     NodeValue = property(get_NodeValue, put_NodeValue)
-    Language = property(get_Language, put_Language)
-    BaseUri = property(get_BaseUri, put_BaseUri)
-    AttributeExtensions = property(get_AttributeExtensions, None)
-    ElementExtensions = property(get_ElementExtensions, None)
+    Scheme = property(get_Scheme, put_Scheme)
+    Term = property(get_Term, put_Term)
 class SyndicationClient(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Syndication.ISyndicationClient
@@ -597,11 +597,11 @@ class SyndicationClient(ComPtr):
     def SetRequestHeader(self: win32more.Windows.Web.Syndication.ISyndicationClient, name: WinRT_String, value: WinRT_String) -> Void: ...
     @winrt_mixinmethod
     def RetrieveFeedAsync(self: win32more.Windows.Web.Syndication.ISyndicationClient, uri: win32more.Windows.Foundation.Uri) -> win32more.Windows.Foundation.IAsyncOperationWithProgress[win32more.Windows.Web.Syndication.SyndicationFeed, win32more.Windows.Web.Syndication.RetrievalProgress]: ...
-    ServerCredential = property(get_ServerCredential, put_ServerCredential)
-    ProxyCredential = property(get_ProxyCredential, put_ProxyCredential)
-    MaxResponseBufferSize = property(get_MaxResponseBufferSize, put_MaxResponseBufferSize)
-    Timeout = property(get_Timeout, put_Timeout)
     BypassCacheOnRetrieve = property(get_BypassCacheOnRetrieve, put_BypassCacheOnRetrieve)
+    MaxResponseBufferSize = property(get_MaxResponseBufferSize, put_MaxResponseBufferSize)
+    ProxyCredential = property(get_ProxyCredential, put_ProxyCredential)
+    ServerCredential = property(get_ServerCredential, put_ServerCredential)
+    Timeout = property(get_Timeout, put_Timeout)
 class SyndicationContent(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Syndication.ISyndicationContent
@@ -665,17 +665,17 @@ class SyndicationContent(ComPtr):
     def get_SourceUri(self: win32more.Windows.Web.Syndication.ISyndicationContent) -> win32more.Windows.Foundation.Uri: ...
     @winrt_mixinmethod
     def put_SourceUri(self: win32more.Windows.Web.Syndication.ISyndicationContent, value: win32more.Windows.Foundation.Uri) -> Void: ...
-    Text = property(get_Text, put_Text)
-    Type = property(get_Type, put_Type)
-    Xml = property(get_Xml, put_Xml)
+    AttributeExtensions = property(get_AttributeExtensions, None)
+    BaseUri = property(get_BaseUri, put_BaseUri)
+    ElementExtensions = property(get_ElementExtensions, None)
+    Language = property(get_Language, put_Language)
     NodeName = property(get_NodeName, put_NodeName)
     NodeNamespace = property(get_NodeNamespace, put_NodeNamespace)
     NodeValue = property(get_NodeValue, put_NodeValue)
-    Language = property(get_Language, put_Language)
-    BaseUri = property(get_BaseUri, put_BaseUri)
-    AttributeExtensions = property(get_AttributeExtensions, None)
-    ElementExtensions = property(get_ElementExtensions, None)
     SourceUri = property(get_SourceUri, put_SourceUri)
+    Text = property(get_Text, put_Text)
+    Type = property(get_Type, put_Type)
+    Xml = property(get_Xml, put_Xml)
 class SyndicationError(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Web.Syndication.SyndicationError'
@@ -787,31 +787,31 @@ class SyndicationFeed(ComPtr):
     def get_ElementExtensions(self: win32more.Windows.Web.Syndication.ISyndicationNode) -> win32more.Windows.Foundation.Collections.IVector[win32more.Windows.Web.Syndication.ISyndicationNode]: ...
     @winrt_mixinmethod
     def GetXmlDocument(self: win32more.Windows.Web.Syndication.ISyndicationNode, format: win32more.Windows.Web.Syndication.SyndicationFormat) -> win32more.Windows.Data.Xml.Dom.XmlDocument: ...
+    AttributeExtensions = property(get_AttributeExtensions, None)
     Authors = property(get_Authors, None)
+    BaseUri = property(get_BaseUri, put_BaseUri)
     Categories = property(get_Categories, None)
     Contributors = property(get_Contributors, None)
+    ElementExtensions = property(get_ElementExtensions, None)
+    FirstUri = property(get_FirstUri, None)
     Generator = property(get_Generator, put_Generator)
     IconUri = property(get_IconUri, put_IconUri)
     Id = property(get_Id, put_Id)
-    Items = property(get_Items, None)
-    LastUpdatedTime = property(get_LastUpdatedTime, put_LastUpdatedTime)
-    Links = property(get_Links, None)
     ImageUri = property(get_ImageUri, put_ImageUri)
-    Rights = property(get_Rights, put_Rights)
-    Subtitle = property(get_Subtitle, put_Subtitle)
-    Title = property(get_Title, put_Title)
-    FirstUri = property(get_FirstUri, None)
+    Items = property(get_Items, None)
+    Language = property(get_Language, put_Language)
+    LastUpdatedTime = property(get_LastUpdatedTime, put_LastUpdatedTime)
     LastUri = property(get_LastUri, None)
+    Links = property(get_Links, None)
     NextUri = property(get_NextUri, None)
-    PreviousUri = property(get_PreviousUri, None)
-    SourceFormat = property(get_SourceFormat, None)
     NodeName = property(get_NodeName, put_NodeName)
     NodeNamespace = property(get_NodeNamespace, put_NodeNamespace)
     NodeValue = property(get_NodeValue, put_NodeValue)
-    Language = property(get_Language, put_Language)
-    BaseUri = property(get_BaseUri, put_BaseUri)
-    AttributeExtensions = property(get_AttributeExtensions, None)
-    ElementExtensions = property(get_ElementExtensions, None)
+    PreviousUri = property(get_PreviousUri, None)
+    Rights = property(get_Rights, put_Rights)
+    SourceFormat = property(get_SourceFormat, None)
+    Subtitle = property(get_Subtitle, put_Subtitle)
+    Title = property(get_Title, put_Title)
 class SyndicationFormat(Int32):  # enum
     Atom10 = 0
     Rss20 = 1
@@ -874,16 +874,16 @@ class SyndicationGenerator(ComPtr):
     def get_ElementExtensions(self: win32more.Windows.Web.Syndication.ISyndicationNode) -> win32more.Windows.Foundation.Collections.IVector[win32more.Windows.Web.Syndication.ISyndicationNode]: ...
     @winrt_mixinmethod
     def GetXmlDocument(self: win32more.Windows.Web.Syndication.ISyndicationNode, format: win32more.Windows.Web.Syndication.SyndicationFormat) -> win32more.Windows.Data.Xml.Dom.XmlDocument: ...
-    Text = property(get_Text, put_Text)
-    Uri = property(get_Uri, put_Uri)
-    Version = property(get_Version, put_Version)
+    AttributeExtensions = property(get_AttributeExtensions, None)
+    BaseUri = property(get_BaseUri, put_BaseUri)
+    ElementExtensions = property(get_ElementExtensions, None)
+    Language = property(get_Language, put_Language)
     NodeName = property(get_NodeName, put_NodeName)
     NodeNamespace = property(get_NodeNamespace, put_NodeNamespace)
     NodeValue = property(get_NodeValue, put_NodeValue)
-    Language = property(get_Language, put_Language)
-    BaseUri = property(get_BaseUri, put_BaseUri)
-    AttributeExtensions = property(get_AttributeExtensions, None)
-    ElementExtensions = property(get_ElementExtensions, None)
+    Text = property(get_Text, put_Text)
+    Uri = property(get_Uri, put_Uri)
+    Version = property(get_Version, put_Version)
 class SyndicationItem(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Syndication.ISyndicationItem
@@ -983,30 +983,30 @@ class SyndicationItem(ComPtr):
     def get_ElementExtensions(self: win32more.Windows.Web.Syndication.ISyndicationNode) -> win32more.Windows.Foundation.Collections.IVector[win32more.Windows.Web.Syndication.ISyndicationNode]: ...
     @winrt_mixinmethod
     def GetXmlDocument(self: win32more.Windows.Web.Syndication.ISyndicationNode, format: win32more.Windows.Web.Syndication.SyndicationFormat) -> win32more.Windows.Data.Xml.Dom.XmlDocument: ...
+    AttributeExtensions = property(get_AttributeExtensions, None)
     Authors = property(get_Authors, None)
+    BaseUri = property(get_BaseUri, put_BaseUri)
     Categories = property(get_Categories, None)
-    Contributors = property(get_Contributors, None)
+    CommentsUri = property(get_CommentsUri, put_CommentsUri)
     Content = property(get_Content, put_Content)
+    Contributors = property(get_Contributors, None)
+    ETag = property(get_ETag, None)
+    EditMediaUri = property(get_EditMediaUri, None)
+    EditUri = property(get_EditUri, None)
+    ElementExtensions = property(get_ElementExtensions, None)
     Id = property(get_Id, put_Id)
+    ItemUri = property(get_ItemUri, None)
+    Language = property(get_Language, put_Language)
     LastUpdatedTime = property(get_LastUpdatedTime, put_LastUpdatedTime)
     Links = property(get_Links, None)
+    NodeName = property(get_NodeName, put_NodeName)
+    NodeNamespace = property(get_NodeNamespace, put_NodeNamespace)
+    NodeValue = property(get_NodeValue, put_NodeValue)
     PublishedDate = property(get_PublishedDate, put_PublishedDate)
     Rights = property(get_Rights, put_Rights)
     Source = property(get_Source, put_Source)
     Summary = property(get_Summary, put_Summary)
     Title = property(get_Title, put_Title)
-    CommentsUri = property(get_CommentsUri, put_CommentsUri)
-    EditUri = property(get_EditUri, None)
-    EditMediaUri = property(get_EditMediaUri, None)
-    ETag = property(get_ETag, None)
-    ItemUri = property(get_ItemUri, None)
-    NodeName = property(get_NodeName, put_NodeName)
-    NodeNamespace = property(get_NodeNamespace, put_NodeNamespace)
-    NodeValue = property(get_NodeValue, put_NodeValue)
-    Language = property(get_Language, put_Language)
-    BaseUri = property(get_BaseUri, put_BaseUri)
-    AttributeExtensions = property(get_AttributeExtensions, None)
-    ElementExtensions = property(get_ElementExtensions, None)
 class SyndicationLink(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Syndication.ISyndicationLink
@@ -1078,19 +1078,19 @@ class SyndicationLink(ComPtr):
     def get_ElementExtensions(self: win32more.Windows.Web.Syndication.ISyndicationNode) -> win32more.Windows.Foundation.Collections.IVector[win32more.Windows.Web.Syndication.ISyndicationNode]: ...
     @winrt_mixinmethod
     def GetXmlDocument(self: win32more.Windows.Web.Syndication.ISyndicationNode, format: win32more.Windows.Web.Syndication.SyndicationFormat) -> win32more.Windows.Data.Xml.Dom.XmlDocument: ...
+    AttributeExtensions = property(get_AttributeExtensions, None)
+    BaseUri = property(get_BaseUri, put_BaseUri)
+    ElementExtensions = property(get_ElementExtensions, None)
+    Language = property(get_Language, put_Language)
     Length = property(get_Length, put_Length)
     MediaType = property(get_MediaType, put_MediaType)
-    Relationship = property(get_Relationship, put_Relationship)
-    Title = property(get_Title, put_Title)
-    Uri = property(get_Uri, put_Uri)
-    ResourceLanguage = property(get_ResourceLanguage, put_ResourceLanguage)
     NodeName = property(get_NodeName, put_NodeName)
     NodeNamespace = property(get_NodeNamespace, put_NodeNamespace)
     NodeValue = property(get_NodeValue, put_NodeValue)
-    Language = property(get_Language, put_Language)
-    BaseUri = property(get_BaseUri, put_BaseUri)
-    AttributeExtensions = property(get_AttributeExtensions, None)
-    ElementExtensions = property(get_ElementExtensions, None)
+    Relationship = property(get_Relationship, put_Relationship)
+    ResourceLanguage = property(get_ResourceLanguage, put_ResourceLanguage)
+    Title = property(get_Title, put_Title)
+    Uri = property(get_Uri, put_Uri)
 class SyndicationNode(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Syndication.ISyndicationNode
@@ -1134,13 +1134,13 @@ class SyndicationNode(ComPtr):
     def get_ElementExtensions(self: win32more.Windows.Web.Syndication.ISyndicationNode) -> win32more.Windows.Foundation.Collections.IVector[win32more.Windows.Web.Syndication.ISyndicationNode]: ...
     @winrt_mixinmethod
     def GetXmlDocument(self: win32more.Windows.Web.Syndication.ISyndicationNode, format: win32more.Windows.Web.Syndication.SyndicationFormat) -> win32more.Windows.Data.Xml.Dom.XmlDocument: ...
+    AttributeExtensions = property(get_AttributeExtensions, None)
+    BaseUri = property(get_BaseUri, put_BaseUri)
+    ElementExtensions = property(get_ElementExtensions, None)
+    Language = property(get_Language, put_Language)
     NodeName = property(get_NodeName, put_NodeName)
     NodeNamespace = property(get_NodeNamespace, put_NodeNamespace)
     NodeValue = property(get_NodeValue, put_NodeValue)
-    Language = property(get_Language, put_Language)
-    BaseUri = property(get_BaseUri, put_BaseUri)
-    AttributeExtensions = property(get_AttributeExtensions, None)
-    ElementExtensions = property(get_ElementExtensions, None)
 class SyndicationPerson(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Syndication.ISyndicationPerson
@@ -1200,16 +1200,16 @@ class SyndicationPerson(ComPtr):
     def get_ElementExtensions(self: win32more.Windows.Web.Syndication.ISyndicationNode) -> win32more.Windows.Foundation.Collections.IVector[win32more.Windows.Web.Syndication.ISyndicationNode]: ...
     @winrt_mixinmethod
     def GetXmlDocument(self: win32more.Windows.Web.Syndication.ISyndicationNode, format: win32more.Windows.Web.Syndication.SyndicationFormat) -> win32more.Windows.Data.Xml.Dom.XmlDocument: ...
+    AttributeExtensions = property(get_AttributeExtensions, None)
+    BaseUri = property(get_BaseUri, put_BaseUri)
+    ElementExtensions = property(get_ElementExtensions, None)
     Email = property(get_Email, put_Email)
+    Language = property(get_Language, put_Language)
     Name = property(get_Name, put_Name)
-    Uri = property(get_Uri, put_Uri)
     NodeName = property(get_NodeName, put_NodeName)
     NodeNamespace = property(get_NodeNamespace, put_NodeNamespace)
     NodeValue = property(get_NodeValue, put_NodeValue)
-    Language = property(get_Language, put_Language)
-    BaseUri = property(get_BaseUri, put_BaseUri)
-    AttributeExtensions = property(get_AttributeExtensions, None)
-    ElementExtensions = property(get_ElementExtensions, None)
+    Uri = property(get_Uri, put_Uri)
 class SyndicationText(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Syndication.ISyndicationText
@@ -1269,16 +1269,16 @@ class SyndicationText(ComPtr):
     def get_ElementExtensions(self: win32more.Windows.Web.Syndication.ISyndicationNode) -> win32more.Windows.Foundation.Collections.IVector[win32more.Windows.Web.Syndication.ISyndicationNode]: ...
     @winrt_mixinmethod
     def GetXmlDocument(self: win32more.Windows.Web.Syndication.ISyndicationNode, format: win32more.Windows.Web.Syndication.SyndicationFormat) -> win32more.Windows.Data.Xml.Dom.XmlDocument: ...
-    Text = property(get_Text, put_Text)
-    Type = property(get_Type, put_Type)
-    Xml = property(get_Xml, put_Xml)
+    AttributeExtensions = property(get_AttributeExtensions, None)
+    BaseUri = property(get_BaseUri, put_BaseUri)
+    ElementExtensions = property(get_ElementExtensions, None)
+    Language = property(get_Language, put_Language)
     NodeName = property(get_NodeName, put_NodeName)
     NodeNamespace = property(get_NodeNamespace, put_NodeNamespace)
     NodeValue = property(get_NodeValue, put_NodeValue)
-    Language = property(get_Language, put_Language)
-    BaseUri = property(get_BaseUri, put_BaseUri)
-    AttributeExtensions = property(get_AttributeExtensions, None)
-    ElementExtensions = property(get_ElementExtensions, None)
+    Text = property(get_Text, put_Text)
+    Type = property(get_Type, put_Type)
+    Xml = property(get_Xml, put_Xml)
 class SyndicationTextType(Int32):  # enum
     Text = 0
     Html = 1

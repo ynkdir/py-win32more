@@ -71,9 +71,9 @@ class IIsolatedWindowsEnvironmentCreateResult(ComPtr):
     def get_ExtendedError(self) -> win32more.Windows.Foundation.HResult: ...
     @winrt_commethod(8)
     def get_Environment(self) -> win32more.Windows.Security.Isolation.IsolatedWindowsEnvironment: ...
-    Status = property(get_Status, None)
-    ExtendedError = property(get_ExtendedError, None)
     Environment = property(get_Environment, None)
+    ExtendedError = property(get_ExtendedError, None)
+    Status = property(get_Status, None)
 class IIsolatedWindowsEnvironmentCreateResult2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.Isolation.IIsolatedWindowsEnvironmentCreateResult2'
@@ -102,8 +102,8 @@ class IIsolatedWindowsEnvironmentFile(ComPtr):
     def get_HostPath(self) -> WinRT_String: ...
     @winrt_commethod(8)
     def Close(self) -> Void: ...
-    Id = property(get_Id, None)
     HostPath = property(get_HostPath, None)
+    Id = property(get_Id, None)
 class IIsolatedWindowsEnvironmentFile2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.Isolation.IIsolatedWindowsEnvironmentFile2'
@@ -122,8 +122,8 @@ class IIsolatedWindowsEnvironmentHostStatics(ComPtr):
     def get_IsReady(self) -> Boolean: ...
     @winrt_commethod(7)
     def get_HostErrors(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Security.Isolation.IsolatedWindowsEnvironmentHostError]: ...
-    IsReady = property(get_IsReady, None)
     HostErrors = property(get_HostErrors, None)
+    IsReady = property(get_IsReady, None)
 class IIsolatedWindowsEnvironmentLaunchFileResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.Isolation.IIsolatedWindowsEnvironmentLaunchFileResult'
@@ -134,9 +134,9 @@ class IIsolatedWindowsEnvironmentLaunchFileResult(ComPtr):
     def get_ExtendedError(self) -> win32more.Windows.Foundation.HResult: ...
     @winrt_commethod(8)
     def get_File(self) -> win32more.Windows.Security.Isolation.IsolatedWindowsEnvironmentFile: ...
-    Status = property(get_Status, None)
     ExtendedError = property(get_ExtendedError, None)
     File = property(get_File, None)
+    Status = property(get_Status, None)
 class IIsolatedWindowsEnvironmentOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.Isolation.IIsolatedWindowsEnvironmentOptions'
@@ -175,15 +175,15 @@ class IIsolatedWindowsEnvironmentOptions(ComPtr):
     def get_AllowCameraAndMicrophoneAccess(self) -> Boolean: ...
     @winrt_commethod(22)
     def put_AllowCameraAndMicrophoneAccess(self, value: Boolean) -> Void: ...
-    EnvironmentOwnerId = property(get_EnvironmentOwnerId, put_EnvironmentOwnerId)
-    AllowedClipboardFormats = property(get_AllowedClipboardFormats, put_AllowedClipboardFormats)
-    ClipboardCopyPasteDirections = property(get_ClipboardCopyPasteDirections, put_ClipboardCopyPasteDirections)
-    AvailablePrinters = property(get_AvailablePrinters, put_AvailablePrinters)
-    SharedHostFolderPath = property(get_SharedHostFolderPath, None)
-    SharedFolderNameInEnvironment = property(get_SharedFolderNameInEnvironment, None)
-    PersistUserProfile = property(get_PersistUserProfile, put_PersistUserProfile)
-    AllowGraphicsHardwareAcceleration = property(get_AllowGraphicsHardwareAcceleration, put_AllowGraphicsHardwareAcceleration)
     AllowCameraAndMicrophoneAccess = property(get_AllowCameraAndMicrophoneAccess, put_AllowCameraAndMicrophoneAccess)
+    AllowGraphicsHardwareAcceleration = property(get_AllowGraphicsHardwareAcceleration, put_AllowGraphicsHardwareAcceleration)
+    AllowedClipboardFormats = property(get_AllowedClipboardFormats, put_AllowedClipboardFormats)
+    AvailablePrinters = property(get_AvailablePrinters, put_AvailablePrinters)
+    ClipboardCopyPasteDirections = property(get_ClipboardCopyPasteDirections, put_ClipboardCopyPasteDirections)
+    EnvironmentOwnerId = property(get_EnvironmentOwnerId, put_EnvironmentOwnerId)
+    PersistUserProfile = property(get_PersistUserProfile, put_PersistUserProfile)
+    SharedFolderNameInEnvironment = property(get_SharedFolderNameInEnvironment, None)
+    SharedHostFolderPath = property(get_SharedHostFolderPath, None)
 class IIsolatedWindowsEnvironmentOptions2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.Isolation.IIsolatedWindowsEnvironmentOptions2'
@@ -224,10 +224,10 @@ class IIsolatedWindowsEnvironmentOwnerRegistrationData(ComPtr):
     def get_ProcessesRunnableAsUser(self) -> win32more.Windows.Foundation.Collections.IVector[WinRT_String]: ...
     @winrt_commethod(9)
     def get_ActivationFileExtensions(self) -> win32more.Windows.Foundation.Collections.IVector[WinRT_String]: ...
-    ShareableFolders = property(get_ShareableFolders, None)
+    ActivationFileExtensions = property(get_ActivationFileExtensions, None)
     ProcessesRunnableAsSystem = property(get_ProcessesRunnableAsSystem, None)
     ProcessesRunnableAsUser = property(get_ProcessesRunnableAsUser, None)
-    ActivationFileExtensions = property(get_ActivationFileExtensions, None)
+    ShareableFolders = property(get_ShareableFolders, None)
 class IIsolatedWindowsEnvironmentOwnerRegistrationResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.Isolation.IIsolatedWindowsEnvironmentOwnerRegistrationResult'
@@ -236,8 +236,8 @@ class IIsolatedWindowsEnvironmentOwnerRegistrationResult(ComPtr):
     def get_Status(self) -> win32more.Windows.Security.Isolation.IsolatedWindowsEnvironmentOwnerRegistrationStatus: ...
     @winrt_commethod(7)
     def get_ExtendedError(self) -> win32more.Windows.Foundation.HResult: ...
-    Status = property(get_Status, None)
     ExtendedError = property(get_ExtendedError, None)
+    Status = property(get_Status, None)
 class IIsolatedWindowsEnvironmentOwnerRegistrationStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.Isolation.IIsolatedWindowsEnvironmentOwnerRegistrationStatics'
@@ -254,8 +254,8 @@ class IIsolatedWindowsEnvironmentPostMessageResult(ComPtr):
     def get_Status(self) -> win32more.Windows.Security.Isolation.IsolatedWindowsEnvironmentPostMessageStatus: ...
     @winrt_commethod(7)
     def get_ExtendedError(self) -> win32more.Windows.Foundation.HResult: ...
-    Status = property(get_Status, None)
     ExtendedError = property(get_ExtendedError, None)
+    Status = property(get_Status, None)
 class IIsolatedWindowsEnvironmentProcess(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.Isolation.IIsolatedWindowsEnvironmentProcess'
@@ -270,8 +270,8 @@ class IIsolatedWindowsEnvironmentProcess(ComPtr):
     def WaitForExitWithTimeout(self, timeoutMilliseconds: UInt32) -> Void: ...
     @winrt_commethod(10)
     def WaitForExitAsync(self) -> win32more.Windows.Foundation.IAsyncAction: ...
-    State = property(get_State, None)
     ExitCode = property(get_ExitCode, None)
+    State = property(get_State, None)
 class IIsolatedWindowsEnvironmentShareFileRequestOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.Isolation.IIsolatedWindowsEnvironmentShareFileRequestOptions'
@@ -291,9 +291,9 @@ class IIsolatedWindowsEnvironmentShareFileResult(ComPtr):
     def get_ExtendedError(self) -> win32more.Windows.Foundation.HResult: ...
     @winrt_commethod(8)
     def get_File(self) -> win32more.Windows.Security.Isolation.IsolatedWindowsEnvironmentFile: ...
-    Status = property(get_Status, None)
     ExtendedError = property(get_ExtendedError, None)
     File = property(get_File, None)
+    Status = property(get_Status, None)
 class IIsolatedWindowsEnvironmentShareFolderRequestOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.Isolation.IIsolatedWindowsEnvironmentShareFolderRequestOptions'
@@ -311,8 +311,8 @@ class IIsolatedWindowsEnvironmentShareFolderResult(ComPtr):
     def get_Status(self) -> win32more.Windows.Security.Isolation.IsolatedWindowsEnvironmentShareFolderStatus: ...
     @winrt_commethod(7)
     def get_ExtendedError(self) -> win32more.Windows.Foundation.HResult: ...
-    Status = property(get_Status, None)
     ExtendedError = property(get_ExtendedError, None)
+    Status = property(get_Status, None)
 class IIsolatedWindowsEnvironmentStartProcessResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.Isolation.IIsolatedWindowsEnvironmentStartProcessResult'
@@ -323,9 +323,9 @@ class IIsolatedWindowsEnvironmentStartProcessResult(ComPtr):
     def get_ExtendedError(self) -> win32more.Windows.Foundation.HResult: ...
     @winrt_commethod(8)
     def get_Process(self) -> win32more.Windows.Security.Isolation.IsolatedWindowsEnvironmentProcess: ...
-    Status = property(get_Status, None)
     ExtendedError = property(get_ExtendedError, None)
     Process = property(get_Process, None)
+    Status = property(get_Status, None)
 class IIsolatedWindowsEnvironmentTelemetryParameters(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.Isolation.IIsolatedWindowsEnvironmentTelemetryParameters'
@@ -345,8 +345,8 @@ class IIsolatedWindowsEnvironmentUserInfo(ComPtr):
     def get_EnvironmentUserName(self) -> WinRT_String: ...
     @winrt_commethod(8)
     def TryWaitForSignInAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
-    EnvironmentUserSid = property(get_EnvironmentUserSid, None)
     EnvironmentUserName = property(get_EnvironmentUserName, None)
+    EnvironmentUserSid = property(get_EnvironmentUserSid, None)
 class IIsolatedWindowsEnvironmentUserInfo2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.Isolation.IIsolatedWindowsEnvironmentUserInfo2'
@@ -450,9 +450,9 @@ class IsolatedWindowsEnvironmentCreateResult(ComPtr):
     def get_Environment(self: win32more.Windows.Security.Isolation.IIsolatedWindowsEnvironmentCreateResult) -> win32more.Windows.Security.Isolation.IsolatedWindowsEnvironment: ...
     @winrt_mixinmethod
     def ChangeCreationPriority(self: win32more.Windows.Security.Isolation.IIsolatedWindowsEnvironmentCreateResult2, priority: win32more.Windows.Security.Isolation.IsolatedWindowsEnvironmentCreationPriority) -> Void: ...
-    Status = property(get_Status, None)
-    ExtendedError = property(get_ExtendedError, None)
     Environment = property(get_Environment, None)
+    ExtendedError = property(get_ExtendedError, None)
+    Status = property(get_Status, None)
 class IsolatedWindowsEnvironmentCreateStatus(Int32):  # enum
     Success = 0
     FailureByPolicy = 1
@@ -474,9 +474,9 @@ class IsolatedWindowsEnvironmentFile(ComPtr):
     def get_GuestPath(self: win32more.Windows.Security.Isolation.IIsolatedWindowsEnvironmentFile2) -> WinRT_String: ...
     @winrt_mixinmethod
     def get_IsReadOnly(self: win32more.Windows.Security.Isolation.IIsolatedWindowsEnvironmentFile2) -> Boolean: ...
-    Id = property(get_Id, None)
-    HostPath = property(get_HostPath, None)
     GuestPath = property(get_GuestPath, None)
+    HostPath = property(get_HostPath, None)
+    Id = property(get_Id, None)
     IsReadOnly = property(get_IsReadOnly, None)
 class _IsolatedWindowsEnvironmentHost_Meta_(ComPtr.__class__):
     pass
@@ -487,8 +487,8 @@ class IsolatedWindowsEnvironmentHost(ComPtr, metaclass=_IsolatedWindowsEnvironme
     def get_IsReady(cls: win32more.Windows.Security.Isolation.IIsolatedWindowsEnvironmentHostStatics) -> Boolean: ...
     @winrt_classmethod
     def get_HostErrors(cls: win32more.Windows.Security.Isolation.IIsolatedWindowsEnvironmentHostStatics) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Security.Isolation.IsolatedWindowsEnvironmentHostError]: ...
-    _IsolatedWindowsEnvironmentHost_Meta_.IsReady = property(get_IsReady.__wrapped__, None)
     _IsolatedWindowsEnvironmentHost_Meta_.HostErrors = property(get_HostErrors.__wrapped__, None)
+    _IsolatedWindowsEnvironmentHost_Meta_.IsReady = property(get_IsReady.__wrapped__, None)
 class IsolatedWindowsEnvironmentHostError(Int32):  # enum
     AdminPolicyIsDisabledOrNotPresent = 0
     FeatureNotInstalled = 1
@@ -505,9 +505,9 @@ class IsolatedWindowsEnvironmentLaunchFileResult(ComPtr):
     def get_ExtendedError(self: win32more.Windows.Security.Isolation.IIsolatedWindowsEnvironmentLaunchFileResult) -> win32more.Windows.Foundation.HResult: ...
     @winrt_mixinmethod
     def get_File(self: win32more.Windows.Security.Isolation.IIsolatedWindowsEnvironmentLaunchFileResult) -> win32more.Windows.Security.Isolation.IsolatedWindowsEnvironmentFile: ...
-    Status = property(get_Status, None)
     ExtendedError = property(get_ExtendedError, None)
     File = property(get_File, None)
+    Status = property(get_Status, None)
 class IsolatedWindowsEnvironmentLaunchFileStatus(Int32):  # enum
     Success = 0
     UnknownFailure = 1
@@ -578,19 +578,19 @@ class IsolatedWindowsEnvironmentOptions(ComPtr):
     def get_CreationPriority(self: win32more.Windows.Security.Isolation.IIsolatedWindowsEnvironmentOptions3) -> win32more.Windows.Security.Isolation.IsolatedWindowsEnvironmentCreationPriority: ...
     @winrt_mixinmethod
     def put_CreationPriority(self: win32more.Windows.Security.Isolation.IIsolatedWindowsEnvironmentOptions3, value: win32more.Windows.Security.Isolation.IsolatedWindowsEnvironmentCreationPriority) -> Void: ...
-    EnvironmentOwnerId = property(get_EnvironmentOwnerId, put_EnvironmentOwnerId)
-    AllowedClipboardFormats = property(get_AllowedClipboardFormats, put_AllowedClipboardFormats)
-    ClipboardCopyPasteDirections = property(get_ClipboardCopyPasteDirections, put_ClipboardCopyPasteDirections)
-    AvailablePrinters = property(get_AvailablePrinters, put_AvailablePrinters)
-    SharedHostFolderPath = property(get_SharedHostFolderPath, None)
-    SharedFolderNameInEnvironment = property(get_SharedFolderNameInEnvironment, None)
-    PersistUserProfile = property(get_PersistUserProfile, put_PersistUserProfile)
-    AllowGraphicsHardwareAcceleration = property(get_AllowGraphicsHardwareAcceleration, put_AllowGraphicsHardwareAcceleration)
     AllowCameraAndMicrophoneAccess = property(get_AllowCameraAndMicrophoneAccess, put_AllowCameraAndMicrophoneAccess)
-    WindowAnnotationOverride = property(get_WindowAnnotationOverride, put_WindowAnnotationOverride)
+    AllowGraphicsHardwareAcceleration = property(get_AllowGraphicsHardwareAcceleration, put_AllowGraphicsHardwareAcceleration)
+    AllowedClipboardFormats = property(get_AllowedClipboardFormats, put_AllowedClipboardFormats)
     AllowedClipboardFormatsToEnvironment = property(get_AllowedClipboardFormatsToEnvironment, put_AllowedClipboardFormatsToEnvironment)
     AllowedClipboardFormatsToHost = property(get_AllowedClipboardFormatsToHost, put_AllowedClipboardFormatsToHost)
+    AvailablePrinters = property(get_AvailablePrinters, put_AvailablePrinters)
+    ClipboardCopyPasteDirections = property(get_ClipboardCopyPasteDirections, put_ClipboardCopyPasteDirections)
     CreationPriority = property(get_CreationPriority, put_CreationPriority)
+    EnvironmentOwnerId = property(get_EnvironmentOwnerId, put_EnvironmentOwnerId)
+    PersistUserProfile = property(get_PersistUserProfile, put_PersistUserProfile)
+    SharedFolderNameInEnvironment = property(get_SharedFolderNameInEnvironment, None)
+    SharedHostFolderPath = property(get_SharedHostFolderPath, None)
+    WindowAnnotationOverride = property(get_WindowAnnotationOverride, put_WindowAnnotationOverride)
 class IsolatedWindowsEnvironmentOwnerRegistration(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.Isolation.IsolatedWindowsEnvironmentOwnerRegistration'
@@ -619,10 +619,10 @@ class IsolatedWindowsEnvironmentOwnerRegistrationData(ComPtr):
     def get_ProcessesRunnableAsUser(self: win32more.Windows.Security.Isolation.IIsolatedWindowsEnvironmentOwnerRegistrationData) -> win32more.Windows.Foundation.Collections.IVector[WinRT_String]: ...
     @winrt_mixinmethod
     def get_ActivationFileExtensions(self: win32more.Windows.Security.Isolation.IIsolatedWindowsEnvironmentOwnerRegistrationData) -> win32more.Windows.Foundation.Collections.IVector[WinRT_String]: ...
-    ShareableFolders = property(get_ShareableFolders, None)
+    ActivationFileExtensions = property(get_ActivationFileExtensions, None)
     ProcessesRunnableAsSystem = property(get_ProcessesRunnableAsSystem, None)
     ProcessesRunnableAsUser = property(get_ProcessesRunnableAsUser, None)
-    ActivationFileExtensions = property(get_ActivationFileExtensions, None)
+    ShareableFolders = property(get_ShareableFolders, None)
 class IsolatedWindowsEnvironmentOwnerRegistrationResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Isolation.IIsolatedWindowsEnvironmentOwnerRegistrationResult
@@ -631,8 +631,8 @@ class IsolatedWindowsEnvironmentOwnerRegistrationResult(ComPtr):
     def get_Status(self: win32more.Windows.Security.Isolation.IIsolatedWindowsEnvironmentOwnerRegistrationResult) -> win32more.Windows.Security.Isolation.IsolatedWindowsEnvironmentOwnerRegistrationStatus: ...
     @winrt_mixinmethod
     def get_ExtendedError(self: win32more.Windows.Security.Isolation.IIsolatedWindowsEnvironmentOwnerRegistrationResult) -> win32more.Windows.Foundation.HResult: ...
-    Status = property(get_Status, None)
     ExtendedError = property(get_ExtendedError, None)
+    Status = property(get_Status, None)
 class IsolatedWindowsEnvironmentOwnerRegistrationStatus(Int32):  # enum
     Success = 0
     InvalidArgument = 1
@@ -647,8 +647,8 @@ class IsolatedWindowsEnvironmentPostMessageResult(ComPtr):
     def get_Status(self: win32more.Windows.Security.Isolation.IIsolatedWindowsEnvironmentPostMessageResult) -> win32more.Windows.Security.Isolation.IsolatedWindowsEnvironmentPostMessageStatus: ...
     @winrt_mixinmethod
     def get_ExtendedError(self: win32more.Windows.Security.Isolation.IIsolatedWindowsEnvironmentPostMessageResult) -> win32more.Windows.Foundation.HResult: ...
-    Status = property(get_Status, None)
     ExtendedError = property(get_ExtendedError, None)
+    Status = property(get_Status, None)
 class IsolatedWindowsEnvironmentPostMessageStatus(Int32):  # enum
     Success = 0
     UnknownFailure = 1
@@ -667,8 +667,8 @@ class IsolatedWindowsEnvironmentProcess(ComPtr):
     def WaitForExitWithTimeout(self: win32more.Windows.Security.Isolation.IIsolatedWindowsEnvironmentProcess, timeoutMilliseconds: UInt32) -> Void: ...
     @winrt_mixinmethod
     def WaitForExitAsync(self: win32more.Windows.Security.Isolation.IIsolatedWindowsEnvironmentProcess) -> win32more.Windows.Foundation.IAsyncAction: ...
-    State = property(get_State, None)
     ExitCode = property(get_ExitCode, None)
+    State = property(get_State, None)
 class IsolatedWindowsEnvironmentProcessState(Int32):  # enum
     Running = 1
     Aborted = 2
@@ -709,9 +709,9 @@ class IsolatedWindowsEnvironmentShareFileResult(ComPtr):
     def get_ExtendedError(self: win32more.Windows.Security.Isolation.IIsolatedWindowsEnvironmentShareFileResult) -> win32more.Windows.Foundation.HResult: ...
     @winrt_mixinmethod
     def get_File(self: win32more.Windows.Security.Isolation.IIsolatedWindowsEnvironmentShareFileResult) -> win32more.Windows.Security.Isolation.IsolatedWindowsEnvironmentFile: ...
-    Status = property(get_Status, None)
     ExtendedError = property(get_ExtendedError, None)
     File = property(get_File, None)
+    Status = property(get_Status, None)
 class IsolatedWindowsEnvironmentShareFileStatus(Int32):  # enum
     Success = 0
     UnknownFailure = 1
@@ -745,8 +745,8 @@ class IsolatedWindowsEnvironmentShareFolderResult(ComPtr):
     def get_Status(self: win32more.Windows.Security.Isolation.IIsolatedWindowsEnvironmentShareFolderResult) -> win32more.Windows.Security.Isolation.IsolatedWindowsEnvironmentShareFolderStatus: ...
     @winrt_mixinmethod
     def get_ExtendedError(self: win32more.Windows.Security.Isolation.IIsolatedWindowsEnvironmentShareFolderResult) -> win32more.Windows.Foundation.HResult: ...
-    Status = property(get_Status, None)
     ExtendedError = property(get_ExtendedError, None)
+    Status = property(get_Status, None)
 class IsolatedWindowsEnvironmentShareFolderStatus(Int32):  # enum
     Success = 0
     UnknownFailure = 1
@@ -770,9 +770,9 @@ class IsolatedWindowsEnvironmentStartProcessResult(ComPtr):
     def get_ExtendedError(self: win32more.Windows.Security.Isolation.IIsolatedWindowsEnvironmentStartProcessResult) -> win32more.Windows.Foundation.HResult: ...
     @winrt_mixinmethod
     def get_Process(self: win32more.Windows.Security.Isolation.IIsolatedWindowsEnvironmentStartProcessResult) -> win32more.Windows.Security.Isolation.IsolatedWindowsEnvironmentProcess: ...
-    Status = property(get_Status, None)
     ExtendedError = property(get_ExtendedError, None)
     Process = property(get_Process, None)
+    Status = property(get_Status, None)
 class IsolatedWindowsEnvironmentStartProcessStatus(Int32):  # enum
     Success = 0
     UnknownFailure = 1
@@ -809,8 +809,8 @@ class IsolatedWindowsEnvironmentUserInfo(ComPtr):
     def TryWaitForSignInAsync(self: win32more.Windows.Security.Isolation.IIsolatedWindowsEnvironmentUserInfo) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
     @winrt_mixinmethod
     def TryWaitForSignInWithProgressAsync(self: win32more.Windows.Security.Isolation.IIsolatedWindowsEnvironmentUserInfo2) -> win32more.Windows.Foundation.IAsyncOperationWithProgress[Boolean, win32more.Windows.Security.Isolation.IsolatedWindowsEnvironmentSignInProgress]: ...
-    EnvironmentUserSid = property(get_EnvironmentUserSid, None)
     EnvironmentUserName = property(get_EnvironmentUserName, None)
+    EnvironmentUserSid = property(get_EnvironmentUserSid, None)
 class IsolatedWindowsHostMessenger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.Isolation.IsolatedWindowsHostMessenger'

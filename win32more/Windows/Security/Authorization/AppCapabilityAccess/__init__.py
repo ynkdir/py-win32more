@@ -35,8 +35,8 @@ class AppCapability(ComPtr):
     @winrt_classmethod
     def CreateWithProcessIdForUser(cls: win32more.Windows.Security.Authorization.AppCapabilityAccess.IAppCapabilityStatics, user: win32more.Windows.System.User, capabilityName: WinRT_String, pid: UInt32) -> win32more.Windows.Security.Authorization.AppCapabilityAccess.AppCapability: ...
     CapabilityName = property(get_CapabilityName, None)
-    User = property(get_User, None)
     DisplayMessage = property(get_DisplayMessage, put_DisplayMessage)
+    User = property(get_User, None)
 class AppCapabilityAccessChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Authorization.AppCapabilityAccess.IAppCapabilityAccessChangedEventArgs

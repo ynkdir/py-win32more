@@ -45,10 +45,10 @@ class DragInfo(ComPtr):
     def get_Position(self: win32more.Microsoft.UI.Input.DragDrop.IDragInfo) -> win32more.Windows.Foundation.Point: ...
     @winrt_mixinmethod
     def get_AllowedOperations(self: win32more.Microsoft.UI.Input.DragDrop.IDragInfo) -> win32more.Windows.ApplicationModel.DataTransfer.DataPackageOperation: ...
-    Modifiers = property(get_Modifiers, None)
-    Data = property(get_Data, None)
-    Position = property(get_Position, None)
     AllowedOperations = property(get_AllowedOperations, None)
+    Data = property(get_Data, None)
+    Modifiers = property(get_Modifiers, None)
+    Position = property(get_Position, None)
 class DragOperation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Input.DragDrop.IDragOperation
@@ -112,8 +112,8 @@ class DragUIOverride(ComPtr):
     def SetContentFromSoftwareBitmap(self: win32more.Microsoft.UI.Input.DragDrop.IDragUIOverride, bitmap: win32more.Windows.Graphics.Imaging.SoftwareBitmap) -> Void: ...
     @winrt_mixinmethod
     def SetContentFromSoftwareBitmap2(self: win32more.Microsoft.UI.Input.DragDrop.IDragUIOverride, bitmap: win32more.Windows.Graphics.Imaging.SoftwareBitmap, anchorPoint: win32more.Windows.Foundation.Point) -> Void: ...
-    IsCaptionVisible = property(get_IsCaptionVisible, put_IsCaptionVisible)
     Caption = property(get_Caption, put_Caption)
+    IsCaptionVisible = property(get_IsCaptionVisible, put_IsCaptionVisible)
     IsContentVisible = property(get_IsContentVisible, put_IsContentVisible)
     IsGlyphVisible = property(get_IsGlyphVisible, put_IsGlyphVisible)
 class DropOperationTargetRequestedEventArgs(ComPtr):

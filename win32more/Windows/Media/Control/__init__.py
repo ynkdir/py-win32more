@@ -108,16 +108,16 @@ class GlobalSystemMediaTransportControlsSessionMediaProperties(ComPtr):
     def get_PlaybackType(self: win32more.Windows.Media.Control.IGlobalSystemMediaTransportControlsSessionMediaProperties) -> win32more.Windows.Foundation.IReference[win32more.Windows.Media.MediaPlaybackType]: ...
     @winrt_mixinmethod
     def get_Thumbnail(self: win32more.Windows.Media.Control.IGlobalSystemMediaTransportControlsSessionMediaProperties) -> win32more.Windows.Storage.Streams.IRandomAccessStreamReference: ...
-    Title = property(get_Title, None)
-    Subtitle = property(get_Subtitle, None)
     AlbumArtist = property(get_AlbumArtist, None)
-    Artist = property(get_Artist, None)
     AlbumTitle = property(get_AlbumTitle, None)
-    TrackNumber = property(get_TrackNumber, None)
-    Genres = property(get_Genres, None)
     AlbumTrackCount = property(get_AlbumTrackCount, None)
+    Artist = property(get_Artist, None)
+    Genres = property(get_Genres, None)
     PlaybackType = property(get_PlaybackType, None)
+    Subtitle = property(get_Subtitle, None)
     Thumbnail = property(get_Thumbnail, None)
+    Title = property(get_Title, None)
+    TrackNumber = property(get_TrackNumber, None)
 class GlobalSystemMediaTransportControlsSessionPlaybackControls(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Control.IGlobalSystemMediaTransportControlsSessionPlaybackControls
@@ -152,21 +152,21 @@ class GlobalSystemMediaTransportControlsSessionPlaybackControls(ComPtr):
     def get_IsPlaybackRateEnabled(self: win32more.Windows.Media.Control.IGlobalSystemMediaTransportControlsSessionPlaybackControls) -> Boolean: ...
     @winrt_mixinmethod
     def get_IsPlaybackPositionEnabled(self: win32more.Windows.Media.Control.IGlobalSystemMediaTransportControlsSessionPlaybackControls) -> Boolean: ...
-    IsPlayEnabled = property(get_IsPlayEnabled, None)
-    IsPauseEnabled = property(get_IsPauseEnabled, None)
-    IsStopEnabled = property(get_IsStopEnabled, None)
-    IsRecordEnabled = property(get_IsRecordEnabled, None)
-    IsFastForwardEnabled = property(get_IsFastForwardEnabled, None)
-    IsRewindEnabled = property(get_IsRewindEnabled, None)
-    IsNextEnabled = property(get_IsNextEnabled, None)
-    IsPreviousEnabled = property(get_IsPreviousEnabled, None)
-    IsChannelUpEnabled = property(get_IsChannelUpEnabled, None)
     IsChannelDownEnabled = property(get_IsChannelDownEnabled, None)
+    IsChannelUpEnabled = property(get_IsChannelUpEnabled, None)
+    IsFastForwardEnabled = property(get_IsFastForwardEnabled, None)
+    IsNextEnabled = property(get_IsNextEnabled, None)
+    IsPauseEnabled = property(get_IsPauseEnabled, None)
+    IsPlayEnabled = property(get_IsPlayEnabled, None)
     IsPlayPauseToggleEnabled = property(get_IsPlayPauseToggleEnabled, None)
-    IsShuffleEnabled = property(get_IsShuffleEnabled, None)
-    IsRepeatEnabled = property(get_IsRepeatEnabled, None)
-    IsPlaybackRateEnabled = property(get_IsPlaybackRateEnabled, None)
     IsPlaybackPositionEnabled = property(get_IsPlaybackPositionEnabled, None)
+    IsPlaybackRateEnabled = property(get_IsPlaybackRateEnabled, None)
+    IsPreviousEnabled = property(get_IsPreviousEnabled, None)
+    IsRecordEnabled = property(get_IsRecordEnabled, None)
+    IsRepeatEnabled = property(get_IsRepeatEnabled, None)
+    IsRewindEnabled = property(get_IsRewindEnabled, None)
+    IsShuffleEnabled = property(get_IsShuffleEnabled, None)
+    IsStopEnabled = property(get_IsStopEnabled, None)
 class GlobalSystemMediaTransportControlsSessionPlaybackInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Control.IGlobalSystemMediaTransportControlsSessionPlaybackInfo
@@ -183,12 +183,12 @@ class GlobalSystemMediaTransportControlsSessionPlaybackInfo(ComPtr):
     def get_PlaybackRate(self: win32more.Windows.Media.Control.IGlobalSystemMediaTransportControlsSessionPlaybackInfo) -> win32more.Windows.Foundation.IReference[Double]: ...
     @winrt_mixinmethod
     def get_IsShuffleActive(self: win32more.Windows.Media.Control.IGlobalSystemMediaTransportControlsSessionPlaybackInfo) -> win32more.Windows.Foundation.IReference[Boolean]: ...
+    AutoRepeatMode = property(get_AutoRepeatMode, None)
     Controls = property(get_Controls, None)
+    IsShuffleActive = property(get_IsShuffleActive, None)
+    PlaybackRate = property(get_PlaybackRate, None)
     PlaybackStatus = property(get_PlaybackStatus, None)
     PlaybackType = property(get_PlaybackType, None)
-    AutoRepeatMode = property(get_AutoRepeatMode, None)
-    PlaybackRate = property(get_PlaybackRate, None)
-    IsShuffleActive = property(get_IsShuffleActive, None)
 class GlobalSystemMediaTransportControlsSessionPlaybackStatus(Int32):  # enum
     Closed = 0
     Opened = 1
@@ -212,12 +212,12 @@ class GlobalSystemMediaTransportControlsSessionTimelineProperties(ComPtr):
     def get_Position(self: win32more.Windows.Media.Control.IGlobalSystemMediaTransportControlsSessionTimelineProperties) -> win32more.Windows.Foundation.TimeSpan: ...
     @winrt_mixinmethod
     def get_LastUpdatedTime(self: win32more.Windows.Media.Control.IGlobalSystemMediaTransportControlsSessionTimelineProperties) -> win32more.Windows.Foundation.DateTime: ...
-    StartTime = property(get_StartTime, None)
     EndTime = property(get_EndTime, None)
-    MinSeekTime = property(get_MinSeekTime, None)
-    MaxSeekTime = property(get_MaxSeekTime, None)
-    Position = property(get_Position, None)
     LastUpdatedTime = property(get_LastUpdatedTime, None)
+    MaxSeekTime = property(get_MaxSeekTime, None)
+    MinSeekTime = property(get_MinSeekTime, None)
+    Position = property(get_Position, None)
+    StartTime = property(get_StartTime, None)
 class ICurrentSessionChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Control.ICurrentSessionChangedEventArgs'
@@ -323,16 +323,16 @@ class IGlobalSystemMediaTransportControlsSessionMediaProperties(ComPtr):
     def get_PlaybackType(self) -> win32more.Windows.Foundation.IReference[win32more.Windows.Media.MediaPlaybackType]: ...
     @winrt_commethod(15)
     def get_Thumbnail(self) -> win32more.Windows.Storage.Streams.IRandomAccessStreamReference: ...
-    Title = property(get_Title, None)
-    Subtitle = property(get_Subtitle, None)
     AlbumArtist = property(get_AlbumArtist, None)
-    Artist = property(get_Artist, None)
     AlbumTitle = property(get_AlbumTitle, None)
-    TrackNumber = property(get_TrackNumber, None)
-    Genres = property(get_Genres, None)
     AlbumTrackCount = property(get_AlbumTrackCount, None)
+    Artist = property(get_Artist, None)
+    Genres = property(get_Genres, None)
     PlaybackType = property(get_PlaybackType, None)
+    Subtitle = property(get_Subtitle, None)
     Thumbnail = property(get_Thumbnail, None)
+    Title = property(get_Title, None)
+    TrackNumber = property(get_TrackNumber, None)
 class IGlobalSystemMediaTransportControlsSessionPlaybackControls(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Control.IGlobalSystemMediaTransportControlsSessionPlaybackControls'
@@ -367,21 +367,21 @@ class IGlobalSystemMediaTransportControlsSessionPlaybackControls(ComPtr):
     def get_IsPlaybackRateEnabled(self) -> Boolean: ...
     @winrt_commethod(20)
     def get_IsPlaybackPositionEnabled(self) -> Boolean: ...
-    IsPlayEnabled = property(get_IsPlayEnabled, None)
-    IsPauseEnabled = property(get_IsPauseEnabled, None)
-    IsStopEnabled = property(get_IsStopEnabled, None)
-    IsRecordEnabled = property(get_IsRecordEnabled, None)
-    IsFastForwardEnabled = property(get_IsFastForwardEnabled, None)
-    IsRewindEnabled = property(get_IsRewindEnabled, None)
-    IsNextEnabled = property(get_IsNextEnabled, None)
-    IsPreviousEnabled = property(get_IsPreviousEnabled, None)
-    IsChannelUpEnabled = property(get_IsChannelUpEnabled, None)
     IsChannelDownEnabled = property(get_IsChannelDownEnabled, None)
+    IsChannelUpEnabled = property(get_IsChannelUpEnabled, None)
+    IsFastForwardEnabled = property(get_IsFastForwardEnabled, None)
+    IsNextEnabled = property(get_IsNextEnabled, None)
+    IsPauseEnabled = property(get_IsPauseEnabled, None)
+    IsPlayEnabled = property(get_IsPlayEnabled, None)
     IsPlayPauseToggleEnabled = property(get_IsPlayPauseToggleEnabled, None)
-    IsShuffleEnabled = property(get_IsShuffleEnabled, None)
-    IsRepeatEnabled = property(get_IsRepeatEnabled, None)
-    IsPlaybackRateEnabled = property(get_IsPlaybackRateEnabled, None)
     IsPlaybackPositionEnabled = property(get_IsPlaybackPositionEnabled, None)
+    IsPlaybackRateEnabled = property(get_IsPlaybackRateEnabled, None)
+    IsPreviousEnabled = property(get_IsPreviousEnabled, None)
+    IsRecordEnabled = property(get_IsRecordEnabled, None)
+    IsRepeatEnabled = property(get_IsRepeatEnabled, None)
+    IsRewindEnabled = property(get_IsRewindEnabled, None)
+    IsShuffleEnabled = property(get_IsShuffleEnabled, None)
+    IsStopEnabled = property(get_IsStopEnabled, None)
 class IGlobalSystemMediaTransportControlsSessionPlaybackInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Control.IGlobalSystemMediaTransportControlsSessionPlaybackInfo'
@@ -398,12 +398,12 @@ class IGlobalSystemMediaTransportControlsSessionPlaybackInfo(ComPtr):
     def get_PlaybackRate(self) -> win32more.Windows.Foundation.IReference[Double]: ...
     @winrt_commethod(11)
     def get_IsShuffleActive(self) -> win32more.Windows.Foundation.IReference[Boolean]: ...
+    AutoRepeatMode = property(get_AutoRepeatMode, None)
     Controls = property(get_Controls, None)
+    IsShuffleActive = property(get_IsShuffleActive, None)
+    PlaybackRate = property(get_PlaybackRate, None)
     PlaybackStatus = property(get_PlaybackStatus, None)
     PlaybackType = property(get_PlaybackType, None)
-    AutoRepeatMode = property(get_AutoRepeatMode, None)
-    PlaybackRate = property(get_PlaybackRate, None)
-    IsShuffleActive = property(get_IsShuffleActive, None)
 class IGlobalSystemMediaTransportControlsSessionTimelineProperties(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Control.IGlobalSystemMediaTransportControlsSessionTimelineProperties'
@@ -420,12 +420,12 @@ class IGlobalSystemMediaTransportControlsSessionTimelineProperties(ComPtr):
     def get_Position(self) -> win32more.Windows.Foundation.TimeSpan: ...
     @winrt_commethod(11)
     def get_LastUpdatedTime(self) -> win32more.Windows.Foundation.DateTime: ...
-    StartTime = property(get_StartTime, None)
     EndTime = property(get_EndTime, None)
-    MinSeekTime = property(get_MinSeekTime, None)
-    MaxSeekTime = property(get_MaxSeekTime, None)
-    Position = property(get_Position, None)
     LastUpdatedTime = property(get_LastUpdatedTime, None)
+    MaxSeekTime = property(get_MaxSeekTime, None)
+    MinSeekTime = property(get_MinSeekTime, None)
+    Position = property(get_Position, None)
+    StartTime = property(get_StartTime, None)
 class IMediaPropertiesChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Control.IMediaPropertiesChangedEventArgs'

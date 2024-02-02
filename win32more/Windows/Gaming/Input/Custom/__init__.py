@@ -95,13 +95,13 @@ class HidGameControllerProvider(ComPtr):
     def get_HardwareVersionInfo(self: win32more.Windows.Gaming.Input.Custom.IGameControllerProvider) -> win32more.Windows.Gaming.Input.Custom.GameControllerVersionInfo: ...
     @winrt_mixinmethod
     def get_IsConnected(self: win32more.Windows.Gaming.Input.Custom.IGameControllerProvider) -> Boolean: ...
-    UsageId = property(get_UsageId, None)
-    UsagePage = property(get_UsagePage, None)
     FirmwareVersionInfo = property(get_FirmwareVersionInfo, None)
     HardwareProductId = property(get_HardwareProductId, None)
     HardwareVendorId = property(get_HardwareVendorId, None)
     HardwareVersionInfo = property(get_HardwareVersionInfo, None)
     IsConnected = property(get_IsConnected, None)
+    UsageId = property(get_UsageId, None)
+    UsagePage = property(get_UsagePage, None)
 class ICustomGameControllerFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Gaming.Input.Custom.ICustomGameControllerFactory'

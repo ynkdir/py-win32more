@@ -13,9 +13,9 @@ class AutomationConnection(ComPtr):
     def get_AppUserModelId(self: win32more.Windows.UI.UIAutomation.IAutomationConnection) -> WinRT_String: ...
     @winrt_mixinmethod
     def get_ExecutableFileName(self: win32more.Windows.UI.UIAutomation.IAutomationConnection) -> WinRT_String: ...
-    IsRemoteSystem = property(get_IsRemoteSystem, None)
     AppUserModelId = property(get_AppUserModelId, None)
     ExecutableFileName = property(get_ExecutableFileName, None)
+    IsRemoteSystem = property(get_IsRemoteSystem, None)
 class AutomationConnectionBoundObject(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.UIAutomation.IAutomationConnectionBoundObject
@@ -33,9 +33,9 @@ class AutomationElement(ComPtr):
     def get_AppUserModelId(self: win32more.Windows.UI.UIAutomation.IAutomationElement) -> WinRT_String: ...
     @winrt_mixinmethod
     def get_ExecutableFileName(self: win32more.Windows.UI.UIAutomation.IAutomationElement) -> WinRT_String: ...
-    IsRemoteSystem = property(get_IsRemoteSystem, None)
     AppUserModelId = property(get_AppUserModelId, None)
     ExecutableFileName = property(get_ExecutableFileName, None)
+    IsRemoteSystem = property(get_IsRemoteSystem, None)
 class AutomationTextRange(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.UIAutomation.IAutomationTextRange
@@ -50,9 +50,9 @@ class IAutomationConnection(ComPtr):
     def get_AppUserModelId(self) -> WinRT_String: ...
     @winrt_commethod(8)
     def get_ExecutableFileName(self) -> WinRT_String: ...
-    IsRemoteSystem = property(get_IsRemoteSystem, None)
     AppUserModelId = property(get_AppUserModelId, None)
     ExecutableFileName = property(get_ExecutableFileName, None)
+    IsRemoteSystem = property(get_IsRemoteSystem, None)
 class IAutomationConnectionBoundObject(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.UIAutomation.IAutomationConnectionBoundObject'
@@ -70,9 +70,9 @@ class IAutomationElement(ComPtr):
     def get_AppUserModelId(self) -> WinRT_String: ...
     @winrt_commethod(8)
     def get_ExecutableFileName(self) -> WinRT_String: ...
-    IsRemoteSystem = property(get_IsRemoteSystem, None)
     AppUserModelId = property(get_AppUserModelId, None)
     ExecutableFileName = property(get_ExecutableFileName, None)
+    IsRemoteSystem = property(get_IsRemoteSystem, None)
 class IAutomationTextRange(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.UIAutomation.IAutomationTextRange'

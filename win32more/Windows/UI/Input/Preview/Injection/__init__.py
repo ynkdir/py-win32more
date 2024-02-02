@@ -93,10 +93,10 @@ class IInjectedInputMouseInfo(ComPtr):
     def get_TimeOffsetInMilliseconds(self) -> UInt32: ...
     @winrt_commethod(15)
     def put_TimeOffsetInMilliseconds(self, value: UInt32) -> Void: ...
-    MouseOptions = property(get_MouseOptions, put_MouseOptions)
-    MouseData = property(get_MouseData, put_MouseData)
-    DeltaY = property(get_DeltaY, put_DeltaY)
     DeltaX = property(get_DeltaX, put_DeltaX)
+    DeltaY = property(get_DeltaY, put_DeltaY)
+    MouseData = property(get_MouseData, put_MouseData)
+    MouseOptions = property(get_MouseOptions, put_MouseOptions)
     TimeOffsetInMilliseconds = property(get_TimeOffsetInMilliseconds, put_TimeOffsetInMilliseconds)
 class IInjectedInputPenInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -130,9 +130,9 @@ class IInjectedInputPenInfo(ComPtr):
     def get_TiltY(self) -> Int32: ...
     @winrt_commethod(19)
     def put_TiltY(self, value: Int32) -> Void: ...
-    PointerInfo = property(get_PointerInfo, put_PointerInfo)
     PenButtons = property(get_PenButtons, put_PenButtons)
     PenParameters = property(get_PenParameters, put_PenParameters)
+    PointerInfo = property(get_PointerInfo, put_PointerInfo)
     Pressure = property(get_Pressure, put_Pressure)
     Rotation = property(get_Rotation, put_Rotation)
     TiltX = property(get_TiltX, put_TiltX)
@@ -238,7 +238,7 @@ class InjectedInputGamepadInfo(ComPtr):
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Input.Preview.Injection.InjectedInputGamepadInfo: ...
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Windows.UI.Input.Preview.Injection.IInjectedInputGamepadInfoFactory, reading: win32more.Windows.Gaming.Input.GamepadReading) -> win32more.Windows.UI.Input.Preview.Injection.InjectedInputGamepadInfo: ...
+    def CreateInstanceFromGamepadReading(cls: win32more.Windows.UI.Input.Preview.Injection.IInjectedInputGamepadInfoFactory, reading: win32more.Windows.Gaming.Input.GamepadReading) -> win32more.Windows.UI.Input.Preview.Injection.InjectedInputGamepadInfo: ...
     @winrt_mixinmethod
     def get_Buttons(self: win32more.Windows.UI.Input.Preview.Injection.IInjectedInputGamepadInfo) -> win32more.Windows.Gaming.Input.GamepadButtons: ...
     @winrt_mixinmethod
@@ -341,10 +341,10 @@ class InjectedInputMouseInfo(ComPtr):
     def get_TimeOffsetInMilliseconds(self: win32more.Windows.UI.Input.Preview.Injection.IInjectedInputMouseInfo) -> UInt32: ...
     @winrt_mixinmethod
     def put_TimeOffsetInMilliseconds(self: win32more.Windows.UI.Input.Preview.Injection.IInjectedInputMouseInfo, value: UInt32) -> Void: ...
-    MouseOptions = property(get_MouseOptions, put_MouseOptions)
-    MouseData = property(get_MouseData, put_MouseData)
-    DeltaY = property(get_DeltaY, put_DeltaY)
     DeltaX = property(get_DeltaX, put_DeltaX)
+    DeltaY = property(get_DeltaY, put_DeltaY)
+    MouseData = property(get_MouseData, put_MouseData)
+    MouseOptions = property(get_MouseOptions, put_MouseOptions)
     TimeOffsetInMilliseconds = property(get_TimeOffsetInMilliseconds, put_TimeOffsetInMilliseconds)
 class InjectedInputMouseOptions(UInt32):  # enum
     None_ = 0
@@ -408,9 +408,9 @@ class InjectedInputPenInfo(ComPtr):
     def get_TiltY(self: win32more.Windows.UI.Input.Preview.Injection.IInjectedInputPenInfo) -> Int32: ...
     @winrt_mixinmethod
     def put_TiltY(self: win32more.Windows.UI.Input.Preview.Injection.IInjectedInputPenInfo, value: Int32) -> Void: ...
-    PointerInfo = property(get_PointerInfo, put_PointerInfo)
     PenButtons = property(get_PenButtons, put_PenButtons)
     PenParameters = property(get_PenParameters, put_PenParameters)
+    PointerInfo = property(get_PointerInfo, put_PointerInfo)
     Pressure = property(get_Pressure, put_Pressure)
     Rotation = property(get_Rotation, put_Rotation)
     TiltX = property(get_TiltX, put_TiltX)

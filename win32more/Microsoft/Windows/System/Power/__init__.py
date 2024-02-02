@@ -94,16 +94,16 @@ class IPowerManagerStatics(ComPtr):
     def add_SystemSuspendStatusChanged(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(37)
     def remove_SystemSuspendStatusChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    EnergySaverStatus = property(get_EnergySaverStatus, None)
     BatteryStatus = property(get_BatteryStatus, None)
+    DisplayStatus = property(get_DisplayStatus, None)
+    EffectivePowerMode = property(get_EffectivePowerMode, None)
+    EnergySaverStatus = property(get_EnergySaverStatus, None)
+    PowerSourceKind = property(get_PowerSourceKind, None)
     PowerSupplyStatus = property(get_PowerSupplyStatus, None)
     RemainingChargePercent = property(get_RemainingChargePercent, None)
     RemainingDischargeTime = property(get_RemainingDischargeTime, None)
-    PowerSourceKind = property(get_PowerSourceKind, None)
-    DisplayStatus = property(get_DisplayStatus, None)
-    EffectivePowerMode = property(get_EffectivePowerMode, None)
-    UserPresenceStatus = property(get_UserPresenceStatus, None)
     SystemSuspendStatus = property(get_SystemSuspendStatus, None)
+    UserPresenceStatus = property(get_UserPresenceStatus, None)
 class IPowerManagerStatics2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Windows.System.Power.IPowerManagerStatics2'
@@ -182,17 +182,17 @@ class PowerManager(ComPtr, metaclass=_PowerManager_Meta_):
     def add_SystemSuspendStatusChanged(cls: win32more.Microsoft.Windows.System.Power.IPowerManagerStatics, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod
     def remove_SystemSuspendStatusChanged(cls: win32more.Microsoft.Windows.System.Power.IPowerManagerStatics, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    _PowerManager_Meta_.BatteryStatus = property(get_BatteryStatus.__wrapped__, None)
+    _PowerManager_Meta_.DisplayStatus = property(get_DisplayStatus.__wrapped__, None)
+    _PowerManager_Meta_.EffectivePowerMode = property(get_EffectivePowerMode.__wrapped__, None)
     _PowerManager_Meta_.EffectivePowerMode2 = property(get_EffectivePowerMode2.__wrapped__, None)
     _PowerManager_Meta_.EnergySaverStatus = property(get_EnergySaverStatus.__wrapped__, None)
-    _PowerManager_Meta_.BatteryStatus = property(get_BatteryStatus.__wrapped__, None)
+    _PowerManager_Meta_.PowerSourceKind = property(get_PowerSourceKind.__wrapped__, None)
     _PowerManager_Meta_.PowerSupplyStatus = property(get_PowerSupplyStatus.__wrapped__, None)
     _PowerManager_Meta_.RemainingChargePercent = property(get_RemainingChargePercent.__wrapped__, None)
     _PowerManager_Meta_.RemainingDischargeTime = property(get_RemainingDischargeTime.__wrapped__, None)
-    _PowerManager_Meta_.PowerSourceKind = property(get_PowerSourceKind.__wrapped__, None)
-    _PowerManager_Meta_.DisplayStatus = property(get_DisplayStatus.__wrapped__, None)
-    _PowerManager_Meta_.EffectivePowerMode = property(get_EffectivePowerMode.__wrapped__, None)
-    _PowerManager_Meta_.UserPresenceStatus = property(get_UserPresenceStatus.__wrapped__, None)
     _PowerManager_Meta_.SystemSuspendStatus = property(get_SystemSuspendStatus.__wrapped__, None)
+    _PowerManager_Meta_.UserPresenceStatus = property(get_UserPresenceStatus.__wrapped__, None)
 PowerNotificationsContract: UInt32 = 131072
 class PowerSourceKind(Int32):  # enum
     AC = 0

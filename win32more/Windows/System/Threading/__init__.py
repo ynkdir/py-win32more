@@ -25,8 +25,8 @@ class IThreadPoolTimer(ComPtr):
     def get_Delay(self) -> win32more.Windows.Foundation.TimeSpan: ...
     @winrt_commethod(8)
     def Cancel(self) -> Void: ...
-    Period = property(get_Period, None)
     Delay = property(get_Delay, None)
+    Period = property(get_Period, None)
 class IThreadPoolTimerStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.System.Threading.IThreadPoolTimerStatics'
@@ -66,8 +66,8 @@ class ThreadPoolTimer(ComPtr):
     def CreatePeriodicTimerWithCompletion(cls: win32more.Windows.System.Threading.IThreadPoolTimerStatics, handler: win32more.Windows.System.Threading.TimerElapsedHandler, period: win32more.Windows.Foundation.TimeSpan, destroyed: win32more.Windows.System.Threading.TimerDestroyedHandler) -> win32more.Windows.System.Threading.ThreadPoolTimer: ...
     @winrt_classmethod
     def CreateTimerWithCompletion(cls: win32more.Windows.System.Threading.IThreadPoolTimerStatics, handler: win32more.Windows.System.Threading.TimerElapsedHandler, delay: win32more.Windows.Foundation.TimeSpan, destroyed: win32more.Windows.System.Threading.TimerDestroyedHandler) -> win32more.Windows.System.Threading.ThreadPoolTimer: ...
-    Period = property(get_Period, None)
     Delay = property(get_Delay, None)
+    Period = property(get_Period, None)
 class TimerDestroyedHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{34ed19fa-8384-4eb9-8209-fb5094eeec35}')

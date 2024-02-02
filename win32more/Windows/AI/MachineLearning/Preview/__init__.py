@@ -36,8 +36,8 @@ class IImageVariableDescriptorPreview(ComPtr):
     @winrt_commethod(8)
     def get_Height(self) -> UInt32: ...
     BitmapPixelFormat = property(get_BitmapPixelFormat, None)
-    Width = property(get_Width, None)
     Height = property(get_Height, None)
+    Width = property(get_Width, None)
 class IInferencingOptionsPreview(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.AI.MachineLearning.Preview.IInferencingOptionsPreview'
@@ -62,10 +62,10 @@ class IInferencingOptionsPreview(ComPtr):
     def get_ReclaimMemoryAfterEvaluation(self) -> Boolean: ...
     @winrt_commethod(15)
     def put_ReclaimMemoryAfterEvaluation(self, value: Boolean) -> Void: ...
-    PreferredDeviceKind = property(get_PreferredDeviceKind, put_PreferredDeviceKind)
     IsTracingEnabled = property(get_IsTracingEnabled, put_IsTracingEnabled)
     MaxBatchSize = property(get_MaxBatchSize, put_MaxBatchSize)
     MinimizeMemoryAllocation = property(get_MinimizeMemoryAllocation, put_MinimizeMemoryAllocation)
+    PreferredDeviceKind = property(get_PreferredDeviceKind, put_PreferredDeviceKind)
     ReclaimMemoryAfterEvaluation = property(get_ReclaimMemoryAfterEvaluation, put_ReclaimMemoryAfterEvaluation)
 class ILearningModelBindingPreview(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -104,13 +104,13 @@ class ILearningModelDescriptionPreview(ComPtr):
     @winrt_commethod(13)
     def get_OutputFeatures(self) -> win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.AI.MachineLearning.Preview.ILearningModelVariableDescriptorPreview]: ...
     Author = property(get_Author, None)
-    Name = property(get_Name, None)
-    Domain = property(get_Domain, None)
     Description = property(get_Description, None)
-    Version = property(get_Version, None)
-    Metadata = property(get_Metadata, None)
+    Domain = property(get_Domain, None)
     InputFeatures = property(get_InputFeatures, None)
+    Metadata = property(get_Metadata, None)
+    Name = property(get_Name, None)
     OutputFeatures = property(get_OutputFeatures, None)
+    Version = property(get_Version, None)
 class ILearningModelEvaluationResultPreview(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.AI.MachineLearning.Preview.ILearningModelEvaluationResultPreview'
@@ -157,10 +157,10 @@ class ILearningModelVariableDescriptorPreview(ComPtr):
     def get_ModelFeatureKind(self) -> win32more.Windows.AI.MachineLearning.Preview.LearningModelFeatureKindPreview: ...
     @winrt_commethod(9)
     def get_IsRequired(self) -> Boolean: ...
-    Name = property(get_Name, None)
     Description = property(get_Description, None)
-    ModelFeatureKind = property(get_ModelFeatureKind, None)
     IsRequired = property(get_IsRequired, None)
+    ModelFeatureKind = property(get_ModelFeatureKind, None)
+    Name = property(get_Name, None)
 class IMapVariableDescriptorPreview(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.AI.MachineLearning.Preview.IMapVariableDescriptorPreview'
@@ -173,10 +173,10 @@ class IMapVariableDescriptorPreview(ComPtr):
     def get_ValidIntegerKeys(self) -> win32more.Windows.Foundation.Collections.IIterable[Int64]: ...
     @winrt_commethod(9)
     def get_Fields(self) -> win32more.Windows.AI.MachineLearning.Preview.ILearningModelVariableDescriptorPreview: ...
-    KeyKind = property(get_KeyKind, None)
-    ValidStringKeys = property(get_ValidStringKeys, None)
-    ValidIntegerKeys = property(get_ValidIntegerKeys, None)
     Fields = property(get_Fields, None)
+    KeyKind = property(get_KeyKind, None)
+    ValidIntegerKeys = property(get_ValidIntegerKeys, None)
+    ValidStringKeys = property(get_ValidStringKeys, None)
 class ISequenceVariableDescriptorPreview(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.AI.MachineLearning.Preview.ISequenceVariableDescriptorPreview'
@@ -213,12 +213,12 @@ class ImageVariableDescriptorPreview(ComPtr):
     @winrt_mixinmethod
     def get_IsRequired(self: win32more.Windows.AI.MachineLearning.Preview.ILearningModelVariableDescriptorPreview) -> Boolean: ...
     BitmapPixelFormat = property(get_BitmapPixelFormat, None)
-    Width = property(get_Width, None)
-    Height = property(get_Height, None)
-    Name = property(get_Name, None)
     Description = property(get_Description, None)
-    ModelFeatureKind = property(get_ModelFeatureKind, None)
+    Height = property(get_Height, None)
     IsRequired = property(get_IsRequired, None)
+    ModelFeatureKind = property(get_ModelFeatureKind, None)
+    Name = property(get_Name, None)
+    Width = property(get_Width, None)
 class InferencingOptionsPreview(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.AI.MachineLearning.Preview.IInferencingOptionsPreview
@@ -243,10 +243,10 @@ class InferencingOptionsPreview(ComPtr):
     def get_ReclaimMemoryAfterEvaluation(self: win32more.Windows.AI.MachineLearning.Preview.IInferencingOptionsPreview) -> Boolean: ...
     @winrt_mixinmethod
     def put_ReclaimMemoryAfterEvaluation(self: win32more.Windows.AI.MachineLearning.Preview.IInferencingOptionsPreview, value: Boolean) -> Void: ...
-    PreferredDeviceKind = property(get_PreferredDeviceKind, put_PreferredDeviceKind)
     IsTracingEnabled = property(get_IsTracingEnabled, put_IsTracingEnabled)
     MaxBatchSize = property(get_MaxBatchSize, put_MaxBatchSize)
     MinimizeMemoryAllocation = property(get_MinimizeMemoryAllocation, put_MinimizeMemoryAllocation)
+    PreferredDeviceKind = property(get_PreferredDeviceKind, put_PreferredDeviceKind)
     ReclaimMemoryAfterEvaluation = property(get_ReclaimMemoryAfterEvaluation, put_ReclaimMemoryAfterEvaluation)
 class LearningModelBindingPreview(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -299,13 +299,13 @@ class LearningModelDescriptionPreview(ComPtr):
     @winrt_mixinmethod
     def get_OutputFeatures(self: win32more.Windows.AI.MachineLearning.Preview.ILearningModelDescriptionPreview) -> win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.AI.MachineLearning.Preview.ILearningModelVariableDescriptorPreview]: ...
     Author = property(get_Author, None)
-    Name = property(get_Name, None)
-    Domain = property(get_Domain, None)
     Description = property(get_Description, None)
-    Version = property(get_Version, None)
-    Metadata = property(get_Metadata, None)
+    Domain = property(get_Domain, None)
     InputFeatures = property(get_InputFeatures, None)
+    Metadata = property(get_Metadata, None)
+    Name = property(get_Name, None)
     OutputFeatures = property(get_OutputFeatures, None)
+    Version = property(get_Version, None)
 class LearningModelDeviceKindPreview(Int32):  # enum
     LearningDeviceAny = 0
     LearningDeviceCpu = 1
@@ -361,10 +361,10 @@ class LearningModelVariableDescriptorPreview(ComPtr):
     def get_ModelFeatureKind(self: win32more.Windows.AI.MachineLearning.Preview.ILearningModelVariableDescriptorPreview) -> win32more.Windows.AI.MachineLearning.Preview.LearningModelFeatureKindPreview: ...
     @winrt_mixinmethod
     def get_IsRequired(self: win32more.Windows.AI.MachineLearning.Preview.ILearningModelVariableDescriptorPreview) -> Boolean: ...
-    Name = property(get_Name, None)
     Description = property(get_Description, None)
-    ModelFeatureKind = property(get_ModelFeatureKind, None)
     IsRequired = property(get_IsRequired, None)
+    ModelFeatureKind = property(get_ModelFeatureKind, None)
+    Name = property(get_Name, None)
 MachineLearningPreviewContract: UInt32 = 131072
 class MapVariableDescriptorPreview(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -386,14 +386,14 @@ class MapVariableDescriptorPreview(ComPtr):
     def get_ModelFeatureKind(self: win32more.Windows.AI.MachineLearning.Preview.ILearningModelVariableDescriptorPreview) -> win32more.Windows.AI.MachineLearning.Preview.LearningModelFeatureKindPreview: ...
     @winrt_mixinmethod
     def get_IsRequired(self: win32more.Windows.AI.MachineLearning.Preview.ILearningModelVariableDescriptorPreview) -> Boolean: ...
-    KeyKind = property(get_KeyKind, None)
-    ValidStringKeys = property(get_ValidStringKeys, None)
-    ValidIntegerKeys = property(get_ValidIntegerKeys, None)
-    Fields = property(get_Fields, None)
-    Name = property(get_Name, None)
     Description = property(get_Description, None)
-    ModelFeatureKind = property(get_ModelFeatureKind, None)
+    Fields = property(get_Fields, None)
     IsRequired = property(get_IsRequired, None)
+    KeyKind = property(get_KeyKind, None)
+    ModelFeatureKind = property(get_ModelFeatureKind, None)
+    Name = property(get_Name, None)
+    ValidIntegerKeys = property(get_ValidIntegerKeys, None)
+    ValidStringKeys = property(get_ValidStringKeys, None)
 class SequenceVariableDescriptorPreview(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.AI.MachineLearning.Preview.ISequenceVariableDescriptorPreview
@@ -408,11 +408,11 @@ class SequenceVariableDescriptorPreview(ComPtr):
     def get_ModelFeatureKind(self: win32more.Windows.AI.MachineLearning.Preview.ILearningModelVariableDescriptorPreview) -> win32more.Windows.AI.MachineLearning.Preview.LearningModelFeatureKindPreview: ...
     @winrt_mixinmethod
     def get_IsRequired(self: win32more.Windows.AI.MachineLearning.Preview.ILearningModelVariableDescriptorPreview) -> Boolean: ...
-    ElementType = property(get_ElementType, None)
-    Name = property(get_Name, None)
     Description = property(get_Description, None)
-    ModelFeatureKind = property(get_ModelFeatureKind, None)
+    ElementType = property(get_ElementType, None)
     IsRequired = property(get_IsRequired, None)
+    ModelFeatureKind = property(get_ModelFeatureKind, None)
+    Name = property(get_Name, None)
 class TensorVariableDescriptorPreview(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.AI.MachineLearning.Preview.ITensorVariableDescriptorPreview
@@ -430,11 +430,11 @@ class TensorVariableDescriptorPreview(ComPtr):
     @winrt_mixinmethod
     def get_IsRequired(self: win32more.Windows.AI.MachineLearning.Preview.ILearningModelVariableDescriptorPreview) -> Boolean: ...
     DataType = property(get_DataType, None)
-    Shape = property(get_Shape, None)
-    Name = property(get_Name, None)
     Description = property(get_Description, None)
-    ModelFeatureKind = property(get_ModelFeatureKind, None)
     IsRequired = property(get_IsRequired, None)
+    ModelFeatureKind = property(get_ModelFeatureKind, None)
+    Name = property(get_Name, None)
+    Shape = property(get_Shape, None)
 
 
 make_ready(__name__)

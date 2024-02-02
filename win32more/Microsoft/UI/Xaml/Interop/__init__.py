@@ -95,8 +95,8 @@ class INotifyCollectionChangedEventArgs(ComPtr):
     def get_OldStartingIndex(self) -> Int32: ...
     Action = property(get_Action, None)
     NewItems = property(get_NewItems, None)
-    OldItems = property(get_OldItems, None)
     NewStartingIndex = property(get_NewStartingIndex, None)
+    OldItems = property(get_OldItems, None)
     OldStartingIndex = property(get_OldStartingIndex, None)
 class INotifyCollectionChangedEventArgsFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -135,8 +135,8 @@ class NotifyCollectionChangedEventArgs(ComPtr):
     def get_OldStartingIndex(self: win32more.Microsoft.UI.Xaml.Interop.INotifyCollectionChangedEventArgs) -> Int32: ...
     Action = property(get_Action, None)
     NewItems = property(get_NewItems, None)
-    OldItems = property(get_OldItems, None)
     NewStartingIndex = property(get_NewStartingIndex, None)
+    OldItems = property(get_OldItems, None)
     OldStartingIndex = property(get_OldStartingIndex, None)
 class NotifyCollectionChangedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown

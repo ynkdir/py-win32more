@@ -15,8 +15,8 @@ class IPushNotificationChannel(ComPtr):
     def get_ExpirationTime(self) -> win32more.Windows.Foundation.DateTime: ...
     @winrt_commethod(8)
     def Close(self) -> Void: ...
-    Uri = property(get_Uri, None)
     ExpirationTime = property(get_ExpirationTime, None)
+    Uri = property(get_Uri, None)
 class IPushNotificationCreateChannelResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Windows.PushNotifications.IPushNotificationCreateChannelResult'
@@ -78,8 +78,8 @@ class PushNotificationChannel(ComPtr):
     def get_ExpirationTime(self: win32more.Microsoft.Windows.PushNotifications.IPushNotificationChannel) -> win32more.Windows.Foundation.DateTime: ...
     @winrt_mixinmethod
     def Close(self: win32more.Microsoft.Windows.PushNotifications.IPushNotificationChannel) -> Void: ...
-    Uri = property(get_Uri, None)
     ExpirationTime = property(get_ExpirationTime, None)
+    Uri = property(get_Uri, None)
 class PushNotificationChannelStatus(Int32):  # enum
     InProgress = 0
     InProgressRetry = 1

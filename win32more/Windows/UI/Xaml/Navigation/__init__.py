@@ -74,8 +74,8 @@ class INavigatingCancelEventArgs2(ComPtr):
     def get_Parameter(self) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_commethod(7)
     def get_NavigationTransitionInfo(self) -> win32more.Windows.UI.Xaml.Media.Animation.NavigationTransitionInfo: ...
-    Parameter = property(get_Parameter, None)
     NavigationTransitionInfo = property(get_NavigationTransitionInfo, None)
+    Parameter = property(get_Parameter, None)
 class INavigationEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Navigation.INavigationEventArgs'
@@ -93,9 +93,9 @@ class INavigationEventArgs(ComPtr):
     @winrt_commethod(11)
     def put_Uri(self, value: win32more.Windows.Foundation.Uri) -> Void: ...
     Content = property(get_Content, None)
+    NavigationMode = property(get_NavigationMode, None)
     Parameter = property(get_Parameter, None)
     SourcePageType = property(get_SourcePageType, None)
-    NavigationMode = property(get_NavigationMode, None)
     Uri = property(get_Uri, put_Uri)
 class INavigationEventArgs2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -129,9 +129,9 @@ class IPageStackEntry(ComPtr):
     def get_Parameter(self) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_commethod(8)
     def get_NavigationTransitionInfo(self) -> win32more.Windows.UI.Xaml.Media.Animation.NavigationTransitionInfo: ...
-    SourcePageType = property(get_SourcePageType, None)
-    Parameter = property(get_Parameter, None)
     NavigationTransitionInfo = property(get_NavigationTransitionInfo, None)
+    Parameter = property(get_Parameter, None)
+    SourcePageType = property(get_SourcePageType, None)
 class IPageStackEntryFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Navigation.IPageStackEntryFactory'
@@ -171,9 +171,9 @@ class NavigatingCancelEventArgs(ComPtr):
     def get_NavigationTransitionInfo(self: win32more.Windows.UI.Xaml.Navigation.INavigatingCancelEventArgs2) -> win32more.Windows.UI.Xaml.Media.Animation.NavigationTransitionInfo: ...
     Cancel = property(get_Cancel, put_Cancel)
     NavigationMode = property(get_NavigationMode, None)
-    SourcePageType = property(get_SourcePageType, None)
-    Parameter = property(get_Parameter, None)
     NavigationTransitionInfo = property(get_NavigationTransitionInfo, None)
+    Parameter = property(get_Parameter, None)
+    SourcePageType = property(get_SourcePageType, None)
 class NavigatingCancelEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{75d6a78f-a302-4489-9898-24ea49182910}')
@@ -201,11 +201,11 @@ class NavigationEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_NavigationTransitionInfo(self: win32more.Windows.UI.Xaml.Navigation.INavigationEventArgs2) -> win32more.Windows.UI.Xaml.Media.Animation.NavigationTransitionInfo: ...
     Content = property(get_Content, None)
+    NavigationMode = property(get_NavigationMode, None)
+    NavigationTransitionInfo = property(get_NavigationTransitionInfo, None)
     Parameter = property(get_Parameter, None)
     SourcePageType = property(get_SourcePageType, None)
-    NavigationMode = property(get_NavigationMode, None)
     Uri = property(get_Uri, put_Uri)
-    NavigationTransitionInfo = property(get_NavigationTransitionInfo, None)
 class NavigationFailedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Navigation.INavigationFailedEventArgs
@@ -257,9 +257,9 @@ class PageStackEntry(ComPtr, metaclass=_PageStackEntry_Meta_):
     def get_NavigationTransitionInfo(self: win32more.Windows.UI.Xaml.Navigation.IPageStackEntry) -> win32more.Windows.UI.Xaml.Media.Animation.NavigationTransitionInfo: ...
     @winrt_classmethod
     def get_SourcePageTypeProperty(cls: win32more.Windows.UI.Xaml.Navigation.IPageStackEntryStatics) -> win32more.Windows.UI.Xaml.DependencyProperty: ...
-    SourcePageType = property(get_SourcePageType, None)
-    Parameter = property(get_Parameter, None)
     NavigationTransitionInfo = property(get_NavigationTransitionInfo, None)
+    Parameter = property(get_Parameter, None)
+    SourcePageType = property(get_SourcePageType, None)
     _PageStackEntry_Meta_.SourcePageTypeProperty = property(get_SourcePageTypeProperty.__wrapped__, None)
 
 

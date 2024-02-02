@@ -35,8 +35,8 @@ class ContactPickerUI(ComPtr):
     @winrt_mixinmethod
     def get_DesiredFieldsWithContactFieldType(self: win32more.Windows.ApplicationModel.Contacts.Provider.IContactPickerUI2) -> win32more.Windows.Foundation.Collections.IVector[win32more.Windows.ApplicationModel.Contacts.ContactFieldType]: ...
     DesiredFields = property(get_DesiredFields, None)
-    SelectionMode = property(get_SelectionMode, None)
     DesiredFieldsWithContactFieldType = property(get_DesiredFieldsWithContactFieldType, None)
+    SelectionMode = property(get_SelectionMode, None)
 class ContactRemovedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Contacts.Provider.IContactRemovedEventArgs

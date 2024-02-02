@@ -85,11 +85,11 @@ class SceneLightingEffect(ComPtr):
     def put_Name(self: win32more.Windows.Graphics.Effects.IGraphicsEffect, name: WinRT_String) -> Void: ...
     AmbientAmount = property(get_AmbientAmount, put_AmbientAmount)
     DiffuseAmount = property(get_DiffuseAmount, put_DiffuseAmount)
+    Name = property(get_Name, put_Name)
     NormalMapSource = property(get_NormalMapSource, put_NormalMapSource)
+    ReflectanceModel = property(get_ReflectanceModel, put_ReflectanceModel)
     SpecularAmount = property(get_SpecularAmount, put_SpecularAmount)
     SpecularShine = property(get_SpecularShine, put_SpecularShine)
-    ReflectanceModel = property(get_ReflectanceModel, put_ReflectanceModel)
-    Name = property(get_Name, put_Name)
 class SceneLightingEffectReflectanceModel(Int32):  # enum
     BlinnPhong = 0
     PhysicallyBasedBlinnPhong = 1

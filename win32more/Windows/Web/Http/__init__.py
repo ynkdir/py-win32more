@@ -113,8 +113,8 @@ class HttpClient(ComPtr):
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
     @winrt_mixinmethod
     def ToString(self: win32more.Windows.Foundation.IStringable) -> WinRT_String: ...
-    DefaultRequestHeaders = property(get_DefaultRequestHeaders, None)
     DefaultPrivacyAnnotation = property(get_DefaultPrivacyAnnotation, put_DefaultPrivacyAnnotation)
+    DefaultRequestHeaders = property(get_DefaultRequestHeaders, None)
 class HttpCompletionOption(Int32):  # enum
     ResponseContentRead = 0
     ResponseHeadersRead = 1
@@ -155,11 +155,11 @@ class HttpCookie(ComPtr):
     def put_Value(self: win32more.Windows.Web.Http.IHttpCookie, value: WinRT_String) -> Void: ...
     @winrt_mixinmethod
     def ToString(self: win32more.Windows.Foundation.IStringable) -> WinRT_String: ...
-    Name = property(get_Name, None)
     Domain = property(get_Domain, None)
-    Path = property(get_Path, None)
     Expires = property(get_Expires, put_Expires)
     HttpOnly = property(get_HttpOnly, put_HttpOnly)
+    Name = property(get_Name, None)
+    Path = property(get_Path, None)
     Secure = property(get_Secure, put_Secure)
     Value = property(get_Value, put_Value)
 class HttpCookieCollection(ComPtr):
@@ -483,10 +483,10 @@ class HttpRequestMessage(ComPtr):
     Content = property(get_Content, put_Content)
     Headers = property(get_Headers, None)
     Method = property(get_Method, put_Method)
+    PrivacyAnnotation = property(get_PrivacyAnnotation, put_PrivacyAnnotation)
     Properties = property(get_Properties, None)
     RequestUri = property(get_RequestUri, put_RequestUri)
     TransportInformation = property(get_TransportInformation, None)
-    PrivacyAnnotation = property(get_PrivacyAnnotation, put_PrivacyAnnotation)
 class HttpRequestResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Http.IHttpRequestResult
@@ -843,11 +843,11 @@ class IHttpCookie(ComPtr):
     def get_Value(self) -> WinRT_String: ...
     @winrt_commethod(16)
     def put_Value(self, value: WinRT_String) -> Void: ...
-    Name = property(get_Name, None)
     Domain = property(get_Domain, None)
-    Path = property(get_Path, None)
     Expires = property(get_Expires, put_Expires)
     HttpOnly = property(get_HttpOnly, put_HttpOnly)
+    Name = property(get_Name, None)
+    Path = property(get_Path, None)
     Secure = property(get_Secure, put_Secure)
     Value = property(get_Value, put_Value)
 class IHttpCookieFactory(ComPtr):

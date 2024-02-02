@@ -69,12 +69,12 @@ class AppBarAutomationPeer(ComPtr):
     @winrt_mixinmethod
     def WaitForInputIdle(self: win32more.Microsoft.UI.Xaml.Automation.Provider.IWindowProvider, milliseconds: Int32) -> Boolean: ...
     ExpandCollapseState = property(get_ExpandCollapseState, None)
-    ToggleState = property(get_ToggleState, None)
+    InteractionState = property(get_InteractionState, None)
     IsModal = property(get_IsModal, None)
     IsTopmost = property(get_IsTopmost, None)
     Maximizable = property(get_Maximizable, None)
     Minimizable = property(get_Minimizable, None)
-    InteractionState = property(get_InteractionState, None)
+    ToggleState = property(get_ToggleState, None)
     VisualState = property(get_VisualState, None)
 class AppBarButtonAutomationPeer(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.Automation.Peers.ButtonAutomationPeer
@@ -503,10 +503,10 @@ class AutomationPeerAnnotation(ComPtr, metaclass=_AutomationPeerAnnotation_Meta_
     def get_TypeProperty(cls: win32more.Microsoft.UI.Xaml.Automation.Peers.IAutomationPeerAnnotationStatics) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
     @winrt_classmethod
     def get_PeerProperty(cls: win32more.Microsoft.UI.Xaml.Automation.Peers.IAutomationPeerAnnotationStatics) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
-    Type = property(get_Type, put_Type)
     Peer = property(get_Peer, put_Peer)
-    _AutomationPeerAnnotation_Meta_.TypeProperty = property(get_TypeProperty.__wrapped__, None)
+    Type = property(get_Type, put_Type)
     _AutomationPeerAnnotation_Meta_.PeerProperty = property(get_PeerProperty.__wrapped__, None)
+    _AutomationPeerAnnotation_Meta_.TypeProperty = property(get_TypeProperty.__wrapped__, None)
 class AutomationStructureChangeType(Int32):  # enum
     ChildAdded = 0
     ChildRemoved = 1
@@ -662,14 +662,14 @@ class ComboBoxAutomationPeer(ComPtr):
     def SetVisualState(self: win32more.Microsoft.UI.Xaml.Automation.Provider.IWindowProvider, state: win32more.Microsoft.UI.Xaml.Automation.WindowVisualState) -> Void: ...
     @winrt_mixinmethod
     def WaitForInputIdle(self: win32more.Microsoft.UI.Xaml.Automation.Provider.IWindowProvider, milliseconds: Int32) -> Boolean: ...
-    IsReadOnly = property(get_IsReadOnly, None)
-    Value = property(get_Value, None)
     ExpandCollapseState = property(get_ExpandCollapseState, None)
+    InteractionState = property(get_InteractionState, None)
     IsModal = property(get_IsModal, None)
+    IsReadOnly = property(get_IsReadOnly, None)
     IsTopmost = property(get_IsTopmost, None)
     Maximizable = property(get_Maximizable, None)
     Minimizable = property(get_Minimizable, None)
-    InteractionState = property(get_InteractionState, None)
+    Value = property(get_Value, None)
     VisualState = property(get_VisualState, None)
 class ComboBoxItemAutomationPeer(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
@@ -1115,8 +1115,8 @@ class IAutomationPeerAnnotation(ComPtr):
     def get_Peer(self) -> win32more.Microsoft.UI.Xaml.Automation.Peers.AutomationPeer: ...
     @winrt_commethod(9)
     def put_Peer(self, value: win32more.Microsoft.UI.Xaml.Automation.Peers.AutomationPeer) -> Void: ...
-    Type = property(get_Type, put_Type)
     Peer = property(get_Peer, put_Peer)
+    Type = property(get_Type, put_Type)
 class IAutomationPeerAnnotationFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Automation.Peers.IAutomationPeerAnnotationFactory'
@@ -1133,8 +1133,8 @@ class IAutomationPeerAnnotationStatics(ComPtr):
     def get_TypeProperty(self) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
     @winrt_commethod(7)
     def get_PeerProperty(self) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
-    TypeProperty = property(get_TypeProperty, None)
     PeerProperty = property(get_PeerProperty, None)
+    TypeProperty = property(get_TypeProperty, None)
 class IAutomationPeerFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Automation.Peers.IAutomationPeerFactory'
@@ -2472,13 +2472,13 @@ class LoopingSelectorAutomationPeer(ComPtr):
     @winrt_mixinmethod
     def SetScrollPercent(self: win32more.Microsoft.UI.Xaml.Automation.Provider.IScrollProvider, horizontalPercent: Double, verticalPercent: Double) -> Void: ...
     CanSelectMultiple = property(get_CanSelectMultiple, None)
-    IsSelectionRequired = property(get_IsSelectionRequired, None)
-    HorizontallyScrollable = property(get_HorizontallyScrollable, None)
     HorizontalScrollPercent = property(get_HorizontalScrollPercent, None)
     HorizontalViewSize = property(get_HorizontalViewSize, None)
-    VerticallyScrollable = property(get_VerticallyScrollable, None)
+    HorizontallyScrollable = property(get_HorizontallyScrollable, None)
+    IsSelectionRequired = property(get_IsSelectionRequired, None)
     VerticalScrollPercent = property(get_VerticalScrollPercent, None)
     VerticalViewSize = property(get_VerticalViewSize, None)
+    VerticallyScrollable = property(get_VerticallyScrollable, None)
 class LoopingSelectorItemAutomationPeer(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Microsoft.UI.Xaml.Automation.Peers.ILoopingSelectorItemAutomationPeer
@@ -2752,13 +2752,13 @@ class PivotAutomationPeer(ComPtr):
     @winrt_mixinmethod
     def SetScrollPercent(self: win32more.Microsoft.UI.Xaml.Automation.Provider.IScrollProvider, horizontalPercent: Double, verticalPercent: Double) -> Void: ...
     CanSelectMultiple = property(get_CanSelectMultiple, None)
-    IsSelectionRequired = property(get_IsSelectionRequired, None)
-    HorizontallyScrollable = property(get_HorizontallyScrollable, None)
     HorizontalScrollPercent = property(get_HorizontalScrollPercent, None)
     HorizontalViewSize = property(get_HorizontalViewSize, None)
-    VerticallyScrollable = property(get_VerticallyScrollable, None)
+    HorizontallyScrollable = property(get_HorizontallyScrollable, None)
+    IsSelectionRequired = property(get_IsSelectionRequired, None)
     VerticalScrollPercent = property(get_VerticalScrollPercent, None)
     VerticalViewSize = property(get_VerticalViewSize, None)
+    VerticallyScrollable = property(get_VerticallyScrollable, None)
 class PivotItemAutomationPeer(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Microsoft.UI.Xaml.Automation.Peers.IPivotItemAutomationPeer
@@ -3043,12 +3043,12 @@ class ScrollViewerAutomationPeer(ComPtr):
     def Scroll(self: win32more.Microsoft.UI.Xaml.Automation.Provider.IScrollProvider, horizontalAmount: win32more.Microsoft.UI.Xaml.Automation.ScrollAmount, verticalAmount: win32more.Microsoft.UI.Xaml.Automation.ScrollAmount) -> Void: ...
     @winrt_mixinmethod
     def SetScrollPercent(self: win32more.Microsoft.UI.Xaml.Automation.Provider.IScrollProvider, horizontalPercent: Double, verticalPercent: Double) -> Void: ...
-    HorizontallyScrollable = property(get_HorizontallyScrollable, None)
     HorizontalScrollPercent = property(get_HorizontalScrollPercent, None)
     HorizontalViewSize = property(get_HorizontalViewSize, None)
-    VerticallyScrollable = property(get_VerticallyScrollable, None)
+    HorizontallyScrollable = property(get_HorizontallyScrollable, None)
     VerticalScrollPercent = property(get_VerticalScrollPercent, None)
     VerticalViewSize = property(get_VerticalViewSize, None)
+    VerticallyScrollable = property(get_VerticallyScrollable, None)
 class SelectorAutomationPeer(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.Automation.Peers.ItemsControlAutomationPeer
     default_interface: win32more.Microsoft.UI.Xaml.Automation.Peers.ISelectorAutomationPeer

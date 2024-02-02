@@ -107,24 +107,24 @@ class FileInformation(ComPtr):
     def OpenWithOptionsAsync(self: win32more.Windows.Storage.IStorageFile2, accessMode: win32more.Windows.Storage.FileAccessMode, options: win32more.Windows.Storage.StorageOpenOptions) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Storage.Streams.IRandomAccessStream]: ...
     @winrt_mixinmethod
     def OpenTransactedWriteWithOptionsAsync(self: win32more.Windows.Storage.IStorageFile2, options: win32more.Windows.Storage.StorageOpenOptions) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Storage.StorageStreamTransaction]: ...
-    MusicProperties = property(get_MusicProperties, None)
-    VideoProperties = property(get_VideoProperties, None)
-    ImageProperties = property(get_ImageProperties, None)
-    DocumentProperties = property(get_DocumentProperties, None)
-    BasicProperties = property(get_BasicProperties, None)
-    Thumbnail = property(get_Thumbnail, None)
-    FileType = property(get_FileType, None)
-    ContentType = property(get_ContentType, None)
-    Name = property(get_Name, None)
-    Path = property(get_Path, None)
     Attributes = property(get_Attributes, None)
+    BasicProperties = property(get_BasicProperties, None)
+    ContentType = property(get_ContentType, None)
     DateCreated = property(get_DateCreated, None)
     DisplayName = property(get_DisplayName, None)
     DisplayType = property(get_DisplayType, None)
+    DocumentProperties = property(get_DocumentProperties, None)
+    FileType = property(get_FileType, None)
     FolderRelativeId = property(get_FolderRelativeId, None)
+    ImageProperties = property(get_ImageProperties, None)
+    IsAvailable = property(get_IsAvailable, None)
+    MusicProperties = property(get_MusicProperties, None)
+    Name = property(get_Name, None)
+    Path = property(get_Path, None)
     Properties = property(get_Properties, None)
     Provider = property(get_Provider, None)
-    IsAvailable = property(get_IsAvailable, None)
+    Thumbnail = property(get_Thumbnail, None)
+    VideoProperties = property(get_VideoProperties, None)
 class FileInformationFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Storage.BulkAccess.IFileInformationFactory
@@ -288,21 +288,21 @@ class FolderInformation(ComPtr):
     def TryGetItemAsync(self: win32more.Windows.Storage.IStorageFolder2, name: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Storage.IStorageItem]: ...
     @winrt_mixinmethod
     def get_Provider(self: win32more.Windows.Storage.IStorageItemPropertiesWithProvider) -> win32more.Windows.Storage.StorageProvider: ...
-    MusicProperties = property(get_MusicProperties, None)
-    VideoProperties = property(get_VideoProperties, None)
-    ImageProperties = property(get_ImageProperties, None)
-    DocumentProperties = property(get_DocumentProperties, None)
-    BasicProperties = property(get_BasicProperties, None)
-    Thumbnail = property(get_Thumbnail, None)
-    Name = property(get_Name, None)
-    Path = property(get_Path, None)
     Attributes = property(get_Attributes, None)
+    BasicProperties = property(get_BasicProperties, None)
     DateCreated = property(get_DateCreated, None)
     DisplayName = property(get_DisplayName, None)
     DisplayType = property(get_DisplayType, None)
+    DocumentProperties = property(get_DocumentProperties, None)
     FolderRelativeId = property(get_FolderRelativeId, None)
+    ImageProperties = property(get_ImageProperties, None)
+    MusicProperties = property(get_MusicProperties, None)
+    Name = property(get_Name, None)
+    Path = property(get_Path, None)
     Properties = property(get_Properties, None)
     Provider = property(get_Provider, None)
+    Thumbnail = property(get_Thumbnail, None)
+    VideoProperties = property(get_VideoProperties, None)
 class IFileInformationFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Storage.BulkAccess.IFileInformationFactory'
@@ -361,12 +361,12 @@ class IStorageItemInformation(ComPtr):
     def add_PropertiesUpdated(self, changedHandler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Storage.BulkAccess.IStorageItemInformation, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(15)
     def remove_PropertiesUpdated(self, eventCookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    MusicProperties = property(get_MusicProperties, None)
-    VideoProperties = property(get_VideoProperties, None)
-    ImageProperties = property(get_ImageProperties, None)
-    DocumentProperties = property(get_DocumentProperties, None)
     BasicProperties = property(get_BasicProperties, None)
+    DocumentProperties = property(get_DocumentProperties, None)
+    ImageProperties = property(get_ImageProperties, None)
+    MusicProperties = property(get_MusicProperties, None)
     Thumbnail = property(get_Thumbnail, None)
+    VideoProperties = property(get_VideoProperties, None)
 
 
 make_ready(__name__)

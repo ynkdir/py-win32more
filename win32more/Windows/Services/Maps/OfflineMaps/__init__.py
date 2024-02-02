@@ -24,10 +24,10 @@ class IOfflineMapPackage(ComPtr):
     def add_StatusChanged(self, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Services.Maps.OfflineMaps.OfflineMapPackage, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(12)
     def RequestStartDownloadAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Services.Maps.OfflineMaps.OfflineMapPackageStartDownloadResult]: ...
-    Status = property(get_Status, None)
     DisplayName = property(get_DisplayName, None)
     EnclosingRegionName = property(get_EnclosingRegionName, None)
     EstimatedSizeInBytes = property(get_EstimatedSizeInBytes, None)
+    Status = property(get_Status, None)
 class IOfflineMapPackageQueryResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Services.Maps.OfflineMaps.IOfflineMapPackageQueryResult'
@@ -36,8 +36,8 @@ class IOfflineMapPackageQueryResult(ComPtr):
     def get_Status(self) -> win32more.Windows.Services.Maps.OfflineMaps.OfflineMapPackageQueryStatus: ...
     @winrt_commethod(7)
     def get_Packages(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Services.Maps.OfflineMaps.OfflineMapPackage]: ...
-    Status = property(get_Status, None)
     Packages = property(get_Packages, None)
+    Status = property(get_Status, None)
 class IOfflineMapPackageStartDownloadResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Services.Maps.OfflineMaps.IOfflineMapPackageStartDownloadResult'
@@ -79,10 +79,10 @@ class OfflineMapPackage(ComPtr):
     def FindPackagesInBoundingBoxAsync(cls: win32more.Windows.Services.Maps.OfflineMaps.IOfflineMapPackageStatics, queryBoundingBox: win32more.Windows.Devices.Geolocation.GeoboundingBox) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Services.Maps.OfflineMaps.OfflineMapPackageQueryResult]: ...
     @winrt_classmethod
     def FindPackagesInGeocircleAsync(cls: win32more.Windows.Services.Maps.OfflineMaps.IOfflineMapPackageStatics, queryCircle: win32more.Windows.Devices.Geolocation.Geocircle) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Services.Maps.OfflineMaps.OfflineMapPackageQueryResult]: ...
-    Status = property(get_Status, None)
     DisplayName = property(get_DisplayName, None)
     EnclosingRegionName = property(get_EnclosingRegionName, None)
     EstimatedSizeInBytes = property(get_EstimatedSizeInBytes, None)
+    Status = property(get_Status, None)
 class OfflineMapPackageQueryResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Services.Maps.OfflineMaps.IOfflineMapPackageQueryResult
@@ -91,8 +91,8 @@ class OfflineMapPackageQueryResult(ComPtr):
     def get_Status(self: win32more.Windows.Services.Maps.OfflineMaps.IOfflineMapPackageQueryResult) -> win32more.Windows.Services.Maps.OfflineMaps.OfflineMapPackageQueryStatus: ...
     @winrt_mixinmethod
     def get_Packages(self: win32more.Windows.Services.Maps.OfflineMaps.IOfflineMapPackageQueryResult) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Services.Maps.OfflineMaps.OfflineMapPackage]: ...
-    Status = property(get_Status, None)
     Packages = property(get_Packages, None)
+    Status = property(get_Status, None)
 class OfflineMapPackageQueryStatus(Int32):  # enum
     Success = 0
     UnknownError = 1

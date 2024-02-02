@@ -47,10 +47,10 @@ class AdcController(ComPtr):
     @winrt_classmethod
     def GetControllersAsync(cls: win32more.Windows.Devices.Adc.IAdcControllerStatics, provider: win32more.Windows.Devices.Adc.Provider.IAdcProvider) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Devices.Adc.AdcController]]: ...
     ChannelCount = property(get_ChannelCount, None)
-    ResolutionInBits = property(get_ResolutionInBits, None)
-    MinValue = property(get_MinValue, None)
-    MaxValue = property(get_MaxValue, None)
     ChannelMode = property(get_ChannelMode, put_ChannelMode)
+    MaxValue = property(get_MaxValue, None)
+    MinValue = property(get_MinValue, None)
+    ResolutionInBits = property(get_ResolutionInBits, None)
 class IAdcChannel(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Adc.IAdcChannel'
@@ -83,10 +83,10 @@ class IAdcController(ComPtr):
     @winrt_commethod(13)
     def OpenChannel(self, channelNumber: Int32) -> win32more.Windows.Devices.Adc.AdcChannel: ...
     ChannelCount = property(get_ChannelCount, None)
-    ResolutionInBits = property(get_ResolutionInBits, None)
-    MinValue = property(get_MinValue, None)
-    MaxValue = property(get_MaxValue, None)
     ChannelMode = property(get_ChannelMode, put_ChannelMode)
+    MaxValue = property(get_MaxValue, None)
+    MinValue = property(get_MinValue, None)
+    ResolutionInBits = property(get_ResolutionInBits, None)
 class IAdcControllerStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Adc.IAdcControllerStatics'

@@ -46,9 +46,9 @@ class IPerceptionCorrelation(ComPtr):
     def get_Position(self) -> win32more.Windows.Foundation.Numerics.Vector3: ...
     @winrt_commethod(8)
     def get_Orientation(self) -> win32more.Windows.Foundation.Numerics.Quaternion: ...
-    TargetId = property(get_TargetId, None)
-    Position = property(get_Position, None)
     Orientation = property(get_Orientation, None)
+    Position = property(get_Position, None)
+    TargetId = property(get_TargetId, None)
 class IPerceptionCorrelationFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Perception.Provider.IPerceptionCorrelationFactory'
@@ -93,9 +93,9 @@ class IPerceptionFrame(ComPtr):
     def get_Properties(self) -> win32more.Windows.Foundation.Collections.ValueSet: ...
     @winrt_commethod(9)
     def get_FrameData(self) -> win32more.Windows.Foundation.IMemoryBuffer: ...
-    RelativeTime = property(get_RelativeTime, put_RelativeTime)
-    Properties = property(get_Properties, None)
     FrameData = property(get_FrameData, None)
+    Properties = property(get_Properties, None)
+    RelativeTime = property(get_RelativeTime, put_RelativeTime)
 class IPerceptionFrameProvider(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Perception.Provider.IPerceptionFrameProvider'
@@ -112,8 +112,8 @@ class IPerceptionFrameProvider(ComPtr):
     def Stop(self) -> Void: ...
     @winrt_commethod(11)
     def SetProperty(self, value: win32more.Windows.Devices.Perception.Provider.PerceptionPropertyChangeRequest) -> Void: ...
-    FrameProviderInfo = property(get_FrameProviderInfo, None)
     Available = property(get_Available, None)
+    FrameProviderInfo = property(get_FrameProviderInfo, None)
     Properties = property(get_Properties, None)
 class IPerceptionFrameProviderInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -139,11 +139,11 @@ class IPerceptionFrameProviderInfo(ComPtr):
     def get_Hidden(self) -> Boolean: ...
     @winrt_commethod(15)
     def put_Hidden(self, value: Boolean) -> Void: ...
-    Id = property(get_Id, put_Id)
-    DisplayName = property(get_DisplayName, put_DisplayName)
     DeviceKind = property(get_DeviceKind, put_DeviceKind)
+    DisplayName = property(get_DisplayName, put_DisplayName)
     FrameKind = property(get_FrameKind, put_FrameKind)
     Hidden = property(get_Hidden, put_Hidden)
+    Id = property(get_Id, put_Id)
 class IPerceptionFrameProviderManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Perception.Provider.IPerceptionFrameProviderManager'
@@ -189,8 +189,8 @@ class IPerceptionPropertyChangeRequest(ComPtr):
     @winrt_commethod(10)
     def GetDeferral(self) -> win32more.Windows.Foundation.Deferral: ...
     Name = property(get_Name, None)
-    Value = property(get_Value, None)
     Status = property(get_Status, put_Status)
+    Value = property(get_Value, None)
 class IPerceptionVideoFrameAllocator(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Perception.Provider.IPerceptionVideoFrameAllocator'
@@ -254,9 +254,9 @@ class PerceptionCorrelation(ComPtr):
     def get_Position(self: win32more.Windows.Devices.Perception.Provider.IPerceptionCorrelation) -> win32more.Windows.Foundation.Numerics.Vector3: ...
     @winrt_mixinmethod
     def get_Orientation(self: win32more.Windows.Devices.Perception.Provider.IPerceptionCorrelation) -> win32more.Windows.Foundation.Numerics.Quaternion: ...
-    TargetId = property(get_TargetId, None)
-    Position = property(get_Position, None)
     Orientation = property(get_Orientation, None)
+    Position = property(get_Position, None)
+    TargetId = property(get_TargetId, None)
 class PerceptionCorrelationGroup(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Perception.Provider.IPerceptionCorrelationGroup
@@ -301,9 +301,9 @@ class PerceptionFrame(ComPtr):
     def get_Properties(self: win32more.Windows.Devices.Perception.Provider.IPerceptionFrame) -> win32more.Windows.Foundation.Collections.ValueSet: ...
     @winrt_mixinmethod
     def get_FrameData(self: win32more.Windows.Devices.Perception.Provider.IPerceptionFrame) -> win32more.Windows.Foundation.IMemoryBuffer: ...
-    RelativeTime = property(get_RelativeTime, put_RelativeTime)
-    Properties = property(get_Properties, None)
     FrameData = property(get_FrameData, None)
+    Properties = property(get_Properties, None)
+    RelativeTime = property(get_RelativeTime, put_RelativeTime)
 class PerceptionFrameProviderInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Perception.Provider.IPerceptionFrameProviderInfo
@@ -337,11 +337,11 @@ class PerceptionFrameProviderInfo(ComPtr):
     def get_Hidden(self: win32more.Windows.Devices.Perception.Provider.IPerceptionFrameProviderInfo) -> Boolean: ...
     @winrt_mixinmethod
     def put_Hidden(self: win32more.Windows.Devices.Perception.Provider.IPerceptionFrameProviderInfo, value: Boolean) -> Void: ...
-    Id = property(get_Id, put_Id)
-    DisplayName = property(get_DisplayName, put_DisplayName)
     DeviceKind = property(get_DeviceKind, put_DeviceKind)
+    DisplayName = property(get_DisplayName, put_DisplayName)
     FrameKind = property(get_FrameKind, put_FrameKind)
     Hidden = property(get_Hidden, put_Hidden)
+    Id = property(get_Id, put_Id)
 class PerceptionFrameProviderManagerService(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Perception.Provider.PerceptionFrameProviderManagerService'
@@ -380,8 +380,8 @@ class PerceptionPropertyChangeRequest(ComPtr):
     @winrt_mixinmethod
     def GetDeferral(self: win32more.Windows.Devices.Perception.Provider.IPerceptionPropertyChangeRequest) -> win32more.Windows.Foundation.Deferral: ...
     Name = property(get_Name, None)
-    Value = property(get_Value, None)
     Status = property(get_Status, put_Status)
+    Value = property(get_Value, None)
 class PerceptionStartFaceAuthenticationHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{74816d2a-2090-4670-8c48-ef39e7ff7c26}')

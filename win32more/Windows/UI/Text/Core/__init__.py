@@ -18,8 +18,8 @@ class CoreTextCompositionCompletedEventArgs(ComPtr):
     def get_CompositionSegments(self: win32more.Windows.UI.Text.Core.ICoreTextCompositionCompletedEventArgs) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.UI.Text.Core.CoreTextCompositionSegment]: ...
     @winrt_mixinmethod
     def GetDeferral(self: win32more.Windows.UI.Text.Core.ICoreTextCompositionCompletedEventArgs) -> win32more.Windows.Foundation.Deferral: ...
-    IsCanceled = property(get_IsCanceled, None)
     CompositionSegments = property(get_CompositionSegments, None)
+    IsCanceled = property(get_IsCanceled, None)
 class CoreTextCompositionSegment(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Text.Core.ICoreTextCompositionSegment
@@ -109,10 +109,10 @@ class CoreTextEditContext(ComPtr):
     def add_NotifyFocusLeaveCompleted(self: win32more.Windows.UI.Text.Core.ICoreTextEditContext2, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Text.Core.CoreTextEditContext, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_NotifyFocusLeaveCompleted(self: win32more.Windows.UI.Text.Core.ICoreTextEditContext2, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    Name = property(get_Name, put_Name)
+    InputPaneDisplayPolicy = property(get_InputPaneDisplayPolicy, put_InputPaneDisplayPolicy)
     InputScope = property(get_InputScope, put_InputScope)
     IsReadOnly = property(get_IsReadOnly, put_IsReadOnly)
-    InputPaneDisplayPolicy = property(get_InputPaneDisplayPolicy, put_InputPaneDisplayPolicy)
+    Name = property(get_Name, put_Name)
 class CoreTextFormatUpdatingEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Text.Core.ICoreTextFormatUpdatingEventArgs
@@ -137,14 +137,14 @@ class CoreTextFormatUpdatingEventArgs(ComPtr):
     def get_IsCanceled(self: win32more.Windows.UI.Text.Core.ICoreTextFormatUpdatingEventArgs) -> Boolean: ...
     @winrt_mixinmethod
     def GetDeferral(self: win32more.Windows.UI.Text.Core.ICoreTextFormatUpdatingEventArgs) -> win32more.Windows.Foundation.Deferral: ...
-    Range = property(get_Range, None)
-    TextColor = property(get_TextColor, None)
     BackgroundColor = property(get_BackgroundColor, None)
-    UnderlineColor = property(get_UnderlineColor, None)
-    UnderlineType = property(get_UnderlineType, None)
+    IsCanceled = property(get_IsCanceled, None)
+    Range = property(get_Range, None)
     Reason = property(get_Reason, None)
     Result = property(get_Result, put_Result)
-    IsCanceled = property(get_IsCanceled, None)
+    TextColor = property(get_TextColor, None)
+    UnderlineColor = property(get_UnderlineColor, None)
+    UnderlineType = property(get_UnderlineType, None)
 class CoreTextFormatUpdatingReason(Int32):  # enum
     None_ = 0
     CompositionUnconverted = 1
@@ -237,8 +237,8 @@ class CoreTextLayoutBounds(ComPtr):
     def get_ControlBounds(self: win32more.Windows.UI.Text.Core.ICoreTextLayoutBounds) -> win32more.Windows.Foundation.Rect: ...
     @winrt_mixinmethod
     def put_ControlBounds(self: win32more.Windows.UI.Text.Core.ICoreTextLayoutBounds, value: win32more.Windows.Foundation.Rect) -> Void: ...
-    TextBounds = property(get_TextBounds, put_TextBounds)
     ControlBounds = property(get_ControlBounds, put_ControlBounds)
+    TextBounds = property(get_TextBounds, put_TextBounds)
 class CoreTextLayoutRequest(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Text.Core.ICoreTextLayoutRequest
@@ -253,10 +253,10 @@ class CoreTextLayoutRequest(ComPtr):
     def GetDeferral(self: win32more.Windows.UI.Text.Core.ICoreTextLayoutRequest) -> win32more.Windows.Foundation.Deferral: ...
     @winrt_mixinmethod
     def get_LayoutBoundsVisualPixels(self: win32more.Windows.UI.Text.Core.ICoreTextLayoutRequest2) -> win32more.Windows.UI.Text.Core.CoreTextLayoutBounds: ...
-    Range = property(get_Range, None)
-    LayoutBounds = property(get_LayoutBounds, None)
     IsCanceled = property(get_IsCanceled, None)
+    LayoutBounds = property(get_LayoutBounds, None)
     LayoutBoundsVisualPixels = property(get_LayoutBoundsVisualPixels, None)
+    Range = property(get_Range, None)
 class CoreTextLayoutRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Text.Core.ICoreTextLayoutRequestedEventArgs
@@ -279,8 +279,8 @@ class CoreTextSelectionRequest(ComPtr):
     def get_IsCanceled(self: win32more.Windows.UI.Text.Core.ICoreTextSelectionRequest) -> Boolean: ...
     @winrt_mixinmethod
     def GetDeferral(self: win32more.Windows.UI.Text.Core.ICoreTextSelectionRequest) -> win32more.Windows.Foundation.Deferral: ...
-    Selection = property(get_Selection, put_Selection)
     IsCanceled = property(get_IsCanceled, None)
+    Selection = property(get_Selection, put_Selection)
 class CoreTextSelectionRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Text.Core.ICoreTextSelectionRequestedEventArgs
@@ -302,9 +302,9 @@ class CoreTextSelectionUpdatingEventArgs(ComPtr):
     def get_IsCanceled(self: win32more.Windows.UI.Text.Core.ICoreTextSelectionUpdatingEventArgs) -> Boolean: ...
     @winrt_mixinmethod
     def GetDeferral(self: win32more.Windows.UI.Text.Core.ICoreTextSelectionUpdatingEventArgs) -> win32more.Windows.Foundation.Deferral: ...
-    Selection = property(get_Selection, None)
-    Result = property(get_Result, put_Result)
     IsCanceled = property(get_IsCanceled, None)
+    Result = property(get_Result, put_Result)
+    Selection = property(get_Selection, None)
 class CoreTextSelectionUpdatingResult(Int32):  # enum
     Succeeded = 0
     Failed = 1
@@ -345,9 +345,9 @@ class CoreTextTextRequest(ComPtr):
     def get_IsCanceled(self: win32more.Windows.UI.Text.Core.ICoreTextTextRequest) -> Boolean: ...
     @winrt_mixinmethod
     def GetDeferral(self: win32more.Windows.UI.Text.Core.ICoreTextTextRequest) -> win32more.Windows.Foundation.Deferral: ...
+    IsCanceled = property(get_IsCanceled, None)
     Range = property(get_Range, None)
     Text = property(get_Text, put_Text)
-    IsCanceled = property(get_IsCanceled, None)
 class CoreTextTextRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Text.Core.ICoreTextTextRequestedEventArgs
@@ -375,12 +375,12 @@ class CoreTextTextUpdatingEventArgs(ComPtr):
     def get_IsCanceled(self: win32more.Windows.UI.Text.Core.ICoreTextTextUpdatingEventArgs) -> Boolean: ...
     @winrt_mixinmethod
     def GetDeferral(self: win32more.Windows.UI.Text.Core.ICoreTextTextUpdatingEventArgs) -> win32more.Windows.Foundation.Deferral: ...
-    Range = property(get_Range, None)
-    Text = property(get_Text, None)
-    NewSelection = property(get_NewSelection, None)
     InputLanguage = property(get_InputLanguage, None)
-    Result = property(get_Result, put_Result)
     IsCanceled = property(get_IsCanceled, None)
+    NewSelection = property(get_NewSelection, None)
+    Range = property(get_Range, None)
+    Result = property(get_Result, put_Result)
+    Text = property(get_Text, None)
 class CoreTextTextUpdatingResult(Int32):  # enum
     Succeeded = 0
     Failed = 1
@@ -394,8 +394,8 @@ class ICoreTextCompositionCompletedEventArgs(ComPtr):
     def get_CompositionSegments(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.UI.Text.Core.CoreTextCompositionSegment]: ...
     @winrt_commethod(8)
     def GetDeferral(self) -> win32more.Windows.Foundation.Deferral: ...
-    IsCanceled = property(get_IsCanceled, None)
     CompositionSegments = property(get_CompositionSegments, None)
+    IsCanceled = property(get_IsCanceled, None)
 class ICoreTextCompositionSegment(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Text.Core.ICoreTextCompositionSegment'
@@ -481,10 +481,10 @@ class ICoreTextEditContext(ComPtr):
     def NotifySelectionChanged(self, selection: win32more.Windows.UI.Text.Core.CoreTextRange) -> Void: ...
     @winrt_commethod(36)
     def NotifyLayoutChanged(self) -> Void: ...
-    Name = property(get_Name, put_Name)
+    InputPaneDisplayPolicy = property(get_InputPaneDisplayPolicy, put_InputPaneDisplayPolicy)
     InputScope = property(get_InputScope, put_InputScope)
     IsReadOnly = property(get_IsReadOnly, put_IsReadOnly)
-    InputPaneDisplayPolicy = property(get_InputPaneDisplayPolicy, put_InputPaneDisplayPolicy)
+    Name = property(get_Name, put_Name)
 class ICoreTextEditContext2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Text.Core.ICoreTextEditContext2'
@@ -517,14 +517,14 @@ class ICoreTextFormatUpdatingEventArgs(ComPtr):
     def get_IsCanceled(self) -> Boolean: ...
     @winrt_commethod(15)
     def GetDeferral(self) -> win32more.Windows.Foundation.Deferral: ...
-    Range = property(get_Range, None)
-    TextColor = property(get_TextColor, None)
     BackgroundColor = property(get_BackgroundColor, None)
-    UnderlineColor = property(get_UnderlineColor, None)
-    UnderlineType = property(get_UnderlineType, None)
+    IsCanceled = property(get_IsCanceled, None)
+    Range = property(get_Range, None)
     Reason = property(get_Reason, None)
     Result = property(get_Result, put_Result)
-    IsCanceled = property(get_IsCanceled, None)
+    TextColor = property(get_TextColor, None)
+    UnderlineColor = property(get_UnderlineColor, None)
+    UnderlineType = property(get_UnderlineType, None)
 class ICoreTextLayoutBounds(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Text.Core.ICoreTextLayoutBounds'
@@ -537,8 +537,8 @@ class ICoreTextLayoutBounds(ComPtr):
     def get_ControlBounds(self) -> win32more.Windows.Foundation.Rect: ...
     @winrt_commethod(9)
     def put_ControlBounds(self, value: win32more.Windows.Foundation.Rect) -> Void: ...
-    TextBounds = property(get_TextBounds, put_TextBounds)
     ControlBounds = property(get_ControlBounds, put_ControlBounds)
+    TextBounds = property(get_TextBounds, put_TextBounds)
 class ICoreTextLayoutRequest(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Text.Core.ICoreTextLayoutRequest'
@@ -551,9 +551,9 @@ class ICoreTextLayoutRequest(ComPtr):
     def get_IsCanceled(self) -> Boolean: ...
     @winrt_commethod(9)
     def GetDeferral(self) -> win32more.Windows.Foundation.Deferral: ...
-    Range = property(get_Range, None)
-    LayoutBounds = property(get_LayoutBounds, None)
     IsCanceled = property(get_IsCanceled, None)
+    LayoutBounds = property(get_LayoutBounds, None)
+    Range = property(get_Range, None)
 class ICoreTextLayoutRequest2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Text.Core.ICoreTextLayoutRequest2'
@@ -580,8 +580,8 @@ class ICoreTextSelectionRequest(ComPtr):
     def get_IsCanceled(self) -> Boolean: ...
     @winrt_commethod(9)
     def GetDeferral(self) -> win32more.Windows.Foundation.Deferral: ...
-    Selection = property(get_Selection, put_Selection)
     IsCanceled = property(get_IsCanceled, None)
+    Selection = property(get_Selection, put_Selection)
 class ICoreTextSelectionRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Text.Core.ICoreTextSelectionRequestedEventArgs'
@@ -603,9 +603,9 @@ class ICoreTextSelectionUpdatingEventArgs(ComPtr):
     def get_IsCanceled(self) -> Boolean: ...
     @winrt_commethod(10)
     def GetDeferral(self) -> win32more.Windows.Foundation.Deferral: ...
-    Selection = property(get_Selection, None)
-    Result = property(get_Result, put_Result)
     IsCanceled = property(get_IsCanceled, None)
+    Result = property(get_Result, put_Result)
+    Selection = property(get_Selection, None)
 class ICoreTextServicesManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Text.Core.ICoreTextServicesManager'
@@ -646,9 +646,9 @@ class ICoreTextTextRequest(ComPtr):
     def get_IsCanceled(self) -> Boolean: ...
     @winrt_commethod(10)
     def GetDeferral(self) -> win32more.Windows.Foundation.Deferral: ...
+    IsCanceled = property(get_IsCanceled, None)
     Range = property(get_Range, None)
     Text = property(get_Text, put_Text)
-    IsCanceled = property(get_IsCanceled, None)
 class ICoreTextTextRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Text.Core.ICoreTextTextRequestedEventArgs'
@@ -676,12 +676,12 @@ class ICoreTextTextUpdatingEventArgs(ComPtr):
     def get_IsCanceled(self) -> Boolean: ...
     @winrt_commethod(13)
     def GetDeferral(self) -> win32more.Windows.Foundation.Deferral: ...
-    Range = property(get_Range, None)
-    Text = property(get_Text, None)
-    NewSelection = property(get_NewSelection, None)
     InputLanguage = property(get_InputLanguage, None)
-    Result = property(get_Result, put_Result)
     IsCanceled = property(get_IsCanceled, None)
+    NewSelection = property(get_NewSelection, None)
+    Range = property(get_Range, None)
+    Result = property(get_Result, put_Result)
+    Text = property(get_Text, None)
 
 
 make_ready(__name__)

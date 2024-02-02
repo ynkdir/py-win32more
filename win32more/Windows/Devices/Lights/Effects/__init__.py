@@ -32,8 +32,8 @@ class ILampArrayBitmapEffect(ComPtr):
     def remove_BitmapRequested(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Duration = property(get_Duration, put_Duration)
     StartDelay = property(get_StartDelay, put_StartDelay)
-    UpdateInterval = property(get_UpdateInterval, put_UpdateInterval)
     SuggestedBitmapSize = property(get_SuggestedBitmapSize, None)
+    UpdateInterval = property(get_UpdateInterval, put_UpdateInterval)
 class ILampArrayBitmapEffectFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Lights.Effects.ILampArrayBitmapEffectFactory'
@@ -85,14 +85,14 @@ class ILampArrayBlinkEffect(ComPtr):
     def get_RepetitionMode(self) -> win32more.Windows.Devices.Lights.Effects.LampArrayRepetitionMode: ...
     @winrt_commethod(21)
     def put_RepetitionMode(self, value: win32more.Windows.Devices.Lights.Effects.LampArrayRepetitionMode) -> Void: ...
-    Color = property(get_Color, put_Color)
     AttackDuration = property(get_AttackDuration, put_AttackDuration)
-    SustainDuration = property(get_SustainDuration, put_SustainDuration)
+    Color = property(get_Color, put_Color)
     DecayDuration = property(get_DecayDuration, put_DecayDuration)
-    RepetitionDelay = property(get_RepetitionDelay, put_RepetitionDelay)
-    StartDelay = property(get_StartDelay, put_StartDelay)
     Occurrences = property(get_Occurrences, put_Occurrences)
+    RepetitionDelay = property(get_RepetitionDelay, put_RepetitionDelay)
     RepetitionMode = property(get_RepetitionMode, put_RepetitionMode)
+    StartDelay = property(get_StartDelay, put_StartDelay)
+    SustainDuration = property(get_SustainDuration, put_SustainDuration)
 class ILampArrayBlinkEffectFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Lights.Effects.ILampArrayBlinkEffectFactory'
@@ -120,9 +120,9 @@ class ILampArrayColorRampEffect(ComPtr):
     @winrt_commethod(13)
     def put_CompletionBehavior(self, value: win32more.Windows.Devices.Lights.Effects.LampArrayEffectCompletionBehavior) -> Void: ...
     Color = property(get_Color, put_Color)
+    CompletionBehavior = property(get_CompletionBehavior, put_CompletionBehavior)
     RampDuration = property(get_RampDuration, put_RampDuration)
     StartDelay = property(get_StartDelay, put_StartDelay)
-    CompletionBehavior = property(get_CompletionBehavior, put_CompletionBehavior)
 class ILampArrayColorRampEffectFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Lights.Effects.ILampArrayColorRampEffectFactory'
@@ -222,9 +222,9 @@ class ILampArraySolidEffect(ComPtr):
     @winrt_commethod(13)
     def put_CompletionBehavior(self, value: win32more.Windows.Devices.Lights.Effects.LampArrayEffectCompletionBehavior) -> Void: ...
     Color = property(get_Color, put_Color)
+    CompletionBehavior = property(get_CompletionBehavior, put_CompletionBehavior)
     Duration = property(get_Duration, put_Duration)
     StartDelay = property(get_StartDelay, put_StartDelay)
-    CompletionBehavior = property(get_CompletionBehavior, put_CompletionBehavior)
 class ILampArraySolidEffectFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Lights.Effects.ILampArraySolidEffectFactory'
@@ -283,8 +283,8 @@ class LampArrayBitmapEffect(ComPtr):
     def put_ZIndex(self: win32more.Windows.Devices.Lights.Effects.ILampArrayEffect, value: Int32) -> Void: ...
     Duration = property(get_Duration, put_Duration)
     StartDelay = property(get_StartDelay, put_StartDelay)
-    UpdateInterval = property(get_UpdateInterval, put_UpdateInterval)
     SuggestedBitmapSize = property(get_SuggestedBitmapSize, None)
+    UpdateInterval = property(get_UpdateInterval, put_UpdateInterval)
     ZIndex = property(get_ZIndex, put_ZIndex)
 class LampArrayBitmapRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -344,14 +344,14 @@ class LampArrayBlinkEffect(ComPtr):
     def get_ZIndex(self: win32more.Windows.Devices.Lights.Effects.ILampArrayEffect) -> Int32: ...
     @winrt_mixinmethod
     def put_ZIndex(self: win32more.Windows.Devices.Lights.Effects.ILampArrayEffect, value: Int32) -> Void: ...
-    Color = property(get_Color, put_Color)
     AttackDuration = property(get_AttackDuration, put_AttackDuration)
-    SustainDuration = property(get_SustainDuration, put_SustainDuration)
+    Color = property(get_Color, put_Color)
     DecayDuration = property(get_DecayDuration, put_DecayDuration)
-    RepetitionDelay = property(get_RepetitionDelay, put_RepetitionDelay)
-    StartDelay = property(get_StartDelay, put_StartDelay)
     Occurrences = property(get_Occurrences, put_Occurrences)
+    RepetitionDelay = property(get_RepetitionDelay, put_RepetitionDelay)
     RepetitionMode = property(get_RepetitionMode, put_RepetitionMode)
+    StartDelay = property(get_StartDelay, put_StartDelay)
+    SustainDuration = property(get_SustainDuration, put_SustainDuration)
     ZIndex = property(get_ZIndex, put_ZIndex)
 class LampArrayColorRampEffect(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -387,9 +387,9 @@ class LampArrayColorRampEffect(ComPtr):
     @winrt_mixinmethod
     def put_ZIndex(self: win32more.Windows.Devices.Lights.Effects.ILampArrayEffect, value: Int32) -> Void: ...
     Color = property(get_Color, put_Color)
+    CompletionBehavior = property(get_CompletionBehavior, put_CompletionBehavior)
     RampDuration = property(get_RampDuration, put_RampDuration)
     StartDelay = property(get_StartDelay, put_StartDelay)
-    CompletionBehavior = property(get_CompletionBehavior, put_CompletionBehavior)
     ZIndex = property(get_ZIndex, put_ZIndex)
 class LampArrayCustomEffect(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -521,9 +521,9 @@ class LampArraySolidEffect(ComPtr):
     @winrt_mixinmethod
     def put_ZIndex(self: win32more.Windows.Devices.Lights.Effects.ILampArrayEffect, value: Int32) -> Void: ...
     Color = property(get_Color, put_Color)
+    CompletionBehavior = property(get_CompletionBehavior, put_CompletionBehavior)
     Duration = property(get_Duration, put_Duration)
     StartDelay = property(get_StartDelay, put_StartDelay)
-    CompletionBehavior = property(get_CompletionBehavior, put_CompletionBehavior)
     ZIndex = property(get_ZIndex, put_ZIndex)
 class LampArrayUpdateRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable

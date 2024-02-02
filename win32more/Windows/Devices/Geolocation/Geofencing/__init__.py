@@ -45,13 +45,13 @@ class Geofence(ComPtr):
     def get_Geoshape(self: win32more.Windows.Devices.Geolocation.Geofencing.IGeofence) -> win32more.Windows.Devices.Geolocation.IGeoshape: ...
     @winrt_mixinmethod
     def get_SingleUse(self: win32more.Windows.Devices.Geolocation.Geofencing.IGeofence) -> Boolean: ...
-    StartTime = property(get_StartTime, None)
     Duration = property(get_Duration, None)
     DwellTime = property(get_DwellTime, None)
+    Geoshape = property(get_Geoshape, None)
     Id = property(get_Id, None)
     MonitoredStates = property(get_MonitoredStates, None)
-    Geoshape = property(get_Geoshape, None)
     SingleUse = property(get_SingleUse, None)
+    StartTime = property(get_StartTime, None)
 class _GeofenceMonitor_Meta_(ComPtr.__class__):
     pass
 class GeofenceMonitor(ComPtr, metaclass=_GeofenceMonitor_Meta_):
@@ -76,9 +76,9 @@ class GeofenceMonitor(ComPtr, metaclass=_GeofenceMonitor_Meta_):
     def remove_StatusChanged(self: win32more.Windows.Devices.Geolocation.Geofencing.IGeofenceMonitor, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
     def get_Current(cls: win32more.Windows.Devices.Geolocation.Geofencing.IGeofenceMonitorStatics) -> win32more.Windows.Devices.Geolocation.Geofencing.GeofenceMonitor: ...
-    Status = property(get_Status, None)
     Geofences = property(get_Geofences, None)
     LastKnownGeoposition = property(get_LastKnownGeoposition, None)
+    Status = property(get_Status, None)
     _GeofenceMonitor_Meta_.Current = property(get_Current.__wrapped__, None)
 class GeofenceMonitorStatus(Int32):  # enum
     Ready = 0
@@ -107,9 +107,9 @@ class GeofenceStateChangeReport(ComPtr):
     def get_Geoposition(self: win32more.Windows.Devices.Geolocation.Geofencing.IGeofenceStateChangeReport) -> win32more.Windows.Devices.Geolocation.Geoposition: ...
     @winrt_mixinmethod
     def get_RemovalReason(self: win32more.Windows.Devices.Geolocation.Geofencing.IGeofenceStateChangeReport) -> win32more.Windows.Devices.Geolocation.Geofencing.GeofenceRemovalReason: ...
-    NewState = property(get_NewState, None)
     Geofence = property(get_Geofence, None)
     Geoposition = property(get_Geoposition, None)
+    NewState = property(get_NewState, None)
     RemovalReason = property(get_RemovalReason, None)
 class IGeofence(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -129,13 +129,13 @@ class IGeofence(ComPtr):
     def get_Geoshape(self) -> win32more.Windows.Devices.Geolocation.IGeoshape: ...
     @winrt_commethod(12)
     def get_SingleUse(self) -> Boolean: ...
-    StartTime = property(get_StartTime, None)
     Duration = property(get_Duration, None)
     DwellTime = property(get_DwellTime, None)
+    Geoshape = property(get_Geoshape, None)
     Id = property(get_Id, None)
     MonitoredStates = property(get_MonitoredStates, None)
-    Geoshape = property(get_Geoshape, None)
     SingleUse = property(get_SingleUse, None)
+    StartTime = property(get_StartTime, None)
 class IGeofenceFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Geolocation.Geofencing.IGeofenceFactory'
@@ -168,9 +168,9 @@ class IGeofenceMonitor(ComPtr):
     def add_StatusChanged(self, eventHandler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Geolocation.Geofencing.GeofenceMonitor, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(13)
     def remove_StatusChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    Status = property(get_Status, None)
     Geofences = property(get_Geofences, None)
     LastKnownGeoposition = property(get_LastKnownGeoposition, None)
+    Status = property(get_Status, None)
 class IGeofenceMonitorStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Geolocation.Geofencing.IGeofenceMonitorStatics'
@@ -190,9 +190,9 @@ class IGeofenceStateChangeReport(ComPtr):
     def get_Geoposition(self) -> win32more.Windows.Devices.Geolocation.Geoposition: ...
     @winrt_commethod(9)
     def get_RemovalReason(self) -> win32more.Windows.Devices.Geolocation.Geofencing.GeofenceRemovalReason: ...
-    NewState = property(get_NewState, None)
     Geofence = property(get_Geofence, None)
     Geoposition = property(get_Geoposition, None)
+    NewState = property(get_NewState, None)
     RemovalReason = property(get_RemovalReason, None)
 class MonitoredGeofenceStates(UInt32):  # enum
     None_ = 0

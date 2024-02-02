@@ -76,13 +76,13 @@ class DesktopAcrylicController(ComPtr):
     def put_TintColor(self: win32more.Microsoft.UI.Composition.SystemBackdrops.IDesktopAcrylicController, value: win32more.Windows.UI.Color) -> Void: ...
     @winrt_classmethod
     def IsSupported(cls: win32more.Microsoft.UI.Composition.SystemBackdrops.IDesktopAcrylicControllerStatics) -> Boolean: ...
-    TintOpacity = property(get_TintOpacity, put_TintOpacity)
-    Kind = property(get_Kind, put_Kind)
-    State = property(get_State, None)
-    IsClosed = property(get_IsClosed, None)
     FallbackColor = property(get_FallbackColor, put_FallbackColor)
+    IsClosed = property(get_IsClosed, None)
+    Kind = property(get_Kind, put_Kind)
     LuminosityOpacity = property(get_LuminosityOpacity, put_LuminosityOpacity)
+    State = property(get_State, None)
     TintColor = property(get_TintColor, put_TintColor)
+    TintOpacity = property(get_TintOpacity, put_TintOpacity)
 class DesktopAcrylicKind(Int32):  # enum
     Default = 0
     Base = 1
@@ -291,13 +291,13 @@ class MicaController(ComPtr):
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
     @winrt_classmethod
     def IsSupported(cls: win32more.Microsoft.UI.Composition.SystemBackdrops.IMicaControllerStatics) -> Boolean: ...
-    State = property(get_State, None)
-    IsClosed = property(get_IsClosed, None)
     FallbackColor = property(get_FallbackColor, put_FallbackColor)
+    IsClosed = property(get_IsClosed, None)
+    Kind = property(get_Kind, put_Kind)
     LuminosityOpacity = property(get_LuminosityOpacity, put_LuminosityOpacity)
+    State = property(get_State, None)
     TintColor = property(get_TintColor, put_TintColor)
     TintOpacity = property(get_TintOpacity, put_TintOpacity)
-    Kind = property(get_Kind, put_Kind)
 class MicaKind(Int32):  # enum
     Base = 0
     BaseAlt = 1
@@ -330,10 +330,10 @@ class SystemBackdropConfiguration(ComPtr):
     def put_HighContrastBackgroundColor(self: win32more.Microsoft.UI.Composition.SystemBackdrops.ISystemBackdropConfiguration, value: win32more.Windows.Foundation.IReference[win32more.Windows.UI.Color]) -> Void: ...
     @winrt_mixinmethod
     def get_IsHighContrast(self: win32more.Microsoft.UI.Composition.SystemBackdrops.ISystemBackdropConfiguration) -> Boolean: ...
-    Theme = property(get_Theme, put_Theme)
+    HighContrastBackgroundColor = property(get_HighContrastBackgroundColor, put_HighContrastBackgroundColor)
     IsHighContrast = property(get_IsHighContrast, put_IsHighContrast)
     IsInputActive = property(get_IsInputActive, put_IsInputActive)
-    HighContrastBackgroundColor = property(get_HighContrastBackgroundColor, put_HighContrastBackgroundColor)
+    Theme = property(get_Theme, put_Theme)
 class SystemBackdropState(Int32):  # enum
     Active = 0
     Fallback = 1

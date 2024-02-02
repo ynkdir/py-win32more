@@ -29,8 +29,8 @@ class AppActivationArguments(ComPtr):
     def get_Kind(self: win32more.Microsoft.Windows.AppLifecycle.IAppActivationArguments) -> win32more.Microsoft.Windows.AppLifecycle.ExtendedActivationKind: ...
     @winrt_mixinmethod
     def get_Data(self: win32more.Microsoft.Windows.AppLifecycle.IAppActivationArguments) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
-    Kind = property(get_Kind, None)
     Data = property(get_Data, None)
+    Kind = property(get_Kind, None)
 class AppInstance(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Windows.AppLifecycle.IAppInstance
@@ -59,8 +59,8 @@ class AppInstance(ComPtr):
     def GetInstances(cls: win32more.Microsoft.Windows.AppLifecycle.IAppInstanceStatics) -> win32more.Windows.Foundation.Collections.IVector[win32more.Microsoft.Windows.AppLifecycle.AppInstance]: ...
     @winrt_classmethod
     def FindOrRegisterForKey(cls: win32more.Microsoft.Windows.AppLifecycle.IAppInstanceStatics, key: WinRT_String) -> win32more.Microsoft.Windows.AppLifecycle.AppInstance: ...
-    Key = property(get_Key, None)
     IsCurrent = property(get_IsCurrent, None)
+    Key = property(get_Key, None)
     ProcessId = property(get_ProcessId, None)
 AppLifecycleContract: UInt32 = 131072
 class ExtendedActivationKind(Int32):  # enum
@@ -134,8 +134,8 @@ class IAppActivationArguments(ComPtr):
     def get_Kind(self) -> win32more.Microsoft.Windows.AppLifecycle.ExtendedActivationKind: ...
     @winrt_commethod(7)
     def get_Data(self) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
-    Kind = property(get_Kind, None)
     Data = property(get_Data, None)
+    Kind = property(get_Kind, None)
 class IAppInstance(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Windows.AppLifecycle.IAppInstance'
@@ -156,8 +156,8 @@ class IAppInstance(ComPtr):
     def get_IsCurrent(self) -> Boolean: ...
     @winrt_commethod(13)
     def get_ProcessId(self) -> UInt32: ...
-    Key = property(get_Key, None)
     IsCurrent = property(get_IsCurrent, None)
+    Key = property(get_Key, None)
     ProcessId = property(get_ProcessId, None)
 class IAppInstanceStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable

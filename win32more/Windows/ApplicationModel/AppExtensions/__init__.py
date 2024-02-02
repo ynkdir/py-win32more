@@ -27,12 +27,12 @@ class AppExtension(ComPtr):
     def GetPublicFolderAsync(self: win32more.Windows.ApplicationModel.AppExtensions.IAppExtension) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Storage.StorageFolder]: ...
     @winrt_mixinmethod
     def get_AppUserModelId(self: win32more.Windows.ApplicationModel.AppExtensions.IAppExtension2) -> WinRT_String: ...
-    Id = property(get_Id, None)
-    DisplayName = property(get_DisplayName, None)
-    Description = property(get_Description, None)
-    Package = property(get_Package, None)
     AppInfo = property(get_AppInfo, None)
     AppUserModelId = property(get_AppUserModelId, None)
+    Description = property(get_Description, None)
+    DisplayName = property(get_DisplayName, None)
+    Id = property(get_Id, None)
+    Package = property(get_Package, None)
 class AppExtensionCatalog(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.AppExtensions.IAppExtensionCatalog
@@ -74,8 +74,8 @@ class AppExtensionPackageInstalledEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Extensions(self: win32more.Windows.ApplicationModel.AppExtensions.IAppExtensionPackageInstalledEventArgs) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.ApplicationModel.AppExtensions.AppExtension]: ...
     AppExtensionName = property(get_AppExtensionName, None)
-    Package = property(get_Package, None)
     Extensions = property(get_Extensions, None)
+    Package = property(get_Package, None)
 class AppExtensionPackageStatusChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.AppExtensions.IAppExtensionPackageStatusChangedEventArgs
@@ -107,8 +107,8 @@ class AppExtensionPackageUpdatedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Extensions(self: win32more.Windows.ApplicationModel.AppExtensions.IAppExtensionPackageUpdatedEventArgs) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.ApplicationModel.AppExtensions.AppExtension]: ...
     AppExtensionName = property(get_AppExtensionName, None)
-    Package = property(get_Package, None)
     Extensions = property(get_Extensions, None)
+    Package = property(get_Package, None)
 class AppExtensionPackageUpdatingEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.AppExtensions.IAppExtensionPackageUpdatingEventArgs
@@ -137,11 +137,11 @@ class IAppExtension(ComPtr):
     def GetExtensionPropertiesAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IPropertySet]: ...
     @winrt_commethod(12)
     def GetPublicFolderAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Storage.StorageFolder]: ...
-    Id = property(get_Id, None)
-    DisplayName = property(get_DisplayName, None)
-    Description = property(get_Description, None)
-    Package = property(get_Package, None)
     AppInfo = property(get_AppInfo, None)
+    Description = property(get_Description, None)
+    DisplayName = property(get_DisplayName, None)
+    Id = property(get_Id, None)
+    Package = property(get_Package, None)
 class IAppExtension2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.AppExtensions.IAppExtension2'
@@ -194,8 +194,8 @@ class IAppExtensionPackageInstalledEventArgs(ComPtr):
     @winrt_commethod(8)
     def get_Extensions(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.ApplicationModel.AppExtensions.AppExtension]: ...
     AppExtensionName = property(get_AppExtensionName, None)
-    Package = property(get_Package, None)
     Extensions = property(get_Extensions, None)
+    Package = property(get_Package, None)
 class IAppExtensionPackageStatusChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.AppExtensions.IAppExtensionPackageStatusChangedEventArgs'
@@ -227,8 +227,8 @@ class IAppExtensionPackageUpdatedEventArgs(ComPtr):
     @winrt_commethod(8)
     def get_Extensions(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.ApplicationModel.AppExtensions.AppExtension]: ...
     AppExtensionName = property(get_AppExtensionName, None)
-    Package = property(get_Package, None)
     Extensions = property(get_Extensions, None)
+    Package = property(get_Package, None)
 class IAppExtensionPackageUpdatingEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.AppExtensions.IAppExtensionPackageUpdatingEventArgs'

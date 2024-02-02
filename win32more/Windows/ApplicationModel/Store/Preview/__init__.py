@@ -139,9 +139,9 @@ class IStoreHardwareManufacturerInfo(ComPtr):
     @winrt_commethod(9)
     def get_ManufacturerName(self) -> WinRT_String: ...
     HardwareManufacturerId = property(get_HardwareManufacturerId, None)
-    StoreContentModifierId = property(get_StoreContentModifierId, None)
-    ModelName = property(get_ModelName, None)
     ManufacturerName = property(get_ManufacturerName, None)
+    ModelName = property(get_ModelName, None)
+    StoreContentModifierId = property(get_StoreContentModifierId, None)
 class IStorePreview(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Store.Preview.IStorePreview'
@@ -164,11 +164,11 @@ class IStorePreviewProductInfo(ComPtr):
     def get_Description(self) -> WinRT_String: ...
     @winrt_commethod(10)
     def get_SkuInfoList(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.ApplicationModel.Store.Preview.StorePreviewSkuInfo]: ...
+    Description = property(get_Description, None)
     ProductId = property(get_ProductId, None)
     ProductType = property(get_ProductType, None)
-    Title = property(get_Title, None)
-    Description = property(get_Description, None)
     SkuInfoList = property(get_SkuInfoList, None)
+    Title = property(get_Title, None)
 class IStorePreviewPurchaseResults(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Store.Preview.IStorePreviewPurchaseResults'
@@ -198,15 +198,15 @@ class IStorePreviewSkuInfo(ComPtr):
     def get_FormattedListPrice(self) -> WinRT_String: ...
     @winrt_commethod(14)
     def get_ExtendedData(self) -> WinRT_String: ...
+    CurrencyCode = property(get_CurrencyCode, None)
+    CustomDeveloperData = property(get_CustomDeveloperData, None)
+    Description = property(get_Description, None)
+    ExtendedData = property(get_ExtendedData, None)
+    FormattedListPrice = property(get_FormattedListPrice, None)
     ProductId = property(get_ProductId, None)
     SkuId = property(get_SkuId, None)
     SkuType = property(get_SkuType, None)
     Title = property(get_Title, None)
-    Description = property(get_Description, None)
-    CustomDeveloperData = property(get_CustomDeveloperData, None)
-    CurrencyCode = property(get_CurrencyCode, None)
-    FormattedListPrice = property(get_FormattedListPrice, None)
-    ExtendedData = property(get_ExtendedData, None)
 class IWebAuthenticationCoreManagerHelper(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Store.Preview.IWebAuthenticationCoreManagerHelper'
@@ -276,8 +276,8 @@ class StoreConfiguration(ComPtr, metaclass=_StoreConfiguration_Meta_):
     def get_HardwareManufacturerInfo(cls: win32more.Windows.ApplicationModel.Store.Preview.IStoreConfigurationStatics) -> win32more.Windows.ApplicationModel.Store.Preview.StoreHardwareManufacturerInfo: ...
     @winrt_classmethod
     def FilterUnsupportedSystemFeaturesAsync(cls: win32more.Windows.ApplicationModel.Store.Preview.IStoreConfigurationStatics, systemFeatures: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.ApplicationModel.Store.Preview.StoreSystemFeature]) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.ApplicationModel.Store.Preview.StoreSystemFeature]]: ...
-    _StoreConfiguration_Meta_.PurchasePromptingPolicy = property(get_PurchasePromptingPolicy.__wrapped__, put_PurchasePromptingPolicy.__wrapped__)
     _StoreConfiguration_Meta_.HardwareManufacturerInfo = property(get_HardwareManufacturerInfo.__wrapped__, None)
+    _StoreConfiguration_Meta_.PurchasePromptingPolicy = property(get_PurchasePromptingPolicy.__wrapped__, put_PurchasePromptingPolicy.__wrapped__)
 class StoreHardwareManufacturerInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Store.Preview.IStoreHardwareManufacturerInfo
@@ -291,9 +291,9 @@ class StoreHardwareManufacturerInfo(ComPtr):
     @winrt_mixinmethod
     def get_ManufacturerName(self: win32more.Windows.ApplicationModel.Store.Preview.IStoreHardwareManufacturerInfo) -> WinRT_String: ...
     HardwareManufacturerId = property(get_HardwareManufacturerId, None)
-    StoreContentModifierId = property(get_StoreContentModifierId, None)
-    ModelName = property(get_ModelName, None)
     ManufacturerName = property(get_ManufacturerName, None)
+    ModelName = property(get_ModelName, None)
+    StoreContentModifierId = property(get_StoreContentModifierId, None)
 class StoreLogOptions(UInt32):  # enum
     None_ = 0
     TryElevate = 1
@@ -318,11 +318,11 @@ class StorePreviewProductInfo(ComPtr):
     def get_Description(self: win32more.Windows.ApplicationModel.Store.Preview.IStorePreviewProductInfo) -> WinRT_String: ...
     @winrt_mixinmethod
     def get_SkuInfoList(self: win32more.Windows.ApplicationModel.Store.Preview.IStorePreviewProductInfo) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.ApplicationModel.Store.Preview.StorePreviewSkuInfo]: ...
+    Description = property(get_Description, None)
     ProductId = property(get_ProductId, None)
     ProductType = property(get_ProductType, None)
-    Title = property(get_Title, None)
-    Description = property(get_Description, None)
     SkuInfoList = property(get_SkuInfoList, None)
+    Title = property(get_Title, None)
 class StorePreviewProductPurchaseStatus(Int32):  # enum
     Succeeded = 0
     AlreadyPurchased = 1
@@ -357,15 +357,15 @@ class StorePreviewSkuInfo(ComPtr):
     def get_FormattedListPrice(self: win32more.Windows.ApplicationModel.Store.Preview.IStorePreviewSkuInfo) -> WinRT_String: ...
     @winrt_mixinmethod
     def get_ExtendedData(self: win32more.Windows.ApplicationModel.Store.Preview.IStorePreviewSkuInfo) -> WinRT_String: ...
+    CurrencyCode = property(get_CurrencyCode, None)
+    CustomDeveloperData = property(get_CustomDeveloperData, None)
+    Description = property(get_Description, None)
+    ExtendedData = property(get_ExtendedData, None)
+    FormattedListPrice = property(get_FormattedListPrice, None)
     ProductId = property(get_ProductId, None)
     SkuId = property(get_SkuId, None)
     SkuType = property(get_SkuType, None)
     Title = property(get_Title, None)
-    Description = property(get_Description, None)
-    CustomDeveloperData = property(get_CustomDeveloperData, None)
-    CurrencyCode = property(get_CurrencyCode, None)
-    FormattedListPrice = property(get_FormattedListPrice, None)
-    ExtendedData = property(get_ExtendedData, None)
 class StoreSystemFeature(Int32):  # enum
     ArchitectureX86 = 0
     ArchitectureX64 = 1

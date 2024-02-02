@@ -34,15 +34,15 @@ class AdvancedColorInfo(ComPtr):
     def IsHdrMetadataFormatCurrentlySupported(self: win32more.Windows.Graphics.Display.IAdvancedColorInfo, format: win32more.Windows.Graphics.Display.HdrMetadataFormat) -> Boolean: ...
     @winrt_mixinmethod
     def IsAdvancedColorKindAvailable(self: win32more.Windows.Graphics.Display.IAdvancedColorInfo, kind: win32more.Windows.Graphics.Display.AdvancedColorKind) -> Boolean: ...
-    CurrentAdvancedColorKind = property(get_CurrentAdvancedColorKind, None)
-    RedPrimary = property(get_RedPrimary, None)
-    GreenPrimary = property(get_GreenPrimary, None)
     BluePrimary = property(get_BluePrimary, None)
-    WhitePoint = property(get_WhitePoint, None)
+    CurrentAdvancedColorKind = property(get_CurrentAdvancedColorKind, None)
+    GreenPrimary = property(get_GreenPrimary, None)
+    MaxAverageFullFrameLuminanceInNits = property(get_MaxAverageFullFrameLuminanceInNits, None)
     MaxLuminanceInNits = property(get_MaxLuminanceInNits, None)
     MinLuminanceInNits = property(get_MinLuminanceInNits, None)
-    MaxAverageFullFrameLuminanceInNits = property(get_MaxAverageFullFrameLuminanceInNits, None)
+    RedPrimary = property(get_RedPrimary, None)
     SdrWhiteLevelInNits = property(get_SdrWhiteLevelInNits, None)
+    WhitePoint = property(get_WhitePoint, None)
 class AdvancedColorKind(Int32):  # enum
     StandardDynamicRange = 0
     WideColorGamut = 1
@@ -85,9 +85,9 @@ class BrightnessOverride(ComPtr):
     def GetForCurrentView(cls: win32more.Windows.Graphics.Display.IBrightnessOverrideStatics) -> win32more.Windows.Graphics.Display.BrightnessOverride: ...
     @winrt_classmethod
     def SaveForSystemAsync(cls: win32more.Windows.Graphics.Display.IBrightnessOverrideStatics, value: win32more.Windows.Graphics.Display.BrightnessOverride) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
-    IsSupported = property(get_IsSupported, None)
-    IsOverrideActive = property(get_IsOverrideActive, None)
     BrightnessLevel = property(get_BrightnessLevel, None)
+    IsOverrideActive = property(get_IsOverrideActive, None)
+    IsSupported = property(get_IsSupported, None)
 class BrightnessOverrideSettings(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Display.IBrightnessOverrideSettings
@@ -163,9 +163,9 @@ class DisplayEnhancementOverride(ComPtr):
     def remove_DisplayEnhancementOverrideCapabilitiesChanged(self: win32more.Windows.Graphics.Display.IDisplayEnhancementOverride, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
     def GetForCurrentView(cls: win32more.Windows.Graphics.Display.IDisplayEnhancementOverrideStatics) -> win32more.Windows.Graphics.Display.DisplayEnhancementOverride: ...
-    ColorOverrideSettings = property(get_ColorOverrideSettings, put_ColorOverrideSettings)
     BrightnessOverrideSettings = property(get_BrightnessOverrideSettings, put_BrightnessOverrideSettings)
     CanOverride = property(get_CanOverride, None)
+    ColorOverrideSettings = property(get_ColorOverrideSettings, put_ColorOverrideSettings)
     IsOverrideActive = property(get_IsOverrideActive, None)
 class DisplayEnhancementOverrideCapabilities(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -249,16 +249,16 @@ class DisplayInformation(ComPtr, metaclass=_DisplayInformation_Meta_):
     @winrt_classmethod
     def remove_DisplayContentsInvalidated(cls: win32more.Windows.Graphics.Display.IDisplayInformationStatics, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     CurrentOrientation = property(get_CurrentOrientation, None)
-    NativeOrientation = property(get_NativeOrientation, None)
-    ResolutionScale = property(get_ResolutionScale, None)
+    DiagonalSizeInInches = property(get_DiagonalSizeInInches, None)
     LogicalDpi = property(get_LogicalDpi, None)
+    NativeOrientation = property(get_NativeOrientation, None)
     RawDpiX = property(get_RawDpiX, None)
     RawDpiY = property(get_RawDpiY, None)
-    StereoEnabled = property(get_StereoEnabled, None)
     RawPixelsPerViewPixel = property(get_RawPixelsPerViewPixel, None)
-    DiagonalSizeInInches = property(get_DiagonalSizeInInches, None)
-    ScreenWidthInRawPixels = property(get_ScreenWidthInRawPixels, None)
+    ResolutionScale = property(get_ResolutionScale, None)
     ScreenHeightInRawPixels = property(get_ScreenHeightInRawPixels, None)
+    ScreenWidthInRawPixels = property(get_ScreenWidthInRawPixels, None)
+    StereoEnabled = property(get_StereoEnabled, None)
     _DisplayInformation_Meta_.AutoRotationPreferences = property(get_AutoRotationPreferences.__wrapped__, put_AutoRotationPreferences.__wrapped__)
 class DisplayOrientations(UInt32):  # enum
     None_ = 0
@@ -307,11 +307,11 @@ class DisplayProperties(ComPtr, metaclass=_DisplayProperties_Meta_):
     def add_DisplayContentsInvalidated(cls: win32more.Windows.Graphics.Display.IDisplayPropertiesStatics, handler: win32more.Windows.Graphics.Display.DisplayPropertiesEventHandler) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod
     def remove_DisplayContentsInvalidated(cls: win32more.Windows.Graphics.Display.IDisplayPropertiesStatics, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    _DisplayProperties_Meta_.CurrentOrientation = property(get_CurrentOrientation.__wrapped__, None)
-    _DisplayProperties_Meta_.NativeOrientation = property(get_NativeOrientation.__wrapped__, None)
     _DisplayProperties_Meta_.AutoRotationPreferences = property(get_AutoRotationPreferences.__wrapped__, put_AutoRotationPreferences.__wrapped__)
-    _DisplayProperties_Meta_.ResolutionScale = property(get_ResolutionScale.__wrapped__, None)
+    _DisplayProperties_Meta_.CurrentOrientation = property(get_CurrentOrientation.__wrapped__, None)
     _DisplayProperties_Meta_.LogicalDpi = property(get_LogicalDpi.__wrapped__, None)
+    _DisplayProperties_Meta_.NativeOrientation = property(get_NativeOrientation.__wrapped__, None)
+    _DisplayProperties_Meta_.ResolutionScale = property(get_ResolutionScale.__wrapped__, None)
     _DisplayProperties_Meta_.StereoEnabled = property(get_StereoEnabled.__wrapped__, None)
 class DisplayPropertiesEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
@@ -352,15 +352,15 @@ class IAdvancedColorInfo(ComPtr):
     def IsHdrMetadataFormatCurrentlySupported(self, format: win32more.Windows.Graphics.Display.HdrMetadataFormat) -> Boolean: ...
     @winrt_commethod(16)
     def IsAdvancedColorKindAvailable(self, kind: win32more.Windows.Graphics.Display.AdvancedColorKind) -> Boolean: ...
-    CurrentAdvancedColorKind = property(get_CurrentAdvancedColorKind, None)
-    RedPrimary = property(get_RedPrimary, None)
-    GreenPrimary = property(get_GreenPrimary, None)
     BluePrimary = property(get_BluePrimary, None)
-    WhitePoint = property(get_WhitePoint, None)
+    CurrentAdvancedColorKind = property(get_CurrentAdvancedColorKind, None)
+    GreenPrimary = property(get_GreenPrimary, None)
+    MaxAverageFullFrameLuminanceInNits = property(get_MaxAverageFullFrameLuminanceInNits, None)
     MaxLuminanceInNits = property(get_MaxLuminanceInNits, None)
     MinLuminanceInNits = property(get_MinLuminanceInNits, None)
-    MaxAverageFullFrameLuminanceInNits = property(get_MaxAverageFullFrameLuminanceInNits, None)
+    RedPrimary = property(get_RedPrimary, None)
     SdrWhiteLevelInNits = property(get_SdrWhiteLevelInNits, None)
+    WhitePoint = property(get_WhitePoint, None)
 class IBrightnessOverride(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Display.IBrightnessOverride'
@@ -393,9 +393,9 @@ class IBrightnessOverride(ComPtr):
     def add_BrightnessLevelChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Graphics.Display.BrightnessOverride, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(19)
     def remove_BrightnessLevelChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    IsSupported = property(get_IsSupported, None)
-    IsOverrideActive = property(get_IsOverrideActive, None)
     BrightnessLevel = property(get_BrightnessLevel, None)
+    IsOverrideActive = property(get_IsOverrideActive, None)
+    IsSupported = property(get_IsSupported, None)
 class IBrightnessOverrideSettings(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Display.IBrightnessOverrideSettings'
@@ -473,9 +473,9 @@ class IDisplayEnhancementOverride(ComPtr):
     def add_DisplayEnhancementOverrideCapabilitiesChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Graphics.Display.DisplayEnhancementOverride, win32more.Windows.Graphics.Display.DisplayEnhancementOverrideCapabilitiesChangedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(20)
     def remove_DisplayEnhancementOverrideCapabilitiesChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    ColorOverrideSettings = property(get_ColorOverrideSettings, put_ColorOverrideSettings)
     BrightnessOverrideSettings = property(get_BrightnessOverrideSettings, put_BrightnessOverrideSettings)
     CanOverride = property(get_CanOverride, None)
+    ColorOverrideSettings = property(get_ColorOverrideSettings, put_ColorOverrideSettings)
     IsOverrideActive = property(get_IsOverrideActive, None)
 class IDisplayEnhancementOverrideCapabilities(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -539,11 +539,11 @@ class IDisplayInformation(ComPtr):
     @winrt_commethod(21)
     def remove_ColorProfileChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     CurrentOrientation = property(get_CurrentOrientation, None)
-    NativeOrientation = property(get_NativeOrientation, None)
-    ResolutionScale = property(get_ResolutionScale, None)
     LogicalDpi = property(get_LogicalDpi, None)
+    NativeOrientation = property(get_NativeOrientation, None)
     RawDpiX = property(get_RawDpiX, None)
     RawDpiY = property(get_RawDpiY, None)
+    ResolutionScale = property(get_ResolutionScale, None)
     StereoEnabled = property(get_StereoEnabled, None)
 class IDisplayInformation2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -567,8 +567,8 @@ class IDisplayInformation4(ComPtr):
     def get_ScreenWidthInRawPixels(self) -> UInt32: ...
     @winrt_commethod(7)
     def get_ScreenHeightInRawPixels(self) -> UInt32: ...
-    ScreenWidthInRawPixels = property(get_ScreenWidthInRawPixels, None)
     ScreenHeightInRawPixels = property(get_ScreenHeightInRawPixels, None)
+    ScreenWidthInRawPixels = property(get_ScreenWidthInRawPixels, None)
 class IDisplayInformation5(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Display.IDisplayInformation5'
@@ -634,11 +634,11 @@ class IDisplayPropertiesStatics(ComPtr):
     def add_DisplayContentsInvalidated(self, handler: win32more.Windows.Graphics.Display.DisplayPropertiesEventHandler) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(23)
     def remove_DisplayContentsInvalidated(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    CurrentOrientation = property(get_CurrentOrientation, None)
-    NativeOrientation = property(get_NativeOrientation, None)
     AutoRotationPreferences = property(get_AutoRotationPreferences, put_AutoRotationPreferences)
-    ResolutionScale = property(get_ResolutionScale, None)
+    CurrentOrientation = property(get_CurrentOrientation, None)
     LogicalDpi = property(get_LogicalDpi, None)
+    NativeOrientation = property(get_NativeOrientation, None)
+    ResolutionScale = property(get_ResolutionScale, None)
     StereoEnabled = property(get_StereoEnabled, None)
 class IDisplayServices(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable

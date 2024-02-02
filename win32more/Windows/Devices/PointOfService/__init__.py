@@ -46,8 +46,8 @@ class BarcodeScanner(ComPtr):
     def FromIdAsync(cls: win32more.Windows.Devices.PointOfService.IBarcodeScannerStatics, deviceId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.PointOfService.BarcodeScanner]: ...
     @winrt_classmethod
     def GetDeviceSelector(cls: win32more.Windows.Devices.PointOfService.IBarcodeScannerStatics) -> WinRT_String: ...
-    DeviceId = property(get_DeviceId, None)
     Capabilities = property(get_Capabilities, None)
+    DeviceId = property(get_DeviceId, None)
     VideoDeviceId = property(get_VideoDeviceId, None)
 class BarcodeScannerCapabilities(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -65,12 +65,12 @@ class BarcodeScannerCapabilities(ComPtr):
     def get_IsSoftwareTriggerSupported(self: win32more.Windows.Devices.PointOfService.IBarcodeScannerCapabilities1) -> Boolean: ...
     @winrt_mixinmethod
     def get_IsVideoPreviewSupported(self: win32more.Windows.Devices.PointOfService.IBarcodeScannerCapabilities2) -> Boolean: ...
-    PowerReportingType = property(get_PowerReportingType, None)
-    IsStatisticsReportingSupported = property(get_IsStatisticsReportingSupported, None)
-    IsStatisticsUpdatingSupported = property(get_IsStatisticsUpdatingSupported, None)
     IsImagePreviewSupported = property(get_IsImagePreviewSupported, None)
     IsSoftwareTriggerSupported = property(get_IsSoftwareTriggerSupported, None)
+    IsStatisticsReportingSupported = property(get_IsStatisticsReportingSupported, None)
+    IsStatisticsUpdatingSupported = property(get_IsStatisticsUpdatingSupported, None)
     IsVideoPreviewSupported = property(get_IsVideoPreviewSupported, None)
+    PowerReportingType = property(get_PowerReportingType, None)
 class BarcodeScannerDataReceivedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.PointOfService.IBarcodeScannerDataReceivedEventArgs
@@ -88,9 +88,9 @@ class BarcodeScannerErrorOccurredEventArgs(ComPtr):
     def get_IsRetriable(self: win32more.Windows.Devices.PointOfService.IBarcodeScannerErrorOccurredEventArgs) -> Boolean: ...
     @winrt_mixinmethod
     def get_ErrorData(self: win32more.Windows.Devices.PointOfService.IBarcodeScannerErrorOccurredEventArgs) -> win32more.Windows.Devices.PointOfService.UnifiedPosErrorData: ...
-    PartialInputData = property(get_PartialInputData, None)
-    IsRetriable = property(get_IsRetriable, None)
     ErrorData = property(get_ErrorData, None)
+    IsRetriable = property(get_IsRetriable, None)
+    PartialInputData = property(get_PartialInputData, None)
 class BarcodeScannerImagePreviewReceivedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.PointOfService.IBarcodeScannerImagePreviewReceivedEventArgs
@@ -117,9 +117,9 @@ class BarcodeScannerReport(ComPtr):
     def get_ScanData(self: win32more.Windows.Devices.PointOfService.IBarcodeScannerReport) -> win32more.Windows.Storage.Streams.IBuffer: ...
     @winrt_mixinmethod
     def get_ScanDataLabel(self: win32more.Windows.Devices.PointOfService.IBarcodeScannerReport) -> win32more.Windows.Storage.Streams.IBuffer: ...
-    ScanDataType = property(get_ScanDataType, None)
     ScanData = property(get_ScanData, None)
     ScanDataLabel = property(get_ScanDataLabel, None)
+    ScanDataType = property(get_ScanDataType, None)
 class BarcodeScannerStatus(Int32):  # enum
     Online = 0
     Off = 1
@@ -134,8 +134,8 @@ class BarcodeScannerStatusUpdatedEventArgs(ComPtr):
     def get_Status(self: win32more.Windows.Devices.PointOfService.IBarcodeScannerStatusUpdatedEventArgs) -> win32more.Windows.Devices.PointOfService.BarcodeScannerStatus: ...
     @winrt_mixinmethod
     def get_ExtendedStatus(self: win32more.Windows.Devices.PointOfService.IBarcodeScannerStatusUpdatedEventArgs) -> UInt32: ...
-    Status = property(get_Status, None)
     ExtendedStatus = property(get_ExtendedStatus, None)
+    Status = property(get_Status, None)
 class _BarcodeSymbologies_Meta_(ComPtr.__class__):
     pass
 class BarcodeSymbologies(ComPtr, metaclass=_BarcodeSymbologies_Meta_):
@@ -331,100 +331,100 @@ class BarcodeSymbologies(ComPtr, metaclass=_BarcodeSymbologies_Meta_):
     def get_ExtendedBase(cls: win32more.Windows.Devices.PointOfService.IBarcodeSymbologiesStatics) -> UInt32: ...
     @winrt_classmethod
     def GetName(cls: win32more.Windows.Devices.PointOfService.IBarcodeSymbologiesStatics, scanDataType: UInt32) -> WinRT_String: ...
-    _BarcodeSymbologies_Meta_.Gs1DWCode = property(get_Gs1DWCode.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.Unknown = property(get_Unknown.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.Ean8 = property(get_Ean8.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.Ean8Add2 = property(get_Ean8Add2.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.Ean8Add5 = property(get_Ean8Add5.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.Eanv = property(get_Eanv.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.EanvAdd2 = property(get_EanvAdd2.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.EanvAdd5 = property(get_EanvAdd5.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.AusPost = property(get_AusPost.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Aztec = property(get_Aztec.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.CanPost = property(get_CanPost.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Ccab = property(get_Ccab.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Ccc = property(get_Ccc.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.ChinaPost = property(get_ChinaPost.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Codabar = property(get_Codabar.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Codablock128 = property(get_Codablock128.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.CodablockA = property(get_CodablockA.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.CodablockF = property(get_CodablockF.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Code11 = property(get_Code11.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Code128 = property(get_Code128.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Code16k = property(get_Code16k.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Code32 = property(get_Code32.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Code39 = property(get_Code39.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Code39Ex = property(get_Code39Ex.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Code49 = property(get_Code49.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Code93 = property(get_Code93.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Code93Ex = property(get_Code93Ex.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.DataCode = property(get_DataCode.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.DataMatrix = property(get_DataMatrix.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.DutchKix = property(get_DutchKix.__wrapped__, None)
     _BarcodeSymbologies_Meta_.Ean13 = property(get_Ean13.__wrapped__, None)
     _BarcodeSymbologies_Meta_.Ean13Add2 = property(get_Ean13Add2.__wrapped__, None)
     _BarcodeSymbologies_Meta_.Ean13Add5 = property(get_Ean13Add5.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Ean8 = property(get_Ean8.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Ean8Add2 = property(get_Ean8Add2.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Ean8Add5 = property(get_Ean8Add5.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Ean99 = property(get_Ean99.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Ean99Add2 = property(get_Ean99Add2.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Ean99Add5 = property(get_Ean99Add5.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Eanv = property(get_Eanv.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.EanvAdd2 = property(get_EanvAdd2.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.EanvAdd5 = property(get_EanvAdd5.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.ExtendedBase = property(get_ExtendedBase.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Gs1128 = property(get_Gs1128.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Gs1128Coupon = property(get_Gs1128Coupon.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Gs1DWCode = property(get_Gs1DWCode.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Gs1DatabarType1 = property(get_Gs1DatabarType1.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Gs1DatabarType2 = property(get_Gs1DatabarType2.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Gs1DatabarType3 = property(get_Gs1DatabarType3.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.HanXin = property(get_HanXin.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.InfoMail = property(get_InfoMail.__wrapped__, None)
     _BarcodeSymbologies_Meta_.Isbn = property(get_Isbn.__wrapped__, None)
     _BarcodeSymbologies_Meta_.IsbnAdd5 = property(get_IsbnAdd5.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Isbt = property(get_Isbt.__wrapped__, None)
     _BarcodeSymbologies_Meta_.Ismn = property(get_Ismn.__wrapped__, None)
     _BarcodeSymbologies_Meta_.IsmnAdd2 = property(get_IsmnAdd2.__wrapped__, None)
     _BarcodeSymbologies_Meta_.IsmnAdd5 = property(get_IsmnAdd5.__wrapped__, None)
     _BarcodeSymbologies_Meta_.Issn = property(get_Issn.__wrapped__, None)
     _BarcodeSymbologies_Meta_.IssnAdd2 = property(get_IssnAdd2.__wrapped__, None)
     _BarcodeSymbologies_Meta_.IssnAdd5 = property(get_IssnAdd5.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.Ean99 = property(get_Ean99.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.Ean99Add2 = property(get_Ean99Add2.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.Ean99Add5 = property(get_Ean99Add5.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.ItalianPost25 = property(get_ItalianPost25.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.ItalianPost39 = property(get_ItalianPost39.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.JapanPost = property(get_JapanPost.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.KoreanPost = property(get_KoreanPost.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Maxicode = property(get_Maxicode.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Micr = property(get_Micr.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.MicroPdf417 = property(get_MicroPdf417.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.MicroQr = property(get_MicroQr.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.MsTag = property(get_MsTag.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Msi = property(get_Msi.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.OcrA = property(get_OcrA.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.OcrB = property(get_OcrB.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Pdf417 = property(get_Pdf417.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Plessey = property(get_Plessey.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Pzn = property(get_Pzn.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Qr = property(get_Qr.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Sisac = property(get_Sisac.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.SwedenPost = property(get_SwedenPost.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Telepen = property(get_Telepen.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.TfDis = property(get_TfDis.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.TfIata = property(get_TfIata.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.TfInd = property(get_TfInd.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.TfInt = property(get_TfInt.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.TfMat = property(get_TfMat.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.TfStd = property(get_TfStd.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Tlc39 = property(get_Tlc39.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Trioptic39 = property(get_Trioptic39.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.UccEan128 = property(get_UccEan128.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.UkPost = property(get_UkPost.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Unknown = property(get_Unknown.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.UpcCoupon = property(get_UpcCoupon.__wrapped__, None)
     _BarcodeSymbologies_Meta_.Upca = property(get_Upca.__wrapped__, None)
     _BarcodeSymbologies_Meta_.UpcaAdd2 = property(get_UpcaAdd2.__wrapped__, None)
     _BarcodeSymbologies_Meta_.UpcaAdd5 = property(get_UpcaAdd5.__wrapped__, None)
     _BarcodeSymbologies_Meta_.Upce = property(get_Upce.__wrapped__, None)
     _BarcodeSymbologies_Meta_.UpceAdd2 = property(get_UpceAdd2.__wrapped__, None)
     _BarcodeSymbologies_Meta_.UpceAdd5 = property(get_UpceAdd5.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.UpcCoupon = property(get_UpcCoupon.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.TfStd = property(get_TfStd.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.TfDis = property(get_TfDis.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.TfInt = property(get_TfInt.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.TfInd = property(get_TfInd.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.TfMat = property(get_TfMat.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.TfIata = property(get_TfIata.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.Gs1DatabarType1 = property(get_Gs1DatabarType1.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.Gs1DatabarType2 = property(get_Gs1DatabarType2.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.Gs1DatabarType3 = property(get_Gs1DatabarType3.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.Code39 = property(get_Code39.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.Code39Ex = property(get_Code39Ex.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.Trioptic39 = property(get_Trioptic39.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.Code32 = property(get_Code32.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.Pzn = property(get_Pzn.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.Code93 = property(get_Code93.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.Code93Ex = property(get_Code93Ex.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.Code128 = property(get_Code128.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.Gs1128 = property(get_Gs1128.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.Gs1128Coupon = property(get_Gs1128Coupon.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.UccEan128 = property(get_UccEan128.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.Sisac = property(get_Sisac.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.Isbt = property(get_Isbt.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.Codabar = property(get_Codabar.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.Code11 = property(get_Code11.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.Msi = property(get_Msi.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.Plessey = property(get_Plessey.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.Telepen = property(get_Telepen.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.Code16k = property(get_Code16k.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.CodablockA = property(get_CodablockA.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.CodablockF = property(get_CodablockF.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.Codablock128 = property(get_Codablock128.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.Code49 = property(get_Code49.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.Aztec = property(get_Aztec.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.DataCode = property(get_DataCode.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.DataMatrix = property(get_DataMatrix.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.HanXin = property(get_HanXin.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.Maxicode = property(get_Maxicode.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.MicroPdf417 = property(get_MicroPdf417.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.MicroQr = property(get_MicroQr.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.Pdf417 = property(get_Pdf417.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.Qr = property(get_Qr.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.MsTag = property(get_MsTag.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.Ccab = property(get_Ccab.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.Ccc = property(get_Ccc.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.Tlc39 = property(get_Tlc39.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.AusPost = property(get_AusPost.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.CanPost = property(get_CanPost.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.ChinaPost = property(get_ChinaPost.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.DutchKix = property(get_DutchKix.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.InfoMail = property(get_InfoMail.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.ItalianPost25 = property(get_ItalianPost25.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.ItalianPost39 = property(get_ItalianPost39.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.JapanPost = property(get_JapanPost.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.KoreanPost = property(get_KoreanPost.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.SwedenPost = property(get_SwedenPost.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.UkPost = property(get_UkPost.__wrapped__, None)
+    _BarcodeSymbologies_Meta_.Us4StateFics = property(get_Us4StateFics.__wrapped__, None)
     _BarcodeSymbologies_Meta_.UsIntelligent = property(get_UsIntelligent.__wrapped__, None)
     _BarcodeSymbologies_Meta_.UsIntelligentPkg = property(get_UsIntelligentPkg.__wrapped__, None)
     _BarcodeSymbologies_Meta_.UsPlanet = property(get_UsPlanet.__wrapped__, None)
     _BarcodeSymbologies_Meta_.UsPostNet = property(get_UsPostNet.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.Us4StateFics = property(get_Us4StateFics.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.OcrA = property(get_OcrA.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.OcrB = property(get_OcrB.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.Micr = property(get_Micr.__wrapped__, None)
-    _BarcodeSymbologies_Meta_.ExtendedBase = property(get_ExtendedBase.__wrapped__, None)
 class BarcodeSymbologyAttributes(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.PointOfService.IBarcodeSymbologyAttributes
@@ -455,13 +455,13 @@ class BarcodeSymbologyAttributes(ComPtr):
     def put_DecodeLengthKind(self: win32more.Windows.Devices.PointOfService.IBarcodeSymbologyAttributes, value: win32more.Windows.Devices.PointOfService.BarcodeSymbologyDecodeLengthKind) -> Void: ...
     @winrt_mixinmethod
     def get_IsDecodeLengthSupported(self: win32more.Windows.Devices.PointOfService.IBarcodeSymbologyAttributes) -> Boolean: ...
-    IsCheckDigitValidationEnabled = property(get_IsCheckDigitValidationEnabled, put_IsCheckDigitValidationEnabled)
-    IsCheckDigitValidationSupported = property(get_IsCheckDigitValidationSupported, None)
-    IsCheckDigitTransmissionEnabled = property(get_IsCheckDigitTransmissionEnabled, put_IsCheckDigitTransmissionEnabled)
-    IsCheckDigitTransmissionSupported = property(get_IsCheckDigitTransmissionSupported, None)
     DecodeLength1 = property(get_DecodeLength1, put_DecodeLength1)
     DecodeLength2 = property(get_DecodeLength2, put_DecodeLength2)
     DecodeLengthKind = property(get_DecodeLengthKind, put_DecodeLengthKind)
+    IsCheckDigitTransmissionEnabled = property(get_IsCheckDigitTransmissionEnabled, put_IsCheckDigitTransmissionEnabled)
+    IsCheckDigitTransmissionSupported = property(get_IsCheckDigitTransmissionSupported, None)
+    IsCheckDigitValidationEnabled = property(get_IsCheckDigitValidationEnabled, put_IsCheckDigitValidationEnabled)
+    IsCheckDigitValidationSupported = property(get_IsCheckDigitValidationSupported, None)
     IsDecodeLengthSupported = property(get_IsDecodeLengthSupported, None)
 class BarcodeSymbologyDecodeLengthKind(Int32):  # enum
     AnyLength = 0
@@ -501,11 +501,11 @@ class CashDrawer(ComPtr):
     def FromIdAsync(cls: win32more.Windows.Devices.PointOfService.ICashDrawerStatics, deviceId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.PointOfService.CashDrawer]: ...
     @winrt_classmethod
     def GetDeviceSelector(cls: win32more.Windows.Devices.PointOfService.ICashDrawerStatics) -> WinRT_String: ...
-    DeviceId = property(get_DeviceId, None)
     Capabilities = property(get_Capabilities, None)
-    Status = property(get_Status, None)
-    IsDrawerOpen = property(get_IsDrawerOpen, None)
+    DeviceId = property(get_DeviceId, None)
     DrawerEventSource = property(get_DrawerEventSource, None)
+    IsDrawerOpen = property(get_IsDrawerOpen, None)
+    Status = property(get_Status, None)
 class CashDrawerCapabilities(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.PointOfService.ICashDrawerCapabilities
@@ -522,12 +522,12 @@ class CashDrawerCapabilities(ComPtr):
     def get_IsStatusMultiDrawerDetectSupported(self: win32more.Windows.Devices.PointOfService.ICashDrawerCapabilities) -> Boolean: ...
     @winrt_mixinmethod
     def get_IsDrawerOpenSensorAvailable(self: win32more.Windows.Devices.PointOfService.ICashDrawerCapabilities) -> Boolean: ...
-    PowerReportingType = property(get_PowerReportingType, None)
+    IsDrawerOpenSensorAvailable = property(get_IsDrawerOpenSensorAvailable, None)
     IsStatisticsReportingSupported = property(get_IsStatisticsReportingSupported, None)
     IsStatisticsUpdatingSupported = property(get_IsStatisticsUpdatingSupported, None)
-    IsStatusReportingSupported = property(get_IsStatusReportingSupported, None)
     IsStatusMultiDrawerDetectSupported = property(get_IsStatusMultiDrawerDetectSupported, None)
-    IsDrawerOpenSensorAvailable = property(get_IsDrawerOpenSensorAvailable, None)
+    IsStatusReportingSupported = property(get_IsStatusReportingSupported, None)
+    PowerReportingType = property(get_PowerReportingType, None)
 class CashDrawerCloseAlarm(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.PointOfService.ICashDrawerCloseAlarm
@@ -555,9 +555,9 @@ class CashDrawerCloseAlarm(ComPtr):
     @winrt_mixinmethod
     def StartAsync(self: win32more.Windows.Devices.PointOfService.ICashDrawerCloseAlarm) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
     AlarmTimeout = property(get_AlarmTimeout, put_AlarmTimeout)
-    BeepFrequency = property(get_BeepFrequency, put_BeepFrequency)
-    BeepDuration = property(get_BeepDuration, put_BeepDuration)
     BeepDelay = property(get_BeepDelay, put_BeepDelay)
+    BeepDuration = property(get_BeepDuration, put_BeepDuration)
+    BeepFrequency = property(get_BeepFrequency, put_BeepFrequency)
 class CashDrawerClosedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.PointOfService.ICashDrawerEventSourceEventArgs
@@ -592,8 +592,8 @@ class CashDrawerStatus(ComPtr):
     def get_StatusKind(self: win32more.Windows.Devices.PointOfService.ICashDrawerStatus) -> win32more.Windows.Devices.PointOfService.CashDrawerStatusKind: ...
     @winrt_mixinmethod
     def get_ExtendedStatus(self: win32more.Windows.Devices.PointOfService.ICashDrawerStatus) -> UInt32: ...
-    StatusKind = property(get_StatusKind, None)
     ExtendedStatus = property(get_ExtendedStatus, None)
+    StatusKind = property(get_StatusKind, None)
 class CashDrawerStatusKind(Int32):  # enum
     Online = 0
     Off = 1
@@ -684,9 +684,9 @@ class ClaimedBarcodeScanner(ComPtr):
     @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
     DeviceId = property(get_DeviceId, None)
-    IsEnabled = property(get_IsEnabled, None)
-    IsDisabledOnDataReceived = property(get_IsDisabledOnDataReceived, put_IsDisabledOnDataReceived)
     IsDecodeDataEnabled = property(get_IsDecodeDataEnabled, put_IsDecodeDataEnabled)
+    IsDisabledOnDataReceived = property(get_IsDisabledOnDataReceived, put_IsDisabledOnDataReceived)
+    IsEnabled = property(get_IsEnabled, None)
     IsVideoPreviewShownOnEnable = property(get_IsVideoPreviewShownOnEnable, put_IsVideoPreviewShownOnEnable)
 class ClaimedBarcodeScannerClosedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -726,10 +726,10 @@ class ClaimedCashDrawer(ComPtr):
     def remove_Closed(self: win32more.Windows.Devices.PointOfService.IClaimedCashDrawer2, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
-    DeviceId = property(get_DeviceId, None)
-    IsEnabled = property(get_IsEnabled, None)
-    IsDrawerOpen = property(get_IsDrawerOpen, None)
     CloseAlarm = property(get_CloseAlarm, None)
+    DeviceId = property(get_DeviceId, None)
+    IsDrawerOpen = property(get_IsDrawerOpen, None)
+    IsEnabled = property(get_IsEnabled, None)
 class ClaimedCashDrawerClosedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.PointOfService.IClaimedCashDrawerClosedEventArgs
@@ -779,18 +779,18 @@ class ClaimedJournalPrinter(ComPtr):
     @winrt_mixinmethod
     def ValidateData(self: win32more.Windows.Devices.PointOfService.ICommonClaimedPosPrinterStation, data: WinRT_String) -> Boolean: ...
     CharactersPerLine = property(get_CharactersPerLine, put_CharactersPerLine)
+    ColorCartridge = property(get_ColorCartridge, put_ColorCartridge)
+    IsCartridgeEmpty = property(get_IsCartridgeEmpty, None)
+    IsCartridgeRemoved = property(get_IsCartridgeRemoved, None)
+    IsCoverOpen = property(get_IsCoverOpen, None)
+    IsHeadCleaning = property(get_IsHeadCleaning, None)
+    IsLetterQuality = property(get_IsLetterQuality, put_IsLetterQuality)
+    IsPaperEmpty = property(get_IsPaperEmpty, None)
+    IsPaperNearEnd = property(get_IsPaperNearEnd, None)
+    IsReadyToPrint = property(get_IsReadyToPrint, None)
     LineHeight = property(get_LineHeight, put_LineHeight)
     LineSpacing = property(get_LineSpacing, put_LineSpacing)
     LineWidth = property(get_LineWidth, None)
-    IsLetterQuality = property(get_IsLetterQuality, put_IsLetterQuality)
-    IsPaperNearEnd = property(get_IsPaperNearEnd, None)
-    ColorCartridge = property(get_ColorCartridge, put_ColorCartridge)
-    IsCoverOpen = property(get_IsCoverOpen, None)
-    IsCartridgeRemoved = property(get_IsCartridgeRemoved, None)
-    IsCartridgeEmpty = property(get_IsCartridgeEmpty, None)
-    IsHeadCleaning = property(get_IsHeadCleaning, None)
-    IsPaperEmpty = property(get_IsPaperEmpty, None)
-    IsReadyToPrint = property(get_IsReadyToPrint, None)
 class ClaimedLineDisplay(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.PointOfService.IClaimedLineDisplay
@@ -863,18 +863,18 @@ class ClaimedLineDisplay(ComPtr):
     def GetDeviceSelector(cls: win32more.Windows.Devices.PointOfService.IClaimedLineDisplayStatics) -> WinRT_String: ...
     @winrt_classmethod
     def GetDeviceSelectorWithConnectionTypes(cls: win32more.Windows.Devices.PointOfService.IClaimedLineDisplayStatics, connectionTypes: win32more.Windows.Devices.PointOfService.PosConnectionTypes) -> WinRT_String: ...
-    DeviceId = property(get_DeviceId, None)
     Capabilities = property(get_Capabilities, None)
-    PhysicalDeviceName = property(get_PhysicalDeviceName, None)
-    PhysicalDeviceDescription = property(get_PhysicalDeviceDescription, None)
+    CustomGlyphs = property(get_CustomGlyphs, None)
+    DefaultWindow = property(get_DefaultWindow, None)
     DeviceControlDescription = property(get_DeviceControlDescription, None)
     DeviceControlVersion = property(get_DeviceControlVersion, None)
+    DeviceId = property(get_DeviceId, None)
     DeviceServiceVersion = property(get_DeviceServiceVersion, None)
-    DefaultWindow = property(get_DefaultWindow, None)
-    SupportedScreenSizesInCharacters = property(get_SupportedScreenSizesInCharacters, None)
     MaxBitmapSizeInPixels = property(get_MaxBitmapSizeInPixels, None)
+    PhysicalDeviceDescription = property(get_PhysicalDeviceDescription, None)
+    PhysicalDeviceName = property(get_PhysicalDeviceName, None)
     SupportedCharacterSets = property(get_SupportedCharacterSets, None)
-    CustomGlyphs = property(get_CustomGlyphs, None)
+    SupportedScreenSizesInCharacters = property(get_SupportedScreenSizesInCharacters, None)
 class ClaimedLineDisplayClosedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.PointOfService.IClaimedLineDisplayClosedEventArgs
@@ -955,14 +955,14 @@ class ClaimedMagneticStripeReader(ComPtr):
     def remove_Closed(self: win32more.Windows.Devices.PointOfService.IClaimedMagneticStripeReader2, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
+    DataEncryptionAlgorithm = property(get_DataEncryptionAlgorithm, put_DataEncryptionAlgorithm)
     DeviceId = property(get_DeviceId, None)
-    IsEnabled = property(get_IsEnabled, None)
-    IsDisabledOnDataReceived = property(get_IsDisabledOnDataReceived, put_IsDisabledOnDataReceived)
     IsDecodeDataEnabled = property(get_IsDecodeDataEnabled, put_IsDecodeDataEnabled)
     IsDeviceAuthenticated = property(get_IsDeviceAuthenticated, None)
-    DataEncryptionAlgorithm = property(get_DataEncryptionAlgorithm, put_DataEncryptionAlgorithm)
-    TracksToRead = property(get_TracksToRead, put_TracksToRead)
+    IsDisabledOnDataReceived = property(get_IsDisabledOnDataReceived, put_IsDisabledOnDataReceived)
+    IsEnabled = property(get_IsEnabled, None)
     IsTransmitSentinelsEnabled = property(get_IsTransmitSentinelsEnabled, put_IsTransmitSentinelsEnabled)
+    TracksToRead = property(get_TracksToRead, put_TracksToRead)
 class ClaimedMagneticStripeReaderClosedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.PointOfService.IClaimedMagneticStripeReaderClosedEventArgs
@@ -1015,15 +1015,15 @@ class ClaimedPosPrinter(ComPtr):
     def remove_Closed(self: win32more.Windows.Devices.PointOfService.IClaimedPosPrinter2, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
-    DeviceId = property(get_DeviceId, None)
-    IsEnabled = property(get_IsEnabled, None)
     CharacterSet = property(get_CharacterSet, put_CharacterSet)
-    IsCoverOpen = property(get_IsCoverOpen, None)
+    DeviceId = property(get_DeviceId, None)
     IsCharacterSetMappingEnabled = property(get_IsCharacterSetMappingEnabled, put_IsCharacterSetMappingEnabled)
+    IsCoverOpen = property(get_IsCoverOpen, None)
+    IsEnabled = property(get_IsEnabled, None)
+    Journal = property(get_Journal, None)
     MapMode = property(get_MapMode, put_MapMode)
     Receipt = property(get_Receipt, None)
     Slip = property(get_Slip, None)
-    Journal = property(get_Journal, None)
 class ClaimedPosPrinterClosedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.PointOfService.IClaimedPosPrinterClosedEventArgs
@@ -1082,24 +1082,24 @@ class ClaimedReceiptPrinter(ComPtr):
     def get_IsReadyToPrint(self: win32more.Windows.Devices.PointOfService.ICommonClaimedPosPrinterStation) -> Boolean: ...
     @winrt_mixinmethod
     def ValidateData(self: win32more.Windows.Devices.PointOfService.ICommonClaimedPosPrinterStation, data: WinRT_String) -> Boolean: ...
-    SidewaysMaxLines = property(get_SidewaysMaxLines, None)
-    SidewaysMaxChars = property(get_SidewaysMaxChars, None)
-    LinesToPaperCut = property(get_LinesToPaperCut, None)
-    PageSize = property(get_PageSize, None)
-    PrintArea = property(get_PrintArea, None)
     CharactersPerLine = property(get_CharactersPerLine, put_CharactersPerLine)
+    ColorCartridge = property(get_ColorCartridge, put_ColorCartridge)
+    IsCartridgeEmpty = property(get_IsCartridgeEmpty, None)
+    IsCartridgeRemoved = property(get_IsCartridgeRemoved, None)
+    IsCoverOpen = property(get_IsCoverOpen, None)
+    IsHeadCleaning = property(get_IsHeadCleaning, None)
+    IsLetterQuality = property(get_IsLetterQuality, put_IsLetterQuality)
+    IsPaperEmpty = property(get_IsPaperEmpty, None)
+    IsPaperNearEnd = property(get_IsPaperNearEnd, None)
+    IsReadyToPrint = property(get_IsReadyToPrint, None)
     LineHeight = property(get_LineHeight, put_LineHeight)
     LineSpacing = property(get_LineSpacing, put_LineSpacing)
     LineWidth = property(get_LineWidth, None)
-    IsLetterQuality = property(get_IsLetterQuality, put_IsLetterQuality)
-    IsPaperNearEnd = property(get_IsPaperNearEnd, None)
-    ColorCartridge = property(get_ColorCartridge, put_ColorCartridge)
-    IsCoverOpen = property(get_IsCoverOpen, None)
-    IsCartridgeRemoved = property(get_IsCartridgeRemoved, None)
-    IsCartridgeEmpty = property(get_IsCartridgeEmpty, None)
-    IsHeadCleaning = property(get_IsHeadCleaning, None)
-    IsPaperEmpty = property(get_IsPaperEmpty, None)
-    IsReadyToPrint = property(get_IsReadyToPrint, None)
+    LinesToPaperCut = property(get_LinesToPaperCut, None)
+    PageSize = property(get_PageSize, None)
+    PrintArea = property(get_PrintArea, None)
+    SidewaysMaxChars = property(get_SidewaysMaxChars, None)
+    SidewaysMaxLines = property(get_SidewaysMaxLines, None)
 class ClaimedSlipPrinter(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.PointOfService.IClaimedSlipPrinter
@@ -1168,26 +1168,26 @@ class ClaimedSlipPrinter(ComPtr):
     def get_IsReadyToPrint(self: win32more.Windows.Devices.PointOfService.ICommonClaimedPosPrinterStation) -> Boolean: ...
     @winrt_mixinmethod
     def ValidateData(self: win32more.Windows.Devices.PointOfService.ICommonClaimedPosPrinterStation, data: WinRT_String) -> Boolean: ...
-    SidewaysMaxLines = property(get_SidewaysMaxLines, None)
-    SidewaysMaxChars = property(get_SidewaysMaxChars, None)
-    MaxLines = property(get_MaxLines, None)
-    LinesNearEndToEnd = property(get_LinesNearEndToEnd, None)
-    PrintSide = property(get_PrintSide, None)
-    PageSize = property(get_PageSize, None)
-    PrintArea = property(get_PrintArea, None)
     CharactersPerLine = property(get_CharactersPerLine, put_CharactersPerLine)
+    ColorCartridge = property(get_ColorCartridge, put_ColorCartridge)
+    IsCartridgeEmpty = property(get_IsCartridgeEmpty, None)
+    IsCartridgeRemoved = property(get_IsCartridgeRemoved, None)
+    IsCoverOpen = property(get_IsCoverOpen, None)
+    IsHeadCleaning = property(get_IsHeadCleaning, None)
+    IsLetterQuality = property(get_IsLetterQuality, put_IsLetterQuality)
+    IsPaperEmpty = property(get_IsPaperEmpty, None)
+    IsPaperNearEnd = property(get_IsPaperNearEnd, None)
+    IsReadyToPrint = property(get_IsReadyToPrint, None)
     LineHeight = property(get_LineHeight, put_LineHeight)
     LineSpacing = property(get_LineSpacing, put_LineSpacing)
     LineWidth = property(get_LineWidth, None)
-    IsLetterQuality = property(get_IsLetterQuality, put_IsLetterQuality)
-    IsPaperNearEnd = property(get_IsPaperNearEnd, None)
-    ColorCartridge = property(get_ColorCartridge, put_ColorCartridge)
-    IsCoverOpen = property(get_IsCoverOpen, None)
-    IsCartridgeRemoved = property(get_IsCartridgeRemoved, None)
-    IsCartridgeEmpty = property(get_IsCartridgeEmpty, None)
-    IsHeadCleaning = property(get_IsHeadCleaning, None)
-    IsPaperEmpty = property(get_IsPaperEmpty, None)
-    IsReadyToPrint = property(get_IsReadyToPrint, None)
+    LinesNearEndToEnd = property(get_LinesNearEndToEnd, None)
+    MaxLines = property(get_MaxLines, None)
+    PageSize = property(get_PageSize, None)
+    PrintArea = property(get_PrintArea, None)
+    PrintSide = property(get_PrintSide, None)
+    SidewaysMaxChars = property(get_SidewaysMaxChars, None)
+    SidewaysMaxLines = property(get_SidewaysMaxLines, None)
 class IBarcodeScanner(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.PointOfService.IBarcodeScanner'
@@ -1214,8 +1214,8 @@ class IBarcodeScanner(ComPtr):
     def add_StatusUpdated(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.PointOfService.BarcodeScanner, win32more.Windows.Devices.PointOfService.BarcodeScannerStatusUpdatedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(16)
     def remove_StatusUpdated(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    DeviceId = property(get_DeviceId, None)
     Capabilities = property(get_Capabilities, None)
+    DeviceId = property(get_DeviceId, None)
 class IBarcodeScanner2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.PointOfService.IBarcodeScanner2'
@@ -1235,10 +1235,10 @@ class IBarcodeScannerCapabilities(ComPtr):
     def get_IsStatisticsUpdatingSupported(self) -> Boolean: ...
     @winrt_commethod(9)
     def get_IsImagePreviewSupported(self) -> Boolean: ...
-    PowerReportingType = property(get_PowerReportingType, None)
+    IsImagePreviewSupported = property(get_IsImagePreviewSupported, None)
     IsStatisticsReportingSupported = property(get_IsStatisticsReportingSupported, None)
     IsStatisticsUpdatingSupported = property(get_IsStatisticsUpdatingSupported, None)
-    IsImagePreviewSupported = property(get_IsImagePreviewSupported, None)
+    PowerReportingType = property(get_PowerReportingType, None)
 class IBarcodeScannerCapabilities1(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.PointOfService.IBarcodeScannerCapabilities1'
@@ -1270,9 +1270,9 @@ class IBarcodeScannerErrorOccurredEventArgs(ComPtr):
     def get_IsRetriable(self) -> Boolean: ...
     @winrt_commethod(8)
     def get_ErrorData(self) -> win32more.Windows.Devices.PointOfService.UnifiedPosErrorData: ...
-    PartialInputData = property(get_PartialInputData, None)
-    IsRetriable = property(get_IsRetriable, None)
     ErrorData = property(get_ErrorData, None)
+    IsRetriable = property(get_IsRetriable, None)
+    PartialInputData = property(get_PartialInputData, None)
 class IBarcodeScannerImagePreviewReceivedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.PointOfService.IBarcodeScannerImagePreviewReceivedEventArgs'
@@ -1290,9 +1290,9 @@ class IBarcodeScannerReport(ComPtr):
     def get_ScanData(self) -> win32more.Windows.Storage.Streams.IBuffer: ...
     @winrt_commethod(8)
     def get_ScanDataLabel(self) -> win32more.Windows.Storage.Streams.IBuffer: ...
-    ScanDataType = property(get_ScanDataType, None)
     ScanData = property(get_ScanData, None)
     ScanDataLabel = property(get_ScanDataLabel, None)
+    ScanDataType = property(get_ScanDataType, None)
 class IBarcodeScannerReportFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.PointOfService.IBarcodeScannerReportFactory'
@@ -1323,8 +1323,8 @@ class IBarcodeScannerStatusUpdatedEventArgs(ComPtr):
     def get_Status(self) -> win32more.Windows.Devices.PointOfService.BarcodeScannerStatus: ...
     @winrt_commethod(7)
     def get_ExtendedStatus(self) -> UInt32: ...
-    Status = property(get_Status, None)
     ExtendedStatus = property(get_ExtendedStatus, None)
+    Status = property(get_Status, None)
 class IBarcodeSymbologiesStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.PointOfService.IBarcodeSymbologiesStatics'
@@ -1517,99 +1517,99 @@ class IBarcodeSymbologiesStatics(ComPtr):
     def get_ExtendedBase(self) -> UInt32: ...
     @winrt_commethod(99)
     def GetName(self, scanDataType: UInt32) -> WinRT_String: ...
-    Unknown = property(get_Unknown, None)
-    Ean8 = property(get_Ean8, None)
-    Ean8Add2 = property(get_Ean8Add2, None)
-    Ean8Add5 = property(get_Ean8Add5, None)
-    Eanv = property(get_Eanv, None)
-    EanvAdd2 = property(get_EanvAdd2, None)
-    EanvAdd5 = property(get_EanvAdd5, None)
+    AusPost = property(get_AusPost, None)
+    Aztec = property(get_Aztec, None)
+    CanPost = property(get_CanPost, None)
+    Ccab = property(get_Ccab, None)
+    Ccc = property(get_Ccc, None)
+    ChinaPost = property(get_ChinaPost, None)
+    Codabar = property(get_Codabar, None)
+    Codablock128 = property(get_Codablock128, None)
+    CodablockA = property(get_CodablockA, None)
+    CodablockF = property(get_CodablockF, None)
+    Code11 = property(get_Code11, None)
+    Code128 = property(get_Code128, None)
+    Code16k = property(get_Code16k, None)
+    Code32 = property(get_Code32, None)
+    Code39 = property(get_Code39, None)
+    Code39Ex = property(get_Code39Ex, None)
+    Code49 = property(get_Code49, None)
+    Code93 = property(get_Code93, None)
+    Code93Ex = property(get_Code93Ex, None)
+    DataCode = property(get_DataCode, None)
+    DataMatrix = property(get_DataMatrix, None)
+    DutchKix = property(get_DutchKix, None)
     Ean13 = property(get_Ean13, None)
     Ean13Add2 = property(get_Ean13Add2, None)
     Ean13Add5 = property(get_Ean13Add5, None)
+    Ean8 = property(get_Ean8, None)
+    Ean8Add2 = property(get_Ean8Add2, None)
+    Ean8Add5 = property(get_Ean8Add5, None)
+    Ean99 = property(get_Ean99, None)
+    Ean99Add2 = property(get_Ean99Add2, None)
+    Ean99Add5 = property(get_Ean99Add5, None)
+    Eanv = property(get_Eanv, None)
+    EanvAdd2 = property(get_EanvAdd2, None)
+    EanvAdd5 = property(get_EanvAdd5, None)
+    ExtendedBase = property(get_ExtendedBase, None)
+    Gs1128 = property(get_Gs1128, None)
+    Gs1128Coupon = property(get_Gs1128Coupon, None)
+    Gs1DatabarType1 = property(get_Gs1DatabarType1, None)
+    Gs1DatabarType2 = property(get_Gs1DatabarType2, None)
+    Gs1DatabarType3 = property(get_Gs1DatabarType3, None)
+    HanXin = property(get_HanXin, None)
+    InfoMail = property(get_InfoMail, None)
     Isbn = property(get_Isbn, None)
     IsbnAdd5 = property(get_IsbnAdd5, None)
+    Isbt = property(get_Isbt, None)
     Ismn = property(get_Ismn, None)
     IsmnAdd2 = property(get_IsmnAdd2, None)
     IsmnAdd5 = property(get_IsmnAdd5, None)
     Issn = property(get_Issn, None)
     IssnAdd2 = property(get_IssnAdd2, None)
     IssnAdd5 = property(get_IssnAdd5, None)
-    Ean99 = property(get_Ean99, None)
-    Ean99Add2 = property(get_Ean99Add2, None)
-    Ean99Add5 = property(get_Ean99Add5, None)
+    ItalianPost25 = property(get_ItalianPost25, None)
+    ItalianPost39 = property(get_ItalianPost39, None)
+    JapanPost = property(get_JapanPost, None)
+    KoreanPost = property(get_KoreanPost, None)
+    Maxicode = property(get_Maxicode, None)
+    Micr = property(get_Micr, None)
+    MicroPdf417 = property(get_MicroPdf417, None)
+    MicroQr = property(get_MicroQr, None)
+    MsTag = property(get_MsTag, None)
+    Msi = property(get_Msi, None)
+    OcrA = property(get_OcrA, None)
+    OcrB = property(get_OcrB, None)
+    Pdf417 = property(get_Pdf417, None)
+    Plessey = property(get_Plessey, None)
+    Pzn = property(get_Pzn, None)
+    Qr = property(get_Qr, None)
+    Sisac = property(get_Sisac, None)
+    SwedenPost = property(get_SwedenPost, None)
+    Telepen = property(get_Telepen, None)
+    TfDis = property(get_TfDis, None)
+    TfIata = property(get_TfIata, None)
+    TfInd = property(get_TfInd, None)
+    TfInt = property(get_TfInt, None)
+    TfMat = property(get_TfMat, None)
+    TfStd = property(get_TfStd, None)
+    Tlc39 = property(get_Tlc39, None)
+    Trioptic39 = property(get_Trioptic39, None)
+    UccEan128 = property(get_UccEan128, None)
+    UkPost = property(get_UkPost, None)
+    Unknown = property(get_Unknown, None)
+    UpcCoupon = property(get_UpcCoupon, None)
     Upca = property(get_Upca, None)
     UpcaAdd2 = property(get_UpcaAdd2, None)
     UpcaAdd5 = property(get_UpcaAdd5, None)
     Upce = property(get_Upce, None)
     UpceAdd2 = property(get_UpceAdd2, None)
     UpceAdd5 = property(get_UpceAdd5, None)
-    UpcCoupon = property(get_UpcCoupon, None)
-    TfStd = property(get_TfStd, None)
-    TfDis = property(get_TfDis, None)
-    TfInt = property(get_TfInt, None)
-    TfInd = property(get_TfInd, None)
-    TfMat = property(get_TfMat, None)
-    TfIata = property(get_TfIata, None)
-    Gs1DatabarType1 = property(get_Gs1DatabarType1, None)
-    Gs1DatabarType2 = property(get_Gs1DatabarType2, None)
-    Gs1DatabarType3 = property(get_Gs1DatabarType3, None)
-    Code39 = property(get_Code39, None)
-    Code39Ex = property(get_Code39Ex, None)
-    Trioptic39 = property(get_Trioptic39, None)
-    Code32 = property(get_Code32, None)
-    Pzn = property(get_Pzn, None)
-    Code93 = property(get_Code93, None)
-    Code93Ex = property(get_Code93Ex, None)
-    Code128 = property(get_Code128, None)
-    Gs1128 = property(get_Gs1128, None)
-    Gs1128Coupon = property(get_Gs1128Coupon, None)
-    UccEan128 = property(get_UccEan128, None)
-    Sisac = property(get_Sisac, None)
-    Isbt = property(get_Isbt, None)
-    Codabar = property(get_Codabar, None)
-    Code11 = property(get_Code11, None)
-    Msi = property(get_Msi, None)
-    Plessey = property(get_Plessey, None)
-    Telepen = property(get_Telepen, None)
-    Code16k = property(get_Code16k, None)
-    CodablockA = property(get_CodablockA, None)
-    CodablockF = property(get_CodablockF, None)
-    Codablock128 = property(get_Codablock128, None)
-    Code49 = property(get_Code49, None)
-    Aztec = property(get_Aztec, None)
-    DataCode = property(get_DataCode, None)
-    DataMatrix = property(get_DataMatrix, None)
-    HanXin = property(get_HanXin, None)
-    Maxicode = property(get_Maxicode, None)
-    MicroPdf417 = property(get_MicroPdf417, None)
-    MicroQr = property(get_MicroQr, None)
-    Pdf417 = property(get_Pdf417, None)
-    Qr = property(get_Qr, None)
-    MsTag = property(get_MsTag, None)
-    Ccab = property(get_Ccab, None)
-    Ccc = property(get_Ccc, None)
-    Tlc39 = property(get_Tlc39, None)
-    AusPost = property(get_AusPost, None)
-    CanPost = property(get_CanPost, None)
-    ChinaPost = property(get_ChinaPost, None)
-    DutchKix = property(get_DutchKix, None)
-    InfoMail = property(get_InfoMail, None)
-    ItalianPost25 = property(get_ItalianPost25, None)
-    ItalianPost39 = property(get_ItalianPost39, None)
-    JapanPost = property(get_JapanPost, None)
-    KoreanPost = property(get_KoreanPost, None)
-    SwedenPost = property(get_SwedenPost, None)
-    UkPost = property(get_UkPost, None)
+    Us4StateFics = property(get_Us4StateFics, None)
     UsIntelligent = property(get_UsIntelligent, None)
     UsIntelligentPkg = property(get_UsIntelligentPkg, None)
     UsPlanet = property(get_UsPlanet, None)
     UsPostNet = property(get_UsPostNet, None)
-    Us4StateFics = property(get_Us4StateFics, None)
-    OcrA = property(get_OcrA, None)
-    OcrB = property(get_OcrB, None)
-    Micr = property(get_Micr, None)
-    ExtendedBase = property(get_ExtendedBase, None)
 class IBarcodeSymbologiesStatics2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.PointOfService.IBarcodeSymbologiesStatics2'
@@ -1647,13 +1647,13 @@ class IBarcodeSymbologyAttributes(ComPtr):
     def put_DecodeLengthKind(self, value: win32more.Windows.Devices.PointOfService.BarcodeSymbologyDecodeLengthKind) -> Void: ...
     @winrt_commethod(18)
     def get_IsDecodeLengthSupported(self) -> Boolean: ...
-    IsCheckDigitValidationEnabled = property(get_IsCheckDigitValidationEnabled, put_IsCheckDigitValidationEnabled)
-    IsCheckDigitValidationSupported = property(get_IsCheckDigitValidationSupported, None)
-    IsCheckDigitTransmissionEnabled = property(get_IsCheckDigitTransmissionEnabled, put_IsCheckDigitTransmissionEnabled)
-    IsCheckDigitTransmissionSupported = property(get_IsCheckDigitTransmissionSupported, None)
     DecodeLength1 = property(get_DecodeLength1, put_DecodeLength1)
     DecodeLength2 = property(get_DecodeLength2, put_DecodeLength2)
     DecodeLengthKind = property(get_DecodeLengthKind, put_DecodeLengthKind)
+    IsCheckDigitTransmissionEnabled = property(get_IsCheckDigitTransmissionEnabled, put_IsCheckDigitTransmissionEnabled)
+    IsCheckDigitTransmissionSupported = property(get_IsCheckDigitTransmissionSupported, None)
+    IsCheckDigitValidationEnabled = property(get_IsCheckDigitValidationEnabled, put_IsCheckDigitValidationEnabled)
+    IsCheckDigitValidationSupported = property(get_IsCheckDigitValidationSupported, None)
     IsDecodeLengthSupported = property(get_IsDecodeLengthSupported, None)
 class ICashDrawer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -1679,11 +1679,11 @@ class ICashDrawer(ComPtr):
     def add_StatusUpdated(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.PointOfService.CashDrawer, win32more.Windows.Devices.PointOfService.CashDrawerStatusUpdatedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(15)
     def remove_StatusUpdated(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    DeviceId = property(get_DeviceId, None)
     Capabilities = property(get_Capabilities, None)
-    Status = property(get_Status, None)
-    IsDrawerOpen = property(get_IsDrawerOpen, None)
+    DeviceId = property(get_DeviceId, None)
     DrawerEventSource = property(get_DrawerEventSource, None)
+    IsDrawerOpen = property(get_IsDrawerOpen, None)
+    Status = property(get_Status, None)
 class ICashDrawerCapabilities(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.PointOfService.ICashDrawerCapabilities'
@@ -1700,12 +1700,12 @@ class ICashDrawerCapabilities(ComPtr):
     def get_IsStatusMultiDrawerDetectSupported(self) -> Boolean: ...
     @winrt_commethod(11)
     def get_IsDrawerOpenSensorAvailable(self) -> Boolean: ...
-    PowerReportingType = property(get_PowerReportingType, None)
+    IsDrawerOpenSensorAvailable = property(get_IsDrawerOpenSensorAvailable, None)
     IsStatisticsReportingSupported = property(get_IsStatisticsReportingSupported, None)
     IsStatisticsUpdatingSupported = property(get_IsStatisticsUpdatingSupported, None)
-    IsStatusReportingSupported = property(get_IsStatusReportingSupported, None)
     IsStatusMultiDrawerDetectSupported = property(get_IsStatusMultiDrawerDetectSupported, None)
-    IsDrawerOpenSensorAvailable = property(get_IsDrawerOpenSensorAvailable, None)
+    IsStatusReportingSupported = property(get_IsStatusReportingSupported, None)
+    PowerReportingType = property(get_PowerReportingType, None)
 class ICashDrawerCloseAlarm(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.PointOfService.ICashDrawerCloseAlarm'
@@ -1733,9 +1733,9 @@ class ICashDrawerCloseAlarm(ComPtr):
     @winrt_commethod(16)
     def StartAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
     AlarmTimeout = property(get_AlarmTimeout, put_AlarmTimeout)
-    BeepFrequency = property(get_BeepFrequency, put_BeepFrequency)
-    BeepDuration = property(get_BeepDuration, put_BeepDuration)
     BeepDelay = property(get_BeepDelay, put_BeepDelay)
+    BeepDuration = property(get_BeepDuration, put_BeepDuration)
+    BeepFrequency = property(get_BeepFrequency, put_BeepFrequency)
 class ICashDrawerEventSource(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.PointOfService.ICashDrawerEventSource'
@@ -1779,8 +1779,8 @@ class ICashDrawerStatus(ComPtr):
     def get_StatusKind(self) -> win32more.Windows.Devices.PointOfService.CashDrawerStatusKind: ...
     @winrt_commethod(7)
     def get_ExtendedStatus(self) -> UInt32: ...
-    StatusKind = property(get_StatusKind, None)
     ExtendedStatus = property(get_ExtendedStatus, None)
+    StatusKind = property(get_StatusKind, None)
 class ICashDrawerStatusUpdatedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.PointOfService.ICashDrawerStatusUpdatedEventArgs'
@@ -1843,9 +1843,9 @@ class IClaimedBarcodeScanner(ComPtr):
     @winrt_commethod(30)
     def remove_ErrorOccurred(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     DeviceId = property(get_DeviceId, None)
-    IsEnabled = property(get_IsEnabled, None)
-    IsDisabledOnDataReceived = property(get_IsDisabledOnDataReceived, put_IsDisabledOnDataReceived)
     IsDecodeDataEnabled = property(get_IsDecodeDataEnabled, put_IsDecodeDataEnabled)
+    IsDisabledOnDataReceived = property(get_IsDisabledOnDataReceived, put_IsDisabledOnDataReceived)
+    IsEnabled = property(get_IsEnabled, None)
 class IClaimedBarcodeScanner1(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.PointOfService.IClaimedBarcodeScanner1'
@@ -1915,10 +1915,10 @@ class IClaimedCashDrawer(ComPtr):
     def add_ReleaseDeviceRequested(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.PointOfService.ClaimedCashDrawer, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(17)
     def remove_ReleaseDeviceRequested(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    DeviceId = property(get_DeviceId, None)
-    IsEnabled = property(get_IsEnabled, None)
-    IsDrawerOpen = property(get_IsDrawerOpen, None)
     CloseAlarm = property(get_CloseAlarm, None)
+    DeviceId = property(get_DeviceId, None)
+    IsDrawerOpen = property(get_IsDrawerOpen, None)
+    IsEnabled = property(get_IsEnabled, None)
 class IClaimedCashDrawer2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.PointOfService.IClaimedCashDrawer2'
@@ -1963,14 +1963,14 @@ class IClaimedLineDisplay(ComPtr):
     def add_ReleaseDeviceRequested(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.PointOfService.ClaimedLineDisplay, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(16)
     def remove_ReleaseDeviceRequested(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    DeviceId = property(get_DeviceId, None)
     Capabilities = property(get_Capabilities, None)
-    PhysicalDeviceName = property(get_PhysicalDeviceName, None)
-    PhysicalDeviceDescription = property(get_PhysicalDeviceDescription, None)
+    DefaultWindow = property(get_DefaultWindow, None)
     DeviceControlDescription = property(get_DeviceControlDescription, None)
     DeviceControlVersion = property(get_DeviceControlVersion, None)
+    DeviceId = property(get_DeviceId, None)
     DeviceServiceVersion = property(get_DeviceServiceVersion, None)
-    DefaultWindow = property(get_DefaultWindow, None)
+    PhysicalDeviceDescription = property(get_PhysicalDeviceDescription, None)
+    PhysicalDeviceName = property(get_PhysicalDeviceName, None)
 class IClaimedLineDisplay2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.PointOfService.IClaimedLineDisplay2'
@@ -2009,10 +2009,10 @@ class IClaimedLineDisplay2(ComPtr):
     def TryStoreStorageFileBitmapWithAlignmentAsync(self, bitmap: win32more.Windows.Storage.StorageFile, horizontalAlignment: win32more.Windows.Devices.PointOfService.LineDisplayHorizontalAlignment, verticalAlignment: win32more.Windows.Devices.PointOfService.LineDisplayVerticalAlignment) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.PointOfService.LineDisplayStoredBitmap]: ...
     @winrt_commethod(22)
     def TryStoreStorageFileBitmapWithAlignmentAndWidthAsync(self, bitmap: win32more.Windows.Storage.StorageFile, horizontalAlignment: win32more.Windows.Devices.PointOfService.LineDisplayHorizontalAlignment, verticalAlignment: win32more.Windows.Devices.PointOfService.LineDisplayVerticalAlignment, widthInPixels: Int32) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.PointOfService.LineDisplayStoredBitmap]: ...
-    SupportedScreenSizesInCharacters = property(get_SupportedScreenSizesInCharacters, None)
+    CustomGlyphs = property(get_CustomGlyphs, None)
     MaxBitmapSizeInPixels = property(get_MaxBitmapSizeInPixels, None)
     SupportedCharacterSets = property(get_SupportedCharacterSets, None)
-    CustomGlyphs = property(get_CustomGlyphs, None)
+    SupportedScreenSizesInCharacters = property(get_SupportedScreenSizesInCharacters, None)
 class IClaimedLineDisplay3(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.PointOfService.IClaimedLineDisplay3'
@@ -2105,14 +2105,14 @@ class IClaimedMagneticStripeReader(ComPtr):
     def add_ErrorOccurred(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.PointOfService.ClaimedMagneticStripeReader, win32more.Windows.Devices.PointOfService.MagneticStripeReaderErrorOccurredEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(38)
     def remove_ErrorOccurred(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    DataEncryptionAlgorithm = property(get_DataEncryptionAlgorithm, put_DataEncryptionAlgorithm)
     DeviceId = property(get_DeviceId, None)
-    IsEnabled = property(get_IsEnabled, None)
-    IsDisabledOnDataReceived = property(get_IsDisabledOnDataReceived, put_IsDisabledOnDataReceived)
     IsDecodeDataEnabled = property(get_IsDecodeDataEnabled, put_IsDecodeDataEnabled)
     IsDeviceAuthenticated = property(get_IsDeviceAuthenticated, None)
-    DataEncryptionAlgorithm = property(get_DataEncryptionAlgorithm, put_DataEncryptionAlgorithm)
-    TracksToRead = property(get_TracksToRead, put_TracksToRead)
+    IsDisabledOnDataReceived = property(get_IsDisabledOnDataReceived, put_IsDisabledOnDataReceived)
+    IsEnabled = property(get_IsEnabled, None)
     IsTransmitSentinelsEnabled = property(get_IsTransmitSentinelsEnabled, put_IsTransmitSentinelsEnabled)
+    TracksToRead = property(get_TracksToRead, put_TracksToRead)
 class IClaimedMagneticStripeReader2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.PointOfService.IClaimedMagneticStripeReader2'
@@ -2167,15 +2167,15 @@ class IClaimedPosPrinter(ComPtr):
     def add_ReleaseDeviceRequested(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.PointOfService.ClaimedPosPrinter, win32more.Windows.Devices.PointOfService.PosPrinterReleaseDeviceRequestedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(24)
     def remove_ReleaseDeviceRequested(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    DeviceId = property(get_DeviceId, None)
-    IsEnabled = property(get_IsEnabled, None)
     CharacterSet = property(get_CharacterSet, put_CharacterSet)
-    IsCoverOpen = property(get_IsCoverOpen, None)
+    DeviceId = property(get_DeviceId, None)
     IsCharacterSetMappingEnabled = property(get_IsCharacterSetMappingEnabled, put_IsCharacterSetMappingEnabled)
+    IsCoverOpen = property(get_IsCoverOpen, None)
+    IsEnabled = property(get_IsEnabled, None)
+    Journal = property(get_Journal, None)
     MapMode = property(get_MapMode, put_MapMode)
     Receipt = property(get_Receipt, None)
     Slip = property(get_Slip, None)
-    Journal = property(get_Journal, None)
 class IClaimedPosPrinter2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.PointOfService.IClaimedPosPrinter2'
@@ -2204,11 +2204,11 @@ class IClaimedReceiptPrinter(ComPtr):
     def get_PrintArea(self) -> win32more.Windows.Foundation.Rect: ...
     @winrt_commethod(11)
     def CreateJob(self) -> win32more.Windows.Devices.PointOfService.ReceiptPrintJob: ...
-    SidewaysMaxLines = property(get_SidewaysMaxLines, None)
-    SidewaysMaxChars = property(get_SidewaysMaxChars, None)
     LinesToPaperCut = property(get_LinesToPaperCut, None)
     PageSize = property(get_PageSize, None)
     PrintArea = property(get_PrintArea, None)
+    SidewaysMaxChars = property(get_SidewaysMaxChars, None)
+    SidewaysMaxLines = property(get_SidewaysMaxLines, None)
 class IClaimedSlipPrinter(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.PointOfService.IClaimedSlipPrinter'
@@ -2239,13 +2239,13 @@ class IClaimedSlipPrinter(ComPtr):
     def ChangePrintSide(self, printSide: win32more.Windows.Devices.PointOfService.PosPrinterPrintSide) -> Void: ...
     @winrt_commethod(18)
     def CreateJob(self) -> win32more.Windows.Devices.PointOfService.SlipPrintJob: ...
-    SidewaysMaxLines = property(get_SidewaysMaxLines, None)
-    SidewaysMaxChars = property(get_SidewaysMaxChars, None)
-    MaxLines = property(get_MaxLines, None)
     LinesNearEndToEnd = property(get_LinesNearEndToEnd, None)
-    PrintSide = property(get_PrintSide, None)
+    MaxLines = property(get_MaxLines, None)
     PageSize = property(get_PageSize, None)
     PrintArea = property(get_PrintArea, None)
+    PrintSide = property(get_PrintSide, None)
+    SidewaysMaxChars = property(get_SidewaysMaxChars, None)
+    SidewaysMaxLines = property(get_SidewaysMaxLines, None)
 class ICommonClaimedPosPrinterStation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.PointOfService.ICommonClaimedPosPrinterStation'
@@ -2289,18 +2289,18 @@ class ICommonClaimedPosPrinterStation(ComPtr):
     @winrt_commethod(24)
     def ValidateData(self, data: WinRT_String) -> Boolean: ...
     CharactersPerLine = property(get_CharactersPerLine, put_CharactersPerLine)
+    ColorCartridge = property(get_ColorCartridge, put_ColorCartridge)
+    IsCartridgeEmpty = property(get_IsCartridgeEmpty, None)
+    IsCartridgeRemoved = property(get_IsCartridgeRemoved, None)
+    IsCoverOpen = property(get_IsCoverOpen, None)
+    IsHeadCleaning = property(get_IsHeadCleaning, None)
+    IsLetterQuality = property(get_IsLetterQuality, put_IsLetterQuality)
+    IsPaperEmpty = property(get_IsPaperEmpty, None)
+    IsPaperNearEnd = property(get_IsPaperNearEnd, None)
+    IsReadyToPrint = property(get_IsReadyToPrint, None)
     LineHeight = property(get_LineHeight, put_LineHeight)
     LineSpacing = property(get_LineSpacing, put_LineSpacing)
     LineWidth = property(get_LineWidth, None)
-    IsLetterQuality = property(get_IsLetterQuality, put_IsLetterQuality)
-    IsPaperNearEnd = property(get_IsPaperNearEnd, None)
-    ColorCartridge = property(get_ColorCartridge, put_ColorCartridge)
-    IsCoverOpen = property(get_IsCoverOpen, None)
-    IsCartridgeRemoved = property(get_IsCartridgeRemoved, None)
-    IsCartridgeEmpty = property(get_IsCartridgeEmpty, None)
-    IsHeadCleaning = property(get_IsHeadCleaning, None)
-    IsPaperEmpty = property(get_IsPaperEmpty, None)
-    IsReadyToPrint = property(get_IsReadyToPrint, None)
 class ICommonPosPrintStationCapabilities(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.PointOfService.ICommonPosPrintStationCapabilities'
@@ -2331,18 +2331,18 @@ class ICommonPosPrintStationCapabilities(ComPtr):
     def get_IsPaperNearEndSensorSupported(self) -> Boolean: ...
     @winrt_commethod(18)
     def get_SupportedCharactersPerLine(self) -> win32more.Windows.Foundation.Collections.IVectorView[UInt32]: ...
-    IsPrinterPresent = property(get_IsPrinterPresent, None)
-    IsDualColorSupported = property(get_IsDualColorSupported, None)
-    ColorCartridgeCapabilities = property(get_ColorCartridgeCapabilities, None)
     CartridgeSensors = property(get_CartridgeSensors, None)
+    ColorCartridgeCapabilities = property(get_ColorCartridgeCapabilities, None)
     IsBoldSupported = property(get_IsBoldSupported, None)
-    IsItalicSupported = property(get_IsItalicSupported, None)
-    IsUnderlineSupported = property(get_IsUnderlineSupported, None)
+    IsDoubleHighDoubleWidePrintSupported = property(get_IsDoubleHighDoubleWidePrintSupported, None)
     IsDoubleHighPrintSupported = property(get_IsDoubleHighPrintSupported, None)
     IsDoubleWidePrintSupported = property(get_IsDoubleWidePrintSupported, None)
-    IsDoubleHighDoubleWidePrintSupported = property(get_IsDoubleHighDoubleWidePrintSupported, None)
+    IsDualColorSupported = property(get_IsDualColorSupported, None)
+    IsItalicSupported = property(get_IsItalicSupported, None)
     IsPaperEmptySensorSupported = property(get_IsPaperEmptySensorSupported, None)
     IsPaperNearEndSensorSupported = property(get_IsPaperNearEndSensorSupported, None)
+    IsPrinterPresent = property(get_IsPrinterPresent, None)
+    IsUnderlineSupported = property(get_IsUnderlineSupported, None)
     SupportedCharactersPerLine = property(get_SupportedCharactersPerLine, None)
 class ICommonReceiptSlipCapabilities(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -2366,12 +2366,12 @@ class ICommonReceiptSlipCapabilities(ComPtr):
     def get_SupportedBarcodeRotations(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Devices.PointOfService.PosPrinterRotation]: ...
     @winrt_commethod(14)
     def get_SupportedBitmapRotations(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Devices.PointOfService.PosPrinterRotation]: ...
+    Is180RotationSupported = property(get_Is180RotationSupported, None)
     IsBarcodeSupported = property(get_IsBarcodeSupported, None)
     IsBitmapSupported = property(get_IsBitmapSupported, None)
     IsLeft90RotationSupported = property(get_IsLeft90RotationSupported, None)
-    IsRight90RotationSupported = property(get_IsRight90RotationSupported, None)
-    Is180RotationSupported = property(get_Is180RotationSupported, None)
     IsPrintAreaSupported = property(get_IsPrintAreaSupported, None)
+    IsRight90RotationSupported = property(get_IsRight90RotationSupported, None)
     RuledLineCapabilities = property(get_RuledLineCapabilities, None)
     SupportedBarcodeRotations = property(get_SupportedBarcodeRotations, None)
     SupportedBitmapRotations = property(get_SupportedBitmapRotations, None)
@@ -2405,12 +2405,12 @@ class IJournalPrinterCapabilities2(ComPtr):
     def get_IsReversePaperFeedByLineSupported(self) -> Boolean: ...
     @winrt_commethod(11)
     def get_IsReversePaperFeedByMapModeUnitSupported(self) -> Boolean: ...
-    IsReverseVideoSupported = property(get_IsReverseVideoSupported, None)
-    IsStrikethroughSupported = property(get_IsStrikethroughSupported, None)
-    IsSuperscriptSupported = property(get_IsSuperscriptSupported, None)
-    IsSubscriptSupported = property(get_IsSubscriptSupported, None)
     IsReversePaperFeedByLineSupported = property(get_IsReversePaperFeedByLineSupported, None)
     IsReversePaperFeedByMapModeUnitSupported = property(get_IsReversePaperFeedByMapModeUnitSupported, None)
+    IsReverseVideoSupported = property(get_IsReverseVideoSupported, None)
+    IsStrikethroughSupported = property(get_IsStrikethroughSupported, None)
+    IsSubscriptSupported = property(get_IsSubscriptSupported, None)
+    IsSuperscriptSupported = property(get_IsSuperscriptSupported, None)
 class ILineDisplay(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.PointOfService.ILineDisplay'
@@ -2431,13 +2431,13 @@ class ILineDisplay(ComPtr):
     def get_DeviceServiceVersion(self) -> WinRT_String: ...
     @winrt_commethod(13)
     def ClaimAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.PointOfService.ClaimedLineDisplay]: ...
-    DeviceId = property(get_DeviceId, None)
     Capabilities = property(get_Capabilities, None)
-    PhysicalDeviceName = property(get_PhysicalDeviceName, None)
-    PhysicalDeviceDescription = property(get_PhysicalDeviceDescription, None)
     DeviceControlDescription = property(get_DeviceControlDescription, None)
     DeviceControlVersion = property(get_DeviceControlVersion, None)
+    DeviceId = property(get_DeviceId, None)
     DeviceServiceVersion = property(get_DeviceServiceVersion, None)
+    PhysicalDeviceDescription = property(get_PhysicalDeviceDescription, None)
+    PhysicalDeviceName = property(get_PhysicalDeviceName, None)
 class ILineDisplay2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.PointOfService.ILineDisplay2'
@@ -2476,13 +2476,13 @@ class ILineDisplayAttributes(ComPtr):
     def get_CurrentWindow(self) -> win32more.Windows.Devices.PointOfService.LineDisplayWindow: ...
     @winrt_commethod(19)
     def put_CurrentWindow(self, value: win32more.Windows.Devices.PointOfService.LineDisplayWindow) -> Void: ...
-    IsPowerNotifyEnabled = property(get_IsPowerNotifyEnabled, put_IsPowerNotifyEnabled)
-    Brightness = property(get_Brightness, put_Brightness)
     BlinkRate = property(get_BlinkRate, put_BlinkRate)
-    ScreenSizeInCharacters = property(get_ScreenSizeInCharacters, put_ScreenSizeInCharacters)
+    Brightness = property(get_Brightness, put_Brightness)
     CharacterSet = property(get_CharacterSet, put_CharacterSet)
-    IsCharacterSetMappingEnabled = property(get_IsCharacterSetMappingEnabled, put_IsCharacterSetMappingEnabled)
     CurrentWindow = property(get_CurrentWindow, put_CurrentWindow)
+    IsCharacterSetMappingEnabled = property(get_IsCharacterSetMappingEnabled, put_IsCharacterSetMappingEnabled)
+    IsPowerNotifyEnabled = property(get_IsPowerNotifyEnabled, put_IsPowerNotifyEnabled)
+    ScreenSizeInCharacters = property(get_ScreenSizeInCharacters, put_ScreenSizeInCharacters)
 class ILineDisplayCapabilities(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.PointOfService.ILineDisplayCapabilities'
@@ -2523,22 +2523,22 @@ class ILineDisplayCapabilities(ComPtr):
     def get_SupportedDescriptors(self) -> UInt32: ...
     @winrt_commethod(23)
     def get_SupportedWindows(self) -> UInt32: ...
-    IsStatisticsReportingSupported = property(get_IsStatisticsReportingSupported, None)
-    IsStatisticsUpdatingSupported = property(get_IsStatisticsUpdatingSupported, None)
-    PowerReportingType = property(get_PowerReportingType, None)
-    CanChangeScreenSize = property(get_CanChangeScreenSize, None)
-    CanDisplayBitmaps = property(get_CanDisplayBitmaps, None)
-    CanReadCharacterAtCursor = property(get_CanReadCharacterAtCursor, None)
-    CanMapCharacterSets = property(get_CanMapCharacterSets, None)
-    CanDisplayCustomGlyphs = property(get_CanDisplayCustomGlyphs, None)
-    CanReverse = property(get_CanReverse, None)
     CanBlink = property(get_CanBlink, None)
     CanChangeBlinkRate = property(get_CanChangeBlinkRate, None)
+    CanChangeScreenSize = property(get_CanChangeScreenSize, None)
+    CanDisplayBitmaps = property(get_CanDisplayBitmaps, None)
+    CanDisplayCustomGlyphs = property(get_CanDisplayCustomGlyphs, None)
+    CanMapCharacterSets = property(get_CanMapCharacterSets, None)
+    CanReadCharacterAtCursor = property(get_CanReadCharacterAtCursor, None)
+    CanReverse = property(get_CanReverse, None)
     IsBrightnessSupported = property(get_IsBrightnessSupported, None)
     IsCursorSupported = property(get_IsCursorSupported, None)
     IsHorizontalMarqueeSupported = property(get_IsHorizontalMarqueeSupported, None)
-    IsVerticalMarqueeSupported = property(get_IsVerticalMarqueeSupported, None)
     IsInterCharacterWaitSupported = property(get_IsInterCharacterWaitSupported, None)
+    IsStatisticsReportingSupported = property(get_IsStatisticsReportingSupported, None)
+    IsStatisticsUpdatingSupported = property(get_IsStatisticsUpdatingSupported, None)
+    IsVerticalMarqueeSupported = property(get_IsVerticalMarqueeSupported, None)
+    PowerReportingType = property(get_PowerReportingType, None)
     SupportedDescriptors = property(get_SupportedDescriptors, None)
     SupportedWindows = property(get_SupportedWindows, None)
 class ILineDisplayCursor(ComPtr):
@@ -2567,9 +2567,9 @@ class ILineDisplayCursor(ComPtr):
     IsBlinkSupported = property(get_IsBlinkSupported, None)
     IsBlockSupported = property(get_IsBlockSupported, None)
     IsHalfBlockSupported = property(get_IsHalfBlockSupported, None)
-    IsUnderlineSupported = property(get_IsUnderlineSupported, None)
-    IsReverseSupported = property(get_IsReverseSupported, None)
     IsOtherSupported = property(get_IsOtherSupported, None)
+    IsReverseSupported = property(get_IsReverseSupported, None)
+    IsUnderlineSupported = property(get_IsUnderlineSupported, None)
 class ILineDisplayCursorAttributes(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.PointOfService.ILineDisplayCursorAttributes'
@@ -2590,9 +2590,9 @@ class ILineDisplayCursorAttributes(ComPtr):
     def get_Position(self) -> win32more.Windows.Foundation.Point: ...
     @winrt_commethod(13)
     def put_Position(self, value: win32more.Windows.Foundation.Point) -> Void: ...
-    IsBlinkEnabled = property(get_IsBlinkEnabled, put_IsBlinkEnabled)
     CursorType = property(get_CursorType, put_CursorType)
     IsAutoAdvanceEnabled = property(get_IsAutoAdvanceEnabled, put_IsAutoAdvanceEnabled)
+    IsBlinkEnabled = property(get_IsBlinkEnabled, put_IsBlinkEnabled)
     Position = property(get_Position, put_Position)
 class ILineDisplayCustomGlyphs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -2659,8 +2659,8 @@ class ILineDisplayStatisticsCategorySelector(ComPtr):
     @winrt_commethod(8)
     def get_ManufacturerStatistics(self) -> WinRT_String: ...
     AllStatistics = property(get_AllStatistics, None)
-    UnifiedPosStatistics = property(get_UnifiedPosStatistics, None)
     ManufacturerStatistics = property(get_ManufacturerStatistics, None)
+    UnifiedPosStatistics = property(get_UnifiedPosStatistics, None)
 class ILineDisplayStatusUpdatedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.PointOfService.ILineDisplayStatusUpdatedEventArgs'
@@ -2699,8 +2699,8 @@ class ILineDisplayWindow(ComPtr):
     def TryScrollTextAsync(self, direction: win32more.Windows.Devices.PointOfService.LineDisplayScrollDirection, numberOfColumnsOrRows: UInt32) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
     @winrt_commethod(14)
     def TryClearTextAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
-    SizeInCharacters = property(get_SizeInCharacters, None)
     InterCharacterWaitInterval = property(get_InterCharacterWaitInterval, put_InterCharacterWaitInterval)
+    SizeInCharacters = property(get_SizeInCharacters, None)
 class ILineDisplayWindow2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.PointOfService.ILineDisplayWindow2'
@@ -2749,10 +2749,10 @@ class IMagneticStripeReader(ComPtr):
     def add_StatusUpdated(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.PointOfService.MagneticStripeReader, win32more.Windows.Devices.PointOfService.MagneticStripeReaderStatusUpdatedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(15)
     def remove_StatusUpdated(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    DeviceId = property(get_DeviceId, None)
     Capabilities = property(get_Capabilities, None)
-    SupportedCardTypes = property(get_SupportedCardTypes, None)
     DeviceAuthenticationProtocol = property(get_DeviceAuthenticationProtocol, None)
+    DeviceId = property(get_DeviceId, None)
+    SupportedCardTypes = property(get_SupportedCardTypes, None)
 class IMagneticStripeReaderAamvaCardDataReceivedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.PointOfService.IMagneticStripeReaderAamvaCardDataReceivedEventArgs'
@@ -2795,25 +2795,25 @@ class IMagneticStripeReaderAamvaCardDataReceivedEventArgs(ComPtr):
     def get_State(self) -> WinRT_String: ...
     @winrt_commethod(24)
     def get_PostalCode(self) -> WinRT_String: ...
-    Report = property(get_Report, None)
-    LicenseNumber = property(get_LicenseNumber, None)
-    ExpirationDate = property(get_ExpirationDate, None)
-    Restrictions = property(get_Restrictions, None)
+    Address = property(get_Address, None)
+    BirthDate = property(get_BirthDate, None)
+    City = property(get_City, None)
     Class = property(get_Class, None)
     Endorsements = property(get_Endorsements, None)
-    BirthDate = property(get_BirthDate, None)
+    ExpirationDate = property(get_ExpirationDate, None)
+    EyeColor = property(get_EyeColor, None)
     FirstName = property(get_FirstName, None)
-    Surname = property(get_Surname, None)
-    Suffix = property(get_Suffix, None)
     Gender = property(get_Gender, None)
     HairColor = property(get_HairColor, None)
-    EyeColor = property(get_EyeColor, None)
     Height = property(get_Height, None)
-    Weight = property(get_Weight, None)
-    Address = property(get_Address, None)
-    City = property(get_City, None)
-    State = property(get_State, None)
+    LicenseNumber = property(get_LicenseNumber, None)
     PostalCode = property(get_PostalCode, None)
+    Report = property(get_Report, None)
+    Restrictions = property(get_Restrictions, None)
+    State = property(get_State, None)
+    Suffix = property(get_Suffix, None)
+    Surname = property(get_Surname, None)
+    Weight = property(get_Weight, None)
 class IMagneticStripeReaderBankCardDataReceivedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.PointOfService.IMagneticStripeReaderBankCardDataReceivedEventArgs'
@@ -2836,15 +2836,15 @@ class IMagneticStripeReaderBankCardDataReceivedEventArgs(ComPtr):
     def get_Surname(self) -> WinRT_String: ...
     @winrt_commethod(14)
     def get_Suffix(self) -> WinRT_String: ...
-    Report = property(get_Report, None)
     AccountNumber = property(get_AccountNumber, None)
     ExpirationDate = property(get_ExpirationDate, None)
-    ServiceCode = property(get_ServiceCode, None)
-    Title = property(get_Title, None)
     FirstName = property(get_FirstName, None)
     MiddleInitial = property(get_MiddleInitial, None)
-    Surname = property(get_Surname, None)
+    Report = property(get_Report, None)
+    ServiceCode = property(get_ServiceCode, None)
     Suffix = property(get_Suffix, None)
+    Surname = property(get_Surname, None)
+    Title = property(get_Title, None)
 class IMagneticStripeReaderCapabilities(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.PointOfService.IMagneticStripeReaderCapabilities'
@@ -2871,17 +2871,17 @@ class IMagneticStripeReaderCapabilities(ComPtr):
     def get_IsTrackDataMaskingSupported(self) -> Boolean: ...
     @winrt_commethod(16)
     def get_IsTransmitSentinelsSupported(self) -> Boolean: ...
-    CardAuthentication = property(get_CardAuthentication, None)
-    SupportedEncryptionAlgorithms = property(get_SupportedEncryptionAlgorithms, None)
     AuthenticationLevel = property(get_AuthenticationLevel, None)
+    CardAuthentication = property(get_CardAuthentication, None)
     IsIsoSupported = property(get_IsIsoSupported, None)
     IsJisOneSupported = property(get_IsJisOneSupported, None)
     IsJisTwoSupported = property(get_IsJisTwoSupported, None)
-    PowerReportingType = property(get_PowerReportingType, None)
     IsStatisticsReportingSupported = property(get_IsStatisticsReportingSupported, None)
     IsStatisticsUpdatingSupported = property(get_IsStatisticsUpdatingSupported, None)
     IsTrackDataMaskingSupported = property(get_IsTrackDataMaskingSupported, None)
     IsTransmitSentinelsSupported = property(get_IsTransmitSentinelsSupported, None)
+    PowerReportingType = property(get_PowerReportingType, None)
+    SupportedEncryptionAlgorithms = property(get_SupportedEncryptionAlgorithms, None)
 class IMagneticStripeReaderCardTypesStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.PointOfService.IMagneticStripeReaderCardTypesStatics'
@@ -2894,10 +2894,10 @@ class IMagneticStripeReaderCardTypesStatics(ComPtr):
     def get_Aamva(self) -> UInt32: ...
     @winrt_commethod(9)
     def get_ExtendedBase(self) -> UInt32: ...
-    Unknown = property(get_Unknown, None)
-    Bank = property(get_Bank, None)
     Aamva = property(get_Aamva, None)
+    Bank = property(get_Bank, None)
     ExtendedBase = property(get_ExtendedBase, None)
+    Unknown = property(get_Unknown, None)
 class IMagneticStripeReaderEncryptionAlgorithmsStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.PointOfService.IMagneticStripeReaderEncryptionAlgorithmsStatics'
@@ -2908,9 +2908,9 @@ class IMagneticStripeReaderEncryptionAlgorithmsStatics(ComPtr):
     def get_TripleDesDukpt(self) -> UInt32: ...
     @winrt_commethod(8)
     def get_ExtendedBase(self) -> UInt32: ...
+    ExtendedBase = property(get_ExtendedBase, None)
     None_ = property(get_None_, None)
     TripleDesDukpt = property(get_TripleDesDukpt, None)
-    ExtendedBase = property(get_ExtendedBase, None)
 class IMagneticStripeReaderErrorOccurredEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.PointOfService.IMagneticStripeReaderErrorOccurredEventArgs'
@@ -2927,12 +2927,12 @@ class IMagneticStripeReaderErrorOccurredEventArgs(ComPtr):
     def get_ErrorData(self) -> win32more.Windows.Devices.PointOfService.UnifiedPosErrorData: ...
     @winrt_commethod(11)
     def get_PartialInputData(self) -> win32more.Windows.Devices.PointOfService.MagneticStripeReaderReport: ...
+    ErrorData = property(get_ErrorData, None)
+    PartialInputData = property(get_PartialInputData, None)
     Track1Status = property(get_Track1Status, None)
     Track2Status = property(get_Track2Status, None)
     Track3Status = property(get_Track3Status, None)
     Track4Status = property(get_Track4Status, None)
-    ErrorData = property(get_ErrorData, None)
-    PartialInputData = property(get_PartialInputData, None)
 class IMagneticStripeReaderReport(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.PointOfService.IMagneticStripeReaderReport'
@@ -2955,15 +2955,15 @@ class IMagneticStripeReaderReport(ComPtr):
     def get_CardAuthenticationDataLength(self) -> UInt32: ...
     @winrt_commethod(14)
     def get_AdditionalSecurityInformation(self) -> win32more.Windows.Storage.Streams.IBuffer: ...
+    AdditionalSecurityInformation = property(get_AdditionalSecurityInformation, None)
+    CardAuthenticationData = property(get_CardAuthenticationData, None)
+    CardAuthenticationDataLength = property(get_CardAuthenticationDataLength, None)
     CardType = property(get_CardType, None)
+    Properties = property(get_Properties, None)
     Track1 = property(get_Track1, None)
     Track2 = property(get_Track2, None)
     Track3 = property(get_Track3, None)
     Track4 = property(get_Track4, None)
-    Properties = property(get_Properties, None)
-    CardAuthenticationData = property(get_CardAuthenticationData, None)
-    CardAuthenticationDataLength = property(get_CardAuthenticationDataLength, None)
-    AdditionalSecurityInformation = property(get_AdditionalSecurityInformation, None)
 class IMagneticStripeReaderStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.PointOfService.IMagneticStripeReaderStatics'
@@ -2988,8 +2988,8 @@ class IMagneticStripeReaderStatusUpdatedEventArgs(ComPtr):
     def get_Status(self) -> win32more.Windows.Devices.PointOfService.MagneticStripeReaderStatus: ...
     @winrt_commethod(7)
     def get_ExtendedStatus(self) -> UInt32: ...
-    Status = property(get_Status, None)
     ExtendedStatus = property(get_ExtendedStatus, None)
+    Status = property(get_Status, None)
 class IMagneticStripeReaderTrackData(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.PointOfService.IMagneticStripeReaderTrackData'
@@ -3034,11 +3034,11 @@ class IPosPrinter(ComPtr):
     def add_StatusUpdated(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.PointOfService.PosPrinter, win32more.Windows.Devices.PointOfService.PosPrinterStatusUpdatedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(15)
     def remove_StatusUpdated(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    DeviceId = property(get_DeviceId, None)
     Capabilities = property(get_Capabilities, None)
+    DeviceId = property(get_DeviceId, None)
+    Status = property(get_Status, None)
     SupportedCharacterSets = property(get_SupportedCharacterSets, None)
     SupportedTypeFaces = property(get_SupportedTypeFaces, None)
-    Status = property(get_Status, None)
 class IPosPrinter2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.PointOfService.IPosPrinter2'
@@ -3072,16 +3072,16 @@ class IPosPrinterCapabilities(ComPtr):
     def get_Slip(self) -> win32more.Windows.Devices.PointOfService.SlipPrinterCapabilities: ...
     @winrt_commethod(15)
     def get_Journal(self) -> win32more.Windows.Devices.PointOfService.JournalPrinterCapabilities: ...
-    PowerReportingType = property(get_PowerReportingType, None)
-    IsStatisticsReportingSupported = property(get_IsStatisticsReportingSupported, None)
-    IsStatisticsUpdatingSupported = property(get_IsStatisticsUpdatingSupported, None)
+    CanMapCharacterSet = property(get_CanMapCharacterSet, None)
     DefaultCharacterSet = property(get_DefaultCharacterSet, None)
     HasCoverSensor = property(get_HasCoverSensor, None)
-    CanMapCharacterSet = property(get_CanMapCharacterSet, None)
+    IsStatisticsReportingSupported = property(get_IsStatisticsReportingSupported, None)
+    IsStatisticsUpdatingSupported = property(get_IsStatisticsUpdatingSupported, None)
     IsTransactionSupported = property(get_IsTransactionSupported, None)
+    Journal = property(get_Journal, None)
+    PowerReportingType = property(get_PowerReportingType, None)
     Receipt = property(get_Receipt, None)
     Slip = property(get_Slip, None)
-    Journal = property(get_Journal, None)
 class IPosPrinterCharacterSetIdsStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.PointOfService.IPosPrinterCharacterSetIdsStatics'
@@ -3092,9 +3092,9 @@ class IPosPrinterCharacterSetIdsStatics(ComPtr):
     def get_Ascii(self) -> UInt32: ...
     @winrt_commethod(8)
     def get_Ansi(self) -> UInt32: ...
-    Utf16LE = property(get_Utf16LE, None)
-    Ascii = property(get_Ascii, None)
     Ansi = property(get_Ansi, None)
+    Ascii = property(get_Ascii, None)
+    Utf16LE = property(get_Utf16LE, None)
 class IPosPrinterFontProperty(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.PointOfService.IPosPrinterFontProperty'
@@ -3105,9 +3105,9 @@ class IPosPrinterFontProperty(ComPtr):
     def get_IsScalableToAnySize(self) -> Boolean: ...
     @winrt_commethod(8)
     def get_CharacterSizes(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Devices.PointOfService.SizeUInt32]: ...
-    TypeFace = property(get_TypeFace, None)
-    IsScalableToAnySize = property(get_IsScalableToAnySize, None)
     CharacterSizes = property(get_CharacterSizes, None)
+    IsScalableToAnySize = property(get_IsScalableToAnySize, None)
+    TypeFace = property(get_TypeFace, None)
 class IPosPrinterJob(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.PointOfService.IPosPrinterJob'
@@ -3176,19 +3176,19 @@ class IPosPrinterPrintOptions(ComPtr):
     def get_CharacterSet(self) -> UInt32: ...
     @winrt_commethod(31)
     def put_CharacterSet(self, value: UInt32) -> Void: ...
-    TypeFace = property(get_TypeFace, put_TypeFace)
-    CharacterHeight = property(get_CharacterHeight, put_CharacterHeight)
+    Alignment = property(get_Alignment, put_Alignment)
     Bold = property(get_Bold, put_Bold)
+    CharacterHeight = property(get_CharacterHeight, put_CharacterHeight)
+    CharacterSet = property(get_CharacterSet, put_CharacterSet)
+    DoubleHigh = property(get_DoubleHigh, put_DoubleHigh)
+    DoubleWide = property(get_DoubleWide, put_DoubleWide)
     Italic = property(get_Italic, put_Italic)
-    Underline = property(get_Underline, put_Underline)
     ReverseVideo = property(get_ReverseVideo, put_ReverseVideo)
     Strikethrough = property(get_Strikethrough, put_Strikethrough)
-    Superscript = property(get_Superscript, put_Superscript)
     Subscript = property(get_Subscript, put_Subscript)
-    DoubleWide = property(get_DoubleWide, put_DoubleWide)
-    DoubleHigh = property(get_DoubleHigh, put_DoubleHigh)
-    Alignment = property(get_Alignment, put_Alignment)
-    CharacterSet = property(get_CharacterSet, put_CharacterSet)
+    Superscript = property(get_Superscript, put_Superscript)
+    TypeFace = property(get_TypeFace, put_TypeFace)
+    Underline = property(get_Underline, put_Underline)
 class IPosPrinterReleaseDeviceRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.PointOfService.IPosPrinterReleaseDeviceRequestedEventArgs'
@@ -3217,8 +3217,8 @@ class IPosPrinterStatus(ComPtr):
     def get_StatusKind(self) -> win32more.Windows.Devices.PointOfService.PosPrinterStatusKind: ...
     @winrt_commethod(7)
     def get_ExtendedStatus(self) -> UInt32: ...
-    StatusKind = property(get_StatusKind, None)
     ExtendedStatus = property(get_ExtendedStatus, None)
+    StatusKind = property(get_StatusKind, None)
 class IPosPrinterStatusUpdatedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.PointOfService.IPosPrinterStatusUpdatedEventArgs'
@@ -3311,12 +3311,12 @@ class IReceiptPrinterCapabilities2(ComPtr):
     def get_IsReversePaperFeedByLineSupported(self) -> Boolean: ...
     @winrt_commethod(11)
     def get_IsReversePaperFeedByMapModeUnitSupported(self) -> Boolean: ...
-    IsReverseVideoSupported = property(get_IsReverseVideoSupported, None)
-    IsStrikethroughSupported = property(get_IsStrikethroughSupported, None)
-    IsSuperscriptSupported = property(get_IsSuperscriptSupported, None)
-    IsSubscriptSupported = property(get_IsSubscriptSupported, None)
     IsReversePaperFeedByLineSupported = property(get_IsReversePaperFeedByLineSupported, None)
     IsReversePaperFeedByMapModeUnitSupported = property(get_IsReversePaperFeedByMapModeUnitSupported, None)
+    IsReverseVideoSupported = property(get_IsReverseVideoSupported, None)
+    IsStrikethroughSupported = property(get_IsStrikethroughSupported, None)
+    IsSubscriptSupported = property(get_IsSubscriptSupported, None)
+    IsSuperscriptSupported = property(get_IsSuperscriptSupported, None)
 class ISlipPrintJob(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.PointOfService.ISlipPrintJob'
@@ -3335,8 +3335,8 @@ class ISlipPrinterCapabilities(ComPtr):
     def get_IsFullLengthSupported(self) -> Boolean: ...
     @winrt_commethod(7)
     def get_IsBothSidesPrintingSupported(self) -> Boolean: ...
-    IsFullLengthSupported = property(get_IsFullLengthSupported, None)
     IsBothSidesPrintingSupported = property(get_IsBothSidesPrintingSupported, None)
+    IsFullLengthSupported = property(get_IsFullLengthSupported, None)
 class ISlipPrinterCapabilities2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.PointOfService.ISlipPrinterCapabilities2'
@@ -3353,12 +3353,12 @@ class ISlipPrinterCapabilities2(ComPtr):
     def get_IsReversePaperFeedByLineSupported(self) -> Boolean: ...
     @winrt_commethod(11)
     def get_IsReversePaperFeedByMapModeUnitSupported(self) -> Boolean: ...
-    IsReverseVideoSupported = property(get_IsReverseVideoSupported, None)
-    IsStrikethroughSupported = property(get_IsStrikethroughSupported, None)
-    IsSuperscriptSupported = property(get_IsSuperscriptSupported, None)
-    IsSubscriptSupported = property(get_IsSubscriptSupported, None)
     IsReversePaperFeedByLineSupported = property(get_IsReversePaperFeedByLineSupported, None)
     IsReversePaperFeedByMapModeUnitSupported = property(get_IsReversePaperFeedByMapModeUnitSupported, None)
+    IsReverseVideoSupported = property(get_IsReverseVideoSupported, None)
+    IsStrikethroughSupported = property(get_IsStrikethroughSupported, None)
+    IsSubscriptSupported = property(get_IsSubscriptSupported, None)
+    IsSuperscriptSupported = property(get_IsSuperscriptSupported, None)
 class IUnifiedPosErrorData(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.PointOfService.IUnifiedPosErrorData'
@@ -3371,10 +3371,10 @@ class IUnifiedPosErrorData(ComPtr):
     def get_Reason(self) -> win32more.Windows.Devices.PointOfService.UnifiedPosErrorReason: ...
     @winrt_commethod(9)
     def get_ExtendedReason(self) -> UInt32: ...
-    Message = property(get_Message, None)
-    Severity = property(get_Severity, None)
-    Reason = property(get_Reason, None)
     ExtendedReason = property(get_ExtendedReason, None)
+    Message = property(get_Message, None)
+    Reason = property(get_Reason, None)
+    Severity = property(get_Severity, None)
 class IUnifiedPosErrorDataFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.PointOfService.IUnifiedPosErrorDataFactory'
@@ -3443,24 +3443,24 @@ class JournalPrinterCapabilities(ComPtr):
     def get_IsPaperNearEndSensorSupported(self: win32more.Windows.Devices.PointOfService.ICommonPosPrintStationCapabilities) -> Boolean: ...
     @winrt_mixinmethod
     def get_SupportedCharactersPerLine(self: win32more.Windows.Devices.PointOfService.ICommonPosPrintStationCapabilities) -> win32more.Windows.Foundation.Collections.IVectorView[UInt32]: ...
-    IsReverseVideoSupported = property(get_IsReverseVideoSupported, None)
-    IsStrikethroughSupported = property(get_IsStrikethroughSupported, None)
-    IsSuperscriptSupported = property(get_IsSuperscriptSupported, None)
-    IsSubscriptSupported = property(get_IsSubscriptSupported, None)
-    IsReversePaperFeedByLineSupported = property(get_IsReversePaperFeedByLineSupported, None)
-    IsReversePaperFeedByMapModeUnitSupported = property(get_IsReversePaperFeedByMapModeUnitSupported, None)
-    IsPrinterPresent = property(get_IsPrinterPresent, None)
-    IsDualColorSupported = property(get_IsDualColorSupported, None)
-    ColorCartridgeCapabilities = property(get_ColorCartridgeCapabilities, None)
     CartridgeSensors = property(get_CartridgeSensors, None)
+    ColorCartridgeCapabilities = property(get_ColorCartridgeCapabilities, None)
     IsBoldSupported = property(get_IsBoldSupported, None)
-    IsItalicSupported = property(get_IsItalicSupported, None)
-    IsUnderlineSupported = property(get_IsUnderlineSupported, None)
+    IsDoubleHighDoubleWidePrintSupported = property(get_IsDoubleHighDoubleWidePrintSupported, None)
     IsDoubleHighPrintSupported = property(get_IsDoubleHighPrintSupported, None)
     IsDoubleWidePrintSupported = property(get_IsDoubleWidePrintSupported, None)
-    IsDoubleHighDoubleWidePrintSupported = property(get_IsDoubleHighDoubleWidePrintSupported, None)
+    IsDualColorSupported = property(get_IsDualColorSupported, None)
+    IsItalicSupported = property(get_IsItalicSupported, None)
     IsPaperEmptySensorSupported = property(get_IsPaperEmptySensorSupported, None)
     IsPaperNearEndSensorSupported = property(get_IsPaperNearEndSensorSupported, None)
+    IsPrinterPresent = property(get_IsPrinterPresent, None)
+    IsReversePaperFeedByLineSupported = property(get_IsReversePaperFeedByLineSupported, None)
+    IsReversePaperFeedByMapModeUnitSupported = property(get_IsReversePaperFeedByMapModeUnitSupported, None)
+    IsReverseVideoSupported = property(get_IsReverseVideoSupported, None)
+    IsStrikethroughSupported = property(get_IsStrikethroughSupported, None)
+    IsSubscriptSupported = property(get_IsSubscriptSupported, None)
+    IsSuperscriptSupported = property(get_IsSuperscriptSupported, None)
+    IsUnderlineSupported = property(get_IsUnderlineSupported, None)
     SupportedCharactersPerLine = property(get_SupportedCharactersPerLine, None)
 class _LineDisplay_Meta_(ComPtr.__class__):
     pass
@@ -3498,13 +3498,13 @@ class LineDisplay(ComPtr, metaclass=_LineDisplay_Meta_):
     def GetDeviceSelector(cls: win32more.Windows.Devices.PointOfService.ILineDisplayStatics) -> WinRT_String: ...
     @winrt_classmethod
     def GetDeviceSelectorWithConnectionTypes(cls: win32more.Windows.Devices.PointOfService.ILineDisplayStatics, connectionTypes: win32more.Windows.Devices.PointOfService.PosConnectionTypes) -> WinRT_String: ...
-    DeviceId = property(get_DeviceId, None)
     Capabilities = property(get_Capabilities, None)
-    PhysicalDeviceName = property(get_PhysicalDeviceName, None)
-    PhysicalDeviceDescription = property(get_PhysicalDeviceDescription, None)
     DeviceControlDescription = property(get_DeviceControlDescription, None)
     DeviceControlVersion = property(get_DeviceControlVersion, None)
+    DeviceId = property(get_DeviceId, None)
     DeviceServiceVersion = property(get_DeviceServiceVersion, None)
+    PhysicalDeviceDescription = property(get_PhysicalDeviceDescription, None)
+    PhysicalDeviceName = property(get_PhysicalDeviceName, None)
     _LineDisplay_Meta_.StatisticsCategorySelector = property(get_StatisticsCategorySelector.__wrapped__, None)
 class LineDisplayAttributes(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -3538,13 +3538,13 @@ class LineDisplayAttributes(ComPtr):
     def get_CurrentWindow(self: win32more.Windows.Devices.PointOfService.ILineDisplayAttributes) -> win32more.Windows.Devices.PointOfService.LineDisplayWindow: ...
     @winrt_mixinmethod
     def put_CurrentWindow(self: win32more.Windows.Devices.PointOfService.ILineDisplayAttributes, value: win32more.Windows.Devices.PointOfService.LineDisplayWindow) -> Void: ...
-    IsPowerNotifyEnabled = property(get_IsPowerNotifyEnabled, put_IsPowerNotifyEnabled)
-    Brightness = property(get_Brightness, put_Brightness)
     BlinkRate = property(get_BlinkRate, put_BlinkRate)
-    ScreenSizeInCharacters = property(get_ScreenSizeInCharacters, put_ScreenSizeInCharacters)
+    Brightness = property(get_Brightness, put_Brightness)
     CharacterSet = property(get_CharacterSet, put_CharacterSet)
-    IsCharacterSetMappingEnabled = property(get_IsCharacterSetMappingEnabled, put_IsCharacterSetMappingEnabled)
     CurrentWindow = property(get_CurrentWindow, put_CurrentWindow)
+    IsCharacterSetMappingEnabled = property(get_IsCharacterSetMappingEnabled, put_IsCharacterSetMappingEnabled)
+    IsPowerNotifyEnabled = property(get_IsPowerNotifyEnabled, put_IsPowerNotifyEnabled)
+    ScreenSizeInCharacters = property(get_ScreenSizeInCharacters, put_ScreenSizeInCharacters)
 class LineDisplayCapabilities(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.PointOfService.ILineDisplayCapabilities
@@ -3585,22 +3585,22 @@ class LineDisplayCapabilities(ComPtr):
     def get_SupportedDescriptors(self: win32more.Windows.Devices.PointOfService.ILineDisplayCapabilities) -> UInt32: ...
     @winrt_mixinmethod
     def get_SupportedWindows(self: win32more.Windows.Devices.PointOfService.ILineDisplayCapabilities) -> UInt32: ...
-    IsStatisticsReportingSupported = property(get_IsStatisticsReportingSupported, None)
-    IsStatisticsUpdatingSupported = property(get_IsStatisticsUpdatingSupported, None)
-    PowerReportingType = property(get_PowerReportingType, None)
-    CanChangeScreenSize = property(get_CanChangeScreenSize, None)
-    CanDisplayBitmaps = property(get_CanDisplayBitmaps, None)
-    CanReadCharacterAtCursor = property(get_CanReadCharacterAtCursor, None)
-    CanMapCharacterSets = property(get_CanMapCharacterSets, None)
-    CanDisplayCustomGlyphs = property(get_CanDisplayCustomGlyphs, None)
-    CanReverse = property(get_CanReverse, None)
     CanBlink = property(get_CanBlink, None)
     CanChangeBlinkRate = property(get_CanChangeBlinkRate, None)
+    CanChangeScreenSize = property(get_CanChangeScreenSize, None)
+    CanDisplayBitmaps = property(get_CanDisplayBitmaps, None)
+    CanDisplayCustomGlyphs = property(get_CanDisplayCustomGlyphs, None)
+    CanMapCharacterSets = property(get_CanMapCharacterSets, None)
+    CanReadCharacterAtCursor = property(get_CanReadCharacterAtCursor, None)
+    CanReverse = property(get_CanReverse, None)
     IsBrightnessSupported = property(get_IsBrightnessSupported, None)
     IsCursorSupported = property(get_IsCursorSupported, None)
     IsHorizontalMarqueeSupported = property(get_IsHorizontalMarqueeSupported, None)
-    IsVerticalMarqueeSupported = property(get_IsVerticalMarqueeSupported, None)
     IsInterCharacterWaitSupported = property(get_IsInterCharacterWaitSupported, None)
+    IsStatisticsReportingSupported = property(get_IsStatisticsReportingSupported, None)
+    IsStatisticsUpdatingSupported = property(get_IsStatisticsUpdatingSupported, None)
+    IsVerticalMarqueeSupported = property(get_IsVerticalMarqueeSupported, None)
+    PowerReportingType = property(get_PowerReportingType, None)
     SupportedDescriptors = property(get_SupportedDescriptors, None)
     SupportedWindows = property(get_SupportedWindows, None)
 class LineDisplayCursor(ComPtr):
@@ -3629,9 +3629,9 @@ class LineDisplayCursor(ComPtr):
     IsBlinkSupported = property(get_IsBlinkSupported, None)
     IsBlockSupported = property(get_IsBlockSupported, None)
     IsHalfBlockSupported = property(get_IsHalfBlockSupported, None)
-    IsUnderlineSupported = property(get_IsUnderlineSupported, None)
-    IsReverseSupported = property(get_IsReverseSupported, None)
     IsOtherSupported = property(get_IsOtherSupported, None)
+    IsReverseSupported = property(get_IsReverseSupported, None)
+    IsUnderlineSupported = property(get_IsUnderlineSupported, None)
 class LineDisplayCursorAttributes(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.PointOfService.ILineDisplayCursorAttributes
@@ -3652,9 +3652,9 @@ class LineDisplayCursorAttributes(ComPtr):
     def get_Position(self: win32more.Windows.Devices.PointOfService.ILineDisplayCursorAttributes) -> win32more.Windows.Foundation.Point: ...
     @winrt_mixinmethod
     def put_Position(self: win32more.Windows.Devices.PointOfService.ILineDisplayCursorAttributes, value: win32more.Windows.Foundation.Point) -> Void: ...
-    IsBlinkEnabled = property(get_IsBlinkEnabled, put_IsBlinkEnabled)
     CursorType = property(get_CursorType, put_CursorType)
     IsAutoAdvanceEnabled = property(get_IsAutoAdvanceEnabled, put_IsAutoAdvanceEnabled)
+    IsBlinkEnabled = property(get_IsBlinkEnabled, put_IsBlinkEnabled)
     Position = property(get_Position, put_Position)
 class LineDisplayCursorType(Int32):  # enum
     None_ = 0
@@ -3732,8 +3732,8 @@ class LineDisplayStatisticsCategorySelector(ComPtr):
     @winrt_mixinmethod
     def get_ManufacturerStatistics(self: win32more.Windows.Devices.PointOfService.ILineDisplayStatisticsCategorySelector) -> WinRT_String: ...
     AllStatistics = property(get_AllStatistics, None)
-    UnifiedPosStatistics = property(get_UnifiedPosStatistics, None)
     ManufacturerStatistics = property(get_ManufacturerStatistics, None)
+    UnifiedPosStatistics = property(get_UnifiedPosStatistics, None)
 class LineDisplayStatusUpdatedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.PointOfService.ILineDisplayStatusUpdatedEventArgs
@@ -3805,10 +3805,10 @@ class LineDisplayWindow(ComPtr):
     def TryDisplayStorageFileBitmapAtPointWithWidthAsync(self: win32more.Windows.Devices.PointOfService.ILineDisplayWindow2, bitmap: win32more.Windows.Storage.StorageFile, offsetInPixels: win32more.Windows.Foundation.Point, widthInPixels: Int32) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
     @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
-    SizeInCharacters = property(get_SizeInCharacters, None)
-    InterCharacterWaitInterval = property(get_InterCharacterWaitInterval, put_InterCharacterWaitInterval)
     Cursor = property(get_Cursor, None)
+    InterCharacterWaitInterval = property(get_InterCharacterWaitInterval, put_InterCharacterWaitInterval)
     Marquee = property(get_Marquee, None)
+    SizeInCharacters = property(get_SizeInCharacters, None)
 class MagneticStripeReader(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.PointOfService.IMagneticStripeReader
@@ -3843,10 +3843,10 @@ class MagneticStripeReader(ComPtr):
     def FromIdAsync(cls: win32more.Windows.Devices.PointOfService.IMagneticStripeReaderStatics, deviceId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.PointOfService.MagneticStripeReader]: ...
     @winrt_classmethod
     def GetDeviceSelector(cls: win32more.Windows.Devices.PointOfService.IMagneticStripeReaderStatics) -> WinRT_String: ...
-    DeviceId = property(get_DeviceId, None)
     Capabilities = property(get_Capabilities, None)
-    SupportedCardTypes = property(get_SupportedCardTypes, None)
     DeviceAuthenticationProtocol = property(get_DeviceAuthenticationProtocol, None)
+    DeviceId = property(get_DeviceId, None)
+    SupportedCardTypes = property(get_SupportedCardTypes, None)
 class MagneticStripeReaderAamvaCardDataReceivedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.PointOfService.IMagneticStripeReaderAamvaCardDataReceivedEventArgs
@@ -3889,25 +3889,25 @@ class MagneticStripeReaderAamvaCardDataReceivedEventArgs(ComPtr):
     def get_State(self: win32more.Windows.Devices.PointOfService.IMagneticStripeReaderAamvaCardDataReceivedEventArgs) -> WinRT_String: ...
     @winrt_mixinmethod
     def get_PostalCode(self: win32more.Windows.Devices.PointOfService.IMagneticStripeReaderAamvaCardDataReceivedEventArgs) -> WinRT_String: ...
-    Report = property(get_Report, None)
-    LicenseNumber = property(get_LicenseNumber, None)
-    ExpirationDate = property(get_ExpirationDate, None)
-    Restrictions = property(get_Restrictions, None)
+    Address = property(get_Address, None)
+    BirthDate = property(get_BirthDate, None)
+    City = property(get_City, None)
     Class = property(get_Class, None)
     Endorsements = property(get_Endorsements, None)
-    BirthDate = property(get_BirthDate, None)
+    ExpirationDate = property(get_ExpirationDate, None)
+    EyeColor = property(get_EyeColor, None)
     FirstName = property(get_FirstName, None)
-    Surname = property(get_Surname, None)
-    Suffix = property(get_Suffix, None)
     Gender = property(get_Gender, None)
     HairColor = property(get_HairColor, None)
-    EyeColor = property(get_EyeColor, None)
     Height = property(get_Height, None)
-    Weight = property(get_Weight, None)
-    Address = property(get_Address, None)
-    City = property(get_City, None)
-    State = property(get_State, None)
+    LicenseNumber = property(get_LicenseNumber, None)
     PostalCode = property(get_PostalCode, None)
+    Report = property(get_Report, None)
+    Restrictions = property(get_Restrictions, None)
+    State = property(get_State, None)
+    Suffix = property(get_Suffix, None)
+    Surname = property(get_Surname, None)
+    Weight = property(get_Weight, None)
 class MagneticStripeReaderAuthenticationLevel(Int32):  # enum
     NotSupported = 0
     Optional = 1
@@ -3937,15 +3937,15 @@ class MagneticStripeReaderBankCardDataReceivedEventArgs(ComPtr):
     def get_Surname(self: win32more.Windows.Devices.PointOfService.IMagneticStripeReaderBankCardDataReceivedEventArgs) -> WinRT_String: ...
     @winrt_mixinmethod
     def get_Suffix(self: win32more.Windows.Devices.PointOfService.IMagneticStripeReaderBankCardDataReceivedEventArgs) -> WinRT_String: ...
-    Report = property(get_Report, None)
     AccountNumber = property(get_AccountNumber, None)
     ExpirationDate = property(get_ExpirationDate, None)
-    ServiceCode = property(get_ServiceCode, None)
-    Title = property(get_Title, None)
     FirstName = property(get_FirstName, None)
     MiddleInitial = property(get_MiddleInitial, None)
-    Surname = property(get_Surname, None)
+    Report = property(get_Report, None)
+    ServiceCode = property(get_ServiceCode, None)
     Suffix = property(get_Suffix, None)
+    Surname = property(get_Surname, None)
+    Title = property(get_Title, None)
 class MagneticStripeReaderCapabilities(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.PointOfService.IMagneticStripeReaderCapabilities
@@ -3972,17 +3972,17 @@ class MagneticStripeReaderCapabilities(ComPtr):
     def get_IsTrackDataMaskingSupported(self: win32more.Windows.Devices.PointOfService.IMagneticStripeReaderCapabilities) -> Boolean: ...
     @winrt_mixinmethod
     def get_IsTransmitSentinelsSupported(self: win32more.Windows.Devices.PointOfService.IMagneticStripeReaderCapabilities) -> Boolean: ...
-    CardAuthentication = property(get_CardAuthentication, None)
-    SupportedEncryptionAlgorithms = property(get_SupportedEncryptionAlgorithms, None)
     AuthenticationLevel = property(get_AuthenticationLevel, None)
+    CardAuthentication = property(get_CardAuthentication, None)
     IsIsoSupported = property(get_IsIsoSupported, None)
     IsJisOneSupported = property(get_IsJisOneSupported, None)
     IsJisTwoSupported = property(get_IsJisTwoSupported, None)
-    PowerReportingType = property(get_PowerReportingType, None)
     IsStatisticsReportingSupported = property(get_IsStatisticsReportingSupported, None)
     IsStatisticsUpdatingSupported = property(get_IsStatisticsUpdatingSupported, None)
     IsTrackDataMaskingSupported = property(get_IsTrackDataMaskingSupported, None)
     IsTransmitSentinelsSupported = property(get_IsTransmitSentinelsSupported, None)
+    PowerReportingType = property(get_PowerReportingType, None)
+    SupportedEncryptionAlgorithms = property(get_SupportedEncryptionAlgorithms, None)
 class _MagneticStripeReaderCardTypes_Meta_(ComPtr.__class__):
     pass
 class MagneticStripeReaderCardTypes(ComPtr, metaclass=_MagneticStripeReaderCardTypes_Meta_):
@@ -3996,10 +3996,10 @@ class MagneticStripeReaderCardTypes(ComPtr, metaclass=_MagneticStripeReaderCardT
     def get_Aamva(cls: win32more.Windows.Devices.PointOfService.IMagneticStripeReaderCardTypesStatics) -> UInt32: ...
     @winrt_classmethod
     def get_ExtendedBase(cls: win32more.Windows.Devices.PointOfService.IMagneticStripeReaderCardTypesStatics) -> UInt32: ...
-    _MagneticStripeReaderCardTypes_Meta_.Unknown = property(get_Unknown.__wrapped__, None)
-    _MagneticStripeReaderCardTypes_Meta_.Bank = property(get_Bank.__wrapped__, None)
     _MagneticStripeReaderCardTypes_Meta_.Aamva = property(get_Aamva.__wrapped__, None)
+    _MagneticStripeReaderCardTypes_Meta_.Bank = property(get_Bank.__wrapped__, None)
     _MagneticStripeReaderCardTypes_Meta_.ExtendedBase = property(get_ExtendedBase.__wrapped__, None)
+    _MagneticStripeReaderCardTypes_Meta_.Unknown = property(get_Unknown.__wrapped__, None)
 class _MagneticStripeReaderEncryptionAlgorithms_Meta_(ComPtr.__class__):
     pass
 class MagneticStripeReaderEncryptionAlgorithms(ComPtr, metaclass=_MagneticStripeReaderEncryptionAlgorithms_Meta_):
@@ -4011,9 +4011,9 @@ class MagneticStripeReaderEncryptionAlgorithms(ComPtr, metaclass=_MagneticStripe
     def get_TripleDesDukpt(cls: win32more.Windows.Devices.PointOfService.IMagneticStripeReaderEncryptionAlgorithmsStatics) -> UInt32: ...
     @winrt_classmethod
     def get_ExtendedBase(cls: win32more.Windows.Devices.PointOfService.IMagneticStripeReaderEncryptionAlgorithmsStatics) -> UInt32: ...
+    _MagneticStripeReaderEncryptionAlgorithms_Meta_.ExtendedBase = property(get_ExtendedBase.__wrapped__, None)
     _MagneticStripeReaderEncryptionAlgorithms_Meta_.None_ = property(get_None_.__wrapped__, None)
     _MagneticStripeReaderEncryptionAlgorithms_Meta_.TripleDesDukpt = property(get_TripleDesDukpt.__wrapped__, None)
-    _MagneticStripeReaderEncryptionAlgorithms_Meta_.ExtendedBase = property(get_ExtendedBase.__wrapped__, None)
 class MagneticStripeReaderErrorOccurredEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.PointOfService.IMagneticStripeReaderErrorOccurredEventArgs
@@ -4030,12 +4030,12 @@ class MagneticStripeReaderErrorOccurredEventArgs(ComPtr):
     def get_ErrorData(self: win32more.Windows.Devices.PointOfService.IMagneticStripeReaderErrorOccurredEventArgs) -> win32more.Windows.Devices.PointOfService.UnifiedPosErrorData: ...
     @winrt_mixinmethod
     def get_PartialInputData(self: win32more.Windows.Devices.PointOfService.IMagneticStripeReaderErrorOccurredEventArgs) -> win32more.Windows.Devices.PointOfService.MagneticStripeReaderReport: ...
+    ErrorData = property(get_ErrorData, None)
+    PartialInputData = property(get_PartialInputData, None)
     Track1Status = property(get_Track1Status, None)
     Track2Status = property(get_Track2Status, None)
     Track3Status = property(get_Track3Status, None)
     Track4Status = property(get_Track4Status, None)
-    ErrorData = property(get_ErrorData, None)
-    PartialInputData = property(get_PartialInputData, None)
 class MagneticStripeReaderErrorReportingType(Int32):  # enum
     CardLevel = 0
     TrackLevel = 1
@@ -4061,15 +4061,15 @@ class MagneticStripeReaderReport(ComPtr):
     def get_CardAuthenticationDataLength(self: win32more.Windows.Devices.PointOfService.IMagneticStripeReaderReport) -> UInt32: ...
     @winrt_mixinmethod
     def get_AdditionalSecurityInformation(self: win32more.Windows.Devices.PointOfService.IMagneticStripeReaderReport) -> win32more.Windows.Storage.Streams.IBuffer: ...
+    AdditionalSecurityInformation = property(get_AdditionalSecurityInformation, None)
+    CardAuthenticationData = property(get_CardAuthenticationData, None)
+    CardAuthenticationDataLength = property(get_CardAuthenticationDataLength, None)
     CardType = property(get_CardType, None)
+    Properties = property(get_Properties, None)
     Track1 = property(get_Track1, None)
     Track2 = property(get_Track2, None)
     Track3 = property(get_Track3, None)
     Track4 = property(get_Track4, None)
-    Properties = property(get_Properties, None)
-    CardAuthenticationData = property(get_CardAuthenticationData, None)
-    CardAuthenticationDataLength = property(get_CardAuthenticationDataLength, None)
-    AdditionalSecurityInformation = property(get_AdditionalSecurityInformation, None)
 class MagneticStripeReaderStatus(Int32):  # enum
     Unauthenticated = 0
     Authenticated = 1
@@ -4082,8 +4082,8 @@ class MagneticStripeReaderStatusUpdatedEventArgs(ComPtr):
     def get_Status(self: win32more.Windows.Devices.PointOfService.IMagneticStripeReaderStatusUpdatedEventArgs) -> win32more.Windows.Devices.PointOfService.MagneticStripeReaderStatus: ...
     @winrt_mixinmethod
     def get_ExtendedStatus(self: win32more.Windows.Devices.PointOfService.IMagneticStripeReaderStatusUpdatedEventArgs) -> UInt32: ...
-    Status = property(get_Status, None)
     ExtendedStatus = property(get_ExtendedStatus, None)
+    Status = property(get_Status, None)
 class MagneticStripeReaderTrackData(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.PointOfService.IMagneticStripeReaderTrackData
@@ -4160,12 +4160,12 @@ class PosPrinter(ComPtr):
     def FromIdAsync(cls: win32more.Windows.Devices.PointOfService.IPosPrinterStatics, deviceId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.PointOfService.PosPrinter]: ...
     @winrt_classmethod
     def GetDeviceSelector(cls: win32more.Windows.Devices.PointOfService.IPosPrinterStatics) -> WinRT_String: ...
-    DeviceId = property(get_DeviceId, None)
     Capabilities = property(get_Capabilities, None)
-    SupportedCharacterSets = property(get_SupportedCharacterSets, None)
-    SupportedTypeFaces = property(get_SupportedTypeFaces, None)
+    DeviceId = property(get_DeviceId, None)
     Status = property(get_Status, None)
     SupportedBarcodeSymbologies = property(get_SupportedBarcodeSymbologies, None)
+    SupportedCharacterSets = property(get_SupportedCharacterSets, None)
+    SupportedTypeFaces = property(get_SupportedTypeFaces, None)
 class PosPrinterAlignment(Int32):  # enum
     Left = 0
     Center = 1
@@ -4198,16 +4198,16 @@ class PosPrinterCapabilities(ComPtr):
     def get_Slip(self: win32more.Windows.Devices.PointOfService.IPosPrinterCapabilities) -> win32more.Windows.Devices.PointOfService.SlipPrinterCapabilities: ...
     @winrt_mixinmethod
     def get_Journal(self: win32more.Windows.Devices.PointOfService.IPosPrinterCapabilities) -> win32more.Windows.Devices.PointOfService.JournalPrinterCapabilities: ...
-    PowerReportingType = property(get_PowerReportingType, None)
-    IsStatisticsReportingSupported = property(get_IsStatisticsReportingSupported, None)
-    IsStatisticsUpdatingSupported = property(get_IsStatisticsUpdatingSupported, None)
+    CanMapCharacterSet = property(get_CanMapCharacterSet, None)
     DefaultCharacterSet = property(get_DefaultCharacterSet, None)
     HasCoverSensor = property(get_HasCoverSensor, None)
-    CanMapCharacterSet = property(get_CanMapCharacterSet, None)
+    IsStatisticsReportingSupported = property(get_IsStatisticsReportingSupported, None)
+    IsStatisticsUpdatingSupported = property(get_IsStatisticsUpdatingSupported, None)
     IsTransactionSupported = property(get_IsTransactionSupported, None)
+    Journal = property(get_Journal, None)
+    PowerReportingType = property(get_PowerReportingType, None)
     Receipt = property(get_Receipt, None)
     Slip = property(get_Slip, None)
-    Journal = property(get_Journal, None)
 class PosPrinterCartridgeSensors(UInt32):  # enum
     None_ = 0
     Removed = 1
@@ -4225,9 +4225,9 @@ class PosPrinterCharacterSetIds(ComPtr, metaclass=_PosPrinterCharacterSetIds_Met
     def get_Ascii(cls: win32more.Windows.Devices.PointOfService.IPosPrinterCharacterSetIdsStatics) -> UInt32: ...
     @winrt_classmethod
     def get_Ansi(cls: win32more.Windows.Devices.PointOfService.IPosPrinterCharacterSetIdsStatics) -> UInt32: ...
-    _PosPrinterCharacterSetIds_Meta_.Utf16LE = property(get_Utf16LE.__wrapped__, None)
-    _PosPrinterCharacterSetIds_Meta_.Ascii = property(get_Ascii.__wrapped__, None)
     _PosPrinterCharacterSetIds_Meta_.Ansi = property(get_Ansi.__wrapped__, None)
+    _PosPrinterCharacterSetIds_Meta_.Ascii = property(get_Ascii.__wrapped__, None)
+    _PosPrinterCharacterSetIds_Meta_.Utf16LE = property(get_Utf16LE.__wrapped__, None)
 class PosPrinterColorCapabilities(UInt32):  # enum
     None_ = 0
     Primary = 1
@@ -4263,9 +4263,9 @@ class PosPrinterFontProperty(ComPtr):
     def get_IsScalableToAnySize(self: win32more.Windows.Devices.PointOfService.IPosPrinterFontProperty) -> Boolean: ...
     @winrt_mixinmethod
     def get_CharacterSizes(self: win32more.Windows.Devices.PointOfService.IPosPrinterFontProperty) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Devices.PointOfService.SizeUInt32]: ...
-    TypeFace = property(get_TypeFace, None)
-    IsScalableToAnySize = property(get_IsScalableToAnySize, None)
     CharacterSizes = property(get_CharacterSizes, None)
+    IsScalableToAnySize = property(get_IsScalableToAnySize, None)
+    TypeFace = property(get_TypeFace, None)
 class PosPrinterLineDirection(Int32):  # enum
     Horizontal = 0
     Vertical = 1
@@ -4355,19 +4355,19 @@ class PosPrinterPrintOptions(ComPtr):
     def get_CharacterSet(self: win32more.Windows.Devices.PointOfService.IPosPrinterPrintOptions) -> UInt32: ...
     @winrt_mixinmethod
     def put_CharacterSet(self: win32more.Windows.Devices.PointOfService.IPosPrinterPrintOptions, value: UInt32) -> Void: ...
-    TypeFace = property(get_TypeFace, put_TypeFace)
-    CharacterHeight = property(get_CharacterHeight, put_CharacterHeight)
+    Alignment = property(get_Alignment, put_Alignment)
     Bold = property(get_Bold, put_Bold)
+    CharacterHeight = property(get_CharacterHeight, put_CharacterHeight)
+    CharacterSet = property(get_CharacterSet, put_CharacterSet)
+    DoubleHigh = property(get_DoubleHigh, put_DoubleHigh)
+    DoubleWide = property(get_DoubleWide, put_DoubleWide)
     Italic = property(get_Italic, put_Italic)
-    Underline = property(get_Underline, put_Underline)
     ReverseVideo = property(get_ReverseVideo, put_ReverseVideo)
     Strikethrough = property(get_Strikethrough, put_Strikethrough)
-    Superscript = property(get_Superscript, put_Superscript)
     Subscript = property(get_Subscript, put_Subscript)
-    DoubleWide = property(get_DoubleWide, put_DoubleWide)
-    DoubleHigh = property(get_DoubleHigh, put_DoubleHigh)
-    Alignment = property(get_Alignment, put_Alignment)
-    CharacterSet = property(get_CharacterSet, put_CharacterSet)
+    Superscript = property(get_Superscript, put_Superscript)
+    TypeFace = property(get_TypeFace, put_TypeFace)
+    Underline = property(get_Underline, put_Underline)
 class PosPrinterPrintSide(Int32):  # enum
     Unknown = 0
     Side1 = 1
@@ -4393,8 +4393,8 @@ class PosPrinterStatus(ComPtr):
     def get_StatusKind(self: win32more.Windows.Devices.PointOfService.IPosPrinterStatus) -> win32more.Windows.Devices.PointOfService.PosPrinterStatusKind: ...
     @winrt_mixinmethod
     def get_ExtendedStatus(self: win32more.Windows.Devices.PointOfService.IPosPrinterStatus) -> UInt32: ...
-    StatusKind = property(get_StatusKind, None)
     ExtendedStatus = property(get_ExtendedStatus, None)
+    StatusKind = property(get_StatusKind, None)
 class PosPrinterStatusKind(Int32):  # enum
     Online = 0
     Off = 1
@@ -4533,35 +4533,35 @@ class ReceiptPrinterCapabilities(ComPtr):
     @winrt_mixinmethod
     def get_SupportedCharactersPerLine(self: win32more.Windows.Devices.PointOfService.ICommonPosPrintStationCapabilities) -> win32more.Windows.Foundation.Collections.IVectorView[UInt32]: ...
     CanCutPaper = property(get_CanCutPaper, None)
-    IsStampSupported = property(get_IsStampSupported, None)
-    MarkFeedCapabilities = property(get_MarkFeedCapabilities, None)
-    IsReverseVideoSupported = property(get_IsReverseVideoSupported, None)
-    IsStrikethroughSupported = property(get_IsStrikethroughSupported, None)
-    IsSuperscriptSupported = property(get_IsSuperscriptSupported, None)
-    IsSubscriptSupported = property(get_IsSubscriptSupported, None)
-    IsReversePaperFeedByLineSupported = property(get_IsReversePaperFeedByLineSupported, None)
-    IsReversePaperFeedByMapModeUnitSupported = property(get_IsReversePaperFeedByMapModeUnitSupported, None)
+    CartridgeSensors = property(get_CartridgeSensors, None)
+    ColorCartridgeCapabilities = property(get_ColorCartridgeCapabilities, None)
+    Is180RotationSupported = property(get_Is180RotationSupported, None)
     IsBarcodeSupported = property(get_IsBarcodeSupported, None)
     IsBitmapSupported = property(get_IsBitmapSupported, None)
+    IsBoldSupported = property(get_IsBoldSupported, None)
+    IsDoubleHighDoubleWidePrintSupported = property(get_IsDoubleHighDoubleWidePrintSupported, None)
+    IsDoubleHighPrintSupported = property(get_IsDoubleHighPrintSupported, None)
+    IsDoubleWidePrintSupported = property(get_IsDoubleWidePrintSupported, None)
+    IsDualColorSupported = property(get_IsDualColorSupported, None)
+    IsItalicSupported = property(get_IsItalicSupported, None)
     IsLeft90RotationSupported = property(get_IsLeft90RotationSupported, None)
-    IsRight90RotationSupported = property(get_IsRight90RotationSupported, None)
-    Is180RotationSupported = property(get_Is180RotationSupported, None)
+    IsPaperEmptySensorSupported = property(get_IsPaperEmptySensorSupported, None)
+    IsPaperNearEndSensorSupported = property(get_IsPaperNearEndSensorSupported, None)
     IsPrintAreaSupported = property(get_IsPrintAreaSupported, None)
+    IsPrinterPresent = property(get_IsPrinterPresent, None)
+    IsReversePaperFeedByLineSupported = property(get_IsReversePaperFeedByLineSupported, None)
+    IsReversePaperFeedByMapModeUnitSupported = property(get_IsReversePaperFeedByMapModeUnitSupported, None)
+    IsReverseVideoSupported = property(get_IsReverseVideoSupported, None)
+    IsRight90RotationSupported = property(get_IsRight90RotationSupported, None)
+    IsStampSupported = property(get_IsStampSupported, None)
+    IsStrikethroughSupported = property(get_IsStrikethroughSupported, None)
+    IsSubscriptSupported = property(get_IsSubscriptSupported, None)
+    IsSuperscriptSupported = property(get_IsSuperscriptSupported, None)
+    IsUnderlineSupported = property(get_IsUnderlineSupported, None)
+    MarkFeedCapabilities = property(get_MarkFeedCapabilities, None)
     RuledLineCapabilities = property(get_RuledLineCapabilities, None)
     SupportedBarcodeRotations = property(get_SupportedBarcodeRotations, None)
     SupportedBitmapRotations = property(get_SupportedBitmapRotations, None)
-    IsPrinterPresent = property(get_IsPrinterPresent, None)
-    IsDualColorSupported = property(get_IsDualColorSupported, None)
-    ColorCartridgeCapabilities = property(get_ColorCartridgeCapabilities, None)
-    CartridgeSensors = property(get_CartridgeSensors, None)
-    IsBoldSupported = property(get_IsBoldSupported, None)
-    IsItalicSupported = property(get_IsItalicSupported, None)
-    IsUnderlineSupported = property(get_IsUnderlineSupported, None)
-    IsDoubleHighPrintSupported = property(get_IsDoubleHighPrintSupported, None)
-    IsDoubleWidePrintSupported = property(get_IsDoubleWidePrintSupported, None)
-    IsDoubleHighDoubleWidePrintSupported = property(get_IsDoubleHighDoubleWidePrintSupported, None)
-    IsPaperEmptySensorSupported = property(get_IsPaperEmptySensorSupported, None)
-    IsPaperNearEndSensorSupported = property(get_IsPaperNearEndSensorSupported, None)
     SupportedCharactersPerLine = property(get_SupportedCharactersPerLine, None)
 class SizeUInt32(EasyCastStructure):
     Width: UInt32
@@ -4680,35 +4680,35 @@ class SlipPrinterCapabilities(ComPtr):
     def get_IsPaperNearEndSensorSupported(self: win32more.Windows.Devices.PointOfService.ICommonPosPrintStationCapabilities) -> Boolean: ...
     @winrt_mixinmethod
     def get_SupportedCharactersPerLine(self: win32more.Windows.Devices.PointOfService.ICommonPosPrintStationCapabilities) -> win32more.Windows.Foundation.Collections.IVectorView[UInt32]: ...
-    IsFullLengthSupported = property(get_IsFullLengthSupported, None)
-    IsBothSidesPrintingSupported = property(get_IsBothSidesPrintingSupported, None)
-    IsReverseVideoSupported = property(get_IsReverseVideoSupported, None)
-    IsStrikethroughSupported = property(get_IsStrikethroughSupported, None)
-    IsSuperscriptSupported = property(get_IsSuperscriptSupported, None)
-    IsSubscriptSupported = property(get_IsSubscriptSupported, None)
-    IsReversePaperFeedByLineSupported = property(get_IsReversePaperFeedByLineSupported, None)
-    IsReversePaperFeedByMapModeUnitSupported = property(get_IsReversePaperFeedByMapModeUnitSupported, None)
+    CartridgeSensors = property(get_CartridgeSensors, None)
+    ColorCartridgeCapabilities = property(get_ColorCartridgeCapabilities, None)
+    Is180RotationSupported = property(get_Is180RotationSupported, None)
     IsBarcodeSupported = property(get_IsBarcodeSupported, None)
     IsBitmapSupported = property(get_IsBitmapSupported, None)
+    IsBoldSupported = property(get_IsBoldSupported, None)
+    IsBothSidesPrintingSupported = property(get_IsBothSidesPrintingSupported, None)
+    IsDoubleHighDoubleWidePrintSupported = property(get_IsDoubleHighDoubleWidePrintSupported, None)
+    IsDoubleHighPrintSupported = property(get_IsDoubleHighPrintSupported, None)
+    IsDoubleWidePrintSupported = property(get_IsDoubleWidePrintSupported, None)
+    IsDualColorSupported = property(get_IsDualColorSupported, None)
+    IsFullLengthSupported = property(get_IsFullLengthSupported, None)
+    IsItalicSupported = property(get_IsItalicSupported, None)
     IsLeft90RotationSupported = property(get_IsLeft90RotationSupported, None)
-    IsRight90RotationSupported = property(get_IsRight90RotationSupported, None)
-    Is180RotationSupported = property(get_Is180RotationSupported, None)
+    IsPaperEmptySensorSupported = property(get_IsPaperEmptySensorSupported, None)
+    IsPaperNearEndSensorSupported = property(get_IsPaperNearEndSensorSupported, None)
     IsPrintAreaSupported = property(get_IsPrintAreaSupported, None)
+    IsPrinterPresent = property(get_IsPrinterPresent, None)
+    IsReversePaperFeedByLineSupported = property(get_IsReversePaperFeedByLineSupported, None)
+    IsReversePaperFeedByMapModeUnitSupported = property(get_IsReversePaperFeedByMapModeUnitSupported, None)
+    IsReverseVideoSupported = property(get_IsReverseVideoSupported, None)
+    IsRight90RotationSupported = property(get_IsRight90RotationSupported, None)
+    IsStrikethroughSupported = property(get_IsStrikethroughSupported, None)
+    IsSubscriptSupported = property(get_IsSubscriptSupported, None)
+    IsSuperscriptSupported = property(get_IsSuperscriptSupported, None)
+    IsUnderlineSupported = property(get_IsUnderlineSupported, None)
     RuledLineCapabilities = property(get_RuledLineCapabilities, None)
     SupportedBarcodeRotations = property(get_SupportedBarcodeRotations, None)
     SupportedBitmapRotations = property(get_SupportedBitmapRotations, None)
-    IsPrinterPresent = property(get_IsPrinterPresent, None)
-    IsDualColorSupported = property(get_IsDualColorSupported, None)
-    ColorCartridgeCapabilities = property(get_ColorCartridgeCapabilities, None)
-    CartridgeSensors = property(get_CartridgeSensors, None)
-    IsBoldSupported = property(get_IsBoldSupported, None)
-    IsItalicSupported = property(get_IsItalicSupported, None)
-    IsUnderlineSupported = property(get_IsUnderlineSupported, None)
-    IsDoubleHighPrintSupported = property(get_IsDoubleHighPrintSupported, None)
-    IsDoubleWidePrintSupported = property(get_IsDoubleWidePrintSupported, None)
-    IsDoubleHighDoubleWidePrintSupported = property(get_IsDoubleHighDoubleWidePrintSupported, None)
-    IsPaperEmptySensorSupported = property(get_IsPaperEmptySensorSupported, None)
-    IsPaperNearEndSensorSupported = property(get_IsPaperNearEndSensorSupported, None)
     SupportedCharactersPerLine = property(get_SupportedCharactersPerLine, None)
 class UnifiedPosErrorData(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -4731,10 +4731,10 @@ class UnifiedPosErrorData(ComPtr):
     def get_Reason(self: win32more.Windows.Devices.PointOfService.IUnifiedPosErrorData) -> win32more.Windows.Devices.PointOfService.UnifiedPosErrorReason: ...
     @winrt_mixinmethod
     def get_ExtendedReason(self: win32more.Windows.Devices.PointOfService.IUnifiedPosErrorData) -> UInt32: ...
-    Message = property(get_Message, None)
-    Severity = property(get_Severity, None)
-    Reason = property(get_Reason, None)
     ExtendedReason = property(get_ExtendedReason, None)
+    Message = property(get_Message, None)
+    Reason = property(get_Reason, None)
+    Severity = property(get_Severity, None)
 class UnifiedPosErrorReason(Int32):  # enum
     UnknownErrorReason = 0
     NoService = 1

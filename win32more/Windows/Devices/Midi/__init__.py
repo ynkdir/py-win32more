@@ -33,8 +33,8 @@ class IMidiControlChangeMessage(ComPtr):
     @winrt_commethod(8)
     def get_ControlValue(self) -> Byte: ...
     Channel = property(get_Channel, None)
-    Controller = property(get_Controller, None)
     ControlValue = property(get_ControlValue, None)
+    Controller = property(get_Controller, None)
 class IMidiControlChangeMessageFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Midi.IMidiControlChangeMessageFactory'
@@ -70,8 +70,8 @@ class IMidiMessage(ComPtr):
     def get_RawData(self) -> win32more.Windows.Storage.Streams.IBuffer: ...
     @winrt_commethod(8)
     def get_Type(self) -> win32more.Windows.Devices.Midi.MidiMessageType: ...
-    Timestamp = property(get_Timestamp, None)
     RawData = property(get_RawData, None)
+    Timestamp = property(get_Timestamp, None)
     Type = property(get_Type, None)
 class IMidiMessageReceivedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -145,8 +145,8 @@ class IMidiPitchBendChangeMessage(ComPtr):
     def get_Channel(self) -> Byte: ...
     @winrt_commethod(7)
     def get_Bend(self) -> UInt16: ...
-    Channel = property(get_Channel, None)
     Bend = property(get_Bend, None)
+    Channel = property(get_Channel, None)
 class IMidiPitchBendChangeMessageFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Midi.IMidiPitchBendChangeMessageFactory'
@@ -277,8 +277,8 @@ class MidiActiveSensingMessage(ComPtr):
     def get_RawData(self: win32more.Windows.Devices.Midi.IMidiMessage) -> win32more.Windows.Storage.Streams.IBuffer: ...
     @winrt_mixinmethod
     def get_Type(self: win32more.Windows.Devices.Midi.IMidiMessage) -> win32more.Windows.Devices.Midi.MidiMessageType: ...
-    Timestamp = property(get_Timestamp, None)
     RawData = property(get_RawData, None)
+    Timestamp = property(get_Timestamp, None)
     Type = property(get_Type, None)
 class MidiChannelPressureMessage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -305,8 +305,8 @@ class MidiChannelPressureMessage(ComPtr):
     def get_Type(self: win32more.Windows.Devices.Midi.IMidiMessage) -> win32more.Windows.Devices.Midi.MidiMessageType: ...
     Channel = property(get_Channel, None)
     Pressure = property(get_Pressure, None)
-    Timestamp = property(get_Timestamp, None)
     RawData = property(get_RawData, None)
+    Timestamp = property(get_Timestamp, None)
     Type = property(get_Type, None)
 class MidiContinueMessage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -327,8 +327,8 @@ class MidiContinueMessage(ComPtr):
     def get_RawData(self: win32more.Windows.Devices.Midi.IMidiMessage) -> win32more.Windows.Storage.Streams.IBuffer: ...
     @winrt_mixinmethod
     def get_Type(self: win32more.Windows.Devices.Midi.IMidiMessage) -> win32more.Windows.Devices.Midi.MidiMessageType: ...
-    Timestamp = property(get_Timestamp, None)
     RawData = property(get_RawData, None)
+    Timestamp = property(get_Timestamp, None)
     Type = property(get_Type, None)
 class MidiControlChangeMessage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -356,10 +356,10 @@ class MidiControlChangeMessage(ComPtr):
     @winrt_mixinmethod
     def get_Type(self: win32more.Windows.Devices.Midi.IMidiMessage) -> win32more.Windows.Devices.Midi.MidiMessageType: ...
     Channel = property(get_Channel, None)
-    Controller = property(get_Controller, None)
     ControlValue = property(get_ControlValue, None)
-    Timestamp = property(get_Timestamp, None)
+    Controller = property(get_Controller, None)
     RawData = property(get_RawData, None)
+    Timestamp = property(get_Timestamp, None)
     Type = property(get_Type, None)
 class MidiInPort(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -433,10 +433,10 @@ class MidiNoteOffMessage(ComPtr):
     def get_Type(self: win32more.Windows.Devices.Midi.IMidiMessage) -> win32more.Windows.Devices.Midi.MidiMessageType: ...
     Channel = property(get_Channel, None)
     Note = property(get_Note, None)
-    Velocity = property(get_Velocity, None)
-    Timestamp = property(get_Timestamp, None)
     RawData = property(get_RawData, None)
+    Timestamp = property(get_Timestamp, None)
     Type = property(get_Type, None)
+    Velocity = property(get_Velocity, None)
 class MidiNoteOnMessage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Midi.IMidiNoteOnMessage
@@ -464,10 +464,10 @@ class MidiNoteOnMessage(ComPtr):
     def get_Type(self: win32more.Windows.Devices.Midi.IMidiMessage) -> win32more.Windows.Devices.Midi.MidiMessageType: ...
     Channel = property(get_Channel, None)
     Note = property(get_Note, None)
-    Velocity = property(get_Velocity, None)
-    Timestamp = property(get_Timestamp, None)
     RawData = property(get_RawData, None)
+    Timestamp = property(get_Timestamp, None)
     Type = property(get_Type, None)
+    Velocity = property(get_Velocity, None)
 class MidiOutPort(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Midi.IMidiOutPort
@@ -508,10 +508,10 @@ class MidiPitchBendChangeMessage(ComPtr):
     def get_RawData(self: win32more.Windows.Devices.Midi.IMidiMessage) -> win32more.Windows.Storage.Streams.IBuffer: ...
     @winrt_mixinmethod
     def get_Type(self: win32more.Windows.Devices.Midi.IMidiMessage) -> win32more.Windows.Devices.Midi.MidiMessageType: ...
-    Channel = property(get_Channel, None)
     Bend = property(get_Bend, None)
-    Timestamp = property(get_Timestamp, None)
+    Channel = property(get_Channel, None)
     RawData = property(get_RawData, None)
+    Timestamp = property(get_Timestamp, None)
     Type = property(get_Type, None)
 class MidiPolyphonicKeyPressureMessage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -541,8 +541,8 @@ class MidiPolyphonicKeyPressureMessage(ComPtr):
     Channel = property(get_Channel, None)
     Note = property(get_Note, None)
     Pressure = property(get_Pressure, None)
-    Timestamp = property(get_Timestamp, None)
     RawData = property(get_RawData, None)
+    Timestamp = property(get_Timestamp, None)
     Type = property(get_Type, None)
 class MidiProgramChangeMessage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -569,8 +569,8 @@ class MidiProgramChangeMessage(ComPtr):
     def get_Type(self: win32more.Windows.Devices.Midi.IMidiMessage) -> win32more.Windows.Devices.Midi.MidiMessageType: ...
     Channel = property(get_Channel, None)
     Program = property(get_Program, None)
-    Timestamp = property(get_Timestamp, None)
     RawData = property(get_RawData, None)
+    Timestamp = property(get_Timestamp, None)
     Type = property(get_Type, None)
 class MidiSongPositionPointerMessage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -594,8 +594,8 @@ class MidiSongPositionPointerMessage(ComPtr):
     @winrt_mixinmethod
     def get_Type(self: win32more.Windows.Devices.Midi.IMidiMessage) -> win32more.Windows.Devices.Midi.MidiMessageType: ...
     Beats = property(get_Beats, None)
-    Timestamp = property(get_Timestamp, None)
     RawData = property(get_RawData, None)
+    Timestamp = property(get_Timestamp, None)
     Type = property(get_Type, None)
 class MidiSongSelectMessage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -618,9 +618,9 @@ class MidiSongSelectMessage(ComPtr):
     def get_RawData(self: win32more.Windows.Devices.Midi.IMidiMessage) -> win32more.Windows.Storage.Streams.IBuffer: ...
     @winrt_mixinmethod
     def get_Type(self: win32more.Windows.Devices.Midi.IMidiMessage) -> win32more.Windows.Devices.Midi.MidiMessageType: ...
+    RawData = property(get_RawData, None)
     Song = property(get_Song, None)
     Timestamp = property(get_Timestamp, None)
-    RawData = property(get_RawData, None)
     Type = property(get_Type, None)
 class MidiStartMessage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -641,8 +641,8 @@ class MidiStartMessage(ComPtr):
     def get_RawData(self: win32more.Windows.Devices.Midi.IMidiMessage) -> win32more.Windows.Storage.Streams.IBuffer: ...
     @winrt_mixinmethod
     def get_Type(self: win32more.Windows.Devices.Midi.IMidiMessage) -> win32more.Windows.Devices.Midi.MidiMessageType: ...
-    Timestamp = property(get_Timestamp, None)
     RawData = property(get_RawData, None)
+    Timestamp = property(get_Timestamp, None)
     Type = property(get_Type, None)
 class MidiStopMessage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -663,8 +663,8 @@ class MidiStopMessage(ComPtr):
     def get_RawData(self: win32more.Windows.Devices.Midi.IMidiMessage) -> win32more.Windows.Storage.Streams.IBuffer: ...
     @winrt_mixinmethod
     def get_Type(self: win32more.Windows.Devices.Midi.IMidiMessage) -> win32more.Windows.Devices.Midi.MidiMessageType: ...
-    Timestamp = property(get_Timestamp, None)
     RawData = property(get_RawData, None)
+    Timestamp = property(get_Timestamp, None)
     Type = property(get_Type, None)
 class MidiSynthesizer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -691,8 +691,8 @@ class MidiSynthesizer(ComPtr):
     @winrt_classmethod
     def IsSynthesizer(cls: win32more.Windows.Devices.Midi.IMidiSynthesizerStatics, midiDevice: win32more.Windows.Devices.Enumeration.DeviceInformation) -> Boolean: ...
     AudioDevice = property(get_AudioDevice, None)
-    Volume = property(get_Volume, put_Volume)
     DeviceId = property(get_DeviceId, None)
+    Volume = property(get_Volume, put_Volume)
 class MidiSystemExclusiveMessage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Midi.IMidiMessage
@@ -712,8 +712,8 @@ class MidiSystemExclusiveMessage(ComPtr):
     def get_RawData(self: win32more.Windows.Devices.Midi.IMidiMessage) -> win32more.Windows.Storage.Streams.IBuffer: ...
     @winrt_mixinmethod
     def get_Type(self: win32more.Windows.Devices.Midi.IMidiMessage) -> win32more.Windows.Devices.Midi.MidiMessageType: ...
-    Timestamp = property(get_Timestamp, None)
     RawData = property(get_RawData, None)
+    Timestamp = property(get_Timestamp, None)
     Type = property(get_Type, None)
 class MidiSystemResetMessage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -734,8 +734,8 @@ class MidiSystemResetMessage(ComPtr):
     def get_RawData(self: win32more.Windows.Devices.Midi.IMidiMessage) -> win32more.Windows.Storage.Streams.IBuffer: ...
     @winrt_mixinmethod
     def get_Type(self: win32more.Windows.Devices.Midi.IMidiMessage) -> win32more.Windows.Devices.Midi.MidiMessageType: ...
-    Timestamp = property(get_Timestamp, None)
     RawData = property(get_RawData, None)
+    Timestamp = property(get_Timestamp, None)
     Type = property(get_Type, None)
 class MidiTimeCodeMessage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -761,10 +761,10 @@ class MidiTimeCodeMessage(ComPtr):
     @winrt_mixinmethod
     def get_Type(self: win32more.Windows.Devices.Midi.IMidiMessage) -> win32more.Windows.Devices.Midi.MidiMessageType: ...
     FrameType = property(get_FrameType, None)
-    Values = property(get_Values, None)
-    Timestamp = property(get_Timestamp, None)
     RawData = property(get_RawData, None)
+    Timestamp = property(get_Timestamp, None)
     Type = property(get_Type, None)
+    Values = property(get_Values, None)
 class MidiTimingClockMessage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Midi.IMidiMessage
@@ -784,8 +784,8 @@ class MidiTimingClockMessage(ComPtr):
     def get_RawData(self: win32more.Windows.Devices.Midi.IMidiMessage) -> win32more.Windows.Storage.Streams.IBuffer: ...
     @winrt_mixinmethod
     def get_Type(self: win32more.Windows.Devices.Midi.IMidiMessage) -> win32more.Windows.Devices.Midi.MidiMessageType: ...
-    Timestamp = property(get_Timestamp, None)
     RawData = property(get_RawData, None)
+    Timestamp = property(get_Timestamp, None)
     Type = property(get_Type, None)
 class MidiTuneRequestMessage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -806,8 +806,8 @@ class MidiTuneRequestMessage(ComPtr):
     def get_RawData(self: win32more.Windows.Devices.Midi.IMidiMessage) -> win32more.Windows.Storage.Streams.IBuffer: ...
     @winrt_mixinmethod
     def get_Type(self: win32more.Windows.Devices.Midi.IMidiMessage) -> win32more.Windows.Devices.Midi.MidiMessageType: ...
-    Timestamp = property(get_Timestamp, None)
     RawData = property(get_RawData, None)
+    Timestamp = property(get_Timestamp, None)
     Type = property(get_Type, None)
 
 

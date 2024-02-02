@@ -42,11 +42,11 @@ class ContentLinkInfo(ComPtr):
     def get_LinkContentKind(self: win32more.Windows.UI.Text.IContentLinkInfo) -> WinRT_String: ...
     @winrt_mixinmethod
     def put_LinkContentKind(self: win32more.Windows.UI.Text.IContentLinkInfo, value: WinRT_String) -> Void: ...
-    Id = property(get_Id, put_Id)
     DisplayText = property(get_DisplayText, put_DisplayText)
+    Id = property(get_Id, put_Id)
+    LinkContentKind = property(get_LinkContentKind, put_LinkContentKind)
     SecondaryText = property(get_SecondaryText, put_SecondaryText)
     Uri = property(get_Uri, put_Uri)
-    LinkContentKind = property(get_LinkContentKind, put_LinkContentKind)
 class FindOptions(UInt32):  # enum
     None_ = 0
     Word = 2
@@ -140,11 +140,11 @@ class IContentLinkInfo(ComPtr):
     def get_LinkContentKind(self) -> WinRT_String: ...
     @winrt_commethod(15)
     def put_LinkContentKind(self, value: WinRT_String) -> Void: ...
-    Id = property(get_Id, put_Id)
     DisplayText = property(get_DisplayText, put_DisplayText)
+    Id = property(get_Id, put_Id)
+    LinkContentKind = property(get_LinkContentKind, put_LinkContentKind)
     SecondaryText = property(get_SecondaryText, put_SecondaryText)
     Uri = property(get_Uri, put_Uri)
-    LinkContentKind = property(get_LinkContentKind, put_LinkContentKind)
 class IFontWeights(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Text.IFontWeights'
@@ -344,13 +344,13 @@ class ITextConstantsStatics(ComPtr):
     @winrt_commethod(13)
     def get_UndefinedFontStyle(self) -> win32more.Windows.UI.Text.FontStyle: ...
     AutoColor = property(get_AutoColor, None)
-    MinUnitCount = property(get_MinUnitCount, None)
     MaxUnitCount = property(get_MaxUnitCount, None)
+    MinUnitCount = property(get_MinUnitCount, None)
     UndefinedColor = property(get_UndefinedColor, None)
     UndefinedFloatValue = property(get_UndefinedFloatValue, None)
-    UndefinedInt32Value = property(get_UndefinedInt32Value, None)
     UndefinedFontStretch = property(get_UndefinedFontStretch, None)
     UndefinedFontStyle = property(get_UndefinedFontStyle, None)
+    UndefinedInt32Value = property(get_UndefinedInt32Value, None)
 class ITextDocument(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Text.ITextDocument'
@@ -560,11 +560,11 @@ class ITextParagraphFormat(ComPtr):
     PageBreakBefore = property(get_PageBreakBefore, put_PageBreakBefore)
     RightIndent = property(get_RightIndent, put_RightIndent)
     RightToLeft = property(get_RightToLeft, put_RightToLeft)
-    Style = property(get_Style, put_Style)
     SpaceAfter = property(get_SpaceAfter, put_SpaceAfter)
     SpaceBefore = property(get_SpaceBefore, put_SpaceBefore)
-    WidowControl = property(get_WidowControl, put_WidowControl)
+    Style = property(get_Style, put_Style)
     TabCount = property(get_TabCount, None)
+    WidowControl = property(get_WidowControl, put_WidowControl)
 class ITextRange(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Text.ITextRange'
@@ -675,8 +675,8 @@ class ITextRange(ComPtr):
     def StartOf(self, unit: win32more.Windows.UI.Text.TextRangeUnit, extend: Boolean) -> Int32: ...
     Character = property(get_Character, put_Character)
     CharacterFormat = property(get_CharacterFormat, put_CharacterFormat)
-    FormattedText = property(get_FormattedText, put_FormattedText)
     EndPosition = property(get_EndPosition, put_EndPosition)
+    FormattedText = property(get_FormattedText, put_FormattedText)
     Gravity = property(get_Gravity, put_Gravity)
     Length = property(get_Length, None)
     Link = property(get_Link, put_Link)
@@ -883,9 +883,9 @@ class RichEditTextDocument(ComPtr):
     @winrt_mixinmethod
     def Undo(self: win32more.Windows.UI.Text.ITextDocument) -> Void: ...
     AlignmentIncludesTrailingWhitespace = property(get_AlignmentIncludesTrailingWhitespace, put_AlignmentIncludesTrailingWhitespace)
-    IgnoreTrailingCharacterSpacing = property(get_IgnoreTrailingCharacterSpacing, put_IgnoreTrailingCharacterSpacing)
     CaretType = property(get_CaretType, put_CaretType)
     DefaultTabStop = property(get_DefaultTabStop, put_DefaultTabStop)
+    IgnoreTrailingCharacterSpacing = property(get_IgnoreTrailingCharacterSpacing, put_IgnoreTrailingCharacterSpacing)
     Selection = property(get_Selection, None)
     UndoLimit = property(get_UndoLimit, put_UndoLimit)
 class RichEditTextRange(ComPtr):
@@ -1000,11 +1000,11 @@ class RichEditTextRange(ComPtr):
     def SetTextViaStream(self: win32more.Windows.UI.Text.ITextRange, options: win32more.Windows.UI.Text.TextSetOptions, value: win32more.Windows.Storage.Streams.IRandomAccessStream) -> Void: ...
     @winrt_mixinmethod
     def StartOf(self: win32more.Windows.UI.Text.ITextRange, unit: win32more.Windows.UI.Text.TextRangeUnit, extend: Boolean) -> Int32: ...
-    ContentLinkInfo = property(get_ContentLinkInfo, put_ContentLinkInfo)
     Character = property(get_Character, put_Character)
     CharacterFormat = property(get_CharacterFormat, put_CharacterFormat)
-    FormattedText = property(get_FormattedText, put_FormattedText)
+    ContentLinkInfo = property(get_ContentLinkInfo, put_ContentLinkInfo)
     EndPosition = property(get_EndPosition, put_EndPosition)
+    FormattedText = property(get_FormattedText, put_FormattedText)
     Gravity = property(get_Gravity, put_Gravity)
     Length = property(get_Length, None)
     Link = property(get_Link, put_Link)
@@ -1059,13 +1059,13 @@ class TextConstants(ComPtr, metaclass=_TextConstants_Meta_):
     @winrt_classmethod
     def get_UndefinedFontStyle(cls: win32more.Windows.UI.Text.ITextConstantsStatics) -> win32more.Windows.UI.Text.FontStyle: ...
     _TextConstants_Meta_.AutoColor = property(get_AutoColor.__wrapped__, None)
-    _TextConstants_Meta_.MinUnitCount = property(get_MinUnitCount.__wrapped__, None)
     _TextConstants_Meta_.MaxUnitCount = property(get_MaxUnitCount.__wrapped__, None)
+    _TextConstants_Meta_.MinUnitCount = property(get_MinUnitCount.__wrapped__, None)
     _TextConstants_Meta_.UndefinedColor = property(get_UndefinedColor.__wrapped__, None)
     _TextConstants_Meta_.UndefinedFloatValue = property(get_UndefinedFloatValue.__wrapped__, None)
-    _TextConstants_Meta_.UndefinedInt32Value = property(get_UndefinedInt32Value.__wrapped__, None)
     _TextConstants_Meta_.UndefinedFontStretch = property(get_UndefinedFontStretch.__wrapped__, None)
     _TextConstants_Meta_.UndefinedFontStyle = property(get_UndefinedFontStyle.__wrapped__, None)
+    _TextConstants_Meta_.UndefinedInt32Value = property(get_UndefinedInt32Value.__wrapped__, None)
 class TextDecorations(UInt32):  # enum
     None_ = 0
     Underline = 1

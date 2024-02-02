@@ -41,12 +41,12 @@ class ISpatialSurfaceMesh(ComPtr):
     def get_VertexPositionScale(self) -> win32more.Windows.Foundation.Numerics.Vector3: ...
     @winrt_commethod(11)
     def get_VertexNormals(self) -> win32more.Windows.Perception.Spatial.Surfaces.SpatialSurfaceMeshBuffer: ...
-    SurfaceInfo = property(get_SurfaceInfo, None)
     CoordinateSystem = property(get_CoordinateSystem, None)
+    SurfaceInfo = property(get_SurfaceInfo, None)
     TriangleIndices = property(get_TriangleIndices, None)
-    VertexPositions = property(get_VertexPositions, None)
-    VertexPositionScale = property(get_VertexPositionScale, None)
     VertexNormals = property(get_VertexNormals, None)
+    VertexPositionScale = property(get_VertexPositionScale, None)
+    VertexPositions = property(get_VertexPositions, None)
 class ISpatialSurfaceMeshBuffer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Perception.Spatial.Surfaces.ISpatialSurfaceMeshBuffer'
@@ -59,10 +59,10 @@ class ISpatialSurfaceMeshBuffer(ComPtr):
     def get_ElementCount(self) -> UInt32: ...
     @winrt_commethod(9)
     def get_Data(self) -> win32more.Windows.Storage.Streams.IBuffer: ...
+    Data = property(get_Data, None)
+    ElementCount = property(get_ElementCount, None)
     Format = property(get_Format, None)
     Stride = property(get_Stride, None)
-    ElementCount = property(get_ElementCount, None)
-    Data = property(get_Data, None)
 class ISpatialSurfaceMeshOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Perception.Spatial.Surfaces.ISpatialSurfaceMeshOptions'
@@ -83,10 +83,10 @@ class ISpatialSurfaceMeshOptions(ComPtr):
     def get_IncludeVertexNormals(self) -> Boolean: ...
     @winrt_commethod(13)
     def put_IncludeVertexNormals(self, value: Boolean) -> Void: ...
-    VertexPositionFormat = property(get_VertexPositionFormat, put_VertexPositionFormat)
+    IncludeVertexNormals = property(get_IncludeVertexNormals, put_IncludeVertexNormals)
     TriangleIndexFormat = property(get_TriangleIndexFormat, put_TriangleIndexFormat)
     VertexNormalFormat = property(get_VertexNormalFormat, put_VertexNormalFormat)
-    IncludeVertexNormals = property(get_IncludeVertexNormals, put_IncludeVertexNormals)
+    VertexPositionFormat = property(get_VertexPositionFormat, put_VertexPositionFormat)
 class ISpatialSurfaceMeshOptionsStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Perception.Spatial.Surfaces.ISpatialSurfaceMeshOptionsStatics'
@@ -97,9 +97,9 @@ class ISpatialSurfaceMeshOptionsStatics(ComPtr):
     def get_SupportedTriangleIndexFormats(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Graphics.DirectX.DirectXPixelFormat]: ...
     @winrt_commethod(8)
     def get_SupportedVertexNormalFormats(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Graphics.DirectX.DirectXPixelFormat]: ...
-    SupportedVertexPositionFormats = property(get_SupportedVertexPositionFormats, None)
     SupportedTriangleIndexFormats = property(get_SupportedTriangleIndexFormats, None)
     SupportedVertexNormalFormats = property(get_SupportedVertexNormalFormats, None)
+    SupportedVertexPositionFormats = property(get_SupportedVertexPositionFormats, None)
 class ISpatialSurfaceObserver(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Perception.Spatial.Surfaces.ISpatialSurfaceObserver'
@@ -158,12 +158,12 @@ class SpatialSurfaceMesh(ComPtr):
     def get_VertexPositionScale(self: win32more.Windows.Perception.Spatial.Surfaces.ISpatialSurfaceMesh) -> win32more.Windows.Foundation.Numerics.Vector3: ...
     @winrt_mixinmethod
     def get_VertexNormals(self: win32more.Windows.Perception.Spatial.Surfaces.ISpatialSurfaceMesh) -> win32more.Windows.Perception.Spatial.Surfaces.SpatialSurfaceMeshBuffer: ...
-    SurfaceInfo = property(get_SurfaceInfo, None)
     CoordinateSystem = property(get_CoordinateSystem, None)
+    SurfaceInfo = property(get_SurfaceInfo, None)
     TriangleIndices = property(get_TriangleIndices, None)
-    VertexPositions = property(get_VertexPositions, None)
-    VertexPositionScale = property(get_VertexPositionScale, None)
     VertexNormals = property(get_VertexNormals, None)
+    VertexPositionScale = property(get_VertexPositionScale, None)
+    VertexPositions = property(get_VertexPositions, None)
 class SpatialSurfaceMeshBuffer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Perception.Spatial.Surfaces.ISpatialSurfaceMeshBuffer
@@ -176,10 +176,10 @@ class SpatialSurfaceMeshBuffer(ComPtr):
     def get_ElementCount(self: win32more.Windows.Perception.Spatial.Surfaces.ISpatialSurfaceMeshBuffer) -> UInt32: ...
     @winrt_mixinmethod
     def get_Data(self: win32more.Windows.Perception.Spatial.Surfaces.ISpatialSurfaceMeshBuffer) -> win32more.Windows.Storage.Streams.IBuffer: ...
+    Data = property(get_Data, None)
+    ElementCount = property(get_ElementCount, None)
     Format = property(get_Format, None)
     Stride = property(get_Stride, None)
-    ElementCount = property(get_ElementCount, None)
-    Data = property(get_Data, None)
 class _SpatialSurfaceMeshOptions_Meta_(ComPtr.__class__):
     pass
 class SpatialSurfaceMeshOptions(ComPtr, metaclass=_SpatialSurfaceMeshOptions_Meta_):
@@ -217,13 +217,13 @@ class SpatialSurfaceMeshOptions(ComPtr, metaclass=_SpatialSurfaceMeshOptions_Met
     def get_SupportedTriangleIndexFormats(cls: win32more.Windows.Perception.Spatial.Surfaces.ISpatialSurfaceMeshOptionsStatics) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Graphics.DirectX.DirectXPixelFormat]: ...
     @winrt_classmethod
     def get_SupportedVertexNormalFormats(cls: win32more.Windows.Perception.Spatial.Surfaces.ISpatialSurfaceMeshOptionsStatics) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Graphics.DirectX.DirectXPixelFormat]: ...
-    VertexPositionFormat = property(get_VertexPositionFormat, put_VertexPositionFormat)
+    IncludeVertexNormals = property(get_IncludeVertexNormals, put_IncludeVertexNormals)
     TriangleIndexFormat = property(get_TriangleIndexFormat, put_TriangleIndexFormat)
     VertexNormalFormat = property(get_VertexNormalFormat, put_VertexNormalFormat)
-    IncludeVertexNormals = property(get_IncludeVertexNormals, put_IncludeVertexNormals)
-    _SpatialSurfaceMeshOptions_Meta_.SupportedVertexPositionFormats = property(get_SupportedVertexPositionFormats.__wrapped__, None)
+    VertexPositionFormat = property(get_VertexPositionFormat, put_VertexPositionFormat)
     _SpatialSurfaceMeshOptions_Meta_.SupportedTriangleIndexFormats = property(get_SupportedTriangleIndexFormats.__wrapped__, None)
     _SpatialSurfaceMeshOptions_Meta_.SupportedVertexNormalFormats = property(get_SupportedVertexNormalFormats.__wrapped__, None)
+    _SpatialSurfaceMeshOptions_Meta_.SupportedVertexPositionFormats = property(get_SupportedVertexPositionFormats.__wrapped__, None)
 class SpatialSurfaceObserver(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Perception.Spatial.Surfaces.ISpatialSurfaceObserver

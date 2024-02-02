@@ -33,8 +33,8 @@ class ConditionForceEffect(ComPtr):
     @winrt_mixinmethod
     def SetParameters(self: win32more.Windows.Gaming.Input.ForceFeedback.IConditionForceEffect, direction: win32more.Windows.Foundation.Numerics.Vector3, positiveCoefficient: Single, negativeCoefficient: Single, maxPositiveMagnitude: Single, maxNegativeMagnitude: Single, deadZone: Single, bias: Single) -> Void: ...
     Gain = property(get_Gain, put_Gain)
-    State = property(get_State, None)
     Kind = property(get_Kind, None)
+    State = property(get_State, None)
 class ConditionForceEffectKind(Int32):  # enum
     Spring = 0
     Damper = 1
@@ -114,8 +114,8 @@ class ForceFeedbackMotor(ComPtr):
     @winrt_mixinmethod
     def TryUnloadEffectAsync(self: win32more.Windows.Gaming.Input.ForceFeedback.IForceFeedbackMotor, effect: win32more.Windows.Gaming.Input.ForceFeedback.IForceFeedbackEffect) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
     AreEffectsPaused = property(get_AreEffectsPaused, None)
-    MasterGain = property(get_MasterGain, put_MasterGain)
     IsEnabled = property(get_IsEnabled, None)
+    MasterGain = property(get_MasterGain, put_MasterGain)
     SupportedAxes = property(get_SupportedAxes, None)
 class IConditionForceEffect(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -187,8 +187,8 @@ class IForceFeedbackMotor(ComPtr):
     @winrt_commethod(18)
     def TryUnloadEffectAsync(self, effect: win32more.Windows.Gaming.Input.ForceFeedback.IForceFeedbackEffect) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
     AreEffectsPaused = property(get_AreEffectsPaused, None)
-    MasterGain = property(get_MasterGain, put_MasterGain)
     IsEnabled = property(get_IsEnabled, None)
+    MasterGain = property(get_MasterGain, put_MasterGain)
     SupportedAxes = property(get_SupportedAxes, None)
 class IPeriodicForceEffect(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -245,8 +245,8 @@ class PeriodicForceEffect(ComPtr):
     @winrt_mixinmethod
     def SetParametersWithEnvelope(self: win32more.Windows.Gaming.Input.ForceFeedback.IPeriodicForceEffect, vector: win32more.Windows.Foundation.Numerics.Vector3, frequency: Single, phase: Single, bias: Single, attackGain: Single, sustainGain: Single, releaseGain: Single, startDelay: win32more.Windows.Foundation.TimeSpan, attackDuration: win32more.Windows.Foundation.TimeSpan, sustainDuration: win32more.Windows.Foundation.TimeSpan, releaseDuration: win32more.Windows.Foundation.TimeSpan, repeatCount: UInt32) -> Void: ...
     Gain = property(get_Gain, put_Gain)
-    State = property(get_State, None)
     Kind = property(get_Kind, None)
+    State = property(get_State, None)
 class PeriodicForceEffectKind(Int32):  # enum
     SquareWave = 0
     SineWave = 1

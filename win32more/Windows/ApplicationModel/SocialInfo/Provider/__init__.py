@@ -28,11 +28,11 @@ class ISocialDashboardItemUpdater(ComPtr):
     def get_TargetUri(self) -> win32more.Windows.Foundation.Uri: ...
     @winrt_commethod(14)
     def put_TargetUri(self, value: win32more.Windows.Foundation.Uri) -> Void: ...
-    OwnerRemoteId = property(get_OwnerRemoteId, None)
     Content = property(get_Content, None)
-    Timestamp = property(get_Timestamp, put_Timestamp)
-    Thumbnail = property(get_Thumbnail, put_Thumbnail)
+    OwnerRemoteId = property(get_OwnerRemoteId, None)
     TargetUri = property(get_TargetUri, put_TargetUri)
+    Thumbnail = property(get_Thumbnail, put_Thumbnail)
+    Timestamp = property(get_Timestamp, put_Timestamp)
 class ISocialFeedUpdater(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.SocialInfo.Provider.ISocialFeedUpdater'
@@ -45,9 +45,9 @@ class ISocialFeedUpdater(ComPtr):
     def get_Items(self) -> win32more.Windows.Foundation.Collections.IVector[win32more.Windows.ApplicationModel.SocialInfo.SocialFeedItem]: ...
     @winrt_commethod(9)
     def CommitAsync(self) -> win32more.Windows.Foundation.IAsyncAction: ...
-    OwnerRemoteId = property(get_OwnerRemoteId, None)
-    Kind = property(get_Kind, None)
     Items = property(get_Items, None)
+    Kind = property(get_Kind, None)
+    OwnerRemoteId = property(get_OwnerRemoteId, None)
 class ISocialInfoProviderManagerStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.SocialInfo.Provider.ISocialInfoProviderManagerStatics'
@@ -86,11 +86,11 @@ class SocialDashboardItemUpdater(ComPtr):
     def get_TargetUri(self: win32more.Windows.ApplicationModel.SocialInfo.Provider.ISocialDashboardItemUpdater) -> win32more.Windows.Foundation.Uri: ...
     @winrt_mixinmethod
     def put_TargetUri(self: win32more.Windows.ApplicationModel.SocialInfo.Provider.ISocialDashboardItemUpdater, value: win32more.Windows.Foundation.Uri) -> Void: ...
-    OwnerRemoteId = property(get_OwnerRemoteId, None)
     Content = property(get_Content, None)
-    Timestamp = property(get_Timestamp, put_Timestamp)
-    Thumbnail = property(get_Thumbnail, put_Thumbnail)
+    OwnerRemoteId = property(get_OwnerRemoteId, None)
     TargetUri = property(get_TargetUri, put_TargetUri)
+    Thumbnail = property(get_Thumbnail, put_Thumbnail)
+    Timestamp = property(get_Timestamp, put_Timestamp)
 class SocialFeedUpdater(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.SocialInfo.Provider.ISocialFeedUpdater
@@ -103,9 +103,9 @@ class SocialFeedUpdater(ComPtr):
     def get_Items(self: win32more.Windows.ApplicationModel.SocialInfo.Provider.ISocialFeedUpdater) -> win32more.Windows.Foundation.Collections.IVector[win32more.Windows.ApplicationModel.SocialInfo.SocialFeedItem]: ...
     @winrt_mixinmethod
     def CommitAsync(self: win32more.Windows.ApplicationModel.SocialInfo.Provider.ISocialFeedUpdater) -> win32more.Windows.Foundation.IAsyncAction: ...
-    OwnerRemoteId = property(get_OwnerRemoteId, None)
-    Kind = property(get_Kind, None)
     Items = property(get_Items, None)
+    Kind = property(get_Kind, None)
+    OwnerRemoteId = property(get_OwnerRemoteId, None)
 class SocialInfoProviderManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.SocialInfo.Provider.SocialInfoProviderManager'

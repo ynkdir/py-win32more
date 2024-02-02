@@ -121,34 +121,34 @@ class Appointment(ComPtr):
     def get_DetailsKind(self: win32more.Windows.ApplicationModel.Appointments.IAppointment3) -> win32more.Windows.ApplicationModel.Appointments.AppointmentDetailsKind: ...
     @winrt_mixinmethod
     def put_DetailsKind(self: win32more.Windows.ApplicationModel.Appointments.IAppointment3, value: win32more.Windows.ApplicationModel.Appointments.AppointmentDetailsKind) -> Void: ...
-    StartTime = property(get_StartTime, put_StartTime)
-    Duration = property(get_Duration, put_Duration)
-    Location = property(get_Location, put_Location)
-    Subject = property(get_Subject, put_Subject)
-    Details = property(get_Details, put_Details)
-    Reminder = property(get_Reminder, put_Reminder)
-    Organizer = property(get_Organizer, put_Organizer)
-    Invitees = property(get_Invitees, None)
-    Recurrence = property(get_Recurrence, put_Recurrence)
-    BusyStatus = property(get_BusyStatus, put_BusyStatus)
     AllDay = property(get_AllDay, put_AllDay)
-    Sensitivity = property(get_Sensitivity, put_Sensitivity)
-    Uri = property(get_Uri, put_Uri)
-    LocalId = property(get_LocalId, None)
-    CalendarId = property(get_CalendarId, None)
-    RoamingId = property(get_RoamingId, put_RoamingId)
-    OriginalStartTime = property(get_OriginalStartTime, None)
-    IsResponseRequested = property(get_IsResponseRequested, put_IsResponseRequested)
     AllowNewTimeProposal = property(get_AllowNewTimeProposal, put_AllowNewTimeProposal)
-    OnlineMeetingLink = property(get_OnlineMeetingLink, put_OnlineMeetingLink)
-    ReplyTime = property(get_ReplyTime, put_ReplyTime)
-    UserResponse = property(get_UserResponse, put_UserResponse)
+    BusyStatus = property(get_BusyStatus, put_BusyStatus)
+    CalendarId = property(get_CalendarId, None)
+    ChangeNumber = property(get_ChangeNumber, None)
+    Details = property(get_Details, put_Details)
+    DetailsKind = property(get_DetailsKind, put_DetailsKind)
+    Duration = property(get_Duration, put_Duration)
     HasInvitees = property(get_HasInvitees, None)
+    Invitees = property(get_Invitees, None)
     IsCanceledMeeting = property(get_IsCanceledMeeting, put_IsCanceledMeeting)
     IsOrganizedByUser = property(get_IsOrganizedByUser, put_IsOrganizedByUser)
-    ChangeNumber = property(get_ChangeNumber, None)
+    IsResponseRequested = property(get_IsResponseRequested, put_IsResponseRequested)
+    LocalId = property(get_LocalId, None)
+    Location = property(get_Location, put_Location)
+    OnlineMeetingLink = property(get_OnlineMeetingLink, put_OnlineMeetingLink)
+    Organizer = property(get_Organizer, put_Organizer)
+    OriginalStartTime = property(get_OriginalStartTime, None)
+    Recurrence = property(get_Recurrence, put_Recurrence)
+    Reminder = property(get_Reminder, put_Reminder)
     RemoteChangeNumber = property(get_RemoteChangeNumber, put_RemoteChangeNumber)
-    DetailsKind = property(get_DetailsKind, put_DetailsKind)
+    ReplyTime = property(get_ReplyTime, put_ReplyTime)
+    RoamingId = property(get_RoamingId, put_RoamingId)
+    Sensitivity = property(get_Sensitivity, put_Sensitivity)
+    StartTime = property(get_StartTime, put_StartTime)
+    Subject = property(get_Subject, put_Subject)
+    Uri = property(get_Uri, put_Uri)
+    UserResponse = property(get_UserResponse, put_UserResponse)
 class AppointmentBusyStatus(Int32):  # enum
     Busy = 0
     Tentative = 1
@@ -263,24 +263,24 @@ class AppointmentCalendar(ComPtr):
     def TryUpdateMeetingResponseAsync(self: win32more.Windows.ApplicationModel.Appointments.IAppointmentCalendar2, meeting: win32more.Windows.ApplicationModel.Appointments.Appointment, response: win32more.Windows.ApplicationModel.Appointments.AppointmentParticipantResponse, subject: WinRT_String, comment: WinRT_String, sendUpdate: Boolean) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
     @winrt_mixinmethod
     def RegisterSyncManagerAsync(self: win32more.Windows.ApplicationModel.Appointments.IAppointmentCalendar3) -> win32more.Windows.Foundation.IAsyncAction: ...
+    CanCancelMeetings = property(get_CanCancelMeetings, put_CanCancelMeetings)
+    CanCreateOrUpdateAppointments = property(get_CanCreateOrUpdateAppointments, put_CanCreateOrUpdateAppointments)
+    CanForwardMeetings = property(get_CanForwardMeetings, put_CanForwardMeetings)
+    CanNotifyInvitees = property(get_CanNotifyInvitees, put_CanNotifyInvitees)
+    CanProposeNewTimeForMeetings = property(get_CanProposeNewTimeForMeetings, put_CanProposeNewTimeForMeetings)
+    CanUpdateMeetingResponses = property(get_CanUpdateMeetingResponses, put_CanUpdateMeetingResponses)
     DisplayColor = property(get_DisplayColor, put_DisplayColor)
     DisplayName = property(get_DisplayName, put_DisplayName)
-    LocalId = property(get_LocalId, None)
     IsHidden = property(get_IsHidden, put_IsHidden)
+    LocalId = property(get_LocalId, None)
+    MustNofityInvitees = property(get_MustNofityInvitees, put_MustNofityInvitees)
     OtherAppReadAccess = property(get_OtherAppReadAccess, put_OtherAppReadAccess)
     OtherAppWriteAccess = property(get_OtherAppWriteAccess, put_OtherAppWriteAccess)
+    RemoteId = property(get_RemoteId, put_RemoteId)
     SourceDisplayName = property(get_SourceDisplayName, None)
     SummaryCardView = property(get_SummaryCardView, put_SummaryCardView)
     SyncManager = property(get_SyncManager, None)
-    RemoteId = property(get_RemoteId, put_RemoteId)
     UserDataAccountId = property(get_UserDataAccountId, None)
-    CanCreateOrUpdateAppointments = property(get_CanCreateOrUpdateAppointments, put_CanCreateOrUpdateAppointments)
-    CanCancelMeetings = property(get_CanCancelMeetings, put_CanCancelMeetings)
-    CanForwardMeetings = property(get_CanForwardMeetings, put_CanForwardMeetings)
-    CanProposeNewTimeForMeetings = property(get_CanProposeNewTimeForMeetings, put_CanProposeNewTimeForMeetings)
-    CanUpdateMeetingResponses = property(get_CanUpdateMeetingResponses, put_CanUpdateMeetingResponses)
-    CanNotifyInvitees = property(get_CanNotifyInvitees, put_CanNotifyInvitees)
-    MustNofityInvitees = property(get_MustNofityInvitees, put_MustNofityInvitees)
 class AppointmentCalendarOtherAppReadAccess(Int32):  # enum
     SystemOnly = 0
     Limited = 1
@@ -312,9 +312,9 @@ class AppointmentCalendarSyncManager(ComPtr):
     def put_LastSuccessfulSyncTime(self: win32more.Windows.ApplicationModel.Appointments.IAppointmentCalendarSyncManager2, value: win32more.Windows.Foundation.DateTime) -> Void: ...
     @winrt_mixinmethod
     def put_LastAttemptedSyncTime(self: win32more.Windows.ApplicationModel.Appointments.IAppointmentCalendarSyncManager2, value: win32more.Windows.Foundation.DateTime) -> Void: ...
-    Status = property(get_Status, put_Status)
-    LastSuccessfulSyncTime = property(get_LastSuccessfulSyncTime, put_LastSuccessfulSyncTime)
     LastAttemptedSyncTime = property(get_LastAttemptedSyncTime, put_LastAttemptedSyncTime)
+    LastSuccessfulSyncTime = property(get_LastSuccessfulSyncTime, put_LastSuccessfulSyncTime)
+    Status = property(get_Status, put_Status)
 class AppointmentCalendarSyncStatus(Int32):  # enum
     Idle = 0
     Syncing = 1
@@ -331,8 +331,8 @@ class AppointmentConflictResult(ComPtr):
     def get_Type(self: win32more.Windows.ApplicationModel.Appointments.IAppointmentConflictResult) -> win32more.Windows.ApplicationModel.Appointments.AppointmentConflictType: ...
     @winrt_mixinmethod
     def get_Date(self: win32more.Windows.ApplicationModel.Appointments.IAppointmentConflictResult) -> win32more.Windows.Foundation.DateTime: ...
-    Type = property(get_Type, None)
     Date = property(get_Date, None)
+    Type = property(get_Type, None)
 class AppointmentConflictType(Int32):  # enum
     None_ = 0
     Adjacent = 1
@@ -391,10 +391,10 @@ class AppointmentInvitee(ComPtr):
     def get_Address(self: win32more.Windows.ApplicationModel.Appointments.IAppointmentParticipant) -> WinRT_String: ...
     @winrt_mixinmethod
     def put_Address(self: win32more.Windows.ApplicationModel.Appointments.IAppointmentParticipant, value: WinRT_String) -> Void: ...
-    Role = property(get_Role, put_Role)
-    Response = property(get_Response, put_Response)
-    DisplayName = property(get_DisplayName, put_DisplayName)
     Address = property(get_Address, put_Address)
+    DisplayName = property(get_DisplayName, put_DisplayName)
+    Response = property(get_Response, put_Response)
+    Role = property(get_Role, put_Role)
 class AppointmentManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Appointments.AppointmentManager'
@@ -480,8 +480,8 @@ class AppointmentOrganizer(ComPtr):
     def get_Address(self: win32more.Windows.ApplicationModel.Appointments.IAppointmentParticipant) -> WinRT_String: ...
     @winrt_mixinmethod
     def put_Address(self: win32more.Windows.ApplicationModel.Appointments.IAppointmentParticipant, value: WinRT_String) -> Void: ...
-    DisplayName = property(get_DisplayName, put_DisplayName)
     Address = property(get_Address, put_Address)
+    DisplayName = property(get_DisplayName, put_DisplayName)
 class AppointmentParticipantResponse(Int32):  # enum
     None_ = 0
     Tentative = 1
@@ -549,32 +549,32 @@ class AppointmentProperties(ComPtr, metaclass=_AppointmentProperties_Meta_):
     def get_Invitees(cls: win32more.Windows.ApplicationModel.Appointments.IAppointmentPropertiesStatics) -> WinRT_String: ...
     @winrt_classmethod
     def get_DefaultProperties(cls: win32more.Windows.ApplicationModel.Appointments.IAppointmentPropertiesStatics) -> win32more.Windows.Foundation.Collections.IVector[WinRT_String]: ...
-    _AppointmentProperties_Meta_.ChangeNumber = property(get_ChangeNumber.__wrapped__, None)
-    _AppointmentProperties_Meta_.RemoteChangeNumber = property(get_RemoteChangeNumber.__wrapped__, None)
-    _AppointmentProperties_Meta_.DetailsKind = property(get_DetailsKind.__wrapped__, None)
-    _AppointmentProperties_Meta_.Subject = property(get_Subject.__wrapped__, None)
-    _AppointmentProperties_Meta_.Location = property(get_Location.__wrapped__, None)
-    _AppointmentProperties_Meta_.StartTime = property(get_StartTime.__wrapped__, None)
-    _AppointmentProperties_Meta_.Duration = property(get_Duration.__wrapped__, None)
-    _AppointmentProperties_Meta_.Reminder = property(get_Reminder.__wrapped__, None)
-    _AppointmentProperties_Meta_.BusyStatus = property(get_BusyStatus.__wrapped__, None)
-    _AppointmentProperties_Meta_.Sensitivity = property(get_Sensitivity.__wrapped__, None)
-    _AppointmentProperties_Meta_.OriginalStartTime = property(get_OriginalStartTime.__wrapped__, None)
-    _AppointmentProperties_Meta_.IsResponseRequested = property(get_IsResponseRequested.__wrapped__, None)
-    _AppointmentProperties_Meta_.AllowNewTimeProposal = property(get_AllowNewTimeProposal.__wrapped__, None)
     _AppointmentProperties_Meta_.AllDay = property(get_AllDay.__wrapped__, None)
+    _AppointmentProperties_Meta_.AllowNewTimeProposal = property(get_AllowNewTimeProposal.__wrapped__, None)
+    _AppointmentProperties_Meta_.BusyStatus = property(get_BusyStatus.__wrapped__, None)
+    _AppointmentProperties_Meta_.ChangeNumber = property(get_ChangeNumber.__wrapped__, None)
+    _AppointmentProperties_Meta_.DefaultProperties = property(get_DefaultProperties.__wrapped__, None)
     _AppointmentProperties_Meta_.Details = property(get_Details.__wrapped__, None)
-    _AppointmentProperties_Meta_.OnlineMeetingLink = property(get_OnlineMeetingLink.__wrapped__, None)
-    _AppointmentProperties_Meta_.ReplyTime = property(get_ReplyTime.__wrapped__, None)
-    _AppointmentProperties_Meta_.Organizer = property(get_Organizer.__wrapped__, None)
-    _AppointmentProperties_Meta_.UserResponse = property(get_UserResponse.__wrapped__, None)
+    _AppointmentProperties_Meta_.DetailsKind = property(get_DetailsKind.__wrapped__, None)
+    _AppointmentProperties_Meta_.Duration = property(get_Duration.__wrapped__, None)
     _AppointmentProperties_Meta_.HasInvitees = property(get_HasInvitees.__wrapped__, None)
+    _AppointmentProperties_Meta_.Invitees = property(get_Invitees.__wrapped__, None)
     _AppointmentProperties_Meta_.IsCanceledMeeting = property(get_IsCanceledMeeting.__wrapped__, None)
     _AppointmentProperties_Meta_.IsOrganizedByUser = property(get_IsOrganizedByUser.__wrapped__, None)
+    _AppointmentProperties_Meta_.IsResponseRequested = property(get_IsResponseRequested.__wrapped__, None)
+    _AppointmentProperties_Meta_.Location = property(get_Location.__wrapped__, None)
+    _AppointmentProperties_Meta_.OnlineMeetingLink = property(get_OnlineMeetingLink.__wrapped__, None)
+    _AppointmentProperties_Meta_.Organizer = property(get_Organizer.__wrapped__, None)
+    _AppointmentProperties_Meta_.OriginalStartTime = property(get_OriginalStartTime.__wrapped__, None)
     _AppointmentProperties_Meta_.Recurrence = property(get_Recurrence.__wrapped__, None)
+    _AppointmentProperties_Meta_.Reminder = property(get_Reminder.__wrapped__, None)
+    _AppointmentProperties_Meta_.RemoteChangeNumber = property(get_RemoteChangeNumber.__wrapped__, None)
+    _AppointmentProperties_Meta_.ReplyTime = property(get_ReplyTime.__wrapped__, None)
+    _AppointmentProperties_Meta_.Sensitivity = property(get_Sensitivity.__wrapped__, None)
+    _AppointmentProperties_Meta_.StartTime = property(get_StartTime.__wrapped__, None)
+    _AppointmentProperties_Meta_.Subject = property(get_Subject.__wrapped__, None)
     _AppointmentProperties_Meta_.Uri = property(get_Uri.__wrapped__, None)
-    _AppointmentProperties_Meta_.Invitees = property(get_Invitees.__wrapped__, None)
-    _AppointmentProperties_Meta_.DefaultProperties = property(get_DefaultProperties.__wrapped__, None)
+    _AppointmentProperties_Meta_.UserResponse = property(get_UserResponse.__wrapped__, None)
 class AppointmentRecurrence(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Appointments.IAppointmentRecurrence
@@ -628,17 +628,17 @@ class AppointmentRecurrence(ComPtr):
     def put_TimeZone(self: win32more.Windows.ApplicationModel.Appointments.IAppointmentRecurrence2, value: WinRT_String) -> Void: ...
     @winrt_mixinmethod
     def get_CalendarIdentifier(self: win32more.Windows.ApplicationModel.Appointments.IAppointmentRecurrence3) -> WinRT_String: ...
-    Unit = property(get_Unit, put_Unit)
-    Occurrences = property(get_Occurrences, put_Occurrences)
-    Until = property(get_Until, put_Until)
-    Interval = property(get_Interval, put_Interval)
-    DaysOfWeek = property(get_DaysOfWeek, put_DaysOfWeek)
-    WeekOfMonth = property(get_WeekOfMonth, put_WeekOfMonth)
-    Month = property(get_Month, put_Month)
+    CalendarIdentifier = property(get_CalendarIdentifier, None)
     Day = property(get_Day, put_Day)
+    DaysOfWeek = property(get_DaysOfWeek, put_DaysOfWeek)
+    Interval = property(get_Interval, put_Interval)
+    Month = property(get_Month, put_Month)
+    Occurrences = property(get_Occurrences, put_Occurrences)
     RecurrenceType = property(get_RecurrenceType, None)
     TimeZone = property(get_TimeZone, put_TimeZone)
-    CalendarIdentifier = property(get_CalendarIdentifier, None)
+    Unit = property(get_Unit, put_Unit)
+    Until = property(get_Until, put_Until)
+    WeekOfMonth = property(get_WeekOfMonth, put_WeekOfMonth)
 class AppointmentRecurrenceUnit(Int32):  # enum
     Daily = 0
     Weekly = 1
@@ -719,8 +719,8 @@ class AppointmentStoreChange(ComPtr):
     @winrt_mixinmethod
     def get_AppointmentCalendar(self: win32more.Windows.ApplicationModel.Appointments.IAppointmentStoreChange2) -> win32more.Windows.ApplicationModel.Appointments.AppointmentCalendar: ...
     Appointment = property(get_Appointment, None)
-    ChangeType = property(get_ChangeType, None)
     AppointmentCalendar = property(get_AppointmentCalendar, None)
+    ChangeType = property(get_ChangeType, None)
 class AppointmentStoreChangeReader(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Appointments.IAppointmentStoreChangeReader
@@ -863,18 +863,18 @@ class IAppointment(ComPtr):
     def get_Uri(self) -> win32more.Windows.Foundation.Uri: ...
     @winrt_commethod(30)
     def put_Uri(self, value: win32more.Windows.Foundation.Uri) -> Void: ...
-    StartTime = property(get_StartTime, put_StartTime)
-    Duration = property(get_Duration, put_Duration)
-    Location = property(get_Location, put_Location)
-    Subject = property(get_Subject, put_Subject)
-    Details = property(get_Details, put_Details)
-    Reminder = property(get_Reminder, put_Reminder)
-    Organizer = property(get_Organizer, put_Organizer)
-    Invitees = property(get_Invitees, None)
-    Recurrence = property(get_Recurrence, put_Recurrence)
-    BusyStatus = property(get_BusyStatus, put_BusyStatus)
     AllDay = property(get_AllDay, put_AllDay)
+    BusyStatus = property(get_BusyStatus, put_BusyStatus)
+    Details = property(get_Details, put_Details)
+    Duration = property(get_Duration, put_Duration)
+    Invitees = property(get_Invitees, None)
+    Location = property(get_Location, put_Location)
+    Organizer = property(get_Organizer, put_Organizer)
+    Recurrence = property(get_Recurrence, put_Recurrence)
+    Reminder = property(get_Reminder, put_Reminder)
     Sensitivity = property(get_Sensitivity, put_Sensitivity)
+    StartTime = property(get_StartTime, put_StartTime)
+    Subject = property(get_Subject, put_Subject)
     Uri = property(get_Uri, put_Uri)
 class IAppointment2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -920,18 +920,18 @@ class IAppointment2(ComPtr):
     def get_IsOrganizedByUser(self) -> Boolean: ...
     @winrt_commethod(25)
     def put_IsOrganizedByUser(self, value: Boolean) -> Void: ...
-    LocalId = property(get_LocalId, None)
-    CalendarId = property(get_CalendarId, None)
-    RoamingId = property(get_RoamingId, put_RoamingId)
-    OriginalStartTime = property(get_OriginalStartTime, None)
-    IsResponseRequested = property(get_IsResponseRequested, put_IsResponseRequested)
     AllowNewTimeProposal = property(get_AllowNewTimeProposal, put_AllowNewTimeProposal)
-    OnlineMeetingLink = property(get_OnlineMeetingLink, put_OnlineMeetingLink)
-    ReplyTime = property(get_ReplyTime, put_ReplyTime)
-    UserResponse = property(get_UserResponse, put_UserResponse)
+    CalendarId = property(get_CalendarId, None)
     HasInvitees = property(get_HasInvitees, None)
     IsCanceledMeeting = property(get_IsCanceledMeeting, put_IsCanceledMeeting)
     IsOrganizedByUser = property(get_IsOrganizedByUser, put_IsOrganizedByUser)
+    IsResponseRequested = property(get_IsResponseRequested, put_IsResponseRequested)
+    LocalId = property(get_LocalId, None)
+    OnlineMeetingLink = property(get_OnlineMeetingLink, put_OnlineMeetingLink)
+    OriginalStartTime = property(get_OriginalStartTime, None)
+    ReplyTime = property(get_ReplyTime, put_ReplyTime)
+    RoamingId = property(get_RoamingId, put_RoamingId)
+    UserResponse = property(get_UserResponse, put_UserResponse)
 class IAppointment3(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Appointments.IAppointment3'
@@ -947,8 +947,8 @@ class IAppointment3(ComPtr):
     @winrt_commethod(10)
     def put_DetailsKind(self, value: win32more.Windows.ApplicationModel.Appointments.AppointmentDetailsKind) -> Void: ...
     ChangeNumber = property(get_ChangeNumber, None)
-    RemoteChangeNumber = property(get_RemoteChangeNumber, put_RemoteChangeNumber)
     DetailsKind = property(get_DetailsKind, put_DetailsKind)
+    RemoteChangeNumber = property(get_RemoteChangeNumber, put_RemoteChangeNumber)
 class IAppointmentCalendar(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Appointments.IAppointmentCalendar'
@@ -1007,8 +1007,8 @@ class IAppointmentCalendar(ComPtr):
     def SaveAppointmentAsync(self, pAppointment: win32more.Windows.ApplicationModel.Appointments.Appointment) -> win32more.Windows.Foundation.IAsyncAction: ...
     DisplayColor = property(get_DisplayColor, None)
     DisplayName = property(get_DisplayName, put_DisplayName)
-    LocalId = property(get_LocalId, None)
     IsHidden = property(get_IsHidden, None)
+    LocalId = property(get_LocalId, None)
     OtherAppReadAccess = property(get_OtherAppReadAccess, put_OtherAppReadAccess)
     OtherAppWriteAccess = property(get_OtherAppWriteAccess, put_OtherAppWriteAccess)
     SourceDisplayName = property(get_SourceDisplayName, None)
@@ -1067,18 +1067,18 @@ class IAppointmentCalendar2(ComPtr):
     def TryProposeNewTimeForMeetingAsync(self, meeting: win32more.Windows.ApplicationModel.Appointments.Appointment, newStartTime: win32more.Windows.Foundation.DateTime, newDuration: win32more.Windows.Foundation.TimeSpan, subject: WinRT_String, comment: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
     @winrt_commethod(30)
     def TryUpdateMeetingResponseAsync(self, meeting: win32more.Windows.ApplicationModel.Appointments.Appointment, response: win32more.Windows.ApplicationModel.Appointments.AppointmentParticipantResponse, subject: WinRT_String, comment: WinRT_String, sendUpdate: Boolean) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
-    SyncManager = property(get_SyncManager, None)
-    RemoteId = property(get_RemoteId, put_RemoteId)
-    DisplayColor = property(None, put_DisplayColor)
-    IsHidden = property(None, put_IsHidden)
-    UserDataAccountId = property(get_UserDataAccountId, None)
-    CanCreateOrUpdateAppointments = property(get_CanCreateOrUpdateAppointments, put_CanCreateOrUpdateAppointments)
     CanCancelMeetings = property(get_CanCancelMeetings, put_CanCancelMeetings)
+    CanCreateOrUpdateAppointments = property(get_CanCreateOrUpdateAppointments, put_CanCreateOrUpdateAppointments)
     CanForwardMeetings = property(get_CanForwardMeetings, put_CanForwardMeetings)
+    CanNotifyInvitees = property(get_CanNotifyInvitees, put_CanNotifyInvitees)
     CanProposeNewTimeForMeetings = property(get_CanProposeNewTimeForMeetings, put_CanProposeNewTimeForMeetings)
     CanUpdateMeetingResponses = property(get_CanUpdateMeetingResponses, put_CanUpdateMeetingResponses)
-    CanNotifyInvitees = property(get_CanNotifyInvitees, put_CanNotifyInvitees)
+    DisplayColor = property(None, put_DisplayColor)
+    IsHidden = property(None, put_IsHidden)
     MustNofityInvitees = property(get_MustNofityInvitees, put_MustNofityInvitees)
+    RemoteId = property(get_RemoteId, put_RemoteId)
+    SyncManager = property(get_SyncManager, None)
+    UserDataAccountId = property(get_UserDataAccountId, None)
 class IAppointmentCalendar3(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Appointments.IAppointmentCalendar3'
@@ -1101,9 +1101,9 @@ class IAppointmentCalendarSyncManager(ComPtr):
     def add_SyncStatusChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Appointments.AppointmentCalendarSyncManager, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(11)
     def remove_SyncStatusChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    Status = property(get_Status, None)
-    LastSuccessfulSyncTime = property(get_LastSuccessfulSyncTime, None)
     LastAttemptedSyncTime = property(get_LastAttemptedSyncTime, None)
+    LastSuccessfulSyncTime = property(get_LastSuccessfulSyncTime, None)
+    Status = property(get_Status, None)
 class IAppointmentCalendarSyncManager2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Appointments.IAppointmentCalendarSyncManager2'
@@ -1114,9 +1114,9 @@ class IAppointmentCalendarSyncManager2(ComPtr):
     def put_LastSuccessfulSyncTime(self, value: win32more.Windows.Foundation.DateTime) -> Void: ...
     @winrt_commethod(8)
     def put_LastAttemptedSyncTime(self, value: win32more.Windows.Foundation.DateTime) -> Void: ...
-    Status = property(None, put_Status)
-    LastSuccessfulSyncTime = property(None, put_LastSuccessfulSyncTime)
     LastAttemptedSyncTime = property(None, put_LastAttemptedSyncTime)
+    LastSuccessfulSyncTime = property(None, put_LastSuccessfulSyncTime)
+    Status = property(None, put_Status)
 class IAppointmentConflictResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Appointments.IAppointmentConflictResult'
@@ -1125,8 +1125,8 @@ class IAppointmentConflictResult(ComPtr):
     def get_Type(self) -> win32more.Windows.ApplicationModel.Appointments.AppointmentConflictType: ...
     @winrt_commethod(7)
     def get_Date(self) -> win32more.Windows.Foundation.DateTime: ...
-    Type = property(get_Type, None)
     Date = property(get_Date, None)
+    Type = property(get_Type, None)
 class IAppointmentException(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Appointments.IAppointmentException'
@@ -1152,8 +1152,8 @@ class IAppointmentInvitee(ComPtr):
     def get_Response(self) -> win32more.Windows.ApplicationModel.Appointments.AppointmentParticipantResponse: ...
     @winrt_commethod(9)
     def put_Response(self, value: win32more.Windows.ApplicationModel.Appointments.AppointmentParticipantResponse) -> Void: ...
-    Role = property(get_Role, put_Role)
     Response = property(get_Response, put_Response)
+    Role = property(get_Role, put_Role)
 class IAppointmentManagerForUser(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Appointments.IAppointmentManagerForUser'
@@ -1239,8 +1239,8 @@ class IAppointmentParticipant(ComPtr):
     def get_Address(self) -> WinRT_String: ...
     @winrt_commethod(9)
     def put_Address(self, value: WinRT_String) -> Void: ...
-    DisplayName = property(get_DisplayName, put_DisplayName)
     Address = property(get_Address, put_Address)
+    DisplayName = property(get_DisplayName, put_DisplayName)
 class IAppointmentPropertiesStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Appointments.IAppointmentPropertiesStatics'
@@ -1291,29 +1291,29 @@ class IAppointmentPropertiesStatics(ComPtr):
     def get_Invitees(self) -> WinRT_String: ...
     @winrt_commethod(28)
     def get_DefaultProperties(self) -> win32more.Windows.Foundation.Collections.IVector[WinRT_String]: ...
-    Subject = property(get_Subject, None)
-    Location = property(get_Location, None)
-    StartTime = property(get_StartTime, None)
-    Duration = property(get_Duration, None)
-    Reminder = property(get_Reminder, None)
-    BusyStatus = property(get_BusyStatus, None)
-    Sensitivity = property(get_Sensitivity, None)
-    OriginalStartTime = property(get_OriginalStartTime, None)
-    IsResponseRequested = property(get_IsResponseRequested, None)
-    AllowNewTimeProposal = property(get_AllowNewTimeProposal, None)
     AllDay = property(get_AllDay, None)
+    AllowNewTimeProposal = property(get_AllowNewTimeProposal, None)
+    BusyStatus = property(get_BusyStatus, None)
+    DefaultProperties = property(get_DefaultProperties, None)
     Details = property(get_Details, None)
-    OnlineMeetingLink = property(get_OnlineMeetingLink, None)
-    ReplyTime = property(get_ReplyTime, None)
-    Organizer = property(get_Organizer, None)
-    UserResponse = property(get_UserResponse, None)
+    Duration = property(get_Duration, None)
     HasInvitees = property(get_HasInvitees, None)
+    Invitees = property(get_Invitees, None)
     IsCanceledMeeting = property(get_IsCanceledMeeting, None)
     IsOrganizedByUser = property(get_IsOrganizedByUser, None)
+    IsResponseRequested = property(get_IsResponseRequested, None)
+    Location = property(get_Location, None)
+    OnlineMeetingLink = property(get_OnlineMeetingLink, None)
+    Organizer = property(get_Organizer, None)
+    OriginalStartTime = property(get_OriginalStartTime, None)
     Recurrence = property(get_Recurrence, None)
+    Reminder = property(get_Reminder, None)
+    ReplyTime = property(get_ReplyTime, None)
+    Sensitivity = property(get_Sensitivity, None)
+    StartTime = property(get_StartTime, None)
+    Subject = property(get_Subject, None)
     Uri = property(get_Uri, None)
-    Invitees = property(get_Invitees, None)
-    DefaultProperties = property(get_DefaultProperties, None)
+    UserResponse = property(get_UserResponse, None)
 class IAppointmentPropertiesStatics2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Appointments.IAppointmentPropertiesStatics2'
@@ -1325,8 +1325,8 @@ class IAppointmentPropertiesStatics2(ComPtr):
     @winrt_commethod(8)
     def get_DetailsKind(self) -> WinRT_String: ...
     ChangeNumber = property(get_ChangeNumber, None)
-    RemoteChangeNumber = property(get_RemoteChangeNumber, None)
     DetailsKind = property(get_DetailsKind, None)
+    RemoteChangeNumber = property(get_RemoteChangeNumber, None)
 class IAppointmentRecurrence(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Appointments.IAppointmentRecurrence'
@@ -1363,14 +1363,14 @@ class IAppointmentRecurrence(ComPtr):
     def get_Day(self) -> UInt32: ...
     @winrt_commethod(21)
     def put_Day(self, value: UInt32) -> Void: ...
-    Unit = property(get_Unit, put_Unit)
-    Occurrences = property(get_Occurrences, put_Occurrences)
-    Until = property(get_Until, put_Until)
-    Interval = property(get_Interval, put_Interval)
-    DaysOfWeek = property(get_DaysOfWeek, put_DaysOfWeek)
-    WeekOfMonth = property(get_WeekOfMonth, put_WeekOfMonth)
-    Month = property(get_Month, put_Month)
     Day = property(get_Day, put_Day)
+    DaysOfWeek = property(get_DaysOfWeek, put_DaysOfWeek)
+    Interval = property(get_Interval, put_Interval)
+    Month = property(get_Month, put_Month)
+    Occurrences = property(get_Occurrences, put_Occurrences)
+    Unit = property(get_Unit, put_Unit)
+    Until = property(get_Until, put_Until)
+    WeekOfMonth = property(get_WeekOfMonth, put_WeekOfMonth)
 class IAppointmentRecurrence2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Appointments.IAppointmentRecurrence2'

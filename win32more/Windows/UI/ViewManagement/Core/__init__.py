@@ -32,9 +32,9 @@ class CoreFrameworkInputViewAnimationStartingEventArgs(ComPtr):
     def get_FrameworkAnimationRecommended(self: win32more.Windows.UI.ViewManagement.Core.ICoreFrameworkInputViewAnimationStartingEventArgs) -> Boolean: ...
     @winrt_mixinmethod
     def get_AnimationDuration(self: win32more.Windows.UI.ViewManagement.Core.ICoreFrameworkInputViewAnimationStartingEventArgs) -> win32more.Windows.Foundation.TimeSpan: ...
-    Occlusions = property(get_Occlusions, None)
-    FrameworkAnimationRecommended = property(get_FrameworkAnimationRecommended, None)
     AnimationDuration = property(get_AnimationDuration, None)
+    FrameworkAnimationRecommended = property(get_FrameworkAnimationRecommended, None)
+    Occlusions = property(get_Occlusions, None)
 class CoreFrameworkInputViewOcclusionsChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.ViewManagement.Core.ICoreFrameworkInputViewOcclusionsChangedEventArgs
@@ -43,8 +43,8 @@ class CoreFrameworkInputViewOcclusionsChangedEventArgs(ComPtr):
     def get_Occlusions(self: win32more.Windows.UI.ViewManagement.Core.ICoreFrameworkInputViewOcclusionsChangedEventArgs) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.UI.ViewManagement.Core.CoreInputViewOcclusion]: ...
     @winrt_mixinmethod
     def get_Handled(self: win32more.Windows.UI.ViewManagement.Core.ICoreFrameworkInputViewOcclusionsChangedEventArgs) -> Boolean: ...
-    Occlusions = property(get_Occlusions, None)
     Handled = property(get_Handled, None)
+    Occlusions = property(get_Occlusions, None)
 class CoreInputView(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.ViewManagement.Core.ICoreInputView
@@ -109,9 +109,9 @@ class CoreInputViewAnimationStartingEventArgs(ComPtr):
     def put_Handled(self: win32more.Windows.UI.ViewManagement.Core.ICoreInputViewAnimationStartingEventArgs, value: Boolean) -> Void: ...
     @winrt_mixinmethod
     def get_AnimationDuration(self: win32more.Windows.UI.ViewManagement.Core.ICoreInputViewAnimationStartingEventArgs) -> win32more.Windows.Foundation.TimeSpan: ...
-    Occlusions = property(get_Occlusions, None)
-    Handled = property(get_Handled, put_Handled)
     AnimationDuration = property(get_AnimationDuration, None)
+    Handled = property(get_Handled, put_Handled)
+    Occlusions = property(get_Occlusions, None)
 class CoreInputViewHidingEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.ViewManagement.Core.ICoreInputViewHidingEventArgs
@@ -150,8 +150,8 @@ class CoreInputViewOcclusionsChangedEventArgs(ComPtr):
     def get_Handled(self: win32more.Windows.UI.ViewManagement.Core.ICoreInputViewOcclusionsChangedEventArgs) -> Boolean: ...
     @winrt_mixinmethod
     def put_Handled(self: win32more.Windows.UI.ViewManagement.Core.ICoreInputViewOcclusionsChangedEventArgs, value: Boolean) -> Void: ...
-    Occlusions = property(get_Occlusions, None)
     Handled = property(get_Handled, put_Handled)
+    Occlusions = property(get_Occlusions, None)
 class CoreInputViewShowingEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.ViewManagement.Core.ICoreInputViewShowingEventArgs
@@ -174,10 +174,10 @@ class CoreInputViewTransferringXYFocusEventArgs(ComPtr):
     def put_KeepPrimaryViewVisible(self: win32more.Windows.UI.ViewManagement.Core.ICoreInputViewTransferringXYFocusEventArgs, value: Boolean) -> Void: ...
     @winrt_mixinmethod
     def get_KeepPrimaryViewVisible(self: win32more.Windows.UI.ViewManagement.Core.ICoreInputViewTransferringXYFocusEventArgs) -> Boolean: ...
-    Origin = property(get_Origin, None)
     Direction = property(get_Direction, None)
-    TransferHandled = property(get_TransferHandled, put_TransferHandled)
     KeepPrimaryViewVisible = property(get_KeepPrimaryViewVisible, put_KeepPrimaryViewVisible)
+    Origin = property(get_Origin, None)
+    TransferHandled = property(get_TransferHandled, put_TransferHandled)
 class CoreInputViewXYFocusTransferDirection(Int32):  # enum
     Up = 0
     Right = 1
@@ -205,9 +205,9 @@ class ICoreFrameworkInputViewAnimationStartingEventArgs(ComPtr):
     def get_FrameworkAnimationRecommended(self) -> Boolean: ...
     @winrt_commethod(8)
     def get_AnimationDuration(self) -> win32more.Windows.Foundation.TimeSpan: ...
-    Occlusions = property(get_Occlusions, None)
-    FrameworkAnimationRecommended = property(get_FrameworkAnimationRecommended, None)
     AnimationDuration = property(get_AnimationDuration, None)
+    FrameworkAnimationRecommended = property(get_FrameworkAnimationRecommended, None)
+    Occlusions = property(get_Occlusions, None)
 class ICoreFrameworkInputViewOcclusionsChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.ViewManagement.Core.ICoreFrameworkInputViewOcclusionsChangedEventArgs'
@@ -216,8 +216,8 @@ class ICoreFrameworkInputViewOcclusionsChangedEventArgs(ComPtr):
     def get_Occlusions(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.UI.ViewManagement.Core.CoreInputViewOcclusion]: ...
     @winrt_commethod(7)
     def get_Handled(self) -> Boolean: ...
-    Occlusions = property(get_Occlusions, None)
     Handled = property(get_Handled, None)
+    Occlusions = property(get_Occlusions, None)
 class ICoreFrameworkInputViewStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.ViewManagement.Core.ICoreFrameworkInputViewStatics'
@@ -302,9 +302,9 @@ class ICoreInputViewAnimationStartingEventArgs(ComPtr):
     def put_Handled(self, value: Boolean) -> Void: ...
     @winrt_commethod(9)
     def get_AnimationDuration(self) -> win32more.Windows.Foundation.TimeSpan: ...
-    Occlusions = property(get_Occlusions, None)
-    Handled = property(get_Handled, put_Handled)
     AnimationDuration = property(get_AnimationDuration, None)
+    Handled = property(get_Handled, put_Handled)
+    Occlusions = property(get_Occlusions, None)
 class ICoreInputViewHidingEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.ViewManagement.Core.ICoreInputViewHidingEventArgs'
@@ -331,8 +331,8 @@ class ICoreInputViewOcclusionsChangedEventArgs(ComPtr):
     def get_Handled(self) -> Boolean: ...
     @winrt_commethod(8)
     def put_Handled(self, value: Boolean) -> Void: ...
-    Occlusions = property(get_Occlusions, None)
     Handled = property(get_Handled, put_Handled)
+    Occlusions = property(get_Occlusions, None)
 class ICoreInputViewShowingEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.ViewManagement.Core.ICoreInputViewShowingEventArgs'
@@ -367,10 +367,10 @@ class ICoreInputViewTransferringXYFocusEventArgs(ComPtr):
     def put_KeepPrimaryViewVisible(self, value: Boolean) -> Void: ...
     @winrt_commethod(11)
     def get_KeepPrimaryViewVisible(self) -> Boolean: ...
-    Origin = property(get_Origin, None)
     Direction = property(get_Direction, None)
-    TransferHandled = property(get_TransferHandled, put_TransferHandled)
     KeepPrimaryViewVisible = property(get_KeepPrimaryViewVisible, put_KeepPrimaryViewVisible)
+    Origin = property(get_Origin, None)
+    TransferHandled = property(get_TransferHandled, put_TransferHandled)
 class IUISettingsController(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.ViewManagement.Core.IUISettingsController'

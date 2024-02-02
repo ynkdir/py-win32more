@@ -118,27 +118,27 @@ class BitmapDecoder(ComPtr, metaclass=_BitmapDecoder_Meta_):
     def CreateAsync(cls: win32more.Windows.Graphics.Imaging.IBitmapDecoderStatics, stream: win32more.Windows.Storage.Streams.IRandomAccessStream) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Graphics.Imaging.BitmapDecoder]: ...
     @winrt_classmethod
     def CreateWithIdAsync(cls: win32more.Windows.Graphics.Imaging.IBitmapDecoderStatics, decoderId: Guid, stream: win32more.Windows.Storage.Streams.IRandomAccessStream) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Graphics.Imaging.BitmapDecoder]: ...
-    BitmapContainerProperties = property(get_BitmapContainerProperties, None)
-    DecoderInformation = property(get_DecoderInformation, None)
-    FrameCount = property(get_FrameCount, None)
-    BitmapProperties = property(get_BitmapProperties, None)
-    BitmapPixelFormat = property(get_BitmapPixelFormat, None)
     BitmapAlphaMode = property(get_BitmapAlphaMode, None)
+    BitmapContainerProperties = property(get_BitmapContainerProperties, None)
+    BitmapPixelFormat = property(get_BitmapPixelFormat, None)
+    BitmapProperties = property(get_BitmapProperties, None)
+    DecoderInformation = property(get_DecoderInformation, None)
     DpiX = property(get_DpiX, None)
     DpiY = property(get_DpiY, None)
-    PixelWidth = property(get_PixelWidth, None)
-    PixelHeight = property(get_PixelHeight, None)
-    OrientedPixelWidth = property(get_OrientedPixelWidth, None)
+    FrameCount = property(get_FrameCount, None)
     OrientedPixelHeight = property(get_OrientedPixelHeight, None)
-    _BitmapDecoder_Meta_.HeifDecoderId = property(get_HeifDecoderId.__wrapped__, None)
-    _BitmapDecoder_Meta_.WebpDecoderId = property(get_WebpDecoderId.__wrapped__, None)
+    OrientedPixelWidth = property(get_OrientedPixelWidth, None)
+    PixelHeight = property(get_PixelHeight, None)
+    PixelWidth = property(get_PixelWidth, None)
     _BitmapDecoder_Meta_.BmpDecoderId = property(get_BmpDecoderId.__wrapped__, None)
+    _BitmapDecoder_Meta_.GifDecoderId = property(get_GifDecoderId.__wrapped__, None)
+    _BitmapDecoder_Meta_.HeifDecoderId = property(get_HeifDecoderId.__wrapped__, None)
+    _BitmapDecoder_Meta_.IcoDecoderId = property(get_IcoDecoderId.__wrapped__, None)
     _BitmapDecoder_Meta_.JpegDecoderId = property(get_JpegDecoderId.__wrapped__, None)
+    _BitmapDecoder_Meta_.JpegXRDecoderId = property(get_JpegXRDecoderId.__wrapped__, None)
     _BitmapDecoder_Meta_.PngDecoderId = property(get_PngDecoderId.__wrapped__, None)
     _BitmapDecoder_Meta_.TiffDecoderId = property(get_TiffDecoderId.__wrapped__, None)
-    _BitmapDecoder_Meta_.GifDecoderId = property(get_GifDecoderId.__wrapped__, None)
-    _BitmapDecoder_Meta_.JpegXRDecoderId = property(get_JpegXRDecoderId.__wrapped__, None)
-    _BitmapDecoder_Meta_.IcoDecoderId = property(get_IcoDecoderId.__wrapped__, None)
+    _BitmapDecoder_Meta_.WebpDecoderId = property(get_WebpDecoderId.__wrapped__, None)
 class _BitmapEncoder_Meta_(ComPtr.__class__):
     pass
 class BitmapEncoder(ComPtr, metaclass=_BitmapEncoder_Meta_):
@@ -199,20 +199,20 @@ class BitmapEncoder(ComPtr, metaclass=_BitmapEncoder_Meta_):
     def CreateForTranscodingAsync(cls: win32more.Windows.Graphics.Imaging.IBitmapEncoderStatics, stream: win32more.Windows.Storage.Streams.IRandomAccessStream, bitmapDecoder: win32more.Windows.Graphics.Imaging.BitmapDecoder) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Graphics.Imaging.BitmapEncoder]: ...
     @winrt_classmethod
     def CreateForInPlacePropertyEncodingAsync(cls: win32more.Windows.Graphics.Imaging.IBitmapEncoderStatics, bitmapDecoder: win32more.Windows.Graphics.Imaging.BitmapDecoder) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Graphics.Imaging.BitmapEncoder]: ...
-    EncoderInformation = property(get_EncoderInformation, None)
-    BitmapProperties = property(get_BitmapProperties, None)
     BitmapContainerProperties = property(get_BitmapContainerProperties, None)
-    IsThumbnailGenerated = property(get_IsThumbnailGenerated, put_IsThumbnailGenerated)
-    GeneratedThumbnailWidth = property(get_GeneratedThumbnailWidth, put_GeneratedThumbnailWidth)
-    GeneratedThumbnailHeight = property(get_GeneratedThumbnailHeight, put_GeneratedThumbnailHeight)
+    BitmapProperties = property(get_BitmapProperties, None)
     BitmapTransform = property(get_BitmapTransform, None)
-    _BitmapEncoder_Meta_.HeifEncoderId = property(get_HeifEncoderId.__wrapped__, None)
+    EncoderInformation = property(get_EncoderInformation, None)
+    GeneratedThumbnailHeight = property(get_GeneratedThumbnailHeight, put_GeneratedThumbnailHeight)
+    GeneratedThumbnailWidth = property(get_GeneratedThumbnailWidth, put_GeneratedThumbnailWidth)
+    IsThumbnailGenerated = property(get_IsThumbnailGenerated, put_IsThumbnailGenerated)
     _BitmapEncoder_Meta_.BmpEncoderId = property(get_BmpEncoderId.__wrapped__, None)
+    _BitmapEncoder_Meta_.GifEncoderId = property(get_GifEncoderId.__wrapped__, None)
+    _BitmapEncoder_Meta_.HeifEncoderId = property(get_HeifEncoderId.__wrapped__, None)
     _BitmapEncoder_Meta_.JpegEncoderId = property(get_JpegEncoderId.__wrapped__, None)
+    _BitmapEncoder_Meta_.JpegXREncoderId = property(get_JpegXREncoderId.__wrapped__, None)
     _BitmapEncoder_Meta_.PngEncoderId = property(get_PngEncoderId.__wrapped__, None)
     _BitmapEncoder_Meta_.TiffEncoderId = property(get_TiffEncoderId.__wrapped__, None)
-    _BitmapEncoder_Meta_.GifEncoderId = property(get_GifEncoderId.__wrapped__, None)
-    _BitmapEncoder_Meta_.JpegXREncoderId = property(get_JpegXREncoderId.__wrapped__, None)
 class BitmapFlip(Int32):  # enum
     None_ = 0
     Horizontal = 1
@@ -251,15 +251,15 @@ class BitmapFrame(ComPtr):
     def GetSoftwareBitmapConvertedAsync(self: win32more.Windows.Graphics.Imaging.IBitmapFrameWithSoftwareBitmap, pixelFormat: win32more.Windows.Graphics.Imaging.BitmapPixelFormat, alphaMode: win32more.Windows.Graphics.Imaging.BitmapAlphaMode) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Graphics.Imaging.SoftwareBitmap]: ...
     @winrt_mixinmethod
     def GetSoftwareBitmapTransformedAsync(self: win32more.Windows.Graphics.Imaging.IBitmapFrameWithSoftwareBitmap, pixelFormat: win32more.Windows.Graphics.Imaging.BitmapPixelFormat, alphaMode: win32more.Windows.Graphics.Imaging.BitmapAlphaMode, transform: win32more.Windows.Graphics.Imaging.BitmapTransform, exifOrientationMode: win32more.Windows.Graphics.Imaging.ExifOrientationMode, colorManagementMode: win32more.Windows.Graphics.Imaging.ColorManagementMode) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Graphics.Imaging.SoftwareBitmap]: ...
-    BitmapProperties = property(get_BitmapProperties, None)
-    BitmapPixelFormat = property(get_BitmapPixelFormat, None)
     BitmapAlphaMode = property(get_BitmapAlphaMode, None)
+    BitmapPixelFormat = property(get_BitmapPixelFormat, None)
+    BitmapProperties = property(get_BitmapProperties, None)
     DpiX = property(get_DpiX, None)
     DpiY = property(get_DpiY, None)
-    PixelWidth = property(get_PixelWidth, None)
-    PixelHeight = property(get_PixelHeight, None)
-    OrientedPixelWidth = property(get_OrientedPixelWidth, None)
     OrientedPixelHeight = property(get_OrientedPixelHeight, None)
+    OrientedPixelWidth = property(get_OrientedPixelWidth, None)
+    PixelHeight = property(get_PixelHeight, None)
+    PixelWidth = property(get_PixelWidth, None)
 class BitmapInterpolationMode(Int32):  # enum
     NearestNeighbor = 0
     Linear = 1
@@ -369,12 +369,12 @@ class BitmapTransform(ComPtr):
     def get_Bounds(self: win32more.Windows.Graphics.Imaging.IBitmapTransform) -> win32more.Windows.Graphics.Imaging.BitmapBounds: ...
     @winrt_mixinmethod
     def put_Bounds(self: win32more.Windows.Graphics.Imaging.IBitmapTransform, value: win32more.Windows.Graphics.Imaging.BitmapBounds) -> Void: ...
-    ScaledWidth = property(get_ScaledWidth, put_ScaledWidth)
-    ScaledHeight = property(get_ScaledHeight, put_ScaledHeight)
-    InterpolationMode = property(get_InterpolationMode, put_InterpolationMode)
-    Flip = property(get_Flip, put_Flip)
-    Rotation = property(get_Rotation, put_Rotation)
     Bounds = property(get_Bounds, put_Bounds)
+    Flip = property(get_Flip, put_Flip)
+    InterpolationMode = property(get_InterpolationMode, put_InterpolationMode)
+    Rotation = property(get_Rotation, put_Rotation)
+    ScaledHeight = property(get_ScaledHeight, put_ScaledHeight)
+    ScaledWidth = property(get_ScaledWidth, put_ScaledWidth)
 class BitmapTypedValue(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Imaging.IBitmapTypedValue
@@ -392,8 +392,8 @@ class BitmapTypedValue(ComPtr):
     def get_Value(self: win32more.Windows.Graphics.Imaging.IBitmapTypedValue) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_mixinmethod
     def get_Type(self: win32more.Windows.Graphics.Imaging.IBitmapTypedValue) -> win32more.Windows.Foundation.PropertyType: ...
-    Value = property(get_Value, None)
     Type = property(get_Type, None)
+    Value = property(get_Value, None)
 class ColorManagementMode(Int32):  # enum
     DoNotColorManage = 0
     ColorManageToSRgb = 1
@@ -466,12 +466,12 @@ class IBitmapDecoderStatics(ComPtr):
     @winrt_commethod(15)
     def CreateWithIdAsync(self, decoderId: Guid, stream: win32more.Windows.Storage.Streams.IRandomAccessStream) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Graphics.Imaging.BitmapDecoder]: ...
     BmpDecoderId = property(get_BmpDecoderId, None)
+    GifDecoderId = property(get_GifDecoderId, None)
+    IcoDecoderId = property(get_IcoDecoderId, None)
     JpegDecoderId = property(get_JpegDecoderId, None)
+    JpegXRDecoderId = property(get_JpegXRDecoderId, None)
     PngDecoderId = property(get_PngDecoderId, None)
     TiffDecoderId = property(get_TiffDecoderId, None)
-    GifDecoderId = property(get_GifDecoderId, None)
-    JpegXRDecoderId = property(get_JpegXRDecoderId, None)
-    IcoDecoderId = property(get_IcoDecoderId, None)
 class IBitmapDecoderStatics2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Imaging.IBitmapDecoderStatics2'
@@ -514,13 +514,13 @@ class IBitmapEncoder(ComPtr):
     def GoToNextFrameWithEncodingOptionsAsync(self, encodingOptions: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, win32more.Windows.Graphics.Imaging.BitmapTypedValue]]) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(19)
     def FlushAsync(self) -> win32more.Windows.Foundation.IAsyncAction: ...
-    EncoderInformation = property(get_EncoderInformation, None)
-    BitmapProperties = property(get_BitmapProperties, None)
     BitmapContainerProperties = property(get_BitmapContainerProperties, None)
-    IsThumbnailGenerated = property(get_IsThumbnailGenerated, put_IsThumbnailGenerated)
-    GeneratedThumbnailWidth = property(get_GeneratedThumbnailWidth, put_GeneratedThumbnailWidth)
-    GeneratedThumbnailHeight = property(get_GeneratedThumbnailHeight, put_GeneratedThumbnailHeight)
+    BitmapProperties = property(get_BitmapProperties, None)
     BitmapTransform = property(get_BitmapTransform, None)
+    EncoderInformation = property(get_EncoderInformation, None)
+    GeneratedThumbnailHeight = property(get_GeneratedThumbnailHeight, put_GeneratedThumbnailHeight)
+    GeneratedThumbnailWidth = property(get_GeneratedThumbnailWidth, put_GeneratedThumbnailWidth)
+    IsThumbnailGenerated = property(get_IsThumbnailGenerated, put_IsThumbnailGenerated)
 class IBitmapEncoderStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Imaging.IBitmapEncoderStatics'
@@ -548,11 +548,11 @@ class IBitmapEncoderStatics(ComPtr):
     @winrt_commethod(16)
     def CreateForInPlacePropertyEncodingAsync(self, bitmapDecoder: win32more.Windows.Graphics.Imaging.BitmapDecoder) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Graphics.Imaging.BitmapEncoder]: ...
     BmpEncoderId = property(get_BmpEncoderId, None)
+    GifEncoderId = property(get_GifEncoderId, None)
     JpegEncoderId = property(get_JpegEncoderId, None)
+    JpegXREncoderId = property(get_JpegXREncoderId, None)
     PngEncoderId = property(get_PngEncoderId, None)
     TiffEncoderId = property(get_TiffEncoderId, None)
-    GifEncoderId = property(get_GifEncoderId, None)
-    JpegXREncoderId = property(get_JpegXREncoderId, None)
 class IBitmapEncoderStatics2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Imaging.IBitmapEncoderStatics2'
@@ -594,15 +594,15 @@ class IBitmapFrame(ComPtr):
     def GetPixelDataAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Graphics.Imaging.PixelDataProvider]: ...
     @winrt_commethod(17)
     def GetPixelDataTransformedAsync(self, pixelFormat: win32more.Windows.Graphics.Imaging.BitmapPixelFormat, alphaMode: win32more.Windows.Graphics.Imaging.BitmapAlphaMode, transform: win32more.Windows.Graphics.Imaging.BitmapTransform, exifOrientationMode: win32more.Windows.Graphics.Imaging.ExifOrientationMode, colorManagementMode: win32more.Windows.Graphics.Imaging.ColorManagementMode) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Graphics.Imaging.PixelDataProvider]: ...
-    BitmapProperties = property(get_BitmapProperties, None)
-    BitmapPixelFormat = property(get_BitmapPixelFormat, None)
     BitmapAlphaMode = property(get_BitmapAlphaMode, None)
+    BitmapPixelFormat = property(get_BitmapPixelFormat, None)
+    BitmapProperties = property(get_BitmapProperties, None)
     DpiX = property(get_DpiX, None)
     DpiY = property(get_DpiY, None)
-    PixelWidth = property(get_PixelWidth, None)
-    PixelHeight = property(get_PixelHeight, None)
-    OrientedPixelWidth = property(get_OrientedPixelWidth, None)
     OrientedPixelHeight = property(get_OrientedPixelHeight, None)
+    OrientedPixelWidth = property(get_OrientedPixelWidth, None)
+    PixelHeight = property(get_PixelHeight, None)
+    PixelWidth = property(get_PixelWidth, None)
 class IBitmapFrameWithSoftwareBitmap(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Imaging.IBitmapFrameWithSoftwareBitmap'
@@ -653,12 +653,12 @@ class IBitmapTransform(ComPtr):
     def get_Bounds(self) -> win32more.Windows.Graphics.Imaging.BitmapBounds: ...
     @winrt_commethod(17)
     def put_Bounds(self, value: win32more.Windows.Graphics.Imaging.BitmapBounds) -> Void: ...
-    ScaledWidth = property(get_ScaledWidth, put_ScaledWidth)
-    ScaledHeight = property(get_ScaledHeight, put_ScaledHeight)
-    InterpolationMode = property(get_InterpolationMode, put_InterpolationMode)
-    Flip = property(get_Flip, put_Flip)
-    Rotation = property(get_Rotation, put_Rotation)
     Bounds = property(get_Bounds, put_Bounds)
+    Flip = property(get_Flip, put_Flip)
+    InterpolationMode = property(get_InterpolationMode, put_InterpolationMode)
+    Rotation = property(get_Rotation, put_Rotation)
+    ScaledHeight = property(get_ScaledHeight, put_ScaledHeight)
+    ScaledWidth = property(get_ScaledWidth, put_ScaledWidth)
 class IBitmapTypedValue(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Imaging.IBitmapTypedValue'
@@ -667,8 +667,8 @@ class IBitmapTypedValue(ComPtr):
     def get_Value(self) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_commethod(7)
     def get_Type(self) -> win32more.Windows.Foundation.PropertyType: ...
-    Value = property(get_Value, None)
     Type = property(get_Type, None)
+    Value = property(get_Value, None)
 class IBitmapTypedValueFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Imaging.IBitmapTypedValueFactory'
@@ -713,13 +713,13 @@ class ISoftwareBitmap(ComPtr):
     def CopyToBuffer(self, buffer: win32more.Windows.Storage.Streams.IBuffer) -> Void: ...
     @winrt_commethod(19)
     def GetReadOnlyView(self) -> win32more.Windows.Graphics.Imaging.SoftwareBitmap: ...
-    BitmapPixelFormat = property(get_BitmapPixelFormat, None)
     BitmapAlphaMode = property(get_BitmapAlphaMode, None)
-    PixelWidth = property(get_PixelWidth, None)
-    PixelHeight = property(get_PixelHeight, None)
-    IsReadOnly = property(get_IsReadOnly, None)
+    BitmapPixelFormat = property(get_BitmapPixelFormat, None)
     DpiX = property(get_DpiX, put_DpiX)
     DpiY = property(get_DpiY, put_DpiY)
+    IsReadOnly = property(get_IsReadOnly, None)
+    PixelHeight = property(get_PixelHeight, None)
+    PixelWidth = property(get_PixelWidth, None)
 class ISoftwareBitmapFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Imaging.ISoftwareBitmapFactory'
@@ -778,11 +778,11 @@ class ImageStream(ComPtr):
     def FlushAsync(self: win32more.Windows.Storage.Streams.IOutputStream) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
     @winrt_mixinmethod
     def get_ContentType(self: win32more.Windows.Storage.Streams.IContentTypeProvider) -> WinRT_String: ...
-    Size = property(get_Size, put_Size)
-    Position = property(get_Position, None)
     CanRead = property(get_CanRead, None)
     CanWrite = property(get_CanWrite, None)
     ContentType = property(get_ContentType, None)
+    Position = property(get_Position, None)
+    Size = property(get_Size, put_Size)
 class JpegSubsamplingMode(Int32):  # enum
     Default = 0
     Y4Cb2Cr0 = 1
@@ -863,13 +863,13 @@ class SoftwareBitmap(ComPtr):
     def CreateCopyFromSurfaceAsync(cls: win32more.Windows.Graphics.Imaging.ISoftwareBitmapStatics, surface: win32more.Windows.Graphics.DirectX.Direct3D11.IDirect3DSurface) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Graphics.Imaging.SoftwareBitmap]: ...
     @winrt_classmethod
     def CreateCopyWithAlphaFromSurfaceAsync(cls: win32more.Windows.Graphics.Imaging.ISoftwareBitmapStatics, surface: win32more.Windows.Graphics.DirectX.Direct3D11.IDirect3DSurface, alpha: win32more.Windows.Graphics.Imaging.BitmapAlphaMode) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Graphics.Imaging.SoftwareBitmap]: ...
-    BitmapPixelFormat = property(get_BitmapPixelFormat, None)
     BitmapAlphaMode = property(get_BitmapAlphaMode, None)
-    PixelWidth = property(get_PixelWidth, None)
-    PixelHeight = property(get_PixelHeight, None)
-    IsReadOnly = property(get_IsReadOnly, None)
+    BitmapPixelFormat = property(get_BitmapPixelFormat, None)
     DpiX = property(get_DpiX, put_DpiX)
     DpiY = property(get_DpiY, put_DpiY)
+    IsReadOnly = property(get_IsReadOnly, None)
+    PixelHeight = property(get_PixelHeight, None)
+    PixelWidth = property(get_PixelWidth, None)
 class TiffCompressionMode(Int32):  # enum
     Automatic = 0
     None_ = 1

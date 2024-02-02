@@ -146,11 +146,11 @@ class AppServiceTriggerDetails(ComPtr):
     def CheckCallerForCapabilityAsync(self: win32more.Windows.ApplicationModel.AppService.IAppServiceTriggerDetails3, capabilityName: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
     @winrt_mixinmethod
     def get_CallerRemoteConnectionToken(self: win32more.Windows.ApplicationModel.AppService.IAppServiceTriggerDetails4) -> WinRT_String: ...
-    Name = property(get_Name, None)
-    CallerPackageFamilyName = property(get_CallerPackageFamilyName, None)
     AppServiceConnection = property(get_AppServiceConnection, None)
-    IsRemoteSystemConnection = property(get_IsRemoteSystemConnection, None)
+    CallerPackageFamilyName = property(get_CallerPackageFamilyName, None)
     CallerRemoteConnectionToken = property(get_CallerRemoteConnectionToken, None)
+    IsRemoteSystemConnection = property(get_IsRemoteSystemConnection, None)
+    Name = property(get_Name, None)
 class IAppServiceCatalogStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.AppService.IAppServiceCatalogStatics'
@@ -251,9 +251,9 @@ class IAppServiceTriggerDetails(ComPtr):
     def get_CallerPackageFamilyName(self) -> WinRT_String: ...
     @winrt_commethod(8)
     def get_AppServiceConnection(self) -> win32more.Windows.ApplicationModel.AppService.AppServiceConnection: ...
-    Name = property(get_Name, None)
-    CallerPackageFamilyName = property(get_CallerPackageFamilyName, None)
     AppServiceConnection = property(get_AppServiceConnection, None)
+    CallerPackageFamilyName = property(get_CallerPackageFamilyName, None)
+    Name = property(get_Name, None)
 class IAppServiceTriggerDetails2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.AppService.IAppServiceTriggerDetails2'

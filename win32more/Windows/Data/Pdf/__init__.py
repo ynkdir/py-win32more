@@ -17,8 +17,8 @@ class IPdfDocument(ComPtr):
     def get_PageCount(self) -> UInt32: ...
     @winrt_commethod(8)
     def get_IsPasswordProtected(self) -> Boolean: ...
-    PageCount = property(get_PageCount, None)
     IsPasswordProtected = property(get_IsPasswordProtected, None)
+    PageCount = property(get_PageCount, None)
 class IPdfDocumentStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Data.Pdf.IPdfDocumentStatics'
@@ -51,11 +51,11 @@ class IPdfPage(ComPtr):
     def get_Rotation(self) -> win32more.Windows.Data.Pdf.PdfPageRotation: ...
     @winrt_commethod(13)
     def get_PreferredZoom(self) -> Single: ...
-    Index = property(get_Index, None)
-    Size = property(get_Size, None)
     Dimensions = property(get_Dimensions, None)
-    Rotation = property(get_Rotation, None)
+    Index = property(get_Index, None)
     PreferredZoom = property(get_PreferredZoom, None)
+    Rotation = property(get_Rotation, None)
+    Size = property(get_Size, None)
 class IPdfPageDimensions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Data.Pdf.IPdfPageDimensions'
@@ -70,11 +70,11 @@ class IPdfPageDimensions(ComPtr):
     def get_TrimBox(self) -> win32more.Windows.Foundation.Rect: ...
     @winrt_commethod(10)
     def get_ArtBox(self) -> win32more.Windows.Foundation.Rect: ...
-    MediaBox = property(get_MediaBox, None)
-    CropBox = property(get_CropBox, None)
-    BleedBox = property(get_BleedBox, None)
-    TrimBox = property(get_TrimBox, None)
     ArtBox = property(get_ArtBox, None)
+    BleedBox = property(get_BleedBox, None)
+    CropBox = property(get_CropBox, None)
+    MediaBox = property(get_MediaBox, None)
+    TrimBox = property(get_TrimBox, None)
 class IPdfPageRenderOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Data.Pdf.IPdfPageRenderOptions'
@@ -103,12 +103,12 @@ class IPdfPageRenderOptions(ComPtr):
     def get_BitmapEncoderId(self) -> Guid: ...
     @winrt_commethod(17)
     def put_BitmapEncoderId(self, value: Guid) -> Void: ...
-    SourceRect = property(get_SourceRect, put_SourceRect)
-    DestinationWidth = property(get_DestinationWidth, put_DestinationWidth)
-    DestinationHeight = property(get_DestinationHeight, put_DestinationHeight)
     BackgroundColor = property(get_BackgroundColor, put_BackgroundColor)
-    IsIgnoringHighContrast = property(get_IsIgnoringHighContrast, put_IsIgnoringHighContrast)
     BitmapEncoderId = property(get_BitmapEncoderId, put_BitmapEncoderId)
+    DestinationHeight = property(get_DestinationHeight, put_DestinationHeight)
+    DestinationWidth = property(get_DestinationWidth, put_DestinationWidth)
+    IsIgnoringHighContrast = property(get_IsIgnoringHighContrast, put_IsIgnoringHighContrast)
+    SourceRect = property(get_SourceRect, put_SourceRect)
 class PdfDocument(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Data.Pdf.IPdfDocument
@@ -127,8 +127,8 @@ class PdfDocument(ComPtr):
     def LoadFromStreamAsync(cls: win32more.Windows.Data.Pdf.IPdfDocumentStatics, inputStream: win32more.Windows.Storage.Streams.IRandomAccessStream) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Data.Pdf.PdfDocument]: ...
     @winrt_classmethod
     def LoadFromStreamWithPasswordAsync(cls: win32more.Windows.Data.Pdf.IPdfDocumentStatics, inputStream: win32more.Windows.Storage.Streams.IRandomAccessStream, password: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Data.Pdf.PdfDocument]: ...
-    PageCount = property(get_PageCount, None)
     IsPasswordProtected = property(get_IsPasswordProtected, None)
+    PageCount = property(get_PageCount, None)
 class PdfPage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Data.Pdf.IPdfPage
@@ -151,11 +151,11 @@ class PdfPage(ComPtr):
     def get_PreferredZoom(self: win32more.Windows.Data.Pdf.IPdfPage) -> Single: ...
     @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
-    Index = property(get_Index, None)
-    Size = property(get_Size, None)
     Dimensions = property(get_Dimensions, None)
-    Rotation = property(get_Rotation, None)
+    Index = property(get_Index, None)
     PreferredZoom = property(get_PreferredZoom, None)
+    Rotation = property(get_Rotation, None)
+    Size = property(get_Size, None)
 class PdfPageDimensions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Data.Pdf.IPdfPageDimensions
@@ -170,11 +170,11 @@ class PdfPageDimensions(ComPtr):
     def get_TrimBox(self: win32more.Windows.Data.Pdf.IPdfPageDimensions) -> win32more.Windows.Foundation.Rect: ...
     @winrt_mixinmethod
     def get_ArtBox(self: win32more.Windows.Data.Pdf.IPdfPageDimensions) -> win32more.Windows.Foundation.Rect: ...
-    MediaBox = property(get_MediaBox, None)
-    CropBox = property(get_CropBox, None)
-    BleedBox = property(get_BleedBox, None)
-    TrimBox = property(get_TrimBox, None)
     ArtBox = property(get_ArtBox, None)
+    BleedBox = property(get_BleedBox, None)
+    CropBox = property(get_CropBox, None)
+    MediaBox = property(get_MediaBox, None)
+    TrimBox = property(get_TrimBox, None)
 class PdfPageRenderOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Data.Pdf.IPdfPageRenderOptions
@@ -212,12 +212,12 @@ class PdfPageRenderOptions(ComPtr):
     def get_BitmapEncoderId(self: win32more.Windows.Data.Pdf.IPdfPageRenderOptions) -> Guid: ...
     @winrt_mixinmethod
     def put_BitmapEncoderId(self: win32more.Windows.Data.Pdf.IPdfPageRenderOptions, value: Guid) -> Void: ...
-    SourceRect = property(get_SourceRect, put_SourceRect)
-    DestinationWidth = property(get_DestinationWidth, put_DestinationWidth)
-    DestinationHeight = property(get_DestinationHeight, put_DestinationHeight)
     BackgroundColor = property(get_BackgroundColor, put_BackgroundColor)
-    IsIgnoringHighContrast = property(get_IsIgnoringHighContrast, put_IsIgnoringHighContrast)
     BitmapEncoderId = property(get_BitmapEncoderId, put_BitmapEncoderId)
+    DestinationHeight = property(get_DestinationHeight, put_DestinationHeight)
+    DestinationWidth = property(get_DestinationWidth, put_DestinationWidth)
+    IsIgnoringHighContrast = property(get_IsIgnoringHighContrast, put_IsIgnoringHighContrast)
+    SourceRect = property(get_SourceRect, put_SourceRect)
 class PdfPageRotation(Int32):  # enum
     Normal = 0
     Rotate90 = 1

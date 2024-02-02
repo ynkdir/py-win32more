@@ -52,9 +52,9 @@ class IProviderI2cConnectionSettings(ComPtr):
     def get_SharingMode(self) -> win32more.Windows.Devices.I2c.Provider.ProviderI2cSharingMode: ...
     @winrt_commethod(11)
     def put_SharingMode(self, value: win32more.Windows.Devices.I2c.Provider.ProviderI2cSharingMode) -> Void: ...
-    SlaveAddress = property(get_SlaveAddress, put_SlaveAddress)
     BusSpeed = property(get_BusSpeed, put_BusSpeed)
     SharingMode = property(get_SharingMode, put_SharingMode)
+    SlaveAddress = property(get_SlaveAddress, put_SlaveAddress)
 class ProviderI2cBusSpeed(Int32):  # enum
     StandardMode = 0
     FastMode = 1
@@ -74,9 +74,9 @@ class ProviderI2cConnectionSettings(ComPtr):
     def get_SharingMode(self: win32more.Windows.Devices.I2c.Provider.IProviderI2cConnectionSettings) -> win32more.Windows.Devices.I2c.Provider.ProviderI2cSharingMode: ...
     @winrt_mixinmethod
     def put_SharingMode(self: win32more.Windows.Devices.I2c.Provider.IProviderI2cConnectionSettings, value: win32more.Windows.Devices.I2c.Provider.ProviderI2cSharingMode) -> Void: ...
-    SlaveAddress = property(get_SlaveAddress, put_SlaveAddress)
     BusSpeed = property(get_BusSpeed, put_BusSpeed)
     SharingMode = property(get_SharingMode, put_SharingMode)
+    SlaveAddress = property(get_SlaveAddress, put_SlaveAddress)
 class ProviderI2cSharingMode(Int32):  # enum
     Exclusive = 0
     Shared = 1

@@ -33,15 +33,15 @@ class DisplayAdvancedColorInfo(ComPtr):
     def IsHdrMetadataFormatCurrentlySupported(self: win32more.Microsoft.Graphics.Display.IDisplayAdvancedColorInfo, format: win32more.Microsoft.Graphics.Display.DisplayHdrMetadataFormat) -> Boolean: ...
     @winrt_mixinmethod
     def IsAdvancedColorKindAvailable(self: win32more.Microsoft.Graphics.Display.IDisplayAdvancedColorInfo, kind: win32more.Microsoft.Graphics.Display.DisplayAdvancedColorKind) -> Boolean: ...
-    CurrentAdvancedColorKind = property(get_CurrentAdvancedColorKind, None)
-    RedPrimary = property(get_RedPrimary, None)
-    GreenPrimary = property(get_GreenPrimary, None)
     BluePrimary = property(get_BluePrimary, None)
-    WhitePoint = property(get_WhitePoint, None)
+    CurrentAdvancedColorKind = property(get_CurrentAdvancedColorKind, None)
+    GreenPrimary = property(get_GreenPrimary, None)
+    MaxAverageFullFrameLuminanceInNits = property(get_MaxAverageFullFrameLuminanceInNits, None)
     MaxLuminanceInNits = property(get_MaxLuminanceInNits, None)
     MinLuminanceInNits = property(get_MinLuminanceInNits, None)
-    MaxAverageFullFrameLuminanceInNits = property(get_MaxAverageFullFrameLuminanceInNits, None)
+    RedPrimary = property(get_RedPrimary, None)
     SdrWhiteLevelInNits = property(get_SdrWhiteLevelInNits, None)
+    WhitePoint = property(get_WhitePoint, None)
 class DisplayAdvancedColorKind(Int32):  # enum
     StandardDynamicRange = 0
     WideColorGamut = 1
@@ -85,8 +85,8 @@ class DisplayInformation(ComPtr):
     def CreateForWindowId(cls: win32more.Microsoft.Graphics.Display.IDisplayInformationStatics, windowId: win32more.Microsoft.UI.WindowId) -> win32more.Microsoft.Graphics.Display.DisplayInformation: ...
     @winrt_classmethod
     def CreateForDisplayId(cls: win32more.Microsoft.Graphics.Display.IDisplayInformationStatics, displayId: win32more.Microsoft.UI.DisplayId) -> win32more.Microsoft.Graphics.Display.DisplayInformation: ...
-    IsStereoEnabled = property(get_IsStereoEnabled, None)
     DispatcherQueue = property(get_DispatcherQueue, None)
+    IsStereoEnabled = property(get_IsStereoEnabled, None)
 class IDisplayAdvancedColorInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Graphics.Display.IDisplayAdvancedColorInfo'
@@ -113,15 +113,15 @@ class IDisplayAdvancedColorInfo(ComPtr):
     def IsHdrMetadataFormatCurrentlySupported(self, format: win32more.Microsoft.Graphics.Display.DisplayHdrMetadataFormat) -> Boolean: ...
     @winrt_commethod(16)
     def IsAdvancedColorKindAvailable(self, kind: win32more.Microsoft.Graphics.Display.DisplayAdvancedColorKind) -> Boolean: ...
-    CurrentAdvancedColorKind = property(get_CurrentAdvancedColorKind, None)
-    RedPrimary = property(get_RedPrimary, None)
-    GreenPrimary = property(get_GreenPrimary, None)
     BluePrimary = property(get_BluePrimary, None)
-    WhitePoint = property(get_WhitePoint, None)
+    CurrentAdvancedColorKind = property(get_CurrentAdvancedColorKind, None)
+    GreenPrimary = property(get_GreenPrimary, None)
+    MaxAverageFullFrameLuminanceInNits = property(get_MaxAverageFullFrameLuminanceInNits, None)
     MaxLuminanceInNits = property(get_MaxLuminanceInNits, None)
     MinLuminanceInNits = property(get_MinLuminanceInNits, None)
-    MaxAverageFullFrameLuminanceInNits = property(get_MaxAverageFullFrameLuminanceInNits, None)
+    RedPrimary = property(get_RedPrimary, None)
     SdrWhiteLevelInNits = property(get_SdrWhiteLevelInNits, None)
+    WhitePoint = property(get_WhitePoint, None)
 class IDisplayInformation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Graphics.Display.IDisplayInformation'

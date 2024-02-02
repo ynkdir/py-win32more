@@ -37,10 +37,10 @@ class INamedPolicyData(ComPtr):
     @winrt_commethod(18)
     def remove_Changed(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Area = property(get_Area, None)
-    Name = property(get_Name, None)
-    Kind = property(get_Kind, None)
     IsManaged = property(get_IsManaged, None)
     IsUserPolicy = property(get_IsUserPolicy, None)
+    Kind = property(get_Kind, None)
+    Name = property(get_Name, None)
     User = property(get_User, None)
 class INamedPolicyStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -88,10 +88,10 @@ class NamedPolicyData(ComPtr):
     @winrt_mixinmethod
     def remove_Changed(self: win32more.Windows.Management.Policies.INamedPolicyData, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Area = property(get_Area, None)
-    Name = property(get_Name, None)
-    Kind = property(get_Kind, None)
     IsManaged = property(get_IsManaged, None)
     IsUserPolicy = property(get_IsUserPolicy, None)
+    Kind = property(get_Kind, None)
+    Name = property(get_Name, None)
     User = property(get_User, None)
 class NamedPolicyKind(Int32):  # enum
     Invalid = 0

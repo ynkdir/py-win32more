@@ -192,12 +192,12 @@ class BarcodeScannerProviderConnection(ComPtr):
     def CreateFrameReaderWithFormatAndSizeAsync(self: win32more.Windows.Devices.PointOfService.Provider.IBarcodeScannerProviderConnection2, preferredFormat: win32more.Windows.Graphics.Imaging.BitmapPixelFormat, preferredSize: win32more.Windows.Graphics.Imaging.BitmapSize) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.PointOfService.Provider.BarcodeScannerFrameReader]: ...
     @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
-    Id = property(get_Id, None)
-    VideoDeviceId = property(get_VideoDeviceId, None)
-    SupportedSymbologies = property(get_SupportedSymbologies, None)
     CompanyName = property(get_CompanyName, put_CompanyName)
+    Id = property(get_Id, None)
     Name = property(get_Name, put_Name)
+    SupportedSymbologies = property(get_SupportedSymbologies, None)
     Version = property(get_Version, put_Version)
+    VideoDeviceId = property(get_VideoDeviceId, None)
 class BarcodeScannerProviderTriggerDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.PointOfService.Provider.IBarcodeScannerProviderTriggerDetails
@@ -245,8 +245,8 @@ class BarcodeScannerSetSymbologyAttributesRequest(ComPtr):
     def ReportFailedWithFailedReasonAsync(self: win32more.Windows.Devices.PointOfService.Provider.IBarcodeScannerSetSymbologyAttributesRequest2, reason: Int32) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_mixinmethod
     def ReportFailedWithFailedReasonAndDescriptionAsync(self: win32more.Windows.Devices.PointOfService.Provider.IBarcodeScannerSetSymbologyAttributesRequest2, reason: Int32, failedReasonDescription: WinRT_String) -> win32more.Windows.Foundation.IAsyncAction: ...
-    Symbology = property(get_Symbology, None)
     Attributes = property(get_Attributes, None)
+    Symbology = property(get_Symbology, None)
 class BarcodeScannerSetSymbologyAttributesRequestEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.PointOfService.Provider.IBarcodeScannerSetSymbologyAttributesRequestEventArgs
@@ -316,9 +316,9 @@ class BarcodeScannerVideoFrame(ComPtr):
     @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
     Format = property(get_Format, None)
-    Width = property(get_Width, None)
     Height = property(get_Height, None)
     PixelData = property(get_PixelData, None)
+    Width = property(get_Width, None)
 class BarcodeSymbologyAttributesBuilder(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.PointOfService.Provider.IBarcodeSymbologyAttributesBuilder
@@ -346,8 +346,8 @@ class BarcodeSymbologyAttributesBuilder(ComPtr):
     def put_IsDecodeLengthSupported(self: win32more.Windows.Devices.PointOfService.Provider.IBarcodeSymbologyAttributesBuilder, value: Boolean) -> Void: ...
     @winrt_mixinmethod
     def CreateAttributes(self: win32more.Windows.Devices.PointOfService.Provider.IBarcodeSymbologyAttributesBuilder) -> win32more.Windows.Devices.PointOfService.BarcodeSymbologyAttributes: ...
-    IsCheckDigitValidationSupported = property(get_IsCheckDigitValidationSupported, put_IsCheckDigitValidationSupported)
     IsCheckDigitTransmissionSupported = property(get_IsCheckDigitTransmissionSupported, put_IsCheckDigitTransmissionSupported)
+    IsCheckDigitValidationSupported = property(get_IsCheckDigitValidationSupported, put_IsCheckDigitValidationSupported)
     IsDecodeLengthSupported = property(get_IsDecodeLengthSupported, put_IsDecodeLengthSupported)
 class IBarcodeScannerDisableScannerRequest(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -539,12 +539,12 @@ class IBarcodeScannerProviderConnection(ComPtr):
     def add_HideVideoPreviewRequested(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.PointOfService.Provider.BarcodeScannerProviderConnection, win32more.Windows.Devices.PointOfService.Provider.BarcodeScannerHideVideoPreviewRequestEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(35)
     def remove_HideVideoPreviewRequested(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    Id = property(get_Id, None)
-    VideoDeviceId = property(get_VideoDeviceId, None)
-    SupportedSymbologies = property(get_SupportedSymbologies, None)
     CompanyName = property(get_CompanyName, put_CompanyName)
+    Id = property(get_Id, None)
     Name = property(get_Name, put_Name)
+    SupportedSymbologies = property(get_SupportedSymbologies, None)
     Version = property(get_Version, put_Version)
+    VideoDeviceId = property(get_VideoDeviceId, None)
 class IBarcodeScannerProviderConnection2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.PointOfService.Provider.IBarcodeScannerProviderConnection2'
@@ -602,8 +602,8 @@ class IBarcodeScannerSetSymbologyAttributesRequest(ComPtr):
     def ReportCompletedAsync(self) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(9)
     def ReportFailedAsync(self) -> win32more.Windows.Foundation.IAsyncAction: ...
-    Symbology = property(get_Symbology, None)
     Attributes = property(get_Attributes, None)
+    Symbology = property(get_Symbology, None)
 class IBarcodeScannerSetSymbologyAttributesRequest2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.PointOfService.Provider.IBarcodeScannerSetSymbologyAttributesRequest2'
@@ -684,9 +684,9 @@ class IBarcodeScannerVideoFrame(ComPtr):
     @winrt_commethod(9)
     def get_PixelData(self) -> win32more.Windows.Storage.Streams.IBuffer: ...
     Format = property(get_Format, None)
-    Width = property(get_Width, None)
     Height = property(get_Height, None)
     PixelData = property(get_PixelData, None)
+    Width = property(get_Width, None)
 class IBarcodeSymbologyAttributesBuilder(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.PointOfService.Provider.IBarcodeSymbologyAttributesBuilder'
@@ -705,8 +705,8 @@ class IBarcodeSymbologyAttributesBuilder(ComPtr):
     def put_IsDecodeLengthSupported(self, value: Boolean) -> Void: ...
     @winrt_commethod(12)
     def CreateAttributes(self) -> win32more.Windows.Devices.PointOfService.BarcodeSymbologyAttributes: ...
-    IsCheckDigitValidationSupported = property(get_IsCheckDigitValidationSupported, put_IsCheckDigitValidationSupported)
     IsCheckDigitTransmissionSupported = property(get_IsCheckDigitTransmissionSupported, put_IsCheckDigitTransmissionSupported)
+    IsCheckDigitValidationSupported = property(get_IsCheckDigitValidationSupported, put_IsCheckDigitValidationSupported)
     IsDecodeLengthSupported = property(get_IsDecodeLengthSupported, put_IsDecodeLengthSupported)
 
 

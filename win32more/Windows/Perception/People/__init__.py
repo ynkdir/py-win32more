@@ -23,8 +23,8 @@ class EyesPose(ComPtr):
     def IsSupported(cls: win32more.Windows.Perception.People.IEyesPoseStatics) -> Boolean: ...
     @winrt_classmethod
     def RequestAccessAsync(cls: win32more.Windows.Perception.People.IEyesPoseStatics) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.UI.Input.GazeInputAccessStatus]: ...
-    IsCalibrationValid = property(get_IsCalibrationValid, None)
     Gaze = property(get_Gaze, None)
+    IsCalibrationValid = property(get_IsCalibrationValid, None)
     UpdateTimestamp = property(get_UpdateTimestamp, None)
 class HandJointKind(Int32):  # enum
     Palm = 0
@@ -73,12 +73,12 @@ class HandMeshObserver(ComPtr):
     def get_NeutralPoseVersion(self: win32more.Windows.Perception.People.IHandMeshObserver) -> Int32: ...
     @winrt_mixinmethod
     def get_ModelId(self: win32more.Windows.Perception.People.IHandMeshObserver) -> Int32: ...
+    ModelId = property(get_ModelId, None)
+    NeutralPose = property(get_NeutralPose, None)
+    NeutralPoseVersion = property(get_NeutralPoseVersion, None)
     Source = property(get_Source, None)
     TriangleIndexCount = property(get_TriangleIndexCount, None)
     VertexCount = property(get_VertexCount, None)
-    NeutralPose = property(get_NeutralPose, None)
-    NeutralPoseVersion = property(get_NeutralPoseVersion, None)
-    ModelId = property(get_ModelId, None)
 class HandMeshVertex(EasyCastStructure):
     Position: win32more.Windows.Foundation.Numerics.Vector3
     Normal: win32more.Windows.Foundation.Numerics.Vector3
@@ -116,8 +116,8 @@ class HeadPose(ComPtr):
     def get_ForwardDirection(self: win32more.Windows.Perception.People.IHeadPose) -> win32more.Windows.Foundation.Numerics.Vector3: ...
     @winrt_mixinmethod
     def get_UpDirection(self: win32more.Windows.Perception.People.IHeadPose) -> win32more.Windows.Foundation.Numerics.Vector3: ...
-    Position = property(get_Position, None)
     ForwardDirection = property(get_ForwardDirection, None)
+    Position = property(get_Position, None)
     UpDirection = property(get_UpDirection, None)
 class IEyesPose(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -129,8 +129,8 @@ class IEyesPose(ComPtr):
     def get_Gaze(self) -> win32more.Windows.Foundation.IReference[win32more.Windows.Perception.Spatial.SpatialRay]: ...
     @winrt_commethod(8)
     def get_UpdateTimestamp(self) -> win32more.Windows.Perception.PerceptionTimestamp: ...
-    IsCalibrationValid = property(get_IsCalibrationValid, None)
     Gaze = property(get_Gaze, None)
+    IsCalibrationValid = property(get_IsCalibrationValid, None)
     UpdateTimestamp = property(get_UpdateTimestamp, None)
 class IEyesPoseStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -160,12 +160,12 @@ class IHandMeshObserver(ComPtr):
     def get_NeutralPoseVersion(self) -> Int32: ...
     @winrt_commethod(13)
     def get_ModelId(self) -> Int32: ...
+    ModelId = property(get_ModelId, None)
+    NeutralPose = property(get_NeutralPose, None)
+    NeutralPoseVersion = property(get_NeutralPoseVersion, None)
     Source = property(get_Source, None)
     TriangleIndexCount = property(get_TriangleIndexCount, None)
     VertexCount = property(get_VertexCount, None)
-    NeutralPose = property(get_NeutralPose, None)
-    NeutralPoseVersion = property(get_NeutralPoseVersion, None)
-    ModelId = property(get_ModelId, None)
 class IHandMeshVertexState(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Perception.People.IHandMeshVertexState'
@@ -200,8 +200,8 @@ class IHeadPose(ComPtr):
     def get_ForwardDirection(self) -> win32more.Windows.Foundation.Numerics.Vector3: ...
     @winrt_commethod(8)
     def get_UpDirection(self) -> win32more.Windows.Foundation.Numerics.Vector3: ...
-    Position = property(get_Position, None)
     ForwardDirection = property(get_ForwardDirection, None)
+    Position = property(get_Position, None)
     UpDirection = property(get_UpDirection, None)
 class JointPose(EasyCastStructure):
     Orientation: win32more.Windows.Foundation.Numerics.Quaternion

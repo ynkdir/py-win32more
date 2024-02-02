@@ -34,9 +34,9 @@ class I2cConnectionSettings(ComPtr):
     def get_SharingMode(self: win32more.Windows.Devices.I2c.II2cConnectionSettings) -> win32more.Windows.Devices.I2c.I2cSharingMode: ...
     @winrt_mixinmethod
     def put_SharingMode(self: win32more.Windows.Devices.I2c.II2cConnectionSettings, value: win32more.Windows.Devices.I2c.I2cSharingMode) -> Void: ...
-    SlaveAddress = property(get_SlaveAddress, put_SlaveAddress)
     BusSpeed = property(get_BusSpeed, put_BusSpeed)
     SharingMode = property(get_SharingMode, put_SharingMode)
+    SlaveAddress = property(get_SlaveAddress, put_SlaveAddress)
 class I2cController(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.I2c.II2cController
@@ -75,8 +75,8 @@ class I2cDevice(ComPtr):
     def GetDeviceSelectorFromFriendlyName(cls: win32more.Windows.Devices.I2c.II2cDeviceStatics, friendlyName: WinRT_String) -> WinRT_String: ...
     @winrt_classmethod
     def FromIdAsync(cls: win32more.Windows.Devices.I2c.II2cDeviceStatics, deviceId: WinRT_String, settings: win32more.Windows.Devices.I2c.I2cConnectionSettings) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.I2c.I2cDevice]: ...
-    DeviceId = property(get_DeviceId, None)
     ConnectionSettings = property(get_ConnectionSettings, None)
+    DeviceId = property(get_DeviceId, None)
 class I2cSharingMode(Int32):  # enum
     Exclusive = 0
     Shared = 1
@@ -105,9 +105,9 @@ class II2cConnectionSettings(ComPtr):
     def get_SharingMode(self) -> win32more.Windows.Devices.I2c.I2cSharingMode: ...
     @winrt_commethod(11)
     def put_SharingMode(self, value: win32more.Windows.Devices.I2c.I2cSharingMode) -> Void: ...
-    SlaveAddress = property(get_SlaveAddress, put_SlaveAddress)
     BusSpeed = property(get_BusSpeed, put_BusSpeed)
     SharingMode = property(get_SharingMode, put_SharingMode)
+    SlaveAddress = property(get_SlaveAddress, put_SlaveAddress)
 class II2cConnectionSettingsFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.I2c.II2cConnectionSettingsFactory'
@@ -148,8 +148,8 @@ class II2cDevice(ComPtr):
     def WriteRead(self, writeBuffer: Annotated[SZArray[Byte], 'In'], readBuffer: Annotated[SZArray[Byte], 'Out']) -> Void: ...
     @winrt_commethod(13)
     def WriteReadPartial(self, writeBuffer: Annotated[SZArray[Byte], 'In'], readBuffer: Annotated[SZArray[Byte], 'Out']) -> win32more.Windows.Devices.I2c.I2cTransferResult: ...
-    DeviceId = property(get_DeviceId, None)
     ConnectionSettings = property(get_ConnectionSettings, None)
+    DeviceId = property(get_DeviceId, None)
 class II2cDeviceStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.I2c.II2cDeviceStatics'

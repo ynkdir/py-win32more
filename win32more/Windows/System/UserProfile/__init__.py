@@ -107,8 +107,8 @@ class GlobalizationPreferences(ComPtr, metaclass=_GlobalizationPreferences_Meta_
     _GlobalizationPreferences_Meta_.Calendars = property(get_Calendars.__wrapped__, None)
     _GlobalizationPreferences_Meta_.Clocks = property(get_Clocks.__wrapped__, None)
     _GlobalizationPreferences_Meta_.Currencies = property(get_Currencies.__wrapped__, None)
-    _GlobalizationPreferences_Meta_.Languages = property(get_Languages.__wrapped__, None)
     _GlobalizationPreferences_Meta_.HomeGeographicRegion = property(get_HomeGeographicRegion.__wrapped__, None)
+    _GlobalizationPreferences_Meta_.Languages = property(get_Languages.__wrapped__, None)
     _GlobalizationPreferences_Meta_.WeekStartsOn = property(get_WeekStartsOn.__wrapped__, None)
 class GlobalizationPreferencesForUser(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -128,12 +128,12 @@ class GlobalizationPreferencesForUser(ComPtr):
     def get_HomeGeographicRegion(self: win32more.Windows.System.UserProfile.IGlobalizationPreferencesForUser) -> WinRT_String: ...
     @winrt_mixinmethod
     def get_WeekStartsOn(self: win32more.Windows.System.UserProfile.IGlobalizationPreferencesForUser) -> win32more.Windows.Globalization.DayOfWeek: ...
-    User = property(get_User, None)
     Calendars = property(get_Calendars, None)
     Clocks = property(get_Clocks, None)
     Currencies = property(get_Currencies, None)
-    Languages = property(get_Languages, None)
     HomeGeographicRegion = property(get_HomeGeographicRegion, None)
+    Languages = property(get_Languages, None)
+    User = property(get_User, None)
     WeekStartsOn = property(get_WeekStartsOn, None)
 class IAdvertisingManagerForUser(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -225,12 +225,12 @@ class IGlobalizationPreferencesForUser(ComPtr):
     def get_HomeGeographicRegion(self) -> WinRT_String: ...
     @winrt_commethod(12)
     def get_WeekStartsOn(self) -> win32more.Windows.Globalization.DayOfWeek: ...
-    User = property(get_User, None)
     Calendars = property(get_Calendars, None)
     Clocks = property(get_Clocks, None)
     Currencies = property(get_Currencies, None)
-    Languages = property(get_Languages, None)
     HomeGeographicRegion = property(get_HomeGeographicRegion, None)
+    Languages = property(get_Languages, None)
+    User = property(get_User, None)
     WeekStartsOn = property(get_WeekStartsOn, None)
 class IGlobalizationPreferencesStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -251,8 +251,8 @@ class IGlobalizationPreferencesStatics(ComPtr):
     Calendars = property(get_Calendars, None)
     Clocks = property(get_Clocks, None)
     Currencies = property(get_Currencies, None)
-    Languages = property(get_Languages, None)
     HomeGeographicRegion = property(get_HomeGeographicRegion, None)
+    Languages = property(get_Languages, None)
     WeekStartsOn = property(get_WeekStartsOn, None)
 class IGlobalizationPreferencesStatics2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable

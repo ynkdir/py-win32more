@@ -92,15 +92,15 @@ class ApplicationData(ComPtr, metaclass=_ApplicationData_Meta_):
     def GetForUserAsync(cls: win32more.Windows.Storage.IApplicationDataStatics2, user: win32more.Windows.System.User) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Storage.ApplicationData]: ...
     @winrt_classmethod
     def get_Current(cls: win32more.Windows.Storage.IApplicationDataStatics) -> win32more.Windows.Storage.ApplicationData: ...
-    Version = property(get_Version, None)
-    LocalSettings = property(get_LocalSettings, None)
-    RoamingSettings = property(get_RoamingSettings, None)
-    LocalFolder = property(get_LocalFolder, None)
-    RoamingFolder = property(get_RoamingFolder, None)
-    TemporaryFolder = property(get_TemporaryFolder, None)
-    RoamingStorageQuota = property(get_RoamingStorageQuota, None)
     LocalCacheFolder = property(get_LocalCacheFolder, None)
+    LocalFolder = property(get_LocalFolder, None)
+    LocalSettings = property(get_LocalSettings, None)
+    RoamingFolder = property(get_RoamingFolder, None)
+    RoamingSettings = property(get_RoamingSettings, None)
+    RoamingStorageQuota = property(get_RoamingStorageQuota, None)
     SharedLocalFolder = property(get_SharedLocalFolder, None)
+    TemporaryFolder = property(get_TemporaryFolder, None)
+    Version = property(get_Version, None)
     _ApplicationData_Meta_.Current = property(get_Current.__wrapped__, None)
 class ApplicationDataCompositeValue(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -154,10 +154,10 @@ class ApplicationDataContainer(ComPtr):
     def DeleteContainer(self: win32more.Windows.Storage.IApplicationDataContainer, name: WinRT_String) -> Void: ...
     @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
-    Name = property(get_Name, None)
-    Locality = property(get_Locality, None)
-    Values = property(get_Values, None)
     Containers = property(get_Containers, None)
+    Locality = property(get_Locality, None)
+    Name = property(get_Name, None)
+    Values = property(get_Values, None)
 class ApplicationDataContainerSettings(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.Collections.IPropertySet
@@ -339,13 +339,13 @@ class IApplicationData(ComPtr):
     def SignalDataChanged(self) -> Void: ...
     @winrt_commethod(18)
     def get_RoamingStorageQuota(self) -> UInt64: ...
-    Version = property(get_Version, None)
-    LocalSettings = property(get_LocalSettings, None)
-    RoamingSettings = property(get_RoamingSettings, None)
     LocalFolder = property(get_LocalFolder, None)
+    LocalSettings = property(get_LocalSettings, None)
     RoamingFolder = property(get_RoamingFolder, None)
-    TemporaryFolder = property(get_TemporaryFolder, None)
+    RoamingSettings = property(get_RoamingSettings, None)
     RoamingStorageQuota = property(get_RoamingStorageQuota, None)
+    TemporaryFolder = property(get_TemporaryFolder, None)
+    Version = property(get_Version, None)
 class IApplicationData2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Storage.IApplicationData2'
@@ -380,10 +380,10 @@ class IApplicationDataContainer(ComPtr):
     def CreateContainer(self, name: WinRT_String, disposition: win32more.Windows.Storage.ApplicationDataCreateDisposition) -> win32more.Windows.Storage.ApplicationDataContainer: ...
     @winrt_commethod(11)
     def DeleteContainer(self, name: WinRT_String) -> Void: ...
-    Name = property(get_Name, None)
-    Locality = property(get_Locality, None)
-    Values = property(get_Values, None)
     Containers = property(get_Containers, None)
+    Locality = property(get_Locality, None)
+    Name = property(get_Name, None)
+    Values = property(get_Values, None)
 class IApplicationDataStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Storage.IApplicationDataStatics'
@@ -502,13 +502,13 @@ class IKnownFoldersStatics(ComPtr):
     def get_RemovableDevices(self) -> win32more.Windows.Storage.StorageFolder: ...
     @winrt_commethod(12)
     def get_MediaServerDevices(self) -> win32more.Windows.Storage.StorageFolder: ...
-    MusicLibrary = property(get_MusicLibrary, None)
-    PicturesLibrary = property(get_PicturesLibrary, None)
-    VideosLibrary = property(get_VideosLibrary, None)
     DocumentsLibrary = property(get_DocumentsLibrary, None)
     HomeGroup = property(get_HomeGroup, None)
-    RemovableDevices = property(get_RemovableDevices, None)
     MediaServerDevices = property(get_MediaServerDevices, None)
+    MusicLibrary = property(get_MusicLibrary, None)
+    PicturesLibrary = property(get_PicturesLibrary, None)
+    RemovableDevices = property(get_RemovableDevices, None)
+    VideosLibrary = property(get_VideosLibrary, None)
 class IKnownFoldersStatics2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Storage.IKnownFoldersStatics2'
@@ -519,8 +519,8 @@ class IKnownFoldersStatics2(ComPtr):
     def get_AppCaptures(self) -> win32more.Windows.Storage.StorageFolder: ...
     @winrt_commethod(8)
     def get_RecordedCalls(self) -> win32more.Windows.Storage.StorageFolder: ...
-    Objects3D = property(get_Objects3D, None)
     AppCaptures = property(get_AppCaptures, None)
+    Objects3D = property(get_Objects3D, None)
     RecordedCalls = property(get_RecordedCalls, None)
 class IKnownFoldersStatics3(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -618,8 +618,8 @@ class IStorageFile(ComPtr):
     def MoveOverload(self, destinationFolder: win32more.Windows.Storage.IStorageFolder, desiredNewName: WinRT_String, option: win32more.Windows.Storage.NameCollisionOption) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(17)
     def MoveAndReplaceAsync(self, fileToReplace: win32more.Windows.Storage.IStorageFile) -> win32more.Windows.Foundation.IAsyncAction: ...
-    FileType = property(get_FileType, None)
     ContentType = property(get_ContentType, None)
+    FileType = property(get_FileType, None)
 class IStorageFile2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Storage.IStorageFile2'
@@ -729,10 +729,10 @@ class IStorageItem(ComPtr):
     def get_DateCreated(self) -> win32more.Windows.Foundation.DateTime: ...
     @winrt_commethod(15)
     def IsOfType(self, type: win32more.Windows.Storage.StorageItemTypes) -> Boolean: ...
-    Name = property(get_Name, None)
-    Path = property(get_Path, None)
     Attributes = property(get_Attributes, None)
     DateCreated = property(get_DateCreated, None)
+    Name = property(get_Name, None)
+    Path = property(get_Path, None)
 class IStorageItem2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Storage.IStorageItem2'
@@ -900,8 +900,8 @@ class IStorageProvider(ComPtr):
     def get_Id(self) -> WinRT_String: ...
     @winrt_commethod(7)
     def get_DisplayName(self) -> WinRT_String: ...
-    Id = property(get_Id, None)
     DisplayName = property(get_DisplayName, None)
+    Id = property(get_Id, None)
 class IStorageProvider2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Storage.IStorageProvider2'
@@ -976,10 +976,10 @@ class ISystemDataPaths(ComPtr):
     PublicPictures = property(get_PublicPictures, None)
     PublicVideos = property(get_PublicVideos, None)
     System = property(get_System, None)
-    SystemHost = property(get_SystemHost, None)
-    SystemX86 = property(get_SystemX86, None)
-    SystemX64 = property(get_SystemX64, None)
     SystemArm = property(get_SystemArm, None)
+    SystemHost = property(get_SystemHost, None)
+    SystemX64 = property(get_SystemX64, None)
+    SystemX86 = property(get_SystemX86, None)
     UserProfiles = property(get_UserProfiles, None)
     Windows = property(get_Windows, None)
 class ISystemDataPathsStatics(ComPtr):
@@ -1107,19 +1107,19 @@ class ISystemProperties(ComPtr):
     def get_Video(self) -> win32more.Windows.Storage.SystemVideoProperties: ...
     @winrt_commethod(18)
     def get_Image(self) -> win32more.Windows.Storage.SystemImageProperties: ...
+    Audio = property(get_Audio, None)
     Author = property(get_Author, None)
     Comment = property(get_Comment, None)
+    GPS = property(get_GPS, None)
+    Image = property(get_Image, None)
     ItemNameDisplay = property(get_ItemNameDisplay, None)
     Keywords = property(get_Keywords, None)
-    Rating = property(get_Rating, None)
-    Title = property(get_Title, None)
-    Audio = property(get_Audio, None)
-    GPS = property(get_GPS, None)
     Media = property(get_Media, None)
     Music = property(get_Music, None)
     Photo = property(get_Photo, None)
+    Rating = property(get_Rating, None)
+    Title = property(get_Title, None)
     Video = property(get_Video, None)
-    Image = property(get_Image, None)
 class ISystemVideoProperties(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Storage.ISystemVideoProperties'
@@ -1265,19 +1265,19 @@ class KnownFolders(ComPtr, metaclass=_KnownFolders_Meta_):
     def get_RemovableDevices(cls: win32more.Windows.Storage.IKnownFoldersStatics) -> win32more.Windows.Storage.StorageFolder: ...
     @winrt_classmethod
     def get_MediaServerDevices(cls: win32more.Windows.Storage.IKnownFoldersStatics) -> win32more.Windows.Storage.StorageFolder: ...
-    _KnownFolders_Meta_.Objects3D = property(get_Objects3D.__wrapped__, None)
     _KnownFolders_Meta_.AppCaptures = property(get_AppCaptures.__wrapped__, None)
-    _KnownFolders_Meta_.RecordedCalls = property(get_RecordedCalls.__wrapped__, None)
-    _KnownFolders_Meta_.SavedPictures = property(get_SavedPictures.__wrapped__, None)
     _KnownFolders_Meta_.CameraRoll = property(get_CameraRoll.__wrapped__, None)
-    _KnownFolders_Meta_.Playlists = property(get_Playlists.__wrapped__, None)
-    _KnownFolders_Meta_.MusicLibrary = property(get_MusicLibrary.__wrapped__, None)
-    _KnownFolders_Meta_.PicturesLibrary = property(get_PicturesLibrary.__wrapped__, None)
-    _KnownFolders_Meta_.VideosLibrary = property(get_VideosLibrary.__wrapped__, None)
     _KnownFolders_Meta_.DocumentsLibrary = property(get_DocumentsLibrary.__wrapped__, None)
     _KnownFolders_Meta_.HomeGroup = property(get_HomeGroup.__wrapped__, None)
-    _KnownFolders_Meta_.RemovableDevices = property(get_RemovableDevices.__wrapped__, None)
     _KnownFolders_Meta_.MediaServerDevices = property(get_MediaServerDevices.__wrapped__, None)
+    _KnownFolders_Meta_.MusicLibrary = property(get_MusicLibrary.__wrapped__, None)
+    _KnownFolders_Meta_.Objects3D = property(get_Objects3D.__wrapped__, None)
+    _KnownFolders_Meta_.PicturesLibrary = property(get_PicturesLibrary.__wrapped__, None)
+    _KnownFolders_Meta_.Playlists = property(get_Playlists.__wrapped__, None)
+    _KnownFolders_Meta_.RecordedCalls = property(get_RecordedCalls.__wrapped__, None)
+    _KnownFolders_Meta_.RemovableDevices = property(get_RemovableDevices.__wrapped__, None)
+    _KnownFolders_Meta_.SavedPictures = property(get_SavedPictures.__wrapped__, None)
+    _KnownFolders_Meta_.VideosLibrary = property(get_VideosLibrary.__wrapped__, None)
 class KnownFoldersAccessStatus(Int32):  # enum
     DeniedBySystem = 0
     NotDeclaredByApp = 1
@@ -1446,18 +1446,18 @@ class StorageFile(ComPtr):
     def CreateStreamedFileFromUriAsync(cls: win32more.Windows.Storage.IStorageFileStatics, displayNameWithExtension: WinRT_String, uri: win32more.Windows.Foundation.Uri, thumbnail: win32more.Windows.Storage.Streams.IRandomAccessStreamReference) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Storage.StorageFile]: ...
     @winrt_classmethod
     def ReplaceWithStreamedFileFromUriAsync(cls: win32more.Windows.Storage.IStorageFileStatics, fileToReplace: win32more.Windows.Storage.IStorageFile, uri: win32more.Windows.Foundation.Uri, thumbnail: win32more.Windows.Storage.Streams.IRandomAccessStreamReference) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Storage.StorageFile]: ...
-    FileType = property(get_FileType, None)
-    ContentType = property(get_ContentType, None)
-    Name = property(get_Name, None)
-    Path = property(get_Path, None)
     Attributes = property(get_Attributes, None)
+    ContentType = property(get_ContentType, None)
     DateCreated = property(get_DateCreated, None)
     DisplayName = property(get_DisplayName, None)
     DisplayType = property(get_DisplayType, None)
+    FileType = property(get_FileType, None)
     FolderRelativeId = property(get_FolderRelativeId, None)
+    IsAvailable = property(get_IsAvailable, None)
+    Name = property(get_Name, None)
+    Path = property(get_Path, None)
     Properties = property(get_Properties, None)
     Provider = property(get_Provider, None)
-    IsAvailable = property(get_IsAvailable, None)
 class StorageFolder(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Storage.IStorageFolder
@@ -1570,13 +1570,13 @@ class StorageFolder(ComPtr):
     def GetFolderFromPathForUserAsync(cls: win32more.Windows.Storage.IStorageFolderStatics2, user: win32more.Windows.System.User, path: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Storage.StorageFolder]: ...
     @winrt_classmethod
     def GetFolderFromPathAsync(cls: win32more.Windows.Storage.IStorageFolderStatics, path: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Storage.StorageFolder]: ...
-    Name = property(get_Name, None)
-    Path = property(get_Path, None)
     Attributes = property(get_Attributes, None)
     DateCreated = property(get_DateCreated, None)
     DisplayName = property(get_DisplayName, None)
     DisplayType = property(get_DisplayType, None)
     FolderRelativeId = property(get_FolderRelativeId, None)
+    Name = property(get_Name, None)
+    Path = property(get_Path, None)
     Properties = property(get_Properties, None)
     Provider = property(get_Provider, None)
 class StorageItemTypes(UInt32):  # enum
@@ -1607,9 +1607,9 @@ class StorageLibrary(ComPtr):
     def GetLibraryForUserAsync(cls: win32more.Windows.Storage.IStorageLibraryStatics2, user: win32more.Windows.System.User, libraryId: win32more.Windows.Storage.KnownLibraryId) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Storage.StorageLibrary]: ...
     @winrt_classmethod
     def GetLibraryAsync(cls: win32more.Windows.Storage.IStorageLibraryStatics, libraryId: win32more.Windows.Storage.KnownLibraryId) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Storage.StorageLibrary]: ...
+    ChangeTracker = property(get_ChangeTracker, None)
     Folders = property(get_Folders, None)
     SaveFolder = property(get_SaveFolder, None)
-    ChangeTracker = property(get_ChangeTracker, None)
 class StorageLibraryChange(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Storage.IStorageLibraryChange
@@ -1703,8 +1703,8 @@ class StorageProvider(ComPtr):
     def get_DisplayName(self: win32more.Windows.Storage.IStorageProvider) -> WinRT_String: ...
     @winrt_mixinmethod
     def IsPropertySupportedForPartialFileAsync(self: win32more.Windows.Storage.IStorageProvider2, propertyCanonicalName: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
-    Id = property(get_Id, None)
     DisplayName = property(get_DisplayName, None)
+    Id = property(get_Id, None)
 class StorageStreamTransaction(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Storage.IStorageStreamTransaction
@@ -1791,10 +1791,10 @@ class SystemDataPaths(ComPtr):
     PublicPictures = property(get_PublicPictures, None)
     PublicVideos = property(get_PublicVideos, None)
     System = property(get_System, None)
-    SystemHost = property(get_SystemHost, None)
-    SystemX86 = property(get_SystemX86, None)
-    SystemX64 = property(get_SystemX64, None)
     SystemArm = property(get_SystemArm, None)
+    SystemHost = property(get_SystemHost, None)
+    SystemX64 = property(get_SystemX64, None)
+    SystemX86 = property(get_SystemX86, None)
     UserProfiles = property(get_UserProfiles, None)
     Windows = property(get_Windows, None)
 class SystemGPSProperties(ComPtr):
@@ -1917,19 +1917,19 @@ class SystemProperties(ComPtr, metaclass=_SystemProperties_Meta_):
     def get_Video(cls: win32more.Windows.Storage.ISystemProperties) -> win32more.Windows.Storage.SystemVideoProperties: ...
     @winrt_classmethod
     def get_Image(cls: win32more.Windows.Storage.ISystemProperties) -> win32more.Windows.Storage.SystemImageProperties: ...
+    _SystemProperties_Meta_.Audio = property(get_Audio.__wrapped__, None)
     _SystemProperties_Meta_.Author = property(get_Author.__wrapped__, None)
     _SystemProperties_Meta_.Comment = property(get_Comment.__wrapped__, None)
+    _SystemProperties_Meta_.GPS = property(get_GPS.__wrapped__, None)
+    _SystemProperties_Meta_.Image = property(get_Image.__wrapped__, None)
     _SystemProperties_Meta_.ItemNameDisplay = property(get_ItemNameDisplay.__wrapped__, None)
     _SystemProperties_Meta_.Keywords = property(get_Keywords.__wrapped__, None)
-    _SystemProperties_Meta_.Rating = property(get_Rating.__wrapped__, None)
-    _SystemProperties_Meta_.Title = property(get_Title.__wrapped__, None)
-    _SystemProperties_Meta_.Audio = property(get_Audio.__wrapped__, None)
-    _SystemProperties_Meta_.GPS = property(get_GPS.__wrapped__, None)
     _SystemProperties_Meta_.Media = property(get_Media.__wrapped__, None)
     _SystemProperties_Meta_.Music = property(get_Music.__wrapped__, None)
     _SystemProperties_Meta_.Photo = property(get_Photo.__wrapped__, None)
+    _SystemProperties_Meta_.Rating = property(get_Rating.__wrapped__, None)
+    _SystemProperties_Meta_.Title = property(get_Title.__wrapped__, None)
     _SystemProperties_Meta_.Video = property(get_Video.__wrapped__, None)
-    _SystemProperties_Meta_.Image = property(get_Image.__wrapped__, None)
 class SystemVideoProperties(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Storage.ISystemVideoProperties

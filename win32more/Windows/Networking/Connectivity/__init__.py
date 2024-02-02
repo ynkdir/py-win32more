@@ -22,11 +22,11 @@ class AttributedNetworkUsage(ComPtr):
     def get_AttributionName(self: win32more.Windows.Networking.Connectivity.IAttributedNetworkUsage) -> WinRT_String: ...
     @winrt_mixinmethod
     def get_AttributionThumbnail(self: win32more.Windows.Networking.Connectivity.IAttributedNetworkUsage) -> win32more.Windows.Storage.Streams.IRandomAccessStreamReference: ...
-    BytesSent = property(get_BytesSent, None)
-    BytesReceived = property(get_BytesReceived, None)
     AttributionId = property(get_AttributionId, None)
     AttributionName = property(get_AttributionName, None)
     AttributionThumbnail = property(get_AttributionThumbnail, None)
+    BytesReceived = property(get_BytesReceived, None)
+    BytesSent = property(get_BytesSent, None)
 class CellularApnAuthenticationType(Int32):  # enum
     None_ = 0
     Pap = 1
@@ -73,13 +73,13 @@ class CellularApnContext(ComPtr):
     def get_ProfileName(self: win32more.Windows.Networking.Connectivity.ICellularApnContext2) -> WinRT_String: ...
     @winrt_mixinmethod
     def put_ProfileName(self: win32more.Windows.Networking.Connectivity.ICellularApnContext2, value: WinRT_String) -> Void: ...
-    ProviderId = property(get_ProviderId, put_ProviderId)
     AccessPointName = property(get_AccessPointName, put_AccessPointName)
-    UserName = property(get_UserName, put_UserName)
-    Password = property(get_Password, put_Password)
-    IsCompressionEnabled = property(get_IsCompressionEnabled, put_IsCompressionEnabled)
     AuthenticationType = property(get_AuthenticationType, put_AuthenticationType)
+    IsCompressionEnabled = property(get_IsCompressionEnabled, put_IsCompressionEnabled)
+    Password = property(get_Password, put_Password)
     ProfileName = property(get_ProfileName, put_ProfileName)
+    ProviderId = property(get_ProviderId, put_ProviderId)
+    UserName = property(get_UserName, put_UserName)
 class ConnectionCost(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Connectivity.IConnectionCost
@@ -94,11 +94,11 @@ class ConnectionCost(ComPtr):
     def get_ApproachingDataLimit(self: win32more.Windows.Networking.Connectivity.IConnectionCost) -> Boolean: ...
     @winrt_mixinmethod
     def get_BackgroundDataUsageRestricted(self: win32more.Windows.Networking.Connectivity.IConnectionCost2) -> Boolean: ...
-    NetworkCostType = property(get_NetworkCostType, None)
-    Roaming = property(get_Roaming, None)
-    OverDataLimit = property(get_OverDataLimit, None)
     ApproachingDataLimit = property(get_ApproachingDataLimit, None)
     BackgroundDataUsageRestricted = property(get_BackgroundDataUsageRestricted, None)
+    NetworkCostType = property(get_NetworkCostType, None)
+    OverDataLimit = property(get_OverDataLimit, None)
+    Roaming = property(get_Roaming, None)
 class ConnectionProfile(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Connectivity.IConnectionProfile
@@ -149,15 +149,15 @@ class ConnectionProfile(ComPtr):
     def TryDeleteAsync(self: win32more.Windows.Networking.Connectivity.IConnectionProfile5) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Networking.Connectivity.ConnectionProfileDeleteStatus]: ...
     @winrt_mixinmethod
     def IsDomainAuthenticatedBy(self: win32more.Windows.Networking.Connectivity.IConnectionProfile6, kind: win32more.Windows.Networking.Connectivity.DomainAuthenticationKind) -> Boolean: ...
-    ProfileName = property(get_ProfileName, None)
+    CanDelete = property(get_CanDelete, None)
+    IsWlanConnectionProfile = property(get_IsWlanConnectionProfile, None)
+    IsWwanConnectionProfile = property(get_IsWwanConnectionProfile, None)
     NetworkAdapter = property(get_NetworkAdapter, None)
     NetworkSecuritySettings = property(get_NetworkSecuritySettings, None)
-    IsWwanConnectionProfile = property(get_IsWwanConnectionProfile, None)
-    IsWlanConnectionProfile = property(get_IsWlanConnectionProfile, None)
-    WwanConnectionProfileDetails = property(get_WwanConnectionProfileDetails, None)
-    WlanConnectionProfileDetails = property(get_WlanConnectionProfileDetails, None)
+    ProfileName = property(get_ProfileName, None)
     ServiceProviderGuid = property(get_ServiceProviderGuid, None)
-    CanDelete = property(get_CanDelete, None)
+    WlanConnectionProfileDetails = property(get_WlanConnectionProfileDetails, None)
+    WwanConnectionProfileDetails = property(get_WwanConnectionProfileDetails, None)
 class ConnectionProfileDeleteStatus(Int32):  # enum
     Success = 0
     DeniedByUser = 1
@@ -214,16 +214,16 @@ class ConnectionProfileFilter(ComPtr):
     def put_PurposeGuid(self: win32more.Windows.Networking.Connectivity.IConnectionProfileFilter3, value: win32more.Windows.Foundation.IReference[Guid]) -> Void: ...
     @winrt_mixinmethod
     def get_PurposeGuid(self: win32more.Windows.Networking.Connectivity.IConnectionProfileFilter3) -> win32more.Windows.Foundation.IReference[Guid]: ...
-    IsConnected = property(get_IsConnected, put_IsConnected)
-    IsWwanConnectionProfile = property(get_IsWwanConnectionProfile, put_IsWwanConnectionProfile)
-    IsWlanConnectionProfile = property(get_IsWlanConnectionProfile, put_IsWlanConnectionProfile)
-    NetworkCostType = property(get_NetworkCostType, put_NetworkCostType)
-    ServiceProviderGuid = property(get_ServiceProviderGuid, put_ServiceProviderGuid)
-    IsRoaming = property(get_IsRoaming, put_IsRoaming)
-    IsOverDataLimit = property(get_IsOverDataLimit, put_IsOverDataLimit)
     IsBackgroundDataUsageRestricted = property(get_IsBackgroundDataUsageRestricted, put_IsBackgroundDataUsageRestricted)
-    RawData = property(get_RawData, None)
+    IsConnected = property(get_IsConnected, put_IsConnected)
+    IsOverDataLimit = property(get_IsOverDataLimit, put_IsOverDataLimit)
+    IsRoaming = property(get_IsRoaming, put_IsRoaming)
+    IsWlanConnectionProfile = property(get_IsWlanConnectionProfile, put_IsWlanConnectionProfile)
+    IsWwanConnectionProfile = property(get_IsWwanConnectionProfile, put_IsWwanConnectionProfile)
+    NetworkCostType = property(get_NetworkCostType, put_NetworkCostType)
     PurposeGuid = property(get_PurposeGuid, put_PurposeGuid)
+    RawData = property(get_RawData, None)
+    ServiceProviderGuid = property(get_ServiceProviderGuid, put_ServiceProviderGuid)
 class ConnectionSession(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Connectivity.IConnectionSession
@@ -241,8 +241,8 @@ class ConnectivityInterval(ComPtr):
     def get_StartTime(self: win32more.Windows.Networking.Connectivity.IConnectivityInterval) -> win32more.Windows.Foundation.DateTime: ...
     @winrt_mixinmethod
     def get_ConnectionDuration(self: win32more.Windows.Networking.Connectivity.IConnectivityInterval) -> win32more.Windows.Foundation.TimeSpan: ...
-    StartTime = property(get_StartTime, None)
     ConnectionDuration = property(get_ConnectionDuration, None)
+    StartTime = property(get_StartTime, None)
 class ConnectivityManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.Connectivity.ConnectivityManager'
@@ -268,12 +268,12 @@ class DataPlanStatus(ComPtr):
     def get_NextBillingCycle(self: win32more.Windows.Networking.Connectivity.IDataPlanStatus) -> win32more.Windows.Foundation.IReference[win32more.Windows.Foundation.DateTime]: ...
     @winrt_mixinmethod
     def get_MaxTransferSizeInMegabytes(self: win32more.Windows.Networking.Connectivity.IDataPlanStatus) -> win32more.Windows.Foundation.IReference[UInt32]: ...
-    DataPlanUsage = property(get_DataPlanUsage, None)
     DataLimitInMegabytes = property(get_DataLimitInMegabytes, None)
+    DataPlanUsage = property(get_DataPlanUsage, None)
     InboundBitsPerSecond = property(get_InboundBitsPerSecond, None)
-    OutboundBitsPerSecond = property(get_OutboundBitsPerSecond, None)
-    NextBillingCycle = property(get_NextBillingCycle, None)
     MaxTransferSizeInMegabytes = property(get_MaxTransferSizeInMegabytes, None)
+    NextBillingCycle = property(get_NextBillingCycle, None)
+    OutboundBitsPerSecond = property(get_OutboundBitsPerSecond, None)
 class DataPlanUsage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Connectivity.IDataPlanUsage
@@ -282,8 +282,8 @@ class DataPlanUsage(ComPtr):
     def get_MegabytesUsed(self: win32more.Windows.Networking.Connectivity.IDataPlanUsage) -> UInt32: ...
     @winrt_mixinmethod
     def get_LastSyncTime(self: win32more.Windows.Networking.Connectivity.IDataPlanUsage) -> win32more.Windows.Foundation.DateTime: ...
-    MegabytesUsed = property(get_MegabytesUsed, None)
     LastSyncTime = property(get_LastSyncTime, None)
+    MegabytesUsed = property(get_MegabytesUsed, None)
 class DataUsage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Connectivity.IDataUsage
@@ -292,8 +292,8 @@ class DataUsage(ComPtr):
     def get_BytesSent(self: win32more.Windows.Networking.Connectivity.IDataUsage) -> UInt64: ...
     @winrt_mixinmethod
     def get_BytesReceived(self: win32more.Windows.Networking.Connectivity.IDataUsage) -> UInt64: ...
-    BytesSent = property(get_BytesSent, None)
     BytesReceived = property(get_BytesReceived, None)
+    BytesSent = property(get_BytesSent, None)
 class DataUsageGranularity(Int32):  # enum
     PerMinute = 0
     PerHour = 1
@@ -321,11 +321,11 @@ class IAttributedNetworkUsage(ComPtr):
     def get_AttributionName(self) -> WinRT_String: ...
     @winrt_commethod(10)
     def get_AttributionThumbnail(self) -> win32more.Windows.Storage.Streams.IRandomAccessStreamReference: ...
-    BytesSent = property(get_BytesSent, None)
-    BytesReceived = property(get_BytesReceived, None)
     AttributionId = property(get_AttributionId, None)
     AttributionName = property(get_AttributionName, None)
     AttributionThumbnail = property(get_AttributionThumbnail, None)
+    BytesReceived = property(get_BytesReceived, None)
+    BytesSent = property(get_BytesSent, None)
 class ICellularApnContext(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.Connectivity.ICellularApnContext'
@@ -354,12 +354,12 @@ class ICellularApnContext(ComPtr):
     def get_AuthenticationType(self) -> win32more.Windows.Networking.Connectivity.CellularApnAuthenticationType: ...
     @winrt_commethod(17)
     def put_AuthenticationType(self, value: win32more.Windows.Networking.Connectivity.CellularApnAuthenticationType) -> Void: ...
-    ProviderId = property(get_ProviderId, put_ProviderId)
     AccessPointName = property(get_AccessPointName, put_AccessPointName)
-    UserName = property(get_UserName, put_UserName)
-    Password = property(get_Password, put_Password)
-    IsCompressionEnabled = property(get_IsCompressionEnabled, put_IsCompressionEnabled)
     AuthenticationType = property(get_AuthenticationType, put_AuthenticationType)
+    IsCompressionEnabled = property(get_IsCompressionEnabled, put_IsCompressionEnabled)
+    Password = property(get_Password, put_Password)
+    ProviderId = property(get_ProviderId, put_ProviderId)
+    UserName = property(get_UserName, put_UserName)
 class ICellularApnContext2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.Connectivity.ICellularApnContext2'
@@ -381,10 +381,10 @@ class IConnectionCost(ComPtr):
     def get_OverDataLimit(self) -> Boolean: ...
     @winrt_commethod(9)
     def get_ApproachingDataLimit(self) -> Boolean: ...
-    NetworkCostType = property(get_NetworkCostType, None)
-    Roaming = property(get_Roaming, None)
-    OverDataLimit = property(get_OverDataLimit, None)
     ApproachingDataLimit = property(get_ApproachingDataLimit, None)
+    NetworkCostType = property(get_NetworkCostType, None)
+    OverDataLimit = property(get_OverDataLimit, None)
+    Roaming = property(get_Roaming, None)
 class IConnectionCost2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.Connectivity.IConnectionCost2'
@@ -414,9 +414,9 @@ class IConnectionProfile(ComPtr):
     def GetLocalUsagePerRoamingStates(self, StartTime: win32more.Windows.Foundation.DateTime, EndTime: win32more.Windows.Foundation.DateTime, States: win32more.Windows.Networking.Connectivity.RoamingStates) -> win32more.Windows.Networking.Connectivity.DataUsage: ...
     @winrt_commethod(14)
     def get_NetworkSecuritySettings(self) -> win32more.Windows.Networking.Connectivity.NetworkSecuritySettings: ...
-    ProfileName = property(get_ProfileName, None)
     NetworkAdapter = property(get_NetworkAdapter, None)
     NetworkSecuritySettings = property(get_NetworkSecuritySettings, None)
+    ProfileName = property(get_ProfileName, None)
 class IConnectionProfile2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.Connectivity.IConnectionProfile2'
@@ -439,11 +439,11 @@ class IConnectionProfile2(ComPtr):
     def GetNetworkUsageAsync(self, startTime: win32more.Windows.Foundation.DateTime, endTime: win32more.Windows.Foundation.DateTime, granularity: win32more.Windows.Networking.Connectivity.DataUsageGranularity, states: win32more.Windows.Networking.Connectivity.NetworkUsageStates) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Networking.Connectivity.NetworkUsage]]: ...
     @winrt_commethod(14)
     def GetConnectivityIntervalsAsync(self, startTime: win32more.Windows.Foundation.DateTime, endTime: win32more.Windows.Foundation.DateTime, states: win32more.Windows.Networking.Connectivity.NetworkUsageStates) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Networking.Connectivity.ConnectivityInterval]]: ...
-    IsWwanConnectionProfile = property(get_IsWwanConnectionProfile, None)
     IsWlanConnectionProfile = property(get_IsWlanConnectionProfile, None)
-    WwanConnectionProfileDetails = property(get_WwanConnectionProfileDetails, None)
-    WlanConnectionProfileDetails = property(get_WlanConnectionProfileDetails, None)
+    IsWwanConnectionProfile = property(get_IsWwanConnectionProfile, None)
     ServiceProviderGuid = property(get_ServiceProviderGuid, None)
+    WlanConnectionProfileDetails = property(get_WlanConnectionProfileDetails, None)
+    WwanConnectionProfileDetails = property(get_WwanConnectionProfileDetails, None)
 class IConnectionProfile3(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.Connectivity.IConnectionProfile3'
@@ -496,8 +496,8 @@ class IConnectionProfileFilter(ComPtr):
     @winrt_commethod(15)
     def get_ServiceProviderGuid(self) -> win32more.Windows.Foundation.IReference[Guid]: ...
     IsConnected = property(get_IsConnected, put_IsConnected)
-    IsWwanConnectionProfile = property(get_IsWwanConnectionProfile, put_IsWwanConnectionProfile)
     IsWlanConnectionProfile = property(get_IsWlanConnectionProfile, put_IsWlanConnectionProfile)
+    IsWwanConnectionProfile = property(get_IsWwanConnectionProfile, put_IsWwanConnectionProfile)
     NetworkCostType = property(get_NetworkCostType, put_NetworkCostType)
     ServiceProviderGuid = property(get_ServiceProviderGuid, put_ServiceProviderGuid)
 class IConnectionProfileFilter2(ComPtr):
@@ -518,9 +518,9 @@ class IConnectionProfileFilter2(ComPtr):
     def get_IsBackgroundDataUsageRestricted(self) -> win32more.Windows.Foundation.IReference[Boolean]: ...
     @winrt_commethod(12)
     def get_RawData(self) -> win32more.Windows.Storage.Streams.IBuffer: ...
-    IsRoaming = property(get_IsRoaming, put_IsRoaming)
-    IsOverDataLimit = property(get_IsOverDataLimit, put_IsOverDataLimit)
     IsBackgroundDataUsageRestricted = property(get_IsBackgroundDataUsageRestricted, put_IsBackgroundDataUsageRestricted)
+    IsOverDataLimit = property(get_IsOverDataLimit, put_IsOverDataLimit)
+    IsRoaming = property(get_IsRoaming, put_IsRoaming)
     RawData = property(get_RawData, None)
 class IConnectionProfileFilter3(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -546,8 +546,8 @@ class IConnectivityInterval(ComPtr):
     def get_StartTime(self) -> win32more.Windows.Foundation.DateTime: ...
     @winrt_commethod(7)
     def get_ConnectionDuration(self) -> win32more.Windows.Foundation.TimeSpan: ...
-    StartTime = property(get_StartTime, None)
     ConnectionDuration = property(get_ConnectionDuration, None)
+    StartTime = property(get_StartTime, None)
 class IConnectivityManagerStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.Connectivity.IConnectivityManagerStatics'
@@ -574,12 +574,12 @@ class IDataPlanStatus(ComPtr):
     def get_NextBillingCycle(self) -> win32more.Windows.Foundation.IReference[win32more.Windows.Foundation.DateTime]: ...
     @winrt_commethod(11)
     def get_MaxTransferSizeInMegabytes(self) -> win32more.Windows.Foundation.IReference[UInt32]: ...
-    DataPlanUsage = property(get_DataPlanUsage, None)
     DataLimitInMegabytes = property(get_DataLimitInMegabytes, None)
+    DataPlanUsage = property(get_DataPlanUsage, None)
     InboundBitsPerSecond = property(get_InboundBitsPerSecond, None)
-    OutboundBitsPerSecond = property(get_OutboundBitsPerSecond, None)
-    NextBillingCycle = property(get_NextBillingCycle, None)
     MaxTransferSizeInMegabytes = property(get_MaxTransferSizeInMegabytes, None)
+    NextBillingCycle = property(get_NextBillingCycle, None)
+    OutboundBitsPerSecond = property(get_OutboundBitsPerSecond, None)
 class IDataPlanUsage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.Connectivity.IDataPlanUsage'
@@ -588,8 +588,8 @@ class IDataPlanUsage(ComPtr):
     def get_MegabytesUsed(self) -> UInt32: ...
     @winrt_commethod(7)
     def get_LastSyncTime(self) -> win32more.Windows.Foundation.DateTime: ...
-    MegabytesUsed = property(get_MegabytesUsed, None)
     LastSyncTime = property(get_LastSyncTime, None)
+    MegabytesUsed = property(get_MegabytesUsed, None)
 class IDataUsage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.Connectivity.IDataUsage'
@@ -598,8 +598,8 @@ class IDataUsage(ComPtr):
     def get_BytesSent(self) -> UInt64: ...
     @winrt_commethod(7)
     def get_BytesReceived(self) -> UInt64: ...
-    BytesSent = property(get_BytesSent, None)
     BytesReceived = property(get_BytesReceived, None)
+    BytesSent = property(get_BytesSent, None)
 class IIPInformation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.Connectivity.IIPInformation'
@@ -621,8 +621,8 @@ class ILanIdentifier(ComPtr):
     @winrt_commethod(8)
     def get_NetworkAdapterId(self) -> Guid: ...
     InfrastructureId = property(get_InfrastructureId, None)
-    PortId = property(get_PortId, None)
     NetworkAdapterId = property(get_NetworkAdapterId, None)
+    PortId = property(get_PortId, None)
 class ILanIdentifierData(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.Connectivity.ILanIdentifierData'
@@ -649,11 +649,11 @@ class INetworkAdapter(ComPtr):
     def get_NetworkAdapterId(self) -> Guid: ...
     @winrt_commethod(11)
     def GetConnectedProfileAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Networking.Connectivity.ConnectionProfile]: ...
-    OutboundMaxBitsPerSecond = property(get_OutboundMaxBitsPerSecond, None)
-    InboundMaxBitsPerSecond = property(get_InboundMaxBitsPerSecond, None)
     IanaInterfaceType = property(get_IanaInterfaceType, None)
-    NetworkItem = property(get_NetworkItem, None)
+    InboundMaxBitsPerSecond = property(get_InboundMaxBitsPerSecond, None)
     NetworkAdapterId = property(get_NetworkAdapterId, None)
+    NetworkItem = property(get_NetworkItem, None)
+    OutboundMaxBitsPerSecond = property(get_OutboundMaxBitsPerSecond, None)
 class INetworkInformationStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.Connectivity.INetworkInformationStatics'
@@ -715,11 +715,11 @@ class INetworkStateChangeEventDetails(ComPtr):
     def get_HasNewHostNameList(self) -> Boolean: ...
     @winrt_commethod(11)
     def get_HasNewWwanRegistrationState(self) -> Boolean: ...
-    HasNewInternetConnectionProfile = property(get_HasNewInternetConnectionProfile, None)
     HasNewConnectionCost = property(get_HasNewConnectionCost, None)
-    HasNewNetworkConnectivityLevel = property(get_HasNewNetworkConnectivityLevel, None)
     HasNewDomainConnectivityLevel = property(get_HasNewDomainConnectivityLevel, None)
     HasNewHostNameList = property(get_HasNewHostNameList, None)
+    HasNewInternetConnectionProfile = property(get_HasNewInternetConnectionProfile, None)
+    HasNewNetworkConnectivityLevel = property(get_HasNewNetworkConnectivityLevel, None)
     HasNewWwanRegistrationState = property(get_HasNewWwanRegistrationState, None)
 class INetworkStateChangeEventDetails2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -729,8 +729,8 @@ class INetworkStateChangeEventDetails2(ComPtr):
     def get_HasNewTetheringOperationalState(self) -> Boolean: ...
     @winrt_commethod(7)
     def get_HasNewTetheringClientCount(self) -> Boolean: ...
-    HasNewTetheringOperationalState = property(get_HasNewTetheringOperationalState, None)
     HasNewTetheringClientCount = property(get_HasNewTetheringClientCount, None)
+    HasNewTetheringOperationalState = property(get_HasNewTetheringOperationalState, None)
 class INetworkUsage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.Connectivity.INetworkUsage'
@@ -741,8 +741,8 @@ class INetworkUsage(ComPtr):
     def get_BytesReceived(self) -> UInt64: ...
     @winrt_commethod(8)
     def get_ConnectionDuration(self) -> win32more.Windows.Foundation.TimeSpan: ...
-    BytesSent = property(get_BytesSent, None)
     BytesReceived = property(get_BytesReceived, None)
+    BytesSent = property(get_BytesSent, None)
     ConnectionDuration = property(get_ConnectionDuration, None)
 class IPInformation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -764,8 +764,8 @@ class IProviderNetworkUsage(ComPtr):
     def get_BytesReceived(self) -> UInt64: ...
     @winrt_commethod(8)
     def get_ProviderId(self) -> WinRT_String: ...
-    BytesSent = property(get_BytesSent, None)
     BytesReceived = property(get_BytesReceived, None)
+    BytesSent = property(get_BytesSent, None)
     ProviderId = property(get_ProviderId, None)
 class IProxyConfiguration(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -775,8 +775,8 @@ class IProxyConfiguration(ComPtr):
     def get_ProxyUris(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Foundation.Uri]: ...
     @winrt_commethod(7)
     def get_CanConnectDirectly(self) -> Boolean: ...
-    ProxyUris = property(get_ProxyUris, None)
     CanConnectDirectly = property(get_CanConnectDirectly, None)
+    ProxyUris = property(get_ProxyUris, None)
 class IRoutePolicy(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.Connectivity.IRoutePolicy'
@@ -814,8 +814,8 @@ class IWwanConnectionProfileDetails(ComPtr):
     def GetNetworkRegistrationState(self) -> win32more.Windows.Networking.Connectivity.WwanNetworkRegistrationState: ...
     @winrt_commethod(9)
     def GetCurrentDataClass(self) -> win32more.Windows.Networking.Connectivity.WwanDataClass: ...
-    HomeProviderId = property(get_HomeProviderId, None)
     AccessPointName = property(get_AccessPointName, None)
+    HomeProviderId = property(get_HomeProviderId, None)
 class IWwanConnectionProfileDetails2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.Connectivity.IWwanConnectionProfileDetails2'
@@ -837,8 +837,8 @@ class LanIdentifier(ComPtr):
     @winrt_mixinmethod
     def get_NetworkAdapterId(self: win32more.Windows.Networking.Connectivity.ILanIdentifier) -> Guid: ...
     InfrastructureId = property(get_InfrastructureId, None)
-    PortId = property(get_PortId, None)
     NetworkAdapterId = property(get_NetworkAdapterId, None)
+    PortId = property(get_PortId, None)
 class LanIdentifierData(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Connectivity.ILanIdentifierData
@@ -865,11 +865,11 @@ class NetworkAdapter(ComPtr):
     def get_NetworkAdapterId(self: win32more.Windows.Networking.Connectivity.INetworkAdapter) -> Guid: ...
     @winrt_mixinmethod
     def GetConnectedProfileAsync(self: win32more.Windows.Networking.Connectivity.INetworkAdapter) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Networking.Connectivity.ConnectionProfile]: ...
-    OutboundMaxBitsPerSecond = property(get_OutboundMaxBitsPerSecond, None)
-    InboundMaxBitsPerSecond = property(get_InboundMaxBitsPerSecond, None)
     IanaInterfaceType = property(get_IanaInterfaceType, None)
-    NetworkItem = property(get_NetworkItem, None)
+    InboundMaxBitsPerSecond = property(get_InboundMaxBitsPerSecond, None)
     NetworkAdapterId = property(get_NetworkAdapterId, None)
+    NetworkItem = property(get_NetworkItem, None)
+    OutboundMaxBitsPerSecond = property(get_OutboundMaxBitsPerSecond, None)
 class NetworkAuthenticationType(Int32):  # enum
     None_ = 0
     Unknown = 1
@@ -969,14 +969,14 @@ class NetworkStateChangeEventDetails(ComPtr):
     def get_HasNewTetheringOperationalState(self: win32more.Windows.Networking.Connectivity.INetworkStateChangeEventDetails2) -> Boolean: ...
     @winrt_mixinmethod
     def get_HasNewTetheringClientCount(self: win32more.Windows.Networking.Connectivity.INetworkStateChangeEventDetails2) -> Boolean: ...
-    HasNewInternetConnectionProfile = property(get_HasNewInternetConnectionProfile, None)
     HasNewConnectionCost = property(get_HasNewConnectionCost, None)
-    HasNewNetworkConnectivityLevel = property(get_HasNewNetworkConnectivityLevel, None)
     HasNewDomainConnectivityLevel = property(get_HasNewDomainConnectivityLevel, None)
     HasNewHostNameList = property(get_HasNewHostNameList, None)
-    HasNewWwanRegistrationState = property(get_HasNewWwanRegistrationState, None)
-    HasNewTetheringOperationalState = property(get_HasNewTetheringOperationalState, None)
+    HasNewInternetConnectionProfile = property(get_HasNewInternetConnectionProfile, None)
+    HasNewNetworkConnectivityLevel = property(get_HasNewNetworkConnectivityLevel, None)
     HasNewTetheringClientCount = property(get_HasNewTetheringClientCount, None)
+    HasNewTetheringOperationalState = property(get_HasNewTetheringOperationalState, None)
+    HasNewWwanRegistrationState = property(get_HasNewWwanRegistrationState, None)
 class NetworkStatusChangedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{71ba143f-598e-49d0-84eb-8febaedcc195}')
@@ -995,8 +995,8 @@ class NetworkUsage(ComPtr):
     def get_BytesReceived(self: win32more.Windows.Networking.Connectivity.INetworkUsage) -> UInt64: ...
     @winrt_mixinmethod
     def get_ConnectionDuration(self: win32more.Windows.Networking.Connectivity.INetworkUsage) -> win32more.Windows.Foundation.TimeSpan: ...
-    BytesSent = property(get_BytesSent, None)
     BytesReceived = property(get_BytesReceived, None)
+    BytesSent = property(get_BytesSent, None)
     ConnectionDuration = property(get_ConnectionDuration, None)
 class NetworkUsageStates(EasyCastStructure):
     Roaming: win32more.Windows.Networking.Connectivity.TriStates
@@ -1011,8 +1011,8 @@ class ProviderNetworkUsage(ComPtr):
     def get_BytesReceived(self: win32more.Windows.Networking.Connectivity.IProviderNetworkUsage) -> UInt64: ...
     @winrt_mixinmethod
     def get_ProviderId(self: win32more.Windows.Networking.Connectivity.IProviderNetworkUsage) -> WinRT_String: ...
-    BytesSent = property(get_BytesSent, None)
     BytesReceived = property(get_BytesReceived, None)
+    BytesSent = property(get_BytesSent, None)
     ProviderId = property(get_ProviderId, None)
 class ProxyConfiguration(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -1022,8 +1022,8 @@ class ProxyConfiguration(ComPtr):
     def get_ProxyUris(self: win32more.Windows.Networking.Connectivity.IProxyConfiguration) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Foundation.Uri]: ...
     @winrt_mixinmethod
     def get_CanConnectDirectly(self: win32more.Windows.Networking.Connectivity.IProxyConfiguration) -> Boolean: ...
-    ProxyUris = property(get_ProxyUris, None)
     CanConnectDirectly = property(get_CanConnectDirectly, None)
+    ProxyUris = property(get_ProxyUris, None)
 class RoamingStates(UInt32):  # enum
     None_ = 0
     NotRoaming = 1
@@ -1076,8 +1076,8 @@ class WwanConnectionProfileDetails(ComPtr):
     def get_IPKind(self: win32more.Windows.Networking.Connectivity.IWwanConnectionProfileDetails2) -> win32more.Windows.Networking.Connectivity.WwanNetworkIPKind: ...
     @winrt_mixinmethod
     def get_PurposeGuids(self: win32more.Windows.Networking.Connectivity.IWwanConnectionProfileDetails2) -> win32more.Windows.Foundation.Collections.IVectorView[Guid]: ...
-    HomeProviderId = property(get_HomeProviderId, None)
     AccessPointName = property(get_AccessPointName, None)
+    HomeProviderId = property(get_HomeProviderId, None)
     IPKind = property(get_IPKind, None)
     PurposeGuids = property(get_PurposeGuids, None)
 WwanContract: UInt32 = 131072

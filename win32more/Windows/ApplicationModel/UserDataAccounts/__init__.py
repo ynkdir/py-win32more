@@ -43,12 +43,12 @@ class IUserDataAccount(ComPtr):
     def FindContactListsAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.ApplicationModel.Contacts.ContactList]]: ...
     @winrt_commethod(19)
     def FindContactAnnotationListsAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.ApplicationModel.Contacts.ContactAnnotationList]]: ...
-    Id = property(get_Id, None)
-    UserDisplayName = property(get_UserDisplayName, put_UserDisplayName)
-    OtherAppReadAccess = property(get_OtherAppReadAccess, put_OtherAppReadAccess)
-    Icon = property(get_Icon, None)
     DeviceAccountTypeId = property(get_DeviceAccountTypeId, None)
+    Icon = property(get_Icon, None)
+    Id = property(get_Id, None)
+    OtherAppReadAccess = property(get_OtherAppReadAccess, put_OtherAppReadAccess)
     PackageFamilyName = property(get_PackageFamilyName, None)
+    UserDisplayName = property(get_UserDisplayName, put_UserDisplayName)
 class IUserDataAccount2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.UserDataAccounts.IUserDataAccount2'
@@ -69,8 +69,8 @@ class IUserDataAccount3(ComPtr):
     def get_DisplayName(self) -> WinRT_String: ...
     @winrt_commethod(8)
     def put_DisplayName(self, value: WinRT_String) -> Void: ...
-    ExplictReadAccessPackageFamilyNames = property(get_ExplictReadAccessPackageFamilyNames, None)
     DisplayName = property(get_DisplayName, put_DisplayName)
+    ExplictReadAccessPackageFamilyNames = property(get_ExplictReadAccessPackageFamilyNames, None)
 class IUserDataAccount4(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.UserDataAccounts.IUserDataAccount4'
@@ -92,9 +92,9 @@ class IUserDataAccount4(ComPtr):
     @winrt_commethod(13)
     def put_Icon(self, value: win32more.Windows.Storage.Streams.IRandomAccessStreamReference) -> Void: ...
     CanShowCreateContactGroup = property(get_CanShowCreateContactGroup, put_CanShowCreateContactGroup)
-    ProviderProperties = property(get_ProviderProperties, None)
-    IsProtectedUnderLock = property(None, put_IsProtectedUnderLock)
     Icon = property(None, put_Icon)
+    IsProtectedUnderLock = property(None, put_IsProtectedUnderLock)
+    ProviderProperties = property(get_ProviderProperties, None)
 class IUserDataAccountManagerForUser(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.UserDataAccounts.IUserDataAccountManagerForUser'
@@ -212,18 +212,18 @@ class UserDataAccount(ComPtr):
     def put_IsProtectedUnderLock(self: win32more.Windows.ApplicationModel.UserDataAccounts.IUserDataAccount4, value: Boolean) -> Void: ...
     @winrt_mixinmethod
     def put_Icon(self: win32more.Windows.ApplicationModel.UserDataAccounts.IUserDataAccount4, value: win32more.Windows.Storage.Streams.IRandomAccessStreamReference) -> Void: ...
-    Id = property(get_Id, None)
-    UserDisplayName = property(get_UserDisplayName, put_UserDisplayName)
-    OtherAppReadAccess = property(get_OtherAppReadAccess, put_OtherAppReadAccess)
-    Icon = property(get_Icon, put_Icon)
-    DeviceAccountTypeId = property(get_DeviceAccountTypeId, None)
-    PackageFamilyName = property(get_PackageFamilyName, None)
-    EnterpriseId = property(get_EnterpriseId, None)
-    IsProtectedUnderLock = property(get_IsProtectedUnderLock, put_IsProtectedUnderLock)
-    ExplictReadAccessPackageFamilyNames = property(get_ExplictReadAccessPackageFamilyNames, None)
-    DisplayName = property(get_DisplayName, put_DisplayName)
     CanShowCreateContactGroup = property(get_CanShowCreateContactGroup, put_CanShowCreateContactGroup)
+    DeviceAccountTypeId = property(get_DeviceAccountTypeId, None)
+    DisplayName = property(get_DisplayName, put_DisplayName)
+    EnterpriseId = property(get_EnterpriseId, None)
+    ExplictReadAccessPackageFamilyNames = property(get_ExplictReadAccessPackageFamilyNames, None)
+    Icon = property(get_Icon, put_Icon)
+    Id = property(get_Id, None)
+    IsProtectedUnderLock = property(get_IsProtectedUnderLock, put_IsProtectedUnderLock)
+    OtherAppReadAccess = property(get_OtherAppReadAccess, put_OtherAppReadAccess)
+    PackageFamilyName = property(get_PackageFamilyName, None)
     ProviderProperties = property(get_ProviderProperties, None)
+    UserDisplayName = property(get_UserDisplayName, put_UserDisplayName)
 class UserDataAccountContentKinds(UInt32):  # enum
     Email = 1
     Contact = 2

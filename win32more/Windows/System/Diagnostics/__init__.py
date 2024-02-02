@@ -109,13 +109,13 @@ class IProcessDiagnosticInfo(ComPtr):
     def get_MemoryUsage(self) -> win32more.Windows.System.Diagnostics.ProcessMemoryUsage: ...
     @winrt_commethod(12)
     def get_CpuUsage(self) -> win32more.Windows.System.Diagnostics.ProcessCpuUsage: ...
-    ProcessId = property(get_ProcessId, None)
-    ExecutableFileName = property(get_ExecutableFileName, None)
-    Parent = property(get_Parent, None)
-    ProcessStartTime = property(get_ProcessStartTime, None)
-    DiskUsage = property(get_DiskUsage, None)
-    MemoryUsage = property(get_MemoryUsage, None)
     CpuUsage = property(get_CpuUsage, None)
+    DiskUsage = property(get_DiskUsage, None)
+    ExecutableFileName = property(get_ExecutableFileName, None)
+    MemoryUsage = property(get_MemoryUsage, None)
+    Parent = property(get_Parent, None)
+    ProcessId = property(get_ProcessId, None)
+    ProcessStartTime = property(get_ProcessStartTime, None)
 class IProcessDiagnosticInfo2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.System.Diagnostics.IProcessDiagnosticInfo2'
@@ -161,12 +161,12 @@ class IProcessDiskUsageReport(ComPtr):
     def get_BytesWrittenCount(self) -> Int64: ...
     @winrt_commethod(11)
     def get_OtherBytesCount(self) -> Int64: ...
-    ReadOperationCount = property(get_ReadOperationCount, None)
-    WriteOperationCount = property(get_WriteOperationCount, None)
-    OtherOperationCount = property(get_OtherOperationCount, None)
     BytesReadCount = property(get_BytesReadCount, None)
     BytesWrittenCount = property(get_BytesWrittenCount, None)
     OtherBytesCount = property(get_OtherBytesCount, None)
+    OtherOperationCount = property(get_OtherOperationCount, None)
+    ReadOperationCount = property(get_ReadOperationCount, None)
+    WriteOperationCount = property(get_WriteOperationCount, None)
 class IProcessMemoryUsage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.System.Diagnostics.IProcessMemoryUsage'
@@ -229,9 +229,9 @@ class ISystemCpuUsageReport(ComPtr):
     def get_UserTime(self) -> win32more.Windows.Foundation.TimeSpan: ...
     @winrt_commethod(8)
     def get_IdleTime(self) -> win32more.Windows.Foundation.TimeSpan: ...
+    IdleTime = property(get_IdleTime, None)
     KernelTime = property(get_KernelTime, None)
     UserTime = property(get_UserTime, None)
-    IdleTime = property(get_IdleTime, None)
 class ISystemDiagnosticInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.System.Diagnostics.ISystemDiagnosticInfo'
@@ -240,8 +240,8 @@ class ISystemDiagnosticInfo(ComPtr):
     def get_MemoryUsage(self) -> win32more.Windows.System.Diagnostics.SystemMemoryUsage: ...
     @winrt_commethod(7)
     def get_CpuUsage(self) -> win32more.Windows.System.Diagnostics.SystemCpuUsage: ...
-    MemoryUsage = property(get_MemoryUsage, None)
     CpuUsage = property(get_CpuUsage, None)
+    MemoryUsage = property(get_MemoryUsage, None)
 class ISystemDiagnosticInfoStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.System.Diagnostics.ISystemDiagnosticInfoStatics'
@@ -273,9 +273,9 @@ class ISystemMemoryUsageReport(ComPtr):
     def get_AvailableSizeInBytes(self) -> UInt64: ...
     @winrt_commethod(8)
     def get_CommittedSizeInBytes(self) -> UInt64: ...
-    TotalPhysicalSizeInBytes = property(get_TotalPhysicalSizeInBytes, None)
     AvailableSizeInBytes = property(get_AvailableSizeInBytes, None)
     CommittedSizeInBytes = property(get_CommittedSizeInBytes, None)
+    TotalPhysicalSizeInBytes = property(get_TotalPhysicalSizeInBytes, None)
 class ProcessCpuUsage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.System.Diagnostics.IProcessCpuUsage
@@ -320,14 +320,14 @@ class ProcessDiagnosticInfo(ComPtr):
     def GetForProcesses(cls: win32more.Windows.System.Diagnostics.IProcessDiagnosticInfoStatics) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.System.Diagnostics.ProcessDiagnosticInfo]: ...
     @winrt_classmethod
     def GetForCurrentProcess(cls: win32more.Windows.System.Diagnostics.IProcessDiagnosticInfoStatics) -> win32more.Windows.System.Diagnostics.ProcessDiagnosticInfo: ...
-    ProcessId = property(get_ProcessId, None)
-    ExecutableFileName = property(get_ExecutableFileName, None)
-    Parent = property(get_Parent, None)
-    ProcessStartTime = property(get_ProcessStartTime, None)
-    DiskUsage = property(get_DiskUsage, None)
-    MemoryUsage = property(get_MemoryUsage, None)
     CpuUsage = property(get_CpuUsage, None)
+    DiskUsage = property(get_DiskUsage, None)
+    ExecutableFileName = property(get_ExecutableFileName, None)
     IsPackaged = property(get_IsPackaged, None)
+    MemoryUsage = property(get_MemoryUsage, None)
+    Parent = property(get_Parent, None)
+    ProcessId = property(get_ProcessId, None)
+    ProcessStartTime = property(get_ProcessStartTime, None)
 class ProcessDiskUsage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.System.Diagnostics.IProcessDiskUsage
@@ -350,12 +350,12 @@ class ProcessDiskUsageReport(ComPtr):
     def get_BytesWrittenCount(self: win32more.Windows.System.Diagnostics.IProcessDiskUsageReport) -> Int64: ...
     @winrt_mixinmethod
     def get_OtherBytesCount(self: win32more.Windows.System.Diagnostics.IProcessDiskUsageReport) -> Int64: ...
-    ReadOperationCount = property(get_ReadOperationCount, None)
-    WriteOperationCount = property(get_WriteOperationCount, None)
-    OtherOperationCount = property(get_OtherOperationCount, None)
     BytesReadCount = property(get_BytesReadCount, None)
     BytesWrittenCount = property(get_BytesWrittenCount, None)
     OtherBytesCount = property(get_OtherBytesCount, None)
+    OtherOperationCount = property(get_OtherOperationCount, None)
+    ReadOperationCount = property(get_ReadOperationCount, None)
+    WriteOperationCount = property(get_WriteOperationCount, None)
 class ProcessMemoryUsage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.System.Diagnostics.IProcessMemoryUsage
@@ -418,9 +418,9 @@ class SystemCpuUsageReport(ComPtr):
     def get_UserTime(self: win32more.Windows.System.Diagnostics.ISystemCpuUsageReport) -> win32more.Windows.Foundation.TimeSpan: ...
     @winrt_mixinmethod
     def get_IdleTime(self: win32more.Windows.System.Diagnostics.ISystemCpuUsageReport) -> win32more.Windows.Foundation.TimeSpan: ...
+    IdleTime = property(get_IdleTime, None)
     KernelTime = property(get_KernelTime, None)
     UserTime = property(get_UserTime, None)
-    IdleTime = property(get_IdleTime, None)
 class _SystemDiagnosticInfo_Meta_(ComPtr.__class__):
     pass
 class SystemDiagnosticInfo(ComPtr, metaclass=_SystemDiagnosticInfo_Meta_):
@@ -437,8 +437,8 @@ class SystemDiagnosticInfo(ComPtr, metaclass=_SystemDiagnosticInfo_Meta_):
     def get_PreferredArchitecture(cls: win32more.Windows.System.Diagnostics.ISystemDiagnosticInfoStatics2) -> win32more.Windows.System.ProcessorArchitecture: ...
     @winrt_classmethod
     def GetForCurrentSystem(cls: win32more.Windows.System.Diagnostics.ISystemDiagnosticInfoStatics) -> win32more.Windows.System.Diagnostics.SystemDiagnosticInfo: ...
-    MemoryUsage = property(get_MemoryUsage, None)
     CpuUsage = property(get_CpuUsage, None)
+    MemoryUsage = property(get_MemoryUsage, None)
     _SystemDiagnosticInfo_Meta_.PreferredArchitecture = property(get_PreferredArchitecture.__wrapped__, None)
 class SystemMemoryUsage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -456,9 +456,9 @@ class SystemMemoryUsageReport(ComPtr):
     def get_AvailableSizeInBytes(self: win32more.Windows.System.Diagnostics.ISystemMemoryUsageReport) -> UInt64: ...
     @winrt_mixinmethod
     def get_CommittedSizeInBytes(self: win32more.Windows.System.Diagnostics.ISystemMemoryUsageReport) -> UInt64: ...
-    TotalPhysicalSizeInBytes = property(get_TotalPhysicalSizeInBytes, None)
     AvailableSizeInBytes = property(get_AvailableSizeInBytes, None)
     CommittedSizeInBytes = property(get_CommittedSizeInBytes, None)
+    TotalPhysicalSizeInBytes = property(get_TotalPhysicalSizeInBytes, None)
 
 
 make_ready(__name__)

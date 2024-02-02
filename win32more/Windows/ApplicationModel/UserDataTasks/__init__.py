@@ -64,21 +64,21 @@ class IUserDataTask(ComPtr):
     def get_StartDate(self) -> win32more.Windows.Foundation.IReference[win32more.Windows.Foundation.DateTime]: ...
     @winrt_commethod(32)
     def put_StartDate(self, value: win32more.Windows.Foundation.IReference[win32more.Windows.Foundation.DateTime]) -> Void: ...
-    Id = property(get_Id, None)
-    ListId = property(get_ListId, None)
-    RemoteId = property(get_RemoteId, put_RemoteId)
     CompletedDate = property(get_CompletedDate, put_CompletedDate)
     Details = property(get_Details, put_Details)
     DetailsKind = property(get_DetailsKind, put_DetailsKind)
     DueDate = property(get_DueDate, put_DueDate)
+    Id = property(get_Id, None)
     Kind = property(get_Kind, None)
+    ListId = property(get_ListId, None)
     Priority = property(get_Priority, put_Priority)
     RecurrenceProperties = property(get_RecurrenceProperties, put_RecurrenceProperties)
     RegenerationProperties = property(get_RegenerationProperties, put_RegenerationProperties)
     Reminder = property(get_Reminder, put_Reminder)
+    RemoteId = property(get_RemoteId, put_RemoteId)
     Sensitivity = property(get_Sensitivity, put_Sensitivity)
-    Subject = property(get_Subject, put_Subject)
     StartDate = property(get_StartDate, put_StartDate)
+    Subject = property(get_Subject, put_Subject)
 class IUserDataTaskBatch(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.UserDataTasks.IUserDataTaskBatch'
@@ -128,14 +128,14 @@ class IUserDataTaskList(ComPtr):
     def DeleteAsync(self) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(24)
     def SaveAsync(self) -> win32more.Windows.Foundation.IAsyncAction: ...
-    Id = property(get_Id, None)
-    UserDataAccountId = property(get_UserDataAccountId, None)
     DisplayName = property(get_DisplayName, put_DisplayName)
-    SourceDisplayName = property(get_SourceDisplayName, None)
+    Id = property(get_Id, None)
+    LimitedWriteOperations = property(get_LimitedWriteOperations, None)
     OtherAppReadAccess = property(get_OtherAppReadAccess, put_OtherAppReadAccess)
     OtherAppWriteAccess = property(get_OtherAppWriteAccess, put_OtherAppWriteAccess)
-    LimitedWriteOperations = property(get_LimitedWriteOperations, None)
+    SourceDisplayName = property(get_SourceDisplayName, None)
     SyncManager = property(get_SyncManager, None)
+    UserDataAccountId = property(get_UserDataAccountId, None)
 class IUserDataTaskListLimitedWriteOperations(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.UserDataTasks.IUserDataTaskListLimitedWriteOperations'
@@ -202,8 +202,8 @@ class IUserDataTaskQueryOptions(ComPtr):
     def get_Kind(self) -> win32more.Windows.ApplicationModel.UserDataTasks.UserDataTaskQueryKind: ...
     @winrt_commethod(9)
     def put_Kind(self, value: win32more.Windows.ApplicationModel.UserDataTasks.UserDataTaskQueryKind) -> Void: ...
-    SortProperty = property(get_SortProperty, put_SortProperty)
     Kind = property(get_Kind, put_Kind)
+    SortProperty = property(get_SortProperty, put_SortProperty)
 class IUserDataTaskReader(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.UserDataTasks.IUserDataTaskReader'
@@ -246,14 +246,14 @@ class IUserDataTaskRecurrenceProperties(ComPtr):
     def get_Day(self) -> win32more.Windows.Foundation.IReference[Int32]: ...
     @winrt_commethod(21)
     def put_Day(self, value: win32more.Windows.Foundation.IReference[Int32]) -> Void: ...
-    Unit = property(get_Unit, put_Unit)
-    Occurrences = property(get_Occurrences, put_Occurrences)
-    Until = property(get_Until, put_Until)
-    Interval = property(get_Interval, put_Interval)
-    DaysOfWeek = property(get_DaysOfWeek, put_DaysOfWeek)
-    WeekOfMonth = property(get_WeekOfMonth, put_WeekOfMonth)
-    Month = property(get_Month, put_Month)
     Day = property(get_Day, put_Day)
+    DaysOfWeek = property(get_DaysOfWeek, put_DaysOfWeek)
+    Interval = property(get_Interval, put_Interval)
+    Month = property(get_Month, put_Month)
+    Occurrences = property(get_Occurrences, put_Occurrences)
+    Unit = property(get_Unit, put_Unit)
+    Until = property(get_Until, put_Until)
+    WeekOfMonth = property(get_WeekOfMonth, put_WeekOfMonth)
 class IUserDataTaskRegenerationProperties(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.UserDataTasks.IUserDataTaskRegenerationProperties'
@@ -274,10 +274,10 @@ class IUserDataTaskRegenerationProperties(ComPtr):
     def get_Interval(self) -> Int32: ...
     @winrt_commethod(13)
     def put_Interval(self, value: Int32) -> Void: ...
-    Unit = property(get_Unit, put_Unit)
-    Occurrences = property(get_Occurrences, put_Occurrences)
-    Until = property(get_Until, put_Until)
     Interval = property(get_Interval, put_Interval)
+    Occurrences = property(get_Occurrences, put_Occurrences)
+    Unit = property(get_Unit, put_Unit)
+    Until = property(get_Until, put_Until)
 class IUserDataTaskStore(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.UserDataTasks.IUserDataTaskStore'
@@ -357,21 +357,21 @@ class UserDataTask(ComPtr):
     def get_StartDate(self: win32more.Windows.ApplicationModel.UserDataTasks.IUserDataTask) -> win32more.Windows.Foundation.IReference[win32more.Windows.Foundation.DateTime]: ...
     @winrt_mixinmethod
     def put_StartDate(self: win32more.Windows.ApplicationModel.UserDataTasks.IUserDataTask, value: win32more.Windows.Foundation.IReference[win32more.Windows.Foundation.DateTime]) -> Void: ...
-    Id = property(get_Id, None)
-    ListId = property(get_ListId, None)
-    RemoteId = property(get_RemoteId, put_RemoteId)
     CompletedDate = property(get_CompletedDate, put_CompletedDate)
     Details = property(get_Details, put_Details)
     DetailsKind = property(get_DetailsKind, put_DetailsKind)
     DueDate = property(get_DueDate, put_DueDate)
+    Id = property(get_Id, None)
     Kind = property(get_Kind, None)
+    ListId = property(get_ListId, None)
     Priority = property(get_Priority, put_Priority)
     RecurrenceProperties = property(get_RecurrenceProperties, put_RecurrenceProperties)
     RegenerationProperties = property(get_RegenerationProperties, put_RegenerationProperties)
     Reminder = property(get_Reminder, put_Reminder)
+    RemoteId = property(get_RemoteId, put_RemoteId)
     Sensitivity = property(get_Sensitivity, put_Sensitivity)
-    Subject = property(get_Subject, put_Subject)
     StartDate = property(get_StartDate, put_StartDate)
+    Subject = property(get_Subject, put_Subject)
 class UserDataTaskBatch(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.UserDataTasks.IUserDataTaskBatch
@@ -437,14 +437,14 @@ class UserDataTaskList(ComPtr):
     def DeleteAsync(self: win32more.Windows.ApplicationModel.UserDataTasks.IUserDataTaskList) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_mixinmethod
     def SaveAsync(self: win32more.Windows.ApplicationModel.UserDataTasks.IUserDataTaskList) -> win32more.Windows.Foundation.IAsyncAction: ...
-    Id = property(get_Id, None)
-    UserDataAccountId = property(get_UserDataAccountId, None)
     DisplayName = property(get_DisplayName, put_DisplayName)
-    SourceDisplayName = property(get_SourceDisplayName, None)
+    Id = property(get_Id, None)
+    LimitedWriteOperations = property(get_LimitedWriteOperations, None)
     OtherAppReadAccess = property(get_OtherAppReadAccess, put_OtherAppReadAccess)
     OtherAppWriteAccess = property(get_OtherAppWriteAccess, put_OtherAppWriteAccess)
-    LimitedWriteOperations = property(get_LimitedWriteOperations, None)
+    SourceDisplayName = property(get_SourceDisplayName, None)
     SyncManager = property(get_SyncManager, None)
+    UserDataAccountId = property(get_UserDataAccountId, None)
 class UserDataTaskListLimitedWriteOperations(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.UserDataTasks.IUserDataTaskListLimitedWriteOperations
@@ -538,8 +538,8 @@ class UserDataTaskQueryOptions(ComPtr):
     def get_Kind(self: win32more.Windows.ApplicationModel.UserDataTasks.IUserDataTaskQueryOptions) -> win32more.Windows.ApplicationModel.UserDataTasks.UserDataTaskQueryKind: ...
     @winrt_mixinmethod
     def put_Kind(self: win32more.Windows.ApplicationModel.UserDataTasks.IUserDataTaskQueryOptions, value: win32more.Windows.ApplicationModel.UserDataTasks.UserDataTaskQueryKind) -> Void: ...
-    SortProperty = property(get_SortProperty, put_SortProperty)
     Kind = property(get_Kind, put_Kind)
+    SortProperty = property(get_SortProperty, put_SortProperty)
 class UserDataTaskQuerySortProperty(Int32):  # enum
     DueDate = 0
 class UserDataTaskReader(ComPtr):
@@ -593,14 +593,14 @@ class UserDataTaskRecurrenceProperties(ComPtr):
     def get_Day(self: win32more.Windows.ApplicationModel.UserDataTasks.IUserDataTaskRecurrenceProperties) -> win32more.Windows.Foundation.IReference[Int32]: ...
     @winrt_mixinmethod
     def put_Day(self: win32more.Windows.ApplicationModel.UserDataTasks.IUserDataTaskRecurrenceProperties, value: win32more.Windows.Foundation.IReference[Int32]) -> Void: ...
-    Unit = property(get_Unit, put_Unit)
-    Occurrences = property(get_Occurrences, put_Occurrences)
-    Until = property(get_Until, put_Until)
-    Interval = property(get_Interval, put_Interval)
-    DaysOfWeek = property(get_DaysOfWeek, put_DaysOfWeek)
-    WeekOfMonth = property(get_WeekOfMonth, put_WeekOfMonth)
-    Month = property(get_Month, put_Month)
     Day = property(get_Day, put_Day)
+    DaysOfWeek = property(get_DaysOfWeek, put_DaysOfWeek)
+    Interval = property(get_Interval, put_Interval)
+    Month = property(get_Month, put_Month)
+    Occurrences = property(get_Occurrences, put_Occurrences)
+    Unit = property(get_Unit, put_Unit)
+    Until = property(get_Until, put_Until)
+    WeekOfMonth = property(get_WeekOfMonth, put_WeekOfMonth)
 class UserDataTaskRecurrenceUnit(Int32):  # enum
     Daily = 0
     Weekly = 1
@@ -637,10 +637,10 @@ class UserDataTaskRegenerationProperties(ComPtr):
     def get_Interval(self: win32more.Windows.ApplicationModel.UserDataTasks.IUserDataTaskRegenerationProperties) -> Int32: ...
     @winrt_mixinmethod
     def put_Interval(self: win32more.Windows.ApplicationModel.UserDataTasks.IUserDataTaskRegenerationProperties, value: Int32) -> Void: ...
-    Unit = property(get_Unit, put_Unit)
-    Occurrences = property(get_Occurrences, put_Occurrences)
-    Until = property(get_Until, put_Until)
     Interval = property(get_Interval, put_Interval)
+    Occurrences = property(get_Occurrences, put_Occurrences)
+    Unit = property(get_Unit, put_Unit)
+    Until = property(get_Until, put_Until)
 class UserDataTaskRegenerationUnit(Int32):  # enum
     Daily = 0
     Weekly = 1

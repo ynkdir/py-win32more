@@ -23,9 +23,9 @@ class Direct3D11CaptureFrame(ComPtr):
     def get_ContentSize(self: win32more.Windows.Graphics.Capture.IDirect3D11CaptureFrame) -> win32more.Windows.Graphics.SizeInt32: ...
     @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
+    ContentSize = property(get_ContentSize, None)
     Surface = property(get_Surface, None)
     SystemRelativeTime = property(get_SystemRelativeTime, None)
-    ContentSize = property(get_ContentSize, None)
 class Direct3D11CaptureFramePool(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Capture.IDirect3D11CaptureFramePool
@@ -110,8 +110,8 @@ class GraphicsCaptureSession(ComPtr):
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
     @winrt_classmethod
     def IsSupported(cls: win32more.Windows.Graphics.Capture.IGraphicsCaptureSessionStatics) -> Boolean: ...
-    IsCursorCaptureEnabled = property(get_IsCursorCaptureEnabled, put_IsCursorCaptureEnabled)
     IsBorderRequired = property(get_IsBorderRequired, put_IsBorderRequired)
+    IsCursorCaptureEnabled = property(get_IsCursorCaptureEnabled, put_IsCursorCaptureEnabled)
 class IDirect3D11CaptureFrame(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Capture.IDirect3D11CaptureFrame'
@@ -122,9 +122,9 @@ class IDirect3D11CaptureFrame(ComPtr):
     def get_SystemRelativeTime(self) -> win32more.Windows.Foundation.TimeSpan: ...
     @winrt_commethod(8)
     def get_ContentSize(self) -> win32more.Windows.Graphics.SizeInt32: ...
+    ContentSize = property(get_ContentSize, None)
     Surface = property(get_Surface, None)
     SystemRelativeTime = property(get_SystemRelativeTime, None)
-    ContentSize = property(get_ContentSize, None)
 class IDirect3D11CaptureFramePool(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Capture.IDirect3D11CaptureFramePool'

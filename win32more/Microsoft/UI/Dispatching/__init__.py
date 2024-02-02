@@ -226,8 +226,8 @@ class IDispatcherQueueTimer(ComPtr):
     @winrt_commethod(14)
     def remove_Tick(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Interval = property(get_Interval, put_Interval)
-    IsRunning = property(get_IsRunning, None)
     IsRepeating = property(get_IsRepeating, put_IsRepeating)
+    IsRunning = property(get_IsRunning, None)
 
 
 make_ready(__name__)

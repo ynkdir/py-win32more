@@ -69,14 +69,14 @@ class GameListEntry(ComPtr):
     def SetTitleIdAsync(self: win32more.Windows.Gaming.Preview.GamesEnumeration.IGameListEntry2, id: WinRT_String) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_mixinmethod
     def get_GameModeConfiguration(self: win32more.Windows.Gaming.Preview.GamesEnumeration.IGameListEntry2) -> win32more.Windows.Gaming.Preview.GamesEnumeration.GameModeConfiguration: ...
-    DisplayInfo = property(get_DisplayInfo, None)
     Category = property(get_Category, None)
-    Properties = property(get_Properties, None)
+    DisplayInfo = property(get_DisplayInfo, None)
+    GameModeConfiguration = property(get_GameModeConfiguration, None)
+    LaunchParameters = property(get_LaunchParameters, None)
     LaunchableState = property(get_LaunchableState, None)
     LauncherExecutable = property(get_LauncherExecutable, None)
-    LaunchParameters = property(get_LaunchParameters, None)
+    Properties = property(get_Properties, None)
     TitleId = property(get_TitleId, None)
-    GameModeConfiguration = property(get_GameModeConfiguration, None)
 class GameListEntryLaunchableState(Int32):  # enum
     NotLaunchable = 0
     ByLastRunningFullPath = 1
@@ -126,15 +126,15 @@ class GameModeConfiguration(ComPtr):
     def put_AffinitizeToExclusiveCpus(self: win32more.Windows.Gaming.Preview.GamesEnumeration.IGameModeConfiguration, value: Boolean) -> Void: ...
     @winrt_mixinmethod
     def SaveAsync(self: win32more.Windows.Gaming.Preview.GamesEnumeration.IGameModeConfiguration) -> win32more.Windows.Foundation.IAsyncAction: ...
+    AffinitizeToExclusiveCpus = property(get_AffinitizeToExclusiveCpus, put_AffinitizeToExclusiveCpus)
+    CpuExclusivityMaskHigh = property(get_CpuExclusivityMaskHigh, put_CpuExclusivityMaskHigh)
+    CpuExclusivityMaskLow = property(get_CpuExclusivityMaskLow, put_CpuExclusivityMaskLow)
     IsEnabled = property(get_IsEnabled, put_IsEnabled)
-    RelatedProcessNames = property(get_RelatedProcessNames, None)
-    PercentGpuTimeAllocatedToGame = property(get_PercentGpuTimeAllocatedToGame, put_PercentGpuTimeAllocatedToGame)
+    MaxCpuCount = property(get_MaxCpuCount, put_MaxCpuCount)
     PercentGpuMemoryAllocatedToGame = property(get_PercentGpuMemoryAllocatedToGame, put_PercentGpuMemoryAllocatedToGame)
     PercentGpuMemoryAllocatedToSystemCompositor = property(get_PercentGpuMemoryAllocatedToSystemCompositor, put_PercentGpuMemoryAllocatedToSystemCompositor)
-    MaxCpuCount = property(get_MaxCpuCount, put_MaxCpuCount)
-    CpuExclusivityMaskLow = property(get_CpuExclusivityMaskLow, put_CpuExclusivityMaskLow)
-    CpuExclusivityMaskHigh = property(get_CpuExclusivityMaskHigh, put_CpuExclusivityMaskHigh)
-    AffinitizeToExclusiveCpus = property(get_AffinitizeToExclusiveCpus, put_AffinitizeToExclusiveCpus)
+    PercentGpuTimeAllocatedToGame = property(get_PercentGpuTimeAllocatedToGame, put_PercentGpuTimeAllocatedToGame)
+    RelatedProcessNames = property(get_RelatedProcessNames, None)
 class GameModeUserConfiguration(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Gaming.Preview.GamesEnumeration.IGameModeUserConfiguration
@@ -160,8 +160,8 @@ class IGameListEntry(ComPtr):
     def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     @winrt_commethod(10)
     def SetCategoryAsync(self, value: win32more.Windows.Gaming.Preview.GamesEnumeration.GameListCategory) -> win32more.Windows.Foundation.IAsyncAction: ...
-    DisplayInfo = property(get_DisplayInfo, None)
     Category = property(get_Category, None)
+    DisplayInfo = property(get_DisplayInfo, None)
     Properties = property(get_Properties, None)
 class IGameListEntry2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -183,11 +183,11 @@ class IGameListEntry2(ComPtr):
     def SetTitleIdAsync(self, id: WinRT_String) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(13)
     def get_GameModeConfiguration(self) -> win32more.Windows.Gaming.Preview.GamesEnumeration.GameModeConfiguration: ...
+    GameModeConfiguration = property(get_GameModeConfiguration, None)
+    LaunchParameters = property(get_LaunchParameters, None)
     LaunchableState = property(get_LaunchableState, None)
     LauncherExecutable = property(get_LauncherExecutable, None)
-    LaunchParameters = property(get_LaunchParameters, None)
     TitleId = property(get_TitleId, None)
-    GameModeConfiguration = property(get_GameModeConfiguration, None)
 class IGameListStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Gaming.Preview.GamesEnumeration.IGameListStatics'
@@ -256,15 +256,15 @@ class IGameModeConfiguration(ComPtr):
     def put_AffinitizeToExclusiveCpus(self, value: Boolean) -> Void: ...
     @winrt_commethod(23)
     def SaveAsync(self) -> win32more.Windows.Foundation.IAsyncAction: ...
+    AffinitizeToExclusiveCpus = property(get_AffinitizeToExclusiveCpus, put_AffinitizeToExclusiveCpus)
+    CpuExclusivityMaskHigh = property(get_CpuExclusivityMaskHigh, put_CpuExclusivityMaskHigh)
+    CpuExclusivityMaskLow = property(get_CpuExclusivityMaskLow, put_CpuExclusivityMaskLow)
     IsEnabled = property(get_IsEnabled, put_IsEnabled)
-    RelatedProcessNames = property(get_RelatedProcessNames, None)
-    PercentGpuTimeAllocatedToGame = property(get_PercentGpuTimeAllocatedToGame, put_PercentGpuTimeAllocatedToGame)
+    MaxCpuCount = property(get_MaxCpuCount, put_MaxCpuCount)
     PercentGpuMemoryAllocatedToGame = property(get_PercentGpuMemoryAllocatedToGame, put_PercentGpuMemoryAllocatedToGame)
     PercentGpuMemoryAllocatedToSystemCompositor = property(get_PercentGpuMemoryAllocatedToSystemCompositor, put_PercentGpuMemoryAllocatedToSystemCompositor)
-    MaxCpuCount = property(get_MaxCpuCount, put_MaxCpuCount)
-    CpuExclusivityMaskLow = property(get_CpuExclusivityMaskLow, put_CpuExclusivityMaskLow)
-    CpuExclusivityMaskHigh = property(get_CpuExclusivityMaskHigh, put_CpuExclusivityMaskHigh)
-    AffinitizeToExclusiveCpus = property(get_AffinitizeToExclusiveCpus, put_AffinitizeToExclusiveCpus)
+    PercentGpuTimeAllocatedToGame = property(get_PercentGpuTimeAllocatedToGame, put_PercentGpuTimeAllocatedToGame)
+    RelatedProcessNames = property(get_RelatedProcessNames, None)
 class IGameModeUserConfiguration(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Gaming.Preview.GamesEnumeration.IGameModeUserConfiguration'

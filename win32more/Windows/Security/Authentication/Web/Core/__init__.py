@@ -18,8 +18,8 @@ class FindAllAccountsResult(ComPtr):
     @winrt_mixinmethod
     def get_ProviderError(self: win32more.Windows.Security.Authentication.Web.Core.IFindAllAccountsResult) -> win32more.Windows.Security.Authentication.Web.Core.WebProviderError: ...
     Accounts = property(get_Accounts, None)
-    Status = property(get_Status, None)
     ProviderError = property(get_ProviderError, None)
+    Status = property(get_Status, None)
 class FindAllWebAccountsStatus(Int32):  # enum
     Success = 0
     NotAllowedByProvider = 1
@@ -36,8 +36,8 @@ class IFindAllAccountsResult(ComPtr):
     @winrt_commethod(8)
     def get_ProviderError(self) -> win32more.Windows.Security.Authentication.Web.Core.WebProviderError: ...
     Accounts = property(get_Accounts, None)
-    Status = property(get_Status, None)
     ProviderError = property(get_ProviderError, None)
+    Status = property(get_Status, None)
 class IWebAccountEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.Authentication.Web.Core.IWebAccountEventArgs'
@@ -146,11 +146,11 @@ class IWebTokenRequest(ComPtr):
     def get_PromptType(self) -> win32more.Windows.Security.Authentication.Web.Core.WebTokenRequestPromptType: ...
     @winrt_commethod(10)
     def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMap[WinRT_String, WinRT_String]: ...
-    WebAccountProvider = property(get_WebAccountProvider, None)
-    Scope = property(get_Scope, None)
     ClientId = property(get_ClientId, None)
     PromptType = property(get_PromptType, None)
     Properties = property(get_Properties, None)
+    Scope = property(get_Scope, None)
+    WebAccountProvider = property(get_WebAccountProvider, None)
 class IWebTokenRequest2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.Authentication.Web.Core.IWebTokenRequest2'
@@ -192,8 +192,8 @@ class IWebTokenRequestResult(ComPtr):
     @winrt_commethod(9)
     def InvalidateCacheAsync(self) -> win32more.Windows.Foundation.IAsyncAction: ...
     ResponseData = property(get_ResponseData, None)
-    ResponseStatus = property(get_ResponseStatus, None)
     ResponseError = property(get_ResponseError, None)
+    ResponseStatus = property(get_ResponseStatus, None)
 class IWebTokenResponse(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.Authentication.Web.Core.IWebTokenResponse'
@@ -206,10 +206,10 @@ class IWebTokenResponse(ComPtr):
     def get_WebAccount(self) -> win32more.Windows.Security.Credentials.WebAccount: ...
     @winrt_commethod(9)
     def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMap[WinRT_String, WinRT_String]: ...
-    Token = property(get_Token, None)
-    ProviderError = property(get_ProviderError, None)
-    WebAccount = property(get_WebAccount, None)
     Properties = property(get_Properties, None)
+    ProviderError = property(get_ProviderError, None)
+    Token = property(get_Token, None)
+    WebAccount = property(get_WebAccount, None)
 class IWebTokenResponseFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.Authentication.Web.Core.IWebTokenResponseFactory'
@@ -341,13 +341,13 @@ class WebTokenRequest(ComPtr):
     def get_CorrelationId(self: win32more.Windows.Security.Authentication.Web.Core.IWebTokenRequest3) -> WinRT_String: ...
     @winrt_mixinmethod
     def put_CorrelationId(self: win32more.Windows.Security.Authentication.Web.Core.IWebTokenRequest3, value: WinRT_String) -> Void: ...
-    WebAccountProvider = property(get_WebAccountProvider, None)
-    Scope = property(get_Scope, None)
+    AppProperties = property(get_AppProperties, None)
     ClientId = property(get_ClientId, None)
+    CorrelationId = property(get_CorrelationId, put_CorrelationId)
     PromptType = property(get_PromptType, None)
     Properties = property(get_Properties, None)
-    AppProperties = property(get_AppProperties, None)
-    CorrelationId = property(get_CorrelationId, put_CorrelationId)
+    Scope = property(get_Scope, None)
+    WebAccountProvider = property(get_WebAccountProvider, None)
 class WebTokenRequestPromptType(Int32):  # enum
     Default = 0
     ForceAuthentication = 1
@@ -364,8 +364,8 @@ class WebTokenRequestResult(ComPtr):
     @winrt_mixinmethod
     def InvalidateCacheAsync(self: win32more.Windows.Security.Authentication.Web.Core.IWebTokenRequestResult) -> win32more.Windows.Foundation.IAsyncAction: ...
     ResponseData = property(get_ResponseData, None)
-    ResponseStatus = property(get_ResponseStatus, None)
     ResponseError = property(get_ResponseError, None)
+    ResponseStatus = property(get_ResponseStatus, None)
 class WebTokenRequestStatus(Int32):  # enum
     Success = 0
     UserCancel = 1
@@ -406,10 +406,10 @@ class WebTokenResponse(ComPtr):
     def get_WebAccount(self: win32more.Windows.Security.Authentication.Web.Core.IWebTokenResponse) -> win32more.Windows.Security.Credentials.WebAccount: ...
     @winrt_mixinmethod
     def get_Properties(self: win32more.Windows.Security.Authentication.Web.Core.IWebTokenResponse) -> win32more.Windows.Foundation.Collections.IMap[WinRT_String, WinRT_String]: ...
-    Token = property(get_Token, None)
-    ProviderError = property(get_ProviderError, None)
-    WebAccount = property(get_WebAccount, None)
     Properties = property(get_Properties, None)
+    ProviderError = property(get_ProviderError, None)
+    Token = property(get_Token, None)
+    WebAccount = property(get_WebAccount, None)
 
 
 make_ready(__name__)

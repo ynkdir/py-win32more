@@ -78,17 +78,17 @@ class HdmiDisplayMode(ComPtr):
     def get_Is2086MetadataSupported(self: win32more.Windows.Graphics.Display.Core.IHdmiDisplayMode) -> Boolean: ...
     @winrt_mixinmethod
     def get_IsDolbyVisionLowLatencySupported(self: win32more.Windows.Graphics.Display.Core.IHdmiDisplayMode2) -> Boolean: ...
-    ResolutionWidthInRawPixels = property(get_ResolutionWidthInRawPixels, None)
-    ResolutionHeightInRawPixels = property(get_ResolutionHeightInRawPixels, None)
-    RefreshRate = property(get_RefreshRate, None)
-    StereoEnabled = property(get_StereoEnabled, None)
     BitsPerPixel = property(get_BitsPerPixel, None)
     ColorSpace = property(get_ColorSpace, None)
-    PixelEncoding = property(get_PixelEncoding, None)
-    IsSdrLuminanceSupported = property(get_IsSdrLuminanceSupported, None)
-    IsSmpte2084Supported = property(get_IsSmpte2084Supported, None)
     Is2086MetadataSupported = property(get_Is2086MetadataSupported, None)
     IsDolbyVisionLowLatencySupported = property(get_IsDolbyVisionLowLatencySupported, None)
+    IsSdrLuminanceSupported = property(get_IsSdrLuminanceSupported, None)
+    IsSmpte2084Supported = property(get_IsSmpte2084Supported, None)
+    PixelEncoding = property(get_PixelEncoding, None)
+    RefreshRate = property(get_RefreshRate, None)
+    ResolutionHeightInRawPixels = property(get_ResolutionHeightInRawPixels, None)
+    ResolutionWidthInRawPixels = property(get_ResolutionWidthInRawPixels, None)
+    StereoEnabled = property(get_StereoEnabled, None)
 class HdmiDisplayPixelEncoding(Int32):  # enum
     Rgb444 = 0
     Ycc444 = 1
@@ -146,16 +146,16 @@ class IHdmiDisplayMode(ComPtr):
     def get_IsSmpte2084Supported(self) -> Boolean: ...
     @winrt_commethod(16)
     def get_Is2086MetadataSupported(self) -> Boolean: ...
-    ResolutionWidthInRawPixels = property(get_ResolutionWidthInRawPixels, None)
-    ResolutionHeightInRawPixels = property(get_ResolutionHeightInRawPixels, None)
-    RefreshRate = property(get_RefreshRate, None)
-    StereoEnabled = property(get_StereoEnabled, None)
     BitsPerPixel = property(get_BitsPerPixel, None)
     ColorSpace = property(get_ColorSpace, None)
-    PixelEncoding = property(get_PixelEncoding, None)
+    Is2086MetadataSupported = property(get_Is2086MetadataSupported, None)
     IsSdrLuminanceSupported = property(get_IsSdrLuminanceSupported, None)
     IsSmpte2084Supported = property(get_IsSmpte2084Supported, None)
-    Is2086MetadataSupported = property(get_Is2086MetadataSupported, None)
+    PixelEncoding = property(get_PixelEncoding, None)
+    RefreshRate = property(get_RefreshRate, None)
+    ResolutionHeightInRawPixels = property(get_ResolutionHeightInRawPixels, None)
+    ResolutionWidthInRawPixels = property(get_ResolutionWidthInRawPixels, None)
+    StereoEnabled = property(get_StereoEnabled, None)
 class IHdmiDisplayMode2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Display.Core.IHdmiDisplayMode2'

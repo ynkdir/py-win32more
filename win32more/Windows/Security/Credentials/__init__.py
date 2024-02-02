@@ -39,8 +39,8 @@ class IKeyCredentialAttestationResult(ComPtr):
     def get_AttestationBuffer(self) -> win32more.Windows.Storage.Streams.IBuffer: ...
     @winrt_commethod(8)
     def get_Status(self) -> win32more.Windows.Security.Credentials.KeyCredentialAttestationStatus: ...
-    CertificateChainBuffer = property(get_CertificateChainBuffer, None)
     AttestationBuffer = property(get_AttestationBuffer, None)
+    CertificateChainBuffer = property(get_CertificateChainBuffer, None)
     Status = property(get_Status, None)
 class IKeyCredentialManagerStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -96,10 +96,10 @@ class IPasswordCredential(ComPtr):
     def RetrievePassword(self) -> Void: ...
     @winrt_commethod(13)
     def get_Properties(self) -> win32more.Windows.Foundation.Collections.IPropertySet: ...
-    Resource = property(get_Resource, put_Resource)
-    UserName = property(get_UserName, put_UserName)
     Password = property(get_Password, put_Password)
     Properties = property(get_Properties, None)
+    Resource = property(get_Resource, put_Resource)
+    UserName = property(get_UserName, put_UserName)
 class IPasswordVault(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.Credentials.IPasswordVault'
@@ -126,9 +126,9 @@ class IWebAccount(ComPtr):
     def get_UserName(self) -> WinRT_String: ...
     @winrt_commethod(8)
     def get_State(self) -> win32more.Windows.Security.Credentials.WebAccountState: ...
-    WebAccountProvider = property(get_WebAccountProvider, None)
-    UserName = property(get_UserName, None)
     State = property(get_State, None)
+    UserName = property(get_UserName, None)
+    WebAccountProvider = property(get_WebAccountProvider, None)
 class IWebAccount2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.Credentials.IWebAccount2'
@@ -161,9 +161,9 @@ class IWebAccountProvider(ComPtr):
     def get_DisplayName(self) -> WinRT_String: ...
     @winrt_commethod(8)
     def get_IconUri(self) -> win32more.Windows.Foundation.Uri: ...
-    Id = property(get_Id, None)
     DisplayName = property(get_DisplayName, None)
     IconUri = property(get_IconUri, None)
+    Id = property(get_Id, None)
 class IWebAccountProvider2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.Credentials.IWebAccountProvider2'
@@ -172,8 +172,8 @@ class IWebAccountProvider2(ComPtr):
     def get_DisplayPurpose(self) -> WinRT_String: ...
     @winrt_commethod(7)
     def get_Authority(self) -> WinRT_String: ...
-    DisplayPurpose = property(get_DisplayPurpose, None)
     Authority = property(get_Authority, None)
+    DisplayPurpose = property(get_DisplayPurpose, None)
 class IWebAccountProvider3(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.Credentials.IWebAccountProvider3'
@@ -219,8 +219,8 @@ class KeyCredentialAttestationResult(ComPtr):
     def get_AttestationBuffer(self: win32more.Windows.Security.Credentials.IKeyCredentialAttestationResult) -> win32more.Windows.Storage.Streams.IBuffer: ...
     @winrt_mixinmethod
     def get_Status(self: win32more.Windows.Security.Credentials.IKeyCredentialAttestationResult) -> win32more.Windows.Security.Credentials.KeyCredentialAttestationStatus: ...
-    CertificateChainBuffer = property(get_CertificateChainBuffer, None)
     AttestationBuffer = property(get_AttestationBuffer, None)
+    CertificateChainBuffer = property(get_CertificateChainBuffer, None)
     Status = property(get_Status, None)
 class KeyCredentialAttestationStatus(Int32):  # enum
     Success = 0
@@ -304,10 +304,10 @@ class PasswordCredential(ComPtr):
     def RetrievePassword(self: win32more.Windows.Security.Credentials.IPasswordCredential) -> Void: ...
     @winrt_mixinmethod
     def get_Properties(self: win32more.Windows.Security.Credentials.IPasswordCredential) -> win32more.Windows.Foundation.Collections.IPropertySet: ...
-    Resource = property(get_Resource, put_Resource)
-    UserName = property(get_UserName, put_UserName)
     Password = property(get_Password, put_Password)
     Properties = property(get_Properties, None)
+    Resource = property(get_Resource, put_Resource)
+    UserName = property(get_UserName, put_UserName)
 class PasswordCredentialPropertyStore(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.Collections.IPropertySet
@@ -396,11 +396,11 @@ class WebAccount(ComPtr):
     def SignOutAsync(self: win32more.Windows.Security.Credentials.IWebAccount2) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_mixinmethod
     def SignOutWithClientIdAsync(self: win32more.Windows.Security.Credentials.IWebAccount2, clientId: WinRT_String) -> win32more.Windows.Foundation.IAsyncAction: ...
-    WebAccountProvider = property(get_WebAccountProvider, None)
-    UserName = property(get_UserName, None)
-    State = property(get_State, None)
     Id = property(get_Id, None)
     Properties = property(get_Properties, None)
+    State = property(get_State, None)
+    UserName = property(get_UserName, None)
+    WebAccountProvider = property(get_WebAccountProvider, None)
 class WebAccountPictureSize(Int32):  # enum
     Size64x64 = 64
     Size208x208 = 208
@@ -433,13 +433,13 @@ class WebAccountProvider(ComPtr):
     def get_User(self: win32more.Windows.Security.Credentials.IWebAccountProvider3) -> win32more.Windows.System.User: ...
     @winrt_mixinmethod
     def get_IsSystemProvider(self: win32more.Windows.Security.Credentials.IWebAccountProvider4) -> Boolean: ...
-    Id = property(get_Id, None)
-    DisplayName = property(get_DisplayName, None)
-    IconUri = property(get_IconUri, None)
-    DisplayPurpose = property(get_DisplayPurpose, None)
     Authority = property(get_Authority, None)
-    User = property(get_User, None)
+    DisplayName = property(get_DisplayName, None)
+    DisplayPurpose = property(get_DisplayPurpose, None)
+    IconUri = property(get_IconUri, None)
+    Id = property(get_Id, None)
     IsSystemProvider = property(get_IsSystemProvider, None)
+    User = property(get_User, None)
 class WebAccountState(Int32):  # enum
     None_ = 0
     Connected = 1

@@ -53,13 +53,13 @@ class IJumpListItem(ComPtr):
     def get_Logo(self) -> win32more.Windows.Foundation.Uri: ...
     @winrt_commethod(16)
     def put_Logo(self, value: win32more.Windows.Foundation.Uri) -> Void: ...
-    Kind = property(get_Kind, None)
     Arguments = property(get_Arguments, None)
-    RemovedByUser = property(get_RemovedByUser, None)
     Description = property(get_Description, put_Description)
     DisplayName = property(get_DisplayName, put_DisplayName)
     GroupName = property(get_GroupName, put_GroupName)
+    Kind = property(get_Kind, None)
     Logo = property(get_Logo, put_Logo)
+    RemovedByUser = property(get_RemovedByUser, None)
 class IJumpListItemStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.StartScreen.IJumpListItemStatics'
@@ -146,18 +146,18 @@ class ISecondaryTile(ComPtr):
     def RequestDeleteAsyncWithRectAndPlacement(self, selection: win32more.Windows.Foundation.Rect, preferredPlacement: win32more.Windows.UI.Popups.Placement) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
     @winrt_commethod(38)
     def UpdateAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
-    TileId = property(get_TileId, put_TileId)
     Arguments = property(get_Arguments, put_Arguments)
-    ShortName = property(get_ShortName, put_ShortName)
+    BackgroundColor = property(get_BackgroundColor, put_BackgroundColor)
     DisplayName = property(get_DisplayName, put_DisplayName)
-    Logo = property(get_Logo, put_Logo)
-    SmallLogo = property(get_SmallLogo, put_SmallLogo)
-    WideLogo = property(get_WideLogo, put_WideLogo)
+    ForegroundText = property(get_ForegroundText, put_ForegroundText)
     LockScreenBadgeLogo = property(get_LockScreenBadgeLogo, put_LockScreenBadgeLogo)
     LockScreenDisplayBadgeAndTileText = property(get_LockScreenDisplayBadgeAndTileText, put_LockScreenDisplayBadgeAndTileText)
+    Logo = property(get_Logo, put_Logo)
+    ShortName = property(get_ShortName, put_ShortName)
+    SmallLogo = property(get_SmallLogo, put_SmallLogo)
+    TileId = property(get_TileId, put_TileId)
     TileOptions = property(get_TileOptions, put_TileOptions)
-    ForegroundText = property(get_ForegroundText, put_ForegroundText)
-    BackgroundColor = property(get_BackgroundColor, put_BackgroundColor)
+    WideLogo = property(get_WideLogo, put_WideLogo)
 class ISecondaryTile2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.StartScreen.ISecondaryTile2'
@@ -177,8 +177,8 @@ class ISecondaryTile2(ComPtr):
     @winrt_commethod(12)
     def remove_VisualElementsRequested(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     PhoneticName = property(get_PhoneticName, put_PhoneticName)
-    VisualElements = property(get_VisualElements, None)
     RoamingEnabled = property(get_RoamingEnabled, put_RoamingEnabled)
+    VisualElements = property(get_VisualElements, None)
 class ISecondaryTileFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.StartScreen.ISecondaryTileFactory'
@@ -251,16 +251,16 @@ class ISecondaryTileVisualElements(ComPtr):
     def put_ShowNameOnSquare310x310Logo(self, value: Boolean) -> Void: ...
     @winrt_commethod(25)
     def get_ShowNameOnSquare310x310Logo(self) -> Boolean: ...
-    Square30x30Logo = property(get_Square30x30Logo, put_Square30x30Logo)
-    Square70x70Logo = property(get_Square70x70Logo, put_Square70x70Logo)
-    Square150x150Logo = property(get_Square150x150Logo, put_Square150x150Logo)
-    Wide310x150Logo = property(get_Wide310x150Logo, put_Wide310x150Logo)
-    Square310x310Logo = property(get_Square310x310Logo, put_Square310x310Logo)
-    ForegroundText = property(get_ForegroundText, put_ForegroundText)
     BackgroundColor = property(get_BackgroundColor, put_BackgroundColor)
+    ForegroundText = property(get_ForegroundText, put_ForegroundText)
     ShowNameOnSquare150x150Logo = property(get_ShowNameOnSquare150x150Logo, put_ShowNameOnSquare150x150Logo)
-    ShowNameOnWide310x150Logo = property(get_ShowNameOnWide310x150Logo, put_ShowNameOnWide310x150Logo)
     ShowNameOnSquare310x310Logo = property(get_ShowNameOnSquare310x310Logo, put_ShowNameOnSquare310x310Logo)
+    ShowNameOnWide310x150Logo = property(get_ShowNameOnWide310x150Logo, put_ShowNameOnWide310x150Logo)
+    Square150x150Logo = property(get_Square150x150Logo, put_Square150x150Logo)
+    Square30x30Logo = property(get_Square30x30Logo, put_Square30x30Logo)
+    Square310x310Logo = property(get_Square310x310Logo, put_Square310x310Logo)
+    Square70x70Logo = property(get_Square70x70Logo, put_Square70x70Logo)
+    Wide310x150Logo = property(get_Wide310x150Logo, put_Wide310x150Logo)
 class ISecondaryTileVisualElements2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.StartScreen.ISecondaryTileVisualElements2'
@@ -327,8 +327,8 @@ class ITileMixedRealityModel(ComPtr):
     def put_BoundingBox(self, value: win32more.Windows.Foundation.IReference[win32more.Windows.Perception.Spatial.SpatialBoundingBox]) -> Void: ...
     @winrt_commethod(9)
     def get_BoundingBox(self) -> win32more.Windows.Foundation.IReference[win32more.Windows.Perception.Spatial.SpatialBoundingBox]: ...
-    Uri = property(get_Uri, put_Uri)
     BoundingBox = property(get_BoundingBox, put_BoundingBox)
+    Uri = property(get_Uri, put_Uri)
 class ITileMixedRealityModel2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.StartScreen.ITileMixedRealityModel2'
@@ -350,9 +350,9 @@ class IVisualElementsRequest(ComPtr):
     def get_Deadline(self) -> win32more.Windows.Foundation.DateTime: ...
     @winrt_commethod(9)
     def GetDeferral(self) -> win32more.Windows.UI.StartScreen.VisualElementsRequestDeferral: ...
-    VisualElements = property(get_VisualElements, None)
     AlternateVisualElements = property(get_AlternateVisualElements, None)
     Deadline = property(get_Deadline, None)
+    VisualElements = property(get_VisualElements, None)
 class IVisualElementsRequestDeferral(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.StartScreen.IVisualElementsRequestDeferral'
@@ -414,13 +414,13 @@ class JumpListItem(ComPtr):
     def CreateWithArguments(cls: win32more.Windows.UI.StartScreen.IJumpListItemStatics, arguments: WinRT_String, displayName: WinRT_String) -> win32more.Windows.UI.StartScreen.JumpListItem: ...
     @winrt_classmethod
     def CreateSeparator(cls: win32more.Windows.UI.StartScreen.IJumpListItemStatics) -> win32more.Windows.UI.StartScreen.JumpListItem: ...
-    Kind = property(get_Kind, None)
     Arguments = property(get_Arguments, None)
-    RemovedByUser = property(get_RemovedByUser, None)
     Description = property(get_Description, put_Description)
     DisplayName = property(get_DisplayName, put_DisplayName)
     GroupName = property(get_GroupName, put_GroupName)
+    Kind = property(get_Kind, None)
     Logo = property(get_Logo, put_Logo)
+    RemovedByUser = property(get_RemovedByUser, None)
 class JumpListItemKind(Int32):  # enum
     Arguments = 0
     Separator = 1
@@ -545,21 +545,21 @@ class SecondaryTile(ComPtr):
     def FindAllForApplicationAsync(cls: win32more.Windows.UI.StartScreen.ISecondaryTileStatics, applicationId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.UI.StartScreen.SecondaryTile]]: ...
     @winrt_classmethod
     def FindAllForPackageAsync(cls: win32more.Windows.UI.StartScreen.ISecondaryTileStatics) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.UI.StartScreen.SecondaryTile]]: ...
-    TileId = property(get_TileId, put_TileId)
     Arguments = property(get_Arguments, put_Arguments)
-    ShortName = property(get_ShortName, put_ShortName)
+    BackgroundColor = property(get_BackgroundColor, put_BackgroundColor)
     DisplayName = property(get_DisplayName, put_DisplayName)
-    Logo = property(get_Logo, put_Logo)
-    SmallLogo = property(get_SmallLogo, put_SmallLogo)
-    WideLogo = property(get_WideLogo, put_WideLogo)
+    ForegroundText = property(get_ForegroundText, put_ForegroundText)
     LockScreenBadgeLogo = property(get_LockScreenBadgeLogo, put_LockScreenBadgeLogo)
     LockScreenDisplayBadgeAndTileText = property(get_LockScreenDisplayBadgeAndTileText, put_LockScreenDisplayBadgeAndTileText)
-    TileOptions = property(get_TileOptions, put_TileOptions)
-    ForegroundText = property(get_ForegroundText, put_ForegroundText)
-    BackgroundColor = property(get_BackgroundColor, put_BackgroundColor)
+    Logo = property(get_Logo, put_Logo)
     PhoneticName = property(get_PhoneticName, put_PhoneticName)
-    VisualElements = property(get_VisualElements, None)
     RoamingEnabled = property(get_RoamingEnabled, put_RoamingEnabled)
+    ShortName = property(get_ShortName, put_ShortName)
+    SmallLogo = property(get_SmallLogo, put_SmallLogo)
+    TileId = property(get_TileId, put_TileId)
+    TileOptions = property(get_TileOptions, put_TileOptions)
+    VisualElements = property(get_VisualElements, None)
+    WideLogo = property(get_WideLogo, put_WideLogo)
 class SecondaryTileVisualElements(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.StartScreen.ISecondaryTileVisualElements
@@ -614,19 +614,19 @@ class SecondaryTileVisualElements(ComPtr):
     def get_Square44x44Logo(self: win32more.Windows.UI.StartScreen.ISecondaryTileVisualElements3) -> win32more.Windows.Foundation.Uri: ...
     @winrt_mixinmethod
     def get_MixedRealityModel(self: win32more.Windows.UI.StartScreen.ISecondaryTileVisualElements4) -> win32more.Windows.UI.StartScreen.TileMixedRealityModel: ...
-    Square30x30Logo = property(get_Square30x30Logo, put_Square30x30Logo)
-    Square70x70Logo = property(get_Square70x70Logo, put_Square70x70Logo)
-    Square150x150Logo = property(get_Square150x150Logo, put_Square150x150Logo)
-    Wide310x150Logo = property(get_Wide310x150Logo, put_Wide310x150Logo)
-    Square310x310Logo = property(get_Square310x310Logo, put_Square310x310Logo)
-    ForegroundText = property(get_ForegroundText, put_ForegroundText)
     BackgroundColor = property(get_BackgroundColor, put_BackgroundColor)
-    ShowNameOnSquare150x150Logo = property(get_ShowNameOnSquare150x150Logo, put_ShowNameOnSquare150x150Logo)
-    ShowNameOnWide310x150Logo = property(get_ShowNameOnWide310x150Logo, put_ShowNameOnWide310x150Logo)
-    ShowNameOnSquare310x310Logo = property(get_ShowNameOnSquare310x310Logo, put_ShowNameOnSquare310x310Logo)
-    Square71x71Logo = property(get_Square71x71Logo, put_Square71x71Logo)
-    Square44x44Logo = property(get_Square44x44Logo, put_Square44x44Logo)
+    ForegroundText = property(get_ForegroundText, put_ForegroundText)
     MixedRealityModel = property(get_MixedRealityModel, None)
+    ShowNameOnSquare150x150Logo = property(get_ShowNameOnSquare150x150Logo, put_ShowNameOnSquare150x150Logo)
+    ShowNameOnSquare310x310Logo = property(get_ShowNameOnSquare310x310Logo, put_ShowNameOnSquare310x310Logo)
+    ShowNameOnWide310x150Logo = property(get_ShowNameOnWide310x150Logo, put_ShowNameOnWide310x150Logo)
+    Square150x150Logo = property(get_Square150x150Logo, put_Square150x150Logo)
+    Square30x30Logo = property(get_Square30x30Logo, put_Square30x30Logo)
+    Square310x310Logo = property(get_Square310x310Logo, put_Square310x310Logo)
+    Square44x44Logo = property(get_Square44x44Logo, put_Square44x44Logo)
+    Square70x70Logo = property(get_Square70x70Logo, put_Square70x70Logo)
+    Square71x71Logo = property(get_Square71x71Logo, put_Square71x71Logo)
+    Wide310x150Logo = property(get_Wide310x150Logo, put_Wide310x150Logo)
 class StartScreenManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.StartScreen.IStartScreenManager
@@ -664,9 +664,9 @@ class TileMixedRealityModel(ComPtr):
     def put_ActivationBehavior(self: win32more.Windows.UI.StartScreen.ITileMixedRealityModel2, value: win32more.Windows.UI.StartScreen.TileMixedRealityModelActivationBehavior) -> Void: ...
     @winrt_mixinmethod
     def get_ActivationBehavior(self: win32more.Windows.UI.StartScreen.ITileMixedRealityModel2) -> win32more.Windows.UI.StartScreen.TileMixedRealityModelActivationBehavior: ...
-    Uri = property(get_Uri, put_Uri)
-    BoundingBox = property(get_BoundingBox, put_BoundingBox)
     ActivationBehavior = property(get_ActivationBehavior, put_ActivationBehavior)
+    BoundingBox = property(get_BoundingBox, put_BoundingBox)
+    Uri = property(get_Uri, put_Uri)
 class TileMixedRealityModelActivationBehavior(Int32):  # enum
     Default = 0
     None_ = 1
@@ -696,9 +696,9 @@ class VisualElementsRequest(ComPtr):
     def get_Deadline(self: win32more.Windows.UI.StartScreen.IVisualElementsRequest) -> win32more.Windows.Foundation.DateTime: ...
     @winrt_mixinmethod
     def GetDeferral(self: win32more.Windows.UI.StartScreen.IVisualElementsRequest) -> win32more.Windows.UI.StartScreen.VisualElementsRequestDeferral: ...
-    VisualElements = property(get_VisualElements, None)
     AlternateVisualElements = property(get_AlternateVisualElements, None)
     Deadline = property(get_Deadline, None)
+    VisualElements = property(get_VisualElements, None)
 class VisualElementsRequestDeferral(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.StartScreen.IVisualElementsRequestDeferral

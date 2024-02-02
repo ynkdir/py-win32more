@@ -23,9 +23,9 @@ class ILocalContentSuggestionSettings(ComPtr):
     def get_AqsFilter(self) -> WinRT_String: ...
     @winrt_commethod(11)
     def get_PropertiesToMatch(self) -> win32more.Windows.Foundation.Collections.IVector[WinRT_String]: ...
+    AqsFilter = property(get_AqsFilter, put_AqsFilter)
     Enabled = property(get_Enabled, put_Enabled)
     Locations = property(get_Locations, None)
-    AqsFilter = property(get_AqsFilter, put_AqsFilter)
     PropertiesToMatch = property(get_PropertiesToMatch, None)
 class ISearchPane(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -81,13 +81,13 @@ class ISearchPane(ComPtr):
     def get_ShowOnKeyboardInput(self) -> Boolean: ...
     @winrt_commethod(30)
     def TrySetQueryText(self, query: WinRT_String) -> Boolean: ...
-    SearchHistoryEnabled = property(get_SearchHistoryEnabled, put_SearchHistoryEnabled)
-    SearchHistoryContext = property(get_SearchHistoryContext, put_SearchHistoryContext)
+    Language = property(get_Language, None)
     PlaceholderText = property(get_PlaceholderText, put_PlaceholderText)
     QueryText = property(get_QueryText, None)
-    Language = property(get_Language, None)
-    Visible = property(get_Visible, None)
+    SearchHistoryContext = property(get_SearchHistoryContext, put_SearchHistoryContext)
+    SearchHistoryEnabled = property(get_SearchHistoryEnabled, put_SearchHistoryEnabled)
     ShowOnKeyboardInput = property(get_ShowOnKeyboardInput, put_ShowOnKeyboardInput)
+    Visible = property(get_Visible, None)
 class ISearchPaneQueryChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Search.ISearchPaneQueryChangedEventArgs'
@@ -98,9 +98,9 @@ class ISearchPaneQueryChangedEventArgs(ComPtr):
     def get_Language(self) -> WinRT_String: ...
     @winrt_commethod(8)
     def get_LinguisticDetails(self) -> win32more.Windows.ApplicationModel.Search.SearchPaneQueryLinguisticDetails: ...
-    QueryText = property(get_QueryText, None)
     Language = property(get_Language, None)
     LinguisticDetails = property(get_LinguisticDetails, None)
+    QueryText = property(get_QueryText, None)
 class ISearchPaneQueryLinguisticDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Search.ISearchPaneQueryLinguisticDetails'
@@ -112,8 +112,8 @@ class ISearchPaneQueryLinguisticDetails(ComPtr):
     @winrt_commethod(8)
     def get_QueryTextCompositionLength(self) -> UInt32: ...
     QueryTextAlternatives = property(get_QueryTextAlternatives, None)
-    QueryTextCompositionStart = property(get_QueryTextCompositionStart, None)
     QueryTextCompositionLength = property(get_QueryTextCompositionLength, None)
+    QueryTextCompositionStart = property(get_QueryTextCompositionStart, None)
 class ISearchPaneQuerySubmittedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Search.ISearchPaneQuerySubmittedEventArgs'
@@ -122,8 +122,8 @@ class ISearchPaneQuerySubmittedEventArgs(ComPtr):
     def get_QueryText(self) -> WinRT_String: ...
     @winrt_commethod(7)
     def get_Language(self) -> WinRT_String: ...
-    QueryText = property(get_QueryText, None)
     Language = property(get_Language, None)
+    QueryText = property(get_QueryText, None)
 class ISearchPaneQuerySubmittedEventArgsWithLinguisticDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Search.ISearchPaneQuerySubmittedEventArgsWithLinguisticDetails'
@@ -193,8 +193,8 @@ class ISearchQueryLinguisticDetails(ComPtr):
     @winrt_commethod(8)
     def get_QueryTextCompositionLength(self) -> UInt32: ...
     QueryTextAlternatives = property(get_QueryTextAlternatives, None)
-    QueryTextCompositionStart = property(get_QueryTextCompositionStart, None)
     QueryTextCompositionLength = property(get_QueryTextCompositionLength, None)
+    QueryTextCompositionStart = property(get_QueryTextCompositionStart, None)
 class ISearchQueryLinguisticDetailsFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Search.ISearchQueryLinguisticDetailsFactory'
@@ -259,9 +259,9 @@ class LocalContentSuggestionSettings(ComPtr):
     def get_AqsFilter(self: win32more.Windows.ApplicationModel.Search.ILocalContentSuggestionSettings) -> WinRT_String: ...
     @winrt_mixinmethod
     def get_PropertiesToMatch(self: win32more.Windows.ApplicationModel.Search.ILocalContentSuggestionSettings) -> win32more.Windows.Foundation.Collections.IVector[WinRT_String]: ...
+    AqsFilter = property(get_AqsFilter, put_AqsFilter)
     Enabled = property(get_Enabled, put_Enabled)
     Locations = property(get_Locations, None)
-    AqsFilter = property(get_AqsFilter, put_AqsFilter)
     PropertiesToMatch = property(get_PropertiesToMatch, None)
 SearchContract: UInt32 = 65536
 class SearchPane(ComPtr):
@@ -322,13 +322,13 @@ class SearchPane(ComPtr):
     def HideThisApplication(cls: win32more.Windows.ApplicationModel.Search.ISearchPaneStaticsWithHideThisApplication) -> Void: ...
     @winrt_classmethod
     def GetForCurrentView(cls: win32more.Windows.ApplicationModel.Search.ISearchPaneStatics) -> win32more.Windows.ApplicationModel.Search.SearchPane: ...
-    SearchHistoryEnabled = property(get_SearchHistoryEnabled, put_SearchHistoryEnabled)
-    SearchHistoryContext = property(get_SearchHistoryContext, put_SearchHistoryContext)
+    Language = property(get_Language, None)
     PlaceholderText = property(get_PlaceholderText, put_PlaceholderText)
     QueryText = property(get_QueryText, None)
-    Language = property(get_Language, None)
-    Visible = property(get_Visible, None)
+    SearchHistoryContext = property(get_SearchHistoryContext, put_SearchHistoryContext)
+    SearchHistoryEnabled = property(get_SearchHistoryEnabled, put_SearchHistoryEnabled)
     ShowOnKeyboardInput = property(get_ShowOnKeyboardInput, put_ShowOnKeyboardInput)
+    Visible = property(get_Visible, None)
 class SearchPaneQueryChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Search.ISearchPaneQueryChangedEventArgs
@@ -339,9 +339,9 @@ class SearchPaneQueryChangedEventArgs(ComPtr):
     def get_Language(self: win32more.Windows.ApplicationModel.Search.ISearchPaneQueryChangedEventArgs) -> WinRT_String: ...
     @winrt_mixinmethod
     def get_LinguisticDetails(self: win32more.Windows.ApplicationModel.Search.ISearchPaneQueryChangedEventArgs) -> win32more.Windows.ApplicationModel.Search.SearchPaneQueryLinguisticDetails: ...
-    QueryText = property(get_QueryText, None)
     Language = property(get_Language, None)
     LinguisticDetails = property(get_LinguisticDetails, None)
+    QueryText = property(get_QueryText, None)
 class SearchPaneQueryLinguisticDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Search.ISearchPaneQueryLinguisticDetails
@@ -353,8 +353,8 @@ class SearchPaneQueryLinguisticDetails(ComPtr):
     @winrt_mixinmethod
     def get_QueryTextCompositionLength(self: win32more.Windows.ApplicationModel.Search.ISearchPaneQueryLinguisticDetails) -> UInt32: ...
     QueryTextAlternatives = property(get_QueryTextAlternatives, None)
-    QueryTextCompositionStart = property(get_QueryTextCompositionStart, None)
     QueryTextCompositionLength = property(get_QueryTextCompositionLength, None)
+    QueryTextCompositionStart = property(get_QueryTextCompositionStart, None)
 class SearchPaneQuerySubmittedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Search.ISearchPaneQuerySubmittedEventArgs
@@ -365,9 +365,9 @@ class SearchPaneQuerySubmittedEventArgs(ComPtr):
     def get_Language(self: win32more.Windows.ApplicationModel.Search.ISearchPaneQuerySubmittedEventArgs) -> WinRT_String: ...
     @winrt_mixinmethod
     def get_LinguisticDetails(self: win32more.Windows.ApplicationModel.Search.ISearchPaneQuerySubmittedEventArgsWithLinguisticDetails) -> win32more.Windows.ApplicationModel.Search.SearchPaneQueryLinguisticDetails: ...
-    QueryText = property(get_QueryText, None)
     Language = property(get_Language, None)
     LinguisticDetails = property(get_LinguisticDetails, None)
+    QueryText = property(get_QueryText, None)
 class SearchPaneResultSuggestionChosenEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Search.ISearchPaneResultSuggestionChosenEventArgs
@@ -405,10 +405,10 @@ class SearchPaneSuggestionsRequestedEventArgs(ComPtr):
     def get_Language(self: win32more.Windows.ApplicationModel.Search.ISearchPaneQueryChangedEventArgs) -> WinRT_String: ...
     @winrt_mixinmethod
     def get_LinguisticDetails(self: win32more.Windows.ApplicationModel.Search.ISearchPaneQueryChangedEventArgs) -> win32more.Windows.ApplicationModel.Search.SearchPaneQueryLinguisticDetails: ...
-    Request = property(get_Request, None)
-    QueryText = property(get_QueryText, None)
     Language = property(get_Language, None)
     LinguisticDetails = property(get_LinguisticDetails, None)
+    QueryText = property(get_QueryText, None)
+    Request = property(get_Request, None)
 class SearchPaneVisibilityChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Search.ISearchPaneVisibilityChangedEventArgs
@@ -436,8 +436,8 @@ class SearchQueryLinguisticDetails(ComPtr):
     @winrt_mixinmethod
     def get_QueryTextCompositionLength(self: win32more.Windows.ApplicationModel.Search.ISearchQueryLinguisticDetails) -> UInt32: ...
     QueryTextAlternatives = property(get_QueryTextAlternatives, None)
-    QueryTextCompositionStart = property(get_QueryTextCompositionStart, None)
     QueryTextCompositionLength = property(get_QueryTextCompositionLength, None)
+    QueryTextCompositionStart = property(get_QueryTextCompositionStart, None)
 class SearchSuggestionCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Search.ISearchSuggestionCollection

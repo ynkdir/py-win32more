@@ -21,9 +21,9 @@ class IRadio(ComPtr):
     def get_Name(self) -> WinRT_String: ...
     @winrt_commethod(11)
     def get_Kind(self) -> win32more.Windows.Devices.Radios.RadioKind: ...
-    State = property(get_State, None)
-    Name = property(get_Name, None)
     Kind = property(get_Kind, None)
+    Name = property(get_Name, None)
+    State = property(get_State, None)
 class IRadioStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Radios.IRadioStatics'
@@ -60,9 +60,9 @@ class Radio(ComPtr):
     def FromIdAsync(cls: win32more.Windows.Devices.Radios.IRadioStatics, deviceId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Radios.Radio]: ...
     @winrt_classmethod
     def RequestAccessAsync(cls: win32more.Windows.Devices.Radios.IRadioStatics) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Radios.RadioAccessStatus]: ...
-    State = property(get_State, None)
-    Name = property(get_Name, None)
     Kind = property(get_Kind, None)
+    Name = property(get_Name, None)
+    State = property(get_State, None)
 class RadioAccessStatus(Int32):  # enum
     Unspecified = 0
     Allowed = 1

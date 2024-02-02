@@ -70,10 +70,10 @@ class HostName(ComPtr):
     def ToString(self: win32more.Windows.Foundation.IStringable) -> WinRT_String: ...
     @winrt_classmethod
     def Compare(cls: win32more.Windows.Networking.IHostNameStatics, value1: WinRT_String, value2: WinRT_String) -> Int32: ...
+    CanonicalName = property(get_CanonicalName, None)
+    DisplayName = property(get_DisplayName, None)
     IPInformation = property(get_IPInformation, None)
     RawName = property(get_RawName, None)
-    DisplayName = property(get_DisplayName, None)
-    CanonicalName = property(get_CanonicalName, None)
     Type = property(get_Type, None)
 class HostNameSortOptions(UInt32):  # enum
     None_ = 0
@@ -129,10 +129,10 @@ class IHostName(ComPtr):
     def get_Type(self) -> win32more.Windows.Networking.HostNameType: ...
     @winrt_commethod(11)
     def IsEqual(self, hostName: win32more.Windows.Networking.HostName) -> Boolean: ...
+    CanonicalName = property(get_CanonicalName, None)
+    DisplayName = property(get_DisplayName, None)
     IPInformation = property(get_IPInformation, None)
     RawName = property(get_RawName, None)
-    DisplayName = property(get_DisplayName, None)
-    CanonicalName = property(get_CanonicalName, None)
     Type = property(get_Type, None)
 class IHostNameFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable

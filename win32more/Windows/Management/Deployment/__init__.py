@@ -91,25 +91,25 @@ class AddPackageOptions(ComPtr):
     def get_LimitToExistingPackages(self: win32more.Windows.Management.Deployment.IAddPackageOptions2) -> Boolean: ...
     @winrt_mixinmethod
     def put_LimitToExistingPackages(self: win32more.Windows.Management.Deployment.IAddPackageOptions2, value: Boolean) -> Void: ...
+    AllowUnsigned = property(get_AllowUnsigned, put_AllowUnsigned)
+    DeferRegistrationWhenPackagesAreInUse = property(get_DeferRegistrationWhenPackagesAreInUse, put_DeferRegistrationWhenPackagesAreInUse)
     DependencyPackageUris = property(get_DependencyPackageUris, None)
-    TargetVolume = property(get_TargetVolume, put_TargetVolume)
-    OptionalPackageFamilyNames = property(get_OptionalPackageFamilyNames, None)
-    OptionalPackageUris = property(get_OptionalPackageUris, None)
-    RelatedPackageUris = property(get_RelatedPackageUris, None)
-    ExternalLocationUri = property(get_ExternalLocationUri, put_ExternalLocationUri)
-    StubPackageOption = property(get_StubPackageOption, put_StubPackageOption)
     DeveloperMode = property(get_DeveloperMode, put_DeveloperMode)
+    ExpectedDigests = property(get_ExpectedDigests, None)
+    ExternalLocationUri = property(get_ExternalLocationUri, put_ExternalLocationUri)
     ForceAppShutdown = property(get_ForceAppShutdown, put_ForceAppShutdown)
     ForceTargetAppShutdown = property(get_ForceTargetAppShutdown, put_ForceTargetAppShutdown)
     ForceUpdateFromAnyVersion = property(get_ForceUpdateFromAnyVersion, put_ForceUpdateFromAnyVersion)
     InstallAllResources = property(get_InstallAllResources, put_InstallAllResources)
+    LimitToExistingPackages = property(get_LimitToExistingPackages, put_LimitToExistingPackages)
+    OptionalPackageFamilyNames = property(get_OptionalPackageFamilyNames, None)
+    OptionalPackageUris = property(get_OptionalPackageUris, None)
+    RelatedPackageUris = property(get_RelatedPackageUris, None)
     RequiredContentGroupOnly = property(get_RequiredContentGroupOnly, put_RequiredContentGroupOnly)
     RetainFilesOnFailure = property(get_RetainFilesOnFailure, put_RetainFilesOnFailure)
     StageInPlace = property(get_StageInPlace, put_StageInPlace)
-    AllowUnsigned = property(get_AllowUnsigned, put_AllowUnsigned)
-    DeferRegistrationWhenPackagesAreInUse = property(get_DeferRegistrationWhenPackagesAreInUse, put_DeferRegistrationWhenPackagesAreInUse)
-    ExpectedDigests = property(get_ExpectedDigests, None)
-    LimitToExistingPackages = property(get_LimitToExistingPackages, put_LimitToExistingPackages)
+    StubPackageOption = property(get_StubPackageOption, put_StubPackageOption)
+    TargetVolume = property(get_TargetVolume, put_TargetVolume)
 class AppInstallerManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Management.Deployment.IAppInstallerManager
@@ -183,19 +183,19 @@ class AutoUpdateSettingsOptions(ComPtr):
     def get_OptionalPackageUris(self: win32more.Windows.Management.Deployment.IAutoUpdateSettingsOptions) -> win32more.Windows.Foundation.Collections.IVector[win32more.Windows.Foundation.Uri]: ...
     @winrt_classmethod
     def CreateFromAppInstallerInfo(cls: win32more.Windows.Management.Deployment.IAutoUpdateSettingsOptionsStatics, appInstallerInfo: win32more.Windows.ApplicationModel.AppInstallerInfo) -> win32more.Windows.Management.Deployment.AutoUpdateSettingsOptions: ...
-    Version = property(get_Version, put_Version)
     AppInstallerUri = property(get_AppInstallerUri, put_AppInstallerUri)
-    OnLaunch = property(get_OnLaunch, put_OnLaunch)
+    AutomaticBackgroundTask = property(get_AutomaticBackgroundTask, put_AutomaticBackgroundTask)
+    DependencyPackageUris = property(get_DependencyPackageUris, None)
+    ForceUpdateFromAnyVersion = property(get_ForceUpdateFromAnyVersion, put_ForceUpdateFromAnyVersion)
     HoursBetweenUpdateChecks = property(get_HoursBetweenUpdateChecks, put_HoursBetweenUpdateChecks)
+    IsAutoRepairEnabled = property(get_IsAutoRepairEnabled, put_IsAutoRepairEnabled)
+    OnLaunch = property(get_OnLaunch, put_OnLaunch)
+    OptionalPackageUris = property(get_OptionalPackageUris, None)
+    RepairUris = property(get_RepairUris, None)
     ShowPrompt = property(get_ShowPrompt, put_ShowPrompt)
     UpdateBlocksActivation = property(get_UpdateBlocksActivation, put_UpdateBlocksActivation)
-    AutomaticBackgroundTask = property(get_AutomaticBackgroundTask, put_AutomaticBackgroundTask)
-    ForceUpdateFromAnyVersion = property(get_ForceUpdateFromAnyVersion, put_ForceUpdateFromAnyVersion)
-    IsAutoRepairEnabled = property(get_IsAutoRepairEnabled, put_IsAutoRepairEnabled)
     UpdateUris = property(get_UpdateUris, None)
-    RepairUris = property(get_RepairUris, None)
-    DependencyPackageUris = property(get_DependencyPackageUris, None)
-    OptionalPackageUris = property(get_OptionalPackageUris, None)
+    Version = property(get_Version, put_Version)
 class CreateSharedPackageContainerOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Management.Deployment.ICreateSharedPackageContainerOptions
@@ -219,9 +219,9 @@ class CreateSharedPackageContainerOptions(ComPtr):
     def get_CreateCollisionOption(self: win32more.Windows.Management.Deployment.ICreateSharedPackageContainerOptions) -> win32more.Windows.Management.Deployment.SharedPackageContainerCreationCollisionOptions: ...
     @winrt_mixinmethod
     def put_CreateCollisionOption(self: win32more.Windows.Management.Deployment.ICreateSharedPackageContainerOptions, value: win32more.Windows.Management.Deployment.SharedPackageContainerCreationCollisionOptions) -> Void: ...
-    Members = property(get_Members, None)
-    ForceAppShutdown = property(get_ForceAppShutdown, put_ForceAppShutdown)
     CreateCollisionOption = property(get_CreateCollisionOption, put_CreateCollisionOption)
+    ForceAppShutdown = property(get_ForceAppShutdown, put_ForceAppShutdown)
+    Members = property(get_Members, None)
 class CreateSharedPackageContainerResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Management.Deployment.ICreateSharedPackageContainerResult
@@ -233,8 +233,8 @@ class CreateSharedPackageContainerResult(ComPtr):
     @winrt_mixinmethod
     def get_ExtendedError(self: win32more.Windows.Management.Deployment.ICreateSharedPackageContainerResult) -> win32more.Windows.Foundation.HResult: ...
     Container = property(get_Container, None)
-    Status = property(get_Status, None)
     ExtendedError = property(get_ExtendedError, None)
+    Status = property(get_Status, None)
 class DeleteSharedPackageContainerOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Management.Deployment.IDeleteSharedPackageContainerOptions
@@ -256,8 +256,8 @@ class DeleteSharedPackageContainerOptions(ComPtr):
     def get_AllUsers(self: win32more.Windows.Management.Deployment.IDeleteSharedPackageContainerOptions) -> Boolean: ...
     @winrt_mixinmethod
     def put_AllUsers(self: win32more.Windows.Management.Deployment.IDeleteSharedPackageContainerOptions, value: Boolean) -> Void: ...
-    ForceAppShutdown = property(get_ForceAppShutdown, put_ForceAppShutdown)
     AllUsers = property(get_AllUsers, put_AllUsers)
+    ForceAppShutdown = property(get_ForceAppShutdown, put_ForceAppShutdown)
 class DeleteSharedPackageContainerResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Management.Deployment.IDeleteSharedPackageContainerResult
@@ -266,8 +266,8 @@ class DeleteSharedPackageContainerResult(ComPtr):
     def get_Status(self: win32more.Windows.Management.Deployment.IDeleteSharedPackageContainerResult) -> win32more.Windows.Management.Deployment.SharedPackageContainerOperationStatus: ...
     @winrt_mixinmethod
     def get_ExtendedError(self: win32more.Windows.Management.Deployment.IDeleteSharedPackageContainerResult) -> win32more.Windows.Foundation.HResult: ...
-    Status = property(get_Status, None)
     ExtendedError = property(get_ExtendedError, None)
+    Status = property(get_Status, None)
 class DeploymentOptions(UInt32):  # enum
     None_ = 0
     ForceApplicationShutdown = 1
@@ -296,8 +296,8 @@ class DeploymentResult(ComPtr):
     def get_ExtendedErrorCode(self: win32more.Windows.Management.Deployment.IDeploymentResult) -> win32more.Windows.Foundation.HResult: ...
     @winrt_mixinmethod
     def get_IsRegistered(self: win32more.Windows.Management.Deployment.IDeploymentResult2) -> Boolean: ...
-    ErrorText = property(get_ErrorText, None)
     ActivityId = property(get_ActivityId, None)
+    ErrorText = property(get_ErrorText, None)
     ExtendedErrorCode = property(get_ExtendedErrorCode, None)
     IsRegistered = property(get_IsRegistered, None)
 class FindSharedPackageContainerOptions(ComPtr):
@@ -387,23 +387,23 @@ class IAddPackageOptions(ComPtr):
     def get_DeferRegistrationWhenPackagesAreInUse(self) -> Boolean: ...
     @winrt_commethod(35)
     def put_DeferRegistrationWhenPackagesAreInUse(self, value: Boolean) -> Void: ...
+    AllowUnsigned = property(get_AllowUnsigned, put_AllowUnsigned)
+    DeferRegistrationWhenPackagesAreInUse = property(get_DeferRegistrationWhenPackagesAreInUse, put_DeferRegistrationWhenPackagesAreInUse)
     DependencyPackageUris = property(get_DependencyPackageUris, None)
-    TargetVolume = property(get_TargetVolume, put_TargetVolume)
-    OptionalPackageFamilyNames = property(get_OptionalPackageFamilyNames, None)
-    OptionalPackageUris = property(get_OptionalPackageUris, None)
-    RelatedPackageUris = property(get_RelatedPackageUris, None)
-    ExternalLocationUri = property(get_ExternalLocationUri, put_ExternalLocationUri)
-    StubPackageOption = property(get_StubPackageOption, put_StubPackageOption)
     DeveloperMode = property(get_DeveloperMode, put_DeveloperMode)
+    ExternalLocationUri = property(get_ExternalLocationUri, put_ExternalLocationUri)
     ForceAppShutdown = property(get_ForceAppShutdown, put_ForceAppShutdown)
     ForceTargetAppShutdown = property(get_ForceTargetAppShutdown, put_ForceTargetAppShutdown)
     ForceUpdateFromAnyVersion = property(get_ForceUpdateFromAnyVersion, put_ForceUpdateFromAnyVersion)
     InstallAllResources = property(get_InstallAllResources, put_InstallAllResources)
+    OptionalPackageFamilyNames = property(get_OptionalPackageFamilyNames, None)
+    OptionalPackageUris = property(get_OptionalPackageUris, None)
+    RelatedPackageUris = property(get_RelatedPackageUris, None)
     RequiredContentGroupOnly = property(get_RequiredContentGroupOnly, put_RequiredContentGroupOnly)
     RetainFilesOnFailure = property(get_RetainFilesOnFailure, put_RetainFilesOnFailure)
     StageInPlace = property(get_StageInPlace, put_StageInPlace)
-    AllowUnsigned = property(get_AllowUnsigned, put_AllowUnsigned)
-    DeferRegistrationWhenPackagesAreInUse = property(get_DeferRegistrationWhenPackagesAreInUse, put_DeferRegistrationWhenPackagesAreInUse)
+    StubPackageOption = property(get_StubPackageOption, put_StubPackageOption)
+    TargetVolume = property(get_TargetVolume, put_TargetVolume)
 class IAddPackageOptions2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Management.Deployment.IAddPackageOptions2'
@@ -482,19 +482,19 @@ class IAutoUpdateSettingsOptions(ComPtr):
     def get_DependencyPackageUris(self) -> win32more.Windows.Foundation.Collections.IVector[win32more.Windows.Foundation.Uri]: ...
     @winrt_commethod(27)
     def get_OptionalPackageUris(self) -> win32more.Windows.Foundation.Collections.IVector[win32more.Windows.Foundation.Uri]: ...
-    Version = property(get_Version, put_Version)
     AppInstallerUri = property(get_AppInstallerUri, put_AppInstallerUri)
-    OnLaunch = property(get_OnLaunch, put_OnLaunch)
+    AutomaticBackgroundTask = property(get_AutomaticBackgroundTask, put_AutomaticBackgroundTask)
+    DependencyPackageUris = property(get_DependencyPackageUris, None)
+    ForceUpdateFromAnyVersion = property(get_ForceUpdateFromAnyVersion, put_ForceUpdateFromAnyVersion)
     HoursBetweenUpdateChecks = property(get_HoursBetweenUpdateChecks, put_HoursBetweenUpdateChecks)
+    IsAutoRepairEnabled = property(get_IsAutoRepairEnabled, put_IsAutoRepairEnabled)
+    OnLaunch = property(get_OnLaunch, put_OnLaunch)
+    OptionalPackageUris = property(get_OptionalPackageUris, None)
+    RepairUris = property(get_RepairUris, None)
     ShowPrompt = property(get_ShowPrompt, put_ShowPrompt)
     UpdateBlocksActivation = property(get_UpdateBlocksActivation, put_UpdateBlocksActivation)
-    AutomaticBackgroundTask = property(get_AutomaticBackgroundTask, put_AutomaticBackgroundTask)
-    ForceUpdateFromAnyVersion = property(get_ForceUpdateFromAnyVersion, put_ForceUpdateFromAnyVersion)
-    IsAutoRepairEnabled = property(get_IsAutoRepairEnabled, put_IsAutoRepairEnabled)
     UpdateUris = property(get_UpdateUris, None)
-    RepairUris = property(get_RepairUris, None)
-    DependencyPackageUris = property(get_DependencyPackageUris, None)
-    OptionalPackageUris = property(get_OptionalPackageUris, None)
+    Version = property(get_Version, put_Version)
 class IAutoUpdateSettingsOptionsStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Management.Deployment.IAutoUpdateSettingsOptionsStatics'
@@ -515,9 +515,9 @@ class ICreateSharedPackageContainerOptions(ComPtr):
     def get_CreateCollisionOption(self) -> win32more.Windows.Management.Deployment.SharedPackageContainerCreationCollisionOptions: ...
     @winrt_commethod(10)
     def put_CreateCollisionOption(self, value: win32more.Windows.Management.Deployment.SharedPackageContainerCreationCollisionOptions) -> Void: ...
-    Members = property(get_Members, None)
-    ForceAppShutdown = property(get_ForceAppShutdown, put_ForceAppShutdown)
     CreateCollisionOption = property(get_CreateCollisionOption, put_CreateCollisionOption)
+    ForceAppShutdown = property(get_ForceAppShutdown, put_ForceAppShutdown)
+    Members = property(get_Members, None)
 class ICreateSharedPackageContainerResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Management.Deployment.ICreateSharedPackageContainerResult'
@@ -529,8 +529,8 @@ class ICreateSharedPackageContainerResult(ComPtr):
     @winrt_commethod(8)
     def get_ExtendedError(self) -> win32more.Windows.Foundation.HResult: ...
     Container = property(get_Container, None)
-    Status = property(get_Status, None)
     ExtendedError = property(get_ExtendedError, None)
+    Status = property(get_Status, None)
 class IDeleteSharedPackageContainerOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Management.Deployment.IDeleteSharedPackageContainerOptions'
@@ -543,8 +543,8 @@ class IDeleteSharedPackageContainerOptions(ComPtr):
     def get_AllUsers(self) -> Boolean: ...
     @winrt_commethod(9)
     def put_AllUsers(self, value: Boolean) -> Void: ...
-    ForceAppShutdown = property(get_ForceAppShutdown, put_ForceAppShutdown)
     AllUsers = property(get_AllUsers, put_AllUsers)
+    ForceAppShutdown = property(get_ForceAppShutdown, put_ForceAppShutdown)
 class IDeleteSharedPackageContainerResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Management.Deployment.IDeleteSharedPackageContainerResult'
@@ -553,8 +553,8 @@ class IDeleteSharedPackageContainerResult(ComPtr):
     def get_Status(self) -> win32more.Windows.Management.Deployment.SharedPackageContainerOperationStatus: ...
     @winrt_commethod(7)
     def get_ExtendedError(self) -> win32more.Windows.Foundation.HResult: ...
-    Status = property(get_Status, None)
     ExtendedError = property(get_ExtendedError, None)
+    Status = property(get_Status, None)
 class IDeploymentResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Management.Deployment.IDeploymentResult'
@@ -565,8 +565,8 @@ class IDeploymentResult(ComPtr):
     def get_ActivityId(self) -> Guid: ...
     @winrt_commethod(8)
     def get_ExtendedErrorCode(self) -> win32more.Windows.Foundation.HResult: ...
-    ErrorText = property(get_ErrorText, None)
     ActivityId = property(get_ActivityId, None)
+    ErrorText = property(get_ErrorText, None)
     ExtendedErrorCode = property(get_ExtendedErrorCode, None)
 class IDeploymentResult2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -780,8 +780,8 @@ class IPackageUserInformation(ComPtr):
     def get_UserSecurityId(self) -> WinRT_String: ...
     @winrt_commethod(7)
     def get_InstallState(self) -> win32more.Windows.Management.Deployment.PackageInstallState: ...
-    UserSecurityId = property(get_UserSecurityId, None)
     InstallState = property(get_InstallState, None)
+    UserSecurityId = property(get_UserSecurityId, None)
 class IPackageVolume(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Management.Deployment.IPackageVolume'
@@ -842,8 +842,8 @@ class IPackageVolume2(ComPtr):
     def get_IsAppxInstallSupported(self) -> Boolean: ...
     @winrt_commethod(8)
     def GetAvailableSpaceAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[UInt64]: ...
-    IsFullTrustPackageSupported = property(get_IsFullTrustPackageSupported, None)
     IsAppxInstallSupported = property(get_IsAppxInstallSupported, None)
+    IsFullTrustPackageSupported = property(get_IsFullTrustPackageSupported, None)
 class IRegisterPackageOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Management.Deployment.IRegisterPackageOptions'
@@ -892,18 +892,18 @@ class IRegisterPackageOptions(ComPtr):
     def get_DeferRegistrationWhenPackagesAreInUse(self) -> Boolean: ...
     @winrt_commethod(27)
     def put_DeferRegistrationWhenPackagesAreInUse(self, value: Boolean) -> Void: ...
-    DependencyPackageUris = property(get_DependencyPackageUris, None)
+    AllowUnsigned = property(get_AllowUnsigned, put_AllowUnsigned)
     AppDataVolume = property(get_AppDataVolume, put_AppDataVolume)
-    OptionalPackageFamilyNames = property(get_OptionalPackageFamilyNames, None)
-    ExternalLocationUri = property(get_ExternalLocationUri, put_ExternalLocationUri)
+    DeferRegistrationWhenPackagesAreInUse = property(get_DeferRegistrationWhenPackagesAreInUse, put_DeferRegistrationWhenPackagesAreInUse)
+    DependencyPackageUris = property(get_DependencyPackageUris, None)
     DeveloperMode = property(get_DeveloperMode, put_DeveloperMode)
+    ExternalLocationUri = property(get_ExternalLocationUri, put_ExternalLocationUri)
     ForceAppShutdown = property(get_ForceAppShutdown, put_ForceAppShutdown)
     ForceTargetAppShutdown = property(get_ForceTargetAppShutdown, put_ForceTargetAppShutdown)
     ForceUpdateFromAnyVersion = property(get_ForceUpdateFromAnyVersion, put_ForceUpdateFromAnyVersion)
     InstallAllResources = property(get_InstallAllResources, put_InstallAllResources)
+    OptionalPackageFamilyNames = property(get_OptionalPackageFamilyNames, None)
     StageInPlace = property(get_StageInPlace, put_StageInPlace)
-    AllowUnsigned = property(get_AllowUnsigned, put_AllowUnsigned)
-    DeferRegistrationWhenPackagesAreInUse = property(get_DeferRegistrationWhenPackagesAreInUse, put_DeferRegistrationWhenPackagesAreInUse)
 class IRegisterPackageOptions2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Management.Deployment.IRegisterPackageOptions2'
@@ -925,8 +925,8 @@ class ISharedPackageContainer(ComPtr):
     def RemovePackageFamily(self, packageFamilyName: WinRT_String, options: win32more.Windows.Management.Deployment.UpdateSharedPackageContainerOptions) -> win32more.Windows.Management.Deployment.UpdateSharedPackageContainerResult: ...
     @winrt_commethod(10)
     def ResetData(self) -> win32more.Windows.Management.Deployment.UpdateSharedPackageContainerResult: ...
-    Name = property(get_Name, None)
     Id = property(get_Id, None)
+    Name = property(get_Name, None)
 class ISharedPackageContainerManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Management.Deployment.ISharedPackageContainerManager'
@@ -1012,19 +1012,19 @@ class IStagePackageOptions(ComPtr):
     def get_AllowUnsigned(self) -> Boolean: ...
     @winrt_commethod(27)
     def put_AllowUnsigned(self, value: Boolean) -> Void: ...
+    AllowUnsigned = property(get_AllowUnsigned, put_AllowUnsigned)
     DependencyPackageUris = property(get_DependencyPackageUris, None)
-    TargetVolume = property(get_TargetVolume, put_TargetVolume)
+    DeveloperMode = property(get_DeveloperMode, put_DeveloperMode)
+    ExternalLocationUri = property(get_ExternalLocationUri, put_ExternalLocationUri)
+    ForceUpdateFromAnyVersion = property(get_ForceUpdateFromAnyVersion, put_ForceUpdateFromAnyVersion)
+    InstallAllResources = property(get_InstallAllResources, put_InstallAllResources)
     OptionalPackageFamilyNames = property(get_OptionalPackageFamilyNames, None)
     OptionalPackageUris = property(get_OptionalPackageUris, None)
     RelatedPackageUris = property(get_RelatedPackageUris, None)
-    ExternalLocationUri = property(get_ExternalLocationUri, put_ExternalLocationUri)
-    StubPackageOption = property(get_StubPackageOption, put_StubPackageOption)
-    DeveloperMode = property(get_DeveloperMode, put_DeveloperMode)
-    ForceUpdateFromAnyVersion = property(get_ForceUpdateFromAnyVersion, put_ForceUpdateFromAnyVersion)
-    InstallAllResources = property(get_InstallAllResources, put_InstallAllResources)
     RequiredContentGroupOnly = property(get_RequiredContentGroupOnly, put_RequiredContentGroupOnly)
     StageInPlace = property(get_StageInPlace, put_StageInPlace)
-    AllowUnsigned = property(get_AllowUnsigned, put_AllowUnsigned)
+    StubPackageOption = property(get_StubPackageOption, put_StubPackageOption)
+    TargetVolume = property(get_TargetVolume, put_TargetVolume)
 class IStagePackageOptions2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Management.Deployment.IStagePackageOptions2'
@@ -1054,8 +1054,8 @@ class IUpdateSharedPackageContainerResult(ComPtr):
     def get_Status(self) -> win32more.Windows.Management.Deployment.SharedPackageContainerOperationStatus: ...
     @winrt_commethod(7)
     def get_ExtendedError(self) -> win32more.Windows.Foundation.HResult: ...
-    Status = property(get_Status, None)
     ExtendedError = property(get_ExtendedError, None)
+    Status = property(get_Status, None)
 class PackageAllUserProvisioningOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Management.Deployment.IPackageAllUserProvisioningOptions
@@ -1257,8 +1257,8 @@ class PackageUserInformation(ComPtr):
     def get_UserSecurityId(self: win32more.Windows.Management.Deployment.IPackageUserInformation) -> WinRT_String: ...
     @winrt_mixinmethod
     def get_InstallState(self: win32more.Windows.Management.Deployment.IPackageUserInformation) -> win32more.Windows.Management.Deployment.PackageInstallState: ...
-    UserSecurityId = property(get_UserSecurityId, None)
     InstallState = property(get_InstallState, None)
+    UserSecurityId = property(get_UserSecurityId, None)
 class PackageVolume(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Management.Deployment.IPackageVolume
@@ -1309,14 +1309,14 @@ class PackageVolume(ComPtr):
     def get_IsAppxInstallSupported(self: win32more.Windows.Management.Deployment.IPackageVolume2) -> Boolean: ...
     @winrt_mixinmethod
     def GetAvailableSpaceAsync(self: win32more.Windows.Management.Deployment.IPackageVolume2) -> win32more.Windows.Foundation.IAsyncOperation[UInt64]: ...
+    IsAppxInstallSupported = property(get_IsAppxInstallSupported, None)
+    IsFullTrustPackageSupported = property(get_IsFullTrustPackageSupported, None)
     IsOffline = property(get_IsOffline, None)
     IsSystemVolume = property(get_IsSystemVolume, None)
     MountPoint = property(get_MountPoint, None)
     Name = property(get_Name, None)
     PackageStorePath = property(get_PackageStorePath, None)
     SupportsHardLinks = property(get_SupportsHardLinks, None)
-    IsFullTrustPackageSupported = property(get_IsFullTrustPackageSupported, None)
-    IsAppxInstallSupported = property(get_IsAppxInstallSupported, None)
 class RegisterPackageOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Management.Deployment.IRegisterPackageOptions
@@ -1376,19 +1376,19 @@ class RegisterPackageOptions(ComPtr):
     def put_DeferRegistrationWhenPackagesAreInUse(self: win32more.Windows.Management.Deployment.IRegisterPackageOptions, value: Boolean) -> Void: ...
     @winrt_mixinmethod
     def get_ExpectedDigests(self: win32more.Windows.Management.Deployment.IRegisterPackageOptions2) -> win32more.Windows.Foundation.Collections.IMap[win32more.Windows.Foundation.Uri, WinRT_String]: ...
-    DependencyPackageUris = property(get_DependencyPackageUris, None)
+    AllowUnsigned = property(get_AllowUnsigned, put_AllowUnsigned)
     AppDataVolume = property(get_AppDataVolume, put_AppDataVolume)
-    OptionalPackageFamilyNames = property(get_OptionalPackageFamilyNames, None)
-    ExternalLocationUri = property(get_ExternalLocationUri, put_ExternalLocationUri)
+    DeferRegistrationWhenPackagesAreInUse = property(get_DeferRegistrationWhenPackagesAreInUse, put_DeferRegistrationWhenPackagesAreInUse)
+    DependencyPackageUris = property(get_DependencyPackageUris, None)
     DeveloperMode = property(get_DeveloperMode, put_DeveloperMode)
+    ExpectedDigests = property(get_ExpectedDigests, None)
+    ExternalLocationUri = property(get_ExternalLocationUri, put_ExternalLocationUri)
     ForceAppShutdown = property(get_ForceAppShutdown, put_ForceAppShutdown)
     ForceTargetAppShutdown = property(get_ForceTargetAppShutdown, put_ForceTargetAppShutdown)
     ForceUpdateFromAnyVersion = property(get_ForceUpdateFromAnyVersion, put_ForceUpdateFromAnyVersion)
     InstallAllResources = property(get_InstallAllResources, put_InstallAllResources)
+    OptionalPackageFamilyNames = property(get_OptionalPackageFamilyNames, None)
     StageInPlace = property(get_StageInPlace, put_StageInPlace)
-    AllowUnsigned = property(get_AllowUnsigned, put_AllowUnsigned)
-    DeferRegistrationWhenPackagesAreInUse = property(get_DeferRegistrationWhenPackagesAreInUse, put_DeferRegistrationWhenPackagesAreInUse)
-    ExpectedDigests = property(get_ExpectedDigests, None)
 class RemovalOptions(UInt32):  # enum
     None_ = 0
     PreserveApplicationData = 4096
@@ -1408,8 +1408,8 @@ class SharedPackageContainer(ComPtr):
     def RemovePackageFamily(self: win32more.Windows.Management.Deployment.ISharedPackageContainer, packageFamilyName: WinRT_String, options: win32more.Windows.Management.Deployment.UpdateSharedPackageContainerOptions) -> win32more.Windows.Management.Deployment.UpdateSharedPackageContainerResult: ...
     @winrt_mixinmethod
     def ResetData(self: win32more.Windows.Management.Deployment.ISharedPackageContainer) -> win32more.Windows.Management.Deployment.UpdateSharedPackageContainerResult: ...
-    Name = property(get_Name, None)
     Id = property(get_Id, None)
+    Name = property(get_Name, None)
 SharedPackageContainerContract: UInt32 = 65536
 class SharedPackageContainerCreationCollisionOptions(Int32):  # enum
     FailIfExists = 0
@@ -1517,20 +1517,20 @@ class StagePackageOptions(ComPtr):
     def put_AllowUnsigned(self: win32more.Windows.Management.Deployment.IStagePackageOptions, value: Boolean) -> Void: ...
     @winrt_mixinmethod
     def get_ExpectedDigests(self: win32more.Windows.Management.Deployment.IStagePackageOptions2) -> win32more.Windows.Foundation.Collections.IMap[win32more.Windows.Foundation.Uri, WinRT_String]: ...
+    AllowUnsigned = property(get_AllowUnsigned, put_AllowUnsigned)
     DependencyPackageUris = property(get_DependencyPackageUris, None)
-    TargetVolume = property(get_TargetVolume, put_TargetVolume)
+    DeveloperMode = property(get_DeveloperMode, put_DeveloperMode)
+    ExpectedDigests = property(get_ExpectedDigests, None)
+    ExternalLocationUri = property(get_ExternalLocationUri, put_ExternalLocationUri)
+    ForceUpdateFromAnyVersion = property(get_ForceUpdateFromAnyVersion, put_ForceUpdateFromAnyVersion)
+    InstallAllResources = property(get_InstallAllResources, put_InstallAllResources)
     OptionalPackageFamilyNames = property(get_OptionalPackageFamilyNames, None)
     OptionalPackageUris = property(get_OptionalPackageUris, None)
     RelatedPackageUris = property(get_RelatedPackageUris, None)
-    ExternalLocationUri = property(get_ExternalLocationUri, put_ExternalLocationUri)
-    StubPackageOption = property(get_StubPackageOption, put_StubPackageOption)
-    DeveloperMode = property(get_DeveloperMode, put_DeveloperMode)
-    ForceUpdateFromAnyVersion = property(get_ForceUpdateFromAnyVersion, put_ForceUpdateFromAnyVersion)
-    InstallAllResources = property(get_InstallAllResources, put_InstallAllResources)
     RequiredContentGroupOnly = property(get_RequiredContentGroupOnly, put_RequiredContentGroupOnly)
     StageInPlace = property(get_StageInPlace, put_StageInPlace)
-    AllowUnsigned = property(get_AllowUnsigned, put_AllowUnsigned)
-    ExpectedDigests = property(get_ExpectedDigests, None)
+    StubPackageOption = property(get_StubPackageOption, put_StubPackageOption)
+    TargetVolume = property(get_TargetVolume, put_TargetVolume)
 class StubPackageOption(Int32):  # enum
     Default = 0
     InstallFull = 1
@@ -1567,8 +1567,8 @@ class UpdateSharedPackageContainerResult(ComPtr):
     def get_Status(self: win32more.Windows.Management.Deployment.IUpdateSharedPackageContainerResult) -> win32more.Windows.Management.Deployment.SharedPackageContainerOperationStatus: ...
     @winrt_mixinmethod
     def get_ExtendedError(self: win32more.Windows.Management.Deployment.IUpdateSharedPackageContainerResult) -> win32more.Windows.Foundation.HResult: ...
-    Status = property(get_Status, None)
     ExtendedError = property(get_ExtendedError, None)
+    Status = property(get_Status, None)
 
 
 make_ready(__name__)

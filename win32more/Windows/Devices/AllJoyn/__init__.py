@@ -56,18 +56,18 @@ class AllJoynAboutData(ComPtr):
     def get_AppId(self: win32more.Windows.Devices.AllJoyn.IAllJoynAboutData) -> Guid: ...
     @winrt_mixinmethod
     def put_AppId(self: win32more.Windows.Devices.AllJoyn.IAllJoynAboutData, value: Guid) -> Void: ...
-    IsEnabled = property(get_IsEnabled, put_IsEnabled)
-    DefaultAppName = property(get_DefaultAppName, put_DefaultAppName)
+    AppId = property(get_AppId, put_AppId)
     AppNames = property(get_AppNames, None)
     DateOfManufacture = property(get_DateOfManufacture, put_DateOfManufacture)
+    DefaultAppName = property(get_DefaultAppName, put_DefaultAppName)
     DefaultDescription = property(get_DefaultDescription, put_DefaultDescription)
-    Descriptions = property(get_Descriptions, None)
     DefaultManufacturer = property(get_DefaultManufacturer, put_DefaultManufacturer)
+    Descriptions = property(get_Descriptions, None)
+    IsEnabled = property(get_IsEnabled, put_IsEnabled)
     Manufacturers = property(get_Manufacturers, None)
     ModelNumber = property(get_ModelNumber, put_ModelNumber)
     SoftwareVersion = property(get_SoftwareVersion, put_SoftwareVersion)
     SupportUrl = property(get_SupportUrl, put_SupportUrl)
-    AppId = property(get_AppId, put_AppId)
 class AllJoynAboutDataView(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.AllJoyn.IAllJoynAboutDataView
@@ -108,22 +108,22 @@ class AllJoynAboutDataView(ComPtr):
     def GetDataBySessionPortAsync(cls: win32more.Windows.Devices.AllJoyn.IAllJoynAboutDataViewStatics, uniqueName: WinRT_String, busAttachment: win32more.Windows.Devices.AllJoyn.AllJoynBusAttachment, sessionPort: UInt16) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.AllJoyn.AllJoynAboutDataView]: ...
     @winrt_classmethod
     def GetDataBySessionPortWithLanguageAsync(cls: win32more.Windows.Devices.AllJoyn.IAllJoynAboutDataViewStatics, uniqueName: WinRT_String, busAttachment: win32more.Windows.Devices.AllJoyn.AllJoynBusAttachment, sessionPort: UInt16, language: win32more.Windows.Globalization.Language) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.AllJoyn.AllJoynAboutDataView]: ...
-    Status = property(get_Status, None)
-    Properties = property(get_Properties, None)
     AJSoftwareVersion = property(get_AJSoftwareVersion, None)
     AppId = property(get_AppId, None)
+    AppName = property(get_AppName, None)
     DateOfManufacture = property(get_DateOfManufacture, None)
     DefaultLanguage = property(get_DefaultLanguage, None)
-    DeviceId = property(get_DeviceId, None)
-    HardwareVersion = property(get_HardwareVersion, None)
-    ModelNumber = property(get_ModelNumber, None)
-    SoftwareVersion = property(get_SoftwareVersion, None)
-    SupportedLanguages = property(get_SupportedLanguages, None)
-    SupportUrl = property(get_SupportUrl, None)
-    AppName = property(get_AppName, None)
     Description = property(get_Description, None)
+    DeviceId = property(get_DeviceId, None)
     DeviceName = property(get_DeviceName, None)
+    HardwareVersion = property(get_HardwareVersion, None)
     Manufacturer = property(get_Manufacturer, None)
+    ModelNumber = property(get_ModelNumber, None)
+    Properties = property(get_Properties, None)
+    SoftwareVersion = property(get_SoftwareVersion, None)
+    Status = property(get_Status, None)
+    SupportUrl = property(get_SupportUrl, None)
+    SupportedLanguages = property(get_SupportedLanguages, None)
 class AllJoynAcceptSessionJoinerEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.AllJoyn.IAllJoynAcceptSessionJoinerEventArgs
@@ -149,11 +149,11 @@ class AllJoynAcceptSessionJoinerEventArgs(ComPtr):
     def get_SameNetwork(self: win32more.Windows.Devices.AllJoyn.IAllJoynAcceptSessionJoinerEventArgs) -> Boolean: ...
     @winrt_mixinmethod
     def Accept(self: win32more.Windows.Devices.AllJoyn.IAllJoynAcceptSessionJoinerEventArgs) -> Void: ...
-    UniqueName = property(get_UniqueName, None)
+    SameNetwork = property(get_SameNetwork, None)
+    SamePhysicalNode = property(get_SamePhysicalNode, None)
     SessionPort = property(get_SessionPort, None)
     TrafficType = property(get_TrafficType, None)
-    SamePhysicalNode = property(get_SamePhysicalNode, None)
-    SameNetwork = property(get_SameNetwork, None)
+    UniqueName = property(get_UniqueName, None)
 class AllJoynAuthenticationCompleteEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.AllJoyn.IAllJoynAuthenticationCompleteEventArgs
@@ -241,10 +241,10 @@ class AllJoynBusAttachment(ComPtr):
     @winrt_classmethod
     def GetWatcher(cls: win32more.Windows.Devices.AllJoyn.IAllJoynBusAttachmentStatics, requiredInterfaces: win32more.Windows.Foundation.Collections.IIterable[WinRT_String]) -> win32more.Windows.Devices.Enumeration.DeviceWatcher: ...
     AboutData = property(get_AboutData, None)
+    AuthenticationMechanisms = property(get_AuthenticationMechanisms, None)
     ConnectionSpecification = property(get_ConnectionSpecification, None)
     State = property(get_State, None)
     UniqueName = property(get_UniqueName, None)
-    AuthenticationMechanisms = property(get_AuthenticationMechanisms, None)
 class AllJoynBusAttachmentState(Int32):  # enum
     Disconnected = 0
     Connecting = 1
@@ -374,11 +374,11 @@ class AllJoynCredentialsVerificationRequestedEventArgs(ComPtr):
     @winrt_mixinmethod
     def GetDeferral(self: win32more.Windows.Devices.AllJoyn.IAllJoynCredentialsVerificationRequestedEventArgs) -> win32more.Windows.Foundation.Deferral: ...
     AuthenticationMechanism = property(get_AuthenticationMechanism, None)
-    PeerUniqueName = property(get_PeerUniqueName, None)
     PeerCertificate = property(get_PeerCertificate, None)
     PeerCertificateErrorSeverity = property(get_PeerCertificateErrorSeverity, None)
     PeerCertificateErrors = property(get_PeerCertificateErrors, None)
     PeerIntermediateCertificates = property(get_PeerIntermediateCertificates, None)
+    PeerUniqueName = property(get_PeerUniqueName, None)
 class AllJoynMessageInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.AllJoyn.IAllJoynMessageInfo
@@ -432,9 +432,9 @@ class AllJoynServiceInfo(ComPtr):
     def get_SessionPort(self: win32more.Windows.Devices.AllJoyn.IAllJoynServiceInfo) -> UInt16: ...
     @winrt_classmethod
     def FromIdAsync(cls: win32more.Windows.Devices.AllJoyn.IAllJoynServiceInfoStatics, deviceId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.AllJoyn.AllJoynServiceInfo]: ...
-    UniqueName = property(get_UniqueName, None)
     ObjectPath = property(get_ObjectPath, None)
     SessionPort = property(get_SessionPort, None)
+    UniqueName = property(get_UniqueName, None)
 class AllJoynServiceInfoRemovedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.AllJoyn.IAllJoynServiceInfoRemovedEventArgs
@@ -591,15 +591,10 @@ class AllJoynStatus(ComPtr, metaclass=_AllJoynStatus_Meta_):
     def get_InvalidArgument7(cls: win32more.Windows.Devices.AllJoyn.IAllJoynStatusStatics) -> Int32: ...
     @winrt_classmethod
     def get_InvalidArgument8(cls: win32more.Windows.Devices.AllJoyn.IAllJoynStatusStatics) -> Int32: ...
-    _AllJoynStatus_Meta_.Ok = property(get_Ok.__wrapped__, None)
-    _AllJoynStatus_Meta_.Fail = property(get_Fail.__wrapped__, None)
-    _AllJoynStatus_Meta_.OperationTimedOut = property(get_OperationTimedOut.__wrapped__, None)
-    _AllJoynStatus_Meta_.OtherEndClosed = property(get_OtherEndClosed.__wrapped__, None)
-    _AllJoynStatus_Meta_.ConnectionRefused = property(get_ConnectionRefused.__wrapped__, None)
     _AllJoynStatus_Meta_.AuthenticationFailed = property(get_AuthenticationFailed.__wrapped__, None)
     _AllJoynStatus_Meta_.AuthenticationRejectedByUser = property(get_AuthenticationRejectedByUser.__wrapped__, None)
-    _AllJoynStatus_Meta_.SslConnectFailed = property(get_SslConnectFailed.__wrapped__, None)
-    _AllJoynStatus_Meta_.SslIdentityVerificationFailed = property(get_SslIdentityVerificationFailed.__wrapped__, None)
+    _AllJoynStatus_Meta_.ConnectionRefused = property(get_ConnectionRefused.__wrapped__, None)
+    _AllJoynStatus_Meta_.Fail = property(get_Fail.__wrapped__, None)
     _AllJoynStatus_Meta_.InsufficientSecurity = property(get_InsufficientSecurity.__wrapped__, None)
     _AllJoynStatus_Meta_.InvalidArgument1 = property(get_InvalidArgument1.__wrapped__, None)
     _AllJoynStatus_Meta_.InvalidArgument2 = property(get_InvalidArgument2.__wrapped__, None)
@@ -609,6 +604,11 @@ class AllJoynStatus(ComPtr, metaclass=_AllJoynStatus_Meta_):
     _AllJoynStatus_Meta_.InvalidArgument6 = property(get_InvalidArgument6.__wrapped__, None)
     _AllJoynStatus_Meta_.InvalidArgument7 = property(get_InvalidArgument7.__wrapped__, None)
     _AllJoynStatus_Meta_.InvalidArgument8 = property(get_InvalidArgument8.__wrapped__, None)
+    _AllJoynStatus_Meta_.Ok = property(get_Ok.__wrapped__, None)
+    _AllJoynStatus_Meta_.OperationTimedOut = property(get_OperationTimedOut.__wrapped__, None)
+    _AllJoynStatus_Meta_.OtherEndClosed = property(get_OtherEndClosed.__wrapped__, None)
+    _AllJoynStatus_Meta_.SslConnectFailed = property(get_SslConnectFailed.__wrapped__, None)
+    _AllJoynStatus_Meta_.SslIdentityVerificationFailed = property(get_SslIdentityVerificationFailed.__wrapped__, None)
 class AllJoynTrafficType(Int32):  # enum
     Unknown = 0
     Messages = 1
@@ -676,18 +676,18 @@ class IAllJoynAboutData(ComPtr):
     def get_AppId(self) -> Guid: ...
     @winrt_commethod(26)
     def put_AppId(self, value: Guid) -> Void: ...
-    IsEnabled = property(get_IsEnabled, put_IsEnabled)
-    DefaultAppName = property(get_DefaultAppName, put_DefaultAppName)
+    AppId = property(get_AppId, put_AppId)
     AppNames = property(get_AppNames, None)
     DateOfManufacture = property(get_DateOfManufacture, put_DateOfManufacture)
+    DefaultAppName = property(get_DefaultAppName, put_DefaultAppName)
     DefaultDescription = property(get_DefaultDescription, put_DefaultDescription)
-    Descriptions = property(get_Descriptions, None)
     DefaultManufacturer = property(get_DefaultManufacturer, put_DefaultManufacturer)
+    Descriptions = property(get_Descriptions, None)
+    IsEnabled = property(get_IsEnabled, put_IsEnabled)
     Manufacturers = property(get_Manufacturers, None)
     ModelNumber = property(get_ModelNumber, put_ModelNumber)
     SoftwareVersion = property(get_SoftwareVersion, put_SoftwareVersion)
     SupportUrl = property(get_SupportUrl, put_SupportUrl)
-    AppId = property(get_AppId, put_AppId)
 class IAllJoynAboutDataView(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.AllJoyn.IAllJoynAboutDataView'
@@ -724,22 +724,22 @@ class IAllJoynAboutDataView(ComPtr):
     def get_DeviceName(self) -> WinRT_String: ...
     @winrt_commethod(21)
     def get_Manufacturer(self) -> WinRT_String: ...
-    Status = property(get_Status, None)
-    Properties = property(get_Properties, None)
     AJSoftwareVersion = property(get_AJSoftwareVersion, None)
     AppId = property(get_AppId, None)
+    AppName = property(get_AppName, None)
     DateOfManufacture = property(get_DateOfManufacture, None)
     DefaultLanguage = property(get_DefaultLanguage, None)
-    DeviceId = property(get_DeviceId, None)
-    HardwareVersion = property(get_HardwareVersion, None)
-    ModelNumber = property(get_ModelNumber, None)
-    SoftwareVersion = property(get_SoftwareVersion, None)
-    SupportedLanguages = property(get_SupportedLanguages, None)
-    SupportUrl = property(get_SupportUrl, None)
-    AppName = property(get_AppName, None)
     Description = property(get_Description, None)
+    DeviceId = property(get_DeviceId, None)
     DeviceName = property(get_DeviceName, None)
+    HardwareVersion = property(get_HardwareVersion, None)
     Manufacturer = property(get_Manufacturer, None)
+    ModelNumber = property(get_ModelNumber, None)
+    Properties = property(get_Properties, None)
+    SoftwareVersion = property(get_SoftwareVersion, None)
+    Status = property(get_Status, None)
+    SupportUrl = property(get_SupportUrl, None)
+    SupportedLanguages = property(get_SupportedLanguages, None)
 class IAllJoynAboutDataViewStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.AllJoyn.IAllJoynAboutDataViewStatics'
@@ -770,11 +770,11 @@ class IAllJoynAcceptSessionJoinerEventArgs(ComPtr):
     def get_SameNetwork(self) -> Boolean: ...
     @winrt_commethod(11)
     def Accept(self) -> Void: ...
-    UniqueName = property(get_UniqueName, None)
+    SameNetwork = property(get_SameNetwork, None)
+    SamePhysicalNode = property(get_SamePhysicalNode, None)
     SessionPort = property(get_SessionPort, None)
     TrafficType = property(get_TrafficType, None)
-    SamePhysicalNode = property(get_SamePhysicalNode, None)
-    SameNetwork = property(get_SameNetwork, None)
+    UniqueName = property(get_UniqueName, None)
 class IAllJoynAcceptSessionJoinerEventArgsFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.AllJoyn.IAllJoynAcceptSessionJoinerEventArgsFactory'
@@ -831,10 +831,10 @@ class IAllJoynBusAttachment(ComPtr):
     @winrt_commethod(21)
     def remove_AuthenticationComplete(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     AboutData = property(get_AboutData, None)
+    AuthenticationMechanisms = property(get_AuthenticationMechanisms, None)
     ConnectionSpecification = property(get_ConnectionSpecification, None)
     State = property(get_State, None)
     UniqueName = property(get_UniqueName, None)
-    AuthenticationMechanisms = property(get_AuthenticationMechanisms, None)
 class IAllJoynBusAttachment2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.AllJoyn.IAllJoynBusAttachment2'
@@ -977,11 +977,11 @@ class IAllJoynCredentialsVerificationRequestedEventArgs(ComPtr):
     @winrt_commethod(13)
     def GetDeferral(self) -> win32more.Windows.Foundation.Deferral: ...
     AuthenticationMechanism = property(get_AuthenticationMechanism, None)
-    PeerUniqueName = property(get_PeerUniqueName, None)
     PeerCertificate = property(get_PeerCertificate, None)
     PeerCertificateErrorSeverity = property(get_PeerCertificateErrorSeverity, None)
     PeerCertificateErrors = property(get_PeerCertificateErrors, None)
     PeerIntermediateCertificates = property(get_PeerIntermediateCertificates, None)
+    PeerUniqueName = property(get_PeerUniqueName, None)
 class IAllJoynMessageInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.AllJoyn.IAllJoynMessageInfo'
@@ -1024,9 +1024,9 @@ class IAllJoynServiceInfo(ComPtr):
     def get_ObjectPath(self) -> WinRT_String: ...
     @winrt_commethod(8)
     def get_SessionPort(self) -> UInt16: ...
-    UniqueName = property(get_UniqueName, None)
     ObjectPath = property(get_ObjectPath, None)
     SessionPort = property(get_SessionPort, None)
+    UniqueName = property(get_UniqueName, None)
 class IAllJoynServiceInfoFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.AllJoyn.IAllJoynServiceInfoFactory'
@@ -1176,15 +1176,10 @@ class IAllJoynStatusStatics(ComPtr):
     def get_InvalidArgument7(self) -> Int32: ...
     @winrt_commethod(23)
     def get_InvalidArgument8(self) -> Int32: ...
-    Ok = property(get_Ok, None)
-    Fail = property(get_Fail, None)
-    OperationTimedOut = property(get_OperationTimedOut, None)
-    OtherEndClosed = property(get_OtherEndClosed, None)
-    ConnectionRefused = property(get_ConnectionRefused, None)
     AuthenticationFailed = property(get_AuthenticationFailed, None)
     AuthenticationRejectedByUser = property(get_AuthenticationRejectedByUser, None)
-    SslConnectFailed = property(get_SslConnectFailed, None)
-    SslIdentityVerificationFailed = property(get_SslIdentityVerificationFailed, None)
+    ConnectionRefused = property(get_ConnectionRefused, None)
+    Fail = property(get_Fail, None)
     InsufficientSecurity = property(get_InsufficientSecurity, None)
     InvalidArgument1 = property(get_InvalidArgument1, None)
     InvalidArgument2 = property(get_InvalidArgument2, None)
@@ -1194,6 +1189,11 @@ class IAllJoynStatusStatics(ComPtr):
     InvalidArgument6 = property(get_InvalidArgument6, None)
     InvalidArgument7 = property(get_InvalidArgument7, None)
     InvalidArgument8 = property(get_InvalidArgument8, None)
+    Ok = property(get_Ok, None)
+    OperationTimedOut = property(get_OperationTimedOut, None)
+    OtherEndClosed = property(get_OtherEndClosed, None)
+    SslConnectFailed = property(get_SslConnectFailed, None)
+    SslIdentityVerificationFailed = property(get_SslIdentityVerificationFailed, None)
 class IAllJoynWatcherStoppedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.AllJoyn.IAllJoynWatcherStoppedEventArgs'

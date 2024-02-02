@@ -22,11 +22,11 @@ class ChatCapabilities(ComPtr):
     def get_IsGeoLocationPushCapable(self: win32more.Windows.ApplicationModel.Chat.IChatCapabilities) -> Boolean: ...
     @winrt_mixinmethod
     def get_IsIntegratedMessagingCapable(self: win32more.Windows.ApplicationModel.Chat.IChatCapabilities) -> Boolean: ...
-    IsOnline = property(get_IsOnline, None)
     IsChatCapable = property(get_IsChatCapable, None)
     IsFileTransferCapable = property(get_IsFileTransferCapable, None)
     IsGeoLocationPushCapable = property(get_IsGeoLocationPushCapable, None)
     IsIntegratedMessagingCapable = property(get_IsIntegratedMessagingCapable, None)
+    IsOnline = property(get_IsOnline, None)
 class ChatCapabilitiesManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Chat.ChatCapabilitiesManager'
@@ -84,15 +84,15 @@ class ChatConversation(ComPtr):
     def put_CanModifyParticipants(self: win32more.Windows.ApplicationModel.Chat.IChatConversation2, value: Boolean) -> Void: ...
     @winrt_mixinmethod
     def get_ItemKind(self: win32more.Windows.ApplicationModel.Chat.IChatItem) -> win32more.Windows.ApplicationModel.Chat.ChatItemKind: ...
+    CanModifyParticipants = property(get_CanModifyParticipants, put_CanModifyParticipants)
     HasUnreadMessages = property(get_HasUnreadMessages, None)
     Id = property(get_Id, None)
-    Subject = property(get_Subject, put_Subject)
     IsConversationMuted = property(get_IsConversationMuted, put_IsConversationMuted)
+    ItemKind = property(get_ItemKind, None)
     MostRecentMessageId = property(get_MostRecentMessageId, None)
     Participants = property(get_Participants, None)
+    Subject = property(get_Subject, put_Subject)
     ThreadingInfo = property(get_ThreadingInfo, None)
-    CanModifyParticipants = property(get_CanModifyParticipants, put_CanModifyParticipants)
-    ItemKind = property(get_ItemKind, None)
 class ChatConversationReader(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Chat.IChatConversationReader
@@ -133,10 +133,10 @@ class ChatConversationThreadingInfo(ComPtr):
     @winrt_mixinmethod
     def put_Kind(self: win32more.Windows.ApplicationModel.Chat.IChatConversationThreadingInfo, value: win32more.Windows.ApplicationModel.Chat.ChatConversationThreadingKind) -> Void: ...
     ContactId = property(get_ContactId, put_ContactId)
-    Custom = property(get_Custom, put_Custom)
     ConversationId = property(get_ConversationId, put_ConversationId)
-    Participants = property(get_Participants, None)
+    Custom = property(get_Custom, put_Custom)
     Kind = property(get_Kind, put_Kind)
+    Participants = property(get_Participants, None)
 class ChatConversationThreadingKind(Int32):  # enum
     Participants = 0
     ContactId = 1
@@ -258,33 +258,33 @@ class ChatMessage(ComPtr):
     def get_ItemKind(self: win32more.Windows.ApplicationModel.Chat.IChatItem) -> win32more.Windows.ApplicationModel.Chat.ChatItemKind: ...
     Attachments = property(get_Attachments, None)
     Body = property(get_Body, put_Body)
+    EstimatedDownloadSize = property(get_EstimatedDownloadSize, put_EstimatedDownloadSize)
     From = property(get_From, put_From)
     Id = property(get_Id, None)
+    IsAutoReply = property(get_IsAutoReply, put_IsAutoReply)
     IsForwardingDisabled = property(get_IsForwardingDisabled, put_IsForwardingDisabled)
     IsIncoming = property(get_IsIncoming, put_IsIncoming)
     IsRead = property(get_IsRead, put_IsRead)
-    LocalTimestamp = property(get_LocalTimestamp, put_LocalTimestamp)
-    NetworkTimestamp = property(get_NetworkTimestamp, put_NetworkTimestamp)
-    Recipients = property(get_Recipients, None)
-    RecipientSendStatuses = property(get_RecipientSendStatuses, None)
-    Status = property(get_Status, put_Status)
-    Subject = property(get_Subject, put_Subject)
-    TransportFriendlyName = property(get_TransportFriendlyName, None)
-    TransportId = property(get_TransportId, put_TransportId)
-    EstimatedDownloadSize = property(get_EstimatedDownloadSize, put_EstimatedDownloadSize)
-    IsAutoReply = property(get_IsAutoReply, put_IsAutoReply)
+    IsReceivedDuringQuietHours = property(get_IsReceivedDuringQuietHours, put_IsReceivedDuringQuietHours)
     IsReplyDisabled = property(get_IsReplyDisabled, None)
     IsSeen = property(get_IsSeen, put_IsSeen)
     IsSimMessage = property(get_IsSimMessage, None)
+    ItemKind = property(get_ItemKind, None)
+    LocalTimestamp = property(get_LocalTimestamp, put_LocalTimestamp)
     MessageKind = property(get_MessageKind, put_MessageKind)
     MessageOperatorKind = property(get_MessageOperatorKind, put_MessageOperatorKind)
-    IsReceivedDuringQuietHours = property(get_IsReceivedDuringQuietHours, put_IsReceivedDuringQuietHours)
+    NetworkTimestamp = property(get_NetworkTimestamp, put_NetworkTimestamp)
+    RecipientSendStatuses = property(get_RecipientSendStatuses, None)
+    Recipients = property(get_Recipients, None)
+    RecipientsDeliveryInfos = property(get_RecipientsDeliveryInfos, None)
     RemoteId = property(get_RemoteId, put_RemoteId)
     ShouldSuppressNotification = property(get_ShouldSuppressNotification, put_ShouldSuppressNotification)
-    ThreadingInfo = property(get_ThreadingInfo, put_ThreadingInfo)
-    RecipientsDeliveryInfos = property(get_RecipientsDeliveryInfos, None)
+    Status = property(get_Status, put_Status)
+    Subject = property(get_Subject, put_Subject)
     SyncId = property(get_SyncId, put_SyncId)
-    ItemKind = property(get_ItemKind, None)
+    ThreadingInfo = property(get_ThreadingInfo, put_ThreadingInfo)
+    TransportFriendlyName = property(get_TransportFriendlyName, None)
+    TransportId = property(get_TransportId, put_TransportId)
 class ChatMessageAttachment(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Chat.IChatMessageAttachment
@@ -329,10 +329,10 @@ class ChatMessageAttachment(ComPtr):
     DataStreamReference = property(get_DataStreamReference, put_DataStreamReference)
     GroupId = property(get_GroupId, put_GroupId)
     MimeType = property(get_MimeType, put_MimeType)
+    OriginalFileName = property(get_OriginalFileName, put_OriginalFileName)
     Text = property(get_Text, put_Text)
     Thumbnail = property(get_Thumbnail, put_Thumbnail)
     TransferProgress = property(get_TransferProgress, put_TransferProgress)
-    OriginalFileName = property(get_OriginalFileName, put_OriginalFileName)
 class ChatMessageBlocking(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Chat.ChatMessageBlocking'
@@ -426,9 +426,9 @@ class ChatMessageNotificationTriggerDetails(ComPtr):
     def get_ShouldUpdateActionCenter(self: win32more.Windows.ApplicationModel.Chat.IChatMessageNotificationTriggerDetails2) -> Boolean: ...
     ChatMessage = property(get_ChatMessage, None)
     ShouldDisplayToast = property(get_ShouldDisplayToast, None)
-    ShouldUpdateDetailText = property(get_ShouldUpdateDetailText, None)
-    ShouldUpdateBadge = property(get_ShouldUpdateBadge, None)
     ShouldUpdateActionCenter = property(get_ShouldUpdateActionCenter, None)
+    ShouldUpdateBadge = property(get_ShouldUpdateBadge, None)
+    ShouldUpdateDetailText = property(get_ShouldUpdateDetailText, None)
 class ChatMessageOperatorKind(Int32):  # enum
     Unspecified = 0
     Sms = 1
@@ -550,11 +550,11 @@ class ChatMessageTransport(ComPtr):
     def get_Configuration(self: win32more.Windows.ApplicationModel.Chat.IChatMessageTransport2) -> win32more.Windows.ApplicationModel.Chat.ChatMessageTransportConfiguration: ...
     @winrt_mixinmethod
     def get_TransportKind(self: win32more.Windows.ApplicationModel.Chat.IChatMessageTransport2) -> win32more.Windows.ApplicationModel.Chat.ChatMessageTransportKind: ...
-    IsAppSetAsNotificationProvider = property(get_IsAppSetAsNotificationProvider, None)
+    Configuration = property(get_Configuration, None)
     IsActive = property(get_IsActive, None)
+    IsAppSetAsNotificationProvider = property(get_IsAppSetAsNotificationProvider, None)
     TransportFriendlyName = property(get_TransportFriendlyName, None)
     TransportId = property(get_TransportId, None)
-    Configuration = property(get_Configuration, None)
     TransportKind = property(get_TransportKind, None)
 class ChatMessageTransportConfiguration(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -570,11 +570,11 @@ class ChatMessageTransportConfiguration(ComPtr):
     def get_SupportedVideoFormat(self: win32more.Windows.ApplicationModel.Chat.IChatMessageTransportConfiguration) -> win32more.Windows.Media.MediaProperties.MediaEncodingProfile: ...
     @winrt_mixinmethod
     def get_ExtendedProperties(self: win32more.Windows.ApplicationModel.Chat.IChatMessageTransportConfiguration) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
+    ExtendedProperties = property(get_ExtendedProperties, None)
     MaxAttachmentCount = property(get_MaxAttachmentCount, None)
     MaxMessageSizeInKilobytes = property(get_MaxMessageSizeInKilobytes, None)
     MaxRecipientCount = property(get_MaxRecipientCount, None)
     SupportedVideoFormat = property(get_SupportedVideoFormat, None)
-    ExtendedProperties = property(get_ExtendedProperties, None)
 class ChatMessageTransportKind(Int32):  # enum
     Text = 0
     Untriaged = 1
@@ -664,14 +664,14 @@ class ChatRecipientDeliveryInfo(ComPtr):
     def get_IsErrorPermanent(self: win32more.Windows.ApplicationModel.Chat.IChatRecipientDeliveryInfo) -> Boolean: ...
     @winrt_mixinmethod
     def get_Status(self: win32more.Windows.ApplicationModel.Chat.IChatRecipientDeliveryInfo) -> win32more.Windows.ApplicationModel.Chat.ChatMessageStatus: ...
-    TransportAddress = property(get_TransportAddress, put_TransportAddress)
     DeliveryTime = property(get_DeliveryTime, put_DeliveryTime)
+    IsErrorPermanent = property(get_IsErrorPermanent, None)
     ReadTime = property(get_ReadTime, put_ReadTime)
+    Status = property(get_Status, None)
+    TransportAddress = property(get_TransportAddress, put_TransportAddress)
+    TransportErrorCode = property(get_TransportErrorCode, None)
     TransportErrorCodeCategory = property(get_TransportErrorCodeCategory, None)
     TransportInterpretedErrorCode = property(get_TransportInterpretedErrorCode, None)
-    TransportErrorCode = property(get_TransportErrorCode, None)
-    IsErrorPermanent = property(get_IsErrorPermanent, None)
-    Status = property(get_Status, None)
 class ChatRestoreHistorySpan(Int32):  # enum
     LastMonth = 0
     LastYear = 1
@@ -750,11 +750,11 @@ class IChatCapabilities(ComPtr):
     def get_IsGeoLocationPushCapable(self) -> Boolean: ...
     @winrt_commethod(10)
     def get_IsIntegratedMessagingCapable(self) -> Boolean: ...
-    IsOnline = property(get_IsOnline, None)
     IsChatCapable = property(get_IsChatCapable, None)
     IsFileTransferCapable = property(get_IsFileTransferCapable, None)
     IsGeoLocationPushCapable = property(get_IsGeoLocationPushCapable, None)
     IsIntegratedMessagingCapable = property(get_IsIntegratedMessagingCapable, None)
+    IsOnline = property(get_IsOnline, None)
 class IChatCapabilitiesManagerStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Chat.IChatCapabilitiesManagerStatics'
@@ -813,10 +813,10 @@ class IChatConversation(ComPtr):
     def remove_RemoteParticipantComposingChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     HasUnreadMessages = property(get_HasUnreadMessages, None)
     Id = property(get_Id, None)
-    Subject = property(get_Subject, put_Subject)
     IsConversationMuted = property(get_IsConversationMuted, put_IsConversationMuted)
     MostRecentMessageId = property(get_MostRecentMessageId, None)
     Participants = property(get_Participants, None)
+    Subject = property(get_Subject, put_Subject)
     ThreadingInfo = property(get_ThreadingInfo, None)
 class IChatConversation2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -858,10 +858,10 @@ class IChatConversationThreadingInfo(ComPtr):
     @winrt_commethod(14)
     def put_Kind(self, value: win32more.Windows.ApplicationModel.Chat.ChatConversationThreadingKind) -> Void: ...
     ContactId = property(get_ContactId, put_ContactId)
-    Custom = property(get_Custom, put_Custom)
     ConversationId = property(get_ConversationId, put_ConversationId)
-    Participants = property(get_Participants, None)
+    Custom = property(get_Custom, put_Custom)
     Kind = property(get_Kind, put_Kind)
+    Participants = property(get_Participants, None)
 class IChatItem(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Chat.IChatItem'
@@ -916,8 +916,8 @@ class IChatMessage(ComPtr):
     IsRead = property(get_IsRead, None)
     LocalTimestamp = property(get_LocalTimestamp, None)
     NetworkTimestamp = property(get_NetworkTimestamp, None)
-    Recipients = property(get_Recipients, None)
     RecipientSendStatuses = property(get_RecipientSendStatuses, None)
+    Recipients = property(get_Recipients, None)
     Status = property(get_Status, None)
     Subject = property(get_Subject, None)
     TransportFriendlyName = property(get_TransportFriendlyName, None)
@@ -986,22 +986,22 @@ class IChatMessage2(ComPtr):
     From = property(None, put_From)
     IsAutoReply = property(get_IsAutoReply, put_IsAutoReply)
     IsForwardingDisabled = property(None, put_IsForwardingDisabled)
-    IsReplyDisabled = property(get_IsReplyDisabled, None)
     IsIncoming = property(None, put_IsIncoming)
     IsRead = property(None, put_IsRead)
+    IsReceivedDuringQuietHours = property(get_IsReceivedDuringQuietHours, put_IsReceivedDuringQuietHours)
+    IsReplyDisabled = property(get_IsReplyDisabled, None)
     IsSeen = property(get_IsSeen, put_IsSeen)
     IsSimMessage = property(get_IsSimMessage, None)
     LocalTimestamp = property(None, put_LocalTimestamp)
     MessageKind = property(get_MessageKind, put_MessageKind)
     MessageOperatorKind = property(get_MessageOperatorKind, put_MessageOperatorKind)
     NetworkTimestamp = property(None, put_NetworkTimestamp)
-    IsReceivedDuringQuietHours = property(get_IsReceivedDuringQuietHours, put_IsReceivedDuringQuietHours)
+    RecipientsDeliveryInfos = property(get_RecipientsDeliveryInfos, None)
     RemoteId = property(None, put_RemoteId)
+    ShouldSuppressNotification = property(get_ShouldSuppressNotification, put_ShouldSuppressNotification)
     Status = property(None, put_Status)
     Subject = property(None, put_Subject)
-    ShouldSuppressNotification = property(get_ShouldSuppressNotification, put_ShouldSuppressNotification)
     ThreadingInfo = property(get_ThreadingInfo, put_ThreadingInfo)
-    RecipientsDeliveryInfos = property(get_RecipientsDeliveryInfos, None)
 class IChatMessage3(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Chat.IChatMessage3'
@@ -1058,9 +1058,9 @@ class IChatMessageAttachment2(ComPtr):
     def get_OriginalFileName(self) -> WinRT_String: ...
     @winrt_commethod(11)
     def put_OriginalFileName(self, value: WinRT_String) -> Void: ...
+    OriginalFileName = property(get_OriginalFileName, put_OriginalFileName)
     Thumbnail = property(get_Thumbnail, put_Thumbnail)
     TransferProgress = property(get_TransferProgress, put_TransferProgress)
-    OriginalFileName = property(get_OriginalFileName, put_OriginalFileName)
 class IChatMessageAttachmentFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Chat.IChatMessageAttachmentFactory'
@@ -1161,9 +1161,9 @@ class IChatMessageNotificationTriggerDetails2(ComPtr):
     @winrt_commethod(9)
     def get_ShouldUpdateActionCenter(self) -> Boolean: ...
     ShouldDisplayToast = property(get_ShouldDisplayToast, None)
-    ShouldUpdateDetailText = property(get_ShouldUpdateDetailText, None)
-    ShouldUpdateBadge = property(get_ShouldUpdateBadge, None)
     ShouldUpdateActionCenter = property(get_ShouldUpdateActionCenter, None)
+    ShouldUpdateBadge = property(get_ShouldUpdateBadge, None)
+    ShouldUpdateDetailText = property(get_ShouldUpdateDetailText, None)
 class IChatMessageReader(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Chat.IChatMessageReader'
@@ -1273,8 +1273,8 @@ class IChatMessageTransport(ComPtr):
     def get_TransportId(self) -> WinRT_String: ...
     @winrt_commethod(10)
     def RequestSetAsNotificationProviderAsync(self) -> win32more.Windows.Foundation.IAsyncAction: ...
-    IsAppSetAsNotificationProvider = property(get_IsAppSetAsNotificationProvider, None)
     IsActive = property(get_IsActive, None)
+    IsAppSetAsNotificationProvider = property(get_IsAppSetAsNotificationProvider, None)
     TransportFriendlyName = property(get_TransportFriendlyName, None)
     TransportId = property(get_TransportId, None)
 class IChatMessageTransport2(ComPtr):
@@ -1301,11 +1301,11 @@ class IChatMessageTransportConfiguration(ComPtr):
     def get_SupportedVideoFormat(self) -> win32more.Windows.Media.MediaProperties.MediaEncodingProfile: ...
     @winrt_commethod(10)
     def get_ExtendedProperties(self) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
+    ExtendedProperties = property(get_ExtendedProperties, None)
     MaxAttachmentCount = property(get_MaxAttachmentCount, None)
     MaxMessageSizeInKilobytes = property(get_MaxMessageSizeInKilobytes, None)
     MaxRecipientCount = property(get_MaxRecipientCount, None)
     SupportedVideoFormat = property(get_SupportedVideoFormat, None)
-    ExtendedProperties = property(get_ExtendedProperties, None)
 class IChatMessageValidationResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Chat.IChatMessageValidationResult'
@@ -1357,14 +1357,14 @@ class IChatRecipientDeliveryInfo(ComPtr):
     def get_IsErrorPermanent(self) -> Boolean: ...
     @winrt_commethod(16)
     def get_Status(self) -> win32more.Windows.ApplicationModel.Chat.ChatMessageStatus: ...
-    TransportAddress = property(get_TransportAddress, put_TransportAddress)
     DeliveryTime = property(get_DeliveryTime, put_DeliveryTime)
+    IsErrorPermanent = property(get_IsErrorPermanent, None)
     ReadTime = property(get_ReadTime, put_ReadTime)
+    Status = property(get_Status, None)
+    TransportAddress = property(get_TransportAddress, put_TransportAddress)
+    TransportErrorCode = property(get_TransportErrorCode, None)
     TransportErrorCodeCategory = property(get_TransportErrorCodeCategory, None)
     TransportInterpretedErrorCode = property(get_TransportInterpretedErrorCode, None)
-    TransportErrorCode = property(get_TransportErrorCode, None)
-    IsErrorPermanent = property(get_IsErrorPermanent, None)
-    Status = property(get_Status, None)
 class IChatSearchReader(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Chat.IChatSearchReader'
@@ -1422,11 +1422,11 @@ class IRcsEndUserMessage(ComPtr):
     def SendResponseAsync(self, action: win32more.Windows.ApplicationModel.Chat.RcsEndUserMessageAction) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(12)
     def SendResponseWithPinAsync(self, action: win32more.Windows.ApplicationModel.Chat.RcsEndUserMessageAction, pin: WinRT_String) -> win32more.Windows.Foundation.IAsyncAction: ...
-    TransportId = property(get_TransportId, None)
-    Title = property(get_Title, None)
-    Text = property(get_Text, None)
-    IsPinRequired = property(get_IsPinRequired, None)
     Actions = property(get_Actions, None)
+    IsPinRequired = property(get_IsPinRequired, None)
+    Text = property(get_Text, None)
+    Title = property(get_Title, None)
+    TransportId = property(get_TransportId, None)
 class IRcsEndUserMessageAction(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Chat.IRcsEndUserMessageAction'
@@ -1452,8 +1452,8 @@ class IRcsEndUserMessageAvailableTriggerDetails(ComPtr):
     def get_Title(self) -> WinRT_String: ...
     @winrt_commethod(7)
     def get_Text(self) -> WinRT_String: ...
-    Title = property(get_Title, None)
     Text = property(get_Text, None)
+    Title = property(get_Title, None)
 class IRcsEndUserMessageManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Chat.IRcsEndUserMessageManager'
@@ -1511,11 +1511,11 @@ class IRcsTransport(ComPtr):
     def add_ServiceKindSupportedChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Chat.RcsTransport, win32more.Windows.ApplicationModel.Chat.RcsServiceKindSupportedChangedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(14)
     def remove_ServiceKindSupportedChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    Configuration = property(get_Configuration, None)
     ExtendedProperties = property(get_ExtendedProperties, None)
     IsActive = property(get_IsActive, None)
     TransportFriendlyName = property(get_TransportFriendlyName, None)
     TransportId = property(get_TransportId, None)
-    Configuration = property(get_Configuration, None)
 class IRcsTransportConfiguration(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Chat.IRcsTransportConfiguration'
@@ -1533,10 +1533,10 @@ class IRcsTransportConfiguration(ComPtr):
     @winrt_commethod(11)
     def get_WarningFileSizeInKilobytes(self) -> Int32: ...
     MaxAttachmentCount = property(get_MaxAttachmentCount, None)
-    MaxMessageSizeInKilobytes = property(get_MaxMessageSizeInKilobytes, None)
-    MaxGroupMessageSizeInKilobytes = property(get_MaxGroupMessageSizeInKilobytes, None)
-    MaxRecipientCount = property(get_MaxRecipientCount, None)
     MaxFileSizeInKilobytes = property(get_MaxFileSizeInKilobytes, None)
+    MaxGroupMessageSizeInKilobytes = property(get_MaxGroupMessageSizeInKilobytes, None)
+    MaxMessageSizeInKilobytes = property(get_MaxMessageSizeInKilobytes, None)
+    MaxRecipientCount = property(get_MaxRecipientCount, None)
     WarningFileSizeInKilobytes = property(get_WarningFileSizeInKilobytes, None)
 class IRemoteParticipantComposingChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -1548,9 +1548,9 @@ class IRemoteParticipantComposingChangedEventArgs(ComPtr):
     def get_ParticipantAddress(self) -> WinRT_String: ...
     @winrt_commethod(8)
     def get_IsComposing(self) -> Boolean: ...
-    TransportId = property(get_TransportId, None)
-    ParticipantAddress = property(get_ParticipantAddress, None)
     IsComposing = property(get_IsComposing, None)
+    ParticipantAddress = property(get_ParticipantAddress, None)
+    TransportId = property(get_TransportId, None)
 class RcsEndUserMessage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Chat.IRcsEndUserMessage
@@ -1569,11 +1569,11 @@ class RcsEndUserMessage(ComPtr):
     def SendResponseAsync(self: win32more.Windows.ApplicationModel.Chat.IRcsEndUserMessage, action: win32more.Windows.ApplicationModel.Chat.RcsEndUserMessageAction) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_mixinmethod
     def SendResponseWithPinAsync(self: win32more.Windows.ApplicationModel.Chat.IRcsEndUserMessage, action: win32more.Windows.ApplicationModel.Chat.RcsEndUserMessageAction, pin: WinRT_String) -> win32more.Windows.Foundation.IAsyncAction: ...
-    TransportId = property(get_TransportId, None)
-    Title = property(get_Title, None)
-    Text = property(get_Text, None)
-    IsPinRequired = property(get_IsPinRequired, None)
     Actions = property(get_Actions, None)
+    IsPinRequired = property(get_IsPinRequired, None)
+    Text = property(get_Text, None)
+    Title = property(get_Title, None)
+    TransportId = property(get_TransportId, None)
 class RcsEndUserMessageAction(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Chat.IRcsEndUserMessageAction
@@ -1599,8 +1599,8 @@ class RcsEndUserMessageAvailableTriggerDetails(ComPtr):
     def get_Title(self: win32more.Windows.ApplicationModel.Chat.IRcsEndUserMessageAvailableTriggerDetails) -> WinRT_String: ...
     @winrt_mixinmethod
     def get_Text(self: win32more.Windows.ApplicationModel.Chat.IRcsEndUserMessageAvailableTriggerDetails) -> WinRT_String: ...
-    Title = property(get_Title, None)
     Text = property(get_Text, None)
+    Title = property(get_Title, None)
 class RcsEndUserMessageManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Chat.IRcsEndUserMessageManager
@@ -1658,11 +1658,11 @@ class RcsTransport(ComPtr):
     def add_ServiceKindSupportedChanged(self: win32more.Windows.ApplicationModel.Chat.IRcsTransport, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Chat.RcsTransport, win32more.Windows.ApplicationModel.Chat.RcsServiceKindSupportedChangedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_ServiceKindSupportedChanged(self: win32more.Windows.ApplicationModel.Chat.IRcsTransport, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    Configuration = property(get_Configuration, None)
     ExtendedProperties = property(get_ExtendedProperties, None)
     IsActive = property(get_IsActive, None)
     TransportFriendlyName = property(get_TransportFriendlyName, None)
     TransportId = property(get_TransportId, None)
-    Configuration = property(get_Configuration, None)
 class RcsTransportConfiguration(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Chat.IRcsTransportConfiguration
@@ -1680,10 +1680,10 @@ class RcsTransportConfiguration(ComPtr):
     @winrt_mixinmethod
     def get_WarningFileSizeInKilobytes(self: win32more.Windows.ApplicationModel.Chat.IRcsTransportConfiguration) -> Int32: ...
     MaxAttachmentCount = property(get_MaxAttachmentCount, None)
-    MaxMessageSizeInKilobytes = property(get_MaxMessageSizeInKilobytes, None)
-    MaxGroupMessageSizeInKilobytes = property(get_MaxGroupMessageSizeInKilobytes, None)
-    MaxRecipientCount = property(get_MaxRecipientCount, None)
     MaxFileSizeInKilobytes = property(get_MaxFileSizeInKilobytes, None)
+    MaxGroupMessageSizeInKilobytes = property(get_MaxGroupMessageSizeInKilobytes, None)
+    MaxMessageSizeInKilobytes = property(get_MaxMessageSizeInKilobytes, None)
+    MaxRecipientCount = property(get_MaxRecipientCount, None)
     WarningFileSizeInKilobytes = property(get_WarningFileSizeInKilobytes, None)
 class RemoteParticipantComposingChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -1695,9 +1695,9 @@ class RemoteParticipantComposingChangedEventArgs(ComPtr):
     def get_ParticipantAddress(self: win32more.Windows.ApplicationModel.Chat.IRemoteParticipantComposingChangedEventArgs) -> WinRT_String: ...
     @winrt_mixinmethod
     def get_IsComposing(self: win32more.Windows.ApplicationModel.Chat.IRemoteParticipantComposingChangedEventArgs) -> Boolean: ...
-    TransportId = property(get_TransportId, None)
-    ParticipantAddress = property(get_ParticipantAddress, None)
     IsComposing = property(get_IsComposing, None)
+    ParticipantAddress = property(get_ParticipantAddress, None)
+    TransportId = property(get_TransportId, None)
 
 
 make_ready(__name__)

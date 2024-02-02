@@ -25,8 +25,8 @@ class AddPackageDependencyOptions(ComPtr):
     def get_PrependIfRankCollision(self: win32more.Microsoft.Windows.ApplicationModel.DynamicDependency.IAddPackageDependencyOptions) -> Boolean: ...
     @winrt_mixinmethod
     def put_PrependIfRankCollision(self: win32more.Microsoft.Windows.ApplicationModel.DynamicDependency.IAddPackageDependencyOptions, value: Boolean) -> Void: ...
-    Rank = property(get_Rank, put_Rank)
     PrependIfRankCollision = property(get_PrependIfRankCollision, put_PrependIfRankCollision)
+    Rank = property(get_Rank, put_Rank)
 class CreatePackageDependencyOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Windows.ApplicationModel.DynamicDependency.ICreatePackageDependencyOptions
@@ -57,9 +57,9 @@ class CreatePackageDependencyOptions(ComPtr):
     @winrt_mixinmethod
     def put_LifetimeArtifact(self: win32more.Microsoft.Windows.ApplicationModel.DynamicDependency.ICreatePackageDependencyOptions, value: WinRT_String) -> Void: ...
     Architectures = property(get_Architectures, put_Architectures)
-    VerifyDependencyResolution = property(get_VerifyDependencyResolution, put_VerifyDependencyResolution)
-    LifetimeArtifactKind = property(get_LifetimeArtifactKind, put_LifetimeArtifactKind)
     LifetimeArtifact = property(get_LifetimeArtifact, put_LifetimeArtifact)
+    LifetimeArtifactKind = property(get_LifetimeArtifactKind, put_LifetimeArtifactKind)
+    VerifyDependencyResolution = property(get_VerifyDependencyResolution, put_VerifyDependencyResolution)
 DynamicDependencyContract: UInt32 = 131072
 class IAddPackageDependencyOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -73,8 +73,8 @@ class IAddPackageDependencyOptions(ComPtr):
     def get_PrependIfRankCollision(self) -> Boolean: ...
     @winrt_commethod(9)
     def put_PrependIfRankCollision(self, value: Boolean) -> Void: ...
-    Rank = property(get_Rank, put_Rank)
     PrependIfRankCollision = property(get_PrependIfRankCollision, put_PrependIfRankCollision)
+    Rank = property(get_Rank, put_Rank)
 class ICreatePackageDependencyOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Windows.ApplicationModel.DynamicDependency.ICreatePackageDependencyOptions'
@@ -96,9 +96,9 @@ class ICreatePackageDependencyOptions(ComPtr):
     @winrt_commethod(13)
     def put_LifetimeArtifact(self, value: WinRT_String) -> Void: ...
     Architectures = property(get_Architectures, put_Architectures)
-    VerifyDependencyResolution = property(get_VerifyDependencyResolution, put_VerifyDependencyResolution)
-    LifetimeArtifactKind = property(get_LifetimeArtifactKind, put_LifetimeArtifactKind)
     LifetimeArtifact = property(get_LifetimeArtifact, put_LifetimeArtifact)
+    LifetimeArtifactKind = property(get_LifetimeArtifactKind, put_LifetimeArtifactKind)
+    VerifyDependencyResolution = property(get_VerifyDependencyResolution, put_VerifyDependencyResolution)
 class IPackageDependency(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Windows.ApplicationModel.DynamicDependency.IPackageDependency'
@@ -193,8 +193,8 @@ class PackageDependency(ComPtr, metaclass=_PackageDependency_Meta_):
     @winrt_classmethod
     def get_GenerationId(cls: win32more.Microsoft.Windows.ApplicationModel.DynamicDependency.IPackageDependencyStatics) -> UInt32: ...
     Id = property(get_Id, None)
-    _PackageDependency_Meta_.PackageGraphRevisionId = property(get_PackageGraphRevisionId.__wrapped__, None)
     _PackageDependency_Meta_.GenerationId = property(get_GenerationId.__wrapped__, None)
+    _PackageDependency_Meta_.PackageGraphRevisionId = property(get_PackageGraphRevisionId.__wrapped__, None)
 class PackageDependencyContext(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Windows.ApplicationModel.DynamicDependency.IPackageDependencyContext

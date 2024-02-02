@@ -27,11 +27,11 @@ class AcceleratorKeyEventArgs(ComPtr):
     def put_Handled(self: win32more.Windows.UI.Core.ICoreWindowEventArgs, value: Boolean) -> Void: ...
     @winrt_mixinmethod
     def get_DeviceId(self: win32more.Windows.UI.Core.IAcceleratorKeyEventArgs2) -> WinRT_String: ...
-    EventType = property(get_EventType, None)
-    VirtualKey = property(get_VirtualKey, None)
-    KeyStatus = property(get_KeyStatus, None)
-    Handled = property(get_Handled, put_Handled)
     DeviceId = property(get_DeviceId, None)
+    EventType = property(get_EventType, None)
+    Handled = property(get_Handled, put_Handled)
+    KeyStatus = property(get_KeyStatus, None)
+    VirtualKey = property(get_VirtualKey, None)
 class AppViewBackButtonVisibility(Int32):  # enum
     Visible = 0
     Collapsed = 1
@@ -71,9 +71,9 @@ class CharacterReceivedEventArgs(ComPtr):
     def get_Handled(self: win32more.Windows.UI.Core.ICoreWindowEventArgs) -> Boolean: ...
     @winrt_mixinmethod
     def put_Handled(self: win32more.Windows.UI.Core.ICoreWindowEventArgs, value: Boolean) -> Void: ...
+    Handled = property(get_Handled, put_Handled)
     KeyCode = property(get_KeyCode, None)
     KeyStatus = property(get_KeyStatus, None)
-    Handled = property(get_Handled, put_Handled)
 class ClosestInteractiveBoundsRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Core.IClosestInteractiveBoundsRequestedEventArgs
@@ -86,9 +86,9 @@ class ClosestInteractiveBoundsRequestedEventArgs(ComPtr):
     def get_ClosestInteractiveBounds(self: win32more.Windows.UI.Core.IClosestInteractiveBoundsRequestedEventArgs) -> win32more.Windows.Foundation.Rect: ...
     @winrt_mixinmethod
     def put_ClosestInteractiveBounds(self: win32more.Windows.UI.Core.IClosestInteractiveBoundsRequestedEventArgs, value: win32more.Windows.Foundation.Rect) -> Void: ...
+    ClosestInteractiveBounds = property(get_ClosestInteractiveBounds, put_ClosestInteractiveBounds)
     PointerPosition = property(get_PointerPosition, None)
     SearchBounds = property(get_SearchBounds, None)
-    ClosestInteractiveBounds = property(get_ClosestInteractiveBounds, put_ClosestInteractiveBounds)
 class CoreAcceleratorKeyEventType(Int32):  # enum
     Character = 2
     DeadCharacter = 3
@@ -198,12 +198,12 @@ class CoreComponentInputSource(ComPtr):
     @winrt_mixinmethod
     def get_DispatcherQueue(self: win32more.Windows.UI.Core.ICorePointerInputSource2) -> win32more.Windows.System.DispatcherQueue: ...
     Dispatcher = property(get_Dispatcher, None)
-    IsInputEnabled = property(get_IsInputEnabled, put_IsInputEnabled)
-    HasCapture = property(get_HasCapture, None)
-    PointerPosition = property(get_PointerPosition, None)
-    PointerCursor = property(get_PointerCursor, put_PointerCursor)
-    HasFocus = property(get_HasFocus, None)
     DispatcherQueue = property(get_DispatcherQueue, None)
+    HasCapture = property(get_HasCapture, None)
+    HasFocus = property(get_HasFocus, None)
+    IsInputEnabled = property(get_IsInputEnabled, put_IsInputEnabled)
+    PointerCursor = property(get_PointerCursor, put_PointerCursor)
+    PointerPosition = property(get_PointerPosition, None)
 class CoreCursor(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Core.ICoreCursor
@@ -270,8 +270,8 @@ class CoreDispatcher(ComPtr):
     def TryRunAsync(self: win32more.Windows.UI.Core.ICoreDispatcher2, priority: win32more.Windows.UI.Core.CoreDispatcherPriority, agileCallback: win32more.Windows.UI.Core.DispatchedHandler) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
     @winrt_mixinmethod
     def TryRunIdleAsync(self: win32more.Windows.UI.Core.ICoreDispatcher2, agileCallback: win32more.Windows.UI.Core.IdleDispatchedHandler) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
-    HasThreadAccess = property(get_HasThreadAccess, None)
     CurrentPriority = property(get_CurrentPriority, put_CurrentPriority)
+    HasThreadAccess = property(get_HasThreadAccess, None)
 class CoreDispatcherPriority(Int32):  # enum
     Idle = -2
     Low = -1
@@ -353,11 +353,11 @@ class CoreIndependentInputSource(ComPtr):
     @winrt_mixinmethod
     def remove_PointerRoutedReleased(self: win32more.Windows.UI.Core.ICorePointerRedirector, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Dispatcher = property(get_Dispatcher, None)
-    IsInputEnabled = property(get_IsInputEnabled, put_IsInputEnabled)
-    HasCapture = property(get_HasCapture, None)
-    PointerPosition = property(get_PointerPosition, None)
-    PointerCursor = property(get_PointerCursor, put_PointerCursor)
     DispatcherQueue = property(get_DispatcherQueue, None)
+    HasCapture = property(get_HasCapture, None)
+    IsInputEnabled = property(get_IsInputEnabled, put_IsInputEnabled)
+    PointerCursor = property(get_PointerCursor, put_PointerCursor)
+    PointerPosition = property(get_PointerPosition, None)
 class CoreIndependentInputSourceController(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Core.ICoreIndependentInputSourceController
@@ -382,8 +382,8 @@ class CoreIndependentInputSourceController(ComPtr):
     def CreateForVisual(cls: win32more.Windows.UI.Core.ICoreIndependentInputSourceControllerStatics, visual: win32more.Windows.UI.Composition.Visual) -> win32more.Windows.UI.Core.CoreIndependentInputSourceController: ...
     @winrt_classmethod
     def CreateForIVisualElement(cls: win32more.Windows.UI.Core.ICoreIndependentInputSourceControllerStatics, visualElement: win32more.Windows.UI.Composition.IVisualElement) -> win32more.Windows.UI.Core.CoreIndependentInputSourceController: ...
-    IsTransparentForUncontrolledInput = property(get_IsTransparentForUncontrolledInput, put_IsTransparentForUncontrolledInput)
     IsPalmRejectionEnabled = property(get_IsPalmRejectionEnabled, put_IsPalmRejectionEnabled)
+    IsTransparentForUncontrolledInput = property(get_IsTransparentForUncontrolledInput, put_IsTransparentForUncontrolledInput)
     Source = property(get_Source, None)
 class CoreInputDeviceTypes(UInt32):  # enum
     None_ = 0
@@ -556,18 +556,18 @@ class CoreWindow(ComPtr):
     def get_UIContext(self: win32more.Windows.UI.Core.ICoreWindowWithContext) -> win32more.Windows.UI.UIContext: ...
     @winrt_classmethod
     def GetForCurrentThread(cls: win32more.Windows.UI.Core.ICoreWindowStatic) -> win32more.Windows.UI.Core.CoreWindow: ...
+    ActivationMode = property(get_ActivationMode, None)
     AutomationHostProvider = property(get_AutomationHostProvider, None)
     Bounds = property(get_Bounds, None)
     CustomProperties = property(get_CustomProperties, None)
     Dispatcher = property(get_Dispatcher, None)
+    DispatcherQueue = property(get_DispatcherQueue, None)
     FlowDirection = property(get_FlowDirection, put_FlowDirection)
     IsInputEnabled = property(get_IsInputEnabled, put_IsInputEnabled)
     PointerCursor = property(get_PointerCursor, put_PointerCursor)
     PointerPosition = property(get_PointerPosition, put_PointerPosition)
-    Visible = property(get_Visible, None)
-    DispatcherQueue = property(get_DispatcherQueue, None)
-    ActivationMode = property(get_ActivationMode, None)
     UIContext = property(get_UIContext, None)
+    Visible = property(get_Visible, None)
 class CoreWindowActivationMode(Int32):  # enum
     None_ = 0
     Deactivated = 1
@@ -626,14 +626,14 @@ class CoreWindowDialog(ComPtr):
     def put_BackButtonCommand(self: win32more.Windows.UI.Core.ICoreWindowDialog, value: win32more.Windows.UI.Popups.UICommandInvokedHandler) -> Void: ...
     @winrt_mixinmethod
     def ShowAsync(self: win32more.Windows.UI.Core.ICoreWindowDialog) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.UI.Popups.IUICommand]: ...
+    BackButtonCommand = property(get_BackButtonCommand, put_BackButtonCommand)
+    CancelCommandIndex = property(get_CancelCommandIndex, put_CancelCommandIndex)
+    Commands = property(get_Commands, None)
+    DefaultCommandIndex = property(get_DefaultCommandIndex, put_DefaultCommandIndex)
+    IsInteractionDelayed = property(get_IsInteractionDelayed, put_IsInteractionDelayed)
     MaxSize = property(get_MaxSize, None)
     MinSize = property(get_MinSize, None)
     Title = property(get_Title, put_Title)
-    IsInteractionDelayed = property(get_IsInteractionDelayed, put_IsInteractionDelayed)
-    Commands = property(get_Commands, None)
-    DefaultCommandIndex = property(get_DefaultCommandIndex, put_DefaultCommandIndex)
-    CancelCommandIndex = property(get_CancelCommandIndex, put_CancelCommandIndex)
-    BackButtonCommand = property(get_BackButtonCommand, put_BackButtonCommand)
 CoreWindowDialogsContract: UInt32 = 65536
 class CoreWindowEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -692,13 +692,13 @@ class CoreWindowFlyout(ComPtr):
     def put_BackButtonCommand(self: win32more.Windows.UI.Core.ICoreWindowFlyout, value: win32more.Windows.UI.Popups.UICommandInvokedHandler) -> Void: ...
     @winrt_mixinmethod
     def ShowAsync(self: win32more.Windows.UI.Core.ICoreWindowFlyout) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.UI.Popups.IUICommand]: ...
+    BackButtonCommand = property(get_BackButtonCommand, put_BackButtonCommand)
+    Commands = property(get_Commands, None)
+    DefaultCommandIndex = property(get_DefaultCommandIndex, put_DefaultCommandIndex)
+    IsInteractionDelayed = property(get_IsInteractionDelayed, put_IsInteractionDelayed)
     MaxSize = property(get_MaxSize, None)
     MinSize = property(get_MinSize, None)
     Title = property(get_Title, put_Title)
-    IsInteractionDelayed = property(get_IsInteractionDelayed, put_IsInteractionDelayed)
-    Commands = property(get_Commands, None)
-    DefaultCommandIndex = property(get_DefaultCommandIndex, put_DefaultCommandIndex)
-    BackButtonCommand = property(get_BackButtonCommand, put_BackButtonCommand)
 class CoreWindowPopupShowingEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Core.ICoreWindowPopupShowingEventArgs
@@ -733,8 +733,8 @@ class IAcceleratorKeyEventArgs(ComPtr):
     @winrt_commethod(8)
     def get_KeyStatus(self) -> win32more.Windows.UI.Core.CorePhysicalKeyStatus: ...
     EventType = property(get_EventType, None)
-    VirtualKey = property(get_VirtualKey, None)
     KeyStatus = property(get_KeyStatus, None)
+    VirtualKey = property(get_VirtualKey, None)
 class IAcceleratorKeyEventArgs2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Core.IAcceleratorKeyEventArgs2'
@@ -782,9 +782,9 @@ class IClosestInteractiveBoundsRequestedEventArgs(ComPtr):
     def get_ClosestInteractiveBounds(self) -> win32more.Windows.Foundation.Rect: ...
     @winrt_commethod(9)
     def put_ClosestInteractiveBounds(self, value: win32more.Windows.Foundation.Rect) -> Void: ...
+    ClosestInteractiveBounds = property(get_ClosestInteractiveBounds, put_ClosestInteractiveBounds)
     PointerPosition = property(get_PointerPosition, None)
     SearchBounds = property(get_SearchBounds, None)
-    ClosestInteractiveBounds = property(get_ClosestInteractiveBounds, put_ClosestInteractiveBounds)
 class ICoreAcceleratorKeys(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Core.ICoreAcceleratorKeys'
@@ -886,8 +886,8 @@ class ICoreIndependentInputSourceController(ComPtr):
     def SetControlledInput(self, inputTypes: win32more.Windows.UI.Core.CoreInputDeviceTypes) -> Void: ...
     @winrt_commethod(12)
     def SetControlledInputWithFilters(self, inputTypes: win32more.Windows.UI.Core.CoreInputDeviceTypes, required: win32more.Windows.UI.Core.CoreIndependentInputFilters, excluded: win32more.Windows.UI.Core.CoreIndependentInputFilters) -> Void: ...
-    IsTransparentForUncontrolledInput = property(get_IsTransparentForUncontrolledInput, put_IsTransparentForUncontrolledInput)
     IsPalmRejectionEnabled = property(get_IsPalmRejectionEnabled, put_IsPalmRejectionEnabled)
+    IsTransparentForUncontrolledInput = property(get_IsTransparentForUncontrolledInput, put_IsTransparentForUncontrolledInput)
     Source = property(get_Source, None)
 class ICoreIndependentInputSourceControllerStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -982,8 +982,8 @@ class ICorePointerInputSource(ComPtr):
     @winrt_commethod(25)
     def remove_PointerWheelChanged(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     HasCapture = property(get_HasCapture, None)
-    PointerPosition = property(get_PointerPosition, None)
     PointerCursor = property(get_PointerCursor, put_PointerCursor)
+    PointerPosition = property(get_PointerPosition, None)
 class ICorePointerInputSource2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Core.ICorePointerInputSource2'
@@ -1169,8 +1169,8 @@ class ICoreWindow5(ComPtr):
     def get_DispatcherQueue(self) -> win32more.Windows.System.DispatcherQueue: ...
     @winrt_commethod(7)
     def get_ActivationMode(self) -> win32more.Windows.UI.Core.CoreWindowActivationMode: ...
-    DispatcherQueue = property(get_DispatcherQueue, None)
     ActivationMode = property(get_ActivationMode, None)
+    DispatcherQueue = property(get_DispatcherQueue, None)
 class ICoreWindowDialog(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Core.ICoreWindowDialog'
@@ -1207,14 +1207,14 @@ class ICoreWindowDialog(ComPtr):
     def put_BackButtonCommand(self, value: win32more.Windows.UI.Popups.UICommandInvokedHandler) -> Void: ...
     @winrt_commethod(21)
     def ShowAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.UI.Popups.IUICommand]: ...
+    BackButtonCommand = property(get_BackButtonCommand, put_BackButtonCommand)
+    CancelCommandIndex = property(get_CancelCommandIndex, put_CancelCommandIndex)
+    Commands = property(get_Commands, None)
+    DefaultCommandIndex = property(get_DefaultCommandIndex, put_DefaultCommandIndex)
+    IsInteractionDelayed = property(get_IsInteractionDelayed, put_IsInteractionDelayed)
     MaxSize = property(get_MaxSize, None)
     MinSize = property(get_MinSize, None)
     Title = property(get_Title, put_Title)
-    IsInteractionDelayed = property(get_IsInteractionDelayed, put_IsInteractionDelayed)
-    Commands = property(get_Commands, None)
-    DefaultCommandIndex = property(get_DefaultCommandIndex, put_DefaultCommandIndex)
-    CancelCommandIndex = property(get_CancelCommandIndex, put_CancelCommandIndex)
-    BackButtonCommand = property(get_BackButtonCommand, put_BackButtonCommand)
 class ICoreWindowDialogFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Core.ICoreWindowDialogFactory'
@@ -1262,13 +1262,13 @@ class ICoreWindowFlyout(ComPtr):
     def put_BackButtonCommand(self, value: win32more.Windows.UI.Popups.UICommandInvokedHandler) -> Void: ...
     @winrt_commethod(19)
     def ShowAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.UI.Popups.IUICommand]: ...
+    BackButtonCommand = property(get_BackButtonCommand, put_BackButtonCommand)
+    Commands = property(get_Commands, None)
+    DefaultCommandIndex = property(get_DefaultCommandIndex, put_DefaultCommandIndex)
+    IsInteractionDelayed = property(get_IsInteractionDelayed, put_IsInteractionDelayed)
     MaxSize = property(get_MaxSize, None)
     MinSize = property(get_MinSize, None)
     Title = property(get_Title, put_Title)
-    IsInteractionDelayed = property(get_IsInteractionDelayed, put_IsInteractionDelayed)
-    Commands = property(get_Commands, None)
-    DefaultCommandIndex = property(get_DefaultCommandIndex, put_DefaultCommandIndex)
-    BackButtonCommand = property(get_BackButtonCommand, put_BackButtonCommand)
 class ICoreWindowFlyoutFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Core.ICoreWindowFlyoutFactory'
@@ -1345,8 +1345,8 @@ class IKeyEventArgs(ComPtr):
     def get_VirtualKey(self) -> win32more.Windows.System.VirtualKey: ...
     @winrt_commethod(7)
     def get_KeyStatus(self) -> win32more.Windows.UI.Core.CorePhysicalKeyStatus: ...
-    VirtualKey = property(get_VirtualKey, None)
     KeyStatus = property(get_KeyStatus, None)
+    VirtualKey = property(get_VirtualKey, None)
 class IKeyEventArgs2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Core.IKeyEventArgs2'
@@ -1405,9 +1405,9 @@ class ITouchHitTestingEventArgs(ComPtr):
     def EvaluateProximityToRect(self, controlBoundingBox: win32more.Windows.Foundation.Rect) -> win32more.Windows.UI.Core.CoreProximityEvaluation: ...
     @winrt_commethod(11)
     def EvaluateProximityToPolygon(self, controlVertices: Annotated[SZArray[win32more.Windows.Foundation.Point], 'In']) -> win32more.Windows.UI.Core.CoreProximityEvaluation: ...
-    ProximityEvaluation = property(get_ProximityEvaluation, put_ProximityEvaluation)
-    Point = property(get_Point, None)
     BoundingBox = property(get_BoundingBox, None)
+    Point = property(get_Point, None)
+    ProximityEvaluation = property(get_ProximityEvaluation, put_ProximityEvaluation)
 class IVisibilityChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Core.IVisibilityChangedEventArgs'
@@ -1450,8 +1450,8 @@ class InputEnabledEventArgs(ComPtr):
     def get_Handled(self: win32more.Windows.UI.Core.ICoreWindowEventArgs) -> Boolean: ...
     @winrt_mixinmethod
     def put_Handled(self: win32more.Windows.UI.Core.ICoreWindowEventArgs, value: Boolean) -> Void: ...
-    InputEnabled = property(get_InputEnabled, None)
     Handled = property(get_Handled, put_Handled)
+    InputEnabled = property(get_InputEnabled, None)
 class KeyEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Core.IKeyEventArgs
@@ -1466,10 +1466,10 @@ class KeyEventArgs(ComPtr):
     def put_Handled(self: win32more.Windows.UI.Core.ICoreWindowEventArgs, value: Boolean) -> Void: ...
     @winrt_mixinmethod
     def get_DeviceId(self: win32more.Windows.UI.Core.IKeyEventArgs2) -> WinRT_String: ...
-    VirtualKey = property(get_VirtualKey, None)
-    KeyStatus = property(get_KeyStatus, None)
-    Handled = property(get_Handled, put_Handled)
     DeviceId = property(get_DeviceId, None)
+    Handled = property(get_Handled, put_Handled)
+    KeyStatus = property(get_KeyStatus, None)
+    VirtualKey = property(get_VirtualKey, None)
 class PointerEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Core.IPointerEventArgs
@@ -1485,8 +1485,8 @@ class PointerEventArgs(ComPtr):
     @winrt_mixinmethod
     def put_Handled(self: win32more.Windows.UI.Core.ICoreWindowEventArgs, value: Boolean) -> Void: ...
     CurrentPoint = property(get_CurrentPoint, None)
-    KeyModifiers = property(get_KeyModifiers, None)
     Handled = property(get_Handled, put_Handled)
+    KeyModifiers = property(get_KeyModifiers, None)
 class SystemNavigationManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Core.ISystemNavigationManager
@@ -1522,10 +1522,10 @@ class TouchHitTestingEventArgs(ComPtr):
     def get_Handled(self: win32more.Windows.UI.Core.ICoreWindowEventArgs) -> Boolean: ...
     @winrt_mixinmethod
     def put_Handled(self: win32more.Windows.UI.Core.ICoreWindowEventArgs, value: Boolean) -> Void: ...
-    ProximityEvaluation = property(get_ProximityEvaluation, put_ProximityEvaluation)
-    Point = property(get_Point, None)
     BoundingBox = property(get_BoundingBox, None)
     Handled = property(get_Handled, put_Handled)
+    Point = property(get_Point, None)
+    ProximityEvaluation = property(get_ProximityEvaluation, put_ProximityEvaluation)
 class VisibilityChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Core.IVisibilityChangedEventArgs
@@ -1536,8 +1536,8 @@ class VisibilityChangedEventArgs(ComPtr):
     def get_Handled(self: win32more.Windows.UI.Core.ICoreWindowEventArgs) -> Boolean: ...
     @winrt_mixinmethod
     def put_Handled(self: win32more.Windows.UI.Core.ICoreWindowEventArgs, value: Boolean) -> Void: ...
-    Visible = property(get_Visible, None)
     Handled = property(get_Handled, put_Handled)
+    Visible = property(get_Visible, None)
 class WindowActivatedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Core.IWindowActivatedEventArgs
@@ -1548,8 +1548,8 @@ class WindowActivatedEventArgs(ComPtr):
     def get_Handled(self: win32more.Windows.UI.Core.ICoreWindowEventArgs) -> Boolean: ...
     @winrt_mixinmethod
     def put_Handled(self: win32more.Windows.UI.Core.ICoreWindowEventArgs, value: Boolean) -> Void: ...
-    WindowActivationState = property(get_WindowActivationState, None)
     Handled = property(get_Handled, put_Handled)
+    WindowActivationState = property(get_WindowActivationState, None)
 class WindowSizeChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Core.IWindowSizeChangedEventArgs
@@ -1560,8 +1560,8 @@ class WindowSizeChangedEventArgs(ComPtr):
     def get_Handled(self: win32more.Windows.UI.Core.ICoreWindowEventArgs) -> Boolean: ...
     @winrt_mixinmethod
     def put_Handled(self: win32more.Windows.UI.Core.ICoreWindowEventArgs, value: Boolean) -> Void: ...
-    Size = property(get_Size, None)
     Handled = property(get_Handled, put_Handled)
+    Size = property(get_Size, None)
 
 
 make_ready(__name__)

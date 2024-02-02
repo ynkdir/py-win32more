@@ -251,25 +251,25 @@ class CoreWebView2(ComPtr):
     def AddWebResourceRequestedFilter(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2, uri: WinRT_String, ResourceContext: win32more.Microsoft.Web.WebView2.Core.CoreWebView2WebResourceContext) -> Void: ...
     @winrt_mixinmethod
     def RemoveWebResourceRequestedFilter(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2, uri: WinRT_String, ResourceContext: win32more.Microsoft.Web.WebView2.Core.CoreWebView2WebResourceContext) -> Void: ...
-    StatusBarText = property(get_StatusBarText, None)
-    Profile = property(get_Profile, None)
-    FaviconUri = property(get_FaviconUri, None)
-    MemoryUsageTargetLevel = property(get_MemoryUsageTargetLevel, put_MemoryUsageTargetLevel)
-    CookieManager = property(get_CookieManager, None)
-    Environment = property(get_Environment, None)
-    IsSuspended = property(get_IsSuspended, None)
-    IsMuted = property(get_IsMuted, put_IsMuted)
-    IsDocumentPlayingAudio = property(get_IsDocumentPlayingAudio, None)
-    IsDefaultDownloadDialogOpen = property(get_IsDefaultDownloadDialogOpen, None)
-    DefaultDownloadDialogCornerAlignment = property(get_DefaultDownloadDialogCornerAlignment, put_DefaultDownloadDialogCornerAlignment)
-    DefaultDownloadDialogMargin = property(get_DefaultDownloadDialogMargin, put_DefaultDownloadDialogMargin)
-    Settings = property(get_Settings, None)
-    Source = property(get_Source, None)
     BrowserProcessId = property(get_BrowserProcessId, None)
     CanGoBack = property(get_CanGoBack, None)
     CanGoForward = property(get_CanGoForward, None)
-    DocumentTitle = property(get_DocumentTitle, None)
     ContainsFullScreenElement = property(get_ContainsFullScreenElement, None)
+    CookieManager = property(get_CookieManager, None)
+    DefaultDownloadDialogCornerAlignment = property(get_DefaultDownloadDialogCornerAlignment, put_DefaultDownloadDialogCornerAlignment)
+    DefaultDownloadDialogMargin = property(get_DefaultDownloadDialogMargin, put_DefaultDownloadDialogMargin)
+    DocumentTitle = property(get_DocumentTitle, None)
+    Environment = property(get_Environment, None)
+    FaviconUri = property(get_FaviconUri, None)
+    IsDefaultDownloadDialogOpen = property(get_IsDefaultDownloadDialogOpen, None)
+    IsDocumentPlayingAudio = property(get_IsDocumentPlayingAudio, None)
+    IsMuted = property(get_IsMuted, put_IsMuted)
+    IsSuspended = property(get_IsSuspended, None)
+    MemoryUsageTargetLevel = property(get_MemoryUsageTargetLevel, put_MemoryUsageTargetLevel)
+    Profile = property(get_Profile, None)
+    Settings = property(get_Settings, None)
+    Source = property(get_Source, None)
+    StatusBarText = property(get_StatusBarText, None)
 class CoreWebView2AcceleratorKeyPressedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2AcceleratorKeyPressedEventArgs
@@ -286,11 +286,11 @@ class CoreWebView2AcceleratorKeyPressedEventArgs(ComPtr):
     def get_Handled(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2AcceleratorKeyPressedEventArgs) -> Boolean: ...
     @winrt_mixinmethod
     def put_Handled(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2AcceleratorKeyPressedEventArgs, value: Boolean) -> Void: ...
+    Handled = property(get_Handled, put_Handled)
     KeyEventKind = property(get_KeyEventKind, None)
-    VirtualKey = property(get_VirtualKey, None)
     KeyEventLParam = property(get_KeyEventLParam, None)
     PhysicalKeyStatus = property(get_PhysicalKeyStatus, None)
-    Handled = property(get_Handled, put_Handled)
+    VirtualKey = property(get_VirtualKey, None)
 class CoreWebView2BasicAuthenticationRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2BasicAuthenticationRequestedEventArgs
@@ -307,10 +307,10 @@ class CoreWebView2BasicAuthenticationRequestedEventArgs(ComPtr):
     def put_Cancel(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2BasicAuthenticationRequestedEventArgs, value: Boolean) -> Void: ...
     @winrt_mixinmethod
     def GetDeferral(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2BasicAuthenticationRequestedEventArgs) -> win32more.Windows.Foundation.Deferral: ...
-    Uri = property(get_Uri, None)
+    Cancel = property(get_Cancel, put_Cancel)
     Challenge = property(get_Challenge, None)
     Response = property(get_Response, None)
-    Cancel = property(get_Cancel, put_Cancel)
+    Uri = property(get_Uri, None)
 class CoreWebView2BasicAuthenticationResponse(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2BasicAuthenticationResponse
@@ -323,8 +323,8 @@ class CoreWebView2BasicAuthenticationResponse(ComPtr):
     def get_Password(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2BasicAuthenticationResponse) -> WinRT_String: ...
     @winrt_mixinmethod
     def put_Password(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2BasicAuthenticationResponse, value: WinRT_String) -> Void: ...
-    UserName = property(get_UserName, put_UserName)
     Password = property(get_Password, put_Password)
+    UserName = property(get_UserName, put_UserName)
 class CoreWebView2BoundsMode(Int32):  # enum
     UseRawPixels = 0
     UseRasterizationScale = 1
@@ -382,13 +382,13 @@ class CoreWebView2Certificate(ComPtr):
     def get_PemEncodedIssuerCertificateChain(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2Certificate) -> win32more.Windows.Foundation.Collections.IVectorView[WinRT_String]: ...
     @winrt_mixinmethod
     def ToPemEncoding(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2Certificate) -> WinRT_String: ...
-    Subject = property(get_Subject, None)
-    Issuer = property(get_Issuer, None)
-    ValidFrom = property(get_ValidFrom, None)
-    ValidTo = property(get_ValidTo, None)
     DerEncodedSerialNumber = property(get_DerEncodedSerialNumber, None)
     DisplayName = property(get_DisplayName, None)
+    Issuer = property(get_Issuer, None)
     PemEncodedIssuerCertificateChain = property(get_PemEncodedIssuerCertificateChain, None)
+    Subject = property(get_Subject, None)
+    ValidFrom = property(get_ValidFrom, None)
+    ValidTo = property(get_ValidTo, None)
 class CoreWebView2Certificate_Manual(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.CoreWebView2Certificate_Manual'
@@ -419,14 +419,14 @@ class CoreWebView2ClientCertificate(ComPtr):
     def get_Kind(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2ClientCertificate) -> win32more.Microsoft.Web.WebView2.Core.CoreWebView2ClientCertificateKind: ...
     @winrt_mixinmethod
     def ToPemEncoding(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2ClientCertificate) -> WinRT_String: ...
-    Subject = property(get_Subject, None)
-    Issuer = property(get_Issuer, None)
-    ValidFrom = property(get_ValidFrom, None)
-    ValidTo = property(get_ValidTo, None)
     DerEncodedSerialNumber = property(get_DerEncodedSerialNumber, None)
     DisplayName = property(get_DisplayName, None)
-    PemEncodedIssuerCertificateChain = property(get_PemEncodedIssuerCertificateChain, None)
+    Issuer = property(get_Issuer, None)
     Kind = property(get_Kind, None)
+    PemEncodedIssuerCertificateChain = property(get_PemEncodedIssuerCertificateChain, None)
+    Subject = property(get_Subject, None)
+    ValidFrom = property(get_ValidFrom, None)
+    ValidTo = property(get_ValidTo, None)
 class CoreWebView2ClientCertificateKind(Int32):  # enum
     SmartCard = 0
     Pin = 1
@@ -459,14 +459,14 @@ class CoreWebView2ClientCertificateRequestedEventArgs(ComPtr):
     def put_Handled(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2ClientCertificateRequestedEventArgs, value: Boolean) -> Void: ...
     @winrt_mixinmethod
     def GetDeferral(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2ClientCertificateRequestedEventArgs) -> win32more.Windows.Foundation.Deferral: ...
-    Host = property(get_Host, None)
-    Port = property(get_Port, None)
-    IsProxy = property(get_IsProxy, None)
     AllowedCertificateAuthorities = property(get_AllowedCertificateAuthorities, None)
-    MutuallyTrustedCertificates = property(get_MutuallyTrustedCertificates, None)
-    SelectedCertificate = property(get_SelectedCertificate, put_SelectedCertificate)
     Cancel = property(get_Cancel, put_Cancel)
     Handled = property(get_Handled, put_Handled)
+    Host = property(get_Host, None)
+    IsProxy = property(get_IsProxy, None)
+    MutuallyTrustedCertificates = property(get_MutuallyTrustedCertificates, None)
+    Port = property(get_Port, None)
+    SelectedCertificate = property(get_SelectedCertificate, put_SelectedCertificate)
 class CoreWebView2ClientCertificate_Manual(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.CoreWebView2ClientCertificate_Manual'
@@ -499,8 +499,8 @@ class CoreWebView2CompositionController(ComPtr):
     def DragOver(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2CompositionController, dragInfo: win32more.Windows.ApplicationModel.DataTransfer.DragDrop.Core.CoreDragInfo, dragUIOverride: win32more.Windows.ApplicationModel.DataTransfer.DragDrop.Core.CoreDragUIOverride) -> win32more.Windows.ApplicationModel.DataTransfer.DataPackageOperation: ...
     @winrt_mixinmethod
     def Drop(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2CompositionController, dragInfo: win32more.Windows.ApplicationModel.DataTransfer.DragDrop.Core.CoreDragInfo) -> win32more.Windows.ApplicationModel.DataTransfer.DataPackageOperation: ...
-    RootVisualTarget = property(get_RootVisualTarget, put_RootVisualTarget)
     Cursor = property(get_Cursor, None)
+    RootVisualTarget = property(get_RootVisualTarget, put_RootVisualTarget)
 class CoreWebView2ContentLoadingEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2ContentLoadingEventArgs
@@ -541,15 +541,15 @@ class CoreWebView2ContextMenuItem(ComPtr):
     def add_CustomItemSelected(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2ContextMenuItem, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.Web.WebView2.Core.CoreWebView2ContextMenuItem, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_CustomItemSelected(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2ContextMenuItem, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    Name = property(get_Name, None)
-    Label = property(get_Label, None)
-    CommandId = property(get_CommandId, None)
-    ShortcutKeyDescription = property(get_ShortcutKeyDescription, None)
-    Icon = property(get_Icon, None)
-    Kind = property(get_Kind, None)
-    IsEnabled = property(get_IsEnabled, put_IsEnabled)
-    IsChecked = property(get_IsChecked, put_IsChecked)
     Children = property(get_Children, None)
+    CommandId = property(get_CommandId, None)
+    Icon = property(get_Icon, None)
+    IsChecked = property(get_IsChecked, put_IsChecked)
+    IsEnabled = property(get_IsEnabled, put_IsEnabled)
+    Kind = property(get_Kind, None)
+    Label = property(get_Label, None)
+    Name = property(get_Name, None)
+    ShortcutKeyDescription = property(get_ShortcutKeyDescription, None)
 class CoreWebView2ContextMenuItemKind(Int32):  # enum
     Command = 0
     CheckBox = 1
@@ -576,11 +576,11 @@ class CoreWebView2ContextMenuRequestedEventArgs(ComPtr):
     def put_Handled(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2ContextMenuRequestedEventArgs, value: Boolean) -> Void: ...
     @winrt_mixinmethod
     def GetDeferral(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2ContextMenuRequestedEventArgs) -> win32more.Windows.Foundation.Deferral: ...
-    MenuItems = property(get_MenuItems, None)
     ContextMenuTarget = property(get_ContextMenuTarget, None)
-    Location = property(get_Location, None)
-    SelectedCommandId = property(get_SelectedCommandId, put_SelectedCommandId)
     Handled = property(get_Handled, put_Handled)
+    Location = property(get_Location, None)
+    MenuItems = property(get_MenuItems, None)
+    SelectedCommandId = property(get_SelectedCommandId, put_SelectedCommandId)
 class CoreWebView2ContextMenuTarget(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2ContextMenuTarget
@@ -611,19 +611,19 @@ class CoreWebView2ContextMenuTarget(ComPtr):
     def get_HasSelection(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2ContextMenuTarget) -> Boolean: ...
     @winrt_mixinmethod
     def get_SelectionText(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2ContextMenuTarget) -> WinRT_String: ...
-    Kind = property(get_Kind, None)
+    FrameUri = property(get_FrameUri, None)
+    HasLinkText = property(get_HasLinkText, None)
+    HasLinkUri = property(get_HasLinkUri, None)
+    HasSelection = property(get_HasSelection, None)
+    HasSourceUri = property(get_HasSourceUri, None)
     IsEditable = property(get_IsEditable, None)
     IsRequestedForMainFrame = property(get_IsRequestedForMainFrame, None)
-    PageUri = property(get_PageUri, None)
-    FrameUri = property(get_FrameUri, None)
-    HasLinkUri = property(get_HasLinkUri, None)
-    LinkUri = property(get_LinkUri, None)
-    HasLinkText = property(get_HasLinkText, None)
+    Kind = property(get_Kind, None)
     LinkText = property(get_LinkText, None)
-    HasSourceUri = property(get_HasSourceUri, None)
-    SourceUri = property(get_SourceUri, None)
-    HasSelection = property(get_HasSelection, None)
+    LinkUri = property(get_LinkUri, None)
+    PageUri = property(get_PageUri, None)
     SelectionText = property(get_SelectionText, None)
+    SourceUri = property(get_SourceUri, None)
 class CoreWebView2ContextMenuTargetKind(Int32):  # enum
     Page = 0
     Image = 1
@@ -706,17 +706,17 @@ class CoreWebView2Controller(ComPtr):
     def NotifyParentWindowPositionChanged(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2Controller) -> Void: ...
     @winrt_mixinmethod
     def Close(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2Controller) -> Void: ...
-    DefaultBackgroundColor = property(get_DefaultBackgroundColor, put_DefaultBackgroundColor)
-    RasterizationScale = property(get_RasterizationScale, put_RasterizationScale)
-    ShouldDetectMonitorScaleChanges = property(get_ShouldDetectMonitorScaleChanges, put_ShouldDetectMonitorScaleChanges)
-    BoundsMode = property(get_BoundsMode, put_BoundsMode)
     AllowExternalDrop = property(get_AllowExternalDrop, put_AllowExternalDrop)
+    Bounds = property(get_Bounds, put_Bounds)
+    BoundsMode = property(get_BoundsMode, put_BoundsMode)
+    CoreWebView2 = property(get_CoreWebView2, None)
+    DefaultBackgroundColor = property(get_DefaultBackgroundColor, put_DefaultBackgroundColor)
     IsBrowserHitTransparent = property(get_IsBrowserHitTransparent, None)
     IsVisible = property(get_IsVisible, put_IsVisible)
-    Bounds = property(get_Bounds, put_Bounds)
-    ZoomFactor = property(get_ZoomFactor, put_ZoomFactor)
     ParentWindow = property(get_ParentWindow, put_ParentWindow)
-    CoreWebView2 = property(get_CoreWebView2, None)
+    RasterizationScale = property(get_RasterizationScale, put_RasterizationScale)
+    ShouldDetectMonitorScaleChanges = property(get_ShouldDetectMonitorScaleChanges, put_ShouldDetectMonitorScaleChanges)
+    ZoomFactor = property(get_ZoomFactor, put_ZoomFactor)
 class CoreWebView2ControllerOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2ControllerOptions
@@ -733,9 +733,9 @@ class CoreWebView2ControllerOptions(ComPtr):
     def get_IsInPrivateModeEnabled(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2ControllerOptions) -> Boolean: ...
     @winrt_mixinmethod
     def put_IsInPrivateModeEnabled(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2ControllerOptions, value: Boolean) -> Void: ...
-    ScriptLocale = property(get_ScriptLocale, put_ScriptLocale)
-    ProfileName = property(get_ProfileName, put_ProfileName)
     IsInPrivateModeEnabled = property(get_IsInPrivateModeEnabled, put_IsInPrivateModeEnabled)
+    ProfileName = property(get_ProfileName, put_ProfileName)
+    ScriptLocale = property(get_ScriptLocale, put_ScriptLocale)
 class CoreWebView2ControllerWindowReference(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2ControllerWindowReference
@@ -748,8 +748,8 @@ class CoreWebView2ControllerWindowReference(ComPtr):
     def CreateFromWindowHandle(cls: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2ControllerWindowReferenceStatics, windowHandle: UInt64) -> win32more.Microsoft.Web.WebView2.Core.CoreWebView2ControllerWindowReference: ...
     @winrt_classmethod
     def CreateFromCoreWindow(cls: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2ControllerWindowReferenceStatics, coreWindow: win32more.Windows.UI.Core.CoreWindow) -> win32more.Microsoft.Web.WebView2.Core.CoreWebView2ControllerWindowReference: ...
-    WindowHandle = property(get_WindowHandle, None)
     CoreWindow = property(get_CoreWindow, None)
+    WindowHandle = property(get_WindowHandle, None)
 class CoreWebView2Cookie(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2Cookie
@@ -782,15 +782,15 @@ class CoreWebView2Cookie(ComPtr):
     def put_IsSecure(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2Cookie, value: Boolean) -> Void: ...
     @winrt_mixinmethod
     def get_IsSession(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2Cookie) -> Boolean: ...
-    Name = property(get_Name, None)
-    Value = property(get_Value, put_Value)
     Domain = property(get_Domain, None)
-    Path = property(get_Path, None)
     Expires = property(get_Expires, put_Expires)
     IsHttpOnly = property(get_IsHttpOnly, put_IsHttpOnly)
-    SameSite = property(get_SameSite, put_SameSite)
     IsSecure = property(get_IsSecure, put_IsSecure)
     IsSession = property(get_IsSession, None)
+    Name = property(get_Name, None)
+    Path = property(get_Path, None)
+    SameSite = property(get_SameSite, put_SameSite)
+    Value = property(get_Value, put_Value)
 class CoreWebView2CookieManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2CookieManager
@@ -827,8 +827,8 @@ class CoreWebView2CustomSchemeRegistration(ComPtr):
     def get_HasAuthorityComponent(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2CustomSchemeRegistration) -> Boolean: ...
     @winrt_mixinmethod
     def put_HasAuthorityComponent(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2CustomSchemeRegistration, value: Boolean) -> Void: ...
-    TreatAsSecure = property(get_TreatAsSecure, put_TreatAsSecure)
     HasAuthorityComponent = property(get_HasAuthorityComponent, put_HasAuthorityComponent)
+    TreatAsSecure = property(get_TreatAsSecure, put_TreatAsSecure)
 class CoreWebView2DOMContentLoadedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2DOMContentLoadedEventArgs
@@ -849,8 +849,8 @@ class CoreWebView2DevToolsProtocolEventReceivedEventArgs(ComPtr):
     def get_SessionId(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2DevToolsProtocolEventReceivedEventArgs2) -> WinRT_String: ...
     @winrt_mixinmethod
     def get_ParameterObjectAsJson(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2DevToolsProtocolEventReceivedEventArgs) -> WinRT_String: ...
-    SessionId = property(get_SessionId, None)
     ParameterObjectAsJson = property(get_ParameterObjectAsJson, None)
+    SessionId = property(get_SessionId, None)
 class CoreWebView2DevToolsProtocolEventReceiver(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2DevToolsProtocolEventReceiver
@@ -932,16 +932,16 @@ class CoreWebView2DownloadOperation(ComPtr):
     def Pause(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2DownloadOperation) -> Void: ...
     @winrt_mixinmethod
     def Resume(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2DownloadOperation) -> Void: ...
-    Uri = property(get_Uri, None)
-    ContentDisposition = property(get_ContentDisposition, None)
-    MimeType = property(get_MimeType, None)
-    TotalBytesToReceive = property(get_TotalBytesToReceive, None)
     BytesReceived = property(get_BytesReceived, None)
+    CanResume = property(get_CanResume, None)
+    ContentDisposition = property(get_ContentDisposition, None)
     EstimatedEndTime = property(get_EstimatedEndTime, None)
+    InterruptReason = property(get_InterruptReason, None)
+    MimeType = property(get_MimeType, None)
     ResultFilePath = property(get_ResultFilePath, None)
     State = property(get_State, None)
-    InterruptReason = property(get_InterruptReason, None)
-    CanResume = property(get_CanResume, None)
+    TotalBytesToReceive = property(get_TotalBytesToReceive, None)
+    Uri = property(get_Uri, None)
 class CoreWebView2DownloadStartingEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2DownloadStartingEventArgs
@@ -962,10 +962,10 @@ class CoreWebView2DownloadStartingEventArgs(ComPtr):
     def put_Handled(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2DownloadStartingEventArgs, value: Boolean) -> Void: ...
     @winrt_mixinmethod
     def GetDeferral(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2DownloadStartingEventArgs) -> win32more.Windows.Foundation.Deferral: ...
-    DownloadOperation = property(get_DownloadOperation, None)
     Cancel = property(get_Cancel, put_Cancel)
-    ResultFilePath = property(get_ResultFilePath, put_ResultFilePath)
+    DownloadOperation = property(get_DownloadOperation, None)
     Handled = property(get_Handled, put_Handled)
+    ResultFilePath = property(get_ResultFilePath, put_ResultFilePath)
 class CoreWebView2DownloadState(Int32):  # enum
     InProgress = 0
     Interrupted = 1
@@ -1030,9 +1030,9 @@ class CoreWebView2Environment(ComPtr):
     def GetAvailableBrowserVersionString2(cls: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2EnvironmentStatics, browserExecutableFolder: WinRT_String) -> WinRT_String: ...
     @winrt_classmethod
     def CompareBrowserVersionString(cls: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2EnvironmentStatics, browserVersionString1: WinRT_String, browserVersionString2: WinRT_String) -> Int32: ...
+    BrowserVersionString = property(get_BrowserVersionString, None)
     FailureReportFolderPath = property(get_FailureReportFolderPath, None)
     UserDataFolder = property(get_UserDataFolder, None)
-    BrowserVersionString = property(get_BrowserVersionString, None)
 class CoreWebView2EnvironmentOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2EnvironmentOptions
@@ -1074,13 +1074,13 @@ class CoreWebView2EnvironmentOptions(ComPtr):
     def get_AllowSingleSignOnUsingOSPrimaryAccount(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2EnvironmentOptions) -> Boolean: ...
     @winrt_mixinmethod
     def put_AllowSingleSignOnUsingOSPrimaryAccount(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2EnvironmentOptions, value: Boolean) -> Void: ...
+    AdditionalBrowserArguments = property(get_AdditionalBrowserArguments, put_AdditionalBrowserArguments)
+    AllowSingleSignOnUsingOSPrimaryAccount = property(get_AllowSingleSignOnUsingOSPrimaryAccount, put_AllowSingleSignOnUsingOSPrimaryAccount)
+    EnableTrackingPrevention = property(get_EnableTrackingPrevention, put_EnableTrackingPrevention)
     ExclusiveUserDataFolderAccess = property(get_ExclusiveUserDataFolderAccess, put_ExclusiveUserDataFolderAccess)
     IsCustomCrashReportingEnabled = property(get_IsCustomCrashReportingEnabled, put_IsCustomCrashReportingEnabled)
-    EnableTrackingPrevention = property(get_EnableTrackingPrevention, put_EnableTrackingPrevention)
-    AdditionalBrowserArguments = property(get_AdditionalBrowserArguments, put_AdditionalBrowserArguments)
     Language = property(get_Language, put_Language)
     TargetCompatibleBrowserVersion = property(get_TargetCompatibleBrowserVersion, put_TargetCompatibleBrowserVersion)
-    AllowSingleSignOnUsingOSPrimaryAccount = property(get_AllowSingleSignOnUsingOSPrimaryAccount, put_AllowSingleSignOnUsingOSPrimaryAccount)
 class CoreWebView2FaviconImageFormat(Int32):  # enum
     Png = 0
     Jpeg = 1
@@ -1228,10 +1228,10 @@ class CoreWebView2LaunchingExternalUriSchemeEventArgs(ComPtr):
     def put_Cancel(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2LaunchingExternalUriSchemeEventArgs, value: Boolean) -> Void: ...
     @winrt_mixinmethod
     def GetDeferral(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2LaunchingExternalUriSchemeEventArgs) -> win32more.Windows.Foundation.Deferral: ...
-    Uri = property(get_Uri, None)
+    Cancel = property(get_Cancel, put_Cancel)
     InitiatingOrigin = property(get_InitiatingOrigin, None)
     IsUserInitiated = property(get_IsUserInitiated, None)
-    Cancel = property(get_Cancel, put_Cancel)
+    Uri = property(get_Uri, None)
 class CoreWebView2MemoryUsageTargetLevel(Int32):  # enum
     Normal = 0
     Low = 1
@@ -1275,8 +1275,8 @@ class CoreWebView2MoveFocusRequestedEventArgs(ComPtr):
     def get_Handled(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2MoveFocusRequestedEventArgs) -> Boolean: ...
     @winrt_mixinmethod
     def put_Handled(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2MoveFocusRequestedEventArgs, value: Boolean) -> Void: ...
-    Reason = property(get_Reason, None)
     Handled = property(get_Handled, put_Handled)
+    Reason = property(get_Reason, None)
 class CoreWebView2NavigationCompletedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2NavigationCompletedEventArgs
@@ -1291,8 +1291,8 @@ class CoreWebView2NavigationCompletedEventArgs(ComPtr):
     def get_NavigationId(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2NavigationCompletedEventArgs) -> UInt64: ...
     HttpStatusCode = property(get_HttpStatusCode, None)
     IsSuccess = property(get_IsSuccess, None)
-    WebErrorStatus = property(get_WebErrorStatus, None)
     NavigationId = property(get_NavigationId, None)
+    WebErrorStatus = property(get_WebErrorStatus, None)
 class CoreWebView2NavigationStartingEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2NavigationStartingEventArgs
@@ -1316,12 +1316,12 @@ class CoreWebView2NavigationStartingEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_NavigationId(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2NavigationStartingEventArgs) -> UInt64: ...
     AdditionalAllowedFrameAncestors = property(get_AdditionalAllowedFrameAncestors, put_AdditionalAllowedFrameAncestors)
-    Uri = property(get_Uri, None)
-    IsUserInitiated = property(get_IsUserInitiated, None)
-    IsRedirected = property(get_IsRedirected, None)
-    RequestHeaders = property(get_RequestHeaders, None)
     Cancel = property(get_Cancel, put_Cancel)
+    IsRedirected = property(get_IsRedirected, None)
+    IsUserInitiated = property(get_IsUserInitiated, None)
     NavigationId = property(get_NavigationId, None)
+    RequestHeaders = property(get_RequestHeaders, None)
+    Uri = property(get_Uri, None)
 class CoreWebView2NewWindowRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2NewWindowRequestedEventArgs
@@ -1344,11 +1344,11 @@ class CoreWebView2NewWindowRequestedEventArgs(ComPtr):
     def get_WindowFeatures(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2NewWindowRequestedEventArgs) -> win32more.Microsoft.Web.WebView2.Core.CoreWebView2WindowFeatures: ...
     @winrt_mixinmethod
     def GetDeferral(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2NewWindowRequestedEventArgs) -> win32more.Windows.Foundation.Deferral: ...
-    Name = property(get_Name, None)
-    Uri = property(get_Uri, None)
-    NewWindow = property(get_NewWindow, put_NewWindow)
     Handled = property(get_Handled, put_Handled)
     IsUserInitiated = property(get_IsUserInitiated, None)
+    Name = property(get_Name, None)
+    NewWindow = property(get_NewWindow, put_NewWindow)
+    Uri = property(get_Uri, None)
     WindowFeatures = property(get_WindowFeatures, None)
 class CoreWebView2PdfToolbarItems(UInt32):  # enum
     None_ = 0
@@ -1404,11 +1404,11 @@ class CoreWebView2PermissionRequestedEventArgs(ComPtr):
     @winrt_mixinmethod
     def GetDeferral(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2PermissionRequestedEventArgs) -> win32more.Windows.Foundation.Deferral: ...
     Handled = property(get_Handled, put_Handled)
-    SavesInProfile = property(get_SavesInProfile, put_SavesInProfile)
-    Uri = property(get_Uri, None)
-    PermissionKind = property(get_PermissionKind, None)
     IsUserInitiated = property(get_IsUserInitiated, None)
+    PermissionKind = property(get_PermissionKind, None)
+    SavesInProfile = property(get_SavesInProfile, put_SavesInProfile)
     State = property(get_State, put_State)
+    Uri = property(get_Uri, None)
 class CoreWebView2PermissionSetting(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2PermissionSetting
@@ -1556,32 +1556,32 @@ class CoreWebView2PointerInfo(ComPtr):
     def get_TouchPressure(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2PointerInfo) -> UInt32: ...
     @winrt_mixinmethod
     def put_TouchPressure(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2PointerInfo, value: UInt32) -> Void: ...
-    PointerKind = property(get_PointerKind, put_PointerKind)
-    PointerId = property(get_PointerId, put_PointerId)
-    FrameId = property(get_FrameId, put_FrameId)
-    PointerFlags = property(get_PointerFlags, put_PointerFlags)
-    PointerDeviceRect = property(get_PointerDeviceRect, put_PointerDeviceRect)
+    ButtonChangeKind = property(get_ButtonChangeKind, put_ButtonChangeKind)
     DisplayRect = property(get_DisplayRect, put_DisplayRect)
-    PixelLocation = property(get_PixelLocation, put_PixelLocation)
+    FrameId = property(get_FrameId, put_FrameId)
     HimetricLocation = property(get_HimetricLocation, put_HimetricLocation)
-    PixelLocationRaw = property(get_PixelLocationRaw, put_PixelLocationRaw)
     HimetricLocationRaw = property(get_HimetricLocationRaw, put_HimetricLocationRaw)
-    Time = property(get_Time, put_Time)
     HistoryCount = property(get_HistoryCount, put_HistoryCount)
     InputData = property(get_InputData, put_InputData)
     KeyStates = property(get_KeyStates, put_KeyStates)
-    PerformanceCount = property(get_PerformanceCount, put_PerformanceCount)
-    ButtonChangeKind = property(get_ButtonChangeKind, put_ButtonChangeKind)
     PenFlags = property(get_PenFlags, put_PenFlags)
     PenMask = property(get_PenMask, put_PenMask)
     PenPressure = property(get_PenPressure, put_PenPressure)
     PenRotation = property(get_PenRotation, put_PenRotation)
     PenTiltX = property(get_PenTiltX, put_PenTiltX)
     PenTiltY = property(get_PenTiltY, put_PenTiltY)
-    TouchFlags = property(get_TouchFlags, put_TouchFlags)
-    TouchMask = property(get_TouchMask, put_TouchMask)
+    PerformanceCount = property(get_PerformanceCount, put_PerformanceCount)
+    PixelLocation = property(get_PixelLocation, put_PixelLocation)
+    PixelLocationRaw = property(get_PixelLocationRaw, put_PixelLocationRaw)
+    PointerDeviceRect = property(get_PointerDeviceRect, put_PointerDeviceRect)
+    PointerFlags = property(get_PointerFlags, put_PointerFlags)
+    PointerId = property(get_PointerId, put_PointerId)
+    PointerKind = property(get_PointerKind, put_PointerKind)
+    Time = property(get_Time, put_Time)
     TouchContact = property(get_TouchContact, put_TouchContact)
     TouchContactRaw = property(get_TouchContactRaw, put_TouchContactRaw)
+    TouchFlags = property(get_TouchFlags, put_TouchFlags)
+    TouchMask = property(get_TouchMask, put_TouchMask)
     TouchOrientation = property(get_TouchOrientation, put_TouchOrientation)
     TouchPressure = property(get_TouchPressure, put_TouchPressure)
 class CoreWebView2PreferredColorScheme(Int32):  # enum
@@ -1698,27 +1698,27 @@ class CoreWebView2PrintSettings(ComPtr):
     def get_FooterUri(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2PrintSettings) -> WinRT_String: ...
     @winrt_mixinmethod
     def put_FooterUri(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2PrintSettings, value: WinRT_String) -> Void: ...
-    PageRanges = property(get_PageRanges, put_PageRanges)
-    PagesPerSide = property(get_PagesPerSide, put_PagesPerSide)
-    Copies = property(get_Copies, put_Copies)
     Collation = property(get_Collation, put_Collation)
     ColorMode = property(get_ColorMode, put_ColorMode)
+    Copies = property(get_Copies, put_Copies)
     Duplex = property(get_Duplex, put_Duplex)
-    MediaSize = property(get_MediaSize, put_MediaSize)
-    PrinterName = property(get_PrinterName, put_PrinterName)
-    Orientation = property(get_Orientation, put_Orientation)
-    ScaleFactor = property(get_ScaleFactor, put_ScaleFactor)
-    PageWidth = property(get_PageWidth, put_PageWidth)
-    PageHeight = property(get_PageHeight, put_PageHeight)
-    MarginTop = property(get_MarginTop, put_MarginTop)
+    FooterUri = property(get_FooterUri, put_FooterUri)
+    HeaderTitle = property(get_HeaderTitle, put_HeaderTitle)
     MarginBottom = property(get_MarginBottom, put_MarginBottom)
     MarginLeft = property(get_MarginLeft, put_MarginLeft)
     MarginRight = property(get_MarginRight, put_MarginRight)
+    MarginTop = property(get_MarginTop, put_MarginTop)
+    MediaSize = property(get_MediaSize, put_MediaSize)
+    Orientation = property(get_Orientation, put_Orientation)
+    PageHeight = property(get_PageHeight, put_PageHeight)
+    PageRanges = property(get_PageRanges, put_PageRanges)
+    PageWidth = property(get_PageWidth, put_PageWidth)
+    PagesPerSide = property(get_PagesPerSide, put_PagesPerSide)
+    PrinterName = property(get_PrinterName, put_PrinterName)
+    ScaleFactor = property(get_ScaleFactor, put_ScaleFactor)
     ShouldPrintBackgrounds = property(get_ShouldPrintBackgrounds, put_ShouldPrintBackgrounds)
-    ShouldPrintSelectionOnly = property(get_ShouldPrintSelectionOnly, put_ShouldPrintSelectionOnly)
     ShouldPrintHeaderAndFooter = property(get_ShouldPrintHeaderAndFooter, put_ShouldPrintHeaderAndFooter)
-    HeaderTitle = property(get_HeaderTitle, put_HeaderTitle)
-    FooterUri = property(get_FooterUri, put_FooterUri)
+    ShouldPrintSelectionOnly = property(get_ShouldPrintSelectionOnly, put_ShouldPrintSelectionOnly)
 class CoreWebView2PrintStatus(Int32):  # enum
     Succeeded = 0
     PrinterUnavailable = 1
@@ -1737,11 +1737,11 @@ class CoreWebView2ProcessFailedEventArgs(ComPtr):
     def get_FrameInfosForFailedProcess(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2ProcessFailedEventArgs2) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Microsoft.Web.WebView2.Core.CoreWebView2FrameInfo]: ...
     @winrt_mixinmethod
     def get_ProcessFailedKind(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2ProcessFailedEventArgs) -> win32more.Microsoft.Web.WebView2.Core.CoreWebView2ProcessFailedKind: ...
-    Reason = property(get_Reason, None)
     ExitCode = property(get_ExitCode, None)
-    ProcessDescription = property(get_ProcessDescription, None)
     FrameInfosForFailedProcess = property(get_FrameInfosForFailedProcess, None)
+    ProcessDescription = property(get_ProcessDescription, None)
     ProcessFailedKind = property(get_ProcessFailedKind, None)
+    Reason = property(get_Reason, None)
 class CoreWebView2ProcessFailedKind(Int32):  # enum
     BrowserProcessExited = 0
     RenderProcessExited = 1
@@ -1769,8 +1769,8 @@ class CoreWebView2ProcessInfo(ComPtr):
     def get_ProcessId(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2ProcessInfo) -> Int32: ...
     @winrt_mixinmethod
     def get_Kind(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2ProcessInfo) -> win32more.Microsoft.Web.WebView2.Core.CoreWebView2ProcessKind: ...
-    ProcessId = property(get_ProcessId, None)
     Kind = property(get_Kind, None)
+    ProcessId = property(get_ProcessId, None)
 class CoreWebView2ProcessKind(Int32):  # enum
     Browser = 0
     Renderer = 1
@@ -1823,15 +1823,15 @@ class CoreWebView2Profile(ComPtr):
     def get_PreferredColorScheme(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2Profile) -> win32more.Microsoft.Web.WebView2.Core.CoreWebView2PreferredColorScheme: ...
     @winrt_mixinmethod
     def put_PreferredColorScheme(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2Profile, value: win32more.Microsoft.Web.WebView2.Core.CoreWebView2PreferredColorScheme) -> Void: ...
-    PreferredTrackingPreventionLevel = property(get_PreferredTrackingPreventionLevel, put_PreferredTrackingPreventionLevel)
     CookieManager = property(get_CookieManager, None)
-    IsPasswordAutosaveEnabled = property(get_IsPasswordAutosaveEnabled, put_IsPasswordAutosaveEnabled)
-    IsGeneralAutofillEnabled = property(get_IsGeneralAutofillEnabled, put_IsGeneralAutofillEnabled)
-    ProfileName = property(get_ProfileName, None)
-    IsInPrivateModeEnabled = property(get_IsInPrivateModeEnabled, None)
-    ProfilePath = property(get_ProfilePath, None)
     DefaultDownloadFolderPath = property(get_DefaultDownloadFolderPath, put_DefaultDownloadFolderPath)
+    IsGeneralAutofillEnabled = property(get_IsGeneralAutofillEnabled, put_IsGeneralAutofillEnabled)
+    IsInPrivateModeEnabled = property(get_IsInPrivateModeEnabled, None)
+    IsPasswordAutosaveEnabled = property(get_IsPasswordAutosaveEnabled, put_IsPasswordAutosaveEnabled)
     PreferredColorScheme = property(get_PreferredColorScheme, put_PreferredColorScheme)
+    PreferredTrackingPreventionLevel = property(get_PreferredTrackingPreventionLevel, put_PreferredTrackingPreventionLevel)
+    ProfileName = property(get_ProfileName, None)
+    ProfilePath = property(get_ProfilePath, None)
 class CoreWebView2Profile_Manual(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.CoreWebView2Profile_Manual'
@@ -1871,11 +1871,11 @@ class CoreWebView2ScriptDialogOpeningEventArgs(ComPtr):
     def Accept(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2ScriptDialogOpeningEventArgs) -> Void: ...
     @winrt_mixinmethod
     def GetDeferral(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2ScriptDialogOpeningEventArgs) -> win32more.Windows.Foundation.Deferral: ...
-    Uri = property(get_Uri, None)
+    DefaultText = property(get_DefaultText, None)
     Kind = property(get_Kind, None)
     Message = property(get_Message, None)
-    DefaultText = property(get_DefaultText, None)
     ResultText = property(get_ResultText, put_ResultText)
+    Uri = property(get_Uri, None)
 class CoreWebView2ServerCertificateErrorAction(Int32):  # enum
     AlwaysAllow = 0
     Cancel = 1
@@ -1896,10 +1896,10 @@ class CoreWebView2ServerCertificateErrorDetectedEventArgs(ComPtr):
     def put_Action(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2ServerCertificateErrorDetectedEventArgs, value: win32more.Microsoft.Web.WebView2.Core.CoreWebView2ServerCertificateErrorAction) -> Void: ...
     @winrt_mixinmethod
     def GetDeferral(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2ServerCertificateErrorDetectedEventArgs) -> win32more.Windows.Foundation.Deferral: ...
+    Action = property(get_Action, put_Action)
     ErrorStatus = property(get_ErrorStatus, None)
     RequestUri = property(get_RequestUri, None)
     ServerCertificate = property(get_ServerCertificate, None)
-    Action = property(get_Action, put_Action)
 class CoreWebView2Settings(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2Settings
@@ -1976,24 +1976,24 @@ class CoreWebView2Settings(ComPtr):
     def get_IsBuiltInErrorPageEnabled(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2Settings) -> Boolean: ...
     @winrt_mixinmethod
     def put_IsBuiltInErrorPageEnabled(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2Settings, value: Boolean) -> Void: ...
-    UserAgent = property(get_UserAgent, put_UserAgent)
     AreBrowserAcceleratorKeysEnabled = property(get_AreBrowserAcceleratorKeysEnabled, put_AreBrowserAcceleratorKeysEnabled)
-    IsPasswordAutosaveEnabled = property(get_IsPasswordAutosaveEnabled, put_IsPasswordAutosaveEnabled)
-    IsGeneralAutofillEnabled = property(get_IsGeneralAutofillEnabled, put_IsGeneralAutofillEnabled)
-    IsPinchZoomEnabled = property(get_IsPinchZoomEnabled, put_IsPinchZoomEnabled)
-    IsSwipeNavigationEnabled = property(get_IsSwipeNavigationEnabled, put_IsSwipeNavigationEnabled)
-    HiddenPdfToolbarItems = property(get_HiddenPdfToolbarItems, put_HiddenPdfToolbarItems)
-    IsReputationCheckingRequired = property(get_IsReputationCheckingRequired, put_IsReputationCheckingRequired)
-    HostObjectDispatchAdapter = property(get_HostObjectDispatchAdapter, put_HostObjectDispatchAdapter)
-    IsScriptEnabled = property(get_IsScriptEnabled, put_IsScriptEnabled)
-    IsWebMessageEnabled = property(get_IsWebMessageEnabled, put_IsWebMessageEnabled)
-    AreDefaultScriptDialogsEnabled = property(get_AreDefaultScriptDialogsEnabled, put_AreDefaultScriptDialogsEnabled)
-    IsStatusBarEnabled = property(get_IsStatusBarEnabled, put_IsStatusBarEnabled)
-    AreDevToolsEnabled = property(get_AreDevToolsEnabled, put_AreDevToolsEnabled)
     AreDefaultContextMenusEnabled = property(get_AreDefaultContextMenusEnabled, put_AreDefaultContextMenusEnabled)
+    AreDefaultScriptDialogsEnabled = property(get_AreDefaultScriptDialogsEnabled, put_AreDefaultScriptDialogsEnabled)
+    AreDevToolsEnabled = property(get_AreDevToolsEnabled, put_AreDevToolsEnabled)
     AreHostObjectsAllowed = property(get_AreHostObjectsAllowed, put_AreHostObjectsAllowed)
-    IsZoomControlEnabled = property(get_IsZoomControlEnabled, put_IsZoomControlEnabled)
+    HiddenPdfToolbarItems = property(get_HiddenPdfToolbarItems, put_HiddenPdfToolbarItems)
+    HostObjectDispatchAdapter = property(get_HostObjectDispatchAdapter, put_HostObjectDispatchAdapter)
     IsBuiltInErrorPageEnabled = property(get_IsBuiltInErrorPageEnabled, put_IsBuiltInErrorPageEnabled)
+    IsGeneralAutofillEnabled = property(get_IsGeneralAutofillEnabled, put_IsGeneralAutofillEnabled)
+    IsPasswordAutosaveEnabled = property(get_IsPasswordAutosaveEnabled, put_IsPasswordAutosaveEnabled)
+    IsPinchZoomEnabled = property(get_IsPinchZoomEnabled, put_IsPinchZoomEnabled)
+    IsReputationCheckingRequired = property(get_IsReputationCheckingRequired, put_IsReputationCheckingRequired)
+    IsScriptEnabled = property(get_IsScriptEnabled, put_IsScriptEnabled)
+    IsStatusBarEnabled = property(get_IsStatusBarEnabled, put_IsStatusBarEnabled)
+    IsSwipeNavigationEnabled = property(get_IsSwipeNavigationEnabled, put_IsSwipeNavigationEnabled)
+    IsWebMessageEnabled = property(get_IsWebMessageEnabled, put_IsWebMessageEnabled)
+    IsZoomControlEnabled = property(get_IsZoomControlEnabled, put_IsZoomControlEnabled)
+    UserAgent = property(get_UserAgent, put_UserAgent)
 class CoreWebView2SharedBuffer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2SharedBuffer
@@ -2094,10 +2094,10 @@ class CoreWebView2WebResourceRequest(ComPtr):
     def put_Content(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2WebResourceRequest, value: win32more.Windows.Storage.Streams.IRandomAccessStream) -> Void: ...
     @winrt_mixinmethod
     def get_Headers(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2WebResourceRequest) -> win32more.Microsoft.Web.WebView2.Core.CoreWebView2HttpRequestHeaders: ...
-    Uri = property(get_Uri, put_Uri)
-    Method = property(get_Method, put_Method)
     Content = property(get_Content, put_Content)
     Headers = property(get_Headers, None)
+    Method = property(get_Method, put_Method)
+    Uri = property(get_Uri, put_Uri)
 class CoreWebView2WebResourceRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2WebResourceRequestedEventArgs
@@ -2113,8 +2113,8 @@ class CoreWebView2WebResourceRequestedEventArgs(ComPtr):
     @winrt_mixinmethod
     def GetDeferral(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2WebResourceRequestedEventArgs) -> win32more.Windows.Foundation.Deferral: ...
     Request = property(get_Request, None)
-    Response = property(get_Response, put_Response)
     ResourceContext = property(get_ResourceContext, None)
+    Response = property(get_Response, put_Response)
 class CoreWebView2WebResourceResponse(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2WebResourceResponse
@@ -2135,8 +2135,8 @@ class CoreWebView2WebResourceResponse(ComPtr):
     def put_ReasonPhrase(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2WebResourceResponse, value: WinRT_String) -> Void: ...
     Content = property(get_Content, put_Content)
     Headers = property(get_Headers, None)
-    StatusCode = property(get_StatusCode, put_StatusCode)
     ReasonPhrase = property(get_ReasonPhrase, put_ReasonPhrase)
+    StatusCode = property(get_StatusCode, put_StatusCode)
 class CoreWebView2WebResourceResponseReceivedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2WebResourceResponseReceivedEventArgs
@@ -2160,8 +2160,8 @@ class CoreWebView2WebResourceResponseView(ComPtr):
     @winrt_mixinmethod
     def GetContentAsync(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2WebResourceResponseView) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Storage.Streams.IRandomAccessStream]: ...
     Headers = property(get_Headers, None)
-    StatusCode = property(get_StatusCode, None)
     ReasonPhrase = property(get_ReasonPhrase, None)
+    StatusCode = property(get_StatusCode, None)
 class CoreWebView2WindowFeatures(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2WindowFeatures
@@ -2188,14 +2188,14 @@ class CoreWebView2WindowFeatures(ComPtr):
     def get_ShouldDisplayScrollBars(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2WindowFeatures) -> Boolean: ...
     HasPosition = property(get_HasPosition, None)
     HasSize = property(get_HasSize, None)
-    Left = property(get_Left, None)
-    Top = property(get_Top, None)
     Height = property(get_Height, None)
-    Width = property(get_Width, None)
+    Left = property(get_Left, None)
     ShouldDisplayMenuBar = property(get_ShouldDisplayMenuBar, None)
+    ShouldDisplayScrollBars = property(get_ShouldDisplayScrollBars, None)
     ShouldDisplayStatus = property(get_ShouldDisplayStatus, None)
     ShouldDisplayToolbar = property(get_ShouldDisplayToolbar, None)
-    ShouldDisplayScrollBars = property(get_ShouldDisplayScrollBars, None)
+    Top = property(get_Top, None)
+    Width = property(get_Width, None)
 class ICoreWebView2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2'
@@ -2316,13 +2316,13 @@ class ICoreWebView2(ComPtr):
     def AddWebResourceRequestedFilter(self, uri: WinRT_String, ResourceContext: win32more.Microsoft.Web.WebView2.Core.CoreWebView2WebResourceContext) -> Void: ...
     @winrt_commethod(63)
     def RemoveWebResourceRequestedFilter(self, uri: WinRT_String, ResourceContext: win32more.Microsoft.Web.WebView2.Core.CoreWebView2WebResourceContext) -> Void: ...
-    Settings = property(get_Settings, None)
-    Source = property(get_Source, None)
     BrowserProcessId = property(get_BrowserProcessId, None)
     CanGoBack = property(get_CanGoBack, None)
     CanGoForward = property(get_CanGoForward, None)
-    DocumentTitle = property(get_DocumentTitle, None)
     ContainsFullScreenElement = property(get_ContainsFullScreenElement, None)
+    DocumentTitle = property(get_DocumentTitle, None)
+    Settings = property(get_Settings, None)
+    Source = property(get_Source, None)
 class ICoreWebView2AcceleratorKeyPressedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2AcceleratorKeyPressedEventArgs'
@@ -2339,11 +2339,11 @@ class ICoreWebView2AcceleratorKeyPressedEventArgs(ComPtr):
     def get_Handled(self) -> Boolean: ...
     @winrt_commethod(11)
     def put_Handled(self, value: Boolean) -> Void: ...
+    Handled = property(get_Handled, put_Handled)
     KeyEventKind = property(get_KeyEventKind, None)
-    VirtualKey = property(get_VirtualKey, None)
     KeyEventLParam = property(get_KeyEventLParam, None)
     PhysicalKeyStatus = property(get_PhysicalKeyStatus, None)
-    Handled = property(get_Handled, put_Handled)
+    VirtualKey = property(get_VirtualKey, None)
 class ICoreWebView2BasicAuthenticationRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2BasicAuthenticationRequestedEventArgs'
@@ -2360,10 +2360,10 @@ class ICoreWebView2BasicAuthenticationRequestedEventArgs(ComPtr):
     def put_Cancel(self, value: Boolean) -> Void: ...
     @winrt_commethod(11)
     def GetDeferral(self) -> win32more.Windows.Foundation.Deferral: ...
-    Uri = property(get_Uri, None)
+    Cancel = property(get_Cancel, put_Cancel)
     Challenge = property(get_Challenge, None)
     Response = property(get_Response, None)
-    Cancel = property(get_Cancel, put_Cancel)
+    Uri = property(get_Uri, None)
 class ICoreWebView2BasicAuthenticationResponse(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2BasicAuthenticationResponse'
@@ -2376,8 +2376,8 @@ class ICoreWebView2BasicAuthenticationResponse(ComPtr):
     def get_Password(self) -> WinRT_String: ...
     @winrt_commethod(9)
     def put_Password(self, value: WinRT_String) -> Void: ...
-    UserName = property(get_UserName, put_UserName)
     Password = property(get_Password, put_Password)
+    UserName = property(get_UserName, put_UserName)
 class ICoreWebView2BrowserProcessExitedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2BrowserProcessExitedEventArgs'
@@ -2408,13 +2408,13 @@ class ICoreWebView2Certificate(ComPtr):
     def get_PemEncodedIssuerCertificateChain(self) -> win32more.Windows.Foundation.Collections.IVectorView[WinRT_String]: ...
     @winrt_commethod(13)
     def ToPemEncoding(self) -> WinRT_String: ...
-    Subject = property(get_Subject, None)
-    Issuer = property(get_Issuer, None)
-    ValidFrom = property(get_ValidFrom, None)
-    ValidTo = property(get_ValidTo, None)
     DerEncodedSerialNumber = property(get_DerEncodedSerialNumber, None)
     DisplayName = property(get_DisplayName, None)
+    Issuer = property(get_Issuer, None)
     PemEncodedIssuerCertificateChain = property(get_PemEncodedIssuerCertificateChain, None)
+    Subject = property(get_Subject, None)
+    ValidFrom = property(get_ValidFrom, None)
+    ValidTo = property(get_ValidTo, None)
 class ICoreWebView2ClientCertificate(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2ClientCertificate'
@@ -2437,14 +2437,14 @@ class ICoreWebView2ClientCertificate(ComPtr):
     def get_Kind(self) -> win32more.Microsoft.Web.WebView2.Core.CoreWebView2ClientCertificateKind: ...
     @winrt_commethod(14)
     def ToPemEncoding(self) -> WinRT_String: ...
-    Subject = property(get_Subject, None)
-    Issuer = property(get_Issuer, None)
-    ValidFrom = property(get_ValidFrom, None)
-    ValidTo = property(get_ValidTo, None)
     DerEncodedSerialNumber = property(get_DerEncodedSerialNumber, None)
     DisplayName = property(get_DisplayName, None)
-    PemEncodedIssuerCertificateChain = property(get_PemEncodedIssuerCertificateChain, None)
+    Issuer = property(get_Issuer, None)
     Kind = property(get_Kind, None)
+    PemEncodedIssuerCertificateChain = property(get_PemEncodedIssuerCertificateChain, None)
+    Subject = property(get_Subject, None)
+    ValidFrom = property(get_ValidFrom, None)
+    ValidTo = property(get_ValidTo, None)
 class ICoreWebView2ClientCertificateRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2ClientCertificateRequestedEventArgs'
@@ -2473,14 +2473,14 @@ class ICoreWebView2ClientCertificateRequestedEventArgs(ComPtr):
     def put_Handled(self, value: Boolean) -> Void: ...
     @winrt_commethod(17)
     def GetDeferral(self) -> win32more.Windows.Foundation.Deferral: ...
-    Host = property(get_Host, None)
-    Port = property(get_Port, None)
-    IsProxy = property(get_IsProxy, None)
     AllowedCertificateAuthorities = property(get_AllowedCertificateAuthorities, None)
-    MutuallyTrustedCertificates = property(get_MutuallyTrustedCertificates, None)
-    SelectedCertificate = property(get_SelectedCertificate, put_SelectedCertificate)
     Cancel = property(get_Cancel, put_Cancel)
     Handled = property(get_Handled, put_Handled)
+    Host = property(get_Host, None)
+    IsProxy = property(get_IsProxy, None)
+    MutuallyTrustedCertificates = property(get_MutuallyTrustedCertificates, None)
+    Port = property(get_Port, None)
+    SelectedCertificate = property(get_SelectedCertificate, put_SelectedCertificate)
 class ICoreWebView2CompositionController(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2CompositionController'
@@ -2505,8 +2505,8 @@ class ICoreWebView2CompositionController(ComPtr):
     def DragOver(self, dragInfo: win32more.Windows.ApplicationModel.DataTransfer.DragDrop.Core.CoreDragInfo, dragUIOverride: win32more.Windows.ApplicationModel.DataTransfer.DragDrop.Core.CoreDragUIOverride) -> win32more.Windows.ApplicationModel.DataTransfer.DataPackageOperation: ...
     @winrt_commethod(15)
     def Drop(self, dragInfo: win32more.Windows.ApplicationModel.DataTransfer.DragDrop.Core.CoreDragInfo) -> win32more.Windows.ApplicationModel.DataTransfer.DataPackageOperation: ...
-    RootVisualTarget = property(get_RootVisualTarget, put_RootVisualTarget)
     Cursor = property(get_Cursor, None)
+    RootVisualTarget = property(get_RootVisualTarget, put_RootVisualTarget)
 class ICoreWebView2CompositionController2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2CompositionController2'
@@ -2565,15 +2565,15 @@ class ICoreWebView2ContextMenuItem(ComPtr):
     def add_CustomItemSelected(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.Web.WebView2.Core.CoreWebView2ContextMenuItem, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(18)
     def remove_CustomItemSelected(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    Name = property(get_Name, None)
-    Label = property(get_Label, None)
-    CommandId = property(get_CommandId, None)
-    ShortcutKeyDescription = property(get_ShortcutKeyDescription, None)
-    Icon = property(get_Icon, None)
-    Kind = property(get_Kind, None)
-    IsEnabled = property(get_IsEnabled, put_IsEnabled)
-    IsChecked = property(get_IsChecked, put_IsChecked)
     Children = property(get_Children, None)
+    CommandId = property(get_CommandId, None)
+    Icon = property(get_Icon, None)
+    IsChecked = property(get_IsChecked, put_IsChecked)
+    IsEnabled = property(get_IsEnabled, put_IsEnabled)
+    Kind = property(get_Kind, None)
+    Label = property(get_Label, None)
+    Name = property(get_Name, None)
+    ShortcutKeyDescription = property(get_ShortcutKeyDescription, None)
 class ICoreWebView2ContextMenuRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2ContextMenuRequestedEventArgs'
@@ -2594,11 +2594,11 @@ class ICoreWebView2ContextMenuRequestedEventArgs(ComPtr):
     def put_Handled(self, value: Boolean) -> Void: ...
     @winrt_commethod(13)
     def GetDeferral(self) -> win32more.Windows.Foundation.Deferral: ...
-    MenuItems = property(get_MenuItems, None)
     ContextMenuTarget = property(get_ContextMenuTarget, None)
-    Location = property(get_Location, None)
-    SelectedCommandId = property(get_SelectedCommandId, put_SelectedCommandId)
     Handled = property(get_Handled, put_Handled)
+    Location = property(get_Location, None)
+    MenuItems = property(get_MenuItems, None)
+    SelectedCommandId = property(get_SelectedCommandId, put_SelectedCommandId)
 class ICoreWebView2ContextMenuTarget(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2ContextMenuTarget'
@@ -2629,19 +2629,19 @@ class ICoreWebView2ContextMenuTarget(ComPtr):
     def get_HasSelection(self) -> Boolean: ...
     @winrt_commethod(18)
     def get_SelectionText(self) -> WinRT_String: ...
-    Kind = property(get_Kind, None)
+    FrameUri = property(get_FrameUri, None)
+    HasLinkText = property(get_HasLinkText, None)
+    HasLinkUri = property(get_HasLinkUri, None)
+    HasSelection = property(get_HasSelection, None)
+    HasSourceUri = property(get_HasSourceUri, None)
     IsEditable = property(get_IsEditable, None)
     IsRequestedForMainFrame = property(get_IsRequestedForMainFrame, None)
-    PageUri = property(get_PageUri, None)
-    FrameUri = property(get_FrameUri, None)
-    HasLinkUri = property(get_HasLinkUri, None)
-    LinkUri = property(get_LinkUri, None)
-    HasLinkText = property(get_HasLinkText, None)
+    Kind = property(get_Kind, None)
     LinkText = property(get_LinkText, None)
-    HasSourceUri = property(get_HasSourceUri, None)
-    SourceUri = property(get_SourceUri, None)
-    HasSelection = property(get_HasSelection, None)
+    LinkUri = property(get_LinkUri, None)
+    PageUri = property(get_PageUri, None)
     SelectionText = property(get_SelectionText, None)
+    SourceUri = property(get_SourceUri, None)
 class ICoreWebView2Controller(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2Controller'
@@ -2692,11 +2692,11 @@ class ICoreWebView2Controller(ComPtr):
     def NotifyParentWindowPositionChanged(self) -> Void: ...
     @winrt_commethod(28)
     def Close(self) -> Void: ...
-    IsVisible = property(get_IsVisible, put_IsVisible)
     Bounds = property(get_Bounds, put_Bounds)
-    ZoomFactor = property(get_ZoomFactor, put_ZoomFactor)
-    ParentWindow = property(get_ParentWindow, put_ParentWindow)
     CoreWebView2 = property(get_CoreWebView2, None)
+    IsVisible = property(get_IsVisible, put_IsVisible)
+    ParentWindow = property(get_ParentWindow, put_ParentWindow)
+    ZoomFactor = property(get_ZoomFactor, put_ZoomFactor)
 class ICoreWebView2Controller2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2Controller2'
@@ -2726,9 +2726,9 @@ class ICoreWebView2Controller3(ComPtr):
     def add_RasterizationScaleChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.Web.WebView2.Core.CoreWebView2Controller, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(13)
     def remove_RasterizationScaleChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    BoundsMode = property(get_BoundsMode, put_BoundsMode)
     RasterizationScale = property(get_RasterizationScale, put_RasterizationScale)
     ShouldDetectMonitorScaleChanges = property(get_ShouldDetectMonitorScaleChanges, put_ShouldDetectMonitorScaleChanges)
-    BoundsMode = property(get_BoundsMode, put_BoundsMode)
 class ICoreWebView2Controller4(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2Controller4'
@@ -2754,8 +2754,8 @@ class ICoreWebView2ControllerOptions(ComPtr):
     def get_IsInPrivateModeEnabled(self) -> Boolean: ...
     @winrt_commethod(9)
     def put_IsInPrivateModeEnabled(self, value: Boolean) -> Void: ...
-    ProfileName = property(get_ProfileName, put_ProfileName)
     IsInPrivateModeEnabled = property(get_IsInPrivateModeEnabled, put_IsInPrivateModeEnabled)
+    ProfileName = property(get_ProfileName, put_ProfileName)
 class ICoreWebView2ControllerOptions2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2ControllerOptions2'
@@ -2773,8 +2773,8 @@ class ICoreWebView2ControllerWindowReference(ComPtr):
     def get_WindowHandle(self) -> UInt64: ...
     @winrt_commethod(7)
     def get_CoreWindow(self) -> win32more.Windows.UI.Core.CoreWindow: ...
-    WindowHandle = property(get_WindowHandle, None)
     CoreWindow = property(get_CoreWindow, None)
+    WindowHandle = property(get_WindowHandle, None)
 class ICoreWebView2ControllerWindowReferenceStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2ControllerWindowReferenceStatics'
@@ -2815,15 +2815,15 @@ class ICoreWebView2Cookie(ComPtr):
     def put_IsSecure(self, value: Boolean) -> Void: ...
     @winrt_commethod(19)
     def get_IsSession(self) -> Boolean: ...
-    Name = property(get_Name, None)
-    Value = property(get_Value, put_Value)
     Domain = property(get_Domain, None)
-    Path = property(get_Path, None)
     Expires = property(get_Expires, put_Expires)
     IsHttpOnly = property(get_IsHttpOnly, put_IsHttpOnly)
-    SameSite = property(get_SameSite, put_SameSite)
     IsSecure = property(get_IsSecure, put_IsSecure)
     IsSession = property(get_IsSession, None)
+    Name = property(get_Name, None)
+    Path = property(get_Path, None)
+    SameSite = property(get_SameSite, put_SameSite)
+    Value = property(get_Value, put_Value)
 class ICoreWebView2CookieManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2CookieManager'
@@ -2860,8 +2860,8 @@ class ICoreWebView2CustomSchemeRegistration(ComPtr):
     def get_HasAuthorityComponent(self) -> Boolean: ...
     @winrt_commethod(9)
     def put_HasAuthorityComponent(self, value: Boolean) -> Void: ...
-    TreatAsSecure = property(get_TreatAsSecure, put_TreatAsSecure)
     HasAuthorityComponent = property(get_HasAuthorityComponent, put_HasAuthorityComponent)
+    TreatAsSecure = property(get_TreatAsSecure, put_TreatAsSecure)
 class ICoreWebView2DOMContentLoadedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2DOMContentLoadedEventArgs'
@@ -2945,16 +2945,16 @@ class ICoreWebView2DownloadOperation(ComPtr):
     def Pause(self) -> Void: ...
     @winrt_commethod(24)
     def Resume(self) -> Void: ...
-    Uri = property(get_Uri, None)
-    ContentDisposition = property(get_ContentDisposition, None)
-    MimeType = property(get_MimeType, None)
-    TotalBytesToReceive = property(get_TotalBytesToReceive, None)
     BytesReceived = property(get_BytesReceived, None)
+    CanResume = property(get_CanResume, None)
+    ContentDisposition = property(get_ContentDisposition, None)
     EstimatedEndTime = property(get_EstimatedEndTime, None)
+    InterruptReason = property(get_InterruptReason, None)
+    MimeType = property(get_MimeType, None)
     ResultFilePath = property(get_ResultFilePath, None)
     State = property(get_State, None)
-    InterruptReason = property(get_InterruptReason, None)
-    CanResume = property(get_CanResume, None)
+    TotalBytesToReceive = property(get_TotalBytesToReceive, None)
+    Uri = property(get_Uri, None)
 class ICoreWebView2DownloadStartingEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2DownloadStartingEventArgs'
@@ -2975,10 +2975,10 @@ class ICoreWebView2DownloadStartingEventArgs(ComPtr):
     def put_Handled(self, value: Boolean) -> Void: ...
     @winrt_commethod(13)
     def GetDeferral(self) -> win32more.Windows.Foundation.Deferral: ...
-    DownloadOperation = property(get_DownloadOperation, None)
     Cancel = property(get_Cancel, put_Cancel)
-    ResultFilePath = property(get_ResultFilePath, put_ResultFilePath)
+    DownloadOperation = property(get_DownloadOperation, None)
     Handled = property(get_Handled, put_Handled)
+    ResultFilePath = property(get_ResultFilePath, put_ResultFilePath)
 class ICoreWebView2Environment(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2Environment'
@@ -3089,9 +3089,9 @@ class ICoreWebView2EnvironmentOptions(ComPtr):
     @winrt_commethod(13)
     def put_AllowSingleSignOnUsingOSPrimaryAccount(self, value: Boolean) -> Void: ...
     AdditionalBrowserArguments = property(get_AdditionalBrowserArguments, put_AdditionalBrowserArguments)
+    AllowSingleSignOnUsingOSPrimaryAccount = property(get_AllowSingleSignOnUsingOSPrimaryAccount, put_AllowSingleSignOnUsingOSPrimaryAccount)
     Language = property(get_Language, put_Language)
     TargetCompatibleBrowserVersion = property(get_TargetCompatibleBrowserVersion, put_TargetCompatibleBrowserVersion)
-    AllowSingleSignOnUsingOSPrimaryAccount = property(get_AllowSingleSignOnUsingOSPrimaryAccount, put_AllowSingleSignOnUsingOSPrimaryAccount)
 class ICoreWebView2EnvironmentOptions2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2EnvironmentOptions2'
@@ -3282,10 +3282,10 @@ class ICoreWebView2LaunchingExternalUriSchemeEventArgs(ComPtr):
     def put_Cancel(self, value: Boolean) -> Void: ...
     @winrt_commethod(11)
     def GetDeferral(self) -> win32more.Windows.Foundation.Deferral: ...
-    Uri = property(get_Uri, None)
+    Cancel = property(get_Cancel, put_Cancel)
     InitiatingOrigin = property(get_InitiatingOrigin, None)
     IsUserInitiated = property(get_IsUserInitiated, None)
-    Cancel = property(get_Cancel, put_Cancel)
+    Uri = property(get_Uri, None)
 class ICoreWebView2MoveFocusRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2MoveFocusRequestedEventArgs'
@@ -3296,8 +3296,8 @@ class ICoreWebView2MoveFocusRequestedEventArgs(ComPtr):
     def get_Handled(self) -> Boolean: ...
     @winrt_commethod(8)
     def put_Handled(self, value: Boolean) -> Void: ...
-    Reason = property(get_Reason, None)
     Handled = property(get_Handled, put_Handled)
+    Reason = property(get_Reason, None)
 class ICoreWebView2NavigationCompletedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2NavigationCompletedEventArgs'
@@ -3309,8 +3309,8 @@ class ICoreWebView2NavigationCompletedEventArgs(ComPtr):
     @winrt_commethod(8)
     def get_NavigationId(self) -> UInt64: ...
     IsSuccess = property(get_IsSuccess, None)
-    WebErrorStatus = property(get_WebErrorStatus, None)
     NavigationId = property(get_NavigationId, None)
+    WebErrorStatus = property(get_WebErrorStatus, None)
 class ICoreWebView2NavigationCompletedEventArgs2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2NavigationCompletedEventArgs2'
@@ -3336,12 +3336,12 @@ class ICoreWebView2NavigationStartingEventArgs(ComPtr):
     def put_Cancel(self, value: Boolean) -> Void: ...
     @winrt_commethod(12)
     def get_NavigationId(self) -> UInt64: ...
-    Uri = property(get_Uri, None)
-    IsUserInitiated = property(get_IsUserInitiated, None)
-    IsRedirected = property(get_IsRedirected, None)
-    RequestHeaders = property(get_RequestHeaders, None)
     Cancel = property(get_Cancel, put_Cancel)
+    IsRedirected = property(get_IsRedirected, None)
+    IsUserInitiated = property(get_IsUserInitiated, None)
     NavigationId = property(get_NavigationId, None)
+    RequestHeaders = property(get_RequestHeaders, None)
+    Uri = property(get_Uri, None)
 class ICoreWebView2NavigationStartingEventArgs2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2NavigationStartingEventArgs2'
@@ -3371,10 +3371,10 @@ class ICoreWebView2NewWindowRequestedEventArgs(ComPtr):
     def get_WindowFeatures(self) -> win32more.Microsoft.Web.WebView2.Core.CoreWebView2WindowFeatures: ...
     @winrt_commethod(13)
     def GetDeferral(self) -> win32more.Windows.Foundation.Deferral: ...
-    Uri = property(get_Uri, None)
-    NewWindow = property(get_NewWindow, put_NewWindow)
     Handled = property(get_Handled, put_Handled)
     IsUserInitiated = property(get_IsUserInitiated, None)
+    NewWindow = property(get_NewWindow, put_NewWindow)
+    Uri = property(get_Uri, None)
     WindowFeatures = property(get_WindowFeatures, None)
 class ICoreWebView2NewWindowRequestedEventArgs2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -3399,10 +3399,10 @@ class ICoreWebView2PermissionRequestedEventArgs(ComPtr):
     def put_State(self, value: win32more.Microsoft.Web.WebView2.Core.CoreWebView2PermissionState) -> Void: ...
     @winrt_commethod(11)
     def GetDeferral(self) -> win32more.Windows.Foundation.Deferral: ...
-    Uri = property(get_Uri, None)
-    PermissionKind = property(get_PermissionKind, None)
     IsUserInitiated = property(get_IsUserInitiated, None)
+    PermissionKind = property(get_PermissionKind, None)
     State = property(get_State, put_State)
+    Uri = property(get_Uri, None)
 class ICoreWebView2PermissionRequestedEventArgs2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2PermissionRequestedEventArgs2'
@@ -3550,32 +3550,32 @@ class ICoreWebView2PointerInfo(ComPtr):
     def get_TouchPressure(self) -> UInt32: ...
     @winrt_commethod(61)
     def put_TouchPressure(self, value: UInt32) -> Void: ...
-    PointerKind = property(get_PointerKind, put_PointerKind)
-    PointerId = property(get_PointerId, put_PointerId)
-    FrameId = property(get_FrameId, put_FrameId)
-    PointerFlags = property(get_PointerFlags, put_PointerFlags)
-    PointerDeviceRect = property(get_PointerDeviceRect, put_PointerDeviceRect)
+    ButtonChangeKind = property(get_ButtonChangeKind, put_ButtonChangeKind)
     DisplayRect = property(get_DisplayRect, put_DisplayRect)
-    PixelLocation = property(get_PixelLocation, put_PixelLocation)
+    FrameId = property(get_FrameId, put_FrameId)
     HimetricLocation = property(get_HimetricLocation, put_HimetricLocation)
-    PixelLocationRaw = property(get_PixelLocationRaw, put_PixelLocationRaw)
     HimetricLocationRaw = property(get_HimetricLocationRaw, put_HimetricLocationRaw)
-    Time = property(get_Time, put_Time)
     HistoryCount = property(get_HistoryCount, put_HistoryCount)
     InputData = property(get_InputData, put_InputData)
     KeyStates = property(get_KeyStates, put_KeyStates)
-    PerformanceCount = property(get_PerformanceCount, put_PerformanceCount)
-    ButtonChangeKind = property(get_ButtonChangeKind, put_ButtonChangeKind)
     PenFlags = property(get_PenFlags, put_PenFlags)
     PenMask = property(get_PenMask, put_PenMask)
     PenPressure = property(get_PenPressure, put_PenPressure)
     PenRotation = property(get_PenRotation, put_PenRotation)
     PenTiltX = property(get_PenTiltX, put_PenTiltX)
     PenTiltY = property(get_PenTiltY, put_PenTiltY)
-    TouchFlags = property(get_TouchFlags, put_TouchFlags)
-    TouchMask = property(get_TouchMask, put_TouchMask)
+    PerformanceCount = property(get_PerformanceCount, put_PerformanceCount)
+    PixelLocation = property(get_PixelLocation, put_PixelLocation)
+    PixelLocationRaw = property(get_PixelLocationRaw, put_PixelLocationRaw)
+    PointerDeviceRect = property(get_PointerDeviceRect, put_PointerDeviceRect)
+    PointerFlags = property(get_PointerFlags, put_PointerFlags)
+    PointerId = property(get_PointerId, put_PointerId)
+    PointerKind = property(get_PointerKind, put_PointerKind)
+    Time = property(get_Time, put_Time)
     TouchContact = property(get_TouchContact, put_TouchContact)
     TouchContactRaw = property(get_TouchContactRaw, put_TouchContactRaw)
+    TouchFlags = property(get_TouchFlags, put_TouchFlags)
+    TouchMask = property(get_TouchMask, put_TouchMask)
     TouchOrientation = property(get_TouchOrientation, put_TouchOrientation)
     TouchPressure = property(get_TouchPressure, put_TouchPressure)
 class ICoreWebView2PrintSettings(ComPtr):
@@ -3634,19 +3634,19 @@ class ICoreWebView2PrintSettings(ComPtr):
     def get_FooterUri(self) -> WinRT_String: ...
     @winrt_commethod(31)
     def put_FooterUri(self, value: WinRT_String) -> Void: ...
-    Orientation = property(get_Orientation, put_Orientation)
-    ScaleFactor = property(get_ScaleFactor, put_ScaleFactor)
-    PageWidth = property(get_PageWidth, put_PageWidth)
-    PageHeight = property(get_PageHeight, put_PageHeight)
-    MarginTop = property(get_MarginTop, put_MarginTop)
+    FooterUri = property(get_FooterUri, put_FooterUri)
+    HeaderTitle = property(get_HeaderTitle, put_HeaderTitle)
     MarginBottom = property(get_MarginBottom, put_MarginBottom)
     MarginLeft = property(get_MarginLeft, put_MarginLeft)
     MarginRight = property(get_MarginRight, put_MarginRight)
+    MarginTop = property(get_MarginTop, put_MarginTop)
+    Orientation = property(get_Orientation, put_Orientation)
+    PageHeight = property(get_PageHeight, put_PageHeight)
+    PageWidth = property(get_PageWidth, put_PageWidth)
+    ScaleFactor = property(get_ScaleFactor, put_ScaleFactor)
     ShouldPrintBackgrounds = property(get_ShouldPrintBackgrounds, put_ShouldPrintBackgrounds)
-    ShouldPrintSelectionOnly = property(get_ShouldPrintSelectionOnly, put_ShouldPrintSelectionOnly)
     ShouldPrintHeaderAndFooter = property(get_ShouldPrintHeaderAndFooter, put_ShouldPrintHeaderAndFooter)
-    HeaderTitle = property(get_HeaderTitle, put_HeaderTitle)
-    FooterUri = property(get_FooterUri, put_FooterUri)
+    ShouldPrintSelectionOnly = property(get_ShouldPrintSelectionOnly, put_ShouldPrintSelectionOnly)
 class ICoreWebView2PrintSettings2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2PrintSettings2'
@@ -3683,13 +3683,13 @@ class ICoreWebView2PrintSettings2(ComPtr):
     def get_PrinterName(self) -> WinRT_String: ...
     @winrt_commethod(21)
     def put_PrinterName(self, value: WinRT_String) -> Void: ...
-    PageRanges = property(get_PageRanges, put_PageRanges)
-    PagesPerSide = property(get_PagesPerSide, put_PagesPerSide)
-    Copies = property(get_Copies, put_Copies)
     Collation = property(get_Collation, put_Collation)
     ColorMode = property(get_ColorMode, put_ColorMode)
+    Copies = property(get_Copies, put_Copies)
     Duplex = property(get_Duplex, put_Duplex)
     MediaSize = property(get_MediaSize, put_MediaSize)
+    PageRanges = property(get_PageRanges, put_PageRanges)
+    PagesPerSide = property(get_PagesPerSide, put_PagesPerSide)
     PrinterName = property(get_PrinterName, put_PrinterName)
 class ICoreWebView2PrivatePartial(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -3721,10 +3721,10 @@ class ICoreWebView2ProcessFailedEventArgs2(ComPtr):
     def get_ProcessDescription(self) -> WinRT_String: ...
     @winrt_commethod(9)
     def get_FrameInfosForFailedProcess(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Microsoft.Web.WebView2.Core.CoreWebView2FrameInfo]: ...
-    Reason = property(get_Reason, None)
     ExitCode = property(get_ExitCode, None)
-    ProcessDescription = property(get_ProcessDescription, None)
     FrameInfosForFailedProcess = property(get_FrameInfosForFailedProcess, None)
+    ProcessDescription = property(get_ProcessDescription, None)
+    Reason = property(get_Reason, None)
 class ICoreWebView2ProcessInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2ProcessInfo'
@@ -3733,8 +3733,8 @@ class ICoreWebView2ProcessInfo(ComPtr):
     def get_ProcessId(self) -> Int32: ...
     @winrt_commethod(7)
     def get_Kind(self) -> win32more.Microsoft.Web.WebView2.Core.CoreWebView2ProcessKind: ...
-    ProcessId = property(get_ProcessId, None)
     Kind = property(get_Kind, None)
+    ProcessId = property(get_ProcessId, None)
 class ICoreWebView2Profile(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2Profile'
@@ -3753,11 +3753,11 @@ class ICoreWebView2Profile(ComPtr):
     def get_PreferredColorScheme(self) -> win32more.Microsoft.Web.WebView2.Core.CoreWebView2PreferredColorScheme: ...
     @winrt_commethod(12)
     def put_PreferredColorScheme(self, value: win32more.Microsoft.Web.WebView2.Core.CoreWebView2PreferredColorScheme) -> Void: ...
-    ProfileName = property(get_ProfileName, None)
-    IsInPrivateModeEnabled = property(get_IsInPrivateModeEnabled, None)
-    ProfilePath = property(get_ProfilePath, None)
     DefaultDownloadFolderPath = property(get_DefaultDownloadFolderPath, put_DefaultDownloadFolderPath)
+    IsInPrivateModeEnabled = property(get_IsInPrivateModeEnabled, None)
     PreferredColorScheme = property(get_PreferredColorScheme, put_PreferredColorScheme)
+    ProfileName = property(get_ProfileName, None)
+    ProfilePath = property(get_ProfilePath, None)
 class ICoreWebView2Profile2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2Profile2'
@@ -3798,8 +3798,8 @@ class ICoreWebView2Profile6(ComPtr):
     def get_IsGeneralAutofillEnabled(self) -> Boolean: ...
     @winrt_commethod(9)
     def put_IsGeneralAutofillEnabled(self, value: Boolean) -> Void: ...
-    IsPasswordAutosaveEnabled = property(get_IsPasswordAutosaveEnabled, put_IsPasswordAutosaveEnabled)
     IsGeneralAutofillEnabled = property(get_IsGeneralAutofillEnabled, put_IsGeneralAutofillEnabled)
+    IsPasswordAutosaveEnabled = property(get_IsPasswordAutosaveEnabled, put_IsPasswordAutosaveEnabled)
 class ICoreWebView2ScriptDialogOpeningEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2ScriptDialogOpeningEventArgs'
@@ -3820,11 +3820,11 @@ class ICoreWebView2ScriptDialogOpeningEventArgs(ComPtr):
     def Accept(self) -> Void: ...
     @winrt_commethod(13)
     def GetDeferral(self) -> win32more.Windows.Foundation.Deferral: ...
-    Uri = property(get_Uri, None)
+    DefaultText = property(get_DefaultText, None)
     Kind = property(get_Kind, None)
     Message = property(get_Message, None)
-    DefaultText = property(get_DefaultText, None)
     ResultText = property(get_ResultText, put_ResultText)
+    Uri = property(get_Uri, None)
 class ICoreWebView2ServerCertificateErrorDetectedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2ServerCertificateErrorDetectedEventArgs'
@@ -3841,10 +3841,10 @@ class ICoreWebView2ServerCertificateErrorDetectedEventArgs(ComPtr):
     def put_Action(self, value: win32more.Microsoft.Web.WebView2.Core.CoreWebView2ServerCertificateErrorAction) -> Void: ...
     @winrt_commethod(11)
     def GetDeferral(self) -> win32more.Windows.Foundation.Deferral: ...
+    Action = property(get_Action, put_Action)
     ErrorStatus = property(get_ErrorStatus, None)
     RequestUri = property(get_RequestUri, None)
     ServerCertificate = property(get_ServerCertificate, None)
-    Action = property(get_Action, put_Action)
 class ICoreWebView2Settings(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2Settings'
@@ -3885,15 +3885,15 @@ class ICoreWebView2Settings(ComPtr):
     def get_IsBuiltInErrorPageEnabled(self) -> Boolean: ...
     @winrt_commethod(23)
     def put_IsBuiltInErrorPageEnabled(self, value: Boolean) -> Void: ...
-    IsScriptEnabled = property(get_IsScriptEnabled, put_IsScriptEnabled)
-    IsWebMessageEnabled = property(get_IsWebMessageEnabled, put_IsWebMessageEnabled)
-    AreDefaultScriptDialogsEnabled = property(get_AreDefaultScriptDialogsEnabled, put_AreDefaultScriptDialogsEnabled)
-    IsStatusBarEnabled = property(get_IsStatusBarEnabled, put_IsStatusBarEnabled)
-    AreDevToolsEnabled = property(get_AreDevToolsEnabled, put_AreDevToolsEnabled)
     AreDefaultContextMenusEnabled = property(get_AreDefaultContextMenusEnabled, put_AreDefaultContextMenusEnabled)
+    AreDefaultScriptDialogsEnabled = property(get_AreDefaultScriptDialogsEnabled, put_AreDefaultScriptDialogsEnabled)
+    AreDevToolsEnabled = property(get_AreDevToolsEnabled, put_AreDevToolsEnabled)
     AreHostObjectsAllowed = property(get_AreHostObjectsAllowed, put_AreHostObjectsAllowed)
-    IsZoomControlEnabled = property(get_IsZoomControlEnabled, put_IsZoomControlEnabled)
     IsBuiltInErrorPageEnabled = property(get_IsBuiltInErrorPageEnabled, put_IsBuiltInErrorPageEnabled)
+    IsScriptEnabled = property(get_IsScriptEnabled, put_IsScriptEnabled)
+    IsStatusBarEnabled = property(get_IsStatusBarEnabled, put_IsStatusBarEnabled)
+    IsWebMessageEnabled = property(get_IsWebMessageEnabled, put_IsWebMessageEnabled)
+    IsZoomControlEnabled = property(get_IsZoomControlEnabled, put_IsZoomControlEnabled)
 class ICoreWebView2Settings2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2Settings2'
@@ -3924,8 +3924,8 @@ class ICoreWebView2Settings4(ComPtr):
     def get_IsGeneralAutofillEnabled(self) -> Boolean: ...
     @winrt_commethod(9)
     def put_IsGeneralAutofillEnabled(self, value: Boolean) -> Void: ...
-    IsPasswordAutosaveEnabled = property(get_IsPasswordAutosaveEnabled, put_IsPasswordAutosaveEnabled)
     IsGeneralAutofillEnabled = property(get_IsGeneralAutofillEnabled, put_IsGeneralAutofillEnabled)
+    IsPasswordAutosaveEnabled = property(get_IsPasswordAutosaveEnabled, put_IsPasswordAutosaveEnabled)
 class ICoreWebView2Settings5(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2Settings5'
@@ -4031,10 +4031,10 @@ class ICoreWebView2WebResourceRequest(ComPtr):
     def put_Content(self, value: win32more.Windows.Storage.Streams.IRandomAccessStream) -> Void: ...
     @winrt_commethod(12)
     def get_Headers(self) -> win32more.Microsoft.Web.WebView2.Core.CoreWebView2HttpRequestHeaders: ...
-    Uri = property(get_Uri, put_Uri)
-    Method = property(get_Method, put_Method)
     Content = property(get_Content, put_Content)
     Headers = property(get_Headers, None)
+    Method = property(get_Method, put_Method)
+    Uri = property(get_Uri, put_Uri)
 class ICoreWebView2WebResourceRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2WebResourceRequestedEventArgs'
@@ -4050,8 +4050,8 @@ class ICoreWebView2WebResourceRequestedEventArgs(ComPtr):
     @winrt_commethod(10)
     def GetDeferral(self) -> win32more.Windows.Foundation.Deferral: ...
     Request = property(get_Request, None)
-    Response = property(get_Response, put_Response)
     ResourceContext = property(get_ResourceContext, None)
+    Response = property(get_Response, put_Response)
 class ICoreWebView2WebResourceResponse(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2WebResourceResponse'
@@ -4072,8 +4072,8 @@ class ICoreWebView2WebResourceResponse(ComPtr):
     def put_ReasonPhrase(self, value: WinRT_String) -> Void: ...
     Content = property(get_Content, put_Content)
     Headers = property(get_Headers, None)
-    StatusCode = property(get_StatusCode, put_StatusCode)
     ReasonPhrase = property(get_ReasonPhrase, put_ReasonPhrase)
+    StatusCode = property(get_StatusCode, put_StatusCode)
 class ICoreWebView2WebResourceResponseReceivedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2WebResourceResponseReceivedEventArgs'
@@ -4097,8 +4097,8 @@ class ICoreWebView2WebResourceResponseView(ComPtr):
     @winrt_commethod(9)
     def GetContentAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Storage.Streams.IRandomAccessStream]: ...
     Headers = property(get_Headers, None)
-    StatusCode = property(get_StatusCode, None)
     ReasonPhrase = property(get_ReasonPhrase, None)
+    StatusCode = property(get_StatusCode, None)
 class ICoreWebView2WindowFeatures(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2WindowFeatures'
@@ -4125,14 +4125,14 @@ class ICoreWebView2WindowFeatures(ComPtr):
     def get_ShouldDisplayScrollBars(self) -> Boolean: ...
     HasPosition = property(get_HasPosition, None)
     HasSize = property(get_HasSize, None)
-    Left = property(get_Left, None)
-    Top = property(get_Top, None)
     Height = property(get_Height, None)
-    Width = property(get_Width, None)
+    Left = property(get_Left, None)
     ShouldDisplayMenuBar = property(get_ShouldDisplayMenuBar, None)
+    ShouldDisplayScrollBars = property(get_ShouldDisplayScrollBars, None)
     ShouldDisplayStatus = property(get_ShouldDisplayStatus, None)
     ShouldDisplayToolbar = property(get_ShouldDisplayToolbar, None)
-    ShouldDisplayScrollBars = property(get_ShouldDisplayScrollBars, None)
+    Top = property(get_Top, None)
+    Width = property(get_Width, None)
 class ICoreWebView2_10(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2_10'
@@ -4310,8 +4310,8 @@ class ICoreWebView2_8(ComPtr):
     def add_IsDocumentPlayingAudioChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.Web.WebView2.Core.CoreWebView2, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(12)
     def remove_IsDocumentPlayingAudioChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    IsMuted = property(get_IsMuted, put_IsMuted)
     IsDocumentPlayingAudio = property(get_IsDocumentPlayingAudio, None)
+    IsMuted = property(get_IsMuted, put_IsMuted)
 class ICoreWebView2_9(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2_9'
@@ -4334,9 +4334,9 @@ class ICoreWebView2_9(ComPtr):
     def OpenDefaultDownloadDialog(self) -> Void: ...
     @winrt_commethod(14)
     def CloseDefaultDownloadDialog(self) -> Void: ...
-    IsDefaultDownloadDialogOpen = property(get_IsDefaultDownloadDialogOpen, None)
     DefaultDownloadDialogCornerAlignment = property(get_DefaultDownloadDialogCornerAlignment, put_DefaultDownloadDialogCornerAlignment)
     DefaultDownloadDialogMargin = property(get_DefaultDownloadDialogMargin, put_DefaultDownloadDialogMargin)
+    IsDefaultDownloadDialogOpen = property(get_IsDefaultDownloadDialogOpen, None)
 
 
 make_ready(__name__)

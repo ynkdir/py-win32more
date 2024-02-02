@@ -69,9 +69,9 @@ class IIOControlCode(ComPtr):
     def get_ControlCode(self) -> UInt32: ...
     AccessMode = property(get_AccessMode, None)
     BufferingMethod = property(get_BufferingMethod, None)
-    Function = property(get_Function, None)
-    DeviceType = property(get_DeviceType, None)
     ControlCode = property(get_ControlCode, None)
+    DeviceType = property(get_DeviceType, None)
+    Function = property(get_Function, None)
 class IIOControlCodeFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Custom.IIOControlCodeFactory'
@@ -120,9 +120,9 @@ class IOControlCode(ComPtr):
     def get_ControlCode(self: win32more.Windows.Devices.Custom.IIOControlCode) -> UInt32: ...
     AccessMode = property(get_AccessMode, None)
     BufferingMethod = property(get_BufferingMethod, None)
-    Function = property(get_Function, None)
-    DeviceType = property(get_DeviceType, None)
     ControlCode = property(get_ControlCode, None)
+    DeviceType = property(get_DeviceType, None)
+    Function = property(get_Function, None)
 class _KnownDeviceTypes_Meta_(ComPtr.__class__):
     pass
 class KnownDeviceTypes(ComPtr, metaclass=_KnownDeviceTypes_Meta_):

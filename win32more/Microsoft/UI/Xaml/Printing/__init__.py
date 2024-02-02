@@ -69,8 +69,8 @@ class IPaginateEventArgs(ComPtr):
     def get_PrintTaskOptions(self) -> win32more.Windows.Graphics.Printing.PrintTaskOptions: ...
     @winrt_commethod(7)
     def get_CurrentPreviewPageNumber(self) -> Int32: ...
-    PrintTaskOptions = property(get_PrintTaskOptions, None)
     CurrentPreviewPageNumber = property(get_CurrentPreviewPageNumber, None)
+    PrintTaskOptions = property(get_PrintTaskOptions, None)
 class IPrintDocument(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Printing.IPrintDocument'
@@ -130,8 +130,8 @@ class PaginateEventArgs(ComPtr):
     def get_PrintTaskOptions(self: win32more.Microsoft.UI.Xaml.Printing.IPaginateEventArgs) -> win32more.Windows.Graphics.Printing.PrintTaskOptions: ...
     @winrt_mixinmethod
     def get_CurrentPreviewPageNumber(self: win32more.Microsoft.UI.Xaml.Printing.IPaginateEventArgs) -> Int32: ...
-    PrintTaskOptions = property(get_PrintTaskOptions, None)
     CurrentPreviewPageNumber = property(get_CurrentPreviewPageNumber, None)
+    PrintTaskOptions = property(get_PrintTaskOptions, None)
 class PaginateEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{c291876c-343a-5b9b-a36c-8415ba4cd9dd}')

@@ -64,8 +64,8 @@ class IPlayToConnectionStateChangedEventArgs(ComPtr):
     def get_PreviousState(self) -> win32more.Windows.Media.PlayTo.PlayToConnectionState: ...
     @winrt_commethod(7)
     def get_CurrentState(self) -> win32more.Windows.Media.PlayTo.PlayToConnectionState: ...
-    PreviousState = property(get_PreviousState, None)
     CurrentState = property(get_CurrentState, None)
+    PreviousState = property(get_PreviousState, None)
 class IPlayToConnectionTransferredEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.PlayTo.IPlayToConnectionTransferredEventArgs'
@@ -74,8 +74,8 @@ class IPlayToConnectionTransferredEventArgs(ComPtr):
     def get_PreviousSource(self) -> win32more.Windows.Media.PlayTo.PlayToSource: ...
     @winrt_commethod(7)
     def get_CurrentSource(self) -> win32more.Windows.Media.PlayTo.PlayToSource: ...
-    PreviousSource = property(get_PreviousSource, None)
     CurrentSource = property(get_CurrentSource, None)
+    PreviousSource = property(get_PreviousSource, None)
 class IPlayToManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.PlayTo.IPlayToManager'
@@ -188,10 +188,10 @@ class IPlayToReceiver(ComPtr):
     @winrt_commethod(46)
     def StopAsync(self) -> win32more.Windows.Foundation.IAsyncAction: ...
     FriendlyName = property(get_FriendlyName, put_FriendlyName)
-    SupportsImage = property(get_SupportsImage, put_SupportsImage)
-    SupportsAudio = property(get_SupportsAudio, put_SupportsAudio)
-    SupportsVideo = property(get_SupportsVideo, put_SupportsVideo)
     Properties = property(get_Properties, None)
+    SupportsAudio = property(get_SupportsAudio, put_SupportsAudio)
+    SupportsImage = property(get_SupportsImage, put_SupportsImage)
+    SupportsVideo = property(get_SupportsVideo, put_SupportsVideo)
 class IPlayToSource(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.PlayTo.IPlayToSource'
@@ -248,8 +248,8 @@ class IPlayToSourceSelectedEventArgs(ComPtr):
     def get_SupportsVideo(self) -> Boolean: ...
     FriendlyName = property(get_FriendlyName, None)
     Icon = property(get_Icon, None)
-    SupportsImage = property(get_SupportsImage, None)
     SupportsAudio = property(get_SupportsAudio, None)
+    SupportsImage = property(get_SupportsImage, None)
     SupportsVideo = property(get_SupportsVideo, None)
 class IPlayToSourceWithPreferredSourceUri(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -291,16 +291,16 @@ class ISourceChangeRequestedEventArgs(ComPtr):
     def get_Rating(self) -> win32more.Windows.Foundation.IReference[UInt32]: ...
     @winrt_commethod(15)
     def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
-    Stream = property(get_Stream, None)
-    Title = property(get_Title, None)
-    Author = property(get_Author, None)
     Album = property(get_Album, None)
-    Genre = property(get_Genre, None)
-    Description = property(get_Description, None)
+    Author = property(get_Author, None)
     Date = property(get_Date, None)
-    Thumbnail = property(get_Thumbnail, None)
-    Rating = property(get_Rating, None)
+    Description = property(get_Description, None)
+    Genre = property(get_Genre, None)
     Properties = property(get_Properties, None)
+    Rating = property(get_Rating, None)
+    Stream = property(get_Stream, None)
+    Thumbnail = property(get_Thumbnail, None)
+    Title = property(get_Title, None)
 class IVolumeChangeRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.PlayTo.IVolumeChangeRequestedEventArgs'
@@ -362,8 +362,8 @@ class PlayToConnectionStateChangedEventArgs(ComPtr):
     def get_PreviousState(self: win32more.Windows.Media.PlayTo.IPlayToConnectionStateChangedEventArgs) -> win32more.Windows.Media.PlayTo.PlayToConnectionState: ...
     @winrt_mixinmethod
     def get_CurrentState(self: win32more.Windows.Media.PlayTo.IPlayToConnectionStateChangedEventArgs) -> win32more.Windows.Media.PlayTo.PlayToConnectionState: ...
-    PreviousState = property(get_PreviousState, None)
     CurrentState = property(get_CurrentState, None)
+    PreviousState = property(get_PreviousState, None)
 class PlayToConnectionTransferredEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.PlayTo.IPlayToConnectionTransferredEventArgs
@@ -372,8 +372,8 @@ class PlayToConnectionTransferredEventArgs(ComPtr):
     def get_PreviousSource(self: win32more.Windows.Media.PlayTo.IPlayToConnectionTransferredEventArgs) -> win32more.Windows.Media.PlayTo.PlayToSource: ...
     @winrt_mixinmethod
     def get_CurrentSource(self: win32more.Windows.Media.PlayTo.IPlayToConnectionTransferredEventArgs) -> win32more.Windows.Media.PlayTo.PlayToSource: ...
-    PreviousSource = property(get_PreviousSource, None)
     CurrentSource = property(get_CurrentSource, None)
+    PreviousSource = property(get_PreviousSource, None)
 class PlayToManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.PlayTo.IPlayToManager
@@ -491,10 +491,10 @@ class PlayToReceiver(ComPtr):
     @winrt_mixinmethod
     def StopAsync(self: win32more.Windows.Media.PlayTo.IPlayToReceiver) -> win32more.Windows.Foundation.IAsyncAction: ...
     FriendlyName = property(get_FriendlyName, put_FriendlyName)
-    SupportsImage = property(get_SupportsImage, put_SupportsImage)
-    SupportsAudio = property(get_SupportsAudio, put_SupportsAudio)
-    SupportsVideo = property(get_SupportsVideo, put_SupportsVideo)
     Properties = property(get_Properties, None)
+    SupportsAudio = property(get_SupportsAudio, put_SupportsAudio)
+    SupportsImage = property(get_SupportsImage, put_SupportsImage)
+    SupportsVideo = property(get_SupportsVideo, put_SupportsVideo)
 class PlayToSource(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.PlayTo.IPlayToSource
@@ -556,8 +556,8 @@ class PlayToSourceSelectedEventArgs(ComPtr):
     def get_SupportsVideo(self: win32more.Windows.Media.PlayTo.IPlayToSourceSelectedEventArgs) -> Boolean: ...
     FriendlyName = property(get_FriendlyName, None)
     Icon = property(get_Icon, None)
-    SupportsImage = property(get_SupportsImage, None)
     SupportsAudio = property(get_SupportsAudio, None)
+    SupportsImage = property(get_SupportsImage, None)
     SupportsVideo = property(get_SupportsVideo, None)
 class PlaybackRateChangeRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -590,16 +590,16 @@ class SourceChangeRequestedEventArgs(ComPtr):
     def get_Rating(self: win32more.Windows.Media.PlayTo.ISourceChangeRequestedEventArgs) -> win32more.Windows.Foundation.IReference[UInt32]: ...
     @winrt_mixinmethod
     def get_Properties(self: win32more.Windows.Media.PlayTo.ISourceChangeRequestedEventArgs) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
-    Stream = property(get_Stream, None)
-    Title = property(get_Title, None)
-    Author = property(get_Author, None)
     Album = property(get_Album, None)
-    Genre = property(get_Genre, None)
-    Description = property(get_Description, None)
+    Author = property(get_Author, None)
     Date = property(get_Date, None)
-    Thumbnail = property(get_Thumbnail, None)
-    Rating = property(get_Rating, None)
+    Description = property(get_Description, None)
+    Genre = property(get_Genre, None)
     Properties = property(get_Properties, None)
+    Rating = property(get_Rating, None)
+    Stream = property(get_Stream, None)
+    Thumbnail = property(get_Thumbnail, None)
+    Title = property(get_Title, None)
 class VolumeChangeRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.PlayTo.IVolumeChangeRequestedEventArgs

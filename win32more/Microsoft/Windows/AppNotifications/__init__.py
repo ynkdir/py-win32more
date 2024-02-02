@@ -50,15 +50,15 @@ class AppNotification(ComPtr):
     def get_SuppressDisplay(self: win32more.Microsoft.Windows.AppNotifications.IAppNotification) -> Boolean: ...
     @winrt_mixinmethod
     def put_SuppressDisplay(self: win32more.Microsoft.Windows.AppNotifications.IAppNotification, value: Boolean) -> Void: ...
-    Tag = property(get_Tag, put_Tag)
+    Expiration = property(get_Expiration, put_Expiration)
+    ExpiresOnReboot = property(get_ExpiresOnReboot, put_ExpiresOnReboot)
     Group = property(get_Group, put_Group)
     Id = property(get_Id, None)
     Payload = property(get_Payload, None)
-    Progress = property(get_Progress, put_Progress)
-    Expiration = property(get_Expiration, put_Expiration)
-    ExpiresOnReboot = property(get_ExpiresOnReboot, put_ExpiresOnReboot)
     Priority = property(get_Priority, put_Priority)
+    Progress = property(get_Progress, put_Progress)
     SuppressDisplay = property(get_SuppressDisplay, put_SuppressDisplay)
+    Tag = property(get_Tag, put_Tag)
 class AppNotificationActivatedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Windows.AppNotifications.IAppNotificationActivatedEventArgs
@@ -70,8 +70,8 @@ class AppNotificationActivatedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Arguments(self: win32more.Microsoft.Windows.AppNotifications.IAppNotificationActivatedEventArgs2) -> win32more.Windows.Foundation.Collections.IMap[WinRT_String, WinRT_String]: ...
     Argument = property(get_Argument, None)
-    UserInput = property(get_UserInput, None)
     Arguments = property(get_Arguments, None)
+    UserInput = property(get_UserInput, None)
 class _AppNotificationManager_Meta_(ComPtr.__class__):
     pass
 class AppNotificationManager(ComPtr, metaclass=_AppNotificationManager_Meta_):
@@ -155,10 +155,10 @@ class AppNotificationProgressData(ComPtr):
     @winrt_mixinmethod
     def put_Status(self: win32more.Microsoft.Windows.AppNotifications.IAppNotificationProgressData, value: WinRT_String) -> Void: ...
     SequenceNumber = property(get_SequenceNumber, put_SequenceNumber)
+    Status = property(get_Status, put_Status)
     Title = property(get_Title, put_Title)
     Value = property(get_Value, put_Value)
     ValueStringOverride = property(get_ValueStringOverride, put_ValueStringOverride)
-    Status = property(get_Status, put_Status)
 class AppNotificationProgressResult(Int32):  # enum
     Succeeded = 0
     AppNotificationNotFound = 1
@@ -207,15 +207,15 @@ class IAppNotification(ComPtr):
     def get_SuppressDisplay(self) -> Boolean: ...
     @winrt_commethod(21)
     def put_SuppressDisplay(self, value: Boolean) -> Void: ...
-    Tag = property(get_Tag, put_Tag)
+    Expiration = property(get_Expiration, put_Expiration)
+    ExpiresOnReboot = property(get_ExpiresOnReboot, put_ExpiresOnReboot)
     Group = property(get_Group, put_Group)
     Id = property(get_Id, None)
     Payload = property(get_Payload, None)
-    Progress = property(get_Progress, put_Progress)
-    Expiration = property(get_Expiration, put_Expiration)
-    ExpiresOnReboot = property(get_ExpiresOnReboot, put_ExpiresOnReboot)
     Priority = property(get_Priority, put_Priority)
+    Progress = property(get_Progress, put_Progress)
     SuppressDisplay = property(get_SuppressDisplay, put_SuppressDisplay)
+    Tag = property(get_Tag, put_Tag)
 class IAppNotificationActivatedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Windows.AppNotifications.IAppNotificationActivatedEventArgs'
@@ -318,10 +318,10 @@ class IAppNotificationProgressData(ComPtr):
     @winrt_commethod(15)
     def put_Status(self, value: WinRT_String) -> Void: ...
     SequenceNumber = property(get_SequenceNumber, put_SequenceNumber)
+    Status = property(get_Status, put_Status)
     Title = property(get_Title, put_Title)
     Value = property(get_Value, put_Value)
     ValueStringOverride = property(get_ValueStringOverride, put_ValueStringOverride)
-    Status = property(get_Status, put_Status)
 class IAppNotificationProgressDataFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Windows.AppNotifications.IAppNotificationProgressDataFactory'

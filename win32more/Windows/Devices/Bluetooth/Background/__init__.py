@@ -25,9 +25,9 @@ class BluetoothLEAdvertisementPublisherTriggerDetails(ComPtr):
     def get_Error(self: win32more.Windows.Devices.Bluetooth.Background.IBluetoothLEAdvertisementPublisherTriggerDetails) -> win32more.Windows.Devices.Bluetooth.BluetoothError: ...
     @winrt_mixinmethod
     def get_SelectedTransmitPowerLevelInDBm(self: win32more.Windows.Devices.Bluetooth.Background.IBluetoothLEAdvertisementPublisherTriggerDetails2) -> win32more.Windows.Foundation.IReference[Int16]: ...
-    Status = property(get_Status, None)
     Error = property(get_Error, None)
     SelectedTransmitPowerLevelInDBm = property(get_SelectedTransmitPowerLevelInDBm, None)
+    Status = property(get_Status, None)
 class BluetoothLEAdvertisementWatcherTriggerDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Bluetooth.Background.IBluetoothLEAdvertisementWatcherTriggerDetails
@@ -38,8 +38,8 @@ class BluetoothLEAdvertisementWatcherTriggerDetails(ComPtr):
     def get_Advertisements(self: win32more.Windows.Devices.Bluetooth.Background.IBluetoothLEAdvertisementWatcherTriggerDetails) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementReceivedEventArgs]: ...
     @winrt_mixinmethod
     def get_SignalStrengthFilter(self: win32more.Windows.Devices.Bluetooth.Background.IBluetoothLEAdvertisementWatcherTriggerDetails) -> win32more.Windows.Devices.Bluetooth.BluetoothSignalStrengthFilter: ...
-    Error = property(get_Error, None)
     Advertisements = property(get_Advertisements, None)
+    Error = property(get_Error, None)
     SignalStrengthFilter = property(get_SignalStrengthFilter, None)
 class GattCharacteristicNotificationTriggerDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -56,9 +56,9 @@ class GattCharacteristicNotificationTriggerDetails(ComPtr):
     @winrt_mixinmethod
     def get_ValueChangedEvents(self: win32more.Windows.Devices.Bluetooth.Background.IGattCharacteristicNotificationTriggerDetails2) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattValueChangedEventArgs]: ...
     Characteristic = property(get_Characteristic, None)
-    Value = property(get_Value, None)
     Error = property(get_Error, None)
     EventTriggeringMode = property(get_EventTriggeringMode, None)
+    Value = property(get_Value, None)
     ValueChangedEvents = property(get_ValueChangedEvents, None)
 class _GattServiceProviderConnection_Meta_(ComPtr.__class__):
     pass
@@ -74,8 +74,8 @@ class GattServiceProviderConnection(ComPtr, metaclass=_GattServiceProviderConnec
     def Start(self: win32more.Windows.Devices.Bluetooth.Background.IGattServiceProviderConnection) -> Void: ...
     @winrt_classmethod
     def get_AllServices(cls: win32more.Windows.Devices.Bluetooth.Background.IGattServiceProviderConnectionStatics) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Devices.Bluetooth.Background.GattServiceProviderConnection]: ...
-    TriggerId = property(get_TriggerId, None)
     Service = property(get_Service, None)
+    TriggerId = property(get_TriggerId, None)
     _GattServiceProviderConnection_Meta_.AllServices = property(get_AllServices.__wrapped__, None)
 class GattServiceProviderTriggerDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -92,8 +92,8 @@ class IBluetoothLEAdvertisementPublisherTriggerDetails(ComPtr):
     def get_Status(self) -> win32more.Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementPublisherStatus: ...
     @winrt_commethod(7)
     def get_Error(self) -> win32more.Windows.Devices.Bluetooth.BluetoothError: ...
-    Status = property(get_Status, None)
     Error = property(get_Error, None)
+    Status = property(get_Status, None)
 class IBluetoothLEAdvertisementPublisherTriggerDetails2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Bluetooth.Background.IBluetoothLEAdvertisementPublisherTriggerDetails2'
@@ -111,8 +111,8 @@ class IBluetoothLEAdvertisementWatcherTriggerDetails(ComPtr):
     def get_Advertisements(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementReceivedEventArgs]: ...
     @winrt_commethod(8)
     def get_SignalStrengthFilter(self) -> win32more.Windows.Devices.Bluetooth.BluetoothSignalStrengthFilter: ...
-    Error = property(get_Error, None)
     Advertisements = property(get_Advertisements, None)
+    Error = property(get_Error, None)
     SignalStrengthFilter = property(get_SignalStrengthFilter, None)
 class IGattCharacteristicNotificationTriggerDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -147,8 +147,8 @@ class IGattServiceProviderConnection(ComPtr):
     def get_Service(self) -> win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalService: ...
     @winrt_commethod(8)
     def Start(self) -> Void: ...
-    TriggerId = property(get_TriggerId, None)
     Service = property(get_Service, None)
+    TriggerId = property(get_TriggerId, None)
 class IGattServiceProviderConnectionStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Bluetooth.Background.IGattServiceProviderConnectionStatics'
@@ -173,9 +173,9 @@ class IRfcommConnectionTriggerDetails(ComPtr):
     def get_Incoming(self) -> Boolean: ...
     @winrt_commethod(8)
     def get_RemoteDevice(self) -> win32more.Windows.Devices.Bluetooth.BluetoothDevice: ...
-    Socket = property(get_Socket, None)
     Incoming = property(get_Incoming, None)
     RemoteDevice = property(get_RemoteDevice, None)
+    Socket = property(get_Socket, None)
 class IRfcommInboundConnectionInformation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Bluetooth.Background.IRfcommInboundConnectionInformation'
@@ -192,8 +192,8 @@ class IRfcommInboundConnectionInformation(ComPtr):
     def get_ServiceCapabilities(self) -> win32more.Windows.Devices.Bluetooth.BluetoothServiceCapabilities: ...
     @winrt_commethod(11)
     def put_ServiceCapabilities(self, value: win32more.Windows.Devices.Bluetooth.BluetoothServiceCapabilities) -> Void: ...
-    SdpRecord = property(get_SdpRecord, put_SdpRecord)
     LocalServiceId = property(get_LocalServiceId, put_LocalServiceId)
+    SdpRecord = property(get_SdpRecord, put_SdpRecord)
     ServiceCapabilities = property(get_ServiceCapabilities, put_ServiceCapabilities)
 class IRfcommOutboundConnectionInformation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -214,9 +214,9 @@ class RfcommConnectionTriggerDetails(ComPtr):
     def get_Incoming(self: win32more.Windows.Devices.Bluetooth.Background.IRfcommConnectionTriggerDetails) -> Boolean: ...
     @winrt_mixinmethod
     def get_RemoteDevice(self: win32more.Windows.Devices.Bluetooth.Background.IRfcommConnectionTriggerDetails) -> win32more.Windows.Devices.Bluetooth.BluetoothDevice: ...
-    Socket = property(get_Socket, None)
     Incoming = property(get_Incoming, None)
     RemoteDevice = property(get_RemoteDevice, None)
+    Socket = property(get_Socket, None)
 class RfcommInboundConnectionInformation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Bluetooth.Background.IRfcommInboundConnectionInformation
@@ -233,8 +233,8 @@ class RfcommInboundConnectionInformation(ComPtr):
     def get_ServiceCapabilities(self: win32more.Windows.Devices.Bluetooth.Background.IRfcommInboundConnectionInformation) -> win32more.Windows.Devices.Bluetooth.BluetoothServiceCapabilities: ...
     @winrt_mixinmethod
     def put_ServiceCapabilities(self: win32more.Windows.Devices.Bluetooth.Background.IRfcommInboundConnectionInformation, value: win32more.Windows.Devices.Bluetooth.BluetoothServiceCapabilities) -> Void: ...
-    SdpRecord = property(get_SdpRecord, put_SdpRecord)
     LocalServiceId = property(get_LocalServiceId, put_LocalServiceId)
+    SdpRecord = property(get_SdpRecord, put_SdpRecord)
     ServiceCapabilities = property(get_ServiceCapabilities, put_ServiceCapabilities)
 class RfcommOutboundConnectionInformation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable

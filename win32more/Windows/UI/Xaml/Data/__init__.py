@@ -65,15 +65,15 @@ class Binding(ComPtr):
     def get_UpdateSourceTrigger(self: win32more.Windows.UI.Xaml.Data.IBinding2) -> win32more.Windows.UI.Xaml.Data.UpdateSourceTrigger: ...
     @winrt_mixinmethod
     def put_UpdateSourceTrigger(self: win32more.Windows.UI.Xaml.Data.IBinding2, value: win32more.Windows.UI.Xaml.Data.UpdateSourceTrigger) -> Void: ...
-    Path = property(get_Path, put_Path)
-    Mode = property(get_Mode, put_Mode)
-    Source = property(get_Source, put_Source)
-    RelativeSource = property(get_RelativeSource, put_RelativeSource)
-    ElementName = property(get_ElementName, put_ElementName)
     Converter = property(get_Converter, put_Converter)
-    ConverterParameter = property(get_ConverterParameter, put_ConverterParameter)
     ConverterLanguage = property(get_ConverterLanguage, put_ConverterLanguage)
+    ConverterParameter = property(get_ConverterParameter, put_ConverterParameter)
+    ElementName = property(get_ElementName, put_ElementName)
     FallbackValue = property(get_FallbackValue, put_FallbackValue)
+    Mode = property(get_Mode, put_Mode)
+    Path = property(get_Path, put_Path)
+    RelativeSource = property(get_RelativeSource, put_RelativeSource)
+    Source = property(get_Source, put_Source)
     TargetNullValue = property(get_TargetNullValue, put_TargetNullValue)
     UpdateSourceTrigger = property(get_UpdateSourceTrigger, put_UpdateSourceTrigger)
 class BindingBase(ComPtr):
@@ -152,14 +152,14 @@ class CollectionViewSource(ComPtr, metaclass=_CollectionViewSource_Meta_):
     def get_IsSourceGroupedProperty(cls: win32more.Windows.UI.Xaml.Data.ICollectionViewSourceStatics) -> win32more.Windows.UI.Xaml.DependencyProperty: ...
     @winrt_classmethod
     def get_ItemsPathProperty(cls: win32more.Windows.UI.Xaml.Data.ICollectionViewSourceStatics) -> win32more.Windows.UI.Xaml.DependencyProperty: ...
-    Source = property(get_Source, put_Source)
-    View = property(get_View, None)
     IsSourceGrouped = property(get_IsSourceGrouped, put_IsSourceGrouped)
     ItemsPath = property(get_ItemsPath, put_ItemsPath)
-    _CollectionViewSource_Meta_.SourceProperty = property(get_SourceProperty.__wrapped__, None)
-    _CollectionViewSource_Meta_.ViewProperty = property(get_ViewProperty.__wrapped__, None)
+    Source = property(get_Source, put_Source)
+    View = property(get_View, None)
     _CollectionViewSource_Meta_.IsSourceGroupedProperty = property(get_IsSourceGroupedProperty.__wrapped__, None)
     _CollectionViewSource_Meta_.ItemsPathProperty = property(get_ItemsPathProperty.__wrapped__, None)
+    _CollectionViewSource_Meta_.SourceProperty = property(get_SourceProperty.__wrapped__, None)
+    _CollectionViewSource_Meta_.ViewProperty = property(get_ViewProperty.__wrapped__, None)
 class CurrentChangingEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Data.ICurrentChangingEventArgs
@@ -225,14 +225,14 @@ class IBinding(ComPtr):
     def get_ConverterLanguage(self) -> WinRT_String: ...
     @winrt_commethod(21)
     def put_ConverterLanguage(self, value: WinRT_String) -> Void: ...
-    Path = property(get_Path, put_Path)
-    Mode = property(get_Mode, put_Mode)
-    Source = property(get_Source, put_Source)
-    RelativeSource = property(get_RelativeSource, put_RelativeSource)
-    ElementName = property(get_ElementName, put_ElementName)
     Converter = property(get_Converter, put_Converter)
-    ConverterParameter = property(get_ConverterParameter, put_ConverterParameter)
     ConverterLanguage = property(get_ConverterLanguage, put_ConverterLanguage)
+    ConverterParameter = property(get_ConverterParameter, put_ConverterParameter)
+    ElementName = property(get_ElementName, put_ElementName)
+    Mode = property(get_Mode, put_Mode)
+    Path = property(get_Path, put_Path)
+    RelativeSource = property(get_RelativeSource, put_RelativeSource)
+    Source = property(get_Source, put_Source)
 class IBinding2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Data.IBinding2'
@@ -340,12 +340,12 @@ class ICollectionView(ComPtr):
     def MoveCurrentToPrevious(self) -> Boolean: ...
     @winrt_commethod(22)
     def LoadMoreItemsAsync(self, count: UInt32) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.UI.Xaml.Data.LoadMoreItemsResult]: ...
+    CollectionGroups = property(get_CollectionGroups, None)
     CurrentItem = property(get_CurrentItem, None)
     CurrentPosition = property(get_CurrentPosition, None)
+    HasMoreItems = property(get_HasMoreItems, None)
     IsCurrentAfterLast = property(get_IsCurrentAfterLast, None)
     IsCurrentBeforeFirst = property(get_IsCurrentBeforeFirst, None)
-    CollectionGroups = property(get_CollectionGroups, None)
-    HasMoreItems = property(get_HasMoreItems, None)
 class ICollectionViewFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Data.ICollectionViewFactory'
@@ -380,10 +380,10 @@ class ICollectionViewSource(ComPtr):
     def get_ItemsPath(self) -> win32more.Windows.UI.Xaml.PropertyPath: ...
     @winrt_commethod(12)
     def put_ItemsPath(self, value: win32more.Windows.UI.Xaml.PropertyPath) -> Void: ...
-    Source = property(get_Source, put_Source)
-    View = property(get_View, None)
     IsSourceGrouped = property(get_IsSourceGrouped, put_IsSourceGrouped)
     ItemsPath = property(get_ItemsPath, put_ItemsPath)
+    Source = property(get_Source, put_Source)
+    View = property(get_View, None)
 class ICollectionViewSourceStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Data.ICollectionViewSourceStatics'
@@ -396,10 +396,10 @@ class ICollectionViewSourceStatics(ComPtr):
     def get_IsSourceGroupedProperty(self) -> win32more.Windows.UI.Xaml.DependencyProperty: ...
     @winrt_commethod(9)
     def get_ItemsPathProperty(self) -> win32more.Windows.UI.Xaml.DependencyProperty: ...
-    SourceProperty = property(get_SourceProperty, None)
-    ViewProperty = property(get_ViewProperty, None)
     IsSourceGroupedProperty = property(get_IsSourceGroupedProperty, None)
     ItemsPathProperty = property(get_ItemsPathProperty, None)
+    SourceProperty = property(get_SourceProperty, None)
+    ViewProperty = property(get_ViewProperty, None)
 class ICurrentChangingEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Data.ICurrentChangingEventArgs'
@@ -440,10 +440,10 @@ class ICustomProperty(ComPtr):
     def get_CanWrite(self) -> Boolean: ...
     @winrt_commethod(13)
     def get_CanRead(self) -> Boolean: ...
-    Type = property(get_Type, None)
-    Name = property(get_Name, None)
-    CanWrite = property(get_CanWrite, None)
     CanRead = property(get_CanRead, None)
+    CanWrite = property(get_CanWrite, None)
+    Name = property(get_Name, None)
+    Type = property(get_Type, None)
 class ICustomPropertyProvider(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Data.ICustomPropertyProvider'
@@ -468,8 +468,8 @@ class IItemIndexRange(ComPtr):
     @winrt_commethod(8)
     def get_LastIndex(self) -> Int32: ...
     FirstIndex = property(get_FirstIndex, None)
-    Length = property(get_Length, None)
     LastIndex = property(get_LastIndex, None)
+    Length = property(get_Length, None)
 class IItemIndexRangeFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Data.IItemIndexRangeFactory'
@@ -567,8 +567,8 @@ class ItemIndexRange(ComPtr):
     @winrt_mixinmethod
     def get_LastIndex(self: win32more.Windows.UI.Xaml.Data.IItemIndexRange) -> Int32: ...
     FirstIndex = property(get_FirstIndex, None)
-    Length = property(get_Length, None)
     LastIndex = property(get_LastIndex, None)
+    Length = property(get_Length, None)
 class LoadMoreItemsResult(EasyCastStructure):
     Count: UInt32
 class PropertyChangedEventArgs(ComPtr):

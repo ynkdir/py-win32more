@@ -51,9 +51,9 @@ class IPrintWorkflowConfiguration(ComPtr):
     def get_JobTitle(self) -> WinRT_String: ...
     @winrt_commethod(8)
     def get_SessionId(self) -> WinRT_String: ...
-    SourceAppDisplayName = property(get_SourceAppDisplayName, None)
     JobTitle = property(get_JobTitle, None)
     SessionId = property(get_SessionId, None)
+    SourceAppDisplayName = property(get_SourceAppDisplayName, None)
 class IPrintWorkflowConfiguration2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Printing.Workflow.IPrintWorkflowConfiguration2'
@@ -417,9 +417,9 @@ class PrintWorkflowConfiguration(ComPtr):
     def get_JobTitle(self: win32more.Windows.Graphics.Printing.Workflow.IPrintWorkflowConfiguration) -> WinRT_String: ...
     @winrt_mixinmethod
     def get_SessionId(self: win32more.Windows.Graphics.Printing.Workflow.IPrintWorkflowConfiguration) -> WinRT_String: ...
-    SourceAppDisplayName = property(get_SourceAppDisplayName, None)
     JobTitle = property(get_JobTitle, None)
     SessionId = property(get_SessionId, None)
+    SourceAppDisplayName = property(get_SourceAppDisplayName, None)
 class PrintWorkflowForegroundSession(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing.Workflow.IPrintWorkflowForegroundSession
@@ -465,9 +465,9 @@ class PrintWorkflowJobActivatedEventArgs(ComPtr):
     def get_SplashScreen(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgs) -> win32more.Windows.ApplicationModel.Activation.SplashScreen: ...
     @winrt_mixinmethod
     def get_User(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgsWithUser) -> win32more.Windows.System.User: ...
-    Session = property(get_Session, None)
     Kind = property(get_Kind, None)
     PreviousExecutionState = property(get_PreviousExecutionState, None)
+    Session = property(get_Session, None)
     SplashScreen = property(get_SplashScreen, None)
     User = property(get_User, None)
 class PrintWorkflowJobBackgroundSession(ComPtr):
@@ -749,9 +749,9 @@ class PrintWorkflowUIActivatedEventArgs(ComPtr):
     def get_SplashScreen(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgs) -> win32more.Windows.ApplicationModel.Activation.SplashScreen: ...
     @winrt_mixinmethod
     def get_User(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgsWithUser) -> win32more.Windows.System.User: ...
-    PrintWorkflowSession = property(get_PrintWorkflowSession, None)
     Kind = property(get_Kind, None)
     PreviousExecutionState = property(get_PreviousExecutionState, None)
+    PrintWorkflowSession = property(get_PrintWorkflowSession, None)
     SplashScreen = property(get_SplashScreen, None)
     User = property(get_User, None)
 class PrintWorkflowUICompletionStatus(Int32):  # enum

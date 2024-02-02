@@ -29,9 +29,9 @@ class AppointmentCalendarCancelMeetingRequest(ComPtr):
     AppointmentCalendarLocalId = property(get_AppointmentCalendarLocalId, None)
     AppointmentLocalId = property(get_AppointmentLocalId, None)
     AppointmentOriginalStartTime = property(get_AppointmentOriginalStartTime, None)
-    Subject = property(get_Subject, None)
     Comment = property(get_Comment, None)
     NotifyInvitees = property(get_NotifyInvitees, None)
+    Subject = property(get_Subject, None)
 class AppointmentCalendarCancelMeetingRequestEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarCancelMeetingRequestEventArgs
@@ -57,10 +57,10 @@ class AppointmentCalendarCreateOrUpdateAppointmentRequest(ComPtr):
     def ReportCompletedAsync(self: win32more.Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarCreateOrUpdateAppointmentRequest, createdOrUpdatedAppointment: win32more.Windows.ApplicationModel.Appointments.Appointment) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_mixinmethod
     def ReportFailedAsync(self: win32more.Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarCreateOrUpdateAppointmentRequest) -> win32more.Windows.Foundation.IAsyncAction: ...
-    AppointmentCalendarLocalId = property(get_AppointmentCalendarLocalId, None)
     Appointment = property(get_Appointment, None)
-    NotifyInvitees = property(get_NotifyInvitees, None)
+    AppointmentCalendarLocalId = property(get_AppointmentCalendarLocalId, None)
     ChangedProperties = property(get_ChangedProperties, None)
+    NotifyInvitees = property(get_NotifyInvitees, None)
 class AppointmentCalendarCreateOrUpdateAppointmentRequestEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarCreateOrUpdateAppointmentRequestEventArgs
@@ -95,10 +95,10 @@ class AppointmentCalendarForwardMeetingRequest(ComPtr):
     AppointmentCalendarLocalId = property(get_AppointmentCalendarLocalId, None)
     AppointmentLocalId = property(get_AppointmentLocalId, None)
     AppointmentOriginalStartTime = property(get_AppointmentOriginalStartTime, None)
+    Comment = property(get_Comment, None)
+    ForwardHeader = property(get_ForwardHeader, None)
     Invitees = property(get_Invitees, None)
     Subject = property(get_Subject, None)
-    ForwardHeader = property(get_ForwardHeader, None)
-    Comment = property(get_Comment, None)
 class AppointmentCalendarForwardMeetingRequestEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarForwardMeetingRequestEventArgs
@@ -133,10 +133,10 @@ class AppointmentCalendarProposeNewTimeForMeetingRequest(ComPtr):
     AppointmentCalendarLocalId = property(get_AppointmentCalendarLocalId, None)
     AppointmentLocalId = property(get_AppointmentLocalId, None)
     AppointmentOriginalStartTime = property(get_AppointmentOriginalStartTime, None)
-    NewStartTime = property(get_NewStartTime, None)
-    NewDuration = property(get_NewDuration, None)
-    Subject = property(get_Subject, None)
     Comment = property(get_Comment, None)
+    NewDuration = property(get_NewDuration, None)
+    NewStartTime = property(get_NewStartTime, None)
+    Subject = property(get_Subject, None)
 class AppointmentCalendarProposeNewTimeForMeetingRequestEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarProposeNewTimeForMeetingRequestEventArgs
@@ -191,10 +191,10 @@ class AppointmentCalendarUpdateMeetingResponseRequest(ComPtr):
     AppointmentCalendarLocalId = property(get_AppointmentCalendarLocalId, None)
     AppointmentLocalId = property(get_AppointmentLocalId, None)
     AppointmentOriginalStartTime = property(get_AppointmentOriginalStartTime, None)
-    Response = property(get_Response, None)
-    Subject = property(get_Subject, None)
     Comment = property(get_Comment, None)
+    Response = property(get_Response, None)
     SendUpdate = property(get_SendUpdate, None)
+    Subject = property(get_Subject, None)
 class AppointmentCalendarUpdateMeetingResponseRequestEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarUpdateMeetingResponseRequestEventArgs
@@ -264,9 +264,9 @@ class IAppointmentCalendarCancelMeetingRequest(ComPtr):
     AppointmentCalendarLocalId = property(get_AppointmentCalendarLocalId, None)
     AppointmentLocalId = property(get_AppointmentLocalId, None)
     AppointmentOriginalStartTime = property(get_AppointmentOriginalStartTime, None)
-    Subject = property(get_Subject, None)
     Comment = property(get_Comment, None)
     NotifyInvitees = property(get_NotifyInvitees, None)
+    Subject = property(get_Subject, None)
 class IAppointmentCalendarCancelMeetingRequestEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarCancelMeetingRequestEventArgs'
@@ -292,10 +292,10 @@ class IAppointmentCalendarCreateOrUpdateAppointmentRequest(ComPtr):
     def ReportCompletedAsync(self, createdOrUpdatedAppointment: win32more.Windows.ApplicationModel.Appointments.Appointment) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(11)
     def ReportFailedAsync(self) -> win32more.Windows.Foundation.IAsyncAction: ...
-    AppointmentCalendarLocalId = property(get_AppointmentCalendarLocalId, None)
     Appointment = property(get_Appointment, None)
-    NotifyInvitees = property(get_NotifyInvitees, None)
+    AppointmentCalendarLocalId = property(get_AppointmentCalendarLocalId, None)
     ChangedProperties = property(get_ChangedProperties, None)
+    NotifyInvitees = property(get_NotifyInvitees, None)
 class IAppointmentCalendarCreateOrUpdateAppointmentRequestEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarCreateOrUpdateAppointmentRequestEventArgs'
@@ -330,10 +330,10 @@ class IAppointmentCalendarForwardMeetingRequest(ComPtr):
     AppointmentCalendarLocalId = property(get_AppointmentCalendarLocalId, None)
     AppointmentLocalId = property(get_AppointmentLocalId, None)
     AppointmentOriginalStartTime = property(get_AppointmentOriginalStartTime, None)
+    Comment = property(get_Comment, None)
+    ForwardHeader = property(get_ForwardHeader, None)
     Invitees = property(get_Invitees, None)
     Subject = property(get_Subject, None)
-    ForwardHeader = property(get_ForwardHeader, None)
-    Comment = property(get_Comment, None)
 class IAppointmentCalendarForwardMeetingRequestEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarForwardMeetingRequestEventArgs'
@@ -368,10 +368,10 @@ class IAppointmentCalendarProposeNewTimeForMeetingRequest(ComPtr):
     AppointmentCalendarLocalId = property(get_AppointmentCalendarLocalId, None)
     AppointmentLocalId = property(get_AppointmentLocalId, None)
     AppointmentOriginalStartTime = property(get_AppointmentOriginalStartTime, None)
-    NewStartTime = property(get_NewStartTime, None)
-    NewDuration = property(get_NewDuration, None)
-    Subject = property(get_Subject, None)
     Comment = property(get_Comment, None)
+    NewDuration = property(get_NewDuration, None)
+    NewStartTime = property(get_NewStartTime, None)
+    Subject = property(get_Subject, None)
 class IAppointmentCalendarProposeNewTimeForMeetingRequestEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarProposeNewTimeForMeetingRequestEventArgs'
@@ -426,10 +426,10 @@ class IAppointmentCalendarUpdateMeetingResponseRequest(ComPtr):
     AppointmentCalendarLocalId = property(get_AppointmentCalendarLocalId, None)
     AppointmentLocalId = property(get_AppointmentLocalId, None)
     AppointmentOriginalStartTime = property(get_AppointmentOriginalStartTime, None)
-    Response = property(get_Response, None)
-    Subject = property(get_Subject, None)
     Comment = property(get_Comment, None)
+    Response = property(get_Response, None)
     SendUpdate = property(get_SendUpdate, None)
+    Subject = property(get_Subject, None)
 class IAppointmentCalendarUpdateMeetingResponseRequestEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarUpdateMeetingResponseRequestEventArgs'

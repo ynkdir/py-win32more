@@ -44,8 +44,8 @@ class ILine(ComPtr):
     @winrt_commethod(13)
     def put_Y2(self, value: Double) -> Void: ...
     X1 = property(get_X1, put_X1)
-    Y1 = property(get_Y1, put_Y1)
     X2 = property(get_X2, put_X2)
+    Y1 = property(get_Y1, put_Y1)
     Y2 = property(get_Y2, put_Y2)
 class ILineStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -60,8 +60,8 @@ class ILineStatics(ComPtr):
     @winrt_commethod(9)
     def get_Y2Property(self) -> win32more.Windows.UI.Xaml.DependencyProperty: ...
     X1Property = property(get_X1Property, None)
-    Y1Property = property(get_Y1Property, None)
     X2Property = property(get_X2Property, None)
+    Y1Property = property(get_Y1Property, None)
     Y2Property = property(get_Y2Property, None)
 class IPath(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -208,17 +208,17 @@ class IShape(ComPtr):
     @winrt_commethod(28)
     def get_GeometryTransform(self) -> win32more.Windows.UI.Xaml.Media.Transform: ...
     Fill = property(get_Fill, put_Fill)
+    GeometryTransform = property(get_GeometryTransform, None)
+    Stretch = property(get_Stretch, put_Stretch)
     Stroke = property(get_Stroke, put_Stroke)
-    StrokeMiterLimit = property(get_StrokeMiterLimit, put_StrokeMiterLimit)
-    StrokeThickness = property(get_StrokeThickness, put_StrokeThickness)
-    StrokeStartLineCap = property(get_StrokeStartLineCap, put_StrokeStartLineCap)
+    StrokeDashArray = property(get_StrokeDashArray, put_StrokeDashArray)
+    StrokeDashCap = property(get_StrokeDashCap, put_StrokeDashCap)
+    StrokeDashOffset = property(get_StrokeDashOffset, put_StrokeDashOffset)
     StrokeEndLineCap = property(get_StrokeEndLineCap, put_StrokeEndLineCap)
     StrokeLineJoin = property(get_StrokeLineJoin, put_StrokeLineJoin)
-    StrokeDashOffset = property(get_StrokeDashOffset, put_StrokeDashOffset)
-    StrokeDashCap = property(get_StrokeDashCap, put_StrokeDashCap)
-    StrokeDashArray = property(get_StrokeDashArray, put_StrokeDashArray)
-    Stretch = property(get_Stretch, put_Stretch)
-    GeometryTransform = property(get_GeometryTransform, None)
+    StrokeMiterLimit = property(get_StrokeMiterLimit, put_StrokeMiterLimit)
+    StrokeStartLineCap = property(get_StrokeStartLineCap, put_StrokeStartLineCap)
+    StrokeThickness = property(get_StrokeThickness, put_StrokeThickness)
 class IShape2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Shapes.IShape2'
@@ -258,16 +258,16 @@ class IShapeStatics(ComPtr):
     @winrt_commethod(16)
     def get_StretchProperty(self) -> win32more.Windows.UI.Xaml.DependencyProperty: ...
     FillProperty = property(get_FillProperty, None)
-    StrokeProperty = property(get_StrokeProperty, None)
-    StrokeMiterLimitProperty = property(get_StrokeMiterLimitProperty, None)
-    StrokeThicknessProperty = property(get_StrokeThicknessProperty, None)
-    StrokeStartLineCapProperty = property(get_StrokeStartLineCapProperty, None)
+    StretchProperty = property(get_StretchProperty, None)
+    StrokeDashArrayProperty = property(get_StrokeDashArrayProperty, None)
+    StrokeDashCapProperty = property(get_StrokeDashCapProperty, None)
+    StrokeDashOffsetProperty = property(get_StrokeDashOffsetProperty, None)
     StrokeEndLineCapProperty = property(get_StrokeEndLineCapProperty, None)
     StrokeLineJoinProperty = property(get_StrokeLineJoinProperty, None)
-    StrokeDashOffsetProperty = property(get_StrokeDashOffsetProperty, None)
-    StrokeDashCapProperty = property(get_StrokeDashCapProperty, None)
-    StrokeDashArrayProperty = property(get_StrokeDashArrayProperty, None)
-    StretchProperty = property(get_StretchProperty, None)
+    StrokeMiterLimitProperty = property(get_StrokeMiterLimitProperty, None)
+    StrokeProperty = property(get_StrokeProperty, None)
+    StrokeStartLineCapProperty = property(get_StrokeStartLineCapProperty, None)
+    StrokeThicknessProperty = property(get_StrokeThicknessProperty, None)
 class _Line_Meta_(ComPtr.__class__):
     pass
 class Line(ComPtr, metaclass=_Line_Meta_):
@@ -308,12 +308,12 @@ class Line(ComPtr, metaclass=_Line_Meta_):
     @winrt_classmethod
     def get_Y2Property(cls: win32more.Windows.UI.Xaml.Shapes.ILineStatics) -> win32more.Windows.UI.Xaml.DependencyProperty: ...
     X1 = property(get_X1, put_X1)
-    Y1 = property(get_Y1, put_Y1)
     X2 = property(get_X2, put_X2)
+    Y1 = property(get_Y1, put_Y1)
     Y2 = property(get_Y2, put_Y2)
     _Line_Meta_.X1Property = property(get_X1Property.__wrapped__, None)
-    _Line_Meta_.Y1Property = property(get_Y1Property.__wrapped__, None)
     _Line_Meta_.X2Property = property(get_X2Property.__wrapped__, None)
+    _Line_Meta_.Y1Property = property(get_Y1Property.__wrapped__, None)
     _Line_Meta_.Y2Property = property(get_Y2Property.__wrapped__, None)
 class _Path_Meta_(ComPtr.__class__):
     pass
@@ -517,28 +517,28 @@ class Shape(ComPtr, metaclass=_Shape_Meta_):
     @winrt_classmethod
     def get_StretchProperty(cls: win32more.Windows.UI.Xaml.Shapes.IShapeStatics) -> win32more.Windows.UI.Xaml.DependencyProperty: ...
     Fill = property(get_Fill, put_Fill)
+    GeometryTransform = property(get_GeometryTransform, None)
+    Stretch = property(get_Stretch, put_Stretch)
     Stroke = property(get_Stroke, put_Stroke)
-    StrokeMiterLimit = property(get_StrokeMiterLimit, put_StrokeMiterLimit)
-    StrokeThickness = property(get_StrokeThickness, put_StrokeThickness)
-    StrokeStartLineCap = property(get_StrokeStartLineCap, put_StrokeStartLineCap)
+    StrokeDashArray = property(get_StrokeDashArray, put_StrokeDashArray)
+    StrokeDashCap = property(get_StrokeDashCap, put_StrokeDashCap)
+    StrokeDashOffset = property(get_StrokeDashOffset, put_StrokeDashOffset)
     StrokeEndLineCap = property(get_StrokeEndLineCap, put_StrokeEndLineCap)
     StrokeLineJoin = property(get_StrokeLineJoin, put_StrokeLineJoin)
-    StrokeDashOffset = property(get_StrokeDashOffset, put_StrokeDashOffset)
-    StrokeDashCap = property(get_StrokeDashCap, put_StrokeDashCap)
-    StrokeDashArray = property(get_StrokeDashArray, put_StrokeDashArray)
-    Stretch = property(get_Stretch, put_Stretch)
-    GeometryTransform = property(get_GeometryTransform, None)
+    StrokeMiterLimit = property(get_StrokeMiterLimit, put_StrokeMiterLimit)
+    StrokeStartLineCap = property(get_StrokeStartLineCap, put_StrokeStartLineCap)
+    StrokeThickness = property(get_StrokeThickness, put_StrokeThickness)
     _Shape_Meta_.FillProperty = property(get_FillProperty.__wrapped__, None)
-    _Shape_Meta_.StrokeProperty = property(get_StrokeProperty.__wrapped__, None)
-    _Shape_Meta_.StrokeMiterLimitProperty = property(get_StrokeMiterLimitProperty.__wrapped__, None)
-    _Shape_Meta_.StrokeThicknessProperty = property(get_StrokeThicknessProperty.__wrapped__, None)
-    _Shape_Meta_.StrokeStartLineCapProperty = property(get_StrokeStartLineCapProperty.__wrapped__, None)
+    _Shape_Meta_.StretchProperty = property(get_StretchProperty.__wrapped__, None)
+    _Shape_Meta_.StrokeDashArrayProperty = property(get_StrokeDashArrayProperty.__wrapped__, None)
+    _Shape_Meta_.StrokeDashCapProperty = property(get_StrokeDashCapProperty.__wrapped__, None)
+    _Shape_Meta_.StrokeDashOffsetProperty = property(get_StrokeDashOffsetProperty.__wrapped__, None)
     _Shape_Meta_.StrokeEndLineCapProperty = property(get_StrokeEndLineCapProperty.__wrapped__, None)
     _Shape_Meta_.StrokeLineJoinProperty = property(get_StrokeLineJoinProperty.__wrapped__, None)
-    _Shape_Meta_.StrokeDashOffsetProperty = property(get_StrokeDashOffsetProperty.__wrapped__, None)
-    _Shape_Meta_.StrokeDashCapProperty = property(get_StrokeDashCapProperty.__wrapped__, None)
-    _Shape_Meta_.StrokeDashArrayProperty = property(get_StrokeDashArrayProperty.__wrapped__, None)
-    _Shape_Meta_.StretchProperty = property(get_StretchProperty.__wrapped__, None)
+    _Shape_Meta_.StrokeMiterLimitProperty = property(get_StrokeMiterLimitProperty.__wrapped__, None)
+    _Shape_Meta_.StrokeProperty = property(get_StrokeProperty.__wrapped__, None)
+    _Shape_Meta_.StrokeStartLineCapProperty = property(get_StrokeStartLineCapProperty.__wrapped__, None)
+    _Shape_Meta_.StrokeThicknessProperty = property(get_StrokeThicknessProperty.__wrapped__, None)
 
 
 make_ready(__name__)

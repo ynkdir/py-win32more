@@ -101,9 +101,9 @@ class PhoneCallOrigin(ComPtr):
     def put_DisplayPicture(self: win32more.Windows.ApplicationModel.Calls.Provider.IPhoneCallOrigin3, value: win32more.Windows.Storage.StorageFile) -> Void: ...
     Category = property(get_Category, put_Category)
     CategoryDescription = property(get_CategoryDescription, put_CategoryDescription)
-    Location = property(get_Location, put_Location)
     DisplayName = property(get_DisplayName, put_DisplayName)
     DisplayPicture = property(get_DisplayPicture, put_DisplayPicture)
+    Location = property(get_Location, put_Location)
 class _PhoneCallOriginManager_Meta_(ComPtr.__class__):
     pass
 class PhoneCallOriginManager(ComPtr, metaclass=_PhoneCallOriginManager_Meta_):
@@ -119,8 +119,8 @@ class PhoneCallOriginManager(ComPtr, metaclass=_PhoneCallOriginManager_Meta_):
     def ShowPhoneCallOriginSettingsUI(cls: win32more.Windows.ApplicationModel.Calls.Provider.IPhoneCallOriginManagerStatics) -> Void: ...
     @winrt_classmethod
     def SetCallOrigin(cls: win32more.Windows.ApplicationModel.Calls.Provider.IPhoneCallOriginManagerStatics, requestId: Guid, callOrigin: win32more.Windows.ApplicationModel.Calls.Provider.PhoneCallOrigin) -> Void: ...
-    _PhoneCallOriginManager_Meta_.IsSupported = property(get_IsSupported.__wrapped__, None)
     _PhoneCallOriginManager_Meta_.IsCurrentAppActiveCallOriginApp = property(get_IsCurrentAppActiveCallOriginApp.__wrapped__, None)
+    _PhoneCallOriginManager_Meta_.IsSupported = property(get_IsSupported.__wrapped__, None)
 
 
 make_ready(__name__)

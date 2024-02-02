@@ -22,8 +22,8 @@ class IPushNotificationChannel(ComPtr):
     def add_PushNotificationReceived(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.PushNotifications.PushNotificationChannel, win32more.Windows.Networking.PushNotifications.PushNotificationReceivedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(10)
     def remove_PushNotificationReceived(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    Uri = property(get_Uri, None)
     ExpirationTime = property(get_ExpirationTime, None)
+    Uri = property(get_Uri, None)
 class IPushNotificationChannelManagerForUser(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.PushNotifications.IPushNotificationChannelManagerForUser'
@@ -97,12 +97,12 @@ class IPushNotificationReceivedEventArgs(ComPtr):
     def get_BadgeNotification(self) -> win32more.Windows.UI.Notifications.BadgeNotification: ...
     @winrt_commethod(12)
     def get_RawNotification(self) -> win32more.Windows.Networking.PushNotifications.RawNotification: ...
+    BadgeNotification = property(get_BadgeNotification, None)
     Cancel = property(get_Cancel, put_Cancel)
     NotificationType = property(get_NotificationType, None)
-    ToastNotification = property(get_ToastNotification, None)
-    TileNotification = property(get_TileNotification, None)
-    BadgeNotification = property(get_BadgeNotification, None)
     RawNotification = property(get_RawNotification, None)
+    TileNotification = property(get_TileNotification, None)
+    ToastNotification = property(get_ToastNotification, None)
 class IRawNotification(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.PushNotifications.IRawNotification'
@@ -118,8 +118,8 @@ class IRawNotification2(ComPtr):
     def get_Headers(self) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, WinRT_String]: ...
     @winrt_commethod(7)
     def get_ChannelId(self) -> WinRT_String: ...
-    Headers = property(get_Headers, None)
     ChannelId = property(get_ChannelId, None)
+    Headers = property(get_Headers, None)
 class IRawNotification3(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.PushNotifications.IRawNotification3'
@@ -141,8 +141,8 @@ class PushNotificationChannel(ComPtr):
     def add_PushNotificationReceived(self: win32more.Windows.Networking.PushNotifications.IPushNotificationChannel, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.PushNotifications.PushNotificationChannel, win32more.Windows.Networking.PushNotifications.PushNotificationReceivedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_PushNotificationReceived(self: win32more.Windows.Networking.PushNotifications.IPushNotificationChannel, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    Uri = property(get_Uri, None)
     ExpirationTime = property(get_ExpirationTime, None)
+    Uri = property(get_Uri, None)
 class PushNotificationChannelManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.PushNotifications.PushNotificationChannelManager'
@@ -199,12 +199,12 @@ class PushNotificationReceivedEventArgs(ComPtr):
     def get_BadgeNotification(self: win32more.Windows.Networking.PushNotifications.IPushNotificationReceivedEventArgs) -> win32more.Windows.UI.Notifications.BadgeNotification: ...
     @winrt_mixinmethod
     def get_RawNotification(self: win32more.Windows.Networking.PushNotifications.IPushNotificationReceivedEventArgs) -> win32more.Windows.Networking.PushNotifications.RawNotification: ...
+    BadgeNotification = property(get_BadgeNotification, None)
     Cancel = property(get_Cancel, put_Cancel)
     NotificationType = property(get_NotificationType, None)
-    ToastNotification = property(get_ToastNotification, None)
-    TileNotification = property(get_TileNotification, None)
-    BadgeNotification = property(get_BadgeNotification, None)
     RawNotification = property(get_RawNotification, None)
+    TileNotification = property(get_TileNotification, None)
+    ToastNotification = property(get_ToastNotification, None)
 class PushNotificationType(Int32):  # enum
     Toast = 0
     Tile = 1
@@ -223,10 +223,10 @@ class RawNotification(ComPtr):
     def get_ChannelId(self: win32more.Windows.Networking.PushNotifications.IRawNotification2) -> WinRT_String: ...
     @winrt_mixinmethod
     def get_ContentBytes(self: win32more.Windows.Networking.PushNotifications.IRawNotification3) -> win32more.Windows.Storage.Streams.IBuffer: ...
-    Content = property(get_Content, None)
-    Headers = property(get_Headers, None)
     ChannelId = property(get_ChannelId, None)
+    Content = property(get_Content, None)
     ContentBytes = property(get_ContentBytes, None)
+    Headers = property(get_Headers, None)
 
 
 make_ready(__name__)

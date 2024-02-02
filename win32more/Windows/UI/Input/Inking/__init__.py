@@ -39,10 +39,10 @@ class IInkDrawingAttributes(ComPtr):
     @winrt_commethod(15)
     def put_FitToCurve(self, value: Boolean) -> Void: ...
     Color = property(get_Color, put_Color)
+    FitToCurve = property(get_FitToCurve, put_FitToCurve)
+    IgnorePressure = property(get_IgnorePressure, put_IgnorePressure)
     PenTip = property(get_PenTip, put_PenTip)
     Size = property(get_Size, put_Size)
-    IgnorePressure = property(get_IgnorePressure, put_IgnorePressure)
-    FitToCurve = property(get_FitToCurve, put_FitToCurve)
 class IInkDrawingAttributes2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Input.Inking.IInkDrawingAttributes2'
@@ -55,8 +55,8 @@ class IInkDrawingAttributes2(ComPtr):
     def get_DrawAsHighlighter(self) -> Boolean: ...
     @winrt_commethod(9)
     def put_DrawAsHighlighter(self, value: Boolean) -> Void: ...
-    PenTipTransform = property(get_PenTipTransform, put_PenTipTransform)
     DrawAsHighlighter = property(get_DrawAsHighlighter, put_DrawAsHighlighter)
+    PenTipTransform = property(get_PenTipTransform, put_PenTipTransform)
 class IInkDrawingAttributes3(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Input.Inking.IInkDrawingAttributes3'
@@ -110,8 +110,8 @@ class IInkInputConfiguration(ComPtr):
     def get_IsEraserInputEnabled(self) -> Boolean: ...
     @winrt_commethod(9)
     def put_IsEraserInputEnabled(self, value: Boolean) -> Void: ...
-    IsPrimaryBarrelButtonInputEnabled = property(get_IsPrimaryBarrelButtonInputEnabled, put_IsPrimaryBarrelButtonInputEnabled)
     IsEraserInputEnabled = property(get_IsEraserInputEnabled, put_IsEraserInputEnabled)
+    IsPrimaryBarrelButtonInputEnabled = property(get_IsPrimaryBarrelButtonInputEnabled, put_IsPrimaryBarrelButtonInputEnabled)
 class IInkInputConfiguration2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Input.Inking.IInkInputConfiguration2'
@@ -250,12 +250,12 @@ class IInkPresenter(ComPtr):
     def add_StrokesErased(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Input.Inking.InkPresenter, win32more.Windows.UI.Input.Inking.InkStrokesErasedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(22)
     def remove_StrokesErased(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    IsInputEnabled = property(get_IsInputEnabled, put_IsInputEnabled)
     InputDeviceTypes = property(get_InputDeviceTypes, put_InputDeviceTypes)
-    UnprocessedInput = property(get_UnprocessedInput, None)
-    StrokeInput = property(get_StrokeInput, None)
     InputProcessingConfiguration = property(get_InputProcessingConfiguration, None)
+    IsInputEnabled = property(get_IsInputEnabled, put_IsInputEnabled)
     StrokeContainer = property(get_StrokeContainer, put_StrokeContainer)
+    StrokeInput = property(get_StrokeInput, None)
+    UnprocessedInput = property(get_UnprocessedInput, None)
 class IInkPresenter2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Input.Inking.IInkPresenter2'
@@ -304,13 +304,13 @@ class IInkPresenterProtractor(ComPtr):
     def get_AccentColor(self) -> win32more.Windows.UI.Color: ...
     @winrt_commethod(19)
     def put_AccentColor(self, value: win32more.Windows.UI.Color) -> Void: ...
-    AreTickMarksVisible = property(get_AreTickMarksVisible, put_AreTickMarksVisible)
+    AccentColor = property(get_AccentColor, put_AccentColor)
     AreRaysVisible = property(get_AreRaysVisible, put_AreRaysVisible)
-    IsCenterMarkerVisible = property(get_IsCenterMarkerVisible, put_IsCenterMarkerVisible)
+    AreTickMarksVisible = property(get_AreTickMarksVisible, put_AreTickMarksVisible)
     IsAngleReadoutVisible = property(get_IsAngleReadoutVisible, put_IsAngleReadoutVisible)
+    IsCenterMarkerVisible = property(get_IsCenterMarkerVisible, put_IsCenterMarkerVisible)
     IsResizable = property(get_IsResizable, put_IsResizable)
     Radius = property(get_Radius, put_Radius)
-    AccentColor = property(get_AccentColor, put_AccentColor)
 class IInkPresenterProtractorFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Input.Inking.IInkPresenterProtractorFactory'
@@ -373,10 +373,10 @@ class IInkPresenterStencil(ComPtr):
     def get_Transform(self) -> win32more.Windows.Foundation.Numerics.Matrix3x2: ...
     @winrt_commethod(14)
     def put_Transform(self, value: win32more.Windows.Foundation.Numerics.Matrix3x2) -> Void: ...
-    Kind = property(get_Kind, None)
-    IsVisible = property(get_IsVisible, put_IsVisible)
     BackgroundColor = property(get_BackgroundColor, put_BackgroundColor)
     ForegroundColor = property(get_ForegroundColor, put_ForegroundColor)
+    IsVisible = property(get_IsVisible, put_IsVisible)
+    Kind = property(get_Kind, None)
     Transform = property(get_Transform, put_Transform)
 class IInkRecognitionResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -426,10 +426,10 @@ class IInkStroke(ComPtr):
     def GetRenderingSegments(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.UI.Input.Inking.InkStrokeRenderingSegment]: ...
     @winrt_commethod(13)
     def Clone(self) -> win32more.Windows.UI.Input.Inking.InkStroke: ...
-    DrawingAttributes = property(get_DrawingAttributes, put_DrawingAttributes)
     BoundingRect = property(get_BoundingRect, None)
-    Selected = property(get_Selected, put_Selected)
+    DrawingAttributes = property(get_DrawingAttributes, put_DrawingAttributes)
     Recognized = property(get_Recognized, None)
+    Selected = property(get_Selected, put_Selected)
 class IInkStroke2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Input.Inking.IInkStroke2'
@@ -456,8 +456,8 @@ class IInkStroke3(ComPtr):
     @winrt_commethod(10)
     def put_StrokeDuration(self, value: win32more.Windows.Foundation.IReference[win32more.Windows.Foundation.TimeSpan]) -> Void: ...
     Id = property(get_Id, None)
-    StrokeStartedTime = property(get_StrokeStartedTime, put_StrokeStartedTime)
     StrokeDuration = property(get_StrokeDuration, put_StrokeDuration)
+    StrokeStartedTime = property(get_StrokeStartedTime, put_StrokeStartedTime)
 class IInkStroke4(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Input.Inking.IInkStroke4'
@@ -581,9 +581,9 @@ class IInkStrokeRenderingSegment(ComPtr):
     def get_TiltY(self) -> Single: ...
     @winrt_commethod(12)
     def get_Twist(self) -> Single: ...
-    Position = property(get_Position, None)
     BezierControlPoint1 = property(get_BezierControlPoint1, None)
     BezierControlPoint2 = property(get_BezierControlPoint2, None)
+    Position = property(get_Position, None)
     Pressure = property(get_Pressure, None)
     TiltX = property(get_TiltX, None)
     TiltY = property(get_TiltY, None)
@@ -661,12 +661,12 @@ class IPenAndInkSettings(ComPtr):
     def get_UserConsentsToHandwritingTelemetryCollection(self) -> Boolean: ...
     @winrt_commethod(11)
     def get_IsTouchHandwritingEnabled(self) -> Boolean: ...
-    IsHandwritingDirectlyIntoTextFieldEnabled = property(get_IsHandwritingDirectlyIntoTextFieldEnabled, None)
-    PenHandedness = property(get_PenHandedness, None)
-    HandwritingLineHeight = property(get_HandwritingLineHeight, None)
     FontFamilyName = property(get_FontFamilyName, None)
-    UserConsentsToHandwritingTelemetryCollection = property(get_UserConsentsToHandwritingTelemetryCollection, None)
+    HandwritingLineHeight = property(get_HandwritingLineHeight, None)
+    IsHandwritingDirectlyIntoTextFieldEnabled = property(get_IsHandwritingDirectlyIntoTextFieldEnabled, None)
     IsTouchHandwritingEnabled = property(get_IsTouchHandwritingEnabled, None)
+    PenHandedness = property(get_PenHandedness, None)
+    UserConsentsToHandwritingTelemetryCollection = property(get_UserConsentsToHandwritingTelemetryCollection, None)
 class IPenAndInkSettings2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Input.Inking.IPenAndInkSettings2'
@@ -733,16 +733,16 @@ class InkDrawingAttributes(ComPtr):
     @winrt_classmethod
     def CreateForPencil(cls: win32more.Windows.UI.Input.Inking.IInkDrawingAttributesStatics) -> win32more.Windows.UI.Input.Inking.InkDrawingAttributes: ...
     Color = property(get_Color, put_Color)
-    PenTip = property(get_PenTip, put_PenTip)
-    Size = property(get_Size, put_Size)
-    IgnorePressure = property(get_IgnorePressure, put_IgnorePressure)
-    FitToCurve = property(get_FitToCurve, put_FitToCurve)
-    PenTipTransform = property(get_PenTipTransform, put_PenTipTransform)
     DrawAsHighlighter = property(get_DrawAsHighlighter, put_DrawAsHighlighter)
-    Kind = property(get_Kind, None)
-    PencilProperties = property(get_PencilProperties, None)
+    FitToCurve = property(get_FitToCurve, put_FitToCurve)
+    IgnorePressure = property(get_IgnorePressure, put_IgnorePressure)
     IgnoreTilt = property(get_IgnoreTilt, put_IgnoreTilt)
+    Kind = property(get_Kind, None)
     ModelerAttributes = property(get_ModelerAttributes, None)
+    PenTip = property(get_PenTip, put_PenTip)
+    PenTipTransform = property(get_PenTipTransform, put_PenTipTransform)
+    PencilProperties = property(get_PencilProperties, None)
+    Size = property(get_Size, put_Size)
 class InkDrawingAttributesKind(Int32):  # enum
     Default = 0
     Pencil = 1
@@ -775,9 +775,9 @@ class InkInputConfiguration(ComPtr):
     def get_IsPenHapticFeedbackEnabled(self: win32more.Windows.UI.Input.Inking.IInkInputConfiguration2) -> Boolean: ...
     @winrt_mixinmethod
     def put_IsPenHapticFeedbackEnabled(self: win32more.Windows.UI.Input.Inking.IInkInputConfiguration2, value: Boolean) -> Void: ...
-    IsPrimaryBarrelButtonInputEnabled = property(get_IsPrimaryBarrelButtonInputEnabled, put_IsPrimaryBarrelButtonInputEnabled)
     IsEraserInputEnabled = property(get_IsEraserInputEnabled, put_IsEraserInputEnabled)
     IsPenHapticFeedbackEnabled = property(get_IsPenHapticFeedbackEnabled, put_IsPenHapticFeedbackEnabled)
+    IsPrimaryBarrelButtonInputEnabled = property(get_IsPrimaryBarrelButtonInputEnabled, put_IsPrimaryBarrelButtonInputEnabled)
 class InkInputProcessingConfiguration(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Input.Inking.IInkInputProcessingConfiguration
@@ -860,8 +860,8 @@ class InkManager(ComPtr):
     def RecognizeAsync(self: win32more.Windows.UI.Input.Inking.IInkRecognizerContainer, strokeCollection: win32more.Windows.UI.Input.Inking.InkStrokeContainer, recognitionTarget: win32more.Windows.UI.Input.Inking.InkRecognitionTarget) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.UI.Input.Inking.InkRecognitionResult]]: ...
     @winrt_mixinmethod
     def GetRecognizers(self: win32more.Windows.UI.Input.Inking.IInkRecognizerContainer) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.UI.Input.Inking.InkRecognizer]: ...
-    Mode = property(get_Mode, put_Mode)
     BoundingRect = property(get_BoundingRect, None)
+    Mode = property(get_Mode, put_Mode)
 class InkManipulationMode(Int32):  # enum
     Inking = 0
     Erasing = 1
@@ -964,14 +964,14 @@ class InkPresenter(ComPtr):
     def put_HighContrastAdjustment(self: win32more.Windows.UI.Input.Inking.IInkPresenter2, value: win32more.Windows.UI.Input.Inking.InkHighContrastAdjustment) -> Void: ...
     @winrt_mixinmethod
     def get_InputConfiguration(self: win32more.Windows.UI.Input.Inking.IInkPresenter3) -> win32more.Windows.UI.Input.Inking.InkInputConfiguration: ...
-    IsInputEnabled = property(get_IsInputEnabled, put_IsInputEnabled)
-    InputDeviceTypes = property(get_InputDeviceTypes, put_InputDeviceTypes)
-    UnprocessedInput = property(get_UnprocessedInput, None)
-    StrokeInput = property(get_StrokeInput, None)
-    InputProcessingConfiguration = property(get_InputProcessingConfiguration, None)
-    StrokeContainer = property(get_StrokeContainer, put_StrokeContainer)
     HighContrastAdjustment = property(get_HighContrastAdjustment, put_HighContrastAdjustment)
     InputConfiguration = property(get_InputConfiguration, None)
+    InputDeviceTypes = property(get_InputDeviceTypes, put_InputDeviceTypes)
+    InputProcessingConfiguration = property(get_InputProcessingConfiguration, None)
+    IsInputEnabled = property(get_IsInputEnabled, put_IsInputEnabled)
+    StrokeContainer = property(get_StrokeContainer, put_StrokeContainer)
+    StrokeInput = property(get_StrokeInput, None)
+    UnprocessedInput = property(get_UnprocessedInput, None)
 class InkPresenterPredefinedConfiguration(Int32):  # enum
     SimpleSinglePointer = 0
     SimpleMultiplePointer = 1
@@ -1034,17 +1034,17 @@ class InkPresenterProtractor(ComPtr):
     def get_Transform(self: win32more.Windows.UI.Input.Inking.IInkPresenterStencil) -> win32more.Windows.Foundation.Numerics.Matrix3x2: ...
     @winrt_mixinmethod
     def put_Transform(self: win32more.Windows.UI.Input.Inking.IInkPresenterStencil, value: win32more.Windows.Foundation.Numerics.Matrix3x2) -> Void: ...
-    AreTickMarksVisible = property(get_AreTickMarksVisible, put_AreTickMarksVisible)
-    AreRaysVisible = property(get_AreRaysVisible, put_AreRaysVisible)
-    IsCenterMarkerVisible = property(get_IsCenterMarkerVisible, put_IsCenterMarkerVisible)
-    IsAngleReadoutVisible = property(get_IsAngleReadoutVisible, put_IsAngleReadoutVisible)
-    IsResizable = property(get_IsResizable, put_IsResizable)
-    Radius = property(get_Radius, put_Radius)
     AccentColor = property(get_AccentColor, put_AccentColor)
-    Kind = property(get_Kind, None)
-    IsVisible = property(get_IsVisible, put_IsVisible)
+    AreRaysVisible = property(get_AreRaysVisible, put_AreRaysVisible)
+    AreTickMarksVisible = property(get_AreTickMarksVisible, put_AreTickMarksVisible)
     BackgroundColor = property(get_BackgroundColor, put_BackgroundColor)
     ForegroundColor = property(get_ForegroundColor, put_ForegroundColor)
+    IsAngleReadoutVisible = property(get_IsAngleReadoutVisible, put_IsAngleReadoutVisible)
+    IsCenterMarkerVisible = property(get_IsCenterMarkerVisible, put_IsCenterMarkerVisible)
+    IsResizable = property(get_IsResizable, put_IsResizable)
+    IsVisible = property(get_IsVisible, put_IsVisible)
+    Kind = property(get_Kind, None)
+    Radius = property(get_Radius, put_Radius)
     Transform = property(get_Transform, put_Transform)
 class InkPresenterRuler(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -1093,15 +1093,15 @@ class InkPresenterRuler(ComPtr):
     def get_IsCompassVisible(self: win32more.Windows.UI.Input.Inking.IInkPresenterRuler2) -> Boolean: ...
     @winrt_mixinmethod
     def put_IsCompassVisible(self: win32more.Windows.UI.Input.Inking.IInkPresenterRuler2, value: Boolean) -> Void: ...
-    Length = property(get_Length, put_Length)
-    Width = property(get_Width, put_Width)
-    Kind = property(get_Kind, None)
-    IsVisible = property(get_IsVisible, put_IsVisible)
+    AreTickMarksVisible = property(get_AreTickMarksVisible, put_AreTickMarksVisible)
     BackgroundColor = property(get_BackgroundColor, put_BackgroundColor)
     ForegroundColor = property(get_ForegroundColor, put_ForegroundColor)
-    Transform = property(get_Transform, put_Transform)
-    AreTickMarksVisible = property(get_AreTickMarksVisible, put_AreTickMarksVisible)
     IsCompassVisible = property(get_IsCompassVisible, put_IsCompassVisible)
+    IsVisible = property(get_IsVisible, put_IsVisible)
+    Kind = property(get_Kind, None)
+    Length = property(get_Length, put_Length)
+    Transform = property(get_Transform, put_Transform)
+    Width = property(get_Width, put_Width)
 class InkPresenterStencilKind(Int32):  # enum
     Other = 0
     Ruler = 1
@@ -1185,15 +1185,15 @@ class InkStroke(ComPtr):
     def put_StrokeDuration(self: win32more.Windows.UI.Input.Inking.IInkStroke3, value: win32more.Windows.Foundation.IReference[win32more.Windows.Foundation.TimeSpan]) -> Void: ...
     @winrt_mixinmethod
     def get_PointerId(self: win32more.Windows.UI.Input.Inking.IInkStroke4) -> UInt32: ...
-    DrawingAttributes = property(get_DrawingAttributes, put_DrawingAttributes)
     BoundingRect = property(get_BoundingRect, None)
-    Selected = property(get_Selected, put_Selected)
-    Recognized = property(get_Recognized, None)
-    PointTransform = property(get_PointTransform, put_PointTransform)
+    DrawingAttributes = property(get_DrawingAttributes, put_DrawingAttributes)
     Id = property(get_Id, None)
-    StrokeStartedTime = property(get_StrokeStartedTime, put_StrokeStartedTime)
-    StrokeDuration = property(get_StrokeDuration, put_StrokeDuration)
+    PointTransform = property(get_PointTransform, put_PointTransform)
     PointerId = property(get_PointerId, None)
+    Recognized = property(get_Recognized, None)
+    Selected = property(get_Selected, put_Selected)
+    StrokeDuration = property(get_StrokeDuration, put_StrokeDuration)
+    StrokeStartedTime = property(get_StrokeStartedTime, put_StrokeStartedTime)
 class InkStrokeBuilder(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Input.Inking.IInkStrokeBuilder
@@ -1314,9 +1314,9 @@ class InkStrokeRenderingSegment(ComPtr):
     def get_TiltY(self: win32more.Windows.UI.Input.Inking.IInkStrokeRenderingSegment) -> Single: ...
     @winrt_mixinmethod
     def get_Twist(self: win32more.Windows.UI.Input.Inking.IInkStrokeRenderingSegment) -> Single: ...
-    Position = property(get_Position, None)
     BezierControlPoint1 = property(get_BezierControlPoint1, None)
     BezierControlPoint2 = property(get_BezierControlPoint2, None)
+    Position = property(get_Position, None)
     Pressure = property(get_Pressure, None)
     TiltX = property(get_TiltX, None)
     TiltY = property(get_TiltY, None)
@@ -1398,12 +1398,12 @@ class PenAndInkSettings(ComPtr):
     def SetPenHandedness(self: win32more.Windows.UI.Input.Inking.IPenAndInkSettings2, value: win32more.Windows.UI.Input.Inking.PenHandedness) -> Void: ...
     @winrt_classmethod
     def GetDefault(cls: win32more.Windows.UI.Input.Inking.IPenAndInkSettingsStatics) -> win32more.Windows.UI.Input.Inking.PenAndInkSettings: ...
-    IsHandwritingDirectlyIntoTextFieldEnabled = property(get_IsHandwritingDirectlyIntoTextFieldEnabled, None)
-    PenHandedness = property(get_PenHandedness, None)
-    HandwritingLineHeight = property(get_HandwritingLineHeight, None)
     FontFamilyName = property(get_FontFamilyName, None)
-    UserConsentsToHandwritingTelemetryCollection = property(get_UserConsentsToHandwritingTelemetryCollection, None)
+    HandwritingLineHeight = property(get_HandwritingLineHeight, None)
+    IsHandwritingDirectlyIntoTextFieldEnabled = property(get_IsHandwritingDirectlyIntoTextFieldEnabled, None)
     IsTouchHandwritingEnabled = property(get_IsTouchHandwritingEnabled, None)
+    PenHandedness = property(get_PenHandedness, None)
+    UserConsentsToHandwritingTelemetryCollection = property(get_UserConsentsToHandwritingTelemetryCollection, None)
 class PenHandedness(Int32):  # enum
     Right = 0
     Left = 1

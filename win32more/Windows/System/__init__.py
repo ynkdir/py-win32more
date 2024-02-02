@@ -22,8 +22,8 @@ class AppActivationResult(ComPtr):
     def get_ExtendedError(self: win32more.Windows.System.IAppActivationResult) -> win32more.Windows.Foundation.HResult: ...
     @winrt_mixinmethod
     def get_AppResourceGroupInfo(self: win32more.Windows.System.IAppActivationResult) -> win32more.Windows.System.AppResourceGroupInfo: ...
-    ExtendedError = property(get_ExtendedError, None)
     AppResourceGroupInfo = property(get_AppResourceGroupInfo, None)
+    ExtendedError = property(get_ExtendedError, None)
 class AppDiagnosticInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.System.IAppDiagnosticInfo
@@ -111,11 +111,11 @@ class AppMemoryReport(ComPtr):
     def get_TotalCommitLimit(self: win32more.Windows.System.IAppMemoryReport) -> UInt64: ...
     @winrt_mixinmethod
     def get_ExpectedTotalCommitLimit(self: win32more.Windows.System.IAppMemoryReport2) -> UInt64: ...
-    PrivateCommitUsage = property(get_PrivateCommitUsage, None)
-    PeakPrivateCommitUsage = property(get_PeakPrivateCommitUsage, None)
-    TotalCommitUsage = property(get_TotalCommitUsage, None)
-    TotalCommitLimit = property(get_TotalCommitLimit, None)
     ExpectedTotalCommitLimit = property(get_ExpectedTotalCommitLimit, None)
+    PeakPrivateCommitUsage = property(get_PeakPrivateCommitUsage, None)
+    PrivateCommitUsage = property(get_PrivateCommitUsage, None)
+    TotalCommitLimit = property(get_TotalCommitLimit, None)
+    TotalCommitUsage = property(get_TotalCommitUsage, None)
 class AppMemoryUsageLevel(Int32):  # enum
     Low = 0
     Medium = 1
@@ -129,8 +129,8 @@ class AppMemoryUsageLimitChangingEventArgs(ComPtr):
     def get_OldLimit(self: win32more.Windows.System.IAppMemoryUsageLimitChangingEventArgs) -> UInt64: ...
     @winrt_mixinmethod
     def get_NewLimit(self: win32more.Windows.System.IAppMemoryUsageLimitChangingEventArgs) -> UInt64: ...
-    OldLimit = property(get_OldLimit, None)
     NewLimit = property(get_NewLimit, None)
+    OldLimit = property(get_OldLimit, None)
 class AppResourceGroupBackgroundTaskReport(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.System.IAppResourceGroupBackgroundTaskReport
@@ -143,10 +143,10 @@ class AppResourceGroupBackgroundTaskReport(ComPtr):
     def get_Trigger(self: win32more.Windows.System.IAppResourceGroupBackgroundTaskReport) -> WinRT_String: ...
     @winrt_mixinmethod
     def get_EntryPoint(self: win32more.Windows.System.IAppResourceGroupBackgroundTaskReport) -> WinRT_String: ...
-    TaskId = property(get_TaskId, None)
-    Name = property(get_Name, None)
-    Trigger = property(get_Trigger, None)
     EntryPoint = property(get_EntryPoint, None)
+    Name = property(get_Name, None)
+    TaskId = property(get_TaskId, None)
+    Trigger = property(get_Trigger, None)
 class AppResourceGroupEnergyQuotaState(Int32):  # enum
     Unknown = 0
     Over = 1
@@ -251,8 +251,8 @@ class AppResourceGroupMemoryReport(ComPtr):
     def get_PrivateCommitUsage(self: win32more.Windows.System.IAppResourceGroupMemoryReport) -> UInt64: ...
     @winrt_mixinmethod
     def get_TotalCommitUsage(self: win32more.Windows.System.IAppResourceGroupMemoryReport) -> UInt64: ...
-    CommitUsageLimit = property(get_CommitUsageLimit, None)
     CommitUsageLevel = property(get_CommitUsageLevel, None)
+    CommitUsageLimit = property(get_CommitUsageLimit, None)
     PrivateCommitUsage = property(get_PrivateCommitUsage, None)
     TotalCommitUsage = property(get_TotalCommitUsage, None)
 class AppResourceGroupStateReport(ComPtr):
@@ -263,8 +263,8 @@ class AppResourceGroupStateReport(ComPtr):
     def get_ExecutionState(self: win32more.Windows.System.IAppResourceGroupStateReport) -> win32more.Windows.System.AppResourceGroupExecutionState: ...
     @winrt_mixinmethod
     def get_EnergyQuotaState(self: win32more.Windows.System.IAppResourceGroupStateReport) -> win32more.Windows.System.AppResourceGroupEnergyQuotaState: ...
-    ExecutionState = property(get_ExecutionState, None)
     EnergyQuotaState = property(get_EnergyQuotaState, None)
+    ExecutionState = property(get_ExecutionState, None)
 class AppUriHandlerHost(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.System.IAppUriHandlerHost
@@ -292,8 +292,8 @@ class AppUriHandlerHost(ComPtr):
     def get_IsEnabled(self: win32more.Windows.System.IAppUriHandlerHost2) -> Boolean: ...
     @winrt_mixinmethod
     def put_IsEnabled(self: win32more.Windows.System.IAppUriHandlerHost2, value: Boolean) -> Void: ...
-    Name = property(get_Name, put_Name)
     IsEnabled = property(get_IsEnabled, put_IsEnabled)
+    Name = property(get_Name, put_Name)
 class AppUriHandlerRegistration(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.System.IAppUriHandlerRegistration
@@ -313,8 +313,8 @@ class AppUriHandlerRegistration(ComPtr):
     @winrt_mixinmethod
     def get_PackageFamilyName(self: win32more.Windows.System.IAppUriHandlerRegistration2) -> WinRT_String: ...
     Name = property(get_Name, None)
-    User = property(get_User, None)
     PackageFamilyName = property(get_PackageFamilyName, None)
+    User = property(get_User, None)
 class AppUriHandlerRegistrationManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.System.IAppUriHandlerRegistrationManager
@@ -333,8 +333,8 @@ class AppUriHandlerRegistrationManager(ComPtr):
     def GetDefault(cls: win32more.Windows.System.IAppUriHandlerRegistrationManagerStatics) -> win32more.Windows.System.AppUriHandlerRegistrationManager: ...
     @winrt_classmethod
     def GetForUser(cls: win32more.Windows.System.IAppUriHandlerRegistrationManagerStatics, user: win32more.Windows.System.User) -> win32more.Windows.System.AppUriHandlerRegistrationManager: ...
-    User = property(get_User, None)
     PackageFamilyName = property(get_PackageFamilyName, None)
+    User = property(get_User, None)
 class AutoUpdateTimeZoneStatus(Int32):  # enum
     Attempted = 0
     TimedOut = 1
@@ -420,8 +420,8 @@ class DispatcherQueueTimer(ComPtr):
     @winrt_mixinmethod
     def remove_Tick(self: win32more.Windows.System.IDispatcherQueueTimer, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Interval = property(get_Interval, put_Interval)
-    IsRunning = property(get_IsRunning, None)
     IsRepeating = property(get_IsRepeating, put_IsRepeating)
+    IsRunning = property(get_IsRunning, None)
 class FolderLauncherOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.System.IFolderLauncherOptions
@@ -441,8 +441,8 @@ class FolderLauncherOptions(ComPtr):
     def get_DesiredRemainingView(self: win32more.Windows.System.ILauncherViewOptions) -> win32more.Windows.UI.ViewManagement.ViewSizePreference: ...
     @winrt_mixinmethod
     def put_DesiredRemainingView(self: win32more.Windows.System.ILauncherViewOptions, value: win32more.Windows.UI.ViewManagement.ViewSizePreference) -> Void: ...
-    ItemsToSelect = property(get_ItemsToSelect, None)
     DesiredRemainingView = property(get_DesiredRemainingView, put_DesiredRemainingView)
+    ItemsToSelect = property(get_ItemsToSelect, None)
 class IAppActivationResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.System.IAppActivationResult'
@@ -451,8 +451,8 @@ class IAppActivationResult(ComPtr):
     def get_ExtendedError(self) -> win32more.Windows.Foundation.HResult: ...
     @winrt_commethod(7)
     def get_AppResourceGroupInfo(self) -> win32more.Windows.System.AppResourceGroupInfo: ...
-    ExtendedError = property(get_ExtendedError, None)
     AppResourceGroupInfo = property(get_AppResourceGroupInfo, None)
+    ExtendedError = property(get_ExtendedError, None)
 class IAppDiagnosticInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.System.IAppDiagnosticInfo'
@@ -547,10 +547,10 @@ class IAppMemoryReport(ComPtr):
     def get_TotalCommitUsage(self) -> UInt64: ...
     @winrt_commethod(9)
     def get_TotalCommitLimit(self) -> UInt64: ...
-    PrivateCommitUsage = property(get_PrivateCommitUsage, None)
     PeakPrivateCommitUsage = property(get_PeakPrivateCommitUsage, None)
-    TotalCommitUsage = property(get_TotalCommitUsage, None)
+    PrivateCommitUsage = property(get_PrivateCommitUsage, None)
     TotalCommitLimit = property(get_TotalCommitLimit, None)
+    TotalCommitUsage = property(get_TotalCommitUsage, None)
 class IAppMemoryReport2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.System.IAppMemoryReport2'
@@ -566,8 +566,8 @@ class IAppMemoryUsageLimitChangingEventArgs(ComPtr):
     def get_OldLimit(self) -> UInt64: ...
     @winrt_commethod(7)
     def get_NewLimit(self) -> UInt64: ...
-    OldLimit = property(get_OldLimit, None)
     NewLimit = property(get_NewLimit, None)
+    OldLimit = property(get_OldLimit, None)
 class IAppResourceGroupBackgroundTaskReport(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.System.IAppResourceGroupBackgroundTaskReport'
@@ -580,10 +580,10 @@ class IAppResourceGroupBackgroundTaskReport(ComPtr):
     def get_Trigger(self) -> WinRT_String: ...
     @winrt_commethod(9)
     def get_EntryPoint(self) -> WinRT_String: ...
-    TaskId = property(get_TaskId, None)
-    Name = property(get_Name, None)
-    Trigger = property(get_Trigger, None)
     EntryPoint = property(get_EntryPoint, None)
+    Name = property(get_Name, None)
+    TaskId = property(get_TaskId, None)
+    Trigger = property(get_Trigger, None)
 class IAppResourceGroupInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.System.IAppResourceGroupInfo'
@@ -675,8 +675,8 @@ class IAppResourceGroupMemoryReport(ComPtr):
     def get_PrivateCommitUsage(self) -> UInt64: ...
     @winrt_commethod(9)
     def get_TotalCommitUsage(self) -> UInt64: ...
-    CommitUsageLimit = property(get_CommitUsageLimit, None)
     CommitUsageLevel = property(get_CommitUsageLevel, None)
+    CommitUsageLimit = property(get_CommitUsageLimit, None)
     PrivateCommitUsage = property(get_PrivateCommitUsage, None)
     TotalCommitUsage = property(get_TotalCommitUsage, None)
 class IAppResourceGroupStateReport(ComPtr):
@@ -687,8 +687,8 @@ class IAppResourceGroupStateReport(ComPtr):
     def get_ExecutionState(self) -> win32more.Windows.System.AppResourceGroupExecutionState: ...
     @winrt_commethod(7)
     def get_EnergyQuotaState(self) -> win32more.Windows.System.AppResourceGroupEnergyQuotaState: ...
-    ExecutionState = property(get_ExecutionState, None)
     EnergyQuotaState = property(get_EnergyQuotaState, None)
+    ExecutionState = property(get_ExecutionState, None)
 class IAppUriHandlerHost(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.System.IAppUriHandlerHost'
@@ -851,8 +851,8 @@ class IDispatcherQueueTimer(ComPtr):
     @winrt_commethod(14)
     def remove_Tick(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Interval = property(get_Interval, put_Interval)
-    IsRunning = property(get_IsRunning, None)
     IsRepeating = property(get_IsRepeating, put_IsRepeating)
+    IsRunning = property(get_IsRunning, None)
 class IFolderLauncherOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.System.IFolderLauncherOptions'
@@ -882,14 +882,14 @@ class IKnownUserPropertiesStatics(ComPtr):
     def get_DomainName(self) -> WinRT_String: ...
     @winrt_commethod(14)
     def get_SessionInitiationProtocolUri(self) -> WinRT_String: ...
-    DisplayName = property(get_DisplayName, None)
-    FirstName = property(get_FirstName, None)
-    LastName = property(get_LastName, None)
-    ProviderName = property(get_ProviderName, None)
     AccountName = property(get_AccountName, None)
-    GuestHost = property(get_GuestHost, None)
-    PrincipalName = property(get_PrincipalName, None)
+    DisplayName = property(get_DisplayName, None)
     DomainName = property(get_DomainName, None)
+    FirstName = property(get_FirstName, None)
+    GuestHost = property(get_GuestHost, None)
+    LastName = property(get_LastName, None)
+    PrincipalName = property(get_PrincipalName, None)
+    ProviderName = property(get_ProviderName, None)
     SessionInitiationProtocolUri = property(get_SessionInitiationProtocolUri, None)
 class IKnownUserPropertiesStatics2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -906,8 +906,8 @@ class ILaunchUriResult(ComPtr):
     def get_Status(self) -> win32more.Windows.System.LaunchUriStatus: ...
     @winrt_commethod(7)
     def get_Result(self) -> win32more.Windows.Foundation.Collections.ValueSet: ...
-    Status = property(get_Status, None)
     Result = property(get_Result, None)
+    Status = property(get_Status, None)
 class ILauncherOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.System.ILauncherOptions'
@@ -938,13 +938,13 @@ class ILauncherOptions(ComPtr):
     def get_ContentType(self) -> WinRT_String: ...
     @winrt_commethod(18)
     def put_ContentType(self, value: WinRT_String) -> Void: ...
-    TreatAsUntrusted = property(get_TreatAsUntrusted, put_TreatAsUntrusted)
-    DisplayApplicationPicker = property(get_DisplayApplicationPicker, put_DisplayApplicationPicker)
-    UI = property(get_UI, None)
-    PreferredApplicationPackageFamilyName = property(get_PreferredApplicationPackageFamilyName, put_PreferredApplicationPackageFamilyName)
-    PreferredApplicationDisplayName = property(get_PreferredApplicationDisplayName, put_PreferredApplicationDisplayName)
-    FallbackUri = property(get_FallbackUri, put_FallbackUri)
     ContentType = property(get_ContentType, put_ContentType)
+    DisplayApplicationPicker = property(get_DisplayApplicationPicker, put_DisplayApplicationPicker)
+    FallbackUri = property(get_FallbackUri, put_FallbackUri)
+    PreferredApplicationDisplayName = property(get_PreferredApplicationDisplayName, put_PreferredApplicationDisplayName)
+    PreferredApplicationPackageFamilyName = property(get_PreferredApplicationPackageFamilyName, put_PreferredApplicationPackageFamilyName)
+    TreatAsUntrusted = property(get_TreatAsUntrusted, put_TreatAsUntrusted)
+    UI = property(get_UI, None)
 class ILauncherOptions2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.System.ILauncherOptions2'
@@ -957,8 +957,8 @@ class ILauncherOptions2(ComPtr):
     def get_NeighboringFilesQuery(self) -> win32more.Windows.Storage.Search.StorageFileQueryResult: ...
     @winrt_commethod(9)
     def put_NeighboringFilesQuery(self, value: win32more.Windows.Storage.Search.StorageFileQueryResult) -> Void: ...
-    TargetApplicationPackageFamilyName = property(get_TargetApplicationPackageFamilyName, put_TargetApplicationPackageFamilyName)
     NeighboringFilesQuery = property(get_NeighboringFilesQuery, put_NeighboringFilesQuery)
+    TargetApplicationPackageFamilyName = property(get_TargetApplicationPackageFamilyName, put_TargetApplicationPackageFamilyName)
 class ILauncherOptions3(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.System.ILauncherOptions3'
@@ -1070,8 +1070,8 @@ class ILauncherUIOptions(ComPtr):
     @winrt_commethod(11)
     def put_PreferredPlacement(self, value: win32more.Windows.UI.Popups.Placement) -> Void: ...
     InvocationPoint = property(get_InvocationPoint, put_InvocationPoint)
-    SelectionRect = property(get_SelectionRect, put_SelectionRect)
     PreferredPlacement = property(get_PreferredPlacement, put_PreferredPlacement)
+    SelectionRect = property(get_SelectionRect, put_SelectionRect)
 class ILauncherViewOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.System.ILauncherViewOptions'
@@ -1104,8 +1104,8 @@ class IMemoryManagerStatics(ComPtr):
     @winrt_commethod(14)
     def remove_AppMemoryUsageLimitChanging(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     AppMemoryUsage = property(get_AppMemoryUsage, None)
-    AppMemoryUsageLimit = property(get_AppMemoryUsageLimit, None)
     AppMemoryUsageLevel = property(get_AppMemoryUsageLevel, None)
+    AppMemoryUsageLimit = property(get_AppMemoryUsageLimit, None)
 class IMemoryManagerStatics2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.System.IMemoryManagerStatics2'
@@ -1147,9 +1147,9 @@ class IProcessLauncherOptions(ComPtr):
     def get_WorkingDirectory(self) -> WinRT_String: ...
     @winrt_commethod(13)
     def put_WorkingDirectory(self, value: WinRT_String) -> Void: ...
+    StandardError = property(get_StandardError, put_StandardError)
     StandardInput = property(get_StandardInput, put_StandardInput)
     StandardOutput = property(get_StandardOutput, put_StandardOutput)
-    StandardError = property(get_StandardError, put_StandardError)
     WorkingDirectory = property(get_WorkingDirectory, put_WorkingDirectory)
 class IProcessLauncherResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -1234,9 +1234,9 @@ class ITimeZoneSettingsStatics(ComPtr):
     def get_CanChangeTimeZone(self) -> Boolean: ...
     @winrt_commethod(9)
     def ChangeTimeZoneByDisplayName(self, timeZoneDisplayName: WinRT_String) -> Void: ...
+    CanChangeTimeZone = property(get_CanChangeTimeZone, None)
     CurrentTimeZoneDisplayName = property(get_CurrentTimeZoneDisplayName, None)
     SupportedTimeZoneDisplayNames = property(get_SupportedTimeZoneDisplayNames, None)
-    CanChangeTimeZone = property(get_CanChangeTimeZone, None)
 class ITimeZoneSettingsStatics2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.System.ITimeZoneSettingsStatics2'
@@ -1259,8 +1259,8 @@ class IUser(ComPtr):
     def GetPropertiesAsync(self, values: win32more.Windows.Foundation.Collections.IVectorView[WinRT_String]) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IPropertySet]: ...
     @winrt_commethod(11)
     def GetPictureAsync(self, desiredSize: win32more.Windows.System.UserPictureSize) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Storage.Streams.IRandomAccessStreamReference]: ...
-    NonRoamableId = property(get_NonRoamableId, None)
     AuthenticationStatus = property(get_AuthenticationStatus, None)
+    NonRoamableId = property(get_NonRoamableId, None)
     Type = property(get_Type, None)
 class IUser2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -1286,9 +1286,9 @@ class IUserAuthenticationStatusChangingEventArgs(ComPtr):
     def get_NewStatus(self) -> win32more.Windows.System.UserAuthenticationStatus: ...
     @winrt_commethod(9)
     def get_CurrentStatus(self) -> win32more.Windows.System.UserAuthenticationStatus: ...
-    User = property(get_User, None)
-    NewStatus = property(get_NewStatus, None)
     CurrentStatus = property(get_CurrentStatus, None)
+    NewStatus = property(get_NewStatus, None)
+    User = property(get_User, None)
 class IUserChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.System.IUserChangedEventArgs'
@@ -1432,15 +1432,15 @@ class KnownUserProperties(ComPtr, metaclass=_KnownUserProperties_Meta_):
     def get_DomainName(cls: win32more.Windows.System.IKnownUserPropertiesStatics) -> WinRT_String: ...
     @winrt_classmethod
     def get_SessionInitiationProtocolUri(cls: win32more.Windows.System.IKnownUserPropertiesStatics) -> WinRT_String: ...
+    _KnownUserProperties_Meta_.AccountName = property(get_AccountName.__wrapped__, None)
     _KnownUserProperties_Meta_.AgeEnforcementRegion = property(get_AgeEnforcementRegion.__wrapped__, None)
     _KnownUserProperties_Meta_.DisplayName = property(get_DisplayName.__wrapped__, None)
-    _KnownUserProperties_Meta_.FirstName = property(get_FirstName.__wrapped__, None)
-    _KnownUserProperties_Meta_.LastName = property(get_LastName.__wrapped__, None)
-    _KnownUserProperties_Meta_.ProviderName = property(get_ProviderName.__wrapped__, None)
-    _KnownUserProperties_Meta_.AccountName = property(get_AccountName.__wrapped__, None)
-    _KnownUserProperties_Meta_.GuestHost = property(get_GuestHost.__wrapped__, None)
-    _KnownUserProperties_Meta_.PrincipalName = property(get_PrincipalName.__wrapped__, None)
     _KnownUserProperties_Meta_.DomainName = property(get_DomainName.__wrapped__, None)
+    _KnownUserProperties_Meta_.FirstName = property(get_FirstName.__wrapped__, None)
+    _KnownUserProperties_Meta_.GuestHost = property(get_GuestHost.__wrapped__, None)
+    _KnownUserProperties_Meta_.LastName = property(get_LastName.__wrapped__, None)
+    _KnownUserProperties_Meta_.PrincipalName = property(get_PrincipalName.__wrapped__, None)
+    _KnownUserProperties_Meta_.ProviderName = property(get_ProviderName.__wrapped__, None)
     _KnownUserProperties_Meta_.SessionInitiationProtocolUri = property(get_SessionInitiationProtocolUri.__wrapped__, None)
 class LaunchFileStatus(Int32):  # enum
     Success = 0
@@ -1465,8 +1465,8 @@ class LaunchUriResult(ComPtr):
     def get_Status(self: win32more.Windows.System.ILaunchUriResult) -> win32more.Windows.System.LaunchUriStatus: ...
     @winrt_mixinmethod
     def get_Result(self: win32more.Windows.System.ILaunchUriResult) -> win32more.Windows.Foundation.Collections.ValueSet: ...
-    Status = property(get_Status, None)
     Result = property(get_Result, None)
+    Status = property(get_Status, None)
 class LaunchUriStatus(Int32):  # enum
     Success = 0
     AppUnavailable = 1
@@ -1590,18 +1590,18 @@ class LauncherOptions(ComPtr):
     def get_DesiredRemainingView(self: win32more.Windows.System.ILauncherViewOptions) -> win32more.Windows.UI.ViewManagement.ViewSizePreference: ...
     @winrt_mixinmethod
     def put_DesiredRemainingView(self: win32more.Windows.System.ILauncherViewOptions, value: win32more.Windows.UI.ViewManagement.ViewSizePreference) -> Void: ...
-    TargetApplicationPackageFamilyName = property(get_TargetApplicationPackageFamilyName, put_TargetApplicationPackageFamilyName)
-    NeighboringFilesQuery = property(get_NeighboringFilesQuery, put_NeighboringFilesQuery)
-    TreatAsUntrusted = property(get_TreatAsUntrusted, put_TreatAsUntrusted)
-    DisplayApplicationPicker = property(get_DisplayApplicationPicker, put_DisplayApplicationPicker)
-    UI = property(get_UI, None)
-    PreferredApplicationPackageFamilyName = property(get_PreferredApplicationPackageFamilyName, put_PreferredApplicationPackageFamilyName)
-    PreferredApplicationDisplayName = property(get_PreferredApplicationDisplayName, put_PreferredApplicationDisplayName)
-    FallbackUri = property(get_FallbackUri, put_FallbackUri)
     ContentType = property(get_ContentType, put_ContentType)
+    DesiredRemainingView = property(get_DesiredRemainingView, put_DesiredRemainingView)
+    DisplayApplicationPicker = property(get_DisplayApplicationPicker, put_DisplayApplicationPicker)
+    FallbackUri = property(get_FallbackUri, put_FallbackUri)
     IgnoreAppUriHandlers = property(get_IgnoreAppUriHandlers, put_IgnoreAppUriHandlers)
     LimitPickerToCurrentAppAndAppUriHandlers = property(get_LimitPickerToCurrentAppAndAppUriHandlers, put_LimitPickerToCurrentAppAndAppUriHandlers)
-    DesiredRemainingView = property(get_DesiredRemainingView, put_DesiredRemainingView)
+    NeighboringFilesQuery = property(get_NeighboringFilesQuery, put_NeighboringFilesQuery)
+    PreferredApplicationDisplayName = property(get_PreferredApplicationDisplayName, put_PreferredApplicationDisplayName)
+    PreferredApplicationPackageFamilyName = property(get_PreferredApplicationPackageFamilyName, put_PreferredApplicationPackageFamilyName)
+    TargetApplicationPackageFamilyName = property(get_TargetApplicationPackageFamilyName, put_TargetApplicationPackageFamilyName)
+    TreatAsUntrusted = property(get_TreatAsUntrusted, put_TreatAsUntrusted)
+    UI = property(get_UI, None)
 class LauncherUIOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.System.ILauncherUIOptions
@@ -1619,8 +1619,8 @@ class LauncherUIOptions(ComPtr):
     @winrt_mixinmethod
     def put_PreferredPlacement(self: win32more.Windows.System.ILauncherUIOptions, value: win32more.Windows.UI.Popups.Placement) -> Void: ...
     InvocationPoint = property(get_InvocationPoint, put_InvocationPoint)
-    SelectionRect = property(get_SelectionRect, put_SelectionRect)
     PreferredPlacement = property(get_PreferredPlacement, put_PreferredPlacement)
+    SelectionRect = property(get_SelectionRect, put_SelectionRect)
 class _MemoryManager_Meta_(ComPtr.__class__):
     pass
 class MemoryManager(ComPtr, metaclass=_MemoryManager_Meta_):
@@ -1652,10 +1652,10 @@ class MemoryManager(ComPtr, metaclass=_MemoryManager_Meta_):
     def add_AppMemoryUsageLimitChanging(cls: win32more.Windows.System.IMemoryManagerStatics, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.System.AppMemoryUsageLimitChangingEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod
     def remove_AppMemoryUsageLimitChanging(cls: win32more.Windows.System.IMemoryManagerStatics, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    _MemoryManager_Meta_.ExpectedAppMemoryUsageLimit = property(get_ExpectedAppMemoryUsageLimit.__wrapped__, None)
     _MemoryManager_Meta_.AppMemoryUsage = property(get_AppMemoryUsage.__wrapped__, None)
-    _MemoryManager_Meta_.AppMemoryUsageLimit = property(get_AppMemoryUsageLimit.__wrapped__, None)
     _MemoryManager_Meta_.AppMemoryUsageLevel = property(get_AppMemoryUsageLevel.__wrapped__, None)
+    _MemoryManager_Meta_.AppMemoryUsageLimit = property(get_AppMemoryUsageLimit.__wrapped__, None)
+    _MemoryManager_Meta_.ExpectedAppMemoryUsageLimit = property(get_ExpectedAppMemoryUsageLimit.__wrapped__, None)
 class PowerState(Int32):  # enum
     ConnectedStandby = 0
     SleepS3 = 1
@@ -1695,9 +1695,9 @@ class ProcessLauncherOptions(ComPtr):
     def get_WorkingDirectory(self: win32more.Windows.System.IProcessLauncherOptions) -> WinRT_String: ...
     @winrt_mixinmethod
     def put_WorkingDirectory(self: win32more.Windows.System.IProcessLauncherOptions, value: WinRT_String) -> Void: ...
+    StandardError = property(get_StandardError, put_StandardError)
     StandardInput = property(get_StandardInput, put_StandardInput)
     StandardOutput = property(get_StandardOutput, put_StandardOutput)
-    StandardError = property(get_StandardError, put_StandardError)
     WorkingDirectory = property(get_WorkingDirectory, put_WorkingDirectory)
 class ProcessLauncherResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -1801,9 +1801,9 @@ class TimeZoneSettings(ComPtr, metaclass=_TimeZoneSettings_Meta_):
     def get_CanChangeTimeZone(cls: win32more.Windows.System.ITimeZoneSettingsStatics) -> Boolean: ...
     @winrt_classmethod
     def ChangeTimeZoneByDisplayName(cls: win32more.Windows.System.ITimeZoneSettingsStatics, timeZoneDisplayName: WinRT_String) -> Void: ...
+    _TimeZoneSettings_Meta_.CanChangeTimeZone = property(get_CanChangeTimeZone.__wrapped__, None)
     _TimeZoneSettings_Meta_.CurrentTimeZoneDisplayName = property(get_CurrentTimeZoneDisplayName.__wrapped__, None)
     _TimeZoneSettings_Meta_.SupportedTimeZoneDisplayNames = property(get_SupportedTimeZoneDisplayNames.__wrapped__, None)
-    _TimeZoneSettings_Meta_.CanChangeTimeZone = property(get_CanChangeTimeZone.__wrapped__, None)
 class User(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.System.IUser
@@ -1834,8 +1834,8 @@ class User(ComPtr):
     def FindAllAsyncByTypeAndStatus(cls: win32more.Windows.System.IUserStatics, type: win32more.Windows.System.UserType, status: win32more.Windows.System.UserAuthenticationStatus) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.System.User]]: ...
     @winrt_classmethod
     def GetFromId(cls: win32more.Windows.System.IUserStatics, nonRoamableId: WinRT_String) -> win32more.Windows.System.User: ...
-    NonRoamableId = property(get_NonRoamableId, None)
     AuthenticationStatus = property(get_AuthenticationStatus, None)
+    NonRoamableId = property(get_NonRoamableId, None)
     Type = property(get_Type, None)
 class UserAgeConsentGroup(Int32):  # enum
     Child = 0
@@ -1869,9 +1869,9 @@ class UserAuthenticationStatusChangingEventArgs(ComPtr):
     def get_NewStatus(self: win32more.Windows.System.IUserAuthenticationStatusChangingEventArgs) -> win32more.Windows.System.UserAuthenticationStatus: ...
     @winrt_mixinmethod
     def get_CurrentStatus(self: win32more.Windows.System.IUserAuthenticationStatusChangingEventArgs) -> win32more.Windows.System.UserAuthenticationStatus: ...
-    User = property(get_User, None)
-    NewStatus = property(get_NewStatus, None)
     CurrentStatus = property(get_CurrentStatus, None)
+    NewStatus = property(get_NewStatus, None)
+    User = property(get_User, None)
 class UserChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.System.IUserChangedEventArgs
@@ -1880,8 +1880,8 @@ class UserChangedEventArgs(ComPtr):
     def get_User(self: win32more.Windows.System.IUserChangedEventArgs) -> win32more.Windows.System.User: ...
     @winrt_mixinmethod
     def get_ChangedPropertyKinds(self: win32more.Windows.System.IUserChangedEventArgs2) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.System.UserWatcherUpdateKind]: ...
-    User = property(get_User, None)
     ChangedPropertyKinds = property(get_ChangedPropertyKinds, None)
+    User = property(get_User, None)
 class UserDeviceAssociation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.System.UserDeviceAssociation'

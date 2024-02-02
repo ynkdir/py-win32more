@@ -129,8 +129,8 @@ class ISceneMetallicRoughnessMaterial(ComPtr):
     def get_RoughnessFactor(self) -> Single: ...
     @winrt_commethod(15)
     def put_RoughnessFactor(self, value: Single) -> Void: ...
-    BaseColorInput = property(get_BaseColorInput, put_BaseColorInput)
     BaseColorFactor = property(get_BaseColorFactor, put_BaseColorFactor)
+    BaseColorInput = property(get_BaseColorInput, put_BaseColorInput)
     MetallicFactor = property(get_MetallicFactor, put_MetallicFactor)
     MetallicRoughnessInput = property(get_MetallicRoughnessInput, put_MetallicRoughnessInput)
     RoughnessFactor = property(get_RoughnessFactor, put_RoughnessFactor)
@@ -252,8 +252,8 @@ class IScenePbrMaterial(ComPtr):
     def put_OcclusionStrength(self, value: Single) -> Void: ...
     AlphaCutoff = property(get_AlphaCutoff, put_AlphaCutoff)
     AlphaMode = property(get_AlphaMode, put_AlphaMode)
-    EmissiveInput = property(get_EmissiveInput, put_EmissiveInput)
     EmissiveFactor = property(get_EmissiveFactor, put_EmissiveFactor)
+    EmissiveInput = property(get_EmissiveInput, put_EmissiveInput)
     IsDoubleSided = property(get_IsDoubleSided, put_IsDoubleSided)
     NormalInput = property(get_NormalInput, put_NormalInput)
     NormalScale = property(get_NormalScale, put_NormalScale)
@@ -477,8 +477,8 @@ class SceneMetallicRoughnessMaterial(ComPtr):
     def put_RoughnessFactor(self: win32more.Windows.UI.Composition.Scenes.ISceneMetallicRoughnessMaterial, value: Single) -> Void: ...
     @winrt_classmethod
     def Create(cls: win32more.Windows.UI.Composition.Scenes.ISceneMetallicRoughnessMaterialStatics, compositor: win32more.Windows.UI.Composition.Compositor) -> win32more.Windows.UI.Composition.Scenes.SceneMetallicRoughnessMaterial: ...
-    BaseColorInput = property(get_BaseColorInput, put_BaseColorInput)
     BaseColorFactor = property(get_BaseColorFactor, put_BaseColorFactor)
+    BaseColorInput = property(get_BaseColorInput, put_BaseColorInput)
     MetallicFactor = property(get_MetallicFactor, put_MetallicFactor)
     MetallicRoughnessInput = property(get_MetallicRoughnessInput, put_MetallicRoughnessInput)
     RoughnessFactor = property(get_RoughnessFactor, put_RoughnessFactor)
@@ -613,8 +613,8 @@ class ScenePbrMaterial(ComPtr):
     def put_OcclusionStrength(self: win32more.Windows.UI.Composition.Scenes.IScenePbrMaterial, value: Single) -> Void: ...
     AlphaCutoff = property(get_AlphaCutoff, put_AlphaCutoff)
     AlphaMode = property(get_AlphaMode, put_AlphaMode)
-    EmissiveInput = property(get_EmissiveInput, put_EmissiveInput)
     EmissiveFactor = property(get_EmissiveFactor, put_EmissiveFactor)
+    EmissiveInput = property(get_EmissiveInput, put_EmissiveInput)
     IsDoubleSided = property(get_IsDoubleSided, put_IsDoubleSided)
     NormalInput = property(get_NormalInput, put_NormalInput)
     NormalScale = property(get_NormalScale, put_NormalScale)

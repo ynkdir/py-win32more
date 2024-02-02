@@ -48,12 +48,12 @@ class HttpDiagnosticProviderRequestResponseCompletedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_SourceLocations(self: win32more.Windows.Web.Http.Diagnostics.IHttpDiagnosticProviderRequestResponseCompletedEventArgs) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Web.Http.Diagnostics.HttpDiagnosticSourceLocation]: ...
     ActivityId = property(get_ActivityId, None)
-    Timestamps = property(get_Timestamps, None)
-    RequestedUri = property(get_RequestedUri, None)
-    ProcessId = property(get_ProcessId, None)
-    ThreadId = property(get_ThreadId, None)
     Initiator = property(get_Initiator, None)
+    ProcessId = property(get_ProcessId, None)
+    RequestedUri = property(get_RequestedUri, None)
     SourceLocations = property(get_SourceLocations, None)
+    ThreadId = property(get_ThreadId, None)
+    Timestamps = property(get_Timestamps, None)
 class HttpDiagnosticProviderRequestResponseTimestamps(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Http.Diagnostics.IHttpDiagnosticProviderRequestResponseTimestamps
@@ -77,14 +77,14 @@ class HttpDiagnosticProviderRequestResponseTimestamps(ComPtr):
     @winrt_mixinmethod
     def get_ResponseCompletedTimestamp(self: win32more.Windows.Web.Http.Diagnostics.IHttpDiagnosticProviderRequestResponseTimestamps) -> win32more.Windows.Foundation.IReference[win32more.Windows.Foundation.DateTime]: ...
     CacheCheckedTimestamp = property(get_CacheCheckedTimestamp, None)
+    ConnectionCompletedTimestamp = property(get_ConnectionCompletedTimestamp, None)
     ConnectionInitiatedTimestamp = property(get_ConnectionInitiatedTimestamp, None)
     NameResolvedTimestamp = property(get_NameResolvedTimestamp, None)
-    SslNegotiatedTimestamp = property(get_SslNegotiatedTimestamp, None)
-    ConnectionCompletedTimestamp = property(get_ConnectionCompletedTimestamp, None)
-    RequestSentTimestamp = property(get_RequestSentTimestamp, None)
     RequestCompletedTimestamp = property(get_RequestCompletedTimestamp, None)
-    ResponseReceivedTimestamp = property(get_ResponseReceivedTimestamp, None)
+    RequestSentTimestamp = property(get_RequestSentTimestamp, None)
     ResponseCompletedTimestamp = property(get_ResponseCompletedTimestamp, None)
+    ResponseReceivedTimestamp = property(get_ResponseReceivedTimestamp, None)
+    SslNegotiatedTimestamp = property(get_SslNegotiatedTimestamp, None)
 class HttpDiagnosticProviderRequestSentEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Http.Diagnostics.IHttpDiagnosticProviderRequestSentEventArgs
@@ -103,13 +103,13 @@ class HttpDiagnosticProviderRequestSentEventArgs(ComPtr):
     def get_Initiator(self: win32more.Windows.Web.Http.Diagnostics.IHttpDiagnosticProviderRequestSentEventArgs) -> win32more.Windows.Web.Http.Diagnostics.HttpDiagnosticRequestInitiator: ...
     @winrt_mixinmethod
     def get_SourceLocations(self: win32more.Windows.Web.Http.Diagnostics.IHttpDiagnosticProviderRequestSentEventArgs) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Web.Http.Diagnostics.HttpDiagnosticSourceLocation]: ...
-    Timestamp = property(get_Timestamp, None)
     ActivityId = property(get_ActivityId, None)
+    Initiator = property(get_Initiator, None)
     Message = property(get_Message, None)
     ProcessId = property(get_ProcessId, None)
-    ThreadId = property(get_ThreadId, None)
-    Initiator = property(get_Initiator, None)
     SourceLocations = property(get_SourceLocations, None)
+    ThreadId = property(get_ThreadId, None)
+    Timestamp = property(get_Timestamp, None)
 class HttpDiagnosticProviderResponseReceivedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Http.Diagnostics.IHttpDiagnosticProviderResponseReceivedEventArgs
@@ -120,9 +120,9 @@ class HttpDiagnosticProviderResponseReceivedEventArgs(ComPtr):
     def get_ActivityId(self: win32more.Windows.Web.Http.Diagnostics.IHttpDiagnosticProviderResponseReceivedEventArgs) -> Guid: ...
     @winrt_mixinmethod
     def get_Message(self: win32more.Windows.Web.Http.Diagnostics.IHttpDiagnosticProviderResponseReceivedEventArgs) -> win32more.Windows.Web.Http.HttpResponseMessage: ...
-    Timestamp = property(get_Timestamp, None)
     ActivityId = property(get_ActivityId, None)
     Message = property(get_Message, None)
+    Timestamp = property(get_Timestamp, None)
 class HttpDiagnosticRequestInitiator(Int32):  # enum
     ParsedElement = 0
     Script = 1
@@ -147,9 +147,9 @@ class HttpDiagnosticSourceLocation(ComPtr):
     def get_LineNumber(self: win32more.Windows.Web.Http.Diagnostics.IHttpDiagnosticSourceLocation) -> UInt64: ...
     @winrt_mixinmethod
     def get_ColumnNumber(self: win32more.Windows.Web.Http.Diagnostics.IHttpDiagnosticSourceLocation) -> UInt64: ...
-    SourceUri = property(get_SourceUri, None)
-    LineNumber = property(get_LineNumber, None)
     ColumnNumber = property(get_ColumnNumber, None)
+    LineNumber = property(get_LineNumber, None)
+    SourceUri = property(get_SourceUri, None)
 HttpDiagnosticsContract: UInt32 = 131072
 class IHttpDiagnosticProvider(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -190,12 +190,12 @@ class IHttpDiagnosticProviderRequestResponseCompletedEventArgs(ComPtr):
     @winrt_commethod(12)
     def get_SourceLocations(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Web.Http.Diagnostics.HttpDiagnosticSourceLocation]: ...
     ActivityId = property(get_ActivityId, None)
-    Timestamps = property(get_Timestamps, None)
-    RequestedUri = property(get_RequestedUri, None)
-    ProcessId = property(get_ProcessId, None)
-    ThreadId = property(get_ThreadId, None)
     Initiator = property(get_Initiator, None)
+    ProcessId = property(get_ProcessId, None)
+    RequestedUri = property(get_RequestedUri, None)
     SourceLocations = property(get_SourceLocations, None)
+    ThreadId = property(get_ThreadId, None)
+    Timestamps = property(get_Timestamps, None)
 class IHttpDiagnosticProviderRequestResponseTimestamps(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Web.Http.Diagnostics.IHttpDiagnosticProviderRequestResponseTimestamps'
@@ -219,14 +219,14 @@ class IHttpDiagnosticProviderRequestResponseTimestamps(ComPtr):
     @winrt_commethod(14)
     def get_ResponseCompletedTimestamp(self) -> win32more.Windows.Foundation.IReference[win32more.Windows.Foundation.DateTime]: ...
     CacheCheckedTimestamp = property(get_CacheCheckedTimestamp, None)
+    ConnectionCompletedTimestamp = property(get_ConnectionCompletedTimestamp, None)
     ConnectionInitiatedTimestamp = property(get_ConnectionInitiatedTimestamp, None)
     NameResolvedTimestamp = property(get_NameResolvedTimestamp, None)
-    SslNegotiatedTimestamp = property(get_SslNegotiatedTimestamp, None)
-    ConnectionCompletedTimestamp = property(get_ConnectionCompletedTimestamp, None)
-    RequestSentTimestamp = property(get_RequestSentTimestamp, None)
     RequestCompletedTimestamp = property(get_RequestCompletedTimestamp, None)
-    ResponseReceivedTimestamp = property(get_ResponseReceivedTimestamp, None)
+    RequestSentTimestamp = property(get_RequestSentTimestamp, None)
     ResponseCompletedTimestamp = property(get_ResponseCompletedTimestamp, None)
+    ResponseReceivedTimestamp = property(get_ResponseReceivedTimestamp, None)
+    SslNegotiatedTimestamp = property(get_SslNegotiatedTimestamp, None)
 class IHttpDiagnosticProviderRequestSentEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Web.Http.Diagnostics.IHttpDiagnosticProviderRequestSentEventArgs'
@@ -245,13 +245,13 @@ class IHttpDiagnosticProviderRequestSentEventArgs(ComPtr):
     def get_Initiator(self) -> win32more.Windows.Web.Http.Diagnostics.HttpDiagnosticRequestInitiator: ...
     @winrt_commethod(12)
     def get_SourceLocations(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Web.Http.Diagnostics.HttpDiagnosticSourceLocation]: ...
-    Timestamp = property(get_Timestamp, None)
     ActivityId = property(get_ActivityId, None)
+    Initiator = property(get_Initiator, None)
     Message = property(get_Message, None)
     ProcessId = property(get_ProcessId, None)
-    ThreadId = property(get_ThreadId, None)
-    Initiator = property(get_Initiator, None)
     SourceLocations = property(get_SourceLocations, None)
+    ThreadId = property(get_ThreadId, None)
+    Timestamp = property(get_Timestamp, None)
 class IHttpDiagnosticProviderResponseReceivedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Web.Http.Diagnostics.IHttpDiagnosticProviderResponseReceivedEventArgs'
@@ -262,9 +262,9 @@ class IHttpDiagnosticProviderResponseReceivedEventArgs(ComPtr):
     def get_ActivityId(self) -> Guid: ...
     @winrt_commethod(8)
     def get_Message(self) -> win32more.Windows.Web.Http.HttpResponseMessage: ...
-    Timestamp = property(get_Timestamp, None)
     ActivityId = property(get_ActivityId, None)
     Message = property(get_Message, None)
+    Timestamp = property(get_Timestamp, None)
 class IHttpDiagnosticProviderStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Web.Http.Diagnostics.IHttpDiagnosticProviderStatics'
@@ -281,9 +281,9 @@ class IHttpDiagnosticSourceLocation(ComPtr):
     def get_LineNumber(self) -> UInt64: ...
     @winrt_commethod(8)
     def get_ColumnNumber(self) -> UInt64: ...
-    SourceUri = property(get_SourceUri, None)
-    LineNumber = property(get_LineNumber, None)
     ColumnNumber = property(get_ColumnNumber, None)
+    LineNumber = property(get_LineNumber, None)
+    SourceUri = property(get_SourceUri, None)
 
 
 make_ready(__name__)

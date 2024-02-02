@@ -17,10 +17,10 @@ class IVariablePhotoCapturedEventArgs(ComPtr):
     def get_UsedFrameControllerIndex(self) -> win32more.Windows.Foundation.IReference[UInt32]: ...
     @winrt_commethod(9)
     def get_CapturedFrameControlValues(self) -> win32more.Windows.Media.Capture.CapturedFrameControlValues: ...
-    Frame = property(get_Frame, None)
     CaptureTimeOffset = property(get_CaptureTimeOffset, None)
-    UsedFrameControllerIndex = property(get_UsedFrameControllerIndex, None)
     CapturedFrameControlValues = property(get_CapturedFrameControlValues, None)
+    Frame = property(get_Frame, None)
+    UsedFrameControllerIndex = property(get_UsedFrameControllerIndex, None)
 class IVariablePhotoSequenceCapture(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Capture.Core.IVariablePhotoSequenceCapture'
@@ -57,10 +57,10 @@ class VariablePhotoCapturedEventArgs(ComPtr):
     def get_UsedFrameControllerIndex(self: win32more.Windows.Media.Capture.Core.IVariablePhotoCapturedEventArgs) -> win32more.Windows.Foundation.IReference[UInt32]: ...
     @winrt_mixinmethod
     def get_CapturedFrameControlValues(self: win32more.Windows.Media.Capture.Core.IVariablePhotoCapturedEventArgs) -> win32more.Windows.Media.Capture.CapturedFrameControlValues: ...
-    Frame = property(get_Frame, None)
     CaptureTimeOffset = property(get_CaptureTimeOffset, None)
-    UsedFrameControllerIndex = property(get_UsedFrameControllerIndex, None)
     CapturedFrameControlValues = property(get_CapturedFrameControlValues, None)
+    Frame = property(get_Frame, None)
+    UsedFrameControllerIndex = property(get_UsedFrameControllerIndex, None)
 class VariablePhotoSequenceCapture(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Capture.Core.IVariablePhotoSequenceCapture

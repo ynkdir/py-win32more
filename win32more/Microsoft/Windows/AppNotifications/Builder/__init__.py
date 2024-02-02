@@ -158,15 +158,15 @@ class AppNotificationButton(ComPtr):
     def IsToolTipSupported(cls: win32more.Microsoft.Windows.AppNotifications.Builder.IAppNotificationButtonStatics) -> Boolean: ...
     @winrt_classmethod
     def IsButtonStyleSupported(cls: win32more.Microsoft.Windows.AppNotifications.Builder.IAppNotificationButtonStatics) -> Boolean: ...
-    Content = property(get_Content, put_Content)
     Arguments = property(get_Arguments, put_Arguments)
-    Icon = property(get_Icon, put_Icon)
-    ToolTip = property(get_ToolTip, put_ToolTip)
-    ContextMenuPlacement = property(get_ContextMenuPlacement, put_ContextMenuPlacement)
     ButtonStyle = property(get_ButtonStyle, put_ButtonStyle)
+    Content = property(get_Content, put_Content)
+    ContextMenuPlacement = property(get_ContextMenuPlacement, put_ContextMenuPlacement)
+    Icon = property(get_Icon, put_Icon)
     InputId = property(get_InputId, put_InputId)
     InvokeUri = property(get_InvokeUri, put_InvokeUri)
     TargetAppId = property(get_TargetAppId, put_TargetAppId)
+    ToolTip = property(get_ToolTip, put_ToolTip)
 class AppNotificationButtonStyle(Int32):  # enum
     Default = 0
     Success = 1
@@ -203,8 +203,8 @@ class AppNotificationComboBox(ComPtr):
     @winrt_mixinmethod
     def SetSelectedItem(self: win32more.Microsoft.Windows.AppNotifications.Builder.IAppNotificationComboBox, id: WinRT_String) -> win32more.Microsoft.Windows.AppNotifications.Builder.AppNotificationComboBox: ...
     Items = property(get_Items, put_Items)
-    Title = property(get_Title, put_Title)
     SelectedItem = property(get_SelectedItem, put_SelectedItem)
+    Title = property(get_Title, put_Title)
 class AppNotificationDuration(Int32):  # enum
     Default = 0
     Long = 1
@@ -256,8 +256,8 @@ class AppNotificationProgressBar(ComPtr):
     def SetValueStringOverride(self: win32more.Microsoft.Windows.AppNotifications.Builder.IAppNotificationProgressBar, value: WinRT_String) -> win32more.Microsoft.Windows.AppNotifications.Builder.AppNotificationProgressBar: ...
     @winrt_mixinmethod
     def BindValueStringOverride(self: win32more.Microsoft.Windows.AppNotifications.Builder.IAppNotificationProgressBar) -> win32more.Microsoft.Windows.AppNotifications.Builder.AppNotificationProgressBar: ...
-    Title = property(get_Title, put_Title)
     Status = property(get_Status, put_Status)
+    Title = property(get_Title, put_Title)
     Value = property(get_Value, put_Value)
     ValueStringOverride = property(get_ValueStringOverride, put_ValueStringOverride)
 class AppNotificationScenario(Int32):  # enum
@@ -323,8 +323,8 @@ class AppNotificationTextProperties(ComPtr):
     def SetIncomingCallAlignment(self: win32more.Microsoft.Windows.AppNotifications.Builder.IAppNotificationTextProperties) -> win32more.Microsoft.Windows.AppNotifications.Builder.AppNotificationTextProperties: ...
     @winrt_mixinmethod
     def SetMaxLines(self: win32more.Microsoft.Windows.AppNotifications.Builder.IAppNotificationTextProperties, value: Int32) -> win32more.Microsoft.Windows.AppNotifications.Builder.AppNotificationTextProperties: ...
-    Language = property(get_Language, put_Language)
     IncomingCallAlignment = property(get_IncomingCallAlignment, put_IncomingCallAlignment)
+    Language = property(get_Language, put_Language)
     MaxLines = property(get_MaxLines, put_MaxLines)
 class IAppNotificationBuilder(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -450,15 +450,15 @@ class IAppNotificationButton(ComPtr):
     def SetInvokeUri(self, protocolUri: win32more.Windows.Foundation.Uri) -> win32more.Microsoft.Windows.AppNotifications.Builder.AppNotificationButton: ...
     @winrt_commethod(31)
     def SetInvokeUri2(self, protocolUri: win32more.Windows.Foundation.Uri, targetAppId: WinRT_String) -> win32more.Microsoft.Windows.AppNotifications.Builder.AppNotificationButton: ...
-    Content = property(get_Content, put_Content)
     Arguments = property(get_Arguments, put_Arguments)
-    Icon = property(get_Icon, put_Icon)
-    ToolTip = property(get_ToolTip, put_ToolTip)
-    ContextMenuPlacement = property(get_ContextMenuPlacement, put_ContextMenuPlacement)
     ButtonStyle = property(get_ButtonStyle, put_ButtonStyle)
+    Content = property(get_Content, put_Content)
+    ContextMenuPlacement = property(get_ContextMenuPlacement, put_ContextMenuPlacement)
+    Icon = property(get_Icon, put_Icon)
     InputId = property(get_InputId, put_InputId)
     InvokeUri = property(get_InvokeUri, put_InvokeUri)
     TargetAppId = property(get_TargetAppId, put_TargetAppId)
+    ToolTip = property(get_ToolTip, put_ToolTip)
 class IAppNotificationButtonFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Windows.AppNotifications.Builder.IAppNotificationButtonFactory'
@@ -496,8 +496,8 @@ class IAppNotificationComboBox(ComPtr):
     @winrt_commethod(14)
     def SetSelectedItem(self, id: WinRT_String) -> win32more.Microsoft.Windows.AppNotifications.Builder.AppNotificationComboBox: ...
     Items = property(get_Items, put_Items)
-    Title = property(get_Title, put_Title)
     SelectedItem = property(get_SelectedItem, put_SelectedItem)
+    Title = property(get_Title, put_Title)
 class IAppNotificationComboBoxFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Windows.AppNotifications.Builder.IAppNotificationComboBoxFactory'
@@ -540,8 +540,8 @@ class IAppNotificationProgressBar(ComPtr):
     def SetValueStringOverride(self, value: WinRT_String) -> win32more.Microsoft.Windows.AppNotifications.Builder.AppNotificationProgressBar: ...
     @winrt_commethod(21)
     def BindValueStringOverride(self) -> win32more.Microsoft.Windows.AppNotifications.Builder.AppNotificationProgressBar: ...
-    Title = property(get_Title, put_Title)
     Status = property(get_Status, put_Status)
+    Title = property(get_Title, put_Title)
     Value = property(get_Value, put_Value)
     ValueStringOverride = property(get_ValueStringOverride, put_ValueStringOverride)
 class IAppNotificationTextProperties(ComPtr):
@@ -566,8 +566,8 @@ class IAppNotificationTextProperties(ComPtr):
     def SetIncomingCallAlignment(self) -> win32more.Microsoft.Windows.AppNotifications.Builder.AppNotificationTextProperties: ...
     @winrt_commethod(14)
     def SetMaxLines(self, value: Int32) -> win32more.Microsoft.Windows.AppNotifications.Builder.AppNotificationTextProperties: ...
-    Language = property(get_Language, put_Language)
     IncomingCallAlignment = property(get_IncomingCallAlignment, put_IncomingCallAlignment)
+    Language = property(get_Language, put_Language)
     MaxLines = property(get_MaxLines, put_MaxLines)
 
 
