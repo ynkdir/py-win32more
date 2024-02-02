@@ -50,7 +50,7 @@ class Preprocessor:
         names = set()
         for td in meta.type_definitions:
             if td.name == "Apis":
-                for md in td.method_definitions:
+                for md in td.methods:
                     names.add(f"{td.namespace}.{md.name}")
             else:
                 names.add(td.fullname)
@@ -61,7 +61,7 @@ class Preprocessor:
             self.patch_keyword_name_td(td, td.fullname)
 
     def patch_keyword_name_td(self, td: TypeDefinition, namespace: str) -> None:
-        for md in td.method_definitions:
+        for md in td.methods:
             if "SpecialName" in md.attributes:
                 for prefix in ("get_", "put_", "add_", "remove_"):
                     if md.name.startswith(prefix) and keyword.iskeyword(removeprefix(md.name, prefix)):

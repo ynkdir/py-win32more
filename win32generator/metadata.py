@@ -179,8 +179,8 @@ class TypeDefinition:
         return TypeLayout(self["Layout"])
 
     @property
-    def method_definitions(self) -> list[MethodDefinition]:
-        return [MethodDefinition(md) for md in self["MethodDefinitions"]]
+    def methods(self) -> list[MethodDefinition]:
+        return [MethodDefinition(md) for md in self["Methods"]]
 
     @property
     def nested_types(self) -> list[TypeDefinition]:
@@ -207,7 +207,7 @@ class TypeDefinition:
             yield from ii.enumerate_dependencies(exclude_pointer)
         for fd in self.fields:
             yield from fd.enumerate_dependencies(exclude_pointer)
-        for md in self.method_definitions:
+        for md in self.methods:
             yield from md.enumerate_dependencies(exclude_pointer)
         for nested_type in self.nested_types:
             yield from nested_type.enumerate_dependencies(exclude_pointer)

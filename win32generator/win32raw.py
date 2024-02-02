@@ -24,7 +24,7 @@ class Parser:
         elif td.basetype == "System.Object":
             for fd in td.fields:
                 self._module.add(Constant(td, fd, self._formatter))
-            for md in td.method_definitions:
+            for md in td.methods:
                 if md.custom_attributes.has_constant():
                     self._module.add(InlineFunction(td, md, self._formatter))
                 else:
@@ -366,7 +366,7 @@ class ExternalFunction:
 class FunctionPointer:
     def __init__(self, td: TypeDefinition, formatter: Formatter) -> None:
         self._td = td
-        self._md = td.method_definitions[1]  # [0]=.ctor, [1]=Invoke
+        self._md = td.methods[1]  # [0]=.ctor, [1]=Invoke
         self._formatter = formatter
 
     @property
@@ -617,7 +617,7 @@ class Com:
             guid = self._formatter.guid(self._td.custom_attributes.get_guid())
             writer.write(f"{self._td.name}._iid_ = {guid}\n")
         vtbl_index = self._count_interface_method()
-        for md in self._td.method_definitions:
+        for md in self._td.methods:
             writer.write(self._method(md, vtbl_index))
             vtbl_index += 1
         return writer.getvalue()
@@ -628,7 +628,7 @@ class Com:
         return self._td.interface_implementations[0].name
 
     def _count_interface_method(self) -> int:
-        return sum(len(com._td.method_definitions) for com in self._enumerate_interfaces())
+        return sum(len(com._td.methods) for com in self._enumerate_interfaces())
 
     def _enumerate_interfaces(self) -> Iterable[Com]:
         for ii in self._td.interface_implementations:
@@ -668,7 +668,7 @@ class Attribute:
 
     def emit(self) -> str:
         writer = StringIO()
-        md = self._td.method_definitions[0]  # [0]=.ctor
+        md = self._td.methods[0]  # [0]=.ctor
         writer.write(f"class {self._td.name}(Structure):\n")
         writer.write("    _fields_ = [\n")
         for pa, type_ in md.parameters_with_type:

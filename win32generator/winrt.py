@@ -369,7 +369,7 @@ class Com:
         raise ValueError()
 
     def _has_classproperty(self) -> bool:
-        for md in self._td.method_definitions:
+        for md in self._td.methods:
             if md.name == ".ctor":
                 continue
             is_static = "Static" in md.attributes
@@ -425,7 +425,7 @@ class Com:
     def _properties(self) -> str:
         getter = {}
         setter = {}
-        for md in self._td.method_definitions:
+        for md in self._td.methods:
             if "Static" in md.attributes:
                 continue
             if md.name.startswith("get_"):
@@ -440,7 +440,7 @@ class Com:
     def _class_properties(self) -> str:
         getter = {}
         setter = {}
-        for md in self._td.method_definitions:
+        for md in self._td.methods:
             if "Static" not in md.attributes:
                 continue
             if md.name.startswith("get_"):
@@ -477,7 +477,7 @@ class Com:
             return
         ca = self._td.custom_attributes.get_composable()
         td = self._get_com(ca.fixed_arguments[0].value)._td
-        for md in td.method_definitions:
+        for md in td.methods:
             assert md.signature.return_type.fullname == self._td.fullname
             yield CompositionMethod(self._td, td, md, self._formatter)
 
@@ -485,14 +485,14 @@ class Com:
         for ca in self._td.custom_attributes.get_activatable():
             if ca.fixed_arguments[0].type.kind == "Type":
                 td = self._get_com(ca.fixed_arguments[0].value)._td
-                for md in td.method_definitions:
+                for md in td.methods:
                     yield FactoryActivationMethod(self._td, td, md, self._formatter)
             else:
                 yield ActivationMethod(self._td, self._formatter)
 
     def _enumerate_method(self) -> Iterable[Method]:
         vtbl_index = self._count_interface_method()
-        for md in self._td.method_definitions:
+        for md in self._td.methods:
             if md.name == ".ctor":
                 pass
             elif "Static" in md.attributes:
@@ -506,7 +506,7 @@ class Com:
     def _get_static_interface_for_method(self, mymd: MethodDefinition) -> TypeDefinition:
         for ca in self._td.custom_attributes.get_static():
             td = self._get_com(ca.fixed_arguments[0].value)._td
-            for md in td.method_definitions:
+            for md in td.methods:
                 if md.name_overload == mymd.name_overload and md.get_parameter_names() == mymd.get_parameter_names():
                     return td
         raise KeyError()
@@ -514,7 +514,7 @@ class Com:
     def _get_interface_for_method(self, mymd: MethodDefinition) -> InterfaceImplementation:
         for ii in self._td.interface_implementations:
             td = self._get_com(ii.fullname)._td
-            for md in td.method_definitions:
+            for md in td.methods:
                 if md.name_overload == mymd.name_overload and md.get_parameter_names() == mymd.get_parameter_names():
                     return ii
         raise KeyError()
@@ -523,7 +523,7 @@ class Com:
         if self._td.basetype is None or self._td.basetype == "System.Object":
             return 6  # count of IInspectable
         com = self._get_com(self._td.basetype)
-        return len(com._td.method_definitions) + com._count_interface_method()
+        return len(com._td.methods) + com._count_interface_method()
 
     def _get_com(self, fullname: str) -> Com:
         namespace, name = fullname.rsplit(".", 1)
@@ -743,9 +743,9 @@ class MixinMethod:
 
 class Delegate:
     def __init__(self, td: TypeDefinition, formatter: Formatter) -> None:
-        assert len(td.method_definitions) == 2
-        assert td.method_definitions[0].name == ".ctor"
-        assert td.method_definitions[1].name == "Invoke"
+        assert len(td.methods) == 2
+        assert td.methods[0].name == ".ctor"
+        assert td.methods[1].name == "Invoke"
         assert td.custom_attributes.has_winrt_guid()
         self._td = td
         self._formatter = formatter
@@ -771,7 +771,7 @@ class Delegate:
         writer.write(f"    extends: {self._formatter.fullname('Windows.Win32.System.Com.IUnknown')}\n")
         guid = self._td.custom_attributes.get_winrt_guid()
         writer.write(f"    _iid_ = Guid('{guid}')\n")
-        writer.write(self._method(self._td.method_definitions[1]))
+        writer.write(self._method(self._td.methods[1]))
         return writer.getvalue()
 
     def _basetype(self) -> str:

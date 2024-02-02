@@ -45,7 +45,7 @@ class Selector:
                 if self._is_match(fd.name) or self._is_match(f"{td.namespace}.{fd.name}"):
                     self._selected.add(f"{td.namespace}.{fd.name}")
                     self._select_dependencies(fd.enumerate_dependencies())
-            for md in td.method_definitions:
+            for md in td.methods:
                 if self._is_match(md.name) or self._is_match(f"{td.namespace}.{md.name}"):
                     self._selected.add(f"{td.namespace}.{md.name}")
                     self._select_dependencies(md.enumerate_dependencies())
@@ -73,9 +73,7 @@ class Selector:
             return True
         elif td.name == "Apis":
             td["Fields"] = [fd for fd in td["Fields"] if f"{td['Namespace']}.{fd['Name']}" in self._selected]
-            td["MethodDefinitions"] = [
-                md for md in td["MethodDefinitions"] if f"{td['Namespace']}.{md['Name']}" in self._selected
-            ]
-            if td["Fields"] or td["MethodDefinitions"]:
+            td["Methods"] = [md for md in td["Methods"] if f"{td['Namespace']}.{md['Name']}" in self._selected]
+            if td["Fields"] or td["Methods"]:
                 return True
         return False
