@@ -9,6 +9,7 @@ from win32more.Windows.Win32.System.WinRT import (
     RoUninitialize,
 )
 
+
 def main2() -> None:
     template = """
     <toast>

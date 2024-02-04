@@ -2,6 +2,8 @@
 # This example requires "<maxversiontested Id="10.0.18362.0"/>" in python.exe's manifest.
 # Use Microsoft Store version of Python.
 
+# ruff: noqa: F841
+
 import tkinter as tk
 from ctypes import (
     WinError,
