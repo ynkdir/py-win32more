@@ -80,7 +80,7 @@ class ComPtr(c_void_p):
 
     @classmethod
     def __commit__(struct):
-        struct._hints_ = get_hints(struct)
+        struct._hints_ = get_type_hints_with_patch(struct)
         if struct._hints_["extends"] is None:
             return struct
         # Generic class have multiple base class (Generic[], ComPtr).
@@ -141,7 +141,7 @@ class EasyCastBase:
         if "_fields_" in dir(struct):
             return struct
 
-        hints = get_hints(struct)
+        hints = get_type_hints_with_patch(struct)
 
         anonymous = [hint for hint in hints.keys() if re.match(r"^Anonymous\d*$", hint)]
         if anonymous:
@@ -236,12 +236,18 @@ def get_type_hints(prototype, **kwargs):
     return hints
 
 
-def get_hints(struct, patch_return=False):
-    hints = {}
-    for hint, type_ in get_type_hints(struct).items():
-        if not patch_return or hint == "return":
-            type_ = _patch_char_p(type_)
-        hints[hint] = type_
+def get_type_hints_with_patch(prototype):
+    hints = get_type_hints(prototype)
+    for name, type_ in hints.items():
+        hints[name] = _patch_char_p(type_)
+    return hints
+
+
+def get_type_hints_with_patch_return_only(prototype):
+    hints = get_type_hints(prototype)
+    for name, type_ in hints.items():
+        if name == "return":
+            hints[name] = _patch_char_p(type_)
     return hints
 
 
@@ -315,7 +321,7 @@ def FAILED(hr):
 
 class ForeignFunction:
     def __init__(self, prototype, factory):
-        hints = get_hints(prototype, patch_return=True)
+        hints = get_type_hints_with_patch_return_only(prototype)
         restype = hints.pop("return")
         argtypes = list(hints.values())
         types = [restype] + argtypes
@@ -345,7 +351,7 @@ class ForeignFunction:
 
 class ComMethod:
     def __init__(self, prototype, factory):
-        hints = get_hints(prototype, patch_return=True)
+        hints = get_type_hints_with_patch_return_only(prototype)
         restype = hints.pop("return")
         argtypes = list(hints.values())
         types = [restype] + argtypes
@@ -440,7 +446,7 @@ class BaseFuncType:
         self._kind = kind
 
     def __commit__(self):
-        types = list(get_hints(self._fn).values())
+        types = list(get_type_hints_with_patch(self._fn).values())
         types = types[-1:] + types[:-1]
         return self._kind(*types)
 
