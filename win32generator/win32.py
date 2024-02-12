@@ -250,18 +250,7 @@ class Constant:
         yield from self._fd.enumerate_dependencies()
 
     def emit(self) -> str:
-        writer = StringIO()
-        if "HasDefault" in self._fd.attributes:
-            # primitive
-            writer.write(
-                f"{self._fd.name}: {self._formatter.pytype(self._fd.signature)} = {self._formatter.pyvalue(self._fd)}\n"
-            )
-        else:
-            # composite type
-            writer.write(
-                f"{self._fd.name}: {self._formatter.pytype(self._fd.signature)} = {self._formatter.pyvalue(self._fd)}\n"
-            )
-        return writer.getvalue()
+        return f"{self._fd.name}: {self._formatter.pytype(self._fd.signature)} = {self._formatter.pyvalue(self._fd)}\n"
 
 
 class InlineFunction:
