@@ -138,7 +138,7 @@ class EasyCastBase:
     def __commit__(struct):
         # FIXME: not work for Union.
         # if hasattr(cls, "_fields_"):
-        if "_fields_" in dir(struct):
+        if "_fields_" in struct.__dict__:
             return struct
 
         hints = get_type_hints_with_patch(struct)
