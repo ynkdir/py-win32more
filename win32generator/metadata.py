@@ -87,10 +87,6 @@ class TType:
     def is_nested(self) -> bool:
         return self.kind == "Type" and self.namespace == ""
 
-    @property
-    def is_guid(self) -> bool:
-        return self.kind == "Type" and self.fullname == "System.Guid"
-
     def enumerate_dependencies(self, exclude_pointer=False) -> Iterable[str]:
         if self.kind in ["Pointer", "Reference"]:
             if exclude_pointer:

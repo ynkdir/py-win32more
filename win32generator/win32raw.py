@@ -85,7 +85,7 @@ class Formatter:
         elif ttype.kind == "Type":
             if ttype.is_nested:
                 return ttype.name
-            elif ttype.is_guid:
+            elif ttype.fullname == "System.Guid":
                 return "Guid"
             elif not ttype.namespace.startswith("Windows.Win32."):
                 # Some win32 api depends on winrt namespace.  Ignore it.

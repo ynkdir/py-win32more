@@ -109,7 +109,7 @@ class Formatter:
         elif ttype.kind == "Type":
             if ttype.is_nested:
                 return ttype.name
-            elif ttype.is_guid:
+            elif ttype.fullname == "System.Guid":
                 return "Guid"
             else:
                 return self.fullname(ttype)
@@ -256,8 +256,6 @@ class Constant:
             writer.write(
                 f"{self._fd.name}: {self._formatter.pytype(self._fd.signature)} = {self._formatter.pyvalue(self._fd)}\n"
             )
-        elif self._fd.signature.is_guid:
-            writer.write(f"{self._fd.name}: Guid = {self._formatter.pyvalue(self._fd)}\n")
         else:
             # composite type
             writer.write(

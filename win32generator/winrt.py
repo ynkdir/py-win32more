@@ -81,7 +81,7 @@ class Formatter:
         elif ttype.kind == "SZArray":
             return f"SZArray[{self.pytype(ttype.type)}]"
         elif ttype.kind == "Type":
-            if ttype.is_guid:
+            if ttype.fullname == "System.Guid":
                 return "Guid"
             else:
                 return self.fullname(ttype)
