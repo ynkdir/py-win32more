@@ -27,5 +27,7 @@ py %WATCHDIR%\raw_syntax.py || exit
 py -m win32generator --loglevel=DEBUG --raw --one=%WATCHDIR%\raw_filedialog.py --selector=%TESTDIR%\raw_filedialog_selector.txt || exit
 py %WATCHDIR%\raw_filedialog.py || exit
 
+py -m win32generator --loglevel=DEBUG --one=%WATCHDIR%\enum_explicit.py --selector=%TESTDIR%\enum_explicit_selector.txt || exit
+
 git -C %WATCHDIR% status
 

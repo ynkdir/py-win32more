@@ -27,7 +27,9 @@ class Selector:
         self._init_namespace(meta)
         for td in meta.type_definitions:
             self._select_match_and_dependencies(td)
-        return Metadata([td.js for td in meta.type_definitions if self._is_selected(td)])
+        for td in meta.type_definitions:
+            self._select_members_inplace(td)
+        return Metadata([td.js for td in meta.type_definitions if td.fullname in self._selected])
 
     def _init_namespace(self, meta: Metadata) -> None:
         self._ns = defaultdict(list)
@@ -40,23 +42,24 @@ class Selector:
         if self._is_match(td.namespace) or self._is_match(td.name) or self._is_match(td.fullname):
             self._selected.add(td.fullname)
             self._select_dependencies(td.enumerate_dependencies())
-        elif td.name == "Apis":
+
+        if td.name == "Apis":
             for fd in td.fields:
                 if self._is_match(fd.name) or self._is_match(f"{td.namespace}.{fd.name}"):
+                    self._selected.add(td.fullname)
                     self._selected.add(f"{td.namespace}.{fd.name}")
                     self._select_dependencies(fd.enumerate_dependencies())
             for md in td.methods:
                 if self._is_match(md.name) or self._is_match(f"{td.namespace}.{md.name}"):
+                    self._selected.add(td.fullname)
                     self._selected.add(f"{td.namespace}.{md.name}")
                     self._select_dependencies(md.enumerate_dependencies())
-        elif td.basetype == "System.Enum":
-            if td.is_winrt or td.custom_attributes.has_scoped_enum():
-                return
+        elif td.basetype == "System.Enum" and td.is_win32 and not td.custom_attributes.has_scoped_enum():
             for fd in td.fields[1:]:
-                if self._is_match(fd.name) or self._is_match(f"{td.fullname}.{fd.name}"):
+                if self._is_match(fd.name) or self._is_match(f"{td.namespace}.{fd.name}"):
                     self._selected.add(td.fullname)
+                    self._selected.add(f"{td.fullname}.{fd.name}")
                     self._select_dependencies(td.enumerate_dependencies())
-                    break
 
     def _select_dependencies(self, dependencies: Iterable[str]) -> None:
         for fullname in dependencies:
@@ -68,12 +71,12 @@ class Selector:
             for td in self._ns[fullname]:
                 self._select_dependencies(td.enumerate_dependencies())
 
-    def _is_selected(self, td: TypeDefinition) -> bool:
-        if td.fullname in self._selected:
-            return True
-        elif td.name == "Apis":
+    def _select_members_inplace(self, td: TypeDefinition) -> None:
+        if td.name == "Apis":
             td["Fields"] = [fd for fd in td["Fields"] if f"{td['Namespace']}.{fd['Name']}" in self._selected]
             td["Methods"] = [md for md in td["Methods"] if f"{td['Namespace']}.{md['Name']}" in self._selected]
-            if td["Fields"] or td["Methods"]:
-                return True
-        return False
+        elif td.basetype == "System.Enum" and td.is_win32 and not td.custom_attributes.has_scoped_enum():
+            constants = [fd for fd in td["Fields"][1:] if f"{td.fullname}.{fd['Name']}" in self._selected]
+            if constants:
+                # Some constants are selected explicitly.  Export them only.
+                td["Fields"] = [td["Fields"][0]] + constants
