@@ -1425,6 +1425,8 @@ HBMMENU_POPUP_MAXIMIZE: win32more.Windows.Win32.Graphics.Gdi.HBITMAP = 10
 HBMMENU_POPUP_MINIMIZE: win32more.Windows.Win32.Graphics.Gdi.HBITMAP = 11
 CW_USEDEFAULT: Int32 = -2147483648
 LBS_STANDARD: Int32 = 10485763
+WINSTA_ALL_ACCESS: Int32 = 895
+WVR_REDRAW: UInt32 = 768
 @winfunctype('USER32.dll')
 def LoadStringA(hInstance: win32more.Windows.Win32.Foundation.HINSTANCE, uID: UInt32, lpBuffer: win32more.Windows.Win32.Foundation.PSTR, cchBufferMax: Int32) -> Int32: ...
 @winfunctype('USER32.dll')

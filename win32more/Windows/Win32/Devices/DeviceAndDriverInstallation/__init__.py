@@ -323,10 +323,6 @@ INFINFO_INF_NAME_IS_ABSOLUTE: UInt32 = 2
 INFINFO_DEFAULT_SEARCH: UInt32 = 3
 INFINFO_REVERSE_DEFAULT_SEARCH: UInt32 = 4
 INFINFO_INF_PATH_LIST_SEARCH: UInt32 = 5
-FILE_COMPRESSION_NONE: UInt32 = 0
-FILE_COMPRESSION_WINLZA: UInt32 = 1
-FILE_COMPRESSION_MSZIP: UInt32 = 2
-FILE_COMPRESSION_NTCAB: UInt32 = 3
 SRCLIST_TEMPORARY: UInt32 = 1
 SRCLIST_NOBROWSE: UInt32 = 2
 SRCLIST_SYSTEM: UInt32 = 16
@@ -1091,17 +1087,17 @@ def SetupGetMultiSzFieldW(Context: POINTER(win32more.Windows.Win32.Devices.Devic
 @winfunctype('SETUPAPI.dll')
 def SetupGetBinaryField(Context: POINTER(win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.INFCONTEXT), FieldIndex: UInt32, ReturnBuffer: POINTER(Byte), ReturnBufferSize: UInt32, RequiredSize: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('SETUPAPI.dll')
-def SetupGetFileCompressionInfoA(SourceFileName: win32more.Windows.Win32.Foundation.PSTR, ActualSourceFileName: POINTER(win32more.Windows.Win32.Foundation.PSTR), SourceFileSize: POINTER(UInt32), TargetFileSize: POINTER(UInt32), CompressionType: POINTER(UInt32)) -> UInt32: ...
+def SetupGetFileCompressionInfoA(SourceFileName: win32more.Windows.Win32.Foundation.PSTR, ActualSourceFileName: POINTER(win32more.Windows.Win32.Foundation.PSTR), SourceFileSize: POINTER(UInt32), TargetFileSize: POINTER(UInt32), CompressionType: POINTER(win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.FILE_COMPRESSION_TYPE)) -> UInt32: ...
 @winfunctype('SETUPAPI.dll')
-def SetupGetFileCompressionInfoW(SourceFileName: win32more.Windows.Win32.Foundation.PWSTR, ActualSourceFileName: POINTER(win32more.Windows.Win32.Foundation.PWSTR), SourceFileSize: POINTER(UInt32), TargetFileSize: POINTER(UInt32), CompressionType: POINTER(UInt32)) -> UInt32: ...
+def SetupGetFileCompressionInfoW(SourceFileName: win32more.Windows.Win32.Foundation.PWSTR, ActualSourceFileName: POINTER(win32more.Windows.Win32.Foundation.PWSTR), SourceFileSize: POINTER(UInt32), TargetFileSize: POINTER(UInt32), CompressionType: POINTER(win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.FILE_COMPRESSION_TYPE)) -> UInt32: ...
 @winfunctype('SETUPAPI.dll')
-def SetupGetFileCompressionInfoExA(SourceFileName: win32more.Windows.Win32.Foundation.PSTR, ActualSourceFileNameBuffer: win32more.Windows.Win32.Foundation.PSTR, ActualSourceFileNameBufferLen: UInt32, RequiredBufferLen: POINTER(UInt32), SourceFileSize: POINTER(UInt32), TargetFileSize: POINTER(UInt32), CompressionType: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def SetupGetFileCompressionInfoExA(SourceFileName: win32more.Windows.Win32.Foundation.PSTR, ActualSourceFileNameBuffer: win32more.Windows.Win32.Foundation.PSTR, ActualSourceFileNameBufferLen: UInt32, RequiredBufferLen: POINTER(UInt32), SourceFileSize: POINTER(UInt32), TargetFileSize: POINTER(UInt32), CompressionType: POINTER(win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.FILE_COMPRESSION_TYPE)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('SETUPAPI.dll')
-def SetupGetFileCompressionInfoExW(SourceFileName: win32more.Windows.Win32.Foundation.PWSTR, ActualSourceFileNameBuffer: win32more.Windows.Win32.Foundation.PWSTR, ActualSourceFileNameBufferLen: UInt32, RequiredBufferLen: POINTER(UInt32), SourceFileSize: POINTER(UInt32), TargetFileSize: POINTER(UInt32), CompressionType: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def SetupGetFileCompressionInfoExW(SourceFileName: win32more.Windows.Win32.Foundation.PWSTR, ActualSourceFileNameBuffer: win32more.Windows.Win32.Foundation.PWSTR, ActualSourceFileNameBufferLen: UInt32, RequiredBufferLen: POINTER(UInt32), SourceFileSize: POINTER(UInt32), TargetFileSize: POINTER(UInt32), CompressionType: POINTER(win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.FILE_COMPRESSION_TYPE)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('SETUPAPI.dll')
-def SetupDecompressOrCopyFileA(SourceFileName: win32more.Windows.Win32.Foundation.PSTR, TargetFileName: win32more.Windows.Win32.Foundation.PSTR, CompressionType: POINTER(UInt32)) -> UInt32: ...
+def SetupDecompressOrCopyFileA(SourceFileName: win32more.Windows.Win32.Foundation.PSTR, TargetFileName: win32more.Windows.Win32.Foundation.PSTR, CompressionType: POINTER(win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.FILE_COMPRESSION_TYPE)) -> UInt32: ...
 @winfunctype('SETUPAPI.dll')
-def SetupDecompressOrCopyFileW(SourceFileName: win32more.Windows.Win32.Foundation.PWSTR, TargetFileName: win32more.Windows.Win32.Foundation.PWSTR, CompressionType: POINTER(UInt32)) -> UInt32: ...
+def SetupDecompressOrCopyFileW(SourceFileName: win32more.Windows.Win32.Foundation.PWSTR, TargetFileName: win32more.Windows.Win32.Foundation.PWSTR, CompressionType: POINTER(win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.FILE_COMPRESSION_TYPE)) -> UInt32: ...
 @winfunctype('SETUPAPI.dll')
 def SetupGetSourceFileLocationA(InfHandle: VoidPtr, InfContext: POINTER(win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.INFCONTEXT), FileName: win32more.Windows.Win32.Foundation.PSTR, SourceId: POINTER(UInt32), ReturnBuffer: win32more.Windows.Win32.Foundation.PSTR, ReturnBufferSize: UInt32, RequiredSize: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('SETUPAPI.dll')
@@ -2729,6 +2725,11 @@ elif ARCH in 'X86':
         Win32Error: UInt32
         Flags: UInt32
         _pack_ = 1
+FILE_COMPRESSION_TYPE = UInt32
+FILE_COMPRESSION_NONE: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.FILE_COMPRESSION_TYPE = 0
+FILE_COMPRESSION_WINLZA: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.FILE_COMPRESSION_TYPE = 1
+FILE_COMPRESSION_MSZIP: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.FILE_COMPRESSION_TYPE = 2
+FILE_COMPRESSION_NTCAB: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.FILE_COMPRESSION_TYPE = 3
 if ARCH in 'X64,ARM64':
     class FILE_IN_CABINET_INFO_A(EasyCastStructure):
         NameInCabinet: win32more.Windows.Win32.Foundation.PSTR

@@ -89,6 +89,7 @@ AuditEventObjectAccess: win32more.Windows.Win32.Security.AUDIT_EVENT_TYPE = 0
 AuditEventDirectoryServiceAccess: win32more.Windows.Win32.Security.AUDIT_EVENT_TYPE = 1
 SECURITY_DYNAMIC_TRACKING: win32more.Windows.Win32.Foundation.BOOLEAN = 1
 SECURITY_STATIC_TRACKING: win32more.Windows.Win32.Foundation.BOOLEAN = 0
+SECURITY_MAX_SID_SIZE: UInt32 = 68
 SECURITY_NULL_SID_AUTHORITY: win32more.Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY = ConstantLazyLoader((0, 0, 0, 0, 0, 0))
 SECURITY_WORLD_SID_AUTHORITY: win32more.Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY = ConstantLazyLoader((0, 0, 0, 0, 0, 1))
 SECURITY_LOCAL_SID_AUTHORITY: win32more.Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY = ConstantLazyLoader((0, 0, 0, 0, 0, 2))
