@@ -7,6 +7,7 @@ from collections.abc import Iterable
 from io import StringIO
 from typing import no_type_check
 
+from .dependencies import Dependencies
 from .metadata import FieldDefinition, MethodDefinition, TType, TypeDefinition
 from .package import ApiItem
 
@@ -266,7 +267,7 @@ class Constant:
         return []
 
     def enumerate_dependencies(self) -> Iterable[str]:
-        yield from self._fd.enumerate_dependencies()
+        yield from Dependencies(self._fd)
 
     def emit(self) -> str:
         return f"{self._fd.name} = {self._formatter.pyvalue(self._fd)}\n"
@@ -294,7 +295,7 @@ class InlineFunction:
         return []
 
     def enumerate_dependencies(self) -> Iterable[str]:
-        yield from self._md.enumerate_dependencies()
+        yield from Dependencies(self._md)
 
     def emit(self) -> str:
         writer = StringIO()
@@ -326,7 +327,7 @@ class ExternalFunction:
         return []
 
     def enumerate_dependencies(self) -> Iterable[str]:
-        yield from self._md.enumerate_dependencies()
+        yield from Dependencies(self._md)
 
     def emit(self) -> str:
         name = self._md.name
@@ -384,7 +385,7 @@ class FunctionPointer:
         return []
 
     def enumerate_dependencies(self) -> Iterable[str]:
-        yield from self._md.enumerate_dependencies()
+        yield from Dependencies(self._md)
 
     def emit(self) -> str:
         functype = self._functype()
@@ -422,7 +423,7 @@ class Enum:
         return []
 
     def enumerate_dependencies(self) -> Iterable[str]:
-        yield from self._td.fields[0].enumerate_dependencies()
+        yield from Dependencies(self._td.fields[0])
 
     def emit(self) -> str:
         writer = StringIO()
@@ -457,7 +458,7 @@ class NativeTypedef:
         return []
 
     def enumerate_dependencies(self) -> Iterable[str]:
-        yield from self._td.fields[0].enumerate_dependencies()
+        yield from Dependencies(self._td.fields[0])
 
     def emit(self) -> str:
         if self._td.name == "PSTR":  # POINTER(Byte)
@@ -517,10 +518,10 @@ class StructUnion:
         return []
 
     def enumerate_dependencies(self) -> Iterable[str]:
-        yield from self._td.enumerate_dependencies()
+        yield from Dependencies(self._td)
 
     def enumerate_dependencies_exclude_pointer(self) -> Iterable[str]:
-        yield from self._td.enumerate_dependencies(exclude_pointer=True)
+        yield from Dependencies(self._td).exclude_pointer()
 
     def emit_head(self) -> str:
         return self._emit_head_td(self._td)
@@ -602,7 +603,7 @@ class Com:
         return []
 
     def enumerate_dependencies(self) -> Iterable[str]:
-        yield from self._td.enumerate_dependencies()
+        yield from Dependencies(self._td)
 
     def emit_head(self) -> str:
         writer = StringIO()

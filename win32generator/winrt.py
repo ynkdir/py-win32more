@@ -8,6 +8,7 @@ from io import StringIO
 from typing import Protocol
 
 from .backport import removeprefix
+from .dependencies import Dependencies
 from .metadata import InterfaceImplementation, MethodDefinition, TType, TypeDefinition
 from .package import ApiItem, Module, Package
 from .win32 import BASE_EXPORTS_CSV
@@ -221,7 +222,7 @@ class Enum:
         raise NotImplementedError()
 
     def enumerate_dependencies(self) -> Iterable[str]:
-        yield from self._td.fields[0].enumerate_dependencies()
+        yield from Dependencies(self._td.fields[0])
 
     def emit(self) -> str:
         writer = StringIO()
@@ -256,7 +257,7 @@ class Struct:
         raise NotImplementedError()
 
     def enumerate_dependencies(self) -> Iterable[str]:
-        yield from self._td.enumerate_dependencies()
+        yield from Dependencies(self._td)
 
     # _fields_ and _anonymous_ is defined at runtime.
     def emit(self) -> str:
@@ -311,7 +312,7 @@ class Com:
         raise NotImplementedError()
 
     def enumerate_dependencies(self) -> Iterable[str]:
-        yield from self._td.enumerate_dependencies()
+        yield from Dependencies(self._td)
 
     def emit(self) -> str:
         writer = StringIO()
@@ -763,7 +764,7 @@ class Delegate:
         raise NotImplementedError()
 
     def enumerate_dependencies(self) -> Iterable[str]:
-        yield from self._td.enumerate_dependencies()
+        yield from Dependencies(self._td)
 
     def emit(self) -> str:
         writer = StringIO()

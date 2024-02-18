@@ -3,6 +3,7 @@ from collections import defaultdict
 from collections.abc import Iterable, Mapping
 from pathlib import Path
 
+from .dependencies import Dependencies
 from .metadata import Metadata, TypeDefinition
 
 
@@ -41,25 +42,25 @@ class Selector:
     def _select_match_and_dependencies(self, td: TypeDefinition) -> None:
         if self._is_match(td.namespace) or self._is_match(td.name) or self._is_match(td.fullname):
             self._selected.add(td.fullname)
-            self._select_dependencies(td.enumerate_dependencies())
+            self._select_dependencies(Dependencies(td))
 
         if td.name == "Apis":
             for fd in td.fields:
                 if self._is_match(fd.name) or self._is_match(f"{td.namespace}.{fd.name}"):
                     self._selected.add(td.fullname)
                     self._selected.add(f"{td.namespace}.{fd.name}")
-                    self._select_dependencies(fd.enumerate_dependencies())
+                    self._select_dependencies(Dependencies(fd))
             for md in td.methods:
                 if self._is_match(md.name) or self._is_match(f"{td.namespace}.{md.name}"):
                     self._selected.add(td.fullname)
                     self._selected.add(f"{td.namespace}.{md.name}")
-                    self._select_dependencies(md.enumerate_dependencies())
+                    self._select_dependencies(Dependencies(md))
         elif td.basetype == "System.Enum" and td.is_win32 and not td.custom_attributes.has_scoped_enum():
             for fd in td.fields[1:]:
                 if self._is_match(fd.name) or self._is_match(f"{td.namespace}.{fd.name}"):
                     self._selected.add(td.fullname)
                     self._selected.add(f"{td.fullname}.{fd.name}")
-                    self._select_dependencies(td.enumerate_dependencies())
+                    self._select_dependencies(Dependencies(td))
 
     def _select_dependencies(self, dependencies: Iterable[str]) -> None:
         for fullname in dependencies:
@@ -69,7 +70,7 @@ class Selector:
                 continue
             self._selected.add(fullname)
             for td in self._ns[fullname]:
-                self._select_dependencies(td.enumerate_dependencies())
+                self._select_dependencies(Dependencies(td))
 
     def _select_members_inplace(self, td: TypeDefinition) -> None:
         if td.name == "Apis":
