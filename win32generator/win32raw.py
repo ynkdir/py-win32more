@@ -219,9 +219,9 @@ class Win32RawModule:
             else:
                 return [name]
         elif self._item_type(item) is StructUnion and isinstance(item, (StructUnion, ArchitectureVariant)):
-            return [fullname.rsplit(".", 1)[1] for fullname in item.enumerate_dependencies_exclude_pointer()]
+            return [fullname.rsplit(".", 1)[1] for fullname in sorted(item.enumerate_dependencies_exclude_pointer())]
         else:
-            return [fullname.rsplit(".", 1)[1] for fullname in item.enumerate_dependencies()]
+            return [fullname.rsplit(".", 1)[1] for fullname in sorted(item.enumerate_dependencies())]
 
     def _sort_by_type(self, items: Iterable[ApiItem]) -> Iterable[ApiItem]:
         return sorted(items, key=self._type_order)
