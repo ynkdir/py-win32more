@@ -498,10 +498,11 @@ class Clsid:
 
 
 class StructUnion:
-    def __init__(self, td: TypeDefinition, formatter: Formatter) -> None:
+    def __init__(self, td: TypeDefinition, formatter: Formatter, parent: StructUnion | None = None) -> None:
         assert td.fields or not td.custom_attributes.has_guid()
         self._td = td
         self._formatter = formatter
+        self._parent = parent
 
     @property
     def namespace(self) -> str:
@@ -510,6 +511,12 @@ class StructUnion:
     @property
     def name(self) -> str:
         return self._td.name
+
+    @property
+    def qualname(self) -> str:
+        if self._parent is None:
+            return self.name
+        return f"{self._parent.qualname}.{self.name}"
 
     @property
     def supported_architecture(self) -> list[str]:
@@ -524,63 +531,58 @@ class StructUnion:
         yield from Dependencies(self._td).exclude_pointer()
 
     def emit_head(self) -> str:
-        return self._emit_head_td(self._td)
-
-    def _emit_head_td(self, td: TypeDefinition) -> str:
         writer = StringIO()
-        writer.write(f"class {td.name}({self._basetype(td)}):\n")
-        if not td.nested_types:
+        writer.write(f"class {self._td.name}({self._basetype()}):\n")
+        if not self._td.nested_types:
             writer.write("    pass\n")
-        for nested_type in td.nested_types:
-            writer.write(textwrap.indent(self._emit_head_td(nested_type), "    "))
+        for nested_type in self._td.nested_types:
+            writer.write(textwrap.indent(StructUnion(nested_type, self._formatter, self).emit_head(), "    "))
         return writer.getvalue()
 
     def emit(self) -> str:
-        return self._emit_td(self._td, "")
-
-    def _emit_td(self, td: TypeDefinition, parent) -> str:
         writer = StringIO()
 
-        for nested_type in td.nested_types:
-            writer.write(self._emit_td(nested_type, f"{parent}{td.name}."))
+        for nested_type in self._td.nested_types:
+            writer.write(StructUnion(nested_type, self._formatter, self).emit())
 
-        if td.custom_attributes.has_guid():
-            guid = self._formatter.guid(td.custom_attributes.get_guid())
-            writer.write(f"{parent}{td.name}._uuid_ = {guid}\n")
+        if self._td.custom_attributes.has_guid():
+            guid = self._formatter.guid(self._td.custom_attributes.get_guid())
+            writer.write(f"{self.qualname}._uuid_ = {guid}\n")
 
-        for fd in td.fields:
-            if self._is_static(fd):
-                writer.write(f"{parent}{td.name}.{fd.name} = {self._formatter.pyvalue(fd)}\n")
+        for fd in self._value_fields():
+            writer.write(f"{self.qualname}.{fd.name} = {self._formatter.pyvalue(fd)}\n")
 
-        anonymous = [fd.name for fd in td.fields if re.match(r"^Anonymous\d*$", fd.name)]
+        anonymous = [fd.name for fd in self._td.fields if re.match(r"^Anonymous\d*$", fd.name)]
         if anonymous:
             anonymous_csv = ", ".join(f"'{name}'" for name in anonymous)
-            writer.write(f"{parent}{td.name}._anonymous_ = [{anonymous_csv}]\n")
+            writer.write(f"{self.qualname}._anonymous_ = [{anonymous_csv}]\n")
 
-        if td.layout.packing_size != 0:
-            writer.write(f"{parent}{td.name}._pack_ = {td.layout.packing_size}\n")
+        if self._td.layout.packing_size != 0:
+            writer.write(f"{self.qualname}._pack_ = {self._td.layout.packing_size}\n")
 
-        writer.write(f"{parent}{td.name}._fields_ = [\n")
-        for fd in td.fields:
-            if not self._is_static(fd):
-                pytype = self._formatter.pytype(fd.signature)
-                if fd.name in anonymous:
-                    pytype = f"{parent}{td.name}.{pytype}"
-                writer.write(f"        ('{fd.name}', {pytype}),\n")
-        writer.write("    ]\n")
+        writer.write(f"{self.qualname}._fields_ = [\n")
+        for fd in self._member_fields():
+            pytype = self._formatter.pytype(fd.signature)
+            if fd.name in anonymous:
+                pytype = f"{self.qualname}.{pytype}"
+            writer.write(f"    ('{fd.name}', {pytype}),\n")
+        writer.write("]\n")
 
         return writer.getvalue()
 
-    def _basetype(self, td) -> str:
-        if "SequentialLayout" in td.attributes:
+    def _basetype(self) -> str:
+        if "SequentialLayout" in self._td.attributes:
             return "Structure"
-        elif "ExplicitLayout" in td.attributes:
+        elif "ExplicitLayout" in self._td.attributes:
             return "Union"
         else:
             raise ValueError()
 
-    def _is_static(self, fd: FieldDefinition) -> bool:
-        return {"Static", "HasDefault"} <= set(fd.attributes)
+    def _value_fields(self) -> Iterable[FieldDefinition]:
+        return [fd for fd in self._td.fields if "HasDefault" in fd.attributes]
+
+    def _member_fields(self) -> Iterable[FieldDefinition]:
+        return [fd for fd in self._td.fields if "HasDefault" not in fd.attributes]
 
 
 class Com:

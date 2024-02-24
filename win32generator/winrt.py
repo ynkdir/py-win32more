@@ -370,15 +370,9 @@ class Com:
         raise ValueError()
 
     def _has_classproperty(self) -> bool:
-        for md in self._td.methods:
-            if md.name == ".ctor":
-                continue
-            is_static = "Static" in md.attributes
-            is_special = "SpecialName" in md.attributes
-            is_property = md.name.startswith(("get_", "put_"))
-            if is_static and is_special and is_property:
-                return True
-        return False
+        return any(
+            True for md in self._td.methods if "Static" in md.attributes and md.name.startswith(("get_", "put_"))
+        )
 
     def _constructor(self) -> str:
         writer = StringIO()
@@ -426,9 +420,7 @@ class Com:
     def _properties(self) -> str:
         getter = {}
         setter = {}
-        for md in self._td.methods:
-            if "Static" in md.attributes:
-                continue
+        for md in (md for md in self._td.methods if "Static" not in md.attributes):
             if md.name.startswith("get_"):
                 getter[removeprefix(md.name, "get_")] = md.name
             elif md.name.startswith("put_"):
@@ -441,9 +433,7 @@ class Com:
     def _class_properties(self) -> str:
         getter = {}
         setter = {}
-        for md in self._td.methods:
-            if "Static" not in md.attributes:
-                continue
+        for md in (md for md in self._td.methods if "Static" in md.attributes):
             if md.name.startswith("get_"):
                 getter[removeprefix(md.name, "get_")] = f"{md.name}.__wrapped__"
             elif md.name.startswith("put_"):

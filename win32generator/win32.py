@@ -516,7 +516,7 @@ class StructUnion:
             # FIXME: What id?
             guid = self._td.custom_attributes.get_guid()
             writer.write(f"    _uuid_ = Guid('{guid}')\n")
-        for fd in self._static_fields():
+        for fd in self._value_fields():
             writer.write(f"    {fd.name} = {self._formatter.pyvalue(fd)}\n")
         for fd in self._member_fields():
             writer.write(f"    {fd.name}: {self._formatter.pytype(fd.signature)}\n")
@@ -534,18 +534,11 @@ class StructUnion:
         else:
             raise ValueError()
 
-    def _static_fields(self) -> Iterable[FieldDefinition]:
-        for fd in self._td.fields:
-            if self._is_static(fd):
-                yield fd
+    def _value_fields(self) -> Iterable[FieldDefinition]:
+        return [fd for fd in self._td.fields if "HasDefault" in fd.attributes]
 
     def _member_fields(self) -> Iterable[FieldDefinition]:
-        for fd in self._td.fields:
-            if not self._is_static(fd):
-                yield fd
-
-    def _is_static(self, fd: FieldDefinition) -> bool:
-        return {"Static", "HasDefault"} <= set(fd.attributes)
+        return [fd for fd in self._td.fields if "HasDefault" not in fd.attributes]
 
     def _is_empty(self) -> bool:
         return not self._td.fields
