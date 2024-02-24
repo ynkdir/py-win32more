@@ -239,7 +239,7 @@ class Struct:
         assert not td.nested_types
         assert "SequentialLayout" in td.attributes
         assert not td.custom_attributes.has_winrt_guid()
-        assert not any(fd for fd in td.fields if {"Static", "HasDefault"} <= set(td.attributes))
+        assert not any(fd for fd in td.fields if {"Static", "HasDefault"} <= set(fd.attributes))
         assert td.layout.packing_size == 0
         self._td = td
         self._formatter = formatter
