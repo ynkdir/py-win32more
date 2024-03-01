@@ -17,6 +17,7 @@ import win32more.Microsoft.UI.Xaml.Navigation
 import win32more.Microsoft.Web.WebView2.Core
 import win32more.Windows.ApplicationModel.Contacts
 import win32more.Windows.ApplicationModel.DataTransfer
+import win32more.Windows.Devices.Geolocation
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Foundation.Numerics
@@ -11238,6 +11239,149 @@ class IListViewPersistenceHelperStatics(ComPtr):
     def GetRelativeScrollPosition(self, listViewBase: win32more.Microsoft.UI.Xaml.Controls.ListViewBase, itemToKeyHandler: win32more.Microsoft.UI.Xaml.Controls.ListViewItemToKeyHandler) -> WinRT_String: ...
     @winrt_commethod(7)
     def SetRelativeScrollPositionAsync(self, listViewBase: win32more.Microsoft.UI.Xaml.Controls.ListViewBase, relativeScrollPosition: WinRT_String, keyToItemHandler: win32more.Microsoft.UI.Xaml.Controls.ListViewKeyToItemHandler) -> win32more.Windows.Foundation.IAsyncAction: ...
+class IMapControl(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.UI.Xaml.Controls.IMapControl'
+    _iid_ = Guid('{85c67af2-2b9c-55ab-ae1f-635da713d68f}')
+    @winrt_commethod(6)
+    def get_MapServiceToken(self) -> WinRT_String: ...
+    @winrt_commethod(7)
+    def put_MapServiceToken(self, value: WinRT_String) -> Void: ...
+    @winrt_commethod(8)
+    def get_Center(self) -> win32more.Windows.Devices.Geolocation.Geopoint: ...
+    @winrt_commethod(9)
+    def put_Center(self, value: win32more.Windows.Devices.Geolocation.Geopoint) -> Void: ...
+    @winrt_commethod(10)
+    def get_Layers(self) -> win32more.Windows.Foundation.Collections.IVector[win32more.Microsoft.UI.Xaml.Controls.MapLayer]: ...
+    @winrt_commethod(11)
+    def put_Layers(self, value: win32more.Windows.Foundation.Collections.IVector[win32more.Microsoft.UI.Xaml.Controls.MapLayer]) -> Void: ...
+    @winrt_commethod(12)
+    def get_ZoomLevel(self) -> Double: ...
+    @winrt_commethod(13)
+    def put_ZoomLevel(self, value: Double) -> Void: ...
+    @winrt_commethod(14)
+    def get_InteractiveControlsVisible(self) -> Boolean: ...
+    @winrt_commethod(15)
+    def put_InteractiveControlsVisible(self, value: Boolean) -> Void: ...
+    @winrt_commethod(16)
+    def add_MapElementClick(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.UI.Xaml.Controls.MapControl, win32more.Microsoft.UI.Xaml.Controls.MapElementClickEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_commethod(17)
+    def remove_MapElementClick(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_commethod(18)
+    def add_MapServiceErrorOccurred(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.UI.Xaml.Controls.MapControl, win32more.Microsoft.UI.Xaml.Controls.MapControlMapServiceErrorOccurredEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_commethod(19)
+    def remove_MapServiceErrorOccurred(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    Center = property(get_Center, put_Center)
+    InteractiveControlsVisible = property(get_InteractiveControlsVisible, put_InteractiveControlsVisible)
+    Layers = property(get_Layers, put_Layers)
+    MapServiceToken = property(get_MapServiceToken, put_MapServiceToken)
+    ZoomLevel = property(get_ZoomLevel, put_ZoomLevel)
+class IMapControlFactory(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.UI.Xaml.Controls.IMapControlFactory'
+    _iid_ = Guid('{edf8c301-8e9a-59b1-9179-99d41bec90d9}')
+    @winrt_commethod(6)
+    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Controls.MapControl: ...
+class IMapControlMapServiceErrorOccurredEventArgs(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.UI.Xaml.Controls.IMapControlMapServiceErrorOccurredEventArgs'
+    _iid_ = Guid('{b5493c70-799c-59c0-b823-aed5268194a9}')
+    @winrt_commethod(6)
+    def get_DiagnosticMessage(self) -> WinRT_String: ...
+    DiagnosticMessage = property(get_DiagnosticMessage, None)
+class IMapControlStatics(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.UI.Xaml.Controls.IMapControlStatics'
+    _iid_ = Guid('{56e19652-9c6a-5dcd-850e-97d3725e7423}')
+    @winrt_commethod(6)
+    def get_LayersProperty(self) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
+    @winrt_commethod(7)
+    def get_MapServiceTokenProperty(self) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
+    @winrt_commethod(8)
+    def get_CenterProperty(self) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
+    @winrt_commethod(9)
+    def get_ZoomLevelProperty(self) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
+    @winrt_commethod(10)
+    def get_InteractiveControlsVisibleProperty(self) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
+    CenterProperty = property(get_CenterProperty, None)
+    InteractiveControlsVisibleProperty = property(get_InteractiveControlsVisibleProperty, None)
+    LayersProperty = property(get_LayersProperty, None)
+    MapServiceTokenProperty = property(get_MapServiceTokenProperty, None)
+    ZoomLevelProperty = property(get_ZoomLevelProperty, None)
+class IMapElement(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.UI.Xaml.Controls.IMapElement'
+    _iid_ = Guid('{106fe452-6421-5f74-b94b-df95b5d44474}')
+class IMapElementClickEventArgs(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.UI.Xaml.Controls.IMapElementClickEventArgs'
+    _iid_ = Guid('{24a3fd85-fdea-591e-92ef-3d56179b1b19}')
+    @winrt_commethod(6)
+    def get_Location(self) -> win32more.Windows.Devices.Geolocation.Geopoint: ...
+    @winrt_commethod(7)
+    def get_Element(self) -> win32more.Microsoft.UI.Xaml.Controls.MapElement: ...
+    Element = property(get_Element, None)
+    Location = property(get_Location, None)
+class IMapElementFactory(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.UI.Xaml.Controls.IMapElementFactory'
+    _iid_ = Guid('{3688073b-c481-5254-af83-4b928f3b5806}')
+class IMapElementsLayer(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.UI.Xaml.Controls.IMapElementsLayer'
+    _iid_ = Guid('{623e70e1-d55d-594a-a3e2-97b6c897d6c0}')
+    @winrt_commethod(6)
+    def get_MapElements(self) -> win32more.Windows.Foundation.Collections.IVector[win32more.Microsoft.UI.Xaml.Controls.MapElement]: ...
+    @winrt_commethod(7)
+    def put_MapElements(self, value: win32more.Windows.Foundation.Collections.IVector[win32more.Microsoft.UI.Xaml.Controls.MapElement]) -> Void: ...
+    @winrt_commethod(8)
+    def add_MapElementClick(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.UI.Xaml.Controls.MapElementsLayer, win32more.Microsoft.UI.Xaml.Controls.MapElementClickEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_commethod(9)
+    def remove_MapElementClick(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    MapElements = property(get_MapElements, put_MapElements)
+class IMapElementsLayerFactory(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.UI.Xaml.Controls.IMapElementsLayerFactory'
+    _iid_ = Guid('{bff4c348-ee22-56b0-b89f-a1a12539850e}')
+    @winrt_commethod(6)
+    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Controls.MapElementsLayer: ...
+class IMapElementsLayerStatics(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.UI.Xaml.Controls.IMapElementsLayerStatics'
+    _iid_ = Guid('{0f07c4b8-f7d8-5ac9-b23b-6c19c49541dc}')
+    @winrt_commethod(6)
+    def get_MapElementsProperty(self) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
+    MapElementsProperty = property(get_MapElementsProperty, None)
+class IMapIcon(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.UI.Xaml.Controls.IMapIcon'
+    _iid_ = Guid('{e54fcfca-360b-5bef-a7f5-b1baa43f12f4}')
+    @winrt_commethod(6)
+    def get_Location(self) -> win32more.Windows.Devices.Geolocation.Geopoint: ...
+    @winrt_commethod(7)
+    def put_Location(self, value: win32more.Windows.Devices.Geolocation.Geopoint) -> Void: ...
+    Location = property(get_Location, put_Location)
+class IMapIconFactory(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.UI.Xaml.Controls.IMapIconFactory'
+    _iid_ = Guid('{daee9683-7218-548f-aeac-a13610e09129}')
+    @winrt_commethod(6)
+    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Controls.MapIcon: ...
+class IMapIconStatics(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.UI.Xaml.Controls.IMapIconStatics'
+    _iid_ = Guid('{b8b61be8-e767-50a5-8de8-6f3ac2decda7}')
+    @winrt_commethod(6)
+    def get_LocationProperty(self) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
+    LocationProperty = property(get_LocationProperty, None)
+class IMapLayer(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.UI.Xaml.Controls.IMapLayer'
+    _iid_ = Guid('{88dce7f9-df75-5549-8ab8-03765c34b449}')
+class IMapLayerFactory(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.UI.Xaml.Controls.IMapLayerFactory'
+    _iid_ = Guid('{2b44c746-d7ba-583e-a238-78564c1dd329}')
 class IMediaPlayerElement(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.IMediaPlayerElement'
@@ -15970,6 +16114,72 @@ class ISelectionChangedEventArgsFactory(ComPtr):
     _iid_ = Guid('{0fcd041d-465f-5745-9882-0c8348e4135d}')
     @winrt_commethod(6)
     def CreateInstanceWithRemovedItemsAndAddedItems(self, removedItems: win32more.Windows.Foundation.Collections.IVector[win32more.Windows.Win32.System.WinRT.IInspectable], addedItems: win32more.Windows.Foundation.Collections.IVector[win32more.Windows.Win32.System.WinRT.IInspectable], baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Controls.SelectionChangedEventArgs: ...
+class ISelectorBar(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.UI.Xaml.Controls.ISelectorBar'
+    _iid_ = Guid('{7f4ad191-55ea-508e-bf47-7047d8677370}')
+    @winrt_commethod(6)
+    def get_Items(self) -> win32more.Windows.Foundation.Collections.IVector[win32more.Microsoft.UI.Xaml.Controls.SelectorBarItem]: ...
+    @winrt_commethod(7)
+    def get_SelectedItem(self) -> win32more.Microsoft.UI.Xaml.Controls.SelectorBarItem: ...
+    @winrt_commethod(8)
+    def put_SelectedItem(self, value: win32more.Microsoft.UI.Xaml.Controls.SelectorBarItem) -> Void: ...
+    @winrt_commethod(9)
+    def add_SelectionChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.UI.Xaml.Controls.SelectorBar, win32more.Microsoft.UI.Xaml.Controls.SelectorBarSelectionChangedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_commethod(10)
+    def remove_SelectionChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    Items = property(get_Items, None)
+    SelectedItem = property(get_SelectedItem, put_SelectedItem)
+class ISelectorBarFactory(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.UI.Xaml.Controls.ISelectorBarFactory'
+    _iid_ = Guid('{71243dc7-b46c-5a04-9894-e420e462703f}')
+    @winrt_commethod(6)
+    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Controls.SelectorBar: ...
+class ISelectorBarItem(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.UI.Xaml.Controls.ISelectorBarItem'
+    _iid_ = Guid('{3cdba1f9-a13a-56a2-b9a9-f954998d3658}')
+    @winrt_commethod(6)
+    def get_Text(self) -> WinRT_String: ...
+    @winrt_commethod(7)
+    def put_Text(self, value: WinRT_String) -> Void: ...
+    @winrt_commethod(8)
+    def get_Icon(self) -> win32more.Microsoft.UI.Xaml.Controls.IconElement: ...
+    @winrt_commethod(9)
+    def put_Icon(self, value: win32more.Microsoft.UI.Xaml.Controls.IconElement) -> Void: ...
+    Icon = property(get_Icon, put_Icon)
+    Text = property(get_Text, put_Text)
+class ISelectorBarItemFactory(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.UI.Xaml.Controls.ISelectorBarItemFactory'
+    _iid_ = Guid('{e46b62ea-e60d-5989-bea7-5470da326816}')
+    @winrt_commethod(6)
+    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Controls.SelectorBarItem: ...
+class ISelectorBarItemStatics(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.UI.Xaml.Controls.ISelectorBarItemStatics'
+    _iid_ = Guid('{08b5bdfc-54de-5d4c-aae3-3763a6b4e75b}')
+    @winrt_commethod(6)
+    def get_TextProperty(self) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
+    @winrt_commethod(7)
+    def get_IconProperty(self) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
+    IconProperty = property(get_IconProperty, None)
+    TextProperty = property(get_TextProperty, None)
+class ISelectorBarSelectionChangedEventArgs(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.UI.Xaml.Controls.ISelectorBarSelectionChangedEventArgs'
+    _iid_ = Guid('{73b3f6c5-5050-5c5a-899c-4e6e0474cb63}')
+class ISelectorBarStatics(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.UI.Xaml.Controls.ISelectorBarStatics'
+    _iid_ = Guid('{672b4e72-728a-53ea-b66a-968bc802dc24}')
+    @winrt_commethod(6)
+    def get_ItemsProperty(self) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
+    @winrt_commethod(7)
+    def get_SelectedItemProperty(self) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
+    ItemsProperty = property(get_ItemsProperty, None)
+    SelectedItemProperty = property(get_SelectedItemProperty, None)
 class ISemanticZoom(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.ISemanticZoom'
@@ -19355,6 +19565,14 @@ class IWebView2(ComPtr):
     CoreWebView2 = property(get_CoreWebView2, None)
     DefaultBackgroundColor = property(get_DefaultBackgroundColor, put_DefaultBackgroundColor)
     Source = property(get_Source, put_Source)
+class IWebView22(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.UI.Xaml.Controls.IWebView22'
+    _iid_ = Guid('{560c5eed-3e7a-51e4-b14f-107ba02b89be}')
+    @winrt_commethod(6)
+    def EnsureCoreWebView2WithEnvironmentAsync(self, environment: win32more.Microsoft.Web.WebView2.Core.CoreWebView2Environment) -> win32more.Windows.Foundation.IAsyncAction: ...
+    @winrt_commethod(7)
+    def EnsureCoreWebView2WithEnvironmentAndOptionsAsync(self, environment: win32more.Microsoft.Web.WebView2.Core.CoreWebView2Environment, controllerOptions: win32more.Microsoft.Web.WebView2.Core.CoreWebView2ControllerOptions) -> win32more.Windows.Foundation.IAsyncAction: ...
 class IWebView2Factory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.IWebView2Factory'
@@ -21461,6 +21679,144 @@ class ListViewSelectionMode(Int32):  # enum
     Single = 1
     Multiple = 2
     Extended = 3
+class _MapControl_Meta_(ComPtr.__class__):
+    pass
+class MapControl(ComPtr, metaclass=_MapControl_Meta_):
+    extends: win32more.Microsoft.UI.Xaml.Controls.Control
+    default_interface: win32more.Microsoft.UI.Xaml.Controls.IMapControl
+    _classid_ = 'Microsoft.UI.Xaml.Controls.MapControl'
+    def __new__(cls, *args, **kwargs):
+        if kwargs:
+            return super().__new__(cls, **kwargs)
+        elif len(args) == 0:
+            return win32more.Microsoft.UI.Xaml.Controls.MapControl.CreateInstance(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+    @winrt_factorymethod
+    def CreateInstance(cls: win32more.Microsoft.UI.Xaml.Controls.IMapControlFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Controls.MapControl: ...
+    @winrt_mixinmethod
+    def get_MapServiceToken(self: win32more.Microsoft.UI.Xaml.Controls.IMapControl) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def put_MapServiceToken(self: win32more.Microsoft.UI.Xaml.Controls.IMapControl, value: WinRT_String) -> Void: ...
+    @winrt_mixinmethod
+    def get_Center(self: win32more.Microsoft.UI.Xaml.Controls.IMapControl) -> win32more.Windows.Devices.Geolocation.Geopoint: ...
+    @winrt_mixinmethod
+    def put_Center(self: win32more.Microsoft.UI.Xaml.Controls.IMapControl, value: win32more.Windows.Devices.Geolocation.Geopoint) -> Void: ...
+    @winrt_mixinmethod
+    def get_Layers(self: win32more.Microsoft.UI.Xaml.Controls.IMapControl) -> win32more.Windows.Foundation.Collections.IVector[win32more.Microsoft.UI.Xaml.Controls.MapLayer]: ...
+    @winrt_mixinmethod
+    def put_Layers(self: win32more.Microsoft.UI.Xaml.Controls.IMapControl, value: win32more.Windows.Foundation.Collections.IVector[win32more.Microsoft.UI.Xaml.Controls.MapLayer]) -> Void: ...
+    @winrt_mixinmethod
+    def get_ZoomLevel(self: win32more.Microsoft.UI.Xaml.Controls.IMapControl) -> Double: ...
+    @winrt_mixinmethod
+    def put_ZoomLevel(self: win32more.Microsoft.UI.Xaml.Controls.IMapControl, value: Double) -> Void: ...
+    @winrt_mixinmethod
+    def get_InteractiveControlsVisible(self: win32more.Microsoft.UI.Xaml.Controls.IMapControl) -> Boolean: ...
+    @winrt_mixinmethod
+    def put_InteractiveControlsVisible(self: win32more.Microsoft.UI.Xaml.Controls.IMapControl, value: Boolean) -> Void: ...
+    @winrt_mixinmethod
+    def add_MapElementClick(self: win32more.Microsoft.UI.Xaml.Controls.IMapControl, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.UI.Xaml.Controls.MapControl, win32more.Microsoft.UI.Xaml.Controls.MapElementClickEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_mixinmethod
+    def remove_MapElementClick(self: win32more.Microsoft.UI.Xaml.Controls.IMapControl, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_mixinmethod
+    def add_MapServiceErrorOccurred(self: win32more.Microsoft.UI.Xaml.Controls.IMapControl, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.UI.Xaml.Controls.MapControl, win32more.Microsoft.UI.Xaml.Controls.MapControlMapServiceErrorOccurredEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_mixinmethod
+    def remove_MapServiceErrorOccurred(self: win32more.Microsoft.UI.Xaml.Controls.IMapControl, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_classmethod
+    def get_LayersProperty(cls: win32more.Microsoft.UI.Xaml.Controls.IMapControlStatics) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
+    @winrt_classmethod
+    def get_MapServiceTokenProperty(cls: win32more.Microsoft.UI.Xaml.Controls.IMapControlStatics) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
+    @winrt_classmethod
+    def get_CenterProperty(cls: win32more.Microsoft.UI.Xaml.Controls.IMapControlStatics) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
+    @winrt_classmethod
+    def get_ZoomLevelProperty(cls: win32more.Microsoft.UI.Xaml.Controls.IMapControlStatics) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
+    @winrt_classmethod
+    def get_InteractiveControlsVisibleProperty(cls: win32more.Microsoft.UI.Xaml.Controls.IMapControlStatics) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
+    Center = property(get_Center, put_Center)
+    InteractiveControlsVisible = property(get_InteractiveControlsVisible, put_InteractiveControlsVisible)
+    Layers = property(get_Layers, put_Layers)
+    MapServiceToken = property(get_MapServiceToken, put_MapServiceToken)
+    ZoomLevel = property(get_ZoomLevel, put_ZoomLevel)
+    _MapControl_Meta_.CenterProperty = property(get_CenterProperty.__wrapped__, None)
+    _MapControl_Meta_.InteractiveControlsVisibleProperty = property(get_InteractiveControlsVisibleProperty.__wrapped__, None)
+    _MapControl_Meta_.LayersProperty = property(get_LayersProperty.__wrapped__, None)
+    _MapControl_Meta_.MapServiceTokenProperty = property(get_MapServiceTokenProperty.__wrapped__, None)
+    _MapControl_Meta_.ZoomLevelProperty = property(get_ZoomLevelProperty.__wrapped__, None)
+class MapControlMapServiceErrorOccurredEventArgs(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    default_interface: win32more.Microsoft.UI.Xaml.Controls.IMapControlMapServiceErrorOccurredEventArgs
+    _classid_ = 'Microsoft.UI.Xaml.Controls.MapControlMapServiceErrorOccurredEventArgs'
+    @winrt_mixinmethod
+    def get_DiagnosticMessage(self: win32more.Microsoft.UI.Xaml.Controls.IMapControlMapServiceErrorOccurredEventArgs) -> WinRT_String: ...
+    DiagnosticMessage = property(get_DiagnosticMessage, None)
+class MapElement(ComPtr):
+    extends: win32more.Microsoft.UI.Xaml.DependencyObject
+    default_interface: win32more.Microsoft.UI.Xaml.Controls.IMapElement
+    _classid_ = 'Microsoft.UI.Xaml.Controls.MapElement'
+class MapElementClickEventArgs(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    default_interface: win32more.Microsoft.UI.Xaml.Controls.IMapElementClickEventArgs
+    _classid_ = 'Microsoft.UI.Xaml.Controls.MapElementClickEventArgs'
+    @winrt_mixinmethod
+    def get_Location(self: win32more.Microsoft.UI.Xaml.Controls.IMapElementClickEventArgs) -> win32more.Windows.Devices.Geolocation.Geopoint: ...
+    @winrt_mixinmethod
+    def get_Element(self: win32more.Microsoft.UI.Xaml.Controls.IMapElementClickEventArgs) -> win32more.Microsoft.UI.Xaml.Controls.MapElement: ...
+    Element = property(get_Element, None)
+    Location = property(get_Location, None)
+class _MapElementsLayer_Meta_(ComPtr.__class__):
+    pass
+class MapElementsLayer(ComPtr, metaclass=_MapElementsLayer_Meta_):
+    extends: win32more.Microsoft.UI.Xaml.Controls.MapLayer
+    default_interface: win32more.Microsoft.UI.Xaml.Controls.IMapElementsLayer
+    _classid_ = 'Microsoft.UI.Xaml.Controls.MapElementsLayer'
+    def __new__(cls, *args, **kwargs):
+        if kwargs:
+            return super().__new__(cls, **kwargs)
+        elif len(args) == 0:
+            return win32more.Microsoft.UI.Xaml.Controls.MapElementsLayer.CreateInstance(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+    @winrt_factorymethod
+    def CreateInstance(cls: win32more.Microsoft.UI.Xaml.Controls.IMapElementsLayerFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Controls.MapElementsLayer: ...
+    @winrt_mixinmethod
+    def get_MapElements(self: win32more.Microsoft.UI.Xaml.Controls.IMapElementsLayer) -> win32more.Windows.Foundation.Collections.IVector[win32more.Microsoft.UI.Xaml.Controls.MapElement]: ...
+    @winrt_mixinmethod
+    def put_MapElements(self: win32more.Microsoft.UI.Xaml.Controls.IMapElementsLayer, value: win32more.Windows.Foundation.Collections.IVector[win32more.Microsoft.UI.Xaml.Controls.MapElement]) -> Void: ...
+    @winrt_mixinmethod
+    def add_MapElementClick(self: win32more.Microsoft.UI.Xaml.Controls.IMapElementsLayer, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.UI.Xaml.Controls.MapElementsLayer, win32more.Microsoft.UI.Xaml.Controls.MapElementClickEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_mixinmethod
+    def remove_MapElementClick(self: win32more.Microsoft.UI.Xaml.Controls.IMapElementsLayer, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_classmethod
+    def get_MapElementsProperty(cls: win32more.Microsoft.UI.Xaml.Controls.IMapElementsLayerStatics) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
+    MapElements = property(get_MapElements, put_MapElements)
+    _MapElementsLayer_Meta_.MapElementsProperty = property(get_MapElementsProperty.__wrapped__, None)
+class _MapIcon_Meta_(ComPtr.__class__):
+    pass
+class MapIcon(ComPtr, metaclass=_MapIcon_Meta_):
+    extends: win32more.Microsoft.UI.Xaml.Controls.MapElement
+    default_interface: win32more.Microsoft.UI.Xaml.Controls.IMapIcon
+    _classid_ = 'Microsoft.UI.Xaml.Controls.MapIcon'
+    def __new__(cls, *args, **kwargs):
+        if kwargs:
+            return super().__new__(cls, **kwargs)
+        elif len(args) == 0:
+            return win32more.Microsoft.UI.Xaml.Controls.MapIcon.CreateInstance(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+    @winrt_factorymethod
+    def CreateInstance(cls: win32more.Microsoft.UI.Xaml.Controls.IMapIconFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Controls.MapIcon: ...
+    @winrt_mixinmethod
+    def get_Location(self: win32more.Microsoft.UI.Xaml.Controls.IMapIcon) -> win32more.Windows.Devices.Geolocation.Geopoint: ...
+    @winrt_mixinmethod
+    def put_Location(self: win32more.Microsoft.UI.Xaml.Controls.IMapIcon, value: win32more.Windows.Devices.Geolocation.Geopoint) -> Void: ...
+    @winrt_classmethod
+    def get_LocationProperty(cls: win32more.Microsoft.UI.Xaml.Controls.IMapIconStatics) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
+    Location = property(get_Location, put_Location)
+    _MapIcon_Meta_.LocationProperty = property(get_LocationProperty.__wrapped__, None)
+class MapLayer(ComPtr):
+    extends: win32more.Microsoft.UI.Xaml.DependencyObject
+    default_interface: win32more.Microsoft.UI.Xaml.Controls.IMapLayer
+    _classid_ = 'Microsoft.UI.Xaml.Controls.MapLayer'
 class _MediaPlayerElement_Meta_(ComPtr.__class__):
     pass
 class MediaPlayerElement(ComPtr, metaclass=_MediaPlayerElement_Meta_):
@@ -26443,6 +26799,74 @@ class SelectionMode(Int32):  # enum
     Single = 0
     Multiple = 1
     Extended = 2
+class _SelectorBar_Meta_(ComPtr.__class__):
+    pass
+class SelectorBar(ComPtr, metaclass=_SelectorBar_Meta_):
+    extends: win32more.Microsoft.UI.Xaml.Controls.Control
+    default_interface: win32more.Microsoft.UI.Xaml.Controls.ISelectorBar
+    _classid_ = 'Microsoft.UI.Xaml.Controls.SelectorBar'
+    def __new__(cls, *args, **kwargs):
+        if kwargs:
+            return super().__new__(cls, **kwargs)
+        elif len(args) == 0:
+            return win32more.Microsoft.UI.Xaml.Controls.SelectorBar.CreateInstance(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+    @winrt_factorymethod
+    def CreateInstance(cls: win32more.Microsoft.UI.Xaml.Controls.ISelectorBarFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Controls.SelectorBar: ...
+    @winrt_mixinmethod
+    def get_Items(self: win32more.Microsoft.UI.Xaml.Controls.ISelectorBar) -> win32more.Windows.Foundation.Collections.IVector[win32more.Microsoft.UI.Xaml.Controls.SelectorBarItem]: ...
+    @winrt_mixinmethod
+    def get_SelectedItem(self: win32more.Microsoft.UI.Xaml.Controls.ISelectorBar) -> win32more.Microsoft.UI.Xaml.Controls.SelectorBarItem: ...
+    @winrt_mixinmethod
+    def put_SelectedItem(self: win32more.Microsoft.UI.Xaml.Controls.ISelectorBar, value: win32more.Microsoft.UI.Xaml.Controls.SelectorBarItem) -> Void: ...
+    @winrt_mixinmethod
+    def add_SelectionChanged(self: win32more.Microsoft.UI.Xaml.Controls.ISelectorBar, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.UI.Xaml.Controls.SelectorBar, win32more.Microsoft.UI.Xaml.Controls.SelectorBarSelectionChangedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_mixinmethod
+    def remove_SelectionChanged(self: win32more.Microsoft.UI.Xaml.Controls.ISelectorBar, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_classmethod
+    def get_ItemsProperty(cls: win32more.Microsoft.UI.Xaml.Controls.ISelectorBarStatics) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
+    @winrt_classmethod
+    def get_SelectedItemProperty(cls: win32more.Microsoft.UI.Xaml.Controls.ISelectorBarStatics) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
+    Items = property(get_Items, None)
+    SelectedItem = property(get_SelectedItem, put_SelectedItem)
+    _SelectorBar_Meta_.ItemsProperty = property(get_ItemsProperty.__wrapped__, None)
+    _SelectorBar_Meta_.SelectedItemProperty = property(get_SelectedItemProperty.__wrapped__, None)
+class _SelectorBarItem_Meta_(ComPtr.__class__):
+    pass
+class SelectorBarItem(ComPtr, metaclass=_SelectorBarItem_Meta_):
+    extends: win32more.Microsoft.UI.Xaml.Controls.ItemContainer
+    default_interface: win32more.Microsoft.UI.Xaml.Controls.ISelectorBarItem
+    _classid_ = 'Microsoft.UI.Xaml.Controls.SelectorBarItem'
+    def __new__(cls, *args, **kwargs):
+        if kwargs:
+            return super().__new__(cls, **kwargs)
+        elif len(args) == 0:
+            return win32more.Microsoft.UI.Xaml.Controls.SelectorBarItem.CreateInstance(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+    @winrt_factorymethod
+    def CreateInstance(cls: win32more.Microsoft.UI.Xaml.Controls.ISelectorBarItemFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Controls.SelectorBarItem: ...
+    @winrt_mixinmethod
+    def get_Text(self: win32more.Microsoft.UI.Xaml.Controls.ISelectorBarItem) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def put_Text(self: win32more.Microsoft.UI.Xaml.Controls.ISelectorBarItem, value: WinRT_String) -> Void: ...
+    @winrt_mixinmethod
+    def get_Icon(self: win32more.Microsoft.UI.Xaml.Controls.ISelectorBarItem) -> win32more.Microsoft.UI.Xaml.Controls.IconElement: ...
+    @winrt_mixinmethod
+    def put_Icon(self: win32more.Microsoft.UI.Xaml.Controls.ISelectorBarItem, value: win32more.Microsoft.UI.Xaml.Controls.IconElement) -> Void: ...
+    @winrt_classmethod
+    def get_TextProperty(cls: win32more.Microsoft.UI.Xaml.Controls.ISelectorBarItemStatics) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
+    @winrt_classmethod
+    def get_IconProperty(cls: win32more.Microsoft.UI.Xaml.Controls.ISelectorBarItemStatics) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
+    Icon = property(get_Icon, put_Icon)
+    Text = property(get_Text, put_Text)
+    _SelectorBarItem_Meta_.IconProperty = property(get_IconProperty.__wrapped__, None)
+    _SelectorBarItem_Meta_.TextProperty = property(get_TextProperty.__wrapped__, None)
+class SelectorBarSelectionChangedEventArgs(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    default_interface: win32more.Microsoft.UI.Xaml.Controls.ISelectorBarSelectionChangedEventArgs
+    _classid_ = 'Microsoft.UI.Xaml.Controls.SelectorBarSelectionChangedEventArgs'
 class _SemanticZoom_Meta_(ComPtr.__class__):
     pass
 class SemanticZoom(ComPtr, metaclass=_SemanticZoom_Meta_):
@@ -30220,6 +30644,10 @@ class WebView2(ComPtr, metaclass=_WebView2_Meta_):
     def add_CoreWebView2Initialized(self: win32more.Microsoft.UI.Xaml.Controls.IWebView2, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.UI.Xaml.Controls.WebView2, win32more.Microsoft.UI.Xaml.Controls.CoreWebView2InitializedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_CoreWebView2Initialized(self: win32more.Microsoft.UI.Xaml.Controls.IWebView2, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_mixinmethod
+    def EnsureCoreWebView2WithEnvironmentAsync(self: win32more.Microsoft.UI.Xaml.Controls.IWebView22, environment: win32more.Microsoft.Web.WebView2.Core.CoreWebView2Environment) -> win32more.Windows.Foundation.IAsyncAction: ...
+    @winrt_mixinmethod
+    def EnsureCoreWebView2WithEnvironmentAndOptionsAsync(self: win32more.Microsoft.UI.Xaml.Controls.IWebView22, environment: win32more.Microsoft.Web.WebView2.Core.CoreWebView2Environment, controllerOptions: win32more.Microsoft.Web.WebView2.Core.CoreWebView2ControllerOptions) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_classmethod
     def get_SourceProperty(cls: win32more.Microsoft.UI.Xaml.Controls.IWebView2Statics) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
     @winrt_classmethod

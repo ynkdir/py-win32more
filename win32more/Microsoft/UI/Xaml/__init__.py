@@ -106,6 +106,10 @@ class Application(ComPtr, metaclass=_Application_Meta_):
     @winrt_mixinmethod
     def remove_ResourceManagerRequested(self: win32more.Microsoft.UI.Xaml.IApplication2, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
+    def get_DispatcherShutdownMode(self: win32more.Microsoft.UI.Xaml.IApplication3) -> win32more.Microsoft.UI.Xaml.DispatcherShutdownMode: ...
+    @winrt_mixinmethod
+    def put_DispatcherShutdownMode(self: win32more.Microsoft.UI.Xaml.IApplication3, value: win32more.Microsoft.UI.Xaml.DispatcherShutdownMode) -> Void: ...
+    @winrt_mixinmethod
     def OnLaunched(self: win32more.Microsoft.UI.Xaml.IApplicationOverrides, args: win32more.Microsoft.UI.Xaml.LaunchActivatedEventArgs) -> Void: ...
     @winrt_classmethod
     def get_Current(cls: win32more.Microsoft.UI.Xaml.IApplicationStatics) -> win32more.Microsoft.UI.Xaml.Application: ...
@@ -116,6 +120,7 @@ class Application(ComPtr, metaclass=_Application_Meta_):
     @winrt_classmethod
     def LoadComponentWithResourceLocation(cls: win32more.Microsoft.UI.Xaml.IApplicationStatics, component: win32more.Windows.Win32.System.WinRT.IInspectable, resourceLocator: win32more.Windows.Foundation.Uri, componentResourceLocation: win32more.Microsoft.UI.Xaml.Controls.Primitives.ComponentResourceLocation) -> Void: ...
     DebugSettings = property(get_DebugSettings, None)
+    DispatcherShutdownMode = property(get_DispatcherShutdownMode, put_DispatcherShutdownMode)
     FocusVisualKind = property(get_FocusVisualKind, put_FocusVisualKind)
     HighContrastAdjustment = property(get_HighContrastAdjustment, put_HighContrastAdjustment)
     RequestedTheme = property(get_RequestedTheme, put_RequestedTheme)
@@ -550,11 +555,21 @@ class DebugSettings(ComPtr):
     def add_XamlResourceReferenceFailed(self: win32more.Microsoft.UI.Xaml.IDebugSettings2, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.UI.Xaml.DebugSettings, win32more.Microsoft.UI.Xaml.XamlResourceReferenceFailedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_XamlResourceReferenceFailed(self: win32more.Microsoft.UI.Xaml.IDebugSettings2, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_mixinmethod
+    def get_LayoutCycleTracingLevel(self: win32more.Microsoft.UI.Xaml.IDebugSettings3) -> win32more.Microsoft.UI.Xaml.LayoutCycleTracingLevel: ...
+    @winrt_mixinmethod
+    def put_LayoutCycleTracingLevel(self: win32more.Microsoft.UI.Xaml.IDebugSettings3, value: win32more.Microsoft.UI.Xaml.LayoutCycleTracingLevel) -> Void: ...
+    @winrt_mixinmethod
+    def get_LayoutCycleDebugBreakLevel(self: win32more.Microsoft.UI.Xaml.IDebugSettings3) -> win32more.Microsoft.UI.Xaml.LayoutCycleDebugBreakLevel: ...
+    @winrt_mixinmethod
+    def put_LayoutCycleDebugBreakLevel(self: win32more.Microsoft.UI.Xaml.IDebugSettings3, value: win32more.Microsoft.UI.Xaml.LayoutCycleDebugBreakLevel) -> Void: ...
     EnableFrameRateCounter = property(get_EnableFrameRateCounter, put_EnableFrameRateCounter)
     FailFastOnErrors = property(get_FailFastOnErrors, put_FailFastOnErrors)
     IsBindingTracingEnabled = property(get_IsBindingTracingEnabled, put_IsBindingTracingEnabled)
     IsTextPerformanceVisualizationEnabled = property(get_IsTextPerformanceVisualizationEnabled, put_IsTextPerformanceVisualizationEnabled)
     IsXamlResourceReferenceTracingEnabled = property(get_IsXamlResourceReferenceTracingEnabled, put_IsXamlResourceReferenceTracingEnabled)
+    LayoutCycleDebugBreakLevel = property(get_LayoutCycleDebugBreakLevel, put_LayoutCycleDebugBreakLevel)
+    LayoutCycleTracingLevel = property(get_LayoutCycleTracingLevel, put_LayoutCycleTracingLevel)
 class DependencyObject(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.IDependencyObject
@@ -668,6 +683,9 @@ class DependencyPropertyChangedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{4be8dc75-373d-5f4e-a0b4-54b9eeafb4a9}')
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Microsoft.UI.Xaml.DependencyPropertyChangedEventArgs) -> Void: ...
+class DispatcherShutdownMode(Int32):  # enum
+    OnLastWindowClose = 0
+    OnExplicitShutdown = 1
 class DispatcherTimer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.IDispatcherTimer
@@ -1497,6 +1515,15 @@ class IApplication2(ComPtr):
     def add_ResourceManagerRequested(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Win32.System.WinRT.IInspectable, win32more.Microsoft.UI.Xaml.ResourceManagerRequestedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_ResourceManagerRequested(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+class IApplication3(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.UI.Xaml.IApplication3'
+    _iid_ = Guid('{be941595-61fe-5b36-a3d3-962a647d7c6f}')
+    @winrt_commethod(6)
+    def get_DispatcherShutdownMode(self) -> win32more.Microsoft.UI.Xaml.DispatcherShutdownMode: ...
+    @winrt_commethod(7)
+    def put_DispatcherShutdownMode(self, value: win32more.Microsoft.UI.Xaml.DispatcherShutdownMode) -> Void: ...
+    DispatcherShutdownMode = property(get_DispatcherShutdownMode, put_DispatcherShutdownMode)
 class IApplicationFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.IApplicationFactory'
@@ -1882,6 +1909,20 @@ class IDebugSettings2(ComPtr):
     @winrt_commethod(9)
     def remove_XamlResourceReferenceFailed(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     IsXamlResourceReferenceTracingEnabled = property(get_IsXamlResourceReferenceTracingEnabled, put_IsXamlResourceReferenceTracingEnabled)
+class IDebugSettings3(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.UI.Xaml.IDebugSettings3'
+    _iid_ = Guid('{36135bd5-3917-5c8d-a3c6-2fc89a503f26}')
+    @winrt_commethod(6)
+    def get_LayoutCycleTracingLevel(self) -> win32more.Microsoft.UI.Xaml.LayoutCycleTracingLevel: ...
+    @winrt_commethod(7)
+    def put_LayoutCycleTracingLevel(self, value: win32more.Microsoft.UI.Xaml.LayoutCycleTracingLevel) -> Void: ...
+    @winrt_commethod(8)
+    def get_LayoutCycleDebugBreakLevel(self) -> win32more.Microsoft.UI.Xaml.LayoutCycleDebugBreakLevel: ...
+    @winrt_commethod(9)
+    def put_LayoutCycleDebugBreakLevel(self, value: win32more.Microsoft.UI.Xaml.LayoutCycleDebugBreakLevel) -> Void: ...
+    LayoutCycleDebugBreakLevel = property(get_LayoutCycleDebugBreakLevel, put_LayoutCycleDebugBreakLevel)
+    LayoutCycleTracingLevel = property(get_LayoutCycleTracingLevel, put_LayoutCycleTracingLevel)
 class IDependencyObject(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.IDependencyObject'
@@ -4067,6 +4108,14 @@ class LaunchActivatedEventArgs(ComPtr):
     def get_UWPLaunchActivatedEventArgs(self: win32more.Microsoft.UI.Xaml.ILaunchActivatedEventArgs) -> win32more.Windows.ApplicationModel.Activation.LaunchActivatedEventArgs: ...
     Arguments = property(get_Arguments, None)
     UWPLaunchActivatedEventArgs = property(get_UWPLaunchActivatedEventArgs, None)
+class LayoutCycleDebugBreakLevel(Int32):  # enum
+    None_ = 0
+    Low = 1
+    High = 2
+class LayoutCycleTracingLevel(Int32):  # enum
+    None_ = 0
+    Low = 1
+    High = 2
 class LeavingBackgroundEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{3d723b94-fbcf-5c0d-b6ef-5062e68bf9f8}')
@@ -5651,7 +5700,7 @@ class VisualTransition(ComPtr):
     GeneratedEasingFunction = property(get_GeneratedEasingFunction, put_GeneratedEasingFunction)
     Storyboard = property(get_Storyboard, put_Storyboard)
     To = property(get_To, put_To)
-WinUIContract: UInt32 = 327680
+WinUIContract: UInt32 = 393216
 class _Window_Meta_(ComPtr.__class__):
     pass
 class Window(ComPtr, metaclass=_Window_Meta_):
@@ -5782,7 +5831,7 @@ class WindowVisibilityChangedEventArgs(ComPtr):
     def get_Visible(self: win32more.Microsoft.UI.Xaml.IWindowVisibilityChangedEventArgs) -> Boolean: ...
     Handled = property(get_Handled, put_Handled)
     Visible = property(get_Visible, None)
-XamlContract: UInt32 = 327680
+XamlContract: UInt32 = 393216
 class XamlResourceReferenceFailedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.IXamlResourceReferenceFailedEventArgs

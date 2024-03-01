@@ -2004,6 +2004,16 @@ class ISelectorAutomationPeerFactory(ComPtr):
     _iid_ = Guid('{d84fe7b9-f5f5-5122-b41c-5575a799d581}')
     @winrt_commethod(6)
     def CreateInstanceWithOwner(self, owner: win32more.Microsoft.UI.Xaml.Controls.Primitives.Selector, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Automation.Peers.SelectorAutomationPeer: ...
+class ISelectorBarItemAutomationPeer(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.UI.Xaml.Automation.Peers.ISelectorBarItemAutomationPeer'
+    _iid_ = Guid('{cdb1078e-1350-56fb-8728-8537b0f35c20}')
+class ISelectorBarItemAutomationPeerFactory(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.UI.Xaml.Automation.Peers.ISelectorBarItemAutomationPeerFactory'
+    _iid_ = Guid('{4aab3752-0ddb-5e2d-a614-0b5f7d4efe9d}')
+    @winrt_commethod(6)
+    def CreateInstanceWithOwner(self, owner: win32more.Microsoft.UI.Xaml.Controls.SelectorBarItem, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Automation.Peers.SelectorBarItemAutomationPeer: ...
 class ISelectorItemAutomationPeer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Automation.Peers.ISelectorItemAutomationPeer'
@@ -3070,6 +3080,19 @@ class SelectorAutomationPeer(ComPtr):
     def GetSelection(self: win32more.Microsoft.UI.Xaml.Automation.Provider.ISelectionProvider) -> SZArray[win32more.Microsoft.UI.Xaml.Automation.Provider.IRawElementProviderSimple]: ...
     CanSelectMultiple = property(get_CanSelectMultiple, None)
     IsSelectionRequired = property(get_IsSelectionRequired, None)
+class SelectorBarItemAutomationPeer(ComPtr):
+    extends: win32more.Microsoft.UI.Xaml.Automation.Peers.ItemContainerAutomationPeer
+    default_interface: win32more.Microsoft.UI.Xaml.Automation.Peers.ISelectorBarItemAutomationPeer
+    _classid_ = 'Microsoft.UI.Xaml.Automation.Peers.SelectorBarItemAutomationPeer'
+    def __new__(cls, *args, **kwargs):
+        if kwargs:
+            return super().__new__(cls, **kwargs)
+        elif len(args) == 1:
+            return win32more.Microsoft.UI.Xaml.Automation.Peers.SelectorBarItemAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+        else:
+            raise ValueError('no matched constructor')
+    @winrt_factorymethod
+    def CreateInstanceWithOwner(cls: win32more.Microsoft.UI.Xaml.Automation.Peers.ISelectorBarItemAutomationPeerFactory, owner: win32more.Microsoft.UI.Xaml.Controls.SelectorBarItem, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Automation.Peers.SelectorBarItemAutomationPeer: ...
 class SelectorItemAutomationPeer(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.Automation.Peers.ItemAutomationPeer
     default_interface: win32more.Microsoft.UI.Xaml.Automation.Peers.ISelectorItemAutomationPeer

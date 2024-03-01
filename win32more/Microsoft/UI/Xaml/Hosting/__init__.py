@@ -48,9 +48,14 @@ class DesktopWindowXamlSource(ComPtr):
     @winrt_mixinmethod
     def Initialize(self: win32more.Microsoft.UI.Xaml.Hosting.IDesktopWindowXamlSource, parentWindowId: win32more.Microsoft.UI.WindowId) -> Void: ...
     @winrt_mixinmethod
+    def get_ShouldConstrainPopupsToWorkArea(self: win32more.Microsoft.UI.Xaml.Hosting.IDesktopWindowXamlSource2) -> Boolean: ...
+    @winrt_mixinmethod
+    def put_ShouldConstrainPopupsToWorkArea(self: win32more.Microsoft.UI.Xaml.Hosting.IDesktopWindowXamlSource2, value: Boolean) -> Void: ...
+    @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
     Content = property(get_Content, put_Content)
     HasFocus = property(get_HasFocus, None)
+    ShouldConstrainPopupsToWorkArea = property(get_ShouldConstrainPopupsToWorkArea, put_ShouldConstrainPopupsToWorkArea)
     SiteBridge = property(get_SiteBridge, None)
     SystemBackdrop = property(get_SystemBackdrop, put_SystemBackdrop)
 class DesktopWindowXamlSourceGotFocusEventArgs(ComPtr):
@@ -119,6 +124,15 @@ class IDesktopWindowXamlSource(ComPtr):
     HasFocus = property(get_HasFocus, None)
     SiteBridge = property(get_SiteBridge, None)
     SystemBackdrop = property(get_SystemBackdrop, put_SystemBackdrop)
+class IDesktopWindowXamlSource2(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.UI.Xaml.Hosting.IDesktopWindowXamlSource2'
+    _iid_ = Guid('{fb02b9f1-8588-5bd3-8951-4664a675d872}')
+    @winrt_commethod(6)
+    def get_ShouldConstrainPopupsToWorkArea(self) -> Boolean: ...
+    @winrt_commethod(7)
+    def put_ShouldConstrainPopupsToWorkArea(self, value: Boolean) -> Void: ...
+    ShouldConstrainPopupsToWorkArea = property(get_ShouldConstrainPopupsToWorkArea, put_ShouldConstrainPopupsToWorkArea)
 class IDesktopWindowXamlSourceFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Hosting.IDesktopWindowXamlSourceFactory'
@@ -167,12 +181,32 @@ class IWindowsXamlManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Hosting.IWindowsXamlManager'
     _iid_ = Guid('{85a2e562-7e8f-5333-a104-a3e672a2ffee}')
+class IWindowsXamlManager2(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.UI.Xaml.Hosting.IWindowsXamlManager2'
+    _iid_ = Guid('{bd67cff5-b887-56da-b0a2-dad10a6520e9}')
+    @winrt_commethod(6)
+    def add_XamlShutdownCompletedOnThread(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.UI.Xaml.Hosting.WindowsXamlManager, win32more.Microsoft.UI.Xaml.Hosting.XamlShutdownCompletedOnThreadEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_commethod(7)
+    def remove_XamlShutdownCompletedOnThread(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
 class IWindowsXamlManagerStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Hosting.IWindowsXamlManagerStatics'
     _iid_ = Guid('{56cb591d-de97-539f-881d-8ccdc44fa6c4}')
     @winrt_commethod(6)
     def InitializeForCurrentThread(self) -> win32more.Microsoft.UI.Xaml.Hosting.WindowsXamlManager: ...
+class IWindowsXamlManagerStatics2(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.UI.Xaml.Hosting.IWindowsXamlManagerStatics2'
+    _iid_ = Guid('{1062430e-0898-5240-ba52-89d9225e7e58}')
+    @winrt_commethod(6)
+    def GetForCurrentThread(self) -> win32more.Microsoft.UI.Xaml.Hosting.WindowsXamlManager: ...
+class IXamlShutdownCompletedOnThreadEventArgs(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.UI.Xaml.Hosting.IXamlShutdownCompletedOnThreadEventArgs'
+    _iid_ = Guid('{accd20e5-3576-5262-a3dd-990657681f1f}')
+    @winrt_commethod(6)
+    def GetDispatcherQueueDeferral(self) -> win32more.Windows.Foundation.Deferral: ...
 class IXamlSourceFocusNavigationRequest(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Hosting.IXamlSourceFocusNavigationRequest'
@@ -214,9 +248,21 @@ class WindowsXamlManager(ComPtr):
     default_interface: win32more.Microsoft.UI.Xaml.Hosting.IWindowsXamlManager
     _classid_ = 'Microsoft.UI.Xaml.Hosting.WindowsXamlManager'
     @winrt_mixinmethod
+    def add_XamlShutdownCompletedOnThread(self: win32more.Microsoft.UI.Xaml.Hosting.IWindowsXamlManager2, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.UI.Xaml.Hosting.WindowsXamlManager, win32more.Microsoft.UI.Xaml.Hosting.XamlShutdownCompletedOnThreadEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_mixinmethod
+    def remove_XamlShutdownCompletedOnThread(self: win32more.Microsoft.UI.Xaml.Hosting.IWindowsXamlManager2, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
     @winrt_classmethod
+    def GetForCurrentThread(cls: win32more.Microsoft.UI.Xaml.Hosting.IWindowsXamlManagerStatics2) -> win32more.Microsoft.UI.Xaml.Hosting.WindowsXamlManager: ...
+    @winrt_classmethod
     def InitializeForCurrentThread(cls: win32more.Microsoft.UI.Xaml.Hosting.IWindowsXamlManagerStatics) -> win32more.Microsoft.UI.Xaml.Hosting.WindowsXamlManager: ...
+class XamlShutdownCompletedOnThreadEventArgs(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    default_interface: win32more.Microsoft.UI.Xaml.Hosting.IXamlShutdownCompletedOnThreadEventArgs
+    _classid_ = 'Microsoft.UI.Xaml.Hosting.XamlShutdownCompletedOnThreadEventArgs'
+    @winrt_mixinmethod
+    def GetDispatcherQueueDeferral(self: win32more.Microsoft.UI.Xaml.Hosting.IXamlShutdownCompletedOnThreadEventArgs) -> win32more.Windows.Foundation.Deferral: ...
 class XamlSourceFocusNavigationReason(Int32):  # enum
     Programmatic = 0
     Restore = 1
