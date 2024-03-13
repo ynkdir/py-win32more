@@ -74,6 +74,10 @@ class ComPtr(c_void_p):
         self._own = own
         return self
 
+    def __init__(self, *args, **kwargs):
+        # Do not pass subclass's args to c_void_p.__init__().
+        pass
+
     def __del__(self):
         if self and getattr(self, "_own", False):
             self.Release()

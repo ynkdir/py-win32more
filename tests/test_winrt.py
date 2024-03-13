@@ -7,6 +7,7 @@ from pathlib import Path
 
 from win32more import FAILED
 from win32more._winrt import SZArray, WinRT_String, _ro_get_parameterized_type_instance_iid
+from win32more.Windows.Foundation import Uri
 from win32more.Windows.Foundation.Collections import IVector, StringMap
 from win32more.Windows.Storage import FileIO, PathIO, StorageFile
 from win32more.Windows.Win32.Foundation import WAIT_FAILED, WAIT_TIMEOUT
@@ -120,3 +121,7 @@ class TestWinrt(unittest.TestCase):
             str(_ro_get_parameterized_type_instance_iid(IVector[IInspectable])),
             "{b32bdca4-5e52-5b27-bc5d-d66a1a268c2a}",
         )
+
+    def test_constructor_with_arguments(self):
+        self.assertEqual(Uri("http://example.com/").ToString(), "http://example.com/")
+
