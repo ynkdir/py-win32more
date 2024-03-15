@@ -137,36 +137,36 @@ class App(XamlApplication):
         # Use absolute path.
         # mx-appx:///C:/Full/Path/To/My.xaml
         xaml_path = (Path(__file__).parent / "winui-component-connector.xaml").absolute().as_posix()
-        resource = Uri(f"ms-appx:///{xaml_path}")
+        resource_locator = Uri(f"ms-appx:///{xaml_path}")
 
         # In this example, root component of xaml is "Window".
-        component_connector = ComponentConnector(Window, self)
+        component = ComponentConnector(Window, self)
 
-        self.as_(Application).LoadComponent(component_connector, resource)
+        self.as_(Application).LoadComponent(component, resource_locator)
 
-        self._window = component_connector.as_(Window)
+        self._window = component.as_(Window)
 
         self._window.Activate()
 
     def Connect(self, connectionId, target):
         if connectionId == 1:
-            self._button1 = target.as_(Button)
-            self._button1.add_Click(self.Button1_OnClick)
+            self.Button1 = target.as_(Button)
+            self.Button1.add_Click(self.Button1_OnClick)
         elif connectionId == 2:
-            self._button2 = target.as_(Button)
-            self._button2.add_Click(self.Button2_OnClick)
+            self.Button2 = target.as_(Button)
+            self.Button2.add_Click(self.Button2_OnClick)
         return S_OK
 
     def GetBindingConnector(self, connectionId, target, result):
         return S_OK
 
     def Button1_OnClick(self, sender, e):
-        text = self._button1.Content.as_(IPropertyValue).GetString()
-        self._button1.Content = PropertyValue.CreateString(f"[{text}]")
+        text = self.Button1.Content.as_(IPropertyValue).GetString()
+        self.Button1.Content = PropertyValue.CreateString(f"[{text}]")
 
     def Button2_OnClick(self, sender, e):
-        text = self._button2.Content.as_(IPropertyValue).GetString()
-        self._button2.Content = PropertyValue.CreateString(f"({text})")
+        text = self.Button2.Content.as_(IPropertyValue).GetString()
+        self.Button2.Content = PropertyValue.CreateString(f"({text})")
 
 
 XamlApplication.Start(App)
