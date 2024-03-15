@@ -72,17 +72,15 @@ class ComponentConnector(IComponentConnector):
     _keep_reference_in_python_world_ = {}
 
     # FIXME: implementing constructor using __new__() causes error in this case.
-    def __new__(cls, component, observer, **kwargs):
+    def __new__(cls, delegate, **kwargs):
         return super().__new__(cls, **kwargs)
 
-    def __init__(self, component, observer):
-        self._observer = observer
+    def __init__(self, delegate):
+        self._delegate = delegate
         self._comobj = IComponentConnectorImpl(self)
         self.value = addressof(self._comobj)
         self._refcount = 0
         self.AddRef()
-        self._inner_interface = IInspectable()
-        component.CreateInstance(self, self._inner_interface)
 
     def QueryInterface(self, riid, ppvObject):
         if riid.contents == IUnknown._iid_:
@@ -98,7 +96,7 @@ class ComponentConnector(IComponentConnector):
             self.AddRef()
             return S_OK
         else:
-            return self._inner_interface.QueryInterface(riid, ppvObject)
+            return self._delegate.QueryInterface(riid, ppvObject)
 
     def AddRef(self):
         self._refcount += 1
@@ -110,43 +108,43 @@ class ComponentConnector(IComponentConnector):
         self._refcount -= 1
         if self._refcount == 0:
             self._comobj.comptr = None
-            self._inner_interface.Release()
+            self._delegate.Release()
             del self._keep_reference_in_python_world_[id(self)]
         return self._refcount
 
     def GetIids(self, iidCount, iids):
-        return self._inner_interface.GetIids(iidCount, iids)
+        return self._delegate.GetIids(iidCount, iids)
 
     def GetRuntimeClassName(self, className):
-        return self._inner_interface.GetRuntimeClassName(className)
+        return self._delegate.GetRuntimeClassName(className)
 
     def GetTrustLevel(self, trustLevel):
-        return self._inner_interface.GetTrustLevel(trustLevel)
+        return self._delegate.GetTrustLevel(trustLevel)
 
     def Connect(self, connectionId, target):
-        return self._observer.Connect(connectionId, target)
+        return self._delegate.Connect(connectionId, target)
 
     def GetBindingConnector(self, connectionId, target, result):
-        return self._observer.GetBindingConnector(connectionId, target, result)
+        return self._delegate.GetBindingConnector(connectionId, target, result)
 
 
 # Visual Studio generates connection code from xaml like this.
-class App(XamlApplication):
-    def OnLaunched(self, args):
+class MainWindow(Window):
+    def __new__(cls):
+        self = super().__new__(cls, own=True)
+        self._component = ComponentConnector(self)
+        Window.CreateInstance(self._component, self)
+        self.InitializeComponent()
+        return self
+
+    def InitializeComponent(self):
         # ms-appx:///foo.xaml is relative to python.exe.
         # Use absolute path.
         # mx-appx:///C:/Full/Path/To/My.xaml
-        xaml_path = (Path(__file__).parent / "winui-component-connector.xaml").absolute().as_posix()
+        # NOTE: According to documentation, LoadComponent() takes relative location.
+        xaml_path = Path(__file__).with_name("winui-component-connector.xaml").absolute().as_posix()
         resource_locator = Uri(f"ms-appx:///{xaml_path}")
-
-        # In this example, root component of xaml is "Window".
-        component = ComponentConnector(Window, self)
-
-        self.as_(Application).LoadComponent(component, resource_locator)
-
-        self._window = component.as_(Window)
-
-        self._window.Activate()
+        Application.LoadComponent(self._component, resource_locator)
 
     def Connect(self, connectionId, target):
         if connectionId == 1:
@@ -167,6 +165,12 @@ class App(XamlApplication):
     def Button2_OnClick(self, sender, e):
         text = self.Button2.Content.as_(IPropertyValue).GetString()
         self.Button2.Content = PropertyValue.CreateString(f"({text})")
+
+
+class App(XamlApplication):
+    def OnLaunched(self, args):
+        self._window = MainWindow()
+        self._window.Activate()
 
 
 XamlApplication.Start(App)
