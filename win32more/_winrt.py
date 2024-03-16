@@ -319,12 +319,7 @@ def winrt_mixinmethod(prototype):
         hr = self.QueryInterface(iid, interface)
         if FAILED(hr):
             raise WinError(hr)
-        # FIXME: Workaround for overload method.
-        method_name = prototype.__name__
-        m = re.match(r"^(.*)_\d$", method_name)
-        if m:
-            method_name = m.group(1)
-        return getattr(interface, method_name)(*args, **kwargs)
+        return getattr(interface, prototype.__name__)(*args, **kwargs)
 
     wrapper.prototype = prototype
 
