@@ -96,7 +96,7 @@ class ComponentConnector(IComponentConnector):
             self.AddRef()
             return S_OK
         else:
-            return self._delegate.QueryInterface(riid, ppvObject)
+            return self._delegate._inner.QueryInterface(riid, ppvObject)
 
     def AddRef(self):
         self._refcount += 1
@@ -108,18 +108,18 @@ class ComponentConnector(IComponentConnector):
         self._refcount -= 1
         if self._refcount == 0:
             self._comobj.comptr = None
-            self._delegate.Release()
+            self._delegate._inner.Release()
             del self._keep_reference_in_python_world_[id(self)]
         return self._refcount
 
     def GetIids(self, iidCount, iids):
-        return self._delegate.GetIids(iidCount, iids)
+        return self._delegate._inner.GetIids(iidCount, iids)
 
     def GetRuntimeClassName(self, className):
-        return self._delegate.GetRuntimeClassName(className)
+        return self._delegate._inner.GetRuntimeClassName(className)
 
     def GetTrustLevel(self, trustLevel):
-        return self._delegate.GetTrustLevel(trustLevel)
+        return self._delegate._inner.GetTrustLevel(trustLevel)
 
     def Connect(self, connectionId, target):
         return self._delegate.Connect(connectionId, target)
@@ -129,11 +129,13 @@ class ComponentConnector(IComponentConnector):
 
 
 # Visual Studio generates connection code from xaml like this.
-class MainWindow(Window):
+class MainWindow(Window, IComponentConnector):
     def __new__(cls):
         self = super().__new__(cls, own=True)
-        self._component = ComponentConnector(self)
-        Window.CreateInstance(self._component, self)
+        self._component_connector = ComponentConnector(self)
+        self.value = self._component_connector.value
+        self._inner = IInspectable()
+        Window.CreateInstance(self, self._inner)
         self.InitializeComponent()
         return self
 
@@ -144,7 +146,7 @@ class MainWindow(Window):
         # NOTE: According to documentation, LoadComponent() takes relative location.
         xaml_path = Path(__file__).with_name("winui-component-connector.xaml").absolute().as_posix()
         resource_locator = Uri(f"ms-appx:///{xaml_path}")
-        Application.LoadComponent(self._component, resource_locator)
+        Application.LoadComponent(self, resource_locator)
 
     def Connect(self, connectionId, target):
         if connectionId == 1:
