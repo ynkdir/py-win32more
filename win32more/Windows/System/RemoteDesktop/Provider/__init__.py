@@ -21,6 +21,12 @@ class IRemoteDesktopConnectionInfo(ComPtr):
     def SetConnectionStatus(self, value: win32more.Windows.System.RemoteDesktop.Provider.RemoteDesktopConnectionStatus) -> Void: ...
     @winrt_commethod(7)
     def SwitchToLocalSession(self) -> Void: ...
+class IRemoteDesktopConnectionInfo2(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.RemoteDesktop.Provider.IRemoteDesktopConnectionInfo2'
+    _iid_ = Guid('{871c0b26-23bf-5d3c-bc35-a85c405e25e6}')
+    @winrt_commethod(6)
+    def PerformLocalActionFromRemote(self, action: win32more.Windows.System.RemoteDesktop.Provider.RemoteDesktopLocalAction) -> Void: ...
 class IRemoteDesktopConnectionInfoStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.System.RemoteDesktop.Provider.IRemoteDesktopConnectionInfoStatics'
@@ -89,6 +95,8 @@ class RemoteDesktopConnectionInfo(ComPtr):
     def SetConnectionStatus(self: win32more.Windows.System.RemoteDesktop.Provider.IRemoteDesktopConnectionInfo, value: win32more.Windows.System.RemoteDesktop.Provider.RemoteDesktopConnectionStatus) -> Void: ...
     @winrt_mixinmethod
     def SwitchToLocalSession(self: win32more.Windows.System.RemoteDesktop.Provider.IRemoteDesktopConnectionInfo) -> Void: ...
+    @winrt_mixinmethod
+    def PerformLocalActionFromRemote(self: win32more.Windows.System.RemoteDesktop.Provider.IRemoteDesktopConnectionInfo2, action: win32more.Windows.System.RemoteDesktop.Provider.RemoteDesktopLocalAction) -> Void: ...
     @winrt_classmethod
     def GetForLaunchUri(cls: win32more.Windows.System.RemoteDesktop.Provider.IRemoteDesktopConnectionInfoStatics, launchUri: win32more.Windows.Foundation.Uri, windowId: win32more.Windows.UI.WindowId) -> win32more.Windows.System.RemoteDesktop.Provider.RemoteDesktopConnectionInfo: ...
 class RemoteDesktopConnectionRemoteInfo(ComPtr):
@@ -137,6 +145,10 @@ class RemoteDesktopInfo(ComPtr):
     Id = property(get_Id, None)
 class RemoteDesktopLocalAction(Int32):  # enum
     ShowBluetoothSettings = 0
+    ShowSystemSoundSettings = 1
+    ShowSystemDisplaySettings = 2
+    ShowSystemAccountSettings = 3
+    ShowLocalSettings = 4
 class _RemoteDesktopRegistrar_Meta_(ComPtr.__class__):
     pass
 class RemoteDesktopRegistrar(ComPtr, metaclass=_RemoteDesktopRegistrar_Meta_):

@@ -199,6 +199,13 @@ class IKnownRetailInfoPropertiesStatics(ComPtr):
     StorageDescription = property(get_StorageDescription, None)
     Weight = property(get_Weight, None)
     WindowsEdition = property(get_WindowsEdition, None)
+class IPlatformAutomaticAppSignInManagerStatics(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.Profile.IPlatformAutomaticAppSignInManagerStatics'
+    _iid_ = Guid('{1ac9afce-8dd5-5c2d-b420-767d1f3b7d03}')
+    @winrt_commethod(6)
+    def get_Policy(self) -> win32more.Windows.System.Profile.PlatformAutomaticAppSignInPolicy: ...
+    Policy = property(get_Policy, None)
 class IPlatformDiagnosticsAndUsageDataSettingsStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.System.Profile.IPlatformDiagnosticsAndUsageDataSettingsStatics'
@@ -377,6 +384,19 @@ class KnownRetailInfoProperties(ComPtr, metaclass=_KnownRetailInfoProperties_Met
     _KnownRetailInfoProperties_Meta_.StorageDescription = property(get_StorageDescription.__wrapped__, None)
     _KnownRetailInfoProperties_Meta_.Weight = property(get_Weight.__wrapped__, None)
     _KnownRetailInfoProperties_Meta_.WindowsEdition = property(get_WindowsEdition.__wrapped__, None)
+PlatformAutomaticAppSignInContract: UInt32 = 65536
+class _PlatformAutomaticAppSignInManager_Meta_(ComPtr.__class__):
+    pass
+class PlatformAutomaticAppSignInManager(ComPtr, metaclass=_PlatformAutomaticAppSignInManager_Meta_):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.Profile.PlatformAutomaticAppSignInManager'
+    @winrt_classmethod
+    def get_Policy(cls: win32more.Windows.System.Profile.IPlatformAutomaticAppSignInManagerStatics) -> win32more.Windows.System.Profile.PlatformAutomaticAppSignInPolicy: ...
+    _PlatformAutomaticAppSignInManager_Meta_.Policy = property(get_Policy.__wrapped__, None)
+class PlatformAutomaticAppSignInPolicy(Int32):  # enum
+    Unknown = 0
+    PermissionRequired = 1
+    AlwaysAllowed = 2
 class PlatformDataCollectionLevel(Int32):  # enum
     Security = 0
     Basic = 1
