@@ -182,6 +182,57 @@ class TestEasyCast(unittest.TestCase):
         r = g(None)
         self.assertFalse(bool(r))
 
+    def test_cfunctype_is_not_converted(self):
+        @commit
+        @cfunctype_pointer
+        def f() -> Void:
+            ...
+
+        @functype
+        def g(f: f) -> py_object:
+            return f
+
+        h = f(lambda: 0)
+        r = g(h)
+        self.assertEqual(cast(r, c_void_p).value, cast(h, c_void_p).value)
+
+    def test_winfunctype_is_not_converted(self):
+        @commit
+        @winfunctype_pointer
+        def f() -> Void:
+            ...
+
+        @functype
+        def g(f: f) -> py_object:
+            return f
+
+        h = f(lambda: 0)
+        r = g(h)
+        self.assertEqual(cast(r, c_void_p).value, cast(h, c_void_p).value)
+
+    def test_converted_function_pointer_remains_after_it_is_passed_to_c_function(self):
+        @commit
+        @cfunctype_pointer
+        def f() -> Int16:
+            ...
+
+        in_c_callback = None
+
+        @functype
+        def g(callback: f) -> Void:
+            # emulate that C function receives function pointer insted of python object.
+            nonlocal in_c_callback
+            in_c_callback = cast(callback, c_void_p).value
+
+        @functype
+        def h() -> Int16:
+            callback = cast(in_c_callback, f)
+            return callback()
+
+        g(lambda: 99)
+        r = h()
+        self.assertEqual(r, 99)
+
 
 if __name__ == "__main__":
     unittest.main()

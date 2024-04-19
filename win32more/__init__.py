@@ -215,6 +215,8 @@ EASY_TYPES = [  # obj_type, type_hint, c_func
     (c_wchar_p, (c_wchar_p_no,), None),
 ]
 
+easycast_keep_reference = []
+
 
 def easycast(obj, type_):
     for obj_type, type_hint, c_func in EASY_TYPES:
@@ -223,10 +225,12 @@ def easycast(obj, type_):
                 obj = c_func(obj)
             return cast(obj, type_)
     if issubclass(type_, _CFuncPtr):
-        if isinstance(type_, _CFuncPtr):
+        if isinstance(obj, type_):
             return obj
         elif callable(obj):
-            return type_(obj)
+            r = type_(obj)
+            easycast_keep_reference.append(r)
+            return r
         elif obj is None:
             return type_()
     return obj
