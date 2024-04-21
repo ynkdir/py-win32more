@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import asyncio
-import re
+import inspect
 import sys
 import uuid
 from ctypes import (
@@ -19,9 +19,9 @@ from ctypes import (
 from typing import Generic, TypeVar, _GenericAlias
 
 if sys.version_info < (3, 9):
-    from typing_extensions import Annotated
+    from typing_extensions import Annotated  # noqa: F401
 else:
-    from typing import Annotated
+    from typing import Annotated  # noqa: F401
 
 if sys.version_info < (3, 8):
     from typing_extensions import get_args
@@ -49,6 +49,7 @@ from win32more import (
     easycast,
     get_type_hints,
 )
+from win32more.asyncui import async_callback
 from win32more.Windows.Win32.Foundation import (
     E_NOINTERFACE,
     HRESULT,
@@ -588,13 +589,16 @@ class MulticastDelegate(ComPtr):
 
     # FIXME: How to get GenericClass[T].__args__ in class method?
     # @classmethod
-    def CreateInstance(self, _callback):
+    def CreateInstance(self, callback):
         if is_generic_instance(self):
             cls = self.__orig_class__
             self._iid_ = _ro_get_parameterized_type_instance_iid(cls)
         else:
             cls = self.__class__
-        self._callback = _callback
+        if inspect.iscoroutinefunction(callback):
+            self._callback = async_callback(callback)
+        else:
+            self._callback = callback
         self._comobj = MulticastDelegateImpl(self, cls, self.__class__.Invoke)
         self.value = addressof(self._comobj)
         self._refcount = 0
