@@ -537,9 +537,9 @@ class MulticastDelegateImpl(Structure):
         self.comptr = py_object(comptr)
 
     def _make_trampoline(self, cls, invoke_prototype):
-        hints = generic_get_type_hints(cls, invoke_prototype)
+        hints = generic_get_type_hints(cls, invoke_prototype, use_generic_alias=True)
         self.restype = hints.pop("return")
-        argtypes = [(self._make_allocator(t) if issubclass(t, ComPtr) else t) for t in hints.values()]
+        argtypes = [self._make_allocator(t) for t in hints.values()]
         if self.restype is not Void:
             restype = self.restype
             if is_generic_alias(restype):
@@ -549,8 +549,10 @@ class MulticastDelegateImpl(Structure):
         return factory(self.Invoke)
 
     # allocate winrt runtime class without constructor.
-    def _make_allocator(self, cls):
-        return type(c_void_p)("Allocator", (c_void_p,), {"__new__": lambda _: cls(own=False)})
+    def _make_allocator(self, t):
+        if is_generic_alias(t) or issubclass(t, ComPtr):
+            return type(c_void_p)("Allocator", (c_void_p,), {"__new__": lambda _: t(own=False)})
+        return t
 
     @WINFUNCTYPE(HRESULT, c_void_p, POINTER(Guid), POINTER(c_void_p))
     def QueryInterface(this, riid, ppvObject):
