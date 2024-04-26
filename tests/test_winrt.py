@@ -45,7 +45,9 @@ async def mainloop(coro):
     while True:
         await asyncio.sleep(0)
         if task.done():
-            pump_message()  # for com messages remains.
+            # for com messages remains.
+            while wait_message(100):
+                pump_message()
             return task.result()
         if wait_message(0):
             pump_message()
@@ -124,4 +126,3 @@ class TestWinrt(unittest.TestCase):
 
     def test_constructor_with_arguments(self):
         self.assertEqual(Uri("http://example.com/").ToString(), "http://example.com/")
-
