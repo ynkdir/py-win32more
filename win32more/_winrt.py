@@ -636,16 +636,40 @@ class MulticastDelegate(ComPtr):
         return self._callback(*args)
 
 
+AsyncStatus_Started = 0
+AsyncStatus_Completed = 1
+AsyncStatus_Canceled = 2
+AsyncStatus_Error = 3
+
+
+class _Async__await__:
+    def __init__(self, iasync):
+        self._future = asyncio.get_event_loop().create_future()
+        iasync.Completed = self.on_completed
+        # to keep reference
+        self._future.add_done_callback(lambda future: (self, iasync))
+
+    def on_completed(self, asyncInfo, asyncStatus):
+        from win32more.Windows.Foundation import IAsyncInfo
+
+        if asyncStatus.value == AsyncStatus_Completed:
+            self._future.get_loop().call_soon_threadsafe(self._future.set_result, asyncInfo.GetResults())
+        elif asyncStatus.value == AsyncStatus_Error:
+            self._future.get_loop().call_soon_threadsafe(
+                self._future.set_exception, WinError(asyncInfo.as_(IAsyncInfo).ErrorCode.Value)
+            )
+        elif asyncStatus.value == AsyncStatus_Canceled:
+            self._future.get_loop().call_soon_threadsafe(self._future.cancel)
+        else:
+            assert False, "unreachable"
+
+    def __await__(self):
+        return self._future.__await__()
+
+
 def IAsyncOperation___await__(self):
-    event = asyncio.Event()
-    # FIXME: Seems to be not required to call asyncInfo.Release().  Where is documentation.
-    self.Completed = lambda asyncInfo, asyncStatus: event.set()
-    yield from event.wait().__await__()
-    r = self.GetResults()
-    return r
+    return _Async__await__(self).__await__()
 
 
 def IAsyncAction___await__(self):
-    event = asyncio.Event()
-    self.Completed = lambda asyncInfo, asyncStatus: event.set()
-    yield from event.wait().__await__()
+    return _Async__await__(self).__await__()

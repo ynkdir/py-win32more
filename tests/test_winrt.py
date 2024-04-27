@@ -7,9 +7,10 @@ from pathlib import Path
 
 from win32more import FAILED
 from win32more._winrt import SZArray, WinRT_String, _ro_get_parameterized_type_instance_iid
-from win32more.Windows.Foundation import Uri
+from win32more.Windows.Foundation import IAsyncInfo, Uri
 from win32more.Windows.Foundation.Collections import IVector, StringMap
 from win32more.Windows.Storage import FileIO, PathIO, StorageFile
+from win32more.Windows.System.Threading import ThreadPool
 from win32more.Windows.Win32.Foundation import WAIT_FAILED, WAIT_TIMEOUT
 from win32more.Windows.Win32.System.WinRT import RO_INIT_SINGLETHREADED, IInspectable, RoInitialize, RoUninitialize
 from win32more.Windows.Win32.UI.WindowsAndMessaging import (
@@ -126,3 +127,20 @@ class TestWinrt(unittest.TestCase):
 
     def test_constructor_with_arguments(self):
         self.assertEqual(Uri("http://example.com/").ToString(), "http://example.com/")
+
+    def test_async_error(self):
+        async def main():
+            with self.assertRaises(OSError):
+                await PathIO.ReadLinesAsync("NOT EXIST")
+
+        asyncio.run(mainloop(main()))
+
+    def test_async_cancel(self):
+        def worker(async_action):
+            async_action.as_(IAsyncInfo).Cancel()
+
+        async def main():
+            with self.assertRaises(asyncio.CancelledError):
+                await ThreadPool.RunAsync(worker)
+
+        asyncio.run(mainloop(main()))
