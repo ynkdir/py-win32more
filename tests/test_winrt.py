@@ -5,8 +5,8 @@ from ctypes import (
 )
 from pathlib import Path
 
-from win32more import FAILED, Int32
-from win32more._winrt import SZArray, WinRT_String, _ro_get_parameterized_type_instance_iid
+from win32more import FAILED
+from win32more._winrt import _ro_get_parameterized_type_instance_iid
 from win32more.Windows.Devices.Display import DisplayMonitor, DisplayMonitorDescriptorKind
 from win32more.Windows.Devices.Enumeration import DeviceInformation
 from win32more.Windows.Foundation import IAsyncInfo, IPropertyValue, PropertyValue, Uri
@@ -102,9 +102,8 @@ class TestWinrt(unittest.TestCase):
 
         ivector = asyncio.run(mainloop(winrt_readlines()))
         lines = Path(__file__).read_text().splitlines()
-        array = SZArray[WinRT_String](length=10)
-        ivector.GetMany(0, array)
-        lines10 = [s.strvalue for s in array[0:10]]
+        lines10 = [None] * 10  # FillArray ignores contents
+        ivector.GetMany(0, lines10)
         self.assertEqual(lines10, lines[0:10])
 
     def test_passarray(self):
@@ -112,21 +111,17 @@ class TestWinrt(unittest.TestCase):
             return await PathIO.ReadLinesAsync(__file__)
 
         ivector = asyncio.run(mainloop(winrt_readlines()))
-        lines = [""] * 10
-        array = SZArray[WinRT_String](length=10)
-        for i in range(10):
-            lines[i] = str(i)
-            array[i] = WinRT_String(str(i), own=False)
-        ivector.ReplaceAll(array)
+        lines = [str(i) for i in range(10)]
+        ivector.ReplaceAll(lines)
         lines10 = [ivector.GetAt(i) for i in range(10)]
         self.assertEqual(lines10, lines[0:10])
 
     def test_receivearray_param(self):
-        inarray = SZArray[Int32](1, 2, 3)
+        inarray = [1, 2, 3]
 
         prop = PropertyValue.CreateInt32Array(inarray).as_(IPropertyValue)
 
-        outarray = SZArray[Int32]()
+        outarray = []
         prop.GetInt32Array(outarray)
 
         self.assertEqual(inarray[:], outarray[:])
