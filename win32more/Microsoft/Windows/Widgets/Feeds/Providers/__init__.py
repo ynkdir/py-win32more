@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import Annotated, Generic, K, MulticastDelegate, SZArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Microsoft.Windows.Widgets.Feeds.Providers
 import win32more.Microsoft.Windows.Widgets.Notifications
 import win32more.Windows.Foundation
@@ -84,7 +84,7 @@ class FeedManager(ComPtr):
     default_interface: win32more.Microsoft.Windows.Widgets.Feeds.Providers.IFeedManager
     _classid_ = 'Microsoft.Windows.Widgets.Feeds.Providers.FeedManager'
     @winrt_mixinmethod
-    def GetEnabledFeedProviders(self: win32more.Microsoft.Windows.Widgets.Feeds.Providers.IFeedManager) -> SZArray[win32more.Microsoft.Windows.Widgets.Feeds.Providers.FeedProviderInfo]: ...
+    def GetEnabledFeedProviders(self: win32more.Microsoft.Windows.Widgets.Feeds.Providers.IFeedManager) -> ReceiveArray[win32more.Microsoft.Windows.Widgets.Feeds.Providers.FeedProviderInfo]: ...
     @winrt_mixinmethod
     def SetCustomQueryParameters(self: win32more.Microsoft.Windows.Widgets.Feeds.Providers.IFeedManager, options: win32more.Microsoft.Windows.Widgets.Feeds.Providers.CustomQueryParametersUpdateOptions) -> Void: ...
     @winrt_mixinmethod
@@ -127,7 +127,7 @@ class FeedProviderInfo(ComPtr):
     @winrt_mixinmethod
     def get_FeedProviderDefinitionId(self: win32more.Microsoft.Windows.Widgets.Feeds.Providers.IFeedProviderInfo) -> WinRT_String: ...
     @winrt_mixinmethod
-    def get_EnabledFeedDefinitionIds(self: win32more.Microsoft.Windows.Widgets.Feeds.Providers.IFeedProviderInfo) -> SZArray[WinRT_String]: ...
+    def get_EnabledFeedDefinitionIds(self: win32more.Microsoft.Windows.Widgets.Feeds.Providers.IFeedProviderInfo) -> ReceiveArray[WinRT_String]: ...
     EnabledFeedDefinitionIds = property(get_EnabledFeedDefinitionIds, None)
     FeedProviderDefinitionId = property(get_FeedProviderDefinitionId, None)
 class FeedResourceRequest(ComPtr):
@@ -279,7 +279,7 @@ class IFeedManager(ComPtr):
     _classid_ = 'Microsoft.Windows.Widgets.Feeds.Providers.IFeedManager'
     _iid_ = Guid('{87df6a84-15aa-45cb-8911-5cafab57f723}')
     @winrt_commethod(6)
-    def GetEnabledFeedProviders(self) -> SZArray[win32more.Microsoft.Windows.Widgets.Feeds.Providers.FeedProviderInfo]: ...
+    def GetEnabledFeedProviders(self) -> ReceiveArray[win32more.Microsoft.Windows.Widgets.Feeds.Providers.FeedProviderInfo]: ...
     @winrt_commethod(7)
     def SetCustomQueryParameters(self, options: win32more.Microsoft.Windows.Widgets.Feeds.Providers.CustomQueryParametersUpdateOptions) -> Void: ...
 class IFeedManager2(ComPtr):
@@ -356,7 +356,7 @@ class IFeedProviderInfo(ComPtr):
     @winrt_commethod(6)
     def get_FeedProviderDefinitionId(self) -> WinRT_String: ...
     @winrt_commethod(7)
-    def get_EnabledFeedDefinitionIds(self) -> SZArray[WinRT_String]: ...
+    def get_EnabledFeedDefinitionIds(self) -> ReceiveArray[WinRT_String]: ...
     EnabledFeedDefinitionIds = property(get_EnabledFeedDefinitionIds, None)
     FeedProviderDefinitionId = property(get_FeedProviderDefinitionId, None)
 class IFeedProviderMessage(ComPtr):

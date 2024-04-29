@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import Annotated, Generic, K, MulticastDelegate, SZArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Foundation.Numerics
@@ -327,7 +327,7 @@ class ISpatialStageFrameOfReference(ComPtr):
     @winrt_commethod(9)
     def GetCoordinateSystemAtCurrentLocation(self, locator: win32more.Windows.Perception.Spatial.SpatialLocator) -> win32more.Windows.Perception.Spatial.SpatialCoordinateSystem: ...
     @winrt_commethod(10)
-    def TryGetMovementBounds(self, coordinateSystem: win32more.Windows.Perception.Spatial.SpatialCoordinateSystem) -> SZArray[win32more.Windows.Foundation.Numerics.Vector3]: ...
+    def TryGetMovementBounds(self, coordinateSystem: win32more.Windows.Perception.Spatial.SpatialCoordinateSystem) -> ReceiveArray[win32more.Windows.Foundation.Numerics.Vector3]: ...
     CoordinateSystem = property(get_CoordinateSystem, None)
     LookDirectionRange = property(get_LookDirectionRange, None)
     MovementRange = property(get_MovementRange, None)
@@ -695,7 +695,7 @@ class SpatialStageFrameOfReference(ComPtr, metaclass=_SpatialStageFrameOfReferen
     @winrt_mixinmethod
     def GetCoordinateSystemAtCurrentLocation(self: win32more.Windows.Perception.Spatial.ISpatialStageFrameOfReference, locator: win32more.Windows.Perception.Spatial.SpatialLocator) -> win32more.Windows.Perception.Spatial.SpatialCoordinateSystem: ...
     @winrt_mixinmethod
-    def TryGetMovementBounds(self: win32more.Windows.Perception.Spatial.ISpatialStageFrameOfReference, coordinateSystem: win32more.Windows.Perception.Spatial.SpatialCoordinateSystem) -> SZArray[win32more.Windows.Foundation.Numerics.Vector3]: ...
+    def TryGetMovementBounds(self: win32more.Windows.Perception.Spatial.ISpatialStageFrameOfReference, coordinateSystem: win32more.Windows.Perception.Spatial.SpatialCoordinateSystem) -> ReceiveArray[win32more.Windows.Foundation.Numerics.Vector3]: ...
     @winrt_classmethod
     def get_Current(cls: win32more.Windows.Perception.Spatial.ISpatialStageFrameOfReferenceStatics) -> win32more.Windows.Perception.Spatial.SpatialStageFrameOfReference: ...
     @winrt_classmethod

@@ -16,11 +16,12 @@ from .win32 import BASE_EXPORTS_CSV
 logger = logging.getLogger(__name__)
 
 WINRT_EXPORTS = [
-    "Annotated",
+    "FillArray",
     "Generic",
     "K",
     "MulticastDelegate",
-    "SZArray",
+    "PassArray",
+    "ReceiveArray",
     "T",
     "TProgress",
     "TResult",
@@ -80,7 +81,8 @@ class Formatter:
         elif ttype.kind == "Reference":
             return f"POINTER({self.pytype(ttype.type)})"
         elif ttype.kind == "SZArray":
-            return f"SZArray[{self.pytype(ttype.type)}]"
+            # Handle return type.  Parameters are handled in method_parameters_annotated().
+            return f"ReceiveArray[{self.pytype(ttype.type)}]"
         elif ttype.kind == "Type":
             if ttype.fullname == "System.Guid":
                 return "Guid"
@@ -125,14 +127,12 @@ class Formatter:
     def method_parameters_annotated(self, md: MethodDefinition) -> list[str]:
         r = []
         for pa, type_ in md.parameters_with_type:
-            if type_.kind == "SZArray":
-                attrs = []
-                if "Out" in pa.attributes:
-                    attrs.append("'Out'")
-                if "In" in pa.attributes:
-                    attrs.append("'In'")
-                annotated = ", ".join([self.pytype(type_)] + attrs)
-                pytype = f"Annotated[{annotated}]"
+            if type_.kind == "SZArray" and "In" in pa.attributes:
+                pytype = f"PassArray[{self.pytype(type_.type)}]"
+            elif type_.kind == "SZArray" and "Out" in pa.attributes:
+                pytype = f"FillArray[{self.pytype(type_.type)}]"
+            elif type_.kind == "Reference" and type_.type.kind == "SZArray" and "Out" in pa.attributes:
+                pytype = f"ReceiveArray[{self.pytype(type_.type.type)}]"
             else:
                 pytype = self.pytype(type_)
             r.append(f"{pa.name}: {pytype}")

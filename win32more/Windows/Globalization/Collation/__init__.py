@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import Annotated, Generic, K, MulticastDelegate, SZArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Globalization.Collation
 import win32more.Windows.Win32.System.WinRT
@@ -40,7 +40,7 @@ class CharacterGroupings(ComPtr):
     @winrt_mixinmethod
     def IndexOf(self: win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Globalization.Collation.CharacterGrouping], value: win32more.Windows.Globalization.Collation.CharacterGrouping, index: POINTER(UInt32)) -> Boolean: ...
     @winrt_mixinmethod
-    def GetMany(self: win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Globalization.Collation.CharacterGrouping], startIndex: UInt32, items: Annotated[SZArray[win32more.Windows.Globalization.Collation.CharacterGrouping], 'Out']) -> UInt32: ...
+    def GetMany(self: win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Globalization.Collation.CharacterGrouping], startIndex: UInt32, items: FillArray[win32more.Windows.Globalization.Collation.CharacterGrouping]) -> UInt32: ...
     @winrt_mixinmethod
     def First(self: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Globalization.Collation.CharacterGrouping]) -> win32more.Windows.Foundation.Collections.IIterator[win32more.Windows.Globalization.Collation.CharacterGrouping]: ...
     Size = property(get_Size, None)

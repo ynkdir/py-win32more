@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import Annotated, Generic, K, MulticastDelegate, SZArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Storage
@@ -269,7 +269,7 @@ class FileIO(ComPtr):
     @winrt_classmethod
     def WriteBufferAsync(cls: win32more.Windows.Storage.IFileIOStatics, file: win32more.Windows.Storage.IStorageFile, buffer: win32more.Windows.Storage.Streams.IBuffer) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_classmethod
-    def WriteBytesAsync(cls: win32more.Windows.Storage.IFileIOStatics, file: win32more.Windows.Storage.IStorageFile, buffer: Annotated[SZArray[Byte], 'In']) -> win32more.Windows.Foundation.IAsyncAction: ...
+    def WriteBytesAsync(cls: win32more.Windows.Storage.IFileIOStatics, file: win32more.Windows.Storage.IStorageFile, buffer: PassArray[Byte]) -> win32more.Windows.Foundation.IAsyncAction: ...
 class IAppDataPaths(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Storage.IAppDataPaths'
@@ -462,7 +462,7 @@ class IFileIOStatics(ComPtr):
     @winrt_commethod(19)
     def WriteBufferAsync(self, file: win32more.Windows.Storage.IStorageFile, buffer: win32more.Windows.Storage.Streams.IBuffer) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(20)
-    def WriteBytesAsync(self, file: win32more.Windows.Storage.IStorageFile, buffer: Annotated[SZArray[Byte], 'In']) -> win32more.Windows.Foundation.IAsyncAction: ...
+    def WriteBytesAsync(self, file: win32more.Windows.Storage.IStorageFile, buffer: PassArray[Byte]) -> win32more.Windows.Foundation.IAsyncAction: ...
 class IKnownFoldersCameraRollStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Storage.IKnownFoldersCameraRollStatics'
@@ -571,7 +571,7 @@ class IPathIOStatics(ComPtr):
     @winrt_commethod(19)
     def WriteBufferAsync(self, absolutePath: WinRT_String, buffer: win32more.Windows.Storage.Streams.IBuffer) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(20)
-    def WriteBytesAsync(self, absolutePath: WinRT_String, buffer: Annotated[SZArray[Byte], 'In']) -> win32more.Windows.Foundation.IAsyncAction: ...
+    def WriteBytesAsync(self, absolutePath: WinRT_String, buffer: PassArray[Byte]) -> win32more.Windows.Foundation.IAsyncAction: ...
 class ISetVersionDeferral(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Storage.ISetVersionDeferral'
@@ -1326,7 +1326,7 @@ class PathIO(ComPtr):
     @winrt_classmethod
     def WriteBufferAsync(cls: win32more.Windows.Storage.IPathIOStatics, absolutePath: WinRT_String, buffer: win32more.Windows.Storage.Streams.IBuffer) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_classmethod
-    def WriteBytesAsync(cls: win32more.Windows.Storage.IPathIOStatics, absolutePath: WinRT_String, buffer: Annotated[SZArray[Byte], 'In']) -> win32more.Windows.Foundation.IAsyncAction: ...
+    def WriteBytesAsync(cls: win32more.Windows.Storage.IPathIOStatics, absolutePath: WinRT_String, buffer: PassArray[Byte]) -> win32more.Windows.Foundation.IAsyncAction: ...
 class SetVersionDeferral(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Storage.ISetVersionDeferral

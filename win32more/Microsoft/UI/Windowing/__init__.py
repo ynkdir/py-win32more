@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import Annotated, Generic, K, MulticastDelegate, SZArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Microsoft.UI
 import win32more.Microsoft.UI.Dispatching
 import win32more.Microsoft.UI.Windowing
@@ -226,7 +226,7 @@ class AppWindowTitleBar(ComPtr):
     @winrt_mixinmethod
     def ResetToDefault(self: win32more.Microsoft.UI.Windowing.IAppWindowTitleBar) -> Void: ...
     @winrt_mixinmethod
-    def SetDragRectangles(self: win32more.Microsoft.UI.Windowing.IAppWindowTitleBar, value: Annotated[SZArray[win32more.Windows.Graphics.RectInt32], 'In']) -> Void: ...
+    def SetDragRectangles(self: win32more.Microsoft.UI.Windowing.IAppWindowTitleBar, value: PassArray[win32more.Windows.Graphics.RectInt32]) -> Void: ...
     @winrt_mixinmethod
     def get_PreferredHeightOption(self: win32more.Microsoft.UI.Windowing.IAppWindowTitleBar2) -> win32more.Microsoft.UI.Windowing.TitleBarHeightOption: ...
     @winrt_mixinmethod
@@ -583,7 +583,7 @@ class IAppWindowTitleBar(ComPtr):
     @winrt_commethod(37)
     def ResetToDefault(self) -> Void: ...
     @winrt_commethod(38)
-    def SetDragRectangles(self, value: Annotated[SZArray[win32more.Windows.Graphics.RectInt32], 'In']) -> Void: ...
+    def SetDragRectangles(self, value: PassArray[win32more.Windows.Graphics.RectInt32]) -> Void: ...
     BackgroundColor = property(get_BackgroundColor, put_BackgroundColor)
     ButtonBackgroundColor = property(get_ButtonBackgroundColor, put_ButtonBackgroundColor)
     ButtonForegroundColor = property(get_ButtonForegroundColor, put_ButtonForegroundColor)

@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import Annotated, Generic, K, MulticastDelegate, SZArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Microsoft.Web.WebView2.Core
 import win32more.Windows.ApplicationModel.DataTransfer
 import win32more.Windows.ApplicationModel.DataTransfer.DragDrop.Core
@@ -1245,7 +1245,7 @@ class CoreWebView2HttpHeadersCollectionIterator(ComPtr):
     @winrt_mixinmethod
     def MoveNext(self: win32more.Windows.Foundation.Collections.IIterator[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, WinRT_String]]) -> Boolean: ...
     @winrt_mixinmethod
-    def GetMany(self: win32more.Windows.Foundation.Collections.IIterator[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, WinRT_String]], items: Annotated[SZArray[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, WinRT_String]], 'Out']) -> UInt32: ...
+    def GetMany(self: win32more.Windows.Foundation.Collections.IIterator[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, WinRT_String]], items: FillArray[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, WinRT_String]]) -> UInt32: ...
     Current = property(get_Current, None)
     HasCurrent = property(get_HasCurrent, None)
 class CoreWebView2HttpRequestHeaders(ComPtr):

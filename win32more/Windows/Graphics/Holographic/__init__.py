@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import Annotated, Generic, K, MulticastDelegate, SZArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Foundation.Numerics
@@ -139,9 +139,9 @@ class HolographicCameraViewportParameters(ComPtr):
     default_interface: win32more.Windows.Graphics.Holographic.IHolographicCameraViewportParameters
     _classid_ = 'Windows.Graphics.Holographic.HolographicCameraViewportParameters'
     @winrt_mixinmethod
-    def get_HiddenAreaMesh(self: win32more.Windows.Graphics.Holographic.IHolographicCameraViewportParameters) -> SZArray[win32more.Windows.Foundation.Numerics.Vector2]: ...
+    def get_HiddenAreaMesh(self: win32more.Windows.Graphics.Holographic.IHolographicCameraViewportParameters) -> ReceiveArray[win32more.Windows.Foundation.Numerics.Vector2]: ...
     @winrt_mixinmethod
-    def get_VisibleAreaMesh(self: win32more.Windows.Graphics.Holographic.IHolographicCameraViewportParameters) -> SZArray[win32more.Windows.Foundation.Numerics.Vector2]: ...
+    def get_VisibleAreaMesh(self: win32more.Windows.Graphics.Holographic.IHolographicCameraViewportParameters) -> ReceiveArray[win32more.Windows.Foundation.Numerics.Vector2]: ...
     HiddenAreaMesh = property(get_HiddenAreaMesh, None)
     VisibleAreaMesh = property(get_VisibleAreaMesh, None)
 class HolographicDepthReprojectionMethod(Int32):  # enum
@@ -626,9 +626,9 @@ class IHolographicCameraViewportParameters(ComPtr):
     _classid_ = 'Windows.Graphics.Holographic.IHolographicCameraViewportParameters'
     _iid_ = Guid('{80cdf3f7-842a-41e1-93ed-5692ab1fbb10}')
     @winrt_commethod(6)
-    def get_HiddenAreaMesh(self) -> SZArray[win32more.Windows.Foundation.Numerics.Vector2]: ...
+    def get_HiddenAreaMesh(self) -> ReceiveArray[win32more.Windows.Foundation.Numerics.Vector2]: ...
     @winrt_commethod(7)
-    def get_VisibleAreaMesh(self) -> SZArray[win32more.Windows.Foundation.Numerics.Vector2]: ...
+    def get_VisibleAreaMesh(self) -> ReceiveArray[win32more.Windows.Foundation.Numerics.Vector2]: ...
     HiddenAreaMesh = property(get_HiddenAreaMesh, None)
     VisibleAreaMesh = property(get_VisibleAreaMesh, None)
 class IHolographicDisplay(ComPtr):

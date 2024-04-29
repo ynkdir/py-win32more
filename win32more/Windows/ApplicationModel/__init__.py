@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import Annotated, Generic, K, MulticastDelegate, SZArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel
 import win32more.Windows.ApplicationModel.Activation
 import win32more.Windows.ApplicationModel.Core
@@ -49,7 +49,7 @@ class AppInfo(ComPtr, metaclass=_AppInfo_Meta_):
     @winrt_mixinmethod
     def get_ExecutionContext(self: win32more.Windows.ApplicationModel.IAppInfo3) -> win32more.Windows.ApplicationModel.AppExecutionContext: ...
     @winrt_mixinmethod
-    def get_SupportedFileExtensions(self: win32more.Windows.ApplicationModel.IAppInfo4) -> SZArray[WinRT_String]: ...
+    def get_SupportedFileExtensions(self: win32more.Windows.ApplicationModel.IAppInfo4) -> ReceiveArray[WinRT_String]: ...
     @winrt_classmethod
     def get_Current(cls: win32more.Windows.ApplicationModel.IAppInfoStatics) -> win32more.Windows.ApplicationModel.AppInfo: ...
     @winrt_classmethod
@@ -282,7 +282,7 @@ class IAppInfo4(ComPtr):
     _classid_ = 'Windows.ApplicationModel.IAppInfo4'
     _iid_ = Guid('{2f34bdeb-1609-4554-9f33-12e1e803e0d4}')
     @winrt_commethod(6)
-    def get_SupportedFileExtensions(self) -> SZArray[WinRT_String]: ...
+    def get_SupportedFileExtensions(self) -> ReceiveArray[WinRT_String]: ...
     SupportedFileExtensions = property(get_SupportedFileExtensions, None)
 class IAppInfoStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable

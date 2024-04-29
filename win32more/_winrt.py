@@ -24,9 +24,9 @@ else:
     from typing import Annotated  # noqa: F401
 
 if sys.version_info < (3, 8):
-    from typing_extensions import get_args
+    from typing_extensions import get_args, get_origin
 else:
-    from typing import get_args
+    from typing import get_args, get_origin
 
 import win32more.Windows.Win32.System.Com
 from win32more import (
@@ -73,8 +73,8 @@ TResult = TypeVar("TResult")
 TSender = TypeVar("TSender")
 
 
-def generic_get_type_hints(cls, prototype, include_extras=False, use_generic_alias=False):
-    hints = get_type_hints(prototype, include_extras=include_extras)
+def generic_get_type_hints(cls, prototype, use_generic_alias=False):
+    hints = get_type_hints(prototype)
     if is_generic_alias(cls):
         hints = generic_map_types(cls, hints, use_generic_alias)
     return hints
@@ -106,34 +106,64 @@ def generic_map_class(generic_alias, param_to_type, use_generic_alias=False):
         return generic_alias.__origin__
 
 
+# FIXME: How to implement SZArray?
 class SZArray(Generic[T]):
-    def __init__(self, array=None):
-        if array:
-            self._array = array
-            self._length = UInt32(len(array))
-            self._contents = cast(array, c_void_p)
-        else:
-            self._array = None
-            self._length = UInt32(0)
-            self._contents = c_void_p(0)
+    def __init__(self, *args, length=None):
+        # DIRTY HACK: get __orig_class__ from typing._BaseGenericAlias.__call__()
+        __orig_class__ = inspect.currentframe().f_back.f_locals["self"]
+
+        _type_ = __orig_class__.__args__[0]
+
+        if length is None:
+            length = len(args)
+
+        self._array = (_type_ * length)(*args)
+
+    def _set_array(self, array):
+        self._array = array
+
+    @property
+    def _length_(self):
+        return self._array._length_
 
     @property
     def _type_(self):
-        return self.__orig_class__.__args__[0]
+        return self._array._type_
 
-    @property
-    def length(self):
-        return self._length.value
-
-    @property
-    def contents(self):
-        return cast(self._contents, POINTER(self._type_))
+    def __len__(self):
+        return self._array._length_
 
     def __getitem__(self, i):
-        return self.contents[i]
+        return self._array[i]
 
     def __setitem__(self, i, value):
-        self.contents[i] = value
+        self._array[i] = value
+
+
+# Dummy type for SZArray
+class PassArray(Generic[T]):
+    pass
+
+
+# Dummy type for SZArray
+class FillArray(Generic[T]):
+    pass
+
+
+# Dummy type for SZArray
+class ReceiveArray(Generic[T]):
+    pass
+
+
+class ReceiveArrayReceiver:
+    def __init__(self, szarray, length, ptr):
+        self._szarray = szarray
+        self._length = length
+        self._ptr = ptr
+
+    def __call__(self):
+        self._szarray._set_array((self._szarray._type_ * self._length.value)(*self._ptr[: self._length.value]))
+        win32more.Windows.Win32.System.Com.CoTaskMemFree(self._ptr)
 
 
 # FIXME: Not work for array and struct entry.
@@ -179,33 +209,39 @@ class WinRT_String(HSTRING):
 
 class WinrtMethod:
     def __init__(self, cls, prototype, factory):
-        hints = generic_get_type_hints(cls, prototype)
-        hints_extra = generic_get_type_hints(cls, prototype, include_extras=True)
-        restype = hints.pop("return")
+        generic_hints = generic_get_type_hints(cls, prototype, use_generic_alias=True)
+        restype = generic_hints.pop("return")
 
         types = [HRESULT]
         params = []
-        for name, type_ in hints.items():
-            if is_szarray_class(type_):
-                if "Out" in get_args(hints_extra[name]):
-                    types.append(POINTER(UInt32))
-                    params.append((1, f"{name}_length"))
-                    types.append(POINTER(c_void_p))
-                    params.append((1, name))
-                else:
-                    types.append(UInt32)
-                    params.append((1, f"{name}_length"))
-                    types.append(c_void_p)
-                    params.append((1, name))
+        for name, type_ in generic_hints.items():
+            if is_passarray_class(type_):
+                types.append(UInt32)
+                params.append((1, f"{name}_length"))
+                types.append(POINTER(get_args(type_)[0]))
+                params.append((1, name))
+            elif is_fillarray_class(type_):
+                types.append(UInt32)
+                params.append((1, f"{name}_length"))
+                types.append(POINTER(get_args(type_)[0]))
+                params.append((1, name))
+            elif is_receivearray_class(type_):
+                types.append(POINTER(UInt32))
+                params.append((1, f"{name}_length"))
+                types.append(POINTER(POINTER(get_args(type_)[0])))
+                params.append((1, name))
+            elif is_generic_alias(type_):
+                types.append(get_origin(type_))
+                params.append((1, name))
             else:
                 types.append(type_)
                 params.append((1, name))
 
         if restype is not Void:
-            if is_szarray_class(restype):
+            if is_receivearray_class(restype):
                 types.append(POINTER(UInt32))
                 params.append((1, "return_length"))
-                types.append(POINTER(c_void_p))
+                types.append(POINTER(POINTER(get_args(restype)[0])))
                 params.append((1, "return"))
             elif is_generic_alias(restype):
                 types.append(POINTER(restype.__origin__))
@@ -215,20 +251,20 @@ class WinrtMethod:
                 params.append((1, "return"))
 
         self.delegate = factory(prototype.__name__, types, tuple(params))
-        generic_hints = generic_get_type_hints(cls, prototype, use_generic_alias=True)
-        self.restype = generic_hints.pop("return")
+        self.restype = restype
         self.generic_hints = generic_hints
         self.generic_hints.update({i: v for i, v in enumerate(generic_hints.values())})
 
     def __call__(self, this, *args, **kwargs):
         _as_intptr = kwargs.pop("_as_intptr", False)
-        cargs, ckwargs = self.make_args(args, kwargs)
+        calllater = []
+        cargs, ckwargs = self.make_args(args, kwargs, calllater)
         if self.restype is Void:
             result = None
-        elif is_szarray_class(self.restype):
-            result = self.restype()
-            ckwargs["return_length"] = pointer(result._length)
-            ckwargs["return"] = pointer(result._contents)
+        elif is_receivearray_class(self.restype):
+            result = (UInt32(), POINTER(get_args(self.restype)[0])())
+            ckwargs["return_length"] = pointer(result[0])
+            ckwargs["return"] = pointer(result[1])
         elif is_com_class(self.restype):
             result = self.restype(own=True)
             ckwargs["return"] = pointer(result)
@@ -238,15 +274,32 @@ class WinrtMethod:
         hr = self.delegate(this, *cargs, **ckwargs)
         if FAILED(hr):
             raise WinError(hr)
+        for callback in calllater:
+            callback()
         return self.make_result(result, _as_intptr)
 
-    def make_args(self, args, kwargs):
+    def make_args(self, args, kwargs, calllater):
         cargs = []
         for k, v in enumerate(args):
             if k in self.generic_hints:
-                if isinstance(v, SZArray):
-                    cargs.append(v._length)
-                    cargs.append(v._contents)
+                if is_passarray_class(self.generic_hints[k]):
+                    if not isinstance(v, SZArray):
+                        raise TypeError("PassArray requires SZArray")
+                    cargs.append(UInt32(len(v)))
+                    cargs.append(v._array)
+                elif is_fillarray_class(self.generic_hints[k]):
+                    if not isinstance(v, SZArray):
+                        raise TypeError("FillArray requires SZArray")
+                    cargs.append(UInt32(len(v)))
+                    cargs.append(v._array)
+                elif is_receivearray_class(self.generic_hints[k]):
+                    if not isinstance(v, SZArray):
+                        raise TypeError("ReceiveArray requires SZArray")
+                    length = UInt32()
+                    ptr = POINTER(get_args(self.generic_hints[k])[0])()
+                    cargs.append(pointer(length))
+                    cargs.append(pointer(ptr))
+                    calllater.append(ReceiveArrayReceiver(v, length, ptr))
                 elif callable(v) and is_delegate_class(self.generic_hints[k]):
                     cargs.append(self.generic_hints[k](own=True).CreateInstance(v))
                 elif is_com_instance(v) and is_com_class(self.generic_hints[k]):
@@ -258,10 +311,25 @@ class WinrtMethod:
         ckwargs = {}
         for k, v in kwargs.items():
             if k in self.generic_hints:
-                if isinstance(v, SZArray):
-                    ckwargs[f"{k}_length"] = v._length
-                    ckwargs[k] = v._contents
-                if callable(v) and is_delegate_class(self.generic_hints[k]):
+                if is_passarray_class(self.generic_hints[k]):
+                    if not isinstance(v, SZArray):
+                        raise TypeError("PassArray requires SZArray")
+                    ckwargs[f"{k}_length"] = UInt32(len(v))
+                    ckwargs[k] = v
+                elif is_fillarray_class(self.generic_hints[k]):
+                    if not isinstance(v, SZArray):
+                        raise TypeError("FillArray requires SZArray")
+                    ckwargs[f"{k}_length"] = UInt32(len(v))
+                    ckwargs[k] = v
+                elif is_receivearray_class(self.generic_hints[k]):
+                    if not isinstance(v, SZArray):
+                        raise TypeError("ReceiveArray requires SZArray")
+                    length = UInt32()
+                    ptr = POINTER(get_args(self.generic_hints[k])[0])()
+                    ckwargs[f"{k}_length"] = pointer(length)
+                    ckwargs[k] = pointer(ptr)
+                    calllater.append(ReceiveArrayReceiver(v, length, ptr))
+                elif callable(v) and is_delegate_class(self.generic_hints[k]):
                     ckwargs[k] = self.generic_hints[k](own=True).CreateInstance(v)
                 elif is_com_instance(v) and is_com_class(self.generic_hints[k]):
                     ckwargs[k] = v.as_(self.generic_hints[k])
@@ -274,8 +342,11 @@ class WinrtMethod:
     def make_result(self, result, _as_intptr):
         if result is None:
             return None
-        elif isinstance(result, SZArray):
-            return result
+        elif is_receivearray_class(self.restype):
+            length, ptr = result
+            array = SZArray[ptr._type_]()
+            ReceiveArrayReceiver(array, length, ptr)()
+            return array
         elif _as_intptr:
             return cast(result, c_void_p).value
         elif type(result) is c_char_p_no or type(result) is c_wchar_p_no:
@@ -353,10 +424,22 @@ def is_com_instance(obj):
     return isinstance(obj, ComPtr)
 
 
-def is_szarray_class(cls):
+def is_passarray_class(cls):
     if is_generic_alias(cls):
-        cls = cls.__origin__
-    return issubclass(cls, SZArray)
+        cls = get_origin(cls)
+    return issubclass(cls, PassArray)
+
+
+def is_fillarray_class(cls):
+    if is_generic_alias(cls):
+        cls = get_origin(cls)
+    return issubclass(cls, FillArray)
+
+
+def is_receivearray_class(cls):
+    if is_generic_alias(cls):
+        cls = get_origin(cls)
+    return issubclass(cls, ReceiveArray)
 
 
 def _classmethod(func):

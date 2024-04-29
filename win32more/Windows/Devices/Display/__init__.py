@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import Annotated, Generic, K, MulticastDelegate, SZArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Display
 import win32more.Windows.Foundation
 import win32more.Windows.Graphics
@@ -48,7 +48,7 @@ class DisplayMonitor(ComPtr):
     @winrt_mixinmethod
     def get_MaxAverageFullFrameLuminanceInNits(self: win32more.Windows.Devices.Display.IDisplayMonitor) -> Single: ...
     @winrt_mixinmethod
-    def GetDescriptor(self: win32more.Windows.Devices.Display.IDisplayMonitor, descriptorKind: win32more.Windows.Devices.Display.DisplayMonitorDescriptorKind) -> SZArray[Byte]: ...
+    def GetDescriptor(self: win32more.Windows.Devices.Display.IDisplayMonitor, descriptorKind: win32more.Windows.Devices.Display.DisplayMonitorDescriptorKind) -> ReceiveArray[Byte]: ...
     @winrt_mixinmethod
     def get_IsDolbyVisionSupportedInHdrMode(self: win32more.Windows.Devices.Display.IDisplayMonitor2) -> Boolean: ...
     @winrt_classmethod
@@ -141,7 +141,7 @@ class IDisplayMonitor(ComPtr):
     @winrt_commethod(24)
     def get_MaxAverageFullFrameLuminanceInNits(self) -> Single: ...
     @winrt_commethod(25)
-    def GetDescriptor(self, descriptorKind: win32more.Windows.Devices.Display.DisplayMonitorDescriptorKind) -> SZArray[Byte]: ...
+    def GetDescriptor(self, descriptorKind: win32more.Windows.Devices.Display.DisplayMonitorDescriptorKind) -> ReceiveArray[Byte]: ...
     BluePrimary = property(get_BluePrimary, None)
     ConnectionKind = property(get_ConnectionKind, None)
     DeviceId = property(get_DeviceId, None)

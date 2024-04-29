@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import Annotated, Generic, K, MulticastDelegate, SZArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Lights
 import win32more.Windows.Devices.Lights.Effects
 import win32more.Windows.Foundation
@@ -39,7 +39,7 @@ class ILampArrayBitmapEffectFactory(ComPtr):
     _classid_ = 'Windows.Devices.Lights.Effects.ILampArrayBitmapEffectFactory'
     _iid_ = Guid('{13608090-e336-4c8f-9053-a92407ca7b1d}')
     @winrt_commethod(6)
-    def CreateInstance(self, lampArray: win32more.Windows.Devices.Lights.LampArray, lampIndexes: Annotated[SZArray[Int32], 'In']) -> win32more.Windows.Devices.Lights.Effects.LampArrayBitmapEffect: ...
+    def CreateInstance(self, lampArray: win32more.Windows.Devices.Lights.LampArray, lampIndexes: PassArray[Int32]) -> win32more.Windows.Devices.Lights.Effects.LampArrayBitmapEffect: ...
 class ILampArrayBitmapRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Lights.Effects.ILampArrayBitmapRequestedEventArgs'
@@ -98,7 +98,7 @@ class ILampArrayBlinkEffectFactory(ComPtr):
     _classid_ = 'Windows.Devices.Lights.Effects.ILampArrayBlinkEffectFactory'
     _iid_ = Guid('{879f1d97-9f50-49b2-a56f-013aa08d55e0}')
     @winrt_commethod(6)
-    def CreateInstance(self, lampArray: win32more.Windows.Devices.Lights.LampArray, lampIndexes: Annotated[SZArray[Int32], 'In']) -> win32more.Windows.Devices.Lights.Effects.LampArrayBlinkEffect: ...
+    def CreateInstance(self, lampArray: win32more.Windows.Devices.Lights.LampArray, lampIndexes: PassArray[Int32]) -> win32more.Windows.Devices.Lights.Effects.LampArrayBlinkEffect: ...
 class ILampArrayColorRampEffect(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Lights.Effects.ILampArrayColorRampEffect'
@@ -128,7 +128,7 @@ class ILampArrayColorRampEffectFactory(ComPtr):
     _classid_ = 'Windows.Devices.Lights.Effects.ILampArrayColorRampEffectFactory'
     _iid_ = Guid('{520bd133-0c74-4df5-bea7-4899e0266b0f}')
     @winrt_commethod(6)
-    def CreateInstance(self, lampArray: win32more.Windows.Devices.Lights.LampArray, lampIndexes: Annotated[SZArray[Int32], 'In']) -> win32more.Windows.Devices.Lights.Effects.LampArrayColorRampEffect: ...
+    def CreateInstance(self, lampArray: win32more.Windows.Devices.Lights.LampArray, lampIndexes: PassArray[Int32]) -> win32more.Windows.Devices.Lights.Effects.LampArrayColorRampEffect: ...
 class ILampArrayCustomEffect(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Lights.Effects.ILampArrayCustomEffect'
@@ -152,7 +152,7 @@ class ILampArrayCustomEffectFactory(ComPtr):
     _classid_ = 'Windows.Devices.Lights.Effects.ILampArrayCustomEffectFactory'
     _iid_ = Guid('{68b4774d-63e5-4af0-a58b-3e535b94e8c9}')
     @winrt_commethod(6)
-    def CreateInstance(self, lampArray: win32more.Windows.Devices.Lights.LampArray, lampIndexes: Annotated[SZArray[Int32], 'In']) -> win32more.Windows.Devices.Lights.Effects.LampArrayCustomEffect: ...
+    def CreateInstance(self, lampArray: win32more.Windows.Devices.Lights.LampArray, lampIndexes: PassArray[Int32]) -> win32more.Windows.Devices.Lights.Effects.LampArrayCustomEffect: ...
 class ILampArrayEffect(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Lights.Effects.ILampArrayEffect'
@@ -230,7 +230,7 @@ class ILampArraySolidEffectFactory(ComPtr):
     _classid_ = 'Windows.Devices.Lights.Effects.ILampArraySolidEffectFactory'
     _iid_ = Guid('{f862a32c-5576-4341-961b-aee1f13cf9dd}')
     @winrt_commethod(6)
-    def CreateInstance(self, lampArray: win32more.Windows.Devices.Lights.LampArray, lampIndexes: Annotated[SZArray[Int32], 'In']) -> win32more.Windows.Devices.Lights.Effects.LampArraySolidEffect: ...
+    def CreateInstance(self, lampArray: win32more.Windows.Devices.Lights.LampArray, lampIndexes: PassArray[Int32]) -> win32more.Windows.Devices.Lights.Effects.LampArraySolidEffect: ...
 class ILampArrayUpdateRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Lights.Effects.ILampArrayUpdateRequestedEventArgs'
@@ -242,9 +242,9 @@ class ILampArrayUpdateRequestedEventArgs(ComPtr):
     @winrt_commethod(8)
     def SetColorForIndex(self, lampIndex: Int32, desiredColor: win32more.Windows.UI.Color) -> Void: ...
     @winrt_commethod(9)
-    def SetSingleColorForIndices(self, desiredColor: win32more.Windows.UI.Color, lampIndexes: Annotated[SZArray[Int32], 'In']) -> Void: ...
+    def SetSingleColorForIndices(self, desiredColor: win32more.Windows.UI.Color, lampIndexes: PassArray[Int32]) -> Void: ...
     @winrt_commethod(10)
-    def SetColorsForIndices(self, desiredColors: Annotated[SZArray[win32more.Windows.UI.Color], 'In'], lampIndexes: Annotated[SZArray[Int32], 'In']) -> Void: ...
+    def SetColorsForIndices(self, desiredColors: PassArray[win32more.Windows.UI.Color], lampIndexes: PassArray[Int32]) -> Void: ...
     SinceStarted = property(get_SinceStarted, None)
 class LampArrayBitmapEffect(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -258,7 +258,7 @@ class LampArrayBitmapEffect(ComPtr):
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Windows.Devices.Lights.Effects.ILampArrayBitmapEffectFactory, lampArray: win32more.Windows.Devices.Lights.LampArray, lampIndexes: Annotated[SZArray[Int32], 'In']) -> win32more.Windows.Devices.Lights.Effects.LampArrayBitmapEffect: ...
+    def CreateInstance(cls: win32more.Windows.Devices.Lights.Effects.ILampArrayBitmapEffectFactory, lampArray: win32more.Windows.Devices.Lights.LampArray, lampIndexes: PassArray[Int32]) -> win32more.Windows.Devices.Lights.Effects.LampArrayBitmapEffect: ...
     @winrt_mixinmethod
     def get_Duration(self: win32more.Windows.Devices.Lights.Effects.ILampArrayBitmapEffect) -> win32more.Windows.Foundation.TimeSpan: ...
     @winrt_mixinmethod
@@ -307,7 +307,7 @@ class LampArrayBlinkEffect(ComPtr):
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Windows.Devices.Lights.Effects.ILampArrayBlinkEffectFactory, lampArray: win32more.Windows.Devices.Lights.LampArray, lampIndexes: Annotated[SZArray[Int32], 'In']) -> win32more.Windows.Devices.Lights.Effects.LampArrayBlinkEffect: ...
+    def CreateInstance(cls: win32more.Windows.Devices.Lights.Effects.ILampArrayBlinkEffectFactory, lampArray: win32more.Windows.Devices.Lights.LampArray, lampIndexes: PassArray[Int32]) -> win32more.Windows.Devices.Lights.Effects.LampArrayBlinkEffect: ...
     @winrt_mixinmethod
     def get_Color(self: win32more.Windows.Devices.Lights.Effects.ILampArrayBlinkEffect) -> win32more.Windows.UI.Color: ...
     @winrt_mixinmethod
@@ -365,7 +365,7 @@ class LampArrayColorRampEffect(ComPtr):
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Windows.Devices.Lights.Effects.ILampArrayColorRampEffectFactory, lampArray: win32more.Windows.Devices.Lights.LampArray, lampIndexes: Annotated[SZArray[Int32], 'In']) -> win32more.Windows.Devices.Lights.Effects.LampArrayColorRampEffect: ...
+    def CreateInstance(cls: win32more.Windows.Devices.Lights.Effects.ILampArrayColorRampEffectFactory, lampArray: win32more.Windows.Devices.Lights.LampArray, lampIndexes: PassArray[Int32]) -> win32more.Windows.Devices.Lights.Effects.LampArrayColorRampEffect: ...
     @winrt_mixinmethod
     def get_Color(self: win32more.Windows.Devices.Lights.Effects.ILampArrayColorRampEffect) -> win32more.Windows.UI.Color: ...
     @winrt_mixinmethod
@@ -403,7 +403,7 @@ class LampArrayCustomEffect(ComPtr):
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Windows.Devices.Lights.Effects.ILampArrayCustomEffectFactory, lampArray: win32more.Windows.Devices.Lights.LampArray, lampIndexes: Annotated[SZArray[Int32], 'In']) -> win32more.Windows.Devices.Lights.Effects.LampArrayCustomEffect: ...
+    def CreateInstance(cls: win32more.Windows.Devices.Lights.Effects.ILampArrayCustomEffectFactory, lampArray: win32more.Windows.Devices.Lights.LampArray, lampIndexes: PassArray[Int32]) -> win32more.Windows.Devices.Lights.Effects.LampArrayCustomEffect: ...
     @winrt_mixinmethod
     def get_Duration(self: win32more.Windows.Devices.Lights.Effects.ILampArrayCustomEffect) -> win32more.Windows.Foundation.TimeSpan: ...
     @winrt_mixinmethod
@@ -468,7 +468,7 @@ class LampArrayEffectPlaylist(ComPtr):
     @winrt_mixinmethod
     def IndexOf(self: win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Devices.Lights.Effects.ILampArrayEffect], value: win32more.Windows.Devices.Lights.Effects.ILampArrayEffect, index: POINTER(UInt32)) -> Boolean: ...
     @winrt_mixinmethod
-    def GetMany(self: win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Devices.Lights.Effects.ILampArrayEffect], startIndex: UInt32, items: Annotated[SZArray[win32more.Windows.Devices.Lights.Effects.ILampArrayEffect], 'Out']) -> UInt32: ...
+    def GetMany(self: win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Devices.Lights.Effects.ILampArrayEffect], startIndex: UInt32, items: FillArray[win32more.Windows.Devices.Lights.Effects.ILampArrayEffect]) -> UInt32: ...
     @winrt_mixinmethod
     def First(self: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Devices.Lights.Effects.ILampArrayEffect]) -> win32more.Windows.Foundation.Collections.IIterator[win32more.Windows.Devices.Lights.Effects.ILampArrayEffect]: ...
     @winrt_classmethod
@@ -499,7 +499,7 @@ class LampArraySolidEffect(ComPtr):
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Windows.Devices.Lights.Effects.ILampArraySolidEffectFactory, lampArray: win32more.Windows.Devices.Lights.LampArray, lampIndexes: Annotated[SZArray[Int32], 'In']) -> win32more.Windows.Devices.Lights.Effects.LampArraySolidEffect: ...
+    def CreateInstance(cls: win32more.Windows.Devices.Lights.Effects.ILampArraySolidEffectFactory, lampArray: win32more.Windows.Devices.Lights.LampArray, lampIndexes: PassArray[Int32]) -> win32more.Windows.Devices.Lights.Effects.LampArraySolidEffect: ...
     @winrt_mixinmethod
     def get_Color(self: win32more.Windows.Devices.Lights.Effects.ILampArraySolidEffect) -> win32more.Windows.UI.Color: ...
     @winrt_mixinmethod
@@ -536,9 +536,9 @@ class LampArrayUpdateRequestedEventArgs(ComPtr):
     @winrt_mixinmethod
     def SetColorForIndex(self: win32more.Windows.Devices.Lights.Effects.ILampArrayUpdateRequestedEventArgs, lampIndex: Int32, desiredColor: win32more.Windows.UI.Color) -> Void: ...
     @winrt_mixinmethod
-    def SetSingleColorForIndices(self: win32more.Windows.Devices.Lights.Effects.ILampArrayUpdateRequestedEventArgs, desiredColor: win32more.Windows.UI.Color, lampIndexes: Annotated[SZArray[Int32], 'In']) -> Void: ...
+    def SetSingleColorForIndices(self: win32more.Windows.Devices.Lights.Effects.ILampArrayUpdateRequestedEventArgs, desiredColor: win32more.Windows.UI.Color, lampIndexes: PassArray[Int32]) -> Void: ...
     @winrt_mixinmethod
-    def SetColorsForIndices(self: win32more.Windows.Devices.Lights.Effects.ILampArrayUpdateRequestedEventArgs, desiredColors: Annotated[SZArray[win32more.Windows.UI.Color], 'In'], lampIndexes: Annotated[SZArray[Int32], 'In']) -> Void: ...
+    def SetColorsForIndices(self: win32more.Windows.Devices.Lights.Effects.ILampArrayUpdateRequestedEventArgs, desiredColors: PassArray[win32more.Windows.UI.Color], lampIndexes: PassArray[Int32]) -> Void: ...
     SinceStarted = property(get_SinceStarted, None)
 
 

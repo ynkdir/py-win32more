@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import Annotated, Generic, K, MulticastDelegate, SZArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Data.Text
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -485,9 +485,9 @@ class SortEntryVector(ComPtr):
     @winrt_mixinmethod
     def Clear(self: win32more.Windows.Foundation.Collections.IVector[win32more.Windows.Storage.Search.SortEntry]) -> Void: ...
     @winrt_mixinmethod
-    def GetMany(self: win32more.Windows.Foundation.Collections.IVector[win32more.Windows.Storage.Search.SortEntry], startIndex: UInt32, items: Annotated[SZArray[win32more.Windows.Storage.Search.SortEntry], 'Out']) -> UInt32: ...
+    def GetMany(self: win32more.Windows.Foundation.Collections.IVector[win32more.Windows.Storage.Search.SortEntry], startIndex: UInt32, items: FillArray[win32more.Windows.Storage.Search.SortEntry]) -> UInt32: ...
     @winrt_mixinmethod
-    def ReplaceAll(self: win32more.Windows.Foundation.Collections.IVector[win32more.Windows.Storage.Search.SortEntry], items: Annotated[SZArray[win32more.Windows.Storage.Search.SortEntry], 'In']) -> Void: ...
+    def ReplaceAll(self: win32more.Windows.Foundation.Collections.IVector[win32more.Windows.Storage.Search.SortEntry], items: PassArray[win32more.Windows.Storage.Search.SortEntry]) -> Void: ...
     @winrt_mixinmethod
     def First(self: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Storage.Search.SortEntry]) -> win32more.Windows.Foundation.Collections.IIterator[win32more.Windows.Storage.Search.SortEntry]: ...
     Size = property(get_Size, None)

@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import Annotated, Generic, K, MulticastDelegate, SZArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.System
@@ -1404,7 +1404,7 @@ class ITouchHitTestingEventArgs(ComPtr):
     @winrt_commethod(10)
     def EvaluateProximityToRect(self, controlBoundingBox: win32more.Windows.Foundation.Rect) -> win32more.Windows.UI.Core.CoreProximityEvaluation: ...
     @winrt_commethod(11)
-    def EvaluateProximityToPolygon(self, controlVertices: Annotated[SZArray[win32more.Windows.Foundation.Point], 'In']) -> win32more.Windows.UI.Core.CoreProximityEvaluation: ...
+    def EvaluateProximityToPolygon(self, controlVertices: PassArray[win32more.Windows.Foundation.Point]) -> win32more.Windows.UI.Core.CoreProximityEvaluation: ...
     BoundingBox = property(get_BoundingBox, None)
     Point = property(get_Point, None)
     ProximityEvaluation = property(get_ProximityEvaluation, put_ProximityEvaluation)
@@ -1517,7 +1517,7 @@ class TouchHitTestingEventArgs(ComPtr):
     @winrt_mixinmethod
     def EvaluateProximityToRect(self: win32more.Windows.UI.Core.ITouchHitTestingEventArgs, controlBoundingBox: win32more.Windows.Foundation.Rect) -> win32more.Windows.UI.Core.CoreProximityEvaluation: ...
     @winrt_mixinmethod
-    def EvaluateProximityToPolygon(self: win32more.Windows.UI.Core.ITouchHitTestingEventArgs, controlVertices: Annotated[SZArray[win32more.Windows.Foundation.Point], 'In']) -> win32more.Windows.UI.Core.CoreProximityEvaluation: ...
+    def EvaluateProximityToPolygon(self: win32more.Windows.UI.Core.ITouchHitTestingEventArgs, controlVertices: PassArray[win32more.Windows.Foundation.Point]) -> win32more.Windows.UI.Core.CoreProximityEvaluation: ...
     @winrt_mixinmethod
     def get_Handled(self: win32more.Windows.UI.Core.ICoreWindowEventArgs) -> Boolean: ...
     @winrt_mixinmethod

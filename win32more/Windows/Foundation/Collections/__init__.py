@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import Annotated, Generic, K, MulticastDelegate, SZArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Win32.System.Com
@@ -27,7 +27,7 @@ class IIterator(Generic[T], ComPtr):
     @winrt_commethod(8)
     def MoveNext(self) -> Boolean: ...
     @winrt_commethod(9)
-    def GetMany(self, items: Annotated[SZArray[T], 'Out']) -> UInt32: ...
+    def GetMany(self, items: FillArray[T]) -> UInt32: ...
     Current = property(get_Current, None)
     HasCurrent = property(get_HasCurrent, None)
 class IKeyValuePair(Generic[K, V], ComPtr):
@@ -123,7 +123,7 @@ class IVectorView(Generic[T], ComPtr):
     @winrt_commethod(8)
     def IndexOf(self, value: T, index: POINTER(UInt32)) -> Boolean: ...
     @winrt_commethod(9)
-    def GetMany(self, startIndex: UInt32, items: Annotated[SZArray[T], 'Out']) -> UInt32: ...
+    def GetMany(self, startIndex: UInt32, items: FillArray[T]) -> UInt32: ...
     Size = property(get_Size, None)
 class IVector(Generic[T], ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -150,9 +150,9 @@ class IVector(Generic[T], ComPtr):
     @winrt_commethod(15)
     def Clear(self) -> Void: ...
     @winrt_commethod(16)
-    def GetMany(self, startIndex: UInt32, items: Annotated[SZArray[T], 'Out']) -> UInt32: ...
+    def GetMany(self, startIndex: UInt32, items: FillArray[T]) -> UInt32: ...
     @winrt_commethod(17)
-    def ReplaceAll(self, items: Annotated[SZArray[T], 'In']) -> Void: ...
+    def ReplaceAll(self, items: PassArray[T]) -> Void: ...
     Size = property(get_Size, None)
 class MapChangedEventHandler(Generic[K, V], MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown

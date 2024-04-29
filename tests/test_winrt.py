@@ -5,9 +5,11 @@ from ctypes import (
 )
 from pathlib import Path
 
-from win32more import FAILED
+from win32more import FAILED, Int32
 from win32more._winrt import SZArray, WinRT_String, _ro_get_parameterized_type_instance_iid
-from win32more.Windows.Foundation import IAsyncInfo, Uri
+from win32more.Windows.Devices.Display import DisplayMonitor, DisplayMonitorDescriptorKind
+from win32more.Windows.Devices.Enumeration import DeviceInformation
+from win32more.Windows.Foundation import IAsyncInfo, IPropertyValue, PropertyValue, Uri
 from win32more.Windows.Foundation.Collections import IVector, StringMap
 from win32more.Windows.Storage import FileIO, PathIO, StorageFile
 from win32more.Windows.System.Threading import ThreadPool
@@ -94,30 +96,53 @@ class TestWinrt(unittest.TestCase):
         text2 = Path(__file__).read_text()
         self.assertEqual(text1, text2)
 
-    def test_szarray_out(self):
+    def test_fillarray(self):
         async def winrt_readlines():
             return await PathIO.ReadLinesAsync(__file__)
 
         ivector = asyncio.run(mainloop(winrt_readlines()))
         lines = Path(__file__).read_text().splitlines()
-        array = SZArray[WinRT_String]((WinRT_String * 10)())
+        array = SZArray[WinRT_String](length=10)
         ivector.GetMany(0, array)
         lines10 = [s.strvalue for s in array[0:10]]
         self.assertEqual(lines10, lines[0:10])
 
-    def test_szarray_in(self):
+    def test_passarray(self):
         async def winrt_readlines():
             return await PathIO.ReadLinesAsync(__file__)
 
         ivector = asyncio.run(mainloop(winrt_readlines()))
         lines = [""] * 10
-        array = SZArray[WinRT_String]((WinRT_String * 10)())
+        array = SZArray[WinRT_String](length=10)
         for i in range(10):
             lines[i] = str(i)
             array[i] = WinRT_String(str(i), own=False)
         ivector.ReplaceAll(array)
         lines10 = [ivector.GetAt(i) for i in range(10)]
         self.assertEqual(lines10, lines[0:10])
+
+    def test_receivearray_param(self):
+        inarray = SZArray[Int32](1, 2, 3)
+
+        prop = PropertyValue.CreateInt32Array(inarray).as_(IPropertyValue)
+
+        outarray = SZArray[Int32]()
+        prop.GetInt32Array(outarray)
+
+        self.assertEqual(inarray[:], outarray[:])
+
+    def test_receivearray_return(self):
+        async def winrt_get_monitor_descriptor():
+            device_information_collection = await DeviceInformation.FindAllAsyncAqsFilter(
+                DisplayMonitor.GetDeviceSelector()
+            )
+            device_information = device_information_collection.GetAt(0)
+            str_property = device_information.Properties.Lookup("System.Devices.DeviceInstanceId").as_(IPropertyValue)
+            display_monitor = await DisplayMonitor.FromIdAsync(str_property.GetString())
+            return display_monitor.GetDescriptor(DisplayMonitorDescriptorKind.Edid)
+
+        descriptor = asyncio.run(mainloop(winrt_get_monitor_descriptor()))
+        self.assertNotEqual(len(descriptor), 0)
 
     def test_guid_generation_for_parameterized_types(self):
         self.assertEqual(

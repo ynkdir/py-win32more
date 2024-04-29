@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import Annotated, Generic, K, MulticastDelegate, SZArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Microsoft.Windows.PushNotifications
 import win32more.Windows.ApplicationModel.Background
 import win32more.Windows.Foundation
@@ -60,7 +60,7 @@ class IPushNotificationReceivedEventArgs(ComPtr):
     _classid_ = 'Microsoft.Windows.PushNotifications.IPushNotificationReceivedEventArgs'
     _iid_ = Guid('{fbd4ec53-bb83-5495-8777-d3cf13e4299c}')
     @winrt_commethod(6)
-    def get_Payload(self) -> SZArray[Byte]: ...
+    def get_Payload(self) -> ReceiveArray[Byte]: ...
     @winrt_commethod(7)
     def GetDeferral(self) -> win32more.Windows.ApplicationModel.Background.BackgroundTaskDeferral: ...
     @winrt_commethod(8)
@@ -130,7 +130,7 @@ class PushNotificationReceivedEventArgs(ComPtr):
     default_interface: win32more.Microsoft.Windows.PushNotifications.IPushNotificationReceivedEventArgs
     _classid_ = 'Microsoft.Windows.PushNotifications.PushNotificationReceivedEventArgs'
     @winrt_mixinmethod
-    def get_Payload(self: win32more.Microsoft.Windows.PushNotifications.IPushNotificationReceivedEventArgs) -> SZArray[Byte]: ...
+    def get_Payload(self: win32more.Microsoft.Windows.PushNotifications.IPushNotificationReceivedEventArgs) -> ReceiveArray[Byte]: ...
     @winrt_mixinmethod
     def GetDeferral(self: win32more.Microsoft.Windows.PushNotifications.IPushNotificationReceivedEventArgs) -> win32more.Windows.ApplicationModel.Background.BackgroundTaskDeferral: ...
     @winrt_mixinmethod

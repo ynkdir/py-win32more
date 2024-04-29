@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import Annotated, Generic, K, MulticastDelegate, SZArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Graphics
@@ -322,7 +322,7 @@ class DisplayServices(ComPtr):
     default_interface: win32more.Windows.Graphics.Display.IDisplayServices
     _classid_ = 'Windows.Graphics.Display.DisplayServices'
     @winrt_classmethod
-    def FindAll(cls: win32more.Windows.Graphics.Display.IDisplayServicesStatics) -> SZArray[win32more.Windows.Graphics.DisplayId]: ...
+    def FindAll(cls: win32more.Windows.Graphics.Display.IDisplayServicesStatics) -> ReceiveArray[win32more.Windows.Graphics.DisplayId]: ...
 class HdrMetadataFormat(Int32):  # enum
     Hdr10 = 0
     Hdr10Plus = 1
@@ -649,7 +649,7 @@ class IDisplayServicesStatics(ComPtr):
     _classid_ = 'Windows.Graphics.Display.IDisplayServicesStatics'
     _iid_ = Guid('{dc2096bf-730a-5560-b461-91c13d692e0c}')
     @winrt_commethod(6)
-    def FindAll(self) -> SZArray[win32more.Windows.Graphics.DisplayId]: ...
+    def FindAll(self) -> ReceiveArray[win32more.Windows.Graphics.DisplayId]: ...
 class NitRange(EasyCastStructure):
     MinNits: Single
     MaxNits: Single

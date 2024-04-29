@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import Annotated, Generic, K, MulticastDelegate, SZArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.System.RemoteDesktop.Input
 import win32more.Windows.Win32.System.Com
@@ -18,7 +18,7 @@ class IRemoteTextConnection(ComPtr):
     @winrt_commethod(9)
     def UnregisterThread(self, threadId: UInt32) -> Void: ...
     @winrt_commethod(10)
-    def ReportDataReceived(self, pduData: Annotated[SZArray[Byte], 'In']) -> Void: ...
+    def ReportDataReceived(self, pduData: PassArray[Byte]) -> Void: ...
     IsEnabled = property(get_IsEnabled, put_IsEnabled)
 class IRemoteTextConnectionFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -48,14 +48,14 @@ class RemoteTextConnection(ComPtr):
     @winrt_mixinmethod
     def UnregisterThread(self: win32more.Windows.System.RemoteDesktop.Input.IRemoteTextConnection, threadId: UInt32) -> Void: ...
     @winrt_mixinmethod
-    def ReportDataReceived(self: win32more.Windows.System.RemoteDesktop.Input.IRemoteTextConnection, pduData: Annotated[SZArray[Byte], 'In']) -> Void: ...
+    def ReportDataReceived(self: win32more.Windows.System.RemoteDesktop.Input.IRemoteTextConnection, pduData: PassArray[Byte]) -> Void: ...
     @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
     IsEnabled = property(get_IsEnabled, put_IsEnabled)
 class RemoteTextConnectionDataHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{099ffbc8-8bcb-41b5-b056-57e77021bf1b}')
-    def Invoke(self, pduData: Annotated[SZArray[Byte], 'In']) -> Boolean: ...
+    def Invoke(self, pduData: PassArray[Byte]) -> Boolean: ...
 
 
 make_ready(__name__)

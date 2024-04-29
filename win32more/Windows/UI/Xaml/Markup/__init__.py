@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import Annotated, Generic, K, MulticastDelegate, SZArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Storage.Streams
@@ -160,7 +160,7 @@ class IXamlMetadataProvider(ComPtr):
     @winrt_commethod(7)
     def GetXamlTypeByFullName(self, fullName: WinRT_String) -> win32more.Windows.UI.Xaml.Markup.IXamlType: ...
     @winrt_commethod(8)
-    def GetXmlnsDefinitions(self) -> SZArray[win32more.Windows.UI.Xaml.Markup.XmlnsDefinition]: ...
+    def GetXmlnsDefinitions(self) -> ReceiveArray[win32more.Windows.UI.Xaml.Markup.XmlnsDefinition]: ...
 class IXamlReader(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Markup.IXamlReader'
