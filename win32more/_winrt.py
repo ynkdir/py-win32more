@@ -269,6 +269,9 @@ class WinrtMethod:
         elif is_com_class(self.restype):
             result = self.restype(own=True)
             ckwargs["return"] = pointer(result)
+        elif self.restype is WinRT_String:
+            result = self.restype(own=True)
+            ckwargs["return"] = pointer(result)
         else:
             result = self.restype()
             ckwargs["return"] = pointer(result)
