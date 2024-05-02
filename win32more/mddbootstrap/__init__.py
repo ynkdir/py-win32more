@@ -8,10 +8,10 @@ import win32more.Windows.Win32.Storage.Packaging.Appx
 from win32more import ARCH, Int32, String, UInt32, Void, make_ready, winfunctype
 
 # TODO: keep sync with WindowsAppSDK-VersionInfo.h
-# VERSION: 1.5.240404000
+# VERSION: 1.5.240428000
 WINDOWSAPPSDK_RELEASE_MAJORMINOR = 0x00010005
 WINDOWSAPPSDK_RELEASE_VERSION_SHORTTAG_W = ""
-WINDOWSAPPSDK_RUNTIME_VERSION_UINT64 = 0x1389005F02150000
+WINDOWSAPPSDK_RUNTIME_VERSION_UINT64 = 0x13890077009C0000
 
 if ARCH == "ARM64":
     Microsoft_WindowsAppRuntime_Bootstrap_dll = (
