@@ -73,37 +73,40 @@ TResult = TypeVar("TResult")
 TSender = TypeVar("TSender")
 
 
-def generic_get_type_hints(cls, prototype, use_generic_alias=False):
+def generic_get_type_hints(prototype, cls):
     hints = get_type_hints(prototype)
     if is_generic_alias(cls):
-        hints = generic_map_types(cls, hints, use_generic_alias)
+        hints = generic_solve_parameterized_hints(hints, generic_make_parameter_to_type(cls))
     return hints
 
 
-def generic_map_types(generic_alias, hints, use_generic_alias=False):
-    generic_args = generic_alias.__args__
-    generic_parameters = generic_alias.__origin__.__parameters__
-    param_to_type = dict(zip(generic_parameters, generic_args))
-    newhints = {}
-    for k, t in hints.items():
-        if is_generic_alias(t):
-            newhints[k] = generic_map_class(t, param_to_type, use_generic_alias)
-        else:
-            newhints[k] = param_to_type.get(t, t)
-    return newhints
+def generic_make_parameter_to_type(typed_generic_alias):
+    types = get_args(typed_generic_alias)
+    parameters = get_origin(typed_generic_alias).__parameters__
+    return dict(zip(parameters, types))
 
 
-def generic_map_class(generic_alias, param_to_type, use_generic_alias=False):
+def generic_solve_parameterized_hints(parameterized_hints, parameter_to_type):
+    solved_hints = {}
+    for k, parameter in parameterized_hints.items():
+        solved_hints[k] = generic_solve_parameter(parameter, parameter_to_type)
+    return solved_hints
+
+
+def generic_solve_parameterized_generic_alias(parameterized_generic_alias, parameter_to_type):
     args = []
-    for t in generic_alias.__args__:
-        if is_generic_alias(t):
-            args.append(generic_map_class(t, param_to_type))
-        else:
-            args.append(param_to_type.get(t, t))
-    if use_generic_alias:
-        return generic_alias.__origin__[tuple(args)]
+    for parameter in get_args(parameterized_generic_alias):
+        args.append(generic_solve_parameter(parameter, parameter_to_type))
+    return get_origin(parameterized_generic_alias)[tuple(args)]
+
+
+def generic_solve_parameter(parameter, parameter_to_type):
+    if is_generic_alias(parameter):
+        return generic_solve_parameterized_generic_alias(parameter, parameter_to_type)
+    elif isinstance(parameter, TypeVar):
+        return parameter_to_type[parameter]
     else:
-        return generic_alias.__origin__
+        return parameter
 
 
 # Dummy type for list[T]
@@ -209,12 +212,12 @@ class WinRT_String(HSTRING):
 
 class WinrtMethod:
     def __init__(self, cls, prototype, factory):
-        generic_hints = generic_get_type_hints(cls, prototype, use_generic_alias=True)
-        restype = generic_hints.pop("return")
+        hints = generic_get_type_hints(prototype, cls)
+        restype = hints.pop("return")
 
         types = [HRESULT]
         params = []
-        for name, type_ in generic_hints.items():
+        for name, type_ in hints.items():
             if is_passarray_class(type_):
                 types.append(UInt32)
                 params.append((1, f"{name}_length"))
@@ -244,7 +247,7 @@ class WinrtMethod:
                 types.append(POINTER(POINTER(get_args(restype)[0])))
                 params.append((1, "return"))
             elif is_generic_alias(restype):
-                types.append(POINTER(restype.__origin__))
+                types.append(POINTER(get_origin(restype)))
                 params.append((1, "return"))
             else:
                 types.append(POINTER(restype))
@@ -252,8 +255,8 @@ class WinrtMethod:
 
         self.delegate = factory(prototype.__name__, types, tuple(params))
         self.restype = restype
-        self.generic_hints = generic_hints
-        self.generic_hints.update({i: v for i, v in enumerate(generic_hints.values())})
+        self.hints = hints
+        self.hints.update({i: v for i, v in enumerate(hints.values())})
 
     def __call__(self, this, *args, **kwargs):
         _as_intptr = kwargs.pop("_as_intptr", False)
@@ -285,52 +288,52 @@ class WinrtMethod:
     def make_args(self, args, kwargs, calllater):
         cargs = []
         for k, v in enumerate(args):
-            if k in self.generic_hints:
-                if isinstance(v, list) and is_passarray_class(self.generic_hints[k]):
-                    szarray = PassArray(get_args(self.generic_hints[k])[0], v)
+            if k in self.hints:
+                if isinstance(v, list) and is_passarray_class(self.hints[k]):
+                    szarray = PassArray(get_args(self.hints[k])[0], v)
                     cargs.append(szarray.length)
                     cargs.append(szarray.ptr)
-                elif isinstance(v, list) and is_fillarray_class(self.generic_hints[k]):
-                    szarray = FillArray(get_args(self.generic_hints[k])[0], v)
+                elif isinstance(v, list) and is_fillarray_class(self.hints[k]):
+                    szarray = FillArray(get_args(self.hints[k])[0], v)
                     cargs.append(szarray.length)
                     cargs.append(szarray.ptr)
                     calllater.append(szarray.later)
-                elif isinstance(v, list) and is_receivearray_class(self.generic_hints[k]):
-                    szarray = ReceiveArray(get_args(self.generic_hints[k])[0], v)
+                elif isinstance(v, list) and is_receivearray_class(self.hints[k]):
+                    szarray = ReceiveArray(get_args(self.hints[k])[0], v)
                     cargs.append(pointer(szarray.length))
                     cargs.append(pointer(szarray.ptr))
                     calllater.append(szarray.later)
-                elif callable(v) and is_delegate_class(self.generic_hints[k]):
-                    cargs.append(self.generic_hints[k](own=True).CreateInstance(v))
-                elif is_com_instance(v) and is_com_class(self.generic_hints[k]):
-                    cargs.append(v.as_(self.generic_hints[k]))
+                elif callable(v) and is_delegate_class(self.hints[k]):
+                    cargs.append(self.hints[k](own=True).CreateInstance(v))
+                elif is_com_instance(v) and is_com_class(self.hints[k]):
+                    cargs.append(v.as_(self.hints[k]))
                 else:
-                    cargs.append(easycast(v, self.generic_hints[k]))
+                    cargs.append(easycast(v, self.hints[k]))
             else:
                 cargs.append(v)
         ckwargs = {}
         for k, v in kwargs.items():
-            if k in self.generic_hints:
-                if isinstance(v, list) and is_passarray_class(self.generic_hints[k]):
-                    szarray = PassArray(get_args(self.generic_hints[k])[0], v)
+            if k in self.hints:
+                if isinstance(v, list) and is_passarray_class(self.hints[k]):
+                    szarray = PassArray(get_args(self.hints[k])[0], v)
                     ckwargs[f"{k}_length"] = szarray.length
                     ckwargs[k] = szarray.ptr
-                elif isinstance(v, list) and is_fillarray_class(self.generic_hints[k]):
-                    szarray = FillArray(get_args(self.generic_hints[k])[0], v)
+                elif isinstance(v, list) and is_fillarray_class(self.hints[k]):
+                    szarray = FillArray(get_args(self.hints[k])[0], v)
                     ckwargs[f"{k}_length"] = szarray.length
                     ckwargs[k] = szarray.ptr
                     calllater.append(szarray.later)
-                elif isinstance(v, list) and is_receivearray_class(self.generic_hints[k]):
-                    szarray = ReceiveArray(get_args(self.generic_hints[k])[0], v)
+                elif isinstance(v, list) and is_receivearray_class(self.hints[k]):
+                    szarray = ReceiveArray(get_args(self.hints[k])[0], v)
                     ckwargs[f"{k}_length"] = pointer(szarray.length)
                     ckwargs[k] = pointer(szarray.ptr)
                     calllater.append(szarray.later)
-                elif callable(v) and is_delegate_class(self.generic_hints[k]):
-                    ckwargs[k] = self.generic_hints[k](own=True).CreateInstance(v)
-                elif is_com_instance(v) and is_com_class(self.generic_hints[k]):
-                    ckwargs[k] = v.as_(self.generic_hints[k])
+                elif callable(v) and is_delegate_class(self.hints[k]):
+                    ckwargs[k] = self.hints[k](own=True).CreateInstance(v)
+                elif is_com_instance(v) and is_com_class(self.hints[k]):
+                    ckwargs[k] = v.as_(self.hints[k])
                 else:
-                    ckwargs[k] = easycast(v, self.generic_hints[k])
+                    ckwargs[k] = easycast(v, self.hints[k])
             else:
                 ckwargs[k] = v
         return cargs, ckwargs
@@ -357,7 +360,7 @@ def winrt_commethod(vtbl_index):
 
         def wrapper(self, *args, **kwargs):
             if is_generic_instance(self):
-                generic_args = self.__orig_class__.__args__
+                generic_args = get_args(self.__orig_class__)
                 cls = self.__orig_class__
             else:
                 generic_args = None
@@ -404,13 +407,13 @@ def is_generic_instance(obj):
 
 def is_delegate_class(cls):
     if is_generic_alias(cls):
-        cls = cls.__origin__
+        cls = get_origin(cls)
     return issubclass(cls, MulticastDelegate)
 
 
 def is_com_class(cls):
     if is_generic_alias(cls):
-        cls = cls.__origin__
+        cls = get_origin(cls)
     return issubclass(cls, ComPtr)
 
 
@@ -568,7 +571,7 @@ def _get_type_signature(cls) -> str:
         return "cinterface(IInspectable)"
     elif isinstance(cls, _GenericAlias):
         piid_guid = str(cls._iid_)
-        args = ";".join(_get_type_signature(arg) for arg in cls.__args__)
+        args = ";".join(_get_type_signature(arg) for arg in get_args(cls))
         return f"pinterface({piid_guid};{args})"
     elif issubclass(cls, ComPtr) and "_iid_" in cls.__dict__:
         return str(cls._iid_)
@@ -614,13 +617,13 @@ class MulticastDelegateImpl(Structure):
         self.comptr = py_object(comptr)
 
     def _make_trampoline(self, cls, invoke_prototype):
-        hints = generic_get_type_hints(cls, invoke_prototype, use_generic_alias=True)
+        hints = generic_get_type_hints(invoke_prototype, cls)
         self.restype = hints.pop("return")
         argtypes = [self._make_allocator(t) for t in hints.values()]
         if self.restype is not Void:
             restype = self.restype
             if is_generic_alias(restype):
-                restype = restype.__origin__
+                restype = get_origin(restype)
             argtypes.append(POINTER(restype))
         factory = WINFUNCTYPE(HRESULT, c_void_p, *argtypes)
         return factory(self.Invoke)
