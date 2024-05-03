@@ -14,29 +14,13 @@ only-include = ["win32more", "win32generator"]
 
 [tool.hatch.envs.default]
 dependencies = [
-    "pytest",
-    "ruff",
     "mypy",
 ]
 
 [tool.hatch.envs.default.scripts]
-test = "pytest {args:tests}"
 typing = "mypy {args}"
-fmt = [
-    "ruff format {args}",
-    "ruff check --fix {args}",
-]
 
-[tool.hatch.envs.all]
-template = "all"   # disable inherit default
-dependencies = [
-    "pytest",
-]
-
-[tool.hatch.envs.all.scripts]
-test = "pytest {args:tests}"
-
-[[tool.hatch.envs.all.matrix]]
+[[tool.hatch.envs.hatch-test.matrix]]
 python = [
     "3.12-64",
     "3.12-32",
@@ -52,7 +36,17 @@ python = [
     "3.7-32",
 ]
 
+# for 3.7: coverage[toml] fails to install
+[tool.hatch.envs.hatch-test]
+dependencies = [
+    "pytest",
+]
+
+# for 3.7: pytest.exe fails with "SyntaxError: Non-UTF-8 code starting with '\x90' ..."
+[tool.hatch.envs.hatch-test.scripts]
+run = "python -m pytest {env:HATCH_TEST_ARGS:} {args}"
+
 [tool.ruff]
 line-length = 120
-extend-select = ["I"]
+lint.select = ["E4", "E7", "E9", "F", "I"]
 
