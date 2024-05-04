@@ -1,6 +1,5 @@
 import re
 import sys
-import types
 import uuid
 from ctypes import (
     CFUNCTYPE,
@@ -236,8 +235,11 @@ def easycast(obj, type_):
     return obj
 
 
-def get_type_hints(prototype, **kwargs):
-    hints = _get_type_hints(prototype, localns=CustomGet(prototype), **kwargs)
+def get_type_hints(prototype):
+    if sys.version_info < (3, 10) and isinstance(prototype, type) and issubclass(prototype, EasyCastBase):
+        hints = _get_type_hints(prototype, localns=vars(prototype))
+    else:
+        hints = _get_type_hints(prototype)
     for name, type_ in hints.items():
         if type_ is type(None):
             hints[name] = None
@@ -490,27 +492,13 @@ class ConstantLazyLoader:
         self.__annotations__ = {}
 
     def __set_name__(self, owner, name):
-        self.__dict__[__name__] = owner.__dict__[__name__]  # = sys.modules["win32more"]
+        # get_type_hints() referes __globals__.
+        self.__globals__ = owner.__dict__
         self.__annotations__["self"] = owner.__annotations__[name]
 
     def __commit__(self):
         cls = get_type_hints(self)["self"]
         return cls(*self._args, **self._kwargs)
-
-
-class CustomGet(dict):
-    def __init__(self, mod, *args, **kwargs):
-        self._mod = mod
-        super().__init__(*args, **kwargs)
-
-    def __getitem__(self, key):
-        mapping = getattr(self._mod, "__dict__", {})
-        if key in mapping:
-            return mapping[key]
-        elif isinstance(self._mod, types.ModuleType):
-            return getattr(self._mod, key)
-        else:
-            return getattr(sys.modules[self._mod.__module__], key)
 
 
 def make_ready(mod: str) -> None:

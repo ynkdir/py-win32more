@@ -81,6 +81,11 @@ class TestSyntax(unittest.TestCase):
 
         self.assertIsInstance(FileOpenPicker.__dict__["PickSingleFileAsync"], winrt_overload)
 
+    def test_issue5_u_e__Union_is_not_defined(self):
+        from win32more.Windows.Win32.System.Rpc import RPC_SECURITY_QOS_V3_W
+
+        self.assertNotEqual(sizeof(RPC_SECURITY_QOS_V3_W._u_e__Union), 0)
+
 
 if __name__ == "__main__":
     unittest.main()
