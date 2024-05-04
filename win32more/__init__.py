@@ -452,6 +452,7 @@ def commethod(vtbl_index):
 
 class BaseFuncType:
     def __init__(self, fn, kind):
+        self.__module__ = fn.__module__  # referred by make_ready()
         self._fn = fn
         self._kind = kind
 
@@ -469,20 +470,26 @@ def winfunctype_pointer(prototype):
     return BaseFuncType(prototype, WINFUNCTYPE)
 
 
-class GetAttr:
-    def __init__(self, mod):
-        self._mod = mod
-        self._obj = sys.modules[mod]
+class LazyLoader:
+    def __init__(self, module):
+        self._module = module
+        self._lazyload = {}
+
+    def register(self, name, prototype):
+        self._lazyload[name] = prototype
+
+    def setup(self):
+        for name in self._lazyload:
+            delattr(self._module, name)
 
     def __call__(self, name):
         try:
-            prototype = self._obj.__dict__[f"_unused_{name}"]
+            prototype = self._lazyload.pop(name)
         except KeyError:
-            raise AttributeError(f"module '{self._mod}' has no attribute '{name}'") from None
-        delattr(self._obj, f"_unused_{name}")
-        setattr(self._obj, name, prototype)
-        setattr(self._obj, name, prototype.__commit__())
-        return getattr(self._obj, name)
+            raise AttributeError(f"module '{self._module.__name__}' has no attribute '{name}'") from None
+        setattr(self._module, name, prototype)
+        setattr(self._module, name, prototype.__commit__())
+        return getattr(self._module, name)
 
 
 class ConstantLazyLoader:
@@ -501,20 +508,16 @@ class ConstantLazyLoader:
         return cls(*self._args, **self._kwargs)
 
 
-def make_ready(mod: str) -> None:
-    obj = sys.modules[mod]
+def make_ready(module_name: str) -> None:
+    module = sys.modules[module_name]
 
-    for name in dir(obj):
-        prototype = getattr(obj, name)
-        if isinstance(prototype, ConstantLazyLoader):
-            prototype.__set_name__(obj, name)
-            setattr(obj, f"_unused_{name}", prototype)
-            delattr(obj, name)
-        elif isinstance(prototype, BaseFuncType):
-            setattr(obj, f"_unused_{name}", prototype)
-            delattr(obj, name)
-        elif getattr(prototype, "__commit__", None) and prototype.__module__ == mod:
-            setattr(obj, f"_unused_{name}", prototype)
-            delattr(obj, name)
+    module.__getattr__ = lazy_loader = LazyLoader(module)
 
-    obj.__getattr__ = GetAttr(mod)
+    for name, value in vars(module).items():
+        if isinstance(value, ConstantLazyLoader):
+            value.__set_name__(module, name)
+            lazy_loader.register(name, value)
+        elif hasattr(value, "__commit__") and value.__module__ == module_name:
+            lazy_loader.register(name, value)
+
+    lazy_loader.setup()
