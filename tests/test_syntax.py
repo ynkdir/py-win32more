@@ -86,6 +86,12 @@ class TestSyntax(unittest.TestCase):
 
         self.assertNotEqual(sizeof(RPC_SECURITY_QOS_V3_W._u_e__Union), 0)
 
+    def test_type_error_when_struct_member_descriptor_is_not_cfield_type(self):
+        # _ctypes/stgdict.c:MakeFields() raises TypeError for non _ctypes.CField type.
+        from win32more.Windows.Win32.Foundation import DECIMAL
+
+        self.assertNotEqual(sizeof(DECIMAL), 0)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -10,6 +10,7 @@ from ctypes import (
     Union,
     WinError,
     _CFuncPtr,
+    addressof,
     c_bool,
     c_byte,
     c_char_p,
@@ -127,15 +128,6 @@ def _patch_char_p(type_):
         return type_
 
 
-def _removesuffix(s, suffix):
-    if sys.version_info < (3, 9):
-        if s.endswith(suffix):
-            return s[: -len(suffix)]
-        else:
-            return s
-    return s.removesuffix(suffix)
-
-
 class EasyCastBase:
     @classmethod
     def __commit__(struct):
@@ -144,7 +136,7 @@ class EasyCastBase:
         if "_fields_" in struct.__dict__:
             return struct
 
-        hints = get_type_hints_with_patch(struct)
+        hints = get_type_hints(struct)
 
         anonymous = [hint for hint in hints.keys() if re.match(r"^Anonymous\d*$", hint)]
         if anonymous:
@@ -156,48 +148,61 @@ class EasyCastBase:
 
         struct._fields_ = list(hints.items())
 
+        for name, type_ in hints.items():
+            # use __dict__[name] to avoid calling descriptor.__get__().
+            setattr(struct, name, EasyCastDescriptor(struct.__dict__[name], type_))
+
+        for name, type_ in hints.items():
+            if issubclass(type_, (c_char_p, c_wchar_p)):
+                setattr(struct, f"{name}_as_intptr", AsIntPtrDescriptor(struct.__dict__[name]))
+
         for hint in anonymous:
             hints.update(hints[hint]._hints_)
+
         struct._hints_ = hints
+
         return struct
 
 
-class EasyCastStructure(EasyCastBase, Structure):
-    def __setattr__(self, name, obj):
-        if name in self._hints_:
-            obj = easycast(obj, self._hints_[name])
-        return super().__setattr__(name, obj)
+class EasyCastDescriptor:
+    def __init__(self, original_descriptor, type_):
+        self._original_descriptor = original_descriptor
+        self._type = type_
 
-    def __getattribute__(self, name):
-        if name.endswith("_as_intptr"):
-            rawname = _removesuffix(name, "_as_intptr")
-            obj = super().__getattribute__(rawname)
-            return cast(obj, c_void_p).value
-        obj = super().__getattribute__(name)
-        if type(obj) is c_char_p_no or type(obj) is c_wchar_p_no:
-            if not obj:
-                return None
-            return obj.value
-        return obj
+    def __get__(self, instance, owner=None):
+        if instance is None:
+            # _ctypes/stgdict.c:MakeFields() raises TypeError for non _ctypes.CField type.
+            return self._original_descriptor.__get__(instance, owner)
+        return self._original_descriptor.__get__(instance, owner)
+
+    def __set__(self, instance, value):
+        self._original_descriptor.__set__(instance, easycast(value, self._type))
+
+    @property
+    def offset(self):
+        return self._original_descriptor.offset
+
+
+class AsIntPtrDescriptor:
+    def __init__(self, original_descriptor):
+        self._original_descriptor = original_descriptor
+
+    def __get__(self, instance, owner=None):
+        if instance is None:
+            return self._original_descriptor.__get__(instance, owner)
+        address = addressof(instance) + self._original_descriptor.offset
+        return c_void_p.from_address(address).value
+
+    def __set__(self, instance, value):
+        self._original_descriptor.__set__(instance, value)
+
+
+class EasyCastStructure(EasyCastBase, Structure):
+    pass
 
 
 class EasyCastUnion(EasyCastBase, Union):
-    def __setattr__(self, name, obj):
-        if name in self._hints_:
-            obj = easycast(obj, self._hints_[name])
-        return super().__setattr__(name, obj)
-
-    def __getattribute__(self, name):
-        if name.endswith("_as_intptr"):
-            rawname = name.removesuffix("_as_intptr")
-            obj = super().__getattribute__(rawname)
-            return cast(obj, c_void_p).value
-        obj = super().__getattribute__(name)
-        if type(obj) is c_char_p_no or type(obj) is c_wchar_p_no:
-            if not obj:
-                return None
-            return obj.value
-        return obj
+    pass
 
 
 EASY_TYPES = [  # obj_type, type_hint, c_func
