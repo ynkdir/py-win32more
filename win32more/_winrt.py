@@ -681,7 +681,7 @@ class MulticastDelegate(ComPtr):
             self._callback = async_callback(callback)
         else:
             self._callback = callback
-        self._comobj = MulticastDelegateImpl(self, cls, self.__class__.Invoke)
+        self._comobj = MulticastDelegateImpl(self, cls, cls.Invoke._prototype)
         self.value = addressof(self._comobj)
         self._refcount = 0
         self.AddRef()

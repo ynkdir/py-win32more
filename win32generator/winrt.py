@@ -770,5 +770,6 @@ class Delegate:
         writer = StringIO()
         restype = self._formatter.pytype(md.signature.return_type)
         params = ", ".join(["self"] + self._formatter.method_parameters_annotated(md))
+        writer.write(f"    @winrt_commethod(3)\n")
         writer.write(f"    def {md.name}({params}) -> {restype}: ...\n")
         return writer.getvalue()
