@@ -26,6 +26,7 @@ class AddPagesEventArgs(ComPtr):
 class AddPagesEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{d4b57970-57a0-4209-847c-c093b54bc729}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.UI.Xaml.Printing.AddPagesEventArgs) -> Void: ...
 class GetPreviewPageEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -46,6 +47,7 @@ class GetPreviewPageEventArgs(ComPtr):
 class GetPreviewPageEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{ccb3e9ed-9c11-4e50-ab49-e98086bbfdef}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.UI.Xaml.Printing.GetPreviewPageEventArgs) -> Void: ...
 class IAddPagesEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -135,6 +137,7 @@ class PaginateEventArgs(ComPtr):
 class PaginateEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{0cc05b61-811b-4a32-9965-13eb78dbb01b}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.UI.Xaml.Printing.PaginateEventArgs) -> Void: ...
 class PreviewPageCountType(Int32):  # enum
     Final = 0

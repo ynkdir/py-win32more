@@ -19,10 +19,12 @@ class ConnectionRequestedEventArgs(ComPtr):
 class DeviceArrivedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{efa9da69-f6e1-49c9-a49e-8e0fc58fb911}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Networking.Proximity.ProximityDevice) -> Void: ...
 class DeviceDepartedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{efa9da69-f6e2-49c9-a49e-8e0fc58fb911}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Networking.Proximity.ProximityDevice) -> Void: ...
 class IConnectionRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -234,10 +236,12 @@ class ITriggeredConnectionStateChangedEventArgs(ComPtr):
 class MessageReceivedHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{efab0782-f6e2-4675-a045-d8e320c24808}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Networking.Proximity.ProximityDevice, message: win32more.Windows.Networking.Proximity.ProximityMessage) -> Void: ...
 class MessageTransmittedHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{efaa0b4a-f6e2-4d7d-856c-78fc8efc021e}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Networking.Proximity.ProximityDevice, messageId: Int64) -> Void: ...
 class PeerDiscoveryTypes(UInt32):  # enum
     None_ = 0

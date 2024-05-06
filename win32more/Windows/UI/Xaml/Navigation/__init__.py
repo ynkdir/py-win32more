@@ -148,10 +148,12 @@ class IPageStackEntryStatics(ComPtr):
 class LoadCompletedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{aebaf785-43fc-4e2c-95c3-97ae84eabc8e}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.UI.Xaml.Navigation.NavigationEventArgs) -> Void: ...
 class NavigatedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{7bd1cf54-23cf-4cce-b2f5-4ce78d96896e}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.UI.Xaml.Navigation.NavigationEventArgs) -> Void: ...
 class NavigatingCancelEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -177,6 +179,7 @@ class NavigatingCancelEventArgs(ComPtr):
 class NavigatingCancelEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{75d6a78f-a302-4489-9898-24ea49182910}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.UI.Xaml.Navigation.NavigatingCancelEventArgs) -> Void: ...
 class NavigationCacheMode(Int32):  # enum
     Disabled = 0
@@ -224,6 +227,7 @@ class NavigationFailedEventArgs(ComPtr):
 class NavigationFailedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{4dab4671-12b2-43c7-b892-9be2dcd3e88d}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.UI.Xaml.Navigation.NavigationFailedEventArgs) -> Void: ...
 class NavigationMode(Int32):  # enum
     New = 0
@@ -233,6 +237,7 @@ class NavigationMode(Int32):  # enum
 class NavigationStoppedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{f0117ddb-12fa-4d8d-8b26-b383d09c2b3c}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.UI.Xaml.Navigation.NavigationEventArgs) -> Void: ...
 class _PageStackEntry_Meta_(ComPtr.__class__):
     pass

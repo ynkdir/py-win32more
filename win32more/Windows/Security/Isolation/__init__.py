@@ -9,6 +9,7 @@ import win32more.Windows.Win32.System.WinRT
 class HostMessageReceivedCallback(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{faf26ffa-8ce1-4cc1-b278-322d31a5e4a3}')
+    @winrt_commethod(3)
     def Invoke(self, receiverId: Guid, message: win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Win32.System.WinRT.IInspectable]) -> Void: ...
 class IIsolatedWindowsEnvironment(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -825,6 +826,7 @@ class IsolatedWindowsHostMessenger(ComPtr):
 class MessageReceivedCallback(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{f5b4c8ff-1d9d-4995-9fea-4d15257c0757}')
+    @winrt_commethod(3)
     def Invoke(self, receiverId: Guid, message: win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Win32.System.WinRT.IInspectable]) -> Void: ...
 
 

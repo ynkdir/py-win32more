@@ -8,26 +8,32 @@ import win32more.Windows.Win32.System.WinRT
 class AsyncActionCompletedHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{a4ed5c81-76c9-40bd-8be6-b1d90fb20ae7}')
+    @winrt_commethod(3)
     def Invoke(self, asyncInfo: win32more.Windows.Foundation.IAsyncAction, asyncStatus: win32more.Windows.Foundation.AsyncStatus) -> Void: ...
 class AsyncActionProgressHandler(Generic[TProgress], MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{6d844858-0cff-4590-ae89-95a5a5c8b4b8}')
+    @winrt_commethod(3)
     def Invoke(self, asyncInfo: win32more.Windows.Foundation.IAsyncActionWithProgress[TProgress], progressInfo: TProgress) -> Void: ...
 class AsyncActionWithProgressCompletedHandler(Generic[TProgress], MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{9c029f91-cc84-44fd-ac26-0a6c4e555281}')
+    @winrt_commethod(3)
     def Invoke(self, asyncInfo: win32more.Windows.Foundation.IAsyncActionWithProgress[TProgress], asyncStatus: win32more.Windows.Foundation.AsyncStatus) -> Void: ...
 class AsyncOperationCompletedHandler(Generic[TResult], MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{fcdcf02c-e5d8-4478-915a-4d90b74b83a5}')
+    @winrt_commethod(3)
     def Invoke(self, asyncInfo: win32more.Windows.Foundation.IAsyncOperation[TResult], asyncStatus: win32more.Windows.Foundation.AsyncStatus) -> Void: ...
 class AsyncOperationProgressHandler(Generic[TResult, TProgress], MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{55690902-0aab-421a-8778-f8ce5026d758}')
+    @winrt_commethod(3)
     def Invoke(self, asyncInfo: win32more.Windows.Foundation.IAsyncOperationWithProgress[TResult, TProgress], progressInfo: TProgress) -> Void: ...
 class AsyncOperationWithProgressCompletedHandler(Generic[TResult, TProgress], MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{e85df41d-6aa7-46e3-a8e2-f009d840c627}')
+    @winrt_commethod(3)
     def Invoke(self, asyncInfo: win32more.Windows.Foundation.IAsyncOperationWithProgress[TResult, TProgress], asyncStatus: win32more.Windows.Foundation.AsyncStatus) -> Void: ...
 class AsyncStatus(Int32):  # enum
     Canceled = 2
@@ -56,10 +62,12 @@ class Deferral(ComPtr):
 class DeferralCompletedHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{ed32a372-f3c8-4faa-9cfb-470148da3888}')
+    @winrt_commethod(3)
     def Invoke(self) -> Void: ...
 class EventHandler(Generic[T], MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{9de1c535-6ae1-11e0-84e1-18a905bcc53f}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, args: T) -> Void: ...
 class EventRegistrationToken(EasyCastStructure):
     Value: Int64
@@ -662,6 +670,7 @@ class TimeSpan(EasyCastStructure):
 class TypedEventHandler(Generic[TSender, TResult], MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{9de1c534-6ae1-11e0-84e1-18a905bcc53f}')
+    @winrt_commethod(3)
     def Invoke(self, sender: TSender, args: TResult) -> Void: ...
 UniversalApiContract: UInt32 = 983040
 class Uri(ComPtr):

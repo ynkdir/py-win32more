@@ -77,6 +77,7 @@ class DispatcherQueueController(ComPtr):
 class DispatcherQueueHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{2e0872a9-4e29-5f14-b688-fb96d5f9d5f8}')
+    @winrt_commethod(3)
     def Invoke(self) -> Void: ...
 class DispatcherQueuePriority(Int32):  # enum
     Low = -10

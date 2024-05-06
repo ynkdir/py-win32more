@@ -55,6 +55,7 @@ class RemoteTextConnection(ComPtr):
 class RemoteTextConnectionDataHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{099ffbc8-8bcb-41b5-b056-57e77021bf1b}')
+    @winrt_commethod(3)
     def Invoke(self, pduData: PassArray[Byte]) -> Boolean: ...
 
 

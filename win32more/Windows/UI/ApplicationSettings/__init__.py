@@ -88,6 +88,7 @@ class CredentialCommand(ComPtr):
 class CredentialCommandCredentialDeletedHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{61c0e185-0977-4678-b4e2-98727afbeed9}')
+    @winrt_commethod(3)
     def Invoke(self, command: win32more.Windows.UI.ApplicationSettings.CredentialCommand) -> Void: ...
 class IAccountsSettingsPane(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -368,6 +369,7 @@ class WebAccountCommand(ComPtr):
 class WebAccountCommandInvokedHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{1ee6e459-1705-4a9a-b599-a0c3d6921973}')
+    @winrt_commethod(3)
     def Invoke(self, command: win32more.Windows.UI.ApplicationSettings.WebAccountCommand, args: win32more.Windows.UI.ApplicationSettings.WebAccountInvokedArgs) -> Void: ...
 class WebAccountInvokedArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -398,6 +400,7 @@ class WebAccountProviderCommand(ComPtr):
 class WebAccountProviderCommandInvokedHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{b7de5527-4c8f-42dd-84da-5ec493abdb9a}')
+    @winrt_commethod(3)
     def Invoke(self, command: win32more.Windows.UI.ApplicationSettings.WebAccountProviderCommand) -> Void: ...
 
 

@@ -980,6 +980,7 @@ class NetworkStateChangeEventDetails(ComPtr):
 class NetworkStatusChangedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{71ba143f-598e-49d0-84eb-8febaedcc195}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
 class NetworkTypes(UInt32):  # enum
     None_ = 0

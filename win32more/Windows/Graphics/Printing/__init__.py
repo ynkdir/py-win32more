@@ -945,6 +945,7 @@ class PrintTaskSourceRequestedDeferral(ComPtr):
 class PrintTaskSourceRequestedHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{6c109fa8-5cb6-4b3a-8663-f39cb02dc9b4}')
+    @winrt_commethod(3)
     def Invoke(self, args: win32more.Windows.Graphics.Printing.PrintTaskSourceRequestedArgs) -> Void: ...
 class _StandardPrintTaskOptions_Meta_(ComPtr.__class__):
     pass

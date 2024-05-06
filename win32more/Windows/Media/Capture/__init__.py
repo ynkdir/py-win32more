@@ -3745,6 +3745,7 @@ class MediaCaptureFailedEventArgs(ComPtr):
 class MediaCaptureFailedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{2014effb-5cd8-4f08-a314-0d360da59f14}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Media.Capture.MediaCapture, errorEventArgs: win32more.Windows.Media.Capture.MediaCaptureFailedEventArgs) -> Void: ...
 class MediaCaptureFocusChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -4064,6 +4065,7 @@ class PowerlineFrequency(Int32):  # enum
 class RecordLimitationExceededEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{3fae8f2e-4fe1-4ffd-aaba-e1f1337d4e53}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Media.Capture.MediaCapture) -> Void: ...
 class ScreenCapture(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable

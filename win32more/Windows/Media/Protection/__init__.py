@@ -20,6 +20,7 @@ class ComponentLoadFailedEventArgs(ComPtr):
 class ComponentLoadFailedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{95da643c-6db9-424b-86ca-091af432081c}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Media.Protection.MediaProtectionManager, e: win32more.Windows.Media.Protection.ComponentLoadFailedEventArgs) -> Void: ...
 class ComponentRenewal(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -267,6 +268,7 @@ ProtectionRenewalContract: UInt32 = 65536
 class RebootNeededEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{64e12a45-973b-4a3a-b260-91898a49a82c}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Media.Protection.MediaProtectionManager) -> Void: ...
 class RenewalStatus(Int32):  # enum
     NotStarted = 0
@@ -332,6 +334,7 @@ class ServiceRequestedEventArgs(ComPtr):
 class ServiceRequestedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{d2d690ba-cac9-48e1-95c0-d38495a84055}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Media.Protection.MediaProtectionManager, e: win32more.Windows.Media.Protection.ServiceRequestedEventArgs) -> Void: ...
 
 

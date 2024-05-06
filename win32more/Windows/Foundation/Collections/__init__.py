@@ -157,6 +157,7 @@ class IVector(Generic[T], ComPtr):
 class MapChangedEventHandler(Generic[K, V], MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{179517f3-94ee-41f8-bddc-768a895544f3}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Foundation.Collections.IObservableMap[K, V], event: win32more.Windows.Foundation.Collections.IMapChangedEventArgs[K]) -> Void: ...
 class PropertySet(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -263,6 +264,7 @@ class ValueSet(ComPtr):
 class VectorChangedEventHandler(Generic[T], MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{0c051752-9fbf-4c70-aa0c-0e4c82d9a761}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Foundation.Collections.IObservableVector[T], event: win32more.Windows.Foundation.Collections.IVectorChangedEventArgs) -> Void: ...
 
 

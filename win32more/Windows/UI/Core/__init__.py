@@ -721,6 +721,7 @@ class CoreWindowResizeManager(ComPtr):
 class DispatchedHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{d1f276c4-98d8-4636-bf49-eb79507548e9}')
+    @winrt_commethod(3)
     def Invoke(self) -> Void: ...
 class IAcceleratorKeyEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -1432,6 +1433,7 @@ class IWindowSizeChangedEventArgs(ComPtr):
 class IdleDispatchedHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{a42b0c24-7f21-4abc-99c1-8f01007f0880}')
+    @winrt_commethod(3)
     def Invoke(self, e: win32more.Windows.UI.Core.IdleDispatchedHandlerArgs) -> Void: ...
 class IdleDispatchedHandlerArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable

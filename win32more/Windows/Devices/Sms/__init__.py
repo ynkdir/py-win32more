@@ -1017,6 +1017,7 @@ class SmsDeviceStatus(Int32):  # enum
 class SmsDeviceStatusChangedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{982b1162-3dd7-4618-af89-0c272d5d06d8}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Devices.Sms.SmsDevice) -> Void: ...
 class SmsEncodedLength(EasyCastStructure):
     SegmentCount: UInt32
@@ -1145,6 +1146,7 @@ class SmsMessageReceivedEventArgs(ComPtr):
 class SmsMessageReceivedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{0b7ad409-ec2d-47ce-a253-732beeebcacd}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Devices.Sms.SmsDevice, e: win32more.Windows.Devices.Sms.SmsMessageReceivedEventArgs) -> Void: ...
 class SmsMessageReceivedTriggerDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable

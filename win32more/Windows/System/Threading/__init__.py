@@ -71,14 +71,17 @@ class ThreadPoolTimer(ComPtr):
 class TimerDestroyedHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{34ed19fa-8384-4eb9-8209-fb5094eeec35}')
+    @winrt_commethod(3)
     def Invoke(self, timer: win32more.Windows.System.Threading.ThreadPoolTimer) -> Void: ...
 class TimerElapsedHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{faaea667-fbeb-49cb-adb2-71184c556e43}')
+    @winrt_commethod(3)
     def Invoke(self, timer: win32more.Windows.System.Threading.ThreadPoolTimer) -> Void: ...
 class WorkItemHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{1d1a8b8b-fa66-414f-9cbd-b65fc99d17fa}')
+    @winrt_commethod(3)
     def Invoke(self, operation: win32more.Windows.Foundation.IAsyncAction) -> Void: ...
 class WorkItemOptions(UInt32):  # enum
     None_ = 0

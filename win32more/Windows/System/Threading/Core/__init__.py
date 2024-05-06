@@ -68,6 +68,7 @@ class PreallocatedWorkItem(ComPtr):
 class SignalHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{923c402e-4721-440e-9dda-55b6f2e07710}')
+    @winrt_commethod(3)
     def Invoke(self, signalNotifier: win32more.Windows.System.Threading.Core.SignalNotifier, timedOut: Boolean) -> Void: ...
 class SignalNotifier(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable

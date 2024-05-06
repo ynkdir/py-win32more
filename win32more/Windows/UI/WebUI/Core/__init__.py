@@ -169,14 +169,17 @@ class IWebUICommandBarSymbolIconFactory(ComPtr):
 class MenuClosedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{435387c8-4dd0-4c52-9489-d390ce7721d2}')
+    @winrt_commethod(3)
     def Invoke(self) -> Void: ...
 class MenuOpenedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{18dc0ad3-678f-4c19-8963-cc1c49a5ef9e}')
+    @winrt_commethod(3)
     def Invoke(self) -> Void: ...
 class SizeChangedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{d49cfe3c-dd2e-4c28-b627-303a7f911af5}')
+    @winrt_commethod(3)
     def Invoke(self, eventArgs: win32more.Windows.UI.WebUI.Core.WebUICommandBarSizeChangedEventArgs) -> Void: ...
 class WebUICommandBar(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable

@@ -254,6 +254,7 @@ class SelectableWordSegment(ComPtr):
 class SelectableWordSegmentsTokenizingHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{3a3dfc9c-aede-4dc7-9e6c-41c044bd3592}')
+    @winrt_commethod(3)
     def Invoke(self, precedingWords: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Data.Text.SelectableWordSegment], words: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Data.Text.SelectableWordSegment]) -> Void: ...
 class SelectableWordsSegmenter(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -482,6 +483,7 @@ class WordSegment(ComPtr):
 class WordSegmentsTokenizingHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{a5dd6357-bf2a-4c4f-a31f-29e71c6f8b35}')
+    @winrt_commethod(3)
     def Invoke(self, precedingWords: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Data.Text.WordSegment], words: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Data.Text.WordSegment]) -> Void: ...
 class WordsSegmenter(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable

@@ -377,6 +377,7 @@ class DataProviderDeferral(ComPtr):
 class DataProviderHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{e7ecd720-f2f4-4a2d-920e-170a2f482a27}')
+    @winrt_commethod(3)
     def Invoke(self, request: win32more.Windows.ApplicationModel.DataTransfer.DataProviderRequest) -> Void: ...
 class DataProviderRequest(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -1109,6 +1110,7 @@ class ShareProvider(ComPtr):
 class ShareProviderHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{e7f9d9ba-e1ba-4e4d-bd65-d43845d3212f}')
+    @winrt_commethod(3)
     def Invoke(self, operation: win32more.Windows.ApplicationModel.DataTransfer.ShareProviderOperation) -> Void: ...
 class ShareProviderOperation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable

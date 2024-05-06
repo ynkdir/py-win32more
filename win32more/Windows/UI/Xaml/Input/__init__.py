@@ -129,6 +129,7 @@ class ContextRequestedEventArgs(ComPtr):
 class DoubleTappedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{3124d025-04a7-4d45-825e-8204a624dbf4}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.UI.Xaml.Input.DoubleTappedRoutedEventArgs) -> Void: ...
 class DoubleTappedRoutedEventArgs(ComPtr):
     extends: win32more.Windows.UI.Xaml.RoutedEventArgs
@@ -324,6 +325,7 @@ class GettingFocusEventArgs(ComPtr):
 class HoldingEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{ecae8ccd-8e5e-4fbe-9846-30a6370afcdf}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.UI.Xaml.Input.HoldingRoutedEventArgs) -> Void: ...
 class HoldingRoutedEventArgs(ComPtr):
     extends: win32more.Windows.UI.Xaml.RoutedEventArgs
@@ -1364,6 +1366,7 @@ class InputScopeNameValue(Int32):  # enum
 class KeyEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{7c63d2e5-7a0e-4e12-b96a-7715aa6ff1c8}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.UI.Xaml.Input.KeyRoutedEventArgs) -> Void: ...
 class KeyRoutedEventArgs(ComPtr):
     extends: win32more.Windows.UI.Xaml.RoutedEventArgs
@@ -1508,6 +1511,7 @@ class LosingFocusEventArgs(ComPtr):
 class ManipulationCompletedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{38ef4b0f-14f8-42df-9a1e-a4bcc4af77f4}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.UI.Xaml.Input.ManipulationCompletedRoutedEventArgs) -> Void: ...
 class ManipulationCompletedRoutedEventArgs(ComPtr):
     extends: win32more.Windows.UI.Xaml.RoutedEventArgs
@@ -1548,6 +1552,7 @@ class ManipulationCompletedRoutedEventArgs(ComPtr):
 class ManipulationDeltaEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{aa1160cb-dfb9-4c56-abdc-711b63c8eb94}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.UI.Xaml.Input.ManipulationDeltaRoutedEventArgs) -> Void: ...
 class ManipulationDeltaRoutedEventArgs(ComPtr):
     extends: win32more.Windows.UI.Xaml.RoutedEventArgs
@@ -1593,6 +1598,7 @@ class ManipulationDeltaRoutedEventArgs(ComPtr):
 class ManipulationInertiaStartingEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{d39d6322-7c9c-481b-827b-c8b2d9bb6fc7}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.UI.Xaml.Input.ManipulationInertiaStartingRoutedEventArgs) -> Void: ...
 class ManipulationInertiaStartingRoutedEventArgs(ComPtr):
     extends: win32more.Windows.UI.Xaml.RoutedEventArgs
@@ -1685,6 +1691,7 @@ class ManipulationPivot(ComPtr):
 class ManipulationStartedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{f88345f8-e0a3-4be2-b90c-dc20e6d8beb0}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.UI.Xaml.Input.ManipulationStartedRoutedEventArgs) -> Void: ...
 class ManipulationStartedRoutedEventArgs(ComPtr):
     extends: win32more.Windows.UI.Xaml.RoutedEventArgs
@@ -1721,6 +1728,7 @@ class ManipulationStartedRoutedEventArgs(ComPtr):
 class ManipulationStartingEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{10d0b04e-bfe4-42cb-823c-3fecd8770ef8}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.UI.Xaml.Input.ManipulationStartingRoutedEventArgs) -> Void: ...
 class ManipulationStartingRoutedEventArgs(ComPtr):
     extends: win32more.Windows.UI.Xaml.RoutedEventArgs
@@ -1789,6 +1797,7 @@ class Pointer(ComPtr):
 class PointerEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{e4385929-c004-4bcf-8970-359486e39f88}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.UI.Xaml.Input.PointerRoutedEventArgs) -> Void: ...
 class PointerRoutedEventArgs(ComPtr):
     extends: win32more.Windows.UI.Xaml.RoutedEventArgs
@@ -1830,6 +1839,7 @@ class ProcessKeyboardAcceleratorEventArgs(ComPtr):
 class RightTappedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{2532a062-f447-4950-9c46-f1e34a2c2238}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.UI.Xaml.Input.RightTappedRoutedEventArgs) -> Void: ...
 class RightTappedRoutedEventArgs(ComPtr):
     extends: win32more.Windows.UI.Xaml.RoutedEventArgs
@@ -1902,6 +1912,7 @@ class StandardUICommandKind(Int32):  # enum
 class TappedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{68d940cc-9ff0-49ce-b141-3f07ec477b97}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.UI.Xaml.Input.TappedRoutedEventArgs) -> Void: ...
 class TappedRoutedEventArgs(ComPtr):
     extends: win32more.Windows.UI.Xaml.RoutedEventArgs

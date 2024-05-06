@@ -238,6 +238,7 @@ class BackgroundTaskBuilder(ComPtr):
 class BackgroundTaskCanceledEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{a6c4bac0-51f8-4c57-ac3f-156dd1680c4f}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.ApplicationModel.Background.IBackgroundTaskInstance, reason: win32more.Windows.ApplicationModel.Background.BackgroundTaskCancellationReason) -> Void: ...
 class BackgroundTaskCancellationReason(Int32):  # enum
     Abort = 0
@@ -264,6 +265,7 @@ class BackgroundTaskCompletedEventArgs(ComPtr):
 class BackgroundTaskCompletedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{5b38e929-a086-46a7-a678-439135822bcf}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.ApplicationModel.Background.BackgroundTaskRegistration, args: win32more.Windows.ApplicationModel.Background.BackgroundTaskCompletedEventArgs) -> Void: ...
 class BackgroundTaskDeferral(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -284,6 +286,7 @@ class BackgroundTaskProgressEventArgs(ComPtr):
 class BackgroundTaskProgressEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{46e0683c-8a88-4c99-804c-76897f6277a6}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.ApplicationModel.Background.BackgroundTaskRegistration, args: win32more.Windows.ApplicationModel.Background.BackgroundTaskProgressEventArgs) -> Void: ...
 class _BackgroundTaskRegistration_Meta_(ComPtr.__class__):
     pass

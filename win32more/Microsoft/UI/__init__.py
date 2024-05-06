@@ -9,6 +9,7 @@ import win32more.Windows.Win32.System.WinRT
 class ClosableNotifierHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{478cec68-ea8e-52fc-87e2-c819de000f92}')
+    @winrt_commethod(3)
     def Invoke(self) -> Void: ...
 class ColorHelper(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable

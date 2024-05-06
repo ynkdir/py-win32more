@@ -316,6 +316,7 @@ class DisplayProperties(ComPtr, metaclass=_DisplayProperties_Meta_):
 class DisplayPropertiesEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{dbdd8b01-f1a1-46d1-9ee3-543bcc995980}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
 class DisplayServices(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable

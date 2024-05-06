@@ -154,6 +154,7 @@ class DownloadProgressEventArgs(ComPtr):
 class DownloadProgressEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{1abaee23-74ee-4cc7-99ba-b171e3cda61e}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.UI.Xaml.Media.Imaging.DownloadProgressEventArgs) -> Void: ...
 class IBitmapImage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable

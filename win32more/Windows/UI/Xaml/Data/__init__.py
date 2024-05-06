@@ -188,6 +188,7 @@ class CurrentChangingEventArgs(ComPtr):
 class CurrentChangingEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{f3888db8-139f-4dce-8dc9-f7f1444d1185}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.UI.Xaml.Data.CurrentChangingEventArgs) -> Void: ...
 class IBinding(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -590,6 +591,7 @@ class PropertyChangedEventArgs(ComPtr):
 class PropertyChangedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{50f19c16-0a22-4d8e-a089-1ea9951657d2}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.UI.Xaml.Data.PropertyChangedEventArgs) -> Void: ...
 class RelativeSource(ComPtr):
     extends: win32more.Windows.UI.Xaml.DependencyObject

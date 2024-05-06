@@ -38,6 +38,7 @@ class GameListCategory(Int32):  # enum
 class GameListChangedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{25f6a421-d8f5-4d91-b40e-53d5e86fde64}')
+    @winrt_commethod(3)
     def Invoke(self, game: win32more.Windows.Gaming.Preview.GamesEnumeration.GameListEntry) -> Void: ...
 class GameListEntry(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -85,6 +86,7 @@ class GameListEntryLaunchableState(Int32):  # enum
 class GameListRemovedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{10c5648f-6c8f-4712-9b38-474bc22e76d8}')
+    @winrt_commethod(3)
     def Invoke(self, identifier: WinRT_String) -> Void: ...
 class GameModeConfiguration(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable

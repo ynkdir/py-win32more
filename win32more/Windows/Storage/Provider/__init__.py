@@ -791,6 +791,7 @@ class StorageProviderKnownFolderSyncRequestArgs(ComPtr):
 class StorageProviderKnownFolderSyncRequestedHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{c4cbb4f5-13dd-5c8e-8b96-336fc30c629b}')
+    @winrt_commethod(3)
     def Invoke(self, args: win32more.Windows.Storage.Provider.StorageProviderKnownFolderSyncRequestArgs) -> Void: ...
 class StorageProviderKnownFolderSyncStatus(Int32):  # enum
     Available = 0

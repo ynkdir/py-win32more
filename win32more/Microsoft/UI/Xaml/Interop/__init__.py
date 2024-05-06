@@ -8,6 +8,7 @@ import win32more.Windows.Win32.System.WinRT
 class BindableVectorChangedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{624cd4e1-d007-43b1-9c03-af4d3e6258c4}')
+    @winrt_commethod(3)
     def Invoke(self, vector: win32more.Microsoft.UI.Xaml.Interop.IBindableObservableVector, e: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
 class IBindableIterable(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -141,6 +142,7 @@ class NotifyCollectionChangedEventArgs(ComPtr):
 class NotifyCollectionChangedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{8b0909dc-2005-5d93-bf8a-725f017baa8d}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Microsoft.UI.Xaml.Interop.NotifyCollectionChangedEventArgs) -> Void: ...
 
 

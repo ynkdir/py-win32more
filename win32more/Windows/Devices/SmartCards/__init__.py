@@ -1435,6 +1435,7 @@ class SmartCardPinResetDeferral(ComPtr):
 class SmartCardPinResetHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{138d5e40-f3bc-4a5c-b41d-4b4ef684e237}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Devices.SmartCards.SmartCardProvisioning, request: win32more.Windows.Devices.SmartCards.SmartCardPinResetRequest) -> Void: ...
 class SmartCardPinResetRequest(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable

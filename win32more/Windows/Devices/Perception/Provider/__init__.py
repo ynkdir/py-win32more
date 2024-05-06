@@ -385,10 +385,12 @@ class PerceptionPropertyChangeRequest(ComPtr):
 class PerceptionStartFaceAuthenticationHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{74816d2a-2090-4670-8c48-ef39e7ff7c26}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Devices.Perception.Provider.PerceptionFaceAuthenticationGroup) -> Boolean: ...
 class PerceptionStopFaceAuthenticationHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{387ee6aa-89cd-481e-aade-dd92f70b2ad7}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Devices.Perception.Provider.PerceptionFaceAuthenticationGroup) -> Void: ...
 class PerceptionVideoFrameAllocator(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable

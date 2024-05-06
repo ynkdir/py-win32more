@@ -633,6 +633,7 @@ class Print3DTaskSourceRequestedArgs(ComPtr):
 class Print3DTaskSourceRequestedHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{e9175e70-c917-46de-bb51-d9a94db3711f}')
+    @winrt_commethod(3)
     def Invoke(self, args: win32more.Windows.Graphics.Printing3D.Print3DTaskSourceRequestedArgs) -> Void: ...
 class Printing3D3MFPackage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable

@@ -836,6 +836,7 @@ class PaymentRequestChangedArgs(ComPtr):
 class PaymentRequestChangedHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{5078b9e1-f398-4f2c-a27e-94d371cf6c7d}')
+    @winrt_commethod(3)
     def Invoke(self, paymentRequest: win32more.Windows.ApplicationModel.Payments.PaymentRequest, args: win32more.Windows.ApplicationModel.Payments.PaymentRequestChangedArgs) -> Void: ...
 class PaymentRequestChangedResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable

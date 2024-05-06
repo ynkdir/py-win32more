@@ -211,6 +211,7 @@ class UICommand(ComPtr):
 class UICommandInvokedHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{daf77a4f-c27a-4298-9ac6-2922c45e7da6}')
+    @winrt_commethod(3)
     def Invoke(self, command: win32more.Windows.UI.Popups.IUICommand) -> Void: ...
 class UICommandSeparator(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable

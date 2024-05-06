@@ -158,6 +158,7 @@ class ApplicationHighContrastAdjustment(UInt32):  # enum
 class ApplicationInitializationCallback(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{b6351c55-c284-46e4-8310-fb0967fab76f}')
+    @winrt_commethod(3)
     def Invoke(self, p: win32more.Windows.UI.Xaml.ApplicationInitializationCallbackParams) -> Void: ...
 class ApplicationInitializationCallbackParams(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -220,6 +221,7 @@ class BindingFailedEventArgs(ComPtr):
 class BindingFailedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{136b1782-54ba-420d-a1aa-82828721cde6}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.UI.Xaml.BindingFailedEventArgs) -> Void: ...
 class BringIntoViewOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -486,6 +488,7 @@ class CornerRadiusHelper(ComPtr):
 class CreateDefaultValueCallback(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{d6ecb12c-15b5-4ec8-b95c-cdd208f08153}')
+    @winrt_commethod(3)
     def Invoke(self) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
 class DataContextChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -679,6 +682,7 @@ class DependencyProperty(ComPtr, metaclass=_DependencyProperty_Meta_):
 class DependencyPropertyChangedCallback(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{45883d16-27bf-4bc1-ac26-94c1601f3a49}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.UI.Xaml.DependencyObject, dp: win32more.Windows.UI.Xaml.DependencyProperty) -> Void: ...
 class DependencyPropertyChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -696,6 +700,7 @@ class DependencyPropertyChangedEventArgs(ComPtr):
 class DependencyPropertyChangedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{09223e5a-75be-4499-8180-1ddc005421c0}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.UI.Xaml.DependencyPropertyChangedEventArgs) -> Void: ...
 class DispatcherTimer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -764,6 +769,7 @@ class DragEventArgs(ComPtr):
 class DragEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{2ab1a205-1e73-4bcf-aabc-57b97e21961d}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.UI.Xaml.DragEventArgs) -> Void: ...
 class DragOperationDeferral(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -997,6 +1003,7 @@ class ElementTheme(Int32):  # enum
 class EnteredBackgroundEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{93a956ae-1d7f-438b-b7b8-227d96b609c0}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.ApplicationModel.EnteredBackgroundEventArgs) -> Void: ...
 class EventTrigger(ComPtr):
     extends: win32more.Windows.UI.Xaml.TriggerBase
@@ -1029,6 +1036,7 @@ class ExceptionRoutedEventArgs(ComPtr):
 class ExceptionRoutedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{68e0e810-f6ea-42bc-855b-5d9b67e6a262}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.UI.Xaml.ExceptionRoutedEventArgs) -> Void: ...
 class FlowDirection(Int32):  # enum
     LeftToRight = 0
@@ -4129,6 +4137,7 @@ class IXamlRootChangedEventArgs(ComPtr):
 class LeavingBackgroundEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{aaad5dad-4fc6-4aa4-b7cf-877e36ada4f6}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.ApplicationModel.LeavingBackgroundEventArgs) -> Void: ...
 class LineStackingStrategy(Int32):  # enum
     MaxHeight = 0
@@ -4153,6 +4162,7 @@ class PointHelper(ComPtr):
 class PropertyChangedCallback(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{5a9f8a25-d142-44a4-8231-fd676724f29b}')
+    @winrt_commethod(3)
     def Invoke(self, d: win32more.Windows.UI.Xaml.DependencyObject, e: win32more.Windows.UI.Xaml.DependencyPropertyChangedEventArgs) -> Void: ...
 class PropertyMetadata(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -4300,6 +4310,7 @@ class RoutedEventArgs(ComPtr):
 class RoutedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{a856e674-b0b6-4bc3-bba8-1ba06e40d4b5}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.UI.Xaml.RoutedEventArgs) -> Void: ...
 class ScalarTransition(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -4416,6 +4427,7 @@ class SizeChangedEventArgs(ComPtr):
 class SizeChangedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{1115b13c-25d2-480b-89dc-eb3dcbd6b7fa}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.UI.Xaml.SizeChangedEventArgs) -> Void: ...
 class _SizeHelper_Meta_(ComPtr.__class__):
     pass
@@ -4510,6 +4522,7 @@ class Style(ComPtr):
 class SuspendingEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{23429465-e36a-40e2-b139-a4704602a6e1}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.ApplicationModel.SuspendingEventArgs) -> Void: ...
 class TargetPropertyPath(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -5430,6 +5443,7 @@ class UnhandledExceptionEventArgs(ComPtr):
 class UnhandledExceptionEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{9274e6bd-49a1-4958-beee-d0e19587b6e3}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.UI.Xaml.UnhandledExceptionEventArgs) -> Void: ...
 class Vector3Transition(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -5524,6 +5538,7 @@ class VisualStateChangedEventArgs(ComPtr):
 class VisualStateChangedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{e6d5bbd5-e029-43a6-b36d-84a81042d774}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.UI.Xaml.VisualStateChangedEventArgs) -> Void: ...
 class VisualStateGroup(ComPtr):
     extends: win32more.Windows.UI.Xaml.DependencyObject
@@ -5685,10 +5700,12 @@ class Window(ComPtr, metaclass=_Window_Meta_):
 class WindowActivatedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{18026348-8619-4c7b-b534-ced45d9de219}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.UI.Core.WindowActivatedEventArgs) -> Void: ...
 class WindowClosedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{0db89161-20d7-45df-9122-ba89576703ba}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.UI.Core.CoreWindowEventArgs) -> Void: ...
 class WindowCreatedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -5700,10 +5717,12 @@ class WindowCreatedEventArgs(ComPtr):
 class WindowSizeChangedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{5c21c742-2ced-4fd9-ba38-7118d40e966b}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.UI.Core.WindowSizeChangedEventArgs) -> Void: ...
 class WindowVisibilityChangedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{10406ad6-b090-4a4a-b2ad-d682df27130f}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.UI.Core.VisibilityChangedEventArgs) -> Void: ...
 class XamlRoot(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable

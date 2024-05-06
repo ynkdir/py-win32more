@@ -553,6 +553,7 @@ class BackClickEventArgs(ComPtr):
 class BackClickEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{fa9bc21f-9892-482e-abf6-eb2d607d32de}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.UI.Xaml.Controls.BackClickEventArgs) -> Void: ...
 class BackgroundSizing(Int32):  # enum
     InnerBorderEdge = 0
@@ -1586,6 +1587,7 @@ class CalendarViewDayItemChangingEventArgs(ComPtr):
 class CalendarViewDayItemChangingEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{8d745891-4de3-49cb-974b-083871a3afe6}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.UI.Xaml.Controls.CalendarView, e: win32more.Windows.UI.Xaml.Controls.CalendarViewDayItemChangingEventArgs) -> Void: ...
 class CalendarViewDisplayMode(Int32):  # enum
     Month = 0
@@ -1770,6 +1772,7 @@ class CleanUpVirtualizedItemEventArgs(ComPtr):
 class CleanUpVirtualizedItemEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{cacad0d6-0f0d-4870-884d-f2dedf674288}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.UI.Xaml.Controls.CleanUpVirtualizedItemEventArgs) -> Void: ...
 class ClickMode(Int32):  # enum
     Release = 0
@@ -2940,6 +2943,7 @@ class ContextMenuEventArgs(ComPtr):
 class ContextMenuOpeningEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{df945151-745c-4446-b2fc-216d765847a0}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.UI.Xaml.Controls.ContextMenuEventArgs) -> Void: ...
 class _Control_Meta_(ComPtr.__class__):
     pass
@@ -3722,6 +3726,7 @@ class DragItemsStartingEventArgs(ComPtr):
 class DragItemsStartingEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{3aaeab4c-14cb-4434-becc-88a8585c2f89}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.UI.Xaml.Controls.DragItemsStartingEventArgs) -> Void: ...
 class DropDownButton(ComPtr):
     extends: win32more.Windows.UI.Xaml.Controls.Button
@@ -4678,6 +4683,7 @@ class HubSectionHeaderClickEventArgs(ComPtr):
 class HubSectionHeaderClickEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{afe17b9b-9c63-4583-88e4-c59019b7f49d}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.UI.Xaml.Controls.HubSectionHeaderClickEventArgs) -> Void: ...
 class _HyperlinkButton_Meta_(ComPtr.__class__):
     pass
@@ -19325,6 +19331,7 @@ class ItemClickEventArgs(ComPtr):
 class ItemClickEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{3df6d14e-e18a-4a75-9395-627c5f3cd489}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.UI.Xaml.Controls.ItemClickEventArgs) -> Void: ...
 class ItemCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -20276,10 +20283,12 @@ class ListViewItem(ComPtr):
 class ListViewItemToKeyHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{6af5da76-7e8b-4a91-9a56-460cb47d523f}')
+    @winrt_commethod(3)
     def Invoke(self, item: win32more.Windows.Win32.System.WinRT.IInspectable) -> WinRT_String: ...
 class ListViewKeyToItemHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{26fd5855-b530-4688-b9f0-428249178ef8}')
+    @winrt_commethod(3)
     def Invoke(self, key: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Win32.System.WinRT.IInspectable]: ...
 class ListViewPersistenceHelper(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -21815,6 +21824,7 @@ class NotifyEventArgs(ComPtr):
 class NotifyEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{c2fdd1f8-7105-4a74-a109-de29dff56b98}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.UI.Xaml.Controls.NotifyEventArgs) -> Void: ...
 class Orientation(Int32):  # enum
     Vertical = 0
@@ -24688,6 +24698,7 @@ class SectionsInViewChangedEventArgs(ComPtr):
 class SectionsInViewChangedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{6becaa6a-63f8-47ff-b6ac-76e7da247d67}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.UI.Xaml.Controls.SectionsInViewChangedEventArgs) -> Void: ...
 class SelectionChangedEventArgs(ComPtr):
     extends: win32more.Windows.UI.Xaml.RoutedEventArgs
@@ -24711,6 +24722,7 @@ class SelectionChangedEventArgs(ComPtr):
 class SelectionChangedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{e1a05352-5aa0-42ca-9cd9-068a14db6e68}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.UI.Xaml.Controls.SelectionChangedEventArgs) -> Void: ...
 class SelectionMode(Int32):  # enum
     Single = 0
@@ -24835,6 +24847,7 @@ class SemanticZoomViewChangedEventArgs(ComPtr):
 class SemanticZoomViewChangedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{1fa9161d-5d73-44fb-81ac-d1c9384919d4}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.UI.Xaml.Controls.SemanticZoomViewChangedEventArgs) -> Void: ...
 class _SettingsFlyout_Meta_(ComPtr.__class__):
     pass
@@ -26441,6 +26454,7 @@ class TextChangedEventArgs(ComPtr):
 class TextChangedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{8eb35b97-ad87-40e8-818b-77db24759566}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.UI.Xaml.Controls.TextChangedEventArgs) -> Void: ...
 class TextCommandBarFlyout(ComPtr):
     extends: win32more.Windows.UI.Xaml.Controls.CommandBarFlyout
@@ -26515,6 +26529,7 @@ class TextControlPasteEventArgs(ComPtr):
 class TextControlPasteEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{d56db359-6f77-4296-ab9c-794939444365}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.UI.Xaml.Controls.TextControlPasteEventArgs) -> Void: ...
 class TimePickedEventArgs(ComPtr):
     extends: win32more.Windows.UI.Xaml.DependencyObject
@@ -28019,6 +28034,7 @@ class WebViewNavigationFailedEventArgs(ComPtr):
 class WebViewNavigationFailedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{a31eafe1-41dc-47f8-ae22-9706c8f143d4}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.UI.Xaml.Controls.WebViewNavigationFailedEventArgs) -> Void: ...
 class WebViewNavigationStartingEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable

@@ -397,6 +397,7 @@ class IUnfulfilledConsumable(ComPtr):
 class LicenseChangedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{d4a50255-1369-4c36-832f-6f2d88e3659b}')
+    @winrt_commethod(3)
     def Invoke(self) -> Void: ...
 class LicenseInformation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable

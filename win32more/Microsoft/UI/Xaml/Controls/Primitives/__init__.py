@@ -749,6 +749,7 @@ class DragCompletedEventArgs(ComPtr):
 class DragCompletedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{a27012cb-923f-5992-ade2-878f7c794ef5}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Microsoft.UI.Xaml.Controls.Primitives.DragCompletedEventArgs) -> Void: ...
 class DragDeltaEventArgs(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.RoutedEventArgs
@@ -772,6 +773,7 @@ class DragDeltaEventArgs(ComPtr):
 class DragDeltaEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{49ca91d0-fc43-56b1-98bd-68e2e1e24de9}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Microsoft.UI.Xaml.Controls.Primitives.DragDeltaEventArgs) -> Void: ...
 class DragStartedEventArgs(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.RoutedEventArgs
@@ -795,6 +797,7 @@ class DragStartedEventArgs(ComPtr):
 class DragStartedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{13191f6d-a651-5870-b3a1-221550003512}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Microsoft.UI.Xaml.Controls.Primitives.DragStartedEventArgs) -> Void: ...
 class EdgeTransitionLocation(Int32):  # enum
     Left = 0
@@ -4366,6 +4369,7 @@ class ItemsChangedEventArgs(ComPtr):
 class ItemsChangedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{8e15e39e-23f7-5fcf-b04b-d1b7891dccc4}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Microsoft.UI.Xaml.Controls.Primitives.ItemsChangedEventArgs) -> Void: ...
 class _JumpListItemBackgroundConverter_Meta_(ComPtr.__class__):
     pass
@@ -5537,6 +5541,7 @@ class RangeBaseValueChangedEventArgs(ComPtr):
 class RangeBaseValueChangedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{23f0e209-9455-54cb-b8bc-0b49553c7dcc}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Microsoft.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs) -> Void: ...
 class _RepeatButton_Meta_(ComPtr.__class__):
     pass
@@ -5777,6 +5782,7 @@ class ScrollEventArgs(ComPtr):
 class ScrollEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{ff661ba9-8c06-5785-a23c-30d6b31631e8}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Microsoft.UI.Xaml.Controls.Primitives.ScrollEventArgs) -> Void: ...
 class ScrollEventType(Int32):  # enum
     SmallDecrement = 0

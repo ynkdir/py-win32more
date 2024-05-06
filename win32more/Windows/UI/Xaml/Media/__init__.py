@@ -2988,6 +2988,7 @@ class RateChangedRoutedEventArgs(ComPtr):
 class RateChangedRoutedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{08e9a257-ae05-489b-8839-28c6225d2349}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.UI.Xaml.Media.RateChangedRoutedEventArgs) -> Void: ...
 class _RectangleGeometry_Meta_(ComPtr.__class__):
     pass
@@ -3441,6 +3442,7 @@ class TimelineMarkerRoutedEventArgs(ComPtr):
 class TimelineMarkerRoutedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{72e2fa9c-6dea-4cbe-a159-06ce95fbeced}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.UI.Xaml.Media.TimelineMarkerRoutedEventArgs) -> Void: ...
 class Transform(ComPtr):
     extends: win32more.Windows.UI.Xaml.Media.GeneralTransform

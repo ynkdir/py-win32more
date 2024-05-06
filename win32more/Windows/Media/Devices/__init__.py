@@ -175,6 +175,7 @@ CallControlContract: UInt32 = 65536
 class CallControlEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{596f759f-50df-4454-bc63-4d3d01b61958}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Media.Devices.CallControl) -> Void: ...
 class CameraOcclusionInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -271,6 +272,7 @@ class DialRequestedEventArgs(ComPtr):
 class DialRequestedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{5abbffdb-c21f-4bc4-891b-257e28c1b1a4}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Media.Devices.CallControl, e: win32more.Windows.Media.Devices.DialRequestedEventArgs) -> Void: ...
 class DigitalWindowBounds(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -1787,6 +1789,7 @@ class KeypadPressedEventArgs(ComPtr):
 class KeypadPressedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{e637a454-c527-422c-8926-c9af83b559a0}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Media.Devices.CallControl, e: win32more.Windows.Media.Devices.KeypadPressedEventArgs) -> Void: ...
 class LowLagPhotoControl(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -2005,6 +2008,7 @@ class RedialRequestedEventArgs(ComPtr):
 class RedialRequestedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{baf257d1-4ebd-4b84-9f47-6ec43d75d8b1}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Media.Devices.CallControl, e: win32more.Windows.Media.Devices.RedialRequestedEventArgs) -> Void: ...
 class RegionOfInterest(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable

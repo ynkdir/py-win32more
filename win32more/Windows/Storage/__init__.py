@@ -195,6 +195,7 @@ class ApplicationDataLocality(Int32):  # enum
 class ApplicationDataSetVersionHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{a05791e6-cc9f-4687-acab-a364fd785463}')
+    @winrt_commethod(3)
     def Invoke(self, setVersionRequest: win32more.Windows.Storage.SetVersionRequest) -> Void: ...
 class CachedFileManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -1731,6 +1732,7 @@ class StreamedFileDataRequest(ComPtr):
 class StreamedFileDataRequestedHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{fef6a824-2fe1-4d07-a35b-b77c50b5f4cc}')
+    @winrt_commethod(3)
     def Invoke(self, stream: win32more.Windows.Storage.StreamedFileDataRequest) -> Void: ...
 class StreamedFileFailureMode(Int32):  # enum
     Failed = 0

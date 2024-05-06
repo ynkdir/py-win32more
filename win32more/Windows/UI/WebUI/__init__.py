@@ -44,6 +44,7 @@ class ActivatedDeferral(ComPtr):
 class ActivatedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{50f1e730-c5d1-4b6b-9adb-8a11756be29c}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, eventArgs: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Void: ...
 class ActivatedOperation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -61,6 +62,7 @@ class BackgroundActivatedEventArgs(ComPtr):
 class BackgroundActivatedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{edb19fbb-0761-47cc-9a77-24d7072965ca}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, eventArgs: win32more.Windows.ApplicationModel.Activation.IBackgroundActivatedEventArgs) -> Void: ...
 class EnteredBackgroundEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -71,6 +73,7 @@ class EnteredBackgroundEventArgs(ComPtr):
 class EnteredBackgroundEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{2b09a173-b68e-4def-88c1-8de84e5aab2f}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.ApplicationModel.IEnteredBackgroundEventArgs) -> Void: ...
 class HtmlPrintDocumentSource(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -332,10 +335,12 @@ class LeavingBackgroundEventArgs(ComPtr):
 class LeavingBackgroundEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{00b4ccd9-7a9c-4b6b-9ac4-13474f268bc4}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.ApplicationModel.ILeavingBackgroundEventArgs) -> Void: ...
 class NavigatedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{7af46fe6-40ca-4e49-a7d6-dbdb330cd1a3}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.UI.WebUI.IWebUINavigatedEventArgs) -> Void: ...
 class NewWebUIViewCreatedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -360,6 +365,7 @@ class PrintContent(Int32):  # enum
 class ResumingEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{26599ba9-a22d-4806-a728-acadc1d075fa}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
 class SuspendingDeferral(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -377,6 +383,7 @@ class SuspendingEventArgs(ComPtr):
 class SuspendingEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{509c429c-78e2-4883-abc8-8960dcde1b5c}')
+    @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.ApplicationModel.ISuspendingEventArgs) -> Void: ...
 class SuspendingOperation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
