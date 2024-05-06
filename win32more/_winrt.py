@@ -3,6 +3,7 @@ from __future__ import annotations
 import asyncio
 import inspect
 import sys
+import types
 import uuid
 from ctypes import (
     POINTER,
@@ -211,49 +212,68 @@ class WinRT_String(HSTRING):
 
 
 class WinrtMethod:
-    def __init__(self, cls, prototype, factory):
+    def __init__(self, vtbl_index, prototype):
+        self._vtbl_index = vtbl_index
+        self._prototype = prototype
+        self._generic_delegate = {}
+
+    def __get__(self, instance, owner=None):
+        if instance is None:
+            return self
+        return types.MethodType(self.__call__, instance)
+
+    def __call__(self, this, *args, **kwargs):
+        cls = getattr(this, "__orig_class__", this.__class__)
+        generic_args = get_args(cls)
+        if generic_args not in self._generic_delegate:
+            self._generic_delegate[generic_args] = WinrtMethodCaller(self._vtbl_index, self._prototype, cls)
+        return self._generic_delegate[generic_args](this, *args, **kwargs)
+
+
+class WinrtMethodCaller:
+    def __init__(self, vtbl_index, prototype, cls):
         hints = generic_get_type_hints(prototype, cls)
         restype = hints.pop("return")
 
-        types = [HRESULT]
+        argtypes = []
         params = []
         for name, type_ in hints.items():
             if is_passarray_class(type_):
-                types.append(UInt32)
+                argtypes.append(UInt32)
                 params.append((1, f"{name}_length"))
-                types.append(POINTER(get_args(type_)[0]))
+                argtypes.append(POINTER(get_args(type_)[0]))
                 params.append((1, name))
             elif is_fillarray_class(type_):
-                types.append(UInt32)
+                argtypes.append(UInt32)
                 params.append((1, f"{name}_length"))
-                types.append(POINTER(get_args(type_)[0]))
+                argtypes.append(POINTER(get_args(type_)[0]))
                 params.append((1, name))
             elif is_receivearray_class(type_):
-                types.append(POINTER(UInt32))
+                argtypes.append(POINTER(UInt32))
                 params.append((1, f"{name}_length"))
-                types.append(POINTER(POINTER(get_args(type_)[0])))
+                argtypes.append(POINTER(POINTER(get_args(type_)[0])))
                 params.append((1, name))
             elif is_generic_alias(type_):
-                types.append(get_origin(type_))
+                argtypes.append(get_origin(type_))
                 params.append((1, name))
             else:
-                types.append(type_)
+                argtypes.append(type_)
                 params.append((1, name))
 
         if restype is not Void:
             if is_receivearray_class(restype):
-                types.append(POINTER(UInt32))
+                argtypes.append(POINTER(UInt32))
                 params.append((1, "return_length"))
-                types.append(POINTER(POINTER(get_args(restype)[0])))
+                argtypes.append(POINTER(POINTER(get_args(restype)[0])))
                 params.append((1, "return"))
             elif is_generic_alias(restype):
-                types.append(POINTER(get_origin(restype)))
+                argtypes.append(POINTER(get_origin(restype)))
                 params.append((1, "return"))
             else:
-                types.append(POINTER(restype))
+                argtypes.append(POINTER(restype))
                 params.append((1, "return"))
 
-        self.delegate = factory(prototype.__name__, types, tuple(params))
+        self.delegate = WINFUNCTYPE(HRESULT, *argtypes)(vtbl_index, prototype.__name__, tuple(params))
         self.restype = restype
         self.hints = hints
         self.hints.update({i: v for i, v in enumerate(hints.values())})
@@ -304,7 +324,7 @@ class WinrtMethod:
                     cargs.append(pointer(szarray.ptr))
                     calllater.append(szarray.later)
                 elif callable(v) and is_delegate_class(self.hints[k]):
-                    cargs.append(self.hints[k](own=True).CreateInstance(v))
+                    cargs.append(self.hints[k].CreateInstance(self.hints[k], v))
                 elif is_com_instance(v) and is_com_class(self.hints[k]):
                     cargs.append(v.as_(self.hints[k]))
                 else:
@@ -329,7 +349,7 @@ class WinrtMethod:
                     ckwargs[k] = pointer(szarray.ptr)
                     calllater.append(szarray.later)
                 elif callable(v) and is_delegate_class(self.hints[k]):
-                    ckwargs[k] = self.hints[k](own=True).CreateInstance(v)
+                    ckwargs[k] = self.hints[k].CreateInstance(self.hints[k], v)
                 elif is_com_instance(v) and is_com_class(self.hints[k]):
                     ckwargs[k] = v.as_(self.hints[k])
                 else:
@@ -352,26 +372,8 @@ class WinrtMethod:
 
 
 def winrt_commethod(vtbl_index):
-    def factory(name, types, params):
-        return WINFUNCTYPE(*types)(vtbl_index, name, params)
-
     def decorator(prototype):
-        delegate_generic = {}
-
-        def wrapper(self, *args, **kwargs):
-            if is_generic_instance(self):
-                generic_args = get_args(self.__orig_class__)
-                cls = self.__orig_class__
-            else:
-                generic_args = None
-                cls = self.__class__
-            if generic_args not in delegate_generic:
-                delegate_generic[generic_args] = WinrtMethod(cls, prototype, factory)
-            return delegate_generic[generic_args](self, *args, **kwargs)
-
-        wrapper.prototype = prototype
-
-        return wrapper
+        return WinrtMethod(vtbl_index, prototype)
 
     return decorator
 
@@ -670,13 +672,11 @@ class MulticastDelegate(ComPtr):
     _keep_reference_in_python_world_ = {}
 
     # FIXME: How to get GenericClass[T].__args__ in class method?
-    # @classmethod
-    def CreateInstance(self, callback):
-        if is_generic_instance(self):
-            cls = self.__orig_class__
+    @staticmethod
+    def CreateInstance(cls, callback):
+        self = cls(own=True)
+        if is_generic_alias(cls):
             self._iid_ = _ro_get_parameterized_type_instance_iid(cls)
-        else:
-            cls = self.__class__
         if inspect.iscoroutinefunction(callback):
             self._callback = async_callback(callback)
         else:

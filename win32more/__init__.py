@@ -1,5 +1,6 @@
 import re
 import sys
+import types
 import uuid
 from ctypes import (
     CFUNCTYPE,
@@ -365,25 +366,41 @@ class ForeignFunction:
 
 
 class ComMethod:
-    def __init__(self, prototype, factory):
+    def __init__(self, vtbl_index, prototype):
+        self._vtbl_index = vtbl_index
+        self._prototype = prototype
+        self._delegate = None
+
+    def __get__(self, instance, owner=None):
+        if instance is None:
+            return self
+        return types.MethodType(self.__call__, instance)
+
+    def __call__(self, this, *args, **kwargs):
+        if self._delegate is None:
+            self._delegate = ComMethodCaller(self._vtbl_index, self._prototype)
+        return self._delegate(this, *args, **kwargs)
+
+
+class ComMethodCaller:
+    def __init__(self, vtbl_index, prototype):
         hints = get_type_hints_with_patch_return_only(prototype)
         restype = hints.pop("return")
         argtypes = list(hints.values())
-        types = [restype] + argtypes
         params = tuple((1, name) for name in hints.keys())
-        self.hints = hints
-        self.hints.update({i: v for i, v in enumerate(argtypes)})
-        self.delegate = factory(prototype.__name__, types, params)
+        hints.update({i: v for i, v in enumerate(argtypes)})
+        self._hints = hints
+        self._delegate = WINFUNCTYPE(restype, *argtypes)(vtbl_index, prototype.__name__, params)
 
     def __call__(self, this, *args, **kwargs):
         _as_intptr = kwargs.pop("_as_intptr", False)
         cargs, ckwargs = self.make_args(args, kwargs)
-        result = self.delegate(this, *cargs, **ckwargs)
+        result = self._delegate(this, *cargs, **ckwargs)
         return self.make_result(result, _as_intptr)
 
     def make_args(self, args, kwargs):
-        cargs = [easycast(v, self.hints[i]) if i in self.hints else v for i, v in enumerate(args)]
-        ckwargs = {k: easycast(v, self.hints[k]) if k in self.hints else v for k, v in kwargs.items()}
+        cargs = [easycast(v, self._hints[i]) if i in self._hints else v for i, v in enumerate(args)]
+        ckwargs = {k: easycast(v, self._hints[k]) if k in self._hints else v for k, v in kwargs.items()}
         return cargs, ckwargs
 
     def make_result(self, result, _as_intptr):
@@ -438,19 +455,8 @@ def winfunctype(library, entry_point=None):
 
 
 def commethod(vtbl_index):
-    def factory(name, types, params):
-        return WINFUNCTYPE(*types)(vtbl_index, name, params)
-
     def decorator(prototype):
-        delegate = None
-
-        def wrapper(*args, **kwargs):
-            nonlocal delegate
-            if delegate is None:
-                delegate = ComMethod(prototype, factory)
-            return delegate(*args, **kwargs)
-
-        return wrapper
+        return ComMethod(vtbl_index, prototype)
 
     return decorator
 
