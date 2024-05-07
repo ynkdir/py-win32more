@@ -14,6 +14,7 @@ from ctypes import (
     c_void_p,
     cast,
     pointer,
+    sizeof,
     wstring_at,
 )
 from functools import partial
@@ -644,11 +645,15 @@ class Vtbl(Structure):
         restype = hints.pop("return")
         argtypes = [self._make_allocator(t) for t in hints.values()]
         if isinstance(method, WinrtMethod):
-            if restype is not Void:
-                if is_generic_alias(restype):
-                    argtypes.append(POINTER(get_origin(restype)))
-                else:
-                    argtypes.append(POINTER(restype))
+            if restype is Void:
+                pass
+            elif is_receivearray_class(restype):
+                argtypes.append(POINTER(UInt32))
+                argtypes.append(POINTER(POINTER(get_args(restype)[0])))
+            elif is_generic_alias(restype):
+                argtypes.append(POINTER(get_origin(restype)))
+            else:
+                argtypes.append(POINTER(restype))
             closure = partial(self._winrt_callback, getattr(self._owner, method._prototype.__name__), restype)
             thunk = WINFUNCTYPE(HRESULT, c_void_p, *argtypes)(closure)
         else:
@@ -667,14 +672,24 @@ class Vtbl(Structure):
         return callback(*args)
 
     def _winrt_callback(self, callback, restype, this, *args):
-        if restype is not Void:
+        if restype is Void:
+            pass
+        elif is_receivearray_class(restype):
+            *args, return_length, return_pointer = args
+        else:
             *args, return_pointer = args
         r = callback(*args)
-        if restype is not Void:
-            return_pointer.contents = r
-        else:
+        if restype is Void:
             if r is not None:
                 raise ValueError(f"{r} cannot be treated as Void")
+        elif is_receivearray_class(restype):
+            if not isinstance(r, list):
+                raise ValueError(f"list is expected: {r}")
+            return_length[0] = len(r)
+            return_pointer[0] = win32more.Windows.Win32.System.Com.CoTaskMemAlloc(sizeof(c_void_p) * len(r))
+            return_pointer[0][: len(r)] = r
+        else:
+            return_pointer[0] = r
         return 0
 
 
@@ -703,12 +718,12 @@ class MulticastDelegateImpl(ComPtr):
         self.AddRef()
 
     def QueryInterface(self, riid, ppvObject):
-        if riid.contents == win32more.Windows.Win32.System.Com.IUnknown._iid_:
-            ppvObject.contents.value = addressof(self._vtbl)
+        if riid[0] == win32more.Windows.Win32.System.Com.IUnknown._iid_:
+            ppvObject[0] = addressof(self._vtbl)
             self.AddRef()
             return S_OK
-        elif riid.contents == self._iid_:
-            ppvObject.contents.value = addressof(self._vtbl)
+        elif riid[0] == self._iid_:
+            ppvObject[0] = addressof(self._vtbl)
             self.AddRef()
             return S_OK
         else:
