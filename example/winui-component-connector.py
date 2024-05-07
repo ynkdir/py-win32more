@@ -39,11 +39,11 @@ class MainWindow(Window):
 
     def QueryInterface(self, riid, ppvObject):
         if riid[0] == IUnknown._iid_:
-            ppvObject[0] = self.value
+            ppvObject[0] = addressof(self._component_connector_vtbl)
             self.AddRef()
             return S_OK
         elif riid[0] == IInspectable._iid_:
-            ppvObject[0] = self.value
+            ppvObject[0] = addressof(self._component_connector_vtbl)
             self.AddRef()
             return S_OK
         elif riid[0] == IComponentConnector._iid_:
@@ -65,6 +65,15 @@ class MainWindow(Window):
             self._inner.Release()
             del self._keep_reference_in_python_world_[id(self)]
         return self._refcount
+
+    def GetIids(self, iidCount, iids):
+        return self._inner.GetIids(iidCount, iids)
+
+    def GetRuntimeClassName(self, className):
+        return self._inner.GetRuntimeClassName(className)
+
+    def GetTrustLevel(self, trustLevel):
+        return self._inner.GetTrustLevel(trustLevel)
 
     def Connect(self, connectionId, target):
         if connectionId == 1:

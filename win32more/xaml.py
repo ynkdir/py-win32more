@@ -21,10 +21,11 @@ from win32more.Windows.Win32.System.WinRT import IInspectable
 from win32more.Windows.Win32.UI.HiDpi import DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2, SetProcessDpiAwarenessContext
 
 
-class XamlApplication(IApplicationOverrides):
+class XamlApplication(Application):
     _keep_reference_in_python_world_ = {}
 
-    def __init__(self):
+    def __new__(cls):
+        self = super().__new__(cls, own=True)
         self._OnLaunched_wrapped = self.OnLaunched
         self.OnLaunched = self._OnLaunched_wrapper
         self._application_overrides_vtbl = Vtbl(self, IApplicationOverrides)
@@ -35,6 +36,7 @@ class XamlApplication(IApplicationOverrides):
         self._provider = XamlControlsXamlMetaDataProvider()
         self._inner_interface = IInspectable()
         Application.CreateInstance(self, self._inner_interface)
+        return self
 
     def QueryInterface(self, riid, ppvObject):
         if riid[0] == IUnknown._iid_:
@@ -79,7 +81,7 @@ class XamlApplication(IApplicationOverrides):
         return self._inner_interface.GetTrustLevel(trustLevel)
 
     def _OnLaunched_wrapper(self, args):
-        Application.Current.Resources.MergedDictionaries.Append(XamlControlsResources())
+        self.Resources.MergedDictionaries.Append(XamlControlsResources())
         self._OnLaunched_wrapped(args)
 
     def OnLaunched(self, args):
