@@ -685,13 +685,21 @@ class Vtbl(Structure):
         elif is_receivearray_class(restype):
             if not isinstance(r, list):
                 raise ValueError(f"list is expected: {r}")
+            # FIXME: if len(r) == 0: p = 0 ?
+            p = win32more.Windows.Win32.System.Com.CoTaskMemAlloc(sizeof(c_void_p) * len(r))
+            if p == 0:
+                raise WinError()
             return_length[0] = len(r)
-            return_pointer[0] = win32more.Windows.Win32.System.Com.CoTaskMemAlloc(sizeof(c_void_p) * len(r))
-            return_pointer[0][: len(r)] = r
+            return_pointer[0] = cast(p, POINTER(get_args(restype)[0]))
+            # TODO: str
             if is_com_class(get_args(restype)[0]):
-                for o in r:
+                for i, o in enumerate(r):
+                    return_pointer[0][i] = o
                     if o:
                         o.AddRef()
+            else:
+                for i, o in enumerate(r):
+                    return_pointer[0][i] = o
         elif is_com_class(restype):
             if r:
                 r.AddRef()
