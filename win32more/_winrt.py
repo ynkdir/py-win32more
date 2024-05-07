@@ -392,7 +392,7 @@ def winrt_mixinmethod(prototype):
             iid = _ro_get_parameterized_type_instance_iid(interface_class)
         else:
             iid = interface_class._iid_
-        hr = self.QueryInterface(iid, interface)
+        hr = self.QueryInterface(pointer(iid), pointer(interface))
         if FAILED(hr):
             raise WinError(hr)
         return getattr(interface, prototype.__name__)(*args, **kwargs)
