@@ -688,6 +688,14 @@ class Vtbl(Structure):
             return_length[0] = len(r)
             return_pointer[0] = win32more.Windows.Win32.System.Com.CoTaskMemAlloc(sizeof(c_void_p) * len(r))
             return_pointer[0][: len(r)] = r
+            if is_com_class(get_args(restype)[0]):
+                for o in r:
+                    if o:
+                        o.AddRef()
+        elif is_com_class(restype):
+            if r:
+                r.AddRef()
+            return_pointer[0] = r
         else:
             return_pointer[0] = r
         return 0
