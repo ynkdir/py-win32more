@@ -14,9 +14,9 @@ from ctypes import (
     c_void_p,
     cast,
     pointer,
-    py_object,
     wstring_at,
 )
+from functools import partial
 from typing import Generic, TypeVar, _GenericAlias
 
 if sys.version_info < (3, 9):
@@ -35,6 +35,7 @@ from win32more import (
     Boolean,
     Byte,
     Char,
+    ComMethod,
     ComPtr,
     Double,
     Guid,
@@ -253,6 +254,9 @@ class WinrtMethodCaller:
                 params.append((1, f"{name}_length"))
                 argtypes.append(POINTER(POINTER(get_args(type_)[0])))
                 params.append((1, name))
+            elif is_delegate_class(type_):
+                argtypes.append(MulticastDelegateImpl)
+                params.append((1, name))
             elif is_generic_alias(type_):
                 argtypes.append(get_origin(type_))
                 params.append((1, name))
@@ -324,7 +328,7 @@ class WinrtMethodCaller:
                     cargs.append(pointer(szarray.ptr))
                     calllater.append(szarray.later)
                 elif callable(v) and is_delegate_class(self.hints[k]):
-                    cargs.append(self.hints[k].CreateInstance(self.hints[k], v))
+                    cargs.append(MulticastDelegateImpl(self.hints[k], v))
                 elif is_com_instance(v) and is_com_class(self.hints[k]):
                     cargs.append(v.as_(self.hints[k]))
                 else:
@@ -349,7 +353,7 @@ class WinrtMethodCaller:
                     ckwargs[k] = pointer(szarray.ptr)
                     calllater.append(szarray.later)
                 elif callable(v) and is_delegate_class(self.hints[k]):
-                    ckwargs[k] = self.hints[k].CreateInstance(self.hints[k], v)
+                    ckwargs[k] = MulticastDelegateImpl(self.hints[k], v)
                 elif is_com_instance(v) and is_com_class(self.hints[k]):
                     ckwargs[k] = v.as_(self.hints[k])
                 else:
@@ -607,28 +611,51 @@ def _get_type_signature(cls) -> str:
         raise NotImplementedError()
 
 
-class MulticastDelegateImpl(Structure):
-    _fields_ = [("lpvtbl", POINTER(c_void_p)), ("comptr", py_object), ("restype", py_object)]
+class Vtbl(Structure):
+    _fields_ = [("lpvtbl", POINTER(c_void_p))]
 
-    def __init__(self, comptr, cls, invoke_prototype):
-        self.lpvtbl = (c_void_p * 4)()
-        self.lpvtbl[0] = cast(self.QueryInterface, c_void_p)
-        self.lpvtbl[1] = cast(self.AddRef, c_void_p)
-        self.lpvtbl[2] = cast(self.Release, c_void_p)
-        self.lpvtbl[3] = cast(self._make_trampoline(cls, invoke_prototype), c_void_p)
-        self.comptr = py_object(comptr)
+    def __init__(self, owner, interface):
+        self._owner = owner
+        self._interface = interface
+        self._keep_reference_in_python_world_ = []
+        self.lpvtbl = self._make_lpvtbl()
 
-    def _make_trampoline(self, cls, invoke_prototype):
-        hints = generic_get_type_hints(invoke_prototype, cls)
-        self.restype = hints.pop("return")
+    def _make_lpvtbl(self):
+        methods = self._interface_methods()
+        vtbl_size = max(method._vtbl_index for method in methods) + 1
+        lpvtbl = (c_void_p * vtbl_size)()
+        for method in methods:
+            lpvtbl[method._vtbl_index] = self._make_thunk(method)
+        return lpvtbl
+
+    def _interface_methods(self):
+        if sys.version_info < (3, 10) and is_generic_alias(self._interface):
+            interface = get_origin(self._interface)
+        else:
+            interface = self._interface
+        methods = []
+        for name in dir(interface):
+            if isinstance(getattr(interface, name), (ComMethod, WinrtMethod)):
+                methods.append(getattr(interface, name))
+        return methods
+
+    def _make_thunk(self, method):
+        hints = generic_get_type_hints(method._prototype, self._interface)
+        restype = hints.pop("return")
         argtypes = [self._make_allocator(t) for t in hints.values()]
-        if self.restype is not Void:
-            restype = self.restype
-            if is_generic_alias(restype):
-                restype = get_origin(restype)
-            argtypes.append(POINTER(restype))
-        factory = WINFUNCTYPE(HRESULT, c_void_p, *argtypes)
-        return factory(self.Invoke)
+        if isinstance(method, WinrtMethod):
+            if restype is not Void:
+                if is_generic_alias(restype):
+                    argtypes.append(POINTER(get_origin(restype)))
+                else:
+                    argtypes.append(POINTER(restype))
+            closure = partial(self._winrt_callback, getattr(self._owner, method._prototype.__name__), restype)
+            thunk = WINFUNCTYPE(HRESULT, c_void_p, *argtypes)(closure)
+        else:
+            closure = partial(self._com_callback, getattr(self._owner, method._prototype.__name__))
+            thunk = WINFUNCTYPE(restype, c_void_p, *argtypes)(closure)
+        self._keep_reference_in_python_world_.append(thunk)
+        return cast(thunk, c_void_p)
 
     # allocate winrt runtime class without constructor.
     def _make_allocator(self, t):
@@ -636,29 +663,14 @@ class MulticastDelegateImpl(Structure):
             return type(c_void_p)("Allocator", (c_void_p,), {"__new__": lambda _: t(own=False)})
         return t
 
-    @WINFUNCTYPE(HRESULT, c_void_p, POINTER(Guid), POINTER(c_void_p))
-    def QueryInterface(this, riid, ppvObject):
-        self = cast(this, POINTER(MulticastDelegateImpl)).contents
-        return self.comptr.QueryInterface(riid, ppvObject)
+    def _com_callback(self, callback, this, *args):
+        return callback(*args)
 
-    @WINFUNCTYPE(UInt32, c_void_p)
-    def AddRef(this):
-        self = cast(this, POINTER(MulticastDelegateImpl)).contents
-        return self.comptr.AddRef()
-
-    @WINFUNCTYPE(UInt32, c_void_p)
-    def Release(this):
-        self = cast(this, POINTER(MulticastDelegateImpl)).contents
-        return self.comptr.Release()
-
-    # @WINFUNCTYPE(...)
-    @staticmethod
-    def Invoke(this, *args):
-        self = cast(this, POINTER(MulticastDelegateImpl)).contents
-        if self.restype is not Void:
+    def _winrt_callback(self, callback, restype, this, *args):
+        if restype is not Void:
             *args, return_pointer = args
-        r = self.comptr._Invoke(*args)
-        if self.restype is not Void:
+        r = callback(*args)
+        if restype is not Void:
             return_pointer.contents = r
         else:
             if r is not None:
@@ -666,34 +678,37 @@ class MulticastDelegateImpl(Structure):
         return 0
 
 
-class MulticastDelegate(ComPtr):
-    extends: win32more.Windows.Win32.System.Com.IUnknown
+class MulticastDelegate(win32more.Windows.Win32.System.Com.IUnknown):
+    pass
 
+
+class MulticastDelegateImpl(ComPtr):
     _keep_reference_in_python_world_ = {}
 
-    # FIXME: How to get GenericClass[T].__args__ in class method?
-    @staticmethod
-    def CreateInstance(cls, callback):
-        self = cls(own=True)
-        if is_generic_alias(cls):
-            self._iid_ = _ro_get_parameterized_type_instance_iid(cls)
+    def __new__(cls, interface, callback):
+        return super().__new__(cls, own=True)
+
+    def __init__(self, interface, callback):
+        if is_generic_alias(interface):
+            self._iid_ = _ro_get_parameterized_type_instance_iid(interface)
+        else:
+            self._iid_ = interface._iid_
         if inspect.iscoroutinefunction(callback):
             self._callback = async_callback(callback)
         else:
             self._callback = callback
-        self._comobj = MulticastDelegateImpl(self, cls, cls.Invoke._prototype)
-        self.value = addressof(self._comobj)
+        self._vtbl = Vtbl(self, interface)
+        self.value = addressof(self._vtbl)
         self._refcount = 0
         self.AddRef()
-        return self
 
     def QueryInterface(self, riid, ppvObject):
-        if str(riid.contents) == str(self._iid_):
-            ppvObject.contents.value = self.value
+        if riid.contents == win32more.Windows.Win32.System.Com.IUnknown._iid_:
+            ppvObject.contents.value = addressof(self._vtbl)
             self.AddRef()
             return S_OK
-        elif str(riid.contents) == "{00000000-0000-0000-c000-000000000046}":  # IUnknown
-            ppvObject.contents.value = self.value
+        elif riid.contents == self._iid_:
+            ppvObject.contents.value = addressof(self._vtbl)
             self.AddRef()
             return S_OK
         else:
@@ -712,7 +727,7 @@ class MulticastDelegate(ComPtr):
             del self._keep_reference_in_python_world_[id(self)]
         return self._refcount
 
-    def _Invoke(self, *args):
+    def Invoke(self, *args):
         return self._callback(*args)
 
 
