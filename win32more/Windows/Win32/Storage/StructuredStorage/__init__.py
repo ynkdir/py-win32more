@@ -3,8 +3,6 @@ from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoad
 import win32more.Windows.Win32.Storage.StructuredStorage
 JET_API_PTR = UIntPtr
 JET_HANDLE = UIntPtr
-JET_INSTANCE = UIntPtr
-JET_SESID = UIntPtr
 JET_TABLEID = UIntPtr
 
 

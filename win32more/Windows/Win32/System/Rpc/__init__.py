@@ -2438,6 +2438,19 @@ class RPC_STATS_VECTOR(EasyCastStructure):
     Stats: UInt32 * 1
 RPC_STATUS = Int32
 RPC_S_OK: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 0
+RPC_S_ACCESS_DENIED: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 5
+RPC_S_INVALID_ARG: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 87
+RPC_S_OUT_OF_MEMORY: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 14
+RPC_S_OUT_OF_THREADS: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 164
+RPC_S_INVALID_LEVEL: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 87
+RPC_S_BUFFER_TOO_SMALL: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 122
+RPC_S_INVALID_SECURITY_DESC: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1338
+RPC_S_SERVER_OUT_OF_MEMORY: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1130
+RPC_S_ASYNC_CALL_PENDING: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 997
+RPC_S_UNKNOWN_PRINCIPAL: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1332
+RPC_S_TIMEOUT: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1460
+RPC_S_RUNTIME_UNINITIALIZED: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1
+RPC_S_NOT_ENOUGH_QUOTA: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1816
 RPC_S_INVALID_STRING_BINDING: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1700
 RPC_S_WRONG_KIND_OF_BINDING: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1701
 RPC_S_INVALID_BINDING: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1702

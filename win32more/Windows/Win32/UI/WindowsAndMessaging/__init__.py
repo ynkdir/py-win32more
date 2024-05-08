@@ -170,7 +170,6 @@ RT_VXD: win32more.Windows.Win32.Foundation.PWSTR = 20
 RT_ANICURSOR: win32more.Windows.Win32.Foundation.PWSTR = 21
 RT_ANIICON: win32more.Windows.Win32.Foundation.PWSTR = 22
 RT_HTML: win32more.Windows.Win32.Foundation.PWSTR = 23
-RT_MANIFEST: UInt32 = 24
 CREATEPROCESS_MANIFEST_RESOURCE_ID: UInt32 = 1
 ISOLATIONAWARE_MANIFEST_RESOURCE_ID: UInt32 = 2
 ISOLATIONAWARE_NOSTATICIMPORT_MANIFEST_RESOURCE_ID: UInt32 = 3
@@ -1427,6 +1426,8 @@ CW_USEDEFAULT: Int32 = -2147483648
 LBS_STANDARD: Int32 = 10485763
 WINSTA_ALL_ACCESS: Int32 = 895
 WVR_REDRAW: UInt32 = 768
+RT_MANIFEST: win32more.Windows.Win32.Foundation.PWSTR = 24
+IDC_STATIC: Int32 = -1
 @winfunctype('USER32.dll')
 def LoadStringA(hInstance: win32more.Windows.Win32.Foundation.HINSTANCE, uID: UInt32, lpBuffer: win32more.Windows.Win32.Foundation.PSTR, cchBufferMax: Int32) -> Int32: ...
 @winfunctype('USER32.dll')
@@ -2300,7 +2301,7 @@ class CREATESTRUCTA(EasyCastStructure):
     style: Int32
     lpszName: win32more.Windows.Win32.Foundation.PSTR
     lpszClass: win32more.Windows.Win32.Foundation.PSTR
-    dwExStyle: UInt32
+    dwExStyle: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_EX_STYLE
 class CREATESTRUCTW(EasyCastStructure):
     lpCreateParams: VoidPtr
     hInstance: win32more.Windows.Win32.Foundation.HINSTANCE
@@ -2313,7 +2314,7 @@ class CREATESTRUCTW(EasyCastStructure):
     style: Int32
     lpszName: win32more.Windows.Win32.Foundation.PWSTR
     lpszClass: win32more.Windows.Win32.Foundation.PWSTR
-    dwExStyle: UInt32
+    dwExStyle: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_EX_STYLE
 class CURSORINFO(EasyCastStructure):
     cbSize: UInt32
     flags: win32more.Windows.Win32.UI.WindowsAndMessaging.CURSORINFO_FLAGS

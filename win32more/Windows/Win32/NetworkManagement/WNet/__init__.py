@@ -69,16 +69,6 @@ RESOURCEDISPLAYTYPE_SHAREADMIN: UInt32 = 8
 RESOURCEDISPLAYTYPE_DIRECTORY: UInt32 = 9
 RESOURCEDISPLAYTYPE_NDSCONTAINER: UInt32 = 11
 NETPROPERTY_PERSISTENT: UInt32 = 1
-CONNECT_NEED_DRIVE: UInt32 = 32
-CONNECT_REFCOUNT: UInt32 = 64
-CONNECT_LOCALDRIVE: UInt32 = 256
-CONNECT_CURRENT_MEDIA: UInt32 = 512
-CONNECT_RESERVED: UInt32 = 4278190080
-CONNECT_CRED_RESET: UInt32 = 8192
-CONNECT_REQUIRE_INTEGRITY: UInt32 = 16384
-CONNECT_REQUIRE_PRIVACY: UInt32 = 32768
-CONNECT_WRITE_THROUGH_SEMANTICS: UInt32 = 65536
-CONNECT_GLOBAL_MAPPING: UInt32 = 262144
 WNFMT_INENUM: UInt32 = 16
 WNFMT_CONNECTION: UInt32 = 32
 WNCON_FORNETCARD: UInt32 = 1
@@ -90,33 +80,33 @@ def WNetAddConnectionA(lpRemoteName: win32more.Windows.Win32.Foundation.PSTR, lp
 @winfunctype('MPR.dll')
 def WNetAddConnectionW(lpRemoteName: win32more.Windows.Win32.Foundation.PWSTR, lpPassword: win32more.Windows.Win32.Foundation.PWSTR, lpLocalName: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('MPR.dll')
-def WNetAddConnection2A(lpNetResource: POINTER(win32more.Windows.Win32.NetworkManagement.WNet.NETRESOURCEA), lpPassword: win32more.Windows.Win32.Foundation.PSTR, lpUserName: win32more.Windows.Win32.Foundation.PSTR, dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
+def WNetAddConnection2A(lpNetResource: POINTER(win32more.Windows.Win32.NetworkManagement.WNet.NETRESOURCEA), lpPassword: win32more.Windows.Win32.Foundation.PSTR, lpUserName: win32more.Windows.Win32.Foundation.PSTR, dwFlags: win32more.Windows.Win32.NetworkManagement.WNet.NET_CONNECT_FLAGS) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('MPR.dll')
-def WNetAddConnection2W(lpNetResource: POINTER(win32more.Windows.Win32.NetworkManagement.WNet.NETRESOURCEW), lpPassword: win32more.Windows.Win32.Foundation.PWSTR, lpUserName: win32more.Windows.Win32.Foundation.PWSTR, dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
+def WNetAddConnection2W(lpNetResource: POINTER(win32more.Windows.Win32.NetworkManagement.WNet.NETRESOURCEW), lpPassword: win32more.Windows.Win32.Foundation.PWSTR, lpUserName: win32more.Windows.Win32.Foundation.PWSTR, dwFlags: win32more.Windows.Win32.NetworkManagement.WNet.NET_CONNECT_FLAGS) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('MPR.dll')
-def WNetAddConnection3A(hwndOwner: win32more.Windows.Win32.Foundation.HWND, lpNetResource: POINTER(win32more.Windows.Win32.NetworkManagement.WNet.NETRESOURCEA), lpPassword: win32more.Windows.Win32.Foundation.PSTR, lpUserName: win32more.Windows.Win32.Foundation.PSTR, dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
+def WNetAddConnection3A(hwndOwner: win32more.Windows.Win32.Foundation.HWND, lpNetResource: POINTER(win32more.Windows.Win32.NetworkManagement.WNet.NETRESOURCEA), lpPassword: win32more.Windows.Win32.Foundation.PSTR, lpUserName: win32more.Windows.Win32.Foundation.PSTR, dwFlags: win32more.Windows.Win32.NetworkManagement.WNet.NET_CONNECT_FLAGS) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('MPR.dll')
-def WNetAddConnection3W(hwndOwner: win32more.Windows.Win32.Foundation.HWND, lpNetResource: POINTER(win32more.Windows.Win32.NetworkManagement.WNet.NETRESOURCEW), lpPassword: win32more.Windows.Win32.Foundation.PWSTR, lpUserName: win32more.Windows.Win32.Foundation.PWSTR, dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
+def WNetAddConnection3W(hwndOwner: win32more.Windows.Win32.Foundation.HWND, lpNetResource: POINTER(win32more.Windows.Win32.NetworkManagement.WNet.NETRESOURCEW), lpPassword: win32more.Windows.Win32.Foundation.PWSTR, lpUserName: win32more.Windows.Win32.Foundation.PWSTR, dwFlags: win32more.Windows.Win32.NetworkManagement.WNet.NET_CONNECT_FLAGS) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('MPR.dll')
-def WNetAddConnection4A(hwndOwner: win32more.Windows.Win32.Foundation.HWND, lpNetResource: POINTER(win32more.Windows.Win32.NetworkManagement.WNet.NETRESOURCEA), pAuthBuffer: VoidPtr, cbAuthBuffer: UInt32, dwFlags: UInt32, lpUseOptions: POINTER(Byte), cbUseOptions: UInt32) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
+def WNetAddConnection4A(hwndOwner: win32more.Windows.Win32.Foundation.HWND, lpNetResource: POINTER(win32more.Windows.Win32.NetworkManagement.WNet.NETRESOURCEA), pAuthBuffer: VoidPtr, cbAuthBuffer: UInt32, dwFlags: win32more.Windows.Win32.NetworkManagement.WNet.NET_CONNECT_FLAGS, lpUseOptions: POINTER(Byte), cbUseOptions: UInt32) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('MPR.dll')
-def WNetAddConnection4W(hwndOwner: win32more.Windows.Win32.Foundation.HWND, lpNetResource: POINTER(win32more.Windows.Win32.NetworkManagement.WNet.NETRESOURCEW), pAuthBuffer: VoidPtr, cbAuthBuffer: UInt32, dwFlags: UInt32, lpUseOptions: POINTER(Byte), cbUseOptions: UInt32) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
+def WNetAddConnection4W(hwndOwner: win32more.Windows.Win32.Foundation.HWND, lpNetResource: POINTER(win32more.Windows.Win32.NetworkManagement.WNet.NETRESOURCEW), pAuthBuffer: VoidPtr, cbAuthBuffer: UInt32, dwFlags: win32more.Windows.Win32.NetworkManagement.WNet.NET_CONNECT_FLAGS, lpUseOptions: POINTER(Byte), cbUseOptions: UInt32) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('MPR.dll')
 def WNetCancelConnectionA(lpName: win32more.Windows.Win32.Foundation.PSTR, fForce: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('MPR.dll')
 def WNetCancelConnectionW(lpName: win32more.Windows.Win32.Foundation.PWSTR, fForce: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('MPR.dll')
-def WNetCancelConnection2A(lpName: win32more.Windows.Win32.Foundation.PSTR, dwFlags: UInt32, fForce: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
+def WNetCancelConnection2A(lpName: win32more.Windows.Win32.Foundation.PSTR, dwFlags: win32more.Windows.Win32.NetworkManagement.WNet.NET_CONNECT_FLAGS, fForce: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('MPR.dll')
-def WNetCancelConnection2W(lpName: win32more.Windows.Win32.Foundation.PWSTR, dwFlags: UInt32, fForce: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
+def WNetCancelConnection2W(lpName: win32more.Windows.Win32.Foundation.PWSTR, dwFlags: win32more.Windows.Win32.NetworkManagement.WNet.NET_CONNECT_FLAGS, fForce: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('MPR.dll')
 def WNetGetConnectionA(lpLocalName: win32more.Windows.Win32.Foundation.PSTR, lpRemoteName: win32more.Windows.Win32.Foundation.PSTR, lpnLength: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('MPR.dll')
 def WNetGetConnectionW(lpLocalName: win32more.Windows.Win32.Foundation.PWSTR, lpRemoteName: win32more.Windows.Win32.Foundation.PWSTR, lpnLength: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('MPR.dll')
-def WNetUseConnectionA(hwndOwner: win32more.Windows.Win32.Foundation.HWND, lpNetResource: POINTER(win32more.Windows.Win32.NetworkManagement.WNet.NETRESOURCEA), lpPassword: win32more.Windows.Win32.Foundation.PSTR, lpUserId: win32more.Windows.Win32.Foundation.PSTR, dwFlags: win32more.Windows.Win32.NetworkManagement.WNet.NET_USE_CONNECT_FLAGS, lpAccessName: win32more.Windows.Win32.Foundation.PSTR, lpBufferSize: POINTER(UInt32), lpResult: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
+def WNetUseConnectionA(hwndOwner: win32more.Windows.Win32.Foundation.HWND, lpNetResource: POINTER(win32more.Windows.Win32.NetworkManagement.WNet.NETRESOURCEA), lpPassword: win32more.Windows.Win32.Foundation.PSTR, lpUserId: win32more.Windows.Win32.Foundation.PSTR, dwFlags: win32more.Windows.Win32.NetworkManagement.WNet.NET_CONNECT_FLAGS, lpAccessName: win32more.Windows.Win32.Foundation.PSTR, lpBufferSize: POINTER(UInt32), lpResult: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('MPR.dll')
-def WNetUseConnectionW(hwndOwner: win32more.Windows.Win32.Foundation.HWND, lpNetResource: POINTER(win32more.Windows.Win32.NetworkManagement.WNet.NETRESOURCEW), lpPassword: win32more.Windows.Win32.Foundation.PWSTR, lpUserId: win32more.Windows.Win32.Foundation.PWSTR, dwFlags: win32more.Windows.Win32.NetworkManagement.WNet.NET_USE_CONNECT_FLAGS, lpAccessName: win32more.Windows.Win32.Foundation.PWSTR, lpBufferSize: POINTER(UInt32), lpResult: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
+def WNetUseConnectionW(hwndOwner: win32more.Windows.Win32.Foundation.HWND, lpNetResource: POINTER(win32more.Windows.Win32.NetworkManagement.WNet.NETRESOURCEW), lpPassword: win32more.Windows.Win32.Foundation.PWSTR, lpUserId: win32more.Windows.Win32.Foundation.PWSTR, dwFlags: win32more.Windows.Win32.NetworkManagement.WNet.NET_CONNECT_FLAGS, lpAccessName: win32more.Windows.Win32.Foundation.PWSTR, lpBufferSize: POINTER(UInt32), lpResult: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('MPR.dll')
 def WNetUseConnection4A(hwndOwner: win32more.Windows.Win32.Foundation.HWND, lpNetResource: POINTER(win32more.Windows.Win32.NetworkManagement.WNet.NETRESOURCEA), pAuthBuffer: VoidPtr, cbAuthBuffer: UInt32, dwFlags: UInt32, lpUseOptions: POINTER(Byte), cbUseOptions: UInt32, lpAccessName: win32more.Windows.Win32.Foundation.PSTR, lpBufferSize: POINTER(UInt32), lpResult: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('MPR.dll')
@@ -178,7 +168,7 @@ def MultinetGetConnectionPerformanceW(lpNetResource: POINTER(win32more.Windows.W
 @winfunctype('davclnt.dll')
 def NPAddConnection(lpNetResource: POINTER(win32more.Windows.Win32.NetworkManagement.WNet.NETRESOURCEW), lpPassword: win32more.Windows.Win32.Foundation.PWSTR, lpUserName: win32more.Windows.Win32.Foundation.PWSTR) -> UInt32: ...
 @winfunctype('davclnt.dll')
-def NPAddConnection3(hwndOwner: win32more.Windows.Win32.Foundation.HWND, lpNetResource: POINTER(win32more.Windows.Win32.NetworkManagement.WNet.NETRESOURCEW), lpPassword: win32more.Windows.Win32.Foundation.PWSTR, lpUserName: win32more.Windows.Win32.Foundation.PWSTR, dwFlags: win32more.Windows.Win32.NetworkManagement.WNet.NET_USE_CONNECT_FLAGS) -> UInt32: ...
+def NPAddConnection3(hwndOwner: win32more.Windows.Win32.Foundation.HWND, lpNetResource: POINTER(win32more.Windows.Win32.NetworkManagement.WNet.NETRESOURCEW), lpPassword: win32more.Windows.Win32.Foundation.PWSTR, lpUserName: win32more.Windows.Win32.Foundation.PWSTR, dwFlags: win32more.Windows.Win32.NetworkManagement.WNet.NET_CONNECT_FLAGS) -> UInt32: ...
 @winfunctype('NTLANMAN.dll')
 def NPAddConnection4(hwndOwner: win32more.Windows.Win32.Foundation.HWND, lpNetResource: POINTER(win32more.Windows.Win32.NetworkManagement.WNet.NETRESOURCEW), lpAuthBuffer: VoidPtr, cbAuthBuffer: UInt32, dwFlags: UInt32, lpUseOptions: POINTER(Byte), cbUseOptions: UInt32) -> UInt32: ...
 @winfunctype('davclnt.dll')
@@ -289,6 +279,26 @@ class NETRESOURCEW(EasyCastStructure):
 NETWORK_NAME_FORMAT_FLAGS = UInt32
 WNFMT_MULTILINE: win32more.Windows.Win32.NetworkManagement.WNet.NETWORK_NAME_FORMAT_FLAGS = 1
 WNFMT_ABBREVIATED: win32more.Windows.Win32.NetworkManagement.WNet.NETWORK_NAME_FORMAT_FLAGS = 2
+NET_CONNECT_FLAGS = UInt32
+CONNECT_UPDATE_PROFILE: win32more.Windows.Win32.NetworkManagement.WNet.NET_CONNECT_FLAGS = 1
+CONNECT_UPDATE_RECENT: win32more.Windows.Win32.NetworkManagement.WNet.NET_CONNECT_FLAGS = 2
+CONNECT_TEMPORARY: win32more.Windows.Win32.NetworkManagement.WNet.NET_CONNECT_FLAGS = 4
+CONNECT_INTERACTIVE: win32more.Windows.Win32.NetworkManagement.WNet.NET_CONNECT_FLAGS = 8
+CONNECT_PROMPT: win32more.Windows.Win32.NetworkManagement.WNet.NET_CONNECT_FLAGS = 16
+CONNECT_NEED_DRIVE: win32more.Windows.Win32.NetworkManagement.WNet.NET_CONNECT_FLAGS = 32
+CONNECT_REFCOUNT: win32more.Windows.Win32.NetworkManagement.WNet.NET_CONNECT_FLAGS = 64
+CONNECT_REDIRECT: win32more.Windows.Win32.NetworkManagement.WNet.NET_CONNECT_FLAGS = 128
+CONNECT_LOCALDRIVE: win32more.Windows.Win32.NetworkManagement.WNet.NET_CONNECT_FLAGS = 256
+CONNECT_CURRENT_MEDIA: win32more.Windows.Win32.NetworkManagement.WNet.NET_CONNECT_FLAGS = 512
+CONNECT_DEFERRED: win32more.Windows.Win32.NetworkManagement.WNet.NET_CONNECT_FLAGS = 1024
+CONNECT_RESERVED: win32more.Windows.Win32.NetworkManagement.WNet.NET_CONNECT_FLAGS = 4278190080
+CONNECT_COMMANDLINE: win32more.Windows.Win32.NetworkManagement.WNet.NET_CONNECT_FLAGS = 2048
+CONNECT_CMD_SAVECRED: win32more.Windows.Win32.NetworkManagement.WNet.NET_CONNECT_FLAGS = 4096
+CONNECT_CRED_RESET: win32more.Windows.Win32.NetworkManagement.WNet.NET_CONNECT_FLAGS = 8192
+CONNECT_REQUIRE_INTEGRITY: win32more.Windows.Win32.NetworkManagement.WNet.NET_CONNECT_FLAGS = 16384
+CONNECT_REQUIRE_PRIVACY: win32more.Windows.Win32.NetworkManagement.WNet.NET_CONNECT_FLAGS = 32768
+CONNECT_WRITE_THROUGH_SEMANTICS: win32more.Windows.Win32.NetworkManagement.WNet.NET_CONNECT_FLAGS = 65536
+CONNECT_GLOBAL_MAPPING: win32more.Windows.Win32.NetworkManagement.WNet.NET_CONNECT_FLAGS = 262144
 NET_RESOURCE_SCOPE = UInt32
 RESOURCE_CONNECTED: win32more.Windows.Win32.NetworkManagement.WNet.NET_RESOURCE_SCOPE = 1
 RESOURCE_CONTEXT: win32more.Windows.Win32.NetworkManagement.WNet.NET_RESOURCE_SCOPE = 5
@@ -298,20 +308,10 @@ NET_RESOURCE_TYPE = UInt32
 RESOURCETYPE_ANY: win32more.Windows.Win32.NetworkManagement.WNet.NET_RESOURCE_TYPE = 0
 RESOURCETYPE_DISK: win32more.Windows.Win32.NetworkManagement.WNet.NET_RESOURCE_TYPE = 1
 RESOURCETYPE_PRINT: win32more.Windows.Win32.NetworkManagement.WNet.NET_RESOURCE_TYPE = 2
-NET_USE_CONNECT_FLAGS = UInt32
-CONNECT_INTERACTIVE: win32more.Windows.Win32.NetworkManagement.WNet.NET_USE_CONNECT_FLAGS = 8
-CONNECT_PROMPT: win32more.Windows.Win32.NetworkManagement.WNet.NET_USE_CONNECT_FLAGS = 16
-CONNECT_REDIRECT: win32more.Windows.Win32.NetworkManagement.WNet.NET_USE_CONNECT_FLAGS = 128
-CONNECT_UPDATE_PROFILE: win32more.Windows.Win32.NetworkManagement.WNet.NET_USE_CONNECT_FLAGS = 1
-CONNECT_COMMANDLINE: win32more.Windows.Win32.NetworkManagement.WNet.NET_USE_CONNECT_FLAGS = 2048
-CONNECT_CMD_SAVECRED: win32more.Windows.Win32.NetworkManagement.WNet.NET_USE_CONNECT_FLAGS = 4096
-CONNECT_TEMPORARY: win32more.Windows.Win32.NetworkManagement.WNet.NET_USE_CONNECT_FLAGS = 4
-CONNECT_DEFERRED: win32more.Windows.Win32.NetworkManagement.WNet.NET_USE_CONNECT_FLAGS = 1024
-CONNECT_UPDATE_RECENT: win32more.Windows.Win32.NetworkManagement.WNet.NET_USE_CONNECT_FLAGS = 2
 class NOTIFYADD(EasyCastStructure):
     hwndOwner: win32more.Windows.Win32.Foundation.HWND
     NetResource: win32more.Windows.Win32.NetworkManagement.WNet.NETRESOURCEA
-    dwAddFlags: win32more.Windows.Win32.NetworkManagement.WNet.NET_USE_CONNECT_FLAGS
+    dwAddFlags: win32more.Windows.Win32.NetworkManagement.WNet.NET_CONNECT_FLAGS
 class NOTIFYCANCEL(EasyCastStructure):
     lpName: win32more.Windows.Win32.Foundation.PWSTR
     lpProvider: win32more.Windows.Win32.Foundation.PWSTR

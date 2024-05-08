@@ -1,6 +1,7 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
+import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.System.EventLog
 EVT_VARIANT_TYPE_MASK: UInt32 = 127
 EVT_VARIANT_TYPE_ARRAY: UInt32 = 128
@@ -113,9 +114,9 @@ def ReadEventLogA(hEventLog: win32more.Windows.Win32.Foundation.HANDLE, dwReadFl
 @winfunctype('ADVAPI32.dll')
 def ReadEventLogW(hEventLog: win32more.Windows.Win32.Foundation.HANDLE, dwReadFlags: win32more.Windows.Win32.System.EventLog.READ_EVENT_LOG_READ_FLAGS, dwRecordOffset: UInt32, lpBuffer: VoidPtr, nNumberOfBytesToRead: UInt32, pnBytesRead: POINTER(UInt32), pnMinNumberOfBytesNeeded: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
-def ReportEventA(hEventLog: win32more.Windows.Win32.Foundation.HANDLE, wType: win32more.Windows.Win32.System.EventLog.REPORT_EVENT_TYPE, wCategory: UInt16, dwEventID: UInt32, lpUserSid: win32more.Windows.Win32.Foundation.PSID, wNumStrings: UInt16, dwDataSize: UInt32, lpStrings: POINTER(win32more.Windows.Win32.Foundation.PSTR), lpRawData: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def ReportEventA(hEventLog: win32more.Windows.Win32.Foundation.HANDLE, wType: win32more.Windows.Win32.System.EventLog.REPORT_EVENT_TYPE, wCategory: UInt16, dwEventID: UInt32, lpUserSid: win32more.Windows.Win32.Security.PSID, wNumStrings: UInt16, dwDataSize: UInt32, lpStrings: POINTER(win32more.Windows.Win32.Foundation.PSTR), lpRawData: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
-def ReportEventW(hEventLog: win32more.Windows.Win32.Foundation.HANDLE, wType: win32more.Windows.Win32.System.EventLog.REPORT_EVENT_TYPE, wCategory: UInt16, dwEventID: UInt32, lpUserSid: win32more.Windows.Win32.Foundation.PSID, wNumStrings: UInt16, dwDataSize: UInt32, lpStrings: POINTER(win32more.Windows.Win32.Foundation.PWSTR), lpRawData: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def ReportEventW(hEventLog: win32more.Windows.Win32.Foundation.HANDLE, wType: win32more.Windows.Win32.System.EventLog.REPORT_EVENT_TYPE, wCategory: UInt16, dwEventID: UInt32, lpUserSid: win32more.Windows.Win32.Security.PSID, wNumStrings: UInt16, dwDataSize: UInt32, lpStrings: POINTER(win32more.Windows.Win32.Foundation.PWSTR), lpRawData: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
 def GetEventLogInformation(hEventLog: win32more.Windows.Win32.Foundation.HANDLE, dwInfoLevel: UInt32, lpBuffer: VoidPtr, cbBufSize: UInt32, pcbBytesNeeded: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 class EVENTLOGRECORD(EasyCastStructure):
@@ -348,7 +349,7 @@ class EVT_VARIANT(EasyCastStructure):
         StringVal: win32more.Windows.Win32.Foundation.PWSTR
         AnsiStringVal: win32more.Windows.Win32.Foundation.PSTR
         BinaryVal: POINTER(Byte)
-        SidVal: win32more.Windows.Win32.Foundation.PSID
+        SidVal: win32more.Windows.Win32.Security.PSID
         SizeTVal: UIntPtr
         BooleanArr: POINTER(win32more.Windows.Win32.Foundation.BOOL)
         SByteArr: POINTER(SByte)
@@ -366,7 +367,7 @@ class EVT_VARIANT(EasyCastStructure):
         GuidArr: POINTER(Guid)
         StringArr: POINTER(win32more.Windows.Win32.Foundation.PWSTR)
         AnsiStringArr: POINTER(win32more.Windows.Win32.Foundation.PSTR)
-        SidArr: POINTER(win32more.Windows.Win32.Foundation.PSID)
+        SidArr: POINTER(win32more.Windows.Win32.Security.PSID)
         SizeTArr: POINTER(UIntPtr)
         EvtHandleVal: win32more.Windows.Win32.System.EventLog.EVT_HANDLE
         XmlVal: win32more.Windows.Win32.Foundation.PWSTR

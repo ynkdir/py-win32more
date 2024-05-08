@@ -3484,8 +3484,6 @@ def GEO_ENUMPROC(param0: Int32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 class GOFFSET(EasyCastStructure):
     du: Int32
     dv: Int32
-HIMC = IntPtr
-HIMCC = IntPtr
 HSAVEDUILANGUAGES = IntPtr
 class IComprehensiveSpellCheckProvider(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown

@@ -6,6 +6,7 @@ import win32more.Windows.Win32.Media.DirectShow
 import win32more.Windows.Win32.Media.DirectShow.Tv
 import win32more.Windows.Win32.Media.KernelStreaming
 import win32more.Windows.Win32.Media.MediaFoundation
+import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.Ole
 import win32more.Windows.Win32.System.Registry
@@ -4845,7 +4846,7 @@ class IStreamBufferInitialize(ComPtr):
     @commethod(3)
     def SetHKEY(self, hkeyRoot: win32more.Windows.Win32.System.Registry.HKEY) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def SetSIDs(self, cSIDs: UInt32, ppSID: POINTER(win32more.Windows.Win32.Foundation.PSID)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SetSIDs(self, cSIDs: UInt32, ppSID: POINTER(win32more.Windows.Win32.Security.PSID)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IStreamBufferMediaSeeking(ComPtr):
     extends: win32more.Windows.Win32.Media.DirectShow.IMediaSeeking
     _iid_ = Guid('{f61f5c26-863d-4afa-b0ba-2f81dc978596}')

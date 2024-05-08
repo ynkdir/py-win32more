@@ -2496,17 +2496,17 @@ class WTS_PROCESS_INFOA(EasyCastStructure):
     SessionId: UInt32
     ProcessId: UInt32
     pProcessName: win32more.Windows.Win32.Foundation.PSTR
-    pUserSid: win32more.Windows.Win32.Foundation.PSID
+    pUserSid: win32more.Windows.Win32.Security.PSID
 class WTS_PROCESS_INFOW(EasyCastStructure):
     SessionId: UInt32
     ProcessId: UInt32
     pProcessName: win32more.Windows.Win32.Foundation.PWSTR
-    pUserSid: win32more.Windows.Win32.Foundation.PSID
+    pUserSid: win32more.Windows.Win32.Security.PSID
 class WTS_PROCESS_INFO_EXA(EasyCastStructure):
     SessionId: UInt32
     ProcessId: UInt32
     pProcessName: win32more.Windows.Win32.Foundation.PSTR
-    pUserSid: win32more.Windows.Win32.Foundation.PSID
+    pUserSid: win32more.Windows.Win32.Security.PSID
     NumberOfThreads: UInt32
     HandleCount: UInt32
     PagefileUsage: UInt32
@@ -2519,7 +2519,7 @@ class WTS_PROCESS_INFO_EXW(EasyCastStructure):
     SessionId: UInt32
     ProcessId: UInt32
     pProcessName: win32more.Windows.Win32.Foundation.PWSTR
-    pUserSid: win32more.Windows.Win32.Foundation.PSID
+    pUserSid: win32more.Windows.Win32.Security.PSID
     NumberOfThreads: UInt32
     HandleCount: UInt32
     PagefileUsage: UInt32

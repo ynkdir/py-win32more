@@ -3689,7 +3689,7 @@ class TOKEN_BNO_ISOLATION_INFORMATION(EasyCastStructure):
     IsolationPrefix: win32more.Windows.Win32.Foundation.PWSTR
     IsolationEnabled: win32more.Windows.Win32.Foundation.BOOLEAN
 class TOKEN_SID_INFORMATION(EasyCastStructure):
-    Sid: win32more.Windows.Win32.Foundation.PSID
+    Sid: win32more.Windows.Win32.Security.PSID
 class TRANSACTIONMANAGER_BASIC_INFORMATION(EasyCastStructure):
     TmIdentity: Guid
     VirtualClock: Int64

@@ -6,34 +6,7 @@ import win32more.Windows.Win32.Graphics.Dxgi.Common
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.System.Com
-DXGI_RESOURCE_PRIORITY_MINIMUM: UInt32 = 671088640
-DXGI_RESOURCE_PRIORITY_LOW: UInt32 = 1342177280
-DXGI_RESOURCE_PRIORITY_NORMAL: UInt32 = 2013265920
-DXGI_RESOURCE_PRIORITY_HIGH: UInt32 = 2684354560
-DXGI_RESOURCE_PRIORITY_MAXIMUM: UInt32 = 3355443200
-DXGI_MAP_READ: UInt32 = 1
-DXGI_MAP_WRITE: UInt32 = 2
-DXGI_MAP_DISCARD: UInt32 = 4
-DXGI_ENUM_MODES_INTERLACED: UInt32 = 1
-DXGI_ENUM_MODES_SCALING: UInt32 = 2
 DXGI_MAX_SWAP_CHAIN_BUFFERS: UInt32 = 16
-DXGI_PRESENT_TEST: UInt32 = 1
-DXGI_PRESENT_DO_NOT_SEQUENCE: UInt32 = 2
-DXGI_PRESENT_RESTART: UInt32 = 4
-DXGI_PRESENT_DO_NOT_WAIT: UInt32 = 8
-DXGI_PRESENT_STEREO_PREFER_RIGHT: UInt32 = 16
-DXGI_PRESENT_STEREO_TEMPORARY_MONO: UInt32 = 32
-DXGI_PRESENT_RESTRICT_TO_OUTPUT: UInt32 = 64
-DXGI_PRESENT_USE_DURATION: UInt32 = 256
-DXGI_PRESENT_ALLOW_TEARING: UInt32 = 512
-DXGI_MWA_NO_WINDOW_CHANGES: UInt32 = 1
-DXGI_MWA_NO_ALT_ENTER: UInt32 = 2
-DXGI_MWA_NO_PRINT_SCREEN: UInt32 = 4
-DXGI_MWA_VALID: UInt32 = 7
-DXGI_ENUM_MODES_STEREO: UInt32 = 4
-DXGI_ENUM_MODES_DISABLED_STEREO: UInt32 = 8
-DXGI_SHARED_RESOURCE_READ: UInt32 = 2147483648
-DXGI_SHARED_RESOURCE_WRITE: UInt32 = 1
 DXGI_DEBUG_BINARY_VERSION: UInt32 = 1
 DXGI_DEBUG_ALL: Guid = Guid('{e48ae283-da80-490b-87e6-43e9a9cfda08}')
 DXGI_DEBUG_DX: Guid = Guid('{35cdd7fc-13b2-421d-a5d7-7e4451287d64}')
@@ -41,7 +14,6 @@ DXGI_DEBUG_DXGI: Guid = Guid('{25cddaa4-b1c6-47e1-ac3e-98875b5a2e2a}')
 DXGI_DEBUG_APP: Guid = Guid('{06cd6e01-4219-4ebd-8709-27ed23360c62}')
 DXGI_INFO_QUEUE_MESSAGE_ID_STRING_FROM_APPLICATION: UInt32 = 0
 DXGI_INFO_QUEUE_DEFAULT_MESSAGE_COUNT_LIMIT: UInt32 = 1024
-DXGI_CREATE_FACTORY_DEBUG: UInt32 = 1
 DXGI_ERROR_INVALID_CALL: win32more.Windows.Win32.Foundation.HRESULT = -2005270527
 DXGI_ERROR_NOT_FOUND: win32more.Windows.Win32.Foundation.HRESULT = -2005270526
 DXGI_ERROR_MORE_DATA: win32more.Windows.Win32.Foundation.HRESULT = -2005270525
@@ -80,7 +52,7 @@ def CreateDXGIFactory(riid: POINTER(Guid), ppFactory: POINTER(VoidPtr)) -> win32
 @winfunctype('dxgi.dll')
 def CreateDXGIFactory1(riid: POINTER(Guid), ppFactory: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('dxgi.dll')
-def CreateDXGIFactory2(Flags: UInt32, riid: POINTER(Guid), ppFactory: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def CreateDXGIFactory2(Flags: win32more.Windows.Win32.Graphics.Dxgi.DXGI_CREATE_FACTORY_FLAGS, riid: POINTER(Guid), ppFactory: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('dxgi.dll')
 def DXGIGetDebugInterface1(Flags: UInt32, riid: POINTER(Guid), pDebug: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('dxgi.dll')
@@ -152,6 +124,8 @@ DXGI_COMPUTE_PREEMPTION_DISPATCH_BOUNDARY: win32more.Windows.Win32.Graphics.Dxgi
 DXGI_COMPUTE_PREEMPTION_THREAD_GROUP_BOUNDARY: win32more.Windows.Win32.Graphics.Dxgi.DXGI_COMPUTE_PREEMPTION_GRANULARITY = 2
 DXGI_COMPUTE_PREEMPTION_THREAD_BOUNDARY: win32more.Windows.Win32.Graphics.Dxgi.DXGI_COMPUTE_PREEMPTION_GRANULARITY = 3
 DXGI_COMPUTE_PREEMPTION_INSTRUCTION_BOUNDARY: win32more.Windows.Win32.Graphics.Dxgi.DXGI_COMPUTE_PREEMPTION_GRANULARITY = 4
+DXGI_CREATE_FACTORY_FLAGS = UInt32
+DXGI_CREATE_FACTORY_DEBUG: win32more.Windows.Win32.Graphics.Dxgi.DXGI_CREATE_FACTORY_FLAGS = 1
 DXGI_DEBUG_RLO_FLAGS = Int32
 DXGI_DEBUG_RLO_SUMMARY: win32more.Windows.Win32.Graphics.Dxgi.DXGI_DEBUG_RLO_FLAGS = 1
 DXGI_DEBUG_RLO_DETAIL: win32more.Windows.Win32.Graphics.Dxgi.DXGI_DEBUG_RLO_FLAGS = 2
@@ -162,6 +136,11 @@ class DXGI_DECODE_SWAP_CHAIN_DESC(EasyCastStructure):
 class DXGI_DISPLAY_COLOR_SPACE(EasyCastStructure):
     PrimaryCoordinates: Single * 16
     WhitePoints: Single * 32
+DXGI_ENUM_MODES = UInt32
+DXGI_ENUM_MODES_INTERLACED: win32more.Windows.Win32.Graphics.Dxgi.DXGI_ENUM_MODES = 1
+DXGI_ENUM_MODES_SCALING: win32more.Windows.Win32.Graphics.Dxgi.DXGI_ENUM_MODES = 2
+DXGI_ENUM_MODES_STEREO: win32more.Windows.Win32.Graphics.Dxgi.DXGI_ENUM_MODES = 4
+DXGI_ENUM_MODES_DISABLED_STEREO: win32more.Windows.Win32.Graphics.Dxgi.DXGI_ENUM_MODES = 8
 DXGI_FEATURE = Int32
 DXGI_FEATURE_PRESENT_ALLOW_TEARING: win32more.Windows.Win32.Graphics.Dxgi.DXGI_FEATURE = 0
 DXGI_FRAME_PRESENTATION_MODE = Int32
@@ -250,6 +229,10 @@ DXGI_INFO_QUEUE_MESSAGE_SEVERITY_MESSAGE: win32more.Windows.Win32.Graphics.Dxgi.
 class DXGI_MAPPED_RECT(EasyCastStructure):
     Pitch: Int32
     pBits: POINTER(Byte)
+DXGI_MAP_FLAGS = UInt32
+DXGI_MAP_READ: win32more.Windows.Win32.Graphics.Dxgi.DXGI_MAP_FLAGS = 1
+DXGI_MAP_WRITE: win32more.Windows.Win32.Graphics.Dxgi.DXGI_MAP_FLAGS = 2
+DXGI_MAP_DISCARD: win32more.Windows.Win32.Graphics.Dxgi.DXGI_MAP_FLAGS = 4
 class DXGI_MATRIX_3X2_F(EasyCastStructure):
     _11: Single
     _12: Single
@@ -272,6 +255,11 @@ DXGI_MULTIPLANE_OVERLAY_YCbCr_FLAGS = Int32
 DXGI_MULTIPLANE_OVERLAY_YCbCr_FLAG_NOMINAL_RANGE: win32more.Windows.Win32.Graphics.Dxgi.DXGI_MULTIPLANE_OVERLAY_YCbCr_FLAGS = 1
 DXGI_MULTIPLANE_OVERLAY_YCbCr_FLAG_BT709: win32more.Windows.Win32.Graphics.Dxgi.DXGI_MULTIPLANE_OVERLAY_YCbCr_FLAGS = 2
 DXGI_MULTIPLANE_OVERLAY_YCbCr_FLAG_xvYCC: win32more.Windows.Win32.Graphics.Dxgi.DXGI_MULTIPLANE_OVERLAY_YCbCr_FLAGS = 4
+DXGI_MWA_FLAGS = UInt32
+DXGI_MWA_NO_WINDOW_CHANGES: win32more.Windows.Win32.Graphics.Dxgi.DXGI_MWA_FLAGS = 1
+DXGI_MWA_NO_ALT_ENTER: win32more.Windows.Win32.Graphics.Dxgi.DXGI_MWA_FLAGS = 2
+DXGI_MWA_NO_PRINT_SCREEN: win32more.Windows.Win32.Graphics.Dxgi.DXGI_MWA_FLAGS = 4
+DXGI_MWA_VALID: win32more.Windows.Win32.Graphics.Dxgi.DXGI_MWA_FLAGS = 7
 DXGI_Message_Id = Int32
 DXGI_MSG_IDXGISwapChain_CreationOrResizeBuffers_InvalidOutputWindow: win32more.Windows.Win32.Graphics.Dxgi.DXGI_Message_Id = 0
 DXGI_MSG_IDXGISwapChain_CreationOrResizeBuffers_BufferWidthInferred: win32more.Windows.Win32.Graphics.Dxgi.DXGI_Message_Id = 1
@@ -667,6 +655,16 @@ DXGI_OVERLAY_COLOR_SPACE_SUPPORT_FLAG_PRESENT: win32more.Windows.Win32.Graphics.
 DXGI_OVERLAY_SUPPORT_FLAG = Int32
 DXGI_OVERLAY_SUPPORT_FLAG_DIRECT: win32more.Windows.Win32.Graphics.Dxgi.DXGI_OVERLAY_SUPPORT_FLAG = 1
 DXGI_OVERLAY_SUPPORT_FLAG_SCALING: win32more.Windows.Win32.Graphics.Dxgi.DXGI_OVERLAY_SUPPORT_FLAG = 2
+DXGI_PRESENT = UInt32
+DXGI_PRESENT_TEST: win32more.Windows.Win32.Graphics.Dxgi.DXGI_PRESENT = 1
+DXGI_PRESENT_DO_NOT_SEQUENCE: win32more.Windows.Win32.Graphics.Dxgi.DXGI_PRESENT = 2
+DXGI_PRESENT_RESTART: win32more.Windows.Win32.Graphics.Dxgi.DXGI_PRESENT = 4
+DXGI_PRESENT_DO_NOT_WAIT: win32more.Windows.Win32.Graphics.Dxgi.DXGI_PRESENT = 8
+DXGI_PRESENT_STEREO_PREFER_RIGHT: win32more.Windows.Win32.Graphics.Dxgi.DXGI_PRESENT = 16
+DXGI_PRESENT_STEREO_TEMPORARY_MONO: win32more.Windows.Win32.Graphics.Dxgi.DXGI_PRESENT = 32
+DXGI_PRESENT_RESTRICT_TO_OUTPUT: win32more.Windows.Win32.Graphics.Dxgi.DXGI_PRESENT = 64
+DXGI_PRESENT_USE_DURATION: win32more.Windows.Win32.Graphics.Dxgi.DXGI_PRESENT = 256
+DXGI_PRESENT_ALLOW_TEARING: win32more.Windows.Win32.Graphics.Dxgi.DXGI_PRESENT = 512
 class DXGI_PRESENT_PARAMETERS(EasyCastStructure):
     DirtyRectsCount: UInt32
     pDirtyRects: POINTER(win32more.Windows.Win32.Foundation.RECT)
@@ -685,6 +683,12 @@ DXGI_RESIDENCY = Int32
 DXGI_RESIDENCY_FULLY_RESIDENT: win32more.Windows.Win32.Graphics.Dxgi.DXGI_RESIDENCY = 1
 DXGI_RESIDENCY_RESIDENT_IN_SHARED_MEMORY: win32more.Windows.Win32.Graphics.Dxgi.DXGI_RESIDENCY = 2
 DXGI_RESIDENCY_EVICTED_TO_DISK: win32more.Windows.Win32.Graphics.Dxgi.DXGI_RESIDENCY = 3
+DXGI_RESOURCE_PRIORITY = UInt32
+DXGI_RESOURCE_PRIORITY_MINIMUM: win32more.Windows.Win32.Graphics.Dxgi.DXGI_RESOURCE_PRIORITY = 671088640
+DXGI_RESOURCE_PRIORITY_LOW: win32more.Windows.Win32.Graphics.Dxgi.DXGI_RESOURCE_PRIORITY = 1342177280
+DXGI_RESOURCE_PRIORITY_NORMAL: win32more.Windows.Win32.Graphics.Dxgi.DXGI_RESOURCE_PRIORITY = 2013265920
+DXGI_RESOURCE_PRIORITY_HIGH: win32more.Windows.Win32.Graphics.Dxgi.DXGI_RESOURCE_PRIORITY = 2684354560
+DXGI_RESOURCE_PRIORITY_MAXIMUM: win32more.Windows.Win32.Graphics.Dxgi.DXGI_RESOURCE_PRIORITY = 3355443200
 class DXGI_RGBA(EasyCastStructure):
     r: Single
     g: Single
@@ -696,6 +700,9 @@ DXGI_SCALING_NONE: win32more.Windows.Win32.Graphics.Dxgi.DXGI_SCALING = 1
 DXGI_SCALING_ASPECT_RATIO_STRETCH: win32more.Windows.Win32.Graphics.Dxgi.DXGI_SCALING = 2
 class DXGI_SHARED_RESOURCE(EasyCastStructure):
     Handle: win32more.Windows.Win32.Foundation.HANDLE
+DXGI_SHARED_RESOURCE_RW = UInt32
+DXGI_SHARED_RESOURCE_READ: win32more.Windows.Win32.Graphics.Dxgi.DXGI_SHARED_RESOURCE_RW = 2147483648
+DXGI_SHARED_RESOURCE_WRITE: win32more.Windows.Win32.Graphics.Dxgi.DXGI_SHARED_RESOURCE_RW = 1
 class DXGI_SURFACE_DESC(EasyCastStructure):
     Width: UInt32
     Height: UInt32
@@ -814,7 +821,7 @@ class IDXGIDecodeSwapChain(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{2633066b-4514-4c7a-8fd8-12ea98059d18}')
     @commethod(3)
-    def PresentBuffer(self, BufferToPresent: UInt32, SyncInterval: UInt32, Flags: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def PresentBuffer(self, BufferToPresent: UInt32, SyncInterval: UInt32, Flags: win32more.Windows.Win32.Graphics.Dxgi.DXGI_PRESENT) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def SetSourceRect(self, pRect: POINTER(win32more.Windows.Win32.Foundation.RECT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
@@ -890,7 +897,7 @@ class IDXGIFactory(ComPtr):
     @commethod(7)
     def EnumAdapters(self, Adapter: UInt32, ppAdapter: POINTER(win32more.Windows.Win32.Graphics.Dxgi.IDXGIAdapter)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
-    def MakeWindowAssociation(self, WindowHandle: win32more.Windows.Win32.Foundation.HWND, Flags: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def MakeWindowAssociation(self, WindowHandle: win32more.Windows.Win32.Foundation.HWND, Flags: win32more.Windows.Win32.Graphics.Dxgi.DXGI_MWA_FLAGS) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def GetWindowAssociation(self, pWindowHandle: POINTER(win32more.Windows.Win32.Foundation.HWND)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
@@ -933,7 +940,7 @@ class IDXGIFactory3(ComPtr):
     extends: win32more.Windows.Win32.Graphics.Dxgi.IDXGIFactory2
     _iid_ = Guid('{25483823-cd46-4c7d-86ca-47aa95b837bd}')
     @commethod(25)
-    def GetCreationFlags(self) -> UInt32: ...
+    def GetCreationFlags(self) -> win32more.Windows.Win32.Graphics.Dxgi.DXGI_CREATE_FACTORY_FLAGS: ...
 class IDXGIFactory4(ComPtr):
     extends: win32more.Windows.Win32.Graphics.Dxgi.IDXGIFactory3
     _iid_ = Guid('{1bc6ea02-ef36-464f-bf0c-21ca39e5168a}')
@@ -1066,7 +1073,7 @@ class IDXGIOutput(ComPtr):
     @commethod(7)
     def GetDesc(self, pDesc: POINTER(win32more.Windows.Win32.Graphics.Dxgi.DXGI_OUTPUT_DESC)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
-    def GetDisplayModeList(self, EnumFormat: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT, Flags: UInt32, pNumModes: POINTER(UInt32), pDesc: POINTER(win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_MODE_DESC)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetDisplayModeList(self, EnumFormat: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT, Flags: win32more.Windows.Win32.Graphics.Dxgi.DXGI_ENUM_MODES, pNumModes: POINTER(UInt32), pDesc: POINTER(win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_MODE_DESC)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def FindClosestMatchingMode(self, pModeToMatch: POINTER(win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_MODE_DESC), pClosestMatch: POINTER(win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_MODE_DESC), pConcernedDevice: win32more.Windows.Win32.System.Com.IUnknown) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
@@ -1091,7 +1098,7 @@ class IDXGIOutput1(ComPtr):
     extends: win32more.Windows.Win32.Graphics.Dxgi.IDXGIOutput
     _iid_ = Guid('{00cddea8-939b-4b83-a340-a685226666cc}')
     @commethod(19)
-    def GetDisplayModeList1(self, EnumFormat: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT, Flags: UInt32, pNumModes: POINTER(UInt32), pDesc: POINTER(win32more.Windows.Win32.Graphics.Dxgi.DXGI_MODE_DESC1)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetDisplayModeList1(self, EnumFormat: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT, Flags: win32more.Windows.Win32.Graphics.Dxgi.DXGI_ENUM_MODES, pNumModes: POINTER(UInt32), pDesc: POINTER(win32more.Windows.Win32.Graphics.Dxgi.DXGI_MODE_DESC1)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(20)
     def FindClosestMatchingMode1(self, pModeToMatch: POINTER(win32more.Windows.Win32.Graphics.Dxgi.DXGI_MODE_DESC1), pClosestMatch: POINTER(win32more.Windows.Win32.Graphics.Dxgi.DXGI_MODE_DESC1), pConcernedDevice: win32more.Windows.Win32.System.Com.IUnknown) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(21)
@@ -1152,9 +1159,9 @@ class IDXGIResource(ComPtr):
     @commethod(9)
     def GetUsage(self, pUsage: POINTER(win32more.Windows.Win32.Graphics.Dxgi.DXGI_USAGE)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
-    def SetEvictionPriority(self, EvictionPriority: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SetEvictionPriority(self, EvictionPriority: win32more.Windows.Win32.Graphics.Dxgi.DXGI_RESOURCE_PRIORITY) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
-    def GetEvictionPriority(self, pEvictionPriority: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetEvictionPriority(self, pEvictionPriority: POINTER(win32more.Windows.Win32.Graphics.Dxgi.DXGI_RESOURCE_PRIORITY)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IDXGIResource1(ComPtr):
     extends: win32more.Windows.Win32.Graphics.Dxgi.IDXGIResource
     _iid_ = Guid('{30961379-4609-4a41-998e-54fe567ee0c1}')
@@ -1168,7 +1175,7 @@ class IDXGISurface(ComPtr):
     @commethod(8)
     def GetDesc(self, pDesc: POINTER(win32more.Windows.Win32.Graphics.Dxgi.DXGI_SURFACE_DESC)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
-    def Map(self, pLockedRect: POINTER(win32more.Windows.Win32.Graphics.Dxgi.DXGI_MAPPED_RECT), MapFlags: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Map(self, pLockedRect: POINTER(win32more.Windows.Win32.Graphics.Dxgi.DXGI_MAPPED_RECT), MapFlags: win32more.Windows.Win32.Graphics.Dxgi.DXGI_MAP_FLAGS) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def Unmap(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IDXGISurface1(ComPtr):
@@ -1187,7 +1194,7 @@ class IDXGISwapChain(ComPtr):
     extends: win32more.Windows.Win32.Graphics.Dxgi.IDXGIDeviceSubObject
     _iid_ = Guid('{310d36a0-d2e7-4c0a-aa04-6a9d23b8886a}')
     @commethod(8)
-    def Present(self, SyncInterval: UInt32, Flags: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Present(self, SyncInterval: UInt32, Flags: win32more.Windows.Win32.Graphics.Dxgi.DXGI_PRESENT) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def GetBuffer(self, Buffer: UInt32, riid: POINTER(Guid), ppSurface: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
@@ -1218,7 +1225,7 @@ class IDXGISwapChain1(ComPtr):
     @commethod(21)
     def GetCoreWindow(self, refiid: POINTER(Guid), ppUnk: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(22)
-    def Present1(self, SyncInterval: UInt32, PresentFlags: UInt32, pPresentParameters: POINTER(win32more.Windows.Win32.Graphics.Dxgi.DXGI_PRESENT_PARAMETERS)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Present1(self, SyncInterval: UInt32, PresentFlags: win32more.Windows.Win32.Graphics.Dxgi.DXGI_PRESENT, pPresentParameters: POINTER(win32more.Windows.Win32.Graphics.Dxgi.DXGI_PRESENT_PARAMETERS)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(23)
     def IsTemporaryMonoSupported(self) -> win32more.Windows.Win32.Foundation.BOOL: ...
     @commethod(24)

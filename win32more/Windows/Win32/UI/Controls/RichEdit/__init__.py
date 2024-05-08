@@ -1,7 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
-import win32more.Windows.Win32.Globalization
 import win32more.Windows.Win32.Graphics.Direct2D
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.System.Com
@@ -11,6 +10,7 @@ import win32more.Windows.Win32.System.SystemServices
 import win32more.Windows.Win32.System.Variant
 import win32more.Windows.Win32.UI.Controls
 import win32more.Windows.Win32.UI.Controls.RichEdit
+import win32more.Windows.Win32.UI.Input.Ime
 import win32more.Windows.Win32.UI.WindowsAndMessaging
 cchTextLimitDefault: UInt32 = 32767
 MSFTEDIT_CLASS: String = 'RICHEDIT50W'
@@ -1363,9 +1363,9 @@ class ITextHost(ComPtr):
     @commethod(38)
     def TxNotify(self, iNotify: UInt32, pv: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(39)
-    def TxImmGetContext(self) -> win32more.Windows.Win32.Globalization.HIMC: ...
+    def TxImmGetContext(self) -> win32more.Windows.Win32.UI.Input.Ime.HIMC: ...
     @commethod(40)
-    def TxImmReleaseContext(self, himc: win32more.Windows.Win32.Globalization.HIMC) -> Void: ...
+    def TxImmReleaseContext(self, himc: win32more.Windows.Win32.UI.Input.Ime.HIMC) -> Void: ...
     @commethod(41)
     def TxGetSelectionBarWidth(self, lSelBarWidth: POINTER(Int32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ITextHost2(ComPtr):

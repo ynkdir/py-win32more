@@ -454,7 +454,6 @@ def PINSPECT_HSTRING_CALLBACK(context: VoidPtr, readAddress: UIntPtr, length: UI
 def PINSPECT_HSTRING_CALLBACK2(context: VoidPtr, readAddress: UInt64, length: UInt32, buffer: POINTER(Byte)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def PINSPECT_MEMORY_CALLBACK(context: VoidPtr, readAddress: UIntPtr, length: UInt32, buffer: POINTER(Byte)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-ROPARAMIIDHANDLE = IntPtr
 RO_ERROR_REPORTING_FLAGS = Int32
 RO_ERROR_REPORTING_NONE: win32more.Windows.Win32.System.WinRT.RO_ERROR_REPORTING_FLAGS = 0
 RO_ERROR_REPORTING_SUPPRESSEXCEPTIONS: win32more.Windows.Win32.System.WinRT.RO_ERROR_REPORTING_FLAGS = 1

@@ -1241,7 +1241,6 @@ class FEATURE_ERROR(EasyCastStructure):
     originCallerModule: win32more.Windows.Win32.Foundation.PSTR
     originName: win32more.Windows.Win32.Foundation.PSTR
 FEATURE_STATE_CHANGE_SUBSCRIPTION = IntPtr
-FH_SERVICE_PIPE_HANDLE = IntPtr
 class FILE_CASE_SENSITIVE_INFO(EasyCastStructure):
     Flags: UInt32
 HWINWATCH = IntPtr

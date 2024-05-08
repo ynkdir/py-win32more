@@ -1763,7 +1763,7 @@ class DS_DOMAIN_TRUSTSA(EasyCastStructure):
     ParentIndex: UInt32
     TrustType: UInt32
     TrustAttributes: UInt32
-    DomainSid: win32more.Windows.Win32.Foundation.PSID
+    DomainSid: win32more.Windows.Win32.Security.PSID
     DomainGuid: Guid
 class DS_DOMAIN_TRUSTSW(EasyCastStructure):
     NetbiosDomainName: win32more.Windows.Win32.Foundation.PWSTR
@@ -1772,7 +1772,7 @@ class DS_DOMAIN_TRUSTSW(EasyCastStructure):
     ParentIndex: UInt32
     TrustType: UInt32
     TrustAttributes: UInt32
-    DomainSid: win32more.Windows.Win32.Foundation.PSID
+    DomainSid: win32more.Windows.Win32.Security.PSID
     DomainGuid: Guid
 DS_KCC_TASKID = Int32
 DS_KCC_TASKID_UPDATE_TOPOLOGY: win32more.Windows.Win32.Networking.ActiveDirectory.DS_KCC_TASKID = 0

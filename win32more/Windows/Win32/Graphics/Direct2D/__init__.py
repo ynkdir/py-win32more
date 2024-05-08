@@ -1197,7 +1197,6 @@ D2D1_YCBCR_PROP = Int32
 D2D1_YCBCR_PROP_CHROMA_SUBSAMPLING: win32more.Windows.Win32.Graphics.Direct2D.D2D1_YCBCR_PROP = 0
 D2D1_YCBCR_PROP_TRANSFORM_MATRIX: win32more.Windows.Win32.Graphics.Direct2D.D2D1_YCBCR_PROP = 1
 D2D1_YCBCR_PROP_INTERPOLATION_MODE: win32more.Windows.Win32.Graphics.Direct2D.D2D1_YCBCR_PROP = 2
-DWRITE_PAINT_FEATURE_LEVEL = Int32
 class ID2D1AnalysisTransform(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{0359dc30-95e6-4568-9055-27720d130e93}')
@@ -1646,7 +1645,7 @@ class ID2D1DeviceContext7(ComPtr):
     extends: win32more.Windows.Win32.Graphics.Direct2D.ID2D1DeviceContext6
     _iid_ = Guid('{ec891cf7-9b69-4851-9def-4e0915771e62}')
     @commethod(120)
-    def GetPaintFeatureLevel(self) -> win32more.Windows.Win32.Graphics.Direct2D.DWRITE_PAINT_FEATURE_LEVEL: ...
+    def GetPaintFeatureLevel(self) -> win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_PAINT_FEATURE_LEVEL: ...
     @commethod(121)
     def DrawPaintGlyphRun(self, baselineOrigin: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D_POINT_2F, glyphRun: POINTER(win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_GLYPH_RUN), defaultFillBrush: win32more.Windows.Win32.Graphics.Direct2D.ID2D1Brush, colorPaletteIndex: UInt32, measuringMode: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_MEASURING_MODE) -> Void: ...
     @commethod(122)

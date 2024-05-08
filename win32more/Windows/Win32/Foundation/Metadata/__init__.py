@@ -81,6 +81,8 @@ class ReservedAttribute(EasyCastStructure):
     pass
 class RetValAttribute(EasyCastStructure):
     pass
+class RetainedAttribute(EasyCastStructure):
+    pass
 class ScopedEnumAttribute(EasyCastStructure):
     pass
 class StaticLibraryAttribute(EasyCastStructure):

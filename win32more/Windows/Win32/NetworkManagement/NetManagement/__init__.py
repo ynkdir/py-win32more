@@ -2276,7 +2276,7 @@ def NetGroupSetUsers(servername: win32more.Windows.Win32.Foundation.PWSTR, group
 @winfunctype('NETAPI32.dll')
 def NetLocalGroupAdd(servername: win32more.Windows.Win32.Foundation.PWSTR, level: UInt32, buf: POINTER(Byte), parm_err: POINTER(UInt32)) -> UInt32: ...
 @winfunctype('NETAPI32.dll')
-def NetLocalGroupAddMember(servername: win32more.Windows.Win32.Foundation.PWSTR, groupname: win32more.Windows.Win32.Foundation.PWSTR, membersid: win32more.Windows.Win32.Foundation.PSID) -> UInt32: ...
+def NetLocalGroupAddMember(servername: win32more.Windows.Win32.Foundation.PWSTR, groupname: win32more.Windows.Win32.Foundation.PWSTR, membersid: win32more.Windows.Win32.Security.PSID) -> UInt32: ...
 @winfunctype('NETAPI32.dll')
 def NetLocalGroupEnum(servername: win32more.Windows.Win32.Foundation.PWSTR, level: UInt32, bufptr: POINTER(POINTER(Byte)), prefmaxlen: UInt32, entriesread: POINTER(UInt32), totalentries: POINTER(UInt32), resumehandle: POINTER(UIntPtr)) -> UInt32: ...
 @winfunctype('NETAPI32.dll')
@@ -2286,7 +2286,7 @@ def NetLocalGroupSetInfo(servername: win32more.Windows.Win32.Foundation.PWSTR, g
 @winfunctype('NETAPI32.dll')
 def NetLocalGroupDel(servername: win32more.Windows.Win32.Foundation.PWSTR, groupname: win32more.Windows.Win32.Foundation.PWSTR) -> UInt32: ...
 @winfunctype('NETAPI32.dll')
-def NetLocalGroupDelMember(servername: win32more.Windows.Win32.Foundation.PWSTR, groupname: win32more.Windows.Win32.Foundation.PWSTR, membersid: win32more.Windows.Win32.Foundation.PSID) -> UInt32: ...
+def NetLocalGroupDelMember(servername: win32more.Windows.Win32.Foundation.PWSTR, groupname: win32more.Windows.Win32.Foundation.PWSTR, membersid: win32more.Windows.Win32.Security.PSID) -> UInt32: ...
 @winfunctype('NETAPI32.dll')
 def NetLocalGroupGetMembers(servername: win32more.Windows.Win32.Foundation.PWSTR, localgroupname: win32more.Windows.Win32.Foundation.PWSTR, level: UInt32, bufptr: POINTER(POINTER(Byte)), prefmaxlen: UInt32, entriesread: POINTER(UInt32), totalentries: POINTER(UInt32), resumehandle: POINTER(UIntPtr)) -> UInt32: ...
 @winfunctype('NETAPI32.dll')
@@ -2678,7 +2678,7 @@ class GROUP_INFO_2(EasyCastStructure):
 class GROUP_INFO_3(EasyCastStructure):
     grpi3_name: win32more.Windows.Win32.Foundation.PWSTR
     grpi3_comment: win32more.Windows.Win32.Foundation.PWSTR
-    grpi3_group_sid: win32more.Windows.Win32.Foundation.PSID
+    grpi3_group_sid: win32more.Windows.Win32.Security.PSID
     grpi3_attributes: UInt32
 class GROUP_USERS_INFO_0(EasyCastStructure):
     grui0_name: win32more.Windows.Win32.Foundation.PWSTR
@@ -2963,13 +2963,13 @@ class LOCALGROUP_INFO_1(EasyCastStructure):
 class LOCALGROUP_INFO_1002(EasyCastStructure):
     lgrpi1002_comment: win32more.Windows.Win32.Foundation.PWSTR
 class LOCALGROUP_MEMBERS_INFO_0(EasyCastStructure):
-    lgrmi0_sid: win32more.Windows.Win32.Foundation.PSID
+    lgrmi0_sid: win32more.Windows.Win32.Security.PSID
 class LOCALGROUP_MEMBERS_INFO_1(EasyCastStructure):
-    lgrmi1_sid: win32more.Windows.Win32.Foundation.PSID
+    lgrmi1_sid: win32more.Windows.Win32.Security.PSID
     lgrmi1_sidusage: win32more.Windows.Win32.Security.SID_NAME_USE
     lgrmi1_name: win32more.Windows.Win32.Foundation.PWSTR
 class LOCALGROUP_MEMBERS_INFO_2(EasyCastStructure):
-    lgrmi2_sid: win32more.Windows.Win32.Foundation.PSID
+    lgrmi2_sid: win32more.Windows.Win32.Security.PSID
     lgrmi2_sidusage: win32more.Windows.Win32.Security.SID_NAME_USE
     lgrmi2_domainandname: win32more.Windows.Win32.Foundation.PWSTR
 class LOCALGROUP_MEMBERS_INFO_3(EasyCastStructure):
@@ -4003,13 +4003,13 @@ class USER_INFO_23(EasyCastStructure):
     usri23_full_name: win32more.Windows.Win32.Foundation.PWSTR
     usri23_comment: win32more.Windows.Win32.Foundation.PWSTR
     usri23_flags: win32more.Windows.Win32.NetworkManagement.NetManagement.USER_ACCOUNT_FLAGS
-    usri23_user_sid: win32more.Windows.Win32.Foundation.PSID
+    usri23_user_sid: win32more.Windows.Win32.Security.PSID
 class USER_INFO_24(EasyCastStructure):
     usri24_internet_identity: win32more.Windows.Win32.Foundation.BOOL
     usri24_flags: UInt32
     usri24_internet_provider_name: win32more.Windows.Win32.Foundation.PWSTR
     usri24_internet_principal_name: win32more.Windows.Win32.Foundation.PWSTR
-    usri24_user_sid: win32more.Windows.Win32.Foundation.PSID
+    usri24_user_sid: win32more.Windows.Win32.Security.PSID
 class USER_INFO_3(EasyCastStructure):
     usri3_name: win32more.Windows.Win32.Foundation.PWSTR
     usri3_password: win32more.Windows.Win32.Foundation.PWSTR
@@ -4065,7 +4065,7 @@ class USER_INFO_4(EasyCastStructure):
     usri4_logon_server: win32more.Windows.Win32.Foundation.PWSTR
     usri4_country_code: UInt32
     usri4_code_page: UInt32
-    usri4_user_sid: win32more.Windows.Win32.Foundation.PSID
+    usri4_user_sid: win32more.Windows.Win32.Security.PSID
     usri4_primary_group_id: UInt32
     usri4_profile: win32more.Windows.Win32.Foundation.PWSTR
     usri4_home_dir_drive: win32more.Windows.Win32.Foundation.PWSTR
@@ -4095,7 +4095,7 @@ class USER_MODALS_INFO_1007(EasyCastStructure):
     usrmod1007_primary: win32more.Windows.Win32.Foundation.PWSTR
 class USER_MODALS_INFO_2(EasyCastStructure):
     usrmod2_domain_name: win32more.Windows.Win32.Foundation.PWSTR
-    usrmod2_domain_id: win32more.Windows.Win32.Foundation.PSID
+    usrmod2_domain_id: win32more.Windows.Win32.Security.PSID
 class USER_MODALS_INFO_3(EasyCastStructure):
     usrmod3_lockout_duration: UInt32
     usrmod3_lockout_observation_window: UInt32

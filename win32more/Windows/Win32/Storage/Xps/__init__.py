@@ -135,7 +135,6 @@ class DRAWPATRECT(EasyCastStructure):
     ptSize: win32more.Windows.Win32.Foundation.POINT
     wStyle: UInt16
     wPattern: UInt16
-HPTPROVIDER = IntPtr
 class IXpsDocumentPackageTarget(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{3b0b6d38-53ad-41da-b212-d37637a6714e}')

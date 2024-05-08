@@ -483,7 +483,7 @@ elif ARCH in 'X64':
     def RtlLookupFunctionEntry(ControlPc: UInt64, ImageBase: POINTER(UInt64), HistoryTable: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.UNWIND_HISTORY_TABLE)) -> POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_RUNTIME_FUNCTION_ENTRY): ...
 if ARCH in 'ARM64':
     @winfunctype('KERNEL32.dll')
-    def RtlVirtualUnwind(HandlerType: win32more.Windows.Win32.System.Diagnostics.Debug.RTL_VIRTUAL_UNWIND_HANDLER_TYPE, ImageBase: UIntPtr, ControlPc: UIntPtr, FunctionEntry: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_ARM64_RUNTIME_FUNCTION_ENTRY), ContextRecord: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.CONTEXT), HandlerData: POINTER(VoidPtr), EstablisherFrame: POINTER(UIntPtr), ContextPointers: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.KNONVOLATILE_CONTEXT_POINTERS_ARM64)) -> win32more.Windows.Win32.System.Kernel.EXCEPTION_ROUTINE: ...
+    def RtlVirtualUnwind(HandlerType: win32more.Windows.Win32.System.Diagnostics.Debug.RTL_VIRTUAL_UNWIND_HANDLER_TYPE, ImageBase: UIntPtr, ControlPc: UIntPtr, FunctionEntry: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_ARM64_RUNTIME_FUNCTION_ENTRY), ContextRecord: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.CONTEXT), HandlerData: POINTER(VoidPtr), EstablisherFrame: POINTER(UIntPtr), ContextPointers: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.KNONVOLATILE_CONTEXT_POINTERS)) -> win32more.Windows.Win32.System.Kernel.EXCEPTION_ROUTINE: ...
 elif ARCH in 'X64':
     @winfunctype('KERNEL32.dll')
     def RtlVirtualUnwind(HandlerType: win32more.Windows.Win32.System.Diagnostics.Debug.RTL_VIRTUAL_UNWIND_HANDLER_TYPE, ImageBase: UInt64, ControlPc: UInt64, FunctionEntry: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_RUNTIME_FUNCTION_ENTRY), ContextRecord: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.CONTEXT), HandlerData: POINTER(VoidPtr), EstablisherFrame: POINTER(UInt64), ContextPointers: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.KNONVOLATILE_CONTEXT_POINTERS)) -> win32more.Windows.Win32.System.Kernel.EXCEPTION_ROUTINE: ...
@@ -3241,7 +3241,29 @@ class KDHELP64(EasyCastStructure):
     RetpolineStubOffset: UInt32
     RetpolineStubSize: UInt32
     Reserved0: UInt64 * 2
-if ARCH in 'X64':
+if ARCH in 'ARM64':
+    class KNONVOLATILE_CONTEXT_POINTERS(EasyCastStructure):
+        X19: POINTER(UInt64)
+        X20: POINTER(UInt64)
+        X21: POINTER(UInt64)
+        X22: POINTER(UInt64)
+        X23: POINTER(UInt64)
+        X24: POINTER(UInt64)
+        X25: POINTER(UInt64)
+        X26: POINTER(UInt64)
+        X27: POINTER(UInt64)
+        X28: POINTER(UInt64)
+        Fp: POINTER(UInt64)
+        Lr: POINTER(UInt64)
+        D8: POINTER(UInt64)
+        D9: POINTER(UInt64)
+        D10: POINTER(UInt64)
+        D11: POINTER(UInt64)
+        D12: POINTER(UInt64)
+        D13: POINTER(UInt64)
+        D14: POINTER(UInt64)
+        D15: POINTER(UInt64)
+elif ARCH in 'X64':
     class KNONVOLATILE_CONTEXT_POINTERS(EasyCastStructure):
         Anonymous1: _Anonymous1_e__Union
         Anonymous2: _Anonymous2_e__Union
@@ -3288,28 +3310,6 @@ if ARCH in 'X64':
 elif ARCH in 'X86':
     class KNONVOLATILE_CONTEXT_POINTERS(EasyCastStructure):
         Dummy: UInt32
-if ARCH in 'ARM64':
-    class KNONVOLATILE_CONTEXT_POINTERS_ARM64(EasyCastStructure):
-        X19: POINTER(UInt64)
-        X20: POINTER(UInt64)
-        X21: POINTER(UInt64)
-        X22: POINTER(UInt64)
-        X23: POINTER(UInt64)
-        X24: POINTER(UInt64)
-        X25: POINTER(UInt64)
-        X26: POINTER(UInt64)
-        X27: POINTER(UInt64)
-        X28: POINTER(UInt64)
-        Fp: POINTER(UInt64)
-        Lr: POINTER(UInt64)
-        D8: POINTER(UInt64)
-        D9: POINTER(UInt64)
-        D10: POINTER(UInt64)
-        D11: POINTER(UInt64)
-        D12: POINTER(UInt64)
-        D13: POINTER(UInt64)
-        D14: POINTER(UInt64)
-        D15: POINTER(UInt64)
 class LDT_ENTRY(EasyCastStructure):
     LimitLow: UInt16
     BaseLow: UInt16

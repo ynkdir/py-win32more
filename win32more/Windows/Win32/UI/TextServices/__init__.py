@@ -4,6 +4,7 @@ import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.Variant
+import win32more.Windows.Win32.UI.Input.KeyboardAndMouse
 import win32more.Windows.Win32.UI.TextServices
 import win32more.Windows.Win32.UI.WindowsAndMessaging
 ANCHOR_CHANGE_HISTORY_FLAGS = UInt32
@@ -464,7 +465,6 @@ DocWrap = Guid('{bf426f7e-7a5e-44d6-830c-a390ea9462a3}')
 GET_TEXT_AND_PROPERTY_UPDATES_FLAGS = UInt32
 TF_GTP_NONE: win32more.Windows.Win32.UI.TextServices.GET_TEXT_AND_PROPERTY_UPDATES_FLAGS = 0
 TF_GTP_INCL_TEXT: win32more.Windows.Win32.UI.TextServices.GET_TEXT_AND_PROPERTY_UPDATES_FLAGS = 1
-HKL = IntPtr
 class IAccClientDocMgr(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{4c896039-7b6d-49e6-a8c1-45116a98292b}')
@@ -1454,22 +1454,22 @@ class ITfInputProcessorProfileActivationSink(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{71c6e74e-0f28-11d8-a82a-00065b84435c}')
     @commethod(3)
-    def OnActivated(self, dwProfileType: UInt32, langid: UInt16, clsid: POINTER(Guid), catid: POINTER(Guid), guidProfile: POINTER(Guid), hkl: win32more.Windows.Win32.UI.TextServices.HKL, dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def OnActivated(self, dwProfileType: UInt32, langid: UInt16, clsid: POINTER(Guid), catid: POINTER(Guid), guidProfile: POINTER(Guid), hkl: win32more.Windows.Win32.UI.Input.KeyboardAndMouse.HKL, dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ITfInputProcessorProfileMgr(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{71c6e74c-0f28-11d8-a82a-00065b84435c}')
     @commethod(3)
-    def ActivateProfile(self, dwProfileType: UInt32, langid: UInt16, clsid: POINTER(Guid), guidProfile: POINTER(Guid), hkl: win32more.Windows.Win32.UI.TextServices.HKL, dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def ActivateProfile(self, dwProfileType: UInt32, langid: UInt16, clsid: POINTER(Guid), guidProfile: POINTER(Guid), hkl: win32more.Windows.Win32.UI.Input.KeyboardAndMouse.HKL, dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def DeactivateProfile(self, dwProfileType: UInt32, langid: UInt16, clsid: POINTER(Guid), guidProfile: POINTER(Guid), hkl: win32more.Windows.Win32.UI.TextServices.HKL, dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def DeactivateProfile(self, dwProfileType: UInt32, langid: UInt16, clsid: POINTER(Guid), guidProfile: POINTER(Guid), hkl: win32more.Windows.Win32.UI.Input.KeyboardAndMouse.HKL, dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def GetProfile(self, dwProfileType: UInt32, langid: UInt16, clsid: POINTER(Guid), guidProfile: POINTER(Guid), hkl: win32more.Windows.Win32.UI.TextServices.HKL, pProfile: POINTER(win32more.Windows.Win32.UI.TextServices.TF_INPUTPROCESSORPROFILE)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetProfile(self, dwProfileType: UInt32, langid: UInt16, clsid: POINTER(Guid), guidProfile: POINTER(Guid), hkl: win32more.Windows.Win32.UI.Input.KeyboardAndMouse.HKL, pProfile: POINTER(win32more.Windows.Win32.UI.TextServices.TF_INPUTPROCESSORPROFILE)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def EnumProfiles(self, langid: UInt16, ppEnum: POINTER(win32more.Windows.Win32.UI.TextServices.IEnumTfInputProcessorProfiles)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def ReleaseInputProcessor(self, rclsid: POINTER(Guid), dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
-    def RegisterProfile(self, rclsid: POINTER(Guid), langid: UInt16, guidProfile: POINTER(Guid), pchDesc: win32more.Windows.Win32.Foundation.PWSTR, cchDesc: UInt32, pchIconFile: win32more.Windows.Win32.Foundation.PWSTR, cchFile: UInt32, uIconIndex: UInt32, hklsubstitute: win32more.Windows.Win32.UI.TextServices.HKL, dwPreferredLayout: UInt32, bEnabledByDefault: win32more.Windows.Win32.Foundation.BOOL, dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def RegisterProfile(self, rclsid: POINTER(Guid), langid: UInt16, guidProfile: POINTER(Guid), pchDesc: win32more.Windows.Win32.Foundation.PWSTR, cchDesc: UInt32, pchIconFile: win32more.Windows.Win32.Foundation.PWSTR, cchFile: UInt32, uIconIndex: UInt32, hklsubstitute: win32more.Windows.Win32.UI.Input.KeyboardAndMouse.HKL, dwPreferredLayout: UInt32, bEnabledByDefault: win32more.Windows.Win32.Foundation.BOOL, dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def UnregisterProfile(self, rclsid: POINTER(Guid), langid: UInt16, guidProfile: POINTER(Guid), dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
@@ -1478,7 +1478,7 @@ class ITfInputProcessorProfileSubstituteLayout(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{4fd67194-1002-4513-bff2-c0ddf6258552}')
     @commethod(3)
-    def GetSubstituteKeyboardLayout(self, rclsid: POINTER(Guid), langid: UInt16, guidProfile: POINTER(Guid), phKL: POINTER(win32more.Windows.Win32.UI.TextServices.HKL)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetSubstituteKeyboardLayout(self, rclsid: POINTER(Guid), langid: UInt16, guidProfile: POINTER(Guid), phKL: POINTER(win32more.Windows.Win32.UI.Input.KeyboardAndMouse.HKL)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ITfInputProcessorProfiles(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{1f02b6c5-7842-4ee6-8a0b-9a24183a95ca}')
@@ -1517,7 +1517,7 @@ class ITfInputProcessorProfiles(ComPtr):
     @commethod(19)
     def EnableLanguageProfileByDefault(self, rclsid: POINTER(Guid), langid: UInt16, guidProfile: POINTER(Guid), fEnable: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(20)
-    def SubstituteKeyboardLayout(self, rclsid: POINTER(Guid), langid: UInt16, guidProfile: POINTER(Guid), hKL: win32more.Windows.Win32.UI.TextServices.HKL) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SubstituteKeyboardLayout(self, rclsid: POINTER(Guid), langid: UInt16, guidProfile: POINTER(Guid), hKL: win32more.Windows.Win32.UI.Input.KeyboardAndMouse.HKL) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ITfInputProcessorProfilesEx(ComPtr):
     extends: win32more.Windows.Win32.UI.TextServices.ITfInputProcessorProfiles
     _iid_ = Guid('{892f230f-fe00-4a41-a98e-fcd6de0d35ef}')
@@ -2316,9 +2316,9 @@ class TF_INPUTPROCESSORPROFILE(EasyCastStructure):
     clsid: Guid
     guidProfile: Guid
     catid: Guid
-    hklSubstitute: win32more.Windows.Win32.UI.TextServices.HKL
+    hklSubstitute: win32more.Windows.Win32.UI.Input.KeyboardAndMouse.HKL
     dwCaps: UInt32
-    hkl: win32more.Windows.Win32.UI.TextServices.HKL
+    hkl: win32more.Windows.Win32.UI.Input.KeyboardAndMouse.HKL
     dwFlags: UInt32
 class TF_LANGBARITEMINFO(EasyCastStructure):
     clsidService: Guid
