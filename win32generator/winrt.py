@@ -326,7 +326,10 @@ class Com:
         writer.write(f"    _classid_ = '{self._td.generic_fullname}'\n")
         if self._td.custom_attributes.has_winrt_guid():
             guid = self._td.custom_attributes.get_winrt_guid()
-            writer.write(f"    _iid_ = Guid('{guid}')\n")
+            if self._td.is_generic:
+                writer.write(f"    _piid_ = Guid('{guid}')\n")
+            else:
+                writer.write(f"    _iid_ = Guid('{guid}')\n")
         writer.write(self._constructor())
         writer.write(self._methods())
         writer.write(self._properties())
@@ -756,7 +759,10 @@ class Delegate:
         writer.write(f"class {self._td.generic_name}({self._basetype()}):\n")
         writer.write(f"    extends: {self._formatter.fullname('Windows.Win32.System.Com.IUnknown')}\n")
         guid = self._td.custom_attributes.get_winrt_guid()
-        writer.write(f"    _iid_ = Guid('{guid}')\n")
+        if self._td.is_generic:
+            writer.write(f"    _piid_ = Guid('{guid}')\n")
+        else:
+            writer.write(f"    _iid_ = Guid('{guid}')\n")
         writer.write(self._method(self._td.methods[1]))
         return writer.getvalue()
 

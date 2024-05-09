@@ -577,7 +577,7 @@ def _get_type_signature(cls) -> str:
     if cls is IInspectable:
         return "cinterface(IInspectable)"
     elif isinstance(cls, _GenericAlias):
-        piid_guid = str(cls._iid_)
+        piid_guid = str(cls._piid_)
         args = ";".join(_get_type_signature(arg) for arg in get_args(cls))
         return f"pinterface({piid_guid};{args})"
     elif issubclass(cls, ComPtr) and "_iid_" in cls.__dict__:
