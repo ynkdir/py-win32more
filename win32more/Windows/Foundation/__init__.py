@@ -12,27 +12,27 @@ class AsyncActionCompletedHandler(MulticastDelegate):
     def Invoke(self, asyncInfo: win32more.Windows.Foundation.IAsyncAction, asyncStatus: win32more.Windows.Foundation.AsyncStatus) -> Void: ...
 class AsyncActionProgressHandler(Generic[TProgress], MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('{6d844858-0cff-4590-ae89-95a5a5c8b4b8}')
+    _piid_ = Guid('{6d844858-0cff-4590-ae89-95a5a5c8b4b8}')
     @winrt_commethod(3)
     def Invoke(self, asyncInfo: win32more.Windows.Foundation.IAsyncActionWithProgress[TProgress], progressInfo: TProgress) -> Void: ...
 class AsyncActionWithProgressCompletedHandler(Generic[TProgress], MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('{9c029f91-cc84-44fd-ac26-0a6c4e555281}')
+    _piid_ = Guid('{9c029f91-cc84-44fd-ac26-0a6c4e555281}')
     @winrt_commethod(3)
     def Invoke(self, asyncInfo: win32more.Windows.Foundation.IAsyncActionWithProgress[TProgress], asyncStatus: win32more.Windows.Foundation.AsyncStatus) -> Void: ...
 class AsyncOperationCompletedHandler(Generic[TResult], MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('{fcdcf02c-e5d8-4478-915a-4d90b74b83a5}')
+    _piid_ = Guid('{fcdcf02c-e5d8-4478-915a-4d90b74b83a5}')
     @winrt_commethod(3)
     def Invoke(self, asyncInfo: win32more.Windows.Foundation.IAsyncOperation[TResult], asyncStatus: win32more.Windows.Foundation.AsyncStatus) -> Void: ...
 class AsyncOperationProgressHandler(Generic[TResult, TProgress], MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('{55690902-0aab-421a-8778-f8ce5026d758}')
+    _piid_ = Guid('{55690902-0aab-421a-8778-f8ce5026d758}')
     @winrt_commethod(3)
     def Invoke(self, asyncInfo: win32more.Windows.Foundation.IAsyncOperationWithProgress[TResult, TProgress], progressInfo: TProgress) -> Void: ...
 class AsyncOperationWithProgressCompletedHandler(Generic[TResult, TProgress], MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('{e85df41d-6aa7-46e3-a8e2-f009d840c627}')
+    _piid_ = Guid('{e85df41d-6aa7-46e3-a8e2-f009d840c627}')
     @winrt_commethod(3)
     def Invoke(self, asyncInfo: win32more.Windows.Foundation.IAsyncOperationWithProgress[TResult, TProgress], asyncStatus: win32more.Windows.Foundation.AsyncStatus) -> Void: ...
 class AsyncStatus(Int32):  # enum
@@ -66,7 +66,7 @@ class DeferralCompletedHandler(MulticastDelegate):
     def Invoke(self) -> Void: ...
 class EventHandler(Generic[T], MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('{9de1c535-6ae1-11e0-84e1-18a905bcc53f}')
+    _piid_ = Guid('{9de1c535-6ae1-11e0-84e1-18a905bcc53f}')
     @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, args: T) -> Void: ...
 class EventRegistrationToken(EasyCastStructure):
@@ -103,7 +103,7 @@ class IAsyncAction(ComPtr):
 class IAsyncActionWithProgress(Generic[TProgress], ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Foundation.IAsyncActionWithProgress'
-    _iid_ = Guid('{1f6db258-e803-48a1-9546-eb7353398884}')
+    _piid_ = Guid('{1f6db258-e803-48a1-9546-eb7353398884}')
     @winrt_commethod(6)
     def put_Progress(self, handler: win32more.Windows.Foundation.AsyncActionProgressHandler[TProgress]) -> Void: ...
     @winrt_commethod(7)
@@ -139,7 +139,7 @@ class IAsyncInfo(ComPtr):
 class IAsyncOperationWithProgress(Generic[TResult, TProgress], ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Foundation.IAsyncOperationWithProgress'
-    _iid_ = Guid('{b5d036d7-e297-498f-ba60-0289e76e23dd}')
+    _piid_ = Guid('{b5d036d7-e297-498f-ba60-0289e76e23dd}')
     @winrt_commethod(6)
     def put_Progress(self, handler: win32more.Windows.Foundation.AsyncOperationProgressHandler[TResult, TProgress]) -> Void: ...
     @winrt_commethod(7)
@@ -158,7 +158,7 @@ class IAsyncOperationWithProgress(Generic[TResult, TProgress], ComPtr):
 class IAsyncOperation(Generic[TResult], ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Foundation.IAsyncOperation'
-    _iid_ = Guid('{9fc2b0bb-e446-44e2-aa61-9cab8f636af2}')
+    _piid_ = Guid('{9fc2b0bb-e446-44e2-aa61-9cab8f636af2}')
     @winrt_commethod(6)
     def put_Completed(self, handler: win32more.Windows.Foundation.AsyncOperationCompletedHandler[TResult]) -> Void: ...
     @winrt_commethod(7)
@@ -396,14 +396,14 @@ class IPropertyValueStatics(ComPtr):
 class IReferenceArray(Generic[T], ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Foundation.IReferenceArray'
-    _iid_ = Guid('{61c17707-2d65-11e0-9ae8-d48564015472}')
+    _piid_ = Guid('{61c17707-2d65-11e0-9ae8-d48564015472}')
     @winrt_commethod(6)
     def get_Value(self) -> ReceiveArray[T]: ...
     Value = property(get_Value, None)
 class IReference(Generic[T], ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Foundation.IReference'
-    _iid_ = Guid('{61c17706-2d65-11e0-9ae8-d48564015472}')
+    _piid_ = Guid('{61c17706-2d65-11e0-9ae8-d48564015472}')
     @winrt_commethod(6)
     def get_Value(self) -> T: ...
     Value = property(get_Value, None)
@@ -669,7 +669,7 @@ class TimeSpan(EasyCastStructure):
     Duration: Int64
 class TypedEventHandler(Generic[TSender, TResult], MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('{9de1c534-6ae1-11e0-84e1-18a905bcc53f}')
+    _piid_ = Guid('{9de1c534-6ae1-11e0-84e1-18a905bcc53f}')
     @winrt_commethod(3)
     def Invoke(self, sender: TSender, args: TResult) -> Void: ...
 UniversalApiContract: UInt32 = 983040

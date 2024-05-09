@@ -13,13 +13,13 @@ class CollectionChange(Int32):  # enum
 class IIterable(Generic[T], ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Foundation.Collections.IIterable'
-    _iid_ = Guid('{faa585ea-6214-4217-afda-7f46de5869b3}')
+    _piid_ = Guid('{faa585ea-6214-4217-afda-7f46de5869b3}')
     @winrt_commethod(6)
     def First(self) -> win32more.Windows.Foundation.Collections.IIterator[T]: ...
 class IIterator(Generic[T], ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Foundation.Collections.IIterator'
-    _iid_ = Guid('{6a79e863-4300-459a-9966-cbb660963ee1}')
+    _piid_ = Guid('{6a79e863-4300-459a-9966-cbb660963ee1}')
     @winrt_commethod(6)
     def get_Current(self) -> T: ...
     @winrt_commethod(7)
@@ -33,7 +33,7 @@ class IIterator(Generic[T], ComPtr):
 class IKeyValuePair(Generic[K, V], ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Foundation.Collections.IKeyValuePair'
-    _iid_ = Guid('{02b51929-c1c4-4a7e-8940-0312b5c18500}')
+    _piid_ = Guid('{02b51929-c1c4-4a7e-8940-0312b5c18500}')
     @winrt_commethod(6)
     def get_Key(self) -> K: ...
     @winrt_commethod(7)
@@ -43,7 +43,7 @@ class IKeyValuePair(Generic[K, V], ComPtr):
 class IMapChangedEventArgs(Generic[K], ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Foundation.Collections.IMapChangedEventArgs'
-    _iid_ = Guid('{9939f4df-050a-4c0f-aa60-77075f9c4777}')
+    _piid_ = Guid('{9939f4df-050a-4c0f-aa60-77075f9c4777}')
     @winrt_commethod(6)
     def get_CollectionChange(self) -> win32more.Windows.Foundation.Collections.CollectionChange: ...
     @winrt_commethod(7)
@@ -53,7 +53,7 @@ class IMapChangedEventArgs(Generic[K], ComPtr):
 class IMapView(Generic[K, V], ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Foundation.Collections.IMapView'
-    _iid_ = Guid('{e480ce40-a338-4ada-adcf-272272e48cb9}')
+    _piid_ = Guid('{e480ce40-a338-4ada-adcf-272272e48cb9}')
     @winrt_commethod(6)
     def Lookup(self, key: K) -> V: ...
     @winrt_commethod(7)
@@ -66,7 +66,7 @@ class IMapView(Generic[K, V], ComPtr):
 class IMap(Generic[K, V], ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Foundation.Collections.IMap'
-    _iid_ = Guid('{3c2925fe-8519-45c1-aa79-197b6718c1c1}')
+    _piid_ = Guid('{3c2925fe-8519-45c1-aa79-197b6718c1c1}')
     @winrt_commethod(6)
     def Lookup(self, key: K) -> V: ...
     @winrt_commethod(7)
@@ -85,7 +85,7 @@ class IMap(Generic[K, V], ComPtr):
 class IObservableMap(Generic[K, V], ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Foundation.Collections.IObservableMap'
-    _iid_ = Guid('{65df2bf5-bf39-41b5-aebc-5a9d865e472b}')
+    _piid_ = Guid('{65df2bf5-bf39-41b5-aebc-5a9d865e472b}')
     @winrt_commethod(6)
     def add_MapChanged(self, vhnd: win32more.Windows.Foundation.Collections.MapChangedEventHandler[K, V]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
@@ -93,7 +93,7 @@ class IObservableMap(Generic[K, V], ComPtr):
 class IObservableVector(Generic[T], ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Foundation.Collections.IObservableVector'
-    _iid_ = Guid('{5917eb53-50b4-4a0d-b309-65862b3f1dbc}')
+    _piid_ = Guid('{5917eb53-50b4-4a0d-b309-65862b3f1dbc}')
     @winrt_commethod(6)
     def add_VectorChanged(self, vhnd: win32more.Windows.Foundation.Collections.VectorChangedEventHandler[T]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
@@ -115,7 +115,7 @@ class IVectorChangedEventArgs(ComPtr):
 class IVectorView(Generic[T], ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Foundation.Collections.IVectorView'
-    _iid_ = Guid('{bbe1fa4c-b0e3-4583-baef-1f1b2e483e56}')
+    _piid_ = Guid('{bbe1fa4c-b0e3-4583-baef-1f1b2e483e56}')
     @winrt_commethod(6)
     def GetAt(self, index: UInt32) -> T: ...
     @winrt_commethod(7)
@@ -128,7 +128,7 @@ class IVectorView(Generic[T], ComPtr):
 class IVector(Generic[T], ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Foundation.Collections.IVector'
-    _iid_ = Guid('{913337e9-11a1-4345-a3a2-4e7f956e222d}')
+    _piid_ = Guid('{913337e9-11a1-4345-a3a2-4e7f956e222d}')
     @winrt_commethod(6)
     def GetAt(self, index: UInt32) -> T: ...
     @winrt_commethod(7)
@@ -156,7 +156,7 @@ class IVector(Generic[T], ComPtr):
     Size = property(get_Size, None)
 class MapChangedEventHandler(Generic[K, V], MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('{179517f3-94ee-41f8-bddc-768a895544f3}')
+    _piid_ = Guid('{179517f3-94ee-41f8-bddc-768a895544f3}')
     @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Foundation.Collections.IObservableMap[K, V], event: win32more.Windows.Foundation.Collections.IMapChangedEventArgs[K]) -> Void: ...
 class PropertySet(ComPtr):
@@ -263,7 +263,7 @@ class ValueSet(ComPtr):
     Size = property(get_Size, None)
 class VectorChangedEventHandler(Generic[T], MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
-    _iid_ = Guid('{0c051752-9fbf-4c70-aa0c-0e4c82d9a761}')
+    _piid_ = Guid('{0c051752-9fbf-4c70-aa0c-0e4c82d9a761}')
     @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Foundation.Collections.IObservableVector[T], event: win32more.Windows.Foundation.Collections.IVectorChangedEventArgs) -> Void: ...
 
