@@ -519,6 +519,18 @@ class ConstantLazyLoader:
         return cls(*self._args, **self._kwargs)
 
 
+class UnicodeAlias:
+    def __init__(self, unicode_name):
+        self._unicode_name = unicode_name
+        self._owner = None
+
+    def __set_name__(self, owner, name):
+        self._owner = owner
+
+    def __commit__(self):
+        return getattr(self._owner, self._unicode_name)
+
+
 def make_ready(module_name: str) -> None:
     module = sys.modules[module_name]
 
@@ -526,6 +538,9 @@ def make_ready(module_name: str) -> None:
 
     for name, value in vars(module).items():
         if isinstance(value, ConstantLazyLoader):
+            value.__set_name__(module, name)
+            lazy_loader.register(name, value)
+        elif isinstance(value, UnicodeAlias):
             value.__set_name__(module, name)
             lazy_loader.register(name, value)
         elif hasattr(value, "__commit__") and value.__module__ == module_name:

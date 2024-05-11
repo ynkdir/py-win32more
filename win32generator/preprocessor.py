@@ -2,12 +2,20 @@ import keyword
 import logging
 
 from .backport import removeprefix
-from .metadata import Metadata, TypeDefinition
+from .metadata import Metadata, MethodDefinition, TypeDefinition
 
 logger = logging.getLogger(__name__)
 
 
 class Preprocessor:
+    def preprocess(self, meta: Metadata) -> Metadata:
+        meta = self.filter_public(meta)
+        meta = self.sort(meta)
+        self.patch_name_conflict(meta)
+        self.patch_keyword_name(meta)
+        self.patch_unicode_alias(meta)
+        return meta
+
     def filter_public(self, meta: Metadata) -> Metadata:
         return Metadata([td.js for td in meta.type_definitions if self.is_public(td)])
 
@@ -78,3 +86,50 @@ class Preprocessor:
                 fd["Name"] = fd["Name"] + "_"
         for nested_type in td.nested_types:
             self.patch_keyword_name_td(nested_type, namespace=namespace + "." + nested_type.name)
+
+    # Remove "name" to be overwritten with "nameW".
+    # Except: RoOriginateError(HSTRING), RoTransformError(HSTRING)
+    # Some api have no A name.  e.g. GetEnvironmentStrings(ANSI) and GetEnvironmentStringsW(UNICODE)
+    # FIXME: name conflict Windows.Win32.System.Rpc.SEC_WINNT_AUTH_IDENTITY(enum) Windows.Win32.System.Rpc.SEC_WINNT_AUTH_IDENTITY_W(struct)
+    def patch_unicode_alias(self, meta: Metadata) -> None:
+        type_definitions = []
+        td_basetype = {td.fullname: td.basetype for td in meta.type_definitions}
+        for td in meta.type_definitions:
+            if td.fullname == "Windows.Win32.System.WinRT.Apis":
+                for md in td.methods:
+                    if md.name in {"RoOriginateErrorW", "RoTransformErrorW"}:
+                        logger.debug(f"unicode alias: remove UnicodeAttribute: {td.namespace}.{md.name}")
+                        self._remove_unicode_attribute(md)
+            elif td.custom_attributes.has_unicode():
+                if td.name.endswith("_W"):
+                    alias_name = td.fullname.removesuffix("_W")
+                elif td.name.endswith("W"):
+                    alias_name = td.fullname.removesuffix("W")
+                else:
+                    assert False
+                if alias_name in td_basetype and td.basetype != td_basetype[alias_name]:
+                    logger.warning(f"unicode alias: cannot overwrite: {alias_name}")
+                    self._remove_unicode_attribute(td)
+        td_unicode_names = {td.fullname for td in meta.type_definitions if td.custom_attributes.has_unicode()}
+        for td in meta.type_definitions:
+            if {f"{td.fullname}W", f"{td.fullname}_W"} & td_unicode_names:
+                logger.debug(f"unicode alias: overwrite: {td.fullname}")
+            else:
+                type_definitions.append(td.js)
+            if td.name == "Apis":
+                for fd in td.fields:
+                    assert not fd.custom_attributes.has_ansi() and not fd.custom_attributes.has_unicode()
+                methods = []
+                md_unicode_names = {md.name for md in td.methods if md.custom_attributes.has_unicode()}
+                for md in td.methods:
+                    if {f"{md.name}W", f"{md.name}_W"} & md_unicode_names:
+                        logger.debug(f"unicode alias: overwrite: {td.namespace}.{md.name}")
+                    else:
+                        methods.append(md.js)
+                td["Methods"] = methods
+        meta.js = type_definitions
+
+    def _remove_unicode_attribute(self, df: TypeDefinition | MethodDefinition) -> None:
+        df["CustomAttributes"] = [
+            ca for ca in df["CustomAttributes"] if ca["Type"] != "Windows.Win32.Foundation.Metadata.UnicodeAttribute"
+        ]

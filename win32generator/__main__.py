@@ -36,12 +36,8 @@ def load_resources(metadata_files: list[str]) -> Metadata:
 
 
 def preprocess(meta: Metadata) -> Metadata:
-    pp = Preprocessor()
-    meta = pp.filter_public(meta)
-    meta = pp.sort(meta)
-    pp.patch_name_conflict(meta)
-    pp.patch_keyword_name(meta)
-    return meta
+    preprocessor = Preprocessor()
+    return preprocessor.preprocess(meta)
 
 
 def select(meta: Metadata, selector_file: Path) -> Metadata:

@@ -92,6 +92,11 @@ class TestSyntax(unittest.TestCase):
 
         self.assertNotEqual(sizeof(DECIMAL), 0)
 
+    def test_unicode_alias(self):
+        from win32more.Windows.Win32.UI.WindowsAndMessaging import MessageBox, MessageBoxW
+
+        self.assertIs(MessageBox, MessageBoxW)
+
 
 if __name__ == "__main__":
     unittest.main()

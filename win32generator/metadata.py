@@ -362,6 +362,12 @@ class CustomAttributeCollection(Collection[CustomAttribute]):
     def has_scoped_enum(self) -> bool:
         return self.has("Windows.Win32.Foundation.Metadata.ScopedEnumAttribute")
 
+    def has_ansi(self) -> bool:
+        return self.has("Windows.Win32.Foundation.Metadata.AnsiAttribute")
+
+    def has_unicode(self) -> bool:
+        return self.has("Windows.Win32.Foundation.Metadata.UnicodeAttribute")
+
 
 class CustomAttributeFixedArgument:
     def __init__(self, js: JsonType) -> None:

@@ -38,6 +38,7 @@ BASE_EXPORTS = [
     "UInt32",
     "UInt64",
     "UIntPtr",
+    "UnicodeAlias",
     "Void",
     "VoidPtr",
     "cfunctype",
@@ -62,35 +63,40 @@ class Parser:
         module = self._package[td.namespace]
 
         if td.basetype is None:
-            module.add(Com(td, self._package, self._formatter))
+            self.add(module, Com(td, self._package, self._formatter), td.custom_attributes.has_unicode())
         elif td.basetype == "System.Object":
             for fd in td.fields:
-                module.add(Constant(td, fd, self._formatter))
+                self.add(module, Constant(td, fd, self._formatter), fd.custom_attributes.has_unicode())
             for md in td.methods:
                 if md.custom_attributes.has_constant():
-                    module.add(InlineFunction(td, md, self._formatter))
+                    self.add(module, InlineFunction(td, md, self._formatter), md.custom_attributes.has_unicode())
                 else:
-                    module.add(ExternalFunction(td, md, self._formatter))
+                    self.add(module, ExternalFunction(td, md, self._formatter), md.custom_attributes.has_unicode())
         elif td.basetype == "System.MulticastDelegate":
-            module.add(FunctionPointer(td, self._formatter))
+            self.add(module, FunctionPointer(td, self._formatter), td.custom_attributes.has_unicode())
         elif td.basetype == "System.Enum":
-            module.add(Enum(td, self._formatter))
+            self.add(module, Enum(td, self._formatter), td.custom_attributes.has_unicode())
         elif td.basetype == "System.ValueType":
             if td.custom_attributes.has_native_typedef():
-                module.add(NativeTypedef(td, self._formatter))
+                self.add(module, NativeTypedef(td, self._formatter), td.custom_attributes.has_unicode())
             # FIXME: CLSID_ComClass is defined as attribute like [uuid(...)] struct ComClass {}.
             elif td.custom_attributes.has_guid() and not td.fields:
-                module.add(Clsid(td, self._formatter))
+                self.add(module, Clsid(td, self._formatter), td.custom_attributes.has_unicode())
             elif "SequentialLayout" in td.attributes:
-                module.add(StructUnion(td, self._formatter))  # struct
+                self.add(module, StructUnion(td, self._formatter), td.custom_attributes.has_unicode())  # struct
             elif "ExplicitLayout" in td.attributes:
-                module.add(StructUnion(td, self._formatter))  # union
+                self.add(module, StructUnion(td, self._formatter), td.custom_attributes.has_unicode())  # union
             else:
                 raise NotImplementedError()
         elif td.basetype == "System.Attribute":
-            module.add(Attribute(td, self._formatter))
+            self.add(module, Attribute(td, self._formatter), td.custom_attributes.has_unicode())
         else:
             raise NotImplementedError()
+
+    def add(self, module: Module, api: ApiItem, has_unicode: bool):
+        module.add(api)
+        if has_unicode:
+            module.add(UnicodeAlias(api))
 
 
 class Formatter:
@@ -679,3 +685,30 @@ class ArchitectureVariant:
         assert self.name == item.name
         assert item.supported_architecture
         self._items.append(item)
+
+
+class UnicodeAlias:
+    def __init__(self, unicode_api: ApiItem):
+        assert unicode_api.name.endswith(("_W", "W"))
+        assert not unicode_api.name.endswith("__W")
+        self._unicode_api = unicode_api
+
+    @property
+    def namespace(self):
+        return self._unicode_api.namespace
+
+    @property
+    def name(self):
+        if self._unicode_api.name.endswith("_W"):
+            return self._unicode_api.name.removesuffix("_W")
+        return self._unicode_api.name.removesuffix("W")
+
+    @property
+    def supported_architecture(self) -> list[str]:
+        return self._unicode_api.supported_architecture
+
+    def enumerate_dependencies(self) -> Iterable[str]:
+        return self._unicode_api.enumerate_dependencies()
+
+    def emit(self) -> str:
+        return f"{self.name} = UnicodeAlias('{self._unicode_api.name}')\n"
