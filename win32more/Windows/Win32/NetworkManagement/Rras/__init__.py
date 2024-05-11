@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.NetworkManagement.IpHelper
 import win32more.Windows.Win32.NetworkManagement.Rras
@@ -736,126 +736,157 @@ RASBASEEND: UInt32 = 877
 def RasDialA(param0: POINTER(win32more.Windows.Win32.NetworkManagement.Rras.RASDIALEXTENSIONS), param1: win32more.Windows.Win32.Foundation.PSTR, param2: POINTER(win32more.Windows.Win32.NetworkManagement.Rras.RASDIALPARAMSA), param3: UInt32, param4: VoidPtr, param5: POINTER(win32more.Windows.Win32.NetworkManagement.Rras.HRASCONN)) -> UInt32: ...
 @winfunctype('RASAPI32.dll')
 def RasDialW(param0: POINTER(win32more.Windows.Win32.NetworkManagement.Rras.RASDIALEXTENSIONS), param1: win32more.Windows.Win32.Foundation.PWSTR, param2: POINTER(win32more.Windows.Win32.NetworkManagement.Rras.RASDIALPARAMSW), param3: UInt32, param4: VoidPtr, param5: POINTER(win32more.Windows.Win32.NetworkManagement.Rras.HRASCONN)) -> UInt32: ...
+RasDial = UnicodeAlias('RasDialW')
 @winfunctype('RASAPI32.dll')
 def RasEnumConnectionsA(param0: POINTER(win32more.Windows.Win32.NetworkManagement.Rras.RASCONNA), param1: POINTER(UInt32), param2: POINTER(UInt32)) -> UInt32: ...
 @winfunctype('RASAPI32.dll')
 def RasEnumConnectionsW(param0: POINTER(win32more.Windows.Win32.NetworkManagement.Rras.RASCONNW), param1: POINTER(UInt32), param2: POINTER(UInt32)) -> UInt32: ...
+RasEnumConnections = UnicodeAlias('RasEnumConnectionsW')
 @winfunctype('RASAPI32.dll')
 def RasEnumEntriesA(param0: win32more.Windows.Win32.Foundation.PSTR, param1: win32more.Windows.Win32.Foundation.PSTR, param2: POINTER(win32more.Windows.Win32.NetworkManagement.Rras.RASENTRYNAMEA), param3: POINTER(UInt32), param4: POINTER(UInt32)) -> UInt32: ...
 @winfunctype('RASAPI32.dll')
 def RasEnumEntriesW(param0: win32more.Windows.Win32.Foundation.PWSTR, param1: win32more.Windows.Win32.Foundation.PWSTR, param2: POINTER(win32more.Windows.Win32.NetworkManagement.Rras.RASENTRYNAMEW), param3: POINTER(UInt32), param4: POINTER(UInt32)) -> UInt32: ...
+RasEnumEntries = UnicodeAlias('RasEnumEntriesW')
 @winfunctype('RASAPI32.dll')
 def RasGetConnectStatusA(param0: win32more.Windows.Win32.NetworkManagement.Rras.HRASCONN, param1: POINTER(win32more.Windows.Win32.NetworkManagement.Rras.RASCONNSTATUSA)) -> UInt32: ...
 @winfunctype('RASAPI32.dll')
 def RasGetConnectStatusW(param0: win32more.Windows.Win32.NetworkManagement.Rras.HRASCONN, param1: POINTER(win32more.Windows.Win32.NetworkManagement.Rras.RASCONNSTATUSW)) -> UInt32: ...
+RasGetConnectStatus = UnicodeAlias('RasGetConnectStatusW')
 @winfunctype('RASAPI32.dll')
 def RasGetErrorStringA(ResourceId: UInt32, lpszString: win32more.Windows.Win32.Foundation.PSTR, InBufSize: UInt32) -> UInt32: ...
 @winfunctype('RASAPI32.dll')
 def RasGetErrorStringW(ResourceId: UInt32, lpszString: win32more.Windows.Win32.Foundation.PWSTR, InBufSize: UInt32) -> UInt32: ...
+RasGetErrorString = UnicodeAlias('RasGetErrorStringW')
 @winfunctype('RASAPI32.dll')
 def RasHangUpA(param0: win32more.Windows.Win32.NetworkManagement.Rras.HRASCONN) -> UInt32: ...
 @winfunctype('RASAPI32.dll')
 def RasHangUpW(param0: win32more.Windows.Win32.NetworkManagement.Rras.HRASCONN) -> UInt32: ...
+RasHangUp = UnicodeAlias('RasHangUpW')
 @winfunctype('RASAPI32.dll')
 def RasGetProjectionInfoA(param0: win32more.Windows.Win32.NetworkManagement.Rras.HRASCONN, param1: win32more.Windows.Win32.NetworkManagement.Rras.RASPROJECTION, param2: VoidPtr, param3: POINTER(UInt32)) -> UInt32: ...
 @winfunctype('RASAPI32.dll')
 def RasGetProjectionInfoW(param0: win32more.Windows.Win32.NetworkManagement.Rras.HRASCONN, param1: win32more.Windows.Win32.NetworkManagement.Rras.RASPROJECTION, param2: VoidPtr, param3: POINTER(UInt32)) -> UInt32: ...
+RasGetProjectionInfo = UnicodeAlias('RasGetProjectionInfoW')
 @winfunctype('RASAPI32.dll')
 def RasCreatePhonebookEntryA(param0: win32more.Windows.Win32.Foundation.HWND, param1: win32more.Windows.Win32.Foundation.PSTR) -> UInt32: ...
 @winfunctype('RASAPI32.dll')
 def RasCreatePhonebookEntryW(param0: win32more.Windows.Win32.Foundation.HWND, param1: win32more.Windows.Win32.Foundation.PWSTR) -> UInt32: ...
+RasCreatePhonebookEntry = UnicodeAlias('RasCreatePhonebookEntryW')
 @winfunctype('RASAPI32.dll')
 def RasEditPhonebookEntryA(param0: win32more.Windows.Win32.Foundation.HWND, param1: win32more.Windows.Win32.Foundation.PSTR, param2: win32more.Windows.Win32.Foundation.PSTR) -> UInt32: ...
 @winfunctype('RASAPI32.dll')
 def RasEditPhonebookEntryW(param0: win32more.Windows.Win32.Foundation.HWND, param1: win32more.Windows.Win32.Foundation.PWSTR, param2: win32more.Windows.Win32.Foundation.PWSTR) -> UInt32: ...
+RasEditPhonebookEntry = UnicodeAlias('RasEditPhonebookEntryW')
 @winfunctype('RASAPI32.dll')
 def RasSetEntryDialParamsA(param0: win32more.Windows.Win32.Foundation.PSTR, param1: POINTER(win32more.Windows.Win32.NetworkManagement.Rras.RASDIALPARAMSA), param2: win32more.Windows.Win32.Foundation.BOOL) -> UInt32: ...
 @winfunctype('RASAPI32.dll')
 def RasSetEntryDialParamsW(param0: win32more.Windows.Win32.Foundation.PWSTR, param1: POINTER(win32more.Windows.Win32.NetworkManagement.Rras.RASDIALPARAMSW), param2: win32more.Windows.Win32.Foundation.BOOL) -> UInt32: ...
+RasSetEntryDialParams = UnicodeAlias('RasSetEntryDialParamsW')
 @winfunctype('RASAPI32.dll')
 def RasGetEntryDialParamsA(param0: win32more.Windows.Win32.Foundation.PSTR, param1: POINTER(win32more.Windows.Win32.NetworkManagement.Rras.RASDIALPARAMSA), param2: POINTER(win32more.Windows.Win32.Foundation.BOOL)) -> UInt32: ...
 @winfunctype('RASAPI32.dll')
 def RasGetEntryDialParamsW(param0: win32more.Windows.Win32.Foundation.PWSTR, param1: POINTER(win32more.Windows.Win32.NetworkManagement.Rras.RASDIALPARAMSW), param2: POINTER(win32more.Windows.Win32.Foundation.BOOL)) -> UInt32: ...
+RasGetEntryDialParams = UnicodeAlias('RasGetEntryDialParamsW')
 @winfunctype('RASAPI32.dll')
 def RasEnumDevicesA(param0: POINTER(win32more.Windows.Win32.NetworkManagement.Rras.RASDEVINFOA), param1: POINTER(UInt32), param2: POINTER(UInt32)) -> UInt32: ...
 @winfunctype('RASAPI32.dll')
 def RasEnumDevicesW(param0: POINTER(win32more.Windows.Win32.NetworkManagement.Rras.RASDEVINFOW), param1: POINTER(UInt32), param2: POINTER(UInt32)) -> UInt32: ...
+RasEnumDevices = UnicodeAlias('RasEnumDevicesW')
 @winfunctype('RASAPI32.dll')
 def RasGetCountryInfoA(param0: POINTER(win32more.Windows.Win32.NetworkManagement.Rras.RASCTRYINFO), param1: POINTER(UInt32)) -> UInt32: ...
 @winfunctype('RASAPI32.dll')
 def RasGetCountryInfoW(param0: POINTER(win32more.Windows.Win32.NetworkManagement.Rras.RASCTRYINFO), param1: POINTER(UInt32)) -> UInt32: ...
+RasGetCountryInfo = UnicodeAlias('RasGetCountryInfoW')
 @winfunctype('RASAPI32.dll')
 def RasGetEntryPropertiesA(param0: win32more.Windows.Win32.Foundation.PSTR, param1: win32more.Windows.Win32.Foundation.PSTR, param2: POINTER(win32more.Windows.Win32.NetworkManagement.Rras.RASENTRYA), param3: POINTER(UInt32), param4: POINTER(Byte), param5: POINTER(UInt32)) -> UInt32: ...
 @winfunctype('RASAPI32.dll')
 def RasGetEntryPropertiesW(param0: win32more.Windows.Win32.Foundation.PWSTR, param1: win32more.Windows.Win32.Foundation.PWSTR, param2: POINTER(win32more.Windows.Win32.NetworkManagement.Rras.RASENTRYW), param3: POINTER(UInt32), param4: POINTER(Byte), param5: POINTER(UInt32)) -> UInt32: ...
+RasGetEntryProperties = UnicodeAlias('RasGetEntryPropertiesW')
 @winfunctype('RASAPI32.dll')
 def RasSetEntryPropertiesA(param0: win32more.Windows.Win32.Foundation.PSTR, param1: win32more.Windows.Win32.Foundation.PSTR, param2: POINTER(win32more.Windows.Win32.NetworkManagement.Rras.RASENTRYA), param3: UInt32, param4: POINTER(Byte), param5: UInt32) -> UInt32: ...
 @winfunctype('RASAPI32.dll')
 def RasSetEntryPropertiesW(param0: win32more.Windows.Win32.Foundation.PWSTR, param1: win32more.Windows.Win32.Foundation.PWSTR, param2: POINTER(win32more.Windows.Win32.NetworkManagement.Rras.RASENTRYW), param3: UInt32, param4: POINTER(Byte), param5: UInt32) -> UInt32: ...
+RasSetEntryProperties = UnicodeAlias('RasSetEntryPropertiesW')
 @winfunctype('RASAPI32.dll')
 def RasRenameEntryA(param0: win32more.Windows.Win32.Foundation.PSTR, param1: win32more.Windows.Win32.Foundation.PSTR, param2: win32more.Windows.Win32.Foundation.PSTR) -> UInt32: ...
 @winfunctype('RASAPI32.dll')
 def RasRenameEntryW(param0: win32more.Windows.Win32.Foundation.PWSTR, param1: win32more.Windows.Win32.Foundation.PWSTR, param2: win32more.Windows.Win32.Foundation.PWSTR) -> UInt32: ...
+RasRenameEntry = UnicodeAlias('RasRenameEntryW')
 @winfunctype('RASAPI32.dll')
 def RasDeleteEntryA(param0: win32more.Windows.Win32.Foundation.PSTR, param1: win32more.Windows.Win32.Foundation.PSTR) -> UInt32: ...
 @winfunctype('RASAPI32.dll')
 def RasDeleteEntryW(param0: win32more.Windows.Win32.Foundation.PWSTR, param1: win32more.Windows.Win32.Foundation.PWSTR) -> UInt32: ...
+RasDeleteEntry = UnicodeAlias('RasDeleteEntryW')
 @winfunctype('RASAPI32.dll')
 def RasValidateEntryNameA(param0: win32more.Windows.Win32.Foundation.PSTR, param1: win32more.Windows.Win32.Foundation.PSTR) -> UInt32: ...
 @winfunctype('RASAPI32.dll')
 def RasValidateEntryNameW(param0: win32more.Windows.Win32.Foundation.PWSTR, param1: win32more.Windows.Win32.Foundation.PWSTR) -> UInt32: ...
+RasValidateEntryName = UnicodeAlias('RasValidateEntryNameW')
 @winfunctype('RASAPI32.dll')
 def RasConnectionNotificationA(param0: win32more.Windows.Win32.NetworkManagement.Rras.HRASCONN, param1: win32more.Windows.Win32.Foundation.HANDLE, param2: UInt32) -> UInt32: ...
 @winfunctype('RASAPI32.dll')
 def RasConnectionNotificationW(param0: win32more.Windows.Win32.NetworkManagement.Rras.HRASCONN, param1: win32more.Windows.Win32.Foundation.HANDLE, param2: UInt32) -> UInt32: ...
+RasConnectionNotification = UnicodeAlias('RasConnectionNotificationW')
 @winfunctype('RASAPI32.dll')
 def RasGetSubEntryHandleA(param0: win32more.Windows.Win32.NetworkManagement.Rras.HRASCONN, param1: UInt32, param2: POINTER(win32more.Windows.Win32.NetworkManagement.Rras.HRASCONN)) -> UInt32: ...
 @winfunctype('RASAPI32.dll')
 def RasGetSubEntryHandleW(param0: win32more.Windows.Win32.NetworkManagement.Rras.HRASCONN, param1: UInt32, param2: POINTER(win32more.Windows.Win32.NetworkManagement.Rras.HRASCONN)) -> UInt32: ...
+RasGetSubEntryHandle = UnicodeAlias('RasGetSubEntryHandleW')
 @winfunctype('RASAPI32.dll')
 def RasGetCredentialsA(param0: win32more.Windows.Win32.Foundation.PSTR, param1: win32more.Windows.Win32.Foundation.PSTR, param2: POINTER(win32more.Windows.Win32.NetworkManagement.Rras.RASCREDENTIALSA)) -> UInt32: ...
 @winfunctype('RASAPI32.dll')
 def RasGetCredentialsW(param0: win32more.Windows.Win32.Foundation.PWSTR, param1: win32more.Windows.Win32.Foundation.PWSTR, param2: POINTER(win32more.Windows.Win32.NetworkManagement.Rras.RASCREDENTIALSW)) -> UInt32: ...
+RasGetCredentials = UnicodeAlias('RasGetCredentialsW')
 @winfunctype('RASAPI32.dll')
 def RasSetCredentialsA(param0: win32more.Windows.Win32.Foundation.PSTR, param1: win32more.Windows.Win32.Foundation.PSTR, param2: POINTER(win32more.Windows.Win32.NetworkManagement.Rras.RASCREDENTIALSA), param3: win32more.Windows.Win32.Foundation.BOOL) -> UInt32: ...
 @winfunctype('RASAPI32.dll')
 def RasSetCredentialsW(param0: win32more.Windows.Win32.Foundation.PWSTR, param1: win32more.Windows.Win32.Foundation.PWSTR, param2: POINTER(win32more.Windows.Win32.NetworkManagement.Rras.RASCREDENTIALSW), param3: win32more.Windows.Win32.Foundation.BOOL) -> UInt32: ...
+RasSetCredentials = UnicodeAlias('RasSetCredentialsW')
 @winfunctype('RASAPI32.dll')
 def RasGetSubEntryPropertiesA(param0: win32more.Windows.Win32.Foundation.PSTR, param1: win32more.Windows.Win32.Foundation.PSTR, param2: UInt32, param3: POINTER(win32more.Windows.Win32.NetworkManagement.Rras.RASSUBENTRYA), param4: POINTER(UInt32), param5: POINTER(Byte), param6: POINTER(UInt32)) -> UInt32: ...
 @winfunctype('RASAPI32.dll')
 def RasGetSubEntryPropertiesW(param0: win32more.Windows.Win32.Foundation.PWSTR, param1: win32more.Windows.Win32.Foundation.PWSTR, param2: UInt32, param3: POINTER(win32more.Windows.Win32.NetworkManagement.Rras.RASSUBENTRYW), param4: POINTER(UInt32), param5: POINTER(Byte), param6: POINTER(UInt32)) -> UInt32: ...
+RasGetSubEntryProperties = UnicodeAlias('RasGetSubEntryPropertiesW')
 @winfunctype('RASAPI32.dll')
 def RasSetSubEntryPropertiesA(param0: win32more.Windows.Win32.Foundation.PSTR, param1: win32more.Windows.Win32.Foundation.PSTR, param2: UInt32, param3: POINTER(win32more.Windows.Win32.NetworkManagement.Rras.RASSUBENTRYA), param4: UInt32, param5: POINTER(Byte), param6: UInt32) -> UInt32: ...
 @winfunctype('RASAPI32.dll')
 def RasSetSubEntryPropertiesW(param0: win32more.Windows.Win32.Foundation.PWSTR, param1: win32more.Windows.Win32.Foundation.PWSTR, param2: UInt32, param3: POINTER(win32more.Windows.Win32.NetworkManagement.Rras.RASSUBENTRYW), param4: UInt32, param5: POINTER(Byte), param6: UInt32) -> UInt32: ...
+RasSetSubEntryProperties = UnicodeAlias('RasSetSubEntryPropertiesW')
 @winfunctype('RASAPI32.dll')
 def RasGetAutodialAddressA(param0: win32more.Windows.Win32.Foundation.PSTR, param1: POINTER(UInt32), param2: POINTER(win32more.Windows.Win32.NetworkManagement.Rras.RASAUTODIALENTRYA), param3: POINTER(UInt32), param4: POINTER(UInt32)) -> UInt32: ...
 @winfunctype('RASAPI32.dll')
 def RasGetAutodialAddressW(param0: win32more.Windows.Win32.Foundation.PWSTR, param1: POINTER(UInt32), param2: POINTER(win32more.Windows.Win32.NetworkManagement.Rras.RASAUTODIALENTRYW), param3: POINTER(UInt32), param4: POINTER(UInt32)) -> UInt32: ...
+RasGetAutodialAddress = UnicodeAlias('RasGetAutodialAddressW')
 @winfunctype('RASAPI32.dll')
 def RasSetAutodialAddressA(param0: win32more.Windows.Win32.Foundation.PSTR, param1: UInt32, param2: POINTER(win32more.Windows.Win32.NetworkManagement.Rras.RASAUTODIALENTRYA), param3: UInt32, param4: UInt32) -> UInt32: ...
 @winfunctype('RASAPI32.dll')
 def RasSetAutodialAddressW(param0: win32more.Windows.Win32.Foundation.PWSTR, param1: UInt32, param2: POINTER(win32more.Windows.Win32.NetworkManagement.Rras.RASAUTODIALENTRYW), param3: UInt32, param4: UInt32) -> UInt32: ...
+RasSetAutodialAddress = UnicodeAlias('RasSetAutodialAddressW')
 @winfunctype('RASAPI32.dll')
 def RasEnumAutodialAddressesA(lppRasAutodialAddresses: POINTER(win32more.Windows.Win32.Foundation.PSTR), lpdwcbRasAutodialAddresses: POINTER(UInt32), lpdwcRasAutodialAddresses: POINTER(UInt32)) -> UInt32: ...
 @winfunctype('RASAPI32.dll')
 def RasEnumAutodialAddressesW(lppRasAutodialAddresses: POINTER(win32more.Windows.Win32.Foundation.PWSTR), lpdwcbRasAutodialAddresses: POINTER(UInt32), lpdwcRasAutodialAddresses: POINTER(UInt32)) -> UInt32: ...
+RasEnumAutodialAddresses = UnicodeAlias('RasEnumAutodialAddressesW')
 @winfunctype('RASAPI32.dll')
 def RasGetAutodialEnableA(param0: UInt32, param1: POINTER(win32more.Windows.Win32.Foundation.BOOL)) -> UInt32: ...
 @winfunctype('RASAPI32.dll')
 def RasGetAutodialEnableW(param0: UInt32, param1: POINTER(win32more.Windows.Win32.Foundation.BOOL)) -> UInt32: ...
+RasGetAutodialEnable = UnicodeAlias('RasGetAutodialEnableW')
 @winfunctype('RASAPI32.dll')
 def RasSetAutodialEnableA(param0: UInt32, param1: win32more.Windows.Win32.Foundation.BOOL) -> UInt32: ...
 @winfunctype('RASAPI32.dll')
 def RasSetAutodialEnableW(param0: UInt32, param1: win32more.Windows.Win32.Foundation.BOOL) -> UInt32: ...
+RasSetAutodialEnable = UnicodeAlias('RasSetAutodialEnableW')
 @winfunctype('RASAPI32.dll')
 def RasGetAutodialParamA(param0: UInt32, param1: VoidPtr, param2: POINTER(UInt32)) -> UInt32: ...
 @winfunctype('RASAPI32.dll')
 def RasGetAutodialParamW(param0: UInt32, param1: VoidPtr, param2: POINTER(UInt32)) -> UInt32: ...
+RasGetAutodialParam = UnicodeAlias('RasGetAutodialParamW')
 @winfunctype('RASAPI32.dll')
 def RasSetAutodialParamA(param0: UInt32, param1: VoidPtr, param2: UInt32) -> UInt32: ...
 @winfunctype('RASAPI32.dll')
 def RasSetAutodialParamW(param0: UInt32, param1: VoidPtr, param2: UInt32) -> UInt32: ...
+RasSetAutodialParam = UnicodeAlias('RasSetAutodialParamW')
 @winfunctype('RASAPI32.dll')
 def RasGetPCscf(lpszPCscf: win32more.Windows.Win32.Foundation.PWSTR) -> UInt32: ...
 @winfunctype('RASAPI32.dll')
@@ -872,30 +903,37 @@ def RasClearConnectionStatistics(hRasConn: win32more.Windows.Win32.NetworkManage
 def RasGetEapUserDataA(hToken: win32more.Windows.Win32.Foundation.HANDLE, pszPhonebook: win32more.Windows.Win32.Foundation.PSTR, pszEntry: win32more.Windows.Win32.Foundation.PSTR, pbEapData: POINTER(Byte), pdwSizeofEapData: POINTER(UInt32)) -> UInt32: ...
 @winfunctype('RASAPI32.dll')
 def RasGetEapUserDataW(hToken: win32more.Windows.Win32.Foundation.HANDLE, pszPhonebook: win32more.Windows.Win32.Foundation.PWSTR, pszEntry: win32more.Windows.Win32.Foundation.PWSTR, pbEapData: POINTER(Byte), pdwSizeofEapData: POINTER(UInt32)) -> UInt32: ...
+RasGetEapUserData = UnicodeAlias('RasGetEapUserDataW')
 @winfunctype('RASAPI32.dll')
 def RasSetEapUserDataA(hToken: win32more.Windows.Win32.Foundation.HANDLE, pszPhonebook: win32more.Windows.Win32.Foundation.PSTR, pszEntry: win32more.Windows.Win32.Foundation.PSTR, pbEapData: POINTER(Byte), dwSizeofEapData: UInt32) -> UInt32: ...
 @winfunctype('RASAPI32.dll')
 def RasSetEapUserDataW(hToken: win32more.Windows.Win32.Foundation.HANDLE, pszPhonebook: win32more.Windows.Win32.Foundation.PWSTR, pszEntry: win32more.Windows.Win32.Foundation.PWSTR, pbEapData: POINTER(Byte), dwSizeofEapData: UInt32) -> UInt32: ...
+RasSetEapUserData = UnicodeAlias('RasSetEapUserDataW')
 @winfunctype('RASAPI32.dll')
 def RasGetCustomAuthDataA(pszPhonebook: win32more.Windows.Win32.Foundation.PSTR, pszEntry: win32more.Windows.Win32.Foundation.PSTR, pbCustomAuthData: POINTER(Byte), pdwSizeofCustomAuthData: POINTER(UInt32)) -> UInt32: ...
 @winfunctype('RASAPI32.dll')
 def RasGetCustomAuthDataW(pszPhonebook: win32more.Windows.Win32.Foundation.PWSTR, pszEntry: win32more.Windows.Win32.Foundation.PWSTR, pbCustomAuthData: POINTER(Byte), pdwSizeofCustomAuthData: POINTER(UInt32)) -> UInt32: ...
+RasGetCustomAuthData = UnicodeAlias('RasGetCustomAuthDataW')
 @winfunctype('RASAPI32.dll')
 def RasSetCustomAuthDataA(pszPhonebook: win32more.Windows.Win32.Foundation.PSTR, pszEntry: win32more.Windows.Win32.Foundation.PSTR, pbCustomAuthData: POINTER(Byte), dwSizeofCustomAuthData: UInt32) -> UInt32: ...
 @winfunctype('RASAPI32.dll')
 def RasSetCustomAuthDataW(pszPhonebook: win32more.Windows.Win32.Foundation.PWSTR, pszEntry: win32more.Windows.Win32.Foundation.PWSTR, pbCustomAuthData: POINTER(Byte), dwSizeofCustomAuthData: UInt32) -> UInt32: ...
+RasSetCustomAuthData = UnicodeAlias('RasSetCustomAuthDataW')
 @winfunctype('RASAPI32.dll')
 def RasGetEapUserIdentityW(pszPhonebook: win32more.Windows.Win32.Foundation.PWSTR, pszEntry: win32more.Windows.Win32.Foundation.PWSTR, dwFlags: UInt32, hwnd: win32more.Windows.Win32.Foundation.HWND, ppRasEapUserIdentity: POINTER(POINTER(win32more.Windows.Win32.NetworkManagement.Rras.RASEAPUSERIDENTITYW))) -> UInt32: ...
+RasGetEapUserIdentity = UnicodeAlias('RasGetEapUserIdentityW')
 @winfunctype('RASAPI32.dll')
 def RasGetEapUserIdentityA(pszPhonebook: win32more.Windows.Win32.Foundation.PSTR, pszEntry: win32more.Windows.Win32.Foundation.PSTR, dwFlags: UInt32, hwnd: win32more.Windows.Win32.Foundation.HWND, ppRasEapUserIdentity: POINTER(POINTER(win32more.Windows.Win32.NetworkManagement.Rras.RASEAPUSERIDENTITYA))) -> UInt32: ...
 @winfunctype('RASAPI32.dll')
 def RasFreeEapUserIdentityW(pRasEapUserIdentity: POINTER(win32more.Windows.Win32.NetworkManagement.Rras.RASEAPUSERIDENTITYW)) -> Void: ...
+RasFreeEapUserIdentity = UnicodeAlias('RasFreeEapUserIdentityW')
 @winfunctype('RASAPI32.dll')
 def RasFreeEapUserIdentityA(pRasEapUserIdentity: POINTER(win32more.Windows.Win32.NetworkManagement.Rras.RASEAPUSERIDENTITYA)) -> Void: ...
 @winfunctype('RASAPI32.dll')
 def RasDeleteSubEntryA(pszPhonebook: win32more.Windows.Win32.Foundation.PSTR, pszEntry: win32more.Windows.Win32.Foundation.PSTR, dwSubentryId: UInt32) -> UInt32: ...
 @winfunctype('RASAPI32.dll')
 def RasDeleteSubEntryW(pszPhonebook: win32more.Windows.Win32.Foundation.PWSTR, pszEntry: win32more.Windows.Win32.Foundation.PWSTR, dwSubEntryId: UInt32) -> UInt32: ...
+RasDeleteSubEntry = UnicodeAlias('RasDeleteSubEntryW')
 @winfunctype('RASAPI32.dll')
 def RasUpdateConnection(hrasconn: win32more.Windows.Win32.NetworkManagement.Rras.HRASCONN, lprasupdateconn: POINTER(win32more.Windows.Win32.NetworkManagement.Rras.RASUPDATECONN)) -> UInt32: ...
 @winfunctype('RASAPI32.dll')
@@ -904,14 +942,17 @@ def RasGetProjectionInfoEx(hrasconn: win32more.Windows.Win32.NetworkManagement.R
 def RasPhonebookDlgA(lpszPhonebook: win32more.Windows.Win32.Foundation.PSTR, lpszEntry: win32more.Windows.Win32.Foundation.PSTR, lpInfo: POINTER(win32more.Windows.Win32.NetworkManagement.Rras.RASPBDLGA)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('RASDLG.dll')
 def RasPhonebookDlgW(lpszPhonebook: win32more.Windows.Win32.Foundation.PWSTR, lpszEntry: win32more.Windows.Win32.Foundation.PWSTR, lpInfo: POINTER(win32more.Windows.Win32.NetworkManagement.Rras.RASPBDLGW)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+RasPhonebookDlg = UnicodeAlias('RasPhonebookDlgW')
 @winfunctype('RASDLG.dll')
 def RasEntryDlgA(lpszPhonebook: win32more.Windows.Win32.Foundation.PSTR, lpszEntry: win32more.Windows.Win32.Foundation.PSTR, lpInfo: POINTER(win32more.Windows.Win32.NetworkManagement.Rras.RASENTRYDLGA)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('RASDLG.dll')
 def RasEntryDlgW(lpszPhonebook: win32more.Windows.Win32.Foundation.PWSTR, lpszEntry: win32more.Windows.Win32.Foundation.PWSTR, lpInfo: POINTER(win32more.Windows.Win32.NetworkManagement.Rras.RASENTRYDLGW)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+RasEntryDlg = UnicodeAlias('RasEntryDlgW')
 @winfunctype('RASDLG.dll')
 def RasDialDlgA(lpszPhonebook: win32more.Windows.Win32.Foundation.PSTR, lpszEntry: win32more.Windows.Win32.Foundation.PSTR, lpszPhoneNumber: win32more.Windows.Win32.Foundation.PSTR, lpInfo: POINTER(win32more.Windows.Win32.NetworkManagement.Rras.RASDIALDLG)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('RASDLG.dll')
 def RasDialDlgW(lpszPhonebook: win32more.Windows.Win32.Foundation.PWSTR, lpszEntry: win32more.Windows.Win32.Foundation.PWSTR, lpszPhoneNumber: win32more.Windows.Win32.Foundation.PWSTR, lpInfo: POINTER(win32more.Windows.Win32.NetworkManagement.Rras.RASDIALDLG)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+RasDialDlg = UnicodeAlias('RasDialDlgW')
 @winfunctype('MPRAPI.dll')
 def MprAdminConnectionEnumEx(hRasServer: IntPtr, pObjectHeader: POINTER(win32more.Windows.Win32.NetworkManagement.Rras.MPRAPI_OBJECT_HEADER), dwPreferedMaxLen: UInt32, lpdwEntriesRead: POINTER(UInt32), lpdwTotalEntries: POINTER(UInt32), ppRasConn: POINTER(POINTER(win32more.Windows.Win32.NetworkManagement.Rras.RAS_CONNECTION_EX)), lpdwResumeHandle: POINTER(UInt32)) -> UInt32: ...
 @winfunctype('MPRAPI.dll')
@@ -1881,6 +1922,7 @@ class PROJECTION_INFO2(EasyCastStructure):
 def RASADFUNCA(param0: win32more.Windows.Win32.Foundation.PSTR, param1: win32more.Windows.Win32.Foundation.PSTR, param2: POINTER(win32more.Windows.Win32.NetworkManagement.Rras.RASADPARAMS), param3: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def RASADFUNCW(param0: win32more.Windows.Win32.Foundation.PWSTR, param1: win32more.Windows.Win32.Foundation.PWSTR, param2: POINTER(win32more.Windows.Win32.NetworkManagement.Rras.RASADPARAMS), param3: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+RASADFUNC = UnicodeAlias('RASADFUNCW')
 class RASADPARAMS(EasyCastStructure):
     dwSize: UInt32
     hwndOwner: win32more.Windows.Win32.Foundation.HWND
@@ -1898,6 +1940,7 @@ class RASAMBW(EasyCastStructure):
     dwError: UInt32
     szNetBiosError: Char * 17
     bLana: Byte
+RASAMB = UnicodeAlias('RASAMBW')
 RASAPIVERSION = Int32
 RASAPIVERSION_500: win32more.Windows.Win32.NetworkManagement.Rras.RASAPIVERSION = 1
 RASAPIVERSION_501: win32more.Windows.Win32.NetworkManagement.Rras.RASAPIVERSION = 2
@@ -1913,6 +1956,7 @@ class RASAUTODIALENTRYW(EasyCastStructure):
     dwFlags: UInt32
     dwDialingLocation: UInt32
     szEntry: Char * 257
+RASAUTODIALENTRY = UnicodeAlias('RASAUTODIALENTRYW')
 class RASCOMMSETTINGS(EasyCastStructure):
     dwSize: UInt32
     bParity: Byte
@@ -1999,6 +2043,7 @@ class RASCONNSTATUSW(EasyCastStructure):
     localEndPoint: win32more.Windows.Win32.NetworkManagement.Rras.RASTUNNELENDPOINT
     remoteEndPoint: win32more.Windows.Win32.NetworkManagement.Rras.RASTUNNELENDPOINT
     rasconnsubstate: win32more.Windows.Win32.NetworkManagement.Rras.RASCONNSUBSTATE
+RASCONNSTATUS = UnicodeAlias('RASCONNSTATUSW')
 RASCONNSUBSTATE = Int32
 RASCSS_None: win32more.Windows.Win32.NetworkManagement.Rras.RASCONNSUBSTATE = 0
 RASCSS_Dormant: win32more.Windows.Win32.NetworkManagement.Rras.RASCONNSUBSTATE = 1
@@ -2031,6 +2076,10 @@ elif ARCH in 'X86':
         dwFlags: UInt32
         luid: win32more.Windows.Win32.Foundation.LUID
         guidCorrelationId: Guid
+if ARCH in 'X64,ARM64':
+    RASCONN = UnicodeAlias('RASCONNW')
+elif ARCH in 'X86':
+    RASCONN = UnicodeAlias('RASCONNW')
 class RASCREDENTIALSA(EasyCastStructure):
     dwSize: UInt32
     dwMask: UInt32
@@ -2043,6 +2092,7 @@ class RASCREDENTIALSW(EasyCastStructure):
     szUserName: Char * 257
     szPassword: Char * 257
     szDomain: Char * 16
+RASCREDENTIALS = UnicodeAlias('RASCREDENTIALSW')
 class RASCTRYINFO(EasyCastStructure):
     dwSize: UInt32
     dwCountryID: UInt32
@@ -2061,6 +2111,7 @@ class RASDEVINFOW(EasyCastStructure):
     dwSize: UInt32
     szDeviceType: Char * 17
     szDeviceName: Char * 129
+RASDEVINFO = UnicodeAlias('RASDEVINFOW')
 if ARCH in 'X64,ARM64':
     class RASDEVSPECIFICINFO(EasyCastStructure):
         dwSize: UInt32
@@ -2151,6 +2202,10 @@ elif ARCH in 'X86':
         dwCallbackId: UIntPtr
         dwIfIndex: UInt32
         szEncPassword: win32more.Windows.Win32.Foundation.PWSTR
+if ARCH in 'X64,ARM64':
+    RASDIALPARAMS = UnicodeAlias('RASDIALPARAMSW')
+elif ARCH in 'X86':
+    RASDIALPARAMS = UnicodeAlias('RASDIALPARAMSW')
 class RASEAPINFO(EasyCastStructure):
     dwSizeofEapInfo: UInt32
     pbEapInfo: POINTER(Byte)
@@ -2163,6 +2218,7 @@ class RASEAPUSERIDENTITYW(EasyCastStructure):
     szUserName: Char * 257
     dwSizeofEapInfo: UInt32
     pbEapInfo: Byte * 1
+RASEAPUSERIDENTITY = UnicodeAlias('RASEAPUSERIDENTITYW')
 class RASENTRYA(EasyCastStructure):
     dwSize: UInt32
     dwfOptions: UInt32
@@ -2271,6 +2327,10 @@ elif ARCH in 'X86':
         dwError: UInt32
         reserved: UIntPtr
         reserved2: UIntPtr
+if ARCH in 'X64,ARM64':
+    RASENTRYDLG = UnicodeAlias('RASENTRYDLGW')
+elif ARCH in 'X86':
+    RASENTRYDLG = UnicodeAlias('RASENTRYDLGW')
 class RASENTRYNAMEA(EasyCastStructure):
     dwSize: UInt32
     szEntryName: win32more.Windows.Win32.Foundation.CHAR * 257
@@ -2281,6 +2341,7 @@ class RASENTRYNAMEW(EasyCastStructure):
     szEntryName: Char * 257
     dwFlags: UInt32
     szPhonebookPath: Char * 261
+RASENTRYNAME = UnicodeAlias('RASENTRYNAMEW')
 class RASENTRYW(EasyCastStructure):
     dwSize: UInt32
     dwfOptions: UInt32
@@ -2343,6 +2404,7 @@ class RASENTRYW(EasyCastStructure):
     IdiType: win32more.Windows.Win32.NetworkManagement.Rras.IKEV2_ID_PAYLOAD_TYPE
     IdrType: win32more.Windows.Win32.NetworkManagement.Rras.IKEV2_ID_PAYLOAD_TYPE
     fDisableIKEv2Fragmentation: win32more.Windows.Win32.Foundation.BOOL
+RASENTRY = UnicodeAlias('RASENTRYW')
 RASENTRY_DIAL_MODE = UInt32
 RASEDM_DialAll: win32more.Windows.Win32.NetworkManagement.Rras.RASENTRY_DIAL_MODE = 1
 RASEDM_DialAsNeeded: win32more.Windows.Win32.NetworkManagement.Rras.RASENTRY_DIAL_MODE = 2
@@ -2408,6 +2470,7 @@ class RASNOUSERW(EasyCastStructure):
     szUserName: Char * 257
     szPassword: Char * 257
     szDomain: Char * 16
+RASNOUSER = UnicodeAlias('RASNOUSERW')
 if ARCH in 'X64,ARM64':
     class RASPBDLGA(EasyCastStructure):
         dwSize: UInt32
@@ -2437,6 +2500,7 @@ elif ARCH in 'X86':
 def RASPBDLGFUNCA(param0: UIntPtr, param1: UInt32, param2: win32more.Windows.Win32.Foundation.PSTR, param3: VoidPtr) -> Void: ...
 @winfunctype_pointer
 def RASPBDLGFUNCW(param0: UIntPtr, param1: UInt32, param2: win32more.Windows.Win32.Foundation.PWSTR, param3: VoidPtr) -> Void: ...
+RASPBDLGFUNC = UnicodeAlias('RASPBDLGFUNCW')
 if ARCH in 'X64,ARM64':
     class RASPBDLGW(EasyCastStructure):
         dwSize: UInt32
@@ -2462,6 +2526,10 @@ elif ARCH in 'X86':
         dwError: UInt32
         reserved: UIntPtr
         reserved2: UIntPtr
+if ARCH in 'X64,ARM64':
+    RASPBDLG = UnicodeAlias('RASPBDLGW')
+elif ARCH in 'X86':
+    RASPBDLG = UnicodeAlias('RASPBDLGW')
 class RASPPPCCP(EasyCastStructure):
     dwSize: UInt32
     dwError: UInt32
@@ -2490,6 +2558,7 @@ class RASPPPIPW(EasyCastStructure):
     szServerIpAddress: Char * 16
     dwOptions: UInt32
     dwServerOptions: UInt32
+RASPPPIP = UnicodeAlias('RASPPPIPW')
 class RASPPPIPXA(EasyCastStructure):
     dwSize: UInt32
     dwError: UInt32
@@ -2526,6 +2595,7 @@ class RASPPPLCPW(EasyCastStructure):
     szReplyMessage: Char * 1024
     dwOptions: UInt32
     dwServerOptions: UInt32
+RASPPPLCP = UnicodeAlias('RASPPPLCPW')
 class RASPPPNBFA(EasyCastStructure):
     dwSize: UInt32
     dwError: UInt32
@@ -2540,6 +2610,7 @@ class RASPPPNBFW(EasyCastStructure):
     szNetBiosError: Char * 17
     szWorkstationName: Char * 17
     bLana: Byte
+RASPPPNBF = UnicodeAlias('RASPPPNBFW')
 class RASPPP_PROJECTION_INFO(EasyCastStructure):
     dwIPv4NegotiationError: UInt32
     ipv4Address: win32more.Windows.Win32.Networking.WinSock.IN_ADDR
@@ -2600,6 +2671,7 @@ class RASSUBENTRYW(EasyCastStructure):
     szDeviceName: Char * 129
     szLocalPhoneNumber: Char * 129
     dwAlternateOffset: UInt32
+RASSUBENTRY = UnicodeAlias('RASSUBENTRYW')
 class RASTUNNELENDPOINT(EasyCastStructure):
     dwType: UInt32
     Anonymous: _Anonymous_e__Union

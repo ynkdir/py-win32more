@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.System.Com
@@ -490,30 +490,37 @@ PROCESS_TRACE_MODE_EVENT_RECORD: UInt32 = 268435456
 CLSID_TraceRelogger: Guid = Guid('{7b40792d-05ff-44c4-9058-f440c71f17d4}')
 @winfunctype('ADVAPI32.dll')
 def StartTraceW(TraceHandle: POINTER(win32more.Windows.Win32.System.Diagnostics.Etw.CONTROLTRACE_HANDLE), InstanceName: win32more.Windows.Win32.Foundation.PWSTR, Properties: POINTER(win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_TRACE_PROPERTIES)) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
+StartTrace = UnicodeAlias('StartTraceW')
 @winfunctype('ADVAPI32.dll')
 def StartTraceA(TraceHandle: POINTER(win32more.Windows.Win32.System.Diagnostics.Etw.CONTROLTRACE_HANDLE), InstanceName: win32more.Windows.Win32.Foundation.PSTR, Properties: POINTER(win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_TRACE_PROPERTIES)) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('ADVAPI32.dll')
 def StopTraceW(TraceHandle: win32more.Windows.Win32.System.Diagnostics.Etw.CONTROLTRACE_HANDLE, InstanceName: win32more.Windows.Win32.Foundation.PWSTR, Properties: POINTER(win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_TRACE_PROPERTIES)) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
+StopTrace = UnicodeAlias('StopTraceW')
 @winfunctype('ADVAPI32.dll')
 def StopTraceA(TraceHandle: win32more.Windows.Win32.System.Diagnostics.Etw.CONTROLTRACE_HANDLE, InstanceName: win32more.Windows.Win32.Foundation.PSTR, Properties: POINTER(win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_TRACE_PROPERTIES)) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('ADVAPI32.dll')
 def QueryTraceW(TraceHandle: win32more.Windows.Win32.System.Diagnostics.Etw.CONTROLTRACE_HANDLE, InstanceName: win32more.Windows.Win32.Foundation.PWSTR, Properties: POINTER(win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_TRACE_PROPERTIES)) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
+QueryTrace = UnicodeAlias('QueryTraceW')
 @winfunctype('ADVAPI32.dll')
 def QueryTraceA(TraceHandle: win32more.Windows.Win32.System.Diagnostics.Etw.CONTROLTRACE_HANDLE, InstanceName: win32more.Windows.Win32.Foundation.PSTR, Properties: POINTER(win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_TRACE_PROPERTIES)) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('ADVAPI32.dll')
 def UpdateTraceW(TraceHandle: win32more.Windows.Win32.System.Diagnostics.Etw.CONTROLTRACE_HANDLE, InstanceName: win32more.Windows.Win32.Foundation.PWSTR, Properties: POINTER(win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_TRACE_PROPERTIES)) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
+UpdateTrace = UnicodeAlias('UpdateTraceW')
 @winfunctype('ADVAPI32.dll')
 def UpdateTraceA(TraceHandle: win32more.Windows.Win32.System.Diagnostics.Etw.CONTROLTRACE_HANDLE, InstanceName: win32more.Windows.Win32.Foundation.PSTR, Properties: POINTER(win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_TRACE_PROPERTIES)) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('ADVAPI32.dll')
 def FlushTraceW(TraceHandle: win32more.Windows.Win32.System.Diagnostics.Etw.CONTROLTRACE_HANDLE, InstanceName: win32more.Windows.Win32.Foundation.PWSTR, Properties: POINTER(win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_TRACE_PROPERTIES)) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
+FlushTrace = UnicodeAlias('FlushTraceW')
 @winfunctype('ADVAPI32.dll')
 def FlushTraceA(TraceHandle: win32more.Windows.Win32.System.Diagnostics.Etw.CONTROLTRACE_HANDLE, InstanceName: win32more.Windows.Win32.Foundation.PSTR, Properties: POINTER(win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_TRACE_PROPERTIES)) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('ADVAPI32.dll')
 def ControlTraceW(TraceHandle: win32more.Windows.Win32.System.Diagnostics.Etw.CONTROLTRACE_HANDLE, InstanceName: win32more.Windows.Win32.Foundation.PWSTR, Properties: POINTER(win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_TRACE_PROPERTIES), ControlCode: win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_TRACE_CONTROL) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
+ControlTrace = UnicodeAlias('ControlTraceW')
 @winfunctype('ADVAPI32.dll')
 def ControlTraceA(TraceHandle: win32more.Windows.Win32.System.Diagnostics.Etw.CONTROLTRACE_HANDLE, InstanceName: win32more.Windows.Win32.Foundation.PSTR, Properties: POINTER(win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_TRACE_PROPERTIES), ControlCode: win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_TRACE_CONTROL) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('ADVAPI32.dll')
 def QueryAllTracesW(PropertyArray: POINTER(POINTER(win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_TRACE_PROPERTIES)), PropertyArrayCount: UInt32, LoggerCount: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
+QueryAllTraces = UnicodeAlias('QueryAllTracesW')
 @winfunctype('ADVAPI32.dll')
 def QueryAllTracesA(PropertyArray: POINTER(POINTER(win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_TRACE_PROPERTIES)), PropertyArrayCount: UInt32, LoggerCount: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('ADVAPI32.dll')
@@ -536,6 +543,7 @@ def TraceEvent(TraceHandle: UInt64, EventTrace: POINTER(win32more.Windows.Win32.
 def TraceEventInstance(TraceHandle: UInt64, EventTrace: POINTER(win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_INSTANCE_HEADER), InstInfo: POINTER(win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_INSTANCE_INFO), ParentInstInfo: POINTER(win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_INSTANCE_INFO)) -> UInt32: ...
 @winfunctype('ADVAPI32.dll')
 def RegisterTraceGuidsW(RequestAddress: win32more.Windows.Win32.System.Diagnostics.Etw.WMIDPREQUEST, RequestContext: VoidPtr, ControlGuid: POINTER(Guid), GuidCount: UInt32, TraceGuidReg: POINTER(win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_GUID_REGISTRATION), MofImagePath: win32more.Windows.Win32.Foundation.PWSTR, MofResourceName: win32more.Windows.Win32.Foundation.PWSTR, RegistrationHandle: POINTER(UInt64)) -> UInt32: ...
+RegisterTraceGuids = UnicodeAlias('RegisterTraceGuidsW')
 @winfunctype('ADVAPI32.dll')
 def RegisterTraceGuidsA(RequestAddress: win32more.Windows.Win32.System.Diagnostics.Etw.WMIDPREQUEST, RequestContext: VoidPtr, ControlGuid: POINTER(Guid), GuidCount: UInt32, TraceGuidReg: POINTER(win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_GUID_REGISTRATION), MofImagePath: win32more.Windows.Win32.Foundation.PSTR, MofResourceName: win32more.Windows.Win32.Foundation.PSTR, RegistrationHandle: POINTER(UInt64)) -> UInt32: ...
 @winfunctype('ADVAPI32.dll')
@@ -550,6 +558,7 @@ def GetTraceEnableLevel(TraceHandle: UInt64) -> Byte: ...
 def GetTraceEnableFlags(TraceHandle: UInt64) -> UInt32: ...
 @winfunctype('ADVAPI32.dll')
 def OpenTraceW(Logfile: POINTER(win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_TRACE_LOGFILEW)) -> win32more.Windows.Win32.System.Diagnostics.Etw.PROCESSTRACE_HANDLE: ...
+OpenTrace = UnicodeAlias('OpenTraceW')
 @winfunctype('ADVAPI32.dll')
 def ProcessTrace(HandleArray: POINTER(win32more.Windows.Win32.System.Diagnostics.Etw.PROCESSTRACE_HANDLE), HandleCount: UInt32, StartTime: POINTER(win32more.Windows.Win32.Foundation.FILETIME), EndTime: POINTER(win32more.Windows.Win32.Foundation.FILETIME)) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('ADVAPI32.dll')
@@ -1102,6 +1111,7 @@ class EVENT_TRACE_LOGFILEW(EasyCastStructure):
     class _Anonymous2_e__Union(EasyCastUnion):
         EventCallback: win32more.Windows.Win32.System.Diagnostics.Etw.PEVENT_CALLBACK
         EventRecordCallback: win32more.Windows.Win32.System.Diagnostics.Etw.PEVENT_RECORD_CALLBACK
+EVENT_TRACE_LOGFILE = UnicodeAlias('EVENT_TRACE_LOGFILEW')
 class EVENT_TRACE_PROPERTIES(EasyCastStructure):
     Wnode: win32more.Windows.Win32.System.Diagnostics.Etw.WNODE_HEADER
     BufferSize: UInt32
@@ -1268,6 +1278,7 @@ def PEVENT_RECORD_CALLBACK(EventRecord: POINTER(win32more.Windows.Win32.System.D
 def PEVENT_TRACE_BUFFER_CALLBACKA(Logfile: POINTER(win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_TRACE_LOGFILEA)) -> UInt32: ...
 @winfunctype_pointer
 def PEVENT_TRACE_BUFFER_CALLBACKW(Logfile: POINTER(win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_TRACE_LOGFILEW)) -> UInt32: ...
+PEVENT_TRACE_BUFFER_CALLBACK = UnicodeAlias('PEVENT_TRACE_BUFFER_CALLBACKW')
 class PROCESSTRACE_HANDLE(EasyCastStructure):
     Value: UInt64
 class PROFILE_SOURCE_INFO(EasyCastStructure):

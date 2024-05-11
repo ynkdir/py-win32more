@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Media
 import win32more.Windows.Win32.Media.Audio
@@ -714,6 +714,7 @@ def LPFNDIRECTSOUNDDEVICEENUMERATECALLBACK1(param0: POINTER(win32more.Windows.Wi
 def LPFNDIRECTSOUNDDEVICEENUMERATECALLBACKA(param0: POINTER(win32more.Windows.Win32.Media.Audio.DirectMusic.DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_A_DATA), param1: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def LPFNDIRECTSOUNDDEVICEENUMERATECALLBACKW(param0: POINTER(win32more.Windows.Win32.Media.Audio.DirectMusic.DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_W_DATA), param1: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+LPFNDIRECTSOUNDDEVICEENUMERATECALLBACK = UnicodeAlias('LPFNDIRECTSOUNDDEVICEENUMERATECALLBACKW')
 class MDEVICECAPSEX(EasyCastStructure):
     cbSize: UInt32
     pCaps: VoidPtr

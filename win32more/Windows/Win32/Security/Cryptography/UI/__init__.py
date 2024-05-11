@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security.Cryptography
 import win32more.Windows.Win32.Security.Cryptography.UI
@@ -99,6 +99,7 @@ def CryptUIWizDigitalSign(dwFlags: UInt32, hwndParent: win32more.Windows.Win32.F
 def CryptUIWizFreeDigitalSignContext(pSignContext: POINTER(win32more.Windows.Win32.Security.Cryptography.UI.CRYPTUI_WIZ_DIGITAL_SIGN_CONTEXT)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPTUI.dll')
 def CryptUIDlgViewCertificateW(pCertViewInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.UI.CRYPTUI_VIEWCERTIFICATE_STRUCTW), pfPropertiesChanged: POINTER(win32more.Windows.Win32.Foundation.BOOL)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+CryptUIDlgViewCertificate = UnicodeAlias('CryptUIDlgViewCertificateW')
 @winfunctype('CRYPTUI.dll')
 def CryptUIDlgViewCertificateA(pCertViewInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.UI.CRYPTUI_VIEWCERTIFICATE_STRUCTA), pfPropertiesChanged: POINTER(win32more.Windows.Win32.Foundation.BOOL)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('CRYPTUI.dll')
@@ -162,6 +163,7 @@ class CERT_SELECT_STRUCT_W(EasyCastStructure):
     szHelpFileName: win32more.Windows.Win32.Foundation.PWSTR
     dwHelpId: UInt32
     hprov: UIntPtr
+CERT_SELECT_STRUCT = UnicodeAlias('CERT_SELECT_STRUCT_W')
 class CERT_VERIFY_CERTIFICATE_TRUST(EasyCastStructure):
     cbSize: UInt32
     pccert: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT)
@@ -239,6 +241,7 @@ class CERT_VIEWPROPERTIES_STRUCT_W(EasyCastStructure):
     nStartPage: UInt32
     cArrayPropSheetPages: UInt32
     arrayPropSheetPages: POINTER(win32more.Windows.Win32.UI.Controls.PROPSHEETPAGEA)
+CERT_VIEWPROPERTIES_STRUCT = UnicodeAlias('CERT_VIEWPROPERTIES_STRUCT_W')
 class CRYPTUI_CERT_MGR_STRUCT(EasyCastStructure):
     dwSize: UInt32
     hwndParent: win32more.Windows.Win32.Foundation.HWND
@@ -313,6 +316,7 @@ class CRYPTUI_VIEWCERTIFICATE_STRUCTW(EasyCastStructure):
     class _Anonymous_e__Union(EasyCastUnion):
         pCryptProviderData: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_DATA)
         hWVTStateData: win32more.Windows.Win32.Foundation.HANDLE
+CRYPTUI_VIEWCERTIFICATE_STRUCT = UnicodeAlias('CRYPTUI_VIEWCERTIFICATE_STRUCTW')
 CRYPTUI_WIZ_DIGITAL_ADDITIONAL_CERT_CHOICE = UInt32
 CRYPTUI_WIZ_DIGITAL_SIGN_ADD_CHAIN: win32more.Windows.Win32.Security.Cryptography.UI.CRYPTUI_WIZ_DIGITAL_ADDITIONAL_CERT_CHOICE = 1
 CRYPTUI_WIZ_DIGITAL_SIGN_ADD_CHAIN_NO_ROOT: win32more.Windows.Win32.Security.Cryptography.UI.CRYPTUI_WIZ_DIGITAL_ADDITIONAL_CERT_CHOICE = 2

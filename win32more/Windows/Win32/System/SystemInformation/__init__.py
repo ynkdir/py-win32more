@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.SystemInformation
 NTDDI_WIN2K: UInt32 = 83886080
@@ -146,26 +146,32 @@ def GetSystemTimeAdjustmentPrecise(lpTimeAdjustment: POINTER(UInt64), lpTimeIncr
 def GetSystemDirectoryA(lpBuffer: win32more.Windows.Win32.Foundation.PSTR, uSize: UInt32) -> UInt32: ...
 @winfunctype('KERNEL32.dll')
 def GetSystemDirectoryW(lpBuffer: win32more.Windows.Win32.Foundation.PWSTR, uSize: UInt32) -> UInt32: ...
+GetSystemDirectory = UnicodeAlias('GetSystemDirectoryW')
 @winfunctype('KERNEL32.dll')
 def GetWindowsDirectoryA(lpBuffer: win32more.Windows.Win32.Foundation.PSTR, uSize: UInt32) -> UInt32: ...
 @winfunctype('KERNEL32.dll')
 def GetWindowsDirectoryW(lpBuffer: win32more.Windows.Win32.Foundation.PWSTR, uSize: UInt32) -> UInt32: ...
+GetWindowsDirectory = UnicodeAlias('GetWindowsDirectoryW')
 @winfunctype('KERNEL32.dll')
 def GetSystemWindowsDirectoryA(lpBuffer: win32more.Windows.Win32.Foundation.PSTR, uSize: UInt32) -> UInt32: ...
 @winfunctype('KERNEL32.dll')
 def GetSystemWindowsDirectoryW(lpBuffer: win32more.Windows.Win32.Foundation.PWSTR, uSize: UInt32) -> UInt32: ...
+GetSystemWindowsDirectory = UnicodeAlias('GetSystemWindowsDirectoryW')
 @winfunctype('KERNEL32.dll')
 def GetComputerNameExA(NameType: win32more.Windows.Win32.System.SystemInformation.COMPUTER_NAME_FORMAT, lpBuffer: win32more.Windows.Win32.Foundation.PSTR, nSize: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
 def GetComputerNameExW(NameType: win32more.Windows.Win32.System.SystemInformation.COMPUTER_NAME_FORMAT, lpBuffer: win32more.Windows.Win32.Foundation.PWSTR, nSize: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+GetComputerNameEx = UnicodeAlias('GetComputerNameExW')
 @winfunctype('KERNEL32.dll')
 def SetComputerNameExW(NameType: win32more.Windows.Win32.System.SystemInformation.COMPUTER_NAME_FORMAT, lpBuffer: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
+SetComputerNameEx = UnicodeAlias('SetComputerNameExW')
 @winfunctype('KERNEL32.dll')
 def SetSystemTime(lpSystemTime: POINTER(win32more.Windows.Win32.Foundation.SYSTEMTIME)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
 def GetVersionExA(lpVersionInformation: POINTER(win32more.Windows.Win32.System.SystemInformation.OSVERSIONINFOA)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
 def GetVersionExW(lpVersionInformation: POINTER(win32more.Windows.Win32.System.SystemInformation.OSVERSIONINFOW)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+GetVersionEx = UnicodeAlias('GetVersionExW')
 @winfunctype('KERNEL32.dll')
 def GetLogicalProcessorInformation(Buffer: POINTER(win32more.Windows.Win32.System.SystemInformation.SYSTEM_LOGICAL_PROCESSOR_INFORMATION), ReturnedLength: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
@@ -204,6 +210,7 @@ def GetIntegratedDisplaySize(sizeInInches: POINTER(Double)) -> win32more.Windows
 def SetComputerNameA(lpComputerName: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
 def SetComputerNameW(lpComputerName: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
+SetComputerName = UnicodeAlias('SetComputerNameW')
 @winfunctype('KERNEL32.dll')
 def SetComputerNameExA(NameType: win32more.Windows.Win32.System.SystemInformation.COMPUTER_NAME_FORMAT, lpBuffer: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('api-ms-win-core-sysinfo-l1-2-6.dll')
@@ -214,10 +221,12 @@ def GetSystemCpuSetInformation(Information: POINTER(win32more.Windows.Win32.Syst
 def GetSystemWow64DirectoryA(lpBuffer: win32more.Windows.Win32.Foundation.PSTR, uSize: UInt32) -> UInt32: ...
 @winfunctype('KERNEL32.dll')
 def GetSystemWow64DirectoryW(lpBuffer: win32more.Windows.Win32.Foundation.PWSTR, uSize: UInt32) -> UInt32: ...
+GetSystemWow64Directory = UnicodeAlias('GetSystemWow64DirectoryW')
 @winfunctype('api-ms-win-core-wow64-l1-1-1.dll')
 def GetSystemWow64Directory2A(lpBuffer: win32more.Windows.Win32.Foundation.PSTR, uSize: UInt32, ImageFileMachineType: win32more.Windows.Win32.System.SystemInformation.IMAGE_FILE_MACHINE) -> UInt32: ...
 @winfunctype('api-ms-win-core-wow64-l1-1-1.dll')
 def GetSystemWow64Directory2W(lpBuffer: win32more.Windows.Win32.Foundation.PWSTR, uSize: UInt32, ImageFileMachineType: win32more.Windows.Win32.System.SystemInformation.IMAGE_FILE_MACHINE) -> UInt32: ...
+GetSystemWow64Directory2 = UnicodeAlias('GetSystemWow64Directory2W')
 @winfunctype('KERNEL32.dll')
 def IsWow64GuestMachineSupported(WowGuestMachine: win32more.Windows.Win32.System.SystemInformation.IMAGE_FILE_MACHINE, MachineIsSupported: POINTER(win32more.Windows.Win32.Foundation.BOOL)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('ntdll.dll')
@@ -242,6 +251,7 @@ def GetFirmwareType(FirmwareType: POINTER(win32more.Windows.Win32.System.SystemI
 def VerifyVersionInfoA(lpVersionInformation: POINTER(win32more.Windows.Win32.System.SystemInformation.OSVERSIONINFOEXA), dwTypeMask: win32more.Windows.Win32.System.SystemInformation.VER_FLAGS, dwlConditionMask: UInt64) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
 def VerifyVersionInfoW(lpVersionInformation: POINTER(win32more.Windows.Win32.System.SystemInformation.OSVERSIONINFOEXW), dwTypeMask: win32more.Windows.Win32.System.SystemInformation.VER_FLAGS, dwlConditionMask: UInt64) -> win32more.Windows.Win32.Foundation.BOOL: ...
+VerifyVersionInfo = UnicodeAlias('VerifyVersionInfoW')
 class CACHE_DESCRIPTOR(EasyCastStructure):
     Level: Byte
     Associativity: Byte
@@ -470,6 +480,7 @@ class OSVERSIONINFOEXW(EasyCastStructure):
     wSuiteMask: UInt16
     wProductType: Byte
     wReserved: Byte
+OSVERSIONINFOEX = UnicodeAlias('OSVERSIONINFOEXW')
 class OSVERSIONINFOW(EasyCastStructure):
     dwOSVersionInfoSize: UInt32
     dwMajorVersion: UInt32
@@ -477,6 +488,7 @@ class OSVERSIONINFOW(EasyCastStructure):
     dwBuildNumber: UInt32
     dwPlatformId: UInt32
     szCSDVersion: Char * 128
+OSVERSIONINFO = UnicodeAlias('OSVERSIONINFOW')
 OS_DEPLOYEMENT_STATE_VALUES = Int32
 OS_DEPLOYMENT_STANDARD: win32more.Windows.Win32.System.SystemInformation.OS_DEPLOYEMENT_STATE_VALUES = 1
 OS_DEPLOYMENT_COMPACT: win32more.Windows.Win32.System.SystemInformation.OS_DEPLOYEMENT_STATE_VALUES = 2
@@ -581,6 +593,7 @@ PRODUCT_WEB_SERVER_CORE: win32more.Windows.Win32.System.SystemInformation.OS_PRO
 def PGET_SYSTEM_WOW64_DIRECTORY_A(lpBuffer: win32more.Windows.Win32.Foundation.PSTR, uSize: UInt32) -> UInt32: ...
 @winfunctype_pointer
 def PGET_SYSTEM_WOW64_DIRECTORY_W(lpBuffer: win32more.Windows.Win32.Foundation.PWSTR, uSize: UInt32) -> UInt32: ...
+PGET_SYSTEM_WOW64_DIRECTORY = UnicodeAlias('PGET_SYSTEM_WOW64_DIRECTORY_W')
 PROCESSOR_ARCHITECTURE = UInt16
 PROCESSOR_ARCHITECTURE_INTEL: win32more.Windows.Win32.System.SystemInformation.PROCESSOR_ARCHITECTURE = 0
 PROCESSOR_ARCHITECTURE_MIPS: win32more.Windows.Win32.System.SystemInformation.PROCESSOR_ARCHITECTURE = 1

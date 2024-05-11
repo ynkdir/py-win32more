@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Direct3D9
 import win32more.Windows.Win32.Graphics.DirectDraw
@@ -59,6 +59,7 @@ AM_EXSEEK_SENDS_VIDEOFRAMEREADY: win32more.Windows.Win32.Media.DirectShow.AMExte
 def AMGETERRORTEXTPROCA(param0: win32more.Windows.Win32.Foundation.HRESULT, param1: win32more.Windows.Win32.Foundation.PSTR, param2: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def AMGETERRORTEXTPROCW(param0: win32more.Windows.Win32.Foundation.HRESULT, param1: win32more.Windows.Win32.Foundation.PWSTR, param2: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+AMGETERRORTEXTPROC = UnicodeAlias('AMGETERRORTEXTPROCW')
 AMMSF_MMS_INIT_FLAGS = Int32
 AMMSF_NOGRAPHTHREAD: win32more.Windows.Win32.Media.DirectShow.AMMSF_MMS_INIT_FLAGS = 1
 AMMSF_MS_FLAGS = Int32
@@ -1550,6 +1551,7 @@ SPECIFYPAGES_STATISTICS: Guid = Guid('{4c437b92-6e9e-11d1-a704-006097c4e476}')
 def AMGetErrorTextA(hr: win32more.Windows.Win32.Foundation.HRESULT, pbuffer: win32more.Windows.Win32.Foundation.PSTR, MaxLen: UInt32) -> UInt32: ...
 @winfunctype('QUARTZ.dll')
 def AMGetErrorTextW(hr: win32more.Windows.Win32.Foundation.HRESULT, pbuffer: win32more.Windows.Win32.Foundation.PWSTR, MaxLen: UInt32) -> UInt32: ...
+AMGetErrorText = UnicodeAlias('AMGetErrorTextW')
 ApplicationTypeType = Int32
 SCTE28_ConditionalAccess: win32more.Windows.Win32.Media.DirectShow.ApplicationTypeType = 0
 SCTE28_POD_Host_Binding_Information: win32more.Windows.Win32.Media.DirectShow.ApplicationTypeType = 1

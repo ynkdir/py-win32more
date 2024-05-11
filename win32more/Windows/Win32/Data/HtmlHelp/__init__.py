@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Data.HtmlHelp
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
@@ -254,6 +254,7 @@ HHACT_LAST_ENUM: Int32 = 23
 def HtmlHelpA(hwndCaller: win32more.Windows.Win32.Foundation.HWND, pszFile: win32more.Windows.Win32.Foundation.PSTR, uCommand: UInt32, dwData: UIntPtr) -> win32more.Windows.Win32.Foundation.HWND: ...
 @winfunctype('hhctrl.ocx')
 def HtmlHelpW(hwndCaller: win32more.Windows.Win32.Foundation.HWND, pszFile: win32more.Windows.Win32.Foundation.PWSTR, uCommand: UInt32, dwData: UIntPtr) -> win32more.Windows.Win32.Foundation.HWND: ...
+HtmlHelp = UnicodeAlias('HtmlHelpW')
 class COLUMNSTATUS(EasyCastStructure):
     cPropCount: Int32
     cPropsLoaded: Int32

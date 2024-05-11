@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Networking.WinSock
 import win32more.Windows.Win32.System.Com
@@ -62,6 +62,7 @@ class ADDRINFOEX2W(EasyCastStructure):
     ai_next: POINTER(win32more.Windows.Win32.Networking.WinSock.ADDRINFOEX2W)
     ai_version: Int32
     ai_fqdn: win32more.Windows.Win32.Foundation.PWSTR
+ADDRINFOEX2 = UnicodeAlias('ADDRINFOEX2W')
 class ADDRINFOEX3(EasyCastStructure):
     ai_flags: Int32
     ai_family: Int32
@@ -154,6 +155,7 @@ class ADDRINFOEXW(EasyCastStructure):
     ai_bloblen: UIntPtr
     ai_provider: POINTER(Guid)
     ai_next: POINTER(win32more.Windows.Win32.Networking.WinSock.ADDRINFOEXW)
+ADDRINFOEX = UnicodeAlias('ADDRINFOEXW')
 class ADDRINFOW(EasyCastStructure):
     ai_flags: Int32
     ai_family: Int32
@@ -163,6 +165,7 @@ class ADDRINFOW(EasyCastStructure):
     ai_canonname: win32more.Windows.Win32.Foundation.PWSTR
     ai_addr: POINTER(win32more.Windows.Win32.Networking.WinSock.SOCKADDR)
     ai_next: POINTER(win32more.Windows.Win32.Networking.WinSock.ADDRINFOW)
+ADDRINFO = UnicodeAlias('ADDRINFOW')
 class ADDRINFO_DNS_SERVER(EasyCastStructure):
     ai_servertype: UInt32
     ai_flags: UInt64
@@ -1538,6 +1541,7 @@ def WSACloseEvent(hEvent: win32more.Windows.Win32.Networking.WinSock.WSAEVENT) -
 def WSAConnect(s: win32more.Windows.Win32.Networking.WinSock.SOCKET, name: POINTER(win32more.Windows.Win32.Networking.WinSock.SOCKADDR), namelen: Int32, lpCallerData: POINTER(win32more.Windows.Win32.Networking.WinSock.WSABUF), lpCalleeData: POINTER(win32more.Windows.Win32.Networking.WinSock.WSABUF), lpSQOS: POINTER(win32more.Windows.Win32.Networking.WinSock.QOS), lpGQOS: POINTER(win32more.Windows.Win32.Networking.WinSock.QOS)) -> Int32: ...
 @winfunctype('WS2_32.dll')
 def WSAConnectByNameW(s: win32more.Windows.Win32.Networking.WinSock.SOCKET, nodename: win32more.Windows.Win32.Foundation.PWSTR, servicename: win32more.Windows.Win32.Foundation.PWSTR, LocalAddressLength: POINTER(UInt32), LocalAddress: POINTER(win32more.Windows.Win32.Networking.WinSock.SOCKADDR), RemoteAddressLength: POINTER(UInt32), RemoteAddress: POINTER(win32more.Windows.Win32.Networking.WinSock.SOCKADDR), timeout: POINTER(win32more.Windows.Win32.Networking.WinSock.TIMEVAL), Reserved: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+WSAConnectByName = UnicodeAlias('WSAConnectByNameW')
 @winfunctype('WS2_32.dll')
 def WSAConnectByNameA(s: win32more.Windows.Win32.Networking.WinSock.SOCKET, nodename: win32more.Windows.Win32.Foundation.PSTR, servicename: win32more.Windows.Win32.Foundation.PSTR, LocalAddressLength: POINTER(UInt32), LocalAddress: POINTER(win32more.Windows.Win32.Networking.WinSock.SOCKADDR), RemoteAddressLength: POINTER(UInt32), RemoteAddress: POINTER(win32more.Windows.Win32.Networking.WinSock.SOCKADDR), timeout: POINTER(win32more.Windows.Win32.Networking.WinSock.TIMEVAL), Reserved: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WS2_32.dll')
@@ -1548,12 +1552,14 @@ def WSACreateEvent() -> win32more.Windows.Win32.Networking.WinSock.WSAEVENT: ...
 def WSADuplicateSocketA(s: win32more.Windows.Win32.Networking.WinSock.SOCKET, dwProcessId: UInt32, lpProtocolInfo: POINTER(win32more.Windows.Win32.Networking.WinSock.WSAPROTOCOL_INFOA)) -> Int32: ...
 @winfunctype('WS2_32.dll')
 def WSADuplicateSocketW(s: win32more.Windows.Win32.Networking.WinSock.SOCKET, dwProcessId: UInt32, lpProtocolInfo: POINTER(win32more.Windows.Win32.Networking.WinSock.WSAPROTOCOL_INFOW)) -> Int32: ...
+WSADuplicateSocket = UnicodeAlias('WSADuplicateSocketW')
 @winfunctype('WS2_32.dll')
 def WSAEnumNetworkEvents(s: win32more.Windows.Win32.Networking.WinSock.SOCKET, hEventObject: win32more.Windows.Win32.Networking.WinSock.WSAEVENT, lpNetworkEvents: POINTER(win32more.Windows.Win32.Networking.WinSock.WSANETWORKEVENTS)) -> Int32: ...
 @winfunctype('WS2_32.dll')
 def WSAEnumProtocolsA(lpiProtocols: POINTER(Int32), lpProtocolBuffer: POINTER(win32more.Windows.Win32.Networking.WinSock.WSAPROTOCOL_INFOA), lpdwBufferLength: POINTER(UInt32)) -> Int32: ...
 @winfunctype('WS2_32.dll')
 def WSAEnumProtocolsW(lpiProtocols: POINTER(Int32), lpProtocolBuffer: POINTER(win32more.Windows.Win32.Networking.WinSock.WSAPROTOCOL_INFOW), lpdwBufferLength: POINTER(UInt32)) -> Int32: ...
+WSAEnumProtocols = UnicodeAlias('WSAEnumProtocolsW')
 @winfunctype('WS2_32.dll')
 def WSAEventSelect(s: win32more.Windows.Win32.Networking.WinSock.SOCKET, hEventObject: win32more.Windows.Win32.Networking.WinSock.WSAEVENT, lNetworkEvents: Int32) -> Int32: ...
 @winfunctype('WS2_32.dll')
@@ -1594,24 +1600,29 @@ def WSASetEvent(hEvent: win32more.Windows.Win32.Foundation.HANDLE) -> win32more.
 def WSASocketA(af: Int32, type: Int32, protocol: Int32, lpProtocolInfo: POINTER(win32more.Windows.Win32.Networking.WinSock.WSAPROTOCOL_INFOA), g: UInt32, dwFlags: UInt32) -> win32more.Windows.Win32.Networking.WinSock.SOCKET: ...
 @winfunctype('WS2_32.dll')
 def WSASocketW(af: Int32, type: Int32, protocol: Int32, lpProtocolInfo: POINTER(win32more.Windows.Win32.Networking.WinSock.WSAPROTOCOL_INFOW), g: UInt32, dwFlags: UInt32) -> win32more.Windows.Win32.Networking.WinSock.SOCKET: ...
+WSASocket = UnicodeAlias('WSASocketW')
 @winfunctype('WS2_32.dll')
 def WSAWaitForMultipleEvents(cEvents: UInt32, lphEvents: POINTER(win32more.Windows.Win32.Foundation.HANDLE), fWaitAll: win32more.Windows.Win32.Foundation.BOOL, dwTimeout: UInt32, fAlertable: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.WAIT_EVENT: ...
 @winfunctype('WS2_32.dll')
 def WSAAddressToStringA(lpsaAddress: POINTER(win32more.Windows.Win32.Networking.WinSock.SOCKADDR), dwAddressLength: UInt32, lpProtocolInfo: POINTER(win32more.Windows.Win32.Networking.WinSock.WSAPROTOCOL_INFOA), lpszAddressString: win32more.Windows.Win32.Foundation.PSTR, lpdwAddressStringLength: POINTER(UInt32)) -> Int32: ...
 @winfunctype('WS2_32.dll')
 def WSAAddressToStringW(lpsaAddress: POINTER(win32more.Windows.Win32.Networking.WinSock.SOCKADDR), dwAddressLength: UInt32, lpProtocolInfo: POINTER(win32more.Windows.Win32.Networking.WinSock.WSAPROTOCOL_INFOW), lpszAddressString: win32more.Windows.Win32.Foundation.PWSTR, lpdwAddressStringLength: POINTER(UInt32)) -> Int32: ...
+WSAAddressToString = UnicodeAlias('WSAAddressToStringW')
 @winfunctype('WS2_32.dll')
 def WSAStringToAddressA(AddressString: win32more.Windows.Win32.Foundation.PSTR, AddressFamily: Int32, lpProtocolInfo: POINTER(win32more.Windows.Win32.Networking.WinSock.WSAPROTOCOL_INFOA), lpAddress: POINTER(win32more.Windows.Win32.Networking.WinSock.SOCKADDR), lpAddressLength: POINTER(Int32)) -> Int32: ...
 @winfunctype('WS2_32.dll')
 def WSAStringToAddressW(AddressString: win32more.Windows.Win32.Foundation.PWSTR, AddressFamily: Int32, lpProtocolInfo: POINTER(win32more.Windows.Win32.Networking.WinSock.WSAPROTOCOL_INFOW), lpAddress: POINTER(win32more.Windows.Win32.Networking.WinSock.SOCKADDR), lpAddressLength: POINTER(Int32)) -> Int32: ...
+WSAStringToAddress = UnicodeAlias('WSAStringToAddressW')
 @winfunctype('WS2_32.dll')
 def WSALookupServiceBeginA(lpqsRestrictions: POINTER(win32more.Windows.Win32.Networking.WinSock.WSAQUERYSETA), dwControlFlags: UInt32, lphLookup: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> Int32: ...
 @winfunctype('WS2_32.dll')
 def WSALookupServiceBeginW(lpqsRestrictions: POINTER(win32more.Windows.Win32.Networking.WinSock.WSAQUERYSETW), dwControlFlags: UInt32, lphLookup: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> Int32: ...
+WSALookupServiceBegin = UnicodeAlias('WSALookupServiceBeginW')
 @winfunctype('WS2_32.dll')
 def WSALookupServiceNextA(hLookup: win32more.Windows.Win32.Foundation.HANDLE, dwControlFlags: UInt32, lpdwBufferLength: POINTER(UInt32), lpqsResults: POINTER(win32more.Windows.Win32.Networking.WinSock.WSAQUERYSETA)) -> Int32: ...
 @winfunctype('WS2_32.dll')
 def WSALookupServiceNextW(hLookup: win32more.Windows.Win32.Foundation.HANDLE, dwControlFlags: UInt32, lpdwBufferLength: POINTER(UInt32), lpqsResults: POINTER(win32more.Windows.Win32.Networking.WinSock.WSAQUERYSETW)) -> Int32: ...
+WSALookupServiceNext = UnicodeAlias('WSALookupServiceNextW')
 @winfunctype('WS2_32.dll')
 def WSANSPIoctl(hLookup: win32more.Windows.Win32.Foundation.HANDLE, dwControlCode: UInt32, lpvInBuffer: VoidPtr, cbInBuffer: UInt32, lpvOutBuffer: VoidPtr, cbOutBuffer: UInt32, lpcbBytesReturned: POINTER(UInt32), lpCompletion: POINTER(win32more.Windows.Win32.Networking.WinSock.WSACOMPLETION)) -> Int32: ...
 @winfunctype('WS2_32.dll')
@@ -1620,28 +1631,34 @@ def WSALookupServiceEnd(hLookup: win32more.Windows.Win32.Foundation.HANDLE) -> I
 def WSAInstallServiceClassA(lpServiceClassInfo: POINTER(win32more.Windows.Win32.Networking.WinSock.WSASERVICECLASSINFOA)) -> Int32: ...
 @winfunctype('WS2_32.dll')
 def WSAInstallServiceClassW(lpServiceClassInfo: POINTER(win32more.Windows.Win32.Networking.WinSock.WSASERVICECLASSINFOW)) -> Int32: ...
+WSAInstallServiceClass = UnicodeAlias('WSAInstallServiceClassW')
 @winfunctype('WS2_32.dll')
 def WSARemoveServiceClass(lpServiceClassId: POINTER(Guid)) -> Int32: ...
 @winfunctype('WS2_32.dll')
 def WSAGetServiceClassInfoA(lpProviderId: POINTER(Guid), lpServiceClassId: POINTER(Guid), lpdwBufSize: POINTER(UInt32), lpServiceClassInfo: POINTER(win32more.Windows.Win32.Networking.WinSock.WSASERVICECLASSINFOA)) -> Int32: ...
 @winfunctype('WS2_32.dll')
 def WSAGetServiceClassInfoW(lpProviderId: POINTER(Guid), lpServiceClassId: POINTER(Guid), lpdwBufSize: POINTER(UInt32), lpServiceClassInfo: POINTER(win32more.Windows.Win32.Networking.WinSock.WSASERVICECLASSINFOW)) -> Int32: ...
+WSAGetServiceClassInfo = UnicodeAlias('WSAGetServiceClassInfoW')
 @winfunctype('WS2_32.dll')
 def WSAEnumNameSpaceProvidersA(lpdwBufferLength: POINTER(UInt32), lpnspBuffer: POINTER(win32more.Windows.Win32.Networking.WinSock.WSANAMESPACE_INFOA)) -> Int32: ...
 @winfunctype('WS2_32.dll')
 def WSAEnumNameSpaceProvidersW(lpdwBufferLength: POINTER(UInt32), lpnspBuffer: POINTER(win32more.Windows.Win32.Networking.WinSock.WSANAMESPACE_INFOW)) -> Int32: ...
+WSAEnumNameSpaceProviders = UnicodeAlias('WSAEnumNameSpaceProvidersW')
 @winfunctype('WS2_32.dll')
 def WSAEnumNameSpaceProvidersExA(lpdwBufferLength: POINTER(UInt32), lpnspBuffer: POINTER(win32more.Windows.Win32.Networking.WinSock.WSANAMESPACE_INFOEXA)) -> Int32: ...
 @winfunctype('WS2_32.dll')
 def WSAEnumNameSpaceProvidersExW(lpdwBufferLength: POINTER(UInt32), lpnspBuffer: POINTER(win32more.Windows.Win32.Networking.WinSock.WSANAMESPACE_INFOEXW)) -> Int32: ...
+WSAEnumNameSpaceProvidersEx = UnicodeAlias('WSAEnumNameSpaceProvidersExW')
 @winfunctype('WS2_32.dll')
 def WSAGetServiceClassNameByClassIdA(lpServiceClassId: POINTER(Guid), lpszServiceClassName: win32more.Windows.Win32.Foundation.PSTR, lpdwBufferLength: POINTER(UInt32)) -> Int32: ...
 @winfunctype('WS2_32.dll')
 def WSAGetServiceClassNameByClassIdW(lpServiceClassId: POINTER(Guid), lpszServiceClassName: win32more.Windows.Win32.Foundation.PWSTR, lpdwBufferLength: POINTER(UInt32)) -> Int32: ...
+WSAGetServiceClassNameByClassId = UnicodeAlias('WSAGetServiceClassNameByClassIdW')
 @winfunctype('WS2_32.dll')
 def WSASetServiceA(lpqsRegInfo: POINTER(win32more.Windows.Win32.Networking.WinSock.WSAQUERYSETA), essoperation: win32more.Windows.Win32.Networking.WinSock.WSAESETSERVICEOP, dwControlFlags: UInt32) -> Int32: ...
 @winfunctype('WS2_32.dll')
 def WSASetServiceW(lpqsRegInfo: POINTER(win32more.Windows.Win32.Networking.WinSock.WSAQUERYSETW), essoperation: win32more.Windows.Win32.Networking.WinSock.WSAESETSERVICEOP, dwControlFlags: UInt32) -> Int32: ...
+WSASetService = UnicodeAlias('WSASetServiceW')
 @winfunctype('WS2_32.dll')
 def WSAProviderConfigChange(lpNotificationHandle: POINTER(win32more.Windows.Win32.Foundation.HANDLE), lpOverlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED), lpCompletionRoutine: win32more.Windows.Win32.Networking.WinSock.LPWSAOVERLAPPED_COMPLETION_ROUTINE) -> Int32: ...
 @winfunctype('WS2_32.dll')
@@ -1654,40 +1671,50 @@ def RtlIpv4AddressToStringA(Addr: POINTER(win32more.Windows.Win32.Networking.Win
 def RtlIpv4AddressToStringExA(Address: POINTER(win32more.Windows.Win32.Networking.WinSock.IN_ADDR), Port: UInt16, AddressString: win32more.Windows.Win32.Foundation.PSTR, AddressStringLength: POINTER(UInt32)) -> Int32: ...
 @winfunctype('ntdll.dll')
 def RtlIpv4AddressToStringW(Addr: POINTER(win32more.Windows.Win32.Networking.WinSock.IN_ADDR), S: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.PWSTR: ...
+RtlIpv4AddressToString = UnicodeAlias('RtlIpv4AddressToStringW')
 @winfunctype('ntdll.dll')
 def RtlIpv4AddressToStringExW(Address: POINTER(win32more.Windows.Win32.Networking.WinSock.IN_ADDR), Port: UInt16, AddressString: win32more.Windows.Win32.Foundation.PWSTR, AddressStringLength: POINTER(UInt32)) -> Int32: ...
+RtlIpv4AddressToStringEx = UnicodeAlias('RtlIpv4AddressToStringExW')
 @winfunctype('ntdll.dll')
 def RtlIpv4StringToAddressA(S: win32more.Windows.Win32.Foundation.PSTR, Strict: win32more.Windows.Win32.Foundation.BOOLEAN, Terminator: POINTER(win32more.Windows.Win32.Foundation.PSTR), Addr: POINTER(win32more.Windows.Win32.Networking.WinSock.IN_ADDR)) -> Int32: ...
 @winfunctype('ntdll.dll')
 def RtlIpv4StringToAddressExA(AddressString: win32more.Windows.Win32.Foundation.PSTR, Strict: win32more.Windows.Win32.Foundation.BOOLEAN, Address: POINTER(win32more.Windows.Win32.Networking.WinSock.IN_ADDR), Port: POINTER(UInt16)) -> Int32: ...
 @winfunctype('ntdll.dll')
 def RtlIpv4StringToAddressW(S: win32more.Windows.Win32.Foundation.PWSTR, Strict: win32more.Windows.Win32.Foundation.BOOLEAN, Terminator: POINTER(win32more.Windows.Win32.Foundation.PWSTR), Addr: POINTER(win32more.Windows.Win32.Networking.WinSock.IN_ADDR)) -> Int32: ...
+RtlIpv4StringToAddress = UnicodeAlias('RtlIpv4StringToAddressW')
 @winfunctype('ntdll.dll')
 def RtlIpv4StringToAddressExW(AddressString: win32more.Windows.Win32.Foundation.PWSTR, Strict: win32more.Windows.Win32.Foundation.BOOLEAN, Address: POINTER(win32more.Windows.Win32.Networking.WinSock.IN_ADDR), Port: POINTER(UInt16)) -> Int32: ...
+RtlIpv4StringToAddressEx = UnicodeAlias('RtlIpv4StringToAddressExW')
 @winfunctype('ntdll.dll')
 def RtlIpv6AddressToStringA(Addr: POINTER(win32more.Windows.Win32.Networking.WinSock.IN6_ADDR), S: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Foundation.PSTR: ...
 @winfunctype('ntdll.dll')
 def RtlIpv6AddressToStringExA(Address: POINTER(win32more.Windows.Win32.Networking.WinSock.IN6_ADDR), ScopeId: UInt32, Port: UInt16, AddressString: win32more.Windows.Win32.Foundation.PSTR, AddressStringLength: POINTER(UInt32)) -> Int32: ...
 @winfunctype('ntdll.dll')
 def RtlIpv6AddressToStringW(Addr: POINTER(win32more.Windows.Win32.Networking.WinSock.IN6_ADDR), S: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.PWSTR: ...
+RtlIpv6AddressToString = UnicodeAlias('RtlIpv6AddressToStringW')
 @winfunctype('ntdll.dll')
 def RtlIpv6AddressToStringExW(Address: POINTER(win32more.Windows.Win32.Networking.WinSock.IN6_ADDR), ScopeId: UInt32, Port: UInt16, AddressString: win32more.Windows.Win32.Foundation.PWSTR, AddressStringLength: POINTER(UInt32)) -> Int32: ...
+RtlIpv6AddressToStringEx = UnicodeAlias('RtlIpv6AddressToStringExW')
 @winfunctype('ntdll.dll')
 def RtlIpv6StringToAddressA(S: win32more.Windows.Win32.Foundation.PSTR, Terminator: POINTER(win32more.Windows.Win32.Foundation.PSTR), Addr: POINTER(win32more.Windows.Win32.Networking.WinSock.IN6_ADDR)) -> Int32: ...
 @winfunctype('ntdll.dll')
 def RtlIpv6StringToAddressExA(AddressString: win32more.Windows.Win32.Foundation.PSTR, Address: POINTER(win32more.Windows.Win32.Networking.WinSock.IN6_ADDR), ScopeId: POINTER(UInt32), Port: POINTER(UInt16)) -> Int32: ...
 @winfunctype('ntdll.dll')
 def RtlIpv6StringToAddressW(S: win32more.Windows.Win32.Foundation.PWSTR, Terminator: POINTER(win32more.Windows.Win32.Foundation.PWSTR), Addr: POINTER(win32more.Windows.Win32.Networking.WinSock.IN6_ADDR)) -> Int32: ...
+RtlIpv6StringToAddress = UnicodeAlias('RtlIpv6StringToAddressW')
 @winfunctype('ntdll.dll')
 def RtlIpv6StringToAddressExW(AddressString: win32more.Windows.Win32.Foundation.PWSTR, Address: POINTER(win32more.Windows.Win32.Networking.WinSock.IN6_ADDR), ScopeId: POINTER(UInt32), Port: POINTER(UInt16)) -> Int32: ...
+RtlIpv6StringToAddressEx = UnicodeAlias('RtlIpv6StringToAddressExW')
 @winfunctype('ntdll.dll')
 def RtlEthernetAddressToStringA(Addr: POINTER(win32more.Windows.Win32.Networking.WinSock.DL_EUI48), S: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Foundation.PSTR: ...
 @winfunctype('ntdll.dll')
 def RtlEthernetAddressToStringW(Addr: POINTER(win32more.Windows.Win32.Networking.WinSock.DL_EUI48), S: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.PWSTR: ...
+RtlEthernetAddressToString = UnicodeAlias('RtlEthernetAddressToStringW')
 @winfunctype('ntdll.dll')
 def RtlEthernetStringToAddressA(S: win32more.Windows.Win32.Foundation.PSTR, Terminator: POINTER(win32more.Windows.Win32.Foundation.PSTR), Addr: POINTER(win32more.Windows.Win32.Networking.WinSock.DL_EUI48)) -> Int32: ...
 @winfunctype('ntdll.dll')
 def RtlEthernetStringToAddressW(S: win32more.Windows.Win32.Foundation.PWSTR, Terminator: POINTER(win32more.Windows.Win32.Foundation.PWSTR), Addr: POINTER(win32more.Windows.Win32.Networking.WinSock.DL_EUI48)) -> Int32: ...
+RtlEthernetStringToAddress = UnicodeAlias('RtlEthernetStringToAddressW')
 @winfunctype('MSWSOCK.dll')
 def WSARecvEx(s: win32more.Windows.Win32.Networking.WinSock.SOCKET, buf: win32more.Windows.Win32.Foundation.PSTR, len: Int32, flags: POINTER(Int32)) -> Int32: ...
 @winfunctype('MSWSOCK.dll')
@@ -1734,26 +1761,32 @@ def WSAProviderCompleteAsyncCall(hAsyncCall: win32more.Windows.Win32.Foundation.
 def EnumProtocolsA(lpiProtocols: POINTER(Int32), lpProtocolBuffer: VoidPtr, lpdwBufferLength: POINTER(UInt32)) -> Int32: ...
 @winfunctype('MSWSOCK.dll')
 def EnumProtocolsW(lpiProtocols: POINTER(Int32), lpProtocolBuffer: VoidPtr, lpdwBufferLength: POINTER(UInt32)) -> Int32: ...
+EnumProtocols = UnicodeAlias('EnumProtocolsW')
 @winfunctype('MSWSOCK.dll')
 def GetAddressByNameA(dwNameSpace: UInt32, lpServiceType: POINTER(Guid), lpServiceName: win32more.Windows.Win32.Foundation.PSTR, lpiProtocols: POINTER(Int32), dwResolution: UInt32, lpServiceAsyncInfo: POINTER(win32more.Windows.Win32.Networking.WinSock.SERVICE_ASYNC_INFO), lpCsaddrBuffer: VoidPtr, lpdwBufferLength: POINTER(UInt32), lpAliasBuffer: win32more.Windows.Win32.Foundation.PSTR, lpdwAliasBufferLength: POINTER(UInt32)) -> Int32: ...
 @winfunctype('MSWSOCK.dll')
 def GetAddressByNameW(dwNameSpace: UInt32, lpServiceType: POINTER(Guid), lpServiceName: win32more.Windows.Win32.Foundation.PWSTR, lpiProtocols: POINTER(Int32), dwResolution: UInt32, lpServiceAsyncInfo: POINTER(win32more.Windows.Win32.Networking.WinSock.SERVICE_ASYNC_INFO), lpCsaddrBuffer: VoidPtr, lpdwBufferLength: POINTER(UInt32), lpAliasBuffer: win32more.Windows.Win32.Foundation.PWSTR, lpdwAliasBufferLength: POINTER(UInt32)) -> Int32: ...
+GetAddressByName = UnicodeAlias('GetAddressByNameW')
 @winfunctype('MSWSOCK.dll')
 def GetTypeByNameA(lpServiceName: win32more.Windows.Win32.Foundation.PSTR, lpServiceType: POINTER(Guid)) -> Int32: ...
 @winfunctype('MSWSOCK.dll')
 def GetTypeByNameW(lpServiceName: win32more.Windows.Win32.Foundation.PWSTR, lpServiceType: POINTER(Guid)) -> Int32: ...
+GetTypeByName = UnicodeAlias('GetTypeByNameW')
 @winfunctype('MSWSOCK.dll')
 def GetNameByTypeA(lpServiceType: POINTER(Guid), lpServiceName: win32more.Windows.Win32.Foundation.PSTR, dwNameLength: UInt32) -> Int32: ...
 @winfunctype('MSWSOCK.dll')
 def GetNameByTypeW(lpServiceType: POINTER(Guid), lpServiceName: win32more.Windows.Win32.Foundation.PWSTR, dwNameLength: UInt32) -> Int32: ...
+GetNameByType = UnicodeAlias('GetNameByTypeW')
 @winfunctype('MSWSOCK.dll')
 def SetServiceA(dwNameSpace: UInt32, dwOperation: win32more.Windows.Win32.Networking.WinSock.SET_SERVICE_OPERATION, dwFlags: UInt32, lpServiceInfo: POINTER(win32more.Windows.Win32.Networking.WinSock.SERVICE_INFOA), lpServiceAsyncInfo: POINTER(win32more.Windows.Win32.Networking.WinSock.SERVICE_ASYNC_INFO), lpdwStatusFlags: POINTER(UInt32)) -> Int32: ...
 @winfunctype('MSWSOCK.dll')
 def SetServiceW(dwNameSpace: UInt32, dwOperation: win32more.Windows.Win32.Networking.WinSock.SET_SERVICE_OPERATION, dwFlags: UInt32, lpServiceInfo: POINTER(win32more.Windows.Win32.Networking.WinSock.SERVICE_INFOW), lpServiceAsyncInfo: POINTER(win32more.Windows.Win32.Networking.WinSock.SERVICE_ASYNC_INFO), lpdwStatusFlags: POINTER(UInt32)) -> Int32: ...
+SetService = UnicodeAlias('SetServiceW')
 @winfunctype('MSWSOCK.dll')
 def GetServiceA(dwNameSpace: UInt32, lpGuid: POINTER(Guid), lpServiceName: win32more.Windows.Win32.Foundation.PSTR, dwProperties: UInt32, lpBuffer: VoidPtr, lpdwBufferSize: POINTER(UInt32), lpServiceAsyncInfo: POINTER(win32more.Windows.Win32.Networking.WinSock.SERVICE_ASYNC_INFO)) -> Int32: ...
 @winfunctype('MSWSOCK.dll')
 def GetServiceW(dwNameSpace: UInt32, lpGuid: POINTER(Guid), lpServiceName: win32more.Windows.Win32.Foundation.PWSTR, dwProperties: UInt32, lpBuffer: VoidPtr, lpdwBufferSize: POINTER(UInt32), lpServiceAsyncInfo: POINTER(win32more.Windows.Win32.Networking.WinSock.SERVICE_ASYNC_INFO)) -> Int32: ...
+GetService = UnicodeAlias('GetServiceW')
 @winfunctype('WS2_32.dll')
 def getaddrinfo(pNodeName: win32more.Windows.Win32.Foundation.PSTR, pServiceName: win32more.Windows.Win32.Foundation.PSTR, pHints: POINTER(win32more.Windows.Win32.Networking.WinSock.ADDRINFOA), ppResult: POINTER(POINTER(win32more.Windows.Win32.Networking.WinSock.ADDRINFOA))) -> Int32: ...
 @winfunctype('WS2_32.dll')
@@ -1762,6 +1795,7 @@ def GetAddrInfoW(pNodeName: win32more.Windows.Win32.Foundation.PWSTR, pServiceNa
 def GetAddrInfoExA(pName: win32more.Windows.Win32.Foundation.PSTR, pServiceName: win32more.Windows.Win32.Foundation.PSTR, dwNameSpace: UInt32, lpNspId: POINTER(Guid), hints: POINTER(win32more.Windows.Win32.Networking.WinSock.ADDRINFOEXA), ppResult: POINTER(POINTER(win32more.Windows.Win32.Networking.WinSock.ADDRINFOEXA)), timeout: POINTER(win32more.Windows.Win32.Networking.WinSock.TIMEVAL), lpOverlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED), lpCompletionRoutine: win32more.Windows.Win32.Networking.WinSock.LPLOOKUPSERVICE_COMPLETION_ROUTINE, lpNameHandle: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> Int32: ...
 @winfunctype('WS2_32.dll')
 def GetAddrInfoExW(pName: win32more.Windows.Win32.Foundation.PWSTR, pServiceName: win32more.Windows.Win32.Foundation.PWSTR, dwNameSpace: UInt32, lpNspId: POINTER(Guid), hints: POINTER(win32more.Windows.Win32.Networking.WinSock.ADDRINFOEXW), ppResult: POINTER(POINTER(win32more.Windows.Win32.Networking.WinSock.ADDRINFOEXW)), timeout: POINTER(win32more.Windows.Win32.Networking.WinSock.TIMEVAL), lpOverlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED), lpCompletionRoutine: win32more.Windows.Win32.Networking.WinSock.LPLOOKUPSERVICE_COMPLETION_ROUTINE, lpHandle: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> Int32: ...
+GetAddrInfoEx = UnicodeAlias('GetAddrInfoExW')
 @winfunctype('WS2_32.dll')
 def GetAddrInfoExCancel(lpHandle: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> Int32: ...
 @winfunctype('WS2_32.dll')
@@ -1770,14 +1804,14 @@ def GetAddrInfoExOverlappedResult(lpOverlapped: POINTER(win32more.Windows.Win32.
 def SetAddrInfoExA(pName: win32more.Windows.Win32.Foundation.PSTR, pServiceName: win32more.Windows.Win32.Foundation.PSTR, pAddresses: POINTER(win32more.Windows.Win32.Networking.WinSock.SOCKET_ADDRESS), dwAddressCount: UInt32, lpBlob: POINTER(win32more.Windows.Win32.System.Com.BLOB), dwFlags: UInt32, dwNameSpace: UInt32, lpNspId: POINTER(Guid), timeout: POINTER(win32more.Windows.Win32.Networking.WinSock.TIMEVAL), lpOverlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED), lpCompletionRoutine: win32more.Windows.Win32.Networking.WinSock.LPLOOKUPSERVICE_COMPLETION_ROUTINE, lpNameHandle: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> Int32: ...
 @winfunctype('WS2_32.dll')
 def SetAddrInfoExW(pName: win32more.Windows.Win32.Foundation.PWSTR, pServiceName: win32more.Windows.Win32.Foundation.PWSTR, pAddresses: POINTER(win32more.Windows.Win32.Networking.WinSock.SOCKET_ADDRESS), dwAddressCount: UInt32, lpBlob: POINTER(win32more.Windows.Win32.System.Com.BLOB), dwFlags: UInt32, dwNameSpace: UInt32, lpNspId: POINTER(Guid), timeout: POINTER(win32more.Windows.Win32.Networking.WinSock.TIMEVAL), lpOverlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED), lpCompletionRoutine: win32more.Windows.Win32.Networking.WinSock.LPLOOKUPSERVICE_COMPLETION_ROUTINE, lpNameHandle: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> Int32: ...
+SetAddrInfoEx = UnicodeAlias('SetAddrInfoExW')
 @winfunctype('WS2_32.dll')
 def freeaddrinfo(pAddrInfo: POINTER(win32more.Windows.Win32.Networking.WinSock.ADDRINFOA)) -> Void: ...
 @winfunctype('WS2_32.dll')
 def FreeAddrInfoW(pAddrInfo: POINTER(win32more.Windows.Win32.Networking.WinSock.ADDRINFOW)) -> Void: ...
 @winfunctype('WS2_32.dll')
-def FreeAddrInfoEx(pAddrInfoEx: POINTER(win32more.Windows.Win32.Networking.WinSock.ADDRINFOEXA)) -> Void: ...
-@winfunctype('WS2_32.dll')
 def FreeAddrInfoExW(pAddrInfoEx: POINTER(win32more.Windows.Win32.Networking.WinSock.ADDRINFOEXW)) -> Void: ...
+FreeAddrInfoEx = UnicodeAlias('FreeAddrInfoExW')
 @winfunctype('WS2_32.dll')
 def getnameinfo(pSockaddr: POINTER(win32more.Windows.Win32.Networking.WinSock.SOCKADDR), SockaddrLength: win32more.Windows.Win32.Networking.WinSock.socklen_t, pNodeBuffer: win32more.Windows.Win32.Foundation.PSTR, NodeBufferSize: UInt32, pServiceBuffer: win32more.Windows.Win32.Foundation.PSTR, ServiceBufferSize: UInt32, Flags: Int32) -> Int32: ...
 @winfunctype('WS2_32.dll')
@@ -2672,6 +2706,7 @@ class NETRESOURCE2W(EasyCastStructure):
     ServiceType: Guid
     dwProtocols: UInt32
     lpiProtocols: POINTER(Int32)
+NETRESOURCE2 = UnicodeAlias('NETRESOURCE2W')
 class NLA_BLOB(EasyCastStructure):
     header: _header_e__Struct
     data: _data_e__Union
@@ -2931,12 +2966,14 @@ class NS_INFOW(EasyCastStructure):
     dwNameSpace: UInt32
     dwNameSpaceFlags: UInt32
     lpNameSpace: win32more.Windows.Win32.Foundation.PWSTR
+NS_INFO = UnicodeAlias('NS_INFOW')
 class NS_SERVICE_INFOA(EasyCastStructure):
     dwNameSpace: UInt32
     ServiceInfo: win32more.Windows.Win32.Networking.WinSock.SERVICE_INFOA
 class NS_SERVICE_INFOW(EasyCastStructure):
     dwNameSpace: UInt32
     ServiceInfo: win32more.Windows.Win32.Networking.WinSock.SERVICE_INFOW
+NS_SERVICE_INFO = UnicodeAlias('NS_SERVICE_INFOW')
 PMTUD_STATE = Int32
 IP_PMTUDISC_NOT_SET: win32more.Windows.Win32.Networking.WinSock.PMTUD_STATE = 0
 IP_PMTUDISC_DO: win32more.Windows.Win32.Networking.WinSock.PMTUD_STATE = 1
@@ -2964,6 +3001,7 @@ class PROTOCOL_INFOW(EasyCastStructure):
     iProtocol: Int32
     dwMessageSize: UInt32
     lpProtocol: win32more.Windows.Win32.Foundation.PWSTR
+PROTOCOL_INFO = UnicodeAlias('PROTOCOL_INFOW')
 class PROTOENT(EasyCastStructure):
     p_name: win32more.Windows.Win32.Foundation.PSTR
     p_aliases: POINTER(POINTER(SByte))
@@ -3173,6 +3211,7 @@ class SERVICE_INFOW(EasyCastStructure):
     lpMachineName: win32more.Windows.Win32.Foundation.PWSTR
     lpServiceAddress: POINTER(win32more.Windows.Win32.Networking.WinSock.SERVICE_ADDRESSES)
     ServiceSpecificInfo: win32more.Windows.Win32.System.Com.BLOB
+SERVICE_INFO = UnicodeAlias('SERVICE_INFOW')
 class SERVICE_TYPE_INFO(EasyCastStructure):
     dwTypeNameOffset: UInt32
     dwValueCount: UInt32
@@ -3185,6 +3224,7 @@ class SERVICE_TYPE_INFO_ABSW(EasyCastStructure):
     lpTypeName: win32more.Windows.Win32.Foundation.PWSTR
     dwValueCount: UInt32
     Values: win32more.Windows.Win32.Networking.WinSock.SERVICE_TYPE_VALUE_ABSW * 1
+SERVICE_TYPE_INFO_ABS = UnicodeAlias('SERVICE_TYPE_INFO_ABSW')
 class SERVICE_TYPE_VALUE(EasyCastStructure):
     dwNameSpace: UInt32
     dwValueType: UInt32
@@ -3203,6 +3243,7 @@ class SERVICE_TYPE_VALUE_ABSW(EasyCastStructure):
     dwValueSize: UInt32
     lpValueName: win32more.Windows.Win32.Foundation.PWSTR
     lpValue: VoidPtr
+SERVICE_TYPE_VALUE_ABS = UnicodeAlias('SERVICE_TYPE_VALUE_ABSW')
 SET_SERVICE_OPERATION = UInt32
 SERVICE_REGISTER: win32more.Windows.Win32.Networking.WinSock.SET_SERVICE_OPERATION = 1
 SERVICE_DEREGISTER: win32more.Windows.Win32.Networking.WinSock.SET_SERVICE_OPERATION = 2
@@ -3671,12 +3712,14 @@ class WSANAMESPACE_INFOEXW(EasyCastStructure):
     dwVersion: UInt32
     lpszIdentifier: win32more.Windows.Win32.Foundation.PWSTR
     ProviderSpecific: win32more.Windows.Win32.System.Com.BLOB
+WSANAMESPACE_INFOEX = UnicodeAlias('WSANAMESPACE_INFOEXW')
 class WSANAMESPACE_INFOW(EasyCastStructure):
     NSProviderId: Guid
     dwNameSpace: UInt32
     fActive: win32more.Windows.Win32.Foundation.BOOL
     dwVersion: UInt32
     lpszIdentifier: win32more.Windows.Win32.Foundation.PWSTR
+WSANAMESPACE_INFO = UnicodeAlias('WSANAMESPACE_INFOW')
 class WSANETWORKEVENTS(EasyCastStructure):
     lNetworkEvents: Int32
     iErrorCode: Int32 * 10
@@ -3692,6 +3735,7 @@ class WSANSCLASSINFOW(EasyCastStructure):
     dwValueType: UInt32
     dwValueSize: UInt32
     lpValue: VoidPtr
+WSANSCLASSINFO = UnicodeAlias('WSANSCLASSINFOW')
 class WSAPOLLDATA(EasyCastStructure):
     result: Int32
     fds: UInt32
@@ -3757,6 +3801,7 @@ class WSAPROTOCOL_INFOW(EasyCastStructure):
     dwMessageSize: UInt32
     dwProviderReserved: UInt32
     szProtocol: Char * 256
+WSAPROTOCOL_INFO = UnicodeAlias('WSAPROTOCOL_INFOW')
 class WSAQUERYSET2A(EasyCastStructure):
     dwSize: UInt32
     lpszServiceInstanceName: win32more.Windows.Win32.Foundation.PSTR
@@ -3787,6 +3832,7 @@ class WSAQUERYSET2W(EasyCastStructure):
     lpcsaBuffer: POINTER(win32more.Windows.Win32.Networking.WinSock.CSADDR_INFO)
     dwOutputFlags: UInt32
     lpBlob: POINTER(win32more.Windows.Win32.System.Com.BLOB)
+WSAQUERYSET2 = UnicodeAlias('WSAQUERYSET2W')
 class WSAQUERYSETA(EasyCastStructure):
     dwSize: UInt32
     lpszServiceInstanceName: win32more.Windows.Win32.Foundation.PSTR
@@ -3819,6 +3865,7 @@ class WSAQUERYSETW(EasyCastStructure):
     lpcsaBuffer: POINTER(win32more.Windows.Win32.Networking.WinSock.CSADDR_INFO)
     dwOutputFlags: UInt32
     lpBlob: POINTER(win32more.Windows.Win32.System.Com.BLOB)
+WSAQUERYSET = UnicodeAlias('WSAQUERYSETW')
 class WSASENDMSG(EasyCastStructure):
     lpMsg: POINTER(win32more.Windows.Win32.Networking.WinSock.WSAMSG)
     dwFlags: UInt32
@@ -3835,6 +3882,7 @@ class WSASERVICECLASSINFOW(EasyCastStructure):
     lpszServiceClassName: win32more.Windows.Win32.Foundation.PWSTR
     dwCount: UInt32
     lpClassInfos: POINTER(win32more.Windows.Win32.Networking.WinSock.WSANSCLASSINFOW)
+WSASERVICECLASSINFO = UnicodeAlias('WSASERVICECLASSINFOW')
 class WSATHREADID(EasyCastStructure):
     ThreadHandle: win32more.Windows.Win32.Foundation.HANDLE
     Reserved: UIntPtr

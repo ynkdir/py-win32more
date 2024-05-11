@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Data.Xml.MsXml
 import win32more.Windows.Win32.Devices.Communication
 import win32more.Windows.Win32.Devices.Display
@@ -22,6 +22,7 @@ class ADDJOB_INFO_1A(EasyCastStructure):
 class ADDJOB_INFO_1W(EasyCastStructure):
     Path: win32more.Windows.Win32.Foundation.PWSTR
     JobId: UInt32
+ADDJOB_INFO_1 = UnicodeAlias('ADDJOB_INFO_1W')
 class ATTRIBUTE_INFO_1(EasyCastStructure):
     dwJobNumberOfPagesPerSide: UInt32
     dwDrvNumberOfPagesPerSide: UInt32
@@ -1467,6 +1468,7 @@ CLSID_XPSRASTERIZER_FACTORY: Guid = Guid('{503e79bf-1d09-4764-9d72-1eb0c65967c6}
 def CommonPropertySheetUIA(hWndOwner: win32more.Windows.Win32.Foundation.HWND, pfnPropSheetUI: win32more.Windows.Win32.Graphics.Printing.PFNPROPSHEETUI, lParam: win32more.Windows.Win32.Foundation.LPARAM, pResult: POINTER(UInt32)) -> Int32: ...
 @winfunctype('COMPSTUI.dll')
 def CommonPropertySheetUIW(hWndOwner: win32more.Windows.Win32.Foundation.HWND, pfnPropSheetUI: win32more.Windows.Win32.Graphics.Printing.PFNPROPSHEETUI, lParam: win32more.Windows.Win32.Foundation.LPARAM, pResult: POINTER(UInt32)) -> Int32: ...
+CommonPropertySheetUI = UnicodeAlias('CommonPropertySheetUIW')
 @winfunctype('COMPSTUI.dll')
 def GetCPSUIUserData(hDlg: win32more.Windows.Win32.Foundation.HWND) -> UIntPtr: ...
 @winfunctype('COMPSTUI.dll')
@@ -1475,6 +1477,7 @@ def SetCPSUIUserData(hDlg: win32more.Windows.Win32.Foundation.HWND, CPSUIUserDat
 def EnumPrintersA(Flags: UInt32, Name: win32more.Windows.Win32.Foundation.PSTR, Level: UInt32, pPrinterEnum: POINTER(Byte), cbBuf: UInt32, pcbNeeded: POINTER(UInt32), pcReturned: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('winspool.drv')
 def EnumPrintersW(Flags: UInt32, Name: win32more.Windows.Win32.Foundation.PWSTR, Level: UInt32, pPrinterEnum: POINTER(Byte), cbBuf: UInt32, pcbNeeded: POINTER(UInt32), pcReturned: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+EnumPrinters = UnicodeAlias('EnumPrintersW')
 @winfunctype('winspool.drv')
 def GetSpoolFileHandle(hPrinter: win32more.Windows.Win32.Foundation.HANDLE) -> win32more.Windows.Win32.Foundation.HANDLE: ...
 @winfunctype('winspool.drv')
@@ -1485,88 +1488,109 @@ def CloseSpoolFileHandle(hPrinter: win32more.Windows.Win32.Foundation.HANDLE, hS
 def OpenPrinterA(pPrinterName: win32more.Windows.Win32.Foundation.PSTR, phPrinter: POINTER(win32more.Windows.Win32.Foundation.HANDLE), pDefault: POINTER(win32more.Windows.Win32.Graphics.Printing.PRINTER_DEFAULTSA)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('winspool.drv')
 def OpenPrinterW(pPrinterName: win32more.Windows.Win32.Foundation.PWSTR, phPrinter: POINTER(win32more.Windows.Win32.Foundation.HANDLE), pDefault: POINTER(win32more.Windows.Win32.Graphics.Printing.PRINTER_DEFAULTSW)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+OpenPrinter = UnicodeAlias('OpenPrinterW')
 @winfunctype('winspool.drv')
 def ResetPrinterA(hPrinter: win32more.Windows.Win32.Foundation.HANDLE, pDefault: POINTER(win32more.Windows.Win32.Graphics.Printing.PRINTER_DEFAULTSA)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('winspool.drv')
 def ResetPrinterW(hPrinter: win32more.Windows.Win32.Foundation.HANDLE, pDefault: POINTER(win32more.Windows.Win32.Graphics.Printing.PRINTER_DEFAULTSW)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+ResetPrinter = UnicodeAlias('ResetPrinterW')
 @winfunctype('winspool.drv')
 def SetJobA(hPrinter: win32more.Windows.Win32.Foundation.HANDLE, JobId: UInt32, Level: UInt32, pJob: POINTER(Byte), Command: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('winspool.drv')
 def SetJobW(hPrinter: win32more.Windows.Win32.Foundation.HANDLE, JobId: UInt32, Level: UInt32, pJob: POINTER(Byte), Command: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+SetJob = UnicodeAlias('SetJobW')
 @winfunctype('winspool.drv')
 def GetJobA(hPrinter: win32more.Windows.Win32.Foundation.HANDLE, JobId: UInt32, Level: UInt32, pJob: POINTER(Byte), cbBuf: UInt32, pcbNeeded: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('winspool.drv')
 def GetJobW(hPrinter: win32more.Windows.Win32.Foundation.HANDLE, JobId: UInt32, Level: UInt32, pJob: POINTER(Byte), cbBuf: UInt32, pcbNeeded: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+GetJob = UnicodeAlias('GetJobW')
 @winfunctype('winspool.drv')
 def EnumJobsA(hPrinter: win32more.Windows.Win32.Foundation.HANDLE, FirstJob: UInt32, NoJobs: UInt32, Level: UInt32, pJob: POINTER(Byte), cbBuf: UInt32, pcbNeeded: POINTER(UInt32), pcReturned: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('winspool.drv')
 def EnumJobsW(hPrinter: win32more.Windows.Win32.Foundation.HANDLE, FirstJob: UInt32, NoJobs: UInt32, Level: UInt32, pJob: POINTER(Byte), cbBuf: UInt32, pcbNeeded: POINTER(UInt32), pcReturned: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+EnumJobs = UnicodeAlias('EnumJobsW')
 @winfunctype('winspool.drv')
 def AddPrinterA(pName: win32more.Windows.Win32.Foundation.PSTR, Level: UInt32, pPrinter: POINTER(Byte)) -> win32more.Windows.Win32.Foundation.HANDLE: ...
 @winfunctype('winspool.drv')
 def AddPrinterW(pName: win32more.Windows.Win32.Foundation.PWSTR, Level: UInt32, pPrinter: POINTER(Byte)) -> win32more.Windows.Win32.Foundation.HANDLE: ...
+AddPrinter = UnicodeAlias('AddPrinterW')
 @winfunctype('winspool.drv')
 def DeletePrinter(hPrinter: win32more.Windows.Win32.Foundation.HANDLE) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('winspool.drv')
 def SetPrinterA(hPrinter: win32more.Windows.Win32.Foundation.HANDLE, Level: UInt32, pPrinter: POINTER(Byte), Command: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('winspool.drv')
 def SetPrinterW(hPrinter: win32more.Windows.Win32.Foundation.HANDLE, Level: UInt32, pPrinter: POINTER(Byte), Command: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+SetPrinter = UnicodeAlias('SetPrinterW')
 @winfunctype('winspool.drv')
 def GetPrinterA(hPrinter: win32more.Windows.Win32.Foundation.HANDLE, Level: UInt32, pPrinter: POINTER(Byte), cbBuf: UInt32, pcbNeeded: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('winspool.drv')
 def GetPrinterW(hPrinter: win32more.Windows.Win32.Foundation.HANDLE, Level: UInt32, pPrinter: POINTER(Byte), cbBuf: UInt32, pcbNeeded: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+GetPrinter = UnicodeAlias('GetPrinterW')
 @winfunctype('winspool.drv')
 def AddPrinterDriverA(pName: win32more.Windows.Win32.Foundation.PSTR, Level: UInt32, pDriverInfo: POINTER(Byte)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('winspool.drv')
 def AddPrinterDriverW(pName: win32more.Windows.Win32.Foundation.PWSTR, Level: UInt32, pDriverInfo: POINTER(Byte)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+AddPrinterDriver = UnicodeAlias('AddPrinterDriverW')
 @winfunctype('winspool.drv')
 def AddPrinterDriverExA(pName: win32more.Windows.Win32.Foundation.PSTR, Level: UInt32, lpbDriverInfo: POINTER(Byte), dwFileCopyFlags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('winspool.drv')
 def AddPrinterDriverExW(pName: win32more.Windows.Win32.Foundation.PWSTR, Level: UInt32, lpbDriverInfo: POINTER(Byte), dwFileCopyFlags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+AddPrinterDriverEx = UnicodeAlias('AddPrinterDriverExW')
 @winfunctype('winspool.drv')
 def EnumPrinterDriversA(pName: win32more.Windows.Win32.Foundation.PSTR, pEnvironment: win32more.Windows.Win32.Foundation.PSTR, Level: UInt32, pDriverInfo: POINTER(Byte), cbBuf: UInt32, pcbNeeded: POINTER(UInt32), pcReturned: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('winspool.drv')
 def EnumPrinterDriversW(pName: win32more.Windows.Win32.Foundation.PWSTR, pEnvironment: win32more.Windows.Win32.Foundation.PWSTR, Level: UInt32, pDriverInfo: POINTER(Byte), cbBuf: UInt32, pcbNeeded: POINTER(UInt32), pcReturned: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+EnumPrinterDrivers = UnicodeAlias('EnumPrinterDriversW')
 @winfunctype('winspool.drv')
 def GetPrinterDriverA(hPrinter: win32more.Windows.Win32.Foundation.HANDLE, pEnvironment: win32more.Windows.Win32.Foundation.PSTR, Level: UInt32, pDriverInfo: POINTER(Byte), cbBuf: UInt32, pcbNeeded: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('winspool.drv')
 def GetPrinterDriverW(hPrinter: win32more.Windows.Win32.Foundation.HANDLE, pEnvironment: win32more.Windows.Win32.Foundation.PWSTR, Level: UInt32, pDriverInfo: POINTER(Byte), cbBuf: UInt32, pcbNeeded: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+GetPrinterDriver = UnicodeAlias('GetPrinterDriverW')
 @winfunctype('winspool.drv')
 def GetPrinterDriverDirectoryA(pName: win32more.Windows.Win32.Foundation.PSTR, pEnvironment: win32more.Windows.Win32.Foundation.PSTR, Level: UInt32, pDriverDirectory: POINTER(Byte), cbBuf: UInt32, pcbNeeded: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('winspool.drv')
 def GetPrinterDriverDirectoryW(pName: win32more.Windows.Win32.Foundation.PWSTR, pEnvironment: win32more.Windows.Win32.Foundation.PWSTR, Level: UInt32, pDriverDirectory: POINTER(Byte), cbBuf: UInt32, pcbNeeded: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+GetPrinterDriverDirectory = UnicodeAlias('GetPrinterDriverDirectoryW')
 @winfunctype('winspool.drv')
 def DeletePrinterDriverA(pName: win32more.Windows.Win32.Foundation.PSTR, pEnvironment: win32more.Windows.Win32.Foundation.PSTR, pDriverName: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('winspool.drv')
 def DeletePrinterDriverW(pName: win32more.Windows.Win32.Foundation.PWSTR, pEnvironment: win32more.Windows.Win32.Foundation.PWSTR, pDriverName: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
+DeletePrinterDriver = UnicodeAlias('DeletePrinterDriverW')
 @winfunctype('winspool.drv')
 def DeletePrinterDriverExA(pName: win32more.Windows.Win32.Foundation.PSTR, pEnvironment: win32more.Windows.Win32.Foundation.PSTR, pDriverName: win32more.Windows.Win32.Foundation.PSTR, dwDeleteFlag: UInt32, dwVersionFlag: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('winspool.drv')
 def DeletePrinterDriverExW(pName: win32more.Windows.Win32.Foundation.PWSTR, pEnvironment: win32more.Windows.Win32.Foundation.PWSTR, pDriverName: win32more.Windows.Win32.Foundation.PWSTR, dwDeleteFlag: UInt32, dwVersionFlag: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+DeletePrinterDriverEx = UnicodeAlias('DeletePrinterDriverExW')
 @winfunctype('winspool.drv')
 def AddPrintProcessorA(pName: win32more.Windows.Win32.Foundation.PSTR, pEnvironment: win32more.Windows.Win32.Foundation.PSTR, pPathName: win32more.Windows.Win32.Foundation.PSTR, pPrintProcessorName: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('winspool.drv')
 def AddPrintProcessorW(pName: win32more.Windows.Win32.Foundation.PWSTR, pEnvironment: win32more.Windows.Win32.Foundation.PWSTR, pPathName: win32more.Windows.Win32.Foundation.PWSTR, pPrintProcessorName: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
+AddPrintProcessor = UnicodeAlias('AddPrintProcessorW')
 @winfunctype('winspool.drv')
 def EnumPrintProcessorsA(pName: win32more.Windows.Win32.Foundation.PSTR, pEnvironment: win32more.Windows.Win32.Foundation.PSTR, Level: UInt32, pPrintProcessorInfo: POINTER(Byte), cbBuf: UInt32, pcbNeeded: POINTER(UInt32), pcReturned: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('winspool.drv')
 def EnumPrintProcessorsW(pName: win32more.Windows.Win32.Foundation.PWSTR, pEnvironment: win32more.Windows.Win32.Foundation.PWSTR, Level: UInt32, pPrintProcessorInfo: POINTER(Byte), cbBuf: UInt32, pcbNeeded: POINTER(UInt32), pcReturned: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+EnumPrintProcessors = UnicodeAlias('EnumPrintProcessorsW')
 @winfunctype('winspool.drv')
 def GetPrintProcessorDirectoryA(pName: win32more.Windows.Win32.Foundation.PSTR, pEnvironment: win32more.Windows.Win32.Foundation.PSTR, Level: UInt32, pPrintProcessorInfo: POINTER(Byte), cbBuf: UInt32, pcbNeeded: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('winspool.drv')
 def GetPrintProcessorDirectoryW(pName: win32more.Windows.Win32.Foundation.PWSTR, pEnvironment: win32more.Windows.Win32.Foundation.PWSTR, Level: UInt32, pPrintProcessorInfo: POINTER(Byte), cbBuf: UInt32, pcbNeeded: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+GetPrintProcessorDirectory = UnicodeAlias('GetPrintProcessorDirectoryW')
 @winfunctype('winspool.drv')
 def EnumPrintProcessorDatatypesA(pName: win32more.Windows.Win32.Foundation.PSTR, pPrintProcessorName: win32more.Windows.Win32.Foundation.PSTR, Level: UInt32, pDatatypes: POINTER(Byte), cbBuf: UInt32, pcbNeeded: POINTER(UInt32), pcReturned: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('winspool.drv')
 def EnumPrintProcessorDatatypesW(pName: win32more.Windows.Win32.Foundation.PWSTR, pPrintProcessorName: win32more.Windows.Win32.Foundation.PWSTR, Level: UInt32, pDatatypes: POINTER(Byte), cbBuf: UInt32, pcbNeeded: POINTER(UInt32), pcReturned: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+EnumPrintProcessorDatatypes = UnicodeAlias('EnumPrintProcessorDatatypesW')
 @winfunctype('winspool.drv')
 def DeletePrintProcessorA(pName: win32more.Windows.Win32.Foundation.PSTR, pEnvironment: win32more.Windows.Win32.Foundation.PSTR, pPrintProcessorName: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('winspool.drv')
 def DeletePrintProcessorW(pName: win32more.Windows.Win32.Foundation.PWSTR, pEnvironment: win32more.Windows.Win32.Foundation.PWSTR, pPrintProcessorName: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
+DeletePrintProcessor = UnicodeAlias('DeletePrintProcessorW')
 @winfunctype('winspool.drv')
 def StartDocPrinterA(hPrinter: win32more.Windows.Win32.Foundation.HANDLE, Level: UInt32, pDocInfo: POINTER(win32more.Windows.Win32.Graphics.Printing.DOC_INFO_1A)) -> UInt32: ...
 @winfunctype('winspool.drv')
 def StartDocPrinterW(hPrinter: win32more.Windows.Win32.Foundation.HANDLE, Level: UInt32, pDocInfo: POINTER(win32more.Windows.Win32.Graphics.Printing.DOC_INFO_1W)) -> UInt32: ...
+StartDocPrinter = UnicodeAlias('StartDocPrinterW')
 @winfunctype('winspool.drv')
 def StartPagePrinter(hPrinter: win32more.Windows.Win32.Foundation.HANDLE) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('winspool.drv')
@@ -1585,6 +1609,7 @@ def EndDocPrinter(hPrinter: win32more.Windows.Win32.Foundation.HANDLE) -> win32m
 def AddJobA(hPrinter: win32more.Windows.Win32.Foundation.HANDLE, Level: UInt32, pData: POINTER(Byte), cbBuf: UInt32, pcbNeeded: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('winspool.drv')
 def AddJobW(hPrinter: win32more.Windows.Win32.Foundation.HANDLE, Level: UInt32, pData: POINTER(Byte), cbBuf: UInt32, pcbNeeded: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+AddJob = UnicodeAlias('AddJobW')
 @winfunctype('winspool.drv')
 def ScheduleJob(hPrinter: win32more.Windows.Win32.Foundation.HANDLE, JobId: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('winspool.drv')
@@ -1593,52 +1618,64 @@ def PrinterProperties(hWnd: win32more.Windows.Win32.Foundation.HWND, hPrinter: w
 def DocumentPropertiesA(hWnd: win32more.Windows.Win32.Foundation.HWND, hPrinter: win32more.Windows.Win32.Foundation.HANDLE, pDeviceName: win32more.Windows.Win32.Foundation.PSTR, pDevModeOutput: POINTER(win32more.Windows.Win32.Graphics.Gdi.DEVMODEA), pDevModeInput: POINTER(win32more.Windows.Win32.Graphics.Gdi.DEVMODEA), fMode: UInt32) -> Int32: ...
 @winfunctype('winspool.drv')
 def DocumentPropertiesW(hWnd: win32more.Windows.Win32.Foundation.HWND, hPrinter: win32more.Windows.Win32.Foundation.HANDLE, pDeviceName: win32more.Windows.Win32.Foundation.PWSTR, pDevModeOutput: POINTER(win32more.Windows.Win32.Graphics.Gdi.DEVMODEW), pDevModeInput: POINTER(win32more.Windows.Win32.Graphics.Gdi.DEVMODEW), fMode: UInt32) -> Int32: ...
+DocumentProperties = UnicodeAlias('DocumentPropertiesW')
 @winfunctype('winspool.drv')
 def AdvancedDocumentPropertiesA(hWnd: win32more.Windows.Win32.Foundation.HWND, hPrinter: win32more.Windows.Win32.Foundation.HANDLE, pDeviceName: win32more.Windows.Win32.Foundation.PSTR, pDevModeOutput: POINTER(win32more.Windows.Win32.Graphics.Gdi.DEVMODEA), pDevModeInput: POINTER(win32more.Windows.Win32.Graphics.Gdi.DEVMODEA)) -> Int32: ...
 @winfunctype('winspool.drv')
 def AdvancedDocumentPropertiesW(hWnd: win32more.Windows.Win32.Foundation.HWND, hPrinter: win32more.Windows.Win32.Foundation.HANDLE, pDeviceName: win32more.Windows.Win32.Foundation.PWSTR, pDevModeOutput: POINTER(win32more.Windows.Win32.Graphics.Gdi.DEVMODEW), pDevModeInput: POINTER(win32more.Windows.Win32.Graphics.Gdi.DEVMODEW)) -> Int32: ...
+AdvancedDocumentProperties = UnicodeAlias('AdvancedDocumentPropertiesW')
 @winfunctype('winspool.drv')
 def ExtDeviceMode(hWnd: win32more.Windows.Win32.Foundation.HWND, hInst: win32more.Windows.Win32.Foundation.HANDLE, pDevModeOutput: POINTER(win32more.Windows.Win32.Graphics.Gdi.DEVMODEA), pDeviceName: win32more.Windows.Win32.Foundation.PSTR, pPort: win32more.Windows.Win32.Foundation.PSTR, pDevModeInput: POINTER(win32more.Windows.Win32.Graphics.Gdi.DEVMODEA), pProfile: win32more.Windows.Win32.Foundation.PSTR, fMode: UInt32) -> Int32: ...
 @winfunctype('winspool.drv')
 def GetPrinterDataA(hPrinter: win32more.Windows.Win32.Foundation.HANDLE, pValueName: win32more.Windows.Win32.Foundation.PSTR, pType: POINTER(UInt32), pData: POINTER(Byte), nSize: UInt32, pcbNeeded: POINTER(UInt32)) -> UInt32: ...
 @winfunctype('winspool.drv')
 def GetPrinterDataW(hPrinter: win32more.Windows.Win32.Foundation.HANDLE, pValueName: win32more.Windows.Win32.Foundation.PWSTR, pType: POINTER(UInt32), pData: POINTER(Byte), nSize: UInt32, pcbNeeded: POINTER(UInt32)) -> UInt32: ...
+GetPrinterData = UnicodeAlias('GetPrinterDataW')
 @winfunctype('winspool.drv')
 def GetPrinterDataExA(hPrinter: win32more.Windows.Win32.Foundation.HANDLE, pKeyName: win32more.Windows.Win32.Foundation.PSTR, pValueName: win32more.Windows.Win32.Foundation.PSTR, pType: POINTER(UInt32), pData: POINTER(Byte), nSize: UInt32, pcbNeeded: POINTER(UInt32)) -> UInt32: ...
 @winfunctype('winspool.drv')
 def GetPrinterDataExW(hPrinter: win32more.Windows.Win32.Foundation.HANDLE, pKeyName: win32more.Windows.Win32.Foundation.PWSTR, pValueName: win32more.Windows.Win32.Foundation.PWSTR, pType: POINTER(UInt32), pData: POINTER(Byte), nSize: UInt32, pcbNeeded: POINTER(UInt32)) -> UInt32: ...
+GetPrinterDataEx = UnicodeAlias('GetPrinterDataExW')
 @winfunctype('winspool.drv')
 def EnumPrinterDataA(hPrinter: win32more.Windows.Win32.Foundation.HANDLE, dwIndex: UInt32, pValueName: win32more.Windows.Win32.Foundation.PSTR, cbValueName: UInt32, pcbValueName: POINTER(UInt32), pType: POINTER(UInt32), pData: POINTER(Byte), cbData: UInt32, pcbData: POINTER(UInt32)) -> UInt32: ...
 @winfunctype('winspool.drv')
 def EnumPrinterDataW(hPrinter: win32more.Windows.Win32.Foundation.HANDLE, dwIndex: UInt32, pValueName: win32more.Windows.Win32.Foundation.PWSTR, cbValueName: UInt32, pcbValueName: POINTER(UInt32), pType: POINTER(UInt32), pData: POINTER(Byte), cbData: UInt32, pcbData: POINTER(UInt32)) -> UInt32: ...
+EnumPrinterData = UnicodeAlias('EnumPrinterDataW')
 @winfunctype('winspool.drv')
 def EnumPrinterDataExA(hPrinter: win32more.Windows.Win32.Foundation.HANDLE, pKeyName: win32more.Windows.Win32.Foundation.PSTR, pEnumValues: POINTER(Byte), cbEnumValues: UInt32, pcbEnumValues: POINTER(UInt32), pnEnumValues: POINTER(UInt32)) -> UInt32: ...
 @winfunctype('winspool.drv')
 def EnumPrinterDataExW(hPrinter: win32more.Windows.Win32.Foundation.HANDLE, pKeyName: win32more.Windows.Win32.Foundation.PWSTR, pEnumValues: POINTER(Byte), cbEnumValues: UInt32, pcbEnumValues: POINTER(UInt32), pnEnumValues: POINTER(UInt32)) -> UInt32: ...
+EnumPrinterDataEx = UnicodeAlias('EnumPrinterDataExW')
 @winfunctype('winspool.drv')
 def EnumPrinterKeyA(hPrinter: win32more.Windows.Win32.Foundation.HANDLE, pKeyName: win32more.Windows.Win32.Foundation.PSTR, pSubkey: win32more.Windows.Win32.Foundation.PSTR, cbSubkey: UInt32, pcbSubkey: POINTER(UInt32)) -> UInt32: ...
 @winfunctype('winspool.drv')
 def EnumPrinterKeyW(hPrinter: win32more.Windows.Win32.Foundation.HANDLE, pKeyName: win32more.Windows.Win32.Foundation.PWSTR, pSubkey: win32more.Windows.Win32.Foundation.PWSTR, cbSubkey: UInt32, pcbSubkey: POINTER(UInt32)) -> UInt32: ...
+EnumPrinterKey = UnicodeAlias('EnumPrinterKeyW')
 @winfunctype('winspool.drv')
 def SetPrinterDataA(hPrinter: win32more.Windows.Win32.Foundation.HANDLE, pValueName: win32more.Windows.Win32.Foundation.PSTR, Type: UInt32, pData: POINTER(Byte), cbData: UInt32) -> UInt32: ...
 @winfunctype('winspool.drv')
 def SetPrinterDataW(hPrinter: win32more.Windows.Win32.Foundation.HANDLE, pValueName: win32more.Windows.Win32.Foundation.PWSTR, Type: UInt32, pData: POINTER(Byte), cbData: UInt32) -> UInt32: ...
+SetPrinterData = UnicodeAlias('SetPrinterDataW')
 @winfunctype('winspool.drv')
 def SetPrinterDataExA(hPrinter: win32more.Windows.Win32.Foundation.HANDLE, pKeyName: win32more.Windows.Win32.Foundation.PSTR, pValueName: win32more.Windows.Win32.Foundation.PSTR, Type: UInt32, pData: POINTER(Byte), cbData: UInt32) -> UInt32: ...
 @winfunctype('winspool.drv')
 def SetPrinterDataExW(hPrinter: win32more.Windows.Win32.Foundation.HANDLE, pKeyName: win32more.Windows.Win32.Foundation.PWSTR, pValueName: win32more.Windows.Win32.Foundation.PWSTR, Type: UInt32, pData: POINTER(Byte), cbData: UInt32) -> UInt32: ...
+SetPrinterDataEx = UnicodeAlias('SetPrinterDataExW')
 @winfunctype('winspool.drv')
 def DeletePrinterDataA(hPrinter: win32more.Windows.Win32.Foundation.HANDLE, pValueName: win32more.Windows.Win32.Foundation.PSTR) -> UInt32: ...
 @winfunctype('winspool.drv')
 def DeletePrinterDataW(hPrinter: win32more.Windows.Win32.Foundation.HANDLE, pValueName: win32more.Windows.Win32.Foundation.PWSTR) -> UInt32: ...
+DeletePrinterData = UnicodeAlias('DeletePrinterDataW')
 @winfunctype('winspool.drv')
 def DeletePrinterDataExA(hPrinter: win32more.Windows.Win32.Foundation.HANDLE, pKeyName: win32more.Windows.Win32.Foundation.PSTR, pValueName: win32more.Windows.Win32.Foundation.PSTR) -> UInt32: ...
 @winfunctype('winspool.drv')
 def DeletePrinterDataExW(hPrinter: win32more.Windows.Win32.Foundation.HANDLE, pKeyName: win32more.Windows.Win32.Foundation.PWSTR, pValueName: win32more.Windows.Win32.Foundation.PWSTR) -> UInt32: ...
+DeletePrinterDataEx = UnicodeAlias('DeletePrinterDataExW')
 @winfunctype('winspool.drv')
 def DeletePrinterKeyA(hPrinter: win32more.Windows.Win32.Foundation.HANDLE, pKeyName: win32more.Windows.Win32.Foundation.PSTR) -> UInt32: ...
 @winfunctype('winspool.drv')
 def DeletePrinterKeyW(hPrinter: win32more.Windows.Win32.Foundation.HANDLE, pKeyName: win32more.Windows.Win32.Foundation.PWSTR) -> UInt32: ...
+DeletePrinterKey = UnicodeAlias('DeletePrinterKeyW')
 @winfunctype('winspool.drv')
 def WaitForPrinterChange(hPrinter: win32more.Windows.Win32.Foundation.HANDLE, Flags: UInt32) -> UInt32: ...
 @winfunctype('winspool.drv')
@@ -1653,130 +1690,160 @@ def FindClosePrinterChangeNotification(hChange: win32more.Windows.Win32.Foundati
 def PrinterMessageBoxA(hPrinter: win32more.Windows.Win32.Foundation.HANDLE, Error: UInt32, hWnd: win32more.Windows.Win32.Foundation.HWND, pText: win32more.Windows.Win32.Foundation.PSTR, pCaption: win32more.Windows.Win32.Foundation.PSTR, dwType: UInt32) -> UInt32: ...
 @winfunctype('winspool.drv')
 def PrinterMessageBoxW(hPrinter: win32more.Windows.Win32.Foundation.HANDLE, Error: UInt32, hWnd: win32more.Windows.Win32.Foundation.HWND, pText: win32more.Windows.Win32.Foundation.PWSTR, pCaption: win32more.Windows.Win32.Foundation.PWSTR, dwType: UInt32) -> UInt32: ...
+PrinterMessageBox = UnicodeAlias('PrinterMessageBoxW')
 @winfunctype('winspool.drv')
 def ClosePrinter(hPrinter: win32more.Windows.Win32.Foundation.HANDLE) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('winspool.drv')
 def AddFormA(hPrinter: win32more.Windows.Win32.Foundation.HANDLE, Level: UInt32, pForm: POINTER(Byte)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('winspool.drv')
 def AddFormW(hPrinter: win32more.Windows.Win32.Foundation.HANDLE, Level: UInt32, pForm: POINTER(Byte)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+AddForm = UnicodeAlias('AddFormW')
 @winfunctype('winspool.drv')
 def DeleteFormA(hPrinter: win32more.Windows.Win32.Foundation.HANDLE, pFormName: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('winspool.drv')
 def DeleteFormW(hPrinter: win32more.Windows.Win32.Foundation.HANDLE, pFormName: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
+DeleteForm = UnicodeAlias('DeleteFormW')
 @winfunctype('winspool.drv')
 def GetFormA(hPrinter: win32more.Windows.Win32.Foundation.HANDLE, pFormName: win32more.Windows.Win32.Foundation.PSTR, Level: UInt32, pForm: POINTER(Byte), cbBuf: UInt32, pcbNeeded: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('winspool.drv')
 def GetFormW(hPrinter: win32more.Windows.Win32.Foundation.HANDLE, pFormName: win32more.Windows.Win32.Foundation.PWSTR, Level: UInt32, pForm: POINTER(Byte), cbBuf: UInt32, pcbNeeded: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+GetForm = UnicodeAlias('GetFormW')
 @winfunctype('winspool.drv')
 def SetFormA(hPrinter: win32more.Windows.Win32.Foundation.HANDLE, pFormName: win32more.Windows.Win32.Foundation.PSTR, Level: UInt32, pForm: POINTER(Byte)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('winspool.drv')
 def SetFormW(hPrinter: win32more.Windows.Win32.Foundation.HANDLE, pFormName: win32more.Windows.Win32.Foundation.PWSTR, Level: UInt32, pForm: POINTER(Byte)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+SetForm = UnicodeAlias('SetFormW')
 @winfunctype('winspool.drv')
 def EnumFormsA(hPrinter: win32more.Windows.Win32.Foundation.HANDLE, Level: UInt32, pForm: POINTER(Byte), cbBuf: UInt32, pcbNeeded: POINTER(UInt32), pcReturned: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('winspool.drv')
 def EnumFormsW(hPrinter: win32more.Windows.Win32.Foundation.HANDLE, Level: UInt32, pForm: POINTER(Byte), cbBuf: UInt32, pcbNeeded: POINTER(UInt32), pcReturned: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+EnumForms = UnicodeAlias('EnumFormsW')
 @winfunctype('winspool.drv')
 def EnumMonitorsA(pName: win32more.Windows.Win32.Foundation.PSTR, Level: UInt32, pMonitor: POINTER(Byte), cbBuf: UInt32, pcbNeeded: POINTER(UInt32), pcReturned: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('winspool.drv')
 def EnumMonitorsW(pName: win32more.Windows.Win32.Foundation.PWSTR, Level: UInt32, pMonitor: POINTER(Byte), cbBuf: UInt32, pcbNeeded: POINTER(UInt32), pcReturned: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+EnumMonitors = UnicodeAlias('EnumMonitorsW')
 @winfunctype('winspool.drv')
 def AddMonitorA(pName: win32more.Windows.Win32.Foundation.PSTR, Level: UInt32, pMonitors: POINTER(Byte)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('winspool.drv')
 def AddMonitorW(pName: win32more.Windows.Win32.Foundation.PWSTR, Level: UInt32, pMonitors: POINTER(Byte)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+AddMonitor = UnicodeAlias('AddMonitorW')
 @winfunctype('winspool.drv')
 def DeleteMonitorA(pName: win32more.Windows.Win32.Foundation.PSTR, pEnvironment: win32more.Windows.Win32.Foundation.PSTR, pMonitorName: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('winspool.drv')
 def DeleteMonitorW(pName: win32more.Windows.Win32.Foundation.PWSTR, pEnvironment: win32more.Windows.Win32.Foundation.PWSTR, pMonitorName: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
+DeleteMonitor = UnicodeAlias('DeleteMonitorW')
 @winfunctype('winspool.drv')
 def EnumPortsA(pName: win32more.Windows.Win32.Foundation.PSTR, Level: UInt32, pPort: POINTER(Byte), cbBuf: UInt32, pcbNeeded: POINTER(UInt32), pcReturned: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('winspool.drv')
 def EnumPortsW(pName: win32more.Windows.Win32.Foundation.PWSTR, Level: UInt32, pPort: POINTER(Byte), cbBuf: UInt32, pcbNeeded: POINTER(UInt32), pcReturned: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+EnumPorts = UnicodeAlias('EnumPortsW')
 @winfunctype('winspool.drv')
 def AddPortA(pName: win32more.Windows.Win32.Foundation.PSTR, hWnd: win32more.Windows.Win32.Foundation.HWND, pMonitorName: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('winspool.drv')
 def AddPortW(pName: win32more.Windows.Win32.Foundation.PWSTR, hWnd: win32more.Windows.Win32.Foundation.HWND, pMonitorName: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
+AddPort = UnicodeAlias('AddPortW')
 @winfunctype('winspool.drv')
 def ConfigurePortA(pName: win32more.Windows.Win32.Foundation.PSTR, hWnd: win32more.Windows.Win32.Foundation.HWND, pPortName: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('winspool.drv')
 def ConfigurePortW(pName: win32more.Windows.Win32.Foundation.PWSTR, hWnd: win32more.Windows.Win32.Foundation.HWND, pPortName: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
+ConfigurePort = UnicodeAlias('ConfigurePortW')
 @winfunctype('winspool.drv')
 def DeletePortA(pName: win32more.Windows.Win32.Foundation.PSTR, hWnd: win32more.Windows.Win32.Foundation.HWND, pPortName: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('winspool.drv')
 def DeletePortW(pName: win32more.Windows.Win32.Foundation.PWSTR, hWnd: win32more.Windows.Win32.Foundation.HWND, pPortName: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
+DeletePort = UnicodeAlias('DeletePortW')
 @winfunctype('winspool.drv')
 def XcvDataW(hXcv: win32more.Windows.Win32.Foundation.HANDLE, pszDataName: win32more.Windows.Win32.Foundation.PWSTR, pInputData: POINTER(Byte), cbInputData: UInt32, pOutputData: POINTER(Byte), cbOutputData: UInt32, pcbOutputNeeded: POINTER(UInt32), pdwStatus: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('winspool.drv')
 def GetDefaultPrinterA(pszBuffer: win32more.Windows.Win32.Foundation.PSTR, pcchBuffer: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('winspool.drv')
 def GetDefaultPrinterW(pszBuffer: win32more.Windows.Win32.Foundation.PWSTR, pcchBuffer: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+GetDefaultPrinter = UnicodeAlias('GetDefaultPrinterW')
 @winfunctype('winspool.drv')
 def SetDefaultPrinterA(pszPrinter: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('winspool.drv')
 def SetDefaultPrinterW(pszPrinter: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
+SetDefaultPrinter = UnicodeAlias('SetDefaultPrinterW')
 @winfunctype('winspool.drv')
 def SetPortA(pName: win32more.Windows.Win32.Foundation.PSTR, pPortName: win32more.Windows.Win32.Foundation.PSTR, dwLevel: UInt32, pPortInfo: POINTER(Byte)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('winspool.drv')
 def SetPortW(pName: win32more.Windows.Win32.Foundation.PWSTR, pPortName: win32more.Windows.Win32.Foundation.PWSTR, dwLevel: UInt32, pPortInfo: POINTER(Byte)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+SetPort = UnicodeAlias('SetPortW')
 @winfunctype('winspool.drv')
 def AddPrinterConnectionA(pName: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('winspool.drv')
 def AddPrinterConnectionW(pName: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
+AddPrinterConnection = UnicodeAlias('AddPrinterConnectionW')
 @winfunctype('winspool.drv')
 def DeletePrinterConnectionA(pName: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('winspool.drv')
 def DeletePrinterConnectionW(pName: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
+DeletePrinterConnection = UnicodeAlias('DeletePrinterConnectionW')
 @winfunctype('winspool.drv')
 def ConnectToPrinterDlg(hwnd: win32more.Windows.Win32.Foundation.HWND, Flags: UInt32) -> win32more.Windows.Win32.Foundation.HANDLE: ...
 @winfunctype('winspool.drv')
 def AddPrintProvidorA(pName: win32more.Windows.Win32.Foundation.PSTR, Level: UInt32, pProvidorInfo: POINTER(Byte)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('winspool.drv')
 def AddPrintProvidorW(pName: win32more.Windows.Win32.Foundation.PWSTR, Level: UInt32, pProvidorInfo: POINTER(Byte)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+AddPrintProvidor = UnicodeAlias('AddPrintProvidorW')
 @winfunctype('winspool.drv')
 def DeletePrintProvidorA(pName: win32more.Windows.Win32.Foundation.PSTR, pEnvironment: win32more.Windows.Win32.Foundation.PSTR, pPrintProvidorName: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('winspool.drv')
 def DeletePrintProvidorW(pName: win32more.Windows.Win32.Foundation.PWSTR, pEnvironment: win32more.Windows.Win32.Foundation.PWSTR, pPrintProvidorName: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
+DeletePrintProvidor = UnicodeAlias('DeletePrintProvidorW')
 @winfunctype('winspool.drv')
 def IsValidDevmodeA(pDevmode: POINTER(win32more.Windows.Win32.Graphics.Gdi.DEVMODEA), DevmodeSize: UIntPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('winspool.drv')
 def IsValidDevmodeW(pDevmode: POINTER(win32more.Windows.Win32.Graphics.Gdi.DEVMODEW), DevmodeSize: UIntPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+IsValidDevmode = UnicodeAlias('IsValidDevmodeW')
 @winfunctype('winspool.drv')
 def OpenPrinter2A(pPrinterName: win32more.Windows.Win32.Foundation.PSTR, phPrinter: POINTER(win32more.Windows.Win32.Foundation.HANDLE), pDefault: POINTER(win32more.Windows.Win32.Graphics.Printing.PRINTER_DEFAULTSA), pOptions: POINTER(win32more.Windows.Win32.Graphics.Printing.PRINTER_OPTIONSA)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('winspool.drv')
 def OpenPrinter2W(pPrinterName: win32more.Windows.Win32.Foundation.PWSTR, phPrinter: POINTER(win32more.Windows.Win32.Foundation.HANDLE), pDefault: POINTER(win32more.Windows.Win32.Graphics.Printing.PRINTER_DEFAULTSW), pOptions: POINTER(win32more.Windows.Win32.Graphics.Printing.PRINTER_OPTIONSW)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+OpenPrinter2 = UnicodeAlias('OpenPrinter2W')
 @winfunctype('winspool.drv')
 def AddPrinterConnection2A(hWnd: win32more.Windows.Win32.Foundation.HWND, pszName: win32more.Windows.Win32.Foundation.PSTR, dwLevel: UInt32, pConnectionInfo: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('winspool.drv')
 def AddPrinterConnection2W(hWnd: win32more.Windows.Win32.Foundation.HWND, pszName: win32more.Windows.Win32.Foundation.PWSTR, dwLevel: UInt32, pConnectionInfo: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+AddPrinterConnection2 = UnicodeAlias('AddPrinterConnection2W')
 @winfunctype('winspool.drv')
 def InstallPrinterDriverFromPackageA(pszServer: win32more.Windows.Win32.Foundation.PSTR, pszInfPath: win32more.Windows.Win32.Foundation.PSTR, pszDriverName: win32more.Windows.Win32.Foundation.PSTR, pszEnvironment: win32more.Windows.Win32.Foundation.PSTR, dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('winspool.drv')
 def InstallPrinterDriverFromPackageW(pszServer: win32more.Windows.Win32.Foundation.PWSTR, pszInfPath: win32more.Windows.Win32.Foundation.PWSTR, pszDriverName: win32more.Windows.Win32.Foundation.PWSTR, pszEnvironment: win32more.Windows.Win32.Foundation.PWSTR, dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+InstallPrinterDriverFromPackage = UnicodeAlias('InstallPrinterDriverFromPackageW')
 @winfunctype('winspool.drv')
 def UploadPrinterDriverPackageA(pszServer: win32more.Windows.Win32.Foundation.PSTR, pszInfPath: win32more.Windows.Win32.Foundation.PSTR, pszEnvironment: win32more.Windows.Win32.Foundation.PSTR, dwFlags: UInt32, hwnd: win32more.Windows.Win32.Foundation.HWND, pszDestInfPath: win32more.Windows.Win32.Foundation.PSTR, pcchDestInfPath: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('winspool.drv')
 def UploadPrinterDriverPackageW(pszServer: win32more.Windows.Win32.Foundation.PWSTR, pszInfPath: win32more.Windows.Win32.Foundation.PWSTR, pszEnvironment: win32more.Windows.Win32.Foundation.PWSTR, dwFlags: UInt32, hwnd: win32more.Windows.Win32.Foundation.HWND, pszDestInfPath: win32more.Windows.Win32.Foundation.PWSTR, pcchDestInfPath: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+UploadPrinterDriverPackage = UnicodeAlias('UploadPrinterDriverPackageW')
 @winfunctype('winspool.drv')
 def GetCorePrinterDriversA(pszServer: win32more.Windows.Win32.Foundation.PSTR, pszEnvironment: win32more.Windows.Win32.Foundation.PSTR, pszzCoreDriverDependencies: win32more.Windows.Win32.Foundation.PSTR, cCorePrinterDrivers: UInt32, pCorePrinterDrivers: POINTER(win32more.Windows.Win32.Graphics.Printing.CORE_PRINTER_DRIVERA)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('winspool.drv')
 def GetCorePrinterDriversW(pszServer: win32more.Windows.Win32.Foundation.PWSTR, pszEnvironment: win32more.Windows.Win32.Foundation.PWSTR, pszzCoreDriverDependencies: win32more.Windows.Win32.Foundation.PWSTR, cCorePrinterDrivers: UInt32, pCorePrinterDrivers: POINTER(win32more.Windows.Win32.Graphics.Printing.CORE_PRINTER_DRIVERW)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+GetCorePrinterDrivers = UnicodeAlias('GetCorePrinterDriversW')
 @winfunctype('winspool.drv')
 def CorePrinterDriverInstalledA(pszServer: win32more.Windows.Win32.Foundation.PSTR, pszEnvironment: win32more.Windows.Win32.Foundation.PSTR, CoreDriverGUID: Guid, ftDriverDate: win32more.Windows.Win32.Foundation.FILETIME, dwlDriverVersion: UInt64, pbDriverInstalled: POINTER(win32more.Windows.Win32.Foundation.BOOL)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('winspool.drv')
 def CorePrinterDriverInstalledW(pszServer: win32more.Windows.Win32.Foundation.PWSTR, pszEnvironment: win32more.Windows.Win32.Foundation.PWSTR, CoreDriverGUID: Guid, ftDriverDate: win32more.Windows.Win32.Foundation.FILETIME, dwlDriverVersion: UInt64, pbDriverInstalled: POINTER(win32more.Windows.Win32.Foundation.BOOL)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+CorePrinterDriverInstalled = UnicodeAlias('CorePrinterDriverInstalledW')
 @winfunctype('winspool.drv')
 def GetPrinterDriverPackagePathA(pszServer: win32more.Windows.Win32.Foundation.PSTR, pszEnvironment: win32more.Windows.Win32.Foundation.PSTR, pszLanguage: win32more.Windows.Win32.Foundation.PSTR, pszPackageID: win32more.Windows.Win32.Foundation.PSTR, pszDriverPackageCab: win32more.Windows.Win32.Foundation.PSTR, cchDriverPackageCab: UInt32, pcchRequiredSize: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('winspool.drv')
 def GetPrinterDriverPackagePathW(pszServer: win32more.Windows.Win32.Foundation.PWSTR, pszEnvironment: win32more.Windows.Win32.Foundation.PWSTR, pszLanguage: win32more.Windows.Win32.Foundation.PWSTR, pszPackageID: win32more.Windows.Win32.Foundation.PWSTR, pszDriverPackageCab: win32more.Windows.Win32.Foundation.PWSTR, cchDriverPackageCab: UInt32, pcchRequiredSize: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+GetPrinterDriverPackagePath = UnicodeAlias('GetPrinterDriverPackagePathW')
 @winfunctype('winspool.drv')
 def DeletePrinterDriverPackageA(pszServer: win32more.Windows.Win32.Foundation.PSTR, pszInfPath: win32more.Windows.Win32.Foundation.PSTR, pszEnvironment: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('winspool.drv')
 def DeletePrinterDriverPackageW(pszServer: win32more.Windows.Win32.Foundation.PWSTR, pszInfPath: win32more.Windows.Win32.Foundation.PWSTR, pszEnvironment: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+DeletePrinterDriverPackage = UnicodeAlias('DeletePrinterDriverPackageW')
 @winfunctype('winspool.drv')
 def ReportJobProcessingProgress(printerHandle: win32more.Windows.Win32.Foundation.HANDLE, jobId: UInt32, jobOperation: win32more.Windows.Win32.Graphics.Printing.EPrintXPSJobOperation, jobProgress: win32more.Windows.Win32.Graphics.Printing.EPrintXPSJobProgress) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('winspool.drv')
 def GetPrinterDriver2A(hWnd: win32more.Windows.Win32.Foundation.HWND, hPrinter: win32more.Windows.Win32.Foundation.HANDLE, pEnvironment: win32more.Windows.Win32.Foundation.PSTR, Level: UInt32, pDriverInfo: POINTER(Byte), cbBuf: UInt32, pcbNeeded: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('winspool.drv')
 def GetPrinterDriver2W(hWnd: win32more.Windows.Win32.Foundation.HWND, hPrinter: win32more.Windows.Win32.Foundation.HANDLE, pEnvironment: win32more.Windows.Win32.Foundation.PWSTR, Level: UInt32, pDriverInfo: POINTER(Byte), cbBuf: UInt32, pcbNeeded: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+GetPrinterDriver2 = UnicodeAlias('GetPrinterDriver2W')
 @winfunctype('winspool.drv')
 def GetPrintExecutionData(pData: POINTER(win32more.Windows.Win32.Graphics.Printing.PRINT_EXECUTION_DATA)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('winspool.drv')
@@ -2013,6 +2080,7 @@ class CORE_PRINTER_DRIVERW(EasyCastStructure):
     ftDriverDate: win32more.Windows.Win32.Foundation.FILETIME
     dwlDriverVersion: UInt64
     szPackageID: Char * 260
+CORE_PRINTER_DRIVER = UnicodeAlias('CORE_PRINTER_DRIVERW')
 class CPSUICBPARAM(EasyCastStructure):
     cbSize: UInt16
     Reason: UInt16
@@ -2038,6 +2106,7 @@ class DATATYPES_INFO_1A(EasyCastStructure):
     pName: win32more.Windows.Win32.Foundation.PSTR
 class DATATYPES_INFO_1W(EasyCastStructure):
     pName: win32more.Windows.Win32.Foundation.PWSTR
+DATATYPES_INFO_1 = UnicodeAlias('DATATYPES_INFO_1W')
 class DATA_HEADER(EasyCastStructure):
     dwSignature: UInt32
     wSize: UInt16
@@ -2104,6 +2173,7 @@ class DOC_INFO_1W(EasyCastStructure):
     pDocName: win32more.Windows.Win32.Foundation.PWSTR
     pOutputFile: win32more.Windows.Win32.Foundation.PWSTR
     pDatatype: win32more.Windows.Win32.Foundation.PWSTR
+DOC_INFO_1 = UnicodeAlias('DOC_INFO_1W')
 class DOC_INFO_2A(EasyCastStructure):
     pDocName: win32more.Windows.Win32.Foundation.PSTR
     pOutputFile: win32more.Windows.Win32.Foundation.PSTR
@@ -2116,6 +2186,7 @@ class DOC_INFO_2W(EasyCastStructure):
     pDatatype: win32more.Windows.Win32.Foundation.PWSTR
     dwMode: UInt32
     JobId: UInt32
+DOC_INFO_2 = UnicodeAlias('DOC_INFO_2W')
 class DOC_INFO_3A(EasyCastStructure):
     pDocName: win32more.Windows.Win32.Foundation.PSTR
     pOutputFile: win32more.Windows.Win32.Foundation.PSTR
@@ -2126,6 +2197,7 @@ class DOC_INFO_3W(EasyCastStructure):
     pOutputFile: win32more.Windows.Win32.Foundation.PWSTR
     pDatatype: win32more.Windows.Win32.Foundation.PWSTR
     dwFlags: UInt32
+DOC_INFO_3 = UnicodeAlias('DOC_INFO_3W')
 class DOC_INFO_INTERNAL(EasyCastStructure):
     pDocName: POINTER(SByte)
     pOutputFile: POINTER(SByte)
@@ -2136,6 +2208,7 @@ class DRIVER_INFO_1A(EasyCastStructure):
     pName: win32more.Windows.Win32.Foundation.PSTR
 class DRIVER_INFO_1W(EasyCastStructure):
     pName: win32more.Windows.Win32.Foundation.PWSTR
+DRIVER_INFO_1 = UnicodeAlias('DRIVER_INFO_1W')
 class DRIVER_INFO_2A(EasyCastStructure):
     cVersion: UInt32
     pName: win32more.Windows.Win32.Foundation.PSTR
@@ -2150,6 +2223,7 @@ class DRIVER_INFO_2W(EasyCastStructure):
     pDriverPath: win32more.Windows.Win32.Foundation.PWSTR
     pDataFile: win32more.Windows.Win32.Foundation.PWSTR
     pConfigFile: win32more.Windows.Win32.Foundation.PWSTR
+DRIVER_INFO_2 = UnicodeAlias('DRIVER_INFO_2W')
 class DRIVER_INFO_3A(EasyCastStructure):
     cVersion: UInt32
     pName: win32more.Windows.Win32.Foundation.PSTR
@@ -2172,6 +2246,7 @@ class DRIVER_INFO_3W(EasyCastStructure):
     pDependentFiles: win32more.Windows.Win32.Foundation.PWSTR
     pMonitorName: win32more.Windows.Win32.Foundation.PWSTR
     pDefaultDataType: win32more.Windows.Win32.Foundation.PWSTR
+DRIVER_INFO_3 = UnicodeAlias('DRIVER_INFO_3W')
 class DRIVER_INFO_4A(EasyCastStructure):
     cVersion: UInt32
     pName: win32more.Windows.Win32.Foundation.PSTR
@@ -2196,6 +2271,7 @@ class DRIVER_INFO_4W(EasyCastStructure):
     pMonitorName: win32more.Windows.Win32.Foundation.PWSTR
     pDefaultDataType: win32more.Windows.Win32.Foundation.PWSTR
     pszzPreviousNames: win32more.Windows.Win32.Foundation.PWSTR
+DRIVER_INFO_4 = UnicodeAlias('DRIVER_INFO_4W')
 class DRIVER_INFO_5A(EasyCastStructure):
     cVersion: UInt32
     pName: win32more.Windows.Win32.Foundation.PSTR
@@ -2216,6 +2292,7 @@ class DRIVER_INFO_5W(EasyCastStructure):
     dwDriverAttributes: UInt32
     dwConfigVersion: UInt32
     dwDriverVersion: UInt32
+DRIVER_INFO_5 = UnicodeAlias('DRIVER_INFO_5W')
 class DRIVER_INFO_6A(EasyCastStructure):
     cVersion: UInt32
     pName: win32more.Windows.Win32.Foundation.PSTR
@@ -2252,6 +2329,7 @@ class DRIVER_INFO_6W(EasyCastStructure):
     pszOEMUrl: win32more.Windows.Win32.Foundation.PWSTR
     pszHardwareID: win32more.Windows.Win32.Foundation.PWSTR
     pszProvider: win32more.Windows.Win32.Foundation.PWSTR
+DRIVER_INFO_6 = UnicodeAlias('DRIVER_INFO_6W')
 class DRIVER_INFO_8A(EasyCastStructure):
     cVersion: UInt32
     pName: win32more.Windows.Win32.Foundation.PSTR
@@ -2304,6 +2382,7 @@ class DRIVER_INFO_8W(EasyCastStructure):
     pszzCoreDriverDependencies: win32more.Windows.Win32.Foundation.PWSTR
     ftMinInboxDriverVerDate: win32more.Windows.Win32.Foundation.FILETIME
     dwlMinInboxDriverVerVersion: UInt64
+DRIVER_INFO_8 = UnicodeAlias('DRIVER_INFO_8W')
 class DRIVER_UPGRADE_INFO_1(EasyCastStructure):
     pPrinterName: POINTER(SByte)
     pOldDriverDirectory: POINTER(SByte)
@@ -2444,6 +2523,7 @@ class FORM_INFO_1W(EasyCastStructure):
     pName: win32more.Windows.Win32.Foundation.PWSTR
     Size: win32more.Windows.Win32.Foundation.SIZE
     ImageableArea: win32more.Windows.Win32.Foundation.RECTL
+FORM_INFO_1 = UnicodeAlias('FORM_INFO_1W')
 class FORM_INFO_2A(EasyCastStructure):
     Flags: UInt32
     pName: win32more.Windows.Win32.Foundation.PSTR
@@ -2466,6 +2546,7 @@ class FORM_INFO_2W(EasyCastStructure):
     dwResourceId: UInt32
     pDisplayName: win32more.Windows.Win32.Foundation.PWSTR
     wLangId: UInt16
+FORM_INFO_2 = UnicodeAlias('FORM_INFO_2W')
 class GLYPHRUN(EasyCastStructure):
     wcLow: Char
     wGlyphCount: UInt16
@@ -3404,6 +3485,7 @@ class JOB_INFO_1W(EasyCastStructure):
     TotalPages: UInt32
     PagesPrinted: UInt32
     Submitted: win32more.Windows.Win32.Foundation.SYSTEMTIME
+JOB_INFO_1 = UnicodeAlias('JOB_INFO_1W')
 class JOB_INFO_2A(EasyCastStructure):
     JobId: UInt32
     pPrinterName: win32more.Windows.Win32.Foundation.PSTR
@@ -3452,6 +3534,7 @@ class JOB_INFO_2W(EasyCastStructure):
     Submitted: win32more.Windows.Win32.Foundation.SYSTEMTIME
     Time: UInt32
     PagesPrinted: UInt32
+JOB_INFO_2 = UnicodeAlias('JOB_INFO_2W')
 class JOB_INFO_3(EasyCastStructure):
     JobId: UInt32
     NextJobId: UInt32
@@ -3506,6 +3589,7 @@ class JOB_INFO_4W(EasyCastStructure):
     Time: UInt32
     PagesPrinted: UInt32
     SizeHigh: Int32
+JOB_INFO_4 = UnicodeAlias('JOB_INFO_4W')
 class KERNDATA(EasyCastStructure):
     dwSize: UInt32
     dwKernPairNum: UInt32
@@ -3594,6 +3678,7 @@ class MONITOR_INFO_1A(EasyCastStructure):
     pName: win32more.Windows.Win32.Foundation.PSTR
 class MONITOR_INFO_1W(EasyCastStructure):
     pName: win32more.Windows.Win32.Foundation.PWSTR
+MONITOR_INFO_1 = UnicodeAlias('MONITOR_INFO_1W')
 class MONITOR_INFO_2A(EasyCastStructure):
     pName: win32more.Windows.Win32.Foundation.PSTR
     pEnvironment: win32more.Windows.Win32.Foundation.PSTR
@@ -3602,6 +3687,7 @@ class MONITOR_INFO_2W(EasyCastStructure):
     pName: win32more.Windows.Win32.Foundation.PWSTR
     pEnvironment: win32more.Windows.Win32.Foundation.PWSTR
     pDLLName: win32more.Windows.Win32.Foundation.PWSTR
+MONITOR_INFO_2 = UnicodeAlias('MONITOR_INFO_2W')
 class MXDC_ESCAPE_HEADER_T(EasyCastStructure):
     cbInput: UInt32
     cbOutput: UInt32
@@ -3908,6 +3994,7 @@ class PORT_INFO_1A(EasyCastStructure):
     pName: win32more.Windows.Win32.Foundation.PSTR
 class PORT_INFO_1W(EasyCastStructure):
     pName: win32more.Windows.Win32.Foundation.PWSTR
+PORT_INFO_1 = UnicodeAlias('PORT_INFO_1W')
 class PORT_INFO_2A(EasyCastStructure):
     pPortName: win32more.Windows.Win32.Foundation.PSTR
     pMonitorName: win32more.Windows.Win32.Foundation.PSTR
@@ -3920,6 +4007,7 @@ class PORT_INFO_2W(EasyCastStructure):
     pDescription: win32more.Windows.Win32.Foundation.PWSTR
     fPortType: UInt32
     Reserved: UInt32
+PORT_INFO_2 = UnicodeAlias('PORT_INFO_2W')
 class PORT_INFO_3A(EasyCastStructure):
     dwStatus: UInt32
     pszStatus: win32more.Windows.Win32.Foundation.PSTR
@@ -3928,6 +4016,7 @@ class PORT_INFO_3W(EasyCastStructure):
     dwStatus: UInt32
     pszStatus: win32more.Windows.Win32.Foundation.PWSTR
     dwSeverity: UInt32
+PORT_INFO_3 = UnicodeAlias('PORT_INFO_3W')
 PRINTER_ACCESS_RIGHTS = UInt32
 PRINTER_ALL_ACCESS: win32more.Windows.Win32.Graphics.Printing.PRINTER_ACCESS_RIGHTS = 983052
 PRINTER_READ: win32more.Windows.Win32.Graphics.Printing.PRINTER_ACCESS_RIGHTS = 131080
@@ -3957,6 +4046,7 @@ class PRINTER_CONNECTION_INFO_1A(EasyCastStructure):
 class PRINTER_CONNECTION_INFO_1W(EasyCastStructure):
     dwFlags: UInt32
     pszDriverName: win32more.Windows.Win32.Foundation.PWSTR
+PRINTER_CONNECTION_INFO_1 = UnicodeAlias('PRINTER_CONNECTION_INFO_1W')
 class PRINTER_DEFAULTSA(EasyCastStructure):
     pDatatype: win32more.Windows.Win32.Foundation.PSTR
     pDevMode: POINTER(win32more.Windows.Win32.Graphics.Gdi.DEVMODEA)
@@ -3965,6 +4055,7 @@ class PRINTER_DEFAULTSW(EasyCastStructure):
     pDatatype: win32more.Windows.Win32.Foundation.PWSTR
     pDevMode: POINTER(win32more.Windows.Win32.Graphics.Gdi.DEVMODEW)
     DesiredAccess: win32more.Windows.Win32.Graphics.Printing.PRINTER_ACCESS_RIGHTS
+PRINTER_DEFAULTS = UnicodeAlias('PRINTER_DEFAULTSW')
 class PRINTER_ENUM_VALUESA(EasyCastStructure):
     pValueName: win32more.Windows.Win32.Foundation.PSTR
     cbValueName: UInt32
@@ -3977,6 +4068,7 @@ class PRINTER_ENUM_VALUESW(EasyCastStructure):
     dwType: UInt32
     pData: POINTER(Byte)
     cbData: UInt32
+PRINTER_ENUM_VALUES = UnicodeAlias('PRINTER_ENUM_VALUESW')
 class PRINTER_EVENT_ATTRIBUTES_INFO(EasyCastStructure):
     cbSize: UInt32
     dwOldAttributes: UInt32
@@ -3991,6 +4083,7 @@ class PRINTER_INFO_1W(EasyCastStructure):
     pDescription: win32more.Windows.Win32.Foundation.PWSTR
     pName: win32more.Windows.Win32.Foundation.PWSTR
     pComment: win32more.Windows.Win32.Foundation.PWSTR
+PRINTER_INFO_1 = UnicodeAlias('PRINTER_INFO_1W')
 class PRINTER_INFO_2A(EasyCastStructure):
     pServerName: win32more.Windows.Win32.Foundation.PSTR
     pPrinterName: win32more.Windows.Win32.Foundation.PSTR
@@ -4035,6 +4128,7 @@ class PRINTER_INFO_2W(EasyCastStructure):
     Status: UInt32
     cJobs: UInt32
     AveragePPM: UInt32
+PRINTER_INFO_2 = UnicodeAlias('PRINTER_INFO_2W')
 class PRINTER_INFO_3(EasyCastStructure):
     pSecurityDescriptor: win32more.Windows.Win32.Security.PSECURITY_DESCRIPTOR
 class PRINTER_INFO_4A(EasyCastStructure):
@@ -4045,6 +4139,7 @@ class PRINTER_INFO_4W(EasyCastStructure):
     pPrinterName: win32more.Windows.Win32.Foundation.PWSTR
     pServerName: win32more.Windows.Win32.Foundation.PWSTR
     Attributes: UInt32
+PRINTER_INFO_4 = UnicodeAlias('PRINTER_INFO_4W')
 class PRINTER_INFO_5A(EasyCastStructure):
     pPrinterName: win32more.Windows.Win32.Foundation.PSTR
     pPortName: win32more.Windows.Win32.Foundation.PSTR
@@ -4057,6 +4152,7 @@ class PRINTER_INFO_5W(EasyCastStructure):
     Attributes: UInt32
     DeviceNotSelectedTimeout: UInt32
     TransmissionRetryTimeout: UInt32
+PRINTER_INFO_5 = UnicodeAlias('PRINTER_INFO_5W')
 class PRINTER_INFO_6(EasyCastStructure):
     dwStatus: UInt32
 class PRINTER_INFO_7A(EasyCastStructure):
@@ -4065,14 +4161,17 @@ class PRINTER_INFO_7A(EasyCastStructure):
 class PRINTER_INFO_7W(EasyCastStructure):
     pszObjectGUID: win32more.Windows.Win32.Foundation.PWSTR
     dwAction: UInt32
+PRINTER_INFO_7 = UnicodeAlias('PRINTER_INFO_7W')
 class PRINTER_INFO_8A(EasyCastStructure):
     pDevMode: POINTER(win32more.Windows.Win32.Graphics.Gdi.DEVMODEA)
 class PRINTER_INFO_8W(EasyCastStructure):
     pDevMode: POINTER(win32more.Windows.Win32.Graphics.Gdi.DEVMODEW)
+PRINTER_INFO_8 = UnicodeAlias('PRINTER_INFO_8W')
 class PRINTER_INFO_9A(EasyCastStructure):
     pDevMode: POINTER(win32more.Windows.Win32.Graphics.Gdi.DEVMODEA)
 class PRINTER_INFO_9W(EasyCastStructure):
     pDevMode: POINTER(win32more.Windows.Win32.Graphics.Gdi.DEVMODEW)
+PRINTER_INFO_9 = UnicodeAlias('PRINTER_INFO_9W')
 class PRINTER_NOTIFY_INFO(EasyCastStructure):
     Version: UInt32
     Flags: UInt32
@@ -4112,6 +4211,7 @@ class PRINTER_OPTIONSA(EasyCastStructure):
 class PRINTER_OPTIONSW(EasyCastStructure):
     cbSize: UInt32
     dwFlags: UInt32
+PRINTER_OPTIONS = UnicodeAlias('PRINTER_OPTIONSW')
 PRINTER_OPTION_FLAGS = Int32
 PRINTER_OPTION_NO_CACHE: win32more.Windows.Win32.Graphics.Printing.PRINTER_OPTION_FLAGS = 1
 PRINTER_OPTION_CACHE: win32more.Windows.Win32.Graphics.Printing.PRINTER_OPTION_FLAGS = 2
@@ -4204,6 +4304,7 @@ class PRINTPROCESSOR_INFO_1A(EasyCastStructure):
     pName: win32more.Windows.Win32.Foundation.PSTR
 class PRINTPROCESSOR_INFO_1W(EasyCastStructure):
     pName: win32more.Windows.Win32.Foundation.PWSTR
+PRINTPROCESSOR_INFO_1 = UnicodeAlias('PRINTPROCESSOR_INFO_1W')
 class PRINTPROVIDOR(EasyCastStructure):
     fpOpenPrinter: IntPtr
     fpSetJob: IntPtr
@@ -4359,10 +4460,12 @@ class PROVIDOR_INFO_1W(EasyCastStructure):
     pName: win32more.Windows.Win32.Foundation.PWSTR
     pEnvironment: win32more.Windows.Win32.Foundation.PWSTR
     pDLLName: win32more.Windows.Win32.Foundation.PWSTR
+PROVIDOR_INFO_1 = UnicodeAlias('PROVIDOR_INFO_1W')
 class PROVIDOR_INFO_2A(EasyCastStructure):
     pOrder: win32more.Windows.Win32.Foundation.PSTR
 class PROVIDOR_INFO_2W(EasyCastStructure):
     pOrder: win32more.Windows.Win32.Foundation.PWSTR
+PROVIDOR_INFO_2 = UnicodeAlias('PROVIDOR_INFO_2W')
 class PSCRIPT5_PRIVATE_DEVMODE(EasyCastStructure):
     wReserved: UInt16 * 57
     wSize: UInt16

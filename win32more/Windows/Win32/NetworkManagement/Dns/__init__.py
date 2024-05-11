@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.NetworkManagement.Dns
 SIZEOF_IP4_ADDRESS: UInt32 = 4
@@ -261,6 +261,7 @@ def DnsQuery_A(pszName: win32more.Windows.Win32.Foundation.PSTR, wType: win32mor
 def DnsQuery_UTF8(pszName: win32more.Windows.Win32.Foundation.PSTR, wType: win32more.Windows.Win32.NetworkManagement.Dns.DNS_TYPE, Options: win32more.Windows.Win32.NetworkManagement.Dns.DNS_QUERY_OPTIONS, pExtra: VoidPtr, ppQueryResults: POINTER(POINTER(win32more.Windows.Win32.NetworkManagement.Dns.DNS_RECORDA)), pReserved: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('DNSAPI.dll')
 def DnsQuery_W(pszName: win32more.Windows.Win32.Foundation.PWSTR, wType: win32more.Windows.Win32.NetworkManagement.Dns.DNS_TYPE, Options: win32more.Windows.Win32.NetworkManagement.Dns.DNS_QUERY_OPTIONS, pExtra: VoidPtr, ppQueryResults: POINTER(POINTER(win32more.Windows.Win32.NetworkManagement.Dns.DNS_RECORDA)), pReserved: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
+DnsQuery = UnicodeAlias('DnsQuery_W')
 @winfunctype('DNSAPI.dll')
 def DnsFreeCustomServers(pcServers: POINTER(UInt32), ppServers: POINTER(POINTER(win32more.Windows.Win32.NetworkManagement.Dns.DNS_CUSTOM_SERVER))) -> Void: ...
 @winfunctype('DNSAPI.dll')
@@ -279,24 +280,28 @@ def DnsQueryRaw(queryRequest: POINTER(win32more.Windows.Win32.NetworkManagement.
 def DnsCancelQueryRaw(cancelHandle: POINTER(win32more.Windows.Win32.NetworkManagement.Dns.DNS_QUERY_RAW_CANCEL)) -> Int32: ...
 @winfunctype('DNSAPI.dll')
 def DnsAcquireContextHandle_W(CredentialFlags: UInt32, Credentials: VoidPtr, pContext: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> Int32: ...
+DnsAcquireContextHandle = UnicodeAlias('DnsAcquireContextHandle_W')
 @winfunctype('DNSAPI.dll')
 def DnsAcquireContextHandle_A(CredentialFlags: UInt32, Credentials: VoidPtr, pContext: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> Int32: ...
 @winfunctype('DNSAPI.dll')
 def DnsReleaseContextHandle(hContext: win32more.Windows.Win32.Foundation.HANDLE) -> Void: ...
 @winfunctype('DNSAPI.dll')
 def DnsModifyRecordsInSet_W(pAddRecords: POINTER(win32more.Windows.Win32.NetworkManagement.Dns.DNS_RECORDA), pDeleteRecords: POINTER(win32more.Windows.Win32.NetworkManagement.Dns.DNS_RECORDA), Options: UInt32, hCredentials: win32more.Windows.Win32.Foundation.HANDLE, pExtraList: VoidPtr, pReserved: VoidPtr) -> Int32: ...
+DnsModifyRecordsInSet = UnicodeAlias('DnsModifyRecordsInSet_W')
 @winfunctype('DNSAPI.dll')
 def DnsModifyRecordsInSet_A(pAddRecords: POINTER(win32more.Windows.Win32.NetworkManagement.Dns.DNS_RECORDA), pDeleteRecords: POINTER(win32more.Windows.Win32.NetworkManagement.Dns.DNS_RECORDA), Options: UInt32, hCredentials: win32more.Windows.Win32.Foundation.HANDLE, pExtraList: VoidPtr, pReserved: VoidPtr) -> Int32: ...
 @winfunctype('DNSAPI.dll')
 def DnsModifyRecordsInSet_UTF8(pAddRecords: POINTER(win32more.Windows.Win32.NetworkManagement.Dns.DNS_RECORDA), pDeleteRecords: POINTER(win32more.Windows.Win32.NetworkManagement.Dns.DNS_RECORDA), Options: UInt32, hCredentials: win32more.Windows.Win32.Foundation.HANDLE, pExtraList: VoidPtr, pReserved: VoidPtr) -> Int32: ...
 @winfunctype('DNSAPI.dll')
 def DnsReplaceRecordSetW(pReplaceSet: POINTER(win32more.Windows.Win32.NetworkManagement.Dns.DNS_RECORDA), Options: UInt32, hContext: win32more.Windows.Win32.Foundation.HANDLE, pExtraInfo: VoidPtr, pReserved: VoidPtr) -> Int32: ...
+DnsReplaceRecordSet = UnicodeAlias('DnsReplaceRecordSetW')
 @winfunctype('DNSAPI.dll')
 def DnsReplaceRecordSetA(pReplaceSet: POINTER(win32more.Windows.Win32.NetworkManagement.Dns.DNS_RECORDA), Options: UInt32, hContext: win32more.Windows.Win32.Foundation.HANDLE, pExtraInfo: VoidPtr, pReserved: VoidPtr) -> Int32: ...
 @winfunctype('DNSAPI.dll')
 def DnsReplaceRecordSetUTF8(pReplaceSet: POINTER(win32more.Windows.Win32.NetworkManagement.Dns.DNS_RECORDA), Options: UInt32, hContext: win32more.Windows.Win32.Foundation.HANDLE, pExtraInfo: VoidPtr, pReserved: VoidPtr) -> Int32: ...
 @winfunctype('DNSAPI.dll')
 def DnsValidateName_W(pszName: win32more.Windows.Win32.Foundation.PWSTR, Format: win32more.Windows.Win32.NetworkManagement.Dns.DNS_NAME_FORMAT) -> Int32: ...
+DnsValidateName = UnicodeAlias('DnsValidateName_W')
 @winfunctype('DNSAPI.dll')
 def DnsValidateName_A(pszName: win32more.Windows.Win32.Foundation.PSTR, Format: win32more.Windows.Win32.NetworkManagement.Dns.DNS_NAME_FORMAT) -> Int32: ...
 @winfunctype('DNSAPI.dll')
@@ -305,6 +310,7 @@ def DnsValidateName_UTF8(pszName: win32more.Windows.Win32.Foundation.PSTR, Forma
 def DnsNameCompare_A(pName1: win32more.Windows.Win32.Foundation.PSTR, pName2: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('DNSAPI.dll')
 def DnsNameCompare_W(pName1: win32more.Windows.Win32.Foundation.PWSTR, pName2: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
+DnsNameCompare = UnicodeAlias('DnsNameCompare_W')
 @winfunctype('DNSAPI.dll')
 def DnsWriteQuestionToBuffer_W(pDnsBuffer: POINTER(win32more.Windows.Win32.NetworkManagement.Dns.DNS_MESSAGE_BUFFER), pdwBufferSize: POINTER(UInt32), pszName: win32more.Windows.Win32.Foundation.PWSTR, wType: UInt16, Xid: UInt16, fRecursionDesired: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('DNSAPI.dll')
@@ -551,6 +557,7 @@ class DNS_MINFO_DATAA(EasyCastStructure):
 class DNS_MINFO_DATAW(EasyCastStructure):
     pNameMailbox: win32more.Windows.Win32.Foundation.PWSTR
     pNameErrorsMailbox: win32more.Windows.Win32.Foundation.PWSTR
+DNS_MINFO_DATA = UnicodeAlias('DNS_MINFO_DATAW')
 class DNS_MX_DATAA(EasyCastStructure):
     pNameExchange: win32more.Windows.Win32.Foundation.PSTR
     wPreference: UInt16
@@ -559,6 +566,7 @@ class DNS_MX_DATAW(EasyCastStructure):
     pNameExchange: win32more.Windows.Win32.Foundation.PWSTR
     wPreference: UInt16
     Pad: UInt16
+DNS_MX_DATA = UnicodeAlias('DNS_MX_DATAW')
 DNS_NAME_FORMAT = Int32
 DnsNameDomain: win32more.Windows.Win32.NetworkManagement.Dns.DNS_NAME_FORMAT = 0
 DnsNameDomainLabel: win32more.Windows.Win32.NetworkManagement.Dns.DNS_NAME_FORMAT = 1
@@ -581,6 +589,7 @@ class DNS_NAPTR_DATAW(EasyCastStructure):
     pService: win32more.Windows.Win32.Foundation.PWSTR
     pRegularExpression: win32more.Windows.Win32.Foundation.PWSTR
     pReplacement: win32more.Windows.Win32.Foundation.PWSTR
+DNS_NAPTR_DATA = UnicodeAlias('DNS_NAPTR_DATAW')
 class DNS_NSEC3PARAM_DATA(EasyCastStructure):
     chAlgorithm: Byte
     bFlags: Byte
@@ -606,6 +615,7 @@ class DNS_NSEC_DATAW(EasyCastStructure):
     wTypeBitMapsLength: UInt16
     wPad: UInt16
     TypeBitMaps: Byte * 1
+DNS_NSEC_DATA = UnicodeAlias('DNS_NSEC_DATAW')
 class DNS_NULL_DATA(EasyCastStructure):
     dwByteCount: UInt32
     Data: Byte * 1
@@ -617,6 +627,7 @@ class DNS_NXT_DATAW(EasyCastStructure):
     pNameNext: win32more.Windows.Win32.Foundation.PWSTR
     wNumTypes: UInt16
     wTypes: UInt16 * 1
+DNS_NXT_DATA = UnicodeAlias('DNS_NXT_DATAW')
 class DNS_OPT_DATA(EasyCastStructure):
     wDataLength: UInt16
     wPad: UInt16
@@ -636,6 +647,7 @@ class DNS_PTR_DATAA(EasyCastStructure):
     pNameHost: win32more.Windows.Win32.Foundation.PSTR
 class DNS_PTR_DATAW(EasyCastStructure):
     pNameHost: win32more.Windows.Win32.Foundation.PWSTR
+DNS_PTR_DATA = UnicodeAlias('DNS_PTR_DATAW')
 class DNS_QUERY_CANCEL(EasyCastStructure):
     Reserved: win32more.Windows.Win32.Foundation.CHAR * 32
 DNS_QUERY_OPTIONS = UInt32
@@ -930,6 +942,7 @@ class DNS_RECORDW(EasyCastStructure):
         UNKNOWN: win32more.Windows.Win32.NetworkManagement.Dns.DNS_UNKNOWN_DATA
         Unknown: win32more.Windows.Win32.NetworkManagement.Dns.DNS_UNKNOWN_DATA
         pDataPtr: POINTER(Byte)
+DNS_RECORD = UnicodeAlias('DNS_RECORDW')
 class DNS_RECORD_FLAGS(EasyCastStructure):
     _bitfield: UInt32
 class DNS_RECORD_OPTW(EasyCastStructure):
@@ -1015,6 +1028,7 @@ class DNS_SIG_DATAW(EasyCastStructure):
     wSignatureLength: UInt16
     pNameSigner: win32more.Windows.Win32.Foundation.PWSTR
     Signature: Byte * 1
+DNS_SIG_DATA = UnicodeAlias('DNS_SIG_DATAW')
 class DNS_SOA_DATAA(EasyCastStructure):
     pNamePrimaryServer: win32more.Windows.Win32.Foundation.PSTR
     pNameAdministrator: win32more.Windows.Win32.Foundation.PSTR
@@ -1031,6 +1045,7 @@ class DNS_SOA_DATAW(EasyCastStructure):
     dwRetry: UInt32
     dwExpire: UInt32
     dwDefaultTtl: UInt32
+DNS_SOA_DATA = UnicodeAlias('DNS_SOA_DATAW')
 class DNS_SRV_DATAA(EasyCastStructure):
     pNameTarget: win32more.Windows.Win32.Foundation.PSTR
     wPriority: UInt16
@@ -1043,6 +1058,7 @@ class DNS_SRV_DATAW(EasyCastStructure):
     wWeight: UInt16
     wPort: UInt16
     Pad: UInt16
+DNS_SRV_DATA = UnicodeAlias('DNS_SRV_DATAW')
 class DNS_SVCB_DATA(EasyCastStructure):
     wSvcPriority: UInt16
     pszTargetName: win32more.Windows.Win32.Foundation.PSTR
@@ -1115,6 +1131,7 @@ class DNS_TKEY_DATAW(EasyCastStructure):
     wOtherLength: UInt16
     cAlgNameLength: Byte
     bPacketPointers: win32more.Windows.Win32.Foundation.BOOL
+DNS_TKEY_DATA = UnicodeAlias('DNS_TKEY_DATAW')
 class DNS_TLSA_DATA(EasyCastStructure):
     bCertUsage: Byte
     bSelector: Byte
@@ -1148,12 +1165,14 @@ class DNS_TSIG_DATAW(EasyCastStructure):
     wOtherLength: UInt16
     cAlgNameLength: Byte
     bPacketPointers: win32more.Windows.Win32.Foundation.BOOL
+DNS_TSIG_DATA = UnicodeAlias('DNS_TSIG_DATAW')
 class DNS_TXT_DATAA(EasyCastStructure):
     dwStringCount: UInt32
     pStringArray: win32more.Windows.Win32.Foundation.PSTR * 1
 class DNS_TXT_DATAW(EasyCastStructure):
     dwStringCount: UInt32
     pStringArray: win32more.Windows.Win32.Foundation.PWSTR * 1
+DNS_TXT_DATA = UnicodeAlias('DNS_TXT_DATAW')
 DNS_TYPE = UInt16
 DNS_TYPE_ZERO: win32more.Windows.Win32.NetworkManagement.Dns.DNS_TYPE = 0
 DNS_TYPE_A: win32more.Windows.Win32.NetworkManagement.Dns.DNS_TYPE = 1
@@ -1236,6 +1255,7 @@ class DNS_WINSR_DATAW(EasyCastStructure):
     dwLookupTimeout: UInt32
     dwCacheTimeout: UInt32
     pNameResultDomain: win32more.Windows.Win32.Foundation.PWSTR
+DNS_WINSR_DATA = UnicodeAlias('DNS_WINSR_DATAW')
 class DNS_WINS_DATA(EasyCastStructure):
     dwMappingFlag: UInt32
     dwLookupTimeout: UInt32

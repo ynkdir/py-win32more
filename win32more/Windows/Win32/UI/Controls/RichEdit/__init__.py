@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Direct2D
 import win32more.Windows.Win32.Graphics.Gdi
@@ -559,6 +559,7 @@ class CHARFORMAT2W(EasyCastStructure):
     class _Anonymous_e__Union(EasyCastUnion):
         dwReserved: UInt32
         dwCookie: UInt32
+CHARFORMAT2 = UnicodeAlias('CHARFORMAT2W')
 class CHARFORMATA(EasyCastStructure):
     cbSize: UInt32
     dwMask: win32more.Windows.Win32.UI.Controls.RichEdit.CFM_MASK
@@ -579,6 +580,7 @@ class CHARFORMATW(EasyCastStructure):
     bCharSet: win32more.Windows.Win32.Graphics.Gdi.FONT_CHARSET
     bPitchAndFamily: Byte
     szFaceName: Char * 32
+CHARFORMAT = UnicodeAlias('CHARFORMATW')
 class CHARRANGE(EasyCastStructure):
     cpMin: Int32
     cpMax: Int32
@@ -741,6 +743,10 @@ elif ARCH in 'X86':
         lpstrText: win32more.Windows.Win32.Foundation.PWSTR
         chrgText: win32more.Windows.Win32.UI.Controls.RichEdit.CHARRANGE
 if ARCH in 'X64,ARM64':
+    FINDTEXTEX = UnicodeAlias('FINDTEXTEXW')
+elif ARCH in 'X86':
+    FINDTEXTEX = UnicodeAlias('FINDTEXTEXW')
+if ARCH in 'X64,ARM64':
     class FINDTEXTW(EasyCastStructure):
         chrg: win32more.Windows.Win32.UI.Controls.RichEdit.CHARRANGE
         lpstrText: win32more.Windows.Win32.Foundation.PWSTR
@@ -749,6 +755,10 @@ elif ARCH in 'X86':
     class FINDTEXTW(EasyCastStructure):
         chrg: win32more.Windows.Win32.UI.Controls.RichEdit.CHARRANGE
         lpstrText: win32more.Windows.Win32.Foundation.PWSTR
+if ARCH in 'X64,ARM64':
+    FINDTEXT = UnicodeAlias('FINDTEXTW')
+elif ARCH in 'X86':
+    FINDTEXT = UnicodeAlias('FINDTEXTW')
 if ARCH in 'X64,ARM64':
     class FORMATRANGE(EasyCastStructure):
         hdc: win32more.Windows.Win32.Graphics.Gdi.HDC
@@ -2308,6 +2318,10 @@ elif ARCH in 'X86':
     class TEXTRANGEW(EasyCastStructure):
         chrg: win32more.Windows.Win32.UI.Controls.RichEdit.CHARRANGE
         lpstrText: win32more.Windows.Win32.Foundation.PWSTR
+if ARCH in 'X64,ARM64':
+    TEXTRANGE = UnicodeAlias('TEXTRANGEW')
+elif ARCH in 'X86':
+    TEXTRANGE = UnicodeAlias('TEXTRANGEW')
 TXTBACKSTYLE = Int32
 TXTBACK_TRANSPARENT: win32more.Windows.Win32.UI.Controls.RichEdit.TXTBACKSTYLE = 0
 TXTBACK_OPAQUE: win32more.Windows.Win32.UI.Controls.RichEdit.TXTBACKSTYLE = 1

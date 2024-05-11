@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.Security.Authorization
@@ -20,6 +20,7 @@ class ACTRL_ACCESSA(EasyCastStructure):
 class ACTRL_ACCESSW(EasyCastStructure):
     cEntries: UInt32
     pPropertyAccessList: POINTER(win32more.Windows.Win32.Security.Authorization.ACTRL_PROPERTY_ENTRYW)
+ACTRL_ACCESS = UnicodeAlias('ACTRL_ACCESSW')
 class ACTRL_ACCESS_ENTRYA(EasyCastStructure):
     Trustee: win32more.Windows.Win32.Security.Authorization.TRUSTEE_A
     fAccessFlags: win32more.Windows.Win32.Security.Authorization.ACTRL_ACCESS_ENTRY_ACCESS_FLAGS
@@ -34,6 +35,7 @@ class ACTRL_ACCESS_ENTRYW(EasyCastStructure):
     ProvSpecificAccess: UInt32
     Inheritance: win32more.Windows.Win32.Security.ACE_FLAGS
     lpInheritProperty: win32more.Windows.Win32.Foundation.PWSTR
+ACTRL_ACCESS_ENTRY = UnicodeAlias('ACTRL_ACCESS_ENTRYW')
 ACTRL_ACCESS_ENTRY_ACCESS_FLAGS = UInt32
 ACTRL_ACCESS_ALLOWED: win32more.Windows.Win32.Security.Authorization.ACTRL_ACCESS_ENTRY_ACCESS_FLAGS = 1
 ACTRL_ACCESS_DENIED: win32more.Windows.Win32.Security.Authorization.ACTRL_ACCESS_ENTRY_ACCESS_FLAGS = 2
@@ -45,18 +47,21 @@ class ACTRL_ACCESS_ENTRY_LISTA(EasyCastStructure):
 class ACTRL_ACCESS_ENTRY_LISTW(EasyCastStructure):
     cEntries: UInt32
     pAccessList: POINTER(win32more.Windows.Win32.Security.Authorization.ACTRL_ACCESS_ENTRYW)
+ACTRL_ACCESS_ENTRY_LIST = UnicodeAlias('ACTRL_ACCESS_ENTRY_LISTW')
 class ACTRL_ACCESS_INFOA(EasyCastStructure):
     fAccessPermission: UInt32
     lpAccessPermissionName: win32more.Windows.Win32.Foundation.PSTR
 class ACTRL_ACCESS_INFOW(EasyCastStructure):
     fAccessPermission: UInt32
     lpAccessPermissionName: win32more.Windows.Win32.Foundation.PWSTR
+ACTRL_ACCESS_INFO = UnicodeAlias('ACTRL_ACCESS_INFOW')
 class ACTRL_CONTROL_INFOA(EasyCastStructure):
     lpControlId: win32more.Windows.Win32.Foundation.PSTR
     lpControlName: win32more.Windows.Win32.Foundation.PSTR
 class ACTRL_CONTROL_INFOW(EasyCastStructure):
     lpControlId: win32more.Windows.Win32.Foundation.PWSTR
     lpControlName: win32more.Windows.Win32.Foundation.PWSTR
+ACTRL_CONTROL_INFO = UnicodeAlias('ACTRL_CONTROL_INFOW')
 class ACTRL_OVERLAPPED(EasyCastStructure):
     Anonymous: _Anonymous_e__Union
     Reserved2: UInt32
@@ -72,6 +77,7 @@ class ACTRL_PROPERTY_ENTRYW(EasyCastStructure):
     lpProperty: win32more.Windows.Win32.Foundation.PWSTR
     pAccessEntryList: POINTER(win32more.Windows.Win32.Security.Authorization.ACTRL_ACCESS_ENTRY_LISTW)
     fListFlags: UInt32
+ACTRL_PROPERTY_ENTRY = UnicodeAlias('ACTRL_PROPERTY_ENTRYW')
 class AUDIT_IP_ADDRESS(EasyCastStructure):
     pIpAddress: Byte * 128
 class AUDIT_OBJECT_TYPE(EasyCastStructure):
@@ -711,116 +717,143 @@ def AuthzFreeCentralAccessPolicyCache() -> win32more.Windows.Win32.Foundation.BO
 def SetEntriesInAclA(cCountOfExplicitEntries: UInt32, pListOfExplicitEntries: POINTER(win32more.Windows.Win32.Security.Authorization.EXPLICIT_ACCESS_A), OldAcl: POINTER(win32more.Windows.Win32.Security.ACL), NewAcl: POINTER(POINTER(win32more.Windows.Win32.Security.ACL))) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('ADVAPI32.dll')
 def SetEntriesInAclW(cCountOfExplicitEntries: UInt32, pListOfExplicitEntries: POINTER(win32more.Windows.Win32.Security.Authorization.EXPLICIT_ACCESS_W), OldAcl: POINTER(win32more.Windows.Win32.Security.ACL), NewAcl: POINTER(POINTER(win32more.Windows.Win32.Security.ACL))) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
+SetEntriesInAcl = UnicodeAlias('SetEntriesInAclW')
 @winfunctype('ADVAPI32.dll')
 def GetExplicitEntriesFromAclA(pacl: POINTER(win32more.Windows.Win32.Security.ACL), pcCountOfExplicitEntries: POINTER(UInt32), pListOfExplicitEntries: POINTER(POINTER(win32more.Windows.Win32.Security.Authorization.EXPLICIT_ACCESS_A))) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('ADVAPI32.dll')
 def GetExplicitEntriesFromAclW(pacl: POINTER(win32more.Windows.Win32.Security.ACL), pcCountOfExplicitEntries: POINTER(UInt32), pListOfExplicitEntries: POINTER(POINTER(win32more.Windows.Win32.Security.Authorization.EXPLICIT_ACCESS_W))) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
+GetExplicitEntriesFromAcl = UnicodeAlias('GetExplicitEntriesFromAclW')
 @winfunctype('ADVAPI32.dll')
 def GetEffectiveRightsFromAclA(pacl: POINTER(win32more.Windows.Win32.Security.ACL), pTrustee: POINTER(win32more.Windows.Win32.Security.Authorization.TRUSTEE_A), pAccessRights: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('ADVAPI32.dll')
 def GetEffectiveRightsFromAclW(pacl: POINTER(win32more.Windows.Win32.Security.ACL), pTrustee: POINTER(win32more.Windows.Win32.Security.Authorization.TRUSTEE_W), pAccessRights: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
+GetEffectiveRightsFromAcl = UnicodeAlias('GetEffectiveRightsFromAclW')
 @winfunctype('ADVAPI32.dll')
 def GetAuditedPermissionsFromAclA(pacl: POINTER(win32more.Windows.Win32.Security.ACL), pTrustee: POINTER(win32more.Windows.Win32.Security.Authorization.TRUSTEE_A), pSuccessfulAuditedRights: POINTER(UInt32), pFailedAuditRights: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('ADVAPI32.dll')
 def GetAuditedPermissionsFromAclW(pacl: POINTER(win32more.Windows.Win32.Security.ACL), pTrustee: POINTER(win32more.Windows.Win32.Security.Authorization.TRUSTEE_W), pSuccessfulAuditedRights: POINTER(UInt32), pFailedAuditRights: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
+GetAuditedPermissionsFromAcl = UnicodeAlias('GetAuditedPermissionsFromAclW')
 @winfunctype('ADVAPI32.dll')
 def GetNamedSecurityInfoA(pObjectName: win32more.Windows.Win32.Foundation.PSTR, ObjectType: win32more.Windows.Win32.Security.Authorization.SE_OBJECT_TYPE, SecurityInfo: win32more.Windows.Win32.Security.OBJECT_SECURITY_INFORMATION, ppsidOwner: POINTER(win32more.Windows.Win32.Security.PSID), ppsidGroup: POINTER(win32more.Windows.Win32.Security.PSID), ppDacl: POINTER(POINTER(win32more.Windows.Win32.Security.ACL)), ppSacl: POINTER(POINTER(win32more.Windows.Win32.Security.ACL)), ppSecurityDescriptor: POINTER(win32more.Windows.Win32.Security.PSECURITY_DESCRIPTOR)) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('ADVAPI32.dll')
 def GetNamedSecurityInfoW(pObjectName: win32more.Windows.Win32.Foundation.PWSTR, ObjectType: win32more.Windows.Win32.Security.Authorization.SE_OBJECT_TYPE, SecurityInfo: win32more.Windows.Win32.Security.OBJECT_SECURITY_INFORMATION, ppsidOwner: POINTER(win32more.Windows.Win32.Security.PSID), ppsidGroup: POINTER(win32more.Windows.Win32.Security.PSID), ppDacl: POINTER(POINTER(win32more.Windows.Win32.Security.ACL)), ppSacl: POINTER(POINTER(win32more.Windows.Win32.Security.ACL)), ppSecurityDescriptor: POINTER(win32more.Windows.Win32.Security.PSECURITY_DESCRIPTOR)) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
+GetNamedSecurityInfo = UnicodeAlias('GetNamedSecurityInfoW')
 @winfunctype('ADVAPI32.dll')
 def GetSecurityInfo(handle: win32more.Windows.Win32.Foundation.HANDLE, ObjectType: win32more.Windows.Win32.Security.Authorization.SE_OBJECT_TYPE, SecurityInfo: win32more.Windows.Win32.Security.OBJECT_SECURITY_INFORMATION, ppsidOwner: POINTER(win32more.Windows.Win32.Security.PSID), ppsidGroup: POINTER(win32more.Windows.Win32.Security.PSID), ppDacl: POINTER(POINTER(win32more.Windows.Win32.Security.ACL)), ppSacl: POINTER(POINTER(win32more.Windows.Win32.Security.ACL)), ppSecurityDescriptor: POINTER(win32more.Windows.Win32.Security.PSECURITY_DESCRIPTOR)) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('ADVAPI32.dll')
 def SetNamedSecurityInfoA(pObjectName: win32more.Windows.Win32.Foundation.PSTR, ObjectType: win32more.Windows.Win32.Security.Authorization.SE_OBJECT_TYPE, SecurityInfo: win32more.Windows.Win32.Security.OBJECT_SECURITY_INFORMATION, psidOwner: win32more.Windows.Win32.Security.PSID, psidGroup: win32more.Windows.Win32.Security.PSID, pDacl: POINTER(win32more.Windows.Win32.Security.ACL), pSacl: POINTER(win32more.Windows.Win32.Security.ACL)) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('ADVAPI32.dll')
 def SetNamedSecurityInfoW(pObjectName: win32more.Windows.Win32.Foundation.PWSTR, ObjectType: win32more.Windows.Win32.Security.Authorization.SE_OBJECT_TYPE, SecurityInfo: win32more.Windows.Win32.Security.OBJECT_SECURITY_INFORMATION, psidOwner: win32more.Windows.Win32.Security.PSID, psidGroup: win32more.Windows.Win32.Security.PSID, pDacl: POINTER(win32more.Windows.Win32.Security.ACL), pSacl: POINTER(win32more.Windows.Win32.Security.ACL)) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
+SetNamedSecurityInfo = UnicodeAlias('SetNamedSecurityInfoW')
 @winfunctype('ADVAPI32.dll')
 def SetSecurityInfo(handle: win32more.Windows.Win32.Foundation.HANDLE, ObjectType: win32more.Windows.Win32.Security.Authorization.SE_OBJECT_TYPE, SecurityInfo: win32more.Windows.Win32.Security.OBJECT_SECURITY_INFORMATION, psidOwner: win32more.Windows.Win32.Security.PSID, psidGroup: win32more.Windows.Win32.Security.PSID, pDacl: POINTER(win32more.Windows.Win32.Security.ACL), pSacl: POINTER(win32more.Windows.Win32.Security.ACL)) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('ADVAPI32.dll')
 def GetInheritanceSourceA(pObjectName: win32more.Windows.Win32.Foundation.PSTR, ObjectType: win32more.Windows.Win32.Security.Authorization.SE_OBJECT_TYPE, SecurityInfo: win32more.Windows.Win32.Security.OBJECT_SECURITY_INFORMATION, Container: win32more.Windows.Win32.Foundation.BOOL, pObjectClassGuids: POINTER(POINTER(Guid)), GuidCount: UInt32, pAcl: POINTER(win32more.Windows.Win32.Security.ACL), pfnArray: POINTER(win32more.Windows.Win32.Security.Authorization.FN_OBJECT_MGR_FUNCTS), pGenericMapping: POINTER(win32more.Windows.Win32.Security.GENERIC_MAPPING), pInheritArray: POINTER(win32more.Windows.Win32.Security.Authorization.INHERITED_FROMA)) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('ADVAPI32.dll')
 def GetInheritanceSourceW(pObjectName: win32more.Windows.Win32.Foundation.PWSTR, ObjectType: win32more.Windows.Win32.Security.Authorization.SE_OBJECT_TYPE, SecurityInfo: win32more.Windows.Win32.Security.OBJECT_SECURITY_INFORMATION, Container: win32more.Windows.Win32.Foundation.BOOL, pObjectClassGuids: POINTER(POINTER(Guid)), GuidCount: UInt32, pAcl: POINTER(win32more.Windows.Win32.Security.ACL), pfnArray: POINTER(win32more.Windows.Win32.Security.Authorization.FN_OBJECT_MGR_FUNCTS), pGenericMapping: POINTER(win32more.Windows.Win32.Security.GENERIC_MAPPING), pInheritArray: POINTER(win32more.Windows.Win32.Security.Authorization.INHERITED_FROMW)) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
+GetInheritanceSource = UnicodeAlias('GetInheritanceSourceW')
 @winfunctype('ADVAPI32.dll')
 def FreeInheritedFromArray(pInheritArray: POINTER(win32more.Windows.Win32.Security.Authorization.INHERITED_FROMW), AceCnt: UInt16, pfnArray: POINTER(win32more.Windows.Win32.Security.Authorization.FN_OBJECT_MGR_FUNCTS)) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('ADVAPI32.dll')
 def TreeResetNamedSecurityInfoA(pObjectName: win32more.Windows.Win32.Foundation.PSTR, ObjectType: win32more.Windows.Win32.Security.Authorization.SE_OBJECT_TYPE, SecurityInfo: win32more.Windows.Win32.Security.OBJECT_SECURITY_INFORMATION, pOwner: win32more.Windows.Win32.Security.PSID, pGroup: win32more.Windows.Win32.Security.PSID, pDacl: POINTER(win32more.Windows.Win32.Security.ACL), pSacl: POINTER(win32more.Windows.Win32.Security.ACL), KeepExplicit: win32more.Windows.Win32.Foundation.BOOL, fnProgress: win32more.Windows.Win32.Security.Authorization.FN_PROGRESS, ProgressInvokeSetting: win32more.Windows.Win32.Security.Authorization.PROG_INVOKE_SETTING, Args: VoidPtr) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('ADVAPI32.dll')
 def TreeResetNamedSecurityInfoW(pObjectName: win32more.Windows.Win32.Foundation.PWSTR, ObjectType: win32more.Windows.Win32.Security.Authorization.SE_OBJECT_TYPE, SecurityInfo: win32more.Windows.Win32.Security.OBJECT_SECURITY_INFORMATION, pOwner: win32more.Windows.Win32.Security.PSID, pGroup: win32more.Windows.Win32.Security.PSID, pDacl: POINTER(win32more.Windows.Win32.Security.ACL), pSacl: POINTER(win32more.Windows.Win32.Security.ACL), KeepExplicit: win32more.Windows.Win32.Foundation.BOOL, fnProgress: win32more.Windows.Win32.Security.Authorization.FN_PROGRESS, ProgressInvokeSetting: win32more.Windows.Win32.Security.Authorization.PROG_INVOKE_SETTING, Args: VoidPtr) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
+TreeResetNamedSecurityInfo = UnicodeAlias('TreeResetNamedSecurityInfoW')
 @winfunctype('ADVAPI32.dll')
 def TreeSetNamedSecurityInfoA(pObjectName: win32more.Windows.Win32.Foundation.PSTR, ObjectType: win32more.Windows.Win32.Security.Authorization.SE_OBJECT_TYPE, SecurityInfo: win32more.Windows.Win32.Security.OBJECT_SECURITY_INFORMATION, pOwner: win32more.Windows.Win32.Security.PSID, pGroup: win32more.Windows.Win32.Security.PSID, pDacl: POINTER(win32more.Windows.Win32.Security.ACL), pSacl: POINTER(win32more.Windows.Win32.Security.ACL), dwAction: win32more.Windows.Win32.Security.Authorization.TREE_SEC_INFO, fnProgress: win32more.Windows.Win32.Security.Authorization.FN_PROGRESS, ProgressInvokeSetting: win32more.Windows.Win32.Security.Authorization.PROG_INVOKE_SETTING, Args: VoidPtr) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('ADVAPI32.dll')
 def TreeSetNamedSecurityInfoW(pObjectName: win32more.Windows.Win32.Foundation.PWSTR, ObjectType: win32more.Windows.Win32.Security.Authorization.SE_OBJECT_TYPE, SecurityInfo: win32more.Windows.Win32.Security.OBJECT_SECURITY_INFORMATION, pOwner: win32more.Windows.Win32.Security.PSID, pGroup: win32more.Windows.Win32.Security.PSID, pDacl: POINTER(win32more.Windows.Win32.Security.ACL), pSacl: POINTER(win32more.Windows.Win32.Security.ACL), dwAction: win32more.Windows.Win32.Security.Authorization.TREE_SEC_INFO, fnProgress: win32more.Windows.Win32.Security.Authorization.FN_PROGRESS, ProgressInvokeSetting: win32more.Windows.Win32.Security.Authorization.PROG_INVOKE_SETTING, Args: VoidPtr) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
+TreeSetNamedSecurityInfo = UnicodeAlias('TreeSetNamedSecurityInfoW')
 @winfunctype('ADVAPI32.dll')
 def BuildSecurityDescriptorA(pOwner: POINTER(win32more.Windows.Win32.Security.Authorization.TRUSTEE_A), pGroup: POINTER(win32more.Windows.Win32.Security.Authorization.TRUSTEE_A), cCountOfAccessEntries: UInt32, pListOfAccessEntries: POINTER(win32more.Windows.Win32.Security.Authorization.EXPLICIT_ACCESS_A), cCountOfAuditEntries: UInt32, pListOfAuditEntries: POINTER(win32more.Windows.Win32.Security.Authorization.EXPLICIT_ACCESS_A), pOldSD: win32more.Windows.Win32.Security.PSECURITY_DESCRIPTOR, pSizeNewSD: POINTER(UInt32), pNewSD: POINTER(win32more.Windows.Win32.Security.PSECURITY_DESCRIPTOR)) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('ADVAPI32.dll')
 def BuildSecurityDescriptorW(pOwner: POINTER(win32more.Windows.Win32.Security.Authorization.TRUSTEE_W), pGroup: POINTER(win32more.Windows.Win32.Security.Authorization.TRUSTEE_W), cCountOfAccessEntries: UInt32, pListOfAccessEntries: POINTER(win32more.Windows.Win32.Security.Authorization.EXPLICIT_ACCESS_W), cCountOfAuditEntries: UInt32, pListOfAuditEntries: POINTER(win32more.Windows.Win32.Security.Authorization.EXPLICIT_ACCESS_W), pOldSD: win32more.Windows.Win32.Security.PSECURITY_DESCRIPTOR, pSizeNewSD: POINTER(UInt32), pNewSD: POINTER(win32more.Windows.Win32.Security.PSECURITY_DESCRIPTOR)) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
+BuildSecurityDescriptor = UnicodeAlias('BuildSecurityDescriptorW')
 @winfunctype('ADVAPI32.dll')
 def LookupSecurityDescriptorPartsA(ppOwner: POINTER(POINTER(win32more.Windows.Win32.Security.Authorization.TRUSTEE_A)), ppGroup: POINTER(POINTER(win32more.Windows.Win32.Security.Authorization.TRUSTEE_A)), pcCountOfAccessEntries: POINTER(UInt32), ppListOfAccessEntries: POINTER(POINTER(win32more.Windows.Win32.Security.Authorization.EXPLICIT_ACCESS_A)), pcCountOfAuditEntries: POINTER(UInt32), ppListOfAuditEntries: POINTER(POINTER(win32more.Windows.Win32.Security.Authorization.EXPLICIT_ACCESS_A)), pSD: win32more.Windows.Win32.Security.PSECURITY_DESCRIPTOR) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('ADVAPI32.dll')
 def LookupSecurityDescriptorPartsW(ppOwner: POINTER(POINTER(win32more.Windows.Win32.Security.Authorization.TRUSTEE_W)), ppGroup: POINTER(POINTER(win32more.Windows.Win32.Security.Authorization.TRUSTEE_W)), pcCountOfAccessEntries: POINTER(UInt32), ppListOfAccessEntries: POINTER(POINTER(win32more.Windows.Win32.Security.Authorization.EXPLICIT_ACCESS_W)), pcCountOfAuditEntries: POINTER(UInt32), ppListOfAuditEntries: POINTER(POINTER(win32more.Windows.Win32.Security.Authorization.EXPLICIT_ACCESS_W)), pSD: win32more.Windows.Win32.Security.PSECURITY_DESCRIPTOR) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
+LookupSecurityDescriptorParts = UnicodeAlias('LookupSecurityDescriptorPartsW')
 @winfunctype('ADVAPI32.dll')
 def BuildExplicitAccessWithNameA(pExplicitAccess: POINTER(win32more.Windows.Win32.Security.Authorization.EXPLICIT_ACCESS_A), pTrusteeName: win32more.Windows.Win32.Foundation.PSTR, AccessPermissions: UInt32, AccessMode: win32more.Windows.Win32.Security.Authorization.ACCESS_MODE, Inheritance: win32more.Windows.Win32.Security.ACE_FLAGS) -> Void: ...
 @winfunctype('ADVAPI32.dll')
 def BuildExplicitAccessWithNameW(pExplicitAccess: POINTER(win32more.Windows.Win32.Security.Authorization.EXPLICIT_ACCESS_W), pTrusteeName: win32more.Windows.Win32.Foundation.PWSTR, AccessPermissions: UInt32, AccessMode: win32more.Windows.Win32.Security.Authorization.ACCESS_MODE, Inheritance: win32more.Windows.Win32.Security.ACE_FLAGS) -> Void: ...
+BuildExplicitAccessWithName = UnicodeAlias('BuildExplicitAccessWithNameW')
 @winfunctype('ADVAPI32.dll')
 def BuildImpersonateExplicitAccessWithNameA(pExplicitAccess: POINTER(win32more.Windows.Win32.Security.Authorization.EXPLICIT_ACCESS_A), pTrusteeName: win32more.Windows.Win32.Foundation.PSTR, pTrustee: POINTER(win32more.Windows.Win32.Security.Authorization.TRUSTEE_A), AccessPermissions: UInt32, AccessMode: win32more.Windows.Win32.Security.Authorization.ACCESS_MODE, Inheritance: UInt32) -> Void: ...
 @winfunctype('ADVAPI32.dll')
 def BuildImpersonateExplicitAccessWithNameW(pExplicitAccess: POINTER(win32more.Windows.Win32.Security.Authorization.EXPLICIT_ACCESS_W), pTrusteeName: win32more.Windows.Win32.Foundation.PWSTR, pTrustee: POINTER(win32more.Windows.Win32.Security.Authorization.TRUSTEE_W), AccessPermissions: UInt32, AccessMode: win32more.Windows.Win32.Security.Authorization.ACCESS_MODE, Inheritance: UInt32) -> Void: ...
+BuildImpersonateExplicitAccessWithName = UnicodeAlias('BuildImpersonateExplicitAccessWithNameW')
 @winfunctype('ADVAPI32.dll')
 def BuildTrusteeWithNameA(pTrustee: POINTER(win32more.Windows.Win32.Security.Authorization.TRUSTEE_A), pName: win32more.Windows.Win32.Foundation.PSTR) -> Void: ...
 @winfunctype('ADVAPI32.dll')
 def BuildTrusteeWithNameW(pTrustee: POINTER(win32more.Windows.Win32.Security.Authorization.TRUSTEE_W), pName: win32more.Windows.Win32.Foundation.PWSTR) -> Void: ...
+BuildTrusteeWithName = UnicodeAlias('BuildTrusteeWithNameW')
 @winfunctype('ADVAPI32.dll')
 def BuildImpersonateTrusteeA(pTrustee: POINTER(win32more.Windows.Win32.Security.Authorization.TRUSTEE_A), pImpersonateTrustee: POINTER(win32more.Windows.Win32.Security.Authorization.TRUSTEE_A)) -> Void: ...
 @winfunctype('ADVAPI32.dll')
 def BuildImpersonateTrusteeW(pTrustee: POINTER(win32more.Windows.Win32.Security.Authorization.TRUSTEE_W), pImpersonateTrustee: POINTER(win32more.Windows.Win32.Security.Authorization.TRUSTEE_W)) -> Void: ...
+BuildImpersonateTrustee = UnicodeAlias('BuildImpersonateTrusteeW')
 @winfunctype('ADVAPI32.dll')
 def BuildTrusteeWithSidA(pTrustee: POINTER(win32more.Windows.Win32.Security.Authorization.TRUSTEE_A), pSid: win32more.Windows.Win32.Security.PSID) -> Void: ...
 @winfunctype('ADVAPI32.dll')
 def BuildTrusteeWithSidW(pTrustee: POINTER(win32more.Windows.Win32.Security.Authorization.TRUSTEE_W), pSid: win32more.Windows.Win32.Security.PSID) -> Void: ...
+BuildTrusteeWithSid = UnicodeAlias('BuildTrusteeWithSidW')
 @winfunctype('ADVAPI32.dll')
 def BuildTrusteeWithObjectsAndSidA(pTrustee: POINTER(win32more.Windows.Win32.Security.Authorization.TRUSTEE_A), pObjSid: POINTER(win32more.Windows.Win32.Security.Authorization.OBJECTS_AND_SID), pObjectGuid: POINTER(Guid), pInheritedObjectGuid: POINTER(Guid), pSid: win32more.Windows.Win32.Security.PSID) -> Void: ...
 @winfunctype('ADVAPI32.dll')
 def BuildTrusteeWithObjectsAndSidW(pTrustee: POINTER(win32more.Windows.Win32.Security.Authorization.TRUSTEE_W), pObjSid: POINTER(win32more.Windows.Win32.Security.Authorization.OBJECTS_AND_SID), pObjectGuid: POINTER(Guid), pInheritedObjectGuid: POINTER(Guid), pSid: win32more.Windows.Win32.Security.PSID) -> Void: ...
+BuildTrusteeWithObjectsAndSid = UnicodeAlias('BuildTrusteeWithObjectsAndSidW')
 @winfunctype('ADVAPI32.dll')
 def BuildTrusteeWithObjectsAndNameA(pTrustee: POINTER(win32more.Windows.Win32.Security.Authorization.TRUSTEE_A), pObjName: POINTER(win32more.Windows.Win32.Security.Authorization.OBJECTS_AND_NAME_A), ObjectType: win32more.Windows.Win32.Security.Authorization.SE_OBJECT_TYPE, ObjectTypeName: win32more.Windows.Win32.Foundation.PSTR, InheritedObjectTypeName: win32more.Windows.Win32.Foundation.PSTR, Name: win32more.Windows.Win32.Foundation.PSTR) -> Void: ...
 @winfunctype('ADVAPI32.dll')
 def BuildTrusteeWithObjectsAndNameW(pTrustee: POINTER(win32more.Windows.Win32.Security.Authorization.TRUSTEE_W), pObjName: POINTER(win32more.Windows.Win32.Security.Authorization.OBJECTS_AND_NAME_W), ObjectType: win32more.Windows.Win32.Security.Authorization.SE_OBJECT_TYPE, ObjectTypeName: win32more.Windows.Win32.Foundation.PWSTR, InheritedObjectTypeName: win32more.Windows.Win32.Foundation.PWSTR, Name: win32more.Windows.Win32.Foundation.PWSTR) -> Void: ...
+BuildTrusteeWithObjectsAndName = UnicodeAlias('BuildTrusteeWithObjectsAndNameW')
 @winfunctype('ADVAPI32.dll')
 def GetTrusteeNameA(pTrustee: POINTER(win32more.Windows.Win32.Security.Authorization.TRUSTEE_A)) -> win32more.Windows.Win32.Foundation.PSTR: ...
 @winfunctype('ADVAPI32.dll')
 def GetTrusteeNameW(pTrustee: POINTER(win32more.Windows.Win32.Security.Authorization.TRUSTEE_W)) -> win32more.Windows.Win32.Foundation.PWSTR: ...
+GetTrusteeName = UnicodeAlias('GetTrusteeNameW')
 @winfunctype('ADVAPI32.dll')
 def GetTrusteeTypeA(pTrustee: POINTER(win32more.Windows.Win32.Security.Authorization.TRUSTEE_A)) -> win32more.Windows.Win32.Security.Authorization.TRUSTEE_TYPE: ...
 @winfunctype('ADVAPI32.dll')
 def GetTrusteeTypeW(pTrustee: POINTER(win32more.Windows.Win32.Security.Authorization.TRUSTEE_W)) -> win32more.Windows.Win32.Security.Authorization.TRUSTEE_TYPE: ...
+GetTrusteeType = UnicodeAlias('GetTrusteeTypeW')
 @winfunctype('ADVAPI32.dll')
 def GetTrusteeFormA(pTrustee: POINTER(win32more.Windows.Win32.Security.Authorization.TRUSTEE_A)) -> win32more.Windows.Win32.Security.Authorization.TRUSTEE_FORM: ...
 @winfunctype('ADVAPI32.dll')
 def GetTrusteeFormW(pTrustee: POINTER(win32more.Windows.Win32.Security.Authorization.TRUSTEE_W)) -> win32more.Windows.Win32.Security.Authorization.TRUSTEE_FORM: ...
+GetTrusteeForm = UnicodeAlias('GetTrusteeFormW')
 @winfunctype('ADVAPI32.dll')
 def GetMultipleTrusteeOperationA(pTrustee: POINTER(win32more.Windows.Win32.Security.Authorization.TRUSTEE_A)) -> win32more.Windows.Win32.Security.Authorization.MULTIPLE_TRUSTEE_OPERATION: ...
 @winfunctype('ADVAPI32.dll')
 def GetMultipleTrusteeOperationW(pTrustee: POINTER(win32more.Windows.Win32.Security.Authorization.TRUSTEE_W)) -> win32more.Windows.Win32.Security.Authorization.MULTIPLE_TRUSTEE_OPERATION: ...
+GetMultipleTrusteeOperation = UnicodeAlias('GetMultipleTrusteeOperationW')
 @winfunctype('ADVAPI32.dll')
 def GetMultipleTrusteeA(pTrustee: POINTER(win32more.Windows.Win32.Security.Authorization.TRUSTEE_A)) -> POINTER(win32more.Windows.Win32.Security.Authorization.TRUSTEE_A): ...
 @winfunctype('ADVAPI32.dll')
 def GetMultipleTrusteeW(pTrustee: POINTER(win32more.Windows.Win32.Security.Authorization.TRUSTEE_W)) -> POINTER(win32more.Windows.Win32.Security.Authorization.TRUSTEE_W): ...
+GetMultipleTrustee = UnicodeAlias('GetMultipleTrusteeW')
 @winfunctype('ADVAPI32.dll')
 def ConvertSidToStringSidA(Sid: win32more.Windows.Win32.Security.PSID, StringSid: POINTER(win32more.Windows.Win32.Foundation.PSTR)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
 def ConvertSidToStringSidW(Sid: win32more.Windows.Win32.Security.PSID, StringSid: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+ConvertSidToStringSid = UnicodeAlias('ConvertSidToStringSidW')
 @winfunctype('ADVAPI32.dll')
 def ConvertStringSidToSidA(StringSid: win32more.Windows.Win32.Foundation.PSTR, Sid: POINTER(win32more.Windows.Win32.Security.PSID)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
 def ConvertStringSidToSidW(StringSid: win32more.Windows.Win32.Foundation.PWSTR, Sid: POINTER(win32more.Windows.Win32.Security.PSID)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+ConvertStringSidToSid = UnicodeAlias('ConvertStringSidToSidW')
 @winfunctype('ADVAPI32.dll')
 def ConvertStringSecurityDescriptorToSecurityDescriptorA(StringSecurityDescriptor: win32more.Windows.Win32.Foundation.PSTR, StringSDRevision: UInt32, SecurityDescriptor: POINTER(win32more.Windows.Win32.Security.PSECURITY_DESCRIPTOR), SecurityDescriptorSize: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
 def ConvertStringSecurityDescriptorToSecurityDescriptorW(StringSecurityDescriptor: win32more.Windows.Win32.Foundation.PWSTR, StringSDRevision: UInt32, SecurityDescriptor: POINTER(win32more.Windows.Win32.Security.PSECURITY_DESCRIPTOR), SecurityDescriptorSize: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+ConvertStringSecurityDescriptorToSecurityDescriptor = UnicodeAlias('ConvertStringSecurityDescriptorToSecurityDescriptorW')
 @winfunctype('ADVAPI32.dll')
 def ConvertSecurityDescriptorToStringSecurityDescriptorA(SecurityDescriptor: win32more.Windows.Win32.Security.PSECURITY_DESCRIPTOR, RequestedStringSDRevision: UInt32, SecurityInformation: win32more.Windows.Win32.Security.OBJECT_SECURITY_INFORMATION, StringSecurityDescriptor: POINTER(win32more.Windows.Win32.Foundation.PSTR), StringSecurityDescriptorLen: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
 def ConvertSecurityDescriptorToStringSecurityDescriptorW(SecurityDescriptor: win32more.Windows.Win32.Security.PSECURITY_DESCRIPTOR, RequestedStringSDRevision: UInt32, SecurityInformation: win32more.Windows.Win32.Security.OBJECT_SECURITY_INFORMATION, StringSecurityDescriptor: POINTER(win32more.Windows.Win32.Foundation.PWSTR), StringSecurityDescriptorLen: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+ConvertSecurityDescriptorToStringSecurityDescriptor = UnicodeAlias('ConvertSecurityDescriptorToStringSecurityDescriptorW')
 AzAuthorizationStore = Guid('{b2bcff59-a757-4b0b-a1bc-ea69981da69e}')
 AzBizRuleContext = Guid('{5c2dc96f-8d51-434b-b33c-379bccae77c3}')
 AzPrincipalLocator = Guid('{483afb5d-70df-4e16-abdc-a1de4d015a3e}')
@@ -834,6 +867,7 @@ class EXPLICIT_ACCESS_W(EasyCastStructure):
     grfAccessMode: win32more.Windows.Win32.Security.Authorization.ACCESS_MODE
     grfInheritance: win32more.Windows.Win32.Security.ACE_FLAGS
     Trustee: win32more.Windows.Win32.Security.Authorization.TRUSTEE_W
+EXPLICIT_ACCESS = UnicodeAlias('EXPLICIT_ACCESS_W')
 class FN_OBJECT_MGR_FUNCTS(EasyCastStructure):
     Placeholder: UInt32
 @winfunctype_pointer
@@ -1682,6 +1716,7 @@ class INHERITED_FROMA(EasyCastStructure):
 class INHERITED_FROMW(EasyCastStructure):
     GenerationGap: Int32
     AncestorName: win32more.Windows.Win32.Foundation.PWSTR
+INHERITED_FROM = UnicodeAlias('INHERITED_FROMW')
 MULTIPLE_TRUSTEE_OPERATION = Int32
 NO_MULTIPLE_TRUSTEE: win32more.Windows.Win32.Security.Authorization.MULTIPLE_TRUSTEE_OPERATION = 0
 TRUSTEE_IS_IMPERSONATE: win32more.Windows.Win32.Security.Authorization.MULTIPLE_TRUSTEE_OPERATION = 1
@@ -1697,6 +1732,7 @@ class OBJECTS_AND_NAME_W(EasyCastStructure):
     ObjectTypeName: win32more.Windows.Win32.Foundation.PWSTR
     InheritedObjectTypeName: win32more.Windows.Win32.Foundation.PWSTR
     ptstrName: win32more.Windows.Win32.Foundation.PWSTR
+OBJECTS_AND_NAME = UnicodeAlias('OBJECTS_AND_NAME_W')
 class OBJECTS_AND_SID(EasyCastStructure):
     ObjectsPresent: win32more.Windows.Win32.Security.SYSTEM_AUDIT_OBJECT_ACE_FLAGS
     ObjectTypeGuid: Guid
@@ -1754,6 +1790,7 @@ class TRUSTEE_ACCESSW(EasyCastStructure):
     Access: UInt32
     fAccessFlags: UInt32
     fReturnedAccess: UInt32
+TRUSTEE_ACCESS = UnicodeAlias('TRUSTEE_ACCESSW')
 TRUSTEE_FORM = Int32
 TRUSTEE_IS_SID: win32more.Windows.Win32.Security.Authorization.TRUSTEE_FORM = 0
 TRUSTEE_IS_NAME: win32more.Windows.Win32.Security.Authorization.TRUSTEE_FORM = 1
@@ -1776,6 +1813,7 @@ class TRUSTEE_W(EasyCastStructure):
     TrusteeForm: win32more.Windows.Win32.Security.Authorization.TRUSTEE_FORM
     TrusteeType: win32more.Windows.Win32.Security.Authorization.TRUSTEE_TYPE
     ptstrName: win32more.Windows.Win32.Foundation.PWSTR
+TRUSTEE = UnicodeAlias('TRUSTEE_W')
 
 
 make_ready(__name__)

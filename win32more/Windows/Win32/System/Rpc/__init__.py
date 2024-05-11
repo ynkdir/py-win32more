@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security.Cryptography
 import win32more.Windows.Win32.System.Com
@@ -262,6 +262,7 @@ def RpcBindingInqOption(hBinding: VoidPtr, option: UInt32, pOptionValue: POINTER
 def RpcBindingFromStringBindingA(StringBinding: win32more.Windows.Win32.Foundation.PSTR, Binding: POINTER(VoidPtr)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
 @winfunctype('RPCRT4.dll')
 def RpcBindingFromStringBindingW(StringBinding: win32more.Windows.Win32.Foundation.PWSTR, Binding: POINTER(VoidPtr)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
+RpcBindingFromStringBinding = UnicodeAlias('RpcBindingFromStringBindingW')
 @winfunctype('RPCRT4.dll')
 def RpcSsGetContextBinding(ContextHandle: VoidPtr, Binding: POINTER(VoidPtr)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
 @winfunctype('RPCRT4.dll')
@@ -278,26 +279,31 @@ def RpcMgmtInqDefaultProtectLevel(AuthnSvc: UInt32, AuthnLevel: POINTER(UInt32))
 def RpcBindingToStringBindingA(Binding: VoidPtr, StringBinding: POINTER(win32more.Windows.Win32.Foundation.PSTR)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
 @winfunctype('RPCRT4.dll')
 def RpcBindingToStringBindingW(Binding: VoidPtr, StringBinding: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
+RpcBindingToStringBinding = UnicodeAlias('RpcBindingToStringBindingW')
 @winfunctype('RPCRT4.dll')
 def RpcBindingVectorFree(BindingVector: POINTER(POINTER(win32more.Windows.Win32.System.Rpc.RPC_BINDING_VECTOR))) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
 @winfunctype('RPCRT4.dll')
 def RpcStringBindingComposeA(ObjUuid: win32more.Windows.Win32.Foundation.PSTR, ProtSeq: win32more.Windows.Win32.Foundation.PSTR, NetworkAddr: win32more.Windows.Win32.Foundation.PSTR, Endpoint: win32more.Windows.Win32.Foundation.PSTR, Options: win32more.Windows.Win32.Foundation.PSTR, StringBinding: POINTER(win32more.Windows.Win32.Foundation.PSTR)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
 @winfunctype('RPCRT4.dll')
 def RpcStringBindingComposeW(ObjUuid: win32more.Windows.Win32.Foundation.PWSTR, ProtSeq: win32more.Windows.Win32.Foundation.PWSTR, NetworkAddr: win32more.Windows.Win32.Foundation.PWSTR, Endpoint: win32more.Windows.Win32.Foundation.PWSTR, Options: win32more.Windows.Win32.Foundation.PWSTR, StringBinding: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
+RpcStringBindingCompose = UnicodeAlias('RpcStringBindingComposeW')
 @winfunctype('RPCRT4.dll')
 def RpcStringBindingParseA(StringBinding: win32more.Windows.Win32.Foundation.PSTR, ObjUuid: POINTER(win32more.Windows.Win32.Foundation.PSTR), Protseq: POINTER(win32more.Windows.Win32.Foundation.PSTR), NetworkAddr: POINTER(win32more.Windows.Win32.Foundation.PSTR), Endpoint: POINTER(win32more.Windows.Win32.Foundation.PSTR), NetworkOptions: POINTER(win32more.Windows.Win32.Foundation.PSTR)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
 @winfunctype('RPCRT4.dll')
 def RpcStringBindingParseW(StringBinding: win32more.Windows.Win32.Foundation.PWSTR, ObjUuid: POINTER(win32more.Windows.Win32.Foundation.PWSTR), Protseq: POINTER(win32more.Windows.Win32.Foundation.PWSTR), NetworkAddr: POINTER(win32more.Windows.Win32.Foundation.PWSTR), Endpoint: POINTER(win32more.Windows.Win32.Foundation.PWSTR), NetworkOptions: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
+RpcStringBindingParse = UnicodeAlias('RpcStringBindingParseW')
 @winfunctype('RPCRT4.dll')
 def RpcStringFreeA(String: POINTER(win32more.Windows.Win32.Foundation.PSTR)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
 @winfunctype('RPCRT4.dll')
 def RpcStringFreeW(String: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
+RpcStringFree = UnicodeAlias('RpcStringFreeW')
 @winfunctype('RPCRT4.dll')
 def RpcIfInqId(RpcIfHandle: VoidPtr, RpcIfId: POINTER(win32more.Windows.Win32.System.Rpc.RPC_IF_ID)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
 @winfunctype('RPCRT4.dll')
 def RpcNetworkIsProtseqValidA(Protseq: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
 @winfunctype('RPCRT4.dll')
 def RpcNetworkIsProtseqValidW(Protseq: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
+RpcNetworkIsProtseqValid = UnicodeAlias('RpcNetworkIsProtseqValidW')
 @winfunctype('RPCRT4.dll')
 def RpcMgmtInqComTimeout(Binding: VoidPtr, Timeout: POINTER(UInt32)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
 @winfunctype('RPCRT4.dll')
@@ -308,6 +314,7 @@ def RpcMgmtSetCancelTimeout(Timeout: Int32) -> win32more.Windows.Win32.System.Rp
 def RpcNetworkInqProtseqsA(ProtseqVector: POINTER(POINTER(win32more.Windows.Win32.System.Rpc.RPC_PROTSEQ_VECTORA))) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
 @winfunctype('RPCRT4.dll')
 def RpcNetworkInqProtseqsW(ProtseqVector: POINTER(POINTER(win32more.Windows.Win32.System.Rpc.RPC_PROTSEQ_VECTORW))) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
+RpcNetworkInqProtseqs = UnicodeAlias('RpcNetworkInqProtseqsW')
 @winfunctype('RPCRT4.dll')
 def RpcObjectInqType(ObjUuid: POINTER(Guid), TypeUuid: POINTER(Guid)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
 @winfunctype('RPCRT4.dll')
@@ -318,6 +325,7 @@ def RpcObjectSetType(ObjUuid: POINTER(Guid), TypeUuid: POINTER(Guid)) -> win32mo
 def RpcProtseqVectorFreeA(ProtseqVector: POINTER(POINTER(win32more.Windows.Win32.System.Rpc.RPC_PROTSEQ_VECTORA))) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
 @winfunctype('RPCRT4.dll')
 def RpcProtseqVectorFreeW(ProtseqVector: POINTER(POINTER(win32more.Windows.Win32.System.Rpc.RPC_PROTSEQ_VECTORW))) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
+RpcProtseqVectorFree = UnicodeAlias('RpcProtseqVectorFreeW')
 @winfunctype('RPCRT4.dll')
 def RpcServerInqBindings(BindingVector: POINTER(POINTER(win32more.Windows.Win32.System.Rpc.RPC_BINDING_VECTOR))) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
 @winfunctype('RPCRT4.dll')
@@ -352,24 +360,30 @@ def RpcServerUseProtseqA(Protseq: win32more.Windows.Win32.Foundation.PSTR, MaxCa
 def RpcServerUseProtseqExA(Protseq: win32more.Windows.Win32.Foundation.PSTR, MaxCalls: UInt32, SecurityDescriptor: VoidPtr, Policy: POINTER(win32more.Windows.Win32.System.Rpc.RPC_POLICY)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
 @winfunctype('RPCRT4.dll')
 def RpcServerUseProtseqW(Protseq: win32more.Windows.Win32.Foundation.PWSTR, MaxCalls: UInt32, SecurityDescriptor: VoidPtr) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
+RpcServerUseProtseq = UnicodeAlias('RpcServerUseProtseqW')
 @winfunctype('RPCRT4.dll')
 def RpcServerUseProtseqExW(Protseq: win32more.Windows.Win32.Foundation.PWSTR, MaxCalls: UInt32, SecurityDescriptor: VoidPtr, Policy: POINTER(win32more.Windows.Win32.System.Rpc.RPC_POLICY)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
+RpcServerUseProtseqEx = UnicodeAlias('RpcServerUseProtseqExW')
 @winfunctype('RPCRT4.dll')
 def RpcServerUseProtseqEpA(Protseq: win32more.Windows.Win32.Foundation.PSTR, MaxCalls: UInt32, Endpoint: win32more.Windows.Win32.Foundation.PSTR, SecurityDescriptor: VoidPtr) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
 @winfunctype('RPCRT4.dll')
 def RpcServerUseProtseqEpExA(Protseq: win32more.Windows.Win32.Foundation.PSTR, MaxCalls: UInt32, Endpoint: win32more.Windows.Win32.Foundation.PSTR, SecurityDescriptor: VoidPtr, Policy: POINTER(win32more.Windows.Win32.System.Rpc.RPC_POLICY)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
 @winfunctype('RPCRT4.dll')
 def RpcServerUseProtseqEpW(Protseq: win32more.Windows.Win32.Foundation.PWSTR, MaxCalls: UInt32, Endpoint: win32more.Windows.Win32.Foundation.PWSTR, SecurityDescriptor: VoidPtr) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
+RpcServerUseProtseqEp = UnicodeAlias('RpcServerUseProtseqEpW')
 @winfunctype('RPCRT4.dll')
 def RpcServerUseProtseqEpExW(Protseq: win32more.Windows.Win32.Foundation.PWSTR, MaxCalls: UInt32, Endpoint: win32more.Windows.Win32.Foundation.PWSTR, SecurityDescriptor: VoidPtr, Policy: POINTER(win32more.Windows.Win32.System.Rpc.RPC_POLICY)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
+RpcServerUseProtseqEpEx = UnicodeAlias('RpcServerUseProtseqEpExW')
 @winfunctype('RPCRT4.dll')
 def RpcServerUseProtseqIfA(Protseq: win32more.Windows.Win32.Foundation.PSTR, MaxCalls: UInt32, IfSpec: VoidPtr, SecurityDescriptor: VoidPtr) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
 @winfunctype('RPCRT4.dll')
 def RpcServerUseProtseqIfExA(Protseq: win32more.Windows.Win32.Foundation.PSTR, MaxCalls: UInt32, IfSpec: VoidPtr, SecurityDescriptor: VoidPtr, Policy: POINTER(win32more.Windows.Win32.System.Rpc.RPC_POLICY)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
 @winfunctype('RPCRT4.dll')
 def RpcServerUseProtseqIfW(Protseq: win32more.Windows.Win32.Foundation.PWSTR, MaxCalls: UInt32, IfSpec: VoidPtr, SecurityDescriptor: VoidPtr) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
+RpcServerUseProtseqIf = UnicodeAlias('RpcServerUseProtseqIfW')
 @winfunctype('RPCRT4.dll')
 def RpcServerUseProtseqIfExW(Protseq: win32more.Windows.Win32.Foundation.PWSTR, MaxCalls: UInt32, IfSpec: VoidPtr, SecurityDescriptor: VoidPtr, Policy: POINTER(win32more.Windows.Win32.System.Rpc.RPC_POLICY)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
+RpcServerUseProtseqIfEx = UnicodeAlias('RpcServerUseProtseqIfExW')
 @winfunctype('RPCRT4.dll')
 def RpcServerYield() -> Void: ...
 @winfunctype('RPCRT4.dll')
@@ -396,20 +410,24 @@ def RpcIfIdVectorFree(IfIdVector: POINTER(POINTER(win32more.Windows.Win32.System
 def RpcMgmtInqServerPrincNameA(Binding: VoidPtr, AuthnSvc: UInt32, ServerPrincName: POINTER(win32more.Windows.Win32.Foundation.PSTR)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
 @winfunctype('RPCRT4.dll')
 def RpcMgmtInqServerPrincNameW(Binding: VoidPtr, AuthnSvc: UInt32, ServerPrincName: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
+RpcMgmtInqServerPrincName = UnicodeAlias('RpcMgmtInqServerPrincNameW')
 @winfunctype('RPCRT4.dll')
 def RpcServerInqDefaultPrincNameA(AuthnSvc: UInt32, PrincName: POINTER(win32more.Windows.Win32.Foundation.PSTR)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
 @winfunctype('RPCRT4.dll')
 def RpcServerInqDefaultPrincNameW(AuthnSvc: UInt32, PrincName: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
+RpcServerInqDefaultPrincName = UnicodeAlias('RpcServerInqDefaultPrincNameW')
 @winfunctype('RPCRT4.dll')
 def RpcEpResolveBinding(Binding: VoidPtr, IfSpec: VoidPtr) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
 @winfunctype('RPCRT4.dll')
 def RpcNsBindingInqEntryNameA(Binding: VoidPtr, EntryNameSyntax: UInt32, EntryName: POINTER(win32more.Windows.Win32.Foundation.PSTR)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
 @winfunctype('RPCRT4.dll')
 def RpcNsBindingInqEntryNameW(Binding: VoidPtr, EntryNameSyntax: UInt32, EntryName: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
+RpcNsBindingInqEntryName = UnicodeAlias('RpcNsBindingInqEntryNameW')
 @winfunctype('RPCRT4.dll')
 def RpcBindingCreateA(Template: POINTER(win32more.Windows.Win32.System.Rpc.RPC_BINDING_HANDLE_TEMPLATE_V1_A), Security: POINTER(win32more.Windows.Win32.System.Rpc.RPC_BINDING_HANDLE_SECURITY_V1_A), Options: POINTER(win32more.Windows.Win32.System.Rpc.RPC_BINDING_HANDLE_OPTIONS_V1), Binding: POINTER(VoidPtr)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
 @winfunctype('RPCRT4.dll')
 def RpcBindingCreateW(Template: POINTER(win32more.Windows.Win32.System.Rpc.RPC_BINDING_HANDLE_TEMPLATE_V1_W), Security: POINTER(win32more.Windows.Win32.System.Rpc.RPC_BINDING_HANDLE_SECURITY_V1_W), Options: POINTER(win32more.Windows.Win32.System.Rpc.RPC_BINDING_HANDLE_OPTIONS_V1), Binding: POINTER(VoidPtr)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
+RpcBindingCreate = UnicodeAlias('RpcBindingCreateW')
 @winfunctype('RPCRT4.dll')
 def RpcServerInqBindingHandle(Binding: POINTER(VoidPtr)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
 @winfunctype('RPCRT4.dll')
@@ -428,32 +446,39 @@ def RpcRevertContainerImpersonation() -> win32more.Windows.Win32.System.Rpc.RPC_
 def RpcBindingInqAuthClientA(ClientBinding: VoidPtr, Privs: POINTER(VoidPtr), ServerPrincName: POINTER(win32more.Windows.Win32.Foundation.PSTR), AuthnLevel: POINTER(UInt32), AuthnSvc: POINTER(UInt32), AuthzSvc: POINTER(UInt32)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
 @winfunctype('RPCRT4.dll')
 def RpcBindingInqAuthClientW(ClientBinding: VoidPtr, Privs: POINTER(VoidPtr), ServerPrincName: POINTER(win32more.Windows.Win32.Foundation.PWSTR), AuthnLevel: POINTER(UInt32), AuthnSvc: POINTER(UInt32), AuthzSvc: POINTER(UInt32)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
+RpcBindingInqAuthClient = UnicodeAlias('RpcBindingInqAuthClientW')
 @winfunctype('RPCRT4.dll')
 def RpcBindingInqAuthClientExA(ClientBinding: VoidPtr, Privs: POINTER(VoidPtr), ServerPrincName: POINTER(win32more.Windows.Win32.Foundation.PSTR), AuthnLevel: POINTER(UInt32), AuthnSvc: POINTER(UInt32), AuthzSvc: POINTER(UInt32), Flags: UInt32) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
 @winfunctype('RPCRT4.dll')
 def RpcBindingInqAuthClientExW(ClientBinding: VoidPtr, Privs: POINTER(VoidPtr), ServerPrincName: POINTER(win32more.Windows.Win32.Foundation.PWSTR), AuthnLevel: POINTER(UInt32), AuthnSvc: POINTER(UInt32), AuthzSvc: POINTER(UInt32), Flags: UInt32) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
+RpcBindingInqAuthClientEx = UnicodeAlias('RpcBindingInqAuthClientExW')
 @winfunctype('RPCRT4.dll')
 def RpcBindingInqAuthInfoA(Binding: VoidPtr, ServerPrincName: POINTER(win32more.Windows.Win32.Foundation.PSTR), AuthnLevel: POINTER(UInt32), AuthnSvc: POINTER(UInt32), AuthIdentity: POINTER(VoidPtr), AuthzSvc: POINTER(UInt32)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
 @winfunctype('RPCRT4.dll')
 def RpcBindingInqAuthInfoW(Binding: VoidPtr, ServerPrincName: POINTER(win32more.Windows.Win32.Foundation.PWSTR), AuthnLevel: POINTER(UInt32), AuthnSvc: POINTER(UInt32), AuthIdentity: POINTER(VoidPtr), AuthzSvc: POINTER(UInt32)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
+RpcBindingInqAuthInfo = UnicodeAlias('RpcBindingInqAuthInfoW')
 @winfunctype('RPCRT4.dll')
 def RpcBindingSetAuthInfoA(Binding: VoidPtr, ServerPrincName: win32more.Windows.Win32.Foundation.PSTR, AuthnLevel: UInt32, AuthnSvc: UInt32, AuthIdentity: VoidPtr, AuthzSvc: UInt32) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
 @winfunctype('RPCRT4.dll')
 def RpcBindingSetAuthInfoExA(Binding: VoidPtr, ServerPrincName: win32more.Windows.Win32.Foundation.PSTR, AuthnLevel: UInt32, AuthnSvc: UInt32, AuthIdentity: VoidPtr, AuthzSvc: UInt32, SecurityQos: POINTER(win32more.Windows.Win32.System.Rpc.RPC_SECURITY_QOS)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
 @winfunctype('RPCRT4.dll')
 def RpcBindingSetAuthInfoW(Binding: VoidPtr, ServerPrincName: win32more.Windows.Win32.Foundation.PWSTR, AuthnLevel: UInt32, AuthnSvc: UInt32, AuthIdentity: VoidPtr, AuthzSvc: UInt32) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
+RpcBindingSetAuthInfo = UnicodeAlias('RpcBindingSetAuthInfoW')
 @winfunctype('RPCRT4.dll')
 def RpcBindingSetAuthInfoExW(Binding: VoidPtr, ServerPrincName: win32more.Windows.Win32.Foundation.PWSTR, AuthnLevel: UInt32, AuthnSvc: UInt32, AuthIdentity: VoidPtr, AuthzSvc: UInt32, SecurityQOS: POINTER(win32more.Windows.Win32.System.Rpc.RPC_SECURITY_QOS)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
+RpcBindingSetAuthInfoEx = UnicodeAlias('RpcBindingSetAuthInfoExW')
 @winfunctype('RPCRT4.dll')
 def RpcBindingInqAuthInfoExA(Binding: VoidPtr, ServerPrincName: POINTER(win32more.Windows.Win32.Foundation.PSTR), AuthnLevel: POINTER(UInt32), AuthnSvc: POINTER(UInt32), AuthIdentity: POINTER(VoidPtr), AuthzSvc: POINTER(UInt32), RpcQosVersion: UInt32, SecurityQOS: POINTER(win32more.Windows.Win32.System.Rpc.RPC_SECURITY_QOS)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
 @winfunctype('RPCRT4.dll')
 def RpcBindingInqAuthInfoExW(Binding: VoidPtr, ServerPrincName: POINTER(win32more.Windows.Win32.Foundation.PWSTR), AuthnLevel: POINTER(UInt32), AuthnSvc: POINTER(UInt32), AuthIdentity: POINTER(VoidPtr), AuthzSvc: POINTER(UInt32), RpcQosVersion: UInt32, SecurityQOS: POINTER(win32more.Windows.Win32.System.Rpc.RPC_SECURITY_QOS)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
+RpcBindingInqAuthInfoEx = UnicodeAlias('RpcBindingInqAuthInfoExW')
 @winfunctype('RPCRT4.dll')
 def RpcServerCompleteSecurityCallback(BindingHandle: VoidPtr, Status: win32more.Windows.Win32.System.Rpc.RPC_STATUS) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
 @winfunctype('RPCRT4.dll')
 def RpcServerRegisterAuthInfoA(ServerPrincName: win32more.Windows.Win32.Foundation.PSTR, AuthnSvc: UInt32, GetKeyFn: win32more.Windows.Win32.System.Rpc.RPC_AUTH_KEY_RETRIEVAL_FN, Arg: VoidPtr) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
 @winfunctype('RPCRT4.dll')
 def RpcServerRegisterAuthInfoW(ServerPrincName: win32more.Windows.Win32.Foundation.PWSTR, AuthnSvc: UInt32, GetKeyFn: win32more.Windows.Win32.System.Rpc.RPC_AUTH_KEY_RETRIEVAL_FN, Arg: VoidPtr) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
+RpcServerRegisterAuthInfo = UnicodeAlias('RpcServerRegisterAuthInfoW')
 @winfunctype('RPCRT4.dll')
 def RpcBindingServerFromClient(ClientBinding: VoidPtr, ServerBinding: POINTER(VoidPtr)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
 @winfunctype('RPCRT4.dll')
@@ -476,8 +501,10 @@ def UuidToStringA(Uuid: POINTER(Guid), StringUuid: POINTER(win32more.Windows.Win
 def UuidFromStringA(StringUuid: win32more.Windows.Win32.Foundation.PSTR, Uuid: POINTER(Guid)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
 @winfunctype('RPCRT4.dll')
 def UuidToStringW(Uuid: POINTER(Guid), StringUuid: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
+UuidToString = UnicodeAlias('UuidToStringW')
 @winfunctype('RPCRT4.dll')
 def UuidFromStringW(StringUuid: win32more.Windows.Win32.Foundation.PWSTR, Uuid: POINTER(Guid)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
+UuidFromString = UnicodeAlias('UuidFromStringW')
 @winfunctype('RPCRT4.dll')
 def UuidCompare(Uuid1: POINTER(Guid), Uuid2: POINTER(Guid), Status: POINTER(win32more.Windows.Win32.System.Rpc.RPC_STATUS)) -> Int32: ...
 @winfunctype('RPCRT4.dll')
@@ -492,16 +519,19 @@ def UuidIsNil(Uuid: POINTER(Guid), Status: POINTER(win32more.Windows.Win32.Syste
 def RpcEpRegisterNoReplaceA(IfSpec: VoidPtr, BindingVector: POINTER(win32more.Windows.Win32.System.Rpc.RPC_BINDING_VECTOR), UuidVector: POINTER(win32more.Windows.Win32.System.Rpc.UUID_VECTOR), Annotation: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
 @winfunctype('RPCRT4.dll')
 def RpcEpRegisterNoReplaceW(IfSpec: VoidPtr, BindingVector: POINTER(win32more.Windows.Win32.System.Rpc.RPC_BINDING_VECTOR), UuidVector: POINTER(win32more.Windows.Win32.System.Rpc.UUID_VECTOR), Annotation: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
+RpcEpRegisterNoReplace = UnicodeAlias('RpcEpRegisterNoReplaceW')
 @winfunctype('RPCRT4.dll')
 def RpcEpRegisterA(IfSpec: VoidPtr, BindingVector: POINTER(win32more.Windows.Win32.System.Rpc.RPC_BINDING_VECTOR), UuidVector: POINTER(win32more.Windows.Win32.System.Rpc.UUID_VECTOR), Annotation: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
 @winfunctype('RPCRT4.dll')
 def RpcEpRegisterW(IfSpec: VoidPtr, BindingVector: POINTER(win32more.Windows.Win32.System.Rpc.RPC_BINDING_VECTOR), UuidVector: POINTER(win32more.Windows.Win32.System.Rpc.UUID_VECTOR), Annotation: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
+RpcEpRegister = UnicodeAlias('RpcEpRegisterW')
 @winfunctype('RPCRT4.dll')
 def RpcEpUnregister(IfSpec: VoidPtr, BindingVector: POINTER(win32more.Windows.Win32.System.Rpc.RPC_BINDING_VECTOR), UuidVector: POINTER(win32more.Windows.Win32.System.Rpc.UUID_VECTOR)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
 @winfunctype('RPCRT4.dll')
 def DceErrorInqTextA(RpcStatus: win32more.Windows.Win32.System.Rpc.RPC_STATUS, ErrorText: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
 @winfunctype('RPCRT4.dll')
 def DceErrorInqTextW(RpcStatus: win32more.Windows.Win32.System.Rpc.RPC_STATUS, ErrorText: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
+DceErrorInqText = UnicodeAlias('DceErrorInqTextW')
 @winfunctype('RPCRT4.dll')
 def RpcMgmtEpEltInqBegin(EpBinding: VoidPtr, InquiryType: UInt32, IfId: POINTER(win32more.Windows.Win32.System.Rpc.RPC_IF_ID), VersOption: UInt32, ObjectUuid: POINTER(Guid), InquiryContext: POINTER(POINTER(VoidPtr))) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
 @winfunctype('RPCRT4.dll')
@@ -510,6 +540,7 @@ def RpcMgmtEpEltInqDone(InquiryContext: POINTER(POINTER(VoidPtr))) -> win32more.
 def RpcMgmtEpEltInqNextA(InquiryContext: POINTER(VoidPtr), IfId: POINTER(win32more.Windows.Win32.System.Rpc.RPC_IF_ID), Binding: POINTER(VoidPtr), ObjectUuid: POINTER(Guid), Annotation: POINTER(win32more.Windows.Win32.Foundation.PSTR)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
 @winfunctype('RPCRT4.dll')
 def RpcMgmtEpEltInqNextW(InquiryContext: POINTER(VoidPtr), IfId: POINTER(win32more.Windows.Win32.System.Rpc.RPC_IF_ID), Binding: POINTER(VoidPtr), ObjectUuid: POINTER(Guid), Annotation: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
+RpcMgmtEpEltInqNext = UnicodeAlias('RpcMgmtEpEltInqNextW')
 @winfunctype('RPCRT4.dll')
 def RpcMgmtEpUnregister(EpBinding: VoidPtr, IfId: POINTER(win32more.Windows.Win32.System.Rpc.RPC_IF_ID), Binding: VoidPtr, ObjectUuid: POINTER(Guid)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
 @winfunctype('RPCRT4.dll')
@@ -518,6 +549,7 @@ def RpcMgmtSetAuthorizationFn(AuthorizationFn: win32more.Windows.Win32.System.Rp
 def RpcExceptionFilter(ExceptionCode: UInt32) -> Int32: ...
 @winfunctype('RPCRT4.dll')
 def RpcServerInterfaceGroupCreateW(Interfaces: POINTER(win32more.Windows.Win32.System.Rpc.RPC_INTERFACE_TEMPLATEW), NumIfs: UInt32, Endpoints: POINTER(win32more.Windows.Win32.System.Rpc.RPC_ENDPOINT_TEMPLATEW), NumEndpoints: UInt32, IdlePeriod: UInt32, IdleCallbackFn: win32more.Windows.Win32.System.Rpc.RPC_INTERFACE_GROUP_IDLE_CALLBACK_FN, IdleCallbackContext: VoidPtr, IfGroup: POINTER(VoidPtr)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
+RpcServerInterfaceGroupCreate = UnicodeAlias('RpcServerInterfaceGroupCreateW')
 @winfunctype('RPCRT4.dll')
 def RpcServerInterfaceGroupCreateA(Interfaces: POINTER(win32more.Windows.Win32.System.Rpc.RPC_INTERFACE_TEMPLATEA), NumIfs: UInt32, Endpoints: POINTER(win32more.Windows.Win32.System.Rpc.RPC_ENDPOINT_TEMPLATEA), NumEndpoints: UInt32, IdlePeriod: UInt32, IdleCallbackFn: win32more.Windows.Win32.System.Rpc.RPC_INTERFACE_GROUP_IDLE_CALLBACK_FN, IdleCallbackContext: VoidPtr, IfGroup: POINTER(VoidPtr)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
 @winfunctype('RPCRT4.dll')
@@ -584,20 +616,24 @@ def I_RpcBindingInqLocalClientPID(Binding: VoidPtr, Pid: POINTER(UInt32)) -> win
 def I_RpcBindingHandleToAsyncHandle(Binding: VoidPtr, AsyncHandle: POINTER(VoidPtr)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
 @winfunctype('RPCRT4.dll')
 def I_RpcNsBindingSetEntryNameW(Binding: VoidPtr, EntryNameSyntax: UInt32, EntryName: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
+I_RpcNsBindingSetEntryName = UnicodeAlias('I_RpcNsBindingSetEntryNameW')
 @winfunctype('RPCRT4.dll')
 def I_RpcNsBindingSetEntryNameA(Binding: VoidPtr, EntryNameSyntax: UInt32, EntryName: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
 @winfunctype('RPCRT4.dll')
 def I_RpcServerUseProtseqEp2A(NetworkAddress: win32more.Windows.Win32.Foundation.PSTR, Protseq: win32more.Windows.Win32.Foundation.PSTR, MaxCalls: UInt32, Endpoint: win32more.Windows.Win32.Foundation.PSTR, SecurityDescriptor: VoidPtr, Policy: VoidPtr) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
 @winfunctype('RPCRT4.dll')
 def I_RpcServerUseProtseqEp2W(NetworkAddress: win32more.Windows.Win32.Foundation.PWSTR, Protseq: win32more.Windows.Win32.Foundation.PWSTR, MaxCalls: UInt32, Endpoint: win32more.Windows.Win32.Foundation.PWSTR, SecurityDescriptor: VoidPtr, Policy: VoidPtr) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
+I_RpcServerUseProtseqEp2 = UnicodeAlias('I_RpcServerUseProtseqEp2W')
 @winfunctype('RPCRT4.dll')
 def I_RpcServerUseProtseq2W(NetworkAddress: win32more.Windows.Win32.Foundation.PWSTR, Protseq: win32more.Windows.Win32.Foundation.PWSTR, MaxCalls: UInt32, SecurityDescriptor: VoidPtr, Policy: VoidPtr) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
+I_RpcServerUseProtseq2 = UnicodeAlias('I_RpcServerUseProtseq2W')
 @winfunctype('RPCRT4.dll')
 def I_RpcServerUseProtseq2A(NetworkAddress: win32more.Windows.Win32.Foundation.PSTR, Protseq: win32more.Windows.Win32.Foundation.PSTR, MaxCalls: UInt32, SecurityDescriptor: VoidPtr, Policy: VoidPtr) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
 @winfunctype('RPCRT4.dll')
 def I_RpcServerStartService(Protseq: win32more.Windows.Win32.Foundation.PWSTR, Endpoint: win32more.Windows.Win32.Foundation.PWSTR, IfSpec: VoidPtr) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
 @winfunctype('RPCRT4.dll')
 def I_RpcBindingInqDynamicEndpointW(Binding: VoidPtr, DynamicEndpoint: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
+I_RpcBindingInqDynamicEndpoint = UnicodeAlias('I_RpcBindingInqDynamicEndpointW')
 @winfunctype('RPCRT4.dll')
 def I_RpcBindingInqDynamicEndpointA(Binding: VoidPtr, DynamicEndpoint: POINTER(win32more.Windows.Win32.Foundation.PSTR)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
 @winfunctype('RPCRT4.dll')
@@ -662,20 +698,25 @@ def RpcNsBindingExportA(EntryNameSyntax: UInt32, EntryName: win32more.Windows.Wi
 def RpcNsBindingUnexportA(EntryNameSyntax: UInt32, EntryName: win32more.Windows.Win32.Foundation.PSTR, IfSpec: VoidPtr, ObjectUuidVec: POINTER(win32more.Windows.Win32.System.Rpc.UUID_VECTOR)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
 @winfunctype('RPCNS4.dll')
 def RpcNsBindingExportW(EntryNameSyntax: UInt32, EntryName: win32more.Windows.Win32.Foundation.PWSTR, IfSpec: VoidPtr, BindingVec: POINTER(win32more.Windows.Win32.System.Rpc.RPC_BINDING_VECTOR), ObjectUuidVec: POINTER(win32more.Windows.Win32.System.Rpc.UUID_VECTOR)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
+RpcNsBindingExport = UnicodeAlias('RpcNsBindingExportW')
 @winfunctype('RPCNS4.dll')
 def RpcNsBindingUnexportW(EntryNameSyntax: UInt32, EntryName: win32more.Windows.Win32.Foundation.PWSTR, IfSpec: VoidPtr, ObjectUuidVec: POINTER(win32more.Windows.Win32.System.Rpc.UUID_VECTOR)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
+RpcNsBindingUnexport = UnicodeAlias('RpcNsBindingUnexportW')
 @winfunctype('RPCNS4.dll')
 def RpcNsBindingExportPnPA(EntryNameSyntax: UInt32, EntryName: win32more.Windows.Win32.Foundation.PSTR, IfSpec: VoidPtr, ObjectVector: POINTER(win32more.Windows.Win32.System.Rpc.UUID_VECTOR)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
 @winfunctype('RPCNS4.dll')
 def RpcNsBindingUnexportPnPA(EntryNameSyntax: UInt32, EntryName: win32more.Windows.Win32.Foundation.PSTR, IfSpec: VoidPtr, ObjectVector: POINTER(win32more.Windows.Win32.System.Rpc.UUID_VECTOR)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
 @winfunctype('RPCNS4.dll')
 def RpcNsBindingExportPnPW(EntryNameSyntax: UInt32, EntryName: win32more.Windows.Win32.Foundation.PWSTR, IfSpec: VoidPtr, ObjectVector: POINTER(win32more.Windows.Win32.System.Rpc.UUID_VECTOR)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
+RpcNsBindingExportPnP = UnicodeAlias('RpcNsBindingExportPnPW')
 @winfunctype('RPCNS4.dll')
 def RpcNsBindingUnexportPnPW(EntryNameSyntax: UInt32, EntryName: win32more.Windows.Win32.Foundation.PWSTR, IfSpec: VoidPtr, ObjectVector: POINTER(win32more.Windows.Win32.System.Rpc.UUID_VECTOR)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
+RpcNsBindingUnexportPnP = UnicodeAlias('RpcNsBindingUnexportPnPW')
 @winfunctype('RPCNS4.dll')
 def RpcNsBindingLookupBeginA(EntryNameSyntax: UInt32, EntryName: win32more.Windows.Win32.Foundation.PSTR, IfSpec: VoidPtr, ObjUuid: POINTER(Guid), BindingMaxCount: UInt32, LookupContext: POINTER(VoidPtr)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
 @winfunctype('RPCNS4.dll')
 def RpcNsBindingLookupBeginW(EntryNameSyntax: UInt32, EntryName: win32more.Windows.Win32.Foundation.PWSTR, IfSpec: VoidPtr, ObjUuid: POINTER(Guid), BindingMaxCount: UInt32, LookupContext: POINTER(VoidPtr)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
+RpcNsBindingLookupBegin = UnicodeAlias('RpcNsBindingLookupBeginW')
 @winfunctype('RPCNS4.dll')
 def RpcNsBindingLookupNext(LookupContext: VoidPtr, BindingVec: POINTER(POINTER(win32more.Windows.Win32.System.Rpc.RPC_BINDING_VECTOR))) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
 @winfunctype('RPCNS4.dll')
@@ -692,14 +733,19 @@ def RpcNsGroupMbrInqBeginA(GroupNameSyntax: UInt32, GroupName: win32more.Windows
 def RpcNsGroupMbrInqNextA(InquiryContext: VoidPtr, MemberName: POINTER(win32more.Windows.Win32.Foundation.PSTR)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
 @winfunctype('RPCNS4.dll')
 def RpcNsGroupDeleteW(GroupNameSyntax: win32more.Windows.Win32.System.Rpc.GROUP_NAME_SYNTAX, GroupName: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
+RpcNsGroupDelete = UnicodeAlias('RpcNsGroupDeleteW')
 @winfunctype('RPCNS4.dll')
 def RpcNsGroupMbrAddW(GroupNameSyntax: UInt32, GroupName: win32more.Windows.Win32.Foundation.PWSTR, MemberNameSyntax: UInt32, MemberName: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
+RpcNsGroupMbrAdd = UnicodeAlias('RpcNsGroupMbrAddW')
 @winfunctype('RPCNS4.dll')
 def RpcNsGroupMbrRemoveW(GroupNameSyntax: UInt32, GroupName: win32more.Windows.Win32.Foundation.PWSTR, MemberNameSyntax: UInt32, MemberName: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
+RpcNsGroupMbrRemove = UnicodeAlias('RpcNsGroupMbrRemoveW')
 @winfunctype('RPCNS4.dll')
 def RpcNsGroupMbrInqBeginW(GroupNameSyntax: UInt32, GroupName: win32more.Windows.Win32.Foundation.PWSTR, MemberNameSyntax: UInt32, InquiryContext: POINTER(VoidPtr)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
+RpcNsGroupMbrInqBegin = UnicodeAlias('RpcNsGroupMbrInqBeginW')
 @winfunctype('RPCNS4.dll')
 def RpcNsGroupMbrInqNextW(InquiryContext: VoidPtr, MemberName: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
+RpcNsGroupMbrInqNext = UnicodeAlias('RpcNsGroupMbrInqNextW')
 @winfunctype('RPCNS4.dll')
 def RpcNsGroupMbrInqDone(InquiryContext: POINTER(VoidPtr)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
 @winfunctype('RPCNS4.dll')
@@ -714,20 +760,26 @@ def RpcNsProfileEltInqBeginA(ProfileNameSyntax: UInt32, ProfileName: win32more.W
 def RpcNsProfileEltInqNextA(InquiryContext: VoidPtr, IfId: POINTER(win32more.Windows.Win32.System.Rpc.RPC_IF_ID), MemberName: POINTER(win32more.Windows.Win32.Foundation.PSTR), Priority: POINTER(UInt32), Annotation: POINTER(win32more.Windows.Win32.Foundation.PSTR)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
 @winfunctype('RPCNS4.dll')
 def RpcNsProfileDeleteW(ProfileNameSyntax: UInt32, ProfileName: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
+RpcNsProfileDelete = UnicodeAlias('RpcNsProfileDeleteW')
 @winfunctype('RPCNS4.dll')
 def RpcNsProfileEltAddW(ProfileNameSyntax: UInt32, ProfileName: win32more.Windows.Win32.Foundation.PWSTR, IfId: POINTER(win32more.Windows.Win32.System.Rpc.RPC_IF_ID), MemberNameSyntax: UInt32, MemberName: win32more.Windows.Win32.Foundation.PWSTR, Priority: UInt32, Annotation: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
+RpcNsProfileEltAdd = UnicodeAlias('RpcNsProfileEltAddW')
 @winfunctype('RPCNS4.dll')
 def RpcNsProfileEltRemoveW(ProfileNameSyntax: UInt32, ProfileName: win32more.Windows.Win32.Foundation.PWSTR, IfId: POINTER(win32more.Windows.Win32.System.Rpc.RPC_IF_ID), MemberNameSyntax: UInt32, MemberName: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
+RpcNsProfileEltRemove = UnicodeAlias('RpcNsProfileEltRemoveW')
 @winfunctype('RPCNS4.dll')
 def RpcNsProfileEltInqBeginW(ProfileNameSyntax: UInt32, ProfileName: win32more.Windows.Win32.Foundation.PWSTR, InquiryType: UInt32, IfId: POINTER(win32more.Windows.Win32.System.Rpc.RPC_IF_ID), VersOption: UInt32, MemberNameSyntax: UInt32, MemberName: win32more.Windows.Win32.Foundation.PWSTR, InquiryContext: POINTER(VoidPtr)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
+RpcNsProfileEltInqBegin = UnicodeAlias('RpcNsProfileEltInqBeginW')
 @winfunctype('RPCNS4.dll')
 def RpcNsProfileEltInqNextW(InquiryContext: VoidPtr, IfId: POINTER(win32more.Windows.Win32.System.Rpc.RPC_IF_ID), MemberName: POINTER(win32more.Windows.Win32.Foundation.PWSTR), Priority: POINTER(UInt32), Annotation: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
+RpcNsProfileEltInqNext = UnicodeAlias('RpcNsProfileEltInqNextW')
 @winfunctype('RPCNS4.dll')
 def RpcNsProfileEltInqDone(InquiryContext: POINTER(VoidPtr)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
 @winfunctype('RPCNS4.dll')
 def RpcNsEntryObjectInqBeginA(EntryNameSyntax: UInt32, EntryName: win32more.Windows.Win32.Foundation.PSTR, InquiryContext: POINTER(VoidPtr)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
 @winfunctype('RPCNS4.dll')
 def RpcNsEntryObjectInqBeginW(EntryNameSyntax: UInt32, EntryName: win32more.Windows.Win32.Foundation.PWSTR, InquiryContext: POINTER(VoidPtr)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
+RpcNsEntryObjectInqBegin = UnicodeAlias('RpcNsEntryObjectInqBeginW')
 @winfunctype('RPCNS4.dll')
 def RpcNsEntryObjectInqNext(InquiryContext: VoidPtr, ObjUuid: POINTER(Guid)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
 @winfunctype('RPCNS4.dll')
@@ -750,18 +802,24 @@ def RpcNsMgmtInqExpAge(ExpirationAge: POINTER(UInt32)) -> win32more.Windows.Win3
 def RpcNsMgmtSetExpAge(ExpirationAge: UInt32) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
 @winfunctype('RPCNS4.dll')
 def RpcNsEntryExpandNameW(EntryNameSyntax: UInt32, EntryName: win32more.Windows.Win32.Foundation.PWSTR, ExpandedName: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
+RpcNsEntryExpandName = UnicodeAlias('RpcNsEntryExpandNameW')
 @winfunctype('RPCNS4.dll')
 def RpcNsMgmtBindingUnexportW(EntryNameSyntax: UInt32, EntryName: win32more.Windows.Win32.Foundation.PWSTR, IfId: POINTER(win32more.Windows.Win32.System.Rpc.RPC_IF_ID), VersOption: UInt32, ObjectUuidVec: POINTER(win32more.Windows.Win32.System.Rpc.UUID_VECTOR)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
+RpcNsMgmtBindingUnexport = UnicodeAlias('RpcNsMgmtBindingUnexportW')
 @winfunctype('RPCNS4.dll')
 def RpcNsMgmtEntryCreateW(EntryNameSyntax: UInt32, EntryName: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
+RpcNsMgmtEntryCreate = UnicodeAlias('RpcNsMgmtEntryCreateW')
 @winfunctype('RPCNS4.dll')
 def RpcNsMgmtEntryDeleteW(EntryNameSyntax: UInt32, EntryName: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
+RpcNsMgmtEntryDelete = UnicodeAlias('RpcNsMgmtEntryDeleteW')
 @winfunctype('RPCNS4.dll')
 def RpcNsMgmtEntryInqIfIdsW(EntryNameSyntax: UInt32, EntryName: win32more.Windows.Win32.Foundation.PWSTR, IfIdVec: POINTER(POINTER(win32more.Windows.Win32.System.Rpc.RPC_IF_ID_VECTOR))) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
+RpcNsMgmtEntryInqIfIds = UnicodeAlias('RpcNsMgmtEntryInqIfIdsW')
 @winfunctype('RPCNS4.dll')
 def RpcNsBindingImportBeginA(EntryNameSyntax: UInt32, EntryName: win32more.Windows.Win32.Foundation.PSTR, IfSpec: VoidPtr, ObjUuid: POINTER(Guid), ImportContext: POINTER(VoidPtr)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
 @winfunctype('RPCNS4.dll')
 def RpcNsBindingImportBeginW(EntryNameSyntax: UInt32, EntryName: win32more.Windows.Win32.Foundation.PWSTR, IfSpec: VoidPtr, ObjUuid: POINTER(Guid), ImportContext: POINTER(VoidPtr)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
+RpcNsBindingImportBegin = UnicodeAlias('RpcNsBindingImportBeginW')
 @winfunctype('RPCNS4.dll')
 def RpcNsBindingImportNext(ImportContext: VoidPtr, Binding: POINTER(VoidPtr)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
 @winfunctype('RPCNS4.dll')
@@ -808,6 +866,7 @@ def RpcSsContextLockExclusive(ServerBindingHandle: VoidPtr, UserContext: VoidPtr
 def RpcSsContextLockShared(ServerBindingHandle: VoidPtr, UserContext: VoidPtr) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
 @winfunctype('RPCRT4.dll')
 def RpcServerInqCallAttributesW(ClientBinding: VoidPtr, RpcCallAttributes: VoidPtr) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
+RpcServerInqCallAttributes = UnicodeAlias('RpcServerInqCallAttributesW')
 @winfunctype('RPCRT4.dll')
 def RpcServerInqCallAttributesA(ClientBinding: VoidPtr, RpcCallAttributes: VoidPtr) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
 @winfunctype('RPCRT4.dll')
@@ -1258,6 +1317,7 @@ def NdrMesSimpleTypeEncodeAll(Handle: VoidPtr, pProxyInfo: POINTER(win32more.Win
 def NdrMesSimpleTypeAlignSizeAll(Handle: VoidPtr, pProxyInfo: POINTER(win32more.Windows.Win32.System.Rpc.MIDL_STUBLESS_PROXY_INFO)) -> UIntPtr: ...
 @winfunctype('RPCRT4.dll')
 def RpcCertGeneratePrincipalNameW(Context: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT), Flags: UInt32, pBuffer: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
+RpcCertGeneratePrincipalName = UnicodeAlias('RpcCertGeneratePrincipalNameW')
 @winfunctype('RPCRT4.dll')
 def RpcCertGeneratePrincipalNameA(Context: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT), Flags: UInt32, pBuffer: POINTER(win32more.Windows.Win32.Foundation.PSTR)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
 class BinaryParam(EasyCastStructure):
@@ -1961,6 +2021,7 @@ class RPC_BINDING_HANDLE_SECURITY_V1_W(EasyCastStructure):
     AuthnSvc: UInt32
     AuthIdentity: POINTER(win32more.Windows.Win32.System.Rpc.SEC_WINNT_AUTH_IDENTITY_W)
     SecurityQos: POINTER(win32more.Windows.Win32.System.Rpc.RPC_SECURITY_QOS)
+RPC_BINDING_HANDLE_SECURITY_V1 = UnicodeAlias('RPC_BINDING_HANDLE_SECURITY_V1_W')
 class RPC_BINDING_HANDLE_TEMPLATE_V1_A(EasyCastStructure):
     Version: UInt32
     Flags: UInt32
@@ -1981,6 +2042,7 @@ class RPC_BINDING_HANDLE_TEMPLATE_V1_W(EasyCastStructure):
     ObjectUuid: Guid
     class _u1_e__Union(EasyCastUnion):
         Reserved: POINTER(UInt16)
+RPC_BINDING_HANDLE_TEMPLATE_V1 = UnicodeAlias('RPC_BINDING_HANDLE_TEMPLATE_V1_W')
 class RPC_BINDING_VECTOR(EasyCastStructure):
     Count: UInt32
     BindingH: VoidPtr * 1
@@ -2006,6 +2068,7 @@ class RPC_CALL_ATTRIBUTES_V1_W(EasyCastStructure):
     AuthenticationLevel: UInt32
     AuthenticationService: UInt32
     NullSession: win32more.Windows.Win32.Foundation.BOOL
+RPC_CALL_ATTRIBUTES_V1 = UnicodeAlias('RPC_CALL_ATTRIBUTES_V1_W')
 class RPC_CALL_ATTRIBUTES_V2_A(EasyCastStructure):
     Version: UInt32
     Flags: UInt32
@@ -2044,6 +2107,7 @@ class RPC_CALL_ATTRIBUTES_V2_W(EasyCastStructure):
     CallLocalAddress: POINTER(win32more.Windows.Win32.System.Rpc.RPC_CALL_LOCAL_ADDRESS_V1)
     OpNum: UInt16
     InterfaceUuid: Guid
+RPC_CALL_ATTRIBUTES_V2 = UnicodeAlias('RPC_CALL_ATTRIBUTES_V2_W')
 class RPC_CALL_ATTRIBUTES_V3_A(EasyCastStructure):
     Version: UInt32
     Flags: UInt32
@@ -2086,6 +2150,7 @@ class RPC_CALL_ATTRIBUTES_V3_W(EasyCastStructure):
     InterfaceUuid: Guid
     ClientIdentifierBufferLength: UInt32
     ClientIdentifier: POINTER(Byte)
+RPC_CALL_ATTRIBUTES_V3 = UnicodeAlias('RPC_CALL_ATTRIBUTES_V3_W')
 class RPC_CALL_LOCAL_ADDRESS_V1(EasyCastStructure):
     Version: UInt32
     Buffer: VoidPtr
@@ -2163,6 +2228,7 @@ class RPC_ENDPOINT_TEMPLATEW(EasyCastStructure):
     Endpoint: win32more.Windows.Win32.Foundation.PWSTR
     SecurityDescriptor: VoidPtr
     Backlog: UInt32
+RPC_ENDPOINT_TEMPLATE = UnicodeAlias('RPC_ENDPOINT_TEMPLATEW')
 class RPC_ERROR_ENUM_HANDLE(EasyCastStructure):
     Signature: UInt32
     CurrentPos: VoidPtr
@@ -2218,6 +2284,7 @@ class RPC_HTTP_TRANSPORT_CREDENTIALS_V2_W(EasyCastStructure):
     ProxyCredentials: POINTER(win32more.Windows.Win32.System.Rpc.SEC_WINNT_AUTH_IDENTITY_W)
     NumberOfProxyAuthnSchemes: UInt32
     ProxyAuthnSchemes: POINTER(UInt32)
+RPC_HTTP_TRANSPORT_CREDENTIALS_V2 = UnicodeAlias('RPC_HTTP_TRANSPORT_CREDENTIALS_V2_W')
 class RPC_HTTP_TRANSPORT_CREDENTIALS_V3_A(EasyCastStructure):
     TransportCredentials: VoidPtr
     Flags: win32more.Windows.Win32.System.Rpc.RPC_C_HTTP_FLAGS
@@ -2238,6 +2305,7 @@ class RPC_HTTP_TRANSPORT_CREDENTIALS_V3_W(EasyCastStructure):
     ProxyCredentials: VoidPtr
     NumberOfProxyAuthnSchemes: UInt32
     ProxyAuthnSchemes: POINTER(UInt32)
+RPC_HTTP_TRANSPORT_CREDENTIALS_V3 = UnicodeAlias('RPC_HTTP_TRANSPORT_CREDENTIALS_V3_W')
 class RPC_HTTP_TRANSPORT_CREDENTIALS_W(EasyCastStructure):
     TransportCredentials: POINTER(win32more.Windows.Win32.System.Rpc.SEC_WINNT_AUTH_IDENTITY_W)
     Flags: win32more.Windows.Win32.System.Rpc.RPC_C_HTTP_FLAGS
@@ -2245,6 +2313,7 @@ class RPC_HTTP_TRANSPORT_CREDENTIALS_W(EasyCastStructure):
     NumberOfAuthnSchemes: UInt32
     AuthnSchemes: POINTER(UInt32)
     ServerCertificateSubject: POINTER(UInt16)
+RPC_HTTP_TRANSPORT_CREDENTIALS = UnicodeAlias('RPC_HTTP_TRANSPORT_CREDENTIALS_W')
 @winfunctype_pointer
 def RPC_IF_CALLBACK_FN(InterfaceUuid: VoidPtr, Context: VoidPtr) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
 class RPC_IF_ID(EasyCastStructure):
@@ -2284,6 +2353,7 @@ class RPC_INTERFACE_TEMPLATEW(EasyCastStructure):
     UuidVector: POINTER(win32more.Windows.Win32.System.Rpc.UUID_VECTOR)
     Annotation: win32more.Windows.Win32.Foundation.PWSTR
     SecurityDescriptor: VoidPtr
+RPC_INTERFACE_TEMPLATE = UnicodeAlias('RPC_INTERFACE_TEMPLATEW')
 class RPC_MESSAGE(EasyCastStructure):
     Handle: VoidPtr
     DataRepresentation: UInt32
@@ -2326,6 +2396,7 @@ class RPC_PROTSEQ_VECTORA(EasyCastStructure):
 class RPC_PROTSEQ_VECTORW(EasyCastStructure):
     Count: UInt32
     Protseq: POINTER(UInt16) * 1
+RPC_PROTSEQ_VECTOR = UnicodeAlias('RPC_PROTSEQ_VECTORW')
 @winfunctype_pointer
 def RPC_SECURITY_CALLBACK_FN(Context: VoidPtr) -> Void: ...
 class RPC_SECURITY_QOS(EasyCastStructure):
@@ -2351,6 +2422,7 @@ class RPC_SECURITY_QOS_V2_W(EasyCastStructure):
     u: _u_e__Union
     class _u_e__Union(EasyCastUnion):
         HttpCredentials: POINTER(win32more.Windows.Win32.System.Rpc.RPC_HTTP_TRANSPORT_CREDENTIALS_W)
+RPC_SECURITY_QOS_V2 = UnicodeAlias('RPC_SECURITY_QOS_V2_W')
 class RPC_SECURITY_QOS_V3_A(EasyCastStructure):
     Version: UInt32
     Capabilities: win32more.Windows.Win32.System.Rpc.RPC_C_QOS_CAPABILITIES
@@ -2371,6 +2443,7 @@ class RPC_SECURITY_QOS_V3_W(EasyCastStructure):
     Sid: VoidPtr
     class _u_e__Union(EasyCastUnion):
         HttpCredentials: POINTER(win32more.Windows.Win32.System.Rpc.RPC_HTTP_TRANSPORT_CREDENTIALS_W)
+RPC_SECURITY_QOS_V3 = UnicodeAlias('RPC_SECURITY_QOS_V3_W')
 class RPC_SECURITY_QOS_V4_A(EasyCastStructure):
     Version: UInt32
     Capabilities: win32more.Windows.Win32.System.Rpc.RPC_C_QOS_CAPABILITIES
@@ -2393,6 +2466,7 @@ class RPC_SECURITY_QOS_V4_W(EasyCastStructure):
     EffectiveOnly: UInt32
     class _u_e__Union(EasyCastUnion):
         HttpCredentials: POINTER(win32more.Windows.Win32.System.Rpc.RPC_HTTP_TRANSPORT_CREDENTIALS_W)
+RPC_SECURITY_QOS_V4 = UnicodeAlias('RPC_SECURITY_QOS_V4_W')
 class RPC_SECURITY_QOS_V5_A(EasyCastStructure):
     Version: UInt32
     Capabilities: win32more.Windows.Win32.System.Rpc.RPC_C_QOS_CAPABILITIES
@@ -2417,6 +2491,7 @@ class RPC_SECURITY_QOS_V5_W(EasyCastStructure):
     ServerSecurityDescriptor: VoidPtr
     class _u_e__Union(EasyCastUnion):
         HttpCredentials: POINTER(win32more.Windows.Win32.System.Rpc.RPC_HTTP_TRANSPORT_CREDENTIALS_W)
+RPC_SECURITY_QOS_V5 = UnicodeAlias('RPC_SECURITY_QOS_V5_W')
 class RPC_SEC_CONTEXT_KEY_INFO(EasyCastStructure):
     EncryptAlgorithm: UInt32
     KeySize: UInt32

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.DirectDraw
 import win32more.Windows.Win32.Graphics.Gdi
@@ -956,10 +956,12 @@ DDTRANSFER_HALFLINES: UInt32 = 256
 DXAPI_HALVERSION: UInt32 = 1
 @winfunctype('DDRAW.dll')
 def DirectDrawEnumerateW(lpCallback: win32more.Windows.Win32.Graphics.DirectDraw.LPDDENUMCALLBACKW, lpContext: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+DirectDrawEnumerate = UnicodeAlias('DirectDrawEnumerateW')
 @winfunctype('DDRAW.dll')
 def DirectDrawEnumerateA(lpCallback: win32more.Windows.Win32.Graphics.DirectDraw.LPDDENUMCALLBACKA, lpContext: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('DDRAW.dll')
 def DirectDrawEnumerateExW(lpCallback: win32more.Windows.Win32.Graphics.DirectDraw.LPDDENUMCALLBACKEXW, lpContext: VoidPtr, dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+DirectDrawEnumerateEx = UnicodeAlias('DirectDrawEnumerateExW')
 @winfunctype('DDRAW.dll')
 def DirectDrawEnumerateExA(lpCallback: win32more.Windows.Win32.Graphics.DirectDraw.LPDDENUMCALLBACKEXA, lpContext: VoidPtr, dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('DDRAW.dll')
@@ -4186,8 +4188,10 @@ def LPDDENUMCALLBACKA(param0: POINTER(Guid), param1: win32more.Windows.Win32.Fou
 def LPDDENUMCALLBACKEXA(param0: POINTER(Guid), param1: win32more.Windows.Win32.Foundation.PSTR, param2: win32more.Windows.Win32.Foundation.PSTR, param3: VoidPtr, param4: win32more.Windows.Win32.Graphics.Gdi.HMONITOR) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def LPDDENUMCALLBACKEXW(param0: POINTER(Guid), param1: win32more.Windows.Win32.Foundation.PWSTR, param2: win32more.Windows.Win32.Foundation.PWSTR, param3: VoidPtr, param4: win32more.Windows.Win32.Graphics.Gdi.HMONITOR) -> win32more.Windows.Win32.Foundation.BOOL: ...
+LPDDENUMCALLBACKEX = UnicodeAlias('LPDDENUMCALLBACKEXW')
 @winfunctype_pointer
 def LPDDENUMCALLBACKW(param0: POINTER(Guid), param1: win32more.Windows.Win32.Foundation.PWSTR, param2: win32more.Windows.Win32.Foundation.PWSTR, param3: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+LPDDENUMCALLBACK = UnicodeAlias('LPDDENUMCALLBACKW')
 @winfunctype_pointer
 def LPDDENUMMODESCALLBACK(param0: POINTER(win32more.Windows.Win32.Graphics.DirectDraw.DDSURFACEDESC), param1: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
@@ -4345,6 +4349,7 @@ def LPDDHEL_INIT(param0: POINTER(win32more.Windows.Win32.Graphics.DirectDraw.DDR
 def LPDIRECTDRAWENUMERATEEXA(lpCallback: win32more.Windows.Win32.Graphics.DirectDraw.LPDDENUMCALLBACKEXA, lpContext: VoidPtr, dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def LPDIRECTDRAWENUMERATEEXW(lpCallback: win32more.Windows.Win32.Graphics.DirectDraw.LPDDENUMCALLBACKEXW, lpContext: VoidPtr, dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+LPDIRECTDRAWENUMERATEEX = UnicodeAlias('LPDIRECTDRAWENUMERATEEXW')
 @winfunctype_pointer
 def PDD_ALPHABLT(param0: POINTER(win32more.Windows.Win32.Graphics.DirectDraw.DD_BLTDATA)) -> UInt32: ...
 @winfunctype_pointer

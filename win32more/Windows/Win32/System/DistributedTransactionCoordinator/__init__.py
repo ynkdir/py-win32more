@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.DistributedTransactionCoordinator
@@ -87,6 +87,7 @@ def DtcGetTransactionManagerC(i_pszHost: win32more.Windows.Win32.Foundation.PSTR
 def DtcGetTransactionManagerExA(i_pszHost: win32more.Windows.Win32.Foundation.PSTR, i_pszTmName: win32more.Windows.Win32.Foundation.PSTR, i_riid: POINTER(Guid), i_grfOptions: UInt32, i_pvConfigParams: VoidPtr, o_ppvObject: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @cfunctype('XOLEHLP.dll')
 def DtcGetTransactionManagerExW(i_pwszHost: win32more.Windows.Win32.Foundation.PWSTR, i_pwszTmName: win32more.Windows.Win32.Foundation.PWSTR, i_riid: POINTER(Guid), i_grfOptions: UInt32, i_pvConfigParams: VoidPtr, o_ppvObject: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+DtcGetTransactionManagerEx = UnicodeAlias('DtcGetTransactionManagerExW')
 class BOID(EasyCastStructure):
     rgb: Byte * 16
 DTCINITIATEDRECOVERYWORK = Int32
@@ -131,6 +132,7 @@ def DTC_GET_TRANSACTION_MANAGER(pszHost: win32more.Windows.Win32.Foundation.PSTR
 def DTC_GET_TRANSACTION_MANAGER_EX_A(i_pszHost: win32more.Windows.Win32.Foundation.PSTR, i_pszTmName: win32more.Windows.Win32.Foundation.PSTR, i_riid: POINTER(Guid), i_grfOptions: UInt32, i_pvConfigParams: VoidPtr, o_ppvObject: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @cfunctype_pointer
 def DTC_GET_TRANSACTION_MANAGER_EX_W(i_pwszHost: win32more.Windows.Win32.Foundation.PWSTR, i_pwszTmName: win32more.Windows.Win32.Foundation.PWSTR, i_riid: POINTER(Guid), i_grfOptions: UInt32, i_pvConfigParams: VoidPtr, o_ppvObject: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+DTC_GET_TRANSACTION_MANAGER_EX = UnicodeAlias('DTC_GET_TRANSACTION_MANAGER_EX_W')
 @winfunctype_pointer
 def DTC_INSTALL_CLIENT(i_pszRemoteTmHostName: POINTER(SByte), i_dwProtocol: UInt32, i_dwOverwrite: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 DTC_STATUS_ = Int32

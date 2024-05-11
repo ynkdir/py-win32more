@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security.WinTrust
 import win32more.Windows.Win32.Storage.FileSystem
@@ -569,6 +569,7 @@ def DebugBreak() -> Void: ...
 def OutputDebugStringA(lpOutputString: win32more.Windows.Win32.Foundation.PSTR) -> Void: ...
 @winfunctype('KERNEL32.dll')
 def OutputDebugStringW(lpOutputString: win32more.Windows.Win32.Foundation.PWSTR) -> Void: ...
+OutputDebugString = UnicodeAlias('OutputDebugStringW')
 @winfunctype('KERNEL32.dll')
 def ContinueDebugEvent(dwProcessId: UInt32, dwThreadId: UInt32, dwContinueStatus: win32more.Windows.Win32.Foundation.NTSTATUS) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
@@ -619,6 +620,7 @@ def RaiseFailFastException(pExceptionRecord: POINTER(win32more.Windows.Win32.Sys
 def FatalAppExitA(uAction: UInt32, lpMessageText: win32more.Windows.Win32.Foundation.PSTR) -> Void: ...
 @winfunctype('KERNEL32.dll')
 def FatalAppExitW(uAction: UInt32, lpMessageText: win32more.Windows.Win32.Foundation.PWSTR) -> Void: ...
+FatalAppExit = UnicodeAlias('FatalAppExitW')
 @winfunctype('KERNEL32.dll')
 def GetThreadErrorMode() -> UInt32: ...
 @winfunctype('KERNEL32.dll')
@@ -649,6 +651,7 @@ def ReBaseImage64(CurrentImageName: win32more.Windows.Win32.Foundation.PSTR, Sym
 def MapFileAndCheckSumA(Filename: win32more.Windows.Win32.Foundation.PSTR, HeaderSum: POINTER(UInt32), CheckSum: POINTER(UInt32)) -> UInt32: ...
 @winfunctype('imagehlp.dll')
 def MapFileAndCheckSumW(Filename: win32more.Windows.Win32.Foundation.PWSTR, HeaderSum: POINTER(UInt32), CheckSum: POINTER(UInt32)) -> UInt32: ...
+MapFileAndCheckSum = UnicodeAlias('MapFileAndCheckSumW')
 @winfunctype('imagehlp.dll')
 def GetImageUnusedHeaderBytes(LoadedImage: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.LOADED_IMAGE), SizeUnusedHeaderBytes: POINTER(UInt32)) -> UInt32: ...
 @winfunctype('imagehlp.dll')
@@ -678,47 +681,39 @@ def UpdateDebugInfoFile(ImageFileName: win32more.Windows.Win32.Foundation.PSTR, 
 @winfunctype('imagehlp.dll')
 def UpdateDebugInfoFileEx(ImageFileName: win32more.Windows.Win32.Foundation.PSTR, SymbolPath: win32more.Windows.Win32.Foundation.PSTR, DebugFilePath: win32more.Windows.Win32.Foundation.PSTR, NtHeaders: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_NT_HEADERS32), OldCheckSum: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
-def SymFindDebugInfoFile(hProcess: win32more.Windows.Win32.Foundation.HANDLE, FileName: win32more.Windows.Win32.Foundation.PSTR, DebugFilePath: win32more.Windows.Win32.Foundation.PSTR, Callback: win32more.Windows.Win32.System.Diagnostics.Debug.PFIND_DEBUG_FILE_CALLBACK, CallerData: VoidPtr) -> win32more.Windows.Win32.Foundation.HANDLE: ...
-@winfunctype('dbghelp.dll')
 def SymFindDebugInfoFileW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, FileName: win32more.Windows.Win32.Foundation.PWSTR, DebugFilePath: win32more.Windows.Win32.Foundation.PWSTR, Callback: win32more.Windows.Win32.System.Diagnostics.Debug.PFIND_DEBUG_FILE_CALLBACKW, CallerData: VoidPtr) -> win32more.Windows.Win32.Foundation.HANDLE: ...
+SymFindDebugInfoFile = UnicodeAlias('SymFindDebugInfoFileW')
 @winfunctype('dbghelp.dll')
 def FindDebugInfoFile(FileName: win32more.Windows.Win32.Foundation.PSTR, SymbolPath: win32more.Windows.Win32.Foundation.PSTR, DebugFilePath: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Foundation.HANDLE: ...
 @winfunctype('dbghelp.dll')
-def FindDebugInfoFileEx(FileName: win32more.Windows.Win32.Foundation.PSTR, SymbolPath: win32more.Windows.Win32.Foundation.PSTR, DebugFilePath: win32more.Windows.Win32.Foundation.PSTR, Callback: win32more.Windows.Win32.System.Diagnostics.Debug.PFIND_DEBUG_FILE_CALLBACK, CallerData: VoidPtr) -> win32more.Windows.Win32.Foundation.HANDLE: ...
-@winfunctype('dbghelp.dll')
 def FindDebugInfoFileExW(FileName: win32more.Windows.Win32.Foundation.PWSTR, SymbolPath: win32more.Windows.Win32.Foundation.PWSTR, DebugFilePath: win32more.Windows.Win32.Foundation.PWSTR, Callback: win32more.Windows.Win32.System.Diagnostics.Debug.PFIND_DEBUG_FILE_CALLBACKW, CallerData: VoidPtr) -> win32more.Windows.Win32.Foundation.HANDLE: ...
-@winfunctype('dbghelp.dll')
-def SymFindFileInPath(hprocess: win32more.Windows.Win32.Foundation.HANDLE, SearchPathA: win32more.Windows.Win32.Foundation.PSTR, FileName: win32more.Windows.Win32.Foundation.PSTR, id: VoidPtr, two: UInt32, three: UInt32, flags: win32more.Windows.Win32.System.Diagnostics.Debug.SYM_FIND_ID_OPTION, FoundFile: win32more.Windows.Win32.Foundation.PSTR, callback: win32more.Windows.Win32.System.Diagnostics.Debug.PFINDFILEINPATHCALLBACK, context: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+FindDebugInfoFileEx = UnicodeAlias('FindDebugInfoFileExW')
 @winfunctype('dbghelp.dll')
 def SymFindFileInPathW(hprocess: win32more.Windows.Win32.Foundation.HANDLE, SearchPathA: win32more.Windows.Win32.Foundation.PWSTR, FileName: win32more.Windows.Win32.Foundation.PWSTR, id: VoidPtr, two: UInt32, three: UInt32, flags: win32more.Windows.Win32.System.Diagnostics.Debug.SYM_FIND_ID_OPTION, FoundFile: win32more.Windows.Win32.Foundation.PWSTR, callback: win32more.Windows.Win32.System.Diagnostics.Debug.PFINDFILEINPATHCALLBACKW, context: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
-@winfunctype('dbghelp.dll')
-def SymFindExecutableImage(hProcess: win32more.Windows.Win32.Foundation.HANDLE, FileName: win32more.Windows.Win32.Foundation.PSTR, ImageFilePath: win32more.Windows.Win32.Foundation.PSTR, Callback: win32more.Windows.Win32.System.Diagnostics.Debug.PFIND_EXE_FILE_CALLBACK, CallerData: VoidPtr) -> win32more.Windows.Win32.Foundation.HANDLE: ...
+SymFindFileInPath = UnicodeAlias('SymFindFileInPathW')
 @winfunctype('dbghelp.dll')
 def SymFindExecutableImageW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, FileName: win32more.Windows.Win32.Foundation.PWSTR, ImageFilePath: win32more.Windows.Win32.Foundation.PWSTR, Callback: win32more.Windows.Win32.System.Diagnostics.Debug.PFIND_EXE_FILE_CALLBACKW, CallerData: VoidPtr) -> win32more.Windows.Win32.Foundation.HANDLE: ...
+SymFindExecutableImage = UnicodeAlias('SymFindExecutableImageW')
 @winfunctype('dbghelp.dll')
 def FindExecutableImage(FileName: win32more.Windows.Win32.Foundation.PSTR, SymbolPath: win32more.Windows.Win32.Foundation.PSTR, ImageFilePath: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Foundation.HANDLE: ...
 @winfunctype('dbghelp.dll')
-def FindExecutableImageEx(FileName: win32more.Windows.Win32.Foundation.PSTR, SymbolPath: win32more.Windows.Win32.Foundation.PSTR, ImageFilePath: win32more.Windows.Win32.Foundation.PSTR, Callback: win32more.Windows.Win32.System.Diagnostics.Debug.PFIND_EXE_FILE_CALLBACK, CallerData: VoidPtr) -> win32more.Windows.Win32.Foundation.HANDLE: ...
-@winfunctype('dbghelp.dll')
 def FindExecutableImageExW(FileName: win32more.Windows.Win32.Foundation.PWSTR, SymbolPath: win32more.Windows.Win32.Foundation.PWSTR, ImageFilePath: win32more.Windows.Win32.Foundation.PWSTR, Callback: win32more.Windows.Win32.System.Diagnostics.Debug.PFIND_EXE_FILE_CALLBACKW, CallerData: VoidPtr) -> win32more.Windows.Win32.Foundation.HANDLE: ...
+FindExecutableImageEx = UnicodeAlias('FindExecutableImageExW')
 @winfunctype('dbghelp.dll')
 def ImageDirectoryEntryToDataEx(Base: VoidPtr, MappedAsImage: win32more.Windows.Win32.Foundation.BOOLEAN, DirectoryEntry: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_DIRECTORY_ENTRY, Size: POINTER(UInt32), FoundHeader: POINTER(POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_SECTION_HEADER))) -> VoidPtr: ...
 @winfunctype('dbghelp.dll')
 def ImageDirectoryEntryToData(Base: VoidPtr, MappedAsImage: win32more.Windows.Win32.Foundation.BOOLEAN, DirectoryEntry: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_DIRECTORY_ENTRY, Size: POINTER(UInt32)) -> VoidPtr: ...
 @winfunctype('dbghelp.dll')
-def SearchTreeForFile(RootPath: win32more.Windows.Win32.Foundation.PSTR, InputPathName: win32more.Windows.Win32.Foundation.PSTR, OutputPathBuffer: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
-@winfunctype('dbghelp.dll')
 def SearchTreeForFileW(RootPath: win32more.Windows.Win32.Foundation.PWSTR, InputPathName: win32more.Windows.Win32.Foundation.PWSTR, OutputPathBuffer: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
-@winfunctype('dbghelp.dll')
-def EnumDirTree(hProcess: win32more.Windows.Win32.Foundation.HANDLE, RootPath: win32more.Windows.Win32.Foundation.PSTR, InputPathName: win32more.Windows.Win32.Foundation.PSTR, OutputPathBuffer: win32more.Windows.Win32.Foundation.PSTR, cb: win32more.Windows.Win32.System.Diagnostics.Debug.PENUMDIRTREE_CALLBACK, data: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+SearchTreeForFile = UnicodeAlias('SearchTreeForFileW')
 @winfunctype('dbghelp.dll')
 def EnumDirTreeW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, RootPath: win32more.Windows.Win32.Foundation.PWSTR, InputPathName: win32more.Windows.Win32.Foundation.PWSTR, OutputPathBuffer: win32more.Windows.Win32.Foundation.PWSTR, cb: win32more.Windows.Win32.System.Diagnostics.Debug.PENUMDIRTREE_CALLBACKW, data: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+EnumDirTree = UnicodeAlias('EnumDirTreeW')
 @winfunctype('dbghelp.dll')
 def MakeSureDirectoryPathExists(DirPath: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
-def UnDecorateSymbolName(name: win32more.Windows.Win32.Foundation.PSTR, outputString: win32more.Windows.Win32.Foundation.PSTR, maxStringLength: UInt32, flags: UInt32) -> UInt32: ...
-@winfunctype('dbghelp.dll')
 def UnDecorateSymbolNameW(name: win32more.Windows.Win32.Foundation.PWSTR, outputString: win32more.Windows.Win32.Foundation.PWSTR, maxStringLength: UInt32, flags: UInt32) -> UInt32: ...
+UnDecorateSymbolName = UnicodeAlias('UnDecorateSymbolNameW')
 @winfunctype('dbghelp.dll')
 def StackWalk64(MachineType: UInt32, hProcess: win32more.Windows.Win32.Foundation.HANDLE, hThread: win32more.Windows.Win32.Foundation.HANDLE, StackFrame: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.STACKFRAME64), ContextRecord: VoidPtr, ReadMemoryRoutine: win32more.Windows.Win32.System.Diagnostics.Debug.PREAD_PROCESS_MEMORY_ROUTINE64, FunctionTableAccessRoutine: win32more.Windows.Win32.System.Diagnostics.Debug.PFUNCTION_TABLE_ACCESS_ROUTINE64, GetModuleBaseRoutine: win32more.Windows.Win32.System.Diagnostics.Debug.PGET_MODULE_BASE_ROUTINE64, TranslateAddress: win32more.Windows.Win32.System.Diagnostics.Debug.PTRANSLATE_ADDRESS_ROUTINE64) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
@@ -737,13 +732,11 @@ def GetTimestampForLoadedLibrary(Module: win32more.Windows.Win32.Foundation.HMOD
 @winfunctype('dbghelp.dll')
 def SymSetParentWindow(hwnd: win32more.Windows.Win32.Foundation.HWND) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
-def SymSetHomeDirectory(hProcess: win32more.Windows.Win32.Foundation.HANDLE, dir: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Foundation.PSTR: ...
-@winfunctype('dbghelp.dll')
 def SymSetHomeDirectoryW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, dir: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.PWSTR: ...
-@winfunctype('dbghelp.dll')
-def SymGetHomeDirectory(type: UInt32, dir: win32more.Windows.Win32.Foundation.PSTR, size: UIntPtr) -> win32more.Windows.Win32.Foundation.PSTR: ...
+SymSetHomeDirectory = UnicodeAlias('SymSetHomeDirectoryW')
 @winfunctype('dbghelp.dll')
 def SymGetHomeDirectoryW(type: UInt32, dir: win32more.Windows.Win32.Foundation.PWSTR, size: UIntPtr) -> win32more.Windows.Win32.Foundation.PWSTR: ...
+SymGetHomeDirectory = UnicodeAlias('SymGetHomeDirectoryW')
 @winfunctype('dbghelp.dll')
 def SymGetOmaps(hProcess: win32more.Windows.Win32.Foundation.HANDLE, BaseOfDll: UInt64, OmapTo: POINTER(POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.OMAP)), cOmapTo: POINTER(UInt64), OmapFrom: POINTER(POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.OMAP)), cOmapFrom: POINTER(UInt64)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
@@ -757,15 +750,13 @@ def SymGetExtendedOption(option: win32more.Windows.Win32.System.Diagnostics.Debu
 @winfunctype('dbghelp.dll')
 def SymSetExtendedOption(option: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_EXTENDED_OPTIONS, value: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
-def SymMatchString(string: win32more.Windows.Win32.Foundation.PSTR, expression: win32more.Windows.Win32.Foundation.PSTR, fCase: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.BOOL: ...
-@winfunctype('dbghelp.dll')
 def SymMatchStringA(string: win32more.Windows.Win32.Foundation.PSTR, expression: win32more.Windows.Win32.Foundation.PSTR, fCase: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
 def SymMatchStringW(string: win32more.Windows.Win32.Foundation.PWSTR, expression: win32more.Windows.Win32.Foundation.PWSTR, fCase: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.BOOL: ...
-@winfunctype('dbghelp.dll')
-def SymEnumSourceFiles(hProcess: win32more.Windows.Win32.Foundation.HANDLE, ModBase: UInt64, Mask: win32more.Windows.Win32.Foundation.PSTR, cbSrcFiles: win32more.Windows.Win32.System.Diagnostics.Debug.PSYM_ENUMSOURCEFILES_CALLBACK, UserContext: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+SymMatchString = UnicodeAlias('SymMatchStringW')
 @winfunctype('dbghelp.dll')
 def SymEnumSourceFilesW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, ModBase: UInt64, Mask: win32more.Windows.Win32.Foundation.PWSTR, cbSrcFiles: win32more.Windows.Win32.System.Diagnostics.Debug.PSYM_ENUMSOURCEFILES_CALLBACKW, UserContext: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+SymEnumSourceFiles = UnicodeAlias('SymEnumSourceFilesW')
 @winfunctype('dbghelp.dll')
 def SymEnumerateModules64(hProcess: win32more.Windows.Win32.Foundation.HANDLE, EnumModulesCallback: win32more.Windows.Win32.System.Diagnostics.Debug.PSYM_ENUMMODULES_CALLBACK64, UserContext: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
@@ -774,9 +765,8 @@ if ARCH in 'X86':
     @winfunctype('dbghelp.dll')
     def SymEnumerateModules(hProcess: win32more.Windows.Win32.Foundation.HANDLE, EnumModulesCallback: win32more.Windows.Win32.System.Diagnostics.Debug.PSYM_ENUMMODULES_CALLBACK, UserContext: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
-def EnumerateLoadedModulesEx(hProcess: win32more.Windows.Win32.Foundation.HANDLE, EnumLoadedModulesCallback: win32more.Windows.Win32.System.Diagnostics.Debug.PENUMLOADED_MODULES_CALLBACK64, UserContext: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
-@winfunctype('dbghelp.dll')
 def EnumerateLoadedModulesExW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, EnumLoadedModulesCallback: win32more.Windows.Win32.System.Diagnostics.Debug.PENUMLOADED_MODULES_CALLBACKW64, UserContext: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+EnumerateLoadedModulesEx = UnicodeAlias('EnumerateLoadedModulesExW')
 @winfunctype('dbghelp.dll')
 def EnumerateLoadedModules64(hProcess: win32more.Windows.Win32.Foundation.HANDLE, EnumLoadedModulesCallback: win32more.Windows.Win32.System.Diagnostics.Debug.PENUMLOADED_MODULES_CALLBACK64, UserContext: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
@@ -799,31 +789,27 @@ def SymGetModuleInfo64(hProcess: win32more.Windows.Win32.Foundation.HANDLE, qwAd
 def SymGetModuleInfoW64(hProcess: win32more.Windows.Win32.Foundation.HANDLE, qwAddr: UInt64, ModuleInfo: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_MODULEW64)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 if ARCH in 'X86':
     @winfunctype('dbghelp.dll')
-    def SymGetModuleInfo(hProcess: win32more.Windows.Win32.Foundation.HANDLE, dwAddr: UInt32, ModuleInfo: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_MODULE)) -> win32more.Windows.Win32.Foundation.BOOL: ...
-if ARCH in 'X86':
-    @winfunctype('dbghelp.dll')
     def SymGetModuleInfoW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, dwAddr: UInt32, ModuleInfo: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_MODULEW)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+if ARCH in 'X86':
+    SymGetModuleInfo = UnicodeAlias('SymGetModuleInfoW')
 @winfunctype('dbghelp.dll')
 def SymGetModuleBase64(hProcess: win32more.Windows.Win32.Foundation.HANDLE, qwAddr: UInt64) -> UInt64: ...
 if ARCH in 'X86':
     @winfunctype('dbghelp.dll')
     def SymGetModuleBase(hProcess: win32more.Windows.Win32.Foundation.HANDLE, dwAddr: UInt32) -> UInt32: ...
 @winfunctype('dbghelp.dll')
-def SymEnumLines(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Base: UInt64, Obj: win32more.Windows.Win32.Foundation.PSTR, File: win32more.Windows.Win32.Foundation.PSTR, EnumLinesCallback: win32more.Windows.Win32.System.Diagnostics.Debug.PSYM_ENUMLINES_CALLBACK, UserContext: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
-@winfunctype('dbghelp.dll')
 def SymEnumLinesW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Base: UInt64, Obj: win32more.Windows.Win32.Foundation.PWSTR, File: win32more.Windows.Win32.Foundation.PWSTR, EnumLinesCallback: win32more.Windows.Win32.System.Diagnostics.Debug.PSYM_ENUMLINES_CALLBACKW, UserContext: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+SymEnumLines = UnicodeAlias('SymEnumLinesW')
 @winfunctype('dbghelp.dll')
 def SymGetLineFromAddr64(hProcess: win32more.Windows.Win32.Foundation.HANDLE, qwAddr: UInt64, pdwDisplacement: POINTER(UInt32), Line64: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_LINE64)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
 def SymGetLineFromAddrW64(hProcess: win32more.Windows.Win32.Foundation.HANDLE, dwAddr: UInt64, pdwDisplacement: POINTER(UInt32), Line: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_LINEW64)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
-def SymGetLineFromInlineContext(hProcess: win32more.Windows.Win32.Foundation.HANDLE, qwAddr: UInt64, InlineContext: UInt32, qwModuleBaseAddress: UInt64, pdwDisplacement: POINTER(UInt32), Line64: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_LINE64)) -> win32more.Windows.Win32.Foundation.BOOL: ...
-@winfunctype('dbghelp.dll')
 def SymGetLineFromInlineContextW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, dwAddr: UInt64, InlineContext: UInt32, qwModuleBaseAddress: UInt64, pdwDisplacement: POINTER(UInt32), Line: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_LINEW64)) -> win32more.Windows.Win32.Foundation.BOOL: ...
-@winfunctype('dbghelp.dll')
-def SymEnumSourceLines(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Base: UInt64, Obj: win32more.Windows.Win32.Foundation.PSTR, File: win32more.Windows.Win32.Foundation.PSTR, Line: UInt32, Flags: UInt32, EnumLinesCallback: win32more.Windows.Win32.System.Diagnostics.Debug.PSYM_ENUMLINES_CALLBACK, UserContext: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+SymGetLineFromInlineContext = UnicodeAlias('SymGetLineFromInlineContextW')
 @winfunctype('dbghelp.dll')
 def SymEnumSourceLinesW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Base: UInt64, Obj: win32more.Windows.Win32.Foundation.PWSTR, File: win32more.Windows.Win32.Foundation.PWSTR, Line: UInt32, Flags: UInt32, EnumLinesCallback: win32more.Windows.Win32.System.Diagnostics.Debug.PSYM_ENUMLINES_CALLBACKW, UserContext: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+SymEnumSourceLines = UnicodeAlias('SymEnumSourceLinesW')
 @winfunctype('dbghelp.dll')
 def SymAddrIncludeInlineTrace(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Address: UInt64) -> UInt32: ...
 @winfunctype('dbghelp.dll')
@@ -857,55 +843,43 @@ if ARCH in 'X86':
 @winfunctype('dbghelp.dll')
 def SymGetFileLineOffsets64(hProcess: win32more.Windows.Win32.Foundation.HANDLE, ModuleName: win32more.Windows.Win32.Foundation.PSTR, FileName: win32more.Windows.Win32.Foundation.PSTR, Buffer: POINTER(UInt64), BufferLines: UInt32) -> UInt32: ...
 @winfunctype('dbghelp.dll')
-def SymMatchFileName(FileName: win32more.Windows.Win32.Foundation.PSTR, Match: win32more.Windows.Win32.Foundation.PSTR, FileNameStop: POINTER(win32more.Windows.Win32.Foundation.PSTR), MatchStop: POINTER(win32more.Windows.Win32.Foundation.PSTR)) -> win32more.Windows.Win32.Foundation.BOOL: ...
-@winfunctype('dbghelp.dll')
 def SymMatchFileNameW(FileName: win32more.Windows.Win32.Foundation.PWSTR, Match: win32more.Windows.Win32.Foundation.PWSTR, FileNameStop: POINTER(win32more.Windows.Win32.Foundation.PWSTR), MatchStop: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> win32more.Windows.Win32.Foundation.BOOL: ...
-@winfunctype('dbghelp.dll')
-def SymGetSourceFile(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Base: UInt64, Params: win32more.Windows.Win32.Foundation.PSTR, FileSpec: win32more.Windows.Win32.Foundation.PSTR, FilePath: win32more.Windows.Win32.Foundation.PSTR, Size: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+SymMatchFileName = UnicodeAlias('SymMatchFileNameW')
 @winfunctype('dbghelp.dll')
 def SymGetSourceFileW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Base: UInt64, Params: win32more.Windows.Win32.Foundation.PWSTR, FileSpec: win32more.Windows.Win32.Foundation.PWSTR, FilePath: win32more.Windows.Win32.Foundation.PWSTR, Size: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
-@winfunctype('dbghelp.dll')
-def SymGetSourceFileToken(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Base: UInt64, FileSpec: win32more.Windows.Win32.Foundation.PSTR, Token: POINTER(VoidPtr), Size: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
-@winfunctype('dbghelp.dll')
-def SymGetSourceFileTokenByTokenName(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Base: UInt64, FileSpec: win32more.Windows.Win32.Foundation.PSTR, TokenName: win32more.Windows.Win32.Foundation.PSTR, TokenParameters: win32more.Windows.Win32.Foundation.PSTR, Token: POINTER(VoidPtr), Size: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+SymGetSourceFile = UnicodeAlias('SymGetSourceFileW')
 @winfunctype('dbghelp.dll')
 def SymGetSourceFileChecksumW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Base: UInt64, FileSpec: win32more.Windows.Win32.Foundation.PWSTR, pCheckSumType: POINTER(UInt32), pChecksum: POINTER(Byte), checksumSize: UInt32, pActualBytesWritten: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
-@winfunctype('dbghelp.dll')
-def SymGetSourceFileChecksum(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Base: UInt64, FileSpec: win32more.Windows.Win32.Foundation.PSTR, pCheckSumType: POINTER(UInt32), pChecksum: POINTER(Byte), checksumSize: UInt32, pActualBytesWritten: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+SymGetSourceFileChecksum = UnicodeAlias('SymGetSourceFileChecksumW')
 @winfunctype('dbghelp.dll')
 def SymGetSourceFileTokenW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Base: UInt64, FileSpec: win32more.Windows.Win32.Foundation.PWSTR, Token: POINTER(VoidPtr), Size: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+SymGetSourceFileToken = UnicodeAlias('SymGetSourceFileTokenW')
 @winfunctype('dbghelp.dll')
 def SymGetSourceFileTokenByTokenNameW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Base: UInt64, FileSpec: win32more.Windows.Win32.Foundation.PWSTR, TokenName: win32more.Windows.Win32.Foundation.PWSTR, TokenParameters: win32more.Windows.Win32.Foundation.PWSTR, Token: POINTER(VoidPtr), Size: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
-@winfunctype('dbghelp.dll')
-def SymGetSourceFileFromToken(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Token: VoidPtr, Params: win32more.Windows.Win32.Foundation.PSTR, FilePath: win32more.Windows.Win32.Foundation.PSTR, Size: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
-@winfunctype('dbghelp.dll')
-def SymGetSourceFileFromTokenByTokenName(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Token: VoidPtr, TokenName: win32more.Windows.Win32.Foundation.PSTR, Params: win32more.Windows.Win32.Foundation.PSTR, FilePath: win32more.Windows.Win32.Foundation.PSTR, Size: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+SymGetSourceFileTokenByTokenName = UnicodeAlias('SymGetSourceFileTokenByTokenNameW')
 @winfunctype('dbghelp.dll')
 def SymGetSourceFileFromTokenW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Token: VoidPtr, Params: win32more.Windows.Win32.Foundation.PWSTR, FilePath: win32more.Windows.Win32.Foundation.PWSTR, Size: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+SymGetSourceFileFromToken = UnicodeAlias('SymGetSourceFileFromTokenW')
 @winfunctype('dbghelp.dll')
 def SymGetSourceFileFromTokenByTokenNameW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Token: VoidPtr, TokenName: win32more.Windows.Win32.Foundation.PWSTR, Params: win32more.Windows.Win32.Foundation.PWSTR, FilePath: win32more.Windows.Win32.Foundation.PWSTR, Size: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
-@winfunctype('dbghelp.dll')
-def SymGetSourceVarFromToken(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Token: VoidPtr, Params: win32more.Windows.Win32.Foundation.PSTR, VarName: win32more.Windows.Win32.Foundation.PSTR, Value: win32more.Windows.Win32.Foundation.PSTR, Size: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+SymGetSourceFileFromTokenByTokenName = UnicodeAlias('SymGetSourceFileFromTokenByTokenNameW')
 @winfunctype('dbghelp.dll')
 def SymGetSourceVarFromTokenW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Token: VoidPtr, Params: win32more.Windows.Win32.Foundation.PWSTR, VarName: win32more.Windows.Win32.Foundation.PWSTR, Value: win32more.Windows.Win32.Foundation.PWSTR, Size: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+SymGetSourceVarFromToken = UnicodeAlias('SymGetSourceVarFromTokenW')
 @winfunctype('dbghelp.dll')
 def SymEnumSourceFileTokens(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Base: UInt64, Callback: win32more.Windows.Win32.System.Diagnostics.Debug.PENUMSOURCEFILETOKENSCALLBACK) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
-def SymInitialize(hProcess: win32more.Windows.Win32.Foundation.HANDLE, UserSearchPath: win32more.Windows.Win32.Foundation.PSTR, fInvadeProcess: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.BOOL: ...
-@winfunctype('dbghelp.dll')
 def SymInitializeW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, UserSearchPath: win32more.Windows.Win32.Foundation.PWSTR, fInvadeProcess: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.BOOL: ...
-@winfunctype('dbghelp.dll')
-def SymGetSearchPath(hProcess: win32more.Windows.Win32.Foundation.HANDLE, SearchPathA: win32more.Windows.Win32.Foundation.PSTR, SearchPathLength: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+SymInitialize = UnicodeAlias('SymInitializeW')
 @winfunctype('dbghelp.dll')
 def SymGetSearchPathW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, SearchPathA: win32more.Windows.Win32.Foundation.PWSTR, SearchPathLength: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
-@winfunctype('dbghelp.dll')
-def SymSetSearchPath(hProcess: win32more.Windows.Win32.Foundation.HANDLE, SearchPathA: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
+SymGetSearchPath = UnicodeAlias('SymGetSearchPathW')
 @winfunctype('dbghelp.dll')
 def SymSetSearchPathW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, SearchPathA: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
-@winfunctype('dbghelp.dll')
-def SymLoadModuleEx(hProcess: win32more.Windows.Win32.Foundation.HANDLE, hFile: win32more.Windows.Win32.Foundation.HANDLE, ImageName: win32more.Windows.Win32.Foundation.PSTR, ModuleName: win32more.Windows.Win32.Foundation.PSTR, BaseOfDll: UInt64, DllSize: UInt32, Data: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.MODLOAD_DATA), Flags: win32more.Windows.Win32.System.Diagnostics.Debug.SYM_LOAD_FLAGS) -> UInt64: ...
+SymSetSearchPath = UnicodeAlias('SymSetSearchPathW')
 @winfunctype('dbghelp.dll')
 def SymLoadModuleExW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, hFile: win32more.Windows.Win32.Foundation.HANDLE, ImageName: win32more.Windows.Win32.Foundation.PWSTR, ModuleName: win32more.Windows.Win32.Foundation.PWSTR, BaseOfDll: UInt64, DllSize: UInt32, Data: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.MODLOAD_DATA), Flags: win32more.Windows.Win32.System.Diagnostics.Debug.SYM_LOAD_FLAGS) -> UInt64: ...
+SymLoadModuleEx = UnicodeAlias('SymLoadModuleExW')
 @winfunctype('dbghelp.dll')
 def SymUnloadModule64(hProcess: win32more.Windows.Win32.Foundation.HANDLE, BaseOfDll: UInt64) -> win32more.Windows.Win32.Foundation.BOOL: ...
 if ARCH in 'X86':
@@ -939,125 +913,97 @@ def SymSetScopeFromIndex(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Ba
 @winfunctype('dbghelp.dll')
 def SymEnumProcesses(EnumProcessesCallback: win32more.Windows.Win32.System.Diagnostics.Debug.PSYM_ENUMPROCESSES_CALLBACK, UserContext: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
-def SymFromAddr(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Address: UInt64, Displacement: POINTER(UInt64), Symbol: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFO)) -> win32more.Windows.Win32.Foundation.BOOL: ...
-@winfunctype('dbghelp.dll')
 def SymFromAddrW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Address: UInt64, Displacement: POINTER(UInt64), Symbol: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFOW)) -> win32more.Windows.Win32.Foundation.BOOL: ...
-@winfunctype('dbghelp.dll')
-def SymFromInlineContext(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Address: UInt64, InlineContext: UInt32, Displacement: POINTER(UInt64), Symbol: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFO)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+SymFromAddr = UnicodeAlias('SymFromAddrW')
 @winfunctype('dbghelp.dll')
 def SymFromInlineContextW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Address: UInt64, InlineContext: UInt32, Displacement: POINTER(UInt64), Symbol: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFOW)) -> win32more.Windows.Win32.Foundation.BOOL: ...
-@winfunctype('dbghelp.dll')
-def SymFromToken(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Base: UInt64, Token: UInt32, Symbol: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFO)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+SymFromInlineContext = UnicodeAlias('SymFromInlineContextW')
 @winfunctype('dbghelp.dll')
 def SymFromTokenW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Base: UInt64, Token: UInt32, Symbol: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFOW)) -> win32more.Windows.Win32.Foundation.BOOL: ...
-@winfunctype('dbghelp.dll')
-def SymNext(hProcess: win32more.Windows.Win32.Foundation.HANDLE, si: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFO)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+SymFromToken = UnicodeAlias('SymFromTokenW')
 @winfunctype('dbghelp.dll')
 def SymNextW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, siw: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFOW)) -> win32more.Windows.Win32.Foundation.BOOL: ...
-@winfunctype('dbghelp.dll')
-def SymPrev(hProcess: win32more.Windows.Win32.Foundation.HANDLE, si: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFO)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+SymNext = UnicodeAlias('SymNextW')
 @winfunctype('dbghelp.dll')
 def SymPrevW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, siw: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFOW)) -> win32more.Windows.Win32.Foundation.BOOL: ...
-@winfunctype('dbghelp.dll')
-def SymFromName(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Name: win32more.Windows.Win32.Foundation.PSTR, Symbol: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFO)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+SymPrev = UnicodeAlias('SymPrevW')
 @winfunctype('dbghelp.dll')
 def SymFromNameW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Name: win32more.Windows.Win32.Foundation.PWSTR, Symbol: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFOW)) -> win32more.Windows.Win32.Foundation.BOOL: ...
-@winfunctype('dbghelp.dll')
-def SymEnumSymbols(hProcess: win32more.Windows.Win32.Foundation.HANDLE, BaseOfDll: UInt64, Mask: win32more.Windows.Win32.Foundation.PSTR, EnumSymbolsCallback: win32more.Windows.Win32.System.Diagnostics.Debug.PSYM_ENUMERATESYMBOLS_CALLBACK, UserContext: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
-@winfunctype('dbghelp.dll')
-def SymEnumSymbolsEx(hProcess: win32more.Windows.Win32.Foundation.HANDLE, BaseOfDll: UInt64, Mask: win32more.Windows.Win32.Foundation.PSTR, EnumSymbolsCallback: win32more.Windows.Win32.System.Diagnostics.Debug.PSYM_ENUMERATESYMBOLS_CALLBACK, UserContext: VoidPtr, Options: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+SymFromName = UnicodeAlias('SymFromNameW')
 @winfunctype('dbghelp.dll')
 def SymEnumSymbolsW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, BaseOfDll: UInt64, Mask: win32more.Windows.Win32.Foundation.PWSTR, EnumSymbolsCallback: win32more.Windows.Win32.System.Diagnostics.Debug.PSYM_ENUMERATESYMBOLS_CALLBACKW, UserContext: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+SymEnumSymbols = UnicodeAlias('SymEnumSymbolsW')
 @winfunctype('dbghelp.dll')
 def SymEnumSymbolsExW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, BaseOfDll: UInt64, Mask: win32more.Windows.Win32.Foundation.PWSTR, EnumSymbolsCallback: win32more.Windows.Win32.System.Diagnostics.Debug.PSYM_ENUMERATESYMBOLS_CALLBACKW, UserContext: VoidPtr, Options: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
-@winfunctype('dbghelp.dll')
-def SymEnumSymbolsForAddr(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Address: UInt64, EnumSymbolsCallback: win32more.Windows.Win32.System.Diagnostics.Debug.PSYM_ENUMERATESYMBOLS_CALLBACK, UserContext: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+SymEnumSymbolsEx = UnicodeAlias('SymEnumSymbolsExW')
 @winfunctype('dbghelp.dll')
 def SymEnumSymbolsForAddrW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Address: UInt64, EnumSymbolsCallback: win32more.Windows.Win32.System.Diagnostics.Debug.PSYM_ENUMERATESYMBOLS_CALLBACKW, UserContext: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
-@winfunctype('dbghelp.dll')
-def SymSearch(hProcess: win32more.Windows.Win32.Foundation.HANDLE, BaseOfDll: UInt64, Index: UInt32, SymTag: UInt32, Mask: win32more.Windows.Win32.Foundation.PSTR, Address: UInt64, EnumSymbolsCallback: win32more.Windows.Win32.System.Diagnostics.Debug.PSYM_ENUMERATESYMBOLS_CALLBACK, UserContext: VoidPtr, Options: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+SymEnumSymbolsForAddr = UnicodeAlias('SymEnumSymbolsForAddrW')
 @winfunctype('dbghelp.dll')
 def SymSearchW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, BaseOfDll: UInt64, Index: UInt32, SymTag: UInt32, Mask: win32more.Windows.Win32.Foundation.PWSTR, Address: UInt64, EnumSymbolsCallback: win32more.Windows.Win32.System.Diagnostics.Debug.PSYM_ENUMERATESYMBOLS_CALLBACKW, UserContext: VoidPtr, Options: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
-@winfunctype('dbghelp.dll')
-def SymGetScope(hProcess: win32more.Windows.Win32.Foundation.HANDLE, BaseOfDll: UInt64, Index: UInt32, Symbol: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFO)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+SymSearch = UnicodeAlias('SymSearchW')
 @winfunctype('dbghelp.dll')
 def SymGetScopeW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, BaseOfDll: UInt64, Index: UInt32, Symbol: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFOW)) -> win32more.Windows.Win32.Foundation.BOOL: ...
-@winfunctype('dbghelp.dll')
-def SymFromIndex(hProcess: win32more.Windows.Win32.Foundation.HANDLE, BaseOfDll: UInt64, Index: UInt32, Symbol: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFO)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+SymGetScope = UnicodeAlias('SymGetScopeW')
 @winfunctype('dbghelp.dll')
 def SymFromIndexW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, BaseOfDll: UInt64, Index: UInt32, Symbol: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFOW)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+SymFromIndex = UnicodeAlias('SymFromIndexW')
 @winfunctype('dbghelp.dll')
 def SymGetTypeInfo(hProcess: win32more.Windows.Win32.Foundation.HANDLE, ModBase: UInt64, TypeId: UInt32, GetType: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_SYMBOL_TYPE_INFO, pInfo: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
 def SymGetTypeInfoEx(hProcess: win32more.Windows.Win32.Foundation.HANDLE, ModBase: UInt64, Params: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_GET_TYPE_INFO_PARAMS)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
-def SymEnumTypes(hProcess: win32more.Windows.Win32.Foundation.HANDLE, BaseOfDll: UInt64, EnumSymbolsCallback: win32more.Windows.Win32.System.Diagnostics.Debug.PSYM_ENUMERATESYMBOLS_CALLBACK, UserContext: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
-@winfunctype('dbghelp.dll')
 def SymEnumTypesW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, BaseOfDll: UInt64, EnumSymbolsCallback: win32more.Windows.Win32.System.Diagnostics.Debug.PSYM_ENUMERATESYMBOLS_CALLBACKW, UserContext: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
-@winfunctype('dbghelp.dll')
-def SymEnumTypesByName(hProcess: win32more.Windows.Win32.Foundation.HANDLE, BaseOfDll: UInt64, mask: win32more.Windows.Win32.Foundation.PSTR, EnumSymbolsCallback: win32more.Windows.Win32.System.Diagnostics.Debug.PSYM_ENUMERATESYMBOLS_CALLBACK, UserContext: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+SymEnumTypes = UnicodeAlias('SymEnumTypesW')
 @winfunctype('dbghelp.dll')
 def SymEnumTypesByNameW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, BaseOfDll: UInt64, mask: win32more.Windows.Win32.Foundation.PWSTR, EnumSymbolsCallback: win32more.Windows.Win32.System.Diagnostics.Debug.PSYM_ENUMERATESYMBOLS_CALLBACKW, UserContext: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
-@winfunctype('dbghelp.dll')
-def SymGetTypeFromName(hProcess: win32more.Windows.Win32.Foundation.HANDLE, BaseOfDll: UInt64, Name: win32more.Windows.Win32.Foundation.PSTR, Symbol: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFO)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+SymEnumTypesByName = UnicodeAlias('SymEnumTypesByNameW')
 @winfunctype('dbghelp.dll')
 def SymGetTypeFromNameW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, BaseOfDll: UInt64, Name: win32more.Windows.Win32.Foundation.PWSTR, Symbol: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFOW)) -> win32more.Windows.Win32.Foundation.BOOL: ...
-@winfunctype('dbghelp.dll')
-def SymAddSymbol(hProcess: win32more.Windows.Win32.Foundation.HANDLE, BaseOfDll: UInt64, Name: win32more.Windows.Win32.Foundation.PSTR, Address: UInt64, Size: UInt32, Flags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+SymGetTypeFromName = UnicodeAlias('SymGetTypeFromNameW')
 @winfunctype('dbghelp.dll')
 def SymAddSymbolW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, BaseOfDll: UInt64, Name: win32more.Windows.Win32.Foundation.PWSTR, Address: UInt64, Size: UInt32, Flags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
-@winfunctype('dbghelp.dll')
-def SymDeleteSymbol(hProcess: win32more.Windows.Win32.Foundation.HANDLE, BaseOfDll: UInt64, Name: win32more.Windows.Win32.Foundation.PSTR, Address: UInt64, Flags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+SymAddSymbol = UnicodeAlias('SymAddSymbolW')
 @winfunctype('dbghelp.dll')
 def SymDeleteSymbolW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, BaseOfDll: UInt64, Name: win32more.Windows.Win32.Foundation.PWSTR, Address: UInt64, Flags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+SymDeleteSymbol = UnicodeAlias('SymDeleteSymbolW')
 @winfunctype('dbghelp.dll')
 def SymRefreshModuleList(hProcess: win32more.Windows.Win32.Foundation.HANDLE) -> win32more.Windows.Win32.Foundation.BOOL: ...
-@winfunctype('dbghelp.dll')
-def SymAddSourceStream(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Base: UInt64, StreamFile: win32more.Windows.Win32.Foundation.PSTR, Buffer: POINTER(Byte), Size: UIntPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
 def SymAddSourceStreamA(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Base: UInt64, StreamFile: win32more.Windows.Win32.Foundation.PSTR, Buffer: POINTER(Byte), Size: UIntPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
 def SymAddSourceStreamW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Base: UInt64, FileSpec: win32more.Windows.Win32.Foundation.PWSTR, Buffer: POINTER(Byte), Size: UIntPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+SymAddSourceStream = UnicodeAlias('SymAddSourceStreamW')
 @winfunctype('dbghelp.dll')
 def SymSrvIsStoreW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, path: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
-@winfunctype('dbghelp.dll')
-def SymSrvIsStore(hProcess: win32more.Windows.Win32.Foundation.HANDLE, path: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
-@winfunctype('dbghelp.dll')
-def SymSrvDeltaName(hProcess: win32more.Windows.Win32.Foundation.HANDLE, SymPath: win32more.Windows.Win32.Foundation.PSTR, Type: win32more.Windows.Win32.Foundation.PSTR, File1: win32more.Windows.Win32.Foundation.PSTR, File2: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Foundation.PSTR: ...
+SymSrvIsStore = UnicodeAlias('SymSrvIsStoreW')
 @winfunctype('dbghelp.dll')
 def SymSrvDeltaNameW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, SymPath: win32more.Windows.Win32.Foundation.PWSTR, Type: win32more.Windows.Win32.Foundation.PWSTR, File1: win32more.Windows.Win32.Foundation.PWSTR, File2: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.PWSTR: ...
-@winfunctype('dbghelp.dll')
-def SymSrvGetSupplement(hProcess: win32more.Windows.Win32.Foundation.HANDLE, SymPath: win32more.Windows.Win32.Foundation.PSTR, Node: win32more.Windows.Win32.Foundation.PSTR, File: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Foundation.PSTR: ...
+SymSrvDeltaName = UnicodeAlias('SymSrvDeltaNameW')
 @winfunctype('dbghelp.dll')
 def SymSrvGetSupplementW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, SymPath: win32more.Windows.Win32.Foundation.PWSTR, Node: win32more.Windows.Win32.Foundation.PWSTR, File: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.PWSTR: ...
-@winfunctype('dbghelp.dll')
-def SymSrvGetFileIndexes(File: win32more.Windows.Win32.Foundation.PSTR, Id: POINTER(Guid), Val1: POINTER(UInt32), Val2: POINTER(UInt32), Flags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+SymSrvGetSupplement = UnicodeAlias('SymSrvGetSupplementW')
 @winfunctype('dbghelp.dll')
 def SymSrvGetFileIndexesW(File: win32more.Windows.Win32.Foundation.PWSTR, Id: POINTER(Guid), Val1: POINTER(UInt32), Val2: POINTER(UInt32), Flags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+SymSrvGetFileIndexes = UnicodeAlias('SymSrvGetFileIndexesW')
 @winfunctype('dbghelp.dll')
 def SymSrvGetFileIndexStringW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, SrvPath: win32more.Windows.Win32.Foundation.PWSTR, File: win32more.Windows.Win32.Foundation.PWSTR, Index: win32more.Windows.Win32.Foundation.PWSTR, Size: UIntPtr, Flags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
-@winfunctype('dbghelp.dll')
-def SymSrvGetFileIndexString(hProcess: win32more.Windows.Win32.Foundation.HANDLE, SrvPath: win32more.Windows.Win32.Foundation.PSTR, File: win32more.Windows.Win32.Foundation.PSTR, Index: win32more.Windows.Win32.Foundation.PSTR, Size: UIntPtr, Flags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
-@winfunctype('dbghelp.dll')
-def SymSrvGetFileIndexInfo(File: win32more.Windows.Win32.Foundation.PSTR, Info: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SYMSRV_INDEX_INFO), Flags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+SymSrvGetFileIndexString = UnicodeAlias('SymSrvGetFileIndexStringW')
 @winfunctype('dbghelp.dll')
 def SymSrvGetFileIndexInfoW(File: win32more.Windows.Win32.Foundation.PWSTR, Info: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SYMSRV_INDEX_INFOW), Flags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
-@winfunctype('dbghelp.dll')
-def SymSrvStoreSupplement(hProcess: win32more.Windows.Win32.Foundation.HANDLE, SrvPath: win32more.Windows.Win32.Foundation.PSTR, Node: win32more.Windows.Win32.Foundation.PSTR, File: win32more.Windows.Win32.Foundation.PSTR, Flags: UInt32) -> win32more.Windows.Win32.Foundation.PSTR: ...
+SymSrvGetFileIndexInfo = UnicodeAlias('SymSrvGetFileIndexInfoW')
 @winfunctype('dbghelp.dll')
 def SymSrvStoreSupplementW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, SymPath: win32more.Windows.Win32.Foundation.PWSTR, Node: win32more.Windows.Win32.Foundation.PWSTR, File: win32more.Windows.Win32.Foundation.PWSTR, Flags: UInt32) -> win32more.Windows.Win32.Foundation.PWSTR: ...
-@winfunctype('dbghelp.dll')
-def SymSrvStoreFile(hProcess: win32more.Windows.Win32.Foundation.HANDLE, SrvPath: win32more.Windows.Win32.Foundation.PSTR, File: win32more.Windows.Win32.Foundation.PSTR, Flags: win32more.Windows.Win32.System.Diagnostics.Debug.SYM_SRV_STORE_FILE_FLAGS) -> win32more.Windows.Win32.Foundation.PSTR: ...
+SymSrvStoreSupplement = UnicodeAlias('SymSrvStoreSupplementW')
 @winfunctype('dbghelp.dll')
 def SymSrvStoreFileW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, SrvPath: win32more.Windows.Win32.Foundation.PWSTR, File: win32more.Windows.Win32.Foundation.PWSTR, Flags: win32more.Windows.Win32.System.Diagnostics.Debug.SYM_SRV_STORE_FILE_FLAGS) -> win32more.Windows.Win32.Foundation.PWSTR: ...
-@winfunctype('dbghelp.dll')
-def SymGetSymbolFile(hProcess: win32more.Windows.Win32.Foundation.HANDLE, SymPath: win32more.Windows.Win32.Foundation.PSTR, ImageFile: win32more.Windows.Win32.Foundation.PSTR, Type: UInt32, SymbolFile: win32more.Windows.Win32.Foundation.PSTR, cSymbolFile: UIntPtr, DbgFile: win32more.Windows.Win32.Foundation.PSTR, cDbgFile: UIntPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+SymSrvStoreFile = UnicodeAlias('SymSrvStoreFileW')
 @winfunctype('dbghelp.dll')
 def SymGetSymbolFileW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, SymPath: win32more.Windows.Win32.Foundation.PWSTR, ImageFile: win32more.Windows.Win32.Foundation.PWSTR, Type: UInt32, SymbolFile: win32more.Windows.Win32.Foundation.PWSTR, cSymbolFile: UIntPtr, DbgFile: win32more.Windows.Win32.Foundation.PWSTR, cDbgFile: UIntPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
-@winfunctype('dbghelp.dll')
-def DbgHelpCreateUserDump(FileName: win32more.Windows.Win32.Foundation.PSTR, Callback: win32more.Windows.Win32.System.Diagnostics.Debug.PDBGHELP_CREATE_USER_DUMP_CALLBACK, UserData: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+SymGetSymbolFile = UnicodeAlias('SymGetSymbolFileW')
 @winfunctype('dbghelp.dll')
 def DbgHelpCreateUserDumpW(FileName: win32more.Windows.Win32.Foundation.PWSTR, Callback: win32more.Windows.Win32.System.Diagnostics.Debug.PDBGHELP_CREATE_USER_DUMP_CALLBACK, UserData: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+DbgHelpCreateUserDump = UnicodeAlias('DbgHelpCreateUserDumpW')
 @winfunctype('dbghelp.dll')
 def SymGetSymFromAddr64(hProcess: win32more.Windows.Win32.Foundation.HANDLE, qwAddr: UInt64, pdwDisplacement: POINTER(UInt64), Symbol: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_SYMBOL64)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 if ARCH in 'X86':
@@ -1080,10 +1026,9 @@ def SymEnumerateSymbols64(hProcess: win32more.Windows.Win32.Foundation.HANDLE, B
 def SymEnumerateSymbolsW64(hProcess: win32more.Windows.Win32.Foundation.HANDLE, BaseOfDll: UInt64, EnumSymbolsCallback: win32more.Windows.Win32.System.Diagnostics.Debug.PSYM_ENUMSYMBOLS_CALLBACK64W, UserContext: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 if ARCH in 'X86':
     @winfunctype('dbghelp.dll')
-    def SymEnumerateSymbols(hProcess: win32more.Windows.Win32.Foundation.HANDLE, BaseOfDll: UInt32, EnumSymbolsCallback: win32more.Windows.Win32.System.Diagnostics.Debug.PSYM_ENUMSYMBOLS_CALLBACK, UserContext: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
-if ARCH in 'X86':
-    @winfunctype('dbghelp.dll')
     def SymEnumerateSymbolsW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, BaseOfDll: UInt32, EnumSymbolsCallback: win32more.Windows.Win32.System.Diagnostics.Debug.PSYM_ENUMSYMBOLS_CALLBACKW, UserContext: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+if ARCH in 'X86':
+    SymEnumerateSymbols = UnicodeAlias('SymEnumerateSymbolsW')
 @winfunctype('dbghelp.dll')
 def SymLoadModule64(hProcess: win32more.Windows.Win32.Foundation.HANDLE, hFile: win32more.Windows.Win32.Foundation.HANDLE, ImageName: win32more.Windows.Win32.Foundation.PSTR, ModuleName: win32more.Windows.Win32.Foundation.PSTR, BaseOfDll: UInt64, SizeOfDll: UInt32) -> UInt64: ...
 if ARCH in 'X86':
@@ -1137,6 +1082,7 @@ def DebugBreakProcess(Process: win32more.Windows.Win32.Foundation.HANDLE) -> win
 def FormatMessageA(dwFlags: win32more.Windows.Win32.System.Diagnostics.Debug.FORMAT_MESSAGE_OPTIONS, lpSource: VoidPtr, dwMessageId: UInt32, dwLanguageId: UInt32, lpBuffer: win32more.Windows.Win32.Foundation.PSTR, nSize: UInt32, Arguments: POINTER(POINTER(SByte))) -> UInt32: ...
 @winfunctype('KERNEL32.dll')
 def FormatMessageW(dwFlags: win32more.Windows.Win32.System.Diagnostics.Debug.FORMAT_MESSAGE_OPTIONS, lpSource: VoidPtr, dwMessageId: UInt32, dwLanguageId: UInt32, lpBuffer: win32more.Windows.Win32.Foundation.PWSTR, nSize: UInt32, Arguments: POINTER(POINTER(SByte))) -> UInt32: ...
+FormatMessage = UnicodeAlias('FormatMessageW')
 @winfunctype('KERNEL32.dll')
 def CopyContext(Destination: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.CONTEXT), ContextFlags: win32more.Windows.Win32.System.Diagnostics.Debug.CONTEXT_FLAGS, Source: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.CONTEXT)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
@@ -2394,16 +2340,12 @@ class IEnumDebugPropertyInfo(ComPtr):
     def Clone(self, ppepi: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IEnumDebugPropertyInfo)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def GetCount(self, pcelt: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class IMAGEHLP_CBA_EVENT(EasyCastStructure):
-    severity: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_CBA_EVENT_SEVERITY
-    code: UInt32
-    desc: win32more.Windows.Win32.Foundation.PSTR
-    object: VoidPtr
 class IMAGEHLP_CBA_EVENTW(EasyCastStructure):
     severity: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_CBA_EVENT_SEVERITY
     code: UInt32
     desc: win32more.Windows.Win32.Foundation.PWSTR
     object: VoidPtr
+IMAGEHLP_CBA_EVENT = UnicodeAlias('IMAGEHLP_CBA_EVENTW')
 IMAGEHLP_CBA_EVENT_SEVERITY = UInt32
 sevInfo: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_CBA_EVENT_SEVERITY = 0
 sevProblem: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_CBA_EVENT_SEVERITY = 1
@@ -2489,13 +2431,6 @@ class IMAGEHLP_JIT_SYMBOLMAP(EasyCastStructure):
     SizeOfStruct: UInt32
     Address: UInt64
     BaseOfImage: UInt64
-if ARCH in 'X86':
-    class IMAGEHLP_LINE(EasyCastStructure):
-        SizeOfStruct: UInt32
-        Key: VoidPtr
-        LineNumber: UInt32
-        FileName: win32more.Windows.Win32.Foundation.PSTR
-        Address: UInt32
 class IMAGEHLP_LINE64(EasyCastStructure):
     SizeOfStruct: UInt32
     Key: VoidPtr
@@ -2509,24 +2444,14 @@ if ARCH in 'X86':
         LineNumber: UInt32
         FileName: win32more.Windows.Win32.Foundation.PSTR
         Address: UInt64
+if ARCH in 'X86':
+    IMAGEHLP_LINE = UnicodeAlias('IMAGEHLP_LINEW')
 class IMAGEHLP_LINEW64(EasyCastStructure):
     SizeOfStruct: UInt32
     Key: VoidPtr
     LineNumber: UInt32
     FileName: win32more.Windows.Win32.Foundation.PWSTR
     Address: UInt64
-if ARCH in 'X86':
-    class IMAGEHLP_MODULE(EasyCastStructure):
-        SizeOfStruct: UInt32
-        BaseOfImage: UInt32
-        ImageSize: UInt32
-        TimeDateStamp: UInt32
-        CheckSum: UInt32
-        NumSyms: UInt32
-        SymType: win32more.Windows.Win32.System.Diagnostics.Debug.SYM_TYPE
-        ModuleName: win32more.Windows.Win32.Foundation.CHAR * 32
-        ImageName: win32more.Windows.Win32.Foundation.CHAR * 256
-        LoadedImageName: win32more.Windows.Win32.Foundation.CHAR * 256
 class IMAGEHLP_MODULE64(EasyCastStructure):
     SizeOfStruct: UInt32
     BaseOfImage: UInt64
@@ -2568,6 +2493,8 @@ if ARCH in 'X86':
         ModuleName: Char * 32
         ImageName: Char * 256
         LoadedImageName: Char * 256
+if ARCH in 'X86':
+    IMAGEHLP_MODULE = UnicodeAlias('IMAGEHLP_MODULEW')
 class IMAGEHLP_MODULEW64(EasyCastStructure):
     SizeOfStruct: UInt32
     BaseOfImage: UInt64
@@ -2635,14 +2562,6 @@ BindForwarder32: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_STATU
 BindForwarder64: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_STATUS_REASON = 17
 BindForwarderNOT32: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_STATUS_REASON = 18
 BindForwarderNOT64: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_STATUS_REASON = 19
-if ARCH in 'X86':
-    class IMAGEHLP_SYMBOL(EasyCastStructure):
-        SizeOfStruct: UInt32
-        Address: UInt32
-        Size: UInt32
-        Flags: UInt32
-        MaxNameLength: UInt32
-        Name: win32more.Windows.Win32.Foundation.CHAR * 1
 class IMAGEHLP_SYMBOL64(EasyCastStructure):
     SizeOfStruct: UInt32
     Address: UInt64
@@ -2661,6 +2580,8 @@ if ARCH in 'X86':
         Flags: UInt32
         MaxNameLength: UInt32
         Name: Char * 1
+if ARCH in 'X86':
+    IMAGEHLP_SYMBOL = UnicodeAlias('IMAGEHLP_SYMBOLW')
 class IMAGEHLP_SYMBOLW64(EasyCastStructure):
     SizeOfStruct: UInt32
     Address: UInt64
@@ -4232,9 +4153,8 @@ def PCOGETCALLSTATE(param0: Int32, param1: POINTER(UInt32)) -> win32more.Windows
 @winfunctype_pointer
 def PDBGHELP_CREATE_USER_DUMP_CALLBACK(DataType: UInt32, Data: POINTER(VoidPtr), DataLength: POINTER(UInt32), UserData: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PENUMDIRTREE_CALLBACK(FilePath: win32more.Windows.Win32.Foundation.PSTR, CallerData: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
-@winfunctype_pointer
 def PENUMDIRTREE_CALLBACKW(FilePath: win32more.Windows.Win32.Foundation.PWSTR, CallerData: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+PENUMDIRTREE_CALLBACK = UnicodeAlias('PENUMDIRTREE_CALLBACKW')
 if ARCH in 'X86':
     @winfunctype_pointer
     def PENUMLOADED_MODULES_CALLBACK(ModuleName: win32more.Windows.Win32.Foundation.PSTR, ModuleBase: UInt32, ModuleSize: UInt32, UserContext: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
@@ -4245,17 +4165,14 @@ def PENUMLOADED_MODULES_CALLBACKW64(ModuleName: win32more.Windows.Win32.Foundati
 @winfunctype_pointer
 def PENUMSOURCEFILETOKENSCALLBACK(token: VoidPtr, size: UIntPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PFINDFILEINPATHCALLBACK(filename: win32more.Windows.Win32.Foundation.PSTR, context: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
-@winfunctype_pointer
 def PFINDFILEINPATHCALLBACKW(filename: win32more.Windows.Win32.Foundation.PWSTR, context: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
-@winfunctype_pointer
-def PFIND_DEBUG_FILE_CALLBACK(FileHandle: win32more.Windows.Win32.Foundation.HANDLE, FileName: win32more.Windows.Win32.Foundation.PSTR, CallerData: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+PFINDFILEINPATHCALLBACK = UnicodeAlias('PFINDFILEINPATHCALLBACKW')
 @winfunctype_pointer
 def PFIND_DEBUG_FILE_CALLBACKW(FileHandle: win32more.Windows.Win32.Foundation.HANDLE, FileName: win32more.Windows.Win32.Foundation.PWSTR, CallerData: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
-@winfunctype_pointer
-def PFIND_EXE_FILE_CALLBACK(FileHandle: win32more.Windows.Win32.Foundation.HANDLE, FileName: win32more.Windows.Win32.Foundation.PSTR, CallerData: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+PFIND_DEBUG_FILE_CALLBACK = UnicodeAlias('PFIND_DEBUG_FILE_CALLBACKW')
 @winfunctype_pointer
 def PFIND_EXE_FILE_CALLBACKW(FileHandle: win32more.Windows.Win32.Foundation.HANDLE, FileName: win32more.Windows.Win32.Foundation.PWSTR, CallerData: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+PFIND_EXE_FILE_CALLBACK = UnicodeAlias('PFIND_EXE_FILE_CALLBACKW')
 if ARCH in 'X86':
     @winfunctype_pointer
     def PFUNCTION_TABLE_ACCESS_ROUTINE(hProcess: win32more.Windows.Win32.Foundation.HANDLE, AddrBase: UInt32) -> VoidPtr: ...
@@ -4308,55 +4225,48 @@ PROP_INFO_ATTRIBUTES: win32more.Windows.Win32.System.Diagnostics.Debug.PROP_INFO
 PROP_INFO_DEBUGPROP: win32more.Windows.Win32.System.Diagnostics.Debug.PROP_INFO_FLAGS = 16
 PROP_INFO_AUTOEXPAND: win32more.Windows.Win32.System.Diagnostics.Debug.PROP_INFO_FLAGS = 134217728
 @winfunctype_pointer
-def PSYMBOLSERVERBYINDEXPROC(param0: win32more.Windows.Win32.Foundation.PSTR, param1: win32more.Windows.Win32.Foundation.PSTR, param2: win32more.Windows.Win32.Foundation.PSTR, param3: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
-@winfunctype_pointer
 def PSYMBOLSERVERBYINDEXPROCA(param0: win32more.Windows.Win32.Foundation.PSTR, param1: win32more.Windows.Win32.Foundation.PSTR, param2: win32more.Windows.Win32.Foundation.PSTR, param3: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def PSYMBOLSERVERBYINDEXPROCW(param0: win32more.Windows.Win32.Foundation.PWSTR, param1: win32more.Windows.Win32.Foundation.PWSTR, param2: win32more.Windows.Win32.Foundation.PWSTR, param3: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
+PSYMBOLSERVERBYINDEXPROC = UnicodeAlias('PSYMBOLSERVERBYINDEXPROCW')
 @winfunctype_pointer
 def PSYMBOLSERVERCALLBACKPROC(action: UIntPtr, data: UInt64, context: UInt64) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def PSYMBOLSERVERCLOSEPROC() -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PSYMBOLSERVERDELTANAME(param0: win32more.Windows.Win32.Foundation.PSTR, param1: VoidPtr, param2: UInt32, param3: UInt32, param4: VoidPtr, param5: UInt32, param6: UInt32, param7: win32more.Windows.Win32.Foundation.PSTR, param8: UIntPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
-@winfunctype_pointer
 def PSYMBOLSERVERDELTANAMEW(param0: win32more.Windows.Win32.Foundation.PWSTR, param1: VoidPtr, param2: UInt32, param3: UInt32, param4: VoidPtr, param5: UInt32, param6: UInt32, param7: win32more.Windows.Win32.Foundation.PWSTR, param8: UIntPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
-@winfunctype_pointer
-def PSYMBOLSERVERGETINDEXSTRING(param0: VoidPtr, param1: UInt32, param2: UInt32, param3: win32more.Windows.Win32.Foundation.PSTR, param4: UIntPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+PSYMBOLSERVERDELTANAME = UnicodeAlias('PSYMBOLSERVERDELTANAMEW')
 @winfunctype_pointer
 def PSYMBOLSERVERGETINDEXSTRINGW(param0: VoidPtr, param1: UInt32, param2: UInt32, param3: win32more.Windows.Win32.Foundation.PWSTR, param4: UIntPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+PSYMBOLSERVERGETINDEXSTRING = UnicodeAlias('PSYMBOLSERVERGETINDEXSTRINGW')
 @winfunctype_pointer
 def PSYMBOLSERVERGETOPTIONDATAPROC(param0: UIntPtr, param1: POINTER(UInt64)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def PSYMBOLSERVERGETOPTIONSPROC() -> UIntPtr: ...
 @winfunctype_pointer
-def PSYMBOLSERVERGETSUPPLEMENT(param0: win32more.Windows.Win32.Foundation.PSTR, param1: win32more.Windows.Win32.Foundation.PSTR, param2: win32more.Windows.Win32.Foundation.PSTR, param3: win32more.Windows.Win32.Foundation.PSTR, param4: UIntPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
-@winfunctype_pointer
 def PSYMBOLSERVERGETSUPPLEMENTW(param0: win32more.Windows.Win32.Foundation.PWSTR, param1: win32more.Windows.Win32.Foundation.PWSTR, param2: win32more.Windows.Win32.Foundation.PWSTR, param3: win32more.Windows.Win32.Foundation.PWSTR, param4: UIntPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+PSYMBOLSERVERGETSUPPLEMENT = UnicodeAlias('PSYMBOLSERVERGETSUPPLEMENTW')
 @winfunctype_pointer
 def PSYMBOLSERVERGETVERSION(param0: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.API_VERSION)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PSYMBOLSERVERISSTORE(param0: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
-@winfunctype_pointer
 def PSYMBOLSERVERISSTOREW(param0: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
+PSYMBOLSERVERISSTORE = UnicodeAlias('PSYMBOLSERVERISSTOREW')
 @winfunctype_pointer
 def PSYMBOLSERVERMESSAGEPROC(action: UIntPtr, data: UInt64, context: UInt64) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def PSYMBOLSERVEROPENPROC() -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PSYMBOLSERVERPINGPROC(param0: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
-@winfunctype_pointer
 def PSYMBOLSERVERPINGPROCA(param0: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def PSYMBOLSERVERPINGPROCW(param0: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
+PSYMBOLSERVERPINGPROC = UnicodeAlias('PSYMBOLSERVERPINGPROCW')
 @winfunctype_pointer
 def PSYMBOLSERVERPINGPROCWEX(param0: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
-@winfunctype_pointer
-def PSYMBOLSERVERPROC(param0: win32more.Windows.Win32.Foundation.PSTR, param1: win32more.Windows.Win32.Foundation.PSTR, param2: VoidPtr, param3: UInt32, param4: UInt32, param5: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def PSYMBOLSERVERPROCA(param0: win32more.Windows.Win32.Foundation.PSTR, param1: win32more.Windows.Win32.Foundation.PSTR, param2: VoidPtr, param3: UInt32, param4: UInt32, param5: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def PSYMBOLSERVERPROCW(param0: win32more.Windows.Win32.Foundation.PWSTR, param1: win32more.Windows.Win32.Foundation.PWSTR, param2: VoidPtr, param3: UInt32, param4: UInt32, param5: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
+PSYMBOLSERVERPROC = UnicodeAlias('PSYMBOLSERVERPROCW')
 @winfunctype_pointer
 def PSYMBOLSERVERSETHTTPAUTHHEADER(pszAuthHeader: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
@@ -4364,13 +4274,11 @@ def PSYMBOLSERVERSETOPTIONSPROC(param0: UIntPtr, param1: UInt64) -> win32more.Wi
 @winfunctype_pointer
 def PSYMBOLSERVERSETOPTIONSWPROC(param0: UIntPtr, param1: UInt64) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PSYMBOLSERVERSTOREFILE(param0: win32more.Windows.Win32.Foundation.PSTR, param1: win32more.Windows.Win32.Foundation.PSTR, param2: VoidPtr, param3: UInt32, param4: UInt32, param5: win32more.Windows.Win32.Foundation.PSTR, param6: UIntPtr, param7: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
-@winfunctype_pointer
 def PSYMBOLSERVERSTOREFILEW(param0: win32more.Windows.Win32.Foundation.PWSTR, param1: win32more.Windows.Win32.Foundation.PWSTR, param2: VoidPtr, param3: UInt32, param4: UInt32, param5: win32more.Windows.Win32.Foundation.PWSTR, param6: UIntPtr, param7: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
-@winfunctype_pointer
-def PSYMBOLSERVERSTORESUPPLEMENT(param0: win32more.Windows.Win32.Foundation.PSTR, param1: win32more.Windows.Win32.Foundation.PSTR, param2: win32more.Windows.Win32.Foundation.PSTR, param3: win32more.Windows.Win32.Foundation.PSTR, param4: UIntPtr, param5: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+PSYMBOLSERVERSTOREFILE = UnicodeAlias('PSYMBOLSERVERSTOREFILEW')
 @winfunctype_pointer
 def PSYMBOLSERVERSTORESUPPLEMENTW(param0: win32more.Windows.Win32.Foundation.PWSTR, param1: win32more.Windows.Win32.Foundation.PWSTR, param2: win32more.Windows.Win32.Foundation.PWSTR, param3: win32more.Windows.Win32.Foundation.PWSTR, param4: UIntPtr, param5: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+PSYMBOLSERVERSTORESUPPLEMENT = UnicodeAlias('PSYMBOLSERVERSTORESUPPLEMENTW')
 @winfunctype_pointer
 def PSYMBOLSERVERVERSION() -> UInt32: ...
 @winfunctype_pointer
@@ -4385,13 +4293,11 @@ if ARCH in 'X86':
 @winfunctype_pointer
 def PSYMBOL_REGISTERED_CALLBACK64(hProcess: win32more.Windows.Win32.Foundation.HANDLE, ActionCode: UInt32, CallbackData: UInt64, UserContext: UInt64) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PSYM_ENUMERATESYMBOLS_CALLBACK(pSymInfo: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFO), SymbolSize: UInt32, UserContext: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
-@winfunctype_pointer
 def PSYM_ENUMERATESYMBOLS_CALLBACKW(pSymInfo: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFOW), SymbolSize: UInt32, UserContext: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
-@winfunctype_pointer
-def PSYM_ENUMLINES_CALLBACK(LineInfo: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SRCCODEINFO), UserContext: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+PSYM_ENUMERATESYMBOLS_CALLBACK = UnicodeAlias('PSYM_ENUMERATESYMBOLS_CALLBACKW')
 @winfunctype_pointer
 def PSYM_ENUMLINES_CALLBACKW(LineInfo: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SRCCODEINFOW), UserContext: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+PSYM_ENUMLINES_CALLBACK = UnicodeAlias('PSYM_ENUMLINES_CALLBACKW')
 if ARCH in 'X86':
     @winfunctype_pointer
     def PSYM_ENUMMODULES_CALLBACK(ModuleName: win32more.Windows.Win32.Foundation.PSTR, BaseOfDll: UInt32, UserContext: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
@@ -4402,19 +4308,16 @@ def PSYM_ENUMMODULES_CALLBACKW64(ModuleName: win32more.Windows.Win32.Foundation.
 @winfunctype_pointer
 def PSYM_ENUMPROCESSES_CALLBACK(hProcess: win32more.Windows.Win32.Foundation.HANDLE, UserContext: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def PSYM_ENUMSOURCEFILES_CALLBACK(pSourceFile: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SOURCEFILE), UserContext: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
-@winfunctype_pointer
 def PSYM_ENUMSOURCEFILES_CALLBACKW(pSourceFile: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.SOURCEFILEW), UserContext: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
-if ARCH in 'X86':
-    @winfunctype_pointer
-    def PSYM_ENUMSYMBOLS_CALLBACK(SymbolName: win32more.Windows.Win32.Foundation.PSTR, SymbolAddress: UInt32, SymbolSize: UInt32, UserContext: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
-@winfunctype_pointer
-def PSYM_ENUMSYMBOLS_CALLBACK64(SymbolName: win32more.Windows.Win32.Foundation.PSTR, SymbolAddress: UInt64, SymbolSize: UInt32, UserContext: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+PSYM_ENUMSOURCEFILES_CALLBACK = UnicodeAlias('PSYM_ENUMSOURCEFILES_CALLBACKW')
 @winfunctype_pointer
 def PSYM_ENUMSYMBOLS_CALLBACK64W(SymbolName: win32more.Windows.Win32.Foundation.PWSTR, SymbolAddress: UInt64, SymbolSize: UInt32, UserContext: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+PSYM_ENUMSYMBOLS_CALLBACK64 = UnicodeAlias('PSYM_ENUMSYMBOLS_CALLBACK64W')
 if ARCH in 'X86':
     @winfunctype_pointer
     def PSYM_ENUMSYMBOLS_CALLBACKW(SymbolName: win32more.Windows.Win32.Foundation.PWSTR, SymbolAddress: UInt32, SymbolSize: UInt32, UserContext: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+if ARCH in 'X86':
+    PSYM_ENUMSYMBOLS_CALLBACK = UnicodeAlias('PSYM_ENUMSYMBOLS_CALLBACKW')
 if ARCH in 'X86':
     @winfunctype_pointer
     def PTRANSLATE_ADDRESS_ROUTINE(hProcess: win32more.Windows.Win32.Foundation.HANDLE, hThread: win32more.Windows.Win32.Foundation.HANDLE, lpaddr: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.ADDRESS)) -> UInt32: ...
@@ -4436,20 +4339,10 @@ UNW_FLAG_NHANDLER: win32more.Windows.Win32.System.Diagnostics.Debug.RTL_VIRTUAL_
 UNW_FLAG_EHANDLER: win32more.Windows.Win32.System.Diagnostics.Debug.RTL_VIRTUAL_UNWIND_HANDLER_TYPE = 1
 UNW_FLAG_UHANDLER: win32more.Windows.Win32.System.Diagnostics.Debug.RTL_VIRTUAL_UNWIND_HANDLER_TYPE = 2
 UNW_FLAG_CHAININFO: win32more.Windows.Win32.System.Diagnostics.Debug.RTL_VIRTUAL_UNWIND_HANDLER_TYPE = 4
-class SOURCEFILE(EasyCastStructure):
-    ModBase: UInt64
-    FileName: win32more.Windows.Win32.Foundation.PSTR
 class SOURCEFILEW(EasyCastStructure):
     ModBase: UInt64
     FileName: win32more.Windows.Win32.Foundation.PWSTR
-class SRCCODEINFO(EasyCastStructure):
-    SizeOfStruct: UInt32
-    Key: VoidPtr
-    ModBase: UInt64
-    Obj: win32more.Windows.Win32.Foundation.CHAR * 261
-    FileName: win32more.Windows.Win32.Foundation.CHAR * 261
-    LineNumber: UInt32
-    Address: UInt64
+SOURCEFILE = UnicodeAlias('SOURCEFILEW')
 class SRCCODEINFOW(EasyCastStructure):
     SizeOfStruct: UInt32
     Key: VoidPtr
@@ -4458,6 +4351,7 @@ class SRCCODEINFOW(EasyCastStructure):
     FileName: Char * 261
     LineNumber: UInt32
     Address: UInt64
+SRCCODEINFO = UnicodeAlias('SRCCODEINFOW')
 if ARCH in 'X86':
     class STACKFRAME(EasyCastStructure):
         AddrPC: win32more.Windows.Win32.System.Diagnostics.Debug.ADDRESS
@@ -4501,22 +4395,6 @@ class STACKFRAME_EX(EasyCastStructure):
 def SYMADDSOURCESTREAM(param0: win32more.Windows.Win32.Foundation.HANDLE, param1: UInt64, param2: win32more.Windows.Win32.Foundation.PSTR, param3: POINTER(Byte), param4: UIntPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def SYMADDSOURCESTREAMA(param0: win32more.Windows.Win32.Foundation.HANDLE, param1: UInt64, param2: win32more.Windows.Win32.Foundation.PSTR, param3: POINTER(Byte), param4: UIntPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
-class SYMBOL_INFO(EasyCastStructure):
-    SizeOfStruct: UInt32
-    TypeIndex: UInt32
-    Reserved: UInt64 * 2
-    Index: UInt32
-    Size: UInt32
-    ModBase: UInt64
-    Flags: win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFO_FLAGS
-    Value: UInt64
-    Address: UInt64
-    Register: UInt32
-    Scope: UInt32
-    Tag: UInt32
-    NameLen: UInt32
-    MaxNameLen: UInt32
-    Name: win32more.Windows.Win32.Foundation.CHAR * 1
 class SYMBOL_INFOW(EasyCastStructure):
     SizeOfStruct: UInt32
     TypeIndex: UInt32
@@ -4533,6 +4411,7 @@ class SYMBOL_INFOW(EasyCastStructure):
     NameLen: UInt32
     MaxNameLen: UInt32
     Name: Char * 1
+SYMBOL_INFO = UnicodeAlias('SYMBOL_INFOW')
 SYMBOL_INFO_FLAGS = UInt32
 SYMFLAG_CLR_TOKEN: win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFO_FLAGS = 262144
 SYMFLAG_CONSTANT: win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFO_FLAGS = 256
@@ -4551,27 +4430,14 @@ SYMFLAG_THUNK: win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFO_FLAG
 SYMFLAG_TLSREL: win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFO_FLAGS = 16384
 SYMFLAG_VALUEPRESENT: win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFO_FLAGS = 1
 SYMFLAG_VIRTUAL: win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFO_FLAGS = 4096
-class SYMBOL_INFO_PACKAGE(EasyCastStructure):
-    si: win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFO
-    name: win32more.Windows.Win32.Foundation.CHAR * 2001
 class SYMBOL_INFO_PACKAGEW(EasyCastStructure):
     si: win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFOW
     name: Char * 2001
+SYMBOL_INFO_PACKAGE = UnicodeAlias('SYMBOL_INFO_PACKAGEW')
 class SYMSRV_EXTENDED_OUTPUT_DATA(EasyCastStructure):
     sizeOfStruct: UInt32
     version: UInt32
     filePtrMsg: Char * 261
-class SYMSRV_INDEX_INFO(EasyCastStructure):
-    sizeofstruct: UInt32
-    file: win32more.Windows.Win32.Foundation.CHAR * 261
-    stripped: win32more.Windows.Win32.Foundation.BOOL
-    timestamp: UInt32
-    size: UInt32
-    dbgfile: win32more.Windows.Win32.Foundation.CHAR * 261
-    pdbfile: win32more.Windows.Win32.Foundation.CHAR * 261
-    guid: Guid
-    sig: UInt32
-    age: UInt32
 class SYMSRV_INDEX_INFOW(EasyCastStructure):
     sizeofstruct: UInt32
     file: Char * 261
@@ -4583,6 +4449,7 @@ class SYMSRV_INDEX_INFOW(EasyCastStructure):
     guid: Guid
     sig: UInt32
     age: UInt32
+SYMSRV_INDEX_INFO = UnicodeAlias('SYMSRV_INDEX_INFOW')
 SYM_FIND_ID_OPTION = UInt32
 SSRVOPT_DWORD: win32more.Windows.Win32.System.Diagnostics.Debug.SYM_FIND_ID_OPTION = 2
 SSRVOPT_DWORDPTR: win32more.Windows.Win32.System.Diagnostics.Debug.SYM_FIND_ID_OPTION = 4

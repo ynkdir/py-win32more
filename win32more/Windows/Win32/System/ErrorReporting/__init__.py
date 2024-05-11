@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Diagnostics.Debug
 import win32more.Windows.Win32.System.ErrorReporting
@@ -128,6 +128,7 @@ def ReportFault(pep: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.EX
 def AddERExcludedApplicationA(szApplication: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('faultrep.dll')
 def AddERExcludedApplicationW(wszApplication: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
+AddERExcludedApplication = UnicodeAlias('AddERExcludedApplicationW')
 @winfunctype('faultrep.dll')
 def WerReportHang(hwndHungApp: win32more.Windows.Win32.Foundation.HWND, pwzHungApplicationName: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 EFaultRepRetVal = Int32
@@ -391,6 +392,7 @@ WerSubmitResultMax: win32more.Windows.Win32.System.ErrorReporting.WER_SUBMIT_RES
 def pfn_ADDEREXCLUDEDAPPLICATIONA(param0: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.System.ErrorReporting.EFaultRepRetVal: ...
 @winfunctype_pointer
 def pfn_ADDEREXCLUDEDAPPLICATIONW(param0: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.System.ErrorReporting.EFaultRepRetVal: ...
+pfn_ADDEREXCLUDEDAPPLICATION = UnicodeAlias('pfn_ADDEREXCLUDEDAPPLICATIONW')
 @winfunctype_pointer
 def pfn_REPORTFAULT(param0: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.EXCEPTION_POINTERS), param1: UInt32) -> win32more.Windows.Win32.System.ErrorReporting.EFaultRepRetVal: ...
 

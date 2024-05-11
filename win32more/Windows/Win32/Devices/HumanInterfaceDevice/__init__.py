@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Devices.HumanInterfaceDevice
 import win32more.Windows.Win32.Devices.Properties
 import win32more.Windows.Win32.Foundation
@@ -2626,6 +2626,7 @@ class DIACTIONFORMATW(EasyCastStructure):
     ftTimeStamp: win32more.Windows.Win32.Foundation.FILETIME
     dwCRC: UInt32
     tszActionMap: Char * 260
+DIACTIONFORMAT = UnicodeAlias('DIACTIONFORMATW')
 class DIACTIONW(EasyCastStructure):
     uAppData: UIntPtr
     dwSemantic: UInt32
@@ -2637,6 +2638,7 @@ class DIACTIONW(EasyCastStructure):
     class _Anonymous_e__Union(EasyCastUnion):
         lptszActionName: win32more.Windows.Win32.Foundation.PWSTR
         uResIdString: UInt32
+DIACTION = UnicodeAlias('DIACTIONW')
 class DICOLORSET(EasyCastStructure):
     dwSize: UInt32
     cTextFore: UInt32
@@ -2672,6 +2674,7 @@ class DICONFIGUREDEVICESPARAMSW(EasyCastStructure):
     hwnd: win32more.Windows.Win32.Foundation.HWND
     dics: win32more.Windows.Win32.Devices.HumanInterfaceDevice.DICOLORSET
     lpUnkDDSTarget: win32more.Windows.Win32.System.Com.IUnknown
+DICONFIGUREDEVICESPARAMS = UnicodeAlias('DICONFIGUREDEVICESPARAMSW')
 class DICONSTANTFORCE(EasyCastStructure):
     lMagnitude: Int32
 class DICUSTOMFORCE(EasyCastStructure):
@@ -2735,6 +2738,7 @@ class DIDEVICEIMAGEINFOHEADERW(EasyCastStructure):
     dwBufferSize: UInt32
     dwBufferUsed: UInt32
     lprgImageInfoArray: POINTER(win32more.Windows.Win32.Devices.HumanInterfaceDevice.DIDEVICEIMAGEINFOW)
+DIDEVICEIMAGEINFOHEADER = UnicodeAlias('DIDEVICEIMAGEINFOHEADERW')
 class DIDEVICEIMAGEINFOW(EasyCastStructure):
     tszImagePath: Char * 260
     dwFlags: UInt32
@@ -2745,6 +2749,7 @@ class DIDEVICEIMAGEINFOW(EasyCastStructure):
     rgptCalloutLine: win32more.Windows.Win32.Foundation.POINT * 5
     rcCalloutRect: win32more.Windows.Win32.Foundation.RECT
     dwTextAlign: UInt32
+DIDEVICEIMAGEINFO = UnicodeAlias('DIDEVICEIMAGEINFOW')
 class DIDEVICEINSTANCEA(EasyCastStructure):
     dwSize: UInt32
     guidInstance: Guid
@@ -2765,6 +2770,7 @@ class DIDEVICEINSTANCEW(EasyCastStructure):
     guidFFDriver: Guid
     wUsagePage: UInt16
     wUsage: UInt16
+DIDEVICEINSTANCE = UnicodeAlias('DIDEVICEINSTANCEW')
 class DIDEVICEINSTANCE_DX3A(EasyCastStructure):
     dwSize: UInt32
     guidInstance: Guid
@@ -2779,6 +2785,7 @@ class DIDEVICEINSTANCE_DX3W(EasyCastStructure):
     dwDevType: UInt32
     tszInstanceName: Char * 260
     tszProductName: Char * 260
+DIDEVICEINSTANCE_DX3 = UnicodeAlias('DIDEVICEINSTANCE_DX3W')
 class DIDEVICEOBJECTDATA(EasyCastStructure):
     dwOfs: UInt32
     dwData: UInt32
@@ -2822,6 +2829,7 @@ class DIDEVICEOBJECTINSTANCEW(EasyCastStructure):
     dwDimension: UInt32
     wExponent: UInt16
     wReportId: UInt16
+DIDEVICEOBJECTINSTANCE = UnicodeAlias('DIDEVICEOBJECTINSTANCEW')
 class DIDEVICEOBJECTINSTANCE_DX3A(EasyCastStructure):
     dwSize: UInt32
     guidType: Guid
@@ -2836,6 +2844,7 @@ class DIDEVICEOBJECTINSTANCE_DX3W(EasyCastStructure):
     dwType: UInt32
     dwFlags: UInt32
     tszName: Char * 260
+DIDEVICEOBJECTINSTANCE_DX3 = UnicodeAlias('DIDEVICEOBJECTINSTANCE_DX3W')
 class DIDEVICESTATE(EasyCastStructure):
     dwSize: UInt32
     dwState: UInt32
@@ -2880,6 +2889,7 @@ class DIEFFECTINFOW(EasyCastStructure):
     dwStaticParams: UInt32
     dwDynamicParams: UInt32
     tszName: Char * 260
+DIEFFECTINFO = UnicodeAlias('DIEFFECTINFOW')
 class DIEFFECT_DX5(EasyCastStructure):
     dwSize: UInt32
     dwFlags: UInt32
@@ -3273,6 +3283,7 @@ class IDirectInput2W(ComPtr):
     _iid_ = Guid('{5944e663-aa8a-11cf-bfc7-444553540000}')
     @commethod(8)
     def FindDevice(self, param0: POINTER(Guid), param1: win32more.Windows.Win32.Foundation.PWSTR, param2: POINTER(Guid)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+IDirectInput2 = UnicodeAlias('IDirectInput2W')
 class IDirectInput7A(ComPtr):
     extends: win32more.Windows.Win32.Devices.HumanInterfaceDevice.IDirectInput2A
     _iid_ = Guid('{9a4cb684-236d-11d3-8e9d-00c04f6844ae}')
@@ -3283,6 +3294,7 @@ class IDirectInput7W(ComPtr):
     _iid_ = Guid('{9a4cb685-236d-11d3-8e9d-00c04f6844ae}')
     @commethod(9)
     def CreateDeviceEx(self, param0: POINTER(Guid), param1: POINTER(Guid), param2: POINTER(VoidPtr), param3: win32more.Windows.Win32.System.Com.IUnknown) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+IDirectInput7 = UnicodeAlias('IDirectInput7W')
 class IDirectInput8A(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{bf798030-483a-4da2-aa99-5d64ed369700}')
@@ -3321,6 +3333,7 @@ class IDirectInput8W(ComPtr):
     def EnumDevicesBySemantics(self, param0: win32more.Windows.Win32.Foundation.PWSTR, param1: POINTER(win32more.Windows.Win32.Devices.HumanInterfaceDevice.DIACTIONFORMATW), param2: win32more.Windows.Win32.Devices.HumanInterfaceDevice.LPDIENUMDEVICESBYSEMANTICSCBW, param3: VoidPtr, param4: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def ConfigureDevices(self, param0: win32more.Windows.Win32.Devices.HumanInterfaceDevice.LPDICONFIGUREDEVICESCALLBACK, param1: POINTER(win32more.Windows.Win32.Devices.HumanInterfaceDevice.DICONFIGUREDEVICESPARAMSW), param2: UInt32, param3: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+IDirectInput8 = UnicodeAlias('IDirectInput8W')
 class IDirectInputA(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{89521360-aa8a-11cf-bfc7-444553540000}')
@@ -3376,6 +3389,7 @@ class IDirectInputDevice2W(ComPtr):
     def Poll(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(26)
     def SendDeviceData(self, param0: UInt32, param1: POINTER(win32more.Windows.Win32.Devices.HumanInterfaceDevice.DIDEVICEOBJECTDATA), param2: POINTER(UInt32), param3: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+IDirectInputDevice2 = UnicodeAlias('IDirectInputDevice2W')
 class IDirectInputDevice7A(ComPtr):
     extends: win32more.Windows.Win32.Devices.HumanInterfaceDevice.IDirectInputDevice2A
     _iid_ = Guid('{57d7c6bc-2356-11d3-8e9d-00c04f6844ae}')
@@ -3390,6 +3404,7 @@ class IDirectInputDevice7W(ComPtr):
     def EnumEffectsInFile(self, param0: win32more.Windows.Win32.Foundation.PWSTR, param1: win32more.Windows.Win32.Devices.HumanInterfaceDevice.LPDIENUMEFFECTSINFILECALLBACK, param2: VoidPtr, param3: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(28)
     def WriteEffectToFile(self, param0: win32more.Windows.Win32.Foundation.PWSTR, param1: UInt32, param2: POINTER(win32more.Windows.Win32.Devices.HumanInterfaceDevice.DIFILEEFFECT), param3: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+IDirectInputDevice7 = UnicodeAlias('IDirectInputDevice7W')
 class IDirectInputDevice8A(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{54d41080-dc15-4833-a41b-748f73a38179}')
@@ -3512,6 +3527,7 @@ class IDirectInputDevice8W(ComPtr):
     def SetActionMap(self, param0: POINTER(win32more.Windows.Win32.Devices.HumanInterfaceDevice.DIACTIONFORMATW), param1: win32more.Windows.Win32.Foundation.PWSTR, param2: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(31)
     def GetImageInfo(self, param0: POINTER(win32more.Windows.Win32.Devices.HumanInterfaceDevice.DIDEVICEIMAGEINFOHEADERW)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+IDirectInputDevice8 = UnicodeAlias('IDirectInputDevice8W')
 class IDirectInputDeviceA(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{5944e680-c92e-11cf-bfc7-444553540000}')
@@ -3578,6 +3594,7 @@ class IDirectInputDeviceW(ComPtr):
     def RunControlPanel(self, param0: win32more.Windows.Win32.Foundation.HWND, param1: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
     def Initialize(self, param0: win32more.Windows.Win32.Foundation.HINSTANCE, param1: UInt32, param2: POINTER(Guid)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+IDirectInputDevice = UnicodeAlias('IDirectInputDeviceW')
 class IDirectInputEffect(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{e7e1f7c0-88d2-11d0-9ad0-00a0c9a06e35}')
@@ -3709,6 +3726,7 @@ class IDirectInputW(ComPtr):
     def RunControlPanel(self, param0: win32more.Windows.Win32.Foundation.HWND, param1: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def Initialize(self, param0: win32more.Windows.Win32.Foundation.HINSTANCE, param1: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+IDirectInput = UnicodeAlias('IDirectInputW')
 class INDICATOR_LIST(EasyCastStructure):
     MakeCode: UInt16
     IndicatorFlags: UInt16
@@ -3800,18 +3818,22 @@ def LPDIENUMCREATEDEFFECTOBJECTSCALLBACK(param0: win32more.Windows.Win32.Devices
 def LPDIENUMDEVICEOBJECTSCALLBACKA(param0: POINTER(win32more.Windows.Win32.Devices.HumanInterfaceDevice.DIDEVICEOBJECTINSTANCEA), param1: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def LPDIENUMDEVICEOBJECTSCALLBACKW(param0: POINTER(win32more.Windows.Win32.Devices.HumanInterfaceDevice.DIDEVICEOBJECTINSTANCEW), param1: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+LPDIENUMDEVICEOBJECTSCALLBACK = UnicodeAlias('LPDIENUMDEVICEOBJECTSCALLBACKW')
 @winfunctype_pointer
 def LPDIENUMDEVICESBYSEMANTICSCBA(param0: POINTER(win32more.Windows.Win32.Devices.HumanInterfaceDevice.DIDEVICEINSTANCEA), param1: win32more.Windows.Win32.Devices.HumanInterfaceDevice.IDirectInputDevice8A, param2: UInt32, param3: UInt32, param4: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def LPDIENUMDEVICESBYSEMANTICSCBW(param0: POINTER(win32more.Windows.Win32.Devices.HumanInterfaceDevice.DIDEVICEINSTANCEW), param1: win32more.Windows.Win32.Devices.HumanInterfaceDevice.IDirectInputDevice8W, param2: UInt32, param3: UInt32, param4: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+LPDIENUMDEVICESBYSEMANTICSCB = UnicodeAlias('LPDIENUMDEVICESBYSEMANTICSCBW')
 @winfunctype_pointer
 def LPDIENUMDEVICESCALLBACKA(param0: POINTER(win32more.Windows.Win32.Devices.HumanInterfaceDevice.DIDEVICEINSTANCEA), param1: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def LPDIENUMDEVICESCALLBACKW(param0: POINTER(win32more.Windows.Win32.Devices.HumanInterfaceDevice.DIDEVICEINSTANCEW), param1: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+LPDIENUMDEVICESCALLBACK = UnicodeAlias('LPDIENUMDEVICESCALLBACKW')
 @winfunctype_pointer
 def LPDIENUMEFFECTSCALLBACKA(param0: POINTER(win32more.Windows.Win32.Devices.HumanInterfaceDevice.DIEFFECTINFOA), param1: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def LPDIENUMEFFECTSCALLBACKW(param0: POINTER(win32more.Windows.Win32.Devices.HumanInterfaceDevice.DIEFFECTINFOW), param1: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+LPDIENUMEFFECTSCALLBACK = UnicodeAlias('LPDIENUMEFFECTSCALLBACKW')
 @winfunctype_pointer
 def LPDIENUMEFFECTSINFILECALLBACK(param0: POINTER(win32more.Windows.Win32.Devices.HumanInterfaceDevice.DIFILEEFFECT), param1: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer

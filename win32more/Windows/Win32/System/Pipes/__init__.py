@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.Storage.FileSystem
@@ -23,18 +23,23 @@ def PeekNamedPipe(hNamedPipe: win32more.Windows.Win32.Foundation.HANDLE, lpBuffe
 def TransactNamedPipe(hNamedPipe: win32more.Windows.Win32.Foundation.HANDLE, lpInBuffer: VoidPtr, nInBufferSize: UInt32, lpOutBuffer: VoidPtr, nOutBufferSize: UInt32, lpBytesRead: POINTER(UInt32), lpOverlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
 def CreateNamedPipeW(lpName: win32more.Windows.Win32.Foundation.PWSTR, dwOpenMode: win32more.Windows.Win32.Storage.FileSystem.FILE_FLAGS_AND_ATTRIBUTES, dwPipeMode: win32more.Windows.Win32.System.Pipes.NAMED_PIPE_MODE, nMaxInstances: UInt32, nOutBufferSize: UInt32, nInBufferSize: UInt32, nDefaultTimeOut: UInt32, lpSecurityAttributes: POINTER(win32more.Windows.Win32.Security.SECURITY_ATTRIBUTES)) -> win32more.Windows.Win32.Foundation.HANDLE: ...
+CreateNamedPipe = UnicodeAlias('CreateNamedPipeW')
 @winfunctype('KERNEL32.dll')
 def WaitNamedPipeW(lpNamedPipeName: win32more.Windows.Win32.Foundation.PWSTR, nTimeOut: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+WaitNamedPipe = UnicodeAlias('WaitNamedPipeW')
 @winfunctype('KERNEL32.dll')
 def GetNamedPipeClientComputerNameW(Pipe: win32more.Windows.Win32.Foundation.HANDLE, ClientComputerName: win32more.Windows.Win32.Foundation.PWSTR, ClientComputerNameLength: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+GetNamedPipeClientComputerName = UnicodeAlias('GetNamedPipeClientComputerNameW')
 @winfunctype('ADVAPI32.dll')
 def ImpersonateNamedPipeClient(hNamedPipe: win32more.Windows.Win32.Foundation.HANDLE) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
 def GetNamedPipeInfo(hNamedPipe: win32more.Windows.Win32.Foundation.HANDLE, lpFlags: POINTER(win32more.Windows.Win32.System.Pipes.NAMED_PIPE_MODE), lpOutBufferSize: POINTER(UInt32), lpInBufferSize: POINTER(UInt32), lpMaxInstances: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
 def GetNamedPipeHandleStateW(hNamedPipe: win32more.Windows.Win32.Foundation.HANDLE, lpState: POINTER(win32more.Windows.Win32.System.Pipes.NAMED_PIPE_MODE), lpCurInstances: POINTER(UInt32), lpMaxCollectionCount: POINTER(UInt32), lpCollectDataTimeout: POINTER(UInt32), lpUserName: win32more.Windows.Win32.Foundation.PWSTR, nMaxUserNameSize: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+GetNamedPipeHandleState = UnicodeAlias('GetNamedPipeHandleStateW')
 @winfunctype('KERNEL32.dll')
 def CallNamedPipeW(lpNamedPipeName: win32more.Windows.Win32.Foundation.PWSTR, lpInBuffer: VoidPtr, nInBufferSize: UInt32, lpOutBuffer: VoidPtr, nOutBufferSize: UInt32, lpBytesRead: POINTER(UInt32), nTimeOut: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+CallNamedPipe = UnicodeAlias('CallNamedPipeW')
 @winfunctype('KERNEL32.dll')
 def CreateNamedPipeA(lpName: win32more.Windows.Win32.Foundation.PSTR, dwOpenMode: win32more.Windows.Win32.Storage.FileSystem.FILE_FLAGS_AND_ATTRIBUTES, dwPipeMode: win32more.Windows.Win32.System.Pipes.NAMED_PIPE_MODE, nMaxInstances: UInt32, nOutBufferSize: UInt32, nInBufferSize: UInt32, nDefaultTimeOut: UInt32, lpSecurityAttributes: POINTER(win32more.Windows.Win32.Security.SECURITY_ATTRIBUTES)) -> win32more.Windows.Win32.Foundation.HANDLE: ...
 @winfunctype('KERNEL32.dll')

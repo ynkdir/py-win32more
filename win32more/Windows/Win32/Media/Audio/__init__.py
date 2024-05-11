@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Media
 import win32more.Windows.Win32.Media.Audio
@@ -44,6 +44,7 @@ class ACMDRIVERDETAILSW(EasyCastStructure):
     szLicensing: Char * 128
     szFeatures: Char * 512
     _pack_ = 1
+ACMDRIVERDETAILS = UnicodeAlias('ACMDRIVERDETAILSW')
 @winfunctype_pointer
 def ACMDRIVERENUMCB(hadid: win32more.Windows.Win32.Media.Audio.HACMDRIVERID, dwInstance: UIntPtr, fdwSupport: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 class ACMDRVFORMATSUGGEST(EasyCastStructure):
@@ -76,6 +77,7 @@ class ACMDRVOPENDESCW(EasyCastStructure):
     pszAliasName: win32more.Windows.Win32.Foundation.PWSTR
     dnDevNode: UInt32
     _pack_ = 1
+ACMDRVOPENDESC = UnicodeAlias('ACMDRVOPENDESCW')
 class ACMDRVSTREAMHEADER(EasyCastStructure):
     cbStruct: UInt32
     fdwStatus: UInt32
@@ -139,6 +141,7 @@ class ACMFILTERCHOOSEA(EasyCastStructure):
 def ACMFILTERCHOOSEHOOKPROCA(hwnd: win32more.Windows.Win32.Foundation.HWND, uMsg: UInt32, wParam: win32more.Windows.Win32.Foundation.WPARAM, lParam: win32more.Windows.Win32.Foundation.LPARAM) -> UInt32: ...
 @winfunctype_pointer
 def ACMFILTERCHOOSEHOOKPROCW(hwnd: win32more.Windows.Win32.Foundation.HWND, uMsg: UInt32, wParam: win32more.Windows.Win32.Foundation.WPARAM, lParam: win32more.Windows.Win32.Foundation.LPARAM) -> UInt32: ...
+ACMFILTERCHOOSEHOOKPROC = UnicodeAlias('ACMFILTERCHOOSEHOOKPROCW')
 class ACMFILTERCHOOSEW(EasyCastStructure):
     cbStruct: UInt32
     fdwStyle: UInt32
@@ -157,6 +160,7 @@ class ACMFILTERCHOOSEW(EasyCastStructure):
     lCustData: win32more.Windows.Win32.Foundation.LPARAM
     pfnHook: win32more.Windows.Win32.Media.Audio.ACMFILTERCHOOSEHOOKPROCW
     _pack_ = 1
+ACMFILTERCHOOSE = UnicodeAlias('ACMFILTERCHOOSEW')
 class ACMFILTERDETAILSA(EasyCastStructure):
     cbStruct: UInt32
     dwFilterIndex: UInt32
@@ -175,10 +179,12 @@ class ACMFILTERDETAILSW(EasyCastStructure):
     cbwfltr: UInt32
     szFilter: Char * 128
     _pack_ = 1
+ACMFILTERDETAILS = UnicodeAlias('ACMFILTERDETAILSW')
 @winfunctype_pointer
 def ACMFILTERENUMCBA(hadid: win32more.Windows.Win32.Media.Audio.HACMDRIVERID, pafd: POINTER(win32more.Windows.Win32.Media.Audio.ACMFILTERDETAILSA), dwInstance: UIntPtr, fdwSupport: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def ACMFILTERENUMCBW(hadid: win32more.Windows.Win32.Media.Audio.HACMDRIVERID, pafd: POINTER(win32more.Windows.Win32.Media.Audio.ACMFILTERDETAILSW), dwInstance: UIntPtr, fdwSupport: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+ACMFILTERENUMCB = UnicodeAlias('ACMFILTERENUMCBW')
 class ACMFILTERTAGDETAILSA(EasyCastStructure):
     cbStruct: UInt32
     dwFilterTagIndex: UInt32
@@ -197,10 +203,12 @@ class ACMFILTERTAGDETAILSW(EasyCastStructure):
     cStandardFilters: UInt32
     szFilterTag: Char * 48
     _pack_ = 1
+ACMFILTERTAGDETAILS = UnicodeAlias('ACMFILTERTAGDETAILSW')
 @winfunctype_pointer
 def ACMFILTERTAGENUMCBA(hadid: win32more.Windows.Win32.Media.Audio.HACMDRIVERID, paftd: POINTER(win32more.Windows.Win32.Media.Audio.ACMFILTERTAGDETAILSA), dwInstance: UIntPtr, fdwSupport: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def ACMFILTERTAGENUMCBW(hadid: win32more.Windows.Win32.Media.Audio.HACMDRIVERID, paftd: POINTER(win32more.Windows.Win32.Media.Audio.ACMFILTERTAGDETAILSW), dwInstance: UIntPtr, fdwSupport: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+ACMFILTERTAGENUMCB = UnicodeAlias('ACMFILTERTAGENUMCBW')
 class ACMFORMATCHOOSEA(EasyCastStructure):
     cbStruct: UInt32
     fdwStyle: UInt32
@@ -223,6 +231,7 @@ class ACMFORMATCHOOSEA(EasyCastStructure):
 def ACMFORMATCHOOSEHOOKPROCA(hwnd: win32more.Windows.Win32.Foundation.HWND, uMsg: UInt32, wParam: win32more.Windows.Win32.Foundation.WPARAM, lParam: win32more.Windows.Win32.Foundation.LPARAM) -> UInt32: ...
 @winfunctype_pointer
 def ACMFORMATCHOOSEHOOKPROCW(hwnd: win32more.Windows.Win32.Foundation.HWND, uMsg: UInt32, wParam: win32more.Windows.Win32.Foundation.WPARAM, lParam: win32more.Windows.Win32.Foundation.LPARAM) -> UInt32: ...
+ACMFORMATCHOOSEHOOKPROC = UnicodeAlias('ACMFORMATCHOOSEHOOKPROCW')
 class ACMFORMATCHOOSEW(EasyCastStructure):
     cbStruct: UInt32
     fdwStyle: UInt32
@@ -241,6 +250,7 @@ class ACMFORMATCHOOSEW(EasyCastStructure):
     lCustData: win32more.Windows.Win32.Foundation.LPARAM
     pfnHook: win32more.Windows.Win32.Media.Audio.ACMFORMATCHOOSEHOOKPROCW
     _pack_ = 1
+ACMFORMATCHOOSE = UnicodeAlias('ACMFORMATCHOOSEW')
 class ACMFORMATDETAILSA(EasyCastStructure):
     cbStruct: UInt32
     dwFormatIndex: UInt32
@@ -254,6 +264,7 @@ class ACMFORMATDETAILSA(EasyCastStructure):
 def ACMFORMATENUMCBA(hadid: win32more.Windows.Win32.Media.Audio.HACMDRIVERID, pafd: POINTER(win32more.Windows.Win32.Media.Audio.ACMFORMATDETAILSA), dwInstance: UIntPtr, fdwSupport: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def ACMFORMATENUMCBW(hadid: win32more.Windows.Win32.Media.Audio.HACMDRIVERID, pafd: POINTER(win32more.Windows.Win32.Media.Audio.tACMFORMATDETAILSW), dwInstance: UIntPtr, fdwSupport: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+ACMFORMATENUMCB = UnicodeAlias('ACMFORMATENUMCBW')
 class ACMFORMATTAGDETAILSA(EasyCastStructure):
     cbStruct: UInt32
     dwFormatTagIndex: UInt32
@@ -272,10 +283,12 @@ class ACMFORMATTAGDETAILSW(EasyCastStructure):
     cStandardFormats: UInt32
     szFormatTag: Char * 48
     _pack_ = 1
+ACMFORMATTAGDETAILS = UnicodeAlias('ACMFORMATTAGDETAILSW')
 @winfunctype_pointer
 def ACMFORMATTAGENUMCBA(hadid: win32more.Windows.Win32.Media.Audio.HACMDRIVERID, paftd: POINTER(win32more.Windows.Win32.Media.Audio.ACMFORMATTAGDETAILSA), dwInstance: UIntPtr, fdwSupport: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def ACMFORMATTAGENUMCBW(hadid: win32more.Windows.Win32.Media.Audio.HACMDRIVERID, paftd: POINTER(win32more.Windows.Win32.Media.Audio.ACMFORMATTAGDETAILSW), dwInstance: UIntPtr, fdwSupport: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+ACMFORMATTAGENUMCB = UnicodeAlias('ACMFORMATTAGENUMCBW')
 if ARCH in 'X64,ARM64':
     class ACMSTREAMHEADER(EasyCastStructure):
         cbStruct: UInt32
@@ -401,6 +414,7 @@ class AUXCAPS2W(EasyCastStructure):
     ProductGuid: Guid
     NameGuid: Guid
     _pack_ = 1
+AUXCAPS2 = UnicodeAlias('AUXCAPS2W')
 class AUXCAPSA(EasyCastStructure):
     wMid: UInt16
     wPid: UInt16
@@ -419,6 +433,7 @@ class AUXCAPSW(EasyCastStructure):
     wReserved1: UInt16
     dwSupport: UInt32
     _pack_ = 1
+AUXCAPS = UnicodeAlias('AUXCAPSW')
 MIXERCONTROL_CONTROLTYPE_CUSTOM: UInt32 = 0
 MIXERCONTROL_CONTROLTYPE_BOOLEANMETER: UInt32 = 268500992
 MIXERCONTROL_CONTROLTYPE_SIGNEDMETER: UInt32 = 268566528
@@ -897,16 +912,19 @@ def CoRegisterMessageFilter(lpMessageFilter: win32more.Windows.Win32.Media.Audio
 def sndPlaySoundA(pszSound: win32more.Windows.Win32.Foundation.PSTR, fuSound: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINMM.dll')
 def sndPlaySoundW(pszSound: win32more.Windows.Win32.Foundation.PWSTR, fuSound: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+sndPlaySound = UnicodeAlias('sndPlaySoundW')
 @winfunctype('WINMM.dll')
 def PlaySoundA(pszSound: win32more.Windows.Win32.Foundation.PSTR, hmod: win32more.Windows.Win32.Foundation.HMODULE, fdwSound: win32more.Windows.Win32.Media.Audio.SND_FLAGS) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINMM.dll')
 def PlaySoundW(pszSound: win32more.Windows.Win32.Foundation.PWSTR, hmod: win32more.Windows.Win32.Foundation.HMODULE, fdwSound: win32more.Windows.Win32.Media.Audio.SND_FLAGS) -> win32more.Windows.Win32.Foundation.BOOL: ...
+PlaySound = UnicodeAlias('PlaySoundW')
 @winfunctype('WINMM.dll')
 def waveOutGetNumDevs() -> UInt32: ...
 @winfunctype('WINMM.dll')
 def waveOutGetDevCapsA(uDeviceID: UIntPtr, pwoc: POINTER(win32more.Windows.Win32.Media.Audio.WAVEOUTCAPSA), cbwoc: UInt32) -> UInt32: ...
 @winfunctype('WINMM.dll')
 def waveOutGetDevCapsW(uDeviceID: UIntPtr, pwoc: POINTER(win32more.Windows.Win32.Media.Audio.WAVEOUTCAPSW), cbwoc: UInt32) -> UInt32: ...
+waveOutGetDevCaps = UnicodeAlias('waveOutGetDevCapsW')
 @winfunctype('WINMM.dll')
 def waveOutGetVolume(hwo: win32more.Windows.Win32.Media.Audio.HWAVEOUT, pdwVolume: POINTER(UInt32)) -> UInt32: ...
 @winfunctype('WINMM.dll')
@@ -915,6 +933,7 @@ def waveOutSetVolume(hwo: win32more.Windows.Win32.Media.Audio.HWAVEOUT, dwVolume
 def waveOutGetErrorTextA(mmrError: UInt32, pszText: win32more.Windows.Win32.Foundation.PSTR, cchText: UInt32) -> UInt32: ...
 @winfunctype('WINMM.dll')
 def waveOutGetErrorTextW(mmrError: UInt32, pszText: win32more.Windows.Win32.Foundation.PWSTR, cchText: UInt32) -> UInt32: ...
+waveOutGetErrorText = UnicodeAlias('waveOutGetErrorTextW')
 @winfunctype('WINMM.dll')
 def waveOutOpen(phwo: POINTER(win32more.Windows.Win32.Media.Audio.HWAVEOUT), uDeviceID: UInt32, pwfx: POINTER(win32more.Windows.Win32.Media.Audio.WAVEFORMATEX), dwCallback: UIntPtr, dwInstance: UIntPtr, fdwOpen: win32more.Windows.Win32.Media.Audio.MIDI_WAVE_OPEN_TYPE) -> UInt32: ...
 @winfunctype('WINMM.dll')
@@ -953,10 +972,12 @@ def waveInGetNumDevs() -> UInt32: ...
 def waveInGetDevCapsA(uDeviceID: UIntPtr, pwic: POINTER(win32more.Windows.Win32.Media.Audio.WAVEINCAPSA), cbwic: UInt32) -> UInt32: ...
 @winfunctype('WINMM.dll')
 def waveInGetDevCapsW(uDeviceID: UIntPtr, pwic: POINTER(win32more.Windows.Win32.Media.Audio.WAVEINCAPSW), cbwic: UInt32) -> UInt32: ...
+waveInGetDevCaps = UnicodeAlias('waveInGetDevCapsW')
 @winfunctype('WINMM.dll')
 def waveInGetErrorTextA(mmrError: UInt32, pszText: win32more.Windows.Win32.Foundation.PSTR, cchText: UInt32) -> UInt32: ...
 @winfunctype('WINMM.dll')
 def waveInGetErrorTextW(mmrError: UInt32, pszText: win32more.Windows.Win32.Foundation.PWSTR, cchText: UInt32) -> UInt32: ...
+waveInGetErrorText = UnicodeAlias('waveInGetErrorTextW')
 @winfunctype('WINMM.dll')
 def waveInOpen(phwi: POINTER(win32more.Windows.Win32.Media.Audio.HWAVEIN), uDeviceID: UInt32, pwfx: POINTER(win32more.Windows.Win32.Media.Audio.WAVEFORMATEX), dwCallback: UIntPtr, dwInstance: UIntPtr, fdwOpen: win32more.Windows.Win32.Media.Audio.MIDI_WAVE_OPEN_TYPE) -> UInt32: ...
 @winfunctype('WINMM.dll')
@@ -1005,6 +1026,7 @@ def midiDisconnect(hmi: win32more.Windows.Win32.Media.Audio.HMIDI, hmo: win32mor
 def midiOutGetDevCapsA(uDeviceID: UIntPtr, pmoc: POINTER(win32more.Windows.Win32.Media.Audio.MIDIOUTCAPSA), cbmoc: UInt32) -> UInt32: ...
 @winfunctype('WINMM.dll')
 def midiOutGetDevCapsW(uDeviceID: UIntPtr, pmoc: POINTER(win32more.Windows.Win32.Media.Audio.MIDIOUTCAPSW), cbmoc: UInt32) -> UInt32: ...
+midiOutGetDevCaps = UnicodeAlias('midiOutGetDevCapsW')
 @winfunctype('WINMM.dll')
 def midiOutGetVolume(hmo: win32more.Windows.Win32.Media.Audio.HMIDIOUT, pdwVolume: POINTER(UInt32)) -> UInt32: ...
 @winfunctype('WINMM.dll')
@@ -1013,6 +1035,7 @@ def midiOutSetVolume(hmo: win32more.Windows.Win32.Media.Audio.HMIDIOUT, dwVolume
 def midiOutGetErrorTextA(mmrError: UInt32, pszText: win32more.Windows.Win32.Foundation.PSTR, cchText: UInt32) -> UInt32: ...
 @winfunctype('WINMM.dll')
 def midiOutGetErrorTextW(mmrError: UInt32, pszText: win32more.Windows.Win32.Foundation.PWSTR, cchText: UInt32) -> UInt32: ...
+midiOutGetErrorText = UnicodeAlias('midiOutGetErrorTextW')
 @winfunctype('WINMM.dll')
 def midiOutOpen(phmo: POINTER(win32more.Windows.Win32.Media.Audio.HMIDIOUT), uDeviceID: UInt32, dwCallback: UIntPtr, dwInstance: UIntPtr, fdwOpen: win32more.Windows.Win32.Media.Audio.MIDI_WAVE_OPEN_TYPE) -> UInt32: ...
 @winfunctype('WINMM.dll')
@@ -1041,10 +1064,12 @@ def midiInGetNumDevs() -> UInt32: ...
 def midiInGetDevCapsA(uDeviceID: UIntPtr, pmic: POINTER(win32more.Windows.Win32.Media.Audio.MIDIINCAPSA), cbmic: UInt32) -> UInt32: ...
 @winfunctype('WINMM.dll')
 def midiInGetDevCapsW(uDeviceID: UIntPtr, pmic: POINTER(win32more.Windows.Win32.Media.Audio.MIDIINCAPSW), cbmic: UInt32) -> UInt32: ...
+midiInGetDevCaps = UnicodeAlias('midiInGetDevCapsW')
 @winfunctype('WINMM.dll')
 def midiInGetErrorTextA(mmrError: UInt32, pszText: win32more.Windows.Win32.Foundation.PSTR, cchText: UInt32) -> UInt32: ...
 @winfunctype('WINMM.dll')
 def midiInGetErrorTextW(mmrError: UInt32, pszText: win32more.Windows.Win32.Foundation.PWSTR, cchText: UInt32) -> UInt32: ...
+midiInGetErrorText = UnicodeAlias('midiInGetErrorTextW')
 @winfunctype('WINMM.dll')
 def midiInOpen(phmi: POINTER(win32more.Windows.Win32.Media.Audio.HMIDIIN), uDeviceID: UInt32, dwCallback: UIntPtr, dwInstance: UIntPtr, fdwOpen: win32more.Windows.Win32.Media.Audio.MIDI_WAVE_OPEN_TYPE) -> UInt32: ...
 @winfunctype('WINMM.dll')
@@ -1071,6 +1096,7 @@ def auxGetNumDevs() -> UInt32: ...
 def auxGetDevCapsA(uDeviceID: UIntPtr, pac: POINTER(win32more.Windows.Win32.Media.Audio.AUXCAPSA), cbac: UInt32) -> UInt32: ...
 @winfunctype('WINMM.dll')
 def auxGetDevCapsW(uDeviceID: UIntPtr, pac: POINTER(win32more.Windows.Win32.Media.Audio.AUXCAPSW), cbac: UInt32) -> UInt32: ...
+auxGetDevCaps = UnicodeAlias('auxGetDevCapsW')
 @winfunctype('WINMM.dll')
 def auxSetVolume(uDeviceID: UInt32, dwVolume: UInt32) -> UInt32: ...
 @winfunctype('WINMM.dll')
@@ -1083,6 +1109,7 @@ def mixerGetNumDevs() -> UInt32: ...
 def mixerGetDevCapsA(uMxId: UIntPtr, pmxcaps: POINTER(win32more.Windows.Win32.Media.Audio.MIXERCAPSA), cbmxcaps: UInt32) -> UInt32: ...
 @winfunctype('WINMM.dll')
 def mixerGetDevCapsW(uMxId: UIntPtr, pmxcaps: POINTER(win32more.Windows.Win32.Media.Audio.MIXERCAPSW), cbmxcaps: UInt32) -> UInt32: ...
+mixerGetDevCaps = UnicodeAlias('mixerGetDevCapsW')
 @winfunctype('WINMM.dll')
 def mixerOpen(phmx: POINTER(win32more.Windows.Win32.Media.Audio.HMIXER), uMxId: UInt32, dwCallback: UIntPtr, dwInstance: UIntPtr, fdwOpen: UInt32) -> UInt32: ...
 @winfunctype('WINMM.dll')
@@ -1093,16 +1120,19 @@ def mixerMessage(hmx: win32more.Windows.Win32.Media.Audio.HMIXER, uMsg: UInt32, 
 def mixerGetLineInfoA(hmxobj: win32more.Windows.Win32.Media.Audio.HMIXEROBJ, pmxl: POINTER(win32more.Windows.Win32.Media.Audio.MIXERLINEA), fdwInfo: UInt32) -> UInt32: ...
 @winfunctype('WINMM.dll')
 def mixerGetLineInfoW(hmxobj: win32more.Windows.Win32.Media.Audio.HMIXEROBJ, pmxl: POINTER(win32more.Windows.Win32.Media.Audio.MIXERLINEW), fdwInfo: UInt32) -> UInt32: ...
+mixerGetLineInfo = UnicodeAlias('mixerGetLineInfoW')
 @winfunctype('WINMM.dll')
 def mixerGetID(hmxobj: win32more.Windows.Win32.Media.Audio.HMIXEROBJ, puMxId: POINTER(UInt32), fdwId: UInt32) -> UInt32: ...
 @winfunctype('WINMM.dll')
 def mixerGetLineControlsA(hmxobj: win32more.Windows.Win32.Media.Audio.HMIXEROBJ, pmxlc: POINTER(win32more.Windows.Win32.Media.Audio.MIXERLINECONTROLSA), fdwControls: UInt32) -> UInt32: ...
 @winfunctype('WINMM.dll')
 def mixerGetLineControlsW(hmxobj: win32more.Windows.Win32.Media.Audio.HMIXEROBJ, pmxlc: POINTER(win32more.Windows.Win32.Media.Audio.MIXERLINECONTROLSW), fdwControls: UInt32) -> UInt32: ...
+mixerGetLineControls = UnicodeAlias('mixerGetLineControlsW')
 @winfunctype('WINMM.dll')
 def mixerGetControlDetailsA(hmxobj: win32more.Windows.Win32.Media.Audio.HMIXEROBJ, pmxcd: POINTER(win32more.Windows.Win32.Media.Audio.MIXERCONTROLDETAILS), fdwDetails: UInt32) -> UInt32: ...
 @winfunctype('WINMM.dll')
 def mixerGetControlDetailsW(hmxobj: win32more.Windows.Win32.Media.Audio.HMIXEROBJ, pmxcd: POINTER(win32more.Windows.Win32.Media.Audio.MIXERCONTROLDETAILS), fdwDetails: UInt32) -> UInt32: ...
+mixerGetControlDetails = UnicodeAlias('mixerGetControlDetailsW')
 @winfunctype('WINMM.dll')
 def mixerSetControlDetails(hmxobj: win32more.Windows.Win32.Media.Audio.HMIXEROBJ, pmxcd: POINTER(win32more.Windows.Win32.Media.Audio.MIXERCONTROLDETAILS), fdwDetails: UInt32) -> UInt32: ...
 @winfunctype('MMDevAPI.dll')
@@ -1135,6 +1165,7 @@ def acmDriverID(hao: win32more.Windows.Win32.Media.Audio.HACMOBJ, phadid: POINTE
 def acmDriverAddA(phadid: POINTER(win32more.Windows.Win32.Media.Audio.HACMDRIVERID), hinstModule: win32more.Windows.Win32.Foundation.HINSTANCE, lParam: win32more.Windows.Win32.Foundation.LPARAM, dwPriority: UInt32, fdwAdd: UInt32) -> UInt32: ...
 @winfunctype('MSACM32.dll')
 def acmDriverAddW(phadid: POINTER(win32more.Windows.Win32.Media.Audio.HACMDRIVERID), hinstModule: win32more.Windows.Win32.Foundation.HINSTANCE, lParam: win32more.Windows.Win32.Foundation.LPARAM, dwPriority: UInt32, fdwAdd: UInt32) -> UInt32: ...
+acmDriverAdd = UnicodeAlias('acmDriverAddW')
 @winfunctype('MSACM32.dll')
 def acmDriverRemove(hadid: win32more.Windows.Win32.Media.Audio.HACMDRIVERID, fdwRemove: UInt32) -> UInt32: ...
 @winfunctype('MSACM32.dll')
@@ -1149,48 +1180,59 @@ def acmDriverPriority(hadid: win32more.Windows.Win32.Media.Audio.HACMDRIVERID, d
 def acmDriverDetailsA(hadid: win32more.Windows.Win32.Media.Audio.HACMDRIVERID, padd: POINTER(win32more.Windows.Win32.Media.Audio.ACMDRIVERDETAILSA), fdwDetails: UInt32) -> UInt32: ...
 @winfunctype('MSACM32.dll')
 def acmDriverDetailsW(hadid: win32more.Windows.Win32.Media.Audio.HACMDRIVERID, padd: POINTER(win32more.Windows.Win32.Media.Audio.ACMDRIVERDETAILSW), fdwDetails: UInt32) -> UInt32: ...
+acmDriverDetails = UnicodeAlias('acmDriverDetailsW')
 @winfunctype('MSACM32.dll')
 def acmFormatTagDetailsA(had: win32more.Windows.Win32.Media.Audio.HACMDRIVER, paftd: POINTER(win32more.Windows.Win32.Media.Audio.ACMFORMATTAGDETAILSA), fdwDetails: UInt32) -> UInt32: ...
 @winfunctype('MSACM32.dll')
 def acmFormatTagDetailsW(had: win32more.Windows.Win32.Media.Audio.HACMDRIVER, paftd: POINTER(win32more.Windows.Win32.Media.Audio.ACMFORMATTAGDETAILSW), fdwDetails: UInt32) -> UInt32: ...
+acmFormatTagDetails = UnicodeAlias('acmFormatTagDetailsW')
 @winfunctype('MSACM32.dll')
 def acmFormatTagEnumA(had: win32more.Windows.Win32.Media.Audio.HACMDRIVER, paftd: POINTER(win32more.Windows.Win32.Media.Audio.ACMFORMATTAGDETAILSA), fnCallback: win32more.Windows.Win32.Media.Audio.ACMFORMATTAGENUMCBA, dwInstance: UIntPtr, fdwEnum: UInt32) -> UInt32: ...
 @winfunctype('MSACM32.dll')
 def acmFormatTagEnumW(had: win32more.Windows.Win32.Media.Audio.HACMDRIVER, paftd: POINTER(win32more.Windows.Win32.Media.Audio.ACMFORMATTAGDETAILSW), fnCallback: win32more.Windows.Win32.Media.Audio.ACMFORMATTAGENUMCBW, dwInstance: UIntPtr, fdwEnum: UInt32) -> UInt32: ...
+acmFormatTagEnum = UnicodeAlias('acmFormatTagEnumW')
 @winfunctype('MSACM32.dll')
 def acmFormatDetailsA(had: win32more.Windows.Win32.Media.Audio.HACMDRIVER, pafd: POINTER(win32more.Windows.Win32.Media.Audio.ACMFORMATDETAILSA), fdwDetails: UInt32) -> UInt32: ...
 @winfunctype('MSACM32.dll')
 def acmFormatDetailsW(had: win32more.Windows.Win32.Media.Audio.HACMDRIVER, pafd: POINTER(win32more.Windows.Win32.Media.Audio.tACMFORMATDETAILSW), fdwDetails: UInt32) -> UInt32: ...
+acmFormatDetails = UnicodeAlias('acmFormatDetailsW')
 @winfunctype('MSACM32.dll')
 def acmFormatEnumA(had: win32more.Windows.Win32.Media.Audio.HACMDRIVER, pafd: POINTER(win32more.Windows.Win32.Media.Audio.ACMFORMATDETAILSA), fnCallback: win32more.Windows.Win32.Media.Audio.ACMFORMATENUMCBA, dwInstance: UIntPtr, fdwEnum: UInt32) -> UInt32: ...
 @winfunctype('MSACM32.dll')
 def acmFormatEnumW(had: win32more.Windows.Win32.Media.Audio.HACMDRIVER, pafd: POINTER(win32more.Windows.Win32.Media.Audio.tACMFORMATDETAILSW), fnCallback: win32more.Windows.Win32.Media.Audio.ACMFORMATENUMCBW, dwInstance: UIntPtr, fdwEnum: UInt32) -> UInt32: ...
+acmFormatEnum = UnicodeAlias('acmFormatEnumW')
 @winfunctype('MSACM32.dll')
 def acmFormatSuggest(had: win32more.Windows.Win32.Media.Audio.HACMDRIVER, pwfxSrc: POINTER(win32more.Windows.Win32.Media.Audio.WAVEFORMATEX), pwfxDst: POINTER(win32more.Windows.Win32.Media.Audio.WAVEFORMATEX), cbwfxDst: UInt32, fdwSuggest: UInt32) -> UInt32: ...
 @winfunctype('MSACM32.dll')
 def acmFormatChooseA(pafmtc: POINTER(win32more.Windows.Win32.Media.Audio.ACMFORMATCHOOSEA)) -> UInt32: ...
 @winfunctype('MSACM32.dll')
 def acmFormatChooseW(pafmtc: POINTER(win32more.Windows.Win32.Media.Audio.ACMFORMATCHOOSEW)) -> UInt32: ...
+acmFormatChoose = UnicodeAlias('acmFormatChooseW')
 @winfunctype('MSACM32.dll')
 def acmFilterTagDetailsA(had: win32more.Windows.Win32.Media.Audio.HACMDRIVER, paftd: POINTER(win32more.Windows.Win32.Media.Audio.ACMFILTERTAGDETAILSA), fdwDetails: UInt32) -> UInt32: ...
 @winfunctype('MSACM32.dll')
 def acmFilterTagDetailsW(had: win32more.Windows.Win32.Media.Audio.HACMDRIVER, paftd: POINTER(win32more.Windows.Win32.Media.Audio.ACMFILTERTAGDETAILSW), fdwDetails: UInt32) -> UInt32: ...
+acmFilterTagDetails = UnicodeAlias('acmFilterTagDetailsW')
 @winfunctype('MSACM32.dll')
 def acmFilterTagEnumA(had: win32more.Windows.Win32.Media.Audio.HACMDRIVER, paftd: POINTER(win32more.Windows.Win32.Media.Audio.ACMFILTERTAGDETAILSA), fnCallback: win32more.Windows.Win32.Media.Audio.ACMFILTERTAGENUMCBA, dwInstance: UIntPtr, fdwEnum: UInt32) -> UInt32: ...
 @winfunctype('MSACM32.dll')
 def acmFilterTagEnumW(had: win32more.Windows.Win32.Media.Audio.HACMDRIVER, paftd: POINTER(win32more.Windows.Win32.Media.Audio.ACMFILTERTAGDETAILSW), fnCallback: win32more.Windows.Win32.Media.Audio.ACMFILTERTAGENUMCBW, dwInstance: UIntPtr, fdwEnum: UInt32) -> UInt32: ...
+acmFilterTagEnum = UnicodeAlias('acmFilterTagEnumW')
 @winfunctype('MSACM32.dll')
 def acmFilterDetailsA(had: win32more.Windows.Win32.Media.Audio.HACMDRIVER, pafd: POINTER(win32more.Windows.Win32.Media.Audio.ACMFILTERDETAILSA), fdwDetails: UInt32) -> UInt32: ...
 @winfunctype('MSACM32.dll')
 def acmFilterDetailsW(had: win32more.Windows.Win32.Media.Audio.HACMDRIVER, pafd: POINTER(win32more.Windows.Win32.Media.Audio.ACMFILTERDETAILSW), fdwDetails: UInt32) -> UInt32: ...
+acmFilterDetails = UnicodeAlias('acmFilterDetailsW')
 @winfunctype('MSACM32.dll')
 def acmFilterEnumA(had: win32more.Windows.Win32.Media.Audio.HACMDRIVER, pafd: POINTER(win32more.Windows.Win32.Media.Audio.ACMFILTERDETAILSA), fnCallback: win32more.Windows.Win32.Media.Audio.ACMFILTERENUMCBA, dwInstance: UIntPtr, fdwEnum: UInt32) -> UInt32: ...
 @winfunctype('MSACM32.dll')
 def acmFilterEnumW(had: win32more.Windows.Win32.Media.Audio.HACMDRIVER, pafd: POINTER(win32more.Windows.Win32.Media.Audio.ACMFILTERDETAILSW), fnCallback: win32more.Windows.Win32.Media.Audio.ACMFILTERENUMCBW, dwInstance: UIntPtr, fdwEnum: UInt32) -> UInt32: ...
+acmFilterEnum = UnicodeAlias('acmFilterEnumW')
 @winfunctype('MSACM32.dll')
 def acmFilterChooseA(pafltrc: POINTER(win32more.Windows.Win32.Media.Audio.ACMFILTERCHOOSEA)) -> UInt32: ...
 @winfunctype('MSACM32.dll')
 def acmFilterChooseW(pafltrc: POINTER(win32more.Windows.Win32.Media.Audio.ACMFILTERCHOOSEW)) -> UInt32: ...
+acmFilterChoose = UnicodeAlias('acmFilterChooseW')
 @winfunctype('MSACM32.dll')
 def acmStreamOpen(phas: POINTER(win32more.Windows.Win32.Media.Audio.HACMSTREAM), had: win32more.Windows.Win32.Media.Audio.HACMDRIVER, pwfxSrc: POINTER(win32more.Windows.Win32.Media.Audio.WAVEFORMATEX), pwfxDst: POINTER(win32more.Windows.Win32.Media.Audio.WAVEFORMATEX), pwfltr: POINTER(win32more.Windows.Win32.Media.Audio.WAVEFILTER), dwCallback: UIntPtr, dwInstance: UIntPtr, fdwOpen: UInt32) -> UInt32: ...
 @winfunctype('MSACM32.dll')
@@ -2066,6 +2108,7 @@ class MIDIINCAPS2W(EasyCastStructure):
     ProductGuid: Guid
     NameGuid: Guid
     _pack_ = 1
+MIDIINCAPS2 = UnicodeAlias('MIDIINCAPS2W')
 class MIDIINCAPSA(EasyCastStructure):
     wMid: UInt16
     wPid: UInt16
@@ -2080,6 +2123,7 @@ class MIDIINCAPSW(EasyCastStructure):
     szPname: Char * 32
     dwSupport: UInt32
     _pack_ = 1
+MIDIINCAPS = UnicodeAlias('MIDIINCAPSW')
 class MIDIOUTCAPS2A(EasyCastStructure):
     wMid: UInt16
     wPid: UInt16
@@ -2108,6 +2152,7 @@ class MIDIOUTCAPS2W(EasyCastStructure):
     ProductGuid: Guid
     NameGuid: Guid
     _pack_ = 1
+MIDIOUTCAPS2 = UnicodeAlias('MIDIOUTCAPS2W')
 class MIDIOUTCAPSA(EasyCastStructure):
     wMid: UInt16
     wPid: UInt16
@@ -2130,6 +2175,7 @@ class MIDIOUTCAPSW(EasyCastStructure):
     wChannelMask: UInt16
     dwSupport: UInt32
     _pack_ = 1
+MIDIOUTCAPS = UnicodeAlias('MIDIOUTCAPSW')
 class MIDIPROPTEMPO(EasyCastStructure):
     cbStruct: UInt32
     dwTempo: UInt32
@@ -2180,6 +2226,7 @@ class MIXERCAPS2W(EasyCastStructure):
     ProductGuid: Guid
     NameGuid: Guid
     _pack_ = 1
+MIXERCAPS2 = UnicodeAlias('MIXERCAPS2W')
 class MIXERCAPSA(EasyCastStructure):
     wMid: UInt16
     wPid: UInt16
@@ -2196,6 +2243,7 @@ class MIXERCAPSW(EasyCastStructure):
     fdwSupport: UInt32
     cDestinations: UInt32
     _pack_ = 1
+MIXERCAPS = UnicodeAlias('MIXERCAPSW')
 class MIXERCONTROLA(EasyCastStructure):
     cbStruct: UInt32
     dwControlID: UInt32
@@ -2250,6 +2298,7 @@ class MIXERCONTROLDETAILS_LISTTEXTW(EasyCastStructure):
     dwParam2: UInt32
     szName: Char * 64
     _pack_ = 1
+MIXERCONTROLDETAILS_LISTTEXT = UnicodeAlias('MIXERCONTROLDETAILS_LISTTEXTW')
 class MIXERCONTROLDETAILS_SIGNED(EasyCastStructure):
     lValue: Int32
     _pack_ = 1
@@ -2285,6 +2334,7 @@ class MIXERCONTROLW(EasyCastStructure):
         cbCustomData: UInt32
         dwReserved: UInt32 * 6
         _pack_ = 1
+MIXERCONTROL = UnicodeAlias('MIXERCONTROLW')
 class MIXERLINEA(EasyCastStructure):
     cbStruct: UInt32
     dwDestination: UInt32
@@ -2332,6 +2382,7 @@ class MIXERLINECONTROLSW(EasyCastStructure):
         dwControlID: UInt32
         dwControlType: UInt32
         _pack_ = 1
+MIXERLINECONTROLS = UnicodeAlias('MIXERLINECONTROLSW')
 class MIXERLINEW(EasyCastStructure):
     cbStruct: UInt32
     dwDestination: UInt32
@@ -2355,6 +2406,7 @@ class MIXERLINEW(EasyCastStructure):
         vDriverVersion: UInt32
         szPname: Char * 32
         _pack_ = 1
+MIXERLINE = UnicodeAlias('MIXERLINEW')
 MIXERLINE_COMPONENTTYPE = UInt32
 MIXERLINE_COMPONENTTYPE_DST_DIGITAL: win32more.Windows.Win32.Media.Audio.MIXERLINE_COMPONENTTYPE = 1
 MIXERLINE_COMPONENTTYPE_DST_HEADPHONES: win32more.Windows.Win32.Media.Audio.MIXERLINE_COMPONENTTYPE = 5
@@ -2609,6 +2661,7 @@ class WAVEINCAPS2W(EasyCastStructure):
     ProductGuid: Guid
     NameGuid: Guid
     _pack_ = 1
+WAVEINCAPS2 = UnicodeAlias('WAVEINCAPS2W')
 class WAVEINCAPSA(EasyCastStructure):
     wMid: UInt16
     wPid: UInt16
@@ -2627,6 +2680,7 @@ class WAVEINCAPSW(EasyCastStructure):
     wChannels: UInt16
     wReserved1: UInt16
     _pack_ = 1
+WAVEINCAPS = UnicodeAlias('WAVEINCAPSW')
 class WAVEOUTCAPS2A(EasyCastStructure):
     wMid: UInt16
     wPid: UInt16
@@ -2653,6 +2707,7 @@ class WAVEOUTCAPS2W(EasyCastStructure):
     ProductGuid: Guid
     NameGuid: Guid
     _pack_ = 1
+WAVEOUTCAPS2 = UnicodeAlias('WAVEOUTCAPS2W')
 class WAVEOUTCAPSA(EasyCastStructure):
     wMid: UInt16
     wPid: UInt16
@@ -2673,6 +2728,7 @@ class WAVEOUTCAPSW(EasyCastStructure):
     wReserved1: UInt16
     dwSupport: UInt32
     _pack_ = 1
+WAVEOUTCAPS = UnicodeAlias('WAVEOUTCAPSW')
 _AUDCLNT_BUFFERFLAGS = Int32
 AUDCLNT_BUFFERFLAGS_DATA_DISCONTINUITY: win32more.Windows.Win32.Media.Audio._AUDCLNT_BUFFERFLAGS = 1
 AUDCLNT_BUFFERFLAGS_SILENT: win32more.Windows.Win32.Media.Audio._AUDCLNT_BUFFERFLAGS = 2

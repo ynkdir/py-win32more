@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Networking.ActiveDirectory
 import win32more.Windows.Win32.Networking.WinSock
@@ -1192,6 +1192,7 @@ def BinarySDToSecurityDescriptor(pSecurityDescriptor: win32more.Windows.Win32.Se
 def SecurityDescriptorToBinarySD(vVarSecDes: win32more.Windows.Win32.System.Variant.VARIANT, ppSecurityDescriptor: POINTER(win32more.Windows.Win32.Security.PSECURITY_DESCRIPTOR), pdwSDLength: POINTER(UInt32), pszServerName: win32more.Windows.Win32.Foundation.PWSTR, userName: win32more.Windows.Win32.Foundation.PWSTR, passWord: win32more.Windows.Win32.Foundation.PWSTR, dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('dsuiext.dll')
 def DsBrowseForContainerW(pInfo: POINTER(win32more.Windows.Win32.Networking.ActiveDirectory.DSBROWSEINFOW)) -> Int32: ...
+DsBrowseForContainer = UnicodeAlias('DsBrowseForContainerW')
 @winfunctype('dsuiext.dll')
 def DsBrowseForContainerA(pInfo: POINTER(win32more.Windows.Win32.Networking.ActiveDirectory.DSBROWSEINFOA)) -> Int32: ...
 @winfunctype('dsuiext.dll')
@@ -1214,164 +1215,202 @@ def ADsPropSendErrorMessage(hNotifyObj: win32more.Windows.Win32.Foundation.HWND,
 def ADsPropShowErrorDialog(hNotifyObj: win32more.Windows.Win32.Foundation.HWND, hPage: win32more.Windows.Win32.Foundation.HWND) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('DSPARSE.dll')
 def DsMakeSpnW(ServiceClass: win32more.Windows.Win32.Foundation.PWSTR, ServiceName: win32more.Windows.Win32.Foundation.PWSTR, InstanceName: win32more.Windows.Win32.Foundation.PWSTR, InstancePort: UInt16, Referrer: win32more.Windows.Win32.Foundation.PWSTR, pcSpnLength: POINTER(UInt32), pszSpn: win32more.Windows.Win32.Foundation.PWSTR) -> UInt32: ...
+DsMakeSpn = UnicodeAlias('DsMakeSpnW')
 @winfunctype('DSPARSE.dll')
 def DsMakeSpnA(ServiceClass: win32more.Windows.Win32.Foundation.PSTR, ServiceName: win32more.Windows.Win32.Foundation.PSTR, InstanceName: win32more.Windows.Win32.Foundation.PSTR, InstancePort: UInt16, Referrer: win32more.Windows.Win32.Foundation.PSTR, pcSpnLength: POINTER(UInt32), pszSpn: win32more.Windows.Win32.Foundation.PSTR) -> UInt32: ...
 @winfunctype('DSPARSE.dll')
 def DsCrackSpnA(pszSpn: win32more.Windows.Win32.Foundation.PSTR, pcServiceClass: POINTER(UInt32), ServiceClass: win32more.Windows.Win32.Foundation.PSTR, pcServiceName: POINTER(UInt32), ServiceName: win32more.Windows.Win32.Foundation.PSTR, pcInstanceName: POINTER(UInt32), InstanceName: win32more.Windows.Win32.Foundation.PSTR, pInstancePort: POINTER(UInt16)) -> UInt32: ...
 @winfunctype('DSPARSE.dll')
 def DsCrackSpnW(pszSpn: win32more.Windows.Win32.Foundation.PWSTR, pcServiceClass: POINTER(UInt32), ServiceClass: win32more.Windows.Win32.Foundation.PWSTR, pcServiceName: POINTER(UInt32), ServiceName: win32more.Windows.Win32.Foundation.PWSTR, pcInstanceName: POINTER(UInt32), InstanceName: win32more.Windows.Win32.Foundation.PWSTR, pInstancePort: POINTER(UInt16)) -> UInt32: ...
+DsCrackSpn = UnicodeAlias('DsCrackSpnW')
 @winfunctype('DSPARSE.dll')
 def DsQuoteRdnValueW(cUnquotedRdnValueLength: UInt32, psUnquotedRdnValue: win32more.Windows.Win32.Foundation.PWSTR, pcQuotedRdnValueLength: POINTER(UInt32), psQuotedRdnValue: win32more.Windows.Win32.Foundation.PWSTR) -> UInt32: ...
+DsQuoteRdnValue = UnicodeAlias('DsQuoteRdnValueW')
 @winfunctype('DSPARSE.dll')
 def DsQuoteRdnValueA(cUnquotedRdnValueLength: UInt32, psUnquotedRdnValue: win32more.Windows.Win32.Foundation.PSTR, pcQuotedRdnValueLength: POINTER(UInt32), psQuotedRdnValue: win32more.Windows.Win32.Foundation.PSTR) -> UInt32: ...
 @winfunctype('DSPARSE.dll')
 def DsUnquoteRdnValueW(cQuotedRdnValueLength: UInt32, psQuotedRdnValue: win32more.Windows.Win32.Foundation.PWSTR, pcUnquotedRdnValueLength: POINTER(UInt32), psUnquotedRdnValue: win32more.Windows.Win32.Foundation.PWSTR) -> UInt32: ...
+DsUnquoteRdnValue = UnicodeAlias('DsUnquoteRdnValueW')
 @winfunctype('DSPARSE.dll')
 def DsUnquoteRdnValueA(cQuotedRdnValueLength: UInt32, psQuotedRdnValue: win32more.Windows.Win32.Foundation.PSTR, pcUnquotedRdnValueLength: POINTER(UInt32), psUnquotedRdnValue: win32more.Windows.Win32.Foundation.PSTR) -> UInt32: ...
 @winfunctype('DSPARSE.dll')
 def DsGetRdnW(ppDN: POINTER(win32more.Windows.Win32.Foundation.PWSTR), pcDN: POINTER(UInt32), ppKey: POINTER(win32more.Windows.Win32.Foundation.PWSTR), pcKey: POINTER(UInt32), ppVal: POINTER(win32more.Windows.Win32.Foundation.PWSTR), pcVal: POINTER(UInt32)) -> UInt32: ...
 @winfunctype('DSPARSE.dll')
 def DsCrackUnquotedMangledRdnW(pszRDN: win32more.Windows.Win32.Foundation.PWSTR, cchRDN: UInt32, pGuid: POINTER(Guid), peDsMangleFor: POINTER(win32more.Windows.Win32.Networking.ActiveDirectory.DS_MANGLE_FOR)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+DsCrackUnquotedMangledRdn = UnicodeAlias('DsCrackUnquotedMangledRdnW')
 @winfunctype('DSPARSE.dll')
 def DsCrackUnquotedMangledRdnA(pszRDN: win32more.Windows.Win32.Foundation.PSTR, cchRDN: UInt32, pGuid: POINTER(Guid), peDsMangleFor: POINTER(win32more.Windows.Win32.Networking.ActiveDirectory.DS_MANGLE_FOR)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('DSPARSE.dll')
 def DsIsMangledRdnValueW(pszRdn: win32more.Windows.Win32.Foundation.PWSTR, cRdn: UInt32, eDsMangleForDesired: win32more.Windows.Win32.Networking.ActiveDirectory.DS_MANGLE_FOR) -> win32more.Windows.Win32.Foundation.BOOL: ...
+DsIsMangledRdnValue = UnicodeAlias('DsIsMangledRdnValueW')
 @winfunctype('DSPARSE.dll')
 def DsIsMangledRdnValueA(pszRdn: win32more.Windows.Win32.Foundation.PSTR, cRdn: UInt32, eDsMangleForDesired: win32more.Windows.Win32.Networking.ActiveDirectory.DS_MANGLE_FOR) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('DSPARSE.dll')
 def DsIsMangledDnA(pszDn: win32more.Windows.Win32.Foundation.PSTR, eDsMangleFor: win32more.Windows.Win32.Networking.ActiveDirectory.DS_MANGLE_FOR) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('DSPARSE.dll')
 def DsIsMangledDnW(pszDn: win32more.Windows.Win32.Foundation.PWSTR, eDsMangleFor: win32more.Windows.Win32.Networking.ActiveDirectory.DS_MANGLE_FOR) -> win32more.Windows.Win32.Foundation.BOOL: ...
+DsIsMangledDn = UnicodeAlias('DsIsMangledDnW')
 @winfunctype('DSPARSE.dll')
 def DsCrackSpn2A(pszSpn: win32more.Windows.Win32.Foundation.PSTR, cSpn: UInt32, pcServiceClass: POINTER(UInt32), ServiceClass: win32more.Windows.Win32.Foundation.PSTR, pcServiceName: POINTER(UInt32), ServiceName: win32more.Windows.Win32.Foundation.PSTR, pcInstanceName: POINTER(UInt32), InstanceName: win32more.Windows.Win32.Foundation.PSTR, pInstancePort: POINTER(UInt16)) -> UInt32: ...
 @winfunctype('DSPARSE.dll')
 def DsCrackSpn2W(pszSpn: win32more.Windows.Win32.Foundation.PWSTR, cSpn: UInt32, pcServiceClass: POINTER(UInt32), ServiceClass: win32more.Windows.Win32.Foundation.PWSTR, pcServiceName: POINTER(UInt32), ServiceName: win32more.Windows.Win32.Foundation.PWSTR, pcInstanceName: POINTER(UInt32), InstanceName: win32more.Windows.Win32.Foundation.PWSTR, pInstancePort: POINTER(UInt16)) -> UInt32: ...
+DsCrackSpn2 = UnicodeAlias('DsCrackSpn2W')
 @winfunctype('DSPARSE.dll')
 def DsCrackSpn3W(pszSpn: win32more.Windows.Win32.Foundation.PWSTR, cSpn: UInt32, pcHostName: POINTER(UInt32), HostName: win32more.Windows.Win32.Foundation.PWSTR, pcInstanceName: POINTER(UInt32), InstanceName: win32more.Windows.Win32.Foundation.PWSTR, pPortNumber: POINTER(UInt16), pcDomainName: POINTER(UInt32), DomainName: win32more.Windows.Win32.Foundation.PWSTR, pcRealmName: POINTER(UInt32), RealmName: win32more.Windows.Win32.Foundation.PWSTR) -> UInt32: ...
 @winfunctype('DSPARSE.dll')
 def DsCrackSpn4W(pszSpn: win32more.Windows.Win32.Foundation.PWSTR, cSpn: UInt32, pcHostName: POINTER(UInt32), HostName: win32more.Windows.Win32.Foundation.PWSTR, pcInstanceName: POINTER(UInt32), InstanceName: win32more.Windows.Win32.Foundation.PWSTR, pcPortName: POINTER(UInt32), PortName: win32more.Windows.Win32.Foundation.PWSTR, pcDomainName: POINTER(UInt32), DomainName: win32more.Windows.Win32.Foundation.PWSTR, pcRealmName: POINTER(UInt32), RealmName: win32more.Windows.Win32.Foundation.PWSTR) -> UInt32: ...
 @winfunctype('NTDSAPI.dll')
 def DsBindW(DomainControllerName: win32more.Windows.Win32.Foundation.PWSTR, DnsDomainName: win32more.Windows.Win32.Foundation.PWSTR, phDS: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> UInt32: ...
+DsBind = UnicodeAlias('DsBindW')
 @winfunctype('NTDSAPI.dll')
 def DsBindA(DomainControllerName: win32more.Windows.Win32.Foundation.PSTR, DnsDomainName: win32more.Windows.Win32.Foundation.PSTR, phDS: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> UInt32: ...
 @winfunctype('NTDSAPI.dll')
 def DsBindWithCredW(DomainControllerName: win32more.Windows.Win32.Foundation.PWSTR, DnsDomainName: win32more.Windows.Win32.Foundation.PWSTR, AuthIdentity: VoidPtr, phDS: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> UInt32: ...
+DsBindWithCred = UnicodeAlias('DsBindWithCredW')
 @winfunctype('NTDSAPI.dll')
 def DsBindWithCredA(DomainControllerName: win32more.Windows.Win32.Foundation.PSTR, DnsDomainName: win32more.Windows.Win32.Foundation.PSTR, AuthIdentity: VoidPtr, phDS: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> UInt32: ...
 @winfunctype('NTDSAPI.dll')
 def DsBindWithSpnW(DomainControllerName: win32more.Windows.Win32.Foundation.PWSTR, DnsDomainName: win32more.Windows.Win32.Foundation.PWSTR, AuthIdentity: VoidPtr, ServicePrincipalName: win32more.Windows.Win32.Foundation.PWSTR, phDS: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> UInt32: ...
+DsBindWithSpn = UnicodeAlias('DsBindWithSpnW')
 @winfunctype('NTDSAPI.dll')
 def DsBindWithSpnA(DomainControllerName: win32more.Windows.Win32.Foundation.PSTR, DnsDomainName: win32more.Windows.Win32.Foundation.PSTR, AuthIdentity: VoidPtr, ServicePrincipalName: win32more.Windows.Win32.Foundation.PSTR, phDS: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> UInt32: ...
 @winfunctype('NTDSAPI.dll')
 def DsBindWithSpnExW(DomainControllerName: win32more.Windows.Win32.Foundation.PWSTR, DnsDomainName: win32more.Windows.Win32.Foundation.PWSTR, AuthIdentity: VoidPtr, ServicePrincipalName: win32more.Windows.Win32.Foundation.PWSTR, BindFlags: UInt32, phDS: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> UInt32: ...
+DsBindWithSpnEx = UnicodeAlias('DsBindWithSpnExW')
 @winfunctype('NTDSAPI.dll')
 def DsBindWithSpnExA(DomainControllerName: win32more.Windows.Win32.Foundation.PSTR, DnsDomainName: win32more.Windows.Win32.Foundation.PSTR, AuthIdentity: VoidPtr, ServicePrincipalName: win32more.Windows.Win32.Foundation.PSTR, BindFlags: UInt32, phDS: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> UInt32: ...
 @winfunctype('NTDSAPI.dll')
 def DsBindByInstanceW(ServerName: win32more.Windows.Win32.Foundation.PWSTR, Annotation: win32more.Windows.Win32.Foundation.PWSTR, InstanceGuid: POINTER(Guid), DnsDomainName: win32more.Windows.Win32.Foundation.PWSTR, AuthIdentity: VoidPtr, ServicePrincipalName: win32more.Windows.Win32.Foundation.PWSTR, BindFlags: UInt32, phDS: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> UInt32: ...
+DsBindByInstance = UnicodeAlias('DsBindByInstanceW')
 @winfunctype('NTDSAPI.dll')
 def DsBindByInstanceA(ServerName: win32more.Windows.Win32.Foundation.PSTR, Annotation: win32more.Windows.Win32.Foundation.PSTR, InstanceGuid: POINTER(Guid), DnsDomainName: win32more.Windows.Win32.Foundation.PSTR, AuthIdentity: VoidPtr, ServicePrincipalName: win32more.Windows.Win32.Foundation.PSTR, BindFlags: UInt32, phDS: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> UInt32: ...
 @winfunctype('NTDSAPI.dll')
 def DsBindToISTGW(SiteName: win32more.Windows.Win32.Foundation.PWSTR, phDS: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> UInt32: ...
+DsBindToISTG = UnicodeAlias('DsBindToISTGW')
 @winfunctype('NTDSAPI.dll')
 def DsBindToISTGA(SiteName: win32more.Windows.Win32.Foundation.PSTR, phDS: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> UInt32: ...
 @winfunctype('NTDSAPI.dll')
 def DsBindingSetTimeout(hDS: win32more.Windows.Win32.Foundation.HANDLE, cTimeoutSecs: UInt32) -> UInt32: ...
 @winfunctype('NTDSAPI.dll')
 def DsUnBindW(phDS: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> UInt32: ...
+DsUnBind = UnicodeAlias('DsUnBindW')
 @winfunctype('NTDSAPI.dll')
 def DsUnBindA(phDS: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> UInt32: ...
 @winfunctype('NTDSAPI.dll')
 def DsMakePasswordCredentialsW(User: win32more.Windows.Win32.Foundation.PWSTR, Domain: win32more.Windows.Win32.Foundation.PWSTR, Password: win32more.Windows.Win32.Foundation.PWSTR, pAuthIdentity: POINTER(VoidPtr)) -> UInt32: ...
+DsMakePasswordCredentials = UnicodeAlias('DsMakePasswordCredentialsW')
 @winfunctype('NTDSAPI.dll')
 def DsMakePasswordCredentialsA(User: win32more.Windows.Win32.Foundation.PSTR, Domain: win32more.Windows.Win32.Foundation.PSTR, Password: win32more.Windows.Win32.Foundation.PSTR, pAuthIdentity: POINTER(VoidPtr)) -> UInt32: ...
 @winfunctype('NTDSAPI.dll')
 def DsFreePasswordCredentials(AuthIdentity: VoidPtr) -> Void: ...
 @winfunctype('NTDSAPI.dll')
 def DsCrackNamesW(hDS: win32more.Windows.Win32.Foundation.HANDLE, flags: win32more.Windows.Win32.Networking.ActiveDirectory.DS_NAME_FLAGS, formatOffered: win32more.Windows.Win32.Networking.ActiveDirectory.DS_NAME_FORMAT, formatDesired: win32more.Windows.Win32.Networking.ActiveDirectory.DS_NAME_FORMAT, cNames: UInt32, rpNames: POINTER(win32more.Windows.Win32.Foundation.PWSTR), ppResult: POINTER(POINTER(win32more.Windows.Win32.Networking.ActiveDirectory.DS_NAME_RESULTW))) -> UInt32: ...
+DsCrackNames = UnicodeAlias('DsCrackNamesW')
 @winfunctype('NTDSAPI.dll')
 def DsCrackNamesA(hDS: win32more.Windows.Win32.Foundation.HANDLE, flags: win32more.Windows.Win32.Networking.ActiveDirectory.DS_NAME_FLAGS, formatOffered: win32more.Windows.Win32.Networking.ActiveDirectory.DS_NAME_FORMAT, formatDesired: win32more.Windows.Win32.Networking.ActiveDirectory.DS_NAME_FORMAT, cNames: UInt32, rpNames: POINTER(win32more.Windows.Win32.Foundation.PSTR), ppResult: POINTER(POINTER(win32more.Windows.Win32.Networking.ActiveDirectory.DS_NAME_RESULTA))) -> UInt32: ...
 @winfunctype('NTDSAPI.dll')
 def DsFreeNameResultW(pResult: POINTER(win32more.Windows.Win32.Networking.ActiveDirectory.DS_NAME_RESULTW)) -> Void: ...
+DsFreeNameResult = UnicodeAlias('DsFreeNameResultW')
 @winfunctype('NTDSAPI.dll')
 def DsFreeNameResultA(pResult: POINTER(win32more.Windows.Win32.Networking.ActiveDirectory.DS_NAME_RESULTA)) -> Void: ...
 @winfunctype('NTDSAPI.dll')
 def DsGetSpnA(ServiceType: win32more.Windows.Win32.Networking.ActiveDirectory.DS_SPN_NAME_TYPE, ServiceClass: win32more.Windows.Win32.Foundation.PSTR, ServiceName: win32more.Windows.Win32.Foundation.PSTR, InstancePort: UInt16, cInstanceNames: UInt16, pInstanceNames: POINTER(win32more.Windows.Win32.Foundation.PSTR), pInstancePorts: POINTER(UInt16), pcSpn: POINTER(UInt32), prpszSpn: POINTER(POINTER(win32more.Windows.Win32.Foundation.PSTR))) -> UInt32: ...
 @winfunctype('NTDSAPI.dll')
 def DsGetSpnW(ServiceType: win32more.Windows.Win32.Networking.ActiveDirectory.DS_SPN_NAME_TYPE, ServiceClass: win32more.Windows.Win32.Foundation.PWSTR, ServiceName: win32more.Windows.Win32.Foundation.PWSTR, InstancePort: UInt16, cInstanceNames: UInt16, pInstanceNames: POINTER(win32more.Windows.Win32.Foundation.PWSTR), pInstancePorts: POINTER(UInt16), pcSpn: POINTER(UInt32), prpszSpn: POINTER(POINTER(win32more.Windows.Win32.Foundation.PWSTR))) -> UInt32: ...
+DsGetSpn = UnicodeAlias('DsGetSpnW')
 @winfunctype('NTDSAPI.dll')
 def DsFreeSpnArrayA(cSpn: UInt32, rpszSpn: POINTER(win32more.Windows.Win32.Foundation.PSTR)) -> Void: ...
 @winfunctype('NTDSAPI.dll')
 def DsFreeSpnArrayW(cSpn: UInt32, rpszSpn: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> Void: ...
+DsFreeSpnArray = UnicodeAlias('DsFreeSpnArrayW')
 @winfunctype('NTDSAPI.dll')
 def DsWriteAccountSpnA(hDS: win32more.Windows.Win32.Foundation.HANDLE, Operation: win32more.Windows.Win32.Networking.ActiveDirectory.DS_SPN_WRITE_OP, pszAccount: win32more.Windows.Win32.Foundation.PSTR, cSpn: UInt32, rpszSpn: POINTER(win32more.Windows.Win32.Foundation.PSTR)) -> UInt32: ...
 @winfunctype('NTDSAPI.dll')
 def DsWriteAccountSpnW(hDS: win32more.Windows.Win32.Foundation.HANDLE, Operation: win32more.Windows.Win32.Networking.ActiveDirectory.DS_SPN_WRITE_OP, pszAccount: win32more.Windows.Win32.Foundation.PWSTR, cSpn: UInt32, rpszSpn: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> UInt32: ...
+DsWriteAccountSpn = UnicodeAlias('DsWriteAccountSpnW')
 @winfunctype('NTDSAPI.dll')
 def DsClientMakeSpnForTargetServerW(ServiceClass: win32more.Windows.Win32.Foundation.PWSTR, ServiceName: win32more.Windows.Win32.Foundation.PWSTR, pcSpnLength: POINTER(UInt32), pszSpn: win32more.Windows.Win32.Foundation.PWSTR) -> UInt32: ...
+DsClientMakeSpnForTargetServer = UnicodeAlias('DsClientMakeSpnForTargetServerW')
 @winfunctype('NTDSAPI.dll')
 def DsClientMakeSpnForTargetServerA(ServiceClass: win32more.Windows.Win32.Foundation.PSTR, ServiceName: win32more.Windows.Win32.Foundation.PSTR, pcSpnLength: POINTER(UInt32), pszSpn: win32more.Windows.Win32.Foundation.PSTR) -> UInt32: ...
 @winfunctype('NTDSAPI.dll')
 def DsServerRegisterSpnA(Operation: win32more.Windows.Win32.Networking.ActiveDirectory.DS_SPN_WRITE_OP, ServiceClass: win32more.Windows.Win32.Foundation.PSTR, UserObjectDN: win32more.Windows.Win32.Foundation.PSTR) -> UInt32: ...
 @winfunctype('NTDSAPI.dll')
 def DsServerRegisterSpnW(Operation: win32more.Windows.Win32.Networking.ActiveDirectory.DS_SPN_WRITE_OP, ServiceClass: win32more.Windows.Win32.Foundation.PWSTR, UserObjectDN: win32more.Windows.Win32.Foundation.PWSTR) -> UInt32: ...
+DsServerRegisterSpn = UnicodeAlias('DsServerRegisterSpnW')
 @winfunctype('NTDSAPI.dll')
 def DsReplicaSyncA(hDS: win32more.Windows.Win32.Foundation.HANDLE, NameContext: win32more.Windows.Win32.Foundation.PSTR, pUuidDsaSrc: POINTER(Guid), Options: UInt32) -> UInt32: ...
 @winfunctype('NTDSAPI.dll')
 def DsReplicaSyncW(hDS: win32more.Windows.Win32.Foundation.HANDLE, NameContext: win32more.Windows.Win32.Foundation.PWSTR, pUuidDsaSrc: POINTER(Guid), Options: UInt32) -> UInt32: ...
+DsReplicaSync = UnicodeAlias('DsReplicaSyncW')
 @winfunctype('NTDSAPI.dll')
 def DsReplicaAddA(hDS: win32more.Windows.Win32.Foundation.HANDLE, NameContext: win32more.Windows.Win32.Foundation.PSTR, SourceDsaDn: win32more.Windows.Win32.Foundation.PSTR, TransportDn: win32more.Windows.Win32.Foundation.PSTR, SourceDsaAddress: win32more.Windows.Win32.Foundation.PSTR, pSchedule: POINTER(win32more.Windows.Win32.Networking.ActiveDirectory.SCHEDULE), Options: UInt32) -> UInt32: ...
 @winfunctype('NTDSAPI.dll')
 def DsReplicaAddW(hDS: win32more.Windows.Win32.Foundation.HANDLE, NameContext: win32more.Windows.Win32.Foundation.PWSTR, SourceDsaDn: win32more.Windows.Win32.Foundation.PWSTR, TransportDn: win32more.Windows.Win32.Foundation.PWSTR, SourceDsaAddress: win32more.Windows.Win32.Foundation.PWSTR, pSchedule: POINTER(win32more.Windows.Win32.Networking.ActiveDirectory.SCHEDULE), Options: UInt32) -> UInt32: ...
+DsReplicaAdd = UnicodeAlias('DsReplicaAddW')
 @winfunctype('NTDSAPI.dll')
 def DsReplicaDelA(hDS: win32more.Windows.Win32.Foundation.HANDLE, NameContext: win32more.Windows.Win32.Foundation.PSTR, DsaSrc: win32more.Windows.Win32.Foundation.PSTR, Options: UInt32) -> UInt32: ...
 @winfunctype('NTDSAPI.dll')
 def DsReplicaDelW(hDS: win32more.Windows.Win32.Foundation.HANDLE, NameContext: win32more.Windows.Win32.Foundation.PWSTR, DsaSrc: win32more.Windows.Win32.Foundation.PWSTR, Options: UInt32) -> UInt32: ...
+DsReplicaDel = UnicodeAlias('DsReplicaDelW')
 @winfunctype('NTDSAPI.dll')
 def DsReplicaModifyA(hDS: win32more.Windows.Win32.Foundation.HANDLE, NameContext: win32more.Windows.Win32.Foundation.PSTR, pUuidSourceDsa: POINTER(Guid), TransportDn: win32more.Windows.Win32.Foundation.PSTR, SourceDsaAddress: win32more.Windows.Win32.Foundation.PSTR, pSchedule: POINTER(win32more.Windows.Win32.Networking.ActiveDirectory.SCHEDULE), ReplicaFlags: UInt32, ModifyFields: UInt32, Options: UInt32) -> UInt32: ...
 @winfunctype('NTDSAPI.dll')
 def DsReplicaModifyW(hDS: win32more.Windows.Win32.Foundation.HANDLE, NameContext: win32more.Windows.Win32.Foundation.PWSTR, pUuidSourceDsa: POINTER(Guid), TransportDn: win32more.Windows.Win32.Foundation.PWSTR, SourceDsaAddress: win32more.Windows.Win32.Foundation.PWSTR, pSchedule: POINTER(win32more.Windows.Win32.Networking.ActiveDirectory.SCHEDULE), ReplicaFlags: UInt32, ModifyFields: UInt32, Options: UInt32) -> UInt32: ...
+DsReplicaModify = UnicodeAlias('DsReplicaModifyW')
 @winfunctype('NTDSAPI.dll')
 def DsReplicaUpdateRefsA(hDS: win32more.Windows.Win32.Foundation.HANDLE, NameContext: win32more.Windows.Win32.Foundation.PSTR, DsaDest: win32more.Windows.Win32.Foundation.PSTR, pUuidDsaDest: POINTER(Guid), Options: UInt32) -> UInt32: ...
 @winfunctype('NTDSAPI.dll')
 def DsReplicaUpdateRefsW(hDS: win32more.Windows.Win32.Foundation.HANDLE, NameContext: win32more.Windows.Win32.Foundation.PWSTR, DsaDest: win32more.Windows.Win32.Foundation.PWSTR, pUuidDsaDest: POINTER(Guid), Options: UInt32) -> UInt32: ...
+DsReplicaUpdateRefs = UnicodeAlias('DsReplicaUpdateRefsW')
 @winfunctype('NTDSAPI.dll')
 def DsReplicaSyncAllA(hDS: win32more.Windows.Win32.Foundation.HANDLE, pszNameContext: win32more.Windows.Win32.Foundation.PSTR, ulFlags: UInt32, pFnCallBack: IntPtr, pCallbackData: VoidPtr, pErrors: POINTER(POINTER(POINTER(win32more.Windows.Win32.Networking.ActiveDirectory.DS_REPSYNCALL_ERRINFOA)))) -> UInt32: ...
 @winfunctype('NTDSAPI.dll')
 def DsReplicaSyncAllW(hDS: win32more.Windows.Win32.Foundation.HANDLE, pszNameContext: win32more.Windows.Win32.Foundation.PWSTR, ulFlags: UInt32, pFnCallBack: IntPtr, pCallbackData: VoidPtr, pErrors: POINTER(POINTER(POINTER(win32more.Windows.Win32.Networking.ActiveDirectory.DS_REPSYNCALL_ERRINFOW)))) -> UInt32: ...
+DsReplicaSyncAll = UnicodeAlias('DsReplicaSyncAllW')
 @winfunctype('NTDSAPI.dll')
 def DsRemoveDsServerW(hDs: win32more.Windows.Win32.Foundation.HANDLE, ServerDN: win32more.Windows.Win32.Foundation.PWSTR, DomainDN: win32more.Windows.Win32.Foundation.PWSTR, fLastDcInDomain: POINTER(win32more.Windows.Win32.Foundation.BOOL), fCommit: win32more.Windows.Win32.Foundation.BOOL) -> UInt32: ...
+DsRemoveDsServer = UnicodeAlias('DsRemoveDsServerW')
 @winfunctype('NTDSAPI.dll')
 def DsRemoveDsServerA(hDs: win32more.Windows.Win32.Foundation.HANDLE, ServerDN: win32more.Windows.Win32.Foundation.PSTR, DomainDN: win32more.Windows.Win32.Foundation.PSTR, fLastDcInDomain: POINTER(win32more.Windows.Win32.Foundation.BOOL), fCommit: win32more.Windows.Win32.Foundation.BOOL) -> UInt32: ...
 @winfunctype('NTDSAPI.dll')
 def DsRemoveDsDomainW(hDs: win32more.Windows.Win32.Foundation.HANDLE, DomainDN: win32more.Windows.Win32.Foundation.PWSTR) -> UInt32: ...
+DsRemoveDsDomain = UnicodeAlias('DsRemoveDsDomainW')
 @winfunctype('NTDSAPI.dll')
 def DsRemoveDsDomainA(hDs: win32more.Windows.Win32.Foundation.HANDLE, DomainDN: win32more.Windows.Win32.Foundation.PSTR) -> UInt32: ...
 @winfunctype('NTDSAPI.dll')
 def DsListSitesA(hDs: win32more.Windows.Win32.Foundation.HANDLE, ppSites: POINTER(POINTER(win32more.Windows.Win32.Networking.ActiveDirectory.DS_NAME_RESULTA))) -> UInt32: ...
 @winfunctype('NTDSAPI.dll')
 def DsListSitesW(hDs: win32more.Windows.Win32.Foundation.HANDLE, ppSites: POINTER(POINTER(win32more.Windows.Win32.Networking.ActiveDirectory.DS_NAME_RESULTW))) -> UInt32: ...
+DsListSites = UnicodeAlias('DsListSitesW')
 @winfunctype('NTDSAPI.dll')
 def DsListServersInSiteA(hDs: win32more.Windows.Win32.Foundation.HANDLE, site: win32more.Windows.Win32.Foundation.PSTR, ppServers: POINTER(POINTER(win32more.Windows.Win32.Networking.ActiveDirectory.DS_NAME_RESULTA))) -> UInt32: ...
 @winfunctype('NTDSAPI.dll')
 def DsListServersInSiteW(hDs: win32more.Windows.Win32.Foundation.HANDLE, site: win32more.Windows.Win32.Foundation.PWSTR, ppServers: POINTER(POINTER(win32more.Windows.Win32.Networking.ActiveDirectory.DS_NAME_RESULTW))) -> UInt32: ...
+DsListServersInSite = UnicodeAlias('DsListServersInSiteW')
 @winfunctype('NTDSAPI.dll')
 def DsListDomainsInSiteA(hDs: win32more.Windows.Win32.Foundation.HANDLE, site: win32more.Windows.Win32.Foundation.PSTR, ppDomains: POINTER(POINTER(win32more.Windows.Win32.Networking.ActiveDirectory.DS_NAME_RESULTA))) -> UInt32: ...
 @winfunctype('NTDSAPI.dll')
 def DsListDomainsInSiteW(hDs: win32more.Windows.Win32.Foundation.HANDLE, site: win32more.Windows.Win32.Foundation.PWSTR, ppDomains: POINTER(POINTER(win32more.Windows.Win32.Networking.ActiveDirectory.DS_NAME_RESULTW))) -> UInt32: ...
+DsListDomainsInSite = UnicodeAlias('DsListDomainsInSiteW')
 @winfunctype('NTDSAPI.dll')
 def DsListServersForDomainInSiteA(hDs: win32more.Windows.Win32.Foundation.HANDLE, domain: win32more.Windows.Win32.Foundation.PSTR, site: win32more.Windows.Win32.Foundation.PSTR, ppServers: POINTER(POINTER(win32more.Windows.Win32.Networking.ActiveDirectory.DS_NAME_RESULTA))) -> UInt32: ...
 @winfunctype('NTDSAPI.dll')
 def DsListServersForDomainInSiteW(hDs: win32more.Windows.Win32.Foundation.HANDLE, domain: win32more.Windows.Win32.Foundation.PWSTR, site: win32more.Windows.Win32.Foundation.PWSTR, ppServers: POINTER(POINTER(win32more.Windows.Win32.Networking.ActiveDirectory.DS_NAME_RESULTW))) -> UInt32: ...
+DsListServersForDomainInSite = UnicodeAlias('DsListServersForDomainInSiteW')
 @winfunctype('NTDSAPI.dll')
 def DsListInfoForServerA(hDs: win32more.Windows.Win32.Foundation.HANDLE, server: win32more.Windows.Win32.Foundation.PSTR, ppInfo: POINTER(POINTER(win32more.Windows.Win32.Networking.ActiveDirectory.DS_NAME_RESULTA))) -> UInt32: ...
 @winfunctype('NTDSAPI.dll')
 def DsListInfoForServerW(hDs: win32more.Windows.Win32.Foundation.HANDLE, server: win32more.Windows.Win32.Foundation.PWSTR, ppInfo: POINTER(POINTER(win32more.Windows.Win32.Networking.ActiveDirectory.DS_NAME_RESULTW))) -> UInt32: ...
+DsListInfoForServer = UnicodeAlias('DsListInfoForServerW')
 @winfunctype('NTDSAPI.dll')
 def DsListRolesA(hDs: win32more.Windows.Win32.Foundation.HANDLE, ppRoles: POINTER(POINTER(win32more.Windows.Win32.Networking.ActiveDirectory.DS_NAME_RESULTA))) -> UInt32: ...
 @winfunctype('NTDSAPI.dll')
 def DsListRolesW(hDs: win32more.Windows.Win32.Foundation.HANDLE, ppRoles: POINTER(POINTER(win32more.Windows.Win32.Networking.ActiveDirectory.DS_NAME_RESULTW))) -> UInt32: ...
+DsListRoles = UnicodeAlias('DsListRolesW')
 @winfunctype('NTDSAPI.dll')
 def DsQuerySitesByCostW(hDS: win32more.Windows.Win32.Foundation.HANDLE, pwszFromSite: win32more.Windows.Win32.Foundation.PWSTR, rgwszToSites: POINTER(win32more.Windows.Win32.Foundation.PWSTR), cToSites: UInt32, dwFlags: UInt32, prgSiteInfo: POINTER(POINTER(win32more.Windows.Win32.Networking.ActiveDirectory.DS_SITE_COST_INFO))) -> UInt32: ...
+DsQuerySitesByCost = UnicodeAlias('DsQuerySitesByCostW')
 @winfunctype('NTDSAPI.dll')
 def DsQuerySitesByCostA(hDS: win32more.Windows.Win32.Foundation.HANDLE, pszFromSite: win32more.Windows.Win32.Foundation.PSTR, rgszToSites: POINTER(win32more.Windows.Win32.Foundation.PSTR), cToSites: UInt32, dwFlags: UInt32, prgSiteInfo: POINTER(POINTER(win32more.Windows.Win32.Networking.ActiveDirectory.DS_SITE_COST_INFO))) -> UInt32: ...
 @winfunctype('NTDSAPI.dll')
@@ -1382,20 +1421,25 @@ def DsMapSchemaGuidsA(hDs: win32more.Windows.Win32.Foundation.HANDLE, cGuids: UI
 def DsFreeSchemaGuidMapA(pGuidMap: POINTER(win32more.Windows.Win32.Networking.ActiveDirectory.DS_SCHEMA_GUID_MAPA)) -> Void: ...
 @winfunctype('NTDSAPI.dll')
 def DsMapSchemaGuidsW(hDs: win32more.Windows.Win32.Foundation.HANDLE, cGuids: UInt32, rGuids: POINTER(Guid), ppGuidMap: POINTER(POINTER(win32more.Windows.Win32.Networking.ActiveDirectory.DS_SCHEMA_GUID_MAPW))) -> UInt32: ...
+DsMapSchemaGuids = UnicodeAlias('DsMapSchemaGuidsW')
 @winfunctype('NTDSAPI.dll')
 def DsFreeSchemaGuidMapW(pGuidMap: POINTER(win32more.Windows.Win32.Networking.ActiveDirectory.DS_SCHEMA_GUID_MAPW)) -> Void: ...
+DsFreeSchemaGuidMap = UnicodeAlias('DsFreeSchemaGuidMapW')
 @winfunctype('NTDSAPI.dll')
 def DsGetDomainControllerInfoA(hDs: win32more.Windows.Win32.Foundation.HANDLE, DomainName: win32more.Windows.Win32.Foundation.PSTR, InfoLevel: UInt32, pcOut: POINTER(UInt32), ppInfo: POINTER(VoidPtr)) -> UInt32: ...
 @winfunctype('NTDSAPI.dll')
 def DsGetDomainControllerInfoW(hDs: win32more.Windows.Win32.Foundation.HANDLE, DomainName: win32more.Windows.Win32.Foundation.PWSTR, InfoLevel: UInt32, pcOut: POINTER(UInt32), ppInfo: POINTER(VoidPtr)) -> UInt32: ...
+DsGetDomainControllerInfo = UnicodeAlias('DsGetDomainControllerInfoW')
 @winfunctype('NTDSAPI.dll')
 def DsFreeDomainControllerInfoA(InfoLevel: UInt32, cInfo: UInt32, pInfo: VoidPtr) -> Void: ...
 @winfunctype('NTDSAPI.dll')
 def DsFreeDomainControllerInfoW(InfoLevel: UInt32, cInfo: UInt32, pInfo: VoidPtr) -> Void: ...
+DsFreeDomainControllerInfo = UnicodeAlias('DsFreeDomainControllerInfoW')
 @winfunctype('NTDSAPI.dll')
 def DsReplicaConsistencyCheck(hDS: win32more.Windows.Win32.Foundation.HANDLE, TaskID: win32more.Windows.Win32.Networking.ActiveDirectory.DS_KCC_TASKID, dwFlags: UInt32) -> UInt32: ...
 @winfunctype('NTDSAPI.dll')
 def DsReplicaVerifyObjectsW(hDS: win32more.Windows.Win32.Foundation.HANDLE, NameContext: win32more.Windows.Win32.Foundation.PWSTR, pUuidDsaSrc: POINTER(Guid), ulOptions: UInt32) -> UInt32: ...
+DsReplicaVerifyObjects = UnicodeAlias('DsReplicaVerifyObjectsW')
 @winfunctype('NTDSAPI.dll')
 def DsReplicaVerifyObjectsA(hDS: win32more.Windows.Win32.Foundation.HANDLE, NameContext: win32more.Windows.Win32.Foundation.PSTR, pUuidDsaSrc: POINTER(Guid), ulOptions: UInt32) -> UInt32: ...
 @winfunctype('NTDSAPI.dll')
@@ -1406,10 +1450,12 @@ def DsReplicaGetInfo2W(hDS: win32more.Windows.Win32.Foundation.HANDLE, InfoType:
 def DsReplicaFreeInfo(InfoType: win32more.Windows.Win32.Networking.ActiveDirectory.DS_REPL_INFO_TYPE, pInfo: VoidPtr) -> Void: ...
 @winfunctype('NTDSAPI.dll')
 def DsAddSidHistoryW(hDS: win32more.Windows.Win32.Foundation.HANDLE, Flags: UInt32, SrcDomain: win32more.Windows.Win32.Foundation.PWSTR, SrcPrincipal: win32more.Windows.Win32.Foundation.PWSTR, SrcDomainController: win32more.Windows.Win32.Foundation.PWSTR, SrcDomainCreds: VoidPtr, DstDomain: win32more.Windows.Win32.Foundation.PWSTR, DstPrincipal: win32more.Windows.Win32.Foundation.PWSTR) -> UInt32: ...
+DsAddSidHistory = UnicodeAlias('DsAddSidHistoryW')
 @winfunctype('NTDSAPI.dll')
 def DsAddSidHistoryA(hDS: win32more.Windows.Win32.Foundation.HANDLE, Flags: UInt32, SrcDomain: win32more.Windows.Win32.Foundation.PSTR, SrcPrincipal: win32more.Windows.Win32.Foundation.PSTR, SrcDomainController: win32more.Windows.Win32.Foundation.PSTR, SrcDomainCreds: VoidPtr, DstDomain: win32more.Windows.Win32.Foundation.PSTR, DstPrincipal: win32more.Windows.Win32.Foundation.PSTR) -> UInt32: ...
 @winfunctype('NTDSAPI.dll')
 def DsInheritSecurityIdentityW(hDS: win32more.Windows.Win32.Foundation.HANDLE, Flags: UInt32, SrcPrincipal: win32more.Windows.Win32.Foundation.PWSTR, DstPrincipal: win32more.Windows.Win32.Foundation.PWSTR) -> UInt32: ...
+DsInheritSecurityIdentity = UnicodeAlias('DsInheritSecurityIdentityW')
 @winfunctype('NTDSAPI.dll')
 def DsInheritSecurityIdentityA(hDS: win32more.Windows.Win32.Foundation.HANDLE, Flags: UInt32, SrcPrincipal: win32more.Windows.Win32.Foundation.PSTR, DstPrincipal: win32more.Windows.Win32.Foundation.PSTR) -> UInt32: ...
 @winfunctype('NETAPI32.dll')
@@ -1420,24 +1466,30 @@ def DsRoleFreeMemory(Buffer: VoidPtr) -> Void: ...
 def DsGetDcNameA(ComputerName: win32more.Windows.Win32.Foundation.PSTR, DomainName: win32more.Windows.Win32.Foundation.PSTR, DomainGuid: POINTER(Guid), SiteName: win32more.Windows.Win32.Foundation.PSTR, Flags: UInt32, DomainControllerInfo: POINTER(POINTER(win32more.Windows.Win32.Networking.ActiveDirectory.DOMAIN_CONTROLLER_INFOA))) -> UInt32: ...
 @winfunctype('NETAPI32.dll')
 def DsGetDcNameW(ComputerName: win32more.Windows.Win32.Foundation.PWSTR, DomainName: win32more.Windows.Win32.Foundation.PWSTR, DomainGuid: POINTER(Guid), SiteName: win32more.Windows.Win32.Foundation.PWSTR, Flags: UInt32, DomainControllerInfo: POINTER(POINTER(win32more.Windows.Win32.Networking.ActiveDirectory.DOMAIN_CONTROLLER_INFOW))) -> UInt32: ...
+DsGetDcName = UnicodeAlias('DsGetDcNameW')
 @winfunctype('NETAPI32.dll')
 def DsGetSiteNameA(ComputerName: win32more.Windows.Win32.Foundation.PSTR, SiteName: POINTER(win32more.Windows.Win32.Foundation.PSTR)) -> UInt32: ...
 @winfunctype('NETAPI32.dll')
 def DsGetSiteNameW(ComputerName: win32more.Windows.Win32.Foundation.PWSTR, SiteName: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> UInt32: ...
+DsGetSiteName = UnicodeAlias('DsGetSiteNameW')
 @winfunctype('NETAPI32.dll')
 def DsValidateSubnetNameW(SubnetName: win32more.Windows.Win32.Foundation.PWSTR) -> UInt32: ...
+DsValidateSubnetName = UnicodeAlias('DsValidateSubnetNameW')
 @winfunctype('NETAPI32.dll')
 def DsValidateSubnetNameA(SubnetName: win32more.Windows.Win32.Foundation.PSTR) -> UInt32: ...
 @winfunctype('NETAPI32.dll')
 def DsAddressToSiteNamesW(ComputerName: win32more.Windows.Win32.Foundation.PWSTR, EntryCount: UInt32, SocketAddresses: POINTER(win32more.Windows.Win32.Networking.WinSock.SOCKET_ADDRESS), SiteNames: POINTER(POINTER(win32more.Windows.Win32.Foundation.PWSTR))) -> UInt32: ...
+DsAddressToSiteNames = UnicodeAlias('DsAddressToSiteNamesW')
 @winfunctype('NETAPI32.dll')
 def DsAddressToSiteNamesA(ComputerName: win32more.Windows.Win32.Foundation.PSTR, EntryCount: UInt32, SocketAddresses: POINTER(win32more.Windows.Win32.Networking.WinSock.SOCKET_ADDRESS), SiteNames: POINTER(POINTER(win32more.Windows.Win32.Foundation.PSTR))) -> UInt32: ...
 @winfunctype('NETAPI32.dll')
 def DsAddressToSiteNamesExW(ComputerName: win32more.Windows.Win32.Foundation.PWSTR, EntryCount: UInt32, SocketAddresses: POINTER(win32more.Windows.Win32.Networking.WinSock.SOCKET_ADDRESS), SiteNames: POINTER(POINTER(win32more.Windows.Win32.Foundation.PWSTR)), SubnetNames: POINTER(POINTER(win32more.Windows.Win32.Foundation.PWSTR))) -> UInt32: ...
+DsAddressToSiteNamesEx = UnicodeAlias('DsAddressToSiteNamesExW')
 @winfunctype('NETAPI32.dll')
 def DsAddressToSiteNamesExA(ComputerName: win32more.Windows.Win32.Foundation.PSTR, EntryCount: UInt32, SocketAddresses: POINTER(win32more.Windows.Win32.Networking.WinSock.SOCKET_ADDRESS), SiteNames: POINTER(POINTER(win32more.Windows.Win32.Foundation.PSTR)), SubnetNames: POINTER(POINTER(win32more.Windows.Win32.Foundation.PSTR))) -> UInt32: ...
 @winfunctype('NETAPI32.dll')
 def DsEnumerateDomainTrustsW(ServerName: win32more.Windows.Win32.Foundation.PWSTR, Flags: UInt32, Domains: POINTER(POINTER(win32more.Windows.Win32.Networking.ActiveDirectory.DS_DOMAIN_TRUSTSW)), DomainCount: POINTER(UInt32)) -> UInt32: ...
+DsEnumerateDomainTrusts = UnicodeAlias('DsEnumerateDomainTrustsW')
 @winfunctype('NETAPI32.dll')
 def DsEnumerateDomainTrustsA(ServerName: win32more.Windows.Win32.Foundation.PSTR, Flags: UInt32, Domains: POINTER(POINTER(win32more.Windows.Win32.Networking.ActiveDirectory.DS_DOMAIN_TRUSTSA)), DomainCount: POINTER(UInt32)) -> UInt32: ...
 @winfunctype('NETAPI32.dll')
@@ -1446,18 +1498,22 @@ def DsGetForestTrustInformationW(ServerName: win32more.Windows.Win32.Foundation.
 def DsMergeForestTrustInformationW(DomainName: win32more.Windows.Win32.Foundation.PWSTR, NewForestTrustInfo: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.LSA_FOREST_TRUST_INFORMATION), OldForestTrustInfo: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.LSA_FOREST_TRUST_INFORMATION), MergedForestTrustInfo: POINTER(POINTER(win32more.Windows.Win32.Security.Authentication.Identity.LSA_FOREST_TRUST_INFORMATION))) -> UInt32: ...
 @winfunctype('NETAPI32.dll')
 def DsGetDcSiteCoverageW(ServerName: win32more.Windows.Win32.Foundation.PWSTR, EntryCount: POINTER(UInt32), SiteNames: POINTER(POINTER(win32more.Windows.Win32.Foundation.PWSTR))) -> UInt32: ...
+DsGetDcSiteCoverage = UnicodeAlias('DsGetDcSiteCoverageW')
 @winfunctype('NETAPI32.dll')
 def DsGetDcSiteCoverageA(ServerName: win32more.Windows.Win32.Foundation.PSTR, EntryCount: POINTER(UInt32), SiteNames: POINTER(POINTER(win32more.Windows.Win32.Foundation.PSTR))) -> UInt32: ...
 @winfunctype('NETAPI32.dll')
 def DsDeregisterDnsHostRecordsW(ServerName: win32more.Windows.Win32.Foundation.PWSTR, DnsDomainName: win32more.Windows.Win32.Foundation.PWSTR, DomainGuid: POINTER(Guid), DsaGuid: POINTER(Guid), DnsHostName: win32more.Windows.Win32.Foundation.PWSTR) -> UInt32: ...
+DsDeregisterDnsHostRecords = UnicodeAlias('DsDeregisterDnsHostRecordsW')
 @winfunctype('NETAPI32.dll')
 def DsDeregisterDnsHostRecordsA(ServerName: win32more.Windows.Win32.Foundation.PSTR, DnsDomainName: win32more.Windows.Win32.Foundation.PSTR, DomainGuid: POINTER(Guid), DsaGuid: POINTER(Guid), DnsHostName: win32more.Windows.Win32.Foundation.PSTR) -> UInt32: ...
 @winfunctype('NETAPI32.dll')
 def DsGetDcOpenW(DnsName: win32more.Windows.Win32.Foundation.PWSTR, OptionFlags: UInt32, SiteName: win32more.Windows.Win32.Foundation.PWSTR, DomainGuid: POINTER(Guid), DnsForestName: win32more.Windows.Win32.Foundation.PWSTR, DcFlags: UInt32, RetGetDcContext: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> UInt32: ...
+DsGetDcOpen = UnicodeAlias('DsGetDcOpenW')
 @winfunctype('NETAPI32.dll')
 def DsGetDcOpenA(DnsName: win32more.Windows.Win32.Foundation.PSTR, OptionFlags: UInt32, SiteName: win32more.Windows.Win32.Foundation.PSTR, DomainGuid: POINTER(Guid), DnsForestName: win32more.Windows.Win32.Foundation.PSTR, DcFlags: UInt32, RetGetDcContext: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> UInt32: ...
 @winfunctype('NETAPI32.dll')
 def DsGetDcNextW(GetDcContextHandle: win32more.Windows.Win32.Foundation.HANDLE, SockAddressCount: POINTER(UInt32), SockAddresses: POINTER(POINTER(win32more.Windows.Win32.Networking.WinSock.SOCKET_ADDRESS)), DnsHostName: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> UInt32: ...
+DsGetDcNext = UnicodeAlias('DsGetDcNextW')
 @winfunctype('NETAPI32.dll')
 def DsGetDcNextA(GetDcContextHandle: win32more.Windows.Win32.Foundation.HANDLE, SockAddressCount: POINTER(UInt32), SockAddresses: POINTER(POINTER(win32more.Windows.Win32.Networking.WinSock.SOCKET_ADDRESS)), DnsHostName: POINTER(win32more.Windows.Win32.Foundation.PSTR)) -> UInt32: ...
 @winfunctype('NETAPI32.dll')
@@ -1511,6 +1567,7 @@ class DOMAIN_CONTROLLER_INFOW(EasyCastStructure):
     Flags: UInt32
     DcSiteName: win32more.Windows.Win32.Foundation.PWSTR
     ClientSiteName: win32more.Windows.Win32.Foundation.PWSTR
+DOMAIN_CONTROLLER_INFO = UnicodeAlias('DOMAIN_CONTROLLER_INFOW')
 class DOMAIN_TREE(EasyCastStructure):
     dsSize: UInt32
     dwCount: UInt32
@@ -1540,6 +1597,7 @@ class DSBITEMW(EasyCastStructure):
     szDisplayName: Char * 64
     szIconLocation: Char * 260
     iIconResID: Int32
+DSBITEM = UnicodeAlias('DSBITEMW')
 class DSBROWSEINFOA(EasyCastStructure):
     cbStruct: UInt32
     hwndOwner: win32more.Windows.Win32.Foundation.HWND
@@ -1572,6 +1630,7 @@ class DSBROWSEINFOW(EasyCastStructure):
     pPassword: win32more.Windows.Win32.Foundation.PWSTR
     pszObjectClass: win32more.Windows.Win32.Foundation.PWSTR
     cchObjectClass: UInt32
+DSBROWSEINFO = UnicodeAlias('DSBROWSEINFOW')
 class DSCLASSCREATIONINFO(EasyCastStructure):
     dwFlags: UInt32
     clsidWizardDialog: Guid
@@ -1694,6 +1753,7 @@ class DS_DOMAIN_CONTROLLER_INFO_1W(EasyCastStructure):
     ServerObjectName: win32more.Windows.Win32.Foundation.PWSTR
     fIsPdc: win32more.Windows.Win32.Foundation.BOOL
     fDsEnabled: win32more.Windows.Win32.Foundation.BOOL
+DS_DOMAIN_CONTROLLER_INFO_1 = UnicodeAlias('DS_DOMAIN_CONTROLLER_INFO_1W')
 class DS_DOMAIN_CONTROLLER_INFO_2A(EasyCastStructure):
     NetbiosName: win32more.Windows.Win32.Foundation.PSTR
     DnsHostName: win32more.Windows.Win32.Foundation.PSTR
@@ -1724,6 +1784,7 @@ class DS_DOMAIN_CONTROLLER_INFO_2W(EasyCastStructure):
     ComputerObjectGuid: Guid
     ServerObjectGuid: Guid
     NtdsDsaObjectGuid: Guid
+DS_DOMAIN_CONTROLLER_INFO_2 = UnicodeAlias('DS_DOMAIN_CONTROLLER_INFO_2W')
 class DS_DOMAIN_CONTROLLER_INFO_3A(EasyCastStructure):
     NetbiosName: win32more.Windows.Win32.Foundation.PSTR
     DnsHostName: win32more.Windows.Win32.Foundation.PSTR
@@ -1756,6 +1817,7 @@ class DS_DOMAIN_CONTROLLER_INFO_3W(EasyCastStructure):
     ComputerObjectGuid: Guid
     ServerObjectGuid: Guid
     NtdsDsaObjectGuid: Guid
+DS_DOMAIN_CONTROLLER_INFO_3 = UnicodeAlias('DS_DOMAIN_CONTROLLER_INFO_3W')
 class DS_DOMAIN_TRUSTSA(EasyCastStructure):
     NetbiosDomainName: win32more.Windows.Win32.Foundation.PSTR
     DnsDomainName: win32more.Windows.Win32.Foundation.PSTR
@@ -1774,6 +1836,7 @@ class DS_DOMAIN_TRUSTSW(EasyCastStructure):
     TrustAttributes: UInt32
     DomainSid: win32more.Windows.Win32.Security.PSID
     DomainGuid: Guid
+DS_DOMAIN_TRUSTS = UnicodeAlias('DS_DOMAIN_TRUSTSW')
 DS_KCC_TASKID = Int32
 DS_KCC_TASKID_UPDATE_TOPOLOGY: win32more.Windows.Win32.Networking.ActiveDirectory.DS_KCC_TASKID = 0
 DS_MANGLE_FOR = Int32
@@ -1813,6 +1876,7 @@ class DS_NAME_RESULTA(EasyCastStructure):
 class DS_NAME_RESULTW(EasyCastStructure):
     cItems: UInt32
     rItems: POINTER(win32more.Windows.Win32.Networking.ActiveDirectory.DS_NAME_RESULT_ITEMW)
+DS_NAME_RESULT = UnicodeAlias('DS_NAME_RESULTW')
 class DS_NAME_RESULT_ITEMA(EasyCastStructure):
     status: UInt32
     pDomain: win32more.Windows.Win32.Foundation.PSTR
@@ -1821,6 +1885,7 @@ class DS_NAME_RESULT_ITEMW(EasyCastStructure):
     status: UInt32
     pDomain: win32more.Windows.Win32.Foundation.PWSTR
     pName: win32more.Windows.Win32.Foundation.PWSTR
+DS_NAME_RESULT_ITEM = UnicodeAlias('DS_NAME_RESULT_ITEMW')
 class DS_REPL_ATTR_META_DATA(EasyCastStructure):
     pszAttributeName: win32more.Windows.Win32.Foundation.PWSTR
     dwVersion: UInt32
@@ -2081,6 +2146,7 @@ class DS_REPSYNCALL_ERRINFOW(EasyCastStructure):
     error: win32more.Windows.Win32.Networking.ActiveDirectory.DS_REPSYNCALL_ERROR
     dwWin32Err: UInt32
     pszSrcId: win32more.Windows.Win32.Foundation.PWSTR
+DS_REPSYNCALL_ERRINFO = UnicodeAlias('DS_REPSYNCALL_ERRINFOW')
 DS_REPSYNCALL_ERROR = Int32
 DS_REPSYNCALL_WIN32_ERROR_CONTACTING_SERVER: win32more.Windows.Win32.Networking.ActiveDirectory.DS_REPSYNCALL_ERROR = 0
 DS_REPSYNCALL_WIN32_ERROR_REPLICATING: win32more.Windows.Win32.Networking.ActiveDirectory.DS_REPSYNCALL_ERROR = 1
@@ -2102,6 +2168,7 @@ class DS_REPSYNCALL_SYNCW(EasyCastStructure):
     pszNC: win32more.Windows.Win32.Foundation.PWSTR
     pguidSrc: POINTER(Guid)
     pguidDst: POINTER(Guid)
+DS_REPSYNCALL_SYNC = UnicodeAlias('DS_REPSYNCALL_SYNCW')
 class DS_REPSYNCALL_UPDATEA(EasyCastStructure):
     event: win32more.Windows.Win32.Networking.ActiveDirectory.DS_REPSYNCALL_EVENT
     pErrInfo: POINTER(win32more.Windows.Win32.Networking.ActiveDirectory.DS_REPSYNCALL_ERRINFOA)
@@ -2110,6 +2177,7 @@ class DS_REPSYNCALL_UPDATEW(EasyCastStructure):
     event: win32more.Windows.Win32.Networking.ActiveDirectory.DS_REPSYNCALL_EVENT
     pErrInfo: POINTER(win32more.Windows.Win32.Networking.ActiveDirectory.DS_REPSYNCALL_ERRINFOW)
     pSync: POINTER(win32more.Windows.Win32.Networking.ActiveDirectory.DS_REPSYNCALL_SYNCW)
+DS_REPSYNCALL_UPDATE = UnicodeAlias('DS_REPSYNCALL_UPDATEW')
 class DS_SCHEMA_GUID_MAPA(EasyCastStructure):
     guid: Guid
     guidType: UInt32
@@ -2118,6 +2186,7 @@ class DS_SCHEMA_GUID_MAPW(EasyCastStructure):
     guid: Guid
     guidType: UInt32
     pName: win32more.Windows.Win32.Foundation.PWSTR
+DS_SCHEMA_GUID_MAP = UnicodeAlias('DS_SCHEMA_GUID_MAPW')
 class DS_SELECTION(EasyCastStructure):
     pwzName: win32more.Windows.Win32.Foundation.PWSTR
     pwzADsPath: win32more.Windows.Win32.Foundation.PWSTR

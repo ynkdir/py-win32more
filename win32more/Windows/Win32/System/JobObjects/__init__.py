@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.System.JobObjects
@@ -8,10 +8,12 @@ import win32more.Windows.Win32.System.Threading
 def IsProcessInJob(ProcessHandle: win32more.Windows.Win32.Foundation.HANDLE, JobHandle: win32more.Windows.Win32.Foundation.HANDLE, Result: POINTER(win32more.Windows.Win32.Foundation.BOOL)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
 def CreateJobObjectW(lpJobAttributes: POINTER(win32more.Windows.Win32.Security.SECURITY_ATTRIBUTES), lpName: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.HANDLE: ...
+CreateJobObject = UnicodeAlias('CreateJobObjectW')
 @winfunctype('KERNEL32.dll')
 def FreeMemoryJobObject(Buffer: VoidPtr) -> Void: ...
 @winfunctype('KERNEL32.dll')
 def OpenJobObjectW(dwDesiredAccess: UInt32, bInheritHandle: win32more.Windows.Win32.Foundation.BOOL, lpName: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.HANDLE: ...
+OpenJobObject = UnicodeAlias('OpenJobObjectW')
 @winfunctype('KERNEL32.dll')
 def AssignProcessToJobObject(hJob: win32more.Windows.Win32.Foundation.HANDLE, hProcess: win32more.Windows.Win32.Foundation.HANDLE) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')

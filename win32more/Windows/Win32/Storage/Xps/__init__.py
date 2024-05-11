@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.Security
@@ -98,6 +98,7 @@ XPS_E_PACKAGE_WRITER_NOT_CLOSED: win32more.Windows.Win32.Foundation.HRESULT = -2
 def DeviceCapabilitiesA(pDevice: win32more.Windows.Win32.Foundation.PSTR, pPort: win32more.Windows.Win32.Foundation.PSTR, fwCapability: win32more.Windows.Win32.Storage.Xps.PRINTER_DEVICE_CAPABILITIES, pOutput: win32more.Windows.Win32.Foundation.PSTR, pDevMode: POINTER(win32more.Windows.Win32.Graphics.Gdi.DEVMODEA)) -> Int32: ...
 @winfunctype('winspool.drv')
 def DeviceCapabilitiesW(pDevice: win32more.Windows.Win32.Foundation.PWSTR, pPort: win32more.Windows.Win32.Foundation.PWSTR, fwCapability: win32more.Windows.Win32.Storage.Xps.PRINTER_DEVICE_CAPABILITIES, pOutput: win32more.Windows.Win32.Foundation.PWSTR, pDevMode: POINTER(win32more.Windows.Win32.Graphics.Gdi.DEVMODEW)) -> Int32: ...
+DeviceCapabilities = UnicodeAlias('DeviceCapabilitiesW')
 @winfunctype('GDI32.dll')
 def Escape(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, iEscape: Int32, cjIn: Int32, pvIn: win32more.Windows.Win32.Foundation.PSTR, pvOut: VoidPtr) -> Int32: ...
 @winfunctype('GDI32.dll')
@@ -106,6 +107,7 @@ def ExtEscape(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, iEscape: Int32, cjI
 def StartDocA(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, lpdi: POINTER(win32more.Windows.Win32.Storage.Xps.DOCINFOA)) -> Int32: ...
 @winfunctype('GDI32.dll')
 def StartDocW(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, lpdi: POINTER(win32more.Windows.Win32.Storage.Xps.DOCINFOW)) -> Int32: ...
+StartDoc = UnicodeAlias('StartDocW')
 @winfunctype('GDI32.dll')
 def EndDoc(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC) -> Int32: ...
 @winfunctype('GDI32.dll')
@@ -130,6 +132,7 @@ class DOCINFOW(EasyCastStructure):
     lpszOutput: win32more.Windows.Win32.Foundation.PWSTR
     lpszDatatype: win32more.Windows.Win32.Foundation.PWSTR
     fwType: UInt32
+DOCINFO = UnicodeAlias('DOCINFOW')
 class DRAWPATRECT(EasyCastStructure):
     ptPosition: win32more.Windows.Win32.Foundation.POINT
     ptSize: win32more.Windows.Win32.Foundation.POINT

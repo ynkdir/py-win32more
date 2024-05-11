@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.NetworkManagement.IpHelper
 import win32more.Windows.Win32.NetworkManagement.Ndis
@@ -770,10 +770,12 @@ def ConvertCompartmentIdToGuid(CompartmentId: UInt32, CompartmentGuid: POINTER(G
 def ConvertInterfaceNameToLuidA(InterfaceName: win32more.Windows.Win32.Foundation.PSTR, InterfaceLuid: POINTER(win32more.Windows.Win32.NetworkManagement.Ndis.NET_LUID_LH)) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('IPHLPAPI.dll')
 def ConvertInterfaceNameToLuidW(InterfaceName: win32more.Windows.Win32.Foundation.PWSTR, InterfaceLuid: POINTER(win32more.Windows.Win32.NetworkManagement.Ndis.NET_LUID_LH)) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
+ConvertInterfaceNameToLuid = UnicodeAlias('ConvertInterfaceNameToLuidW')
 @winfunctype('IPHLPAPI.dll')
 def ConvertInterfaceLuidToNameA(InterfaceLuid: POINTER(win32more.Windows.Win32.NetworkManagement.Ndis.NET_LUID_LH), InterfaceName: win32more.Windows.Win32.Foundation.PSTR, Length: UIntPtr) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('IPHLPAPI.dll')
 def ConvertInterfaceLuidToNameW(InterfaceLuid: POINTER(win32more.Windows.Win32.NetworkManagement.Ndis.NET_LUID_LH), InterfaceName: win32more.Windows.Win32.Foundation.PWSTR, Length: UIntPtr) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
+ConvertInterfaceLuidToName = UnicodeAlias('ConvertInterfaceLuidToNameW')
 @winfunctype('IPHLPAPI.dll')
 def ConvertInterfaceLuidToIndex(InterfaceLuid: POINTER(win32more.Windows.Win32.NetworkManagement.Ndis.NET_LUID_LH), InterfaceIndex: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('IPHLPAPI.dll')

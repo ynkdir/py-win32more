@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.UI.Input
 @winfunctype('USER32.dll')
@@ -8,6 +8,7 @@ def GetRawInputData(hRawInput: win32more.Windows.Win32.UI.Input.HRAWINPUT, uiCom
 def GetRawInputDeviceInfoA(hDevice: win32more.Windows.Win32.Foundation.HANDLE, uiCommand: win32more.Windows.Win32.UI.Input.RAW_INPUT_DEVICE_INFO_COMMAND, pData: VoidPtr, pcbSize: POINTER(UInt32)) -> UInt32: ...
 @winfunctype('USER32.dll')
 def GetRawInputDeviceInfoW(hDevice: win32more.Windows.Win32.Foundation.HANDLE, uiCommand: win32more.Windows.Win32.UI.Input.RAW_INPUT_DEVICE_INFO_COMMAND, pData: VoidPtr, pcbSize: POINTER(UInt32)) -> UInt32: ...
+GetRawInputDeviceInfo = UnicodeAlias('GetRawInputDeviceInfoW')
 @winfunctype('USER32.dll')
 def GetRawInputBuffer(pData: POINTER(win32more.Windows.Win32.UI.Input.RAWINPUT), pcbSize: POINTER(UInt32), cbSizeHeader: UInt32) -> UInt32: ...
 @winfunctype('USER32.dll')

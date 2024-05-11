@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Storage.Jet
 import win32more.Windows.Win32.Storage.StructuredStorage
@@ -958,14 +958,17 @@ def JetInit2(pinstance: POINTER(win32more.Windows.Win32.Storage.Jet.JET_INSTANCE
 def JetInit3A(pinstance: POINTER(win32more.Windows.Win32.Storage.Jet.JET_INSTANCE), prstInfo: POINTER(win32more.Windows.Win32.Storage.Jet.JET_RSTINFO_A), grbit: UInt32) -> Int32: ...
 @winfunctype('ESENT.dll')
 def JetInit3W(pinstance: POINTER(win32more.Windows.Win32.Storage.Jet.JET_INSTANCE), prstInfo: POINTER(win32more.Windows.Win32.Storage.Jet.JET_RSTINFO_W), grbit: UInt32) -> Int32: ...
+JetInit3 = UnicodeAlias('JetInit3W')
 @winfunctype('ESENT.dll')
 def JetCreateInstanceA(pinstance: POINTER(win32more.Windows.Win32.Storage.Jet.JET_INSTANCE), szInstanceName: POINTER(SByte)) -> Int32: ...
 @winfunctype('ESENT.dll')
 def JetCreateInstanceW(pinstance: POINTER(win32more.Windows.Win32.Storage.Jet.JET_INSTANCE), szInstanceName: POINTER(UInt16)) -> Int32: ...
+JetCreateInstance = UnicodeAlias('JetCreateInstanceW')
 @winfunctype('ESENT.dll')
 def JetCreateInstance2A(pinstance: POINTER(win32more.Windows.Win32.Storage.Jet.JET_INSTANCE), szInstanceName: POINTER(SByte), szDisplayName: POINTER(SByte), grbit: UInt32) -> Int32: ...
 @winfunctype('ESENT.dll')
 def JetCreateInstance2W(pinstance: POINTER(win32more.Windows.Win32.Storage.Jet.JET_INSTANCE), szInstanceName: POINTER(UInt16), szDisplayName: POINTER(UInt16), grbit: UInt32) -> Int32: ...
+JetCreateInstance2 = UnicodeAlias('JetCreateInstance2W')
 @winfunctype('ESENT.dll')
 def JetGetInstanceMiscInfo(instance: win32more.Windows.Win32.Storage.Jet.JET_INSTANCE, pvResult: VoidPtr, cbMax: UInt32, InfoLevel: UInt32) -> Int32: ...
 @winfunctype('ESENT.dll')
@@ -986,20 +989,24 @@ def JetStopBackupInstance(instance: win32more.Windows.Win32.Storage.Jet.JET_INST
 def JetSetSystemParameterA(pinstance: POINTER(win32more.Windows.Win32.Storage.Jet.JET_INSTANCE), sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, paramid: UInt32, lParam: win32more.Windows.Win32.Storage.StructuredStorage.JET_API_PTR, szParam: POINTER(SByte)) -> Int32: ...
 @winfunctype('ESENT.dll')
 def JetSetSystemParameterW(pinstance: POINTER(win32more.Windows.Win32.Storage.Jet.JET_INSTANCE), sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, paramid: UInt32, lParam: win32more.Windows.Win32.Storage.StructuredStorage.JET_API_PTR, szParam: POINTER(UInt16)) -> Int32: ...
+JetSetSystemParameter = UnicodeAlias('JetSetSystemParameterW')
 @winfunctype('ESENT.dll')
 def JetGetSystemParameterA(instance: win32more.Windows.Win32.Storage.Jet.JET_INSTANCE, sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, paramid: UInt32, plParam: POINTER(win32more.Windows.Win32.Storage.StructuredStorage.JET_API_PTR), szParam: POINTER(SByte), cbMax: UInt32) -> Int32: ...
 @winfunctype('ESENT.dll')
 def JetGetSystemParameterW(instance: win32more.Windows.Win32.Storage.Jet.JET_INSTANCE, sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, paramid: UInt32, plParam: POINTER(win32more.Windows.Win32.Storage.StructuredStorage.JET_API_PTR), szParam: POINTER(UInt16), cbMax: UInt32) -> Int32: ...
+JetGetSystemParameter = UnicodeAlias('JetGetSystemParameterW')
 @winfunctype('ESENT.dll')
 def JetEnableMultiInstanceA(psetsysparam: POINTER(win32more.Windows.Win32.Storage.Jet.JET_SETSYSPARAM_A), csetsysparam: UInt32, pcsetsucceed: POINTER(UInt32)) -> Int32: ...
 @winfunctype('ESENT.dll')
 def JetEnableMultiInstanceW(psetsysparam: POINTER(win32more.Windows.Win32.Storage.Jet.JET_SETSYSPARAM_W), csetsysparam: UInt32, pcsetsucceed: POINTER(UInt32)) -> Int32: ...
+JetEnableMultiInstance = UnicodeAlias('JetEnableMultiInstanceW')
 @winfunctype('ESENT.dll')
 def JetGetThreadStats(pvResult: VoidPtr, cbMax: UInt32) -> Int32: ...
 @winfunctype('ESENT.dll')
 def JetBeginSessionA(instance: win32more.Windows.Win32.Storage.Jet.JET_INSTANCE, psesid: POINTER(win32more.Windows.Win32.Storage.Jet.JET_SESID), szUserName: POINTER(SByte), szPassword: POINTER(SByte)) -> Int32: ...
 @winfunctype('ESENT.dll')
 def JetBeginSessionW(instance: win32more.Windows.Win32.Storage.Jet.JET_INSTANCE, psesid: POINTER(win32more.Windows.Win32.Storage.Jet.JET_SESID), szUserName: POINTER(UInt16), szPassword: POINTER(UInt16)) -> Int32: ...
+JetBeginSession = UnicodeAlias('JetBeginSessionW')
 @winfunctype('ESENT.dll')
 def JetDupSession(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, psesid: POINTER(win32more.Windows.Win32.Storage.Jet.JET_SESID)) -> Int32: ...
 @winfunctype('ESENT.dll')
@@ -1012,118 +1019,147 @@ def JetIdle(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, grbit: UInt32)
 def JetCreateDatabaseA(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, szFilename: POINTER(SByte), szConnect: POINTER(SByte), pdbid: POINTER(UInt32), grbit: UInt32) -> Int32: ...
 @winfunctype('ESENT.dll')
 def JetCreateDatabaseW(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, szFilename: POINTER(UInt16), szConnect: POINTER(UInt16), pdbid: POINTER(UInt32), grbit: UInt32) -> Int32: ...
+JetCreateDatabase = UnicodeAlias('JetCreateDatabaseW')
 @winfunctype('ESENT.dll')
 def JetCreateDatabase2A(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, szFilename: POINTER(SByte), cpgDatabaseSizeMax: UInt32, pdbid: POINTER(UInt32), grbit: UInt32) -> Int32: ...
 @winfunctype('ESENT.dll')
 def JetCreateDatabase2W(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, szFilename: POINTER(UInt16), cpgDatabaseSizeMax: UInt32, pdbid: POINTER(UInt32), grbit: UInt32) -> Int32: ...
+JetCreateDatabase2 = UnicodeAlias('JetCreateDatabase2W')
 @winfunctype('ESENT.dll')
 def JetAttachDatabaseA(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, szFilename: POINTER(SByte), grbit: UInt32) -> Int32: ...
 @winfunctype('ESENT.dll')
 def JetAttachDatabaseW(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, szFilename: POINTER(UInt16), grbit: UInt32) -> Int32: ...
+JetAttachDatabase = UnicodeAlias('JetAttachDatabaseW')
 @winfunctype('ESENT.dll')
 def JetAttachDatabase2A(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, szFilename: POINTER(SByte), cpgDatabaseSizeMax: UInt32, grbit: UInt32) -> Int32: ...
 @winfunctype('ESENT.dll')
 def JetAttachDatabase2W(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, szFilename: POINTER(UInt16), cpgDatabaseSizeMax: UInt32, grbit: UInt32) -> Int32: ...
+JetAttachDatabase2 = UnicodeAlias('JetAttachDatabase2W')
 @winfunctype('ESENT.dll')
 def JetDetachDatabaseA(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, szFilename: POINTER(SByte)) -> Int32: ...
 @winfunctype('ESENT.dll')
 def JetDetachDatabaseW(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, szFilename: POINTER(UInt16)) -> Int32: ...
+JetDetachDatabase = UnicodeAlias('JetDetachDatabaseW')
 @winfunctype('ESENT.dll')
 def JetDetachDatabase2A(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, szFilename: POINTER(SByte), grbit: UInt32) -> Int32: ...
 @winfunctype('ESENT.dll')
 def JetDetachDatabase2W(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, szFilename: POINTER(UInt16), grbit: UInt32) -> Int32: ...
+JetDetachDatabase2 = UnicodeAlias('JetDetachDatabase2W')
 @winfunctype('ESENT.dll')
 def JetGetObjectInfoA(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, dbid: UInt32, objtyp: UInt32, szContainerName: POINTER(SByte), szObjectName: POINTER(SByte), pvResult: VoidPtr, cbMax: UInt32, InfoLevel: UInt32) -> Int32: ...
 @winfunctype('ESENT.dll')
 def JetGetObjectInfoW(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, dbid: UInt32, objtyp: UInt32, szContainerName: POINTER(UInt16), szObjectName: POINTER(UInt16), pvResult: VoidPtr, cbMax: UInt32, InfoLevel: UInt32) -> Int32: ...
+JetGetObjectInfo = UnicodeAlias('JetGetObjectInfoW')
 @winfunctype('ESENT.dll')
 def JetGetTableInfoA(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, tableid: win32more.Windows.Win32.Storage.StructuredStorage.JET_TABLEID, pvResult: VoidPtr, cbMax: UInt32, InfoLevel: UInt32) -> Int32: ...
 @winfunctype('ESENT.dll')
 def JetGetTableInfoW(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, tableid: win32more.Windows.Win32.Storage.StructuredStorage.JET_TABLEID, pvResult: VoidPtr, cbMax: UInt32, InfoLevel: UInt32) -> Int32: ...
+JetGetTableInfo = UnicodeAlias('JetGetTableInfoW')
 @winfunctype('ESENT.dll')
 def JetCreateTableA(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, dbid: UInt32, szTableName: POINTER(SByte), lPages: UInt32, lDensity: UInt32, ptableid: POINTER(win32more.Windows.Win32.Storage.StructuredStorage.JET_TABLEID)) -> Int32: ...
 @winfunctype('ESENT.dll')
 def JetCreateTableW(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, dbid: UInt32, szTableName: POINTER(UInt16), lPages: UInt32, lDensity: UInt32, ptableid: POINTER(win32more.Windows.Win32.Storage.StructuredStorage.JET_TABLEID)) -> Int32: ...
+JetCreateTable = UnicodeAlias('JetCreateTableW')
 @winfunctype('ESENT.dll')
 def JetCreateTableColumnIndexA(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, dbid: UInt32, ptablecreate: POINTER(win32more.Windows.Win32.Storage.Jet.JET_TABLECREATE_A)) -> Int32: ...
 @winfunctype('ESENT.dll')
 def JetCreateTableColumnIndexW(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, dbid: UInt32, ptablecreate: POINTER(win32more.Windows.Win32.Storage.Jet.JET_TABLECREATE_W)) -> Int32: ...
+JetCreateTableColumnIndex = UnicodeAlias('JetCreateTableColumnIndexW')
 @winfunctype('ESENT.dll')
 def JetCreateTableColumnIndex2A(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, dbid: UInt32, ptablecreate: POINTER(win32more.Windows.Win32.Storage.Jet.JET_TABLECREATE2_A)) -> Int32: ...
 @winfunctype('ESENT.dll')
 def JetCreateTableColumnIndex2W(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, dbid: UInt32, ptablecreate: POINTER(win32more.Windows.Win32.Storage.Jet.JET_TABLECREATE2_W)) -> Int32: ...
+JetCreateTableColumnIndex2 = UnicodeAlias('JetCreateTableColumnIndex2W')
 @winfunctype('ESENT.dll')
 def JetCreateTableColumnIndex3A(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, dbid: UInt32, ptablecreate: POINTER(win32more.Windows.Win32.Storage.Jet.JET_TABLECREATE3_A)) -> Int32: ...
 @winfunctype('ESENT.dll')
 def JetCreateTableColumnIndex3W(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, dbid: UInt32, ptablecreate: POINTER(win32more.Windows.Win32.Storage.Jet.JET_TABLECREATE3_W)) -> Int32: ...
+JetCreateTableColumnIndex3 = UnicodeAlias('JetCreateTableColumnIndex3W')
 @winfunctype('ESENT.dll')
 def JetCreateTableColumnIndex4A(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, dbid: UInt32, ptablecreate: POINTER(win32more.Windows.Win32.Storage.Jet.JET_TABLECREATE4_A)) -> Int32: ...
 @winfunctype('ESENT.dll')
 def JetCreateTableColumnIndex4W(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, dbid: UInt32, ptablecreate: POINTER(win32more.Windows.Win32.Storage.Jet.JET_TABLECREATE4_W)) -> Int32: ...
+JetCreateTableColumnIndex4 = UnicodeAlias('JetCreateTableColumnIndex4W')
 @winfunctype('ESENT.dll')
 def JetDeleteTableA(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, dbid: UInt32, szTableName: POINTER(SByte)) -> Int32: ...
 @winfunctype('ESENT.dll')
 def JetDeleteTableW(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, dbid: UInt32, szTableName: POINTER(UInt16)) -> Int32: ...
+JetDeleteTable = UnicodeAlias('JetDeleteTableW')
 @winfunctype('ESENT.dll')
 def JetRenameTableA(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, dbid: UInt32, szName: POINTER(SByte), szNameNew: POINTER(SByte)) -> Int32: ...
 @winfunctype('ESENT.dll')
 def JetRenameTableW(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, dbid: UInt32, szName: POINTER(UInt16), szNameNew: POINTER(UInt16)) -> Int32: ...
+JetRenameTable = UnicodeAlias('JetRenameTableW')
 @winfunctype('ESENT.dll')
 def JetGetTableColumnInfoA(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, tableid: win32more.Windows.Win32.Storage.StructuredStorage.JET_TABLEID, szColumnName: POINTER(SByte), pvResult: VoidPtr, cbMax: UInt32, InfoLevel: UInt32) -> Int32: ...
 @winfunctype('ESENT.dll')
 def JetGetTableColumnInfoW(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, tableid: win32more.Windows.Win32.Storage.StructuredStorage.JET_TABLEID, szColumnName: POINTER(UInt16), pvResult: VoidPtr, cbMax: UInt32, InfoLevel: UInt32) -> Int32: ...
+JetGetTableColumnInfo = UnicodeAlias('JetGetTableColumnInfoW')
 @winfunctype('ESENT.dll')
 def JetGetColumnInfoA(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, dbid: UInt32, szTableName: POINTER(SByte), pColumnNameOrId: POINTER(SByte), pvResult: VoidPtr, cbMax: UInt32, InfoLevel: UInt32) -> Int32: ...
 @winfunctype('ESENT.dll')
 def JetGetColumnInfoW(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, dbid: UInt32, szTableName: POINTER(UInt16), pwColumnNameOrId: POINTER(UInt16), pvResult: VoidPtr, cbMax: UInt32, InfoLevel: UInt32) -> Int32: ...
+JetGetColumnInfo = UnicodeAlias('JetGetColumnInfoW')
 @winfunctype('ESENT.dll')
 def JetAddColumnA(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, tableid: win32more.Windows.Win32.Storage.StructuredStorage.JET_TABLEID, szColumnName: POINTER(SByte), pcolumndef: POINTER(win32more.Windows.Win32.Storage.Jet.JET_COLUMNDEF), pvDefault: VoidPtr, cbDefault: UInt32, pcolumnid: POINTER(UInt32)) -> Int32: ...
 @winfunctype('ESENT.dll')
 def JetAddColumnW(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, tableid: win32more.Windows.Win32.Storage.StructuredStorage.JET_TABLEID, szColumnName: POINTER(UInt16), pcolumndef: POINTER(win32more.Windows.Win32.Storage.Jet.JET_COLUMNDEF), pvDefault: VoidPtr, cbDefault: UInt32, pcolumnid: POINTER(UInt32)) -> Int32: ...
+JetAddColumn = UnicodeAlias('JetAddColumnW')
 @winfunctype('ESENT.dll')
 def JetDeleteColumnA(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, tableid: win32more.Windows.Win32.Storage.StructuredStorage.JET_TABLEID, szColumnName: POINTER(SByte)) -> Int32: ...
 @winfunctype('ESENT.dll')
 def JetDeleteColumnW(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, tableid: win32more.Windows.Win32.Storage.StructuredStorage.JET_TABLEID, szColumnName: POINTER(UInt16)) -> Int32: ...
+JetDeleteColumn = UnicodeAlias('JetDeleteColumnW')
 @winfunctype('ESENT.dll')
 def JetDeleteColumn2A(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, tableid: win32more.Windows.Win32.Storage.StructuredStorage.JET_TABLEID, szColumnName: POINTER(SByte), grbit: UInt32) -> Int32: ...
 @winfunctype('ESENT.dll')
 def JetDeleteColumn2W(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, tableid: win32more.Windows.Win32.Storage.StructuredStorage.JET_TABLEID, szColumnName: POINTER(UInt16), grbit: UInt32) -> Int32: ...
+JetDeleteColumn2 = UnicodeAlias('JetDeleteColumn2W')
 @winfunctype('ESENT.dll')
 def JetRenameColumnA(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, tableid: win32more.Windows.Win32.Storage.StructuredStorage.JET_TABLEID, szName: POINTER(SByte), szNameNew: POINTER(SByte), grbit: UInt32) -> Int32: ...
 @winfunctype('ESENT.dll')
 def JetRenameColumnW(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, tableid: win32more.Windows.Win32.Storage.StructuredStorage.JET_TABLEID, szName: POINTER(UInt16), szNameNew: POINTER(UInt16), grbit: UInt32) -> Int32: ...
+JetRenameColumn = UnicodeAlias('JetRenameColumnW')
 @winfunctype('ESENT.dll')
 def JetSetColumnDefaultValueA(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, dbid: UInt32, szTableName: POINTER(SByte), szColumnName: POINTER(SByte), pvData: VoidPtr, cbData: UInt32, grbit: UInt32) -> Int32: ...
 @winfunctype('ESENT.dll')
 def JetSetColumnDefaultValueW(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, dbid: UInt32, szTableName: POINTER(UInt16), szColumnName: POINTER(UInt16), pvData: VoidPtr, cbData: UInt32, grbit: UInt32) -> Int32: ...
+JetSetColumnDefaultValue = UnicodeAlias('JetSetColumnDefaultValueW')
 @winfunctype('ESENT.dll')
 def JetGetTableIndexInfoA(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, tableid: win32more.Windows.Win32.Storage.StructuredStorage.JET_TABLEID, szIndexName: POINTER(SByte), pvResult: VoidPtr, cbResult: UInt32, InfoLevel: UInt32) -> Int32: ...
 @winfunctype('ESENT.dll')
 def JetGetTableIndexInfoW(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, tableid: win32more.Windows.Win32.Storage.StructuredStorage.JET_TABLEID, szIndexName: POINTER(UInt16), pvResult: VoidPtr, cbResult: UInt32, InfoLevel: UInt32) -> Int32: ...
+JetGetTableIndexInfo = UnicodeAlias('JetGetTableIndexInfoW')
 @winfunctype('ESENT.dll')
 def JetGetIndexInfoA(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, dbid: UInt32, szTableName: POINTER(SByte), szIndexName: POINTER(SByte), pvResult: VoidPtr, cbResult: UInt32, InfoLevel: UInt32) -> Int32: ...
 @winfunctype('ESENT.dll')
 def JetGetIndexInfoW(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, dbid: UInt32, szTableName: POINTER(UInt16), szIndexName: POINTER(UInt16), pvResult: VoidPtr, cbResult: UInt32, InfoLevel: UInt32) -> Int32: ...
+JetGetIndexInfo = UnicodeAlias('JetGetIndexInfoW')
 @winfunctype('ESENT.dll')
 def JetCreateIndexA(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, tableid: win32more.Windows.Win32.Storage.StructuredStorage.JET_TABLEID, szIndexName: POINTER(SByte), grbit: UInt32, szKey: win32more.Windows.Win32.Foundation.PSTR, cbKey: UInt32, lDensity: UInt32) -> Int32: ...
 @winfunctype('ESENT.dll')
 def JetCreateIndexW(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, tableid: win32more.Windows.Win32.Storage.StructuredStorage.JET_TABLEID, szIndexName: POINTER(UInt16), grbit: UInt32, szKey: win32more.Windows.Win32.Foundation.PWSTR, cbKey: UInt32, lDensity: UInt32) -> Int32: ...
+JetCreateIndex = UnicodeAlias('JetCreateIndexW')
 @winfunctype('ESENT.dll')
 def JetCreateIndex2A(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, tableid: win32more.Windows.Win32.Storage.StructuredStorage.JET_TABLEID, pindexcreate: POINTER(win32more.Windows.Win32.Storage.Jet.JET_INDEXCREATE_A), cIndexCreate: UInt32) -> Int32: ...
 @winfunctype('ESENT.dll')
 def JetCreateIndex2W(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, tableid: win32more.Windows.Win32.Storage.StructuredStorage.JET_TABLEID, pindexcreate: POINTER(win32more.Windows.Win32.Storage.Jet.JET_INDEXCREATE_W), cIndexCreate: UInt32) -> Int32: ...
+JetCreateIndex2 = UnicodeAlias('JetCreateIndex2W')
 @winfunctype('ESENT.dll')
 def JetCreateIndex3A(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, tableid: win32more.Windows.Win32.Storage.StructuredStorage.JET_TABLEID, pindexcreate: POINTER(win32more.Windows.Win32.Storage.Jet.JET_INDEXCREATE2_A), cIndexCreate: UInt32) -> Int32: ...
 @winfunctype('ESENT.dll')
 def JetCreateIndex3W(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, tableid: win32more.Windows.Win32.Storage.StructuredStorage.JET_TABLEID, pindexcreate: POINTER(win32more.Windows.Win32.Storage.Jet.JET_INDEXCREATE2_W), cIndexCreate: UInt32) -> Int32: ...
+JetCreateIndex3 = UnicodeAlias('JetCreateIndex3W')
 @winfunctype('ESENT.dll')
 def JetCreateIndex4A(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, tableid: win32more.Windows.Win32.Storage.StructuredStorage.JET_TABLEID, pindexcreate: POINTER(win32more.Windows.Win32.Storage.Jet.JET_INDEXCREATE3_A), cIndexCreate: UInt32) -> Int32: ...
 @winfunctype('ESENT.dll')
 def JetCreateIndex4W(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, tableid: win32more.Windows.Win32.Storage.StructuredStorage.JET_TABLEID, pindexcreate: POINTER(win32more.Windows.Win32.Storage.Jet.JET_INDEXCREATE3_W), cIndexCreate: UInt32) -> Int32: ...
+JetCreateIndex4 = UnicodeAlias('JetCreateIndex4W')
 @winfunctype('ESENT.dll')
 def JetDeleteIndexA(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, tableid: win32more.Windows.Win32.Storage.StructuredStorage.JET_TABLEID, szIndexName: POINTER(SByte)) -> Int32: ...
 @winfunctype('ESENT.dll')
 def JetDeleteIndexW(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, tableid: win32more.Windows.Win32.Storage.StructuredStorage.JET_TABLEID, szIndexName: POINTER(UInt16)) -> Int32: ...
+JetDeleteIndex = UnicodeAlias('JetDeleteIndexW')
 @winfunctype('ESENT.dll')
 def JetBeginTransaction(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID) -> Int32: ...
 @winfunctype('ESENT.dll')
@@ -1140,20 +1176,24 @@ def JetRollback(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, grbit: UIn
 def JetGetDatabaseInfoA(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, dbid: UInt32, pvResult: VoidPtr, cbMax: UInt32, InfoLevel: UInt32) -> Int32: ...
 @winfunctype('ESENT.dll')
 def JetGetDatabaseInfoW(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, dbid: UInt32, pvResult: VoidPtr, cbMax: UInt32, InfoLevel: UInt32) -> Int32: ...
+JetGetDatabaseInfo = UnicodeAlias('JetGetDatabaseInfoW')
 @winfunctype('ESENT.dll')
 def JetGetDatabaseFileInfoA(szDatabaseName: POINTER(SByte), pvResult: VoidPtr, cbMax: UInt32, InfoLevel: UInt32) -> Int32: ...
 @winfunctype('ESENT.dll')
 def JetGetDatabaseFileInfoW(szDatabaseName: POINTER(UInt16), pvResult: VoidPtr, cbMax: UInt32, InfoLevel: UInt32) -> Int32: ...
+JetGetDatabaseFileInfo = UnicodeAlias('JetGetDatabaseFileInfoW')
 @winfunctype('ESENT.dll')
 def JetOpenDatabaseA(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, szFilename: POINTER(SByte), szConnect: POINTER(SByte), pdbid: POINTER(UInt32), grbit: UInt32) -> Int32: ...
 @winfunctype('ESENT.dll')
 def JetOpenDatabaseW(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, szFilename: POINTER(UInt16), szConnect: POINTER(UInt16), pdbid: POINTER(UInt32), grbit: UInt32) -> Int32: ...
+JetOpenDatabase = UnicodeAlias('JetOpenDatabaseW')
 @winfunctype('ESENT.dll')
 def JetCloseDatabase(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, dbid: UInt32, grbit: UInt32) -> Int32: ...
 @winfunctype('ESENT.dll')
 def JetOpenTableA(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, dbid: UInt32, szTableName: POINTER(SByte), pvParameters: VoidPtr, cbParameters: UInt32, grbit: UInt32, ptableid: POINTER(win32more.Windows.Win32.Storage.StructuredStorage.JET_TABLEID)) -> Int32: ...
 @winfunctype('ESENT.dll')
 def JetOpenTableW(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, dbid: UInt32, szTableName: POINTER(UInt16), pvParameters: VoidPtr, cbParameters: UInt32, grbit: UInt32, ptableid: POINTER(win32more.Windows.Win32.Storage.StructuredStorage.JET_TABLEID)) -> Int32: ...
+JetOpenTable = UnicodeAlias('JetOpenTableW')
 @winfunctype('ESENT.dll')
 def JetSetTableSequential(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, tableid: win32more.Windows.Win32.Storage.StructuredStorage.JET_TABLEID, grbit: UInt32) -> Int32: ...
 @winfunctype('ESENT.dll')
@@ -1196,22 +1236,27 @@ def JetDupCursor(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, tableid: 
 def JetGetCurrentIndexA(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, tableid: win32more.Windows.Win32.Storage.StructuredStorage.JET_TABLEID, szIndexName: POINTER(SByte), cbIndexName: UInt32) -> Int32: ...
 @winfunctype('ESENT.dll')
 def JetGetCurrentIndexW(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, tableid: win32more.Windows.Win32.Storage.StructuredStorage.JET_TABLEID, szIndexName: POINTER(UInt16), cbIndexName: UInt32) -> Int32: ...
+JetGetCurrentIndex = UnicodeAlias('JetGetCurrentIndexW')
 @winfunctype('ESENT.dll')
 def JetSetCurrentIndexA(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, tableid: win32more.Windows.Win32.Storage.StructuredStorage.JET_TABLEID, szIndexName: POINTER(SByte)) -> Int32: ...
 @winfunctype('ESENT.dll')
 def JetSetCurrentIndexW(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, tableid: win32more.Windows.Win32.Storage.StructuredStorage.JET_TABLEID, szIndexName: POINTER(UInt16)) -> Int32: ...
+JetSetCurrentIndex = UnicodeAlias('JetSetCurrentIndexW')
 @winfunctype('ESENT.dll')
 def JetSetCurrentIndex2A(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, tableid: win32more.Windows.Win32.Storage.StructuredStorage.JET_TABLEID, szIndexName: POINTER(SByte), grbit: UInt32) -> Int32: ...
 @winfunctype('ESENT.dll')
 def JetSetCurrentIndex2W(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, tableid: win32more.Windows.Win32.Storage.StructuredStorage.JET_TABLEID, szIndexName: POINTER(UInt16), grbit: UInt32) -> Int32: ...
+JetSetCurrentIndex2 = UnicodeAlias('JetSetCurrentIndex2W')
 @winfunctype('ESENT.dll')
 def JetSetCurrentIndex3A(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, tableid: win32more.Windows.Win32.Storage.StructuredStorage.JET_TABLEID, szIndexName: POINTER(SByte), grbit: UInt32, itagSequence: UInt32) -> Int32: ...
 @winfunctype('ESENT.dll')
 def JetSetCurrentIndex3W(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, tableid: win32more.Windows.Win32.Storage.StructuredStorage.JET_TABLEID, szIndexName: POINTER(UInt16), grbit: UInt32, itagSequence: UInt32) -> Int32: ...
+JetSetCurrentIndex3 = UnicodeAlias('JetSetCurrentIndex3W')
 @winfunctype('ESENT.dll')
 def JetSetCurrentIndex4A(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, tableid: win32more.Windows.Win32.Storage.StructuredStorage.JET_TABLEID, szIndexName: POINTER(SByte), pindexid: POINTER(win32more.Windows.Win32.Storage.Jet.JET_INDEXID), grbit: UInt32, itagSequence: UInt32) -> Int32: ...
 @winfunctype('ESENT.dll')
 def JetSetCurrentIndex4W(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, tableid: win32more.Windows.Win32.Storage.StructuredStorage.JET_TABLEID, szIndexName: POINTER(UInt16), pindexid: POINTER(win32more.Windows.Win32.Storage.Jet.JET_INDEXID), grbit: UInt32, itagSequence: UInt32) -> Int32: ...
+JetSetCurrentIndex4 = UnicodeAlias('JetSetCurrentIndex4W')
 @winfunctype('ESENT.dll')
 def JetMove(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, tableid: win32more.Windows.Win32.Storage.StructuredStorage.JET_TABLEID, cRow: Int32, grbit: UInt32) -> Int32: ...
 @winfunctype('ESENT.dll')
@@ -1234,22 +1279,27 @@ def JetGetSecondaryIndexBookmark(sesid: win32more.Windows.Win32.Storage.Jet.JET_
 def JetCompactA(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, szDatabaseSrc: POINTER(SByte), szDatabaseDest: POINTER(SByte), pfnStatus: win32more.Windows.Win32.Storage.Jet.JET_PFNSTATUS, pconvert: POINTER(win32more.Windows.Win32.Storage.Jet.JET_CONVERT_A), grbit: UInt32) -> Int32: ...
 @winfunctype('ESENT.dll')
 def JetCompactW(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, szDatabaseSrc: POINTER(UInt16), szDatabaseDest: POINTER(UInt16), pfnStatus: win32more.Windows.Win32.Storage.Jet.JET_PFNSTATUS, pconvert: POINTER(win32more.Windows.Win32.Storage.Jet.JET_CONVERT_W), grbit: UInt32) -> Int32: ...
+JetCompact = UnicodeAlias('JetCompactW')
 @winfunctype('ESENT.dll')
 def JetDefragmentA(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, dbid: UInt32, szTableName: POINTER(SByte), pcPasses: POINTER(UInt32), pcSeconds: POINTER(UInt32), grbit: UInt32) -> Int32: ...
 @winfunctype('ESENT.dll')
 def JetDefragmentW(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, dbid: UInt32, szTableName: POINTER(UInt16), pcPasses: POINTER(UInt32), pcSeconds: POINTER(UInt32), grbit: UInt32) -> Int32: ...
+JetDefragment = UnicodeAlias('JetDefragmentW')
 @winfunctype('ESENT.dll')
 def JetDefragment2A(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, dbid: UInt32, szTableName: POINTER(SByte), pcPasses: POINTER(UInt32), pcSeconds: POINTER(UInt32), callback: win32more.Windows.Win32.Storage.Jet.JET_CALLBACK, grbit: UInt32) -> Int32: ...
 @winfunctype('ESENT.dll')
 def JetDefragment2W(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, dbid: UInt32, szTableName: POINTER(UInt16), pcPasses: POINTER(UInt32), pcSeconds: POINTER(UInt32), callback: win32more.Windows.Win32.Storage.Jet.JET_CALLBACK, grbit: UInt32) -> Int32: ...
+JetDefragment2 = UnicodeAlias('JetDefragment2W')
 @winfunctype('ESENT.dll')
 def JetDefragment3A(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, szDatabaseName: POINTER(SByte), szTableName: POINTER(SByte), pcPasses: POINTER(UInt32), pcSeconds: POINTER(UInt32), callback: win32more.Windows.Win32.Storage.Jet.JET_CALLBACK, pvContext: VoidPtr, grbit: UInt32) -> Int32: ...
 @winfunctype('ESENT.dll')
 def JetDefragment3W(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, szDatabaseName: POINTER(UInt16), szTableName: POINTER(UInt16), pcPasses: POINTER(UInt32), pcSeconds: POINTER(UInt32), callback: win32more.Windows.Win32.Storage.Jet.JET_CALLBACK, pvContext: VoidPtr, grbit: UInt32) -> Int32: ...
+JetDefragment3 = UnicodeAlias('JetDefragment3W')
 @winfunctype('ESENT.dll')
 def JetSetDatabaseSizeA(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, szDatabaseName: POINTER(SByte), cpg: UInt32, pcpgReal: POINTER(UInt32)) -> Int32: ...
 @winfunctype('ESENT.dll')
 def JetSetDatabaseSizeW(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, szDatabaseName: POINTER(UInt16), cpg: UInt32, pcpgReal: POINTER(UInt32)) -> Int32: ...
+JetSetDatabaseSize = UnicodeAlias('JetSetDatabaseSizeW')
 @winfunctype('ESENT.dll')
 def JetGrowDatabase(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, dbid: UInt32, cpg: UInt32, pcpgReal: POINTER(UInt32)) -> Int32: ...
 @winfunctype('ESENT.dll')
@@ -1280,22 +1330,27 @@ def JetOpenTemporaryTable2(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID,
 def JetBackupA(szBackupPath: POINTER(SByte), grbit: UInt32, pfnStatus: win32more.Windows.Win32.Storage.Jet.JET_PFNSTATUS) -> Int32: ...
 @winfunctype('ESENT.dll')
 def JetBackupW(szBackupPath: POINTER(UInt16), grbit: UInt32, pfnStatus: win32more.Windows.Win32.Storage.Jet.JET_PFNSTATUS) -> Int32: ...
+JetBackup = UnicodeAlias('JetBackupW')
 @winfunctype('ESENT.dll')
 def JetBackupInstanceA(instance: win32more.Windows.Win32.Storage.Jet.JET_INSTANCE, szBackupPath: POINTER(SByte), grbit: UInt32, pfnStatus: win32more.Windows.Win32.Storage.Jet.JET_PFNSTATUS) -> Int32: ...
 @winfunctype('ESENT.dll')
 def JetBackupInstanceW(instance: win32more.Windows.Win32.Storage.Jet.JET_INSTANCE, szBackupPath: POINTER(UInt16), grbit: UInt32, pfnStatus: win32more.Windows.Win32.Storage.Jet.JET_PFNSTATUS) -> Int32: ...
+JetBackupInstance = UnicodeAlias('JetBackupInstanceW')
 @winfunctype('ESENT.dll')
 def JetRestoreA(szSource: POINTER(SByte), pfn: win32more.Windows.Win32.Storage.Jet.JET_PFNSTATUS) -> Int32: ...
 @winfunctype('ESENT.dll')
 def JetRestoreW(szSource: POINTER(UInt16), pfn: win32more.Windows.Win32.Storage.Jet.JET_PFNSTATUS) -> Int32: ...
+JetRestore = UnicodeAlias('JetRestoreW')
 @winfunctype('ESENT.dll')
 def JetRestore2A(sz: POINTER(SByte), szDest: POINTER(SByte), pfn: win32more.Windows.Win32.Storage.Jet.JET_PFNSTATUS) -> Int32: ...
 @winfunctype('ESENT.dll')
 def JetRestore2W(sz: POINTER(UInt16), szDest: POINTER(UInt16), pfn: win32more.Windows.Win32.Storage.Jet.JET_PFNSTATUS) -> Int32: ...
+JetRestore2 = UnicodeAlias('JetRestore2W')
 @winfunctype('ESENT.dll')
 def JetRestoreInstanceA(instance: win32more.Windows.Win32.Storage.Jet.JET_INSTANCE, sz: POINTER(SByte), szDest: POINTER(SByte), pfn: win32more.Windows.Win32.Storage.Jet.JET_PFNSTATUS) -> Int32: ...
 @winfunctype('ESENT.dll')
 def JetRestoreInstanceW(instance: win32more.Windows.Win32.Storage.Jet.JET_INSTANCE, sz: POINTER(UInt16), szDest: POINTER(UInt16), pfn: win32more.Windows.Win32.Storage.Jet.JET_PFNSTATUS) -> Int32: ...
+JetRestoreInstance = UnicodeAlias('JetRestoreInstanceW')
 @winfunctype('ESENT.dll')
 def JetSetIndexRange(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, tableidSrc: win32more.Windows.Win32.Storage.StructuredStorage.JET_TABLEID, grbit: UInt32) -> Int32: ...
 @winfunctype('ESENT.dll')
@@ -1310,18 +1365,22 @@ def JetBeginExternalBackupInstance(instance: win32more.Windows.Win32.Storage.Jet
 def JetGetAttachInfoA(szzDatabases: POINTER(SByte), cbMax: UInt32, pcbActual: POINTER(UInt32)) -> Int32: ...
 @winfunctype('ESENT.dll')
 def JetGetAttachInfoW(wszzDatabases: POINTER(UInt16), cbMax: UInt32, pcbActual: POINTER(UInt32)) -> Int32: ...
+JetGetAttachInfo = UnicodeAlias('JetGetAttachInfoW')
 @winfunctype('ESENT.dll')
 def JetGetAttachInfoInstanceA(instance: win32more.Windows.Win32.Storage.Jet.JET_INSTANCE, szzDatabases: POINTER(SByte), cbMax: UInt32, pcbActual: POINTER(UInt32)) -> Int32: ...
 @winfunctype('ESENT.dll')
 def JetGetAttachInfoInstanceW(instance: win32more.Windows.Win32.Storage.Jet.JET_INSTANCE, szzDatabases: POINTER(UInt16), cbMax: UInt32, pcbActual: POINTER(UInt32)) -> Int32: ...
+JetGetAttachInfoInstance = UnicodeAlias('JetGetAttachInfoInstanceW')
 @winfunctype('ESENT.dll')
 def JetOpenFileA(szFileName: POINTER(SByte), phfFile: POINTER(win32more.Windows.Win32.Storage.StructuredStorage.JET_HANDLE), pulFileSizeLow: POINTER(UInt32), pulFileSizeHigh: POINTER(UInt32)) -> Int32: ...
 @winfunctype('ESENT.dll')
 def JetOpenFileW(szFileName: POINTER(UInt16), phfFile: POINTER(win32more.Windows.Win32.Storage.StructuredStorage.JET_HANDLE), pulFileSizeLow: POINTER(UInt32), pulFileSizeHigh: POINTER(UInt32)) -> Int32: ...
+JetOpenFile = UnicodeAlias('JetOpenFileW')
 @winfunctype('ESENT.dll')
 def JetOpenFileInstanceA(instance: win32more.Windows.Win32.Storage.Jet.JET_INSTANCE, szFileName: POINTER(SByte), phfFile: POINTER(win32more.Windows.Win32.Storage.StructuredStorage.JET_HANDLE), pulFileSizeLow: POINTER(UInt32), pulFileSizeHigh: POINTER(UInt32)) -> Int32: ...
 @winfunctype('ESENT.dll')
 def JetOpenFileInstanceW(instance: win32more.Windows.Win32.Storage.Jet.JET_INSTANCE, szFileName: POINTER(UInt16), phfFile: POINTER(win32more.Windows.Win32.Storage.StructuredStorage.JET_HANDLE), pulFileSizeLow: POINTER(UInt32), pulFileSizeHigh: POINTER(UInt32)) -> Int32: ...
+JetOpenFileInstance = UnicodeAlias('JetOpenFileInstanceW')
 @winfunctype('ESENT.dll')
 def JetReadFile(hfFile: win32more.Windows.Win32.Storage.StructuredStorage.JET_HANDLE, pv: VoidPtr, cb: UInt32, pcbActual: POINTER(UInt32)) -> Int32: ...
 @winfunctype('ESENT.dll')
@@ -1334,18 +1393,22 @@ def JetCloseFileInstance(instance: win32more.Windows.Win32.Storage.Jet.JET_INSTA
 def JetGetLogInfoA(szzLogs: POINTER(SByte), cbMax: UInt32, pcbActual: POINTER(UInt32)) -> Int32: ...
 @winfunctype('ESENT.dll')
 def JetGetLogInfoW(szzLogs: POINTER(UInt16), cbMax: UInt32, pcbActual: POINTER(UInt32)) -> Int32: ...
+JetGetLogInfo = UnicodeAlias('JetGetLogInfoW')
 @winfunctype('ESENT.dll')
 def JetGetLogInfoInstanceA(instance: win32more.Windows.Win32.Storage.Jet.JET_INSTANCE, szzLogs: POINTER(SByte), cbMax: UInt32, pcbActual: POINTER(UInt32)) -> Int32: ...
 @winfunctype('ESENT.dll')
 def JetGetLogInfoInstanceW(instance: win32more.Windows.Win32.Storage.Jet.JET_INSTANCE, wszzLogs: POINTER(UInt16), cbMax: UInt32, pcbActual: POINTER(UInt32)) -> Int32: ...
+JetGetLogInfoInstance = UnicodeAlias('JetGetLogInfoInstanceW')
 @winfunctype('ESENT.dll')
 def JetGetLogInfoInstance2A(instance: win32more.Windows.Win32.Storage.Jet.JET_INSTANCE, szzLogs: POINTER(SByte), cbMax: UInt32, pcbActual: POINTER(UInt32), pLogInfo: POINTER(win32more.Windows.Win32.Storage.Jet.JET_LOGINFO_A)) -> Int32: ...
 @winfunctype('ESENT.dll')
 def JetGetLogInfoInstance2W(instance: win32more.Windows.Win32.Storage.Jet.JET_INSTANCE, wszzLogs: POINTER(UInt16), cbMax: UInt32, pcbActual: POINTER(UInt32), pLogInfo: POINTER(win32more.Windows.Win32.Storage.Jet.JET_LOGINFO_W)) -> Int32: ...
+JetGetLogInfoInstance2 = UnicodeAlias('JetGetLogInfoInstance2W')
 @winfunctype('ESENT.dll')
 def JetGetTruncateLogInfoInstanceA(instance: win32more.Windows.Win32.Storage.Jet.JET_INSTANCE, szzLogs: POINTER(SByte), cbMax: UInt32, pcbActual: POINTER(UInt32)) -> Int32: ...
 @winfunctype('ESENT.dll')
 def JetGetTruncateLogInfoInstanceW(instance: win32more.Windows.Win32.Storage.Jet.JET_INSTANCE, wszzLogs: POINTER(UInt16), cbMax: UInt32, pcbActual: POINTER(UInt32)) -> Int32: ...
+JetGetTruncateLogInfoInstance = UnicodeAlias('JetGetTruncateLogInfoInstanceW')
 @winfunctype('ESENT.dll')
 def JetTruncateLog() -> Int32: ...
 @winfunctype('ESENT.dll')
@@ -1360,10 +1423,12 @@ def JetEndExternalBackupInstance2(instance: win32more.Windows.Win32.Storage.Jet.
 def JetExternalRestoreA(szCheckpointFilePath: POINTER(SByte), szLogPath: POINTER(SByte), rgrstmap: POINTER(win32more.Windows.Win32.Storage.Jet.JET_RSTMAP_A), crstfilemap: Int32, szBackupLogPath: POINTER(SByte), genLow: Int32, genHigh: Int32, pfn: win32more.Windows.Win32.Storage.Jet.JET_PFNSTATUS) -> Int32: ...
 @winfunctype('ESENT.dll')
 def JetExternalRestoreW(szCheckpointFilePath: POINTER(UInt16), szLogPath: POINTER(UInt16), rgrstmap: POINTER(win32more.Windows.Win32.Storage.Jet.JET_RSTMAP_W), crstfilemap: Int32, szBackupLogPath: POINTER(UInt16), genLow: Int32, genHigh: Int32, pfn: win32more.Windows.Win32.Storage.Jet.JET_PFNSTATUS) -> Int32: ...
+JetExternalRestore = UnicodeAlias('JetExternalRestoreW')
 @winfunctype('ESENT.dll')
 def JetExternalRestore2A(szCheckpointFilePath: POINTER(SByte), szLogPath: POINTER(SByte), rgrstmap: POINTER(win32more.Windows.Win32.Storage.Jet.JET_RSTMAP_A), crstfilemap: Int32, szBackupLogPath: POINTER(SByte), pLogInfo: POINTER(win32more.Windows.Win32.Storage.Jet.JET_LOGINFO_A), szTargetInstanceName: POINTER(SByte), szTargetInstanceLogPath: POINTER(SByte), szTargetInstanceCheckpointPath: POINTER(SByte), pfn: win32more.Windows.Win32.Storage.Jet.JET_PFNSTATUS) -> Int32: ...
 @winfunctype('ESENT.dll')
 def JetExternalRestore2W(szCheckpointFilePath: POINTER(UInt16), szLogPath: POINTER(UInt16), rgrstmap: POINTER(win32more.Windows.Win32.Storage.Jet.JET_RSTMAP_W), crstfilemap: Int32, szBackupLogPath: POINTER(UInt16), pLogInfo: POINTER(win32more.Windows.Win32.Storage.Jet.JET_LOGINFO_W), szTargetInstanceName: POINTER(UInt16), szTargetInstanceLogPath: POINTER(UInt16), szTargetInstanceCheckpointPath: POINTER(UInt16), pfn: win32more.Windows.Win32.Storage.Jet.JET_PFNSTATUS) -> Int32: ...
+JetExternalRestore2 = UnicodeAlias('JetExternalRestore2W')
 @winfunctype('ESENT.dll')
 def JetRegisterCallback(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, tableid: win32more.Windows.Win32.Storage.StructuredStorage.JET_TABLEID, cbtyp: UInt32, pCallback: win32more.Windows.Win32.Storage.Jet.JET_CALLBACK, pvContext: VoidPtr, phCallbackId: POINTER(win32more.Windows.Win32.Storage.StructuredStorage.JET_HANDLE)) -> Int32: ...
 @winfunctype('ESENT.dll')
@@ -1372,6 +1437,7 @@ def JetUnregisterCallback(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, 
 def JetGetInstanceInfoA(pcInstanceInfo: POINTER(UInt32), paInstanceInfo: POINTER(POINTER(win32more.Windows.Win32.Storage.Jet.JET_INSTANCE_INFO_A))) -> Int32: ...
 @winfunctype('ESENT.dll')
 def JetGetInstanceInfoW(pcInstanceInfo: POINTER(UInt32), paInstanceInfo: POINTER(POINTER(win32more.Windows.Win32.Storage.Jet.JET_INSTANCE_INFO_W))) -> Int32: ...
+JetGetInstanceInfo = UnicodeAlias('JetGetInstanceInfoW')
 @winfunctype('ESENT.dll')
 def JetFreeBuffer(pbBuf: win32more.Windows.Win32.Foundation.PSTR) -> Int32: ...
 @winfunctype('ESENT.dll')
@@ -1386,6 +1452,7 @@ def JetOSSnapshotPrepareInstance(snapId: win32more.Windows.Win32.Storage.Jet.JET
 def JetOSSnapshotFreezeA(snapId: win32more.Windows.Win32.Storage.Jet.JET_OSSNAPID, pcInstanceInfo: POINTER(UInt32), paInstanceInfo: POINTER(POINTER(win32more.Windows.Win32.Storage.Jet.JET_INSTANCE_INFO_A)), grbit: UInt32) -> Int32: ...
 @winfunctype('ESENT.dll')
 def JetOSSnapshotFreezeW(snapId: win32more.Windows.Win32.Storage.Jet.JET_OSSNAPID, pcInstanceInfo: POINTER(UInt32), paInstanceInfo: POINTER(POINTER(win32more.Windows.Win32.Storage.Jet.JET_INSTANCE_INFO_W)), grbit: UInt32) -> Int32: ...
+JetOSSnapshotFreeze = UnicodeAlias('JetOSSnapshotFreezeW')
 @winfunctype('ESENT.dll')
 def JetOSSnapshotThaw(snapId: win32more.Windows.Win32.Storage.Jet.JET_OSSNAPID, grbit: UInt32) -> Int32: ...
 @winfunctype('ESENT.dll')
@@ -1398,6 +1465,7 @@ def JetOSSnapshotTruncateLogInstance(snapId: win32more.Windows.Win32.Storage.Jet
 def JetOSSnapshotGetFreezeInfoA(snapId: win32more.Windows.Win32.Storage.Jet.JET_OSSNAPID, pcInstanceInfo: POINTER(UInt32), paInstanceInfo: POINTER(POINTER(win32more.Windows.Win32.Storage.Jet.JET_INSTANCE_INFO_A)), grbit: UInt32) -> Int32: ...
 @winfunctype('ESENT.dll')
 def JetOSSnapshotGetFreezeInfoW(snapId: win32more.Windows.Win32.Storage.Jet.JET_OSSNAPID, pcInstanceInfo: POINTER(UInt32), paInstanceInfo: POINTER(POINTER(win32more.Windows.Win32.Storage.Jet.JET_INSTANCE_INFO_W)), grbit: UInt32) -> Int32: ...
+JetOSSnapshotGetFreezeInfo = UnicodeAlias('JetOSSnapshotGetFreezeInfoW')
 @winfunctype('ESENT.dll')
 def JetOSSnapshotEnd(snapId: win32more.Windows.Win32.Storage.Jet.JET_OSSNAPID, grbit: UInt32) -> Int32: ...
 @winfunctype('ESENT.dll')
@@ -1462,6 +1530,7 @@ class JET_COLUMNBASE_W(EasyCastStructure):
     grbit: UInt32
     szBaseTableName: Char * 256
     szBaseColumnName: Char * 256
+JET_COLUMNBASE = UnicodeAlias('JET_COLUMNBASE_W')
 class JET_COLUMNCREATE_A(EasyCastStructure):
     cbStruct: UInt32
     szColumnName: win32more.Windows.Win32.Foundation.PSTR
@@ -1484,6 +1553,7 @@ class JET_COLUMNCREATE_W(EasyCastStructure):
     cp: UInt32
     columnid: UInt32
     err: Int32
+JET_COLUMNCREATE = UnicodeAlias('JET_COLUMNCREATE_W')
 class JET_COLUMNDEF(EasyCastStructure):
     cbStruct: UInt32
     columnid: UInt32
@@ -1531,6 +1601,7 @@ class JET_CONDITIONALCOLUMN_W(EasyCastStructure):
     cbStruct: UInt32
     szColumnName: win32more.Windows.Win32.Foundation.PWSTR
     grbit: UInt32
+JET_CONDITIONALCOLUMN = UnicodeAlias('JET_CONDITIONALCOLUMN_W')
 class JET_CONVERT_A(EasyCastStructure):
     szOldDll: win32more.Windows.Win32.Foundation.PSTR
     Anonymous: _Anonymous_e__Union
@@ -1547,6 +1618,7 @@ class JET_CONVERT_W(EasyCastStructure):
         Anonymous: _Anonymous_e__Struct
         class _Anonymous_e__Struct(EasyCastStructure):
             _bitfield: UInt32
+JET_CONVERT = UnicodeAlias('JET_CONVERT_W')
 class JET_DBINFOMISC(EasyCastStructure):
     ulVersion: UInt32
     ulUpdate: UInt32
@@ -1790,6 +1862,7 @@ class JET_INDEXCREATE2_W(EasyCastStructure):
     class _Anonymous2_e__Union(EasyCastUnion):
         cbVarSegMac: UInt32
         ptuplelimits: POINTER(win32more.Windows.Win32.Storage.Jet.JET_TUPLELIMITS)
+JET_INDEXCREATE2 = UnicodeAlias('JET_INDEXCREATE2_W')
 class JET_INDEXCREATE3_A(EasyCastStructure):
     cbStruct: UInt32
     szIndexName: win32more.Windows.Win32.Foundation.PSTR
@@ -1824,6 +1897,7 @@ class JET_INDEXCREATE3_W(EasyCastStructure):
     class _Anonymous_e__Union(EasyCastUnion):
         cbVarSegMac: UInt32
         ptuplelimits: POINTER(win32more.Windows.Win32.Storage.Jet.JET_TUPLELIMITS)
+JET_INDEXCREATE3 = UnicodeAlias('JET_INDEXCREATE3_W')
 class JET_INDEXCREATE_A(EasyCastStructure):
     cbStruct: UInt32
     szIndexName: win32more.Windows.Win32.Foundation.PSTR
@@ -1862,6 +1936,7 @@ class JET_INDEXCREATE_W(EasyCastStructure):
     class _Anonymous2_e__Union(EasyCastUnion):
         cbVarSegMac: UInt32
         ptuplelimits: POINTER(win32more.Windows.Win32.Storage.Jet.JET_TUPLELIMITS)
+JET_INDEXCREATE = UnicodeAlias('JET_INDEXCREATE_W')
 if ARCH in 'X64,ARM64':
     class JET_INDEXID(EasyCastStructure):
         cbStruct: UInt32
@@ -1920,6 +1995,7 @@ class JET_INSTANCE_INFO_W(EasyCastStructure):
     szDatabaseFileName: POINTER(POINTER(UInt16))
     szDatabaseDisplayName: POINTER(POINTER(UInt16))
     szDatabaseSLVFileName_Obsolete: POINTER(POINTER(UInt16))
+JET_INSTANCE_INFO = UnicodeAlias('JET_INSTANCE_INFO_W')
 class JET_LGPOS(EasyCastStructure):
     ib: UInt16
     isec: UInt16
@@ -1935,6 +2011,7 @@ class JET_LOGINFO_W(EasyCastStructure):
     ulGenLow: UInt32
     ulGenHigh: UInt32
     szBaseName: Char * 4
+JET_LOGINFO = UnicodeAlias('JET_LOGINFO_W')
 class JET_LOGTIME(EasyCastStructure):
     bSeconds: win32more.Windows.Win32.Foundation.CHAR
     bMinutes: win32more.Windows.Win32.Foundation.CHAR
@@ -2136,12 +2213,14 @@ class JET_RSTINFO_W(EasyCastStructure):
     lgposStop: win32more.Windows.Win32.Storage.Jet.JET_LGPOS
     logtimeStop: win32more.Windows.Win32.Storage.Jet.JET_LOGTIME
     pfnStatus: win32more.Windows.Win32.Storage.Jet.JET_PFNSTATUS
+JET_RSTINFO = UnicodeAlias('JET_RSTINFO_W')
 class JET_RSTMAP_A(EasyCastStructure):
     szDatabaseName: win32more.Windows.Win32.Foundation.PSTR
     szNewDatabaseName: win32more.Windows.Win32.Foundation.PSTR
 class JET_RSTMAP_W(EasyCastStructure):
     szDatabaseName: win32more.Windows.Win32.Foundation.PWSTR
     szNewDatabaseName: win32more.Windows.Win32.Foundation.PWSTR
+JET_RSTMAP = UnicodeAlias('JET_RSTMAP_W')
 JET_SESID = UIntPtr
 class JET_SETCOLUMN(EasyCastStructure):
     columnid: UInt32
@@ -2165,6 +2244,7 @@ class JET_SETSYSPARAM_W(EasyCastStructure):
     lParam: win32more.Windows.Win32.Storage.StructuredStorage.JET_API_PTR
     sz: win32more.Windows.Win32.Foundation.PWSTR
     err: Int32
+JET_SETSYSPARAM = UnicodeAlias('JET_SETSYSPARAM_W')
 class JET_SIGNATURE(EasyCastStructure):
     ulRandom: UInt32
     logtimeCreate: win32more.Windows.Win32.Storage.Jet.JET_LOGTIME
@@ -2213,6 +2293,7 @@ class JET_TABLECREATE2_W(EasyCastStructure):
     grbit: UInt32
     tableid: win32more.Windows.Win32.Storage.StructuredStorage.JET_TABLEID
     cCreated: UInt32
+JET_TABLECREATE2 = UnicodeAlias('JET_TABLECREATE2_W')
 class JET_TABLECREATE3_A(EasyCastStructure):
     cbStruct: UInt32
     szTableName: win32more.Windows.Win32.Foundation.PSTR
@@ -2249,6 +2330,7 @@ class JET_TABLECREATE3_W(EasyCastStructure):
     cbSeparateLV: UInt32
     tableid: win32more.Windows.Win32.Storage.StructuredStorage.JET_TABLEID
     cCreated: UInt32
+JET_TABLECREATE3 = UnicodeAlias('JET_TABLECREATE3_W')
 class JET_TABLECREATE4_A(EasyCastStructure):
     cbStruct: UInt32
     szTableName: win32more.Windows.Win32.Foundation.PSTR
@@ -2285,6 +2367,7 @@ class JET_TABLECREATE4_W(EasyCastStructure):
     cbSeparateLV: UInt32
     tableid: win32more.Windows.Win32.Storage.StructuredStorage.JET_TABLEID
     cCreated: UInt32
+JET_TABLECREATE4 = UnicodeAlias('JET_TABLECREATE4_W')
 class JET_TABLECREATE_A(EasyCastStructure):
     cbStruct: UInt32
     szTableName: win32more.Windows.Win32.Foundation.PSTR
@@ -2311,6 +2394,7 @@ class JET_TABLECREATE_W(EasyCastStructure):
     grbit: UInt32
     tableid: win32more.Windows.Win32.Storage.StructuredStorage.JET_TABLEID
     cCreated: UInt32
+JET_TABLECREATE = UnicodeAlias('JET_TABLECREATE_W')
 class JET_THREADSTATS(EasyCastStructure):
     cbStruct: UInt32
     cPageReferenced: UInt32
@@ -2367,6 +2451,7 @@ class JET_USERDEFINEDDEFAULT_W(EasyCastStructure):
     pbUserData: POINTER(Byte)
     cbUserData: UInt32
     szDependantColumns: win32more.Windows.Win32.Foundation.PWSTR
+JET_USERDEFINEDDEFAULT = UnicodeAlias('JET_USERDEFINEDDEFAULT_W')
 
 
 make_ready(__name__)

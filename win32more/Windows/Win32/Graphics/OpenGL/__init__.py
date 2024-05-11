@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.Graphics.OpenGL
@@ -738,12 +738,14 @@ def wglShareLists(param0: win32more.Windows.Win32.Graphics.OpenGL.HGLRC, param1:
 def wglUseFontBitmapsA(param0: win32more.Windows.Win32.Graphics.Gdi.HDC, param1: UInt32, param2: UInt32, param3: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('OPENGL32.dll')
 def wglUseFontBitmapsW(param0: win32more.Windows.Win32.Graphics.Gdi.HDC, param1: UInt32, param2: UInt32, param3: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+wglUseFontBitmaps = UnicodeAlias('wglUseFontBitmapsW')
 @winfunctype('GDI32.dll')
 def SwapBuffers(param0: win32more.Windows.Win32.Graphics.Gdi.HDC) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('OPENGL32.dll')
 def wglUseFontOutlinesA(param0: win32more.Windows.Win32.Graphics.Gdi.HDC, param1: UInt32, param2: UInt32, param3: UInt32, param4: Single, param5: Single, param6: Int32, param7: POINTER(win32more.Windows.Win32.Graphics.OpenGL.GLYPHMETRICSFLOAT)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('OPENGL32.dll')
 def wglUseFontOutlinesW(param0: win32more.Windows.Win32.Graphics.Gdi.HDC, param1: UInt32, param2: UInt32, param3: UInt32, param4: Single, param5: Single, param6: Int32, param7: POINTER(win32more.Windows.Win32.Graphics.OpenGL.GLYPHMETRICSFLOAT)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+wglUseFontOutlines = UnicodeAlias('wglUseFontOutlinesW')
 @winfunctype('OPENGL32.dll')
 def wglDescribeLayerPlane(param0: win32more.Windows.Win32.Graphics.Gdi.HDC, param1: Int32, param2: Int32, param3: UInt32, param4: POINTER(win32more.Windows.Win32.Graphics.OpenGL.LAYERPLANEDESCRIPTOR)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('OPENGL32.dll')

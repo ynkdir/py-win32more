@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.System.Com
@@ -2195,12 +2195,14 @@ EM_ENABLEFEATURE: UInt32 = 218
 def CreatePropertySheetPageA(constPropSheetPagePointer: POINTER(win32more.Windows.Win32.UI.Controls.PROPSHEETPAGEA)) -> win32more.Windows.Win32.UI.Controls.HPROPSHEETPAGE: ...
 @winfunctype('COMCTL32.dll')
 def CreatePropertySheetPageW(constPropSheetPagePointer: POINTER(win32more.Windows.Win32.UI.Controls.PROPSHEETPAGEW)) -> win32more.Windows.Win32.UI.Controls.HPROPSHEETPAGE: ...
+CreatePropertySheetPage = UnicodeAlias('CreatePropertySheetPageW')
 @winfunctype('COMCTL32.dll')
 def DestroyPropertySheetPage(param0: win32more.Windows.Win32.UI.Controls.HPROPSHEETPAGE) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('COMCTL32.dll')
 def PropertySheetA(param0: POINTER(win32more.Windows.Win32.UI.Controls.PROPSHEETHEADERA_V2)) -> IntPtr: ...
 @winfunctype('COMCTL32.dll')
 def PropertySheetW(param0: POINTER(win32more.Windows.Win32.UI.Controls.PROPSHEETHEADERW_V2)) -> IntPtr: ...
+PropertySheet = UnicodeAlias('PropertySheetW')
 @winfunctype('COMCTL32.dll')
 def InitCommonControls() -> Void: ...
 @winfunctype('COMCTL32.dll')
@@ -2241,6 +2243,7 @@ def ImageList_GetIcon(himl: win32more.Windows.Win32.UI.Controls.HIMAGELIST, i: I
 def ImageList_LoadImageA(hi: win32more.Windows.Win32.Foundation.HINSTANCE, lpbmp: win32more.Windows.Win32.Foundation.PSTR, cx: Int32, cGrow: Int32, crMask: win32more.Windows.Win32.Foundation.COLORREF, uType: UInt32, uFlags: win32more.Windows.Win32.UI.WindowsAndMessaging.IMAGE_FLAGS) -> win32more.Windows.Win32.UI.Controls.HIMAGELIST: ...
 @winfunctype('COMCTL32.dll')
 def ImageList_LoadImageW(hi: win32more.Windows.Win32.Foundation.HINSTANCE, lpbmp: win32more.Windows.Win32.Foundation.PWSTR, cx: Int32, cGrow: Int32, crMask: win32more.Windows.Win32.Foundation.COLORREF, uType: UInt32, uFlags: win32more.Windows.Win32.UI.WindowsAndMessaging.IMAGE_FLAGS) -> win32more.Windows.Win32.UI.Controls.HIMAGELIST: ...
+ImageList_LoadImage = UnicodeAlias('ImageList_LoadImageW')
 @winfunctype('COMCTL32.dll')
 def ImageList_Copy(himlDst: win32more.Windows.Win32.UI.Controls.HIMAGELIST, iDst: Int32, himlSrc: win32more.Windows.Win32.UI.Controls.HIMAGELIST, iSrc: Int32, uFlags: win32more.Windows.Win32.UI.Controls.IMAGE_LIST_COPY_FLAGS) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('COMCTL32.dll')
@@ -2287,10 +2290,12 @@ def CreateMappedBitmap(hInstance: win32more.Windows.Win32.Foundation.HINSTANCE, 
 def DrawStatusTextA(hDC: win32more.Windows.Win32.Graphics.Gdi.HDC, lprc: POINTER(win32more.Windows.Win32.Foundation.RECT), pszText: win32more.Windows.Win32.Foundation.PSTR, uFlags: UInt32) -> Void: ...
 @winfunctype('COMCTL32.dll')
 def DrawStatusTextW(hDC: win32more.Windows.Win32.Graphics.Gdi.HDC, lprc: POINTER(win32more.Windows.Win32.Foundation.RECT), pszText: win32more.Windows.Win32.Foundation.PWSTR, uFlags: UInt32) -> Void: ...
+DrawStatusText = UnicodeAlias('DrawStatusTextW')
 @winfunctype('COMCTL32.dll')
 def CreateStatusWindowA(style: Int32, lpszText: win32more.Windows.Win32.Foundation.PSTR, hwndParent: win32more.Windows.Win32.Foundation.HWND, wID: UInt32) -> win32more.Windows.Win32.Foundation.HWND: ...
 @winfunctype('COMCTL32.dll')
 def CreateStatusWindowW(style: Int32, lpszText: win32more.Windows.Win32.Foundation.PWSTR, hwndParent: win32more.Windows.Win32.Foundation.HWND, wID: UInt32) -> win32more.Windows.Win32.Foundation.HWND: ...
+CreateStatusWindow = UnicodeAlias('CreateStatusWindowW')
 @winfunctype('COMCTL32.dll')
 def MenuHelp(uMsg: UInt32, wParam: win32more.Windows.Win32.Foundation.WPARAM, lParam: win32more.Windows.Win32.Foundation.LPARAM, hMainMenu: win32more.Windows.Win32.UI.WindowsAndMessaging.HMENU, hInst: win32more.Windows.Win32.Foundation.HINSTANCE, hwndStatus: win32more.Windows.Win32.Foundation.HWND, lpwIDs: POINTER(UInt32)) -> Void: ...
 @winfunctype('COMCTL32.dll')
@@ -2571,6 +2576,7 @@ def CheckRadioButton(hDlg: win32more.Windows.Win32.Foundation.HWND, nIDFirstButt
 def IsDlgButtonChecked(hDlg: win32more.Windows.Win32.Foundation.HWND, nIDButton: Int32) -> UInt32: ...
 @winfunctype('USER32.dll')
 def IsCharLowerW(ch: Char) -> win32more.Windows.Win32.Foundation.BOOL: ...
+IsCharLower = UnicodeAlias('IsCharLowerW')
 @winfunctype('USER32.dll')
 def CreateSyntheticPointerDevice(pointerType: win32more.Windows.Win32.UI.WindowsAndMessaging.POINTER_INPUT_TYPE, maxCount: UInt32, mode: win32more.Windows.Win32.UI.Controls.POINTER_FEEDBACK_MODE) -> win32more.Windows.Win32.UI.Controls.HSYNTHETICPOINTERDEVICE: ...
 @winfunctype('USER32.dll')
@@ -2599,18 +2605,22 @@ def EnableScrollBar(hWnd: win32more.Windows.Win32.Foundation.HWND, wSBflags: UIn
 def DlgDirListA(hDlg: win32more.Windows.Win32.Foundation.HWND, lpPathSpec: win32more.Windows.Win32.Foundation.PSTR, nIDListBox: Int32, nIDStaticPath: Int32, uFileType: win32more.Windows.Win32.UI.Controls.DLG_DIR_LIST_FILE_TYPE) -> Int32: ...
 @winfunctype('USER32.dll')
 def DlgDirListW(hDlg: win32more.Windows.Win32.Foundation.HWND, lpPathSpec: win32more.Windows.Win32.Foundation.PWSTR, nIDListBox: Int32, nIDStaticPath: Int32, uFileType: win32more.Windows.Win32.UI.Controls.DLG_DIR_LIST_FILE_TYPE) -> Int32: ...
+DlgDirList = UnicodeAlias('DlgDirListW')
 @winfunctype('USER32.dll')
 def DlgDirSelectExA(hwndDlg: win32more.Windows.Win32.Foundation.HWND, lpString: win32more.Windows.Win32.Foundation.PSTR, chCount: Int32, idListBox: Int32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('USER32.dll')
 def DlgDirSelectExW(hwndDlg: win32more.Windows.Win32.Foundation.HWND, lpString: win32more.Windows.Win32.Foundation.PWSTR, chCount: Int32, idListBox: Int32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+DlgDirSelectEx = UnicodeAlias('DlgDirSelectExW')
 @winfunctype('USER32.dll')
 def DlgDirListComboBoxA(hDlg: win32more.Windows.Win32.Foundation.HWND, lpPathSpec: win32more.Windows.Win32.Foundation.PSTR, nIDComboBox: Int32, nIDStaticPath: Int32, uFiletype: win32more.Windows.Win32.UI.Controls.DLG_DIR_LIST_FILE_TYPE) -> Int32: ...
 @winfunctype('USER32.dll')
 def DlgDirListComboBoxW(hDlg: win32more.Windows.Win32.Foundation.HWND, lpPathSpec: win32more.Windows.Win32.Foundation.PWSTR, nIDComboBox: Int32, nIDStaticPath: Int32, uFiletype: win32more.Windows.Win32.UI.Controls.DLG_DIR_LIST_FILE_TYPE) -> Int32: ...
+DlgDirListComboBox = UnicodeAlias('DlgDirListComboBoxW')
 @winfunctype('USER32.dll')
 def DlgDirSelectComboBoxExA(hwndDlg: win32more.Windows.Win32.Foundation.HWND, lpString: win32more.Windows.Win32.Foundation.PSTR, cchOut: Int32, idComboBox: Int32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('USER32.dll')
 def DlgDirSelectComboBoxExW(hwndDlg: win32more.Windows.Win32.Foundation.HWND, lpString: win32more.Windows.Win32.Foundation.PWSTR, cchOut: Int32, idComboBox: Int32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+DlgDirSelectComboBoxEx = UnicodeAlias('DlgDirSelectComboBoxExW')
 @winfunctype('USER32.dll')
 def SetScrollInfo(hwnd: win32more.Windows.Win32.Foundation.HWND, nBar: win32more.Windows.Win32.UI.WindowsAndMessaging.SCROLLBAR_CONSTANTS, lpsi: POINTER(win32more.Windows.Win32.UI.WindowsAndMessaging.SCROLLINFO), redraw: win32more.Windows.Win32.Foundation.BOOL) -> Int32: ...
 @winfunctype('USER32.dll')
@@ -2774,6 +2784,7 @@ class CCINFOW(EasyCastStructure):
     lpfnSizeToText: win32more.Windows.Win32.UI.Controls.LPFNCCSIZETOTEXTW
     dwReserved1: UInt32
     dwReserved2: UInt32
+CCINFO = UnicodeAlias('CCINFOW')
 class CCSTYLEA(EasyCastStructure):
     flStyle: UInt32
     flExtStyle: UInt32
@@ -2788,12 +2799,14 @@ class CCSTYLEFLAGW(EasyCastStructure):
     flStyle: UInt32
     flStyleMask: UInt32
     pszStyle: win32more.Windows.Win32.Foundation.PWSTR
+CCSTYLEFLAG = UnicodeAlias('CCSTYLEFLAGW')
 class CCSTYLEW(EasyCastStructure):
     flStyle: UInt32
     flExtStyle: UInt32
     szText: Char * 256
     lgid: UInt16
     wReserved1: UInt16
+CCSTYLE = UnicodeAlias('CCSTYLEW')
 CHECKBOXSTATES = Int32
 CBS_UNCHECKEDNORMAL: win32more.Windows.Win32.UI.Controls.CHECKBOXSTATES = 1
 CBS_UNCHECKEDHOT: win32more.Windows.Win32.UI.Controls.CHECKBOXSTATES = 2
@@ -2869,6 +2882,7 @@ class COMBOBOXEXITEMW(EasyCastStructure):
     iOverlay: Int32
     iIndent: Int32
     lParam: win32more.Windows.Win32.Foundation.LPARAM
+COMBOBOXEXITEM = UnicodeAlias('COMBOBOXEXITEMW')
 class COMBOBOXINFO(EasyCastStructure):
     cbSize: UInt32
     rcItem: win32more.Windows.Win32.Foundation.RECT
@@ -3191,6 +3205,7 @@ ETS_CUEBANNER: win32more.Windows.Win32.UI.Controls.EDITTEXTSTATES = 8
 def EDITWORDBREAKPROCA(lpch: win32more.Windows.Win32.Foundation.PSTR, ichCurrent: Int32, cch: Int32, code: win32more.Windows.Win32.UI.Controls.WORD_BREAK_ACTION) -> Int32: ...
 @winfunctype_pointer
 def EDITWORDBREAKPROCW(lpch: win32more.Windows.Win32.Foundation.PWSTR, ichCurrent: Int32, cch: Int32, code: win32more.Windows.Win32.UI.Controls.WORD_BREAK_ACTION) -> Int32: ...
+EDITWORDBREAKPROC = UnicodeAlias('EDITWORDBREAKPROCW')
 EMPTYMARKUPPARTS = Int32
 EMP_MARKUPTEXT: win32more.Windows.Win32.UI.Controls.EMPTYMARKUPPARTS = 1
 ENABLE_SCROLL_BAR_ARROWS = UInt32
@@ -3388,6 +3403,7 @@ class HDITEMW(EasyCastStructure):
     type: win32more.Windows.Win32.UI.Controls.HEADER_CONTROL_FORMAT_TYPE
     pvFilter: VoidPtr
     state: win32more.Windows.Win32.UI.Controls.HEADER_CONTROL_FORMAT_STATE
+HDITEM = UnicodeAlias('HDITEMW')
 HDI_MASK = UInt32
 HDI_WIDTH: win32more.Windows.Win32.UI.Controls.HDI_MASK = 1
 HDI_HEIGHT: win32more.Windows.Win32.UI.Controls.HDI_MASK = 1
@@ -3411,6 +3427,7 @@ class HD_TEXTFILTERA(EasyCastStructure):
 class HD_TEXTFILTERW(EasyCastStructure):
     pszText: win32more.Windows.Win32.Foundation.PWSTR
     cchTextMax: Int32
+HD_TEXTFILTER = UnicodeAlias('HD_TEXTFILTERW')
 HEADERAREASTATES = Int32
 AW_S_HEADERAREA_NOMARGIN: win32more.Windows.Win32.UI.Controls.HEADERAREASTATES = 1
 HEADERCLOSESTATES = Int32
@@ -3888,18 +3905,22 @@ def LPFNADDPROPSHEETPAGES(param0: VoidPtr, param1: win32more.Windows.Win32.UI.Co
 def LPFNCCINFOA(acci: POINTER(win32more.Windows.Win32.UI.Controls.CCINFOA)) -> UInt32: ...
 @winfunctype_pointer
 def LPFNCCINFOW(acci: POINTER(win32more.Windows.Win32.UI.Controls.CCINFOW)) -> UInt32: ...
+LPFNCCINFO = UnicodeAlias('LPFNCCINFOW')
 @winfunctype_pointer
 def LPFNCCSIZETOTEXTA(flStyle: UInt32, flExtStyle: UInt32, hfont: win32more.Windows.Win32.Graphics.Gdi.HFONT, pszText: win32more.Windows.Win32.Foundation.PSTR) -> Int32: ...
 @winfunctype_pointer
 def LPFNCCSIZETOTEXTW(flStyle: UInt32, flExtStyle: UInt32, hfont: win32more.Windows.Win32.Graphics.Gdi.HFONT, pszText: win32more.Windows.Win32.Foundation.PWSTR) -> Int32: ...
+LPFNCCSIZETOTEXT = UnicodeAlias('LPFNCCSIZETOTEXTW')
 @winfunctype_pointer
 def LPFNCCSTYLEA(hwndParent: win32more.Windows.Win32.Foundation.HWND, pccs: POINTER(win32more.Windows.Win32.UI.Controls.CCSTYLEA)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def LPFNCCSTYLEW(hwndParent: win32more.Windows.Win32.Foundation.HWND, pccs: POINTER(win32more.Windows.Win32.UI.Controls.CCSTYLEW)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+LPFNCCSTYLE = UnicodeAlias('LPFNCCSTYLEW')
 @winfunctype_pointer
 def LPFNPSPCALLBACKA(hwnd: win32more.Windows.Win32.Foundation.HWND, uMsg: win32more.Windows.Win32.UI.Controls.PSPCB_MESSAGE, ppsp: POINTER(win32more.Windows.Win32.UI.Controls.PROPSHEETPAGEA)) -> UInt32: ...
 @winfunctype_pointer
 def LPFNPSPCALLBACKW(hwnd: win32more.Windows.Win32.Foundation.HWND, uMsg: win32more.Windows.Win32.UI.Controls.PSPCB_MESSAGE, ppsp: POINTER(win32more.Windows.Win32.UI.Controls.PROPSHEETPAGEW)) -> UInt32: ...
+LPFNPSPCALLBACK = UnicodeAlias('LPFNPSPCALLBACKW')
 @winfunctype_pointer
 def LPFNSVADDPROPSHEETPAGE(param0: win32more.Windows.Win32.UI.Controls.HPROPSHEETPAGE, param1: win32more.Windows.Win32.Foundation.LPARAM) -> win32more.Windows.Win32.Foundation.BOOL: ...
 class LVBKIMAGEA(EasyCastStructure):
@@ -3916,6 +3937,7 @@ class LVBKIMAGEW(EasyCastStructure):
     cchImageMax: UInt32
     xOffsetPercent: Int32
     yOffsetPercent: Int32
+LVBKIMAGE = UnicodeAlias('LVBKIMAGEW')
 class LVCOLUMNA(EasyCastStructure):
     mask: win32more.Windows.Win32.UI.Controls.LVCOLUMNW_MASK
     fmt: win32more.Windows.Win32.UI.Controls.LVCOLUMNW_FORMAT
@@ -3940,6 +3962,7 @@ class LVCOLUMNW(EasyCastStructure):
     cxMin: Int32
     cxDefault: Int32
     cxIdeal: Int32
+LVCOLUMN = UnicodeAlias('LVCOLUMNW')
 LVCOLUMNW_FORMAT = Int32
 LVCFMT_LEFT: win32more.Windows.Win32.UI.Controls.LVCOLUMNW_FORMAT = 0
 LVCFMT_RIGHT: win32more.Windows.Win32.UI.Controls.LVCOLUMNW_FORMAT = 1
@@ -3974,6 +3997,7 @@ class LVFINDINFOW(EasyCastStructure):
     lParam: win32more.Windows.Win32.Foundation.LPARAM
     pt: win32more.Windows.Win32.Foundation.POINT
     vkDirection: UInt32
+LVFINDINFO = UnicodeAlias('LVFINDINFOW')
 LVFINDINFOW_FLAGS = UInt32
 LVFI_PARAM: win32more.Windows.Win32.UI.Controls.LVFINDINFOW_FLAGS = 1
 LVFI_PARTIAL: win32more.Windows.Win32.UI.Controls.LVFINDINFOW_FLAGS = 8
@@ -4121,6 +4145,7 @@ class LVITEMW(EasyCastStructure):
     puColumns: POINTER(UInt32)
     piColFmt: POINTER(win32more.Windows.Win32.UI.Controls.LIST_VIEW_ITEM_COLUMN_FORMAT_FLAGS)
     iGroup: Int32
+LVITEM = UnicodeAlias('LVITEMW')
 class LVSETINFOTIP(EasyCastStructure):
     cbSize: UInt32
     dwFlags: UInt32
@@ -4370,6 +4395,7 @@ class NMCBEDRAGBEGINW(EasyCastStructure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     iItemid: Int32
     szText: Char * 260
+NMCBEDRAGBEGIN = UnicodeAlias('NMCBEDRAGBEGINW')
 class NMCBEENDEDITA(EasyCastStructure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     fChanged: win32more.Windows.Win32.Foundation.BOOL
@@ -4382,6 +4408,7 @@ class NMCBEENDEDITW(EasyCastStructure):
     iNewSelection: Int32
     szText: Char * 260
     iWhy: Int32
+NMCBEENDEDIT = UnicodeAlias('NMCBEENDEDITW')
 class NMCHAR(EasyCastStructure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     ch: UInt32
@@ -4393,6 +4420,7 @@ class NMCOMBOBOXEXA(EasyCastStructure):
 class NMCOMBOBOXEXW(EasyCastStructure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     ceItem: win32more.Windows.Win32.UI.Controls.COMBOBOXEXITEMW
+NMCOMBOBOXEX = UnicodeAlias('NMCOMBOBOXEXW')
 class NMCUSTOMDRAW(EasyCastStructure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     dwDrawStage: win32more.Windows.Win32.UI.Controls.NMCUSTOMDRAW_DRAW_STAGE
@@ -4458,12 +4486,14 @@ class NMDATETIMEFORMATQUERYW(EasyCastStructure):
     nmhdr: win32more.Windows.Win32.UI.Controls.NMHDR
     pszFormat: win32more.Windows.Win32.Foundation.PWSTR
     szMax: win32more.Windows.Win32.Foundation.SIZE
+NMDATETIMEFORMATQUERY = UnicodeAlias('NMDATETIMEFORMATQUERYW')
 class NMDATETIMEFORMATW(EasyCastStructure):
     nmhdr: win32more.Windows.Win32.UI.Controls.NMHDR
     pszFormat: win32more.Windows.Win32.Foundation.PWSTR
     st: win32more.Windows.Win32.Foundation.SYSTEMTIME
     pszDisplay: win32more.Windows.Win32.Foundation.PWSTR
     szDisplay: Char * 64
+NMDATETIMEFORMAT = UnicodeAlias('NMDATETIMEFORMATW')
 class NMDATETIMESTRINGA(EasyCastStructure):
     nmhdr: win32more.Windows.Win32.UI.Controls.NMHDR
     pszUserString: win32more.Windows.Win32.Foundation.PSTR
@@ -4474,6 +4504,7 @@ class NMDATETIMESTRINGW(EasyCastStructure):
     pszUserString: win32more.Windows.Win32.Foundation.PWSTR
     st: win32more.Windows.Win32.Foundation.SYSTEMTIME
     dwFlags: UInt32
+NMDATETIMESTRING = UnicodeAlias('NMDATETIMESTRINGW')
 class NMDATETIMEWMKEYDOWNA(EasyCastStructure):
     nmhdr: win32more.Windows.Win32.UI.Controls.NMHDR
     nVirtKey: Int32
@@ -4484,6 +4515,7 @@ class NMDATETIMEWMKEYDOWNW(EasyCastStructure):
     nVirtKey: Int32
     pszFormat: win32more.Windows.Win32.Foundation.PWSTR
     st: win32more.Windows.Win32.Foundation.SYSTEMTIME
+NMDATETIMEWMKEYDOWN = UnicodeAlias('NMDATETIMEWMKEYDOWNW')
 class NMDAYSTATE(EasyCastStructure):
     nmhdr: win32more.Windows.Win32.UI.Controls.NMHDR
     stStart: win32more.Windows.Win32.Foundation.SYSTEMTIME
@@ -4505,6 +4537,7 @@ class NMHDDISPINFOW(EasyCastStructure):
     cchTextMax: Int32
     iImage: Int32
     lParam: win32more.Windows.Win32.Foundation.LPARAM
+NMHDDISPINFO = UnicodeAlias('NMHDDISPINFOW')
 class NMHDFILTERBTNCLICK(EasyCastStructure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     iItem: Int32
@@ -4523,6 +4556,7 @@ class NMHEADERW(EasyCastStructure):
     iItem: Int32
     iButton: win32more.Windows.Win32.UI.Controls.HEADER_CONTROL_NOTIFICATION_BUTTON
     pitem: POINTER(win32more.Windows.Win32.UI.Controls.HDITEMW)
+NMHEADER = UnicodeAlias('NMHEADERW')
 class NMIPADDRESS(EasyCastStructure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     iField: Int32
@@ -4580,6 +4614,7 @@ class NMLVDISPINFOA(EasyCastStructure):
 class NMLVDISPINFOW(EasyCastStructure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     item: win32more.Windows.Win32.UI.Controls.LVITEMW
+NMLVDISPINFO = UnicodeAlias('NMLVDISPINFOW')
 class NMLVEMPTYMARKUP(EasyCastStructure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     dwFlags: win32more.Windows.Win32.UI.Controls.NMLVEMPTYMARKUP_FLAGS
@@ -4594,6 +4629,7 @@ class NMLVFINDITEMW(EasyCastStructure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     iStart: Int32
     lvfi: win32more.Windows.Win32.UI.Controls.LVFINDINFOW
+NMLVFINDITEM = UnicodeAlias('NMLVFINDITEMW')
 class NMLVGETINFOTIPA(EasyCastStructure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     dwFlags: win32more.Windows.Win32.UI.Controls.NMLVGETINFOTIP_FLAGS
@@ -4610,6 +4646,7 @@ class NMLVGETINFOTIPW(EasyCastStructure):
     iItem: Int32
     iSubItem: Int32
     lParam: win32more.Windows.Win32.Foundation.LPARAM
+NMLVGETINFOTIP = UnicodeAlias('NMLVGETINFOTIPW')
 NMLVGETINFOTIP_FLAGS = UInt32
 LVGIT_UNFOLDED: win32more.Windows.Win32.UI.Controls.NMLVGETINFOTIP_FLAGS = 1
 LVGIT_ZERO: win32more.Windows.Win32.UI.Controls.NMLVGETINFOTIP_FLAGS = 0
@@ -4758,6 +4795,7 @@ class NMTBDISPINFOW(EasyCastStructure):
     iImage: Int32
     pszText: win32more.Windows.Win32.Foundation.PWSTR
     cchText: Int32
+NMTBDISPINFO = UnicodeAlias('NMTBDISPINFOW')
 NMTBDISPINFOW_MASK = UInt32
 TBNF_IMAGE: win32more.Windows.Win32.UI.Controls.NMTBDISPINFOW_MASK = 1
 TBNF_TEXT: win32more.Windows.Win32.UI.Controls.NMTBDISPINFOW_MASK = 2
@@ -4774,6 +4812,7 @@ class NMTBGETINFOTIPW(EasyCastStructure):
     cchTextMax: Int32
     iItem: Int32
     lParam: win32more.Windows.Win32.Foundation.LPARAM
+NMTBGETINFOTIP = UnicodeAlias('NMTBGETINFOTIPW')
 class NMTBHOTITEM(EasyCastStructure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     idOld: Int32
@@ -4826,6 +4865,7 @@ class NMTOOLBARW(EasyCastStructure):
     cchText: Int32
     pszText: win32more.Windows.Win32.Foundation.PWSTR
     rcButton: win32more.Windows.Win32.Foundation.RECT
+NMTOOLBAR = UnicodeAlias('NMTOOLBARW')
 class NMTOOLTIPSCREATED(EasyCastStructure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     hwndToolTips: win32more.Windows.Win32.Foundation.HWND
@@ -4845,6 +4885,7 @@ class NMTREEVIEWW(EasyCastStructure):
     itemOld: win32more.Windows.Win32.UI.Controls.TVITEMW
     itemNew: win32more.Windows.Win32.UI.Controls.TVITEMW
     ptDrag: win32more.Windows.Win32.Foundation.POINT
+NMTREEVIEW = UnicodeAlias('NMTREEVIEWW')
 class NMTTCUSTOMDRAW(EasyCastStructure):
     nmcd: win32more.Windows.Win32.UI.Controls.NMCUSTOMDRAW
     uDrawFlags: UInt32
@@ -4862,6 +4903,7 @@ class NMTTDISPINFOW(EasyCastStructure):
     hinst: win32more.Windows.Win32.Foundation.HINSTANCE
     uFlags: win32more.Windows.Win32.UI.Controls.TOOLTIP_FLAGS
     lParam: win32more.Windows.Win32.Foundation.LPARAM
+NMTTDISPINFO = UnicodeAlias('NMTTDISPINFOW')
 class NMTVASYNCDRAW(EasyCastStructure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     pimldp: POINTER(win32more.Windows.Win32.UI.Controls.IMAGELISTDRAWPARAMS)
@@ -4884,9 +4926,11 @@ class NMTVDISPINFOEXA(EasyCastStructure):
 class NMTVDISPINFOEXW(EasyCastStructure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     item: win32more.Windows.Win32.UI.Controls.TVITEMEXW
+NMTVDISPINFOEX = UnicodeAlias('NMTVDISPINFOEXW')
 class NMTVDISPINFOW(EasyCastStructure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     item: win32more.Windows.Win32.UI.Controls.TVITEMW
+NMTVDISPINFO = UnicodeAlias('NMTVDISPINFOW')
 class NMTVGETINFOTIPA(EasyCastStructure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     pszText: win32more.Windows.Win32.Foundation.PSTR
@@ -4899,6 +4943,7 @@ class NMTVGETINFOTIPW(EasyCastStructure):
     cchTextMax: Int32
     hItem: win32more.Windows.Win32.UI.Controls.HTREEITEM
     lParam: win32more.Windows.Win32.Foundation.LPARAM
+NMTVGETINFOTIP = UnicodeAlias('NMTVGETINFOTIPW')
 class NMTVITEMCHANGE(EasyCastStructure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     uChanged: UInt32
@@ -5304,6 +5349,7 @@ class PROPSHEETPAGEW(EasyCastStructure):
     class _Anonymous3_e__Union(EasyCastUnion):
         hbmHeader: win32more.Windows.Win32.Graphics.Gdi.HBITMAP
         pszbmHeader: win32more.Windows.Win32.Foundation.PWSTR
+PROPSHEETPAGE = UnicodeAlias('PROPSHEETPAGEW')
 class PROPSHEETPAGEW_V1(EasyCastStructure):
     dwSize: UInt32
     dwFlags: UInt32
@@ -5442,6 +5488,7 @@ class REBARBANDINFOW(EasyCastStructure):
     cxHeader: UInt32
     rcChevronLocation: win32more.Windows.Win32.Foundation.RECT
     uChevronState: UInt32
+REBARBANDINFO = UnicodeAlias('REBARBANDINFOW')
 class REBARINFO(EasyCastStructure):
     cbSize: UInt32
     fMask: UInt32
@@ -5898,6 +5945,7 @@ class TBBUTTONINFOW(EasyCastStructure):
     lParam: UIntPtr
     pszText: win32more.Windows.Win32.Foundation.PWSTR
     cchText: Int32
+TBBUTTONINFO = UnicodeAlias('TBBUTTONINFOW')
 TBBUTTONINFOW_MASK = UInt32
 TBIF_BYINDEX: win32more.Windows.Win32.UI.Controls.TBBUTTONINFOW_MASK = 2147483648
 TBIF_COMMAND: win32more.Windows.Win32.UI.Controls.TBBUTTONINFOW_MASK = 32
@@ -5937,6 +5985,7 @@ class TBSAVEPARAMSW(EasyCastStructure):
     hkr: win32more.Windows.Win32.System.Registry.HKEY
     pszSubKey: win32more.Windows.Win32.Foundation.PWSTR
     pszValueName: win32more.Windows.Win32.Foundation.PWSTR
+TBSAVEPARAMS = UnicodeAlias('TBSAVEPARAMSW')
 class TCHITTESTINFO(EasyCastStructure):
     pt: win32more.Windows.Win32.Foundation.POINT
     flags: win32more.Windows.Win32.UI.Controls.TCHITTESTINFO_FLAGS
@@ -5973,6 +6022,7 @@ class TCITEMHEADERW(EasyCastStructure):
     pszText: win32more.Windows.Win32.Foundation.PWSTR
     cchTextMax: Int32
     iImage: Int32
+TCITEMHEADER = UnicodeAlias('TCITEMHEADERW')
 class TCITEMW(EasyCastStructure):
     mask: win32more.Windows.Win32.UI.Controls.TCITEMHEADERA_MASK
     dwState: win32more.Windows.Win32.UI.Controls.TAB_CONTROL_ITEM_STATE
@@ -5981,6 +6031,7 @@ class TCITEMW(EasyCastStructure):
     cchTextMax: Int32
     iImage: Int32
     lParam: win32more.Windows.Win32.Foundation.LPARAM
+TCITEM = UnicodeAlias('TCITEMW')
 TEXTSELECTIONGRIPPERPARTS = Int32
 TSGP_GRIPPER: win32more.Windows.Win32.UI.Controls.TEXTSELECTIONGRIPPERPARTS = 1
 TEXTSHADOWTYPE = Int32
@@ -6458,6 +6509,7 @@ class TTHITTESTINFOW(EasyCastStructure):
     hwnd: win32more.Windows.Win32.Foundation.HWND
     pt: win32more.Windows.Win32.Foundation.POINT
     ti: win32more.Windows.Win32.UI.Controls.TTTOOLINFOW
+TTHITTESTINFO = UnicodeAlias('TTHITTESTINFOW')
 class TTTOOLINFOA(EasyCastStructure):
     cbSize: UInt32
     uFlags: win32more.Windows.Win32.UI.Controls.TOOLTIP_FLAGS
@@ -6478,6 +6530,7 @@ class TTTOOLINFOW(EasyCastStructure):
     lpszText: win32more.Windows.Win32.Foundation.PWSTR
     lParam: win32more.Windows.Win32.Foundation.LPARAM
     lpReserved: VoidPtr
+TTTOOLINFO = UnicodeAlias('TTTOOLINFOW')
 class TVGETITEMPARTRECTINFO(EasyCastStructure):
     hti: win32more.Windows.Win32.UI.Controls.HTREEITEM
     prc: POINTER(win32more.Windows.Win32.Foundation.RECT)
@@ -6513,6 +6566,7 @@ class TVINSERTSTRUCTW(EasyCastStructure):
     class _Anonymous_e__Union(EasyCastUnion):
         itemex: win32more.Windows.Win32.UI.Controls.TVITEMEXW
         item: win32more.Windows.Win32.UI.Controls.TVITEMW
+TVINSERTSTRUCT = UnicodeAlias('TVINSERTSTRUCTW')
 class TVITEMA(EasyCastStructure):
     mask: win32more.Windows.Win32.UI.Controls.TVITEM_MASK
     hItem: win32more.Windows.Win32.UI.Controls.HTREEITEM
@@ -6556,6 +6610,7 @@ class TVITEMEXW(EasyCastStructure):
     hwnd: win32more.Windows.Win32.Foundation.HWND
     iExpandedImage: Int32
     iReserved: Int32
+TVITEMEX = UnicodeAlias('TVITEMEXW')
 TVITEMEXW_CHILDREN = Int32
 I_ZERO: win32more.Windows.Win32.UI.Controls.TVITEMEXW_CHILDREN = 0
 I_ONE_OR_MORE: win32more.Windows.Win32.UI.Controls.TVITEMEXW_CHILDREN = 1
@@ -6574,6 +6629,7 @@ class TVITEMW(EasyCastStructure):
     iSelectedImage: Int32
     cChildren: win32more.Windows.Win32.UI.Controls.TVITEMEXW_CHILDREN
     lParam: win32more.Windows.Win32.Foundation.LPARAM
+TVITEM = UnicodeAlias('TVITEMW')
 TVITEM_MASK = UInt32
 TVIF_CHILDREN: win32more.Windows.Win32.UI.Controls.TVITEM_MASK = 64
 TVIF_DI_SETITEM: win32more.Windows.Win32.UI.Controls.TVITEM_MASK = 4096

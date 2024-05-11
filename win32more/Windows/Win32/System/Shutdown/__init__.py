@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Shutdown
 MAX_REASON_NAME_LEN: UInt32 = 64
@@ -19,18 +19,22 @@ MAX_NUM_REASONS: UInt32 = 256
 def InitiateSystemShutdownA(lpMachineName: win32more.Windows.Win32.Foundation.PSTR, lpMessage: win32more.Windows.Win32.Foundation.PSTR, dwTimeout: UInt32, bForceAppsClosed: win32more.Windows.Win32.Foundation.BOOL, bRebootAfterShutdown: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
 def InitiateSystemShutdownW(lpMachineName: win32more.Windows.Win32.Foundation.PWSTR, lpMessage: win32more.Windows.Win32.Foundation.PWSTR, dwTimeout: UInt32, bForceAppsClosed: win32more.Windows.Win32.Foundation.BOOL, bRebootAfterShutdown: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.BOOL: ...
+InitiateSystemShutdown = UnicodeAlias('InitiateSystemShutdownW')
 @winfunctype('ADVAPI32.dll')
 def AbortSystemShutdownA(lpMachineName: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
 def AbortSystemShutdownW(lpMachineName: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
+AbortSystemShutdown = UnicodeAlias('AbortSystemShutdownW')
 @winfunctype('ADVAPI32.dll')
 def InitiateSystemShutdownExA(lpMachineName: win32more.Windows.Win32.Foundation.PSTR, lpMessage: win32more.Windows.Win32.Foundation.PSTR, dwTimeout: UInt32, bForceAppsClosed: win32more.Windows.Win32.Foundation.BOOL, bRebootAfterShutdown: win32more.Windows.Win32.Foundation.BOOL, dwReason: win32more.Windows.Win32.System.Shutdown.SHUTDOWN_REASON) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
 def InitiateSystemShutdownExW(lpMachineName: win32more.Windows.Win32.Foundation.PWSTR, lpMessage: win32more.Windows.Win32.Foundation.PWSTR, dwTimeout: UInt32, bForceAppsClosed: win32more.Windows.Win32.Foundation.BOOL, bRebootAfterShutdown: win32more.Windows.Win32.Foundation.BOOL, dwReason: win32more.Windows.Win32.System.Shutdown.SHUTDOWN_REASON) -> win32more.Windows.Win32.Foundation.BOOL: ...
+InitiateSystemShutdownEx = UnicodeAlias('InitiateSystemShutdownExW')
 @winfunctype('ADVAPI32.dll')
 def InitiateShutdownA(lpMachineName: win32more.Windows.Win32.Foundation.PSTR, lpMessage: win32more.Windows.Win32.Foundation.PSTR, dwGracePeriod: UInt32, dwShutdownFlags: win32more.Windows.Win32.System.Shutdown.SHUTDOWN_FLAGS, dwReason: win32more.Windows.Win32.System.Shutdown.SHUTDOWN_REASON) -> UInt32: ...
 @winfunctype('ADVAPI32.dll')
 def InitiateShutdownW(lpMachineName: win32more.Windows.Win32.Foundation.PWSTR, lpMessage: win32more.Windows.Win32.Foundation.PWSTR, dwGracePeriod: UInt32, dwShutdownFlags: win32more.Windows.Win32.System.Shutdown.SHUTDOWN_FLAGS, dwReason: win32more.Windows.Win32.System.Shutdown.SHUTDOWN_REASON) -> UInt32: ...
+InitiateShutdown = UnicodeAlias('InitiateShutdownW')
 @winfunctype('ADVAPI32.dll')
 def CheckForHiberboot(pHiberboot: POINTER(win32more.Windows.Win32.Foundation.BOOLEAN), bClearFlag: win32more.Windows.Win32.Foundation.BOOLEAN) -> UInt32: ...
 @winfunctype('USER32.dll')

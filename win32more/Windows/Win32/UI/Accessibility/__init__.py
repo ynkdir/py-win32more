@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.Variant
@@ -579,10 +579,12 @@ def AccessibleChildren(paccContainer: win32more.Windows.Win32.UI.Accessibility.I
 def GetRoleTextA(lRole: UInt32, lpszRole: win32more.Windows.Win32.Foundation.PSTR, cchRoleMax: UInt32) -> UInt32: ...
 @winfunctype('OLEACC.dll')
 def GetRoleTextW(lRole: UInt32, lpszRole: win32more.Windows.Win32.Foundation.PWSTR, cchRoleMax: UInt32) -> UInt32: ...
+GetRoleText = UnicodeAlias('GetRoleTextW')
 @winfunctype('OLEACC.dll')
 def GetStateTextA(lStateBit: UInt32, lpszState: win32more.Windows.Win32.Foundation.PSTR, cchState: UInt32) -> UInt32: ...
 @winfunctype('OLEACC.dll')
 def GetStateTextW(lStateBit: UInt32, lpszState: win32more.Windows.Win32.Foundation.PWSTR, cchState: UInt32) -> UInt32: ...
+GetStateText = UnicodeAlias('GetStateTextW')
 @winfunctype('OLEACC.dll')
 def GetOleaccVersionInfo(pVer: POINTER(UInt32), pBuild: POINTER(UInt32)) -> Void: ...
 @winfunctype('OLEACC.dll')
@@ -591,6 +593,7 @@ def CreateStdAccessibleObject(hwnd: win32more.Windows.Win32.Foundation.HWND, idO
 def CreateStdAccessibleProxyA(hwnd: win32more.Windows.Win32.Foundation.HWND, pClassName: win32more.Windows.Win32.Foundation.PSTR, idObject: Int32, riid: POINTER(Guid), ppvObject: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('OLEACC.dll')
 def CreateStdAccessibleProxyW(hwnd: win32more.Windows.Win32.Foundation.HWND, pClassName: win32more.Windows.Win32.Foundation.PWSTR, idObject: Int32, riid: POINTER(Guid), ppvObject: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+CreateStdAccessibleProxy = UnicodeAlias('CreateStdAccessibleProxyW')
 @winfunctype('OLEACC.dll')
 def AccSetRunningUtilityState(hwndApp: win32more.Windows.Win32.Foundation.HWND, dwUtilityStateMask: UInt32, dwUtilityState: win32more.Windows.Win32.UI.Accessibility.ACC_UTILITY_STATE_FLAGS) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('OLEACC.dll')
@@ -917,6 +920,7 @@ class HIGHCONTRASTW(EasyCastStructure):
     cbSize: UInt32
     dwFlags: win32more.Windows.Win32.UI.Accessibility.HIGHCONTRASTW_FLAGS
     lpszDefaultScheme: win32more.Windows.Win32.Foundation.PWSTR
+HIGHCONTRAST = UnicodeAlias('HIGHCONTRASTW')
 HIGHCONTRASTW_FLAGS = UInt32
 HCF_HIGHCONTRASTON: win32more.Windows.Win32.UI.Accessibility.HIGHCONTRASTW_FLAGS = 1
 HCF_AVAILABLE: win32more.Windows.Win32.UI.Accessibility.HIGHCONTRASTW_FLAGS = 2
@@ -2920,6 +2924,7 @@ class SERIALKEYSW(EasyCastStructure):
     iBaudRate: UInt32
     iPortState: UInt32
     iActive: UInt32
+SERIALKEYS = UnicodeAlias('SERIALKEYSW')
 SERIALKEYS_FLAGS = UInt32
 SERKF_AVAILABLE: win32more.Windows.Win32.UI.Accessibility.SERIALKEYS_FLAGS = 2
 SERKF_INDICATOR: win32more.Windows.Win32.UI.Accessibility.SERIALKEYS_FLAGS = 4
@@ -2950,6 +2955,7 @@ class SOUNDSENTRYW(EasyCastStructure):
     iWindowsEffectMSec: UInt32
     lpszWindowsEffectDLL: win32more.Windows.Win32.Foundation.PWSTR
     iWindowsEffectOrdinal: UInt32
+SOUNDSENTRY = UnicodeAlias('SOUNDSENTRYW')
 SOUNDSENTRY_FLAGS = UInt32
 SSF_SOUNDSENTRYON: win32more.Windows.Win32.UI.Accessibility.SOUNDSENTRY_FLAGS = 1
 SSF_AVAILABLE: win32more.Windows.Win32.UI.Accessibility.SOUNDSENTRY_FLAGS = 2

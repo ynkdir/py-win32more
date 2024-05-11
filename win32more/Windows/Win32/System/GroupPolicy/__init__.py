@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.System.Com
@@ -131,14 +131,17 @@ def UnregisterGPNotification(hEvent: win32more.Windows.Win32.Foundation.HANDLE) 
 def GetGPOListA(hToken: win32more.Windows.Win32.Foundation.HANDLE, lpName: win32more.Windows.Win32.Foundation.PSTR, lpHostName: win32more.Windows.Win32.Foundation.PSTR, lpComputerName: win32more.Windows.Win32.Foundation.PSTR, dwFlags: UInt32, pGPOList: POINTER(POINTER(win32more.Windows.Win32.System.GroupPolicy.GROUP_POLICY_OBJECTA))) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('USERENV.dll')
 def GetGPOListW(hToken: win32more.Windows.Win32.Foundation.HANDLE, lpName: win32more.Windows.Win32.Foundation.PWSTR, lpHostName: win32more.Windows.Win32.Foundation.PWSTR, lpComputerName: win32more.Windows.Win32.Foundation.PWSTR, dwFlags: UInt32, pGPOList: POINTER(POINTER(win32more.Windows.Win32.System.GroupPolicy.GROUP_POLICY_OBJECTW))) -> win32more.Windows.Win32.Foundation.BOOL: ...
+GetGPOList = UnicodeAlias('GetGPOListW')
 @winfunctype('USERENV.dll')
 def FreeGPOListA(pGPOList: POINTER(win32more.Windows.Win32.System.GroupPolicy.GROUP_POLICY_OBJECTA)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('USERENV.dll')
 def FreeGPOListW(pGPOList: POINTER(win32more.Windows.Win32.System.GroupPolicy.GROUP_POLICY_OBJECTW)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+FreeGPOList = UnicodeAlias('FreeGPOListW')
 @winfunctype('USERENV.dll')
 def GetAppliedGPOListA(dwFlags: UInt32, pMachineName: win32more.Windows.Win32.Foundation.PSTR, pSidUser: win32more.Windows.Win32.Security.PSID, pGuidExtension: POINTER(Guid), ppGPOList: POINTER(POINTER(win32more.Windows.Win32.System.GroupPolicy.GROUP_POLICY_OBJECTA))) -> UInt32: ...
 @winfunctype('USERENV.dll')
 def GetAppliedGPOListW(dwFlags: UInt32, pMachineName: win32more.Windows.Win32.Foundation.PWSTR, pSidUser: win32more.Windows.Win32.Security.PSID, pGuidExtension: POINTER(Guid), ppGPOList: POINTER(POINTER(win32more.Windows.Win32.System.GroupPolicy.GROUP_POLICY_OBJECTW))) -> UInt32: ...
+GetAppliedGPOList = UnicodeAlias('GetAppliedGPOListW')
 @winfunctype('USERENV.dll')
 def ProcessGroupPolicyCompleted(extensionId: POINTER(Guid), pAsyncHandle: UIntPtr, dwStatus: UInt32) -> UInt32: ...
 @winfunctype('USERENV.dll')
@@ -353,6 +356,7 @@ class GROUP_POLICY_OBJECTW(EasyCastStructure):
     lpExtensions: win32more.Windows.Win32.Foundation.PWSTR
     lParam2: win32more.Windows.Win32.Foundation.LPARAM
     lpLink: win32more.Windows.Win32.Foundation.PWSTR
+GROUP_POLICY_OBJECT = UnicodeAlias('GROUP_POLICY_OBJECTW')
 GROUP_POLICY_OBJECT_TYPE = Int32
 GPOTypeLocal: win32more.Windows.Win32.System.GroupPolicy.GROUP_POLICY_OBJECT_TYPE = 0
 GPOTypeRemote: win32more.Windows.Win32.System.GroupPolicy.GROUP_POLICY_OBJECT_TYPE = 1

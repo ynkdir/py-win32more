@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.Media
@@ -1349,48 +1349,59 @@ def OleSavePictureFile(lpdispPicture: win32more.Windows.Win32.System.Com.IDispat
 def OleIconToCursor(hinstExe: win32more.Windows.Win32.Foundation.HINSTANCE, hIcon: win32more.Windows.Win32.UI.WindowsAndMessaging.HICON) -> win32more.Windows.Win32.UI.WindowsAndMessaging.HCURSOR: ...
 @winfunctype('oledlg.dll')
 def OleUIAddVerbMenuW(lpOleObj: win32more.Windows.Win32.System.Ole.IOleObject, lpszShortType: win32more.Windows.Win32.Foundation.PWSTR, hMenu: win32more.Windows.Win32.UI.WindowsAndMessaging.HMENU, uPos: UInt32, uIDVerbMin: UInt32, uIDVerbMax: UInt32, bAddConvert: win32more.Windows.Win32.Foundation.BOOL, idConvert: UInt32, lphMenu: POINTER(win32more.Windows.Win32.UI.WindowsAndMessaging.HMENU)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+OleUIAddVerbMenu = UnicodeAlias('OleUIAddVerbMenuW')
 @winfunctype('oledlg.dll')
 def OleUIAddVerbMenuA(lpOleObj: win32more.Windows.Win32.System.Ole.IOleObject, lpszShortType: win32more.Windows.Win32.Foundation.PSTR, hMenu: win32more.Windows.Win32.UI.WindowsAndMessaging.HMENU, uPos: UInt32, uIDVerbMin: UInt32, uIDVerbMax: UInt32, bAddConvert: win32more.Windows.Win32.Foundation.BOOL, idConvert: UInt32, lphMenu: POINTER(win32more.Windows.Win32.UI.WindowsAndMessaging.HMENU)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('oledlg.dll')
 def OleUIInsertObjectW(param0: POINTER(win32more.Windows.Win32.System.Ole.OLEUIINSERTOBJECTW)) -> UInt32: ...
+OleUIInsertObject = UnicodeAlias('OleUIInsertObjectW')
 @winfunctype('oledlg.dll')
 def OleUIInsertObjectA(param0: POINTER(win32more.Windows.Win32.System.Ole.OLEUIINSERTOBJECTA)) -> UInt32: ...
 @winfunctype('oledlg.dll')
 def OleUIPasteSpecialW(param0: POINTER(win32more.Windows.Win32.System.Ole.OLEUIPASTESPECIALW)) -> UInt32: ...
+OleUIPasteSpecial = UnicodeAlias('OleUIPasteSpecialW')
 @winfunctype('oledlg.dll')
 def OleUIPasteSpecialA(param0: POINTER(win32more.Windows.Win32.System.Ole.OLEUIPASTESPECIALA)) -> UInt32: ...
 @winfunctype('oledlg.dll')
 def OleUIEditLinksW(param0: POINTER(win32more.Windows.Win32.System.Ole.OLEUIEDITLINKSW)) -> UInt32: ...
+OleUIEditLinks = UnicodeAlias('OleUIEditLinksW')
 @winfunctype('oledlg.dll')
 def OleUIEditLinksA(param0: POINTER(win32more.Windows.Win32.System.Ole.OLEUIEDITLINKSA)) -> UInt32: ...
 @winfunctype('oledlg.dll')
 def OleUIChangeIconW(param0: POINTER(win32more.Windows.Win32.System.Ole.OLEUICHANGEICONW)) -> UInt32: ...
+OleUIChangeIcon = UnicodeAlias('OleUIChangeIconW')
 @winfunctype('oledlg.dll')
 def OleUIChangeIconA(param0: POINTER(win32more.Windows.Win32.System.Ole.OLEUICHANGEICONA)) -> UInt32: ...
 @winfunctype('oledlg.dll')
 def OleUIConvertW(param0: POINTER(win32more.Windows.Win32.System.Ole.OLEUICONVERTW)) -> UInt32: ...
+OleUIConvert = UnicodeAlias('OleUIConvertW')
 @winfunctype('oledlg.dll')
 def OleUIConvertA(param0: POINTER(win32more.Windows.Win32.System.Ole.OLEUICONVERTA)) -> UInt32: ...
 @winfunctype('oledlg.dll')
 def OleUICanConvertOrActivateAs(rClsid: POINTER(Guid), fIsLinkedObject: win32more.Windows.Win32.Foundation.BOOL, wFormat: UInt16) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('oledlg.dll')
 def OleUIBusyW(param0: POINTER(win32more.Windows.Win32.System.Ole.OLEUIBUSYW)) -> UInt32: ...
+OleUIBusy = UnicodeAlias('OleUIBusyW')
 @winfunctype('oledlg.dll')
 def OleUIBusyA(param0: POINTER(win32more.Windows.Win32.System.Ole.OLEUIBUSYA)) -> UInt32: ...
 @winfunctype('oledlg.dll')
 def OleUIChangeSourceW(param0: POINTER(win32more.Windows.Win32.System.Ole.OLEUICHANGESOURCEW)) -> UInt32: ...
+OleUIChangeSource = UnicodeAlias('OleUIChangeSourceW')
 @winfunctype('oledlg.dll')
 def OleUIChangeSourceA(param0: POINTER(win32more.Windows.Win32.System.Ole.OLEUICHANGESOURCEA)) -> UInt32: ...
 @winfunctype('oledlg.dll')
 def OleUIObjectPropertiesW(param0: POINTER(win32more.Windows.Win32.System.Ole.OLEUIOBJECTPROPSW)) -> UInt32: ...
+OleUIObjectProperties = UnicodeAlias('OleUIObjectPropertiesW')
 @winfunctype('oledlg.dll')
 def OleUIObjectPropertiesA(param0: POINTER(win32more.Windows.Win32.System.Ole.OLEUIOBJECTPROPSA)) -> UInt32: ...
 @cfunctype('oledlg.dll', variadic=True)
 def OleUIPromptUserW(nTemplate: Int32, hwndParent: win32more.Windows.Win32.Foundation.HWND, *__arglist) -> Int32: ...
+OleUIPromptUser = UnicodeAlias('OleUIPromptUserW')
 @cfunctype('oledlg.dll', variadic=True)
 def OleUIPromptUserA(nTemplate: Int32, hwndParent: win32more.Windows.Win32.Foundation.HWND, *__arglist) -> Int32: ...
 @winfunctype('oledlg.dll')
 def OleUIUpdateLinksW(lpOleUILinkCntr: win32more.Windows.Win32.System.Ole.IOleUILinkContainerW, hwndParent: win32more.Windows.Win32.Foundation.HWND, lpszTitle: win32more.Windows.Win32.Foundation.PWSTR, cLinks: Int32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+OleUIUpdateLinks = UnicodeAlias('OleUIUpdateLinksW')
 @winfunctype('oledlg.dll')
 def OleUIUpdateLinksA(lpOleUILinkCntr: win32more.Windows.Win32.System.Ole.IOleUILinkContainerA, hwndParent: win32more.Windows.Win32.Foundation.HWND, lpszTitle: win32more.Windows.Win32.Foundation.PSTR, cLinks: Int32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 BINDSPEED = Int32
@@ -2304,6 +2315,7 @@ class IOleUILinkContainerW(ComPtr):
     def UpdateLink(self, dwLink: UInt32, fErrorMessage: win32more.Windows.Win32.Foundation.BOOL, fReserved: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def CancelLink(self, dwLink: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+IOleUILinkContainer = UnicodeAlias('IOleUILinkContainerW')
 class IOleUILinkInfoA(ComPtr):
     extends: win32more.Windows.Win32.System.Ole.IOleUILinkContainerA
     @commethod(11)
@@ -2312,6 +2324,7 @@ class IOleUILinkInfoW(ComPtr):
     extends: win32more.Windows.Win32.System.Ole.IOleUILinkContainerW
     @commethod(11)
     def GetLastUpdate(self, dwLink: UInt32, lpLastUpdate: POINTER(win32more.Windows.Win32.Foundation.FILETIME)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+IOleUILinkInfo = UnicodeAlias('IOleUILinkInfoW')
 class IOleUIObjInfoA(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     @commethod(3)
@@ -2336,6 +2349,7 @@ class IOleUIObjInfoW(ComPtr):
     def GetViewInfo(self, dwObject: UInt32, phMetaPict: POINTER(win32more.Windows.Win32.Foundation.HGLOBAL), pdvAspect: POINTER(UInt32), pnCurrentScale: POINTER(Int32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def SetViewInfo(self, dwObject: UInt32, hMetaPict: win32more.Windows.Win32.Foundation.HGLOBAL, dvAspect: UInt32, nCurrentScale: Int32, bRelativeToOrig: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+IOleUIObjInfo = UnicodeAlias('IOleUIObjInfoW')
 class IOleUndoManager(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{d001f200-ef97-11ce-9bc9-00aa00608e01}')
@@ -3088,6 +3102,7 @@ class OLEUIBUSYW(EasyCastStructure):
     hResource: win32more.Windows.Win32.Foundation.HRSRC
     hTask: win32more.Windows.Win32.Media.HTASK
     lphWndDialog: POINTER(win32more.Windows.Win32.Foundation.HWND)
+OLEUIBUSY = UnicodeAlias('OLEUIBUSYW')
 class OLEUICHANGEICONA(EasyCastStructure):
     cbStruct: UInt32
     dwFlags: win32more.Windows.Win32.System.Ole.CHANGE_ICON_FLAGS
@@ -3116,6 +3131,7 @@ class OLEUICHANGEICONW(EasyCastStructure):
     clsid: Guid
     szIconExe: Char * 260
     cchIconExe: Int32
+OLEUICHANGEICON = UnicodeAlias('OLEUICHANGEICONW')
 class OLEUICHANGESOURCEA(EasyCastStructure):
     cbStruct: UInt32
     dwFlags: win32more.Windows.Win32.System.Ole.CHANGE_SOURCE_FLAGS
@@ -3152,6 +3168,7 @@ class OLEUICHANGESOURCEW(EasyCastStructure):
     nFileLength: UInt32
     lpszFrom: win32more.Windows.Win32.Foundation.PWSTR
     lpszTo: win32more.Windows.Win32.Foundation.PWSTR
+OLEUICHANGESOURCE = UnicodeAlias('OLEUICHANGESOURCEW')
 class OLEUICONVERTA(EasyCastStructure):
     cbStruct: UInt32
     dwFlags: win32more.Windows.Win32.System.Ole.UI_CONVERT_FLAGS
@@ -3198,6 +3215,7 @@ class OLEUICONVERTW(EasyCastStructure):
     lpszDefLabel: win32more.Windows.Win32.Foundation.PWSTR
     cClsidExclude: UInt32
     lpClsidExclude: POINTER(Guid)
+OLEUICONVERT = UnicodeAlias('OLEUICONVERTW')
 class OLEUIEDITLINKSA(EasyCastStructure):
     cbStruct: UInt32
     dwFlags: win32more.Windows.Win32.System.Ole.EDIT_LINKS_FLAGS
@@ -3220,6 +3238,7 @@ class OLEUIEDITLINKSW(EasyCastStructure):
     lpszTemplate: win32more.Windows.Win32.Foundation.PWSTR
     hResource: win32more.Windows.Win32.Foundation.HRSRC
     lpOleUILinkContainer: win32more.Windows.Win32.System.Ole.IOleUILinkContainerW
+OLEUIEDITLINKS = UnicodeAlias('OLEUIEDITLINKSW')
 class OLEUIGNRLPROPSA(EasyCastStructure):
     cbStruct: UInt32
     dwFlags: UInt32
@@ -3236,6 +3255,7 @@ class OLEUIGNRLPROPSW(EasyCastStructure):
     lCustData: win32more.Windows.Win32.Foundation.LPARAM
     dwReserved2: UInt32 * 3
     lpOP: POINTER(win32more.Windows.Win32.System.Ole.OLEUIOBJECTPROPSW)
+OLEUIGNRLPROPS = UnicodeAlias('OLEUIGNRLPROPSW')
 class OLEUIINSERTOBJECTA(EasyCastStructure):
     cbStruct: UInt32
     dwFlags: win32more.Windows.Win32.System.Ole.INSERT_OBJECT_FLAGS
@@ -3282,6 +3302,7 @@ class OLEUIINSERTOBJECTW(EasyCastStructure):
     ppvObj: POINTER(VoidPtr)
     sc: Int32
     hMetaPict: win32more.Windows.Win32.Foundation.HGLOBAL
+OLEUIINSERTOBJECT = UnicodeAlias('OLEUIINSERTOBJECTW')
 class OLEUILINKPROPSA(EasyCastStructure):
     cbStruct: UInt32
     dwFlags: UInt32
@@ -3298,6 +3319,7 @@ class OLEUILINKPROPSW(EasyCastStructure):
     lCustData: win32more.Windows.Win32.Foundation.LPARAM
     dwReserved2: UInt32 * 3
     lpOP: POINTER(win32more.Windows.Win32.System.Ole.OLEUIOBJECTPROPSW)
+OLEUILINKPROPS = UnicodeAlias('OLEUILINKPROPSW')
 class OLEUIOBJECTPROPSA(EasyCastStructure):
     cbStruct: UInt32
     dwFlags: win32more.Windows.Win32.System.Ole.OBJECT_PROPERTIES_FLAGS
@@ -3320,6 +3342,7 @@ class OLEUIOBJECTPROPSW(EasyCastStructure):
     lpGP: POINTER(win32more.Windows.Win32.System.Ole.OLEUIGNRLPROPSW)
     lpVP: POINTER(win32more.Windows.Win32.System.Ole.OLEUIVIEWPROPSW)
     lpLP: POINTER(win32more.Windows.Win32.System.Ole.OLEUILINKPROPSW)
+OLEUIOBJECTPROPS = UnicodeAlias('OLEUIOBJECTPROPSW')
 class OLEUIPASTEENTRYA(EasyCastStructure):
     fmtetc: win32more.Windows.Win32.System.Com.FORMATETC
     lpstrFormatName: win32more.Windows.Win32.Foundation.PSTR
@@ -3332,6 +3355,7 @@ class OLEUIPASTEENTRYW(EasyCastStructure):
     lpstrResultText: win32more.Windows.Win32.Foundation.PWSTR
     dwFlags: UInt32
     dwScratchSpace: UInt32
+OLEUIPASTEENTRY = UnicodeAlias('OLEUIPASTEENTRYW')
 OLEUIPASTEFLAG = Int32
 OLEUIPASTE_ENABLEICON: win32more.Windows.Win32.System.Ole.OLEUIPASTEFLAG = 2048
 OLEUIPASTE_PASTEONLY: win32more.Windows.Win32.System.Ole.OLEUIPASTEFLAG = 0
@@ -3387,6 +3411,7 @@ class OLEUIPASTESPECIALW(EasyCastStructure):
     fLink: win32more.Windows.Win32.Foundation.BOOL
     hMetaPict: win32more.Windows.Win32.Foundation.HGLOBAL
     sizel: win32more.Windows.Win32.Foundation.SIZE
+OLEUIPASTESPECIAL = UnicodeAlias('OLEUIPASTESPECIALW')
 class OLEUIVIEWPROPSA(EasyCastStructure):
     cbStruct: UInt32
     dwFlags: win32more.Windows.Win32.System.Ole.VIEW_OBJECT_PROPERTIES_FLAGS
@@ -3407,6 +3432,7 @@ class OLEUIVIEWPROPSW(EasyCastStructure):
     lpOP: POINTER(win32more.Windows.Win32.System.Ole.OLEUIOBJECTPROPSW)
     nScaleMin: Int32
     nScaleMax: Int32
+OLEUIVIEWPROPS = UnicodeAlias('OLEUIVIEWPROPSW')
 OLEUPDATE = Int32
 OLEUPDATE_ALWAYS: win32more.Windows.Win32.System.Ole.OLEUPDATE = 1
 OLEUPDATE_ONCALL: win32more.Windows.Win32.System.Ole.OLEUPDATE = 3

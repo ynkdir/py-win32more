@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Devices.Communication
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.IO
@@ -139,22 +139,27 @@ def GetCommPorts(lpPortNumbers: POINTER(UInt32), uPortNumbersCount: UInt32, puPo
 def BuildCommDCBA(lpDef: win32more.Windows.Win32.Foundation.PSTR, lpDCB: POINTER(win32more.Windows.Win32.Devices.Communication.DCB)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
 def BuildCommDCBW(lpDef: win32more.Windows.Win32.Foundation.PWSTR, lpDCB: POINTER(win32more.Windows.Win32.Devices.Communication.DCB)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+BuildCommDCB = UnicodeAlias('BuildCommDCBW')
 @winfunctype('KERNEL32.dll')
 def BuildCommDCBAndTimeoutsA(lpDef: win32more.Windows.Win32.Foundation.PSTR, lpDCB: POINTER(win32more.Windows.Win32.Devices.Communication.DCB), lpCommTimeouts: POINTER(win32more.Windows.Win32.Devices.Communication.COMMTIMEOUTS)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
 def BuildCommDCBAndTimeoutsW(lpDef: win32more.Windows.Win32.Foundation.PWSTR, lpDCB: POINTER(win32more.Windows.Win32.Devices.Communication.DCB), lpCommTimeouts: POINTER(win32more.Windows.Win32.Devices.Communication.COMMTIMEOUTS)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+BuildCommDCBAndTimeouts = UnicodeAlias('BuildCommDCBAndTimeoutsW')
 @winfunctype('KERNEL32.dll')
 def CommConfigDialogA(lpszName: win32more.Windows.Win32.Foundation.PSTR, hWnd: win32more.Windows.Win32.Foundation.HWND, lpCC: POINTER(win32more.Windows.Win32.Devices.Communication.COMMCONFIG)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
 def CommConfigDialogW(lpszName: win32more.Windows.Win32.Foundation.PWSTR, hWnd: win32more.Windows.Win32.Foundation.HWND, lpCC: POINTER(win32more.Windows.Win32.Devices.Communication.COMMCONFIG)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+CommConfigDialog = UnicodeAlias('CommConfigDialogW')
 @winfunctype('KERNEL32.dll')
 def GetDefaultCommConfigA(lpszName: win32more.Windows.Win32.Foundation.PSTR, lpCC: POINTER(win32more.Windows.Win32.Devices.Communication.COMMCONFIG), lpdwSize: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
 def GetDefaultCommConfigW(lpszName: win32more.Windows.Win32.Foundation.PWSTR, lpCC: POINTER(win32more.Windows.Win32.Devices.Communication.COMMCONFIG), lpdwSize: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+GetDefaultCommConfig = UnicodeAlias('GetDefaultCommConfigW')
 @winfunctype('KERNEL32.dll')
 def SetDefaultCommConfigA(lpszName: win32more.Windows.Win32.Foundation.PSTR, lpCC: POINTER(win32more.Windows.Win32.Devices.Communication.COMMCONFIG), dwSize: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
 def SetDefaultCommConfigW(lpszName: win32more.Windows.Win32.Foundation.PWSTR, lpCC: POINTER(win32more.Windows.Win32.Devices.Communication.COMMCONFIG), dwSize: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+SetDefaultCommConfig = UnicodeAlias('SetDefaultCommConfigW')
 CLEAR_COMM_ERROR_FLAGS = UInt32
 CE_BREAK: win32more.Windows.Win32.Devices.Communication.CLEAR_COMM_ERROR_FLAGS = 16
 CE_FRAME: win32more.Windows.Win32.Devices.Communication.CLEAR_COMM_ERROR_FLAGS = 8

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.System.Memory
@@ -56,8 +56,10 @@ def VirtualProtectEx(hProcess: win32more.Windows.Win32.Foundation.HANDLE, lpAddr
 def VirtualQueryEx(hProcess: win32more.Windows.Win32.Foundation.HANDLE, lpAddress: VoidPtr, lpBuffer: POINTER(win32more.Windows.Win32.System.Memory.MEMORY_BASIC_INFORMATION), dwLength: UIntPtr) -> UIntPtr: ...
 @winfunctype('KERNEL32.dll')
 def CreateFileMappingW(hFile: win32more.Windows.Win32.Foundation.HANDLE, lpFileMappingAttributes: POINTER(win32more.Windows.Win32.Security.SECURITY_ATTRIBUTES), flProtect: win32more.Windows.Win32.System.Memory.PAGE_PROTECTION_FLAGS, dwMaximumSizeHigh: UInt32, dwMaximumSizeLow: UInt32, lpName: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.HANDLE: ...
+CreateFileMapping = UnicodeAlias('CreateFileMappingW')
 @winfunctype('KERNEL32.dll')
 def OpenFileMappingW(dwDesiredAccess: UInt32, bInheritHandle: win32more.Windows.Win32.Foundation.BOOL, lpName: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.HANDLE: ...
+OpenFileMapping = UnicodeAlias('OpenFileMappingW')
 @winfunctype('KERNEL32.dll')
 def MapViewOfFile(hFileMappingObject: win32more.Windows.Win32.Foundation.HANDLE, dwDesiredAccess: win32more.Windows.Win32.System.Memory.FILE_MAP, dwFileOffsetHigh: UInt32, dwFileOffsetLow: UInt32, dwNumberOfBytesToMap: UIntPtr) -> win32more.Windows.Win32.System.Memory.MEMORY_MAPPED_VIEW_ADDRESS: ...
 @winfunctype('KERNEL32.dll')
@@ -92,6 +94,7 @@ def GetSystemFileCacheSize(lpMinimumFileCacheSize: POINTER(UIntPtr), lpMaximumFi
 def SetSystemFileCacheSize(MinimumFileCacheSize: UIntPtr, MaximumFileCacheSize: UIntPtr, Flags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
 def CreateFileMappingNumaW(hFile: win32more.Windows.Win32.Foundation.HANDLE, lpFileMappingAttributes: POINTER(win32more.Windows.Win32.Security.SECURITY_ATTRIBUTES), flProtect: win32more.Windows.Win32.System.Memory.PAGE_PROTECTION_FLAGS, dwMaximumSizeHigh: UInt32, dwMaximumSizeLow: UInt32, lpName: win32more.Windows.Win32.Foundation.PWSTR, nndPreferred: UInt32) -> win32more.Windows.Win32.Foundation.HANDLE: ...
+CreateFileMappingNuma = UnicodeAlias('CreateFileMappingNumaW')
 @winfunctype('KERNEL32.dll')
 def PrefetchVirtualMemory(hProcess: win32more.Windows.Win32.Foundation.HANDLE, NumberOfEntries: UIntPtr, VirtualAddresses: POINTER(win32more.Windows.Win32.System.Memory.WIN32_MEMORY_RANGE_ENTRY), Flags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
@@ -210,6 +213,7 @@ def IsBadCodePtr(lpfn: win32more.Windows.Win32.Foundation.FARPROC) -> win32more.
 def IsBadStringPtrA(lpsz: win32more.Windows.Win32.Foundation.PSTR, ucchMax: UIntPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
 def IsBadStringPtrW(lpsz: win32more.Windows.Win32.Foundation.PWSTR, ucchMax: UIntPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+IsBadStringPtr = UnicodeAlias('IsBadStringPtrW')
 @winfunctype('KERNEL32.dll')
 def MapUserPhysicalPagesScatter(VirtualAddresses: POINTER(VoidPtr), NumberOfPages: UIntPtr, PageArray: POINTER(UIntPtr)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')

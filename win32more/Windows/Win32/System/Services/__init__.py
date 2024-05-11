@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.System.Registry
@@ -141,10 +141,12 @@ def SetServiceBits(hServiceStatus: win32more.Windows.Win32.System.Services.SERVI
 def ChangeServiceConfigA(hService: win32more.Windows.Win32.System.Services.SC_HANDLE, dwServiceType: win32more.Windows.Win32.System.Services.ENUM_SERVICE_TYPE, dwStartType: win32more.Windows.Win32.System.Services.SERVICE_START_TYPE, dwErrorControl: win32more.Windows.Win32.System.Services.SERVICE_ERROR, lpBinaryPathName: win32more.Windows.Win32.Foundation.PSTR, lpLoadOrderGroup: win32more.Windows.Win32.Foundation.PSTR, lpdwTagId: POINTER(UInt32), lpDependencies: win32more.Windows.Win32.Foundation.PSTR, lpServiceStartName: win32more.Windows.Win32.Foundation.PSTR, lpPassword: win32more.Windows.Win32.Foundation.PSTR, lpDisplayName: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
 def ChangeServiceConfigW(hService: win32more.Windows.Win32.System.Services.SC_HANDLE, dwServiceType: win32more.Windows.Win32.System.Services.ENUM_SERVICE_TYPE, dwStartType: win32more.Windows.Win32.System.Services.SERVICE_START_TYPE, dwErrorControl: win32more.Windows.Win32.System.Services.SERVICE_ERROR, lpBinaryPathName: win32more.Windows.Win32.Foundation.PWSTR, lpLoadOrderGroup: win32more.Windows.Win32.Foundation.PWSTR, lpdwTagId: POINTER(UInt32), lpDependencies: win32more.Windows.Win32.Foundation.PWSTR, lpServiceStartName: win32more.Windows.Win32.Foundation.PWSTR, lpPassword: win32more.Windows.Win32.Foundation.PWSTR, lpDisplayName: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
+ChangeServiceConfig = UnicodeAlias('ChangeServiceConfigW')
 @winfunctype('ADVAPI32.dll')
 def ChangeServiceConfig2A(hService: win32more.Windows.Win32.System.Services.SC_HANDLE, dwInfoLevel: win32more.Windows.Win32.System.Services.SERVICE_CONFIG, lpInfo: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
 def ChangeServiceConfig2W(hService: win32more.Windows.Win32.System.Services.SC_HANDLE, dwInfoLevel: win32more.Windows.Win32.System.Services.SERVICE_CONFIG, lpInfo: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+ChangeServiceConfig2 = UnicodeAlias('ChangeServiceConfig2W')
 @winfunctype('ADVAPI32.dll')
 def CloseServiceHandle(hSCObject: win32more.Windows.Win32.System.Services.SC_HANDLE) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
@@ -153,28 +155,34 @@ def ControlService(hService: win32more.Windows.Win32.System.Services.SC_HANDLE, 
 def CreateServiceA(hSCManager: win32more.Windows.Win32.System.Services.SC_HANDLE, lpServiceName: win32more.Windows.Win32.Foundation.PSTR, lpDisplayName: win32more.Windows.Win32.Foundation.PSTR, dwDesiredAccess: UInt32, dwServiceType: win32more.Windows.Win32.System.Services.ENUM_SERVICE_TYPE, dwStartType: win32more.Windows.Win32.System.Services.SERVICE_START_TYPE, dwErrorControl: win32more.Windows.Win32.System.Services.SERVICE_ERROR, lpBinaryPathName: win32more.Windows.Win32.Foundation.PSTR, lpLoadOrderGroup: win32more.Windows.Win32.Foundation.PSTR, lpdwTagId: POINTER(UInt32), lpDependencies: win32more.Windows.Win32.Foundation.PSTR, lpServiceStartName: win32more.Windows.Win32.Foundation.PSTR, lpPassword: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.System.Services.SC_HANDLE: ...
 @winfunctype('ADVAPI32.dll')
 def CreateServiceW(hSCManager: win32more.Windows.Win32.System.Services.SC_HANDLE, lpServiceName: win32more.Windows.Win32.Foundation.PWSTR, lpDisplayName: win32more.Windows.Win32.Foundation.PWSTR, dwDesiredAccess: UInt32, dwServiceType: win32more.Windows.Win32.System.Services.ENUM_SERVICE_TYPE, dwStartType: win32more.Windows.Win32.System.Services.SERVICE_START_TYPE, dwErrorControl: win32more.Windows.Win32.System.Services.SERVICE_ERROR, lpBinaryPathName: win32more.Windows.Win32.Foundation.PWSTR, lpLoadOrderGroup: win32more.Windows.Win32.Foundation.PWSTR, lpdwTagId: POINTER(UInt32), lpDependencies: win32more.Windows.Win32.Foundation.PWSTR, lpServiceStartName: win32more.Windows.Win32.Foundation.PWSTR, lpPassword: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.System.Services.SC_HANDLE: ...
+CreateService = UnicodeAlias('CreateServiceW')
 @winfunctype('ADVAPI32.dll')
 def DeleteService(hService: win32more.Windows.Win32.System.Services.SC_HANDLE) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
 def EnumDependentServicesA(hService: win32more.Windows.Win32.System.Services.SC_HANDLE, dwServiceState: win32more.Windows.Win32.System.Services.ENUM_SERVICE_STATE, lpServices: POINTER(win32more.Windows.Win32.System.Services.ENUM_SERVICE_STATUSA), cbBufSize: UInt32, pcbBytesNeeded: POINTER(UInt32), lpServicesReturned: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
 def EnumDependentServicesW(hService: win32more.Windows.Win32.System.Services.SC_HANDLE, dwServiceState: win32more.Windows.Win32.System.Services.ENUM_SERVICE_STATE, lpServices: POINTER(win32more.Windows.Win32.System.Services.ENUM_SERVICE_STATUSW), cbBufSize: UInt32, pcbBytesNeeded: POINTER(UInt32), lpServicesReturned: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+EnumDependentServices = UnicodeAlias('EnumDependentServicesW')
 @winfunctype('ADVAPI32.dll')
 def EnumServicesStatusA(hSCManager: win32more.Windows.Win32.System.Services.SC_HANDLE, dwServiceType: win32more.Windows.Win32.System.Services.ENUM_SERVICE_TYPE, dwServiceState: win32more.Windows.Win32.System.Services.ENUM_SERVICE_STATE, lpServices: POINTER(win32more.Windows.Win32.System.Services.ENUM_SERVICE_STATUSA), cbBufSize: UInt32, pcbBytesNeeded: POINTER(UInt32), lpServicesReturned: POINTER(UInt32), lpResumeHandle: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
 def EnumServicesStatusW(hSCManager: win32more.Windows.Win32.System.Services.SC_HANDLE, dwServiceType: win32more.Windows.Win32.System.Services.ENUM_SERVICE_TYPE, dwServiceState: win32more.Windows.Win32.System.Services.ENUM_SERVICE_STATE, lpServices: POINTER(win32more.Windows.Win32.System.Services.ENUM_SERVICE_STATUSW), cbBufSize: UInt32, pcbBytesNeeded: POINTER(UInt32), lpServicesReturned: POINTER(UInt32), lpResumeHandle: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+EnumServicesStatus = UnicodeAlias('EnumServicesStatusW')
 @winfunctype('ADVAPI32.dll')
 def EnumServicesStatusExA(hSCManager: win32more.Windows.Win32.System.Services.SC_HANDLE, InfoLevel: win32more.Windows.Win32.System.Services.SC_ENUM_TYPE, dwServiceType: win32more.Windows.Win32.System.Services.ENUM_SERVICE_TYPE, dwServiceState: win32more.Windows.Win32.System.Services.ENUM_SERVICE_STATE, lpServices: POINTER(Byte), cbBufSize: UInt32, pcbBytesNeeded: POINTER(UInt32), lpServicesReturned: POINTER(UInt32), lpResumeHandle: POINTER(UInt32), pszGroupName: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
 def EnumServicesStatusExW(hSCManager: win32more.Windows.Win32.System.Services.SC_HANDLE, InfoLevel: win32more.Windows.Win32.System.Services.SC_ENUM_TYPE, dwServiceType: win32more.Windows.Win32.System.Services.ENUM_SERVICE_TYPE, dwServiceState: win32more.Windows.Win32.System.Services.ENUM_SERVICE_STATE, lpServices: POINTER(Byte), cbBufSize: UInt32, pcbBytesNeeded: POINTER(UInt32), lpServicesReturned: POINTER(UInt32), lpResumeHandle: POINTER(UInt32), pszGroupName: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
+EnumServicesStatusEx = UnicodeAlias('EnumServicesStatusExW')
 @winfunctype('ADVAPI32.dll')
 def GetServiceKeyNameA(hSCManager: win32more.Windows.Win32.System.Services.SC_HANDLE, lpDisplayName: win32more.Windows.Win32.Foundation.PSTR, lpServiceName: win32more.Windows.Win32.Foundation.PSTR, lpcchBuffer: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
 def GetServiceKeyNameW(hSCManager: win32more.Windows.Win32.System.Services.SC_HANDLE, lpDisplayName: win32more.Windows.Win32.Foundation.PWSTR, lpServiceName: win32more.Windows.Win32.Foundation.PWSTR, lpcchBuffer: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+GetServiceKeyName = UnicodeAlias('GetServiceKeyNameW')
 @winfunctype('ADVAPI32.dll')
 def GetServiceDisplayNameA(hSCManager: win32more.Windows.Win32.System.Services.SC_HANDLE, lpServiceName: win32more.Windows.Win32.Foundation.PSTR, lpDisplayName: win32more.Windows.Win32.Foundation.PSTR, lpcchBuffer: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
 def GetServiceDisplayNameW(hSCManager: win32more.Windows.Win32.System.Services.SC_HANDLE, lpServiceName: win32more.Windows.Win32.Foundation.PWSTR, lpDisplayName: win32more.Windows.Win32.Foundation.PWSTR, lpcchBuffer: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+GetServiceDisplayName = UnicodeAlias('GetServiceDisplayNameW')
 @winfunctype('ADVAPI32.dll')
 def LockServiceDatabase(hSCManager: win32more.Windows.Win32.System.Services.SC_HANDLE) -> VoidPtr: ...
 @winfunctype('ADVAPI32.dll')
@@ -183,22 +191,27 @@ def NotifyBootConfigStatus(BootAcceptable: win32more.Windows.Win32.Foundation.BO
 def OpenSCManagerA(lpMachineName: win32more.Windows.Win32.Foundation.PSTR, lpDatabaseName: win32more.Windows.Win32.Foundation.PSTR, dwDesiredAccess: UInt32) -> win32more.Windows.Win32.System.Services.SC_HANDLE: ...
 @winfunctype('ADVAPI32.dll')
 def OpenSCManagerW(lpMachineName: win32more.Windows.Win32.Foundation.PWSTR, lpDatabaseName: win32more.Windows.Win32.Foundation.PWSTR, dwDesiredAccess: UInt32) -> win32more.Windows.Win32.System.Services.SC_HANDLE: ...
+OpenSCManager = UnicodeAlias('OpenSCManagerW')
 @winfunctype('ADVAPI32.dll')
 def OpenServiceA(hSCManager: win32more.Windows.Win32.System.Services.SC_HANDLE, lpServiceName: win32more.Windows.Win32.Foundation.PSTR, dwDesiredAccess: UInt32) -> win32more.Windows.Win32.System.Services.SC_HANDLE: ...
 @winfunctype('ADVAPI32.dll')
 def OpenServiceW(hSCManager: win32more.Windows.Win32.System.Services.SC_HANDLE, lpServiceName: win32more.Windows.Win32.Foundation.PWSTR, dwDesiredAccess: UInt32) -> win32more.Windows.Win32.System.Services.SC_HANDLE: ...
+OpenService = UnicodeAlias('OpenServiceW')
 @winfunctype('ADVAPI32.dll')
 def QueryServiceConfigA(hService: win32more.Windows.Win32.System.Services.SC_HANDLE, lpServiceConfig: POINTER(win32more.Windows.Win32.System.Services.QUERY_SERVICE_CONFIGA), cbBufSize: UInt32, pcbBytesNeeded: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
 def QueryServiceConfigW(hService: win32more.Windows.Win32.System.Services.SC_HANDLE, lpServiceConfig: POINTER(win32more.Windows.Win32.System.Services.QUERY_SERVICE_CONFIGW), cbBufSize: UInt32, pcbBytesNeeded: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+QueryServiceConfig = UnicodeAlias('QueryServiceConfigW')
 @winfunctype('ADVAPI32.dll')
 def QueryServiceConfig2A(hService: win32more.Windows.Win32.System.Services.SC_HANDLE, dwInfoLevel: win32more.Windows.Win32.System.Services.SERVICE_CONFIG, lpBuffer: POINTER(Byte), cbBufSize: UInt32, pcbBytesNeeded: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
 def QueryServiceConfig2W(hService: win32more.Windows.Win32.System.Services.SC_HANDLE, dwInfoLevel: win32more.Windows.Win32.System.Services.SERVICE_CONFIG, lpBuffer: POINTER(Byte), cbBufSize: UInt32, pcbBytesNeeded: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+QueryServiceConfig2 = UnicodeAlias('QueryServiceConfig2W')
 @winfunctype('ADVAPI32.dll')
 def QueryServiceLockStatusA(hSCManager: win32more.Windows.Win32.System.Services.SC_HANDLE, lpLockStatus: POINTER(win32more.Windows.Win32.System.Services.QUERY_SERVICE_LOCK_STATUSA), cbBufSize: UInt32, pcbBytesNeeded: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
 def QueryServiceLockStatusW(hSCManager: win32more.Windows.Win32.System.Services.SC_HANDLE, lpLockStatus: POINTER(win32more.Windows.Win32.System.Services.QUERY_SERVICE_LOCK_STATUSW), cbBufSize: UInt32, pcbBytesNeeded: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+QueryServiceLockStatus = UnicodeAlias('QueryServiceLockStatusW')
 @winfunctype('ADVAPI32.dll')
 def QueryServiceObjectSecurity(hService: win32more.Windows.Win32.System.Services.SC_HANDLE, dwSecurityInformation: UInt32, lpSecurityDescriptor: win32more.Windows.Win32.Security.PSECURITY_DESCRIPTOR, cbBufSize: UInt32, pcbBytesNeeded: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
@@ -209,10 +222,12 @@ def QueryServiceStatusEx(hService: win32more.Windows.Win32.System.Services.SC_HA
 def RegisterServiceCtrlHandlerA(lpServiceName: win32more.Windows.Win32.Foundation.PSTR, lpHandlerProc: win32more.Windows.Win32.System.Services.LPHANDLER_FUNCTION) -> win32more.Windows.Win32.System.Services.SERVICE_STATUS_HANDLE: ...
 @winfunctype('ADVAPI32.dll')
 def RegisterServiceCtrlHandlerW(lpServiceName: win32more.Windows.Win32.Foundation.PWSTR, lpHandlerProc: win32more.Windows.Win32.System.Services.LPHANDLER_FUNCTION) -> win32more.Windows.Win32.System.Services.SERVICE_STATUS_HANDLE: ...
+RegisterServiceCtrlHandler = UnicodeAlias('RegisterServiceCtrlHandlerW')
 @winfunctype('ADVAPI32.dll')
 def RegisterServiceCtrlHandlerExA(lpServiceName: win32more.Windows.Win32.Foundation.PSTR, lpHandlerProc: win32more.Windows.Win32.System.Services.LPHANDLER_FUNCTION_EX, lpContext: VoidPtr) -> win32more.Windows.Win32.System.Services.SERVICE_STATUS_HANDLE: ...
 @winfunctype('ADVAPI32.dll')
 def RegisterServiceCtrlHandlerExW(lpServiceName: win32more.Windows.Win32.Foundation.PWSTR, lpHandlerProc: win32more.Windows.Win32.System.Services.LPHANDLER_FUNCTION_EX, lpContext: VoidPtr) -> win32more.Windows.Win32.System.Services.SERVICE_STATUS_HANDLE: ...
+RegisterServiceCtrlHandlerEx = UnicodeAlias('RegisterServiceCtrlHandlerExW')
 @winfunctype('ADVAPI32.dll')
 def SetServiceObjectSecurity(hService: win32more.Windows.Win32.System.Services.SC_HANDLE, dwSecurityInformation: win32more.Windows.Win32.Security.OBJECT_SECURITY_INFORMATION, lpSecurityDescriptor: win32more.Windows.Win32.Security.PSECURITY_DESCRIPTOR) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
@@ -221,20 +236,24 @@ def SetServiceStatus(hServiceStatus: win32more.Windows.Win32.System.Services.SER
 def StartServiceCtrlDispatcherA(lpServiceStartTable: POINTER(win32more.Windows.Win32.System.Services.SERVICE_TABLE_ENTRYA)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
 def StartServiceCtrlDispatcherW(lpServiceStartTable: POINTER(win32more.Windows.Win32.System.Services.SERVICE_TABLE_ENTRYW)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+StartServiceCtrlDispatcher = UnicodeAlias('StartServiceCtrlDispatcherW')
 @winfunctype('ADVAPI32.dll')
 def StartServiceA(hService: win32more.Windows.Win32.System.Services.SC_HANDLE, dwNumServiceArgs: UInt32, lpServiceArgVectors: POINTER(win32more.Windows.Win32.Foundation.PSTR)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
 def StartServiceW(hService: win32more.Windows.Win32.System.Services.SC_HANDLE, dwNumServiceArgs: UInt32, lpServiceArgVectors: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+StartService = UnicodeAlias('StartServiceW')
 @winfunctype('ADVAPI32.dll')
 def UnlockServiceDatabase(ScLock: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
 def NotifyServiceStatusChangeA(hService: win32more.Windows.Win32.System.Services.SC_HANDLE, dwNotifyMask: win32more.Windows.Win32.System.Services.SERVICE_NOTIFY, pNotifyBuffer: POINTER(win32more.Windows.Win32.System.Services.SERVICE_NOTIFY_2A)) -> UInt32: ...
 @winfunctype('ADVAPI32.dll')
 def NotifyServiceStatusChangeW(hService: win32more.Windows.Win32.System.Services.SC_HANDLE, dwNotifyMask: win32more.Windows.Win32.System.Services.SERVICE_NOTIFY, pNotifyBuffer: POINTER(win32more.Windows.Win32.System.Services.SERVICE_NOTIFY_2W)) -> UInt32: ...
+NotifyServiceStatusChange = UnicodeAlias('NotifyServiceStatusChangeW')
 @winfunctype('ADVAPI32.dll')
 def ControlServiceExA(hService: win32more.Windows.Win32.System.Services.SC_HANDLE, dwControl: UInt32, dwInfoLevel: UInt32, pControlParams: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
 def ControlServiceExW(hService: win32more.Windows.Win32.System.Services.SC_HANDLE, dwControl: UInt32, dwInfoLevel: UInt32, pControlParams: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+ControlServiceEx = UnicodeAlias('ControlServiceExW')
 @winfunctype('ADVAPI32.dll')
 def QueryServiceDynamicInformation(hServiceStatus: win32more.Windows.Win32.System.Services.SERVICE_STATUS_HANDLE, dwInfoLevel: UInt32, ppDynamicInfo: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('SecHost.dll')
@@ -263,6 +282,7 @@ class ENUM_SERVICE_STATUSW(EasyCastStructure):
     lpServiceName: win32more.Windows.Win32.Foundation.PWSTR
     lpDisplayName: win32more.Windows.Win32.Foundation.PWSTR
     ServiceStatus: win32more.Windows.Win32.System.Services.SERVICE_STATUS
+ENUM_SERVICE_STATUS = UnicodeAlias('ENUM_SERVICE_STATUSW')
 class ENUM_SERVICE_STATUS_PROCESSA(EasyCastStructure):
     lpServiceName: win32more.Windows.Win32.Foundation.PSTR
     lpDisplayName: win32more.Windows.Win32.Foundation.PSTR
@@ -271,6 +291,7 @@ class ENUM_SERVICE_STATUS_PROCESSW(EasyCastStructure):
     lpServiceName: win32more.Windows.Win32.Foundation.PWSTR
     lpDisplayName: win32more.Windows.Win32.Foundation.PWSTR
     ServiceStatusProcess: win32more.Windows.Win32.System.Services.SERVICE_STATUS_PROCESS
+ENUM_SERVICE_STATUS_PROCESS = UnicodeAlias('ENUM_SERVICE_STATUS_PROCESSW')
 ENUM_SERVICE_TYPE = UInt32
 SERVICE_DRIVER: win32more.Windows.Win32.System.Services.ENUM_SERVICE_TYPE = 11
 SERVICE_KERNEL_DRIVER: win32more.Windows.Win32.System.Services.ENUM_SERVICE_TYPE = 1
@@ -294,6 +315,7 @@ def LPHANDLER_FUNCTION_EX(dwControl: UInt32, dwEventType: UInt32, lpEventData: V
 def LPSERVICE_MAIN_FUNCTIONA(dwNumServicesArgs: UInt32, lpServiceArgVectors: POINTER(win32more.Windows.Win32.Foundation.PSTR)) -> Void: ...
 @winfunctype_pointer
 def LPSERVICE_MAIN_FUNCTIONW(dwNumServicesArgs: UInt32, lpServiceArgVectors: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> Void: ...
+LPSERVICE_MAIN_FUNCTION = UnicodeAlias('LPSERVICE_MAIN_FUNCTIONW')
 @winfunctype_pointer
 def PFN_SC_NOTIFY_CALLBACK(pParameter: VoidPtr) -> Void: ...
 @winfunctype_pointer
@@ -319,6 +341,7 @@ class QUERY_SERVICE_CONFIGW(EasyCastStructure):
     lpDependencies: win32more.Windows.Win32.Foundation.PWSTR
     lpServiceStartName: win32more.Windows.Win32.Foundation.PWSTR
     lpDisplayName: win32more.Windows.Win32.Foundation.PWSTR
+QUERY_SERVICE_CONFIG = UnicodeAlias('QUERY_SERVICE_CONFIGW')
 class QUERY_SERVICE_LOCK_STATUSA(EasyCastStructure):
     fIsLocked: UInt32
     lpLockOwner: win32more.Windows.Win32.Foundation.PSTR
@@ -327,6 +350,7 @@ class QUERY_SERVICE_LOCK_STATUSW(EasyCastStructure):
     fIsLocked: UInt32
     lpLockOwner: win32more.Windows.Win32.Foundation.PWSTR
     dwLockDuration: UInt32
+QUERY_SERVICE_LOCK_STATUS = UnicodeAlias('QUERY_SERVICE_LOCK_STATUSW')
 class SC_ACTION(EasyCastStructure):
     Type: win32more.Windows.Win32.System.Services.SC_ACTION_TYPE
     Delay: UInt32
@@ -364,6 +388,7 @@ class SERVICE_CONTROL_STATUS_REASON_PARAMSW(EasyCastStructure):
     dwReason: UInt32
     pszComment: win32more.Windows.Win32.Foundation.PWSTR
     ServiceStatus: win32more.Windows.Win32.System.Services.SERVICE_STATUS_PROCESS
+SERVICE_CONTROL_STATUS_REASON_PARAMS = UnicodeAlias('SERVICE_CONTROL_STATUS_REASON_PARAMSW')
 class SERVICE_CUSTOM_SYSTEM_STATE_CHANGE_DATA_ITEM(EasyCastStructure):
     u: _u_e__Union
     class _u_e__Union(EasyCastUnion):
@@ -378,6 +403,7 @@ class SERVICE_DESCRIPTIONA(EasyCastStructure):
     lpDescription: win32more.Windows.Win32.Foundation.PSTR
 class SERVICE_DESCRIPTIONW(EasyCastStructure):
     lpDescription: win32more.Windows.Win32.Foundation.PWSTR
+SERVICE_DESCRIPTION = UnicodeAlias('SERVICE_DESCRIPTIONW')
 SERVICE_DIRECTORY_TYPE = Int32
 ServiceDirectoryPersistentState: win32more.Windows.Win32.System.Services.SERVICE_DIRECTORY_TYPE = 0
 ServiceDirectoryTypeMax: win32more.Windows.Win32.System.Services.SERVICE_DIRECTORY_TYPE = 1
@@ -398,6 +424,7 @@ class SERVICE_FAILURE_ACTIONSW(EasyCastStructure):
     lpCommand: win32more.Windows.Win32.Foundation.PWSTR
     cActions: UInt32
     lpsaActions: POINTER(win32more.Windows.Win32.System.Services.SC_ACTION)
+SERVICE_FAILURE_ACTIONS = UnicodeAlias('SERVICE_FAILURE_ACTIONSW')
 class SERVICE_FAILURE_ACTIONS_FLAG(EasyCastStructure):
     fFailureActionsOnNonCrashFailures: win32more.Windows.Win32.Foundation.BOOL
 class SERVICE_LAUNCH_PROTECTED_INFO(EasyCastStructure):
@@ -406,6 +433,7 @@ class SERVICE_LAUNCH_PROTECTED_INFO(EasyCastStructure):
 def SERVICE_MAIN_FUNCTIONA(dwNumServicesArgs: UInt32, lpServiceArgVectors: POINTER(POINTER(SByte))) -> Void: ...
 @winfunctype_pointer
 def SERVICE_MAIN_FUNCTIONW(dwNumServicesArgs: UInt32, lpServiceArgVectors: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> Void: ...
+SERVICE_MAIN_FUNCTION = UnicodeAlias('SERVICE_MAIN_FUNCTIONW')
 SERVICE_NOTIFY = UInt32
 SERVICE_NOTIFY_CREATED: win32more.Windows.Win32.System.Services.SERVICE_NOTIFY = 128
 SERVICE_NOTIFY_CONTINUE_PENDING: win32more.Windows.Win32.System.Services.SERVICE_NOTIFY = 16
@@ -439,6 +467,7 @@ class SERVICE_NOTIFY_2W(EasyCastStructure):
     ServiceStatus: win32more.Windows.Win32.System.Services.SERVICE_STATUS_PROCESS
     dwNotificationTriggered: UInt32
     pszServiceNames: win32more.Windows.Win32.Foundation.PWSTR
+SERVICE_NOTIFY_2 = UnicodeAlias('SERVICE_NOTIFY_2W')
 class SERVICE_PREFERRED_NODE_INFO(EasyCastStructure):
     usPreferredNode: UInt16
     fDelete: win32more.Windows.Win32.Foundation.BOOLEAN
@@ -452,6 +481,7 @@ class SERVICE_REQUIRED_PRIVILEGES_INFOA(EasyCastStructure):
     pmszRequiredPrivileges: win32more.Windows.Win32.Foundation.PSTR
 class SERVICE_REQUIRED_PRIVILEGES_INFOW(EasyCastStructure):
     pmszRequiredPrivileges: win32more.Windows.Win32.Foundation.PWSTR
+SERVICE_REQUIRED_PRIVILEGES_INFO = UnicodeAlias('SERVICE_REQUIRED_PRIVILEGES_INFOW')
 SERVICE_RUNS_IN_PROCESS = UInt32
 SERVICE_RUNS_IN_NON_SYSTEM_OR_NOT_RUNNING: win32more.Windows.Win32.System.Services.SERVICE_RUNS_IN_PROCESS = 0
 SERVICE_RUNS_IN_SYSTEM_PROCESS: win32more.Windows.Win32.System.Services.SERVICE_RUNS_IN_PROCESS = 1
@@ -502,6 +532,7 @@ class SERVICE_TABLE_ENTRYA(EasyCastStructure):
 class SERVICE_TABLE_ENTRYW(EasyCastStructure):
     lpServiceName: win32more.Windows.Win32.Foundation.PWSTR
     lpServiceProc: win32more.Windows.Win32.System.Services.LPSERVICE_MAIN_FUNCTIONW
+SERVICE_TABLE_ENTRY = UnicodeAlias('SERVICE_TABLE_ENTRYW')
 class SERVICE_TIMECHANGE_INFO(EasyCastStructure):
     liNewTime: Int64
     liOldTime: Int64

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Media.Audio
 import win32more.Windows.Win32.Media.Audio.Apo
@@ -314,54 +314,66 @@ CONNECTION_PROPERTY_CURSOR_BLINK_DISABLED: Guid = Guid('{4b150580-fea4-4d3c-9de4
 def WTSStopRemoteControlSession(LogonId: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WTSAPI32.dll')
 def WTSStartRemoteControlSessionW(pTargetServerName: win32more.Windows.Win32.Foundation.PWSTR, TargetLogonId: UInt32, HotkeyVk: Byte, HotkeyModifiers: UInt16) -> win32more.Windows.Win32.Foundation.BOOL: ...
+WTSStartRemoteControlSession = UnicodeAlias('WTSStartRemoteControlSessionW')
 @winfunctype('WTSAPI32.dll')
 def WTSStartRemoteControlSessionA(pTargetServerName: win32more.Windows.Win32.Foundation.PSTR, TargetLogonId: UInt32, HotkeyVk: Byte, HotkeyModifiers: UInt16) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WTSAPI32.dll')
 def WTSConnectSessionA(LogonId: UInt32, TargetLogonId: UInt32, pPassword: win32more.Windows.Win32.Foundation.PSTR, bWait: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WTSAPI32.dll')
 def WTSConnectSessionW(LogonId: UInt32, TargetLogonId: UInt32, pPassword: win32more.Windows.Win32.Foundation.PWSTR, bWait: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.BOOL: ...
+WTSConnectSession = UnicodeAlias('WTSConnectSessionW')
 @winfunctype('WTSAPI32.dll')
 def WTSEnumerateServersW(pDomainName: win32more.Windows.Win32.Foundation.PWSTR, Reserved: UInt32, Version: UInt32, ppServerInfo: POINTER(POINTER(win32more.Windows.Win32.System.RemoteDesktop.WTS_SERVER_INFOW)), pCount: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+WTSEnumerateServers = UnicodeAlias('WTSEnumerateServersW')
 @winfunctype('WTSAPI32.dll')
 def WTSEnumerateServersA(pDomainName: win32more.Windows.Win32.Foundation.PSTR, Reserved: UInt32, Version: UInt32, ppServerInfo: POINTER(POINTER(win32more.Windows.Win32.System.RemoteDesktop.WTS_SERVER_INFOA)), pCount: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WTSAPI32.dll')
 def WTSOpenServerW(pServerName: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.HANDLE: ...
+WTSOpenServer = UnicodeAlias('WTSOpenServerW')
 @winfunctype('WTSAPI32.dll')
 def WTSOpenServerA(pServerName: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Foundation.HANDLE: ...
 @winfunctype('WTSAPI32.dll')
 def WTSOpenServerExW(pServerName: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.HANDLE: ...
+WTSOpenServerEx = UnicodeAlias('WTSOpenServerExW')
 @winfunctype('WTSAPI32.dll')
 def WTSOpenServerExA(pServerName: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Foundation.HANDLE: ...
 @winfunctype('WTSAPI32.dll')
 def WTSCloseServer(hServer: win32more.Windows.Win32.Foundation.HANDLE) -> Void: ...
 @winfunctype('WTSAPI32.dll')
 def WTSEnumerateSessionsW(hServer: win32more.Windows.Win32.Foundation.HANDLE, Reserved: UInt32, Version: UInt32, ppSessionInfo: POINTER(POINTER(win32more.Windows.Win32.System.RemoteDesktop.WTS_SESSION_INFOW)), pCount: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+WTSEnumerateSessions = UnicodeAlias('WTSEnumerateSessionsW')
 @winfunctype('WTSAPI32.dll')
 def WTSEnumerateSessionsA(hServer: win32more.Windows.Win32.Foundation.HANDLE, Reserved: UInt32, Version: UInt32, ppSessionInfo: POINTER(POINTER(win32more.Windows.Win32.System.RemoteDesktop.WTS_SESSION_INFOA)), pCount: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WTSAPI32.dll')
 def WTSEnumerateSessionsExW(hServer: win32more.Windows.Win32.Foundation.HANDLE, pLevel: POINTER(UInt32), Filter: UInt32, ppSessionInfo: POINTER(POINTER(win32more.Windows.Win32.System.RemoteDesktop.WTS_SESSION_INFO_1W)), pCount: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+WTSEnumerateSessionsEx = UnicodeAlias('WTSEnumerateSessionsExW')
 @winfunctype('WTSAPI32.dll')
 def WTSEnumerateSessionsExA(hServer: win32more.Windows.Win32.Foundation.HANDLE, pLevel: POINTER(UInt32), Filter: UInt32, ppSessionInfo: POINTER(POINTER(win32more.Windows.Win32.System.RemoteDesktop.WTS_SESSION_INFO_1A)), pCount: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WTSAPI32.dll')
 def WTSEnumerateProcessesW(hServer: win32more.Windows.Win32.Foundation.HANDLE, Reserved: UInt32, Version: UInt32, ppProcessInfo: POINTER(POINTER(win32more.Windows.Win32.System.RemoteDesktop.WTS_PROCESS_INFOW)), pCount: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+WTSEnumerateProcesses = UnicodeAlias('WTSEnumerateProcessesW')
 @winfunctype('WTSAPI32.dll')
 def WTSEnumerateProcessesA(hServer: win32more.Windows.Win32.Foundation.HANDLE, Reserved: UInt32, Version: UInt32, ppProcessInfo: POINTER(POINTER(win32more.Windows.Win32.System.RemoteDesktop.WTS_PROCESS_INFOA)), pCount: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WTSAPI32.dll')
 def WTSTerminateProcess(hServer: win32more.Windows.Win32.Foundation.HANDLE, ProcessId: UInt32, ExitCode: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WTSAPI32.dll')
 def WTSQuerySessionInformationW(hServer: win32more.Windows.Win32.Foundation.HANDLE, SessionId: UInt32, WTSInfoClass: win32more.Windows.Win32.System.RemoteDesktop.WTS_INFO_CLASS, ppBuffer: POINTER(win32more.Windows.Win32.Foundation.PWSTR), pBytesReturned: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+WTSQuerySessionInformation = UnicodeAlias('WTSQuerySessionInformationW')
 @winfunctype('WTSAPI32.dll')
 def WTSQuerySessionInformationA(hServer: win32more.Windows.Win32.Foundation.HANDLE, SessionId: UInt32, WTSInfoClass: win32more.Windows.Win32.System.RemoteDesktop.WTS_INFO_CLASS, ppBuffer: POINTER(win32more.Windows.Win32.Foundation.PSTR), pBytesReturned: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WTSAPI32.dll')
 def WTSQueryUserConfigW(pServerName: win32more.Windows.Win32.Foundation.PWSTR, pUserName: win32more.Windows.Win32.Foundation.PWSTR, WTSConfigClass: win32more.Windows.Win32.System.RemoteDesktop.WTS_CONFIG_CLASS, ppBuffer: POINTER(win32more.Windows.Win32.Foundation.PWSTR), pBytesReturned: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+WTSQueryUserConfig = UnicodeAlias('WTSQueryUserConfigW')
 @winfunctype('WTSAPI32.dll')
 def WTSQueryUserConfigA(pServerName: win32more.Windows.Win32.Foundation.PSTR, pUserName: win32more.Windows.Win32.Foundation.PSTR, WTSConfigClass: win32more.Windows.Win32.System.RemoteDesktop.WTS_CONFIG_CLASS, ppBuffer: POINTER(win32more.Windows.Win32.Foundation.PSTR), pBytesReturned: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WTSAPI32.dll')
 def WTSSetUserConfigW(pServerName: win32more.Windows.Win32.Foundation.PWSTR, pUserName: win32more.Windows.Win32.Foundation.PWSTR, WTSConfigClass: win32more.Windows.Win32.System.RemoteDesktop.WTS_CONFIG_CLASS, pBuffer: win32more.Windows.Win32.Foundation.PWSTR, DataLength: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+WTSSetUserConfig = UnicodeAlias('WTSSetUserConfigW')
 @winfunctype('WTSAPI32.dll')
 def WTSSetUserConfigA(pServerName: win32more.Windows.Win32.Foundation.PSTR, pUserName: win32more.Windows.Win32.Foundation.PSTR, WTSConfigClass: win32more.Windows.Win32.System.RemoteDesktop.WTS_CONFIG_CLASS, pBuffer: win32more.Windows.Win32.Foundation.PSTR, DataLength: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WTSAPI32.dll')
 def WTSSendMessageW(hServer: win32more.Windows.Win32.Foundation.HANDLE, SessionId: UInt32, pTitle: win32more.Windows.Win32.Foundation.PWSTR, TitleLength: UInt32, pMessage: win32more.Windows.Win32.Foundation.PWSTR, MessageLength: UInt32, Style: win32more.Windows.Win32.UI.WindowsAndMessaging.MESSAGEBOX_STYLE, Timeout: UInt32, pResponse: POINTER(win32more.Windows.Win32.UI.WindowsAndMessaging.MESSAGEBOX_RESULT), bWait: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.BOOL: ...
+WTSSendMessage = UnicodeAlias('WTSSendMessageW')
 @winfunctype('WTSAPI32.dll')
 def WTSSendMessageA(hServer: win32more.Windows.Win32.Foundation.HANDLE, SessionId: UInt32, pTitle: win32more.Windows.Win32.Foundation.PSTR, TitleLength: UInt32, pMessage: win32more.Windows.Win32.Foundation.PSTR, MessageLength: UInt32, Style: win32more.Windows.Win32.UI.WindowsAndMessaging.MESSAGEBOX_STYLE, Timeout: UInt32, pResponse: POINTER(win32more.Windows.Win32.UI.WindowsAndMessaging.MESSAGEBOX_RESULT), bWait: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WTSAPI32.dll')
@@ -402,30 +414,37 @@ def WTSUnRegisterSessionNotificationEx(hServer: win32more.Windows.Win32.Foundati
 def WTSQueryUserToken(SessionId: UInt32, phToken: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WTSAPI32.dll')
 def WTSFreeMemoryExW(WTSTypeClass: win32more.Windows.Win32.System.RemoteDesktop.WTS_TYPE_CLASS, pMemory: VoidPtr, NumberOfEntries: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+WTSFreeMemoryEx = UnicodeAlias('WTSFreeMemoryExW')
 @winfunctype('WTSAPI32.dll')
 def WTSFreeMemoryExA(WTSTypeClass: win32more.Windows.Win32.System.RemoteDesktop.WTS_TYPE_CLASS, pMemory: VoidPtr, NumberOfEntries: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WTSAPI32.dll')
 def WTSEnumerateProcessesExW(hServer: win32more.Windows.Win32.Foundation.HANDLE, pLevel: POINTER(UInt32), SessionId: UInt32, ppProcessInfo: POINTER(win32more.Windows.Win32.Foundation.PWSTR), pCount: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+WTSEnumerateProcessesEx = UnicodeAlias('WTSEnumerateProcessesExW')
 @winfunctype('WTSAPI32.dll')
 def WTSEnumerateProcessesExA(hServer: win32more.Windows.Win32.Foundation.HANDLE, pLevel: POINTER(UInt32), SessionId: UInt32, ppProcessInfo: POINTER(win32more.Windows.Win32.Foundation.PSTR), pCount: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WTSAPI32.dll')
 def WTSEnumerateListenersW(hServer: win32more.Windows.Win32.Foundation.HANDLE, pReserved: VoidPtr, Reserved: UInt32, pListeners: POINTER(POINTER(UInt16)), pCount: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+WTSEnumerateListeners = UnicodeAlias('WTSEnumerateListenersW')
 @winfunctype('WTSAPI32.dll')
 def WTSEnumerateListenersA(hServer: win32more.Windows.Win32.Foundation.HANDLE, pReserved: VoidPtr, Reserved: UInt32, pListeners: POINTER(POINTER(SByte)), pCount: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WTSAPI32.dll')
 def WTSQueryListenerConfigW(hServer: win32more.Windows.Win32.Foundation.HANDLE, pReserved: VoidPtr, Reserved: UInt32, pListenerName: win32more.Windows.Win32.Foundation.PWSTR, pBuffer: POINTER(win32more.Windows.Win32.System.RemoteDesktop.WTSLISTENERCONFIGW)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+WTSQueryListenerConfig = UnicodeAlias('WTSQueryListenerConfigW')
 @winfunctype('WTSAPI32.dll')
 def WTSQueryListenerConfigA(hServer: win32more.Windows.Win32.Foundation.HANDLE, pReserved: VoidPtr, Reserved: UInt32, pListenerName: win32more.Windows.Win32.Foundation.PSTR, pBuffer: POINTER(win32more.Windows.Win32.System.RemoteDesktop.WTSLISTENERCONFIGA)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WTSAPI32.dll')
 def WTSCreateListenerW(hServer: win32more.Windows.Win32.Foundation.HANDLE, pReserved: VoidPtr, Reserved: UInt32, pListenerName: win32more.Windows.Win32.Foundation.PWSTR, pBuffer: POINTER(win32more.Windows.Win32.System.RemoteDesktop.WTSLISTENERCONFIGW), flag: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+WTSCreateListener = UnicodeAlias('WTSCreateListenerW')
 @winfunctype('WTSAPI32.dll')
 def WTSCreateListenerA(hServer: win32more.Windows.Win32.Foundation.HANDLE, pReserved: VoidPtr, Reserved: UInt32, pListenerName: win32more.Windows.Win32.Foundation.PSTR, pBuffer: POINTER(win32more.Windows.Win32.System.RemoteDesktop.WTSLISTENERCONFIGA), flag: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WTSAPI32.dll')
 def WTSSetListenerSecurityW(hServer: win32more.Windows.Win32.Foundation.HANDLE, pReserved: VoidPtr, Reserved: UInt32, pListenerName: win32more.Windows.Win32.Foundation.PWSTR, SecurityInformation: win32more.Windows.Win32.Security.OBJECT_SECURITY_INFORMATION, pSecurityDescriptor: win32more.Windows.Win32.Security.PSECURITY_DESCRIPTOR) -> win32more.Windows.Win32.Foundation.BOOL: ...
+WTSSetListenerSecurity = UnicodeAlias('WTSSetListenerSecurityW')
 @winfunctype('WTSAPI32.dll')
 def WTSSetListenerSecurityA(hServer: win32more.Windows.Win32.Foundation.HANDLE, pReserved: VoidPtr, Reserved: UInt32, pListenerName: win32more.Windows.Win32.Foundation.PSTR, SecurityInformation: win32more.Windows.Win32.Security.OBJECT_SECURITY_INFORMATION, pSecurityDescriptor: win32more.Windows.Win32.Security.PSECURITY_DESCRIPTOR) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WTSAPI32.dll')
 def WTSGetListenerSecurityW(hServer: win32more.Windows.Win32.Foundation.HANDLE, pReserved: VoidPtr, Reserved: UInt32, pListenerName: win32more.Windows.Win32.Foundation.PWSTR, SecurityInformation: win32more.Windows.Win32.Security.OBJECT_SECURITY_INFORMATION, pSecurityDescriptor: win32more.Windows.Win32.Security.PSECURITY_DESCRIPTOR, nLength: UInt32, lpnLengthNeeded: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+WTSGetListenerSecurity = UnicodeAlias('WTSGetListenerSecurityW')
 @winfunctype('WTSAPI32.dll')
 def WTSGetListenerSecurityA(hServer: win32more.Windows.Win32.Foundation.HANDLE, pReserved: VoidPtr, Reserved: UInt32, pListenerName: win32more.Windows.Win32.Foundation.PSTR, SecurityInformation: win32more.Windows.Win32.Security.OBJECT_SECURITY_INFORMATION, pSecurityDescriptor: win32more.Windows.Win32.Security.PSECURITY_DESCRIPTOR, nLength: UInt32, lpnLengthNeeded: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WTSAPI32.dll')
@@ -1666,6 +1685,7 @@ class PRODUCT_INFOA(EasyCastStructure):
 class PRODUCT_INFOW(EasyCastStructure):
     CompanyName: Char * 256
     ProductID: Char * 4
+PRODUCT_INFO = UnicodeAlias('PRODUCT_INFOW')
 @winfunctype_pointer
 def PVIRTUALCHANNELCLOSE(openHandle: UInt32) -> UInt32: ...
 @winfunctype_pointer
@@ -2061,6 +2081,7 @@ class WTSCLIENTW(EasyCastStructure):
     OutBufCountClient: UInt16
     OutBufLength: UInt16
     DeviceId: Char * 261
+WTSCLIENT = UnicodeAlias('WTSCLIENTW')
 class WTSCONFIGINFOA(EasyCastStructure):
     version: UInt32
     fConnectClientDrivesAtLogon: UInt32
@@ -2085,6 +2106,7 @@ class WTSCONFIGINFOW(EasyCastStructure):
     WorkDirectory: Char * 261
     InitialProgram: Char * 261
     ApplicationName: Char * 261
+WTSCONFIGINFO = UnicodeAlias('WTSCONFIGINFOW')
 class WTSINFOA(EasyCastStructure):
     State: win32more.Windows.Win32.System.RemoteDesktop.WTS_CONNECTSTATE_CLASS
     SessionId: UInt32
@@ -2108,6 +2130,7 @@ class WTSINFOEXA(EasyCastStructure):
 class WTSINFOEXW(EasyCastStructure):
     Level: UInt32
     Data: win32more.Windows.Win32.System.RemoteDesktop.WTSINFOEX_LEVEL_W
+WTSINFOEX = UnicodeAlias('WTSINFOEXW')
 class WTSINFOEX_LEVEL1_A(EasyCastStructure):
     SessionId: UInt32
     SessionState: win32more.Windows.Win32.System.RemoteDesktop.WTS_CONNECTSTATE_CLASS
@@ -2144,10 +2167,12 @@ class WTSINFOEX_LEVEL1_W(EasyCastStructure):
     OutgoingFrames: UInt32
     IncomingCompressedBytes: UInt32
     OutgoingCompressedBytes: UInt32
+WTSINFOEX_LEVEL1 = UnicodeAlias('WTSINFOEX_LEVEL1_W')
 class WTSINFOEX_LEVEL_A(EasyCastUnion):
     WTSInfoExLevel1: win32more.Windows.Win32.System.RemoteDesktop.WTSINFOEX_LEVEL1_A
 class WTSINFOEX_LEVEL_W(EasyCastUnion):
     WTSInfoExLevel1: win32more.Windows.Win32.System.RemoteDesktop.WTSINFOEX_LEVEL1_W
+WTSINFOEX_LEVEL = UnicodeAlias('WTSINFOEX_LEVEL_W')
 class WTSINFOW(EasyCastStructure):
     State: win32more.Windows.Win32.System.RemoteDesktop.WTS_CONNECTSTATE_CLASS
     SessionId: UInt32
@@ -2165,6 +2190,7 @@ class WTSINFOW(EasyCastStructure):
     LastInputTime: Int64
     LogonTime: Int64
     CurrentTime: Int64
+WTSINFO = UnicodeAlias('WTSINFOW')
 class WTSLISTENERCONFIGA(EasyCastStructure):
     version: UInt32
     fEnableListener: UInt32
@@ -2229,6 +2255,7 @@ class WTSLISTENERCONFIGW(EasyCastStructure):
     LogonDomain: Char * 18
     WorkDirectory: Char * 261
     InitialProgram: Char * 261
+WTSLISTENERCONFIG = UnicodeAlias('WTSLISTENERCONFIGW')
 WTSSBX_ADDRESS_FAMILY = Int32
 WTSSBX_ADDRESS_FAMILY_AF_UNSPEC: win32more.Windows.Win32.System.RemoteDesktop.WTSSBX_ADDRESS_FAMILY = 0
 WTSSBX_ADDRESS_FAMILY_AF_INET: win32more.Windows.Win32.System.RemoteDesktop.WTSSBX_ADDRESS_FAMILY = 1
@@ -2324,6 +2351,7 @@ class WTSUSERCONFIGW(EasyCastStructure):
     TerminalServerProfilePath: Char * 261
     TerminalServerHomeDir: Char * 261
     TerminalServerHomeDirDrive: Char * 4
+WTSUSERCONFIG = UnicodeAlias('WTSUSERCONFIGW')
 class WTS_CACHE_STATS(EasyCastStructure):
     Specific: UInt32
     Data: win32more.Windows.Win32.System.RemoteDesktop.WTS_CACHE_STATS_UN
@@ -2502,6 +2530,7 @@ class WTS_PROCESS_INFOW(EasyCastStructure):
     ProcessId: UInt32
     pProcessName: win32more.Windows.Win32.Foundation.PWSTR
     pUserSid: win32more.Windows.Win32.Security.PSID
+WTS_PROCESS_INFO = UnicodeAlias('WTS_PROCESS_INFOW')
 class WTS_PROCESS_INFO_EXA(EasyCastStructure):
     SessionId: UInt32
     ProcessId: UInt32
@@ -2528,6 +2557,7 @@ class WTS_PROCESS_INFO_EXW(EasyCastStructure):
     PeakWorkingSetSize: UInt32
     UserTime: Int64
     KernelTime: Int64
+WTS_PROCESS_INFO_EX = UnicodeAlias('WTS_PROCESS_INFO_EXW')
 class WTS_PROPERTY_VALUE(EasyCastStructure):
     Type: UInt16
     u: _u_e__Union
@@ -2599,6 +2629,7 @@ class WTS_SERVER_INFOA(EasyCastStructure):
     pServerName: win32more.Windows.Win32.Foundation.PSTR
 class WTS_SERVER_INFOW(EasyCastStructure):
     pServerName: win32more.Windows.Win32.Foundation.PWSTR
+WTS_SERVER_INFO = UnicodeAlias('WTS_SERVER_INFOW')
 class WTS_SERVICE_STATE(EasyCastStructure):
     RcmServiceState: win32more.Windows.Win32.System.RemoteDesktop.WTS_RCM_SERVICE_STATE
     RcmDrainState: win32more.Windows.Win32.System.RemoteDesktop.WTS_RCM_DRAIN_STATE
@@ -2616,6 +2647,7 @@ class WTS_SESSION_INFOW(EasyCastStructure):
     SessionId: UInt32
     pWinStationName: win32more.Windows.Win32.Foundation.PWSTR
     State: win32more.Windows.Win32.System.RemoteDesktop.WTS_CONNECTSTATE_CLASS
+WTS_SESSION_INFO = UnicodeAlias('WTS_SESSION_INFOW')
 class WTS_SESSION_INFO_1A(EasyCastStructure):
     ExecEnvId: UInt32
     State: win32more.Windows.Win32.System.RemoteDesktop.WTS_CONNECTSTATE_CLASS
@@ -2634,6 +2666,7 @@ class WTS_SESSION_INFO_1W(EasyCastStructure):
     pUserName: win32more.Windows.Win32.Foundation.PWSTR
     pDomainName: win32more.Windows.Win32.Foundation.PWSTR
     pFarmName: win32more.Windows.Win32.Foundation.PWSTR
+WTS_SESSION_INFO_1 = UnicodeAlias('WTS_SESSION_INFO_1W')
 class WTS_SMALL_RECT(EasyCastStructure):
     Left: Int16
     Top: Int16
@@ -2695,6 +2728,7 @@ class WTS_VALIDATION_INFORMATIONW(EasyCastStructure):
     LicenseLength: UInt32
     HardwareID: Byte * 20
     HardwareIDLength: UInt32
+WTS_VALIDATION_INFORMATION = UnicodeAlias('WTS_VALIDATION_INFORMATIONW')
 WTS_VIRTUAL_CLASS = Int32
 WTSVirtualClientData: win32more.Windows.Win32.System.RemoteDesktop.WTS_VIRTUAL_CLASS = 0
 WTSVirtualFileHandle: win32more.Windows.Win32.System.RemoteDesktop.WTS_VIRTUAL_CLASS = 1

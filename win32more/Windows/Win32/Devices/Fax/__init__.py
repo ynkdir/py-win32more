@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Devices.Fax
 import win32more.Windows.Win32.Devices.Properties
 import win32more.Windows.Win32.Foundation
@@ -281,6 +281,7 @@ wcharREASSIGN_RECIPIENTS_DELIMITER: UInt16 = 59
 def FaxConnectFaxServerA(MachineName: win32more.Windows.Win32.Foundation.PSTR, FaxHandle: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINFAX.dll')
 def FaxConnectFaxServerW(MachineName: win32more.Windows.Win32.Foundation.PWSTR, FaxHandle: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+FaxConnectFaxServer = UnicodeAlias('FaxConnectFaxServerW')
 @winfunctype('WINFAX.dll')
 def FaxClose(FaxHandle: win32more.Windows.Win32.Foundation.HANDLE) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINFAX.dll')
@@ -289,86 +290,106 @@ def FaxOpenPort(FaxHandle: win32more.Windows.Win32.Foundation.HANDLE, DeviceId: 
 def FaxCompleteJobParamsA(JobParams: POINTER(POINTER(win32more.Windows.Win32.Devices.Fax.FAX_JOB_PARAMA)), CoverpageInfo: POINTER(POINTER(win32more.Windows.Win32.Devices.Fax.FAX_COVERPAGE_INFOA))) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINFAX.dll')
 def FaxCompleteJobParamsW(JobParams: POINTER(POINTER(win32more.Windows.Win32.Devices.Fax.FAX_JOB_PARAMW)), CoverpageInfo: POINTER(POINTER(win32more.Windows.Win32.Devices.Fax.FAX_COVERPAGE_INFOW))) -> win32more.Windows.Win32.Foundation.BOOL: ...
+FaxCompleteJobParams = UnicodeAlias('FaxCompleteJobParamsW')
 @winfunctype('WINFAX.dll')
 def FaxSendDocumentA(FaxHandle: win32more.Windows.Win32.Foundation.HANDLE, FileName: win32more.Windows.Win32.Foundation.PSTR, JobParams: POINTER(win32more.Windows.Win32.Devices.Fax.FAX_JOB_PARAMA), CoverpageInfo: POINTER(win32more.Windows.Win32.Devices.Fax.FAX_COVERPAGE_INFOA), FaxJobId: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINFAX.dll')
 def FaxSendDocumentW(FaxHandle: win32more.Windows.Win32.Foundation.HANDLE, FileName: win32more.Windows.Win32.Foundation.PWSTR, JobParams: POINTER(win32more.Windows.Win32.Devices.Fax.FAX_JOB_PARAMW), CoverpageInfo: POINTER(win32more.Windows.Win32.Devices.Fax.FAX_COVERPAGE_INFOW), FaxJobId: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+FaxSendDocument = UnicodeAlias('FaxSendDocumentW')
 @winfunctype('WINFAX.dll')
 def FaxSendDocumentForBroadcastA(FaxHandle: win32more.Windows.Win32.Foundation.HANDLE, FileName: win32more.Windows.Win32.Foundation.PSTR, FaxJobId: POINTER(UInt32), FaxRecipientCallback: win32more.Windows.Win32.Devices.Fax.PFAX_RECIPIENT_CALLBACKA, Context: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINFAX.dll')
 def FaxSendDocumentForBroadcastW(FaxHandle: win32more.Windows.Win32.Foundation.HANDLE, FileName: win32more.Windows.Win32.Foundation.PWSTR, FaxJobId: POINTER(UInt32), FaxRecipientCallback: win32more.Windows.Win32.Devices.Fax.PFAX_RECIPIENT_CALLBACKW, Context: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+FaxSendDocumentForBroadcast = UnicodeAlias('FaxSendDocumentForBroadcastW')
 @winfunctype('WINFAX.dll')
 def FaxEnumJobsA(FaxHandle: win32more.Windows.Win32.Foundation.HANDLE, JobEntry: POINTER(POINTER(win32more.Windows.Win32.Devices.Fax.FAX_JOB_ENTRYA)), JobsReturned: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINFAX.dll')
 def FaxEnumJobsW(FaxHandle: win32more.Windows.Win32.Foundation.HANDLE, JobEntry: POINTER(POINTER(win32more.Windows.Win32.Devices.Fax.FAX_JOB_ENTRYW)), JobsReturned: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+FaxEnumJobs = UnicodeAlias('FaxEnumJobsW')
 @winfunctype('WINFAX.dll')
 def FaxGetJobA(FaxHandle: win32more.Windows.Win32.Foundation.HANDLE, JobId: UInt32, JobEntry: POINTER(POINTER(win32more.Windows.Win32.Devices.Fax.FAX_JOB_ENTRYA))) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINFAX.dll')
 def FaxGetJobW(FaxHandle: win32more.Windows.Win32.Foundation.HANDLE, JobId: UInt32, JobEntry: POINTER(POINTER(win32more.Windows.Win32.Devices.Fax.FAX_JOB_ENTRYW))) -> win32more.Windows.Win32.Foundation.BOOL: ...
+FaxGetJob = UnicodeAlias('FaxGetJobW')
 @winfunctype('WINFAX.dll')
 def FaxSetJobA(FaxHandle: win32more.Windows.Win32.Foundation.HANDLE, JobId: UInt32, Command: UInt32, JobEntry: POINTER(win32more.Windows.Win32.Devices.Fax.FAX_JOB_ENTRYA)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINFAX.dll')
 def FaxSetJobW(FaxHandle: win32more.Windows.Win32.Foundation.HANDLE, JobId: UInt32, Command: UInt32, JobEntry: POINTER(win32more.Windows.Win32.Devices.Fax.FAX_JOB_ENTRYW)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+FaxSetJob = UnicodeAlias('FaxSetJobW')
 @winfunctype('WINFAX.dll')
 def FaxGetPageData(FaxHandle: win32more.Windows.Win32.Foundation.HANDLE, JobId: UInt32, Buffer: POINTER(POINTER(Byte)), BufferSize: POINTER(UInt32), ImageWidth: POINTER(UInt32), ImageHeight: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINFAX.dll')
 def FaxGetDeviceStatusA(FaxPortHandle: win32more.Windows.Win32.Foundation.HANDLE, DeviceStatus: POINTER(POINTER(win32more.Windows.Win32.Devices.Fax.FAX_DEVICE_STATUSA))) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINFAX.dll')
 def FaxGetDeviceStatusW(FaxPortHandle: win32more.Windows.Win32.Foundation.HANDLE, DeviceStatus: POINTER(POINTER(win32more.Windows.Win32.Devices.Fax.FAX_DEVICE_STATUSW))) -> win32more.Windows.Win32.Foundation.BOOL: ...
+FaxGetDeviceStatus = UnicodeAlias('FaxGetDeviceStatusW')
 @winfunctype('WINFAX.dll')
 def FaxAbort(FaxHandle: win32more.Windows.Win32.Foundation.HANDLE, JobId: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINFAX.dll')
 def FaxGetConfigurationA(FaxHandle: win32more.Windows.Win32.Foundation.HANDLE, FaxConfig: POINTER(POINTER(win32more.Windows.Win32.Devices.Fax.FAX_CONFIGURATIONA))) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINFAX.dll')
 def FaxGetConfigurationW(FaxHandle: win32more.Windows.Win32.Foundation.HANDLE, FaxConfig: POINTER(POINTER(win32more.Windows.Win32.Devices.Fax.FAX_CONFIGURATIONW))) -> win32more.Windows.Win32.Foundation.BOOL: ...
+FaxGetConfiguration = UnicodeAlias('FaxGetConfigurationW')
 @winfunctype('WINFAX.dll')
 def FaxSetConfigurationA(FaxHandle: win32more.Windows.Win32.Foundation.HANDLE, FaxConfig: POINTER(win32more.Windows.Win32.Devices.Fax.FAX_CONFIGURATIONA)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINFAX.dll')
 def FaxSetConfigurationW(FaxHandle: win32more.Windows.Win32.Foundation.HANDLE, FaxConfig: POINTER(win32more.Windows.Win32.Devices.Fax.FAX_CONFIGURATIONW)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+FaxSetConfiguration = UnicodeAlias('FaxSetConfigurationW')
 @winfunctype('WINFAX.dll')
 def FaxGetLoggingCategoriesA(FaxHandle: win32more.Windows.Win32.Foundation.HANDLE, Categories: POINTER(POINTER(win32more.Windows.Win32.Devices.Fax.FAX_LOG_CATEGORYA)), NumberCategories: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINFAX.dll')
 def FaxGetLoggingCategoriesW(FaxHandle: win32more.Windows.Win32.Foundation.HANDLE, Categories: POINTER(POINTER(win32more.Windows.Win32.Devices.Fax.FAX_LOG_CATEGORYW)), NumberCategories: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+FaxGetLoggingCategories = UnicodeAlias('FaxGetLoggingCategoriesW')
 @winfunctype('WINFAX.dll')
 def FaxSetLoggingCategoriesA(FaxHandle: win32more.Windows.Win32.Foundation.HANDLE, Categories: POINTER(win32more.Windows.Win32.Devices.Fax.FAX_LOG_CATEGORYA), NumberCategories: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINFAX.dll')
 def FaxSetLoggingCategoriesW(FaxHandle: win32more.Windows.Win32.Foundation.HANDLE, Categories: POINTER(win32more.Windows.Win32.Devices.Fax.FAX_LOG_CATEGORYW), NumberCategories: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+FaxSetLoggingCategories = UnicodeAlias('FaxSetLoggingCategoriesW')
 @winfunctype('WINFAX.dll')
 def FaxEnumPortsA(FaxHandle: win32more.Windows.Win32.Foundation.HANDLE, PortInfo: POINTER(POINTER(win32more.Windows.Win32.Devices.Fax.FAX_PORT_INFOA)), PortsReturned: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINFAX.dll')
 def FaxEnumPortsW(FaxHandle: win32more.Windows.Win32.Foundation.HANDLE, PortInfo: POINTER(POINTER(win32more.Windows.Win32.Devices.Fax.FAX_PORT_INFOW)), PortsReturned: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+FaxEnumPorts = UnicodeAlias('FaxEnumPortsW')
 @winfunctype('WINFAX.dll')
 def FaxGetPortA(FaxPortHandle: win32more.Windows.Win32.Foundation.HANDLE, PortInfo: POINTER(POINTER(win32more.Windows.Win32.Devices.Fax.FAX_PORT_INFOA))) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINFAX.dll')
 def FaxGetPortW(FaxPortHandle: win32more.Windows.Win32.Foundation.HANDLE, PortInfo: POINTER(POINTER(win32more.Windows.Win32.Devices.Fax.FAX_PORT_INFOW))) -> win32more.Windows.Win32.Foundation.BOOL: ...
+FaxGetPort = UnicodeAlias('FaxGetPortW')
 @winfunctype('WINFAX.dll')
 def FaxSetPortA(FaxPortHandle: win32more.Windows.Win32.Foundation.HANDLE, PortInfo: POINTER(win32more.Windows.Win32.Devices.Fax.FAX_PORT_INFOA)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINFAX.dll')
 def FaxSetPortW(FaxPortHandle: win32more.Windows.Win32.Foundation.HANDLE, PortInfo: POINTER(win32more.Windows.Win32.Devices.Fax.FAX_PORT_INFOW)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+FaxSetPort = UnicodeAlias('FaxSetPortW')
 @winfunctype('WINFAX.dll')
 def FaxEnumRoutingMethodsA(FaxPortHandle: win32more.Windows.Win32.Foundation.HANDLE, RoutingMethod: POINTER(POINTER(win32more.Windows.Win32.Devices.Fax.FAX_ROUTING_METHODA)), MethodsReturned: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINFAX.dll')
 def FaxEnumRoutingMethodsW(FaxPortHandle: win32more.Windows.Win32.Foundation.HANDLE, RoutingMethod: POINTER(POINTER(win32more.Windows.Win32.Devices.Fax.FAX_ROUTING_METHODW)), MethodsReturned: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+FaxEnumRoutingMethods = UnicodeAlias('FaxEnumRoutingMethodsW')
 @winfunctype('WINFAX.dll')
 def FaxEnableRoutingMethodA(FaxPortHandle: win32more.Windows.Win32.Foundation.HANDLE, RoutingGuid: win32more.Windows.Win32.Foundation.PSTR, Enabled: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINFAX.dll')
 def FaxEnableRoutingMethodW(FaxPortHandle: win32more.Windows.Win32.Foundation.HANDLE, RoutingGuid: win32more.Windows.Win32.Foundation.PWSTR, Enabled: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.BOOL: ...
+FaxEnableRoutingMethod = UnicodeAlias('FaxEnableRoutingMethodW')
 @winfunctype('WINFAX.dll')
 def FaxEnumGlobalRoutingInfoA(FaxHandle: win32more.Windows.Win32.Foundation.HANDLE, RoutingInfo: POINTER(POINTER(win32more.Windows.Win32.Devices.Fax.FAX_GLOBAL_ROUTING_INFOA)), MethodsReturned: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINFAX.dll')
 def FaxEnumGlobalRoutingInfoW(FaxHandle: win32more.Windows.Win32.Foundation.HANDLE, RoutingInfo: POINTER(POINTER(win32more.Windows.Win32.Devices.Fax.FAX_GLOBAL_ROUTING_INFOW)), MethodsReturned: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+FaxEnumGlobalRoutingInfo = UnicodeAlias('FaxEnumGlobalRoutingInfoW')
 @winfunctype('WINFAX.dll')
 def FaxSetGlobalRoutingInfoA(FaxHandle: win32more.Windows.Win32.Foundation.HANDLE, RoutingInfo: POINTER(win32more.Windows.Win32.Devices.Fax.FAX_GLOBAL_ROUTING_INFOA)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINFAX.dll')
 def FaxSetGlobalRoutingInfoW(FaxHandle: win32more.Windows.Win32.Foundation.HANDLE, RoutingInfo: POINTER(win32more.Windows.Win32.Devices.Fax.FAX_GLOBAL_ROUTING_INFOW)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+FaxSetGlobalRoutingInfo = UnicodeAlias('FaxSetGlobalRoutingInfoW')
 @winfunctype('WINFAX.dll')
 def FaxGetRoutingInfoA(FaxPortHandle: win32more.Windows.Win32.Foundation.HANDLE, RoutingGuid: win32more.Windows.Win32.Foundation.PSTR, RoutingInfoBuffer: POINTER(POINTER(Byte)), RoutingInfoBufferSize: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINFAX.dll')
 def FaxGetRoutingInfoW(FaxPortHandle: win32more.Windows.Win32.Foundation.HANDLE, RoutingGuid: win32more.Windows.Win32.Foundation.PWSTR, RoutingInfoBuffer: POINTER(POINTER(Byte)), RoutingInfoBufferSize: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+FaxGetRoutingInfo = UnicodeAlias('FaxGetRoutingInfoW')
 @winfunctype('WINFAX.dll')
 def FaxSetRoutingInfoA(FaxPortHandle: win32more.Windows.Win32.Foundation.HANDLE, RoutingGuid: win32more.Windows.Win32.Foundation.PSTR, RoutingInfoBuffer: POINTER(Byte), RoutingInfoBufferSize: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINFAX.dll')
 def FaxSetRoutingInfoW(FaxPortHandle: win32more.Windows.Win32.Foundation.HANDLE, RoutingGuid: win32more.Windows.Win32.Foundation.PWSTR, RoutingInfoBuffer: POINTER(Byte), RoutingInfoBufferSize: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+FaxSetRoutingInfo = UnicodeAlias('FaxSetRoutingInfoW')
 @winfunctype('WINFAX.dll')
 def FaxInitializeEventQueue(FaxHandle: win32more.Windows.Win32.Foundation.HANDLE, CompletionPort: win32more.Windows.Win32.Foundation.HANDLE, CompletionKey: UIntPtr, hWnd: win32more.Windows.Win32.Foundation.HWND, MessageStart: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINFAX.dll')
@@ -377,10 +398,12 @@ def FaxFreeBuffer(Buffer: VoidPtr) -> Void: ...
 def FaxStartPrintJobA(PrinterName: win32more.Windows.Win32.Foundation.PSTR, PrintInfo: POINTER(win32more.Windows.Win32.Devices.Fax.FAX_PRINT_INFOA), FaxJobId: POINTER(UInt32), FaxContextInfo: POINTER(win32more.Windows.Win32.Devices.Fax.FAX_CONTEXT_INFOA)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINFAX.dll')
 def FaxStartPrintJobW(PrinterName: win32more.Windows.Win32.Foundation.PWSTR, PrintInfo: POINTER(win32more.Windows.Win32.Devices.Fax.FAX_PRINT_INFOW), FaxJobId: POINTER(UInt32), FaxContextInfo: POINTER(win32more.Windows.Win32.Devices.Fax.FAX_CONTEXT_INFOW)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+FaxStartPrintJob = UnicodeAlias('FaxStartPrintJobW')
 @winfunctype('WINFAX.dll')
 def FaxPrintCoverPageA(FaxContextInfo: POINTER(win32more.Windows.Win32.Devices.Fax.FAX_CONTEXT_INFOA), CoverPageInfo: POINTER(win32more.Windows.Win32.Devices.Fax.FAX_COVERPAGE_INFOA)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINFAX.dll')
 def FaxPrintCoverPageW(FaxContextInfo: POINTER(win32more.Windows.Win32.Devices.Fax.FAX_CONTEXT_INFOW), CoverPageInfo: POINTER(win32more.Windows.Win32.Devices.Fax.FAX_COVERPAGE_INFOW)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+FaxPrintCoverPage = UnicodeAlias('FaxPrintCoverPageW')
 @winfunctype('WINFAX.dll')
 def FaxRegisterServiceProviderW(DeviceProvider: win32more.Windows.Win32.Foundation.PWSTR, FriendlyName: win32more.Windows.Win32.Foundation.PWSTR, ImageName: win32more.Windows.Win32.Foundation.PWSTR, TspName: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINFAX.dll')
@@ -457,6 +480,7 @@ class FAX_CONFIGURATIONW(EasyCastStructure):
     ArchiveOutgoingFaxes: win32more.Windows.Win32.Foundation.BOOL
     ArchiveDirectory: win32more.Windows.Win32.Foundation.PWSTR
     Reserved: win32more.Windows.Win32.Foundation.PWSTR
+FAX_CONFIGURATION = UnicodeAlias('FAX_CONFIGURATIONW')
 class FAX_CONTEXT_INFOA(EasyCastStructure):
     SizeOfStruct: UInt32
     hDC: win32more.Windows.Win32.Graphics.Gdi.HDC
@@ -465,6 +489,7 @@ class FAX_CONTEXT_INFOW(EasyCastStructure):
     SizeOfStruct: UInt32
     hDC: win32more.Windows.Win32.Graphics.Gdi.HDC
     ServerName: Char * 16
+FAX_CONTEXT_INFO = UnicodeAlias('FAX_CONTEXT_INFOW')
 class FAX_COVERPAGE_INFOA(EasyCastStructure):
     SizeOfStruct: UInt32
     CoverPageName: win32more.Windows.Win32.Foundation.PSTR
@@ -525,6 +550,7 @@ class FAX_COVERPAGE_INFOW(EasyCastStructure):
     Subject: win32more.Windows.Win32.Foundation.PWSTR
     TimeSent: win32more.Windows.Win32.Foundation.SYSTEMTIME
     PageCount: UInt32
+FAX_COVERPAGE_INFO = UnicodeAlias('FAX_COVERPAGE_INFOW')
 FAX_COVERPAGE_TYPE_ENUM = Int32
 fcptNONE: win32more.Windows.Win32.Devices.Fax.FAX_COVERPAGE_TYPE_ENUM = 0
 fcptLOCAL: win32more.Windows.Win32.Devices.Fax.FAX_COVERPAGE_TYPE_ENUM = 1
@@ -575,6 +601,7 @@ class FAX_DEVICE_STATUSW(EasyCastStructure):
     TotalPages: UInt32
     Tsid: win32more.Windows.Win32.Foundation.PWSTR
     UserName: win32more.Windows.Win32.Foundation.PWSTR
+FAX_DEVICE_STATUS = UnicodeAlias('FAX_DEVICE_STATUSW')
 class FAX_DEV_STATUS(EasyCastStructure):
     SizeOfStruct: UInt32
     StatusId: UInt32
@@ -626,6 +653,7 @@ class FAX_EVENTW(EasyCastStructure):
     DeviceId: UInt32
     EventId: UInt32
     JobId: UInt32
+FAX_EVENT = UnicodeAlias('FAX_EVENTW')
 class FAX_GLOBAL_ROUTING_INFOA(EasyCastStructure):
     SizeOfStruct: UInt32
     Priority: UInt32
@@ -642,6 +670,7 @@ class FAX_GLOBAL_ROUTING_INFOW(EasyCastStructure):
     FunctionName: win32more.Windows.Win32.Foundation.PWSTR
     ExtensionImageName: win32more.Windows.Win32.Foundation.PWSTR
     ExtensionFriendlyName: win32more.Windows.Win32.Foundation.PWSTR
+FAX_GLOBAL_ROUTING_INFO = UnicodeAlias('FAX_GLOBAL_ROUTING_INFOW')
 FAX_GROUP_STATUS_ENUM = Int32
 fgsALL_DEV_VALID: win32more.Windows.Win32.Devices.Fax.FAX_GROUP_STATUS_ENUM = 0
 fgsEMPTY: win32more.Windows.Win32.Devices.Fax.FAX_GROUP_STATUS_ENUM = 1
@@ -689,6 +718,7 @@ class FAX_JOB_ENTRYW(EasyCastStructure):
     DeliveryReportType: UInt32
     DeliveryReportAddress: win32more.Windows.Win32.Foundation.PWSTR
     DocumentName: win32more.Windows.Win32.Foundation.PWSTR
+FAX_JOB_ENTRY = UnicodeAlias('FAX_JOB_ENTRYW')
 FAX_JOB_EXTENDED_STATUS_ENUM = Int32
 fjesNONE: win32more.Windows.Win32.Devices.Fax.FAX_JOB_EXTENDED_STATUS_ENUM = 0
 fjesDISCONNECTED: win32more.Windows.Win32.Devices.Fax.FAX_JOB_EXTENDED_STATUS_ENUM = 1
@@ -751,6 +781,7 @@ class FAX_JOB_PARAMW(EasyCastStructure):
     DocumentName: win32more.Windows.Win32.Foundation.PWSTR
     CallHandle: UInt32
     Reserved: UIntPtr * 3
+FAX_JOB_PARAM = UnicodeAlias('FAX_JOB_PARAMW')
 FAX_JOB_STATUS_ENUM = Int32
 fjsPENDING: win32more.Windows.Win32.Devices.Fax.FAX_JOB_STATUS_ENUM = 1
 fjsINPROGRESS: win32more.Windows.Win32.Devices.Fax.FAX_JOB_STATUS_ENUM = 2
@@ -775,6 +806,7 @@ class FAX_LOG_CATEGORYW(EasyCastStructure):
     Name: win32more.Windows.Win32.Foundation.PWSTR
     Category: UInt32
     Level: UInt32
+FAX_LOG_CATEGORY = UnicodeAlias('FAX_LOG_CATEGORYW')
 FAX_LOG_LEVEL_ENUM = Int32
 fllNONE: win32more.Windows.Win32.Devices.Fax.FAX_LOG_LEVEL_ENUM = 0
 fllMIN: win32more.Windows.Win32.Devices.Fax.FAX_LOG_LEVEL_ENUM = 1
@@ -800,6 +832,7 @@ class FAX_PORT_INFOW(EasyCastStructure):
     DeviceName: win32more.Windows.Win32.Foundation.PWSTR
     Tsid: win32more.Windows.Win32.Foundation.PWSTR
     Csid: win32more.Windows.Win32.Foundation.PWSTR
+FAX_PORT_INFO = UnicodeAlias('FAX_PORT_INFOW')
 class FAX_PRINT_INFOA(EasyCastStructure):
     SizeOfStruct: UInt32
     DocName: win32more.Windows.Win32.Foundation.PSTR
@@ -824,6 +857,7 @@ class FAX_PRINT_INFOW(EasyCastStructure):
     Reserved: win32more.Windows.Win32.Foundation.PWSTR
     DrEmailAddress: win32more.Windows.Win32.Foundation.PWSTR
     OutputFileName: win32more.Windows.Win32.Foundation.PWSTR
+FAX_PRINT_INFO = UnicodeAlias('FAX_PRINT_INFOW')
 FAX_PRIORITY_TYPE_ENUM = Int32
 fptLOW: win32more.Windows.Win32.Devices.Fax.FAX_PRIORITY_TYPE_ENUM = 0
 fptNORMAL: win32more.Windows.Win32.Devices.Fax.FAX_PRIORITY_TYPE_ENUM = 1
@@ -889,6 +923,7 @@ class FAX_ROUTING_METHODW(EasyCastStructure):
     FunctionName: win32more.Windows.Win32.Foundation.PWSTR
     ExtensionImageName: win32more.Windows.Win32.Foundation.PWSTR
     ExtensionFriendlyName: win32more.Windows.Win32.Foundation.PWSTR
+FAX_ROUTING_METHOD = UnicodeAlias('FAX_ROUTING_METHODW')
 FAX_ROUTING_RULE_CODE_ENUM = Int32
 frrcANY_CODE: win32more.Windows.Win32.Devices.Fax.FAX_ROUTING_RULE_CODE_ENUM = 0
 FAX_RULE_STATUS_ENUM = Int32
@@ -2493,10 +2528,12 @@ def PFAXCLOSE(FaxHandle: win32more.Windows.Win32.Foundation.HANDLE) -> win32more
 def PFAXCOMPLETEJOBPARAMSA(JobParams: POINTER(POINTER(win32more.Windows.Win32.Devices.Fax.FAX_JOB_PARAMA)), CoverpageInfo: POINTER(POINTER(win32more.Windows.Win32.Devices.Fax.FAX_COVERPAGE_INFOA))) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def PFAXCOMPLETEJOBPARAMSW(JobParams: POINTER(POINTER(win32more.Windows.Win32.Devices.Fax.FAX_JOB_PARAMW)), CoverpageInfo: POINTER(POINTER(win32more.Windows.Win32.Devices.Fax.FAX_COVERPAGE_INFOW))) -> win32more.Windows.Win32.Foundation.BOOL: ...
+PFAXCOMPLETEJOBPARAMS = UnicodeAlias('PFAXCOMPLETEJOBPARAMSW')
 @winfunctype_pointer
 def PFAXCONNECTFAXSERVERA(MachineName: win32more.Windows.Win32.Foundation.PSTR, FaxHandle: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def PFAXCONNECTFAXSERVERW(MachineName: win32more.Windows.Win32.Foundation.PWSTR, FaxHandle: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+PFAXCONNECTFAXSERVER = UnicodeAlias('PFAXCONNECTFAXSERVERW')
 @winfunctype_pointer
 def PFAXDEVABORTOPERATION(param0: win32more.Windows.Win32.Foundation.HANDLE) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
@@ -2521,50 +2558,61 @@ def PFAXDEVVIRTUALDEVICECREATION(DeviceCount: POINTER(UInt32), DeviceNamePrefix:
 def PFAXENABLEROUTINGMETHODA(FaxPortHandle: win32more.Windows.Win32.Foundation.HANDLE, RoutingGuid: win32more.Windows.Win32.Foundation.PSTR, Enabled: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def PFAXENABLEROUTINGMETHODW(FaxPortHandle: win32more.Windows.Win32.Foundation.HANDLE, RoutingGuid: win32more.Windows.Win32.Foundation.PWSTR, Enabled: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.BOOL: ...
+PFAXENABLEROUTINGMETHOD = UnicodeAlias('PFAXENABLEROUTINGMETHODW')
 @winfunctype_pointer
 def PFAXENUMGLOBALROUTINGINFOA(FaxHandle: win32more.Windows.Win32.Foundation.HANDLE, RoutingInfo: POINTER(POINTER(win32more.Windows.Win32.Devices.Fax.FAX_GLOBAL_ROUTING_INFOA)), MethodsReturned: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def PFAXENUMGLOBALROUTINGINFOW(FaxHandle: win32more.Windows.Win32.Foundation.HANDLE, RoutingInfo: POINTER(POINTER(win32more.Windows.Win32.Devices.Fax.FAX_GLOBAL_ROUTING_INFOW)), MethodsReturned: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+PFAXENUMGLOBALROUTINGINFO = UnicodeAlias('PFAXENUMGLOBALROUTINGINFOW')
 @winfunctype_pointer
 def PFAXENUMJOBSA(FaxHandle: win32more.Windows.Win32.Foundation.HANDLE, JobEntry: POINTER(POINTER(win32more.Windows.Win32.Devices.Fax.FAX_JOB_ENTRYA)), JobsReturned: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def PFAXENUMJOBSW(FaxHandle: win32more.Windows.Win32.Foundation.HANDLE, JobEntry: POINTER(POINTER(win32more.Windows.Win32.Devices.Fax.FAX_JOB_ENTRYW)), JobsReturned: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+PFAXENUMJOBS = UnicodeAlias('PFAXENUMJOBSW')
 @winfunctype_pointer
 def PFAXENUMPORTSA(FaxHandle: win32more.Windows.Win32.Foundation.HANDLE, PortInfo: POINTER(POINTER(win32more.Windows.Win32.Devices.Fax.FAX_PORT_INFOA)), PortsReturned: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def PFAXENUMPORTSW(FaxHandle: win32more.Windows.Win32.Foundation.HANDLE, PortInfo: POINTER(POINTER(win32more.Windows.Win32.Devices.Fax.FAX_PORT_INFOW)), PortsReturned: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+PFAXENUMPORTS = UnicodeAlias('PFAXENUMPORTSW')
 @winfunctype_pointer
 def PFAXENUMROUTINGMETHODSA(FaxPortHandle: win32more.Windows.Win32.Foundation.HANDLE, RoutingMethod: POINTER(POINTER(win32more.Windows.Win32.Devices.Fax.FAX_ROUTING_METHODA)), MethodsReturned: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def PFAXENUMROUTINGMETHODSW(FaxPortHandle: win32more.Windows.Win32.Foundation.HANDLE, RoutingMethod: POINTER(POINTER(win32more.Windows.Win32.Devices.Fax.FAX_ROUTING_METHODW)), MethodsReturned: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+PFAXENUMROUTINGMETHODS = UnicodeAlias('PFAXENUMROUTINGMETHODSW')
 @winfunctype_pointer
 def PFAXFREEBUFFER(Buffer: VoidPtr) -> Void: ...
 @winfunctype_pointer
 def PFAXGETCONFIGURATIONA(FaxHandle: win32more.Windows.Win32.Foundation.HANDLE, FaxConfig: POINTER(POINTER(win32more.Windows.Win32.Devices.Fax.FAX_CONFIGURATIONA))) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def PFAXGETCONFIGURATIONW(FaxHandle: win32more.Windows.Win32.Foundation.HANDLE, FaxConfig: POINTER(POINTER(win32more.Windows.Win32.Devices.Fax.FAX_CONFIGURATIONW))) -> win32more.Windows.Win32.Foundation.BOOL: ...
+PFAXGETCONFIGURATION = UnicodeAlias('PFAXGETCONFIGURATIONW')
 @winfunctype_pointer
 def PFAXGETDEVICESTATUSA(FaxPortHandle: win32more.Windows.Win32.Foundation.HANDLE, DeviceStatus: POINTER(POINTER(win32more.Windows.Win32.Devices.Fax.FAX_DEVICE_STATUSA))) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def PFAXGETDEVICESTATUSW(FaxPortHandle: win32more.Windows.Win32.Foundation.HANDLE, DeviceStatus: POINTER(POINTER(win32more.Windows.Win32.Devices.Fax.FAX_DEVICE_STATUSW))) -> win32more.Windows.Win32.Foundation.BOOL: ...
+PFAXGETDEVICESTATUS = UnicodeAlias('PFAXGETDEVICESTATUSW')
 @winfunctype_pointer
 def PFAXGETJOBA(FaxHandle: win32more.Windows.Win32.Foundation.HANDLE, JobId: UInt32, JobEntry: POINTER(POINTER(win32more.Windows.Win32.Devices.Fax.FAX_JOB_ENTRYA))) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def PFAXGETJOBW(FaxHandle: win32more.Windows.Win32.Foundation.HANDLE, JobId: UInt32, JobEntry: POINTER(POINTER(win32more.Windows.Win32.Devices.Fax.FAX_JOB_ENTRYW))) -> win32more.Windows.Win32.Foundation.BOOL: ...
+PFAXGETJOB = UnicodeAlias('PFAXGETJOBW')
 @winfunctype_pointer
 def PFAXGETLOGGINGCATEGORIESA(FaxHandle: win32more.Windows.Win32.Foundation.HANDLE, Categories: POINTER(POINTER(win32more.Windows.Win32.Devices.Fax.FAX_LOG_CATEGORYA)), NumberCategories: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def PFAXGETLOGGINGCATEGORIESW(FaxHandle: win32more.Windows.Win32.Foundation.HANDLE, Categories: POINTER(POINTER(win32more.Windows.Win32.Devices.Fax.FAX_LOG_CATEGORYW)), NumberCategories: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+PFAXGETLOGGINGCATEGORIES = UnicodeAlias('PFAXGETLOGGINGCATEGORIESW')
 @winfunctype_pointer
 def PFAXGETPAGEDATA(FaxHandle: win32more.Windows.Win32.Foundation.HANDLE, JobId: UInt32, Buffer: POINTER(POINTER(Byte)), BufferSize: POINTER(UInt32), ImageWidth: POINTER(UInt32), ImageHeight: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def PFAXGETPORTA(FaxPortHandle: win32more.Windows.Win32.Foundation.HANDLE, PortInfo: POINTER(POINTER(win32more.Windows.Win32.Devices.Fax.FAX_PORT_INFOA))) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def PFAXGETPORTW(FaxPortHandle: win32more.Windows.Win32.Foundation.HANDLE, PortInfo: POINTER(POINTER(win32more.Windows.Win32.Devices.Fax.FAX_PORT_INFOW))) -> win32more.Windows.Win32.Foundation.BOOL: ...
+PFAXGETPORT = UnicodeAlias('PFAXGETPORTW')
 @winfunctype_pointer
 def PFAXGETROUTINGINFOA(FaxPortHandle: win32more.Windows.Win32.Foundation.HANDLE, RoutingGuid: win32more.Windows.Win32.Foundation.PSTR, RoutingInfoBuffer: POINTER(POINTER(Byte)), RoutingInfoBufferSize: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def PFAXGETROUTINGINFOW(FaxPortHandle: win32more.Windows.Win32.Foundation.HANDLE, RoutingGuid: win32more.Windows.Win32.Foundation.PWSTR, RoutingInfoBuffer: POINTER(POINTER(Byte)), RoutingInfoBufferSize: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+PFAXGETROUTINGINFO = UnicodeAlias('PFAXGETROUTINGINFOW')
 @winfunctype_pointer
 def PFAXINITIALIZEEVENTQUEUE(FaxHandle: win32more.Windows.Win32.Foundation.HANDLE, CompletionPort: win32more.Windows.Win32.Foundation.HANDLE, CompletionKey: UIntPtr, hWnd: win32more.Windows.Win32.Foundation.HWND, MessageStart: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
@@ -2573,6 +2621,7 @@ def PFAXOPENPORT(FaxHandle: win32more.Windows.Win32.Foundation.HANDLE, DeviceId:
 def PFAXPRINTCOVERPAGEA(FaxContextInfo: POINTER(win32more.Windows.Win32.Devices.Fax.FAX_CONTEXT_INFOA), CoverPageInfo: POINTER(win32more.Windows.Win32.Devices.Fax.FAX_COVERPAGE_INFOA)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def PFAXPRINTCOVERPAGEW(FaxContextInfo: POINTER(win32more.Windows.Win32.Devices.Fax.FAX_CONTEXT_INFOW), CoverPageInfo: POINTER(win32more.Windows.Win32.Devices.Fax.FAX_COVERPAGE_INFOW)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+PFAXPRINTCOVERPAGE = UnicodeAlias('PFAXPRINTCOVERPAGEW')
 @winfunctype_pointer
 def PFAXREGISTERROUTINGEXTENSIONW(FaxHandle: win32more.Windows.Win32.Foundation.HANDLE, ExtensionName: win32more.Windows.Win32.Foundation.PWSTR, FriendlyName: win32more.Windows.Win32.Foundation.PWSTR, ImageName: win32more.Windows.Win32.Foundation.PWSTR, CallBack: win32more.Windows.Win32.Devices.Fax.PFAX_ROUTING_INSTALLATION_CALLBACKW, Context: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
@@ -2607,36 +2656,45 @@ def PFAXSENDDOCUMENTA(FaxHandle: win32more.Windows.Win32.Foundation.HANDLE, File
 def PFAXSENDDOCUMENTFORBROADCASTA(FaxHandle: win32more.Windows.Win32.Foundation.HANDLE, FileName: win32more.Windows.Win32.Foundation.PSTR, FaxJobId: POINTER(UInt32), FaxRecipientCallback: win32more.Windows.Win32.Devices.Fax.PFAX_RECIPIENT_CALLBACKA, Context: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def PFAXSENDDOCUMENTFORBROADCASTW(FaxHandle: win32more.Windows.Win32.Foundation.HANDLE, FileName: win32more.Windows.Win32.Foundation.PWSTR, FaxJobId: POINTER(UInt32), FaxRecipientCallback: win32more.Windows.Win32.Devices.Fax.PFAX_RECIPIENT_CALLBACKW, Context: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+PFAXSENDDOCUMENTFORBROADCAST = UnicodeAlias('PFAXSENDDOCUMENTFORBROADCASTW')
 @winfunctype_pointer
 def PFAXSENDDOCUMENTW(FaxHandle: win32more.Windows.Win32.Foundation.HANDLE, FileName: win32more.Windows.Win32.Foundation.PWSTR, JobParams: POINTER(win32more.Windows.Win32.Devices.Fax.FAX_JOB_PARAMW), CoverpageInfo: POINTER(win32more.Windows.Win32.Devices.Fax.FAX_COVERPAGE_INFOW), FaxJobId: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+PFAXSENDDOCUMENT = UnicodeAlias('PFAXSENDDOCUMENTW')
 @winfunctype_pointer
 def PFAXSETCONFIGURATIONA(FaxHandle: win32more.Windows.Win32.Foundation.HANDLE, FaxConfig: POINTER(win32more.Windows.Win32.Devices.Fax.FAX_CONFIGURATIONA)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def PFAXSETCONFIGURATIONW(FaxHandle: win32more.Windows.Win32.Foundation.HANDLE, FaxConfig: POINTER(win32more.Windows.Win32.Devices.Fax.FAX_CONFIGURATIONW)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+PFAXSETCONFIGURATION = UnicodeAlias('PFAXSETCONFIGURATIONW')
 @winfunctype_pointer
 def PFAXSETGLOBALROUTINGINFOA(FaxPortHandle: win32more.Windows.Win32.Foundation.HANDLE, RoutingInfo: POINTER(win32more.Windows.Win32.Devices.Fax.FAX_GLOBAL_ROUTING_INFOA)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def PFAXSETGLOBALROUTINGINFOW(FaxPortHandle: win32more.Windows.Win32.Foundation.HANDLE, RoutingInfo: POINTER(win32more.Windows.Win32.Devices.Fax.FAX_GLOBAL_ROUTING_INFOW)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+PFAXSETGLOBALROUTINGINFO = UnicodeAlias('PFAXSETGLOBALROUTINGINFOW')
 @winfunctype_pointer
 def PFAXSETJOBA(FaxHandle: win32more.Windows.Win32.Foundation.HANDLE, JobId: UInt32, Command: UInt32, JobEntry: POINTER(win32more.Windows.Win32.Devices.Fax.FAX_JOB_ENTRYA)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def PFAXSETJOBW(FaxHandle: win32more.Windows.Win32.Foundation.HANDLE, JobId: UInt32, Command: UInt32, JobEntry: POINTER(win32more.Windows.Win32.Devices.Fax.FAX_JOB_ENTRYW)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+PFAXSETJOB = UnicodeAlias('PFAXSETJOBW')
 @winfunctype_pointer
 def PFAXSETLOGGINGCATEGORIESA(FaxHandle: win32more.Windows.Win32.Foundation.HANDLE, Categories: POINTER(win32more.Windows.Win32.Devices.Fax.FAX_LOG_CATEGORYA), NumberCategories: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def PFAXSETLOGGINGCATEGORIESW(FaxHandle: win32more.Windows.Win32.Foundation.HANDLE, Categories: POINTER(win32more.Windows.Win32.Devices.Fax.FAX_LOG_CATEGORYW), NumberCategories: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+PFAXSETLOGGINGCATEGORIES = UnicodeAlias('PFAXSETLOGGINGCATEGORIESW')
 @winfunctype_pointer
 def PFAXSETPORTA(FaxPortHandle: win32more.Windows.Win32.Foundation.HANDLE, PortInfo: POINTER(win32more.Windows.Win32.Devices.Fax.FAX_PORT_INFOA)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def PFAXSETPORTW(FaxPortHandle: win32more.Windows.Win32.Foundation.HANDLE, PortInfo: POINTER(win32more.Windows.Win32.Devices.Fax.FAX_PORT_INFOW)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+PFAXSETPORT = UnicodeAlias('PFAXSETPORTW')
 @winfunctype_pointer
 def PFAXSETROUTINGINFOA(FaxPortHandle: win32more.Windows.Win32.Foundation.HANDLE, RoutingGuid: win32more.Windows.Win32.Foundation.PSTR, RoutingInfoBuffer: POINTER(Byte), RoutingInfoBufferSize: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def PFAXSETROUTINGINFOW(FaxPortHandle: win32more.Windows.Win32.Foundation.HANDLE, RoutingGuid: win32more.Windows.Win32.Foundation.PWSTR, RoutingInfoBuffer: POINTER(Byte), RoutingInfoBufferSize: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+PFAXSETROUTINGINFO = UnicodeAlias('PFAXSETROUTINGINFOW')
 @winfunctype_pointer
 def PFAXSTARTPRINTJOBA(PrinterName: win32more.Windows.Win32.Foundation.PSTR, PrintInfo: POINTER(win32more.Windows.Win32.Devices.Fax.FAX_PRINT_INFOA), FaxJobId: POINTER(UInt32), FaxContextInfo: POINTER(win32more.Windows.Win32.Devices.Fax.FAX_CONTEXT_INFOA)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def PFAXSTARTPRINTJOBW(PrinterName: win32more.Windows.Win32.Foundation.PWSTR, PrintInfo: POINTER(win32more.Windows.Win32.Devices.Fax.FAX_PRINT_INFOW), FaxJobId: POINTER(UInt32), FaxContextInfo: POINTER(win32more.Windows.Win32.Devices.Fax.FAX_CONTEXT_INFOW)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+PFAXSTARTPRINTJOB = UnicodeAlias('PFAXSTARTPRINTJOBW')
 @winfunctype_pointer
 def PFAXUNREGISTERSERVICEPROVIDERW(DeviceProvider: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
@@ -2659,6 +2717,7 @@ def PFAX_LINECALLBACK(FaxHandle: win32more.Windows.Win32.Foundation.HANDLE, hDev
 def PFAX_RECIPIENT_CALLBACKA(FaxHandle: win32more.Windows.Win32.Foundation.HANDLE, RecipientNumber: UInt32, Context: VoidPtr, JobParams: POINTER(win32more.Windows.Win32.Devices.Fax.FAX_JOB_PARAMA), CoverpageInfo: POINTER(win32more.Windows.Win32.Devices.Fax.FAX_COVERPAGE_INFOA)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def PFAX_RECIPIENT_CALLBACKW(FaxHandle: win32more.Windows.Win32.Foundation.HANDLE, RecipientNumber: UInt32, Context: VoidPtr, JobParams: POINTER(win32more.Windows.Win32.Devices.Fax.FAX_JOB_PARAMW), CoverpageInfo: POINTER(win32more.Windows.Win32.Devices.Fax.FAX_COVERPAGE_INFOW)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+PFAX_RECIPIENT_CALLBACK = UnicodeAlias('PFAX_RECIPIENT_CALLBACKW')
 @winfunctype_pointer
 def PFAX_ROUTING_INSTALLATION_CALLBACKW(FaxHandle: win32more.Windows.Win32.Foundation.HANDLE, Context: VoidPtr, MethodName: win32more.Windows.Win32.Foundation.PWSTR, FriendlyName: win32more.Windows.Win32.Foundation.PWSTR, FunctionName: win32more.Windows.Win32.Foundation.PWSTR, Guid: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer

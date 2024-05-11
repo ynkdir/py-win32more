@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Restore
 MIN_EVENT: UInt32 = 100
@@ -27,6 +27,7 @@ MAX_DESC_W: UInt32 = 256
 def SRSetRestorePointA(pRestorePtSpec: POINTER(win32more.Windows.Win32.System.Restore.RESTOREPOINTINFOA), pSMgrStatus: POINTER(win32more.Windows.Win32.System.Restore.STATEMGRSTATUS)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('sfc.dll')
 def SRSetRestorePointW(pRestorePtSpec: POINTER(win32more.Windows.Win32.System.Restore.RESTOREPOINTINFOW), pSMgrStatus: POINTER(win32more.Windows.Win32.System.Restore.STATEMGRSTATUS)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+SRSetRestorePoint = UnicodeAlias('SRSetRestorePointW')
 @winfunctype('SrClient.dll')
 def SRRemoveRestorePoint(dwRPNum: UInt32) -> UInt32: ...
 class RESTOREPOINTINFOA(EasyCastStructure):
@@ -48,6 +49,7 @@ class RESTOREPOINTINFOW(EasyCastStructure):
     llSequenceNumber: Int64
     szDescription: Char * 256
     _pack_ = 1
+RESTOREPOINTINFO = UnicodeAlias('RESTOREPOINTINFOW')
 RESTOREPOINTINFO_EVENT_TYPE = UInt32
 BEGIN_NESTED_SYSTEM_CHANGE: win32more.Windows.Win32.System.Restore.RESTOREPOINTINFO_EVENT_TYPE = 102
 BEGIN_SYSTEM_CHANGE: win32more.Windows.Win32.System.Restore.RESTOREPOINTINFO_EVENT_TYPE = 100

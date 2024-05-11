@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.Security.Authentication.Identity
@@ -16,10 +16,12 @@ def ACCEPT_SECURITY_CONTEXT_FN(param0: POINTER(win32more.Windows.Win32.Security.
 def ACQUIRE_CREDENTIALS_HANDLE_FN_A(param0: POINTER(SByte), param1: POINTER(SByte), param2: UInt32, param3: VoidPtr, param4: VoidPtr, param5: win32more.Windows.Win32.Security.Authentication.Identity.SEC_GET_KEY_FN, param6: VoidPtr, param7: POINTER(win32more.Windows.Win32.Security.Credentials.SecHandle), param8: POINTER(Int64)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def ACQUIRE_CREDENTIALS_HANDLE_FN_W(param0: POINTER(UInt16), param1: POINTER(UInt16), param2: UInt32, param3: VoidPtr, param4: VoidPtr, param5: win32more.Windows.Win32.Security.Authentication.Identity.SEC_GET_KEY_FN, param6: VoidPtr, param7: POINTER(win32more.Windows.Win32.Security.Credentials.SecHandle), param8: POINTER(Int64)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+ACQUIRE_CREDENTIALS_HANDLE_FN = UnicodeAlias('ACQUIRE_CREDENTIALS_HANDLE_FN_W')
 @winfunctype_pointer
 def ADD_CREDENTIALS_FN_A(param0: POINTER(win32more.Windows.Win32.Security.Credentials.SecHandle), param1: POINTER(SByte), param2: POINTER(SByte), param3: UInt32, param4: VoidPtr, param5: win32more.Windows.Win32.Security.Authentication.Identity.SEC_GET_KEY_FN, param6: VoidPtr, param7: POINTER(Int64)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def ADD_CREDENTIALS_FN_W(param0: POINTER(win32more.Windows.Win32.Security.Credentials.SecHandle), param1: POINTER(UInt16), param2: POINTER(UInt16), param3: UInt32, param4: VoidPtr, param5: win32more.Windows.Win32.Security.Authentication.Identity.SEC_GET_KEY_FN, param6: VoidPtr, param7: POINTER(Int64)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+ADD_CREDENTIALS_FN = UnicodeAlias('ADD_CREDENTIALS_FN_W')
 @winfunctype_pointer
 def APPLY_CONTROL_TOKEN_FN(param0: POINTER(win32more.Windows.Win32.Security.Credentials.SecHandle), param1: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SecBufferDesc)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 ASC_REQ_FLAGS = UInt32
@@ -1588,10 +1590,12 @@ def AuditEnumerateCategories(ppAuditCategoriesArray: POINTER(POINTER(Guid)), pdw
 def AuditEnumerateSubCategories(pAuditCategoryGuid: POINTER(Guid), bRetrieveAllSubCategories: win32more.Windows.Win32.Foundation.BOOLEAN, ppAuditSubCategoriesArray: POINTER(POINTER(Guid)), pdwCountReturned: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
 @winfunctype('ADVAPI32.dll')
 def AuditLookupCategoryNameW(pAuditCategoryGuid: POINTER(Guid), ppszCategoryName: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
+AuditLookupCategoryName = UnicodeAlias('AuditLookupCategoryNameW')
 @winfunctype('ADVAPI32.dll')
 def AuditLookupCategoryNameA(pAuditCategoryGuid: POINTER(Guid), ppszCategoryName: POINTER(win32more.Windows.Win32.Foundation.PSTR)) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
 @winfunctype('ADVAPI32.dll')
 def AuditLookupSubCategoryNameW(pAuditSubCategoryGuid: POINTER(Guid), ppszSubCategoryName: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
+AuditLookupSubCategoryName = UnicodeAlias('AuditLookupSubCategoryNameW')
 @winfunctype('ADVAPI32.dll')
 def AuditLookupSubCategoryNameA(pAuditSubCategoryGuid: POINTER(Guid), ppszSubCategoryName: POINTER(win32more.Windows.Win32.Foundation.PSTR)) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
 @winfunctype('ADVAPI32.dll')
@@ -1604,30 +1608,36 @@ def AuditSetSecurity(SecurityInformation: win32more.Windows.Win32.Security.OBJEC
 def AuditQuerySecurity(SecurityInformation: win32more.Windows.Win32.Security.OBJECT_SECURITY_INFORMATION, ppSecurityDescriptor: POINTER(win32more.Windows.Win32.Security.PSECURITY_DESCRIPTOR)) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
 @winfunctype('ADVAPI32.dll')
 def AuditSetGlobalSaclW(ObjectTypeName: win32more.Windows.Win32.Foundation.PWSTR, Acl: POINTER(win32more.Windows.Win32.Security.ACL)) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
+AuditSetGlobalSacl = UnicodeAlias('AuditSetGlobalSaclW')
 @winfunctype('ADVAPI32.dll')
 def AuditSetGlobalSaclA(ObjectTypeName: win32more.Windows.Win32.Foundation.PSTR, Acl: POINTER(win32more.Windows.Win32.Security.ACL)) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
 @winfunctype('ADVAPI32.dll')
 def AuditQueryGlobalSaclW(ObjectTypeName: win32more.Windows.Win32.Foundation.PWSTR, Acl: POINTER(POINTER(win32more.Windows.Win32.Security.ACL))) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
+AuditQueryGlobalSacl = UnicodeAlias('AuditQueryGlobalSaclW')
 @winfunctype('ADVAPI32.dll')
 def AuditQueryGlobalSaclA(ObjectTypeName: win32more.Windows.Win32.Foundation.PSTR, Acl: POINTER(POINTER(win32more.Windows.Win32.Security.ACL))) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
 @winfunctype('ADVAPI32.dll')
 def AuditFree(Buffer: VoidPtr) -> Void: ...
 @winfunctype('SECUR32.dll')
 def AcquireCredentialsHandleW(pszPrincipal: win32more.Windows.Win32.Foundation.PWSTR, pszPackage: win32more.Windows.Win32.Foundation.PWSTR, fCredentialUse: win32more.Windows.Win32.Security.Authentication.Identity.SECPKG_CRED, pvLogonId: VoidPtr, pAuthData: VoidPtr, pGetKeyFn: win32more.Windows.Win32.Security.Authentication.Identity.SEC_GET_KEY_FN, pvGetKeyArgument: VoidPtr, phCredential: POINTER(win32more.Windows.Win32.Security.Credentials.SecHandle), ptsExpiry: POINTER(Int64)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+AcquireCredentialsHandle = UnicodeAlias('AcquireCredentialsHandleW')
 @winfunctype('SECUR32.dll')
 def AcquireCredentialsHandleA(pszPrincipal: win32more.Windows.Win32.Foundation.PSTR, pszPackage: win32more.Windows.Win32.Foundation.PSTR, fCredentialUse: win32more.Windows.Win32.Security.Authentication.Identity.SECPKG_CRED, pvLogonId: VoidPtr, pAuthData: VoidPtr, pGetKeyFn: win32more.Windows.Win32.Security.Authentication.Identity.SEC_GET_KEY_FN, pvGetKeyArgument: VoidPtr, phCredential: POINTER(win32more.Windows.Win32.Security.Credentials.SecHandle), ptsExpiry: POINTER(Int64)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('SECUR32.dll')
 def FreeCredentialsHandle(phCredential: POINTER(win32more.Windows.Win32.Security.Credentials.SecHandle)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('SECUR32.dll')
 def AddCredentialsW(hCredentials: POINTER(win32more.Windows.Win32.Security.Credentials.SecHandle), pszPrincipal: win32more.Windows.Win32.Foundation.PWSTR, pszPackage: win32more.Windows.Win32.Foundation.PWSTR, fCredentialUse: UInt32, pAuthData: VoidPtr, pGetKeyFn: win32more.Windows.Win32.Security.Authentication.Identity.SEC_GET_KEY_FN, pvGetKeyArgument: VoidPtr, ptsExpiry: POINTER(Int64)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+AddCredentials = UnicodeAlias('AddCredentialsW')
 @winfunctype('SECUR32.dll')
 def AddCredentialsA(hCredentials: POINTER(win32more.Windows.Win32.Security.Credentials.SecHandle), pszPrincipal: win32more.Windows.Win32.Foundation.PSTR, pszPackage: win32more.Windows.Win32.Foundation.PSTR, fCredentialUse: UInt32, pAuthData: VoidPtr, pGetKeyFn: win32more.Windows.Win32.Security.Authentication.Identity.SEC_GET_KEY_FN, pvGetKeyArgument: VoidPtr, ptsExpiry: POINTER(Int64)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('SECUR32.dll')
 def ChangeAccountPasswordW(pszPackageName: POINTER(UInt16), pszDomainName: POINTER(UInt16), pszAccountName: POINTER(UInt16), pszOldPassword: POINTER(UInt16), pszNewPassword: POINTER(UInt16), bImpersonating: win32more.Windows.Win32.Foundation.BOOLEAN, dwReserved: UInt32, pOutput: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SecBufferDesc)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+ChangeAccountPassword = UnicodeAlias('ChangeAccountPasswordW')
 @winfunctype('SECUR32.dll')
 def ChangeAccountPasswordA(pszPackageName: POINTER(SByte), pszDomainName: POINTER(SByte), pszAccountName: POINTER(SByte), pszOldPassword: POINTER(SByte), pszNewPassword: POINTER(SByte), bImpersonating: win32more.Windows.Win32.Foundation.BOOLEAN, dwReserved: UInt32, pOutput: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SecBufferDesc)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('SECUR32.dll')
 def InitializeSecurityContextW(phCredential: POINTER(win32more.Windows.Win32.Security.Credentials.SecHandle), phContext: POINTER(win32more.Windows.Win32.Security.Credentials.SecHandle), pszTargetName: POINTER(UInt16), fContextReq: win32more.Windows.Win32.Security.Authentication.Identity.ISC_REQ_FLAGS, Reserved1: UInt32, TargetDataRep: UInt32, pInput: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SecBufferDesc), Reserved2: UInt32, phNewContext: POINTER(win32more.Windows.Win32.Security.Credentials.SecHandle), pOutput: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SecBufferDesc), pfContextAttr: POINTER(UInt32), ptsExpiry: POINTER(Int64)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+InitializeSecurityContext = UnicodeAlias('InitializeSecurityContextW')
 @winfunctype('SECUR32.dll')
 def InitializeSecurityContextA(phCredential: POINTER(win32more.Windows.Win32.Security.Credentials.SecHandle), phContext: POINTER(win32more.Windows.Win32.Security.Credentials.SecHandle), pszTargetName: POINTER(SByte), fContextReq: win32more.Windows.Win32.Security.Authentication.Identity.ISC_REQ_FLAGS, Reserved1: UInt32, TargetDataRep: UInt32, pInput: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SecBufferDesc), Reserved2: UInt32, phNewContext: POINTER(win32more.Windows.Win32.Security.Credentials.SecHandle), pOutput: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SecBufferDesc), pfContextAttr: POINTER(UInt32), ptsExpiry: POINTER(Int64)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('SECUR32.dll')
@@ -1646,26 +1656,32 @@ def DeleteSecurityContext(phContext: POINTER(win32more.Windows.Win32.Security.Cr
 def ApplyControlToken(phContext: POINTER(win32more.Windows.Win32.Security.Credentials.SecHandle), pInput: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SecBufferDesc)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('SECUR32.dll')
 def QueryContextAttributesW(phContext: POINTER(win32more.Windows.Win32.Security.Credentials.SecHandle), ulAttribute: win32more.Windows.Win32.Security.Authentication.Identity.SECPKG_ATTR, pBuffer: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+QueryContextAttributes = UnicodeAlias('QueryContextAttributesW')
 @winfunctype('SspiCli.dll')
 def QueryContextAttributesExW(phContext: POINTER(win32more.Windows.Win32.Security.Credentials.SecHandle), ulAttribute: win32more.Windows.Win32.Security.Authentication.Identity.SECPKG_ATTR, pBuffer: VoidPtr, cbBuffer: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+QueryContextAttributesEx = UnicodeAlias('QueryContextAttributesExW')
 @winfunctype('SECUR32.dll')
 def QueryContextAttributesA(phContext: POINTER(win32more.Windows.Win32.Security.Credentials.SecHandle), ulAttribute: win32more.Windows.Win32.Security.Authentication.Identity.SECPKG_ATTR, pBuffer: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('SspiCli.dll')
 def QueryContextAttributesExA(phContext: POINTER(win32more.Windows.Win32.Security.Credentials.SecHandle), ulAttribute: win32more.Windows.Win32.Security.Authentication.Identity.SECPKG_ATTR, pBuffer: VoidPtr, cbBuffer: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('SECUR32.dll')
 def SetContextAttributesW(phContext: POINTER(win32more.Windows.Win32.Security.Credentials.SecHandle), ulAttribute: win32more.Windows.Win32.Security.Authentication.Identity.SECPKG_ATTR, pBuffer: VoidPtr, cbBuffer: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+SetContextAttributes = UnicodeAlias('SetContextAttributesW')
 @winfunctype('SECUR32.dll')
 def SetContextAttributesA(phContext: POINTER(win32more.Windows.Win32.Security.Credentials.SecHandle), ulAttribute: win32more.Windows.Win32.Security.Authentication.Identity.SECPKG_ATTR, pBuffer: VoidPtr, cbBuffer: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('SECUR32.dll')
 def QueryCredentialsAttributesW(phCredential: POINTER(win32more.Windows.Win32.Security.Credentials.SecHandle), ulAttribute: UInt32, pBuffer: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+QueryCredentialsAttributes = UnicodeAlias('QueryCredentialsAttributesW')
 @winfunctype('SspiCli.dll')
 def QueryCredentialsAttributesExW(phCredential: POINTER(win32more.Windows.Win32.Security.Credentials.SecHandle), ulAttribute: UInt32, pBuffer: VoidPtr, cbBuffer: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+QueryCredentialsAttributesEx = UnicodeAlias('QueryCredentialsAttributesExW')
 @winfunctype('SECUR32.dll')
 def QueryCredentialsAttributesA(phCredential: POINTER(win32more.Windows.Win32.Security.Credentials.SecHandle), ulAttribute: UInt32, pBuffer: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('SspiCli.dll')
 def QueryCredentialsAttributesExA(phCredential: POINTER(win32more.Windows.Win32.Security.Credentials.SecHandle), ulAttribute: UInt32, pBuffer: VoidPtr, cbBuffer: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('SECUR32.dll')
 def SetCredentialsAttributesW(phCredential: POINTER(win32more.Windows.Win32.Security.Credentials.SecHandle), ulAttribute: UInt32, pBuffer: VoidPtr, cbBuffer: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+SetCredentialsAttributes = UnicodeAlias('SetCredentialsAttributesW')
 @winfunctype('SECUR32.dll')
 def SetCredentialsAttributesA(phCredential: POINTER(win32more.Windows.Win32.Security.Credentials.SecHandle), ulAttribute: UInt32, pBuffer: VoidPtr, cbBuffer: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('SECUR32.dll')
@@ -1680,36 +1696,44 @@ def EncryptMessage(phContext: POINTER(win32more.Windows.Win32.Security.Credentia
 def DecryptMessage(phContext: POINTER(win32more.Windows.Win32.Security.Credentials.SecHandle), pMessage: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SecBufferDesc), MessageSeqNo: UInt32, pfQOP: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('SECUR32.dll')
 def EnumerateSecurityPackagesW(pcPackages: POINTER(UInt32), ppPackageInfo: POINTER(POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SecPkgInfoW))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+EnumerateSecurityPackages = UnicodeAlias('EnumerateSecurityPackagesW')
 @winfunctype('SECUR32.dll')
 def EnumerateSecurityPackagesA(pcPackages: POINTER(UInt32), ppPackageInfo: POINTER(POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SecPkgInfoA))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('SECUR32.dll')
 def QuerySecurityPackageInfoW(pszPackageName: win32more.Windows.Win32.Foundation.PWSTR, ppPackageInfo: POINTER(POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SecPkgInfoW))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+QuerySecurityPackageInfo = UnicodeAlias('QuerySecurityPackageInfoW')
 @winfunctype('SECUR32.dll')
 def QuerySecurityPackageInfoA(pszPackageName: win32more.Windows.Win32.Foundation.PSTR, ppPackageInfo: POINTER(POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SecPkgInfoA))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('SECUR32.dll')
 def ExportSecurityContext(phContext: POINTER(win32more.Windows.Win32.Security.Credentials.SecHandle), fFlags: win32more.Windows.Win32.Security.Authentication.Identity.EXPORT_SECURITY_CONTEXT_FLAGS, pPackedContext: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SecBuffer), pToken: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('SECUR32.dll')
 def ImportSecurityContextW(pszPackage: win32more.Windows.Win32.Foundation.PWSTR, pPackedContext: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SecBuffer), Token: VoidPtr, phContext: POINTER(win32more.Windows.Win32.Security.Credentials.SecHandle)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+ImportSecurityContext = UnicodeAlias('ImportSecurityContextW')
 @winfunctype('SECUR32.dll')
 def ImportSecurityContextA(pszPackage: win32more.Windows.Win32.Foundation.PSTR, pPackedContext: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SecBuffer), Token: VoidPtr, phContext: POINTER(win32more.Windows.Win32.Security.Credentials.SecHandle)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('SECUR32.dll')
 def InitSecurityInterfaceA() -> POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SecurityFunctionTableA): ...
 @winfunctype('SECUR32.dll')
 def InitSecurityInterfaceW() -> POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SecurityFunctionTableW): ...
+InitSecurityInterface = UnicodeAlias('InitSecurityInterfaceW')
 @winfunctype('SECUR32.dll')
 def SaslEnumerateProfilesA(ProfileList: POINTER(win32more.Windows.Win32.Foundation.PSTR), ProfileCount: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('SECUR32.dll')
 def SaslEnumerateProfilesW(ProfileList: POINTER(win32more.Windows.Win32.Foundation.PWSTR), ProfileCount: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+SaslEnumerateProfiles = UnicodeAlias('SaslEnumerateProfilesW')
 @winfunctype('SECUR32.dll')
 def SaslGetProfilePackageA(ProfileName: win32more.Windows.Win32.Foundation.PSTR, PackageInfo: POINTER(POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SecPkgInfoA))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('SECUR32.dll')
 def SaslGetProfilePackageW(ProfileName: win32more.Windows.Win32.Foundation.PWSTR, PackageInfo: POINTER(POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SecPkgInfoW))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+SaslGetProfilePackage = UnicodeAlias('SaslGetProfilePackageW')
 @winfunctype('SECUR32.dll')
 def SaslIdentifyPackageA(pInput: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SecBufferDesc), PackageInfo: POINTER(POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SecPkgInfoA))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('SECUR32.dll')
 def SaslIdentifyPackageW(pInput: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SecBufferDesc), PackageInfo: POINTER(POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SecPkgInfoW))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+SaslIdentifyPackage = UnicodeAlias('SaslIdentifyPackageW')
 @winfunctype('SECUR32.dll')
 def SaslInitializeSecurityContextW(phCredential: POINTER(win32more.Windows.Win32.Security.Credentials.SecHandle), phContext: POINTER(win32more.Windows.Win32.Security.Credentials.SecHandle), pszTargetName: win32more.Windows.Win32.Foundation.PWSTR, fContextReq: win32more.Windows.Win32.Security.Authentication.Identity.ISC_REQ_FLAGS, Reserved1: UInt32, TargetDataRep: UInt32, pInput: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SecBufferDesc), Reserved2: UInt32, phNewContext: POINTER(win32more.Windows.Win32.Security.Credentials.SecHandle), pOutput: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SecBufferDesc), pfContextAttr: POINTER(UInt32), ptsExpiry: POINTER(Int64)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+SaslInitializeSecurityContext = UnicodeAlias('SaslInitializeSecurityContextW')
 @winfunctype('SECUR32.dll')
 def SaslInitializeSecurityContextA(phCredential: POINTER(win32more.Windows.Win32.Security.Credentials.SecHandle), phContext: POINTER(win32more.Windows.Win32.Security.Credentials.SecHandle), pszTargetName: win32more.Windows.Win32.Foundation.PSTR, fContextReq: win32more.Windows.Win32.Security.Authentication.Identity.ISC_REQ_FLAGS, Reserved1: UInt32, TargetDataRep: UInt32, pInput: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SecBufferDesc), Reserved2: UInt32, phNewContext: POINTER(win32more.Windows.Win32.Security.Credentials.SecHandle), pOutput: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SecBufferDesc), pfContextAttr: POINTER(UInt32), ptsExpiry: POINTER(Int64)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('SECUR32.dll')
@@ -1720,6 +1744,7 @@ def SaslSetContextOption(ContextHandle: POINTER(win32more.Windows.Win32.Security
 def SaslGetContextOption(ContextHandle: POINTER(win32more.Windows.Win32.Security.Credentials.SecHandle), Option: UInt32, Value: VoidPtr, Size: UInt32, Needed: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('credui.dll')
 def SspiPromptForCredentialsW(pszTargetName: win32more.Windows.Win32.Foundation.PWSTR, pUiInfo: VoidPtr, dwAuthError: UInt32, pszPackage: win32more.Windows.Win32.Foundation.PWSTR, pInputAuthIdentity: VoidPtr, ppAuthIdentity: POINTER(VoidPtr), pfSave: POINTER(Int32), dwFlags: UInt32) -> UInt32: ...
+SspiPromptForCredentials = UnicodeAlias('SspiPromptForCredentialsW')
 @winfunctype('credui.dll')
 def SspiPromptForCredentialsA(pszTargetName: win32more.Windows.Win32.Foundation.PSTR, pUiInfo: VoidPtr, dwAuthError: UInt32, pszPackage: win32more.Windows.Win32.Foundation.PSTR, pInputAuthIdentity: VoidPtr, ppAuthIdentity: POINTER(VoidPtr), pfSave: POINTER(Int32), dwFlags: UInt32) -> UInt32: ...
 @winfunctype('SECUR32.dll')
@@ -1768,10 +1793,12 @@ def SspiSetChannelBindingFlags(pBindings: POINTER(win32more.Windows.Win32.Securi
 def AddSecurityPackageA(pszPackageName: win32more.Windows.Win32.Foundation.PSTR, pOptions: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SECURITY_PACKAGE_OPTIONS)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('SECUR32.dll')
 def AddSecurityPackageW(pszPackageName: win32more.Windows.Win32.Foundation.PWSTR, pOptions: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SECURITY_PACKAGE_OPTIONS)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+AddSecurityPackage = UnicodeAlias('AddSecurityPackageW')
 @winfunctype('SECUR32.dll')
 def DeleteSecurityPackageA(pszPackageName: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('SECUR32.dll')
 def DeleteSecurityPackageW(pszPackageName: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+DeleteSecurityPackage = UnicodeAlias('DeleteSecurityPackageW')
 @winfunctype('SECUR32.dll')
 def CredMarshalTargetInfo(InTargetInfo: POINTER(win32more.Windows.Win32.Security.Credentials.CREDENTIAL_TARGET_INFORMATIONW), Buffer: POINTER(POINTER(UInt16)), BufferSize: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('SECUR32.dll')
@@ -1780,6 +1807,7 @@ def CredUnmarshalTargetInfo(Buffer: POINTER(UInt16), BufferSize: UInt32, RetTarg
 def SslEmptyCacheA(pszTargetName: win32more.Windows.Win32.Foundation.PSTR, dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('SCHANNEL.dll')
 def SslEmptyCacheW(pszTargetName: win32more.Windows.Win32.Foundation.PWSTR, dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+SslEmptyCache = UnicodeAlias('SslEmptyCacheW')
 @winfunctype('SCHANNEL.dll')
 def SslGenerateRandomBits(pRandomData: POINTER(Byte), cRandomData: Int32) -> Void: ...
 @winfunctype('SCHANNEL.dll')
@@ -1818,14 +1846,17 @@ def TokenBindingGetHighestSupportedVersion(majorVersion: POINTER(Byte), minorVer
 def GetUserNameExA(NameFormat: win32more.Windows.Win32.Security.Authentication.Identity.EXTENDED_NAME_FORMAT, lpNameBuffer: win32more.Windows.Win32.Foundation.PSTR, nSize: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
 @winfunctype('SECUR32.dll')
 def GetUserNameExW(NameFormat: win32more.Windows.Win32.Security.Authentication.Identity.EXTENDED_NAME_FORMAT, lpNameBuffer: win32more.Windows.Win32.Foundation.PWSTR, nSize: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
+GetUserNameEx = UnicodeAlias('GetUserNameExW')
 @winfunctype('SECUR32.dll')
 def GetComputerObjectNameA(NameFormat: win32more.Windows.Win32.Security.Authentication.Identity.EXTENDED_NAME_FORMAT, lpNameBuffer: win32more.Windows.Win32.Foundation.PSTR, nSize: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
 @winfunctype('SECUR32.dll')
 def GetComputerObjectNameW(NameFormat: win32more.Windows.Win32.Security.Authentication.Identity.EXTENDED_NAME_FORMAT, lpNameBuffer: win32more.Windows.Win32.Foundation.PWSTR, nSize: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
+GetComputerObjectName = UnicodeAlias('GetComputerObjectNameW')
 @winfunctype('SECUR32.dll')
 def TranslateNameA(lpAccountName: win32more.Windows.Win32.Foundation.PSTR, AccountNameFormat: win32more.Windows.Win32.Security.Authentication.Identity.EXTENDED_NAME_FORMAT, DesiredNameFormat: win32more.Windows.Win32.Security.Authentication.Identity.EXTENDED_NAME_FORMAT, lpTranslatedName: win32more.Windows.Win32.Foundation.PSTR, nSize: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
 @winfunctype('SECUR32.dll')
 def TranslateNameW(lpAccountName: win32more.Windows.Win32.Foundation.PWSTR, AccountNameFormat: win32more.Windows.Win32.Security.Authentication.Identity.EXTENDED_NAME_FORMAT, DesiredNameFormat: win32more.Windows.Win32.Security.Authentication.Identity.EXTENDED_NAME_FORMAT, lpTranslatedName: win32more.Windows.Win32.Foundation.PWSTR, nSize: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
+TranslateName = UnicodeAlias('TranslateNameW')
 @winfunctype('SLC.dll')
 def SLOpen(phSLC: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('SLC.dll')
@@ -1927,6 +1958,7 @@ class CENTRAL_ACCESS_POLICY_ENTRY(EasyCastStructure):
 def CHANGE_PASSWORD_FN_A(param0: POINTER(SByte), param1: POINTER(SByte), param2: POINTER(SByte), param3: POINTER(SByte), param4: POINTER(SByte), param5: win32more.Windows.Win32.Foundation.BOOLEAN, param6: UInt32, param7: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SecBufferDesc)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def CHANGE_PASSWORD_FN_W(param0: POINTER(UInt16), param1: POINTER(UInt16), param2: POINTER(UInt16), param3: POINTER(UInt16), param4: POINTER(UInt16), param5: win32more.Windows.Win32.Foundation.BOOLEAN, param6: UInt32, param7: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SecBufferDesc)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+CHANGE_PASSWORD_FN = UnicodeAlias('CHANGE_PASSWORD_FN_W')
 class CLEAR_BLOCK(EasyCastStructure):
     data: win32more.Windows.Win32.Foundation.CHAR * 8
 @winfunctype_pointer
@@ -1978,6 +2010,7 @@ def ENCRYPT_MESSAGE_FN(param0: POINTER(win32more.Windows.Win32.Security.Credenti
 def ENUMERATE_SECURITY_PACKAGES_FN_A(param0: POINTER(UInt32), param1: POINTER(POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SecPkgInfoA))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def ENUMERATE_SECURITY_PACKAGES_FN_W(param0: POINTER(UInt32), param1: POINTER(POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SecPkgInfoW))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+ENUMERATE_SECURITY_PACKAGES_FN = UnicodeAlias('ENUMERATE_SECURITY_PACKAGES_FN_W')
 EXPORT_SECURITY_CONTEXT_FLAGS = UInt32
 SECPKG_CONTEXT_EXPORT_RESET_NEW: win32more.Windows.Win32.Security.Authentication.Identity.EXPORT_SECURITY_CONTEXT_FLAGS = 1
 SECPKG_CONTEXT_EXPORT_DELETE_OLD: win32more.Windows.Win32.Security.Authentication.Identity.EXPORT_SECURITY_CONTEXT_FLAGS = 2
@@ -2012,14 +2045,17 @@ def IMPERSONATE_SECURITY_CONTEXT_FN(param0: POINTER(win32more.Windows.Win32.Secu
 def IMPORT_SECURITY_CONTEXT_FN_A(param0: POINTER(SByte), param1: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SecBuffer), param2: VoidPtr, param3: POINTER(win32more.Windows.Win32.Security.Credentials.SecHandle)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def IMPORT_SECURITY_CONTEXT_FN_W(param0: POINTER(UInt16), param1: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SecBuffer), param2: VoidPtr, param3: POINTER(win32more.Windows.Win32.Security.Credentials.SecHandle)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+IMPORT_SECURITY_CONTEXT_FN = UnicodeAlias('IMPORT_SECURITY_CONTEXT_FN_W')
 @winfunctype_pointer
 def INITIALIZE_SECURITY_CONTEXT_FN_A(param0: POINTER(win32more.Windows.Win32.Security.Credentials.SecHandle), param1: POINTER(win32more.Windows.Win32.Security.Credentials.SecHandle), param2: POINTER(SByte), param3: UInt32, param4: UInt32, param5: UInt32, param6: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SecBufferDesc), param7: UInt32, param8: POINTER(win32more.Windows.Win32.Security.Credentials.SecHandle), param9: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SecBufferDesc), param10: POINTER(UInt32), param11: POINTER(Int64)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def INITIALIZE_SECURITY_CONTEXT_FN_W(param0: POINTER(win32more.Windows.Win32.Security.Credentials.SecHandle), param1: POINTER(win32more.Windows.Win32.Security.Credentials.SecHandle), param2: POINTER(UInt16), param3: UInt32, param4: UInt32, param5: UInt32, param6: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SecBufferDesc), param7: UInt32, param8: POINTER(win32more.Windows.Win32.Security.Credentials.SecHandle), param9: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SecBufferDesc), param10: POINTER(UInt32), param11: POINTER(Int64)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+INITIALIZE_SECURITY_CONTEXT_FN = UnicodeAlias('INITIALIZE_SECURITY_CONTEXT_FN_W')
 @winfunctype_pointer
 def INIT_SECURITY_INTERFACE_A() -> POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SecurityFunctionTableA): ...
 @winfunctype_pointer
 def INIT_SECURITY_INTERFACE_W() -> POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SecurityFunctionTableW): ...
+INIT_SECURITY_INTERFACE = UnicodeAlias('INIT_SECURITY_INTERFACE_W')
 ISC_REQ_FLAGS = UInt32
 ISC_REQ_DELEGATE: win32more.Windows.Win32.Security.Authentication.Identity.ISC_REQ_FLAGS = 1
 ISC_REQ_MUTUAL_AUTH: win32more.Windows.Win32.Security.Authentication.Identity.ISC_REQ_FLAGS = 2
@@ -3372,24 +3408,29 @@ class PctPublicKey(EasyCastStructure):
 def QUERY_CONTEXT_ATTRIBUTES_EX_FN_A(param0: POINTER(win32more.Windows.Win32.Security.Credentials.SecHandle), param1: UInt32, param2: VoidPtr, param3: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def QUERY_CONTEXT_ATTRIBUTES_EX_FN_W(param0: POINTER(win32more.Windows.Win32.Security.Credentials.SecHandle), param1: UInt32, param2: VoidPtr, param3: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+QUERY_CONTEXT_ATTRIBUTES_EX_FN = UnicodeAlias('QUERY_CONTEXT_ATTRIBUTES_EX_FN_W')
 @winfunctype_pointer
 def QUERY_CONTEXT_ATTRIBUTES_FN_A(param0: POINTER(win32more.Windows.Win32.Security.Credentials.SecHandle), param1: UInt32, param2: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def QUERY_CONTEXT_ATTRIBUTES_FN_W(param0: POINTER(win32more.Windows.Win32.Security.Credentials.SecHandle), param1: UInt32, param2: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+QUERY_CONTEXT_ATTRIBUTES_FN = UnicodeAlias('QUERY_CONTEXT_ATTRIBUTES_FN_W')
 @winfunctype_pointer
 def QUERY_CREDENTIALS_ATTRIBUTES_EX_FN_A(param0: POINTER(win32more.Windows.Win32.Security.Credentials.SecHandle), param1: UInt32, param2: VoidPtr, param3: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def QUERY_CREDENTIALS_ATTRIBUTES_EX_FN_W(param0: POINTER(win32more.Windows.Win32.Security.Credentials.SecHandle), param1: UInt32, param2: VoidPtr, param3: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+QUERY_CREDENTIALS_ATTRIBUTES_EX_FN = UnicodeAlias('QUERY_CREDENTIALS_ATTRIBUTES_EX_FN_W')
 @winfunctype_pointer
 def QUERY_CREDENTIALS_ATTRIBUTES_FN_A(param0: POINTER(win32more.Windows.Win32.Security.Credentials.SecHandle), param1: UInt32, param2: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def QUERY_CREDENTIALS_ATTRIBUTES_FN_W(param0: POINTER(win32more.Windows.Win32.Security.Credentials.SecHandle), param1: UInt32, param2: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+QUERY_CREDENTIALS_ATTRIBUTES_FN = UnicodeAlias('QUERY_CREDENTIALS_ATTRIBUTES_FN_W')
 @winfunctype_pointer
 def QUERY_SECURITY_CONTEXT_TOKEN_FN(param0: POINTER(win32more.Windows.Win32.Security.Credentials.SecHandle), param1: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def QUERY_SECURITY_PACKAGE_INFO_FN_A(param0: POINTER(SByte), param1: POINTER(POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SecPkgInfoA))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def QUERY_SECURITY_PACKAGE_INFO_FN_W(param0: POINTER(UInt16), param1: POINTER(POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SecPkgInfoW))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+QUERY_SECURITY_PACKAGE_INFO_FN = UnicodeAlias('QUERY_SECURITY_PACKAGE_INFO_FN_W')
 @winfunctype_pointer
 def REVERT_SECURITY_CONTEXT_FN(param0: POINTER(win32more.Windows.Win32.Security.Credentials.SecHandle)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class SAM_REGISTER_MAPPING_ELEMENT(EasyCastStructure):
@@ -4075,6 +4116,7 @@ class SEC_WINNT_AUTH_IDENTITY_EXW(EasyCastStructure):
     Flags: UInt32
     PackageList: POINTER(UInt16)
     PackageListLength: UInt32
+SEC_WINNT_AUTH_IDENTITY_EX = UnicodeAlias('SEC_WINNT_AUTH_IDENTITY_EXW')
 class SEC_WINNT_AUTH_IDENTITY_INFO(EasyCastUnion):
     AuthIdExw: win32more.Windows.Win32.Security.Authentication.Identity.SEC_WINNT_AUTH_IDENTITY_EXW
     AuthIdExa: win32more.Windows.Win32.Security.Authentication.Identity.SEC_WINNT_AUTH_IDENTITY_EXA
@@ -4091,10 +4133,12 @@ class SEND_GENERIC_TLS_EXTENSION(EasyCastStructure):
 def SET_CONTEXT_ATTRIBUTES_FN_A(param0: POINTER(win32more.Windows.Win32.Security.Credentials.SecHandle), param1: UInt32, param2: VoidPtr, param3: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def SET_CONTEXT_ATTRIBUTES_FN_W(param0: POINTER(win32more.Windows.Win32.Security.Credentials.SecHandle), param1: UInt32, param2: VoidPtr, param3: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+SET_CONTEXT_ATTRIBUTES_FN = UnicodeAlias('SET_CONTEXT_ATTRIBUTES_FN_W')
 @winfunctype_pointer
 def SET_CREDENTIALS_ATTRIBUTES_FN_A(param0: POINTER(win32more.Windows.Win32.Security.Credentials.SecHandle), param1: UInt32, param2: VoidPtr, param3: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def SET_CREDENTIALS_ATTRIBUTES_FN_W(param0: POINTER(win32more.Windows.Win32.Security.Credentials.SecHandle), param1: UInt32, param2: VoidPtr, param3: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+SET_CREDENTIALS_ATTRIBUTES_FN = UnicodeAlias('SET_CREDENTIALS_ATTRIBUTES_FN_W')
 class SE_ADT_ACCESS_REASON(EasyCastStructure):
     AccessMask: UInt32
     AccessReasons: UInt32 * 32
@@ -4244,6 +4288,7 @@ class SSL_CREDENTIAL_CERTIFICATE(EasyCastStructure):
 def SSL_EMPTY_CACHE_FN_A(pszTargetName: win32more.Windows.Win32.Foundation.PSTR, dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def SSL_EMPTY_CACHE_FN_W(pszTargetName: win32more.Windows.Win32.Foundation.PWSTR, dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+SSL_EMPTY_CACHE_FN = UnicodeAlias('SSL_EMPTY_CACHE_FN_W')
 @winfunctype_pointer
 def SSL_FREE_CERTIFICATE_FN(pCertificate: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.X509Certificate)) -> Void: ...
 class SUBSCRIBE_GENERIC_TLS_EXTENSION(EasyCastStructure):
@@ -4278,6 +4323,7 @@ class SecPkgContext_AuthorityA(EasyCastStructure):
     sAuthorityName: POINTER(SByte)
 class SecPkgContext_AuthorityW(EasyCastStructure):
     sAuthorityName: POINTER(UInt16)
+SecPkgContext_Authority = UnicodeAlias('SecPkgContext_AuthorityW')
 class SecPkgContext_AuthzID(EasyCastStructure):
     AuthzIDLength: UInt32
     AuthzID: win32more.Windows.Win32.Foundation.PSTR
@@ -4345,6 +4391,7 @@ class SecPkgContext_CredentialNameA(EasyCastStructure):
 class SecPkgContext_CredentialNameW(EasyCastStructure):
     CredentialType: UInt32
     sCredentialName: POINTER(UInt16)
+SecPkgContext_CredentialName = UnicodeAlias('SecPkgContext_CredentialNameW')
 class SecPkgContext_DceInfo(EasyCastStructure):
     AuthzSvc: UInt32
     pPac: VoidPtr
@@ -4374,6 +4421,7 @@ class SecPkgContext_KeyInfoW(EasyCastStructure):
     KeySize: UInt32
     SignatureAlgorithm: UInt32
     EncryptAlgorithm: UInt32
+SecPkgContext_KeyInfo = UnicodeAlias('SecPkgContext_KeyInfoW')
 class SecPkgContext_KeyingMaterial(EasyCastStructure):
     cbKeyingMaterial: UInt32
     pbKeyingMaterial: POINTER(Byte)
@@ -4410,12 +4458,14 @@ class SecPkgContext_NamesA(EasyCastStructure):
     sUserName: POINTER(SByte)
 class SecPkgContext_NamesW(EasyCastStructure):
     sUserName: POINTER(UInt16)
+SecPkgContext_Names = UnicodeAlias('SecPkgContext_NamesW')
 class SecPkgContext_NativeNamesA(EasyCastStructure):
     sClientName: POINTER(SByte)
     sServerName: POINTER(SByte)
 class SecPkgContext_NativeNamesW(EasyCastStructure):
     sClientName: POINTER(UInt16)
     sServerName: POINTER(UInt16)
+SecPkgContext_NativeNames = UnicodeAlias('SecPkgContext_NativeNamesW')
 class SecPkgContext_NegoKeys(EasyCastStructure):
     KeyType: UInt32
     KeyLength: UInt16
@@ -4436,10 +4486,12 @@ class SecPkgContext_NegotiationInfoA(EasyCastStructure):
 class SecPkgContext_NegotiationInfoW(EasyCastStructure):
     PackageInfo: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SecPkgInfoW)
     NegotiationState: UInt32
+SecPkgContext_NegotiationInfo = UnicodeAlias('SecPkgContext_NegotiationInfoW')
 class SecPkgContext_PackageInfoA(EasyCastStructure):
     PackageInfo: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SecPkgInfoA)
 class SecPkgContext_PackageInfoW(EasyCastStructure):
     PackageInfo: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SecPkgInfoW)
+SecPkgContext_PackageInfo = UnicodeAlias('SecPkgContext_PackageInfoW')
 class SecPkgContext_PasswordExpiry(EasyCastStructure):
     tsPasswordExpires: Int64
 class SecPkgContext_ProtoInfoA(EasyCastStructure):
@@ -4450,6 +4502,7 @@ class SecPkgContext_ProtoInfoW(EasyCastStructure):
     sProtocolName: POINTER(UInt16)
     majorVersion: UInt32
     minorVersion: UInt32
+SecPkgContext_ProtoInfo = UnicodeAlias('SecPkgContext_ProtoInfoW')
 class SecPkgContext_RemoteCredentialInfo(EasyCastStructure):
     cbCertificateChain: UInt32
     pbCertificateChain: POINTER(Byte)
@@ -4544,6 +4597,7 @@ class SecPkgCredentials_NamesA(EasyCastStructure):
     sUserName: POINTER(SByte)
 class SecPkgCredentials_NamesW(EasyCastStructure):
     sUserName: POINTER(UInt16)
+SecPkgCredentials_Names = UnicodeAlias('SecPkgCredentials_NamesW')
 class SecPkgCredentials_SSIProviderA(EasyCastStructure):
     sProviderName: POINTER(SByte)
     ProviderInfoLength: UInt32
@@ -4552,6 +4606,7 @@ class SecPkgCredentials_SSIProviderW(EasyCastStructure):
     sProviderName: POINTER(UInt16)
     ProviderInfoLength: UInt32
     ProviderInfo: win32more.Windows.Win32.Foundation.PSTR
+SecPkgCredentials_SSIProvider = UnicodeAlias('SecPkgCredentials_SSIProviderW')
 class SecPkgInfoA(EasyCastStructure):
     fCapabilities: UInt32
     wVersion: UInt16
@@ -4566,6 +4621,7 @@ class SecPkgInfoW(EasyCastStructure):
     cbMaxToken: UInt32
     Name: POINTER(UInt16)
     Comment: POINTER(UInt16)
+SecPkgInfo = UnicodeAlias('SecPkgInfoW')
 class SecurityFunctionTableA(EasyCastStructure):
     dwVersion: UInt32
     EnumerateSecurityPackagesA: win32more.Windows.Win32.Security.Authentication.Identity.ENUMERATE_SECURITY_PACKAGES_FN_A
@@ -4632,6 +4688,7 @@ class SecurityFunctionTableW(EasyCastStructure):
     ChangeAccountPasswordW: win32more.Windows.Win32.Security.Authentication.Identity.CHANGE_PASSWORD_FN_W
     QueryContextAttributesExW: win32more.Windows.Win32.Security.Authentication.Identity.QUERY_CONTEXT_ATTRIBUTES_EX_FN_W
     QueryCredentialsAttributesExW: win32more.Windows.Win32.Security.Authentication.Identity.QUERY_CREDENTIALS_ATTRIBUTES_EX_FN_W
+SecurityFunctionTable = UnicodeAlias('SecurityFunctionTableW')
 @winfunctype_pointer
 def SpAcceptCredentialsFn(LogonType: win32more.Windows.Win32.Security.Authentication.Identity.SECURITY_LOGON_TYPE, AccountName: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING), PrimaryCredentials: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SECPKG_PRIMARY_CRED), SupplementalCredentials: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SECPKG_SUPPLEMENTAL_CRED)) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.System.Com
@@ -109,44 +109,54 @@ NUM_CUSTOM_COLORS: UInt32 = 16
 def GetOpenFileNameA(param0: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.OPENFILENAMEA)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('COMDLG32.dll')
 def GetOpenFileNameW(param0: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.OPENFILENAMEW)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+GetOpenFileName = UnicodeAlias('GetOpenFileNameW')
 @winfunctype('COMDLG32.dll')
 def GetSaveFileNameA(param0: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.OPENFILENAMEA)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('COMDLG32.dll')
 def GetSaveFileNameW(param0: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.OPENFILENAMEW)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+GetSaveFileName = UnicodeAlias('GetSaveFileNameW')
 @winfunctype('COMDLG32.dll')
 def GetFileTitleA(param0: win32more.Windows.Win32.Foundation.PSTR, Buf: win32more.Windows.Win32.Foundation.PSTR, cchSize: UInt16) -> Int16: ...
 @winfunctype('COMDLG32.dll')
 def GetFileTitleW(param0: win32more.Windows.Win32.Foundation.PWSTR, Buf: win32more.Windows.Win32.Foundation.PWSTR, cchSize: UInt16) -> Int16: ...
+GetFileTitle = UnicodeAlias('GetFileTitleW')
 @winfunctype('COMDLG32.dll')
 def ChooseColorA(param0: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.CHOOSECOLORA)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('COMDLG32.dll')
 def ChooseColorW(param0: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.CHOOSECOLORW)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+ChooseColor = UnicodeAlias('ChooseColorW')
 @winfunctype('COMDLG32.dll')
 def FindTextA(param0: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.FINDREPLACEA)) -> win32more.Windows.Win32.Foundation.HWND: ...
 @winfunctype('COMDLG32.dll')
 def FindTextW(param0: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.FINDREPLACEW)) -> win32more.Windows.Win32.Foundation.HWND: ...
+FindText = UnicodeAlias('FindTextW')
 @winfunctype('COMDLG32.dll')
 def ReplaceTextA(param0: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.FINDREPLACEA)) -> win32more.Windows.Win32.Foundation.HWND: ...
 @winfunctype('COMDLG32.dll')
 def ReplaceTextW(param0: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.FINDREPLACEW)) -> win32more.Windows.Win32.Foundation.HWND: ...
+ReplaceText = UnicodeAlias('ReplaceTextW')
 @winfunctype('COMDLG32.dll')
 def ChooseFontA(param0: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.CHOOSEFONTA)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('COMDLG32.dll')
 def ChooseFontW(param0: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.CHOOSEFONTW)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+ChooseFont = UnicodeAlias('ChooseFontW')
 @winfunctype('COMDLG32.dll')
 def PrintDlgA(pPD: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.PRINTDLGA)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('COMDLG32.dll')
 def PrintDlgW(pPD: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.PRINTDLGW)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+PrintDlg = UnicodeAlias('PrintDlgW')
 @winfunctype('COMDLG32.dll')
 def PrintDlgExA(pPD: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.PRINTDLGEXA)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('COMDLG32.dll')
 def PrintDlgExW(pPD: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.PRINTDLGEXW)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+PrintDlgEx = UnicodeAlias('PrintDlgExW')
 @winfunctype('COMDLG32.dll')
 def CommDlgExtendedError() -> win32more.Windows.Win32.UI.Controls.Dialogs.COMMON_DLG_ERRORS: ...
 @winfunctype('COMDLG32.dll')
 def PageSetupDlgA(param0: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.PAGESETUPDLGA)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('COMDLG32.dll')
 def PageSetupDlgW(param0: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.PAGESETUPDLGW)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+PageSetupDlg = UnicodeAlias('PageSetupDlgW')
 if ARCH in 'X64,ARM64':
     class CHOOSECOLORA(EasyCastStructure):
         lStructSize: UInt32
@@ -193,6 +203,10 @@ elif ARCH in 'X86':
         lpfnHook: win32more.Windows.Win32.UI.Controls.Dialogs.LPCCHOOKPROC
         lpTemplateName: win32more.Windows.Win32.Foundation.PWSTR
         _pack_ = 1
+if ARCH in 'X64,ARM64':
+    CHOOSECOLOR = UnicodeAlias('CHOOSECOLORW')
+elif ARCH in 'X86':
+    CHOOSECOLOR = UnicodeAlias('CHOOSECOLORW')
 CHOOSECOLOR_FLAGS = UInt32
 CC_RGBINIT: win32more.Windows.Win32.UI.Controls.Dialogs.CHOOSECOLOR_FLAGS = 1
 CC_FULLOPEN: win32more.Windows.Win32.UI.Controls.Dialogs.CHOOSECOLOR_FLAGS = 2
@@ -277,6 +291,10 @@ elif ARCH in 'X86':
         nSizeMin: Int32
         nSizeMax: Int32
         _pack_ = 1
+if ARCH in 'X64,ARM64':
+    CHOOSEFONT = UnicodeAlias('CHOOSEFONTW')
+elif ARCH in 'X86':
+    CHOOSEFONT = UnicodeAlias('CHOOSEFONTW')
 CHOOSEFONT_FLAGS = UInt32
 CF_APPLY: win32more.Windows.Win32.UI.Controls.Dialogs.CHOOSEFONT_FLAGS = 512
 CF_ANSIONLY: win32more.Windows.Win32.UI.Controls.Dialogs.CHOOSEFONT_FLAGS = 1024
@@ -419,6 +437,10 @@ elif ARCH in 'X86':
         lpfnHook: win32more.Windows.Win32.UI.Controls.Dialogs.LPFRHOOKPROC
         lpTemplateName: win32more.Windows.Win32.Foundation.PWSTR
         _pack_ = 1
+if ARCH in 'X64,ARM64':
+    FINDREPLACE = UnicodeAlias('FINDREPLACEW')
+elif ARCH in 'X86':
+    FINDREPLACE = UnicodeAlias('FINDREPLACEW')
 FINDREPLACE_FLAGS = UInt32
 FR_DOWN: win32more.Windows.Win32.UI.Controls.Dialogs.FINDREPLACE_FLAGS = 1
 FR_WHOLEWORD: win32more.Windows.Win32.UI.Controls.Dialogs.FINDREPLACE_FLAGS = 2
@@ -516,6 +538,10 @@ elif ARCH in 'X86':
         pidl: VoidPtr
         _pack_ = 1
 if ARCH in 'X64,ARM64':
+    OFNOTIFYEX = UnicodeAlias('OFNOTIFYEXW')
+elif ARCH in 'X86':
+    OFNOTIFYEX = UnicodeAlias('OFNOTIFYEXW')
+if ARCH in 'X64,ARM64':
     class OFNOTIFYW(EasyCastStructure):
         hdr: win32more.Windows.Win32.UI.Controls.NMHDR
         lpOFN: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.OPENFILENAMEW)
@@ -526,6 +552,10 @@ elif ARCH in 'X86':
         lpOFN: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.OPENFILENAMEW)
         pszFile: win32more.Windows.Win32.Foundation.PWSTR
         _pack_ = 1
+if ARCH in 'X64,ARM64':
+    OFNOTIFY = UnicodeAlias('OFNOTIFYW')
+elif ARCH in 'X86':
+    OFNOTIFY = UnicodeAlias('OFNOTIFYW')
 if ARCH in 'X64,ARM64':
     class OPENFILENAMEA(EasyCastStructure):
         lStructSize: UInt32
@@ -629,6 +659,10 @@ elif ARCH in 'X86':
         FlagsEx: win32more.Windows.Win32.UI.Controls.Dialogs.OPEN_FILENAME_FLAGS_EX
         _pack_ = 1
 if ARCH in 'X64,ARM64':
+    OPENFILENAME = UnicodeAlias('OPENFILENAMEW')
+elif ARCH in 'X86':
+    OPENFILENAME = UnicodeAlias('OPENFILENAMEW')
+if ARCH in 'X64,ARM64':
     class OPENFILENAME_NT4A(EasyCastStructure):
         lStructSize: UInt32
         hwndOwner: win32more.Windows.Win32.Foundation.HWND
@@ -718,6 +752,10 @@ elif ARCH in 'X86':
         lpfnHook: win32more.Windows.Win32.UI.Controls.Dialogs.LPOFNHOOKPROC
         lpTemplateName: win32more.Windows.Win32.Foundation.PWSTR
         _pack_ = 1
+if ARCH in 'X64,ARM64':
+    OPENFILENAME_NT4 = UnicodeAlias('OPENFILENAME_NT4W')
+elif ARCH in 'X86':
+    OPENFILENAME_NT4 = UnicodeAlias('OPENFILENAME_NT4W')
 OPEN_FILENAME_FLAGS = UInt32
 OFN_READONLY: win32more.Windows.Win32.UI.Controls.Dialogs.OPEN_FILENAME_FLAGS = 1
 OFN_OVERWRITEPROMPT: win32more.Windows.Win32.UI.Controls.Dialogs.OPEN_FILENAME_FLAGS = 2
@@ -814,6 +852,10 @@ elif ARCH in 'X86':
         lpPageSetupTemplateName: win32more.Windows.Win32.Foundation.PWSTR
         hPageSetupTemplate: win32more.Windows.Win32.Foundation.HGLOBAL
         _pack_ = 1
+if ARCH in 'X64,ARM64':
+    PAGESETUPDLG = UnicodeAlias('PAGESETUPDLGW')
+elif ARCH in 'X86':
+    PAGESETUPDLG = UnicodeAlias('PAGESETUPDLGW')
 PAGESETUPDLG_FLAGS = UInt32
 PSD_DEFAULTMINMARGINS: win32more.Windows.Win32.UI.Controls.Dialogs.PAGESETUPDLG_FLAGS = 0
 PSD_DISABLEMARGINS: win32more.Windows.Win32.UI.Controls.Dialogs.PAGESETUPDLG_FLAGS = 16
@@ -971,6 +1013,10 @@ elif ARCH in 'X86':
         nStartPage: UInt32
         dwResultAction: UInt32
         _pack_ = 1
+if ARCH in 'X64,ARM64':
+    PRINTDLGEX = UnicodeAlias('PRINTDLGEXW')
+elif ARCH in 'X86':
+    PRINTDLGEX = UnicodeAlias('PRINTDLGEXW')
 PRINTDLGEX_FLAGS = UInt32
 PD_ALLPAGES: win32more.Windows.Win32.UI.Controls.Dialogs.PRINTDLGEX_FLAGS = 0
 PD_COLLATE: win32more.Windows.Win32.UI.Controls.Dialogs.PRINTDLGEX_FLAGS = 16
@@ -1043,6 +1089,10 @@ elif ARCH in 'X86':
         hPrintTemplate: win32more.Windows.Win32.Foundation.HGLOBAL
         hSetupTemplate: win32more.Windows.Win32.Foundation.HGLOBAL
         _pack_ = 1
+if ARCH in 'X64,ARM64':
+    PRINTDLG = UnicodeAlias('PRINTDLGW')
+elif ARCH in 'X86':
+    PRINTDLG = UnicodeAlias('PRINTDLGW')
 if ARCH in 'X64,ARM64':
     class PRINTPAGERANGE(EasyCastStructure):
         nFromPage: UInt32

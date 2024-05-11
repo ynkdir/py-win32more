@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.Media
@@ -70,6 +70,7 @@ class AVIFILEINFOW(EasyCastStructure):
     dwLength: UInt32
     dwEditCount: UInt32
     szFileType: Char * 64
+AVIFILEINFO = UnicodeAlias('AVIFILEINFOW')
 @winfunctype_pointer
 def AVISAVECALLBACK(param0: Int32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 class AVISTREAMINFOA(EasyCastStructure):
@@ -110,6 +111,7 @@ class AVISTREAMINFOW(EasyCastStructure):
     dwEditCount: UInt32
     dwFormatChangeCount: UInt32
     szName: Char * 64
+AVISTREAMINFO = UnicodeAlias('AVISTREAMINFOW')
 WM_CAP_START: UInt32 = 1024
 MODM_USER: UInt32 = 16384
 MIDM_USER: UInt32 = 16384
@@ -4762,22 +4764,27 @@ MCI_OVLY_WHERE_VIDEO: Int32 = 1048576
 def mciSendCommandA(mciId: UInt32, uMsg: UInt32, dwParam1: UIntPtr, dwParam2: UIntPtr) -> UInt32: ...
 @winfunctype('WINMM.dll')
 def mciSendCommandW(mciId: UInt32, uMsg: UInt32, dwParam1: UIntPtr, dwParam2: UIntPtr) -> UInt32: ...
+mciSendCommand = UnicodeAlias('mciSendCommandW')
 @winfunctype('WINMM.dll')
 def mciSendStringA(lpstrCommand: win32more.Windows.Win32.Foundation.PSTR, lpstrReturnString: win32more.Windows.Win32.Foundation.PSTR, uReturnLength: UInt32, hwndCallback: win32more.Windows.Win32.Foundation.HWND) -> UInt32: ...
 @winfunctype('WINMM.dll')
 def mciSendStringW(lpstrCommand: win32more.Windows.Win32.Foundation.PWSTR, lpstrReturnString: win32more.Windows.Win32.Foundation.PWSTR, uReturnLength: UInt32, hwndCallback: win32more.Windows.Win32.Foundation.HWND) -> UInt32: ...
+mciSendString = UnicodeAlias('mciSendStringW')
 @winfunctype('WINMM.dll')
 def mciGetDeviceIDA(pszDevice: win32more.Windows.Win32.Foundation.PSTR) -> UInt32: ...
 @winfunctype('WINMM.dll')
 def mciGetDeviceIDW(pszDevice: win32more.Windows.Win32.Foundation.PWSTR) -> UInt32: ...
+mciGetDeviceID = UnicodeAlias('mciGetDeviceIDW')
 @winfunctype('WINMM.dll')
 def mciGetDeviceIDFromElementIDA(dwElementID: UInt32, lpstrType: win32more.Windows.Win32.Foundation.PSTR) -> UInt32: ...
 @winfunctype('WINMM.dll')
 def mciGetDeviceIDFromElementIDW(dwElementID: UInt32, lpstrType: win32more.Windows.Win32.Foundation.PWSTR) -> UInt32: ...
+mciGetDeviceIDFromElementID = UnicodeAlias('mciGetDeviceIDFromElementIDW')
 @winfunctype('WINMM.dll')
 def mciGetErrorStringA(mcierr: UInt32, pszText: win32more.Windows.Win32.Foundation.PSTR, cchText: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINMM.dll')
 def mciGetErrorStringW(mcierr: UInt32, pszText: win32more.Windows.Win32.Foundation.PWSTR, cchText: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+mciGetErrorString = UnicodeAlias('mciGetErrorStringW')
 @winfunctype('WINMM.dll')
 def mciSetYieldProc(mciId: UInt32, fpYieldProc: win32more.Windows.Win32.Media.Multimedia.YIELDPROC, dwYieldData: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINMM.dll')
@@ -4818,18 +4825,22 @@ def mmDrvInstall(hDriver: win32more.Windows.Win32.Media.Multimedia.HDRVR, wszDrv
 def mmioStringToFOURCCA(sz: win32more.Windows.Win32.Foundation.PSTR, uFlags: UInt32) -> UInt32: ...
 @winfunctype('WINMM.dll')
 def mmioStringToFOURCCW(sz: win32more.Windows.Win32.Foundation.PWSTR, uFlags: UInt32) -> UInt32: ...
+mmioStringToFOURCC = UnicodeAlias('mmioStringToFOURCCW')
 @winfunctype('WINMM.dll')
 def mmioInstallIOProcA(fccIOProc: UInt32, pIOProc: win32more.Windows.Win32.Media.Multimedia.LPMMIOPROC, dwFlags: UInt32) -> win32more.Windows.Win32.Media.Multimedia.LPMMIOPROC: ...
 @winfunctype('WINMM.dll')
 def mmioInstallIOProcW(fccIOProc: UInt32, pIOProc: win32more.Windows.Win32.Media.Multimedia.LPMMIOPROC, dwFlags: UInt32) -> win32more.Windows.Win32.Media.Multimedia.LPMMIOPROC: ...
+mmioInstallIOProc = UnicodeAlias('mmioInstallIOProcW')
 @winfunctype('WINMM.dll')
 def mmioOpenA(pszFileName: win32more.Windows.Win32.Foundation.PSTR, pmmioinfo: POINTER(win32more.Windows.Win32.Media.Multimedia.MMIOINFO), fdwOpen: UInt32) -> win32more.Windows.Win32.Media.Multimedia.HMMIO: ...
 @winfunctype('WINMM.dll')
 def mmioOpenW(pszFileName: win32more.Windows.Win32.Foundation.PWSTR, pmmioinfo: POINTER(win32more.Windows.Win32.Media.Multimedia.MMIOINFO), fdwOpen: UInt32) -> win32more.Windows.Win32.Media.Multimedia.HMMIO: ...
+mmioOpen = UnicodeAlias('mmioOpenW')
 @winfunctype('WINMM.dll')
 def mmioRenameA(pszFileName: win32more.Windows.Win32.Foundation.PSTR, pszNewFileName: win32more.Windows.Win32.Foundation.PSTR, pmmioinfo: POINTER(win32more.Windows.Win32.Media.Multimedia.MMIOINFO), fdwRename: UInt32) -> UInt32: ...
 @winfunctype('WINMM.dll')
 def mmioRenameW(pszFileName: win32more.Windows.Win32.Foundation.PWSTR, pszNewFileName: win32more.Windows.Win32.Foundation.PWSTR, pmmioinfo: POINTER(win32more.Windows.Win32.Media.Multimedia.MMIOINFO), fdwRename: UInt32) -> UInt32: ...
+mmioRename = UnicodeAlias('mmioRenameW')
 @winfunctype('WINMM.dll')
 def mmioClose(hmmio: win32more.Windows.Win32.Media.Multimedia.HMMIO, fuClose: UInt32) -> UInt32: ...
 @winfunctype('WINMM.dll')
@@ -4864,6 +4875,7 @@ def joyGetNumDevs() -> UInt32: ...
 def joyGetDevCapsA(uJoyID: UIntPtr, pjc: POINTER(win32more.Windows.Win32.Media.Multimedia.JOYCAPSA), cbjc: UInt32) -> UInt32: ...
 @winfunctype('WINMM.dll')
 def joyGetDevCapsW(uJoyID: UIntPtr, pjc: POINTER(win32more.Windows.Win32.Media.Multimedia.JOYCAPSW), cbjc: UInt32) -> UInt32: ...
+joyGetDevCaps = UnicodeAlias('joyGetDevCapsW')
 @winfunctype('WINMM.dll')
 def joyGetPos(uJoyID: UInt32, pji: POINTER(win32more.Windows.Win32.Media.Multimedia.JOYINFO)) -> UInt32: ...
 @winfunctype('WINMM.dll')
@@ -4958,14 +4970,17 @@ def AVIFileRelease(pfile: win32more.Windows.Win32.Media.Multimedia.IAVIFile) -> 
 def AVIFileOpenA(ppfile: POINTER(win32more.Windows.Win32.Media.Multimedia.IAVIFile), szFile: win32more.Windows.Win32.Foundation.PSTR, uMode: UInt32, lpHandler: POINTER(Guid)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('AVIFIL32.dll')
 def AVIFileOpenW(ppfile: POINTER(win32more.Windows.Win32.Media.Multimedia.IAVIFile), szFile: win32more.Windows.Win32.Foundation.PWSTR, uMode: UInt32, lpHandler: POINTER(Guid)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+AVIFileOpen = UnicodeAlias('AVIFileOpenW')
 @winfunctype('AVIFIL32.dll')
 def AVIFileInfoW(pfile: win32more.Windows.Win32.Media.Multimedia.IAVIFile, pfi: POINTER(win32more.Windows.Win32.Media.Multimedia.AVIFILEINFOW), lSize: Int32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+AVIFileInfo = UnicodeAlias('AVIFileInfoW')
 @winfunctype('AVIFIL32.dll')
 def AVIFileInfoA(pfile: win32more.Windows.Win32.Media.Multimedia.IAVIFile, pfi: POINTER(win32more.Windows.Win32.Media.Multimedia.AVIFILEINFOA), lSize: Int32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('AVIFIL32.dll')
 def AVIFileGetStream(pfile: win32more.Windows.Win32.Media.Multimedia.IAVIFile, ppavi: POINTER(win32more.Windows.Win32.Media.Multimedia.IAVIStream), fccType: UInt32, lParam: Int32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('AVIFIL32.dll')
 def AVIFileCreateStreamW(pfile: win32more.Windows.Win32.Media.Multimedia.IAVIFile, ppavi: POINTER(win32more.Windows.Win32.Media.Multimedia.IAVIStream), psi: POINTER(win32more.Windows.Win32.Media.Multimedia.AVISTREAMINFOW)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+AVIFileCreateStream = UnicodeAlias('AVIFileCreateStreamW')
 @winfunctype('AVIFIL32.dll')
 def AVIFileCreateStreamA(pfile: win32more.Windows.Win32.Media.Multimedia.IAVIFile, ppavi: POINTER(win32more.Windows.Win32.Media.Multimedia.IAVIStream), psi: POINTER(win32more.Windows.Win32.Media.Multimedia.AVISTREAMINFOA)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('AVIFIL32.dll')
@@ -4980,6 +4995,7 @@ def AVIStreamAddRef(pavi: win32more.Windows.Win32.Media.Multimedia.IAVIStream) -
 def AVIStreamRelease(pavi: win32more.Windows.Win32.Media.Multimedia.IAVIStream) -> UInt32: ...
 @winfunctype('AVIFIL32.dll')
 def AVIStreamInfoW(pavi: win32more.Windows.Win32.Media.Multimedia.IAVIStream, psi: POINTER(win32more.Windows.Win32.Media.Multimedia.AVISTREAMINFOW), lSize: Int32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+AVIStreamInfo = UnicodeAlias('AVIStreamInfoW')
 @winfunctype('AVIFIL32.dll')
 def AVIStreamInfoA(pavi: win32more.Windows.Win32.Media.Multimedia.IAVIStream, psi: POINTER(win32more.Windows.Win32.Media.Multimedia.AVISTREAMINFOA), lSize: Int32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('AVIFIL32.dll')
@@ -5018,6 +5034,7 @@ def AVIStreamGetFrameClose(pg: win32more.Windows.Win32.Media.Multimedia.IGetFram
 def AVIStreamOpenFromFileA(ppavi: POINTER(win32more.Windows.Win32.Media.Multimedia.IAVIStream), szFile: win32more.Windows.Win32.Foundation.PSTR, fccType: UInt32, lParam: Int32, mode: UInt32, pclsidHandler: POINTER(Guid)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('AVIFIL32.dll')
 def AVIStreamOpenFromFileW(ppavi: POINTER(win32more.Windows.Win32.Media.Multimedia.IAVIStream), szFile: win32more.Windows.Win32.Foundation.PWSTR, fccType: UInt32, lParam: Int32, mode: UInt32, pclsidHandler: POINTER(Guid)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+AVIStreamOpenFromFile = UnicodeAlias('AVIStreamOpenFromFileW')
 @winfunctype('AVIFIL32.dll')
 def AVIStreamCreate(ppavi: POINTER(win32more.Windows.Win32.Media.Multimedia.IAVIStream), lParam1: Int32, lParam2: Int32, pclsidHandler: POINTER(Guid)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('AVIFIL32.dll')
@@ -5028,14 +5045,17 @@ def AVISaveA(szFile: win32more.Windows.Win32.Foundation.PSTR, pclsidHandler: POI
 def AVISaveVA(szFile: win32more.Windows.Win32.Foundation.PSTR, pclsidHandler: POINTER(Guid), lpfnCallback: win32more.Windows.Win32.Media.Multimedia.AVISAVECALLBACK, nStreams: Int32, ppavi: POINTER(win32more.Windows.Win32.Media.Multimedia.IAVIStream), plpOptions: POINTER(POINTER(win32more.Windows.Win32.Media.Multimedia.AVICOMPRESSOPTIONS))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @cfunctype('AVIFIL32.dll', variadic=True)
 def AVISaveW(szFile: win32more.Windows.Win32.Foundation.PWSTR, pclsidHandler: POINTER(Guid), lpfnCallback: win32more.Windows.Win32.Media.Multimedia.AVISAVECALLBACK, nStreams: Int32, pfile: win32more.Windows.Win32.Media.Multimedia.IAVIStream, lpOptions: POINTER(win32more.Windows.Win32.Media.Multimedia.AVICOMPRESSOPTIONS), *__arglist) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+AVISave = UnicodeAlias('AVISaveW')
 @winfunctype('AVIFIL32.dll')
 def AVISaveVW(szFile: win32more.Windows.Win32.Foundation.PWSTR, pclsidHandler: POINTER(Guid), lpfnCallback: win32more.Windows.Win32.Media.Multimedia.AVISAVECALLBACK, nStreams: Int32, ppavi: POINTER(win32more.Windows.Win32.Media.Multimedia.IAVIStream), plpOptions: POINTER(POINTER(win32more.Windows.Win32.Media.Multimedia.AVICOMPRESSOPTIONS))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+AVISaveV = UnicodeAlias('AVISaveVW')
 @winfunctype('AVIFIL32.dll')
 def AVISaveOptions(hwnd: win32more.Windows.Win32.Foundation.HWND, uiFlags: UInt32, nStreams: Int32, ppavi: POINTER(win32more.Windows.Win32.Media.Multimedia.IAVIStream), plpOptions: POINTER(POINTER(win32more.Windows.Win32.Media.Multimedia.AVICOMPRESSOPTIONS))) -> IntPtr: ...
 @winfunctype('AVIFIL32.dll')
 def AVISaveOptionsFree(nStreams: Int32, plpOptions: POINTER(POINTER(win32more.Windows.Win32.Media.Multimedia.AVICOMPRESSOPTIONS))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('AVIFIL32.dll')
 def AVIBuildFilterW(lpszFilter: win32more.Windows.Win32.Foundation.PWSTR, cbFilter: Int32, fSaving: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+AVIBuildFilter = UnicodeAlias('AVIBuildFilterW')
 @winfunctype('AVIFIL32.dll')
 def AVIBuildFilterA(lpszFilter: win32more.Windows.Win32.Foundation.PSTR, cbFilter: Int32, fSaving: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('AVIFIL32.dll')
@@ -5062,14 +5082,17 @@ def EditStreamClone(pavi: win32more.Windows.Win32.Media.Multimedia.IAVIStream, p
 def EditStreamSetNameA(pavi: win32more.Windows.Win32.Media.Multimedia.IAVIStream, lpszName: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('AVIFIL32.dll')
 def EditStreamSetNameW(pavi: win32more.Windows.Win32.Media.Multimedia.IAVIStream, lpszName: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+EditStreamSetName = UnicodeAlias('EditStreamSetNameW')
 @winfunctype('AVIFIL32.dll')
 def EditStreamSetInfoW(pavi: win32more.Windows.Win32.Media.Multimedia.IAVIStream, lpInfo: POINTER(win32more.Windows.Win32.Media.Multimedia.AVISTREAMINFOW), cbInfo: Int32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+EditStreamSetInfo = UnicodeAlias('EditStreamSetInfoW')
 @winfunctype('AVIFIL32.dll')
 def EditStreamSetInfoA(pavi: win32more.Windows.Win32.Media.Multimedia.IAVIStream, lpInfo: POINTER(win32more.Windows.Win32.Media.Multimedia.AVISTREAMINFOA), cbInfo: Int32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @cfunctype('MSVFW32.dll')
 def MCIWndCreateA(hwndParent: win32more.Windows.Win32.Foundation.HWND, hInstance: win32more.Windows.Win32.Foundation.HINSTANCE, dwStyle: UInt32, szFile: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Foundation.HWND: ...
 @cfunctype('MSVFW32.dll')
 def MCIWndCreateW(hwndParent: win32more.Windows.Win32.Foundation.HWND, hInstance: win32more.Windows.Win32.Foundation.HINSTANCE, dwStyle: UInt32, szFile: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.HWND: ...
+MCIWndCreate = UnicodeAlias('MCIWndCreateW')
 @cfunctype('MSVFW32.dll')
 def MCIWndRegisterClass() -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('AVICAP32.dll')
@@ -5078,16 +5101,20 @@ def capCreateCaptureWindowA(lpszWindowName: win32more.Windows.Win32.Foundation.P
 def capGetDriverDescriptionA(wDriverIndex: UInt32, lpszName: win32more.Windows.Win32.Foundation.PSTR, cbName: Int32, lpszVer: win32more.Windows.Win32.Foundation.PSTR, cbVer: Int32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('AVICAP32.dll')
 def capCreateCaptureWindowW(lpszWindowName: win32more.Windows.Win32.Foundation.PWSTR, dwStyle: UInt32, x: Int32, y: Int32, nWidth: Int32, nHeight: Int32, hwndParent: win32more.Windows.Win32.Foundation.HWND, nID: Int32) -> win32more.Windows.Win32.Foundation.HWND: ...
+capCreateCaptureWindow = UnicodeAlias('capCreateCaptureWindowW')
 @winfunctype('AVICAP32.dll')
 def capGetDriverDescriptionW(wDriverIndex: UInt32, lpszName: win32more.Windows.Win32.Foundation.PWSTR, cbName: Int32, lpszVer: win32more.Windows.Win32.Foundation.PWSTR, cbVer: Int32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+capGetDriverDescription = UnicodeAlias('capGetDriverDescriptionW')
 @winfunctype('MSVFW32.dll')
 def GetOpenFileNamePreviewA(lpofn: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.OPENFILENAMEA)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('MSVFW32.dll')
 def GetSaveFileNamePreviewA(lpofn: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.OPENFILENAMEA)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('MSVFW32.dll')
 def GetOpenFileNamePreviewW(lpofn: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.OPENFILENAMEW)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+GetOpenFileNamePreview = UnicodeAlias('GetOpenFileNamePreviewW')
 @winfunctype('MSVFW32.dll')
 def GetSaveFileNamePreviewW(lpofn: POINTER(win32more.Windows.Win32.UI.Controls.Dialogs.OPENFILENAMEW)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+GetSaveFileNamePreview = UnicodeAlias('GetSaveFileNamePreviewW')
 @winfunctype('WINMM.dll')
 def mmTaskCreate(lpfn: win32more.Windows.Win32.Media.Multimedia.LPTASKCALLBACK, lph: POINTER(win32more.Windows.Win32.Foundation.HANDLE), dwInst: UIntPtr) -> UInt32: ...
 @winfunctype('WINMM.dll')
@@ -5116,6 +5143,7 @@ class CAPDRIVERCAPS(EasyCastStructure):
 def CAPERRORCALLBACKA(hWnd: win32more.Windows.Win32.Foundation.HWND, nID: Int32, lpsz: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Foundation.LRESULT: ...
 @winfunctype_pointer
 def CAPERRORCALLBACKW(hWnd: win32more.Windows.Win32.Foundation.HWND, nID: Int32, lpsz: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.LRESULT: ...
+CAPERRORCALLBACK = UnicodeAlias('CAPERRORCALLBACKW')
 class CAPINFOCHUNK(EasyCastStructure):
     fccInfoID: UInt32
     lpData: VoidPtr
@@ -5143,6 +5171,7 @@ class CAPSTATUS(EasyCastStructure):
 def CAPSTATUSCALLBACKA(hWnd: win32more.Windows.Win32.Foundation.HWND, nID: Int32, lpsz: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Foundation.LRESULT: ...
 @winfunctype_pointer
 def CAPSTATUSCALLBACKW(hWnd: win32more.Windows.Win32.Foundation.HWND, nID: Int32, lpsz: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.LRESULT: ...
+CAPSTATUSCALLBACK = UnicodeAlias('CAPSTATUSCALLBACKW')
 class CAPTUREPARMS(EasyCastStructure):
     dwRequestMicroSecPerFrame: UInt32
     fMakeUserHitOKToCapture: win32more.Windows.Win32.Foundation.BOOL
@@ -5560,6 +5589,7 @@ class JOYCAPS2W(EasyCastStructure):
     ProductGuid: Guid
     NameGuid: Guid
     _pack_ = 1
+JOYCAPS2 = UnicodeAlias('JOYCAPS2W')
 class JOYCAPSA(EasyCastStructure):
     wMid: UInt16
     wPid: UInt16
@@ -5612,6 +5642,7 @@ class JOYCAPSW(EasyCastStructure):
     szRegKey: Char * 32
     szOEMVxD: Char * 260
     _pack_ = 1
+JOYCAPS = UnicodeAlias('JOYCAPSW')
 class JOYINFO(EasyCastStructure):
     wXpos: UInt32
     wYpos: UInt32
@@ -5666,6 +5697,7 @@ class MCI_ANIM_OPEN_PARMSW(EasyCastStructure):
     dwStyle: UInt32
     hWndParent: win32more.Windows.Win32.Foundation.HWND
     _pack_ = 1
+MCI_ANIM_OPEN_PARMS = UnicodeAlias('MCI_ANIM_OPEN_PARMSW')
 class MCI_ANIM_PLAY_PARMS(EasyCastStructure):
     dwCallback: UIntPtr
     dwFrom: UInt32
@@ -5697,6 +5729,7 @@ class MCI_ANIM_WINDOW_PARMSW(EasyCastStructure):
     nCmdShow: UInt32
     lpstrText: win32more.Windows.Win32.Foundation.PWSTR
     _pack_ = 1
+MCI_ANIM_WINDOW_PARMS = UnicodeAlias('MCI_ANIM_WINDOW_PARMSW')
 class MCI_BREAK_PARMS(EasyCastStructure):
     dwCallback: UIntPtr
     nVirtKey: Int32
@@ -5712,6 +5745,7 @@ class MCI_DGV_CAPTURE_PARMSW(EasyCastStructure):
     lpstrFileName: win32more.Windows.Win32.Foundation.PWSTR
     rc: win32more.Windows.Win32.Foundation.RECT
     _pack_ = 1
+MCI_DGV_CAPTURE_PARMS = UnicodeAlias('MCI_DGV_CAPTURE_PARMSW')
 class MCI_DGV_COPY_PARMS(EasyCastStructure):
     dwCallback: UIntPtr
     dwFrom: UInt32
@@ -5752,6 +5786,7 @@ class MCI_DGV_INFO_PARMSW(EasyCastStructure):
     dwRetSize: UInt32
     dwItem: UInt32
     _pack_ = 1
+MCI_DGV_INFO_PARMS = UnicodeAlias('MCI_DGV_INFO_PARMSW')
 class MCI_DGV_LIST_PARMSA(EasyCastStructure):
     dwCallback: UIntPtr
     lpstrReturn: win32more.Windows.Win32.Foundation.PSTR
@@ -5768,6 +5803,7 @@ class MCI_DGV_LIST_PARMSW(EasyCastStructure):
     dwItem: UInt32
     lpstrAlgorithm: win32more.Windows.Win32.Foundation.PWSTR
     _pack_ = 1
+MCI_DGV_LIST_PARMS = UnicodeAlias('MCI_DGV_LIST_PARMSW')
 class MCI_DGV_MONITOR_PARMS(EasyCastStructure):
     dwCallback: UIntPtr
     dwSource: UInt32
@@ -5791,6 +5827,7 @@ class MCI_DGV_OPEN_PARMSW(EasyCastStructure):
     dwStyle: UInt32
     hWndParent: win32more.Windows.Win32.Foundation.HWND
     _pack_ = 1
+MCI_DGV_OPEN_PARMS = UnicodeAlias('MCI_DGV_OPEN_PARMSW')
 class MCI_DGV_PASTE_PARMS(EasyCastStructure):
     dwCallback: UIntPtr
     dwTo: UInt32
@@ -5812,6 +5849,7 @@ class MCI_DGV_QUALITY_PARMSW(EasyCastStructure):
     lpstrAlgorithm: UInt32
     dwHandle: UInt32
     _pack_ = 1
+MCI_DGV_QUALITY_PARMS = UnicodeAlias('MCI_DGV_QUALITY_PARMSW')
 class MCI_DGV_RECORD_PARMS(EasyCastStructure):
     dwCallback: UIntPtr
     dwFrom: UInt32
@@ -5834,6 +5872,7 @@ class MCI_DGV_RESERVE_PARMSW(EasyCastStructure):
     lpstrPath: win32more.Windows.Win32.Foundation.PWSTR
     dwSize: UInt32
     _pack_ = 1
+MCI_DGV_RESERVE_PARMS = UnicodeAlias('MCI_DGV_RESERVE_PARMSW')
 class MCI_DGV_RESTORE_PARMSA(EasyCastStructure):
     dwCallback: UIntPtr
     lpstrFileName: win32more.Windows.Win32.Foundation.PSTR
@@ -5844,6 +5883,7 @@ class MCI_DGV_RESTORE_PARMSW(EasyCastStructure):
     lpstrFileName: win32more.Windows.Win32.Foundation.PWSTR
     rc: win32more.Windows.Win32.Foundation.RECT
     _pack_ = 1
+MCI_DGV_RESTORE_PARMS = UnicodeAlias('MCI_DGV_RESTORE_PARMSW')
 class MCI_DGV_SAVE_PARMSA(EasyCastStructure):
     dwCallback: UIntPtr
     lpstrFileName: win32more.Windows.Win32.Foundation.PSTR
@@ -5854,6 +5894,7 @@ class MCI_DGV_SAVE_PARMSW(EasyCastStructure):
     lpstrFileName: win32more.Windows.Win32.Foundation.PWSTR
     rc: win32more.Windows.Win32.Foundation.RECT
     _pack_ = 1
+MCI_DGV_SAVE_PARMS = UnicodeAlias('MCI_DGV_SAVE_PARMSW')
 class MCI_DGV_SETAUDIO_PARMSA(EasyCastStructure):
     dwCallback: UIntPtr
     dwItem: UInt32
@@ -5870,6 +5911,7 @@ class MCI_DGV_SETAUDIO_PARMSW(EasyCastStructure):
     lpstrAlgorithm: win32more.Windows.Win32.Foundation.PWSTR
     lpstrQuality: win32more.Windows.Win32.Foundation.PWSTR
     _pack_ = 1
+MCI_DGV_SETAUDIO_PARMS = UnicodeAlias('MCI_DGV_SETAUDIO_PARMSW')
 class MCI_DGV_SETVIDEO_PARMSA(EasyCastStructure):
     dwCallback: UIntPtr
     dwItem: UInt32
@@ -5888,6 +5930,7 @@ class MCI_DGV_SETVIDEO_PARMSW(EasyCastStructure):
     lpstrQuality: win32more.Windows.Win32.Foundation.PWSTR
     dwSourceNumber: UInt32
     _pack_ = 1
+MCI_DGV_SETVIDEO_PARMS = UnicodeAlias('MCI_DGV_SETVIDEO_PARMSW')
 class MCI_DGV_SET_PARMS(EasyCastStructure):
     dwCallback: UIntPtr
     dwTimeFormat: UInt32
@@ -5917,6 +5960,7 @@ class MCI_DGV_STATUS_PARMSW(EasyCastStructure):
     lpstrDrive: win32more.Windows.Win32.Foundation.PWSTR
     dwReference: UInt32
     _pack_ = 1
+MCI_DGV_STATUS_PARMS = UnicodeAlias('MCI_DGV_STATUS_PARMSW')
 class MCI_DGV_STEP_PARMS(EasyCastStructure):
     dwCallback: UIntPtr
     dwFrames: UInt32
@@ -5938,6 +5982,7 @@ class MCI_DGV_WINDOW_PARMSW(EasyCastStructure):
     nCmdShow: UInt32
     lpstrText: win32more.Windows.Win32.Foundation.PWSTR
     _pack_ = 1
+MCI_DGV_WINDOW_PARMS = UnicodeAlias('MCI_DGV_WINDOW_PARMSW')
 class MCI_GENERIC_PARMS(EasyCastStructure):
     dwCallback: UIntPtr
     _pack_ = 1
@@ -5956,6 +6001,7 @@ class MCI_INFO_PARMSW(EasyCastStructure):
     lpstrReturn: win32more.Windows.Win32.Foundation.PWSTR
     dwRetSize: UInt32
     _pack_ = 1
+MCI_INFO_PARMS = UnicodeAlias('MCI_INFO_PARMSW')
 class MCI_LOAD_PARMSA(EasyCastStructure):
     dwCallback: UIntPtr
     lpfilename: win32more.Windows.Win32.Foundation.PSTR
@@ -5964,6 +6010,7 @@ class MCI_LOAD_PARMSW(EasyCastStructure):
     dwCallback: UIntPtr
     lpfilename: win32more.Windows.Win32.Foundation.PWSTR
     _pack_ = 1
+MCI_LOAD_PARMS = UnicodeAlias('MCI_LOAD_PARMSW')
 class MCI_OPEN_DRIVER_PARMS(EasyCastStructure):
     wDeviceID: UInt32
     lpstrParams: win32more.Windows.Win32.Foundation.PWSTR
@@ -5984,6 +6031,7 @@ class MCI_OPEN_PARMSW(EasyCastStructure):
     lpstrElementName: win32more.Windows.Win32.Foundation.PWSTR
     lpstrAlias: win32more.Windows.Win32.Foundation.PWSTR
     _pack_ = 1
+MCI_OPEN_PARMS = UnicodeAlias('MCI_OPEN_PARMSW')
 class MCI_OVLY_LOAD_PARMSA(EasyCastStructure):
     dwCallback: UIntPtr
     lpfilename: win32more.Windows.Win32.Foundation.PSTR
@@ -5994,6 +6042,7 @@ class MCI_OVLY_LOAD_PARMSW(EasyCastStructure):
     lpfilename: win32more.Windows.Win32.Foundation.PWSTR
     rc: win32more.Windows.Win32.Foundation.RECT
     _pack_ = 1
+MCI_OVLY_LOAD_PARMS = UnicodeAlias('MCI_OVLY_LOAD_PARMSW')
 class MCI_OVLY_OPEN_PARMSA(EasyCastStructure):
     dwCallback: UIntPtr
     wDeviceID: UInt32
@@ -6012,6 +6061,7 @@ class MCI_OVLY_OPEN_PARMSW(EasyCastStructure):
     dwStyle: UInt32
     hWndParent: win32more.Windows.Win32.Foundation.HWND
     _pack_ = 1
+MCI_OVLY_OPEN_PARMS = UnicodeAlias('MCI_OVLY_OPEN_PARMSW')
 class MCI_OVLY_RECT_PARMS(EasyCastStructure):
     dwCallback: UIntPtr
     rc: win32more.Windows.Win32.Foundation.RECT
@@ -6026,6 +6076,7 @@ class MCI_OVLY_SAVE_PARMSW(EasyCastStructure):
     lpfilename: win32more.Windows.Win32.Foundation.PWSTR
     rc: win32more.Windows.Win32.Foundation.RECT
     _pack_ = 1
+MCI_OVLY_SAVE_PARMS = UnicodeAlias('MCI_OVLY_SAVE_PARMSW')
 class MCI_OVLY_WINDOW_PARMSA(EasyCastStructure):
     dwCallback: UIntPtr
     hWnd: win32more.Windows.Win32.Foundation.HWND
@@ -6038,6 +6089,7 @@ class MCI_OVLY_WINDOW_PARMSW(EasyCastStructure):
     nCmdShow: UInt32
     lpstrText: win32more.Windows.Win32.Foundation.PWSTR
     _pack_ = 1
+MCI_OVLY_WINDOW_PARMS = UnicodeAlias('MCI_OVLY_WINDOW_PARMSW')
 class MCI_PLAY_PARMS(EasyCastStructure):
     dwCallback: UIntPtr
     dwFrom: UInt32
@@ -6056,6 +6108,7 @@ class MCI_SAVE_PARMSW(EasyCastStructure):
     dwCallback: UIntPtr
     lpfilename: win32more.Windows.Win32.Foundation.PWSTR
     _pack_ = 1
+MCI_SAVE_PARMS = UnicodeAlias('MCI_SAVE_PARMSW')
 class MCI_SEEK_PARMS(EasyCastStructure):
     dwCallback: UIntPtr
     dwTo: UInt32
@@ -6095,6 +6148,7 @@ class MCI_SYSINFO_PARMSW(EasyCastStructure):
     dwNumber: UInt32
     wDeviceType: UInt32
     _pack_ = 1
+MCI_SYSINFO_PARMS = UnicodeAlias('MCI_SYSINFO_PARMSW')
 class MCI_VD_ESCAPE_PARMSA(EasyCastStructure):
     dwCallback: UIntPtr
     lpstrCommand: win32more.Windows.Win32.Foundation.PSTR
@@ -6103,6 +6157,7 @@ class MCI_VD_ESCAPE_PARMSW(EasyCastStructure):
     dwCallback: UIntPtr
     lpstrCommand: win32more.Windows.Win32.Foundation.PWSTR
     _pack_ = 1
+MCI_VD_ESCAPE_PARMS = UnicodeAlias('MCI_VD_ESCAPE_PARMSW')
 class MCI_VD_PLAY_PARMS(EasyCastStructure):
     dwCallback: UIntPtr
     dwFrom: UInt32
@@ -6134,6 +6189,7 @@ class MCI_WAVE_OPEN_PARMSW(EasyCastStructure):
     lpstrAlias: win32more.Windows.Win32.Foundation.PWSTR
     dwBufferSeconds: UInt32
     _pack_ = 1
+MCI_WAVE_OPEN_PARMS = UnicodeAlias('MCI_WAVE_OPEN_PARMSW')
 class MCI_WAVE_SET_PARMS(EasyCastStructure):
     dwCallback: UIntPtr
     dwTimeFormat: UInt32

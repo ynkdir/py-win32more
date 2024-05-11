@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
 class ABC(EasyCastStructure):
@@ -23,6 +23,7 @@ class AXESLISTW(EasyCastStructure):
     axlReserved: UInt32
     axlNumAxes: UInt32
     axlAxisInfo: win32more.Windows.Win32.Graphics.Gdi.AXISINFOW * 16
+AXESLIST = UnicodeAlias('AXESLISTW')
 class AXISINFOA(EasyCastStructure):
     axMinValue: Int32
     axMaxValue: Int32
@@ -31,6 +32,7 @@ class AXISINFOW(EasyCastStructure):
     axMinValue: Int32
     axMaxValue: Int32
     axAxisName: Char * 16
+AXISINFO = UnicodeAlias('AXISINFOW')
 GDI_ERROR: Int32 = -1
 ERROR: Int32 = 0
 MAXSTRETCHBLTMODE: UInt32 = 4
@@ -874,6 +876,7 @@ def GetObjectA(h: win32more.Windows.Win32.Graphics.Gdi.HGDIOBJ, c: Int32, pv: Vo
 def AddFontResourceA(param0: win32more.Windows.Win32.Foundation.PSTR) -> Int32: ...
 @winfunctype('GDI32.dll')
 def AddFontResourceW(param0: win32more.Windows.Win32.Foundation.PWSTR) -> Int32: ...
+AddFontResource = UnicodeAlias('AddFontResourceW')
 @winfunctype('GDI32.dll')
 def AnimatePalette(hPal: win32more.Windows.Win32.Graphics.Gdi.HPALETTE, iStartIndex: UInt32, cEntries: UInt32, ppe: POINTER(win32more.Windows.Win32.Graphics.Gdi.PALETTEENTRY)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('GDI32.dll')
@@ -892,6 +895,7 @@ def CombineRgn(hrgnDst: win32more.Windows.Win32.Graphics.Gdi.HRGN, hrgnSrc1: win
 def CopyMetaFileA(param0: win32more.Windows.Win32.Graphics.Gdi.HMETAFILE, param1: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Graphics.Gdi.HMETAFILE: ...
 @winfunctype('GDI32.dll')
 def CopyMetaFileW(param0: win32more.Windows.Win32.Graphics.Gdi.HMETAFILE, param1: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Graphics.Gdi.HMETAFILE: ...
+CopyMetaFile = UnicodeAlias('CopyMetaFileW')
 @winfunctype('GDI32.dll')
 def CreateBitmap(nWidth: Int32, nHeight: Int32, nPlanes: UInt32, nBitCount: UInt32, lpBits: VoidPtr) -> win32more.Windows.Win32.Graphics.Gdi.HBITMAP: ...
 @winfunctype('GDI32.dll')
@@ -908,6 +912,7 @@ def CreateCompatibleDC(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC) -> win32mo
 def CreateDCA(pwszDriver: win32more.Windows.Win32.Foundation.PSTR, pwszDevice: win32more.Windows.Win32.Foundation.PSTR, pszPort: win32more.Windows.Win32.Foundation.PSTR, pdm: POINTER(win32more.Windows.Win32.Graphics.Gdi.DEVMODEA)) -> win32more.Windows.Win32.Graphics.Gdi.HDC: ...
 @winfunctype('GDI32.dll')
 def CreateDCW(pwszDriver: win32more.Windows.Win32.Foundation.PWSTR, pwszDevice: win32more.Windows.Win32.Foundation.PWSTR, pszPort: win32more.Windows.Win32.Foundation.PWSTR, pdm: POINTER(win32more.Windows.Win32.Graphics.Gdi.DEVMODEW)) -> win32more.Windows.Win32.Graphics.Gdi.HDC: ...
+CreateDC = UnicodeAlias('CreateDCW')
 @winfunctype('GDI32.dll')
 def CreateDIBitmap(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, pbmih: POINTER(win32more.Windows.Win32.Graphics.Gdi.BITMAPINFOHEADER), flInit: UInt32, pjBits: VoidPtr, pbmi: POINTER(win32more.Windows.Win32.Graphics.Gdi.BITMAPINFO), iUsage: win32more.Windows.Win32.Graphics.Gdi.DIB_USAGE) -> win32more.Windows.Win32.Graphics.Gdi.HBITMAP: ...
 @winfunctype('GDI32.dll')
@@ -922,20 +927,24 @@ def CreateEllipticRgnIndirect(lprect: POINTER(win32more.Windows.Win32.Foundation
 def CreateFontIndirectA(lplf: POINTER(win32more.Windows.Win32.Graphics.Gdi.LOGFONTA)) -> win32more.Windows.Win32.Graphics.Gdi.HFONT: ...
 @winfunctype('GDI32.dll')
 def CreateFontIndirectW(lplf: POINTER(win32more.Windows.Win32.Graphics.Gdi.LOGFONTW)) -> win32more.Windows.Win32.Graphics.Gdi.HFONT: ...
+CreateFontIndirect = UnicodeAlias('CreateFontIndirectW')
 @winfunctype('GDI32.dll')
 def CreateFontA(cHeight: Int32, cWidth: Int32, cEscapement: Int32, cOrientation: Int32, cWeight: Int32, bItalic: UInt32, bUnderline: UInt32, bStrikeOut: UInt32, iCharSet: UInt32, iOutPrecision: UInt32, iClipPrecision: UInt32, iQuality: UInt32, iPitchAndFamily: UInt32, pszFaceName: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Graphics.Gdi.HFONT: ...
 @winfunctype('GDI32.dll')
 def CreateFontW(cHeight: Int32, cWidth: Int32, cEscapement: Int32, cOrientation: Int32, cWeight: Int32, bItalic: UInt32, bUnderline: UInt32, bStrikeOut: UInt32, iCharSet: UInt32, iOutPrecision: UInt32, iClipPrecision: UInt32, iQuality: UInt32, iPitchAndFamily: UInt32, pszFaceName: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Graphics.Gdi.HFONT: ...
+CreateFont = UnicodeAlias('CreateFontW')
 @winfunctype('GDI32.dll')
 def CreateHatchBrush(iHatch: win32more.Windows.Win32.Graphics.Gdi.HATCH_BRUSH_STYLE, color: win32more.Windows.Win32.Foundation.COLORREF) -> win32more.Windows.Win32.Graphics.Gdi.HBRUSH: ...
 @winfunctype('GDI32.dll')
 def CreateICA(pszDriver: win32more.Windows.Win32.Foundation.PSTR, pszDevice: win32more.Windows.Win32.Foundation.PSTR, pszPort: win32more.Windows.Win32.Foundation.PSTR, pdm: POINTER(win32more.Windows.Win32.Graphics.Gdi.DEVMODEA)) -> win32more.Windows.Win32.Graphics.Gdi.HDC: ...
 @winfunctype('GDI32.dll')
 def CreateICW(pszDriver: win32more.Windows.Win32.Foundation.PWSTR, pszDevice: win32more.Windows.Win32.Foundation.PWSTR, pszPort: win32more.Windows.Win32.Foundation.PWSTR, pdm: POINTER(win32more.Windows.Win32.Graphics.Gdi.DEVMODEW)) -> win32more.Windows.Win32.Graphics.Gdi.HDC: ...
+CreateIC = UnicodeAlias('CreateICW')
 @winfunctype('GDI32.dll')
 def CreateMetaFileA(pszFile: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Graphics.Gdi.HDC: ...
 @winfunctype('GDI32.dll')
 def CreateMetaFileW(pszFile: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Graphics.Gdi.HDC: ...
+CreateMetaFile = UnicodeAlias('CreateMetaFileW')
 @winfunctype('GDI32.dll')
 def CreatePalette(plpal: POINTER(win32more.Windows.Win32.Graphics.Gdi.LOGPALETTE)) -> win32more.Windows.Win32.Graphics.Gdi.HPALETTE: ...
 @winfunctype('GDI32.dll')
@@ -956,6 +965,7 @@ def CreateRoundRectRgn(x1: Int32, y1: Int32, x2: Int32, y2: Int32, w: Int32, h: 
 def CreateScalableFontResourceA(fdwHidden: UInt32, lpszFont: win32more.Windows.Win32.Foundation.PSTR, lpszFile: win32more.Windows.Win32.Foundation.PSTR, lpszPath: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('GDI32.dll')
 def CreateScalableFontResourceW(fdwHidden: UInt32, lpszFont: win32more.Windows.Win32.Foundation.PWSTR, lpszFile: win32more.Windows.Win32.Foundation.PWSTR, lpszPath: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
+CreateScalableFontResource = UnicodeAlias('CreateScalableFontResourceW')
 @winfunctype('GDI32.dll')
 def CreateSolidBrush(color: win32more.Windows.Win32.Foundation.COLORREF) -> win32more.Windows.Win32.Graphics.Gdi.HBRUSH: ...
 @winfunctype('GDI32.dll')
@@ -972,14 +982,17 @@ def Ellipse(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, left: Int32, top: Int
 def EnumFontFamiliesExA(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, lpLogfont: POINTER(win32more.Windows.Win32.Graphics.Gdi.LOGFONTA), lpProc: win32more.Windows.Win32.Graphics.Gdi.FONTENUMPROCA, lParam: win32more.Windows.Win32.Foundation.LPARAM, dwFlags: UInt32) -> Int32: ...
 @winfunctype('GDI32.dll')
 def EnumFontFamiliesExW(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, lpLogfont: POINTER(win32more.Windows.Win32.Graphics.Gdi.LOGFONTW), lpProc: win32more.Windows.Win32.Graphics.Gdi.FONTENUMPROCW, lParam: win32more.Windows.Win32.Foundation.LPARAM, dwFlags: UInt32) -> Int32: ...
+EnumFontFamiliesEx = UnicodeAlias('EnumFontFamiliesExW')
 @winfunctype('GDI32.dll')
 def EnumFontFamiliesA(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, lpLogfont: win32more.Windows.Win32.Foundation.PSTR, lpProc: win32more.Windows.Win32.Graphics.Gdi.FONTENUMPROCA, lParam: win32more.Windows.Win32.Foundation.LPARAM) -> Int32: ...
 @winfunctype('GDI32.dll')
 def EnumFontFamiliesW(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, lpLogfont: win32more.Windows.Win32.Foundation.PWSTR, lpProc: win32more.Windows.Win32.Graphics.Gdi.FONTENUMPROCW, lParam: win32more.Windows.Win32.Foundation.LPARAM) -> Int32: ...
+EnumFontFamilies = UnicodeAlias('EnumFontFamiliesW')
 @winfunctype('GDI32.dll')
 def EnumFontsA(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, lpLogfont: win32more.Windows.Win32.Foundation.PSTR, lpProc: win32more.Windows.Win32.Graphics.Gdi.FONTENUMPROCA, lParam: win32more.Windows.Win32.Foundation.LPARAM) -> Int32: ...
 @winfunctype('GDI32.dll')
 def EnumFontsW(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, lpLogfont: win32more.Windows.Win32.Foundation.PWSTR, lpProc: win32more.Windows.Win32.Graphics.Gdi.FONTENUMPROCW, lParam: win32more.Windows.Win32.Foundation.LPARAM) -> Int32: ...
+EnumFonts = UnicodeAlias('EnumFontsW')
 @winfunctype('GDI32.dll')
 def EnumObjects(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, nType: win32more.Windows.Win32.Graphics.Gdi.OBJ_TYPE, lpFunc: win32more.Windows.Win32.Graphics.Gdi.GOBJENUMPROC, lParam: win32more.Windows.Win32.Foundation.LPARAM) -> Int32: ...
 @winfunctype('GDI32.dll')
@@ -1020,22 +1033,27 @@ def GetBrushOrgEx(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, lppt: POINTER(w
 def GetCharWidthA(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, iFirst: UInt32, iLast: UInt32, lpBuffer: POINTER(Int32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('GDI32.dll')
 def GetCharWidthW(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, iFirst: UInt32, iLast: UInt32, lpBuffer: POINTER(Int32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+GetCharWidth = UnicodeAlias('GetCharWidthW')
 @winfunctype('GDI32.dll')
 def GetCharWidth32A(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, iFirst: UInt32, iLast: UInt32, lpBuffer: POINTER(Int32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('GDI32.dll')
 def GetCharWidth32W(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, iFirst: UInt32, iLast: UInt32, lpBuffer: POINTER(Int32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+GetCharWidth32 = UnicodeAlias('GetCharWidth32W')
 @winfunctype('GDI32.dll')
 def GetCharWidthFloatA(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, iFirst: UInt32, iLast: UInt32, lpBuffer: POINTER(Single)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('GDI32.dll')
 def GetCharWidthFloatW(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, iFirst: UInt32, iLast: UInt32, lpBuffer: POINTER(Single)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+GetCharWidthFloat = UnicodeAlias('GetCharWidthFloatW')
 @winfunctype('GDI32.dll')
 def GetCharABCWidthsA(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, wFirst: UInt32, wLast: UInt32, lpABC: POINTER(win32more.Windows.Win32.Graphics.Gdi.ABC)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('GDI32.dll')
 def GetCharABCWidthsW(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, wFirst: UInt32, wLast: UInt32, lpABC: POINTER(win32more.Windows.Win32.Graphics.Gdi.ABC)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+GetCharABCWidths = UnicodeAlias('GetCharABCWidthsW')
 @winfunctype('GDI32.dll')
 def GetCharABCWidthsFloatA(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, iFirst: UInt32, iLast: UInt32, lpABC: POINTER(win32more.Windows.Win32.Graphics.Gdi.ABCFLOAT)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('GDI32.dll')
 def GetCharABCWidthsFloatW(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, iFirst: UInt32, iLast: UInt32, lpABC: POINTER(win32more.Windows.Win32.Graphics.Gdi.ABCFLOAT)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+GetCharABCWidthsFloat = UnicodeAlias('GetCharABCWidthsFloatW')
 @winfunctype('GDI32.dll')
 def GetClipBox(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, lprect: POINTER(win32more.Windows.Win32.Foundation.RECT)) -> win32more.Windows.Win32.Graphics.Gdi.GDI_REGION_TYPE: ...
 @winfunctype('GDI32.dll')
@@ -1056,6 +1074,7 @@ def GetFontData(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, dwTable: UInt32, 
 def GetGlyphOutlineA(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, uChar: UInt32, fuFormat: win32more.Windows.Win32.Graphics.Gdi.GET_GLYPH_OUTLINE_FORMAT, lpgm: POINTER(win32more.Windows.Win32.Graphics.Gdi.GLYPHMETRICS), cjBuffer: UInt32, pvBuffer: VoidPtr, lpmat2: POINTER(win32more.Windows.Win32.Graphics.Gdi.MAT2)) -> UInt32: ...
 @winfunctype('GDI32.dll')
 def GetGlyphOutlineW(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, uChar: UInt32, fuFormat: win32more.Windows.Win32.Graphics.Gdi.GET_GLYPH_OUTLINE_FORMAT, lpgm: POINTER(win32more.Windows.Win32.Graphics.Gdi.GLYPHMETRICS), cjBuffer: UInt32, pvBuffer: VoidPtr, lpmat2: POINTER(win32more.Windows.Win32.Graphics.Gdi.MAT2)) -> UInt32: ...
+GetGlyphOutline = UnicodeAlias('GetGlyphOutlineW')
 @winfunctype('GDI32.dll')
 def GetGraphicsMode(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC) -> Int32: ...
 @winfunctype('GDI32.dll')
@@ -1066,6 +1085,7 @@ def GetMetaFileBitsEx(hMF: win32more.Windows.Win32.Graphics.Gdi.HMETAFILE, cbBuf
 def GetMetaFileA(lpName: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Graphics.Gdi.HMETAFILE: ...
 @winfunctype('GDI32.dll')
 def GetMetaFileW(lpName: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Graphics.Gdi.HMETAFILE: ...
+GetMetaFile = UnicodeAlias('GetMetaFileW')
 @winfunctype('GDI32.dll')
 def GetNearestColor(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, color: win32more.Windows.Win32.Foundation.COLORREF) -> win32more.Windows.Win32.Foundation.COLORREF: ...
 @winfunctype('GDI32.dll')
@@ -1076,6 +1096,7 @@ def GetObjectType(h: win32more.Windows.Win32.Graphics.Gdi.HGDIOBJ) -> UInt32: ..
 def GetOutlineTextMetricsA(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, cjCopy: UInt32, potm: POINTER(win32more.Windows.Win32.Graphics.Gdi.OUTLINETEXTMETRICA)) -> UInt32: ...
 @winfunctype('GDI32.dll')
 def GetOutlineTextMetricsW(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, cjCopy: UInt32, potm: POINTER(win32more.Windows.Win32.Graphics.Gdi.OUTLINETEXTMETRICW)) -> UInt32: ...
+GetOutlineTextMetrics = UnicodeAlias('GetOutlineTextMetricsW')
 @winfunctype('GDI32.dll')
 def GetPaletteEntries(hpal: win32more.Windows.Win32.Graphics.Gdi.HPALETTE, iStart: UInt32, cEntries: UInt32, pPalEntries: POINTER(win32more.Windows.Win32.Graphics.Gdi.PALETTEENTRY)) -> UInt32: ...
 @winfunctype('GDI32.dll')
@@ -1108,26 +1129,31 @@ def GetTextColor(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC) -> win32more.Win
 def GetTextExtentPointA(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, lpString: win32more.Windows.Win32.Foundation.PSTR, c: Int32, lpsz: POINTER(win32more.Windows.Win32.Foundation.SIZE)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('GDI32.dll')
 def GetTextExtentPointW(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, lpString: win32more.Windows.Win32.Foundation.PWSTR, c: Int32, lpsz: POINTER(win32more.Windows.Win32.Foundation.SIZE)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+GetTextExtentPoint = UnicodeAlias('GetTextExtentPointW')
 @winfunctype('GDI32.dll')
 def GetTextExtentPoint32A(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, lpString: win32more.Windows.Win32.Foundation.PSTR, c: Int32, psizl: POINTER(win32more.Windows.Win32.Foundation.SIZE)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('GDI32.dll')
 def GetTextExtentPoint32W(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, lpString: win32more.Windows.Win32.Foundation.PWSTR, c: Int32, psizl: POINTER(win32more.Windows.Win32.Foundation.SIZE)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+GetTextExtentPoint32 = UnicodeAlias('GetTextExtentPoint32W')
 @winfunctype('GDI32.dll')
 def GetTextExtentExPointA(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, lpszString: win32more.Windows.Win32.Foundation.PSTR, cchString: Int32, nMaxExtent: Int32, lpnFit: POINTER(Int32), lpnDx: POINTER(Int32), lpSize: POINTER(win32more.Windows.Win32.Foundation.SIZE)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('GDI32.dll')
 def GetTextExtentExPointW(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, lpszString: win32more.Windows.Win32.Foundation.PWSTR, cchString: Int32, nMaxExtent: Int32, lpnFit: POINTER(Int32), lpnDx: POINTER(Int32), lpSize: POINTER(win32more.Windows.Win32.Foundation.SIZE)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+GetTextExtentExPoint = UnicodeAlias('GetTextExtentExPointW')
 @winfunctype('GDI32.dll')
 def GetFontLanguageInfo(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC) -> UInt32: ...
 @winfunctype('GDI32.dll')
 def GetCharacterPlacementA(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, lpString: win32more.Windows.Win32.Foundation.PSTR, nCount: Int32, nMexExtent: Int32, lpResults: POINTER(win32more.Windows.Win32.Graphics.Gdi.GCP_RESULTSA), dwFlags: win32more.Windows.Win32.Graphics.Gdi.GET_CHARACTER_PLACEMENT_FLAGS) -> UInt32: ...
 @winfunctype('GDI32.dll')
 def GetCharacterPlacementW(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, lpString: win32more.Windows.Win32.Foundation.PWSTR, nCount: Int32, nMexExtent: Int32, lpResults: POINTER(win32more.Windows.Win32.Graphics.Gdi.GCP_RESULTSW), dwFlags: win32more.Windows.Win32.Graphics.Gdi.GET_CHARACTER_PLACEMENT_FLAGS) -> UInt32: ...
+GetCharacterPlacement = UnicodeAlias('GetCharacterPlacementW')
 @winfunctype('GDI32.dll')
 def GetFontUnicodeRanges(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, lpgs: POINTER(win32more.Windows.Win32.Graphics.Gdi.GLYPHSET)) -> UInt32: ...
 @winfunctype('GDI32.dll')
 def GetGlyphIndicesA(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, lpstr: win32more.Windows.Win32.Foundation.PSTR, c: Int32, pgi: POINTER(UInt16), fl: UInt32) -> UInt32: ...
 @winfunctype('GDI32.dll')
 def GetGlyphIndicesW(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, lpstr: win32more.Windows.Win32.Foundation.PWSTR, c: Int32, pgi: POINTER(UInt16), fl: UInt32) -> UInt32: ...
+GetGlyphIndices = UnicodeAlias('GetGlyphIndicesW')
 @winfunctype('GDI32.dll')
 def GetTextExtentPointI(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, pgiIn: POINTER(UInt16), cgi: Int32, psize: POINTER(win32more.Windows.Win32.Foundation.SIZE)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('GDI32.dll')
@@ -1140,10 +1166,12 @@ def GetCharABCWidthsI(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, giFirst: UI
 def AddFontResourceExA(name: win32more.Windows.Win32.Foundation.PSTR, fl: win32more.Windows.Win32.Graphics.Gdi.FONT_RESOURCE_CHARACTERISTICS, res: VoidPtr) -> Int32: ...
 @winfunctype('GDI32.dll')
 def AddFontResourceExW(name: win32more.Windows.Win32.Foundation.PWSTR, fl: win32more.Windows.Win32.Graphics.Gdi.FONT_RESOURCE_CHARACTERISTICS, res: VoidPtr) -> Int32: ...
+AddFontResourceEx = UnicodeAlias('AddFontResourceExW')
 @winfunctype('GDI32.dll')
 def RemoveFontResourceExA(name: win32more.Windows.Win32.Foundation.PSTR, fl: UInt32, pdv: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('GDI32.dll')
 def RemoveFontResourceExW(name: win32more.Windows.Win32.Foundation.PWSTR, fl: UInt32, pdv: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+RemoveFontResourceEx = UnicodeAlias('RemoveFontResourceExW')
 @winfunctype('GDI32.dll')
 def AddFontMemResourceEx(pFileView: VoidPtr, cjSize: UInt32, pvResrved: VoidPtr, pNumFonts: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HANDLE: ...
 @winfunctype('GDI32.dll')
@@ -1152,6 +1180,7 @@ def RemoveFontMemResourceEx(h: win32more.Windows.Win32.Foundation.HANDLE) -> win
 def CreateFontIndirectExA(param0: POINTER(win32more.Windows.Win32.Graphics.Gdi.ENUMLOGFONTEXDVA)) -> win32more.Windows.Win32.Graphics.Gdi.HFONT: ...
 @winfunctype('GDI32.dll')
 def CreateFontIndirectExW(param0: POINTER(win32more.Windows.Win32.Graphics.Gdi.ENUMLOGFONTEXDVW)) -> win32more.Windows.Win32.Graphics.Gdi.HFONT: ...
+CreateFontIndirectEx = UnicodeAlias('CreateFontIndirectExW')
 @winfunctype('GDI32.dll')
 def GetViewportExtEx(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, lpsize: POINTER(win32more.Windows.Win32.Foundation.SIZE)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('GDI32.dll')
@@ -1202,12 +1231,14 @@ def RestoreDC(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, nSavedDC: Int32) ->
 def ResetDCA(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, lpdm: POINTER(win32more.Windows.Win32.Graphics.Gdi.DEVMODEA)) -> win32more.Windows.Win32.Graphics.Gdi.HDC: ...
 @winfunctype('GDI32.dll')
 def ResetDCW(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, lpdm: POINTER(win32more.Windows.Win32.Graphics.Gdi.DEVMODEW)) -> win32more.Windows.Win32.Graphics.Gdi.HDC: ...
+ResetDC = UnicodeAlias('ResetDCW')
 @winfunctype('GDI32.dll')
 def RealizePalette(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC) -> UInt32: ...
 @winfunctype('GDI32.dll')
 def RemoveFontResourceA(lpFileName: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('GDI32.dll')
 def RemoveFontResourceW(lpFileName: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
+RemoveFontResource = UnicodeAlias('RemoveFontResourceW')
 @winfunctype('GDI32.dll')
 def RoundRect(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, left: Int32, top: Int32, right: Int32, bottom: Int32, width: Int32, height: Int32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('GDI32.dll')
@@ -1304,10 +1335,12 @@ def CloseEnhMetaFile(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC) -> win32more
 def CopyEnhMetaFileA(hEnh: win32more.Windows.Win32.Graphics.Gdi.HENHMETAFILE, lpFileName: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Graphics.Gdi.HENHMETAFILE: ...
 @winfunctype('GDI32.dll')
 def CopyEnhMetaFileW(hEnh: win32more.Windows.Win32.Graphics.Gdi.HENHMETAFILE, lpFileName: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Graphics.Gdi.HENHMETAFILE: ...
+CopyEnhMetaFile = UnicodeAlias('CopyEnhMetaFileW')
 @winfunctype('GDI32.dll')
 def CreateEnhMetaFileA(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, lpFilename: win32more.Windows.Win32.Foundation.PSTR, lprc: POINTER(win32more.Windows.Win32.Foundation.RECT), lpDesc: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Graphics.Gdi.HDC: ...
 @winfunctype('GDI32.dll')
 def CreateEnhMetaFileW(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, lpFilename: win32more.Windows.Win32.Foundation.PWSTR, lprc: POINTER(win32more.Windows.Win32.Foundation.RECT), lpDesc: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Graphics.Gdi.HDC: ...
+CreateEnhMetaFile = UnicodeAlias('CreateEnhMetaFileW')
 @winfunctype('GDI32.dll')
 def DeleteEnhMetaFile(hmf: win32more.Windows.Win32.Graphics.Gdi.HENHMETAFILE) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('GDI32.dll')
@@ -1316,12 +1349,14 @@ def EnumEnhMetaFile(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, hmf: win32mor
 def GetEnhMetaFileA(lpName: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Graphics.Gdi.HENHMETAFILE: ...
 @winfunctype('GDI32.dll')
 def GetEnhMetaFileW(lpName: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Graphics.Gdi.HENHMETAFILE: ...
+GetEnhMetaFile = UnicodeAlias('GetEnhMetaFileW')
 @winfunctype('GDI32.dll')
 def GetEnhMetaFileBits(hEMF: win32more.Windows.Win32.Graphics.Gdi.HENHMETAFILE, nSize: UInt32, lpData: POINTER(Byte)) -> UInt32: ...
 @winfunctype('GDI32.dll')
 def GetEnhMetaFileDescriptionA(hemf: win32more.Windows.Win32.Graphics.Gdi.HENHMETAFILE, cchBuffer: UInt32, lpDescription: win32more.Windows.Win32.Foundation.PSTR) -> UInt32: ...
 @winfunctype('GDI32.dll')
 def GetEnhMetaFileDescriptionW(hemf: win32more.Windows.Win32.Graphics.Gdi.HENHMETAFILE, cchBuffer: UInt32, lpDescription: win32more.Windows.Win32.Foundation.PWSTR) -> UInt32: ...
+GetEnhMetaFileDescription = UnicodeAlias('GetEnhMetaFileDescriptionW')
 @winfunctype('GDI32.dll')
 def GetEnhMetaFileHeader(hemf: win32more.Windows.Win32.Graphics.Gdi.HENHMETAFILE, nSize: UInt32, lpEnhMetaHeader: POINTER(win32more.Windows.Win32.Graphics.Gdi.ENHMETAHEADER)) -> UInt32: ...
 @winfunctype('GDI32.dll')
@@ -1340,6 +1375,7 @@ def GdiComment(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, nSize: UInt32, lpD
 def GetTextMetricsA(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, lptm: POINTER(win32more.Windows.Win32.Graphics.Gdi.TEXTMETRICA)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('GDI32.dll')
 def GetTextMetricsW(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, lptm: POINTER(win32more.Windows.Win32.Graphics.Gdi.TEXTMETRICW)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+GetTextMetrics = UnicodeAlias('GetTextMetricsW')
 @winfunctype('GDI32.dll')
 def AngleArc(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, x: Int32, y: Int32, r: UInt32, StartAngle: Single, SweepAngle: Single) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('GDI32.dll')
@@ -1404,20 +1440,24 @@ def GetMiterLimit(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, plimit: POINTER
 def GetArcDirection(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC) -> Int32: ...
 @winfunctype('GDI32.dll')
 def GetObjectW(h: win32more.Windows.Win32.Graphics.Gdi.HGDIOBJ, c: Int32, pv: VoidPtr) -> Int32: ...
+GetObject = UnicodeAlias('GetObjectW')
 @winfunctype('GDI32.dll')
 def MoveToEx(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, x: Int32, y: Int32, lppt: POINTER(win32more.Windows.Win32.Foundation.POINT)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('GDI32.dll')
 def TextOutA(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, x: Int32, y: Int32, lpString: win32more.Windows.Win32.Foundation.PSTR, c: Int32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('GDI32.dll')
 def TextOutW(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, x: Int32, y: Int32, lpString: win32more.Windows.Win32.Foundation.PWSTR, c: Int32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+TextOut = UnicodeAlias('TextOutW')
 @winfunctype('GDI32.dll')
 def ExtTextOutA(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, x: Int32, y: Int32, options: win32more.Windows.Win32.Graphics.Gdi.ETO_OPTIONS, lprect: POINTER(win32more.Windows.Win32.Foundation.RECT), lpString: win32more.Windows.Win32.Foundation.PSTR, c: UInt32, lpDx: POINTER(Int32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('GDI32.dll')
 def ExtTextOutW(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, x: Int32, y: Int32, options: win32more.Windows.Win32.Graphics.Gdi.ETO_OPTIONS, lprect: POINTER(win32more.Windows.Win32.Foundation.RECT), lpString: win32more.Windows.Win32.Foundation.PWSTR, c: UInt32, lpDx: POINTER(Int32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+ExtTextOut = UnicodeAlias('ExtTextOutW')
 @winfunctype('GDI32.dll')
 def PolyTextOutA(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, ppt: POINTER(win32more.Windows.Win32.Graphics.Gdi.POLYTEXTA), nstrings: Int32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('GDI32.dll')
 def PolyTextOutW(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, ppt: POINTER(win32more.Windows.Win32.Graphics.Gdi.POLYTEXTW), nstrings: Int32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+PolyTextOut = UnicodeAlias('PolyTextOutW')
 @winfunctype('GDI32.dll')
 def CreatePolygonRgn(pptl: POINTER(win32more.Windows.Win32.Foundation.POINT), cPoint: Int32, iMode: win32more.Windows.Win32.Graphics.Gdi.CREATE_POLYGON_RGN_MODE) -> win32more.Windows.Win32.Graphics.Gdi.HRGN: ...
 @winfunctype('GDI32.dll')
@@ -1458,10 +1498,12 @@ def SetBrushOrgEx(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, x: Int32, y: In
 def GetTextFaceA(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, c: Int32, lpName: win32more.Windows.Win32.Foundation.PSTR) -> Int32: ...
 @winfunctype('GDI32.dll')
 def GetTextFaceW(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, c: Int32, lpName: win32more.Windows.Win32.Foundation.PWSTR) -> Int32: ...
+GetTextFace = UnicodeAlias('GetTextFaceW')
 @winfunctype('GDI32.dll')
 def GetKerningPairsA(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, nPairs: UInt32, lpKernPair: POINTER(win32more.Windows.Win32.Graphics.Gdi.KERNINGPAIR)) -> UInt32: ...
 @winfunctype('GDI32.dll')
 def GetKerningPairsW(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, nPairs: UInt32, lpKernPair: POINTER(win32more.Windows.Win32.Graphics.Gdi.KERNINGPAIR)) -> UInt32: ...
+GetKerningPairs = UnicodeAlias('GetKerningPairsW')
 @winfunctype('GDI32.dll')
 def GetDCOrgEx(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, lppt: POINTER(win32more.Windows.Win32.Foundation.POINT)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('GDI32.dll')
@@ -1520,26 +1562,32 @@ def DrawAnimatedRects(hwnd: win32more.Windows.Win32.Foundation.HWND, idAni: Int3
 def DrawTextA(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, lpchText: win32more.Windows.Win32.Foundation.PSTR, cchText: Int32, lprc: POINTER(win32more.Windows.Win32.Foundation.RECT), format: win32more.Windows.Win32.Graphics.Gdi.DRAW_TEXT_FORMAT) -> Int32: ...
 @winfunctype('USER32.dll')
 def DrawTextW(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, lpchText: win32more.Windows.Win32.Foundation.PWSTR, cchText: Int32, lprc: POINTER(win32more.Windows.Win32.Foundation.RECT), format: win32more.Windows.Win32.Graphics.Gdi.DRAW_TEXT_FORMAT) -> Int32: ...
+DrawText = UnicodeAlias('DrawTextW')
 @winfunctype('USER32.dll')
 def DrawTextExA(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, lpchText: win32more.Windows.Win32.Foundation.PSTR, cchText: Int32, lprc: POINTER(win32more.Windows.Win32.Foundation.RECT), format: win32more.Windows.Win32.Graphics.Gdi.DRAW_TEXT_FORMAT, lpdtp: POINTER(win32more.Windows.Win32.Graphics.Gdi.DRAWTEXTPARAMS)) -> Int32: ...
 @winfunctype('USER32.dll')
 def DrawTextExW(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, lpchText: win32more.Windows.Win32.Foundation.PWSTR, cchText: Int32, lprc: POINTER(win32more.Windows.Win32.Foundation.RECT), format: win32more.Windows.Win32.Graphics.Gdi.DRAW_TEXT_FORMAT, lpdtp: POINTER(win32more.Windows.Win32.Graphics.Gdi.DRAWTEXTPARAMS)) -> Int32: ...
+DrawTextEx = UnicodeAlias('DrawTextExW')
 @winfunctype('USER32.dll')
 def GrayStringA(hDC: win32more.Windows.Win32.Graphics.Gdi.HDC, hBrush: win32more.Windows.Win32.Graphics.Gdi.HBRUSH, lpOutputFunc: win32more.Windows.Win32.Graphics.Gdi.GRAYSTRINGPROC, lpData: win32more.Windows.Win32.Foundation.LPARAM, nCount: Int32, X: Int32, Y: Int32, nWidth: Int32, nHeight: Int32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('USER32.dll')
 def GrayStringW(hDC: win32more.Windows.Win32.Graphics.Gdi.HDC, hBrush: win32more.Windows.Win32.Graphics.Gdi.HBRUSH, lpOutputFunc: win32more.Windows.Win32.Graphics.Gdi.GRAYSTRINGPROC, lpData: win32more.Windows.Win32.Foundation.LPARAM, nCount: Int32, X: Int32, Y: Int32, nWidth: Int32, nHeight: Int32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+GrayString = UnicodeAlias('GrayStringW')
 @winfunctype('USER32.dll')
 def DrawStateA(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, hbrFore: win32more.Windows.Win32.Graphics.Gdi.HBRUSH, qfnCallBack: win32more.Windows.Win32.Graphics.Gdi.DRAWSTATEPROC, lData: win32more.Windows.Win32.Foundation.LPARAM, wData: win32more.Windows.Win32.Foundation.WPARAM, x: Int32, y: Int32, cx: Int32, cy: Int32, uFlags: win32more.Windows.Win32.Graphics.Gdi.DRAWSTATE_FLAGS) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('USER32.dll')
 def DrawStateW(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, hbrFore: win32more.Windows.Win32.Graphics.Gdi.HBRUSH, qfnCallBack: win32more.Windows.Win32.Graphics.Gdi.DRAWSTATEPROC, lData: win32more.Windows.Win32.Foundation.LPARAM, wData: win32more.Windows.Win32.Foundation.WPARAM, x: Int32, y: Int32, cx: Int32, cy: Int32, uFlags: win32more.Windows.Win32.Graphics.Gdi.DRAWSTATE_FLAGS) -> win32more.Windows.Win32.Foundation.BOOL: ...
+DrawState = UnicodeAlias('DrawStateW')
 @winfunctype('USER32.dll')
 def TabbedTextOutA(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, x: Int32, y: Int32, lpString: win32more.Windows.Win32.Foundation.PSTR, chCount: Int32, nTabPositions: Int32, lpnTabStopPositions: POINTER(Int32), nTabOrigin: Int32) -> Int32: ...
 @winfunctype('USER32.dll')
 def TabbedTextOutW(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, x: Int32, y: Int32, lpString: win32more.Windows.Win32.Foundation.PWSTR, chCount: Int32, nTabPositions: Int32, lpnTabStopPositions: POINTER(Int32), nTabOrigin: Int32) -> Int32: ...
+TabbedTextOut = UnicodeAlias('TabbedTextOutW')
 @winfunctype('USER32.dll')
 def GetTabbedTextExtentA(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, lpString: win32more.Windows.Win32.Foundation.PSTR, chCount: Int32, nTabPositions: Int32, lpnTabStopPositions: POINTER(Int32)) -> UInt32: ...
 @winfunctype('USER32.dll')
 def GetTabbedTextExtentW(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, lpString: win32more.Windows.Win32.Foundation.PWSTR, chCount: Int32, nTabPositions: Int32, lpnTabStopPositions: POINTER(Int32)) -> UInt32: ...
+GetTabbedTextExtent = UnicodeAlias('GetTabbedTextExtentW')
 @winfunctype('USER32.dll')
 def UpdateWindow(hWnd: win32more.Windows.Win32.Foundation.HWND) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('USER32.dll')
@@ -1628,26 +1676,32 @@ def PtInRect(lprc: POINTER(win32more.Windows.Win32.Foundation.RECT), pt: win32mo
 def LoadBitmapA(hInstance: win32more.Windows.Win32.Foundation.HINSTANCE, lpBitmapName: win32more.Windows.Win32.Foundation.PSTR) -> win32more.Windows.Win32.Graphics.Gdi.HBITMAP: ...
 @winfunctype('USER32.dll')
 def LoadBitmapW(hInstance: win32more.Windows.Win32.Foundation.HINSTANCE, lpBitmapName: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Graphics.Gdi.HBITMAP: ...
+LoadBitmap = UnicodeAlias('LoadBitmapW')
 @winfunctype('USER32.dll')
 def ChangeDisplaySettingsA(lpDevMode: POINTER(win32more.Windows.Win32.Graphics.Gdi.DEVMODEA), dwFlags: win32more.Windows.Win32.Graphics.Gdi.CDS_TYPE) -> win32more.Windows.Win32.Graphics.Gdi.DISP_CHANGE: ...
 @winfunctype('USER32.dll')
 def ChangeDisplaySettingsW(lpDevMode: POINTER(win32more.Windows.Win32.Graphics.Gdi.DEVMODEW), dwFlags: win32more.Windows.Win32.Graphics.Gdi.CDS_TYPE) -> win32more.Windows.Win32.Graphics.Gdi.DISP_CHANGE: ...
+ChangeDisplaySettings = UnicodeAlias('ChangeDisplaySettingsW')
 @winfunctype('USER32.dll')
 def ChangeDisplaySettingsExA(lpszDeviceName: win32more.Windows.Win32.Foundation.PSTR, lpDevMode: POINTER(win32more.Windows.Win32.Graphics.Gdi.DEVMODEA), hwnd: win32more.Windows.Win32.Foundation.HWND, dwflags: win32more.Windows.Win32.Graphics.Gdi.CDS_TYPE, lParam: VoidPtr) -> win32more.Windows.Win32.Graphics.Gdi.DISP_CHANGE: ...
 @winfunctype('USER32.dll')
 def ChangeDisplaySettingsExW(lpszDeviceName: win32more.Windows.Win32.Foundation.PWSTR, lpDevMode: POINTER(win32more.Windows.Win32.Graphics.Gdi.DEVMODEW), hwnd: win32more.Windows.Win32.Foundation.HWND, dwflags: win32more.Windows.Win32.Graphics.Gdi.CDS_TYPE, lParam: VoidPtr) -> win32more.Windows.Win32.Graphics.Gdi.DISP_CHANGE: ...
+ChangeDisplaySettingsEx = UnicodeAlias('ChangeDisplaySettingsExW')
 @winfunctype('USER32.dll')
 def EnumDisplaySettingsA(lpszDeviceName: win32more.Windows.Win32.Foundation.PSTR, iModeNum: win32more.Windows.Win32.Graphics.Gdi.ENUM_DISPLAY_SETTINGS_MODE, lpDevMode: POINTER(win32more.Windows.Win32.Graphics.Gdi.DEVMODEA)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('USER32.dll')
 def EnumDisplaySettingsW(lpszDeviceName: win32more.Windows.Win32.Foundation.PWSTR, iModeNum: win32more.Windows.Win32.Graphics.Gdi.ENUM_DISPLAY_SETTINGS_MODE, lpDevMode: POINTER(win32more.Windows.Win32.Graphics.Gdi.DEVMODEW)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+EnumDisplaySettings = UnicodeAlias('EnumDisplaySettingsW')
 @winfunctype('USER32.dll')
 def EnumDisplaySettingsExA(lpszDeviceName: win32more.Windows.Win32.Foundation.PSTR, iModeNum: win32more.Windows.Win32.Graphics.Gdi.ENUM_DISPLAY_SETTINGS_MODE, lpDevMode: POINTER(win32more.Windows.Win32.Graphics.Gdi.DEVMODEA), dwFlags: win32more.Windows.Win32.Graphics.Gdi.ENUM_DISPLAY_SETTINGS_FLAGS) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('USER32.dll')
 def EnumDisplaySettingsExW(lpszDeviceName: win32more.Windows.Win32.Foundation.PWSTR, iModeNum: win32more.Windows.Win32.Graphics.Gdi.ENUM_DISPLAY_SETTINGS_MODE, lpDevMode: POINTER(win32more.Windows.Win32.Graphics.Gdi.DEVMODEW), dwFlags: win32more.Windows.Win32.Graphics.Gdi.ENUM_DISPLAY_SETTINGS_FLAGS) -> win32more.Windows.Win32.Foundation.BOOL: ...
+EnumDisplaySettingsEx = UnicodeAlias('EnumDisplaySettingsExW')
 @winfunctype('USER32.dll')
 def EnumDisplayDevicesA(lpDevice: win32more.Windows.Win32.Foundation.PSTR, iDevNum: UInt32, lpDisplayDevice: POINTER(win32more.Windows.Win32.Graphics.Gdi.DISPLAY_DEVICEA), dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('USER32.dll')
 def EnumDisplayDevicesW(lpDevice: win32more.Windows.Win32.Foundation.PWSTR, iDevNum: UInt32, lpDisplayDevice: POINTER(win32more.Windows.Win32.Graphics.Gdi.DISPLAY_DEVICEW), dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+EnumDisplayDevices = UnicodeAlias('EnumDisplayDevicesW')
 @winfunctype('USER32.dll')
 def MonitorFromPoint(pt: win32more.Windows.Win32.Foundation.POINT, dwFlags: win32more.Windows.Win32.Graphics.Gdi.MONITOR_FROM_FLAGS) -> win32more.Windows.Win32.Graphics.Gdi.HMONITOR: ...
 @winfunctype('USER32.dll')
@@ -1658,6 +1712,7 @@ def MonitorFromWindow(hwnd: win32more.Windows.Win32.Foundation.HWND, dwFlags: wi
 def GetMonitorInfoA(hMonitor: win32more.Windows.Win32.Graphics.Gdi.HMONITOR, lpmi: POINTER(win32more.Windows.Win32.Graphics.Gdi.MONITORINFO)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('USER32.dll')
 def GetMonitorInfoW(hMonitor: win32more.Windows.Win32.Graphics.Gdi.HMONITOR, lpmi: POINTER(win32more.Windows.Win32.Graphics.Gdi.MONITORINFO)) -> win32more.Windows.Win32.Foundation.BOOL: ...
+GetMonitorInfo = UnicodeAlias('GetMonitorInfoW')
 @winfunctype('USER32.dll')
 def EnumDisplayMonitors(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, lprcClip: POINTER(win32more.Windows.Win32.Foundation.RECT), lpfnEnum: win32more.Windows.Win32.Graphics.Gdi.MONITORENUMPROC, dwData: win32more.Windows.Win32.Foundation.LPARAM) -> win32more.Windows.Win32.Foundation.BOOL: ...
 BACKGROUND_MODE = UInt32
@@ -1922,6 +1977,7 @@ class DEVMODEW(EasyCastStructure):
     class _Anonymous2_e__Union(EasyCastUnion):
         dmDisplayFlags: UInt32
         dmNup: UInt32
+DEVMODE = UnicodeAlias('DEVMODEW')
 DEVMODE_COLLATE = Int16
 DMCOLLATE_FALSE: win32more.Windows.Win32.Graphics.Gdi.DEVMODE_COLLATE = 0
 DMCOLLATE_TRUE: win32more.Windows.Win32.Graphics.Gdi.DEVMODE_COLLATE = 1
@@ -2053,6 +2109,7 @@ class DISPLAY_DEVICEW(EasyCastStructure):
     StateFlags: UInt32
     DeviceID: Char * 128
     DeviceKey: Char * 128
+DISPLAY_DEVICE = UnicodeAlias('DISPLAY_DEVICEW')
 DISP_CHANGE = Int32
 DISP_CHANGE_SUCCESSFUL: win32more.Windows.Win32.Graphics.Gdi.DISP_CHANGE = 0
 DISP_CHANGE_RESTART: win32more.Windows.Win32.Graphics.Gdi.DISP_CHANGE = 1
@@ -2757,15 +2814,18 @@ class ENUMLOGFONTEXDVA(EasyCastStructure):
 class ENUMLOGFONTEXDVW(EasyCastStructure):
     elfEnumLogfontEx: win32more.Windows.Win32.Graphics.Gdi.ENUMLOGFONTEXW
     elfDesignVector: win32more.Windows.Win32.Graphics.Gdi.DESIGNVECTOR
+ENUMLOGFONTEXDV = UnicodeAlias('ENUMLOGFONTEXDVW')
 class ENUMLOGFONTEXW(EasyCastStructure):
     elfLogFont: win32more.Windows.Win32.Graphics.Gdi.LOGFONTW
     elfFullName: Char * 64
     elfStyle: Char * 32
     elfScript: Char * 32
+ENUMLOGFONTEX = UnicodeAlias('ENUMLOGFONTEXW')
 class ENUMLOGFONTW(EasyCastStructure):
     elfLogFont: win32more.Windows.Win32.Graphics.Gdi.LOGFONTW
     elfFullName: Char * 64
     elfStyle: Char * 32
+ENUMLOGFONT = UnicodeAlias('ENUMLOGFONTW')
 ENUM_DISPLAY_SETTINGS_FLAGS = UInt32
 EDS_RAWMODE: win32more.Windows.Win32.Graphics.Gdi.ENUM_DISPLAY_SETTINGS_FLAGS = 2
 EDS_ROTATEDMODE: win32more.Windows.Win32.Graphics.Gdi.ENUM_DISPLAY_SETTINGS_FLAGS = 4
@@ -2804,6 +2864,7 @@ class EXTLOGFONTW(EasyCastStructure):
     elfVendorId: Byte * 4
     elfCulture: UInt32
     elfPanose: win32more.Windows.Win32.Graphics.Gdi.PANOSE
+EXTLOGFONT = UnicodeAlias('EXTLOGFONTW')
 class EXTLOGPEN(EasyCastStructure):
     elpPenStyle: UInt32
     elpWidth: UInt32
@@ -2830,6 +2891,7 @@ class FIXED(EasyCastStructure):
 def FONTENUMPROCA(param0: POINTER(win32more.Windows.Win32.Graphics.Gdi.LOGFONTA), param1: POINTER(win32more.Windows.Win32.Graphics.Gdi.TEXTMETRICA), param2: UInt32, param3: win32more.Windows.Win32.Foundation.LPARAM) -> Int32: ...
 @winfunctype_pointer
 def FONTENUMPROCW(param0: POINTER(win32more.Windows.Win32.Graphics.Gdi.LOGFONTW), param1: POINTER(win32more.Windows.Win32.Graphics.Gdi.TEXTMETRICW), param2: UInt32, param3: win32more.Windows.Win32.Foundation.LPARAM) -> Int32: ...
+FONTENUMPROC = UnicodeAlias('FONTENUMPROCW')
 FONT_CHARSET = Byte
 ANSI_CHARSET: win32more.Windows.Win32.Graphics.Gdi.FONT_CHARSET = 0
 DEFAULT_CHARSET: win32more.Windows.Win32.Graphics.Gdi.FONT_CHARSET = 1
@@ -2936,6 +2998,7 @@ class GCP_RESULTSW(EasyCastStructure):
     lpGlyphs: win32more.Windows.Win32.Foundation.PWSTR
     nGlyphs: UInt32
     nMaxFit: Int32
+GCP_RESULTS = UnicodeAlias('GCP_RESULTSW')
 GDI_REGION_TYPE = Int32
 RGN_ERROR: win32more.Windows.Win32.Graphics.Gdi.GDI_REGION_TYPE = 0
 NULLREGION: win32more.Windows.Win32.Graphics.Gdi.GDI_REGION_TYPE = 1
@@ -3144,6 +3207,7 @@ class LOGFONTW(EasyCastStructure):
     lfQuality: win32more.Windows.Win32.Graphics.Gdi.FONT_QUALITY
     lfPitchAndFamily: Byte
     lfFaceName: Char * 32
+LOGFONT = UnicodeAlias('LOGFONTW')
 class LOGPALETTE(EasyCastStructure):
     palVersion: UInt16
     palNumEntries: UInt16
@@ -3193,6 +3257,7 @@ class MONITORINFOEXA(EasyCastStructure):
 class MONITORINFOEXW(EasyCastStructure):
     monitorInfo: win32more.Windows.Win32.Graphics.Gdi.MONITORINFO
     szDevice: Char * 32
+MONITORINFOEX = UnicodeAlias('MONITORINFOEXW')
 MONITOR_FROM_FLAGS = UInt32
 MONITOR_DEFAULTTONEAREST: win32more.Windows.Win32.Graphics.Gdi.MONITOR_FROM_FLAGS = 2
 MONITOR_DEFAULTTONULL: win32more.Windows.Win32.Graphics.Gdi.MONITOR_FROM_FLAGS = 0
@@ -3247,6 +3312,7 @@ class NEWTEXTMETRICW(EasyCastStructure):
     ntmSizeEM: UInt32
     ntmCellHeight: UInt32
     ntmAvgWidth: UInt32
+NEWTEXTMETRIC = UnicodeAlias('NEWTEXTMETRICW')
 OBJ_TYPE = Int32
 OBJ_PEN: win32more.Windows.Win32.Graphics.Gdi.OBJ_TYPE = 1
 OBJ_BRUSH: win32more.Windows.Win32.Graphics.Gdi.OBJ_TYPE = 2
@@ -3328,6 +3394,7 @@ class OUTLINETEXTMETRICW(EasyCastStructure):
     otmpFaceName: win32more.Windows.Win32.Foundation.PSTR
     otmpStyleName: win32more.Windows.Win32.Foundation.PSTR
     otmpFullName: win32more.Windows.Win32.Foundation.PSTR
+OUTLINETEXTMETRIC = UnicodeAlias('OUTLINETEXTMETRICW')
 class PAINTSTRUCT(EasyCastStructure):
     hdc: win32more.Windows.Win32.Graphics.Gdi.HDC
     fErase: win32more.Windows.Win32.Foundation.BOOL
@@ -3525,6 +3592,7 @@ class POLYTEXTW(EasyCastStructure):
     uiFlags: UInt32
     rcl: win32more.Windows.Win32.Foundation.RECT
     pdx: POINTER(Int32)
+POLYTEXT = UnicodeAlias('POLYTEXTW')
 R2_MODE = Int32
 R2_BLACK: win32more.Windows.Win32.Graphics.Gdi.R2_MODE = 1
 R2_NOTMERGEPEN: win32more.Windows.Win32.Graphics.Gdi.R2_MODE = 2
@@ -3703,6 +3771,7 @@ class TEXTMETRICW(EasyCastStructure):
     tmStruckOut: Byte
     tmPitchAndFamily: win32more.Windows.Win32.Graphics.Gdi.TMPF_FLAGS
     tmCharSet: Byte
+TEXTMETRIC = UnicodeAlias('TEXTMETRICW')
 TEXT_ALIGN_OPTIONS = UInt32
 TA_NOUPDATECP: win32more.Windows.Win32.Graphics.Gdi.TEXT_ALIGN_OPTIONS = 0
 TA_UPDATECP: win32more.Windows.Win32.Graphics.Gdi.TEXT_ALIGN_OPTIONS = 1

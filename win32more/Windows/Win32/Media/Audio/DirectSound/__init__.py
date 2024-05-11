@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Direct3D
 import win32more.Windows.Win32.Media.Audio
@@ -336,12 +336,14 @@ def DirectSoundCreate(pcGuidDevice: POINTER(Guid), ppDS: POINTER(win32more.Windo
 def DirectSoundEnumerateA(pDSEnumCallback: win32more.Windows.Win32.Media.Audio.DirectSound.LPDSENUMCALLBACKA, pContext: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('DSOUND.dll')
 def DirectSoundEnumerateW(pDSEnumCallback: win32more.Windows.Win32.Media.Audio.DirectSound.LPDSENUMCALLBACKW, pContext: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+DirectSoundEnumerate = UnicodeAlias('DirectSoundEnumerateW')
 @winfunctype('DSOUND.dll')
 def DirectSoundCaptureCreate(pcGuidDevice: POINTER(Guid), ppDSC: POINTER(win32more.Windows.Win32.Media.Audio.DirectSound.IDirectSoundCapture), pUnkOuter: win32more.Windows.Win32.System.Com.IUnknown) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('DSOUND.dll')
 def DirectSoundCaptureEnumerateA(pDSEnumCallback: win32more.Windows.Win32.Media.Audio.DirectSound.LPDSENUMCALLBACKA, pContext: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('DSOUND.dll')
 def DirectSoundCaptureEnumerateW(pDSEnumCallback: win32more.Windows.Win32.Media.Audio.DirectSound.LPDSENUMCALLBACKW, pContext: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+DirectSoundCaptureEnumerate = UnicodeAlias('DirectSoundCaptureEnumerateW')
 @winfunctype('DSOUND.dll')
 def DirectSoundCreate8(pcGuidDevice: POINTER(Guid), ppDS8: POINTER(win32more.Windows.Win32.Media.Audio.DirectSound.IDirectSound8), pUnkOuter: win32more.Windows.Win32.System.Com.IUnknown) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('DSOUND.dll')
@@ -806,6 +808,7 @@ class IDirectSoundNotify(ComPtr):
 def LPDSENUMCALLBACKA(param0: POINTER(Guid), param1: win32more.Windows.Win32.Foundation.PSTR, param2: win32more.Windows.Win32.Foundation.PSTR, param3: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def LPDSENUMCALLBACKW(param0: POINTER(Guid), param1: win32more.Windows.Win32.Foundation.PWSTR, param2: win32more.Windows.Win32.Foundation.PWSTR, param3: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
+LPDSENUMCALLBACK = UnicodeAlias('LPDSENUMCALLBACKW')
 
 
 make_ready(__name__)

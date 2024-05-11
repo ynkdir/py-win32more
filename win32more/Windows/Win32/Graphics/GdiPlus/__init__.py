@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.DirectDraw
 import win32more.Windows.Win32.Graphics.Gdi
@@ -1455,6 +1455,7 @@ def GdipCreateFontFromDC(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, font: PO
 def GdipCreateFontFromLogfontA(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, logfont: POINTER(win32more.Windows.Win32.Graphics.Gdi.LOGFONTA), font: POINTER(POINTER(win32more.Windows.Win32.Graphics.GdiPlus.GpFont))) -> win32more.Windows.Win32.Graphics.GdiPlus.Status: ...
 @winfunctype('gdiplus.dll')
 def GdipCreateFontFromLogfontW(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, logfont: POINTER(win32more.Windows.Win32.Graphics.Gdi.LOGFONTW), font: POINTER(POINTER(win32more.Windows.Win32.Graphics.GdiPlus.GpFont))) -> win32more.Windows.Win32.Graphics.GdiPlus.Status: ...
+GdipCreateFontFromLogfont = UnicodeAlias('GdipCreateFontFromLogfontW')
 @winfunctype('gdiplus.dll')
 def GdipCreateFont(fontFamily: POINTER(win32more.Windows.Win32.Graphics.GdiPlus.GpFontFamily), emSize: Single, style: Int32, unit: win32more.Windows.Win32.Graphics.GdiPlus.Unit, font: POINTER(POINTER(win32more.Windows.Win32.Graphics.GdiPlus.GpFont))) -> win32more.Windows.Win32.Graphics.GdiPlus.Status: ...
 @winfunctype('gdiplus.dll')
@@ -1477,6 +1478,7 @@ def GdipGetFontHeightGivenDPI(font: POINTER(win32more.Windows.Win32.Graphics.Gdi
 def GdipGetLogFontA(font: POINTER(win32more.Windows.Win32.Graphics.GdiPlus.GpFont), graphics: POINTER(win32more.Windows.Win32.Graphics.GdiPlus.GpGraphics), logfontA: POINTER(win32more.Windows.Win32.Graphics.Gdi.LOGFONTA)) -> win32more.Windows.Win32.Graphics.GdiPlus.Status: ...
 @winfunctype('gdiplus.dll')
 def GdipGetLogFontW(font: POINTER(win32more.Windows.Win32.Graphics.GdiPlus.GpFont), graphics: POINTER(win32more.Windows.Win32.Graphics.GdiPlus.GpGraphics), logfontW: POINTER(win32more.Windows.Win32.Graphics.Gdi.LOGFONTW)) -> win32more.Windows.Win32.Graphics.GdiPlus.Status: ...
+GdipGetLogFont = UnicodeAlias('GdipGetLogFontW')
 @winfunctype('gdiplus.dll')
 def GdipNewInstalledFontCollection(fontCollection: POINTER(POINTER(win32more.Windows.Win32.Graphics.GdiPlus.GpFontCollection))) -> win32more.Windows.Win32.Graphics.GdiPlus.Status: ...
 @winfunctype('gdiplus.dll')

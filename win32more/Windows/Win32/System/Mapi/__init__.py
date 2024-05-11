@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Mapi
 MAPI_OLE: UInt32 = 1
@@ -82,16 +82,8 @@ def LPMAPISAVEMAIL(lhSession: UIntPtr, ulUIParam: UIntPtr, lpMessage: POINTER(wi
 @winfunctype_pointer
 def LPMAPISENDDOCUMENTS(ulUIParam: UIntPtr, lpszDelimChar: win32more.Windows.Win32.Foundation.PSTR, lpszFilePaths: win32more.Windows.Win32.Foundation.PSTR, lpszFileNames: win32more.Windows.Win32.Foundation.PSTR, ulReserved: UInt32) -> UInt32: ...
 @winfunctype_pointer
-def LPMAPISENDMAIL(lhSession: UIntPtr, ulUIParam: UIntPtr, lpMessage: POINTER(win32more.Windows.Win32.System.Mapi.MapiMessage), flFlags: UInt32, ulReserved: UInt32) -> UInt32: ...
-@winfunctype_pointer
 def LPMAPISENDMAILW(lhSession: UIntPtr, ulUIParam: UIntPtr, lpMessage: POINTER(win32more.Windows.Win32.System.Mapi.MapiMessageW), flFlags: UInt32, ulReserved: UInt32) -> UInt32: ...
-class MapiFileDesc(EasyCastStructure):
-    ulReserved: UInt32
-    flFlags: UInt32
-    nPosition: UInt32
-    lpszPathName: win32more.Windows.Win32.Foundation.PSTR
-    lpszFileName: win32more.Windows.Win32.Foundation.PSTR
-    lpFileType: VoidPtr
+LPMAPISENDMAIL = UnicodeAlias('LPMAPISENDMAILW')
 class MapiFileDescW(EasyCastStructure):
     ulReserved: UInt32
     flFlags: UInt32
@@ -99,25 +91,13 @@ class MapiFileDescW(EasyCastStructure):
     lpszPathName: win32more.Windows.Win32.Foundation.PWSTR
     lpszFileName: win32more.Windows.Win32.Foundation.PWSTR
     lpFileType: VoidPtr
+MapiFileDesc = UnicodeAlias('MapiFileDescW')
 class MapiFileTagExt(EasyCastStructure):
     ulReserved: UInt32
     cbTag: UInt32
     lpTag: POINTER(Byte)
     cbEncoding: UInt32
     lpEncoding: POINTER(Byte)
-class MapiMessage(EasyCastStructure):
-    ulReserved: UInt32
-    lpszSubject: win32more.Windows.Win32.Foundation.PSTR
-    lpszNoteText: win32more.Windows.Win32.Foundation.PSTR
-    lpszMessageType: win32more.Windows.Win32.Foundation.PSTR
-    lpszDateReceived: win32more.Windows.Win32.Foundation.PSTR
-    lpszConversationID: win32more.Windows.Win32.Foundation.PSTR
-    flFlags: UInt32
-    lpOriginator: POINTER(win32more.Windows.Win32.System.Mapi.MapiRecipDesc)
-    nRecipCount: UInt32
-    lpRecips: POINTER(win32more.Windows.Win32.System.Mapi.MapiRecipDesc)
-    nFileCount: UInt32
-    lpFiles: POINTER(win32more.Windows.Win32.System.Mapi.MapiFileDesc)
 class MapiMessageW(EasyCastStructure):
     ulReserved: UInt32
     lpszSubject: win32more.Windows.Win32.Foundation.PWSTR
@@ -131,13 +111,7 @@ class MapiMessageW(EasyCastStructure):
     lpRecips: POINTER(win32more.Windows.Win32.System.Mapi.MapiRecipDescW)
     nFileCount: UInt32
     lpFiles: POINTER(win32more.Windows.Win32.System.Mapi.MapiFileDescW)
-class MapiRecipDesc(EasyCastStructure):
-    ulReserved: UInt32
-    ulRecipClass: UInt32
-    lpszName: win32more.Windows.Win32.Foundation.PSTR
-    lpszAddress: win32more.Windows.Win32.Foundation.PSTR
-    ulEIDSize: UInt32
-    lpEntryID: VoidPtr
+MapiMessage = UnicodeAlias('MapiMessageW')
 class MapiRecipDescW(EasyCastStructure):
     ulReserved: UInt32
     ulRecipClass: UInt32
@@ -145,6 +119,7 @@ class MapiRecipDescW(EasyCastStructure):
     lpszAddress: win32more.Windows.Win32.Foundation.PWSTR
     ulEIDSize: UInt32
     lpEntryID: VoidPtr
+MapiRecipDesc = UnicodeAlias('MapiRecipDescW')
 
 
 make_ready(__name__)
