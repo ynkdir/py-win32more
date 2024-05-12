@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import asyncio
 import inspect
+import logging
 import sys
 import types
 import uuid
@@ -54,6 +55,7 @@ from win32more import (
 )
 from win32more.asyncui import async_callback
 from win32more.Windows.Win32.Foundation import (
+    E_FAIL,
     E_NOINTERFACE,
     HRESULT,
     S_OK,
@@ -74,6 +76,8 @@ V = TypeVar("V")
 TProgress = TypeVar("TProgress")
 TResult = TypeVar("TResult")
 TSender = TypeVar("TSender")
+
+logger = logging.getLogger(__name__)
 
 
 def generic_get_type_hints(prototype, cls):
@@ -654,10 +658,12 @@ class Vtbl(Structure):
                 argtypes.append(POINTER(get_origin(restype)))
             else:
                 argtypes.append(POINTER(restype))
-            closure = partial(self._winrt_callback, getattr(self._owner, method._prototype.__name__), restype)
+            closure = partial(
+                self._winrt_callback_error_check, getattr(self._owner, method._prototype.__name__), restype
+            )
             thunk = WINFUNCTYPE(HRESULT, c_void_p, *argtypes)(closure)
         else:
-            closure = partial(self._com_callback, getattr(self._owner, method._prototype.__name__))
+            closure = partial(self._com_callback_error_check, getattr(self._owner, method._prototype.__name__))
             thunk = WINFUNCTYPE(restype, c_void_p, *argtypes)(closure)
         self._keep_reference_in_python_world_.append(thunk)
         return cast(thunk, c_void_p)
@@ -668,8 +674,21 @@ class Vtbl(Structure):
             return type(c_void_p)("Allocator", (c_void_p,), {"__new__": lambda _: t(own=False)})
         return t
 
-    def _com_callback(self, callback, this, *args):
-        return callback(*args)
+    def _com_callback_error_check(self, callback, this, *args):
+        try:
+            return callback(*args)
+        except Exception:
+            logger.exception(f"Unhandled exception caught: {callback}{args}")
+            # FIXME: How to return error for IUnknown.AddRef(), IUnknown.Release()
+            return E_FAIL
+
+    def _winrt_callback_error_check(self, callback, restype, this, *args):
+        try:
+            self._winrt_callback(callback, restype, this, *args)
+            return S_OK
+        except Exception:
+            logger.exception(f"Unhandled exception caught: {callback}{args}")
+            return E_FAIL
 
     def _winrt_callback(self, callback, restype, this, *args):
         if restype is Void:
@@ -706,7 +725,6 @@ class Vtbl(Structure):
             return_pointer[0] = r
         else:
             return_pointer[0] = r
-        return 0
 
 
 class MulticastDelegate(win32more.Windows.Win32.System.Com.IUnknown):
