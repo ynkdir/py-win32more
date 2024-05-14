@@ -41,18 +41,6 @@ def main():
     args = parser.parse_args()
 
     nupkg = NupkgDownload(f"https://globalcdn.nuget.org/packages/microsoft.windowsappsdk.{args.version}.nupkg")
-    nupkg.extract(
-        "runtimes/win-arm64/native/Microsoft.WindowsAppRuntime.Bootstrap.dll",
-        "win32more/mddbootstrap/dll/arm64/Microsoft.WindowsAppRuntime.Bootstrap.dll",
-    )
-    nupkg.extract(
-        "runtimes/win-x64/native/Microsoft.WindowsAppRuntime.Bootstrap.dll",
-        "win32more/mddbootstrap/dll/x64/Microsoft.WindowsAppRuntime.Bootstrap.dll",
-    )
-    nupkg.extract(
-        "runtimes/win-x86/native/Microsoft.WindowsAppRuntime.Bootstrap.dll",
-        "win32more/mddbootstrap/dll/x86/Microsoft.WindowsAppRuntime.Bootstrap.dll",
-    )
     version_info = nupkg.readjson("WindowsAppSDK-VersionInfo.json")
 
     ed = Edit("win32more/mddbootstrap/__init__.py")

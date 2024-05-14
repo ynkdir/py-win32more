@@ -6,8 +6,6 @@ from win32more.mddbootstrap import (
     WINDOWSAPPSDK_RELEASE_MAJORMINOR,
     WINDOWSAPPSDK_RELEASE_VERSION_SHORTTAG_W,
     WINDOWSAPPSDK_RUNTIME_VERSION_UINT64,
-    FirstTimeInitialization,
-    IsPacakgedProcess,
     MddBootstrapInitialize2,
     MddBootstrapInitializeOptions_OnNoMatch_ShowUI,
     MddBootstrapShutdown,
@@ -109,21 +107,14 @@ class XamlApplication(Application):
         if FAILED(hr):
             raise WinError(hr)
 
-        if IsPacakgedProcess():
-            FirstTimeInitialization(
-                WINDOWSAPPSDK_RELEASE_MAJORMINOR,
-                WINDOWSAPPSDK_RELEASE_VERSION_SHORTTAG_W,
-                PACKAGE_VERSION(Version=WINDOWSAPPSDK_RUNTIME_VERSION_UINT64),
-            )
-        else:
-            hr = MddBootstrapInitialize2(
-                WINDOWSAPPSDK_RELEASE_MAJORMINOR,
-                WINDOWSAPPSDK_RELEASE_VERSION_SHORTTAG_W,
-                PACKAGE_VERSION(Version=WINDOWSAPPSDK_RUNTIME_VERSION_UINT64),
-                MddBootstrapInitializeOptions_OnNoMatch_ShowUI,
-            )
-            if FAILED(hr):
-                raise WinError(hr)
+        hr = MddBootstrapInitialize2(
+            WINDOWSAPPSDK_RELEASE_MAJORMINOR,
+            WINDOWSAPPSDK_RELEASE_VERSION_SHORTTAG_W,
+            PACKAGE_VERSION(Version=WINDOWSAPPSDK_RUNTIME_VERSION_UINT64),
+            MddBootstrapInitializeOptions_OnNoMatch_ShowUI,
+        )
+        if FAILED(hr):
+            raise WinError(hr)
 
         app = None
 
