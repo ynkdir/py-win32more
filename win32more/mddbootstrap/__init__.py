@@ -10,12 +10,13 @@ import win32more.Windows.Win32.Storage.Packaging.Appx
 from win32more import ARCH, FAILED, Char, Int32, String, UInt32, Void, WinError, make_ready, winfunctype
 from win32more.Windows.Win32.Foundation import (
     APPMODEL_ERROR_NO_PACKAGE,
-    E_FAIL,
     ERROR_INSUFFICIENT_BUFFER,
     ERROR_SUCCESS,
     S_OK,
+    STATEREPOSITORY_E_DEPENDENCY_NOT_RESOLVED,
 )
 from win32more.Windows.Win32.Storage.Packaging.Appx import (
+    PACKAGE_VERSION,
     PACKAGEDEPENDENCY_CONTEXT,
     AddPackageDependency,
     AddPackageDependencyOptions_None,
@@ -31,7 +32,6 @@ from win32more.Windows.Win32.Storage.Packaging.Appx import (
 )
 from win32more.Windows.Win32.UI.WindowsAndMessaging import IDYES, MB_ICONERROR, MB_YESNO, MessageBox
 
-# for lazy load
 _module = sys.modules[__name__]
 
 # TODO: keep sync with WindowsAppSDK-VersionInfo.h
@@ -44,41 +44,13 @@ if ARCH == "ARM64":
     PackageDependencyProcessorArchitectures_Current = PackageDependencyProcessorArchitectures_Arm64
 elif ARCH == "X64":
     PackageDependencyProcessorArchitectures_Current = PackageDependencyProcessorArchitectures_X64
-else:
+elif ARCH == "X86":
     PackageDependencyProcessorArchitectures_Current = PackageDependencyProcessorArchitectures_X86
+else:
+    assert False
 
-# Initialized later.  Installed runtime will be used.
-# Set this variable before calling module function when you want to use runtime bundled in you app.
 # C:\Program Files\WindowsApps\Microsoft.WindowsAppRuntime.{major}.{minor}_{version}_{arch}_{resource_id}_8wekyb3d8bbwe
 Microsoft_WindowsAppRuntime_Install_Directory = None
-
-
-class WindowsAppRuntimeNotFound(LookupError):
-    pass
-
-
-def _initialize(major_minor_version, version_tag, min_version, options):
-    global Microsoft_WindowsAppRuntime_Install_Directory
-    if Microsoft_WindowsAppRuntime_Install_Directory is not None:
-        return S_OK
-    try:
-        Microsoft_WindowsAppRuntime_Install_Directory = GetWindowsAppRuntimePackage(major_minor_version, version_tag)
-    except WindowsAppRuntimeNotFound:
-        # Emulate MddBootstrapInitializeOptions_OnNoMatch_ShowUI
-        if options & MddBootstrapInitializeOptions_OnNoMatch_ShowUI:
-            caption = f"{Path(sys.executable).name} - This application could not be started"
-            text = f"""This application requires the Windows App Runtime
-  Version {major_minor_version >> 16}.{major_minor_version & 0xFFFF}
-  (MSIX package version >= {min_version.Major}.{min_version.Minor}.{min_version.Build}.{min_version.Revision})
-
-Do you want to install a compatible Windows App Runtime now?"""
-            r = MessageBox(0, text, caption, MB_YESNO | MB_ICONERROR)
-            if r == IDYES:
-                webbrowser.open("https://docs.microsoft.com/windows/apps/windows-app-sdk/downloads")
-        return E_FAIL
-    except Exception:
-        return E_FAIL
-    return S_OK
 
 
 def _winfunctype_app(dllname, entry_point=None):
@@ -87,7 +59,7 @@ def _winfunctype_app(dllname, entry_point=None):
 
         def wrapper(*args, **kwargs):
             nonlocal delegate
-            assert Microsoft_WindowsAppRuntime_Install_Directory
+            assert Microsoft_WindowsAppRuntime_Install_Directory is not None
             if delegate is None:
                 delegate = winfunctype(f"{Microsoft_WindowsAppRuntime_Install_Directory}\\{dllname}", entry_point)(
                     prototype
@@ -125,62 +97,76 @@ def _MddBootstrapInitialize2(
 ) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 
 
-@_winfunctype_app("Microsoft.WindowsAppRuntime.Bootstrap.dll")
-def MddBootstrapShutdown() -> Void: ...
+@_winfunctype_app("Microsoft.WindowsAppRuntime.Bootstrap.dll", entry_point="MddBootstrapShutdown")
+def _MddBootstrapShutdown() -> Void: ...
 
 
-def MddBootstrapInitialize(
-    majorMinorVersion: int, versionTag: str, minVersion: win32more.Windows.Win32.Storage.Packaging.Appx.PACKAGE_VERSION
-) -> int:
-    hr = _initialize(majorMinorVersion, versionTag, minVersion, MddBootstrapInitializeOptions_None)
-    if FAILED(hr):
-        return hr
-    if IsPacakgedProcess():
-        return FirstTimeInitialization(majorMinorVersion, versionTag, minVersion)
-    return _module._MddBootstrapInitialize(majorMinorVersion, versionTag, minVersion)
+def MddBootstrapInitialize(major_minor_version: int, version_tag: str, min_version: PACKAGE_VERSION) -> int:
+    return MddBootstrapInitialize2(major_minor_version, version_tag, min_version, AddPackageDependencyOptions_None)
 
 
 def MddBootstrapInitialize2(
-    majorMinorVersion: int,
-    versionTag: str,
-    minVersion: win32more.Windows.Win32.Storage.Packaging.Appx.PACKAGE_VERSION,
-    options: int,
+    major_minor_version: int, version_tag: str, min_version: PACKAGE_VERSION, options: int
 ) -> int:
-    hr = _initialize(majorMinorVersion, versionTag, minVersion, options)
-    if FAILED(hr):
-        return hr
-    if IsPacakgedProcess():
-        return FirstTimeInitialization(majorMinorVersion, versionTag, minVersion)
-    return _module._MddBootstrapInitialize2(majorMinorVersion, versionTag, minVersion, options)
+    if _IsPackagedProcess() and not _IsWin11():
+        raise NotImplementedError("Packaged process is not supported before Windows 11")
+    elif _IsWin11():
+        hr = _Initialize_Win11(_GetFrameworkPackageFamilyName(major_minor_version, version_tag), min_version)
+        if FAILED(hr):
+            if hr == STATEREPOSITORY_E_DEPENDENCY_NOT_RESOLVED:
+                if options & MddBootstrapInitializeOptions_OnNoMatch_ShowUI:
+                    _OnNoMatch_ShowUI(major_minor_version, version_tag, min_version)
+            return hr
+        return S_OK
+    else:
+        hr = _Initialize_Win10(major_minor_version, version_tag, min_version, options)
+        if FAILED(hr):
+            if hr == STATEREPOSITORY_E_DEPENDENCY_NOT_RESOLVED:
+                if options & MddBootstrapInitializeOptions_OnNoMatch_ShowUI:
+                    _OnNoMatch_ShowUI(major_minor_version, version_tag, min_version)
+            return hr
+        return _module._MddBootstrapInitialize2(major_minor_version, version_tag, min_version, options)
 
 
-# It seems that we can drop MddBootstrap dependency on Windows11.
-# TryCreatePackageDependency() and AddPackageDependency() requires Windows11.
-# MddTryCreatePackageDependency() and MddAddPackageDependency() (in Microsoft.WindowsAppRuntime.dll) requires non-packaged process.
-# WindowsAppSdk/dev/WindowsAppRuntime_BootstrapDLL/MddBootstrap.cpp
-def FirstTimeInitialization(majorMinorVersion, versionTag, minVersion):
-    packageFamilyName = GetFrameworkPackageFamilyName(majorMinorVersion, versionTag)
-    packageDependencyId = String()
+def MddBootstrapShutdown() -> None:
+    if _IsPackagedProcess() and not _IsWin11():
+        raise NotImplementedError("Packaged process is not supported before Windows 11")
+    elif _IsWin11():
+        pass
+    else:
+        return _module._MddBootstrapShutdown()
+
+
+def _IsWin11() -> bool:
+    return sys.getwindowsversion() >= (10, 0, 22000)
+
+
+def _IsPackagedProcess() -> bool:
+    return GetCurrentPackageFullName(UInt32(), None) != APPMODEL_ERROR_NO_PACKAGE
+
+
+def _Initialize_Win11(family_name: str, min_version: PACKAGE_VERSION) -> int:
+    package_dependency_id = String()
     hr = TryCreatePackageDependency(
         None,
-        packageFamilyName,
-        minVersion,
+        family_name,
+        min_version,
         PackageDependencyProcessorArchitectures_Current,
         PackageDependencyLifetimeKind_Process,
         None,
         CreatePackageDependencyOptions_None,
-        packageDependencyId,
+        package_dependency_id,
     )
     if FAILED(hr):
         return hr
 
     MDD_PACKAGE_DEPENDENCY_RANK_DEFAULT = 0
-    packageDependencyContext = PACKAGEDEPENDENCY_CONTEXT()
+    package_dependency_context = PACKAGEDEPENDENCY_CONTEXT()
     hr = AddPackageDependency(
-        packageDependencyId,
+        package_dependency_id,
         MDD_PACKAGE_DEPENDENCY_RANK_DEFAULT,
         AddPackageDependencyOptions_None,
-        packageDependencyContext,
+        package_dependency_context,
         None,
     )
     if FAILED(hr):
@@ -189,8 +175,23 @@ def FirstTimeInitialization(majorMinorVersion, versionTag, minVersion):
     return S_OK
 
 
+def _Initialize_Win10(major_minor_version, version_tag, min_version: PACKAGE_VERSION, options: int) -> int:
+    global Microsoft_WindowsAppRuntime_Install_Directory
+
+    if Microsoft_WindowsAppRuntime_Install_Directory is not None:
+        return S_OK
+
+    Microsoft_WindowsAppRuntime_Install_Directory = _GetFrameworkPackageDirectory(
+        major_minor_version, version_tag, min_version
+    )
+    if Microsoft_WindowsAppRuntime_Install_Directory is not None:
+        return S_OK
+
+    return STATEREPOSITORY_E_DEPENDENCY_NOT_RESOLVED
+
+
 # https://learn.microsoft.com/en-us/windows/apps/desktop/modernize/package-identity-overview
-def GetFrameworkPackageFamilyName(major_minor_version, version_tag):
+def _GetFrameworkPackageFamilyName(major_minor_version: int, version_tag: PACKAGE_VERSION) -> str:
     major_version = major_minor_version >> 16
     minor_version = major_minor_version & 0xFFFF
     version_tag_delimiter = "" if version_tag == "" else "-"
@@ -199,31 +200,49 @@ def GetFrameworkPackageFamilyName(major_minor_version, version_tag):
     return f"{name}_{publisher_id}"
 
 
-def IsPacakgedProcess():
-    return GetCurrentPackageFullName(UInt32(), None) != APPMODEL_ERROR_NO_PACKAGE
+def _GetFrameworkPackageDirectory(
+    major_minor_version: int, version_tag: str, min_version: PACKAGE_VERSION
+) -> str | None:
+    family_name = _GetFrameworkPackageFamilyName(major_minor_version, version_tag)
+    full_name = _ResolvePackageDependency(family_name, min_version, ARCH)
+    if full_name is None:
+        return None
+    return _GetPackagePathByFullName(full_name)
 
 
-def GetWindowsAppRuntimePackage(major_minor_version: int, version_tag: str) -> str:
-    family_name = GetFrameworkPackageFamilyName(major_minor_version, version_tag)
-
-    latest_full_name = None
+def _ResolvePackageDependency(family_name: str, min_version: PACKAGE_VERSION, arch: str) -> str | None:
+    bestfit = None
     latest_version = None
 
     for full_name in _GetPackagesByPackageFamily(family_name):
         name, version, architecture, resource_id, publisher_id = full_name.split("_")
-        if resource_id != "":  # resource_id seems always empty.
-            continue
-        if architecture.upper() != ARCH:
-            continue
         major, minor, build, revision = [int(x) for x in version.split(".")]
+        if architecture.upper() != arch:
+            continue
+        if (major, minor, build, revision) < (
+            min_version.Major,
+            min_version.Minor,
+            min_version.Build,
+            min_version.Revision,
+        ):
+            continue
         if latest_version is None or latest_version < (major, minor, build, revision):
-            latest_full_name = full_name
+            bestfit = full_name
             latest_version = (major, minor, build, revision)
 
-    if latest_version is None:
-        raise WindowsAppRuntimeNotFound("Cannot find WindowsAppRuntime Package")
+    return bestfit
 
-    return _GetPackagePathByFullName(latest_full_name)
+
+def _OnNoMatch_ShowUI(major_minor_version: int, version_tag: str, min_version: PACKAGE_VERSION) -> None:
+    caption = f"{Path(sys.executable).name} - This application could not be started"
+    text = f"""This application requires the Windows App Runtime
+Version {major_minor_version >> 16}.{major_minor_version & 0xFFFF}
+(MSIX package version >= {min_version.Major}.{min_version.Minor}.{min_version.Build}.{min_version.Revision})
+
+Do you want to install a compatible Windows App Runtime now?"""
+    r = MessageBox(0, text, caption, MB_YESNO | MB_ICONERROR)
+    if r == IDYES:
+        webbrowser.open("https://docs.microsoft.com/windows/apps/windows-app-sdk/downloads")
 
 
 def _GetPackagesByPackageFamily(family_name: str) -> list[str]:
