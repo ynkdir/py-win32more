@@ -102,7 +102,7 @@ def _MddBootstrapShutdown() -> Void: ...
 
 
 def MddBootstrapInitialize(major_minor_version: int, version_tag: str, min_version: PACKAGE_VERSION) -> int:
-    return MddBootstrapInitialize2(major_minor_version, version_tag, min_version, AddPackageDependencyOptions_None)
+    return MddBootstrapInitialize2(major_minor_version, version_tag, min_version, MddBootstrapInitializeOptions_None)
 
 
 def MddBootstrapInitialize2(
