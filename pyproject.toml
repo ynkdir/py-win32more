@@ -22,6 +22,8 @@ typing = "mypy {args}"
 
 [[tool.hatch.envs.hatch-test.matrix]]
 python = [
+    "3.13-64",
+    "3.13-32",
     "3.12-64",
     "3.12-32",
     "3.11-64",
