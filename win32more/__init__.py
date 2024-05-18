@@ -7,8 +7,6 @@ from ctypes import (
     POINTER,
     WINFUNCTYPE,
     Array,
-    Structure as _Structure,
-    Union as _Union,
     WinError,
     _CFuncPtr,
     addressof,
@@ -34,6 +32,8 @@ from ctypes import (
     pointer,
     windll,
 )
+from ctypes import Structure as _Structure
+from ctypes import Union as _Union
 
 if sys.version_info < (3, 9):
     from typing_extensions import get_type_hints as _get_type_hints
